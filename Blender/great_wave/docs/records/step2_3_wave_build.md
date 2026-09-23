@@ -1,32 +1,21 @@
-# 大浪本体的生成（第 2、3 步的第一版）— 2026-09-20
+# 大波本体の初期生成（第2・3段階、2026-09-20）
 
-> 说明：用户在第 1 步停点之后指出“没有看到任何被执行的海浪”，于是没有等停点的答复，先按推荐默认值把大浪做了出来。
-> 所有默认值都是 `wave_params.json` 里的参数，标了 PENDING 的等用户决定后改参数重建即可。
+> この文書は当時の中国語記録を日本語で整理したものです。元の全文は変更前のコミット 0b0178eb9ea6b99ff685d608d557e49068066bb8 で確認できます。記載する数値と判断は当時の記録であり、現在の成果を再検証した結果ではありません。
 
-## 做了什么
+第1段階の確認待ちの間に「動く波が見えない」と指摘されたため、暫定パラメータで大波を生成した記録である。未決定値は wave_params.json の PENDING 項目として残した。これは現在の最終版の合格報告ではない。
 
-- `src/gwave/profile_motion.py`（只用 numpy）
-  - **终幕截面** = `target/base_contour.json`（大形 r=150）+ 画面左端以外的背的 C¹ 延伸（§7b，默认水平长 3.0 H，端部切线取 3％ 弦 ≈ 14°）+ 被挡住的内側の弧末端重画成水平落到 Z=0 的 Bezier 和 1.2 H 的平谷（§7c）。按曲率自适应重采样成 421 点（U）。
-  - **起始截面** = 高 0.05 H 的高斯涌，同一批采样点铺在上面；波頭（波頂→波頭の先→下侧）那一段的弧长起始只有终幕的 25％。
-  - **中间帧** = 切线角和线段长度的插值（不是位置插值），每个采样点有滞后：背和前面先动，波頭上侧随后，波頭の先和下侧最后；角度略领先于长度，所以是“前面变陡 → 唇部从波頂长出来 → 向下卷”。所有点在 τ=1 同时到位。
-  - **时间律** τ(frame)：单调三次 Hermite，经过 (1, 0)、(152, τ_onset)、(210, τ_curl)、(285, 1)，两端斜率为 0（从静止开始；停止前缓出，M5）。τ_onset 由二分法求“第一次出现张出”的 τ，所以张出确实从第 152 帧开始。
-  - **x_c(t)** = 终点 − 2.0 H × (1 − t/T)^1.8（PENDING）。
-  - **两翼（§7a，flank_mode = regress）**：离开中央的每一排是同一运动里“发展程度更低”的状态（波頂更低、唇更短、肩部不张出），到两端缩到静水面，并在 X 方向后掠（俯视下的新月形波峰线，§7e）。为了让 `CAM_print` 的侧影在每一帧都等于中央截面、空洞不被挡住，两翼的顶点被约束在中央截面的体内：背面水平推到中央的背上；最深点以下水平拉到内側の弧后面；不张出的肩部整体藏到最深点铅垂线之后；张出的排用“同一材质点、沿中央截面外法线的半平面”裁剪。全部是连续函数，不用最近点投影（会跳）。
-- `src/gwave/build_great_wave.py`：固定 421 × 201 = 84,621 顶点的网格；UV = (终幕截面弧长, 沿波峰线位置)；顶点组 `crest_rim` = 波頭の先 ±2％ H 弧长的 U 列；逐帧顶点写成 PC2 点缓存，由 Mesh Cache 修改器读取；场景里有 `CAM_print`（带 50％ 透明的原画背景）、`CAM_view34`、`CAM_front`、`CAM_boat`、参考海面。
-- `src/gwave/render_previews.py`：Workbench 无界面渲染连续帧图、终幕与原画的叠加图、MP4。
-- `src/gwave/diagnose_motion.py` / `diagnose_steps.py`：二维运动曲线；点缓存里逐帧最大顶点位移的定位。
+## 当時の実装
 
-## 产出
+- src/gwave/profile_motion.py：終幕断面は大形輪郭（半径150 px）を基にし、画面外の背を水平3.0 H延長、端部接線を約14°とした。遮蔽された内側の弧はベジェ曲線で Z＝0 につなぎ、平らな谷を1.2 H設けた。曲率に応じて421点に再標本化した。
+- 初期断面は高さ0.05 Hのガウス状のうねりとし、波頭部の初期弧長を終幕の25％とした。中間フレームは位置の直接補間ではなく、接線角と線分長の補間で構築し、背・前面、波頭上部、先端・下面の順に発達させた。
+- 時間関数は単調な三次エルミート補間で、フレーム1、152、210、285を節点とした。両端の傾きを0とし、張り出し開始をフレーム152に合わせた。波頂の横移動は終点−2.0 H×(1−t/T)^1.8 を暫定値とした。
+- 両翼は中央断面より発達の遅い形にし、端で静水面に収束させた。俯瞰では三日月形の波峰線になる。原画視点で空洞を隠さないため、翼の投影を中央断面の内側に抑えた。
+- src/gwave/build_great_wave.py：421×201＝84,621頂点の固定トポロジー、断面弧長と波峰線方向のUV、波頭の縁に crest_rim 頂点群を設定。各フレームをPC2点キャッシュに書き出し、Mesh Cacheモディファイアで再生した。CAM_print、CAM_view34、CAM_front、CAM_boat、基準海面を配置した。
+- src/gwave/render_previews.py は連続フレーム、原画重ね合わせ、MP4を出力。diagnose_motion.py と diagnose_steps.py は運動曲線と最大頂点変位を調べた。
 
-- `G:\research\Wave Simulation\great_wave.blend`（2.6 MB）+ `G:\research\Wave Simulation\cache\great_wave.pc2`（276 MB）
-- 预览：`results/wave_build/preview/`（`great_wave_view34_0001-0345.mp4`、`contact_CAM_*.png`、`final_CAM_print_over_painting.png`）
-- 二维诊断：`results/wave_build/diagnose/`
+## 当時の出力と再実行
 
-重建命令（同一份参数 → 逐位相同的缓存，G5 已验证）：
-
-    & "G:/research/Wave Simulation/blender/great_wave/tools/run_blender.ps1" src/gwave/build_great_wave.py
-    & ".../tools/run_blender.ps1" src/gwave/render_previews.py -Blend "G:/research/Wave Simulation/great_wave.blend" -NoFactoryStartup -ScriptArgs '--video'
-
-## 测试结果
-
-见本文件末尾“实测”一节（每次重建后更新）。
+- 当時の大容量ファイル：G:/research/Wave Simulation/great_wave.blend（2.6 MB）、G:/research/Wave Simulation/cache/great_wave.pc2（276 MB）。現在の保管先や存在は別途確認が必要。
+- プレビュー：results/wave_build/preview/。運動診断：results/wave_build/diagnose/。
+- 当時の再構築コマンド：G:/research/Wave Simulation/blender/great_wave/tools/run_blender.ps1 に src/gwave/build_great_wave.py を渡す。動画は同スクリプトに src/gwave/render_previews.py、Blendパス、--video を渡して生成した。
+- 原記録は「テスト結果は末尾参照」と書くが、記録本文に具体的な合否表はない。したがって、この文書から S1–S8／M1–M6／G1–G5 の合格は確認できない。

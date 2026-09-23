@@ -1,8 +1,10 @@
-# 大浪阶段成果
+# 大波の現段階の成果物
 
-这两个 `.blend` 是可直接打开、无需动画缓存的**第 285 帧静态网格**；两段 MP4 展示同一主体和独立白波从涌浪到卷入，再停留约 2 秒。两段视频各 173 帧、15 fps、约 11.53 秒。
+**動画：[原画視点での動き](great_wave_motion_print_reference.mp4)｜[斜め視点での動き](great_wave_motion_3d.mp4)**
 
-- `great_wave_final_print.blend`、`great_wave_motion_print_reference.mp4`：原画视角。主体材质直接投射原画，适合对照终幕，但画面里的小船也成为浪体贴图，转动视角会拉伸。
-- `great_wave_final_3d.blend`、`great_wave_motion_3d.mp4`：程序化蓝白材质与斜视角，用于检查三维形状；目前浪唇较直，纹样仍不足。
+2 つの `.blend` は、そのまま開ける**第 285 フレームの静止メッシュ**です。アニメーション用キャッシュは不要です。2 本の MP4 では、同じ波本体と独立した白波が、うねりから巻き込みへ変化した後、約 2 秒間停止します。各動画は 173 フレーム、15 fps、約 11.53 秒です。
 
-完整可编辑动画由相邻 `src/gwave/` 脚本与 `wave_params.json` 重新生成。点缓存保存在本机忽略目录 `cache/`，没有上传到 GitHub。检查结果和当前未完成项见 [阶段记录](../docs/milestones/2026-09-24_foam_and_review_assets.md)。
+- [原画視点の最終姿勢](great_wave_final_print.blend)、[原画視点の動画](great_wave_motion_print_reference.mp4)：波本体には原画を直接投射しています。最終姿勢との比較には使えますが、原画の小舟まで波面のテクスチャに入り、視点を回すと模様が引き伸ばされます。
+- [斜め視点の最終姿勢](great_wave_final_3d.blend)、[斜め視点の動画](great_wave_motion_3d.mp4)：青と白のプロシージャルマテリアルを斜めから見たものです。立体形状の確認に使います。現状は波頭の先がやや直線的で、版画の模様も十分には再現できていません。
+
+編集可能なアニメーション全体は、隣接する `src/gwave/` のスクリプトと `wave_params.json` から再生成します。点キャッシュはローカルの除外対象ディレクトリ `cache/` に保存され、GitHub にはアップロードしていません。検証結果と未解決事項は[段階記録](../docs/milestones/2026-09-24_foam_and_review_assets.md)を参照してください。

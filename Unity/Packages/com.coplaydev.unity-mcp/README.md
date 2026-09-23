@@ -1,97 +1,75 @@
-# MCP for Unity — Editor Plugin Guide
+# MCP for Unity — エディタープラグインの操作ガイド
 
-Use this guide to configure and run MCP for Unity inside the Unity Editor. Installation is covered elsewhere; this document focuses on the Editor window, client configuration, and troubleshooting.
+この文書は、同梱した MCP for Unity を Unity エディター内で設定・使用するための案内です。インストール方法は別資料に譲り、ここではエディターの画面、クライアント設定、問題の調査を扱います。引用符内の英語は実際の画面に表示されるボタン名・状態名です。
 
-## Open the window
-- Unity menu: Window > MCP for Unity
+## ウィンドウを開く
 
-The window has four areas: Server Status, Unity Bridge, MCP Client Configuration, and Script Validation.
+- Unity のメニューから「Window > MCP for Unity」を選びます。
 
----
+画面は「Server Status」「Unity Bridge」「MCP Client Configuration」「Script Validation」の 4 領域に分かれます。
 
-## Quick start
-1. Open Window > MCP for Unity.
-2. Click “Auto-Setup”.
-3. If prompted:
-   - Select the packaged server folder (`Server`) if you want to run the bundled implementation.
-   - Install Python and/or uv/uvx if missing so the server can be managed locally.
-   - For Claude Code, ensure the `claude` CLI is installed.
-4. Click “Start Bridge” if the Unity Bridge shows “Stopped”.
-5. Use your MCP client (Cursor, VS Code, OpenClaw, Claude Code) to connect.
+## 初期設定
 
----
+1. 「Window > MCP for Unity」を開きます。
+2. 「Auto-Setup」を選びます。
+3. 指示が表示された場合は、必要に応じて次を行います。
+   - 同梱の実装を使う場合は、パッケージ内の `Server` フォルダーを選びます。
+   - Python または uv/uvx がなければインストールします。
+   - Claude Code を使う場合は `claude` CLI が導入されていることを確認します。
+4. Unity Bridge が「Stopped」の場合は「Start Bridge」を選びます。
+5. 利用する MCP クライアント（Cursor、VS Code、OpenClaw、Claude Code など）を接続します。
 
-## Server Status
-- Status dot and label:
-  - Installed / Installed (Embedded) / Not Installed.
-- Mode and ports:
-  - Mode: Auto or Standard.
-  - Ports: Unity (varies; shown in UI), MCP 6500.
-- Actions:
-  - Auto-Setup: Registers/updates your selected MCP client(s), ensures bridge connectivity. Shows “Connected ✓” after success.
-  - Rebuild MCP Server: Rebuilds the Python based MCP server
-  - Select server folder…: Choose the local `Server` folder (dev only; usually not needed when using uvx).
-  - Verify again: Re-checks server presence.
-  - If Python isn’t detected, use “Open Install Instructions”.
-- HTTP Server Command foldout:
-  - Expands to display the exact `uvx` command Unity will run.
-  - Includes a copy button and the “Start Local HTTP Server” action so you can launch or reuse the command elsewhere.
+## サーバーの状態
 
----
+- 状態を示す印とラベルには「Installed」「Installed (Embedded)」「Not Installed」があります。
+- 動作モードは「Auto」または「Standard」です。Unity 側のポート番号は画面に表示され、MCP 側は 6500 です。
+- 主な操作:
+  - 「Auto-Setup」: 選択した MCP クライアントの登録・更新とブリッジ接続を行います。成功後は「Connected ✓」と表示されます。
+  - 「Rebuild MCP Server」: Python 製 MCP サーバーを再構築します。
+  - 「Select server folder…」: ローカルの `Server` フォルダーを選びます。主に開発用で、通常 uvx を使う場合は不要です。
+  - 「Verify again」: サーバーの有無を再確認します。
+  - Python が検出されない場合は「Open Install Instructions」を使います。
+- 「HTTP Server Command」を展開すると、Unity が実行する `uvx` コマンドを確認できます。コマンドのコピーや「Start Local HTTP Server」の実行もできます。
 
 ## Unity Bridge
-- Shows Running or Stopped with a status dot.
-- Start/Stop Bridge button toggles the Unity bridge process used by MCP clients to talk to Unity.
-- Tip: After Auto-Setup, the bridge may auto-start in Auto mode.
 
----
+ブリッジの状態は「Running」または「Stopped」として表示されます。「Start/Stop Bridge」で、MCP クライアントと Unity の間で通信するブリッジを切り替えます。「Auto-Setup」の後、Auto モードでは自動的に起動する場合があります。
 
-## MCP Client Configuration
-- Select Client: Choose your target MCP client (e.g., Cursor, VS Code, Windsurf, Claude Code).
-- Per-client actions:
-  - Cursor / VS Code / Windsurf:
-    - Auto Configure: Writes/updates your config to launch the server via `uvx` with the current package version:
-      - Command: uvx (or your overridden path)
-      - Args: --from <git-url> mcp-for-unity
-    - Manual Setup: Opens a window with a pre-filled JSON snippet to copy/paste into your client config.
-    - Choose UV Install Location: If uv/uvx isn’t on PATH, select the executable.
-    - A compact “Config:” line shows the resolved config file name once uv/server are detected.
-  - Claude Code:
-    - Register with Claude Code / Unregister MCP for Unity with Claude Code.
-    - If the CLI isn’t found, click “Choose Claude Install Location”.
-    - The window displays the resolved Claude CLI path when detected.
-  - OpenClaw:
-    - Uses `~/.openclaw/openclaw.json` and the `openclaw-mcp-bridge` plugin.
-    - MCP for Unity writes `plugins.entries.openclaw-mcp-bridge.config.servers.unityMCP`.
-    - OpenClaw follows the currently selected MCP for Unity transport (`HTTP` or `stdio`).
-    - The bridge exposes a proxy tool such as `unityMCP__call`.
+## MCP クライアントの設定
 
-Notes:
-- The UI shows a status dot and a short status text (e.g., “Configured”, “uv Not Found”, “Claude Not Found”).
-- Use “Auto Configure” for one-click setup; use “Manual Setup” when you prefer to review/copy config.
+「Select Client」で接続先のクライアントを選びます。
 
----
+- Cursor / VS Code / Windsurf:
+  - 「Auto Configure」: 現在のパッケージ版を `uvx` で起動する設定を書き込みます。コマンドは `uvx`（または指定したパス）、引数は `--from <git-url> mcp-for-unity` です。
+  - 「Manual Setup」: クライアント設定に貼り付ける JSON の例を開きます。
+  - 「Choose UV Install Location」: uv/uvx が PATH にない場合、その実行ファイルを指定します。
+  - uv とサーバーの検出後、「Config:」に設定ファイル名が表示されます。
+- Claude Code:
+  - 「Register with Claude Code」「Unregister MCP for Unity with Claude Code」で登録を切り替えます。
+  - CLI が見つからない場合は「Choose Claude Install Location」で指定します。検出された CLI のパスは画面に表示されます。
+- OpenClaw:
+  - `~/.openclaw/openclaw.json` と `openclaw-mcp-bridge` プラグインを使用します。
+  - MCP for Unity は `plugins.entries.openclaw-mcp-bridge.config.servers.unityMCP` に設定を書き込みます。
+  - 通信方式は MCP for Unity で選んだ `HTTP` または `stdio` に従います。
+  - ブリッジからは `unityMCP__call` などのプロキシツールを利用できます。
 
-## Script Validation
-- Validation Level options:
-  - Basic — Only syntax checks
-  - Standard — Syntax + Unity practices
-  - Comprehensive — All checks + semantic analysis
-  - Strict — Full semantic validation (requires Roslyn)
-- Pick a level based on your project’s needs. A description is shown under the dropdown.
+画面には状態を示す印と、「Configured」「uv Not Found」「Claude Not Found」などの短い状態名が表示されます。自動設定には「Auto Configure」、設定内容を確認しながらコピーする場合には「Manual Setup」を使います。
 
----
+## スクリプトの検証
 
-## Troubleshooting
-- Python or `uv` not found:
-  - Help: [Fix MCP for Unity with Cursor, VS Code & Windsurf](https://github.com/CoplayDev/unity-mcp/wiki/1.-Fix-Unity-MCP-and-Cursor,-VSCode-&-Windsurf)
-- Claude CLI not found:
-  - Help: [Fix MCP for Unity with Claude Code](https://github.com/CoplayDev/unity-mcp/wiki/2.-Fix-Unity-MCP-and-Claude-Code)
+「Validation Level」では、用途に応じて次の段階を選びます。説明は選択欄の下に表示されます。
 
----
+- 「Basic」: 構文のみ
+- 「Standard」: 構文と Unity の慣例
+- 「Comprehensive」: 全項目と意味解析
+- 「Strict」: 詳細な意味検証。Roslyn が必要です。
 
-## Tips
-- Use Cmd+Shift+M (macOS) / Ctrl+Shift+M (Windows, Linux) to toggle the MCP for Unity window.
-- Enable “Show Debug Logs” in the header for more details in the Console when diagnosing issues.
+## 問題の調査
 
----
+- Python または `uv` が見つからない場合: [Cursor、VS Code、Windsurf 向けの設定ガイド](https://github.com/CoplayDev/unity-mcp/wiki/1.-Fix-Unity-MCP-and-Cursor,-VSCode-&-Windsurf)
+- Claude CLI が見つからない場合: [Claude Code 向けの設定ガイド](https://github.com/CoplayDev/unity-mcp/wiki/2.-Fix-Unity-MCP-and-Claude-Code)
+
+## 補足
+
+- macOS では Cmd+Shift+M、Windows と Linux では Ctrl+Shift+M で MCP for Unity のウィンドウを切り替えられます。
+- 問題を調べるときは、画面上部の「Show Debug Logs」を有効にすると Console に詳細が表示されます。
