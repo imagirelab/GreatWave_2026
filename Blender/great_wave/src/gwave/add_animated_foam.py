@@ -206,6 +206,7 @@ def _claw_vertices(wave_frame, final_wave, y_indices, frame, H, frame_num, white
         # collapses to a hairline against the equally pale paper background.
         radius = (1.5 * radius_px * frame.H_per_px * H) * growth
         radius *= (0.76 + 0.24 * np.sin(math.pi * np.minimum(s, 0.5))) * np.maximum(0.08, (1 - s) ** 0.7)
+        radius *= 0.14 + 0.86 * _smooth(s / 0.19)
         radius = np.maximum(radius, 1e-5)
         if white:
             # Move the white core toward CAM_print so that the ink shell reads
