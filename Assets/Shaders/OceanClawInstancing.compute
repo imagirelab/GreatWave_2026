@@ -1,0 +1,1978 @@
+#pragma kernel CS_Reset
+#pragma kernel CS_Generate
+#pragma kernel CS_FinalizeArgs
+
+// Per-instance data consumed by HokusaiClawInstanced.shader.
+// 每个爪形实例传给 HokusaiClawInstanced.shader 的数据。
+struct ClawInstanceData
+{
+    float4 row0;
+    float4 row1;
+    float4 row2;
+    float4 row3;
+    float4 params; // x = crest score, y = life, z = random01, w = growthOpen
+};
+
+// One scan-grid cell after deterministic shuffling and jitter.
+// 经过确定性打散和随机偏移后的一个扫描格子。
+struct ScanCell
+{
+    uint index;
+    uint2 id;
+    uint seed;
+    float random01;
+    float2 worldXZ;
+};
+
+// Per-claw placement data inside one crest cluster.
+// 单个波峰簇内部一个爪形的摆放数据。
+struct ClusterPlacement
+{
+    uint seed;
+    float lateralOffset;
+    float forwardOffset;
+    float growthDelay;
+};
+
+Texture2D<float4> _ClawMaskTexture;
+Texture2DArray<float4> _DisplacementTexture;
+Texture2DArray<float2> _SlopeTexture;
+
+RWStructuredBuffer<ClawInstanceData> _ClawInstances;
+RWStructuredBuffer<uint> _ClawCounter;
+RWStructuredBuffer<uint> _ArgsBuffer;
+RWStructuredBuffer<uint> _UnderlayArgsBuffer;
+// Two float4 slots per scan cell:
+//   slot 0 (cell*2)   : x = life, y = random, z = smoothed score, w = initialized
+//   slot 1 (cell*2+1) : xy = crest-locked anchor (world XZ) that drifts with the wave
+// 每个扫描格占两个 float4：
+//   槽 0：生命值 / 随机数 / 平滑评分 / 初始化标记
+//   槽 1：xy = 锁定波峰的世界 XZ 锚点（随波漂移，是爪形平滑跟随的关键）
+RWStructuredBuffer<float4> _ClawCellState;
+
+uint _IndexCount;
+uint _StartIndex;
+uint _BaseVertex;
+uint _UnderlayIndexCount;
+uint _UnderlayStartIndex;
+uint _UnderlayBaseVertex;
+uint _Resolution;
+uint _ScanGridSize;
+uint _MaxInstances;
+uint _RandomSeed;
+
+float2 _OceanCenterXZ;
+float _OceanLength;
+float4 _TileScales;
+float4 _LayerContributes;
+
+float _ScoreThreshold;
+float _SpawnDensity;
+float _WorldHeightThreshold;
+float _WorldHeightFeather;
+
+float _UseFocusGate;
+float2 _FocusCenterXZ;
+float _FocusRadius;
+float _FocusFeather;
+
+float _UseCompositionBias;
+float _CompositionStrength;
+float2 _CompositionCenterXZ;
+float2 _MainCrestOffset;
+float2 _MainCrestRadius;
+float _MainCrestBoost;
+float2 _SideCrestOffset;
+float2 _SideCrestRadius;
+float _SideCrestBoost;
+float _BackgroundCrestFloor;
+float _BackgroundDensityScale;
+float _BackgroundClawScale;
+float _UseReferenceCrestArc;
+float _ReferenceArcStrength;
+float _ReferenceArcForwardBend;
+float _ReferenceArcCurl;
+float _ReferenceArcWidth;
+float _ReferenceArcFeather;
+float _ReferenceArcDensityBias;
+float _ReferenceArcShoulderSizeBoost;
+float _ReferenceArcShoulderOpenBoost;
+float _HokusaiArcProfileStrength;
+float _HokusaiCurlShoulderBoost;
+float _HokusaiTailScale;
+float _HokusaiTailRevealDelay;
+float _HokusaiArcLobeContrast;
+float _HokusaiWeakToothRetention;
+float _UseScreenReferenceMask;
+float _ScreenReferenceStrength;
+float4x4 _ScreenReferenceVP;
+float4x4 _ScreenReferenceInvVP;
+float2 _ReferenceCameraXZ;
+float3 _ReferenceCameraRight;
+float3 _ReferenceCameraUp;
+float3 _ReferenceCameraForward;
+float2 _ScreenReferenceCenter;
+float _ScreenReferenceHalfWidth;
+float _ScreenReferenceBend;
+float _ScreenReferenceTilt;
+float _ScreenReferenceThickness;
+float _ScreenReferenceFeather;
+float _UseVisualRibbonMask;
+float _VisualRibbonInfluence;
+float2 _VisualRibbonCenter;
+float _VisualRibbonHalfWidth;
+float _VisualRibbonBend;
+float _VisualRibbonTilt;
+float _VisualRibbonThickness;
+float _VisualRibbonFeather;
+float _MainCrestDensityBoost;
+float _SideCrestDensityBoost;
+float _MainCrestSearchBoost;
+float _SideCrestSearchBoost;
+float _MainCrestDedicatedScanShare;
+float _SideCrestDedicatedScanShare;
+
+float2 _ClawScaleRange;
+float3 _ClawScaleMultiplier;
+float _VerticalOffset;
+float3 _MeshAnchorLocal;
+float _LocalYPointsTowardTip;
+float _ForwardFromSlope;
+float _YawJitterRadians;
+float _NormalInfluence;
+float2 _DominantDirectionXZ;
+
+float _DeltaTime;
+float _LifeRiseTime;
+float _LifeFallTime;
+float _VisibleLifeThreshold;
+float _DrawLifeThreshold;
+
+int _MinClawsPerCrest;
+int _MaxClawsPerCrest;
+int _MaxRibbonClawsPerCrest;
+float _ClusterLateralSpacing;
+float _ClusterForwardJitter;
+float _ClusterVerticalJitter;
+float _ClusterLateralRandomness;
+float _ClusterForwardRandomness;
+float _SurfaceNormalBlend;
+float _TipDownwardBias;
+float _GrowthFoldRadians;
+float _GrowthMinScale;
+float _GrowthCurvePower;
+float _GrowthStagger;
+float _FoamFingerCameraBillboard;
+float _RibbonOpenFloor;
+float _RibbonDelayCompression;
+float _PeakOpenThreshold;
+float _PeakOpenFeather;
+float _PeakOpenPower;
+float _ScaleRandomness;
+float _MemberLipThreshold;
+float _MemberLipFeather;
+float _LowLipScale;
+float _LowLipOpenScale;
+float _HighLipScaleBoost;
+float _HighLipFoamBoost;
+float _SkipHiddenLowLipInstances;
+float _HiddenLipSkipVisibility;
+float _HiddenLipSkipOpen;
+float _HiddenLipSkipScaleY;
+
+// ---- Crest tracking & organic layout (Hokusai reference) ----
+// 爪形跟随波峰与有机排布（参考神奈川冲浪里）。
+float _CrestDriftSpeed;     // m/s, anchor advection along the dominant wave direction / 锚点沿主波向的漂移速度
+float _CrestRelockRate;     // 1/s, how quickly a living anchor re-locks onto the found crest / 存活锚点重新吸附波峰的速率
+float _CrestLostFallBoost;  // fall-speed multiplier once the crest has collapsed / 波峰塌掉后生命值下降的加速倍数
+float _CrestCurveFollow;    // 0..1, how strongly members snap onto the curved crest line / 成员吸附弯曲脊线的强度
+float _ClusterFanRadians;   // members fan outward across the cluster like spreading fingers / 成员沿簇展开的扇形角
+float _ClusterArcForwardOffset; // pushes the cluster center over the wave lip to form a curved crest arc
+float _MainFanLateralScale;
+float _MainFanForwardScale;
+float _MainFanYawBoost;
+float _MainMemberScreenArcFollow;
+float _FoamSheetFlatten;
+float _FoamSheetWidthBoost;
+float _RootEmbedFraction;   // desired root embed fraction; capped by _RootEmbedMaxMeters
+float _RootEmbedMaxMeters;  // world-space cap so large claws cannot sink several meters
+float2 _RootLiftRangeMeters; // x = folded lift, y = fully-open lift above the crest
+float _SizeHierarchy;       // 0..1, center-big size hierarchy across the cluster / “中间大两侧小”的层级强度
+
+float _VerticalDisplacementStrength;
+float _HorizontalDisplacementStrength;
+float _CrestAmplification;
+float _CrestProbeDistance;
+float _CrestHeightBias;
+float _CrestHeightRange;
+float _CrestSearchRadius;
+float _CrestSearchLateral;
+
+// Hashes an integer into another well-distributed integer for deterministic GPU randomness.
+// 将整数哈希成分布较均匀的整数，用于 GPU 上可复现的随机数。
+uint Hash(uint x)
+{
+    x ^= x >> 16;
+    x *= 0x7feb352dU;
+    x ^= x >> 15;
+    x *= 0x846ca68bU;
+    x ^= x >> 16;
+    return x;
+}
+
+// Converts Hash output into the [0, 1] range.
+// 将 Hash 结果转换到 [0, 1] 区间。
+float Hash01(uint x)
+{
+    return (Hash(x) & 0x00ffffffU) / 16777215.0f;
+}
+
+// Keep invalid GPU state or texture samples from leaking NaN transforms into the
+// indirect instance buffer. Comparisons against NaN are false, so the fallback path
+// catches NaN without relying on platform-specific isnan intrinsics.
+float CleanFloat(float value, float fallback)
+{
+    return (value > -1e20f && value < 1e20f) ? value : fallback;
+}
+
+float2 CleanFloat2(float2 value, float2 fallback)
+{
+    return float2(CleanFloat(value.x, fallback.x), CleanFloat(value.y, fallback.y));
+}
+
+float3 CleanFloat3(float3 value, float3 fallback)
+{
+    return float3(
+        CleanFloat(value.x, fallback.x),
+        CleanFloat(value.y, fallback.y),
+        CleanFloat(value.z, fallback.z));
+}
+
+float4 CleanFloat4(float4 value, float4 fallback)
+{
+    return float4(
+        CleanFloat(value.x, fallback.x),
+        CleanFloat(value.y, fallback.y),
+        CleanFloat(value.z, fallback.z),
+        CleanFloat(value.w, fallback.w));
+}
+
+bool IsFiniteFloat4(float4 value)
+{
+    return value.x > -1e20f && value.x < 1e20f
+        && value.y > -1e20f && value.y < 1e20f
+        && value.z > -1e20f && value.z < 1e20f
+        && value.w > -1e20f && value.w < 1e20f;
+}
+
+// Normalizes a 3D vector and falls back when the input is too close to zero.
+// 归一化三维向量；输入过小时使用备用方向。
+float3 SafeNormalize3(float3 value, float3 fallback)
+{
+    value = CleanFloat3(value, fallback);
+    float lenSq = dot(value, value);
+    if (!(lenSq > 1e-5f))
+        return fallback;
+
+    return value * rsqrt(lenSq);
+}
+
+// Normalizes a 2D vector and falls back when the input is too close to zero.
+// 归一化二维向量；输入过小时使用备用方向。
+float2 SafeNormalize2(float2 value, float2 fallback)
+{
+    value = CleanFloat2(value, fallback);
+    float lenSq = dot(value, value);
+    if (!(lenSq > 1e-5f))
+        return fallback;
+
+    return value * rsqrt(lenSq);
+}
+
+// Wraps a UV coordinate and converts it to a texture texel.
+// 包裹 UV 坐标并转换成纹理像素坐标。
+uint2 TexelFromUV(float2 uv)
+{
+    float2 wrapped = frac(uv);
+    return min((uint2)floor(wrapped * _Resolution), uint2(_Resolution - 1, _Resolution - 1));
+}
+
+// Samples one FFT displacement layer with its tile scale and contribution.
+// 按 tile 缩放和权重采样一个 FFT 位移层。
+float4 SampleDisplacementLayer(float2 worldXZ, uint layer, float tile, float contribution)
+{
+    uint2 texel = TexelFromUV(worldXZ * tile);
+    return _DisplacementTexture.Load(int4(texel.x, texel.y, layer, 0)) * contribution;
+}
+
+// Samples one FFT slope layer with its tile scale and contribution.
+// 按 tile 缩放和权重采样一个 FFT 坡度层。
+float2 SampleSlopeLayer(float2 worldXZ, uint layer, float tile, float contribution)
+{
+    uint2 texel = TexelFromUV(worldXZ * tile);
+    return _SlopeTexture.Load(int4(texel.x, texel.y, layer, 0)) * contribution;
+}
+
+// Applies the same storm-wave amplification used by the visible ocean material.
+// 应用与可见海面材质一致的暴风浪放大逻辑。
+float3 ApplyStormDisplacement(float3 displacement)
+{
+    displacement = CleanFloat3(displacement, float3(0.0f, 0.0f, 0.0f));
+    displacement.xz *= _HorizontalDisplacementStrength;
+    displacement.y = displacement.y * _VerticalDisplacementStrength
+                   + max(0.0f, displacement.y) * max(0.0f, displacement.y) * _CrestAmplification;
+    return CleanFloat3(displacement, float3(0.0f, 0.0f, 0.0f));
+}
+
+// Combines all FFT displacement layers and converts them to visible storm displacement.
+// 合并所有 FFT 位移层，并转换成可见的暴风浪位移。
+float3 SampleCombinedDisplacement(float2 worldXZ)
+{
+    float4 d0 = SampleDisplacementLayer(worldXZ, 0, _TileScales.x, _LayerContributes.x);
+    float4 d1 = SampleDisplacementLayer(worldXZ, 1, _TileScales.y, _LayerContributes.y);
+    float4 d2 = SampleDisplacementLayer(worldXZ, 2, _TileScales.z, _LayerContributes.z);
+    float4 d3 = SampleDisplacementLayer(worldXZ, 3, _TileScales.w, _LayerContributes.w);
+    return ApplyStormDisplacement(CleanFloat3(d0.xyz + d1.xyz + d2.xyz + d3.xyz, float3(0.0f, 0.0f, 0.0f)));
+}
+
+// Combines all FFT slope layers into a slope used for normals and crest scoring.
+// 合并所有 FFT 坡度层，用于法线计算和波峰评分。
+float2 SampleCombinedSlope(float2 worldXZ)
+{
+    float2 s0 = SampleSlopeLayer(worldXZ, 0, _TileScales.x, _LayerContributes.x);
+    float2 s1 = SampleSlopeLayer(worldXZ, 1, _TileScales.y, _LayerContributes.y);
+    float2 s2 = SampleSlopeLayer(worldXZ, 2, _TileScales.z, _LayerContributes.z);
+    float2 s3 = SampleSlopeLayer(worldXZ, 3, _TileScales.w, _LayerContributes.w);
+    return CleanFloat2((s0 + s1 + s2 + s3) * _VerticalDisplacementStrength, float2(0.0f, 0.0f));
+}
+
+float ViewFacingLipScore(float2 worldXZ, float currentHeight)
+{
+    float2 dominantFallback = SafeNormalize2(_DominantDirectionXZ, float2(0.0f, 1.0f));
+    float2 toCamera = SafeNormalize2(_ReferenceCameraXZ - worldXZ, -dominantFallback);
+    float step = max(_CrestProbeDistance * 0.72f, 1.0f);
+    float hTowardCamera = SampleCombinedDisplacement(worldXZ + toCamera * step).y;
+    float hAwayFromCamera = SampleCombinedDisplacement(worldXZ - toCamera * step).y;
+    float frontDrop = currentHeight - hTowardCamera;
+    float backSupport = hAwayFromCamera - hTowardCamera;
+    float range = max(_CrestHeightRange, 0.001f);
+    float lipDrop = saturate((frontDrop + _CrestHeightBias) / range);
+    float faceBias = saturate((backSupport + _CrestHeightBias) / range);
+    return saturate(lipDrop * 0.72f + faceBias * 0.28f);
+}
+
+// Rotates a vector around an arbitrary axis using Rodrigues' formula.
+// 使用罗德里格斯公式绕任意轴旋转向量。
+float3 RotateAroundAxis(float3 value, float3 axis, float radians)
+{
+    float s = sin(radians);
+    float c = cos(radians);
+    return value * c + cross(axis, value) * s + axis * dot(axis, value) * (1.0f - c);
+}
+
+// Scores whether a world position is inside the camera/focus region.
+// 评估世界坐标是否位于相机/焦点区域内。
+float FocusScore(float2 worldXZ)
+{
+    float distToFocus = distance(worldXZ, _FocusCenterXZ);
+    float gate = 1.0f - smoothstep(_FocusRadius, _FocusRadius + max(_FocusFeather, 0.001f), distToFocus);
+    return lerp(1.0f, gate, saturate(_UseFocusGate));
+}
+
+float EllipseCompositionMask(float2 localCrestSpace, float2 offset, float2 radius)
+{
+    float2 safeRadius = max(abs(radius), float2(0.001f, 0.001f));
+    float2 normalized = (localCrestSpace - offset) / safeRadius;
+    float distSq = dot(normalized, normalized);
+    return 1.0f - smoothstep(0.55f, 1.0f, distSq);
+}
+
+float HokusaiArcNegativeSpaceProfile(float curlShoulder01)
+{
+    float tailPocket = smoothstep(0.05f, 0.14f, curlShoulder01)
+                     * (1.0f - smoothstep(0.22f, 0.32f, curlShoulder01));
+    float innerPocket = smoothstep(0.29f, 0.38f, curlShoulder01)
+                      * (1.0f - smoothstep(0.43f, 0.50f, curlShoulder01));
+    float crownPocket = smoothstep(0.64f, 0.72f, curlShoulder01)
+                      * (1.0f - smoothstep(0.80f, 0.88f, curlShoulder01));
+    return saturate(max(max(tailPocket * 0.58f, innerPocket * 0.82f), crownPocket));
+}
+
+float HokusaiArcPaintedBandWeight(float curlShoulder01)
+{
+    float shoulderCrown = smoothstep(0.36f, 0.62f, curlShoulder01)
+                         * (1.0f - smoothstep(0.80f, 0.98f, curlShoulder01));
+    float innerFoamTooth = smoothstep(0.12f, 0.32f, curlShoulder01)
+                         * (1.0f - smoothstep(0.50f, 0.68f, curlShoulder01));
+    float hookTip = smoothstep(0.84f, 0.98f, curlShoulder01);
+    float tailTaper = smoothstep(0.42f, 1.0f, 1.0f - curlShoulder01);
+    float negativeSpace = HokusaiArcNegativeSpaceProfile(curlShoulder01);
+
+    return max(0.18f,
+        0.66f
+        + shoulderCrown * 0.46f
+        + innerFoamTooth * 0.19f
+        + hookTip * 0.04f
+        - tailTaper * 0.24f
+        - negativeSpace * 0.30f);
+}
+
+float HokusaiArcBell(float value, float center, float radius)
+{
+    return 1.0f - smoothstep(radius * 0.42f, radius, abs(value - center));
+}
+
+float HokusaiArcFoamLeafWeight(float curlShoulder01)
+{
+    float innerLeaf = HokusaiArcBell(curlShoulder01, 0.18f, 0.105f);
+    float shoulderLeaf = HokusaiArcBell(curlShoulder01, 0.48f, 0.155f);
+    float shoulderSpray = HokusaiArcBell(curlShoulder01, 0.60f, 0.090f);
+    float crownLeaf = HokusaiArcBell(curlShoulder01, 0.73f, 0.105f);
+    float crownSpray = HokusaiArcBell(curlShoulder01, 0.82f, 0.075f);
+    float hookLeaf = HokusaiArcBell(curlShoulder01, 0.92f, 0.085f);
+    float negativeSpace = HokusaiArcNegativeSpaceProfile(curlShoulder01);
+    float paintedBand = saturate(HokusaiArcPaintedBandWeight(curlShoulder01));
+    float leaf = max(max(innerLeaf * 0.92f, shoulderLeaf), max(crownLeaf * 0.86f, hookLeaf * 0.34f));
+    float printBeads = max(shoulderSpray * 0.52f, crownSpray * 0.42f);
+    leaf = max(leaf, printBeads);
+    leaf = saturate(max(leaf, paintedBand * 0.42f) - negativeSpace * 0.38f);
+    return leaf;
+}
+
+float HokusaiArcPrintFoamWindow(float curlShoulder01)
+{
+    float paintedBand = saturate(HokusaiArcPaintedBandWeight(curlShoulder01));
+    float foamLeaf = saturate(HokusaiArcFoamLeafWeight(curlShoulder01));
+    float negativeSpace = saturate(HokusaiArcNegativeSpaceProfile(curlShoulder01));
+    float tailLimit = smoothstep(0.08f, 0.22f, curlShoulder01);
+    float hookLimit = 1.0f - smoothstep(0.84f, 0.98f, curlShoulder01) * 0.72f;
+    float printWindow = saturate(0.06f + paintedBand * 0.28f + foamLeaf * 0.90f - negativeSpace * 1.16f);
+    return saturate(printWindow * lerp(0.24f, 1.0f, tailLimit) * hookLimit);
+}
+
+float HokusaiPrintedIslandWeight(float curlShoulder01, uint seed)
+{
+    float paintedBand = saturate(HokusaiArcPaintedBandWeight(curlShoulder01));
+    float foamLeaf = saturate(HokusaiArcFoamLeafWeight(curlShoulder01));
+    float negativeSpace = saturate(HokusaiArcNegativeSpaceProfile(curlShoulder01));
+    float innerIsland = HokusaiArcBell(curlShoulder01, 0.18f, 0.120f);
+    float shoulderIsland = HokusaiArcBell(curlShoulder01, 0.48f, 0.170f);
+    float crownIsland = HokusaiArcBell(curlShoulder01, 0.73f, 0.115f);
+    float hookIsland = HokusaiArcBell(curlShoulder01, 0.92f, 0.090f);
+    float islandCenter = max(max(innerIsland * 0.82f, shoulderIsland), max(crownIsland * 0.88f, hookIsland * 0.32f));
+    float handPhase = Hash01(seed ^ 0x4cf5ad43U) * 2.3f;
+    float brokenPrint = 0.5f + 0.5f * sin((curlShoulder01 * 11.0f + handPhase) * 6.2831853f);
+    float brokenIsland = smoothstep(0.46f, 0.88f, brokenPrint);
+    return saturate(foamLeaf * 0.88f + islandCenter * 0.26f + paintedBand * 0.14f + brokenIsland * 0.12f - negativeSpace * 1.26f);
+}
+
+float2 HokusaiScreenLobeProfile(float nx, float strength)
+{
+    strength = saturate(strength);
+    float shoulderSide = _ReferenceArcDensityBias < 0.0f ? -1.0f : 1.0f;
+    float curlShoulder01 = saturate(0.5f + shoulderSide * nx * 0.5f);
+    float tail01 = saturate(1.0f - curlShoulder01);
+    float shoulderCrown = smoothstep(0.34f, 0.62f, curlShoulder01)
+                         * (1.0f - smoothstep(0.78f, 0.96f, curlShoulder01));
+    float innerTooth = smoothstep(0.10f, 0.30f, curlShoulder01)
+                     * (1.0f - smoothstep(0.46f, 0.66f, curlShoulder01));
+    float hookTip = smoothstep(0.82f, 0.98f, curlShoulder01);
+    float tailTaper = smoothstep(0.36f, 1.0f, tail01);
+    float lobePhase = Hash01(_RandomSeed ^ 0x51ed270bU) * 0.34f;
+    float lobeWave = 0.5f + 0.5f * sin((curlShoulder01 * 5.65f + lobePhase) * 6.2831853f);
+    float lobeBreak = smoothstep(0.20f, 0.84f, lobeWave);
+    float negativeSpace = HokusaiArcNegativeSpaceProfile(curlShoulder01);
+    float foamLeaf = HokusaiArcFoamLeafWeight(curlShoulder01);
+
+    float thicknessMul = 0.62f
+        + shoulderCrown * 0.55f
+        + innerTooth * 0.14f
+        + hookTip * 0.16f
+        - tailTaper * 0.30f;
+    thicknessMul *= lerp(0.76f, 1.10f, lobeBreak);
+    thicknessMul *= lerp(0.82f, 1.16f, foamLeaf * strength);
+    thicknessMul *= lerp(1.0f, 0.72f, negativeSpace * strength);
+
+    float maskMul = saturate(0.64f
+        + shoulderCrown * 0.26f
+        + innerTooth * 0.10f
+        + hookTip * 0.10f
+        - tailTaper * 0.22f);
+    maskMul *= lerp(0.68f, 1.0f, lobeBreak);
+    maskMul *= lerp(0.82f, 1.12f, foamLeaf * strength);
+    maskMul *= lerp(1.0f, 0.58f, negativeSpace * strength);
+    return float2(lerp(1.0f, max(0.30f, thicknessMul), strength), lerp(1.0f, maskMul, strength));
+}
+
+float MainReferenceArcMask(float2 localCrestSpace)
+{
+    float2 safeRadius = max(abs(_MainCrestRadius), float2(0.001f, 0.001f));
+    float2 relative = localCrestSpace - _MainCrestOffset;
+    float nx = relative.x / safeRadius.x;
+    float lateralWindow = 1.0f - smoothstep(0.85f, 1.15f, abs(nx));
+    float arcY = _MainCrestOffset.y
+               + _ReferenceArcForwardBend * (1.0f - saturate(nx * nx))
+               + _ReferenceArcCurl * nx;
+    float distToArc = abs(localCrestSpace.y - arcY);
+    float2 lobeProfile = HokusaiScreenLobeProfile(nx, saturate(_HokusaiArcLobeContrast) * 0.65f);
+    float width = max(_ReferenceArcWidth * lobeProfile.x, 0.001f);
+    float feather = max(_ReferenceArcFeather * lerp(0.80f, 1.18f, saturate(lobeProfile.x)), 0.001f);
+    float ribbon = 1.0f - smoothstep(width, width + feather, distToArc);
+    return saturate(ribbon * lateralWindow * lobeProfile.y);
+}
+
+float ScreenArcMask(float2 worldXZ, float2 center, float halfWidthValue, float bend, float tilt, float thickness, float feather, float lobeStrength)
+{
+    float4 clip = mul(_ScreenReferenceVP, float4(worldXZ.x, 0.0f, worldXZ.y, 1.0f));
+    if (!(clip.w > 0.001f))
+        return 0.0f;
+
+    float2 viewport = clip.xy / clip.w * 0.5f + 0.5f;
+    float onScreen = smoothstep(-0.08f, 0.02f, viewport.x)
+                   * (1.0f - smoothstep(0.98f, 1.08f, viewport.x))
+                   * smoothstep(-0.08f, 0.02f, viewport.y)
+                   * (1.0f - smoothstep(0.98f, 1.08f, viewport.y));
+
+    float halfWidth = max(halfWidthValue, 0.001f);
+    float nx = (viewport.x - center.x) / halfWidth;
+    float lateralWindow = 1.0f - smoothstep(0.90f, 1.18f, abs(nx));
+    float arcY = center.y
+               + bend * (1.0f - saturate(nx * nx))
+               + tilt * nx;
+    float distToArc = abs(viewport.y - arcY);
+    float2 lobeProfile = HokusaiScreenLobeProfile(nx, lobeStrength);
+    float effectiveThickness = max(thickness * lobeProfile.x, 0.001f);
+    float effectiveFeather = max(feather * lerp(0.80f, 1.18f, saturate(lobeProfile.x)), 0.001f);
+    float ribbon = 1.0f - smoothstep(
+        effectiveThickness,
+        max(effectiveThickness + effectiveFeather, 0.002f),
+        distToArc);
+
+    return saturate(ribbon * lateralWindow * onScreen * lobeProfile.y);
+}
+
+float ApplyReferenceArcDensityBias(float nx)
+{
+    float bias = clamp(_ReferenceArcDensityBias, -0.95f, 0.95f);
+    float t = saturate(nx * 0.5f + 0.5f);
+    float exponent = lerp(1.0f, 2.85f, abs(bias));
+    t = bias < 0.0f
+        ? pow(t, exponent)
+        : 1.0f - pow(1.0f - t, exponent);
+    return clamp(t * 2.0f - 1.0f, -0.96f, 0.96f);
+}
+
+float ScreenArcNx(float2 worldXZ, float2 center, float halfWidthValue)
+{
+    float4 clip = mul(_ScreenReferenceVP, float4(worldXZ.x, 0.0f, worldXZ.y, 1.0f));
+    if (!(clip.w > 0.001f))
+        return 0.0f;
+
+    float2 viewport = clip.xy / clip.w * 0.5f + 0.5f;
+    return clamp((viewport.x - center.x) / max(halfWidthValue, 0.001f), -1.25f, 1.25f);
+}
+
+float ReferenceArcShoulderMask(float2 worldXZ)
+{
+    float screenNx = ScreenArcNx(worldXZ, _ScreenReferenceCenter, _ScreenReferenceHalfWidth);
+    float visualNx = ScreenArcNx(worldXZ, _VisualRibbonCenter, _VisualRibbonHalfWidth);
+    float visualWeight = saturate(_UseVisualRibbonMask) * saturate(_VisualRibbonInfluence) * 1.5f;
+    float nx = lerp(screenNx, visualNx, saturate(visualWeight));
+    float shoulderSide = _ReferenceArcDensityBias < 0.0f ? -1.0f : 1.0f;
+    float side01 = saturate(0.5f + shoulderSide * nx * 0.5f);
+    return pow(side01, 0.72f);
+}
+
+float ScreenReferenceArcMask(float2 worldXZ)
+{
+    return ScreenArcMask(
+        worldXZ,
+        _ScreenReferenceCenter,
+        _ScreenReferenceHalfWidth,
+        _ScreenReferenceBend,
+        _ScreenReferenceTilt,
+        _ScreenReferenceThickness,
+        _ScreenReferenceFeather,
+        saturate(_HokusaiArcLobeContrast) * 0.45f);
+}
+
+float VisualRibbonArcMask(float2 worldXZ)
+{
+    return ScreenArcMask(
+        worldXZ,
+        _VisualRibbonCenter,
+        _VisualRibbonHalfWidth,
+        _VisualRibbonBend,
+        _VisualRibbonTilt,
+        _VisualRibbonThickness,
+        _VisualRibbonFeather,
+        saturate(_HokusaiArcLobeContrast) * 0.90f);
+}
+
+float HokusaiFoamPlacementMask(float2 worldXZ, out float foamLeafOut, out float negativeSpaceOut, out float ribbonMaskOut)
+{
+    float screenMask = ScreenReferenceArcMask(worldXZ);
+    float visualMask = VisualRibbonArcMask(worldXZ);
+    float visualStrength = saturate(_UseVisualRibbonMask) * saturate(_VisualRibbonInfluence);
+    float screenStrength = saturate(_UseScreenReferenceMask) * saturate(_ScreenReferenceStrength) * lerp(1.0f, 0.35f, saturate(visualStrength * 2.0f));
+    float ribbonStrength = max(max(screenStrength, visualStrength), 0.001f);
+    float ribbonMask = max(screenMask * screenStrength, visualMask * visualStrength) / ribbonStrength;
+
+    float screenNx = ScreenArcNx(worldXZ, _ScreenReferenceCenter, _ScreenReferenceHalfWidth);
+    float visualNx = ScreenArcNx(worldXZ, _VisualRibbonCenter, _VisualRibbonHalfWidth);
+    float nx = lerp(screenNx, visualNx, saturate(visualStrength * 2.0f));
+    float shoulderSide = _ReferenceArcDensityBias < 0.0f ? -1.0f : 1.0f;
+    float curlShoulder01 = saturate(0.5f + shoulderSide * nx * 0.5f);
+    float paintedBand = saturate(HokusaiArcPaintedBandWeight(curlShoulder01));
+    float foamLeaf = saturate(HokusaiArcFoamLeafWeight(curlShoulder01));
+    float negativeSpace = saturate(HokusaiArcNegativeSpaceProfile(curlShoulder01) * saturate(_HokusaiArcLobeContrast));
+    float hookFoam = smoothstep(0.82f, 0.98f, curlShoulder01);
+    float crownFoam = smoothstep(0.40f, 0.68f, curlShoulder01) * (1.0f - smoothstep(0.78f, 0.95f, curlShoulder01));
+    float paintedPlate = smoothstep(0.64f, 0.96f, paintedBand);
+    float leafPlate = smoothstep(0.10f, 0.66f, foamLeaf);
+    float designedFoam = saturate(0.018f
+        + paintedPlate * 0.42f
+        + leafPlate * 0.68f
+        + hookFoam * 0.06f
+        + crownFoam * 0.15f
+        - negativeSpace * 0.88f);
+
+    foamLeafOut = foamLeaf;
+    negativeSpaceOut = negativeSpace;
+    ribbonMaskOut = saturate(ribbonMask);
+    return saturate(ribbonMask * designedFoam);
+}
+
+float HokusaiFoamPlacementMask(float2 worldXZ)
+{
+    float foamLeaf;
+    float negativeSpace;
+    float ribbonMask;
+    return HokusaiFoamPlacementMask(worldXZ, foamLeaf, negativeSpace, ribbonMask);
+}
+
+float2 SampleScreenArcCrestWorldAtNx(uint seed, float2 dominantXZ, float2 fallbackWorld, float2 center, float halfWidthValue, float bend, float tilt, float thickness, float nx, float jitterScale, float lobeStrength)
+{
+    float halfWidth = max(halfWidthValue, 0.001f);
+    float jitter = Hash01(seed ^ 0x85ebca6bU) * 2.0f - 1.0f;
+    nx = clamp(nx, -0.96f, 0.96f);
+    float2 lobeProfile = HokusaiScreenLobeProfile(nx, lobeStrength);
+    float sampleThickness = max(thickness * lobeProfile.x, 0.001f);
+    float viewportX = center.x + nx * halfWidth;
+    float viewportY = center.y
+                    + bend * (1.0f - saturate(nx * nx))
+                    + tilt * nx
+                    + jitter * max(sampleThickness * jitterScale, 0.001f);
+
+    float2 ndc = float2(viewportX, viewportY) * 2.0f - 1.0f;
+    float4 nearClip = float4(ndc, 0.0f, 1.0f);
+    float4 farClip = float4(ndc, 1.0f, 1.0f);
+    float4 nearWorld4 = mul(_ScreenReferenceInvVP, nearClip);
+    float4 farWorld4 = mul(_ScreenReferenceInvVP, farClip);
+
+    if (!(abs(nearWorld4.w) > 0.0001f) || !(abs(farWorld4.w) > 0.0001f))
+        return _CompositionCenterXZ;
+
+    float3 nearWorld = nearWorld4.xyz / nearWorld4.w;
+    float3 farWorld = farWorld4.xyz / farWorld4.w;
+    float3 ray = farWorld - nearWorld;
+
+    float2 rayXZ = ray.xz;
+    float rayXZLenSq = max(dot(rayXZ, rayXZ), 0.0001f);
+    float focusT = dot(_FocusCenterXZ - nearWorld.xz, rayXZ) / rayXZLenSq;
+    float rayXZLen = sqrt(rayXZLenSq);
+    float searchMeters = max(10.0f, min(_FocusRadius + _FocusFeather, 72.0f));
+    float stepT = searchMeters / max(rayXZLen, 0.001f) * 0.22f;
+    float jitterT = (Hash01(seed ^ 0x27d4eb2dU) - 0.5f) * stepT;
+
+    float2 bestWorldXZ = fallbackWorld;
+    float bestMetric = -100000.0f;
+
+    [loop]
+    for (int i = 0; i < 7; i++)
+    {
+        float centeredIndex = (float)i - 3.0f;
+        float candidateT = clamp(focusT + centeredIndex * stepT + jitterT, 0.0f, 10000.0f);
+        float2 candidateXZ = (nearWorld + ray * candidateT).xz;
+        float3 candidateDisplacement = SampleCombinedDisplacement(candidateXZ);
+        float hForward = SampleCombinedDisplacement(candidateXZ + dominantXZ * _CrestProbeDistance).y;
+        float hBack = SampleCombinedDisplacement(candidateXZ - dominantXZ * _CrestProbeDistance).y;
+        float candidateRidge = saturate((candidateDisplacement.y - max(hForward, hBack) + _CrestHeightBias) / max(_CrestHeightRange, 0.001f));
+        float candidateFocus = FocusScore(candidateXZ);
+        float candidateScreen = ScreenReferenceArcMask(candidateXZ);
+        float candidateVisual = VisualRibbonArcMask(candidateXZ);
+        float candidateFoamPlacement = HokusaiFoamPlacementMask(candidateXZ);
+        float candidateVisualEnabled = saturate(_UseVisualRibbonMask) * saturate(_VisualRibbonInfluence);
+        float candidateScreenWeight = lerp(1.0f, 0.35f, saturate(candidateVisualEnabled * 2.0f));
+        float candidateViewLip = ViewFacingLipScore(candidateXZ, candidateDisplacement.y);
+        float fallbackProximity = 1.0f - smoothstep(0.0f, searchMeters, distance(candidateXZ, fallbackWorld));
+        float height01 = saturate((candidateDisplacement.y - _WorldHeightThreshold) / max(_WorldHeightFeather, 0.001f));
+        float candidateMetric = candidateDisplacement.y * 0.35f
+                              + candidateRidge * _CrestHeightRange * 0.95f
+                              + candidateViewLip * _CrestHeightRange * 1.10f
+                              + height01 * _CrestHeightRange * 0.22f
+                              + candidateFocus * _CrestHeightRange * 0.45f
+                              + candidateScreen * candidateScreenWeight * _CrestHeightRange * 0.35f
+                              + candidateVisual * candidateVisualEnabled * _CrestHeightRange * 0.17f
+                              + candidateFoamPlacement * _CrestHeightRange * 2.10f
+                              + fallbackProximity * _CrestHeightRange * 0.30f;
+
+        if (candidateMetric > bestMetric)
+        {
+            bestMetric = candidateMetric;
+            bestWorldXZ = candidateXZ;
+        }
+    }
+
+    return bestWorldXZ;
+}
+
+float2 SampleScreenArcCrestWorld(uint seed, float2 dominantXZ, float2 fallbackWorld, float2 center, float halfWidthValue, float bend, float tilt, float thickness, float lobeStrength)
+{
+    float u = Hash01(seed ^ 0x6d2b79f5U) * 2.0f - 1.0f;
+    float edgeBias = Hash01(seed ^ 0x9e3779b9U);
+    float nx = clamp(sign(u) * pow(abs(u), lerp(0.70f, 1.22f, edgeBias)) * 0.96f, -0.96f, 0.96f);
+    nx = ApplyReferenceArcDensityBias(nx);
+    return SampleScreenArcCrestWorldAtNx(seed, dominantXZ, fallbackWorld, center, halfWidthValue, bend, tilt, thickness, nx, 0.72f, lobeStrength);
+}
+
+float2 SampleScreenReferenceArcCrestWorld(uint seed, float2 dominantXZ, float2 fallbackWorld)
+{
+    return SampleScreenArcCrestWorld(
+        seed,
+        dominantXZ,
+        fallbackWorld,
+        _ScreenReferenceCenter,
+        _ScreenReferenceHalfWidth,
+        _ScreenReferenceBend,
+        _ScreenReferenceTilt,
+        _ScreenReferenceThickness,
+        saturate(_HokusaiArcLobeContrast) * 0.45f);
+}
+
+float2 SampleScreenReferenceArcCrestWorldAtNx(uint seed, float2 dominantXZ, float2 fallbackWorld, float nx)
+{
+    return SampleScreenArcCrestWorldAtNx(
+        seed,
+        dominantXZ,
+        fallbackWorld,
+        _ScreenReferenceCenter,
+        _ScreenReferenceHalfWidth,
+        _ScreenReferenceBend,
+        _ScreenReferenceTilt,
+        _ScreenReferenceThickness,
+        nx,
+        0.36f,
+        saturate(_HokusaiArcLobeContrast) * 0.45f);
+}
+
+float2 SampleVisualRibbonArcCrestWorld(uint seed, float2 dominantXZ, float2 fallbackWorld)
+{
+    return SampleScreenArcCrestWorld(
+        seed,
+        dominantXZ,
+        fallbackWorld,
+        _VisualRibbonCenter,
+        _VisualRibbonHalfWidth,
+        _VisualRibbonBend,
+        _VisualRibbonTilt,
+        _VisualRibbonThickness,
+        saturate(_HokusaiArcLobeContrast) * 0.90f);
+}
+
+float2 SampleVisualRibbonArcCrestWorldAtNx(uint seed, float2 dominantXZ, float2 fallbackWorld, float nx)
+{
+    return SampleScreenArcCrestWorldAtNx(
+        seed,
+        dominantXZ,
+        fallbackWorld,
+        _VisualRibbonCenter,
+        _VisualRibbonHalfWidth,
+        _VisualRibbonBend,
+        _VisualRibbonTilt,
+        _VisualRibbonThickness,
+        nx,
+        0.34f,
+        saturate(_HokusaiArcLobeContrast) * 0.90f);
+}
+
+// Stable painting-composition weight: one dominant crest, one smaller side crest,
+// and a low floor so background fingers can fade rather than pop out instantly.
+float ComputeCompositionWeight(
+    float2 worldXZ,
+    float2 dominantXZ,
+    float2 lateralXZ,
+    out float mainMask,
+    out float sideMask)
+{
+    float2 relative = worldXZ - _CompositionCenterXZ;
+    float2 localCrestSpace = float2(dot(relative, lateralXZ), dot(relative, dominantXZ));
+
+    float mainEllipse = saturate(EllipseCompositionMask(localCrestSpace, _MainCrestOffset, _MainCrestRadius));
+    float arcEnabled = saturate(_UseReferenceCrestArc) * saturate(_ReferenceArcStrength);
+    float arcMask = MainReferenceArcMask(localCrestSpace);
+    float visualEnabled = saturate(_UseVisualRibbonMask) * saturate(_VisualRibbonInfluence);
+    float visualActive = saturate(visualEnabled * 2.0f);
+    float screenEnabled = saturate(_UseScreenReferenceMask) * saturate(_ScreenReferenceStrength) * lerp(1.0f, 0.35f, visualActive);
+    float screenMask = ScreenReferenceArcMask(worldXZ);
+    float visualMask = VisualRibbonArcMask(worldXZ);
+    float ribbonEnabled = saturate(max(screenEnabled, visualEnabled));
+    float ribbonMask = ribbonEnabled > 0.001f
+        ? max(screenMask * screenEnabled, visualMask * visualEnabled) / max(ribbonEnabled, 0.001f)
+        : 0.0f;
+    float compressedEllipse = mainEllipse * lerp(1.0f, 0.06f, arcEnabled);
+    float arcContribution = arcMask * lerp(0.55f, 1.0f, mainEllipse);
+    mainMask = saturate(max(compressedEllipse, lerp(mainEllipse, arcContribution, arcEnabled)));
+    mainMask *= lerp(1.0f, 0.20f + 0.80f * ribbonMask, ribbonEnabled);
+    mainMask = saturate(max(mainMask, screenMask * screenEnabled * arcMask));
+    mainMask = saturate(max(mainMask, visualMask * visualEnabled * lerp(0.45f, 1.0f, arcMask)));
+    sideMask = saturate(EllipseCompositionMask(localCrestSpace, _SideCrestOffset, _SideCrestRadius));
+
+    float groupedWeight = max(saturate(_BackgroundCrestFloor), max(mainMask * _MainCrestBoost, sideMask * _SideCrestBoost));
+    float enabled = saturate(_UseCompositionBias) * saturate(_CompositionStrength);
+    return lerp(1.0f, groupedWeight, enabled);
+}
+
+// Builds the dominant wave direction used by crest search and claw facing.
+// 构建用于波峰搜索和爪尖朝向的主波浪方向。
+float3 GetDominantDirection()
+{
+    float3 dominant = float3(_DominantDirectionXZ.x, 0.0f, _DominantDirectionXZ.y);
+    return SafeNormalize3(dominant, float3(0.0f, 0.0f, 1.0f));
+}
+
+// Builds the lateral direction across the crest line.
+// 构建沿波峰横向排列爪形的侧向方向。
+float2 GetLateralDirection(float2 dominantXZ)
+{
+    return SafeNormalize2(float2(-dominantXZ.y, dominantXZ.x), float2(1.0f, 0.0f));
+}
+
+// Maps the raw dispatch index to a shuffled scan cell with deterministic jitter.
+// 将原始 dispatch 索引映射到打散后的扫描格子，并添加可复现随机偏移。
+ScanCell BuildScanCell(uint rawIndex)
+{
+    uint totalCells = max(1U, _ScanGridSize * _ScanGridSize);
+    uint stride = _ScanGridSize * 17U + 1U;
+    uint cellIndex = (rawIndex * stride + (Hash(_RandomSeed) % totalCells)) % totalCells;
+
+    uint cellSeed = Hash(cellIndex + _RandomSeed * 131U);
+    float jitterX = Hash01(cellSeed ^ 0x9e3779b9U) - 0.5f;
+    float jitterY = Hash01(cellSeed ^ 0x85ebca6bU) - 0.5f;
+
+    ScanCell cell;
+    cell.index = cellIndex;
+    cell.id = uint2(cellIndex % _ScanGridSize, cellIndex / _ScanGridSize);
+    cell.seed = cellSeed;
+    cell.random01 = Hash01(cellSeed ^ 0xc2b2ae35U);
+
+    float2 normalizedCell = (float2(cell.id) + 0.5f + float2(jitterX, jitterY) * 0.35f) / max(1.0f, (float)_ScanGridSize);
+    cell.worldXZ = _OceanCenterXZ + (normalizedCell - 0.5f) * _OceanLength;
+    return cell;
+}
+
+float2 SampleCompositionEllipseLocal(uint seed, float2 offset, float2 radius)
+{
+    float angle = Hash01(seed ^ 0x6d2b79f5U) * 6.28318530718f;
+    float radial = sqrt(Hash01(seed ^ 0x9e3779b9U)) * 0.92f;
+    float2 unit = float2(cos(angle), sin(angle));
+    return offset + unit * max(abs(radius), float2(0.001f, 0.001f)) * radial;
+}
+
+float StratifiedReferenceArcNx(uint cellIndex, uint seed)
+{
+    float golden = 0.61803398875f;
+    float t = frac(((float)(cellIndex + 1U)) * golden + Hash01(seed ^ 0x68bc21ebU) * 0.073f);
+    return ApplyReferenceArcDensityBias(clamp(t * 2.0f - 1.0f, -0.96f, 0.96f));
+}
+
+float HokusaiSegmentCenter01(uint segment)
+{
+    segment = min(segment, 8U);
+    if (segment == 0U) return 0.045f;
+    if (segment == 1U) return 0.105f;
+    if (segment == 2U) return 0.175f;
+    if (segment == 3U) return 0.265f;
+    if (segment == 4U) return 0.380f;
+    if (segment == 5U) return 0.520f;
+    if (segment == 6U) return 0.680f;
+    if (segment == 7U) return 0.835f;
+    return 0.950f;
+}
+
+float HokusaiSegmentJitter01(uint segment)
+{
+    segment = min(segment, 8U);
+    if (segment <= 2U) return 0.018f;
+    if (segment <= 5U) return 0.026f;
+    return 0.034f;
+}
+
+float HokusaiArcLobeWeight(float curlShoulder01, uint seed)
+{
+    float lobePhase = Hash01(seed ^ 0x51ed270bU) * 0.34f;
+    float lobeWave = 0.5f + 0.5f * sin((curlShoulder01 * 5.65f + lobePhase) * 6.2831853f);
+    float lobeCut = smoothstep(0.18f, 0.88f, lobeWave);
+    float handVariation = lerp(0.95f, 1.04f, Hash01(seed ^ 0x94d049bbU));
+
+    float paintedWeight = HokusaiArcPaintedBandWeight(curlShoulder01);
+    float foamLeaf = HokusaiArcFoamLeafWeight(curlShoulder01);
+    paintedWeight *= lerp(0.94f, 1.06f, lobeCut) * handVariation;
+    paintedWeight *= lerp(0.76f, 1.18f, foamLeaf);
+    return max(0.18f, paintedWeight);
+}
+
+float HokusaiArcGapDelay(float lobeWeight)
+{
+    return saturate((0.96f - lobeWeight) * 0.11f);
+}
+
+float HokusaiSegmentedArcNx(uint ordinal, uint seed)
+{
+    const uint segmentCountU = 9U;
+    uint segment = (ordinal * 5U + Hash(seed ^ 0x9e3779b9U) % segmentCountU) % segmentCountU;
+    float center = HokusaiSegmentCenter01(segment);
+    float handJitter = (Hash01(seed ^ 0x7feb352dU) - 0.5f) * HokusaiSegmentJitter01(segment);
+    float t = saturate(center + handJitter);
+    return ApplyReferenceArcDensityBias(clamp(t * 2.0f - 1.0f, -0.96f, 0.96f));
+}
+
+float BlendToHokusaiSegmentedArcNx(float nx, uint ordinal, uint seed, float strength)
+{
+    float segmentedNx = HokusaiSegmentedArcNx(ordinal, seed);
+    return clamp(lerp(nx, segmentedNx, saturate(strength)), -0.96f, 0.96f);
+}
+
+float2 SampleReferenceArcRibbonLocalAtNx(uint seed, float nx, float jitterScale)
+{
+    float2 safeRadius = max(abs(_MainCrestRadius), float2(0.001f, 0.001f));
+    nx = clamp(nx, -0.96f, 0.96f);
+    float jitter = Hash01(seed ^ 0x85ebca6bU) * 2.0f - 1.0f;
+    float2 lobeProfile = HokusaiScreenLobeProfile(nx, saturate(_HokusaiArcLobeContrast) * 0.65f);
+    float ribbonHalfWidth = max(_ReferenceArcWidth * 0.65f * lobeProfile.x, 0.001f);
+    float arcY = _MainCrestOffset.y
+               + _ReferenceArcForwardBend * (1.0f - saturate(nx * nx))
+               + _ReferenceArcCurl * nx;
+    return float2(
+        _MainCrestOffset.x + nx * safeRadius.x,
+        arcY + jitter * ribbonHalfWidth * jitterScale);
+}
+
+float2 SampleReferenceArcRibbonLocal(uint seed)
+{
+    float u = Hash01(seed ^ 0x6d2b79f5U) * 2.0f - 1.0f;
+    float edgeBias = Hash01(seed ^ 0x9e3779b9U);
+    float signedU = sign(u) * pow(abs(u), lerp(0.72f, 1.35f, edgeBias));
+    float nx = ApplyReferenceArcDensityBias(clamp(signedU * 0.96f, -0.96f, 0.96f));
+    return SampleReferenceArcRibbonLocalAtNx(seed, nx, 1.0f);
+}
+
+void ApplyDedicatedCompositionScan(inout ScanCell cell, float2 dominantXZ, float2 lateralXZ, out float mainArcDedicated)
+{
+    mainArcDedicated = 0.0f;
+    float mainShare = saturate(_MainCrestDedicatedScanShare);
+    float sideShare = min(saturate(_SideCrestDedicatedScanShare), max(0.0f, 0.85f - mainShare));
+    float chooser = Hash01(cell.seed ^ 0x3c6ef372U);
+
+    float2 localCrestSpace = float2(0.0f, 0.0f);
+    bool useDedicated = false;
+    bool useMainDedicated = false;
+    if (chooser < mainShare)
+    {
+        float useArc = saturate(_UseReferenceCrestArc) * saturate(_ReferenceArcStrength);
+        float stratifiedNx = StratifiedReferenceArcNx(cell.index, cell.seed ^ 0xa511e9b3U);
+        float2 ellipseSample = SampleCompositionEllipseLocal(cell.seed ^ 0xa511e9b3U, _MainCrestOffset, _MainCrestRadius);
+        float2 arcSample = SampleReferenceArcRibbonLocalAtNx(cell.seed ^ 0xa511e9b3U, stratifiedNx, 0.42f);
+        localCrestSpace = lerp(ellipseSample, arcSample, useArc);
+        mainArcDedicated = useArc;
+        useDedicated = true;
+        useMainDedicated = true;
+    }
+    else if (chooser < mainShare + sideShare)
+    {
+        localCrestSpace = SampleCompositionEllipseLocal(cell.seed ^ 0x63d83595U, _SideCrestOffset, _SideCrestRadius);
+        useDedicated = true;
+    }
+
+    if (useDedicated)
+    {
+        float2 dedicatedWorld = _CompositionCenterXZ + lateralXZ * localCrestSpace.x + dominantXZ * localCrestSpace.y;
+        if (useMainDedicated)
+        {
+            float visualDedicated = saturate(_UseVisualRibbonMask) * saturate(_VisualRibbonInfluence);
+            float screenDedicated = saturate(_UseScreenReferenceMask) * saturate(_ScreenReferenceStrength) * lerp(1.0f, 0.35f, saturate(visualDedicated * 2.0f));
+            float stratifiedNx = StratifiedReferenceArcNx(cell.index, cell.seed ^ 0x3f84d5b5U);
+            float dedicatedPrintLock = saturate(max(screenDedicated, visualDedicated));
+            stratifiedNx = BlendToHokusaiSegmentedArcNx(stratifiedNx, cell.index, cell.seed ^ 0x165667b1U, dedicatedPrintLock * 2.10f);
+            float2 screenWorld = SampleScreenReferenceArcCrestWorldAtNx(cell.seed ^ 0x3f84d5b5U, dominantXZ, dedicatedWorld, stratifiedNx);
+            // Treat the camera-space arc as a print-placement bias, not a hard spawn
+            // position. A strong lock can move cells away from the live FFT crest and
+            // leave the lifecycle with no valid foam candidate.
+            dedicatedWorld = lerp(dedicatedWorld, screenWorld, screenDedicated * 0.28f);
+            float2 visualWorld = SampleVisualRibbonArcCrestWorldAtNx(cell.seed ^ 0x7feb352dU, dominantXZ, dedicatedWorld, stratifiedNx);
+            dedicatedWorld = lerp(dedicatedWorld, visualWorld, visualDedicated * 0.62f);
+            mainArcDedicated = max(mainArcDedicated, screenDedicated);
+            mainArcDedicated = max(mainArcDedicated, visualDedicated);
+        }
+        cell.worldXZ = dedicatedWorld;
+    }
+}
+
+// Rejects some scan cells before expensive texture sampling to control density and GPU cost.
+// 在昂贵纹理采样前丢弃一部分格子，用于控制生成密度和 GPU 成本。
+bool PassesDensityGate(float random01, float mainMask, float sideMask, bool wasAlive)
+{
+    float groupMask = saturate(max(mainMask, sideMask));
+    float groupedDensity = lerp(saturate(_BackgroundDensityScale), 1.0f, smoothstep(0.05f, 0.35f, groupMask));
+    float density = saturate(_SpawnDensity * groupedDensity * (1.0f + mainMask * _MainCrestDensityBoost + sideMask * _SideCrestDensityBoost));
+    return wasAlive || random01 <= density;
+}
+
+// Scores how much the current point is higher than nearby points along the wave direction.
+// 评估当前点相对主波向前后采样点是否更像波峰。
+float ComputeRidgeScore(float2 worldXZ, float2 dominantXZ, float currentHeight)
+{
+    float hForward = SampleCombinedDisplacement(worldXZ + dominantXZ * _CrestProbeDistance).y;
+    float hBack = SampleCombinedDisplacement(worldXZ - dominantXZ * _CrestProbeDistance).y;
+    return saturate((currentHeight - max(hForward, hBack) + _CrestHeightBias) / max(_CrestHeightRange, 0.001f));
+}
+
+// Searches around a scan cell and snaps the candidate to the strongest nearby moving crest.
+// 在扫描格附近搜索，把候选点吸附到附近最强的移动波峰上。
+void FindBestCrest(float2 startWorldXZ, float2 dominantXZ, float2 lateralXZ, float searchScale, out float2 bestWorldXZ, out float3 bestDisplacement)
+{
+    bestWorldXZ = startWorldXZ;
+    bestDisplacement = SampleCombinedDisplacement(startWorldXZ);
+    float bestMetric = -100000.0f;
+    searchScale = max(searchScale, 0.25f);
+
+    [loop]
+    for (int forwardStep = -2; forwardStep <= 2; forwardStep++)
+    {
+        [loop]
+        for (int lateralStep = -1; lateralStep <= 1; lateralStep++)
+        {
+            float2 candidateXZ = startWorldXZ
+                + dominantXZ * ((float)forwardStep * _CrestSearchRadius * searchScale)
+                + lateralXZ * ((float)lateralStep * _CrestSearchLateral * lerp(1.0f, searchScale, 0.55f));
+
+            float3 candidateDisplacement = SampleCombinedDisplacement(candidateXZ);
+            float candidateRidge = ComputeRidgeScore(candidateXZ, dominantXZ, candidateDisplacement.y);
+            float candidateViewLip = ViewFacingLipScore(candidateXZ, candidateDisplacement.y);
+            float candidateFocus = FocusScore(candidateXZ);
+            float candidateScreen = ScreenReferenceArcMask(candidateXZ);
+            float candidateVisual = VisualRibbonArcMask(candidateXZ);
+            float candidateFoamPlacement = HokusaiFoamPlacementMask(candidateXZ);
+            float candidateVisualEnabled = saturate(_UseVisualRibbonMask) * saturate(_VisualRibbonInfluence);
+            float candidateScreenEnabled = saturate(_UseScreenReferenceMask) * saturate(_ScreenReferenceStrength) * lerp(1.0f, 0.35f, saturate(candidateVisualEnabled * 2.0f));
+            float candidateMainMask;
+            float candidateSideMask;
+            float candidateComposition = ComputeCompositionWeight(candidateXZ, dominantXZ, lateralXZ, candidateMainMask, candidateSideMask);
+            float candidateMetric = candidateDisplacement.y * 0.30f + candidateRidge * _CrestHeightRange * 0.78f + candidateFocus * _CrestHeightRange * 0.36f;
+            candidateMetric += candidateViewLip * _CrestHeightRange * 0.82f;
+            candidateMetric += (candidateComposition - 1.0f) * _CrestHeightRange * 0.42f;
+            candidateMetric += (candidateScreen - 0.45f) * candidateScreenEnabled * _CrestHeightRange * 0.62f;
+            candidateMetric += candidateVisual * candidateVisualEnabled * _CrestHeightRange * 0.16f;
+            candidateMetric += candidateFoamPlacement * _CrestHeightRange * 2.15f;
+
+            if (candidateMetric > bestMetric)
+            {
+                bestMetric = candidateMetric;
+                bestWorldXZ = candidateXZ;
+                bestDisplacement = candidateDisplacement;
+            }
+        }
+    }
+}
+
+// Loads the FFT-generated claw mask at a world position.
+// 在世界坐标处读取 FFT compute shader 生成的爪形遮罩。
+float4 LoadClawMask(float2 worldXZ)
+{
+    uint2 clawTexel = TexelFromUV(worldXZ * _TileScales.x);
+    return _ClawMaskTexture.Load(int3(clawTexel.x, clawTexel.y, 0));
+}
+
+// Combines height, slope, crest mask, and focus into the final spawn score.
+// 将高度、坡度、波峰遮罩和焦点区域合成为最终生成评分。
+float ComputeSpawnScore(
+    float2 worldXZ,
+    float3 displacement,
+    float2 slope,
+    float2 dominantXZ,
+    out float rawScore,
+    out float heightScore,
+    out float ridgeScore)
+{
+    float4 mask = LoadClawMask(worldXZ);
+    float heightGate = smoothstep(
+        _WorldHeightThreshold,
+        _WorldHeightThreshold + max(_WorldHeightFeather, 0.001f),
+        displacement.y);
+
+    ridgeScore = ComputeRidgeScore(worldXZ, dominantXZ, displacement.y);
+    heightScore = saturate((displacement.y - _WorldHeightThreshold) / max(_WorldHeightFeather, 0.001f));
+
+    float slopeScore = saturate(length(slope) * 0.75f);
+    float viewLipScore = ViewFacingLipScore(worldXZ, displacement.y);
+    float crestScore = max(mask.b, max(ridgeScore, viewLipScore * 0.80f));
+    float lipScore = max(heightScore * slopeScore * crestScore, viewLipScore * heightScore * 0.68f);
+    float foamLeaf;
+    float negativeSpace;
+    float ribbonMask;
+    float foamPlacement = HokusaiFoamPlacementMask(worldXZ, foamLeaf, negativeSpace, ribbonMask);
+    float heightFeasible = smoothstep(
+        _WorldHeightThreshold - max(_WorldHeightFeather, 0.001f) * 0.55f,
+        _WorldHeightThreshold + max(_WorldHeightFeather, 0.001f) * 0.95f,
+        displacement.y);
+    float physicalCrest = saturate(max(mask.a * 0.24f, lipScore * 0.42f));
+    float foamPlateScore = saturate(foamPlacement * (0.62f + foamLeaf * 0.25f + crestScore * 0.18f + viewLipScore * 0.14f));
+    float offPlateSuppression = lerp(0.20f, 1.0f, ribbonMask);
+    // DIRECT WHITE-BREAKING TERM: the water shader paints white where mask.b is high (~54% of the sea
+    // reaches >0.6). The old composition-gated score buried mask.b (x0.26, x0.2 off-ribbon) so the claw
+    // score maxed ~0.02 and claws never reached visible life. This term makes a claw's score follow the
+    // visible white foam DIRECTLY (height-gated so it rides crests) — claws appear across ALL white and
+    // fade as the white leaves, which is the requested behaviour.
+    // 直接白沫破碎项：水面在 mask.b 高处画白（~54% 海面 >0.6）。旧构图遮罩把 mask.b 埋没（x0.26、离弧带 x0.2），
+    // 爪形分数仅 ~0.02、永远涨不到可见 life。此项让爪形分数直接跟随可见白沫（按高度门控贴浪峰）——铺满所有白色、白色离开即淡出。
+    // Claws ON the WHITE crest caps (high Jacobian breaking = white), matched to where the water shader
+    // actually paints white, so claws sit on the white and simply track those caps as they move. (User:
+    // 爪形要生成在白色区域，基本只要跟着白色的波峰移动就行。) The crest-tracking branch above handles the motion.
+    // 爪形落在白色浪峰冠（高破碎＝白）上，与水面着色实际画白之处对齐；爪形坐落白色之上并随白色浪峰移动。
+    float whiteOnCap = saturate(smoothstep(0.62f, 0.9f, mask.b) * heightGate);
+    rawScore = saturate(max(
+        max(foamPlateScore * lerp(0.56f, 1.0f, heightFeasible), physicalCrest * heightGate * 0.26f) * offPlateSuppression,
+        whiteOnCap * 0.95f));
+    return rawScore * FocusScore(worldXZ);
+}
+
+// Updates the persistent life, smoothed score, and crest-locked anchor of one scan cell.
+// The anchor travels with the wave instead of staying glued to the fixed scan cell — this is
+// what stops claws from popping out when a crest moves on, and from sinking into the trough.
+// 更新扫描格的持久生命值、平滑评分和“锁定波峰”的锚点。
+// 锚点随波移动而不是钉死在固定格子上——这是解决“波峰走了爪形突然消失/跟着水面沉进波谷”的关键。
+void UpdateCellLifecycle(
+    uint cellIndex,
+    float random01,
+    float score,
+    float heightScore,
+    float2 freshCrestXZ,
+    bool wasAlive,
+    float2 advectedAnchor,
+    out float life,
+    out float smoothedScore,
+    out float2 anchorXZ)
+{
+    float4 state = _ClawCellState[cellIndex * 2];
+    state = CleanFloat4(state, float4(0.0f, 0.0f, 0.0f, 0.0f));
+    float wasInitialized = step(0.5f, state.w);
+    float previousLife = saturate(state.x) * wasInitialized;
+    float previousScore = saturate(state.z) * wasInitialized;
+
+    // Reduced score hysteresis (was 0.90): claws must FADE promptly when the breaking foam
+    // (score) leaves their cell — the old sticky score kept them alive on now-blue water.
+    // 减小分数迟滞（原 0.90）：白沫离开格子时爪形要立刻淡出，旧版黏性分数让它们赖在已变蓝的水面上。
+    float activeScore = max(saturate(score), previousScore * 0.70f);
+    float activationFeather = max(0.025f, (1.0f - saturate(_ScoreThreshold)) * 0.12f);
+    float targetLife = smoothstep(
+        saturate(_ScoreThreshold - activationFeather),
+        saturate(_ScoreThreshold + activationFeather),
+        activeScore);
+    float rise = _DeltaTime / max(_LifeRiseTime, 0.001f);
+    float fall = _DeltaTime / max(_LifeFallTime, 0.001f);
+
+    // When the crest under the claw has collapsed (height score gone), dissolve much faster
+    // instead of riding the falling surface down below the surrounding waves.
+    // 波峰塌掉（高度评分消失）时加速消散，而不是跟着下落的水面沉到周围浪体以下。
+    // Dissolve fast when the BREAKING FOAM (activeScore) leaves the cell — that IS the white going
+    // away, which is what a foam claw should track. Height is only a weak secondary anchor so a tall
+    // NON-breaking crest still releases its claws instead of stranding them on now-blue water.
+    // 当破碎白沫（activeScore）离开格子时快速消散——这正是"白色消失"，泡沫爪应当跟随它。
+    // 高度只作弱次级锚，所以高而不破的浪峰也会释放爪形，而不是把它们搁在已变蓝的水上。
+    float crestLost = 1.0f - saturate(max(activeScore, saturate(heightScore) * 0.6f));
+    fall *= lerp(1.0f, max(_CrestLostFallBoost, 1.0f), crestLost * crestLost);
+
+    float lifeStep = (targetLife > previousLife) ? saturate(rise) : saturate(fall);
+    life = saturate(lerp(previousLife, targetLife, lifeStep));
+
+    // Newborn claws lock onto the freshly found crest; living claws keep drifting with the
+    // wave and only gently re-lock toward the search result so they never teleport.
+    // 新生爪形直接锁定刚找到的波峰；存活爪形随波漂移并轻微向搜索结果校正，避免瞬移。
+    float relock = saturate(_DeltaTime * max(_CrestRelockRate, 0.0f));
+    float2 trackedAnchor = lerp(advectedAnchor, freshCrestXZ, relock);
+    anchorXZ = wasAlive ? trackedAnchor : freshCrestXZ;
+
+    // Slower temporal smoothing (6.5 -> 3.0): filters the instantaneous breaking signal's per-frame
+    // NOISE so a brief foam dip no longer crashes the claw's life (= the flicker). Sustained foam loss
+    // still decays smoothedScore over ~0.4s, so claws still fade off genuinely-dead crests.
+    // 放慢时间平滑(6.5->3.0)：滤掉瞬时破碎信号的逐帧噪声，短暂白沫凹陷不再让爪形寿命崩掉(=闪烁)；
+    // 持续失去白沫时 smoothedScore 仍会在约0.4s内衰减，爪形照样从真正消失的波峰上淡出。
+    smoothedScore = saturate(lerp(previousScore, max(saturate(score), previousScore * 0.7f), saturate(_DeltaTime * 3.0f)));
+    _ClawCellState[cellIndex * 2] = float4(life, random01, smoothedScore, 1.0f);
+    _ClawCellState[cellIndex * 2 + 1] = float4(anchorXZ.x, anchorXZ.y, 0.0f, 0.0f);
+}
+
+// Converts lifecycle and crest strength into the base unfold amount shared by a crest cluster.
+// Life drives most of the unfold so claws ALWAYS animate in and out smoothly; crest strength
+// only contributes the final fraction. The old version multiplied two hard smoothstep gates,
+// which sat at 0 most of the time and made claws snap open the moment a score spiked.
+// 将生命周期和波峰强度转换成簇共享的基础展开量。
+// 生命值主导展开，保证爪形永远是平滑生长/收回；波峰强度只补足最后一段。
+// 旧版是两个硬门控相乘，大部分时间卡在 0，分数一冲高爪形就“啪”地弹开。
+float ComputeGrowthOpenBase(float visibleLife, float rawScore, float heightScore, float ridgeScore, float foamPlacement)
+{
+    visibleLife = saturate(CleanFloat(visibleLife, 0.0f));
+    rawScore = saturate(CleanFloat(rawScore, 0.0f));
+    heightScore = saturate(CleanFloat(heightScore, 0.0f));
+    ridgeScore = saturate(CleanFloat(ridgeScore, 0.0f));
+    foamPlacement = saturate(CleanFloat(foamPlacement, 0.0f));
+
+    float rawScore01 = saturate((rawScore - _ScoreThreshold) / max(1.0f - _ScoreThreshold, 0.001f));
+    float peakTop = saturate(_PeakOpenThreshold + _PeakOpenFeather);
+
+    // Height keeps newborn claws alive, but full opening follows the local ridge peak.
+    // Tall wave shoulders stay in a readable middle-open pose instead of saturating.
+    float crest01 = saturate(rawScore01 * 0.52f + foamPlacement * 0.33f + ridgeScore * 0.11f + heightScore * 0.04f);
+    float scoreOpen = smoothstep(_PeakOpenThreshold, peakTop, pow(crest01, max(_PeakOpenPower, 0.001f)));
+
+    // Normal breaking crests top out around two-thirds open. Only a local lip maximum
+    // gets the final extension, matching the painting's few dominant curled tips.
+    float exactPeak = smoothstep(0.94f, 1.0f, ridgeScore)
+                    * smoothstep(0.985f, 1.0f, rawScore01)
+                    * smoothstep(0.68f, 1.0f, foamPlacement);
+    // Raised open range 0.18/0.58 -> 0.42/0.82 so the now-STABLE (smoothed-score-driven) claws sit at the
+    // open/reaching pose the old raw-score PEAKS used to flash to — keeps them visible instead of budded,
+    // without re-introducing flicker (targetOpen is a function of the stable smoothed score only).
+    float targetOpen = saturate(lerp(0.42f, 0.82f, scoreOpen) + exactPeak * 0.14f);
+    float lifeOpen = pow(saturate(visibleLife), max(_GrowthCurvePower, 0.001f));
+    return saturate(lifeOpen * targetOpen);
+}
+
+// Chooses how many claws a crest should display based on score and the foam print plate.
+// 根据波峰评分和白沫版位决定一个波峰簇显示多少个爪形。
+int ComputeClusterCount(float score01, float heightScore, float foamPlacement)
+{
+    foamPlacement = saturate(CleanFloat(foamPlacement, 0.0f));
+    float cluster01 = saturate(pow(score01, 0.75f) * 0.34f + pow(foamPlacement, 0.58f) * 0.52f + pow(heightScore, 0.65f) * 0.14f);
+    int minCluster = max(1, _MinClawsPerCrest);
+    int maxCluster = max(minCluster, _MaxClawsPerCrest);
+    return clamp((int)round(lerp((float)minCluster, (float)maxCluster, cluster01)), minCluster, maxCluster);
+}
+
+// Builds random-but-stable offsets for one claw inside a crest cluster.
+// 为波峰簇中的单个爪形生成稳定随机的偏移。
+ClusterPlacement BuildClusterPlacement(uint cellSeed, int clusterIndex, int clusterCount)
+{
+    uint clusterSeed = Hash(cellSeed ^ (uint)(clusterIndex * 747796405));
+    float slot01 = ((float)clusterIndex + 0.5f) / max(1.0f, (float)clusterCount);
+    float orderedSlot = slot01 - 0.5f;
+    float randomSlot = Hash01(clusterSeed ^ 0x319642b2U) - 0.5f;
+
+    float clusterSpan = max(0.0f, ((float)clusterCount - 1.0f) * _ClusterLateralSpacing);
+    float lateralSlot = lerp(orderedSlot, randomSlot, saturate(_ClusterLateralRandomness * 0.55f));
+    float lateralOffset = lateralSlot * clusterSpan;
+    lateralOffset += (Hash01(clusterSeed ^ 0x68bc21ebU) - 0.5f) * _ClusterLateralSpacing * _ClusterLateralRandomness * 0.5f;
+
+    float forwardScatterRange = _ClusterForwardJitter * max(0.0f, _ClusterForwardRandomness);
+    float forwardOffset = (Hash01(clusterSeed ^ 0x02e5be93U) - 0.5f) * forwardScatterRange;
+    forwardOffset += (Hash01(clusterSeed ^ 0x7feb352dU) - 0.5f) * _ClusterLateralSpacing * 0.35f * _ClusterForwardRandomness;
+
+    // The Great Wave's fingers do not sit on a straight ruler line: the middle of a
+    // crest group projects over the lip while the sides tuck back into the wave mass.
+    // This stable slot-based arc gives the cluster a clawed silhouette without making
+    // individual members jitter or spin frame-to-frame.
+    float centerWeight = 1.0f - saturate(abs(orderedSlot) * 2.0f);
+    float arcPush = centerWeight * centerWeight * _ClusterArcForwardOffset;
+    float sideTuck = (1.0f - centerWeight) * _ClusterArcForwardOffset * 0.28f;
+    forwardOffset += arcPush - sideTuck;
+
+    ClusterPlacement placement;
+    placement.seed = clusterSeed;
+    placement.lateralOffset = lateralOffset;
+    placement.forwardOffset = forwardOffset;
+    placement.growthDelay = Hash01(clusterSeed ^ 0x51ed270bU) * _GrowthStagger;
+    return placement;
+}
+
+// Computes a water normal from FFT slope.
+// 根据 FFT 坡度计算水面法线。
+float3 ComputeSurfaceNormal(float2 slope)
+{
+    return normalize(float3(-slope.x * _NormalInfluence, 1.0f, -slope.y * _NormalInfluence));
+}
+
+// Computes the local axes used to transform the claw mesh for one instance.
+// 计算单个爪形实例用于变换模型的本地坐标轴。
+void BuildClawBasis(
+    uint clusterSeed,
+    float3 dominant,
+    float2 lateralXZ,
+    float3 surfaceNormal,
+    float2 slope,
+    float growthOpenBase,
+    float growthDelay,
+    float fanOffset01,
+    float sheetFlatten01,
+    out float3 right,
+    out float3 meshYAxis,
+    out float3 forward,
+    out float growthOpen)
+{
+    float3 worldUp = float3(0.0f, 1.0f, 0.0f);
+    float3 referenceUp = SafeNormalize3(lerp(worldUp, surfaceNormal, saturate(_SurfaceNormalBlend)), worldUp);
+
+    float3 slopeForward = SafeNormalize3(float3(-slope.x, 0.0f, -slope.y), dominant);
+    float3 baseOutward = SafeNormalize3(lerp(dominant, slopeForward, saturate(_ForwardFromSlope)), dominant);
+
+    // Random jitter plus a cluster-wide fan: members near the ends rotate outward so the
+    // row reads as spreading fingers along the crest, like the painting, not a picket fence.
+    // 随机偏转叠加整簇的扇形展开：两端的成员向外旋转，让整排读起来像沿波峰张开的手指，
+    // 而不是一排栅栏。
+    float yaw = (Hash01(clusterSeed ^ 0x27d4eb2dU) - 0.5f) * _YawJitterRadians
+              + (fanOffset01 - 0.5f) * _ClusterFanRadians;
+    float3 outward = SafeNormalize3(RotateAroundAxis(baseOutward, worldUp, yaw), baseOutward);
+    float3 finalTipDirection = SafeNormalize3(outward - worldUp * _TipDownwardBias, outward);
+
+    right = SafeNormalize3(cross(referenceUp, finalTipDirection), float3(lateralXZ.x, 0.0f, lateralXZ.y));
+
+    growthOpen = saturate((growthOpenBase - growthDelay) / max(1.0f - growthDelay, 0.001f));
+
+    float3 foldedTipDirection = SafeNormalize3(RotateAroundAxis(finalTipDirection, right, _GrowthFoldRadians), finalTipDirection);
+    float3 tipDirection = SafeNormalize3(lerp(foldedTipDirection, finalTipDirection, growthOpen), finalTipDirection);
+    float3 rawMeshYAxis = _LocalYPointsTowardTip >= 0.5f ? tipDirection : -tipDirection;
+    float3 horizontalMeshYAxis = SafeNormalize3(float3(rawMeshYAxis.x, 0.0f, rawMeshYAxis.z), dominant);
+    meshYAxis = SafeNormalize3(lerp(rawMeshYAxis, horizontalMeshYAxis, saturate(sheetFlatten01)), rawMeshYAxis);
+    forward = SafeNormalize3(cross(right, meshYAxis), dominant);
+
+    // Print foam should read like a woodblock shape on the camera plane. Without this
+    // camera-facing blend, flattened fingers often turn edge-on and appear as thin lines.
+    float screenMask01 = saturate(max(
+        saturate(_UseScreenReferenceMask) * saturate(_ScreenReferenceStrength),
+        saturate(_UseVisualRibbonMask) * saturate(_VisualRibbonInfluence) * 1.8f));
+    float printFoamBillboardBase = 0.56f * saturate(_FoamFingerCameraBillboard);
+    float screenFoam01 = saturate((printFoamBillboardBase + sheetFlatten01 * 1.16f + screenMask01 * 0.58f) * saturate(_FoamFingerCameraBillboard));
+    float billboard01 = saturate(screenFoam01 * lerp(0.92f, 1.0f, screenMask01));
+    float3 cameraForward = SafeNormalize3(_ReferenceCameraForward, -dominant);
+    float3 cameraRight = SafeNormalize3(_ReferenceCameraRight, right);
+    float3 cameraUp = SafeNormalize3(_ReferenceCameraUp, worldUp);
+    float3 screenTipDirection = finalTipDirection - cameraForward * dot(finalTipDirection, cameraForward);
+    float slotFromCenter = fanOffset01 - 0.5f;
+    float fanSide = slotFromCenter < 0.0f ? -1.0f : 1.0f;
+    float center01 = 1.0f - saturate(abs(slotFromCenter) * 2.0f);
+    float tangentWeight = fanSide * (0.74f + abs(slotFromCenter) * 0.92f);
+    float downwardWeight = 0.24f + center01 * 0.16f;
+    float3 crestFoamCurl = SafeNormalize3(cameraRight * tangentWeight - cameraUp * downwardWeight, -cameraUp);
+    screenTipDirection = SafeNormalize3(lerp(screenTipDirection, crestFoamCurl, billboard01 * 0.84f), crestFoamCurl);
+
+    float3 screenMeshYAxis = _LocalYPointsTowardTip >= 0.5f ? screenTipDirection : -screenTipDirection;
+    float3 screenForward = SafeNormalize3(-cameraForward, forward);
+    float3 screenRight = SafeNormalize3(cross(screenMeshYAxis, screenForward), cameraRight);
+    screenMeshYAxis = SafeNormalize3(cross(screenForward, screenRight), screenMeshYAxis);
+    screenForward = SafeNormalize3(cross(screenRight, screenMeshYAxis), screenForward);
+
+    right = SafeNormalize3(lerp(right, screenRight, billboard01), right);
+    meshYAxis = SafeNormalize3(lerp(meshYAxis, screenMeshYAxis, billboard01), meshYAxis);
+    forward = SafeNormalize3(cross(right, meshYAxis), forward);
+    right = SafeNormalize3(cross(meshYAxis, forward), right);
+}
+
+// Computes the final instance scale including score, life, growth, and random variation.
+// 计算最终实例缩放，包含评分、生命值、生长量和随机差异。
+float3 ComputeInstanceScale(uint clusterSeed, float score01, float visibleLife, float growthOpen)
+{
+    float instanceScale = lerp(_ClawScaleRange.x, _ClawScaleRange.y, score01);
+    instanceScale *= lerp(max(0.05f, 1.0f - _ScaleRandomness), 1.0f + _ScaleRandomness, Hash01(clusterSeed ^ 0x165667b1U));
+    // Visibility floor: FFT breaking is transient so visibleLife/growthOpen rarely climb past ~0.2,
+    // which previously crushed scale to ~5-12% (claws were sub-pixel specks — invisible). Floors keep
+    // a spawned claw at ~45% minimum size while still letting life/growth modulate up to full size.
+    // 可见性下限：FFT 破碎是瞬时的，visibleLife/growthOpen 很少超过 ~0.2，旧版把缩放压到 ~5-12%
+    // （爪形是亚像素小点，看不见）。下限让已生成的爪形最小约 45% 尺寸，同时仍可随 life/growth 长到满尺寸。
+    instanceScale *= lerp(0.55f, 1.0f, pow(saturate(visibleLife), 0.75f));
+    instanceScale *= lerp(max(_GrowthMinScale, 0.55f), 1.0f, growthOpen);
+    return max(_ClawScaleMultiplier, float3(0.001f, 0.001f, 0.001f)) * instanceScale;
+}
+
+// Converts the sampled water surface point into the mesh origin so the mesh anchor stays on the crest.
+// 将采样到的水面点转换为模型原点，使模型锚点始终贴在波峰上。
+float3 ComputeInstancePosition(
+    float2 clusterWorldXZ,
+    float3 clusterDisplacement,
+    float verticalJitter,
+    float3 right,
+    float3 meshYAxis,
+    float3 forward,
+    float3 scale)
+{
+    float3 surfacePos = float3(
+        clusterWorldXZ.x + clusterDisplacement.x,
+        clusterDisplacement.y + _VerticalOffset + verticalJitter,
+        clusterWorldXZ.y + clusterDisplacement.z);
+
+    float3 anchorOffset = right * scale.x * _MeshAnchorLocal.x
+                        + meshYAxis * scale.y * _MeshAnchorLocal.y
+                        + forward * scale.z * _MeshAnchorLocal.z;
+    return surfacePos - anchorOffset;
+}
+
+// Packs transform rows and debug parameters into the instance buffer format.
+// 将变换矩阵行和调试参数打包成实例 buffer 的格式。
+ClawInstanceData BuildInstanceData(
+    float3 right,
+    float3 meshYAxis,
+    float3 forward,
+    float3 scale,
+    float3 position,
+    float smoothedScore,
+    float life,
+    float random01,
+    float growthOpen)
+{
+    ClawInstanceData data;
+    data.row0 = float4(right.x * scale.x, meshYAxis.x * scale.y, forward.x * scale.z, position.x);
+    data.row1 = float4(right.y * scale.x, meshYAxis.y * scale.y, forward.y * scale.z, position.y);
+    data.row2 = float4(right.z * scale.x, meshYAxis.z * scale.y, forward.z * scale.z, position.z);
+    data.row3 = float4(0.0f, 0.0f, 0.0f, 1.0f);
+    data.params = float4(
+        saturate(CleanFloat(smoothedScore, 0.0f)),
+        saturate(CleanFloat(life, 0.0f)),
+        saturate(CleanFloat(random01, 0.0f)),
+        saturate(CleanFloat(growthOpen, 0.0f)));
+    return data;
+}
+
+// Atomically appends one claw instance while respecting the max instance budget.
+// 以原子方式追加一个爪形实例，并遵守最大实例数量限制。
+bool TryAppendInstance(ClawInstanceData data)
+{
+    if (!IsFiniteFloat4(data.row0)
+        || !IsFiniteFloat4(data.row1)
+        || !IsFiniteFloat4(data.row2)
+        || !IsFiniteFloat4(data.row3)
+        || !IsFiniteFloat4(data.params))
+        return false;
+
+    if (_ClawCounter[0] >= _MaxInstances)
+        return false;
+
+    uint instanceIndex;
+    InterlockedAdd(_ClawCounter[0], 1, instanceIndex);
+    if (instanceIndex >= _MaxInstances)
+        return false;
+
+    _ClawInstances[instanceIndex] = data;
+    return true;
+}
+
+// Clears the indirect draw counter and writes stable mesh metadata into the args buffer.
+// 清空间接绘制计数器，并把稳定的网格信息写入 args buffer。
+[numthreads(1, 1, 1)]
+void CS_Reset(uint3 id : SV_DISPATCHTHREADID)
+{
+    _ClawCounter[0] = 0;
+    _ArgsBuffer[0] = _IndexCount;
+    _ArgsBuffer[1] = 0;
+    _ArgsBuffer[2] = _StartIndex;
+    _ArgsBuffer[3] = _BaseVertex;
+    _ArgsBuffer[4] = 0;
+
+    _UnderlayArgsBuffer[0] = _UnderlayIndexCount;
+    _UnderlayArgsBuffer[1] = 0;
+    _UnderlayArgsBuffer[2] = _UnderlayStartIndex;
+    _UnderlayArgsBuffer[3] = _UnderlayBaseVertex;
+    _UnderlayArgsBuffer[4] = 0;
+}
+
+// Scans FFT waves, finds crest candidates, updates their life, and emits claw instances.
+// 扫描 FFT 海浪、寻找波峰候选、更新生命周期，并输出爪形实例。
+[numthreads(8, 8, 1)]
+void CS_Generate(uint3 id : SV_DISPATCHTHREADID)
+{
+    if (id.x >= _ScanGridSize || id.y >= _ScanGridSize)
+        return;
+
+    uint rawIndex = id.x + id.y * _ScanGridSize;
+    ScanCell cell = BuildScanCell(rawIndex);
+
+    // Stage 1: route this stable scan cell into normal ocean search or dedicated composition search.
+    // 阶段 1：把稳定扫描格路由到普通海面搜索，或专用构图搜索。
+    float3 dominant = GetDominantDirection();
+    float2 dominantXZ = dominant.xz;
+    float2 lateralXZ = GetLateralDirection(dominantXZ);
+    float mainArcDedicated;
+    ApplyDedicatedCompositionScan(cell, dominantXZ, lateralXZ, mainArcDedicated);
+
+    // When this cell already owns a living claw, continue the crest search from last frame's
+    // anchor (extrapolated by the wave drift) instead of from the fixed cell position, so a
+    // claw follows ONE wave through the world instead of re-picking a crest every frame.
+    // 如果该格子已有存活爪形，从上一帧锚点（按波速外推）继续搜索，而不是从固定格子位置搜索，
+    // 这样爪形会一直跟着同一道波走，而不是每帧重新挑一个波峰。
+    float4 prevState = CleanFloat4(_ClawCellState[cell.index * 2], float4(0.0f, 0.0f, 0.0f, 0.0f));
+    float2 prevAnchor = CleanFloat2(_ClawCellState[cell.index * 2 + 1].xy, cell.worldXZ);
+    bool wasAlive = prevState.w > 0.5f && prevState.x > 0.005f;
+    // Anchor advection: a living claw's anchor moves with the wave at _CrestDriftSpeed along the dominant
+    // direction. Matched to the crest speed, this makes the claw RIDE the crest it was born on (used by
+    // the wasAlive branch below as pure advection — no 2D re-search, so it can't jitter or wander). The
+    // earlier free anchor-chained search wandered tens of metres ("flying"); the earlier cell-pin removed
+    // motion entirely but jittered in place. Riding is the in-between the reference wants.
+    // 锚点平移：存活爪形的锚点以 _CrestDriftSpeed 沿主波向随波移动；速度匹配波峰速度时，爪形即"骑"在出生的
+    // 波峰上（下方 wasAlive 分支用作纯平移，不做二维搜索，故不抖动不乱跑）。旧的自由锚点搜索会游走几十米（"飞"），
+    // 旧的格子钉死则原地抖动；"骑行"是参考画想要的折中。
+    float2 advectedAnchor = CleanFloat2(prevAnchor + dominantXZ * (_CrestDriftSpeed * _DeltaTime), cell.worldXZ);
+    float2 searchOrigin = cell.worldXZ;
+    float seedMainMask;
+    float seedSideMask;
+    ComputeCompositionWeight(searchOrigin, dominantXZ, lateralXZ, seedMainMask, seedSideMask);
+    if (!PassesDensityGate(cell.random01, seedMainMask, seedSideMask, wasAlive))
+        return;
+
+    // Stage 2: find and score the crest this cell should own this frame.
+    // 阶段 2：找到并评估该扫描格这一帧负责的波峰。
+    float2 crestWorldXZ;
+    float3 crestDisplacement;
+    if (wasAlive)
+    {
+        // TRACK the local crest: each frame, search a SMALL radius around the claw's CURRENT position and
+        // snap to the nearest crest. As the crest travels, the claw follows it frame-by-frame at the
+        // crest's TRUE speed (no fixed-speed guess, so no sliding), and the small radius keeps it on its
+        // OWN crest (so no wandering to far crests). This is the "依附波峰移动" the user wants: the claw's
+        // only motion is its crest's motion; when that crest's foam dies the lifecycle below fades it.
+        // 跟踪局部波峰：每帧在爪形当前位置的小半径内搜索并吸附到最近波峰。波峰行进时爪形逐帧跟随、以波峰真实速度
+        // 移动（无固定速度猜测，故不打滑），小半径使其留在自己的波峰上（不乱跑）。这就是"依附波峰移动"。
+        FindBestCrest(prevAnchor, dominantXZ, lateralXZ, 0.35f, crestWorldXZ, crestDisplacement);
+        float2 toLocalCrest = crestWorldXZ - prevAnchor;
+        float localCrestDist = length(toLocalCrest);
+        if (localCrestDist > 3.0f)
+        {
+            crestWorldXZ = prevAnchor + toLocalCrest * (3.0f / max(localCrestDist, 1e-4f));
+            crestDisplacement = SampleCombinedDisplacement(crestWorldXZ);
+        }
+    }
+    else
+    {
+        // NEWBORN: find a fresh crest near this scan cell to be born on.
+        float searchScale = 1.0f + seedMainMask * _MainCrestSearchBoost + seedSideMask * _SideCrestSearchBoost;
+        FindBestCrest(searchOrigin, dominantXZ, lateralXZ, searchScale, crestWorldXZ, crestDisplacement);
+        if (mainArcDedicated > 0.001f)
+        {
+            float arcLock = saturate(mainArcDedicated) * lerp(0.10f, 0.28f, saturate(_ScreenReferenceStrength));
+            crestWorldXZ = lerp(crestWorldXZ, searchOrigin, arcLock);
+            crestDisplacement = SampleCombinedDisplacement(crestWorldXZ);
+        }
+    }
+
+    float2 slope = SampleCombinedSlope(crestWorldXZ);
+    float rawScore;
+    float heightScore;
+    float ridgeScore;
+    float focusedScore = ComputeSpawnScore(crestWorldXZ, crestDisplacement, slope, dominantXZ, rawScore, heightScore, ridgeScore);
+    float cellFoamLeaf;
+    float cellNegativeSpace;
+    float cellRibbonMask;
+    float cellFoamPlacement = HokusaiFoamPlacementMask(crestWorldXZ, cellFoamLeaf, cellNegativeSpace, cellRibbonMask);
+    float mainCompositionMask;
+    float sideCompositionMask;
+    float compositionWeight = ComputeCompositionWeight(crestWorldXZ, dominantXZ, lateralXZ, mainCompositionMask, sideCompositionMask);
+    float compositionInfluence = saturate(_UseCompositionBias) * saturate(_CompositionStrength);
+    float compositionScoreFloor = lerp(1.0f, 0.66f, compositionInfluence);
+    focusedScore = saturate(focusedScore * max(compositionWeight, compositionScoreFloor));
+    float lifecycleHeight = max(heightScore, cellFoamPlacement * 0.62f);
+
+    // Stage 3: update persistent cell life and anchor before spending instance budget.
+    // 阶段 3：先更新持久生命周期和锚点，再消耗实例预算。
+    float life;
+    float smoothedScore;
+    float2 anchorXZ;
+    UpdateCellLifecycle(cell.index, cell.random01, focusedScore, lifecycleHeight, crestWorldXZ, wasAlive, advectedAnchor, life, smoothedScore, anchorXZ);
+
+    if (life < _DrawLifeThreshold)
+        return;
+
+    // Stage 4: choose the cluster size for this crest.
+    // 阶段 4：决定这个波峰簇需要输出多少个成员。
+    float visibleLife = smoothstep(_VisibleLifeThreshold, 1.0f, life);
+    float score01 = saturate((smoothedScore - _ScoreThreshold) / max(1.0f - _ScoreThreshold, 0.001f));
+    // FLICKER FIX: was max(rawScore_INSTANTANEOUS, smoothedScore). rawScore is the per-frame-noisy
+    // breaking signal, and growthDriverScore feeds growthOpen, which drives BOTH the tip FOLD and the
+    // instance SCALE — so the claw folded+shrank+unfolded+grew every frame = the flicker the user still
+    // saw after the lifecycle/alpha smoothing. Drive growth from the SMOOTHED score so the fold/scale
+    // are temporally stable; newborns open over ~0.4s instead of popping to the raw spike.
+    // 闪烁修复：原为 max(瞬时rawScore, smoothedScore)。rawScore 逐帧抖动，而它经 growthOpen 同时驱动爪形的
+    // 折叠角与缩放 -> 爪形每帧折叠+缩小+展开+变大 = 用户仍看到的闪烁。改用平滑分数驱动生长，折叠/缩放时间稳定。
+    float growthDriverScore = smoothedScore;
+    float growthOpenBase = ComputeGrowthOpenBase(visibleLife, growthDriverScore, heightScore, ridgeScore, cellFoamPlacement);
+    float mainAccent = saturate(mainCompositionMask);
+    float sideAccent = saturate(sideCompositionMask);
+    float groupAccent = saturate(max(mainAccent, sideAccent * 0.45f));
+    float countBias = saturate(0.45f + mainAccent * 0.52f + sideAccent * 0.08f + cellFoamPlacement * 0.62f);
+    float clusterScore01 = saturate(score01 * countBias);
+    int clusterCount = ComputeClusterCount(clusterScore01, heightScore, cellFoamPlacement);
+    float referenceRibbonCell = saturate(max(mainAccent, mainArcDedicated));
+    if (referenceRibbonCell > 0.18f)
+    {
+        int ribbonLimit = min(max(_MaxRibbonClawsPerCrest, _MinClawsPerCrest), _MaxClawsPerCrest);
+        clusterCount = min(clusterCount, ribbonLimit);
+    }
+
+    [loop]
+    for (int cluster = 0; cluster < clusterCount; cluster++)
+    {
+        // Stage 5: place one member along the crest or the screen-locked print ribbon.
+        // 阶段 5：沿真实波峰或屏幕锁定版画白沫带摆放单个成员。
+        ClusterPlacement placement = BuildClusterPlacement(cell.seed, cluster, clusterCount);
+        float slot01 = ((float)cluster + 0.5f) / max(1.0f, (float)clusterCount);
+        float mainFan = smoothstep(0.08f, 0.92f, mainAccent);
+        float ribbonFan = saturate(max(mainFan, mainArcDedicated));
+        float signedSlot = slot01 * 2.0f - 1.0f;
+        placement.lateralOffset *= lerp(1.0f, max(_MainFanLateralScale, 1.0f), mainFan);
+        placement.forwardOffset *= lerp(1.0f, max(_MainFanForwardScale, 1.0f), mainFan);
+        placement.forwardOffset += abs(signedSlot) * _ClusterLateralSpacing * 0.35f * mainFan;
+        float2 memberXZ = anchorXZ + lateralXZ * placement.lateralOffset + dominantXZ * placement.forwardOffset;
+        float memberScreenFollow = ribbonFan
+                                 * saturate(_UseScreenReferenceMask)
+                                 * saturate(_ScreenReferenceStrength)
+                                 * saturate(_MainMemberScreenArcFollow);
+        float anchorScreenNx = ScreenArcNx(anchorXZ, _ScreenReferenceCenter, _ScreenReferenceHalfWidth);
+        float anchorVisualNx = ScreenArcNx(anchorXZ, _VisualRibbonCenter, _VisualRibbonHalfWidth);
+        float anchorRibbonNx = lerp(anchorScreenNx, anchorVisualNx, saturate(_UseVisualRibbonMask * _VisualRibbonInfluence * 2.0f));
+        float slotArcSpread = lerp(0.070f, 0.180f, ribbonFan) * max(1.0f, (float)clusterCount - 1.0f);
+        float slotArcJitter = (Hash01(placement.seed ^ 0x85ebca6bU) - 0.5f) * lerp(0.060f, 0.026f, ribbonFan);
+        float memberSlotNx = clamp(anchorRibbonNx + signedSlot * slotArcSpread + slotArcJitter, -0.96f, 0.96f);
+        float visualSlotStrength = saturate(_UseVisualRibbonMask * _VisualRibbonInfluence);
+        float screenSlotStrength = saturate(_UseScreenReferenceMask * _ScreenReferenceStrength);
+        float printSlotStrength = saturate(max(screenSlotStrength * 0.88f, visualSlotStrength * 1.65f));
+        uint memberArcOrdinal = cell.index * 3U + (uint)cluster;
+        memberSlotNx = BlendToHokusaiSegmentedArcNx(
+            memberSlotNx,
+            memberArcOrdinal,
+            placement.seed ^ 0x94d049bbU,
+            ribbonFan * printSlotStrength * 1.75f);
+        float centerCrowd01 = 1.0f - smoothstep(0.10f, 0.30f, abs(memberSlotNx));
+        float centerReliefSelect = step(0.16f, Hash01(placement.seed ^ 0x3a6e4fb9U));
+        float reliefChoice = Hash01(placement.seed ^ 0x6c8e9cf5U);
+        float reliefLeftNx = lerp(-0.30f, -0.16f, Hash01(placement.seed ^ 0x85ebca6bU));
+        float reliefOuterNx = lerp(0.34f, 0.48f, Hash01(placement.seed ^ 0x27d4eb2dU));
+        float reliefCenterNx = lerp(-0.08f, 0.10f, Hash01(placement.seed ^ 0x7feb352dU));
+        float reliefTargetNx = reliefChoice < 0.44f
+            ? reliefLeftNx
+            : (reliefChoice < 0.74f ? reliefOuterNx : reliefCenterNx);
+        float centerReliefStrength = saturate(centerCrowd01 * ribbonFan * printSlotStrength * 1.35f) * centerReliefSelect;
+        memberSlotNx = clamp(lerp(memberSlotNx, reliefTargetNx, centerReliefStrength), -0.96f, 0.96f);
+        float slotShoulderSide = _ReferenceArcDensityBias < 0.0f ? -1.0f : 1.0f;
+        float slotCurlShoulder01 = saturate(0.5f + slotShoulderSide * memberSlotNx * 0.5f);
+        float slotPrintWindow = HokusaiArcPrintFoamWindow(slotCurlShoulder01);
+        float slotFollowWindow = max(slotPrintWindow, centerReliefStrength * 0.92f);
+        if (memberScreenFollow > 0.001f)
+        {
+            float2 screenMemberXZ = SampleScreenReferenceArcCrestWorldAtNx(placement.seed ^ 0x94d049bbU, dominantXZ, memberXZ, memberSlotNx);
+            memberXZ = lerp(memberXZ, screenMemberXZ, memberScreenFollow * lerp(0.42f, 1.0f, slotFollowWindow));
+        }
+        float memberVisualFollow = ribbonFan
+                                 * saturate(_UseVisualRibbonMask)
+                                 * saturate(_VisualRibbonInfluence)
+                                 * saturate(_MainMemberScreenArcFollow)
+                                 * lerp(0.22f, 1.0f, slotFollowWindow);
+        if (memberVisualFollow > 0.001f)
+        {
+            float2 visualMemberXZ = SampleVisualRibbonArcCrestWorldAtNx(placement.seed ^ 0x27d4eb2dU, dominantXZ, memberXZ, memberSlotNx);
+            memberXZ = lerp(memberXZ, visualMemberXZ, memberVisualFollow);
+        }
+        if (centerReliefStrength > 0.001f)
+        {
+            float2 reliefLocal = SampleReferenceArcRibbonLocalAtNx(placement.seed ^ 0xa511e9b3U, reliefTargetNx, 0.28f);
+            float2 reliefWorldXZ = _CompositionCenterXZ + lateralXZ * reliefLocal.x + dominantXZ * reliefLocal.y;
+            memberXZ = lerp(memberXZ, reliefWorldXZ, centerReliefStrength * 0.62f);
+        }
+
+        // Bend the straight lateral row onto the actual curving crest line: probe the wave
+        // height ahead/behind and pull the member toward the local ridge maximum
+        // (quadratic peak fit). This is what breaks the "claws in a straight line" look.
+        // 把直线排布弯到真实的波峰曲线上：沿主波向前后采样高度，用二次峰值拟合把成员
+        // 拉到局部脊线最高处。这就是打破“爪形排成一条直线”的关键。
+        float snapStep = max(_ClusterLateralSpacing, 1.0f);
+        float hHere = SampleCombinedDisplacement(memberXZ).y;
+        float hFwd = SampleCombinedDisplacement(memberXZ + dominantXZ * snapStep).y;
+        float hBack = SampleCombinedDisplacement(memberXZ - dominantXZ * snapStep).y;
+        float curvature = hFwd + hBack - 2.0f * hHere;
+        float peakT = abs(curvature) > 1e-4f ? clamp(0.5f * (hBack - hFwd) / curvature, -0.35f, 0.35f) : 0.0f;
+        memberXZ += dominantXZ * (peakT * snapStep * saturate(_CrestCurveFollow));
+
+        float3 clusterDisplacement = SampleCombinedDisplacement(memberXZ);
+        float2 clusterSlope = SampleCombinedSlope(memberXZ);
+        float3 clusterNormal = ComputeSurfaceNormal(clusterSlope);
+        float memberScreenMask = ScreenReferenceArcMask(memberXZ);
+        float memberVisualMask = VisualRibbonArcMask(memberXZ);
+        float memberVisualStrength = saturate(_UseVisualRibbonMask) * saturate(_VisualRibbonInfluence);
+        float memberScreenStrength = saturate(_UseScreenReferenceMask) * saturate(_ScreenReferenceStrength) * lerp(1.0f, 0.35f, saturate(memberVisualStrength * 2.0f));
+        float memberRibbonStrength = saturate(max(memberScreenStrength, memberVisualStrength));
+        float memberRibbonMask = memberRibbonStrength > 0.001f
+            ? max(memberScreenMask * memberScreenStrength, memberVisualMask * memberVisualStrength) / max(memberRibbonStrength, 0.001f)
+            : 0.0f;
+        float memberFoamLeaf;
+        float memberNegativeSpace;
+        float memberRibbonPlate;
+        float memberFoamPlacement = HokusaiFoamPlacementMask(memberXZ, memberFoamLeaf, memberNegativeSpace, memberRibbonPlate);
+        float ribbonNx = lerp(
+            ScreenArcNx(memberXZ, _ScreenReferenceCenter, _ScreenReferenceHalfWidth),
+            ScreenArcNx(memberXZ, _VisualRibbonCenter, _VisualRibbonHalfWidth),
+            saturate(memberVisualStrength * 2.0f));
+        float ribbonShoulderSide = _ReferenceArcDensityBias < 0.0f ? -1.0f : 1.0f;
+        float ribbonCurlShoulder01 = saturate(0.5f + ribbonShoulderSide * ribbonNx * 0.5f);
+        float ribbonPrintWindow = HokusaiArcPrintFoamWindow(ribbonCurlShoulder01);
+        float visualFoamAccent = saturate(memberVisualMask * memberVisualStrength * 1.35f * ribbonPrintWindow);
+        float foamRibbonFan = saturate(max(ribbonFan * lerp(0.48f, 1.0f, ribbonPrintWindow), visualFoamAccent));
+
+        // Stage 6: evaluate the Hokusai print profile that shapes size, reveal, and gaps.
+        // 阶段 6：评估北斋版画轮廓，用来塑造尺寸、显隐和留白。
+        float shoulderSide = _ReferenceArcDensityBias < 0.0f ? -1.0f : 1.0f;
+        float curlShoulder01 = saturate(0.5f + shoulderSide * ribbonNx * 0.5f);
+        float tail01 = saturate(1.0f - curlShoulder01);
+        float arcCenter01 = 1.0f - saturate(abs(ribbonNx));
+        float printedIsland = HokusaiPrintedIslandWeight(curlShoulder01, placement.seed);
+        float printedIslandGate = smoothstep(0.10f, 0.62f, printedIsland);
+        float islandSoftCull = 1.0f - printedIslandGate;
+        float hokusaiLeaf01 = saturate(max(memberFoamPlacement, visualFoamAccent * 0.58f) * lerp(0.56f, 1.10f, printedIslandGate));
+        float hokusaiProfile01 = hokusaiLeaf01 * saturate(_HokusaiArcProfileStrength);
+        float hokusaiCurlProfile = smoothstep(0.22f, 0.72f, curlShoulder01) * (1.0f - smoothstep(0.88f, 1.0f, curlShoulder01));
+        float hokusaiTailTaper = smoothstep(0.34f, 1.0f, tail01);
+        float hokusaiShoulderPose = hokusaiCurlProfile * hokusaiProfile01;
+        float hokusaiTailPose = hokusaiTailTaper * hokusaiProfile01;
+        float hokusaiLobeContrast = saturate(_HokusaiArcLobeContrast) * hokusaiProfile01;
+        float hokusaiArcLobeWeight = HokusaiArcLobeWeight(curlShoulder01, placement.seed);
+        float hokusaiFoamLeafWeight = saturate(max(HokusaiArcFoamLeafWeight(curlShoulder01), memberFoamLeaf) * lerp(0.72f, 1.06f, printedIslandGate));
+        float rawHokusaiNegativeSpace = max(HokusaiArcNegativeSpaceProfile(curlShoulder01), memberNegativeSpace);
+        float hokusaiNegativeSpace = max(HokusaiArcNegativeSpaceProfile(curlShoulder01) * hokusaiLobeContrast, memberNegativeSpace * hokusaiLobeContrast);
+        float hokusaiLeafCluster = saturate(hokusaiFoamLeafWeight * hokusaiLobeContrast);
+        float hokusaiGapSuppress = saturate((hokusaiNegativeSpace - 0.14f) / 0.32f) * lerp(1.0f, 0.72f, hokusaiFoamLeafWeight);
+        float printGapCull = saturate((hokusaiNegativeSpace - 0.22f) / 0.26f) * saturate(_HokusaiArcLobeContrast);
+        printGapCull *= 1.0f - smoothstep(0.52f, 0.78f, max(hokusaiFoamLeafWeight, memberFoamLeaf));
+        float rawPrintGapCull = saturate((rawHokusaiNegativeSpace - 0.20f) / 0.24f) * saturate(_HokusaiArcLobeContrast);
+        rawPrintGapCull *= 1.0f - smoothstep(0.58f, 0.82f, max(hokusaiFoamLeafWeight, memberFoamLeaf));
+        float islandPrintCull = islandSoftCull * saturate(_HokusaiArcLobeContrast) * (1.0f - smoothstep(0.54f, 0.86f, max(hokusaiFoamLeafWeight, memberFoamLeaf)));
+        float printAnchor = max(max(printedIslandGate, memberFoamPlacement), hokusaiFoamLeafWeight * 0.55f);
+        float hookEndCull = smoothstep(0.76f, 0.94f, curlShoulder01) * saturate(_HokusaiArcLobeContrast);
+        hookEndCull *= 1.0f - smoothstep(0.36f, 0.78f, printAnchor);
+        printGapCull = saturate(max(printGapCull, rawPrintGapCull * 0.78f));
+        printGapCull = saturate(max(printGapCull, islandPrintCull * 0.46f));
+        printGapCull = saturate(max(printGapCull, hookEndCull * 0.86f));
+        hokusaiGapSuppress = saturate(max(hokusaiGapSuppress, printGapCull * 0.82f));
+        hokusaiGapSuppress = saturate(max(hokusaiGapSuppress, rawPrintGapCull * 0.92f));
+        hokusaiGapSuppress = saturate(max(hokusaiGapSuppress, hookEndCull * 0.68f));
+        float hokusaiGapDelay = saturate(HokusaiArcGapDelay(hokusaiArcLobeWeight) * hokusaiLobeContrast + hokusaiNegativeSpace * 0.105f);
+        float hokusaiSizeProfile = 0.36f + pow(curlShoulder01, 0.58f) * 0.42f + arcCenter01 * 0.22f;
+        hokusaiSizeProfile *= lerp(1.0f, max(_HokusaiTailScale, 0.05f), hokusaiTailTaper * hokusaiProfile01);
+        hokusaiSizeProfile *= 1.0f + hokusaiShoulderPose * max(_HokusaiCurlShoulderBoost, 0.0f);
+        hokusaiSizeProfile *= lerp(1.0f, hokusaiArcLobeWeight, hokusaiLobeContrast);
+        hokusaiSizeProfile *= lerp(0.86f, 1.18f, hokusaiLeafCluster);
+        hokusaiSizeProfile *= lerp(1.0f, 0.70f, hokusaiGapSuppress);
+        float visualPrintReveal = visualFoamAccent * lerp(0.24f, 0.86f, max(printedIslandGate, memberFoamPlacement));
+        float printFoamReveal = saturate(max(memberFoamPlacement, max(visualPrintReveal, hokusaiLeaf01 * 0.56f)));
+        float arcShoulderMask = ReferenceArcShoulderMask(memberXZ) * memberRibbonMask;
+        float arcShoulder01 = arcShoulderMask * saturate(_ReferenceArcShoulderSizeBoost);
+        float arcOpen01 = arcShoulderMask * saturate(_ReferenceArcShoulderOpenBoost);
+        float ribbonScreenGate = lerp(
+            1.0f,
+            lerp(0.38f, 1.0f, max(memberFoamPlacement, printFoamReveal * 0.55f)),
+            foamRibbonFan * memberRibbonStrength);
+
+        // Per-member size: local crest strength plus a center-weighted hierarchy recreate the
+        // painting's look of one dominant claw flanked by progressively smaller fingers.
+        // 成员尺寸：局部波峰强度 + “中间大”的权重层级，重现画中主爪居中、两侧手指渐小的排布。
+        float localHeight01 = saturate((clusterDisplacement.y - _WorldHeightThreshold) / max(_WorldHeightFeather, 0.001f));
+        float localRidgeScore = ComputeRidgeScore(memberXZ, dominantXZ, clusterDisplacement.y);
+        float localPlate01 = max(localHeight01, memberFoamPlacement * 0.70f);
+        float lipStrength = saturate(localHeight01 * 0.36f + localRidgeScore * 0.30f + memberFoamPlacement * 0.34f);
+        float lipStart = saturate(_MemberLipThreshold);
+        float lipEnd = max(lipStart + 0.001f, lipStart + max(_MemberLipFeather, 0.001f));
+        float lipVisibility = smoothstep(lipStart, lipEnd, lipStrength);
+        float highLipStart = max(_MemberLipThreshold + _MemberLipFeather * 0.20f, 0.46f);
+        float highLipEnd = max(highLipStart + 0.001f, highLipStart + max(_MemberLipFeather * 1.20f, 0.28f));
+        float highLip01 = smoothstep(highLipStart, highLipEnd, lipStrength);
+        lipVisibility = max(lipVisibility, memberFoamPlacement * 0.44f);
+        highLip01 = max(highLip01, memberFoamPlacement * 0.16f + arcShoulder01 * 0.18f);
+
+        float centerWeight = 1.0f - abs(slot01 * 2.0f - 1.0f);
+        float hierarchy = lerp(1.0f, lerp(0.45f, 1.0f, centerWeight), saturate(_SizeHierarchy));
+        float memberScale01 = hierarchy * lerp(0.55f, 1.0f, localPlate01);
+        memberScale01 *= lerp(max(_LowLipScale, 0.02f), 1.0f, lipVisibility);
+        memberScale01 *= lerp(1.0f, max(_HighLipScaleBoost, 1.0f), highLip01);
+        float compositionSize = lerp(max(_BackgroundClawScale, 0.1f), 1.0f, groupAccent);
+        compositionSize *= 1.0f + mainAccent * 0.32f + sideAccent * 0.12f;
+        memberScale01 *= compositionSize;
+        memberScale01 *= 1.0f + arcShoulder01 * 0.34f;
+        float foamScaleDamp = saturate(max(memberFoamPlacement, foamRibbonFan * 0.42f));
+        memberScale01 *= lerp(1.0f, 0.58f, foamScaleDamp);
+        memberScale01 *= lerp(1.0f, hokusaiSizeProfile, hokusaiLeaf01);
+        memberScale01 *= lerp(1.0f, lerp(0.74f, 1.13f, hokusaiFoamLeafWeight), hokusaiLobeContrast);
+        memberScale01 *= ribbonScreenGate;
+        memberScale01 *= lerp(0.62f, 1.08f, printedIslandGate);
+        memberScale01 *= lerp(1.0f, 0.38f, printGapCull);
+
+        float3 right;
+        float3 meshYAxis;
+        float3 forward;
+        float growthOpen;
+        float memberGrowthOpenBase = saturate(growthOpenBase * lerp(saturate(_LowLipOpenScale), 1.0f, lipVisibility) + highLip01 * 0.10f);
+        float hokusaiRevealDelay = hokusaiLeaf01 * (tail01 * max(_HokusaiTailRevealDelay, 0.0f) + (1.0f - arcCenter01) * 0.045f);
+        hokusaiRevealDelay *= lerp(1.0f, 0.68f, hokusaiCurlProfile * hokusaiProfile01);
+        hokusaiRevealDelay = saturate(hokusaiRevealDelay + hokusaiGapDelay);
+        float delayedRibbonLife = saturate((visibleLife - hokusaiRevealDelay) / max(1.0f - hokusaiRevealDelay, 0.001f));
+        float ribbonLifeOpen = pow(delayedRibbonLife, 0.85f) * saturate(_RibbonOpenFloor) * foamRibbonFan;
+        float tailOpenScale = lerp(0.78f, max(_HokusaiTailScale, 0.05f), saturate(_HokusaiArcProfileStrength));
+        ribbonLifeOpen *= lerp(1.0f, lerp(0.78f, tailOpenScale, tail01), hokusaiLeaf01);
+        ribbonLifeOpen *= lerp(1.0f, 0.76f, hokusaiGapSuppress);
+        ribbonLifeOpen += hokusaiLeafCluster * smoothstep(0.05f, 0.68f, delayedRibbonLife) * 0.120f;
+        ribbonLifeOpen += hokusaiShoulderPose * lerp(0.055f, 0.085f, saturate(_HokusaiArcLobeContrast));
+        memberGrowthOpenBase = max(memberGrowthOpenBase, ribbonLifeOpen);
+        memberGrowthOpenBase = saturate(memberGrowthOpenBase + arcOpen01 * lerp(0.05f, 0.14f, visibleLife));
+        memberGrowthOpenBase *= lerp(1.0f, 0.90f, hokusaiGapSuppress);
+        memberGrowthOpenBase *= lerp(0.45f, 1.0f, ribbonScreenGate);
+        float fanSlot01 = saturate(0.5f + (slot01 - 0.5f) * (1.0f + mainFan * max(_MainFanYawBoost, 0.0f)));
+        fanSlot01 = saturate(fanSlot01 + (curlShoulder01 - 0.5f) * hokusaiProfile01 * 0.24f + hokusaiShoulderPose * 0.10f);
+        fanSlot01 = saturate(fanSlot01 + (hokusaiArcLobeWeight - 1.0f) * hokusaiLobeContrast * 0.10f);
+        fanSlot01 = lerp(fanSlot01, 0.5f, saturate(hokusaiTailPose * 0.18f + hokusaiNegativeSpace * 0.12f));
+        float sheet01 = saturate(memberFoamPlacement * saturate(_FoamSheetFlatten) + visualFoamAccent * 0.50f + hokusaiShoulderPose * 0.13f + hokusaiTailPose * 0.07f);
+        sheet01 *= lerp(0.78f, 1.10f, max(hokusaiLeafCluster, printedIslandGate * 0.76f));
+        sheet01 *= lerp(1.0f, 0.80f, hokusaiGapSuppress);
+        float ribbonGrowthDelay = placement.growthDelay * lerp(1.0f, 1.0f - saturate(_RibbonDelayCompression), foamRibbonFan);
+        ribbonGrowthDelay *= lerp(1.0f, 0.68f, arcOpen01);
+        ribbonGrowthDelay *= lerp(1.0f, 0.74f, hokusaiShoulderPose);
+        ribbonGrowthDelay *= lerp(1.0f, 0.52f, hokusaiLeafCluster);
+        ribbonGrowthDelay = saturate(ribbonGrowthDelay + hokusaiRevealDelay * lerp(0.40f, 0.58f, hokusaiGapSuppress) + hokusaiTailPose * 0.035f);
+        BuildClawBasis(placement.seed, dominant, lateralXZ, clusterNormal, clusterSlope, memberGrowthOpenBase, ribbonGrowthDelay, fanSlot01, sheet01, right, meshYAxis, forward, growthOpen);
+
+        // Stage 7: flatten and cap foam-sheet scale so the output reads as print foam, not upright meshes.
+        // 阶段 7：压扁并限制白沫片缩放，让结果读作版画白沫，而不是竖起来的模型。
+        float newbornLifeScale = smoothstep(_DrawLifeThreshold, max(_VisibleLifeThreshold, _DrawLifeThreshold + 0.02f), life);
+        float printRevealLife = smoothstep(_DrawLifeThreshold, max(_VisibleLifeThreshold + 0.10f, _DrawLifeThreshold + 0.02f), life);
+        float visibleLifeForScale = max(visibleLife, newbornLifeScale * lerp(0.14f, 0.32f, printFoamReveal));
+        float growthOpenForScale = max(growthOpen, newbornLifeScale * lerp(0.06f, 0.16f, printFoamReveal));
+        float3 scale = ComputeInstanceScale(placement.seed, score01, visibleLifeForScale, growthOpenForScale) * memberScale01;
+        float sheetWidth = saturate(max(memberFoamPlacement, visualFoamAccent * 0.48f)) * saturate(_FoamSheetWidthBoost);
+        float hokusaiCurlReach = hokusaiCurlProfile * hokusaiProfile01;
+        scale.x *= 1.0f + sheetWidth * 1.18f + hokusaiLeaf01 * 0.34f + hokusaiCurlReach * 0.16f;
+        scale.z *= 1.0f + sheetWidth * 0.78f + hokusaiLeaf01 * 0.18f + hokusaiCurlReach * 0.10f;
+        float foamHeightMask = saturate(max(max(sheet01 * 1.50f, memberFoamPlacement * 1.65f), hokusaiLeaf01 * 1.15f));
+        float sheetLaydown01 = saturate(max(sheet01, memberFoamPlacement * 0.78f));
+        float tailFlatten = smoothstep(0.42f, 1.0f, tail01) * hokusaiLeaf01;
+        float yHeightCompression = foamHeightMask * (1.0f - sheetLaydown01 * 0.82f);
+        float zThicknessCompression = foamHeightMask * lerp(0.38f, 1.0f, sheetLaydown01);
+        scale.y *= lerp(1.0f, 0.24f, yHeightCompression);
+        scale.y *= lerp(1.0f, 1.34f, sheetLaydown01 * hokusaiLeaf01);
+        scale.y *= lerp(1.0f, 0.78f, tailFlatten * (1.0f - sheetLaydown01 * 0.55f));
+        scale.z *= lerp(1.0f, 0.16f, zThicknessCompression);
+        float foamCapDriver = saturate(max(max(memberFoamPlacement, visualFoamAccent * 0.46f), hokusaiLeaf01));
+        foamCapDriver = saturate(max(foamCapDriver, hokusaiLeafCluster * 0.70f));
+        float foamHeightCap = lerp(64.0f, lerp(32.0f, 54.0f, hokusaiFoamLeafWeight), foamCapDriver);
+        foamHeightCap = lerp(foamHeightCap, 26.0f, tailFlatten);
+        foamHeightCap = lerp(foamHeightCap, 20.0f, hookEndCull);
+        float foamThicknessCap = lerp(28.0f, lerp(8.0f, 15.0f, hokusaiFoamLeafWeight), foamCapDriver);
+        foamThicknessCap = lerp(foamThicknessCap, 8.0f, tailFlatten);
+        foamThicknessCap = lerp(foamThicknessCap, 6.0f, hookEndCull);
+        scale.y = lerp(scale.y, min(scale.y, foamHeightCap), saturate(yHeightCompression * 1.55f));
+        scale.z = lerp(scale.z, min(scale.z, foamThicknessCap), saturate(zThicknessCompression * 1.65f));
+        float memberLifeScaleDriver = saturate(hokusaiLeaf01 * (0.42f + hokusaiNegativeSpace * 0.36f + hokusaiTailPose * 0.22f));
+        float memberLifeScale = lerp(1.0f, lerp(0.30f, 1.0f, smoothstep(0.0f, 0.72f, delayedRibbonLife)), memberLifeScaleDriver);
+        memberLifeScale = lerp(memberLifeScale, 1.0f, hokusaiShoulderPose * 0.18f);
+        scale *= memberLifeScale;
+        scale *= lerp(1.0f, 0.72f, hokusaiGapSuppress);
+        float readableFoamScale = newbornLifeScale * lerp(88.0f, 142.0f, printFoamReveal) * lerp(0.78f, 1.0f, score01) * lerp(0.72f, 1.0f, printedIslandGate);
+        scale.x = max(scale.x, readableFoamScale * lerp(0.58f, 1.02f, printFoamReveal));
+        scale.y = max(scale.y, min(readableFoamScale * lerp(0.40f, 0.56f, printedIslandGate), foamHeightCap));
+        scale.z = max(scale.z, min(readableFoamScale * 0.08f, foamThicknessCap));
+        scale *= lerp(1.0f, 0.42f, printGapCull);
+        float absoluteFoamWidthCap = lerp(72.0f, 104.0f, saturate(max(foamRibbonFan, hokusaiLeafCluster)));
+        float absoluteFoamHeightCap = lerp(22.0f, 32.0f, saturate(max(highLip01, hokusaiLeafCluster)));
+        float absoluteFoamThicknessCap = lerp(6.0f, 11.0f, saturate(max(foamRibbonFan, hokusaiLeafCluster)));
+        scale.x = min(scale.x, absoluteFoamWidthCap);
+        scale.y = min(scale.y, absoluteFoamHeightCap);
+        scale.z = min(scale.z, absoluteFoamThicknessCap);
+        float weakToothRetention = saturate(_HokusaiWeakToothRetention) * hokusaiLeaf01 * (1.0f - saturate(hokusaiGapDelay * 3.0f));
+        weakToothRetention *= lerp(0.72f, 1.16f, hokusaiFoamLeafWeight * saturate(_HokusaiArcLobeContrast));
+        weakToothRetention *= lerp(1.0f, 0.50f, hokusaiGapSuppress);
+        float printFoamRetention = printFoamReveal;
+        float skipRelax = saturate(max(weakToothRetention, printFoamRetention));
+        float hiddenSkipVisibility = lerp(_HiddenLipSkipVisibility, _HiddenLipSkipVisibility * 0.24f, skipRelax);
+        float hiddenSkipOpen = lerp(_HiddenLipSkipOpen, _HiddenLipSkipOpen * 0.22f, skipRelax);
+        float hiddenSkipScaleY = lerp(_HiddenLipSkipScaleY, _HiddenLipSkipScaleY * 0.28f, skipRelax);
+
+        // Stage 8: skip members that are still hidden after all reveal/retention rules.
+        // 阶段 8：跳过经过显隐和保留规则后仍不可见的成员。
+        if (_SkipHiddenLowLipInstances > 0.5f
+            && lipVisibility < hiddenSkipVisibility
+            && growthOpen < hiddenSkipOpen
+            && scale.y < hiddenSkipScaleY)
+            continue;
+        if ((printGapCull > 0.54f && hokusaiFoamLeafWeight < 0.68f)
+            || (rawPrintGapCull > 0.34f && hokusaiFoamLeafWeight < 0.74f))
+            continue;
+        if (hookEndCull > 0.72f && printAnchor < 0.48f)
+            continue;
+        float centerLeafCrowd = HokusaiArcBell(curlShoulder01, 0.50f, 0.125f) * smoothstep(0.46f, 0.84f, printAnchor);
+        float centerThin = centerLeafCrowd * saturate(_HokusaiArcLobeContrast) * 0.66f;
+        if (Hash01(placement.seed ^ 0x56cab1e5U) < centerThin)
+            continue;
+        if (printedIslandGate < 0.08f && hokusaiFoamLeafWeight < 0.52f && memberFoamPlacement < 0.12f)
+            continue;
+
+        // Keep the anchor attached to the crest lip without burying the mesh. The
+        // previous version multiplied rootEmbedFraction by the full instance scale,
+        // which pushed large claws several meters under the FFT surface.
+        float rootEmbedMeters = min(scale.y * saturate(_RootEmbedFraction), max(_RootEmbedMaxMeters, 0.0f));
+        float rootLiftMeters = lerp(_RootLiftRangeMeters.x, _RootLiftRangeMeters.y, smoothstep(0.0f, 1.0f, growthOpen));
+        float verticalJitter = (Hash01(placement.seed ^ 0x9e3779b9U) - 0.5f) * _ClusterVerticalJitter
+                             + rootLiftMeters
+                             - rootEmbedMeters;
+        float3 position = ComputeInstancePosition(memberXZ, clusterDisplacement, verticalJitter, right, meshYAxis, forward, scale);
+
+        float memberLifeDelay = hokusaiLeaf01 * (
+            hokusaiRevealDelay * 0.24f
+            + hokusaiGapDelay * 0.40f
+            + hokusaiTailPose * 0.030f
+            + saturate(1.0f - hokusaiArcLobeWeight) * hokusaiLobeContrast * 0.055f
+            + hokusaiNegativeSpace * 0.065f);
+        memberLifeDelay *= lerp(1.0f, 0.46f, hokusaiShoulderPose);
+        float displayLife = lerp(
+            life,
+            saturate((life - memberLifeDelay) / max(1.0f - memberLifeDelay, 0.001f)),
+            saturate(hokusaiLeaf01 * 0.78f));
+        displayLife *= lerp(1.0f, 0.72f, hokusaiGapSuppress);
+        displayLife = max(displayLife, life * weakToothRetention * lerp(0.42f, 0.26f, hokusaiGapSuppress));
+        float printDisplayLife = printFoamReveal * printRevealLife * lerp(0.58f, 0.78f, hokusaiFoamLeafWeight);
+        displayLife = max(displayLife, printDisplayLife * lerp(1.0f, 0.55f, hokusaiGapSuppress));
+        displayLife = max(displayLife, newbornLifeScale * lerp(0.46f, 0.68f, printFoamReveal));
+        displayLife *= lerp(1.0f, 0.24f, printGapCull);
+        float displayScore = saturate(smoothedScore + highLip01 * saturate(_HighLipFoamBoost) + memberFoamPlacement * 0.075f + visualFoamAccent * 0.075f + arcShoulder01 * 0.12f + weakToothRetention * 0.035f + hokusaiLeafCluster * 0.040f - hokusaiGapSuppress * 0.070f);
+        float displayGrowthOpen = max(growthOpen, max(growthOpenForScale * 0.85f, newbornLifeScale * lerp(0.46f, 0.68f, printFoamReveal)));
+        float printPhase = Hash01(placement.seed ^ 0x0c2b2ae3U);
+        float earlyFold = (1.0f - smoothstep(0.12f, 0.34f, printPhase)) * printFoamReveal;
+        float openLift = smoothstep(0.74f, 0.98f, printPhase) * printFoamReveal;
+        displayGrowthOpen = saturate(displayGrowthOpen + openLift * 0.30f);
+        displayGrowthOpen *= lerp(1.0f, 0.58f, earlyFold);
+        displayGrowthOpen *= lerp(1.0f, 0.35f, printGapCull);
+        float printOpenBand = Hash01(placement.seed ^ 0x5bf03635U);
+        float printOpenJitter = Hash01(placement.seed ^ 0x165667b1U);
+        float stagedPrintOpen = printOpenBand < 0.30f
+            ? lerp(0.12f, 0.28f, printOpenJitter)
+            : (printOpenBand < 0.66f ? lerp(0.38f, 0.62f, printOpenJitter) : lerp(0.78f, 0.98f, printOpenJitter));
+        stagedPrintOpen = lerp(stagedPrintOpen, max(stagedPrintOpen, 0.52f), printedIslandGate * 0.18f);
+        float stagedOpenWeight = saturate(max(printFoamReveal, hokusaiLeaf01) * 1.18f);
+        displayGrowthOpen = lerp(displayGrowthOpen, stagedPrintOpen, stagedOpenWeight);
+        displayGrowthOpen = max(
+            displayGrowthOpen,
+            newbornLifeScale * lerp(0.12f, 0.28f, printFoamReveal) * lerp(0.65f, 1.0f, printedIslandGate));
+        ClawInstanceData data = BuildInstanceData(right, meshYAxis, forward, scale, position, displayScore, displayLife, cell.random01, displayGrowthOpen);
+        if (!TryAppendInstance(data))
+            return;
+    }
+}
+
+// Copies the generated instance count into the indirect draw args buffer.
+// 将生成出的实例数量写入间接绘制 args buffer。
+[numthreads(1, 1, 1)]
+void CS_FinalizeArgs(uint3 id : SV_DISPATCHTHREADID)
+{
+    uint visibleCount = min(_ClawCounter[0], _MaxInstances);
+    _ClawCounter[0] = visibleCount;
+    _ArgsBuffer[1] = visibleCount;
+    _UnderlayArgsBuffer[1] = visibleCount;
+}
