@@ -1,0 +1,267 @@
+"""Minimal numpy-only line plots (no matplotlib in this environment).
+
+    img = plot.line_plot(
+        series=[{"label": "h(t)", "x": t, "y": h, "color": "blue"},
+                {"label": "ref",  "x": t2, "y": h2, "color": "red", "dash": (8, 5)}],
+        title="crest height", xlabel="t [s]", ylabel="h [H]",
+        vlines=[{"x": 4.0, "label": "rise end"}],
+        spans=[{"x0": 0, "x1": 4, "label": "rise", "color": "green"}],
+        ylim=(0, 1.2), size=(1100, 520))
+    imgio.save_png(path, img)
+
+All text must be ASCII.  Returns RGB uint8 arrays (rows top-to-bottom).
+"""
+import math
+
+import numpy as np
+
+from . import draw
+
+
+def nice_ticks(lo, hi, n=6):
+    """Tick positions with 1-2-2.5-5 steps covering [lo, hi]. Returns (ticks, step)."""
+    if not (math.isfinite(lo) and math.isfinite(hi)):
+        return np.array([0.0, 1.0]), 1.0
+    if hi <= lo:
+        hi = lo + 1.0
+    raw = (hi - lo) / max(1, n)
+    mag = 10.0 ** math.floor(math.log10(raw))
+    for m in (1.0, 2.0, 2.5, 5.0, 10.0):
+        step = m * mag
+        if raw <= step:
+            break
+    first = math.ceil(lo / step - 1e-9) * step
+    ticks = np.arange(first, hi + step * 1e-6, step)
+    ticks[np.abs(ticks) < step * 1e-9] = 0.0
+    return ticks, step
+
+
+def _fmt(v, step):
+    if v == 0:
+        return "0"
+    a = abs(v)
+    if a >= 1e5 or a < 1e-4:
+        return "%.2e" % v
+    dec = max(0, int(math.ceil(-math.log10(step) - 1e-9))) if step < 1 else 0
+    if abs(step * 10 ** dec - round(step * 10 ** dec)) > 1e-6:
+        dec += 1
+    return "%.*f" % (dec, v)
+
+
+def _limits(vals, lim, pad_frac=0.05):
+    if lim is not None and lim[0] is not None and lim[1] is not None:
+        return float(lim[0]), float(lim[1])
+    v = np.concatenate([np.ravel(np.asarray(a, dtype=np.float64)) for a in vals]) if vals else np.array([0.0, 1.0])
+    v = v[np.isfinite(v)]
+    if v.size == 0:
+        lo, hi = 0.0, 1.0
+    else:
+        lo, hi = float(v.min()), float(v.max())
+    if hi - lo < 1e-12:
+        d = abs(lo) * 0.05 + 0.5
+        lo, hi = lo - d, hi + d
+    else:
+        d = (hi - lo) * pad_frac
+        lo, hi = lo - d, hi + d
+    if lim is not None:
+        if lim[0] is not None:
+            lo = float(lim[0])
+        if lim[1] is not None:
+            hi = float(lim[1])
+    return lo, hi
+
+
+def line_plot(series, title="", xlabel="", ylabel="", size=(1100, 520), xlim=None, ylim=None,
+              vlines=None, hlines=None, spans=None, legend="right", grid=True, font_scale=2,
+              bg="white", equal_aspect=False, left_margin=None, legend_width=None, _layout_only=False):
+    """Line plot -> RGB uint8 array of shape (size[1], size[0], 3).
+
+    series : list of dicts {label, x, y, color?, width?=2, dash?=(on,off), marker?='o'|'+'|'x'|'s', marker_size?=3,
+             line?=True}.  y may contain NaN (gaps).  color: name from draw.COLORS or (r,g,b).
+    vlines : [{x, label?, color?, dash?}]   vertical marker lines
+    hlines : [{y, label?, color?, dash?}]   horizontal marker lines
+    spans  : [{x0, x1, label?, color?, alpha?=0.15}]  shaded x-ranges
+    xlim / ylim : (lo, hi); either bound may be None = automatic
+    legend : 'right' (outside, default), 'inside' (top-left of the axes) or None
+    equal_aspect : same data units per pixel on both axes (for contour plots)
+    left_margin / legend_width : minimum px reserved left of the axes / for the right legend;
+             multi_plot uses them to give stacked plots identical x axes.
+    """
+    W, Hh = int(size[0]), int(size[1])
+    fs = max(1, int(font_scale))
+    small = max(1, fs - 1) if fs > 2 else fs
+    img = draw.canvas(Hh, W, bg)
+    series = [dict(s) for s in (series or [])]       # never mutate the caller's dicts
+    for k, s in enumerate(series):
+        s.setdefault("color", draw.PALETTE[k % len(draw.PALETTE)])
+
+    xs_all = [s["x"] for s in series]
+    ys_all = [s["y"] for s in series]
+    x_lo, x_hi = _limits(xs_all, xlim, 0.02)
+    y_lo, y_hi = _limits(ys_all, ylim, 0.06)
+
+    # ---- layout
+    labels = [str(s.get("label", "")) for s in series]
+    leg_w = 0
+    if legend == "right" and any(labels):
+        leg_w = max(draw.text_size(l, small)[0] for l in labels) + 48
+    yt, ystep = nice_ticks(y_lo, y_hi, 6)
+    ytick_w = max([draw.text_size(_fmt(v, ystep), small)[0] for v in yt] + [10])
+    left = 12 + (draw.text_size("X", fs)[1] + 10 if ylabel else 0) + ytick_w + 10
+    if left_margin is not None:
+        left = max(left, int(left_margin))
+    if legend_width is not None and legend == "right":
+        leg_w = max(leg_w, int(legend_width))
+    if _layout_only:
+        return {"left_margin": left, "legend_width": leg_w}
+    right = W - 16 - leg_w
+    top = 12 + (draw.text_size("X", fs)[1] + 12 if title else 0)
+    if spans and any(sp.get("label") for sp in spans):
+        top += 0
+    bottom = Hh - (12 + draw.text_size("0", small)[1] + 10 + (draw.text_size("X", fs)[1] + 8 if xlabel else 0))
+    pw, ph = right - left, bottom - top
+    if pw < 50 or ph < 50:
+        raise ValueError("plot size %r is too small" % (size,))
+
+    if equal_aspect:
+        ux = (x_hi - x_lo) / pw
+        uy = (y_hi - y_lo) / ph
+        if ux > uy:
+            c = 0.5 * (y_lo + y_hi)
+            y_lo, y_hi = c - 0.5 * ux * ph, c + 0.5 * ux * ph
+        else:
+            c = 0.5 * (x_lo + x_hi)
+            x_lo, x_hi = c - 0.5 * uy * pw, c + 0.5 * uy * pw
+        yt, ystep = nice_ticks(y_lo, y_hi, 6)
+    xt, xstep = nice_ticks(x_lo, x_hi, 8)
+
+    def X(v):
+        return (np.asarray(v, dtype=np.float64) - x_lo) / (x_hi - x_lo) * pw
+
+    def Y(v):
+        return (y_hi - np.asarray(v, dtype=np.float64)) / (y_hi - y_lo) * ph
+
+    area = img[top:bottom, left:right]            # view: drawing into it clips automatically
+
+    # ---- shaded spans
+    for k, sp in enumerate(spans or []):
+        xa, xb = float(X(sp["x0"])), float(X(sp["x1"]))
+        draw.rect(area, xa, 0, xb, ph, sp.get("color", draw.PALETTE[(k + 2) % len(draw.PALETTE)]),
+                  fill=True, alpha=sp.get("alpha", 0.15))
+    # ---- grid + ticks
+    for v in xt:
+        px = float(X(v))
+        if -0.5 <= px <= pw + 0.5:
+            if grid:
+                draw.line(area, (px, 0), (px, ph), "lightgray", 1, aa=False)
+            draw.line(img, (left + px, bottom), (left + px, bottom + 5), "black", 1, aa=False)
+            draw.text(img, left + px, bottom + 8, _fmt(v, xstep), "black", small, anchor="ct")
+    for v in yt:
+        py = float(Y(v))
+        if -0.5 <= py <= ph + 0.5:
+            if grid:
+                draw.line(area, (0, py), (pw, py), "lightgray", 1, aa=False)
+            draw.line(img, (left - 5, top + py), (left, top + py), "black", 1, aa=False)
+            draw.text(img, left - 8, top + py, _fmt(v, ystep), "black", small, anchor="rm")
+    # ---- span labels (top inside), marker lines
+    for k, sp in enumerate(spans or []):
+        if sp.get("label"):
+            xa, xb = float(X(sp["x0"])), float(X(sp["x1"]))
+            draw.text(area, 0.5 * (max(xa, 0) + min(xb, pw)), 4, str(sp["label"]),
+                      sp.get("color", draw.PALETTE[(k + 2) % len(draw.PALETTE)]), small, anchor="ct",
+                      bg="white", bg_alpha=0.6, margin=1)
+    for k, vl in enumerate(vlines or []):
+        px = float(X(vl["x"]))
+        col = vl.get("color", "darkgray")
+        draw.line(area, (px, 0), (px, ph), col, vl.get("width", 2), dash=vl.get("dash", (6, 4)))
+        if vl.get("label"):
+            row = 1 + (k % 3)
+            draw.text(area, px + 4, 4 + row * (draw.text_size("X", small)[1] + 4), str(vl["label"]), col, small,
+                      anchor="lt", bg="white", bg_alpha=0.6, margin=1)
+    for k, hl in enumerate(hlines or []):
+        py = float(Y(hl["y"]))
+        col = hl.get("color", "darkgray")
+        draw.line(area, (0, py), (pw, py), col, hl.get("width", 2), dash=hl.get("dash", (6, 4)))
+        if hl.get("label"):
+            draw.text(area, pw - 4, py - 3, str(hl["label"]), col, small, anchor="rb", bg="white",
+                      bg_alpha=0.6, margin=1)
+    # ---- data
+    for s in series:
+        x = np.asarray(s["x"], dtype=np.float64).ravel()
+        y = np.asarray(s["y"], dtype=np.float64).ravel()
+        if x.shape != y.shape:
+            raise ValueError("series %r: x and y differ in length" % s.get("label"))
+        pts = np.stack([X(x), Y(y)], axis=1)
+        pts[~np.isfinite(pts).all(axis=1)] = np.nan
+        # keep coordinates bounded so far-away points cannot blow up the raster loops
+        pts = np.clip(pts, -4.0 * max(pw, ph), 5.0 * max(pw, ph))
+        if s.get("line", True) and len(pts) > 1:
+            draw.polyline(area, pts, s["color"], s.get("width", 2), dash=s.get("dash"))
+        mk = s.get("marker")
+        if mk:
+            for p in pts[np.isfinite(pts).all(axis=1)]:
+                if -5 <= p[0] <= pw + 5 and -5 <= p[1] <= ph + 5:
+                    draw.marker(area, p, mk, s.get("marker_size", 3), s["color"], 1.5)
+    # ---- frame, labels
+    draw.rect(img, left - 1, top - 1, right + 1, bottom + 1, "black", 1)
+    if title:
+        draw.text(img, 0.5 * (left + right), 8, str(title), "black", fs, anchor="ct")
+    if xlabel:
+        draw.text(img, 0.5 * (left + right), Hh - 8, str(xlabel), "black", fs, anchor="cb")
+    if ylabel:
+        tw, th = draw.text_size(str(ylabel), fs)
+        tmp = draw.canvas(th + 2, tw + 2, bg)
+        draw.text(tmp, 1, 1, str(ylabel), "black", fs)
+        rot = np.rot90(tmp, 1)                      # reads bottom-to-top
+        y0 = int(round(0.5 * (top + bottom) - rot.shape[0] / 2.0))
+        y0 = max(0, min(y0, Hh - rot.shape[0]))
+        hh = min(rot.shape[0], Hh - y0)
+        img[y0:y0 + hh, 8:8 + rot.shape[1]] = rot[:hh]
+    # ---- legend
+    if legend and any(labels):
+        lh = draw.text_size("X", small)[1] + 8
+        if legend == "right":
+            lx, ly = right + 12, top + 4
+        else:
+            lx, ly = left + 10, top + 8
+            bw = max(draw.text_size(l, small)[0] for l in labels) + 44
+            draw.rect(img, lx - 4, ly - 4, lx + bw, ly + lh * sum(1 for l in labels if l) + 2, "white",
+                      fill=True, alpha=0.8)
+        row = 0
+        for s, l in zip(series, labels):
+            if not l:
+                continue
+            yy = ly + row * lh + lh / 2.0
+            if s.get("line", True):
+                draw.line(img, (lx, yy), (lx + 28, yy), s["color"], s.get("width", 2) + 1, dash=s.get("dash"))
+            if s.get("marker"):
+                draw.marker(img, (lx + 14, yy), s["marker"], s.get("marker_size", 3) + 1, s["color"], 1.5)
+            draw.text(img, lx + 34, yy, l, "black", small, anchor="lm")
+            row += 1
+    return img
+
+
+def multi_plot(plots, ncols=1, gap=10, title=None, bg="white", font_scale=3, align_axes=True):
+    """Stack several plots into one figure.
+    plots: list of RGB arrays and / or dicts of line_plot keyword arguments.
+    align_axes: dict plots get a common left margin and legend width, so plots of equal
+    `size` and `xlim` stacked in one column share their x axis positions."""
+    dicts = [p for p in plots if isinstance(p, dict)]
+    if align_axes and dicts:
+        lay = [line_plot(_layout_only=True, **p) for p in dicts]
+        lm = max(l["left_margin"] for l in lay)
+        lw = max(l["legend_width"] for l in lay)
+        plots = [dict(p, left_margin=max(lm, p.get("left_margin") or 0),
+                      legend_width=max(lw, p.get("legend_width") or 0)) if isinstance(p, dict) else p
+                 for p in plots]
+    imgs = [line_plot(**p) if isinstance(p, dict) else draw.to_rgb(p) for p in plots]
+    rows = []
+    for r in range(0, len(imgs), max(1, ncols)):
+        rows.append(draw.hstack(imgs[r:r + ncols], gap=gap, bg=bg))
+    fig = draw.vstack(rows, gap=gap, bg=bg)
+    if title:
+        tw, th = draw.text_size(title, font_scale)
+        head = draw.canvas(th + 16, max(fig.shape[1], tw + 16), bg)
+        draw.text(head, head.shape[1] / 2.0, 8, title, "black", font_scale, anchor="ct")
+        fig = draw.vstack([head, fig], gap=0, bg=bg, align="center")
+    return fig

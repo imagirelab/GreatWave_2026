@@ -1,0 +1,131 @@
+{
+  "_about": {
+    "comment": "Parameters of src/contour/build_large_form.py (LARGE-FORM base contour = curvature-limited regularisation of the finger-scale base contour). Every entry is {value, comment}. Same params + same finger-scale file -> byte-identical json. Nothing here is a contour point and there is no manual anchor: the only free choices are the ball radius r (follows from spec S8, to be confirmed by the user), the order of opening / closing (reasoned below) and the left-end reading (inherited from the finger-scale file)."
+  },
+
+  "finger_scale_file": {
+    "value": "target/base_contour_finger_scale.json",
+    "comment": "Input: the judged finger-scale base contour (written by src/contour/build_base_contour.py). First run only: if this file does not exist and target/base_contour.json still holds the finger-scale contour, that content is moved here (unchanged except for one added note key)."
+  },
+  "alt_left_end_file": {
+    "value": "results/step1_prepare/contour_final/base_contour_alt_sky_silhouette.json",
+    "comment": "The finger-scale contour with the OTHER reading of the back's left end (sky silhouette), written by build_base_contour.py. Used (a) to draw both readings in the left-end picture and (b) to build the large form of that reading for the official r (target/large_form_variants/large_form_r<r>_alt_sky_silhouette.json), so that a switch of the reading by the user needs no new work."
+  },
+
+  "s8_limit_deg": {
+    "value": 15.0,
+    "comment": "Spec S8 (copy of tests/thresholds.json S8, only used to derive numbers and to draw lines; nothing is judged here)."
+  },
+  "s8_spacing_pct_h": {
+    "value": 1.0,
+    "comment": "Spec S8 sample spacing in % of image height (25.94 px). A circle of radius r turns spacing / r per sample: r = 25.94 px / 0.2618 rad = 99.1 px is the smallest radius of curvature that meets 15 deg."
+  },
+  "s8_n_phases": {
+    "value": 4,
+    "comment": "Own S8 is evaluated for this many sample phases (same as gw.profile_metrics)."
+  },
+  "s8_target_deg": {
+    "value": 11.0,
+    "comment": "ORCHESTRATOR RULE for the official radius: the smallest candidate r whose own S8 maximum (whole contour, 4 phases, ACROSS the head tip) is <= this value, so that a mesh that follows the target within S7 still has real margin under 15 deg."
+  },
+
+  "radii_px": {
+    "value": [100, 120, 135, 150],
+    "comment": "Ball radii of the variants. 100 = just the S8 limit (99.1 px), 120 and 150 = asked for by the orchestrator, 135 = 25.94 px / 11 deg = the radius that corresponds exactly to s8_target_deg (added for information)."
+  },
+  "official_candidates_px": {
+    "value": [100, 120, 150],
+    "comment": "Radii among which the official one is chosen by the s8_target_deg rule (the orchestrator's list). Put a single value here to force a radius after the user's decision."
+  },
+  "morph_order": {
+    "value": "close_open",
+    "allowed": ["close_open", "open_close"],
+    "comment": "Order of the two morphological operations with the ball of radius r. close_open = first CLOSING (a ball rolling on the SKY side fills every concavity it does not fit into: the notches between the foam lobes, the pocket in front of the tip lobe, the corner under the vertical face of the head, the armpit), then OPENING (a ball rolling INSIDE the body rounds every convex corner: the kink right of the crest, the upper and lower right corners of the head; lobes narrower than 2r are removed). Reason for this order (measured, see docs/base_contour_report.md chapter 11): with open_close the notches act as constrictions of the head - the tip lobe is only 120 px thick between the pocket (2127, 770) and the notch of the right flank (2173, 881), and the whole lower block of the head hangs on a neck of 284 px between the corner under the vertical face (1910, 634) and the first notch of the underside (1774, 883). Opening first therefore removes the tip lobe for every r >= 100 px and the whole lower block as soon as 2r > 284 px: the head tip goes from x = 2169 (r = 100) to 2110 (r = 120), 2099 (r = 135) and 1920 px (r = 150), where the head deviates by up to 12 % of image height. close_open is stable: the tip stays within 4 px in x for r = 100..150 (2188 at r = 165; it gives way at r = 180..200). Both orders are computed for every radius and reported; only this one is written to target/base_contour.json."
+  },
+
+  "end_tangent_len_px": {
+    "value": 52.0,
+    "comment": "The contour is extended beyond both ends (left frame edge, trough end) by straight lines along the chord of the first / last 2 % of image height, so that the closed region has no artificial corner at the frame edge or at Z = 0. The region is closed far below the image; the body is inside."
+  },
+  "post_sigma_pct_h": {
+    "value": 0.5,
+    "comment": "Light Gaussian along arclength (13 px, the same sigma as the landmark rule) applied to the re-extracted boundary: removes the residual pixel noise of the raster morphology and the corner points where two ball arcs meet. Shrinks an arc of radius 100 px by sigma^2 / 2r = 0.8 px (r = 150: 0.6 px). Measured: own S8 maximum above the turn of the ball = 0.8 / 0.5 / 0.6 deg (r = 100 / 120 / 150) with sigma 0.25 %, 0.4 / 0.35 / 0.4 deg with 0.5 %, 0.5 / 0.3 / 0.25 deg with 1 % (but then the unchanged stretches shift by 0.3 px); 0.5 % taken. The kept original stretches are not smoothed."
+  },
+
+  "keep_tol_pct_h": {
+    "value": 0.15,
+    "comment": "ORCHESTRATOR RULE: where the regularised line deviates from the finger-scale line by less than this (3.9 px) the ORIGINAL line is kept (pixel-faithful back and inner arc)."
+  },
+  "keep_turn_rule": {
+    "value": "ball",
+    "allowed": ["ball", "none"],
+    "comment": "ADDITION to the rule above (needed, see docs/base_contour_report.md chapter 11): a hand-drawn kink of 10..23 deg moves the line by less than 0.15 % when it is rounded with r <= 150 px, so the distance rule alone would keep it and the large form would still break its own S8 target on the back. 'ball': the original line is kept only where its own turn per S8 spacing (sliding, every 2 px = all phases) is <= the turn of the ball, spacing / r; elsewhere the regularised line is used (it differs by < 0.15 % there). 'none': distance rule only."
+  },
+  "seam_tol_pct_h": {
+    "value": 0.04,
+    "comment": "Hysteresis for smooth seams: a changed stretch is extended outwards until the (1 % moving average of the) distance between the regularised and the original line is below this (1.0 px; the raster noise between the two lines on unchanged stretches is 0.25 px mean, 0.6 px p95), at most seam_max_expand_pct_h; only then the cross-fade to the original line starts. So the cross-fade happens where both lines coincide within the raster noise."
+  },
+  "seam_max_expand_pct_h": {
+    "value": 5.0,
+    "comment": "See seam_tol_pct_h."
+  },
+  "seam_blend_len_pct_h": {
+    "value": 2.0,
+    "comment": "Length of the smoothstep cross-fade (52 px) from the regularised line (weight 0 at the end of a changed stretch) to the original line (weight 1)."
+  },
+  "label_tol_pct_h": {
+    "value": 0.02,
+    "comment": "A point of the 1 px polyline keeps the finger-scale flag (traced, or offset_from_visible_edge on the constructed left end of the back) when its distance to the finger-scale line is <= this (0.519 px), otherwise it is 'large_form_bridge' (which always wins). The flags are decided BEFORE the final 2 px resampling and the rounding to 0.001 px, so a flagged point of the json may exceed the tolerance by a small epsilon: the measured maximum is written into every json (source_flags; official file r = 150: max 0.531 px, 1 of 937 points with an inherited flag above 0.519 px). completed_* flags are always carried over (in_S7 = false). No large-form variant keeps a claw_root_bridge point (the chords end in corners, which the ball always changes), so that flag is only described in a json if it occurs."
+  },
+
+  "label_min_run_pct_h": {
+    "value": 2.0,
+    "comment": "Runs of points within label_tol that are shorter than this (52 px of arclength) are places where the regularised line merely crosses the finger-scale line; they are flagged large_form_bridge too."
+  },
+
+  "sample_spacing_px": {
+    "value": 2.0,
+    "comment": "Schema: uniform arclength spacing per segment, shared joints (same as the finger-scale file)."
+  },
+  "landmark_sigma_pct_h": {
+    "value": 0.5,
+    "comment": "Same robust rule as the finger-scale file: crest = argmin(y), inner-arc deepest point = argmin(x) of a copy smoothed with this sigma."
+  },
+  "plateau_tol_px": {
+    "value": 2.0,
+    "comment": "Crest plateau = contour within this distance of the top row (same as the finger-scale file)."
+  },
+  "tip_tol_pct_h": {
+    "value": 0.1,
+    "comment": "Head tip = right-most point of the large-form head. The right flank is a smooth arc, so the strict maximum is flat: the tip is the vertex of a parabola fitted to x(s) over the run within this distance (2.6 px = gw.profile_metrics extremum_tol_pct_h) of the maximum."
+  },
+  "own_s8_spacing_pct_h": {
+    "value": 1.0,
+    "comment": "Used by the re-measurement helper shared with build_base_contour.py."
+  },
+
+  "tip_window_pct_h": {
+    "value": 2.0,
+    "comment": "The largest turn inside +- this arclength around the head tip is reported separately (gw.profile_metrics excludes exactly this window from its judged S8)."
+  },
+  "thickness_behind_tip_pct_H": {
+    "value": [5, 10, 20],
+    "comment": "Head thickness is reported at these arclength distances (in % of H) behind the tip (pair distance and shortest distance, same definitions as the finger-scale report)."
+  },
+  "phi_windows_pct_H": {
+    "value": [[2, 8], [3, 10], [5, 15]],
+    "comment": "gw.profile_metrics phi (top-side chord before the tip) is evaluated for these windows [skip, skip + length] in % of H, to see whether the library's phi is stable on the large form."
+  },
+  "width_levels_pct_H": {
+    "value": [25, 50, 60, 75, 90],
+    "comment": "Horizontal width of the body (back to front face) at these heights above Z = 0, reference numbers for a future width check (the user's complaint about the Houdini version was 'too wide'). 25 / 50 / 75 were asked for; 60 and 90 are added because the back is outside the frame below 51 % H and the 75 % level grazes the nearly horizontal top of the head's lower block."
+  },
+  "rim_limit_pct_H": {
+    "value": 3.0,
+    "comment": "Spec section 7 / G3: rim thickness of the head <= 3 % of H (copy, for the report only)."
+  },
+  "lowpass_compare_sigma_pct_h": {
+    "value": 2.0,
+    "comment": "COMPARISON ONLY: the judge's arclength Gaussian low-pass of the finger-scale contour (docs/base_contour_report.md section 4)."
+  }
+}

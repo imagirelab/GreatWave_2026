@@ -1,0 +1,69 @@
+{
+  "_doc": "Parameters of base-contour candidate B (outline-based). Every value has a comment saying why. Same params + same painting -> same base_contour.json. No per-point hand tuning: the only hand-picked pixel positions are one flood-fill seed in the open sky and the box that ends the raw trace (both far from any measured feature).",
+
+  "roi_xyxy": {"value": [0, 0, 2700, 2100],
+               "comment": "Work area in painting px (x0, y0, x1, y1). Covers the whole great wave, the hollow, the near wave flank and the visible trough sea; saves time, no effect on results."},
+
+  "pre_blur_r": {"value": 1, "comment": "3x3 box mean on luma and blueness before thresholding (JPEG noise, std about 5-8 levels per channel)."},
+  "ink_blueness_thr": {"value": 8.0,
+                       "comment": "D = B - R. Measured: sky -50..-3, foam white about -22, ink outline +25..+45, dark blue +65. 8 separates the dark gray sky (-5 +- 4) from all blue ink."},
+  "ink_tophat_k": {"value": 13, "comment": "Square size (px) of the luma black top-hat. Outline thickness measured 4-6 px; 13 px is > 2x that."},
+  "ink_tophat_thr": {"value": 45.0,
+                     "comment": "Faded stretches of the key-block outline are dark but NOT blue (e.g. x=1815..1835, y=393: luma 85-130, D about 0). They are caught by closing(L)-L > 45 (sky/foam luma 220-250)."},
+  "ink_tophat_bg_blur_r": {"value": 40, "comment": "Radius of the box mean that estimates the local background brightness."},
+  "ink_tophat_bg_min": {"value": 200.0,
+                        "comment": "The top-hat test is only used where the local background is bright. In the dark gray sky (luma 110-165) the gaps between bright spray dots would otherwise be flagged as ink (seen in a first run at x=1715..1760, y=1640..1660)."},
+
+  "sky_seed_xy": {"value": [2500, 300], "comment": "A pixel in the open sky (upper right of the great wave). Only used as flood-fill seed."},
+  "gap_close_px": {"value": 8,
+                   "comment": "The printed outline has real gaps (open claw tips, e.g. x=1937..1945 y=641; x=1899..1904 y=454..467). A flood fill of the sky leaks into the foam for gap-closing radii 0..6 px and stops leaking at 8 px (measured). The sky core is eroded by this radius and grown back geodesically by radius+2, so sky channels narrower than 16 px (only between claws) are not resolved."},
+
+  "raw_trace_stop_xy": {"value": [1950, 1850],
+                        "comment": "The ordered sky-boundary trace (left frame edge -> back -> head -> hollow -> near wave flank) is cut at the first vertex with x > 1950 AND y > 1850, i.e. at the foot of the near wave flank, beyond the end of the great wave's visible inner arc."},
+
+  "open_radius_px": {"value": 40.0,
+                     "comment": "Rolling-ball radius (morphological opening of the non-sky mask from the body side). Protrusions narrower than 2R = 80 px (3.1 % of image height, 4.7 % of H) count as claws. Looked at R = 20/30/40/55: 20 and 30 leave finger stubs, 55 starts to cut the foam lobes; 40 removes the fingers at their base and keeps the lobes."},
+  "open_radius_sensitivity_px": {"value": [30.0, 55.0], "comment": "Extra radii for which head tip and contour shift are reported (not used for the result)."},
+  "traced_tol_px": {"value": 1.5, "comment": "A vertex of the opened boundary whose sky-side pixel is within this distance of a real sky pixel is 'traced'; the rest are bridges across removed protrusions."},
+  "minor_bridge_max_dev_px": {"value": 3.0, "comment": "Bridges that leave the raw boundary by no more than this (pixel noise, specks, spray dots touching the outline) are relabelled 'traced'; larger ones are 'claw_root_bridge'."},
+
+  "stair_sigma_px": {"value": 2.0, "comment": "Gaussian along arclength that removes the pixel staircase of the crack path before normals are estimated."},
+  "normal_half_window_px": {"value": 6, "comment": "Half length of the chord used for the local normal."},
+  "refine_search_px": {"value": 5.0, "comment": "Half width of the search window for the sub-pixel edge along the normal."},
+  "refine_step_px": {"value": 0.25, "comment": "Sampling step along the normal."},
+  "refine_outer_px": {"value": [3.0, 7.0], "comment": "Offsets (towards the sky) whose median gives the local sky level."},
+  "refine_inner_max_px": {"value": 3.5, "comment": "The ink level is the maximum within this distance inside the first guess (outline core; thickness 4-6 px)."},
+  "refine_level": {"value": 0.5, "comment": "Edge = half level between sky and ink = OUTER edge of the ink outline (the silhouette against the sky includes the outline)."},
+  "refine_luma_sky_min": {"value": 190.0, "comment": "Where the local sky luma is >= 190 the darkness field 255-L is used (sharp, works for faded non-blue ink); below that (gray sky) blueness D is used."},
+  "refine_min_contrast": {"value": 12.0, "comment": "Points with less contrast keep the pixel-level position (interpolated shift)."},
+  "refine_shift_median_win": {"value": 9, "comment": "Running median (samples at 1 px) on the normal shift to reject outliers at specks."},
+
+  "sigma_traced_px": {"value": 3.0, "comment": "Final Gaussian smoothing (arclength) on traced stretches. Requirement: must not move traced points by more than about 4 px (0.15 % of image height)."},
+  "sigma_bridge_px": {"value": 10.0, "comment": "Final smoothing on claw-root bridges (chords between root points). 0.8*sigma*sin(theta/2) = 4 px displacement at a 60 deg root corner."},
+  "sigma_label_blend_px": {"value": 5.0, "comment": "The traced / bridge smoothing results are blended with a Gaussian-smoothed bridge indicator."},
+
+  "landmark_sigma_pct_h": {"value": 0.5, "comment": "Crest (highest point) and inner-arc deepest point (left-most point) lie on nearly flat stretches; they are located as the extreme of a copy of the contour smoothed with this sigma (13 px), which is stable against pixel noise. The head tip is the strict right-most point."},
+  "plateau_tol_pct_h": {"value": 0.1, "comment": "For the report only: extent of the flat stretch within 0.1 % of image height (2.6 px) of the strict extreme."},
+
+  "inner_end_inside_offsets_px": {"value": [8.0, 12.0, 16.0], "comment": "The great wave's visible inner arc ends where the wave side of the boundary stops being blue (median of D at these depths inside > ink_blueness_thr): beyond that the boundary belongs to the near wave (white). With [4, 7, 10] the end was 35 px further down, on a thin dark sliver where the face outline and the near-wave outline are merged; its direction (36 deg) is flatter than the near wave flank (42 deg), so any smooth continuation would run through VISIBLE sky. The sliver is therefore not used."},
+  "inner_end_min_run_px": {"value": 20, "comment": "The non-blue condition has to hold for this many consecutive px."},
+  "completion_tangent_chord_px": {"value": 300.0, "comment": "End tangent of the traced inner arc = direction of the chord over its last 300 px. The hand-drawn line wiggles there: quadratic end-derivative fits over 100..400 px give 34..58 deg, chords over 250..400 px give 52..54 deg (stable), so the long chord is used."},
+  "completion": {"value": "parabola_to_trough_hidden",
+                 "comment": "Hidden part: quadratic Bezier P0 (end of traced arc) - C (where the end tangent meets Z=0) - P1 = C + (f * |C-P0|, 0): tangent-continuous at P0, horizontal at Z=0. f = the largest value of completion_run_fracs for which no sample of the curve lies in the visible sky (the arc is hidden behind the near wave, so it must not show)."},
+  "completion_run_fracs": {"value": [1.0, 0.05, 0.05], "comment": "start, stop, step of the descending search for f."},
+
+  "back_left_variant": {"value": "sky_silhouette",
+                        "allowed": ["sky_silhouette", "white_body_outline"],
+                        "comment": "Which line is the 'back' left of x = 335 px. sky_silhouette = top edge of the blue band (literal silhouette against the sky, orchestrator definition). white_body_outline = lower edge of the blue band, the smooth continuation of the back's ink outline (matches spec S4 'about 25 deg near the left end' and spec 7b). BOTH are always written: the selected one to base_contour.json, the other one to base_contour_alt_<name>.json. The user has to decide."},
+  "alt_join_dist_px": {"value": 8.0, "comment": "The white-body trace is joined to the main contour where the two are closer than this (band has thinned to the outline thickness)."},
+  "alt_blend_len_px": {"value": 80.0, "comment": "Length over which the alt trace (inner edge) is blended into the main contour (outer edge of the outline)."},
+
+  "s4_smooth_sigma_pct_h": {"value": 0.5, "comment": "Slope of the back is measured on a copy smoothed with this sigma (13 px)."},
+  "s4_window_pct_h": {"value": 2.0, "comment": "Arclength window (52 px) over which 'left end' and 'before crest' slopes are averaged."},
+  "s4_coarse_sigma_pct_h": {"value": 3.0, "comment": "The hand-drawn back undulates by about +-7 deg with a period of about 7 % of image height; a second, coarse slope profile (sigma 78 px) shows the large form that the spec values 25 / 47 / 8 deg describe."},
+  "s4_coarse_window_pct_h": {"value": 4.0, "comment": "Averaging window of the coarse slope values."},
+  "thickness_arclength_pct_H": {"value": [5.0, 10.0, 20.0], "comment": "Head thickness is measured this far (arclength, % of H) behind the head tip."},
+  "tip_direction_range_pct_H": {"value": [5.0, 20.0], "comment": "Head-tip pointing direction = direction of the centre line (midpoints of equal-arclength point pairs on top side and underside) fitted over this arclength range behind the tip."},
+  "lowpass_study_sigma_pct_h": {"value": [0.5, 1.0, 2.0, 3.0], "comment": "Information only: Gaussian low-pass sigmas (in % of image height) for which the own S8 smoothness and the shift of the contour are reported per segment (segment end points fixed)."},
+  "sample_spacing_px": {"value": 2.0, "comment": "Output resampling (schema gw.base_contour.v1)."}
+}

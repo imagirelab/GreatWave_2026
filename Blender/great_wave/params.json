@@ -1,0 +1,155 @@
+{
+  "_doc": {
+    "comment": "Single parameter file of the great_wave project. Every entry is an object {value, unit, provenance, comment}. Read it through gw.paths.load_params() / gw.paths.param(name). Same params -> same result: nothing may live only inside a .blend.",
+    "spec_file": "docs/great_wave_blender_prompt.md",
+    "provenance_vocabulary": [
+      "spec section N  = great_wave_blender_prompt.md, section N",
+      "orchestrator probe = measured by the workflow orchestrator before the agents started (environment / Alembic probe)",
+      "user chat message = the user's request that started this workflow (2026-09-20)",
+      "foundation default = chosen by the foundation agent; not from the spec; free to change (must not affect judged results)"
+    ]
+  },
+
+  "WAVE_HEIGHT_M": {
+    "value": 11.0,
+    "unit": "m",
+    "allowed_min": 10.4,
+    "allowed_max": 13.0,
+    "provenance": "spec section 4 (default 11 m; allowed 10.4-13 m = 0.8-1.0 x boat length 13 m, backlog 'okisa no settei')",
+    "comment": "H = height from trough water level (Z=0) to crest. All shape work is done in H-normalised units and multiplied by H at the end."
+  },
+
+  "painting_path": {
+    "value": "reference/Tsunami_by_hokusai_clean.jpg",
+    "unit": "path",
+    "provenance": "Clean 3859x2594 px reference downloaded on 2026-09-24 from Wikimedia Commons File:Tsunami by hokusai 19th century.jpg; SHA-256 30C170260DE393F51BD592ADACC6F0714B60F157C09744E9C5B6D46E6A613718",
+    "comment": "Project-relative clean painting for visual comparison and style studies. The official traced target is target/base_contour.json."
+  },
+  "painting_width_px": {
+    "value": 3859,
+    "unit": "px",
+    "provenance": "spec section 3; re-checked by tests/selftest_foundation.py",
+    "comment": "All 'left %' values of spec section 5 are relative to this width."
+  },
+  "painting_height_px": {
+    "value": 2594,
+    "unit": "px",
+    "provenance": "spec section 3; re-checked by tests/selftest_foundation.py",
+    "comment": "All 'top %' values are relative to this height. '1 % of image height' = 25.94 px is the unit of most tolerances (also for horizontal differences)."
+  },
+
+  "crest_left_pct": {
+    "value": 38.2,
+    "unit": "% of image width, from left",
+    "provenance": "spec section 5 S1 / section 4 (x_left = -0.382 * frame_w)",
+    "comment": "Defining value of the painting frame: the crest sits on the X=0 plumb line. Derived numbers are computed in src/gw/frame.py, never stored."
+  },
+  "crest_top_pct": {
+    "value": 8.7,
+    "unit": "% of image height, from top",
+    "provenance": "spec section 5 S1 / section 4 (z_top = 1 + 0.087 * frame_h)",
+    "comment": "Defining value of the painting frame: the crest is at Z = H."
+  },
+  "height_pct": {
+    "value": 66.0,
+    "unit": "% of image height",
+    "provenance": "spec section 5 S3 / section 4 (frame_h = H / 0.66)",
+    "comment": "Defining value of the painting frame: trough-to-crest height as a fraction of the image height. Trough water level therefore sits at 8.7 + 66.0 = 74.7 % from the top."
+  },
+
+  "fps": {
+    "value": 30,
+    "unit": "frames/s",
+    "provenance": "spec section 6.5 and section 10 assumption 3",
+    "comment": "Deliverable frame rate."
+  },
+  "total_frames": {
+    "value": 285,
+    "unit": "frames",
+    "provenance": "spec section 6.5 (9.5 s x 30 fps)",
+    "comment": "Total length is fixed at 9.5 s; only the split between the three phases may follow the Houdini rhythm (to be reported to the user)."
+  },
+  "backlog_phase_seconds": {
+    "value": [4.0, 3.0, 2.5],
+    "phase_names": ["takamaru (rise)", "haridasu (overhang)", "makikomu (curl-in)"],
+    "unit": "s",
+    "provenance": "spec section 6.5 (backlog initial setting)",
+    "comment": "Initial split rise / overhang / curl-in. Any deviation derived from the Houdini reference has to be reported; the user decides."
+  },
+  "S8_sample_spacing_pct": {
+    "value": 1.0,
+    "unit": "% of image height",
+    "provenance": "spec section 5 S8 and section 10 assumption 4 (initial value of the spec, NOT a backlog threshold)",
+    "comment": "Arc-length spacing of contour samples used for the tangent-difference smoothness test S8."
+  },
+
+  "blender_exe": {
+    "value": "G:/SteamLibrary/steamapps/common/Blender/blender.exe",
+    "unit": "path",
+    "provenance": "orchestrator probe (Blender 5.2.2 LTS, bundled Python 3.13 + numpy 2.3.4)",
+    "comment": "Driven headless: blender.exe --background --factory-startup --python <script> -- <args>. No Blender MCP in this session."
+  },
+  "houdini_abc_path": {
+    "value": "G:/research/Wave Simulation/1.abc",
+    "unit": "path",
+    "provenance": "user chat message; orchestrator probe (Alembic 810 MB, one mesh 'filecache2', constant 611874 verts / 203958 tris, unshared-vertex triangle soup)",
+    "comment": "READ-ONLY. Motion reference ONLY (spec sections 1 and 6.1); never a geometry source."
+  },
+  "houdini_fbx_path": {
+    "value": "G:/research/Wave Simulation/1.fbx",
+    "unit": "path",
+    "provenance": "user chat message; orchestrator probe (one static frame of the same mesh at 0.01 scale, no animation)",
+    "comment": "READ-ONLY. Not needed for motion read-out."
+  },
+  "houdini_abc_fps": {
+    "value": 24,
+    "unit": "frames/s",
+    "provenance": "orchestrator probe",
+    "comment": "Scene frames 1..100. Bounding box at frames 75 and 100 equals frame 1, so the real motion span is shorter than 100 frames."
+  },
+  "houdini_abc_frame_range": {
+    "value": [1, 100],
+    "unit": "frames",
+    "provenance": "orchestrator probe",
+    "comment": "Z-up after Blender import; bbox approx X -27.8..5.3 m, Y -15.4..15.4 m, Z -4.9..+6.1 m around frame 50."
+  },
+
+  "ref_image_tank_frames": {
+    "value": "C:/Users/wang6/AppData/Local/Temp/claude/G--research-Wave-Simulation/e7553aa7-32d8-4436-b66b-078215a3de9f/images/1.webp",
+    "unit": "path",
+    "provenance": "user chat message (attached image 1: six video frames (a)-(f) of a wave-tank experiment)",
+    "comment": "READ-ONLY, session-specific temp path. Dynamics reference only."
+  },
+  "ref_image_houdini_viewport": {
+    "value": "C:/Users/wang6/AppData/Local/Temp/claude/G--research-Wave-Simulation/e7553aa7-32d8-4436-b66b-078215a3de9f/images/2.webp",
+    "unit": "path",
+    "provenance": "user chat message (attached image 2: Houdini viewport screenshot = desired 3D look at the peak)",
+    "comment": "READ-ONLY, session-specific temp path. Per spec section 3 it is NOT a shape ground truth; never take shape data from it."
+  },
+
+  "blend_dir": {
+    "value": "blend",
+    "unit": "path",
+    "provenance": "2026-09-24 migration into the GreatWave_2026 Git repository; generated scenes remain local and ignored",
+    "comment": "Project-relative directory for regenerable Blender scenes. Kept out of version control."
+  },
+  "allowed_write_roots": {
+    "value": [],
+    "unit": "paths",
+    "provenance": "2026-09-24 repository migration; writes are restricted to this Blender project unless explicitly configured",
+    "comment": "gw.paths.assert_writable() always permits this Blender project; extra roots, if any, are resolved relative to this project. No old Claude scratch directory is required."
+  },
+
+  "cam_print_distance_m": {
+    "value": 200.0,
+    "unit": "m",
+    "provenance": "foundation default",
+    "comment": "CAM_print is orthographic, so its distance does not change the framing. The camera sits at Y = -distance and looks along +Y."
+  },
+  "cam_print_clip_m": {
+    "value": [0.1, 1000.0],
+    "unit": "m",
+    "provenance": "foundation default",
+    "comment": "Clip range of CAM_print; wide enough for any crest-line length discussed in spec section 7a."
+  }
+}

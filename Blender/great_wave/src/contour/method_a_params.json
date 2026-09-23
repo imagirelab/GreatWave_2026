@@ -1,0 +1,79 @@
+{
+  "_doc": {
+    "comment": "Parameters of base-contour candidate A (region based). Read only by src/contour/method_a_run.py. Same params + same painting -> same candidate. Pixel values are full-resolution painting pixels (3859x2594). Values marked 'manual anchor' were typed in after looking at the painting; they only select WHERE the algorithm looks (seeds, zones), they are never contour points.",
+    "units": "px = painting pixels; 1 % of image height = 25.94 px"
+  },
+
+  "roi_px": {
+    "value": [0, 0, 2700, 2100],
+    "comment": "manual anchor. [x0, y0, x1, y1] working window. Must contain the whole great wave, its claws, the hollow under the head and the visible trough; the right / bottom parts of the painting are not needed and are left out to save time."
+  },
+
+  "ink_rb_max": {
+    "value": -8,
+    "comment": "A pixel is 'ink or blue' (barrier for the sky flood fill) when R - B < this. Measured: paper / sky R-B = +20..+60 (dark grey sky near the horizon +4..+7), ink lines and all blues -20..-110. Half level of an ink edge is about -5 (tan sky) .. -17 (grey sky)."
+  },
+  "ink_luma_ratio": {
+    "value": 0.72,
+    "comment": "Second ink test for thin / faint outline strokes whose chroma is washed out by JPEG: luma < ratio * local mean luma (box of +-ink_bg_box_halfwidth px). Measured on the thin stroke at x=1950..1990, y=624..639: stroke luma 85..107 against 235 background while R-B only reaches -1..-16."
+  },
+  "ink_bg_box_halfwidth": {"value": 20, "comment": "half width (px) of the box mean that estimates the local background luma."},
+
+  "white_rb_max": {
+    "value": 24,
+    "comment": "'paper white' (unprinted paper = foam, cloud, spray dots): box-mean(R-B) < this AND box-mean(luma) > white_luma_min. Measured box means: foam 9..22, cloud 22, sky next to the head 30..52, sky in the hollow 36, sky above the back 32. Paper-white pixels are a second barrier for the sky flood fill: they stop leaks through open claw tips (outline gaps of ~10 px). The cream back is NOT separable from the sky by colour (R-B 25..30 vs 32) - there the closed ink outline is the only barrier."
+  },
+  "white_luma_min": {"value": 228, "comment": "see white_rb_max."},
+  "white_barrier_zone_px": {
+    "value": [1500, 250, 2400, 1200],
+    "comment": "manual anchor. [x0, y0, x1, y1]: paper white acts as a barrier only inside this window (the claw fringe of the head, same window as claw_zone_px). Reason: a pale cloud patch (paper white, no outline) touches the outline of the back from the SKY side at x = 830..1000 px; with a global white barrier it stuck to the body and pushed the contour 3..8 px into the sky. Outside the window the ink outline is closed (checked: no leak for gap radii 1..6 px)."
+  },
+  "white_box_halfwidth": {"value": 3, "comment": "7x7 box mean for the paper-white test (suppresses paper texture noise, std about 8)."},
+
+  "sky_gap_radius_px": {
+    "value": 3,
+    "comment": "The sky is flood-filled inside the barrier-free area eroded by this radius and then dilated back (restricted to barrier-free pixels): outline gaps narrower than 2*r = 6 px cannot leak. Measured real gaps in the key-block line: 5..6 px (x=1938..1945, y=640; dashed stroke at x=2105..2140, y=770)."
+  },
+  "sky_gap_radius_sweep_px": {"value": [1, 2, 4, 5, 6], "comment": "other gap radii for which the leak check and the sky area are reported (robustness evidence only; they do not influence the contour)."},
+  "sky_seeds_px": {
+    "value": [[300, 300], [2500, 1300], [2000, 300], [1800, 1200]],
+    "comment": "manual anchor. Points that are certainly sky (upper left, right of the claws, above the head, hollow under the head)."
+  },
+  "body_seed_px": {"value": [1400, 900], "comment": "manual anchor. A point inside the Prussian-blue belly of the great wave; the body is the non-sky component that contains it."},
+  "leak_check_points_px": {
+    "value": {"foam_back": [800, 700], "foam_below_crest": [1300, 330], "foam_head": [1750, 345], "foam_lobe": [2150, 815], "foam_head_mid": [1850, 700], "near_wave": [1350, 1650], "belly": [1400, 900]},
+    "comment": "manual anchor. Points that must NOT be sky; the run fails if one of them is flooded."
+  },
+
+  "claw_zone_px": {"value": [1500, 250, 2400, 1200], "comment": "manual anchor. [x0, y0, x1, y1] window around the head where claw finger widths are measured (granulometry)."},
+  "granulometry_radii_px": {"value": [6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32, 36, 40, 50, 60], "comment": "radii for the pattern spectrum (area removed by an opening of radius R inside claw_zone_px)."},
+  "open_radius_px": {
+    "value": 28,
+    "comment": "Disc radius of the opening that removes claws and spray. Chosen from the measured pattern spectrum: the area removed inside the claw zone grows fast for R = 8..20 px (claw fingers, i.e. finger widths 16..40 px), is nearly flat for R = 24..32 px and grows again from R = 36 px (whole foam lobes start to disappear). 28 is the middle of the flat range. The run prints the spectrum again and warns if 28 is no longer inside the flat range."
+  },
+
+  "open_radius_sensitivity_px": {"value": [20, 36, 44, 60, 80], "comment": "other opening radii that are traced and drawn for comparison only (sensitivity image + head-tip table); they do not influence the contour."},
+
+  "traced_tol_px": {"value": 2.0, "comment": "A contour vertex of the opened region counts as 'traced' when it is within this distance of the raw sky/body boundary, else 'claw_root_bridge'."},
+  "min_traced_run_px": {"value": 20, "comment": "traced runs shorter than this between two bridges are relabelled as bridge."},
+  "sigma_traced_px": {"value": 4.0, "comment": "Gaussian sigma (arclength) on traced stretches: removes the 1-px staircase of the crack-following trace. Task limit: must not move a traced stretch by more than ~4 px."},
+  "sigma_bridge_px": {"value": 12.0, "comment": "Gaussian sigma on claw_root_bridge stretches (rounds the cusps where two opening arcs meet inside a claw root)."},
+  "label_blend_sigma_px": {"value": 8.0, "comment": "the bridge weight is a smoothed indicator, rescaled so that it is exactly 0 on traced points."},
+
+  "junction": {
+    "value": {"search_from_y_px": 1300, "inside_offset_px": 12, "window_halfwidth_px": 3, "blue_rb_max": -15, "min_run_px": 40},
+    "comment": "End of the visible inner arc = where the near wave (temae no nami) takes over the sky boundary. Walking down the inner arc (below search_from_y_px) the mean R-B of a small window placed inside_offset_px inside the body is sampled: Prussian/mid blue belly < blue_rb_max, near-wave foam > 0. The junction is the start of the first run of at least min_run_px non-blue samples."
+  },
+  "completion": {
+    "value": {"tangent_fit_px": 80, "flat_run_to": "claw_rightmost_x"},
+    "comment": "Occluded part: a circular arc that starts at the junction with the tangent of the last tangent_fit_px of the traced inner arc and ends tangent to the trough level Z = 0 (source completed_occluded), followed by a flat run along Z = 0 to the x of the right-most claw point (source completed_other)."
+  },
+
+  "sample_spacing_px": {"value": 2.0, "comment": "schema gw.base_contour.v1: uniform arclength spacing inside each segment."},
+  "s8_spacing_pct_h": {"value": 1.0, "comment": "spec S8 sample spacing (% of image height)."},
+  "s7_s8_compat_ball_radii_px": {"value": [60, 100], "comment": "diagnostic only: the opened region is closed and then opened with a ball of this radius to get a smooth stand-in of a mesh silhouette (S8 = 15 deg per 1 % of image height means a radius of curvature >= 99 px); the distance of the base contour to it is reported (S7 vs S8 compatibility). Does not influence the contour."},
+  "s4_tangent_window_pct_h": {"value": 1.5, "comment": "back slope (S4) = direction of the chord over +-this arclength (% of image height) around a point."},
+  "head_thickness_at_pct_H": {"value": [5, 10, 20], "comment": "arclength behind the head tip (in % of H) at which the head thickness is measured."},
+  "s3_trough_search_x_px": {"value": [1800, 2300], "comment": "manual anchor. x range of the hollow in which the lowest visible sky pixel is searched (S3 re-measure)."},
+  "s6_claw_search_px": {"value": [1900, 500, 2600, 1000], "comment": "manual anchor. window for the right-most claw point (S6 re-measure). Only ink pixels of the body count (a paper-white spray dot touches that claw). The window ends at y = 1000 because a faint bluish horizontal streak (printing / scan artefact, x = 2200..2450, y = 1055..1065) would otherwise be the right-most 'ink'."}
+}

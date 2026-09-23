@@ -1,0 +1,169 @@
+{
+  "_about": {
+    "comment": "Parameters of src/contour/build_base_contour.py (judge / merge of the base-contour candidates A and B -> target/base_contour.json). Every entry is {value, comment}. Same params + same candidate files -> byte-identical output. Nothing here is a contour point: manual anchors only say WHERE to look or WHICH candidate to use, and each one says why."
+  },
+
+  "candidate_files": {
+    "value": {
+      "A": "target/candidates/a/base_contour.json",
+      "B": "target/candidates/b/base_contour.json",
+      "B_alt": "target/candidates/b/base_contour_alt_white_body_outline.json"
+    },
+    "comment": "Inputs (relative to the project root). Regenerate them with: run_blender.ps1 src/contour/method_a_run.py ; run_blender.ps1 src/contour/method_b_run.py"
+  },
+  "candidate_sha256_expected": {
+    "value": {
+      "A": "A796F50B",
+      "B": "65F5418D",
+      "B_alt": "4931690E"
+    },
+    "comment": "First 8 hex digits of the SHA-256 of the candidate files that were JUDGED BY EYE on 2026-09-20 (from the candidates' own records). A mismatch is only a warning, but then the verdicts below may be stale: the script fails if it finds an A-B difference > judge_threshold_pct_h that is not covered by a verdict zone."
+  },
+
+  "judge_threshold_pct_h": {
+    "value": 0.5,
+    "comment": "Task definition: every stretch where A and B differ by more than this (in % of image height, = 12.97 px) needs a zoomed crop and a verdict."
+  },
+  "judge_run_merge_gap_px": {
+    "value": 60.0,
+    "comment": "Neighbouring over-threshold runs closer than this (arclength) are reported as one stretch."
+  },
+
+  "verdicts": {
+    "value": [
+      {
+        "id": "V1_hook_claw_1",
+        "bbox_px": [1800, 370, 1900, 470],
+        "use": "B",
+        "A_does": "follows the back (shoulder) of the first hook claw out to about (1877, 420) and returns into the notch under the claw with an R = 28 px arc: a 26 px stump of the claw stays on the contour",
+        "B_does": "chord from the small step in the top outline at (1835, 393), where the claw's back leaves the general slope of the head, to the notch under the claw at (1862, 446)",
+        "reason": "Looked at the 8x crop: the outline comes down the head at about 38 deg, has a short flat step at x 1820..1835 and then swings out into the claw. B's chord continues the general slope and joins the two root points; A's arc is an artefact of the morphological opening (the arc bulges INTO every claw whose base is a little narrower than 2R). 'Join the claw roots' = chord."
+      },
+      {
+        "id": "V2_lobe3_hook_shoulder",
+        "bbox_px": [2070, 630, 2150, 700],
+        "use": "B",
+        "A_does": "follows the back of the big hook claw at the end of the third lobe out to (2135, 680) and comes back with an R = 28 px arc",
+        "B_does": "chord from the notch in the top outline at (2080, 656) to the lower root of the hook at (2129, 695)",
+        "reason": "Same situation as V1: the light-blue shading patch under the claw's back marks the claw base (the print shades the base of most claws like this). B joins upper and lower root point; A keeps the shoulder as a stump (max 26 px = 1.0 % of image height outside B)."
+      },
+      {
+        "id": "V3_sky_pocket_between_lobe3_and_lobe4",
+        "bbox_px": [2060, 695, 2140, 790],
+        "use": "B",
+        "A_does": "removes the thin downward finger (about 20 px wide) right of the pocket, enters the sky-coloured eye of the ring-shaped curl at (2076..2124, 718..768) and runs along its far (left) side",
+        "B_does": "goes down the right side of that finger to about (2125, 728), cuts across to the bottom of the notch at (2097, 768) and continues along the top of the fourth lobe (B's 8 px gap closing treats the eye of the curl as closed)",
+        "reason": "The pocket is the eye of a ring-shaped curl, i.e. part of a claw ornament, not a feature of the large form. Entering it (A) adds a 50 x 50 px concavity to the base contour; ignoring everything right of x = 2079 (a straight bridge from (2079, 655) to (2097, 768)) would cut about 1.5 % of image height into a foam mass that carries the same inner curl pattern as the rest of the head. B lies between the two readings (max distance to A 1.1 %, to the straight bridge about 1.5 %). This zone stays the least certain part of the contour (see doubt_zones)."
+      },
+      {
+        "id": "V4_lowest_lobe_underside",
+        "bbox_px": [2070, 1050, 2160, 1115],
+        "use": "B",
+        "A_does": "R = 28 px arc across the base of the lowest claw of the head, bulging 23 px into the claw",
+        "B_does": "chord between the two root points (2141, 1066) and (2084, 1090)",
+        "reason": "Same as V1: chord between the root points instead of an opening arc that bulges into the claw."
+      },
+      {
+        "id": "V5_completed_part",
+        "bbox_px": [1800, 1740, 2300, 1960],
+        "use": "B",
+        "A_does": "circular arc (R = 483 px, start tangent 51.5 deg) from the junction to Z = 0 at x = 2200, then a flat run along Z = 0 to x = 2288",
+        "B_does": "tangent-continuous parabola (start tangent 52.7 deg from a 300 px chord), constrained so that no sample lies in visible sky, ends on Z = 0 at x = 2189.6; no flat run",
+        "reason": "Both are pure extrapolation and are flagged in_S7 = false, so the choice does not enter S7. B's curve is constrained by something visible (it must stay behind the near wave, i.e. never cross visible sky); in the comparison crop A's arc touches the sky side of the near-wave flank around (1975..2000, 1880..1897). The 3.8 % A-B distance is only A's flat run, which B does not have."
+      }
+    ],
+    "comment": "MANUAL JUDGEMENTS (made by looking at zoomed crops of the painting, results/step1_prepare/contour_final/judge_*.png). 'use' selects the candidate whose geometry goes into the final contour inside the zone: the final contour is B everywhere except where a verdict says 'A' (then A's stretch is spliced in between the points where the two candidates re-join). bbox_px = [x0, y0, x1, y1] only says where the difference is; it is not contour data."
+  },
+
+  "base_candidate": {
+    "value": "B",
+    "comment": "Candidate that supplies the geometry outside the verdict zones. Reason: on all traced stretches A and B agree (back: max 0.13 % of image height, mean 0.01 %; head / inner arc traced points: < 0.5 %), both sit on the outer edge of the ink line (independent half-level checks), so either could be used; B is taken because (1) its bridges are chords between the claw-root points, which is the literal 'join the claw roots', while A's bridges are opening arcs that bulge up to R = 28 px into the claws, (2) its traced points are sub-pixel refined, (3) its completion is constrained by visible sky."
+  },
+
+  "back_left_variant": {
+    "value": "white_body_outline",
+    "allowed": ["white_body_outline", "sky_silhouette"],
+    "comment": "WHICH LINE IS THE BACK LEFT OF x = 338 px - NEEDS THE USER'S CONFIRMATION. The ink outline of the back forks at (337, 894): the upper branch is the top of a dark-blue band (it dips to (145, 932), then RISES to the left frame edge at y = 891, slope -21 deg at the frame edge); the lower branch is the boundary between that band and the white body, runs on without any kink (T-junction: the continuous line belongs to the body in front, the branching line to something behind it) and meets the frame edge at y = 1076, descending monotonically. Chosen: white_body_outline, because (a) the 7x crop shows the inner edge of the back's ink line continuing straight into the band's lower edge while the band's top edge leaves at an angle, (b) spec S4 'about 25 deg near the left end' matches it (22..29 deg at x = 100..200) and not the silhouette (-21 deg), (c) spec 7b 'the frame cuts the back; extend it along the left-end slope down to still water' only makes sense for a line that descends towards the frame edge. The other reading is always written to results/step1_prepare/contour_final/base_contour_alt_<name>.json; the two differ by up to 7.1 % of image height for x < 338 px."
+  },
+  "pending_user_confirmation": {
+    "value": ["back_left_variant"],
+    "comment": "Decisions the user has NOT confirmed yet; written to the json key of the same name (and inherited by build_large_form.py). While 'back_left_variant' is listed, the json also carries pending_stretches.back_left_variant = the x-range (px and H) of the left end of the back that depends on the reading, so that tests can report S7 for that stretch separately. After the user's confirmation: remove the entry and rebuild both contours (labels / meta data only - the geometry does not depend on this entry; the flag offset_from_visible_edge stays, because it states how the line was made, not whether it is confirmed)."
+  },
+  "alt_join_dist_px": {
+    "value": 8.0,
+    "comment": "Mirror of method_b_params.alt_join_dist_px: B's white-body trace is the pure inner edge (white / dark-blue boundary) up to the first point that is closer than this to B's main contour; beyond that point B blends it into the outer edge. Only the pure part is used here."
+  },
+  "line_width_measure_stretch_px": {
+    "value": [40.0, 340.0],
+    "comment": "The ink-line width of the back is measured on this arclength stretch ABOVE the fork (distances from the join point along B's main back). Used as the outward offset of the white-body edge, see white_body_outward_offset."
+  },
+  "white_body_outward_offset": {
+    "value": "measured_line_width",
+    "allowed": ["measured_line_width", "none"],
+    "comment": "The contour is defined as the OUTER edge of the ink outline. Below the fork the outline is hidden in the dark band and only its inner edge (white boundary) is visible, so the visible edge is shifted outwards by the median line width measured above the fork; this makes the back continue without the ~7 px sideways step that a switch from inner to outer edge would otherwise cause. 'none' keeps the visible edge. FLAG (2026-09-20, label only): these points are CONSTRUCTED, not traced (no ink line is drawn there), so they carry source = 'offset_from_visible_edge' instead of 'traced'; in_S7 stays true and the json keys pending_user_confirmation / pending_stretches give their x-range so that tests can report S7 for the stretch separately."
+  },
+  "seam_smooth_sigma_px": {
+    "value": 6.0,
+    "comment": "Gaussian smoothing (along arclength) applied only inside +-seam_smooth_halfwidth_px around the seam between the offset white-body edge and B's main back (removes the residual step of about 1 px)."
+  },
+  "seam_smooth_halfwidth_px": {
+    "value": 30.0,
+    "comment": "See seam_smooth_sigma_px."
+  },
+
+  "completed_other_sea_rb_max": {
+    "value": -15.0,
+    "comment": "Completed points are relabelled 'completed_other' from the first point after which >= 95 % of the remaining completed points lie on dark sea (7x7 mean of R-B below this): there the curve is not hidden by the near wave any more, it runs through the visible sea patch at Fuji's foot where the painting simply shows no wave face. Before that point: 'completed_occluded'. Both are in_S7 = false."
+  },
+
+  "sample_spacing_px": {
+    "value": 2.0,
+    "comment": "Schema: uniform arclength spacing. Each segment is resampled with spacing L / round(L / 2) so that the shared end points are exact (actual_spacing_px is written per segment)."
+  },
+  "landmark_sigma_pct_h": {
+    "value": 0.5,
+    "comment": "Crest = argmin(y), inner-arc deepest point = argmin(x) of a copy smoothed with this sigma (13 px): both lie on nearly flat / vertical stretches where the strict extreme jumps with pixel noise. Same definition as candidate B. The head tip is the strict right-most point between crest and deepest point."
+  },
+  "plateau_tol_px": {
+    "value": 2.0,
+    "comment": "Crest plateau / vertical run of the deepest point = contour within this distance of the extreme coordinate."
+  },
+
+  "s6_window_px": {
+    "value": [2230, 800, 2330, 920],
+    "comment": "MANUAL ANCHOR (search window only): the claw that carries the right-most point of the great wave incl. claws (spec S6 point is at (2284.5, 856.0)). Excludes the faint bluish print artefact at x 2200..2450, y 1055..1065 reported by candidate A."
+  },
+  "s3_sea_columns_px": {
+    "value": [2010, 2080],
+    "comment": "MANUAL ANCHOR (search columns only): columns in which the top edge of the dark sea patch between the near wave and the boat is measured (same columns as candidate B)."
+  },
+  "ink_rb_max": {
+    "value": -8.0,
+    "comment": "R-B below this = ink / blue (measured by both candidates: paper and sky +4..+60, ink and blues -20..-110)."
+  },
+
+  "own_s8_spacing_pct_h": {
+    "value": 1.0,
+    "comment": "Spec S8 sample spacing; the contour's own turning angle is evaluated within each segment, 4 phases."
+  },
+  "lowpass_sigmas_pct_h": {
+    "value": [0.5, 1.0, 1.5, 2.0, 3.0, 4.0, 5.0],
+    "comment": "Diagnostic only (S7 <-> S8 compatibility): the visible part of the final contour is low-passed with these sigmas; for each the own S8 and the distance to the base contour are reported."
+  },
+
+  "doubt_zones": {
+    "value": [
+      {"id": "D1_back_left_end", "bbox_px": [0, 880, 400, 1090], "note": "which branch is the back (see back_left_variant); up to 7.1 % of image height between the readings"},
+      {"id": "D2_crest_plateau", "bbox_px": [1360, 215, 1510, 235], "note": "flat top 5.3 % of image height wide: crest x is ill-conditioned"},
+      {"id": "D3_hook_claws_vertical_face", "bbox_px": [1825, 385, 1900, 615], "note": "three chords across hook-claw roots; root points move about +-10 px with the rolling-ball radius"},
+      {"id": "D4_pocket_lobe3_lobe4", "bbox_px": [2060, 640, 2150, 790], "note": "claw / curl cluster at the end of the third lobe: three defensible readings within about 1.5 % of image height"},
+      {"id": "D5_tip_lobe", "bbox_px": [2100, 740, 2240, 845], "note": "fourth (tip) lobe; the head tip sits on a bridge from the lobe top (2197, 757) across the root of the right-most claw to (2215, 835); the drawn rounded end of the lobe (outline stroke ending at (2225, 775), short stroke at x 2229..2234, y 782..800) lies up to 7 px (0.27 %) OUTSIDE the chord, so the tip is uncertain by about (+0.3, +-0.5) % at finger scale; a larger claw scale (R >= 55) removes the whole lobe and moves the tip by (-1.4, +2.6) %"},
+      {"id": "D6_right_flank_and_underside", "bbox_px": [1655, 785, 2230, 1105], "note": "almost all claws: the contour alternates between notch tops (traced) and chords across claw roots"},
+      {"id": "D7_inner_arc_lower_end", "bbox_px": [1785, 1700, 1850, 1770], "note": "wiggle of the hand-drawn line; last 35 px sliver where the outlines of great wave and near wave merge is not used"},
+      {"id": "D8_completion", "bbox_px": [1820, 1750, 2200, 1945], "note": "pure extrapolation (in_S7 = false)"},
+      {"id": "D10_kink_after_crest", "bbox_px": [1595, 272, 1620, 297], "note": "real corner of the drawn outline (about 51 deg at 1 % sample spacing) where the outline of the crest dome runs into the foam and the first scallop of the head starts; 5.2 % of image height (arclength) after the crest"},
+      {"id": "D9_trough_level", "bbox_px": [1990, 1885, 2300, 1995], "note": "Z = 0 (74.7 %) cannot be tied to a drawn feature; visible sea patch spans about 73.0..76.7 %"}
+    ],
+    "comment": "Places the user should look at first; copied into the JSON ('doubt_zones') and drawn as boxes in overlay_doubt_zones_1600.png. Boxes are for orientation only."
+  }
+}

@@ -1,0 +1,120 @@
+{
+  "_doc": {
+    "comment": "Parameters of src/ref/read_houdini_motion.py (motion read-out of the Houdini reference 1.abc, spec 6.1 / 6.2). Every entry is {value, unit, comment}. Nothing here is a judged threshold; these values only steer how the REFERENCE is measured. Same file + same 1.abc -> same target/houdini_motion.json.",
+    "owner": "reference-motion agent (step 1)"
+  },
+
+  "scan_frames": {
+    "value": [1, 100],
+    "unit": "scene frames (24 fps)",
+    "comment": "Frames that are hashed to find out which ones hold distinct data (params.json houdini_abc_frame_range)."
+  },
+  "view_rect_m": {
+    "value": {"x_min": -24.0, "x_max": 5.2, "z_min": -1.0, "z_max": 8.5},
+    "unit": "m (world, Blender import of 1.abc)",
+    "comment": "Manual anchor values. x_min must lie INSIDE the fluid chunk (mesh X extent -27.8 .. +5.26 m) because gw.silhouette.extract_profile starts on the left frame edge; -24 keeps the splash at the left tank wall (X < -25 m, up to about 1 m high) out of the frame. x_max = 5.2 lies just inside the right end of the chunk (+5.26 m) so the end wall of the chunk never shows up as a fake vertical front face. z range: the crest reaches about +6.3 m."
+  },
+  "chunk_end_zone_x_m": {
+    "value": 4.6,
+    "unit": "m (world X)",
+    "comment": "Manual anchor value. The fluid chunk ends at X = +5.26 m with a rounded corner; in the frame-1 profile the top surface starts to drop at about X = +4.85 m. Points with X above this value are treated as 'end zone of the chunk' by the theta guard (measure_guarded)."
+  },
+  "chunk_end_guard_min_distance_m": {
+    "value": 3.0,
+    "unit": "m",
+    "comment": "The theta guard only acts while the crest is at least this far (in X) behind the end zone, i.e. never on the late frames in which the wave itself is near the end of the chunk."
+  },
+  "px_per_m_full": {
+    "value": 80,
+    "unit": "px/m",
+    "comment": "Mask resolution of the per-frame full side silhouette. gw.silhouette is used with exact=True (sub-pixel crossings), so the accuracy hardly depends on this value."
+  },
+  "px_per_m_section": {
+    "value": 200,
+    "unit": "px/m",
+    "comment": "Mask resolution of the plane-cut section (rasterised by this module with an even-odd fill, profile extracted by gw.silhouette.extract_profile in pixel mode: +-0.5 px crack mid-points + Gaussian sigma 2 px). 200 px/m = about 1240 px per H_ref, i.e. 0.72 x the CAM_print full resolution (1712 px per H)."
+  },
+  "px_per_m_multi_section": {
+    "value": 100,
+    "unit": "px/m",
+    "comment": "Resolution of the additional sections along Y (only used for the timing of events along the crest line)."
+  },
+  "px_per_m_key": {
+    "value": 200,
+    "unit": "px/m",
+    "comment": "Resolution of the key-frame overlays of the full silhouette."
+  },
+  "section_y": {
+    "value": "auto",
+    "unit": "m or 'auto'",
+    "comment": "'auto' = Y of the highest crest at the final frame: crest height per Y bin (y_bin_m), smoothed with a box of y_smooth_m, arg-max, rounded to 0.25 m. The section plane is FIXED in space for all frames."
+  },
+  "y_bin_m": {"value": 0.5, "unit": "m", "comment": "Y bin width of the crest-height-along-Y statistics."},
+  "y_smooth_m": {"value": 3.0, "unit": "m", "comment": "Box width used to smooth crest height along Y before taking the arg-max (the top is a broad plateau)."},
+  "y_wall_margin_m": {"value": 1.0, "unit": "m", "comment": "Y bins closer than this to the side walls of the tank (|Y| = 15.4 m) are ignored when looking for the highest section."},
+  "multi_section_y_m": {
+    "value": [-12.0, -9.0, -6.0, -3.0, 0.0, 3.0, 6.0, 9.0, 12.0],
+    "unit": "m",
+    "comment": "Additional fixed section planes used to show how the timing varies along the crest line."
+  },
+  "slab_check_width_m": {
+    "value": 0.30,
+    "unit": "m",
+    "comment": "Cross-check of the plane-cut rasteriser against the shared library: upper envelope (top-most covered pixel per column) of the gw.silhouette mask of the triangles whose centroid lies within +-width/2 of the section plane, compared with the upper envelope of the plane-cut mask. Only the top edge can be compared: the cache is a thin fluid shell, so a slab of it is an open strip whose interior is not filled."
+  },
+  "slab_check_frames": {"value": [30, 40, 46, 50, 55], "unit": "frames", "comment": "Frames on which the envelope cross-check is run and for which full-resolution key-frame overlays are saved."},
+  "theta_wide_window_pct_h": {
+    "value": 6.0,
+    "unit": "% of image height",
+    "comment": "Companion value theta_wide: same definition as theta but with a 6 % chord instead of the library default 2 %. The Houdini surface carries ripples of the size of one triangle (about 0.17 m = 1.8 % of image height), and theta is a MAX over the front face, so the 2 % value can be dominated by a ripple on early frames. Both are reported; theta (2 %) is the one that is comparable with the new wave."
+  },
+  "h_visible_frac": {
+    "value": 0.02,
+    "unit": "H_ref",
+    "comment": "Frames with h below this are marked 'h_too_small': crest position / theta are dominated by surface noise there. Only a marker, not a threshold."
+  },
+  "phi_monotone_tol_deg": {
+    "value": 2.0,
+    "unit": "deg",
+    "comment": "Start of the curl-in phase = first frame of the longest final run in which phi never rises by more than this tolerance above its running minimum (spec M4: phi turns monotonically downward until the final pose)."
+  },
+  "flat_top_flag_width_H": {
+    "value": 0.25,
+    "unit": "H_ref",
+    "comment": "Frames whose top (Z within 0.5 % H_ref of the max) is wider than this get the flag 'crest_x_ambiguous_flat_top'. Only a marker. (An ordinary round crest with a radius of curvature of 0.25 .. 1 H is already 0.1 .. 0.2 H wide at that depth, hence 0.25.)"
+  },
+  "curl_min_run_frames": {
+    "value": 4,
+    "unit": "frame intervals",
+    "comment": "A curl-in phase is only reported as identified when the final monotone-downward run of phi is at least this long ..."
+  },
+  "curl_min_drop_sigma": {
+    "value": 3.0,
+    "unit": "x noise sd",
+    "comment": "... and phi falls over that run by more than this many times the frame-to-frame noise sd of phi (sd of first differences / sqrt 2). Otherwise the run is reported but not called a phase."
+  },
+  "overhang_min_run_frames": {
+    "value": 3,
+    "unit": "frames",
+    "comment": "Overhang onset = first frame of the first run of at least this many consecutive overhanging frames (guards against a single noisy frame)."
+  },
+  "contact_sheet_every": {"value": 3, "unit": "frames", "comment": "Frame step of the contact sheets (the final frame is always added)."},
+  "zoom_sheet_frames": {"value": [38, 55], "unit": "frames", "comment": "Every frame in this range is shown in the crest-following zoomed sheet (overhang / curl stage)."},
+  "zoom_window_H": {"value": {"left": 1.3, "right": 0.75, "down": 1.0, "up": 0.2}, "unit": "H_ref", "comment": "Crest-following window of the zoomed sheet, relative to the crest (left/right) and to the still water / crest top (down = below the crest, up = above)."},
+  "density_frames": {"value": [20, 35, 45, 55], "unit": "frames", "comment": "Frames of the XZ point-density / top-view images."},
+  "density_y_slabs_m": {
+    "value": [[-14, -10], [-10, -6], [-6, -2], [-2, 2], [2, 6], [6, 10], [10, 14]],
+    "unit": "m",
+    "comment": "Y slabs of the perspective-free XZ point-density images."
+  },
+  "perspective_render": {
+    "value": {"frames": [45, 50, 55], "location_m": [24.0, -20.0, 5.0], "look_at_m": [-1.0, 3.0, 2.2], "lens_mm": 32.0, "resolution": [1200, 591]},
+    "unit": "m / mm / px",
+    "comment": "Manual camera of the optional perspective look renders (stage 'render'): placed in front of and beside the wave so that the concave front face is seen, similar in spirit to the user's Houdini viewport screenshot. Look only; nothing is measured from these images."
+  },
+  "target_timeline": {
+    "value": {"fps": 30, "total_frames": 285, "backlog_seconds": [4.0, 3.0, 2.5]},
+    "unit": "-",
+    "comment": "Copy of params.json fps / total_frames / backlog_phase_seconds (spec 6.5); only used to map the reference proportions. The script asserts that it equals params.json."
+  }
+}
