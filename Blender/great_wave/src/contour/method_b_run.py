@@ -1,12 +1,12 @@
-"""Base-contour candidate B (outline-based).  ONE command regenerates everything:
+"""輪郭線に基づく基準輪郭の候補B。次の1コマンドで全出力を再生成できる:
 
-  & "G:/research/Wave Simulation/blender/great_wave/tools/run_blender.ps1" src/contour/method_b_run.py
+  & "G:/Unity/GreatWave_2026/Blender/great_wave/tools/run_blender.ps1" src/contour/method_b_run.py
 
-Outputs
-  target/candidates/b/base_contour.json                       (selected back_left_variant)
-  target/candidates/b/base_contour_alt_<other variant>.json   (the other reading of the left end)
+出力先
+  target/candidates/b/base_contour.json                       （選択した back_left_variant）
+  target/candidates/b/base_contour_alt_<other variant>.json   （左端の別の読み取り方）
   results/step1_prepare/contour_b/*.png, metrics_b.json
-Parameters: src/contour/method_b_params.json (every value commented).
+パラメーター: src/contour/method_b_params.json。全値に説明がある。
 """
 import os
 import sys
@@ -34,9 +34,9 @@ BRIDGE_COLOR = "black"
 RAW_COLOR = "cyan"
 
 
-# ------------------------------------------------------------------ small helpers
+# ------------------------------------------------------------------ 補助関数
 def clip_start_to_x0(pts, lab):
-    """Make the polyline start exactly on the left frame edge x = 0."""
+    """折れ線の始点を左枠の x = 0 に正確に合わせる。"""
     if pts[0, 0] > 0:
         n = min(12, len(pts) - 1)
         d = pts[n] - pts[0]
@@ -89,7 +89,7 @@ def stats(d):
             "max_px": float(d.max())}
 
 
-# ------------------------------------------------------------------ pipeline for one radius
+# ------------------------------------------------------------------ 一つの半径に対する処理工程
 def contour_for_radius(masks, radius, cfg, refine=True):
     path, dev = C.opened_boundary(masks, radius, cfg)
     pts0, lab0, bridges = C.label_and_bridge(path, dev, cfg)
@@ -107,11 +107,13 @@ def contour_for_radius(masks, radius, cfg, refine=True):
 
 
 def landmarks_of(pts, cfg, F):
-    """Landmark indices on the 1 px contour.  Crest / deepest point lie on nearly flat stretches, so
-    they are taken as the extreme of a copy smoothed with landmark_sigma_pct_h (robust against
-    pixel noise, still 'the highest / left-most point'); the flat stretch itself (within
-    plateau_tol_pct_h) and the strict extreme of the unsmoothed contour are reported as well.
-    The head tip is a well curved extreme: strict argmax of x."""
+    """1 px 間隔の輪郭上で特徴点の番号を求める。
+
+    峰と最深点はほぼ平坦な区間にあるため、landmark_sigma_pct_h で平滑化した
+    写しの極値を採用する。画素雑音の影響を抑えつつ、最高点と最左点を表す。
+    plateau_tol_pct_h 内の平坦区間と、平滑化前の厳密な極値も併記する。
+    波頭の先端は明確に曲がっているため、x の厳密な最大値を用いる。
+    """
     tol = float(F.pct_h_to_px(C.P(cfg, "plateau_tol_pct_h")))
     sm = L.gaussian_smooth_open(pts, float(F.pct_h_to_px(C.P(cfg, "landmark_sigma_pct_h"))), 1.0)
     i_top = int(np.argmin(pts[:, 1]))
@@ -126,15 +128,17 @@ def landmarks_of(pts, cfg, F):
             "i_deep": i_deep, "deep_argmin": i_dmin, "deep_plateau": (da, db)}
 
 
-# ------------------------------------------------------------------ white-body variant of the left end
+# ------------------------------------------------------------------ 左端を白い本体として読む変種
 def white_body_back(masks, main_back, cfg):
-    """Lower edge of the blue band at the left frame edge, joined to the main back.
-    Returns (pts at about 1 px, info dict)."""
+    """左枠にある青帯の下縁を主となる背面輪郭につなぐ。
+
+    約 1 px 間隔の点と情報辞書を返す。
+    """
     thr = C.P(cfg, "ink_blueness_thr")
-    blue = (masks["D"] > thr) | (masks["GR"] > thr)     # dark blue OR the light cyan stripes of the band
+    blue = (masks["D"] > thr) | (masks["GR"] > thr)     # 濃い青、または帯の明るい青緑の筋。
     col = blue[:, 0]
     y_top = int(round(main_back[0, 1]))
-    # last blue pixel of column 0 before the first run of >= 30 non-blue pixels below the sky edge
+    # 空の境界より下で青くない画素が30個以上続く最初の区間、その直前の 0 列目の青画素。
     y = y_top + 5
     h = len(col)
     y_low = None
@@ -172,7 +176,7 @@ def white_body_back(masks, main_back, cfg):
     return out, info
 
 
-# ------------------------------------------------------------------ measurements
+# ------------------------------------------------------------------ 測定
 def back_slopes(back, sigma_pct_h, window_pct_h, cfg, F):
     sig = float(F.pct_h_to_px(sigma_pct_h))
     win = float(F.pct_h_to_px(window_pct_h))
@@ -191,7 +195,7 @@ def back_slopes(back, sigma_pct_h, window_pct_h, cfg, F):
         before["%g_pct_h_before_crest" % d_pct] = mean_in(total - d - 0.5 * win, total - d + 0.5 * win)
     i_min = int(np.argmin(ang[:i_max + 1])) if i_max > 0 else 0
     after_max = ang[i_max:]
-    # largest increase of the slope between the steepest point and the crest (0 = monotone flattening)
+    # 最急点から峰までの傾斜角の増加の最大値。0 なら単調に緩くなる。
     run_min = np.minimum.accumulate(after_max)
     viol = float((after_max - run_min).max())
     px_per_pct = float(F.pct_h_to_px(1.0))
@@ -217,11 +221,13 @@ def back_slopes(back, sigma_pct_h, window_pct_h, cfg, F):
 
 
 def tip_direction_and_thickness(head, inner, cfg, F):
-    """head: crest -> tip, inner: tip -> ... (both about 1 px sampled).  Equal-arclength point pairs
-    behind the tip give the centre line (direction) and the thickness."""
+    """先端から同じ弧長だけ離れた上下の点で中心線の方向と厚さを求める。
+
+    head は峰から先端へ、inner は先端から内側の弧へ向かい、ともに約 1 px 間隔。
+    """
     Hpx = float(F.H_to_px_len(1.0))
-    sh = L.arclength(head[::-1])          # distance back from the tip along the top side
-    si = L.arclength(inner)               # distance from the tip along the underside
+    sh = L.arclength(head[::-1])          # 上面に沿って先端から後方へ進む距離。
+    si = L.arclength(inner)               # 下面に沿って先端から進む距離。
     top = head[::-1]
 
     def at(poly, s, d):
@@ -242,7 +248,7 @@ def tip_direction_and_thickness(head, inner, cfg, F):
     r0, r1 = [v / 100.0 * Hpx for v in C.P(cfg, "tip_direction_range_pct_H")]
     ds = np.arange(r0, r1 + 1e-9, 4.0)
     mids = np.array([0.5 * (at(top, sh, d) + at(inner, si, d)) for d in ds])
-    # principal direction of the mid points, oriented towards the tip
+    # 中点群の主方向を求め、先端へ向かう向きに揃える。
     c = mids.mean(axis=0)
     u, s_, vt = np.linalg.svd(mids - c)
     v = vt[0]
@@ -266,7 +272,7 @@ def s8_report(seg_pts, spacing_px, F, limit=15.0):
             "_points": q, "_turn": turn}
 
 
-# ------------------------------------------------------------------ drawing
+# ------------------------------------------------------------------ 描画
 def draw_contour(view_img, to_view, segs, scale_w=1.0, raw=None):
     if raw is not None:
         draw.polyline(view_img, to_view(raw), RAW_COLOR, 1.0 * scale_w)
@@ -296,7 +302,7 @@ def legend(img, x, y, scale=2):
         draw.text(img, x + 48, yy, t, "black", scale)
 
 
-# ------------------------------------------------------------------ main
+# ------------------------------------------------------------------ 主処理
 def main():
     t_start = time.perf_counter()
     cfg = paths.read_json(PARAMS)
@@ -314,7 +320,7 @@ def main():
     px_per_pct = float(F.pct_h_to_px(1.0))
     Hpx = float(F.H_to_px_len(1.0))
 
-    # ---- A, B
+    # ---- 段階 A、B。
     with bootstrap.Timer("stage A masks"):
         masks = C.build_masks(img, cfg, log)
     for name, (px, py) in {"back foam": (900, 600), "head foam": (2050, 900), "near wave": (1500, 1800)}.items():
@@ -323,7 +329,7 @@ def main():
     raw = C.raw_silhouette(masks, cfg).astype(np.float64)
     log("stage B: raw silhouette %d crack vertices" % len(raw))
 
-    # ---- C, D, E for the selected radius
+    # ---- 選択した半径で段階 C、D、E を実行。
     R = float(C.P(cfg, "open_radius_px"))
     with bootstrap.Timer("stage C-E (R=%g)" % R):
         res = contour_for_radius(masks, R, cfg, refine=True)
@@ -361,10 +367,10 @@ def main():
                "head": (full[i_c:i_t + 1], full_lab[i_c:i_t + 1]),
                "inner_arc": (full[i_t:], full_lab[i_t:])}
 
-    # ---- the other reading of the left end
+    # ---- 左端のもう一つの読み取り方。
     alt_back, alt_info = white_body_back(masks, seg_1px["back"][0], cfg)
     alt_lab = np.zeros(len(alt_back), np.int8)
-    # labels of the shared part are copied from the main back by nearest point
+    # 共有部分のラベルは、主となる背面上の最近接点から引き継ぐ。
     d_, sg_, _ = L.point_polyline_distance(alt_back, seg_1px["back"][0])
     alt_lab = np.where(d_ < 0.5, seg_1px["back"][1][np.clip(sg_, 0, len(seg_1px["back"][1]) - 1)], 0).astype(np.int8)
     variants = {"sky_silhouette": seg_1px["back"], "white_body_outline": (alt_back, alt_lab)}
@@ -372,7 +378,7 @@ def main():
     if selected not in variants:
         raise ValueError("unknown back_left_variant %r" % selected)
 
-    # ---- measurements -------------------------------------------------------------------
+    # ---- 測定 -------------------------------------------------------------------
     metrics = {"params_file": paths.norm(PARAMS), "open_radius_px": R, "refine_info": res["refine_info"],
                "alt_refine_info": alt_info, "n_bridges": len(res["bridges"]),
                "completion": {"start_px": pts[i_end].tolist(), "start_pct": pct(F, pts[i_end]),
@@ -408,7 +414,7 @@ def main():
           "plateau_within_0p1pct_px": [pts[da].tolist(), pts[db].tolist()],
           "plateau_height_pct_h": dpct_h(F, pts[db, 1] - pts[da, 1]),
           "how": "left-most point of the traced boundary between the blue concave face and the sky (outer edge of its outline): argmin(x) of a copy smoothed with sigma = landmark_sigma_pct_h; the boundary is nearly vertical there, so the stretch within 0.1 % of image height of the strict minimum is reported too"}
-    # S3: top edge of the dark sea visible right of the near wave
+    # S3: 手前の波の右側に見える暗い海の上縁。
     xs_t = np.arange(2010, 2081)
     ys_t = []
     for xx in xs_t:
@@ -425,13 +431,13 @@ def main():
           "diff_from_spec_pct_h": float((sea_top - crest[1]) / F.height_px * 100.0 - 66.0),
           "reliable": False,
           "how": "first non-sky pixel below y = 1700 in every column of the gap-closed sky region. The trough floor itself is hidden by the near wave and the boat; the visible sea patch spans from this edge down to about y = 1990 (76.7 %), the spec level 74.7 % (y = 1937.7) lies inside the patch and cannot be tied to a drawn feature."}
-    # S4 for both variants
+    # 両変種の S4。
     s4 = {}
     for vname, (bp, _) in variants.items():
         s4[vname] = back_slopes(bp, C.P(cfg, "s4_smooth_sigma_pct_h"), C.P(cfg, "s4_window_pct_h"), cfg, F)
         s4[vname]["coarse_scale"] = back_slopes(bp, C.P(cfg, "s4_coarse_sigma_pct_h"),
                                                 C.P(cfg, "s4_coarse_window_pct_h"), cfg, F)
-    # S5 / thickness
+    # S5 と厚さ。
     thick, centre_dir, mids = tip_direction_and_thickness(seg_1px["head"][0], seg_1px["inner_arc"][0], cfg, F)
     tipH = Hxy(F, tip)
     crest_to_tip_deg = float(F.px_dir_to_deg(tip[0] - crest[0], tip[1] - crest[1]))
@@ -456,7 +462,7 @@ def main():
           "overhang_pct_H": tipH[0] * 100.0 - Hxy(F, crest)[0] * 100.0,
           "tip_relative_to_S6_spec_pct_h": [dpct_h(F, tip[0] - spec_px["S6_claw_rightmost"][0]),
                                             dpct_h(F, tip[1] - spec_px["S6_claw_rightmost"][1])]}
-    # S6: right-most point of the raw silhouette (claws included)
+    # S6: 爪を含む元の輪郭の最右点。
     sel_r = raw[:, 1] < 1400
     xr = raw[sel_r, 0].max()
     yr = float(raw[sel_r][raw[sel_r, 0] == xr][:, 1].mean())
@@ -479,7 +485,7 @@ def main():
                             "which length its three angles were taken, so profiles and tables are given instead of one number."
                             % (C.P(cfg, "s4_smooth_sigma_pct_h"), C.P(cfg, "s4_window_pct_h"),
                                C.P(cfg, "s4_coarse_sigma_pct_h"), C.P(cfg, "s4_coarse_window_pct_h")))
-    # longest removed claw: raw silhouette points farthest from the final contour
+    # 除いた爪のうち最長のもの: 最終輪郭から最も遠い元の輪郭点。
     sel_c = (raw[:, 1] < 1300) & (raw[:, 0] > 1500)
     rc = raw[sel_c][::2]
     d_c, _, _ = L.point_polyline_distance(rc, pts)
@@ -491,7 +497,7 @@ def main():
     metrics.update({"S1": s1, "S2": s2, "S3": s3, "S4": s4, "S5": s5, "S6": s6, "head_thickness": thick,
                     "claws_removed": metrics_claws})
 
-    # ---- output segments (2 px) for both variants ------------------------------------------
+    # ---- 両変種の出力区間（2 px 間隔）------------------------------------------
     spacing = float(C.P(cfg, "sample_spacing_px"))
     s8_spacing = float(F.pct_h_to_px(paths.param("S8_sample_spacing_pct")))
     written = {}
@@ -508,7 +514,7 @@ def main():
                              "source": [C.SOURCE_NAMES[int(c)] for c in ql],
                              "in_S7": [bool(c in (C.TRACED, C.BRIDGE)) for c in ql],
                              "actual_spacing_px": sp})
-        # shared end points must be identical
+        # 共有する端点は完全に一致させる。
         assert np.allclose(segs_out["back"][0][-1], segs_out["head"][0][0])
         assert np.allclose(segs_out["head"][0][-1], segs_out["inner_arc"][0][0])
         obj = {
@@ -545,7 +551,7 @@ def main():
             (name, vname, len(segs_out["back"][0]), len(segs_out["head"][0]), len(segs_out["inner_arc"][0])))
         if vname == selected:
             segs_sel = segs_out
-        # smoothness of the contour itself (S8 style), within every segment
+        # 各区間内で輪郭そのものの滑らかさを S8 方式で測る。
         s8 = {}
         for sname in ("back", "head", "inner_arc"):
             q, ql = segs_out[sname]
@@ -557,15 +563,15 @@ def main():
                 s8[sname]["_plot"] = (r_all["_points"], r_all["_turn"])
         metrics.setdefault("S8_own", {})[vname] = s8
 
-    # turn around the head tip (on the 1 px contour)
+    # 波頭の先端付近の旋回角（1 px 間隔の輪郭上）。
     turn_tip = {}
     for w_pct in (1.0, 2.0, 5.0, 10.0):
         w = int(round(w_pct * px_per_pct))
         turn_tip["%g_pct_h_each_side" % w_pct] = C.signed_turn_deg(full, max(i_t - w, 0), min(i_t + w, len(full) - 1), 4)
     metrics["head_tip_total_turn_deg"] = turn_tip
 
-    # low-pass study (information for the orchestrator, NOT used for the contour): how much
-    # smoothing would the claw zones need to satisfy S8 themselves, and how far would that move them
+    # 低域通過の調査（統合処理向けの情報で、この輪郭自体には使わない）: 爪の領域だけで
+    # S8 を満たすにはどれだけ平滑化が必要で、点がどれほど動くかを調べる。
     lowpass = {}
     seg_vis = {"back": full[:i_c + 1], "head": full[i_c:i_t + 1], "inner_arc_visible": full[i_t:i_end + 1]}
     for sg_pct in C.P(cfg, "lowpass_study_sigma_pct_h"):
@@ -582,7 +588,7 @@ def main():
         lowpass["sigma_%g_pct_h" % sg_pct] = row
     metrics["lowpass_study"] = lowpass
 
-    # residual raw -> final
+    # 元の輪郭から最終輪郭までの残差。
     resid = {}
     ref_tr = res["pts_refined"][res["lab"] == C.TRACED]
     pix_tr = res["pts_pixel"][res["lab_pixel"] == C.TRACED]
@@ -593,7 +599,7 @@ def main():
             sel = (sg >= a) & (sg < b)
             per[sname] = stats(d[sel])
         resid[nm] = per
-    # bridges: how far the removed raw boundary is from the final contour is not a residual; report depth
+    # 橋: 除いた元の境界と最終輪郭の距離は残差ではないため、深さとして記録する。
     resid["bridges"] = {"n": len(res["bridges"]),
                         "max_removed_depth_px": float(max([b["max_depth_px"] for b in res["bridges"]] or [0.0])),
                         "sum_chord_px": float(sum(b["chord_px"] for b in res["bridges"]))}
@@ -605,7 +611,7 @@ def main():
     metrics["point_counts_selected"] = lab_counts
     metrics["bridges"] = res["bridges"]
 
-    # sensitivity to the rolling-ball radius
+    # 球を転がす半径に対する感度。
     sens = {}
     alt_contours = {}
     for R2 in C.P(cfg, "open_radius_sensitivity_px"):
@@ -621,7 +627,7 @@ def main():
         alt_contours[R2] = r2["pts"][:lm2["i_deep"]]
     metrics["radius_sensitivity"] = sens
 
-    # ---- images -----------------------------------------------------------------------------
+    # ---- 画像 -----------------------------------------------------------------------------
     lm_pts = [("crest", crest, (12, -34)), ("head tip", tip, (14, -30)), ("inner deepest", deep, (16, -10)),
               ("claw rightmost S6", claw, (14, 8)), ("inner arc visible end", pts[i_end], (16, -30)),
               ("completion end Z=0", comp_p1, (-10, 12))]
@@ -634,7 +640,7 @@ def main():
         for name_, p_ in spec_pts:
             draw.label_point(v_img, to_view(p_), name_, "navy", lscale, offset=(-12, 14), kind="x", size=8, width=2.0, outline="white")
 
-    # overview (drawn on a 1600 px wide copy)
+    # 全体図（幅 1600 px の写しに描画）。
     ov_scale = 1600.0 / F.width_px
     ov = draw.resize(img_full, new_w=1600)
     tv = lambda p: np.asarray(p, dtype=np.float64) * ov_scale          # noqa: E731
@@ -696,11 +702,11 @@ def main():
         draw.text(v.img, 10, 10, "%s  x=%d..%d y=%d..%d  x%d" % (cname, cx0, cx1, cy0, cy1, sc), "black", 2, bg="white")
         imgio.save_png(os.path.join(OUT_IMG_DIR, "crop_%s.png" % cname), v.img)
 
-    # debug: sky region + ink
+    # 診断用: 空の領域と墨。
     dbg = img.copy()
     draw.overlay_mask(dbg, masks["sky"], "red", 0.35)
     imgio.save_png(os.path.join(OUT_IMG_DIR, "debug_sky_region_1600.png"), draw.fit_width(dbg, 1600))
-    # debug: radius sensitivity on the head
+    # 診断用: 波頭における半径感度。
     v = draw.View(img_full, 1600, 230, 2400, 1230, scale=2)
     draw.polyline(v.img, v.to_view(raw), RAW_COLOR, 1.0)
     for R2, colr in zip(C.P(cfg, "open_radius_sensitivity_px"), ("green", "blue")):
@@ -710,7 +716,7 @@ def main():
               ((R,) + tuple(C.P(cfg, "open_radius_sensitivity_px"))), "black", 2, bg="white")
     imgio.save_png(os.path.join(OUT_IMG_DIR, "debug_radius_sensitivity_head.png"), v.img)
 
-    # plots: back slope (both variants), own S8 turn
+    # グラフ: 両変種の背面傾斜と独自の S8 旋回角。
     series = []
     for vname, colr in (("sky_silhouette", "red"), ("white_body_outline", "purple")):
         pr = s4[vname]["profile"]
@@ -741,7 +747,7 @@ def main():
     metrics["runtime_s"] = time.perf_counter() - t_start
     paths.write_json(os.path.join(OUT_IMG_DIR, "metrics_b.json"), metrics)
 
-    # ---- console summary ---------------------------------------------------------------------
+    # ---- コンソールの要約 ---------------------------------------------------------------------
     log("S1 crest px (%.1f, %.1f) pct (%.2f, %.2f)  d = (%+.2f, %+.2f) %% of image height; plateau x %.0f..%.0f" %
         (crest[0], crest[1], s1["measured_pct"][0], s1["measured_pct"][1], s1["dx_pct_h"], s1["dy_pct_h"],
          pts[ca, 0], pts[cb, 0]))

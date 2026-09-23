@@ -1,25 +1,25 @@
 <#
 .SYNOPSIS
-  Run a python script headless in Blender, keep the full log, print only prefixed lines.
+  Blender で Python スクリプトを画面なしで実行し、全ログを保存して指定接頭辞の行だけを表示する。
 
 .DESCRIPTION
   blender.exe --background --factory-startup --python-exit-code 1 [<blend>] --python <script> -- <script args>
-  * the full (noisy) output is written to results/logs/<scriptname>_<yyyyMMdd_HHmmss>.log
-  * only lines that start with -Prefix (default 'GW') are printed
-  * the exit code of Blender is returned (uncaught python exception -> 1)
-  Nothing is installed, no environment variable is changed (PYTHONPATH untouched).
+  * 全出力を results/logs/<scriptname>_<yyyyMMdd_HHmmss>.log に保存する。
+  * -Prefix（既定値 GW）で始まる行だけを画面に表示する。
+  * Blender の終了コードを返す。未処理の Python 例外は 1 となる。
+  インストールや環境変数の変更は行わない。PYTHONPATH も変更しない。
 
 .EXAMPLE
-  & "G:/research/Wave Simulation/blender/great_wave/tools/run_blender.ps1" tests/selftest_foundation.py
+  & "G:/Unity/GreatWave_2026/Blender/great_wave/tools/run_blender.ps1" tests/selftest_foundation.py
 .EXAMPLE
   & ".../tools/run_blender.ps1" src/ref/probe.py -Prefix REF -ScriptArgs '--frame','50','--out','x.png'
 .EXAMPLE
-  & ".../tools/run_blender.ps1" tests/run_shape_tests.py -Blend "G:/research/Wave Simulation/blender/great_wave/blend/final.blend"
+  & ".../tools/run_blender.ps1" tests/test_shape.py -Blend "G:/Unity/GreatWave_2026/Blender/great_wave/blend/great_wave.blend"
 
 .NOTES
-  If scripts are blocked by the execution policy of the machine, start it as
+  実行ポリシーでスクリプトが拒否される場合は、次のようにプロセス単位で実行する。
     powershell -ExecutionPolicy Bypass -File ".../tools/run_blender.ps1" <script> ...
-  (a per-process switch; no system setting is changed) or call blender.exe directly.
+  システム設定は変更されない。blender.exe を直接実行してもよい。
 #>
 param(
     [Parameter(Mandatory = $true, Position = 0)][string]$Script,
@@ -34,29 +34,29 @@ param(
 $ErrorActionPreference = 'Continue'
 $projectRoot = Split-Path -Parent $PSScriptRoot
 
-# --- resolve the script (absolute, or relative to the project root / current dir)
+# --- スクリプトのパスを解決する（絶対パス、プロジェクト相対パス、作業ディレクトリ相対パス）
 if (-not [System.IO.Path]::IsPathRooted($Script)) {
     $cand = Join-Path $projectRoot $Script
     if (Test-Path -LiteralPath $cand) { $Script = $cand } else { $Script = Join-Path (Get-Location) $Script }
 }
-if (-not (Test-Path -LiteralPath $Script)) { Write-Output "RUN_BLENDER ERROR script not found: $Script"; exit 2 }
+if (-not (Test-Path -LiteralPath $Script)) { Write-Output "RUN_BLENDER ERROR スクリプトが見つかりません: $Script"; exit 2 }
 $Script = (Resolve-Path -LiteralPath $Script).Path
 
-# --- blender.exe from params.json unless given (no fallback search)
+# --- 指定がなければ params.json から blender.exe を読み込む（他の場所は探さない）
 if (-not $BlenderExe) {
     $paramsFile = Join-Path $projectRoot 'params.json'
     $params = Get-Content -LiteralPath $paramsFile -Raw -Encoding UTF8 | ConvertFrom-Json
     $BlenderExe = $params.blender_exe.value
 }
-if (-not (Test-Path -LiteralPath $BlenderExe)) { Write-Output "RUN_BLENDER ERROR blender.exe not found: $BlenderExe"; exit 2 }
+if (-not (Test-Path -LiteralPath $BlenderExe)) { Write-Output "RUN_BLENDER ERROR blender.exe が見つかりません: $BlenderExe"; exit 2 }
 
-# --- log file
+# --- ログファイル
 $logDir = Join-Path $projectRoot 'results/logs'
 New-Item -ItemType Directory -Force -Path $logDir | Out-Null
 $stamp = Get-Date -Format 'yyyyMMdd_HHmmss'
 $logFile = Join-Path $logDir ("{0}_{1}.log" -f [System.IO.Path]::GetFileNameWithoutExtension($Script), $stamp)
 
-# --- command line
+# --- 実行コマンド
 $cmd = @('--background')
 if (-not $NoFactoryStartup) { $cmd += '--factory-startup' }
 $cmd += @('--python-exit-code', '1')
@@ -82,8 +82,8 @@ finally {
     $writer.Dispose()
 }
 if (($code -ne 0) -and (-not $ShowAll)) {
-    # make failures debuggable without opening the log: show its tail (traceback lives there)
-    Write-Output "RUN_BLENDER --- last 30 log lines (non-zero exit) ---"
+    # 失敗時はログを開かなくても原因を追えるよう末尾を表示する（traceback を含む）。
+    Write-Output "RUN_BLENDER --- 終了コードが非ゼロのため、ログ末尾 30 行 ---"
     Get-Content -LiteralPath $logFile -Tail 30 -Encoding UTF8 | ForEach-Object { Write-Output ("  | " + $_) }
 }
 Write-Output ("RUN_BLENDER exit={0}" -f $code)

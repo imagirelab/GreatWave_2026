@@ -1,24 +1,26 @@
-"""Method A (region based) helpers for the base contour: numpy-only image morphology,
-connected components, crack-following boundary tracing and polyline tools.
+"""領域に基づく方法Aの基準輪郭向け補助機能。numpy のみで画像の形態演算、
+連結成分、画素間の境界追跡、折れ線処理を行う。
 
-All masks are bool arrays (rows top-to-bottom).  All point coordinates are CONTINUOUS
-pixel coordinates of gw.frame (pixel (i, j) covers [i, i+1] x [j, j+1]); a boundary
-traced by `trace_cracks` runs on the integer corner lattice of that system.
+マスクは上から下へ並ぶ bool 配列。点は gw.frame の連続画素座標を使う。
+画素 (i, j) は [i, i+1] x [j, j+1] を覆い、`trace_cracks` が追跡する
+境界はその整数座標の画素角の格子上にある。
 
-No scipy / cv2 here: the Euclidean distance transform is an exact 'capped' EDT
-(1-D row distance + a min-plus pass over +-cap rows), good for radii up to ~100 px.
+scipy / cv2 は使わない。ユークリッド距離変換は上限付きの正確な EDT で、
+行方向の1D距離と上下 cap 行の最小加算処理を組み合わせる。
+半径が約100 px 以下の場合に適する。
 """
 import math
 
 import numpy as np
 
 
-# ------------------------------------------------------------------ distance / morphology
+# ------------------------------------------------------------------ 距離と形態演算
 def edt_capped(mask, cap, pad_mode="edge"):
-    """Exact Euclidean distance (pixel-centre to pixel-centre) from every True pixel to
-    the nearest False pixel, capped: values > cap are returned as cap + 1.
-    False pixels get 0.  The image is padded by replicating its border (pad_mode='edge')
-    so that a region touching the frame is treated as continuing beyond the frame."""
+    """各 True 画素の中心から最も近い False 画素の中心までの正確なユークリッド距離。
+
+    cap を超える値は cap + 1、False 画素は 0 を返す。pad_mode='edge' では
+    画像の端を複製し、枠に接する領域が枠外にも続くものとして扱う。
+    """
     m = np.asarray(mask, dtype=bool)
     cap = int(cap)
     big = cap + 1
@@ -48,14 +50,14 @@ def edt_capped(mask, cap, pad_mode="edge"):
 
 
 def erode_disc(mask, r):
-    """Erosion by a disc of radius r (pixels whose distance to the background is > r)."""
+    """半径 r の円盤で収縮する（背景までの距離が r より大きい画素を残す）。"""
     if r <= 0:
         return np.asarray(mask, dtype=bool).copy()
     return edt_capped(mask, int(math.ceil(r)) + 1) > r
 
 
 def dilate_disc(mask, r):
-    """Dilation by a disc of radius r (pixels within distance <= r of the mask)."""
+    """半径 r の円盤で膨張する（マスクからの距離が r 以下の画素を含める）。"""
     if r <= 0:
         return np.asarray(mask, dtype=bool).copy()
     return ~(edt_capped(~np.asarray(mask, dtype=bool), int(math.ceil(r)) + 1) > r)
@@ -69,11 +71,13 @@ def close_disc(mask, r):
     return erode_disc(dilate_disc(mask, r), r)
 
 
-# ------------------------------------------------------------------ connected components
+# ------------------------------------------------------------------ 連結成分
 def label_components(mask):
-    """4-connected components of a bool mask.  Returns (labels int32 (0 = background), n).
-    Run based: row runs are the graph nodes, vertical overlaps the edges; components by
-    min-label hooking + pointer jumping (all vectorised)."""
+    """真偽マスクの4近傍連結成分を求める。
+
+    ラベル配列 int32（0 は背景）と成分数を返す。各行の連続区間を節点、上下の重なりを
+    辺とするグラフを作り、最小ラベルの結合とポインタジャンピングで成分を求める。
+    """
     m = np.asarray(mask, dtype=bool)
     h, w = m.shape
     start = m.copy()
@@ -103,7 +107,7 @@ def label_components(mask):
                 break
             parent = pp
     roots, inv = np.unique(parent, return_inverse=True)
-    # root 0 is the background (rid 0 -> parent 0)
+    # 根の 0 は背景（rid 0 -> parent 0）。
     lab_of_run = inv.astype(np.int32)
     if roots[0] != 0:
         lab_of_run = lab_of_run + 1
@@ -112,8 +116,10 @@ def label_components(mask):
 
 
 def components_touching(mask, seeds_xy):
-    """Union of the 4-connected components of `mask` that contain one of the seed pixels
-    (x, y).  Seeds that fall on False pixels are reported in the second return value."""
+    """種画素 (x, y) を含む `mask` の4近傍連結成分の和を返す。
+
+    False 画素上にある種は二つ目の返却値に記録する。
+    """
     labels, _ = label_components(mask)
     keep, missed = set(), []
     for (x, y) in seeds_xy:
@@ -130,7 +136,7 @@ def components_touching(mask, seeds_xy):
 
 
 def box_mean(a, k):
-    """Mean over a (2k+1) x (2k+1) box, edge replicated.  a: 2-D float array."""
+    """二次元浮動小数点配列 a を (2k+1) x (2k+1) の窓で平均する。端は複製する。"""
     a = np.asarray(a, dtype=np.float32)
     if k <= 0:
         return a.copy()
@@ -145,8 +151,8 @@ def box_mean(a, k):
     return (r / float(n * n)).astype(np.float32)
 
 
-# ------------------------------------------------------------------ boundary tracing
-_DIRS = ((1, 0), (0, 1), (-1, 0), (0, -1))     # E, S, W, N in image coords (y down); +1 = right turn
+# ------------------------------------------------------------------ 境界の追跡
+_DIRS = ((1, 0), (0, 1), (-1, 0), (0, -1))     # 画像座標（y は下向き）で東、南、西、北。+1 は右折。
 
 
 def _pix(mask, x, y, outside):
@@ -157,11 +163,13 @@ def _pix(mask, x, y, outside):
 
 
 def trace_cracks(mask, start_vertex, start_dir, stop_fn, max_steps=2000000, outside=None):
-    """Follow the crack (pixel edge) boundary of `mask` with the mask (body) on the RIGHT
-    hand side and the background on the LEFT (image coords, y down), body 8-connected.
-    start_vertex: integer corner (x, y); start_dir: index into E,S,W,N.
-    stop_fn(x, y, n) -> True stops.  outside(x, y) gives the mask value outside the array
-    (default: False).  Returns an (N, 2) int array of corner vertices."""
+    """本体を右、背景を左に置きながら `mask` の画素間境界を追跡する。
+
+    画像座標は y が下向きで、本体は8近傍連結とする。start_vertex は整数の角座標
+    (x, y)、start_dir は東・南・西・北の番号。stop_fn(x, y, n) が True を返すと
+    停止する。outside(x, y) は配列外のマスク値（既定値 False）を与える。
+    角頂点の整数配列 (N, 2) を返す。
+    """
     if outside is None:
         outside = lambda x, y: False
     x, y = int(start_vertex[0]), int(start_vertex[1])
@@ -169,23 +177,23 @@ def trace_cracks(mask, start_vertex, start_dir, stop_fn, max_steps=2000000, outs
     pts = [(x, y)]
     for n in range(max_steps):
         dx, dy = _DIRS[d]
-        # pixels ahead of the vertex: front-left and front-right w.r.t. the direction
-        if d == 0:      # E: front pixels have x, rows y-1 (left = north) and y (right = south)
+        # 頂点の前にある画素を、進行方向から見た左前と右前に分ける。
+        if d == 0:      # 東: 左前は北側 y-1、右前は南側 y の画素。
             fl, fr = (x, y - 1), (x, y)
-        elif d == 1:    # S: left = east
+        elif d == 1:    # 南: 左は東。
             fl, fr = (x, y), (x - 1, y)
-        elif d == 2:    # W: left = south
+        elif d == 2:    # 西: 左は南。
             fl, fr = (x - 1, y), (x - 1, y - 1)
-        else:           # N: left = west
+        else:           # 北: 左は西。
             fl, fr = (x - 1, y - 1), (x, y - 1)
         bl = _pix(mask, fl[0], fl[1], outside)
         br = _pix(mask, fr[0], fr[1], outside)
         if bl:
-            d = (d + 3) % 4          # turn left
+            d = (d + 3) % 4          # 左折。
         elif br:
-            pass                      # straight
+            pass                      # 直進。
         else:
-            d = (d + 1) % 4          # turn right
+            d = (d + 1) % 4          # 右折。
         dx, dy = _DIRS[d]
         x, y = x + dx, y + dy
         pts.append((x, y))
@@ -194,7 +202,7 @@ def trace_cracks(mask, start_vertex, start_dir, stop_fn, max_steps=2000000, outs
     return np.array(pts, dtype=np.int64)
 
 
-# ------------------------------------------------------------------ polylines
+# ------------------------------------------------------------------ 折れ線
 def arclength(pts):
     p = np.asarray(pts, dtype=np.float64)
     seg = np.hypot(np.diff(p[:, 0]), np.diff(p[:, 1]))
@@ -202,8 +210,10 @@ def arclength(pts):
 
 
 def resample(pts, spacing, s=None, return_s=False):
-    """Uniform arclength resampling (linear interpolation); always keeps both end points.
-    The spacing is adjusted slightly so that the samples are exactly uniform."""
+    """弧長を等間隔で再標本化する（線形補間）。
+
+    両端点を必ず保持し、標本の間隔が正確に等しくなるよう少し調整する。
+    """
     p = np.asarray(pts, dtype=np.float64)
     s = arclength(p) if s is None else s
     total = s[-1]
@@ -219,9 +229,10 @@ def interp_at(pts, s, t):
 
 
 def gaussian_smooth(values, sigma, step=1.0):
-    """Gaussian smoothing of an (N, k) or (N,) sequence sampled at uniform `step`.
-    End handling: the sequence is extended by point reflection about its end points
-    (keeps end positions and end tangents, no shrinkage at the ends)."""
+    """等間隔 `step` の系列 (N, k) または (N,) をガウス平滑化する。
+
+    端点で点対称に反射して系列を延長するため、端点の位置と接線を保ち、端が縮まない。
+    """
     v = np.asarray(values, dtype=np.float64)
     one_d = v.ndim == 1
     if one_d:
@@ -241,21 +252,25 @@ def gaussian_smooth(values, sigma, step=1.0):
 
 
 def tangent_angles(pts):
-    """Direction (deg, gw.frame convention: 0 = +X right, +90 = up) of the central-difference
-    tangent at every point of a polyline given in pixel coords."""
+    """画素座標で与えた折れ線の各点について、中心差分による接線方向を度数で返す。
+
+    gw.frame の規約に従い、0 は右向きの +X、+90 は上向き。
+    """
     p = np.asarray(pts, dtype=np.float64)
     d = np.gradient(p, axis=0)
     return np.degrees(np.arctan2(-d[:, 1], d[:, 0]))
 
 
 def angle_diff_deg(a, b):
-    """Smallest signed difference a - b in degrees."""
+    """角度 a - b の最小符号付き差を度数で返す。"""
     return (np.asarray(a) - np.asarray(b) + 180.0) % 360.0 - 180.0
 
 
 def point_to_polyline_dist(q, pts):
-    """Distance from each query point (M, 2) to the polyline pts (N, 2) (segment exact).
-    Chunked, O(M * N)."""
+    """各照会点 (M, 2) から折れ線 pts (N, 2) の線分までの正確な距離を返す。
+
+    分割して計算し、計算量は O(M * N)。
+    """
     q = np.atleast_2d(np.asarray(q, dtype=np.float64))
     p = np.asarray(pts, dtype=np.float64)
     a, b = p[:-1], p[1:]

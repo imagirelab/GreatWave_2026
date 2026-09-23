@@ -1,16 +1,16 @@
-"""Helpers for scripts that are run headless by Blender.
+"""Blender を画面なしで実行するスクリプト向けの補助機能。
 
-Header every script in tests/, tools/ or src/<pkg>/ should start with
-(the import of gw itself needs src/ on sys.path, hence the 4 plain lines):
+tests/、tools/、src/<pkg>/ の各スクリプトは次のヘッダーで始める。
+gw の読込には src/ を sys.path に含める必要があるため、最初の4行を置く。
 
     import os, sys
     _SRC = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "src"))
     if _SRC not in sys.path:
         sys.path.insert(0, _SRC)
     from gw import bootstrap
-    args = bootstrap.script_args()          # everything after '--'
+    args = bootstrap.script_args()          # '--' 以降の全引数
 
-No environment variable is read or modified (user rule: do not touch PYTHONPATH).
+環境変数の読込や変更は行わない。ユーザー指定により PYTHONPATH に触れない。
 """
 import os
 import sys
@@ -23,14 +23,14 @@ LOG_PREFIX = "GW"
 
 
 def add_src_to_path():
-    """Put <project>/src at the front of sys.path (idempotent). Returns the path."""
+    """<project>/src を sys.path の先頭に置き、そのパスを返す。繰り返し呼んでも結果は同じ。"""
     if SRC_DIR not in sys.path:
         sys.path.insert(0, SRC_DIR)
     return SRC_DIR
 
 
 def script_args(argv=None):
-    """Arguments after the first '--' of the Blender command line ([] if none)."""
+    """Blender のコマンド行で最初の '--' より後の引数を返す。なければ空リスト。"""
     argv = sys.argv if argv is None else list(argv)
     if "--" in argv:
         return list(argv[argv.index("--") + 1:])
@@ -38,12 +38,12 @@ def script_args(argv=None):
 
 
 def parse_args(parser, argv=None):
-    """Run an argparse.ArgumentParser on the arguments after '--'."""
+    """'--' より後の引数を argparse.ArgumentParser で解析する。"""
     return parser.parse_args(script_args(argv))
 
 
 def in_blender():
-    """True when running inside Blender's python (bpy importable)."""
+    """Blender の Python 内で動き、bpy を読み込める場合に True を返す。"""
     try:
         import bpy  # noqa: F401
         return True
@@ -52,7 +52,7 @@ def in_blender():
 
 
 def blender_version():
-    """e.g. '5.2.2 LTS' or None outside Blender."""
+    """Blender のバージョン文字列を返す。Blender 外では None。例: '5.2.2 LTS'。"""
     try:
         import bpy
         return bpy.app.version_string
@@ -66,9 +66,9 @@ def set_log_prefix(prefix):
 
 
 def log(*parts, prefix=None):
-    """print('GW <text>') and flush; tools/run_blender.ps1 shows only such lines.
+    """'GW <本文>' を出力し、バッファーを流す。tools/run_blender.ps1 はこの接頭辞の行を表示する。
 
-    Non-ASCII characters are replaced so that a cp936/cp1252 console never raises.
+    非 ASCII 文字をエスケープし、文字コードが異なる端末でも例外や文字化けを避ける。
     """
     text = " ".join(str(p) for p in parts)
     text = text.encode("ascii", "backslashreplace").decode("ascii")
@@ -79,7 +79,7 @@ def log(*parts, prefix=None):
 
 
 class Timer:
-    """with Timer('load painting'): ...   -> logs 'GW [time] load painting: 0.412 s'."""
+    """with Timer('原画読込'): ... の所要時間をログに記録する。"""
 
     def __init__(self, label, quiet=False):
         self.label = label
@@ -98,14 +98,14 @@ class Timer:
 
 
 def reset_scene():
-    """Empty factory scene (no cube / light / camera).  Blender only."""
+    """キューブ、照明、カメラを含まない空の初期シーンにする。Blender 専用。"""
     import bpy
     bpy.ops.wm.read_factory_settings(use_empty=True)
     return bpy.context.scene
 
 
 def finish(ok, message=""):
-    """Log a final verdict line and leave Blender with exit code 0 / 1."""
+    """最終判定をログに記録し、終了コード0または1で Blender を終了する。"""
     log("RESULT %s %s" % ("PASS" if ok else "FAIL", message))
     sys.stdout.flush()
     sys.exit(0 if ok else 1)

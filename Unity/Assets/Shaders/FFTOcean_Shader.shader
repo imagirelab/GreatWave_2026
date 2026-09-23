@@ -1,6 +1,6 @@
 Shader "MasterProject/FFTOcean_Shader"
 {
-    //细分相关计算
+    // テッセレーションに関する計算
     CGINCLUDE
     int _TessEdgeLength;
 
@@ -9,15 +9,14 @@ Shader "MasterProject/FFTOcean_Shader"
         float inside : SV_INSIDETESSFACTOR;
     };
 
-    //细分启动式
+    // テッセレーション係数の算出式
     float TessellationHeuristic(float3 cp1, float3 cp2){
         float edgeLength = distance(cp1, cp2);
         float3 edgeCenter = (cp1 + cp2) * 0.5;
         float viewDistance = distance(edgeCenter, _WorldSpaceCameraPos);
 
-        // Unclamped this hits the hardware max (64x) whenever the camera nears the surface,
-        // exploding triangle throughput exactly when the rest of the frame is heaviest.
-        // 不加上限时，相机贴近水面会直接顶到硬件 64 倍细分，几何量在帧最重的时刻爆炸，这里限制到 32。
+        // カメラが水面へ近づくと無制限ではハードウェア上限の 64 倍に達し、
+        // 最も負荷が高い場面で三角形数が急増するため、32 倍を上限とする。
         return clamp(edgeLength * _ScreenParams.y / (_TessEdgeLength * pow(viewDistance * 0.5f, 1.2f)), 1.0f, 32.0f);
     }
 
@@ -42,7 +41,7 @@ Shader "MasterProject/FFTOcean_Shader"
     }
     SubShader
     {
-        //基础着色pass
+        // 基本描画パス
         pass{
             Tags { "LightMode" = "ForwardBase" }
             Tags { "RenderType"="Opaque" }
@@ -55,11 +54,8 @@ Shader "MasterProject/FFTOcean_Shader"
             #include "UnityPBSLighting.cginc"
             #include "AutoLight.cginc"
 
-            // The previous pass-through geometry stage only forwarded unused barycentric
-            // coordinates while forcing every tessellated triangle through an extra pipeline
-            // stage on the 1.2 km ocean - removed to cut GPU geometry cost.
-            // 之前的 geometry shader 只透传了从未使用的重心坐标，却让全部细分三角形多走一个
-            // 流水线阶段，已移除以降低 GPU 几何开销。
+            // 旧ジオメトリ段階は使わない重心座標を渡すだけなのに、1.2 km の海面上の
+            // 全細分三角形に処理段階を増やしていた。GPU の幾何負荷を下げるため削除した。
             #pragma vertex vert
             #pragma hull hull
             #pragma domain domain
@@ -91,7 +87,7 @@ Shader "MasterProject/FFTOcean_Shader"
 
             float _VarMaskRange, _VarMaskPower, _VarMaskTexScale;
 
-            // Ukiyo-e woodblock style / 浮世绘版画风格参数（由 FFTOcean_Script.SetMaterialParam 上传）
+            // 浮世絵の木版画表現に使う値。FFTOcean_Script.SetMaterialParam から渡される。
             float3 _DeepInkColor, _MidWaterColor, _PaleWaterColor, _FoamCreamColor, _OutlineInkColor;
             float _ToonBands, _OutlineStrength, _OutlineWidth, _FoamCutoff, _FoamEdgeSoftness;
             float _PrintMottle, _LightInfluence, _HeightShadeScale, _SteepShadeScale;
@@ -102,9 +98,9 @@ Shader "MasterProject/FFTOcean_Shader"
             float _FoamContourStrength, _FoamContourScale, _FoamScallopStrength, _FoamScallopScale;
             float _FoamPocketStrength, _FoamCombStrength, _FoamCombScale, _FoamStriationStrength, _FoamStriationScale;
             float _HokusaiDebugView;
-            // Ukiyo-e LINE WORK / 描边 — Brown & Arandjelovic (Sci 2020) §2.1 important edges,
-            // adapted to a real-time screen-space detector on _CameraDepthNormalsTexture:
-            // silhouette = depth discontinuity, crease = view-normal discontinuity.
+            // 浮世絵の描線。Brown と Arandjelovic（Sci 2020）第2.1節の重要な辺を、
+            // _CameraDepthNormalsTexture を使うリアルタイムの画面空間検出へ応用する。
+            // 輪郭は深度の不連続、折れ線は視線空間法線の不連続で表す。
             float _NprOutlineStrength, _NprSilhouetteThreshold, _NprCreaseThreshold, _NprCreaseStrength, _NprOutlineWidth;
             float _NprGrazeThreshold, _NprWaveEdgeStrength;
             float _NprBandContourStrength, _NprBandContourWidth, _NprContourCount;
@@ -118,10 +114,10 @@ Shader "MasterProject/FFTOcean_Shader"
             float _NprStrokeVary, _NprStrokeScale, _NprStrokeGap;
             float _NprStrokeTaper, _NprStrokeTaperHeight;
             float _NprFoamProxyLo, _NprFoamProxyWidth, _NprFoamNormalUp;
-            // Live-tunable foam-mask shaping (global-fed): _FoamSmoothScale boosts the box-blurred breaking
-            // signal back up (averaging weakens it), _FoamCut is the white-shape threshold on that smooth field,
-            // _FoamJFloor floors the noisy per-texel Jacobian so foam follows the SMOOTH crest gates (1 = pure
-            // clean crest-driven, 0 = breaking-gated/holey). _FoamJFloor is THE square-hole fix.
+            // 実行中に調整できる泡マスク。平均化で弱くなる破砕信号を _FoamSmoothScale で補い、
+            // 平滑化後の白形状を _FoamCut で切り分ける。_FoamJFloor は画素ごとのヤコビアンに
+            // 下限を設け、泡を滑らかな波頂条件へ寄せる（1 は波頂のみ、0 は破砕信号で穴が出る）。
+            // 四角い穴への対策として導入した。
             float _FoamCut, _FoamSmoothScale, _FoamJFloor;
 
             struct a2h
@@ -271,8 +267,7 @@ Shader "MasterProject/FFTOcean_Shader"
                 float h1 = UNITY_SAMPLE_TEX2DARRAY_LOD(_DisplacementTexture, float3(worldXZ * _Tile1, 1), 0).y * _LayerContribute1;
                 float h2 = UNITY_SAMPLE_TEX2DARRAY_LOD(_DisplacementTexture, float3(worldXZ * _Tile2, 2), 0).y * _LayerContribute2;
                 float h3 = UNITY_SAMPLE_TEX2DARRAY_LOD(_DisplacementTexture, float3(worldXZ * _Tile3, 3), 0).y * _LayerContribute3;
-                // Return VISIBLE height so ridge detection matches the displaced geometry.
-                // 返回可见高度，使脊线检测与实际抬高的几何一致。
+                // 変位後の形状に稜線検出を合わせるため、見かけの高さを返す。
                 return (h0 + h1 + h2 + h3) * max(_VerticalDisplacementStrength, 1.0f);
             }
 
@@ -290,7 +285,7 @@ Shader "MasterProject/FFTOcean_Shader"
                 return tex2D(_ClawMaskTexture, frac(worldXZ * _Tile0)).a;
             }
 
-            // Cheap 2D hash -> [0,1], for the scattered Hokusai spray dots.
+            // 北斎風の散った飛沫点に使う、軽量な 2D ハッシュ。出力は [0,1]。
             float Hash2(float2 p)
             {
                 p = frac(p * float2(123.34f, 456.21f));
@@ -298,8 +293,8 @@ Shader "MasterProject/FFTOcean_Shader"
                 return frac(p.x * p.y);
             }
 
-            // Smooth 2D value noise (smoothstep-interpolated hash lattice) -> [0,1], for the woodblock
-            // ink/paper grain of Brown & Arandjelovic (Sci 2020) §2.2.1. Two octaves for a paper-like feel.
+            // ハッシュ格子を smoothstep で補間した 2D 値雑音。[0,1] を返す。
+            // Brown と Arandjelovic（Sci 2020）第2.2.1節の木版のインク・紙目を二オクターブで表す。
             float ValueNoise(float2 p)
             {
                 float2 ip = floor(p);
@@ -350,16 +345,12 @@ Shader "MasterProject/FFTOcean_Shader"
                 float2 slopeMixA = slope0 + slope1 + slope2 + slope3;
                 float2 slopeMixB = slope2 + slope3;
                 float slopeMagnitude = saturate(length(slopeMixA));
-                // The vertex shader displaces geometry by displacement.y * _VerticalDisplacementStrength,
-                // so a visually tall crest stores only a small raw value here. Detect on the VISIBLE
-                // height or every gate stays calibrated for waves that never exist in frag space.
-                // 顶点着色器把几何抬高了 displacement.y * _VerticalDisplacementStrength 倍，所以一道视觉上很高的
-                // 波峰在这里的原始值很小。检测必须用“可见高度”，否则所有门控都按不存在的大浪标定，永远不触发。
+                // 頂点シェーダーは displacement.y に _VerticalDisplacementStrength を掛けて形状を上げる。
+                // 見かけ上高い波頂でも元データは小さいので、条件判定には見かけの高さを使う。
                 float visHeight = displacementFoam.y * max(_VerticalDisplacementStrength, 1.0f);
                 float crestFace = saturate(slopeMagnitude * 0.42f + max(0.0f, visHeight) * 0.055f);
-                // SMOOTHED slope for the FOAM GATE only (sharp slopeMagnitude still drives the water normal).
-                // slopeMixB = slope2+slope3 = the two FINE cascades that carry the texel-scale detail which was
-                // speckling the foam-cap edges; subtract most of them so the gate sees only the coarse slope.
+                // 泡の条件判定だけに平滑な傾斜を使う。水面法線には鋭い slopeMagnitude を残す。
+                // slopeMixB は細かな二層の成分。泡の縁を斑点化するため大部分を引き、粗い傾斜を見る。
                 float slopeMagSmooth  = saturate(length(slopeMixA - slopeMixB * 0.80f));
                 float crestFaceSmooth = saturate(slopeMagSmooth * 0.42f + max(0.0f, visHeight) * 0.055f);
                 float waveWallEnergy = smoothstep(
@@ -375,10 +366,9 @@ Shader "MasterProject/FFTOcean_Shader"
 
                 float4 clawMask = tex2D(_ClawMaskTexture, frac(worldPos.xz * _Tile0));
 
-                // Data-driven foam plate: only actual FFT foam, steep local maxima, and
-                // claw-mask crest candidates can turn white. The mask is built in world
-                // space from the same displacement texture that moves the water vertices.
-                float hCenter = visHeight; // visible-height units, consistent with SampleWaveHeightAt
+                // 白い泡は実際の FFT 泡、急な局所極大、爪マスクの波頂候補に限る。
+                // 頂点を動かす変位テクスチャと同じ値から、ワールド空間でマスクを作る。
+                float hCenter = visHeight; // SampleWaveHeightAt と同じ見かけの高さ
                 float hX0 = SampleWaveHeightAt(worldPos.xz + float2(6.0f, 0.0f));
                 float hX1 = SampleWaveHeightAt(worldPos.xz + float2(-6.0f, 0.0f));
                 float hZ0 = SampleWaveHeightAt(worldPos.xz + float2(0.0f, 6.0f));
@@ -403,11 +393,10 @@ Shader "MasterProject/FFTOcean_Shader"
                     * smoothstep(0.08f, 0.40f, crestFace + slopeMagnitude * 0.12f);
                 float ridgeShoulder = smoothstep(-0.026f, 0.090f, ridgeShoulderLift)
                     * smoothstep(0.10f, 0.44f, crestFace + slopeMagnitude * 0.14f);
-                // CREST SELECTIVITY (user: 白色范围太大). Raised 0.10/0.48 -> 0.24/0.60 so only the STRONGER
-                // crests qualify for foam -> fewer white caps, weak crests stay deep-blue. Reduces white
-                // COVERAGE without shrinking each cap (which exposes pale-blue edges = the 浅蓝色亮面).
-                // Cut 0.28/0.62 (user chose A: fewer big masses). Uses the SMOOTHED slope (crestFaceSmooth /
-                // slopeMagSmooth) so the cap edges are clean, not texel-speckled. jFloor=1.0 keeps masses clean.
+                // 白域が広すぎるという指摘に対し、強い波頂だけを泡にする。弱い波頂は濃紺に保つ。
+                // 個々の泡を縮めず、白域の総面積を減らして淡青の縁の露出を避ける。
+                // しきい値は 0.28／0.62。平滑化した傾斜を使って縁の斑点を抑える。
+                // jFloor=1.0 は泡の塊をきれいに保つ。
                 float highCrestGate = smoothstep(
                     0.28f,
                     0.62f,
@@ -509,8 +498,8 @@ Shader "MasterProject/FFTOcean_Shader"
                 physicalCrestLowerShadow = saturate(max(physicalCrestLowerShadow, crestFoamMass * (1.0f - physicalCrestWhitePlate * 0.50f) * 0.22f));
                 physicalCrestLowerShadow = saturate(max(physicalCrestLowerShadow, crestCoreFoamPlate * (1.0f - physicalCrestWhitePlate * 0.48f) * 0.42f));
 
-                // Extra cream on high, steep lips: Hokusai's wave fingers read as flat
-                // foam shapes with ink rims, not just physically simulated speckles.
+                // 高く急な波頭の縁に白を足す。北斎の爪状の波は、物理的な細斑だけでなく
+                // 墨の縁を持つ平坦な泡形状として見せる。
                 float crestLipFoam = smoothstep(
                     0.34f,
                     0.88f,
@@ -527,103 +516,73 @@ Shader "MasterProject/FFTOcean_Shader"
 
                 float2 finalSlope = lerp(slopeMixA, slopeMixB, normalVarMask) * _NormalStrength;
 
-                //宏观法线和中观法线，可以理解为整体法线和细节法线
+                // マクロ法線とメソ法線。全体形状と細部の法線に相当する。
                 float3 macroNormal = float3(0.0, 1.0, 0.0);
                 float3 mesoNormal = normalize(float3(-finalSlope.x, 1.0, -finalSlope.y));
                 mesoNormal = lerp(macroNormal, mesoNormal, pow(saturate(clipDepth), _DisplaceDepthAttenuation));
                 mesoNormal = normalize(UnityObjectToWorldNormal(mesoNormal));
 
-                // ================= CLEAN UKIYO-E COMPOSITION (v2) =================
-                // Rewritten from the validated detection signals. Targets: every crest +
-                // foam reads white, every wave face carries vertical comb stripes, flat
-                // posterized blue bands with dark ink outlines. The legacy block below is
-                // unreachable (kept temporarily; will be deleted once the look is dialed in).
-                // 用已验证的检测信号重写：波峰+白沫全白、浪面竖条、平涂蓝色带+深墨描线。
+                // ================= 浮世絵の色面構成（第2版） =================
+                // 確認済みの検出信号から構成し直した。波頂と泡は白、波面には縦の櫛状線、
+                // 水面は平坦な青の段階色と濃い墨の輪郭で表す。
+                // 以下の旧ブロックには到達しないが、見た目の調整が済むまで一時的に残す。
                 {
                     float3 ukLight = normalize(_WorldSpaceLightPos0.xyz);
                     float ukNdotl = saturate(dot(mesoNormal, ukLight));
                     float ukLitShadow = saturate(shadow + _ShadowIntensity);
 
-                    // 1) Band shade from SIGNED RELATIVE height (raw texture height, decoupled from
-                    //    _VerticalDisplacementStrength): troughs -> deep ink, crests -> pale. This lets
-                    //    geometry waves be scaled big without saturating the color bands.
-                    //    (max(0,...) was the earlier bug: troughs never darkened, so deep blue vanished.)
-                    // Strong contrast: FFT height is Gaussian (most of the surface sits near the
-                    // mean), so a gentle coefficient leaves everything in the mid band = uniform blue.
-                    // A high coefficient makes TYPICAL waves (std ~0.7) cross band boundaries so the
-                    // flat woodblock color separation actually appears. _HeightShadeScale is the knob.
+                    // 1) 符号付き相対高さを青い色面へ写す。谷は濃い墨、波頂は淡色。
+                    // 生テクスチャの高さを使い、形状の拡大率から切り離して色の飽和を防ぐ。
+                    // 以前の max(0,...) では谷が暗くならず、深い青が消えていた。
+                    // FFT の高さは平均付近に集中するため、_HeightShadeScale を強めて通常の波も色境界を越えさせる。
                     float ukHeight01 = saturate(0.5f + displacementFoam.y * max(_HeightShadeScale, 0.001f) * 1.0f);
                     float ukSteep = saturate(slopeMagnitude * max(_SteepShadeScale, 0.001f) * 1.2f);
                     float ukShade = saturate(ukHeight01 - ukSteep * 0.30f
                                     + (ukNdotl - 0.5f) * _LightInfluence * 0.5f - (1.0f - ukLitShadow) * 0.15f);
 
-                    // 2) Vertical comb stripes: phase runs along the crest line (perpendicular to
-                    //    the horizontal height gradient) so the stripes read as vertical combs down
-                    //    the wave face. Carved as dark gaps into the band shade, gated to wave faces.
-                    // Vertical comb striations: phase along the crest line (perpendicular to the
-                    // horizontal height gradient) so teeth run DOWN the wave face. Each tooth has a
-                    // pale streak at its center and a dark gap at its edge -> the blue/white combs of
-                    // the reference. Gated to sloped wave faces, where Hokusai's combs actually live.
-                    // Coherent FIXED stripe direction (world X). Deriving direction from the per-pixel
-                    // slope made every pixel's stripe point differently -> speckle. A fixed axis warped
-                    // by Z + height gives clean vertical combs that curve organically down the faces.
+                    // 2) 波面の縦向きの櫛状線。淡い線の中心と暗い隙間を交互に作る。
+                    // 画素ごとの傾斜から方向を決めると斑点化するため、ワールド X を基準方向に固定し、
+                    // Z と高さでゆがませて波面を下る曲線にする。傾斜した波面にだけ適用する。
                     float ukGradLen = length(slopeMixA);
                     float ukStripeWarp = sin(worldPos.z * 0.028f + visHeight * 0.4f) * _PrintStripeWarp;
                     float ukStripeCoord = worldPos.x * max(_PrintStripeScale, 0.001f) * 6.0f + ukStripeWarp;
-                    float ukStripeTri = abs(frac(ukStripeCoord) - 0.5f) * 2.0f;   // 0 center .. 1 edge
-                    // _PrintStripeBokashi widens the pale<->dark transition (paper §2.2.3 bokashi) so the light/deep
-                    // streaks gradate smoothly into each other instead of a hard pale|gap|dark edge. 0 = original hard
-                    // combs, 1 = very soft gradation. User: 浅蓝/深蓝条纹过渡稍微加点 bokashi。
+                    float ukStripeTri = abs(frac(ukStripeCoord) - 0.5f) * 2.0f;   // 0 は中心、1 は縁
+                    // _PrintStripeBokashi は淡色と濃色の境界を広げ、ぼかしを与える（文献第2.2.3節）。
+                    // 0 は硬い櫛状線、1 は非常に柔らかい階調。淡青と濃青の移行を少し滑らかにする。
                     float ukSb = saturate(_PrintStripeBokashi);
-                    float ukCombDark = smoothstep(0.46f - ukSb * 0.30f, 0.86f + ukSb * 0.10f, ukStripeTri);     // dark gap at tooth edge
-                    float ukCombLight = 1.0f - smoothstep(0.0f, 0.34f + ukSb * 0.42f, ukStripeTri); // pale streak at tooth center
-                    float ukComb = max(ukCombDark, ukCombLight);                  // (debug)
-                    // Gate stripes to STEEP WAVE FACES only (issue #4): in the reference the light/deep
-                    // blue striations live on the rising face of a wave, not on flat open water. A smooth
-                    // slope gate keeps calm water clean and concentrates the combs on the wave faces.
-                    // 条纹只在陡峭浪面出现(#4)：参考图里浅蓝/深蓝条纹在浪的上升面，不在平静开阔水面。
+                    float ukCombDark = smoothstep(0.46f - ukSb * 0.30f, 0.86f + ukSb * 0.10f, ukStripeTri);     // 櫛の縁の暗い隙間
+                    float ukCombLight = 1.0f - smoothstep(0.0f, 0.34f + ukSb * 0.42f, ukStripeTri); // 櫛の中心の淡い線
+                    float ukComb = max(ukCombDark, ukCombLight);                  // 調査用
+                    // 櫛状線は急な波面に限る。原画でも淡青と濃青の縞は立ち上がる波面にあり、
+                    // 平らな海面にはない。滑らかな傾斜条件で静かな水面を保つ。
                     float ukFaceGate = smoothstep(0.10f, 0.42f, slopeMagnitude);
                     float ukStripeGate = ukFaceGate * mainWavePrintGate * _PrintStripeStrength;
-                    // (stripes are applied as a COLOR overlay after posterization below, so the band
-                    //  quantization doesn't absorb them)
+                    // 縞は下の階調化後に色として重ね、色面の量子化で消えないようにする。
 
-                    // Posterize into flat ink plates.
+                    // 平坦なインク色面へ階調化する。
                     float ukBands = max(_ToonBands, 2.0f);
                     float ukB = saturate(floor(ukShade * ukBands) / (ukBands - 1.0f));
-                    // BOKASHI (paper §2.2.3): hard cel bands are "inappropriate" for ukiyo-e — the print's colour
-                    // gradates smoothly to approximate lighting/depth, with the line work carrying the detail.
-                    // Blend the posterized band value back toward the CONTINUOUS shade so the 2 bands soften into a
-                    // gradation (restrained by strength: 0 = flat bands, 1 = fully smooth). Same palette, gradated.
+                    // ぼかし（文献第2.2.3節）。硬い色面だけでは浮世絵らしい光と奥行きの階調が出ない。
+                    // 階調化した値を連続値へ戻し、同じ配色のまま境界を柔らかくする。
+                    // 強度 0 は平坦な色面、1 は全面的に滑らかな階調。
                     float ukBokashi = saturate(lerp(ukB, ukShade, _NprBokashiStrength));
                     float3 ukWater = ukBokashi < 0.5f
                         ? lerp(_DeepInkColor, _MidWaterColor, ukBokashi * 2.0f)
                         : lerp(_MidWaterColor, _PaleWaterColor, ukBokashi * 2.0f - 1.0f);
 
-                    // 3) JACOBIAN-BASED WHITE FOAM — Tessendorf (2001) breaking criterion.
-                    //    Whitewater forms where the horizontal displacement folds the surface, i.e. the
-                    //    Jacobian J of x -> x + lambda*D(x) drops <= 0. clawMask.b = 1 - saturate(rawJacobian)
-                    //    is exactly that breaking term, computed instantaneously in the compute shader
-                    //    (so it is time-STABLE — no foam accumulation drift). Gating it by HIGH crest
-                    //    height confines the foam to the breaking LIPS at the tops of waves, as in the
-                    //    print — not troughs, not the whole sea.
-                    //    雅可比破碎判据(Tessendorf)：水平位移把表面折叠(J<=0)处生白沫。clawMask.b=1-saturate(jacobian)
-                    //    即瞬时破碎项，再乘"高波峰"门控，白沫只落在波峰顶的破碎唇，符合原作；瞬时量=时间稳定。
-                    // Sharpen the broad compression signal down to the STRONGEST folding (the actual
-                    // breaking lip, where J is most negative) so the white is a thin curling edge, not a
-                    // broad cap. Then require the upper part of the wave so it sits at the crest top.
-                    // FILL THE HOLES AT THE SOURCE. The Jacobian breaking signal (clawMask.b) is per-texel and
-                    // has scattered near-ZERO spots inside a breaking crest; those punch the light-blue/black
-                    // holes in the white (no threshold or boost can fill a true zero). Dilate it: take the MAX
-                    // over two small rings (tex2Dlod, explicit LOD 0) so a hole surrounded by foam fills solid.
-                    // 在源头填洞：雅可比破碎信号(clawMask.b)逐纹素、破碎区内散布近零点，在白色里打出浅蓝/黑洞
-                    // （任何阈值/增益都填不了真零）。用两圈小邻域取最大值(tex2Dlod LOD0)膨胀，被破碎包围的洞即填实。
+                    // 3) Tessendorf（2001）のヤコビアン破砕条件による白泡。
+                    // 水平変位 x→x+λD(x) で面が折れ、J<=0 となる位置を使う。
+                    // clawMask.b=1-saturate(rawJacobian) は計算シェーダーで瞬時に求めるため、
+                    // 泡の蓄積による時間的なずれがない。高い波頂で絞り、原画のように波頭の破砕縁に置く。
+                    // 圧縮信号を J が最も負となる強い折れに絞り、白を広い帽子状ではなく細い巻き縁にする。
+                    // さらに波の上部だけを選び、波頂に配置する。
+                    // 穴を信号源で埋める。clawMask.b には画素ごとのゼロ付近の点が散在し、白域に穴を開ける。
+                    // 真のゼロはしきい値や増幅では埋まらないため、小さな二重近傍の最大値で膨張させる。
                     float2 ukMUV = frac(worldPos.xz * _Tile0);
-                    // BOX-BLUR the per-texel Jacobian breaking signal into a SMOOTH field, THEN threshold. The raw
-                    // clawMask.b is texel-noisy, so a hard cut on it speckles both the interior (holes) AND the
-                    // edges — up close those read as the SQUARE light-blue spots. MAX-dilation filled solid cores
-                    // but left the noisy threshold-crossing edges speckled. A 13-tap average (~4/8/12 texels)
-                    // consolidates the signal; the sharp ukWhite cut below then re-crisps the silhouette along the
-                    // SMOOTH contour = solid white shapes with clean edges, no squares. (user: 方形浅蓝色亮斑)
+                    // 画素ごとの破砕信号を 13 点平均で平滑化してから切り分ける。
+                    // 生の clawMask.b を硬く切ると内部と縁に四角い淡青斑が出る。
+                    // 最大値膨張は内部を埋めるが、縁の雑音は残る。平均化した輪郭で ukWhite を鋭く切り、
+                    // 内部が白く、縁のきれいな形状にする。
                     float ukO1 = _Tile0 * 0.7f, ukO2 = _Tile0 * 1.4f, ukO3 = _Tile0 * 2.2f;
                     float ukMb = clawMask.b;
                     ukMb += tex2Dlod(_ClawMaskTexture, float4(frac(ukMUV+float2( ukO1, 0.0f)),0,0)).b;
@@ -639,101 +598,74 @@ Shader "MasterProject/FFTOcean_Shader"
                     ukMb += tex2Dlod(_ClawMaskTexture, float4(frac(ukMUV+float2(0.0f,  ukO3)),0,0)).b;
                     ukMb += tex2Dlod(_ClawMaskTexture, float4(frac(ukMUV+float2(0.0f, -ukO3)),0,0)).b;
                     ukMb /= 13.0f;
-                    // Restore strength lost to averaging (×_FoamSmoothScale), then cut on the SMOOTH field at
-                    // _FoamCut -> solid white shapes with clean edges. Both live-tunable; sensible defaults if unset.
+                    // 平均化で弱くなった信号を _FoamSmoothScale で戻し、_FoamCut で切り分ける。
+                    // 両方とも実行中に調整でき、未設定時は既定値を使う。
                     float fScale = _FoamSmoothScale > 0.001f ? _FoamSmoothScale : 1.8f;
                     float fCut   = _FoamCut > 0.001f ? _FoamCut : 0.26f;
-                    float ukBreakJ   = smoothstep(fCut, fCut + 0.20f, saturate(ukMb * fScale)); // smooth field -> no speckle
-                    float ukHiCrest  = smoothstep(0.58f, 0.95f, ukHeight01);           // crest top only
-                    // FILL THE FLANKS, NOT JUST THE TIP. The lerp floor was 0.22, so only the very
-                    // crest tip (ukHiCrest~1) reached the white threshold; the foam flanks (height dips
-                    // within the SAME breaking clump) fell into the dark rim zone -> broad black streaks
-                    // exposing the shaded water (debug view 2 = big dark blobs inside the green). A HIGH
-                    // floor makes the whole clump interior solid; the boundary still goes dark because
-                    // ukBreakJ*highCrestGate -> 0 at the clump edge regardless of the floor.
-                    // 填满浪面而非仅波峰尖：floor 0.22 时只有波峰尖到白阈值，破碎团内部的高度低洼落入暗描边区
-                    // -> 露出受光水面的黑色竖条。高 floor 让整团内部全白，团边缘仍因 ukBreakJ*highCrestGate->0 而变暗。
-                    // LIP-FOAM (user: 继续削减白色的生成区域 + match the painting). Was a solid-fill floor
-                    // lerp(0.96,1) that whitened the whole breaking clump; now gate by ukHiCrest so foam sits
-                    // only on the upper crest / curling LIP and the wave FACE below stays blue — like the
-                    // painting's white-crest/blue-face waves. The lip core is still solid (ukBreakJ*gate*highCrest
-                    // =1 at the top), so no internal stripes; the face is the (now-darkened) posterized blue.
-                    // FLOOR the per-texel Jacobian (lerp toward 1 by _FoamJFloor) so it NEVER multiplies the foam
-                    // to zero — that multiply-to-zero is what punched the square light-blue holes. Foam now follows
-                    // the SMOOTH crest gate (ukHiCrest × highCrestGate, both from the noise-free FFT height/slope),
-                    // with breaking only softly modulating intensity = solid clean white shapes. (user: 方形浅蓝色亮斑)
+                    float ukBreakJ   = smoothstep(fCut, fCut + 0.20f, saturate(ukMb * fScale)); // 平滑化した場は斑点が少ない
+                    float ukHiCrest  = smoothstep(0.58f, 0.95f, ukHeight01);           // 波頂上部のみ
+                    // 旧下限 0.22 では尖端だけが白くなり、同じ破砕塊の側面は暗い縁に落ちた。
+                    // 下限を上げると塊の内部は白く保てる。境界では ukBreakJ*highCrestGate がゼロへ向かう。
+                    // 原画の白い波頂と青い波面へ寄せるため、ukHiCrest で白泡を巻く上縁に絞る。
+                    // _FoamJFloor で画素ごとのヤコビアンが泡をゼロにしないようにし、四角い淡青穴を防ぐ。
+                    // 泡は雑音の少ない FFT の高さ・傾斜による滑らかな波頂条件に従う。
                     float ukJFloor = _FoamJFloor > 0.001f ? _FoamJFloor : 1.0f;
                     float ukBreakSig = saturate(lerp(ukBreakJ, 1.0f, ukJFloor) * smoothstep(0.35f, 0.65f, ukHiCrest)) * highCrestGate;
-                    // Scalloped edge so the foam silhouette reads as Hokusai's curled fingers, not a flat
-                    // line. Kept SMALL (was 0.10/0.06) so it scallops the EDGE without punching light-blue
-                    // holes in the white interior (user: 白色的部分要纯白，不要里面有浅蓝色的竖条).
-                    // 鳞边幅度调小：只勾边缘曲线，不在白色内部打出浅蓝色的洞。
+                    // 泡の縁を小さく波打たせ、北斎の曲がる指の形にする。
+                    // 振幅は旧値 0.10／0.06 より小さくし、白い内部に淡青の穴を開けない。
                     float ukScallop = sin(worldPos.x * 0.42f + worldPos.z * 0.10f + visHeight * 0.25f) * 0.045f
                                     + sin(worldPos.x * 1.15f - worldPos.z * 0.18f) * 0.025f;
                     float ukScallopThresh = _CrestWhiteThreshold - ukScallop;
-                    // SOLID flat cream: a NARROW smoothstep makes the foam a solid woodblock shape so no
-                    // pale-blue band facets bleed through inside the white (issue #3 — white must be flat).
-                    // Sharper edge (0.05 -> 0.02): collapses the partial-white transition zone so the foam
-                    // is binary on/off — no pale-blue band shows through a half-white rim (user: 浅蓝色亮面又出来了).
+                    // 狭い smoothstep で白泡を平坦な木版の形へする。
+                    // 縁の幅を 0.05 から 0.02 へ狭め、半透明な白縁に淡青の色面が透けるのを防ぐ。
                     float ukWhite = saturate(smoothstep(ukScallopThresh, ukScallopThresh + 0.02f, ukBreakSig) * max(_CrestWhiteBoost, 0.5f));
                     float ukWhiteRim = smoothstep(ukScallopThresh - _OutlineWidth * 2.5f, ukScallopThresh, ukBreakSig) * (1.0f - ukWhite);
 
-                    // Pure flat cream foam (no lighting/band gradient inside the white).
+                    // 白泡の内部は照明や色面の階調を持たない平坦な乳白色。
                     float3 ukCol = lerp(ukWater, _FoamCreamColor, ukWhite);
 
-                    // Vertical comb striations as a COLOR overlay (after posterization): pale streaks
-                    // at tooth centers, dark indigo ink in the gaps — only on the blue wave faces,
-                    // never on the cream foam. This is the Great Wave's combed-foam striation.
-                    // User: keep the combs on the DARKER water and fade them out on the BRIGHTER bands (亮处的等高线区)
-                    // so those clean bands stay clean. Gate by the uk-block water brightness ukShade: full where dark,
-                    // ->0 where bright. _PrintStripeGateBright = brightness midpoint where they fade; _PrintStripeFaceGate
-                    // = how strongly (0 = off/baseline .. 1 = full fade on bright bands).
+                    // 階調化後、青い波面に淡色の中心線と濃紺の隙間を重ねる。白泡には描かない。
+                    // 暗い色面では櫛状線を保ち、明るい色面では消して清潔な領域を残す。
+                    // _PrintStripeGateBright は消え始める明度、_PrintStripeFaceGate はその強さ。
                     float ukCombBrightGate = lerp(1.0f, 1.0f - smoothstep(_PrintStripeGateBright - 0.18f, _PrintStripeGateBright + 0.18f, ukShade), saturate(_PrintStripeFaceGate));
                     float ukCombApply = ukStripeGate * (1.0f - ukWhite) * ukCombBrightGate;
                     ukCol = lerp(ukCol, _PaleWaterColor, ukCombLight * ukCombApply * 0.65f);
                     ukCol = lerp(ukCol, _OutlineInkColor, ukCombDark * ukCombApply * 0.45f);
 
-                    // 4) Dark ink outlines: band registration lines + foam/crest rim.
+                    // 4) 色面の境界線と泡・波頂の縁に濃い墨線を置く。
                     float ukBandPos = frac(ukShade * ukBands);
                     float ukBandEdge = 1.0f - smoothstep(0.0f, max(_OutlineWidth * 2.0f, 0.01f), min(ukBandPos, 1.0f - ukBandPos));
                     ukCol = lerp(ukCol, _OutlineInkColor, ukBandEdge * _OutlineStrength * 0.35f * mainWavePrintGate * (1.0f - ukWhite));
                     ukCol = lerp(ukCol, _OutlineInkColor, saturate(ukWhiteRim) * _OutlineStrength);
 
-                    // 4b) Spray dots REMOVED (issue #2 — user finds the small white circles distracting).
+                    // 4b) 小さな白丸が目障りとの指摘を受け、飛沫点は削除済み。
 
-                    // 5) Hand-print mottle + flat paper-sky fog.
+                    // 5) 手刷りのむらと平坦な紙色の霧。
                     ukCol *= 1.0f - saturate(normalVarMask) * _PrintMottle * 0.15f;
-                    // NaN guard: at grazing/steep angles viewDepth can drive (1-exp) negative, and
-                    // pow(negative, fractional) = NaN which blackens the whole surface. Clamp the base.
+                    // 斜め視点では viewDepth により 1-exp が負になり、分数乗で NaN が出て全体が黒くなる。
+                    // 底値をゼロ以上に制限する。
                     float ukFogBase = max(0.0f, 1.0f - exp(-max(viewDepth, 0.0f) * _FogDensity));
                     float ukFog = saturate(pow(ukFogBase, max(_FogPower, 0.001f)));
                     ukCol = lerp(ukCol, _FogColor, ukFog * (1.0f - ukWhite * 0.8f));
 
-                    // ===== UKIYO-E INK / PAPER GRAIN — Brown & Arandjelovic (Sci 2020) §2.2.1 =====
-                    // A woodblock print's flat colour is NOT perfectly uniform — ink soak + paper tooth give it a
-                    // granular imperfection. The paper applies this noise in SCREEN space (the 2D print look), not
-                    // mapped onto the 3D mesh (eqs 4-5), and offsets the screen coords by the object's screen-space
-                    // centre (eqs 6-7) for temporal coherence so the grain follows the scene instead of the camera
-                    // "swimming" through it (shower-door). For the whole-sea mesh the offset is the camera world XZ.
+                    // ===== 木版の墨と紙目：Brown と Arandjelovic（Sci 2020）第2.2.1節 =====
+                    // 木版の平坦な色にも、墨の染みと紙の繊維による粒状のむらがある。
+                    // 文献は 3D 網目上でなく画面空間に雑音を置き、物体の画面上の中心で座標をずらして
+                    // カメラ移動時の滑りを抑える。海面全体ではカメラのワールド XZ をずれに用いる。
                     {
-                        // User: the grain should FOLLOW the FFT surface, not swim in screen space. World-anchored sampling
-                        // (worldPos.xz = the DISPLACED surface position) makes the grain stick to the water and move with the
-                        // waves — the water-appropriate version of the paper's object-anchor (§2.2.1 eqs 6-7). _NprPaperWorld
-                        // blends screen(0, original print look) -> world(1, follows FFT); _NprPaperWorldFreq = world grain size.
+                        // 紙目を FFT 水面に追従させるには、変位後の worldPos.xz で標本化する。
+                        // _NprPaperWorld は画面固定（0）と水面追従（1）を混合し、_NprPaperWorldFreq は粒径。
                         float2 inkScreenUV = (screenUV * _ScreenParams.xy) / max(_NprPaperScale, 1.0f) + _WorldSpaceCameraPos.xz * _NprPaperFollow;
                         float2 inkWorldUV  = worldPos.xz * max(_NprPaperWorldFreq, 0.001f);
-                        float ukPaper = lerp(PaperNoise(inkScreenUV), PaperNoise(inkWorldUV), saturate(_NprPaperWorld)); // 0..1 grain
-                        // Subtractive ink imperfection (darken toward ink where grain is low). Foam stays mostly
-                        // pure white (user's hard-won requirement); the water bands carry the full grain.
+                        float ukPaper = lerp(PaperNoise(inkScreenUV), PaperNoise(inkWorldUV), saturate(_NprPaperWorld)); // 0～1 の紙目
+                        // 紙目の低い部分を墨色に暗くする。泡はほぼ純白に保ち、水面の色面に強く効かせる。
                         float ukPaperAmt = _NprPaperStrength * (1.0f - ukWhite * 0.75f);
                         ukCol *= 1.0f - (1.0f - ukPaper) * ukPaperAmt;
                     }
 
-                    // ===== UKIYO-E LINE WORK (描边) — Brown & Arandjelovic (Sci 2020) §2.1 important edges =====
-                    // Detected screen-space from _CameraDepthNormalsTexture (zw = 01 depth, xy = view normal):
-                    //   silhouette = a near wave occluding farther water (depth jump)  -> outer ink contour;
-                    //   crease     = sharp surface fold / breaking lip (normal jump)    -> inner ink line.
-                    // This is the woodblock keyblock line that gives the waves their bold ukiyo-e contour.
+                    // ===== 浮世絵の描線：Brown と Arandjelovic（Sci 2020）第2.1節 =====
+                    // _CameraDepthNormalsTexture から画面空間で検出する。
+                    // 深度の跳びは手前の波が奥を隠す外輪郭、法線の跳びは折れや破砕縁の内側の墨線。
                     {
                         float2 nprUVStep = (_ScreenParams.zw - 1.0f) * max(_NprOutlineWidth, 0.5f);
                         float dC; float3 nC;
@@ -746,69 +678,43 @@ Shader "MasterProject/FFTOcean_Shader"
                         {
                             float dN; float3 nN;
                             DecodeDepthNormal(tex2D(_CameraDepthNormalsTexture, screenUV + nprOff[kNpr]), dN, nN);
-                            depthEdge  = max(depthEdge,  dN - dC);                       // neighbour farther => near silhouette
-                            normalEdge = max(normalEdge, 1.0f - saturate(dot(nN, nC))); // dihedral fold (crease)
+                            depthEdge  = max(depthEdge,  dN - dC);                       // 隣が遠ければ手前の輪郭
+                            normalEdge = max(normalEdge, 1.0f - saturate(dot(nN, nC))); // 二面角による折れ
                         }
                         float silhouette = smoothstep(_NprSilhouetteThreshold, _NprSilhouetteThreshold * 2.2f, depthEdge);
                         float crease     = smoothstep(_NprCreaseThreshold, _NprCreaseThreshold + 0.22f, normalEdge);
-                        // In-shader wave edges: a smooth FFT heightfield rarely produces hard screen-space depth
-                        // jumps, so the paper's silhouette/crease are sparse here. Equivalent criteria on a
-                        // heightfield, using the reliable wave data:
-                        //   grazing = surface seen edge-on (the paper's front-/back-face transition, via the normal)
-                        //             -> the crest contour line;
-                        //   ridge   = a local height ridge (a crease/fold on a heightfield) -> the wave's crest line.
+                        // 滑らかな FFT 高さ場には急な深度跳びが少ないため、深度だけでは描線が不足する。
+                        // 代わりに、接線方向に見る面を波頂の外輪郭、局所的な高さの稜線を波頂線として扱う。
                         float3 vDirW   = normalize(_WorldSpaceCameraPos.xyz - worldPos);
-                        // Paper's silhouette = the front-/back-face transition = the ZERO-CROSSING of n·v.
-                        // Anchored with fwidth so it stays a thin ink line right on the wave-crest silhouette at
-                        // ANY camera angle. Uses no _CameraDepthNormalsTexture, so unlike the depth silhouette it
-                        // ALSO renders off the Scene-view camera — and it never floods the flat sea the way a fixed
-                        // grazing threshold does (the line is pinned to |n·v|≈0, not to a magnitude band).
+                        // 表裏の境目 n·v≈0 を輪郭とし、fwidth でどの視角でも細線に保つ。
+                        // 深度テクスチャを使わないので Scene 視点でも描かれ、平坦な海面を塗り潰さない。
                         float nDotV    = dot(normalize(mesoNormal), vDirW);
-                        // CLAMP the line width: a noisy meso-normal makes fwidth spike, which would widen the
-                        // "thin" silhouette into a broad gray flood on near-grazing slopes. Cap keeps it a line.
+                        // メソ法線の雑音で fwidth が増えると細線が広い灰色域になるため、線幅を制限する。
                         float silW     = min(max(fwidth(nDotV), 1e-4f) * (_NprGrazeThreshold * 5.0f + 1.0f), 0.05f);
                         float grazeLine = 1.0f - smoothstep(0.0f, silW, abs(nDotV));
                         float ridgeLine = smoothstep(0.018f, 0.055f, ridgeLift) * smoothstep(0.14f, 0.44f, slopeMagnitude);
                         float waveEdge  = max(grazeLine, ridgeLine);
-                        // ALL the screen-space (silhouette/crease) + n·v crest ink goes on the WATER only (×1-ukWhite).
-                        // The foam caps must stay PURE WHITE inside — they are outlined ONLY by their crisp ddx/ddy
-                        // boundary line (below), never flooded gray by a broad near-grazing slope. Blue (non-foam)
-                        // wave crests still receive the n·v silhouette, so "every wave crest has a contour" holds.
+                        // 画面空間の輪郭・折れと n·v の波頂墨線は、水面だけに描き、泡の内部は純白に保つ。
+                        // 白泡は下の鋭い境界線だけで囲む。青い波頂には n·v の輪郭が残る。
                         float inkLine = saturate(max(max(silhouette, crease * _NprCreaseStrength),
                                                      waveEdge * _NprWaveEdgeStrength)) * _NprOutlineStrength * (1.0f - ukWhite);
-                        // Band-contour line (色带等高线): the posterization band boundaries ARE woodblock keyblock
-                        // contour lines that follow the wave height — the boldest, most ukiyo-e-authentic wave 描边
-                        // (user's choice). Drawn on the water bands, suppressed on the foam (which has its own rim).
-                        // Contour density DECOUPLED from the colour bands (_ToonBands=2) — the wave shapes need MANY
-                        // keyblock height-contour lines (the Great Wave traces every swell), not just 1 band edge.
+                        // 色面の境界を波の高さに沿う木版の墨線として描く。泡には固有の縁があるため描かない。
+                        // 線の密度は色面の段数 _ToonBands と切り離し、複数のうねりを追えるようにする。
                         float ukBandF2 = ukShade * max(_NprContourCount, 2.0f);
-                        float bandFrac = abs(frac(ukBandF2) - 0.5f) * 2.0f;            // 0 band-centre .. 1 band-edge
+                        float bandFrac = abs(frac(ukBandF2) - 0.5f) * 2.0f;            // 0 は色面の中心、1 は境界
                         float bandContour = smoothstep(1.0f - max(_NprBandContourWidth, 0.02f), 1.0f, bandFrac)
-                                          * (1.0f - ukWhite) * lerp(0.5f, 1.0f, mainWavePrintGate); // across the whole sea, not foam
+                                          * (1.0f - ukWhite) * lerp(0.5f, 1.0f, mainWavePrintGate); // 白泡を除く海面全体
                         inkLine = saturate(max(inkLine, bandContour * _NprBandContourStrength));
-                        // CREST OUTER OUTLINE (波峰外轮廓线) — the actual goal. A bold ink keyline along each wave's
-                        // crest ridge: ridgeLift>0 means this pixel is a LOCAL HEIGHT MAXIMUM (the crest top), so the
-                        // line traces the silhouette/edge of every swell. VIEW-INDEPENDENT (renders from the top-down
-                        // game camera) and catches gentle crests too — unlike the n·v silhouette (needs a grazing
-                        // angle) and the depth silhouette (needs a sharp occlusion), which is why those were invisible.
+                        // 波頂外輪郭。ridgeLift>0 の局所高さ極大を各うねりの太い墨線として描く。
+                        // 視角に依存せず、上からのゲームカメラでも緩い波頂を捉える。
                         float crestOutline = smoothstep(_NprCrestOutlineThresh, _NprCrestOutlineThresh + 0.014f, ridgeLift) * (1.0f - ukWhite);
                         inkLine = saturate(max(inkLine, crestOutline * _NprCrestOutlineStrength));
-                        // CREASE (paper §2.1.1 Algorithm 1: an edge is important if n0·n1 < threshold = a sharp dihedral
-                        // fold between adjacent faces). On the SMOOTH MACRO normal (±6 height gradient), NOT the per-pixel
-                        // FFT normal — the per-pixel normal has fine ripples that flood to speckle (the earlier lesson).
-                        // fwidth(macroN) = the screen-space rate of macro-normal change; it spikes where the macro surface
-                        // FOLDS sharply (steep crest shoulders / breaking lips) and is ~0 on smooth swells. The paper's
-                        // crease is on the whole object, so this is NOT gated to foam. _NprCreaseNStrength/Thresh tune it.
-                        // _NprCreaseNFine dials the crease NORMAL between the SMOOTH macro normal (=0, clean/subtle:
-                        // gentle swells give a faint crease) and the per-pixel FFT meso normal (=1, detailed: catches the
-                        // sharp breaking-lip folds, but the fine FFT ripples reintroduce some speckle). Option B = push
-                        // this up so the user can SEE the stronger crease and decide how much speckle is acceptable.
-                        // DISTANCE LOD: near the camera the white foam is large and the crease reads as clean bold strokes;
-                        // far away one pixel spans many FFT wavelengths, so the fine normal aliases into speckle (麻点). The
-                        // LOD ramps the effect CONTINUOUSLY by distance — closer = stronger — and a gamma>1 bows the curve
-                        // concave so it stays strong up close but drops off fast, keeping the mid/far sea weak and clean.
-                        // _NprLodNear = distance where LOD reaches full 1; _NprLodFar = distance where it hits 0; _NprLodGamma
-                        // = curve shape (1 = linear, >1 = strong-near / weak-mid-far).
+                        // 折れ線は文献第2.1.1節の隣接面法線の差を、高さ場の法線変化として近似する。
+                        // 細かい FFT 法線だけでは斑点が出るため、±6 の高さ差によるマクロ法線を基準とする。
+                        // fwidth は急な肩や破砕縁で増え、滑らかなうねりではほぼゼロ。
+                        // _NprCreaseNFine はマクロ法線（0）と細部法線（1）を混合し、細部と斑点の量を調整する。
+                        // 遠方では細部法線が画素へ折り返して斑点になるので、距離に応じて効果を減らす。
+                        // _NprLodNear／Far は近遠の距離、_NprLodGamma は減衰曲線の形。
                         float ukNprDist = length(_WorldSpaceCameraPos.xyz - worldPos);
                         float ukNprT    = saturate((_NprLodFar - ukNprDist) / max(_NprLodFar - _NprLodNear, 1.0f));
                         float ukNprLod  = pow(ukNprT, max(_NprLodGamma, 0.01f));
@@ -816,47 +722,38 @@ Shader "MasterProject/FFTOcean_Shader"
                         float3 ukNcr = normalize(lerp(ukMacroNcr, mesoNormal, saturate(_NprCreaseNFine) * ukNprLod));
                         float ukCreaseN = length(fwidth(ukNcr));
                         float ukCrestCrease = smoothstep(_NprCreaseNThresh, _NprCreaseNThresh + max(_NprCreaseNThresh * 0.5f, 0.01f), ukCreaseN);
-                        // UNGATED from white (user: 不要限制只在白色) but still distance-LOD'd, because the fine normal is the
-                        // SPECKLE source: near it draws fold detail on all wave forms; far it fades to clean (no 麻点). The
-                        // clean black OUTLINE at far/mid comes from the silhouette below, which is NOT LOD'd.
+                        // 折れ線は白域だけに限定せず全波形に描く。ただし細部法線は斑点源なので遠方で弱める。
+                        // 中遠景の明瞭な黒輪郭は、距離減衰させない下のシルエット線で保つ。
                         inkLine = saturate(max(inkLine, ukCrestCrease * _NprCreaseNStrength * ukNprLod));
-                        // CREST SILHOUETTE of the white foam = the user's top-edge line: where the foam surface turns from
-                        // near-facing to far-facing (n·v -> _NprFoamProxyLo), which IS the visible top edge. Line = a
-                        // constant-px keyline along that n·v contour. FLATTER macro normal (up=20) so n·v only dips to the
-                        // contour at a REAL crest tilt, not at tiny interior ripples = far fewer interior false lines.
+                        // 白泡の波頂シルエットは、面が手前向きから奥向きへ変わる n·v の等値線。
+                        // 一定画素幅の墨線とし、平坦寄りのマクロ法線で細波による内部の偽線を減らす。
                         float3 ukMacroN = normalize(float3(-(hX0 - hX1), max(_NprFoamNormalUp, 1.0f), -(hZ0 - hZ1)));
                         float3 ukViewD  = normalize(_WorldSpaceCameraPos.xyz - worldPos);
                         float ukNdV = dot(ukMacroN, ukViewD);
-                        float ukNdVDistPx = (ukNdV - _NprFoamProxyLo) / max(fwidth(ukNdV), 1e-5f);   // signed px to the n·v=Lo contour
+                        float ukNdVDistPx = (ukNdV - _NprFoamProxyLo) / max(fwidth(ukNdV), 1e-5f);   // n·v=Lo の等値線までの符号付き画素距離
                         float ukHalf = max(_NprFoamOutlineWidth, 1.0f) * 0.5f;
                         float ukLineRaw = 1.0f - smoothstep(ukHalf - 0.75f, ukHalf + 0.75f, abs(ukNdVDistPx));
-                        // Gate by the SMOOTH foam region (already-computed ridge height samples; no new taps) so breakup
-                        // holes don't cut the line. _NprFoamProxyWidth = region height threshold (~0.68).
+                        // 計算済みの平滑な波頂高さで泡領域を限定し、破砕信号の穴で線が切れないようにする。
+                        // _NprFoamProxyWidth は領域の高さしきい値（約 0.68）。
                         float ukHAvg = (hCenter + hX0 + hX1 + hZ0 + hZ1 + hN0 + hN1 + hT0 + hT1 + hT2 + hT3) * 0.0909f;
                         float ukH01avg = saturate(0.5f + (ukHAvg / max(_VerticalDisplacementStrength, 1.0f)) * max(_HeightShadeScale, 0.001f));
                         float ukFoamRegion = smoothstep(_NprFoamProxyWidth, _NprFoamProxyWidth + 0.08f, ukH01avg);
                         float foamInk = ukLineRaw * ukFoamRegion;
-                        // DISTANCE-INDEPENDENT (no LOD): the silhouette is the clean macro-normal contour — it does NOT alias
-                        // like the fine crease, so it stays a crisp BLACK line at ALL distances (near + mid + far). This is the
-                        // main outline the user wants kept everywhere; only the fine crease above carries the distance LOD.
+                        // シルエットはマクロ法線の清潔な輪郭なので距離減衰しない。
+                        // 近景から遠景まで黒線を保ち、細かい折れ線だけを距離で弱める。
                         inkLine = saturate(max(inkLine, foamInk * _NprFoamOutlineStrength));
-                        // §2.1.6 STROKE rendering: the paper draws outlines as discrete brush strokes with VARIABLE WIDTH
-                        // (粗细, tapered ends) and SEGMENT breaks — not a uniform line. It does that with stroke geometry
-                        // (link edges into chains, render textured ribbons with arc-length width profiles). Our outline is an
-                        // image-space mask, so we approximate the same look by ERODING the line mask with a screen-stable,
-                        // camera-followed noise: where the noise dips, the line THINS (taper / variable width); a second,
-                        // coarser noise punches discrete BREAKS so it reads as separate brush marks. Camera-followed for
-                        // temporal coherence like the paper grain. _NprStrokeVary = width-variation depth; _NprStrokeGap =
-                        // how aggressively it segments; _NprStrokeScale = stroke noise size (px). +41/+91 decorrelate the noises.
+                        // 文献第2.1.6節の筆線は一定幅でなく、先細りと途切れを持つ。
+                        // ここでは画面空間の線マスクを、カメラに追従する雑音で削って近似する。
+                        // _NprStrokeVary は線幅変化、_NprStrokeGap は途切れ、_NprStrokeScale は雑音の画素寸法。
+                        // +41／+91 は二つの雑音の相関を下げる。
                         float2 ukStrokeUV = (screenUV * _ScreenParams.xy) / max(_NprStrokeScale, 1.0f) + _WorldSpaceCameraPos.xz * _NprPaperFollow + 41.0f;
-                        float ukStrokeErode = _NprStrokeVary * (1.0f - PaperNoise(ukStrokeUV));      // taper / variable width
+                        float ukStrokeErode = _NprStrokeVary * (1.0f - PaperNoise(ukStrokeUV));      // 先細りと線幅の変化
                         inkLine = saturate((inkLine - ukStrokeErode) / max(1.0f - ukStrokeErode, 0.05f));
-                        float ukStrokeSeg = PaperNoise(ukStrokeUV * 0.4f + 91.0f);                    // coarser -> discrete breaks
+                        float ukStrokeSeg = PaperNoise(ukStrokeUV * 0.4f + 91.0f);                    // 粗い雑音で離散的に途切れる
                         inkLine *= smoothstep(_NprStrokeGap, _NprStrokeGap + 0.12f, ukStrokeSeg);
-                        // ① HEIGHT-DRIVEN TAPER (Dadfar & Welling §5.1): the painting's lines are bold on crests and thin to
-                        // nothing toward the troughs. Drive the line by the smooth average height (ukH01avg, already computed
-                        // above) so it fades in the deep troughs and stays full on crests. _NprStrokeTaper = strength (0 = off,
-                        // identical to baseline); _NprStrokeTaperHeight = the height midpoint where the taper kicks in.
+                        // ① 高さによる先細り（Dadfar と Welling 第5.1節）。波頂で太く、谷で消える原画の線に合わせる。
+                        // 平滑な平均高さ ukH01avg で制御する。_NprStrokeTaper は強さ（0 は無効）、
+                        // _NprStrokeTaperHeight は細くなり始める高さの中心。
                         float ukHeightTaper = smoothstep(_NprStrokeTaperHeight - 0.12f, _NprStrokeTaperHeight + 0.12f, ukH01avg);
                         inkLine *= lerp(1.0f, ukHeightTaper, _NprStrokeTaper);
                         ukCol = lerp(ukCol, _OutlineInkColor, inkLine);

@@ -1,7 +1,7 @@
-"""Preview renders of the saved great_wave.blend (Workbench, headless).
-    tools/run_blender.ps1 src/gwave/render_previews.py -Blend "G:/research/Wave Simulation/great_wave.blend" [-ScriptArgs '--video']
-Outputs in results/wave_build/preview/: stills of CAM_view34 / CAM_print / CAM_front at key frames, contact sheets,
-final frame of CAM_print blended with the painting, optional MP4 of CAM_view34."""
+"""保存済みの great_wave.blend の確認画像を Workbench で画面なしで出力する。
+    tools/run_blender.ps1 src/gwave/render_previews.py -Blend blend/great_wave.blend [-ScriptArgs '--video']
+results/wave_build/preview/ に主要フレームの CAM_view34 / CAM_print / CAM_front 画像、
+一覧画像、原画と重ねた CAM_print の最終画像、および任意の CAM_view34 動画を出力する。"""
 import argparse
 import os
 import sys
@@ -40,7 +40,7 @@ def main():
     scene = bpy.context.scene
     out = paths.ensure_dir(os.path.join(wm.PROJECT, "results", "wave_build", "preview"))
     frames = [int(v) for v in args.frames.split(",")] if args.frames else KEY_FRAMES
-    # closer 3/4 framing for the previews (the saved .blend keeps its own camera)
+    # 確認画像用の近めの斜め構図。保存済みの .blend のカメラは維持する。
     try:
         from mathutils import Vector
         H = float(paths.param("WAVE_HEIGHT_M"))
@@ -51,7 +51,7 @@ def main():
         c.rotation_mode = "QUATERNION"
         c.rotation_quaternion = v.to_track_quat("-Z", "Y")
     except Exception as ex:
-        bootstrap.log("camera override failed: %r" % (ex,))
+        bootstrap.log("カメラ構図の上書きに失敗しました: %r" % (ex,))
     scene.render.engine = "BLENDER_WORKBENCH"
     scene.display.render_aa = "8"
     scene.render.film_transparent = False
@@ -67,11 +67,11 @@ def main():
             render_still(scene, cam, f, p, res)
             imgs.append(imgio.load_image_rgb(p))
         sheets[cam] = imgs
-        sheet = draw.grid(imgs, ncols=5, gap=6, labels=["frame %d" % f for f in frames], label_scale=2, cell_size=(640, 430))
+        sheet = draw.grid(imgs, ncols=5, gap=6, labels=["f%d" % f for f in frames], label_scale=2, cell_size=(640, 430))
         imgio.save_png(os.path.join(out, "contact_%s.png" % cam), sheet)
-        bootstrap.log("contact sheet", cam)
+        bootstrap.log("一覧画像", cam)
 
-    # final frame of CAM_print over the painting
+    # CAM_print の最終フレームを原画に重ねる。
     if "CAM_print" in sheets:
         last = sheets["CAM_print"][-1].astype(np.float32)
         pa = draw.resize(imgio.load_image_rgb(paths.painting_path()), new_w=last.shape[1], new_h=last.shape[0]).astype(np.float32)
@@ -96,9 +96,9 @@ def main():
             bpy.ops.render.render(animation=True)
             ok = True
         except Exception as ex:
-            bootstrap.log("video render failed: %r" % (ex,))
-        bootstrap.log("video ok" if ok else "video not written")
-    bootstrap.log("wrote", out)
+            bootstrap.log("動画のレンダリングに失敗しました: %r" % (ex,))
+        bootstrap.log("動画を出力しました" if ok else "動画は出力されていません")
+    bootstrap.log("出力先", out)
     bootstrap.finish(True, "render_previews")
 
 

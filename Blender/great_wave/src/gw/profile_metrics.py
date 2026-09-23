@@ -1,93 +1,62 @@
-"""Metrics on an ordered wave profile (numpy only).  All geometry in H-normalised units
-(X_H, Z_H): crest of the final pose = (0, 1), still water / trough level Z_H = 0,
-+X = boat side.  Angles in degrees; direction angle = atan2(dZ, dX) (0 = +X, + = up).
+"""順序付きの波断面に対する測定指標（NumPy のみ）。幾何は H 正規化座標（X_H, Z_H）を用いる。
+最終姿勢の波頂は (0, 1)、静水面・谷の高さは Z_H=0、+X は船側。角度は度で示し、
+方向角は atan2(dZ, dX) とする（0 は +X、正は上向き）。
 
-The profile is ordered:  left frame edge -> crest -> head tip -> underside of the head ->
-inner arc -> trough (-> along the water to the right frame edge).  This is what
-gw.silhouette.extract_profile returns in profile['H'], and what a base contour
-(schema 'gw.base_contour.v1') gives when its three segments are concatenated, so the SAME
-definitions are applied to the model and to the painting's base contour.
+断面は画像左端→波頂→波頭先端→波頭の下面→内側円弧→谷→右端の水面の順に並ぶ。
+gw.silhouette.extract_profile の profile['H'] と、gw.base_contour.v1 の三つの区間を
+つないだ基礎輪郭は同じ順序を持つため、モデルと原画に同じ定義を適用できる。
+詳細と解釈上の決定は docs/measurement_definitions.md を参照する。
 
-Definitions (details + which ones are interpretations: docs/measurement_definitions.md)
------------------------------------------------------------------------------------------
-crest          highest point: Z = max Z.  Its position ALONG the contour is made robust for flat
-               tops ('robust extremum'): inside the contiguous run of samples within
-               `extremum_tol_pct_h` of the maximum, the mid-points of the level-set chords at
-               0.4 .. 1.0 x tol are fitted with a line in sqrt(level) and extrapolated to level
-               0 (exact for a round top whose curvature differs on both sides, = the plateau
-               centre for a flat top); the correction is capped at 25 % of the run width.
-head tip       rule 'max_reversal' (default, `tip_rule`): on the FRONT STRETCH = crest .. first touch
-               of the still water, take the pair (T before D) with the largest horizontal come-back
-               X(T) - X(D) (the 'maximum drawdown' of X along the path).  T = head tip, D = inner
-               deepest.  T is then the right-most point of the whole stretch crest .. D and D the
-               left-most point of T .. trough, however many ripples / lobes lie in between, and
-               the run along the water to the right frame edge (X only increases there) can never
-               be picked.  An overhang exists when that come-back exceeds `tip_min_reversal_pct_h`
-               (0.3 %); otherwise no tip.  On a single-nosed head this is exactly the legacy rule
-               'first_reversal' (first local X maximum after the crest followed by a reversal of
-               `tip_min_reversal_pct_h`), which is still evaluated and reported as the landmark
-               'overhang_onset'.  X = that maximum, position along the contour = robust extremum.
-               `head_lobes` counts the right->left reversals >= `head_lobe_reversal_pct_h` (1 %)
-               between crest and deepest point (1 = single-nosed head).
-inner deepest  left-most point of the path between the head tip and the trough end
-               (X = that minimum, position along the contour = robust extremum; on a vertical
-               wall this is the middle of the wall).
-base contour   measure_base_contour keeps the json joints (crest, head tip) but ALSO runs the
-               detection on the same polyline: 'segmentation_check' = distance json <-> detected
-               for crest / tip / deepest; above `segmentation_check_tol_pct_h` (0.2 %) target and
-               model are not segmented the same way (test_shape: run INVALID).
-trough end     first sample after the crest (after the deepest point when overhanging) with
-               Z <= z_still + trough_tol; if there is none, the lowest sample after the crest.
-segments       back = start..crest, head = crest..tip, inner_arc = tip..trough end,
-               trough_run = rest; front = crest..trough end (= head + inner_arc).
-h, x_c         crest height above still water, crest X.
-theta          steepest inclination of the front face.  Travel direction (crest -> trough) is
-               measured clockwise from +X: 20 = gentle slope, 90 = vertical, > 90 = overhanging,
-               180 = horizontal roof.  Tangent = chord over `theta_window_pct_h`.  theta =
-               clip(max, 0, 180); theta_raw keeps values > 180 (roof rising towards the body).
-o              max(0, X_tip - X_crest); 0 without a tip.
-phi            pointing direction of the head tip: direction of the chord of the TOP-side
-               contour from `phi_skip_H + phi_len_H` to `phi_skip_H` of arc length before the
-               tip (= arc-length mean of the tangent over that window).  Negative = downward.
-               THE direction of S5 and M4, for the model AND the base contour.
-crest_to_tip   direction of the straight line crest -> head tip (report only, next to phi).
-W (report)     report-only size metrics (NO thresholds): at the levels `width_levels_H` the
-               horizontal section through the contour (x_back = left-most crossing of the back, or
-               the left frame edge when the back is clipped there; x_inner = left-most crossing of
-               the front = end of the main body where the section is overhung; x_front = right-most
-               crossing of the front), widths, distances from the crest plumb line, plus o, cavity
-               depth and the area between the contour [left edge .. trough end] and Z = z_still.
-S4             back slopes: left end (chord over the first `s4_left_window_pct_h`), max of the
-               tangent along the back, mean slope in the window before the crest.
-S8             tangent change between neighbouring samples spaced S8_sample_spacing_pct
-               (chord directions between consecutive samples, several phases), evaluated on
-               [start, tip] and [tip, trough end] AND ACROSS THE TIP: junctions placed on the tip and
-               at every phase offset within one spacing on both sides of it (their chords span the
-               tip).  Since 2026-09-20 (second hardening) NOTHING is excluded by default
-               (`s8_tip_exclusion_pct_h` = 0 = the spec's literal S8; it was 2 % while the target was
-               expected to have a thin rim): a pointed head tip fails S8.  A value > 0 restores the
-               old exclusion (junctions closer than that to the tip are not judged; fixture-only use).
-               The old 'tip zone excluded' maximum is still REPORTED (`max_tip_zone_excluded_deg`,
-               zone = `s8_tip_report_zone_pct_h` = 2 %), as is the turn across that zone (`tip_turn_deg`).
-               REPORT ONLY next to it (blind spots of the judged number, 2026-09-20 hardening):
-               `max_vertex_window_turn_deg` = net turning of the POLYLINE ITSELF (sum of the exterior
-               angles of its own vertices, no chords) over every closed window of one S8 spacing that
-               starts or ends on a vertex, nothing excluded; `vertex_window_turn` splits it per
-               segment / tip zone / across the tip and repeats it for shorter windows; and
-               `max_unexcluded_deg` now contains ONE junction placed exactly on the head tip.
-S7             per segment, distance of model samples to the base-contour polyline of the same
-               segment (extended by `s7_segment_margin_pct_h` into its neighbours) and the
-               symmetric direction; mean / 95th percentile in % of image height; base points
-               with in_S7 == false are not counted.  REPORT ONLY next to it: the SIGNED mean of the
-               same distances (positive = the model contour lies OUTSIDE the target body).
-trough level   `trough_level_H` = lowest Z of the profile between the inner-arc deepest point (the
-               crest when there is no overhang) and the end of the profile (right frame edge) = the
-               MODEL'S OWN water level in front of the wave.  `reached_still_water` = that level is
-               within `trough_tol_pct_h` (0.3 % of image height) of `z_still_H`.  position_checks
-               reports S3 from Z = 0 (judged, as before) AND from this level ('S3_from_model_trough').
-shape (report) descriptors that do not cancel when a shape is wider AND lower: sections at 0.25 / 0.5 /
-               0.75 of the contour's OWN crest height h (not at absolute Z), every length divided by
-               h, o / h, cavity_depth / h, aspect ratio = full width at 0.5 h divided by h.
+主な定義
+--------
+波頂：Z の最大点。平坦部でも位置を安定させるため、最大値から extremum_tol_pct_h
+以内の連続標本を取り、複数の高さでの交差弦の中点を sqrt(高さ差) に対して直線近似し、
+高さ差 0 へ外挿する。平坦な頂部なら中央、左右で曲率が異なる丸い頂部なら真の極値に
+相当する。補正量は区間幅の 25 % 以下とする。
+
+波頭先端：既定の tip_rule=max_reversal。波頂から静水面への最初の接点までの前面区間で、
+T が D より前にあり、X(T)-X(D) の戻りが最大になる組を選ぶ。T が先端、D が内側の
+最深点となる。これにより途中のうねりや泡の房、右端の水面区間を先端と誤認しない。
+戻りが tip_min_reversal_pct_h（0.3 %）を超えた場合だけ張り出しとする。
+旧規則 first_reversal は波頂後で最初の局所 X 最大を取り、単一先端では同じ結果だが
+房のある波頭では途中で止まる。旧点は overhang_onset として報告する。
+head_lobes は波頂から最深点までの 1 % 以上の右→左への戻りを数える。
+
+内側の最深点：先端から谷の終端までの X 最小点。垂直な壁ではその中央を用いる。
+基礎輪郭：JSON の波頂・先端の接合点で区間を維持し、同じ折れ線上での自動検出とも
+照合する。差が segmentation_check_tol_pct_h（0.2 %）を超える場合、test_shape は
+区間分割の不一致として INVALID とする。
+谷の終端：波頂の後（張り出す場合は最深点の後）で、初めて Z が静水面の許容範囲に
+入る標本。なければ波頂以降の最低点。区間は back、head、inner_arc、trough_run、
+そして head と inner_arc を合わせた front とする。
+
+h と x_c：静水面からの波頂高と波頂の X。theta：前面の最大傾斜角。
+進行方向（波頂→谷）を +X から時計回りに測り、20 度は緩い斜面、90 度は垂直、
+90 度超は張り出し、180 度は水平な天井。theta_window_pct_h の弦を接線とし、
+結果は 0～180 度に制限する。theta_raw は 180 度超も残す。
+o=max(0, X_tip-X_crest) で、先端がない場合は 0。
+phi：先端から phi_skip_H～phi_skip_H+phi_len_H 手前の波頭表側の弦の方向。
+負値は下向き。モデルと基礎輪郭の S5 と M4 に同じ定義を使う。
+crest_to_tip は波頂から先端への直線方向で、phi と並べる報告専用値。
+
+W：しきい値を持たない形状の大きさの報告。width_levels_H の絶対高さで波背・前面の
+水平交点、幅、波頂の鉛直線からの距離を求め、張り出し o、空洞深さ、輪郭と静水面の
+間の面積も示す。S4 は波背の左端、最大、波頂前の傾斜角を示す。
+S8 は隣接する標本の接線差を複数位相で評価する。左端→先端と先端→谷端の区間に加え、
+先端をまたぐ弦も評価する。2026-09-20 以降は既定で先端付近を除外しない
+（s8_tip_exclusion_pct_h=0）。正値にすると旧来の除外を明示的に復活させるが、
+薄い縁の合成 fixture に限る。旧定義の最大値、先端付近の回転、折れ線自身の頂点角を
+閉じた窓で測る値も報告する。頂点窓は短い窓や先端をまたぐ窓にも分ける。
+S7 は区間ごとにモデル→基礎輪郭と逆方向の最近距離を測り、平均と 95 パーセンタイルを
+画像高に対する % で報告する。隣接区間へ余白を入れ、基礎輪郭の in_S7=false は除く。
+符号付き平均はモデルが標的の胴体の外側なら正とする。
+
+trough_level_H は波の前方にあるモデル自身の最低水位。最深点（張り出さない場合は波頂）
+から断面右端までの最低 Z を取る。静水面から trough_tol_pct_h（0.3 %）以内なら
+reached_still_water=true。S3 は座標系の Z=0 と、このモデル自身の谷底の両方を報告・判定する。
+shape は各断面自身の波頂高 h の 0.25 / 0.5 / 0.75 で形を記述する報告専用指標。
+各長さを h で割り、o/h、空洞深さ/h、0.5 h での幅/h を示すため、広く低い形の差も
+相殺されにくい。
 """
 import json
 import math
@@ -106,45 +75,44 @@ __all__ = [
 ]
 
 DEFAULT_PARAMS = {
-    "z_still_H": {"value": 0.0, "comment": "still-water / trough level in H units (spec section 4: Z = 0)"},
-    "extremum_tol_pct_h": {"value": 0.1, "comment": "crest / tip / deepest point = mid-point of the run of samples within this distance (in % of image height) of the extreme coordinate; makes flat tops and vertical walls well defined"},
-    "tip_rule": {"value": "max_reversal", "comment": "how the head tip is DETECTED (model profiles; base contour: consistency check). 'max_reversal' = on the front stretch [crest, first sample with Z <= z_still + trough_tol] take the pair (T before D) with the largest come-back X(T) - X(D); T = head tip = right-most point of the whole overhanging head (crest .. deepest point), D = inner-arc deepest point. Ripples and lobes of any size between crest and D cannot truncate the head, and the run along the water to the right frame edge cannot be picked (X never comes back there). 'first_reversal' = legacy rule (first local X maximum after the crest that is followed by a reversal of tip_min_reversal_pct_h): identical on single-nosed heads, stops at the first lobe on a lobed head (was 16 % of image height away from the json tip on the finger-scale base contour). The legacy point is always reported as landmark 'overhang_onset'."},
-    "tip_min_reversal_pct_h": {"value": 0.3, "comment": "an overhang (head tip, inner arc) exists when the largest come-back of X on the front stretch exceeds this; smaller come-backs count as a non-overhanging profile (o = 0). Unchanged from the legacy rule, so the overhang ONSET frame of a motion is the same as before."},
-    "head_lobe_reversal_pct_h": {"value": 1.0, "comment": "DIAGNOSTIC only (never moves the tip): right->left reversals of X of at least this size between the crest and the deepest point are counted as head lobes (head_lobes.n_lobes). 1 = single-nosed head, where 'max_reversal' and 'first_reversal' give the same tip; > 1 = lobed head (finger-scale contour)."},
-    "segmentation_check_tol_pct_h": {"value": 0.2, "comment": "measure_base_contour: largest allowed distance between the landmarks that follow from the json joints (crest, head tip, deepest point) and the landmarks DETECTED on the same polyline; above it the target and the model are not segmented in the same way and test_shape marks the run INVALID (orchestrator task, 2026-09-20)"},
-    "width_levels_H": {"value": [0.25, 0.5, 0.75], "comment": "REPORT ONLY (no threshold, pending user decision): heights Z (H units, absolute: the same painting rows for target and model) at which the horizontal section widths are reported"},
-    "trough_tol_pct_h": {"value": 0.3, "comment": "the inner arc / front face ends where Z first gets within this distance of the still-water level"},
-    "theta_window_pct_h": {"value": 2.0, "comment": "chord length used as tangent for theta (front-face inclination)"},
-    "theta_step_pct_h": {"value": 0.25, "comment": "arc-length step at which theta is evaluated"},
-    "phi_skip_H": {"value": 0.02, "comment": "arc length before the tip that is skipped for phi (the rounded rim cap; rim radius <= 1.5 % H by spec section 7)"},
-    "phi_len_H": {"value": 0.06, "comment": "length of the top-side window used for phi ('the last few % H before the tip')"},
-    "phi_min_len_H": {"value": 0.02, "comment": "phi is not reported when the head is too short for a window of at least this length"},
-    "s4_left_window_pct_h": {"value": 5.0, "comment": "S4 'near the left end': chord over this arc length from the left frame edge"},
-    "s4_tangent_window_pct_h": {"value": 2.0, "comment": "chord length used as tangent for the slope curve of the back"},
-    "s4_before_crest_window_pct_h": {"value": [3.0, 8.0], "comment": "S4 'before the crest': chord of the back between these arc-length distances before the crest"},
-    "s4_monotone_tol_deg": {"value": 2.0, "comment": "tolerance for 'slope decreases gradually towards the crest'"},
-    "s4_crest_zone_pct_h": {"value": 6.0, "comment": "'top is round, no corner': S8 turn angles within this arc-length distance of the crest"},
-    "s8_n_phases": {"value": 4, "comment": "S8 is evaluated for this many sample phases (offsets of spacing / n) so a kink cannot hide between samples"},
-    "s8_tip_exclusion_pct_h": {"value": 0.0, "comment": "0 = NOTHING is excluded: S8 is judged in the spec's literal form, also ACROSS the head tip (junctions on the tip and at every phase offset within one spacing of it), so a pointed tip fails. WAS 2.0 until 2026-09-20 (orchestrator interpretation made when the target was expected to have a thin rim: 'a rim thinner than 3 % H turns ~180 deg within ~3 % of image height'); the official large-form target turns only about 10 deg per sample across its tip and the spec's S8 text has no exemption. A value > 0 restores the old behaviour (junctions closer than this arc length to the tip are not judged) - used ONLY by the thin-rimmed synthetic test fixture, as an explicit per-case override that is reported as a non-default parameter."},
-    "s8_tip_report_zone_pct_h": {"value": 2.0, "comment": "REPORT ONLY: half width (arc length) of the zone around the head tip that the report-only numbers refer to when s8_tip_exclusion_pct_h = 0: max_tip_zone_excluded_deg (= the judged S8 of the definition used until 2026-09-20), tip_turn_deg (turn across the zone) and the 'outside / tip zone' split of the vertex-window turning. When s8_tip_exclusion_pct_h > 0 that value is the zone."},
-    "s8_limit_deg": {"value": 15.0, "comment": "copy of thresholds.json S8.max_tangent_diff_deg, only used for the boolean S4 'no corner' flag"},
-    "s7_sample_spacing_pct_h": {"value": 0.25, "comment": "spacing of the samples whose distance is measured for S7 (denser than the S8 spacing)"},
-    "s7_segment_margin_pct_h": {"value": 3.0, "comment": "a segment is compared with the same segment of the other contour extended by this arc length into its neighbours, so a slightly different crest / tip split does not create fake deviation"},
-    "shape_levels_frac_h": {"value": [0.25, 0.5, 0.75], "comment": "REPORT ONLY (no threshold): fractions of the contour's OWN crest height h at which the sections of the shape descriptors are taken (metrics['shape']); relative levels do not cancel when a shape is wider AND lower, absolute levels (width_levels_H) do"},
-    "s8_vertex_short_windows_pct_h": {"value": [0.5, 0.25], "comment": "REPORT ONLY: additional, SHORTER windows (% of image height) for the vertex-window turning of S8. On a smooth curve the turning shrinks with the window; a kink keeps its angle, also when it goes against the local curvature (20 deg against 9 deg / 1 % reads 11 deg over 1 % but 18 deg over 0.25 %)"},
+    "z_still_H": {"value": 0.0, "comment": "静水面・谷レベルの H 単位の高さ（仕様第 4 節では Z=0）。"},
+    "extremum_tol_pct_h": {"value": 0.1, "comment": "波頂・先端・最深点は、極値座標からこの距離（画像高に対する %）以内の連続標本区間の中心で定める。平坦な頂部と垂直な壁でも位置を安定させる。"},
+    "tip_rule": {"value": "max_reversal", "comment": "波頭先端の検出方法。モデル断面で用い、基礎輪郭では整合性の確認に用いる。max_reversal は前面区間（波頂から Z<=z_still+trough_tol の最初の標本まで）で X(T)-X(D) が最大の、T が D より前にある組を選ぶ。T は波頭全体の最右点、D は内側円弧の最深点。途中の細かなうねりや房で波頭が途中終了せず、右の水面に沿う区間も選ばれない。first_reversal は旧規則で、波頂後で初めて X が局所最大となり、tip_min_reversal_pct_h 以上戻る点を選ぶ。先端が一つの波頭では同じ結果だが房のある波頭では最初の房で止まり、指状部分尺度の基礎輪郭では JSON の先端から画像高の 16 % 離れていた。旧規則の点は overhang_onset として常に報告する。"},
+    "tip_min_reversal_pct_h": {"value": 0.3, "comment": "前面区間で X の最大の戻りがこの値を超えた場合に張り出し（波頭先端と内側円弧）があるとする。それ以下は張り出しなし（o=0）。旧規則と同じ値なので、動きの張り出し開始フレームは変わらない。"},
+    "head_lobe_reversal_pct_h": {"value": 1.0, "comment": "診断専用で先端位置を変えない。波頂と最深点の間で X がこの値以上右から左へ戻る回数を波頭の房として数える（head_lobes.n_lobes）。1 は先端が一つの波頭で max_reversal と first_reversal が一致する。1 より大きい場合は房のある波頭。"},
+    "segmentation_check_tol_pct_h": {"value": 0.2, "comment": "measure_base_contour で、JSON の接合点から得た波頂・先端・最深点と、同じ折れ線上で検出した特徴点の許容距離。超えると標的とモデルの区間分割が一致せず、test_shape は INVALID とする（2026-09-20 の進行管理者の作業）。"},
+    "width_levels_H": {"value": [0.25, 0.5, 0.75], "comment": "報告専用。水平断面幅を報告する絶対高さ Z（H 単位）。標的とモデルで同じ原画の行を指す。しきい値なし、ユーザーの判断待ち。"},
+    "trough_tol_pct_h": {"value": 0.3, "comment": "内側円弧・前面が静水面からこの距離以内に初めて入る位置を終端とする。"},
+    "theta_window_pct_h": {"value": 2.0, "comment": "前面傾斜角 theta の接線として用いる弦の長さ。"},
+    "theta_step_pct_h": {"value": 0.25, "comment": "弧長方向に theta を評価する間隔。"},
+    "phi_skip_H": {"value": 0.02, "comment": "phi の計測で波頭先端直前から除く弧長。丸い縁に相当し、仕様第 7 節の縁半径は H の 1.5 % 以下。"},
+    "phi_len_H": {"value": 0.06, "comment": "phi に用いる波頭表側の窓の長さ。「先端前の最後の数 % H」に相当する。"},
+    "phi_min_len_H": {"value": 0.02, "comment": "波頭が短く、この長さ以上の窓を取れない場合は phi を報告しない。"},
+    "s4_left_window_pct_h": {"value": 5.0, "comment": "S4 の「左端付近」。画像左端からこの弧長までの弦で測る。"},
+    "s4_tangent_window_pct_h": {"value": 2.0, "comment": "波背の傾斜曲線の接線として用いる弦の長さ。"},
+    "s4_before_crest_window_pct_h": {"value": [3.0, 8.0], "comment": "S4 の「波頂直前」。波頂からこの二つの弧長距離だけ手前の波背上の弦で測る。"},
+    "s4_monotone_tol_deg": {"value": 2.0, "comment": "「波頂へ向けて傾斜が徐々に減る」ための許容角度。"},
+    "s4_crest_zone_pct_h": {"value": 6.0, "comment": "「頂部は丸く角がない」を調べる、波頂からの弧長範囲。この範囲内の S8 の曲がり角を使う。"},
+    "s8_n_phases": {"value": 4, "comment": "折れが標本間に隠れないよう、S8 をこの数の標本位相（間隔を位相数で割ったずらし）で評価する。"},
+    "s8_tip_exclusion_pct_h": {"value": 0.0, "comment": "0 なら除外なし。波頭先端をまたぐ接合点も含めて仕様を文字通り判定し、尖った先端を失敗とする。2026-09-20 までは 2.0 で、薄い縁を想定した進行管理者の解釈だった。正式な大形状標的は先端で一標本当たり約 10 度しか曲がらず、仕様 S8 に例外もない。0 より大きい値は旧動作を復活させ、先端からこの弧長未満の接合点を判定から除く。明示的な個別上書きとして、薄い縁の合成 fixture でのみ使用する。"},
+    "s8_tip_report_zone_pct_h": {"value": 2.0, "comment": "報告専用。s8_tip_exclusion_pct_h=0 のとき、先端付近の補助値の対象とする弧長半幅。max_tip_zone_excluded_deg は旧定義の S8、tip_turn_deg はこの範囲をまたぐ曲がり角、頂点窓の値も範囲内外に分ける。除外幅が 0 より大きければその値を範囲とする。"},
+    "s8_limit_deg": {"value": 15.0, "comment": "thresholds.json の S8.max_tangent_diff_deg の複製値。S4 の「角がない」の真偽値にのみ使う。"},
+    "s7_sample_spacing_pct_h": {"value": 0.25, "comment": "S7 の距離を測る標本間隔。S8 の間隔より細かい。"},
+    "s7_segment_margin_pct_h": {"value": 3.0, "comment": "わずかな波頂・先端の分割位置差で偽の偏差が出ないよう、比較相手の区間を隣接区間へこの弧長だけ延長する。"},
+    "shape_levels_frac_h": {"value": [0.25, 0.5, 0.75], "comment": "報告専用。各輪郭自身の波頂高 h に対する断面高さの比率（metrics['shape']）。形が広く低いとき相対高さでは差が相殺されず、絶対高さ width_levels_H では相殺され得る。しきい値なし。"},
+    "s8_vertex_short_windows_pct_h": {"value": [0.5, 0.25], "comment": "報告専用。S8 の頂点窓の曲がり角を追加で調べる短い窓（画像高に対する %）。滑らかな曲線では窓が短くなるほど角度も小さくなるが、折れは局所曲率に逆らっていても角度を保つ。例：20 度の折れが 1 % 当たり 9 度の曲率と逆向きなら、1 % 窓では 11 度でも 0.25 % 窓では 18 度となる。"},
 }
 
 S8_SPACING_DEFAULT_PCT_H = 1.0
-"""S8 sample spacing when params.json has no 'S8_sample_spacing_pct' entry (spec section 5 S8 / section 10
-assumption 4: initial value 1 % of image height)."""
+"""params.json に S8_sample_spacing_pct がない場合の S8 標本間隔。
+仕様第 5 節 S8 と第 10 節の仮定 4 に従い、初期値を画像高の 1 % とする。"""
 
-_PARAMS_META_KEYS = ("comment", "provenance", "unit", "_doc", "_comment")     # allowed next to the values in params.json['measure_params']
-_DERIVED_KEYS = ("s8_spacing_pct_h", "non_default_params")                    # part of the flat dict, not of DEFAULT_PARAMS
+_PARAMS_META_KEYS = ("comment", "provenance", "unit", "_doc", "_comment")     # params.json['measure_params'] の値に添えてよいメタデータ。
+_DERIVED_KEYS = ("s8_spacing_pct_h", "non_default_params")                    # 平坦な結果辞書には含むが DEFAULT_PARAMS には含めない。
 
 
 def _param_entry(name):
-    """Value of a params.json entry, or None when THE ENTRY IS ABSENT (KeyError).  Everything else - params.json
-    missing, malformed json, unreadable file - raises: a broken parameter file must never be measured around."""
+    """params.json の指定項目の値を返す。項目が存在しない場合だけ None とする。ファイルの欠落、不正な JSON、読み取り失敗は例外とし、壊れた設定を暗黙に補わない。"""
     try:
         return paths.param(name)
     except KeyError:
@@ -163,18 +131,9 @@ def _same_value(a, b):
 
 
 def get_params(overrides=None):
-    """Flat {name: value} of DEFAULT_PARAMS, overridden by params.json['measure_params'] (if the
-    project adds such an entry) and then by `overrides`.  S8 spacing comes from params.json
-    ('S8_sample_spacing_pct'; S8_SPACING_DEFAULT_PCT_H when that entry is absent).
-
-    Only the case 'the entry does not exist' is caught.  A missing or MALFORMED params.json, a
-    'measure_params' entry that is not a dict, a non-numeric S8 spacing and an UNKNOWN parameter
-    name (a typo would otherwise silently measure with the default) all raise.
-
-    The result also carries 'non_default_params': {name: {'value', 'default', 'source'}} for every
-    measure parameter whose value differs from DEFAULT_PARAMS (S8 spacing: from
-    S8_SPACING_DEFAULT_PCT_H); source = 'params.json' | 'override'.  Empty dict = everything is
-    measured with the documented defaults.  Tests should flag a non-empty dict."""
+    """DEFAULT_PARAMS の平坦な {name: value} に、params.json の measure_params と overrides を順に重ねる。S8 の標本間隔は params.json の S8_sample_spacing_pct から取り、項目がなければ S8_SPACING_DEFAULT_PCT_H を使う。
+項目がない場合だけを捕捉し、ファイル不正、辞書以外の measure_params、数値でない S8 間隔、未知の名前は例外とする。誤記を黙って既定値で測らないため。
+結果の non_default_params は既定値と異なる設定の value、default、source を記録する。空ならすべて文書化された既定値で測定したことを示す。テストは空でない場合に印を付ける。"""
     p = {k: (list(v["value"]) if isinstance(v["value"], list) else v["value"]) for k, v in DEFAULT_PARAMS.items()}
     from_json = {}
     raw = _param_entry("S8_sample_spacing_pct")
@@ -195,7 +154,7 @@ def get_params(overrides=None):
     if overrides:
         for k, v in overrides.items():
             if k == "non_default_params":
-                continue                                  # a flat dict from an earlier get_params() is a valid override
+                continue                                  # 以前の get_params() が返した平坦な辞書も上書き値として有効。
             if k not in DEFAULT_PARAMS and k not in _DERIVED_KEYS:
                 raise ValueError("unknown measure parameter %r in overrides (known: %s)"
                                  % (k, ", ".join(sorted(list(DEFAULT_PARAMS) + ["s8_spacing_pct_h"]))))
@@ -211,35 +170,34 @@ def get_params(overrides=None):
 
 
 def non_default_params(params=None):
-    """{name: {'value', 'default', 'source'}} of every measure parameter that differs from DEFAULT_PARAMS
-    (see get_params).  `params`: overrides or a flat dict from get_params()."""
+    """DEFAULT_PARAMS と異なる測定設定の value、default、source を返す。params は上書き値、または get_params() の平坦な結果を指定できる。"""
     return get_params(params)["non_default_params"]
 
 
 def _frame_h():
-    # no fallback: a broken params.json must raise here too (it used to be replaced silently by 100 / 66)
+    # 壊れた params.json はここでも例外とする。以前の 100/66 への暗黙の代替は行わない。
     return gw_frame.get_frame().frame_h
 
 
 def pct_h_to_H(d_pct):
-    """length in % of image height -> H units."""
+    """画像高に対する % で示した長さを H 単位へ変換する。"""
     return np.asarray(d_pct, dtype=np.float64) / 100.0 * _frame_h()
 
 
 def H_to_pct_h(d_H):
-    """length in H units -> % of image height."""
+    """H 単位の長さを画像高に対する % へ変換する。"""
     return np.asarray(d_H, dtype=np.float64) / _frame_h() * 100.0
 
 
 def wrap_deg(a):
-    """wrap to (-180, 180]."""
+    """角度を (-180, 180] の範囲へ正規化する。"""
     a = (np.asarray(a, dtype=np.float64) + 180.0) % 360.0 - 180.0
     return np.where(a == -180.0, 180.0, a)
 
 
-# ====================================================================== Curve
+# ====================================================================== 弧長を持つ曲線
 class Curve:
-    """Polyline with arc-length parameter.  pts (N, 2); consecutive duplicates are dropped."""
+    """弧長で位置を指定できる折れ線。pts は (N, 2)。連続する重複点は除く。"""
 
     def __init__(self, pts):
         p = np.asarray(pts, dtype=np.float64)
@@ -249,7 +207,7 @@ class Curve:
             raise ValueError("curve contains non-finite values")
         seg = np.hypot(np.diff(p[:, 0]), np.diff(p[:, 1]))
         keep = np.concatenate([[True], seg > 0])
-        self.index_map = np.nonzero(keep)[0]          # index into the original array
+        self.index_map = np.nonzero(keep)[0]          # 元の配列の添字。
         p = p[keep]
         if p.shape[0] < 2:
             raise ValueError("curve has zero length")
@@ -266,7 +224,7 @@ class Curve:
         return np.degrees(np.arctan2(b[..., 1] - a[..., 1], b[..., 0] - a[..., 0]))
 
     def tangent_deg(self, s, window, lo=0.0, hi=None):
-        """direction of the chord from s - window/2 to s + window/2, both clipped to [lo, hi]."""
+        """s-window/2 から s+window/2 までの弦の方向。両端を [lo, hi] に収める。"""
         hi = self.length if hi is None else hi
         s = np.asarray(s, dtype=np.float64)
         return self.chord_deg(np.clip(s - 0.5 * window, lo, hi), np.clip(s + 0.5 * window, lo, hi))
@@ -275,7 +233,7 @@ class Curve:
         return int(np.clip(np.searchsorted(self.s, s), 0, len(self.s) - 1))
 
     def sub(self, s0, s1, spacing):
-        """points sampled every `spacing` on [s0, s1] (both ends included)."""
+        """[s0, s1] の両端を含め、spacing 間隔で点を標本化する。"""
         s0, s1 = float(max(0.0, s0)), float(min(self.length, s1))
         if s1 <= s0:
             return self.at(np.array([s0]))
@@ -283,15 +241,14 @@ class Curve:
         return self.at(np.linspace(s0, s1, n))
 
     def slice_pts(self, s0, s1):
-        """original vertices inside [s0, s1] plus exact end points."""
+        """[s0, s1] にある元の頂点と、正確な両端点を返す。"""
         s0, s1 = float(max(0.0, s0)), float(min(self.length, s1))
         inner = (self.s > s0) & (self.s < s1)
         return np.concatenate([self.at(np.array([s0])), self.pts[inner], self.at(np.array([s1]))], axis=0)
 
 
 def _run_mid(values, s, i_ext, tol, sign, lo, hi):
-    """Contiguous run around index i_ext (within [lo, hi]) where sign*values >= sign*values[i_ext] - tol.
-    -> (s_mid, i_a, i_b)"""
+    """[lo, hi] 内の極値添字 i_ext を含み、sign×values が極値から tol 以内にある連続区間を求める。区間中央の弧長と両端添字を返す。"""
     v = sign * values
     thr = v[i_ext] - tol
     a = i_ext
@@ -302,12 +259,10 @@ def _run_mid(values, s, i_ext, tol, sign, lo, hi):
         b += 1
     if b == a:
         return float(s[a]), a, b
-    # Level-set bisectors: for several levels tau below the extreme value, take the mid-point
-    # m(tau) of the chord between the two crossings next to the extremum.  A flat plateau or a
-    # symmetric top gives a constant m; for an extremum whose curvature differs on both sides
-    # m(tau) = s0 + c * sqrt(tau), so a straight-line fit in sqrt(tau) extrapolated to tau = 0
-    # returns the true extreme point s0.  The correction is capped at 25 % of the run width so
-    # that noise on a plateau cannot move the point far from the plateau centre.
+    # 極値から少し下の複数の高さ tau で、極値の左右の交点を結ぶ弦の中点 m(tau) を求める。
+    # 平坦部や左右対称の頂部では m は一定。左右の曲率が異なる場合は
+    # m(tau)=s0+c√tau なので、√tau に対する直線を tau=0 へ外挿すると真の極値 s0 を得る。
+    # 平坦部のノイズで位置が大きく動かないよう、補正量は連続区間幅の 25 % 以下とする。
     vmax = v[i_ext]
     mids, roots = [], []
     for frac in (0.4, 0.55, 0.7, 0.85, 1.0):
@@ -332,7 +287,7 @@ def _run_mid(values, s, i_ext, tol, sign, lo, hi):
         cap = 0.25 * (s[b] - s[a])
         est = m_full + min(max(c0 - m_full, -cap), cap)
         return float(min(max(est, s[a]), s[b])), a, b
-    # run clipped by the end of the search range: weighted arc-length centroid instead
+    # 探索範囲の端で連続区間が切れた場合は、代わりに弧長の重み付き重心を用いる。
     ss = s[a:b + 1]
     ds = np.gradient(ss)
     wgt = np.maximum(v[a:b + 1] - thr, 0.0) ** 2 * ds
@@ -341,18 +296,16 @@ def _run_mid(values, s, i_ext, tol, sign, lo, hi):
     return float((wgt * ss).sum() / wgt.sum()), a, b
 
 
-# ====================================================================== head-tip detection
+# ====================================================================== 波頭先端の検出
 def _front_stretch_end(z, i_c, z_lim):
-    """Index where the front stretch ends: first sample at / after the crest with Z <= z_lim (first touch of
-    the still water); without one the lowest sample after the crest; never the crest itself."""
+    """前面区間の終端添字。波頂以降で Z<=z_lim を初めて満たす標本（静水面への最初の接点）を選ぶ。なければ波頂以降の最低標本。波頂自身は選ばない。"""
     below = np.nonzero(z[i_c:] <= z_lim)[0]
     i_f = int(i_c + below[0]) if below.size else int(i_c + np.argmin(z[i_c:]))
     return i_f if i_f > i_c else len(z) - 1
 
 
 def _tip_first_reversal(x, i_c, rev):
-    """LEGACY rule: first local maximum of X after the crest that is followed by a come-back > rev.
-    -> index or None."""
+    """旧規則。波頂の後で X が最初に局所最大となり、続いて rev を超えて戻る位置の添字を返す。なければ None。"""
     xm, im = x[i_c], i_c
     for i in range(i_c + 1, len(x)):
         if x[i] > xm:
@@ -363,23 +316,20 @@ def _tip_first_reversal(x, i_c, rev):
 
 
 def _tip_max_reversal(x, i_c, i_f, rev):
-    """Rule 'max_reversal': the pair (T before D) on [i_c, i_f] with the largest come-back x[T] - x[D]
-    (maximum drawdown of X).  -> (i_T, i_D, come-back) or (None, None, come-back) when it is <= rev.
-    By construction T is the right-most sample of [i_c, D] and D the left-most sample of [T, i_f]."""
+    """max_reversal 規則。[i_c, i_f] で T が D より前にあり、X(T)-X(D) の戻りが最大になる組を求める。戻りが rev 以下なら添字は None。T は [i_c, D] の最右標本、D は [T, i_f] の最左標本となる。"""
     xf = x[i_c:i_f + 1]
     dd = np.maximum.accumulate(xf) - xf
     j = int(np.argmax(dd))
     if not dd[j] > rev:
         return None, None, float(dd[j])
     i_t = i_c + int(np.argmax(xf[:j + 1]))
-    if i_t <= i_c:                                     # the crest itself is the right-most point: no head
+    if i_t <= i_c:                                     # 波頂自身が最右点なら波頭は存在しない。
         return None, None, float(dd[j])
     return i_t, i_c + j, float(dd[j])
 
 
 def count_x_reversals(x, rev):
-    """Number of right->left reversals of X of at least `rev` along the samples x (hysteresis count).
-    A single-nosed head between crest and deepest point has exactly 1."""
+    """標本列 x に沿う X の右から左への rev 以上の戻り回数（ヒステリシス付き）。波頂と最深点の間に先端が一つだけなら 1。"""
     x = np.asarray(x, dtype=np.float64)
     if x.size < 2:
         return 0
@@ -398,28 +348,10 @@ def count_x_reversals(x, rev):
     return int(n)
 
 
-# ====================================================================== main measurement
+# ====================================================================== 主測定
 def measure_profile(pts_H, params=None, crest_index=None, tip_index=None):
-    """All single-frame quantities of an ordered profile (H units).
-
-    pts_H : (N, 2) ordered profile (see module doc).
-    crest_index / tip_index : optional explicit indices into pts_H (used for a base contour
-        whose segmentation is given); otherwise they are detected (head tip: params['tip_rule']).
-    -> dict (json-ready apart from numpy floats being python floats):
-       ok, notes[], overhanging, tip_source ('detected:<rule>' | 'given'),
-       landmarks {crest, crest_argmax, crest_plateau, head_tip, inner_deepest, trough_end, theta_point, body_rightmost,
-                  overhang_onset (legacy first-reversal tip, None without overhang)},
-           each {'H': [X, Z], 's': arc length, 'index': nearest sample index}
-       segments {back, head, inner_arc, trough_run, front}: [i0, i1] sample index ranges (inclusive) or None
-       h, x_c, theta, theta_raw, o, cavity_depth, phi {deg, window_s, p0, p1} | None, crest_to_tip_deg | None
-       head_lobes {n_lobes, n_reversals_min, onset_to_tip_pct_h, max_comeback_pct_h, ...}
-       S4 {...}, S8 {...}, W {...} (report-only widths / area, see width_metrics), length_H,
-       shape {...} (report-only descriptors relative to the own crest height, see shape_descriptors),
-       trough_level_H (lowest Z between the deepest point - crest without overhang - and the end of the profile; landmark
-       'trough_lowest'), reached_still_water (bool: trough_level_H <= z_still + trough_tol_pct_h), trough_level_above_still_pct_h,
-       h_from_model_trough (crest Z - trough_level_H), trough_run_median_H (the pre-hardening 'trough_level_H'),
-       non_default_params {name: {value, default, source}} (empty = every measure parameter has its documented default)
-    """
+    """順序付き断面の一フレーム分の量を H 単位で測る。pts_H は (N, 2) の断面。crest_index と tip_index を指定すると基礎輪郭の区間接合点として使い、未指定なら自動検出する。
+結果は ok、notes、overhanging、tip_source、特徴点 landmarks、区間 segments、h、x_c、theta、theta_raw、o、cavity_depth、phi、crest_to_tip_deg、head_lobes、S4、S8、W、shape、length_H を含む。trough_level_H はモデル前面の最低水位、reached_still_water は静水面への到達、h_from_model_trough は自身の谷底からの高さ。trough_run_median_H は強化前の旧指標。non_default_params は既定値と異なる測定設定を示す。数値・キーの詳細はモジュール冒頭を参照。"""
     P = get_params(params)
     C = Curve(pts_H)
     x, z, s = C.pts[:, 0], C.pts[:, 1], C.s
@@ -431,7 +363,7 @@ def measure_profile(pts_H, params=None, crest_index=None, tip_index=None):
     def lm(point, s_val):
         return {"H": [float(point[0]), float(point[1])], "s": float(s_val), "index": int(C.index_map[C.index_at(s_val)])}
 
-    # ---- crest
+    # ---- 波頂
     if crest_index is not None:
         i_c = int(np.searchsorted(C.index_map, crest_index))
         i_c = min(max(i_c, 0), n - 1)
@@ -448,14 +380,14 @@ def measure_profile(pts_H, params=None, crest_index=None, tip_index=None):
                  "crest_plateau": {"x_min_H": float(min(x[ia], x[ib])), "x_max_H": float(max(x[ia], x[ib])),
                                    "width_pct_h": float(H_to_pct_h(abs(x[ib] - x[ia]))), "tol_pct_h": P["extremum_tol_pct_h"]}}
 
-    # ---- head tip (module doc: 'head tip'; DEFAULT_PARAMS['tip_rule'])
+    # ---- 波頭先端（冒頭の定義および DEFAULT_PARAMS['tip_rule'] を参照）
     rev = float(pct_h_to_H(P["tip_min_reversal_pct_h"]))
     ttol = float(pct_h_to_H(P["trough_tol_pct_h"]))
     rule = str(P.get("tip_rule", "max_reversal"))
     if rule not in ("max_reversal", "first_reversal"):
         raise ValueError("unknown tip_rule %r (known: 'max_reversal', 'first_reversal')" % rule)
     i_front = _front_stretch_end(z, i_c, z_still + ttol)
-    i_onset = _tip_first_reversal(x, i_c, rev)                  # legacy tip = where the overhang is first seen
+    i_onset = _tip_first_reversal(x, i_c, rev)                  # 旧規則の先端は、張り出しが初めて見える位置。
     i_tm, _i_dm, comeback = _tip_max_reversal(x, i_c, i_front, rev)
     i_t = None
     if tip_index is not None:
@@ -467,14 +399,14 @@ def measure_profile(pts_H, params=None, crest_index=None, tip_index=None):
         tip_source = "detected:" + rule
     overhanging = i_t is not None and i_t > i_c
 
-    # ---- trough end / deepest point
+    # ---- 谷の終端・最深点
     i_d = None
     if overhanging:
         s_t, ta, tb = _run_mid(x, s, i_t, tol, +1.0, i_c, n - 1) if tip_index is None else (s[i_t], i_t, i_t)
         tip_pt = C.at(s_t)
         if tip_index is None:
             tip_pt[0] = x[i_t]
-        # provisional trough end after the tip
+        # 先端より後にある仮の谷の終端。
         below = np.nonzero(z[i_t:] <= z_still + ttol)[0]
         i_e = int(i_t + below[0]) if below.size else int(i_t + np.argmin(z[i_t:]))
         if i_e <= i_t:
@@ -483,7 +415,7 @@ def measure_profile(pts_H, params=None, crest_index=None, tip_index=None):
         s_d, da, db = _run_mid(x, s, i_d, tol, -1.0, i_t, i_e)
         deep_pt = C.at(s_d)
         deep_pt[0] = x[i_d]
-        # trough end must come after the deepest point
+        # 谷の終端は最深点より後に置く。
         below = np.nonzero(z[i_d:] <= z_still + ttol)[0]
         i_e = int(i_d + below[0]) if below.size else int(i_d + np.argmin(z[i_d:]))
         landmarks["head_tip"] = lm(tip_pt, s_t)
@@ -516,11 +448,11 @@ def measure_profile(pts_H, params=None, crest_index=None, tip_index=None):
              "inner_arc": [float(s_t), float(s_e)] if overhanging else None,
              "trough_run": [float(s_e), C.length] if i_e < n - 1 else None, "front": [float(s_c), float(s_e)]}
 
-    # ---- the model's OWN water level in front of the wave: lowest Z between the inner-arc deepest point (the crest
-    # when there is no overhang) and the end of the profile (= right frame edge for a complete silhouette profile).
-    # A sea that stands higher than Z = z_still in front of the wave (raised floor) shows up HERE; h / S3 measured
-    # from z_still cannot see it.  (Before 2026-09-20 this key was the median of the water run, None when the
-    # front never came within trough_tol of z_still; that number is kept as 'trough_run_median_H'.)
+    # ---- 波の前面にあるモデル自身の水位。内側円弧の最深点（張り出さない場合は波頂）から
+    # 断面の終端までの最低 Z を取る。完全なシルエットなら終端は画像右端。
+    # 前面の海が z_still より高い場合はここに現れるが、z_still 基準の h / S3 では見えない。
+    # 2026-09-20 より前は水面区間の中央値をこのキーに入れていた。旧値は
+    # trough_run_median_H として保持する。
     i_from = i_d if overhanging else i_c
     i_low = int(i_from + np.argmin(z[i_from:]))
     trough_level = float(z[i_low])
@@ -528,7 +460,7 @@ def measure_profile(pts_H, params=None, crest_index=None, tip_index=None):
     landmarks["trough_lowest"] = lm(C.pts[i_low], s[i_low])
     trough_run_median = float(np.median(z[i_e:])) if i_e < n - 1 and reached_trough else (float(z[i_e]) if reached_trough else None)
 
-    # ---- theta
+    # ---- 前面傾斜角 theta
     w_th = float(pct_h_to_H(P["theta_window_pct_h"]))
     step = float(pct_h_to_H(P["theta_step_pct_h"]))
     L_front = s_e - s_c
@@ -547,7 +479,7 @@ def measure_profile(pts_H, params=None, crest_index=None, tip_index=None):
     theta = float(min(max(theta_raw, 0.0), 180.0))
     landmarks["theta_point"] = lm(C.at(ss[k]), ss[k])
 
-    # ---- o, cavity depth, body right-most
+    # ---- 張り出し o、空洞深さ、胴体の最右点
     if overhanging:
         o = float(max(0.0, landmarks["head_tip"]["H"][0] - landmarks["crest"]["H"][0]))
         cavity = float(landmarks["head_tip"]["H"][0] - landmarks["inner_deepest"]["H"][0])
@@ -557,7 +489,7 @@ def measure_profile(pts_H, params=None, crest_index=None, tip_index=None):
         o, cavity = 0.0, 0.0
         landmarks["body_rightmost"] = None
 
-    # ---- overhang onset (legacy tip), lobes of the head, crest -> tip direction (all report only)
+    # ---- 張り出し開始（旧先端）、波頭の房、波頂→先端の方向。いずれも報告専用。
     landmarks["overhang_onset"] = None if i_onset is None else lm(C.pts[i_onset], s[i_onset])
     lobe_rev = float(pct_h_to_H(P["head_lobe_reversal_pct_h"]))
     i_lobe_end = i_d if overhanging else i_front
@@ -592,7 +524,7 @@ def measure_profile(pts_H, params=None, crest_index=None, tip_index=None):
         else:
             notes.append("head too short for the phi window (%.4f H < %.4f H)" % (s1 - s0, mn))
 
-    # ---- S4 back slopes
+    # ---- S4 の波背の傾斜
     S4 = _back_slopes(C, s_c, P)
 
     # ---- S8
@@ -605,7 +537,7 @@ def measure_profile(pts_H, params=None, crest_index=None, tip_index=None):
     S4["crest_max_turn_deg"] = crest_turn
     S4["top_is_round_no_corner"] = None if crest_turn is None else bool(crest_turn < P["s8_limit_deg"])
 
-    # ---- report-only widths / area (absolute levels) and shape descriptors (levels relative to the own crest height)
+    # ---- 報告専用の幅・面積（絶対高さ）と、輪郭自身の波頂高に対する形状記述子。
     h_val = float(landmarks["crest"]["H"][1] - z_still)
     W = _width_metrics(C, i_c, s_c, s_t if overhanging else None, i_e, float(landmarks["crest"]["H"][0]), o, cavity, P)
     shape = _shape_descriptors(C, i_c, s_t if overhanging else None, i_e, float(landmarks["crest"]["H"][0]), h_val, o, cavity, P)
@@ -633,19 +565,14 @@ def measure_profile(pts_H, params=None, crest_index=None, tip_index=None):
 
 
 def detect_landmarks(pts_H, params=None):
-    """Landmarks DETECTED on an ordered polyline with the library's own rules (crest = robust Z maximum,
-    head tip / deepest point = params['tip_rule'], trough end).  For contour builders: a base contour whose
-    json joints are put on these points is segmented exactly like every model profile, so that
-    measure_base_contour(...)['segmentation_check'] is consistent by construction.
-    -> {overhanging, crest, head_tip, inner_deepest, trough_end, overhang_onset (each {'H', 's', 'index'} | None),
-        head_lobes, tip_rule}"""
+    """ライブラリの規則で順序付き折れ線の特徴点を検出する。波頂は頑健な Z 最大、波頭先端と最深点は tip_rule、谷の終端も求める。輪郭生成側は JSON の接合点をここへ置くことで、モデル側と同じ分割を保てる。"""
     m = measure_profile(pts_H, params)
     out = {k: m["landmarks"].get(k) for k in ("crest", "head_tip", "inner_deepest", "trough_end", "overhang_onset")}
     out.update({"overhanging": m["overhanging"], "head_lobes": m["head_lobes"], "tip_rule": m["params"]["tip_rule"]})
     return out
 
 
-# ====================================================================== report-only widths / area
+# ====================================================================== 報告専用の幅と面積
 WIDTH_LABEL = "report only - pending user decision"
 
 
@@ -654,8 +581,7 @@ def _level_tag(level):
 
 
 def _level_crossings(x, z, s, level, k0, k1):
-    """Crossings of the polyline samples k0 .. k1 (inclusive) with the horizontal line Z = level, in path order.
-    -> (X (m,), s (m,), going_down (m,) bool)"""
+    """折れ線の標本 k0～k1 と水平線 Z=level の交点を経路順に求める。X、弧長 s、下向きに横切るかを返す。"""
     if k1 <= k0:
         return np.zeros(0), np.zeros(0), np.zeros(0, bool)
     zz = z[k0:k1 + 1] - float(level)
@@ -670,7 +596,7 @@ def _level_crossings(x, z, s, level, k0, k1):
 
 
 def _section_record(C, level, i_c, s_t, i_e, x_c):
-    """Horizontal section of a measured profile at Z = level (module doc 'W'): one record."""
+    """測定済み断面を Z=level で水平に切った一件分の記録（冒頭の W）。"""
     x, z, s = C.pts[:, 0], C.pts[:, 1], C.s
     level = float(level)
     rec = {"level_H": level, "measurable": False, "note": None, "x_back_H": None, "back_clipped_at_frame_edge": None,
@@ -717,7 +643,7 @@ def _frac_tag(frac):
 
 
 def _shape_descriptors(C, i_c, s_t, i_e, x_c, h, o, cavity, P):
-    """Report-only shape descriptors of one measured profile (see shape_descriptors)."""
+    """測定済みの一断面について、報告専用の形状記述子を求める。shape_descriptors を参照。"""
     z_still = float(P["z_still_H"])
     ok = bool(h > 1e-9)
     out = {"report_only": True, "label": SHAPE_LABEL, "h_H": float(h), "levels_frac_h": [float(v) for v in P["shape_levels_frac_h"]],
@@ -748,25 +674,14 @@ def _shape_descriptors(C, i_c, s_t, i_e, x_c, h, o, cavity, P):
 
 
 def shape_descriptors(pts_H, metrics=None, params=None):
-    """REPORT-ONLY shape descriptors that do NOT cancel when a shape is wider AND lower (no thresholds).
-
-    The W sections are taken at ABSOLUTE heights (the same painting rows for model and target): on a model that is 5 % wider
-    and 1.9 % lower the row Z = 0.75 H cuts the body higher up, and the width there reads -5 % instead of +5 %
-    (results/step1_prepare/verify_tests, attack wide_low:5:1.9).  Here every contour is cut at fractions of ITS OWN crest
-    height and every length is divided by that height, so a pure 'k times wider, m times lower' reads k / m in every entry.
-    -> {'h_H', 'sections': {'h25' | 'h50' | 'h75': W-section record + frac_of_h + width_full_over_h, width_body_over_h,
-        front_from_crest_over_h, inner_from_crest_over_h, back_from_crest_over_h, cavity_gap_over_h},
-        'o_over_h', 'cavity_depth_over_h', 'aspect_ratio' (= width_full at 0.5 h / h), 'aspect_ratio_back_clipped',
-        'aspect_ratio_h75', 'aspect_ratio_h75_back_clipped'}.   The same dict is part of every measure_profile result (key 'shape')."""
+    """幅が広く高さが低い形の差も相殺しない、しきい値のない報告専用の形状記述子。W は標的とモデルを同じ絶対高さで切るため、幅を 5 % 広げ高さを 1.9 % 下げた例では Z=0.75 H の幅が逆に -5 % と読まれた。ここでは各輪郭自身の波頂高 h の比率で切り、長さも h で割る。幅 k 倍・高さ m 倍なら各値は k/m となる。
+結果は h_H、h25/h50/h75 の各 sections（水平幅、波頂からの距離、空洞の間隔を h で割ったもの）、o_over_h、cavity_depth_over_h、各種 aspect_ratio を含む。measure_profile の shape キーにも同じ辞書を入れる。"""
     m = metrics or measure_profile(pts_H, params)
     return m["shape"]
 
 
 def compare_shape_descriptors(model_shape, target_shape):
-    """Rows 'model vs target' of the shape descriptors (each contour relative to ITS OWN h).  diff = model - target,
-    diff_pct_of_target in % of |target|.  comparable = False when the two sections are not of the same kind (back clipped at
-    the frame edge on one side only / overhung on one side only) or when the back is clipped on both sides for a width that
-    starts at the back (the frame edge does not scale with the body)."""
+    """各輪郭自身の h で正規化した形状記述子をモデルと標的で比較する。diff はモデル−標的、diff_pct_of_target は標的の絶対値に対する %。片方だけで波背が画面端で切れる、張り出しの有無が異なる、または両方の波背が切れていて画像端に依存する幅では comparable=false とする。"""
     rows = []
 
     def row(name, mv, tv, frac=None, comparable=True, note=None):
@@ -808,13 +723,13 @@ def compare_shape_descriptors(model_shape, target_shape):
 
 
 def _width_metrics(C, i_c, s_c, s_t, i_e, x_c, o, cavity, P):
-    """Report-only size metrics of one measured profile (see width_metrics)."""
+    """測定済みの一断面について、報告専用の大きさの指標を求める。width_metrics を参照。"""
     x, z, s = C.pts[:, 0], C.pts[:, 1], C.s
     z_still = float(P["z_still_H"])
     sections = {}
     for level in [float(v) for v in P["width_levels_H"]]:
         sections[_level_tag(level)] = _section_record(C, level, i_c, s_t, i_e, x_c)
-    # area between the contour [left end .. trough end] and the still-water level (shoelace; the cavity is outside)
+    # 輪郭の左端～谷の終端と静水面の間の面積。靴紐公式を用い、空洞は外側とする。
     p = C.slice_pts(0.0, float(s[i_e]))
     px_, pz_ = p[:, 0], np.maximum(p[:, 1], z_still)
     qx = np.concatenate([px_, [px_[-1], px_[0]]])
@@ -828,13 +743,7 @@ def _width_metrics(C, i_c, s_c, s_t, i_e, x_c, o, cavity, P):
 
 
 def width_metrics(pts_H, metrics=None, params=None):
-    """REPORT-ONLY size metrics of an ordered profile (no thresholds; pending user decision).
-
-    -> {'sections': {'z25' | 'z50' | 'z75': {x_back_H, back_clipped_at_frame_edge, x_inner_H, x_front_H, overhung,
-        width_full_H (= x_front - x_back), width_body_H (= x_inner - x_back, only where the section is overhung),
-        cavity_gap_H, front_from_crest_H, inner_from_crest_H, back_from_crest_H, ...}},
-        'o_H', 'cavity_depth_H', 'area_above_still_water_H2', ...}
-    The same dict is part of every measure_profile result (key 'W')."""
+    """順序付き断面のしきい値のない大きさの指標。ユーザーの判断待ち。z25/z50/z75 の各高さで、波背・内側・前面の X、画面端で切れているか、張り出しの有無、全幅・胴体幅・空洞の間隔・波頂からの距離を記録する。o_H、cavity_depth_H、静水面より上の面積も含む。measure_profile の W キーにも同じ辞書を入れる。"""
     m = metrics or measure_profile(pts_H, params)
     return m["W"]
 
@@ -843,9 +752,7 @@ _W_SECTION_KEYS = ("width_full_H", "width_body_H", "front_from_crest_H", "inner_
 
 
 def compare_width_metrics(model_W, target_W):
-    """Rows 'model vs target' of the report-only size metrics.  diff = model - target; diff_pct_of_target in % of
-    |target| (None when the target is ~0); diff_pct_h = the same difference in % of image height (lengths only).
-    comparable = False when the two sections are not of the same kind (back clipped / overhung differ)."""
+    """報告専用の大きさをモデルと標的で比較する。diff はモデル−標的、diff_pct_of_target は標的の絶対値に対する %（標的がほぼ 0 なら None）、diff_pct_h は長さの差を画像高に対する % で示す。波背の切れ方や張り出しの有無が異なる断面は comparable=false。"""
     rows = []
 
     def row(name, mv, tv, unit, level=None, comparable=True, note=None):
@@ -914,21 +821,14 @@ def _back_slopes(C, s_c, P):
 
 # ====================================================================== S8
 def vertex_window_turns(C, lo, hi, window):
-    """Net turning of the POLYLINE ITSELF over closed arc-length windows of length `window` inside [lo, hi].
-
-    turning of a window [a, b] = sum of the signed exterior angles (deg, + = counter-clockwise) of the polyline's OWN
-    vertices with a <= s <= b: no chords, no sampling phase, so a kink on a vertex is read with its full angle wherever
-    it sits, and a turn of more than 180 deg (a thin rim) is not wrapped.  Windows: one that STARTS and one that ENDS on
-    every interior vertex (clipped to [lo, hi]); the turning of a sliding closed window changes only at those positions,
-    so their maximum is the maximum over all positions.  If hi - lo < window there is one window [lo, hi].
-    -> (a (m,), b (m,), turn_deg (m,))"""
+    """折れ線自身が [lo, hi] 内の弧長 `window` の閉じた窓で曲がる正味角度を求める。窓 [a,b] に含む元の頂点の符号付き外角を合計する（反時計回りが正）。弦や標本位相を使わないため、頂点上の折れはどこにあっても全角度を読み、薄い縁の 180 度超の回転も折り返さない。各内部頂点で始まる窓と終わる窓を調べれば全位置の最大値が得られる。範囲が window 未満なら [lo,hi] 一窓。窓の始点・終点・角度の配列を返す。"""
     if not isinstance(C, Curve):
         C = Curve(C)
     lo, hi, w = float(max(0.0, lo)), float(min(C.length, hi)), float(window)
     if C.pts.shape[0] < 3 or hi <= lo or w <= 0:
         return np.zeros(0), np.zeros(0), np.zeros(0)
     d = np.degrees(np.arctan2(np.diff(C.pts[:, 1]), np.diff(C.pts[:, 0])))
-    ext = wrap_deg(np.diff(d))                                   # exterior angle at the interior vertices 1 .. n-2
+    ext = wrap_deg(np.diff(d))                                   # 内部頂点 1～n-2 の外角。
     sv = C.s[1:-1]
     T = np.concatenate([[0.0], np.cumsum(ext)])                  # T[k] = sum(ext[:k])
     tol = 1e-12 * max(1.0, C.length)
@@ -945,20 +845,14 @@ def vertex_window_turns(C, lo, hi, window):
 
 
 def _s8_tip_zone_pct_h(P):
-    """Half width (% of image height, arc length) of the zone around the head tip that the REPORT-ONLY S8 numbers refer to:
-    the exclusion zone when one is set (s8_tip_exclusion_pct_h > 0), otherwise s8_tip_report_zone_pct_h (2 % = the zone that
-    was excluded from the verdict until 2026-09-20)."""
+    """報告専用の S8 補助値が指す波頭先端周辺の弧長半幅（画像高に対する %）。除外設定が正ならその幅、なければ s8_tip_report_zone_pct_h（旧判定で使った 2 %）とする。"""
     excl = float(P["s8_tip_exclusion_pct_h"])
     return excl if excl > 0.0 else float(P.get("s8_tip_report_zone_pct_h", 2.0))
 
 
 def _vertex_window_report(C, s_crest, s_tip, s_end, P):
-    """REPORT-ONLY companion of the judged S8 (see vertex_window_turns).  Windows of one S8 spacing on [0, s_end]:
-    max_deg (nothing excluded), per_segment (windows whose centre is OUTSIDE the tip exclusion zone, by centre),
-    max_outside_tip_exclusion_deg (the number to compare with the judged S8), tip_zone_deg (centre inside the exclusion
-    zone), across_tip_deg (windows that contain the head tip), max_at; 'short_windows': the same maxima for the shorter
-    windows of `s8_vertex_short_windows_pct_h`."""
-    excl = float(pct_h_to_H(_s8_tip_zone_pct_h(P)))           # report zone (= the exclusion zone when one is set)
+    """判定用 S8 に並べる報告専用の頂点窓指標。全窓の最大値、先端除外範囲の外側・内側、各区間、先端をまたぐ窓の最大値と位置を記録する。s8_vertex_short_windows_pct_h の短い窓についても同じ指標を求める。"""
+    excl = float(pct_h_to_H(_s8_tip_zone_pct_h(P)))           # 報告範囲。除外範囲を指定した場合はそれと一致する。
 
     def seg_of(sv):
         if sv <= s_crest:
@@ -1007,33 +901,9 @@ def _vertex_window_report(C, s_crest, s_tip, s_end, P):
 
 
 def s8_smoothness(C, s_crest, s_tip, s_end, params=None):
-    """Tangent change between neighbouring samples (spec S8).
-
-    C : Curve or (N, 2) points.  s_tip None = non-overhanging.  Stretches: [0, s_tip] and
-    [s_tip, s_end] (or [0, s_end]).  For every phase the stretch is sampled every `spacing`;
-    tangent_j = direction of the chord sample j -> j+1; junction value = |tangent_j - tangent_j-1|
-    located at sample j.  ACROSS THE TIP (2026-09-20, second hardening): additional junctions at s_tip + spacing * k /
-    n_phases, k = -(n_phases - 1) .. (n_phases - 1) (k = 0 = exactly on the tip); their two chords span the tip, so the
-    junction density across the tip equals that inside the stretches.  `s8_tip_exclusion_pct_h` = 0 (default): EVERY
-    junction is judged (the spec's literal S8; a pointed tip fails).  > 0: junctions closer than that to the tip are not
-    judged (the pre-2026-09-20 definition with 2 %; then none of the across-tip junctions is judged).
-    -> dict: max_tangent_diff_deg (judged), max_at {H, s, segment, across_tip}, per_segment {back, head,
-       inner_arc | front}, tip_turn_deg, max_unexcluded_deg, spacing_pct_h, n_junctions, n_judged,
-       across_tip {n_junctions, n_judged, max_deg, max_at_s}
-       REPORT ONLY:
-       max_tip_zone_excluded_deg        max |turn| of the within-stretch junctions farther than the report zone
-                                        (tip_report_zone_pct_h) from the tip = the JUDGED S8 of the definition used
-                                        until 2026-09-20 (equals max_tangent_diff_deg when that exclusion is set)
-       tip_junction_deg                 signed turn of the ONE junction placed exactly on the head tip
-       max_unexcluded_deg               max |turn| over the within-stretch junctions and that tip junction
-       max_unexcluded_without_tip_junction_deg   the value this key had before the tip junction was added
-       tip_turn_deg                     clockwise turn across the report zone around the tip
-       max_vertex_window_turn_deg       max |net turning of the polyline itself| over closed windows of one spacing
-                                        that start or end on a vertex; nothing excluded (see vertex_window_turns)
-       vertex_window_turn               {window_pct_h, n_windows, max_deg, max_at, per_segment {back, head, inner_arc | front}
-                                        (window centre outside the tip exclusion zone), max_outside_tip_exclusion_deg,
-                                        tip_zone_deg, across_tip_deg, short_windows [same keys for shorter windows]}
-    """
+    """仕様 S8 の、隣接標本間の接線差を求める。C は Curve または (N,2) の点列。先端があれば [0,s_tip] と [s_tip,s_end] を別に標本化し、なければ全区間を使う。各位相で spacing 間隔の弦の方向を求め、接合点における隣接弦の角度差を測る。
+2026-09-20 の強化では先端自身と両側の各位相にも接合点を置き、二つの弦で先端をまたぐ。既定の s8_tip_exclusion_pct_h=0 では全接合点を判定し、尖った先端は失敗する。正値を指定した場合だけ先端付近を判定から除く。
+結果は判定用最大角、位置、区間別の値、標本間隔、接合点数と判定数、先端をまたぐ角度を含む。報告専用として旧定義での最大値 max_tip_zone_excluded_deg、先端上の角度 tip_junction_deg、先端区間の回転 tip_turn_deg、除外なしの最大値、折れ線自身の頂点窓での最大角と短い窓の詳細も含む。"""
     P = params if (params is not None and "s8_spacing_pct_h" in params) else get_params(params)
     if not isinstance(C, Curve):
         C = Curve(C)
@@ -1067,10 +937,10 @@ def s8_smoothness(C, s_crest, s_tip, s_end, params=None):
             return "front"
         return "head" if sv <= s_tip else "inner_arc"
 
-    # ONE extra junction placed exactly on the head tip (chord tip - spacing -> tip against chord tip -> tip + spacing).
-    # The two stretches above are sampled separately, so without it NO junction ever looks across the tip and a pointed
-    # tip (a 40 deg corner read 10.3 deg 'unexcluded') is invisible even in the unexcluded maximum.  Report only: it is
-    # not part of _junction_s / the judged value.
+    # 波頭先端の位置に接合点を一つ追加し、先端の前後の弦を比較する。
+    # 上の二つの区間は別々に標本化されるため、これがないと先端をまたぐ接合点がない。
+    # 実際、40 度の尖りが除外なしの旧最大値でも 10.3 度にしか見えなかった。
+    # この単独の接合点は報告専用で、_junction_s や判定値には入れない。
     tip_junction = None
     if s_tip is not None:
         a0, a1 = max(0.0, s_tip - sp), min(float(s_end), s_tip + sp)
@@ -1078,8 +948,9 @@ def s8_smoothness(C, s_crest, s_tip, s_end, params=None):
             tip_junction = float(wrap_deg(C.chord_deg(s_tip, a1) - C.chord_deg(a0, s_tip)))
     unexcl_old = float(np.max(np.abs(jd))) if jd.size else None
     unexcl = unexcl_old if tip_junction is None else max(abs(tip_junction), unexcl_old or 0.0)
-    # junctions ACROSS the tip at every phase offset (k = 0 is the tip junction above, with its own end clamping); both
-    # chords must lie inside [0, s_end].  Kept apart from _junction_s / _junction_diff: S4 'top is round' reads those.
+    # 各位相ずらしで先端をまたぐ接合点を作る。k=0 は上記の先端そのものの点。
+    # 両弦は [0,s_end] 内に置く。S4 の「頂部は丸い」は _junction_s / _junction_diff を
+    # 参照するため、それらとは分けて保持する。
     ts, td = [], []
     if s_tip is not None:
         for k in range(-(nph - 1), nph):
@@ -1126,13 +997,13 @@ def s8_smoothness(C, s_crest, s_tip, s_end, params=None):
     if s_tip is not None:
         d_before = float(C.chord_deg(max(0.0, s_tip - zone - sp), max(0.0, s_tip - zone)))
         d_after = float(C.chord_deg(min(s_end, s_tip + zone), min(s_end, s_tip + zone + sp)))
-        out["tip_turn_deg"] = float((d_before - d_after) % 360.0)      # clockwise turn across the report zone around the tip
+        out["tip_turn_deg"] = float((d_before - d_after) % 360.0)      # 先端付近の報告範囲をまたぐ時計回りの角度変化。
     return out
 
 
-# ====================================================================== distances / S7
+# ====================================================================== 距離と S7
 def point_polyline_distance(points, poly, chunk=512):
-    """Distance of each point to a polyline.  -> (dist (n,), index of the nearest polyline edge (n,))"""
+    """各点から折れ線までの距離と、最近傍の辺の添字を返す。"""
     P = np.asarray(points, dtype=np.float64)
     Q = np.asarray(poly, dtype=np.float64)
     if Q.shape[0] == 1:
@@ -1156,14 +1027,7 @@ def point_polyline_distance(points, poly, chunk=512):
 
 
 def signed_point_polyline_distance(points, poly, chunk=512):
-    """point_polyline_distance plus the SIDE of the polyline each point lies on.
-
-    Every ordered contour of this project is walked with the wave BODY ON THE RIGHT-HAND SIDE (left frame edge -> crest ->
-    tip -> underside -> inner arc -> trough; Z up), so the LEFT of the travel direction is the air.
-    -> (dist (n,), index of the nearest edge (n,), signed (n,)):  signed = +dist when the point is on the left = OUTSIDE the
-       body of `poly`, -dist when it is inside, 0 on the polyline.
-    The side is the sign of cross(tangent, point - nearest point); where the nearest point is a polyline VERTEX the tangent
-    is the mean of the unit tangents of the two edges that meet there."""
+    """各点から折れ線までの距離に、その点が折れ線のどちら側にあるかを加える。このプロジェクトの輪郭は波の胴体を進行方向の右側に置いてたどるため、左側は空気側。符号付き距離は胴体外側で正、内側で負、線上で 0 とする。最近点が頂点なら、両側の単位接線の平均を接線とする。距離・最近傍辺添字・符号付き距離を返す。"""
     Pp = np.asarray(points, dtype=np.float64)
     Q = np.asarray(poly, dtype=np.float64)
     dist, idx = point_polyline_distance(Pp, Q, chunk)
@@ -1171,7 +1035,7 @@ def signed_point_polyline_distance(points, poly, chunk=512):
         return dist, idx, np.zeros(Pp.shape[0])
     AB = Q[1:] - Q[:-1]
     L = np.hypot(AB[:, 0], AB[:, 1])
-    U = AB / np.where(L > 0, L, 1.0)[:, None]                     # unit tangents of the edges
+    U = AB / np.where(L > 0, L, 1.0)[:, None]                     # 各辺の単位接線。
     A = Q[idx]
     t = np.clip(((Pp - A) * AB[idx]).sum(axis=1) / np.where(L[idx] > 0, L[idx] ** 2, 1.0), 0.0, 1.0)
     near = A + t[:, None] * AB[idx]
@@ -1186,7 +1050,7 @@ def signed_point_polyline_distance(points, poly, chunk=512):
 
 
 def load_base_contour(path=None):
-    """Read a 'gw.base_contour.v1' json (default: target/base_contour.json)."""
+    """gw.base_contour.v1 の JSON を読み込む。既定値は target/base_contour.json。"""
     path = path or paths.BASE_CONTOUR_JSON
     with open(path, "r", encoding="utf-8") as fh:
         bc = json.load(fh)
@@ -1196,9 +1060,7 @@ def load_base_contour(path=None):
 
 
 def base_contour_polyline(bc):
-    """Concatenate the three segments (shared end points are not duplicated).
-    -> dict: pts_H (N, 2), seg_id (N,) 0 back / 1 head / 2 inner_arc, in_S7 (N,) bool,
-       crest_index, tip_index, names"""
+    """基礎輪郭の三つの区間を接続する。共有端点は重複させない。H 座標の点列、区間 ID（0 波背、1 波頭、2 内側円弧）、in_S7 フラグ、波頂・先端の添字、区間名を返す。"""
     names = ["back", "head", "inner_arc"]
     by = {sg["name"]: sg for sg in bc["segments"]}
     pts, sid, flag, bounds = [], [], [], []
@@ -1208,10 +1070,10 @@ def base_contour_polyline(bc):
         f = np.asarray(sg.get("in_S7", [True] * len(p)), dtype=bool)
         n_prev = sum(len(q) for q in pts)
         if pts and np.allclose(pts[-1][-1], p[0], atol=1e-9):
-            p, f = p[1:], f[1:]                  # shared joint: keep the copy of the previous segment
+            p, f = p[1:], f[1:]                  # 共有接合点は前の区間の点を残す。
             bounds.append(n_prev - 1)
         else:
-            bounds.append(n_prev)                # first point of this segment is the joint
+            bounds.append(n_prev)                # この区間の最初の点が接合点。
         pts.append(p)
         sid.append(np.full(len(p), k))
         flag.append(f)
@@ -1221,14 +1083,7 @@ def base_contour_polyline(bc):
 
 
 def segmentation_check(poly, json_metrics, params=None, bc=None):
-    """Are the json joints of a base contour where the library's DETECTION puts crest / head tip / deepest point
-    on the very same polyline?  (The model profile is always segmented by detection; S5 / S7 compare like with
-    like only when both agree.)
-
-    poly : base_contour_polyline(bc);  json_metrics : measure_profile(..., crest_index, tip_index) of it.
-    -> {tol_pct_h, consistent (bool), max_dist_pct_h, worst, items {crest | head_tip | inner_deepest:
-        {json_H, detected_H, dist_pct_h, ds_pct_h}}, detected_overhanging, detected_head_lobes, detected_onset_H,
-        json_landmarks_block {key: dist_pct_h}  (information: the json's own 'landmarks' entries vs the detection)}"""
+    """同じ折れ線上で、基礎輪郭 JSON の接合点とライブラリが検出する波頂・先端・最深点が一致するか調べる。モデルは常に検出結果で分割されるため、S5/S7 を同じ区間として比べるには基礎輪郭も一致する必要がある。許容値、整合性、最大距離、各特徴点の JSON 座標と検出座標・差、張り出しと房の情報を返す。"""
     P = get_params(params)
     det = measure_profile(poly["pts_H"], P)
     tol = float(P["segmentation_check_tol_pct_h"])
@@ -1264,11 +1119,7 @@ def segmentation_check(poly, json_metrics, params=None, bc=None):
 
 
 def measure_base_contour(bc, params=None, use_json_segmentation=True, check_detection=True):
-    """measure_profile on a base contour.  With use_json_segmentation the crest / head tip are
-    the segment joints of the json (orchestrator convention); otherwise they are re-detected.
-    check_detection (json segmentation only): the detection is ALSO run on the same polyline and the result
-    gets the key 'segmentation_check' (see segmentation_check); test_shape marks a run INVALID when it is
-    not consistent."""
+    """基礎輪郭に measure_profile を適用する。use_json_segmentation では JSON の区間接合点を波頂・先端とし、そうでなければ再検出する。check_detection 指定時は同じ折れ線上で自動検出を追加し、不整合を記録する。"""
     poly = base_contour_polyline(bc)
     if not use_json_segmentation:
         return measure_profile(poly["pts_H"], params)
@@ -1287,7 +1138,7 @@ def _stats(d_H):
 
 
 def _signed_stats(signed_H):
-    """Signed normal deviation, already oriented so that + = the MODEL is outside the TARGET body.  % of image height."""
+    """モデルが標的の胴体外側にある場合を正とした、画像高に対する % の符号付き法線偏差。"""
     d = H_to_pct_h(np.asarray(signed_H, dtype=np.float64))
     if d.size == 0:
         return {"signed_mean_pct_h": None, "signed_median_pct_h": None, "signed_p05_pct_h": None, "signed_p95_pct_h": None,
@@ -1298,20 +1149,8 @@ def _signed_stats(signed_H):
 
 
 def s7_deviation(model_pts_H, base, model_metrics=None, params=None):
-    """Contour-to-contour deviation per segment (spec S7).
-
-    model_pts_H   : ordered model profile (H units).
-    base          : base contour dict (load_base_contour) or the result of base_contour_polyline.
-    model_metrics : measure_profile(model_pts_H) if already computed.
-    -> {segment: {model_to_base {n, mean, p95, max}, base_to_model {...}, mean_dev_pct_h, p95_dev_pct_h,
-                  worst_point {H, dev_pct_h, direction}}, ..., 'n_base_excluded': ..}
-       mean_dev_pct_h / p95_dev_pct_h = the worse of the two directions (judged values).
-       REPORT ONLY, same samples: signed_mean_dev_pct_h (= model_to_base['signed_mean_pct_h'], the base_to_model value when
-       the model has no counted sample) and, in both direction dicts, signed_mean / median / p05 / p95 _pct_h and
-       frac_model_outside.  SIGN: positive = the model contour lies OUTSIDE the target body (in the air / in the cavity: the
-       model is fatter there), negative = inside (thinner); see signed_point_polyline_distance.  A wider AND lower body
-       moves the back out and down at the same time: the unsigned numbers stay small, the signed one tells which way.
-    """
+    """区間ごとのモデルと基礎輪郭の偏差（仕様 S7）。モデルの順序付き点列、基礎輪郭、任意の既計算 measure_profile を受け取る。モデル→基礎輪郭と基礎輪郭→モデルの両方向で標本数、平均、95 パーセンタイル、最大値を求め、各区間の判定値は悪い方を使う。基礎輪郭の in_S7=false 点は除く。
+報告専用の符号付き平均・中央値・5/95 パーセンタイルと、モデルが胴体外側にある割合も返す。正は空気側・空洞側へ膨らむ方向、負は内側へ細くなる方向。幅が広く低い形では符号なしの偏差が小さくても、符号がずれの方向を示す。"""
     P = get_params(params)
     poly = base if "pts_H" in base else base_contour_polyline(base)
     mm = model_metrics or measure_profile(model_pts_H, P)
@@ -1322,7 +1161,7 @@ def s7_deviation(model_pts_H, base, model_metrics=None, params=None):
     b_flag = poly["in_S7"][b_idx]
     sp = float(pct_h_to_H(P["s7_sample_spacing_pct_h"]))
     margin = float(pct_h_to_H(P["s7_segment_margin_pct_h"]))
-    # base segment arc-length ranges
+    # 基礎輪郭の各区間の弧長範囲。
     i_cb = int(np.searchsorted(b_idx, poly["crest_index"]))
     i_tb = int(np.searchsorted(b_idx, poly["tip_index"]))
     b_rng = {"back": (0.0, Cb.s[i_cb]), "head": (Cb.s[i_cb], Cb.s[i_tb]), "inner_arc": (Cb.s[i_tb], Cb.length)}
@@ -1334,7 +1173,7 @@ def s7_deviation(model_pts_H, base, model_metrics=None, params=None):
             out[nm] = None
             out["segments_missing"].append(nm)
             continue
-        # model -> base
+        # モデルから基礎輪郭への距離。
         mp = Cm.sub(m_rng[0], m_rng[1], sp)
         lo, hi = max(0.0, b_rng[nm][0] - margin), min(Cb.length, b_rng[nm][1] + margin)
         ia, ib = Cb.index_at(lo), Cb.index_at(hi)
@@ -1344,19 +1183,19 @@ def s7_deviation(model_pts_H, base, model_metrics=None, params=None):
         counted = edge_ok[np.clip(ia + e, 0, len(edge_ok) - 1)]
         st_mb = _stats(d[counted])
         st_mb["n_skipped_not_in_S7"] = int((~counted).sum())
-        st_mb.update(_signed_stats(sg[counted]))                 # + = model sample outside the target body
-        # base -> model
+        st_mb.update(_signed_stats(sg[counted]))                 # 正値はモデルの標本が標的の胴体外側にあることを示す。
+        # 基礎輪郭からモデルへの距離。
         sel = (b_seg == k) & b_flag
         bp = Cb.pts[sel]
         if bp.shape[0] > 1:
-            # thin the base points to about the same spacing
+            # 基礎輪郭の点をほぼ同じ間隔まで間引く。
             keep = np.concatenate([[True], np.diff(np.floor(Cb.s[sel] / sp)) > 0])
             bp = bp[keep]
         lo_m, hi_m = max(0.0, m_rng[0] - margin), min(Cm.length, m_rng[1] + margin)
         tm = Cm.slice_pts(lo_m, hi_m)
         d2, _e2, sg2 = signed_point_polyline_distance(bp, tm) if bp.shape[0] else (np.zeros(0), None, np.zeros(0))
         st_bm = _stats(d2)
-        st_bm.update(_signed_stats(-sg2))                        # target point INSIDE the model body = model outside the target
+        st_bm.update(_signed_stats(-sg2))                        # 標的の点がモデル胴体の内側にあれば、モデルが標的の外側へ膨らんでいる。
         means = [v for v in (st_mb["mean_pct_h"], st_bm["mean_pct_h"]) if v is not None]
         p95s = [v for v in (st_mb["p95_pct_h"], st_bm["p95_pct_h"]) if v is not None]
         worst = None
@@ -1380,9 +1219,7 @@ def s7_deviation(model_pts_H, base, model_metrics=None, params=None):
 
 
 def contour_displacement(pts_a_H, pts_b_H, spacing_pct_h=0.5, z_min_H=None):
-    """Symmetric contour displacement between two frames (for M5 / M6): nearest distance of
-    samples of A to polyline B and vice versa.  z_min_H: ignore samples below this height
-    (e.g. 0.01 to skip the run along the still water).  -> {max_H, p95_H, mean_H}"""
+    """M5/M6 用の、二フレーム間の対称な輪郭変位。A の標本から B の折れ線への最近距離と逆方向を測る。z_min_H より下の標本（静水面に沿う区間など）は無視し、最大・95 パーセンタイル・平均の H 単位の変位を返す。"""
     Ca, Cb = Curve(pts_a_H), Curve(pts_b_H)
     sp = float(pct_h_to_H(spacing_pct_h))
     pa, pb = Ca.sub(0.0, Ca.length, sp), Cb.sub(0.0, Cb.length, sp)
@@ -1402,14 +1239,7 @@ def contour_displacement(pts_a_H, pts_b_H, spacing_pct_h=0.5, z_min_H=None):
 
 
 def measure_sequence(profiles_H, params=None, disp_z_min_H=0.01):
-    """Per-frame motion quantities (spec 6.2) for a list of ordered profiles (one per frame).
-
-    -> dict of equally long lists: h, x_c, theta, theta_raw, o, cavity_depth, phi_deg (None without
-       a head), overhanging, tip_H / crest_H / deepest_H ([X, Z] or None), and the contour
-       displacement to the PREVIOUS frame disp_max_H / disp_p95_H / disp_mean_H (None for the
-       first frame; samples below disp_z_min_H, i.e. the run along the still water, are ignored).
-       'metrics' holds the full measure_profile dict of every frame.
-    """
+    """フレームごとの順序付き断面から、仕様 6.2 の動きの量を計算する。各フレームの h、x_c、theta、theta_raw、o、空洞深さ、phi、張り出し状態、波頂・先端・最深点の座標、前フレームとの輪郭変位の最大・95 パーセンタイル・平均を同長の一覧で返す。初フレームの変位は None。静水面に沿う低い標本は除く。各フレームの詳細な measure_profile 結果は metrics に入る。"""
     keys = ("h", "x_c", "theta", "theta_raw", "o", "cavity_depth", "phi_deg", "crest_to_tip_deg", "overhanging",
             "trough_level_H", "reached_still_water")
     out = {k: [] for k in keys}
@@ -1436,14 +1266,9 @@ def measure_sequence(profiles_H, params=None, disp_z_min_H=0.01):
     return out
 
 
-# ====================================================================== position checks S1 S2 S3 S5 S6
+# ====================================================================== 位置検査 S1 S2 S3 S5 S6
 def position_checks(metrics, base=None, base_metrics=None, frame_obj=None):
-    """Position differences for S1, S2, S3, S5 and the S6 outer-boundary check.
-
-    metrics : measure_profile(model).  base : base contour json dict (optional; needed for S5 and
-    for the 'vs base contour' variants).  All differences are model minus target, in % of image
-    height (horizontal ones too).  Nothing is judged here; use paths.check_threshold on the values.
-    """
+    """S1、S2、S3、S5 と S6 の外側限界について、モデルと目標の位置差を求める。metrics はモデルの measure_profile、base は必要に応じた基礎輪郭 JSON。差はすべてモデル−目標で、水平距離も画像高に対する % に換算する。ここでは判定せず、paths.check_threshold で判定する。"""
     F = frame_obj or gw_frame.get_frame()
     spec = {k: [float(v) for v in F.pct_to_H(*pct)] for k, pct in gw_frame.SPEC_LANDMARKS_PCT.items()}
     out = {}
@@ -1468,9 +1293,9 @@ def position_checks(metrics, base=None, base_metrics=None, frame_obj=None):
                  "height_from_measured_trough_pct_h": h_mt,
                  "height_err_from_model_trough_pct_h": None if h_mt is None else h_mt - F.height_pct,
                  "reached_still_water": metrics.get("reached_still_water")}
-    # S3 measured the way the spec words it ('height from the TROUGH to the crest'): crest Z minus the model's own water
-    # level in front of the wave (metrics['trough_level_H']).  Identical to S3 when the water in front of the wave is at
-    # z_still; 3 % smaller when the sea stands 3 % higher there (raised floor), which S3 from Z = 0 cannot see.
+    # 仕様の「谷から波頂までの高さ」に沿う S3。波頂 Z から、波の前にあるモデル自身の
+    # 水位 metrics['trough_level_H'] を引く。前面の水位が z_still なら従来の S3 と同じ。
+    # 海面が 3 % 高い場合は 3 % 小さくなり、Z=0 基準の S3 では見えない差を示す。
     z_still = float((metrics.get("params") or {}).get("z_still_H", 0.0))
     out["S3_from_model_trough"] = {
         "height_pct_h": h_mt, "height_err_pct_h": None if h_mt is None else h_mt - F.height_pct,
@@ -1503,7 +1328,7 @@ def position_checks(metrics, base=None, base_metrics=None, frame_obj=None):
                          "dir_deg": None if (metrics["phi_deg"] is None or bm["phi_deg"] is None)
                          else float(wrap_deg(metrics["phi_deg"] - bm["phi_deg"])),
                          "dir_definition": "phi (top-side chord before the tip) for BOTH contours: the judged S5 direction",
-                         # report only: direction of the straight line crest -> head tip, same for both contours
+                         # 報告専用。波頂→波頭先端の直線方向を両輪郭で同じように求める。
                          "model_crest_to_tip_deg": metrics.get("crest_to_tip_deg"), "base_crest_to_tip_deg": bm.get("crest_to_tip_deg"),
                          "crest_to_tip_diff_deg": None if (metrics.get("crest_to_tip_deg") is None or bm.get("crest_to_tip_deg") is None)
                          else float(wrap_deg(metrics["crest_to_tip_deg"] - bm["crest_to_tip_deg"]))}

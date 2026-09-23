@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Reflection;
 
-// READ-ONLY diagnostic. Measures per-frame claw stability AND traces one claw's axis frame-by-frame.
+// 読み取り専用の診断。爪状白波のフレームごとの安定性を測り、一つの要素の軸も追跡する。
 public class ClawFlickerProbe : MonoBehaviour
 {
     public int windowFrames = 60;
@@ -14,7 +14,7 @@ public class ClawFlickerProbe : MonoBehaviour
     public float maxRotDelta, avgRotDelta;
     public int matchedSamples;
     public int idChurnFrames;
-    public string axisTrace = "";   // tracked claw's Y-axis + pos per frame
+    public string axisTrace = "";   // 追跡中の爪状白波の Y 軸と位置をフレームごとに記録する。
 
     MonoBehaviour _instancer;
     FieldInfo _bufField;
@@ -67,7 +67,7 @@ public class ClawFlickerProbe : MonoBehaviour
                 if (rd > maxRotDelta) maxRotDelta = rd;
             }
             else churn = true;
-            // pick + trace one stable claw
+            // 安定した一つの爪状白波を選び、その動きを追跡する。
             if (_trackedId == int.MinValue) _trackedId = id;
             if (id == _trackedId && _traceCount < 16)
             {

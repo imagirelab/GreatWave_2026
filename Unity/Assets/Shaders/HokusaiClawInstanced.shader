@@ -2,38 +2,37 @@ Shader "MasterProject/HokusaiClawInstanced"
 {
     Properties
     {
-        // Ukiyo-e foam palette: the claws ARE foam, so they default to flat paper-cream
-        // with a pale blue shadow side and a dark indigo ink rim, matching the ocean shader.
-        // 浮世绘泡沫配色：爪形本身就是浪花，默认旧纸奶油色，暗部偏淡蓝，外缘深蓝描线，与海面风格一致。
-        _BaseColor ("Base Color (foam cream)", Color) = (0.93, 0.91, 0.84, 1)
-        _TipColor ("High Score Color", Color) = (0.98, 0.97, 0.93, 1)
-        _RootBlendColor ("Root Blend Water Color", Color) = (0.50, 0.66, 0.74, 1)
-        _ShadowTint ("Shadow Side Tint", Color) = (0.62, 0.73, 0.78, 1)
-        _OutlineColor ("Outline Ink Color", Color) = (0.027, 0.067, 0.125, 1)
-        _OutlineStrength ("Outline Strength", Range(0, 1)) = 0.58
-        _RimStart ("Outline Rim Start", Range(0.1, 0.95)) = 0.76
-        _ContourLineStrength ("Woodblock Contour Line Strength", Range(0, 1)) = 0.72
-        _ContourLineWidth ("Woodblock Contour Line Width", Range(0.005, 0.18)) = 0.055
-        _GreenShadowColor ("Wave Green Shadow Color", Color) = (0.43, 0.64, 0.54, 1)
-        _GreenShadowStrength ("Wave Green Shadow Strength", Range(0, 1)) = 0.68
-        _VisibleFraction ("Visible Claw Fraction", Range(0, 1)) = 1
-        _VisibleAlpha ("Visible Claw Alpha", Range(0, 1)) = 1
-        _VisibleRibbonGate ("Visible Ribbon Gate", Range(0, 1)) = 0
-        _VisibleRibbonParams ("Visible Ribbon Params", Vector) = (0.5, 0.5, 0.24, 0.08)
-        _VisibleRibbonShape ("Visible Ribbon Shape", Vector) = (0.08, 0.0, 0.06, 0)
-        _Ambient ("Ambient", Range(0, 1)) = 0.55
-        _LightStrength ("Light Strength", Range(0, 3)) = 0.85
-        _ScoreTintStrength ("Score Tint Strength", Range(0, 1)) = 0.65
-        _RootFadeWidth ("Root Fade Width", Range(0.02, 0.8)) = 0.26
-        _RootAlpha ("Root Alpha", Range(0, 1)) = 0.18
-        _FoamCutStrength ("Foam Interior Cut Strength", Range(0, 1)) = 0.28
-        _EdgeScallopStrength ("Foam Edge Scallop Strength", Range(0, 1)) = 0.24
-        _FoamUnderlay ("Foam Ribbon Underlay", Range(0, 1)) = 0
-        _UnderlayColor ("Underlay Foam Color", Color) = (0.96, 0.93, 0.82, 1)
-        _UnderlayAlpha ("Underlay Alpha", Range(0, 1)) = 0.36
-        _UnderlayExpand ("Underlay Width Expand", Range(0, 2)) = 0.65
-        _UnderlayTipExpand ("Underlay Tip Expand", Range(0, 2)) = 0.40
-        _UnderlayScoreFloor ("Underlay Score Floor", Range(0, 1)) = 0.22
+        // 爪状の形状自体が白波なので、旧紙に近いクリーム色を基調とし、
+        // 影を淡青、輪郭を濃い藍色にして海面シェーダーと揃える。
+        _BaseColor ("基本色（白波のクリーム色）", Color) = (0.93, 0.91, 0.84, 1)
+        _TipColor ("高評価部分の色", Color) = (0.98, 0.97, 0.93, 1)
+        _RootBlendColor ("根元で混ぜる水面色", Color) = (0.50, 0.66, 0.74, 1)
+        _ShadowTint ("陰側の色", Color) = (0.62, 0.73, 0.78, 1)
+        _OutlineColor ("輪郭の墨色", Color) = (0.027, 0.067, 0.125, 1)
+        _OutlineStrength ("輪郭の強さ", Range(0, 1)) = 0.58
+        _RimStart ("輪郭を描き始める位置", Range(0.1, 0.95)) = 0.76
+        _ContourLineStrength ("木版画風の輪郭線の強さ", Range(0, 1)) = 0.72
+        _ContourLineWidth ("木版画風の輪郭線の幅", Range(0.005, 0.18)) = 0.055
+        _GreenShadowColor ("波の緑色の陰", Color) = (0.43, 0.64, 0.54, 1)
+        _GreenShadowStrength ("緑色の陰の強さ", Range(0, 1)) = 0.68
+        _VisibleFraction ("見える爪状白波の割合", Range(0, 1)) = 1
+        _VisibleAlpha ("爪状白波の不透明度", Range(0, 1)) = 1
+        _VisibleRibbonGate ("白波の帯の表示条件", Range(0, 1)) = 0
+        _VisibleRibbonParams ("白波の帯の設定", Vector) = (0.5, 0.5, 0.24, 0.08)
+        _VisibleRibbonShape ("白波の帯の形状", Vector) = (0.08, 0.0, 0.06, 0)
+        _Ambient ("環境光", Range(0, 1)) = 0.55
+        _LightStrength ("光の強さ", Range(0, 3)) = 0.85
+        _ScoreTintStrength ("評価値による色の変化", Range(0, 1)) = 0.65
+        _RootFadeWidth ("根元がなじむ範囲", Range(0.02, 0.8)) = 0.26
+        _RootAlpha ("根元の不透明度", Range(0, 1)) = 0.18
+        _FoamCutStrength ("白波内側の彫り跡の強さ", Range(0, 1)) = 0.28
+        _EdgeScallopStrength ("白波の縁の欠けの強さ", Range(0, 1)) = 0.24
+        _FoamUnderlay ("白波の帯の下地", Range(0, 1)) = 0
+        _UnderlayColor ("下地の白波の色", Color) = (0.96, 0.93, 0.82, 1)
+        _UnderlayAlpha ("下地の不透明度", Range(0, 1)) = 0.36
+        _UnderlayExpand ("下地の幅の拡大", Range(0, 2)) = 0.65
+        _UnderlayTipExpand ("下地の先端の拡大", Range(0, 2)) = 0.40
+        _UnderlayScoreFloor ("下地の評価値の下限", Range(0, 1)) = 0.22
     }
 
     SubShader
@@ -77,9 +76,9 @@ Shader "MasterProject/HokusaiClawInstanced"
             float4 _RootBlendColor;
             float4 _ShadowTint;
             float4 _OutlineColor;
-            float _ClawSizeBoost; // runtime size multiply (0/unset -> treated as 1). The compute normalizes
-                                  // clawScaleRange/backgroundClawScale to a ~fixed per-instance scale, so this
-                                  // is the only reliable lever to enlarge the rendered claw without a respawn.
+            float _ClawSizeBoost; // 実行時の大きさの倍率。0 または未設定なら 1 とみなす。
+                                  // clawScaleRange と backgroundClawScale は個体ごとにほぼ固定した倍率となるため、
+                                  // 再生成せずに描画中の爪状白波を大きくするには、この値を調整する。
             float _OutlineStrength;
             float _RimStart;
             float _ContourLineStrength;
@@ -216,9 +215,8 @@ Shader "MasterProject/HokusaiClawInstanced"
                 float3 v = normalize(_WorldSpaceCameraPos - i.worldPos);
                 float ndotl = saturate(dot(n, l));
 
-                // Flat two-band foam shading: lit side cream, shadow side pale blue —
-                // no smooth gradient, matching the woodblock ocean shader.
-                // 平涂两档明暗：亮面奶油色，暗面淡蓝，无渐变，与海面版画风格一致。
+                // 白波の明部をクリーム色、暗部を淡青色の二段階で塗る。
+                // 滑らかな階調を使わず、海面の木版画表現に合わせる。
                 float litBand = step(0.35f, ndotl);
                 float tint = saturate(i.score * _ScoreTintStrength);
                 float rootBlend = smoothstep(0.0f, max(_RootFadeWidth, 0.001f), i.tip01);
@@ -270,8 +268,8 @@ Shader "MasterProject/HokusaiClawInstanced"
                     return float4(underlayColor, alpha * _VisibleAlpha);
                 }
 
-                // Keep the fingers paper-flat. Strong normal bands make the transparent
-                // mesh read as faceted crystal instead of Hokusai-style foam.
+                // 指状部分は紙のように平坦に見せる。法線に応じた強い色帯を付けると、
+                // 透過メッシュが北斎風の白波ではなく、多面体の結晶に見えてしまう。
                 float sideBlue = (1.0f - rootBlend) * 0.22f
                                + smoothstep(0.18f, 0.92f, i.tip01) * (1.0f - ndotl) * 0.08f;
                 float3 lit = lerp(foamColor, foamColor * _ShadowTint.rgb, saturate(sideBlue));
@@ -291,16 +289,12 @@ Shader "MasterProject/HokusaiClawInstanced"
                 float brushAlpha = lerp(0.78f, 1.0f, saturate(brushNoise * 0.5f + 0.5f));
                 float dissolveNoise = saturate(sin(i.uv.y * 91.0f + i.uv.x * 37.0f + paperMottle * 6.2831853f) * 0.5f + 0.5f);
 
-                // Dark indigo ink rim around the silhouette, like the painting's outlines.
-                // 轮廓处的深蓝描线，模拟画中泡沫的勾线。
+                // 原画の白波の墨線に倣い、外形に濃い藍色の縁取りを付ける。
                 float rim = 1.0f - saturate(dot(n, v));
                 float outline = smoothstep(_RimStart, saturate(_RimStart + 0.16f), rim);
                 float tipInk = smoothstep(0.42f, 0.92f, i.tip01);
-                // Thin tasteful ink line only — claws now reach full life (visible on their own), so the
-                // outline is a delicate woodblock contour, NOT a solid fill. The earlier 8x edge band +
-                // 0.6 floor turned the whole claw into ink (it read as a black blade). Back to a hairline.
-                // 仅细淡墨线——爪形现已涨到满 life（本身就可见），描边只作精致的版画勾线，而非整片填墨。
-                // 之前 8x 边带+0.6 下限把整个爪身染成墨色（看着像黑刀片），改回发丝级细线。
+                // 爪状白波は寿命の最後まで形として見えるため、縁取りは細い木版画の墨線に留める。
+                // 以前の縁幅8倍と下限0.6では全体が黒い刃のように塗られたため、細線へ戻した。
                 float growthInk = max(smoothstep(0.04f, 0.55f, i.growth), smoothstep(0.00f, 0.16f, i.growth) * 0.68f);
                 float edgeInk = smoothstep(1.0f - _ContourLineWidth * 4.4f, 1.0f, width01);
                 float centerRidgeInk = (1.0f - smoothstep(0.0f, _ContourLineWidth * 1.35f, abs(i.uv.x - 0.5f)))
@@ -316,8 +310,8 @@ Shader "MasterProject/HokusaiClawInstanced"
                 float printedEdgeInk = edgeInk * _OutlineStrength * _ContourLineStrength * 0.55f * lerp(0.48f, 0.92f, rootBlend) * smoothstep(0.03f, 0.98f, i.tip01) * growthInk;
                 lit = lerp(lit, _OutlineColor.rgb, outlineAmount);
 
-                // Short carved cuts inside the foam and tiny bites along the edge keep
-                // large fingers from reading as clean vector leaves.
+                // 白波の内側の短い彫り跡と縁の小さな欠けにより、
+                // 大きな指状部分が整いすぎたベクター画像に見えるのを防ぐ。
                 float cutCoord = i.uv.y * 4.4f - i.uv.x * 1.35f + sin(i.uv.y * 15.0f + i.uv.x * 3.0f) * 0.07f;
                 float cutCenter = abs(frac(cutCoord) - 0.5f);
                 float foamCut = 1.0f - smoothstep(0.0f, 0.038f, cutCenter);
@@ -340,12 +334,9 @@ Shader "MasterProject/HokusaiClawInstanced"
                 float growthAlpha = smoothstep(-0.02f, 0.72f, i.growth);
                 float rootToTipReveal = smoothstep(i.tip01 - 0.18f, i.tip01 + 0.22f, i.growth);
                 float lifeRootToTip = smoothstep(i.tip01 * 0.58f - 0.08f, i.tip01 * 0.58f + 0.24f, i.life);
-                // Reveal floors RAISED: the wave breaking is transient so life/growth ramp only to
-                // ~0.3, which previously multiplied alpha down to ~0.02 (claws nearly invisible — the
-                // real reason no claws were seen). High floors keep claws clearly visible once spawned
-                // while still letting the grow-in animation modulate alpha subtly.
-                // 渐入下限提高：波峰破碎是瞬时的，life/growth 只涨到 ~0.3，旧下限把 alpha 压到 ~0.02
-                // (几乎透明——这才是看不到爪形的真正原因)。提高下限让爪形生成后就清晰可见。
+                // 出現時の不透明度の下限を上げる。砕波は短く、寿命と成長の値は約0.3までしか
+                // 上がらない。以前は alpha が約0.02まで下がり、爪状白波がほぼ見えなかった。
+                // 下限を上げると、生成直後から見えつつ、成長に伴う濃淡はわずかに残せる。
                 float revealAlpha = lerp(0.80f, 1.0f, growthAlpha)
                     * lerp(0.78f, 1.0f, rootToTipReveal)
                     * lerp(0.74f, 1.0f, lifeRootToTip);

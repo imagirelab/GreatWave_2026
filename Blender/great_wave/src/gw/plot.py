@@ -1,15 +1,15 @@
-"""Minimal numpy-only line plots (no matplotlib in this environment).
+"""numpy のみを使う最小限の線グラフ。この環境では matplotlib を使わない。
 
     img = plot.line_plot(
         series=[{"label": "h(t)", "x": t, "y": h, "color": "blue"},
                 {"label": "ref",  "x": t2, "y": h2, "color": "red", "dash": (8, 5)}],
-        title="crest height", xlabel="t [s]", ylabel="h [H]",
-        vlines=[{"x": 4.0, "label": "rise end"}],
-        spans=[{"x0": 0, "x1": 4, "label": "rise", "color": "green"}],
+        title="h(t)", xlabel="t [s]", ylabel="h [H]",
+        vlines=[{"x": 4.0, "label": "t1"}],
+        spans=[{"x0": 0, "x1": 4, "label": "A", "color": "green"}],
         ylim=(0, 1.2), size=(1100, 520))
     imgio.save_png(path, img)
 
-All text must be ASCII.  Returns RGB uint8 arrays (rows top-to-bottom).
+画像上の文字は ASCII に限る。返り値は上から下に並ぶ RGB uint8 配列。
 """
 import math
 
@@ -19,7 +19,7 @@ from . import draw
 
 
 def nice_ticks(lo, hi, n=6):
-    """Tick positions with 1-2-2.5-5 steps covering [lo, hi]. Returns (ticks, step)."""
+    """[lo, hi] を覆う1・2・2.5・5刻みの目盛りを求め、(目盛り, 刻み幅) を返す。"""
     if not (math.isfinite(lo) and math.isfinite(hi)):
         return np.array([0.0, 1.0]), 1.0
     if hi <= lo:

@@ -1,34 +1,24 @@
-"""S1-S8: final-frame shape test (spec section 5).  Stand-alone, headless:
+"""終幕フレームの形状検査 S1–S8（旧仕様の第5節）。無画面で単独実行できる。
 
   blender --background --factory-startup --python-exit-code 1 [file.blend] --python tests/test_shape.py -- --object <name>
           [--blend <path>] [--build-script <py> [--build-func f] [--build-arg k=v ...]]
           [--contour <base_contour.json>] [--final-frame N] [--res-scale s] [--H m] [--out-dir d]
-(--python-exit-code 1 is REQUIRED for direct calls: without it Blender returns 0 when a script dies while it is
-being imported.  Exceptions inside main() are caught by common_test.guarded_main: metrics.json verdict ERROR, exit 2.)
+直接起動では --python-exit-code 1 が必須。指定しないと、インポート中の例外で Blender が終了コード0を返す。
+main() 内の例外は common_test.guarded_main が捕捉し、判定 ERROR と終了コード2を記録する。
 
-The silhouette of the object(s) seen by CAM_print is rasterised (gw.silhouette, exact sub-pixel
-crossings), the ordered contour is measured with gw.profile_metrics and compared with the base
-contour json.  Thresholds come ONLY from tests/thresholds.json; every check reports pass / fail for
-BOTH tiers.  Output: results/<YYYYMMDD_HHMMSS>_shape/ metrics.json, summary.md, overlays on the
-painting (full + zoomed crops), deviation-vs-arclength plot, S8 and S4 plots.
+CAM_print から見たシルエットをサブピクセル精度でラスタライズし、輪郭を基準JSONと比較する。
+閾値の出典は tests/thresholds.json のみ。両段階の結果を毎回報告する。
+出力：results/<YYYYMMDD_HHMMSS>_shape/ に metrics.json、summary.md、原画重ね合わせ、
+局所拡大、偏差と弧長の図、S8・S4の図を保存する。
 
-Also reported, never judged:
-  S7.<segment>.model_to_base.* / base_to_model.*  each direction of S7 separately (INFO; the worse one is judged)
-  S5.crest_to_tip_dir_diff_deg                    direction crest -> tip next to the judged phi
-  W.*   report-only size metrics 'report only - pending user decision' (section widths at 0.25 / 0.5 / 0.75 H,
-        o, cavity depth, area above Z = 0; model vs base contour, differences in %), drawn into
-        overlay_full_1600.png and overlay_widths_1600.png
-  T.*   is the base contour segmented like the model?  json joints vs the library's detection on the same polyline;
-        more than 0.2 % of image height apart -> verdict INVALID (not FAIL): S5 / S7 would compare different stretches
-        T.n_nonfinite_vertices, T.n_dropped_triangles, T.n_removed_islands, T.n_removed_specks, T.reached_still_water,
-        T.<segment>.in_s7_false_share_pct, T.<segment>.model_samples_not_counted_share_pct: the numbers behind the
-        validity conditions added 2026-09-20 (always reported; see common_test.INTERPRETATION_NOTES['validity'])
-  W.own_h.*  shape descriptors relative to each contour's OWN crest height (do not cancel for 'wider AND lower')
-  S7.<segment>.signed_*  signed normal deviation (+ = model outside the target body); S7.underside / S7.belly
-  S1.crest_inside_painted_plateau, S1.height_on_x0_plumb_*;  S8.max_vertex_window_turn_deg, S8.tip_junction_deg
+判定に入れず、報告だけに使う値：S7の各方向と符号付き偏差、S5の波頂→先端方向、
+Wの断面幅・張り出し・空洞深度・面積、各輪郭自身の波高で規格化した形状量、
+S7の波頭下面と波腹、原画の波頂平坦部、S8の頂点窓角など。
+T系は有効性を説明する値で、JSON接合点と検出点の差が画面高0.2％を超えると INVALID にする。
+非有限頂点、欠落三角形、脱離成分、静水面への到達、S7対象外の割合も毎回報告する。
 
-JUDGED since 2026-09-20 (INTERPRETATION pending user confirmation): S3.from_model_trough.height_err_pct_h next to
-S3.height_err_pct_h, same threshold entry; the verdict follows the worse of the two.
+2026-09-20から、S3は静水面基準とモデル自身の谷基準を同じ閾値で併記・判定した。
+これは当時の暫定解釈で、利用者確認待ちだった。
 """
 import argparse
 import os
@@ -45,17 +35,16 @@ from common_test import bootstrap, draw, imgio, paths, plot, pm, silhouette, log
 
 TEST_NAME = "shape"
 SEGS = ("back", "head", "inner_arc")
-SIGNED_LABEL = "report only - signed normal deviation, + = model OUTSIDE the target body (no thresholds)"
+SIGNED_LABEL = "報告専用：符号付き法線偏差。正はモデルが目標浪体の外側（閾値なし）"
 DARKGREEN = (0, 95, 30)
-VERTEX_WINDOW_LABEL = ("report only - turning of the polyline's own vertices over closed windows of one S8 spacing, nothing excluded "
-                       "(no 15 deg verdict: the official base contour itself reads 19 deg)")
+VERTEX_WINDOW_LABEL = ("報告専用：S8の1標本間隔に相当する閉区間で折線自身の頂点の転角を測る。除外区間なし。"
+                       "正式基準輪郭自身が19°なので15°で判定しない")
 
 
 # ------------------------------------------------------------------------------------ per-sample deviation
 def deviation_samples(model_pts, poly, mm, P):
-    """Per-sample version of pm.s7_deviation (same sampling, same margins, same in_S7 handling) so that
-    failures can be LOCATED and plotted.  The judged numbers still come from pm.s7_deviation; the two
-    are cross-checked by the caller.  -> {segment: {model_to_base {...}, base_to_model {...}}}"""
+    """pm.s7_deviation と同じ標本間隔・余白・in_S7 の扱いで、標本ごとの偏差を返す。
+    失敗箇所の特定と描画に使う。判定値は引き続き pm.s7_deviation から取り、呼出側で照合する。"""
     Cm, Cb = pm.Curve(model_pts), pm.Curve(poly["pts_H"])
     b_idx = Cb.index_map
     b_seg, b_flag = poly["seg_id"][b_idx], poly["in_S7"][b_idx]
@@ -94,7 +83,7 @@ def deviation_samples(model_pts, poly, mm, P):
 
 
 def _stretches(F, side, limit, seg, max_n):
-    """Failing stretches of one direction: list of {s_range_pct_h, max_dev_pct_h, px, H}."""
+    """一方向の失敗区間を、弧長範囲・最大偏差・座標の辞書リストで返す。"""
     dev, cnt = side["dev_pct_h"], side["counted"]
     out = []
     for i0, i1 in ct.ranges_above(dev, limit, cnt):
@@ -108,12 +97,11 @@ def _stretches(F, side, limit, seg, max_n):
     return out[:max_n], len(out)
 
 
-# ------------------------------------------------------------------------------------ report-only helpers
+# ------------------------------------------------------------------------------------ 報告専用の補助関数
 def armpit_of(C, s_tip, s_deep, min_sagitta_H):
-    """REPORT ONLY.  Armpit = the point of the inner arc between head tip and deepest point that is farthest from the
-    straight line tip -> deepest, on the BODY side (walking tip -> deepest the body is on the right, the cavity on the
-    left, so the arc bulges to the right of the chord).  It separates the UNDERSIDE of the head (tip .. armpit) from the
-    BELLY (armpit .. trough).  -> {'s', 'H', 'sagitta_pct_h'} or None when there is no distinct corner."""
+    """報告専用。頭部先端と空洞最深点を結ぶ弦から、胴体側へ最も離れた内側弧の点を脇とする。
+    先端から最深点へ進むと胴体側は右、空洞側は左。脇で頭部下面と腹を分ける。
+    弧長・座標・矢高の辞書を返し、明瞭な角がなければ None。"""
     if s_tip is None or s_deep is None or s_deep <= s_tip:
         return None
     n = max(8, int((s_deep - s_tip) / float(pm.pct_h_to_H(0.1))) + 1)
@@ -132,8 +120,7 @@ def armpit_of(C, s_tip, s_deep, min_sagitta_H):
 
 
 def height_on_plumb(C, s_lo, s_hi, x0=0.0):
-    """REPORT ONLY.  Largest Z of the contour between arc lengths s_lo .. s_hi where it crosses the plumb line X = x0
-    (None when it never does)."""
+    """報告専用。弧長 s_lo..s_hi の輪郭が X=x0 の鉛直線と交わる最大 Z。交わらなければ None。"""
     sel = (C.s >= s_lo) & (C.s <= s_hi)
     x, z = C.pts[sel, 0] - float(x0), C.pts[sel, 1]
     if x.size < 2:
@@ -145,9 +132,8 @@ def height_on_plumb(C, s_lo, s_hi, x0=0.0):
 
 
 def in_s7_shares(poly, s7):
-    """Share of every segment that is excluded from S7: on the TARGET (arc length of base-contour edges with an
-    in_S7 = false end, % of the segment) and on the MODEL (samples whose nearest base stretch is in_S7 = false, % of
-    the segment's samples).  -> {segment: {'target_pct', 'model_pct'}}"""
+    """各区間で S7 から除外される割合を返す。
+    目標側は in_S7=false の端点を持つ基準輪郭の辺の弧長比、モデル側は最近接区間が除外域にある標本の比。"""
     Cb = pm.Curve(poly["pts_H"])
     idx = Cb.index_map
     seg, flag = poly["seg_id"][idx], poly["in_S7"][idx]
@@ -167,7 +153,7 @@ def in_s7_shares(poly, s7):
 
 
 def _part_stats(side, lo, hi):
-    """mean / p95 / n of the counted samples of one S7 direction whose arc length lies in [lo, hi]."""
+    """弧長 [lo, hi] に含まれ、S7 の一方向で計数した標本の平均・p95・件数。"""
     sel = side["counted"] & (side["s_H"] >= lo) & (side["s_H"] <= hi)
     if not sel.any():
         return {"n": 0, "mean": None, "p95": None}
@@ -175,11 +161,10 @@ def _part_stats(side, lo, hi):
     return {"n": int(sel.sum()), "mean": float(d.mean()), "p95": float(np.percentile(d, 95))}
 
 
-# ------------------------------------------------------------------------------------ the test
+# ------------------------------------------------------------------------------------ 検査本体
 def judge_profile(F, S, pts_H, bc, poly=None, bm=None, P=None):
-    """S1-S8 checks of ONE ordered contour (H units) against a base contour.  Used for the silhouette
-    contour of the model (run) and, in tests/selfcheck_tests.py, for analytic polylines.
-    -> dict: checks, notes, m (measure_profile), pc, s7, dv (per-sample deviations), s8pack, consistency"""
+    """H 単位の順序付き輪郭一本を基準輪郭と比較し、S1～S8 を検査する。
+    モデルのシルエットと selfcheck_tests.py の解析的な折線に共用する。検査値・注記・測定資料の辞書を返す。"""
     P = P or pm.get_params()
     poly = poly or pm.base_contour_polyline(bc)
     bm = bm or pm.measure_base_contour(bc, P)
@@ -189,7 +174,7 @@ def judge_profile(F, S, pts_H, bc, poly=None, bm=None, P=None):
     lmk = m["landmarks"]
     checks, notes = [], []
     if not m["overhanging"]:
-        notes.append("the measured contour has NO overhang (no head tip / inner arc as seen from CAM_print): S2, S5, S6 and S7 head / inner_arc are not measurable")
+        notes.append("測定した輪郭に張り出しがない。CAM_print から波頭先端と内側の弧を識別できず、S2・S5・S6・S7の波頭／内側の弧を測れない")
 
     def W(key, seg=None):
         lm = lmk.get(key)
@@ -204,39 +189,38 @@ def judge_profile(F, S, pts_H, bc, poly=None, bm=None, P=None):
         vb = pc["S1"]["vs_base"]
         for k in ("dx_pct_h", "dz_pct_h"):
             checks.append(ct.make_check("S1", k, vb[k], sub="vs_base_contour", target={"H": bm["landmarks"]["crest"]["H"]},
-                                        difference=vb[k], info_only=True, note="information only: crest of the base contour as target"))
+                                        difference=vb[k], info_only=True, note="参考値：基準輪郭の波頂を目標とする"))
     checks.append(ct.report_value("S1", "crest_plateau_width_pct_h", lmk["crest_plateau"]["width_pct_h"], "% of image height",
-                                  note="width of the run within %.2g %% of the maximum height (model)" % lmk["crest_plateau"]["tol_pct_h"]))
-    # REPORT ONLY companions of S1: the painted crest is a plateau several % wide, so 'where is the highest point' is
-    # ill-conditioned in X.  (a) does the model crest lie inside the X range of the painted plateau?  (b) how high is the
-    # contour ON the plumb line X = 0 (the spec puts the crest there: section 4 'the crest is on the plumb line X = 0')?
+                                  note="モデルの最大高さから %.2g %% 以内にある連続区間の幅" % lmk["crest_plateau"]["tol_pct_h"]))
+    # S1 の補助値（報告専用）。原画の波頂は数 % 幅の平坦部なので、最高点の X は不安定。
+    # モデルの波頂が原画の平坦部の X 範囲内にあるか、仕様第4節の鉛直線 X=0 上で輪郭がどの高さかを示す。
     Cm0 = pm.Curve(pts_H)
     plat, plat_src = None, None
     jl = ((bc.get("landmarks") or {}).get("crest") or {}).get("plateau_x_px")
     if jl and len(jl) == 2:
         plat = sorted(float(F.px_to_H(float(v), 0.0)[0]) for v in jl)
-        plat_src = "base contour json landmarks.crest.plateau_x_px = %s px" % [round(float(v), 1) for v in jl]
+        plat_src = "基準輪郭JSONの landmarks.crest.plateau_x_px = %s px" % [round(float(v), 1) for v in jl]
     else:
         try:
             cpl = pm.measure_profile(poly["pts_H"], P)["landmarks"]["crest_plateau"]
             plat = [float(cpl["x_min_H"]), float(cpl["x_max_H"])]
-            plat_src = "plateau DETECTED on the base contour polyline (run within %.2g %% of image height of its top)" % cpl["tol_pct_h"]
+            plat_src = "基準輪郭の折線から検出した平坦部（頂点高さとの差が画面高の %.2g %% 以内）" % cpl["tol_pct_h"]
         except Exception as exc:                                   # report-only: never let it break the judged checks
-            plat_src = "not available (%s: %s)" % (type(exc).__name__, exc)
+            plat_src = "取得できない（%s: %s）" % (type(exc).__name__, exc)
     xc = float(lmk["crest"]["H"][0])
     inside = None if plat is None else bool(plat[0] <= xc <= plat[1])
     outside = None if plat is None else float(pm.H_to_pct_h(max(plat[0] - xc, xc - plat[1], 0.0)))
     checks.append(ct.report_value("S1", "crest_inside_painted_plateau", inside, "bool", target={"plateau_x_range_H": plat},
-                                  note="REPORT ONLY: X of the model crest %.4f H inside the painted crest plateau %s; source: %s" % (xc, plat, plat_src)))
+                                  note="報告専用：モデル波頂のX座標 %.4f H が原画の平坦部 %s に含まれるか。出典：%s" % (xc, plat, plat_src)))
     checks.append(ct.report_value("S1", "crest_outside_plateau_pct_h", outside, "% of image height",
-                                  note="REPORT ONLY: horizontal distance of the model crest from the painted plateau (0 = inside)"))
+                                  note="報告専用：モデル波頂と原画の平坦部の水平距離。内部なら0"))
     s_top_end = lmk["head_tip"]["s"] if m["overhanging"] else lmk["trough_end"]["s"]
     z0 = height_on_plumb(Cm0, 0.0, s_top_end, 0.0)
     h0 = None if z0 is None else float(pm.H_to_pct_h(z0 - float(P["z_still_H"])))
     checks.append(ct.report_value("S1", "height_on_x0_plumb_pct_h", h0, "% of image height", target=float(F.height_pct),
                                   difference=None if h0 is None else h0 - float(F.height_pct),
-                                  note="REPORT ONLY: height of the contour's top side on the plumb line X = 0 above the still water (target %.1f = the S3 height; "
-                                       "the crest itself is at X = %.4f H, Z = %.4f H)" % (F.height_pct, xc, lmk["crest"]["H"][1])))
+                                  note="報告専用：X＝0の鉛直線上にある輪郭上面の静水面からの高さ。目標 %.1f はS3の高さ。"
+                                       "波頂自体は X＝%.4f H、Z＝%.4f H" % (F.height_pct, xc, lmk["crest"]["H"][1])))
     # ---- S2
     v = pc["S2"]["vs_spec"]
     tgt = {"H": pc["S2"]["target_spec_H"], "left_top_pct": [39.5, 46.3]}
@@ -248,20 +232,19 @@ def judge_profile(F, S, pts_H, bc, poly=None, bm=None, P=None):
         checks.append(ct.make_check("S2", "dist_pct_h", vb["dist_pct_h"], sub="vs_base_contour",
                                     target={"H": bm["landmarks"]["inner_deepest"]["H"]},
                                     difference={"dx_pct_h": vb["dx_pct_h"], "dz_pct_h": vb["dz_pct_h"]}, info_only=True,
-                                    note="information only: deepest point of the base contour as target"))
+                                    note="参考値：基準輪郭の最深点を目標とする"))
     # ---- S3
     checks.append(ct.make_check("S3", "height_err_pct_h", pc["S3"]["height_err_pct_h"], target=66.0,
                                 difference=pc["S3"]["height_err_pct_h"], where=W("crest"),
-                                note="crest height %.3f %% of image height above Z = 0 (the frame definition); above the model's own trough level "
-                                     "(lowest point of the contour after the inner-arc deepest point): %s -> judged as S3.from_model_trough"
+                                note="Z＝0（画角の定義）からの波頂高さは画面高の %.3f %%。モデル自身の谷水位"
+                                     "（内側の弧の最深点以後にある輪郭の最低点）からの高さは %s。S3.from_model_trough として判定"
                                      % (pc["S3"]["height_pct_h"], ct._fmt(pc["S3"]["height_from_measured_trough_pct_h"]))))
     s3m = pc["S3_from_model_trough"]
     checks.append(ct.make_check("S3", "height_err_pct_h", s3m["height_err_pct_h"], sub="from_model_trough", target=66.0,
                                 difference=s3m["height_err_pct_h"], where=W("trough_lowest"),
-                                label="INTERPRETATION pending user confirmation: trough-to-crest height measured from the MODEL'S OWN trough level",
-                                note="JUDGED with the threshold entry of S3 (the verdict follows the worse of S3 / S3.from_model_trough): crest Z minus the lowest Z "
-                                     "of the contour between the inner-arc deepest point and the right end = %s %% of image height; model trough level %s %% "
-                                     "above Z = 0; reached the still water (tolerance %s %%): %s"
+                                label="暫定解釈・利用者確認待ち：モデル自身の谷水位から波頂までの高さ",
+                                note="S3と同じ閾値で判定し、悪い側を採る。波頂Zから、内側の弧の最深点と右端の間の最低Zを引いた値＝画面高の %s %%。"
+                                     "モデルの谷水位はZ＝0より %s %% 上。静水面へ到達したか（許容差 %s %%）：%s"
                                      % (ct._fmt(s3m["height_pct_h"]), ct._fmt(s3m["trough_level_above_still_pct_h"]),
                                         ct._fmt(s3m["reached_still_water_tol_pct_h"]), s3m["reached_still_water"])))
     # ---- S4
@@ -278,12 +261,12 @@ def judge_profile(F, S, pts_H, bc, poly=None, bm=None, P=None):
     for k in ("mid_is_steepest", "flattens_towards_crest", "top_is_round_no_corner"):
         note = None
         if k == "flattens_towards_crest":
-            note = "largest slope increase after the steepest point: %s deg (tolerance %s deg)" % (
+            note = "最急点以後の傾きの最大再増加：%s°（許容 %s°）" % (
                 ct._fmt(s4.get("max_slope_increase_after_steepest_deg")), P["s4_monotone_tol_deg"])
         if k == "top_is_round_no_corner":
-            note = "largest S8 turn within %s %% of the crest: %s deg" % (P["s4_crest_zone_pct_h"], ct._fmt(s4.get("crest_max_turn_deg")))
+            note = "波頂から %s %% 以内のS8最大転角：%s°" % (P["s4_crest_zone_pct_h"], ct._fmt(s4.get("crest_max_turn_deg")))
         if k == "mid_is_steepest" and s4.get("mid_max_at"):
-            note = "steepest point at %.0f %% of the back length" % (100.0 * s4["mid_max_at"]["frac_of_back"])
+            note = "最急点は背の弧長の %.0f %% にある" % (100.0 * s4["mid_max_at"]["frac_of_back"])
         checks.append(ct.make_check("S4", k, s4.get(k), target=1, note=note,
                                     where=None if not s4.get("mid_max_at") else
                                     ct.where_point(F, s4["mid_max_at"]["H"], segment="back", s_H=s4["mid_max_at"]["s"])))
@@ -295,23 +278,23 @@ def judge_profile(F, S, pts_H, bc, poly=None, bm=None, P=None):
                                 where=W("head_tip", "head|inner_arc")))
     checks.append(ct.make_check("S5", "dir_deg", None if not s5 else s5["dir_deg"], target=tip_t,
                                 difference=None if not s5 else s5["dir_deg"], where=W("head_tip", "head|inner_arc"),
-                                note=None if not s5 else "phi model %s deg, phi base contour %s deg (phi = chord of the top side before the tip; THE S5 / M4 direction for both contours)"
+                                note=None if not s5 else "φ：モデル %s°、基準輪郭 %s°。φは先端前の上面の弦方向で、S5とM4に共通して使う"
                                                          % (ct._fmt(s5["model_phi_deg"]), ct._fmt(s5["base_phi_deg"]))))
     checks.append(ct.report_value("S5", "crest_to_tip_dir_diff_deg", None if not s5 else s5.get("crest_to_tip_diff_deg"), "deg",
                                   target={"base_contour_deg": bm.get("crest_to_tip_deg")},
-                                  note="REPORT ONLY: direction of the straight line crest -> head tip, model %s deg, base contour %s deg (S5 is judged on phi)"
+                                  note="報告専用：波頂→先端の直線方向。モデル %s°、基準輪郭 %s°。S5の判定にはφを使う"
                                        % (ct._fmt(m.get("crest_to_tip_deg")), ct._fmt(bm.get("crest_to_tip_deg")))))
     if m.get("head_lobes"):
         hl = m["head_lobes"]
         checks.append(ct.report_value("S5", "model_head_lobes", hl["n_lobes"], "count",
-                                      note="right->left reversals of X >= %s %% of image height between crest and deepest point of the MODEL contour (1 = single-nosed head); "
-                                           "legacy first-reversal tip is %s %% of image height away from the head tip"
+                                      note="モデルの波頂から最深点までに、Xが画面高の %s %% 以上右から左へ戻る回数（1なら単一の先端）。"
+                                           "旧規則による先端は現行先端から画面高の %s %% 離れる"
                                            % (ct._fmt(hl["lobe_reversal_pct_h"]), ct._fmt(hl["onset_to_tip_pct_h"]))))
     # ---- S6
     s6 = pc.get("S6")
     checks.append(ct.make_check("S6", "body_rightmost_left_pct", None if not s6 else s6["body_rightmost_left_pct"], target=59.2,
                                 difference=None if not s6 else s6["body_rightmost_left_pct"] - 59.2, where=W("body_rightmost", "head"),
-                                note=None if not s6 else "margin to the claw tip: %.3f %% of image height" % s6["margin_pct_h"]))
+                                note=None if not s6 else "爪先までの余裕：画面高の %.3f %%" % s6["margin_pct_h"]))
     # ---- S7
     dv = deviation_samples(pts_H, poly, m, P)
     lim = {t: {k: paths.threshold("S7", k, t) for k in ("mean_dev_pct_h", "p95_dev_pct_h")} for t in ct.TIERS}
@@ -320,7 +303,7 @@ def judge_profile(F, S, pts_H, bc, poly=None, bm=None, P=None):
         r = s7.get(seg)
         if r is None:
             for k in ("mean_dev_pct_h", "p95_dev_pct_h"):
-                checks.append(ct.make_check("S7", k, None, sub=seg, note="segment does not exist on the measured contour"))
+                checks.append(ct.make_check("S7", k, None, sub=seg, note="測定輪郭にこの区間が存在しない"))
             continue
         worse = "model_to_base" if (r["model_to_base"]["p95_pct_h"] or 0) >= (r["base_to_model"]["p95_pct_h"] or 0) else "base_to_model"
         side = dv[seg][worse]
@@ -334,31 +317,31 @@ def judge_profile(F, S, pts_H, bc, poly=None, bm=None, P=None):
             if where is not None and r[k] is not None and r[k] > min(lim[t][k] for t in ct.TIERS):
                 lst, n_all = _stretches(F, side, lim["spec"][k], seg, int(S["s7_report_max_ranges"]))
                 where.update({"direction_listed": worse, "limit_pct_h": lim["spec"][k], "n_ranges": n_all, "ranges": lst,
-                              "s_reference": "arc length along the %s contour from its first point (left frame edge), %% of image height"
-                                             % ("MODEL" if worse == "model_to_base" else "BASE")})
+                              "s_reference": "%s輪郭の始点（画面左端）からの弧長。単位は画面高の百分率"
+                                             % ("モデル" if worse == "model_to_base" else "基準")})
             checks.append(ct.make_check("S7", k, r[k], sub=seg, target=0.0, where=where,
-                                        note="worse of the two directions (judged): model->base %s / base->model %s; %d model samples skipped (nearest base stretch has in_S7 = false)"
+                                        note="双方向の悪い側を判定：モデル→基準 %s／基準→モデル %s。モデル側の%d標本は最近接の基準区間が in_S7=false のため除外"
                                              % (ct._fmt(r["model_to_base"][k.replace("_dev", "")]), ct._fmt(r["base_to_model"][k.replace("_dev", "")]),
                                                 r["model_to_base"].get("n_skipped_not_in_S7", 0))))
-        # both directions separately (backlog definition sheet: nearest distance in BOTH directions); information only
+        # 旧定義表に沿い、最近接距離を双方向それぞれで報告する。判定には使わない。
         for direction in ("model_to_base", "base_to_model"):
             for k in ("mean_dev_pct_h", "p95_dev_pct_h"):
                 checks.append(ct.make_check("S7", k, r[direction][k.replace("_dev", "")], sub="%s.%s" % (seg, direction), target=0.0,
-                                            info_only=True, note="one direction only, n = %d samples (information; the judged value is the worse direction)"
+                                            info_only=True, note="一方向のみの参考値。標本数%d。判定には双方向の悪い側を使う"
                                                                  % r[direction]["n"]))
-        # REPORT ONLY: signed normal deviation (+ = model OUTSIDE the target body).  Unsigned deviations of a body that is
-        # wider AND lower partly cancel in nothing but look small; the sign tells which way the model is off.
+        # 報告専用：符号付き法線偏差。正値はモデルが目標浪体の外側にあることを示す。
+        # 幅広かつ低い胴体は符号なし偏差だけでは方向が分からないため、ずれの向きを記録する。
         mb = r["model_to_base"]
         checks.append(ct.report_value("S7", "signed_mean_dev_pct_h", r.get("signed_mean_dev_pct_h"), "% of image height", sub=seg, target=0.0,
                                       label=SIGNED_LABEL,
-                                      note="%s; model->base samples: median %s, p05 %s, p95 %s, share of samples outside the target body %s; unsigned mean %s"
+                                      note="%s。モデル→基準標本：中央値 %s、5％点 %s、95％点 %s、目標浪体の外側にある割合 %s、符号なし平均 %s"
                                            % (SIGNED_LABEL, ct._fmt(mb.get("signed_median_pct_h")), ct._fmt(mb.get("signed_p05_pct_h")), ct._fmt(mb.get("signed_p95_pct_h")),
                                               ct._fmt(mb.get("frac_model_outside")), ct._fmt(mb.get("mean_pct_h")))))
         for q in ("signed_p05_pct_h", "signed_p95_pct_h"):
             checks.append(ct.report_value("S7", q, mb.get(q), "% of image height", sub=seg, label=SIGNED_LABEL, note=SIGNED_LABEL))
-    # REPORT ONLY: the inner arc split at the armpit into UNDERSIDE of the head (tip .. armpit) and BELLY (armpit .. trough)
-    split = {"definition": "armpit = point of the inner arc between head tip and deepest point farthest from the straight line tip -> deepest (body side); "
-                           "underside = head tip .. armpit, belly = armpit .. end of the inner arc; same sampling / in_S7 handling as S7.inner_arc",
+    # 報告専用：内側の弧を脇で頭部下面（先端～脇）と波腹（脇～波谷）に分ける。
+    split = {"definition": "腋部＝先端と最深点を結ぶ直線から浪体側へ最も離れた内側の弧の点。"
+                           "波頭下面＝先端から腋部、波腹＝腋部から内側の弧の終点。標本と in_S7 の扱いは S7.inner_arc と同じ",
              "model_armpit": None, "base_armpit": None, "parts": {}}
     if m["overhanging"] and dv.get("inner_arc") and bm["landmarks"].get("head_tip") and bm["landmarks"].get("inner_deepest"):
         min_sag = float(pm.pct_h_to_H(S["armpit_min_sagitta_pct_h"]))
@@ -374,13 +357,13 @@ def judge_profile(F, S, pts_H, bc, poly=None, bm=None, P=None):
                     vals = [v[key] for v in (a, b) if v[key] is not None]
                     checks.append(ct.make_check("S7", k, max(vals) if vals else None, sub=part, target=0.0, info_only=True,
                                                 where=ct.where_point(F, am["H"], segment="inner_arc (%s)" % part, s_H=am["s"]),
-                                                label="REPORT ONLY: part of the inner arc (%s)" % part,
-                                                note="REPORT ONLY (never judged; the spec's segment is the whole inner arc): worse of model->base %s (n = %d) / base->model %s (n = %d); "
-                                                     "split at the armpit, model (%.4f, %.4f) H, base contour (%.4f, %.4f) H"
+                                                label="報告専用：内側の弧の部分（%s）" % part,
+                                                note="報告専用で判定しない。仕様の対象は内側の弧全体。モデル→基準 %s（標本%d）と基準→モデル %s（標本%d）の悪い側。"
+                                                     "腋部で分割し、モデル (%.4f, %.4f) H、基準輪郭 (%.4f, %.4f) H"
                                                      % (ct._fmt(a[key]), a["n"], ct._fmt(b[key]), b["n"], am["H"][0], am["H"][1], ab["H"][0], ab["H"][1])))
     if not split["parts"]:
         checks.append(ct.report_value("S7", "underside_belly_split", None, None,
-                                      note="REPORT ONLY: no split of the inner arc into underside / belly (no overhang, or no distinct armpit: sagitta < %s %% of image height)"
+                                      note="報告専用：張り出しがないか、腋部の深さが画面高の %s %% 未満のため、下面と波腹に分けられない"
                                            % ct._fmt(S["armpit_min_sagitta_pct_h"])))
     # ---- S8
     s8 = m["S8"]
@@ -406,15 +389,15 @@ def judge_profile(F, S, pts_H, bc, poly=None, bm=None, P=None):
             lst.sort(key=lambda r: -r["max_turn_deg"])
             where8.update({"n_ranges": len(lst), "ranges": lst[:int(S["s7_report_max_ranges"])], "limit_deg": lim8})
     checks.append(ct.make_check("S8", "max_tangent_diff_deg", s8["max_tangent_diff_deg"], target=0.0, where=where8,
-                                note="per segment: %s; tip turn %s deg; max without the tip exclusion %s deg"
+                                note="区間別：%s。先端の転角 %s°。先端除外なしの最大値 %s°"
                                      % (ct.jsonable(s8["per_segment"]), ct._fmt(s8["tip_turn_deg"]), ct._fmt(s8["max_unexcluded_deg"]))))
-    checks.append(ct.make_check("S8", "sample_spacing_pct_h", s8["spacing_pct_h"], target=1.0, note="test setting (params.json S8_sample_spacing_pct)"))
-    checks.append(ct.report_value("S8", "tip_turn_deg", s8["tip_turn_deg"], "deg", note="total turn across the head tip; reported separately (INTERPRETATION pending user confirmation)"))
+    checks.append(ct.make_check("S8", "sample_spacing_pct_h", s8["spacing_pct_h"], target=1.0, note="検査設定（params.json の S8_sample_spacing_pct）"))
+    checks.append(ct.report_value("S8", "tip_turn_deg", s8["tip_turn_deg"], "deg", note="波頭先端をまたぐ総転角。暫定解釈として別途報告し、利用者確認待ち"))
     checks.append(ct.report_value("S8", "max_unexcluded_deg", s8["max_unexcluded_deg"], "deg",
-                                  note="S8 maximum when the zone around the head tip is NOT excluded (since 2026-09-20 it includes one junction ON the head tip; "
-                                       "without it: %s deg)" % ct._fmt(s8.get("max_unexcluded_without_tip_junction_deg"))))
+                                  note="波頭先端の周辺を除外しない場合のS8最大値。2026-09-20から先端上の接合点も含む。"
+                                       "その接合点を除くと %s°" % ct._fmt(s8.get("max_unexcluded_without_tip_junction_deg"))))
     checks.append(ct.report_value("S8", "tip_junction_deg", s8.get("tip_junction_deg"), "deg", target={"base_contour_deg": bm["S8"].get("tip_junction_deg")},
-                                  note="REPORT ONLY: signed tangent change of the one junction placed exactly on the head tip (a pointed tip shows here, not in the judged S8)"))
+                                  note="報告専用：波頭先端上の接合点における符号付き接線角差。尖りはここに現れ、判定用S8には現れない"))
     vw, vwb = s8.get("vertex_window_turn") or {}, bm["S8"].get("vertex_window_turn") or {}
     where_v = None
     if vw.get("max_at"):
@@ -424,7 +407,7 @@ def judge_profile(F, S, pts_H, bc, poly=None, bm=None, P=None):
                                   difference=None if (s8.get("max_vertex_window_turn_deg") is None or bm["S8"].get("max_vertex_window_turn_deg") is None)
                                   else s8["max_vertex_window_turn_deg"] - bm["S8"]["max_vertex_window_turn_deg"],
                                   label=VERTEX_WINDOW_LABEL,
-                                  note="%s; model per segment %s, outside the tip exclusion %s, across the tip %s; base contour per segment %s; short windows (model): %s"
+                                  note="%s。モデルの区間別 %s、先端除外区間外 %s、先端をまたぐ値 %s。基準輪郭の区間別 %s。モデルの短い窓：%s"
                                        % (VERTEX_WINDOW_LABEL, ct.jsonable(vw.get("per_segment")), ct._fmt(vw.get("max_outside_tip_exclusion_deg")), ct._fmt(vw.get("across_tip_deg")),
                                           ct.jsonable(vwb.get("per_segment")),
                                           ["%s %%: %s deg" % (ct._fmt(w.get("window_pct_h")), ct._fmt(w.get("max_deg"))) for w in (vw.get("short_windows") or [])])))
@@ -445,7 +428,7 @@ def judge_profile(F, S, pts_H, bc, poly=None, bm=None, P=None):
         checks.append(ct.report_value("W", name, r["model"], r["unit"], sub=sub, target=r["target"], where=where,
                                       difference={"abs": r["diff"], "pct_of_target": r["diff_pct_of_target"], "abs_pct_h": r["diff_pct_h"]},
                                       label=pm.WIDTH_LABEL,
-                                      note=("%s; " % pm.WIDTH_LABEL) + ("model vs base contour" if r["comparable"] else "NOT COMPARABLE")
+                                      note=("%s。" % pm.WIDTH_LABEL) + ("モデルと基準輪郭を比較" if r["comparable"] else "比較不能")
                                            + ("" if not r["note"] else "; " + r["note"])))
     # ---- W.own_h: report-only shape descriptors relative to each contour's OWN crest height (NO thresholds)
     shape_rows = pm.compare_shape_descriptors(m["shape"], bm["shape"])
@@ -454,7 +437,7 @@ def judge_profile(F, S, pts_H, bc, poly=None, bm=None, P=None):
             continue
         checks.append(ct.report_value("W", r["name"], r["model"], r["unit"], sub="own_h", target=r["target"],
                                       difference={"abs": r["diff"], "pct_of_target": r["diff_pct_of_target"]}, label=pm.SHAPE_LABEL,
-                                      note=("%s; " % pm.SHAPE_LABEL) + ("model vs base contour" if r["comparable"] else "NOT COMPARABLE")
+                                      note=("%s。" % pm.SHAPE_LABEL) + ("モデルと基準輪郭を比較" if r["comparable"] else "比較不能")
                                            + ("" if not r["note"] else "; " + r["note"])))
     # ---- T: how much of every segment is excluded from S7 (in_S7 = false)?  always reported; above the limit -> INVALID
     validity_fail = []
@@ -464,19 +447,19 @@ def judge_profile(F, S, pts_H, bc, poly=None, bm=None, P=None):
         sh = shares.get(seg) or {}
         for key, nm in (("target_pct", "in_s7_false_share_pct"), ("model_pct", "model_samples_not_counted_share_pct")):
             checks.append(ct.report_value("T", nm, sh.get(key), "% of the segment", sub=seg, target={"validity_limit_le": lim_share},
-                                          note=("BASE CONTOUR: arc length of the segment flagged in_S7 = false (completed / occluded, not counted in S7)" if key == "target_pct" else
-                                                "MODEL: samples of the segment whose nearest base stretch is in_S7 = false (not counted in S7)")
-                                               + "; above %s %% the run is INVALID (tests/thresholds.json interpretations.test_settings.in_s7_false_max_share_pct)" % ct._fmt(lim_share)))
+                                          note=("基準輪郭：in_S7=false の区間の弧長。遮蔽補完のためS7に算入しない" if key == "target_pct" else
+                                                "モデル：最近接の基準区間が in_S7=false なのでS7に算入しない標本")
+                                               + "。%s %% を超えると INVALID（tests/thresholds.json の interpretations.test_settings.in_s7_false_max_share_pct）" % ct._fmt(lim_share)))
             if sh.get(key) is not None and sh[key] > lim_share:
-                validity_fail.append("%.1f %% of the %s of segment '%s' are excluded from S7 by in_S7 = false flags (limit %s %%): the S7 verdict of this segment "
-                                     "covers too little of it" % (sh[key], "base contour" if key == "target_pct" else "MODEL samples", seg, ct._fmt(lim_share)))
+                validity_fail.append("区間 '%s' の%sの %.1f %% が in_S7=false によりS7から除外された（上限 %s %%）。この区間のS7判定は対象範囲が足りない"
+                                     % (seg, "基準輪郭" if key == "target_pct" else "モデル標本", sh[key], ct._fmt(lim_share)))
     # ---- T: does the front face come down to the still water?  (S3 from Z = 0 measures to a level the model must reach)
     checks.append(ct.report_value("T", "reached_still_water", m.get("reached_still_water"), "bool",
-                                  note="lowest point of the contour after the inner-arc deepest point: %s %% of image height above Z = 0 (tolerance %s %%)"
+                                  note="内側の弧の最深点以後の輪郭最低点は Z＝0 より画面高の %s %% 上（許容差 %s %%）"
                                        % (ct._fmt(m.get("trough_level_above_still_pct_h")), ct._fmt(m.get("reached_still_water_tol_pct_h")))))
     if m.get("reached_still_water") is False:
-        validity_fail.append("THE FRONT FACE NEVER REACHES THE STILL WATER: the lowest point of the contour in front of the wave is %s %% of image height above Z = 0 "
-                             "(tolerance %s %%). S3 measured from Z = 0 is then the height above a level the model never reaches; S3.from_model_trough = %s"
+        validity_fail.append("前面が静水面へ届かない。波前方の輪郭最低点は Z＝0 より画面高の %s %% 上"
+                             "（許容差 %s %%）。この場合、Z＝0基準のS3はモデルが到達しない水位からの高さ。S3.from_model_trough = %s"
                              % (ct._fmt(m.get("trough_level_above_still_pct_h")), ct._fmt(m.get("reached_still_water_tol_pct_h")),
                                 ct._fmt(pc["S3_from_model_trough"]["height_err_pct_h"])))
     # ---- T: is the TARGET segmented like the model?  (json joints vs the library's detection on the same polyline)
@@ -486,10 +469,10 @@ def judge_profile(F, S, pts_H, bc, poly=None, bm=None, P=None):
             it = sc["items"][key]
             checks.append(ct.report_value("T", nm, it["dist_pct_h"], "% of image height", target={"json_H": it["json_H"], "detected_H": it["detected_H"]},
                                           where=None if it["detected_H"] is None else ct.where_point(F, it["detected_H"]),
-                                          note="BASE CONTOUR: distance between the landmark that follows from the json joints and the landmark DETECTED on the same "
-                                               "polyline (tip rule '%s'); above %s %% the run is INVALID" % (sc["tip_rule"], ct._fmt(sc["tol_pct_h"]))))
+                                          note="基準輪郭：JSON接合点に基づく地標と同じ折線で検出した地標の距離（先端規則 '%s'）。"
+                                               "%s %% を超えると INVALID" % (sc["tip_rule"], ct._fmt(sc["tol_pct_h"]))))
         checks.append(ct.report_value("T", "base_head_lobes", sc["detected_head_lobes"]["n_lobes"], "count",
-                                      note="right->left reversals of X >= %s %% of image height between crest and deepest point of the BASE contour (1 = single-nosed)"
+                                      note="基準輪郭の波頂から最深点までに、Xが画面高の %s %% 以上右から左へ戻る回数（1なら単一の先端）"
                                            % ct._fmt(sc["detected_head_lobes"]["lobe_reversal_pct_h"])))
     return {"checks": checks, "notes": notes, "m": m, "bm": bm, "poly": poly, "pc": pc, "s7": s7, "dv": dv,
             "s8pack": (js, jd, judged, s_tip), "consistency": consistency, "P": P, "w_rows": w_rows, "segmentation_check": sc,
@@ -497,23 +480,22 @@ def judge_profile(F, S, pts_H, bc, poly=None, bm=None, P=None):
 
 
 def segmentation_validity(sc):
-    """-> (ok, note) from measure_base_contour(...)['segmentation_check'] (None = not checked = ok)."""
+    """基準輪郭の分段整合性から (ok, note) を返す。検査未実施は有効として扱う。"""
     if not sc or sc.get("consistent"):
         return True, None
     parts = []
     for key, it in sc["items"].items():
         parts.append("%s %s" % (key, "n/a" if it["dist_pct_h"] is None else "%.3f %%" % it["dist_pct_h"]))
-    return False, ("TARGET AND MODEL ARE NOT SEGMENTED THE SAME WAY: the json joints of the base contour differ from the landmarks the library "
-                   "DETECTS on the same polyline by more than %s %% of image height (%s; base contour overhanging: json %s / detected %s; "
-                   "detected head lobes %d). The model is always segmented by detection, so S5 / S7 would compare different stretches: run marked "
-                   "INVALID (not FAIL). Fix: put the json joints on pm.detect_landmarks(polyline), or make the head single-nosed."
+    return False, ("目標とモデルの分段が一致しない。基準輪郭のJSON接合点と同じ折線上でライブラリが検出した地標の差が画面高の %s %% を超える"
+                   "（%s、基準輪郭の張り出し：JSON %s／検出 %s、検出した波頭の瓣数 %d）。"
+                   "モデルは常に検出値で分段されるため、S5とS7では異なる区間を比較してしまう。この実行は FAIL ではなく INVALID。"
+                   "JSON接合点を pm.detect_landmarks(polyline) の位置に置くか、波頭を単一の先端にする。"
                    % (ct._fmt(sc["tol_pct_h"]), ", ".join(parts), sc["json_overhanging"], sc["detected_overhanging"],
                       sc["detected_head_lobes"]["n_lobes"]))
 
 
 def target_self_check(F, S, bc, P=None):
-    """Judge the base contour against ITSELF (continued along the still water to the right frame edge, exactly like a
-    silhouette contour; its model-side segmentation is DETECTED, as for every model).  -> {by_id, failed_spec, failed_relaxed}"""
+    """基準輪郭を自身と比較する。右端まで静水面を延長し、モデル側の分段は他のモデルと同様に検出する。"""
     poly = pm.base_contour_polyline(bc)
     pts = poly["pts_H"]
     if pts[-1, 0] < F.x_right - 1e-6:
@@ -527,12 +509,12 @@ def target_self_check(F, S, bc, P=None):
 
 
 def _count_reversals(poly, P):
-    """right->left reversals of X (>= tip_min_reversal) after the crest of the base contour; a single-lobed head has 1."""
+    """基準輪郭の波頂以後でXが右から左へ戻る回数を数える。単一の先端なら1。"""
     return pm.count_x_reversals(poly["pts_H"][poly["crest_index"]:, 0], float(pm.pct_h_to_H(P["tip_min_reversal_pct_h"])))
 
 
 def run(ctx, contour_path=None, run_dir=None):
-    """Measure the final frame of ctx.objs and judge S1-S8.  -> result dict (also written to run_dir)."""
+    """ctx.objs の終幕フレームで S1–S8 を測定し、結果を辞書と出力先に保存する。"""
     F, S = ctx.F, ctx.settings
     run_dir = run_dir or ctx.run_dir
     contour_path = contour_path or ctx.contour_path
@@ -548,46 +530,46 @@ def run(ctx, contour_path=None, run_dir=None):
         prof, mask, info = silhouette.profile_of_objects(ctx.objs, rect=rect, water_z=ctx.water_z, exact=True)
     except silhouette.ProfileError as exc:
         result = {"schema": ct.RESULT_SCHEMA, "test": TEST_NAME, "run_dir": run_dir, "context": ctx.describe(),
-                  "checks": [], "summary": ct.summarize([], False, ["no profile: %s" % exc], expected=ct.EXPECTED_IDS[TEST_NAME], audit=ctx.audit()),
+                  "checks": [], "summary": ct.summarize([], False, ["輪郭を取得できない: %s" % exc], expected=ct.EXPECTED_IDS[TEST_NAME], audit=ctx.audit()),
                   "outputs": {}}
         ct.write_result(run_dir, result)
-        log("[shape] validity: no profile: %s" % exc)
+        log("[shape] 有効性：輪郭を取得できない: %s" % exc)
         return result
     t_sil = sw.lap()
     # ---- validity of the silhouette (a failed item makes the whole test FAIL: numbers are not trustworthy)
     valid = True
     if not prof["complete"]:
         valid = False
-        validity_notes.append("profile incomplete: the boundary trace ended on the %s frame border" % prof["end_border"])
+        validity_notes.append("輪郭が不完全：境界の追跡が画面の %s 側で終了した" % prof["end_border"])
     if prof["holes"]["hole_area_px"] > 0:
         valid = False
-        validity_notes.append("silhouette has %d unfilled hole(s), %d px = %.2f %% of the filled silhouette (the sheet is not swept solid as seen from CAM_print); largest hole bbox %s"
+        validity_notes.append("シルエットに未充填の穴が%d個ある。合計%d px、充填後シルエットの %.2f %%（CAM_print から見て薄片が閉じていない）。最大穴の範囲 %s"
                               % (prof["holes"]["n_holes"], prof["holes"]["hole_area_px"], 100.0 * prof["holes"]["hole_area_frac"],
                                  prof["holes"].get("largest_hole_bbox")))
     if prof.get("n_cracks_without_exact_data"):
-        validity_notes.append("%d boundary cracks without exact crossing data (kept at +-0.5 px)" % prof["n_cracks_without_exact_data"])
+        validity_notes.append("正確な交点データがない境界の隙間が%d箇所（精度は±0.5 px）" % prof["n_cracks_without_exact_data"])
     if info.get("mesh_area_px") == 0:
         valid = False
-        validity_notes.append("the object covers 0 px above the still-water plane as seen from CAM_print: the contour is only the water slab "
-                              "(an open sheet seen exactly edge-on has no projected area; see docs/measurement_definitions.md 1.1)")
+        validity_notes.append("CAM_print から見た静水面より上の被覆面積が0 pxで、輪郭は水体のみ。"
+                              "開いた薄片を真横から見ると投影面積がない（docs/measurement_definitions.md 第1.1節）")
     # ---- 2026-09-20: geometry the measurement layer had to drop must never pass silently
     n_nf, n_dt = int(info.get("n_nonfinite_vertices") or 0), int(info.get("n_dropped_triangles") or 0)
     if n_nf or n_dt:
         valid = False
-        validity_notes.append("NON-FINITE GEOMETRY on frame %d: %d vertex / vertices with NaN / inf coordinates, %d triangle(s) dropped from the silhouette "
-                              "(first vertex indices %s). The metrics are those of the mesh WITHOUT these triangles."
+        validity_notes.append("有限でない幾何：フレーム%dで NaN／無限大の座標を持つ頂点が%d個、シルエットから除かれた三角形が%d面ある"
+                              "（最初の頂点番号 %s）。測定値はこれらの三角形を除いた網目の値である"
                               % (ctx.final_frame, n_nf, n_dt, (info.get("mesh") or {}).get("nonfinite_vertex_indices") or info.get("nonfinite_vertex_indices")))
     comp = prof["components"]
     islands = [c for c in (comp.get("removed") or []) if c.get("kind") == "island"]
     if int(comp.get("n_removed_islands") or 0) > 0:
         valid = False
-        desc = "; ".join("%d px, bbox X %.3f..%.3f H, Z %.3f..%.3f H (painting px x %.0f..%.0f, y %.0f..%.0f)"
+        desc = "; ".join("%d px、範囲 X %.3f..%.3f H、Z %.3f..%.3f H（原画像素 x %.0f..%.0f、y %.0f..%.0f）"
                          % ((c["area_px"], c["bbox_H"][0], c["bbox_H"][2], c["bbox_H"][1], c["bbox_H"][3])
                             + (F.H_to_px(c["bbox_H"][0], 0.0)[0], F.H_to_px(c["bbox_H"][2], 0.0)[0], F.H_to_px(0.0, c["bbox_H"][3])[1], F.H_to_px(0.0, c["bbox_H"][1])[1]))
                          for c in islands[:5])
-        validity_notes.append("DETACHED SILHOUETTE COMPONENT(S): %d component(s) of %d px in total are not connected to the main silhouette and were REMOVED before "
-                              "the contour was traced (speck limit %.4g px at this resolution): %s. The contour and every S value describe the scene WITHOUT them; "
-                              "something that stands in the cavity or in front of the wave is a defect of the 3D form (spec section 5 note 2)."
+        validity_notes.append("離れたシルエット成分：主成分につながらない%d個、合計%d pxが輪郭追跡前に除かれた"
+                              "（この解像度での微小片上限 %.4g px）：%s。輪郭とS値はこれらを除いた場面を示す。"
+                              "空洞や波の前方に立つ物体は三次元形状の欠陥（旧仕様第5節の注2）"
                               % (comp["n_removed_islands"], comp.get("removed_islands_area_px", 0), comp.get("speck_max_area_px") or float("nan"), desc))
     J = judge_profile(F, S, prof["H"], bc, P=P)
     checks, m, bm, poly, pc, s7, dv, consistency = J["checks"], J["m"], J["bm"], J["poly"], J["pc"], J["s7"], J["dv"], J["consistency"]
@@ -597,34 +579,34 @@ def run(ctx, contour_path=None, run_dir=None):
     if note_u:
         validity_notes.append(note_u)
     if paths.norm(contour_path) != paths.norm(paths.BASE_CONTOUR_JSON):
-        validity_notes.append("NOTE (no verdict): judged against %s, which is NOT the official target/base_contour.json" % paths.norm(contour_path))
+        validity_notes.append("注意（判定に影響しない）：正式な target/base_contour.json ではなく %s と比較した" % paths.norm(contour_path))
     if J["validity_fail"]:
         valid = False
         validity_notes += J["validity_fail"]
-    for nm_, v_, unit_, note_ in (("n_nonfinite_vertices", n_nf, "count", "vertices of the evaluated mesh(es) with a NaN / inf coordinate; > 0 -> INVALID"),
-                                  ("n_dropped_triangles", n_dt, "count", "triangles left out of the silhouette because of such a vertex; > 0 -> INVALID"),
+    for nm_, v_, unit_, note_ in (("n_nonfinite_vertices", n_nf, "count", "評価網目の NaN／無限大の座標を持つ頂点。0より大きければ INVALID"),
+                                  ("n_dropped_triangles", n_dt, "count", "有限でない頂点のためシルエットから除かれた三角形。0より大きければ INVALID"),
                                   ("n_removed_islands", int(comp.get("n_removed_islands") or 0), "count",
-                                   "silhouette components removed although they are larger than the speck limit (%s px at this resolution), %s px in total; > 0 -> INVALID"
+                                   "微小片の上限（この解像度で %s px）を超えるのに除かれたシルエット成分。合計 %s px。0より大きければ INVALID"
                                    % (ct._fmt(comp.get("speck_max_area_px")), comp.get("removed_islands_area_px"))),
                                   ("n_removed_specks", int(comp.get("n_removed_specks") or 0), "count",
-                                   "removed components below the speck limit, %s px in total (raster slivers; reported only)" % comp.get("removed_specks_area_px"))):
+                                   "微小片の上限未満で除かれた成分。合計 %s px（ラスタの細片。報告のみ）" % comp.get("removed_specks_area_px"))):
         checks.append(ct.report_value("T", nm_, v_, unit_, note=note_))
     # ---- target and model must be segmented the same way (json joints of the base contour vs the library's detection)
     seg_ok, seg_note = segmentation_validity(J["segmentation_check"])
     if not seg_ok:
         valid = False
         validity_notes.append(seg_note)
-    # ---- the TARGET judged against itself: a perfect copy of the base contour must pass, otherwise a failure of the
-    # model in the same check says nothing about the model's shape (found on target/base_contour.json, 2026-09-20)
+    # ---- 目標輪郭の自己検査。基準輪郭の完全な複製も失敗する検査では、モデルの失敗から形状の差を論じられない。
+    # target/base_contour.json で 2026-09-20 に確認した。
     target_self = target_self_check(F, S, bc, P)
     for c in checks:
         ts = target_self["by_id"].get(c["id"])
         if ts is not None:
             c["target_self_check"] = ts
     if target_self["failed_spec"]:
-        validity_notes.append("THE BASE CONTOUR DOES NOT PASS AGAINST ITSELF in: %s. A geometrically perfect model would fail these checks too "
-                              "(model contour is segmented by detection, the base contour by its json joints; and / or the base contour itself is not "
-                              "S8-smooth). Read the 'target_self_check' value next to each of these checks." % ", ".join(target_self["failed_spec"]))
+        validity_notes.append("基準輪郭自身が次の検査に合格しない：%s。幾何学的に同じモデルでも失敗する。"
+                              "モデルは検出点、基準輪郭はJSON接合点で分段されるか、基準輪郭自身がS8で滑らかでない。"
+                              "各検査の target_self_check を参照" % ", ".join(target_self["failed_spec"]))
     t_measure = sw.lap()
 
     # ---- outputs
@@ -663,7 +645,7 @@ def run(ctx, contour_path=None, run_dir=None):
 
 
 def width_table_lines(rows):
-    """ASCII table of the report-only size metrics (also drawn into overlay_widths_1600.png)."""
+    """報告専用の寸法指標を ASCII 表にする。overlay_widths_1600.png にも描画する。"""
     L = ["W: %s (no thresholds)" % pm.WIDTH_LABEL,
          "%-24s %10s %10s %10s %9s %9s  %s" % ("quantity", "model", "base", "diff", "diff %", "diff %h", "")]
     for r in rows:
@@ -678,7 +660,7 @@ def width_table_lines(rows):
 
 
 def shape_table_lines(shape_rows, s7):
-    """ASCII table of the report-only shape descriptors (own h) and of the signed S7 deviation."""
+    """自分自身の高さを基準とした形状指標と、符号付き S7 偏差の ASCII 表を作る。"""
     L = ["W.own_h: %s" % pm.SHAPE_LABEL,
          "%-30s %10s %10s %9s  %s" % ("quantity (length / own h)", "model", "base", "diff %", "")]
     f = lambda v, nd=4: "n/a" if v is None else ("%." + str(nd) + "f") % v  # noqa: E731
@@ -688,7 +670,8 @@ def shape_table_lines(shape_rows, s7):
         L.append("%-30s %10s %10s %9s  %s" % (r["name"], f(r["model"]), f(r["target"]),
                                              "n/a" if r["diff_pct_of_target"] is None else "%+.2f" % r["diff_pct_of_target"],
                                              "" if r["comparable"] else "(not comparable: back outside the frame / section kind differs)"))
-    L.append("S7 signed (%s):" % SIGNED_LABEL)
+    # オーバーレイは draw.py の ASCII 専用フォントを使うため、描画ラベルは英数字にする。
+    L.append("S7 signed deviation (positive = outside):")
     for seg in SEGS:
         r = (s7 or {}).get(seg)
         if not r:
@@ -706,10 +689,10 @@ def log_width_table(rows):
         log("[shape] " + ln)
 
 
-# ------------------------------------------------------------------------------------ images
+# ------------------------------------------------------------------------------------ 画像
 def shape_overlay_items(F, m, bm, split=None):
-    """Polylines / markers of the report-only OWN-h sections (model purple, base contour dark-green dashes, drawn 4 px
-    above / 12 px below the absolute-level lines) and of the armpit that splits the inner arc."""
+    """報告専用の自己高さ断面と、内側弧を分ける脇の線・印を描く。
+    モデルは紫、基準輪郭は濃緑の破線で、絶対高さの線から上下にずらす。"""
     pls, mks = [], []
     z_still = float((m.get("params") or {}).get("z_still_H", 0.0))
     for d, col, dy, dash in ((m, "purple", -5.0, None), (bm, DARKGREEN, 14.0, (4, 5))):
@@ -727,8 +710,8 @@ def shape_overlay_items(F, m, bm, split=None):
 
 
 def width_overlay_items(F, m, bm, w_rows):
-    """Polylines / markers (full painting px) of the report-only section widths: model = navy (at the level's row),
-    base contour = green dashes (8 px below), ticks at x_back / x_inner / x_front, label with both widths."""
+    """報告専用の断面幅の線・印を原画ピクセル座標で作る。
+    モデルは紺、基準輪郭は 8 px 下の緑破線。x_back／x_inner／x_front に目盛を置く。"""
     pls, mks = [], []
     rel = {r["name"]: r for r in (w_rows or [])}
     for tag, sec in m["W"]["sections"].items():
@@ -785,7 +768,7 @@ def save_images(ctx, run_dir, prof, mask, rect, m, bm, bc, poly, dv, s7, s8pack,
             mks.append({"px": F.H_to_px(*bm["landmarks"][key]["H"]), "kind": "O", "color": "green", "size": 11})
         if m["landmarks"].get(key):
             mks.append({"px": F.H_to_px(*m["landmarks"][key]["H"]), "kind": "+", "color": "red", "label": lab, "size": 12})
-    # removed silhouette components above the speck limit (-> INVALID): boxed in red so that the picture says it too
+    # 微小領域の上限を超えて除外されたシルエット成分（INVALID）を赤枠で示す。
     for comp_ in (prof.get("components") or {}).get("removed") or []:
         if comp_.get("kind") != "island":
             continue
@@ -804,7 +787,7 @@ def save_images(ctx, run_dir, prof, mask, rect, m, bm, bc, poly, dv, s7, s8pack,
     sc = 1600.0 / F.width_px
     wpls, wmks = width_overlay_items(F, m, bm, w_rows)
     legend_w = legend + [("section widths at Z = 0.25 / 0.5 / 0.75 H: navy = model, green dashes = base contour (REPORT ONLY)", "navy")]
-    # full overlay: the section lines only (their numbers would collide with the landmark labels); numbers -> overlay_widths_1600.png
+    # 全体画像には断面線のみ描く。数値は特徴点ラベルと重なるため overlay_widths_1600.png へ分ける。
     img = ct.draw_view(base, (0, 0, F.width_px, F.height_px), sc, pls + wpls, mks, ttl,
                        legend + [("REPORT ONLY section widths at Z = 0.25 / 0.5 / 0.75 H: navy = model, green dashes = base; numbers: overlay_widths_1600.png", "navy")])
     out["overlay_full"] = imgio.save_png(os.path.join(run_dir, "overlay_full_1600.png"), img)
@@ -850,7 +833,7 @@ def save_images(ctx, run_dir, prof, mask, rect, m, bm, bc, poly, dv, s7, s8pack,
         box, scz = box_around(pts)
         imgc = ct.draw_view(base, box, scz, pls, mks, "%s  (x%.2g)" % (name, scz), None)
         out[name] = imgio.save_png(os.path.join(run_dir, name + ".png"), imgc)
-    # head region in one view
+    # 頭部領域を一つの視点で示す。
     hp = [p for p in (lm_px(m, "crest"), lm_px(m, "head_tip"), lm_px(m, "inner_deepest"), lm_px(bm, "head_tip")) if p is not None]
     if len(hp) >= 2:
         box, scz = box_around(hp, half=(200, 150))

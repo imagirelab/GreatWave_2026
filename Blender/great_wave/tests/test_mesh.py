@@ -1,24 +1,18 @@
-"""G1-G5: mesh tests (spec sections 7 and 9).  Stand-alone, headless:
+"""網目検査 G1–G5（旧仕様の第7・9節）。無画面で単独実行できる。
 
   blender --background --factory-startup --python-exit-code 1 [file.blend] --python tests/test_mesh.py -- --object <name>
           [--blend <path>] [--build-script <py> [--build-func f] [--build-arg k=v ...]]
           [--frame-start A] [--final-frame N] [--skip G5] [--g5-mode both|inprocess|subprocess]
-(--python-exit-code 1 is REQUIRED for direct calls; exceptions inside main() end as verdict ERROR, exit code 2.)
+直接起動では --python-exit-code 1 が必須。main() 内の例外は判定 ERROR、終了コード2とする。
 
-  G1 constant topology + UVs on every frame          G2 hem (mesh boundary) on the still-water plane
-  G3 rim thickness near the vertex group 'crest_rim'  G4 no self-intersection (final + every 15th frame)
-  G5 two rebuilds from the same parameters give bit-identical vertices (needs --build-script)
+G1は全フレームのトポロジーとUV固定、G2は裾と静水面の一致、G3は crest_rim 付近の縁厚、
+G4は終幕と15フレームごとの自己交差なし、G5は同一パラメータの再構築で頂点がビット単位で同一かを調べる。
 
-Thresholds come ONLY from tests/thresholds.json; both tiers are reported.  The precise definitions
-(G3 and G4 contain INTERPRETATIONS) are in docs/tests_readme.md and in metrics.json.
-Output: results/<YYYYMMDD_HHMMSS>_mesh/ metrics.json, summary.md, g3_sections.png, g2_hem.png,
-g4_intersections.png (only when there are any).
+閾値の出典は tests/thresholds.json のみ。G3・G4の暫定解釈は docs/tests_readme.md に記載する。
+結果は results/<YYYYMMDD_HHMMSS>_mesh/ に数値、概要、G2・G3の図を保存し、自交があればG4の図も出す。
 
-Verdict: a skipped test (--skip, or G5 without --build-script) is NOT judged, so the verdict is INCOMPLETE, never PASS;
-an unknown name in --skip is an ERROR.  A non-finite vertex of the evaluated mesh on any frame -> INVALID.
-REPORT ONLY (no verdict): G1.max_vertex_step_H, G1.n_vertices (next to the 85,120 of the existing Unity cache),
-G1.uv_u_abs_cos_to_crest_line / G1.uv_v_abs_cos_to_crest_line / G1.uv_u_starts_at_back_hem (spec section 7: U along the
-section from the hem of the back to the trough, V along the crest line).
+--skip または構築スクリプト未指定でG5を省いた場合は INCOMPLETE。未知の検査名は ERROR。
+評価網目に有限でない頂点があれば INVALID。頂点移動量、頂点数、UVの向きは報告専用で判定に使わない。
 """
 import argparse
 import math
@@ -42,12 +36,11 @@ UNITY_CACHE_VERTICES = 85120          # spec section 7: size of the existing Uni
 
 
 def uv_orientation(arr):
-    """REPORT ONLY.  Orientation of the first UV layer on the evaluated mesh of one frame (spec section 7: U along the
-    section contour hem of the back -> crest -> head tip -> belly -> trough, V along the crest line = world Y).
-    Per loop triangle the world-space derivatives dP/dU and dP/dV are computed from the UVs; reported are the area-weighted
-    means of |cos| between each of them and the Y axis (U inside the section planes -> 0; V along the crest line -> 1) and
-    whether U starts at the back (mean X of the loops with the smallest U < mean X of those with the largest U).
-    -> dict or None (no UV layer)"""
+    """報告専用。各フレームの評価済みメッシュで、最初の UV レイヤーの向きを調べる。
+    仕様第7節では U は波背の裾→波頂→頭部先端→腹→波谷の断面輪郭、V は波頂線（世界 Y）に沿う。
+    各ループ三角形の dP/dU と dP/dV から、Y 軸との |cos| を面積重み付きで平均する。
+    U が断面平面内なら 0、V が波頂線に沿うなら 1。U の小さい側の平均 X が大きい側より小さいかも調べる。
+    辞書を返し、UV レイヤーがなければ None。"""
     layers = arr.get("uv_layers") or {}
     if not layers:
         return None
@@ -85,20 +78,19 @@ def uv_orientation(arr):
 
 def add_args(ap):
     g = ap.add_argument_group("mesh")
-    g.add_argument("--skip", default="", help="comma separated list of tests to skip, e.g. G5")
+    g.add_argument("--skip", default="", help="省略する検査をコンマ区切りで指定（例：G5）")
     g.add_argument("--g5-mode", default="both", choices=["both", "inprocess", "subprocess"],
-                   help="rebuild in a reset scene of this process, in a fresh Blender process, or both (default)")
-    g.add_argument("--dump-verts", default=None, help="(internal, used by G5) build, write the vertex arrays of --frames to this .npz and exit")
-    g.add_argument("--frames", default=None, help="(internal) comma separated frames for --dump-verts")
+                   help="同一プロセスの初期化シーン、新規 Blender プロセス、または両方（既定）で再構築")
+    g.add_argument("--dump-verts", default=None, help="内部用・G5：構築後、--frames の頂点配列を指定 .npz に保存して終了")
+    g.add_argument("--frames", default=None, help="内部用：--dump-verts に使うフレームをコンマ区切りで指定")
     return ap
 
 
 # ------------------------------------------------------------------------------------ G3: sections
 def mesh_section(co, tris, y0, in_group=None):
-    """Intersection of a triangle mesh with the plane Y = y0.  Vertices with y == y0 count as y > y0,
-    so the plane never passes exactly through a vertex.  -> list of chains, each a dict
-    {pts (n, 2) world (X, Z), rim (n,) bool, closed}; a node is 'rim' when both vertices of the crossed
-    mesh edge belong to the vertex group."""
+    """三角形メッシュと Y=y0 平面の交線を求める。y=y0 の頂点は y>y0 側として扱う。
+    戻り値は鎖のリストで、各要素は世界座標 (X,Z) の pts、rim 真偽値、closed を持つ。
+    交差した辺の両頂点が頂点グループに属する点を rim とする。"""
     nv = co.shape[0]
     side = co[:, 1] >= y0
     ts = side[tris]
@@ -150,8 +142,8 @@ def mesh_section(co, tris, y0, in_group=None):
 
 
 def inscribed_diameter(C, s_q, w, excl, ds):
-    """Diameter of the largest circle that touches curve C at C(s_q) from the body side (the right-hand
-    side when walking along C) without crossing C.  -> (diameter, touching point, centre) in curve units."""
+    """曲線 C の C(s_q) に胴体側（進行方向の右側）から接し、曲線を横切らない最大円の直径を求める。
+    曲線の単位で、直径、接点、中心を返す。"""
     q = C.at(s_q)
     a, b = C.at(max(0.0, s_q - w)), C.at(min(C.length, s_q + w))
     t = b - a
@@ -175,11 +167,11 @@ def inscribed_diameter(C, s_q, w, excl, ds):
 
 
 def rim_thickness(ctx, arr, tip_cam_H, S):
-    """G3 on the current frame.  -> (judged value in % of H or None, details dict, drawable sections)"""
+    """現在フレームの G3 を測り、H に対する百分率または None、詳細、描画用断面を返す。"""
     obj, H = ctx.obj, ctx.H
     vg = obj.vertex_groups.get(RIM_GROUP)
     if vg is None:
-        return None, {"error": "vertex group '%s' does not exist" % RIM_GROUP}, []
+        return None, {"error": "頂点グループ '%s' が存在しない" % RIM_GROUP}, []
     gi = vg.index
     in_group = np.zeros(arr["n_vertices"], bool)
     for v in obj.data.vertices:
@@ -188,10 +180,10 @@ def rim_thickness(ctx, arr, tip_cam_H, S):
                 in_group[v.index] = True
                 break
     if len(obj.data.vertices) != arr["n_vertices"]:
-        return None, {"error": "evaluated mesh has %d vertices but the base mesh (which carries the vertex group) has %d"
+        return None, {"error": "評価済みメッシュの頂点は %d 個だが、頂点グループを持つ基礎メッシュは %d 個"
                                % (arr["n_vertices"], len(obj.data.vertices))}, []
     if not in_group.any():
-        return None, {"error": "vertex group '%s' is empty" % RIM_GROUP}, []
+        return None, {"error": "頂点グループ '%s' が空" % RIM_GROUP}, []
     co = arr["co_world"]
     yg = co[in_group, 1]
     p_lo, p_hi = [float(v) for v in S["g3_y_percentiles"]]
@@ -217,7 +209,7 @@ def rim_thickness(ctx, arr, tip_cam_H, S):
         ptsH = np.stack([pts[:, 0] / H, (pts[:, 1] - ctx.water_z) / H], axis=1)
         rec["n_chains"] = len(chains)
         if not rim.any():
-            rec["note"] = "the section does not cross any edge of the rim group"
+            rec["note"] = "断面が縁グループの辺と交差しない"
             sections.append(rec)
             continue
         s_raw = np.concatenate([[0.0], np.cumsum(np.hypot(*np.diff(ptsH, axis=0).T))])
@@ -236,7 +228,7 @@ def rim_thickness(ctx, arr, tip_cam_H, S):
             if dia is not None:
                 vals.append((dia, touch, centre, s_r + o))
         if not vals:
-            rec["note"] = "no inscribed circle found"
+            rec["note"] = "内接円を検出できない"
             sections.append(rec)
             continue
         vals.sort(key=lambda v: v[0])
@@ -269,8 +261,8 @@ def rim_thickness(ctx, arr, tip_cam_H, S):
 
 # ------------------------------------------------------------------------------------ G4: self-intersection
 def _interval(p, d):
-    """Parameter interval (along the intersection line) where a triangle meets the other triangle's plane.
-    p (K, 3) projections of the vertices on the line direction, d (K, 3) signed plane distances."""
+    """三角形がもう一方の三角形の平面と交わる区間を、交線に沿うパラメータで返す。
+    p (K,3) は頂点の交線方向への射影、d (K,3) は平面からの符号付き距離。"""
     ts = []
     with np.errstate(divide="ignore", invalid="ignore"):
         for i, j in ((0, 1), (1, 2), (2, 0)):
@@ -284,14 +276,14 @@ def _interval(p, d):
 
 
 def proper_intersections(A, B, eps, min_angle_deg):
-    """A, B (K, 3, 3) triangle pairs.  -> (proper (K,) bool, classes dict of counts, overlap length (K,))"""
+    """A、B は形状 (K,3,3) の三角形対。真の交差判定、分類件数、重なり長を返す。"""
     K = A.shape[0]
     n1 = np.cross(A[:, 1] - A[:, 0], A[:, 2] - A[:, 0])
     n2 = np.cross(B[:, 1] - B[:, 0], B[:, 2] - B[:, 0])
     l1, l2 = np.linalg.norm(n1, axis=1), np.linalg.norm(n2, axis=1)
     e1 = np.maximum.reduce([np.linalg.norm(A[:, 1] - A[:, 0], axis=1), np.linalg.norm(A[:, 2] - A[:, 1], axis=1), np.linalg.norm(A[:, 0] - A[:, 2], axis=1)])
     e2 = np.maximum.reduce([np.linalg.norm(B[:, 1] - B[:, 0], axis=1), np.linalg.norm(B[:, 2] - B[:, 1], axis=1), np.linalg.norm(B[:, 0] - B[:, 2], axis=1)])
-    degenerate = (l1 <= eps * e1) | (l2 <= eps * e2)            # height of the triangle below eps
+    degenerate = (l1 <= eps * e1) | (l2 <= eps * e2)            # 三角形の高さが eps 未満
     with np.errstate(divide="ignore", invalid="ignore"):
         n1u, n2u = n1 / l1[:, None], n2 / l2[:, None]
         dB = ((B - A[:, :1]) * n1u[:, None, :]).sum(axis=2)
@@ -362,7 +354,7 @@ def compare_captures(a, b):
     worst, n_diff, per = 0.0, 0, {}
     for f in sorted(a):
         if f not in b or a[f]["co"].shape != b[f]["co"].shape:
-            per[f] = {"identical": False, "note": "vertex count differs or frame missing"}
+            per[f] = {"identical": False, "note": "頂点数が異なるか、フレームが欠落している"}
             worst = float("inf")
             continue
         same = a[f]["co"].tobytes() == b[f]["co"].tobytes() and a[f]["M"].tobytes() == b[f]["M"].tobytes()
@@ -379,7 +371,7 @@ def compare_captures(a, b):
 
 
 def dump_verts_main(args):
-    """Internal entry used by G5: build in THIS fresh process and write the vertex arrays."""
+    """G5 の内部入口。新規プロセス内で構築し、頂点配列を書き出す。"""
     ctx = ct.setup_context(args, TEST_NAME, run_dir=os.path.dirname(ct.resolve_path(args.dump_verts)))
     frames = [int(v) for v in args.frames.split(",")]
     cap = capture_vertices(ctx, frames)
@@ -424,7 +416,7 @@ def run(ctx, run_dir=None, skip=()):
     checks, vnotes, skipped, outputs, details = [], [], sorted(skip), {}, {}
     valid, nonfinite_frames = True, []
     if skip:
-        vnotes.append("skipped on request (--skip): %s - these tests are NOT judged, so the verdict cannot be PASS (INCOMPLETE)" % ", ".join(sorted(skip)))
+        vnotes.append("指定により省略（--skip）：%s。この検査は判定されず、総合判定は PASS にならない（INCOMPLETE）" % ", ".join(sorted(skip)))
     sw = ct.StopWatch()
 
     # ---- G1 + G2 over all frames
@@ -463,58 +455,56 @@ def run(ctx, run_dir=None, skip=()):
     t_g12 = sw.lap()
     if nonfinite_frames:
         valid = False
-        vnotes.append("NON-FINITE GEOMETRY: the evaluated mesh has vertices with NaN / inf coordinates on %d frame(s) (first: frame %d, %d vertex / vertices, indices %s). "
-                      "Hashes, hem, sections and the BVH test are not trustworthy on such a mesh."
+        vnotes.append("有限でない幾何：評価済みメッシュに NaN / inf 座標の頂点を含むフレームが %d 個（最初はフレーム %d、頂点 %d 個、索引 %s）。"
+                      "このメッシュではハッシュ、裾、断面、BVH 検査を信用できない。"
                       % (len(nonfinite_frames), nonfinite_frames[0]["frame"], nonfinite_frames[0]["n_nonfinite_vertices"], nonfinite_frames[0]["vertex_indices"]))
     checks.append(ct.report_value("T", "n_frames_nonfinite_geometry", len(nonfinite_frames), "frames",
                                   where=None if not nonfinite_frames else {"frames": [d["frame"] for d in nonfinite_frames[:20]]},
-                                  note="frames %d..%d whose evaluated mesh has a vertex with a NaN / inf coordinate; > 0 -> INVALID" % (f0, fN)))
+                                  note="評価フレーム %d..%d 中、NaN / inf 座標の頂点があるフレーム数。0 超なら INVALID" % (f0, fN)))
     details["nonfinite_geometry"] = nonfinite_frames[:50]
     rec_u, note_u = ct.untested_objects_report(ctx)
     checks.append(rec_u)
     if note_u:
-        vnotes.append(note_u + " (test_mesh inspects ONLY the first tested object: %s)" % ctx.obj.name)
+        vnotes.append(note_u + "（test_mesh は検査対象の最初のオブジェクト %s のみ調べる）" % ctx.obj.name)
     if "G1" not in skip:
         if not uv_names:
-            checks.append(ct.make_check("G1", "n_topology_or_uv_changes", None, note="the evaluated mesh has NO UV layer (spec section 7 requires UVs), so 'UV constant' cannot be fulfilled"))
+            checks.append(ct.make_check("G1", "n_topology_or_uv_changes", None, note="評価済みメッシュに UV レイヤーがない。仕様第7節は UV を要求するため、UV 一定を満たせない"))
         else:
             checks.append(ct.make_check("G1", "n_topology_or_uv_changes", len(changes), target=0,
                                         where=None if not changes else {"frames": [c["frame"] for c in changes[:20]], "frame": changes[0]["frame"]},
-                                        note="%d frames; %d vertices, %d polygons, UV layers %s%s" % (len(frames), sig0["n_vertices"], sig0["n_polygons"], uv_names,
-                                                                                                        "" if not changes else "; first change differs in %s" % changes[0]["differs_in"])))
+                                        note="%d フレーム、頂点 %d 個、ポリゴン %d 個、UV レイヤー %s%s" % (len(frames), sig0["n_vertices"], sig0["n_polygons"], uv_names,
+                                                                                                        "" if not changes else "；最初の変化は %s" % changes[0]["differs_in"])))
         vm = np.asarray(vmove[1:], dtype=np.float64)
         if vm.size and np.isfinite(vm).any():
             k = int(np.nanargmax(vm)) + 1
             checks.append(ct.report_value("G1", "max_vertex_step_H", float(vm[k - 1]), "H / frame", where={"frame": frames[k]},
-                                          note="largest movement of a single vertex between two neighbouring frames (spec section 7: the same vertex moves continuously); not judged"))
-        # REPORT ONLY: size of the mesh next to the existing Unity cache, and the orientation of the UVs (final frame)
+                                          note="隣接フレーム間での単一頂点の最大移動量（仕様第7節：同じ頂点が連続的に動く）。判定対象外"))
+        # 報告専用：既存 Unity キャッシュとのメッシュ規模比較と、最終フレームの UV の向き
         checks.append(ct.report_value("G1", "n_vertices", sig0["n_vertices"], "count", target={"unity_cache_vertices": UNITY_CACHE_VERTICES},
                                       difference={"ratio_to_unity_cache": sig0["n_vertices"] / float(UNITY_CACHE_VERTICES)},
-                                      note="REPORT ONLY (spec section 7: keep the new mesh in the same order of magnitude as the existing Unity cache of %d vertices; "
-                                           "the number itself is proposed by the modeller)" % UNITY_CACHE_VERTICES))
+                                      note="報告専用（仕様第7節：新メッシュの頂点数は既存 Unity キャッシュの %d 頂点と同じ桁にする。具体値は制作者が提案）" % UNITY_CACHE_VERTICES))
         ctx.scene.frame_set(fN)
         uvo = uv_orientation(ct.eval_mesh_arrays(ctx.obj, topology=True, uv=True)) if uv_names else None
         details["G1_uv_orientation"] = uvo
         if uvo and uvo.get("n_triangles_used"):
             checks.append(ct.report_value("G1", "uv_u_abs_cos_to_crest_line", uvo["u_abs_cos_to_y"], "|cos| (0 = U runs inside the section planes)", target=0.0,
-                                          note="REPORT ONLY, frame %d, UV layer '%s': area-weighted mean |cos| between dP/dU and the world Y axis (crest line); spec section 7: U along the section contour"
+                                          note="報告専用、フレーム %d、UV レイヤー '%s'：dP/dU と世界 Y 軸（波頂線）の |cos| を面積重み付きで平均。仕様第7節では U は断面輪郭に沿う"
                                                % (fN, uvo["layer"])))
             checks.append(ct.report_value("G1", "uv_v_abs_cos_to_crest_line", uvo["v_abs_cos_to_y"], "|cos| (1 = V runs along the crest line)", target=1.0,
-                                          note="REPORT ONLY: area-weighted mean |cos| between dP/dV and the world Y axis; V increases with +Y on %.0f %% of the area; "
-                                               "tapered / curved ends lower the value" % (100.0 * uvo["v_increases_with_y_share"])))
+                                          note="報告専用：dP/dV と世界 Y 軸の |cos| を面積重み付きで平均。面積の %.0f %% では V が +Y 方向に増える。先細り・湾曲した端は値を下げる" % (100.0 * uvo["v_increases_with_y_share"])))
             checks.append(ct.report_value("G1", "uv_u_starts_at_back_hem", uvo["u_starts_at_back_hem"], "bool", target=1,
-                                          note="REPORT ONLY: mean X of the loops with the smallest 2 %% of U = %.3f m, with the largest 2 %% = %.3f m (spec: U from the hem of the back to the trough)"
+                                          note="報告専用：U が小さい 2 %% のループの平均 X = %.3f m、大きい 2 %% は %.3f m（仕様：U は波背の裾から波谷へ）"
                                                % (uvo["mean_x_at_smallest_u_m"], uvo["mean_x_at_largest_u_m"])))
         else:
-            checks.append(ct.report_value("G1", "uv_u_abs_cos_to_crest_line", None, None, note="REPORT ONLY: no UV layer / no usable triangle"))
+            checks.append(ct.report_value("G1", "uv_u_abs_cos_to_crest_line", None, None, note="報告専用：UV レイヤーまたは利用可能な三角形がない"))
         details["G1"] = {"signature_first_frame": sig0, "changes": changes[:50], "n_frames": len(frames)}
     if "G2" not in skip:
         if bverts is None or not bverts.size:
-            checks.append(ct.make_check("G2", "hem_step_pct_H", None, note="the mesh has no boundary edges (closed mesh): no hem"))
+            checks.append(ct.make_check("G2", "hem_step_pct_H", None, note="メッシュに境界辺がなく閉じているため、裾を測定できない"))
         else:
             checks.append(ct.make_check("G2", "hem_step_pct_H", 100.0 * hem_worst["dz_m"] / H, target=0.0,
                                         where={"frame": hem_worst["frame"], "world_m": hem_worst["world_m"], "vertex": hem_worst["vertex"]},
-                                        note="%d boundary vertices on %d boundary edges; max |Z - %.3g m| = %.4f m (H = %.3f m)" % (bverts.size, n_b_edges, ctx.water_z, hem_worst["dz_m"], H)))
+                                        note="境界辺 %d 本の境界頂点 %d 個。最大 |Z - %.3g m| = %.4f m（H = %.3f m）" % (n_b_edges, bverts.size, ctx.water_z, hem_worst["dz_m"], H)))
             details["G2"] = {"n_boundary_vertices": int(bverts.size), "worst": hem_worst, "per_frame_pct_H": hem_series}
             img = plot.line_plot([{"label": "hem step", "x": frames, "y": hem_series, "color": "blue"}], title="G2: largest |Z - still water| of the mesh boundary",
                                  xlabel="frame", ylabel="% of H", size=(1300, 380),
@@ -531,13 +521,13 @@ def run(ctx, run_dir=None, skip=()):
             prof, _mask, _info = silhouette.profile_of_objects(ctx.objs, rect=rect, water_z=ctx.water_z, exact=True)
             if int(_info.get("n_nonfinite_vertices") or 0) or int(_info.get("n_dropped_triangles") or 0):
                 valid = False
-                vnotes.append("G3: the CAM_print silhouette of the final frame dropped %s triangle(s) because of %s non-finite vertex / vertices"
-                              % (_info.get("n_dropped_triangles"), _info.get("n_nonfinite_vertices")))
+                vnotes.append("G3：最終フレームの CAM_print シルエットでは、有限でない頂点 %s 個により三角形 %s 個を除外"
+                              % (_info.get("n_nonfinite_vertices"), _info.get("n_dropped_triangles")))
             mcam = pm.measure_profile(prof["H"])
             if mcam["overhanging"]:
                 tip_cam = mcam["landmarks"]["head_tip"]["H"]
         except silhouette.ProfileError as exc:
-            vnotes.append("G3: no CAM_print profile on the final frame (%s)" % exc)
+            vnotes.append("G3：最終フレームの CAM_print 輪郭を得られない（%s）" % exc)
         val, det3, drawable = rim_thickness(ctx, a_final, tip_cam, S)
         details["G3"] = det3
         where = None
@@ -545,8 +535,8 @@ def run(ctx, run_dir=None, skip=()):
             ws = det3["worst_section"]
             where = {"frame": fN, "world_m": ws["rim_point_world_m"], "px": [float(v) for v in ctx.F.H_to_px(*ws["rim_point_H"])]}
         checks.append(ct.make_check("G3", "rim_thickness_pct_H", val, target=None, where=where,
-                                    note=det3.get("error") or "max over %d judged section(s) of %d; all judged values %s %% of H"
-                                    % (det3["n_judged_sections"], len(det3["sections"]),
+                                    note=det3.get("error") or "全 %d 断面中、判定対象 %d 断面の最大値。各判定値は H の %s %%"
+                                    % (len(det3["sections"]), det3["n_judged_sections"],
                                        ["%.3f" % s["rim_thickness_pct_H"] for s in det3["sections"] if s.get("judged")])))
         if drawable:
             outputs["g3_sections"] = imgio.save_png(os.path.join(run_dir, "g3_sections.png"), draw_sections(drawable, tip_cam))
@@ -555,7 +545,7 @@ def run(ctx, run_dir=None, skip=()):
     # ---- G4 on the final frame and every n-th frame
     if "G4" not in skip:
         stepf = int(paths.threshold("G4", "frame_step", "spec"))
-        checks.append(ct.make_check("G4", "frame_step", stepf, note="test setting"))
+        checks.append(ct.make_check("G4", "frame_step", stepf, note="検査設定"))
         g4_frames = sorted(set(range(f0, fN + 1, stepf)) | {fN})
         per, total, worst = [], 0, None
         for f in g4_frames:
@@ -575,7 +565,7 @@ def run(ctx, run_dir=None, skip=()):
                      "px": [float(v) for v in ctx.F.m_to_px(r["centroid_world_m"][0], r["centroid_world_m"][2] - ctx.water_z)]}
             outputs["g4_intersections"] = imgio.save_png(os.path.join(run_dir, "g4_intersections.png"), draw_intersections(ctx, worst))
         checks.append(ct.make_check("G4", "n_self_intersections", total, target=0, where=where,
-                                    note="properly crossing triangle pairs summed over frames %s; ignored as touching / coplanar: %d pairs, degenerate: %d pairs (not judged)"
+                                    note="フレーム %s において実際に交差する三角形組の合計。接触または同一平面として除外：%d 組、退化として除外：%d 組（判定対象外）"
                                          % (g4_frames, sum(p["touching_or_coplanar_pairs"] for p in per), sum(p["degenerate_pairs"] for p in per))))
         details["G4"] = {"frames": per}
     t_g4 = sw.lap()
@@ -584,7 +574,7 @@ def run(ctx, run_dir=None, skip=()):
     if "G5" not in skip:
         if ctx.builder is None:
             skipped.append("G5")
-            vnotes.append("G5 not run: it needs --build-script (rebuild from parameters). G5 is therefore NOT judged and the verdict cannot be PASS (INCOMPLETE)")
+            vnotes.append("G5 は未実行：パラメータから再構築する --build-script が必要。G5 は判定されず、総合判定は PASS にならない（INCOMPLETE）")
         else:
             n5 = max(2, int(S["g5_n_frames"]))
             f5 = sorted(set(int(round(v)) for v in np.linspace(f0, fN, n5)))
@@ -607,8 +597,8 @@ def run(ctx, run_dir=None, skip=()):
                     worst5 = None if worst5 is None else max(worst5, w)
             details["G5"] = {"frames": f5, "mode": mode, "runs": runs, "notes": notes5}
             checks.append(ct.make_check("G5", "rebuild_max_abs_diff_m", worst5, target=0.0,
-                                        note="; ".join(notes5) or "frames %s compared bit-exactly (float32 vertex bytes + world matrix): %s"
-                                        % (f5, ", ".join("%s: %d differing components" % (k, v["n_differing_components"]) for k, v in runs.items()))))
+                                        note="; ".join(notes5) or "フレーム %s をビット単位で比較（float32 頂点バイト列とワールド行列）：%s"
+                                        % (f5, ", ".join("%s：相違成分 %d 個" % (k, v["n_differing_components"]) for k, v in runs.items()))))
     t_g5 = sw.lap()
 
     audit = ctx.audit()
@@ -626,7 +616,7 @@ def run(ctx, run_dir=None, skip=()):
 
 # ------------------------------------------------------------------------------------ images
 def draw_sections(drawable, tip_cam):
-    """Head region of every section with the inscribed circle at the rim point."""
+    """各断面の頭部領域と、縁上の点に接する内接円を描く。"""
     cells = []
     for d in drawable:
         rp, r = d["rim_point"], d["radius"]

@@ -1,16 +1,15 @@
-"""Method B (outline-based) base-contour pipeline.  See docs/records/step1_contour_b.md.
+"""輪郭線に基づく方法Bの基準輪郭処理。docs/records/step1_contour_b.md を参照。
 
-Stages
-------
-A  ink mask (blueness + luma black top-hat)  ->  gap-closed sky region  (boundaries, not fills:
-   the sky region is only the vehicle that gives the ORDER of the outline's outer edge)
-B  raw silhouette WITH claws: ordered inter-pixel boundary of the sky region
-C  rolling ball from the body side (opening, radius R): claws = protrusions narrower than 2R;
-   opened boundary vertices are 'traced' (on the raw outline) or bridges across claw bases;
-   bridges are replaced by chords between the claw-root points
-D  sub-pixel refinement of traced points: outer edge of the ink outline along the local normal
-E  smoothing (traced: sigma 3 px, bridges: sigma 10 px), landmarks, inner-arc end, completion to
-   Z = 0, segmentation, uniform 2 px resampling
+処理段階
+--------
+A  墨のマスク（青みと輝度のブラックトップハット）から隙間を閉じた空の領域を得る。
+   空の領域は塗りのためではなく、輪郭の外縁の順番を求めるために使う。
+B  爪を含む元の輪郭線を、空の領域の順序付き画素間境界として求める。
+C  波本体側から半径 R の球を転がす（オープニング）。幅が 2R 未満の突起を爪とみなす。
+   結果の点を元の輪郭上の 'traced' と爪の根元をまたぐ橋に分け、橋を根元間の弦で置き換える。
+D  'traced' の点を局所法線方向に1画素未満の精度で合わせ、墨の輪郭の外縁を求める。
+E  平滑化（traced は σ=3 px、橋は σ=10 px）、特徴点、内側の弧の終端、
+   Z=0 への補完、区間分け、2 px の等間隔再標本化。
 """
 import math
 
@@ -27,11 +26,13 @@ def P(cfg, name):
     return cfg[name]["value"]
 
 
-# ------------------------------------------------------------------ stage A
+# ------------------------------------------------------------------ 段階 A
 def build_masks(rgb_roi, cfg, log=None):
-    """rgb_roi: uint8 (h, w, 3) of the work area.  Returns dict with D, Lm (3x3 blurred feature
-    maps), ink, sky (gap-closed connected sky region), W (= ~sky), d_sky (distance of W pixels to
-    the sky, capped)."""
+    """作業領域の uint8 画像 rgb_roi (h, w, 3) から各種マスクを求める。
+
+    D と Lm（ぼかした特徴量）、ink、sky（隙間を閉じた連結空領域）、
+    W (= ~sky) を含む辞書を返す。
+    """
     r = int(P(cfg, "pre_blur_r"))
     D = L.box_blur(L.blueness(rgb_roi), r)
     Lm = L.box_blur(L.luma(rgb_roi), r)
@@ -47,13 +48,15 @@ def build_masks(rgb_roi, cfg, log=None):
     if log:
         log("stage A: flood iterations %d, sky px %d" % (n_it, int(sky.sum())))
     a = rgb_roi.astype(np.float32)
-    GR = L.box_blur(a[:, :, 1] - a[:, :, 0], r)      # G - R: light cyan stripes are +22, foam -4, sky -13
+    GR = L.box_blur(a[:, :, 1] - a[:, :, 0], r)      # G - R: 明るい青緑の筋は +22、白波は -4、空は -13。
     return {"D": D, "Lm": Lm, "GR": GR, "ink": ink, "sky": sky, "W": ~sky}
 
 
 def left_edge_start(region_sky):
-    """Start crack for a trace that keeps the sky on the left: the vertex below the lowest sky pixel
-    of column 0 that is connected to the top of the column."""
+    """空を左に置く境界追跡の開始角を返す。
+
+    0列目の上端から連結する空画素の最下点、その下の頂点を選ぶ。
+    """
     col = region_sky[:, 0]
     if not col[0]:
         raise RuntimeError("column 0 does not start in the sky")
@@ -74,18 +77,21 @@ def raw_silhouette(masks, cfg):
     return cut_at_stop(loop, P(cfg, "raw_trace_stop_xy"))
 
 
-# ------------------------------------------------------------------ stage C
+# ------------------------------------------------------------------ 段階 C
 def opened_boundary(masks, radius, cfg):
-    """Rolling ball of `radius` from the body side.  Returns (path (N, 2) int crack vertices,
-    dev (N-1,) distance of the sky-side pixel of every step to the real sky)."""
+    """本体側から半径 `radius` の球を転がしてオープニングを求める。
+
+    境界の整数頂点列 path (N, 2) と、各段階の空側画素から真の空までの距離
+    dev (N-1,) を返す。
+    """
     W = masks["W"]
     pad = int(math.ceil(radius)) + 3
-    # edge-replicated padding: the frame edge must not act as a boundary of the wave
+    # 枠の端を波の境界と誤認しないよう、端を複製して余白を設ける。
     Wo = L.opening(np.pad(W, pad, mode="edge"), radius)[pad:-pad, pad:-pad]
     so = ~Wo
     loop = L.trace_cracks(so, left_edge_start(so), 0)
     path = cut_at_stop(loop, P(cfg, "raw_trace_stop_xy"))
-    d_sky = L.edt_capped(W, int(math.ceil(radius)) + 2)        # 0 on sky pixels
+    d_sky = L.edt_capped(W, int(math.ceil(radius)) + 2)        # 空画素は 0。
     left = L.crack_left_pixels(path)
     h, w = W.shape
     lx = np.clip(left[:, 0], 0, w - 1)
@@ -94,7 +100,7 @@ def opened_boundary(masks, radius, cfg):
 
 
 def _runs(flags):
-    """[(start, end_exclusive, value)] runs of a 1-D bool array."""
+    """一次元真偽配列の連続区間を (始点, 排他的終点, 値) で返す。"""
     out = []
     n = len(flags)
     i = 0
@@ -108,9 +114,10 @@ def _runs(flags):
 
 
 def label_and_bridge(path, dev, cfg):
-    """Vertex labels (TRACED / BRIDGE) of the opened boundary and the polyline in which every
-    bridge is replaced by the chord between its two end (claw-root) points.
-    Returns (pts float (M, 2), labels (M,), bridges list of dict)."""
+    """開いた境界の各頂点へ TRACED / BRIDGE ラベルを付け、橋を爪の根元間の弦に置換する。
+
+    折れ線 pts (M, 2)、labels (M,)、橋の情報を含む辞書のリストを返す。
+    """
     tol = P(cfg, "traced_tol_px")
     minor = P(cfg, "minor_bridge_max_dev_px")
     step_traced = dev <= tol
@@ -118,7 +125,7 @@ def label_and_bridge(path, dev, cfg):
     vt = np.zeros(n, bool)
     vt[:-1] |= step_traced
     vt[1:] |= step_traced
-    # relabel minor bridges
+    # 小さな橋は追跡済みとして再分類する。
     for a, b, val in _runs(vt):
         if not val:
             lo, hi = max(a - 1, 0), min(b, len(dev))
@@ -132,7 +139,7 @@ def label_and_bridge(path, dev, cfg):
             labels.append(np.full(b - a, TRACED, np.int8))
         else:
             if a == 0 or b == n:
-                # bridge at a path end: keep the opened boundary itself
+                # 経路の端の橋は、開いた境界そのものを残す。
                 pts.append(path[a:b].astype(np.float64))
                 labels.append(np.full(b - a, BRIDGE, np.int8))
                 continue
@@ -152,8 +159,11 @@ def label_and_bridge(path, dev, cfg):
 
 
 def resample_labelled(p, lab, spacing):
-    """Uniform arclength resampling that carries labels: a new sample is TRACED only if both
-    bracketing input points are TRACED; otherwise it takes the larger label code of the two."""
+    """ラベルを引き継ぎながら弧長を等間隔で再標本化する。
+
+    両隣の入力点がともに TRACED の場合だけ新しい点も TRACED とし、
+    それ以外では二点のラベルコードの大きい方を採用する。
+    """
     s = L.arclength(p)
     keep = np.concatenate([[True], np.diff(s) > 1e-9])
     p, lab, s = p[keep], lab[keep], s[keep]
@@ -170,7 +180,7 @@ def resample_labelled(p, lab, spacing):
     return q, lab_new.astype(np.int8)
 
 
-# ------------------------------------------------------------------ stage D
+# ------------------------------------------------------------------ 段階 D
 def running_median(a, win):
     win = int(win) | 1
     r = win // 2
@@ -180,9 +190,11 @@ def running_median(a, win):
 
 
 def refine_traced(pts, labels, masks, cfg, field_sign=+1.0):
-    """Sub-pixel refinement of TRACED points (outer edge of the outline).  field_sign = -1 is used
-    by the white-body variant (edge from blue on the left to white on the right).
-    Returns (refined pts, info dict)."""
+    """TRACED の点を画素未満の精度で輪郭の外縁に合わせる。
+
+    白い本体の変種では field_sign = -1 を使う（左の青から右の白への境界）。
+    補正した点、情報辞書、法線を返す。
+    """
     sig = P(cfg, "stair_sigma_px")
     q = L.gaussian_smooth_open(pts, sig, 1.0)
     normals, _ = L.local_normals(q, int(P(cfg, "normal_half_window_px")))
@@ -191,7 +203,7 @@ def refine_traced(pts, labels, masks, cfg, field_sign=+1.0):
               level=P(cfg, "refine_level"), min_contrast=P(cfg, "refine_min_contrast"))
     Lm, D = masks["Lm"], masks["D"]
     if field_sign > 0:
-        # local sky luma decides which field is used
+        # 局所的な空の輝度で使用する特徴量を選ぶ。
         o0, o1 = P(cfg, "refine_outer_px")
         offs = np.arange(o0, o1 + 1e-9, 1.0)
         xs = q[:, 0][:, None] - normals[:, 0][:, None] * offs[None]
@@ -214,7 +226,7 @@ def refine_traced(pts, labels, masks, cfg, field_sign=+1.0):
         shift_i = running_median(shift_i, P(cfg, "refine_shift_median_win"))
         shift_f = np.where(traced, shift_i, 0.0)
     out = q + normals * shift_f[:, None]
-    # bridges: straight chord between the refined neighbours
+    # 橋は補正した隣接点間の直線弦にする。
     for a, b, val in _runs(labels != TRACED):
         if val and a > 0 and b < len(out):
             p0, p1 = out[a - 1], out[b]
@@ -228,9 +240,9 @@ def refine_traced(pts, labels, masks, cfg, field_sign=+1.0):
     return out, info, normals
 
 
-# ------------------------------------------------------------------ stage E
+# ------------------------------------------------------------------ 段階 E
 def final_smooth(pts, labels, cfg):
-    """pts sampled at 1 px.  Blend of a light (traced) and a heavier (bridge) Gaussian."""
+    """1 px 間隔の点を、追跡部の弱い平滑化と橋の強い平滑化を混ぜて処理する。"""
     st, sb, sl = P(cfg, "sigma_traced_px"), P(cfg, "sigma_bridge_px"), P(cfg, "sigma_label_blend_px")
     a = L.gaussian_smooth_open(pts, st, 1.0)
     b = L.gaussian_smooth_open(pts, sb, 1.0)
@@ -243,8 +255,10 @@ def final_smooth(pts, labels, cfg):
 
 
 def plateau_midpoint(pts, values, i_ext, tol, sign):
-    """Contiguous stretch around index i_ext where sign*(values - values[i_ext]) <= tol.
-    Returns (i_mid (arclength midpoint), i_a, i_b)."""
+    """i_ext の周囲で sign*(values - values[i_ext]) <= tol を満たす連続区間を求める。
+
+    弧長上の中点 i_mid と区間の両端 i_a、i_b を返す。
+    """
     n = len(values)
     ref = values[i_ext]
     a = i_ext
@@ -259,8 +273,10 @@ def plateau_midpoint(pts, values, i_ext, tol, sign):
 
 
 def inner_arc_end(pts, normals_in, i_from, masks, cfg):
-    """First index >= i_from from which the wave side of the boundary is not blue for
-    inner_end_min_run_px consecutive samples."""
+    """i_from 以降で、境界の波側に青色が連続して現れなくなる最初の番号を返す。
+
+    連続標本数は inner_end_min_run_px で指定する。
+    """
     offs = np.asarray(P(cfg, "inner_end_inside_offsets_px"), dtype=np.float64)
     xs = pts[:, 0][:, None] + normals_in[:, 0][:, None] * offs[None]
     ys = pts[:, 1][:, None] + normals_in[:, 1][:, None] * offs[None]
@@ -276,8 +292,10 @@ def inner_arc_end(pts, normals_in, i_from, masks, cfg):
 
 
 def end_tangent(pts, fit_len):
-    """Unit tangent at the END of a polyline sampled at about 1 px: derivative at s = 0 of quadratic
-    least-squares fits x(s), y(s) over the last fit_len px."""
+    """約 1 px 間隔の折れ線の終端で単位接線を求める。
+
+    最後の fit_len px について x(s)、y(s) を二次式で最小二乗近似し、s = 0 の導関数を使う。
+    """
     s = L.arclength(pts)
     sel = s >= s[-1] - fit_len
     ss = s[sel] - s[-1]
@@ -288,10 +306,13 @@ def end_tangent(pts, fit_len):
 
 
 def parabola_to_level(p0, t0, y_level, spacing=1.0, run_frac=1.0):
-    """Quadratic Bezier P0 - C - P1: C = intersection of the tangent line through P0 with
-    y = y_level, P1 = C + (run_frac * |C - P0|, 0).  Tangent t0 at P0, horizontal at P1.
-    run_frac = 1 is the symmetric parabola; smaller values keep the curve closer to the tangent
-    line (later, tighter turn into the trough level)."""
+    """二次ベジェ曲線 P0 - C - P1 を y_level まで引く。
+
+    C は P0 を通る接線と y = y_level の交点、P1 は
+    C + (run_frac * |C - P0|, 0)。P0 の接線は t0、P1 では水平となる。
+    run_frac = 1 で対称な放物線となり、小さい値ほど接線に近い経路から
+    谷の高さへ急に向きを変える。
+    """
     if t0[1] <= 0.05 or p0[1] >= y_level:
         raise RuntimeError("parabola_to_level: end tangent does not descend towards the level")
     lam = (y_level - p0[1]) / t0[1]
@@ -305,9 +326,11 @@ def parabola_to_level(p0, t0, y_level, spacing=1.0, run_frac=1.0):
 
 
 def hidden_completion(p0, t0, y_level, sky, fracs, skip_px=8.0):
-    """Largest run_frac (from `fracs`, descending) for which the completed curve stays out of the
-    visible sky (it is supposed to be HIDDEN by the near wave / lie in the trough water).
-    Returns (curve, c, p1, run_frac, n_sky_samples_of_the_chosen_curve)."""
+    """補完曲線が見えている空へ入らない最大の run_frac を `fracs` から選ぶ。
+
+    曲線は近くの波に隠れるか谷の水面にある想定。曲線、制御点 c、終点 p1、
+    run_frac、選択した曲線の空領域に入った標本数を返す。
+    """
     h, w = sky.shape
     best = None
     for f in fracs:
@@ -325,10 +348,12 @@ def hidden_completion(p0, t0, y_level, sky, fracs, skip_px=8.0):
 
 
 def overhang_axis(contour, i_deep, i_tip, shape_hw, polygon_mask_fn):
-    """Principal axis of the overhanging part of the wave: the area enclosed by the base contour
-    to the right of (and above) the inner-arc deepest point, closed by the vertical through that
-    point.  Returns (direction deg: 0 = +X, negative = pointing below the horizontal, centroid px,
-    polygon, elongation = sqrt(l1 / l2))."""
+    """波が張り出した部分の主軸を求める。
+
+    内側の弧の最深点より右かつ上にある基準輪郭の領域を、その点を通る鉛直線で閉じる。
+    方向（度、0 は +X、負は水平より下向き）、重心（画素）、多角形、
+    伸長率 sqrt(l1 / l2)、領域の画素数を返す。
+    """
     xd = contour[i_deep, 0]
     top = contour[:i_tip + 1, 0]
     cross = np.nonzero((top[:-1] < xd) & (top[1:] >= xd))[0]
@@ -353,8 +378,10 @@ def overhang_axis(contour, i_deep, i_tip, shape_hw, polygon_mask_fn):
 
 
 def slope_profile(back_pts, sigma_px):
-    """Slope angle (deg, + = rising towards the crest) along the back, measured on a smoothed copy.
-    back_pts sampled at about 1 px.  Returns (arclength s, angle deg at segment midpoints)."""
+    """平滑化した背面に沿う傾斜角を度数で測る（正は頂上へ上昇）。
+
+    back_pts は約 1 px 間隔。弧長 s、線分の中点での角度、平滑化した点を返す。
+    """
     q = L.gaussian_smooth_open(back_pts, sigma_px, 1.0)
     s = L.arclength(q)
     ang = L.tangent_angles_deg(q)
@@ -362,7 +389,7 @@ def slope_profile(back_pts, sigma_px):
 
 
 def signed_turn_deg(pts, i0, i1, stride):
-    """Accumulated signed tangent turning (deg) between sample i0 and i1 (chords of `stride`)."""
+    """標本 i0 から i1 までの符号付き接線旋回角を累積して返す（弦の間隔は `stride`）。"""
     idx = np.arange(i0, i1 + 1, stride)
     if len(idx) < 3:
         return 0.0

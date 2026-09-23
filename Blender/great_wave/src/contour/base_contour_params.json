@@ -1,6 +1,6 @@
 {
   "_about": {
-    "comment": "Parameters of src/contour/build_base_contour.py (judge / merge of the base-contour candidates A and B -> target/base_contour.json). Every entry is {value, comment}. Same params + same candidate files -> byte-identical output. Nothing here is a contour point: manual anchors only say WHERE to look or WHICH candidate to use, and each one says why."
+    "comment": "src/contour/build_base_contour.py の設定（基礎輪郭候補 A と B を比較・統合し、target/base_contour.json を作る）。各項目は {value, comment} で構成する。同じ設定と同じ候補ファイルからはバイト単位で同じ出力が得られる。ここに輪郭点はない。手動基準はどこを見るか、どちらの候補を使うかだけを指定し、各選択理由を記録する。"
   },
 
   "candidate_files": {
@@ -9,7 +9,7 @@
       "B": "target/candidates/b/base_contour.json",
       "B_alt": "target/candidates/b/base_contour_alt_white_body_outline.json"
     },
-    "comment": "Inputs (relative to the project root). Regenerate them with: run_blender.ps1 src/contour/method_a_run.py ; run_blender.ps1 src/contour/method_b_run.py"
+    "comment": "入力ファイル（プロジェクトルートからの相対パス）。再生成には run_blender.ps1 src/contour/method_a_run.py および run_blender.ps1 src/contour/method_b_run.py を実行する。"
   },
   "candidate_sha256_expected": {
     "value": {
@@ -17,16 +17,16 @@
       "B": "65F5418D",
       "B_alt": "4931690E"
     },
-    "comment": "First 8 hex digits of the SHA-256 of the candidate files that were JUDGED BY EYE on 2026-09-20 (from the candidates' own records). A mismatch is only a warning, but then the verdicts below may be stale: the script fails if it finds an A-B difference > judge_threshold_pct_h that is not covered by a verdict zone."
+    "comment": "2026-09-20 に目視判定した候補ファイルの SHA-256 の先頭 8 桁（各候補の記録から取得）。不一致自体は警告のみ。ただし以下の判定が古くなっている可能性があり、A と B の差が judge_threshold_pct_h を超えるのに判定領域がない場合、スクリプトは失敗する。"
   },
 
   "judge_threshold_pct_h": {
     "value": 0.5,
-    "comment": "Task definition: every stretch where A and B differ by more than this (in % of image height, = 12.97 px) needs a zoomed crop and a verdict."
+    "comment": "作業上の定義。A と B の差がこの値（画像高に対する %、12.97 px に相当）を超える全区間には、拡大切り出し画像と判定が必要。"
   },
   "judge_run_merge_gap_px": {
     "value": 60.0,
-    "comment": "Neighbouring over-threshold runs closer than this (arclength) are reported as one stretch."
+    "comment": "しきい値を超える隣接区間の弧長方向の隔たりがこの値未満なら、一区間として報告する。"
   },
 
   "verdicts": {
@@ -72,83 +72,83 @@
         "reason": "Both are pure extrapolation and are flagged in_S7 = false, so the choice does not enter S7. B's curve is constrained by something visible (it must stay behind the near wave, i.e. never cross visible sky); in the comparison crop A's arc touches the sky side of the near-wave flank around (1975..2000, 1880..1897). The 3.8 % A-B distance is only A's flat run, which B does not have."
       }
     ],
-    "comment": "MANUAL JUDGEMENTS (made by looking at zoomed crops of the painting, results/step1_prepare/contour_final/judge_*.png). 'use' selects the candidate whose geometry goes into the final contour inside the zone: the final contour is B everywhere except where a verdict says 'A' (then A's stretch is spliced in between the points where the two candidates re-join). bbox_px = [x0, y0, x1, y1] only says where the difference is; it is not contour data."
+    "comment": "手動判定。原画の拡大切り出し画像（results/step1_prepare/contour_final/judge_*.png）を見て決めた。use は領域内で最終輪郭に採用する候補を示す。基本は全域で B を用い、判定が A を指定した区間だけ、両候補が再び合流する点の間を A に差し替える。bbox_px = [x0, y0, x1, y1] は差が生じる場所を示すだけで、輪郭データではない。"
   },
 
   "base_candidate": {
     "value": "B",
-    "comment": "Candidate that supplies the geometry outside the verdict zones. Reason: on all traced stretches A and B agree (back: max 0.13 % of image height, mean 0.01 %; head / inner arc traced points: < 0.5 %), both sit on the outer edge of the ink line (independent half-level checks), so either could be used; B is taken because (1) its bridges are chords between the claw-root points, which is the literal 'join the claw roots', while A's bridges are opening arcs that bulge up to R = 28 px into the claws, (2) its traced points are sub-pixel refined, (3) its completion is constrained by visible sky."
+    "comment": "判定領域以外の形状を提供する候補。追跡区間では A と B が一致する（波背：最大で画像高の 0.13 %、平均 0.01 %。波頭と内側円弧の追跡点：0.5 % 未満）。双方とも輪郭線の外縁にあり、中間値による独立検査でも確認済み。B を選んだ理由：(1) 爪の根元間を弦でつなぎ、「爪の根元をつなぐ」という指定に忠実。A のオープニング円弧は爪内部へ最大 R=28 px 膨らむ。(2) 追跡点の位置を画素未満まで精密化する。(3) 補完部分を見えている空で制約する。"
   },
 
   "back_left_variant": {
     "value": "white_body_outline",
     "allowed": ["white_body_outline", "sky_silhouette"],
-    "comment": "WHICH LINE IS THE BACK LEFT OF x = 338 px - NEEDS THE USER'S CONFIRMATION. The ink outline of the back forks at (337, 894): the upper branch is the top of a dark-blue band (it dips to (145, 932), then RISES to the left frame edge at y = 891, slope -21 deg at the frame edge); the lower branch is the boundary between that band and the white body, runs on without any kink (T-junction: the continuous line belongs to the body in front, the branching line to something behind it) and meets the frame edge at y = 1076, descending monotonically. Chosen: white_body_outline, because (a) the 7x crop shows the inner edge of the back's ink line continuing straight into the band's lower edge while the band's top edge leaves at an angle, (b) spec S4 'about 25 deg near the left end' matches it (22..29 deg at x = 100..200) and not the silhouette (-21 deg), (c) spec 7b 'the frame cuts the back; extend it along the left-end slope down to still water' only makes sense for a line that descends towards the frame edge. The other reading is always written to results/step1_prepare/contour_final/base_contour_alt_<name>.json; the two differ by up to 7.1 % of image height for x < 338 px."
+    "comment": "x=338 px より左側で波背とみなす線の選択。ユーザーの確認が必要。波背の輪郭線は (337, 894) で分岐する。上枝は濃い青の帯の上縁で、(145, 932) へ下がった後、左端 y=891 へ上昇し、端の傾斜角は -21 度。下枝は帯と白い胴体の境界で、折れずに続き、左端 y=1076 に達するまで単調に下がる。T 字の合流から、連続する線は前景の胴体、分岐する線はその後ろに属すると読める。white_body_outline を選んだ理由：(a) 7 倍の拡大画像では、波背の輪郭線の内縁が帯の下縁にまっすぐ続き、上縁は斜めに離れる。(b) 仕様 S4 の「左端付近は約 25 度」は x=100～200 における下縁の 22～29 度に合い、上縁の -21 度には合わない。(c) 仕様 7b の「画面左端で切れた波背を左端の傾斜に沿って静水面まで延ばす」は、左端へ向かって下る線の場合にのみ成立する。別の読み方も results/step1_prepare/contour_final/base_contour_alt_<name>.json に書き出す。両者は x<338 px で画像高の最大 7.1 % 異なる。"
   },
   "pending_user_confirmation": {
     "value": ["back_left_variant"],
-    "comment": "Decisions the user has NOT confirmed yet; written to the json key of the same name (and inherited by build_large_form.py). While 'back_left_variant' is listed, the json also carries pending_stretches.back_left_variant = the x-range (px and H) of the left end of the back that depends on the reading, so that tests can report S7 for that stretch separately. After the user's confirmation: remove the entry and rebuild both contours (labels / meta data only - the geometry does not depend on this entry; the flag offset_from_visible_edge stays, because it states how the line was made, not whether it is confirmed)."
+    "comment": "ユーザーがまだ確認していない決定。JSON 内の同名キーに書き込み、build_large_form.py にも引き継ぐ。back_left_variant が含まれる間は、その読み方に依存する波背左端の X 範囲（px と H）を pending_stretches.back_left_variant に記録し、検査で当該区間の S7 を別に報告できるようにする。確認後は項目を削除し、両方の輪郭を再構築する。項目の有無はラベルとメタデータだけに影響し、形状には影響しない。offset_from_visible_edge フラグは線の作り方を示すため、確認後も残す。"
   },
   "alt_join_dist_px": {
     "value": 8.0,
-    "comment": "Mirror of method_b_params.alt_join_dist_px: B's white-body trace is the pure inner edge (white / dark-blue boundary) up to the first point that is closer than this to B's main contour; beyond that point B blends it into the outer edge. Only the pure part is used here."
+    "comment": "method_b_params.alt_join_dist_px と同じ値。B の白い胴体側の追跡線は、主輪郭との距離がこの値未満になる最初の点までは純粋な内縁で、その先は外縁へ混合される。ここでは純粋な部分だけを使う。"
   },
   "line_width_measure_stretch_px": {
     "value": [40.0, 340.0],
-    "comment": "The ink-line width of the back is measured on this arclength stretch ABOVE the fork (distances from the join point along B's main back). Used as the outward offset of the white-body edge, see white_body_outward_offset."
+    "comment": "分岐より上で波背のインク線の幅を測る弧長区間（B の主波背に沿った合流点からの距離）。測定値を白い胴体側の縁を外へずらす量に用いる。white_body_outward_offset を参照。"
   },
   "white_body_outward_offset": {
     "value": "measured_line_width",
     "allowed": ["measured_line_width", "none"],
-    "comment": "The contour is defined as the OUTER edge of the ink outline. Below the fork the outline is hidden in the dark band and only its inner edge (white boundary) is visible, so the visible edge is shifted outwards by the median line width measured above the fork; this makes the back continue without the ~7 px sideways step that a switch from inner to outer edge would otherwise cause. 'none' keeps the visible edge. FLAG (2026-09-20, label only): these points are CONSTRUCTED, not traced (no ink line is drawn there), so they carry source = 'offset_from_visible_edge' instead of 'traced'; in_S7 stays true and the json keys pending_user_confirmation / pending_stretches give their x-range so that tests can report S7 for the stretch separately."
+    "comment": "輪郭をインク線の外縁と定義する。分岐より下では線が濃い帯に隠れ、内縁（白い胴体との境界）だけが見える。そこで、分岐より上で測った線幅の中央値だけ外へずらす。内縁から外縁への切り替えで約 7 px の段差が生じるのを防ぐ。「none」は見える縁をそのまま使う。2026-09-20 のフラグ修正：ここには輪郭線が描かれていないため、これらの点は追跡点ではなく構築点であり、source を「traced」ではなく「offset_from_visible_edge」とする。in_S7 は true のままで、確認待ち情報と区間は pending_user_confirmation / pending_stretches に記す。"
   },
   "seam_smooth_sigma_px": {
     "value": 6.0,
-    "comment": "Gaussian smoothing (along arclength) applied only inside +-seam_smooth_halfwidth_px around the seam between the offset white-body edge and B's main back (removes the residual step of about 1 px)."
+    "comment": "ずらした白い胴体側の縁と B の主波背の継ぎ目付近（±seam_smooth_halfwidth_px）だけに適用する、弧長方向のガウス平滑化。残る約 1 px の段差を除く。"
   },
   "seam_smooth_halfwidth_px": {
     "value": 30.0,
-    "comment": "See seam_smooth_sigma_px."
+    "comment": "seam_smooth_sigma_px の説明を参照。"
   },
 
   "completed_other_sea_rb_max": {
     "value": -15.0,
-    "comment": "Completed points are relabelled 'completed_other' from the first point after which >= 95 % of the remaining completed points lie on dark sea (7x7 mean of R-B below this): there the curve is not hidden by the near wave any more, it runs through the visible sea patch at Fuji's foot where the painting simply shows no wave face. Before that point: 'completed_occluded'. Both are in_S7 = false."
+    "comment": "補完点のうち、ある点以降の残りの補完点の 95 % 以上が濃い海（R-B の 7×7 平均がこの値未満）に乗る最初の点から、ラベルを「completed_other」に変える。そこでは曲線は手前の波に隠れず、富士の麓の見える海面を通るが、原画に波面は描かれていない。それ以前は「completed_occluded」。どちらも in_S7 = false。"
   },
 
   "sample_spacing_px": {
     "value": 2.0,
-    "comment": "Schema: uniform arclength spacing. Each segment is resampled with spacing L / round(L / 2) so that the shared end points are exact (actual_spacing_px is written per segment)."
+    "comment": "スキーマ：弧長に沿う等間隔の標本。各区間を L / round(L / 2) の間隔で再標本化し、共有端点を正確に一致させる。実際の間隔は区間ごとに actual_spacing_px に記録する。"
   },
   "landmark_sigma_pct_h": {
     "value": 0.5,
-    "comment": "Crest = argmin(y), inner-arc deepest point = argmin(x) of a copy smoothed with this sigma (13 px): both lie on nearly flat / vertical stretches where the strict extreme jumps with pixel noise. Same definition as candidate B. The head tip is the strict right-most point between crest and deepest point."
+    "comment": "波頂は y の最小、内側円弧の最深点は x の最小として、この σ（13 px）で平滑化した輪郭の複製上で求める。双方はほぼ平坦・垂直な区間にあり、厳密な極値は画素ノイズで跳ぶ。候補 B と同じ定義。波頭先端は波頂と最深点の間の厳密な最右点とする。"
   },
   "plateau_tol_px": {
     "value": 2.0,
-    "comment": "Crest plateau / vertical run of the deepest point = contour within this distance of the extreme coordinate."
+    "comment": "波頂の平坦部と最深点の垂直区間を、極値座標からこの距離以内の輪郭として定義する。"
   },
 
   "s6_window_px": {
     "value": [2230, 800, 2330, 920],
-    "comment": "MANUAL ANCHOR (search window only): the claw that carries the right-most point of the great wave incl. claws (spec S6 point is at (2284.5, 856.0)). Excludes the faint bluish print artefact at x 2200..2450, y 1055..1065 reported by candidate A."
+    "comment": "手動基準（探索範囲のみ）。爪状部分を含めた大波の最右点を持つ爪（仕様 S6 の点は (2284.5, 856.0)）。候補 A が報告した x=2200～2450、y=1055～1065 の薄い青い印刷痕を除く。"
   },
   "s3_sea_columns_px": {
     "value": [2010, 2080],
-    "comment": "MANUAL ANCHOR (search columns only): columns in which the top edge of the dark sea patch between the near wave and the boat is measured (same columns as candidate B)."
+    "comment": "手動基準（探索列のみ）。手前の波と船の間にある濃い海面の上縁を測る列。候補 B と同じ列を使う。"
   },
   "ink_rb_max": {
     "value": -8.0,
-    "comment": "R-B below this = ink / blue (measured by both candidates: paper and sky +4..+60, ink and blues -20..-110)."
+    "comment": "R-B がこの値未満ならインク・青とする。両候補の測定値は紙と空が +4～+60、インクと青が -20～-110。"
   },
 
   "own_s8_spacing_pct_h": {
     "value": 1.0,
-    "comment": "Spec S8 sample spacing; the contour's own turning angle is evaluated within each segment, 4 phases."
+    "comment": "仕様 S8 の標本間隔。輪郭自身の曲がり角を各区間内の 4 位相で評価する。"
   },
   "lowpass_sigmas_pct_h": {
     "value": [0.5, 1.0, 1.5, 2.0, 3.0, 4.0, 5.0],
-    "comment": "Diagnostic only (S7 <-> S8 compatibility): the visible part of the final contour is low-passed with these sigmas; for each the own S8 and the distance to the base contour are reported."
+    "comment": "診断専用（S7 と S8 の整合性）。最終輪郭の見える部分にこれらの σ で低域通過フィルタを適用し、各設定で自身の S8 と基礎輪郭との距離を報告する。"
   },
 
   "doubt_zones": {
@@ -164,6 +164,6 @@
       {"id": "D10_kink_after_crest", "bbox_px": [1595, 272, 1620, 297], "note": "real corner of the drawn outline (about 51 deg at 1 % sample spacing) where the outline of the crest dome runs into the foam and the first scallop of the head starts; 5.2 % of image height (arclength) after the crest"},
       {"id": "D9_trough_level", "bbox_px": [1990, 1885, 2300, 1995], "note": "Z = 0 (74.7 %) cannot be tied to a drawn feature; visible sea patch spans about 73.0..76.7 %"}
     ],
-    "comment": "Places the user should look at first; copied into the JSON ('doubt_zones') and drawn as boxes in overlay_doubt_zones_1600.png. Boxes are for orientation only."
+    "comment": "ユーザーが先に確認すべき場所。JSON の doubt_zones にコピーし、overlay_doubt_zones_1600.png に枠として描く。枠は位置を示すだけである。"
   }
 }

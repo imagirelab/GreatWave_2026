@@ -1,20 +1,20 @@
-"""Build separate, animated foam geometry on the cached Great Wave.
+"""キャッシュ済みの Great Wave に独立した泡のアニメーション形状を作る。
 
-Run on a generated wave scene (preferably the projected or woodblock scene)::
+生成済みの波シーン、できれば投影または木版画風のシーンで実行する::
 
     tools/run_blender.ps1 src/gwave/add_animated_foam.py \
         -Blend blend/great_wave_styled.blend -NoFactoryStartup \
         -ScriptArgs '--preview'
 
-The white crest band and the ten outlined foam claws are real meshes, not a
-camera overlay. Their fixed-topology PC2 caches are derived frame by frame from
-the *same* wave cache used by GreatWave. The script saves relative cache paths,
-so the scene survives closing and reopening within this project directory.
+白い峰の帯と輪郭付きの10本の泡の爪は、カメラ上の重ね画像ではなくメッシュである。
+固定トポロジーの PC2 キャッシュは GreatWave と同じ波キャッシュから
+フレームごとに生成する。キャッシュへの相対パスを保存するため、
+このプロジェクト内でシーンを閉じて再度開いても利用できる。
 
-The claw paths are art-directed from the print-camera painting coordinates.
-This is a stylised whitewater study, not a fluid simulation or a final HMD
-material. The farthest claw centre is placed at (2288, 857) in the 3859x2594
-painting frame; its small ink outline extends another ~2 px.
+爪の経路は版画用カメラから見た原画の座標を基準に造形した。
+これは図案化した白波の検討であり、流体シミュレーションや HMD 用の最終素材ではない。
+最も遠くへ伸びる爪の中心は 3859x2594 の原画座標で (2288, 857) に置き、
+細い墨の輪郭がさらに約2 px 外へ延びる。
 """
 
 import argparse
@@ -36,9 +36,9 @@ BAND_NAME = "GW_FoamCrestBand"
 CLAW_INK_NAME = "GW_FoamClawsInk"
 CLAW_WHITE_NAME = "GW_FoamClawsWhite"
 
-# root profile index, target tip in original painting px, two Bezier controls,
-# radius in painting px, transverse offset along the crest line (H units).
-# The first claw is the silhouette target beyond the blue body tip.
+# 断面上の根元の番号、原画上の先端座標（px）、ベジェ制御点2個、
+# 原画上の半径（px）、峰方向の横ずれ（H 単位）。
+# 最初の爪は青い波本体の先端より外へ伸びる輪郭目標。
 CLAWS = (
     (260, (2288, 857), (2245, 775), (2282, 824), 10.0, -0.04),
     (263, (2263, 968), (2238, 847), (2272, 918), 8.5, 0.07),
@@ -85,7 +85,7 @@ def _read_wave_cache(wave, n_frames):
 
     md = wave.modifiers.get("PointCache")
     if md is None or md.type != "MESH_CACHE":
-        raise RuntimeError("GreatWave must have its PC2 PointCache modifier")
+        raise RuntimeError("GreatWave には PC2 PointCache モディファイアーが必要です")
     source = bpy.path.abspath(md.filepath)
     if not os.path.isfile(source):
         source = wm.load_wave_params()["cache_path"]
@@ -93,15 +93,15 @@ def _read_wave_cache(wave, n_frames):
         signature, version, count, start, interval, samples = struct.unpack("<12siiffi", fh.read(32))
     n_u, n_v = int(wave["gw_n_u"]), int(wave["gw_n_v"])
     if signature.rstrip(b"\0") != b"POINTCACHE2" or count != n_u * n_v or samples < n_frames:
-        raise RuntimeError("Wave PC2 header/topology does not match the loaded scene")
+        raise RuntimeError("波の PC2 ヘッダーまたはトポロジーが読込済みシーンと一致しません")
     if os.path.getsize(source) < 32 + 12 * count * samples:
-        raise RuntimeError("Wave PC2 is truncated")
+        raise RuntimeError("波の PC2 ファイルが途中で切れています")
     data = np.memmap(source, dtype="<f4", mode="r", offset=32, shape=(samples, n_v, n_u, 3))
     return data, n_u, n_v, source
 
 
 def _local_normal(row, indices):
-    """XZ inward normal to the ordered back->crest->head->trough section."""
+    """背面→峰→波頭→谷の順に並ぶ XZ 断面に対する内向き法線。"""
     lo = np.maximum(indices - 2, 0)
     hi = np.minimum(indices + 2, row.shape[0] - 1)
     delta = row[hi][:, (0, 2)] - row[lo][:, (0, 2)]
@@ -111,7 +111,7 @@ def _local_normal(row, indices):
 
 
 def _band_topology(n_y, n_u):
-    """A thin, closed crest veneer: two edges for each profile/y sample."""
+    """薄く閉じた峰の表層。断面と Y の各試料に2本の縁を持たせる。"""
     faces = []
     vid = lambda j, i, side: (j * n_u + i) * 2 + side
     for j in range(n_y):
@@ -135,8 +135,7 @@ def _band_vertices(wave_frame, y_indices, u_indices, H, frame_num):
         row = wave_frame[row_index]
         anchor = row[u_indices].astype(np.float64)
         _, normal = _local_normal(row, u_indices)
-        # Ends of the crest line fade into the water rather than becoming a
-        # disconnected flat white sheet across the flanks.
+        # 峰の両端は水面へ薄く消し、側面に分離した平らな白い面ができないようにする。
         y_fade = math.sin(math.pi * (jj + 0.4) / (len(y_indices) - 0.2)) ** 0.8
         along = np.linspace(0.0, 1.0, len(u_indices))
         scallop = 0.85 + 0.15 * np.sin(18.0 * along + 3.0 * row_index / max(y_indices[-1], 1))
@@ -147,7 +146,7 @@ def _band_vertices(wave_frame, y_indices, u_indices, H, frame_num):
         outer[:, 2] -= normal[:, 1] * H * 0.002 * growth
         inner[:, 0] += normal[:, 0] * width
         inner[:, 2] += normal[:, 1] * width
-        # Small near-camera lift avoids z-fighting with the wave skin.
+        # 波の表面との深度競合を避けるため、カメラ側へ少し浮かせる。
         outer[:, 1] -= H * 0.003
         inner[:, 1] -= H * 0.003
         out[jj, :, 0] = outer
@@ -182,8 +181,8 @@ def _claw_vertices(wave_frame, final_wave, y_indices, frame, H, frame_num, white
         root_xz = final_anchor[[0, 2]]
         controls = [np.array(frame.px_to_m(*px), dtype=np.float64)
                     for px in (control1_px, control2_px, tip_px)]
-        # Rotate the final painted path with its material point as the wave
-        # turns, then reveal it gradually during the overhang/curl phase.
+        # 波の回転に合わせ、最終形状の原画由来の経路を同じ物質点を基準に回し、
+        # 張り出しと巻き込みの段階で徐々に現す。
         now_row = wave_frame[row_index]
         end_row = final_wave[row_index]
         now_t, _ = _local_normal(now_row, np.array([u]))
@@ -197,20 +196,19 @@ def _claw_vertices(wave_frame, final_wave, y_indices, frame, H, frame_num, white
         p0 = anchor[[0, 2]]
         points = np.stack([p0] + [p0 + growth * (rot @ (p - root_xz)) for p in controls])
         centres = bern @ points
-        # A subtle 3-D bow gives depth when seen from the boat/oblique camera.
+        # 緩やかな3Dの反りにより船上や斜め視点で奥行きを与える。
         curve_y = anchor[1] - 0.025 * H + 0.08 * H * math.sin(1.7 * k) * 4 * s * (1 - s) * growth
         tangent = np.gradient(centres, axis=0)
         tangent /= np.maximum(np.linalg.norm(tangent, axis=1)[:, None], 1e-9)
         normal = np.stack([-tangent[:, 1], tangent[:, 0]], axis=1)
-        # At the 1/3-scale review render the source-width outline otherwise
-        # collapses to a hairline against the equally pale paper background.
+        # 確認用の1/3縮小画像では原画どおりの幅だと、同じく淡い紙の背景に
+        # 溶け込んで髪の毛のような細線になる。
         radius = (1.5 * radius_px * frame.H_per_px * H) * growth
         radius *= (0.76 + 0.24 * np.sin(math.pi * np.minimum(s, 0.5))) * np.maximum(0.08, (1 - s) ** 0.7)
         radius *= 0.14 + 0.86 * _smooth(s / 0.19)
         radius = np.maximum(radius, 1e-5)
         if white:
-            # Move the white core toward CAM_print so that the ink shell reads
-            # as a narrow outline, rather than hiding the core at the centre.
+            # 白い芯を CAM_print 側へ寄せ、墨色の外殻が芯を隠さず細い輪郭として見えるようにする。
             curve_y -= (4.0 * frame.H_per_px * H * growth + 0.0005)
             radius *= 0.64
         for side in range(n_sides):
@@ -230,8 +228,8 @@ def _make_cached_object(name, vertices, faces, material, cache_path):
     obj = bpy.data.objects.new(name, mesh)
     bpy.context.scene.collection.objects.link(obj)
     mesh.materials.append(material)
-    # Workbench previews use OBJECT colours, whereas Eevee uses the emission
-    # materials. Keep the same visual roles in both render paths.
+    # Workbench の確認画像はオブジェクト色、Eevee は発光マテリアルを使う。
+    # 両方の描画経路で同じ見た目の役割を保つ。
     obj.color = (0.08, 0.17, 0.27, 1.0) if name == CLAW_INK_NAME else (0.95, 0.94, 0.88, 1.0)
     md = obj.modifiers.new("PointCache", "MESH_CACHE")
     md.cache_format = "PC2"
@@ -244,8 +242,8 @@ def _make_cached_object(name, vertices, faces, material, cache_path):
     md.deform_mode = "OVERWRITE"
     md.forward_axis = "POS_Y"
     md.up_axis = "POS_Z"
-    obj["foam_source"] = "GreatWave PC2 material-point anchors; print-camera claw paths"
-    obj["foam_limit"] = "art-directed surface geometry, not a fluid/whitewater simulation"
+    obj["foam_source"] = "GreatWave PC2 の物質点を基準とし、版画用カメラ上で爪の経路を設計"
+    obj["foam_limit"] = "美術表現として設計した表面形状。流体・白波のシミュレーションではない"
     return obj
 
 
@@ -255,11 +253,11 @@ def build(output_path="blend/great_wave_foam.blend"):
     scene = bpy.context.scene
     wave = bpy.data.objects.get("GreatWave")
     if wave is None:
-        raise RuntimeError("Load blend/great_wave.blend or a styled derivative before running")
+        raise RuntimeError("実行前に blend/great_wave.blend またはスタイル適用後の派生シーンを読み込んでください")
     wp = wm.load_wave_params()
     n_frames = int(wp["n_frames"])
     if n_frames != FINAL_FRAME:
-        raise RuntimeError("Foam control points are calibrated for a 285-frame wave")
+        raise RuntimeError("泡の制御点は285フレームの波に合わせて調整されています")
     for name in (BAND_NAME, CLAW_INK_NAME, CLAW_WHITE_NAME):
         old = bpy.data.objects.get(name)
         if old:
@@ -268,9 +266,8 @@ def build(output_path="blend/great_wave_foam.blend"):
     source_stamp = (os.stat(wave_path).st_size, os.stat(wave_path).st_mtime_ns)
     H = gw_frame.Frame.from_params().H
     fr = gw_frame.Frame.from_params()
-    # The central 0.7 H has an identical section. Sweeping the ribbon over
-    # the tapered flanks would project broad white triangles across the wave
-    # cavity, so keep this initial foam veneer on the un-tapered crest only.
+    # 中央の 0.7 H は同じ断面である。帯を細くなる両側面まで広げると波の空洞に
+    # 大きな白い三角形が投影されるため、最初の泡の表層は幅が一定の峰だけに置く。
     y_indices = np.array([n_v // 2 - 8, n_v // 2, n_v // 2 + 8], dtype=np.int32)
     u_indices = np.arange(203, 265, dtype=np.int32)
     centre_y = np.asarray(cache[n_frames - 1, :, 0, 1])
@@ -298,10 +295,10 @@ def build(output_path="blend/great_wave_foam.blend"):
             for fh, verts in zip((band_file, ink_file, white_file), arrays):
                 fh.write(np.ascontiguousarray(verts, dtype="<f4").tobytes())
             if frame_num % 70 == 0 or frame_num == n_frames:
-                bootstrap.log("foam cache frame %d/%d" % (frame_num, n_frames))
+                bootstrap.log("泡キャッシュ: フレーム %d/%d" % (frame_num, n_frames))
     current_stamp = (os.stat(wave_path).st_size, os.stat(wave_path).st_mtime_ns)
     if current_stamp != source_stamp:
-        raise RuntimeError("Wave cache changed while foam was baking; rerun after the wave build finishes")
+        raise RuntimeError("泡の生成中に波キャッシュが変更されました。波の生成が終わってから再実行してください")
 
     mats = (_emission_material("GW_foam_geometry", "#f3f0e1"),
             _emission_material("GW_foam_ink_outline", "#142b4c"))
@@ -321,8 +318,8 @@ def build(output_path="blend/great_wave_foam.blend"):
     for obj, path in zip(objects, out_paths):
         obj.modifiers["PointCache"].filepath = bpy.path.relpath(path)
     bpy.ops.wm.save_mainfile()
-    bootstrap.log("source wave cache %s" % wave_path)
-    bootstrap.log("saved %s; foam verts %s" % (out_blend, ", ".join(str(len(o.data.vertices)) for o in objects)))
+    bootstrap.log("波キャッシュの参照元: %s" % wave_path)
+    bootstrap.log("保存しました: %s、泡の頂点数 %s" % (out_blend, ", ".join(str(len(o.data.vertices)) for o in objects)))
     return objects, out_blend
 
 
@@ -341,7 +338,7 @@ def _preview(variant=""):
         scene.render.image_settings.file_format = "PNG"
         scene.render.filepath = os.path.join(out_dir, "%s_f%03d.png" % (camera, f))
         bpy.ops.render.render(write_still=True)
-        bootstrap.log("rendered %s frame %d" % (camera, f))
+        bootstrap.log("レンダリング完了: %s、フレーム %d" % (camera, f))
 
 
 def main():

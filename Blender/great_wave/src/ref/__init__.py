@@ -1,6 +1,6 @@
-"""ref -- read-out of the Houdini motion reference (1.abc) and other dynamics references.
+"""ref -- Houdini の運動参照（1.abc）などの動的な参照資料を読み取る。
 
-Owned by the reference-motion agent.  The foundation only creates the package.
-The Houdini cache is a MOTION reference only (spec sections 1 and 6.1); it is never a
-geometry source for the delivered mesh.  Inputs are read-only.
+参照運動の担当が管理する。基盤工程ではパッケージを用意するだけ。
+Houdini のキャッシュは運動だけの参照資料（仕様1・6.1）であり、
+納品するメッシュの形状データには使わない。入力は読込専用。
 """

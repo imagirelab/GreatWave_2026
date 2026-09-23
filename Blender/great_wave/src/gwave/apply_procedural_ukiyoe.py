@@ -1,9 +1,8 @@
-"""Apply a camera-independent blue/foam shader to the animated GreatWave mesh.
+"""アニメーションする GreatWave メッシュに視点非依存の青と泡のシェーダーを適用する。
 
-The colour bands use the wave's arc-length U and crest-line V coordinates, so
-they remain attached to the 3-D surface as the PC2 cache deforms it.  This is
-an artistic material prototype; separate animated whitewater is added by a
-different builder and no physical fluid colour claim is made here.
+色帯には波の弧長 U と峰方向の V 座標を用いるため、PC2 キャッシュで変形しても
+3D 表面に追従する。これは美術表現のためのマテリアル試作である。
+独立して動く白波は別の生成処理で追加する。この色を流体物理として検証したものではない。
 
     tools/run_blender.ps1 src/gwave/apply_procedural_ukiyoe.py -Blend blend/great_wave.blend -NoFactoryStartup
 """
@@ -40,7 +39,7 @@ def _set_ramp(ramp, stops, interpolation="EASE"):
 
 
 def _math(nodes, links, operation, first, second=None):
-    """Build a scalar math node from sockets or numerical constants."""
+    """ソケットまたは数値定数からスカラー演算ノードを作る。"""
     node = nodes.new("ShaderNodeMath")
     node.operation = operation
     for index, value in enumerate((first, second)):
@@ -70,10 +69,9 @@ def make_wave_material():
 
     u, v = sep.outputs["X"], sep.outputs["Y"]
 
-    # The reference has a pale upper back but dark-blue water beneath it.  A
-    # pure U ramp made the two colours meet at an x-constant vertical cut in
-    # CAM_print, because many flank rows share a similar projected U.  Let the
-    # dividing U vary with elevation, crest-line V and UV-attached detail.
+    # 原画では波の背の上部が淡く、その下は濃青である。U のみで色を分けると、
+    # 側面の多くの列が投影上で近い U を持つため、CAM_print では色境界が
+    # X 一定の縦線になった。境界の U を高さ、峰方向の V、UV に追従する細部で変化させる。
     position = nodes.new("ShaderNodeNewGeometry")
     xyz = nodes.new("ShaderNodeSeparateXYZ")
     links.new(position.outputs["Position"], xyz.inputs["Vector"])
@@ -109,13 +107,12 @@ def make_wave_material():
     links.new(z_h, low_back.inputs["Fac"])
     blue_coverage = _math(nodes, links, "MAXIMUM", dark_side.outputs["Color"], low_back.outputs["Color"])
 
-    # CAM_print sees several cap rows at the same x=0 projection, sometimes
-    # with very different U coordinates.  Reconcile their colours over a
-    # narrow world-space strip so the visible overlap does not form a seam.
+    # CAM_print では複数の波頭の列が同じ X=0 に投影されるが、U 座標は大きく異なる場合がある。
+    # 重なりに継ぎ目が見えないよう、ワールド空間の狭い帯で色を合わせる。
     x_h = _math(nodes, links, "MULTIPLY", xyz.outputs["X"], 1.0 / gw_frame.Frame.from_params().H)
     crest_x_h = nodes.new("ShaderNodeValue")
     crest_x_h.name = "GW_animated_crest_x_H"
-    crest_x_h.label = "Animated crest X / H"
+    crest_x_h.label = "動く波頭の X / H"
     motion = wm.WaveMotion(wm.load_wave_params())
     for f in range(1, motion.n_frames + 1):
         crest_x_h.outputs[0].default_value = motion.x_c_of_frame(f)
@@ -146,8 +143,7 @@ def make_wave_material():
                           (1.0, "#a9c9ca")], "CONSTANT")
     links.new(u, body_blue.inputs["Fac"])
 
-    # Indigo bands stay on the surface as it deforms.  V selects the bands,
-    # while U gently bends their paths along the rolling water sheet.
+    # 藍色の帯は変形中も表面に追従する。V で帯を選び、U で流れる水面に沿って緩やかに曲げる。
     bands = nodes.new("ShaderNodeTexWave")
     bands.wave_type = "BANDS"
     bands.bands_direction = "Y"
@@ -178,7 +174,7 @@ def make_wave_material():
     links.new(paper_foam.outputs["Color"], body_mix.inputs[1])
     links.new(seam_blue_mix.outputs["Color"], body_mix.inputs[2])
 
-    # Sparse bright flecks on the curling portion suggest woodblock foam.
+    # 巻き込む部分に点在する明るい斑点で木版画の泡を示唆する。
     fleck_noise = nodes.new("ShaderNodeTexNoise")
     fleck_noise.inputs["Scale"].default_value = 72.0
     fleck_noise.inputs["Detail"].default_value = 2.0
@@ -215,8 +211,8 @@ def apply():
     mat = make_wave_material()
     obj.data.materials.clear()
     obj.data.materials.append(mat)
-    obj["visual_method"] = "3-D UV-based procedural blue bands and foam flecks"
-    obj["visual_limit"] = "Prototype graphic shader, not yet tuned to original print regions or boat/HMD lighting"
+    obj["visual_method"] = "3D UV に基づくプロシージャルな青い帯と泡の斑点"
+    obj["visual_limit"] = "図案用シェーダーの試作。原画の領域や船上・HMD の照明に合わせた調整は未完了"
     fr = gw_frame.Frame.from_params()
     _make_background(fr)
     sea = bpy.data.objects.get("Sea_ref")
@@ -246,7 +242,7 @@ def main():
     out = os.path.join(wm.PROJECT, "blend", "great_wave_procedural.blend")
     paths.ensure_parent(out)
     bpy.ops.wm.save_as_mainfile(filepath=out)
-    bootstrap.log("scene %s" % out)
+    bootstrap.log("シーン: %s" % out)
     bootstrap.finish(True, "apply_procedural_ukiyoe")
 
 

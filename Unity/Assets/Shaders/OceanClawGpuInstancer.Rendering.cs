@@ -10,8 +10,7 @@ public partial class OceanClawGpuInstancer
     private Bounds _drawBounds;
 
     /// <summary>
-    /// Sends material data and issues the indirect draw call for all generated claws.
-    /// 传递材质数据，并对所有生成的爪形发起间接绘制调用。
+    /// 材質データを渡し、生成したすべての爪状白波を間接描画する。
     /// </summary>
     private void DrawClaws()
     {
@@ -19,9 +18,8 @@ public partial class OceanClawGpuInstancer
         if (drawMaterial == null)
             return;
 
-        // Persisted claw render-size lever. The compute normalizes clawScaleRange/backgroundClawScale
-        // to a ~fixed per-instance scale, so the HokusaiClawInstanced vertex shader scales localPos by
-        // this global instead (the only reliable way to make claws read at camera distance).
+        // 描画中の爪状白波の大きさを調整する値。計算側の clawScaleRange と backgroundClawScale は
+        // 個体ごとにほぼ固定倍率へ正規化されるため、頂点シェーダー側で localPos にこの共通倍率を適用する。
         Shader.SetGlobalFloat("_ClawSizeBoost", clawSizeBoost);
 
         if (_propertyBlock == null)
@@ -83,16 +81,9 @@ public partial class OceanClawGpuInstancer
         ConfigureClawDrawBlock(_outlinePropertyBlock, true);
         _outlinePropertyBlock.SetFloat("_FoamUnderlay", 2.0f);
         _outlinePropertyBlock.SetColor("_UnderlayColor", outlineInkColor);
-        // THIN crisp ink rim: a small hull expansion at a solid, FIXED opacity (decoupled from
-        // outlineStrength, which now only controls the faint interior ink). The earlier 0.42 expansion
-        // made a fat dark halo that read as a black blob; 0.13 is a hairline woodblock outline around a
-        // white claw body. This is the painting's linework: white shape, crisp dark edge, nothing filled.
-        // 细而清晰的墨线勾边：小幅外扩壳 + 固定实心不透明度（与 outlineStrength 解耦，后者只管淡淡的内部墨线）。
-        // 旧的 0.42 外扩成了肥厚黑晕（看着像黑团）；0.13 是白爪身外一圈发丝级版画勾线。白形、利落深边、内不填色。
-        // Light outline: the claw is white foam with only a faint edge, NOT a heavy dark hull. The 0.82/0.22
-        // hull read as a "black bar" on the white foam (user: 还有黑色的条). A thin, semi-transparent indigo
-        // edge keeps the claw as part of the white foam silhouette instead of a dark blob.
-        // 轻描边：爪形是白色泡沫、只带很淡的边，而非厚重深壳。旧的 0.82/0.22 在白沫上像"黑色的条"。
+        // 白波の輪郭は細く淡い藍色にする。旧値の外殻拡張0.42では暗い塊に、
+        // 不透明度0.82／幅0.22では黒い帯に見えた。
+        // outlineStrength は内側の薄い墨線を制御し、外縁の表示とは分ける。
         _outlinePropertyBlock.SetFloat("_UnderlayAlpha", outlineHullAlpha);
         _outlinePropertyBlock.SetFloat("_UnderlayExpand", outlineHullExpand);
         _outlinePropertyBlock.SetFloat("_UnderlayTipExpand", outlineHullTipExpand);
@@ -126,7 +117,7 @@ public partial class OceanClawGpuInstancer
     }
 
     /// <summary>
-    /// Populates the shared material block for either the soft foam underlay or the crisp claw pass.
+    /// 柔らかい白波の下地、または鮮明な爪状部分に使う共通の材質ブロックを設定する。
     /// </summary>
     private void ConfigureClawDrawBlock(MaterialPropertyBlock block, bool underlay)
     {
@@ -199,7 +190,7 @@ public partial class OceanClawGpuInstancer
     }
 
     /// <summary>
-    /// Uploads the mesh local Y values used by the claw shader to fade roots into water.
+    /// 白波の根元を水面へなじませるため、メッシュのローカル Y 値をシェーダーへ送る。
     /// </summary>
     private void SetMeshRootTipY(MaterialPropertyBlock block, Material material, Mesh mesh)
     {
@@ -217,8 +208,7 @@ public partial class OceanClawGpuInstancer
     }
 
     /// <summary>
-    /// Builds a conservative world-space bound for indirect rendering and frustum culling.
-    /// 构建用于间接绘制和视锥裁剪的保守世界包围盒。
+    /// 間接描画と視錐台判定に使う、余裕を持たせたワールド空間の境界箱を作る。
     /// </summary>
     private Bounds BuildDrawBounds()
     {
@@ -233,8 +223,7 @@ public partial class OceanClawGpuInstancer
     }
 
     /// <summary>
-    /// Creates a hidden runtime material so this component can enable indirect instancing safely.
-    /// 创建隐藏的运行时材质副本，避免直接修改项目里的共享材质资源。
+    /// 共通の材質資産を書き換えずに間接描画するため、非表示の実行時材質を複製する。
     /// </summary>
     private Material GetRuntimeMaterial()
     {
@@ -257,8 +246,7 @@ public partial class OceanClawGpuInstancer
     }
 
     /// <summary>
-    /// Destroys the hidden runtime material using the correct API for Play Mode or Edit Mode.
-    /// 根据当前是否在 Play Mode，使用正确 API 销毁隐藏运行时材质。
+    /// 再生中か編集モードかに応じた API で、非表示の実行時材質を破棄する。
     /// </summary>
     private void ReleaseRuntimeMaterial()
     {

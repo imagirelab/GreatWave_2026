@@ -2,11 +2,11 @@ Shader "MasterProject/HokusaiWorldFoamPlate"
 {
     Properties
     {
-        _PlateColor ("Plate Color", Color) = (1, 0.988, 0.935, 1)
-        _ShadowColor ("Shadow Color", Color) = (0.42, 0.64, 0.54, 1)
-        _Alpha ("Alpha", Range(0, 1)) = 0.58
-        _ShadowStrength ("Shadow Strength", Range(0, 1)) = 0.42
-        _EdgeInk ("Edge Ink", Range(0, 1)) = 0.42
+        _PlateColor ("版の色", Color) = (1, 0.988, 0.935, 1)
+        _ShadowColor ("陰の色", Color) = (0.42, 0.64, 0.54, 1)
+        _Alpha ("不透明度", Range(0, 1)) = 0.58
+        _ShadowStrength ("陰の強さ", Range(0, 1)) = 0.42
+        _EdgeInk ("縁の墨の強さ", Range(0, 1)) = 0.42
     }
 
     SubShader

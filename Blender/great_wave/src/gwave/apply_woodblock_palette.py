@@ -1,10 +1,9 @@
-"""Bake a small Hokusai palette onto the animated 3-D wave's fixed faces.
+"""北斎風の少数色パレットをアニメーションする3D波の固定された面に割り当てる。
 
-This is a deliberately coarse, view-independent companion to the exact
-print-camera projection experiment.  Face colours are chosen once from the
-clean painting at the final pose, then travel with the PC2 vertices.  A small
-depth-dependent sampling warp avoids a literal image stretch across the crest.
-It is still an experiment: separate animated foam and claw geometry is needed.
+これは版画用カメラからの正確な投影実験に対応する、意図的に粗い視点非依存の試作である。
+各面の色は最終形状で原画から一度選び、以後は PC2 の頂点とともに動く。
+奥行きに応じて参照位置を少しずらし、波頭に画像がそのまま伸びる状態を避ける。
+独立して動く泡と爪状の形状は別途必要である。
 
     tools/run_blender.ps1 src/gwave/apply_woodblock_palette.py -Blend blend/great_wave.blend -NoFactoryStartup
 """
@@ -67,7 +66,7 @@ def _final_face_centres(scene, obj, final_frame):
     xyz = xyz.reshape(-1, 3)
     faces = wm.grid_faces(int(obj["gw_n_u"]), int(obj["gw_n_v"]))
     if len(faces) != len(obj.data.polygons):
-        raise RuntimeError("Wave topology differs from the expected regular grid")
+        raise RuntimeError("波のトポロジーが想定した規則格子と異なります")
     return xyz[faces].mean(axis=1)
 
 
@@ -76,8 +75,8 @@ def _sample_image(image, frame, centres):
     image.pixels.foreach_get(pixels)
     width, height = int(image.size[0]), int(image.size[1])
     rgba = pixels.reshape(height, width, 4)
-    # Use a restrained depth warp.  It preserves the print's large colour
-    # regions while giving the extruded surface variation along the crest.
+    # 奥行き方向の参照位置を控えめにずらす。版画の大きな色面を保ちながら、
+    # 厚みを持たせた表面には峰に沿った変化を与える。
     X, Y, Z = (centres[:, k] / frame.H for k in range(3))
     Xs = X + 0.045 * np.sin(3.0 * Y + 1.5 * X)
     Zs = Z + 0.018 * np.sin(4.5 * Y - 2.0 * Z)
@@ -98,15 +97,15 @@ def apply():
     colours = _sample_image(image, frame, centres)
     palette_srgb = np.stack([_hex_srgb(hex_colour) for _, hex_colour in PALETTE])
     palette_linear = np.stack([_hex_linear(hex_colour) for _, hex_colour in PALETTE])
-    # Slightly compress differences near paper so the navy retains enough area.
+    # 紙色付近の差を少し圧縮し、濃紺の面積を確保する。
     distances = ((colours[:, None, :] - palette_srgb[None, :, :]) ** 2).sum(axis=2)
     indices = distances.argmin(axis=1).astype(np.int32)
     obj.data.materials.clear()
     for name, _ in PALETTE:
         obj.data.materials.append(_flat_material("GW_" + name, palette_linear[len(obj.data.materials)]))
     obj.data.polygons.foreach_set("material_index", indices)
-    obj["visual_method"] = "Final-pose painting colours quantised to nine woodblock materials per fixed face"
-    obj["visual_limit"] = "Colour guide, not a measured foam model or validated HMD shader"
+    obj["visual_method"] = "最終形状で参照した絵画の色を、固定された面ごとに9種類の木版画風マテリアルへ量子化"
+    obj["visual_limit"] = "配色の参照用。計測済みの泡モデルや検証済みの HMD シェーダーではない"
     _make_background(frame)
     sea = bpy.data.objects.get("Sea_ref")
     if sea:
@@ -130,8 +129,8 @@ def main():
     out = os.path.join(wm.PROJECT, "blend", "great_wave_woodblock.blend")
     paths.ensure_parent(out)
     bpy.ops.wm.save_as_mainfile(filepath=out)
-    bootstrap.log("palette faces: " + ", ".join("%s=%d" % (PALETTE[i][0], n) for i, n in enumerate(counts)))
-    bootstrap.log("scene %s" % out)
+    bootstrap.log("パレット別の面数: " + ", ".join("%s=%d" % (PALETTE[i][0], n) for i, n in enumerate(counts)))
+    bootstrap.log("シーン: %s" % out)
     bootstrap.finish(True, "apply_woodblock_palette")
 
 

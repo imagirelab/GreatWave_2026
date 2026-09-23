@@ -14,8 +14,7 @@ public partial class OceanClawGpuInstancer
     private bool _foamUnderlayLocalYPointsTowardTipCache;
 
     /// <summary>
-    /// Returns the local-space mesh point that should remain attached to the water surface.
-    /// 返回模型本地空间中需要贴住水面的锚点。
+    /// 水面に接したままにする、メッシュのローカル座標の点を返す。
     /// </summary>
     private Vector4 GetMeshAnchorLocal()
     {
@@ -34,7 +33,7 @@ public partial class OceanClawGpuInstancer
     }
 
     /// <summary>
-    /// Returns the mesh used by the visible foam-finger pass.
+    /// 可視の指状白波に使うメッシュを返す。
     /// </summary>
     private Mesh GetMainClawMesh()
     {
@@ -46,7 +45,7 @@ public partial class OceanClawGpuInstancer
     }
 
     /// <summary>
-    /// Returns the mesh used by the soft underlay pass.
+    /// 柔らかい下地の描画に使うメッシュを返す。
     /// </summary>
     private Mesh GetUnderlayClawMesh()
     {
@@ -55,8 +54,7 @@ public partial class OceanClawGpuInstancer
     }
 
     /// <summary>
-    /// Builds a flat curved foam-finger mesh so the visible tips read as woodblock foam
-    /// instead of the faceted source claw model.
+    /// 元の多面体モデルに見えないよう、版画の白波に近い平らで曲がった指状メッシュを作る。
     /// </summary>
     private void EnsureFoamFingerMesh()
     {
@@ -210,7 +208,7 @@ public partial class OceanClawGpuInstancer
     }
 
     /// <summary>
-    /// Builds a smooth local X/Y foam shape for the underlay pass so the backing reads as a continuous ribbon instead of another copy of the claw mesh.
+    /// 下地が爪状メッシュの複製ではなく連続した帯に見えるよう、ローカル XY 平面に滑らかな形を作る。
     /// </summary>
     private void EnsureFoamUnderlayMesh()
     {
@@ -280,7 +278,7 @@ public partial class OceanClawGpuInstancer
     }
 
     /// <summary>
-    /// Destroys the generated underlay mesh if the source claw mesh changes or the component is disabled.
+    /// 元メッシュが変わるか機能が無効になった際、生成済みの下地メッシュを破棄する。
     /// </summary>
     private void ReleaseFoamUnderlayMesh()
     {

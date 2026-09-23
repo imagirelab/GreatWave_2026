@@ -1,10 +1,10 @@
-"""Render inspection frames from the styled Blender scene.
+"""スタイルを適用した Blender シーンから確認用フレームを出力する。
 
     tools/run_blender.ps1 src/gwave/render_ukiyoe_preview.py -Blend blend/great_wave_styled.blend -NoFactoryStartup
 
-The print-camera contact sheet is the visual evidence for motion and final-pose
-texture registration.  The three-quarter view exposes the projection material's
-single-view limitation; neither view is a substitute for a foam or HMD test.
+版画用カメラの一覧画像で動きと最終形状へのテクスチャー位置合わせを確認する。
+斜め視点では投影マテリアルの単一視点という制約が分かる。
+どちらの画像も泡や HMD での検証を代替しない。
 """
 import argparse
 import os
@@ -38,12 +38,12 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--frames", default="1,110,170,210,250,285")
     ap.add_argument("--view34", action="store_true")
-    ap.add_argument("--variant", default="projection", help="output folder label under results/ukiyoe_preview")
+    ap.add_argument("--variant", default="projection", help="results/ukiyoe_preview の下に作る出力フォルダー名")
     args = bootstrap.parse_args(ap)
     bootstrap.set_log_prefix("GW_PREVIEW")
     scene = bpy.context.scene
     if "GreatWave" not in bpy.data.objects:
-        raise RuntimeError("Load a generated GreatWave .blend before rendering")
+        raise RuntimeError("レンダリングの前に生成済みの GreatWave .blend を読み込んでください")
     out_dir = paths.ensure_dir(os.path.join(wm.PROJECT, "results", "ukiyoe_preview", args.variant))
     frames = [int(x) for x in args.frames.split(",")]
     cameras = [("CAM_print", 1286, 864)]
@@ -55,8 +55,8 @@ def main():
             out_file = os.path.join(out_dir, "%s_f%03d.png" % (camera, frame))
             render_frame(scene, camera, frame, out_file, width, height)
             images.append(imgio.load_image_rgb(out_file))
-            bootstrap.log("rendered %s frame %d" % (camera, frame))
-        sheet = draw.grid(images, ncols=3, gap=8, labels=["frame %d" % f for f in frames],
+            bootstrap.log("レンダリング完了: %s、フレーム %d" % (camera, frame))
+        sheet = draw.grid(images, ncols=3, gap=8, labels=["f%d" % f for f in frames],
                           label_scale=2, cell_size=(643, 432))
         imgio.save_png(os.path.join(out_dir, "contact_%s.png" % camera), sheet)
     bootstrap.finish(True, "render_ukiyoe_preview")

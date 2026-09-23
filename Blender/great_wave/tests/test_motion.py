@@ -1,29 +1,19 @@
-"""M1-M6: motion test over all frames (spec section 6.2 / 6.3 / 6.4).  Stand-alone, headless:
+"""全フレームの運動検査 M1–M6（旧仕様の第6.2～6.4節）。無画面で単独実行できる。
 
   blender --background --factory-startup --python-exit-code 1 [file.blend] --python tests/test_motion.py -- --object <name>
           [--blend <path>] [--build-script <py> ...] [--frame-start A] [--final-frame N]
           [--res-scale 0.25] [--phase-frames A,B] [--fps 30] [--frame-step 1] [--houdini-json <path>]
-(--python-exit-code 1 is REQUIRED for direct calls; exceptions inside main() end as verdict ERROR, exit code 2.)
+直接起動では --python-exit-code 1 が必須。main() 内の例外は判定 ERROR、終了コード2とする。
 
-Per frame the CAM_print silhouette is rasterised at reduced resolution (exact sub-pixel crossings, so
-the accuracy does not depend on the resolution) and h, x_c, theta, o, phi and the contour displacement
-to the previous frame are measured with gw.profile_metrics.  Thresholds come ONLY from
-tests/thresholds.json; both tiers are reported.  Output: results/<YYYYMMDD_HHMMSS>_motion/
-metrics.json, summary.md, plot_motion_curves.png (with phase spans), plot_speed_jump.png,
-contact_sheet.png (every 15 frames) and - when target/houdini_motion.json exists -
-plot_vs_houdini.png (normalised time, no threshold, for the user's eyes; spec 6.4).
+各フレームのCAM_printシルエットから h、x_c、θ、o、φと前フレームからの輪郭変位を測る。
+閾値は tests/thresholds.json のみから読み、両段階を報告する。
+結果は results/<YYYYMMDD_HHMMSS>_motion/ の metrics.json、summary.md、運動曲線、速度・突跳図、
+15フレーム間隔の一覧図に保存する。参照JSONがあればHoudini比較図も作るが、数値判定はしない。
 
-REPORT ONLY, next to the judged verdicts (readings of the backlog definition sheet, docs/backlog_crosscheck.md;
-pending user decision):
-  M6.backlog_jump_ratio          d(k) / median(d of the 2 frame pairs before and after k), ease-to-stop window excluded
-  M5.backlog_hold_max_disp_pct_h contour movement relative to the final frame over a 10 s hold (reference 0.2 %)
-  M5.decel_is_monotonic, M2.theta_max_step_deg (always present; None = not measurable)
-  T.n_frames_nonfinite_geometry, T.n_frames_with_islands, T.n_frames_not_reaching_still_water: numbers behind the
-  validity conditions of 2026-09-20 (a non-finite vertex / a detached silhouette component on ANY checked frame, or a
-  final frame whose front face never reaches the still water -> INVALID)
-A check that cannot be measured is NOT_MEASURABLE (counts as failed), never a silent pass: e.g. M5.post_stop_max_disp_H
-without hold frames, M3.o_monotonic_violation_H on a one-frame overhang phase.  --frame-step / --hold-frames /
---res-scale / --set that differ from tests/thresholds.json 'interpretations' put ' (NON-DEFAULT SETTINGS)' behind the verdict.
+バックログの別解釈に基づくM6の中央値式と10秒保持、減速の単調性、θの最大段差は報告専用。
+非有限頂点・脱離成分・静水面に届かないフレームの数も報告する。
+判定値を測れない場合は NOT_MEASURABLE として失敗に含め、黙って合格にしない。
+設定を既定値から変更した判定には NON-DEFAULT SETTINGS を付ける。
 """
 import argparse
 import os
@@ -45,19 +35,19 @@ HOUDINI_JSON = os.path.join(paths.TARGET_DIR, "houdini_motion.json")
 def add_args(ap):
     g = ap.add_argument_group("motion")
     g.add_argument("--phase-frames", default=None, metavar="A,B",
-                   help="first frame of the overhang phase, first frame of the curl-in phase (replaces the detected ones; also read from params.json 'motion_phase_frames')")
-    g.add_argument("--frame-step", type=int, default=None, help="evaluate every n-th frame (default TEST_SETTINGS motion_frame_step = 1; n > 1: M5 / M6 are NOT valid for acceptance and the verdict gets the suffix NON-DEFAULT SETTINGS)")
-    g.add_argument("--hold-frames", type=int, default=None, help="frames evaluated after the final frame (default TEST_SETTINGS hold_frames)")
+                   help="張り出し開始と巻き込み開始のフレーム。自動検出値を上書きする。params.json の motion_phase_frames も参照")
+    g.add_argument("--frame-step", type=int, default=None, help="n フレームごとに評価。既定は TEST_SETTINGS の motion_frame_step=1。n>1 では M5/M6 は受入判定に使えず、判定に NON-DEFAULT SETTINGS が付く")
+    g.add_argument("--hold-frames", type=int, default=None, help="最終フレーム後に評価するフレーム数。既定は TEST_SETTINGS の hold_frames")
     g.add_argument("--backlog-hold-s", type=float, default=None,
-                   help="REPORT ONLY: length in s of the hold after the final frame for the backlog 'held 10 s, movement <= 0.2 %%' reading (default TEST_SETTINGS backlog_hold_s; 0 = skip)")
-    g.add_argument("--houdini-json", default=None, help="Houdini reference curves (default target/houdini_motion.json when it exists)")
+                   help="報告専用：旧定義『10 秒保持、変位 0.2 %% 以下』を読む保持時間（秒）。既定は TEST_SETTINGS の backlog_hold_s。0 は省略")
+    g.add_argument("--houdini-json", default=None, help="Houdini の参照曲線。存在する場合の既定は target/houdini_motion.json")
     return ap
 
 
 # ------------------------------------------------------------------------------------ phases
 def detect_phases(frames, seq, final_frame, S):
-    """Phase boundaries from the data (INTERPRETATION, see common_test.INTERPRETATION_NOTES['phases']).
-    -> dict with frame numbers (None when not detectable) and notes."""
+    """測定値から区間境界を決める（解釈値は common_test.INTERPRETATION_NOTES['phases']）。
+    フレーム番号（検出不能なら None）と注記の辞書を返す。"""
     fr = np.asarray(frames)
     n = len(fr)
     over = np.asarray(seq["overhanging"], dtype=bool)
@@ -68,8 +58,8 @@ def detect_phases(frames, seq, final_frame, S):
     moving = np.nonzero((disp[:i_final + 1] > float(S["static_disp_eps_H"])))[0]
     i_stop = int(moving[-1]) if moving.size else None
     if i_stop is None:
-        notes.append("the contour never moves: no stop frame")
-    # first frame from which the profile stays overhanging (up to the stop frame)
+        notes.append("輪郭が一度も動かないため、停止フレームを特定できない")
+    # 停止フレームまで張り出し状態が持続する最初のフレーム
     i_end = i_stop if i_stop is not None else i_final
     i_A = None
     if over[:i_end + 1].any() and over[i_end]:
@@ -78,10 +68,10 @@ def detect_phases(frames, seq, final_frame, S):
             k -= 1
         i_A = k
         if over[:k].any():
-            notes.append("overhang flickers before frame %d (frames %s are overhanging, then it disappears again)"
+            notes.append("フレーム %d より前に張り出しが断続する（%s で張り出した後、いったん消える）"
                          % (fr[k], [int(v) for v in fr[:k][over[:k]]][:10]))
     else:
-        notes.append("no persistent overhang up to the stop frame: overhang / curl-in phases not detectable")
+        notes.append("停止フレームまで持続する張り出しがなく、張り出し・巻き込み区間を検出できない")
     i_B = None
     if i_A is not None:
         phi = np.array([np.nan if v is None else v for v in seq["phi_deg"]], dtype=np.float64)
@@ -90,16 +80,16 @@ def detect_phases(frames, seq, final_frame, S):
             mx = np.nanmax(seg)
             i_B = int(i_A + np.nonzero(seg == mx)[0][-1])
             if i_B >= i_end:
-                notes.append("phi has its maximum at the stop frame: the head never turns downward, no curl-in phase")
+                notes.append("phi が停止フレームで最大になる。頭部は下向きに転じず、巻き込み区間がない")
             if i_B == i_A:
-                notes.append("phi is largest at the first overhang frame: the detected overhang phase has a single frame")
+                notes.append("phi が張り出し開始フレームで最大になる。検出された張り出し区間は 1 フレームだけ")
         else:
-            notes.append("phi is never measurable (head too short for the phi window)")
+            notes.append("頭部が phi の測定窓に対して短すぎるため、phi を測定できない")
     return {"i_A": i_A, "i_B": i_B, "i_stop": i_stop, "i_final": i_final, "notes": notes}
 
 
 def _max_decrease(values, i0, i1):
-    """largest decrease between consecutive entries of values[i0..i1] -> (amount >= 0, index of the later frame)"""
+    """values[i0..i1] の隣接値間の最大減少量を返す（0 以上の量、後のフレームの索引）。"""
     v = np.asarray(values[i0:i1 + 1], dtype=np.float64)
     if v.size < 2:
         return None, None
@@ -117,13 +107,13 @@ def _floor(raw, floor):
     return 0.0 if raw <= floor else float(raw)
 
 
-# ------------------------------------------------------------------------------------ backlog-definition variants (REPORT ONLY)
+# ------------------------------------------------------------------------------------ 旧定義に沿う別指標（報告専用）
 def backlog_jump_ratios(disp_adj, i_final, i_stop, half_window, n_exclude, eps):
-    """M6 in the reading of the backlog definition sheet: ratio(k) = d(k) / median(d of the `half_window` frame pairs
-    before and after k), no floor.  disp_adj[k] = contour displacement frame k-1 -> k (nan = not adjacent / first frame).
-    Pairs k > i_stop - n_exclude (the ease-to-stop window and everything after the stop) are EXCLUDED from the reported
-    maximum.  A median <= eps (neighbours at rest) gives ratio = d / eps (a start out of rest shows as a huge number).
-    -> (ratio (n,) nan where undefined, judged (n,) bool, median (n,))"""
+    """旧定義表に沿った M6：ratio(k) = d(k)／k の前後 half_window 対の変位中央値。下限は設けない。
+    disp_adj[k] は k-1→k の輪郭変位で、非隣接または初回は nan。
+    k > i_stop - n_exclude の対（停止前の減速窓と停止後）は報告する最大値から除外する。
+    中央値が eps 以下なら比を d／eps とし、静止からの始動を大きな値として示す。
+    戻り値は比（未定義は nan）、判定対象の真偽値、中央値の各配列。"""
     n = len(disp_adj)
     ratio, med = np.full(n, np.nan), np.full(n, np.nan)
     judged = np.zeros(n, bool)
@@ -143,8 +133,8 @@ def backlog_jump_ratios(disp_adj, i_final, i_stop, half_window, n_exclude, eps):
 
 
 def measure_backlog_hold(ctx, rect, final_profile_H, fN, fps, hold_s, step_frames, z_min_H):
-    """Contour movement over a hold of `hold_s` seconds after the final frame, every sample compared with the FINAL
-    frame's contour (backlog definition sheet item 5).  -> dict (report only) or None when hold_s <= 0."""
+    """最終フレーム後の hold_s 秒間の輪郭変位を測り、各標本を最終フレームの輪郭と比較する。
+    旧定義表の第5項に対応。報告専用の辞書を返し、hold_s <= 0 なら None。"""
     n_hold = int(round(float(hold_s) * float(fps)))
     if n_hold <= 0 or final_profile_H is None:
         return None
@@ -199,25 +189,25 @@ def run(ctx, run_dir=None):
             continue
         bad = []
         if not prof["complete"]:
-            bad.append("profile ends on the %s border" % prof["end_border"])
+            bad.append("輪郭が %s 側の境界で終わる" % prof["end_border"])
         if prof["holes"]["hole_area_px"] > 0:
-            bad.append("%d px of unfilled holes" % prof["holes"]["hole_area_px"])
+            bad.append("未充填の穴が %d px" % prof["holes"]["hole_area_px"])
         if info.get("mesh_area_px") == 0:
             if fr == fN:
-                bad.append("the object covers 0 px above the still-water plane on the final frame")
+                bad.append("最終フレームで静水面より上の対象領域が 0 px")
             else:
                 empty_frames.append(fr)
         comp = prof["components"]
         n_nf, n_dt, n_isl = int(info.get("n_nonfinite_vertices") or 0), int(info.get("n_dropped_triangles") or 0), int(comp.get("n_removed_islands") or 0)
         if n_nf or n_dt:
             nonfinite_frames.append(fr)
-            bad.append("NON-FINITE GEOMETRY: %d vertex / vertices with NaN / inf coordinates, %d triangle(s) dropped from the silhouette" % (n_nf, n_dt))
+            bad.append("有限でない幾何：NaN / inf 座標の頂点 %d 個、シルエットから除外した三角形 %d 個" % (n_nf, n_dt))
         if n_isl:
             island_frames.append(fr)
             big = [c for c in (comp.get("removed") or []) if c.get("kind") == "island"][:1]
-            bad.append("DETACHED SILHOUETTE COMPONENT(S): %d removed component(s) above the speck limit (%s px at this resolution), %s px in total%s"
-                       % (n_isl, ct._fmt(comp.get("speck_max_area_px")), comp.get("removed_islands_area_px"),
-                          "" if not big else "; largest: %d px, bbox X %.3f..%.3f H, Z %.3f..%.3f H"
+            bad.append("離れたシルエット成分：微小領域の上限（この解像度で %s px）を超える成分を %d 個除外、合計 %s px%s"
+                       % (ct._fmt(comp.get("speck_max_area_px")), n_isl, comp.get("removed_islands_area_px"),
+                          "" if not big else "；最大成分 %d px、範囲 X %.3f..%.3f H、Z %.3f..%.3f H"
                           % (big[0]["area_px"], big[0]["bbox_H"][0], big[0]["bbox_H"][2], big[0]["bbox_H"][1], big[0]["bbox_H"][3])))
         if bad:
             invalid.append({"frame": fr, "reason": "; ".join(bad)})
@@ -247,7 +237,7 @@ def run(ctx, run_dir=None):
     phi = np.array([np.nan if v is None else v for v in seq["phi_deg"]], dtype=np.float64)
     disp = np.array([np.nan if v is None else v for v in seq["disp_max_H"]], dtype=np.float64)
     tip_x = np.array([np.nan if v is None else v[0] for v in seq["tip_H"]], dtype=np.float64)
-    # displacement is only meaningful between ADJACENT evaluated frames
+    # 変位を測れるのは隣接する評価フレーム間だけ
     adj = np.zeros(n, bool)
     if n > 1:
         dfr = np.diff(fr)
@@ -280,23 +270,23 @@ def run(ctx, run_dir=None):
     checks, vnotes = [], list(det["notes"])
     valid = not invalid
     if invalid:
-        vnotes.append("%d frame(s) without a valid silhouette profile: %s" % (len(invalid), invalid[:8]))
+        vnotes.append("有効なシルエット輪郭を得られないフレームが %d 個：%s" % (len(invalid), invalid[:8]))
     if empty_frames:
-        vnotes.append("the object covers 0 px above the still-water plane on %d frame(s) (%s ...): flat sea, or an open sheet seen edge-on"
+        vnotes.append("静水面より上の対象領域が 0 px のフレームが %d 個（%s ...）：平坦な海、または横から見た開いたシートの可能性"
                       % (len(empty_frames), empty_frames[:8]))
     if step != 1:
-        vnotes.append("frame step %d: M5 and M6 are judged on subsampled frames and are NOT valid for acceptance" % step)
+        vnotes.append("フレーム間隔 %d：M5 と M6 は間引いたフレームで判定され、受入判定には使えない" % step)
     reached = [None if v is None else bool(v) for v in seq.get("reached_still_water", [None] * n)]
     not_reached = [int(f) for f, v in zip(fr_ok, reached) if v is False and f <= fN]
     if fN in not_reached:
         valid = False
         k_fin = fr_ok.index(fN)
-        vnotes.append("THE FRONT FACE NEVER REACHES THE STILL WATER on the final frame %d: lowest point of the contour in front of the wave at Z = %s H "
-                      "(tolerance %s %% of image height). h(t) is measured from Z = 0, a level this model does not reach."
+        vnotes.append("最終フレーム %d で波の前面が静水面に届かない：波の前方輪郭の最下点は Z = %s H "
+                      "（許容差は画像高さの %s %%）。h(t) は Z=0 から測るが、このモデルはその高さに達しない。"
                       % (fN, ct._fmt(seq["trough_level_H"][k_fin]), ct._fmt(pm.get_params()["trough_tol_pct_h"])))
     elif not_reached:
-        vnotes.append("the front face does not reach the still water on %d frame(s) before the final frame (%s ...): reported, not a validity failure "
-                      "(a wide swell may leave the frame on the right)" % (len(not_reached), not_reached[:8]))
+        vnotes.append("最終フレームより前の %d フレームで前面が静水面に届かない（%s ...）。有効性の失敗にはせず記録する。"
+                      "幅の広いうねりが右側の画面外へ出た可能性がある。" % (len(not_reached), not_reached[:8]))
 
     def wf(i, **extra):
         if i is None:
@@ -307,87 +297,87 @@ def run(ctx, run_dir=None):
 
     # ---- M1
     checks.append(ct.make_check("M1", "start_theta_max_deg", theta[0] if n else None, where=wf(0 if n else None),
-                                note="steepest front-face inclination of the start frame (2 %% chord); start frame overhanging: %s" % (bool(seq["overhanging"][0]) if n else None)))
+                                note="開始フレームの前面で最大の傾斜角（2 %% 弦）。開始時の張り出し：%s" % (bool(seq["overhanging"][0]) if n else None)))
     # ---- M2 (rise: start .. first overhang frame)
     if i_A is not None and i_A >= 1:
         raw, k = _max_decrease(h, 0, i_A)
         checks.append(ct.make_check("M2", "h_monotonic_violation_H", _floor(raw, nf_h), raw=raw, where=wf(k),
-                                    note="largest frame-to-frame decrease of h in frames %d..%d; decreases <= %.1e H are judged as 0 (noise floor, INTERPRETATION)" % (fr[0], fr[i_A], nf_h)))
+                                    note="フレーム %d..%d の h のフレーム間最大減少量。%.1e H 以下の減少は雑音下限として 0 と判定（解釈値）" % (fr[0], fr[i_A], nf_h)))
         checks.append(ct.make_check("M2", "theta_start_deg", theta[0], where=wf(0)))
         checks.append(ct.make_check("M2", "theta_end_deg", theta[i_A - 1], where=wf(i_A - 1),
-                                    note="theta of the last non-overhanging frame; theta of the first overhang frame = %.2f deg" % theta[i_A]))
+                                    note="張り出し直前のフレームの theta。張り出し開始フレームでは %.2f 度" % theta[i_A]))
         dth = np.abs(np.diff(theta[:i_A + 1]))
         kk = int(np.argmax(dth)) if dth.size else None
         checks.append(ct.report_value("M2", "theta_max_step_deg", None if kk is None else float(dth[kk]), "deg / frame",
-                                      note="continuity of theta in the rise phase (no numeric threshold in thresholds.json)", where=wf(None if kk is None else kk + 1)))
+                                      note="立ち上がり区間における theta の連続性（thresholds.json に数値しきい値はない）", where=wf(None if kk is None else kk + 1)))
     else:
-        why = "no rise phase: %s" % ("the animation is overhanging from its first frame" if i_A == 0 else "no overhang phase detected")
+        why = "立ち上がり区間なし：%s" % ("開始フレームから張り出している" if i_A == 0 else "張り出し区間を検出できない")
         for k in ("h_monotonic_violation_H", "theta_start_deg", "theta_end_deg"):
             checks.append(ct.make_check("M2", k, None, note=why))
-        checks.append(ct.report_value("M2", "theta_max_step_deg", None, "deg / frame", note="REPORT ONLY: not measurable (%s)" % why))
+        checks.append(ct.report_value("M2", "theta_max_step_deg", None, "deg / frame", note="報告専用：測定不能（%s）" % why))
     # ---- M3 (overhang: first overhang frame .. first curl-in frame)
     if i_A is not None and i_B is not None and i_B >= i_A:
         raw, k = _max_decrease(o, i_A, i_B)
         checks.append(ct.make_check("M3", "o_monotonic_violation_H", _floor(raw, nf_h), raw=raw, where=wf(k),
-                                    note="largest frame-to-frame decrease of o in frames %d..%d%s" % (fr[i_A], fr[i_B], "" if raw is not None else
-                                         ": the overhang phase has fewer than 2 frames, so 'o increases monotonically' cannot be measured (NOT_MEASURABLE, not a pass)")))
+                                    note="フレーム %d..%d における o のフレーム間最大減少量%s" % (fr[i_A], fr[i_B], "" if raw is not None else
+                                         "：張り出し区間が 2 フレーム未満のため、o の単調増加を測れない（NOT_MEASURABLE。合格ではない）")))
         hmin_i = int(i_A + np.argmin(h[i_A:i_B + 1]))
         drop = float((h[i_A] - h[hmin_i]) / h[i_A] * 100.0) if h[i_A] > 0 else None
-        checks.append(ct.make_check("M3", "h_drop_pct", drop, where=wf(hmin_i), note="h at the phase start %.4f H, minimum in the phase %.4f H" % (h[i_A], h[hmin_i])))
+        checks.append(ct.make_check("M3", "h_drop_pct", drop, where=wf(hmin_i), note="区間開始時の h は %.4f H、区間内の最小値は %.4f H" % (h[i_A], h[hmin_i])))
         adv = float(tip_x[i_B] - tip_x[i_A]) if np.isfinite(tip_x[i_A]) and np.isfinite(tip_x[i_B]) else None
         crosses = bool(o[i_B] > 0.0 and (adv is None or i_B == i_A or adv >= 0.0))
         checks.append(ct.make_check("M3", "tip_crosses_crest_plumb", crosses, where=wf(i_B),
-                                    note="o at the phase end %.4f H; head tip advanced by %s H in +X over the phase" % (o[i_B], ct._fmt(adv))))
+                                    note="区間終端の o は %.4f H。頭部先端は区間中に +X 方向へ %s H 前進" % (o[i_B], ct._fmt(adv))))
         checks.append(ct.report_value("M3", "o_onset_jump_H", float(o[i_A] - (o[i_A - 1] if i_A > 0 else 0.0)), "H", where=wf(i_A),
-                                      note="o(t) is discontinuous by definition when the overhang appears (docs/measurement_definitions.md); not judged"))
+                                      note="o(t) は張り出し開始時に定義上不連続になる（docs/measurement_definitions.md）。判定対象外"))
     else:
         for k in ("o_monotonic_violation_H", "h_drop_pct", "tip_crosses_crest_plumb"):
-            checks.append(ct.make_check("M3", k, None, note="no overhang phase detected"))
+            checks.append(ct.make_check("M3", k, None, note="張り出し区間を検出できない"))
     # ---- M4 (curl-in: first curl-in frame .. stop frame)
     i_end = i_stop if i_stop is not None else i_final
     if i_B is not None and i_end is not None and i_end > i_B:
         p = phi[i_B:i_end + 1]
         raw, k = _max_decrease(-p, 0, len(p) - 1)
         checks.append(ct.make_check("M4", "phi_monotonic_violation_deg", _floor(raw, nf_deg), raw=raw, where=wf(None if k is None else i_B + k),
-                                    note="largest frame-to-frame upward turn of phi in frames %d..%d; phi %.2f -> %.2f deg; phi of the final frame %s deg"
+                                    note="フレーム %d..%d における phi のフレーム間最大上向き変化。phi は %.2f → %.2f 度、最終フレームでは %s 度"
                                          % (fr[i_B], fr[i_end], phi[i_B], phi[i_end], ct._fmt(float(phi[i_final]) if np.isfinite(phi[i_final]) else None))))
     else:
-        checks.append(ct.make_check("M4", "phi_monotonic_violation_deg", None, note="no curl-in phase detected"))
+        checks.append(ct.make_check("M4", "phi_monotonic_violation_deg", None, note="巻き込み区間を検出できない"))
     # ---- M5 (stop)
     win_s = float(paths.threshold("M5", "decel_window_s", "spec"))
-    checks.append(ct.make_check("M5", "decel_window_s", win_s, note="test setting"))
+    checks.append(ct.make_check("M5", "decel_window_s", win_s, note="検査設定"))
     judged_disp = disp_adj.copy()
     vmax_i = int(np.nanargmax(judged_disp[:i_final + 1])) if np.isfinite(judged_disp[:i_final + 1]).any() else None
     vmax = None if vmax_i is None else float(judged_disp[vmax_i])
     if i_stop is not None and vmax:
         ratio = float(disp_adj[i_stop] / vmax)
         checks.append(ct.make_check("M5", "stop_speed_ratio", ratio, where=wf(i_stop),
-                                    note="contour displacement of the last moving frame pair %.5f H / largest of the animation %.5f H (frame %d); declared final frame %d, motion ends at frame %d"
+                                    note="最後に動いたフレーム対の輪郭変位 %.5f H／全アニメーションの最大変位 %.5f H（フレーム %d）。指定最終フレームは %d、動作終了はフレーム %d"
                                          % (disp_adj[i_stop], vmax, fr[vmax_i], fN, fr[i_stop])))
         nwin = int(round(win_s * fps / step))
         a = max(1, i_stop - nwin + 1)
         wv = disp_adj[a:i_stop + 1] / vmax
         inc = np.diff(wv)
-        checks.append(ct.report_value("M5", "decel_speed_at_window_start_ratio", float(wv[0]) if wv.size else None, "fraction of max speed", where=wf(a),
-                                      note="contour speed %.2g s before the stop (no numeric threshold in thresholds.json for 'gradual deceleration'; reported for the user)" % win_s))
-        checks.append(ct.report_value("M5", "decel_max_speed_increase_ratio", float(max(0.0, np.nanmax(inc))) if inc.size else 0.0, "fraction of max speed",
-                                      note="largest frame-to-frame INCREASE of the contour speed inside the window (0 = monotonically decelerating)"))
+        checks.append(ct.report_value("M5", "decel_speed_at_window_start_ratio", float(wv[0]) if wv.size else None, "最大速度に対する比", where=wf(a),
+                                      note="停止の %.2g 秒前における輪郭速度（『緩やかな減速』の数値しきい値は thresholds.json になく、利用者向けに報告）" % win_s))
+        checks.append(ct.report_value("M5", "decel_max_speed_increase_ratio", float(max(0.0, np.nanmax(inc))) if inc.size else 0.0, "最大速度に対する比",
+                                      note="対象窓内での輪郭速度のフレーム間最大増加量（0 なら単調減速）"))
         checks.append(ct.report_value("M5", "decel_is_monotonic", bool(inc.size == 0 or np.nanmax(inc) <= 1e-3), "bool",
-                                      note="speed never increases by more than 0.1 % of the maximum speed inside the window"))
+                                      note="対象窓内で速度の増加が最大速度の 0.1 % を超えない"))
     else:
-        checks.append(ct.make_check("M5", "stop_speed_ratio", None, note="no motion detected"))
-        checks.append(ct.report_value("M5", "decel_is_monotonic", None, "bool", note="REPORT ONLY: not measurable (no motion detected)"))
+        checks.append(ct.make_check("M5", "stop_speed_ratio", None, note="動作を検出できない"))
+        checks.append(ct.report_value("M5", "decel_is_monotonic", None, "bool", note="報告専用：動作を検出できず測定不能"))
     after = np.nonzero(fr > fN)[0]
     if after.size:
         dpost = disp_adj[after]
         raw = float(np.nanmax(dpost)) if np.isfinite(dpost).any() else None
         kk = int(after[int(np.nanargmax(dpost))]) if raw is not None else None
         checks.append(ct.make_check("M5", "post_stop_max_disp_H", _floor(raw, float(S["static_disp_eps_H"])), raw=raw, where=wf(kk),
-                                    note="largest contour displacement in the %d hold frame(s) after the final frame %d" % (after.size, fN)))
+                                    note="最終フレーム %d の後の保持 %d フレームにおける輪郭の最大変位" % (fN, after.size)))
     else:
         checks.append(ct.make_check("M5", "post_stop_max_disp_H", None,
-                                    note="no hold frames were evaluated (--hold-frames 0): 'the shape does not change after the stop' was NOT measured -> NOT_MEASURABLE (counts as failed), never a silent pass"))
-    # ---- backlog reading of the hold (REPORT ONLY): held 10 s, contour movement <= 0.2 % of image height
+                                    note="保持フレームを評価していない（--hold-frames 0）。『停止後に形状が変化しない』を測れず、NOT_MEASURABLE として失敗扱い"))
+    # ---- 旧定義による保持区間の読み取り（報告専用）：10 秒保持、輪郭変位は画像高さの 0.2 % 以下
     hold_s = float(args.backlog_hold_s) if getattr(args, "backlog_hold_s", None) is not None else float(S["backlog_hold_s"])
     final_prof = next((p[1] for p in profiles if p[0] == fN), None)
     hold_info = measure_backlog_hold(ctx, rect, final_prof, fN, fps, hold_s, int(S["backlog_hold_step_frames"]), float(S["disp_z_min_H"]))
@@ -396,18 +386,18 @@ def run(ctx, run_dir=None):
         wst = hold_info["worst"]
         checks.append(ct.report_value("M5", "backlog_hold_max_disp_pct_h", wst["max_disp_pct_h"], "% of image height",
                                       where={"frame": wst["frame"], "t_s": float((wst["frame"] - f0) / fps)}, target={"backlog_reference_le": ref_hold},
-                                      label="report only - pending user decision",
-                                      note="REPORT ONLY (backlog definition: still pose held %.3g s, contour movement <= %.3g %% of image height): largest movement of the contour "
-                                           "relative to the FINAL frame %d over frames %d..%d, sampled every %d frames (%d samples%s)%s"
+                                      label="報告専用・利用者の判断待ち",
+                                      note="報告専用（旧定義：静止姿勢を %.3g 秒保持し、輪郭変位は画像高さの %.3g %% 以下）：最終フレーム %d に対する輪郭の最大変位。"
+                                           "フレーム %d..%d を %d フレームごとに標本化（%d 標本%s）%s"
                                            % (hold_s, ref_hold, fN, fN + 1, fN + hold_info["n_hold_frames"], int(S["backlog_hold_step_frames"]), len(hold_info["rows"]),
-                                              "" if not hold_info["n_errors"] else ", %d WITHOUT a profile" % hold_info["n_errors"],
-                                              "; these frames lie beyond scene.frame_end = %d (Blender extrapolates the animation)" % hold_info["scene_frame_end"]
+                                              "" if not hold_info["n_errors"] else "、輪郭なし %d 件" % hold_info["n_errors"],
+                                              "；これらは scene.frame_end = %d より後のフレームで、Blender がアニメーションを外挿する" % hold_info["scene_frame_end"]
                                               if hold_info["beyond_scene_frame_end"] else "")))
         checks.append(ct.report_value("M5", "backlog_hold_within_reference", bool(wst["max_disp_pct_h"] <= ref_hold and not hold_info["n_errors"]), "bool",
-                                      note="REPORT ONLY: movement over the hold <= %.3g %% of image height (reference value of the backlog definition sheet, not a threshold of thresholds.json)" % ref_hold))
+                                      note="報告専用：保持区間の変位が画像高さの %.3g %% 以下（旧定義表の参照値。thresholds.json のしきい値ではない）" % ref_hold))
     else:
         checks.append(ct.report_value("M5", "backlog_hold_max_disp_pct_h", None, "% of image height",
-                                      note="REPORT ONLY: hold not evaluated (%s)" % ("--backlog-hold-s 0" if hold_s <= 0 else "no profile of the final frame / of the hold frames")))
+                                      note="報告専用：保持区間を評価できない（%s）" % ("--backlog-hold-s 0" if hold_s <= 0 else "最終フレームまたは保持フレームの輪郭がない")))
     # ---- M6 (no jumps)
     floor = float(S["jump_floor_frac_of_vmax"]) * (vmax or 0.0)
     ratio = np.full(n, np.nan)
@@ -424,12 +414,12 @@ def run(ctx, run_dir=None):
         lim6 = paths.threshold("M6", "jump_ratio", "spec")
         bad = [int(v) for v in fr[np.nan_to_num(ratio, nan=0.0) >= lim6]]
         checks.append(ct.make_check("M6", "jump_ratio", float(ratio[k]), where=wf(k, frames=bad[:20] or None),
-                                    note="d(%d->%d) = %.5f H; neighbours %.5f / %.5f H; denominator floor %.5f H (%.0f %% of the largest displacement)"
+                                    note="d(%d→%d) = %.5f H。隣接値 %.5f／%.5f H、分母の下限 %.5f H（最大変位の %.0f %%）"
                                          % (fr[k - 1], fr[k], disp_adj[k], disp_adj[k - 1] if k >= 2 else float("nan"),
                                             disp_adj[k + 1] if k + 1 <= i_final else float("nan"), floor, 100 * float(S["jump_floor_frac_of_vmax"]))))
     else:
-        checks.append(ct.make_check("M6", "jump_ratio", None, note="fewer than 3 frames with a displacement"))
-    # ---- M6 in the reading of the backlog definition sheet (REPORT ONLY): d(k) / median of the neighbours, stop transition excluded
+        checks.append(ct.make_check("M6", "jump_ratio", None, note="変位のあるフレームが 3 個未満"))
+    # ---- 旧定義表の M6（報告専用）：d(k)／隣接値の中央値。停止への遷移は除外
     hw = max(1, int(S["m6_backlog_half_window"]))
     excl_s = float(S["m6_backlog_exclude_window_s"]) if S.get("m6_backlog_exclude_window_s") is not None else win_s
     n_excl = int(round(excl_s * fps / step))
@@ -439,30 +429,30 @@ def run(ctx, run_dir=None):
         kb = int(np.nanargmax(np.where(b_judged, b_ratio, np.nan)))
         bad_b = [int(v) for v in fr[b_judged & (np.nan_to_num(b_ratio, nan=0.0) > ref6)]]
         in_excl = np.isfinite(b_ratio) & ~b_judged
-        checks.append(ct.report_value("M6", "backlog_jump_ratio", float(b_ratio[kb]), "x median displacement of the neighbouring frame pairs",
-                                      where=wf(kb, frames=bad_b[:20] or None), target={"backlog_reference_le": ref6}, label="report only - pending user decision",
-                                      note="REPORT ONLY (backlog definition: '<= 3 x the MEDIAN of the neighbouring frames, excluding the transition to the stop'): "
-                                           "d(%d->%d) = %.5f H / median of the %d pairs before and after = %.5f H; pairs later than frame %d (last %.3g s before the stop frame %s) excluded; "
-                                           "largest ratio inside the excluded window: %s"
-                                           % (fr[kb - 1], fr[kb], disp_adj[kb], hw, b_med[kb], fr[max(0, (i_stop if i_stop is not None else i_final) - n_excl)], excl_s, frame_of(i_stop),
+        checks.append(ct.report_value("M6", "backlog_jump_ratio", float(b_ratio[kb]), "隣接フレーム対の変位中央値に対する倍率",
+                                      where=wf(kb, frames=bad_b[:20] or None), target={"backlog_reference_le": ref6}, label="報告専用・利用者の判断待ち",
+                                      note="報告専用（旧定義：停止への遷移を除き、隣接フレームの中央値の 3 倍以下）："
+                                           "d(%d→%d) = %.5f H、前後 %d 対の中央値 = %.5f H。フレーム %d より後（停止フレーム %s の直前 %.3g 秒）は除外。"
+                                           "除外窓内の最大比率：%s"
+                                           % (fr[kb - 1], fr[kb], disp_adj[kb], hw, b_med[kb], fr[max(0, (i_stop if i_stop is not None else i_final) - n_excl)], frame_of(i_stop), excl_s,
                                               ct._fmt(float(np.nanmax(b_ratio[in_excl])) if in_excl.any() else None))))
         checks.append(ct.report_value("M6", "backlog_within_reference", bool(b_ratio[kb] <= ref6), "bool",
-                                      note="REPORT ONLY: backlog_jump_ratio <= %g (the factor 3 of the backlog definition sheet = the same number as thresholds.json M6.jump_ratio; not judged)" % ref6))
+                                      note="報告専用：backlog_jump_ratio <= %g（旧定義表の係数 3 は thresholds.json の M6.jump_ratio と同じ値。判定対象外）" % ref6))
     else:
-        checks.append(ct.report_value("M6", "backlog_jump_ratio", None, "x median displacement of the neighbouring frame pairs",
-                                      note="REPORT ONLY: too few frame pairs outside the ease-to-stop window"))
+        checks.append(ct.report_value("M6", "backlog_jump_ratio", None, "隣接フレーム対の変位中央値に対する倍率",
+                                      note="報告専用：停止前の減速窓の外側にあるフレーム対が少なすぎる"))
 
-    # ---- T: numbers behind the validity conditions (always reported)
+    # ---- T：有効性条件の根拠となる件数（常に報告）
     rec_u, note_u = ct.untested_objects_report(ctx)
     checks.append(rec_u)
     if note_u:
         vnotes.append(note_u)
     checks.append(ct.report_value("T", "n_frames_nonfinite_geometry", len(nonfinite_frames), "frames", where=None if not nonfinite_frames else {"frames": nonfinite_frames[:20]},
-                                  note="evaluated frames with a non-finite vertex / a dropped triangle; > 0 -> INVALID"))
+                                  note="有限でない頂点または除外された三角形のある評価フレーム数。0 超なら INVALID"))
     checks.append(ct.report_value("T", "n_frames_with_islands", len(island_frames), "frames", where=None if not island_frames else {"frames": island_frames[:20]},
-                                  note="evaluated frames with a removed silhouette component above the speck limit; > 0 -> INVALID"))
+                                  note="微小領域の上限を超えるシルエット成分を除外した評価フレーム数。0 超なら INVALID"))
     checks.append(ct.report_value("T", "n_frames_not_reaching_still_water", len(not_reached), "frames", where=None if not not_reached else {"frames": not_reached[:20]},
-                                  note="frames <= final frame whose front face never comes down to the still water; on the FINAL frame -> INVALID, elsewhere reported"))
+                                  note="前面が静水面に達しない最終フレーム以前のフレーム数。最終フレームなら INVALID、その他は報告のみ"))
 
     # ---- phase summary (spec 6.5: report the split against the backlog 4 / 3 / 2.5 s)
     def dur(i0, i1):
@@ -500,7 +490,7 @@ def run(ctx, run_dir=None):
                          "nonfinite_geometry": nonfinite_frames, "with_islands": island_frames, "not_reaching_still_water": not_reached},
               "summary": ct.summarize(checks, valid, vnotes, expected=ct.EXPECTED_IDS[TEST_NAME], audit=audit), "checks": checks, "phases": phases,
               "settings_audit": audit,
-              "backlog_variants": {"label": "report only - pending user decision", "hold": hold_info,
+              "backlog_variants": {"label": "報告専用・利用者の判断待ち", "hold": hold_info,
                                    "M6_backlog": {"half_window_pairs": hw, "exclude_window_s": excl_s, "n_excluded_pairs_before_stop": n_excl,
                                                   "reference_factor": ref6}},
               "interpretation_notes": {k: ct.INTERPRETATION_NOTES[k] for k in ("tiers", "verdicts", "validity", "phases", "segmentation", "M2", "M3", "M4", "M5", "M6", "M6_backlog", "hold_backlog")},
@@ -531,14 +521,14 @@ HOUDINI_KEYS = {"h": "h_H", "x_c": "x_c_H", "theta": "theta_deg", "o": "o_H", "p
 
 
 def load_houdini(path):
-    """Reader of target/houdini_motion.json, schema 'gw.houdini_motion.v1' (src/ref/read_houdini_motion.py):
-    per_frame.{full, section} = list of records {frame, tau, h_H, x_c_H, theta_deg, o_H, phi_deg, cavity_depth_H, ...}.
-    'full' = full side silhouette (the same view definition as CAM_print), 'section' = one plane cut.
-    -> ({mode: {name: array}}, {mode: tau array}, info).  Raises ValueError when no curve can be read: a comparison
-    figure WITHOUT reference data must never be produced silently."""
+    """target/houdini_motion.json（gw.houdini_motion.v1 形式）の読み取り器。
+    per_frame.{full, section} は frame、tau、h_H、x_c_H、theta_deg、o_H、phi_deg、cavity_depth_H などの記録列。
+    full は CAM_print と同じ側面シルエット、section は一つの平面断面。
+    曲線配列、tau 配列、情報を返す。参照曲線を読めない場合は ValueError を送出し、
+    参照値のない比較図を黙って生成しない。"""
     d = paths.read_json(path)
     if d.get("schema") != "gw.houdini_motion.v1":
-        raise ValueError("unexpected schema %r (this reader knows 'gw.houdini_motion.v1')" % d.get("schema"))
+        raise ValueError("想定外の schema %r（対応形式は 'gw.houdini_motion.v1'）" % d.get("schema"))
     curves, taus, missing, n_masked = {}, {}, [], {}
     for mode in ("full", "section"):
         recs = (d.get("per_frame") or {}).get(mode)
@@ -551,7 +541,7 @@ def load_houdini(path):
             if all(key in r for r in recs):
                 v = np.array([np.nan if r[key] is None else r[key] for r in recs], dtype=np.float64)
                 if name in ("x_c", "theta"):
-                    v = np.where(small, np.nan, v)      # the reference flags these frames: crest position / theta are ripple noise
+                    v = np.where(small, np.nan, v)      # 参照データでは、このフレームの波頂位置・theta は細波の雑音として印が付く
                 curves[mode][name] = v
             else:
                 missing.append("%s.%s" % (mode, key))

@@ -1,8 +1,8 @@
-"""contour -- base contour (基準輪郭) extraction and contour metrics.
+"""contour -- 基準輪郭の抽出と輪郭指標の計算。
 
-Owned by the contour / test agents.  The foundation only creates the package.
-Conventions to follow (see gw.frame): continuous pixel coordinates with the origin at
-the top-left corner, H-normalised (X_H, Z_H) scene coordinates, lengths in % of image
-height.  Output goes to target/ (base_contour.json, candidates/a, candidates/b) and
-results/step1_prepare/.
+輪郭とテストの担当が管理する。基盤工程ではパッケージを用意するだけ。
+gw.frame の座標規約に従う。画素座標は左上を原点とする連続座標、
+シーン座標は H で正規化した (X_H, Z_H)、長さは画像高さに対する百分率で表す。
+出力先は target/（base_contour.json、candidates/a、candidates/b）と
+results/step1_prepare/。
 """

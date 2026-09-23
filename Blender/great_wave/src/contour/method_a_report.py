@@ -1,5 +1,5 @@
-"""Images for base-contour candidate A: overlays, zoomed crops, debug masks, plots.
-Text drawn into images is ASCII only."""
+"""基準輪郭の候補Aの画像。重ね画像、拡大切出し、診断マスク、グラフを作る。
+画像内へ描ける文字は ASCII のみ。"""
 import os
 
 import numpy as np
@@ -10,7 +10,7 @@ SEG_COLORS = {"back": "red", "head": "magenta", "inner_arc": "lime"}
 COMPLETED_COLOR = "cyan"
 BRIDGE_COLOR = "orange"
 
-# name: (x0, y0, x1, y1, scale)   -- every crop is <= 1600 px wide after scaling
+# 名前: (x0, y0, x1, y1, 拡大率)。拡大後の切出し幅はすべて 1600 px 以下。
 CROPS = {
     "01_left_end": (0, 760, 530, 1080, 3.0),
     "02_mid_back": (450, 280, 1250, 880, 2.0),
@@ -71,7 +71,7 @@ def draw_landmarks(im, to_view, landmarks, scale=2, inside=None):
     return im
 
 
-TITLE = "A"            # set by method_a_run for optional variants
+TITLE = "A"            # 変種がある場合は method_a_run が設定する。
 
 
 def legend(im, extra=""):
@@ -87,7 +87,7 @@ def make_all(out_dir, img, M, P, F, segs, landmarks, spectrum, plateau, vis_raw,
     files = {}
     H, W = img.shape[:2]
 
-    # ---- diagnostic: Gaussian-smoothed stand-ins of a smooth mesh silhouette over the base contour
+    # ---- 診断: 基準輪郭に重ねる、ガウス平滑化した滑らかなメッシュ輪郭の代用線。
     if compat_curves:
         cols = ["yellow", "cyan", "blue", "black"]
         v = draw.View(img, 1400, 150, 2400, 1250, scale=1.6)
@@ -100,7 +100,7 @@ def make_all(out_dir, img, M, P, F, segs, landmarks, spectrum, plateau, vis_raw,
         files["diagnostic_s7_s8_compat_head"] = imgio.save_png(
             os.path.join(out_dir, "diagnostic_s7_s8_compat_head.png"), v.img)
 
-    # ---- sensitivity to the opening radius (raw crack traces, unsmoothed)
+    # ---- オープニング半径に対する感度（平滑化前の画素間境界）。
     if sens_traces:
         cols = ["yellow", "red", "lime", "cyan", "blue", "black"]
         v = draw.View(img, 1500, 200, 2400, 1200, scale=1600.0 / 900.0)
@@ -113,7 +113,7 @@ def make_all(out_dir, img, M, P, F, segs, landmarks, spectrum, plateau, vis_raw,
         files["sensitivity_open_radius_head"] = imgio.save_png(
             os.path.join(out_dir, "sensitivity_open_radius_head.png"), v.img)
 
-    # ---- full overlays
+    # ---- 全体の重ね画像。
     full = img.copy()
     draw_contour(full, lambda p: p, segs, width=4.0, bridge_width=1.5)
     sc = 1600.0 / W
@@ -129,14 +129,14 @@ def make_all(out_dir, img, M, P, F, segs, landmarks, spectrum, plateau, vis_raw,
     draw_landmarks(full, lambda p: np.asarray(p, dtype=float), landmarks, scale=3)
     files["overlay_full_res"] = imgio.save_png(os.path.join(out_dir, "overlay_full_res.png"), full)
 
-    # wave-only overview at higher zoom (0..2700 x 100..2100 -> 1600 wide)
+    # 波だけを大きく表示した全体図（0..2700 x 100..2100 を幅 1600 に縮小）。
     v = draw.View(img, 0, 100, 2700, 2050, scale=1600.0 / 2700.0)
     draw_contour(v.img, v.to_view, segs, width=2.5, bridge_width=1.0)
     draw_landmarks(v.img, v.to_view, landmarks, scale=1)
     legend(v.img)
     files["overlay_wave_1600"] = imgio.save_png(os.path.join(out_dir, "overlay_wave_1600.png"), v.img)
 
-    # ---- crops (clean) and crops with the raw mask boundary
+    # ---- 切出し画像と元のマスク境界を重ねた切出し画像。
     raw_outline = None
     for name, (x0, y0, x1, y1, s) in CROPS.items():
         v = draw.View(img, x0, y0, x1, y1, scale=s)
@@ -145,10 +145,10 @@ def make_all(out_dir, img, M, P, F, segs, landmarks, spectrum, plateau, vis_raw,
         legend(v.img, "crop x %d..%d y %d..%d px, zoom %.1fx" % (x0, x1, y0, y1, s))
         files["crop_" + name] = imgio.save_png(os.path.join(out_dir, "crop_%s.png" % name), v.img)
 
-    # ---- debug: masks
+    # ---- 診断用マスク。
     files.update(save_mask_debug(out_dir, M, segs, P))
 
-    # ---- plots
+    # ---- グラフ。
     rr = [r["R_px"] for r in spectrum]
     area = [r["removed_px2"] for r in spectrum]
     rate = [np.nan if r["d_removed_per_px_of_R"] is None else r["d_removed_per_px_of_R"] for r in spectrum]
@@ -183,7 +183,7 @@ def make_all(out_dir, img, M, P, F, segs, landmarks, spectrum, plateau, vis_raw,
                         hlines=[{"y": 15, "label": "S8 limit 15", "color": "black"}])
     files["plot_s8_own"] = imgio.save_png(os.path.join(out_dir, "plot_s8_own.png"), p8)
 
-    # junction evidence: colour just inside the contour along the inner arc
+    # 接続点の根拠: 内側の弧に沿った輪郭のすぐ内側の色。
     i0 = max(j_idx - 900, 0)
     xs = np.arange(i0, min(j_idx + 300, len(inside_rb)))
     pj = plot.line_plot([{"label": "R-B inside", "x": xs - j_idx, "y": inside_rb[xs], "color": "blue"}],
@@ -202,7 +202,7 @@ def save_mask_debug(out_dir, M, segs, P):
     base = roi.copy()
     draw.overlay_mask(base, M["sky"], "red", 0.40)
     if "opened" in M:
-        draw.overlay_mask(base, M["body"] & ~M["opened"], "yellow", 0.55)        # removed by the opening
+        draw.overlay_mask(base, M["body"] & ~M["opened"], "yellow", 0.55)        # オープニングで除かれた部分。
         draw.overlay_mask(base, draw.mask_outline(M["opened"], 2), "blue", 1.0)
     views = {"overview": (0, 0, roi.shape[1], roi.shape[0], 1600.0 / roi.shape[1]),
              "head": (1500, 200, 2400, 1200, 1600.0 / 900.0),

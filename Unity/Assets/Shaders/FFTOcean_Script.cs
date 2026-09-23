@@ -10,20 +10,20 @@ using UnityEngine.Rendering;
 public class FFTOcean_Script : MonoBehaviour
 {
 
-    //声明全部贴图
+    // すべてのテクスチャを宣言する。
     public RenderTexture InitialSpectrumTexture,
                          SpectrumTexture,
                          DisplacementTexture,
                          SlopeTexture,
                          BuoyancyData,
                          VariationMask,
-                         ClawMaskTexture;   // RGBA: heightScore, slopeScore, crestScore, clawScore
-    [Header("Shaders")]
+                         ClawMaskTexture;   // RGBA の順に高さ・傾斜・波頂・爪状白波の評価値を格納する。
+    [Header("シェーダー")]
     public ComputeShader FFTComputeShader;
     public Shader FFTWaterShader;
 
 
-    [Header("Water Surface Mesh Setting")]
+    [Header("水面メッシュ設定")]
 
     public int waterMeshLength = 200;
     public int waterMeshRes = 10;
@@ -35,15 +35,15 @@ public class FFTOcean_Script : MonoBehaviour
     private int Resolusion, threadGroupsX, threadGroupsY;
 
 
-    [Header("GPU Safety")]
-    // Editor Game view ignores QualitySettings vsync, so Play Mode runs uncapped and keeps the GPU
-    // at 100% load with fast power transients — on an RTX 3080 this can trip the PSU and reboot the PC.
-    // 编辑器 Game 视图会忽略 QualitySettings 的垂直同步，Play 模式不限帧会让 GPU 持续满载并产生功耗尖峰，
-    // 3080 上足以触发电源过流保护导致整机重启。这里强制限帧。0 = 不限制（不建议）。
-    [Tooltip("Play Mode frame rate cap. Prevents uncapped GPU load that can trip the PSU. 0 = uncapped (not recommended).")]
+    [Header("GPU の安全設定")]
+    // エディターの Game ビューでは QualitySettings の垂直同期が効かず、Play モードが無制限に描画されることがある。
+    // GPU 負荷と瞬間消費電力が大きくなり、RTX 3080 では電源保護による再起動が起き得る。
+    // そのため Play モードのフレームレートに上限を設ける。
+    // 0 は上限なし。電源保護動作の経験がある環境では推奨しない。
+    [Tooltip("Play モードのフレームレート上限。無制限の GPU 負荷による電源保護動作を防ぐ。0 は無制限（非推奨）。")]
     public int playModeFrameRateCap = 60;
 
-    [Header("General Settings")]
+    [Header("一般設定")]
     public float DisplaceDepthAttenuation = 10;
 
     public float FoamDepthAttenuation = 20;
@@ -60,7 +60,7 @@ public class FFTOcean_Script : MonoBehaviour
     private float HighCutOff = 9000.0f;
 
 
-    [Header("Layer 01")]
+    [Header("レイヤー 01")]
     [Range(0.0f, 1.0f)]
     public float LayerContribute0 = 0.8f;
     [Range(0.0f, 0.25f)]
@@ -74,7 +74,7 @@ public class FFTOcean_Script : MonoBehaviour
     private int LengthScale0 = 4;
 
 
-    [Header("Layer 02")]
+    [Header("レイヤー 02")]
     [Range(0.0f, 1.0f)]
     public float LayerContribute1 = 0.8f;
 
@@ -87,7 +87,7 @@ public class FFTOcean_Script : MonoBehaviour
     private int LengthScale1 = 4;
 
 
-    [Header("Layer 03")]
+    [Header("レイヤー 03")]
     [Range(0.0f, 1.0f)]
     public float LayerContribute2 = 0.6f;
 
@@ -100,7 +100,7 @@ public class FFTOcean_Script : MonoBehaviour
     private int LengthScale2 = 4;
 
 
-    [Header("Layer 04")]
+    [Header("レイヤー 04")]
     [Range(0.0f, 1.0f)]
     public float LayerContribute3 = 0.4f;
 
@@ -113,7 +113,7 @@ public class FFTOcean_Script : MonoBehaviour
     private int LengthScale3 = 4;
 
 
-    [Header("Shader Settings")]
+    [Header("シェーダー設定")]
     public Color ScatterColor = new Color(0.0f, 0.67f, 1.0f, 1.0f);
     public Color ScatterPeakColor = new Color(0.0f, 0.67f, 1.0f, 1.0f);
     public float WavePeakScatterStrength = 2.0f;
@@ -131,14 +131,14 @@ public class FFTOcean_Script : MonoBehaviour
 
     public float HeightStrength = 1.0f;
 
-    [Header("Storm Wave Geometry")]
-    // These values only change final visible displacement, not the FFT spectrum itself.
-    // 这些参数只放大最终可见位移，不直接改 FFT 频谱本身。
-    [Tooltip("Amplifies the actual vertical mesh displacement, making wave peaks and troughs taller.")]
+    [Header("荒波の形状")]
+    // これらの値は表示される最終変位だけを変え、FFT スペクトル自体は変えない。
+    // 波形の高さや尖りを調整するための表示用パラメータである。
+    [Tooltip("実際のメッシュの鉛直変位を増幅し、波頂と谷の高さの差を大きくする。")]
     public float VerticalDisplacementStrength = 1.0f;
-    [Tooltip("Amplifies horizontal choppiness in the displaced water mesh.")]
+    [Tooltip("変位後の水面メッシュの水平方向の尖りを増幅する。")]
     public float HorizontalDisplacementStrength = 1.0f;
-    [Tooltip("Extra non-linear lift for positive crests, making tall waves sharper and more Hokusai-like.")]
+    [Tooltip("正の波頂を非線形にさらに持ち上げ、波を鋭く北斎風にする。")]
     public float CrestAmplification = 0.0f;
 
     [Space(10)]
@@ -146,7 +146,7 @@ public class FFTOcean_Script : MonoBehaviour
     public float ShadowIntensity = 0.2f;
 
 
-    [Header("Foam Settings")]
+    [Header("泡の設定")]
     public Color FoamColor = new Color(1, 1, 1, 1);
     [Space(10)]
     public Vector2 WaveSharp = new Vector2(0.4f, 0.4f);
@@ -164,7 +164,7 @@ public class FFTOcean_Script : MonoBehaviour
     [Range(0.01f, 1.0f)]
     public float EdgeFoamPower;
 
-    [Header("Normal Variation")]
+    [Header("法線の変化")]
     [Range(0.01f, 10.0f)]
     public float VarMaskRange = 3.0f;
     [Range(0.01f, 10.0f)]
@@ -172,245 +172,245 @@ public class FFTOcean_Script : MonoBehaviour
     [Range(0.01f, 10.0f)]
     public float VarMaskTexScale = 2.0f;
 
-    // ---- Claw Mask Scoring (passed to compute shader) ----
-    // The FFT compute shader writes an ARGBHalf mask used by OceanClawGpuInstancer.
-    // FFT compute shader 会写入一张 ARGBHalf mask，供 OceanClawGpuInstancer 在 GPU 上筛选波峰。
-    // R = height score, G = slope score, B = crest score, A = combined claw score.
-    [Header("Claw Mask (GPU Scoring)")]
-    [Tooltip("Minimum wave height (meters) for a non-zero height score")]
+    // 爪状白波マスクの評価値を計算シェーダーに渡す。
+    // FFT 計算シェーダーが ARGBHalf のマスクを書き、OceanClawGpuInstancer が使う。
+    // OceanClawGpuInstancer はそのマスクを使って GPU 上で波頂を選別する。
+    // R は高さ、G は傾斜、B は波頂、A は爪状白波の総合評価値。
+    [Header("爪状白波のマスク（GPU 評価）")]
+    [Tooltip("波高の評価値が 0 より大きくなる最小波高（m）。")]
     public float ClawHeightMin = 0.5f;
-    [Tooltip("Wave height (meters) that gives a height score of 1.0")]
+    [Tooltip("波高の評価値が 1.0 になる波高（m）。")]
     public float ClawHeightMax = 3.0f;
-    [Tooltip("Minimum slope magnitude for a non-zero slope score")]
+    [Tooltip("傾斜の評価値が 0 より大きくなる最小傾斜量。")]
     public float ClawSlopeMin  = 0.1f;
-    [Tooltip("Slope magnitude that gives a slope score of 1.0")]
+    [Tooltip("傾斜の評価値が 1.0 になる傾斜量。")]
     public float ClawSlopeMax  = 1.5f;
 
-    // ---- Ukiyo-e woodblock style (Hokusai "Great Wave" palette) ----
-    // The runtime material is created from FFTWaterShader, so every style property
-    // must be exposed here and uploaded in SetMaterialParam each frame.
-    // 浮世绘版画风格（神奈川冲浪里配色）。运行时材质由脚本创建，所有风格参数都在这里暴露并每帧上传。
-    [Header("Ukiyo-e Style / 浮世绘风格")]
-    [Tooltip("Deepest water ink, the dark Prussian blue of wave troughs. 波谷处最深的普鲁士蓝。")]
+    // 北斎の「神奈川沖浪裏」に着想を得た浮世絵風の木版画色。
+    // 実行時のマテリアルは FFTWaterShader から生成する。
+    // そのため、スタイル用の各プロパティをここで公開し、SetMaterialParam で毎フレーム送る。
+    // 色調整値は表示用であり、実行時に作ったマテリアルへ反映する。
+    [Header("浮世絵風の色彩")]
+    [Tooltip("谷の最も暗いプルシアンブルーの水色。")]
     public Color DeepInkColor = new Color(0.043f, 0.137f, 0.243f, 1f);
-    [Tooltip("Mid-tone water band. 中间调的水面蓝。")]
+    [Tooltip("中間調の水色。")]
     public Color MidWaterColor = new Color(0.165f, 0.357f, 0.529f, 1f);
-    [Tooltip("Palest water band near crests. 接近波峰的最浅水色。")]
+    [Tooltip("波頂付近の最も淡い水色。")]
     public Color PaleWaterColor = new Color(0.520f, 0.690f, 0.735f, 1f);
-    [Tooltip("Flat cream used for foam shapes, like aged paper white. 泡沫的奶油色（旧纸白）。")]
+    [Tooltip("泡の形に使う、古紙の白に近い平坦なクリーム色。")]
     public Color FoamCreamColor = new Color(0.992f, 0.974f, 0.908f, 1f);
-    [Tooltip("Dark indigo ink for outlines around foam shapes and band edges. 泡沫边缘与色带交界的深蓝描线色。")]
+    [Tooltip("泡の形と色帯の境界を描く濃い藍色のインク。")]
     public Color OutlineInkColor = new Color(0.027f, 0.067f, 0.125f, 1f);
     [Space(6)]
     [Range(2, 6)]
-    [Tooltip("Number of flat color bands across the water, like layered woodblock inks. 水面色带数量（套色版数）。")]
+    [Tooltip("木版画の重ね刷りのような、水面の平坦な色帯の数。")]
     public int ToonBands = 4;
     [Range(0f, 1f)]
-    [Tooltip("Strength of the dark ink outlines. 描线整体强度。")]
+    [Tooltip("濃いインクの輪郭線の強さ。")]
     public float OutlineStrength = 0.85f;
     [Range(0.005f, 0.2f)]
-    [Tooltip("Width of the ink outline around foam shapes. 泡沫描边宽度。")]
+    [Tooltip("泡の形を囲むインク輪郭線の幅。")]
     public float OutlineWidth = 0.06f;
-    [Header("Ukiyo-e Line Work / 描边 (Brown & Arandjelovic, Sci 2020 §2.1)")]
+    [Header("浮世絵風の輪郭線（Brown & Arandjelovic, Sci 2020 §2.1）")]
     [Range(0f, 1.5f)]
-    [Tooltip("Overall strength of the woodblock keyblock outlines (silhouette + crease) on the waves. 海浪描边整体强度。")]
+    [Tooltip("波のシルエットと折れ目を描く主版輪郭線の全体的な強さ。")]
     public float NprOutlineStrength = 0.9f;
     [Range(0.0005f, 0.03f)]
-    [Tooltip("Silhouette sensitivity (depth edge): lower = outline more wave crests against the water behind. 轮廓描边灵敏度（越低越多）。")]
+    [Tooltip("深さの境界に基づくシルエット線の感度。下げると背後の水面に対する波頂をより多く描く。")]
     public float NprSilhouetteThreshold = 0.004f;
     [Range(0.02f, 0.7f)]
-    [Tooltip("Crease sensitivity (normal edge): lower = ink more surface folds / breaking lips. 折痕描边灵敏度。")]
+    [Tooltip("法線の境界に基づく折れ目線の感度。下げると表面の折れや砕ける縁をより多く描く。")]
     public float NprCreaseThreshold = 0.28f;
     [Range(0f, 1f)]
-    [Tooltip("Strength of inner crease lines relative to the silhouette contour. 折痕线相对强度。")]
+    [Tooltip("内側の折れ目線の強さ。シルエット輪郭線に対する相対値。")]
     public float NprCreaseStrength = 0.6f;
     [Range(0.5f, 4f)]
-    [Tooltip("Outline width in pixels. 描边像素宽度。")]
+    [Tooltip("輪郭線の幅（画素）。")]
     public float NprOutlineWidth = 1.5f;
     [Range(0.2f, 0.85f)]
-    [Tooltip("Grazing-angle threshold for crest contour lines: lower = outline more of each wave face. 掠射角描边阈值（越低勾勒越多浪面）。")]
+    [Tooltip("波頂の輪郭線を描く視線のかすめ角のしきい値。下げるとより多くの波面を描く。")]
     public float NprGrazeThreshold = 0.5f;
     [Range(0f, 1f)]
-    [Tooltip("Strength of the in-shader wave crest/ridge contour lines (bold ukiyo-e wave outlines). 海浪波峰描边强度。")]
+    [Tooltip("シェーダー内で描く波頂・稜線の輪郭線の強さ。")]
     public float NprWaveEdgeStrength = 0.85f;
     [Range(0f, 1f)]
-    [Tooltip("Strength of the bold band-contour outlines (woodblock color-band boundary lines that follow the wave shape). 色带等高线描边强度（最版画的浪形描边）。")]
+    [Tooltip("波の形に沿う、木版画の色帯境界の太い輪郭線の強さ。")]
     public float NprBandContourStrength = 0.7f;
     [Range(0.02f, 0.5f)]
-    [Tooltip("Thickness of the band-contour lines. 等高线粗细。")]
+    [Tooltip("色帯境界の輪郭線の太さ。")]
     public float NprBandContourWidth = 0.15f;
     [Range(2f, 12f)]
-    [Tooltip("Number of height-contour keylines on the water (decoupled from color bands) — more = more woodblock wave outlines. 水面等高线数量（与色阶解耦），越多浪形描边越密。")]
+    [Tooltip("水面の高さに沿う輪郭線の数。色帯の数とは独立しており、増やすと木版画風の波形線が密になる。")]
     public float NprContourCount = 6f;
     [Range(0f, 1f)]
-    [Tooltip("Strength of the black ink outline around the white foam shapes (like the Great Wave's foam). 白沫描边强度。")]
+    [Tooltip("白い泡の形の周囲に描く黒いインク輪郭線の強さ。")]
     public float NprFoamOutlineStrength = 1.0f;
     [Range(1f, 12f)]
-    [Tooltip("Thickness of the foam outline IN PIXELS (fwidth-normalized = constant width regardless of edge sharpness). 白沫描边粗细（像素）。")]
+    [Tooltip("泡の輪郭線の太さ（画素）。fwidth 正規化により境界の鋭さによらず一定幅となる。")]
     public float NprFoamOutlineWidth = 5.0f;
     [Range(0f, 1f)]
-    [Tooltip("Strength of the wave-crest ridge keyline (the local-height-maximum line that traces each swell). 波峰脊线描边强度。")]
+    [Tooltip("各うねりの局所的な最高線をなぞる、波頂稜線の強さ。")]
     public float NprCrestOutlineStrength = 0.85f;
     [Range(0.003f, 0.05f)]
-    [Tooltip("Crest-line sensitivity: LOWER catches more (gentler) crests but risks speckle; higher = only strong crests. 波峰脊线灵敏度，越低描越多浪峰但易出噪点。")]
+    [Tooltip("波頂線の感度。下げると緩やかな波頂も拾うが斑点が増える。上げると強い波頂だけを拾う。")]
     public float NprCrestOutlineThresh = 0.013f;
-    [Header("Ukiyo-e Ink/Paper Grain (paper §2.2.1)")]
+    [Header("浮世絵風の墨・紙の粒子（論文 §2.2.1）")]
     [Range(0f, 0.4f)]
-    [Tooltip("Strength of the screen-space woodblock ink/paper grain on the flat colours. 版画墨色/纸纹颗粒强度（屏幕空间）。")]
+    [Tooltip("平坦な色面に重ねる、画面空間の木版画の墨・紙の粒子の強さ。")]
     public float NprPaperStrength = 0.10f;
     [Range(1.5f, 8f)]
-    [Tooltip("Grain size in pixels per noise cell (smaller = finer grain). 颗粒大小（每格像素数，越小越细）。")]
+    [Tooltip("ノイズ一セル当たりの画素数で示す粒子の大きさ。小さいほど細かい。")]
     public float NprPaperScale = 3.0f;
     [Range(0f, 4f)]
-    [Tooltip("How strongly the grain follows the scene (temporal coherence, eqs 6-7) vs sticking to the screen. 颗粒跟随场景的程度（时间一致性）。")]
+    [Tooltip("粒子が画面に固定されずシーンを追従する強さ。時間的一貫性に対応する（式 6～7）。")]
     public float NprPaperFollow = 1.0f;
     [Range(0f, 1f)]
-    [Tooltip("Anchor the paper grain to the WORLD/FFT surface (1) so it moves with the water, vs screen-space (0, swims as the camera/water moves). 把纸纹锚定到世界/FFT水面（1=跟着水动，0=屏幕空间会游）。")]
+    [Tooltip("紙の粒子をワールド座標の FFT 水面へ固定する度合い。1 は水とともに動き、0 は画面固定でカメラや水の移動時に泳いで見える。")]
     public float NprPaperWorld = 1.0f;
     [Range(0.05f, 12f)]
-    [Tooltip("World-space grain frequency when anchored to the surface (higher = finer grain; very high may shimmer at distance). 世界空间颗粒频率（越高越细，太高远处会闪）。")]
+    [Tooltip("水面に固定した粒子のワールド空間周波数。高いほど細かいが、上げ過ぎると遠方でちらつく。")]
     public float NprPaperWorldFreq = 4.0f;
-    [Header("Ukiyo-e Bokashi gradation (paper §2.2.3)")]
+    [Header("浮世絵風のぼかし（論文 §2.2.3）")]
     [Range(0f, 1f)]
-    [Tooltip("Bokashi: softens the hard color bands into a smooth gradation (0 = flat bands, 1 = fully smooth). 晕色：把硬色阶柔化为平滑渐变。")]
+    [Tooltip("ぼかし。硬い色帯を滑らかな階調へ和らげる。0 は平坦な色帯、1 は完全に滑らか。")]
     public float NprBokashiStrength = 0.4f;
-    [Header("Foam crest-silhouette outline (view·normal)")]
+    [Header("泡の波頂シルエット線（視線と法線）")]
     [Range(0.01f, 0.6f)]
-    [Tooltip("Where on the foam the silhouette line sits (n·v contour). Lower = closer to the true outer edge / sparser; higher = more coverage but creeps inward. 白沫剪影线位置（n·v等值线），越低越贴真外缘。")]
+    [Tooltip("泡上のシルエット線の位置（n·v の等値線）。下げると真の外縁に近く線は疎になる。上げると広く描くが内側へ寄る。")]
     public float NprFoamProxyLo = 0.12f;
     [Range(0.4f, 0.85f)]
-    [Tooltip("Foam-region height gate for the outline (lower = line reaches farther down past the crest; too high cuts the line). 白沫区域高度门控，太高会切断线。")]
+    [Tooltip("泡の高さによる輪郭線の制限。下げると波頂より下まで線が延び、上げ過ぎると線が途切れる。")]
     public float NprFoamProxyWidth = 0.62f;
     [Range(6f, 24f)]
-    [Tooltip("Macro-normal flatness for the silhouette (higher = flatter = fewer interior false lines but the line is sparser/needs steeper crests). 宏观法线平整度，越高内部假线越少但线越稀。")]
+    [Tooltip("シルエット判定に使う大まかな法線の平坦さ。上げると内部の偽線は減るが、線が疎になり急な波頂が必要になる。")]
     public float NprFoamNormalUp = 13f;
-    [Header("细线 Crease (fine-normal) + Distance LOD")]
+    [Header("細い折れ目線と距離別の詳細度")]
     [Range(0f, 1f)]
-    [Tooltip("Crease normal fineness: 0 = smooth macro normal (clean/subtle), 1 = per-pixel FFT normal (detailed fold lines, more speckle). 细线法线细度，越高折痕越细越多但越易麻点。")]
+    [Tooltip("折れ目線に使う法線の細かさ。0 は滑らかな大まかな法線、1 は画素ごとの FFT 法線。上げると細部と斑点が増える。")]
     public float NprCreaseNFine = 0.5f;
     [Range(0.02f, 0.4f)]
-    [Tooltip("Crease gate: higher = only the sharpest folds draw a line (fewer, cleaner). 折痕阈值，越高线越少越干净。")]
+    [Tooltip("折れ目線のしきい値。上げると鋭い折れだけに線を引き、線が少なく整う。")]
     public float NprCreaseNThresh = 0.16f;
     [Range(0f, 1.5f)]
-    [Tooltip("Crease (fine line) ink strength. 细线深浅。")]
+    [Tooltip("細い折れ目線のインクの強さ。")]
     public float NprCreaseNStrength = 0.85f;
     [Range(0f, 300f)]
-    [Tooltip("Distance LOD: within this world distance the crease is full strength. LOD近距：此距离内细线满强度。")]
+    [Tooltip("距離別の詳細度。これ以内のワールド距離では細い折れ目線が最大強度になる。")]
     public float NprLodNear = 40f;
     [Range(10f, 600f)]
-    [Tooltip("Distance LOD: beyond this world distance the crease fully fades (kills far speckle). LOD远距：超此距离细线归零、远处干净。")]
+    [Tooltip("距離別の詳細度。このワールド距離を超えると折れ目線が消え、遠方の斑点を抑える。")]
     public float NprLodFar = 160f;
     [Range(0.5f, 4f)]
-    [Tooltip("Distance LOD curve: 1 = linear, >1 = strong near / fast drop so mid-far stays weak. LOD曲线，越大近处越强、中远越弱。")]
+    [Tooltip("距離別の詳細度の曲線。1 は線形、1 より大きいと近くで強く、中遠方で速く弱まる。")]
     public float NprLodGamma = 2f;
-    [Header("描边笔触 Stroke character (paper §2.1.6)")]
+    [Header("版画の描線の筆致（論文 §2.1.6）")]
     [Range(0f, 1f)]
-    [Tooltip("Hand-inked stroke: how much ink density varies along the outline (0 = uniform digital line, 1 = strong woodblock variation). 描边墨色沿线变化量，越高越像手刻木版笔触。")]
+    [Tooltip("手描き風の描線に沿う墨の濃さの変化。0 は均一な線、1 は木版画らしい強い変化。")]
     public float NprStrokeVary = 0.4f;
     [Range(1f, 16f)]
-    [Tooltip("Stroke ink-grain size in screen pixels (smaller = finer breakup along the line). 笔触墨纹大小（屏幕像素）。")]
+    [Tooltip("描線内の墨の粒子の大きさ（画面上の画素）。小さいほど細かく途切れる。")]
     public float NprStrokeScale = 5f;
     [Range(0f, 0.6f)]
-    [Tooltip("Stroke segmentation: how aggressively the outline breaks into discrete brush strokes (0 = continuous line, higher = more gaps/segments). 描边分段量，越高断口越多越像一段段笔触。")]
+    [Tooltip("輪郭線を個々の筆致へ分ける強さ。0 は連続線、大きいほど切れ目が増える。")]
     public float NprStrokeGap = 0.12f;
     [Range(0f, 1f)]
-    [Tooltip("Height-driven taper (Dadfar §5.1): how much the outline thins toward troughs — bold on crests, fading to nothing in deep troughs (0 = off = baseline, uniform). 线宽随高度收尖：浪尖粗、波谷渐细到无，0=关=现基准。")]
+    [Tooltip("高さに応じた線幅の先細り（Dadfar §5.1）。波頂で太く、谷へ向かって細く消す。0 は無効で均一な基準状態。")]
     public float NprStrokeTaper = 0f;
     [Range(0f, 0.7f)]
-    [Tooltip("Height midpoint where the taper kicks in (lower = only deep troughs fade; higher = lines survive only on high crests). 收尖的高度中点，越低只有深谷消失、越高只有高浪尖留线。")]
+    [Tooltip("先細りが始まる高さの中点。下げると深い谷だけで消え、上げると高い波頂だけに線が残る。")]
     public float NprStrokeTaperHeight = 0.4f;
     [Range(0f, 1f)]
-    [Tooltip("Foam coverage cutoff: lower = more cream foam shapes. 泡沫阈值，越低泡沫形状越多。")]
+    [Tooltip("泡が現れる範囲のしきい値。下げるとクリーム色の泡の形が増える。")]
     public float FoamCutoff = 0.32f;
     [Range(0.01f, 0.5f)]
-    [Tooltip("Softness of the foam shape edge before the ink line. 泡沫形状边缘的柔和度。")]
+    [Tooltip("インク線の手前にある泡の形の縁の柔らかさ。")]
     public float FoamEdgeSoftness = 0.09f;
     [Range(0f, 1f)]
-    [Tooltip("Woodblock print mottling from the variation mask. 版画印刷的颜料斑驳感。")]
+    [Tooltip("変化マスクによる木版画の印刷の色むら。")]
     public float PrintMottle = 0.35f;
     [Range(0f, 1f)]
-    [Tooltip("Subtle horizontal ink fibers across the water color bands.")]
+    [Tooltip("水面の色帯を横切る、控えめな水平の墨繊維。")]
     public float PrintLineStrength = 0.16f;
     [Range(0.01f, 0.25f)]
-    [Tooltip("World-space spacing for the water ink fibers.")]
+    [Tooltip("水面の墨繊維のワールド空間での間隔。")]
     public float PrintLineScale = 0.065f;
     [Range(0f, 1f)]
-    [Tooltip("How strongly cream foam suppresses the water ink fibers.")]
+    [Tooltip("クリーム色の泡が水面の墨繊維を抑える強さ。")]
     public float PrintLineFoamSuppression = 0.7f;
     [Range(0f, 1f)]
-    [Tooltip("Strength of long vertical pale/deep blue woodblock color plates across the wave wall.")]
+    [Tooltip("波壁を横切る、淡青色と濃青色の長い垂直な版の強さ。")]
     public float PrintStripeStrength = 0.38f;
     [Range(0.005f, 0.12f)]
-    [Tooltip("World-space spacing for vertical water color plates. Lower values make broader Hokusai-style bands.")]
+    [Tooltip("垂直の水色版のワールド空間での間隔。小さいほど北斎風の幅広い色帯になる。")]
     public float PrintStripeScale = 0.12f;
     [Range(0f, 24f)]
-    [Tooltip("How much the vertical color plates bend with the FFT wave height.")]
+    [Tooltip("垂直の色版が FFT の波高に応じて曲がる強さ。")]
     public float PrintStripeWarp = 1.20f;
     [Range(0f, 1f)]
-    [Tooltip("Fade the vertical stripes out on the BRIGHTER water (pale iso-height/等高线 bands), keeping them on the darker water — so the bright bands stay clean (0 = off/baseline, 1 = full fade on bright bands). 竖条在亮色带上淡出、只留在较暗的水面，0=关，1=亮处全淡出。")]
+    [Tooltip("明るい水面の色帯では縦縞を薄め、暗い部分に残す。0 は無効、1 は明部で完全に消す。")]
     public float PrintStripeFaceGate = 0.85f;
     [Range(0.2f, 0.95f)]
-    [Tooltip("Brightness midpoint where the stripes fade out: lower = stripes only survive in the very darkest water; higher = stripes persist into brighter bands before fading. 竖条淡出的亮度中点，越低越只在最暗的水里留、越高越往亮处保留。")]
+    [Tooltip("縦縞が薄くなる明るさの中点。下げると最暗部だけに残り、上げると明るい色帯まで残る。")]
     public float PrintStripeGateBright = 0.6f;
     [Range(0f, 1f)]
-    [Tooltip("Bokashi (§2.2.3) on the stripe transition: widens the pale<->deep blend so the stripes gradate smoothly instead of a hard edge (0 = hard combs, 1 = very soft). 条纹明暗过渡的柔和度（bokashi 渐变），0=硬边，1=很柔。")]
+    [Tooltip("縦縞の明暗境界にかけるぼかし（§2.2.3）。0 は硬い櫛状の境界、1 は非常に柔らかい階調。")]
     public float PrintStripeBokashi = 0.5f;
     [Range(0f, 1f)]
-    [Tooltip("Additional flat cream applied to high crest lips before claw spawning.")]
+    [Tooltip("爪状白波を生成する前に、高い波頂の縁へ追加する平坦なクリーム色。")]
     public float CrestWhiteBoost = 0.92f;
     [Range(0f, 1.5f)]
-    [Tooltip("Threshold for crest-lip white foam plates.")]
+    [Tooltip("波頂の縁に白い泡の版を置くためのしきい値。")]
     public float CrestWhiteThreshold = 0.46f;
     [Range(0f, 1f)]
-    [Tooltip("Extra ink fibers on high, steep crest faces.")]
+    [Tooltip("高く急な波頂面に追加する墨繊維。")]
     public float CrestLineStrength = 0.22f;
     [Range(0f, 1f)]
-    [Tooltip("Curved woodblock strokes on the blue wave wall below breaking foam.")]
+    [Tooltip("砕ける泡の下の青い波壁に描く、曲線状の木版画の線。")]
     public float CrestCurlLineStrength = 0.18f;
     [Range(0.01f, 0.25f)]
-    [Tooltip("World-space spacing for curved wave-wall strokes.")]
+    [Tooltip("波壁の曲線状の線のワールド空間での間隔。")]
     public float CrestCurlLineScale = 0.055f;
     [Range(0f, 1f)]
-    [Tooltip("Subtle ink contours inside cream foam shapes, like carved woodblock strokes.")]
+    [Tooltip("クリーム色の泡の内部に入れる控えめなインク輪郭線。")]
     public float FoamContourStrength = 0.08f;
     [Range(0.01f, 0.3f)]
-    [Tooltip("World-space spacing for the internal foam contour strokes.")]
+    [Tooltip("泡の内部輪郭線のワールド空間での間隔。")]
     public float FoamContourScale = 0.085f;
     [Range(0f, 1f)]
-    [Tooltip("Short scalloped cuts just inside foam rims.")]
+    [Tooltip("泡の縁の少し内側に入れる、短い波形の切れ目。")]
     public float FoamScallopStrength = 0.12f;
     [Range(0.01f, 0.3f)]
-    [Tooltip("World-space spacing for foam scallop cuts.")]
+    [Tooltip("泡の波形の切れ目のワールド空間での間隔。")]
     public float FoamScallopScale = 0.115f;
     [Range(0f, 1f)]
-    [Tooltip("Sparse blue negative-space pockets between cream foam leaves, matching Hokusai's carved foam gaps.")]
+    [Tooltip("クリーム色の泡の葉の間に残す、まばらな青い抜き形。北斎の彫り残した泡の隙間を表す。")]
     public float FoamPocketStrength = 0.06f;
     [Range(0f, 1f)]
-    [Tooltip("Short comb-like blue cuts on steep cream foam edges, echoing Hokusai foam tongues.")]
+    [Tooltip("急な泡の縁に入れる、北斎の泡の舌を思わせる短い櫛状の青い切れ目。")]
     public float FoamCombStrength = 0.08f;
     [Range(0.01f, 0.35f)]
-    [Tooltip("World-space spacing for crest foam comb cuts.")]
+    [Tooltip("波頂の泡に入れる櫛状の切れ目のワールド空間での間隔。")]
     public float FoamCombScale = 0.13f;
     [Range(0f, 1f)]
-    [Tooltip("Longer broken ink striations inside crest foam, following the carved flow of Hokusai foam.")]
+    [Tooltip("波頂の泡の内部に、彫りの流れに沿って入れる長めの途切れた墨筋。")]
     public float FoamStriationStrength = 0.07f;
     [Range(0.01f, 0.35f)]
-    [Tooltip("World-space spacing for elongated crest foam striations.")]
+    [Tooltip("細長い泡内の墨筋のワールド空間での間隔。")]
     public float FoamStriationScale = 0.075f;
     [Range(0f, 1f)]
-    [Tooltip("How much real lighting still affects the bands (0 = pure flat print). 光照对色带的影响程度（0 = 纯平涂）。")]
+    [Tooltip("実際の照明が色帯に影響する度合い。0 は完全に平坦な版画色。")]
     public float LightInfluence = 0.3f;
     [Range(0f, 2f)]
-    [Tooltip("How strongly wave height drives the color bands. 浪高对色带的驱动强度。")]
+    [Tooltip("波高が色帯の位置を決める強さ。")]
     public float HeightShadeScale = 0.55f;
     [Range(0f, 2f)]
-    [Tooltip("How strongly wave steepness darkens toward the ink color. 坡度（浪壁）压暗色带的强度。")]
+    [Tooltip("波面の急さに応じて色帯をインク色へ暗くする強さ。")]
     public float SteepShadeScale = 0.5f;
     [Range(0, 6)]
-    [Tooltip("Debug-only mask view: 0 off, 1 main wave gate, 2 lip gate, 3 raw foam/claw mask, 4 connected foam score, 5 final white mask, 6 stripe influence.")]
+    [Tooltip("調査用マスク表示。0 は無効、1 は主波の領域、2 は波頂の縁、3 は元の泡・爪マスク、4 は連結した泡の評価値、5 は最終的な白マスク、6 は縞の影響。")]
     public int HokusaiDebugView = 0;
 
-    [Header("Fog Settings")]
+    [Header("霧の設定")]
     public Color FogColor = new Color(0.5f, 0.75f, 0.0f);
 
     [Range(0.0f, 20.0f)]
@@ -420,7 +420,7 @@ public class FFTOcean_Script : MonoBehaviour
 
 
     [System.Serializable]
-    //传递到compute shader中的结构体
+    // 計算シェーダーへ渡す構造体。
     public struct JONSWAP_ComputeSettings
     {
         public float scale;
@@ -434,7 +434,7 @@ public class FFTOcean_Script : MonoBehaviour
     }
     JONSWAP_ComputeSettings[] ComputeSpectrums = new JONSWAP_ComputeSettings[8];
 
-    //开放的结构体参数 用windSpeed和windDirection动态计算alpha和peakOmega angle和gamma为了更好理解改了名称
+    // 公開する設定から windSpeed と windDirection を使い、alpha、peakOmega、angle、gamma を動的に求める。
     [System.Serializable]
     public struct JONSWAP_DisplaySettings
     {
@@ -454,10 +454,10 @@ public class FFTOcean_Script : MonoBehaviour
         [Range(0, 1)]
         public float shortWavesFade;
     }
-        // Allocate the JONSWAP parameter buffer for eight spectrum settings.
+        // 8 組のスペクトル設定に使う JONSWAP パラメータバッファを確保する。
     private ComputeBuffer JonswapBuffer;
 
-    //声明全部核心函数
+    // 主な関数の一覧。
     private int CS_InitializeSpectrum;
     private int CS_PackSpectrumConjugate;
     private int CS_UpdateSpectrum;
@@ -465,28 +465,28 @@ public class FFTOcean_Script : MonoBehaviour
     private int CS_VerticalIFFT;
     private int CS_AssembleTextures;
 
-    // The initial spectrum only depends on the JONSWAP settings, so it is re-dispatched
-    // only when those settings change instead of every frame (the per-frame re-init
-    // doubled the GPU load for nothing and was a main contributor to the power spikes).
-    // 初始频谱只取决于 JONSWAP 参数，因此只在参数变化时重新计算，而不是每帧重算。
-    // 之前每帧重算让 GPU 负载凭空翻倍，是功耗尖峰的主要来源之一。
+    // 初期スペクトルは JONSWAP 設定にのみ依存する。
+    // その設定が変わった場合だけ再実行し、毎フレームの再初期化を避ける。
+    // 毎フレーム計算すると GPU 負荷が無駄に約 2 倍となり、瞬間消費電力が増えていた。
+    // JONSWAP パラメータが変わらない間は初期スペクトルを再利用する。
+    // この処理は GPU 負荷と電源への負担を抑える。
     private int _spectrumSettingsHash;
     private bool _spectrumDirty = true;
 
-    // Saved so the Play Mode frame cap can be restored on disable.
+    // 無効化時に Play モードのフレーム上限を戻すため、元の設定を保存する。
     private int _prevVSyncCount;
     private int _prevTargetFrameRate;
 
 
-    // Returns the low-cost height field used by buoyancy scripts.
-    // 返回浮力脚本使用的低成本高度图。
+    // 浮力スクリプトが使う低負荷の高さ場を返す。
+    // 浮力判定はこの高さ場を参照する。
     public RenderTexture GetBuoyancyData()   { return BuoyancyData; }
 
-    // Returns the GPU claw mask consumed by OceanClawGpuInstancer.
-    // 返回 OceanClawGpuInstancer 使用的 GPU 爪形评分图。
+    // OceanClawGpuInstancer が使う GPU の爪状白波マスクを返す。
+    // マスクには爪状白波の配置に使う評価値が入る。
     public RenderTexture GetClawMaskTexture() { return ClawMaskTexture; }
 
-    //设置默认值
+    // 既定値を設定する。
     private void Reset()
     {
         //00
@@ -569,7 +569,7 @@ public class FFTOcean_Script : MonoBehaviour
         DisplaySpectrum7.shortWavesFade = 0.2f;
     }
 
-    //生成水面mesh
+    // 水面メッシュを生成する。
     private void CreateWaterSurface()
     {
         GetComponent<MeshFilter>().mesh = waterSurface = new Mesh();
@@ -585,7 +585,7 @@ public class FFTOcean_Script : MonoBehaviour
         Vector4 tangent = new Vector4(1f, 0f, 0f, -1f);
         int[] triangles = new int[sideVertCount * sideVertCount * 6];
 
-        //为顶点，uv，切线赋值
+        // 頂点座標、UV、接線を設定する。
         for (int i = 0, x = 0; x <= sideVertCount; ++x)
         {
             for (int z = 0; z <= sideVertCount; ++z, ++i)
@@ -598,7 +598,7 @@ public class FFTOcean_Script : MonoBehaviour
             }
         }
 
-        //为三角形赋值
+        // 三角形を設定する。
         for (int triIndex = 0, verIndex = 0, x = 0; x < sideVertCount; ++verIndex, ++x)
         {
             for (int z = 0; z < sideVertCount; triIndex += 6, ++verIndex, ++z)
@@ -620,7 +620,7 @@ public class FFTOcean_Script : MonoBehaviour
         Vector3[] normals = waterSurface.normals;
     }
 
-    // Creates the runtime water material and assigns it to this GameObject MeshRenderer.
+    // 実行時の水面マテリアルを作成し、この GameObject の MeshRenderer に割り当てる。
     private void CreateWaterMaterial()
     {
         if (FFTWaterShader == null) return;
@@ -633,21 +633,21 @@ public class FFTOcean_Script : MonoBehaviour
     }
 
     //———————————————————————————————————————————————————————————————————————
-    //功能函数
+    // 補助関数。
 
-    //Alpha数据转化函数
+    // alpha の算出関数。
     float JonswapAlpha(float fetch, float windSpeed)
     {
-        return 0.076f * Mathf.Pow(Gravity * fetch / windSpeed / windSpeed, -0.22f); //通过fetch和windSpeed来动态计算Alpha （需要寻找参考）
+        return 0.076f * Mathf.Pow(Gravity * fetch / windSpeed / windSpeed, -0.22f); // fetch と windSpeed から alpha を動的に計算する。参照資料の確認が必要。
     }
 
-    //PeakOmega数据转化函数
+    // peakOmega の算出関数。
     float JonswapPeakFrequency(float fetch, float windSpeed)
     {
-        return 22 * Mathf.Pow(windSpeed * fetch / Gravity / Gravity, -0.33f); //通过fetch和windSpeed来动态计算peakOmega （需要寻找参考）
+        return 22 * Mathf.Pow(windSpeed * fetch / Gravity / Gravity, -0.33f); // fetch と windSpeed から peakOmega を動的に計算する。参照資料の確認が必要。
     }
 
-    //将用户数据传递到结构体中
+    // ユーザーの設定値を構造体に渡す。
     void FillSpectrumStruct(JONSWAP_DisplaySettings displaySettings, ref JONSWAP_ComputeSettings computeSettings)
     {
         computeSettings.scale = displaySettings.scale;
@@ -660,7 +660,7 @@ public class FFTOcean_Script : MonoBehaviour
         computeSettings.shortWavesFade = displaySettings.shortWavesFade;
     }
 
-    //创建缓冲区并将数据传递到缓冲区
+    // バッファを作成し、設定値を転送する。
     void SetSpectrumBuffers()
     {
         FillSpectrumStruct(DisplaySpectrum0, ref ComputeSpectrums[0]);
@@ -676,7 +676,7 @@ public class FFTOcean_Script : MonoBehaviour
         FFTComputeShader.SetBuffer(0, "_JonswapParameters", JonswapBuffer);
     }
 
-    //创建并设置贴图
+    // テクスチャを作成して設定する。
     RenderTexture CreateRenderTexArray(int width, int height, int depth, RenderTextureFormat format, bool useMips)
     {
         RenderTexture rt = new RenderTexture(width, height, 0, format, RenderTextureReadWrite.Linear);
@@ -693,7 +693,7 @@ public class FFTOcean_Script : MonoBehaviour
         return rt;
     }
 
-    // Creates a writable 2D render texture used by the FFT pipeline.
+    // FFT 処理で使う、書き込み可能な二次元レンダーテクスチャを作成する。
     RenderTexture CreateRenderTex(int width, int height, RenderTextureFormat format, bool useMips)
     {
         RenderTexture rt = new RenderTexture(width, height, 0, format, RenderTextureReadWrite.Linear);
@@ -708,8 +708,8 @@ public class FFTOcean_Script : MonoBehaviour
         return rt;
     }
 
-    // Uploads simulation constants to the FFT compute shader, including claw mask scoring thresholds.
-    // 上传 FFT compute shader 参数，包括爪形评分阈值。
+    // 爪状白波マスクの評価しきい値を含む定数を FFT 計算シェーダーへ送る。
+    // 計算シェーダーで使う波高・傾斜などの設定値を更新する。
     void SetCompParam()
     {
         FFTComputeShader.SetFloat("_Depth", Depth);
@@ -732,16 +732,16 @@ public class FFTOcean_Script : MonoBehaviour
         FFTComputeShader.SetFloat("_FoamAdd",       FoamAdd);
         FFTComputeShader.SetFloat("_FoamDecayRate", FoamDecayRate);
 
-        // Claw mask scoring params. These affect ClawMaskTexture only; final spawn persistence lives in OceanClawGpuInstancer.
-        // 爪形 mask 评分参数。这里只影响 ClawMaskTexture；最终生成和生命周期由 OceanClawGpuInstancer 处理。
+        // 爪状白波マスクの評価値。ClawMaskTexture のみを変える。生成後の保持は OceanClawGpuInstancer が管理する。
+        // 爪状白波の配置や寿命そのものは、ここでは制御しない。
         FFTComputeShader.SetFloat("_ClawHeightMin", ClawHeightMin);
         FFTComputeShader.SetFloat("_ClawHeightMax", ClawHeightMax);
         FFTComputeShader.SetFloat("_ClawSlopeMin",  ClawSlopeMin);
         FFTComputeShader.SetFloat("_ClawSlopeMax",  ClawSlopeMax);
     }
 
-    // Uploads per-frame material values so the rendered ocean matches the compute displacement textures.
-    // 上传每帧材质参数，使渲染海面和 compute 生成的位移纹理保持一致。
+    // 毎フレームのマテリアル値を送り、表示する海面を計算シェーダーの変位テクスチャに合わせる。
+    // 変位と傾斜のテクスチャを使った描画設定を更新する。
     void SetMaterialParam()
     {
         waterMaterial.SetFloat("_DisplaceDepthAttenuation", DisplaceDepthAttenuation);
@@ -789,7 +789,7 @@ public class FFTOcean_Script : MonoBehaviour
         waterMaterial.SetFloat("_FogPower", FogPower);
         waterMaterial.SetColor("_FogColor", FogColor);
 
-        // Ukiyo-e style uniforms / 浮世绘风格参数
+        // 浮世絵風の描画に使うシェーダー定数。
         waterMaterial.SetColor("_DeepInkColor", DeepInkColor);
         waterMaterial.SetColor("_MidWaterColor", MidWaterColor);
         waterMaterial.SetColor("_PaleWaterColor", PaleWaterColor);
@@ -864,17 +864,17 @@ public class FFTOcean_Script : MonoBehaviour
         waterMaterial.SetFloat("_HokusaiDebugView", HokusaiDebugView);
     }
 
-    // Allocates ocean meshes, materials, kernels, textures, and compute buffers when the component starts.
+    // コンポーネントの起動時に海面メッシュ、マテリアル、カーネル、テクスチャ、計算バッファを確保する。
     void OnEnable()
     {
         ApplyFrameRateCap();
         CreateWaterSurface();
         CreateWaterMaterial();
-        // Internal fixed resolution and compute dispatch dimensions.
+        // 内部で固定する解像度と計算シェーダーのディスパッチ寸法。
         Resolusion = 1024;
         threadGroupsX = Mathf.CeilToInt(Resolusion / 8.0f);
         threadGroupsY = Mathf.CeilToInt(Resolusion / 8.0f);
-        // Cache compute shader kernel indices once on startup.
+        // 起動時に計算シェーダーのカーネル番号を取得して保持する。
         CS_InitializeSpectrum = FFTComputeShader.FindKernel("CS_InitializeSpectrum");
         CS_PackSpectrumConjugate = FFTComputeShader.FindKernel("CS_PackSpectrumConjugate");
         CS_UpdateSpectrum = FFTComputeShader.FindKernel("CS_UpdateSpectrum");
@@ -882,33 +882,33 @@ public class FFTOcean_Script : MonoBehaviour
         CS_VerticalIFFT = FFTComputeShader.FindKernel("CS_VerticalIFFT");
         CS_AssembleTextures = FFTComputeShader.FindKernel("CS_AssembleTextures");
 
-        //创建贴图
-        // Mips disabled: every shader samples these textures at LOD 0 and the mip chains were
-        // never generated, so they only wasted ~60 MB of VRAM per play session.
-        // 关闭 mipmap：所有采样都固定在 LOD 0，而且 mip 链从未被生成过，只会白白浪费显存。
+        // テクスチャを作成する。
+        // mipmap を無効にする。すべてのシェーダーがこれらのテクスチャを LOD 0 で参照し、
+        // mipmap は生成されないため、Play ごとに約 60 MB の VRAM を無駄に消費していた。
+        // LOD 0 以外を使わないため、不要な mipmap を作成しない。
         InitialSpectrumTexture = CreateRenderTexArray(Resolusion, Resolusion, 4, RenderTextureFormat.ARGBHalf, false);
         SpectrumTexture = CreateRenderTexArray(Resolusion, Resolusion, 8, RenderTextureFormat.ARGBHalf, false);
         DisplacementTexture = CreateRenderTexArray(Resolusion, Resolusion, 4, RenderTextureFormat.ARGBHalf, false);
         SlopeTexture = CreateRenderTexArray(Resolusion, Resolusion, 4, RenderTextureFormat.RGHalf, false);
         BuoyancyData     = CreateRenderTex(Resolusion, Resolusion, RenderTextureFormat.RHalf,     false);
-        // ARGBHalf keeps enough precision for GPU-side crest scoring: R height, G slope, B crest, A final score.
+        // ARGBHalf の精度で GPU 側の波頭評価値を保持する。R は波高、G は傾斜、B は波頭、A は最終評価値。
         ClawMaskTexture  = CreateRenderTex(Resolusion, Resolusion, RenderTextureFormat.ARGBHalf,  false);
         VariationMask = CreateRenderTex(Resolusion, Resolusion, RenderTextureFormat.ARGBHalf, false);
 
-        // Allocate the JONSWAP parameter buffer for eight spectrum settings.
+        // 8 組のスペクトル設定に使う JONSWAP パラメータバッファを確保する。
         JonswapBuffer = new ComputeBuffer(8, 8 * sizeof(float));
         SetSpectrumBuffers();
 
-        //赋值
+        // 値を設定する。
         SetCompParam();
 
-        // Force the initial spectrum to be computed on the first Update after every enable.
+        // 有効化のたびに、最初の Update で初期スペクトルを計算させる。
         _spectrumDirty = true;
     }
 
-    // Caps the Play Mode frame rate so the GPU gets idle time each frame instead of
-    // running flat-out (uncapped editor rendering is what pushes the PSU over its limit).
-    // 限制 Play 模式帧率，让 GPU 每帧有空闲时间，避免编辑器不限帧导致电源过载。
+    // Play モードのフレームレートに上限を設け、GPU に毎フレームの空き時間を与える。
+    // 編集画面で上限なしに描画すると、電源への負荷が大きくなる。
+    // フレームレートを制限して、GPU の連続稼働を抑える。
     private void ApplyFrameRateCap()
     {
         if (!Application.isPlaying || playModeFrameRateCap <= 0)
@@ -917,18 +917,18 @@ public class FFTOcean_Script : MonoBehaviour
         _prevVSyncCount = QualitySettings.vSyncCount;
         _prevTargetFrameRate = Application.targetFrameRate;
         QualitySettings.vSyncCount = 0;
-        // Hardware-safety hard cap at 30 fps. The RTX 3080's microsecond transient power spikes are
-        // what trip the PSU's over-current protection (the reboot). A lower frame rate gives the GPU
-        // idle time every frame -> lower sustained utilization and temperature -> well under the trip
-        // threshold (this matches the "rebooted after a while" thermal pattern). Raise this ONLY after
-        // power-limiting the GPU in hardware (MSI Afterburner Power Limit ~70-80%).
-        // 硬件安全：硬限 30fps。3080 的微秒级瞬时功耗尖峰才是触发电源过流保护(重启)的根因；
-        // 降帧率让 GPU 每帧有空闲→持续占用和温度更低→远离触发阈值(对应你"过一会儿才重启"的热累积)。
-        // 只有在硬件层面给 GPU 限功耗(Afterburner 功耗上限 ~70-80%)之后，才建议调高这个值。
+        // ハードウェア保護のため 30 fps を上限にする。RTX 3080 の瞬間的な消費電力が
+        // 電源の過電流保護を作動させる可能性がある。フレームレートを下げると GPU に
+        // 毎フレームの空き時間が生まれ、継続的な使用率と温度を下げられる。
+        // 再起動の原因は未確定のため、この上限は保守的な対策として扱う。
+        // 上限を上げる場合は、まず GPU の電力制限などを確認する。
+        // 30 fps の固定上限は、突然の再起動を避けるための暫定的な保護策。
+        // GPU の負荷と温度を抑える狙いがあるが、再起動の原因は検証できていない。
+        // 上限を引き上げる前に、ハードウェア側の電力制限（例：Afterburner の 70～80%）を確認する。
         Application.targetFrameRate = Mathf.Clamp(playModeFrameRateCap, 1, 30);
     }
 
-    // Restores frame pacing settings changed by ApplyFrameRateCap.
+    // ApplyFrameRateCap で変更したフレーム制御設定を元に戻す。
     private void RestoreFrameRateCap()
     {
         if (!Application.isPlaying || playModeFrameRateCap <= 0)
@@ -938,9 +938,9 @@ public class FFTOcean_Script : MonoBehaviour
         Application.targetFrameRate = _prevTargetFrameRate;
     }
 
-    // Hashes every setting that feeds CS_InitializeSpectrum so the expensive init pass
-    // only re-runs when the user actually changes a JONSWAP parameter in the Inspector.
-    // 对影响初始频谱的所有参数做哈希，只有在 Inspector 里改动参数时才重新执行初始化。
+    // CS_InitializeSpectrum に渡す各設定値をハッシュ化し、計算負荷の高い初期化を
+    // Inspector で JONSWAP パラメータが実際に変わった場合だけ再実行する。
+    // 初期スペクトルに影響する設定が変わらない限り、再初期化を省く。
     private int HashSpectrumSettings()
     {
         unchecked
@@ -973,18 +973,18 @@ public class FFTOcean_Script : MonoBehaviour
         }
     }
 
-    // Runs the full FFT ocean simulation and publishes textures for water rendering and claw spawning.
+    // FFT による海面シミュレーションを実行し、描画と爪状白波の生成に使うテクスチャを公開する。
     void Update()
     {
-        //赋值
+        // 値を設定する。
         SetCompParam();
         SetMaterialParam();
 
-        // The spectrum init passes are deterministic for a given set of JONSWAP settings.
-        // Dispatching them every frame doubled the GPU compute load; now they only run
-        // on the first frame and when a relevant Inspector value changes.
-        // 初始频谱对同一组 JONSWAP 参数是确定的。之前每帧都重新计算导致 GPU 负载翻倍；
-        // 现在只在第一帧和 Inspector 参数变化时执行。
+        // 同じ JONSWAP 設定から計算する初期スペクトルは決定的に定まる。
+        // 以前は毎フレーム初期化して GPU の計算負荷を増やしていたため、
+        // 現在は最初のフレームと関連する Inspector の値が変わったときだけ実行する。
+        // 同じ JONSWAP 設定なら初期スペクトルを再利用できる。
+        // Inspector の設定が変わった場合だけ初期化する。
         int settingsHash = HashSpectrumSettings();
         if (_spectrumDirty || settingsHash != _spectrumSettingsHash)
         {
@@ -993,23 +993,23 @@ public class FFTOcean_Script : MonoBehaviour
 
             SetSpectrumBuffers();
 
-            //初始化频谱
+            // 初期スペクトルを計算する。
             FFTComputeShader.SetTexture(CS_InitializeSpectrum, "_InitialSpectrumTexture", InitialSpectrumTexture);
             FFTComputeShader.Dispatch(CS_InitializeSpectrum, threadGroupsX, threadGroupsY, 1);
 
-            //共轭
+            // 共役成分を計算する。
             FFTComputeShader.SetTexture(CS_PackSpectrumConjugate, "_InitialSpectrumTexture", InitialSpectrumTexture);
             FFTComputeShader.Dispatch(CS_PackSpectrumConjugate, threadGroupsX, threadGroupsY, 1);
         }
 
-        //为IFFT更新频谱
+        // IFFT 用のスペクトルを更新する。
         FFTComputeShader.SetTexture(CS_UpdateSpectrum, "_InitialSpectrumTexture", InitialSpectrumTexture);
         FFTComputeShader.SetTexture(CS_UpdateSpectrum, "_SpectrumTexture", SpectrumTexture);
         FFTComputeShader.SetTexture(CS_UpdateSpectrum, "_VariationMask", VariationMask);
         FFTComputeShader.Dispatch(CS_UpdateSpectrum, threadGroupsX, threadGroupsY, 1);
 
 
-        //海浪IFFT
+        // 海面の IFFT を実行する。
         FFTComputeShader.SetTexture(CS_HorizontalIFFT, "_FourierTarget", SpectrumTexture);
         FFTComputeShader.SetTexture(CS_HorizontalIFFT, "_FourierTargetExtra", VariationMask);
         FFTComputeShader.Dispatch(CS_HorizontalIFFT, 1, Resolusion, 1);
@@ -1019,41 +1019,41 @@ public class FFTOcean_Script : MonoBehaviour
         FFTComputeShader.Dispatch(CS_VerticalIFFT, 1, Resolusion, 1);
 
 
-        //整合贴图
+        // 計算結果をテクスチャにまとめる。
         FFTComputeShader.SetTexture(CS_AssembleTextures, "_SpectrumTexture",     SpectrumTexture);
         FFTComputeShader.SetTexture(CS_AssembleTextures, "_DisplacementTexture", DisplacementTexture);
         FFTComputeShader.SetTexture(CS_AssembleTextures, "_SlopeTexture",        SlopeTexture);
         FFTComputeShader.SetTexture(CS_AssembleTextures, "_BuoyancyData",        BuoyancyData);
         FFTComputeShader.SetTexture(CS_AssembleTextures, "_VariationMask",       VariationMask);
-        // The claw mask uses the same displacement and slope data as the visible ocean.
-        // The claw mask uses the same displacement and slope data as the visible ocean.
+        // 爪状白波マスクには、表示中の海面と同じ変位と傾斜のデータを使う。
+        // これにより、白波の配置を表示中の海面形状に合わせる。
         FFTComputeShader.SetTexture(CS_AssembleTextures, "_ClawMaskTexture",     ClawMaskTexture);
         FFTComputeShader.Dispatch(CS_AssembleTextures, threadGroupsX, threadGroupsY, 1);
 
-        //将结果传入Shader
+        // 計算結果をシェーダーへ渡す。
         waterMaterial.SetTexture("_DisplacementTexture", DisplacementTexture);
         waterMaterial.SetTexture("_SlopeTexture", SlopeTexture);
         waterMaterial.SetTexture("_VariationMask", VariationMask);
         waterMaterial.SetTexture("_ClawMaskTexture", ClawMaskTexture);
 
-        // Global fallback binding. The shader's Properties block is empty, so per-material
-        // SetTexture can fail to bind these array textures (esp. in edit mode / on cloned
-        // material instances). The shader reads global properties when a material override is
-        // absent, so this guarantees the displacement/slope data reaches the water shader.
-        // shader 的 Properties 块为空，逐材质 SetTexture 可能绑不上这些数组贴图；shader 会回退到
-        // 全局属性，这里用全局兜底，保证位移/坡度数据一定送达水面 shader。
+        // 全体設定による代替の割り当てを行う。シェーダーの Properties ブロックは空なので、
+        // マテリアルごとの SetTexture では配列テクスチャを割り当てられない場合がある。
+        // 特に編集モードや複製されたマテリアルで生じ得る。マテリアル側に設定がなければ、
+        // シェーダーは全体設定を参照し、変位と傾斜のデータを海面描画へ渡せる。
+        // Properties ブロックが空の場合に備え、全体設定にもテクスチャを登録する。
+        // これにより、海面シェーダーが変位と傾斜のデータを参照できる。
         Shader.SetGlobalTexture("_DisplacementTexture", DisplacementTexture);
         Shader.SetGlobalTexture("_SlopeTexture", SlopeTexture);
         Shader.SetGlobalTexture("_VariationMask", VariationMask);
-        // ClawMaskTexture.b = crestScore = 1 - saturate(rawJacobian) = the instantaneous Tessendorf
-        // breaking criterion; the water shader reads it to place white foam on the breaking lips.
+        // ClawMaskTexture.b = crestScore = 1 - saturate(rawJacobian) は Tessendorf の
+        // 瞬時の砕波判定値。海面シェーダーはこれを使って砕波部分へ白泡を置く。
         Shader.SetGlobalTexture("_ClawMaskTexture", ClawMaskTexture);
     }
 
-    // Releases GPU buffers owned by the FFT ocean component.
-    // Previously only JonswapBuffer was released; the seven 1024x1024 render textures leaked
-    // (~200 MB of VRAM) every play session, adding GPU memory pressure on top of the load issues.
-    // 之前只释放了 JonswapBuffer，七张 1024x1024 的 RenderTexture 每次 Play 都会泄漏约 200MB 显存。
+    // FFT 海面コンポーネントが所有する GPU バッファを解放する。
+    // 以前は JonswapBuffer だけが解放され、7 枚の 1024×1024 レンダーテクスチャが
+    // Play ごとに解放されず、約 200 MB の VRAM を消費し続けていた。
+    // すべてのレンダーテクスチャを解放して GPU メモリの使用量を抑える。
     void OnDisable()
     {
         RestoreFrameRateCap();

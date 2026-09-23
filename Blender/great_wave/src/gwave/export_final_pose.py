@@ -1,12 +1,12 @@
-"""Freeze an animated scene into a self-contained, editable final-pose .blend.
+"""アニメーションシーンを編集可能で自己完結した最終形状の .blend に固定する。
 
-Run on ``blend/great_wave_foam.blend`` after building the wave and foam::
+波と泡を作成した後、``blend/great_wave_foam.blend`` で実行する::
 
     tools/run_blender.ps1 src/gwave/export_final_pose.py -Blend blend/great_wave_foam.blend -NoFactoryStartup
 
-The full animation remains reproducible from scripts and PC2 caches. This small
-review file contains evaluated meshes at the chosen frame, without external
-point-cache dependencies. Packed images keep the still scene portable.
+完全なアニメーションはスクリプトと PC2 キャッシュから再現できる。
+この小さな確認用ファイルには、指定フレームで評価したメッシュを保存し、
+外部の点キャッシュに依存しない。画像を同梱するため静止シーンを移動できる。
 """
 
 import argparse
@@ -28,7 +28,7 @@ def export(out_path, final_frame, hide_paper=False):
     names = [obj.name for obj in scene.objects
              if obj.type == "MESH" and any(mod.type == "MESH_CACHE" for mod in obj.modifiers)]
     if "GreatWave" not in names:
-        raise RuntimeError("Load the generated animation scene with its Mesh Cache modifiers")
+        raise RuntimeError("メッシュキャッシュのモディファイアーを含む生成済みアニメーションシーンを読み込んでください")
     counts = {}
     for name in names:
         obj = bpy.data.objects[name]
@@ -39,7 +39,7 @@ def export(out_path, final_frame, hide_paper=False):
             for material in obj.data.materials:
                 mesh.materials.append(material)
         if len(mesh.vertices) != len(obj.data.vertices):
-            raise RuntimeError("Unexpected topology change on %s" % name)
+            raise RuntimeError("%s で想定外のトポロジー変更が発生しました" % name)
         for modifier in list(obj.modifiers):
             obj.modifiers.remove(modifier)
         obj.data = mesh
@@ -65,17 +65,17 @@ def verify_reopen(out_path, final_frame, names):
     bpy.ops.wm.open_mainfile(filepath=out_path)
     scene = bpy.context.scene
     if scene.frame_start != final_frame or scene.frame_end != final_frame:
-        raise RuntimeError("Exported scene did not retain its final-frame setting")
+        raise RuntimeError("書き出したシーンに最終フレームの設定が残っていません")
     for name, expected_count in names.items():
         obj = bpy.data.objects.get(name)
         if obj is None or len(obj.data.vertices) != expected_count:
-            raise RuntimeError("Mesh %s missing or changed after reopening" % name)
+            raise RuntimeError("再読込後にメッシュ %s が見つからないか、変更されています" % name)
         if any(mod.type == "MESH_CACHE" for mod in obj.modifiers):
-            raise RuntimeError("Export still depends on a point cache: %s" % name)
+            raise RuntimeError("書き出し結果が点キャッシュ %s に依存したままです" % name)
     missing = [image.name for image in bpy.data.images
                if image.source == "FILE" and image.packed_file is None]
     if missing:
-        raise RuntimeError("Unpacked external image(s): %s" % ", ".join(missing))
+        raise RuntimeError("同梱されていない外部画像: %s" % ", ".join(missing))
     return os.path.getsize(out_path)
 
 
@@ -83,14 +83,14 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--frame", type=int, default=None)
     ap.add_argument("--out", default="deliverables/great_wave_final_pose.blend")
-    ap.add_argument("--hide-paper", action="store_true", help="default to an unobstructed 3-D review view")
+    ap.add_argument("--hide-paper", action="store_true", help="紙の参照面を隠し、遮りのない3D確認視点にする")
     args = bootstrap.parse_args(ap)
     bootstrap.set_log_prefix("GW_EXPORT")
     frame = int(args.frame or wm.load_wave_params()["n_frames"])
     out_path = paths.project_path(args.out)
     counts = export(out_path, frame, args.hide_paper)
     size = verify_reopen(out_path, frame, counts)
-    bootstrap.log("verified %s (%0.1f MB); frozen meshes %s" %
+    bootstrap.log("検証済み: %s (%0.1f MB)、固定したメッシュ %s" %
                   (out_path, size / 1e6, counts))
     bootstrap.finish(True, "export_final_pose")
 

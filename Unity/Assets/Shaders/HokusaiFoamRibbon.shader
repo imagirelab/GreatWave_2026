@@ -2,11 +2,11 @@ Shader "MasterProject/HokusaiFoamRibbon"
 {
     Properties
     {
-        _RibbonColor ("Ribbon Foam Color", Color) = (0.96, 0.93, 0.82, 0.35)
-        _EdgeColor ("Soft Edge Color", Color) = (0.47, 0.63, 0.72, 0.18)
-        _EdgeBlend ("Edge Blend", Range(0, 1)) = 0.28
-        _ShadowOffset ("Shadow Offset", Range(0, 0.05)) = 0.010
-        _InkStrength ("Ink Strength", Range(0, 1)) = 1.0
+        _RibbonColor ("帯状の白波の色", Color) = (0.96, 0.93, 0.82, 0.35)
+        _EdgeColor ("柔らかい縁の色", Color) = (0.47, 0.63, 0.72, 0.18)
+        _EdgeBlend ("縁のなじみ具合", Range(0, 1)) = 0.28
+        _ShadowOffset ("陰のずれ", Range(0, 0.05)) = 0.010
+        _InkStrength ("墨の強さ", Range(0, 1)) = 1.0
     }
 
     SubShader

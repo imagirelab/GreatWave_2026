@@ -1,4 +1,4 @@
-"""Where are the largest per-frame vertex steps of the point cache?  tools/run_blender.ps1 src/gwave/diagnose_steps.py"""
+"""点キャッシュでフレーム間の頂点変位が最大となる位置を調べる。実行: tools/run_blender.ps1 src/gwave/diagnose_steps.py"""
 import os
 import sys
 
@@ -26,7 +26,7 @@ def main():
         worst.append((float(d[k]), f + 1, k // n_u, k % n_u, V[f - 1, k] / H, V[f, k] / H, int((d > 0.03).sum())))
     worst.sort(key=lambda t: -t[0])
     for w in worst[:8]:
-        bootstrap.log("step %.4f H at frame %d row %d (u=%.2f) col %d  from (%.3f,%.3f,%.3f) to (%.3f,%.3f,%.3f)  n>0.03H: %d" % (
+        bootstrap.log("変位 %.4f H、フレーム %d、行 %d (u=%.2f)、列 %d、始点 (%.3f,%.3f,%.3f)、終点 (%.3f,%.3f,%.3f)、0.03H 超の点数: %d" % (
             w[0], w[1], w[2], abs(w[2] - n_v // 2) / (n_v // 2), w[3], *w[4], *w[5], w[6]))
     bootstrap.finish(True, "diagnose_steps")
 

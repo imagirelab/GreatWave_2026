@@ -1,19 +1,17 @@
-"""Image input / output with numpy + bpy only (no PIL / cv2 in this environment).
+"""numpy と bpy のみを使う画像の入出力。この環境では PIL / cv2 を使わない。
 
-Array convention everywhere in this project:
-    uint8, shape (rows, cols[, channels]), rows TOP-to-BOTTOM, channels RGB(A).
-    arr[y, x] is the pixel whose centre is (x + 0.5, y + 0.5) in continuous px coords.
+このプロジェクトでの配列の約束:
+    uint8、形は (行, 列[, チャンネル])、行は上から下、チャンネルは RGB(A)。
+    arr[y, x] は連続的な画素座標で中心が (x + 0.5, y + 0.5) の画素。
 
-Reading  : load_image_rgb / load_image_rgba go through bpy.data.images (JPEG, PNG,
-           WebP, ...).  For 8-bit files Blender keeps the stored bytes; .pixels
-           returns them as byte/255 floats, bottom-up RGBA.  No colour management is
-           applied by this access path (verified in tests/selftest_foundation.py:
-           values * 255 are integers within float32 precision, and PNGs written by
-           save_png reload bit-exactly).
-Writing  : save_png is a pure python/numpy PNG encoder (zlib + struct), so no colour
-           management, view transform or dithering can touch the values.
-           read_png is the matching pure decoder (8-bit, non-interlaced, non-palette)
-           that allows an exact round-trip check without Blender.
+読込: load_image_rgb / load_image_rgba は bpy.data.images を経由する（JPEG、PNG、WebP など）。
+      8ビット画像では Blender が保存時のバイト値を保ち、.pixels は下から上の RGBA で
+      バイト値 / 255 の浮動小数値を返す。この経路では色管理は適用されない。
+      tests/selftest_foundation.py で、255 倍した値が float32 精度内で整数になり、
+      save_png で書いた PNG をビット単位で同じ値として再読込できることを確認した。
+書込: save_png は Python / numpy のみで PNG を符号化する（zlib + struct）。
+      色管理、表示変換、ディザ処理は値を変えない。read_png は対応する復号器で、
+      8ビット・非インターレース・非パレットの PNG を Blender なしで厳密に往復確認できる。
 """
 import os
 import struct
@@ -26,7 +24,7 @@ from . import paths
 last_load_info = {}
 
 
-# ------------------------------------------------------------------ helpers
+# ------------------------------------------------------------------ 補助処理
 def _as_u8(arr):
     a = np.asarray(arr)
     if a.dtype == np.bool_:
@@ -37,7 +35,7 @@ def _as_u8(arr):
 
 
 def to_rgb(arr):
-    """gray (h,w) / (h,w,1) / RGBA (h,w,4) / RGB -> RGB uint8 (h,w,3). RGBA drops alpha."""
+    """gray (h,w)、(h,w,1)、RGBA (h,w,4)、RGB を、RGB uint8 (h,w,3) に変換する。RGBA のアルファ値は除く。"""
     a = _as_u8(arr)
     if a.ndim == 2:
         return np.repeat(a[:, :, None], 3, axis=2)
@@ -51,7 +49,7 @@ def to_rgb(arr):
 
 
 def to_gray(arr):
-    """RGB(A) uint8 -> float32 luma (Rec.601) in 0..255."""
+    """RGB または RGBA の uint8 画像を、Rec.601 による 0～255 の float32 輝度へ変換する。"""
     a = _as_u8(arr)
     if a.ndim == 2:
         return a.astype(np.float32)
@@ -60,7 +58,7 @@ def to_gray(arr):
 
 
 def rgb_to_hsv(arr):
-    """RGB uint8 -> float32 (h,w,3): H in [0,360), S in [0,1], V in [0,1]."""
+    """RGB uint8 を float32 の HSV (h,w,3) へ変換する。H は [0,360)、S と V は [0,1]。"""
     a = _as_u8(arr)[:, :, :3].astype(np.float32) / 255.0
     r, g, b = a[:, :, 0], a[:, :, 1], a[:, :, 2]
     mx = a.max(axis=2)
@@ -74,7 +72,7 @@ def rgb_to_hsv(arr):
     return np.stack([h, s, mx], axis=2)
 
 
-# ------------------------------------------------------------------ reading (bpy)
+# 画像の読み込み（bpy）
 def _load_bpy(path):
     import bpy
     p = paths.require_file(path)
@@ -94,7 +92,7 @@ def _load_bpy(path):
         bpy.data.images.remove(img)
     buf *= 255.0
     rounded = np.rint(buf)
-    # how far the floats are from exact byte values (should be ~1e-5 for 8-bit files)
+    # 浮動小数点値と元のバイト値との差。8 ビット画像なら約 1e-5 のはず。
     step = max(1, buf.size // 4_000_000)
     info["max_abs_dev_from_byte"] = float(np.abs(buf[::step] - rounded[::step]).max())
     np.clip(rounded, 0, 255, out=rounded)
@@ -103,7 +101,7 @@ def _load_bpy(path):
 
 
 def load_image(path):
-    """-> (uint8 array (h,w,channels as stored by Blender, normally 4), info dict)."""
+    """Blender が保存したチャンネル数（通常 4）の uint8 配列 (h,w,channels) と情報辞書を返す。"""
     global last_load_info
     arr, info = _load_bpy(path)
     last_load_info = info
@@ -111,7 +109,7 @@ def load_image(path):
 
 
 def load_image_rgba(path):
-    """-> uint8 (h, w, 4), rows top-to-bottom."""
+    """上から下へ並ぶ uint8 配列 (h, w, 4) を返す。"""
     arr, _ = load_image(path)
     if arr.shape[2] == 4:
         return arr
@@ -125,12 +123,12 @@ def load_image_rgba(path):
 
 
 def load_image_rgb(path):
-    """-> uint8 (h, w, 3), rows top-to-bottom, the stored (sRGB-encoded) byte values."""
+    """保存された sRGB 符号化後のバイト値を、上から下へ並ぶ uint8 配列 (h, w, 3) で返す。"""
     return np.ascontiguousarray(load_image_rgba(path)[:, :, :3])
 
 
 def image_size(path):
-    """(width, height) without keeping the pixels."""
+    """画素データを保持せずに、画像の (幅, 高さ) を返す。"""
     import bpy
     p = paths.require_file(path)
     img = bpy.data.images.load(p, check_existing=False)
@@ -141,7 +139,7 @@ def image_size(path):
 
 
 def load_painting_rgb():
-    """The Hokusai painting from params.json; asserts the 3859 x 2594 size."""
+    """params.json で指定された北斎の原画を読み、サイズが 3859 × 2594 か確認する。"""
     arr = load_image_rgb(paths.painting_path())
     w, h = paths.param("painting_width_px"), paths.param("painting_height_px")
     if arr.shape[1] != w or arr.shape[0] != h:
@@ -150,9 +148,9 @@ def load_painting_rgb():
     return arr
 
 
-# ------------------------------------------------------------------ PNG writer
+# PNG の書き込み
 _PNG_SIG = b"\x89PNG\r\n\x1a\n"
-_COLOR_TYPE = {1: 0, 2: 4, 3: 2, 4: 6}          # channels -> PNG colour type
+_COLOR_TYPE = {1: 0, 2: 4, 3: 2, 4: 6}          # チャンネル数から PNG の色形式を求める。
 _CHANNELS = {0: 1, 4: 2, 2: 3, 6: 4}
 
 
@@ -162,7 +160,7 @@ def _chunk(tag, data):
 
 
 def _filter_rows(a2, bpp, mode):
-    """a2: (h, w*bpp) uint8.  Returns (h, 1 + w*bpp) uint8 with the filter byte."""
+    """a2 は形状 (h, w*bpp) の uint8 配列。フィルターバイトを付けた形状 (h, 1 + w*bpp) の配列を返す。"""
     h = a2.shape[0]
     out = np.empty((h, a2.shape[1] + 1), np.uint8)
     if mode == "none":
@@ -170,7 +168,7 @@ def _filter_rows(a2, bpp, mode):
         out[:, 1:] = a2
         return out
     sub = a2.copy()
-    sub[:, bpp:] = a2[:, bpp:] - a2[:, :-bpp]            # uint8 arithmetic wraps mod 256
+    sub[:, bpp:] = a2[:, bpp:] - a2[:, :-bpp]            # uint8 の演算は 256 を法として折り返す。
     up = a2.copy()
     up[1:] = a2[1:] - a2[:-1]
     if mode == "sub":
@@ -181,7 +179,7 @@ def _filter_rows(a2, bpp, mode):
         out[:, 0] = 2
         out[:, 1:] = up
         return out
-    # adaptive: per row the candidate with the smallest sum of |signed byte|
+    # 適応方式。各行で、符号付きバイト値の絶対値の和が最小になる候補を選ぶ。
     def cost(f):
         return np.minimum(f, 256 - f.astype(np.int16)).sum(axis=1, dtype=np.int64)
     costs = np.stack([cost(a2), cost(sub), cost(up)], axis=0)
@@ -192,7 +190,7 @@ def _filter_rows(a2, bpp, mode):
 
 
 def encode_png(arr, compress_level=4, filter_mode="adaptive"):
-    """uint8 gray (h,w) / gray+alpha (h,w,2) / RGB / RGBA -> PNG bytes."""
+    """uint8 のグレースケール (h,w)、グレーとアルファ (h,w,2)、RGB、RGBA を PNG のバイト列へ変換する。"""
     a = _as_u8(arr)
     if a.ndim == 2:
         a = a[:, :, None]
@@ -209,9 +207,8 @@ def encode_png(arr, compress_level=4, filter_mode="adaptive"):
 
 
 def save_png(path, arr, compress_level=4, filter_mode="adaptive"):
-    """Write a uint8 (or bool) gray / RGB / RGBA array as PNG.  Exact: the file stores
-    the array bytes losslessly, nothing is colour-managed.  Returns the path.
-    Refuses to write outside the allowed roots (gw.paths.assert_writable)."""
+    """uint8（または bool）のグレースケール、RGB、RGBA 配列を PNG へ書く。配列のバイト値を損失なく保存し、色管理による変換は行わない。保存先のパスを返す。
+    許可されたルートの外側には書き込まない（gw.paths.assert_writable）。"""
     p = paths.ensure_parent(path)
     data = encode_png(arr, compress_level, filter_mode)
     tmp = p + ".tmp"
@@ -221,7 +218,7 @@ def save_png(path, arr, compress_level=4, filter_mode="adaptive"):
     return p
 
 
-# ------------------------------------------------------------------ PNG reader
+# PNG の読み込み
 def _paeth_row(cur, prev, bpp):
     out = bytearray(cur)
     prev = bytes(prev)
@@ -246,9 +243,9 @@ def _avg_row(cur, prev, bpp):
 
 
 def decode_png(data):
-    """PNG bytes -> uint8 array (h,w) gray, (h,w,2), (h,w,3) or (h,w,4).
-    Supports 8-bit, non-interlaced, non-palette files (everything save_png writes).
-    Filters 0/1/2 are vectorised; 3/4 use a slow per-byte loop (small files only)."""
+    """PNG のバイト列を uint8 配列へ復元する。形状はグレースケール (h,w)、または (h,w,2)、(h,w,3)、(h,w,4)。
+    8 ビット、非インターレース、パレットなしのファイルに対応する（save_png の出力範囲）。
+    フィルター 0/1/2 は配列演算を使い、3/4 は遅いバイト単位の処理を使うため小さいファイル向け。"""
     if data[:8] != _PNG_SIG:
         raise ValueError("not a PNG file")
     pos, idat, ihdr = 8, [], None
@@ -297,14 +294,14 @@ def decode_png(data):
 
 
 def read_png(path):
-    """Pure python/numpy PNG reader (see decode_png).  Exact byte values."""
+    """Python と NumPy のみを使う PNG 読み込み関数（decode_png を参照）。元のバイト値を正確に返す。"""
     with open(paths.require_file(path), "rb") as fh:
         return decode_png(fh.read())
 
 
 def roundtrip_max_abs_diff(path, arr, via="both"):
-    """Reload `path` and return the max abs difference to `arr` (uint8).
-    via: 'numpy' (read_png), 'bpy' (load through Blender) or 'both' -> dict."""
+    """path を再読み込みし、uint8 配列 arr との差の最大絶対値を返す。
+    via は numpy（read_png）、bpy（Blender で読み込む）、both（両方を辞書で返す）。"""
     a = _as_u8(arr)
     res = {}
     if via in ("numpy", "both"):

@@ -1,15 +1,16 @@
-"""Tiny numpy-only raster drawing library (no PIL / cv2 / matplotlib here).
+"""numpy のみを使う小さなラスタ描画ライブラリ。PIL / cv2 / matplotlib は使わない。
 
-Images are uint8 arrays, rows top-to-bottom: (h, w) gray, (h, w, 3) RGB or
-(h, w, 4) RGBA.  Drawing functions work IN PLACE and also return the image.
+画像は上から下へ並ぶ uint8 配列で、形は (h, w) のグレースケール、
+(h, w, 3) の RGB、または (h, w, 4) の RGBA。
+描画関数は配列をその場で変更し、同じ画像を返す。
 
-Coordinates are CONTINUOUS pixel coordinates (x right, y down): pixel (i, j)
-covers [i, i+1] x [j, j+1] and its centre is (i + 0.5, j + 0.5) -- the same
-convention as gw.frame, so points converted with Frame.H_to_px can be drawn
-directly.  Points are (x, y); point lists are (N, 2) arrays.
+座標は連続的な画素座標（右が X 正、下が Y 正）。画素 (i, j) は
+[i, i+1] x [j, j+1] を覆い、中心は (i + 0.5, j + 0.5)。
+gw.frame と同じ約束なので、Frame.H_to_px で変換した点をそのまま描ける。
+点は (x, y)、点列は (N, 2) の配列とする。
 
-Text drawn into images must be ASCII (built-in 5x7 bitmap font on a 5x9 cell so that
-g j p q y have real descenders; chars 32..126, integer scale).
+画像に描く文字は ASCII に限る。内蔵の5x7画素フォントを5x9画素の枠に置き、
+g j p q y の下部も描く。使用できる文字は32～126、拡大率は整数。
 """
 import math
 
@@ -27,9 +28,9 @@ PALETTE = ["blue", "red", "green", "orange", "purple", "cyan", "magenta", "brown
            "darkgray", "lime", "pink", "navy"]
 
 
-# ------------------------------------------------------------------ basics
+# ------------------------------------------------------------------ 基本処理
 def canvas(h, w, color="white", channels=3):
-    """New image filled with `color`.  channels: 1 (returns 2-D gray), 3 or 4."""
+    """color で塗りつぶした新しい画像を作る。channels は 1（2 次元のグレースケール）、3、4。"""
     h, w = int(h), int(w)
     if channels == 1:
         img = np.empty((h, w), np.uint8)
@@ -41,7 +42,7 @@ def canvas(h, w, color="white", channels=3):
 
 
 def to_rgb(img):
-    """gray / RGBA / bool -> RGB uint8 copy-or-view (h, w, 3)."""
+    """グレースケール、RGBA、bool の画像を形状 (h, w, 3) の RGB uint8 に変換する。必要に応じて複写する。"""
     a = np.asarray(img)
     if a.dtype == np.bool_:
         a = a.astype(np.uint8) * 255
@@ -72,7 +73,7 @@ def _prep_color(img, color):
 
 
 def _blend_cov(img, x0, y0, cov, color, alpha=1.0):
-    """Blend `color` into img with coverage array cov (float 0..1) placed at integer (x0, y0)."""
+    """整数座標 (x0, y0) に置いた被覆率配列 cov（浮動小数点数 0～1）を使い、img に color を混合する。"""
     H, W = img.shape[:2]
     h, w = cov.shape
     xa, ya = max(x0, 0), max(y0, 0)
@@ -100,10 +101,10 @@ def _pts(points):
     return p
 
 
-# ------------------------------------------------------------------ lines
+# 線分の描画
 def _segment_cov(mask, ox, oy, a, b, r, aa):
-    """max-composite the coverage of a round-capped segment a-b (radius r) into mask.
-    mask[j, i] belongs to pixel (ox + i, oy + j)."""
+    """両端が丸い線分 a-b（半径 r）の被覆率を mask へ最大値で合成する。
+    mask[j, i] は画素 (ox + i, oy + j) に対応する。"""
     length = math.hypot(b[0] - a[0], b[1] - a[1])
     n = max(1, int(math.ceil(length / 192.0)))
     H, W = mask.shape
@@ -132,7 +133,7 @@ def _segment_cov(mask, ox, oy, a, b, r, aa):
 
 
 def _dash_pieces(p, dash):
-    """Split polyline p (N,2) into the 'on' pieces of a dash pattern (on_len, off_len)."""
+    """折れ線 p（N, 2）を、破線パターン (on_len, off_len) の描画部分へ分割する。"""
     on, off = float(dash[0]), float(dash[1])
     seg = np.hypot(*(p[1:] - p[:-1]).T)
     s = np.concatenate([[0.0], np.cumsum(seg)])
@@ -147,8 +148,8 @@ def _dash_pieces(p, dash):
 
 
 def polyline(img, points, color="red", width=2.0, closed=False, dash=None, alpha=1.0, aa=True):
-    """Draw a polyline with round joins / caps.
-    dash=(on_px, off_px) for a dashed line.  NaN rows split the polyline."""
+    """接合部と端を丸くして折れ線を描く。
+    dash=(on_px, off_px) で破線を指定する。NaN を含む行で折れ線を分割する。"""
     p_all = np.asarray(points, dtype=np.float64)
     if p_all.ndim != 2 or p_all.shape[1] != 2:
         raise ValueError("points must have shape (N, 2)")
@@ -169,7 +170,7 @@ def polyline(img, points, color="red", width=2.0, closed=False, dash=None, alpha
     for p in runs:
         if len(p) == 0:
             continue
-        if len(p) > 2:                       # drop points closer than 0.25 px
+        if len(p) > 2:                       # 0.25 px より近い点を除く。
             keep = [0]
             for i in range(1, len(p) - 1):
                 if math.hypot(p[i, 0] - p[keep[-1], 0], p[i, 1] - p[keep[-1], 1]) >= 0.25:
@@ -195,7 +196,7 @@ def polyline(img, points, color="red", width=2.0, closed=False, dash=None, alpha
 
 
 def line(img, p0, p1, color="red", width=2.0, dash=None, alpha=1.0, aa=True):
-    """Thick straight line from p0=(x, y) to p1."""
+    """p0=(x, y) から p1 までの太い直線を描く。"""
     return polyline(img, [p0, p1], color, width, False, dash, alpha, aa)
 
 
@@ -209,9 +210,9 @@ def vline(img, x, color="red", width=2.0, y0=None, y1=None, dash=None, alpha=1.0
     return line(img, (x, 0 if y0 is None else y0), (x, H if y1 is None else y1), color, width, dash, alpha)
 
 
-# ------------------------------------------------------------------ markers / shapes
+# マーカーと図形
 def circle(img, center, radius, color="red", fill=True, width=2.0, alpha=1.0):
-    """Filled disc (fill=True) or ring of line width `width`."""
+    """塗りつぶした円盤（fill=True）または線幅 width の円環を描く。"""
     cx, cy = float(center[0]), float(center[1])
     rr = float(radius)
     m = rr + width / 2.0 + 2.0
@@ -225,7 +226,7 @@ def circle(img, center, radius, color="red", fill=True, width=2.0, alpha=1.0):
 
 
 def cross(img, center, size=10, color="red", width=2.0, diagonal=False, alpha=1.0):
-    """'+' marker (or 'x' with diagonal=True); `size` = half length of the arms in px."""
+    """十字の + マーカーを描く。diagonal=True なら斜めの x にする。size は腕の半長（px）。"""
     cx, cy = float(center[0]), float(center[1])
     s = float(size)
     if diagonal:
@@ -239,8 +240,8 @@ def cross(img, center, size=10, color="red", width=2.0, diagonal=False, alpha=1.
 
 
 def marker(img, center, kind="o", size=6, color="red", width=2.0, outline=None):
-    """kind: 'o' disc, 'O' ring, '+' cross, 'x' diagonal cross, 's' square, 'd' diamond.
-    outline: optional colour of a 1.5 px wider under-stroke so the marker reads on any background."""
+    """kind は o が円盤、O が円環、+ が十字、x が斜め十字、s が正方形、d がひし形。
+    outline は任意の下地色。1.5 px 広い下線を描き、背景上での視認性を上げる。"""
     cx, cy = float(center[0]), float(center[1])
     if outline is not None:
         marker(img, center, kind, size + (1.5 if kind in "osd" else 0), outline,
@@ -263,8 +264,8 @@ def marker(img, center, kind="o", size=6, color="red", width=2.0, outline=None):
 
 
 def rect(img, x0, y0, x1, y1, color="red", width=2.0, fill=False, alpha=1.0):
-    """Axis-aligned rectangle given by two corners (continuous px).  Outline is drawn
-    INSIDE the rectangle with integer line width."""
+    """連続的な画素座標の二つの角から、軸に平行な長方形を作る。
+    輪郭は整数の線幅で長方形の内側に描く。"""
     H, W = img.shape[:2]
     xa, xb = sorted((int(round(x0)), int(round(x1))))
     ya, yb = sorted((int(round(y0)), int(round(y1))))
@@ -288,15 +289,15 @@ def rect(img, x0, y0, x1, y1, color="red", width=2.0, fill=False, alpha=1.0):
 
 
 def polygon_mask(shape, points):
-    """Boolean mask (h, w) of the pixels whose CENTRE lies inside the closed polygon
-    (even-odd rule).  shape = (h, w) or an image."""
+    """画素の中心が閉じた多角形の内側にある場合に真となる、形状 (h, w) のマスク。
+    偶奇則で判定する。shape には (h, w) または画像を渡せる。"""
     h, w = (shape.shape[:2] if hasattr(shape, "shape") else shape[:2])
     p = _pts(points)
     q = np.roll(p, -1, axis=0)
     x0, y0, x1, y1 = p[:, 0], p[:, 1], q[:, 0], q[:, 1]
     ylo, yhi = np.minimum(y0, y1), np.maximum(y0, y1)
-    j0 = np.clip(np.ceil(ylo - 0.5).astype(np.int64), 0, h)       # first row with centre >= ylo
-    j1 = np.clip(np.ceil(yhi - 0.5).astype(np.int64), 0, h)       # first row with centre >= yhi
+    j0 = np.clip(np.ceil(ylo - 0.5).astype(np.int64), 0, h)       # 中心が ylo 以上になる最初の行。
+    j1 = np.clip(np.ceil(yhi - 0.5).astype(np.int64), 0, h)       # 中心が yhi 以上になる最初の行。
     cnt = np.maximum(j1 - j0, 0)
     total = int(cnt.sum())
     diff = np.zeros((h, w + 1), np.int32)
@@ -306,19 +307,19 @@ def polygon_mask(shape, points):
         rows = j0[e] + offs
         yc = rows + 0.5
         xc = x0[e] + (yc - y0[e]) * (x1[e] - x0[e]) / (y1[e] - y0[e])
-        cols = np.clip(np.ceil(xc - 0.5).astype(np.int64), 0, w)   # first pixel centre >= crossing
+        cols = np.clip(np.ceil(xc - 0.5).astype(np.int64), 0, w)   # 中心が交点以上になる最初の画素。
         np.add.at(diff, (rows, cols), 1)
     return (np.cumsum(diff[:, :w], axis=1) & 1).astype(bool)
 
 
 def fill_polygon(img, points, color="red", alpha=1.0):
-    """Fill a closed polygon (even-odd rule, no anti-aliasing)."""
+    """閉じた多角形を偶奇則で塗る。アンチエイリアス処理はしない。"""
     return overlay_mask(img, polygon_mask(img, points), color, alpha)
 
 
-# ------------------------------------------------------------------ overlays
+# 重ね描き
 def overlay_mask(img, mask, color="red", alpha=0.5):
-    """Alpha-blend `color` where mask is set.  mask: bool, uint8 0..255 or float 0..1, shape (h, w)."""
+    """mask が設定された場所へ color をアルファ混合する。mask は形状 (h, w) の bool、0～255 の uint8、または 0～1 の float。"""
     m = np.asarray(mask)
     if m.shape[:2] != img.shape[:2]:
         raise ValueError("mask shape %r != image shape %r" % (m.shape, img.shape[:2]))
@@ -327,8 +328,8 @@ def overlay_mask(img, mask, color="red", alpha=0.5):
 
 
 def overlay_image(img, top, alpha=0.5, x=0, y=0, mask=None):
-    """Alpha-blend image `top` onto img at integer offset (x, y).
-    alpha: scalar; mask: optional (h, w) weights (bool / float) of `top`."""
+    """画像 top を整数オフセット (x, y) で img へアルファ混合する。
+    alpha は単一の値。mask は任意の重み配列 (h, w) で、bool または float。"""
     H, W = img.shape[:2]
     t = to_rgb(top) if img.ndim == 3 else np.asarray(top)
     h, w = t.shape[:2]
@@ -349,7 +350,7 @@ def overlay_image(img, top, alpha=0.5, x=0, y=0, mask=None):
 
 
 def mask_outline(mask, thickness=1):
-    """Boundary pixels of a boolean mask (inside pixels that touch the outside, 4-neighbourhood)."""
+    """真偽値マスクの内側の境界画素を返す。外側へ 4 近傍で接する画素を境界とする。"""
     m = np.asarray(mask, dtype=bool)
     out = np.zeros_like(m)
     cur = m
@@ -361,10 +362,10 @@ def mask_outline(mask, thickness=1):
     return out
 
 
-# ------------------------------------------------------------------ crop / resize
+# 切り出しとサイズ変更
 def crop(img, x0, y0, x1, y1, return_origin=False):
-    """Copy of the box [x0, x1) x [y0, y1) (rounded to integers, clamped to the image).
-    return_origin=True -> (crop, (ox, oy)) with the integer origin actually used."""
+    """領域 [x0, x1) × [y0, y1) の複写を返す。座標を整数へ丸め、画像内へ制限する。
+    return_origin=True なら、実際に使った整数原点を含む (crop, (ox, oy)) を返す。"""
     H, W = img.shape[:2]
     xa, xb = sorted((int(round(x0)), int(round(x1))))
     ya, yb = sorted((int(round(y0)), int(round(y1))))
@@ -377,7 +378,7 @@ def crop(img, x0, y0, x1, y1, return_origin=False):
 
 
 def _area_resample_axis(a, new_n, axis):
-    """Exact area-average resampling of one axis (box filter), float32 in / out."""
+    """一つの軸を面積平均で正確に再標本化する（ボックスフィルター）。入力と出力は float32。"""
     n = a.shape[axis]
     if new_n == n:
         return a
@@ -386,7 +387,7 @@ def _area_resample_axis(a, new_n, axis):
     edges = np.arange(new_n + 1, dtype=np.float64) * (n / float(new_n))
     i = np.minimum(np.floor(edges).astype(np.int64), n - 1)
     frac = (edges - i).reshape((-1,) + (1,) * (a.ndim - 1))
-    integ = csum[i] + frac * a[i]                     # integral of the piecewise-constant signal
+    integ = csum[i] + frac * a[i]                     # 区分的に一定な信号の積分。
     out = (integ[1:] - integ[:-1]) * (new_n / float(n))
     return np.moveaxis(out.astype(np.float32), 0, axis)
 
@@ -406,9 +407,8 @@ def _bilinear_axis(a, new_n, axis):
 
 
 def resize(img, new_w=None, new_h=None, scale=None, method="auto"):
-    """Resize to (new_w, new_h) or by `scale` (one of new_w / new_h may be None: keeps aspect).
-    method: 'auto' (box filter when shrinking, bilinear when enlarging), 'box' (exact
-    area average, right for downscaling), 'nearest', 'bilinear'."""
+    """(new_w, new_h) または scale で画像の大きさを変える。幅か高さの片方を None にすると縦横比を保つ。
+    method は auto（縮小時はボックス、拡大時はバイリニア）、box（正確な面積平均）、nearest、bilinear。"""
     H, W = img.shape[:2]
     if scale is not None:
         new_w, new_h = int(round(W * scale)), int(round(H * scale))
@@ -441,15 +441,15 @@ def resize(img, new_w=None, new_h=None, scale=None, method="auto"):
 
 
 def fit_width(img, max_w=1600, method="auto"):
-    """Downscale (never upscale) so that the width is <= max_w."""
+    """幅が max_w 以下になるまで縮小する。拡大はしない。"""
     return img.copy() if img.shape[1] <= max_w else resize(img, new_w=max_w, method=method)
 
 
 class View:
-    """Zoomed crop of an image with coordinate mapping, for judging details.
+    """細部を判定するため、座標の対応関係を保持した拡大切り出し画像を作る。
 
         v = View(painting, cx - 300, cy - 225, cx + 300, cy + 225, scale=2)
-        draw.polyline(v.img, v.to_view(pts_px), 'red', 2)   # pts in full-image px
+        draw.polyline(v.img, v.to_view(pts_px), 'red', 2)   # 元画像での画素座標
         imgio.save_png(path, v.img)
     """
 
@@ -458,7 +458,7 @@ class View:
         self.scale = float(scale)
         sub = to_rgb(sub) if sub.ndim == 2 else sub
         self.img = resize(sub, scale=self.scale, method=method) if self.scale != 1.0 else sub
-        # actual per-axis scale after rounding of the output size
+        # 出力サイズの丸めを反映した、軸ごとの実際の倍率。
         self.sx = self.img.shape[1] / float(sub.shape[1])
         self.sy = self.img.shape[0] / float(sub.shape[0])
 
@@ -480,7 +480,7 @@ class View:
         return d_px * self.sx
 
 
-# ------------------------------------------------------------------ layout
+# 画像の配置
 def _match_channels(imgs):
     return [to_rgb(i) for i in imgs]
 
@@ -493,7 +493,7 @@ def pad(img, top=0, right=0, bottom=0, left=0, color="white"):
 
 
 def hstack(imgs, gap=8, bg="white", align="top"):
-    """Side by side.  align: 'top' | 'center' | 'bottom'."""
+    """画像を横に並べる。align は top、center、bottom。"""
     imgs = _match_channels(imgs)
     H = max(i.shape[0] for i in imgs)
     W = sum(i.shape[1] for i in imgs) + gap * (len(imgs) - 1)
@@ -507,7 +507,7 @@ def hstack(imgs, gap=8, bg="white", align="top"):
 
 
 def vstack(imgs, gap=8, bg="white", align="left"):
-    """On top of each other.  align: 'left' | 'center' | 'right'."""
+    """画像を縦に並べる。align は left、center、right。"""
     imgs = _match_channels(imgs)
     W = max(i.shape[1] for i in imgs)
     H = sum(i.shape[0] for i in imgs) + gap * (len(imgs) - 1)
@@ -522,8 +522,8 @@ def vstack(imgs, gap=8, bg="white", align="left"):
 
 def grid(imgs, ncols=4, gap=8, bg="white", labels=None, label_scale=2, label_color="black",
          cell_size=None):
-    """Contact sheet.  labels: optional ASCII caption above each cell.
-    cell_size=(w, h): every image is first fitted into that box (box-filter downscale)."""
+    """一覧画像を作る。labels は各セルの上へ置く任意の ASCII 文字列。
+    cell_size=(w, h) の場合は、各画像をボックスフィルターで縮小して枠内へ収める。"""
     imgs = _match_channels(imgs)
     if cell_size is not None:
         cw, ch = cell_size
@@ -552,8 +552,8 @@ def grid(imgs, ncols=4, gap=8, bg="white", labels=None, label_scale=2, label_col
     return out
 
 
-# ------------------------------------------------------------------ text
-# Classic public-domain 5x7 LCD font, ASCII 32..126, 5 column bytes per glyph, bit 0 = top row.
+# 文字の描画
+# 古典的なパブリックドメインの 5×7 LCD フォント。ASCII 32～126、各文字は 5 列のバイト列で、ビット 0 が最上段。
 _FONT_HEX = (
     "0000000000" "00005F0000" "0007000700" "147F147F14" "242A7F2A12" "2313086462" "3649552250" "0005030000"
     "001C224100" "0041221C00" "14083E0814" "08083E0808" "0050300000" "0808080808" "0060600000" "2010080402"
@@ -568,8 +568,8 @@ _FONT_HEX = (
     "7C14141408" "081414187C" "7C08040408" "4854545420" "043F444020" "3C4040207C" "1C2040201C" "3C4030403C"
     "4428102844" "0C5050503C" "4464544C44" "0008364100" "00007F0000" "0041360800" "0804081008"
 )
-# Lower-case letters with descenders are redrawn on a 5x9 cell (rows 7..8 = descender) so that
-# 'g' does not read as '9' and 'p' / 'q' keep their x-height.
+# 下にはみ出す小文字は 5×9 のセルで描き直す。7～8 行目が下にはみ出す部分となり、
+# g を 9 と見間違えず、p と q の小文字としての高さも保てる。
 _DESCENDERS = {
     "g": (".....", ".....", ".####", "#...#", "#...#", "#...#", ".####", "....#", ".###."),
     "j": ("....#", ".....", "...##", "....#", "....#", "....#", "....#", "#...#", ".###."),
@@ -577,9 +577,9 @@ _DESCENDERS = {
     "q": (".....", ".....", ".####", "#...#", "#...#", "#...#", ".####", "....#", "....#"),
     "y": (".....", ".....", "#...#", "#...#", "#...#", "#...#", ".####", "....#", ".###."),
 }
-FONT_W, FONT_H = 5, 9  # glyph cell: 7 body rows + 2 descender rows
-CHAR_ADVANCE = 6       # 5 px glyph + 1 px spacing (times scale)
-LINE_ADVANCE = 11      # 9 px cell + 2 px leading (times scale)
+FONT_W, FONT_H = 5, 9  # 文字セルは本体 7 行と下にはみ出す部分の 2 行。
+CHAR_ADVANCE = 6       # 5 px の文字幅と 1 px の間隔に scale を掛ける。
+LINE_ADVANCE = 11      # 9 px のセル高と 2 px の行間に scale を掛ける。
 _GLYPHS = None
 
 
@@ -614,15 +614,15 @@ def _text_bitmap(s):
 
 
 def text_size(s, scale=2):
-    """(width, height) in px of the rendered string (multi-line with '\\n')."""
+    """描画後の文字列の幅と高さを px 単位で返す。改行を含む複数行にも対応する。"""
     bm = _text_bitmap(s)
     return bm.shape[1] * int(scale), bm.shape[0] * int(scale)
 
 
 def text(img, x, y, s, color="black", scale=2, bg=None, anchor="lt", bg_alpha=1.0, margin=3):
-    """Draw ASCII text.  (x, y) is the anchor point; anchor = horizontal 'l'|'c'|'r' +
-    vertical 't'|'m'|'b'.  bg: optional background box colour.  Non-ASCII chars become '?'.
-    Returns the text box (x0, y0, x1, y1)."""
+    """ASCII 文字列を描く。(x, y) が基準点。anchor は横方向 l/c/r と縦方向 t/m/b を組み合わせる。
+    bg は任意の背景色。ASCII 以外の文字は ? になる。
+    文字領域 (x0, y0, x1, y1) を返す。"""
     scale = max(1, int(scale))
     bm = _text_bitmap(s)
     if scale > 1:
@@ -639,7 +639,7 @@ def text(img, x, y, s, color="black", scale=2, bg=None, anchor="lt", bg_alpha=1.
 
 def label_point(img, center, s, color="red", scale=2, offset=(10, -10), bg="white", bg_alpha=0.8,
                 kind="+", size=10, width=2.0, outline="white"):
-    """Marker + text label next to it (offset in px from the marker centre)."""
+    """マーカーの隣へ文字ラベルを描く。位置はマーカーの中心からの px 単位のずれで指定する。"""
     marker(img, center, kind, size, color, width, outline)
     ax = "l" if offset[0] >= 0 else "r"
     ay = "t" if offset[1] >= 0 else "b"

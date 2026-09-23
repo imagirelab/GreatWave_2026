@@ -2,19 +2,19 @@
 #pragma kernel CS_Generate
 #pragma kernel CS_FinalizeArgs
 
-// Per-instance data consumed by HokusaiClawInstanced.shader.
-// 每个爪形实例传给 HokusaiClawInstanced.shader 的数据。
+// HokusaiClawInstanced.shader に渡すインスタンスごとのデータ。
+// 爪状白波の描画に必要な値を保持する。
 struct ClawInstanceData
 {
     float4 row0;
     float4 row1;
     float4 row2;
     float4 row3;
-    float4 params; // x = crest score, y = life, z = random01, w = growthOpen
+    float4 params; // x = 波頭の評価値、y = 生存値、z = 0～1 の乱数、w = 展開量
 };
 
-// One scan-grid cell after deterministic shuffling and jitter.
-// 经过确定性打散和随机偏移后的一个扫描格子。
+// 決定的な並べ替えと揺らぎを加えた、一つの走査格子セル。
+// 同じ入力なら同じ走査位置を再現できる。
 struct ScanCell
 {
     uint index;
@@ -24,8 +24,8 @@ struct ScanCell
     float2 worldXZ;
 };
 
-// Per-claw placement data inside one crest cluster.
-// 单个波峰簇内部一个爪形的摆放数据。
+// 一つの波頭の簇に含まれる爪状白波の配置データ。
+// 簇内の各要素の位置と向きに使う。
 struct ClusterPlacement
 {
     uint seed;
@@ -42,12 +42,12 @@ RWStructuredBuffer<ClawInstanceData> _ClawInstances;
 RWStructuredBuffer<uint> _ClawCounter;
 RWStructuredBuffer<uint> _ArgsBuffer;
 RWStructuredBuffer<uint> _UnderlayArgsBuffer;
-// Two float4 slots per scan cell:
-//   slot 0 (cell*2)   : x = life, y = random, z = smoothed score, w = initialized
-//   slot 1 (cell*2+1) : xy = crest-locked anchor (world XZ) that drifts with the wave
-// 每个扫描格占两个 float4：
-//   槽 0：生命值 / 随机数 / 平滑评分 / 初始化标记
-//   槽 1：xy = 锁定波峰的世界 XZ 锚点（随波漂移，是爪形平滑跟随的关键）
+// 走査セルごとに float4 を二つ使用する。
+// スロット 0（cell*2）：x は生存値、y は乱数、z は平滑化した評価値、w は初期化フラグ。
+// スロット 1（cell*2+1）：xy は波とともに移動する、波頭へ固定した基点の世界 XZ 座標。
+// 各走査セルの生存状態と基点を別々に保持する。
+// スロット 0 は生存値、乱数、平滑化した評価値、初期化フラグを持つ。
+// スロット 1 は波頭に追従する基点の世界 XZ 座標を持つ。
 RWStructuredBuffer<float4> _ClawCellState;
 
 uint _IndexCount;
@@ -180,24 +180,24 @@ float _HiddenLipSkipVisibility;
 float _HiddenLipSkipOpen;
 float _HiddenLipSkipScaleY;
 
-// ---- Crest tracking & organic layout (Hokusai reference) ----
-// 爪形跟随波峰与有机排布（参考神奈川冲浪里）。
-float _CrestDriftSpeed;     // m/s, anchor advection along the dominant wave direction / 锚点沿主波向的漂移速度
-float _CrestRelockRate;     // 1/s, how quickly a living anchor re-locks onto the found crest / 存活锚点重新吸附波峰的速率
-float _CrestLostFallBoost;  // fall-speed multiplier once the crest has collapsed / 波峰塌掉后生命值下降的加速倍数
-float _CrestCurveFollow;    // 0..1, how strongly members snap onto the curved crest line / 成员吸附弯曲脊线的强度
-float _ClusterFanRadians;   // members fan outward across the cluster like spreading fingers / 成员沿簇展开的扇形角
-float _ClusterArcForwardOffset; // pushes the cluster center over the wave lip to form a curved crest arc
+// 波頭の追跡と自然な配置（「神奈川沖浪裏」を参照）。
+// 爪状白波を波頭へ追従させ、簇の形を調整する。
+float _CrestDriftSpeed;     // m/s。主波の進行方向へ基点を移動させる速度。
+float _CrestRelockRate;     // 1/s。生きている基点を検出した波頭へ合わせ直す速さ。
+float _CrestLostFallBoost;  // 波頭の崩壊後に生存値が下がる速さの倍率。
+float _CrestCurveFollow;    // 0～1。要素が湾曲した波頭の稜線に沿う強さ。
+float _ClusterFanRadians;   // 簇の要素を指のように外側へ開く扇形の角度。
+float _ClusterArcForwardOffset; // 簇の中心を波の先端より前へ押し出し、湾曲した波頭の円弧を作る。
 float _MainFanLateralScale;
 float _MainFanForwardScale;
 float _MainFanYawBoost;
 float _MainMemberScreenArcFollow;
 float _FoamSheetFlatten;
 float _FoamSheetWidthBoost;
-float _RootEmbedFraction;   // desired root embed fraction; capped by _RootEmbedMaxMeters
-float _RootEmbedMaxMeters;  // world-space cap so large claws cannot sink several meters
-float2 _RootLiftRangeMeters; // x = folded lift, y = fully-open lift above the crest
-float _SizeHierarchy;       // 0..1, center-big size hierarchy across the cluster / “中间大两侧小”的层级强度
+float _RootEmbedFraction;   // 根元を沈める割合の目標値。_RootEmbedMaxMeters で制限する。
+float _RootEmbedMaxMeters;  // 大きな爪状白波が数メートル沈まないようにする、ワールド座標での上限。
+float2 _RootLiftRangeMeters; // x は折り畳み時の持ち上げ量、y は完全展開時に波頭より上へ持ち上げる量。
+float _SizeHierarchy;       // 0～1。簇の中央を大きくし、両端を小さくする強さ。
 
 float _VerticalDisplacementStrength;
 float _HorizontalDisplacementStrength;
@@ -208,8 +208,8 @@ float _CrestHeightRange;
 float _CrestSearchRadius;
 float _CrestSearchLateral;
 
-// Hashes an integer into another well-distributed integer for deterministic GPU randomness.
-// 将整数哈希成分布较均匀的整数，用于 GPU 上可复现的随机数。
+// 整数を分布のよい別の整数へハッシュ化し、GPU 上で再現可能な乱数を作る。
+// 同じ入力から同じ乱数を得るための変換。
 uint Hash(uint x)
 {
     x ^= x >> 16;
@@ -220,16 +220,16 @@ uint Hash(uint x)
     return x;
 }
 
-// Converts Hash output into the [0, 1] range.
-// 将 Hash 结果转换到 [0, 1] 区间。
+// Hash の出力を [0, 1] の範囲へ変換する。
+// ハッシュ値を正規化した乱数として使う。
 float Hash01(uint x)
 {
     return (Hash(x) & 0x00ffffffU) / 16777215.0f;
 }
 
-// Keep invalid GPU state or texture samples from leaking NaN transforms into the
-// indirect instance buffer. Comparisons against NaN are false, so the fallback path
-// catches NaN without relying on platform-specific isnan intrinsics.
+// 無効な GPU 状態やテクスチャの値から NaN の変換行列が作られないようにする。
+// NaN との比較結果は偽になるため、代替値へ切り替える処理で NaN を検出できる。
+// プラットフォームごとに異なる isnan 関数には依存しない。
 float CleanFloat(float value, float fallback)
 {
     return (value > -1e20f && value < 1e20f) ? value : fallback;
@@ -265,8 +265,8 @@ bool IsFiniteFloat4(float4 value)
         && value.w > -1e20f && value.w < 1e20f;
 }
 
-// Normalizes a 3D vector and falls back when the input is too close to zero.
-// 归一化三维向量；输入过小时使用备用方向。
+// 3D ベクトルを正規化し、入力がゼロに近い場合は代替の方向を使う。
+// 小さすぎる入力で不安定な方向を返さないようにする。
 float3 SafeNormalize3(float3 value, float3 fallback)
 {
     value = CleanFloat3(value, fallback);
@@ -277,8 +277,8 @@ float3 SafeNormalize3(float3 value, float3 fallback)
     return value * rsqrt(lenSq);
 }
 
-// Normalizes a 2D vector and falls back when the input is too close to zero.
-// 归一化二维向量；输入过小时使用备用方向。
+// 2D ベクトルを正規化し、入力がゼロに近い場合は代替の方向を使う。
+// 小さすぎる入力で不安定な方向を返さないようにする。
 float2 SafeNormalize2(float2 value, float2 fallback)
 {
     value = CleanFloat2(value, fallback);
@@ -289,32 +289,32 @@ float2 SafeNormalize2(float2 value, float2 fallback)
     return value * rsqrt(lenSq);
 }
 
-// Wraps a UV coordinate and converts it to a texture texel.
-// 包裹 UV 坐标并转换成纹理像素坐标。
+// UV 座標を折り返し、テクスチャの画素座標へ変換する。
+// 座標を有効範囲へ戻してから参照する。
 uint2 TexelFromUV(float2 uv)
 {
     float2 wrapped = frac(uv);
     return min((uint2)floor(wrapped * _Resolution), uint2(_Resolution - 1, _Resolution - 1));
 }
 
-// Samples one FFT displacement layer with its tile scale and contribution.
-// 按 tile 缩放和权重采样一个 FFT 位移层。
+// FFT の一つの変位層を、タイル倍率と寄与度に従ってサンプリングする。
+// 層ごとの変位を取り出す。
 float4 SampleDisplacementLayer(float2 worldXZ, uint layer, float tile, float contribution)
 {
     uint2 texel = TexelFromUV(worldXZ * tile);
     return _DisplacementTexture.Load(int4(texel.x, texel.y, layer, 0)) * contribution;
 }
 
-// Samples one FFT slope layer with its tile scale and contribution.
-// 按 tile 缩放和权重采样一个 FFT 坡度层。
+// FFT の一つの傾斜層を、タイル倍率と寄与度に従ってサンプリングする。
+// 層ごとの傾斜を取り出す。
 float2 SampleSlopeLayer(float2 worldXZ, uint layer, float tile, float contribution)
 {
     uint2 texel = TexelFromUV(worldXZ * tile);
     return _SlopeTexture.Load(int4(texel.x, texel.y, layer, 0)) * contribution;
 }
 
-// Applies the same storm-wave amplification used by the visible ocean material.
-// 应用与可见海面材质一致的暴风浪放大逻辑。
+// 見える海面マテリアルと同じ、荒天時の波の増幅を適用する。
+// 爪状白波の位置と表示中の海面を合わせる。
 float3 ApplyStormDisplacement(float3 displacement)
 {
     displacement = CleanFloat3(displacement, float3(0.0f, 0.0f, 0.0f));
@@ -324,8 +324,8 @@ float3 ApplyStormDisplacement(float3 displacement)
     return CleanFloat3(displacement, float3(0.0f, 0.0f, 0.0f));
 }
 
-// Combines all FFT displacement layers and converts them to visible storm displacement.
-// 合并所有 FFT 位移层，并转换成可见的暴风浪位移。
+// FFT のすべての変位層を合わせ、表示に使う荒天時の変位へ変換する。
+// 各層の変位を合成する。
 float3 SampleCombinedDisplacement(float2 worldXZ)
 {
     float4 d0 = SampleDisplacementLayer(worldXZ, 0, _TileScales.x, _LayerContributes.x);
@@ -335,8 +335,8 @@ float3 SampleCombinedDisplacement(float2 worldXZ)
     return ApplyStormDisplacement(CleanFloat3(d0.xyz + d1.xyz + d2.xyz + d3.xyz, float3(0.0f, 0.0f, 0.0f)));
 }
 
-// Combines all FFT slope layers into a slope used for normals and crest scoring.
-// 合并所有 FFT 坡度层，用于法线计算和波峰评分。
+// FFT のすべての傾斜層を合成し、法線と波頭の評価に使う。
+// 海面の傾斜を一つの値にまとめる。
 float2 SampleCombinedSlope(float2 worldXZ)
 {
     float2 s0 = SampleSlopeLayer(worldXZ, 0, _TileScales.x, _LayerContributes.x);
@@ -361,8 +361,8 @@ float ViewFacingLipScore(float2 worldXZ, float currentHeight)
     return saturate(lipDrop * 0.72f + faceBias * 0.28f);
 }
 
-// Rotates a vector around an arbitrary axis using Rodrigues' formula.
-// 使用罗德里格斯公式绕任意轴旋转向量。
+// Rodrigues の公式で、任意の軸の周りにベクトルを回転する。
+// 指定した軸と角度から回転後の方向を求める。
 float3 RotateAroundAxis(float3 value, float3 axis, float radians)
 {
     float s = sin(radians);
@@ -370,8 +370,8 @@ float3 RotateAroundAxis(float3 value, float3 axis, float radians)
     return value * c + cross(axis, value) * s + axis * dot(axis, value) * (1.0f - c);
 }
 
-// Scores whether a world position is inside the camera/focus region.
-// 评估世界坐标是否位于相机/焦点区域内。
+// 世界座標上の点がカメラの焦点範囲に含まれるか評価する。
+// 描画範囲の焦点に対する位置を評価する。
 float FocusScore(float2 worldXZ)
 {
     float distToFocus = distance(worldXZ, _FocusCenterXZ);
@@ -796,8 +796,8 @@ float2 SampleVisualRibbonArcCrestWorldAtNx(uint seed, float2 dominantXZ, float2 
         saturate(_HokusaiArcLobeContrast) * 0.90f);
 }
 
-// Stable painting-composition weight: one dominant crest, one smaller side crest,
-// and a low floor so background fingers can fade rather than pop out instantly.
+// 版画の構図に使う安定した重み。大きな主波頭と小さな副波頭を作る。
+// 背景の白泡の指が突然消えないよう、低い下限も設ける。
 float ComputeCompositionWeight(
     float2 worldXZ,
     float2 dominantXZ,
@@ -833,23 +833,23 @@ float ComputeCompositionWeight(
     return lerp(1.0f, groupedWeight, enabled);
 }
 
-// Builds the dominant wave direction used by crest search and claw facing.
-// 构建用于波峰搜索和爪尖朝向的主波浪方向。
+// 波頭の探索と爪状白波の向きに使う、主な波の進行方向を作る。
+// 海面の主な進行方向を共通の基準にする。
 float3 GetDominantDirection()
 {
     float3 dominant = float3(_DominantDirectionXZ.x, 0.0f, _DominantDirectionXZ.y);
     return SafeNormalize3(dominant, float3(0.0f, 0.0f, 1.0f));
 }
 
-// Builds the lateral direction across the crest line.
-// 构建沿波峰横向排列爪形的侧向方向。
+// 波頭の線を横切る左右方向を作る。
+// 爪状白波を波頭に沿って配置するための横方向。
 float2 GetLateralDirection(float2 dominantXZ)
 {
     return SafeNormalize2(float2(-dominantXZ.y, dominantXZ.x), float2(1.0f, 0.0f));
 }
 
-// Maps the raw dispatch index to a shuffled scan cell with deterministic jitter.
-// 将原始 dispatch 索引映射到打散后的扫描格子，并添加可复现随机偏移。
+// 元のディスパッチ番号を、決定的な揺らぎを加えた走査セルへ割り当てる。
+// 同じ条件なら同じ無作為な走査位置を再現できる。
 ScanCell BuildScanCell(uint rawIndex)
 {
     uint totalCells = max(1U, _ScanGridSize * _ScanGridSize);
@@ -1005,9 +1005,9 @@ void ApplyDedicatedCompositionScan(inout ScanCell cell, float2 dominantXZ, float
             float dedicatedPrintLock = saturate(max(screenDedicated, visualDedicated));
             stratifiedNx = BlendToHokusaiSegmentedArcNx(stratifiedNx, cell.index, cell.seed ^ 0x165667b1U, dedicatedPrintLock * 2.10f);
             float2 screenWorld = SampleScreenReferenceArcCrestWorldAtNx(cell.seed ^ 0x3f84d5b5U, dominantXZ, dedicatedWorld, stratifiedNx);
-            // Treat the camera-space arc as a print-placement bias, not a hard spawn
-            // position. A strong lock can move cells away from the live FFT crest and
-            // leave the lifecycle with no valid foam candidate.
+            // カメラ画面上の円弧は、生成位置を固定する条件ではなく、版画風の配置を促す重みとして扱う。
+            // 強く固定しすぎると、生きている FFT の波頭からセルが離れ、
+            // 生存状態を更新できる白泡候補が見つからなくなる。
             dedicatedWorld = lerp(dedicatedWorld, screenWorld, screenDedicated * 0.28f);
             float2 visualWorld = SampleVisualRibbonArcCrestWorldAtNx(cell.seed ^ 0x7feb352dU, dominantXZ, dedicatedWorld, stratifiedNx);
             dedicatedWorld = lerp(dedicatedWorld, visualWorld, visualDedicated * 0.62f);
@@ -1018,8 +1018,8 @@ void ApplyDedicatedCompositionScan(inout ScanCell cell, float2 dominantXZ, float
     }
 }
 
-// Rejects some scan cells before expensive texture sampling to control density and GPU cost.
-// 在昂贵纹理采样前丢弃一部分格子，用于控制生成密度和 GPU 成本。
+// 負荷の大きいテクスチャのサンプリング前に一部の走査セルを除き、密度と GPU 負荷を制御する。
+// 必要な走査セルだけで波頭の候補を調べる。
 bool PassesDensityGate(float random01, float mainMask, float sideMask, bool wasAlive)
 {
     float groupMask = saturate(max(mainMask, sideMask));
@@ -1028,8 +1028,8 @@ bool PassesDensityGate(float random01, float mainMask, float sideMask, bool wasA
     return wasAlive || random01 <= density;
 }
 
-// Scores how much the current point is higher than nearby points along the wave direction.
-// 评估当前点相对主波向前后采样点是否更像波峰。
+// 波の進行方向にある近傍の点と比べ、現在位置がどれだけ高いか評価する。
+// 波頭らしさを前後の高さの差で測る。
 float ComputeRidgeScore(float2 worldXZ, float2 dominantXZ, float currentHeight)
 {
     float hForward = SampleCombinedDisplacement(worldXZ + dominantXZ * _CrestProbeDistance).y;
@@ -1037,8 +1037,8 @@ float ComputeRidgeScore(float2 worldXZ, float2 dominantXZ, float currentHeight)
     return saturate((currentHeight - max(hForward, hBack) + _CrestHeightBias) / max(_CrestHeightRange, 0.001f));
 }
 
-// Searches around a scan cell and snaps the candidate to the strongest nearby moving crest.
-// 在扫描格附近搜索，把候选点吸附到附近最强的移动波峰上。
+// 走査セルの周辺を探索し、最も強い近傍の移動する波頭へ候補を合わせる。
+// 生成位置を近傍の波頭へ追従させる。
 void FindBestCrest(float2 startWorldXZ, float2 dominantXZ, float2 lateralXZ, float searchScale, out float2 bestWorldXZ, out float3 bestDisplacement)
 {
     bestWorldXZ = startWorldXZ;
@@ -1085,16 +1085,16 @@ void FindBestCrest(float2 startWorldXZ, float2 dominantXZ, float2 lateralXZ, flo
     }
 }
 
-// Loads the FFT-generated claw mask at a world position.
-// 在世界坐标处读取 FFT compute shader 生成的爪形遮罩。
+// 世界座標上の位置で、FFT が生成した爪状白波のマスクを読む。
+// 海面と同じ位置のマスク値を参照する。
 float4 LoadClawMask(float2 worldXZ)
 {
     uint2 clawTexel = TexelFromUV(worldXZ * _TileScales.x);
     return _ClawMaskTexture.Load(int3(clawTexel.x, clawTexel.y, 0));
 }
 
-// Combines height, slope, crest mask, and focus into the final spawn score.
-// 将高度、坡度、波峰遮罩和焦点区域合成为最终生成评分。
+// 波高、傾斜、波頭のマスク、焦点範囲を合成し、最終的な生成評価値を得る。
+// 複数の条件を一つの生成評価値へまとめる。
 float ComputeSpawnScore(
     float2 worldXZ,
     float3 displacement,
@@ -1128,17 +1128,17 @@ float ComputeSpawnScore(
     float physicalCrest = saturate(max(mask.a * 0.24f, lipScore * 0.42f));
     float foamPlateScore = saturate(foamPlacement * (0.62f + foamLeaf * 0.25f + crestScore * 0.18f + viewLipScore * 0.14f));
     float offPlateSuppression = lerp(0.20f, 1.0f, ribbonMask);
-    // DIRECT WHITE-BREAKING TERM: the water shader paints white where mask.b is high (~54% of the sea
-    // reaches >0.6). The old composition-gated score buried mask.b (x0.26, x0.2 off-ribbon) so the claw
-    // score maxed ~0.02 and claws never reached visible life. This term makes a claw's score follow the
-    // visible white foam DIRECTLY (height-gated so it rides crests) — claws appear across ALL white and
-    // fade as the white leaves, which is the requested behaviour.
-    // 直接白沫破碎项：水面在 mask.b 高处画白（~54% 海面 >0.6）。旧构图遮罩把 mask.b 埋没（x0.26、离弧带 x0.2），
-    // 爪形分数仅 ~0.02、永远涨不到可见 life。此项让爪形分数直接跟随可见白沫（按高度门控贴浪峰）——铺满所有白色、白色离开即淡出。
-    // Claws ON the WHITE crest caps (high Jacobian breaking = white), matched to where the water shader
-    // actually paints white, so claws sit on the white and simply track those caps as they move. (User:
-    // 爪形要生成在白色区域，基本只要跟着白色的波峰移动就行。) The crest-tracking branch above handles the motion.
-    // 爪形落在白色浪峰冠（高破碎＝白）上，与水面着色实际画白之处对齐；爪形坐落白色之上并随白色浪峰移动。
+    // 白い砕波に直接対応する項。水面シェーダーは mask.b が高い部分を白く描く。
+    // 海面の約 54% で値が 0.6 を超える。以前の構図マスクでは mask.b に x0.26、円弧外で x0.2 を掛け、
+    // 爪状白波の評価値が最大でも約 0.02 になり、表示に必要な生存値へ届かなかった。
+    // この項では高さによる条件を保ちつつ、見える白泡を生成評価値へ直接反映する。
+    // 白い部分に爪状白波が現れ、白泡が消えると爪状白波も薄くなる。
+    // mask.b が高い白泡領域を直接参照し、以前の強い構図制限を緩める。
+    // 高さ条件によって波頭へ配置し、白泡の消失に合わせてフェードさせる。
+    // 爪状白波を、砕波判定が高く白く描画される波頭の頂部へ配置する。
+    // 水面シェーダーが実際に白く描く位置に合わせ、移動中もその頂部を追う。
+    // 上の波頭追跡処理が移動を担う。
+    // 白く描かれた波頭に爪状白波を置き、波頭とともに移動させる。
     float whiteOnCap = saturate(smoothstep(0.62f, 0.9f, mask.b) * heightGate);
     rawScore = saturate(max(
         max(foamPlateScore * lerp(0.56f, 1.0f, heightFeasible), physicalCrest * heightGate * 0.26f) * offPlateSuppression,
@@ -1146,11 +1146,11 @@ float ComputeSpawnScore(
     return rawScore * FocusScore(worldXZ);
 }
 
-// Updates the persistent life, smoothed score, and crest-locked anchor of one scan cell.
-// The anchor travels with the wave instead of staying glued to the fixed scan cell — this is
-// what stops claws from popping out when a crest moves on, and from sinking into the trough.
-// 更新扫描格的持久生命值、平滑评分和“锁定波峰”的锚点。
-// 锚点随波移动而不是钉死在固定格子上——这是解决“波峰走了爪形突然消失/跟着水面沉进波谷”的关键。
+// 走査セルごとの持続する生存値、平滑化した評価値、波頭に固定した基点を更新する。
+// 基点は固定された走査セルに留まらず、波とともに移動する。
+// 波頭の移動時に爪状白波が突然消えたり、谷へ沈んだりするのを抑える。
+// 各セルの状態と、波頭に追従する基点を更新する。
+// 基点を波頭に合わせて動かし、波から離れる表示を防ぐ。
 void UpdateCellLifecycle(
     uint cellIndex,
     float random01,
@@ -1169,9 +1169,9 @@ void UpdateCellLifecycle(
     float previousLife = saturate(state.x) * wasInitialized;
     float previousScore = saturate(state.z) * wasInitialized;
 
-    // Reduced score hysteresis (was 0.90): claws must FADE promptly when the breaking foam
-    // (score) leaves their cell — the old sticky score kept them alive on now-blue water.
-    // 减小分数迟滞（原 0.90）：白沫离开格子时爪形要立刻淡出，旧版黏性分数让它们赖在已变蓝的水面上。
+    // 評価値のヒステリシスを以前の 0.90 から減らした。砕波の白泡がセルを離れたら、
+    // 爪状白波も速やかに薄くなるようにする。以前は青い水面上で生き残っていた。
+    // 古い評価値を強く保持しすぎず、白泡の消失に合わせてフェードさせる。
     float activeScore = max(saturate(score), previousScore * 0.70f);
     float activationFeather = max(0.025f, (1.0f - saturate(_ScoreThreshold)) * 0.12f);
     float targetLife = smoothstep(
@@ -1181,44 +1181,44 @@ void UpdateCellLifecycle(
     float rise = _DeltaTime / max(_LifeRiseTime, 0.001f);
     float fall = _DeltaTime / max(_LifeFallTime, 0.001f);
 
-    // When the crest under the claw has collapsed (height score gone), dissolve much faster
-    // instead of riding the falling surface down below the surrounding waves.
-    // 波峰塌掉（高度评分消失）时加速消散，而不是跟着下落的水面沉到周围浪体以下。
-    // Dissolve fast when the BREAKING FOAM (activeScore) leaves the cell — that IS the white going
-    // away, which is what a foam claw should track. Height is only a weak secondary anchor so a tall
-    // NON-breaking crest still releases its claws instead of stranding them on now-blue water.
-    // 当破碎白沫（activeScore）离开格子时快速消散——这正是"白色消失"，泡沫爪应当跟随它。
-    // 高度只作弱次级锚，所以高而不破的浪峰也会释放爪形，而不是把它们搁在已变蓝的水上。
+    // 爪状白波の下の波頭が崩れ、波高の評価値が消えたら、より速く薄くする。
+    // 下がる水面とともに周囲の波より低い位置へ沈むのを防ぐ。
+    // 波頭の崩壊時は生存値を速く下げる。
+    // 砕波の白泡を表す activeScore がセルから消えたら、爪状白波を速く薄くする。
+    // 爪状白波が追うべき白い部分の消失に合わせる。波高は弱い補助条件に留め、
+    // 高くても砕波していない波頭では、青い水面上に爪状白波が残らないようにする。
+    // activeScore の消失を白泡の消失として扱い、爪状白波をフェードさせる。
+    // 波高だけでは爪状白波を保持しない。
     float crestLost = 1.0f - saturate(max(activeScore, saturate(heightScore) * 0.6f));
     fall *= lerp(1.0f, max(_CrestLostFallBoost, 1.0f), crestLost * crestLost);
 
     float lifeStep = (targetLife > previousLife) ? saturate(rise) : saturate(fall);
     life = saturate(lerp(previousLife, targetLife, lifeStep));
 
-    // Newborn claws lock onto the freshly found crest; living claws keep drifting with the
-    // wave and only gently re-lock toward the search result so they never teleport.
-    // 新生爪形直接锁定刚找到的波峰；存活爪形随波漂移并轻微向搜索结果校正，避免瞬移。
+    // 新しく生まれた爪状白波は、見つけた波頭へ直接固定する。生きている爪状白波は
+    // 波とともに移動し、探索結果へゆっくり合わせ直して瞬間移動を防ぐ。
+    // 新しい基点は即座に合わせ、既存の基点は滑らかに補正する。
     float relock = saturate(_DeltaTime * max(_CrestRelockRate, 0.0f));
     float2 trackedAnchor = lerp(advectedAnchor, freshCrestXZ, relock);
     anchorXZ = wasAlive ? trackedAnchor : freshCrestXZ;
 
-    // Slower temporal smoothing (6.5 -> 3.0): filters the instantaneous breaking signal's per-frame
-    // NOISE so a brief foam dip no longer crashes the claw's life (= the flicker). Sustained foam loss
-    // still decays smoothedScore over ~0.4s, so claws still fade off genuinely-dead crests.
-    // 放慢时间平滑(6.5->3.0)：滤掉瞬时破碎信号的逐帧噪声，短暂白沫凹陷不再让爪形寿命崩掉(=闪烁)；
-    // 持续失去白沫时 smoothedScore 仍会在约0.4s内衰减，爪形照样从真正消失的波峰上淡出。
+    // 時間方向の平滑化を 6.5 から 3.0 へ遅くし、瞬間的な砕波信号にある
+    // フレームごとのノイズを減らす。短い白泡の落ち込みで生存値が急減し、
+    // 表示がちらつくのを防ぐ。白泡が消え続ける場合は、約 0.4 秒で smoothedScore を下げる。
+    // 瞬間的な変動を抑えつつ、実際に消えた波頭からは爪状白波を薄くする。
+    // 一時的な白泡の変動と持続的な消失を区別する。
     smoothedScore = saturate(lerp(previousScore, max(saturate(score), previousScore * 0.7f), saturate(_DeltaTime * 3.0f)));
     _ClawCellState[cellIndex * 2] = float4(life, random01, smoothedScore, 1.0f);
     _ClawCellState[cellIndex * 2 + 1] = float4(anchorXZ.x, anchorXZ.y, 0.0f, 0.0f);
 }
 
-// Converts lifecycle and crest strength into the base unfold amount shared by a crest cluster.
-// Life drives most of the unfold so claws ALWAYS animate in and out smoothly; crest strength
-// only contributes the final fraction. The old version multiplied two hard smoothstep gates,
-// which sat at 0 most of the time and made claws snap open the moment a score spiked.
-// 将生命周期和波峰强度转换成簇共享的基础展开量。
-// 生命值主导展开，保证爪形永远是平滑生长/收回；波峰强度只补足最后一段。
-// 旧版是两个硬门控相乘，大部分时间卡在 0，分数一冲高爪形就“啪”地弹开。
+// 生存状態と波頭の強さを、一つの簇で共有する基本の展開量へ変換する。
+// 展開量の大部分は生存値で決め、爪状白波を滑らかに開閉させる。
+// 波頭の強さは最後の部分だけを補う。以前は二つの急な smoothstep 条件を掛け、
+// 値が大半の時間 0 に留まり、評価値の急上昇時に突然開いていた。
+// 簇の共通の展開量を、生存値と波頭の強さから計算する。
+// 生存値を主に使い、波頭の強さは完全な展開を補助する。
+// 急な開き方を避けるため、以前の硬い二重の条件を使わない。
 float ComputeGrowthOpenBase(float visibleLife, float rawScore, float heightScore, float ridgeScore, float foamPlacement)
 {
     visibleLife = saturate(CleanFloat(visibleLife, 0.0f));
@@ -1230,26 +1230,26 @@ float ComputeGrowthOpenBase(float visibleLife, float rawScore, float heightScore
     float rawScore01 = saturate((rawScore - _ScoreThreshold) / max(1.0f - _ScoreThreshold, 0.001f));
     float peakTop = saturate(_PeakOpenThreshold + _PeakOpenFeather);
 
-    // Height keeps newborn claws alive, but full opening follows the local ridge peak.
-    // Tall wave shoulders stay in a readable middle-open pose instead of saturating.
+    // 波高は生まれたばかりの爪状白波を保持するが、完全な展開は近傍の稜線の頂点に合わせる。
+    // 高い波の肩でも、完全に開ききらず、中間の開き方に保つ。
     float crest01 = saturate(rawScore01 * 0.52f + foamPlacement * 0.33f + ridgeScore * 0.11f + heightScore * 0.04f);
     float scoreOpen = smoothstep(_PeakOpenThreshold, peakTop, pow(crest01, max(_PeakOpenPower, 0.001f)));
 
-    // Normal breaking crests top out around two-thirds open. Only a local lip maximum
-    // gets the final extension, matching the painting's few dominant curled tips.
+    // 通常の砕波の波頭では展開量を約 3 分の 2 に抑える。
+    // 局所的な先端の最大点だけを完全に伸ばし、絵の少数の大きな巻き込み部に近づける。
     float exactPeak = smoothstep(0.94f, 1.0f, ridgeScore)
                     * smoothstep(0.985f, 1.0f, rawScore01)
                     * smoothstep(0.68f, 1.0f, foamPlacement);
-    // Raised open range 0.18/0.58 -> 0.42/0.82 so the now-STABLE (smoothed-score-driven) claws sit at the
-    // open/reaching pose the old raw-score PEAKS used to flash to — keeps them visible instead of budded,
-    // without re-introducing flicker (targetOpen is a function of the stable smoothed score only).
+    // 展開範囲を 0.18/0.58 から 0.42/0.82 へ上げ、平滑化した評価値で安定させた
+    // 爪状白波を、以前は瞬間的な高評価値でしか達しなかった伸びた姿勢に近づける。
+    // targetOpen は安定した平滑化評価値だけに依存させ、ちらつきを再発させない。
     float targetOpen = saturate(lerp(0.42f, 0.82f, scoreOpen) + exactPeak * 0.14f);
     float lifeOpen = pow(saturate(visibleLife), max(_GrowthCurvePower, 0.001f));
     return saturate(lifeOpen * targetOpen);
 }
 
-// Chooses how many claws a crest should display based on score and the foam print plate.
-// 根据波峰评分和白沫版位决定一个波峰簇显示多少个爪形。
+// 評価値と版画風の白泡面に基づいて、一つの波頭に表示する爪状白波の個数を選ぶ。
+// 波頭ごとの簇の大きさを決める。
 int ComputeClusterCount(float score01, float heightScore, float foamPlacement)
 {
     foamPlacement = saturate(CleanFloat(foamPlacement, 0.0f));
@@ -1259,8 +1259,8 @@ int ComputeClusterCount(float score01, float heightScore, float foamPlacement)
     return clamp((int)round(lerp((float)minCluster, (float)maxCluster, cluster01)), minCluster, maxCluster);
 }
 
-// Builds random-but-stable offsets for one claw inside a crest cluster.
-// 为波峰簇中的单个爪形生成稳定随机的偏移。
+// 簇内の一つの爪状白波に使う、無作為だが安定した位置のずれを作る。
+// フレーム間で位置が大きく変わらないようにする。
 ClusterPlacement BuildClusterPlacement(uint cellSeed, int clusterIndex, int clusterCount)
 {
     uint clusterSeed = Hash(cellSeed ^ (uint)(clusterIndex * 747796405));
@@ -1277,10 +1277,10 @@ ClusterPlacement BuildClusterPlacement(uint cellSeed, int clusterIndex, int clus
     float forwardOffset = (Hash01(clusterSeed ^ 0x02e5be93U) - 0.5f) * forwardScatterRange;
     forwardOffset += (Hash01(clusterSeed ^ 0x7feb352dU) - 0.5f) * _ClusterLateralSpacing * 0.35f * _ClusterForwardRandomness;
 
-    // The Great Wave's fingers do not sit on a straight ruler line: the middle of a
-    // crest group projects over the lip while the sides tuck back into the wave mass.
-    // This stable slot-based arc gives the cluster a clawed silhouette without making
-    // individual members jitter or spin frame-to-frame.
+    // 「神奈川沖浪裏」の白泡の指は直線上に並ばない。簇の中央を
+    // 波の先端より前へ出し、両端を波の中へ引き戻す。
+    // この安定した要素配置の円弧により、簇を爪状の輪郭にする。
+    // 個々の要素がフレーム間で揺れたり回転したりしないようにする。
     float centerWeight = 1.0f - saturate(abs(orderedSlot) * 2.0f);
     float arcPush = centerWeight * centerWeight * _ClusterArcForwardOffset;
     float sideTuck = (1.0f - centerWeight) * _ClusterArcForwardOffset * 0.28f;
@@ -1294,15 +1294,15 @@ ClusterPlacement BuildClusterPlacement(uint cellSeed, int clusterIndex, int clus
     return placement;
 }
 
-// Computes a water normal from FFT slope.
-// 根据 FFT 坡度计算水面法线。
+// FFT の傾斜から水面の法線を計算する。
+// 表示中の水面の傾きに合わせる。
 float3 ComputeSurfaceNormal(float2 slope)
 {
     return normalize(float3(-slope.x * _NormalInfluence, 1.0f, -slope.y * _NormalInfluence));
 }
 
-// Computes the local axes used to transform the claw mesh for one instance.
-// 计算单个爪形实例用于变换模型的本地坐标轴。
+// 一つのインスタンスの爪状白波メッシュを変形するための局所軸を計算する。
+// 各要素の向きに使う座標系を作る。
 void BuildClawBasis(
     uint clusterSeed,
     float3 dominant,
@@ -1324,10 +1324,10 @@ void BuildClawBasis(
     float3 slopeForward = SafeNormalize3(float3(-slope.x, 0.0f, -slope.y), dominant);
     float3 baseOutward = SafeNormalize3(lerp(dominant, slopeForward, saturate(_ForwardFromSlope)), dominant);
 
-    // Random jitter plus a cluster-wide fan: members near the ends rotate outward so the
-    // row reads as spreading fingers along the crest, like the painting, not a picket fence.
-    // 随机偏转叠加整簇的扇形展开：两端的成员向外旋转，让整排读起来像沿波峰张开的手指，
-    // 而不是一排栅栏。
+    // 無作為な揺らぎに加えて簇全体を扇形に開き、両端の要素を外側へ向ける。
+    // 波頭に沿って指が広がるように見せ、直線的な柵状の配置を避ける。
+    // 簇全体の扇形配置を個々の向きに反映する。
+    // 両端ほど外向きに配置する。
     float yaw = (Hash01(clusterSeed ^ 0x27d4eb2dU) - 0.5f) * _YawJitterRadians
               + (fanOffset01 - 0.5f) * _ClusterFanRadians;
     float3 outward = SafeNormalize3(RotateAroundAxis(baseOutward, worldUp, yaw), baseOutward);
@@ -1344,8 +1344,8 @@ void BuildClawBasis(
     meshYAxis = SafeNormalize3(lerp(rawMeshYAxis, horizontalMeshYAxis, saturate(sheetFlatten01)), rawMeshYAxis);
     forward = SafeNormalize3(cross(right, meshYAxis), dominant);
 
-    // Print foam should read like a woodblock shape on the camera plane. Without this
-    // camera-facing blend, flattened fingers often turn edge-on and appear as thin lines.
+    // 版画風の白泡は、カメラに向いた平らな形として見せる。
+    // カメラ方向への補正がないと、寝かせた指が真横を向いて細い線に見える。
     float screenMask01 = saturate(max(
         saturate(_UseScreenReferenceMask) * saturate(_ScreenReferenceStrength),
         saturate(_UseVisualRibbonMask) * saturate(_VisualRibbonInfluence) * 1.8f));
@@ -1376,24 +1376,24 @@ void BuildClawBasis(
     right = SafeNormalize3(cross(meshYAxis, forward), right);
 }
 
-// Computes the final instance scale including score, life, growth, and random variation.
-// 计算最终实例缩放，包含评分、生命值、生长量和随机差异。
+// 評価値、生存値、成長量、無作為な変動を含む最終的なインスタンスの大きさを計算する。
+// 各要素の表示サイズを決める。
 float3 ComputeInstanceScale(uint clusterSeed, float score01, float visibleLife, float growthOpen)
 {
     float instanceScale = lerp(_ClawScaleRange.x, _ClawScaleRange.y, score01);
     instanceScale *= lerp(max(0.05f, 1.0f - _ScaleRandomness), 1.0f + _ScaleRandomness, Hash01(clusterSeed ^ 0x165667b1U));
-    // Visibility floor: FFT breaking is transient so visibleLife/growthOpen rarely climb past ~0.2,
-    // which previously crushed scale to ~5-12% (claws were sub-pixel specks — invisible). Floors keep
-    // a spawned claw at ~45% minimum size while still letting life/growth modulate up to full size.
-    // 可见性下限：FFT 破碎是瞬时的，visibleLife/growthOpen 很少超过 ~0.2，旧版把缩放压到 ~5-12%
-    // （爪形是亚像素小点，看不见）。下限让已生成的爪形最小约 45% 尺寸，同时仍可随 life/growth 长到满尺寸。
+    // 表示サイズの下限。FFT の砕波は瞬間的で、visibleLife と growthOpen は
+    // 約 0.2 を超えにくく、以前はサイズが約 5～12% まで小さくなった。
+    // 生成済みの爪状白波を約 45% 以上の大きさに保ち、成長に応じて最大まで広げる。
+    // 以前はピクセル未満の小さな点となり、ほとんど見えなかった。
+    // 下限を設けても life と growth による大きさの変化は残す。
     instanceScale *= lerp(0.55f, 1.0f, pow(saturate(visibleLife), 0.75f));
     instanceScale *= lerp(max(_GrowthMinScale, 0.55f), 1.0f, growthOpen);
     return max(_ClawScaleMultiplier, float3(0.001f, 0.001f, 0.001f)) * instanceScale;
 }
 
-// Converts the sampled water surface point into the mesh origin so the mesh anchor stays on the crest.
-// 将采样到的水面点转换为模型原点，使模型锚点始终贴在波峰上。
+// サンプリングした水面上の点をメッシュ原点へ変換し、基点を波頭に合わせる。
+// メッシュの配置を実際の海面形状に追従させる。
 float3 ComputeInstancePosition(
     float2 clusterWorldXZ,
     float3 clusterDisplacement,
@@ -1414,8 +1414,8 @@ float3 ComputeInstancePosition(
     return surfacePos - anchorOffset;
 }
 
-// Packs transform rows and debug parameters into the instance buffer format.
-// 将变换矩阵行和调试参数打包成实例 buffer 的格式。
+// 変換行列の各行とデバッグ用の値を、インスタンスバッファーの形式に詰める。
+// GPU 描画へ渡す一つのインスタンスのデータを組み立てる。
 ClawInstanceData BuildInstanceData(
     float3 right,
     float3 meshYAxis,
@@ -1440,8 +1440,8 @@ ClawInstanceData BuildInstanceData(
     return data;
 }
 
-// Atomically appends one claw instance while respecting the max instance budget.
-// 以原子方式追加一个爪形实例，并遵守最大实例数量限制。
+// 最大インスタンス数を超えない範囲で、一つの爪状白波を原子的に追加する。
+// 同時実行中も描画数の上限を守る。
 bool TryAppendInstance(ClawInstanceData data)
 {
     if (!IsFiniteFloat4(data.row0)
@@ -1463,8 +1463,8 @@ bool TryAppendInstance(ClawInstanceData data)
     return true;
 }
 
-// Clears the indirect draw counter and writes stable mesh metadata into the args buffer.
-// 清空间接绘制计数器，并把稳定的网格信息写入 args buffer。
+// 間接描画の計数値を消去し、引数バッファーへ安定したメッシュ情報を書き込む。
+// 描画開始前の引数を初期化する。
 [numthreads(1, 1, 1)]
 void CS_Reset(uint3 id : SV_DISPATCHTHREADID)
 {
@@ -1482,8 +1482,8 @@ void CS_Reset(uint3 id : SV_DISPATCHTHREADID)
     _UnderlayArgsBuffer[4] = 0;
 }
 
-// Scans FFT waves, finds crest candidates, updates their life, and emits claw instances.
-// 扫描 FFT 海浪、寻找波峰候选、更新生命周期，并输出爪形实例。
+// FFT 海面を走査し、波頭候補の発見、生存状態の更新、爪状白波の生成を行う。
+// 各フレームで波と白泡を関連付ける。
 [numthreads(8, 8, 1)]
 void CS_Generate(uint3 id : SV_DISPATCHTHREADID)
 {
@@ -1493,30 +1493,30 @@ void CS_Generate(uint3 id : SV_DISPATCHTHREADID)
     uint rawIndex = id.x + id.y * _ScanGridSize;
     ScanCell cell = BuildScanCell(rawIndex);
 
-    // Stage 1: route this stable scan cell into normal ocean search or dedicated composition search.
-    // 阶段 1：把稳定扫描格路由到普通海面搜索，或专用构图搜索。
+    // 段階 1：安定した走査セルを、通常の海面探索または構図用の探索へ割り当てる。
+    // 探索する領域に応じて経路を分ける。
     float3 dominant = GetDominantDirection();
     float2 dominantXZ = dominant.xz;
     float2 lateralXZ = GetLateralDirection(dominantXZ);
     float mainArcDedicated;
     ApplyDedicatedCompositionScan(cell, dominantXZ, lateralXZ, mainArcDedicated);
 
-    // When this cell already owns a living claw, continue the crest search from last frame's
-    // anchor (extrapolated by the wave drift) instead of from the fixed cell position, so a
-    // claw follows ONE wave through the world instead of re-picking a crest every frame.
-    // 如果该格子已有存活爪形，从上一帧锚点（按波速外推）继续搜索，而不是从固定格子位置搜索，
-    // 这样爪形会一直跟着同一道波走，而不是每帧重新挑一个波峰。
+    // このセルに生きている爪状白波がある場合は、固定セルではなく前フレームの基点を使う。
+    // 波頭の探索は prevAnchor の近くで行い、別途計算する移流後の基点は生存状態の更新に渡す。
+    // 固定セルから毎回探し直す場合より、同じ波頭へ留まりやすくする狙いがある。
+    // 前フレームの基点と走査セルの位置を区別する。
+    // 実際に同じ波頭を維持できるかは、時間方向の描画結果で検証する必要がある。
     float4 prevState = CleanFloat4(_ClawCellState[cell.index * 2], float4(0.0f, 0.0f, 0.0f, 0.0f));
     float2 prevAnchor = CleanFloat2(_ClawCellState[cell.index * 2 + 1].xy, cell.worldXZ);
     bool wasAlive = prevState.w > 0.5f && prevState.x > 0.005f;
-    // Anchor advection: a living claw's anchor moves with the wave at _CrestDriftSpeed along the dominant
-    // direction. Matched to the crest speed, this makes the claw RIDE the crest it was born on (used by
-    // the wasAlive branch below as pure advection — no 2D re-search, so it can't jitter or wander). The
-    // earlier free anchor-chained search wandered tens of metres ("flying"); the earlier cell-pin removed
-    // motion entirely but jittered in place. Riding is the in-between the reference wants.
-    // 锚点平移：存活爪形的锚点以 _CrestDriftSpeed 沿主波向随波移动；速度匹配波峰速度时，爪形即"骑"在出生的
-    // 波峰上（下方 wasAlive 分支用作纯平移，不做二维搜索，故不抖动不乱跑）。旧的自由锚点搜索会游走几十米（"飞"），
-    // 旧的格子钉死则原地抖动；"骑行"是参考画想要的折中。
+    // 基点の移流。前フレームの基点を主波方向へ _CrestDriftSpeed で移動させる。
+    // 移流後の位置と、局所探索で見つけた波頭の位置を後で混合する。
+    // wasAlive 分岐でも prevAnchor の近くで局所探索を行うため、純粋な移流だけではない。
+    // 以前の自由な基点連鎖探索では数十メートル漂い、以前の固定セル方式では
+    // その場で揺れていた。この方法は両者の間で波頭への追従を目指す。
+    // _CrestDriftSpeed は基点の移動量を決める。
+    // 探索結果へ合わせ直す速さは _CrestRelockRate で決める。
+    // 漂いや揺れを十分に抑えられるかは、動く波頭上で確認する必要がある。
     float2 advectedAnchor = CleanFloat2(prevAnchor + dominantXZ * (_CrestDriftSpeed * _DeltaTime), cell.worldXZ);
     float2 searchOrigin = cell.worldXZ;
     float seedMainMask;
@@ -1525,19 +1525,19 @@ void CS_Generate(uint3 id : SV_DISPATCHTHREADID)
     if (!PassesDensityGate(cell.random01, seedMainMask, seedSideMask, wasAlive))
         return;
 
-    // Stage 2: find and score the crest this cell should own this frame.
-    // 阶段 2：找到并评估该扫描格这一帧负责的波峰。
+    // 段階 2：このフレームでセルが担当する波頭を探し、評価する。
+    // 生成位置に対応する波頭の候補を決める。
     float2 crestWorldXZ;
     float3 crestDisplacement;
     if (wasAlive)
     {
-        // TRACK the local crest: each frame, search a SMALL radius around the claw's CURRENT position and
-        // snap to the nearest crest. As the crest travels, the claw follows it frame-by-frame at the
-        // crest's TRUE speed (no fixed-speed guess, so no sliding), and the small radius keeps it on its
-        // OWN crest (so no wandering to far crests). This is the "依附波峰移动" the user wants: the claw's
-        // only motion is its crest's motion; when that crest's foam dies the lifecycle below fades it.
-        // 跟踪局部波峰：每帧在爪形当前位置的小半径内搜索并吸附到最近波峰。波峰行进时爪形逐帧跟随、以波峰真实速度
-        // 移动（无固定速度猜测，故不打滑），小半径使其留在自己的波峰上（不乱跑）。这就是"依附波峰移动"。
+        // 局所的な波頭を追跡する。毎フレーム、爪状白波の現在位置の小さな半径を探索し、
+        // 近くの波頭へ合わせる。移動する波頭をフレームごとに追い、
+        // 固定速度による滑りを抑える。小さな探索半径で遠い波頭への移動を防ぐ。
+        // 目的は同じ波頭への追従であり、白泡が消えたら後続の生存処理で薄くする。
+        // 波頭に吸着して移動する設計だが、実際の追跡精度は描画で確認する必要がある。
+        // 位置の更新を局所探索に限定する。
+        // 白泡がなくなった場合は爪状白波も薄くする。
         FindBestCrest(prevAnchor, dominantXZ, lateralXZ, 0.35f, crestWorldXZ, crestDisplacement);
         float2 toLocalCrest = crestWorldXZ - prevAnchor;
         float localCrestDist = length(toLocalCrest);
@@ -1549,7 +1549,7 @@ void CS_Generate(uint3 id : SV_DISPATCHTHREADID)
     }
     else
     {
-        // NEWBORN: find a fresh crest near this scan cell to be born on.
+        // 新しく生成する爪状白波では、この走査セルの近くで新しい波頭を探す。
         float searchScale = 1.0f + seedMainMask * _MainCrestSearchBoost + seedSideMask * _SideCrestSearchBoost;
         FindBestCrest(searchOrigin, dominantXZ, lateralXZ, searchScale, crestWorldXZ, crestDisplacement);
         if (mainArcDedicated > 0.001f)
@@ -1577,8 +1577,8 @@ void CS_Generate(uint3 id : SV_DISPATCHTHREADID)
     focusedScore = saturate(focusedScore * max(compositionWeight, compositionScoreFloor));
     float lifecycleHeight = max(heightScore, cellFoamPlacement * 0.62f);
 
-    // Stage 3: update persistent cell life and anchor before spending instance budget.
-    // 阶段 3：先更新持久生命周期和锚点，再消耗实例预算。
+    // 段階 3：インスタンス数を割り当てる前に、セルの生存状態と基点を更新する。
+    // 描画数の上限とは独立に、持続する状態を先に更新する。
     float life;
     float smoothedScore;
     float2 anchorXZ;
@@ -1587,17 +1587,17 @@ void CS_Generate(uint3 id : SV_DISPATCHTHREADID)
     if (life < _DrawLifeThreshold)
         return;
 
-    // Stage 4: choose the cluster size for this crest.
-    // 阶段 4：决定这个波峰簇需要输出多少个成员。
+    // 段階 4：この波頭の簇に出す要素数を決める。
+    // 評価値に応じて簇の大きさを選ぶ。
     float visibleLife = smoothstep(_VisibleLifeThreshold, 1.0f, life);
     float score01 = saturate((smoothedScore - _ScoreThreshold) / max(1.0f - _ScoreThreshold, 0.001f));
-    // FLICKER FIX: was max(rawScore_INSTANTANEOUS, smoothedScore). rawScore is the per-frame-noisy
-    // breaking signal, and growthDriverScore feeds growthOpen, which drives BOTH the tip FOLD and the
-    // instance SCALE — so the claw folded+shrank+unfolded+grew every frame = the flicker the user still
-    // saw after the lifecycle/alpha smoothing. Drive growth from the SMOOTHED score so the fold/scale
-    // are temporally stable; newborns open over ~0.4s instead of popping to the raw spike.
-    // 闪烁修复：原为 max(瞬时rawScore, smoothedScore)。rawScore 逐帧抖动，而它经 growthOpen 同时驱动爪形的
-    // 折叠角与缩放 -> 爪形每帧折叠+缩小+展开+变大 = 用户仍看到的闪烁。改用平滑分数驱动生长，折叠/缩放时间稳定。
+    // ちらつき対策。以前は max(瞬間的な rawScore, smoothedScore) を使っていた。
+    // rawScore はフレームごとに変動し、growthDriverScore から growthOpen を経由して、
+    // 先端の折り畳みとインスタンスの大きさの両方を動かしていた。
+    // そのため毎フレーム開閉と拡縮が起き、表示がちらついた。
+    // 平滑化した評価値で成長を決め、約 0.4 秒かけて開くようにする。
+    // 瞬間的な rawScore のピークで急に開かないようにする。
+    // 折り畳みと拡縮を時間的に安定させる。
     float growthDriverScore = smoothedScore;
     float growthOpenBase = ComputeGrowthOpenBase(visibleLife, growthDriverScore, heightScore, ridgeScore, cellFoamPlacement);
     float mainAccent = saturate(mainCompositionMask);
@@ -1616,8 +1616,8 @@ void CS_Generate(uint3 id : SV_DISPATCHTHREADID)
     [loop]
     for (int cluster = 0; cluster < clusterCount; cluster++)
     {
-        // Stage 5: place one member along the crest or the screen-locked print ribbon.
-        // 阶段 5：沿真实波峰或屏幕锁定版画白沫带摆放单个成员。
+        // 段階 5：実際の波頭または画面上に固定した版画風の白泡帯へ一つの要素を置く。
+        // 簇内の各要素の配置先を選ぶ。
         ClusterPlacement placement = BuildClusterPlacement(cell.seed, cluster, clusterCount);
         float slot01 = ((float)cluster + 0.5f) / max(1.0f, (float)clusterCount);
         float mainFan = smoothstep(0.08f, 0.92f, mainAccent);
@@ -1683,11 +1683,11 @@ void CS_Generate(uint3 id : SV_DISPATCHTHREADID)
             memberXZ = lerp(memberXZ, reliefWorldXZ, centerReliefStrength * 0.62f);
         }
 
-        // Bend the straight lateral row onto the actual curving crest line: probe the wave
-        // height ahead/behind and pull the member toward the local ridge maximum
-        // (quadratic peak fit). This is what breaks the "claws in a straight line" look.
-        // 把直线排布弯到真实的波峰曲线上：沿主波向前后采样高度，用二次峰值拟合把成员
-        // 拉到局部脊线最高处。这就是打破“爪形排成一条直线”的关键。
+        // 直線的な左右の列を、実際に湾曲した波頭の線へ合わせる。波の進行方向の
+        // 前後で波高を調べ、要素を局所的な稜線の頂点へ引き寄せる。
+        // 頂点は二次曲線で近似し、直線に並んだ見た目を崩す。
+        // 波高の前後差から局所的な稜線の位置を推定する。
+        // 各要素をその稜線へ寄せる。
         float snapStep = max(_ClusterLateralSpacing, 1.0f);
         float hHere = SampleCombinedDisplacement(memberXZ).y;
         float hFwd = SampleCombinedDisplacement(memberXZ + dominantXZ * snapStep).y;
@@ -1721,8 +1721,8 @@ void CS_Generate(uint3 id : SV_DISPATCHTHREADID)
         float visualFoamAccent = saturate(memberVisualMask * memberVisualStrength * 1.35f * ribbonPrintWindow);
         float foamRibbonFan = saturate(max(ribbonFan * lerp(0.48f, 1.0f, ribbonPrintWindow), visualFoamAccent));
 
-        // Stage 6: evaluate the Hokusai print profile that shapes size, reveal, and gaps.
-        // 阶段 6：评估北斋版画轮廓，用来塑造尺寸、显隐和留白。
+        // 段階 6：大きさ、出現順序、隙間を決める北斎風の版画輪郭を評価する。
+        // 主波頭の白泡の形を調整する。
         float shoulderSide = _ReferenceArcDensityBias < 0.0f ? -1.0f : 1.0f;
         float curlShoulder01 = saturate(0.5f + shoulderSide * ribbonNx * 0.5f);
         float tail01 = saturate(1.0f - curlShoulder01);
@@ -1774,9 +1774,9 @@ void CS_Generate(uint3 id : SV_DISPATCHTHREADID)
             lerp(0.38f, 1.0f, max(memberFoamPlacement, printFoamReveal * 0.55f)),
             foamRibbonFan * memberRibbonStrength);
 
-        // Per-member size: local crest strength plus a center-weighted hierarchy recreate the
-        // painting's look of one dominant claw flanked by progressively smaller fingers.
-        // 成员尺寸：局部波峰强度 + “中间大”的权重层级，重现画中主爪居中、两侧手指渐小的排布。
+        // 要素ごとの大きさには、局所的な波頭の強さと中央を大きくする重みを使う。
+        // 大きな中央の爪状白波を、小さな白泡の指が両側から囲む構図を作る。
+        // 絵の中の大きさの階層に近づける。
         float localHeight01 = saturate((clusterDisplacement.y - _WorldHeightThreshold) / max(_WorldHeightFeather, 0.001f));
         float localRidgeScore = ComputeRidgeScore(memberXZ, dominantXZ, clusterDisplacement.y);
         float localPlate01 = max(localHeight01, memberFoamPlacement * 0.70f);
@@ -1840,8 +1840,8 @@ void CS_Generate(uint3 id : SV_DISPATCHTHREADID)
         ribbonGrowthDelay = saturate(ribbonGrowthDelay + hokusaiRevealDelay * lerp(0.40f, 0.58f, hokusaiGapSuppress) + hokusaiTailPose * 0.035f);
         BuildClawBasis(placement.seed, dominant, lateralXZ, clusterNormal, clusterSlope, memberGrowthOpenBase, ribbonGrowthDelay, fanSlot01, sheet01, right, meshYAxis, forward, growthOpen);
 
-        // Stage 7: flatten and cap foam-sheet scale so the output reads as print foam, not upright meshes.
-        // 阶段 7：压扁并限制白沫片缩放，让结果读作版画白沫，而不是竖起来的模型。
+        // 段階 7：白泡の面を平らにし、大きさに上限を設け、立った模型ではなく版画の白泡に見せる。
+        // 平たい白泡の形として描く。
         float newbornLifeScale = smoothstep(_DrawLifeThreshold, max(_VisibleLifeThreshold, _DrawLifeThreshold + 0.02f), life);
         float printRevealLife = smoothstep(_DrawLifeThreshold, max(_VisibleLifeThreshold + 0.10f, _DrawLifeThreshold + 0.02f), life);
         float visibleLifeForScale = max(visibleLife, newbornLifeScale * lerp(0.14f, 0.32f, printFoamReveal));
@@ -1895,8 +1895,8 @@ void CS_Generate(uint3 id : SV_DISPATCHTHREADID)
         float hiddenSkipOpen = lerp(_HiddenLipSkipOpen, _HiddenLipSkipOpen * 0.22f, skipRelax);
         float hiddenSkipScaleY = lerp(_HiddenLipSkipScaleY, _HiddenLipSkipScaleY * 0.28f, skipRelax);
 
-        // Stage 8: skip members that are still hidden after all reveal/retention rules.
-        // 阶段 8：跳过经过显隐和保留规则后仍不可见的成员。
+        // 段階 8：出現条件と保持条件を適用しても見えない要素を除く。
+        // 表示されない要素は描画バッファーに追加しない。
         if (_SkipHiddenLowLipInstances > 0.5f
             && lipVisibility < hiddenSkipVisibility
             && growthOpen < hiddenSkipOpen
@@ -1914,9 +1914,9 @@ void CS_Generate(uint3 id : SV_DISPATCHTHREADID)
         if (printedIslandGate < 0.08f && hokusaiFoamLeafWeight < 0.52f && memberFoamPlacement < 0.12f)
             continue;
 
-        // Keep the anchor attached to the crest lip without burying the mesh. The
-        // previous version multiplied rootEmbedFraction by the full instance scale,
-        // which pushed large claws several meters under the FFT surface.
+        // メッシュを埋めすぎず、基点を波頭の先端へ付けたままにする。
+        // 以前は rootEmbedFraction にインスタンスの全体倍率を掛けていたため、
+        // 大きな爪状白波が FFT 海面の数メートル下へ押し込まれていた。
         float rootEmbedMeters = min(scale.y * saturate(_RootEmbedFraction), max(_RootEmbedMaxMeters, 0.0f));
         float rootLiftMeters = lerp(_RootLiftRangeMeters.x, _RootLiftRangeMeters.y, smoothstep(0.0f, 1.0f, growthOpen));
         float verticalJitter = (Hash01(placement.seed ^ 0x9e3779b9U) - 0.5f) * _ClusterVerticalJitter
@@ -1966,8 +1966,8 @@ void CS_Generate(uint3 id : SV_DISPATCHTHREADID)
     }
 }
 
-// Copies the generated instance count into the indirect draw args buffer.
-// 将生成出的实例数量写入间接绘制 args buffer。
+// 生成したインスタンス数を、間接描画の引数バッファーへ複写する。
+// 描画する爪状白波の個数を確定する。
 [numthreads(1, 1, 1)]
 void CS_FinalizeArgs(uint3 id : SV_DISPATCHTHREADID)
 {

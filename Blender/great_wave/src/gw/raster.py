@@ -1,35 +1,31 @@
-"""Exact, deterministic numpy rasteriser + binary-mask utilities (numpy only, no bpy).
+"""numpy による正確で再現可能なラスタ化と2値マスクの補助処理。bpy は使わない。
 
-Rasteriser
-----------
-`rasterize_triangles` fills the UNION ('any coverage') of 2-D triangles given in
-continuous pixel coordinates (same convention as gw.frame / gw.draw: origin top-left,
-x right, y down, pixel (i, j) has its centre at (i + 0.5, j + 0.5)).
+ラスタ化
+--------
+`rasterize_triangles` は連続的な画素座標で与えられた2D三角形の和集合を塗る。
+gw.frame / gw.draw と同じく左上が原点、右が X 正、下が Y 正で、
+画素 (i, j) の中心は (i + 0.5, j + 0.5)。
 
-Coverage rule: a pixel is set when its CENTRE lies inside or exactly on the border of
-at least one triangle (closed triangles).  Shared edges therefore never leave cracks.
-The implementation is a vectorised scan-conversion:
+三角形の内部または境界に画素の中心がある場合、その画素を塗る。
+共有辺に隙間を作らないよう、次の走査線方式を配列で一括計算する。
 
-  * every triangle is expanded into one 'span' per pixel row whose centre line
-    y = j + 0.5 crosses it;
-  * the span [xl, xr] is the min / max of the intersections of that line with the
-    (non-horizontal) edges.  The intersection is always evaluated from the lower-y
-    end point of the edge (canonical order), so two triangles that share an edge get
-    bit-identical x values for it -> no cracks from rounding, independent of winding;
-  * spans are accumulated in a (h, w+1) difference image, one cumsum gives the mask.
+  * 各三角形について、中心線 y=j+0.5 が横切る画素行ごとに区間を1つ作る。
+  * 区間 [xl, xr] は中心線と水平でない辺の交点の最小値・最大値。
+    交点は常に Y が小さい側の端点から計算する。同じ辺を共有する三角形は
+    頂点順に関係なくビット単位で同じ X 値を得るため、丸め誤差の隙間が生じない。
+  * 区間を (h, w+1) の差分画像に蓄積し、累積和1回でマスクにする。
 
-The cost is O(number of spans) = O(sum of triangle heights in px), NOT O(bbox area),
-so thin slivers and huge triangles are both cheap.  Triangles are processed in chunks
-to bound memory.  Degenerate / edge-on triangles (zero projected area) cover no pixel
-centre and are skipped without warnings; with thin='line' they (and slivers thinner
-than `thin_px`) are additionally drawn as 1-px lines so that an exactly edge-on sheet
-becomes visible (this DILATES the silhouette by up to ~0.5 px, so it is off by default).
+計算量は区間の数、すなわち三角形の画素単位の高さの合計に比例し、
+外接矩形の面積には依存しない。細い三角形も大きな三角形も扱いやすい。
+メモリを抑えるため三角形を分割して処理する。投影面積が0の三角形は
+画素中心を覆わないため通常は省く。thin='line' の場合は、これらと
+`thin_px` より細い三角形の最長辺を1画素の線として描く。真正面から側面を見た
+薄い面も可視化できるが、輪郭が最大約0.5 px 広がるため既定では無効。
 
-Mask utilities
---------------
-Run-length based connected-component labelling (vectorised union-find), largest
-component, hole filling / hole report.  Foreground uses 8-connectivity, background
-4-connectivity (the usual dual pair), everywhere in this project.
+マスクの補助処理
+----------------
+ランレングスに基づく連結成分の番号付け、最大成分の抽出、穴埋めと穴の報告を行う。
+前景には8近傍連結、背景には4近傍連結を使用する。
 """
 import numpy as np
 
@@ -39,31 +35,30 @@ __all__ = [
 ]
 
 
-# ====================================================================== rasteriser
+# ====================================================================== ラスタ化
 def _as_tri_px(tri_px):
     t = np.asarray(tri_px, dtype=np.float64)
     if t.ndim != 3 or t.shape[1:] != (3, 2):
-        raise ValueError("tri_px must have shape (N, 3, 2), got %r" % (t.shape,))
+        raise ValueError("tri_px の形は (N, 3, 2) が必要です。実際: %r" % (t.shape,))
     return t
 
 
 def rasterize_triangles(tri_px, width, height, thin="skip", thin_px=1.0, eps=1e-9,
                         max_spans=2_000_000, out=None, return_info=False, _edge_store=None):
-    """Union of triangles -> bool mask (height, width).
+    """三角形の和集合を bool マスク (高さ, 幅) にする。
 
-    tri_px   : (N, 3, 2) float array, continuous px coords (x right, y down).
-    thin     : 'skip' (default) -> exact pixel-centre coverage only.
-               'line' -> triangles whose height over their longest edge is < thin_px
-               (this includes exactly degenerate / edge-on ones) are ALSO drawn as a
-               1-px line along their longest edge.
-    eps      : tolerance in px for 'centre exactly on the border' (inclusive rule).
-    out      : optional existing bool mask (height, width) that is OR-ed into.
-    Non-finite triangles are ignored (counted in info['n_nonfinite']).
-    (_edge_store is internal: see rasterize_exact.)
+    tri_px: (N, 3, 2) の浮動小数配列。連続画素座標で右が X 正、下が Y 正。
+    thin: 'skip'（既定値）では画素中心に対する正確な被覆のみを使う。
+          'line' では最長辺に対する高さが thin_px 未満の三角形も、
+          その最長辺に沿う1画素の線として描く。面積0や側面向きの三角形も含む。
+    eps: 画素中心が境界上にあるか判定するための px 単位の許容差。
+    out: 結果との論理和を取る既存の bool マスク (高さ, 幅)。省略可能。
+    有限でない三角形は省き、info['n_nonfinite'] に数を記録する。
+    _edge_store は内部用。rasterize_exact を参照。
     """
     w, h = int(width), int(height)
     if w <= 0 or h <= 0:
-        raise ValueError("width and height must be positive")
+        raise ValueError("幅と高さは正の値にしてください")
     tri = _as_tri_px(tri_px)
     info = {"n_triangles": int(tri.shape[0]), "n_spans": 0, "n_chunks": 0,
             "n_nonfinite": 0, "n_thin_lines": 0, "n_zero_area": 0}
@@ -86,7 +81,7 @@ def rasterize_triangles(tri_px, width, height, thin="skip", thin_px=1.0, eps=1e-
         xmax = x.max(axis=1)
         area2 = np.abs((x[:, 1] - x[:, 0]) * (y[:, 2] - y[:, 0]) - (x[:, 2] - x[:, 0]) * (y[:, 1] - y[:, 0]))
         info["n_zero_area"] = int((area2 == 0).sum())
-        # rows whose centre line crosses the triangle: j + 0.5 in [ymin, ymax]
+        # 中心線が三角形を横切る行。j + 0.5 が [ymin, ymax] に入る。
         j0 = np.ceil(ymin - 0.5 - eps)
         j1 = np.floor(ymax - 0.5 + eps)
         j0 = np.clip(j0, 0, h).astype(np.int64)
@@ -99,7 +94,7 @@ def rasterize_triangles(tri_px, width, height, thin="skip", thin_px=1.0, eps=1e-
             csum = np.cumsum(cnt_k)
             total = int(csum[-1])
             info["n_spans"] = total
-            # chunk boundaries so that each chunk has about max_spans spans
+            # 各処理単位に約 max_spans 個の区間が入るよう境界を決める。
             n_chunks = max(1, int(np.ceil(total / float(max_spans))))
             bounds = np.searchsorted(csum, np.arange(1, n_chunks) * (total / float(n_chunks)), side="left")
             bounds = np.unique(np.concatenate([[0], bounds + 1, [keep.size]]))
@@ -126,21 +121,21 @@ def rasterize_triangles(tri_px, width, height, thin="skip", thin_px=1.0, eps=1e-
         n_lines = _draw_thin_lines(mask, tri, float(thin_px))
         info["n_thin_lines"] = int(n_lines)
     elif thin not in ("skip", "line"):
-        raise ValueError("thin must be 'skip' or 'line'")
+        raise ValueError("thin は 'skip' または 'line' にしてください")
 
     if out is not None:
         if out.shape != mask.shape:
-            raise ValueError("out has shape %r, expected %r" % (out.shape, mask.shape))
+            raise ValueError("out の形は %r ですが、必要な形は %r です" % (out.shape, mask.shape))
         np.logical_or(out, mask, out=out)
         mask = out
     return (mask, info) if return_info else mask
 
 
 def _accumulate_spans(diff, x, y, j0, cnt, w, h, eps, edge_store=None):
-    """Add the spans of the triangles (x, y: (n, 3)) to the flat difference image.
-    edge_store (optional): also record, per (row, pixel), the largest right end of the spans
-    whose last covered pixel it is ('hi'), the smallest left end of the spans whose first
-    covered pixel it is ('lo'), and the 'sliver' spans that cover no pixel centre."""
+    """三角形 (x, y: (n, 3)) の区間を平坦な差分画像に加える。
+    edge_store を指定すると、各（行, 画素）について、その画素を最後に覆う区間の
+    最大右端 ('hi')、最初に覆う区間の最小左端 ('lo')、画素中心を覆わない
+    細い区間 ('sliver') も記録する。"""
     n = x.shape[0]
     total = int(cnt.sum())
     t = np.repeat(np.arange(n, dtype=np.int64), cnt)
@@ -151,7 +146,7 @@ def _accumulate_spans(diff, x, y, j0, cnt, w, h, eps, edge_store=None):
     xr = np.full(total, -np.inf)
     for ia, ib in ((0, 1), (1, 2), (2, 0)):
         xa, ya, xb, yb = x[:, ia], y[:, ia], x[:, ib], y[:, ib]
-        swap = ya > yb                      # canonical order: lower y first
+        swap = ya > yb                      # Y の小さい端点を先に置く標準順。
         xa, xb = np.where(swap, xb, xa), np.where(swap, xa, xb)
         ya, yb = np.where(swap, yb, ya), np.where(swap, ya, yb)
         dy = yb - ya
@@ -165,14 +160,14 @@ def _accumulate_spans(diff, x, y, j0, cnt, w, h, eps, edge_store=None):
         xl = np.where(valid & (xe < xl), xe, xl)
         xr = np.where(valid & (xe > xr), xe, xr)
     fin = np.isfinite(xl) & np.isfinite(xr)
-    # pixel centres i + 0.5 in [xl, xr]
+    # 画素中心 i + 0.5 が [xl, xr] に入る。
     i0r = np.ceil(np.where(fin, xl, 0.0) - 0.5 - eps)
     i1r = np.floor(np.where(fin, xr, -1.0) - 0.5 + eps)
     i0 = np.clip(i0r, 0, w).astype(np.int64)
     i1 = np.clip(i1r, -1, w - 1).astype(np.int64)
     ok = fin & (i0 <= i1)
     if edge_store is not None:
-        # spans that cover no centre but lie inside the frame, in the gap right of pixel g
+        # 画素中心を覆わず、画面内で画素 g の右隣の隙間にある区間。
         sl = fin & (i0r > i1r) & (xr > xl) & (i1r >= -1) & (i1r <= w - 1)
         if sl.any():
             g = i1r[sl].astype(np.int64)
@@ -192,7 +187,7 @@ def _accumulate_spans(diff, x, y, j0, cnt, w, h, eps, edge_store=None):
 
 
 def _draw_thin_lines(mask, tri, thin_px):
-    """Mark the longest edge of thin / degenerate triangles as a 1-px line (in place)."""
+    """細い三角形や退化した三角形の最長辺を、その場で1画素の線として描く。"""
     h, w = mask.shape
     x = tri[:, :, 0]
     y = tri[:, :, 1]
@@ -210,13 +205,13 @@ def _draw_thin_lines(mask, tri, thin_px):
     ib = (k + 1) % 3
     ax, ay = x[sel, ia], y[sel, ia]
     bx, by = x[sel, ib], y[sel, ib]
-    # cull lines completely outside the frame
+    # 画面の完全に外にある線を除く。
     vis = ~((np.maximum(ax, bx) < 0) | (np.minimum(ax, bx) > w) | (np.maximum(ay, by) < 0) | (np.minimum(ay, by) > h))
     ax, ay, bx, by = ax[vis], ay[vis], bx[vis], by[vis]
     if ax.size == 0:
         return 0
     L = np.hypot(bx - ax, by - ay)
-    ns = np.maximum(1, np.ceil(L / 0.5).astype(np.int64)) + 1      # samples every <= 0.5 px
+    ns = np.maximum(1, np.ceil(L / 0.5).astype(np.int64)) + 1      # 0.5 px 以下の間隔で標本化する。
     chunk = 200_000
     for s in range(0, ax.size, chunk):
         sl = slice(s, s + chunk)
@@ -235,8 +230,8 @@ def _draw_thin_lines(mask, tri, thin_px):
 
 
 def fill_below(mask, y_px):
-    """Set every pixel whose centre is at or below the horizontal line y = y_px
-    (continuous px, y down), in place.  Used for the 'water slab'.  Returns the mask."""
+    """中心が水平線 y=y_px 以下にある画素をその場で塗り、マスクを返す。
+    連続画素座標で Y は下向き。水面の下を埋める層に用いる。"""
     h = mask.shape[0]
     j = int(np.clip(np.ceil(float(y_px) - 0.5 - 1e-9), 0, h))
     mask[j:, :] = True
@@ -244,15 +239,14 @@ def fill_below(mask, y_px):
 
 
 class EdgeData:
-    """Exact positions where the silhouette boundary crosses the grid lines through the pixel
-    centres (result of rasterize_exact).  With them the boundary between an inside and an
-    outside pixel is known to float precision instead of +-0.5 px.
+    """画素中心を通る格子線と輪郭の正確な交点。rasterize_exact の結果。
+    内外の画素間にある境界を ±0.5 px ではなく浮動小数精度で求められる。
 
-      x_hi[j, i] : largest right end (x) of the row-j spans whose last covered centre is pixel i
-      x_lo[j, i] : smallest left end of the row-j spans whose first covered centre is pixel i
-      y_hi[j, i] : largest bottom end (y) of the column-i spans whose last covered centre is row j
-      y_lo[j, i] : smallest top end of the column-i spans whose first covered centre is row j
-    'Sliver' spans that cover no centre are kept separately and chained on when they touch.
+      x_hi[j, i]: 行 j で画素 i を最後に覆う区間の最大右端 X。
+      x_lo[j, i]: 行 j で画素 i を最初に覆う区間の最小左端 X。
+      y_hi[j, i]: 列 i で行 j を最後に覆う区間の最大下端 Y。
+      y_lo[j, i]: 列 i で行 j を最初に覆う区間の最小上端 Y。
+    画素中心を覆わない細い区間は別に保持し、接する場合に連結する。
     """
 
     def __init__(self, shape, row_store, col_store):
@@ -260,8 +254,8 @@ class EdgeData:
         h, w = shape
         self.x_hi, self.x_lo = row_store["hi"], row_store["lo"]
         self.y_hi, self.y_lo = col_store["hi"].T, col_store["lo"].T
-        self._sl_row = row_store["sliver"]           # key = row * (w + 2) + (gap + 1)
-        self._sl_col = col_store["sliver"]           # key = col * (h + 2) + (gap + 1)
+        self._sl_row = row_store["sliver"]           # キー = 行 * (w + 2) + (隙間 + 1)。
+        self._sl_col = col_store["sliver"]           # キー = 列 * (h + 2) + (隙間 + 1)。
 
     @staticmethod
     def _chain(sl, key, start, grow_up, tol=1e-4):
@@ -271,20 +265,20 @@ class EdgeData:
         if b <= a:
             return start
         reach = float(start)
-        if grow_up:                                   # extend a right / bottom end upwards
-            for k in range(a, b):                     # sorted by lo
+        if grow_up:                                   # 右端／下端を大きい方向へ延ばす。
+            for k in range(a, b):                     # lo 順に並んでいる。
                 if lo[k] <= reach + tol and hi[k] > reach:
                     reach = float(hi[k])
-        else:                                         # extend a left / top end downwards
+        else:                                         # 左端／上端を小さい方向へ延ばす。
             for k in sorted(range(a, b), key=lambda q: -hi[q]):
                 if hi[k] >= reach - tol and lo[k] < reach:
                     reach = float(lo[k])
         return reach
 
     def crossing(self, kind, j, i):
-        """Exact boundary coordinate next to inside pixel (row j, column i).
-        kind: 'right' (x of the boundary right of the pixel), 'left', 'bottom' (y below), 'top'.
-        Returns NaN when nothing was recorded (pixel was not covered by a triangle)."""
+        """内部画素（行 j、列 i）に隣接する正確な境界座標。
+        kind は 'right'（画素右側の X）、'left'、'bottom'（下側の Y）、'top'。
+        記録がなければ NaN を返す。その画素は三角形に覆われていない。"""
         h, w = self.shape
         if kind == "right":
             v = float(self.x_hi[j, i])
@@ -302,8 +296,8 @@ class EdgeData:
 
 
 def rasterize_exact(tri_px, width, height, thin="skip", thin_px=1.0, eps=1e-9, max_spans=2_000_000):
-    """rasterize_triangles + EdgeData (two scan passes: rows, then columns).
-    -> (mask, EdgeData, info).  Costs about twice the time and 4 float32 images of memory."""
+    """rasterize_triangles と EdgeData を行・列の2回の走査で求める。
+    (mask, EdgeData, info) を返す。時間は約2倍、メモリは float32 画像4枚分。"""
     tri = _as_tri_px(tri_px)
     row_store, col_store = {}, {}
     mask, info = rasterize_triangles(tri, width, height, thin, thin_px, eps, max_spans,
@@ -317,8 +311,8 @@ def rasterize_exact(tri_px, width, height, thin="skip", thin_px=1.0, eps=1e-9, m
 
 
 def brute_force_mask(tri_px, width, height, eps=1e-9):
-    """Reference implementation (slow, O(N * w * h)): closed-triangle pixel-centre test
-    with edge functions.  Only for tests with few triangles / small images."""
+    """参照実装。辺関数で閉じた三角形に画素中心が入るか調べる。
+    O(N * w * h) と遅いため、少数の三角形・小画像のテスト専用。"""
     tri = _as_tri_px(tri_px)
     w, h = int(width), int(height)
     xs = (np.arange(w) + 0.5)[None, :]
@@ -340,13 +334,14 @@ def brute_force_mask(tri_px, width, height, eps=1e-9):
     return mask
 
 
-# ====================================================================== components
+# ====================================================================== 連結成分
 class Components:
-    """Result of label_components(): run-length representation of a labelled mask.
+    """label_components() の結果。番号付きマスクを行内の連続区間で表す。
 
-    Attributes (numpy arrays over runs; a run is [start, end) in one row):
-      row, start, end, label      label is 0 .. n-1 (components sorted by first run)
-    Per component (length n): area, touches_border, bbox (n, 4) = x0, y0, x1, y1 (exclusive)
+    属性は区間ごとの numpy 配列。区間は1行内の [start, end):
+      row, start, end, label。label は 0..n-1 で、成分は最初の区間の順に並ぶ。
+    成分ごとの長さ n の配列: area、touches_border、bbox (n, 4)。
+    bbox は x0, y0, x1, y1 で、終端を含まない。
     """
 
     def __init__(self, shape, row, start, end, label, n):
@@ -369,7 +364,7 @@ class Components:
         self.bbox = bbox
 
     def mask_of(self, labels):
-        """bool mask of the union of the given component labels (int or iterable)."""
+        """指定した成分番号の和集合を bool マスクとして返す。整数または反復可能な値を受け付ける。"""
         h, w = self.shape
         sel = np.isin(self.label, np.atleast_1d(labels))
         diff = np.zeros(h * (w + 1), np.int32)
@@ -379,7 +374,7 @@ class Components:
         return np.cumsum(diff.reshape(h, w + 1)[:, :w], axis=1, dtype=np.int32) > 0
 
     def label_image(self):
-        """int32 image: 0 = not in mask, k + 1 = component k."""
+        """int32 画像を返す。0 はマスク外、k+1 は成分 k。"""
         h, w = self.shape
         diff = np.zeros(h * (w + 1), np.int64)
         base = self.row * (w + 1)
@@ -393,16 +388,16 @@ def _runs(mask):
     h, w = m.shape
     p = np.zeros((h, w + 2), np.int8)
     p[:, 1:-1] = m
-    d = np.diff(p, axis=1)                       # (h, w+1): +1 at run start, -1 at run end
+    d = np.diff(p, axis=1)                       # (h, w+1): 区間の開始で +1、終了で -1。
     rs, cs = np.nonzero(d == 1)
     re, ce = np.nonzero(d == -1)
     return rs.astype(np.int64), cs.astype(np.int64), ce.astype(np.int64)
 
 
 def label_components(mask, connectivity=8):
-    """Connected components of a bool mask (connectivity 4 or 8) -> Components."""
+    """bool マスクの4近傍または8近傍の連結成分を求め、Components を返す。"""
     if connectivity not in (4, 8):
-        raise ValueError("connectivity must be 4 or 8")
+        raise ValueError("connectivity は 4 または 8 にしてください")
     m = np.asarray(mask, dtype=bool)
     h, w = m.shape
     row, start, end = _runs(m)
@@ -413,15 +408,15 @@ def label_components(mask, connectivity=8):
     key_s = row * K + start
     key_e = row * K + end
     prev = (row - 1) * K
-    if connectivity == 4:      # overlap: s_a < e_b  and  e_a > s_b
+    if connectivity == 4:      # 重なりの条件: s_a < e_b かつ e_a > s_b。
         first = np.searchsorted(key_e, prev + start, side="right")
         last = np.searchsorted(key_s, prev + end, side="left") - 1
-    else:                      # 8: s_a <= e_b  and  e_a >= s_b
+    else:                      # 8近傍: s_a <= e_b かつ e_a >= s_b。
         first = np.searchsorted(key_e, prev + start, side="left")
         last = np.searchsorted(key_s, prev + end, side="right") - 1
     cnt = np.maximum(last - first + 1, 0)
     cnt[row == 0] = 0
-    # a candidate must really be in the previous row (guards the row-0 / key edge cases)
+    # 候補が実際に直前の行にあることを確認する。先頭行とキー境界の例外を防ぐ。
     b = np.repeat(np.arange(n_runs, dtype=np.int64), cnt)
     off = np.arange(int(cnt.sum()), dtype=np.int64) - np.repeat(np.cumsum(cnt) - cnt, cnt)
     a = first[b] + off
@@ -437,7 +432,7 @@ def label_components(mask, connectivity=8):
         if not ch.any():
             break
         np.minimum.at(parent, hi[ch], lo[ch])
-        while True:                              # pointer jumping
+        while True:                              # 親ポインターをまとめてたどる。
             pp = parent[parent]
             if np.array_equal(pp, parent):
                 break
@@ -447,22 +442,22 @@ def label_components(mask, connectivity=8):
 
 
 def largest_component(mask, connectivity=8, speck_max_area_px=None, max_listed=20):
-    """-> (bool mask of the largest component, info dict).
+    """最大の連結成分の bool マスクと情報の辞書を返す。
 
-    Everything that is NOT the largest component is REMOVED from the returned mask, and never silently:
-      n_components, largest_area_px, largest_bbox, second_largest_area_px   (as before)
-      removed_area_px          total area of all removed components
-      n_removed                number of removed components (= n_components - 1)
-      speck_max_area_px        the limit used below (None = no classification asked for)
-      n_removed_specks / removed_specks_area_px     removed components with area <  speck_max_area_px
-      n_removed_islands / removed_islands_area_px   removed components with area >= speck_max_area_px
-                               (without a limit EVERY removed component counts as an island)
-      removed                  list of the `max_listed` largest removed components, largest first:
-                               {'area_px', 'bbox_px' [x0, y0, x1, y1) (exclusive), 'kind' 'speck' | 'island'}
-      removed_list_truncated   True when there are more removed components than listed
-    A 'speck' is rasterisation dust (a few pixels); an 'island' is a real detached piece of geometry (spray, a second
-    object, a part of the mesh that is not connected to the wave AS SEEN in the mask).  The caller decides what to do
-    with islands; this function only reports them."""
+    最大成分以外は返すマスクから取り除き、その内訳を必ず報告する:
+      n_components, largest_area_px, largest_bbox, second_largest_area_px: 成分数と大きさ。
+      removed_area_px: 取り除いた全成分の面積の合計。
+      n_removed: 取り除いた成分数（n_components - 1）。
+      speck_max_area_px: 下記の分類に使う限界値。None なら分類を指定していない。
+      n_removed_specks / removed_specks_area_px: 限界値より小さい成分の数と面積。
+      n_removed_islands / removed_islands_area_px: 限界値以上の成分の数と面積。
+        限界値がなければ、取り除いた成分をすべて島と数える。
+      removed: 最大から `max_listed` 件までの一覧。
+        各項目は {'area_px', 'bbox_px' [x0, y0, x1, y1)（終端を含まない）, 'kind' 'speck' | 'island'}。
+      removed_list_truncated: 一覧に載らない成分があれば True。
+    'speck' は数画素のラスタ化ノイズ。'island' は噴霧、別オブジェクト、
+    マスク上で波から分離して見えるメッシュ部分など、実際に離れた形状を表す。
+    島の扱いは呼出側が決め、この関数は報告だけを行う。"""
     comp = label_components(mask, connectivity)
     lim = None if speck_max_area_px is None else float(speck_max_area_px)
     if comp.n == 0:
@@ -489,14 +484,13 @@ def largest_component(mask, connectivity=8, speck_max_area_px=None, max_listed=2
 
 
 def fill_holes(mask, sky="top"):
-    """Fill background regions that are not part of the 'sky' (4-connectivity).
+    """4近傍連結で空に属さない背景領域を穴として埋める。
 
-    sky = 'top'    : sky = background components that touch the TOP image border (default; right
-                     for silhouettes with a water slab: an un-swept region under the surface
-                     that happens to touch the left / right frame edge is still a hole).
-    sky = 'border' : sky = background components that touch any image border.
-    -> (filled mask, holes mask, info).  info: n_holes, hole_area_px, largest_hole_area_px,
-    largest_hole_bbox [x0, y0, x1, y1), holes (list of up to 10 largest: area, bbox)."""
+    sky='top': 上端に接する背景成分を空とする（既定値）。水面下を埋める層を持つ輪郭では、
+      掃引されていない領域が左右端に接していても穴として扱える。
+    sky='border': いずれかの画面端に接する背景成分を空とする。
+    (穴埋め後のマスク, 穴のマスク, info) を返す。info には穴の数・面積・最大穴の面積、
+    最大穴の bbox [x0, y0, x1, y1)、最大10件の穴一覧（面積、bbox）を含む。"""
     m = np.asarray(mask, dtype=bool)
     comp = label_components(~m, connectivity=4)
     if comp.n == 0:
@@ -507,7 +501,7 @@ def fill_holes(mask, sky="top"):
     elif sky == "border":
         hole_ids = np.nonzero(~comp.touches_border)[0]
     else:
-        raise ValueError("sky must be 'top' or 'border'")
+        raise ValueError("sky は 'top' または 'border' にしてください")
     info = {"n_holes": int(hole_ids.size), "hole_area_px": 0, "largest_hole_area_px": 0,
             "largest_hole_bbox": None, "holes": []}
     if hole_ids.size == 0:
@@ -524,8 +518,8 @@ def fill_holes(mask, sky="top"):
 
 
 def hole_report(mask, sky="top"):
-    """Un-filled interior holes of a silhouette mask (see fill_holes) plus the fraction of
-    the filled silhouette they make up.  A solid silhouette has n_holes == 0."""
+    """輪郭マスク内の未充填の穴と、穴埋め後の輪郭面積に対する割合を報告する。
+    fill_holes を参照。中身が詰まった輪郭では n_holes == 0。"""
     filled, _holes, info = fill_holes(mask, sky)
     tot = int(filled.sum())
     info["filled_area_px"] = tot

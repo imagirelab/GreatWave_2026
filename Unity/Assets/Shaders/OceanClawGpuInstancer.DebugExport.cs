@@ -204,11 +204,11 @@ public partial class OceanClawGpuInstancer
 
             File.WriteAllText(metricsPath, JsonUtility.ToJson(metrics, true));
             ScreenCapture.CaptureScreenshot(screenshotPath);
-            Debug.Log($"[OceanClawGpuInstancer] Debug snapshot export queued: {screenshotPath}; metrics: {metricsPath}");
+            Debug.Log($"[OceanClawGpuInstancer] デバッグ画像の出力を予約しました: {screenshotPath}; 測定値: {metricsPath}");
         }
         catch (Exception ex)
         {
-            Debug.LogWarning($"[OceanClawGpuInstancer] Debug snapshot export failed: {ex.Message}");
+            Debug.LogWarning($"[OceanClawGpuInstancer] デバッグ画像の出力に失敗しました: {ex.Message}");
         }
     }
 
@@ -325,9 +325,9 @@ public partial class OceanClawGpuInstancer
         if (metrics.count <= 0)
         {
             metrics.previousFailedScaleYMax = previousFailureScaleYMax;
-            metrics.hokusaiMetricsSummary = "CHECK: no claw instances were exported at this snapshot time";
-            metrics.hokusaiFailureReasons = metrics.counterOverflow != 0 ? "counter overflow before instance read" : "no generated claw instances";
-            metrics.hokusaiTuningAdvice = "verify Play Mode timing, claw mask input, and reference arc visibility before changing visual ribbon tuning";
+            metrics.hokusaiMetricsSummary = "CHECK: この時点の記録には爪状白波の個体がありません";
+            metrics.hokusaiFailureReasons = metrics.counterOverflow != 0 ? "個体データを読み取る前にカウンターが上限を超えました" : "爪状白波の個体が生成されていません";
+            metrics.hokusaiTuningAdvice = "白波の帯の調整前に、再生時刻、爪状白波マスクの入力、基準曲線の表示を確認してください";
             return metrics;
         }
 
@@ -574,45 +574,45 @@ public partial class OceanClawGpuInstancer
         string advice = string.Empty;
         if (metrics.badPass == 0)
         {
-            reasons = AppendMetricNote(reasons, "bad instances or counter overflow detected");
-            advice = AppendMetricNote(advice, "inspect invalid instance data and keep visual height/scale caps conservative");
+            reasons = AppendMetricNote(reasons, "不正な個体データ、またはカウンターの上限超過を検出しました");
+            advice = AppendMetricNote(advice, "無効な個体データを確認し、表示上の高さと倍率の上限を控えめに保ってください");
         }
         if (metrics.scaleYUnderPreviousFailurePass == 0)
         {
-            reasons = AppendMetricNote(reasons, "visual arc scaleY max is not safely below the previous spike failure");
-            advice = AppendMetricNote(advice, "lower visual foam height cap or reduce Hokusai/visual ribbon scale lift before increasing density");
+            reasons = AppendMetricNote(reasons, "表示曲線の縦倍率の最大値が、以前の急増時の値を十分に下回っていません");
+            advice = AppendMetricNote(advice, "密度を上げる前に、白波の高さの上限か表示用の帯の倍率を下げてください");
         }
         if (metrics.visualArcGapLeakPass == 0)
         {
-            reasons = AppendMetricNote(reasons, "too many claws leaked into Hokusai negative-space gap bins");
-            advice = AppendMetricNote(advice, "reduce visual follow or strengthen negative-space suppression before adding more teeth");
+            reasons = AppendMetricNote(reasons, "北斎の構図で空白にすべき区間へ爪状白波が入りすぎています");
+            advice = AppendMetricNote(advice, "爪状部分を増やす前に、表示の追従量を減らすか空白区間の抑制を強めてください");
         }
         if (metrics.visualArcPaintedCoveragePass == 0)
         {
-            reasons = AppendMetricNote(reasons, "expected painted foam-band bins are under-covered");
-            advice = AppendMetricNote(advice, "increase painted-band retention or slightly raise visual follow/coverage after spike checks pass");
+            reasons = AppendMetricNote(reasons, "原画で白波の帯がある区間の表示範囲が足りません");
+            advice = AppendMetricNote(advice, "値の急増に関する検査を通過してから、白波の帯の保持量か表示の追従・被覆を少し上げてください");
         }
         if (metrics.visualArcLeafCoveragePass == 0)
         {
-            reasons = AppendMetricNote(reasons, "expected Hokusai foam-leaf clusters are under-covered");
-            advice = AppendMetricNote(advice, "raise leaf-cluster retention or loosen leaf bin suppression without filling negative-space gap bins");
+            reasons = AppendMetricNote(reasons, "北斎の白波の葉状の群れを十分に覆えていません");
+            advice = AppendMetricNote(advice, "空白区間を埋めずに、葉状の群れの保持量を上げるか該当区間の抑制を緩めてください");
         }
         if (metrics.visualArcClumpPass == 0)
         {
-            reasons = AppendMetricNote(reasons, "one visual arc bin is still too dominant");
-            advice = AppendMetricNote(advice, "spread segmented arc slots or reduce visual candidate weighting to avoid a clump");
+            reasons = AppendMetricNote(reasons, "表示曲線の一つの区間に白波が集中しすぎています");
+            advice = AppendMetricNote(advice, "曲線上の配置区間を広げるか、表示候補の重みを下げて密集を避けてください");
         }
         if (metrics.visualArcLifecyclePass == 0)
         {
-            reasons = AppendMetricNote(reasons, "visual arc lacks early/mid/open lifecycle layering");
-            advice = AppendMetricNote(advice, "increase member delay stagger or reduce over-retention so foam does not appear fully open at once");
+            reasons = AppendMetricNote(reasons, "表示曲線に成長初期・中期・展開後の段階差がありません");
+            advice = AppendMetricNote(advice, "白波が一斉に開かないよう、個体の遅延差を増やすか保持しすぎを抑えてください");
         }
 
-        metrics.hokusaiFailureReasons = string.IsNullOrEmpty(reasons) ? "none" : reasons;
-        metrics.hokusaiTuningAdvice = string.IsNullOrEmpty(advice) ? "hold current tuning and judge the screenshot for art-direction refinements" : advice;
+        metrics.hokusaiFailureReasons = string.IsNullOrEmpty(reasons) ? "なし" : reasons;
+        metrics.hokusaiTuningAdvice = string.IsNullOrEmpty(advice) ? "現在の設定を保ち、画像を見て造形上の調整を判断してください" : advice;
         metrics.hokusaiMetricsSummary = metrics.hokusaiMetricsPass == 1
-            ? "PASS: known Hokusai claw metrics gates passed; confirm final art direction in screenshot"
-            : "CHECK: one or more Hokusai claw metrics gates failed; read hokusaiFailureReasons and hokusaiTuningAdvice";
+            ? "PASS: 既知の爪状白波の測定条件を通過しました。最終的な造形は画像で確認してください"
+            : "CHECK: 一つ以上の爪状白波の測定条件を満たしていません。hokusaiFailureReasons と hokusaiTuningAdvice を確認してください";
         return metrics;
     }
 

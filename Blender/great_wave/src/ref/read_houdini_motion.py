@@ -1,25 +1,26 @@
-"""Read the MOTION out of the Houdini reference cache 1.abc (spec sections 6.1 / 6.2).
+"""Houdini の参照キャッシュ 1.abc から運動を読み取る（仕様6.1・6.2）。
 
-The cache is a motion reference only -- no geometry of it is used for the new wave.
+キャッシュは運動だけの参照資料であり、その形状を新しい波には使わない。
 
-Run (headless):
+画面なしでの実行例:
     & tools/run_blender.ps1 src/ref/read_houdini_motion.py -Prefix REF
-    optional:  -ScriptArgs '--stage','measure'   (scan + per-frame measurement -> raw files)
-               -ScriptArgs '--stage','analyze'   (phases, plots, json from the raw files; no Alembic needed)
-               -ScriptArgs '--stage','render'    (Workbench perspective look of a few frames)
-               -ScriptArgs '--frames','40','55'  (quick test on a frame range; writes to the scratch dir only)
+    任意: -ScriptArgs '--stage','measure'   （走査と各フレームの測定を生データに出力）
+          -ScriptArgs '--stage','analyze'   （生データから段階・グラフ・JSONを生成。Alembicは不要）
+          -ScriptArgs '--stage','render'    （数フレームを Workbench で斜めから確認）
+          -ScriptArgs '--frames','40','55'  （指定範囲の短い確認。作業用ディレクトリだけに出力）
 
-What is measured, per scene frame, with the SHARED library (gw.silhouette / gw.profile_metrics),
-so that the curves are directly comparable with the curves of the new wave (spec 6.4):
-  * 'full'    : the full side silhouette (projection of the whole fluid chunk along +Y, exactly
-                what a CAM_print-like camera sees), gw.silhouette exact mode;
-  * 'section' : the true cross-section of the closed fluid chunk with the FIXED plane
-                Y = y_section (Y of the highest crest at the final frame).  The library has no
-                section function, so the mask is produced here (plane cut + even-odd fill) and
-                handed to gw.silhouette.extract_profile / gw.profile_metrics.measure_profile.
-Lengths are normalised by H_ref = crest height of the final pose above still water.
+各シーンフレームを共通ライブラリ（gw.silhouette / gw.profile_metrics）で測り、
+新しい波の曲線と直接比較できるようにする（仕様6.4）。測定対象は次の2種類。
+  * 'full': 流体の塊全体を +Y 方向に投影した側面輪郭。
+            CAM_print に相当する視点で、gw.silhouette の正確なモードを使う。
+  * 'section': 固定平面 Y=y_section と閉じた流体の塊の真の交線。
+            y_section は最終フレームの最も高い峰の Y。
+            共通ライブラリに断面関数がないため、ここで平面切断と偶奇則の塗りから
+            マスクを作り、gw.silhouette.extract_profile と
+            gw.profile_metrics.measure_profile に渡す。
+長さは最終形状の静水面からの峰高 H_ref で正規化する。
 
-Outputs: target/houdini_motion.json, results/step1_prepare/houdini_ref/*.png|npz|json.
+出力先: target/houdini_motion.json、results/step1_prepare/houdini_ref/*.png|npz|json。
 """
 import argparse
 import hashlib
@@ -49,7 +50,7 @@ _QUICK_DIR = None
 
 
 def out_dir():
-    """results/step1_prepare/houdini_ref, or the session scratch dir for --frames quick tests."""
+    """通常は results/step1_prepare/houdini_ref、--frames の短い検査では作業用ディレクトリ。"""
     if _QUICK_DIR is not None:
         return paths.ensure_dir(_QUICK_DIR)
     return paths.step1_dir("houdini_ref")
@@ -59,9 +60,9 @@ def opath(name):
     return os.path.join(out_dir(), name)
 
 
-# ====================================================================== Alembic access
+# ====================================================================== Alembic の読込
 class AbcReader:
-    """1.abc imported headless; one evaluated triangle soup per scene frame (world coords)."""
+    """1.abc を画面なしで読み込み、各フレームの評価済み三角形群をワールド座標で得る。"""
 
     def __init__(self):
         import bpy
@@ -81,27 +82,27 @@ class AbcReader:
                      "import_seconds": self.import_seconds}
 
     def mesh(self, frame):
-        """-> (verts (N,3) float64 world, tris (M,3) int64).  Uses the shared library accessor
-        (scene.frame_set + evaluated depsgraph + foreach_get)."""
+        """ワールド座標の頂点 float64 (N,3) と三角形番号 int64 (M,3) を返す。
+        共通ライブラリの取得処理（scene.frame_set、評価済み依存グラフ、foreach_get）を使う。"""
         self.scene.frame_set(int(frame))
         verts, tris, _info = silhouette.mesh_world_triangles(self.objs)
         return verts, tris
 
 
 def real_triangles(verts, tris):
-    """Drop padding triangles (all three vertices identical; the cache is padded to a constant
-    vertex count with triangles collapsed at the origin)."""
+    """3頂点が同一の埋め草の三角形を除く。キャッシュは一定の頂点数に合わせており、
+    不要な三角形は原点に畳まれている。"""
     a, b, c = verts[tris[:, 0]], verts[tris[:, 1]], verts[tris[:, 2]]
     deg = (a == b).all(axis=1) & (b == c).all(axis=1)
     return tris[~deg], int(deg.sum())
 
 
-# ====================================================================== plane cut / section mask
+# ====================================================================== 平面切断と断面マスク
 def plane_cut_segments(verts, tris, yc):
-    """Intersection of a triangle soup with the plane Y = yc.
-    -> (N, 2, 2) segments in world (X, Z).  A vertex exactly on the plane counts as the + side.
-    The crossing on an edge is always interpolated from its + vertex to its - vertex, so two
-    triangles sharing an edge produce bit-identical points (closed loops stay closed)."""
+    """三角形群と平面 Y=yc の交線を求める。
+    戻り値はワールド座標 (X, Z) の線分 (N, 2, 2)。平面上の頂点は正側とみなす。
+    辺との交点は常に正側の頂点から負側へ補間する。共有辺を持つ2つの三角形から
+    ビット単位で同じ交点を得られ、閉じた輪郭が開かない。"""
     T = verts[tris]                                  # (M, 3, 3)
     d = T[:, :, 1] - float(yc)
     s = d >= 0.0
@@ -116,7 +117,7 @@ def plane_cut_segments(verts, tris, yc):
     for other in ((lone + 1) % 3, (lone + 2) % 3):
         pa, pb = T[r, lone], T[r, other]
         da, db = d[r, lone], d[r, other]
-        swap = ~s[r, lone]                           # make 'a' the + vertex
+        swap = ~s[r, lone]                           # 'a' を正側の頂点にする。
         pa2 = np.where(swap[:, None], pb, pa)
         pb2 = np.where(swap[:, None], pa, pb)
         da2 = np.where(swap, db, da)
@@ -128,7 +129,7 @@ def plane_cut_segments(verts, tris, yc):
 
 
 def open_end_count(segs, decimals=6):
-    """Number of segment end points that occur an odd number of times (0 for closed loops)."""
+    """奇数回現れる線分端点の数を返す。閉じた輪郭では0。"""
     if segs.shape[0] == 0:
         return 0
     pts = np.round(segs.reshape(-1, 2), decimals)
@@ -137,10 +138,9 @@ def open_end_count(segs, decimals=6):
 
 
 def evenodd_mask(seg_px, w, h):
-    """Even-odd fill of closed loops given as an unordered segment soup (pixel coords, y down).
-    Every segment toggles the pixels BELOW it in the columns whose centre lies in [x0, x1);
-    the parity of all toggles is the inside of the loops (pixel-centre sampling, the same
-    convention as gw.raster)."""
+    """順序のない線分群として与えた閉じた輪郭を偶奇則で塗る。画素座標では Y は下向き。
+    各線分は中心が [x0, x1) にある列で、その線分より下の画素の内外を反転する。
+    全反転回数の偶奇が輪郭内を示す。画素中心の標本化は gw.raster と同じ規約。"""
     if seg_px.shape[0] == 0:
         return np.zeros((h, w), bool)
     x0, y0 = seg_px[:, 0, 0], seg_px[:, 0, 1]
@@ -149,7 +149,7 @@ def evenodd_mask(seg_px, w, h):
     x0, x1 = np.where(sw, x1, x0), np.where(sw, x0, x1)
     y0, y1 = np.where(sw, y1, y0), np.where(sw, y0, y1)
     ia = np.ceil(x0 - 0.5).astype(np.int64)
-    ib = np.ceil(x1 - 0.5).astype(np.int64)           # exclusive
+    ib = np.ceil(x1 - 0.5).astype(np.int64)           # 終端を含まない。
     ia_c, ib_c = np.clip(ia, 0, w), np.clip(ib, 0, w)
     n = np.maximum(ib_c - ia_c, 0)
     tot = int(n.sum())
@@ -167,14 +167,14 @@ def evenodd_mask(seg_px, w, h):
 
 
 def section_profile(verts, tris, yc, rect, water_z):
-    """Cross-section Y = yc of the closed chunk -> (profile dict, mask, info)."""
+    """閉じた流体の塊の断面 Y=yc を求め、(断面の辞書, マスク, 情報) を返す。"""
     t0 = time.perf_counter()
     segs = plane_cut_segments(verts, tris, yc)
     x, y = rect.world_to_px(segs[..., 0], segs[..., 1])
     mask = evenodd_mask(np.stack([x, y], axis=-1), rect.width_px, rect.height_px)
-    # top surface of the fluid itself = upper envelope of the cut in 0.5 m X bins (NOT limited by the
-    # measuring rect and not hidden by the water slab, so troughs below still water are seen).  The bins
-    # are much wider than a triangle edge (0.17 m): every bin holds end points of top-surface segments.
+    # 流体そのものの上面を X 方向0.5 m ごとの区間の上側包絡線として求める。
+    # 測定矩形で切らず、水の層でも隠さないため、静水面より下の谷も見える。
+    # 区間は三角形の辺（約0.17 m）より十分広く、上面線分の端点を含む。
     bw = 0.5
     if segs.shape[0]:
         pts_all = segs.reshape(-1, 2)
@@ -201,7 +201,7 @@ def section_profile(verts, tris, yc, rect, water_z):
 
 
 def top_envelope(mask, rect, water_z):
-    """Per pixel column: world Z of the top-most covered pixel centre (NaN when only water)."""
+    """各画素列で最も上の塗られた画素中心のワールド Z を返す。水だけなら NaN。"""
     h, w = mask.shape
     y_w = float(rect.world_to_px(0.0, float(water_z))[1])
     jw = int(np.clip(math.ceil(y_w - 0.5 - 1e-9), 0, h))
@@ -209,16 +209,16 @@ def top_envelope(mask, rect, water_z):
     has = sub.any(axis=0)
     jtop = np.argmax(sub, axis=0)
     X, _z = rect.px_to_world(np.arange(w) + 0.5, np.zeros(w))
-    _x, Z = rect.px_to_world(np.zeros(w), jtop.astype(np.float64))      # upper edge of that pixel
+    _x, Z = rect.px_to_world(np.zeros(w), jtop.astype(np.float64))      # その画素の上端。
     return X, np.where(has, Z, np.nan)
 
 
 def envelope_check(verts, tris, yc, width, rect, water_z, mask_section):
-    """Cross-check of the plane-cut rasteriser against the shared library: the UPPER ENVELOPE
-    (top-most covered pixel per column) of the section mask is compared with the upper envelope of
-    the gw.silhouette mask of a thin slab of triangles around the plane.  (The slab cannot be
-    compared as a whole profile: the cache is a thin fluid shell, a slab of it is an open strip whose
-    interior is not filled, so its traced profile is meaningless -- only its top edge is valid.)"""
+    """平面切断のラスタ化と共通ライブラリを比較する。
+    断面マスクの上側包絡線（各列の最上部の画素）と、切断平面の周囲にある薄い三角形層の
+    gw.silhouette マスクの上側包絡線を比べる。キャッシュは薄い流体の殻であり、
+    その一層は内部が塗られない開いた帯になるため、断面全体で比較できない。
+    追跡した輪郭は意味を持たず、上端だけが有効。"""
     cy = verts[:, 1][tris].mean(axis=1)
     keep = np.abs(cy - yc) <= 0.5 * width
     mask_slab, _info = silhouette.mask_from_triangles(verts, tris[keep], rect, water_z=water_z, exact=False)
@@ -239,8 +239,8 @@ def envelope_check(verts, tris, yc, width, rect, water_z, mask_section):
 
 
 def selftest_plane_cut():
-    """Analytic check of plane_cut_segments + evenodd_mask: a sphere and a spherical shell cut by a
-    plane must rasterise to a disc / an annulus (pixel-centre sampling)."""
+    """plane_cut_segments と evenodd_mask の解析的な検査。
+    球と球殻を平面で切ると、画素中心標本化では円盤と円環にラスタ化されるはず。"""
     def sphere(R, c, nu=240, nv=480):
         th = np.linspace(0.0, math.pi, nu + 1)
         ph = np.linspace(0.0, 2.0 * math.pi, nv + 1)[:-1]
@@ -276,12 +276,12 @@ def selftest_plane_cut():
         diff = m != ref
         near = np.zeros_like(diff)
         for ri in r:
-            near |= np.abs(rr - ri) < 0.02 / 100.0 * 5        # within 0.1 px of a circle (polygon chord error)
+            near |= np.abs(rr - ri) < 0.02 / 100.0 * 5        # 多角形の弦による誤差として円から0.1 px 以内。
         out[name] = {"n_segments": int(segs.shape[0]), "n_open_ends": open_end_count(segs), "area_px": int(m.sum()),
                      "analytic_area_px": float(math.pi * (r[0] ** 2 - (r[1] ** 2 if len(r) > 1 else 0.0)) * 100.0 ** 2),
                      "n_px_differ": int(diff.sum()), "n_px_differ_not_on_boundary": int((diff & ~near).sum()),
-                     # the test mesh is a polygonal sphere: its cut lies up to ~0.02 px inside the circle, so a few
-                     # pixel centres within that band may differ; allow 5 % of the perimeter (in px), none elsewhere
+                     # 検査用メッシュは多角形の球なので、切断線は真円より最大約0.02 px 内側にある。
+                     # この帯内の一部の画素中心だけは異なり得るため、周長（px）の5%まで許し、他は許さない。
                      "n_px_differ_allowed": int(math.ceil(0.05 * sum(2.0 * math.pi * ri * 100.0 for ri in r)))}
     ok = all(o["n_open_ends"] == 0 and o["n_px_differ_not_on_boundary"] == 0 and o["n_px_differ"] <= o["n_px_differ_allowed"]
              for o in out.values())
@@ -289,7 +289,7 @@ def selftest_plane_cut():
     return out
 
 
-# ====================================================================== small helpers
+# ====================================================================== 補助処理
 def make_rect(ppm, H=1.0, x0=0.0, z0=0.0, name="houdini"):
     r = P("view_rect_m")
     return silhouette.ViewRect.from_bounds(r["x_min"], r["x_max"], r["z_min"], r["z_max"],
@@ -298,7 +298,7 @@ def make_rect(ppm, H=1.0, x0=0.0, z0=0.0, name="houdini"):
 
 
 def crest_along_y(verts, y_edges, z_floor):
-    """Per Y bin: max Z and the mean X of the vertices within 2 cm ... of that max (robust crest X)."""
+    """Y 区間ごとの最大 Z と、その最大値から5 cm以内の頂点の平均 X を返す。峰の X を安定させる。"""
     yb = np.digitize(verts[:, 1], y_edges) - 1
     nb = len(y_edges) - 1
     ok = (yb >= 0) & (yb < nb) & (verts[:, 2] > z_floor)
@@ -322,7 +322,7 @@ def crest_along_y(verts, y_edges, z_floor):
 
 
 def metrics_row(m, prof, extra=None):
-    """Flat json-ready row from measure_profile + profile reliability info."""
+    """measure_profile と断面の信頼性情報から JSON に保存できる平坦な1行を作る。"""
     lm = m["landmarks"]
     row = {
         "h": m["h"], "x_c": m["x_c"], "theta": m["theta"], "theta_raw": m["theta_raw"], "o": m["o"],
@@ -347,14 +347,14 @@ def metrics_row(m, prof, extra=None):
 
 
 def measure_guarded(pts_H, H_ref, x0, params=None):
-    """gw.profile_metrics.measure_profile with a guard against the END OF THE FLUID CHUNK.
+    """流体の塊の端による誤測定を防ぎながら gw.profile_metrics.measure_profile を実行する。
 
-    The chunk ends at X = +5.26 m with a rounded corner that starts at about X = +4.85 m.  On early
-    frames of the FULL silhouette the ripple envelope stays a few cm above still water all the way
-    to that corner, so the 'front face' runs into it and theta (a MAX over the front face) is taken
-    on the corner instead of on the wave.  When the steepest-front point lies in that end zone while
-    the crest is still far away from it, theta is re-measured on the profile cut at the start of the
-    end zone.  h, x_c, o, phi are not affected.  -> (metrics, guard info or None)"""
+    塊は X=+5.26 m で終わり、X=+4.85 m 付近から丸い角が始まる。
+    初期フレームの全体輪郭では、さざ波の包絡線が静水面より数 cm 高いまま角まで続く。
+    その結果、前面に含まれる角で theta（前面の最大傾斜）が波の代わりに測られる。
+    最も急な点が端の領域にあり、峰はまだ離れている場合は、端の領域の開始位置で
+    断面を切り直して theta を再測定する。h、x_c、o、phi には影響しない。
+    (指標, 制限の情報または None) を返す。"""
     m = pm.measure_profile(pts_H, params)
     x_end = float(P("chunk_end_zone_x_m"))
     tp_x = m["landmarks"]["theta_point"]["H"][0] * H_ref + x0
@@ -374,7 +374,7 @@ def overlay_cell(mask, prof, m, title, max_w, crop_px=None, crop_scale=None):
 
 
 def color_ramp(v):
-    """0..1 -> RGB (dark blue -> cyan -> yellow -> red), NaN -> light gray."""
+    """0..1 を濃青→シアン→黄→赤の RGB に変換する。NaN は薄灰色。"""
     v = np.asarray(v, dtype=np.float64)
     stops = np.array([[20, 30, 110], [0, 170, 200], [250, 225, 60], [215, 40, 30]], dtype=np.float64)
     t = np.clip(np.nan_to_num(v, nan=0.0), 0, 1) * (len(stops) - 1)
@@ -385,7 +385,7 @@ def color_ramp(v):
     return np.rint(rgb).astype(np.uint8)
 
 
-# ====================================================================== stage 1: measure
+# ====================================================================== 第1段階: 測定
 def stage_measure(frame_range=None):
     rd = AbcReader()
     log("import", rd.info)
@@ -400,7 +400,7 @@ def stage_measure(frame_range=None):
         raise RuntimeError("plane-cut rasteriser self-test failed: %r" % (st,))
     res["plane_cut_selftest"] = st
 
-    # ---- A. which frames hold distinct data
+    # ---- A. 異なるデータを持つフレームを調べる。
     f0, f1 = P("scan_frames")
     scan = []
     with bootstrap.Timer("scan frames %d..%d" % (f0, f1)):
@@ -428,7 +428,7 @@ def stage_measure(frame_range=None):
     frames = list(range(f0, last_distinct + 1))
     final_frame = last_distinct
 
-    # ---- B. still water (frame f0), vertex correspondence, mesh resolution
+    # ---- B. 静水面（フレーム f0）、頂点の対応、メッシュ解像度。
     v1, t1 = rd.mesh(f0)
     t1r, n_pad1 = real_triangles(v1, t1)
     vr = v1[np.unique(t1r)]
@@ -450,7 +450,7 @@ def stage_measure(frame_range=None):
                                   "in frame t+1 (no fixed topology; the constant count comes from padding)"}
     log("topology", res["topology"])
 
-    # ---- C. final pose: H_ref, x0, section plane
+    # ---- C. 最終形状: H_ref、x0、断面平面。
     vf, tf = rd.mesh(final_frame)
     tf, _ = real_triangles(vf, tf)
     rect1 = make_rect(P("px_per_m_key"), H=1.0, x0=0.0, z0=z_still)
@@ -512,25 +512,25 @@ def stage_measure(frame_range=None):
         v, t = rd.mesh(fr)
         t, n_pad = real_triangles(v, t)
         tsec = (fr - frames[0]) / rd.fps if not quick else (fr - f0) / rd.fps
-        # -- full silhouette (library, exact)
+        # -- 全体の輪郭（共通ライブラリ、正確な方式）。
         mask_f, info_f = silhouette.mask_from_triangles(v, t, rect_full, water_z=z_still, exact=True)
         prof_f = silhouette.extract_profile(mask_f, rect_full, edges=info_f["edges"])
         info_f["edges"] = None
         m_f, g_f = measure_guarded(prof_f["H"], H_ref, x0)
         m_fw, _g = measure_guarded(prof_f["H"], H_ref, x0, wide)
-        # -- plane-cut section
+        # -- 平面切断による断面。
         prof_s, mask_s, info_s = section_profile(v, t, y_sec, rect_sec, z_still)
         m_s, g_s = measure_guarded(prof_s["H"], H_ref, x0)
         m_sw, _g = measure_guarded(prof_s["H"], H_ref, x0, wide)
-        # -- troughs of the real fluid surface in the section plane (the water slab hides them in the profile)
+        # -- 断面平面上の実際の流体表面の谷。断面輪郭では水の層に隠される。
         xt, zt_ = info_s["top_surface_x_m"], info_s["top_surface_z_m"]
         crest_xw = m_s["x_c"] * H_ref + x0
         trough = {"back_trough_z_rel_still_H": None, "back_trough_x_H": None, "back_trough_at_left_limit": None,
                   "front_min_z_rel_still_H": None}
         if m_s["h"] >= float(P("h_visible_frac")):
             behind = (xt < crest_xw) & (xt > float(P("view_rect_m")["x_min"])) & np.isfinite(zt_)
-            # in front: only bins that lie completely beyond the most forward point of the wave (the upper
-            # envelope under an overhanging head is the head itself, not the water below it)
+            # 前方では波の最前点より完全に外にある区間だけを使う。
+            # 張り出す波頭の下では上側包絡線は水面ではなく波頭自体になる。
             lead_xw = crest_xw if m_s["landmarks"]["head_tip"] is None else m_s["landmarks"]["head_tip"]["H"][0] * H_ref + x0
             ahead = (xt - 0.25 > max(crest_xw, lead_xw)) & np.isfinite(zt_) & (xt + 0.25 < float(P("chunk_end_zone_x_m")))
             if behind.any():
@@ -554,7 +554,7 @@ def stage_measure(frame_range=None):
                          tip_gap_to_frame_edge_m=None if tip_x_m is None else float(P("view_rect_m")["x_max"] - tip_x_m))
             rows[key].append(metrics_row(m_k, prof_k, extra))
             profs["%s_%03d" % (key, fr)] = prof_k["H"].astype(np.float32)
-        # -- sections along Y (timing along the crest line)
+        # -- Y 方向の断面。峰線に沿った時間差を調べる。
         for y in ys_multi:
             try:
                 pr, _mk, inf = section_profile(v, t, y, rect_ms, z_still)
@@ -564,8 +564,8 @@ def stage_measure(frame_range=None):
                                         "complete": bool(pr["complete"]), "n_open_ends": inf["n_open_ends"]})
             except Exception as exc:                  # noqa: BLE001
                 multi["%g" % y].append({"frame": fr, "error": repr(exc)})
-        # -- is the top an exact horizontal plane (clipping)?  area of triangles in the top 0.15 m whose
-        #    normal is vertical within 0.5 deg, and the most populated 2 mm Z bin of the top vertices
+        # -- 上面が切断による正確な水平面か調べる。上部0.15 mにある三角形で法線が
+        #    鉛直から0.5度以内の面積と、上部頂点が最も集まる Z の2 mm区間を測る。
         vr = v[np.unique(t)]
         zt = float(vr[:, 2].max())
         T3 = v[t]
@@ -583,17 +583,17 @@ def stage_measure(frame_range=None):
                           "most_populated_2mm_bin_z_m": float(edges[kb]), "most_populated_2mm_bin_count": int(hist[kb]),
                           "median_bin_count": int(np.median(hist[hist > 0])),
                           "bin_x_extent_m": float(np.ptp(selv[:, 0])), "bin_y_extent_m": float(np.ptp(selv[:, 1]))})
-        # -- crest along Y
+        # -- Y 方向に沿う峰。
         zmax, xat = crest_along_y(vr, y_edges, z_still - 10.0)
         crest_y.append({"frame": fr, "zmax_m": [None if np.isnan(a) else float(a) for a in zmax],
                         "x_at_m": [None if np.isnan(a) else float(a) for a in xat]})
-        # -- cross-check of the plane cut against the library (upper envelope of a thin slab)
+        # -- 平面切断と共通ライブラリを薄い層の上側包絡線で照合する。
         if fr in set(P("slab_check_frames")):
             ec = envelope_check(v, t, y_sec, float(P("slab_check_width_m")), rect_sec, z_still, mask_s)
             ec["frame"] = fr
             slab_check.append(ec)
             log("envelope check frame %d: %s" % (fr, ec))
-        # -- images
+        # -- 画像。
         ttl = "f%02d t=%.2fs h=%.2f th=%.0f o=%.2f phi=%s" % (fr, tsec, m_f["h"], m_f["theta"], m_f["o"],
                                                                  "-" if m_f["phi_deg"] is None else "%.0f" % m_f["phi_deg"])
         tts = "f%02d t=%.2fs h=%.2f th=%.0f o=%.2f phi=%s" % (fr, tsec, m_s["h"], m_s["theta"], m_s["o"],
@@ -646,7 +646,7 @@ def stage_measure(frame_range=None):
     paths.write_json(opath("raw_measure%s.json" % tag), res)
     np.savez_compressed(paths.ensure_parent(opath("profiles_H%s.npz" % tag)), **profs)
 
-    # ---- contact sheets
+    # ---- 一覧画像。
     for key, ncols, name in (("full", 2, "contact_full_silhouette"), ("section", 2, "contact_section")):
         imgs = cells[key]
         half = (len(imgs) + 1) // 2
@@ -666,8 +666,8 @@ def stage_measure(frame_range=None):
 
 
 def density_panel(v, fr, y_sec, z_still):
-    """Perspective-free images of one frame: (grid of XZ point-density panels, one per Y slab;
-    top view coloured by max Z)."""
+    """1フレームの正投影の画像。Y の各層の XZ 頂点密度画像と、
+    最大 Z で着色した上面図を作る。"""
     r = P("view_rect_m")
     xr, zr = (-28.5, 6.0), (-5.5, 7.5)
     ppm = 22
@@ -693,7 +693,7 @@ def density_panel(v, fr, y_sec, z_still):
                               "the cache is a thin fluid SHELL:", "top surface + underside are visible"]):
         draw.text(legend, 10, 10 + 28 * k, line, "black", 2)
     xz = draw.grid(panels + [legend], ncols=2, gap=6)
-    # top view (X right, Y up), max Z per 0.25 m cell
+    # 上面図では X が右、Y が上。0.25 m ごとの格子で最大 Z を示す。
     ppm_t = 4
     xr_t, yr_t = (-28.5, 6.0), (-16.0, 16.0)
     wt, ht = int((xr_t[1] - xr_t[0]) * ppm_t), int((yr_t[1] - yr_t[0]) * ppm_t)
@@ -714,14 +714,15 @@ def density_panel(v, fr, y_sec, z_still):
     return xz, top
 
 
-# ====================================================================== stage 2: analyze
+# ====================================================================== 第2段階: 解析
 def _arr(rows, key):
     return np.array([np.nan if r.get(key) is None else float(r[key]) for r in rows], dtype=np.float64)
 
 
 def sustained_crossing(frames, vals, level):
-    """Fractional frame at which `vals` rises through `level` and stays >= level until the end
-    (linear interpolation between the two neighbouring frames); None if never / always."""
+    """`vals` が `level` を超え、最後までその値以上に留まる時点を小数フレームで返す。
+    隣り合う2フレーム間を線形補間する。最後まで到達しなければ None、
+    最初から最後まで上回る場合は最初のフレームを返す。"""
     v = np.asarray(vals, dtype=np.float64)
     ok = np.nan_to_num(v, nan=-np.inf) >= level
     if not ok[-1]:
@@ -747,7 +748,7 @@ def first_run(flags, n):
 
 
 def companions(pts, row, h_visible):
-    """Robust companion quantities computed from the same ordered profile (H units)."""
+    """同じ順序付き断面から安定した補助指標を求める。単位は H。"""
     x, z = pts[:, 0].astype(np.float64), pts[:, 1].astype(np.float64)
     i = int(np.argmax(z))
     zmax = z[i]
@@ -770,8 +771,8 @@ def companions(pts, row, h_visible):
 
 
 def phi_analysis(frames, phi, i_over):
-    """Spec M4 applied to the reference: is there a final stretch in which phi turns monotonically
-    downward?  -> dict (all numbers reported; 'identified' uses the params thresholds)."""
+    """参照映像に仕様 M4 を適用し、phi が下向きへ単調に回る終盤の区間があるか調べる。
+    全数値を含む辞書を返す。'identified' にはパラメーターのしきい値を使う。"""
     tol = float(P("phi_monotone_tol_deg"))
     idx = [i for i in range(i_over, len(frames)) if np.isfinite(phi[i])]
     if len(idx) < 3:
@@ -783,7 +784,7 @@ def phi_analysis(frames, phi, i_over):
     resid = p - A @ coef
     se = float(np.sqrt((resid ** 2).sum() / max(1, len(f) - 2) / ((f - f.mean()) ** 2).sum()))
     noise = float(np.std(np.diff(p)) / math.sqrt(2.0))
-    # start of the final run in which phi never rises more than tol above its running minimum
+    # phi が累積最小値より tol を超えて上がらない最終区間の開始点。
     s = len(p) - 1
     for cand in range(len(p) - 1, -1, -1):
         seg = p[cand:]
@@ -858,7 +859,7 @@ def analyze_mode(name, rows, profs, frames, fps, H_ref, x0):
           "o_at_onset_H": None if i_over is None else float(o[i_over]),
           "h_at_onset_H": None if i_over is None else float(h[i_over]),
           "theta_at_onset_deg": None if i_over is None else float(th[i_over])}
-    # monotonicity facts (spec M2 / M3 wording applied to the reference)
+    # 単調性の事実。仕様 M2 / M3 の表現を参照映像に適用する。
     dh = np.diff(h)
     mono = {"h_largest_drop_H": float(max(0.0, -(dh.min()))), "h_n_decreasing_steps": int((dh < 0).sum())}
     if i_over is not None:
@@ -873,7 +874,7 @@ def analyze_mode(name, rows, profs, frames, fps, H_ref, x0):
                      "tip_speed_H_per_frame": float(np.polyfit(f[i_over:], np.array([r["tip_H"][0] for r in rows[i_over:]]), 1)[0]),
                      "deepest_speed_H_per_frame": float(np.polyfit(f[i_over:], np.array([r["deepest_H"][0] for r in rows[i_over:]]), 1)[0])})
     phi_info = phi_analysis(frames, phi, i_over) if i_over is not None else {"identified": False}
-    # phases
+    # 段階。
     f_first, f_final = frames[0], frames[-1]
     total = f_final - f_first
     f_over = ev["overhang_onset_frame"]
@@ -885,7 +886,7 @@ def analyze_mode(name, rows, profs, frames, fps, H_ref, x0):
         if ph and ph["from_frame"] is not None and ph["to_frame"] is not None:
             n = ph["to_frame"] - ph["from_frame"]
             ph.update({"frames_at_24fps": int(n), "seconds": float(n / fps), "proportion": float(n / total)})
-    # speeds / deceleration
+    # 速度と減速。
     d95 = _arr(rows, "disp_p95_H")
     kmax = int(np.nanargmax(d95))
     vis = h >= hv
@@ -939,7 +940,7 @@ def stage_analyze():
     mapping = {k: map_to_target(res[k]["phases"]) for k in res}
     log("mapping", {k: {n: round(v["seconds"], 3) for n, v in mapping[k]["reference_proportional"].items()} for k in mapping})
 
-    # ---- along the crest line (3-D structure)
+    # ---- 峰線に沿った3D構造。
     ym = np.array(raw["crest_along_y"]["y_mid_m"])
     cy = {c["frame"]: c for c in raw["crest_along_y"]["frames"]}
     zf = np.array([np.nan if a is None else a for a in cy[frames[-1]]["zmax_m"]])
@@ -966,7 +967,7 @@ def stage_analyze():
 
     make_plots(raw, res, mapping, along, profs)
 
-    # ---- orientation only: the same quantities on the painting's base contour, if it exists (read-only)
+    # ---- 比較用の方向のみ。原画の基準輪郭があれば同じ指標を読込専用で測る。
     base_cmp = None
     if os.path.isfile(paths.BASE_CONTOUR_JSON):
         try:
@@ -984,7 +985,7 @@ def stage_analyze():
         except Exception as exc:                      # noqa: BLE001
             base_cmp = {"error": repr(exc)}
 
-    # ---- json
+    # ---- JSON。
     scan = raw["scan"]
     i_last = scan["last_distinct_frame"] - scan["frames"][0]["frame"]
     out = {
@@ -1086,7 +1087,7 @@ def make_plots(raw, res, mapping, along, profs):
     imgio.save_png(opath("curves_motion_quantities_h_xc.png"),
                    plot.multi_plot([dict(plots[0]), dict(plots[1], xlabel=xlab, size=(1500, 330))], ncols=1))
 
-    # companions
+    # 補助指標。
     dh_s, dh_f = np.diff(S["h"]), np.diff(Fu["h"])
     dx_s, dx_f = np.diff(S["xl"]), np.diff(Fu["xl"])
     tipdrop_s = np.array([np.nan if r["tip_drop_H"] is None else r["tip_drop_H"] for r in res["section"]["table"]])
@@ -1109,7 +1110,7 @@ def make_plots(raw, res, mapping, along, profs):
     imgio.save_png(opath("curves_companions.png"),
                    plot.multi_plot(plots2, ncols=1, title="Houdini reference 1.abc: companion quantities (not spec quantities)"))
 
-    # along the crest line
+    # 峰線に沿う指標。
     ym = np.array(along["y_mid_m"])
     cy = {c["frame"]: c for c in raw["crest_along_y"]["frames"]}
     z_still, H_ref = raw["final_pose"]["z0_m"], raw["final_pose"]["H_ref_m"]
@@ -1134,7 +1135,7 @@ def make_plots(raw, res, mapping, along, profs):
                         "color": "red", "marker": "s"}])]
     imgio.save_png(opath("along_crest_line.png"), plot.multi_plot(p3, ncols=1, title="Houdini reference 1.abc: structure along Y"))
 
-    # profiles, fixed frame and lead-aligned
+    # 固定フレームと先端位置を合わせた断面。
     sel = list(range(frames[0] + 4, frames[-1] + 1, 5))
     if frames[-1] not in sel:
         sel.append(frames[-1])
@@ -1153,7 +1154,7 @@ def make_plots(raw, res, mapping, along, profs):
                            size=(1500, 760), xlim=(-2.6, 0.6), ylim=(-0.05, 1.15), equal_aspect=True, xlabel="X - x_lead [H]", ylabel="Z [H]")
         imgio.save_png(opath("profiles_overlay_%s.png" % mode), draw.vstack([a, b], gap=8))
 
-    # timeline bars
+    # 時間軸の帯。
     W, Hh = 1500, 430
     img = draw.canvas(Hh, W, "white")
     draw.text(img, 20, 12, "Phase durations mapped onto 9.5 s = 285 frames @30 fps (reference proportions vs backlog initial split)", "black", 2)
@@ -1180,9 +1181,9 @@ def make_plots(raw, res, mapping, along, profs):
     log("plots written")
 
 
-# ====================================================================== stage 3: perspective look (optional)
+# ====================================================================== 第3段階: 斜め視点の確認（任意）
 def stage_render():
-    """Workbench perspective renders of a few frames (3-D look only; nothing is measured here)."""
+    """数フレームを Workbench で斜めから描く。3D の見た目だけを確認し、測定はしない。"""
     import bpy
     from mathutils import Vector
     rd = AbcReader()
@@ -1229,7 +1230,7 @@ def stage_render():
     log("perspective renders written: frames %s" % (rp["frames"],))
 
 
-# ====================================================================== entry
+# ====================================================================== 実行入口
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--stage", default="all", choices=["all", "measure", "analyze", "render"])

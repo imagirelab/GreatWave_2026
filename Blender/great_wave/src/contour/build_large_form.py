@@ -1,42 +1,44 @@
-"""LARGE-FORM base contour: curvature-limited regularisation of the finger-scale base contour.
+"""大形状の基準輪郭。指先規模の基準輪郭を曲率に制限を付けて整える。
 
-Run (headless, one command regenerates everything):
-    & "G:/research/Wave Simulation/blender/great_wave/tools/run_blender.ps1" src/contour/build_large_form.py
-Options (after '--', via -ScriptArgs):
-    --params <json>   other parameter file (default: large_form_params.json next to this file)
-    --tag <name>      trial run: everything goes to results/step1_prepare/contour_large_form/trial_<name>/,
-                      nothing under target/ is touched
-    --no-images       numbers and json only (also works without bpy, e.g. with Blender's python.exe)
-    --radii a,b,c     trial runs only: other ball radii (e.g. the stability test 165,180,200)
-    --official-order-only   trial runs only: skip the other morphological order
+実行例（画面なし、1コマンドで全出力を再生成）:
+    & "G:/Unity/GreatWave_2026/Blender/great_wave/tools/run_blender.ps1" src/contour/build_large_form.py
+オプション（-ScriptArgs で '--' の後に渡す）:
+    --params <json>   別のパラメーターファイル。既定値は隣の large_form_params.json。
+    --tag <name>      試行実行。すべて results/step1_prepare/contour_large_form/trial_<name>/ に出力し、
+                      target/ 以下には触れない。
+    --no-images       数値と JSON だけを作る。bpy なしでも動作する。
+    --radii a,b,c     試行実行のみ。別の球半径を指定する（例: 安定性検査の 165,180,200）。
+    --official-order-only   試行実行のみ。もう一方の形態演算順序を省く。
 
-Input  : target/base_contour_finger_scale.json (the judged finger-scale contour of build_base_contour.py), the
-         painting (pictures only), results/step1_prepare/contour_final/base_contour_alt_sky_silhouette.json.
-Outputs: target/base_contour.json (OFFICIAL large-form contour, schema gw.base_contour.v1),
-         target/base_contour_overlay.png, target/large_form_variants/*.json,
-         results/step1_prepare/contour_large_form/ (pictures, plots, metrics.json, comparison contours).
-Same parameter file + same finger-scale file -> byte-identical json.
+入力: target/base_contour_finger_scale.json（build_base_contour.py が判定した指先規模の輪郭）、
+      原画（画像出力にのみ使用）、
+      results/step1_prepare/contour_final/base_contour_alt_sky_silhouette.json。
+出力: target/base_contour.json（正式な大形状の輪郭、形式 gw.base_contour.v1）、
+      target/base_contour_overlay.png、target/large_form_variants/*.json、
+      results/step1_prepare/contour_large_form/（画像、グラフ、metrics.json、比較用輪郭）。
+同じパラメーターファイルと指先規模の輪郭ファイルからは、バイト単位で同じ JSON を得る。
 
-Definition (no hand tuning, see large_form_params.json for every number):
-  1. The finger-scale contour is closed to a region (body inside): both ends are extended along their end tangents,
-     the region is closed far below the picture, and rasterised at full resolution (pixel centre inside the polygon).
-  2. Morphological CLOSING then OPENING with a disc of radius r (exact Euclidean distance transforms).  The other
-     order is computed too and reported: it is unstable, the notches between the lobes act as constrictions and the
-     opening removes the tip lobe for every r >= 100 px and the whole lower block of the head at r = 150 px (see
-     morph_order in the parameter file).
-  3. The boundary is re-extracted: crack following, every vertex moved onto the level set 'distance = r' of the last
-     distance field (sub-pixel), 1 px resampling, light arclength Gaussian.
-  4. The ORIGINAL line is kept wherever the regularised one is closer than keep_tol (0.15 % of image height) AND the
-     original line itself turns no faster than the ball (spacing / r per S8 sample); smooth cross-fades in between.
-  5. Flags: finger-scale flag where the point still lies on the finger-scale line ('traced', or
-     'offset_from_visible_edge' = the CONSTRUCTED left end of the back, see build_base_contour.py), 'large_form_bridge'
-     where the regularisation moved it ('large_form_bridge' always wins over an inherited flag), completed_* always
-     carried over (in_S7 = false).  Landmarks, 3 segments, 2 px spacing.
-     The flags are decided on the 1 px polyline (distance <= label_tol); the 2 px resampling and the rounding to
-     0.001 px come afterwards, so a flagged point of the json may exceed label_tol by a small epsilon (the measured
-     maximum is written into the json, key source_flags).
-  6. 'pending_user_confirmation' / 'pending_stretches' are inherited from the finger-scale file: the x-range of the back
-     that depends on the pending left-end reading (index range and flag counts are recomputed for this file).
+定義（手作業で調整しない。各数値は large_form_params.json を参照）:
+  1. 指先規模の輪郭を領域として閉じる。両端を接線方向に延ばし、原画の十分下で領域を閉じ、
+     全解像度で画素中心が多角形内にあるか判定してラスタ化する。
+  2. 半径 r の円盤で形態学的クロージングの後にオープニングを行う。距離変換は正確。
+     逆順も計算して報告するが不安定である。波頭の分岐間の切れ込みが狭い部分として働き、
+     r>=100 px では先端の張り出しが、r=150 px では波頭下部全体が失われる。
+     パラメーターファイルの morph_order を参照。
+  3. 境界を再抽出する。画素間を追跡し、各頂点を最後の距離場の 'distance = r' の
+     等値線へ1画素未満の精度で移し、1 px で再標本化して弧長方向に軽くガウス平滑化する。
+  4. 整えた線との差が keep_tol（画像高さの0.15%）未満で、元の線自体の曲がり方も
+     球より急でない場所では、元の線を保つ。その間を滑らかに混合する。
+  5. フラグ: 点が指先規模の線上に残る場所では元のフラグを保つ。
+     'traced' または 'offset_from_visible_edge'（背面左端の構成部分、
+     build_base_contour.py を参照）。整形で動かした場所は 'large_form_bridge' とし、
+     引き継いだフラグより優先する。completed_* は常に引き継ぎ、in_S7=false。
+     特徴点、3区間、2 px の間隔を求める。フラグは1 px の折れ線で距離 <= label_tol
+     として決め、その後で2 px の再標本化と0.001 px への丸めを行う。
+     このため JSON 内のフラグ付き点が label_tol を少し超える場合がある。
+     測定した最大超過値は JSON の source_flags に書く。
+  6. 'pending_user_confirmation' / 'pending_stretches' は指先規模のファイルから引き継ぐ。
+     左端の未確定な読み取り方に依存する背面の X 範囲を示し、このファイル用に番号とフラグ数を再計算する。
 """
 import math
 import os
@@ -51,7 +53,7 @@ if _SRC not in sys.path:
 from gw import bootstrap, paths, frame, draw, plot                  # noqa: E402
 from gw import profile_metrics as PM                                # noqa: E402
 from contour import method_a_lib as LA                              # noqa: E402
-from contour import build_base_contour as BB                        # noqa: E402  (helpers only; its main() is not run)
+from contour import build_base_contour as BB                        # noqa: E402  （補助関数だけを使い、main() は実行しない）
 
 log = bootstrap.log
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -68,13 +70,16 @@ NOTE_TEXT = ("FINGER-SCALE reference contour (single hook claws removed, foam lo
              "unchanged. Rebuilt by src/contour/build_base_contour.py (which writes this path now).")
 
 
-# ====================================================================== input
+# ====================================================================== 入力
 def is_large_form(j):
     return isinstance(j, dict) and ("r_px" in j or "derived_from" in j)
 
 
 def ensure_finger_scale_file(cfg, official):
-    """Path of the finger-scale file.  Official run: make sure it exists under its new name and carries the note."""
+    """指先規模の輪郭ファイルのパスを返す。
+
+    正式な実行では、新しいファイル名で存在し、注記が付いていることを確認する。
+    """
     fpath = os.path.join(paths.PROJECT_ROOT, P(cfg, "finger_scale_file"))
     if not os.path.isfile(fpath):
         old = paths.BASE_CONTOUR_JSON
@@ -128,9 +133,12 @@ def load_contour(path):
             "i_crest": n_back - 1, "i_tip": n_back + n_head - 2, "path": paths.norm(path)}
 
 
-# ====================================================================== region + morphology
+# ====================================================================== 領域と形態演算
 def build_region(O, r_max, cfg):
-    """Closed region (body = True) on a canvas that contains the contour plus a margin.  -> (mask, (ox, oy), info)"""
+    """輪郭と余白を含むキャンバスに、閉じた領域（本体が True）を作る。
+
+    マスク、原点 (ox, oy)、情報を返す。
+    """
     k = P(cfg, "end_tangent_len_px")
     s = LA.arclength(O)
     a = LA.interp_at(O, s, np.array([k]))[0]
@@ -154,14 +162,17 @@ def build_region(O, r_max, cfg):
 
 
 def morph(M, r, order):
-    """open_close / close_open with a disc of radius r.  -> (result mask, last distance field)
-    The boundary of the result is the level set D = r of the returned field (sub-pixel)."""
+    """半径 r の円盤で open_close または close_open を行う。
+
+    結果のマスクと最後の距離場を返す。結果の境界は距離場の等値線 D = r にあり、
+    画素未満の精度で表せる。
+    """
     cap = int(math.ceil(r)) + 3
     if order == "open_close":
-        E = LA.edt_capped(M, cap) > r                       # erosion
-        Op = ~(LA.edt_capped(~E, cap) > r)                  # dilation  -> opening
-        Dl = ~(LA.edt_capped(~Op, cap) > r)                 # dilation
-        D = LA.edt_capped(Dl, cap)                          # erosion   -> closing
+        E = LA.edt_capped(M, cap) > r                       # 収縮。
+        Op = ~(LA.edt_capped(~E, cap) > r)                  # 膨張してオープニング。
+        Dl = ~(LA.edt_capped(~Op, cap) > r)                 # 膨張。
+        D = LA.edt_capped(Dl, cap)                          # 収縮してクロージング。
         return D > r, D
     if order == "close_open":
         Dl = ~(LA.edt_capped(~M, cap) > r)
@@ -173,8 +184,11 @@ def morph(M, r, order):
 
 
 def extract_boundary(mask, D, r, origin, sigma_px):
-    """Left canvas edge -> right canvas edge boundary (body on the right hand side), sub-pixel on the level set
-    D = r, resampled at 1 px and lightly smoothed.  Image px coordinates."""
+    """本体を右側に置いて、キャンバスの左端から右端まで境界を求める。
+
+    等値線 D = r 上で画素未満の精度に補正し、1 px 間隔で再標本化して軽く平滑化する。
+    座標は画像の画素単位。
+    """
     h, w = mask.shape
     col = mask[:, 0]
     if col[0] or not col.any():
@@ -190,7 +204,7 @@ def extract_boundary(mask, D, r, origin, sigma_px):
     ok = (p[:, 0] > 3) & (p[:, 0] < w - 3) & (p[:, 1] > 3) & (p[:, 1] < h - 3)
     p = p[ok]
     Df = D.astype(np.float32)
-    for _ in range(3):                                      # Newton steps onto the level set D = r (|grad D| ~ 1)
+    for _ in range(3):                                      # ニュートン法で等値線 D = r に合わせる（|grad D| は約 1）。
         d0 = BB.bilinear(Df, p[:, 0], p[:, 1])
         gx = 0.5 * (BB.bilinear(Df, p[:, 0] + 1, p[:, 1]) - BB.bilinear(Df, p[:, 0] - 1, p[:, 1]))
         gy = 0.5 * (BB.bilinear(Df, p[:, 0], p[:, 1] + 1) - BB.bilinear(Df, p[:, 0], p[:, 1] - 1))
@@ -209,11 +223,13 @@ def extract_boundary(mask, D, r, origin, sigma_px):
                                                 "level_residual_px_max": float(resid.max())}
 
 
-# ====================================================================== polyline helpers
+# ====================================================================== 折れ線の補助関数
 def project(q, pts, chunk=1024):
-    """Nearest point of the polyline pts for every query point.
-    -> dist, arclength position on pts, projected point, signed distance (+ = query on the LEFT of the travel
-       direction = sky side of the contour)."""
+    """各照会点から折れ線 pts 上の最近接点を求める。
+
+    距離、pts 上の弧長位置、射影点、符号付き距離を返す。正は進行方向の左、
+    すなわち輪郭の空側を示す。
+    """
     q = np.atleast_2d(np.asarray(q, np.float64))
     a, b = pts[:-1], pts[1:]
     ab = b - a
@@ -234,13 +250,16 @@ def project(q, pts, chunk=1024):
         dist[i:i + chunk] = np.sqrt(d2[ar, k])
         spos[i:i + chunk] = s[k] + t[ar, k] * seg_len[k]
         proj[i:i + chunk] = c[ar, k]
-        nl = np.stack([ab[k, 1], -ab[k, 0]], axis=1) / seg_len[k][:, None]       # left normal (px coords, y down)
+        nl = np.stack([ab[k, 1], -ab[k, 0]], axis=1) / seg_len[k][:, None]       # 左向きの法線（画素座標の y は下向き）。
         sign[i:i + chunk] = np.sign(((qq - c[ar, k]) * nl).sum(1))
     return dist, spos, proj, dist * sign
 
 
 def sliding_turn(pts, delta):
-    """|turn| between the chords [s - delta, s] and [s, s + delta] at every vertex (deg); 0 near the ends."""
+    """各頂点で弦 [s - delta, s] と [s, s + delta] の旋回角を度数で求める。
+
+    端付近では 0 を返す。
+    """
     s = LA.arclength(pts)
     ok = (s >= delta) & (s <= s[-1] - delta)
     a = LA.interp_at(pts, s, np.clip(s - delta, 0, s[-1]))
@@ -252,9 +271,12 @@ def sliding_turn(pts, delta):
 
 
 def s8_profile(pts, spacing, n_phase):
-    """Spec S8 on the WHOLE polyline (continuous across the joints and the head tip): for every phase, samples every
-    `spacing` of arclength, tangent_j = chord j -> j+1, junction value = tangent_j - tangent_j-1 (deg, signed, + = turning
-    towards +Z / counter-clockwise).  -> (s of the junctions, signed turn, phase index), sorted by s."""
+    """結合部と波頭先端をまたぐ折れ線全体に対して仕様 S8 を測る。
+
+    位相ごとに弧長 `spacing` の間隔で標本化し、接線 j を弦 j -> j+1 とする。
+    結合部の値は接線 j と j-1 の符号付き差（度）で、正は +Z へ向かう反時計回り。
+    結合部の弧長 s、符号付き旋回角、位相番号を s の順で返す。
+    """
     s = LA.arclength(pts)
     ss, tt, pp = [], [], []
     for ph in range(n_phase):
@@ -288,7 +310,7 @@ def moving_mean(v, n):
 
 
 def dist_to_true(mask):
-    """distance (in samples) of every index to the nearest True index (inf if none)."""
+    """各番号から最も近い True の番号までの距離を標本数で返す（なければ無限大）。"""
     n = len(mask)
     idx = np.arange(n)
     big = 10 ** 9
@@ -299,11 +321,14 @@ def dist_to_true(mask):
     return np.minimum(idx - left, right - idx).astype(np.float64)
 
 
-# ====================================================================== composition of one variant
+# ====================================================================== 一つの変種の合成
 def compose(R_full, O, F, cfg, r):
-    """Blend the regularised line R with the original line O.  -> dict (1 px polyline P + per-point data)."""
+    """整えた線 R と元の線 O を混合する。
+
+    1 px 間隔の折れ線 P と点ごとのデータを含む辞書を返す。
+    """
     h1 = float(F.pct_h_to_px(1.0))
-    # trim R to the extent of O: from its crossing of the left frame edge x = 0 to the foot of O's last point
+    # R を O の範囲に切り詰める。左枠 x = 0 との交点から、O の終点の射影位置まで。
     sR = LA.arclength(R_full)
     k0 = int(np.nonzero((R_full[:-1, 0] < 0.0) & (R_full[1:, 0] >= 0.0))[0][0])
     f0 = (0.0 - R_full[k0, 0]) / (R_full[k0 + 1, 0] - R_full[k0, 0])
@@ -313,8 +338,8 @@ def compose(R_full, O, F, cfg, r):
     R = LA.interp_at(R_full, sR, t)
     R[0, 0] = 0.0
     d, sO, Oproj, dsig = project(R, O)
-    sO = np.maximum.accumulate(sO)                          # monotone parameter on O (guards against back-jumps)
-    # --- where must the regularised line be used?
+    sO = np.maximum.accumulate(sO)                          # O 上の位置を単調にし、逆戻りを防ぐ。
+    # --- 整えた線を使う必要がある場所。
     keep_tol = float(F.pct_h_to_px(P(cfg, "keep_tol_pct_h")))
     far = d > keep_tol
     delta = float(F.pct_h_to_px(P(cfg, "s8_spacing_pct_h")))
@@ -327,7 +352,7 @@ def compose(R_full, O, F, cfg, r):
     else:
         rough = np.zeros(len(R), bool)
     core = far | rough
-    # --- hysteresis: extend every changed stretch until both lines coincide within the raster noise
+    # --- ヒステリシス: 両線の差がラスタ雑音以内になるまで変更区間を伸ばす。
     seam_tol = float(F.pct_h_to_px(P(cfg, "seam_tol_pct_h")))
     max_exp = int(round(float(F.pct_h_to_px(P(cfg, "seam_max_expand_pct_h")))))
     dm = moving_mean(d, int(round(0.5 * h1)))
@@ -347,17 +372,17 @@ def compose(R_full, O, F, cfg, r):
     Pp = R + w[:, None] * (Oproj - R)
     if w[0] == 1.0:
         Pp[0] = O[0]
-    Pp[0, 0] = 0.0                                          # the contour starts ON the left frame edge
+    Pp[0, 0] = 0.0                                          # 輪郭を左枠上から始める。
     if w[-1] == 1.0:
         Pp[-1] = O[-1]
-    # --- flags
+    # --- フラグ。
     lab_O_at = lambda sv: np.clip(np.searchsorted(s_O, sv), 0, len(s_O) - 1)
     return {"R": R, "P": Pp, "w": w, "d_R_to_O": d, "dsig_R_to_O": dsig, "sO": sO, "core_far": far, "core_rough": rough,
             "changed": changed, "turn_limit_deg": limit, "turn_O": turn_O, "s_O": s_O, "lab_index": lab_O_at(sO)}
 
 
 def finalise(comp, Oc, F, cfg):
-    """Flags, landmarks, segments (2 px) of a composed polyline."""
+    """合成した折れ線のフラグ、特徴点、2 px 間隔の区間を求める。"""
     O, labO = Oc["pts"], Oc["lab"]
     Pp = comp["P"]
     p1 = BB.resample_1px(Pp)
@@ -369,14 +394,14 @@ def finalise(comp, Oc, F, cfg):
     l_near = labO[idx]
     label_tol = float(F.pct_h_to_px(P(cfg, "label_tol_pct_h")))
     on_line = d <= label_tol
-    # a stretch counts as 'still on the finger-scale line' only if it is at least label_min_run long; shorter runs are places
-    # where the regularised line merely CROSSES the finger-scale line
+    # 指先規模の線上に残る区間とみなすのは、長さが label_min_run 以上の場合だけ。
+    # 短い区間は、整えた線が指先規模の線と交差するだけの場所である。
     min_run = float(F.pct_h_to_px(P(cfg, "label_min_run_pct_h")))
     for (i, j) in BB.runs_of(on_line):
         if j - i + 1 < min_run:
             on_line[i:j + 1] = False
     lab = np.where(np.isin(l_near, COMPLETED), l_near, np.where(on_line, l_near, "large_form_bridge")).astype(object)
-    # completed flags must form ONE run at the end (a bridge point whose nearest original point is completed stays completed)
+    # completed フラグは終端に一つの連続区間を作る。元の最近接点が completed の橋の点も completed のまま。
     comp_idx = np.nonzero(np.isin(lab, COMPLETED))[0]
     if comp_idx.size and not np.all(np.diff(comp_idx) == 1):
         first = comp_idx[0]
@@ -390,7 +415,7 @@ def finalise(comp, Oc, F, cfg):
     sm = LA.gaussian_smooth(p1, sig, 1.0)
     i_c = int(np.argmin(sm[:i_vis_end + 1, 1]))
     i_top = int(np.argmin(p1[:i_vis_end + 1, 1]))
-    # head tip: vertex of a parabola through x(s) over the run within tip_tol of the maximum
+    # 波頭先端: x の最大値から tip_tol 以内の区間で x(s) に合わせた放物線の頂点。
     i_t0 = i_c + int(np.argmax(p1[i_c:i_vis_end + 1, 0]))
     tol_t = float(F.pct_h_to_px(P(cfg, "tip_tol_pct_h")))
     a = i_t0
@@ -416,7 +441,7 @@ def finalise(comp, Oc, F, cfg):
     tol = P(cfg, "plateau_tol_px")
     top_run = np.nonzero(p1[:i_t, 1] <= p1[i_top, 1] + tol)[0]
     deep_run = i_t + np.nonzero(p1[i_t:i_vis_end + 1, 0] <= p1[i_dstrict, 0] + tol)[0]
-    # segments: back [0, i_c], head [i_c, tip], inner_arc [tip, end]
+    # 区間: back [0, i_c]、head [i_c, tip]、inner_arc [tip, end]。
     head_p = np.vstack([p1[i_c:i_t], tip]) if s1[i_t] > s_t else np.vstack([p1[i_c:i_t + 1], tip])
     head_l = np.concatenate([lab[i_c:i_t], lab[i_t:i_t + 1]]) if s1[i_t] > s_t else np.concatenate([lab[i_c:i_t + 1], lab[i_t:i_t + 1]])
     k_in = i_t if s1[i_t] > s_t else i_t + 1
@@ -432,7 +457,7 @@ def finalise(comp, Oc, F, cfg):
         segs[nm] = {"pts": rp, "lab": rl, "actual_spacing_px": float(actual), "length_px": float(LA.arclength(q)[-1])}
     segs["head"]["pts"][0] = segs["back"]["pts"][-1]
     segs["inner_arc"]["pts"][0] = segs["head"]["pts"][-1]
-    # completed labels after resampling must still be a single final run starting at a completed point
+    # 再標本化後も completed ラベルを終端の一つの連続区間とし、completed の点から始める。
     full = np.vstack([segs["back"]["pts"], segs["head"]["pts"][1:], segs["inner_arc"]["pts"][1:]])
     labf = np.concatenate([segs["back"]["lab"], segs["head"]["lab"][1:], segs["inner_arc"]["lab"][1:]])
     segf = np.array(["back"] * len(segs["back"]["pts"]) + ["head"] * (len(segs["head"]["pts"]) - 1)
@@ -454,7 +479,7 @@ def finalise(comp, Oc, F, cfg):
                    "tip_fit": fit, "vis_end_px": p1[i_vis_end].tolist()}}
 
 
-# ====================================================================== measurements
+# ====================================================================== 測定
 def stats_pct(d_px, F, pts=None):
     d = np.asarray(d_px, np.float64)
     if d.size == 0:
@@ -468,14 +493,16 @@ def stats_pct(d_px, F, pts=None):
 
 
 def inscribed_diameter_at(pts, i_tip, skip_px=6.0):
-    """Diameter of the largest circle that touches the contour at the tip from the body side and stays inside the
-    contour (the definition tests/test_mesh.py uses for the G3 rim thickness, applied to the 2-D section)."""
+    """本体側から先端の輪郭に接し、内部に収まる最大円の直径を求める。
+
+    tests/test_mesh.py が G3 の縁の厚さに用いる定義を二次元断面へ適用する。
+    """
     s = LA.arclength(pts)
     p = pts[i_tip]
     a = LA.interp_at(pts, s, np.array([max(0.0, s[i_tip] - 4.0), min(s[-1], s[i_tip] + 4.0)]))
     t = a[1] - a[0]
     t /= np.hypot(*t)
-    n_in = np.array([-t[1], t[0]])                          # right of the travel direction = body side (px, y down)
+    n_in = np.array([-t[1], t[0]])                          # 進行方向の右側が本体側（画素座標の y は下向き）。
     q = pts[np.abs(s - s[i_tip]) > skip_px] - p
     along = q @ n_in
     ok = along > 1e-9
@@ -495,7 +522,10 @@ def level_crossings(pts, y):
 
 
 def measure_variant(V, Oc, F, cfg, J):
-    """All numbers asked for one variant.  V = finalise() result, J = its json dict (for the test library)."""
+    """一つの変種に必要な数値をまとめて測る。
+
+    V は finalise() の結果、J はテストライブラリに渡す JSON 辞書。
+    """
     full, lab, seg, i_c, i_t = V["full"], V["lab"], V["seg"], V["i_c"], V["i_t"]
     out = {}
     h1 = float(F.pct_h_to_px(1.0))
@@ -503,7 +533,7 @@ def measure_variant(V, Oc, F, cfg, J):
     s = LA.arclength(full)
     vis = ~np.isin(lab, COMPLETED)
     i_end = int(np.nonzero(vis)[0][-1])
-    # ---- own S8, whole contour, across the tip
+    # ---- 独自の S8。先端をまたぐ輪郭全体を測る。
     sp = float(F.pct_h_to_px(P(cfg, "s8_spacing_pct_h")))
     js, jt, jp = s8_profile(full, sp, P(cfg, "s8_n_phases"))
     q = LA.interp_at(full, s, js)
@@ -532,7 +562,7 @@ def measure_variant(V, Oc, F, cfg, J):
     s8["design_turn_of_ball_deg"] = None
     out["own_S8"] = s8
     out["_s8_curve"] = (js, jt, jp, seg_of)
-    # ---- same-definition re-measurement as the finger-scale report (S1 S2 S4 S5 thickness)
+    # ---- 指先規模の報告と同じ定義で S1、S2、S4、S5、厚さを再測定する。
     sig_px = float(F.pct_h_to_px(P(cfg, "landmark_sigma_pct_h")))
     mc = BB.measure_contour(full, lab, seg, i_c, i_t, F, cfg, sig_px)
     out["judge_definitions"] = {"S1": mc["S1"], "S2": mc["S2"],
@@ -545,7 +575,7 @@ def measure_variant(V, Oc, F, cfg, J):
                                         "second_contact_px": [round(v, 1) for v in touch], "centre_px": [round(v, 1) for v in centre],
                                         "spec_G3_limit_pct_H": P(cfg, "rim_limit_pct_H"),
                                         "definition": "diameter of the largest circle tangent to the contour at the head tip from the body side that stays inside the contour (2-D version of the G3 definition in tests/test_mesh.py)"}
-    # ---- tip vs the spec S6 claw point and vs the finger-scale tip
+    # ---- 先端を仕様 S6 の爪点と指先規模の先端に比較する。
     tip = V["tip_px"]
     s6 = np.array(F.pct_to_px(59.2, 33.0), np.float64)
     ft = Oc["pts"][Oc["i_tip"]]
@@ -557,7 +587,7 @@ def measure_variant(V, Oc, F, cfg, J):
                   "vs_finger_scale_tip_pct_h": {"dx": round(float(F.px_to_pct_h(tip[0] - ft[0])), 3), "dy_down_positive": round(float(F.px_to_pct_h(tip[1] - ft[1])), 3),
                                                 "dist": round(float(F.px_to_pct_h(np.hypot(*(tip - ft)))), 3)},
                   "fit": V["lm"]["tip_fit"]}
-    # ---- distance to the finger-scale contour, both directions, in_S7 points only
+    # ---- 指先規模の輪郭との双方向の距離。in_S7 の点のみ。
     O, labO, segO = Oc["pts"], Oc["lab"], Oc["seg"]
     visO = ~np.isin(labO, COMPLETED)
     dev, devs = V["dev_px"], V["dev_signed_px"]
@@ -581,9 +611,9 @@ def measure_variant(V, Oc, F, cfg, J):
     cnt = {nm: {k2: int(((seg == nm) & (lab == k2)).sum()) for k2 in sorted(set(lab.tolist()))} for nm in SEG_NAMES}
     out["flag_counts"] = cnt
     out["share_of_visible_points_on_the_finger_scale_line"] = {nm: round(float(((lab != "large_form_bridge") & vis & (seg == nm)).sum() / max(1, ((seg == nm) & vis).sum())), 4) for nm in SEG_NAMES}
-    # ---- widths
+    # ---- 幅。
     z0 = float(F.pct_to_px(0, 74.7)[1])
-    t0 = full[0] - LA.interp_at(full, s, np.array([5.0 * h1]))[0]          # left-end chord over 5 % (same window as S4 'left end')
+    t0 = full[0] - LA.interp_at(full, s, np.array([5.0 * h1]))[0]          # 左端の 5% の弦（S4 の左端と同じ窓）。
     wd = {}
     for lv in P(cfg, "width_levels_pct_H"):
         y = z0 - lv / 100.0 * Hpx
@@ -603,7 +633,7 @@ def measure_variant(V, Oc, F, cfg, J):
             if xb:
                 e["width_back_to_front_H"] = round((xfr - xb[-1]) / Hpx, 4)
                 e["width_back_to_outermost_H"] = round((max(xf)[0] - xb[-1]) / Hpx, 4)
-            elif t0[1] > 0 and t0[0] < 0:                    # the back descends towards the left frame edge (spec 7b makes sense)
+            elif t0[1] > 0 and t0[0] < 0:                    # 背面が左枠へ向かって下がる場合、仕様 7b が意味を持つ。
                 xe = float(full[0, 0] + (y - full[0, 1]) * t0[0] / t0[1])
                 ln = float(F.px_to_pct_h(np.hypot(xe - full[0, 0], y - full[0, 1])))
                 e["x_back_extrapolated_px"] = round(xe, 1)
@@ -620,7 +650,7 @@ def measure_variant(V, Oc, F, cfg, J):
                   "about 51 % H: below that its x is a straight extrapolation along the chord of the first 5 % of the back (spec 7b) and the width is NOT a measurement. "
                   "x_front_shift_px_per_pct_h_of_level tells how ill-conditioned x_front is (a level that grazes a nearly horizontal stretch).")
     out["widths"] = wd
-    # ---- test library on the json: json joints vs detection, S4, phi windows
+    # ---- JSON をテストライブラリで測る。JSON の結合点と検出結果、S4、phi の窓を比較。
     lib = {}
     try:
         m_js = PM.measure_base_contour(J)
@@ -648,7 +678,7 @@ def measure_variant(V, Oc, F, cfg, J):
         if tp is not None:
             lib["crest_to_tip_direction_deg"] = round(float(np.degrees(np.arctan2(tp[1] - ct[1], tp[0] - ct[0]))), 2)
         lib["ok"] = True
-    except Exception as ex:                                  # shared code of another agent (being edited in parallel)
+    except Exception as ex:                                  # 別担当の共有コード（並行して編集中）。
         lib["ok"] = False
         lib["error"] = repr(ex)
     out["test_library"] = lib
@@ -656,7 +686,7 @@ def measure_variant(V, Oc, F, cfg, J):
 
 
 def json_measurements(mm):
-    """compact copy of the numbers of one variant for its json file."""
+    """一つの変種の数値を、その JSON ファイル用に簡潔にまとめる。"""
     lib = mm["test_library"]
     jd = mm["judge_definitions"]
     jj = lib.get("json_joints") or {}
@@ -688,7 +718,7 @@ def lib_summary(m, F):
             "crest_plateau": lm.get("crest_plateau"), "notes": m.get("notes")}
 
 
-# ====================================================================== json
+# ====================================================================== JSON
 def strip(d):
     if isinstance(d, dict):
         return {k: strip(v) for k, v in d.items() if not str(k).startswith("_")}
@@ -719,7 +749,7 @@ def contour_json(V, Oc, F, cfg, r, order, name, finger_rel, finger_sha, official
                 "dev_from_finger_scale_px": [float(v) for v in sg["dev_px"]]}
     z0 = float(F.pct_to_px(0, 74.7)[1])
     fl = fj.get("landmarks", {})
-    # ---- flag descriptions: only flags that occur in THIS file; measured epsilon of the label tolerance (labels / meta data only)
+    # ---- フラグの説明: このファイルに現れるフラグだけを記し、ラベル許容値の超過量を測る（ラベルとメタデータのみ）。
     lab_all = np.asarray(V["lab"], dtype=object)
     flags_present = sorted(set(str(v) for v in lab_all.tolist()))
     inherited = ~np.isin(lab_all, COMPLETED) & (lab_all != "large_form_bridge")
@@ -740,7 +770,7 @@ def contour_json(V, Oc, F, cfg, r, order, name, finger_rel, finger_sha, official
         "large_form_bridge": "point moved by the large-form regularisation (in_S7 = true); wins over every inherited flag",
         "completed_occluded": "hidden behind the near wave, completed (in_S7 = false)",
         "completed_other": "visible sea patch without a drawn wave face, completed (in_S7 = false)"}
-    # ---- stretch that depends on the pending left-end reading: x-range inherited from the finger-scale file
+    # ---- 保留中の左端の読み取り方に依存する区間。X 範囲は指先規模のファイルから引き継ぐ。
     pend_keys = list(fj.get(BB.PENDING_KEY) or [])
     pend = {}
     f_blk = (fj.get(BB.PENDING_STRETCHES_KEY) or {}).get(BB.PENDING_LEFT_END)
@@ -804,7 +834,7 @@ def contour_json(V, Oc, F, cfg, r, order, name, finger_rel, finger_sha, official
     return J
 
 
-# ====================================================================== drawing
+# ====================================================================== 描画
 COL = {"back": "red", "head": "magenta", "inner_arc": "lime", "large_form_bridge": "orange", "claw_root_bridge": "orange",
        "completed_occluded": "cyan", "completed_other": "blue"}
 VAR_COL = {100: "red", 120: (0, 170, 0), 135: "purple", 150: "blue"}
@@ -914,15 +944,15 @@ def view_variants(rgb, box, scale, variants, Oc, F, title, radii, width=2.2, ext
     return v.img
 
 
-# ====================================================================== main
+# ====================================================================== 主処理
 def main():
     import argparse
     ap = argparse.ArgumentParser()
     ap.add_argument("--params", default=os.path.join(HERE, "large_form_params.json"))
     ap.add_argument("--tag", default="")
     ap.add_argument("--no-images", action="store_true")
-    ap.add_argument("--radii", default="", help="trial runs only: comma separated radii instead of radii_px")
-    ap.add_argument("--official-order-only", action="store_true", help="trial runs only: skip the other morph order")
+    ap.add_argument("--radii", default="", help="試行実行のみ。radii_px の代わりにカンマ区切りの半径を指定")
+    ap.add_argument("--official-order-only", action="store_true", help="試行実行のみ。もう一方の形態演算順序を省く")
     args = bootstrap.parse_args(ap)
     cfg = paths.read_json(args.params)
     if args.tag and args.radii:
@@ -954,7 +984,7 @@ def main():
     log("S8 -> minimum radius of curvature %.1f px (%.2f %% of image height, %.2f %% H); target %.1f deg -> %.1f px" % (
         r_limit, F.px_to_pct_h(r_limit), r_limit / F.px_per_H * 100, P(cfg, "s8_target_deg"), h1 / math.radians(P(cfg, "s8_target_deg"))))
 
-    # ---------------------------------------------------------------- 1. regularisation (all radii, both orders)
+    # ---------------------------------------------------------------- 1. 整形（全半径、両順序）
     M, origin, reg_info = build_region(O, max(radii), cfg)
     log("REGION canvas %s (%.1f MP), end tangents %.1f / %.1f deg" % (reg_info["canvas_px"], M.size / 1e6, reg_info["start_tangent_deg"], reg_info["end_tangent_deg"]))
     variants, others, metrics, comps = {}, {}, {}, {}
@@ -991,7 +1021,7 @@ def main():
             log("   finger-scale -> large form  " + "  ".join("%s %.2f/%.2f/%.2f" % (nm, dd[nm]["mean"], dd[nm]["p95"], dd[nm]["max"]) for nm in SEG_NAMES)
                 + " | raster offset on unchanged stretches median %+.2f px" % mm["raster_check"]["signed_offset_R_minus_O_on_unchanged_stretches_px"].get("median", float("nan")))
 
-    # ---------------------------------------------------------------- 2. official radius
+    # ---------------------------------------------------------------- 2. 正式な半径
     cand = [int(v) for v in P(cfg, "official_candidates_px")]
     target = P(cfg, "s8_target_deg")
     passing = [r for r in sorted(cand) if metrics["large_form_r%d" % r]["own_S8"]["max_whole_deg"] <= target]
@@ -1002,7 +1032,7 @@ def main():
            "official_r_px": r_off, "rule_satisfied": bool(passing)}
     log("OFFICIAL r = %d px (%s)" % (r_off, "rule satisfied" if passing else "NO candidate meets the target - largest taken"))
 
-    # ---------------------------------------------------------------- 3. comparison: the judge's Gaussian low-pass
+    # ---------------------------------------------------------------- 3. 比較: 判定用のガウス低域通過
     sg = P(cfg, "lowpass_compare_sigma_pct_h")
     lp = LA.gaussian_smooth(BB.resample_1px(O), float(F.pct_h_to_px(sg)), 1.0)
     comp_lp = {"P": lp}
@@ -1012,7 +1042,7 @@ def main():
     metrics["compare_lowpass_sigma%gpct" % sg] = measure_variant(V_lp, Oc, F, cfg, J_lp)
     V_lp["J"] = J_lp
 
-    # ---------------------------------------------------------------- 4. the other left-end reading (official r only)
+    # ---------------------------------------------------------------- 4. 左端の別の読み取り方（正式な半径のみ）
     alt_V, alt_Oc = None, None
     alt_path = os.path.join(paths.PROJECT_ROOT, P(cfg, "alt_left_end_file"))
     if os.path.isfile(alt_path):
@@ -1035,7 +1065,7 @@ def main():
     else:
         log("WARNING other left-end reading not found:", paths.norm(alt_path))
 
-    # ---------------------------------------------------------------- 5. json files
+    # ---------------------------------------------------------------- 5. JSON ファイル
     written = {}
     for r, V in sorted(variants.items()):
         V["J"]["official"] = bool(r == r_off)
@@ -1052,7 +1082,7 @@ def main():
     paths.write_json(os.path.join(out_dir, "compare_lowpass_sigma%gpct.json" % sg), J_lp)
     log("WROTE", paths.norm(json_path), "sha256", written["base_contour.json"][:16], "| variants in", paths.norm(var_dir))
 
-    # finger-scale own numbers with the same code, for the tables
+    # 表用に、指先規模の独自指標も同じコードで測る。
     Vf = {"full": O, "lab": Oc["lab"], "seg": Oc["seg"], "i_c": Oc["i_crest"], "i_t": Oc["i_tip"], "tip_px": O[Oc["i_tip"]],
           "dev_px": np.zeros(len(O)), "dev_signed_px": np.zeros(len(O)), "lm": {"tip_fit": None}}
     metrics["finger_scale"] = measure_variant(Vf, Oc, F, cfg, Oc["json"])
@@ -1069,13 +1099,13 @@ def main():
     }
     paths.write_json(os.path.join(out_dir, "metrics.json"), summary)
 
-    # ---------------------------------------------------------------- 7. pictures
+    # ---------------------------------------------------------------- 7. 画像
     if not args.no_images:
         from gw import imgio
         rgb = imgio.load_painting_rgb()
         make_pictures(rgb, F, cfg, Oc, variants, others, V_lp, alt_V, alt_Oc, metrics, curves, r_off, order_off, order_other, out_dir, overlay_path, sel, left_variant)
 
-    # ---------------------------------------------------------------- console table
+    # ---------------------------------------------------------------- コンソールの表
     for name in sorted(metrics):
         m = metrics[name]
         s8, jd, lib = m["own_S8"], m["judge_definitions"], m["test_library"]
@@ -1097,7 +1127,7 @@ def main():
     bootstrap.finish(ok, "large-form base contour written (official r = %d px)" % r_off if ok else "no candidate radius meets the S8 target")
 
 
-# ====================================================================== pictures
+# ====================================================================== 画像
 def make_pictures(rgb, F, cfg, Oc, variants, others, V_lp, alt_V, alt_Oc, metrics, curves, r_off, order_off, order_other, out_dir, overlay_path, sel, left_variant):
     from gw import imgio
     V = variants[r_off]
@@ -1113,7 +1143,7 @@ def make_pictures(rgb, F, cfg, Oc, variants, others, V_lp, alt_V, alt_Oc, metric
         ab = alt_V["segs"]["back"]["pts"]
         alt_lf = ab[ab[:, 0] < 420]
 
-    # (a) full-wave overlays
+    # (a) 波全体の重ね画像。
     sc = 1600.0 / F.width_px
     img = view_official(rgb, (0, 0, F.width_px, F.height_px), sc, V, Oc, F, "OFFICIAL base contour = " + tt, labels=False, width=2.6, legend_at=(1010, 30, 1))
     imgio.save_png(overlay_path, img)
@@ -1124,13 +1154,13 @@ def make_pictures(rgb, F, cfg, Oc, variants, others, V_lp, alt_V, alt_Oc, metric
     draw_variant(full, lambda q: q, V, width=5.0)
     draw_marks(full, lambda q: q, V, F, Oc, scale=3)
     imgio.save_png(os.path.join(out_dir, "a_overlay_full_res.png"), full)
-    # (b) head close-up, three radii
+    # (b) 波頭の拡大画像。3種類の半径。
     extra_lp = [(V_lp["full"], "orange", 1.6, (8, 5), "comparison only: Gaussian low-pass sigma %g %%" % P(cfg, "lowpass_compare_sigma_pct_h"))]
     img_b = view_variants(rgb, (1450, 150, 2350, 1150), 1.6, variants, Oc, F, "head: large form for r = %s px (%s) over the finger-scale line" % ("/".join(str(r) for r in shown), order_off), shown, extra=extra_lp)
     imgio.save_png(os.path.join(out_dir, "b_head_radii.png"), img_b)
     img_b2 = view_variants(rgb, (2000, 650, 2330, 1130), 4.5, variants, Oc, F, "head tip and right flank", shown, width=2.0)
     imgio.save_png(os.path.join(out_dir, "b_head_tip_zoom.png"), img_b2)
-    # both orders for the official r
+    # 正式な半径で両方の演算順序を比較する。
     v = draw.View(rgb, 1450, 150, 2350, 1150, scale=1.6, method="bilinear")
     if r_off in others:
         draw.polyline(v.img, v.to_view(others[r_off]["full"]), "cyan", 2.4)
@@ -1140,22 +1170,22 @@ def make_pictures(rgb, F, cfg, Oc, variants, others, V_lp, alt_V, alt_Oc, metric
                               ("r = %d px, %s (other order)" % (r_off, order_other), "cyan", None)])
     draw.text(v.img, 4, 4, "order of opening / closing, r = %d px" % r_off, "black", scale=2, bg="white")
     imgio.save_png(os.path.join(out_dir, "b_head_orders.png"), v.img)
-    # official with flags, head
+    # 正式な輪郭の波頭とフラグ。
     imgio.save_png(os.path.join(out_dir, "b_head_official_flags.png"),
                    view_official(rgb, (1450, 150, 2350, 1150), 1.6, V, Oc, F, "head, official " + tt, legend_at=(8, 34)))
-    # (c) crest / step
+    # (c) 峰と段差。
     imgio.save_png(os.path.join(out_dir, "c_crest_step_radii.png"),
                    view_variants(rgb, (1250, 140, 1950, 520), 2.2, variants, Oc, F, "crest and the step right of the crest", shown, with_tips=False))
     imgio.save_png(os.path.join(out_dir, "c_crest_step_official.png"),
                    view_official(rgb, (1250, 140, 1950, 520), 2.2, V, Oc, F, "crest / step, official", legend_at=None))
     imgio.save_png(os.path.join(out_dir, "c_vertical_face_radii.png"),
                    view_variants(rgb, (1760, 340, 2140, 720), 4.0, variants, Oc, F, "vertical face of the head and the corner under it", shown, with_tips=False))
-    # (d) armpit
+    # (d) 脇のくぼみ。
     imgio.save_png(os.path.join(out_dir, "d_armpit_radii.png"),
                    view_variants(rgb, (1480, 780, 1980, 1180), 3.2, variants, Oc, F, "armpit between the underside of the head and the inner arc", shown, with_tips=False))
     imgio.save_png(os.path.join(out_dir, "d_underside_radii.png"),
                    view_variants(rgb, (1640, 820, 2260, 1160), 2.5, variants, Oc, F, "underside of the head", shown, with_tips=False))
-    # (e) left end, both readings
+    # (e) 左端の二つの読み取り方。
     ex = []
     if alt_back is not None:
         ex.append((alt_back, "purple", 1.5, None, "finger-scale, OTHER reading (sky silhouette), thin"))
@@ -1172,13 +1202,13 @@ def make_pictures(rgb, F, cfg, Oc, variants, others, V_lp, alt_V, alt_Oc, metric
     draw.text(v.img, 4, 4, "left end of the back: both readings   x 0..520  y 780..1120  zoom 3", "black", scale=2, bg="white")
     img_e = v.img
     imgio.save_png(os.path.join(out_dir, "e_left_end_readings.png"), img_e)
-    # inner arc lower end / completion
+    # 内側の弧の下端と補完部分。
     imgio.save_png(os.path.join(out_dir, "x_inner_arc_lower_end.png"),
                    view_official(rgb, (1700, 1600, 2300, 2000), 2.6, V, Oc, F, "inner arc lower end and completion, official", legend_at=None))
     imgio.save_png(os.path.join(out_dir, "x_back_mid_official.png"),
                    view_official(rgb, (250, 330, 1350, 960), 1.45, V, Oc, F, "back, official", legend_at=None, z0_line=False))
 
-    # (g) S8 plots
+    # (g) S8 のグラフ。
     Hp = float(F.height_px)
     plots = []
     for name in ["finger_scale"] + [variants[r]["name"] for r in sorted(variants)] + ["compare_lowpass_sigma%gpct" % P(cfg, "lowpass_compare_sigma_pct_h")]:
@@ -1198,7 +1228,7 @@ def make_pictures(rgb, F, cfg, Oc, variants, others, V_lp, alt_V, alt_Oc, metric
         imgio.save_png(os.path.join(out_dir, "g_S8_%s.png" % name), pl)
         plots.append(pl)
     imgio.save_png(os.path.join(out_dir, "g_S8_all_variants.png"), draw.fit_width(draw.vstack(plots), 1600))
-    # signed curvature of the official variant (sliding turn) + deviation from the finger scale
+    # 正式な変種の符号付き曲率（移動する旋回角）と指先規模からのずれ。
     st, ss = sliding_turn(V["full"], float(F.pct_h_to_px(1.0)))
     stf, ssf = sliding_turn(O, float(F.pct_h_to_px(1.0)))
     pl1 = plot.line_plot([{"label": "finger scale", "x": ssf / Hp * 100, "y": stf, "color": "lightgray", "width": 1},
@@ -1213,7 +1243,7 @@ def make_pictures(rgb, F, cfg, Oc, variants, others, V_lp, alt_V, alt_Oc, metric
                          ylabel="% of image height", size=(1600, 420), hlines=[{"y": 0.15, "label": "+0.15 keep tol"}, {"y": -0.15, "label": "-0.15"}])
     imgio.save_png(os.path.join(out_dir, "g_turn_signed_and_deviation.png"), draw.vstack([pl1, pl2]))
 
-    # where was the original line kept?  (official variant)
+    # 元の線を残した場所（正式な変種）。
     cp = V["comp"]
     sR = LA.arclength(cp["R"]) / Hp * 100
     lim = cp["turn_limit_deg"]
@@ -1231,7 +1261,7 @@ def make_pictures(rgb, F, cfg, Oc, variants, others, V_lp, alt_V, alt_Oc, metric
                          xlabel="arclength [% of image height]", ylabel="deg", size=(1600, 420), ylim=(0, 41), hlines=[{"y": lim, "label": "ball %.1f" % lim, "color": "blue"}])
     imgio.save_png(os.path.join(out_dir, "g_where_original_kept.png"), draw.vstack([pd1, pd2]))
 
-    # (f) decision sheet (<= 2400 px wide): A overview, B head with the radii, C left end, short ASCII legend
+    # (f) 判定用の画像（幅 2400 px 以下）: A 全体、B 各半径の波頭、C 左端、短い ASCII 凡例。
     a_img = view_official(rgb, (0, 0, 2700, 2100), 1480.0 / 2700.0, V, Oc, F, "A  official large form r = %d px (thick) over the finger-scale contour (thin black)" % r_off,
                           labels=True, width=3.0, legend_at=None)
     b_img = view_variants(rgb, (1450, 150, 2350, 1150), 1.0, variants, Oc, F, "B  head: r = %s px" % " / ".join(str(r) for r in shown), shown, width=2.0, legend_at=(8, 30))

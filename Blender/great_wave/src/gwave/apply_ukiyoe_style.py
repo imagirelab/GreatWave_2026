@@ -1,17 +1,16 @@
-"""Paint the animated mesh with a camera-projected Hokusai reference texture.
+"""北斎の参照画像をカメラ投影し、アニメーションするメッシュに貼る。
 
-The UV coordinates are frozen from the *final* evaluated mesh.  They therefore
-travel with the animated vertices, while at frame 285 the print camera samples
-the source painting at the matching image coordinate.  This is a useful visual
-target for the large wave, not a substitute for separately modelled foam or a
-view-independent ukiyo-e shader.
+UV 座標は評価済みの最終形状から固定する。そのためアニメーションする頂点に
+追従し、285 フレーム目には版画用カメラから原画の対応する座標を参照する。
+これは大波の見た目を比較する基準である。別途モデル化する泡や、
+視点非依存の浮世絵シェーダーの代わりにはならない。
 
-Run after build_great_wave.py::
+build_great_wave.py の後に実行する::
 
     tools/run_blender.ps1 src/gwave/apply_ukiyoe_style.py -Blend blend/great_wave.blend
 
-The generated styled scene is kept under the ignored blend/ directory.  The
-script and the reference image are the reproducible source of this material.
+生成したスタイル付きシーンは Git の対象外である blend/ に置く。
+このスクリプトと参照画像からマテリアルを再現できる。
 """
 
 import os
@@ -64,7 +63,7 @@ def _projected_material(image_path):
 
 
 def _set_final_projection_uv(scene, obj, final_frame, frame):
-    """Use evaluated geometry because the base mesh is the first animation frame."""
+    """元のメッシュは最初のフレームなので、評価済みの形状を使う。"""
     import bpy
 
     scene.frame_set(final_frame)
@@ -74,9 +73,9 @@ def _set_final_projection_uv(scene, obj, final_frame, frame):
     evaluated.data.vertices.foreach_get("co", xyz)
     xyz = xyz.reshape(-1, 3)
     if not np.isfinite(xyz).all() or float(xyz[:, 2].max()) < 0.7 * frame.H:
-        raise RuntimeError("The final-frame point cache is missing or has not evaluated")
+        raise RuntimeError("最終フレームの点キャッシュがないか、まだ評価されていません")
     if len(xyz) != len(obj.data.vertices):
-        raise RuntimeError("A topology-changing modifier prevents stable projected UVs")
+        raise RuntimeError("トポロジーを変えるモディファイアーにより投影 UV を固定できません")
     uv = obj.data.uv_layers.get("Hokusai_final_projection") or obj.data.uv_layers.new(name="Hokusai_final_projection")
     loop_ids = np.empty(len(obj.data.loops), dtype=np.int32)
     obj.data.loops.foreach_get("vertex_index", loop_ids)
@@ -89,7 +88,7 @@ def _set_final_projection_uv(scene, obj, final_frame, frame):
 
 
 def _make_background(frame):
-    """Neutral paper and distant-sea guide, without a static copy of the great wave."""
+    """大波の静止コピーを含まない、紙と遠景の海の参照面。"""
     import bpy
 
     obj = bpy.data.objects.get("Hokusai_paper_guide")
@@ -145,8 +144,8 @@ def apply():
     obj.data.materials.append(mat)
     _make_background(fr)
 
-    # The old Workbench reference sea is edge-on in CAM_print, but can obscure
-    # the wave in other views once Eevee is enabled.
+    # 古い Workbench 用の海の参照面は CAM_print では側面から見えるが、
+    # Eevee を有効にすると別視点で波を隠す場合がある。
     sea = bpy.data.objects.get("Sea_ref")
     if sea:
         sea.hide_render = True
@@ -158,8 +157,8 @@ def apply():
     scene.render.resolution_x = 1286
     scene.render.resolution_y = 864
     scene.render.resolution_percentage = 100
-    obj["visual_method"] = "Final-frame print-camera UV projection; animated by the original PC2 wave mesh"
-    obj["visual_limit"] = "A single-view texture reference; foam geometry and HMD-independent shading are separate milestones"
+    obj["visual_method"] = "最終フレームの版画用カメラによる UV 投影。元の PC2 波メッシュで動かす"
+    obj["visual_limit"] = "単一視点のテクスチャー参照。泡の形状と HMD 対応の視点非依存シェーディングは別工程"
     scene.frame_set(final_frame)
     return {"crest_m": crest_m, "vertices": vertex_count}
 
@@ -172,7 +171,7 @@ def main():
     out = os.path.join(wm.PROJECT, "blend", "great_wave_styled.blend")
     paths.ensure_parent(out)
     bpy.ops.wm.save_as_mainfile(filepath=out)
-    bootstrap.log("styled scene %s; crest %.3f m; vertices %d" % (out, stats["crest_m"], stats["vertices"]))
+    bootstrap.log("スタイル付きシーン %s、波頭 %.3f m、頂点数 %d" % (out, stats["crest_m"], stats["vertices"]))
     bootstrap.finish(True, "apply_ukiyoe_style")
 
 

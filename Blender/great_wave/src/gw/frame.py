@@ -1,19 +1,19 @@
-"""Painting frame <-> scene coordinates (spec section 4).  numpy only.
+"""原画の画面座標とシーン座標の相互変換（仕様4）。numpy のみを使用する。
 
-Conventions
------------
-* pixel coords : origin top-left, x right, y down, CONTINUOUS.  Pixel (i, j)
-  (column i, row j) covers [i, i+1] x [j, j+1] and has its centre at
-  (i + 0.5, j + 0.5).  x in [0, 3859], y in [0, 2594].
-* pct coords   : left % of image WIDTH, top % of image HEIGHT (spec section 5).
-* H coords     : (X_H, Z_H) in units of the wave height H.  Crest = (0, 1),
-  trough water level Z_H = 0, +X = boat side (right in the painting).
-* metres       : H coords * WAVE_HEIGHT_M.
-* 'pct_h'      : a LENGTH in % of image height (1 % = 25.94 px = 0.0151515 H).
-  Horizontal differences are ALSO expressed in % of image HEIGHT.
+座標の約束
+----------
+* 画素座標: 左上が原点、右が X 正、下が Y 正の連続座標。画素 (i, j) は
+  [i, i+1] x [j, j+1] を覆い、中心は (i + 0.5, j + 0.5)。
+  X は [0, 3859]、Y は [0, 2594]。
+* 百分率座標: 左から画像幅の何 % か、上から画像高さの何 % か（仕様5）。
+* H 座標: 波高 H を単位とする (X_H, Z_H)。峰は (0, 1)、谷の水位は Z_H=0。
+  +X は船側で、原画では右方向。
+* メートル: H 座標に WAVE_HEIGHT_M を掛ける。
+* 'pct_h': 画像高さに対する長さの百分率（1% = 25.94 px = 0.0151515 H）。
+  水平方向の差も画像高さに対する百分率で表す。
 
-Defining values (params.json): crest_left_pct, crest_top_pct, height_pct and
-the painting size.  Everything else is derived here:
+基準値は params.json の crest_left_pct、crest_top_pct、height_pct と原画の寸法。
+その他の値はここで計算する:
 
     frame_h  = 100 / height_pct                      = 1.515152 H
     frame_w  = frame_h * width_px / height_px        = 2.254036 H
@@ -30,7 +30,7 @@ from . import paths
 
 
 class Frame:
-    """Conversions for one painting frame.  All methods accept scalars or arrays."""
+    """1枚の原画画面について座標を変換する。全メソッドがスカラーと配列を受け付ける。"""
 
     def __init__(self, width_px=3859, height_px=2594, crest_left_pct=38.2,
                  crest_top_pct=8.7, height_pct=66.0, wave_height_m=11.0):
@@ -47,11 +47,11 @@ class Frame:
         self.x_right = self.x_left + self.frame_w
         self.z_top = 1.0 + self.crest_top_pct / 100.0 * self.frame_h
         self.z_bottom = self.z_top - self.frame_h
-        # H units per pixel (identical in x and y because the pixels are square)
+        # 1画素あたりの H 単位。画素が正方形なので X と Y で同じ。
         self.H_per_px = self.frame_h / self.height_px
         self.px_per_H = self.height_px / self.frame_h
 
-    # ---- construction -------------------------------------------------
+    # ---- 生成 -------------------------------------------------
     @classmethod
     def from_params(cls, params_path=None, wave_height_m=None):
         p = lambda k: paths.param(k, params_path)
@@ -65,7 +65,7 @@ class Frame:
                 "H_per_px", "px_per_H")
         return {k: getattr(self, k) for k in keys}
 
-    # ---- positions ----------------------------------------------------
+    # 位置の変換
     def px_to_H(self, x_px, y_px):
         x_px = np.asarray(x_px, dtype=np.float64)
         y_px = np.asarray(y_px, dtype=np.float64)
@@ -108,7 +108,7 @@ class Frame:
     def m_to_px(self, X_m, Z_m):
         return self.H_to_px(*self.m_to_H(X_m, Z_m))
 
-    # (N, 2) array variants -------------------------------------------
+    # 形状が (N, 2) の配列を扱う関数
     def pts_px_to_H(self, pts_px):
         pts_px = np.asarray(pts_px, dtype=np.float64)
         X, Z = self.px_to_H(pts_px[..., 0], pts_px[..., 1])
@@ -119,9 +119,9 @@ class Frame:
         x, y = self.H_to_px(pts_H[..., 0], pts_H[..., 1])
         return np.stack([x, y], axis=-1)
 
-    # ---- lengths ------------------------------------------------------
+    # 長さの変換
     def px_to_pct_h(self, d_px):
-        """length in px -> % of image height (also for horizontal lengths)."""
+        """px 単位の長さを画像高に対する百分率へ変換する。水平方向の長さも同じ基準を使う。"""
         return np.asarray(d_px, dtype=np.float64) / self.height_px * 100.0
 
     def pct_h_to_px(self, d_pct):
@@ -145,26 +145,26 @@ class Frame:
     def H_to_px_len(self, d_H):
         return np.asarray(d_H, dtype=np.float64) * self.px_per_H
 
-    # ---- angles -------------------------------------------------------
+    # 角度の変換
     @staticmethod
     def px_dir_to_deg(dx_px, dy_px):
-        """Direction of a pixel-space vector as an angle in the X-Z plane:
-        0 deg = +X (right), +90 deg = up (+Z), -90 deg = down.  (y is down in px.)"""
+        """画素座標のベクトルの向きを X-Z 平面上の角度として返す。
+        0 度は右向きの +X、+90 度は上向きの +Z、-90 度は下向き。画素座標の y は下向き。"""
         return np.degrees(np.arctan2(-np.asarray(dy_px, dtype=np.float64),
                                      np.asarray(dx_px, dtype=np.float64)))
 
-    # ---- CAM_print ----------------------------------------------------
+    # CAM_print の設定
     def cam_print(self, res_x=None, distance_m=None, clip_m=None):
-        """Numbers of the judging camera (spec section 4), in METRES.
+        """判定用カメラの数値（仕様第 4 節）。単位はメートル。
 
-        Orthographic, looking along +Y, framing [x_left, x_right] x [z_bottom, z_top].
-        Blender: rotation_euler = (pi/2, 0, 0) XYZ -> camera right = +X, camera up = +Z,
-        view direction = +Y.  With sensor_fit AUTO and res_x > res_y the ortho_scale
-        is the WIDTH of the view.
+        正投影で +Y 方向を向き、[x_left, x_right] × [z_bottom, z_top] を画面に収める。
+        Blender では rotation_euler = (pi/2, 0, 0) XYZ とし、画面の右が +X、上が +Z、
+        視線方向が +Y となる。sensor_fit が AUTO で res_x > res_y の場合、ortho_scale は
+        視野の幅を表す。
 
-        res_x : render width in px (default: painting width).  res_y is derived with
-        round(); for res_x != width_px the aspect is off by < 1/res_y, the dict
-        reports the z-range that is really covered ('z_range_covered_m').
+        res_x は描画幅（px）。既定値は原画の幅。res_y は round() で求める。
+        res_x が width_px と異なる場合、縦横比の誤差は 1/res_y 未満であり、
+        戻り値の辞書には実際に含まれる Z 範囲を z_range_covered_m として記録する。
         """
         res_x = self.width_px if res_x is None else int(res_x)
         res_y = int(round(res_x * self.height_px / self.width_px))
@@ -202,8 +202,7 @@ class Frame:
         }
 
     def make_cam_print(self, scene=None, res_x=None, name="CAM_print", make_active=True):
-        """Create (or update) the CAM_print camera object in Blender and set the
-        render resolution of `scene`.  Returns the camera object.  Needs bpy."""
+        """Blender 内の CAM_print カメラを作成または更新し、scene の描画解像度を設定する。カメラオブジェクトを返す。bpy が必要。"""
         import bpy
         scene = scene or bpy.context.scene
         spec = self.cam_print(res_x=res_x)
@@ -236,7 +235,7 @@ class Frame:
         return obj
 
 
-# spec landmarks in pct coords (left %, top %) -- spec section 5
+# 仕様第 5 節の基準点を、左端と上端からの画像比率で表す。
 SPEC_LANDMARKS_PCT = {
     "S1_crest": (38.2, 8.7),
     "S2_inner_arc_deepest": (39.5, 46.3),
@@ -248,7 +247,7 @@ _default = None
 
 
 def get_frame(reload=False):
-    """The Frame built from params.json (cached)."""
+    """params.json から作った Frame を返す。結果をキャッシュする。"""
     global _default
     if _default is None or reload:
         if reload:

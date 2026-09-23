@@ -1,22 +1,19 @@
-"""Run test_shape (S1-S8), test_motion (M1-M6) and test_mesh (G1-G5) on ONE scene, in this order
-(test_mesh last: G5 resets the scene).  Stand-alone, headless:
+"""一つのシーンで形状 S1–S8、運動 M1–M6、網目 G1–G5 をこの順で検査する。
+G5 はシーンを初期化するため網目検査を最後に行う。無画面で単独実行できる。
 
   blender --background --factory-startup --python-exit-code 1 [file.blend] --python tests/run_all.py -- --object <name>
           [--blend <path>] [--build-script <py> ...] [--contour <json>] [--final-frame N]
-          [--only shape,motion,mesh] [--skip G5] [... all options of the three tests ...]
-(--python-exit-code 1 is REQUIRED for direct calls; tools/run_blender.ps1 always passes it.)
+          [--only shape,motion,mesh] [--skip G5] [各検査の追加引数]
+直接起動するときは --python-exit-code 1 が必須。tools/run_blender.ps1 は常に指定する。
 
-Output: results/<YYYYMMDD_HHMMSS>_all/ metrics.json (combined verdicts + all checks), summary.md and
-the sub-directories shape/ motion/ mesh/ with the full output of each test.
+出力：results/<YYYYMMDD_HHMMSS>_all/ に総合判定と全検査値の metrics.json、summary.md を置き、
+shape/、motion/、mesh/ に各検査の全結果を保存する。
 
-Verdict of 'all' (common_test.summarize): PASS only when the validity of every sub-test is ok, nothing failed AND every
-check of S1-S8, M1-M6 and G1-G5 was judged.  So a subset (--only shape, --skip G5, no --build-script for G5) can never
-come out as PASS: it is INCOMPLETE (the verdicts of the sub-tests that did run are listed under 'tests').  INVALID = a
-validity condition of a sub-test is not met; ERROR = a sub-test (or this script) raised: the other sub-tests still run,
-metrics.json carries the traceback, exit code 2.  Unknown names in --only / --skip are an ERROR.
-Exit code: 0 only for the exact verdict PASS of the --exit-tier (default 'spec'); 2 for ERROR; otherwise 1.
-Report-only values (W.*, T.*, S7 single directions / signed / underside / belly, M6.backlog_*, M5.backlog_hold_*) never
-enter a verdict.
+総合判定：全ての検査で形状が有効、違反がなく、S1–S8・M1–M6・G1–G5 の全項目を判定した場合だけ PASS。
+--only、--skip、G5 の構築スクリプト未指定で項目が欠ければ INCOMPLETE となる。
+有効性条件に違反すれば INVALID。例外時は ERROR とし、他の検査は続行して例外の詳細を記録する。
+--only／--skip の未知の名前も ERROR。終了コードは指定段階の厳密な PASS のみ0、ERROR は2、その他は1。
+W.*、T.*、S7の片方向・符号付き・下面・波腹、M6.backlog_*、M5.backlog_hold_* は報告専用である。
 """
 import argparse
 import os
@@ -37,17 +34,17 @@ TESTS = ("shape", "motion", "mesh")
 
 
 def main():
-    ap = argparse.ArgumentParser(description="great_wave: all tests S1-S8, M1-M6, G1-G5")
+    ap = argparse.ArgumentParser(description="大波の総合検査：S1–S8、M1–M6、G1–G5")
     ct.add_common_args(ap)
     test_motion.add_args(ap)
     test_mesh.add_args(ap)
-    ap.add_argument("--only", default="shape,motion,mesh", help="comma separated subset of shape,motion,mesh (a subset can never be PASS: the verdict of 'all' is then INCOMPLETE)")
+    ap.add_argument("--only", default="shape,motion,mesh", help="shape,motion,mesh から実行対象をカンマ区切りで指定。全対象を実行しない場合、総合判定は INCOMPLETE")
     args = bootstrap.parse_args(ap)
 
     def body(root):
         only = ct.validate_names(args.only.split(","), TESTS, "--only")
         if not only:
-            raise ValueError("--only selects no test (allowed: %s)" % ", ".join(TESTS))
+            raise ValueError("--only で検査が一つも選ばれていない（使用可能：%s）" % ", ".join(TESTS))
         ct.validate_names(args.skip.split(","), test_mesh.G_IDS, "--skip")
         ctx = ct.setup_context(args, "all", run_dir=root)
         res_scale = args.res_scale
@@ -58,14 +55,14 @@ def main():
                 continue
             ctx.test_name = name
             ctx.run_dir = paths.ensure_dir(os.path.join(root, name))
-            args.res_scale = res_scale            # None -> each test uses its own default resolution
+            args.res_scale = res_scale            # None の場合、各検査の既定解像度を使う
             ct.begin_run(ctx.run_dir, name)
             try:
                 results[name] = fn(ctx)
-            except Exception as exc:              # one crashing sub-test must not hide the others; the total becomes ERROR
+            except Exception as exc:              # 一つが例外終了しても残りを実行し、総合判定は ERROR とする
                 tb = traceback.format_exc()
                 for ln in tb.rstrip().splitlines():
-                    log("[all] ERROR in %s: %s" % (name, ln))
+                    log("[all] %s でエラー: %s" % (name, ln))
                 results[name] = ct.error_result(name, ctx.run_dir, exc, tb)
                 ct.write_result(ctx.run_dir, results[name])
                 errors.append("%s: %s: %s" % (name, type(exc).__name__, exc))
@@ -76,7 +73,7 @@ def main():
         notes = ["%s: %s" % (k, n) for k, r in results.items() for n in r["summary"]["validity_notes"]]
         not_run = [t for t in TESTS if t not in only]
         if not_run:
-            notes.append("NOT RUN (--only %s): %s - their checks are not judged, so the verdict of 'all' cannot be PASS" % (args.only, ", ".join(not_run)))
+            notes.append("未実行（--only %s）：%s。対応項目を判定していないため、総合判定は PASS にできない" % (args.only, ", ".join(not_run)))
         skipped = [s for r in results.values() for s in r["summary"].get("skipped", [])]
         audit = {"non_default": [], "unlisted": [], "report_only_non_default": []}
         for r in results.values():
@@ -92,7 +89,7 @@ def main():
         ct.write_result(root, combined)
         for k, r in results.items():
             log("[all] %-6s %s" % (k, " ".join("%s=%s" % (t, r["summary"][t]["verdict"]) for t in ct.TIERS)))
-        log("[all] results: %s" % root)
+        log("[all] 結果: %s" % root)
         return combined
 
     ct.guarded_main("all", args, body)

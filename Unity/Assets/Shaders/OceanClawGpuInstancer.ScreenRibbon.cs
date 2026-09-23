@@ -22,7 +22,7 @@ public partial class OceanClawGpuInstancer
     private float _screenFoamRibbonVisibility;
 
     /// <summary>
-    /// Draws a continuous camera-space foam band following the same reference arc used to place the main claws.
+    /// 主な爪状白波の配置に使う基準曲線に沿って、カメラ空間に連続した白波の帯を描画する。
     /// </summary>
     private void DrawScreenReferenceFoamRibbon()
     {
@@ -72,7 +72,7 @@ public partial class OceanClawGpuInstancer
     }
 
     /// <summary>
-    /// Rebuilds a small world-space mesh whose screen projection follows the reference arc exactly.
+    /// 画面への投影が基準曲線に正確に沿う、小さなワールド空間のメッシュを再構築する。
     /// </summary>
     private Mesh BuildScreenFoamRibbonMesh(Camera referenceCamera)
     {

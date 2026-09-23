@@ -1,37 +1,39 @@
-"""Judge / merge of the base-contour candidates A and B -> the official target/base_contour.json.
+"""基準輪郭の候補A・Bを判定して統合し、正式な target/base_contour.json を作る。
 
-Run (headless, about 1 min):
-    & "G:/research/Wave Simulation/blender/great_wave/tools/run_blender.ps1" src/contour/build_base_contour.py
-Options (after '--', via -ScriptArgs):
-    --params <json>   other parameter file (default: base_contour_params.json next to this file)
-    --tag <name>      trial run: everything goes to results/step1_prepare/contour_final/variant_<name>/,
-                      target/base_contour.json and target/base_contour_overlay.png are NOT touched
+実行例（画面なし、約1分）:
+    & "G:/Unity/GreatWave_2026/Blender/great_wave/tools/run_blender.ps1" src/contour/build_base_contour.py
+オプション（-ScriptArgs で '--' の後に渡す）:
+    --params <json>   別のパラメーターファイル。既定値は隣の base_contour_params.json。
+    --tag <name>      試行実行。すべて results/step1_prepare/contour_final/variant_<name>/ に出力し、
+                      target/base_contour.json と target/base_contour_overlay.png には触れない。
 
-Inputs : the painting, target/candidates/a/base_contour.json, target/candidates/b/base_contour.json and
-         target/candidates/b/base_contour_alt_white_body_outline.json (each regenerable with one command).
-Outputs: target/base_contour.json (schema gw.base_contour.v1), target/base_contour_overlay.png,
-         results/step1_prepare/contour_final/ (comparison, judge crops, final crops, plots, metrics.json,
-         the contour of the OTHER left-end reading).
-Same parameter file + same candidate files -> byte-identical json.
+入力: 原画、target/candidates/a/base_contour.json、target/candidates/b/base_contour.json、
+      target/candidates/b/base_contour_alt_white_body_outline.json。
+      候補ファイルはそれぞれ1コマンドで再生成できる。
+出力: target/base_contour.json（形式 gw.base_contour.v1）、target/base_contour_overlay.png、
+      results/step1_prepare/contour_final/（比較画像、判定用切出し、最終切出し、グラフ、
+      metrics.json、左端の別の読み取り方による輪郭）。
+同じパラメーターファイルと候補ファイルからはバイト単位で同じ JSON を得る。
 
-What the script does
-  1. A-vs-B comparison along the contour (per segment mean / p95 / max, plot, list of stretches > 0.5 %).
-     Every such stretch must be covered by a verdict zone of the parameter file, otherwise exit code 1.
-  2. Final contour = base candidate (B) + spliced stretches of the other candidate where a verdict says so
-     + the chosen reading of the back's left end + relabelled completion; landmarks, segments, 2 px resampling.
-  3. Re-measurement S1..S6, own S8, head thickness, independent edge check, low-pass (S7 <-> S8) diagnostic.
-  4. Overlays, crops, plots, metrics.json.
-Conventions fixed by the orchestrator are kept: back = left frame edge -> crest, head = crest -> head tip
-(right-most point, claws excluded), inner_arc = head tip -> underside -> inner arc -> trough level; shared end
-points; in_S7 = False only for completed_* points.
+処理内容
+  1. 輪郭に沿って A と B を比較する。区間ごとの平均・95パーセンタイル・最大差、グラフ、
+     差が0.5%を超える部分の一覧を作る。該当部分がパラメーター内の判定領域に含まれなければ終了コード1。
+  2. 最終輪郭 = 基本候補 B + 判定に従い候補Aから差し込む部分 + 背面左端の選択した読み取り方
+     + 名称を付け直した補完部分。特徴点と区間を求め、2 px で再標本化する。
+  3. S1～S6、独自の S8、波頭の厚みを再測定し、独立した縁の確認と
+     低域通過による S7 と S8 の関係の診断を行う。
+  4. 重ね画像、切出し画像、グラフ、metrics.json を作る。
+各区間の規約を保つ。back は左画面端→峰、head は峰→波頭の先端
+（爪を除いた最も右の点）、inner_arc は先端→下面→内側の弧→谷の水位。
+端点は共有し、in_S7=False は completed_* の点に限る。
 
-Flags (key 'source' of every segment; descriptions are written to the json key 'source_flags'):
-  traced / claw_root_bridge / completed_occluded / completed_other come from the candidates;
-  offset_from_visible_edge (added 2026-09-20 after the sceptics' audit, LABEL ONLY - the geometry is bit-identical
-  to the file that carried 'traced' there) marks the CONSTRUCTED left end of the back in the white_body_outline
-  reading: no ink line is drawn there, the line is the visible white-body edge shifted outwards by the measured
-  ink-line width.  It stays in_S7 = true; the json keys 'pending_user_confirmation' / 'pending_stretches' give its
-  x-range so that tests can report S7 for it separately (docs/records/step1_contour_flags.md).
+各区間の 'source' フラグ。説明は JSON の 'source_flags' に書く。
+  traced / claw_root_bridge / completed_occluded / completed_other は候補から引き継ぐ。
+  offset_from_visible_edge は2026-09-20 の批判的検証後に追加したラベルで、形状は従来の
+  'traced' を付けたファイルとビット単位で同じ。white_body_outline の読み取り方で構成した
+  背面左端を表す。そこには墨の線がなく、見える白い波本体の縁を測定した墨線の幅だけ外側へずらす。
+  in_S7=true のままとし、'pending_user_confirmation' / 'pending_stretches' に X 範囲を記録する。
+  テストはその部分の S7 を別に報告できる。docs/records/step1_contour_flags.md を参照。
 """
 import hashlib
 import math
@@ -45,7 +47,7 @@ if _SRC not in sys.path:
     sys.path.insert(0, _SRC)
 
 from gw import bootstrap, paths, frame, imgio, draw, plot          # noqa: E402
-from contour import method_a_lib as LA                              # noqa: E402  (numpy-only polyline helpers)
+from contour import method_a_lib as LA                              # noqa: E402  （numpy のみを使う折れ線の補助関数）
 
 log = bootstrap.log
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -53,7 +55,7 @@ SEG_NAMES = ("back", "head", "inner_arc")
 SEG_JP = {"back": "背", "head": "波頭", "inner_arc": "内側の弧"}
 COMPLETED = ("completed_occluded", "completed_other")
 OFFSET_FLAG = "offset_from_visible_edge"
-ON_LINE_FLAGS = ("traced", OFFSET_FLAG)               # flags of points that claim to sit on a (real or constructed) outline
+ON_LINE_FLAGS = ("traced", OFFSET_FLAG)               # 実在または構成した輪郭上にあるとする点のフラグ。
 PENDING_KEY = "pending_user_confirmation"
 PENDING_STRETCHES_KEY = "pending_stretches"
 PENDING_LEFT_END = "back_left_variant"
@@ -72,7 +74,7 @@ SOURCE_FLAG_TEXT = {
 }
 
 
-# ====================================================================== small helpers
+# ====================================================================== 補助関数
 def P(cfg, name):
     e = cfg[name]
     return e["value"] if isinstance(e, dict) and "value" in e else e
@@ -87,7 +89,7 @@ def sha256_of(path):
 
 
 def bilinear(a, x, y):
-    """a[row, col] sampled at CONTINUOUS px coords (pixel (i, j) has its centre at (i + .5, j + .5))."""
+    """a[row, col] を連続画素座標で標本化する（画素 (i, j) の中心は (i + .5, j + .5)）。"""
     h, w = a.shape
     fx = np.clip(np.asarray(x, np.float64) - 0.5, 0.0, w - 1.001)
     fy = np.clip(np.asarray(y, np.float64) - 0.5, 0.0, h - 1.001)
@@ -125,8 +127,10 @@ def resample_exact(pts, lab, spacing):
 
 
 def left_normals(pts, half=5):
-    """Unit normals pointing to the LEFT of the travel direction (= sky side of the contour) in px coords
-    (y down): tangent (tx, ty) -> normal (ty, -tx).  Tangent = chord over +-half points."""
+    """画素座標（y は下向き）で進行方向の左、すなわち輪郭の空側を向く単位法線を返す。
+
+    接線 (tx, ty) に対する法線は (ty, -tx)。接線は ±half 点を結ぶ弦から求める。
+    """
     p = np.asarray(pts, np.float64)
     n = len(p)
     i0 = np.clip(np.arange(n) - half, 0, n - 1)
@@ -168,7 +172,7 @@ def stats_pct(d_px, F):
     return {"n": int(d.size), "mean": float(v.mean()), "p95": float(np.percentile(v, 95)), "max": float(v.max())}
 
 
-# ====================================================================== candidates
+# ====================================================================== 候補
 def load_candidate(path):
     j = paths.read_json(path)
     pts, src, seg = [], [], []
@@ -190,7 +194,7 @@ def load_candidate(path):
 
 
 def compare_candidates(A, B, F, cfg):
-    """Distances along the contour, per-segment statistics, over-threshold stretches."""
+    """輪郭に沿った距離、区間別統計値、しきい値を超える連続部分を求める。"""
     dA = LA.point_to_polyline_dist(A["pts"], B["pts"])
     dB = LA.point_to_polyline_dist(B["pts"], A["pts"])
     out = {"per_segment": {}, "stretches": []}
@@ -237,9 +241,9 @@ def compare_candidates(A, B, F, cfg):
     return out
 
 
-# ====================================================================== edge measurements on the painting
+# ====================================================================== 原画上の縁の測定
 class EdgeProbe:
-    """Half-level edge positions along contour normals (independent of both candidates' code)."""
+    """候補A・Bの実装から独立に、輪郭の法線に沿う半値境界の位置を測る。"""
 
     def __init__(self, rgb):
         a = rgb.astype(np.float32)
@@ -257,7 +261,7 @@ class EdgeProbe:
 
     @staticmethod
     def _cross(us, prof, k0, step, level, rising):
-        """first crossing of `level` walking from index k0 in direction step (+1 / -1)."""
+        """k0 から step（+1 または -1）方向へ進み、`level` を初めて横切る位置。"""
         k = k0
         n = len(us)
         while 0 <= k + step < n:
@@ -269,8 +273,11 @@ class EdgeProbe:
         return np.nan
 
     def outer_inner(self, pts, nrm, min_contrast=40.0):
-        """-> (u_outer, u_inner, field_used): signed positions (px, + = towards the sky) of the sky/ink half
-        level and of the ink/body half level relative to the contour point.  NaN where the contrast is low."""
+        """空と墨、墨と本体の半値境界の位置を輪郭点からの符号付き距離で返す。
+
+        返却値は (u_outer, u_inner, field_used)。単位は画素、正は空側。
+        コントラストが低い場所の値は NaN とする。
+        """
         n = len(pts)
         u_out = np.full(n, np.nan)
         u_in = np.full(n, np.nan)
@@ -296,8 +303,10 @@ class EdgeProbe:
         return u_out, u_in, used
 
     def inner_only(self, pts, nrm, w, min_contrast=40.0):
-        """Visible body edge of a contour that was offset outwards by w: position (px, + = sky side) of the
-        body/dark half level; expected value -w."""
+        """外側へ w ずらした輪郭に対する、見える本体縁の位置を返す。
+
+        本体と暗い部分の半値境界までの距離（画素、正は空側）。期待値は -w。
+        """
         prof_l = self.profiles(pts, nrm, self.luma)
         s_dark = np.nonzero(self._sel(-w - 0.5, -w + 4.0))[0]
         s_body = self._sel(-w - 13.0, -w - 7.0)
@@ -332,7 +341,7 @@ def measure_s6(rgb, cfg, probe):
     c = int(cols[-1])
     rows = np.nonzero(ink[:, c])[0]
     y = y0 + float(rows.mean()) + 0.5
-    # sub-pixel: half level between the ink and the sky to the right, along that row
+    # 画素未満の補間: 同じ行の右側にある墨と空の半値境界。
     xs = np.arange(x0 + c - 4 + 0.5, x0 + c + 10 + 0.5, 0.25)
     prof = bilinear(probe.luma, xs, np.full_like(xs, y))
     ink_l = float(prof[:24].min())
@@ -363,9 +372,9 @@ def measure_sea_top(probe, cfg):
             "min_y_px": float(ys.min()), "max_y_px": float(ys.max())}
 
 
-# ====================================================================== building the final contour
+# ====================================================================== 最終輪郭の構築
 def splice_other(base_pts, base_lab, base_org, other, bbox, base_name, other_name, tol=1.5):
-    """Replace the stretch of the base contour that differs from `other` inside bbox by other's stretch."""
+    """bbox 内で `other` と異なる基準輪郭の部分を、`other` の対応部分に置き換える。"""
     d = LA.point_to_polyline_dist(base_pts, other["pts"])
     inside = np.array([in_bbox(p, bbox, 0.0) for p in base_pts])
     bad = np.nonzero(inside & (d > tol))[0]
@@ -391,8 +400,11 @@ def splice_other(base_pts, base_lab, base_org, other, bbox, base_name, other_nam
 
 
 def white_body_left_end(pts, lab, org, cands, probe, cfg):
-    """Replace the left end of the back by the white-body outline (B_alt inner edge, offset outwards by the
-    measured ink-line width).  Returns new (pts, lab, org, info)."""
+    """背面の左端を白い本体の輪郭に置き換える。
+
+    B_alt の内縁を、測定した墨線の幅だけ外側にずらす。
+    新しい (pts, lab, org, info) を返す。
+    """
     alt_back = cands["B_alt"]["back_pts"]
     s_alt = LA.arclength(alt_back)
     d = LA.point_to_polyline_dist(alt_back, pts)
@@ -401,7 +413,7 @@ def white_body_left_end(pts, lab, org, cands, probe, cfg):
         raise RuntimeError("white-body trace never joins the main back")
     j = int(cand[0])
     inner = alt_back[:j + 1]
-    # ---- ink-line width above the fork
+    # ---- 分岐点より上で墨線の幅を測る。
     m0 = nearest_index(pts, inner[-1])
     s_main = LA.arclength(pts)
     a, b = P(cfg, "line_width_measure_stretch_px")
@@ -420,7 +432,7 @@ def white_body_left_end(pts, lab, org, cands, probe, cfg):
     info["outward_offset_px"] = w
     n_in, _ = left_normals(inner)
     off = inner + w * n_in
-    # ---- clip / extend to the left frame edge x = 0
+    # ---- 左枠 x = 0 まで切り詰めるか延長する。
     if off[0, 0] < 0.0:
         k = int(np.nonzero(off[:, 0] >= 0.0)[0][0])
         t = (0.0 - off[k - 1, 0]) / (off[k, 0] - off[k - 1, 0])
@@ -430,7 +442,7 @@ def white_body_left_end(pts, lab, org, cands, probe, cfg):
         tdir = off[1] - off[0]
         t = off[0, 0] / tdir[0]
         off = np.vstack([[0.0, off[0, 1] - t * tdir[1]], off])
-    # ---- seam with the main back (must be above the fork, moving forward)
+    # ---- 主となる背面との継ぎ目（前進方向で分岐点より上）。
     m1 = nearest_index(pts, off[-1])
     tdir = off[-1] - off[-6]
     tdir = tdir / max(np.hypot(*tdir), 1e-9)
@@ -440,10 +452,11 @@ def white_body_left_end(pts, lab, org, cands, probe, cfg):
                     "along_step_px": float(np.dot(pts[m1] - off[-1], tdir)),
                     "normal_step_px": float(abs(np.dot(pts[m1] - off[-1], np.array([tdir[1], -tdir[0]]))))}
     new_pts = np.vstack([off, pts[m1:]])
-    # LABEL ONLY (2026-09-20): the offset curve is constructed, not traced -> OFFSET_FLAG (was 'traced'); geometry unchanged
+    # ラベルのみ変更（2026-09-20）: ずらした曲線は追跡ではなく構成したものなので、
+    # 'traced' の代わりに OFFSET_FLAG を使う。形状は変更しない。
     new_lab = np.concatenate([np.array([OFFSET_FLAG] * len(off), dtype=object), lab[m1:]])
     new_org = np.concatenate([np.array(["B_alt_inner_edge+offset"] * len(off), dtype=object), org[m1:]])
-    # ---- local smoothing of the seam
+    # ---- 継ぎ目を局所的に平滑化する。
     sig = P(cfg, "seam_smooth_sigma_px")
     hw = P(cfg, "seam_smooth_halfwidth_px")
     s = LA.arclength(new_pts)
@@ -516,7 +529,7 @@ def build_contour(variant, cands, probe, cfg, F):
     lab, ci = relabel_completion(pts, lab, probe, cfg)
     info["completion"] = ci
 
-    # ---- landmarks on a 1 px copy
+    # ---- 1 px 間隔の写しで特徴点を求める。
     p1, l1 = resample_1px(pts, lab)
     _, o1 = resample_1px(pts, org)
     sig = float(F.pct_h_to_px(P(cfg, "landmark_sigma_pct_h")))
@@ -537,7 +550,7 @@ def build_contour(variant, cands, probe, cfg, F):
           "deep_strict_px": p1[i_dstrict].tolist(),
           "deep_run_y_px": [float(p1[deep_run, 1].min()), float(p1[deep_run, 1].max())]}
 
-    # ---- segments, 2 px
+    # ---- 2 px 間隔の区間。
     sp = P(cfg, "sample_spacing_px")
     segs = {}
     for nm, (a, b) in (("back", (0, i_c)), ("head", (i_c, i_t)), ("inner_arc", (i_t, len(p1) - 1))):
@@ -554,9 +567,12 @@ def build_contour(variant, cands, probe, cfg, F):
 
 
 def pending_left_end(back_pts, back_lab, x_range_px, F, from_label):
-    """json block for the stretch of the back that depends on the pending decision 'back_left_variant'.
-    back_pts / back_lab: the 'back' segment of the file the block is written to; x_range_px = [x0, x1] of the constructed
-    stretch (offset_from_visible_edge) of the white_body_outline reading.  LABELS / META DATA ONLY."""
+    """保留中の判断 'back_left_variant' に依存する背面部分の JSON 項目を作る。
+
+    back_pts / back_lab は出力先ファイルの 'back' 区間。x_range_px は
+    white_body_outline の解釈で構成した部分（offset_from_visible_edge）の [x0, x1]。
+    ラベルとメタデータのみを扱う。
+    """
     x = np.asarray(back_pts, np.float64)[:, 0]
     sel = np.nonzero((x >= x_range_px[0]) & (x <= x_range_px[1]))[0]
     lab = np.asarray(back_lab, dtype=object)
@@ -586,11 +602,14 @@ def full_polyline(C):
     return np.vstack(pts), np.concatenate(lab), np.concatenate([np.array(s) for s in seg])
 
 
-# ====================================================================== measurements on a contour
+# ====================================================================== 輪郭上の測定
 def poly_principal_axis(poly_px):
-    """Principal axis (deg, 0 = +X, + = up) of a closed polygon given in px (y down); exact area moments."""
+    """画素座標（y は下向き）の閉じた多角形から面積モーメントで主軸を求める。
+
+    角度は度数で、0 は +X、正は上向き。
+    """
     x = poly_px[:, 0].astype(np.float64)
-    y = -poly_px[:, 1].astype(np.float64)               # Z-up
+    y = -poly_px[:, 1].astype(np.float64)               # Z を上向きに変換。
     x1, y1 = np.roll(x, -1), np.roll(y, -1)
     c = x * y1 - x1 * y
     A = 0.5 * c.sum()
@@ -637,7 +656,7 @@ def slope_profile(back_pts, sigma_px):
 
 
 def measure_contour(full, lab, seg, i_c, i_t, F, cfg, deep_sigma_px):
-    """Uniform re-measurement used for A, B and the final contour (same definitions for all three)."""
+    """候補A・Bと最終輪郭を同じ定義で再測定する。"""
     out = {}
     pts = full
     s = LA.arclength(pts)
@@ -669,7 +688,8 @@ def measure_contour(full, lab, seg, i_c, i_t, F, cfg, deep_sigma_px):
                  "dist_pct_h": float(F.px_to_pct_h(np.hypot(dp[0] - spec2[0], dp[1] - spec2[1]))),
                  "y_range_within_tol_of_leftmost_pct": [float(p1[runx, 1].min() / F.height_px * 100),
                                                         float(p1[runx, 1].max() / F.height_px * 100)]}
-    # S4 (own definitions, mirrors gw.profile_metrics: chord over the first 5 %, max of 2 % chords, chord 8..3 % before crest)
+    # S4（独自の定義、gw.profile_metrics に対応）: 最初の 5% の弦、2% の弦の最大値、
+    # 峰より 8～3% 手前の弦を使う。
     back = pts[:i_c + 1]
     sb = LA.arclength(back)
     h1 = float(F.pct_h_to_px(1.0))
@@ -734,7 +754,7 @@ def measure_contour(full, lab, seg, i_c, i_t, F, cfg, deep_sigma_px):
                  "direction_alternatives_deg": alt,
                  "relative_to_S6_spec_point_pct_h": {"dx": float(F.px_to_pct_h(tip[0] - s6[0])), "dy": float(F.px_to_pct_h(tip[1] - s6[1]))},
                  "overhang_of_body_pct_H": float((tip[0] - c[0]) / Hpx * 100), "_poly": poly}
-    # thickness
+    # 厚さ。
     th = {}
     under = pts[i_t:i_deep_full + 1]
     for q in (5, 10, 20):
@@ -744,7 +764,7 @@ def measure_contour(full, lab, seg, i_c, i_t, F, cfg, deep_sigma_px):
                               "pair_distance_pct_H": float(np.hypot(*(pa_ - pb_)) / Hpx * 100),
                               "shortest_top_to_underside_pct_H": float(LA.point_to_polyline_dist(pa_[None], under)[0] / Hpx * 100)}
     out["head_thickness"] = th
-    # own S8 / tip turn
+    # 独自の S8 と先端の旋回角。
     sp = float(F.pct_h_to_px(P(cfg, "own_s8_spacing_pct_h")))
     s8 = {}
     for nm in SEG_NAMES:
@@ -762,7 +782,7 @@ def measure_contour(full, lab, seg, i_c, i_t, F, cfg, deep_sigma_px):
         d1 = chord_full(s_t + wpx, s_t + wpx + sp)
         turn["window_pm_%gpct_h" % wq] = float((d0 - d1) % 360.0)
     out["tip_turn_clockwise_deg"] = turn
-    # lengths / flags
+    # 長さとフラグ。
     ln = {}
     for nm in SEG_NAMES:
         m = np.nonzero(seg == nm)[0]
@@ -790,7 +810,7 @@ def lowpass_diagnostic(full, lab, seg, i_c, i_t, F, cfg):
     for sg in P(cfg, "lowpass_sigmas_pct_h"):
         sm = LA.gaussian_smooth(p1, float(F.pct_h_to_px(sg)), 1.0)
         row = {"sigma_pct_h": sg}
-        # own S8 of the smoothed curve per segment (segment limits = arclength of the base landmarks)
+        # 平滑化した曲線について各区間の独自 S8 を測る（区間の境界は基準特徴点の弧長）。
         lim = {"back": (0.0, s_full[i_c]), "head": (s_full[i_c], s_full[i_t]), "inner_arc": (s_full[i_t], s_full[i_end])}
         for nm in SEG_NAMES:
             a, b = lim[nm]
@@ -807,13 +827,16 @@ def lowpass_diagnostic(full, lab, seg, i_c, i_t, F, cfg):
     return rows, curves
 
 
-# ====================================================================== drawing
+# ====================================================================== 描画
 COL = {"back": "red", "head": "magenta", "inner_arc": "lime", "claw_root_bridge": "orange",
        "completed_occluded": "cyan", "completed_other": "blue"}
 
 
 def offset_dash(width):
-    """Dash pattern of the constructed stretch (offset_from_visible_edge): segment colour, SHORT dashes that stay readable for any line width."""
+    """構成した区間（offset_from_visible_edge）を示す短い破線パターン。
+
+    区間の色を使い、どの線幅でも読み取れる長さにする。
+    """
     return (max(5.0, 3.0 * width), max(4.0, 2.5 * width))
 
 
@@ -888,7 +911,7 @@ def save_crop(path, rgb, C, F, box, scale, title, alt_back=None, extra_lines=Non
     return v.img.shape
 
 
-# ====================================================================== main
+# ====================================================================== 主処理
 def main():
     import argparse
     ap = argparse.ArgumentParser()
@@ -900,14 +923,14 @@ def main():
     official = not args.tag
     out_dir = paths.ensure_dir(os.path.join(paths.STEP1_DIR, "contour_final") if official else
                                os.path.join(paths.STEP1_DIR, "contour_final", "variant_" + args.tag))
-    # Official output path changed on 2026-09-20 (large-form decision): this script builds the FINGER-SCALE reference contour.
-    # target/base_contour.json and target/base_contour_overlay.png now belong to src/contour/build_large_form.py and are never
-    # written here.
+    # 正式な出力先は2026-09-20の大形状の判断で変更した。この処理は指先規模の参照輪郭を作る。
+    # target/base_contour.json と target/base_contour_overlay.png は現在
+    # src/contour/build_large_form.py が作るため、ここでは書き込まない。
     json_path = os.path.join(paths.TARGET_DIR, "base_contour_finger_scale.json") if official else os.path.join(out_dir, "base_contour.json")
     overlay_path = os.path.join(out_dir, "base_contour_finger_scale_overlay.png") if official else os.path.join(out_dir, "base_contour_overlay.png")
     log("BUILD params =", paths.norm(args.params), "| official =", official)
 
-    # ---------------------------------------------------------------- inputs
+    # ---------------------------------------------------------------- 入力
     rgb = imgio.load_painting_rgb()
     probe = EdgeProbe(rgb)
     cands, hashes, warn = {}, {}, []
@@ -921,7 +944,7 @@ def main():
             log("BUILD WARNING", warn[-1])
     A, B = cands["A"], cands["B"]
 
-    # ---------------------------------------------------------------- 1. comparison
+    # ---------------------------------------------------------------- 1. 比較
     cmp_ = compare_candidates(A, B, F, cfg)
     for nm in SEG_NAMES:
         e = cmp_["per_segment"][nm]
@@ -933,13 +956,13 @@ def main():
             st["on"], st["segment"], st["from_px"][0], st["from_px"][1], st["to_px"][0], st["to_px"][1],
             st["length_px"], st["max_dist_pct_h"], ",".join(st["verdict_ids"]) or "NONE"))
 
-    # ---------------------------------------------------------------- 2. final contour (+ the other reading)
+    # ---------------------------------------------------------------- 2. 最終輪郭と別の読み取り方
     variant = P(cfg, "back_left_variant")
     other_variant = [v for v in cfg["back_left_variant"]["allowed"] if v != variant][0]
     C = build_contour(variant, cands, probe, cfg, F)
     C_other = build_contour(other_variant, cands, probe, cfg, F)
-    # x-range of the CONSTRUCTED left end (flag OFFSET_FLAG) = the stretch that depends on the pending back_left_variant
-    # decision; measured on the white_body_outline contour, written to BOTH readings (labels / meta data only)
+    # 構成した左端（フラグ OFFSET_FLAG）の X 範囲は、保留中の back_left_variant の判断に依存する。
+    # white_body_outline 輪郭上で測定し、両方の読み取り方に記録する（ラベルとメタデータのみ）。
     pending_x = None
     _pend = cfg.get(PENDING_KEY)                          # parameter file entry; older parameter files do not have it -> still pending
     pending_list = [str(v) for v in (_pend["value"] if isinstance(_pend, dict) and "value" in _pend else [PENDING_LEFT_END])]
@@ -963,7 +986,7 @@ def main():
             li["line_width_px"]["median"], li["line_width_px"]["p05"], li["line_width_px"]["p95"], li["line_width_px"]["n"],
             li["outward_offset_px"], li["left_frame_edge_px"][1], li["seam"]["normal_step_px"]))
 
-    # ---------------------------------------------------------------- 3. measurements
+    # ---------------------------------------------------------------- 3. 測定
     sig_px = float(F.pct_h_to_px(P(cfg, "landmark_sigma_pct_h")))
     M = {"final": measure_contour(full, lab, seg, i_c, i_t, F, cfg, sig_px)}
     fo, lo_, so = full_polyline(C_other)
@@ -971,7 +994,7 @@ def main():
     M["final_other_reading"] = measure_contour(fo, lo_, so, nbo - 1, nbo + nho - 2, F, cfg, sig_px)
     for k in ("A", "B"):
         cd = cands[k]
-        # crest with the SAME definition for all (argmin y of a smoothed copy)
+        # 峰はすべて同じ定義で求める（平滑化した写しの y の最小値）。
         p1 = resample_1px(cd["pts"][:cd["i_tip"] + 1])
         smc = LA.gaussian_smooth(p1, sig_px, 1.0)
         c_pt = p1[int(np.argmin(smc[:, 1]))]
@@ -999,8 +1022,8 @@ def main():
         s6m["direction_from_final_crest_deg"] = float(np.degrees(np.arctan2(-(s6["px"][1] - cpx[1]), s6["px"][0] - cpx[0])))
         s6m["final_head_tip_is_left_of_it_by_pct_h"] = float(F.px_to_pct_h(s6["px"][0] - C["tip_px"][0]))
 
-    # independent edge check (traced points only, every 3rd point; the constructed left end - OFFSET_FLAG - is part of the
-    # same every-3rd selection as before the relabelling and is checked against the VISIBLE body edge, see m_left below)
+    # 独立した縁の検査。traced の点を3点おきに調べる。構成した左端 OFFSET_FLAG も
+    # ラベル変更前と同じ3点おきの選択に含め、見える本体の縁と照合する（下の m_left）。
     nrm, _ = left_normals(full)
     edge = {}
     for nm in SEG_NAMES:
@@ -1028,7 +1051,7 @@ def main():
         e = edge["back_left_end_visible_body_edge_minus_expected"]
         log("EDGE final left end (visible body edge vs expected) n %d median %+.2f p05 %+.2f p95 %+.2f px" % (e["n"], e["median"], e["p05"], e["p95"]))
 
-    # distance final <-> candidates
+    # 最終輪郭と候補間の距離。
     dist_final = {}
     for k in ("A", "B"):
         d = LA.point_to_polyline_dist(full, cands[k]["pts"])
@@ -1036,11 +1059,11 @@ def main():
         dist_final[k]["_d"] = d
     lp_rows, lp_curves = lowpass_diagnostic(full, lab, seg, i_c, i_t, F, cfg)
 
-    # measurement library of the test agent (compatibility check; failures are reported, not fatal)
+    # テスト担当側の測定ライブラリで互換性を検査する。失敗は報告するが処理は続ける。
     lib = {"ok": False}
-    # (filled after the json is written)
+    # JSON を書き込んだ後に埋める。
 
-    # ---------------------------------------------------------------- 4. json
+    # ---------------------------------------------------------------- 4. JSON
     def seg_json(Cx, nm):
         sg = Cx["segs"][nm]
         ptsH = np.round(F.pts_px_to_H(sg["pts"]), 6)
@@ -1172,7 +1195,7 @@ def main():
     log("WROTE", paths.norm(json_path), "sha256", sha256_of(json_path)[:16])
     log("WROTE", paths.norm(other_path))
 
-    # measurement library compatibility
+    # 測定ライブラリとの互換性。
     try:
         from gw import profile_metrics as PM
         bc = PM.load_base_contour(json_path)
@@ -1188,8 +1211,9 @@ def main():
         lib = {"ok": False, "error": repr(ex)}
         log("LIB measure_base_contour FAILED:", repr(ex))
 
-    # S7 <-> S8 feasibility with the TEST LIBRARY's own definitions: a hypothetical model silhouette = the base
-    # contour (incl. completion) low-passed with sigma; judged S8 (tip zone excluded) and S7 against the base contour.
+    # テストライブラリ独自の定義で S7 と S8 の両立性を調べる。仮のモデル輪郭として、
+    # 補完部分を含む基準輪郭に sigma の低域通過を適用する。先端領域を除いて S8 を、
+    # 基準輪郭に対して S7 を判定する。
     lib_lowpass = []
     try:
         from gw import profile_metrics as PM
@@ -1220,11 +1244,11 @@ def main():
         lib_lowpass = [{"error": repr(ex)}]
         log("LIBLOWPASS FAILED:", repr(ex))
 
-    # ---------------------------------------------------------------- 5. pictures
+    # ---------------------------------------------------------------- 5. 画像
     alt_back = C_other["segs"]["back"]["pts"][:260]
     pA, pB = A["pts"], B["pts"]
     sA = LA.arclength(pA)
-    # 5a comparison overlay + distance plot
+    # 5a 比較の重ね画像と距離グラフ。
     box = (0, 0, 2700, 2100)
     v = draw.View(rgb, *box, scale=1600.0 / 2700.0)
     draw.polyline(v.img, v.to_view(pA), "red", 2.0)
@@ -1241,7 +1265,7 @@ def main():
         m = np.nonzero(A["seg"] == nm)[0]
         spans.append({"x0": float(F.px_to_pct_h(sA[m[0]])), "x1": float(F.px_to_pct_h(sA[m[-1]])), "label": nm, "color": colr, "alpha": 0.10})
     sBn = LA.arclength(pB)
-    # put B on A's arclength axis via nearest A point
+    # 最近接の A 点を使い、B を A の弧長軸に対応付ける。
     idxB = np.array([nearest_index(pA, q) for q in pB[::2]])
     pl = plot.line_plot([{"label": "A -> B", "x": F.px_to_pct_h(sA), "y": F.px_to_pct_h(cmp_["dA"]), "color": "red"},
                          {"label": "B -> A", "x": F.px_to_pct_h(sA[idxB]), "y": F.px_to_pct_h(cmp_["dB"][::2]), "color": "green", "line": False, "marker": "o", "marker_size": 1}],
@@ -1249,7 +1273,7 @@ def main():
                         ylabel="distance [% of image height]", size=(1600, 560), ylim=(0, 4.0), spans=spans,
                         hlines=[{"y": 0.5, "label": "0.5 judge threshold", "color": "blue"}])
     imgio.save_png(os.path.join(out_dir, "compare_ab_distance_plot.png"), pl)
-    # 5b judge crops
+    # 5b 判定用の切出し画像。
     for vd in P(cfg, "verdicts"):
         bb = vd["bbox_px"]
         mx = 60 if (bb[2] - bb[0]) < 300 else 40
@@ -1259,7 +1283,7 @@ def main():
         save_crop(os.path.join(out_dir, "judge_%s.png" % vd["id"]), rgb, None, F, (cx0, cy0, cx1, cy1), sc,
                   "%s use=%s | yellow halo = FINAL, red = A, green = B" % (vd["id"], vd["use"]),
                   extra_lines=[(fullC, "yellow", 6.0, None), (pA, "red", 1.6, None), (pB, (0, 170, 0), 1.6, None)])
-    # 5c overlays of the final contour
+    # 5c 最終輪郭の重ね画像。
     ov = rgb.copy()
     draw_final(ov, lambda q: q, C, width=4.0, alt_back=alt_back)
     z0 = draw_landmarks(ov, lambda q: q, C, F, scale=3)
@@ -1289,7 +1313,7 @@ def main():
         draw.rect(v.img, q0[0], q0[1], q1[0], q1[1], "blue", 2)
         draw.text(v.img, q0[0] + 2, q0[1] - 20, dz["id"].split("_")[0], "blue", scale=2, bg="white")
     imgio.save_png(os.path.join(out_dir, "overlay_doubt_zones_1600.png"), v.img)
-    # 5d crops of the final contour
+    # 5d 最終輪郭の切出し画像。
     crops = [("crop_01_back_left_end", (0, 780, 520, 1120), 3.0), ("crop_02_back_fork_zoom", (270, 830, 430, 950), 8.0),
              ("crop_03_back_mid", (450, 330, 1150, 830), 2.2), ("crop_04_crest", (1250, 150, 1750, 400), 3.0),
              ("crop_05_head_top_hook_claws", (1760, 340, 1960, 640), 5.0), ("crop_06_head_step_thin_line", (1850, 560, 2110, 700), 5.5),
@@ -1301,7 +1325,7 @@ def main():
     for name, bx, scl in crops:
         save_crop(os.path.join(out_dir, name + ".png"), rgb, C, F, bx, scl, name, alt_back=alt_back,
                   extra_lines=[(np.array([[bx[0], z0], [bx[2], z0]]), "orange", 1.5, (10, 6))])
-    # 5e plots
+    # 5e グラフ。
     ser = []
     for key, colr in (("final", "red"), ("final_other_reading", "purple")):
         fp, fa = M[key]["S4"]["_curves"]["fine"]
@@ -1370,7 +1394,7 @@ def main():
                 r.pop(kk, None)
     paths.write_json(os.path.join(out_dir, "metrics.json"), metrics)
 
-    # console summary
+    # コンソールの要約。
     m = M["final"]
     log("S1 final %.2f / %.2f  dx %+.2f dy %+.2f | plateau x %.0f..%.0f (%.2f %%)" % (m["S1"]["pct"][0], m["S1"]["pct"][1], m["S1"]["dx_pct_h"], m["S1"]["dy_pct_h"],
         m["S1"]["plateau_x_px"][0], m["S1"]["plateau_x_px"][1], m["S1"]["plateau_width_pct_h"]))

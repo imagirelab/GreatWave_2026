@@ -4,31 +4,31 @@ using UnityEngine.Rendering;
 using Unity.Collections;
 
 // ---------------------------------------------------------------------------
-// Shared data types
+// 共通のデータ型
 // ---------------------------------------------------------------------------
 
 /// <summary>
-/// One candidate location where a Hokusai claw crest could be spawned.
-/// All values are filled in by OceanClawDetector each readback cycle.
+/// 北斎の波頭に似た爪状白波を配置する候補地点。
+/// 各値は OceanClawDetector が読み戻すたびに設定する。
 /// </summary>
 public struct ClawCandidate
 {
-    /// World-space position (Y is set to 0 here; the manager refines it via BuoyancyData)
+    /// ワールド座標。ここでは Y を 0 とし、管理側が BuoyancyData から調整する。
     public Vector3 worldPos;
 
-    /// Normalised UV within the FFT tile (Repeat-wrapped), used to re-query BuoyancyData
+    /// FFT タイル内の正規化 UV。繰り返しを適用し、BuoyancyData の再取得に使う。
     public Vector2 anchorUV;
 
-    /// GPU scores from ClawMaskTexture
-    public float score;        // clawScore  (overall)
+    /// ClawMaskTexture から得た GPU 評価値。
+    public float score;        // clawScore の総合値
     public float heightScore;
     public float slopeScore;
     public float crestScore;
 
-    /// Approximate surface normal derived from finite-difference of the readback buffer
+    /// 読み戻した値の有限差分から近似した面の法線。
     public Vector3 surfaceNormal;
 
-    /// Approximate forward (wave propagation) direction derived from height gradient
+    /// 高さの勾配から近似した波の進行方向。
     public Vector3 waveForward;
 }
 
@@ -37,71 +37,70 @@ public struct ClawCandidate
 // ---------------------------------------------------------------------------
 
 /// <summary>
-/// Reads ClawMaskTexture back from the GPU each frame at low resolution,
-/// then produces a filtered list of ClawCandidate positions in world space.
+/// 毎フレーム ClawMaskTexture を低解像度で GPU から読み戻し、
+/// ワールド座標の ClawCandidate 候補を選別して返す。
 ///
-/// This component is intentionally separate from FFTOcean_Script so the detection
-/// logic can be tuned without touching the FFT pipeline.
+/// 検出条件を FFT 処理から独立して調整できるよう、FFTOcean_Script とは分けている。
 /// </summary>
 public class OceanClawDetector : MonoBehaviour
 {
     // ------------------------------------------------------------------
-    // Inspector — references
+    // Inspector の参照設定
     // ------------------------------------------------------------------
-    [Header("References")]
-    [Tooltip("The FFT ocean script that owns ClawMaskTexture")]
+    [Header("参照")]
+    [Tooltip("ClawMaskTexture を管理する FFT 海面スクリプト")]
     public FFTOcean_Script oceanScript;
 
     // ------------------------------------------------------------------
-    // Inspector — detection params
+    // Inspector の検出設定
     // ------------------------------------------------------------------
-    [Header("Claw Detection")]
-    [Tooltip("Master switch. Disable to stop all readback and candidate generation.")]
+    [Header("爪状白波の検出")]
+    [Tooltip("全体の切り替え。無効にすると読み戻しと候補生成を停止する。")]
     public bool enableClawGeneration = true;
 
-    [Tooltip("World-space grid resolution used to scan for candidates each readback cycle. " +
-             "E.g. 32 means a 32x32 grid across the ocean mesh.")]
+    [Tooltip("読み戻しごとに候補を探すワールド空間の格子解像度。" +
+             "32 なら海面メッシュを 32×32 の格子で調べる。")]
     [Range(8, 64)]
     public int clawScanGridSize = 32;
 
-    [Tooltip("Minimum combined clawScore for a grid cell to be considered a candidate.")]
+    [Tooltip("格子点を候補に加えるための総合 clawScore の最小値。")]
     [Range(0f, 1f)]
     public float clawScoreThreshold = 0.25f;
 
-    [Tooltip("Minimum world-space distance between two candidate points (prevents clustering).")]
+    [Tooltip("候補点同士のワールド空間での最小距離。密集を防ぐ。")]
     [Range(1f, 50f)]
     public float clawMinSpacing = 8f;
 
-    [Tooltip("Maximum number of candidates retained after filtering.")]
+    [Tooltip("選別後に保持する候補の最大数。")]
     [Range(1, 64)]
     public int maxClawInstances = 20;
 
     // ------------------------------------------------------------------
-    // Inspector — debug
+    // Inspector のデバッグ設定
     // ------------------------------------------------------------------
-    [Header("Debug")]
+    [Header("デバッグ")]
     public bool showClawCandidates = true;
 
-    [Tooltip("If assigned, the low-res readback texture is blitted here for inspection " +
-             "(assign any small RenderTexture in the Inspector or a RawImage).")]
+    [Tooltip("設定すると、確認用に低解像度の読み戻しテクスチャをここへ転送する。" +
+             "Inspector で小さな RenderTexture または RawImage を割り当てる。")]
     public RenderTexture clawMaskDebugOutput;
 
     // ------------------------------------------------------------------
-    // Public read-only output for OceanClawManager
+    // OceanClawManager へ渡す読み取り専用の出力
     // ------------------------------------------------------------------
     public IReadOnlyList<ClawCandidate> Candidates => _candidates;
     public bool IsReady => _readbackReady;
 
     // ------------------------------------------------------------------
-    // Private state
+    // 内部状態
     // ------------------------------------------------------------------
 
-    // Low-resolution copy of ClawMaskTexture used for CPU readback
-    // Size = _readbackSize x _readbackSize, format = ARGBFloat for easy Color readback
+    // CPU 読み戻し用の ClawMaskTexture の低解像度コピー。
+    // 大きさは _readbackSize × _readbackSize。Color として読みやすい ARGBFloat 形式。
     private RenderTexture _clawMaskLowRes;
-    private const int _readbackSize = 32;   // 32×32 — tiny footprint, ~16 KB
+    private const int _readbackSize = 32;   // 32×32、約16 KB
 
-    // Ping-pong readback buffer — we never block; we use the last completed result
+    // 非同期読み戻しのバッファー。処理を待たず、直近の完了結果を使う。
     private Color[] _readbackBuffer;
     private bool    _readbackPending = false;
     private bool    _readbackReady   = false;
@@ -109,7 +108,7 @@ public class OceanClawDetector : MonoBehaviour
     private readonly List<ClawCandidate> _candidates = new List<ClawCandidate>(64);
 
     // ------------------------------------------------------------------
-    // Lifecycle
+    // 動作周期
     // ------------------------------------------------------------------
 
     void OnEnable()
@@ -141,14 +140,14 @@ public class OceanClawDetector : MonoBehaviour
         RenderTexture clawMask = oceanScript.GetClawMaskTexture();
         if (clawMask == null) return;
 
-        // Downsample ClawMaskTexture → _clawMaskLowRes via bilinear blit
+        // 双線形補間で ClawMaskTexture を _clawMaskLowRes へ縮小転送する。
         Graphics.Blit(clawMask, _clawMaskLowRes);
 
-        // Optional: mirror to a debug output RT
+        // 必要に応じてデバッグ用の描画テクスチャへも転送する。
         if (clawMaskDebugOutput != null)
             Graphics.Blit(_clawMaskLowRes, clawMaskDebugOutput);
 
-        // Request async readback (only one in flight at a time)
+        // 非同期読み戻しを要求する。同時実行は一件に制限する。
         if (!_readbackPending)
         {
             AsyncGPUReadback.Request(_clawMaskLowRes, 0, TextureFormat.RGBAFloat, OnReadbackComplete);
@@ -157,7 +156,7 @@ public class OceanClawDetector : MonoBehaviour
     }
 
     // ------------------------------------------------------------------
-    // Readback completion
+    // 読み戻しの完了処理
     // ------------------------------------------------------------------
 
     private void OnReadbackComplete(AsyncGPUReadbackRequest req)
@@ -166,26 +165,26 @@ public class OceanClawDetector : MonoBehaviour
 
         if (req.hasError)
         {
-            Debug.LogWarning("[OceanClawDetector] GPU readback error – skipping frame.");
+            Debug.LogWarning("[OceanClawDetector] GPU の読み戻しに失敗したため、このフレームを飛ばします。");
             return;
         }
 
-        // Copy native array to managed buffer for safe reuse
+        // 再利用のため、ネイティブ配列を管理配列へコピーする。
         NativeArray<Color> native = req.GetData<Color>();
         if (native.Length != _readbackBuffer.Length)
         {
-            Debug.LogWarning("[OceanClawDetector] Readback size mismatch.");
+            Debug.LogWarning("[OceanClawDetector] 読み戻しデータの大きさが一致しません。");
             return;
         }
         native.CopyTo(_readbackBuffer);
 
-        // Build candidate list from new data
+        // 新しいデータから候補一覧を作る。
         FindCandidates(_readbackBuffer);
         _readbackReady = true;
     }
 
     // ------------------------------------------------------------------
-    // Candidate detection
+    // 候補の検出
     // ------------------------------------------------------------------
 
     private void FindCandidates(Color[] buf)
@@ -197,7 +196,7 @@ public class OceanClawDetector : MonoBehaviour
         float oceanHalf = oceanScript.waterMeshLength * 0.5f;
         Vector3 oceanCenter = oceanScript.transform.position;
 
-        // Scan a world-space grid across the ocean mesh surface
+        // 海面メッシュ上のワールド空間格子を走査する。
         for (int gz = 0; gz < clawScanGridSize; gz++)
         {
             for (int gx = 0; gx < clawScanGridSize; gx++)
@@ -207,22 +206,21 @@ public class OceanClawDetector : MonoBehaviour
                 float worldX = oceanCenter.x - oceanHalf + (gx + 0.5f) / clawScanGridSize * t;
                 float worldZ = oceanCenter.z - oceanHalf + (gz + 0.5f) / clawScanGridSize * t;
 
-                // Map world XZ → repeating UV via Tile0
+                // ワールド座標 XZ を Tile0 で繰り返し UV に変換する。
                 float uvX = Mathf.Repeat(worldX * oceanScript.Tile0, 1f);
                 float uvZ = Mathf.Repeat(worldZ * oceanScript.Tile0, 1f);
 
-                // Sample from readback buffer
+                // 読み戻しバッファーから値を採る。
                 int px = Mathf.Clamp(Mathf.FloorToInt(uvX * _readbackSize), 0, _readbackSize - 1);
                 int py = Mathf.Clamp(Mathf.FloorToInt(uvZ * _readbackSize), 0, _readbackSize - 1);
 
                 Color s = buf[py * _readbackSize + px];
-                // s.r = heightScore, s.g = slopeScore, s.b = crestScore, s.a = clawScore
+                // s.r は heightScore、s.g は slopeScore、s.b は crestScore、s.a は clawScore。
                 float clawScore = s.a;
 
                 if (clawScore < clawScoreThreshold) continue;
 
-                // Finite-difference surface normal & wave forward direction
-                // from height scores in neighbouring pixels
+                // 隣接画素の高さ評価値から有限差分で面法線と波の進行方向を求める。
                 int pxR = Mathf.Clamp(px + 1, 0, _readbackSize - 1);
                 int pxL = Mathf.Clamp(px - 1, 0, _readbackSize - 1);
                 int pyU = Mathf.Clamp(py + 1, 0, _readbackSize - 1);
@@ -252,15 +250,14 @@ public class OceanClawDetector : MonoBehaviour
             }
         }
 
-        // Sort highest score first, then enforce minimum spacing
+        // 評価値の高い順に並べ、候補間の最小距離を適用する。
         _candidates.Sort((a, b) => b.score.CompareTo(a.score));
         EnforceSpacing(_candidates, clawMinSpacing, maxClawInstances);
     }
 
     /// <summary>
-    /// Greedy minimum-spacing filter: keep the highest-scoring candidate,
-    /// then discard any that are within <minSpacing> of it, repeat.
-    /// Modifies the list in-place.
+    /// 評価値が最も高い候補を残し、その候補から minSpacing 未満の候補を除く処理を繰り返す。
+    /// 入力の一覧をその場で変更する。
     /// </summary>
     private static void EnforceSpacing(List<ClawCandidate> list, float minSpacing, int maxCount)
     {
@@ -284,7 +281,7 @@ public class OceanClawDetector : MonoBehaviour
     }
 
     // ------------------------------------------------------------------
-    // Debug Gizmos
+    // デバッグ用のギズモ
     // ------------------------------------------------------------------
 
 #if UNITY_EDITOR
@@ -294,15 +291,15 @@ public class OceanClawDetector : MonoBehaviour
 
         foreach (var c in _candidates)
         {
-            // Score mapped to green hue: low=yellow, high=green
+            // 評価値の低い候補を黄、高い候補を緑で示す。
             Gizmos.color = Color.Lerp(Color.yellow, Color.green, c.score);
             Gizmos.DrawWireSphere(c.worldPos + Vector3.up * 0.5f, 0.6f);
 
-            // Surface normal
+            // 面の法線。
             UnityEditor.Handles.color = Color.cyan;
             UnityEditor.Handles.DrawLine(c.worldPos, c.worldPos + c.surfaceNormal * 2f);
 
-            // Wave forward
+            // 波の進行方向。
             UnityEditor.Handles.color = Color.magenta;
             UnityEditor.Handles.DrawLine(c.worldPos, c.worldPos + c.waveForward * 1.5f);
         }

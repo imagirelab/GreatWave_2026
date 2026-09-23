@@ -49,7 +49,7 @@ public class FFTOcean_Buoyancy : MonoBehaviour
             {
                 if (voxelWaterRequest.hasError)
                 {
-                    Debug.Log("Buoyancy Request Error");
+                    Debug.Log("浮力データの読み取りに失敗しました");
                     return;
                 }
 

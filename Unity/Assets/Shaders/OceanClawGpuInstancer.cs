@@ -1,9 +1,9 @@
 using UnityEngine;
 
 /// <summary>
-/// Drives the GPU-only Hokusai claw system: scan the FFT wave, emit indirect instances,
-/// and draw the claw mesh without creating per-claw GameObjects.
-/// 驱动 GPU 版本的北斋浪爪系统：扫描 FFT 海浪、生成间接实例，并在不创建单个 GameObject 的情况下绘制爪形。
+/// FFT 海面を走査して GPU 上で北斎風の爪状白波を生成し、間接描画する。
+/// 爪状白波ごとの GameObject は作らず、メッシュのインスタンスを描画する。
+/// GPU 上で生成位置と描画数を管理する。
 /// </summary>
 [DefaultExecutionOrder(100)]
 public partial class OceanClawGpuInstancer : MonoBehaviour
@@ -13,13 +13,13 @@ public partial class OceanClawGpuInstancer : MonoBehaviour
     private const int CellStateStride = sizeof(float) * 4;
     private const int GenerateThreadGroupSize = 8;
 
-    [Header("References")]
+    [Header("参照")]
     public FFTOcean_Script oceanScript;
     public ComputeShader clawInstancingCompute;
     public Mesh clawMesh;
     public Material clawMaterial;
 
-    [Header("Generation")]
+    [Header("生成設定")]
     public bool enableGpuClaws = true;
     [Range(8, 96)]
     public int scanGridSize = 44;
@@ -33,212 +33,212 @@ public partial class OceanClawGpuInstancer : MonoBehaviour
     public float worldHeightFeather = 1.85f;
     public int randomSeed = 6128;
 
-    [Header("Visibility Focus")]
-    [Tooltip("Keeps the limited GPU instance budget near the camera-facing wave field.")]
+    [Header("表示範囲の焦点")]
+    [Tooltip("限られた GPU インスタンス数を、カメラに見える海面の近くへ集中させる。")]
     public bool focusSpawnsNearCamera = true;
-    [Tooltip("Optional transform used as the center/forward reference for visible claw spawning. Camera.main is used when this is empty.")]
+    [Tooltip("爪状白波の生成範囲の中心と前方向を決める任意の Transform。空欄なら Camera.main を使う。")]
     public Transform spawnFocus;
     public float focusDistance = 95f;
     public float focusRadius = 220f;
     public float focusFeather = 90f;
 
-    [Header("Hokusai Composition")]
-    [Tooltip("Biases claw spawning toward one dominant crest group plus a smaller side group, like The Great Wave composition.")]
+    [Header("北斎の構図")]
+    [Tooltip("「神奈川沖浪裏」の構図に近づけるため、主波頭と小さな副波頭の周辺へ生成を集中させる。")]
     public bool useCompositionBias = true;
     [Range(0f, 1f)]
     public float compositionStrength = 0.82f;
-    [Tooltip("Main crest center relative to the focus center. X = lateral across the crest, Y = forward along the wave direction.")]
+    [Tooltip("焦点中心から見た主波頭の中心。X は波頭に沿う左右方向、Y は波の進行方向。")]
     public Vector2 mainCrestOffset = new Vector2(18f, 32f);
-    [Tooltip("Main crest elliptical radius. X = lateral width, Y = forward depth.")]
+    [Tooltip("主波頭の楕円形領域の半径。X は左右の幅、Y は前後の奥行き。")]
     public Vector2 mainCrestRadius = new Vector2(28f, 18f);
     [Range(0f, 2.5f)]
     public float mainCrestBoost = 1.75f;
-    [Tooltip("Secondary crest center relative to the focus center. X = lateral across the crest, Y = forward along the wave direction.")]
+    [Tooltip("焦点中心から見た副波頭の中心。X は波頭に沿う左右方向、Y は波の進行方向。")]
     public Vector2 sideCrestOffset = new Vector2(22f, -35f);
-    [Tooltip("Secondary crest elliptical radius. X = lateral width, Y = forward depth.")]
+    [Tooltip("副波頭の楕円形領域の半径。X は左右の幅、Y は前後の奥行き。")]
     public Vector2 sideCrestRadius = new Vector2(18f, 12f);
     [Range(0f, 2.5f)]
     public float sideCrestBoost = 0.65f;
     [Range(0f, 1f)]
     public float backgroundCrestFloor = 0.30f;
-    [Tooltip("Spawn-density multiplier outside the main and side crest ellipses. Lower values keep background foam from stealing the instance budget.")]
+    [Tooltip("主波頭と副波頭の楕円形領域の外側に適用する生成密度倍率。小さい値ほど背景の白泡を減らせる。")]
     [Range(0f, 1f)]
     public float backgroundDensityScale = 0.08f;
-    [Tooltip("Scale multiplier for claws outside the main and side crest ellipses, keeping stray background crests subordinate to the painting composition.")]
+    [Tooltip("主波頭と副波頭の外側にある爪状白波の大きさの倍率。背景の波頭を構図の脇役にする。")]
     [Range(0.1f, 1f)]
     public float backgroundClawScale = 0.42f;
-    [Tooltip("Shapes the dominant crest ellipse into a Great-Wave-like curved ribbon instead of a filled blob.")]
+    [Tooltip("主波頭を塊状ではなく、「神奈川沖浪裏」に近い湾曲した帯状に整える。")]
     public bool useReferenceCrestArc = true;
-    [Tooltip("How strongly the dominant crest follows the reference arc mask.")]
+    [Tooltip("主波頭が参照円弧のマスクに従う強さ。")]
     [Range(0f, 1f)]
     public float referenceArcStrength = 0.85f;
-    [Tooltip("Forward lift of the arc center. Positive values raise the middle of the crest ribbon.")]
+    [Tooltip("円弧中心の進行方向への持ち上げ量。正の値で波頭の帯の中央が高くなる。")]
     public float referenceArcForwardBend = 18f;
-    [Tooltip("Diagonal curl of the arc. Negative/positive values tilt the claw ribbon across the wave.")]
+    [Tooltip("円弧の斜め方向への曲がり。値の符号で白波の帯が傾く方向が変わる。")]
     public float referenceArcCurl = -10f;
-    [Tooltip("Half-width of the reference arc ribbon in world meters.")]
+    [Tooltip("参照円弧の帯の半幅（ワールド座標のメートル）。")]
     [Range(0.5f, 30f)]
     public float referenceArcWidth = 7f;
-    [Tooltip("Soft falloff outside the reference arc ribbon.")]
+    [Tooltip("参照円弧の帯の外側へ向かう減衰の滑らかさ。")]
     [Range(0.5f, 30f)]
     public float referenceArcFeather = 8f;
-    [Tooltip("Skews dedicated crest sampling along the reference arc. Negative favors the curling shoulder; positive favors the trailing side.")]
+    [Tooltip("参照円弧に沿う専用サンプリングの偏り。負の値は巻き込む肩側、正の値は後方側を優先する。")]
     [Range(-1f, 1f)]
     public float referenceArcDensityBias = -0.25f;
-    [Tooltip("Extra size and foam emphasis on the dense curling shoulder of the reference arc.")]
+    [Tooltip("参照円弧の密集した巻き込み部を大きくし、白泡を強調する。")]
     [Range(0f, 1f)]
     public float referenceArcShoulderSizeBoost = 0.28f;
-    [Tooltip("Lets the curling shoulder unfold a little earlier while preserving the life-driven growth curve.")]
+    [Tooltip("巻き込み部をやや早めに展開させつつ、生存時間による成長曲線を維持する。")]
     [Range(0f, 1f)]
     public float referenceArcShoulderOpenBoost = 0.22f;
-    [Tooltip("How strongly the reference arc imposes the Great-Wave size and reveal profile.")]
+    [Tooltip("参照円弧が「神奈川沖浪裏」風の大きさと出現順序を決める強さ。")]
     [Range(0f, 1f)]
     public float hokusaiArcProfileStrength = 0.72f;
-    [Tooltip("Extra broadening for the dense curling shoulder of the arc.")]
+    [Tooltip("円弧の密集した巻き込み部をさらに幅広くする。")]
     [Range(0f, 1.5f)]
     public float hokusaiCurlShoulderBoost = 0.42f;
-    [Tooltip("Scale multiplier for the trailing tail side of the foam arc.")]
+    [Tooltip("白泡の円弧の後方側に適用する大きさの倍率。")]
     [Range(0.1f, 1f)]
     public float hokusaiTailScale = 0.52f;
-    [Tooltip("Extra life delay for the trailing tail side so foam fingers unfold progressively.")]
+    [Tooltip("白泡の指が順番に開くよう、後方側の生存時間に追加する遅延。")]
     [Range(0f, 0.5f)]
     public float hokusaiTailRevealDelay = 0.18f;
-    [Tooltip("Alternates large shoulder lobes, smaller inner teeth, and tail gaps along the Hokusai reference arc.")]
+    [Tooltip("北斎の参照円弧に沿って、大きな肩の張り出し、小さな内側の突起、後方の隙間を交互に配置する。")]
     [Range(0f, 1f)]
     public float hokusaiArcLobeContrast = 0.42f;
-    [Tooltip("Keeps small reference-arc foam teeth in the draw buffer longer so they fade through life/growth alpha instead of popping off.")]
+    [Tooltip("参照円弧の小さな白泡の突起を描画バッファに長く残し、突然消さずに不透明度でフェードさせる。")]
     [Range(0f, 1f)]
     public float hokusaiWeakToothRetention = 0.62f;
-    [Tooltip("Adds a camera-space Great-Wave arc gate so the dominant crest stays in a stable screen composition.")]
+    [Tooltip("カメラ画面上の円弧マスクを追加し、主波頭の画面構図を安定させる。")]
     public bool useScreenReferenceMask = true;
-    [Tooltip("How strongly the camera-space reference arc influences the dominant crest distribution.")]
+    [Tooltip("画面上の参照円弧が主波頭の分布に影響する強さ。")]
     [Range(0f, 1f)]
     public float screenReferenceStrength = 0.32f;
-    [Tooltip("Viewport center of the visible reference arc. X/Y are normalized screen coordinates.")]
+    [Tooltip("画面に見える参照円弧の中心。X と Y は正規化した画面座標。")]
     public Vector2 screenReferenceCenter = new Vector2(0.62f, 0.56f);
-    [Tooltip("Half-width of the visible reference arc in normalized screen coordinates.")]
+    [Tooltip("画面上の参照円弧の半幅（正規化した画面座標）。")]
     [Range(0.02f, 0.8f)]
     public float screenReferenceHalfWidth = 0.24f;
-    [Tooltip("Vertical bend of the visible reference arc in normalized screen coordinates.")]
+    [Tooltip("画面上の参照円弧の縦方向の曲がり（正規化した画面座標）。")]
     [Range(-0.4f, 0.4f)]
     public float screenReferenceBend = 0.08f;
-    [Tooltip("Diagonal tilt of the visible reference arc in normalized screen coordinates.")]
+    [Tooltip("画面上の参照円弧の斜めの傾き（正規化した画面座標）。")]
     [Range(-0.4f, 0.4f)]
     public float screenReferenceTilt = -0.03f;
-    [Tooltip("Half-thickness of the visible reference arc ribbon.")]
+    [Tooltip("画面上の参照円弧の帯の半厚。")]
     [Range(0.005f, 0.3f)]
     public float screenReferenceThickness = 0.08f;
-    [Tooltip("Soft edge of the visible reference arc ribbon.")]
+    [Tooltip("画面上の参照円弧の帯の境界をぼかす幅。")]
     [Range(0.005f, 0.3f)]
     public float screenReferenceFeather = 0.10f;
-    [Tooltip("Lets the composition mask drift with the traveling crest instead of staying fixed in world space.")]
+    [Tooltip("構図マスクを世界座標に固定せず、移動する波頭に合わせて流す。")]
     public bool driftCompositionWithCrests = true;
-    [Tooltip("World meters per second used to drift the composition mask along the dominant wave direction.")]
+    [Tooltip("構図マスクが主な波の進行方向へ移動する速度（メートル毎秒）。")]
     public float compositionDriftSpeed = 4.4f;
-    [Tooltip("How quickly the drifting composition mask is pulled back toward the visible camera focus.")]
+    [Tooltip("移動する構図マスクを、画面上の焦点へ引き戻す速さ。")]
     [Range(0f, 4f)]
     public float compositionReturnRate = 0.45f;
-    [Tooltip("Maximum XZ distance the drifting composition center may move away from the camera focus.")]
+    [Tooltip("構図の中心がカメラの焦点から離れられる XZ 平面上の最大距離。")]
     public float compositionMaxDriftFromFocus = 42f;
-    [Tooltip("How much the spawn focus gate follows the drifting composition center.")]
+    [Tooltip("生成範囲の焦点マスクが、移動する構図の中心に追従する割合。")]
     [Range(0f, 1f)]
     public float compositionFocusGateFollow = 0.90f;
-    [Tooltip("Extra scan-density multiplier inside the dominant crest region.")]
+    [Tooltip("主波頭の領域内で追加する走査密度の倍率。")]
     [Range(0f, 5f)]
     public float mainCrestDensityBoost = 1.55f;
-    [Tooltip("Extra scan-density multiplier inside the smaller side crest region.")]
+    [Tooltip("小さな副波頭の領域内で追加する走査密度の倍率。")]
     [Range(0f, 5f)]
     public float sideCrestDensityBoost = 0.4f;
-    [Tooltip("Extra crest-search radius inside the dominant crest region.")]
+    [Tooltip("主波頭の領域内で追加する波頭の探索半径。")]
     [Range(0f, 2f)]
     public float mainCrestSearchBoost = 0.75f;
-    [Tooltip("Extra crest-search radius inside the smaller side crest region.")]
+    [Tooltip("小さな副波頭の領域内で追加する波頭の探索半径。")]
     [Range(0f, 2f)]
     public float sideCrestSearchBoost = 0.35f;
-    [Tooltip("Fraction of scan cells dedicated to the dominant crest ellipse before random ocean-wide scanning.")]
+    [Tooltip("海全体の無作為な走査に先立ち、主波頭の楕円形領域へ割り当てる走査セルの割合。")]
     [Range(0f, 0.75f)]
     public float mainCrestDedicatedScanShare = 0.030f;
-    [Tooltip("Fraction of scan cells dedicated to the smaller side crest ellipse.")]
+    [Tooltip("小さな副波頭の楕円形領域へ割り当てる走査セルの割合。")]
     [Range(0f, 0.35f)]
     public float sideCrestDedicatedScanShare = 0.005f;
 
-    [Header("Wave Coupling")]
+    [Header("海面との連動")]
     public float verticalDisplacementStrength = 4.2f;
     public float horizontalDisplacementStrength = 1.85f;
     public float crestAmplification = 0.17f;
     public float crestProbeDistance = 8.5f;
     public float crestHeightBias = 0.08f;
     public float crestHeightRange = 1.05f;
-    [Tooltip("How far each spawn slot searches forward/backward to latch onto the local moving crest.")]
+    [Tooltip("各生成位置から、動く波頭を見つけて追従するために前後へ探索する距離。")]
     public float crestSearchRadius = 9.0f;
-    [Tooltip("How far each spawn slot searches sideways along the crest line.")]
+    [Tooltip("各生成位置から、波頭の線に沿って左右へ探索する距離。")]
     public float crestSearchLateral = 5.5f;
 
-    [Header("Persistence")]
-    [Tooltip("Seconds for a new claw to grow to full size after a crest is detected.")]
+    [Header("持続時間")]
+    [Tooltip("波頭を検出してから、新しい爪状白波が最大の大きさへ育つまでの秒数。")]
     public float lifeRiseTime = 2.3f;
-    [Tooltip("Seconds for a claw to shrink away after the crest falls below threshold.")]
+    [Tooltip("波頭がしきい値を下回ってから、爪状白波が縮んで消えるまでの秒数。")]
     public float lifeFallTime = 16.0f;
     [Range(0f, 1f)]
     public float visibleLifeThreshold = 0.035f;
     [Range(0f, 0.1f)]
-    [Tooltip("Lower draw-retention threshold for fade-out tails. Keep below Visible Life Threshold so claws can disappear through shader alpha instead of dropping from the instance buffer.")]
+    [Tooltip("消失時の描画を続ける低いしきい値。Visible Life Threshold より低くし、インスタンスが突然消えないようにする。")]
     public float drawLifeThreshold = 0.006f;
 
-    [Header("Crest Tracking / 波峰跟随")]
-    [Tooltip("How fast a living claw's anchor drifts along the dominant wave direction (m/s). Match this roughly to the visible wave speed so claws ride their crest. 锚点沿主波向漂移的速度，大致匹配可见波速。")]
+    [Header("波頭への追従")]
+    [Tooltip("生きている爪状白波の基点が主波方向へ移動する速度（m/s）。見える波の速度におおむね合わせる。")]
     public float crestDriftSpeed = 4.4f;
-    [Tooltip("How quickly the drifting anchor re-locks onto the freshly found crest (1/s). Low = smooth but lags, high = accurate but jittery. 锚点向新搜到的波峰重新吸附的速率。")]
+    [Tooltip("移動中の基点を新たに見つけた波頭へ合わせ直す速さ（1/s）。小さいと滑らかだが遅れ、大きいと正確だが揺れやすい。")]
     public float crestRelockRate = 1.6f;
-    [Tooltip("Life fall-speed multiplier once the crest under a claw has collapsed, so claws dissolve with their wave instead of sinking into the trough. 波峰塌掉后生命值下降的加速倍数，让爪形随波消散而不是沉进波谷。")]
+    [Tooltip("爪状白波の下の波頭が崩れた後、生存値が下がる速さの倍率。白波が波とともに消えるようにする。")]
     public float crestLostFallBoost = 1.10f;
 
-    [Header("Organic Layout / 有机排布")]
-    [Tooltip("0..1, how strongly cluster members snap onto the curved crest ridge line instead of a straight lateral row. 成员吸附到弯曲波峰脊线的强度（0 = 直线排布）。")]
+    [Header("自然な配置")]
+    [Tooltip("簇の各要素が直線状の横列より湾曲した波頭の稜線へ沿う強さ（0～1）。")]
     [Range(0f, 1f)]
     public float crestCurveFollow = 1.0f;
-    [Tooltip("Members fan outward across the cluster like spreading fingers (degrees across the whole cluster). 整簇成员像张开的手指一样向外扇形展开的总角度。")]
+    [Tooltip("簇の各要素を指のように外側へ扇形に広げる角度（簇全体の度数）。")]
     [Range(0f, 60f)]
     public float clusterFanDegrees = 38f;
-    [Tooltip("Sink each claw's root into the wave by this fraction of its height, so fingers grow out of the crest mass. 根部埋入浪体的高度比例，让手指像从波峰里长出来。")]
+    [Tooltip("爪状白波の根元を、その高さに対する指定割合だけ波の中へ沈める。")]
     [Range(0f, 0.4f)]
     public float rootEmbedFraction = 0.012f;
-    [Tooltip("Small world-space lift that keeps the root visible while still attached to the crest. X = folded, Y = fully open.")]
+    [Tooltip("根元が波頭につながったまま見えるようにする小さなワールド座標上の持ち上げ量。X は折り畳み時、Y は展開時。")]
     public Vector2 rootLiftRangeMeters = new Vector2(0.18f, 0.45f);
-    [Tooltip("Maximum world-space depth that the root may sink into the wave. This is capped in meters, not by model scale, to avoid burying large claws.")]
+    [Tooltip("根元を波の中へ沈める最大の深さ（メートル）。大きなモデルを埋めすぎないよう、モデルの倍率ではなく距離で制限する。")]
     [Range(0f, 1f)]
     public float rootEmbedMaxMeters = 0.12f;
-    [Tooltip("0..1, size hierarchy across a cluster: 1 = strong center-big falloff like the painting, 0 = uniform sizes. 簇内“中间大两侧小”的层级强度。")]
+    [Tooltip("簇の中で中央を大きく両端を小さくする強さ（0～1）。1 は絵に近い大きさの差、0 は同じ大きさ。")]
     [Range(0f, 1f)]
     public float sizeHierarchy = 0.92f;
-    [Tooltip("Pushes the middle of each claw cluster farther over the wave lip so the group forms a curved Hokusai-style crest instead of a flat row.")]
+    [Tooltip("各簇の中央を波の先端より前へ押し出し、平らな列ではなく北斎風の湾曲した波頭を作る。")]
     [Range(0f, 12f)]
     public float clusterArcForwardOffset = 5.0f;
-    [Tooltip("Extra lateral spread for members inside the dominant crest group.")]
+    [Tooltip("主波頭の簇の中にある要素を、左右へさらに広げる。")]
     [Range(1f, 2.5f)]
     public float mainFanLateralScale = 1.45f;
-    [Tooltip("Extra forward arc spread for members inside the dominant crest group.")]
+    [Tooltip("主波頭の簇の中にある要素を、円弧に沿って進行方向へさらに広げる。")]
     [Range(1f, 2f)]
     public float mainFanForwardScale = 1.22f;
-    [Tooltip("Extra outward yaw fan for members inside the dominant crest group.")]
+    [Tooltip("主波頭の簇の中にある要素を、外側へさらに扇形に回転させる。")]
     [Range(0f, 1.5f)]
     public float mainFanYawBoost = 0.45f;
-    [Tooltip("Pulls individual members of the dominant crest back toward the camera-space reference arc, so tips form one readable foam ribbon.")]
+    [Tooltip("主波頭の各要素を画面上の参照円弧へ引き戻し、白泡の先端が連続した帯として読めるようにする。")]
     [Range(0f, 1f)]
     public float mainMemberScreenArcFollow = 0.0f;
-    [Tooltip("Flattens dominant-crest claws toward the wave sheet so large tips read as foam instead of upright objects.")]
+    [Tooltip("主波頭の爪状白波を波面に沿って寝かせ、先端が立った物体ではなく白泡に見えるようにする。")]
     [Range(0f, 1f)]
     public float foamSheetFlatten = 0.42f;
-    [Tooltip("Adds width/depth to flattened dominant-crest foam tips, preserving visible mass while reducing vertical object feel.")]
+    [Tooltip("寝かせた主波頭の白泡の先端を幅と奥行きへ広げ、縦の物体感を抑えながら面積を保つ。")]
     [Range(0f, 1f)]
     public float foamSheetWidthBoost = 0.35f;
 
-    [Header("Crest Clusters")]
+    [Header("波頭の簇")]
     [Range(1, 12)]
     public int minClawsPerCrest = 3;
     [Range(1, 12)]
     public int maxClawsPerCrest = 10;
-    [Tooltip("Caps members emitted by main reference-ribbon cells so the instance budget spreads along the whole Great-Wave arc.")]
+    [Tooltip("主な参照円弧のセルから生成する要素数を制限し、インスタンスを円弧全体へ分散させる。")]
     [Range(2, 12)]
     public int maxRibbonClawsPerCrest = 4;
     public float clusterLateralSpacing = 5.8f;
@@ -249,12 +249,12 @@ public partial class OceanClawGpuInstancer : MonoBehaviour
     [Range(0f, 2f)]
     public float clusterForwardRandomness = 0.90f;
 
-    [Header("Claw Shape")]
+    [Header("爪状白波の形状")]
     public Vector2 clawScaleRange = new Vector2(125f, 345f);
     public Vector3 clawScaleMultiplier = new Vector3(2.05f, 0.22f, 1.05f);
     [Range(0f, 0.75f)]
     public float scaleRandomness = 0.38f;
-    [Tooltip("Small lift for the claw root above the detected crest. The mesh anchor is still locked to the wave peak.")]
+    [Tooltip("検出した波頭から爪状白波の根元を少し持ち上げる。メッシュの基点は波頭へ追従させる。")]
     public float verticalOffset = 0.12f;
     public bool localYPointsTowardTip = false;
     [Range(0f, 1f)]
@@ -263,64 +263,64 @@ public partial class OceanClawGpuInstancer : MonoBehaviour
     public float yawJitterDegrees = 11f;
     [Range(0f, 4f)]
     public float normalInfluence = 1.55f;
-    [Tooltip("How much the claw orientation follows the animated water normal. Keep low to prevent visible spinning.")]
+    [Tooltip("爪状白波の向きが動く水面の法線へ従う強さ。目立つ回転を防ぐには低く保つ。")]
     [Range(0f, 1f)]
     public float surfaceNormalBlend = 0.0f;
-    [Tooltip("How much the outward-pointing claw tip droops from horizontal toward the wave face.")]
+    [Tooltip("外側へ向いた先端を水平から波面の方へ垂らす強さ。")]
     [Range(0f, 1.5f)]
     public float tipDownwardBias = 0.30f;
 
-    [Header("Growth Animation")]
-    [Tooltip("How far the claw folds back into the wave while the crest is still forming or falling.")]
+    [Header("成長アニメーション")]
+    [Tooltip("波頭の形成中または崩壊中に、爪状白波を波の中へ折り戻す距離。")]
     [Range(0f, 120f)]
     public float growthFoldDegrees = 96f;
-    [Tooltip("Minimum model scale while the claw is just beginning to emerge.")]
+    [Tooltip("爪状白波が現れ始めたときのモデルの最小倍率。")]
     [Range(0.01f, 0.6f)]
     public float growthMinScale = 0.08f;
-    [Tooltip("Higher values make the early claw rotation linger near the hidden tip state.")]
+    [Tooltip("値が大きいほど、成長初期の回転が隠れた状態に長く留まる。")]
     [Range(0.2f, 4f)]
     public float growthCurvePower = 2.7f;
-    [Tooltip("Per-claw delay variation inside a crest cluster, so the claws unfold one after another.")]
+    [Tooltip("簇内の各爪状白波に与える遅延のばらつき。順番に展開するようにする。")]
     [Range(0f, 0.85f)]
     public float growthStagger = 0.58f;
-    [Tooltip("Minimum life-driven unfold for the main screen-locked foam ribbon, preventing the reference crest from collapsing into tiny dots between height peaks.")]
+    [Tooltip("画面上の主な白泡の帯の最低展開量。波高のピーク間で小さな点へ縮むのを防ぐ。")]
     [Range(0f, 1f)]
     public float ribbonOpenFloor = 0.34f;
-    [Tooltip("Reduces random unfold delay on the main reference ribbon so it reads as one continuous crest while still growing gradually.")]
+    [Tooltip("主な参照円弧上の無作為な展開遅延を減らし、段階的な成長を保ちながら連続した波頭に見せる。")]
     [Range(0f, 1f)]
     public float ribbonDelayCompression = 0.55f;
-    [Tooltip("How close to the strongest crest score the wave must be before claws can fully unfold.")]
+    [Tooltip("爪状白波が完全に展開できるまでに必要な、最大波頭評価値との近さ。")]
     [Range(0f, 1f)]
     public float peakOpenThreshold = 0.88f;
-    [Tooltip("Width of the crest-score band used for the final part of the unfolding motion.")]
+    [Tooltip("展開動作の最後の部分に使う、波頭評価値の幅。")]
     [Range(0.01f, 0.5f)]
     public float peakOpenFeather = 0.12f;
-    [Tooltip("Higher values make full extension happen only at the very top of the crest.")]
+    [Tooltip("値が大きいほど、波頭の頂点付近でのみ完全に展開する。")]
     [Range(0.5f, 6f)]
     public float peakOpenPower = 3.1f;
 
-    [Header("Crest Lip Filtering")]
-    [Tooltip("Minimum member-level lip strength before an individual claw can read as a full foam finger.")]
+    [Header("波頭先端のフィルタリング")]
+    [Tooltip("個々の爪状白波が完全な白泡の指として見えるために必要な、先端の最低強度。")]
     [Range(0f, 1f)]
     public float memberLipThreshold = 0.34f;
-    [Tooltip("Softness of the member-level lip gate. Larger values fade low wave-face claws instead of popping them off.")]
+    [Tooltip("要素ごとの先端判定を滑らかにする幅。大きいほど、波面の下側にある要素が徐々に薄くなる。")]
     [Range(0.01f, 1f)]
     public float memberLipFeather = 0.30f;
-    [Tooltip("Scale multiplier for members that have drifted down onto the lower wave face.")]
+    [Tooltip("波面の下側へ移動した要素に適用する大きさの倍率。")]
     [Range(0.02f, 0.8f)]
     public float lowLipScale = 0.20f;
-    [Tooltip("Unfold multiplier for low-lip members, keeping tails folded into the wave.")]
+    [Tooltip("先端の強度が低い要素の展開倍率。後方の白泡を波へ折り込む。")]
     [Range(0f, 1f)]
     public float lowLipOpenScale = 0.18f;
-    [Tooltip("Extra size for members sitting on the strongest crest lip.")]
+    [Tooltip("波頭の最も強い先端にある要素の大きさを追加する。")]
     [Range(1f, 2.5f)]
     public float highLipScaleBoost = 1.32f;
-    [Tooltip("Extra foam tint score for high-lip members.")]
+    [Tooltip("先端の強度が高い要素の白泡の色評価値を追加する。")]
     [Range(0f, 1f)]
     public float highLipFoamBoost = 0.35f;
-    [Tooltip("Skips drawing tiny folded low-lip members while preserving their lifecycle state.")]
+    [Tooltip("低い先端強度で小さく折り畳まれた要素は描画せず、生存状態は保持する。")]
     public bool skipHiddenLowLipInstances = true;
-    [Tooltip("Low-lip members below this visibility and scale/open thresholds are not appended to the draw buffer.")]
+    [Tooltip("先端の強度が低く、表示値と大きさ・展開量がしきい値を下回る要素は描画バッファに追加しない。")]
     [Range(0f, 1f)]
     public float hiddenLipSkipVisibility = 0.18f;
     [Range(0f, 0.5f)]
@@ -328,22 +328,22 @@ public partial class OceanClawGpuInstancer : MonoBehaviour
     [Range(0f, 80f)]
     public float hiddenLipSkipScaleY = 12f;
 
-    [Header("Material")]
+    [Header("マテリアル")]
     public Color baseColor = new Color(0.93f, 0.91f, 0.84f, 1f);
     public Color highScoreColor = new Color(0.99f, 0.98f, 0.94f, 1f);
     public Color rootBlendColor = new Color(0.50f, 0.66f, 0.74f, 1f);
     public Color outlineInkColor = new Color(0.025f, 0.060f, 0.118f, 1f);
     [Range(0f, 1f)]
     public float outlineStrength = 0.86f;
-    [Tooltip("Solidity of the THIN dark ink rim around each claw body (woodblock linework). User wants a crisp 细墨线勾边 so the claw reads as a defined white shape — NOT a fat black hull (the earlier '黑色的条' regression).")]
+    [Tooltip("爪状白波の輪郭に付ける細い暗色の墨線の強さ。太い黒い塊に見えないようにする。")]
     [Range(0f, 1f)]
     public float outlineHullAlpha = 0.85f;
-    [Tooltip("How far the outline hull expands past the claw silhouette. Keep SMALL = hairline; large = the black-blob halo the user disliked.")]
+    [Tooltip("輪郭の外側へ広げる幅。細い線を保つため小さく設定する。")]
     [Range(0f, 0.4f)]
     public float outlineHullExpand = 0.13f;
     [Range(0f, 0.4f)]
     public float outlineHullTipExpand = 0.09f;
-    [Tooltip("Direct render-size multiply for the claw, fed to the shader as _ClawSizeBoost. The compute normalizes clawScaleRange/backgroundClawScale to a ~fixed per-instance scale, so THIS is the working lever to enlarge claws so they read at camera distance (1 = native ~speck, 3 = clearly visible).")]
+    [Tooltip("爪状白波の描画サイズ倍率。_ClawSizeBoost としてシェーダーへ渡す。遠くからの視認性を調整する。")]
     [Range(0.5f, 8f)]
     public float clawSizeBoost = 3.0f;
     [Range(0f, 1f)]
@@ -353,18 +353,18 @@ public partial class OceanClawGpuInstancer : MonoBehaviour
     public Color clawGreenShadowColor = new Color(0.43f, 0.64f, 0.54f, 1f);
     [Range(0f, 1f)]
     public float clawGreenShadowStrength = 0.74f;
-    [Tooltip("Fraction of generated crest instances that render as visible claw tips. The hidden instances still feed the crest foam plate.")]
+    [Tooltip("生成した波頭インスタンスのうち、爪状白波の先端として表示する割合。非表示のものも白泡の面に使う。")]
     [Range(0f, 1f)]
     public float visibleClawFraction = 1.0f;
-    [Tooltip("Overall opacity for the visible claw-tip pass.")]
+    [Tooltip("表示する爪状白波の先端の全体的な不透明度。")]
     [Range(0f, 1f)]
     public float visibleClawAlpha = 1.0f;
     [Range(0.02f, 0.8f)]
     public float rootFadeWidth = 0.34f;
     [Range(0f, 1f)]
     public float rootAlpha = 0.12f;
-    [Header("Procedural Foam Fingers")]
-    [Tooltip("Draws the visible claw pass with a flat generated foam-finger mesh instead of the faceted source claw mesh.")]
+    [Header("手続き生成する白泡の指")]
+    [Tooltip("元の多面体メッシュの代わりに、平らな白泡の指のメッシュを生成して表示する。")]
     public bool drawProceduralFoamFingers = true;
     [Range(0.2f, 1.8f)]
     public float foamFingerWidthScale = 1.78f;
@@ -378,11 +378,11 @@ public partial class OceanClawGpuInstancer : MonoBehaviour
     public float foamFingerInkCutStrength = 0.34f;
     [Range(0f, 1f)]
     public float foamFingerEdgeBiteStrength = 0.32f;
-    [Tooltip("Turns flattened print-foam fingers toward the camera so they read as woodblock shapes instead of edge-on slivers.")]
+    [Tooltip("平らな版画風の白泡の指をカメラへ向け、薄い側面だけが見えないようにする。")]
     [Range(0f, 1f)]
     public float foamFingerCameraBillboard = 1.0f;
-    [Header("Foam Ribbon Underlay")]
-    [Tooltip("Draws a soft expanded foam pass before the individual claws, helping the main crest read as one continuous woodblock silhouette.")]
+    [Header("白泡の帯の下地")]
+    [Tooltip("個々の爪状白波より先に、柔らかく広がった白泡の層を描き、主波頭を連続した版画風の輪郭に見せる。")]
     public bool drawFoamRibbonUnderlay = false;
     public Color foamUnderlayColor = new Color(0.50f, 0.70f, 0.58f, 1f);
     [Range(0f, 1f)]
@@ -393,14 +393,14 @@ public partial class OceanClawGpuInstancer : MonoBehaviour
     public float foamUnderlayTipExpand = 0.58f;
     [Range(0f, 1f)]
     public float foamUnderlayScoreFloor = 0.20f;
-    [Header("Screen Reference Foam Ribbon")]
-    [Tooltip("Draws the continuous paper-white crest plate that the foam fingers grow from.")]
+    [Header("画面上の参照用白泡帯")]
+    [Tooltip("白泡の指が生える、連続した紙の白色の波頭面を描画する。")]
     public bool drawScreenReferenceFoamRibbon = false;
     public Color screenRibbonColor = new Color(1.00f, 0.985f, 0.930f, 0.86f);
     public Color screenRibbonEdgeColor = new Color(0.52f, 0.70f, 0.60f, 0.40f);
     [Range(0f, 1f)]
     public float screenRibbonAlpha = 0.0f;
-    [Tooltip("Viewport offset shared by the drawn ribbon and the compute-side claw attraction.")]
+    [Tooltip("描画する白泡帯と、計算側の爪状白波の引き寄せに共通する画面座標のずれ。")]
     public Vector2 screenRibbonCenterOffset = new Vector2(-0.03f, 0.02f);
     [Range(0.25f, 1.5f)]
     public float screenRibbonHalfWidthScale = 0.95f;
@@ -408,20 +408,20 @@ public partial class OceanClawGpuInstancer : MonoBehaviour
     public float screenRibbonBendScale = 1.10f;
     [Range(0f, 1.5f)]
     public float screenRibbonTiltScale = 0.95f;
-    [Tooltip("Viewport-space half-thickness multiplier relative to the existing screen reference arc thickness.")]
+    [Tooltip("既存の画面上の参照円弧の厚さに対する、画面座標での半厚の倍率。")]
     [Range(0.05f, 1.2f)]
     public float screenRibbonThicknessScale = 0.58f;
-    [Tooltip("World depth from the reference camera where the ribbon is projected. ZTest Always keeps it visually locked to the wave face.")]
+    [Tooltip("白泡帯を投影する、参照カメラからのワールド座標上の奥行き。ZTest Always で波面上に見える位置を保つ。")]
     [Range(10f, 180f)]
     public float screenRibbonDepth = 68f;
     [Range(0f, 1f)]
     public float screenRibbonEdgeBlend = 0.72f;
-    [Tooltip("Optional visual-guide attraction. Keep at zero for foam-driven crest placement.")]
+    [Tooltip("任意の視覚ガイドへ引き寄せる強さ。白泡を基準に波頭を配置する場合は 0 にする。")]
     [Range(0f, 1f)]
     public float screenRibbonClawFollow = 0.0f;
 
-    [Header("World Crest Foam Plate")]
-    [Tooltip("Builds a world-space white foam plate from the generated crest instances. This follows detected wave crests instead of a fixed screen ribbon.")]
+    [Header("世界座標の波頭白泡面")]
+    [Tooltip("生成した波頭インスタンスから、世界座標上の白い白泡面を作る。固定された画面帯ではなく、検出した波頭を追う。")]
     public bool drawWorldCrestFoamPlate = true;
     [Range(0f, 1f)]
     public float worldFoamPlateAlpha = 0.58f;
@@ -442,10 +442,10 @@ public partial class OceanClawGpuInstancer : MonoBehaviour
     [Range(0f, 1f)]
     public float worldFoamPlateEdgeInk = 0.42f;
 
-    [Header("Debug")]
+    [Header("デバッグ")]
     public bool logMissingReferences = true;
-    [Header("Development Snapshot Export")]
-    [Tooltip("Editor/development-only capture path for tuning. Keep disabled for normal gameplay because it performs GPU readbacks and file writes.")]
+    [Header("開発用スナップショット出力")]
+    [Tooltip("調整に使うエディター・開発ビルド専用の撮影パス。GPU からの読み戻しとファイル書き込みがあるため、通常のプレイ中は無効にする。")]
     public bool exportDebugSnapshotOnPlay = false;
     [Range(1f, 30f)]
     public float debugSnapshotDelay = 11.5f;
@@ -476,8 +476,8 @@ public partial class OceanClawGpuInstancer : MonoBehaviour
 #endif
 
     /// <summary>
-    /// Resolves compute kernels and allocates buffers as soon as the component becomes active.
-    /// 组件启用时查找 compute kernel，并提前分配 GPU buffer。
+    /// コンポーネントが有効になると、計算カーネルを取得してバッファを確保する。
+    /// GPU で使う資源を事前に準備する。
     /// </summary>
     private void OnEnable()
     {
@@ -493,8 +493,8 @@ public partial class OceanClawGpuInstancer : MonoBehaviour
     }
 
     /// <summary>
-    /// Releases all GPU-side allocations owned by this component.
-    /// 组件停用时释放由本组件持有的所有 GPU 资源。
+    /// このコンポーネントが所有する GPU 資源をすべて解放する。
+    /// 無効化時に確保済みのバッファを解放する。
     /// </summary>
     private void OnDisable()
     {
@@ -508,8 +508,8 @@ public partial class OceanClawGpuInstancer : MonoBehaviour
     }
 
     /// <summary>
-    /// Keeps Inspector values inside ranges that are safe for compute dispatch and math divisions.
-    /// 将 Inspector 参数限制在安全范围内，避免 compute dispatch 或数学计算出现无效值。
+    /// Inspector の設定値を、計算処理と除算で安全に扱える範囲に収める。
+    /// 無効な値で計算シェーダーを実行しないための制限を行う。
     /// </summary>
     private void OnValidate()
     {
@@ -526,8 +526,8 @@ public partial class OceanClawGpuInstancer : MonoBehaviour
     }
 
     /// <summary>
-    /// Runs one frame of GPU claw generation, then submits the indirect draw call.
-    /// 每帧执行一次 GPU 爪形生成，然后提交间接绘制调用。
+    /// GPU で爪状白波を 1 フレーム分生成し、間接描画を送信する。
+    /// 毎フレーム、生成と描画を順番に実行する。
     /// </summary>
     private void Update()
     {
@@ -556,8 +556,8 @@ public partial class OceanClawGpuInstancer : MonoBehaviour
     }
 
     /// <summary>
-    /// Clamps scan, count, density, and height gates used by the generator.
-    /// 限制扫描密度、实例数量、生成密度和高度门槛相关参数。
+    /// 走査、個数、密度、波高の判定に使う設定値を制限する。
+    /// 生成処理の各しきい値を安全な範囲に収める。
     /// </summary>
     private void ClampGenerationSettings()
     {
@@ -569,8 +569,8 @@ public partial class OceanClawGpuInstancer : MonoBehaviour
     }
 
     /// <summary>
-    /// Clamps the optional camera/focus gate that keeps instances near the visible wave field.
-    /// 限制可选的相机/焦点区域参数，使有限实例数量集中在可见海浪区域。
+    /// 見える海面の近くにインスタンスを集める任意のカメラ・焦点マスク設定を制限する。
+    /// 限られたインスタンス数を画面内の海面へ優先して割り当てる。
     /// </summary>
     private void ClampFocusSettings()
     {
@@ -580,7 +580,7 @@ public partial class OceanClawGpuInstancer : MonoBehaviour
     }
 
     /// <summary>
-    /// Clamps composition controls that shape the claw distribution into a dominant crest group.
+    /// 分布を主波頭中心の構図に整える各設定値を制限する。
     /// </summary>
     private void ClampCompositionSettings()
     {
@@ -629,8 +629,8 @@ public partial class OceanClawGpuInstancer : MonoBehaviour
     }
 
     /// <summary>
-    /// Clamps wave reconstruction values that must stay positive in the compute shader.
-    /// 限制 compute shader 重建海浪时必须为正的参数。
+    /// 計算シェーダーで海面を再構成する際、正の値が必要な設定を制限する。
+    /// 海面再構成で無効な値を使わないようにする。
     /// </summary>
     private void ClampWaveCouplingSettings()
     {
@@ -642,8 +642,8 @@ public partial class OceanClawGpuInstancer : MonoBehaviour
     }
 
     /// <summary>
-    /// Clamps the number, spacing, and random scatter of claws within one crest cluster.
-    /// 限制单个波峰簇中爪形数量、间距和随机散布范围。
+    /// 一つの波頭の簇に含める爪状白波の個数、間隔、無作為な散らばりを制限する。
+    /// 簇内の配置に使う設定値を安全な範囲に収める。
     /// </summary>
     private void ClampClusterSettings()
     {
@@ -669,8 +669,8 @@ public partial class OceanClawGpuInstancer : MonoBehaviour
     }
 
     /// <summary>
-    /// Clamps mesh scale and orientation controls for stable visible results.
-    /// 限制模型缩放和朝向参数，保证视觉效果稳定。
+    /// メッシュの大きさと向きを制限し、描画の安定性を保つ。
+    /// モデルの拡大と回転に使う設定値を制限する。
     /// </summary>
     private void ClampShapeSettings()
     {
@@ -680,8 +680,8 @@ public partial class OceanClawGpuInstancer : MonoBehaviour
     }
 
     /// <summary>
-    /// Clamps lifecycle and unfolding controls for predictable growth animation.
-    /// 限制生命周期和展开动画参数，使爪形生长过程可预测。
+    /// 爪状白波の生存時間と展開動作を制限し、成長を安定させる。
+    /// 成長と消失の設定値を安全な範囲に収める。
     /// </summary>
     private void ClampGrowthSettings()
     {
@@ -703,7 +703,7 @@ public partial class OceanClawGpuInstancer : MonoBehaviour
     }
 
     /// <summary>
-    /// Clamps member-level lip filtering that folds low wave-face tails into the water.
+    /// 要素ごとの波頭先端判定を制限し、波面下側の白泡を小さく折り畳む。
     /// </summary>
     private void ClampLipFilteringSettings()
     {
@@ -719,7 +719,7 @@ public partial class OceanClawGpuInstancer : MonoBehaviour
     }
 
     /// <summary>
-    /// Clamps material controls used for root-to-tip foam blending.
+    /// 白泡の根元から先端へ向かう色の混合に使うマテリアル設定を制限する。
     /// </summary>
     private void ClampMaterialSettings()
     {
@@ -779,21 +779,21 @@ public partial class OceanClawGpuInstancer : MonoBehaviour
     }
 
     /// <summary>
-    /// Verifies all required Unity assets and compute kernels are available before dispatching.
-    /// 在 dispatch 前确认 Unity 资源和 compute kernel 都已经正确配置。
+    /// 実行前に必要な Unity アセットと計算カーネルがそろっているか確認する。
+    /// 参照が欠けている場合は生成処理を実行しない。
     /// </summary>
     private bool HasRequiredReferences()
     {
         if (oceanScript == null)
             oceanScript = UnityEngine.Object.FindAnyObjectByType<FFTOcean_Script>();
 
-        // SELF-HEAL kernel resolution. OnEnable's ResolveKernels() can run before the compute
-        // shader is ready after a domain reload / Play-enter: FindKernel then returns -1 with NO
-        // exception, and nothing ever retried -> HasRequiredReferences stayed false every frame and
-        // the entire claw system silently never initialized (buffers null, zero claws drawn). Retry
-        // here (called each Update) until the kernels resolve; once resolved this is a no-op.
-        // 自愈 kernel 解析：域重载/进入 Play 后 OnEnable 的 ResolveKernels 可能在 compute 尚未就绪时运行，
-        // FindKernel 返回 -1 且不抛异常，此后从不重试 -> HasRequiredReferences 恒为 false，爪形系统静默不初始化。
+        // 計算カーネルの取得を再試行する。OnEnable の ResolveKernels は、ドメインの再読み込みや
+        // Play モードへ入った直後に、計算シェーダーの準備前に実行される場合がある。
+        // その場合 FindKernel が例外を出さずに -1 を返し、再試行しなければ参照が不足したままになる。
+        // 結果としてバッファが作られず、爪状白波が描画されない。
+        // 毎フレームの確認時に再試行し、取得後は追加処理をしない。
+        // 準備前に計算カーネルを探した場合にも、後続のフレームで再取得を試みる。
+        // FindKernel が -1 を返した状態から復帰できるようにする。
         if (clawInstancingCompute != null
             && (_resetKernel < 0 || _generateKernel < 0 || _finalizeKernel < 0))
         {
@@ -810,7 +810,7 @@ public partial class OceanClawGpuInstancer : MonoBehaviour
 
         if (!ok && logMissingReferences && !_reportedMissingReferences)
         {
-            Debug.LogWarning("[OceanClawGpuInstancer] Missing reference. Assign ocean, compute shader, mesh, and instanced material.");
+            Debug.LogWarning("[OceanClawGpuInstancer] 参照が不足しています。海面、計算シェーダー、メッシュ、インスタンス描画用マテリアルを設定してください。");
             _reportedMissingReferences = true;
         }
 
@@ -818,8 +818,8 @@ public partial class OceanClawGpuInstancer : MonoBehaviour
     }
 
     /// <summary>
-    /// Finds the three kernels used by the GPU pipeline: reset, generate, and finalize arguments.
-    /// 查找 GPU 流程使用的三个 kernel：重置、生成、整理间接绘制参数。
+    /// GPU 処理で使う三つのカーネルを取得する。リセット、生成、間接描画引数の確定を行う。
+    /// 各カーネル番号を後続の計算に使う。
     /// </summary>
     private void ResolveKernels()
     {
@@ -838,13 +838,13 @@ public partial class OceanClawGpuInstancer : MonoBehaviour
         }
         catch (System.Exception ex)
         {
-            Debug.LogError($"[OceanClawGpuInstancer] Kernel lookup failed: {ex.Message}");
+            Debug.LogError($"[OceanClawGpuInstancer] カーネルの取得に失敗しました: {ex.Message}");
         }
     }
 
     /// <summary>
-    /// Allocates or resizes GPU buffers when the instance budget or scan grid changes.
-    /// 当实例上限或扫描网格变化时，分配或重建 GPU buffer。
+    /// インスタンスの上限や走査格子が変わった場合に、GPU バッファを確保または作り直す。
+    /// 必要な容量に合わせてバッファを更新する。
     /// </summary>
     private void EnsureBuffers()
     {
@@ -867,21 +867,21 @@ public partial class OceanClawGpuInstancer : MonoBehaviour
         _counterBuffer = new ComputeBuffer(1, sizeof(uint), ComputeBufferType.Structured);
         _argsBuffer = new ComputeBuffer(IndirectArgsCount, sizeof(uint), ComputeBufferType.IndirectArguments);
         _underlayArgsBuffer = new ComputeBuffer(IndirectArgsCount, sizeof(uint), ComputeBufferType.IndirectArguments);
-        // Two float4 slots per scan cell: slot 0 = lifecycle, slot 1 = crest-locked anchor XZ.
-        // 每个扫描格两个 float4：槽 0 = 生命周期，槽 1 = 锁定波峰的锚点 XZ。
+        // 走査セルごとに float4 を二つ使う。スロット 0 は生存状態、スロット 1 は波頭に固定した基点の XZ 座標。
+        // 各セルの状態と波頭への追従位置を別のスロットに保持する。
         _cellStateBuffer = new ComputeBuffer(_cellStateCapacity * 2, CellStateStride, ComputeBufferType.Structured);
 
-        // A fresh ComputeBuffer contains undefined GPU memory; the compute shader reads
-        // state.w as an "initialized" flag, so garbage could resurrect random cells with
-        // bogus life values. Zero-fill once so every cell starts in a known-dead state.
-        // 新建的 ComputeBuffer 内容是未定义的 GPU 内存，compute shader 会把 state.w 当作
-        // “已初始化”标记读取，垃圾数据可能让随机格子带着错误生命值复活，这里统一清零。
+        // 新しい ComputeBuffer の GPU メモリは未定義の内容を持つ。計算シェーダーは
+        // state.w を初期化フラグとして読むため、未初期化データが誤った生存値を作る可能性がある。
+        // 最初にすべてをゼロで埋め、全セルを既知の非活動状態から始める。
+        // 新しいバッファの未定義値を生存状態として誤認しないようにする。
+        // バッファ生成後に一度だけゼロで初期化する。
         _cellStateBuffer.SetData(new Vector4[_cellStateCapacity * 2]);
     }
 
     /// <summary>
-    /// Releases compute buffers and clears capacity bookkeeping.
-    /// 释放 compute buffer，并清空容量记录。
+    /// 計算バッファを解放し、容量の記録を消去する。
+    /// GPU バッファとその管理値を初期状態へ戻す。
     /// </summary>
     private void ReleaseBuffers()
     {
@@ -920,15 +920,15 @@ public partial class OceanClawGpuInstancer : MonoBehaviour
     }
 
     /// <summary>
-    /// Executes the reset, generation, and argument-finalization compute passes.
-    /// 依次执行重置、实例生成、间接绘制参数整理三个 compute pass。
+    /// リセット、生成、間接描画引数の確定を順番に実行する。
+    /// 三つの計算処理で描画用のインスタンスを準備する。
     /// </summary>
     private void DispatchInstancing(RenderTexture clawMask, RenderTexture displacement, RenderTexture slope)
     {
-        // CS_Reset writes all five indirect-args values on the GPU every frame, so the
-        // previous per-frame _argsBuffer.SetData upload (and its array allocation) was redundant.
-        // CS_Reset 每帧都会在 GPU 上写入全部 5 个间接绘制参数，之前每帧的 SetData 上传
-        // （以及它的数组分配）是多余的，已移除。
+        // CS_Reset は毎フレーム GPU 上で五つの間接描画引数を書き込む。
+        // 以前の毎フレームの _argsBuffer.SetData 転送と配列の確保は重複していた。
+        // 描画引数は CS_Reset が更新するため、CPU からの再転送は行わない。
+        // 不要な配列の確保も省く。
         Vector2 dominantDirection = WindDirectionToXZ(oceanScript.DisplaySpectrum0.windDirection);
         Vector3 oceanPosition = oceanScript.transform.position;
 
@@ -939,8 +939,8 @@ public partial class OceanClawGpuInstancer : MonoBehaviour
     }
 
     /// <summary>
-    /// Uploads all per-frame values used by the compute shader.
-    /// 上传 compute shader 每帧需要的所有参数。
+    /// 計算シェーダーが毎フレーム使う設定値を転送する。
+    /// フレームごとに変わる各設定を GPU へ渡す。
     /// </summary>
     private void SetComputeParams(int resolution, Vector2 dominantDirection, Vector3 oceanPosition)
     {
@@ -957,8 +957,8 @@ public partial class OceanClawGpuInstancer : MonoBehaviour
     }
 
     /// <summary>
-    /// Sends mesh draw metadata and scan dimensions to the compute shader.
-    /// 将网格绘制信息和扫描尺寸传给 compute shader。
+    /// メッシュの描画情報と走査格子の寸法を計算シェーダーへ送る。
+    /// 間接描画と走査に必要な値を設定する。
     /// </summary>
     private void SetMeshParams(int resolution)
     {
@@ -977,8 +977,8 @@ public partial class OceanClawGpuInstancer : MonoBehaviour
     }
 
     /// <summary>
-    /// Sends FFT tile data so the compute shader can reconstruct the same visible wave surface.
-    /// 传递 FFT tile 数据，使 compute shader 能重建和画面一致的海浪表面。
+    /// FFT タイルの情報を送信し、計算シェーダーで表示中と同じ海面を再構成する。
+    /// 見える波面と爪状白波の生成位置を合わせる。
     /// </summary>
     private void SetOceanSamplingParams(Vector3 oceanPosition)
     {
@@ -993,8 +993,8 @@ public partial class OceanClawGpuInstancer : MonoBehaviour
     }
 
     /// <summary>
-    /// Sends threshold and focus settings that decide whether a crest is allowed to spawn claws.
-    /// 传递阈值和焦点区域参数，用于判断某个波峰是否允许生成爪形。
+    /// 爪状白波の生成を許可するか決める、波頭のしきい値と焦点範囲の設定を送る。
+    /// 候補の波頭が生成条件を満たすか判定するための値を渡す。
     /// </summary>
     private void SetSpawnScoringParams(Vector3 oceanPosition, Vector2 dominantDirection)
     {
@@ -1006,8 +1006,8 @@ public partial class OceanClawGpuInstancer : MonoBehaviour
     }
 
     /// <summary>
-    /// Sends mesh scale, anchor, and orientation controls used to place each claw on the wave crest.
-    /// 传递模型缩放、锚点和朝向控制参数，用于把每个爪形贴到波峰上。
+    /// 波頭に各爪状白波を配置するため、メッシュの大きさ、基点、向きの設定を送る。
+    /// モデルが波頭に沿うように各値を計算シェーダーへ渡す。
     /// </summary>
     private void SetClawShapeParams(Vector3 oceanPosition, Vector2 dominantDirection)
     {
@@ -1027,8 +1027,8 @@ public partial class OceanClawGpuInstancer : MonoBehaviour
     }
 
     /// <summary>
-    /// Sends persistence timings that keep claws alive long enough to grow and fade naturally.
-    /// 传递生命周期参数，让爪形能自然生长和消失，而不是闪烁。
+    /// 爪状白波が自然に成長し、徐々に消えるまで保持する時間設定を送る。
+    /// 急な出現や消失を抑えるための生存時間を渡す。
     /// </summary>
     private void SetLifecycleParams()
     {
@@ -1043,8 +1043,8 @@ public partial class OceanClawGpuInstancer : MonoBehaviour
     }
 
     /// <summary>
-    /// Sends cluster layout controls: how many claws per crest and how randomly they are distributed.
-    /// 传递簇布局参数：每个波峰有多少爪形，以及它们的随机分布方式。
+    /// 簇の配置設定を送る。波頭ごとの爪状白波の個数と無作為な分布を決める。
+    /// 一つの波頭内に生成する各要素の配置を制御する。
     /// </summary>
     private void SetClusterParams()
     {
@@ -1072,8 +1072,8 @@ public partial class OceanClawGpuInstancer : MonoBehaviour
     }
 
     /// <summary>
-    /// Sends unfolding controls so claws fully open only when their crest is near its strongest point.
-    /// 传递展开动画参数，使爪形只在波峰接近最高点时完全展开。
+    /// 波頭が最も強くなる頃に爪状白波が完全に開くよう、展開の設定を送る。
+    /// 成長段階と波頭の強さを合わせるための値を渡す。
     /// </summary>
     private void SetGrowthParams()
     {
@@ -1089,7 +1089,7 @@ public partial class OceanClawGpuInstancer : MonoBehaviour
     }
 
     /// <summary>
-    /// Sends per-member filtering so lower wave-face claws shrink/fold while crest lips stay bold.
+    /// 要素ごとのフィルタリング設定を送る。波面下側の白泡を縮めて折り畳み、先端を強調する。
     /// </summary>
     private void SetLipFilteringParams()
     {
@@ -1106,8 +1106,8 @@ public partial class OceanClawGpuInstancer : MonoBehaviour
     }
 
     /// <summary>
-    /// Sends the visible wave deformation strengths used by the claw compute shader.
-    /// 传递当前可见海浪的形变强度，保证爪形位置贴合实际波峰。
+    /// 爪状白波の計算シェーダーに、表示中の波面の変形強度を送る。
+    /// 爪状白波の位置を実際に描画される波頭へ合わせる。
     /// </summary>
     private void SetWaveCouplingParams()
     {
@@ -1132,8 +1132,8 @@ public partial class OceanClawGpuInstancer : MonoBehaviour
     }
 
     /// <summary>
-    /// Computes and uploads the focus gate that spends the instance budget near the camera view.
-    /// 计算并上传焦点区域，使有限实例数量优先用于相机附近的可见区域。
+    /// インスタンスをカメラに見える範囲へ集中させる焦点マスクを計算して送る。
+    /// 限られたインスタンス数を見える海面へ優先して割り当てる。
     /// </summary>
     private void SetFocusParams(Vector3 oceanPosition, Vector2 dominantDirection)
     {
@@ -1172,7 +1172,7 @@ public partial class OceanClawGpuInstancer : MonoBehaviour
     }
 
     /// <summary>
-    /// Sends the stable spatial weights that form one main crest group and a smaller side group.
+    /// 主波頭と小さな副波頭を作るため、安定した空間的な重みを送る。
     /// </summary>
     private void SetCompositionParams(Vector2 dominantDirection)
     {
@@ -1217,7 +1217,7 @@ public partial class OceanClawGpuInstancer : MonoBehaviour
     }
 
     /// <summary>
-    /// Sends the main camera projection used to keep the dominant crest near the reference image composition.
+    /// 主波頭を参照画像の画面構図へ近づけるため、主カメラの投影情報を送る。
     /// </summary>
     private void SetScreenReferenceParams()
     {
@@ -1274,7 +1274,7 @@ public partial class OceanClawGpuInstancer : MonoBehaviour
     }
 
     /// <summary>
-    /// Keeps the composition mask riding the traveling crest while gently anchoring it to the camera view.
+    /// 構図マスクを移動する波頭へ追従させつつ、画面の焦点から大きく離れないようにする。
     /// </summary>
     private Vector3 UpdateCompositionCenter(Vector2 dominantDirection)
     {
@@ -1309,8 +1309,8 @@ public partial class OceanClawGpuInstancer : MonoBehaviour
     }
 
     /// <summary>
-    /// Dispatches the reset pass that clears counters and initializes indirect draw arguments.
-    /// 执行重置 pass，清空计数器并初始化间接绘制参数。
+    /// 計数値を消去し、間接描画引数を初期化するリセット処理を実行する。
+    /// 生成処理の前に GPU 上の状態を整える。
     /// </summary>
     private void DispatchResetKernel()
     {
@@ -1321,8 +1321,8 @@ public partial class OceanClawGpuInstancer : MonoBehaviour
     }
 
     /// <summary>
-    /// Dispatches the main generation pass over the scan grid.
-    /// 在扫描网格上执行主要的爪形生成 pass。
+    /// 走査格子の全体にわたって、爪状白波を生成する主処理を実行する。
+    /// 各走査セルから波頭の候補を調べる。
     /// </summary>
     private void DispatchGenerateKernel(RenderTexture clawMask, RenderTexture displacement, RenderTexture slope)
     {
@@ -1338,8 +1338,8 @@ public partial class OceanClawGpuInstancer : MonoBehaviour
     }
 
     /// <summary>
-    /// Dispatches the final pass that copies the generated instance count into the args buffer.
-    /// 执行最后的 pass，将生成实例数量写入间接绘制参数。
+    /// 生成したインスタンス数を引数バッファへ書き込む最終処理を実行する。
+    /// 間接描画で使う個数を確定する。
     /// </summary>
     private void DispatchFinalizeKernel()
     {
@@ -1371,8 +1371,8 @@ public partial class OceanClawGpuInstancer : MonoBehaviour
     }
 
     /// <summary>
-    /// Converts the ocean wind angle into a normalized XZ direction used for crest search.
-    /// 将海浪风向角转换为 XZ 平面方向，用于沿波峰方向搜索。
+    /// 海面の風向角を、波頭の探索に使う正規化した XZ 平面上の方向へ変換する。
+    /// 波の方向を平面上の単位ベクトルとして扱う。
     /// </summary>
     private static Vector2 WindDirectionToXZ(float degrees)
     {

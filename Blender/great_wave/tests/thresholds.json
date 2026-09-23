@@ -1,248 +1,248 @@
 {
   "_meta": {
-    "comment": "All thresholds of the great_wave tests live here (spec section 9). Tests must never change these values, the base contour or the camera to make a test pass; on failure report by how much and where.",
+    "comment": "great_wave のテスト閾値はすべてここに置く（仕様書 §9）。合格させるために閾値、基準輪郭、カメラを変更してはならない。不合格の場合は差の大きさと発生箇所を報告する。",
     "spec_file": "docs/great_wave_blender_prompt.md",
-    "entry_format": "Every check is {value, unit, op, provenance, tiers:{spec, user_relaxed_5pct}, ...}. 'value' is always identical to tiers.spec. 'op' tells how the measured quantity m is compared with the limit v: abs_le |m|<=v, le m<=v, lt m<v, ge m>=v, gt m>v, eq m==v. A check with value null is report-only (no numeric threshold exists in the spec).",
+    "entry_format": "各検査は {value, unit, op, provenance, tiers:{spec, user_relaxed_5pct}, ...} で表す。value は常に tiers.spec と同じ値。op は測定値 m と閾値 v の比較方法を示す：abs_le |m|<=v、le m<=v、lt m<v、ge m>=v、gt m>v、eq m==v。value が null の検査は報告専用（仕様書に数値閾値がない）。",
     "provenance_vocabulary": {
-      "backlog": "the spec attributes the value to the backlog sheet (spec section 5 header: tolerances follow the backlog's initial comparison targets; section 7: provisional backlog value)",
-      "spec initial value": "initial value introduced by great_wave_blender_prompt.md itself (or a condition of the spec that is not attributed to the backlog)"
+      "backlog": "仕様書が値の出典をバックログ表としている（仕様書 §5 冒頭：許容誤差はバックログの初期比較目標に従う。§7：バックログの暫定値）",
+      "spec initial value": "great_wave_blender_prompt.md 自体が導入した初期値、またはバックログに由来すると明記されていない仕様上の条件"
     },
-    "backlog_access_note": "The foundation agent did NOT read the backlog sheet: every 'backlog' provenance in this file repeats what the spec file says. Afterwards docs/backlog_crosscheck.md (2026-09-20) cross-checked ONE readable copy, the definition sheet of 'backlog6_20260917_2242' (state of 2026-09-17 22:42; the two newer .xlsm files could not be read). FOUND there and consistent with the spec: the painting file 3859 x 2594 px and '% = of image height'; the 3D reference model is not the shape truth; the contour test uses the contour without claws and spray; contour agreement mean <= 1 % / 95 % of the points <= 2 % (S7); crest height and trough-to-crest height within 2 % (S1 / S3); fixed comparison view; start of the curl = the head tip first crosses the crest plumb line (M3). FOUND there but DIFFERENT from the spec: S7 is measured in BOTH directions; M6 reads '3 x the MEDIAN of the neighbouring frames, excluding the transition to the stop'; the still pose is held 10 s with movement <= 0.2 % of image height. NOT FOUND there although the spec quotes the backlog: the size setting (H = 0.8-1.0 x boat length 13 m), the on-board viewpoint, the initial durations 4 / 3 / 2.5 s. docs/backlog_crosscheck.md makes NO statement about the remaining 'backlog' values of this file (S2, S5 2 % / 5 deg, S6 59.2 %, S8 15 deg, G3 3 % H): they are still only what the spec file says.",
-    "pct_unit_note": "'% of image height' : 1 % = 25.94 px = 0.0151515 H (H = 11 m -> 0.1667 m). Horizontal differences are ALSO expressed in % of image HEIGHT (dx_px / 2594 * 100)."
+    "backlog_access_note": "基盤作成時の担当者はバックログ表を直接読んでいない。このファイルの provenance が backlog となっている箇所は、すべて仕様書の記述に基づく。その後 docs/backlog_crosscheck.md（2026-09-20）で、読めた 1 件の写しである 'backlog6_20260917_2242' の定義シート（2026-09-17 22:42 時点。より新しい 2 件の .xlsm は読めなかった）と照合した。確認でき、仕様書と一致した項目：原画ファイルは 3859 x 2594 px、% は画高比、3D 参照モデルは形状の正解ではない、輪郭テストは爪と飛沫を含まない輪郭を用いる、輪郭一致は平均 <= 1 %／点の 95 % が <= 2 %（S7）、波頂の高さと谷から波頂までの高さは 2 % 以内（S1／S3）、固定の比較視点、巻き込み開始は波頭先端が波頂の鉛直線を初めて越える時点（M3）。確認できたが仕様書と異なる項目：S7 は双方向に測る。M6 は「隣接フレームの中央値の 3 倍、停止への移行を除く」。静止姿勢は 10 s 保持し、移動量は画高の <= 0.2 %。仕様書ではバックログ由来とされたが、この写しでは確認できなかった項目：寸法設定（H = 0.8-1.0 x 舟の全長 13 m）、舟上の視点、初期の時間配分 4／3／2.5 s。docs/backlog_crosscheck.md は、このファイルで backlog と記した残りの値（S2、S5 の 2 %／5 deg、S6 の 59.2 %、S8 の 15 deg、G3 の 3 % H）については判断していない。これらの根拠は引き続き仕様書の記述だけである。",
+    "pct_unit_note": "画高比 1 % = 25.94 px = 0.0151515 H（H = 11 m のとき 0.1667 m）。水平方向の差も画像の幅ではなく高さに対する割合（dx_px / 2594 * 100）で表す。"
   },
 
   "tiers": {
     "spec": {
-      "provenance": "great_wave_blender_prompt.md sections 5, 6.3, 7, 9",
-      "note": "The thresholds exactly as written in the spec."
+      "provenance": "great_wave_blender_prompt.md の第 5、6.3、7、9 節",
+      "note": "仕様書に書かれた閾値をそのまま使用する。"
     },
     "user_relaxed_5pct": {
-      "provenance": "user chat message 2026-09-20: 各个误差率可以允许在5%以内",
-      "note": "INTERPRETATION PENDING USER CONFIRMATION. Working interpretation chosen by the orchestrator: positional tolerances become 5 % of image height and S3 becomes +-5 %; every threshold that is not a positional tolerance (angles, motion ratios, mesh checks, the S6 outer boundary) is left identical to the spec tier. Tests must report pass/fail for BOTH tiers and never silently choose one."
+      "provenance": "2026-09-20 のユーザーチャット。「各誤差率は 5% 以内まで許容できる」という発言の日本語訳",
+      "note": "ユーザーによる確認待ちの解釈。作業上の解釈として、位置の許容誤差を画高の 5 %、S3 を +-5 % とする。位置の許容誤差ではない閾値（角度、運動比、メッシュ検査、S6 の外側境界）は spec と同じ値を保つ。テストは両方の階層について合否を報告し、一方を無断で選ばない。"
     }
   },
   "tier_names": ["spec", "user_relaxed_5pct"],
 
   "S1": {
-    "title": "波頂の位置 (crest position)",
-    "spec_ref": "section 5 S1",
-    "target": {"left_pct": 38.2, "top_pct": 8.7, "X_H": 0.0, "Z_H": 1.0, "provenance": "backlog / earlier pixel analysis quoted by the spec; to be re-measured in step 1 (spec section 5 note 4)"},
+    "title": "波頂の位置",
+    "spec_ref": "第 5 節 S1",
+    "target": {"left_pct": 38.2, "top_pct": 8.7, "X_H": 0.0, "Z_H": 1.0, "provenance": "バックログ／仕様書が引用した以前のピクセル分析。第 1 段階で再測定する（仕様書 §5 注 4）"},
     "checks": {
-      "dx_pct_h": {"value": 2.0, "unit": "% of image height", "op": "abs_le", "provenance": "backlog", "tiers": {"spec": 2.0, "user_relaxed_5pct": 5.0}, "comment": "horizontal offset of the crest from the target"},
-      "dz_pct_h": {"value": 2.0, "unit": "% of image height", "op": "abs_le", "provenance": "backlog", "tiers": {"spec": 2.0, "user_relaxed_5pct": 5.0}, "comment": "vertical offset of the crest from the target"}
+      "dx_pct_h": {"value": 2.0, "unit": "%（画高比）", "op": "abs_le", "provenance": "backlog", "tiers": {"spec": 2.0, "user_relaxed_5pct": 5.0}, "comment": "目標位置からの波頂の水平偏差"},
+      "dz_pct_h": {"value": 2.0, "unit": "%（画高比）", "op": "abs_le", "provenance": "backlog", "tiers": {"spec": 2.0, "user_relaxed_5pct": 5.0}, "comment": "目標位置からの波頂の鉛直偏差"}
     }
   },
 
   "S2": {
-    "title": "内側の弧の最深点 (deepest point of the inner arc)",
-    "spec_ref": "section 5 S2",
-    "target": {"left_pct": 39.5, "top_pct": 46.3, "X_H": 0.0293, "Z_H": 0.4303, "provenance": "backlog / earlier pixel analysis quoted by the spec; to be re-measured in step 1"},
+    "title": "内側の弧の最深点",
+    "spec_ref": "第 5 節 S2",
+    "target": {"left_pct": 39.5, "top_pct": 46.3, "X_H": 0.0293, "Z_H": 0.4303, "provenance": "バックログ／仕様書が引用した以前のピクセル分析。第 1 段階で再測定する"},
     "checks": {
-      "dist_pct_h": {"value": 2.0, "unit": "% of image height", "op": "le", "provenance": "backlog", "tiers": {"spec": 2.0, "user_relaxed_5pct": 5.0}, "comment": "The spec says '<= 2 % of image height' without 'each'; implemented as Euclidean distance. Tests also report dx and dz separately so the per-axis reading can be judged as well."}
+      "dist_pct_h": {"value": 2.0, "unit": "%（画高比）", "op": "le", "provenance": "backlog", "tiers": {"spec": 2.0, "user_relaxed_5pct": 5.0}, "comment": "仕様書は「画高の <= 2 %」と書き、「各軸」とは指定していないため、ユークリッド距離として実装した。軸別にも判断できるよう、dx と dz も個別に報告する。"}
     }
   },
 
   "S3": {
-    "title": "谷から波頂の高さ (trough-to-crest height)",
-    "spec_ref": "section 5 S3",
-    "target": {"height_pct_h": 66.0, "trough_top_pct": 74.7, "provenance": "backlog / earlier pixel analysis quoted by the spec"},
+    "title": "谷から波頂までの高さ",
+    "spec_ref": "第 5 節 S3",
+    "target": {"height_pct_h": 66.0, "trough_top_pct": 74.7, "provenance": "バックログ／仕様書が引用した以前のピクセル分析"},
     "checks": {
-      "height_err_pct_h": {"value": 2.0, "unit": "% of image height (percentage points around 66.0)", "op": "abs_le", "provenance": "backlog", "tiers": {"spec": 2.0, "user_relaxed_5pct": 5.0}, "comment": "measured height in % of image height minus 66.0. Read as percentage points of image height (64..68). If the user means a relative +-2 % of the height, the band would be 66 +- 1.32; tests report the raw number so both readings can be judged."}
+      "height_err_pct_h": {"value": 2.0, "unit": "画高比のパーセントポイント（66.0 を中心）", "op": "abs_le", "provenance": "backlog", "tiers": {"spec": 2.0, "user_relaxed_5pct": 5.0}, "comment": "画高比で表した測定高さから 66.0 を引く。画高比のパーセントポイント（64..68）と解釈する。高さそのものに対する相対誤差 +-2 % の意味なら範囲は 66 +- 1.32 になる。どちらの解釈でも判断できるよう、生の測定値を報告する。"}
     }
   },
 
   "S4": {
-    "title": "背の傾き (slope of the back)",
-    "spec_ref": "section 5 S4",
-    "target": {"left_end_deg": 25.0, "mid_max_deg": 47.0, "before_crest_deg": 8.0, "provenance": "backlog / earlier pixel analysis quoted by the spec ('about')"},
+    "title": "波背の傾き",
+    "spec_ref": "第 5 節 S4",
+    "target": {"left_end_deg": 25.0, "mid_max_deg": 47.0, "before_crest_deg": 8.0, "provenance": "バックログ／仕様書が引用した以前のピクセル分析（概数）"},
     "checks": {
-      "left_end_deg": {"value": null, "unit": "deg", "op": "report", "provenance": "spec initial value", "tiers": {"spec": null, "user_relaxed_5pct": null}, "comment": "report only; S7 governs"},
-      "mid_max_deg": {"value": null, "unit": "deg", "op": "report", "provenance": "spec initial value", "tiers": {"spec": null, "user_relaxed_5pct": null}, "comment": "report only; S7 governs"},
-      "before_crest_deg": {"value": null, "unit": "deg", "op": "report", "provenance": "spec initial value", "tiers": {"spec": null, "user_relaxed_5pct": null}, "comment": "report only; S7 governs"},
-      "mid_is_steepest": {"value": 1, "unit": "bool", "op": "eq", "provenance": "spec initial value", "tiers": {"spec": 1, "user_relaxed_5pct": 1}, "comment": "the middle part of the back is the steepest"},
-      "flattens_towards_crest": {"value": 1, "unit": "bool", "op": "eq", "provenance": "spec initial value", "tiers": {"spec": 1, "user_relaxed_5pct": 1}, "comment": "slope decreases gradually from the steepest point to the crest"},
-      "top_is_round_no_corner": {"value": 1, "unit": "bool", "op": "eq", "provenance": "spec initial value", "tiers": {"spec": 1, "user_relaxed_5pct": 1}, "comment": "rounded top without a kink; numerically covered by S8"}
+      "left_end_deg": {"value": null, "unit": "deg", "op": "report", "provenance": "spec initial value", "tiers": {"spec": null, "user_relaxed_5pct": null}, "comment": "報告専用。合否は S7 で判定する"},
+      "mid_max_deg": {"value": null, "unit": "deg", "op": "report", "provenance": "spec initial value", "tiers": {"spec": null, "user_relaxed_5pct": null}, "comment": "報告専用。合否は S7 で判定する"},
+      "before_crest_deg": {"value": null, "unit": "deg", "op": "report", "provenance": "spec initial value", "tiers": {"spec": null, "user_relaxed_5pct": null}, "comment": "報告専用。合否は S7 で判定する"},
+      "mid_is_steepest": {"value": 1, "unit": "bool", "op": "eq", "provenance": "spec initial value", "tiers": {"spec": 1, "user_relaxed_5pct": 1}, "comment": "波背の中ほどが最も急である"},
+      "flattens_towards_crest": {"value": 1, "unit": "bool", "op": "eq", "provenance": "spec initial value", "tiers": {"spec": 1, "user_relaxed_5pct": 1}, "comment": "最も急な点から波頂へ向かって傾きが徐々に緩む"},
+      "top_is_round_no_corner": {"value": 1, "unit": "bool", "op": "eq", "provenance": "spec initial value", "tiers": {"spec": 1, "user_relaxed_5pct": 1}, "comment": "波頂は角のない丸い形。数値面は S8 で検査する"}
     }
   },
 
   "S5": {
-    "title": "波頭の先, 爪を含まない (head tip without claws)",
-    "spec_ref": "section 5 S5",
-    "target": {"source": "measured on target/base_contour.json (position and direction of the right-most point of the head on the base contour)"},
+    "title": "波頭の先（爪を含まない）",
+    "spec_ref": "第 5 節 S5",
+    "target": {"source": "target/base_contour.json 上で測定（基準輪郭における波頭の最右点の位置と向き）"},
     "checks": {
-      "pos_pct_h": {"value": 2.0, "unit": "% of image height", "op": "le", "provenance": "backlog", "tiers": {"spec": 2.0, "user_relaxed_5pct": 5.0}, "comment": "distance between the mesh head tip and the base-contour head tip"},
-      "dir_deg": {"value": 5.0, "unit": "deg", "op": "abs_le", "provenance": "backlog", "tiers": {"spec": 5.0, "user_relaxed_5pct": 5.0}, "comment": "direction difference of the head tip; an angle, not covered by the 5 % statement"}
+      "pos_pct_h": {"value": 2.0, "unit": "%（画高比）", "op": "le", "provenance": "backlog", "tiers": {"spec": 2.0, "user_relaxed_5pct": 5.0}, "comment": "メッシュと基準輪郭の波頭先端間の距離"},
+      "dir_deg": {"value": 5.0, "unit": "deg", "op": "abs_le", "provenance": "backlog", "tiers": {"spec": 5.0, "user_relaxed_5pct": 5.0}, "comment": "波頭先端の向きの差。角度なので 5 % の緩和対象ではない"}
     }
   },
 
   "S6": {
-    "title": "爪を含む最右点, 外側の境界のみ (right-most point incl. claws; outer bound only)",
-    "spec_ref": "section 5 S6 and note 1",
-    "target": {"left_pct": 59.2, "top_pct": 33.0, "X_H": 0.4734, "Z_H": 0.6318, "overhang_pct_of_H": 47.0, "dir_below_horizontal_deg": 38.0, "provenance": "backlog / earlier pixel analysis quoted by the spec"},
+    "title": "爪を含む最右点（外側境界のみ）",
+    "spec_ref": "第 5 節 S6 と注 1",
+    "target": {"left_pct": 59.2, "top_pct": 33.0, "X_H": 0.4734, "Z_H": 0.6318, "overhang_pct_of_H": 47.0, "dir_below_horizontal_deg": 38.0, "provenance": "バックログ／仕様書が引用した以前のピクセル分析"},
     "checks": {
-      "body_rightmost_left_pct": {"value": 59.2, "unit": "% of image width, from left", "op": "lt", "provenance": "backlog", "tiers": {"spec": 59.2, "user_relaxed_5pct": 59.2}, "comment": "the right-most point of the wave BODY must stay left of the claw tip (X_H < 0.4734). A bound, not a tolerance: identical in both tiers. S5 and S6 are different things; do not pull the body out to 59.2 %."}
+      "body_rightmost_left_pct": {"value": 59.2, "unit": "%（画幅に対する左端からの位置）", "op": "lt", "provenance": "backlog", "tiers": {"spec": 59.2, "user_relaxed_5pct": 59.2}, "comment": "波本体の最右点は爪の先より左に置く（X_H < 0.4734）。これは許容誤差ではなく境界値で、両階層で同じ値。S5 と S6 は別の対象なので、本体を 59.2 % まで伸ばさない。"}
     }
   },
 
   "S7": {
-    "title": "輪郭の一致 (contour agreement: 背 / 波頭 / 内側の弧)",
-    "spec_ref": "section 5 S7 and notes 2, 3",
+    "title": "輪郭の一致（波背／波頭／内側の弧）",
+    "spec_ref": "第 5 節 S7 と注 2、3",
     "segments": ["back", "head", "inner_arc"],
     "checks": {
-      "mean_dev_pct_h": {"value": 1.0, "unit": "% of image height", "op": "le", "provenance": "backlog", "tiers": {"spec": 1.0, "user_relaxed_5pct": 5.0}, "comment": "per segment; spans of the base contour that were completed by hand/estimate (occluded by the front wave or the boat) are excluded"},
-      "p95_dev_pct_h": {"value": 2.0, "unit": "% of image height", "op": "le", "provenance": "backlog", "tiers": {"spec": 2.0, "user_relaxed_5pct": 5.0}, "comment": "per segment; 95 % of the points within this deviation"}
+      "mean_dev_pct_h": {"value": 1.0, "unit": "%（画高比）", "op": "le", "provenance": "backlog", "tiers": {"spec": 1.0, "user_relaxed_5pct": 5.0}, "comment": "区間ごとに測定。手作業・推定で補完した基準輪郭の範囲（手前の波や舟で隠れた部分）は除外する"},
+      "p95_dev_pct_h": {"value": 2.0, "unit": "%（画高比）", "op": "le", "provenance": "backlog", "tiers": {"spec": 2.0, "user_relaxed_5pct": 5.0}, "comment": "区間ごとに測定。点の 95 % がこの偏差以内に収まる"}
     }
   },
 
   "S8": {
-    "title": "輪郭の平滑 (contour smoothness)",
-    "spec_ref": "section 5 S8, section 10 assumption 4",
+    "title": "輪郭の滑らかさ",
+    "spec_ref": "第 5 節 S8、第 10 節の仮定 4",
     "checks": {
-      "max_tangent_diff_deg": {"value": 15.0, "unit": "deg", "op": "lt", "provenance": "backlog", "tiers": {"spec": 15.0, "user_relaxed_5pct": 15.0}, "comment": "tangent direction difference between neighbouring samples; provenance inferred from the section 5 header (section 10.4 names only the spacing as a spec-initial value)"},
-      "sample_spacing_pct_h": {"value": 1.0, "unit": "% of image height", "op": "eq", "provenance": "spec initial value", "tiers": {"spec": 1.0, "user_relaxed_5pct": 1.0}, "comment": "a test setting, not a pass/fail limit; the authoritative copy is params.json S8_sample_spacing_pct"}
+      "max_tangent_diff_deg": {"value": 15.0, "unit": "deg", "op": "lt", "provenance": "backlog", "tiers": {"spec": 15.0, "user_relaxed_5pct": 15.0}, "comment": "隣り合う標本の接線方向の差。出典は仕様書 §5 の冒頭から推定した（§10.4 では標本間隔のみ仕様書の初期値とされる）"},
+      "sample_spacing_pct_h": {"value": 1.0, "unit": "%（画高比）", "op": "eq", "provenance": "spec initial value", "tiers": {"spec": 1.0, "user_relaxed_5pct": 1.0}, "comment": "合否の閾値ではなくテスト設定。正本は params.json の S8_sample_spacing_pct"}
     }
   },
 
   "M1": {
-    "title": "開始フレームはうねり (start frame is a swell)",
-    "spec_ref": "section 6.3 M1",
+    "title": "開始フレームはうねり",
+    "spec_ref": "第 6.3 節 M1",
     "checks": {
-      "start_theta_max_deg": {"value": 30.0, "unit": "deg", "op": "lt", "provenance": "spec initial value", "tiers": {"spec": 30.0, "user_relaxed_5pct": 30.0}, "comment": "maximum slope of the front face in the start frame; section 6.3 gives no backlog attribution"}
+      "start_theta_max_deg": {"value": 30.0, "unit": "deg", "op": "lt", "provenance": "spec initial value", "tiers": {"spec": 30.0, "user_relaxed_5pct": 30.0}, "comment": "開始フレームでの波前面の最大傾斜。仕様書 §6.3 ではバックログ由来とされていない"}
     }
   },
   "M2": {
-    "title": "高まる区間 (rise)",
-    "spec_ref": "section 6.3 M2",
+    "title": "高まる区間",
+    "spec_ref": "第 6.3 節 M2",
     "checks": {
-      "h_monotonic_violation_H": {"value": 0.0, "unit": "H", "op": "le", "provenance": "spec initial value", "tiers": {"spec": 0.0, "user_relaxed_5pct": 0.0}, "comment": "largest frame-to-frame decrease of h(t) inside the rise phase; h must rise monotonically until the overhang phase starts"},
-      "theta_start_deg": {"value": 30.0, "unit": "deg", "op": "le", "provenance": "spec initial value", "tiers": {"spec": 30.0, "user_relaxed_5pct": 30.0}, "comment": "theta at the start of the phase"},
-      "theta_end_deg": {"value": 80.0, "unit": "deg", "op": "ge", "provenance": "spec initial value", "tiers": {"spec": 80.0, "user_relaxed_5pct": 80.0}, "comment": "theta reached at the end of the phase; theta must change continuously"}
+      "h_monotonic_violation_H": {"value": 0.0, "unit": "H", "op": "le", "provenance": "spec initial value", "tiers": {"spec": 0.0, "user_relaxed_5pct": 0.0}, "comment": "高まる区間での h(t) のフレーム間の最大減少量。張り出す区間の開始までは h が単調に上昇する必要がある"},
+      "theta_start_deg": {"value": 30.0, "unit": "deg", "op": "le", "provenance": "spec initial value", "tiers": {"spec": 30.0, "user_relaxed_5pct": 30.0}, "comment": "区間開始時の θ"},
+      "theta_end_deg": {"value": 80.0, "unit": "deg", "op": "ge", "provenance": "spec initial value", "tiers": {"spec": 80.0, "user_relaxed_5pct": 80.0}, "comment": "区間終了時に到達する θ。θ は連続的に変化する必要がある"}
     }
   },
   "M3": {
-    "title": "張り出す区間 (overhang)",
-    "spec_ref": "section 6.3 M3",
+    "title": "張り出す区間",
+    "spec_ref": "第 6.3 節 M3",
     "checks": {
-      "o_monotonic_violation_H": {"value": 0.0, "unit": "H", "op": "le", "provenance": "spec initial value", "tiers": {"spec": 0.0, "user_relaxed_5pct": 0.0}, "comment": "largest frame-to-frame decrease of the overhang o(t) inside the phase"},
-      "h_drop_pct": {"value": 5.0, "unit": "% of h at the start of the phase", "op": "le", "provenance": "spec initial value", "tiers": {"spec": 5.0, "user_relaxed_5pct": 5.0}, "comment": "drop of h during the phase"},
-      "tip_crosses_crest_plumb": {"value": 1, "unit": "bool", "op": "eq", "provenance": "spec initial value", "tiers": {"spec": 1, "user_relaxed_5pct": 1}, "comment": "the head tip passes the plumb line of the crest towards the boat side"}
+      "o_monotonic_violation_H": {"value": 0.0, "unit": "H", "op": "le", "provenance": "spec initial value", "tiers": {"spec": 0.0, "user_relaxed_5pct": 0.0}, "comment": "この区間での張り出し量 o(t) のフレーム間の最大減少量"},
+      "h_drop_pct": {"value": 5.0, "unit": "%（区間開始時の h 比）", "op": "le", "provenance": "spec initial value", "tiers": {"spec": 5.0, "user_relaxed_5pct": 5.0}, "comment": "区間中の h の低下量"},
+      "tip_crosses_crest_plumb": {"value": 1, "unit": "bool", "op": "eq", "provenance": "spec initial value", "tiers": {"spec": 1, "user_relaxed_5pct": 1}, "comment": "波頭先端が波頂から下ろした鉛直線を舟側へ越える"}
     }
   },
   "M4": {
-    "title": "巻き込む区間 (curl-in)",
-    "spec_ref": "section 6.3 M4",
+    "title": "巻き込む区間",
+    "spec_ref": "第 6.3 節 M4",
     "checks": {
-      "phi_monotonic_violation_deg": {"value": 0.0, "unit": "deg", "op": "le", "provenance": "spec initial value", "tiers": {"spec": 0.0, "user_relaxed_5pct": 0.0}, "comment": "largest frame-to-frame upward turn of phi(t); phi must turn downward monotonically and join the final shape continuously"}
+      "phi_monotonic_violation_deg": {"value": 0.0, "unit": "deg", "op": "le", "provenance": "spec initial value", "tiers": {"spec": 0.0, "user_relaxed_5pct": 0.0}, "comment": "φ(t) がフレーム間で上向きに戻った最大角度。φ は下向きへ単調に回転し、最終形状へ連続的につながる必要がある"}
     }
   },
   "M5": {
-    "title": "停止 (stop)",
-    "spec_ref": "section 6.3 M5",
+    "title": "停止",
+    "spec_ref": "第 6.3 節 M5",
     "checks": {
-      "decel_window_s": {"value": 1.0, "unit": "s", "op": "eq", "provenance": "spec initial value", "tiers": {"spec": 1.0, "user_relaxed_5pct": 1.0}, "comment": "a test setting: the contour speed must decrease gradually during this window before the stop"},
-      "stop_speed_ratio": {"value": 0.20, "unit": "fraction of the maximum contour speed of the whole animation", "op": "le", "provenance": "spec initial value", "tiers": {"spec": 0.20, "user_relaxed_5pct": 0.20}, "comment": "contour speed at the instant of stopping"},
-      "post_stop_max_disp_H": {"value": 0.0, "unit": "H", "op": "le", "provenance": "spec initial value", "tiers": {"spec": 0.0, "user_relaxed_5pct": 0.0}, "comment": "shape does not change after the stop; no jump of position or shape when the final shape is reached (the jump itself is covered by M6)"}
+      "decel_window_s": {"value": 1.0, "unit": "s", "op": "eq", "provenance": "spec initial value", "tiers": {"spec": 1.0, "user_relaxed_5pct": 1.0}, "comment": "テスト設定。停止前のこの時間幅では輪郭速度が徐々に低下する必要がある"},
+      "stop_speed_ratio": {"value": 0.20, "unit": "アニメーション全体の輪郭最大速度に対する比", "op": "le", "provenance": "spec initial value", "tiers": {"spec": 0.20, "user_relaxed_5pct": 0.20}, "comment": "停止時点の輪郭速度"},
+      "post_stop_max_disp_H": {"value": 0.0, "unit": "H", "op": "le", "provenance": "spec initial value", "tiers": {"spec": 0.0, "user_relaxed_5pct": 0.0}, "comment": "停止後は形状を変えない。最終形状に達した際も位置や形を急変させない（急変自体は M6 で検査する）"}
     }
   },
   "M6": {
-    "title": "全体: 突跳なし (no sudden jumps)",
-    "spec_ref": "section 6.3 M6",
+    "title": "全体：急な飛びなし",
+    "spec_ref": "第 6.3 節 M6",
     "checks": {
-      "jump_ratio": {"value": 3.0, "unit": "x displacement of the neighbouring frame pairs", "op": "lt", "provenance": "spec initial value", "tiers": {"spec": 3.0, "user_relaxed_5pct": 3.0}, "comment": "max contour displacement between two adjacent frames divided by that of the preceding / following frame pair"}
+      "jump_ratio": {"value": 3.0, "unit": "隣接フレーム対の移動量に対する倍率", "op": "lt", "provenance": "spec initial value", "tiers": {"spec": 3.0, "user_relaxed_5pct": 3.0}, "comment": "隣り合う 2 フレーム間の輪郭最大移動量を、その前後のフレーム対の移動量で割った値"}
     }
   },
 
   "G1": {
-    "title": "トポロジーと UV が全フレーム不変 (constant topology and UV)",
-    "spec_ref": "section 9 G1, section 7",
+    "title": "全フレームでトポロジーと UV が不変",
+    "spec_ref": "第 9 節 G1、第 7 節",
     "checks": {
-      "n_topology_or_uv_changes": {"value": 0, "unit": "count", "op": "eq", "provenance": "spec initial value", "tiers": {"spec": 0, "user_relaxed_5pct": 0}, "comment": "vertex count, faces and UV identical on every frame"}
+      "n_topology_or_uv_changes": {"value": 0, "unit": "件", "op": "eq", "provenance": "spec initial value", "tiers": {"spec": 0, "user_relaxed_5pct": 0}, "comment": "頂点数、面、UV が全フレームで同一"}
     }
   },
   "G2": {
-    "title": "裾の段差 (hem step against the still-water level)",
-    "spec_ref": "section 9 G2, section 7",
+    "title": "裾と静水面の段差",
+    "spec_ref": "第 9 節 G2、第 7 節",
     "checks": {
-      "hem_step_pct_H": {"value": 1.0, "unit": "% of wave height H", "op": "lt", "provenance": "spec initial value", "tiers": {"spec": 1.0, "user_relaxed_5pct": 1.0}, "comment": "outer mesh border on every frame; relative to the wave height, NOT to the image height"}
+      "hem_step_pct_H": {"value": 1.0, "unit": "%（波高 H 比）", "op": "lt", "provenance": "spec initial value", "tiers": {"spec": 1.0, "user_relaxed_5pct": 1.0}, "comment": "各フレームのメッシュ外周。画高ではなく波高に対する割合"}
     }
   },
   "G3": {
-    "title": "波頭の縁の厚み (thickness of the head rim)",
-    "spec_ref": "section 9 G3, section 7",
+    "title": "波頭の縁の厚み",
+    "spec_ref": "第 9 節 G3、第 7 節",
     "checks": {
-      "rim_thickness_pct_H": {"value": 3.0, "unit": "% of wave height H", "op": "le", "provenance": "backlog", "tiers": {"spec": 3.0, "user_relaxed_5pct": 3.0}, "comment": "provisional backlog value according to spec section 7"}
+      "rim_thickness_pct_H": {"value": 3.0, "unit": "%（波高 H 比）", "op": "le", "provenance": "backlog", "tiers": {"spec": 3.0, "user_relaxed_5pct": 3.0}, "comment": "仕様書 §7 による、バックログ上の暫定値"}
     }
   },
   "G4": {
-    "title": "自己交差なし (no self-intersection)",
-    "spec_ref": "section 9 G4",
+    "title": "自己交差なし",
+    "spec_ref": "第 9 節 G4",
     "checks": {
-      "n_self_intersections": {"value": 0, "unit": "count", "op": "eq", "provenance": "spec initial value", "tiers": {"spec": 0, "user_relaxed_5pct": 0}, "comment": "final frame and every sampled frame"},
-      "frame_step": {"value": 15, "unit": "frames", "op": "eq", "provenance": "spec initial value", "tiers": {"spec": 15, "user_relaxed_5pct": 15}, "comment": "a test setting: sampling interval of the frames that are checked"}
+      "n_self_intersections": {"value": 0, "unit": "件", "op": "eq", "provenance": "spec initial value", "tiers": {"spec": 0, "user_relaxed_5pct": 0}, "comment": "最終フレームと抽出した各フレームを確認する"},
+      "frame_step": {"value": 15, "unit": "フレーム", "op": "eq", "provenance": "spec initial value", "tiers": {"spec": 15, "user_relaxed_5pct": 15}, "comment": "テスト設定。検査フレームの抽出間隔"}
     }
   },
   "G5": {
-    "title": "再構築の再現性 (rebuild determinism)",
-    "spec_ref": "section 9 G5",
+    "title": "再生成の再現性",
+    "spec_ref": "第 9 節 G5",
     "checks": {
-      "rebuild_max_abs_diff_m": {"value": 0.0, "unit": "m", "op": "eq", "provenance": "spec initial value", "tiers": {"spec": 0.0, "user_relaxed_5pct": 0.0}, "comment": "two rebuilds from the same params give bit-identical vertex positions"}
+      "rebuild_max_abs_diff_m": {"value": 0.0, "unit": "m", "op": "eq", "provenance": "spec initial value", "tiers": {"spec": 0.0, "user_relaxed_5pct": 0.0}, "comment": "同じパラメータからの 2 回の再生成で、頂点位置がビット単位で一致する"}
     }
   },
 
   "interpretations": {
-    "_comment": "ADDED 2026-09-20 (test-harness hardening). NOT thresholds of the spec: tolerances and settings that the TEST CODE chose and that can influence a verdict. The code keeps its defaults in tests/common_test.py TEST_SETTINGS and src/gw/profile_metrics.py DEFAULT_PARAMS; this block is the reference copy. On every run common_test.settings_audit() compares the values actually used (after params.json 'test_settings' / 'measure_params', --set, --res-scale, --hold-frames, --frame-step) with the values below. Any difference - also a code default that no longer matches this file, and any verdict-relevant setting that is not listed here - appends ' (NON-DEFAULT SETTINGS)' to the verdict, is listed in metrics.json / summary.md and makes the exit code non-zero. Settings that only feed report-only values are not listed (common_test.REPORT_ONLY_SETTINGS / REPORT_ONLY_MEASURE_PARAMS). The S8 sample spacing is judged by its own check S8.sample_spacing_pct_h.",
-    "entry_format": "{value, unit, used_by, provenance, comment}; provenance of every entry: 'orchestrator interpretation, pending user confirmation'",
+    "_comment": "2026-09-20 追加（テスト環境の厳密化）。ここに記すのは仕様書の閾値ではなく、テストコードが選び、合否判定に影響し得る許容差と設定である。コード側の既定値は tests/common_test.py の TEST_SETTINGS と src/gw/profile_metrics.py の DEFAULT_PARAMS にあり、このブロックは照合用の写しである。common_test.settings_audit() は実行のたびに、実際に使用した値（params.json の 'test_settings' / 'measure_params'、--set、--res-scale、--hold-frames、--frame-step を適用した後）を下記の値と比較する。差異がある場合、コード側の既定値がこのファイルと一致しなくなった場合、または合否に影響する設定がここに記載されていない場合は、判定結果に ' (NON-DEFAULT SETTINGS)' を付記し、metrics.json / summary.md に記録したうえで終了コードを 0 以外とする。報告用の値だけに影響する設定は記載しない（common_test.REPORT_ONLY_SETTINGS / REPORT_ONLY_MEASURE_PARAMS）。S8 のサンプル間隔は専用の検査 S8.sample_spacing_pct_h で判定する。",
+    "entry_format": "{value, unit, used_by, provenance, comment} 形式。全項目の provenance は 'orchestrator interpretation, pending user confirmation' とする",
     "test_settings": {
-      "shape_res_scale": {"value": 1.0, "unit": "x painting resolution (3859 x 2594)", "used_by": ["S1", "S2", "S3", "S4", "S5", "S6", "S7", "S8"], "provenance": "orchestrator interpretation, pending user confirmation", "comment": "mask resolution factor of test_shape (1.0 = 3859 x 2594, the painting's own grid)"},
-      "motion_res_scale": {"value": 0.25, "unit": "x painting resolution (3859 x 2594)", "used_by": ["M1", "M2", "M3", "M4", "M5", "M6"], "provenance": "orchestrator interpretation, pending user confirmation", "comment": "mask resolution factor of test_motion; with exact crossings the accuracy does not depend on it (docs/measurement_definitions.md section 7)"},
-      "mesh_res_scale": {"value": 0.5, "unit": "x painting resolution (3859 x 2594)", "used_by": ["G3"], "provenance": "orchestrator interpretation, pending user confirmation", "comment": "mask resolution factor of the CAM_print profile that test_mesh uses to locate the visible head tip (G3)"},
-      "monotonic_noise_floor_H": {"value": 0.0001, "unit": "H", "used_by": ["M2.h_monotonic_violation_H", "M3.o_monotonic_violation_H"], "provenance": "orchestrator interpretation, pending user confirmation", "comment": "INTERPRETATION: a frame-to-frame decrease of h / o smaller than this (H units; = 0.0066 % of image height = 1.1 mm at H = 11 m) counts as measurement noise and is judged as 0. Documented noise of the measurement: 5e-6 H (h), 1.5e-4 H (o, x_c). The raw value is always reported next to the judged one."},
-      "monotonic_noise_floor_deg": {"value": 0.2, "unit": "deg", "used_by": ["M4.phi_monotonic_violation_deg"], "provenance": "orchestrator interpretation, pending user confirmation", "comment": "INTERPRETATION: same for phi (documented measurement error <= 0.07 deg per frame -> <= 0.14 deg per difference)"},
-      "static_disp_eps_H": {"value": 1e-06, "unit": "H", "used_by": ["M5.stop_speed_ratio (stop frame)", "M5.post_stop_max_disp_H", "phase detection"], "provenance": "orchestrator interpretation, pending user confirmation", "comment": "INTERPRETATION: a contour displacement at or below this (H units; 0.011 mm at H = 11 m) counts as 'not moving' (stop detection, M5 post-stop)"},
-      "disp_z_min_H": {"value": 0.01, "unit": "H", "used_by": ["M5", "M6"], "provenance": "orchestrator interpretation, pending user confirmation", "comment": "contour samples below this height (the run along the still water) are ignored in the contour displacement (pm.measure_sequence default)"},
-      "jump_floor_frac_of_vmax": {"value": 0.05, "unit": "fraction of the largest per-frame contour displacement", "used_by": ["M6.jump_ratio"], "provenance": "orchestrator interpretation, pending user confirmation", "comment": "INTERPRETATION (M6): the neighbour displacement in the denominator of the jump ratio is never taken smaller than this fraction of the largest per-frame displacement; otherwise every start from rest / arrival at rest would be a 'jump' (x / 0)"},
-      "hold_frames": {"value": null, "unit": "frames or null", "used_by": ["M5.post_stop_max_disp_H"], "provenance": "orchestrator interpretation, pending user confirmation", "comment": "null = evaluate every scene frame after the declared final frame, through scene.frame_end; an explicit number evaluates that many frames and is a non-default setting"},
-      "min_hold_s": {"value": 1.0, "unit": "s", "used_by": ["M5.post_stop_max_disp_H (whether a still hold is long enough to judge)"], "provenance": "orchestrator interpretation, pending user confirmation", "comment": "The scene must hold the final pose for at least this long after the declared final frame; a shorter still hold leaves M5.post_stop_max_disp_H not judged, while movement in a short hold still fails"},
-      "g3_n_sections": {"value": 9, "unit": "count", "used_by": ["G3"], "provenance": "orchestrator interpretation, pending user confirmation", "comment": "number of cross-sections (planes Y = const) used for the rim thickness"},
-      "g3_y_percentiles": {"value": [10.0, 90.0], "unit": "percentiles of the Y coordinates of the crest_rim vertices", "used_by": ["G3"], "provenance": "orchestrator interpretation, pending user confirmation", "comment": "the sections are spread between these percentiles of the Y coordinates of the crest_rim vertices"},
-      "g3_tip_match_pct_h": {"value": 1.0, "unit": "% of image height", "used_by": ["G3 (which sections are judged)"], "provenance": "orchestrator interpretation, pending user confirmation", "comment": "INTERPRETATION: a section is JUDGED when its own head tip lies within this distance (% of image height) of the head tip seen by CAM_print, i.e. it forms the visible rim; tapered end sections are reported only"},
-      "g3_normal_window_pct_H": {"value": 0.4, "unit": "% of H", "used_by": ["G3"], "provenance": "orchestrator interpretation, pending user confirmation", "comment": "half length (in % of H, along the section) of the symmetric chord that gives the tangent / inward normal at the rim point"},
-      "g3_exclude_pct_H": {"value": 0.5, "unit": "% of H", "used_by": ["G3"], "provenance": "orchestrator interpretation, pending user confirmation", "comment": "curve points closer than this (arc length, % of H) to the rim point are not used for the inscribed circle (their ratio 0/0 is ill-conditioned)"},
-      "g3_probe_offsets_pct_H": {"value": [-0.2, -0.1, 0.0, 0.1, 0.2], "unit": "% of H", "used_by": ["G3"], "provenance": "orchestrator interpretation, pending user confirmation", "comment": "the inscribed-circle diameter is the median over rim points shifted by these arc lengths (% of H)"},
-      "g4_eps_rel_H": {"value": 1e-06, "unit": "fraction of H", "used_by": ["G4"], "provenance": "orchestrator interpretation, pending user confirmation", "comment": "geometric tolerance of the triangle-triangle test as a fraction of H: vertices closer than this to the other triangle's plane count as touching, intersection segments shorter than this are ignored"},
-      "g4_min_plane_angle_deg": {"value": 0.1, "unit": "deg", "used_by": ["G4"], "provenance": "orchestrator interpretation, pending user confirmation", "comment": "triangle pairs whose planes are closer to parallel than this are classified 'coplanar / touching', not as a crossing"},
-      "g5_n_frames": {"value": 5, "unit": "frames", "used_by": ["G5"], "provenance": "orchestrator interpretation, pending user confirmation", "comment": "number of frames (evenly spread from the first to the final frame) whose vertex positions are compared bit-exactly between rebuilds"},
-      "dup_vertex_eps_rel_H": {"value": 1e-06, "unit": "fraction of H", "used_by": ["validity of test_mesh (unwelded duplicate vertices)"], "provenance": "orchestrator interpretation, pending user confirmation", "comment": "Vertices closer than this are treated as coincident when finding unwelded duplicate geometry; collapsed edges still connect their own coincident vertices"},
-      "dup_max_share_pct": {"value": 0.1, "unit": "% of vertices or triangles", "used_by": ["validity of test_mesh (unwelded vertices and duplicate triangles)"], "provenance": "orchestrator interpretation, pending user confirmation", "comment": "Maximum share of unwelded duplicate vertices or duplicated triangles on any checked frame; exceeding it makes the mesh test INVALID"},
-      "coincident_tri_pairs_max_share_pct": {"value": 0.5, "unit": "% of triangles", "used_by": ["validity of test_mesh (coincident, coplanar or touching triangle pairs)"], "provenance": "orchestrator interpretation, pending user confirmation", "comment": "Maximum share of non-crossing coincident, coplanar or touching triangle pairs relative to mesh triangles on any checked frame; exceeding it makes the mesh test INVALID"},
-      "motion_frame_step": {"value": 1, "unit": "frames", "used_by": ["M1", "M2", "M3", "M4", "M5", "M6"], "provenance": "orchestrator interpretation, pending user confirmation", "comment": "test_motion evaluates every n-th frame (--frame-step). Anything but 1 makes M5 / M6 meaningless for acceptance, so it is treated like a changed tolerance (verdict suffix NON-DEFAULT SETTINGS)"},
-      "in_s7_false_max_share_pct": {"value": 35.0, "unit": "% of a segment", "used_by": ["validity of test_shape (INVALID above it)"], "provenance": "orchestrator interpretation, pending user confirmation", "comment": "INTERPRETATION (validity): largest share (% of the segment's arc length on the base contour / % of the model's samples of the segment) that may be excluded from S7 because the base contour is flagged in_S7 = false there. Above it the S7 verdict of that segment covers too little of the segment and the run is INVALID. Measured shares 2026-09-20: official base contour inner arc 20.8 %, back / head 0 %; synthetic fixture inner arc 27.5 %. The shares are always reported as T.<segment>.in_s7_false_share_pct / T.<segment>.model_samples_not_counted_share_pct."}
+      "shape_res_scale": {"value": 1.0, "unit": "原画解像度（3859 x 2594）に対する倍率", "used_by": ["S1", "S2", "S3", "S4", "S5", "S6", "S7", "S8"], "provenance": "orchestrator interpretation, pending user confirmation", "comment": "test_shape のマスク解像度の倍率。1.0 は原画の画素格子（3859 x 2594）に相当する"},
+      "motion_res_scale": {"value": 0.25, "unit": "原画解像度（3859 x 2594）に対する倍率", "used_by": ["M1", "M2", "M3", "M4", "M5", "M6"], "provenance": "orchestrator interpretation, pending user confirmation", "comment": "test_motion のマスク解像度の倍率。交点を正確に求める場合、精度はこの倍率に依存しない（docs/measurement_definitions.md 第7節）"},
+      "mesh_res_scale": {"value": 0.5, "unit": "原画解像度（3859 x 2594）に対する倍率", "used_by": ["G3"], "provenance": "orchestrator interpretation, pending user confirmation", "comment": "test_mesh が CAM_print 輪郭から可視の波頭先端を特定する際のマスク解像度の倍率（G3）"},
+      "monotonic_noise_floor_H": {"value": 0.0001, "unit": "H", "used_by": ["M2.h_monotonic_violation_H", "M3.o_monotonic_violation_H"], "provenance": "orchestrator interpretation, pending user confirmation", "comment": "解釈：フレーム間の h / o の減少がこの値未満なら、測定ノイズとみなして 0 と判定する（単位 H。画像高の 0.0066 %、H = 11 m では 1.1 mm に相当）。記録された測定ノイズは h で 5e-6 H、o と x_c で 1.5e-4 H。生の値は判定に使う値と並べて必ず報告する"},
+      "monotonic_noise_floor_deg": {"value": 0.2, "unit": "deg", "used_by": ["M4.phi_monotonic_violation_deg"], "provenance": "orchestrator interpretation, pending user confirmation", "comment": "解釈：phi にも同じ考え方を適用する。記録された測定誤差は１フレーム当たり <= 0.07 deg、差分では <= 0.14 deg"},
+      "static_disp_eps_H": {"value": 1e-06, "unit": "H", "used_by": ["M5.stop_speed_ratio (stop frame)", "M5.post_stop_max_disp_H", "phase detection"], "provenance": "orchestrator interpretation, pending user confirmation", "comment": "解釈：輪郭の変位がこの値以下なら「動いていない」とみなす（単位 H。H = 11 m では 0.011 mm に相当）。停止検出と M5 の停止後判定に用いる"},
+      "disp_z_min_H": {"value": 0.01, "unit": "H", "used_by": ["M5", "M6"], "provenance": "orchestrator interpretation, pending user confirmation", "comment": "この高さより低い輪郭サンプル（静水面に沿う部分）は、輪郭変位の算出から除外する（pm.measure_sequence の既定値）"},
+      "jump_floor_frac_of_vmax": {"value": 0.05, "unit": "１フレーム当たりの輪郭変位の最大値に対する比率", "used_by": ["M6.jump_ratio"], "provenance": "orchestrator interpretation, pending user confirmation", "comment": "解釈（M6）：跳躍比の分母に用いる隣接変位には、１フレーム当たりの最大変位に対するこの比率を下限として設ける。下限がなければ、静止からの開始や静止への到達がすべて「跳躍」（x / 0）になってしまう"},
+      "hold_frames": {"value": null, "unit": "フレーム数または null", "used_by": ["M5.post_stop_max_disp_H"], "provenance": "orchestrator interpretation, pending user confirmation", "comment": "null は宣言された最終フレームの後から scene.frame_end まで、シーンの全フレームを評価する。数値を明示するとそのフレーム数だけ評価し、既定値からの変更として扱う"},
+      "min_hold_s": {"value": 1.0, "unit": "s", "used_by": ["M5.post_stop_max_disp_H (whether a still hold is long enough to judge)"], "provenance": "orchestrator interpretation, pending user confirmation", "comment": "宣言された最終フレームの後、シーンは少なくともこの時間だけ最終姿勢を維持する必要がある。静止保持が短い場合、M5.post_stop_max_disp_H の判定は保留する。ただし、短い保持期間内でも動きがあれば不合格となる"},
+      "g3_n_sections": {"value": 9, "unit": "断面数", "used_by": ["G3"], "provenance": "orchestrator interpretation, pending user confirmation", "comment": "縁の厚さを測るための断面（Y = const の平面）の数"},
+      "g3_y_percentiles": {"value": [10.0, 90.0], "unit": "crest_rim 頂点の Y 座標における百分位", "used_by": ["G3"], "provenance": "orchestrator interpretation, pending user confirmation", "comment": "断面は crest_rim 頂点の Y 座標の指定百分位の間に配置する"},
+      "g3_tip_match_pct_h": {"value": 1.0, "unit": "画像高に対する %", "used_by": ["G3 (which sections are judged)"], "provenance": "orchestrator interpretation, pending user confirmation", "comment": "解釈：断面自身の波頭先端と CAM_print から見える波頭先端との距離がこの値（画像高の %）以内なら、可視の縁を形成する断面として判定する。先細りの端部断面は報告のみに使う"},
+      "g3_normal_window_pct_H": {"value": 0.4, "unit": "H に対する %", "used_by": ["G3"], "provenance": "orchestrator interpretation, pending user confirmation", "comment": "縁の点における接線と内向き法線を定める対称な弦の半長（断面に沿った距離、H に対する %）"},
+      "g3_exclude_pct_H": {"value": 0.5, "unit": "H に対する %", "used_by": ["G3"], "provenance": "orchestrator interpretation, pending user confirmation", "comment": "縁の点から弧長でこの距離（H に対する %）より近い曲線点は内接円の算出に使わない。比が 0/0 となり、不安定なため"},
+      "g3_probe_offsets_pct_H": {"value": [-0.2, -0.1, 0.0, 0.1, 0.2], "unit": "H に対する %", "used_by": ["G3"], "provenance": "orchestrator interpretation, pending user confirmation", "comment": "これらの弧長（H に対する %）だけ位置をずらした縁の点で求めた内接円直径の中央値を用いる"},
+      "g4_eps_rel_H": {"value": 1e-06, "unit": "H に対する比率", "used_by": ["G4"], "provenance": "orchestrator interpretation, pending user confirmation", "comment": "三角形同士の交差判定に使う幾何学的許容差（H に対する比率）。一方の三角形の平面からこの距離以内の頂点は接触とみなし、これより短い交線は無視する"},
+      "g4_min_plane_angle_deg": {"value": 0.1, "unit": "deg", "used_by": ["G4"], "provenance": "orchestrator interpretation, pending user confirmation", "comment": "２つの三角形の平面が、この角度より平行に近い場合は、交差ではなく「同一平面上または接触」と分類する"},
+      "g5_n_frames": {"value": 5, "unit": "フレーム数", "used_by": ["G5"], "provenance": "orchestrator interpretation, pending user confirmation", "comment": "最初から最終フレームまで等間隔に選び、再生成間で頂点座標をビット単位で完全比較するフレームの数"},
+      "dup_vertex_eps_rel_H": {"value": 1e-06, "unit": "H に対する比率", "used_by": ["validity of test_mesh (unwelded duplicate vertices)"], "provenance": "orchestrator interpretation, pending user confirmation", "comment": "結合されていない重複ジオメトリを探す際、この距離より近い頂点は同じ位置にあるとみなす。潰れた辺は、同じ位置にあるその辺自身の頂点を引き続き結ぶ"},
+      "dup_max_share_pct": {"value": 0.1, "unit": "頂点数または三角形数に対する %", "used_by": ["validity of test_mesh (unwelded vertices and duplicate triangles)"], "provenance": "orchestrator interpretation, pending user confirmation", "comment": "検査したどのフレームでも許容する、結合されていない重複頂点または重複三角形の最大割合。超えた場合、メッシュテストは INVALID とする"},
+      "coincident_tri_pairs_max_share_pct": {"value": 0.5, "unit": "三角形数に対する %", "used_by": ["validity of test_mesh (coincident, coplanar or touching triangle pairs)"], "provenance": "orchestrator interpretation, pending user confirmation", "comment": "検査したどのフレームでも、交差はしないが位置が一致する・同一平面上にある・接触する三角形ペアについて、メッシュの三角形数に対して許容する最大割合。超えた場合、メッシュテストは INVALID とする"},
+      "motion_frame_step": {"value": 1, "unit": "フレーム数", "used_by": ["M1", "M2", "M3", "M4", "M5", "M6"], "provenance": "orchestrator interpretation, pending user confirmation", "comment": "test_motion は n フレームごとに評価する（--frame-step）。1 以外では M5 / M6 の合格判定に意味がなくなるため、許容差を変更した場合と同様に扱う（判定結果に NON-DEFAULT SETTINGS を付記）"},
+      "in_s7_false_max_share_pct": {"value": 35.0, "unit": "セグメントに対する %", "used_by": ["validity of test_shape (INVALID above it)"], "provenance": "orchestrator interpretation, pending user confirmation", "comment": "解釈（有効性）：基準輪郭の in_S7 = false によって S7 から除外できるセグメントの最大割合。基準輪郭では弧長の %、モデルではセグメントのサンプル数の % で測る。これを超えると、S7 がそのセグメントを十分に評価できず、実行結果を INVALID とする。2026-09-20 の測定値：公式の基準輪郭では内側の弧が 20.8 %、背面と波頭は 0 %；合成フィクスチャでは内側の弧が 27.5 %。割合は T.<segment>.in_s7_false_share_pct / T.<segment>.model_samples_not_counted_share_pct として常に報告する"}
     },
     "measure_params": {
-      "z_still_H": {"value": 0.0, "unit": "H", "used_by": ["S3", "reached_still_water (validity)", "M1-M4 (h, theta)"], "provenance": "orchestrator interpretation, pending user confirmation", "comment": "still-water / trough level in H units (spec section 4: Z = 0)"},
-      "extremum_tol_pct_h": {"value": 0.1, "unit": "% of image height", "used_by": ["S1", "S2", "S5", "S6"], "provenance": "orchestrator interpretation, pending user confirmation", "comment": "crest / tip / deepest point = mid-point of the run of samples within this distance (in % of image height) of the extreme coordinate; makes flat tops and vertical walls well defined"},
-      "tip_rule": {"value": "max_reversal", "unit": "rule name", "used_by": ["S2", "S5", "S6", "S7 (segmentation)", "M3", "M4"], "provenance": "orchestrator interpretation, pending user confirmation", "comment": "how the head tip is DETECTED (model profiles; base contour: consistency check). 'max_reversal' = on the front stretch [crest, first sample with Z <= z_still + trough_tol] take the pair (T before D) with the largest come-back X(T) - X(D); T = head tip = right-most point of the whole overhanging head (crest .. deepest point), D = inner-arc deepest point. Ripples and lobes of any size between crest and D cannot truncate the head, and the run along the water to the right frame edge cannot be picked (X never comes back there). 'first_reversal' = legacy rule (first local X maximum after the crest that is followed by a reversal of tip_min_reversal_pct_h): identical on single-nosed heads, stops at the first lobe on a lobed head (was 16 % of image height away from the json tip on the finger-scale base contour). The legacy point is always reported as landmark 'overhang_onset'."},
-      "tip_min_reversal_pct_h": {"value": 0.3, "unit": "% of image height", "used_by": ["overhang yes / no: S2, S5, S6, S7, M2, M3"], "provenance": "orchestrator interpretation, pending user confirmation", "comment": "an overhang (head tip, inner arc) exists when the largest come-back of X on the front stretch exceeds this; smaller come-backs count as a non-overhanging profile (o = 0). Unchanged from the legacy rule, so the overhang ONSET frame of a motion is the same as before."},
-      "segmentation_check_tol_pct_h": {"value": 0.2, "unit": "% of image height", "used_by": ["validity of test_shape (INVALID above it)"], "provenance": "orchestrator interpretation, pending user confirmation", "comment": "measure_base_contour: largest allowed distance between the landmarks that follow from the json joints (crest, head tip, deepest point) and the landmarks DETECTED on the same polyline; above it the target and the model are not segmented in the same way and test_shape marks the run INVALID (orchestrator task, 2026-09-20)"},
-      "trough_tol_pct_h": {"value": 0.3, "unit": "% of image height", "used_by": ["end of the inner arc (S7, S8)", "reached_still_water (validity)", "S3.from_model_trough"], "provenance": "orchestrator interpretation, pending user confirmation", "comment": "the inner arc / front face ends where Z first gets within this distance of the still-water level"},
-      "theta_window_pct_h": {"value": 2.0, "unit": "% of image height", "used_by": ["M1", "M2"], "provenance": "orchestrator interpretation, pending user confirmation", "comment": "chord length used as tangent for theta (front-face inclination)"},
-      "theta_step_pct_h": {"value": 0.25, "unit": "% of image height", "used_by": ["M1", "M2"], "provenance": "orchestrator interpretation, pending user confirmation", "comment": "arc-length step at which theta is evaluated"},
-      "phi_skip_H": {"value": 0.02, "unit": "H", "used_by": ["S5.dir_deg", "M4"], "provenance": "orchestrator interpretation, pending user confirmation", "comment": "arc length before the tip that is skipped for phi (the rounded rim cap; rim radius <= 1.5 % H by spec section 7)"},
-      "phi_len_H": {"value": 0.06, "unit": "H", "used_by": ["S5.dir_deg", "M4"], "provenance": "orchestrator interpretation, pending user confirmation", "comment": "length of the top-side window used for phi ('the last few % H before the tip')"},
-      "phi_min_len_H": {"value": 0.02, "unit": "H", "used_by": ["S5.dir_deg", "M4"], "provenance": "orchestrator interpretation, pending user confirmation", "comment": "phi is not reported when the head is too short for a window of at least this length"},
-      "s4_left_window_pct_h": {"value": 5.0, "unit": "% of image height", "used_by": ["S4 (report only angle)"], "provenance": "orchestrator interpretation, pending user confirmation", "comment": "S4 'near the left end': chord over this arc length from the left frame edge"},
-      "s4_tangent_window_pct_h": {"value": 2.0, "unit": "% of image height", "used_by": ["S4.mid_is_steepest", "S4.flattens_towards_crest"], "provenance": "orchestrator interpretation, pending user confirmation", "comment": "chord length used as tangent for the slope curve of the back"},
-      "s4_before_crest_window_pct_h": {"value": [3.0, 8.0], "unit": "% of image height", "used_by": ["S4 (report only angle)"], "provenance": "orchestrator interpretation, pending user confirmation", "comment": "S4 'before the crest': chord of the back between these arc-length distances before the crest"},
-      "s4_monotone_tol_deg": {"value": 2.0, "unit": "deg", "used_by": ["S4.flattens_towards_crest"], "provenance": "orchestrator interpretation, pending user confirmation", "comment": "tolerance for 'slope decreases gradually towards the crest'"},
-      "s4_crest_zone_pct_h": {"value": 6.0, "unit": "% of image height", "used_by": ["S4.top_is_round_no_corner"], "provenance": "orchestrator interpretation, pending user confirmation", "comment": "'top is round, no corner': S8 turn angles within this arc-length distance of the crest"},
-      "s8_n_phases": {"value": 4, "unit": "count", "used_by": ["S8.max_tangent_diff_deg"], "provenance": "orchestrator interpretation, pending user confirmation", "comment": "S8 is evaluated for this many sample phases (offsets of spacing / n) so a kink cannot hide between samples"},
-      "s8_tip_exclusion_pct_h": {"value": 0.0, "unit": "% of image height (arc length)", "used_by": ["S8.max_tangent_diff_deg"], "provenance": "orchestrator interpretation, pending user confirmation", "comment": "0 = judge all S8 junctions including those crossing the head tip, as required by the literal S8 definition; an explicit positive value excludes junctions close to the tip and is non-default"},
-      "s8_limit_deg": {"value": 15.0, "unit": "deg", "used_by": ["S4.top_is_round_no_corner (copy of S8.max_tangent_diff_deg)"], "provenance": "orchestrator interpretation, pending user confirmation", "comment": "copy of thresholds.json S8.max_tangent_diff_deg, only used for the boolean S4 'no corner' flag"},
-      "s7_sample_spacing_pct_h": {"value": 0.25, "unit": "% of image height", "used_by": ["S7"], "provenance": "orchestrator interpretation, pending user confirmation", "comment": "spacing of the samples whose distance is measured for S7 (denser than the S8 spacing)"},
-      "s7_segment_margin_pct_h": {"value": 3.0, "unit": "% of image height", "used_by": ["S7"], "provenance": "orchestrator interpretation, pending user confirmation", "comment": "a segment is compared with the same segment of the other contour extended by this arc length into its neighbours, so a slightly different crest / tip split does not create fake deviation"}
+      "z_still_H": {"value": 0.0, "unit": "H", "used_by": ["S3", "reached_still_water (validity)", "M1-M4 (h, theta)"], "provenance": "orchestrator interpretation, pending user confirmation", "comment": "静水面・谷の高さ。単位は H（仕様書 §4：Z = 0）"},
+      "extremum_tol_pct_h": {"value": 0.1, "unit": "画像高に対する %", "used_by": ["S1", "S2", "S5", "S6"], "provenance": "orchestrator interpretation, pending user confirmation", "comment": "波頂・先端・最深点は、極値座標からこの距離（画像高に対する %）以内にある一連のサンプルの中点とする。平らな頂部や鉛直の壁でも位置を一意に定められる"},
+      "tip_rule": {"value": "max_reversal", "unit": "規則名", "used_by": ["S2", "S5", "S6", "S7 (segmentation)", "M3", "M4"], "provenance": "orchestrator interpretation, pending user confirmation", "comment": "波頭先端の検出方法。モデル輪郭では先端を検出し、基準輪郭では整合性を確認する。'max_reversal'：前面区間 [波頂、Z <= z_still + trough_tol となる最初のサンプル] で、X の戻り量 X(T) - X(D) が最大となる組（D より前の T）を選ぶ。T = 波頭先端 = 張り出した波頭全体（crest .. deepest point）の最右点、D = 内側の弧の最深点。波頂と D の間にある大小のさざ波や突起で波頭を途中で切らず、右側の画面端まで続く水面を誤って選ぶこともない（その部分では X が戻らない）。'first_reversal'：旧方式。波頂の後、tip_min_reversal_pct_h だけ X が戻る最初の局所最大を選ぶ。突起が１つの波頭では同じ結果になるが、複数の突起がある波頭では最初の突起で止まる（爪の大きさの突起を持つ基準輪郭では、json の先端から画像高の 16 % ずれていた）。旧方式の点は常に 'overhang_onset' というランドマークで報告する"},
+      "tip_min_reversal_pct_h": {"value": 0.3, "unit": "画像高に対する %", "used_by": ["overhang yes / no: S2, S5, S6, S7, M2, M3"], "provenance": "orchestrator interpretation, pending user confirmation", "comment": "前面区間における X の最大戻り量がこの値を超えると、張り出し（波頭先端と内側の弧）が存在するとみなす。これより小さい戻りは張り出しのない輪郭として扱い、o = 0 とする。旧方式と同じ値なので、動きの中で張り出しが始まるフレームは従来と同じになる"},
+      "segmentation_check_tol_pct_h": {"value": 0.2, "unit": "画像高に対する %", "used_by": ["validity of test_shape (INVALID above it)"], "provenance": "orchestrator interpretation, pending user confirmation", "comment": "measure_base_contour：json の接合点（波頂、波頭先端、最深点）から定まるランドマークと、同じ折れ線上で検出したランドマークとの距離の最大許容値。この値を超えると目標輪郭とモデル輪郭が同じ方法で区分されず、test_shape は実行結果を INVALID とする（オーケストレーターの作業、2026-09-20）"},
+      "trough_tol_pct_h": {"value": 0.3, "unit": "画像高に対する %", "used_by": ["end of the inner arc (S7, S8)", "reached_still_water (validity)", "S3.from_model_trough"], "provenance": "orchestrator interpretation, pending user confirmation", "comment": "Z が初めて静水面の高さからこの距離以内に入る位置を、内側の弧・前面の終点とする"},
+      "theta_window_pct_h": {"value": 2.0, "unit": "画像高に対する %", "used_by": ["M1", "M2"], "provenance": "orchestrator interpretation, pending user confirmation", "comment": "θ（前面の傾斜角）の接線を求めるために使う弦の長さ"},
+      "theta_step_pct_h": {"value": 0.25, "unit": "画像高に対する %", "used_by": ["M1", "M2"], "provenance": "orchestrator interpretation, pending user confirmation", "comment": "θ を評価する弧長方向の刻み幅"},
+      "phi_skip_H": {"value": 0.02, "unit": "H", "used_by": ["S5.dir_deg", "M4"], "provenance": "orchestrator interpretation, pending user confirmation", "comment": "φ の計測で先端直前から除外する弧長（丸い縁のキャップ。仕様書 §7 による縁の半径は <= 1.5 % H）"},
+      "phi_len_H": {"value": 0.06, "unit": "H", "used_by": ["S5.dir_deg", "M4"], "provenance": "orchestrator interpretation, pending user confirmation", "comment": "φ の計測で先端の上側に取る区間の長さ（「先端の手前、最後の数 % H」）"},
+      "phi_min_len_H": {"value": 0.02, "unit": "H", "used_by": ["S5.dir_deg", "M4"], "provenance": "orchestrator interpretation, pending user confirmation", "comment": "波頭が短すぎて、この長さ以上の計測区間を取れない場合は φ を報告しない"},
+      "s4_left_window_pct_h": {"value": 5.0, "unit": "画像高に対する %", "used_by": ["S4 (report only angle)"], "provenance": "orchestrator interpretation, pending user confirmation", "comment": "S4 の「左端付近」：画面左端からこの弧長だけ離れた位置までの弦"},
+      "s4_tangent_window_pct_h": {"value": 2.0, "unit": "画像高に対する %", "used_by": ["S4.mid_is_steepest", "S4.flattens_towards_crest"], "provenance": "orchestrator interpretation, pending user confirmation", "comment": "背面の傾斜曲線の接線を求めるために使う弦の長さ"},
+      "s4_before_crest_window_pct_h": {"value": [3.0, 8.0], "unit": "画像高に対する %", "used_by": ["S4 (report only angle)"], "provenance": "orchestrator interpretation, pending user confirmation", "comment": "S4 の「波頂の手前」：波頂から弧長方向に指定距離だけ手前の２点間にある背面の弦"},
+      "s4_monotone_tol_deg": {"value": 2.0, "unit": "deg", "used_by": ["S4.flattens_towards_crest"], "provenance": "orchestrator interpretation, pending user confirmation", "comment": "「波頂へ向かって傾斜が徐々に緩くなる」ことに対する許容差"},
+      "s4_crest_zone_pct_h": {"value": 6.0, "unit": "画像高に対する %", "used_by": ["S4.top_is_round_no_corner"], "provenance": "orchestrator interpretation, pending user confirmation", "comment": "「頂部が丸く、角がない」の判定に用いる、波頂からこの弧長以内の S8 の方向変化角"},
+      "s8_n_phases": {"value": 4, "unit": "位相数", "used_by": ["S8.max_tangent_diff_deg"], "provenance": "orchestrator interpretation, pending user confirmation", "comment": "S8 はサンプル間隔 / n だけ位置をずらした、この数の位相で評価する。サンプル間に折れ目が隠れないようにするため"},
+      "s8_tip_exclusion_pct_h": {"value": 0.0, "unit": "画像高に対する %（弧長）", "used_by": ["S8.max_tangent_diff_deg"], "provenance": "orchestrator interpretation, pending user confirmation", "comment": "0 は、文字どおりの S8 定義に従って、波頭先端をまたぐ区間を含めたすべての S8 接合部を判定することを意味する。正の値を明示すると先端付近の接合部を除外し、既定値からの変更として扱う"},
+      "s8_limit_deg": {"value": 15.0, "unit": "deg", "used_by": ["S4.top_is_round_no_corner (copy of S8.max_tangent_diff_deg)"], "provenance": "orchestrator interpretation, pending user confirmation", "comment": "thresholds.json の S8.max_tangent_diff_deg の写し。S4 の「角がない」を表す真偽値にのみ使う"},
+      "s7_sample_spacing_pct_h": {"value": 0.25, "unit": "画像高に対する %", "used_by": ["S7"], "provenance": "orchestrator interpretation, pending user confirmation", "comment": "S7 で距離を測るサンプルの間隔。S8 のサンプル間隔より密に設定する"},
+      "s7_segment_margin_pct_h": {"value": 3.0, "unit": "画像高に対する %", "used_by": ["S7"], "provenance": "orchestrator interpretation, pending user confirmation", "comment": "セグメントを比較する際、相手側輪郭の同じセグメントをこの弧長だけ隣接セグメント側へ延長する。波頂・先端の区切りが少し異なるだけで偽の偏差が生じることを防ぐ"}
     },
     "library_constants": {
-      "silhouette.SPECK_AREA_PX_FULL_RES": {"value": 25.0, "unit": "px at 3859 x 2594 (scaled with the square of the mask resolution)", "used_by": ["validity of test_shape / test_motion: a removed silhouette component of at least this area is an 'island' -> INVALID; smaller ones are specks (reported)"], "provenance": "orchestrator interpretation, pending user confirmation", "comment": "constant of src/gw/silhouette.py; raster noise of thin slivers must not invalidate a run, a detached part must"}
+      "silhouette.SPECK_AREA_PX_FULL_RES": {"value": 25.0, "unit": "3859 x 2594 px 基準。マスク解像度の２乗に比例して変更", "used_by": ["validity of test_shape / test_motion: a removed silhouette component of at least this area is an 'island' -> INVALID; smaller ones are specks (reported)"], "provenance": "orchestrator interpretation, pending user confirmation", "comment": "src/gw/silhouette.py の定数。細い断片によるラスターノイズで実行結果を INVALID にしてはならない一方、分離した部分は INVALID とすべきである"}
     }
   }
 }
