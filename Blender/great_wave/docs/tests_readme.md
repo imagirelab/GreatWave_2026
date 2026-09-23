@@ -51,7 +51,7 @@ $p = "G:/research/Wave Simulation/blender/great_wave"
 | `--exit-tier` | 决定退出码的档：`spec` / `user_relaxed_5pct` / `none` | `spec` |
 | `--set key=value` | 覆盖测试设置（`common_test.TEST_SETTINGS`，**不是阈值**）。名字不认识 → 报错（`ERROR`）。只要改到会影响判定的设置，结论就带后缀 ` (NON-DEFAULT SETTINGS)`、退出码非 0（第 6 节） | — |
 
-动态专用：`--phase-frames A,B`（張り出す区間的第一帧、巻き込む区間的第一帧；也读 `params.json` 的 `motion_phase_frames`）、`--hold-frames`（终幕之后再求值几帧，默认 3）、`--backlog-hold-s`（只报告的「静止保持 10 秒」检查的保持时长，默认 10；0 = 不做）、`--frame-step`（>1 时 M5／M6 不能用于验收）、`--houdini-json`。
+动态专用：`--phase-frames A,B`（張り出す区間的第一帧、巻き込む区間的第一帧；也读 `params.json` 的 `motion_phase_frames`）、`--hold-frames`（终幕之后求值的帧数；默认评估场景在终幕之后的全部帧，至 `scene.frame_end`）、`--backlog-hold-s`（只报告的「静止保持 10 秒」检查的保持时长，默认 10；0 = 不做）、`--frame-step`（>1 时 M5／M6 不能用于验收）、`--houdini-json`。
 网格专用：`--skip G5`、`--g5-mode both|inprocess|subprocess`。
 `--only`（`run_all`）、`--skip`、`--cases`（自检）里出现不认识的名字一律是错误（`ERROR`，退出码 2）；以前 `--only shpae` 这样的笔误会选中 0 个测试并得到 PASS。`--frame-step`、`--hold-frames`、`--res-scale` 与登记值不同时同样带后缀。
 
@@ -218,7 +218,7 @@ $p = "G:/research/Wave Simulation/blender/great_wave"
 
 ## 6. 测试设置（不是阈值）
 
-**设置的「后门」已经封上（2026-09-20）**：凡是会影响判定、却放在 `common_test.TEST_SETTINGS` 或 `profile_metrics.DEFAULT_PARAMS` 里的容差／设置，都在 `tests/thresholds.json` 新增的顶层块 **`interpretations`** 里登记了 `{value, unit, used_by, provenance: 'orchestrator interpretation, pending user confirmation', comment}`（20 项测试设置、21 项测量参数、1 个库常量 `silhouette.SPECK_AREA_PX_FULL_RES`；原有的阈值、运算符、档位一项没动）。每次运行 `common_test.settings_audit()` 把**实际生效的值**（经过 `params.json` 的 `test_settings`／`measure_params`、`--set`、`--res-scale`、`--hold-frames`、`--frame-step` 之后）与这个块比较：有不同、代码默认值与文件不同、或有会影响判定的设置没登记 → 结论带 ` (NON-DEFAULT SETTINGS)`、`metrics.json: summary.non_default_settings`／`settings_audit` 和 `summary.md` 列出每一项（名字、生效值、文件值、来源）、退出码非 0。只影响「只报告」项的设置（`REPORT_ONLY_SETTINGS`／`REPORT_ONLY_MEASURE_PARAMS`）改了只列出、不加后缀。S8 的采样间距由它自己的检查项 `S8.sample_spacing_pct_h`（`eq 1.0`）判。`params.json` 写坏、`test_settings` 不是对象、名字不认识都会抛异常（以前被整个吞掉）。
+**设置的「后门」已经封上（2026-09-20）**：凡是会影响判定、却放在 `common_test.TEST_SETTINGS` 或 `profile_metrics.DEFAULT_PARAMS` 里的容差／设置，都在 `tests/thresholds.json` 新增的顶层块 **`interpretations`** 里登记了 `{value, unit, used_by, provenance: 'orchestrator interpretation, pending user confirmation', comment}`（24 项测试设置、21 项测量参数、1 个库常量 `silhouette.SPECK_AREA_PX_FULL_RES`；原有的阈值、运算符、档位一项没动）。每次运行 `common_test.settings_audit()` 把**实际生效的设置值**（经过 `params.json` 的 `test_settings`／`measure_params`、`--set`、`--res-scale`、`--hold-frames`、`--frame-step` 之后）与这个块比较：有不同、代码默认值与文件不同、或有会影响判定的设置没登记 → 结论带 ` (NON-DEFAULT SETTINGS)`、`metrics.json: summary.non_default_settings`／`settings_audit` 和 `summary.md` 列出每一项（名字、生效值、文件值、来源）、退出码非 0。`hold_frames = null` 表示使用场景在终幕之后的全部帧；审计比较的是这个设置值，实际帧数另记于 `metrics.json: frames.hold`。只影响「只报告」项的设置（`REPORT_ONLY_SETTINGS`／`REPORT_ONLY_MEASURE_PARAMS`）改了只列出、不加后缀。S8 的采样间距由它自己的检查项 `S8.sample_spacing_pct_h`（`eq 1.0`）判。`params.json` 写坏、`test_settings` 不是对象、名字不认识都会抛异常（以前被整个吞掉）。
 **给改代码的人**：以后在 `TEST_SETTINGS` 或 `DEFAULT_PARAMS` 里新增一项时，必须同时把它登记进 `interpretations`（或者，如果它确实只影响只报告的量，加进 `REPORT_ONLY_SETTINGS`／`REPORT_ONLY_MEASURE_PARAMS`）；否则每一次运行都会带 ` (NON-DEFAULT SETTINGS)`。自检的 `unit_settings_audit` 用例专门检查「代码默认值与登记值一致、没有漏登记」。
 
 `common_test.TEST_SETTINGS`，每项带注释；可被 `params.json` 的 `test_settings` 项或 `--set` 覆盖。会影响判定的只有标了 INTERPRETATION 的几项：单调性噪声下限、静止判定的位移下限（1e-6 H）、M6 的分母下限（5％）、G3 的截面匹配距离（1％）、G4 的几何容差（1e-6 H、0.1°）。

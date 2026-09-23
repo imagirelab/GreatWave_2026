@@ -20,6 +20,9 @@ def render_frame(scene, camera_name, frame, out_file, width, height):
     import bpy
 
     scene.camera = bpy.data.objects[camera_name]
+    paper = bpy.data.objects.get("Hokusai_paper_guide")
+    if paper is not None:
+        paper.hide_render = camera_name != "CAM_print"
     scene.frame_set(frame)
     scene.render.resolution_x = width
     scene.render.resolution_y = height

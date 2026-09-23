@@ -907,7 +907,7 @@ def test_hardening_polyline(F):
     P2 = pm.get_params(P1)                                                        # a flat dict is a valid override
     check("get_params: an override that differs is listed with value / default / source, an override equal to the default is not",
           list(P1["non_default_params"]) == ["s8_tip_exclusion_pct_h"] and P1["non_default_params"]["s8_tip_exclusion_pct_h"]
-          == {"value": 3.0, "default": 2.0, "source": "override"} and P2["non_default_params"] == P1["non_default_params"],
+          == {"value": 3.0, "default": 0.0, "source": "override"} and P2["non_default_params"] == P1["non_default_params"],
           str(P1["non_default_params"]))
     real_params, tmp = paths.PARAMS_JSON, os.path.join(OUT, "tmp_selftest_params.json")
     got = {}
@@ -1033,7 +1033,7 @@ def test_hardening_polyline(F):
     REPORT["hardening_wide_low_polyline"] = {"expected_pct": expect, "shape_rows": [rows[k] for k in names], "W_z75_width_pct": wrow["z75.width_full_H"]["diff_pct_of_target"],
                                              "signed_S7": {lab: {k: dv[k]["signed_mean_dev_pct_h"] for k in ("back", "head", "inner_arc")} for lab, dv in rep}}
 
-    # ---------------------------------------------------------------- 5. S8 blind spots (the judged S8 is unchanged)
+    # ---------------------------------------------------------------- 5. S8 across-tip enforcement and remaining blind spots
     res = {}
     for label, kw in (("smooth", {}), ("pointed tip 40 deg", {"tip_kink": 40.0}), ("back kink 17 deg between the phases", {"kinks": [("back", 10.125, 17.0)]}),
                       ("back kink 17 deg on a phase sample", {"kinks": [("back", 10.25, 17.0)]}),
@@ -1048,9 +1048,9 @@ def test_hardening_polyline(F):
     check("S8 on a smooth blunt path (bends <= 8 deg per 1 %): judged == vertex-window turning == 8 deg; the tip junction reads the 5 deg bend at the tip",
           abs(a["judged"] - 8.0) < 0.01 and abs(a["vw"] - 8.0) < 0.25 and abs(abs(a["tip_junction"]) - 5.0) < 0.01 and a["unexcluded"] == a["unexcluded_old"],
           "judged %.3f, vertex window %.3f, tip junction %.3f" % (a["judged"], a["vw"], a["tip_junction"]))
-    check("S8 blind spot 'pointed tip' (40 deg corner ON the tip): judged and the OLD unexcluded maximum stay at 8 deg; "
-          "max_unexcluded_deg (one junction across the tip) and the vertex windows across the tip read > 40",
-          abs(b["judged"] - 8.0) < 0.01 and abs(b["unexcluded_old"] - 8.0) < 0.01 and b["unexcluded"] > 40.0 and b["vw_across_tip"] > 40.0
+    check("S8 pointed tip (40 deg corner ON the tip): judged S8 and vertex windows across the tip read > 40; "
+          "the legacy maximum without tip junctions stays at 8 deg",
+          b["judged"] > 40.0 and abs(b["judged"] - b["unexcluded"]) < 1e-9 and abs(b["unexcluded_old"] - 8.0) < 0.01 and b["vw_across_tip"] > 40.0
           and abs(b["vw_outside"] - a["vw_outside"]) < 1e-9,
           "judged %.2f, unexcluded old %.2f -> new %.2f, across tip %.2f" % (b["judged"], b["unexcluded_old"], b["unexcluded"], b["vw_across_tip"]))
     check("S8 blind spot 'chord dilution': a 17 deg kink half-way between two phase samples is JUDGED %.2f (< 15, passes) - on a phase sample it is judged 17; "

@@ -492,7 +492,7 @@ def run(ctx, run_dir=None):
     outputs = save_images(ctx, run_dir, series, phases, thumbs, (i_A, i_B, i_end, i_final), vmax, floor, fps, args)
     t_img = sw.lap()
     audit = ctx.audit(effective={"motion_res_scale": (scale, "--res-scale" if getattr(args, "res_scale", None) else None),
-                                 "hold_frames": (hold, "--hold-frames" if getattr(args, "hold_frames", None) is not None else None),
+                                 "hold_frames": (configured_hold, "--hold-frames" if getattr(args, "hold_frames", None) is not None else None),
                                  "motion_frame_step": (step, "--frame-step" if getattr(args, "frame_step", None) else None)})
     result = {"schema": ct.RESULT_SCHEMA, "test": TEST_NAME, "run_dir": run_dir, "context": ctx.describe(),
               "mask": {"resolution": [rect.width_px, rect.height_px], "scale": scale, "exact": True},

@@ -335,10 +335,10 @@ LIFT_END_D = 0.8
 
 
 def lift_clip_sections(profile_H, x_clip_target, d, under_branch=None):
-    """Silhouette-exact flank taper (same construction as tests/fixtures 'lift_clip', proven in step 1):
-    d 1 -> 0.8 the underside is lifted so the cavity closes from inside, 0.8 -> 0.5 the head is clipped back to
-    x_clip_target, 0.5 -> 0 the remaining mound is scaled down to still water.  Every flank section stays inside
-    the middle section and out of its cavity.  -> (X, Z), each (n_v, n_u)."""
+    """Silhouette-preserving rounded flank taper.  A squared taper coordinate narrows the high crest in Y;
+    the forward head contracts toward the crest instead of collapsing onto a planar clip wall.  The underside
+    lifts before the head retracts, then the remaining mound settles into still water.  -> (X, Z), each (n_v, n_u)."""
+    d = np.asarray(d, dtype=np.float64) ** 2
     x, z = profile_H[:, 0], profile_H[:, 1]
     z_lift = z.copy()
     if under_branch is not None and int(under_branch[1]) > int(under_branch[0]):
@@ -350,7 +350,9 @@ def lift_clip_sections(profile_H, x_clip_target, d, under_branch=None):
     g = _smooth(d / 0.5)[:, None]
     c = (x_max - qq * (x_max - x_clip_target))[:, None]
     Zj = z[None, :] + w_lift * (z_lift - z)[None, :]
-    X = np.minimum(x[None, :], c)
+    x_crest = float(x[np.argmax(z)])
+    head_fraction = np.clip((x - x_crest) / max(x_max - x_crest, 1e-8), 0.0, 1.0)
+    X = x[None, :] - (x_max - c) * head_fraction[None, :]
     # top boundary height at the clip line of every row
     for j in np.nonzero(qq > 0.0)[0]:
         cj = c[j, 0]
