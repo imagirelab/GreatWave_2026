@@ -14,10 +14,13 @@
 
 ## 大波の試作動画
 
-- [原画視点の動画（MP4）](Blender/great_wave/deliverables/great_wave_motion_print_reference.mp4)：原画の色と模様を単一視点から投射した、形状・構図の比較用動画。
-- [斜め視点の動画（MP4）](Blender/great_wave/deliverables/great_wave_motion_3d.mp4)：三次元形状、手続き型の材質、独立した白波を確認するための動画。
+- [改訂試作：斜めから見る動き（MP4）](Blender/great_wave/deliverables/localized_wave_volume.mp4)
+- [改訂試作：原画方向から見る動き（MP4）](Blender/great_wave/deliverables/localized_wave_print.mp4)
+- [アニメーションを内蔵した Blender ファイル](Blender/great_wave/deliverables/localized_wave_animated.blend)
 
-いずれも約 11.5 秒です。30 fps で作成した動きから 2 フレーム間隔で画像を取り出し、15 fps で再生しています。動画と直接開ける静止画用 `.blend` の説明、検証結果、残る問題は [Blender の大波試作](Blender/great_wave/README.md) を参照してください。Houdini の流体シミュレーション、Unity でのリアルタイム表示、HMD での動作はまだ検証していません。
+改訂試作は局所的な高峰、非対称の肩、独立した分岐白波と小滴を検討するものです。動画は 30 fps、11.5 秒で、立上りから最終姿勢での静止までを収録しています。**参考映像と同等の完成品質に達したという判定ではありません。** 残る問題は[改訂記録](Blender/great_wave/docs/milestones/2026-09-24_localized_wave_rebuild.md)に記載しています。
+
+旧版の動画も[成果物一覧](Blender/great_wave/deliverables/README.md)から比較できます。Houdini の流体シミュレーション、Unity でのリアルタイム表示、HMD での動作は、この Blender 試作では検証していません。
 
 ## Unity の既存試作
 
