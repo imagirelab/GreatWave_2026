@@ -1,7 +1,7 @@
 {
   "schema": "gw.houdini_motion.v1",
-  "generated_by": "src/ref/read_houdini_motion.py (params: src/ref/read_houdini_motion_params.json)",
-  "purpose": "MOTION reference only (spec 6.1); no geometry of the Houdini cache is used for the new wave.",
+  "generated_by": "src/ref/read_houdini_motion.py（設定：src/ref/read_houdini_motion_params.json）",
+  "purpose": "運動参照のみ（仕様 6.1）。Houdini キャッシュの形状は新しい波に使用しない。",
   "source": {
     "path": "G:/research/Wave Simulation/1.abc",
     "size_bytes": 810947916,
@@ -43,7 +43,7 @@
     "topology": {
       "median_index_wise_vertex_displacement_frame2_to_3_m": 14.3814590361927,
       "median_triangle_edge_m": 0.17211881911589302,
-      "comment": "index-wise displacement >> edge length -> vertex i of frame t is NOT the same material point in frame t+1 (no fixed topology; the constant count comes from padding)"
+      "comment": "同じ番号間の変位 >> 辺長。フレーム t の頂点 i はフレーム t+1 の同じ物質点ではない（固定トポロジではなく、一定の点数は埋め合わせによる）"
     }
   },
   "meta": {
@@ -52,12 +52,12 @@
     "final_frame": 55,
     "mirroring": {
       "mirror_x": false,
-      "reason": "the reference already travels and overhangs towards +X (boat side)"
+      "reason": "参照は既に +X（船側）へ進行し張り出している"
     },
     "H_ref_m": 6.177650382712135,
-    "H_ref_definition": "max Z of the FULL side silhouette at the final frame minus the still-water level",
+    "H_ref_definition": "最終フレームの側面全体のシルエットの最大 Z から静水位を引いた値",
     "x0_m": 1.3875182381361457,
-    "x0_definition": "robust crest X (gw.profile_metrics) of the full silhouette at the final frame",
+    "x0_definition": "最終フレームの全シルエットの安定化した波頂 X（gw.profile_metrics）",
     "z_still_m": 0.08858145773410797,
     "still_water": {
       "frame": 1,
@@ -80,7 +80,7 @@
         15.255538940429688
       ]
     },
-    "normalisation": "X_H = (X - x0) / H_ref ; Z_H = (Z - z_still) / H_ref ; water slab at z_still",
+    "normalisation": "X_H = (X - x0) / H_ref ; Z_H = (Z - z_still) / H_ref ; 水の層は z_still に置く",
     "section_plane_y_m": 2.25,
     "section_plane_choice": {
       "frame": 55,
@@ -185,18 +185,18 @@
     "reader_params_file": "src/ref/read_houdini_motion_params.json"
   },
   "modes": {
-    "full": "full side silhouette along +Y of the whole chunk (gw.silhouette exact mode) = what a CAM_print-like camera sees",
-    "section": "plane cut Y = section_plane_y_m (even-odd fill in this module, profile by gw.silhouette.extract_profile pixel mode)"
+    "full": "流体全体を +Y 方向に見た全側面シルエット（gw.silhouette の exact モード）。CAM_print に相当するカメラで見える形",
+    "section": "平面 Y = section_plane_y_m による切断（このモジュールの偶奇充填、gw.silhouette.extract_profile の画素モードによる輪郭）"
   },
   "flags_legend": {
-    "h_too_small": "h < 0.02 H_ref: crest position and theta are dominated by surface ripples",
-    "crest_x_ambiguous_flat_top": "top within 0.5 % H_ref of the max is wider than 0.25 H_ref: x_c and o are uncertain by about half that width",
-    "crest_x_jumped_back": "x_c moved backwards while the wave moved forwards (highest point switched on a flat top) -> o jumps",
-    "front_toe_outside_frame": "the front face leaves the measuring frame (end of the fluid chunk at X=+5.26 m) above still water",
-    "tip_close_to_frame_edge": "head tip closer than 0.30 m to the right frame edge",
-    "theta_remeasured_without_chunk_end": "the steepest 'front' point was on the rounded end corner of the fluid chunk (X > 4.6 m) while the crest was far away; theta was re-measured on the profile cut at that X (old value kept in theta_with_chunk_end_deg)",
-    "phi_window_truncated": "the head (crest..tip) is shorter than the phi window (0.08 H); the window was cut at the crest",
-    "detached_blobs_dropped": "separate fluid blobs were ignored (largest component only)"
+    "h_too_small": "h < 0.02 H_ref：波頂位置と theta は表面の細かな波に支配される",
+    "crest_x_ambiguous_flat_top": "最大値から 0.5 % H_ref 以内の頂部の幅が 0.25 H_ref を超える。x_c と o にはその幅の約半分の不確かさがある",
+    "crest_x_jumped_back": "波が前進する間に x_c が後退した（平坦な頂部で最高点が切り替わった）ため o が跳ぶ",
+    "front_toe_outside_frame": "前面が静水面より上で測定画枠を出る（流体の端は X=+5.26 m）",
+    "tip_close_to_frame_edge": "波頭の先から画枠右端までの距離が 0.30 m 未満",
+    "theta_remeasured_without_chunk_end": "波頂が離れている間に最急の 'front' 点が流体領域末端の丸い角（X > 4.6 m）にあったため、その X で切った輪郭で theta を再測定した（旧値は theta_with_chunk_end_deg に保持）",
+    "phi_window_truncated": "波頭（波頂から先端まで）が phi の窓（0.08 H）より短いため、窓を波頂で切った",
+    "detached_blobs_dropped": "分離した流体の塊を除外した（最大の連結成分のみ）"
   },
   "per_frame": {
     "full": [
@@ -5168,9 +5168,9 @@
     "official": true,
     "variant": {
       "back_left_variant": "white_body_outline",
-      "note": "NEEDS USER CONFIRMATION - see docs/base_contour_report.md section 1"
+      "note": "ユーザーの確認が必要。docs/base_contour_report.md の第1節を参照"
     },
-    "note": "orientation for the motion design only; the reference's final SHAPE is not a target (spec 6.1)",
+    "note": "運動設計の方向づけにのみ使用する。参照の最終形状は形状目標ではない（仕様 6.1）",
     "h": 1.001245,
     "o": 0.43897600000000003,
     "cavity_depth": 0.40883200000000003,
@@ -5402,7 +5402,7 @@
           -14.5075,
           -14.4025
         ],
-        "note": "columns differing by more than 0.2 m are columns where the slab strip is seen exactly edge-on (planar flat top) or where the slab's slightly more forward nose covers the face below; see docs",
+        "note": "0.2 m を超えて異なる列は、薄層をちょうど横から見ている列（平坦な頂部）か、わずかに前へ出た薄層の先端が下の面を覆う列。文書を参照",
         "pixel_m": 0.005,
         "slab_width_m": 0.3,
         "frame": 30
@@ -5417,7 +5417,7 @@
           -8.4775,
           -7.267499999999998
         ],
-        "note": "columns differing by more than 0.2 m are columns where the slab strip is seen exactly edge-on (planar flat top) or where the slab's slightly more forward nose covers the face below; see docs",
+        "note": "0.2 m を超えて異なる列は、薄層をちょうど横から見ている列（平坦な頂部）か、わずかに前へ出た薄層の先端が下の面を覆う列。文書を参照",
         "pixel_m": 0.005,
         "slab_width_m": 0.3,
         "frame": 40
@@ -5432,7 +5432,7 @@
           -3.8825000000000003,
           -2.9624999999999986
         ],
-        "note": "columns differing by more than 0.2 m are columns where the slab strip is seen exactly edge-on (planar flat top) or where the slab's slightly more forward nose covers the face below; see docs",
+        "note": "0.2 m を超えて異なる列は、薄層をちょうど横から見ている列（平坦な頂部）か、わずかに前へ出た薄層の先端が下の面を覆う列。文書を参照",
         "pixel_m": 0.005,
         "slab_width_m": 0.3,
         "frame": 46
@@ -5447,7 +5447,7 @@
           -0.8374999999999986,
           0.192499999999999
         ],
-        "note": "columns differing by more than 0.2 m are columns where the slab strip is seen exactly edge-on (planar flat top) or where the slab's slightly more forward nose covers the face below; see docs",
+        "note": "0.2 m を超えて異なる列は、薄層をちょうど横から見ている列（平坦な頂部）か、わずかに前へ出た薄層の先端が下の面を覆う列。文書を参照",
         "pixel_m": 0.005,
         "slab_width_m": 0.3,
         "frame": 50
@@ -5462,7 +5462,7 @@
           1.8674999999999997,
           4.122499999999999
         ],
-        "note": "columns differing by more than 0.2 m are columns where the slab strip is seen exactly edge-on (planar flat top) or where the slab's slightly more forward nose covers the face below; see docs",
+        "note": "0.2 m を超えて異なる列は、薄層をちょうど横から見ている列（平坦な頂部）か、わずかに前へ出た薄層の先端が下の面を覆う列。文書を参照",
         "pixel_m": 0.005,
         "slab_width_m": 0.3,
         "frame": 55

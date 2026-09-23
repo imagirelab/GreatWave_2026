@@ -1,6 +1,6 @@
 {
   "schema": "gw.base_contour.v1",
-  "candidate": "OPTIONAL VARIANT 'smooth_r100' of A (not the candidate): disc opening R=28 px, then close + open with a ball of 100 px",
+  "candidate": "A の任意の変体 'smooth_r100'（主候補ではない）：円盤によるオープニング R=28 px の後、半径 100 px の球でクロージングとオープニングを行う",
   "image": {
     "path": "C:/Users/wang6/Pictures/Saved Pictures/Tsunami_by_hokusai_19th_century.jpg",
     "width": 3859,
@@ -15,9 +15,9 @@
     "x_left_H": -0.861042,
     "z_top_H": 1.131818
   },
-  "order": "left frame edge -> crest -> head tip -> inner arc -> trough",
+  "order": "画面左端 -> 波頂 -> 波頭の先 -> 内側円弧 -> 谷",
   "sample_spacing_px": 2.0,
-  "contour_definition": "outer edge (sky side) of the dark outline of the great wave; claws / spray removed by a disc opening (R = 28 px) of the non-sky region, so the line bridges every claw at its root with an arc of that radius",
+  "contour_definition": "大波の濃い輪郭線の外縁（空側）。空以外の領域に円盤によるオープニング（R = 28 px）を施して爪・飛沫を除くため、線は各爪の根元を同半径の円弧でつなぐ",
   "segments": [
     {
       "name": "back",
@@ -24905,7 +24905,7 @@
         0.65782
       ],
       "direction_deg": -45.74,
-      "direction_definition": "principal axis (largest second moment of area) of the OVERHANG region = the part of the base contour's interior that lies right of the plumb line through the inner-arc deepest point and above that point (closed polygon: head from that plumb line to the head tip, then underside / inner arc back to the deepest point); oriented towards +X; 0 deg = +X, negative = pointing downward. Chosen because the painted head with claws removed is a blunt mass (right side almost vertical), so local tip-direction definitions are unstable - see direction_alternatives_deg",
+      "direction_definition": "張り出し領域の主軸（最大断面二次モーメント）。領域は内側円弧の最深点を通る鉛直線より右、かつ最深点より上にある基礎輪郭内部（鉛直線から波頭の先へ進み、下面・内側円弧を通って最深点へ戻る閉多角形）。+X へ向け、0 deg = +X、負は下向き。爪を除いた波頭は右側がほぼ鉛直の丸い塊で、局所的な先端方向が不安定なためこの定義を採用した。direction_alternatives_deg を参照",
       "direction_alternatives_deg": {
         "medial_axis_5pct_H": 3.88,
         "medial_axis_10pct_H": 7.29,
@@ -24931,7 +24931,7 @@
     "trough_level": {
       "y_px": 1937.72,
       "top_pct": 74.7,
-      "note": "Z = 0 of the spec frame (74.7 %); the completed part of the contour ends on this level. The lowest VISIBLE sky point is reported in remeasure.S3.",
+      "note": "仕様の画枠における Z = 0（74.7 %）。輪郭の補完部分はこの水位で終わる。見える空の最下点は remeasure.S3 に報告する。",
       "measured_lowest_visible_sky_px": [
         1999.5,
         1898.0
@@ -24994,7 +24994,7 @@
       "plateau_centre_diff_pct_h": {
         "dx": -1.2196607555898196
       },
-      "how": "highest point of the smoothed base contour (outer edge of the ink outline, claws / spray removed by the opening); the top is a flat plateau, so x is ill-conditioned: plateau = contour within 2 px of the top row"
+      "how": "平滑化した基礎輪郭の最高点（インク線の外縁。爪・飛沫はオープニングで除去）。頂部が平坦なため x は不安定。平坦部は最上行から 2 px 以内の輪郭"
     },
     "S2": {
       "spec_pct": [
@@ -25014,7 +25014,7 @@
         46.019,
         47.86
       ],
-      "how": "left-most point of the visible inner arc of the base contour (sky / belly boundary, outer edge of the ink line); the boundary is nearly vertical there, so y is ill-conditioned: the y range within 2 px of the left-most x is given"
+      "how": "基礎輪郭の可視内側円弧の最左点（空と波腹の境界にあるインク線の外縁）。境界がほぼ鉛直のため y は不安定。最左 x から 2 px 以内の y 範囲を示す"
     },
     "S3": {
       "spec": {
@@ -25032,7 +25032,7 @@
         "trough_level": -1.5311488049344746,
         "height": -1.4674217673248933
       },
-      "how": "lowest pixel of the flood-filled sky inside x = 1800..2300 px (the hollow between the great wave and the right wave): it is the point where the flank of the near wave meets the dark sea band at the foot of Fuji. The real trough under the head is hidden by the near wave, so this is only the lowest VISIBLE water line, not a reliable trough measurement."
+      "how": "x = 1800..2300 px 内の領域塗りつぶしした空の最下画素（大波と右の波の間の空洞）。手前の波の側面が富士山の麓の濃い海の帯に接する点に当たる。波頭の下の実際の谷は手前の波に隠れるため、これは見える水際の最下点のみであり、信頼できる谷の測定ではない。"
     },
     "S4": {
       "spec_deg": {
@@ -25060,7 +25060,7 @@
         "mid_is_steepest": true,
         "largest_slope_increase_between_max_and_crest_deg": 13.30448962077109
       },
-      "how": "slope = direction of the chord over +-1.5 % of image height of arclength (one-sided at the ends) on the 'back' segment; positions are arclength offsets from the left dip / from the crest",
+      "how": "傾斜 = 'back' 区間上で弧長に沿い画像高の +-1.5 % を取った弦の方向（端では片側）。位置は左のくぼみ、または波頂からの弧長差",
       "measured_deg_window_3pct_h": {
         "dip_plus_5pct_h": 17.75669460399508,
         "dip_plus_10pct_h": 42.391057010022735,
@@ -25100,7 +25100,7 @@
         "overhang_pct_of_H": 47.86827931057909,
         "direction_from_crest_deg": -37.63209198684462
       },
-      "how": "right-most column of the raw body mask (claws included, outer edge of the ink outline) inside the window [1900, 500, 2600, 1000]; y = mean row of that column"
+      "how": "窓 [1900, 500, 2600, 1000] 内の生の胴体マスクの最右列（爪を含み、インク輪郭の外縁）。y はその列の平均行"
     },
     "S5": {
       "head_tip_pct": [
@@ -25127,7 +25127,7 @@
         "dx": -3.323496498837031,
         "dy_down_positive": -1.7106782766304636
       },
-      "how": "head tip = right-most point of the base contour between the crest and the junction (claws removed by the opening). principal axis (largest second moment of area) of the OVERHANG region = the part of the base contour's interior that lies right of the plumb line through the inner-arc deepest point and above that point (closed polygon: head from that plumb line to the head tip, then underside / inner arc back to the deepest point); oriented towards +X; 0 deg = +X, negative = pointing downward. Chosen because the painted head with claws removed is a blunt mass (right side almost vertical), so local tip-direction definitions are unstable - see direction_alternatives_deg"
+      "how": "波頭の先 = 波頂と合流点の間の基礎輪郭の最右点（爪はオープニングで除去）。張り出し領域の主軸（最大断面二次モーメント）。領域は内側円弧の最深点を通る鉛直線より右、かつ最深点より上にある基礎輪郭内部（鉛直線から波頭の先へ進み、下面・内側円弧を通って最深点へ戻る閉多角形）。+X へ向け、0 deg = +X、負は下向き。爪を除いた波頭は右側がほぼ鉛直の丸い塊で、局所的な先端方向が不安定なためこの定義を採用した。direction_alternatives_deg を参照"
     }
   }
 }

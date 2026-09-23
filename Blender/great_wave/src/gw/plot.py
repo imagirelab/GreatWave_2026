@@ -74,24 +74,24 @@ def _limits(vals, lim, pad_frac=0.05):
 def line_plot(series, title="", xlabel="", ylabel="", size=(1100, 520), xlim=None, ylim=None,
               vlines=None, hlines=None, spans=None, legend="right", grid=True, font_scale=2,
               bg="white", equal_aspect=False, left_margin=None, legend_width=None, _layout_only=False):
-    """Line plot -> RGB uint8 array of shape (size[1], size[0], 3).
+    """線グラフを形状 (size[1], size[0], 3) の RGB uint8 配列として返す。
 
-    series : list of dicts {label, x, y, color?, width?=2, dash?=(on,off), marker?='o'|'+'|'x'|'s', marker_size?=3,
-             line?=True}.  y may contain NaN (gaps).  color: name from draw.COLORS or (r,g,b).
-    vlines : [{x, label?, color?, dash?}]   vertical marker lines
-    hlines : [{y, label?, color?, dash?}]   horizontal marker lines
-    spans  : [{x0, x1, label?, color?, alpha?=0.15}]  shaded x-ranges
-    xlim / ylim : (lo, hi); either bound may be None = automatic
-    legend : 'right' (outside, default), 'inside' (top-left of the axes) or None
-    equal_aspect : same data units per pixel on both axes (for contour plots)
-    left_margin / legend_width : minimum px reserved left of the axes / for the right legend;
-             multi_plot uses them to give stacked plots identical x axes.
+    series : 辞書 {label, x, y, color?, width?=2, dash?=(on,off), marker?='o'|'+'|'x'|'s', marker_size?=3,
+             line?=True} のリスト。y の NaN は線の切れ目を表す。color は draw.COLORS の名前または (r,g,b)。
+    vlines : [{x, label?, color?, dash?}]   縦の補助線
+    hlines : [{y, label?, color?, dash?}]   横の補助線
+    spans  : [{x0, x1, label?, color?, alpha?=0.15}]  背景を塗る x の区間
+    xlim / ylim : (lo, hi)。各端に None を指定すると、その端を自動設定。
+    legend : 'right'（枠外、既定値）、'inside'（軸の内側左上）、または None
+    equal_aspect : 両軸で1画素当たりのデータ単位をそろえる（輪郭グラフ用）
+    left_margin / legend_width : 軸の左側／右側の凡例に確保する最小画素幅。
+             multi_plot はこれらを使い、縦に並べたグラフの x 軸をそろえる。
     """
     W, Hh = int(size[0]), int(size[1])
     fs = max(1, int(font_scale))
     small = max(1, fs - 1) if fs > 2 else fs
     img = draw.canvas(Hh, W, bg)
-    series = [dict(s) for s in (series or [])]       # never mutate the caller's dicts
+    series = [dict(s) for s in (series or [])]       # 呼出し元の辞書を変更しない
     for k, s in enumerate(series):
         s.setdefault("color", draw.PALETTE[k % len(draw.PALETTE)])
 
@@ -100,7 +100,7 @@ def line_plot(series, title="", xlabel="", ylabel="", size=(1100, 520), xlim=Non
     x_lo, x_hi = _limits(xs_all, xlim, 0.02)
     y_lo, y_hi = _limits(ys_all, ylim, 0.06)
 
-    # ---- layout
+    # ---- 配置
     labels = [str(s.get("label", "")) for s in series]
     leg_w = 0
     if legend == "right" and any(labels):
@@ -141,14 +141,14 @@ def line_plot(series, title="", xlabel="", ylabel="", size=(1100, 520), xlim=Non
     def Y(v):
         return (y_hi - np.asarray(v, dtype=np.float64)) / (y_hi - y_lo) * ph
 
-    area = img[top:bottom, left:right]            # view: drawing into it clips automatically
+    area = img[top:bottom, left:right]            # 配列ビューへの描画は範囲外を自動的に切り取る
 
-    # ---- shaded spans
+    # ---- 背景を塗る区間
     for k, sp in enumerate(spans or []):
         xa, xb = float(X(sp["x0"])), float(X(sp["x1"]))
         draw.rect(area, xa, 0, xb, ph, sp.get("color", draw.PALETTE[(k + 2) % len(draw.PALETTE)]),
                   fill=True, alpha=sp.get("alpha", 0.15))
-    # ---- grid + ticks
+    # ---- 格子と目盛り
     for v in xt:
         px = float(X(v))
         if -0.5 <= px <= pw + 0.5:
@@ -163,7 +163,7 @@ def line_plot(series, title="", xlabel="", ylabel="", size=(1100, 520), xlim=Non
                 draw.line(area, (0, py), (pw, py), "lightgray", 1, aa=False)
             draw.line(img, (left - 5, top + py), (left, top + py), "black", 1, aa=False)
             draw.text(img, left - 8, top + py, _fmt(v, ystep), "black", small, anchor="rm")
-    # ---- span labels (top inside), marker lines
+    # ---- 区間名（内側上部）と補助線
     for k, sp in enumerate(spans or []):
         if sp.get("label"):
             xa, xb = float(X(sp["x0"])), float(X(sp["x1"]))
@@ -185,7 +185,7 @@ def line_plot(series, title="", xlabel="", ylabel="", size=(1100, 520), xlim=Non
         if hl.get("label"):
             draw.text(area, pw - 4, py - 3, str(hl["label"]), col, small, anchor="rb", bg="white",
                       bg_alpha=0.6, margin=1)
-    # ---- data
+    # ---- データ
     for s in series:
         x = np.asarray(s["x"], dtype=np.float64).ravel()
         y = np.asarray(s["y"], dtype=np.float64).ravel()
@@ -193,7 +193,7 @@ def line_plot(series, title="", xlabel="", ylabel="", size=(1100, 520), xlim=Non
             raise ValueError("series %r: x and y differ in length" % s.get("label"))
         pts = np.stack([X(x), Y(y)], axis=1)
         pts[~np.isfinite(pts).all(axis=1)] = np.nan
-        # keep coordinates bounded so far-away points cannot blow up the raster loops
+        # 遠方の点でラスタ描画の反復が膨らまないよう、座標の範囲を制限する
         pts = np.clip(pts, -4.0 * max(pw, ph), 5.0 * max(pw, ph))
         if s.get("line", True) and len(pts) > 1:
             draw.polyline(area, pts, s["color"], s.get("width", 2), dash=s.get("dash"))
@@ -202,7 +202,7 @@ def line_plot(series, title="", xlabel="", ylabel="", size=(1100, 520), xlim=Non
             for p in pts[np.isfinite(pts).all(axis=1)]:
                 if -5 <= p[0] <= pw + 5 and -5 <= p[1] <= ph + 5:
                     draw.marker(area, p, mk, s.get("marker_size", 3), s["color"], 1.5)
-    # ---- frame, labels
+    # ---- 枠と軸名
     draw.rect(img, left - 1, top - 1, right + 1, bottom + 1, "black", 1)
     if title:
         draw.text(img, 0.5 * (left + right), 8, str(title), "black", fs, anchor="ct")
@@ -212,12 +212,12 @@ def line_plot(series, title="", xlabel="", ylabel="", size=(1100, 520), xlim=Non
         tw, th = draw.text_size(str(ylabel), fs)
         tmp = draw.canvas(th + 2, tw + 2, bg)
         draw.text(tmp, 1, 1, str(ylabel), "black", fs)
-        rot = np.rot90(tmp, 1)                      # reads bottom-to-top
+        rot = np.rot90(tmp, 1)                      # 下から上へ読む向き
         y0 = int(round(0.5 * (top + bottom) - rot.shape[0] / 2.0))
         y0 = max(0, min(y0, Hh - rot.shape[0]))
         hh = min(rot.shape[0], Hh - y0)
         img[y0:y0 + hh, 8:8 + rot.shape[1]] = rot[:hh]
-    # ---- legend
+    # ---- 凡例
     if legend and any(labels):
         lh = draw.text_size("X", small)[1] + 8
         if legend == "right":
@@ -242,10 +242,10 @@ def line_plot(series, title="", xlabel="", ylabel="", size=(1100, 520), xlim=Non
 
 
 def multi_plot(plots, ncols=1, gap=10, title=None, bg="white", font_scale=3, align_axes=True):
-    """Stack several plots into one figure.
-    plots: list of RGB arrays and / or dicts of line_plot keyword arguments.
-    align_axes: dict plots get a common left margin and legend width, so plots of equal
-    `size` and `xlim` stacked in one column share their x axis positions."""
+    """複数のグラフを一つの図に並べる。
+    plots: RGB 配列、または line_plot のキーワード引数を収めた辞書のリスト。
+    align_axes: 辞書で指定したグラフの左余白と凡例幅をそろえ、同じ `size` と `xlim` を持つ
+    グラフを縦一列に並べたときに x 軸の位置を一致させる。"""
     dicts = [p for p in plots if isinstance(p, dict)]
     if align_axes and dicts:
         lay = [line_plot(_layout_only=True, **p) for p in dicts]

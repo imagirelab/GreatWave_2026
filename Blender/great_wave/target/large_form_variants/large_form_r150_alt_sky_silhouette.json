@@ -11,8 +11,8 @@
     "sha256": "B26F3B3F9CD235B23AD133191E8401B6FB7416CDEBB90226EA5C92A64655A9F7"
   },
   "needs_user_confirmation": [
-    "large-form scale r",
-    "left-end reading (sky_silhouette)"
+    "大形の尺度 r",
+    "左端の読み方（sky_silhouette）"
   ],
   "pending_user_confirmation": [
     "back_left_variant"
@@ -28,7 +28,7 @@
         -0.861042,
         -0.666361
       ],
-      "selector": "points of segment 'back' with x_range_px[0] <= x_px <= x_range_px[1] (same as x_range_H on points_H[:, 0])",
+      "selector": "区間 'back' の点のうち x_range_px[0] <= x_px <= x_range_px[1] を満たすもの（points_H[:, 0] に対する x_range_H と同じ）",
       "index_range": [
         0,
         173
@@ -40,8 +40,8 @@
         "traced": 80
       },
       "in_S7": true,
-      "x_range_taken_from": "results/step1_prepare/contour_final/base_contour_alt_sky_silhouette.json key pending_stretches (x-range of the finger-scale flag offset_from_visible_edge), extended to the last point of THIS file that carries the flag; every large-form point in this x-range is derived from that constructed stretch, whether it kept the flag or became large_form_bridge",
-      "what": "left end of the back below the fork of the back's outline at about (337, 894) px. white_body_outline reading: NO ink line is drawn there, the line is CONSTRUCTED (flag offset_from_visible_edge = visible white-body edge shifted outwards by the measured ink-line width); sky_silhouette reading: the traced top edge of the dark-blue band. The two readings differ by up to 7.1 % of image height on this stretch (judge's measurement, base_contour_params.json back_left_variant). The stretch stays in_S7 = true; tests should report S7 for it SEPARATELY until the user has confirmed the reading (docs/base_contour_report.md section 2 and 12).",
+      "x_range_taken_from": "results/step1_prepare/contour_final/base_contour_alt_sky_silhouette.json の pending_stretches キー（指状尺度の offset_from_visible_edge フラグの X 範囲）を、このファイルで同フラグを持つ最後の点まで拡張した。この X 範囲の大形の全点は、フラグを保持していても large_form_bridge へ変わっていても、その構築区間に由来する",
+      "what": "約 (337, 894) px の波背輪郭の分岐より下にある背の左端。white_body_outline の読み方ではインク線はなく、見える白い胴体の縁を実測したインク線幅だけ外へずらして線を構築する（offset_from_visible_edge フラグ）。sky_silhouette の読み方では濃青の帯の上縁を追跡する。この区間で両者は画像高の最大 7.1 % 異なる（判定担当の測定、base_contour_params.json の back_left_variant）。in_S7 = true は維持するが、ユーザーが読み方を確認するまではこの区間の S7 を別に報告する（docs/base_contour_report.md の第2・12節）。",
       "x_range_px_of_finger_scale_file": [
         0.0,
         333.301
@@ -62,14 +62,14 @@
     "x_left_H": -0.861042,
     "z_top_H": 1.131818
   },
-  "order": "left frame edge -> crest -> head tip -> inner arc -> trough",
+  "order": "画面左端 -> 波頂 -> 波頭の先 -> 内側円弧 -> 谷",
   "sample_spacing_px": 2.0,
-  "contour_definition": "LARGE FORM of the great wave: the finger-scale base contour (results/step1_prepare/contour_final/base_contour_alt_sky_silhouette.json) closed to a region (body inside), morphological CLOSING then OPENING with a disc of radius r = 150 px (exact Euclidean distance transforms at full resolution), boundary re-extracted on the sub-pixel level set and smoothed along arclength with sigma = 0.5 % of image height; the ORIGINAL finger-scale line is kept wherever the regularised line is closer than 0.15 % of image height and the original line itself turns no faster than the ball (9.91 deg per 1 % sample); smoothstep cross-fades of 2 % in between. r follows from spec S8: 15 deg per 1 % of image height = radius of curvature >= 99.1 px.",
+  "contour_definition": "大波の大形。指状尺度の基礎輪郭（results/step1_prepare/contour_final/base_contour_alt_sky_silhouette.json）を領域として閉じ（内側が胴体）、半径 r = 150 px の円盤でクロージングの後にオープニングを行う（元の解像度で厳密なユークリッド距離変換を使用）。画素未満の等値線から境界を再抽出し、弧長に沿って画像高の 0.5 % を sigma として平滑化する。正則化線との距離が画像高の 0.15 % 未満で、元線の曲がりが球より急でない部分（標本間隔 1 % 当たり 9.91 deg）では元の指状尺度の線を保持する。間は 2 % の smoothstep で交差補間する。r は仕様 S8 に由来し、画像高の 1 % 当たり 15 deg は曲率半径 >= 99.1 px に相当する。",
   "source_flags": {
-    "traced": "point lies on a TRACED stretch of the finger-scale line; flags are decided on the 1 px polyline BEFORE the final 2 px resampling: distance to the finger-scale line <= label_tol = 0.02 % of image height (0.519 px) in runs of at least 2 %; after the resampling and the rounding to 0.001 px a flagged point of this file may exceed label_tol by a small epsilon (measured in this file over all 855 points that carry an inherited flag: max distance 0.531 px, 1 of them > label_tol)",
-    "large_form_bridge": "point moved by the large-form regularisation (in_S7 = true); wins over every inherited flag",
-    "completed_occluded": "hidden behind the near wave, completed (in_S7 = false)",
-    "completed_other": "visible sea patch without a drawn wave face, completed (in_S7 = false)"
+    "traced": "指状尺度の線の追跡区間にある点。フラグは最後の 2 px 再標本化の前に 1 px の折線で決める。指状尺度の線との距離 <= label_tol = 画像高の 0.02 %（0.519 px）を少なくとも 2 % の連続区間で満たす。再標本化と 0.001 px への丸めの後、このファイルのフラグ付き点が label_tol をわずかに超える場合がある（継承フラグを持つ全 855 点の実測最大距離は 0.531 px、うち 1 点が > label_tol）。",
+    "large_form_bridge": "大形の正則化によって移動した点（in_S7 = true）。すべての継承フラグより優先する",
+    "completed_occluded": "手前の波に隠れる補完部分（in_S7 = false）",
+    "completed_other": "波面が描かれていない可視海面の補完部分（in_S7 = false）"
   },
   "segments": [
     {
@@ -26433,7 +26433,7 @@
         37.674,
         8.661
       ],
-      "definition": "argmin(y) of a copy smoothed with sigma = 0.5 % of image height (same robust rule as the finger-scale file)",
+      "definition": "画像高の 0.5 % を sigma として平滑化した複製の argmin(y)（指状尺度のファイルと同じ安定化規則）",
       "strict_highest_px": [
         1457.8426896824892,
         224.6565457811189
@@ -26456,7 +26456,7 @@
         56.827,
         32.036
       ],
-      "definition": "right-most point of the large-form head (vertex of a parabola fitted to x(s) within 0.1 % of image height of the maximum)",
+      "definition": "大形の波頭の最右点（最大値から画像高の 0.1 % 以内で x(s) に当てはめた放物線の頂点）",
       "fit": {
         "run_s_px": [
           2691.060806447366,
@@ -26482,7 +26482,7 @@
         39.598,
         46.87
       ],
-      "definition": "argmin(x) of the smoothed copy of the visible inner arc (same rule as the finger-scale file)",
+      "definition": "見える内側円弧を平滑化した複製の argmin(x)（指状尺度のファイルと同じ規則）",
       "strict_leftmost_px": [
         1528.0854231171293,
         1215.8079611831117
@@ -26495,7 +26495,7 @@
     "trough_level": {
       "y_px": 1937.718,
       "top_pct": 74.7,
-      "note": "Z = 0 of the frame definition (crest_top_pct + height_pct). NOT measurable in the painting: the trough under the head is hidden by the near wave; the top edge of the visible sea patch right of the near wave was measured at 73.01 % from the top (candidate B estimates the lower end of that patch at about 76.7 %), so 74.7 % lies inside the patch but on no drawn feature"
+      "note": "画枠定義の Z = 0（crest_top_pct + height_pct）。原画では測定できない。波頭の下の谷は手前の波に隠れている。手前の波の右側の見える海面領域の上縁は上から 73.01 % と測定された（候補 B はその領域の下端を約 76.7 % と推定）。したがって 74.7 % は領域内にあるが、描かれた特徴には対応しない"
     },
     "claw_rightmost": {
       "px": [
@@ -26510,7 +26510,7 @@
         59.291,
         33.057
       ],
-      "how": "right-most column with >= 3 ink pixels (R-B < -8) inside the window [2230, 800, 2330, 920]; y = mean row of the ink pixels of that column; x refined to the luma half level between ink and sky along that row"
+      "how": "窓 [2230, 800, 2330, 920] 内でインク画素（R-B < -8）が >= 3 個ある最右列。y はその列のインク画素の平均行。x はその行のインクと空の輝度中間値まで精密化する"
     },
     "inner_arc_visible_end": {
       "px": [
@@ -26699,9 +26699,9 @@
         "n": 214,
         "max_dev_px": 0.951,
         "n_moved_more_than_0p05_px": 18,
-        "note": "the completed part keeps its flags; its geometry is the finger-scale completion except for the cross-fade next to the junction with the visible inner arc"
+        "note": "補完部分はフラグを維持する。形状は見える内側円弧との合流付近の交差補間部分を除き、指状尺度の補完と同じ"
       },
-      "note": "% of image height; segments of the contour the points belong to; completed_* points excluded; signed: + = the large form lies on the sky side of the finger-scale line (body grown), - = inside the painted body (body cut)"
+      "note": "画像高に対する %。点の属する輪郭区間ごとに集計し completed_* の点は除外する。符号は + が指状尺度の線より空側（胴体拡大）、- が描かれた胴体内部（胴体切削）"
     },
     "head_tip": {
       "px": [
@@ -26790,7 +26790,7 @@
         831.0
       ],
       "spec_G3_limit_pct_H": 3.0,
-      "definition": "diameter of the largest circle tangent to the contour at the head tip from the body side that stays inside the contour (2-D version of the G3 definition in tests/test_mesh.py)"
+      "definition": "波頭の先で胴体側から輪郭に接し、輪郭内に収まる最大円の直径（tests/test_mesh.py の G3 定義の2次元版）"
     },
     "S1_S2_same_definitions_as_finger_scale_report": {
       "S1": {
@@ -26847,7 +26847,7 @@
         "front_slope_deg_from_horizontal": 57.8,
         "x_front_shift_px_per_pct_h_of_level": 16.3,
         "width_from_frame_edge_to_front_H": 0.9554,
-        "why_no_width": "the back has left the frame and its left end does not descend towards the frame edge (sky_silhouette reading): no extrapolation"
+        "why_no_width": "背が画面を出ており、左端が画面端へ向かって下がらない（sky_silhouette の読み方）ため外挿しない"
       },
       "50_pct_H": {
         "y_px": 1081.7,
@@ -26858,7 +26858,7 @@
         "front_slope_deg_from_horizontal": 88.3,
         "x_front_shift_px_per_pct_h_of_level": 0.8,
         "width_from_frame_edge_to_front_H": 0.9022,
-        "why_no_width": "the back has left the frame and its left end does not descend towards the frame edge (sky_silhouette reading): no extrapolation"
+        "why_no_width": "背が画面を出ており、左端が画面端へ向かって下がらない（sky_silhouette の読み方）ため外挿しない"
       },
       "60_pct_H": {
         "y_px": 910.5,
@@ -26896,7 +26896,7 @@
         "width_back_to_front_H": 0.5361,
         "width_back_to_outermost_H": 0.5361
       },
-      "note": "x_front = left-most crossing after the crest (body / cavity boundary, or the top of the head where the level passes above the cavity). The back leaves the frame at about 51 % H: below that its x is a straight extrapolation along the chord of the first 5 % of the back (spec 7b) and the width is NOT a measurement. x_front_shift_px_per_pct_h_of_level tells how ill-conditioned x_front is (a level that grazes a nearly horizontal stretch)."
+      "note": "x_front = 波頂以降の最左の交差点（胴体と空洞の境界、または高さが空洞より上を通る場合は波頭の上側）。背は約 51 % H で画面を出る。それより下の x は背の最初の 5 % の弦に沿う直線外挿（仕様 7b）であり、幅は測定値ではない。x_front_shift_px_per_pct_h_of_level は x_front の不安定さを示す（ほぼ水平な区間をかすめる高さ）。"
     },
     "flag_counts": {
       "back": {

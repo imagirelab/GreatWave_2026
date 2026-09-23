@@ -1,52 +1,52 @@
-"""Synthetic test wave: analytic overhanging profile with KNOWN crest / head tip / deepest
-point and a known time evolution, swept into a fixed-topology grid mesh.
+"""検査用の合成波。峰、波頭先端、最深点と時間発展を解析的に求められる張り出し断面を、
+固定トポロジーの格子メッシュへ展開する。
 
-This is a MEASUREMENT FIXTURE, not a proposal for the real wave.  It is used by
-tests/selftest_measure.py to prove that gw.raster / gw.silhouette / gw.profile_metrics
-recover known values, and it can be reused by the S / M / G tests as a dummy model.
+測定処理を検証するための既知形状であり、実作品の波形案ではない。
+tests/selftest_measure.py はこれを使って gw.raster / gw.silhouette / gw.profile_metrics が
+既知の値を復元できるか検証する。S / M / G 検査の仮モデルとしても再利用できる。
 
-Profile family (H units, crest of the final pose = (0, 1), still water Z = 0)
+断面形状群（H 単位、最終姿勢の峰 = (0, 1)、静水面 Z = 0）
 ---------------------------------------------------------------------------
-'Turtle' path of straight lines and circular arcs (G1 continuous), all in closed form:
+直線と円弧を順につなぐタートル方式の経路（G1 連続）。すべて閉形式で求める。
 
-  back  : B0 arc 0 -> a_low | B1 line @ a_low (length solved so that the hem is on Z = 0) |
-          B2 arc a_low -> a_max | B3 line @ a_max | B4 arc a_max -> 0  (ends at the crest)
-  front : F1 arc 0 -> -b | F2 line (top side of the head) | F3 cap arc, radius r, turn kappa |
-          F4 line (underside) | F5 cavity arc up to heading -90 deg (only when overhanging) |
-          F6 arc to heading 0 whose radius closes the trough exactly on Z = 0
+  back  : B0 円弧 0 -> a_low | B1 方向 a_low の直線（裾が Z = 0 になる長さを解く）|
+          B2 円弧 a_low -> a_max | B3 方向 a_max の直線 | B4 円弧 a_max -> 0（峰で終わる）
+  front : F1 円弧 0 -> -b | F2 直線（波頭の上側）| F3 先端の円弧、半径 r、回転角 kappa |
+          F4 直線（下側）| F5 方向 -90 deg までの内側の円弧（張り出しがある場合のみ）|
+          F6 方向 0 までの円弧。谷がちょうど Z = 0 で閉じる半径を求める。
 
-Every parameter is a smooth function of t in [0, 1] (rise -> overhang -> curl-in), so crest,
-tip (right-most point of the cap), deepest point (end of F5), o, pointwise theta (= b + kappa)
-and phi (= -b once the top side is long enough) are known analytically for every frame.
+各パラメーターは t in [0, 1] の滑らかな関数（立ち上がり -> 張り出し -> 巻き込み）なので、峰、
+先端（先端円弧の最右点）、最深点（F5 の終点）、o、点ごとの theta (= b + kappa)、
+phi（上側が十分長くなれば -b）を各フレームで解析的に求められる。
 
-Grid: U along the profile (hem of the back -> crest -> tip -> belly -> trough), V along Y.
-Taper modes along Y (both ends):
-  'clip'   (default, valid) stage 1: X' = min(X, c) with c going from the right-most X to the
-           X of the deepest point (the head is retracted horizontally, which stays INSIDE the
-           main section); stage 2: Z' = g * Z with g -> 0.  The swept sections fill the whole
-           silhouette and never cover the concavity.
-  'zscale' (FAILURE demo) Z' = g * Z only: the squashed heads of the end sections hang in
-           front of / behind the concavity and block the view through it.
-  'none'   (NON-SOLID demo) pure extrusion: edge-on sheet, zero projected area.
-  'lift_clip' (added 2026-09-20 for swept PAINTING contours, docs/records/step1_proof.md) 'clip' is only valid
-           when the underside of the head never lies below the cavity ceiling further left: X' = min(X, c) moves a
-           point horizontally, and on the painted contour (ceiling highest at the armpit, head hanging lower
-           further right) that path runs through the cavity -> the union silhouette gets a flat, filled ceiling.
-           'lift_clip' adds a stage 0 and a clamp, every vertex path being a straight line inside the main section:
-             stage 0 (d 1 -> LIFT_END_D): the stretch head tip -> deepest point is lifted VERTICALLY (into the head)
-                     to the running maximum of Z counted from the deepest point; afterwards no point of the
-                     underside lies below any ceiling point to its left;
-             stage 1 (d LIFT_END_D -> 0.5): X' = min(X, c) as in 'clip'; in addition no clipped point may lie above
-                     the top boundary of the main section at x = c (Z' = min(Z', Z_top(c))), so a crest that lies to
-                     the right of the clip target is not smeared leftwards at full height;
-             stage 2 (d 0.5 -> 0): Z' = g * Z as in 'clip'.
-           Same grid, same vertex count and same Y layout as 'clip'.
+格子: U は断面方向（背の裾 -> 峰 -> 先端 -> 腹 -> 谷）、V は Y 方向。
+Y 方向の両端を細める方式:
+  'clip'   （既定、有効）段階1: c を最右点の X から最深点の X へ動かし、X' = min(X, c) とする。
+           波頭を水平に引っ込めるので主断面の内部に収まる。
+           段階2: g -> 0 とし、Z' = g * Z とする。展開した断面は輪郭全体を満たし、
+           内側のくぼみを覆わない。
+  'zscale' （失敗例）Z' = g * Z のみ。両端で押しつぶされた波頭がくぼみの前後にかかり、
+           奥への見通しをふさぐ。
+  'none'   （非立体の例）単純な押出し。端から見ると厚さのない面になり、投影面積はゼロ。
+  'lift_clip'（原画の輪郭を展開するため2026-09-20に追加。docs/records/step1_proof.md）
+           'clip' が有効なのは、波頭の下面が、その左側にあるくぼみの天井より下に出ない場合だけ。
+           X' = min(X, c) は点を水平に動かすため、原画の輪郭（脇が最も高く、右側で波頭が垂れる）
+           では経路がくぼみを横切り、断面の和集合の輪郭で天井が平らに埋まってしまう。
+           'lift_clip' は段階0と上限処理を加え、各頂点を主断面内部の直線上で動かす。
+             段階0（d 1 -> LIFT_END_D）: 先端から最深点までの区間を鉛直に波頭内部へ持ち上げ、
+                     最深点から数えた Z の累積最大値へ合わせる。これにより下面の各点は、
+                     その左側にあるどの天井点よりも下に出なくなる。
+             段階1（d LIFT_END_D -> 0.5）: 'clip' と同様に X' = min(X, c) とする。さらに点が
+                     x = c での主断面の上端を超えないよう Z' = min(Z', Z_top(c)) とし、切取り位置の
+                     右側にある峰が元の高さのまま左へ引き延ばされるのを防ぐ。
+             段階2（d 0.5 -> 0）: 'clip' と同様に Z' = g * Z とする。
+           格子、頂点数、Y 方向の配置は 'clip' と同じ。
 
-Usage (headless):
+実行例（画面なし）:
   blender --background --factory-startup --python make_synthetic_wave.py -- [--frames 31]
           [--taper clip|lift_clip|zscale|none] [--profile-json <base_contour.json>] [--H 11]
           [--out-blend <path>] [--no-json]
-As a module:  import make_synthetic_wave as msw ; obj, info = msw.build_object(scene, ...)
+モジュールとしての利用:  import make_synthetic_wave as msw ; obj, info = msw.build_object(scene, ...)
 """
 import argparse
 import math
@@ -66,18 +66,18 @@ N_FRAMES_DEFAULT = 31
 FRAME_START = 1
 SYNTHETIC_CONTOUR_JSON = os.path.join(_HERE, "synthetic_contour.json")
 
-# samples per piece (fixed -> fixed topology)
+# 区間ごとの標本数（固定することでトポロジーを一定に保つ）
 PIECES_BACK = (("B0", 24), ("B1", 50), ("B2", 24), ("B3", 30), ("B4", 40))
 PIECES_FRONT = (("F1", 40), ("F2", 50), ("F3", 32), ("F4", 12), ("F5", 60), ("F6", 80))
 
-# Y layout (H units): constant centre part + taper zone on both sides
+# Y 方向の配置（H 単位）: 形状が一定の中央部と、両端を細める区間
 Y_CENTER_HALF_H = 0.5
 Y_TAPER_H = 0.6
 N_V_CENTER = 9
 N_V_STAGE1 = 10
 N_V_STAGE2 = 14
 
-# phase boundaries of the fixture motion (fractions of the total time)
+# 検査用の動きの段階境界（全時間に対する割合）
 T_RISE_END = 0.42
 T_OVERHANG_END = 0.74
 
@@ -92,7 +92,7 @@ def _lerp(a, b, w):
 
 
 def fixture_params(t):
-    """All shape parameters at normalised time t in [0, 1] (angles in degrees, lengths in H)."""
+    """正規化時刻 t in [0, 1] における全形状パラメーター。角度は度、長さは H 単位。"""
     t = min(max(float(t), 0.0), 1.0)
     p1 = _smooth(t / T_RISE_END)
     p2 = _smooth((t - T_RISE_END) / (T_OVERHANG_END - T_RISE_END))
@@ -115,10 +115,10 @@ def fixture_params(t):
     }
 
 
-# ---------------------------------------------------------------------- turtle path
+# ---------------------------------------------------------------------- タートル方式の経路
 def _arc(p0, psi0_deg, turn_deg, R, f):
-    """Points on an arc starting at p0 with heading psi0, signed turn (deg, + = CCW), radius R,
-    at fractions f (array).  Zero turn or radius -> all points at p0."""
+    """p0 から方向 psi0 で始まり、符号付き回転角（度、正 = 反時計回り）と半径 R を持つ円弧の、
+    比率 f（配列）に対応する点を返す。回転角または半径がゼロなら全点を p0 とする。"""
     f = np.asarray(f, dtype=np.float64)
     if abs(turn_deg) < 1e-12 or R <= 0:
         return np.repeat(np.asarray(p0, dtype=np.float64)[None, :], f.size, axis=0), psi0_deg
@@ -137,7 +137,7 @@ def _line(p0, psi_deg, L, f):
 
 
 def _piece_list(P):
-    """[(name, kind, value, extra)] with all lengths / radii solved.  Back starts at the hem."""
+    """全長・半径を解いた [(name, kind, value, extra)] を返す。背の経路は裾から始まる。"""
     a_low, a_max = P["a_low"], P["a_max"]
     h = P["h"]
     gained = (P["R_b0"] * (1 - math.cos(math.radians(a_low)))
@@ -155,16 +155,16 @@ def _piece_list(P):
     front = [("F1", "arc", -b, P["R_f1"]), ("F2", "line", P["L_f2"], None),
              ("F3", "arc", -kap, P["r"]), ("F4", "line", P["L_f4"], None),
              ("F5", "arc", (b + kap - 90.0) if over else 0.0, P["R_f5"]),
-             ("F6", "arc", 90.0 if over else (b + kap), None)]     # radius solved while walking
+             ("F6", "arc", 90.0 if over else (b + kap), None)]     # 経路をたどりながら半径を求める
     return back, front, over
 
 
 def profile_points(t, samples=None, dense_ds=None):
-    """Main-section profile at time t.
+    """時刻 t の主断面を返す。
 
-    samples : dict piece -> n (default: the fixed grid counts);  dense_ds : if given, every piece
-    is sampled with about this arc-length spacing instead (for analytic reference curves).
-    -> (pts (N, 2) H units, piece_index (N,) int, info dict with the analytic landmarks)
+    samples : 区間 -> 標本数 n の辞書（既定値は固定格子の標本数）。dense_ds を指定した場合は、
+    各区間をおよそその弧長間隔で標本化する（解析的な参照曲線用）。
+    戻り値: (pts (N, 2) H 単位, piece_index (N,) 整数, 解析的な基準点を含む info 辞書)
     """
     P = fixture_params(t)
     back, front, over = _piece_list(P)
@@ -200,7 +200,7 @@ def profile_points(t, samples=None, dense_ds=None):
             p, psi = q[-1].copy(), psi_n
         return np.concatenate(pts), np.concatenate(ids), ends, p
 
-    # back: walk from a provisional hem at x = 0, then shift so that it ends at the crest
+    # 背: 仮の裾 x = 0 から経路をたどり、終点が峰になるよう平行移動する
     bp, bid, bends, bend = walk(back, (0.0, 0.0), 0.0)
     shift = P["x_c"] - bend[0]
     bp[:, 0] += shift
@@ -208,20 +208,20 @@ def profile_points(t, samples=None, dense_ds=None):
         v["start"][0] += shift
     hem = np.array([[shift, 0.0]])
     crest = np.array([P["x_c"], P["h"]])
-    bp[-1] = crest                                   # exact crest (removes rounding drift)
+    bp[-1] = crest                                   # 峰の正確な位置へ合わせる（丸め誤差のずれを除く）
     fp, fid, fends, _ = walk(front, crest, 0.0)
     fp[-1, 1] = 0.0
     pts = np.concatenate([hem, bp, fp])
     ids = np.concatenate([[0], bid, fid])
 
-    # ---- analytic landmarks
+    # ---- 解析的な基準点
     info = {"params": P, "overhanging": bool(over), "crest": [float(crest[0]), float(crest[1])],
             "theta_pointwise_deg": float(min(P["b"] + P["kappa"], 180.0)),
             "pieces": names, "hem_x": float(shift)}
     if over:
         c3 = fends["F3"]
         a0 = math.radians(c3["psi0"])
-        centre = c3["start"] + P["r"] * np.array([math.sin(a0), -math.cos(a0)])    # right normal (CW arc)
+        centre = c3["start"] + P["r"] * np.array([math.sin(a0), -math.cos(a0)])    # 右向き法線（時計回りの円弧）
         tip = centre + np.array([P["r"], 0.0])
         deep = fends["F6"]["start"]
         info["head_tip"] = [float(tip[0]), float(tip[1])]
@@ -232,7 +232,7 @@ def profile_points(t, samples=None, dense_ds=None):
         info["head_tip"] = None
         info["inner_deepest"] = None
         info["o"] = 0.0
-    info["x_clip_target"] = float(fends["F6"]["start"][0])      # X of the start of F6 (deepest / steepest point)
+    info["x_clip_target"] = float(fends["F6"]["start"][0])      # F6 の始点の X（最深点／最も急な点）
     info["trough_end"] = [float(fp[-1, 0]), 0.0]
     info["x_max"] = float(pts[:, 0].max())
     info["top_side_straight_len"] = float(P["L_f2"])
@@ -249,21 +249,21 @@ def frame_to_t(frame, n_frames=N_FRAMES_DEFAULT):
     return (int(frame) - FRAME_START) / float(max(1, n_frames - 1))
 
 
-# ---------------------------------------------------------------------- contour-json family
+# ---------------------------------------------------------------------- 輪郭 JSON から作る形状群
 def _load_contour_curve(json_path, n_u):
-    """Final pose from a base contour json: concatenated segments, extended to Z = 0 on both
-    ends (straight along the end tangent), resampled to n_u points uniformly in arc length."""
+    """基準輪郭 JSON の区間を連結して最終姿勢を作る。両端を端点の接線に沿って Z = 0 まで
+    直線で延長し、弧長を等分した n_u 点へ再標本化する。"""
     bc = pm.load_base_contour(json_path)
     poly = pm.base_contour_polyline(bc)
     p = poly["pts_H"]
     ext = []
-    # left: continue the first tangent down to Z = 0 (spec section 7b: straight extension)
+    # 左端: 最初の接線を Z = 0 まで下へ延ばす（仕様7bの直線延長）
     k = min(25, len(p) - 1)
     d = p[k] - p[0]
     if p[0, 1] > 1e-6 and d[1] > 1e-9:
         ext.append(p[0] - d * (p[0, 1] / d[1]))
     left = np.array(ext).reshape(-1, 2)
-    # right: continue the last tangent down to Z = 0 when the contour stops above the water
+    # 右端: 輪郭が水面より上で終わる場合、最後の接線を Z = 0 まで下へ延ばす
     right = np.zeros((0, 2))
     if p[-1, 1] > 2e-3:
         d = p[-1] - p[-1 - k]
@@ -281,8 +281,8 @@ def _load_contour_curve(json_path, n_u):
 
 
 def _contour_family_profile(final_pts, t):
-    """Tangent-angle morph from a gentle swell to the given final polyline (fixed sample count).
-    Returns (pts, info).  No analytic landmarks exist in this mode (info has only the basics)."""
+    """接線角の補間により、穏やかなうねりから指定した最終折れ線へ変形する（標本数は固定）。
+    (pts, info) を返す。この方式には解析的な基準点がなく、info には基本情報だけを収める。"""
     n = final_pts.shape[0]
     d = np.diff(final_pts, axis=0)
     ds1 = np.hypot(d[:, 0], d[:, 1])
@@ -302,12 +302,12 @@ def _contour_family_profile(final_pts, t):
     z = np.concatenate([[0.0], np.cumsum(ds * np.sin(psi))])
     s = np.concatenate([[0.0], np.cumsum(ds)])
     z0_final, z1_final = final_pts[0, 1], final_pts[-1, 1]
-    # remove the closing error linearly in arc length (exactly zero change at e = 1)
+    # 弧長に比例させて終点の誤差を除く（e = 1 では変化が厳密にゼロ）
     z_start = e * z0_final
     z_end_target = e * z1_final
     z = z + z_start
     z = z - (z[-1] - z_end_target) * (s / s[-1])
-    # place the crest: x_c(t) from -0.55 to its final position
+    # 峰を配置する: x_c(t) を -0.55 から最終位置へ動かす
     k = int(np.argmax(z))
     x_c_final = final_pts[i_c, 0]
     x = x - x[k] + _lerp(-0.55, x_c_final, e)
@@ -316,11 +316,11 @@ def _contour_family_profile(final_pts, t):
     return np.stack([x, z], axis=1), {"overhanging": None}
 
 
-# ---------------------------------------------------------------------- grid
+# ---------------------------------------------------------------------- 格子
 def v_layout():
-    """-> (y_H (n_v,), stage1 weight q1 (n_v,), z-scale g (n_v,)) for the 'clip' taper."""
+    """'clip' の端部形状用に (y_H (n_v,), 段階1の重み q1 (n_v,), Z 倍率 g (n_v,)) を求める。"""
     inner = Y_CENTER_HALF_H
-    d1 = np.linspace(1.0, 0.5, N_V_STAGE1 + 1)[1:]            # taper coordinate d: 1 inner edge .. 0 outer end
+    d1 = np.linspace(1.0, 0.5, N_V_STAGE1 + 1)[1:]            # 端部を細める座標 d: 内側の端が1、外側の端が0
     d2 = np.linspace(0.5, 0.0, N_V_STAGE2 + 1)[1:]
     d_side = np.concatenate([d1, d2])
     y_side = inner + (1.0 - d_side) * Y_TAPER_H
@@ -332,13 +332,13 @@ def v_layout():
     return y, q1, g, d
 
 
-LIFT_END_D = 0.8        # 'lift_clip': taper coordinate d at which the vertical lift of the underside is complete
+LIFT_END_D = 0.8        # 'lift_clip': 下面の鉛直方向への持上げが完了する端部座標 d
 
 
 def lift_clip_sections(profile_H, x_clip_target, d, g, under_branch=None):
-    """Sections of the 'lift_clip' taper (module docstring).  d, g: taper coordinate and Z scale of every
-    station (v_layout); under_branch: (index of the head tip, index of the deepest point) or None when the
-    profile does not overhang.  -> (X, Z) arrays of shape (n_stations, n_u), H units."""
+    """'lift_clip' の端部断面を求める（モジュールの説明を参照）。d, g は各位置の端部座標と
+    Z 倍率（v_layout）。under_branch は (波頭先端の添字, 最深点の添字) で、張り出しがなければ None。
+    形状 (n_stations, n_u)、H 単位の配列 (X, Z) を返す。"""
     x, z = profile_H[:, 0], profile_H[:, 1]
     z_lift = z.copy()
     if under_branch is not None and int(under_branch[1]) > int(under_branch[0]):
@@ -354,7 +354,7 @@ def lift_clip_sections(profile_H, x_clip_target, d, g, under_branch=None):
         c = x_max - q * (x_max - x_clip_target)
         over = x > c
         if over.any():
-            k = int(np.argmax(x >= c))                 # first sample at / beyond the clip line = top boundary there
+            k = int(np.argmax(x >= c))                 # 切取り線上またはその先の最初の標本が、その位置の上端
             if k > 0 and x[k] > x[k - 1]:
                 z_top = z[k - 1] + (c - x[k - 1]) / (x[k] - x[k - 1]) * (z[k] - z[k - 1])
             else:
@@ -368,8 +368,8 @@ def lift_clip_sections(profile_H, x_clip_target, d, g, under_branch=None):
 
 
 def grid_vertices(profile_H, x_clip_target, taper="clip", H=11.0, under_branch=None):
-    """World-space vertices (n_v * n_u, 3) of the swept grid for one profile (H units).
-    under_branch is only used by taper 'lift_clip' (see lift_clip_sections)."""
+    """一つの断面（H 単位）を展開した格子のワールド座標頂点 (n_v * n_u, 3) を返す。
+    under_branch は端部方式 'lift_clip' だけで使う（lift_clip_sections を参照）。"""
     y, q1, g, d = v_layout()
     X = profile_H[:, 0][None, :].repeat(y.size, axis=0)
     Z = profile_H[:, 1][None, :].repeat(y.size, axis=0)
@@ -404,12 +404,12 @@ def grid_triangles(n_u, n_v):
 
 
 class SyntheticWave:
-    """Profile family + grid, independent of Blender (numpy only).
+    """Blender に依存しない断面形状群と格子。numpy のみを使う。
 
         sw = SyntheticWave(n_frames=31, taper='clip', H=11.0, profile_json=None, u_mult=1)
-        verts = sw.vertices(frame)            # (n_v * n_u, 3) world coords
+        verts = sw.vertices(frame)            # (n_v * n_u, 3) ワールド座標
         tris  = sw.triangles                  # (M, 3)
-        info  = sw.analytic(frame)            # known landmarks (None entries in profile-json mode)
+        info  = sw.analytic(frame)            # 既知の基準点（輪郭 JSON 方式では None の項目がある）
     """
 
     def __init__(self, n_frames=N_FRAMES_DEFAULT, taper="clip", H=11.0, profile_json=None, u_mult=1):
@@ -450,12 +450,12 @@ class SyntheticWave:
 
     @staticmethod
     def under_branch(pts, ids, info):
-        """(index of the head tip, index of the deepest point) for taper 'lift_clip'; None = no overhang."""
+        """端部方式 'lift_clip' 用の (波頭先端の添字, 最深点の添字)。None は張り出しなしを表す。"""
         if info.get("under_branch") is not None:
             return info["under_branch"]
         if ids is None or not info.get("overhanging") or not info.get("piece_ranges"):
             return None
-        a, b = info["piece_ranges"]["F3"]                      # analytic family: the cap arc holds the tip
+        a, b = info["piece_ranges"]["F3"]                      # 解析的な形状群では先端円弧に波頭先端が含まれる
         return [a + int(np.argmax(pts[a:b + 1, 0])), int(info["piece_ranges"]["F5"][1])]
 
     def vertices(self, frame):
@@ -484,11 +484,11 @@ class SyntheticWave:
         return u, v
 
 
-# ---------------------------------------------------------------------- Blender object
+# ---------------------------------------------------------------------- Blender オブジェクト
 def build_object(scene=None, n_frames=N_FRAMES_DEFAULT, taper="clip", H=11.0, profile_json=None,
                  name="SyntheticWave", u_mult=1, animate=True):
-    """Create the mesh object with UVs, vertex group 'crest_rim' and one shape key per frame
-    (key k is 1 exactly on scene frame FRAME_START + k).  -> (object, SyntheticWave)"""
+    """UV、頂点グループ 'crest_rim'、フレームごとのシェイプキーを持つメッシュオブジェクトを作る。
+    キー k はシーンの FRAME_START + k フレームで厳密に1となる。(object, SyntheticWave) を返す。"""
     import bpy
     scene = scene or bpy.context.scene
     sw = SyntheticWave(n_frames, taper, H, profile_json, u_mult)
@@ -496,7 +496,7 @@ def build_object(scene=None, n_frames=N_FRAMES_DEFAULT, taper="clip", H=11.0, pr
     me = bpy.data.meshes.new(name)
     me.from_pydata(v0.tolist(), [], sw.faces.tolist())
     me.update()
-    # UV: U along the final-pose arc length, V along Y
+    # UV: U は最終姿勢の弧長方向、V は Y 方向
     u, v = sw.uv()
     uvl = me.uv_layers.new(name="UVMap")
     loop_vi = np.empty(len(me.loops), np.int32)
@@ -534,15 +534,15 @@ def build_object(scene=None, n_frames=N_FRAMES_DEFAULT, taper="clip", H=11.0, pr
     return obj, sw
 
 
-# ---------------------------------------------------------------------- contour json export
+# ---------------------------------------------------------------------- 輪郭 JSON の書出し
 def export_contour_json(path=SYNTHETIC_CONTOUR_JSON, occluded_below_z=0.12, F=None):
-    """Write the analytic FINAL profile in the base-contour schema 'gw.base_contour.v1'.
-    The lowest part of the inner arc (Z < occluded_below_z) is flagged 'completed_occluded'
-    (in_S7 = false) to exercise the exclusion logic of S7."""
+    """解析的な最終断面を基準輪郭の形式 'gw.base_contour.v1' で書き出す。
+    内側の弧の低い部分（Z < occluded_below_z）に 'completed_occluded' を付けて
+    in_S7 = false とし、S7 の除外処理を検証する。"""
     F = F or gw_frame.get_frame()
     dense, _ids, info = profile_points(1.0, dense_ds=2e-4)
     C = pm.Curve(dense)
-    # clip at the left frame edge
+    # 画面の左端で切り取る
     i0 = int(np.nonzero(C.pts[:, 0] >= F.x_left)[0][0])
     s_left = np.interp(F.x_left, C.pts[i0 - 1:i0 + 1, 0], C.s[i0 - 1:i0 + 1])
     m = pm.measure_profile(dense)
@@ -558,7 +558,7 @@ def export_contour_json(path=SYNTHETIC_CONTOUR_JSON, occluded_below_z=0.12, F=No
 
     segs = [seg("back", "背", s_left, s_c), seg("head", "波頭", s_c, s_t),
             seg("inner_arc", "内側の弧", s_t, s_e)]
-    # exact analytic joints
+    # 解析的に求めた正確な接合点
     segs[0][2][-1] = info["crest"]
     segs[1][2][0] = info["crest"]
     segs[1][2][-1] = info["head_tip"]
@@ -611,7 +611,7 @@ def export_contour_json(path=SYNTHETIC_CONTOUR_JSON, occluded_below_z=0.12, F=No
     return doc
 
 
-# ---------------------------------------------------------------------- CLI
+# ---------------------------------------------------------------------- コマンド行からの実行
 def main():
     ap = argparse.ArgumentParser(description="build the synthetic test wave")
     ap.add_argument("--frames", type=int, default=N_FRAMES_DEFAULT)

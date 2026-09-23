@@ -1,11 +1,11 @@
 {
   "schema": "gw.base_contour.v1",
   "official": true,
-  "built_by": "src/contour/build_base_contour.py (judge / merge of candidates A and B)",
-  "note_large_form_decision": "FINGER-SCALE reference contour (single hook claws removed, foam lobes kept). Until 2026-09-20 this was target/base_contour.json. Since the orchestrator's large-form decision (to be confirmed by the user) the OFFICIAL S5/S7/S8 target is target/base_contour.json = the LARGE-FORM contour derived from this file by src/contour/build_large_form.py; this file stays the reference for later claw / foam placement. The key 'official' below is the judge's original flag and is kept unchanged; geometry and all other keys are unchanged. Rebuilt by src/contour/build_base_contour.py (which writes this path now).",
+  "built_by": "src/contour/build_base_contour.py（候補 A と B の判定・統合）",
+  "note_large_form_decision": "指状尺度の参照輪郭（個々の鉤爪を除去し、泡沫のふくらみを保持）。2026-09-20 までは target/base_contour.json だった。大形を採用する統括担当の判断（ユーザーの確認待ち）以後、正式な S5/S7/S8 の目標は、このファイルから src/contour/build_large_form.py で導いた大形輪郭 target/base_contour.json となった。このファイルは後の爪・泡沫配置の参照として残す。下の 'official' キーは判定担当の元のフラグであり変更しない。形状と他の全キーも維持する。src/contour/build_base_contour.py は現在このパスへ再構築結果を書く。",
   "variant": {
     "back_left_variant": "white_body_outline",
-    "note": "NEEDS USER CONFIRMATION - see docs/base_contour_report.md section 1"
+    "note": "ユーザーの確認が必要。docs/base_contour_report.md の第1節を参照"
   },
   "pending_user_confirmation": [
     "back_left_variant"
@@ -21,7 +21,7 @@
         -0.861042,
         -0.666361
       ],
-      "selector": "points of segment 'back' with x_range_px[0] <= x_px <= x_range_px[1] (same as x_range_H on points_H[:, 0])",
+      "selector": "区間 'back' の点のうち x_range_px[0] <= x_px <= x_range_px[1] を満たすもの（points_H[:, 0] に対する x_range_H と同じ）",
       "index_range": [
         0,
         190
@@ -32,8 +32,8 @@
         "offset_from_visible_edge": 191
       },
       "in_S7": true,
-      "x_range_taken_from": "flag offset_from_visible_edge of the white_body_outline contour built in the same run",
-      "what": "left end of the back below the fork of the back's outline at about (337, 894) px. white_body_outline reading: NO ink line is drawn there, the line is CONSTRUCTED (flag offset_from_visible_edge = visible white-body edge shifted outwards by the measured ink-line width); sky_silhouette reading: the traced top edge of the dark-blue band. The two readings differ by up to 7.1 % of image height on this stretch (judge's measurement, base_contour_params.json back_left_variant). The stretch stays in_S7 = true; tests should report S7 for it SEPARATELY until the user has confirmed the reading (docs/base_contour_report.md section 2 and 12)."
+      "x_range_taken_from": "同じ実行で構築した white_body_outline 輪郭の offset_from_visible_edge フラグ",
+      "what": "約 (337, 894) px の波背輪郭の分岐より下にある背の左端。white_body_outline の読み方ではインク線はなく、見える白い胴体の縁を実測したインク線幅だけ外へずらして線を構築する（offset_from_visible_edge フラグ）。sky_silhouette の読み方では濃青の帯の上縁を追跡する。この区間で両者は画像高の最大 7.1 % 異なる（判定担当の測定、base_contour_params.json の back_left_variant）。in_S7 = true は維持するが、ユーザーが読み方を確認するまではこの区間の S7 を別に報告する（docs/base_contour_report.md の第2・12節）。"
     }
   },
   "image": {
@@ -50,15 +50,15 @@
     "x_left_H": -0.861042,
     "z_top_H": 1.131818
   },
-  "order": "left frame edge -> crest -> head tip -> inner arc -> trough",
+  "order": "画面左端 -> 波頂 -> 波頭の先 -> 内側円弧 -> 谷",
   "sample_spacing_px": 2.0,
-  "contour_definition": "outer (sky-side) edge of the ink outline of the great wave at the half level between sky and ink; claws and spray removed at finger scale (rolling ball R = 40 px from the body side), every stretch the ball changed is bridged by the chord between its two end points (flag claw_root_bridge = ball-smoothed; not every run is a claw root, see source_flags); below the fork of the back's outline at (337, 894) NO ink line is drawn: there the line is CONSTRUCTED = the visible white-body edge shifted outwards by the measured ink-line width (white_body_outline reading, flag offset_from_visible_edge, pending user confirmation); hidden part completed by a tangent-continuous parabola to Z = 0 (in_S7 = false)",
+  "contour_definition": "空とインクの中間値にある大波のインク輪郭の外縁（空側）。指状尺度で爪と飛沫を除去し（胴体側から半径 R = 40 px の球を転がす）、球が変えた各区間の両端を弦でつなぐ（claw_root_bridge = 球で平滑化した区間。すべてが爪の根元とは限らず source_flags を参照）。(337, 894) の波背輪郭の分岐より下にインク線はないため、見える白い胴体の縁を実測インク線幅だけ外へずらして構築する（white_body_outline の読み方、offset_from_visible_edge、ユーザーの確認待ち）。隠れた部分は接線が連続する放物線で Z = 0 まで補完する（in_S7 = false）",
   "source_flags": {
-    "traced": "outer (sky-side) half-level edge of a DRAWN ink line of the painting, traced (sub-pixel)",
-    "offset_from_visible_edge": "CONSTRUCTED, not traced: no ink line is drawn there. Left end of the back in the white_body_outline reading (below the fork of the back's outline): the VISIBLE white-body edge (white / dark-blue boundary) shifted outwards by the ink-line width measured above the fork (provenance.build_info.left_end.outward_offset_px). in_S7 = true; the stretch depends on the pending decision 'back_left_variant' (see pending_stretches)",
-    "claw_root_bridge": "ball-smoothed; includes ink-width bumps, not every run is a claw root. The flag marks EVERY stretch where the rolling ball (morphological opening from the body side, candidate B) moved the raw silhouette by more than its tolerance (src/contour/method_b_core.py label_and_bridge); the stretch is replaced by the chord between its two end points. in_S7 = true",
-    "completed_occluded": "hidden behind the near wave, completed by extrapolation (in_S7 = false)",
-    "completed_other": "visible sea patch without a drawn wave face, completed by extrapolation (in_S7 = false)"
+    "traced": "原画に描かれたインク線の、空との中間値にある外縁（空側）を画素未満の精度で追跡した点",
+    "offset_from_visible_edge": "追跡ではなく構築。ここにはインク線がない。white_body_outline の読み方による背の左端（波背輪郭の分岐より下）では、見える白い胴体の縁（白と濃青の境界）を、分岐の上で実測したインク線幅だけ外へずらす（provenance.build_info.left_end.outward_offset_px）。in_S7 = true。区間は未確認の判断 'back_left_variant' に依存する（pending_stretches を参照）",
+    "claw_root_bridge": "球による平滑化。インク線幅の凹凸も含むため、すべての区間が爪の根元とは限らない。このフラグは、胴体側からのモルフォロジーのオープニング（候補 B）が生の輪郭を許容差を超えて動かした全区間を示す（src/contour/method_b_core.py の label_and_bridge）。区間を両端間の弦で置換する。in_S7 = true",
+    "completed_occluded": "手前の波に隠れた部分を外挿で補完（in_S7 = false）",
+    "completed_other": "波面が描かれていない可視海面を外挿で補完（in_S7 = false）"
   },
   "segments": [
     {
@@ -27016,7 +27016,7 @@
         38.22,
         8.618
       ],
-      "definition": "highest point of the base contour: argmin(y) of a copy smoothed with sigma = 0.5 % of image height (flat top, see remeasure.S1)",
+      "definition": "基礎輪郭の最高点。画像高の 0.5 % を sigma として平滑化した複製の argmin(y)（頂部が平坦であり remeasure.S1 を参照）",
       "strict_highest_px": [
         1480.9133986824745,
         223.52761539868246
@@ -27040,7 +27040,7 @@
         30.266
       ],
       "direction_deg": -45.8,
-      "direction_definition": "principal axis (largest second moment of area, exact polygon moments) of the OVERHANG = area enclosed by the base contour on the boat side of the plumb line through the inner-arc deepest point (top side -> head tip -> underside -> inner arc down to the deepest point, closed by that plumb line); 0 deg = +X, negative = pointing below the horizontal. Same definition as both candidates (A: -46.2, B: -45.8). Local definitions are unstable on the blunt, lobed head: see direction_alternatives_deg; the test library's phi (top-side chord 2..8 % H before the tip) is one of them.",
+      "direction_definition": "張り出し領域の主軸（厳密な多角形モーメントによる最大断面二次モーメント）。領域は内側円弧の最深点を通る鉛直線の船側で基礎輪郭に囲まれる部分（上側 -> 波頭の先 -> 下面 -> 最深点までの内側円弧を鉛直線で閉じる）。0 deg = +X、負は水平より下向き。両候補と同じ定義（A: -46.2、B: -45.8）。丸くふくらむ波頭では局所定義が不安定になるため direction_alternatives_deg を参照する。検査ライブラリの phi（先端の 2..8 % H 手前の上側の弦）も局所定義の一つ。",
       "direction_alternatives_deg": {
         "crest_to_tip": -36.77,
         "top_side_chord_2_to_8pctH_before_tip (gw.profile_metrics phi)": 5.41,
@@ -27062,7 +27062,7 @@
         39.558,
         46.922
       ],
-      "definition": "left-most point of the visible inner arc: argmin(x) of the smoothed copy (near-vertical run, see remeasure.S2)",
+      "definition": "見える内側円弧の最左点。平滑化した複製の argmin(x)（ほぼ鉛直の区間であり remeasure.S2 を参照）",
       "strict_leftmost_px": [
         1526.51836613545,
         1213.1481809528946
@@ -27075,7 +27075,7 @@
     "trough_level": {
       "y_px": 1937.718,
       "top_pct": 74.7,
-      "note": "Z = 0 of the frame definition (crest_top_pct + height_pct). NOT measurable in the painting: the trough under the head is hidden by the near wave; the top edge of the visible sea patch right of the near wave was measured at 73.01 % from the top (candidate B estimates the lower end of that patch at about 76.7 %), so 74.7 % lies inside the patch but on no drawn feature"
+      "note": "画枠定義の Z = 0（crest_top_pct + height_pct）。原画では測定できない。波頭の下の谷は手前の波に隠れている。手前の波の右側の見える海面領域の上縁は上から 73.01 % と測定された（候補 B はその領域の下端を約 76.7 % と推定）。したがって 74.7 % は領域内にあるが、描かれた特徴には対応しない"
     },
     "claw_rightmost": {
       "px": [
@@ -27090,7 +27090,7 @@
         59.291,
         33.057
       ],
-      "how": "right-most column with >= 3 ink pixels (R-B < -8) inside the window [2230, 800, 2330, 920]; y = mean row of the ink pixels of that column; x refined to the luma half level between ink and sky along that row"
+      "how": "窓 [2230, 800, 2330, 920] 内でインク画素（R-B < -8）が >= 3 個ある最右列。y はその列のインク画素の平均行。x はその行のインクと空の輝度中間値まで精密化する"
     },
     "inner_arc_visible_end": {
       "px": [
@@ -27145,7 +27145,7 @@
       ],
       "plateau_width_pct_h": 5.002,
       "plateau_centre_left_pct": 37.21,
-      "how": "argmin(y) of the base contour smoothed with sigma 0.5 % of image height; plateau = contour within 2 px of the top row"
+      "how": "画像高の 0.5 % を sigma として平滑化した基礎輪郭の argmin(y)。平坦部は最上行から 2 px 以内の輪郭"
     },
     "S2": {
       "spec_pct": [
@@ -27169,7 +27169,7 @@
         45.963,
         47.881
       ],
-      "how": "argmin(x) of the smoothed visible inner arc (sky / belly boundary, outer edge of its ink line)"
+      "how": "平滑化した可視内側円弧の argmin(x)（空と波腹の境界にあるインク線の外縁）"
     },
     "S3": {
       "spec": {
@@ -27192,7 +27192,7 @@
       "diff_pct_h_if_that_edge_were_the_trough": -1.6031996915959894,
       "diff_pct_h_with_frame_Z0": 0.08215111796454266,
       "reliable": false,
-      "how": "The trough is hidden; only the top edge of the visible dark sea patch can be measured (first run of >= 6 px with R-B < -8 below y = 1750 in every column of s3_sea_columns_px). The frame keeps Z = 0 at 74.7 %."
+      "how": "谷は隠れているため、見える濃い海面領域の上縁だけを測定できる（s3_sea_columns_px の各列で y = 1750 より下にある、R-B < -8 を満たす >= 6 px の最初の連続区間）。画枠は Z = 0 を 74.7 % に維持する。"
     },
     "S4": {
       "spec_deg": {
@@ -27258,7 +27258,7 @@
         "mid_max(2 % chord)": 6.89,
         "before_crest(chord 8..3 %)": 2.26
       },
-      "how": "chord directions on the back segment (arclength windows in % of image height), same windows as gw.profile_metrics; angles cannot be expressed in % of image height"
+      "how": "背の区間における弦の方向（弧長窓は画像高に対する %）。gw.profile_metrics と同じ窓を用いる。角度は画像高に対する % では表せない"
     },
     "S5": {
       "px": [
@@ -27303,7 +27303,7 @@
         857.5
       ],
       "subpixel_ok": true,
-      "how": "right-most column with >= 3 ink pixels (R-B < -8) inside the window [2230, 800, 2330, 920]; y = mean row of the ink pixels of that column; x refined to the luma half level between ink and sky along that row",
+      "how": "窓 [2230, 800, 2330, 920] 内でインク画素（R-B < -8）が >= 3 個ある最右列。y はその列のインク画素の平均行。x はその行のインクと空の輝度中間値まで精密化する",
       "pct": [
         59.29052981296442,
         33.057054741711646
@@ -27315,7 +27315,7 @@
       "final_head_tip_is_left_of_it_by_pct_h": 2.37330553131445
     },
     "items_differing_from_spec_by_more_than_1pct_of_image_height": [
-      "S3 (visible sea top edge 1.6 % above the spec trough level; NOT a reliable trough measurement)"
+      "S3（見える海面の上縁は仕様の谷水位より 1.6 % 上。信頼できる谷の測定ではない）"
     ]
   },
   "head_thickness_claws_removed": {
@@ -27435,7 +27435,7 @@
         400,
         1090
       ],
-      "note": "which branch is the back (see back_left_variant); up to 7.1 % of image height between the readings"
+      "note": "どちらの枝を背と読むか（back_left_variant を参照）。読み方による差は画像高の最大 7.1 %"
     },
     {
       "id": "D2_crest_plateau",
@@ -27445,7 +27445,7 @@
         1510,
         235
       ],
-      "note": "flat top 5.3 % of image height wide: crest x is ill-conditioned"
+      "note": "頂部の平坦区間は画像高の 5.3 % の幅を持ち、波頂 x は不安定"
     },
     {
       "id": "D3_hook_claws_vertical_face",
@@ -27455,7 +27455,7 @@
         1900,
         615
       ],
-      "note": "three chords across hook-claw roots; root points move about +-10 px with the rolling-ball radius"
+      "note": "鉤爪の根元を横切る3本の弦。根元位置は転がす球の半径により約 +-10 px 動く"
     },
     {
       "id": "D4_pocket_lobe3_lobe4",
@@ -27465,7 +27465,7 @@
         2150,
         790
       ],
-      "note": "claw / curl cluster at the end of the third lobe: three defensible readings within about 1.5 % of image height"
+      "note": "第3のふくらみの末端にある爪・巻きの集まり。画像高の約 1.5 % 以内に、妥当と考えられる3通りの読み方がある"
     },
     {
       "id": "D5_tip_lobe",
@@ -27475,7 +27475,7 @@
         2240,
         845
       ],
-      "note": "fourth (tip) lobe; the head tip sits on a bridge from the lobe top (2197, 757) across the root of the right-most claw to (2215, 835); the drawn rounded end of the lobe (outline stroke ending at (2225, 775), short stroke at x 2229..2234, y 782..800) lies up to 7 px (0.27 %) OUTSIDE the chord, so the tip is uncertain by about (+0.3, +-0.5) % at finger scale; a larger claw scale (R >= 55) removes the whole lobe and moves the tip by (-1.4, +2.6) %"
+      "note": "第4の先端側のふくらみ。波頭の先は、ふくらみの上端 (2197, 757) から最右の爪の根元を横切って (2215, 835) へ結ぶ線上にある。描かれた丸い末端（(2225, 775) で終わる輪郭線と x 2229..2234、y 782..800 の短い線）は弦の外側へ最大 7 px（0.27 %）出る。このため指状尺度では先端に約 (+0.3, +-0.5) % の不確かさがある。爪除去の尺度を大きくすると（R >= 55）、ふくらみ全体が除去され先端は (-1.4, +2.6) % 動く"
     },
     {
       "id": "D6_right_flank_and_underside",
@@ -27485,7 +27485,7 @@
         2230,
         1105
       ],
-      "note": "almost all claws: the contour alternates between notch tops (traced) and chords across claw roots"
+      "note": "ほぼ全域が爪に相当し、輪郭は切込みの頂点（追跡点）と爪の根元間の弦を交互に通る"
     },
     {
       "id": "D7_inner_arc_lower_end",
@@ -27495,7 +27495,7 @@
         1850,
         1770
       ],
-      "note": "wiggle of the hand-drawn line; last 35 px sliver where the outlines of great wave and near wave merge is not used"
+      "note": "手描き線の揺れ。大波と手前の波の輪郭が合流する末尾 35 px の細い区間は使用しない"
     },
     {
       "id": "D8_completion",
@@ -27505,7 +27505,7 @@
         2200,
         1945
       ],
-      "note": "pure extrapolation (in_S7 = false)"
+      "note": "外挿のみ（in_S7 = false）"
     },
     {
       "id": "D10_kink_after_crest",
@@ -27515,7 +27515,7 @@
         1620,
         297
       ],
-      "note": "real corner of the drawn outline (about 51 deg at 1 % sample spacing) where the outline of the crest dome runs into the foam and the first scallop of the head starts; 5.2 % of image height (arclength) after the crest"
+      "note": "波頂の丸い輪郭が泡沫へ入り、波頭の最初のふくらみが始まる、実際に描かれた角（標本間隔 1 % で約 51 deg）。波頂から弧長で画像高の 5.2 % 先"
     },
     {
       "id": "D9_trough_level",
@@ -27525,7 +27525,7 @@
         2300,
         1995
       ],
-      "note": "Z = 0 (74.7 %) cannot be tied to a drawn feature; visible sea patch spans about 73.0..76.7 %"
+      "note": "Z = 0（74.7 %）に対応する描線上の特徴はない。見える海面の領域は約 73.0..76.7 % に広がる"
     }
   ],
   "provenance": {

@@ -1,10 +1,10 @@
 {
   "schema": "gw.base_contour.v1",
-  "candidate": "B (outline-based)",
+  "candidate": "B（輪郭線に基づく方法）",
   "variant": {
     "back_left_variant": "white_body_outline",
     "selected_in_params": false,
-    "note": "Two readings of the back left of x = 335 px exist; see docs/records/step1_contour_b.md. The user has to decide."
+    "note": "x = 335 px より左の背には二つの読み方がある。docs/records/step1_contour_b.md を参照。ユーザーによる選択が必要。"
   },
   "image": {
     "path": "C:/Users/wang6/Pictures/Saved Pictures/Tsunami_by_hokusai_19th_century.jpg",
@@ -20,9 +20,9 @@
     "x_left_H": -0.861042,
     "z_top_H": 1.131818
   },
-  "order": "left frame edge -> crest -> head tip -> inner arc -> trough",
+  "order": "画面左端 -> 波頂 -> 波頭の先 -> 内側円弧 -> 谷",
   "sample_spacing_px": 2.0,
-  "contour_definition": "outer (sky side) edge of the ink outline at half level between sky and ink; claws removed with a rolling ball (R = 40 px) from the body side, claw-root points joined by chords, then Gaussian smoothing (traced 3 px, bridges 10 px)",
+  "contour_definition": "空とインクの中間値にあるインク輪郭の外縁（空側）。胴体側から球（R = 40 px）を転がして爪を除き、根元間を弦で結び、ガウス平滑化を行う（追跡部分 3 px、接続部分 10 px）",
   "segments": [
     {
       "name": "back",
@@ -26998,7 +26998,7 @@
         38.204214787384124,
         8.617941322662256
       ],
-      "definition": "highest point of the base contour (argmin y of a copy smoothed with sigma 0.5 % of image height); flat top: see remeasure.S1 for the plateau"
+      "definition": "基礎輪郭の最高点（画像高の 0.5 % を sigma として平滑化した複製の argmin y）。頂部の平坦区間は remeasure.S1 を参照"
     },
     "head_tip": {
       "px": [
@@ -27014,7 +27014,7 @@
         30.243068471057388
       ],
       "direction_deg": -45.79622238637707,
-      "direction_definition": "principal axis (largest second moment of area) of the OVERHANG = area enclosed by the base contour on the boat side of the vertical through the inner-arc deepest point (top side -> head tip -> underside -> inner arc down to the deepest point, closed by that vertical); 0 deg = +X, negative = pointing below the horizontal. Robust against lobes and claw-removal details because it uses the whole area."
+      "direction_definition": "張り出し領域の主軸（最大断面二次モーメント）。領域は内側円弧の最深点を通る鉛直線の船側で基礎輪郭に囲まれる部分（上側 -> 波頭の先 -> 下面 -> 最深点までの内側円弧を鉛直線で閉じる）。0 deg = +X、負は水平より下向き。面積全体を使うため、ふくらみや爪除去の細部に左右されにくい。"
     },
     "inner_deepest": {
       "px": [
@@ -27033,7 +27033,7 @@
     "trough_level": {
       "y_px": 1937.718,
       "top_pct": 74.7,
-      "note": "Z = 0 of the frame definition (crest_top_pct + height_pct); NOT re-measured, see remeasure.S3"
+      "note": "画枠定義の Z = 0（crest_top_pct + height_pct）。再測定値ではなく remeasure.S3 を参照"
     },
     "claw_rightmost": {
       "px": [
@@ -27062,7 +27062,7 @@
         47.22396865149146,
         67.68428495314282
       ],
-      "note": "last point where the wave side of the boundary is blue; beyond it the boundary belongs to the near wave"
+      "note": "境界の波側が青い最後の点。これより先の境界は手前の波に属する"
     },
     "completion_end": {
       "px": [
@@ -27120,7 +27120,7 @@
         ]
       ],
       "plateau_width_pct_h": 5.287038015922595,
-      "how": "highest point of the de-clawed, sub-pixel refined outer outline edge: argmin(y) of a copy smoothed with sigma = landmark_sigma_pct_h; the top is nearly flat, so the stretch within 0.1 % of image height of the strict top and the strict argmin are reported too",
+      "how": "爪を除去して画素未満まで精密化した外縁の最高点。sigma = landmark_sigma_pct_h で平滑化した複製の argmin(y)。頂部はほぼ平坦なため、厳密な最上点から画像高の 0.1 % 以内の区間と、厳密な argmin も報告する",
       "plateau_within_2px_x_range_px": [
         1370.7609149328666,
         1501.0979012761736
@@ -27165,13 +27165,13 @@
         ]
       ],
       "plateau_height_pct_h": 2.0970950438155866,
-      "how": "left-most point of the traced boundary between the blue concave face and the sky (outer edge of its outline): argmin(x) of a copy smoothed with sigma = landmark_sigma_pct_h; the boundary is nearly vertical there, so the stretch within 0.1 % of image height of the strict minimum is reported too"
+      "how": "青い凹面と空の間で追跡した境界の最左点（輪郭線の外縁）。sigma = landmark_sigma_pct_h で平滑化した複製の argmin(x)。ここでは境界がほぼ鉛直なため、厳密な最小値から画像高の 0.1 % 以内の区間も報告する"
     },
     "S3": {
       "spec_height_pct": 66.0,
       "spec_trough_top_pct": 74.7,
       "spec_trough_y_px": 1937.718,
-      "feature": "top edge (far edge / horizon) of the dark blue sea patch visible between the near wave flank and the boat bow, columns x = 2010..2080",
+      "feature": "手前の波の側面と船首の間に見える濃青の海面領域の上縁（奥側の縁・水平線）。列 x = 2010..2080",
       "sea_top_edge_y_px": {
         "median": 1894.0,
         "min": 1890.0,
@@ -27182,13 +27182,13 @@
       "height_pct_if_sea_top_edge_is_trough": 64.39670786777721,
       "diff_from_spec_pct_h": -1.6032921322227907,
       "reliable": false,
-      "how": "first non-sky pixel below y = 1700 in every column of the gap-closed sky region. The trough floor itself is hidden by the near wave and the boat; the visible sea patch spans from this edge down to about y = 1990 (76.7 %), the spec level 74.7 % (y = 1937.7) lies inside the patch and cannot be tied to a drawn feature."
+      "how": "隙間を閉じた空領域の各列で、y = 1700 より下にある最初の空以外の画素。谷底自体は手前の波と船に隠れる。見える海面領域はこの縁から約 y = 1990（76.7 %）まで広がり、仕様水位 74.7 %（y = 1937.7）は領域内にあるが、描かれた特徴には対応しない。"
     },
     "S4": {
       "smoothing_sigma_px": 12.97,
       "window_px": 51.88,
       "left_end_deg": 10.829406288512176,
-      "left_end_definition": "mean tangent angle over the first 52 px of arclength from the left frame edge",
+      "left_end_definition": "画面左端から弧長 52 px の最初の区間の平均接線角",
       "min_before_steepest_deg": 7.632842049507534,
       "min_before_steepest_at_px": [
         0.0,
@@ -27210,7 +27210,7 @@
         "5_pct_h_before_crest": 17.997727619993867,
         "8_pct_h_before_crest": 4.103319812829035
       },
-      "before_crest_definition": "mean tangent angle in a 52 px window centred d before the crest (arclength)",
+      "before_crest_definition": "波頂の弧長 d 手前を中心とする 52 px 窓の平均接線角",
       "mid_is_steepest": true,
       "flattens_towards_crest_max_increase_deg": 19.737008264518074,
       "slope_table": [
@@ -27661,7 +27661,7 @@
         "smoothing_sigma_px": 77.82,
         "window_px": 103.76,
         "left_end_deg": 18.9923035145719,
-        "left_end_definition": "mean tangent angle over the first 104 px of arclength from the left frame edge",
+        "left_end_definition": "画面左端から弧長 104 px の最初の区間の平均接線角",
         "min_before_steepest_deg": 17.06444429185257,
         "min_before_steepest_at_px": [
           0.0,
@@ -27683,7 +27683,7 @@
           "5_pct_h_before_crest": 7.692475730971246,
           "8_pct_h_before_crest": 9.395367951490039
         },
-        "before_crest_definition": "mean tangent angle in a 104 px window centred d before the crest (arclength)",
+        "before_crest_definition": "波頂の弧長 d 手前を中心とする 104 px 窓の平均接線角",
         "mid_is_steepest": true,
         "flattens_towards_crest_max_increase_deg": 1.184290233264079,
         "slope_table": [
@@ -28136,7 +28136,7 @@
         "mid_max": 47.0,
         "before_crest": 8.0
       },
-      "how": "tangent angle of the back (outer outline edge) on a Gaussian-smoothed copy; 'fine' = sigma 0.5 % of image height, window 2 %; 'coarse_scale' = sigma 3 %, window 4 %. The spec does not say where and over which length its three angles were taken, so profiles and tables are given instead of one number."
+      "how": "ガウス平滑化した複製上の背の接線角（輪郭線の外縁）。'fine' は sigma が画像高の 0.5 %、窓が 2 %。'coarse_scale' は sigma が 3 %、窓が 4 %。仕様は三つの角度をどの位置・長さで測ったかを示していないため、単一値ではなく分布と表を示す。"
     },
     "S6": {
       "spec_pct": [
@@ -28168,7 +28168,7 @@
       "dy_pct_h": 0.018504240555123536,
       "overhang_pct_H_from_measured_crest": 47.53074414275276,
       "crest_to_claw_direction_deg": -37.87663098636481,
-      "how": "right-most vertex of the ordered sky boundary WITH claws (y < 1400), refined to the half level of the outer outline edge on that row"
+      "how": "爪を含む順序付きの空境界の最右頂点（y < 1400）。同じ行の輪郭外縁の中間値まで精密化する"
     },
     "S5": {
       "head_tip_px": [
@@ -28188,7 +28188,7 @@
         784.5051961392286
       ],
       "direction_deg": -45.79622238637707,
-      "direction_definition": "principal axis (largest second moment of area) of the OVERHANG = area enclosed by the base contour on the boat side of the vertical through the inner-arc deepest point (top side -> head tip -> underside -> inner arc down to the deepest point, closed by that vertical); 0 deg = +X, negative = pointing below the horizontal. Robust against lobes and claw-removal details because it uses the whole area.",
+      "direction_definition": "張り出し領域の主軸（最大断面二次モーメント）。領域は内側円弧の最深点を通る鉛直線の船側で基礎輪郭に囲まれる部分（上側 -> 波頭の先 -> 下面 -> 最深点までの内側円弧を鉛直線で閉じる）。0 deg = +X、負は水平より下向き。面積全体を使うため、ふくらみや爪除去の細部に左右されにくい。",
       "overhang_centroid_px": [
         1803.5949952539597,
         698.0077301519353
@@ -28201,7 +28201,7 @@
         "crest_to_tip": -36.71467734144173,
         "centre_line_5_to_20_pct_H_behind_tip": 30.70419951582819
       },
-      "direction_alternatives_note": "The painted head (claws removed) is a thick blob whose right flank is nearly vertical; its right-most point sits at the UPPER end of that flank, so local definitions (top-side chord, centre line of equal-arclength pairs) give unstable, even upward values. They are listed for transparency only.",
+      "direction_alternatives_note": "爪を除いた原画の波頭は右側面がほぼ鉛直の厚い塊で、その最右点は側面の上端にある。このため局所定義（上側の弦、等弧長の対応点の中心線）は不安定で、上向きの値になる場合もある。透明性のためだけに列挙する。",
       "crest_to_tip_direction_deg": -36.71467734144173,
       "overhang_pct_H": 43.9345888356381,
       "tip_relative_to_S6_spec_pct_h": [

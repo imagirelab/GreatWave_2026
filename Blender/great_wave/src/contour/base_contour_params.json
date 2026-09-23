@@ -13,11 +13,11 @@
   },
   "candidate_sha256_expected": {
     "value": {
-      "A": "A796F50B",
-      "B": "65F5418D",
-      "B_alt": "4931690E"
+      "A": "13638117",
+      "B": "AD8FF240",
+      "B_alt": "AA536773"
     },
-    "comment": "2026-09-20 に目視判定した候補ファイルの SHA-256 の先頭 8 桁（各候補の記録から取得）。不一致自体は警告のみ。ただし以下の判定が古くなっている可能性があり、A と B の差が judge_threshold_pct_h を超えるのに判定領域がない場合、スクリプトは失敗する。"
+    "comment": "2026-09-24 に説明文を日本語化した現行候補ファイル（UTF-8、LF）の SHA-256 の先頭 8 桁。2026-09-20 の目視判定時の形状・数値は変更していない。旧値と現行値の対応は docs/milestones/2026-09-24_json_localization_hashes.md に記録する。不一致自体は警告のみ。ただし判定が古い可能性があり、A と B の差が judge_threshold_pct_h を超えるのに判定領域がない場合、スクリプトは失敗する。"
   },
 
   "judge_threshold_pct_h": {
@@ -35,41 +35,41 @@
         "id": "V1_hook_claw_1",
         "bbox_px": [1800, 370, 1900, 470],
         "use": "B",
-        "A_does": "follows the back (shoulder) of the first hook claw out to about (1877, 420) and returns into the notch under the claw with an R = 28 px arc: a 26 px stump of the claw stays on the contour",
-        "B_does": "chord from the small step in the top outline at (1835, 393), where the claw's back leaves the general slope of the head, to the notch under the claw at (1862, 446)",
-        "reason": "Looked at the 8x crop: the outline comes down the head at about 38 deg, has a short flat step at x 1820..1835 and then swings out into the claw. B's chord continues the general slope and joins the two root points; A's arc is an artefact of the morphological opening (the arc bulges INTO every claw whose base is a little narrower than 2R). 'Join the claw roots' = chord."
+        "A_does": "最初の鉤爪の背（肩）を約 (1877, 420) までたどり、R = 28 px の円弧で爪の下の切込みへ戻るため、輪郭に 26 px の爪の根残りが残る",
+        "B_does": "爪の背が波頭全体の傾斜から離れる上側輪郭の小段差 (1835, 393) と、爪の下の切込み (1862, 446) を結ぶ弦",
+        "reason": "8倍の切り出し画像で確認した。輪郭は波頭を約 38 deg で下り、x 1820..1835 に短い平坦部を持ち、その後爪へ張り出す。B の弦は全体の傾斜を継続して二つの根元をつなぐ。A の円弧はモルフォロジーのオープニングによる人工的な形であり、根元の幅が 2R より少し狭い爪では円弧が爪の内部へ膨らむ。「爪の根元をつなぐ」は弦での接続を意味する。"
       },
       {
         "id": "V2_lobe3_hook_shoulder",
         "bbox_px": [2070, 630, 2150, 700],
         "use": "B",
-        "A_does": "follows the back of the big hook claw at the end of the third lobe out to (2135, 680) and comes back with an R = 28 px arc",
-        "B_does": "chord from the notch in the top outline at (2080, 656) to the lower root of the hook at (2129, 695)",
-        "reason": "Same situation as V1: the light-blue shading patch under the claw's back marks the claw base (the print shades the base of most claws like this). B joins upper and lower root point; A keeps the shoulder as a stump (max 26 px = 1.0 % of image height outside B)."
+        "A_does": "第3のふくらみの末端にある大きな鉤爪の背を (2135, 680) までたどり、R = 28 px の円弧で戻る",
+        "B_does": "上側輪郭の切込み (2080, 656) と鉤爪の下側の根元 (2129, 695) を結ぶ弦",
+        "reason": "V1 と同じ状況。爪の背の下の薄青い陰影が爪の根元を示す（原画では多くの爪の根元が同様に陰影付けされている）。B は上下の根元を結ぶ。A は肩を根残りとして保持し、B の外側へ最大 26 px = 画像高の 1.0 % 張り出す。"
       },
       {
         "id": "V3_sky_pocket_between_lobe3_and_lobe4",
         "bbox_px": [2060, 695, 2140, 790],
         "use": "B",
-        "A_does": "removes the thin downward finger (about 20 px wide) right of the pocket, enters the sky-coloured eye of the ring-shaped curl at (2076..2124, 718..768) and runs along its far (left) side",
-        "B_does": "goes down the right side of that finger to about (2125, 728), cuts across to the bottom of the notch at (2097, 768) and continues along the top of the fourth lobe (B's 8 px gap closing treats the eye of the curl as closed)",
-        "reason": "The pocket is the eye of a ring-shaped curl, i.e. part of a claw ornament, not a feature of the large form. Entering it (A) adds a 50 x 50 px concavity to the base contour; ignoring everything right of x = 2079 (a straight bridge from (2079, 655) to (2097, 768)) would cut about 1.5 % of image height into a foam mass that carries the same inner curl pattern as the rest of the head. B lies between the two readings (max distance to A 1.1 %, to the straight bridge about 1.5 %). This zone stays the least certain part of the contour (see doubt_zones)."
+        "A_does": "空洞の右側にある細い下向きの指状部（幅約 20 px）を除去し、(2076..2124, 718..768) の環状の巻きの空色の中心へ入り、その奥側（左側）をたどる",
+        "B_does": "その指状部の右側を約 (2125, 728) まで下り、切込みの底 (2097, 768) へ横切って第4のふくらみの上側へ続く（B の 8 px の隙間閉鎖は巻きの中心を閉じたものとして扱う）",
+        "reason": "この空洞は環状の巻きの中心、すなわち爪装飾の一部であり、大形の特徴ではない。A のように内部へ入ると基礎輪郭に 50 x 50 px の凹みが加わる。一方、x = 2079 より右をすべて無視し (2079, 655) と (2097, 768) を直線で結ぶと、波頭の他の部分と同じ内側の巻き模様を持つ泡沫の塊へ、画像高の約 1.5 % 食い込む。B は二つの読み方の中間にあり、A からの最大距離は 1.1 %、直線からは約 1.5 %。ここは輪郭で最も不確かな領域として残る（doubt_zones を参照）。"
       },
       {
         "id": "V4_lowest_lobe_underside",
         "bbox_px": [2070, 1050, 2160, 1115],
         "use": "B",
-        "A_does": "R = 28 px arc across the base of the lowest claw of the head, bulging 23 px into the claw",
-        "B_does": "chord between the two root points (2141, 1066) and (2084, 1090)",
-        "reason": "Same as V1: chord between the root points instead of an opening arc that bulges into the claw."
+        "A_does": "波頭の最下部の爪の根元を横切る R = 28 px の円弧で、爪内部へ 23 px 膨らむ",
+        "B_does": "二つの根元 (2141, 1066) と (2084, 1090) を結ぶ弦",
+        "reason": "V1 と同じく、爪内部へ膨らむオープニング円弧ではなく、根元間を弦で結ぶ。"
       },
       {
         "id": "V5_completed_part",
         "bbox_px": [1800, 1740, 2300, 1960],
         "use": "B",
-        "A_does": "circular arc (R = 483 px, start tangent 51.5 deg) from the junction to Z = 0 at x = 2200, then a flat run along Z = 0 to x = 2288",
-        "B_does": "tangent-continuous parabola (start tangent 52.7 deg from a 300 px chord), constrained so that no sample lies in visible sky, ends on Z = 0 at x = 2189.6; no flat run",
-        "reason": "Both are pure extrapolation and are flagged in_S7 = false, so the choice does not enter S7. B's curve is constrained by something visible (it must stay behind the near wave, i.e. never cross visible sky); in the comparison crop A's arc touches the sky side of the near-wave flank around (1975..2000, 1880..1897). The 3.8 % A-B distance is only A's flat run, which B does not have."
+        "A_does": "合流点から x = 2200 の Z = 0 までの円弧（R = 483 px、開始接線 51.5 deg）と、その後 x = 2288 まで Z = 0 に沿う水平区間",
+        "B_does": "接線が連続する放物線（300 px の弦による開始接線 52.7 deg）。標本点が見える空に入らないよう制約し、x = 2189.6 の Z = 0 で終了する。水平区間はない",
+        "reason": "両方とも外挿のみであり in_S7 = false が付くため、選択は S7 に影響しない。B の曲線には見えるものによる制約があり、手前の波の背後にとどまり、見える空を横切らない必要がある。比較画像では A の円弧が約 (1975..2000, 1880..1897) で手前の波の側面の空側に接する。A と B の 3.8 % の距離は、B にはない A の水平区間だけによる。"
       }
     ],
     "comment": "手動判定。原画の拡大切り出し画像（results/step1_prepare/contour_final/judge_*.png）を見て決めた。use は領域内で最終輪郭に採用する候補を示す。基本は全域で B を用い、判定が A を指定した区間だけ、両候補が再び合流する点の間を A に差し替える。bbox_px = [x0, y0, x1, y1] は差が生じる場所を示すだけで、輪郭データではない。"
@@ -153,16 +153,16 @@
 
   "doubt_zones": {
     "value": [
-      {"id": "D1_back_left_end", "bbox_px": [0, 880, 400, 1090], "note": "which branch is the back (see back_left_variant); up to 7.1 % of image height between the readings"},
-      {"id": "D2_crest_plateau", "bbox_px": [1360, 215, 1510, 235], "note": "flat top 5.3 % of image height wide: crest x is ill-conditioned"},
-      {"id": "D3_hook_claws_vertical_face", "bbox_px": [1825, 385, 1900, 615], "note": "three chords across hook-claw roots; root points move about +-10 px with the rolling-ball radius"},
-      {"id": "D4_pocket_lobe3_lobe4", "bbox_px": [2060, 640, 2150, 790], "note": "claw / curl cluster at the end of the third lobe: three defensible readings within about 1.5 % of image height"},
-      {"id": "D5_tip_lobe", "bbox_px": [2100, 740, 2240, 845], "note": "fourth (tip) lobe; the head tip sits on a bridge from the lobe top (2197, 757) across the root of the right-most claw to (2215, 835); the drawn rounded end of the lobe (outline stroke ending at (2225, 775), short stroke at x 2229..2234, y 782..800) lies up to 7 px (0.27 %) OUTSIDE the chord, so the tip is uncertain by about (+0.3, +-0.5) % at finger scale; a larger claw scale (R >= 55) removes the whole lobe and moves the tip by (-1.4, +2.6) %"},
-      {"id": "D6_right_flank_and_underside", "bbox_px": [1655, 785, 2230, 1105], "note": "almost all claws: the contour alternates between notch tops (traced) and chords across claw roots"},
-      {"id": "D7_inner_arc_lower_end", "bbox_px": [1785, 1700, 1850, 1770], "note": "wiggle of the hand-drawn line; last 35 px sliver where the outlines of great wave and near wave merge is not used"},
-      {"id": "D8_completion", "bbox_px": [1820, 1750, 2200, 1945], "note": "pure extrapolation (in_S7 = false)"},
-      {"id": "D10_kink_after_crest", "bbox_px": [1595, 272, 1620, 297], "note": "real corner of the drawn outline (about 51 deg at 1 % sample spacing) where the outline of the crest dome runs into the foam and the first scallop of the head starts; 5.2 % of image height (arclength) after the crest"},
-      {"id": "D9_trough_level", "bbox_px": [1990, 1885, 2300, 1995], "note": "Z = 0 (74.7 %) cannot be tied to a drawn feature; visible sea patch spans about 73.0..76.7 %"}
+      {"id": "D1_back_left_end", "bbox_px": [0, 880, 400, 1090], "note": "どちらの枝を背と読むか（back_left_variant を参照）。読み方による差は画像高の最大 7.1 %"},
+      {"id": "D2_crest_plateau", "bbox_px": [1360, 215, 1510, 235], "note": "頂部の平坦区間は画像高の 5.3 % の幅を持ち、波頂 x は不安定"},
+      {"id": "D3_hook_claws_vertical_face", "bbox_px": [1825, 385, 1900, 615], "note": "鉤爪の根元を横切る3本の弦。根元位置は転がす球の半径により約 +-10 px 動く"},
+      {"id": "D4_pocket_lobe3_lobe4", "bbox_px": [2060, 640, 2150, 790], "note": "第3のふくらみの末端にある爪・巻きの集まり。画像高の約 1.5 % 以内に、妥当と考えられる3通りの読み方がある"},
+      {"id": "D5_tip_lobe", "bbox_px": [2100, 740, 2240, 845], "note": "第4の先端側のふくらみ。波頭の先は、ふくらみの上端 (2197, 757) から最右の爪の根元を横切って (2215, 835) へ結ぶ線上にある。描かれた丸い末端（(2225, 775) で終わる輪郭線と x 2229..2234、y 782..800 の短い線）は弦の外側へ最大 7 px（0.27 %）出る。このため指状尺度では先端に約 (+0.3, +-0.5) % の不確かさがある。爪除去の尺度を大きくすると（R >= 55）、ふくらみ全体が除去され先端は (-1.4, +2.6) % 動く"},
+      {"id": "D6_right_flank_and_underside", "bbox_px": [1655, 785, 2230, 1105], "note": "ほぼ全域が爪に相当し、輪郭は切込みの頂点（追跡点）と爪の根元間の弦を交互に通る"},
+      {"id": "D7_inner_arc_lower_end", "bbox_px": [1785, 1700, 1850, 1770], "note": "手描き線の揺れ。大波と手前の波の輪郭が合流する末尾 35 px の細い区間は使用しない"},
+      {"id": "D8_completion", "bbox_px": [1820, 1750, 2200, 1945], "note": "外挿のみ（in_S7 = false）"},
+      {"id": "D10_kink_after_crest", "bbox_px": [1595, 272, 1620, 297], "note": "波頂の丸い輪郭が泡沫へ入り、波頭の最初のふくらみが始まる、実際に描かれた角（標本間隔 1 % で約 51 deg）。波頂から弧長で画像高の 5.2 % 先"},
+      {"id": "D9_trough_level", "bbox_px": [1990, 1885, 2300, 1995], "note": "Z = 0（74.7 %）に対応する描線上の特徴はない。見える海面の領域は約 73.0..76.7 % に広がる"}
     ],
     "comment": "ユーザーが先に確認すべき場所。JSON の doubt_zones にコピーし、overlay_doubt_zones_1600.png に枠として描く。枠は位置を示すだけである。"
   }
