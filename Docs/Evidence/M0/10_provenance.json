@@ -1,7 +1,13 @@
 {
-  "recorded_utc": "2026-09-24T13:17:31.6339920Z",
+  "recorded_utc": "2026-09-24T13:21:59.1021919Z",
   "source_parent_commit": "1bb7a57",
   "source_worktree_included_uncommitted_step10": true,
+  "build_context_note_ja": "元のビルド時Git情報は同一ソース・同一実行一式の場合のみ保持する。現在のHEADをビルド時点と推測しない。",
+  "git_context_at_capture": null,
+  "git_context_at_evidence_recording": {
+    "head": "f7486f9f9bc5a95482600f17ed02ecd5cf4bd652",
+    "dirty": true
+  },
   "source_snapshot": "10_prebuild_sources.json / 10_build_sources.json",
   "postbuild_source_mismatch_count": 0,
   "scene": "Unity/Assets/GreatWave/Scenes/Tests/M0_DesktopPreflight.unity",
@@ -63,36 +69,6 @@
   ],
   "build_payload_files": [
     {
-      "path": "dstorage.dll",
-      "bytes": 206904,
-      "sha256": "cae65787f61514bec6f012f44546e68b19e39d8854a9ab52af813370d44b272a"
-    },
-    {
-      "path": "dstoragecore.dll",
-      "bytes": 1482784,
-      "sha256": "cf85b19a92a8276f8baca0db9bbcd60735bad50768deb303d310e84d5f4fdd11"
-    },
-    {
-      "path": "GreatWaveM0.exe",
-      "bytes": 667648,
-      "sha256": "748b8feff0cf8e727ed412006cfe11f0591bdfec6bd5634e89acacae0ab8b38e"
-    },
-    {
-      "path": "UnityCrashHandler64.exe",
-      "bytes": 1665960,
-      "sha256": "3f2cb69df3ad3c17f71e569b0beef7ae32ee36d0d4256a17eae050b9f9be86e6"
-    },
-    {
-      "path": "UnityPlayer.dll",
-      "bytes": 85139880,
-      "sha256": "eabd06b4d7cc2a357c088296d446d689cc4d5534355c7b02b266ad286c1fb22e"
-    },
-    {
-      "path": "WinPixEventRuntime.dll",
-      "bytes": 58368,
-      "sha256": "81adcfd8253c3489be720da7e30f16004dc9a1f02a8b418c6c3aef4993032e6d"
-    },
-    {
       "path": "D3D12/D3D12Core.dll",
       "bytes": 4725304,
       "sha256": "625bd40005b1c3708695d5256ecf230d278e6b8edba5a88af70f3d91324f3052"
@@ -101,6 +77,16 @@
       "path": "D3D12/d3d12SDKLayers.dll",
       "bytes": 4930104,
       "sha256": "c0730cc70d3250d3de19c04c17845ba9e70eecaf502d684d1409195ebc5b5959"
+    },
+    {
+      "path": "dstorage.dll",
+      "bytes": 206904,
+      "sha256": "cae65787f61514bec6f012f44546e68b19e39d8854a9ab52af813370d44b272a"
+    },
+    {
+      "path": "dstoragecore.dll",
+      "bytes": 1482784,
+      "sha256": "cf85b19a92a8276f8baca0db9bbcd60735bad50768deb303d310e84d5f4fdd11"
     },
     {
       "path": "GreatWaveM0_Data/app.info",
@@ -131,26 +117,6 @@
       "path": "GreatWaveM0_Data/level0",
       "bytes": 24400,
       "sha256": "f87aa667d505538bb423316dcce38cc54e191c74e470083d87711fc3e75b14fc"
-    },
-    {
-      "path": "GreatWaveM0_Data/RuntimeInitializeOnLoads.json",
-      "bytes": 931,
-      "sha256": "049287f103a5a6580df91595f25bc8d75a8e5f4e7fe776e1fb1c87c46f2e23d2"
-    },
-    {
-      "path": "GreatWaveM0_Data/ScriptingAssemblies.json",
-      "bytes": 3698,
-      "sha256": "cbf37000cf5e27137f70c04d87e28d0d0a16e241ed8f606aee9ec9017e511320"
-    },
-    {
-      "path": "GreatWaveM0_Data/sharedassets0.assets",
-      "bytes": 111536,
-      "sha256": "ee6005a1a57c184453b61ed4669a06ad2cc2d4eb45562e0a424f33d4c6dae36f"
-    },
-    {
-      "path": "GreatWaveM0_Data/sharedassets0.assets.resS",
-      "bytes": 524288,
-      "sha256": "393efe6399536384aa91bdfc4e64f244b4d3e1fbb6a4ff145c483ffee64ccb36"
     },
     {
       "path": "GreatWaveM0_Data/Managed/Assembly-CSharp.dll",
@@ -1248,9 +1214,34 @@
       "sha256": "d934c89560ddcef43c95338745bf491bf99b61a139fadfe22ca273aa27380040"
     },
     {
+      "path": "GreatWaveM0_Data/RuntimeInitializeOnLoads.json",
+      "bytes": 931,
+      "sha256": "049287f103a5a6580df91595f25bc8d75a8e5f4e7fe776e1fb1c87c46f2e23d2"
+    },
+    {
+      "path": "GreatWaveM0_Data/ScriptingAssemblies.json",
+      "bytes": 3698,
+      "sha256": "cbf37000cf5e27137f70c04d87e28d0d0a16e241ed8f606aee9ec9017e511320"
+    },
+    {
+      "path": "GreatWaveM0_Data/sharedassets0.assets",
+      "bytes": 111536,
+      "sha256": "ee6005a1a57c184453b61ed4669a06ad2cc2d4eb45562e0a424f33d4c6dae36f"
+    },
+    {
+      "path": "GreatWaveM0_Data/sharedassets0.assets.resS",
+      "bytes": 524288,
+      "sha256": "393efe6399536384aa91bdfc4e64f244b4d3e1fbb6a4ff145c483ffee64ccb36"
+    },
+    {
       "path": "GreatWaveM0_Data/UnitySubsystems/UnityOpenXR/UnitySubsystemsManifest.json",
       "bytes": 250,
       "sha256": "5c793131b533258d2aa7bd948400c9598b9c6fc3760f71b8f643423b7b018709"
+    },
+    {
+      "path": "GreatWaveM0.exe",
+      "bytes": 667648,
+      "sha256": "748b8feff0cf8e727ed412006cfe11f0591bdfec6bd5634e89acacae0ab8b38e"
     },
     {
       "path": "MonoBleedingEdge/EmbedRuntime/mono-2.0-bdwgc.dll",
@@ -1263,14 +1254,9 @@
       "sha256": "6d2bb70b578ad989013b8adc8f25208f1048b524093527d14210d2e70f61c58f"
     },
     {
-      "path": "MonoBleedingEdge/etc/mono/browscap.ini",
-      "bytes": 311984,
-      "sha256": "4ddd50f31fb968f30bedefc253a46dc3f2890192d05cdaa9e0a64a056eee807e"
-    },
-    {
-      "path": "MonoBleedingEdge/etc/mono/config",
-      "bytes": 3815,
-      "sha256": "5776169973a26a387b8b3e5c0f2301a7ab9a6dd7c7d3efa22a96abc47fbf8662"
+      "path": "MonoBleedingEdge/etc/mono/2.0/Browsers/Compat.browser",
+      "bytes": 1605,
+      "sha256": "8a1082057ac5681dcd4e9c227ed7fb8eb42ac1618963b5de3b65739dd77e2741"
     },
     {
       "path": "MonoBleedingEdge/etc/mono/2.0/DefaultWsdlHelpGenerator.aspx",
@@ -1293,7 +1279,7 @@
       "sha256": "cf2b54339e069b9e42f7d6795eecbf562c50c1011f4ca8f65f578fe52d97ff92"
     },
     {
-      "path": "MonoBleedingEdge/etc/mono/2.0/Browsers/Compat.browser",
+      "path": "MonoBleedingEdge/etc/mono/4.0/Browsers/Compat.browser",
       "bytes": 1605,
       "sha256": "8a1082057ac5681dcd4e9c227ed7fb8eb42ac1618963b5de3b65739dd77e2741"
     },
@@ -1318,7 +1304,7 @@
       "sha256": "e38bb8cc68fe5b4edecdfd288d094b9e8ced7629039b2a347682aba0d8bd7492"
     },
     {
-      "path": "MonoBleedingEdge/etc/mono/4.0/Browsers/Compat.browser",
+      "path": "MonoBleedingEdge/etc/mono/4.5/Browsers/Compat.browser",
       "bytes": 1605,
       "sha256": "8a1082057ac5681dcd4e9c227ed7fb8eb42ac1618963b5de3b65739dd77e2741"
     },
@@ -1343,14 +1329,34 @@
       "sha256": "c4cbddd4fd9347b58cc5a72b36dc4ba1ad2bb699e65869d05cd3fb9865f0d824"
     },
     {
-      "path": "MonoBleedingEdge/etc/mono/4.5/Browsers/Compat.browser",
-      "bytes": 1605,
-      "sha256": "8a1082057ac5681dcd4e9c227ed7fb8eb42ac1618963b5de3b65739dd77e2741"
+      "path": "MonoBleedingEdge/etc/mono/browscap.ini",
+      "bytes": 311984,
+      "sha256": "4ddd50f31fb968f30bedefc253a46dc3f2890192d05cdaa9e0a64a056eee807e"
+    },
+    {
+      "path": "MonoBleedingEdge/etc/mono/config",
+      "bytes": 3815,
+      "sha256": "5776169973a26a387b8b3e5c0f2301a7ab9a6dd7c7d3efa22a96abc47fbf8662"
     },
     {
       "path": "MonoBleedingEdge/etc/mono/mconfig/config.xml",
       "bytes": 25817,
       "sha256": "0c56e34c69124510fa8c19e7b4c2ca6c1c4ff460ae19f798dd0ca035809e396d"
+    },
+    {
+      "path": "UnityCrashHandler64.exe",
+      "bytes": 1665960,
+      "sha256": "3f2cb69df3ad3c17f71e569b0beef7ae32ee36d0d4256a17eae050b9f9be86e6"
+    },
+    {
+      "path": "UnityPlayer.dll",
+      "bytes": 85139880,
+      "sha256": "eabd06b4d7cc2a357c088296d446d689cc4d5534355c7b02b266ad286c1fb22e"
+    },
+    {
+      "path": "WinPixEventRuntime.dll",
+      "bytes": 58368,
+      "sha256": "81adcfd8253c3489be720da7e30f16004dc9a1f02a8b418c6c3aef4993032e6d"
     }
   ]
 }

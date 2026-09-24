@@ -7,9 +7,16 @@ $capture = Join-Path $build ('Capture_' + (Get-Date -Format 'yyyyMMdd_HHmmss'))
 $evidence = Join-Path $repository 'Docs\Evidence\M0'
 if (-not (Test-Path -LiteralPath $player)) { throw '先にBuild_M0.ps1でビルドしてください。' }
 if (-not (Test-Path -LiteralPath $Ffmpeg)) { throw '動画を作るffmpegが見つかりません。' }
+$sourceManifest = Get-Content -LiteralPath (Join-Path $evidence '10_build_sources.json') -Raw | ConvertFrom-Json
+$sourceChanges = @($sourceManifest.files | Where-Object {
+    (Get-FileHash -LiteralPath (Join-Path (Join-Path $repository 'Unity') $_.path) -Algorithm SHA256).Hash.ToLowerInvariant() -ne $_.sha256
+})
+if ($sourceChanges.Count) { throw '現在のソースがビルド時と異なります。再ビルド後に記録してください。' }
 New-Item -ItemType Directory -Force -Path $capture, $evidence | Out-Null
 $log = Join-Path $capture 'player.log'
 $arguments = '-screen-fullscreen 0 -screen-width 1280 -screen-height 720 -logFile "' + $log + '" --capture-dir "' + $capture + '"'
+$captureGitHead = (& git -C $repository rev-parse HEAD).Trim()
+$captureGitDirty = @(& git -C $repository status --porcelain).Count -gt 0
 $process = Start-Process -FilePath $player -ArgumentList $arguments -WindowStyle Hidden -PassThru
 if (-not $process.WaitForExit(180000)) {
     Stop-Process -Id $process.Id
@@ -25,5 +32,6 @@ Copy-Item -LiteralPath (Join-Path $capture 'frame_0000.png') -Destination (Join-
 Copy-Item -LiteralPath (Join-Path $capture 'frame_0192.png') -Destination (Join-Path $evidence 'M0_Boat_Exterior.png')
 Copy-Item -LiteralPath (Join-Path $capture 'frame_0312.png') -Destination (Join-Path $evidence 'M0_Calibration.png')
 Copy-Item -LiteralPath (Join-Path $capture 'capture_report.json') -Destination (Join-Path $evidence '10_capture_report.json')
+& (Join-Path $PSScriptRoot 'Write_M0_Provenance.ps1') -CaptureDirectory $capture -CaptureGitHead $captureGitHead -CaptureGitDirty $captureGitDirty
 Write-Output "記録完了：$evidence"
 Write-Output "元の連番と実行ログ：$capture"
