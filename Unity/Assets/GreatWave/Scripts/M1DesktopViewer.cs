@@ -17,6 +17,7 @@ namespace GreatWave
         public View[] views;
         public GameObject mapOverlay;
         public bool recording;
+        public bool compactRevisionLayout;
         [NonSerialized] public Keyboard testKeyboard;
         public int CurrentView { get; private set; }
         public bool Paused { get; private set; }
@@ -85,6 +86,16 @@ namespace GreatWave
             var scale = Screen.width / 1280f;
             GUI.matrix = Matrix4x4.Scale(new Vector3(scale,scale,1));
             float height = Screen.height / scale;
+            if (compactRevisionLayout)
+            {
+                style.fontSize=15;
+                GUI.color=new Color(.035f,.09f,.14f,.95f);GUI.DrawTexture(new Rect(844,12,420,134),Texture2D.whiteTexture);GUI.color=Color.white;
+                GUI.Label(new Rect(860,22,394,28),"15 修正01 / "+views[CurrentView].label,style);
+                GUI.Label(new Rect(860,50,394,24),"静止模型 / 流体・HMD未検証",style);
+                GUI.Label(new Rect(860,76,394,24),"1 比較　2 船上　3 側面　4 背面　5 範囲",style);
+                GUI.Label(new Rect(860,100,394,36),"右ドラッグ・矢印 / R 戻る / Space 停止 / Q 終了",style);
+                return;
+            }
             GUI.color = new Color(.035f,.09f,.14f,.95f);
             GUI.DrawTexture(new Rect(16,height-82,1248,68),Texture2D.whiteTexture);
             GUI.color = Color.white;

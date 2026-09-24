@@ -2,19 +2,19 @@
 
 『神奈川沖浪裏』をHoudini・Blender・UnityでリアルタイムVR作品にする制作記録です。旧試作を参照せず、番号ごとに新規検証してコミットします。
 
-利用者の続行指示により11〜15の静止構図と、16のHoudini→Unityの2秒キャッシュを新規検証しました。**このPC中間成果で確認を待ちます。M0のHMD・物理操作検証、M1の流体受け渡しは未完了です。** 進行役は指示とレビュー、実装担当のGPT-6は制作とコミットを担当します。
+利用者の指示により、15の右側の斜面と3隻の配置を修正しました。16のHoudini→Unityの2秒キャッシュ検証はそのまま保持しています。**このPC中間成果で確認を待ちます。M0のHMD・物理操作検証、M1の流体受け渡しは未完了です。** 進行役は指示とレビュー、実装担当のGPT-6は制作とコミットを担当します。
 
 ## M1の静止構図を見る
 
-- [20秒の自動カメラ動画](Docs/Evidence/M1/M1_Static_Walkthrough.mp4)
-- [原画比較](Docs/Evidence/M1/M1_Comparison.png)／[船上](Docs/Evidence/M1/M1_Boat.png)／[側面](Docs/Evidence/M1/M1_Side.png)／[背面](Docs/Evidence/M1/M1_Rear.png)／[候補範囲図](Docs/Evidence/M1/M1_Region.png)
-- [結果・起動・操作・再現方法](Docs/Progress/Step_15_ja.md)
+- [修正01：20秒の自動カメラ動画](Docs/Evidence/M1/Revision01/M1_Revision01_Walkthrough.mp4)
+- [原画比較](Docs/Evidence/M1/Revision01/M1_Comparison.png)／[船上](Docs/Evidence/M1/Revision01/M1_Boat.png)／[側面](Docs/Evidence/M1/Revision01/M1_Side.png)／[背面](Docs/Evidence/M1/Revision01/M1_Rear.png)／[候補範囲図](Docs/Evidence/M1/Revision01/M1_Region.png)
+- [修正前後・結果・再現方法](Docs/Progress/Step_15_Revision01_ja.md)／[修正前の15を保存した記録](Docs/Progress/Step_15_ja.md)
 
-![M1の静止構図・Unity実描画](Docs/Evidence/M1/M1_Comparison.png)
+![M1の構図修正01・Unity実描画](Docs/Evidence/M1/Revision01/M1_Comparison.png)
 
 波・船・富士・白波は新しく作った3Dの形状模型です。画像はUnity実行ビルドのオフスクリーン描画で、流体シミュレーション、完成版の浮世絵レンダリング、HMD映像ではありません。波と船は静止しています。動画の24fpsは再生用の値で、実時間性能の測定ではありません。
 
-本機の実行ファイル：`G:\Unity\GreatWave_2026_Fresh\Unity\Builds\M1\GreatWaveM1.exe`。移す場合は `M1/` 一式が必要です。1〜5で視点を切替、右ドラッグ・矢印で見回し、Rで戻す、Spaceで停止、Qで終了します。通常のウィンドウと物理キー・マウス操作は利用者確認待ち。 [ビルド](Tools/Build_M1.ps1)／[画像・動画の再取得](Tools/Capture_M1.ps1)。
+本機の実行ファイル：`G:\Unity\GreatWave_2026_Fresh\Unity\Builds\M1_Revision01\GreatWaveM1Revision01.exe`。移す場合は `M1_Revision01/` 一式が必要です。1〜5で視点を切替、右ドラッグ・矢印で見回し、Rで戻す、Spaceで停止、Qで終了します。通常のウィンドウと物理キー・マウス操作は利用者確認待ち。 [ビルド](Tools/Build_M1_Revision01.ps1)／[画像・動画の再取得](Tools/Capture_M1_Revision01.ps1)。
 
 ## 16のHoudini→Unity受け渡しを見る
 
