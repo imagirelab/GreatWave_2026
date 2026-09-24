@@ -1,0 +1,542 @@
+{
+  "timestamp_utc": "2026-09-24T15:11:52.221538+00:00",
+  "expected_pid": 53912,
+  "mcp_port": 8100,
+  "token": "67145e6aeacb",
+  "owned_container": "/obj/gw16_owned_67145e6aeacb",
+  "snapshot_key": "_gw16_owned_67145e6aeacb",
+  "events": [
+    {
+      "phase": "snapshot minimal UI",
+      "elapsed_seconds": 0.082,
+      "is_error": false,
+      "result": {
+        "executed": true,
+        "return_value": {
+          "snapshot_ready": true,
+          "pane_name": "panetab1",
+          "selected_item_count": 0,
+          "frame": 1.0,
+          "fps": 24.0,
+          "update_mode": "updateMode.AutoUpdate",
+          "dirty_before": true,
+          "undo_count_before": 29,
+          "redo_count_before": 0
+        },
+        "justification": "Authorized step16: operate only newly generated, uniquely owned nodes; preserve existing scene content and global FPS, restore UI in finally. snapshot minimal UI"
+      }
+    },
+    {
+      "phase": "create",
+      "elapsed_seconds": 0.055,
+      "is_error": false,
+      "result": {
+        "executed": true,
+        "return_value": {
+          "created": true,
+          "owned_container": "/obj/gw16_owned_67145e6aeacb",
+          "source_fps_preserved": 24.0,
+          "alembic_sop_path": "../../surface/OUT",
+          "normal_menu": {
+            "items": [
+              "typepoint",
+              "typevertex",
+              "typeprim",
+              "typedetail"
+            ],
+            "labels": [
+              "Points",
+              "Vertices",
+              "Primitives",
+              "Detail"
+            ],
+            "selected": "typepoint"
+          },
+          "grid_points": 1089,
+          "grid_triangles": 2048,
+          "markers": [
+            {
+              "name": "unit_cube_1m",
+              "center": {
+                "x": -5.0,
+                "y": 0.5,
+                "z": -5.0
+              },
+              "size": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+              },
+              "color": [
+                0.9,
+                0.75,
+                0.15
+              ]
+            },
+            {
+              "name": "axis_x_positive",
+              "center": {
+                "x": 5.0,
+                "y": 0.5,
+                "z": 0.0
+              },
+              "size": {
+                "x": 0.35,
+                "y": 1.0,
+                "z": 0.35
+              },
+              "color": [
+                1.0,
+                0.1,
+                0.1
+              ]
+            },
+            {
+              "name": "axis_y_positive",
+              "center": {
+                "x": 0.0,
+                "y": 2.0,
+                "z": 0.0
+              },
+              "size": {
+                "x": 0.35,
+                "y": 0.7,
+                "z": 0.35
+              },
+              "color": [
+                0.1,
+                1.0,
+                0.1
+              ]
+            },
+            {
+              "name": "axis_z_positive",
+              "center": {
+                "x": 0.0,
+                "y": 0.5,
+                "z": 5.0
+              },
+              "size": {
+                "x": 0.35,
+                "y": 1.0,
+                "z": 0.35
+              },
+              "color": [
+                0.1,
+                0.25,
+                1.0
+              ]
+            },
+            {
+              "name": "asym_p123",
+              "center": {
+                "x": 1.0,
+                "y": 2.0,
+                "z": 3.0
+              },
+              "size": {
+                "x": 0.3,
+                "y": 0.5,
+                "z": 0.7
+              },
+              "color": [
+                1.0,
+                0.15,
+                0.8
+              ]
+            }
+          ],
+          "classification": "kinematic analytic transfer test, not fluid simulation"
+        },
+        "justification": "Authorized step16: operate only newly generated, uniquely owned nodes; preserve existing scene content and global FPS, restore UI in finally. create"
+      }
+    },
+    {
+      "phase": "sample",
+      "elapsed_seconds": 2.634,
+      "is_error": false,
+      "result": {
+        "executed": true,
+        "return_value": {
+          "sample_count": 61,
+          "time_start": 0,
+          "time_end": 2,
+          "sample_rate": 30,
+          "full_topology_sha256": "da3ab96d26086892196e06503d0522aa825fcfb911366e43e816063898214a17",
+          "bgeo_roundtrip_all_61_passed": true,
+          "deformation_changed": true,
+          "loop_endpoint_max_position_error_m": 1.192093e-07,
+          "reference": "G:\\Unity\\GreatWave_2026_M1_Pipeline_Staging\\FixedTopology16\\CorrectedWinding\\Cache\\reference_samples.json",
+          "reference_sha256": "c530edbb87c0197e45645c435c1e97979c1ca2072d3cb661018ffad0ddc66a84"
+        },
+        "justification": "Authorized step16: operate only newly generated, uniquely owned nodes; preserve existing scene content and global FPS, restore UI in finally. sample"
+      }
+    },
+    {
+      "phase": "export",
+      "elapsed_seconds": 0.132,
+      "is_error": false,
+      "result": {
+        "executed": true,
+        "return_value": {
+          "exported": true,
+          "alembic_bytes": 1658234,
+          "sha256": "78e11da3be5640924df7d9399dd2701d396c7e87172f89d6be7860ecff4ecd5c",
+          "sop_path_exact_owned": true,
+          "initialize_simulation_ops": false,
+          "ignore_inputs": true,
+          "current_fps_preserved": 24.0,
+          "alembic_inspection_api_names": [
+            "alembicGetSceneHierarchy",
+            "alembicTimeRange"
+          ],
+          "archive_time_range": [
+            0.04166667,
+            2.041667
+          ],
+          "archive_hierarchy": [
+            "ABC",
+            "unknown",
+            [
+              [
+                "asym_p123",
+                "polymesh",
+                []
+              ],
+              [
+                "axis_x_positive",
+                "polymesh",
+                []
+              ],
+              [
+                "axis_y_positive",
+                "polymesh",
+                []
+              ],
+              [
+                "axis_z_positive",
+                "polymesh",
+                []
+              ],
+              [
+                "kinematic_grid",
+                "polymesh",
+                []
+              ],
+              [
+                "unit_cube_1m",
+                "polymesh",
+                []
+              ]
+            ]
+          ]
+        },
+        "justification": "Authorized step16: operate only newly generated, uniquely owned nodes; preserve existing scene content and global FPS, restore UI in finally. export"
+      }
+    },
+    {
+      "phase": "source_roundtrip",
+      "elapsed_seconds": 1.602,
+      "is_error": false,
+      "result": {
+        "executed": true,
+        "return_value": {
+          "owned_container_cpio_saved": true,
+          "cpio_path": "G:\\Unity\\GreatWave_2026_M1_Pipeline_Staging\\FixedTopology16\\CorrectedWinding\\Source\\fixed_topology_16.cpio",
+          "cpio_sha256": "dee92af079dbc945ea1f8bd55afa1ec8451777ad0fc79af4b52a1072672b12f6",
+          "loaded_only_owned_cpio": true,
+          "all_61_sample_positions_and_topology_match": true,
+          "relative_export_sop_resolves_to_clone": true,
+          "hip_saved_loaded_cleared": false,
+          "hiplc_roundtrip": "UNEXECUTED: second Steam GUI launch exited3; current user HIP deliberately untouched"
+        },
+        "justification": "Authorized step16: operate only newly generated, uniquely owned nodes; preserve existing scene content and global FPS, restore UI in finally. source_roundtrip"
+      }
+    },
+    {
+      "phase": "restore UI and delete only owned nodes",
+      "elapsed_seconds": 0.345,
+      "is_error": false,
+      "result": {
+        "executed": true,
+        "return_value": {
+          "checks": {
+            "all_owned_paths_absent": true,
+            "selected_items_restored": true,
+            "global_context_restored": true,
+            "pane_contexts_restored": true,
+            "pane_current_nodes_restored": true,
+            "pane_links_restored": true,
+            "active_tabs_restored": true,
+            "frame_restored": true,
+            "fps_unchanged": true,
+            "update_mode_restored": true,
+            "viewer_state_restored": true,
+            "selection_mode_restored": true,
+            "viewport_type_restored": true,
+            "viewport_visible_mask_restored": true,
+            "camera_binding_restored": true,
+            "camera_lock_restored": true,
+            "camera_export_restored": true,
+            "view_transform_restored": true
+          },
+          "restore_errors": [],
+          "all_ui_and_owned_node_checks_passed": true,
+          "dirty_before": true,
+          "dirty_after": true,
+          "prior_undo_labels_retained": true,
+          "undo_count_before": 29,
+          "undo_count_after": 35,
+          "redo_stack_unchanged": true,
+          "undo_history_cleared": false,
+          "hip_saved_or_loaded": false,
+          "temporary_session_snapshot_removed": true
+        },
+        "justification": "Authorized step16: operate only newly generated, uniquely owned nodes; preserve existing scene content and global FPS, restore UI in finally. restore UI and delete only owned nodes"
+      }
+    }
+  ],
+  "classification": "KINEMATIC_ANALYTIC_NOT_FLUID",
+  "source_hashes": {
+    "run_owned_specimen.py": "4dd0db11fe45c6cdaef584ca8aa42e025e36a2bfaa89973b247fa61187cfd718",
+    "generate_fixed_topology.py": "de4be84ce789789764e174697d29144f2d2673f45dbe312f4ad8e8c3364cdde3",
+    "ui_guard.py": "78d08e10bfad8e3ed4cb2365471c893e27339855f82aec21e4f2c38c2b9a1485"
+  },
+  "protocol_version": "2025-11-25",
+  "snapshot": {
+    "snapshot_ready": true,
+    "pane_name": "panetab1",
+    "selected_item_count": 0,
+    "frame": 1.0,
+    "fps": 24.0,
+    "update_mode": "updateMode.AutoUpdate",
+    "dirty_before": true,
+    "undo_count_before": 29,
+    "redo_count_before": 0
+  },
+  "create": {
+    "created": true,
+    "owned_container": "/obj/gw16_owned_67145e6aeacb",
+    "source_fps_preserved": 24.0,
+    "alembic_sop_path": "../../surface/OUT",
+    "normal_menu": {
+      "items": [
+        "typepoint",
+        "typevertex",
+        "typeprim",
+        "typedetail"
+      ],
+      "labels": [
+        "Points",
+        "Vertices",
+        "Primitives",
+        "Detail"
+      ],
+      "selected": "typepoint"
+    },
+    "grid_points": 1089,
+    "grid_triangles": 2048,
+    "markers": [
+      {
+        "name": "unit_cube_1m",
+        "center": {
+          "x": -5.0,
+          "y": 0.5,
+          "z": -5.0
+        },
+        "size": {
+          "x": 1.0,
+          "y": 1.0,
+          "z": 1.0
+        },
+        "color": [
+          0.9,
+          0.75,
+          0.15
+        ]
+      },
+      {
+        "name": "axis_x_positive",
+        "center": {
+          "x": 5.0,
+          "y": 0.5,
+          "z": 0.0
+        },
+        "size": {
+          "x": 0.35,
+          "y": 1.0,
+          "z": 0.35
+        },
+        "color": [
+          1.0,
+          0.1,
+          0.1
+        ]
+      },
+      {
+        "name": "axis_y_positive",
+        "center": {
+          "x": 0.0,
+          "y": 2.0,
+          "z": 0.0
+        },
+        "size": {
+          "x": 0.35,
+          "y": 0.7,
+          "z": 0.35
+        },
+        "color": [
+          0.1,
+          1.0,
+          0.1
+        ]
+      },
+      {
+        "name": "axis_z_positive",
+        "center": {
+          "x": 0.0,
+          "y": 0.5,
+          "z": 5.0
+        },
+        "size": {
+          "x": 0.35,
+          "y": 1.0,
+          "z": 0.35
+        },
+        "color": [
+          0.1,
+          0.25,
+          1.0
+        ]
+      },
+      {
+        "name": "asym_p123",
+        "center": {
+          "x": 1.0,
+          "y": 2.0,
+          "z": 3.0
+        },
+        "size": {
+          "x": 0.3,
+          "y": 0.5,
+          "z": 0.7
+        },
+        "color": [
+          1.0,
+          0.15,
+          0.8
+        ]
+      }
+    ],
+    "classification": "kinematic analytic transfer test, not fluid simulation"
+  },
+  "sample": {
+    "sample_count": 61,
+    "time_start": 0,
+    "time_end": 2,
+    "sample_rate": 30,
+    "full_topology_sha256": "da3ab96d26086892196e06503d0522aa825fcfb911366e43e816063898214a17",
+    "bgeo_roundtrip_all_61_passed": true,
+    "deformation_changed": true,
+    "loop_endpoint_max_position_error_m": 1.192093e-07,
+    "reference": "G:\\Unity\\GreatWave_2026_M1_Pipeline_Staging\\FixedTopology16\\CorrectedWinding\\Cache\\reference_samples.json",
+    "reference_sha256": "c530edbb87c0197e45645c435c1e97979c1ca2072d3cb661018ffad0ddc66a84"
+  },
+  "export": {
+    "exported": true,
+    "alembic_bytes": 1658234,
+    "sha256": "78e11da3be5640924df7d9399dd2701d396c7e87172f89d6be7860ecff4ecd5c",
+    "sop_path_exact_owned": true,
+    "initialize_simulation_ops": false,
+    "ignore_inputs": true,
+    "current_fps_preserved": 24.0,
+    "alembic_inspection_api_names": [
+      "alembicGetSceneHierarchy",
+      "alembicTimeRange"
+    ],
+    "archive_time_range": [
+      0.04166667,
+      2.041667
+    ],
+    "archive_hierarchy": [
+      "ABC",
+      "unknown",
+      [
+        [
+          "asym_p123",
+          "polymesh",
+          []
+        ],
+        [
+          "axis_x_positive",
+          "polymesh",
+          []
+        ],
+        [
+          "axis_y_positive",
+          "polymesh",
+          []
+        ],
+        [
+          "axis_z_positive",
+          "polymesh",
+          []
+        ],
+        [
+          "kinematic_grid",
+          "polymesh",
+          []
+        ],
+        [
+          "unit_cube_1m",
+          "polymesh",
+          []
+        ]
+      ]
+    ]
+  },
+  "source_roundtrip": {
+    "owned_container_cpio_saved": true,
+    "cpio_path": "G:\\Unity\\GreatWave_2026_M1_Pipeline_Staging\\FixedTopology16\\CorrectedWinding\\Source\\fixed_topology_16.cpio",
+    "cpio_sha256": "dee92af079dbc945ea1f8bd55afa1ec8451777ad0fc79af4b52a1072672b12f6",
+    "loaded_only_owned_cpio": true,
+    "all_61_sample_positions_and_topology_match": true,
+    "relative_export_sop_resolves_to_clone": true,
+    "hip_saved_loaded_cleared": false,
+    "hiplc_roundtrip": "UNEXECUTED: second Steam GUI launch exited3; current user HIP deliberately untouched"
+  },
+  "cleanup": {
+    "checks": {
+      "all_owned_paths_absent": true,
+      "selected_items_restored": true,
+      "global_context_restored": true,
+      "pane_contexts_restored": true,
+      "pane_current_nodes_restored": true,
+      "pane_links_restored": true,
+      "active_tabs_restored": true,
+      "frame_restored": true,
+      "fps_unchanged": true,
+      "update_mode_restored": true,
+      "viewer_state_restored": true,
+      "selection_mode_restored": true,
+      "viewport_type_restored": true,
+      "viewport_visible_mask_restored": true,
+      "camera_binding_restored": true,
+      "camera_lock_restored": true,
+      "camera_export_restored": true,
+      "view_transform_restored": true
+    },
+    "restore_errors": [],
+    "all_ui_and_owned_node_checks_passed": true,
+    "dirty_before": true,
+    "dirty_after": true,
+    "prior_undo_labels_retained": true,
+    "undo_count_before": 29,
+    "undo_count_after": 35,
+    "redo_stack_unchanged": true,
+    "undo_history_cleared": false,
+    "hip_saved_or_loaded": false,
+    "temporary_session_snapshot_removed": true
+  },
+  "success": true
+}

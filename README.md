@@ -2,7 +2,7 @@
 
 『神奈川沖浪裏』をHoudini・Blender・UnityでリアルタイムVR作品にする制作記録です。旧試作を参照せず、番号ごとに新規検証してコミットします。
 
-利用者の続行指示により11〜15の静止構図を新規制作し、レビュー用に保存しました。追加指示に従い16のHoudini接続と小規模キャッシュ検証へ進みます。**M0のHMD・物理操作検証、M1の流体受け渡しは未完了です。** 進行役は指示とレビュー、実装担当のGPT-6は制作とコミットを担当します。
+利用者の続行指示により11〜15の静止構図と、16のHoudini→Unityの2秒キャッシュを新規検証しました。**このPC中間成果で確認を待ちます。M0のHMD・物理操作検証、M1の流体受け渡しは未完了です。** 進行役は指示とレビュー、実装担当のGPT-6は制作とコミットを担当します。
 
 ## M1の静止構図を見る
 
@@ -16,7 +16,15 @@
 
 本機の実行ファイル：`G:\Unity\GreatWave_2026_Fresh\Unity\Builds\M1\GreatWaveM1.exe`。移す場合は `M1/` 一式が必要です。1〜5で視点を切替、右ドラッグ・矢印で見回し、Rで戻す、Spaceで停止、Qで終了します。通常のウィンドウと物理キー・マウス操作は利用者確認待ち。 [ビルド](Tools/Build_M1.ps1)／[画像・動画の再取得](Tools/Capture_M1.ps1)。
 
-HoudiniはMCPクライアントから実行中のSteam版22.0.429へ接続し、UI有効・Indie分類の応答と一時的な1m箱の表示・削除・UI復元を確認しました。変更済みフラグとUndo履歴6件は残っています。現在の会話へのネイティブツール再読込、短い変形キャッシュ・流体・書き出しは未確認で、17〜20は未実行です。[16の実演画像・復元結果・未検証事項](Docs/Progress/Step_16_ja.md)。
+## 16のHoudini→Unity受け渡しを見る
+
+- [Unityの2秒動画](Docs/Evidence/M1/FixedTopology16/16_Unity_Cache.mp4)／[静止画](Docs/Evidence/M1/FixedTopology16/16_Unity_Middle.png)
+- [Houdini実ビューポートの2秒動画](Houdini/FixedTopology16/Evidence/fixed_topology_16_houdini_preview.mp4)
+- [結果・数値・起動方法・保留項目](Docs/Progress/Step_16_ja.md)
+
+実行中のSteam Houdini22.0.429へMCPで接続し、新規の変形格子をAlembicへ書き出しました。Unity EditorとWindows実行版で61時刻と60個の補間点を照合しました。解析式の検査用形状で、流体ではありません。通常起動は2秒で停止し、Rで再生、Spaceで停止・再開、Qで終了。本機の実行ファイルは `G:\Unity\GreatWave_2026_Fresh\Unity\Builds\FixedTopology16\GreatWave16.exe`。移す場合はフォルダー全体が必要です。
+
+既存HIPを保存・読み直さず、所有ノードだけのCPIOを保存・再読込しました。UIと所有ノードの復元を確認し、変更済みフラグとUndo履歴は保持しています。.hiplcの再起動・再読込、FLIP、HMD、物理キー操作は未検証。17〜20は未実行です。
 
 ## M0の基礎検証記録
 
