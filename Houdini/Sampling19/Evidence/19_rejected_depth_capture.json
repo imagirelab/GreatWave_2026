@@ -1,0 +1,167 @@
+{
+  "source_report_path": "G:\\Unity\\GreatWave_2026_Fresh\\Unity\\Builds\\Sampling19\\Capture_20260925_041639\\capture_report.json",
+  "sha256": "8b4f033d59b30aa3ce53145a97ae8a2bb9b87816b0c882689b065fbd3fa65607",
+  "reason_ja": "Camera.Render後にカメラ依存の深度/投影定数を読む実装で眼奥行きがNaN。判定は不合格で媒体の公開を中止した。正式版は描画中OnRenderImageで3専用RTへ保存し、後でそれだけを読む。閾値緩和なし。",
+  "original_report": {
+    "unity": "6000.4.3f1",
+    "startedUtc": "2026-09-24T20:17:04.4182121Z",
+    "finishedUtc": "2026-09-24T20:17:10.2006614Z",
+    "method": "Windows実行版の実Alembicを30/60Hzで保持再生。実Camera.Render採録。別に18の正式ABC/VATを19のShadowCaster付きshaderでPC2カメラ深度/影検査。",
+    "gpu": "NVIDIA GeForce RTX 3080",
+    "api": "Direct3D11",
+    "width": 1280,
+    "height": 720,
+    "videoRate": 60,
+    "frames": 121,
+    "ipdMetres": 0.06400000303983688,
+    "passed": false,
+    "hmdVerified": false,
+    "xrDepthSubmissionVerified": false,
+    "depthShadow": [
+      {
+        "sample24": 0,
+        "eye": -1,
+        "depthPixelsChanged": 0,
+        "shadowPixelsChanged": 3373,
+        "shadowPixelsChangedVAT": 3373,
+        "seconds": 0.0,
+        "fieldOfView": 45.0,
+        "maximumDepthDifference": NaN,
+        "meanShadowColorDifference": 0.0,
+        "depthFinite": false,
+        "passed": false,
+        "cameraPosition": {
+          "x": 2.774238109588623,
+          "y": 2.299999952316284,
+          "z": -3.8189823627471924
+        },
+        "cameraRotation": {
+          "x": 0.15898674726486206,
+          "y": -0.30780228972435,
+          "z": 0.05224812403321266,
+          "w": 0.9366168975830078
+        }
+      },
+      {
+        "sample24": 0,
+        "eye": 1,
+        "depthPixelsChanged": 0,
+        "shadowPixelsChanged": 3353,
+        "shadowPixelsChangedVAT": 3353,
+        "seconds": 0.0,
+        "fieldOfView": 45.0,
+        "maximumDepthDifference": NaN,
+        "meanShadowColorDifference": 6.510416666666667e-06,
+        "depthFinite": false,
+        "passed": false,
+        "cameraPosition": {
+          "x": 2.8257617950439453,
+          "y": 2.299999952316284,
+          "z": -3.781017541885376
+        },
+        "cameraRotation": {
+          "x": 0.15898674726486206,
+          "y": -0.30780228972435,
+          "z": 0.05224812403321266,
+          "w": 0.9366168975830078
+        }
+      },
+      {
+        "sample24": 24,
+        "eye": -1,
+        "depthPixelsChanged": 0,
+        "shadowPixelsChanged": 15179,
+        "shadowPixelsChangedVAT": 15179,
+        "seconds": 1.0,
+        "fieldOfView": 45.0,
+        "maximumDepthDifference": NaN,
+        "meanShadowColorDifference": 3.90625e-05,
+        "depthFinite": false,
+        "passed": false,
+        "cameraPosition": {
+          "x": 10.975571632385254,
+          "y": 8.0,
+          "z": -13.020669937133789
+        },
+        "cameraRotation": {
+          "x": 0.1899758130311966,
+          "y": -0.33684441447257996,
+          "z": 0.06958962976932526,
+          "w": 0.9195663928985596
+        }
+      },
+      {
+        "sample24": 24,
+        "eye": 1,
+        "depthPixelsChanged": 0,
+        "shadowPixelsChanged": 15169,
+        "shadowPixelsChangedVAT": 15169,
+        "seconds": 1.0,
+        "fieldOfView": 45.0,
+        "maximumDepthDifference": NaN,
+        "meanShadowColorDifference": 3.90625e-05,
+        "depthFinite": false,
+        "passed": false,
+        "cameraPosition": {
+          "x": 11.024428367614746,
+          "y": 8.0,
+          "z": -12.979330062866211
+        },
+        "cameraRotation": {
+          "x": 0.1899758130311966,
+          "y": -0.33684441447257996,
+          "z": 0.06958962976932526,
+          "w": 0.9195663928985596
+        }
+      },
+      {
+        "sample24": 48,
+        "eye": -1,
+        "depthPixelsChanged": 0,
+        "shadowPixelsChanged": 14295,
+        "shadowPixelsChangedVAT": 14295,
+        "seconds": 2.0,
+        "fieldOfView": 45.0,
+        "maximumDepthDifference": NaN,
+        "meanShadowColorDifference": 0.000390625,
+        "depthFinite": false,
+        "passed": false,
+        "cameraPosition": {
+          "x": 10.975571632385254,
+          "y": 8.0,
+          "z": -13.020669937133789
+        },
+        "cameraRotation": {
+          "x": 0.1899758130311966,
+          "y": -0.33684441447257996,
+          "z": 0.06958962976932526,
+          "w": 0.9195663928985596
+        }
+      },
+      {
+        "sample24": 48,
+        "eye": 1,
+        "depthPixelsChanged": 0,
+        "shadowPixelsChanged": 14331,
+        "shadowPixelsChangedVAT": 14331,
+        "seconds": 2.0,
+        "fieldOfView": 45.0,
+        "maximumDepthDifference": NaN,
+        "meanShadowColorDifference": 0.0,
+        "depthFinite": false,
+        "passed": false,
+        "cameraPosition": {
+          "x": 11.024428367614746,
+          "y": 8.0,
+          "z": -12.979330062866211
+        },
+        "cameraRotation": {
+          "x": 0.1899758130311966,
+          "y": -0.33684441447257996,
+          "z": 0.06958962976932526,
+          "w": 0.9195663928985596
+        }
+      }
+    ]
+  }
+}

@@ -2,7 +2,18 @@
 
 『神奈川沖浪裏』をHoudini・Blender・UnityでリアルタイムVR作品にする制作記録です。旧試作を参照せず、番号ごとに新規検証してコミットします。
 
-利用者の続行指示により、18で同じ実FLIP試料のAlembicとFluid VATをUnityのPC実行版で比較しました。両方式とも全49時刻の転送検査に合格しました。**18の中間成果で確認を待ちます。M0のHMD・物理操作、19の密度/HMD試験、20の採用決定は未完了です。** 進行役は指示とレビュー、実装担当のGPT-6は制作とコミットを担当します。
+利用者が18を確認し続行を指示したため、19で新しい実FLIPの30/60Hz比較とPC深度・影を検査しました。**19のPC中間成果で確認を待ちます。HMD未所持のため19全体は未完了、20の方式採用は未実施です。** 進行役は指示とレビュー、実装担当のGPT-6は制作とコミットを担当します。
+
+## 19の時間標本・深度・影を見る
+
+- [30/60Hzの近景比較・2秒動画](Docs/Evidence/M1/Sampling19/19_Sampling_2s.mp4)
+- [近景0.75秒](Docs/Evidence/M1/Sampling19/19_Sampling_045.png)／[固定カメラ対照](Docs/Evidence/M1/Sampling19/19_fixed_083.png)／[2秒終端](Docs/Evidence/M1/Sampling19/19_Sampling_120.png)
+- [18のABC/VAT実深度](Docs/Evidence/M1/Sampling19/19_depth_000_L.png)／[床への落影](Docs/Evidence/M1/Sampling19/19_shadow_024_L.png)／[VAT表面への受影対照](Docs/Evidence/M1/Sampling19/19_receive_000_L.png)
+- [数値・限界・再現方法](Docs/Progress/Step_19_ja.md)／[Houdini元計算](Houdini/Sampling19/README_ja.md)
+
+新しい60Hzの実121時刻から偶数61時刻を30Hzへ抽出し、同じ動きを比較しました。深度・影は18の正式24Hz VAT/ABCへ新shaderを適用した別試験です。小さな2球の技術試料であり、北斎の巻き波・波頭や白波の尖端・HMDの滑らかさを検証したとは扱いません。記録60fpsは性能値ではありません。
+
+本機の実行一式は `G:\Unity\GreatWave_2026_Fresh\Unity\Builds\Sampling19\`。`GreatWave19.exe`を起動し、1で30Hz、2で60Hz、Space停止・再開、R先頭、Q終了。配布はフォルダー全体が必要です。物理キー操作は利用者確認待ち。
 
 ## 18の2方式比較を見る
 
@@ -42,7 +53,7 @@
 
 実行中のSteam Houdini22.0.429へMCPで接続し、新規の変形格子をAlembicへ書き出しました。Unity EditorとWindows実行版で61時刻と60個の補間点を照合しました。解析式の検査用形状で、流体ではありません。通常起動は2秒で停止し、Rで再生、Spaceで停止・再開、Qで終了。本機の実行ファイルは `G:\Unity\GreatWave_2026_Fresh\Unity\Builds\FixedTopology16\GreatWave16.exe`。移す場合はフォルダー全体が必要です。
 
-既存HIPを保存・読み直さず、所有ノードだけのCPIOを保存・再読込しました。UIと所有ノードの復元を確認し、変更済みフラグとUndo履歴は保持しています。.hiplcの再起動・再読込、HMD、物理キー操作は未検証。17の新規FLIP試料と18の形式比較は上記の別記録へ進み、19〜20は未実行です。
+既存HIPを保存・読み直さず、所有ノードだけのCPIOを保存・再読込しました。UIと所有ノードの復元を確認し、変更済みフラグとUndo履歴は保持しています。.hiplcの再起動・再読込、HMD、物理キー操作は未検証。17の新規FLIP試料と18の形式比較は上記の別記録へ進み、19のPC試験は上記の新規記録へ進み、HMDと20の方式採用は未実施です。
 
 ## M0の基礎検証記録
 

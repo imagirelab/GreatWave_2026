@@ -1,0 +1,157 @@
+{
+  "solver_parameters": [
+    {
+      "name": "startframe",
+      "type": "parmTemplateType.Int",
+      "value": 1
+    },
+    {
+      "name": "timescale",
+      "type": "parmTemplateType.Float",
+      "value": 1.0
+    },
+    {
+      "name": "substep",
+      "type": "parmTemplateType.Int",
+      "value": 2
+    },
+    {
+      "name": "minimumsubsteps",
+      "type": "parmTemplateType.Int",
+      "value": 1
+    },
+    {
+      "name": "substeps",
+      "type": "parmTemplateType.Int",
+      "value": 4
+    },
+    {
+      "name": "cacheenabled",
+      "type": "parmTemplateType.Toggle",
+      "value": 1
+    },
+    {
+      "name": "cachemaxsize",
+      "type": "parmTemplateType.Int",
+      "value": 1024
+    },
+    {
+      "name": "explicitcache",
+      "type": "parmTemplateType.Toggle",
+      "value": 0
+    },
+    {
+      "name": "explicitcachensteps",
+      "type": "parmTemplateType.Int",
+      "value": 0
+    },
+    {
+      "name": "explicitcachecheckpointspacing",
+      "type": "parmTemplateType.Int",
+      "value": 1
+    }
+  ],
+  "owned_dopnets": [
+    {
+      "path": "/obj/gw19_owned_86ed0b4b04/fluid19/actual_FLIP_solver/dopnet1",
+      "parameters": [
+        {
+          "name": "timestep",
+          "type": "parmTemplateType.Float",
+          "value": 0.008333333333333333,
+          "expression": null
+        },
+        {
+          "name": "substep",
+          "type": "parmTemplateType.Int",
+          "value": 2,
+          "expression": null
+        },
+        {
+          "name": "timeoffset",
+          "type": "parmTemplateType.Float",
+          "value": 0.0,
+          "expression": null
+        },
+        {
+          "name": "startframe",
+          "type": "parmTemplateType.Int",
+          "value": 1,
+          "expression": null
+        },
+        {
+          "name": "timescale",
+          "type": "parmTemplateType.Float",
+          "value": 1.0,
+          "expression": null
+        },
+        {
+          "name": "interpolate",
+          "type": "parmTemplateType.Toggle",
+          "value": 0,
+          "expression": null
+        },
+        {
+          "name": "cacheenabled",
+          "type": "parmTemplateType.Toggle",
+          "value": 1,
+          "expression": null
+        },
+        {
+          "name": "cachetodisk",
+          "type": "parmTemplateType.Toggle",
+          "value": 0,
+          "expression": null
+        },
+        {
+          "name": "cachetodisknoninteractive",
+          "type": "parmTemplateType.Toggle",
+          "value": 0,
+          "expression": null
+        },
+        {
+          "name": "cachesubsteps",
+          "type": "parmTemplateType.Toggle",
+          "value": 1,
+          "expression": null
+        },
+        {
+          "name": "cachemaxsize",
+          "type": "parmTemplateType.Int",
+          "value": 1024,
+          "expression": null
+        },
+        {
+          "name": "timeless",
+          "type": "parmTemplateType.Toggle",
+          "value": 0,
+          "expression": null
+        },
+        {
+          "name": "explicitcache",
+          "type": "parmTemplateType.Toggle",
+          "value": 0,
+          "expression": null
+        },
+        {
+          "name": "explicitcachename",
+          "type": "parmTemplateType.String",
+          "value": "G:/SteamLibrary/steamapps/common/Houdini Indie/bin/geo/v1/untitled.actual_FLIP_solver_v1.$SF.sim",
+          "expression": "`chs(\"../checkpoint_basedir\")``ifs(ch(\"../checkpoint_enableversion\"), \"/v\"+chs(\"../checkpoint_version\"), \"\")`/`chs(\"../checkpoint_basename\")``ifs(ch(\"../checkpoint_enableversion\"), \"_v\"+chs(\"../checkpoint_version\"), \"\")`.$SF.sim"
+        },
+        {
+          "name": "explicitcachensteps",
+          "type": "parmTemplateType.Int",
+          "value": 0,
+          "expression": null
+        },
+        {
+          "name": "explicitcachecheckpointspacing",
+          "type": "parmTemplateType.Int",
+          "value": 1,
+          "expression": null
+        }
+      ]
+    }
+  ]
+}
