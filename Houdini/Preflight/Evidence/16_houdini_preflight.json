@@ -1,0 +1,107 @@
+{
+  "schema_version": 1,
+  "recorded_date": "2026-09-24",
+  "step_16_status": "ATTEMPTED_BLOCKED",
+  "steps_17_20_status": "NOT_RUN_DEPENDENCY_UNMET",
+  "source_policy": "FRESH_STAGING_ONLY_NO_OLD_PROTOTYPE",
+  "hmd_status": "NOT_AVAILABLE_NOT_TESTED",
+  "attempts": [
+    {
+      "attempt": "hython21_default",
+      "executable": "C:\\Program Files\\Side Effects Software\\Houdini 21.0.729\\bin\\hython.exe",
+      "version": "21.0.729",
+      "isolation": false,
+      "exit_code": 139,
+      "timeout_seconds": 30,
+      "timed_out": false,
+      "process_wall_seconds": null,
+      "script_confirmation_observed": false,
+      "result": "NATIVE_STARTUP_CRASH",
+      "sanitized_message": "Fatal error: Segmentation fault",
+      "recording": "Observed launch result and retained raw local logs; process stopwatch was not recorded"
+    },
+    {
+      "attempt": "hython21_isolated",
+      "executable": "C:\\Program Files\\Side Effects Software\\Houdini 21.0.729\\bin\\hython.exe",
+      "version": "21.0.729",
+      "isolation": true,
+      "exit_code": 139,
+      "timeout_seconds": 30,
+      "timed_out": false,
+      "process_wall_seconds": null,
+      "script_confirmation_observed": false,
+      "result": "NATIVE_STARTUP_CRASH",
+      "sanitized_message": "Fatal error: Segmentation fault",
+      "recording": "Observed launch result and retained raw local logs; process stopwatch was not recorded"
+    },
+    {
+      "attempt": "hbatch21_isolated",
+      "executable": "C:\\Program Files\\Side Effects Software\\Houdini 21.0.729\\bin\\hbatch.exe",
+      "version": "21.0.729",
+      "isolation": true,
+      "exit_code": 139,
+      "timeout_seconds": 30,
+      "timed_out": false,
+      "process_wall_seconds": 1.3672762,
+      "script_confirmation_observed": false,
+      "result": "NATIVE_STARTUP_CRASH",
+      "sanitized_message": "Fatal error: Segmentation fault",
+      "recording": "hbatch21_isolated.json"
+    },
+    {
+      "attempt": "hython205_isolated",
+      "executable": "C:\\Program Files\\Side Effects Software\\Houdini 20.5.278\\bin\\hython.exe",
+      "version": "20.5.278",
+      "isolation": true,
+      "exit_code": 3,
+      "timeout_seconds": 30,
+      "timed_out": false,
+      "process_wall_seconds": 4.9973878,
+      "script_confirmation_observed": false,
+      "result": "EXPLICIT_LICENSE_FAILURE",
+      "sanitized_message": "No licenses could be found to run this application.\n    Please check for a valid license server host",
+      "recording": "hython205_isolated.json"
+    }
+  ],
+  "license_observation": {
+    "query_target": "localhost",
+    "query_exit_code": 0,
+    "license_count": 0,
+    "license_services_running": [
+      "HoudiniLicenseServer",
+      "HoudiniServer"
+    ],
+    "other_account_or_server_ownership": "UNKNOWN",
+    "houdini21_license_failure_proven": false,
+    "houdini205_explicit_license_failure": true,
+    "keys_and_credentials_recorded": false
+  },
+  "labs_installation": {
+    "manifest": "C:\\Program Files\\Side Effects Software\\sidefx_packages\\SideFXLabs20.5.json",
+    "declared_version": "20.5.363",
+    "enable_rule": "houdini_version >= '20.5' and houdini_version < '20.6'",
+    "directory_exists": true,
+    "supports_houdini21_by_manifest": false,
+    "actual_load_verified": false,
+    "vat_cook_verified": false,
+    "isolated_attempts_skip_packages": true
+  },
+  "outputs": {
+    "geometry_probe_json_exists": false,
+    "export_files": [],
+    "box_cook": "NOT_CONFIRMED",
+    "bgeo_save": "NOT_CONFIRMED",
+    "fixed_topology_2_to_3_seconds": "NOT_RUN",
+    "flip_remeshing_sample": "NOT_RUN",
+    "alembic_export": "NOT_RUN",
+    "fbx_export": "NOT_RUN",
+    "vat_export": "NOT_RUN",
+    "unity_playback_comparison": "NOT_RUN",
+    "adopted_playback_format": null
+  },
+  "post_attempt_script_changes": {
+    "description": "Explicit boolean checks, create output directories, constrain attempt names, add Python entry marker",
+    "houdini_relaunched_after_changes": false
+  },
+  "required_next_condition": "Confirm a usable authorized Houdini license and a successfully starting executable before geometry/export validation."
+}

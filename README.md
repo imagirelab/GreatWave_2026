@@ -16,6 +16,8 @@
 
 本機の実行ファイル：`G:\Unity\GreatWave_2026_Fresh\Unity\Builds\M1\GreatWaveM1.exe`。移す場合は `M1/` 一式が必要です。1〜5で視点を切替、右ドラッグ・矢印で見回し、Rで戻す、Spaceで停止、Qで終了します。通常のウィンドウと物理キー・マウス操作は利用者確認待ち。 [ビルド](Tools/Build_M1.ps1)／[画像・動画の再取得](Tools/Capture_M1.ps1)。
 
+Houdiniは利用者の申告でSteamの2年間の利用権が期限切れ・未更新のため、16は停止中、17〜20は未実行です。Steam版22.0.429のインストールは確認しましたが、実行・流体・書き出しの成功ではありません。[停止理由・通常版試行との区別・再開条件](Docs/Progress/Step_16_ja.md)。
+
 ## M0の基礎検証記録
 
 - [20秒の確認動画](Docs/Evidence/M0/M0_Desktop_Walkthrough.mp4)
