@@ -1,6 +1,6 @@
 # 22：実 FLIP 水槽の中間成果（進行波は未完成）
 
-現在は小水槽の接続と静水初期化を検査している。**進行波、非砕波、理論精度はまだ合格していない。** 手順17・19の二球試料を波の証拠へ流用していない。
+現在は小水槽の接続と静水初期化を検査している。t3に続き、事前固定したt6の開始判定も不合格となり、後続の駆動へ進めていない。**進行波、非砕波、理論精度はまだ合格していない。** 手順17・19の二球試料を波の証拠へ流用していない。
 
 目標と理論値は [手順21の条件](../WaveBaseline21/README_ja.md) に固定した。H=.060 m、T=1.500 s、h=.600 m、g=9.81 m/s²、ρ=1000 kg/m³ の淡水相当基準である。現在の短槽は長さ2λ=5.980790 m、幅.600 m。診断ゲージは .75λ と1.25λ、静水待機ケースでは1λを補助追加する。本試験用ゲージや理論値を、この短槽の結果で置き換えない。
 
@@ -81,3 +81,20 @@ python Houdini/Wave22/Source/run_pilot.py --grid-scale 1.5 --particle-separation
 このコマンドはt3で終了し、駆動段へ自動続行しない。再実行は新しいRun IDへ保存する。現在の中間結果を波の合格として上書きしない。
 
 実行当時Sourceのうち末尾空行を含む4ファイルは `.py.gz` へ無損失圧縮し、元SHAと保存物SHAをexecution_summaryに分けて記録した。展開後は当時のbytesと一致する。現在のSourceはLF・単一末尾改行で公開する。
+
+
+## 22修正01：t6の実行結果
+
+新Run `3e5ff87a29` は361時刻で停止した。固定窓(4.5,5.25]、(5.25,6]のG3傾きが+5.624/−4.552mmで3mm上限を超え、開始判定FAIL。平均差・平均まわりRMS・SDF代理量変化は通過したが、表示PFSにも残動がある。板の解析変位/速度は0、k360の実collision vxだけ9.889719e−7m/s、他は0。駆動許可なし、波動画なし、UI18項目と所有ノード削除は合格。
+
+[実全時系列図](Evidence/Checkpoint6_Result_3e5ff87a29/22_static_full_series.png)、[後半拡大](Evidence/Checkpoint6_Result_3e5ff87a29/22_static_late_windows.png)、[公開Curated原データ](Evidence/Curated_Runs/3e5ff87a29)、[実行値・資源・出典](Evidence/Checkpoint6_Result_3e5ff87a29/22_checkpoint6_summary.json)を参照。542BGEO計1.662GBは本機Runsに保持し、[hash一覧](Evidence/Checkpoint6_Result_3e5ff87a29/22_cache_manifest.json)だけをGitへ保存した。t3の底方向検査をt6へ拡張したとは記さない。
+
+新runnerはHoudini保存JSONのSHAと実行ソースSHAを照合して精値を読み、MCP返却floatを判定に使わない。初回の丸めによる拒否は[短い記録](Evidence/Checkpoint6_Planned/22_rejected_transport_attempt.json)へ分離した。[事前計画](Checkpoint6_Plan_ja.md)は実行前の条件として保持する。23項目の模擬実行を通してから再実行したが、実静水は合格しなかった。
+
+公開ファイルだけで新しい図・CSV・統計を再計算する場合：
+
+```powershell
+python Houdini/Wave22/Source/summarize_checkpoint6.py --curated-only
+```
+
+このモードはHoudiniへ接続せず、ローカルBGEOの再検証も行わない。原JSONと保存manifestから再計算する。通常モードは本機Runsの542BGEOのSHAを再検査してから公開候補を作る。

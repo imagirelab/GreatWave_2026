@@ -1,0 +1,247 @@
+{
+  "executed_houdini": false,
+  "fluid_simulation_performed": false,
+  "t6_measured": false,
+  "scope_ja": "公開済み実t3の読戻し＋合成一定値による制御の模擬実行。合成値は流体の証拠ではない。",
+  "input_sha256": {
+    "Evidence\\Curated_Runs\\0652da0179\\22_pilot_samples.json": "e159b6d94e5c43b8d23758481dd42f5a66f4d3c30bedb960e5a520556ecb9dde",
+    "Evidence\\Curated_Runs\\0652da0179\\22_pilot_conditions.json": "a51cb4ca806fc6da08ce067dc6d6cd39e4eea270126aa6c063069721f81f8ea9",
+    "Evidence\\Curated_Runs\\0652da0179\\22_preroll_stability.json": "5687169d0cf9643a1db93841466a5ba55005fd6e0067e24ce334bd460f1b1166"
+  },
+  "actual_t3_gate": {
+    "end_seconds": 3,
+    "windows": [
+      {
+        "left_open_seconds": 1.5,
+        "right_closed_seconds": 2.25,
+        "count": 45,
+        "gauges": [
+          {
+            "x_m": 2.242796379968867,
+            "z_m": 0,
+            "mean_eta_m": -0.005841663465462876,
+            "residual_rms_about_mean_m": 0.0008923851015405172,
+            "linear_trend_m_s": -0.003328557377060191,
+            "trend_change_per_window_m": -0.002496418032795143
+          },
+          {
+            "x_m": 2.9903951732918226,
+            "z_m": 0,
+            "mean_eta_m": -0.003495226628495235,
+            "residual_rms_about_mean_m": 0.0018780557856043754,
+            "linear_trend_m_s": 0.008403038624183169,
+            "trend_change_per_window_m": 0.006302278968137376
+          },
+          {
+            "x_m": 3.7379939666147783,
+            "z_m": 0,
+            "mean_eta_m": -0.0031802903140416964,
+            "residual_rms_about_mean_m": 0.0005609400049702446,
+            "linear_trend_m_s": 0.0003688379435124561,
+            "trend_change_per_window_m": 0.0002766284576343421
+          }
+        ],
+        "negative_voxel_proxy_mean_m3": 2.3436530793828836,
+        "negative_voxel_proxy_first_last_m3": [
+          2.3436002793765893,
+          2.346624279737075
+        ],
+        "particle_count_first_last": [
+          52069,
+          51607
+        ],
+        "particle_velocity_rms_mean_m_s": 0.0069489587663104395,
+        "particle_velocity_rms_max_m_s": 0.007470816063256546,
+        "particle_velocity_max_m_s": 0.21118278223370557
+      },
+      {
+        "left_open_seconds": 2.25,
+        "right_closed_seconds": 3,
+        "count": 45,
+        "gauges": [
+          {
+            "x_m": 2.242796379968867,
+            "z_m": 0,
+            "mean_eta_m": -0.0030884037756903912,
+            "residual_rms_about_mean_m": 0.0015382369688822506,
+            "linear_trend_m_s": -0.0032368669509444466,
+            "trend_change_per_window_m": -0.002427650213208335
+          },
+          {
+            "x_m": 2.9903951732918226,
+            "z_m": 0,
+            "mean_eta_m": -0.0015436440573716782,
+            "residual_rms_about_mean_m": 0.00046261969888312075,
+            "linear_trend_m_s": -0.002090854758258417,
+            "trend_change_per_window_m": -0.0015681410686938127
+          },
+          {
+            "x_m": 3.7379939666147783,
+            "z_m": 0,
+            "mean_eta_m": -0.0029591596617929605,
+            "residual_rms_about_mean_m": 0.00032424052358397967,
+            "linear_trend_m_s": 0.0014418855996799046,
+            "trend_change_per_window_m": 0.0010814141997599284
+          }
+        ],
+        "negative_voxel_proxy_mean_m3": 2.3433698793491238,
+        "negative_voxel_proxy_first_last_m3": [
+          2.3468402797628243,
+          2.340144278964605
+        ],
+        "particle_count_first_last": [
+          51601,
+          51430
+        ],
+        "particle_velocity_rms_mean_m_s": 0.00506568903160059,
+        "particle_velocity_rms_max_m_s": 0.006573144555505404,
+        "particle_velocity_max_m_s": 0.2265974952217754
+      }
+    ],
+    "gauge_checks": [
+      {
+        "x_m": 2.242796379968867,
+        "mean_change_m": 0.002753259689772485,
+        "mean_change_passed": true,
+        "both_rms_passed": true,
+        "both_trend_passed": true
+      },
+      {
+        "x_m": 2.9903951732918226,
+        "mean_change_m": 0.001951582571123557,
+        "mean_change_passed": true,
+        "both_rms_passed": true,
+        "both_trend_passed": false
+      },
+      {
+        "x_m": 3.7379939666147783,
+        "mean_change_m": 0.00022113065224873586,
+        "mean_change_passed": true,
+        "both_rms_passed": true,
+        "both_trend_passed": true
+      }
+    ],
+    "proxy_relative_window_change": -0.0001208370113525703,
+    "diagnostic_stability_passed": false,
+    "wave_verified": false,
+    "physical_accuracy_verified": false,
+    "meaning_ja": "静水待機の駆動許可条件だけ。SDF代理量は実水量ではない。"
+  },
+  "checks": [
+    {
+      "check": "公開t3固定窓のFAILを再現",
+      "passed": true
+    },
+    {
+      "check": "公開統計値と一致",
+      "passed": true,
+      "maximum_difference_m": 0
+    },
+    {
+      "check": "唯一の超過は中央測点の前窓の傾き",
+      "passed": true,
+      "central_trend_change_m": 0.006302278968137376
+    },
+    {
+      "check": "実t3 FAILで追加標本・駆動許可を呼ばない",
+      "passed": true,
+      "outcome": {
+        "status": "STATIC_GATE_FAILED",
+        "last_sample": 180,
+        "drive_authorized": false
+      },
+      "sample_calls": 181,
+      "authorization_calls": 0
+    },
+    {
+      "check": "合成一定値PASSの場合だけ分岐を続行する",
+      "passed": true,
+      "outcome": {
+        "status": "OBSERVATION_CHECKPOINT_REACHED",
+        "last_sample": 182,
+        "drive_authorized": true
+      },
+      "sample_calls": 183,
+      "authorization_calls": 1
+    },
+    {
+      "check": "終端欠損を拒否",
+      "passed": true
+    },
+    {
+      "check": "重複標本を拒否",
+      "passed": true
+    },
+    {
+      "check": "非有限ゲージを拒否",
+      "passed": true
+    },
+    {
+      "check": "無効なゲージを拒否",
+      "passed": true
+    },
+    {
+      "check": "静水窓の駆動済み標本を拒否",
+      "passed": true
+    },
+    {
+      "check": "実DOP時刻不一致を拒否",
+      "passed": true
+    },
+    {
+      "check": "壁外の残存粒子を拒否",
+      "passed": true
+    },
+    {
+      "check": "実t3の費用が新しい運用上限内",
+      "passed": true
+    },
+    {
+      "check": "資源上限超過を拒否: simulation_memory_bytes",
+      "passed": true
+    },
+    {
+      "check": "資源上限超過を拒否: cook_seconds",
+      "passed": true
+    },
+    {
+      "check": "公開fixtureのbytesは無変更",
+      "passed": true
+    },
+    {
+      "check": "MCPの六桁数値を使わず保存JSONの精値を読む",
+      "passed": true
+    },
+    {
+      "check": "保存JSONの出典不一致を拒否: json_sha256",
+      "passed": true
+    },
+    {
+      "check": "保存JSONの出典不一致を拒否: source_sha256",
+      "passed": true
+    },
+    {
+      "check": "新規Pythonソース構文確認",
+      "passed": true
+    },
+    {
+      "check": "所有基線RPCは独立namespaceで定義不足なし",
+      "passed": true
+    },
+    {
+      "check": "再判定RPCの独立namespaceと許可分岐: False",
+      "passed": true
+    },
+    {
+      "check": "再判定RPCの独立namespaceと許可分岐: True",
+      "passed": true
+    }
+  ],
+  "passed": true,
+  "source_sha256": {
+    "check_checkpoint_logic.py": "a5184dfe6ce8316f363172a905cc9778a7e249d411ac061364812b6d159e664b",
+    "checkpoint_gate.py": "127c84eedb3a0122b3149cc18d1a6b385edf1f95a510614f3df1d9bb710aae36",
+    "run_checkpoint6.py": "31540b161a444c700ee28d2ff2ddc9cae45a96864c09c1ba14e30180ffb15afa",
+    "checkpoint6_plan.json": "bfab75c4b5dcf7fd1e32baa7fe890feba9cc9eb58018aab865d3e90fdc377c66"
+  }
+}
