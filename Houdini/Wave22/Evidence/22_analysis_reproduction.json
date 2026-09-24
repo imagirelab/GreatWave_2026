@@ -1,0 +1,92 @@
+{
+  "only_public_curated_inputs_copied": true,
+  "runs_folder_absent": true,
+  "scripts": [
+    {
+      "script": "analyze_pilot.py",
+      "arguments": [
+        "6bb19ca887",
+        "e1db8acb19"
+      ],
+      "exit_code": 0,
+      "stderr_bytes": 0
+    },
+    {
+      "script": "compare_static_cases.py",
+      "arguments": [],
+      "exit_code": 0,
+      "stderr_bytes": 0
+    },
+    {
+      "script": "analyze_preroll.py",
+      "arguments": [
+        "0652da0179",
+        "--end",
+        "3"
+      ],
+      "exit_code": 0,
+      "stderr_bytes": 0
+    },
+    {
+      "script": "compare_preroll_surfaces.py",
+      "arguments": [],
+      "exit_code": 0,
+      "stderr_bytes": 0
+    },
+    {
+      "script": "compare_short_controls.py",
+      "arguments": [],
+      "exit_code": 0,
+      "stderr_bytes": 0
+    }
+  ],
+  "outputs": [
+    {
+      "path": "Evidence/Compare_6bb19ca887_e1db8acb19/22_pilot_comparison.png",
+      "match": true,
+      "sha256": "1372bd74fc59f8096dcc72de48dc2f7a2ea9958267b096ee178f20ebe88c0221"
+    },
+    {
+      "path": "Evidence/Compare_6bb19ca887_e1db8acb19/comparison.json",
+      "match": true,
+      "sha256": "dbb9ea7786f71bd3ae378694de407154c749e2c2b672d36347e8edbf4bf261d6"
+    },
+    {
+      "path": "Evidence/Static_Comparison/22_static_comparison.json",
+      "match": true,
+      "sha256": "4a93b9fb86f97191f163a9b346236cbade9affc61448a4c897aea7249f4e4374"
+    },
+    {
+      "path": "Evidence/Static_Comparison/22_static_comparison.png",
+      "match": true,
+      "sha256": "776089e69bc0a6b6d0e855f00235906261237926601a89371e4cd0d99d4bdbb0"
+    },
+    {
+      "path": "Evidence/Preroll_0652da0179/22_preroll_gauges.csv",
+      "match": true,
+      "sha256": "aaf43cc47b8f54ad525b6312363b4313933d42328cf29d99e80b56f263ceebd1"
+    },
+    {
+      "path": "Evidence/Preroll_0652da0179/22_preroll_mesh_comparison.json",
+      "match": true,
+      "sha256": "805f898e1bb7a72b22a6e867bd0cb1ea45cb024b432e0a2562f3a6c3dff551a8"
+    },
+    {
+      "path": "Evidence/Preroll_0652da0179/22_preroll_sdf_mesh.png",
+      "match": true,
+      "sha256": "1d25802433bac4a6b90b33e0f687c742a1121a3f891bb08ffdccc1f2f0dc7d55"
+    },
+    {
+      "path": "Evidence/Preroll_0652da0179/22_preroll_stability_recomputed.json",
+      "match": true,
+      "sha256": "ca3b139edb38da5e7f35632c1d763ee263cd98e2d949234d4a1f7a039f573ca9"
+    },
+    {
+      "path": "Evidence/Short_Controls/22_short_control_comparison.json",
+      "match": true,
+      "sha256": "d89dd724f4630d16d9c3b3c16cae11e890b31857d19311586ba3afd8887968d9"
+    }
+  ],
+  "all_outputs_match": true,
+  "scope_ja": "公開ファイルだけの別ディレクトリで5解析を再実行。Houdini/UI/非公開BGEOにアクセスしない。Windowsフォントと記録済みPython依存は必要。"
+}

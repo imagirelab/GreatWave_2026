@@ -4,6 +4,13 @@
 
 利用者の最新指示により、代理が各番号を制作・独立レビューして最終作品へ継続します。**20では同じ24Hz小試料のPCロード・メモリ・CPU費用を測り、Built-in＋Alembicを制作の形状基準として暫定継続します。VATは候補を保持。GPU時間・HMD・主役波が未検証のため、最終VR形式は未採用です。** 進行役は指示とレビュー、実装担当のGPT-6は制作とコミットを担当します。
 
+## 22の実水槽・中間結果を見る
+
+**静水の開始条件が不合格となり、造波はまだ開始していません。進行波の完成とは扱いません。** 新規FLIPの181時刻を実測し、初期化・重力・再構成の診断を保存しました。
+
+- [未補正の水位と表示面の比較](Houdini/Wave22/Evidence/Preroll_0652da0179/22_preroll_sdf_mesh.png)／[実Houdini静止画・3秒](Houdini/Wave22/Evidence/Still_0652da0179/22_Perspective_180.png)
+- [22の不合格理由・独立レビュー・残る条件](Docs/Progress/Step_22_ja.md)／[181時刻CSV](Houdini/Wave22/Evidence/Preroll_0652da0179/22_preroll_gauges.csv)／[再現方法](Houdini/Wave22/README_ja.md)
+
 ## 21の小振幅波の基準を見る
 
 - [固定条件と22〜25の測定計画](Docs/Progress/Step_21_ja.md)
@@ -15,7 +22,7 @@
 
 - [Alembicの近景・2秒動画](Docs/Evidence/M1/Decision20/20_abc_2s.mp4)／[Fluid VATの同視点動画](Docs/Evidence/M1/Decision20/20_vat_2s.mp4)
 - [Alembic 1秒](Docs/Evidence/M1/Decision20/20_abc_024.png)／[VAT 1秒](Docs/Evidence/M1/Decision20/20_vat_024.png)
-- [3回ずつの実測表・採用条件・再現方法](Docs/Progress/Step_20_ja.md)／[01〜21の検証状態と残る条件](Docs/Progress/Verification_Status_ja.md)
+- [3回ずつの実測表・採用条件・再現方法](Docs/Progress/Step_20_ja.md)／[01〜22の検証状態と残る条件](Docs/Progress/Verification_Status_ja.md)
 
 20専用Windows版の6つの新プロセスで、同じ入力を広景/固定近景・単眼/人工2視点で測りました。新プロセス初回scene読込の中央値はABC 19.67ms、VAT 153.11ms。VATはCPU更新が軽い一方、初回メモリ増分が大きく、GPU時間は追加の通常カメラ診断でも取得できませんでした。映像は計測外の近景カメラによる実描画で、性能値やHMD映像ではありません。
 

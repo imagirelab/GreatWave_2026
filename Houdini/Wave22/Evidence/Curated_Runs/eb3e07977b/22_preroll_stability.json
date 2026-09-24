@@ -1,0 +1,143 @@
+{
+  "case_id": "GreatWave22_Piston_dp0p04_grid1p5_Preroll3p0",
+  "token": "eb3e07977b",
+  "end_seconds": 1.5,
+  "purpose_ja": "静止初期化の健康診断。ηは未補正。平均回りRMSは統計量であり、ゲージ時系列から平均を差し引いていない。",
+  "negative_voxel_proxy_caution_ja": "固体やhaloと量子化を含む負SDFセル数。実水量・収支合格ではない。",
+  "drive_gate_eligible": false,
+  "diagnostic_stability_passed": false,
+  "wave_verified": false,
+  "physical_accuracy_verified": false,
+  "conditions": {
+    "window_seconds": 0.75,
+    "minimum_consecutive_windows": 2,
+    "maximum_mean_change_m": 0.003,
+    "maximum_residual_rms_m": 0.003,
+    "maximum_linear_trend_change_per_window_m": 0.003,
+    "maximum_proxy_relative_window_change": 0.01,
+    "meaning_ja": "駆動開始を検討する診断。初期水深・収支・理論精度の合格ではない。"
+  },
+  "windows": [
+    {
+      "left_open_seconds": 0.0,
+      "right_closed_seconds": 0.75,
+      "count": 45,
+      "gauges": [
+        {
+          "x_m": 2.242796379968867,
+          "z_m": 0,
+          "mean_eta_m": -0.004037348135171725,
+          "effective_mean_depth_m": 0.5959626518648282,
+          "residual_rms_about_mean_m": 0.0015630644176176792,
+          "linear_trend_m_s": 0.0056417545014860095,
+          "trend_change_per_window_m": 0.004231315876114507,
+          "min_eta_m": -0.005998924637969189,
+          "max_eta_m": -0.001617983004300693
+        },
+        {
+          "x_m": 2.9903951732918226,
+          "z_m": 0,
+          "mean_eta_m": -0.0017584519322198457,
+          "effective_mean_depth_m": 0.5982415480677802,
+          "residual_rms_about_mean_m": 0.0006994119628895705,
+          "linear_trend_m_s": 0.0024073760378818558,
+          "trend_change_per_window_m": 0.0018055320284113918,
+          "min_eta_m": -0.002798810709664789,
+          "max_eta_m": -0.0009136050893607276
+        },
+        {
+          "x_m": 3.7379939666147783,
+          "z_m": 0,
+          "mean_eta_m": -0.002949646797383617,
+          "effective_mean_depth_m": 0.5970503532026163,
+          "residual_rms_about_mean_m": 0.0009749428634552734,
+          "linear_trend_m_s": -0.0042176353178028396,
+          "trend_change_per_window_m": -0.0031632264883521295,
+          "min_eta_m": -0.003866389474312572,
+          "max_eta_m": -0.0007562786879672836
+        }
+      ],
+      "negative_voxel_proxy_mean_m3": 2.3462738796953047
+    },
+    {
+      "left_open_seconds": 0.75,
+      "right_closed_seconds": 1.5,
+      "count": 45,
+      "gauges": [
+        {
+          "x_m": 2.242796379968867,
+          "z_m": 0,
+          "mean_eta_m": -0.0023005415994234403,
+          "effective_mean_depth_m": 0.5976994584005766,
+          "residual_rms_about_mean_m": 0.0011689795431121333,
+          "linear_trend_m_s": -0.004705799968000396,
+          "trend_change_per_window_m": -0.0035293499760002973,
+          "min_eta_m": -0.0044519749688802564,
+          "max_eta_m": -0.0010657161445626877
+        },
+        {
+          "x_m": 2.9903951732918226,
+          "z_m": 0,
+          "mean_eta_m": -0.0022571692869971043,
+          "effective_mean_depth_m": 0.5977428307130028,
+          "residual_rms_about_mean_m": 0.0011581251092043971,
+          "linear_trend_m_s": -0.0029337865961957844,
+          "trend_change_per_window_m": -0.0022003399471468383,
+          "min_eta_m": -0.005059078621782256,
+          "max_eta_m": -0.0008502452701105998
+        },
+        {
+          "x_m": 3.7379939666147783,
+          "z_m": 0,
+          "mean_eta_m": -0.004628222817688171,
+          "effective_mean_depth_m": 0.5953717771823118,
+          "residual_rms_about_mean_m": 0.0005964321112207131,
+          "linear_trend_m_s": -0.0023969029266294665,
+          "trend_change_per_window_m": -0.0017976771949720998,
+          "min_eta_m": -0.0054461511388109955,
+          "max_eta_m": -0.0038327425371386015
+        }
+      ],
+      "negative_voxel_proxy_mean_m3": 2.3466866797445136
+    }
+  ],
+  "gauge_checks": [
+    {
+      "x_m": 2.242796379968867,
+      "mean_change_m": 0.0017368065357482847,
+      "mean_change_passed": true,
+      "both_rms_passed": true,
+      "both_trend_passed": false
+    },
+    {
+      "x_m": 2.9903951732918226,
+      "mean_change_m": -0.0004987173547772587,
+      "mean_change_passed": true,
+      "both_rms_passed": true,
+      "both_trend_passed": true
+    },
+    {
+      "x_m": 3.7379939666147783,
+      "mean_change_m": -0.0016785760203045542,
+      "mean_change_passed": true,
+      "both_rms_passed": true,
+      "both_trend_passed": false
+    }
+  ],
+  "proxy_relative_window_change": 0.00017593856061792756,
+  "resources": {
+    "cook_median_s": 1.783756099990569,
+    "cook_max_s": 2.521660000027623,
+    "dop_memory_max_bytes": 805004021,
+    "available_ram_min_bytes": 33816211456,
+    "particle_count_initial_final": [
+      53500,
+      52073
+    ]
+  },
+  "source_sha256": {
+    "Runs/eb3e07977b/Evidence/22_pilot_samples.json": "4891e3f3c5d00017f26abe811c481333326c62de90825c282057975ed11be748",
+    "Runs/eb3e07977b/Evidence/22_pilot_conditions.json": "dad1f29d7932d3a18d235e0b145d7cf6c636d231fd2026ebbf8bd7a2688e76cf",
+    "Source/analyze_preroll.py": "fb4e5981ffd873af3ab751fafc00b7fa2e7074c2cffb4eff3aee17708098f54d"
+  }
+}

@@ -1,0 +1,2028 @@
+{
+  "flipcontainer": [
+    {
+      "name": "particlesep",
+      "label": "Particle Separation",
+      "type": "parmTemplateType.Float",
+      "default": [
+        0.1
+      ]
+    },
+    {
+      "name": "gridscale",
+      "label": "Grid Scale",
+      "type": "parmTemplateType.Float",
+      "default": [
+        2.0
+      ]
+    },
+    {
+      "name": "implicit",
+      "label": "Implicit Bounds",
+      "type": "parmTemplateType.Toggle",
+      "default": true
+    },
+    {
+      "name": "size",
+      "label": "Size",
+      "type": "parmTemplateType.Float",
+      "default": [
+        10.0,
+        10.0,
+        10.0
+      ]
+    },
+    {
+      "name": "t",
+      "label": "Center",
+      "type": "parmTemplateType.Float",
+      "default": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "gravity",
+      "label": "Gravity",
+      "type": "parmTemplateType.Float",
+      "default": [
+        9.80665
+      ]
+    },
+    {
+      "name": "gravitydir",
+      "label": "Gravity Direction",
+      "type": "parmTemplateType.Float",
+      "default": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "name": "density",
+      "label": "Density",
+      "type": "parmTemplateType.Float",
+      "default": [
+        1000.0
+      ]
+    },
+    {
+      "name": "dovaryingdensity",
+      "label": "Varying Density",
+      "type": "parmTemplateType.Toggle",
+      "default": false
+    },
+    {
+      "name": "dosurfacetension",
+      "label": "Enable Surface Tension",
+      "type": "parmTemplateType.Toggle",
+      "default": false
+    },
+    {
+      "name": "surfacetension",
+      "label": "Surface Tension",
+      "type": "parmTemplateType.Float",
+      "default": [
+        10.0
+      ]
+    },
+    {
+      "name": "docurvatureblur",
+      "label": "Enable Surface Tension Blur",
+      "type": "parmTemplateType.Toggle",
+      "default": true
+    },
+    {
+      "name": "stblurradius",
+      "label": "Blur Radius",
+      "type": "parmTemplateType.Float",
+      "default": [
+        1.0
+      ]
+    },
+    {
+      "name": "viscosity",
+      "label": "Enable Viscosity",
+      "type": "parmTemplateType.Toggle",
+      "default": false
+    },
+    {
+      "name": "dovaryingviscosity",
+      "label": "Varying Viscosity",
+      "type": "parmTemplateType.Toggle",
+      "default": false
+    },
+    {
+      "name": "default_viscosity",
+      "label": "Viscosity",
+      "type": "parmTemplateType.Float",
+      "default": [
+        0.0
+      ]
+    },
+    {
+      "name": "enableslip",
+      "label": "Slip on Collision",
+      "type": "parmTemplateType.Toggle",
+      "default": false
+    },
+    {
+      "name": "slipscale",
+      "label": "Slip Scale",
+      "type": "parmTemplateType.Float",
+      "default": [
+        0.1
+      ]
+    },
+    {
+      "name": "dovorticity",
+      "label": "Add Vorticity Attribute",
+      "type": "parmTemplateType.Toggle",
+      "default": false
+    },
+    {
+      "name": "vorticitypreserve",
+      "label": "Preservation Rate",
+      "type": "parmTemplateType.Float",
+      "default": [
+        0.1
+      ]
+    },
+    {
+      "name": "doid",
+      "label": "Add ID Attribute",
+      "type": "parmTemplateType.Toggle",
+      "default": false
+    },
+    {
+      "name": "doage",
+      "label": "Add Age Attribute",
+      "type": "parmTemplateType.Toggle",
+      "default": false
+    },
+    {
+      "name": "dorelativedensity",
+      "label": "Add Relative Density Attribute",
+      "type": "parmTemplateType.Toggle",
+      "default": false
+    },
+    {
+      "name": "dorest",
+      "label": "Add Rest Attribute",
+      "type": "parmTemplateType.Toggle",
+      "default": false
+    },
+    {
+      "name": "rest_dual",
+      "label": "Dual Rest Attributes",
+      "type": "parmTemplateType.Toggle",
+      "default": true
+    },
+    {
+      "name": "rest_framedelay",
+      "label": "Frames Between Reset",
+      "type": "parmTemplateType.Int",
+      "default": [
+        50
+      ],
+      "menu_items": [],
+      "menu_labels": []
+    },
+    {
+      "name": "rest_frameoffset",
+      "label": "Frame Offset",
+      "type": "parmTemplateType.Int",
+      "default": [
+        1
+      ],
+      "menu_items": [],
+      "menu_labels": []
+    },
+    {
+      "name": "customattributes",
+      "label": "Custom Attributes",
+      "type": "parmTemplateType.Folder",
+      "default": 0
+    }
+  ],
+  "flipboundary": [
+    {
+      "name": "activate",
+      "label": "Activation",
+      "type": "parmTemplateType.Float",
+      "default": [
+        1.0
+      ]
+    },
+    {
+      "name": "type",
+      "label": "Type",
+      "type": "parmTemplateType.Menu",
+      "default": 0,
+      "menu_items": [
+        "source",
+        "sink"
+      ],
+      "menu_labels": [
+        "Source",
+        "Sink"
+      ]
+    },
+    {
+      "name": "boundarytype",
+      "label": "Boundary",
+      "type": "parmTemplateType.Menu",
+      "default": 0,
+      "menu_items": [
+        "none",
+        "vel",
+        "pressure"
+      ],
+      "menu_labels": [
+        "None",
+        "Velocity",
+        "Pressure"
+      ]
+    },
+    {
+      "name": "pressure",
+      "label": "Uniform Pressure",
+      "type": "parmTemplateType.Float",
+      "default": [
+        1.0
+      ]
+    },
+    {
+      "name": "hydro_pressure",
+      "label": "Hydrostatic Pressure",
+      "type": "parmTemplateType.Float",
+      "default": [
+        0.0
+      ]
+    },
+    {
+      "name": "hydro_offset",
+      "label": "Water Level",
+      "type": "parmTemplateType.Float",
+      "default": [
+        0.0
+      ]
+    },
+    {
+      "name": "hydro_waterpos",
+      "label": "Water Origin",
+      "type": "parmTemplateType.Float",
+      "default": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "pressureband",
+      "label": "Pressure Voxel Band",
+      "type": "parmTemplateType.Float",
+      "default": [
+        2.0
+      ]
+    },
+    {
+      "name": "velocity",
+      "label": "Additional Velocity",
+      "type": "parmTemplateType.Float",
+      "default": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "scalevel",
+      "label": "Scale Velocity",
+      "type": "parmTemplateType.Float",
+      "default": [
+        1.0
+      ]
+    },
+    {
+      "name": "normalvel",
+      "label": "Normal Velocity",
+      "type": "parmTemplateType.Float",
+      "default": [
+        0.0
+      ]
+    },
+    {
+      "name": "computevel",
+      "label": "Compute Velocity from Deformation",
+      "type": "parmTemplateType.Toggle",
+      "default": false
+    }
+  ],
+  "flipcollide": [
+    {
+      "name": "activate",
+      "label": "Activation",
+      "type": "parmTemplateType.Float",
+      "default": [
+        1.0
+      ]
+    },
+    {
+      "name": "computevel",
+      "label": "Compute Velocity",
+      "type": "parmTemplateType.Toggle",
+      "default": true
+    },
+    {
+      "name": "computevelsubstep",
+      "label": "Velocity Substeps",
+      "type": "parmTemplateType.Float",
+      "default": [
+        1.0
+      ]
+    },
+    {
+      "name": "velscale",
+      "label": "Velocity Scale",
+      "type": "parmTemplateType.Float",
+      "default": [
+        1.0
+      ]
+    },
+    {
+      "name": "dovolume",
+      "label": "Volume Collide",
+      "type": "parmTemplateType.Toggle",
+      "default": true
+    },
+    {
+      "name": "dosurface",
+      "label": "Surface Collide",
+      "type": "parmTemplateType.Toggle",
+      "default": true
+    },
+    {
+      "name": "objname",
+      "label": "Object Name",
+      "type": "parmTemplateType.String",
+      "default": [
+        "$OS"
+      ],
+      "menu_items": [],
+      "menu_labels": []
+    }
+  ],
+  "flipsolver": [
+    {
+      "name": "resimulate",
+      "label": "Reset Simulation",
+      "type": "parmTemplateType.Button",
+      "menu_items": [],
+      "menu_labels": []
+    },
+    {
+      "name": "startframe",
+      "label": "Start Frame",
+      "type": "parmTemplateType.Int",
+      "default": [
+        1
+      ],
+      "menu_items": [],
+      "menu_labels": []
+    },
+    {
+      "name": "overrideres",
+      "label": "Override Resolution",
+      "type": "parmTemplateType.Toggle",
+      "default": false
+    },
+    {
+      "name": "particlesep",
+      "label": "Particle Separation",
+      "type": "parmTemplateType.Float",
+      "default": [
+        0.1
+      ]
+    },
+    {
+      "name": "gridscale",
+      "label": "Grid Scale",
+      "type": "parmTemplateType.Float",
+      "default": [
+        2.0
+      ]
+    },
+    {
+      "name": "timescale",
+      "label": "Time Scale",
+      "type": "parmTemplateType.Float",
+      "default": [
+        1.0
+      ]
+    },
+    {
+      "name": "substep",
+      "label": "Global Substeps",
+      "type": "parmTemplateType.Int",
+      "default": [
+        1
+      ],
+      "menu_items": [],
+      "menu_labels": []
+    },
+    {
+      "name": "minimumsubsteps",
+      "label": "Min Substeps",
+      "type": "parmTemplateType.Int",
+      "default": [
+        1
+      ],
+      "menu_items": [],
+      "menu_labels": []
+    },
+    {
+      "name": "substeps",
+      "label": "Max Substeps",
+      "type": "parmTemplateType.Int",
+      "default": [
+        2
+      ],
+      "menu_items": [],
+      "menu_labels": []
+    },
+    {
+      "name": "sepparm3",
+      "label": "",
+      "type": "parmTemplateType.Separator"
+    },
+    {
+      "name": "cacheenabled",
+      "label": "Cache Simulation",
+      "type": "parmTemplateType.Toggle",
+      "default": true
+    },
+    {
+      "name": "cachemaxsize",
+      "label": "Cache Memory (MB)",
+      "type": "parmTemplateType.Int",
+      "default": [
+        5000
+      ],
+      "menu_items": [],
+      "menu_labels": []
+    },
+    {
+      "name": "waterorigin",
+      "label": "Water Origin",
+      "type": "parmTemplateType.Float",
+      "default": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "waterline",
+      "label": "Waterline",
+      "type": "parmTemplateType.Float",
+      "default": [
+        0.0
+      ]
+    },
+    {
+      "name": "water_velocity",
+      "label": "Additional Velocity",
+      "type": "parmTemplateType.Float",
+      "default": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "boundarytype",
+      "label": "Type",
+      "type": "parmTemplateType.Menu",
+      "default": 1,
+      "menu_items": [
+        "velocity",
+        "pressure"
+      ],
+      "menu_labels": [
+        "Velocity Driven",
+        "Pressure Driven"
+      ]
+    },
+    {
+      "name": "initialsurface",
+      "label": "Initial Surface",
+      "type": "parmTemplateType.Toggle",
+      "default": true
+    },
+    {
+      "name": "pressureband",
+      "label": "Pressure Band",
+      "type": "parmTemplateType.Float",
+      "default": [
+        1.0
+      ]
+    },
+    {
+      "name": "velocityband",
+      "label": "Velocity Band",
+      "type": "parmTemplateType.Float",
+      "default": [
+        2.0
+      ]
+    },
+    {
+      "name": "sourceband",
+      "label": "Source Band",
+      "type": "parmTemplateType.Float",
+      "default": [
+        2.0
+      ]
+    },
+    {
+      "name": "dowaterline",
+      "label": "Enable Waterline",
+      "type": "parmTemplateType.Toggle",
+      "default": false
+    },
+    {
+      "name": "collision",
+      "label": "Particle Collisions",
+      "type": "parmTemplateType.Menu",
+      "default": 1,
+      "menu_items": [
+        "none",
+        "particle",
+        "movetoiso"
+      ],
+      "menu_labels": [
+        "None",
+        "Particle",
+        "Move Outside Collision"
+      ]
+    },
+    {
+      "name": "usetransparency",
+      "label": "Use Transparency",
+      "type": "parmTemplateType.Toggle",
+      "default": false
+    },
+    {
+      "name": "transparency",
+      "label": "Transparency",
+      "type": "parmTemplateType.Float",
+      "default": [
+        1.0
+      ]
+    },
+    {
+      "name": "extrapdist",
+      "label": "Surface Extrapolation",
+      "type": "parmTemplateType.Float",
+      "default": [
+        0.5
+      ]
+    },
+    {
+      "name": "enablestick",
+      "label": "Stick on Collision",
+      "type": "parmTemplateType.Toggle",
+      "default": false
+    },
+    {
+      "name": "stickscale",
+      "label": "Stick Scale",
+      "type": "parmTemplateType.Float",
+      "default": [
+        0.1
+      ]
+    },
+    {
+      "name": "stickusemaxdist",
+      "label": "Use Max Distance",
+      "type": "parmTemplateType.Toggle",
+      "default": true
+    },
+    {
+      "name": "stickdist",
+      "label": "Max Distance",
+      "type": "parmTemplateType.Float",
+      "default": [
+        0.05
+      ]
+    },
+    {
+      "name": "stickusemaxcells",
+      "label": "Use Max Cells",
+      "type": "parmTemplateType.Toggle",
+      "default": false
+    },
+    {
+      "name": "stickcells",
+      "label": "Max Cells",
+      "type": "parmTemplateType.Float",
+      "default": [
+        1.0
+      ]
+    },
+    {
+      "name": "stickbias",
+      "label": "Stick Bias",
+      "type": "parmTemplateType.Float",
+      "default": [
+        0.5
+      ]
+    },
+    {
+      "name": "sticknormalscale",
+      "label": "Normal Scale",
+      "type": "parmTemplateType.Float",
+      "default": [
+        1.0
+      ]
+    },
+    {
+      "name": "sticktangentscale",
+      "label": "Tangent Scale",
+      "type": "parmTemplateType.Float",
+      "default": [
+        1.0
+      ]
+    },
+    {
+      "name": "stickusecontrolfield",
+      "label": "Use Control Field",
+      "type": "parmTemplateType.Toggle",
+      "default": false
+    },
+    {
+      "name": "stickcontrolfield",
+      "label": "Control Field",
+      "type": "parmTemplateType.String",
+      "default": [
+        "stick"
+      ],
+      "menu_items": [],
+      "menu_labels": []
+    },
+    {
+      "name": "useground",
+      "label": "Add Ground Plane",
+      "type": "parmTemplateType.Menu",
+      "default": 0,
+      "menu_items": [
+        "none",
+        "ground",
+        "heightfield"
+      ],
+      "menu_labels": [
+        "None",
+        "Ground Plane",
+        "Height Field"
+      ]
+    },
+    {
+      "name": "ground_heightfield",
+      "label": "Height Field",
+      "type": "parmTemplateType.String",
+      "default": [
+        ""
+      ],
+      "menu_items": [],
+      "menu_labels": []
+    },
+    {
+      "name": "ground_pos",
+      "label": "Ground Position",
+      "type": "parmTemplateType.Float",
+      "default": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "ground_up",
+      "label": "Ground Up",
+      "type": "parmTemplateType.Float",
+      "default": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "name": "veltransfer",
+      "label": "Velocity Transfer",
+      "type": "parmTemplateType.Menu",
+      "default": 1,
+      "menu_items": [
+        "flip",
+        "apic"
+      ],
+      "menu_labels": [
+        "FLIP (Splashy)",
+        "APIC (Swirly)"
+      ]
+    },
+    {
+      "name": "smoothing",
+      "label": "Velocity Smoothing",
+      "type": "parmTemplateType.Float",
+      "default": [
+        0.1
+      ]
+    },
+    {
+      "name": "doincompressibleair",
+      "label": "Enforce Air Incompressibility",
+      "type": "parmTemplateType.Toggle",
+      "default": false
+    },
+    {
+      "name": "applycollisionstoair",
+      "label": "Apply Moving Collisions",
+      "type": "parmTemplateType.Toggle",
+      "default": false
+    },
+    {
+      "name": "minairregionsize",
+      "label": "Min Air Region Voxels",
+      "type": "parmTemplateType.Int",
+      "default": [
+        0
+      ],
+      "menu_items": [],
+      "menu_labels": []
+    },
+    {
+      "name": "partsep",
+      "label": "Apply Particle Separation",
+      "type": "parmTemplateType.Toggle",
+      "default": false
+    },
+    {
+      "name": "partsepiter",
+      "label": "Separation Iterations",
+      "type": "parmTemplateType.Int",
+      "default": [
+        1
+      ],
+      "menu_items": [],
+      "menu_labels": []
+    },
+    {
+      "name": "partsepamount",
+      "label": "Separation Rate",
+      "type": "parmTemplateType.Float",
+      "default": [
+        1.0
+      ]
+    },
+    {
+      "name": "partsepscale",
+      "label": "Separation Scale",
+      "type": "parmTemplateType.Float",
+      "default": [
+        1.0985
+      ]
+    },
+    {
+      "name": "dodroplets",
+      "label": "Detect Droplets",
+      "type": "parmTemplateType.Toggle",
+      "default": false
+    },
+    {
+      "name": "dropletmindensity",
+      "label": "Min Particle Density",
+      "type": "parmTemplateType.Float",
+      "default": [
+        0.5
+      ]
+    },
+    {
+      "name": "dropletmaxdensity",
+      "label": "Max Particle Density",
+      "type": "parmTemplateType.Float",
+      "default": [
+        1.0
+      ]
+    },
+    {
+      "name": "dropletbehavior",
+      "label": "Behavior",
+      "type": "parmTemplateType.Menu",
+      "default": 0,
+      "menu_items": [
+        "0",
+        "1",
+        "2"
+      ],
+      "menu_labels": [
+        "Blend With Fluid",
+        "Kill On Detection",
+        "Kill At Fluid"
+      ]
+    },
+    {
+      "name": "dropletvelblend",
+      "label": "Velocity Blend",
+      "type": "parmTemplateType.Float",
+      "default": [
+        0.2
+      ]
+    },
+    {
+      "name": "doreseeding",
+      "label": "Enable Reseeding",
+      "type": "parmTemplateType.Toggle",
+      "default": true
+    },
+    {
+      "name": "birththreshold",
+      "label": "Birth Threshold",
+      "type": "parmTemplateType.Float",
+      "default": [
+        0.5
+      ]
+    },
+    {
+      "name": "deaththreshold",
+      "label": "Death Threshold",
+      "type": "parmTemplateType.Float",
+      "default": [
+        1.5
+      ]
+    },
+    {
+      "name": "sepparm",
+      "label": "",
+      "type": "parmTemplateType.Separator"
+    },
+    {
+      "name": "oversamplebounds",
+      "label": "Oversample At Boundaries",
+      "type": "parmTemplateType.Toggle",
+      "default": true
+    },
+    {
+      "name": "oversampling",
+      "label": "Surface Oversampling",
+      "type": "parmTemplateType.Float",
+      "default": [
+        1.5
+      ]
+    },
+    {
+      "name": "oversamplingbandwidth",
+      "label": "Oversampling Bandwidth",
+      "type": "parmTemplateType.Float",
+      "default": [
+        1.0
+      ]
+    },
+    {
+      "name": "sepparm2",
+      "label": "",
+      "type": "parmTemplateType.Separator"
+    },
+    {
+      "name": "seed",
+      "label": "Random Seed",
+      "type": "parmTemplateType.Float",
+      "default": [
+        0.0
+      ]
+    },
+    {
+      "name": "showcollision",
+      "label": "Show Collision",
+      "type": "parmTemplateType.Toggle",
+      "default": true
+    },
+    {
+      "name": "vis_pointsasspheres",
+      "label": "Points as Spheres",
+      "type": "parmTemplateType.Toggle",
+      "default": true
+    },
+    {
+      "name": "vis_colorbyspeed",
+      "label": "Color by Speed",
+      "type": "parmTemplateType.Toggle",
+      "default": true
+    },
+    {
+      "name": "vis_maxspeed",
+      "label": "Max Speed",
+      "type": "parmTemplateType.Float",
+      "default": [
+        5.0
+      ]
+    },
+    {
+      "name": "vis_ramp",
+      "label": "Visualization Ramp",
+      "type": "parmTemplateType.Ramp",
+      "default": 3
+    },
+    {
+      "name": "donarrowband",
+      "label": "Enable Particle Narrow Band",
+      "type": "parmTemplateType.Toggle",
+      "default": true
+    },
+    {
+      "name": "usemgpreconditioner",
+      "label": "Use Multigrid Preconditioner for Pressure Projection",
+      "type": "parmTemplateType.Toggle",
+      "default": true
+    },
+    {
+      "name": "useadaptivepressure",
+      "label": "Solve Pressure with Adaptivity",
+      "type": "parmTemplateType.Toggle",
+      "default": false
+    },
+    {
+      "name": "useadaptiveviscosity",
+      "label": "Solve Viscosity with Adaptivity",
+      "type": "parmTemplateType.Toggle",
+      "default": true
+    },
+    {
+      "name": "explicitcache",
+      "label": "Save Checkpoints",
+      "type": "parmTemplateType.Toggle",
+      "default": false
+    },
+    {
+      "name": "checkpoint_basename",
+      "label": "Base Name",
+      "type": "parmTemplateType.String",
+      "default": [
+        "$HIPNAME.$OS"
+      ],
+      "menu_items": [
+        "$OS",
+        "`opname(\"..\")`_$OS",
+        "$HIPNAME.$OS",
+        "`strreplace(opfullpath(\".\"),\"/\",\"_\")`"
+      ],
+      "menu_labels": [
+        "Node Name",
+        "Parent + Node Name",
+        "Scene + Node Name",
+        "Unique Node Name"
+      ]
+    },
+    {
+      "name": "checkpoint_basedir",
+      "label": "Base Folder",
+      "type": "parmTemplateType.String",
+      "default": [
+        "$HIP/geo"
+      ],
+      "menu_items": [],
+      "menu_labels": []
+    },
+    {
+      "name": "checkpoint_openbasedir",
+      "label": "Open Directory",
+      "type": "parmTemplateType.Button",
+      "menu_items": [],
+      "menu_labels": []
+    },
+    {
+      "name": "checkpoint_enableversion",
+      "label": "Enable Version",
+      "type": "parmTemplateType.Toggle",
+      "default": true
+    },
+    {
+      "name": "checkpoint_version",
+      "label": "Version",
+      "type": "parmTemplateType.Int",
+      "default": [
+        1
+      ],
+      "menu_items": [],
+      "menu_labels": []
+    },
+    {
+      "name": "labelparm8",
+      "label": "Output File",
+      "type": "parmTemplateType.Label"
+    },
+    {
+      "name": "sepparm4",
+      "label": "",
+      "type": "parmTemplateType.Separator"
+    },
+    {
+      "name": "explicitcachensteps",
+      "label": "Checkpoint Trail Length",
+      "type": "parmTemplateType.Int",
+      "default": [
+        0
+      ],
+      "menu_items": [],
+      "menu_labels": []
+    },
+    {
+      "name": "explicitcachecheckpointspacing",
+      "label": "Checkpoint Interval",
+      "type": "parmTemplateType.Int",
+      "default": [
+        1
+      ],
+      "menu_items": [],
+      "menu_labels": []
+    }
+  ],
+  "box": [
+    {
+      "name": "type",
+      "label": "Primitive Type",
+      "type": "parmTemplateType.Menu",
+      "default": 0,
+      "menu_items": [
+        "poly",
+        "polymesh",
+        "mesh",
+        "nurbs",
+        "bezier",
+        "points",
+        "prim"
+      ],
+      "menu_labels": [
+        "Polygon",
+        "Polygon Mesh",
+        "Mesh",
+        "NURBS",
+        "Bezier",
+        "Points",
+        "Primitive"
+      ]
+    },
+    {
+      "name": "surftype",
+      "label": "Connectivity",
+      "type": "parmTemplateType.Menu",
+      "default": 4,
+      "menu_items": [
+        "rows",
+        "cols",
+        "rowcol",
+        "triangles",
+        "quads",
+        "alttriangles",
+        "revtriangles"
+      ],
+      "menu_labels": [
+        "Rows",
+        "Columns",
+        "Rows and Columns",
+        "Triangles",
+        "Quadrilaterals",
+        "Alternating Triangles",
+        "Reverse Triangles"
+      ]
+    },
+    {
+      "name": "consolidatepts",
+      "label": "Consolidate Corner Points",
+      "type": "parmTemplateType.Toggle",
+      "default": true
+    },
+    {
+      "name": "size",
+      "label": "Size",
+      "type": "parmTemplateType.Float",
+      "default": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "name": "t",
+      "label": "Center",
+      "type": "parmTemplateType.Float",
+      "default": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "r",
+      "label": "Rotate",
+      "type": "parmTemplateType.Float",
+      "default": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "scale",
+      "label": "Uniform Scale",
+      "type": "parmTemplateType.Float",
+      "default": [
+        1.0
+      ]
+    },
+    {
+      "name": "divrate",
+      "label": "Axis Divisions",
+      "type": "parmTemplateType.Int",
+      "default": [
+        4,
+        4,
+        4
+      ],
+      "menu_items": [],
+      "menu_labels": []
+    },
+    {
+      "name": "orderrate",
+      "label": "Axis Orders",
+      "type": "parmTemplateType.Int",
+      "default": [
+        4,
+        4,
+        4
+      ],
+      "menu_items": [],
+      "menu_labels": []
+    },
+    {
+      "name": "dodivs",
+      "label": "Use Divisions",
+      "type": "parmTemplateType.Toggle",
+      "default": false
+    },
+    {
+      "name": "divs",
+      "label": "Divisions",
+      "type": "parmTemplateType.Int",
+      "default": [
+        3,
+        3,
+        3
+      ],
+      "menu_items": [],
+      "menu_labels": []
+    },
+    {
+      "name": "rebar",
+      "label": "Enforcement Bars",
+      "type": "parmTemplateType.Toggle",
+      "default": false
+    },
+    {
+      "name": "orientedbbox",
+      "label": "Oriented Bounding Box (points only)",
+      "type": "parmTemplateType.Toggle",
+      "default": false
+    },
+    {
+      "name": "vertexnormals",
+      "label": "Add Vertex Normals",
+      "type": "parmTemplateType.Toggle",
+      "default": false
+    }
+  ],
+  "particlefluidsurface::3.0": [
+    {
+      "name": "surfmethod",
+      "label": "Method",
+      "type": "parmTemplateType.Menu",
+      "default": 0,
+      "menu_items": [
+        "particlefluid",
+        "particles",
+        "nps"
+      ],
+      "menu_labels": [
+        "Average Position",
+        "Spherical",
+        "Neural Point Surface"
+      ]
+    },
+    {
+      "name": "model",
+      "label": "Neural Model",
+      "type": "parmTemplateType.Menu",
+      "default": 2,
+      "menu_items": [
+        "balanced",
+        "smooth",
+        "liquid",
+        "granular",
+        "custom"
+      ],
+      "menu_labels": [
+        "Balanced",
+        "Smooth",
+        "Liquid",
+        "Granular",
+        "Custom"
+      ]
+    },
+    {
+      "name": "onnxmodelpath",
+      "label": "ONNX Model Path",
+      "type": "parmTemplateType.String",
+      "default": [
+        "custom_model.onnx"
+      ],
+      "menu_items": [],
+      "menu_labels": []
+    },
+    {
+      "name": "particlesep",
+      "label": "Particle Separation",
+      "type": "parmTemplateType.Float",
+      "default": [
+        0.1
+      ]
+    },
+    {
+      "name": "voxelsize",
+      "label": "Voxel Scale",
+      "type": "parmTemplateType.Float",
+      "default": [
+        0.75
+      ]
+    },
+    {
+      "name": "influenceradius",
+      "label": "Influence Scale",
+      "type": "parmTemplateType.Float",
+      "default": [
+        3.0
+      ]
+    },
+    {
+      "name": "surfacedistance",
+      "label": "Droplet Scale",
+      "type": "parmTemplateType.Float",
+      "default": [
+        1.0
+      ]
+    },
+    {
+      "name": "limititerations",
+      "label": "Label",
+      "type": "parmTemplateType.Toggle",
+      "default": false
+    },
+    {
+      "name": "resamplingiterations",
+      "label": "Limit Refinement Iterations",
+      "type": "parmTemplateType.Int",
+      "default": [
+        0
+      ],
+      "menu_items": [],
+      "menu_labels": []
+    },
+    {
+      "name": "minvoxelradius",
+      "label": "Min Radius in Voxels",
+      "type": "parmTemplateType.Float",
+      "default": [
+        1.5
+      ]
+    },
+    {
+      "name": "preservebubbles",
+      "label": "Preserve Bubbles",
+      "type": "parmTemplateType.Toggle",
+      "default": false
+    },
+    {
+      "name": "dosurfunion",
+      "label": "Union Compressed Fluid Surface",
+      "type": "parmTemplateType.Toggle",
+      "default": true
+    },
+    {
+      "name": "surferosion",
+      "label": "Erosion Scale",
+      "type": "parmTemplateType.Float",
+      "default": [
+        0.8
+      ]
+    },
+    {
+      "name": "enablepartitioning",
+      "label": "Enable Partitioning",
+      "type": "parmTemplateType.Toggle",
+      "default": false
+    },
+    {
+      "name": "maxpartptcount",
+      "label": "Partition Max Size",
+      "type": "parmTemplateType.Int",
+      "default": [
+        1000000
+      ],
+      "menu_items": [],
+      "menu_labels": []
+    },
+    {
+      "name": "showpartitioning",
+      "label": "Display Guides",
+      "type": "parmTemplateType.Toggle",
+      "default": false
+    },
+    {
+      "name": "conversion",
+      "label": "Convert To",
+      "type": "parmTemplateType.Menu",
+      "default": 5,
+      "menu_items": [
+        "particles",
+        "particlesurf",
+        "surf",
+        "vdb",
+        "poly",
+        "polysoup"
+      ],
+      "menu_labels": [
+        "Particles",
+        "Particles and Compressed Fluid Surface",
+        "Compressed Fluid Surface",
+        "Surface VDB",
+        "Surface Polygons",
+        "Surface Polygon Soup"
+      ]
+    },
+    {
+      "name": "isovalue",
+      "label": "Isovalue",
+      "type": "parmTemplateType.Float",
+      "default": [
+        0.0
+      ]
+    },
+    {
+      "name": "adaptivity",
+      "label": "Adaptivity",
+      "type": "parmTemplateType.Float",
+      "default": [
+        0.005
+      ]
+    },
+    {
+      "name": "dotransferattribs",
+      "label": "dotransferattribs",
+      "type": "parmTemplateType.Toggle",
+      "default": true
+    },
+    {
+      "name": "transferattribs",
+      "label": "Transfer Attributes",
+      "type": "parmTemplateType.String",
+      "default": [
+        "v vorticity rest rest2"
+      ],
+      "menu_items": [],
+      "menu_labels": []
+    },
+    {
+      "name": "attribradius",
+      "label": "Attribute Radius",
+      "type": "parmTemplateType.Int",
+      "default": [
+        2
+      ],
+      "menu_items": [],
+      "menu_labels": []
+    },
+    {
+      "name": "attribsamples",
+      "label": "Attribute Samples",
+      "type": "parmTemplateType.Int",
+      "default": [
+        10
+      ],
+      "menu_items": [],
+      "menu_labels": []
+    },
+    {
+      "name": "visualize",
+      "label": "Visualize",
+      "type": "parmTemplateType.Menu",
+      "default": 0,
+      "menu_items": [
+        "none",
+        "velocity",
+        "vorticity"
+      ],
+      "menu_labels": [
+        "None",
+        "Velocity",
+        "Vorticity"
+      ]
+    },
+    {
+      "name": "velvisrange",
+      "label": "Velocity Range",
+      "type": "parmTemplateType.Float",
+      "default": [
+        0.0,
+        10.0
+      ]
+    },
+    {
+      "name": "velvisramp",
+      "label": "Velocity Ramp",
+      "type": "parmTemplateType.Ramp",
+      "default": 3
+    },
+    {
+      "name": "vorticityvisrange",
+      "label": "Vorticity Range",
+      "type": "parmTemplateType.Float",
+      "default": [
+        0.0,
+        50.0
+      ]
+    },
+    {
+      "name": "vorticityvisramp",
+      "label": "Vorticity Ramp",
+      "type": "parmTemplateType.Ramp",
+      "default": 3
+    },
+    {
+      "name": "dodilate",
+      "label": "Label",
+      "type": "parmTemplateType.Toggle",
+      "default": false
+    },
+    {
+      "name": "dilateoffset",
+      "label": "Dilate",
+      "type": "parmTemplateType.Float",
+      "default": [
+        2.0
+      ]
+    },
+    {
+      "name": "dilatemask",
+      "label": "Mask",
+      "type": "parmTemplateType.Toggle",
+      "default": false
+    },
+    {
+      "name": "dosmooth",
+      "label": "Label",
+      "type": "parmTemplateType.Toggle",
+      "default": false
+    },
+    {
+      "name": "smoothoperation",
+      "label": "Smooth",
+      "type": "parmTemplateType.String",
+      "default": [
+        "meancurvature"
+      ],
+      "menu_items": [
+        "meanvalue",
+        "gaussian",
+        "medianvalue",
+        "meancurvature",
+        "laplacianflow"
+      ],
+      "menu_labels": [
+        "Mean Value",
+        "Gaussian",
+        "Median Value",
+        "Mean Curvature Flow",
+        "Laplacian Flow"
+      ]
+    },
+    {
+      "name": "smoothiterations",
+      "label": "Iterations",
+      "type": "parmTemplateType.Int",
+      "default": [
+        2
+      ],
+      "menu_items": [],
+      "menu_labels": []
+    },
+    {
+      "name": "smoothmask",
+      "label": "Mask",
+      "type": "parmTemplateType.Toggle",
+      "default": false
+    },
+    {
+      "name": "doerode",
+      "label": "Label",
+      "type": "parmTemplateType.Toggle",
+      "default": false
+    },
+    {
+      "name": "erodeoffset",
+      "label": "Erode",
+      "type": "parmTemplateType.Float",
+      "default": [
+        0.0
+      ]
+    },
+    {
+      "name": "erodemask",
+      "label": "Mask",
+      "type": "parmTemplateType.Toggle",
+      "default": false
+    },
+    {
+      "name": "dofinalsmooth",
+      "label": "Label",
+      "type": "parmTemplateType.Toggle",
+      "default": false
+    },
+    {
+      "name": "finalsmoothoperation",
+      "label": "Final Smooth",
+      "type": "parmTemplateType.String",
+      "default": [
+        "meanvalue"
+      ],
+      "menu_items": [
+        "meanvalue",
+        "gaussian",
+        "medianvalue",
+        "meancurvature",
+        "laplacianflow"
+      ],
+      "menu_labels": [
+        "Mean Value",
+        "Gaussian",
+        "Median Value",
+        "Mean Curvature Flow",
+        "Laplacian Flow"
+      ]
+    },
+    {
+      "name": "finalsmoothiterations",
+      "label": "Iterations",
+      "type": "parmTemplateType.Int",
+      "default": [
+        2
+      ],
+      "menu_items": [],
+      "menu_labels": []
+    },
+    {
+      "name": "finalsmoothmask",
+      "label": "Mask",
+      "type": "parmTemplateType.Toggle",
+      "default": false
+    },
+    {
+      "name": "velmask",
+      "label": "velmask",
+      "type": "parmTemplateType.Toggle",
+      "default": false
+    },
+    {
+      "name": "velmaskrange",
+      "label": "Velocity Range",
+      "type": "parmTemplateType.Float",
+      "default": [
+        0.5,
+        1.0
+      ]
+    },
+    {
+      "name": "vorticitymask",
+      "label": "vorticitymask",
+      "type": "parmTemplateType.Toggle",
+      "default": false
+    },
+    {
+      "name": "vorticitymaskrange",
+      "label": "Vorticity Range",
+      "type": "parmTemplateType.Float",
+      "default": [
+        1.0,
+        4.0
+      ]
+    },
+    {
+      "name": "colmask",
+      "label": "colmask",
+      "type": "parmTemplateType.Toggle",
+      "default": false
+    },
+    {
+      "name": "colmaskoffset",
+      "label": "Collision Offset",
+      "type": "parmTemplateType.Float",
+      "default": [
+        0.02
+      ]
+    },
+    {
+      "name": "mask",
+      "label": "mask",
+      "type": "parmTemplateType.Toggle",
+      "default": false
+    },
+    {
+      "name": "maskname",
+      "label": "Mask Input",
+      "type": "parmTemplateType.String",
+      "default": [
+        ""
+      ],
+      "menu_items": [],
+      "menu_labels": []
+    },
+    {
+      "name": "maskcombineop",
+      "label": "Combine Operation",
+      "type": "parmTemplateType.Menu",
+      "default": 4,
+      "menu_items": [
+        "min",
+        "max",
+        "avg",
+        "mult",
+        "over"
+      ],
+      "menu_labels": [
+        "Minimum",
+        "Maximum",
+        "Average",
+        "Multiply",
+        "Over"
+      ]
+    },
+    {
+      "name": "domasksmooth",
+      "label": "domasksmooth",
+      "type": "parmTemplateType.Toggle",
+      "default": true
+    },
+    {
+      "name": "masksmoothop",
+      "label": "Mask Smooth",
+      "type": "parmTemplateType.String",
+      "default": [
+        "mean"
+      ],
+      "menu_items": [
+        "mean",
+        "gauss",
+        "median"
+      ],
+      "menu_labels": [
+        "Mean Value",
+        "Gaussian",
+        "Median Value"
+      ]
+    },
+    {
+      "name": "masksmoothiterations",
+      "label": "Iterations",
+      "type": "parmTemplateType.Int",
+      "default": [
+        1
+      ],
+      "menu_items": [],
+      "menu_labels": []
+    },
+    {
+      "name": "restrictmask",
+      "label": "restrictmask",
+      "type": "parmTemplateType.Toggle",
+      "default": false
+    },
+    {
+      "name": "restrictmaskwidth",
+      "label": "Limit Bandwidth",
+      "type": "parmTemplateType.Float",
+      "default": [
+        2.0
+      ]
+    },
+    {
+      "name": "maskvis",
+      "label": "Visualize Mask",
+      "type": "parmTemplateType.Toggle",
+      "default": false
+    },
+    {
+      "name": "maskvisramp",
+      "label": "Mask Ramp",
+      "type": "parmTemplateType.Ramp",
+      "default": 5
+    },
+    {
+      "name": "regionvoxelsize",
+      "label": "Region Voxel Scale",
+      "type": "parmTemplateType.Float",
+      "default": [
+        4.0
+      ]
+    },
+    {
+      "name": "docontainer",
+      "label": "Container",
+      "type": "parmTemplateType.Toggle",
+      "default": true
+    },
+    {
+      "name": "closedcontainer",
+      "label": "Closed Boundaries",
+      "type": "parmTemplateType.Toggle",
+      "default": true
+    },
+    {
+      "name": "docollisions",
+      "label": "Subtract Collision Volumes",
+      "type": "parmTemplateType.Toggle",
+      "default": false
+    },
+    {
+      "name": "collisionoffset",
+      "label": "Collision Offset",
+      "type": "parmTemplateType.Float",
+      "default": [
+        0.001
+      ]
+    },
+    {
+      "name": "dobbox",
+      "label": "Use Bounding Box",
+      "type": "parmTemplateType.Toggle",
+      "default": false
+    },
+    {
+      "name": "size",
+      "label": "Size",
+      "type": "parmTemplateType.Float",
+      "default": [
+        50.0,
+        50.0,
+        50.0
+      ]
+    },
+    {
+      "name": "t",
+      "label": "Center",
+      "type": "parmTemplateType.Float",
+      "default": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "closedends",
+      "label": "Closed Boundaries",
+      "type": "parmTemplateType.Toggle",
+      "default": false
+    },
+    {
+      "name": "flattengeo",
+      "label": "Flatten Geometry",
+      "type": "parmTemplateType.Toggle",
+      "default": false
+    },
+    {
+      "name": "flattenrebuild",
+      "label": "Rebuild SDF",
+      "type": "parmTemplateType.Menu",
+      "default": 1,
+      "menu_items": [
+        "off",
+        "on",
+        "adaptive"
+      ],
+      "menu_labels": [
+        "None",
+        "Full Resolution",
+        "Adaptive"
+      ]
+    },
+    {
+      "name": "flattenattrib",
+      "label": "Output Flattened Attribute",
+      "type": "parmTemplateType.Toggle",
+      "default": false
+    },
+    {
+      "name": "flattendocolsuppress",
+      "label": "Suppress Near Collisions",
+      "type": "parmTemplateType.Toggle",
+      "default": false
+    },
+    {
+      "name": "flattencolsuppress",
+      "label": "Collision Bandwidth",
+      "type": "parmTemplateType.Float",
+      "default": [
+        2.0
+      ]
+    },
+    {
+      "name": "flattenplane",
+      "label": "Plane",
+      "type": "parmTemplateType.Menu",
+      "default": 2,
+      "menu_items": [
+        "xy",
+        "yz",
+        "zx"
+      ],
+      "menu_labels": [
+        "XY Plane",
+        "YZ Plane",
+        "ZX Plane"
+      ]
+    },
+    {
+      "name": "flattenshape",
+      "label": "Shape",
+      "type": "parmTemplateType.Menu",
+      "default": 0,
+      "menu_items": [
+        "rectangle",
+        "circle"
+      ],
+      "menu_labels": [
+        "Rectangle",
+        "Circle"
+      ]
+    },
+    {
+      "name": "waterlevel",
+      "label": "Water Level",
+      "type": "parmTemplateType.Float",
+      "default": [
+        0.0
+      ]
+    },
+    {
+      "name": "flattenheight",
+      "label": "Max Height",
+      "type": "parmTemplateType.Float",
+      "default": [
+        0.5
+      ]
+    },
+    {
+      "name": "flattendist",
+      "label": "Flatten Distance",
+      "type": "parmTemplateType.Float",
+      "default": [
+        1.0
+      ]
+    },
+    {
+      "name": "flattendopad",
+      "label": "Label",
+      "type": "parmTemplateType.Toggle",
+      "default": false
+    },
+    {
+      "name": "flattenpad",
+      "label": "Pad Bounds",
+      "type": "parmTemplateType.Float",
+      "default": [
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "name": "flattendoextrude",
+      "label": "Extrude Polygons",
+      "type": "parmTemplateType.Menu",
+      "default": 0,
+      "menu_items": [
+        "none",
+        "planar",
+        "peraxis"
+      ],
+      "menu_labels": [
+        "None",
+        "Planar",
+        "Along Each Axis"
+      ]
+    },
+    {
+      "name": "flattenextrudedist",
+      "label": "Extrude Distance",
+      "type": "parmTemplateType.Float",
+      "default": [
+        10.0
+      ]
+    },
+    {
+      "name": "flattenextrudediv",
+      "label": "Extrude Divisions",
+      "type": "parmTemplateType.Int",
+      "default": [
+        4
+      ],
+      "menu_items": [],
+      "menu_labels": []
+    },
+    {
+      "name": "flattendoedgegrp",
+      "label": "Label",
+      "type": "parmTemplateType.Toggle",
+      "default": false
+    },
+    {
+      "name": "flattenedgegrp",
+      "label": "Output Edge Group",
+      "type": "parmTemplateType.String",
+      "default": [
+        "boundary"
+      ],
+      "menu_items": [],
+      "menu_labels": []
+    },
+    {
+      "name": "docamera",
+      "label": "Camera",
+      "type": "parmTemplateType.Toggle",
+      "default": false
+    },
+    {
+      "name": "camera",
+      "label": "Camera",
+      "type": "parmTemplateType.String",
+      "default": [
+        ""
+      ],
+      "menu_items": [],
+      "menu_labels": []
+    },
+    {
+      "name": "zmin",
+      "label": "Z Near",
+      "type": "parmTemplateType.Float",
+      "default": [
+        1.0
+      ]
+    },
+    {
+      "name": "zmax",
+      "label": "Z Far",
+      "type": "parmTemplateType.Float",
+      "default": [
+        2.0
+      ]
+    },
+    {
+      "name": "usecamwindow",
+      "label": "Use Camera's Window",
+      "type": "parmTemplateType.Toggle",
+      "default": true
+    },
+    {
+      "name": "winx",
+      "label": "Window X",
+      "type": "parmTemplateType.Float",
+      "default": [
+        -0.1,
+        1.1
+      ]
+    },
+    {
+      "name": "winy",
+      "label": "Window Y",
+      "type": "parmTemplateType.Float",
+      "default": [
+        -0.1,
+        1.1
+      ]
+    },
+    {
+      "name": "closedfrustum",
+      "label": "Closed Frustum",
+      "type": "parmTemplateType.Toggle",
+      "default": false
+    }
+  ]
+}

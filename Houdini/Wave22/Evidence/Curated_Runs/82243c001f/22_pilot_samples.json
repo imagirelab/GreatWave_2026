@@ -1,0 +1,2571 @@
+{
+  "case_id": "GreatWave22_Static_dp0p04_grid1p5_NoReseed",
+  "global_fps": 24.0,
+  "samples": [
+    {
+      "sample": 0,
+      "requested_seconds": 0.0,
+      "global_frame": 1.0,
+      "simulation_seconds": 0.0,
+      "simulation_dt": 0.008333333333333333,
+      "simulation_memory_bytes": 6468547,
+      "particle_count": 53500,
+      "particle_pscale_min_max_m": [
+        0.04800000041723251,
+        0.04800000041723251
+      ],
+      "cache_reread_P_v_surface_voxels_match": true,
+      "mesh_cache_reread_P_match": true,
+      "particle_velocity_rms_m_s": 0.0,
+      "particle_velocity_max_m_s": 0.0,
+      "particle_id_births_since_previous": [],
+      "particle_id_deaths_since_previous": [],
+      "particle_ids_unique": true,
+      "particle_min_m": [
+        0.003332172054797411,
+        -0.5972960591316223,
+        -0.29926687479019165
+      ],
+      "particle_max_m": [
+        5.969492435455322,
+        -0.014089943841099739,
+        0.29869985580444336
+      ],
+      "outside_inner_walls_beyond_20mm": 0,
+      "finite_pv": true,
+      "surface_field": [
+        {
+          "number": 0,
+          "type": "primType.Volume",
+          "name": "surface",
+          "bounds": {
+            "min": [
+              -0.5099999904632568,
+              -1.1100000143051147,
+              -0.809999942779541
+            ],
+            "max": [
+              6.449999809265137,
+              0.5099999904632568,
+              0.8100000619888306
+            ]
+          },
+          "resolution": [
+            116.0,
+            27.0,
+            27.0
+          ],
+          "voxel_m": [
+            0.06000018119812012,
+            0.060000061988830566,
+            0.06000000238418579
+          ],
+          "transform": [
+            3.4800000190734863,
+            0.0,
+            0.0,
+            0.0,
+            0.8100000023841858,
+            0.0,
+            0.0,
+            0.0,
+            0.8100000023841858
+          ]
+        },
+        {
+          "number": 1,
+          "type": "primType.Volume",
+          "name": "vel.x",
+          "bounds": {
+            "min": [
+              -0.5399999618530273,
+              -1.1100000143051147,
+              -0.809999942779541
+            ],
+            "max": [
+              6.480000019073486,
+              0.5099999904632568,
+              0.8100000619888306
+            ]
+          },
+          "resolution": [
+            117.0,
+            27.0,
+            27.0
+          ],
+          "voxel_m": [
+            0.059999942779541016,
+            0.060000061988830566,
+            0.06000000238418579
+          ],
+          "transform": [
+            3.509999990463257,
+            0.0,
+            0.0,
+            0.0,
+            0.8100000023841858,
+            0.0,
+            0.0,
+            0.0,
+            0.8100000023841858
+          ]
+        },
+        {
+          "number": 2,
+          "type": "primType.Volume",
+          "name": "vel.y",
+          "bounds": {
+            "min": [
+              -0.5099999904632568,
+              -1.1399999856948853,
+              -0.809999942779541
+            ],
+            "max": [
+              6.449999809265137,
+              0.5399999618530273,
+              0.8100000619888306
+            ]
+          },
+          "resolution": [
+            116.0,
+            28.0,
+            27.0
+          ],
+          "voxel_m": [
+            0.06000018119812012,
+            0.060000061988830566,
+            0.06000000238418579
+          ],
+          "transform": [
+            3.4800000190734863,
+            0.0,
+            0.0,
+            0.0,
+            0.8399999737739563,
+            0.0,
+            0.0,
+            0.0,
+            0.8100000023841858
+          ]
+        },
+        {
+          "number": 3,
+          "type": "primType.Volume",
+          "name": "vel.z",
+          "bounds": {
+            "min": [
+              -0.5099999904632568,
+              -1.1100000143051147,
+              -0.8399999141693115
+            ],
+            "max": [
+              6.449999809265137,
+              0.5099999904632568,
+              0.8400000333786011
+            ]
+          },
+          "resolution": [
+            116.0,
+            27.0,
+            28.0
+          ],
+          "voxel_m": [
+            0.06000018119812012,
+            0.060000061988830566,
+            0.060000061988830566
+          ],
+          "transform": [
+            3.4800000190734863,
+            0.0,
+            0.0,
+            0.0,
+            0.8100000023841858,
+            0.0,
+            0.0,
+            0.0,
+            0.8399999737739563
+          ]
+        },
+        {
+          "number": 4,
+          "type": "primType.Volume",
+          "name": "pressure",
+          "bounds": {
+            "min": [
+              -0.26999998092651367,
+              -0.26999998092651367,
+              -0.26999998092651367
+            ],
+            "max": [
+              0.26999998092651367,
+              0.26999998092651367,
+              0.26999998092651367
+            ]
+          },
+          "resolution": [
+            9.0,
+            9.0,
+            9.0
+          ],
+          "voxel_m": [
+            0.06000000238418579,
+            0.06000000238418579,
+            0.06000000238418579
+          ],
+          "transform": [
+            0.26999998092651367,
+            0.0,
+            0.0,
+            0.0,
+            0.26999998092651367,
+            0.0,
+            0.0,
+            0.0,
+            0.26999998092651367
+          ]
+        }
+      ],
+      "gauges": [
+        {
+          "x": 2.242796379968867,
+          "z": 0,
+          "valid": true,
+          "crossing_count": 1,
+          "bottom_value": -0.12000077962875366,
+          "top_value": 0.23999999463558197,
+          "bracket_y": [
+            -0.48,
+            0.25
+          ],
+          "eta_m": -1.20693817730537e-06,
+          "mesh_sampled": true,
+          "mesh_vertical_hit_valid": true,
+          "mesh_eta_m": -0.013189262151718117,
+          "mesh_minus_solver_m": -0.013188055213540812
+        },
+        {
+          "x": 3.7379939666147783,
+          "z": 0,
+          "valid": true,
+          "crossing_count": 1,
+          "bottom_value": -0.12000077962875366,
+          "top_value": 0.23999999463558197,
+          "bracket_y": [
+            -0.48,
+            0.25
+          ],
+          "eta_m": -1.20693817730537e-06,
+          "mesh_sampled": true,
+          "mesh_vertical_hit_valid": true,
+          "mesh_eta_m": -0.012592828273773171,
+          "mesh_minus_solver_m": -0.012591621335595866
+        }
+      ],
+      "piston_displacement_m": 0.0,
+      "piston_velocity_m_s": 0.0,
+      "piston_actual_collision_velocity_m_s": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "wave_seconds": 0.0,
+      "piston_started": true,
+      "mesh_sampled": true,
+      "mesh_points": 38814,
+      "mesh_faces": 38812,
+      "mesh_file_sha256": "057eab8af24ad4d1f21d1afa317c77d1097254007ba0920843ff91b655a160e9",
+      "cache_sha256": "7585989cbd29608deca10c68b9653aed9807721c517b2c05d96b8f939772fd24",
+      "cache_bytes": 1052473,
+      "negative_voxel_volume_proxy_m3": 2.1559048237709213,
+      "cook_seconds": 3.07052999996813,
+      "memory": {
+        "private_commit_bytes": 6974345216,
+        "working_set_bytes": 2702360576,
+        "peak_working_set_process_lifetime_bytes": 4715032576,
+        "available_physical_bytes": 35502170112
+      },
+      "solver_errors": [],
+      "solver_warnings": []
+    },
+    {
+      "sample": 1,
+      "requested_seconds": 0.016666666666666666,
+      "global_frame": 1.4,
+      "simulation_seconds": 0.016666666666666666,
+      "simulation_dt": 0.008333333333333333,
+      "simulation_memory_bytes": 23574017,
+      "particle_count": 53500,
+      "particle_pscale_min_max_m": [
+        0.04800000041723251,
+        0.04800000041723251
+      ],
+      "cache_reread_P_v_surface_voxels_match": true,
+      "mesh_cache_reread_P_match": true,
+      "particle_velocity_rms_m_s": 0.002125871193279436,
+      "particle_velocity_max_m_s": 0.04853365793844414,
+      "particle_id_births_since_previous": [],
+      "particle_id_deaths_since_previous": [],
+      "particle_ids_unique": true,
+      "particle_min_m": [
+        0.024005403742194176,
+        -0.5930865406990051,
+        -0.29914790391921997
+      ],
+      "particle_max_m": [
+        5.956774711608887,
+        -0.014684779569506645,
+        0.29869985580444336
+      ],
+      "outside_inner_walls_beyond_20mm": 0,
+      "finite_pv": true,
+      "surface_field": [
+        {
+          "number": 0,
+          "type": "primType.Volume",
+          "name": "surface",
+          "bounds": {
+            "min": [
+              -0.21000003814697266,
+              -0.8100000619888306,
+              -0.5099999308586121
+            ],
+            "max": [
+              6.210000038146973,
+              0.2099999189376831,
+              0.5100000500679016
+            ]
+          },
+          "resolution": [
+            107.0,
+            17.0,
+            17.0
+          ],
+          "voxel_m": [
+            0.059999942779541016,
+            0.060000061988830566,
+            0.06000000238418579
+          ],
+          "transform": [
+            3.2100000381469727,
+            0.0,
+            0.0,
+            0.0,
+            0.5099999904632568,
+            0.0,
+            0.0,
+            0.0,
+            0.5099999904632568
+          ]
+        },
+        {
+          "number": 1,
+          "type": "primType.Volume",
+          "name": "vel.x",
+          "bounds": {
+            "min": [
+              -0.24000000953674316,
+              -0.8100000619888306,
+              -0.5099999308586121
+            ],
+            "max": [
+              6.239999771118164,
+              0.2099999189376831,
+              0.5100000500679016
+            ]
+          },
+          "resolution": [
+            108.0,
+            17.0,
+            17.0
+          ],
+          "voxel_m": [
+            0.06000018119812012,
+            0.060000061988830566,
+            0.06000000238418579
+          ],
+          "transform": [
+            3.240000009536743,
+            0.0,
+            0.0,
+            0.0,
+            0.5099999904632568,
+            0.0,
+            0.0,
+            0.0,
+            0.5099999904632568
+          ]
+        },
+        {
+          "number": 2,
+          "type": "primType.Volume",
+          "name": "vel.y",
+          "bounds": {
+            "min": [
+              -0.21000003814697266,
+              -0.8400000333786011,
+              -0.5099999308586121
+            ],
+            "max": [
+              6.210000038146973,
+              0.2399998903274536,
+              0.5100000500679016
+            ]
+          },
+          "resolution": [
+            107.0,
+            18.0,
+            17.0
+          ],
+          "voxel_m": [
+            0.059999942779541016,
+            0.06000000238418579,
+            0.06000000238418579
+          ],
+          "transform": [
+            3.2100000381469727,
+            0.0,
+            0.0,
+            0.0,
+            0.5399999618530273,
+            0.0,
+            0.0,
+            0.0,
+            0.5099999904632568
+          ]
+        },
+        {
+          "number": 3,
+          "type": "primType.Volume",
+          "name": "vel.z",
+          "bounds": {
+            "min": [
+              -0.21000003814697266,
+              -0.8100000619888306,
+              -0.5399999022483826
+            ],
+            "max": [
+              6.210000038146973,
+              0.2099999189376831,
+              0.5400000214576721
+            ]
+          },
+          "resolution": [
+            107.0,
+            17.0,
+            18.0
+          ],
+          "voxel_m": [
+            0.059999942779541016,
+            0.060000061988830566,
+            0.0599999725818634
+          ],
+          "transform": [
+            3.2100000381469727,
+            0.0,
+            0.0,
+            0.0,
+            0.5099999904632568,
+            0.0,
+            0.0,
+            0.0,
+            0.5399999618530273
+          ]
+        },
+        {
+          "number": 4,
+          "type": "primType.Volume",
+          "name": "pressure",
+          "bounds": {
+            "min": [
+              -0.21000003814697266,
+              -0.8100000619888306,
+              -0.5099999308586121
+            ],
+            "max": [
+              6.210000038146973,
+              0.2099999189376831,
+              0.5100000500679016
+            ]
+          },
+          "resolution": [
+            107.0,
+            17.0,
+            17.0
+          ],
+          "voxel_m": [
+            0.059999942779541016,
+            0.060000061988830566,
+            0.06000000238418579
+          ],
+          "transform": [
+            3.2100000381469727,
+            0.0,
+            0.0,
+            0.0,
+            0.5099999904632568,
+            0.0,
+            0.0,
+            0.0,
+            0.5099999904632568
+          ]
+        }
+      ],
+      "gauges": [
+        {
+          "x": 2.242796379968867,
+          "z": 0,
+          "valid": true,
+          "crossing_count": 1,
+          "bottom_value": -0.14199306070804596,
+          "top_value": 0.18072232604026794,
+          "bracket_y": [
+            -0.48,
+            0.1999999189376831
+          ],
+          "eta_m": -0.004100695513609431,
+          "mesh_sampled": true,
+          "mesh_vertical_hit_valid": true,
+          "mesh_eta_m": -0.013201153278350808,
+          "mesh_minus_solver_m": -0.009100457764741377
+        },
+        {
+          "x": 3.7379939666147783,
+          "z": 0,
+          "valid": true,
+          "crossing_count": 1,
+          "bottom_value": -0.14491066336631775,
+          "top_value": 0.1801382452249527,
+          "bracket_y": [
+            -0.48,
+            0.1999999189376831
+          ],
+          "eta_m": -0.0007562786879672836,
+          "mesh_sampled": true,
+          "mesh_vertical_hit_valid": true,
+          "mesh_eta_m": -0.012601739168167092,
+          "mesh_minus_solver_m": -0.011845460480199809
+        }
+      ],
+      "piston_displacement_m": 0.0,
+      "piston_velocity_m_s": 0.0,
+      "piston_actual_collision_velocity_m_s": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "wave_seconds": 0.016666666666666666,
+      "piston_started": true,
+      "mesh_sampled": true,
+      "mesh_points": 38798,
+      "mesh_faces": 38796,
+      "mesh_file_sha256": "f13d4e19fc0be5270f29d39476b4bebfa0af20b9cfdbe5b2259b254a0f07a156",
+      "cache_sha256": "f8766c7a16941e14d32ee836057d2d75b3e530db83052748b46f6f4fafbcc536",
+      "cache_bytes": 4259554,
+      "negative_voxel_volume_proxy_m3": 2.345976279659828,
+      "cook_seconds": 2.478206100000534,
+      "memory": {
+        "private_commit_bytes": 7748845568,
+        "working_set_bytes": 3438653440,
+        "peak_working_set_process_lifetime_bytes": 4715032576,
+        "available_physical_bytes": 34752319488
+      },
+      "solver_errors": [],
+      "solver_warnings": []
+    },
+    {
+      "sample": 2,
+      "requested_seconds": 0.03333333333333333,
+      "global_frame": 1.8,
+      "simulation_seconds": 0.03333333333333333,
+      "simulation_dt": 0.008333333333333333,
+      "simulation_memory_bytes": 40440383,
+      "particle_count": 53500,
+      "particle_pscale_min_max_m": [
+        0.04800000041723251,
+        0.04800000041723251
+      ],
+      "cache_reread_P_v_surface_voxels_match": true,
+      "mesh_cache_reread_P_match": true,
+      "particle_velocity_rms_m_s": 0.003490341032872598,
+      "particle_velocity_max_m_s": 0.08861504872030036,
+      "particle_id_births_since_previous": [],
+      "particle_id_deaths_since_previous": [],
+      "particle_ids_unique": true,
+      "particle_min_m": [
+        0.024001913145184517,
+        -0.5812280774116516,
+        -0.28823941946029663
+      ],
+      "particle_max_m": [
+        5.956788063049316,
+        -0.015958251431584358,
+        0.28411102294921875
+      ],
+      "outside_inner_walls_beyond_20mm": 0,
+      "finite_pv": true,
+      "surface_field": [
+        {
+          "number": 0,
+          "type": "primType.Volume",
+          "name": "surface",
+          "bounds": {
+            "min": [
+              -0.21000003814697266,
+              -0.8100000619888306,
+              -0.5099999308586121
+            ],
+            "max": [
+              6.210000038146973,
+              0.2099999189376831,
+              0.5100000500679016
+            ]
+          },
+          "resolution": [
+            107.0,
+            17.0,
+            17.0
+          ],
+          "voxel_m": [
+            0.059999942779541016,
+            0.060000061988830566,
+            0.06000000238418579
+          ],
+          "transform": [
+            3.2100000381469727,
+            0.0,
+            0.0,
+            0.0,
+            0.5099999904632568,
+            0.0,
+            0.0,
+            0.0,
+            0.5099999904632568
+          ]
+        },
+        {
+          "number": 1,
+          "type": "primType.Volume",
+          "name": "vel.x",
+          "bounds": {
+            "min": [
+              -0.24000000953674316,
+              -0.8100000619888306,
+              -0.5099999308586121
+            ],
+            "max": [
+              6.239999771118164,
+              0.2099999189376831,
+              0.5100000500679016
+            ]
+          },
+          "resolution": [
+            108.0,
+            17.0,
+            17.0
+          ],
+          "voxel_m": [
+            0.06000018119812012,
+            0.060000061988830566,
+            0.06000000238418579
+          ],
+          "transform": [
+            3.240000009536743,
+            0.0,
+            0.0,
+            0.0,
+            0.5099999904632568,
+            0.0,
+            0.0,
+            0.0,
+            0.5099999904632568
+          ]
+        },
+        {
+          "number": 2,
+          "type": "primType.Volume",
+          "name": "vel.y",
+          "bounds": {
+            "min": [
+              -0.21000003814697266,
+              -0.8400000333786011,
+              -0.5099999308586121
+            ],
+            "max": [
+              6.210000038146973,
+              0.2399998903274536,
+              0.5100000500679016
+            ]
+          },
+          "resolution": [
+            107.0,
+            18.0,
+            17.0
+          ],
+          "voxel_m": [
+            0.059999942779541016,
+            0.06000000238418579,
+            0.06000000238418579
+          ],
+          "transform": [
+            3.2100000381469727,
+            0.0,
+            0.0,
+            0.0,
+            0.5399999618530273,
+            0.0,
+            0.0,
+            0.0,
+            0.5099999904632568
+          ]
+        },
+        {
+          "number": 3,
+          "type": "primType.Volume",
+          "name": "vel.z",
+          "bounds": {
+            "min": [
+              -0.21000003814697266,
+              -0.8100000619888306,
+              -0.5399999022483826
+            ],
+            "max": [
+              6.210000038146973,
+              0.2099999189376831,
+              0.5400000214576721
+            ]
+          },
+          "resolution": [
+            107.0,
+            17.0,
+            18.0
+          ],
+          "voxel_m": [
+            0.059999942779541016,
+            0.060000061988830566,
+            0.0599999725818634
+          ],
+          "transform": [
+            3.2100000381469727,
+            0.0,
+            0.0,
+            0.0,
+            0.5099999904632568,
+            0.0,
+            0.0,
+            0.0,
+            0.5399999618530273
+          ]
+        },
+        {
+          "number": 4,
+          "type": "primType.Volume",
+          "name": "pressure",
+          "bounds": {
+            "min": [
+              -0.21000003814697266,
+              -0.8100000619888306,
+              -0.5099999308586121
+            ],
+            "max": [
+              6.210000038146973,
+              0.2099999189376831,
+              0.5100000500679016
+            ]
+          },
+          "resolution": [
+            107.0,
+            17.0,
+            17.0
+          ],
+          "voxel_m": [
+            0.059999942779541016,
+            0.060000061988830566,
+            0.06000000238418579
+          ],
+          "transform": [
+            3.2100000381469727,
+            0.0,
+            0.0,
+            0.0,
+            0.5099999904632568,
+            0.0,
+            0.0,
+            0.0,
+            0.5099999904632568
+          ]
+        }
+      ],
+      "gauges": [
+        {
+          "x": 2.242796379968867,
+          "z": 0,
+          "valid": true,
+          "crossing_count": 1,
+          "bottom_value": -0.14199449121952057,
+          "top_value": 0.1807565838098526,
+          "bracket_y": [
+            -0.48,
+            0.1999999189376831
+          ],
+          "eta_m": -0.004160150662848116,
+          "mesh_sampled": true,
+          "mesh_vertical_hit_valid": true,
+          "mesh_eta_m": -0.013227289915084817,
+          "mesh_minus_solver_m": -0.0090671392522367
+        },
+        {
+          "x": 3.7379939666147783,
+          "z": 0,
+          "valid": true,
+          "crossing_count": 1,
+          "bottom_value": -0.14491088688373566,
+          "top_value": 0.18019379675388336,
+          "bracket_y": [
+            -0.48,
+            0.1999999189376831
+          ],
+          "eta_m": -0.0008567422451553699,
+          "mesh_sampled": true,
+          "mesh_vertical_hit_valid": true,
+          "mesh_eta_m": -0.012616282701492287,
+          "mesh_minus_solver_m": -0.011759540456336917
+        }
+      ],
+      "piston_displacement_m": 0.0,
+      "piston_velocity_m_s": 0.0,
+      "piston_actual_collision_velocity_m_s": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "wave_seconds": 0.03333333333333333,
+      "piston_started": true,
+      "mesh_sampled": true,
+      "mesh_points": 38794,
+      "mesh_faces": 38792,
+      "mesh_file_sha256": "b1d50c148d40d045b6ffce77abb5c864961d3ab7735ab16d50244e6bb6f9e925",
+      "cache_sha256": "dbef6acc7752196dfd5777b92701feb25863820a25a09dee8ae931a940bbb700",
+      "cache_bytes": 4260351,
+      "negative_voxel_volume_proxy_m3": 2.3446802795053343,
+      "cook_seconds": 2.3397059999988414,
+      "memory": {
+        "private_commit_bytes": 7950852096,
+        "working_set_bytes": 3534098432,
+        "peak_working_set_process_lifetime_bytes": 4715032576,
+        "available_physical_bytes": 34677075968
+      },
+      "solver_errors": [],
+      "solver_warnings": []
+    },
+    {
+      "sample": 3,
+      "requested_seconds": 0.05,
+      "global_frame": 2.2,
+      "simulation_seconds": 0.05,
+      "simulation_dt": 0.008333333333333333,
+      "simulation_memory_bytes": 57307005,
+      "particle_count": 53500,
+      "particle_pscale_min_max_m": [
+        0.04800000041723251,
+        0.04800000041723251
+      ],
+      "cache_reread_P_v_surface_voxels_match": true,
+      "mesh_cache_reread_P_match": true,
+      "particle_velocity_rms_m_s": 0.004572059878350429,
+      "particle_velocity_max_m_s": 0.11955967327725488,
+      "particle_id_births_since_previous": [],
+      "particle_id_deaths_since_previous": [],
+      "particle_ids_unique": true,
+      "particle_min_m": [
+        0.02400103397667408,
+        -0.5810192823410034,
+        -0.27599993348121643
+      ],
+      "particle_max_m": [
+        5.956788539886475,
+        -0.01775764673948288,
+        0.27599984407424927
+      ],
+      "outside_inner_walls_beyond_20mm": 0,
+      "finite_pv": true,
+      "surface_field": [
+        {
+          "number": 0,
+          "type": "primType.Volume",
+          "name": "surface",
+          "bounds": {
+            "min": [
+              -0.21000003814697266,
+              -0.8100000619888306,
+              -0.5099999308586121
+            ],
+            "max": [
+              6.210000038146973,
+              0.2099999189376831,
+              0.5100000500679016
+            ]
+          },
+          "resolution": [
+            107.0,
+            17.0,
+            17.0
+          ],
+          "voxel_m": [
+            0.059999942779541016,
+            0.060000061988830566,
+            0.06000000238418579
+          ],
+          "transform": [
+            3.2100000381469727,
+            0.0,
+            0.0,
+            0.0,
+            0.5099999904632568,
+            0.0,
+            0.0,
+            0.0,
+            0.5099999904632568
+          ]
+        },
+        {
+          "number": 1,
+          "type": "primType.Volume",
+          "name": "vel.x",
+          "bounds": {
+            "min": [
+              -0.24000000953674316,
+              -0.8100000619888306,
+              -0.5099999308586121
+            ],
+            "max": [
+              6.239999771118164,
+              0.2099999189376831,
+              0.5100000500679016
+            ]
+          },
+          "resolution": [
+            108.0,
+            17.0,
+            17.0
+          ],
+          "voxel_m": [
+            0.06000018119812012,
+            0.060000061988830566,
+            0.06000000238418579
+          ],
+          "transform": [
+            3.240000009536743,
+            0.0,
+            0.0,
+            0.0,
+            0.5099999904632568,
+            0.0,
+            0.0,
+            0.0,
+            0.5099999904632568
+          ]
+        },
+        {
+          "number": 2,
+          "type": "primType.Volume",
+          "name": "vel.y",
+          "bounds": {
+            "min": [
+              -0.21000003814697266,
+              -0.8400000333786011,
+              -0.5099999308586121
+            ],
+            "max": [
+              6.210000038146973,
+              0.2399998903274536,
+              0.5100000500679016
+            ]
+          },
+          "resolution": [
+            107.0,
+            18.0,
+            17.0
+          ],
+          "voxel_m": [
+            0.059999942779541016,
+            0.06000000238418579,
+            0.06000000238418579
+          ],
+          "transform": [
+            3.2100000381469727,
+            0.0,
+            0.0,
+            0.0,
+            0.5399999618530273,
+            0.0,
+            0.0,
+            0.0,
+            0.5099999904632568
+          ]
+        },
+        {
+          "number": 3,
+          "type": "primType.Volume",
+          "name": "vel.z",
+          "bounds": {
+            "min": [
+              -0.21000003814697266,
+              -0.8100000619888306,
+              -0.5399999022483826
+            ],
+            "max": [
+              6.210000038146973,
+              0.2099999189376831,
+              0.5400000214576721
+            ]
+          },
+          "resolution": [
+            107.0,
+            17.0,
+            18.0
+          ],
+          "voxel_m": [
+            0.059999942779541016,
+            0.060000061988830566,
+            0.0599999725818634
+          ],
+          "transform": [
+            3.2100000381469727,
+            0.0,
+            0.0,
+            0.0,
+            0.5099999904632568,
+            0.0,
+            0.0,
+            0.0,
+            0.5399999618530273
+          ]
+        },
+        {
+          "number": 4,
+          "type": "primType.Volume",
+          "name": "pressure",
+          "bounds": {
+            "min": [
+              -0.21000003814697266,
+              -0.8100000619888306,
+              -0.5099999308586121
+            ],
+            "max": [
+              6.210000038146973,
+              0.2099999189376831,
+              0.5100000500679016
+            ]
+          },
+          "resolution": [
+            107.0,
+            17.0,
+            17.0
+          ],
+          "voxel_m": [
+            0.059999942779541016,
+            0.060000061988830566,
+            0.06000000238418579
+          ],
+          "transform": [
+            3.2100000381469727,
+            0.0,
+            0.0,
+            0.0,
+            0.5099999904632568,
+            0.0,
+            0.0,
+            0.0,
+            0.5099999904632568
+          ]
+        }
+      ],
+      "gauges": [
+        {
+          "x": 2.242796379968867,
+          "z": 0,
+          "valid": true,
+          "crossing_count": 1,
+          "bottom_value": -0.1419948935508728,
+          "top_value": 0.1808135062456131,
+          "bracket_y": [
+            -0.48,
+            0.1999999189376831
+          ],
+          "eta_m": -0.004250899240274162,
+          "mesh_sampled": true,
+          "mesh_vertical_hit_valid": true,
+          "mesh_eta_m": -0.013265854120254494,
+          "mesh_minus_solver_m": -0.009014954879980332
+        },
+        {
+          "x": 3.7379939666147783,
+          "z": 0,
+          "valid": true,
+          "crossing_count": 1,
+          "bottom_value": -0.14491094648838043,
+          "top_value": 0.1802738904953003,
+          "bracket_y": [
+            -0.48,
+            0.1999999189376831
+          ],
+          "eta_m": -0.0009836704502169395,
+          "mesh_sampled": true,
+          "mesh_vertical_hit_valid": true,
+          "mesh_eta_m": -0.012630558013915993,
+          "mesh_minus_solver_m": -0.011646887563699054
+        }
+      ],
+      "piston_displacement_m": 0.0,
+      "piston_velocity_m_s": 0.0,
+      "piston_actual_collision_velocity_m_s": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "wave_seconds": 0.05,
+      "piston_started": true,
+      "mesh_sampled": true,
+      "mesh_points": 38780,
+      "mesh_faces": 38778,
+      "mesh_file_sha256": "8f3011262941c6acb0011325f8f2a2dfdebf2bd0d9a3d143d6209699269cc6a8",
+      "cache_sha256": "6018b74380b6f4c3a853848017c6e8ed2641b2dc5781649a4beeaefb7f153e85",
+      "cache_bytes": 4261244,
+      "negative_voxel_volume_proxy_m3": 2.34338427935084,
+      "cook_seconds": 2.281382000015583,
+      "memory": {
+        "private_commit_bytes": 8110993408,
+        "working_set_bytes": 3698262016,
+        "peak_working_set_process_lifetime_bytes": 4715032576,
+        "available_physical_bytes": 34511966208
+      },
+      "solver_errors": [],
+      "solver_warnings": []
+    },
+    {
+      "sample": 4,
+      "requested_seconds": 0.06666666666666667,
+      "global_frame": 2.6,
+      "simulation_seconds": 0.06666666666666667,
+      "simulation_dt": 0.008333333333333333,
+      "simulation_memory_bytes": 74173755,
+      "particle_count": 53500,
+      "particle_pscale_min_max_m": [
+        0.04800000041723251,
+        0.04800000041723251
+      ],
+      "cache_reread_P_v_surface_voxels_match": true,
+      "mesh_cache_reread_P_match": true,
+      "particle_velocity_rms_m_s": 0.005290709541553634,
+      "particle_velocity_max_m_s": 0.13481779278816217,
+      "particle_id_births_since_previous": [],
+      "particle_id_deaths_since_previous": [],
+      "particle_ids_unique": true,
+      "particle_min_m": [
+        0.024003440514206886,
+        -0.5810192823410034,
+        -0.27599963545799255
+      ],
+      "particle_max_m": [
+        5.956789970397949,
+        -0.01988961547613144,
+        0.2759998142719269
+      ],
+      "outside_inner_walls_beyond_20mm": 0,
+      "finite_pv": true,
+      "surface_field": [
+        {
+          "number": 0,
+          "type": "primType.Volume",
+          "name": "surface",
+          "bounds": {
+            "min": [
+              -0.21000003814697266,
+              -0.8100000619888306,
+              -0.5099999308586121
+            ],
+            "max": [
+              6.210000038146973,
+              0.2099999189376831,
+              0.5100000500679016
+            ]
+          },
+          "resolution": [
+            107.0,
+            17.0,
+            17.0
+          ],
+          "voxel_m": [
+            0.059999942779541016,
+            0.060000061988830566,
+            0.06000000238418579
+          ],
+          "transform": [
+            3.2100000381469727,
+            0.0,
+            0.0,
+            0.0,
+            0.5099999904632568,
+            0.0,
+            0.0,
+            0.0,
+            0.5099999904632568
+          ]
+        },
+        {
+          "number": 1,
+          "type": "primType.Volume",
+          "name": "vel.x",
+          "bounds": {
+            "min": [
+              -0.24000000953674316,
+              -0.8100000619888306,
+              -0.5099999308586121
+            ],
+            "max": [
+              6.239999771118164,
+              0.2099999189376831,
+              0.5100000500679016
+            ]
+          },
+          "resolution": [
+            108.0,
+            17.0,
+            17.0
+          ],
+          "voxel_m": [
+            0.06000018119812012,
+            0.060000061988830566,
+            0.06000000238418579
+          ],
+          "transform": [
+            3.240000009536743,
+            0.0,
+            0.0,
+            0.0,
+            0.5099999904632568,
+            0.0,
+            0.0,
+            0.0,
+            0.5099999904632568
+          ]
+        },
+        {
+          "number": 2,
+          "type": "primType.Volume",
+          "name": "vel.y",
+          "bounds": {
+            "min": [
+              -0.21000003814697266,
+              -0.8400000333786011,
+              -0.5099999308586121
+            ],
+            "max": [
+              6.210000038146973,
+              0.2399998903274536,
+              0.5100000500679016
+            ]
+          },
+          "resolution": [
+            107.0,
+            18.0,
+            17.0
+          ],
+          "voxel_m": [
+            0.059999942779541016,
+            0.06000000238418579,
+            0.06000000238418579
+          ],
+          "transform": [
+            3.2100000381469727,
+            0.0,
+            0.0,
+            0.0,
+            0.5399999618530273,
+            0.0,
+            0.0,
+            0.0,
+            0.5099999904632568
+          ]
+        },
+        {
+          "number": 3,
+          "type": "primType.Volume",
+          "name": "vel.z",
+          "bounds": {
+            "min": [
+              -0.21000003814697266,
+              -0.8100000619888306,
+              -0.5399999022483826
+            ],
+            "max": [
+              6.210000038146973,
+              0.2099999189376831,
+              0.5400000214576721
+            ]
+          },
+          "resolution": [
+            107.0,
+            17.0,
+            18.0
+          ],
+          "voxel_m": [
+            0.059999942779541016,
+            0.060000061988830566,
+            0.0599999725818634
+          ],
+          "transform": [
+            3.2100000381469727,
+            0.0,
+            0.0,
+            0.0,
+            0.5099999904632568,
+            0.0,
+            0.0,
+            0.0,
+            0.5399999618530273
+          ]
+        },
+        {
+          "number": 4,
+          "type": "primType.Volume",
+          "name": "pressure",
+          "bounds": {
+            "min": [
+              -0.21000003814697266,
+              -0.8100000619888306,
+              -0.5099999308586121
+            ],
+            "max": [
+              6.210000038146973,
+              0.2099999189376831,
+              0.5100000500679016
+            ]
+          },
+          "resolution": [
+            107.0,
+            17.0,
+            17.0
+          ],
+          "voxel_m": [
+            0.059999942779541016,
+            0.060000061988830566,
+            0.06000000238418579
+          ],
+          "transform": [
+            3.2100000381469727,
+            0.0,
+            0.0,
+            0.0,
+            0.5099999904632568,
+            0.0,
+            0.0,
+            0.0,
+            0.5099999904632568
+          ]
+        }
+      ],
+      "gauges": [
+        {
+          "x": 2.242796379968867,
+          "z": 0,
+          "valid": true,
+          "crossing_count": 1,
+          "bottom_value": -0.141995370388031,
+          "top_value": 0.18088877201080322,
+          "bracket_y": [
+            -0.48,
+            0.1999999189376831
+          ],
+          "eta_m": -0.004367336462861759,
+          "mesh_sampled": true,
+          "mesh_vertical_hit_valid": true,
+          "mesh_eta_m": -0.013312703371047951,
+          "mesh_minus_solver_m": -0.008945366908186193
+        },
+        {
+          "x": 3.7379939666147783,
+          "z": 0,
+          "valid": true,
+          "crossing_count": 1,
+          "bottom_value": -0.14491091668605804,
+          "top_value": 0.18036873638629913,
+          "bracket_y": [
+            -0.48,
+            0.1999999189376831
+          ],
+          "eta_m": -0.0011261850792811845,
+          "mesh_sampled": true,
+          "mesh_vertical_hit_valid": true,
+          "mesh_eta_m": -0.012642151117324807,
+          "mesh_minus_solver_m": -0.011515966038043623
+        }
+      ],
+      "piston_displacement_m": 0.0,
+      "piston_velocity_m_s": 0.0,
+      "piston_actual_collision_velocity_m_s": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "wave_seconds": 0.06666666666666667,
+      "piston_started": true,
+      "mesh_sampled": true,
+      "mesh_points": 38776,
+      "mesh_faces": 38774,
+      "mesh_file_sha256": "b0f4465b1461170d3e2dce6a4e2703530fe4e38c66dd325d54ccc5f28a13af7a",
+      "cache_sha256": "42601ab4225ddea4354d9f5cba1f450f1c8b4db1eade5c792a5817e1eac53a67",
+      "cache_bytes": 4266617,
+      "negative_voxel_volume_proxy_m3": 2.341656279144848,
+      "cook_seconds": 2.360662199964281,
+      "memory": {
+        "private_commit_bytes": 8162934784,
+        "working_set_bytes": 3761479680,
+        "peak_working_set_process_lifetime_bytes": 4715032576,
+        "available_physical_bytes": 34448146432
+      },
+      "solver_errors": [],
+      "solver_warnings": []
+    },
+    {
+      "sample": 5,
+      "requested_seconds": 0.08333333333333333,
+      "global_frame": 3.0,
+      "simulation_seconds": 0.08333333333333333,
+      "simulation_dt": 0.008333333333333333,
+      "simulation_memory_bytes": 91040633,
+      "particle_count": 53500,
+      "particle_pscale_min_max_m": [
+        0.04800000041723251,
+        0.04800000041723251
+      ],
+      "cache_reread_P_v_surface_voxels_match": true,
+      "mesh_cache_reread_P_match": true,
+      "particle_velocity_rms_m_s": 0.0058198465301180806,
+      "particle_velocity_max_m_s": 0.13871387548353886,
+      "particle_id_births_since_previous": [],
+      "particle_id_deaths_since_previous": [],
+      "particle_ids_unique": true,
+      "particle_min_m": [
+        0.024000072851777077,
+        -0.5789840817451477,
+        -0.2759999930858612
+      ],
+      "particle_max_m": [
+        5.956787586212158,
+        -0.022115357220172882,
+        0.2759999632835388
+      ],
+      "outside_inner_walls_beyond_20mm": 0,
+      "finite_pv": true,
+      "surface_field": [
+        {
+          "number": 0,
+          "type": "primType.Volume",
+          "name": "surface",
+          "bounds": {
+            "min": [
+              -0.21000003814697266,
+              -0.8100000619888306,
+              -0.5099999308586121
+            ],
+            "max": [
+              6.210000038146973,
+              0.2099999189376831,
+              0.5100000500679016
+            ]
+          },
+          "resolution": [
+            107.0,
+            17.0,
+            17.0
+          ],
+          "voxel_m": [
+            0.059999942779541016,
+            0.060000061988830566,
+            0.06000000238418579
+          ],
+          "transform": [
+            3.2100000381469727,
+            0.0,
+            0.0,
+            0.0,
+            0.5099999904632568,
+            0.0,
+            0.0,
+            0.0,
+            0.5099999904632568
+          ]
+        },
+        {
+          "number": 1,
+          "type": "primType.Volume",
+          "name": "vel.x",
+          "bounds": {
+            "min": [
+              -0.24000000953674316,
+              -0.8100000619888306,
+              -0.5099999308586121
+            ],
+            "max": [
+              6.239999771118164,
+              0.2099999189376831,
+              0.5100000500679016
+            ]
+          },
+          "resolution": [
+            108.0,
+            17.0,
+            17.0
+          ],
+          "voxel_m": [
+            0.06000018119812012,
+            0.060000061988830566,
+            0.06000000238418579
+          ],
+          "transform": [
+            3.240000009536743,
+            0.0,
+            0.0,
+            0.0,
+            0.5099999904632568,
+            0.0,
+            0.0,
+            0.0,
+            0.5099999904632568
+          ]
+        },
+        {
+          "number": 2,
+          "type": "primType.Volume",
+          "name": "vel.y",
+          "bounds": {
+            "min": [
+              -0.21000003814697266,
+              -0.8400000333786011,
+              -0.5099999308586121
+            ],
+            "max": [
+              6.210000038146973,
+              0.2399998903274536,
+              0.5100000500679016
+            ]
+          },
+          "resolution": [
+            107.0,
+            18.0,
+            17.0
+          ],
+          "voxel_m": [
+            0.059999942779541016,
+            0.06000000238418579,
+            0.06000000238418579
+          ],
+          "transform": [
+            3.2100000381469727,
+            0.0,
+            0.0,
+            0.0,
+            0.5399999618530273,
+            0.0,
+            0.0,
+            0.0,
+            0.5099999904632568
+          ]
+        },
+        {
+          "number": 3,
+          "type": "primType.Volume",
+          "name": "vel.z",
+          "bounds": {
+            "min": [
+              -0.21000003814697266,
+              -0.8100000619888306,
+              -0.5399999022483826
+            ],
+            "max": [
+              6.210000038146973,
+              0.2099999189376831,
+              0.5400000214576721
+            ]
+          },
+          "resolution": [
+            107.0,
+            17.0,
+            18.0
+          ],
+          "voxel_m": [
+            0.059999942779541016,
+            0.060000061988830566,
+            0.0599999725818634
+          ],
+          "transform": [
+            3.2100000381469727,
+            0.0,
+            0.0,
+            0.0,
+            0.5099999904632568,
+            0.0,
+            0.0,
+            0.0,
+            0.5399999618530273
+          ]
+        },
+        {
+          "number": 4,
+          "type": "primType.Volume",
+          "name": "pressure",
+          "bounds": {
+            "min": [
+              -0.21000003814697266,
+              -0.8100000619888306,
+              -0.5099999308586121
+            ],
+            "max": [
+              6.210000038146973,
+              0.2099999189376831,
+              0.5100000500679016
+            ]
+          },
+          "resolution": [
+            107.0,
+            17.0,
+            17.0
+          ],
+          "voxel_m": [
+            0.059999942779541016,
+            0.060000061988830566,
+            0.06000000238418579
+          ],
+          "transform": [
+            3.2100000381469727,
+            0.0,
+            0.0,
+            0.0,
+            0.5099999904632568,
+            0.0,
+            0.0,
+            0.0,
+            0.5099999904632568
+          ]
+        }
+      ],
+      "gauges": [
+        {
+          "x": 2.242796379968867,
+          "z": 0,
+          "valid": true,
+          "crossing_count": 1,
+          "bottom_value": -0.1419958919286728,
+          "top_value": 0.18097445368766785,
+          "bracket_y": [
+            -0.48,
+            0.1999999189376831
+          ],
+          "eta_m": -0.004504755312637684,
+          "mesh_sampled": true,
+          "mesh_vertical_hit_valid": true,
+          "mesh_eta_m": -0.01336676478385923,
+          "mesh_minus_solver_m": -0.008862009471221547
+        },
+        {
+          "x": 3.7379939666147783,
+          "z": 0,
+          "valid": true,
+          "crossing_count": 1,
+          "bottom_value": -0.14491087198257446,
+          "top_value": 0.18047085404396057,
+          "bracket_y": [
+            -0.48,
+            0.1999999189376831
+          ],
+          "eta_m": -0.0012772828556427557,
+          "mesh_sampled": true,
+          "mesh_vertical_hit_valid": true,
+          "mesh_eta_m": -0.01264909505844114,
+          "mesh_minus_solver_m": -0.011371812202798384
+        }
+      ],
+      "piston_displacement_m": 0.0,
+      "piston_velocity_m_s": 0.0,
+      "piston_actual_collision_velocity_m_s": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "wave_seconds": 0.08333333333333333,
+      "piston_started": true,
+      "mesh_sampled": true,
+      "mesh_points": 38758,
+      "mesh_faces": 38756,
+      "mesh_file_sha256": "9ec7f8864a8d697ae23ba65b6d38996a003884b5d7804d8ce08c5b392c91e0ca",
+      "cache_sha256": "f4b4a720a85f0c4c0dd5d5ed93a338546b78f45cc191f8b68ea2e4116ca72e2a",
+      "cache_bytes": 4263821,
+      "negative_voxel_volume_proxy_m3": 2.3407922790418523,
+      "cook_seconds": 2.2380764999543317,
+      "memory": {
+        "private_commit_bytes": 8114946048,
+        "working_set_bytes": 3716530176,
+        "peak_working_set_process_lifetime_bytes": 4715032576,
+        "available_physical_bytes": 34494607360
+      },
+      "solver_errors": [],
+      "solver_warnings": []
+    },
+    {
+      "sample": 6,
+      "requested_seconds": 0.1,
+      "global_frame": 3.4,
+      "simulation_seconds": 0.1,
+      "simulation_dt": 0.008333333333333333,
+      "simulation_memory_bytes": 107907383,
+      "particle_count": 53500,
+      "particle_pscale_min_max_m": [
+        0.04800000041723251,
+        0.04800000041723251
+      ],
+      "cache_reread_P_v_surface_voxels_match": true,
+      "mesh_cache_reread_P_match": true,
+      "particle_velocity_rms_m_s": 0.006306206268959465,
+      "particle_velocity_max_m_s": 0.13996191776814984,
+      "particle_id_births_since_previous": [],
+      "particle_id_deaths_since_previous": [],
+      "particle_ids_unique": true,
+      "particle_min_m": [
+        0.024002468213438988,
+        -0.5759966373443604,
+        -0.2759997844696045
+      ],
+      "particle_max_m": [
+        5.956789970397949,
+        -0.02437560446560383,
+        0.27599969506263733
+      ],
+      "outside_inner_walls_beyond_20mm": 0,
+      "finite_pv": true,
+      "surface_field": [
+        {
+          "number": 0,
+          "type": "primType.Volume",
+          "name": "surface",
+          "bounds": {
+            "min": [
+              -0.21000003814697266,
+              -0.8100000619888306,
+              -0.5099999308586121
+            ],
+            "max": [
+              6.210000038146973,
+              0.2099999189376831,
+              0.5100000500679016
+            ]
+          },
+          "resolution": [
+            107.0,
+            17.0,
+            17.0
+          ],
+          "voxel_m": [
+            0.059999942779541016,
+            0.060000061988830566,
+            0.06000000238418579
+          ],
+          "transform": [
+            3.2100000381469727,
+            0.0,
+            0.0,
+            0.0,
+            0.5099999904632568,
+            0.0,
+            0.0,
+            0.0,
+            0.5099999904632568
+          ]
+        },
+        {
+          "number": 1,
+          "type": "primType.Volume",
+          "name": "vel.x",
+          "bounds": {
+            "min": [
+              -0.24000000953674316,
+              -0.8100000619888306,
+              -0.5099999308586121
+            ],
+            "max": [
+              6.239999771118164,
+              0.2099999189376831,
+              0.5100000500679016
+            ]
+          },
+          "resolution": [
+            108.0,
+            17.0,
+            17.0
+          ],
+          "voxel_m": [
+            0.06000018119812012,
+            0.060000061988830566,
+            0.06000000238418579
+          ],
+          "transform": [
+            3.240000009536743,
+            0.0,
+            0.0,
+            0.0,
+            0.5099999904632568,
+            0.0,
+            0.0,
+            0.0,
+            0.5099999904632568
+          ]
+        },
+        {
+          "number": 2,
+          "type": "primType.Volume",
+          "name": "vel.y",
+          "bounds": {
+            "min": [
+              -0.21000003814697266,
+              -0.8400000333786011,
+              -0.5099999308586121
+            ],
+            "max": [
+              6.210000038146973,
+              0.2399998903274536,
+              0.5100000500679016
+            ]
+          },
+          "resolution": [
+            107.0,
+            18.0,
+            17.0
+          ],
+          "voxel_m": [
+            0.059999942779541016,
+            0.06000000238418579,
+            0.06000000238418579
+          ],
+          "transform": [
+            3.2100000381469727,
+            0.0,
+            0.0,
+            0.0,
+            0.5399999618530273,
+            0.0,
+            0.0,
+            0.0,
+            0.5099999904632568
+          ]
+        },
+        {
+          "number": 3,
+          "type": "primType.Volume",
+          "name": "vel.z",
+          "bounds": {
+            "min": [
+              -0.21000003814697266,
+              -0.8100000619888306,
+              -0.5399999022483826
+            ],
+            "max": [
+              6.210000038146973,
+              0.2099999189376831,
+              0.5400000214576721
+            ]
+          },
+          "resolution": [
+            107.0,
+            17.0,
+            18.0
+          ],
+          "voxel_m": [
+            0.059999942779541016,
+            0.060000061988830566,
+            0.0599999725818634
+          ],
+          "transform": [
+            3.2100000381469727,
+            0.0,
+            0.0,
+            0.0,
+            0.5099999904632568,
+            0.0,
+            0.0,
+            0.0,
+            0.5399999618530273
+          ]
+        },
+        {
+          "number": 4,
+          "type": "primType.Volume",
+          "name": "pressure",
+          "bounds": {
+            "min": [
+              -0.21000003814697266,
+              -0.8100000619888306,
+              -0.5099999308586121
+            ],
+            "max": [
+              6.210000038146973,
+              0.2099999189376831,
+              0.5100000500679016
+            ]
+          },
+          "resolution": [
+            107.0,
+            17.0,
+            17.0
+          ],
+          "voxel_m": [
+            0.059999942779541016,
+            0.060000061988830566,
+            0.06000000238418579
+          ],
+          "transform": [
+            3.2100000381469727,
+            0.0,
+            0.0,
+            0.0,
+            0.5099999904632568,
+            0.0,
+            0.0,
+            0.0,
+            0.5099999904632568
+          ]
+        }
+      ],
+      "gauges": [
+        {
+          "x": 2.242796379968867,
+          "z": 0,
+          "valid": true,
+          "crossing_count": 1,
+          "bottom_value": -0.14199644327163696,
+          "top_value": 0.18107183277606964,
+          "bracket_y": [
+            -0.48,
+            0.1999999189376831
+          ],
+          "eta_m": -0.004657104826126749,
+          "mesh_sampled": true,
+          "mesh_vertical_hit_valid": true,
+          "mesh_eta_m": -0.013441687822341897,
+          "mesh_minus_solver_m": -0.008784582996215148
+        },
+        {
+          "x": 3.7379939666147783,
+          "z": 0,
+          "valid": true,
+          "crossing_count": 1,
+          "bottom_value": -0.14491070806980133,
+          "top_value": 0.18057535588741302,
+          "bracket_y": [
+            -0.48,
+            0.1999999189376831
+          ],
+          "eta_m": -0.001431509805943255,
+          "mesh_sampled": true,
+          "mesh_vertical_hit_valid": true,
+          "mesh_eta_m": -0.012651002407073952,
+          "mesh_minus_solver_m": -0.011219492601130698
+        }
+      ],
+      "piston_displacement_m": 0.0,
+      "piston_velocity_m_s": 0.0,
+      "piston_actual_collision_velocity_m_s": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "wave_seconds": 0.1,
+      "piston_started": true,
+      "mesh_sampled": true,
+      "mesh_points": 38754,
+      "mesh_faces": 38752,
+      "mesh_file_sha256": "022d73300a35eb5f23b8eda2e4dfe5d0b2340b58eaf00a334e3d441962839703",
+      "cache_sha256": "806205c387bbfd5294d344c820612c3b4c5194f086a22be83af9ede71f65dce7",
+      "cache_bytes": 4267775,
+      "negative_voxel_volume_proxy_m3": 2.341656279144848,
+      "cook_seconds": 2.537656700005755,
+      "memory": {
+        "private_commit_bytes": 7563649024,
+        "working_set_bytes": 3273838592,
+        "peak_working_set_process_lifetime_bytes": 4715032576,
+        "available_physical_bytes": 34935701504
+      },
+      "solver_errors": [],
+      "solver_warnings": []
+    },
+    {
+      "sample": 7,
+      "requested_seconds": 0.11666666666666667,
+      "global_frame": 3.8,
+      "simulation_seconds": 0.11666666666666667,
+      "simulation_dt": 0.008333333333333333,
+      "simulation_memory_bytes": 124774133,
+      "particle_count": 53500,
+      "particle_pscale_min_max_m": [
+        0.04800000041723251,
+        0.04800000041723251
+      ],
+      "cache_reread_P_v_surface_voxels_match": true,
+      "mesh_cache_reread_P_match": true,
+      "particle_velocity_rms_m_s": 0.006756310946556025,
+      "particle_velocity_max_m_s": 0.1225012481146252,
+      "particle_id_births_since_previous": [],
+      "particle_id_deaths_since_previous": [],
+      "particle_ids_unique": true,
+      "particle_min_m": [
+        0.024005606770515442,
+        -0.5759967565536499,
+        -0.2759999632835388
+      ],
+      "particle_max_m": [
+        5.956789970397949,
+        -0.026391560211777687,
+        0.2759999632835388
+      ],
+      "outside_inner_walls_beyond_20mm": 0,
+      "finite_pv": true,
+      "surface_field": [
+        {
+          "number": 0,
+          "type": "primType.Volume",
+          "name": "surface",
+          "bounds": {
+            "min": [
+              -0.21000003814697266,
+              -0.8100000619888306,
+              -0.5099999308586121
+            ],
+            "max": [
+              6.210000038146973,
+              0.2099999189376831,
+              0.5100000500679016
+            ]
+          },
+          "resolution": [
+            107.0,
+            17.0,
+            17.0
+          ],
+          "voxel_m": [
+            0.059999942779541016,
+            0.060000061988830566,
+            0.06000000238418579
+          ],
+          "transform": [
+            3.2100000381469727,
+            0.0,
+            0.0,
+            0.0,
+            0.5099999904632568,
+            0.0,
+            0.0,
+            0.0,
+            0.5099999904632568
+          ]
+        },
+        {
+          "number": 1,
+          "type": "primType.Volume",
+          "name": "vel.x",
+          "bounds": {
+            "min": [
+              -0.24000000953674316,
+              -0.8100000619888306,
+              -0.5099999308586121
+            ],
+            "max": [
+              6.239999771118164,
+              0.2099999189376831,
+              0.5100000500679016
+            ]
+          },
+          "resolution": [
+            108.0,
+            17.0,
+            17.0
+          ],
+          "voxel_m": [
+            0.06000018119812012,
+            0.060000061988830566,
+            0.06000000238418579
+          ],
+          "transform": [
+            3.240000009536743,
+            0.0,
+            0.0,
+            0.0,
+            0.5099999904632568,
+            0.0,
+            0.0,
+            0.0,
+            0.5099999904632568
+          ]
+        },
+        {
+          "number": 2,
+          "type": "primType.Volume",
+          "name": "vel.y",
+          "bounds": {
+            "min": [
+              -0.21000003814697266,
+              -0.8400000333786011,
+              -0.5099999308586121
+            ],
+            "max": [
+              6.210000038146973,
+              0.2399998903274536,
+              0.5100000500679016
+            ]
+          },
+          "resolution": [
+            107.0,
+            18.0,
+            17.0
+          ],
+          "voxel_m": [
+            0.059999942779541016,
+            0.06000000238418579,
+            0.06000000238418579
+          ],
+          "transform": [
+            3.2100000381469727,
+            0.0,
+            0.0,
+            0.0,
+            0.5399999618530273,
+            0.0,
+            0.0,
+            0.0,
+            0.5099999904632568
+          ]
+        },
+        {
+          "number": 3,
+          "type": "primType.Volume",
+          "name": "vel.z",
+          "bounds": {
+            "min": [
+              -0.21000003814697266,
+              -0.8100000619888306,
+              -0.5399999022483826
+            ],
+            "max": [
+              6.210000038146973,
+              0.2099999189376831,
+              0.5400000214576721
+            ]
+          },
+          "resolution": [
+            107.0,
+            17.0,
+            18.0
+          ],
+          "voxel_m": [
+            0.059999942779541016,
+            0.060000061988830566,
+            0.0599999725818634
+          ],
+          "transform": [
+            3.2100000381469727,
+            0.0,
+            0.0,
+            0.0,
+            0.5099999904632568,
+            0.0,
+            0.0,
+            0.0,
+            0.5399999618530273
+          ]
+        },
+        {
+          "number": 4,
+          "type": "primType.Volume",
+          "name": "pressure",
+          "bounds": {
+            "min": [
+              -0.21000003814697266,
+              -0.8100000619888306,
+              -0.5099999308586121
+            ],
+            "max": [
+              6.210000038146973,
+              0.2099999189376831,
+              0.5100000500679016
+            ]
+          },
+          "resolution": [
+            107.0,
+            17.0,
+            17.0
+          ],
+          "voxel_m": [
+            0.059999942779541016,
+            0.060000061988830566,
+            0.06000000238418579
+          ],
+          "transform": [
+            3.2100000381469727,
+            0.0,
+            0.0,
+            0.0,
+            0.5099999904632568,
+            0.0,
+            0.0,
+            0.0,
+            0.5099999904632568
+          ]
+        }
+      ],
+      "gauges": [
+        {
+          "x": 2.242796379968867,
+          "z": 0,
+          "valid": true,
+          "crossing_count": 1,
+          "bottom_value": -0.14199703931808472,
+          "top_value": 0.1811799257993698,
+          "bracket_y": [
+            -0.48,
+            0.1999999189376831
+          ],
+          "eta_m": -0.004818722294529433,
+          "mesh_sampled": true,
+          "mesh_vertical_hit_valid": true,
+          "mesh_eta_m": -0.01350370645523069,
+          "mesh_minus_solver_m": -0.008684984160701258
+        },
+        {
+          "x": 3.7379939666147783,
+          "z": 0,
+          "valid": true,
+          "crossing_count": 1,
+          "bottom_value": -0.1449105143547058,
+          "top_value": 0.18067896366119385,
+          "bracket_y": [
+            -0.48,
+            0.1999999189376831
+          ],
+          "eta_m": -0.0015833526800121253,
+          "mesh_sampled": true,
+          "mesh_vertical_hit_valid": true,
+          "mesh_eta_m": -0.012647068500518777,
+          "mesh_minus_solver_m": -0.01106371582050665
+        }
+      ],
+      "piston_displacement_m": 0.0,
+      "piston_velocity_m_s": 0.0,
+      "piston_actual_collision_velocity_m_s": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "wave_seconds": 0.11666666666666667,
+      "piston_started": true,
+      "mesh_sampled": true,
+      "mesh_points": 38742,
+      "mesh_faces": 38740,
+      "mesh_file_sha256": "13ab8b66b9307b8113751e38b638cd53bf03fa1982db1a7bfd3e4a992f2d5510",
+      "cache_sha256": "5c8be2dda831d3c2d9c0f33beddeb53bf9be6947e030d2ba5df54c9e08ebd713",
+      "cache_bytes": 4269535,
+      "negative_voxel_volume_proxy_m3": 2.34122427909335,
+      "cook_seconds": 2.2734533000038937,
+      "memory": {
+        "private_commit_bytes": 7931338752,
+        "working_set_bytes": 3465154560,
+        "peak_working_set_process_lifetime_bytes": 4715032576,
+        "available_physical_bytes": 34744365056
+      },
+      "solver_errors": [],
+      "solver_warnings": []
+    },
+    {
+      "sample": 8,
+      "requested_seconds": 0.13333333333333333,
+      "global_frame": 4.2,
+      "simulation_seconds": 0.13333333333333333,
+      "simulation_dt": 0.008333333333333333,
+      "simulation_memory_bytes": 141640755,
+      "particle_count": 53500,
+      "particle_pscale_min_max_m": [
+        0.04800000041723251,
+        0.04800000041723251
+      ],
+      "cache_reread_P_v_surface_voxels_match": true,
+      "mesh_cache_reread_P_match": true,
+      "particle_velocity_rms_m_s": 0.00719057381254819,
+      "particle_velocity_max_m_s": 0.12402309698156119,
+      "particle_id_births_since_previous": [],
+      "particle_id_deaths_since_previous": [],
+      "particle_ids_unique": true,
+      "particle_min_m": [
+        0.02400403842329979,
+        -0.575996994972229,
+        -0.2759999930858612
+      ],
+      "particle_max_m": [
+        5.956789970397949,
+        -0.02842974103987217,
+        0.2759999632835388
+      ],
+      "outside_inner_walls_beyond_20mm": 0,
+      "finite_pv": true,
+      "surface_field": [
+        {
+          "number": 0,
+          "type": "primType.Volume",
+          "name": "surface",
+          "bounds": {
+            "min": [
+              -0.21000003814697266,
+              -0.8100000619888306,
+              -0.5099999308586121
+            ],
+            "max": [
+              6.210000038146973,
+              0.2099999189376831,
+              0.5100000500679016
+            ]
+          },
+          "resolution": [
+            107.0,
+            17.0,
+            17.0
+          ],
+          "voxel_m": [
+            0.059999942779541016,
+            0.060000061988830566,
+            0.06000000238418579
+          ],
+          "transform": [
+            3.2100000381469727,
+            0.0,
+            0.0,
+            0.0,
+            0.5099999904632568,
+            0.0,
+            0.0,
+            0.0,
+            0.5099999904632568
+          ]
+        },
+        {
+          "number": 1,
+          "type": "primType.Volume",
+          "name": "vel.x",
+          "bounds": {
+            "min": [
+              -0.24000000953674316,
+              -0.8100000619888306,
+              -0.5099999308586121
+            ],
+            "max": [
+              6.239999771118164,
+              0.2099999189376831,
+              0.5100000500679016
+            ]
+          },
+          "resolution": [
+            108.0,
+            17.0,
+            17.0
+          ],
+          "voxel_m": [
+            0.06000018119812012,
+            0.060000061988830566,
+            0.06000000238418579
+          ],
+          "transform": [
+            3.240000009536743,
+            0.0,
+            0.0,
+            0.0,
+            0.5099999904632568,
+            0.0,
+            0.0,
+            0.0,
+            0.5099999904632568
+          ]
+        },
+        {
+          "number": 2,
+          "type": "primType.Volume",
+          "name": "vel.y",
+          "bounds": {
+            "min": [
+              -0.21000003814697266,
+              -0.8400000333786011,
+              -0.5099999308586121
+            ],
+            "max": [
+              6.210000038146973,
+              0.2399998903274536,
+              0.5100000500679016
+            ]
+          },
+          "resolution": [
+            107.0,
+            18.0,
+            17.0
+          ],
+          "voxel_m": [
+            0.059999942779541016,
+            0.06000000238418579,
+            0.06000000238418579
+          ],
+          "transform": [
+            3.2100000381469727,
+            0.0,
+            0.0,
+            0.0,
+            0.5399999618530273,
+            0.0,
+            0.0,
+            0.0,
+            0.5099999904632568
+          ]
+        },
+        {
+          "number": 3,
+          "type": "primType.Volume",
+          "name": "vel.z",
+          "bounds": {
+            "min": [
+              -0.21000003814697266,
+              -0.8100000619888306,
+              -0.5399999022483826
+            ],
+            "max": [
+              6.210000038146973,
+              0.2099999189376831,
+              0.5400000214576721
+            ]
+          },
+          "resolution": [
+            107.0,
+            17.0,
+            18.0
+          ],
+          "voxel_m": [
+            0.059999942779541016,
+            0.060000061988830566,
+            0.0599999725818634
+          ],
+          "transform": [
+            3.2100000381469727,
+            0.0,
+            0.0,
+            0.0,
+            0.5099999904632568,
+            0.0,
+            0.0,
+            0.0,
+            0.5399999618530273
+          ]
+        },
+        {
+          "number": 4,
+          "type": "primType.Volume",
+          "name": "pressure",
+          "bounds": {
+            "min": [
+              -0.21000003814697266,
+              -0.8100000619888306,
+              -0.5099999308586121
+            ],
+            "max": [
+              6.210000038146973,
+              0.2099999189376831,
+              0.5100000500679016
+            ]
+          },
+          "resolution": [
+            107.0,
+            17.0,
+            17.0
+          ],
+          "voxel_m": [
+            0.059999942779541016,
+            0.060000061988830566,
+            0.06000000238418579
+          ],
+          "transform": [
+            3.2100000381469727,
+            0.0,
+            0.0,
+            0.0,
+            0.5099999904632568,
+            0.0,
+            0.0,
+            0.0,
+            0.5099999904632568
+          ]
+        }
+      ],
+      "gauges": [
+        {
+          "x": 2.242796379968867,
+          "z": 0,
+          "valid": true,
+          "crossing_count": 1,
+          "bottom_value": -0.14199770987033844,
+          "top_value": 0.18129494786262512,
+          "bracket_y": [
+            -0.48,
+            0.1999999189376831
+          ],
+          "eta_m": -0.004983499841875679,
+          "mesh_sampled": true,
+          "mesh_vertical_hit_valid": true,
+          "mesh_eta_m": -0.013566976785659768,
+          "mesh_minus_solver_m": -0.008583476943784089
+        },
+        {
+          "x": 3.7379939666147783,
+          "z": 0,
+          "valid": true,
+          "crossing_count": 1,
+          "bottom_value": -0.1449102759361267,
+          "top_value": 0.180779367685318,
+          "bracket_y": [
+            -0.48,
+            0.1999999189376831
+          ],
+          "eta_m": -0.0017348677583761294,
+          "mesh_sampled": true,
+          "mesh_vertical_hit_valid": true,
+          "mesh_eta_m": -0.012636250257492043,
+          "mesh_minus_solver_m": -0.010901382499115913
+        }
+      ],
+      "piston_displacement_m": 0.0,
+      "piston_velocity_m_s": 0.0,
+      "piston_actual_collision_velocity_m_s": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "wave_seconds": 0.13333333333333333,
+      "piston_started": true,
+      "mesh_sampled": true,
+      "mesh_points": 38736,
+      "mesh_faces": 38734,
+      "mesh_file_sha256": "139307d366046bbd2028a98219a6d8e0d6afa7f1414f28f5b63954ad8876b749",
+      "cache_sha256": "a545290c20ad073023194f3b8a771c64485b85755ad1bb5d4e6cbe51147eb809",
+      "cache_bytes": 4271051,
+      "negative_voxel_volume_proxy_m3": 2.340144278964605,
+      "cook_seconds": 2.2734714000253007,
+      "memory": {
+        "private_commit_bytes": 7597187072,
+        "working_set_bytes": 3226009600,
+        "peak_working_set_process_lifetime_bytes": 4715032576,
+        "available_physical_bytes": 34981564416
+      },
+      "solver_errors": [],
+      "solver_warnings": []
+    }
+  ]
+}
