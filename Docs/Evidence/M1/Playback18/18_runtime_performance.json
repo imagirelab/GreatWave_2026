@@ -1,0 +1,151 @@
+{
+    "unity": "6000.4.3f1",
+    "startedUtc": "2026-09-24T19:24:53.4052372Z",
+    "finishedUtc": "",
+    "method": "Windows実行版の実ABCと実Fluid VATを同じカメラで順にCamera.Render。左右合成は実描画、OS画面録画ではない。",
+    "gpu": "NVIDIA GeForce RTX 3080",
+    "graphicsApi": "Direct3D11",
+    "cpu": "12th Gen Intel(R) Core(TM) i7-12700K",
+    "width": 1280,
+    "height": 720,
+    "rate": 24,
+    "frames": 0,
+    "systemRamMB": 65293,
+    "graphicsMemoryMB": 10051,
+    "minimumColors": 2147483647,
+    "minimumNonBlackFraction": 1.0,
+    "startupToValidationSeconds": 22.929534912109376,
+    "referenceReadMilliseconds": 811.6001,
+    "animationBoundsMin": {
+        "x": -6.6842265129089359,
+        "y": -0.24394023418426515,
+        "z": -6.680825710296631
+    },
+    "animationBoundsMax": {
+        "x": 6.692540645599365,
+        "y": 1.5331790447235108,
+        "z": 6.7222676277160648
+    },
+    "textureDimensionsMatch": true,
+    "passed": false,
+    "hmdVerified": false,
+    "physicalAccuracyVerified": false,
+    "timings": [
+        {
+            "format": "Alembic2.4.4",
+            "method": "1280×720・同一視点/片面shader・vSync0・targetFrameRate無制限。画像読戻し/保存/形状検査なし。Camera.Render計時はCPU呼出しでGPU専用時間ではない。FrameTimingはwarm-up中も採取し、段階開始時より新しい一意timestampだけ使用。両形式のassetが同時常駐するためprocess memory差を形式固有量としない。",
+            "samples": 147,
+            "warmupSamples": 49,
+            "cpuUpdate": {
+                "available": true,
+                "count": 147,
+                "median": 4.0993,
+                "p95": 6.5811,
+                "maximum": 7.841600000000001
+            },
+            "cpuRenderSubmission": {
+                "available": true,
+                "count": 147,
+                "median": 0.2876,
+                "p95": 0.4197,
+                "maximum": 0.7306
+            },
+            "observedLoopInterval": {
+                "available": true,
+                "count": 147,
+                "median": 5.139599999999689,
+                "p95": 8.341399999999056,
+                "maximum": 9.074800000000494
+            },
+            "frameTimingCpu": {
+                "available": true,
+                "count": 147,
+                "median": 5.1592,
+                "p95": 8.365,
+                "maximum": 9.0194
+            },
+            "frameTimingGpu": {
+                "available": false,
+                "count": 0,
+                "median": 0.0,
+                "p95": 0.0,
+                "maximum": 0.0
+            },
+            "processPrivateBytes": 0
+        },
+        {
+            "format": "Fluid VAT HDR",
+            "method": "1280×720・同一視点/片面shader・vSync0・targetFrameRate無制限。画像読戻し/保存/形状検査なし。Camera.Render計時はCPU呼出しでGPU専用時間ではない。FrameTimingはwarm-up中も採取し、段階開始時より新しい一意timestampだけ使用。両形式のassetが同時常駐するためprocess memory差を形式固有量としない。",
+            "samples": 147,
+            "warmupSamples": 49,
+            "cpuUpdate": {
+                "available": true,
+                "count": 147,
+                "median": 0.0018000000000000002,
+                "p95": 0.0025,
+                "maximum": 0.047400000000000008
+            },
+            "cpuRenderSubmission": {
+                "available": true,
+                "count": 147,
+                "median": 0.09910000000000001,
+                "p95": 0.1489,
+                "maximum": 0.4475
+            },
+            "observedLoopInterval": {
+                "available": true,
+                "count": 147,
+                "median": 0.2212999999997578,
+                "p95": 0.34050000000007688,
+                "maximum": 1.044399999997836
+            },
+            "frameTimingCpu": {
+                "available": true,
+                "count": 147,
+                "median": 0.2222,
+                "p95": 0.3344,
+                "maximum": 1.0416
+            },
+            "frameTimingGpu": {
+                "available": false,
+                "count": 0,
+                "median": 0.0,
+                "p95": 0.0,
+                "maximum": 0.0
+            },
+            "processPrivateBytes": 0
+        }
+    ],
+    "runtimeTextures": [
+        {
+            "name": "fluid17_pos",
+            "format": "RGBAFloat",
+            "graphicsFormat": "R32G32B32A32_SFloat",
+            "width": 1024,
+            "height": 1066,
+            "mips": 1,
+            "estimatedGpuTexelBytes": 17465344,
+            "unityRuntimeSizeBytes": 17465784
+        },
+        {
+            "name": "fluid17_rot",
+            "format": "RGBAFloat",
+            "graphicsFormat": "R32G32B32A32_SFloat",
+            "width": 1024,
+            "height": 1066,
+            "mips": 1,
+            "estimatedGpuTexelBytes": 17465344,
+            "unityRuntimeSizeBytes": 17465784
+        },
+        {
+            "name": "fluid17_lookup",
+            "format": "RGBAFloat",
+            "graphicsFormat": "R32G32B32A32_SFloat",
+            "width": 2048,
+            "height": 6174,
+            "mips": 1,
+            "estimatedGpuTexelBytes": 202309632,
+            "unityRuntimeSizeBytes": 202310072
+        }
+    ]
+}

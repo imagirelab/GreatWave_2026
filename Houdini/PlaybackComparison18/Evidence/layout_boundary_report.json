@@ -1,0 +1,165 @@
+{
+  "scope_ja": "実装C#配置計算の境界検査。Unity Monoと実GPUの同時一致は主担当の全49時刻検査で確認する。",
+  "runtime": "v10.0.11",
+  "source_sha256": "809720441904f770d80db9a630ab85d514aa124481a45e2e7d16a067dc143e9c",
+  "checks": [
+    {
+      "name": "正式2048x6174",
+      "passed": true,
+      "inputMinZ": -6.7,
+      "inputMaxX": 6.7,
+      "width": 2048,
+      "height": 6174,
+      "result": {
+        "rawX": 1.0,
+        "rawY": 1.0,
+        "activeX": 1.0,
+        "activeY": 1.0,
+        "deltaX": 0.0,
+        "deltaY": 0.0,
+        "tolerance": 2E-05,
+        "scaledMinZ": -67.0,
+        "scaledNegativeMaxX": -67.0,
+        "usedScaledMinZ": -67.0,
+        "usedScaledNegativeMaxX": -67.0
+      }
+    },
+    {
+      "name": "境界より少し下",
+      "passed": true,
+      "inputMinZ": -6.700001,
+      "inputMaxX": 6.700001,
+      "width": 2048,
+      "height": 6174,
+      "result": {
+        "rawX": 0.9999924,
+        "rawY": 7.6293945E-06,
+        "activeX": 1.0,
+        "activeY": 1.0,
+        "deltaX": 7.6293945E-06,
+        "deltaY": 0.9999924,
+        "tolerance": 2E-05,
+        "scaledMinZ": -67.00001,
+        "scaledNegativeMaxX": -67.00001,
+        "usedScaledMinZ": -67.0,
+        "usedScaledNegativeMaxX": -67.0
+      }
+    },
+    {
+      "name": "境界より少し上",
+      "passed": true,
+      "inputMinZ": -6.6999993,
+      "inputMaxX": 6.6999993,
+      "width": 2048,
+      "height": 6174,
+      "result": {
+        "rawX": 7.6293945E-06,
+        "rawY": 0.9999924,
+        "activeX": 1.0,
+        "activeY": 1.0,
+        "deltaX": 0.9999924,
+        "deltaY": 7.6293945E-06,
+        "tolerance": 2E-05,
+        "scaledMinZ": -66.99999,
+        "scaledNegativeMaxX": -66.99999,
+        "usedScaledMinZ": -67.0,
+        "usedScaledNegativeMaxX": -67.0
+      }
+    },
+    {
+      "name": "2048幅の1画素余白",
+      "passed": true,
+      "inputMinZ": -6.700049,
+      "inputMaxX": 6.6999836,
+      "width": 2048,
+      "height": 6174,
+      "result": {
+        "rawX": 0.9995117,
+        "rawY": 0.99983215,
+        "activeX": 0.9995117,
+        "activeY": 0.99983215,
+        "deltaX": 0.0,
+        "deltaY": 0.0,
+        "tolerance": 2E-05,
+        "scaledMinZ": -67.00049,
+        "scaledNegativeMaxX": -66.99983,
+        "usedScaledMinZ": -67.00049,
+        "usedScaledNegativeMaxX": -66.99983
+      }
+    },
+    {
+      "name": "8192幅の半画素差",
+      "passed": true,
+      "inputMinZ": -6.700006,
+      "inputMaxX": 6.699994,
+      "width": 8192,
+      "height": 8192,
+      "result": {
+        "rawX": 0.99993896,
+        "rawY": 0.99993896,
+        "activeX": 0.99993896,
+        "activeY": 0.99993896,
+        "deltaX": 0.0,
+        "deltaY": 0.0,
+        "tolerance": 1.5258789E-05,
+        "scaledMinZ": -67.00006,
+        "scaledNegativeMaxX": -66.99994,
+        "usedScaledMinZ": -67.00006,
+        "usedScaledNegativeMaxX": -66.99994
+      }
+    },
+    {
+      "name": "許容差外の3e-5",
+      "passed": true,
+      "inputMinZ": -6.700003,
+      "inputMaxX": 6.699997,
+      "width": 2048,
+      "height": 6174,
+      "result": {
+        "rawX": 0.9999695,
+        "rawY": 0.9999695,
+        "activeX": 0.9999695,
+        "activeY": 0.9999695,
+        "deltaX": 0.0,
+        "deltaY": 0.0,
+        "tolerance": 2E-05,
+        "scaledMinZ": -67.00003,
+        "scaledNegativeMaxX": -66.99997,
+        "usedScaledMinZ": -67.00003,
+        "usedScaledNegativeMaxX": -66.99997
+      }
+    },
+    {
+      "name": "65536幅で許容差縮小",
+      "passed": true,
+      "inputMinZ": -6.7000017,
+      "inputMaxX": 6.6999984,
+      "width": 65536,
+      "height": 65536,
+      "result": {
+        "rawX": 0.99998474,
+        "rawY": 0.99998474,
+        "activeX": 0.99998474,
+        "activeY": 0.99998474,
+        "deltaX": 0.0,
+        "deltaY": 0.0,
+        "tolerance": 1.9073486E-06,
+        "scaledMinZ": -67.000015,
+        "scaledNegativeMaxX": -66.999985,
+        "usedScaledMinZ": -67.000015,
+        "usedScaledNegativeMaxX": -66.999985
+      }
+    },
+    {
+      "name": "幅0",
+      "passed": true,
+      "rejected": true
+    },
+    {
+      "name": "NaN",
+      "passed": true,
+      "rejected": true
+    }
+  ],
+  "passed": true
+}

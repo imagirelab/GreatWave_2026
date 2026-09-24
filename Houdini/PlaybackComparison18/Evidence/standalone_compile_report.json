@@ -1,0 +1,53 @@
+{
+  "tool": "Windows d3dcompiler_47.dll D3DCompile",
+  "scope_ja": "共有デコードのcompute経路と単独vertex経路。Unityラッパーのコンパイル・実VATデータの一致は対象外。",
+  "checks": [
+    {
+      "stage": "compute",
+      "profile": "cs_5_0",
+      "hresult": 0,
+      "compiled_bytes": 5624,
+      "compiler_messages": "",
+      "source_sha256": "cd19076a00484a2f355d665756db5bd3fdbffebf0f99a41ddbdb09b27b51f1ec"
+    },
+    {
+      "stage": "vertex_decode_only",
+      "profile": "vs_5_0",
+      "hresult": 0,
+      "compiled_bytes": 2544,
+      "compiler_messages": "",
+      "source_sha256": "4f4f0bfa201b760b585fdf49e58d229cd36326272231808ecb042c30b2d9aed8"
+    }
+  ],
+  "files": [
+    {
+      "path": "Playback18VAT.cginc",
+      "sha256": "a42a425263abdf0af16eefe4e1a5c4bcd8eb457fe506796331495648a27015df"
+    },
+    {
+      "path": "Playback18VAT.shader",
+      "sha256": "bed6a45f3e6559462dc65bf212f0a1c2e5825f7446a997d77ad4cc77eaf0c525"
+    },
+    {
+      "path": "Playback18VAT.compute",
+      "sha256": "4db0ba08d7066a9d09fc3638ac1dddcae1ff30f196b5714a55e09fafa259ec80"
+    },
+    {
+      "path": "Playback18VAT.cs",
+      "sha256": "a02c9e7b2d23abba48623b1020cefc45c712c75e2ae28da53024e40f69f0cfc6"
+    },
+    {
+      "path": "Playback18VATLayout.cs",
+      "sha256": "809720441904f770d80db9a630ab85d514aa124481a45e2e7d16a067dc143e9c"
+    },
+    {
+      "path": "Playback18Lighting.cginc",
+      "sha256": "b684dcf141535b416ba1dff6d8cf14f00b3c951fedb90abeb1b5be9d2510b50d"
+    },
+    {
+      "path": "Playback18Reference.shader",
+      "sha256": "51c184f75790693995e5e4166acd1266908877e4a1f87c524ea937c80a5dd470"
+    }
+  ],
+  "passed": true
+}

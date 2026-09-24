@@ -1,0 +1,14 @@
+#pragma kernel DecodeVertices
+#pragma target 5.0
+#include "Playback18VAT.cginc"
+
+StructuredBuffer<float4> _VatInputUV;
+RWStructuredBuffer<Playback18VATSample> _VatDecoded;
+int _VatVertexCount;
+
+[numthreads(128, 1, 1)]
+void DecodeVertices(uint3 thread : SV_DispatchThreadID)
+{
+    if (thread.x < (uint)_VatVertexCount)
+        _VatDecoded[thread.x] = Playback18Decode(_VatInputUV[thread.x].xy);
+}
