@@ -15,6 +15,7 @@ namespace GreatWave
         public TrackedPoseDriver trackedPose;
         public bool recordingCamera;
         public string recordingLabel = "";
+        [NonSerialized] public Keyboard inputTestKeyboard;
         public bool VrActive { get; private set; }
         public bool Paused { get; private set; }
         public string Status { get; private set; } = "PC確認版 / HMD未検証";
@@ -64,7 +65,7 @@ namespace GreatWave
 
         void Update()
         {
-            var keyboard = Keyboard.current;
+            var keyboard = inputTestKeyboard ?? Keyboard.current;
             if (keyboard != null)
             {
                 if (keyboard.qKey.wasPressedThisFrame) Application.Quit();
@@ -87,7 +88,7 @@ namespace GreatWave
                     ApplyLook(new Vector2(horizontal, vertical) * (45f * Time.unscaledDeltaTime));
                 }
             }
-            if (!VrActive && !recordingCamera && Mouse.current != null && Mouse.current.rightButton.isPressed)
+            if (inputTestKeyboard == null && !VrActive && !recordingCamera && Mouse.current != null && Mouse.current.rightButton.isPressed)
             {
                 var delta = Mouse.current.delta.ReadValue();
                 ApplyLook(new Vector2(delta.x, -delta.y) * .12f);

@@ -91,7 +91,7 @@ namespace GreatWave.Editor
             bool assigned = general != null && general.Manager != null && general.Manager.activeLoaders.Any(l => l is OpenXRLoader);
             var settings = OpenXRSettings.GetSettingsForBuildTargetGroup(BuildTargetGroup.Standalone);
             var scene = EditorSceneManager.OpenScene(M0BaselineBuilder.ScenePath);
-            var origin = UnityEngine.Object.FindFirstObjectByType<XROrigin>();
+            var origin = UnityEngine.Object.FindAnyObjectByType<XROrigin>();
             var pose = Camera.main.GetComponent<TrackedPoseDriver>();
             var issues = new List<OpenXRFeature.ValidationRule>();
             if (assigned && settings != null) OpenXRProjectValidation.GetCurrentValidationIssues(issues, BuildTargetGroup.Standalone);

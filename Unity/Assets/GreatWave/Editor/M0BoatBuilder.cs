@@ -36,7 +36,7 @@ namespace GreatWave.Editor
             }
             foreach (float z in new[] { -1.5f, 1.1f, 3.6f })
                 M0BaselineBuilder.Box("Bench " + z, new Vector3(0, .7f, z), new Vector3(2.18f, .1f, .42f), pale, boat.transform);
-            var origin = UnityEngine.Object.FindFirstObjectByType<XROrigin>();
+            var origin = UnityEngine.Object.FindAnyObjectByType<XROrigin>();
             origin.transform.position = new Vector3(0, .3f, -1.5f);
             origin.CameraYOffset = 1.2f;
             origin.CameraFloorOffsetObject.transform.localPosition = new Vector3(0, 1.2f, 0);
