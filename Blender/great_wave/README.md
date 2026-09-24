@@ -4,6 +4,8 @@
 
 ## HoudiniのFLIP結果を実際に表示した比較
 
+追加した[集束波群の側面動画](../../Houdini/focused_packet/previews/集束波_側面.mp4)と[斜視動画](../../Houdini/focused_packet/previews/集束波_斜視.mp4)も各3秒です。前面は急になりますが、参照の深い開口と高い局所峰は未達です。[初期条件と表示の記録](docs/milestones/2026-09-24_focused_packet.md)を参照してください。
+
 **[全槽の固定側面](../../Houdini/wave_tank/previews/試作02_側面.mp4) ｜ [波頭の拡大](../../Houdini/wave_tank/previews/試作02_側面拡大.mp4) ｜ [固定斜視](../../Houdini/wave_tank/previews/試作02_斜視.mp4) ｜ [旧キャッシュの直接表示](../../Houdini/wave_tank/previews/旧キャッシュ_側面.mp4)**
 
 新しいFLIP計算は各72フレーム・24 fpsです。公式Blender MCPからAlembicを読み込み、形と時間を変更せず表示しました。**大きい巻浪の造形はまだ成立していません。** [2条件の結果と旧キャッシュの比較](docs/milestones/2026-09-24_fluid_trials.md)、[計算条件](../../Houdini/wave_tank/README.md)を参照してください。

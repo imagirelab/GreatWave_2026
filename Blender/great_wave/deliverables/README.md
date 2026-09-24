@@ -2,6 +2,8 @@
 
 ## 実流体計算の比較動画
 
+[集束波群の固定側面](../../../Houdini/focused_packet/previews/集束波_側面.mp4) ｜ [固定斜視](../../../Houdini/focused_packet/previews/集束波_斜視.mp4)。各3秒、造形は未達です。[追加試行の確認範囲](../docs/milestones/2026-09-24_focused_packet.md)を参照してください。
+
 [Houdini試作02の全槽側面](../../../Houdini/wave_tank/previews/試作02_側面.mp4) ｜ [波頭の拡大](../../../Houdini/wave_tank/previews/試作02_側面拡大.mp4) ｜ [固定斜視](../../../Houdini/wave_tank/previews/試作02_斜視.mp4) ｜ [旧キャッシュの直接表示](../../../Houdini/wave_tank/previews/旧キャッシュ_側面.mp4)
 
 新試作は各72フレーム・24 fps・3秒で、実際のFLIP結果を表示しています。深いC形の開口と大きな巻下げは未達です。[判定と制限](../docs/milestones/2026-09-24_fluid_trials.md)を参照してください。
