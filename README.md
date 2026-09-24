@@ -2,17 +2,27 @@
 
 『神奈川沖浪裏』をHoudini・Blender・UnityでリアルタイムVR作品にする制作記録です。旧試作を参照せず、番号ごとに新規検証してコミットします。
 
-現在は01〜10のPC中間成果を保存し、**利用者の確認待ちで停止しています。M0はHMD未所持のため未完了です。** 11以降には進んでいません。進行役は指示とレビュー、実装担当のGPT-6は制作とコミットを担当しました。
+利用者の続行指示により11〜15の静止構図を新規制作しました。**M1のPC中間成果は利用者の確認待ちです。M0のHMD・物理操作検証、M1の流体受け渡しは未完了です。** 進行役は指示とレビュー、実装担当のGPT-6は制作とコミットを担当します。
 
-## PC中間成果を見る
+## M1の静止構図を見る
+
+- [20秒の自動カメラ動画](Docs/Evidence/M1/M1_Static_Walkthrough.mp4)
+- [原画比較](Docs/Evidence/M1/M1_Comparison.png)／[船上](Docs/Evidence/M1/M1_Boat.png)／[側面](Docs/Evidence/M1/M1_Side.png)／[背面](Docs/Evidence/M1/M1_Rear.png)／[候補範囲図](Docs/Evidence/M1/M1_Region.png)
+- [結果・起動・操作・再現方法](Docs/Progress/Step_15_ja.md)
+
+![M1の静止構図・Unity実描画](Docs/Evidence/M1/M1_Comparison.png)
+
+波・船・富士・白波は新しく作った3Dの形状模型です。画像はUnity実行ビルドのオフスクリーン描画で、流体シミュレーション、完成版の浮世絵レンダリング、HMD映像ではありません。波と船は静止しています。動画の24fpsは再生用の値で、実時間性能の測定ではありません。
+
+本機の実行ファイル：`G:\Unity\GreatWave_2026_Fresh\Unity\Builds\M1\GreatWaveM1.exe`。移す場合は `M1/` 一式が必要です。1〜5で視点を切替、右ドラッグ・矢印で見回し、Rで戻す、Spaceで停止、Qで終了します。通常のウィンドウと物理キー・マウス操作は利用者確認待ち。 [ビルド](Tools/Build_M1.ps1)／[画像・動画の再取得](Tools/Capture_M1.ps1)。
+
+## M0の基礎検証記録
 
 - [20秒の確認動画](Docs/Evidence/M0/M0_Desktop_Walkthrough.mp4)
 - [着座視点](Docs/Evidence/M0/M0_Seated.png)／[静止船全体](Docs/Evidence/M0/M0_Boat_Exterior.png)／[1m・軸の校正モデル](Docs/Evidence/M0/M0_Calibration.png)
 - [結果・操作・再現方法・保留項目](Docs/Progress/Step_10_ja.md)
 
-![M0の着座視点](Docs/Evidence/M0/M0_Seated.png)
-
-画像・動画は新規Windows実行版の実シーンを、Unityでオフスクリーン描画した自動カメラ記録です。通常ウィンドウの手動操作やHMDの録画ではありません。平面と箱形の静止船で基礎を検証し、波・白波・浮力・操船は未実装です。
+M0の画像・動画は新規Windows実行版の実シーンを、Unityでオフスクリーン描画した自動カメラ記録です。通常ウィンドウの手動操作やHMDの録画ではありません。平面と箱形の静止船を使った当時の基礎検証を保存しています。
 
 本機の実行ファイルは `G:\Unity\GreatWave_2026_Fresh\Unity\Builds\M0\GreatWaveM0.exe`。右ドラッグ・矢印で見回し、Rで戻る、Spaceで停止・再開、Qで終了します。通常画面での物理キー・マウス操作は利用者の確認待ちです。実行一式はGit対象外で、[ビルド](Tools/Build_M0.ps1)と[証拠の再取得](Tools/Capture_M0.ps1)の手順を保存しています。
 
