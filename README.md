@@ -4,11 +4,18 @@
 
 利用者の最新指示により、代理が各番号を制作・独立レビューして最終作品へ継続します。**20では同じ24Hz小試料のPCロード・メモリ・CPU費用を測り、Built-in＋Alembicを制作の形状基準として暫定継続します。VATは候補を保持。GPU時間・HMD・主役波が未検証のため、最終VR形式は未採用です。** 進行役は指示とレビュー、実装担当のGPT-6は制作とコミットを担当します。
 
+## 21の小振幅波の基準を見る
+
+- [固定条件と22〜25の測定計画](Docs/Progress/Step_21_ja.md)
+- [解析式のみの波形図](Houdini/WaveBaseline21/Evidence/21_analytic_reference.png)／[境界・波高計・再現方法](Houdini/WaveBaseline21/README_ja.md)
+
+波高6cm・周期1.5秒・水深60cmの単色波を基準に、理論波長2.990395mと位相速度1.993597m/sを計算しました。これは解析式の条件固定で、実FLIPやUnityの波映像ではありません。22は小さな境界/時計pilotから進め、実測した水面・伝播・反射を理論と照合します。
+
 ## 20のPC測定と暫定判断を見る
 
 - [Alembicの近景・2秒動画](Docs/Evidence/M1/Decision20/20_abc_2s.mp4)／[Fluid VATの同視点動画](Docs/Evidence/M1/Decision20/20_vat_2s.mp4)
 - [Alembic 1秒](Docs/Evidence/M1/Decision20/20_abc_024.png)／[VAT 1秒](Docs/Evidence/M1/Decision20/20_vat_024.png)
-- [3回ずつの実測表・採用条件・再現方法](Docs/Progress/Step_20_ja.md)／[01〜20の検証状態と残る条件](Docs/Progress/Verification_Status_ja.md)
+- [3回ずつの実測表・採用条件・再現方法](Docs/Progress/Step_20_ja.md)／[01〜21の検証状態と残る条件](Docs/Progress/Verification_Status_ja.md)
 
 20専用Windows版の6つの新プロセスで、同じ入力を広景/固定近景・単眼/人工2視点で測りました。新プロセス初回scene読込の中央値はABC 19.67ms、VAT 153.11ms。VATはCPU更新が軽い一方、初回メモリ増分が大きく、GPU時間は追加の通常カメラ診断でも取得できませんでした。映像は計測外の近景カメラによる実描画で、性能値やHMD映像ではありません。
 

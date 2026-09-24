@@ -1,0 +1,57 @@
+{
+  "classification_ja": "解析式コードの自己検査。FLIPの精度判定ではない。",
+  "passed": true,
+  "checks": {
+    "dispersion_relative_residual": {
+      "value": 0.0,
+      "limit": 1e-12,
+      "passed": true
+    },
+    "bed_normal_velocity_max_m_s": {
+      "value": 0.0,
+      "limit": 1e-12,
+      "passed": true
+    },
+    "linear_surface_kinematic_fd_error_m_s": {
+      "value": 6.855498807523119e-12,
+      "limit": 1e-08,
+      "passed": true
+    },
+    "incompressibility_fd_error_s_inv": {
+      "value": 4.644944151532826e-12,
+      "limit": 1e-08,
+      "passed": true
+    },
+    "period_repeat_error_m": {
+      "value": 1.0408340855860843e-17,
+      "limit": 1e-12,
+      "passed": true
+    },
+    "wavelength_repeat_error_m": {
+      "value": 6.938893903907228e-18,
+      "limit": 1e-12,
+      "passed": true
+    },
+    "positive_x_following_crest_error_m": {
+      "value": 6.938893903907228e-18,
+      "limit": 1e-12,
+      "passed": true
+    },
+    "adjacent_fitted_gauge_delay_error_s": {
+      "value": 3.3306690738754696e-16,
+      "limit": 1e-12,
+      "passed": true
+    },
+    "synthetic_incident_only_reflection_recovery": {
+      "value": 6.437475500449576e-16,
+      "limit": 1e-12,
+      "passed": true
+    }
+  },
+  "fitted_adjacent_delay_s": [
+    0.3000000000000003,
+    0.5249999999999991
+  ],
+  "gauge_reflection_matrix_condition_number": 1.766090022114173,
+  "phase_note_ja": "隣接.2λ/.35λで位相をunwrap。端間.55λをprincipal phaseのみで扱わない。"
+}
