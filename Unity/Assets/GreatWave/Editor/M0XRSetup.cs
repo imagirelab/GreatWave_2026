@@ -96,7 +96,7 @@ namespace GreatWave.Editor
             var issues = new List<OpenXRFeature.ValidationRule>();
             if (assigned && settings != null) OpenXRProjectValidation.GetCurrentValidationIssues(issues, BuildTargetGroup.Standalone);
             var report = new Report { unity = Application.unityVersion, loaderAssigned = assigned,
-                settingsPersisted = settings != null, automaticInitializationOff = general != null && !general.InitManagerOnStart,
+                settingsPersisted = settings != null && AssetDatabase.Contains(settings), automaticInitializationOff = general != null && !general.InitManagerOnStart,
                 originConfigured = origin != null && origin.Camera == Camera.main && origin.CameraFloorOffsetObject != null,
                 trackedPoseConfigured = pose != null && !pose.enabled && pose.positionInput.action.bindings.Count > 0
                     && pose.rotationInput.action.bindings.Count > 0 && pose.trackingStateInput.action.bindings.Count > 0,
@@ -104,7 +104,7 @@ namespace GreatWave.Editor
                 issues = issues.Select(i => new Issue { message = i.message, error = i.error, fixHint = i.fixItMessage }).ToArray(),
                 hmdStatus = "機器なし・実機入力と両眼表示は保留" };
             report.configurationPassed = report.loaderAssigned && report.settingsPersisted && report.automaticInitializationOff
-                && report.originConfigured && report.trackedPoseConfigured;
+                && report.originConfigured && report.trackedPoseConfigured && report.projectValidationErrors == 0;
             File.WriteAllText("../Docs/Evidence/M0/08_xr_configuration.json", JsonUtility.ToJson(report, true));
             if (!report.configurationPassed) throw new InvalidOperationException("08の設定の保存・再読込が不合格です。");
             Debug.Log("M0_STEP08_CONFIG_PASS: saved settings; validationErrors=" + report.projectValidationErrors + "; HMD未検証");

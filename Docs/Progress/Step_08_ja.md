@@ -15,3 +15,5 @@ StandaloneにOpenXR loaderと設定アセットを保存。XROrigin、Camera Flo
 - 元ログ：`Unity/Logs/08-xr-configure.log`、`08-xr-reload.log`。双方で処理完了・終了コード0。
 
 公式資料：[Unity OpenXR](https://docs.unity3d.com/6000.4/Documentation/Manual/com.unity.xr.openxr.html)、[OpenXR入力](https://docs.unity3d.com/Packages/com.unity.xr.openxr@1.16/manual/input.html)、[XR手動起動](https://docs.unity3d.com/Packages/com.unity.xr.management@4.5/manual/EndUser.html)。
+
+レビュー後、設定の非null判定に加えて実アセットとしての保存を確認し、Project Validationエラー0も合格条件へ含めた。別プロセスで再検査し、すべての設定条件とエラー0を再確認した。
