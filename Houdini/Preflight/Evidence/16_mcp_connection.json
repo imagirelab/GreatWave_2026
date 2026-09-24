@@ -1,0 +1,875 @@
+{
+  "timestamp_utc": "2026-09-24T14:38:47.933144+00:00",
+  "config_backup": "C:\\Users\\wang6\\.codex\\config.toml.backup-houdiniMCP-20260924-223656",
+  "config_backup_sha256": "9db8573e62a20e3e7df19f9286737e4587c5a693491cdf460162d1defcfbca8f",
+  "config_after_sha256": "ae2276ceed7252b8a6a2bfa609bfa7386fe59df0f1a9c8a5bf27be28955cb78f",
+  "only_houdiniMCP_entry_added": true,
+  "registered_server": {
+    "name": "houdiniMCP",
+    "enabled": true,
+    "disabled_tools": [
+      "change_node_type",
+      "cook_frame_range",
+      "create_network_box",
+      "create_sticky_note",
+      "edit_hda_interface",
+      "get_attrib_stats",
+      "get_cook_status",
+      "get_failed_work_items",
+      "get_file_references",
+      "get_parameters",
+      "get_parm_references",
+      "get_parm_template_tree",
+      "get_shelf_tool_script",
+      "get_top_logs",
+      "get_usd_bound_material",
+      "get_volume_info",
+      "list_hda_versions",
+      "list_shelf_tools",
+      "press_button",
+      "redo",
+      "reload_plugin",
+      "run_shelf_tool",
+      "set_hda_interface",
+      "set_object_transform",
+      "set_update_mode",
+      "set_viewer_context",
+      "undo"
+    ],
+    "command": "G:\\AI\\TaskEnvironments\\greatwave_houdini_mcp\\.venv\\Scripts\\python.exe",
+    "args": [
+      "-m",
+      "fxhoudinimcp"
+    ],
+    "env": {
+      "HOUDINI_HOST": "127.0.0.1",
+      "HOUDINI_PORT": "8100",
+      "LOG_LEVEL": "WARNING",
+      "MCP_TRANSPORT": "stdio"
+    }
+  },
+  "versions": {
+    "fxhoudinimcp": "2.21.0",
+    "mcp": "1.30.0",
+    "httpx": "0.28.1"
+  },
+  "scope": {
+    "explicit_tool_calls": [
+      "execute_python"
+    ],
+    "scene_node_geometry_viewport_read": false,
+    "scene_mutation_cook_export": false,
+    "houdini_launch_restart": false,
+    "startup": "Upstream proxy performs mcp.health and mcp.list_commands; current legacy health includes hip_file, which is not retained or exposed in this report.",
+    "current_codex_turn_native_tool_reload": "Not reloaded: root separately observed 0 Houdini tools in this active turn's ALL_TOOLS after registration. MCP SDK proof remains valid independently."
+  },
+  "initialize": {
+    "protocol_version": "2025-11-25",
+    "server_info": {
+      "name": "FXHoudini",
+      "title": null,
+      "version": "2.21.0",
+      "websiteUrl": null,
+      "icons": null
+    },
+    "elapsed_seconds": 0.938
+  },
+  "tools_list": {
+    "count": 207,
+    "names": [
+      "assign_material",
+      "build_network",
+      "build_sop_chain",
+      "cancel_top_cook",
+      "capture_network_editor",
+      "capture_screenshot",
+      "change_node_type",
+      "clear_cache",
+      "compare_snapshots",
+      "connect_nodes",
+      "connect_nodes_batch",
+      "cook_frame_range",
+      "cook_top_node",
+      "copy_node",
+      "create_chop_node",
+      "create_cop_node",
+      "create_hda",
+      "create_light",
+      "create_light_rig",
+      "create_lop_node",
+      "create_material",
+      "create_material_network",
+      "create_network_box",
+      "create_node",
+      "create_render_node",
+      "create_spare_parameter",
+      "create_spare_parameters",
+      "create_sticky_note",
+      "create_take",
+      "create_vex_expression",
+      "create_wrangle",
+      "delete_keyframe",
+      "delete_node",
+      "dirty_work_items",
+      "disconnect_node",
+      "edit_hda_interface",
+      "evaluate_expression",
+      "execute_hscript",
+      "execute_python",
+      "explain_node",
+      "export_chop_to_parm",
+      "export_file",
+      "find_error_nodes",
+      "find_expensive_nodes",
+      "find_nearest_point",
+      "find_nodes",
+      "find_usd_prims",
+      "frame_all",
+      "frame_selection",
+      "generate_static_items",
+      "get_attrib_stats",
+      "get_attrib_values",
+      "get_attribute_info",
+      "get_bounding_box",
+      "get_cache_status",
+      "get_chop_data",
+      "get_context_info",
+      "get_cook_chain",
+      "get_cook_status",
+      "get_cop_geometry",
+      "get_cop_info",
+      "get_cop_layer",
+      "get_cop_vdb",
+      "get_current_take",
+      "get_dop_field",
+      "get_dop_object",
+      "get_dop_relationships",
+      "get_env_variable",
+      "get_expression",
+      "get_failed_work_items",
+      "get_file_references",
+      "get_frame",
+      "get_geometry_info",
+      "get_group_members",
+      "get_groups",
+      "get_hda_info",
+      "get_hda_section_content",
+      "get_hda_sections",
+      "get_help_page",
+      "get_houdini_connection_status",
+      "get_keyframes",
+      "get_last_modified_prims",
+      "get_material_info",
+      "get_network_overview",
+      "get_node_card",
+      "get_node_errors_detailed",
+      "get_node_info",
+      "get_parameter",
+      "get_parameter_schema",
+      "get_parameters",
+      "get_parm_references",
+      "get_parm_template_tree",
+      "get_pdg_graph",
+      "get_points",
+      "get_prim_intrinsics",
+      "get_prims",
+      "get_render_progress",
+      "get_render_settings",
+      "get_scene_info",
+      "get_scene_summary",
+      "get_selection",
+      "get_shelf_tool_script",
+      "get_sim_memory_usage",
+      "get_simulation_info",
+      "get_stage_info",
+      "get_top_logs",
+      "get_top_network_info",
+      "get_top_scheduler_info",
+      "get_usd_attribute",
+      "get_usd_bound_material",
+      "get_usd_composition",
+      "get_usd_layers",
+      "get_usd_materials",
+      "get_usd_prim",
+      "get_usd_prim_stats",
+      "get_usd_variants",
+      "get_viewport_info",
+      "get_volume_info",
+      "get_work_item_info",
+      "get_work_item_states",
+      "get_workflow_guide",
+      "get_wrangle_code",
+      "import_file",
+      "inspect_usd_layer",
+      "install_hda",
+      "layout_children",
+      "link_parameters",
+      "list_caches",
+      "list_children",
+      "list_chop_channels",
+      "list_cop_node_types",
+      "list_dop_objects",
+      "list_hda_versions",
+      "list_installed_hdas",
+      "list_lights",
+      "list_material_types",
+      "list_materials",
+      "list_node_types",
+      "list_panes",
+      "list_render_nodes",
+      "list_shelf_tools",
+      "list_takes",
+      "list_usd_prims",
+      "load_scene",
+      "lock_parameter",
+      "log_status",
+      "move_node",
+      "new_scene",
+      "pause_top_cook",
+      "playbar_control",
+      "press_button",
+      "redo",
+      "reload_hda",
+      "reload_plugin",
+      "rename_node",
+      "render_node_network",
+      "render_quad_view",
+      "render_viewport",
+      "reorder_inputs",
+      "reset_simulation",
+      "revert_parameter",
+      "run_shelf_tool",
+      "sample_geometry",
+      "save_scene",
+      "search_help",
+      "set_cop_flags",
+      "set_current_network",
+      "set_current_take",
+      "set_detail_attrib",
+      "set_expression",
+      "set_frame",
+      "set_frame_range",
+      "set_hda_interface",
+      "set_hda_section_content",
+      "set_keyframe",
+      "set_keyframes",
+      "set_light_properties",
+      "set_node_color",
+      "set_node_flags",
+      "set_node_position",
+      "set_object_transform",
+      "set_parameter",
+      "set_parameters",
+      "set_playback_range",
+      "set_render_settings",
+      "set_selection",
+      "set_update_mode",
+      "set_usd_attribute",
+      "set_viewer_context",
+      "set_viewport_camera",
+      "set_viewport_direction",
+      "set_viewport_display",
+      "set_viewport_renderer",
+      "set_wrangle_code",
+      "setup_flip_sim",
+      "setup_pyro_sim",
+      "setup_rbd_sim",
+      "setup_render",
+      "setup_vellum_sim",
+      "start_render",
+      "step_simulation",
+      "undo",
+      "uninstall_hda",
+      "update_hda",
+      "validate_vex",
+      "verify_network",
+      "write_cache"
+    ],
+    "execute_python_input_schema": {
+      "properties": {
+        "code": {
+          "title": "Code",
+          "type": "string"
+        },
+        "justification": {
+          "title": "Justification",
+          "type": "string"
+        },
+        "return_expression": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Return Expression"
+        }
+      },
+      "required": [
+        "code",
+        "justification"
+      ],
+      "title": "execute_pythonArguments",
+      "type": "object"
+    }
+  },
+  "metadata_call": {
+    "name": "execute_python",
+    "arguments": {
+      "code": "pass",
+      "justification": "Connection verification requires application version, UI availability, and license category only. get_scene_info would read the scene and no dedicated tool exposes just these three runtime metadata values.",
+      "return_expression": "{'version': hou.applicationVersionString(), 'ui_available': hou.isUIAvailable(), 'license_category': str(hou.licenseCategory())}"
+    },
+    "result": {
+      "version": "22.0.429",
+      "ui_available": true,
+      "license_category": "licenseCategoryType.Indie"
+    },
+    "is_error": false
+  },
+  "installed_houdini_plugin_unchanged": true,
+  "installed_houdini_plugin_files_sha256": {
+    "fxhoudinimcp.json": "25c24dba19d5231603a67b7a7d51840f92e9d097a15d68615a4a14af2b073927",
+    "python3.10libs/uiready.py": "86b01e36d650f5b3adc29d104264e71d7e6df1d449b836f4c259844359016652",
+    "python3.11libs/uiready.py": "86b01e36d650f5b3adc29d104264e71d7e6df1d449b836f4c259844359016652",
+    "python3.12libs/uiready.py": "86b01e36d650f5b3adc29d104264e71d7e6df1d449b836f4c259844359016652",
+    "python3.13libs/uiready.py": "86b01e36d650f5b3adc29d104264e71d7e6df1d449b836f4c259844359016652",
+    "python3.9libs/uiready.py": "86b01e36d650f5b3adc29d104264e71d7e6df1d449b836f4c259844359016652",
+    "scripts/python/fxhoudinimcp_server/__init__.py": "17f4987aa999afdf669c4af43b4c54fd2c9d54e131b06058dc5343413fc2ab5c",
+    "scripts/python/fxhoudinimcp_server/config.py": "8f9bf638a96a161b82edad7af1c7f0487aab378835a67fdd7065cafe6d970bda",
+    "scripts/python/fxhoudinimcp_server/dispatcher.py": "4e70fe10037c53dece98a84856952020a69ca5466df1bf16a6e7974fced4ee88",
+    "scripts/python/fxhoudinimcp_server/handlers/__init__.py": "eb1ba41d63f1c8af9da1a6f4713dcb1a90013a4ebbf7916749e6ad503ece11ae",
+    "scripts/python/fxhoudinimcp_server/handlers/animation_handlers.py": "d5b4239aeae2701ece492b51a70f6e0dc590f0a7ce65daa3992c0fe421de1281",
+    "scripts/python/fxhoudinimcp_server/handlers/cache_handlers.py": "f7c62acd4fe7c72b5da11a03b8ba99481d4d7d76b128e256f9cde5f7ffb3c5a8",
+    "scripts/python/fxhoudinimcp_server/handlers/chop_handlers.py": "d1d59bbe61879c01e3ff796872def0ed8f735bea7e58cc4879b9a7213d50f9a0",
+    "scripts/python/fxhoudinimcp_server/handlers/code_handlers.py": "7aef0ce2bca0366442b4671ac9d60c24f0198e025241d88508c95a7248bac30e",
+    "scripts/python/fxhoudinimcp_server/handlers/context_handlers.py": "abeae2e23a21211e77bfe61058d9133c3cdad8f46c043f0cd97e302db1fe71ee",
+    "scripts/python/fxhoudinimcp_server/handlers/cop_handlers.py": "033f31e1c58ea919f28c83b6a2993ba4f82b4ca9b13363f727a8df811a5e64ed",
+    "scripts/python/fxhoudinimcp_server/handlers/dop_handlers.py": "10c88165b3242c6cfb9a5e8cec8fa248373dea9f344172480924650a5747d777",
+    "scripts/python/fxhoudinimcp_server/handlers/geometry_handlers.py": "1f8ff827b6d9286c6296276bf996082885678dcda43ffaf6fbbe396fc9b2f9e8",
+    "scripts/python/fxhoudinimcp_server/handlers/graph_handlers.py": "b5c781abdadb073c1c39a6db7486e9768a77997b9db3d420e7c9b828c78418f8",
+    "scripts/python/fxhoudinimcp_server/handlers/hda_handlers.py": "8e26968e99b67d97dc2b30719f4936698e0cff5f87fb4433279efcedd14e40a6",
+    "scripts/python/fxhoudinimcp_server/handlers/help_handlers.py": "b3ababe0b1a3a76b8713337f89e6c5dd0bbd4b6ddad0a1f6fa67e58fb2e94770",
+    "scripts/python/fxhoudinimcp_server/handlers/lops_handlers.py": "938b9d3fc79dcaaa1da9274869ed2b8e10bb5ff0d902c971d270e274559b7a1e",
+    "scripts/python/fxhoudinimcp_server/handlers/material_handlers.py": "4875ddcb9d24dac7823217d6bdab9ad1e6ffde951debfcb66fc93211dc6eb7ac",
+    "scripts/python/fxhoudinimcp_server/handlers/node_handlers.py": "7fcdbfb5903ab2c5b94720c751e520c0678f7caf95520f6abc5e450fb51d949d",
+    "scripts/python/fxhoudinimcp_server/handlers/parameter_handlers.py": "d021ef486ad842ad2280974ea382ce8f3a0359804c751f72f189acbc725d571f",
+    "scripts/python/fxhoudinimcp_server/handlers/rendering_handlers.py": "11e0b9de4e086356fd758bf6dc8a132f7ec525cedb1ba181846fa26c04ceb390",
+    "scripts/python/fxhoudinimcp_server/handlers/scene_handlers.py": "946cf5c8010142881d6fdb5f9f0da8dbedb30fc329ffbc13397590bbd3f58a02",
+    "scripts/python/fxhoudinimcp_server/handlers/take_handlers.py": "9579c1059b2426fe936639a2df53ab8616b452b79a6deb0f685f58818ed03ee4",
+    "scripts/python/fxhoudinimcp_server/handlers/top_handlers.py": "06f77d24da8188005d2dea9156f421461142bf00171af1ba29e5777f09dc3df2",
+    "scripts/python/fxhoudinimcp_server/handlers/vex_handlers.py": "5a58adff477922eb83213ff1d613f7f676b2e90d60e19d72c42fe06b0886afd9",
+    "scripts/python/fxhoudinimcp_server/handlers/viewport_handlers.py": "84a514cce60c0c86500d9956eeec92cd876b97996d9cf6dee1ed89dcce848c63",
+    "scripts/python/fxhoudinimcp_server/handlers/workflow_handlers.py": "356cd02491f6a83ac400134350392cb97fb538830d21bc4e8acad8e44264f151",
+    "scripts/python/fxhoudinimcp_server/hwebserver_app.py": "715e877fecba17ccc84e012ab04ce7d0bfcb432772ec171fd95df7e2307f88fa",
+    "scripts/python/fxhoudinimcp_server/startup.py": "7e4080fb18d387800684a0353dc7ec323ee12f84612ca90c92bccd3d27eaec15",
+    "toolbar/fxhoudinimcp.shelf": "b5f929548be606a8534feb4cdc84434b3e5d6e1eb5666e5973f298ee16d59c1a",
+    "../packages/fxhoudinimcp.json": "25c24dba19d5231603a67b7a7d51840f92e9d097a15d68615a4a14af2b073927"
+  },
+  "elapsed_seconds": 1.105,
+  "all_connection_checks_passed": true,
+  "compatibility": {
+    "missing_plugin_command_count": 27,
+    "full_tool_surface_verified": false,
+    "warning_log": "G:\\AI\\TaskEnvironments\\greatwave_houdini_mcp\\proxy_verification_stderr.log",
+    "startup_warning": "WARNING:fxhoudinimcp.server:The Houdini plugin is missing 27 command(s) this server expects (code.get_file_references, code.reload_plugin, code.set_update_mode, geometry.get_attrib_stats, geometry.get_volume_info, graph.cook_frame_range, and 21 more), so it is older than the MCP server and tools that need those commands will fail. The packaged plugin travels with this install, so the likely cause is a Houdini package file pointing somewhere else, for example an older clone. Run 'python -m fxhoudinimcp houdini-package' to see the path this install expects and to be warned about competing package files.",
+    "scope": "Only protocol initialization, discovery and the specified metadata tool call are validated; discovery does not establish execution support for every tool.",
+    "codex_tool_filter": {
+      "timestamp_utc": "2026-09-24T14:43:01.876754+00:00",
+      "method": "Static AST extraction of literal installed handler registrations and proxy execute calls, cross-checked against the saved real MCP discovery names and prior live startup warning count. No Houdini RPC or scene access.",
+      "installed_handler_count": 179,
+      "proxy_required_command_count": 205,
+      "missing_backend_command_count": 27,
+      "advertised_mcp_tool_count": 207,
+      "backend_command_to_tools": {
+        "code.get_file_references": [
+          {
+            "tool": "get_file_references",
+            "source_file": "G:\\AI\\TaskEnvironments\\greatwave_houdini_mcp\\.venv\\Lib\\site-packages\\fxhoudinimcp\\tools\\code.py",
+            "execute_line": 125,
+            "function_line": 117,
+            "source_sha256": "b4b182452d1f28687d2207034b248289e17bc79f3cbf8bb53e67e020215b88dd"
+          }
+        ],
+        "code.reload_plugin": [
+          {
+            "tool": "reload_plugin",
+            "source_file": "G:\\AI\\TaskEnvironments\\greatwave_houdini_mcp\\.venv\\Lib\\site-packages\\fxhoudinimcp\\tools\\code.py",
+            "execute_line": 70,
+            "function_line": 62,
+            "source_sha256": "b4b182452d1f28687d2207034b248289e17bc79f3cbf8bb53e67e020215b88dd"
+          }
+        ],
+        "code.set_update_mode": [
+          {
+            "tool": "set_update_mode",
+            "source_file": "G:\\AI\\TaskEnvironments\\greatwave_houdini_mcp\\.venv\\Lib\\site-packages\\fxhoudinimcp\\tools\\code.py",
+            "execute_line": 145,
+            "function_line": 131,
+            "source_sha256": "b4b182452d1f28687d2207034b248289e17bc79f3cbf8bb53e67e020215b88dd"
+          }
+        ],
+        "geometry.get_attrib_stats": [
+          {
+            "tool": "get_attrib_stats",
+            "source_file": "G:\\AI\\TaskEnvironments\\greatwave_houdini_mcp\\.venv\\Lib\\site-packages\\fxhoudinimcp\\tools\\geometry.py",
+            "execute_line": 368,
+            "function_line": 344,
+            "source_sha256": "74959834df0ed649695028b02ff3c8f880fdb2cad99f202589cbfa05ae3440e0"
+          }
+        ],
+        "geometry.get_volume_info": [
+          {
+            "tool": "get_volume_info",
+            "source_file": "G:\\AI\\TaskEnvironments\\greatwave_houdini_mcp\\.venv\\Lib\\site-packages\\fxhoudinimcp\\tools\\geometry.py",
+            "execute_line": 388,
+            "function_line": 372,
+            "source_sha256": "74959834df0ed649695028b02ff3c8f880fdb2cad99f202589cbfa05ae3440e0"
+          }
+        ],
+        "graph.cook_frame_range": [
+          {
+            "tool": "cook_frame_range",
+            "source_file": "G:\\AI\\TaskEnvironments\\greatwave_houdini_mcp\\.venv\\Lib\\site-packages\\fxhoudinimcp\\tools\\graph.py",
+            "execute_line": 234,
+            "function_line": 188,
+            "source_sha256": "745eae1e82de801a8027feb73e13299e3ba1cae3fd096c78b18727841dbcb98c"
+          }
+        ],
+        "graph.get_cook_status": [
+          {
+            "tool": "get_cook_status",
+            "source_file": "G:\\AI\\TaskEnvironments\\greatwave_houdini_mcp\\.venv\\Lib\\site-packages\\fxhoudinimcp\\tools\\graph.py",
+            "execute_line": 252,
+            "function_line": 238,
+            "source_sha256": "745eae1e82de801a8027feb73e13299e3ba1cae3fd096c78b18727841dbcb98c"
+          }
+        ],
+        "hda.edit_hda_interface": [
+          {
+            "tool": "edit_hda_interface",
+            "source_file": "G:\\AI\\TaskEnvironments\\greatwave_houdini_mcp\\.venv\\Lib\\site-packages\\fxhoudinimcp\\tools\\hda.py",
+            "execute_line": 330,
+            "function_line": 285,
+            "source_sha256": "10005ecfae37922655412271d2720bb3bdd26790d20a488b67e0c3be1ad87b81"
+          }
+        ],
+        "hda.list_hda_versions": [
+          {
+            "tool": "list_hda_versions",
+            "source_file": "G:\\AI\\TaskEnvironments\\greatwave_houdini_mcp\\.venv\\Lib\\site-packages\\fxhoudinimcp\\tools\\hda.py",
+            "execute_line": 227,
+            "function_line": 219,
+            "source_sha256": "10005ecfae37922655412271d2720bb3bdd26790d20a488b67e0c3be1ad87b81"
+          }
+        ],
+        "hda.set_hda_interface": [
+          {
+            "tool": "set_hda_interface",
+            "source_file": "G:\\AI\\TaskEnvironments\\greatwave_houdini_mcp\\.venv\\Lib\\site-packages\\fxhoudinimcp\\tools\\hda.py",
+            "execute_line": 281,
+            "function_line": 231,
+            "source_sha256": "10005ecfae37922655412271d2720bb3bdd26790d20a488b67e0c3be1ad87b81"
+          }
+        ],
+        "lops.get_usd_bound_material": [
+          {
+            "tool": "get_usd_bound_material",
+            "source_file": "G:\\AI\\TaskEnvironments\\greatwave_houdini_mcp\\.venv\\Lib\\site-packages\\fxhoudinimcp\\tools\\lops.py",
+            "execute_line": 312,
+            "function_line": 290,
+            "source_sha256": "59ab8c67a5ee20bf017af3a4bca5034bea23fc53a25270d5cd97cf2c3e01f53b"
+          }
+        ],
+        "nodes.change_node_type": [
+          {
+            "tool": "change_node_type",
+            "source_file": "G:\\AI\\TaskEnvironments\\greatwave_houdini_mcp\\.venv\\Lib\\site-packages\\fxhoudinimcp\\tools\\nodes.py",
+            "execute_line": 263,
+            "function_line": 235,
+            "source_sha256": "500d3f2b40449181440f7ebaa625935ca91a4105755beaa001738e5b14cbde86"
+          }
+        ],
+        "nodes.create_network_box": [
+          {
+            "tool": "create_network_box",
+            "source_file": "G:\\AI\\TaskEnvironments\\greatwave_houdini_mcp\\.venv\\Lib\\site-packages\\fxhoudinimcp\\tools\\nodes.py",
+            "execute_line": 572,
+            "function_line": 548,
+            "source_sha256": "500d3f2b40449181440f7ebaa625935ca91a4105755beaa001738e5b14cbde86"
+          }
+        ],
+        "nodes.create_sticky_note": [
+          {
+            "tool": "create_sticky_note",
+            "source_file": "G:\\AI\\TaskEnvironments\\greatwave_houdini_mcp\\.venv\\Lib\\site-packages\\fxhoudinimcp\\tools\\nodes.py",
+            "execute_line": 602,
+            "function_line": 576,
+            "source_sha256": "500d3f2b40449181440f7ebaa625935ca91a4105755beaa001738e5b14cbde86"
+          }
+        ],
+        "nodes.press_button": [
+          {
+            "tool": "press_button",
+            "source_file": "G:\\AI\\TaskEnvironments\\greatwave_houdini_mcp\\.venv\\Lib\\site-packages\\fxhoudinimcp\\tools\\nodes.py",
+            "execute_line": 310,
+            "function_line": 276,
+            "source_sha256": "500d3f2b40449181440f7ebaa625935ca91a4105755beaa001738e5b14cbde86"
+          }
+        ],
+        "nodes.set_object_transform": [
+          {
+            "tool": "set_object_transform",
+            "source_file": "G:\\AI\\TaskEnvironments\\greatwave_houdini_mcp\\.venv\\Lib\\site-packages\\fxhoudinimcp\\tools\\nodes.py",
+            "execute_line": 637,
+            "function_line": 606,
+            "source_sha256": "500d3f2b40449181440f7ebaa625935ca91a4105755beaa001738e5b14cbde86"
+          }
+        ],
+        "parameters.get_parameters": [
+          {
+            "tool": "get_parameters",
+            "source_file": "G:\\AI\\TaskEnvironments\\greatwave_houdini_mcp\\.venv\\Lib\\site-packages\\fxhoudinimcp\\tools\\parameters.py",
+            "execute_line": 489,
+            "function_line": 447,
+            "source_sha256": "83033878100dc217b2f3bdd417ed06d3f617b2e5562df24bdbd61031079b8c86"
+          }
+        ],
+        "parameters.get_parm_references": [
+          {
+            "tool": "get_parm_references",
+            "source_file": "G:\\AI\\TaskEnvironments\\greatwave_houdini_mcp\\.venv\\Lib\\site-packages\\fxhoudinimcp\\tools\\parameters.py",
+            "execute_line": 190,
+            "function_line": 155,
+            "source_sha256": "83033878100dc217b2f3bdd417ed06d3f617b2e5562df24bdbd61031079b8c86"
+          }
+        ],
+        "parameters.get_parm_template_tree": [
+          {
+            "tool": "get_parm_template_tree",
+            "source_file": "G:\\AI\\TaskEnvironments\\greatwave_houdini_mcp\\.venv\\Lib\\site-packages\\fxhoudinimcp\\tools\\parameters.py",
+            "execute_line": 239,
+            "function_line": 197,
+            "source_sha256": "83033878100dc217b2f3bdd417ed06d3f617b2e5562df24bdbd61031079b8c86"
+          }
+        ],
+        "scene.redo": [
+          {
+            "tool": "redo",
+            "source_file": "G:\\AI\\TaskEnvironments\\greatwave_houdini_mcp\\.venv\\Lib\\site-packages\\fxhoudinimcp\\tools\\scene.py",
+            "execute_line": 259,
+            "function_line": 251,
+            "source_sha256": "0f7bf9bd1aaa9837c8603f83f9eb339b153e6ab9f3f9acac6e1d2b24a053f996"
+          }
+        ],
+        "scene.undo": [
+          {
+            "tool": "undo",
+            "source_file": "G:\\AI\\TaskEnvironments\\greatwave_houdini_mcp\\.venv\\Lib\\site-packages\\fxhoudinimcp\\tools\\scene.py",
+            "execute_line": 247,
+            "function_line": 235,
+            "source_sha256": "0f7bf9bd1aaa9837c8603f83f9eb339b153e6ab9f3f9acac6e1d2b24a053f996"
+          }
+        ],
+        "shelf.get_shelf_tool_script": [
+          {
+            "tool": "get_shelf_tool_script",
+            "source_file": "G:\\AI\\TaskEnvironments\\greatwave_houdini_mcp\\.venv\\Lib\\site-packages\\fxhoudinimcp\\tools\\shelf.py",
+            "execute_line": 56,
+            "function_line": 45,
+            "source_sha256": "e416023c04177bbafc00a13dab47d2e8ad265ab50581de102f6e2b7cf5ccfd64"
+          }
+        ],
+        "shelf.list_shelf_tools": [
+          {
+            "tool": "list_shelf_tools",
+            "source_file": "G:\\AI\\TaskEnvironments\\greatwave_houdini_mcp\\.venv\\Lib\\site-packages\\fxhoudinimcp\\tools\\shelf.py",
+            "execute_line": 41,
+            "function_line": 22,
+            "source_sha256": "e416023c04177bbafc00a13dab47d2e8ad265ab50581de102f6e2b7cf5ccfd64"
+          }
+        ],
+        "shelf.run_shelf_tool": [
+          {
+            "tool": "run_shelf_tool",
+            "source_file": "G:\\AI\\TaskEnvironments\\greatwave_houdini_mcp\\.venv\\Lib\\site-packages\\fxhoudinimcp\\tools\\shelf.py",
+            "execute_line": 89,
+            "function_line": 60,
+            "source_sha256": "e416023c04177bbafc00a13dab47d2e8ad265ab50581de102f6e2b7cf5ccfd64"
+          }
+        ],
+        "tops.get_failed_work_items": [
+          {
+            "tool": "get_failed_work_items",
+            "source_file": "G:\\AI\\TaskEnvironments\\greatwave_houdini_mcp\\.venv\\Lib\\site-packages\\fxhoudinimcp\\tools\\tops.py",
+            "execute_line": 183,
+            "function_line": 174,
+            "source_sha256": "161dd3d61bd2a0d96ce34384ca326971082b7f3b46dd5d7bfdba29defc5d1d6b"
+          }
+        ],
+        "tops.get_top_logs": [
+          {
+            "tool": "get_top_logs",
+            "source_file": "G:\\AI\\TaskEnvironments\\greatwave_houdini_mcp\\.venv\\Lib\\site-packages\\fxhoudinimcp\\tools\\tops.py",
+            "execute_line": 207,
+            "function_line": 189,
+            "source_sha256": "161dd3d61bd2a0d96ce34384ca326971082b7f3b46dd5d7bfdba29defc5d1d6b"
+          }
+        ],
+        "viewport.set_viewer_context": [
+          {
+            "tool": "set_viewer_context",
+            "source_file": "G:\\AI\\TaskEnvironments\\greatwave_houdini_mcp\\.venv\\Lib\\site-packages\\fxhoudinimcp\\tools\\viewport.py",
+            "execute_line": 310,
+            "function_line": 282,
+            "source_sha256": "d6c2e468b66caa78184f7cfa5b44500b4ae7fdcc9050763c2bb1c4a620b37985"
+          }
+        ]
+      },
+      "disabled_tools": [
+        "change_node_type",
+        "cook_frame_range",
+        "create_network_box",
+        "create_sticky_note",
+        "edit_hda_interface",
+        "get_attrib_stats",
+        "get_cook_status",
+        "get_failed_work_items",
+        "get_file_references",
+        "get_parameters",
+        "get_parm_references",
+        "get_parm_template_tree",
+        "get_shelf_tool_script",
+        "get_top_logs",
+        "get_usd_bound_material",
+        "get_volume_info",
+        "list_hda_versions",
+        "list_shelf_tools",
+        "press_button",
+        "redo",
+        "reload_plugin",
+        "run_shelf_tool",
+        "set_hda_interface",
+        "set_object_transform",
+        "set_update_mode",
+        "set_viewer_context",
+        "undo"
+      ],
+      "disabled_tool_count": 27,
+      "configured_eligible_tool_count": 180,
+      "configured_eligible_tool_names": [
+        "assign_material",
+        "build_network",
+        "build_sop_chain",
+        "cancel_top_cook",
+        "capture_network_editor",
+        "capture_screenshot",
+        "clear_cache",
+        "compare_snapshots",
+        "connect_nodes",
+        "connect_nodes_batch",
+        "cook_top_node",
+        "copy_node",
+        "create_chop_node",
+        "create_cop_node",
+        "create_hda",
+        "create_light",
+        "create_light_rig",
+        "create_lop_node",
+        "create_material",
+        "create_material_network",
+        "create_node",
+        "create_render_node",
+        "create_spare_parameter",
+        "create_spare_parameters",
+        "create_take",
+        "create_vex_expression",
+        "create_wrangle",
+        "delete_keyframe",
+        "delete_node",
+        "dirty_work_items",
+        "disconnect_node",
+        "evaluate_expression",
+        "execute_hscript",
+        "execute_python",
+        "explain_node",
+        "export_chop_to_parm",
+        "export_file",
+        "find_error_nodes",
+        "find_expensive_nodes",
+        "find_nearest_point",
+        "find_nodes",
+        "find_usd_prims",
+        "frame_all",
+        "frame_selection",
+        "generate_static_items",
+        "get_attrib_values",
+        "get_attribute_info",
+        "get_bounding_box",
+        "get_cache_status",
+        "get_chop_data",
+        "get_context_info",
+        "get_cook_chain",
+        "get_cop_geometry",
+        "get_cop_info",
+        "get_cop_layer",
+        "get_cop_vdb",
+        "get_current_take",
+        "get_dop_field",
+        "get_dop_object",
+        "get_dop_relationships",
+        "get_env_variable",
+        "get_expression",
+        "get_frame",
+        "get_geometry_info",
+        "get_group_members",
+        "get_groups",
+        "get_hda_info",
+        "get_hda_section_content",
+        "get_hda_sections",
+        "get_help_page",
+        "get_houdini_connection_status",
+        "get_keyframes",
+        "get_last_modified_prims",
+        "get_material_info",
+        "get_network_overview",
+        "get_node_card",
+        "get_node_errors_detailed",
+        "get_node_info",
+        "get_parameter",
+        "get_parameter_schema",
+        "get_pdg_graph",
+        "get_points",
+        "get_prim_intrinsics",
+        "get_prims",
+        "get_render_progress",
+        "get_render_settings",
+        "get_scene_info",
+        "get_scene_summary",
+        "get_selection",
+        "get_sim_memory_usage",
+        "get_simulation_info",
+        "get_stage_info",
+        "get_top_network_info",
+        "get_top_scheduler_info",
+        "get_usd_attribute",
+        "get_usd_composition",
+        "get_usd_layers",
+        "get_usd_materials",
+        "get_usd_prim",
+        "get_usd_prim_stats",
+        "get_usd_variants",
+        "get_viewport_info",
+        "get_work_item_info",
+        "get_work_item_states",
+        "get_workflow_guide",
+        "get_wrangle_code",
+        "import_file",
+        "inspect_usd_layer",
+        "install_hda",
+        "layout_children",
+        "link_parameters",
+        "list_caches",
+        "list_children",
+        "list_chop_channels",
+        "list_cop_node_types",
+        "list_dop_objects",
+        "list_installed_hdas",
+        "list_lights",
+        "list_material_types",
+        "list_materials",
+        "list_node_types",
+        "list_panes",
+        "list_render_nodes",
+        "list_takes",
+        "list_usd_prims",
+        "load_scene",
+        "lock_parameter",
+        "log_status",
+        "move_node",
+        "new_scene",
+        "pause_top_cook",
+        "playbar_control",
+        "reload_hda",
+        "rename_node",
+        "render_node_network",
+        "render_quad_view",
+        "render_viewport",
+        "reorder_inputs",
+        "reset_simulation",
+        "revert_parameter",
+        "sample_geometry",
+        "save_scene",
+        "search_help",
+        "set_cop_flags",
+        "set_current_network",
+        "set_current_take",
+        "set_detail_attrib",
+        "set_expression",
+        "set_frame",
+        "set_frame_range",
+        "set_hda_section_content",
+        "set_keyframe",
+        "set_keyframes",
+        "set_light_properties",
+        "set_node_color",
+        "set_node_flags",
+        "set_node_position",
+        "set_parameter",
+        "set_parameters",
+        "set_playback_range",
+        "set_render_settings",
+        "set_selection",
+        "set_usd_attribute",
+        "set_viewport_camera",
+        "set_viewport_direction",
+        "set_viewport_display",
+        "set_viewport_renderer",
+        "set_wrangle_code",
+        "setup_flip_sim",
+        "setup_pyro_sim",
+        "setup_rbd_sim",
+        "setup_render",
+        "setup_vellum_sim",
+        "start_render",
+        "step_simulation",
+        "uninstall_hda",
+        "update_hda",
+        "validate_vex",
+        "verify_network",
+        "write_cache"
+      ],
+      "codex_filter_applies_after_server_configuration_reload": true,
+      "config_backup": "C:\\Users\\wang6\\.codex\\config.toml.backup-houdiniMCP-filter-20260924-224301",
+      "config_backup_sha256": "d1b648123a9adae34b9fef388c9d058dab1732d3c26621150f210e282009bdf6",
+      "config_after_sha256": "ae2276ceed7252b8a6a2bfa609bfa7386fe59df0f1a9c8a5bf27be28955cb78f",
+      "only_houdiniMCP_disabled_tools_changed": true,
+      "no_additional_houdini_query": true,
+      "remaining_tools_execution_unverified": true
+    }
+  },
+  "registered_server_at_connection_test": {
+    "name": "houdiniMCP",
+    "enabled": true,
+    "command": "G:\\AI\\TaskEnvironments\\greatwave_houdini_mcp\\.venv\\Scripts\\python.exe",
+    "args": [
+      "-m",
+      "fxhoudinimcp"
+    ],
+    "env": {
+      "HOUDINI_HOST": "127.0.0.1",
+      "HOUDINI_PORT": "8100",
+      "LOG_LEVEL": "WARNING",
+      "MCP_TRANSPORT": "stdio"
+    }
+  },
+  "config_at_connection_test_sha256": "d1b648123a9adae34b9fef388c9d058dab1732d3c26621150f210e282009bdf6",
+  "active_codex_turn": {
+    "native_houdini_tool_count": 0,
+    "observation_source": "Root agent ALL_TOOLS enumeration",
+    "native_bindings_reloaded": false
+  }
+}

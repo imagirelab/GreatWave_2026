@@ -1,0 +1,36 @@
+{
+  "executed": true,
+  "return_value": {
+    "checks": {
+      "temporary_node_absent": true,
+      "original_obj_child_identities_unchanged": true,
+      "original_obj_positions_and_flags_restored": true,
+      "selected_items_restored": true,
+      "pane_contexts_restored": true,
+      "pane_current_nodes_restored": true,
+      "pane_links_restored": true,
+      "frame_restored": true,
+      "update_mode_restored": true,
+      "viewer_state_restored": true,
+      "selection_mode_restored": true,
+      "viewport_type_restored": true,
+      "viewport_visible_mask_restored": true,
+      "camera_binding_restored": true,
+      "camera_lock_restored": true,
+      "camera_export_restored": true,
+      "view_transform_restored": true
+    },
+    "restore_errors": [],
+    "all_ui_and_node_checks_passed": true,
+    "dirty_before": false,
+    "dirty_after": true,
+    "prior_undo_labels_retained": true,
+    "undo_count_before": 0,
+    "undo_count_after": 2,
+    "redo_stack_unchanged": true,
+    "undo_history_cleared": false,
+    "hip_saved_or_loaded": false,
+    "temporary_session_snapshot_removed": true
+  },
+  "justification": "Recover retained UI snapshot after a reversible temporary cube demo: restore pane current node before its saved context, then recheck exact camera/selection/context/frame/flags. Delete only the owned temporary object if still present. No HIP save/load or existing content access."
+}

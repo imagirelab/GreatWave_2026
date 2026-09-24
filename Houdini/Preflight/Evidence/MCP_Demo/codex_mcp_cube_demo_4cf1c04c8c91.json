@@ -1,0 +1,140 @@
+{
+  "timestamp_utc": "2026-09-24T14:50:25.777700+00:00",
+  "transport": "true MCP SDK stdio using registered houdiniMCP command",
+  "token": "4cf1c04c8c91",
+  "temporary_container": "/obj/codex_mcp_cube_demo_4cf1c04c8c91",
+  "snapshot_key": "_codex_mcp_cube_demo_4cf1c04c8c91",
+  "events": [
+    {
+      "tool": "execute_python",
+      "elapsed_seconds": 0.082,
+      "is_error": false,
+      "result": {
+        "executed": true,
+        "return_value": {
+          "snapshot_ready": true,
+          "pane_name": "panetab1",
+          "selected_item_count": 0,
+          "obj_child_count": 0,
+          "frame": 1.0,
+          "update_mode": "updateMode.AutoUpdate",
+          "dirty_before": false,
+          "undo_count_before": 0,
+          "redo_count_before": 0,
+          "geometry_selection_present": false
+        },
+        "justification": "No dedicated tool snapshots and restores exact viewport camera, UI selection, pane contexts and update mode atomically. Read only minimum current UI/root metadata, keep references in a temporary session attribute."
+      }
+    },
+    {
+      "tool": "execute_python",
+      "elapsed_seconds": 0.107,
+      "is_error": false,
+      "result": {
+        "executed": false,
+        "error": "Traceback (most recent call last):\n  File \"C:\\Users/wang6/Documents/houdini22.0/fxhoudinimcp/houdini/scripts/python\\fxhoudinimcp_server\\handlers\\code_handlers.py\", line 78, in _execute_python\n    exec(code, namespace)  # noqa: S102\n    ~~~~^^^^^^^^^^^^^^^^^\n  File \"<string>\", line 25, in <module>\nAttributeError: type object 'selectionMode' has no attribute 'Objects'. Did you mean: 'Object'?\n",
+        "justification": "Installed create_node calls auto-layout on its parent, which could rearrange pre-existing /obj nodes. Direct creation with initialization scripts disabled confines the demo to one owned temporary container and preserves unrelated geometry."
+      }
+    },
+    {
+      "tool": "execute_python",
+      "elapsed_seconds": 0.248,
+      "is_error": false,
+      "result": {
+        "executed": true,
+        "return_value": {
+          "checks": {
+            "temporary_node_absent": true,
+            "original_obj_child_identities_unchanged": true,
+            "original_obj_positions_and_flags_restored": true,
+            "selected_items_restored": true,
+            "pane_contexts_restored": false,
+            "pane_current_nodes_restored": true,
+            "pane_links_restored": true,
+            "frame_restored": true,
+            "update_mode_restored": true,
+            "viewer_state_restored": true,
+            "selection_mode_restored": true,
+            "viewport_type_restored": true,
+            "viewport_visible_mask_restored": true,
+            "camera_binding_restored": true,
+            "camera_lock_restored": true,
+            "camera_export_restored": true,
+            "view_transform_restored": true
+          },
+          "restore_errors": [],
+          "all_ui_and_node_checks_passed": false,
+          "dirty_before": false,
+          "dirty_after": true,
+          "prior_undo_labels_retained": true,
+          "undo_count_before": 0,
+          "undo_count_after": 2,
+          "redo_stack_unchanged": true,
+          "undo_history_cleared": false,
+          "hip_saved_or_loaded": false,
+          "temporary_session_snapshot_removed": false
+        },
+        "justification": "Delete only the node whose unique path and session ID match this demo; restore the exact temporary UI snapshot, then verify node identities, flags, selection, contexts, camera, frame and update mode. Never clear undo history or save/load the HIP."
+      }
+    }
+  ],
+  "no_current_hip_save_load_clear": true,
+  "existing_plugin_changed": false,
+  "server_info": {
+    "name": "FXHoudini",
+    "title": null,
+    "version": "2.21.0",
+    "websiteUrl": null,
+    "icons": null
+  },
+  "protocol_version": "2025-11-25",
+  "before": {
+    "snapshot_ready": true,
+    "pane_name": "panetab1",
+    "selected_item_count": 0,
+    "obj_child_count": 0,
+    "frame": 1.0,
+    "update_mode": "updateMode.AutoUpdate",
+    "dirty_before": false,
+    "undo_count_before": 0,
+    "redo_count_before": 0,
+    "geometry_selection_present": false
+  },
+  "failure": {
+    "type": "AssertionError",
+    "message": "{'executed': False, 'error': 'Traceback (most recent call last):\\n  File \"C:\\\\Users/wang6/Documents/houdini22.0/fxhoudinimcp/houdini/scripts/python\\\\fxhoudinimcp_server\\\\handlers\\\\code_handlers.py\", line 78, in _execute_python\\n    exec(code, namespace)  # noqa: S102\\n    ~~~~^^^^^^^^^^^^^^^^^\\n  File \"<string>\", line 25, in <module>\\nAttributeError: type object \\'selectionMode\\' has no attribute \\'Objects\\'. Did you mean: \\'Object\\'?\\n', 'justification': 'Installed create_node calls auto-layout on its parent, which could rearrange pre-existing /obj nodes. Direct creation with initialization scripts disabled confines the demo to one owned temporary container and preserves unrelated geometry.'}"
+  },
+  "cleanup": {
+    "checks": {
+      "temporary_node_absent": true,
+      "original_obj_child_identities_unchanged": true,
+      "original_obj_positions_and_flags_restored": true,
+      "selected_items_restored": true,
+      "pane_contexts_restored": false,
+      "pane_current_nodes_restored": true,
+      "pane_links_restored": true,
+      "frame_restored": true,
+      "update_mode_restored": true,
+      "viewer_state_restored": true,
+      "selection_mode_restored": true,
+      "viewport_type_restored": true,
+      "viewport_visible_mask_restored": true,
+      "camera_binding_restored": true,
+      "camera_lock_restored": true,
+      "camera_export_restored": true,
+      "view_transform_restored": true
+    },
+    "restore_errors": [],
+    "all_ui_and_node_checks_passed": false,
+    "dirty_before": false,
+    "dirty_after": true,
+    "prior_undo_labels_retained": true,
+    "undo_count_before": 0,
+    "undo_count_after": 2,
+    "redo_stack_unchanged": true,
+    "undo_history_cleared": false,
+    "hip_saved_or_loaded": false,
+    "temporary_session_snapshot_removed": false
+  },
+  "success": false
+}

@@ -1,0 +1,77 @@
+{
+  "demonstration": "Create, select and frame an isolated temporary 1m cube in the running Houdini GUI through the registered true MCP stdio proxy, capture a real single-frame viewport image, then remove only that container and restore UI state.",
+  "transport": "MCP SDK ClientSession to exact registered houdiniMCP stdio command; not direct HTTP RPC",
+  "cube_extent_m": [
+    1.0,
+    1.0,
+    1.0
+  ],
+  "screenshot_resolution": [
+    1280,
+    720
+  ],
+  "visible_hold_seconds": 8,
+  "final_restore_checks": {
+    "temporary_node_absent": true,
+    "original_obj_child_identities_unchanged": true,
+    "original_obj_positions_and_flags_restored": true,
+    "selected_items_restored": true,
+    "pane_contexts_restored": true,
+    "pane_current_nodes_restored": true,
+    "pane_links_restored": true,
+    "frame_restored": true,
+    "update_mode_restored": true,
+    "viewer_state_restored": true,
+    "selection_mode_restored": true,
+    "viewport_type_restored": true,
+    "viewport_visible_mask_restored": true,
+    "camera_binding_restored": true,
+    "camera_lock_restored": true,
+    "camera_export_restored": true,
+    "view_transform_restored": true
+  },
+  "final_restore_error_count": 0,
+  "temporary_container_absent": true,
+  "temporary_session_snapshots_removed": true,
+  "dirty_flag_before_first_attempt": false,
+  "dirty_flag_after_final_cleanup": true,
+  "undo_count_before_first_attempt": 0,
+  "undo_count_after_final_cleanup": 6,
+  "prior_undo_labels_retained": true,
+  "undo_history_cleared": false,
+  "hip_saved_loaded_or_cleared": false,
+  "existing_geometry_nodes_edited": false,
+  "existing_plugin_changed": false,
+  "scope_limitations": [
+    "Dirty/modified flag remains true after create/delete; it was not reset by saving or manipulating undo history.",
+    "Six undo entries remain from the two reversible demo attempts; existing undo history was not cleared.",
+    "First attempt stopped on an enum spelling mismatch and a pane restoration order mismatch; owned node was deleted, retained snapshot was recovered fully, and failure/recovery evidence is preserved.",
+    "Viewport image is real Houdini UI output, not a Unity capture or generated illustration."
+  ],
+  "artifacts": {
+    "codex_mcp_cube_demo_5361861c925c.png": {
+      "path": "G:\\Unity\\GreatWave_2026_M1_Pipeline_Staging\\Evidence\\MCP_Demo\\codex_mcp_cube_demo_5361861c925c.png",
+      "sha256": "e200eb1a966ce2f11cc1f485aa952afadc34cf906969ef3eeaa682b95aef405a"
+    },
+    "codex_mcp_cube_demo_5361861c925c.json": {
+      "path": "G:\\Unity\\GreatWave_2026_M1_Pipeline_Staging\\Evidence\\MCP_Demo\\codex_mcp_cube_demo_5361861c925c.json",
+      "sha256": "9639631eefd2edf7d6bcd1786d59581c85ebb08a181b6396a0288c82080bab01"
+    },
+    "codex_mcp_cube_demo_4cf1c04c8c91.json": {
+      "path": "G:\\Unity\\GreatWave_2026_M1_Pipeline_Staging\\Evidence\\MCP_Demo\\codex_mcp_cube_demo_4cf1c04c8c91.json",
+      "sha256": "5b84ed83c3f42e60a7bfe9b3e1876aecc39394f7aae6c217a38b0f8e48725196"
+    },
+    "first_attempt_recovery.json": {
+      "path": "G:\\Unity\\GreatWave_2026_M1_Pipeline_Staging\\Evidence\\MCP_Demo\\first_attempt_recovery.json",
+      "sha256": "df3c16784f172b14cbd8e1324e8adc0accfb76c9d9917317a60e42b9a43368e2"
+    },
+    "run_cube_demo.py": {
+      "path": "G:\\Unity\\GreatWave_2026_M1_Pipeline_Staging\\Evidence\\MCP_Demo\\run_cube_demo.py",
+      "sha256": "1b201d102be58b133e26f4cef2ab9a1a454005d0cac0ebd3a047afbc58058435"
+    },
+    "recover_first_attempt.py": {
+      "path": "G:\\Unity\\GreatWave_2026_M1_Pipeline_Staging\\Evidence\\MCP_Demo\\recover_first_attempt.py",
+      "sha256": "3ed64fdb5e97a1550a2bc51d0a134baf336b3e73c72e54f28a72842ab80459bf"
+    }
+  }
+}
