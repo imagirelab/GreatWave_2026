@@ -1,0 +1,677 @@
+{
+  "clip_id": "GreatWave17_FLIP_02",
+  "recorded_utc": "2026-09-24T18:31:19.217408+00:00",
+  "technical_specimen_checks": {
+    "actual_FLIP_solver": true,
+    "sample_count_49": true,
+    "all_49_cache_roundtrips": true,
+    "all_topologies_distinct": true,
+    "all_finite": true,
+    "closed_manifold": true,
+    "positive_component_volumes": true,
+    "all_real_particle_ids_unique": true,
+    "particle_merge_before_one_second": true,
+    "particle_split_before_one_second": true,
+    "event_particles_away_from_horizontal_domain": true,
+    "surface_merge": true,
+    "surface_split_before_outflow": true,
+    "simulation_UI_restored": true,
+    "capture_UI_restored": true,
+    "video_verified": true
+  },
+  "technical_specimen_passed": true,
+  "scope_ja": "実FLIP由来の変動トポロジー試料。初期の結合・境界へ達する前の分離だけを検証し、物理精度や質量保存は合格対象としない。",
+  "particle_merge": {
+    "sample_before": 2,
+    "sample_after": 3,
+    "time_before": 0.08333333333333333,
+    "time_after": 0.125,
+    "particle_id_overlap_matrix": [
+      [
+        640
+      ],
+      [
+        655
+      ]
+    ],
+    "split_predecessors": [],
+    "merge_successors": [
+      0
+    ],
+    "previous_significant_components": 2,
+    "current_significant_components": 1
+  },
+  "particle_split": {
+    "sample_before": 17,
+    "sample_after": 18,
+    "time_before": 0.7083333333333334,
+    "time_after": 0.75,
+    "particle_id_overlap_matrix": [
+      [
+        1039,
+        19,
+        28
+      ]
+    ],
+    "split_predecessors": [
+      0
+    ],
+    "merge_successors": [],
+    "previous_significant_components": 1,
+    "current_significant_components": 3
+  },
+  "surface_split_sample": 24,
+  "surface_split_horizontal_clearance_m": 0.5744585990905762,
+  "particle_count_excludes_five_volume_points": true,
+  "historical_index_particle_count_ja": "実行時17_cache_indexのparticle_countはVolume保持点5個を含む生点数。正しい実粒子数は17_validation.samples.particle_count。",
+  "initial_real_particles": 1306,
+  "final_real_particles": 543,
+  "mesh_volume_initial_m3": 0.47939018660272303,
+  "mesh_volume_max_m3": 6.893316516238441,
+  "mesh_volume_end_m3": 2.7461556932395745,
+  "volume_preservation_verified": false,
+  "ocean_physical_accuracy_verified": false,
+  "hmd_verified": false,
+  "step18_executed": false,
+  "video": {
+    "codec_name": "h264",
+    "width": 1280,
+    "height": 720,
+    "r_frame_rate": "24/1",
+    "duration": "2.000000",
+    "nb_frames": "48"
+  },
+  "actual_viewport_readback": true,
+  "particle_glyph_radius_m": 0.025,
+  "particle_glyph_color_ja": "白い表示用球。初期IDの色分けは表示されていない。数値のID系譜は別記。",
+  "capture_ja": "静止画は同じ時刻・同じ範囲で表面と粒子を対比。動画は全時刻の範囲に固定し終盤の流出も表示。",
+  "simulation_report": {
+    "path": "Evidence/17_simulation_run.json",
+    "bytes": 52376,
+    "sha256": "e497fce385cfa9224e76c0acafa78fc5de70abc8907431585db7b30a0330f3e3"
+  },
+  "capture_report": {
+    "path": "Evidence/17_capture_run.json",
+    "bytes": 4420,
+    "sha256": "346331cdd439e676f49bac426a41a7eb3b13197ab3eef73742b1f886ef4dfad4"
+  },
+  "final_UI_cleanup": {
+    "checks": {
+      "all_owned_paths_absent": true,
+      "selected_items_restored": true,
+      "global_context_restored": true,
+      "pane_contexts_restored": true,
+      "pane_current_nodes_restored": true,
+      "pane_links_restored": true,
+      "active_tabs_restored": true,
+      "frame_restored": true,
+      "fps_unchanged": true,
+      "update_mode_restored": true,
+      "viewer_state_restored": true,
+      "selection_mode_restored": true,
+      "viewport_type_restored": true,
+      "viewport_visible_mask_restored": true,
+      "camera_binding_restored": true,
+      "camera_lock_restored": true,
+      "camera_export_restored": true,
+      "view_transform_restored": true
+    },
+    "restore_errors": [],
+    "all_ui_and_owned_node_checks_passed": true,
+    "dirty_before": true,
+    "dirty_after": true,
+    "prior_undo_labels_retained": true,
+    "undo_count_before": 120,
+    "undo_count_after": 160,
+    "redo_stack_unchanged": true,
+    "undo_history_cleared": false,
+    "hip_saved_or_loaded": false,
+    "temporary_session_snapshot_removed": true,
+    "extra_view_checks": {
+      "reference_grid_restored": true,
+      "construction_grid_restored": true,
+      "color_scheme_restored": true
+    }
+  },
+  "cache_count": 98,
+  "cache_bytes": 50899634,
+  "cache_files": [
+    {
+      "path": "Cache/surface_000.bgeo.sc",
+      "bytes": 44609,
+      "sha256": "a3cdde73ff8f6798dbd22552b60238f16757dba48007634fa55b3a971fae7a83"
+    },
+    {
+      "path": "Cache/particles_000.bgeo.sc",
+      "bytes": 33720,
+      "sha256": "52b811b2bbcfcdf1d57aed4fa9fe890457d130f5348751a4e5567936be23c226"
+    },
+    {
+      "path": "Cache/surface_001.bgeo.sc",
+      "bytes": 59540,
+      "sha256": "7085464c5cbe6637cb1912ca5f64aa9ff328620e370e354810010603f4c40e23"
+    },
+    {
+      "path": "Cache/particles_001.bgeo.sc",
+      "bytes": 63039,
+      "sha256": "9bd0ee6c279fa5e983f340c666f7f9b8a5f54e6ececcca3c8d343009a4c60265"
+    },
+    {
+      "path": "Cache/surface_002.bgeo.sc",
+      "bytes": 57233,
+      "sha256": "e761941f4d550599d220ead3c0f352cffd9a8f9b849f71557943c6355db48bd2"
+    },
+    {
+      "path": "Cache/particles_002.bgeo.sc",
+      "bytes": 69557,
+      "sha256": "2ce184bfcd27833102e9474c59cdef4bf23c36cb7007410e7273a031611c517c"
+    },
+    {
+      "path": "Cache/surface_003.bgeo.sc",
+      "bytes": 55454,
+      "sha256": "ff4fdd349a102f67d7eabbb6630b52fd537f4675bdd33872f3a6465afc0d4092"
+    },
+    {
+      "path": "Cache/particles_003.bgeo.sc",
+      "bytes": 77277,
+      "sha256": "e4077d520a870d80dd871ca8e4f1e003f8065530f00060ce4483d315ccd89a17"
+    },
+    {
+      "path": "Cache/surface_004.bgeo.sc",
+      "bytes": 50919,
+      "sha256": "febd55c823032d308fbf5fee3de727992bbee1055909ea824d77f6c6c6ac2d80"
+    },
+    {
+      "path": "Cache/particles_004.bgeo.sc",
+      "bytes": 76746,
+      "sha256": "a037382f1fa3463487b7d65ee79398b155810c5041e538e05e367c4e2325ec76"
+    },
+    {
+      "path": "Cache/surface_005.bgeo.sc",
+      "bytes": 49729,
+      "sha256": "828e0301dff5b951924ba18628e2660284eb11d05997d8b134dc2fe578d96882"
+    },
+    {
+      "path": "Cache/particles_005.bgeo.sc",
+      "bytes": 78371,
+      "sha256": "46b4b92727e563def2d42037fe8811affaa334cb0985bfc6d93795b96d387f04"
+    },
+    {
+      "path": "Cache/surface_006.bgeo.sc",
+      "bytes": 49621,
+      "sha256": "020561fc110b61d5b54f83fd7c9dd17e390ff3f81cdd62dd7a15ef2277aa2a80"
+    },
+    {
+      "path": "Cache/particles_006.bgeo.sc",
+      "bytes": 76993,
+      "sha256": "0417a0ab33be4b08fa004a85c427f1b094117fe5d8aaea43553d0f88e5277fa1"
+    },
+    {
+      "path": "Cache/surface_007.bgeo.sc",
+      "bytes": 52893,
+      "sha256": "0d176d0e6e75f3cf49c79fe92e04086872f0efd5367ba5ee48d7de76105bd033"
+    },
+    {
+      "path": "Cache/particles_007.bgeo.sc",
+      "bytes": 79398,
+      "sha256": "48756f7eef359f78a2ab61cfe62a2efebae7fcc33813f7b525799b4e84fb20e2"
+    },
+    {
+      "path": "Cache/surface_008.bgeo.sc",
+      "bytes": 60295,
+      "sha256": "1d995aa00790009c28b6fad2c2487a69028a7e42a7a968fa5956b3355c691521"
+    },
+    {
+      "path": "Cache/particles_008.bgeo.sc",
+      "bytes": 83337,
+      "sha256": "fb1e32083ea75782a569270e0837a0c7ef3c19aa2dad0d33d732fdc4b05c82e4"
+    },
+    {
+      "path": "Cache/surface_009.bgeo.sc",
+      "bytes": 70537,
+      "sha256": "4e54766301e5506ff77a73b204f10748f4cae53dc0c64564c84844ef84238297"
+    },
+    {
+      "path": "Cache/particles_009.bgeo.sc",
+      "bytes": 88962,
+      "sha256": "71be708d50778ac4c753c8790828d7fe4089be02ee804997bd46d476025e764c"
+    },
+    {
+      "path": "Cache/surface_010.bgeo.sc",
+      "bytes": 86491,
+      "sha256": "a862dca43992cc626a8dcb3a7e0f6c35e2fccb7ecade7f47bf97d8214a817e64"
+    },
+    {
+      "path": "Cache/particles_010.bgeo.sc",
+      "bytes": 94302,
+      "sha256": "d60e9739e54baf228a4a52659e61020a7116fee4a129f6e9180b2616cf0bd63a"
+    },
+    {
+      "path": "Cache/surface_011.bgeo.sc",
+      "bytes": 117668,
+      "sha256": "31261d63d83dd1f986108db99b3563ad15d8900ed0fc6fc10a416cc9ec65507e"
+    },
+    {
+      "path": "Cache/particles_011.bgeo.sc",
+      "bytes": 107641,
+      "sha256": "4f8880f49640a53e6880b19a1913943e81b32fddc3a78600902144867b890824"
+    },
+    {
+      "path": "Cache/surface_012.bgeo.sc",
+      "bytes": 159556,
+      "sha256": "2174bb523afb194004e6cda5fb25aadb1c4cbec7037426032ebbd60e7820daf8"
+    },
+    {
+      "path": "Cache/particles_012.bgeo.sc",
+      "bytes": 119369,
+      "sha256": "4306b55e1cb15438913cbdaba86efda5d13d55495e7718b9a7591da9781ca1ab"
+    },
+    {
+      "path": "Cache/surface_013.bgeo.sc",
+      "bytes": 200839,
+      "sha256": "5f5bed0326e3e5945a00361489a49090ad0012b4fc81e07737a3fe656a870110"
+    },
+    {
+      "path": "Cache/particles_013.bgeo.sc",
+      "bytes": 132316,
+      "sha256": "7460e4469edd6194dd1b94b5585483456bdddae876a0fbca43265a8c7fb4481f"
+    },
+    {
+      "path": "Cache/surface_014.bgeo.sc",
+      "bytes": 243101,
+      "sha256": "c0c51f29b0d31f6d981caa54b5a0916332b80443ae7b3ee19a4a01cbb71f30b3"
+    },
+    {
+      "path": "Cache/particles_014.bgeo.sc",
+      "bytes": 143909,
+      "sha256": "671b351e54130fe033e6d84213df85dd83f3e1dbd214b2d3a664a86ce6959269"
+    },
+    {
+      "path": "Cache/surface_015.bgeo.sc",
+      "bytes": 291047,
+      "sha256": "bfe3a9b8359bfceb5ad17c2626e8b635874be255c37ab6066e4b78094960adc8"
+    },
+    {
+      "path": "Cache/particles_015.bgeo.sc",
+      "bytes": 155439,
+      "sha256": "f70d1e7b5a11648e7d25dfa9191411a58d4966d94b3988d25f35ec119a3aa6b8"
+    },
+    {
+      "path": "Cache/surface_016.bgeo.sc",
+      "bytes": 343109,
+      "sha256": "1e23b7f2d11f92f7410e0dc1c75a0c4c166be5ca352dbc1c85eee10eb27d3c07"
+    },
+    {
+      "path": "Cache/particles_016.bgeo.sc",
+      "bytes": 170437,
+      "sha256": "09f0052b95ccff65611338acbdfd90c3915e4b6d66b4cafbb81f5e2c3372c66a"
+    },
+    {
+      "path": "Cache/surface_017.bgeo.sc",
+      "bytes": 402236,
+      "sha256": "445ca7a4c60847a37179c966f1f8c04064cdb2da541fcc8c315b33c13c7a0861"
+    },
+    {
+      "path": "Cache/particles_017.bgeo.sc",
+      "bytes": 189614,
+      "sha256": "372de9303731e40ea73420d2651d4ab8ac7107cc6c794d95a7eaefc15df59dc3"
+    },
+    {
+      "path": "Cache/surface_018.bgeo.sc",
+      "bytes": 464457,
+      "sha256": "f2adb08a2022de83f8fd81da5b0e55bf5ab1714fe2f53fd4c63f7a8a8a408255"
+    },
+    {
+      "path": "Cache/particles_018.bgeo.sc",
+      "bytes": 205496,
+      "sha256": "05c2e171b0a964e3260a05ac27fd889c1ffbe593e83a20defdc7f47ba40aca21"
+    },
+    {
+      "path": "Cache/surface_019.bgeo.sc",
+      "bytes": 540648,
+      "sha256": "e64063beedee9c415837689a618bc3c775a20d193814277e28a39ebfc6850fc1"
+    },
+    {
+      "path": "Cache/particles_019.bgeo.sc",
+      "bytes": 223176,
+      "sha256": "25ab9fb71f38f450b1ae28451d61c8a005cadddf899282d6e790d34b297d0097"
+    },
+    {
+      "path": "Cache/surface_020.bgeo.sc",
+      "bytes": 625959,
+      "sha256": "0f8ac839cdcf7e421c433e9c7fd737a36db2f1f3fc7e356ecd8b841e49adabdb"
+    },
+    {
+      "path": "Cache/particles_020.bgeo.sc",
+      "bytes": 245755,
+      "sha256": "87e2eeebc062c6b5912286640027c2c93bb492679b60d98087ba4cc237cf0f92"
+    },
+    {
+      "path": "Cache/surface_021.bgeo.sc",
+      "bytes": 709857,
+      "sha256": "e9568c1474ebf40fa71f10bbe02ffc84bcad13680023ecd3be1e39bc14f00cf2"
+    },
+    {
+      "path": "Cache/particles_021.bgeo.sc",
+      "bytes": 265038,
+      "sha256": "42882fe74269164ea3f7fb6ada3404846d687b420a4f05d4158fedc2cc53c21a"
+    },
+    {
+      "path": "Cache/surface_022.bgeo.sc",
+      "bytes": 790586,
+      "sha256": "b801d75c2f16665bc65d30b4c1776debfb6bebf3becad24ac9fa1a0711ede615"
+    },
+    {
+      "path": "Cache/particles_022.bgeo.sc",
+      "bytes": 290144,
+      "sha256": "506337ebe18efd8ba91a0d0904dba5f9a64b308cf5e22d5cfd74239f06dd9524"
+    },
+    {
+      "path": "Cache/surface_023.bgeo.sc",
+      "bytes": 845038,
+      "sha256": "0ca2f09647e30801e716201c5e12c7527940f547af37b107f3e6820650835637"
+    },
+    {
+      "path": "Cache/particles_023.bgeo.sc",
+      "bytes": 310938,
+      "sha256": "9cee21d47bf773af2c4b94027c15611f311df2d40628484f6189cf9e68f799e2"
+    },
+    {
+      "path": "Cache/surface_024.bgeo.sc",
+      "bytes": 920608,
+      "sha256": "fa81dee6f1dc614802c59b634a352519795d8a377672af24408fbdb81d01e9c5"
+    },
+    {
+      "path": "Cache/particles_024.bgeo.sc",
+      "bytes": 336259,
+      "sha256": "e093002d1ff88008b789ec0fed7efbf9b39868a9788ee9ab5e75cfd1433b33eb"
+    },
+    {
+      "path": "Cache/surface_025.bgeo.sc",
+      "bytes": 981608,
+      "sha256": "e2b46f80abacd1cfb7916165026d67ed37cd40a48ca8b7b067ed56f80814367b"
+    },
+    {
+      "path": "Cache/particles_025.bgeo.sc",
+      "bytes": 361902,
+      "sha256": "d6e46b4c203477ee33ef2373c06d211383e88c791ea0e83211fa847496fb9e31"
+    },
+    {
+      "path": "Cache/surface_026.bgeo.sc",
+      "bytes": 1043861,
+      "sha256": "9708b5dd8129687a725b777a9fd70baea0f52cd0f2cdbe140b03563d7e46119c"
+    },
+    {
+      "path": "Cache/particles_026.bgeo.sc",
+      "bytes": 383619,
+      "sha256": "7f1248049cb199bbe4a11c960b05a411a220dfc234a916e2820f65c0e90c19b9"
+    },
+    {
+      "path": "Cache/surface_027.bgeo.sc",
+      "bytes": 1089957,
+      "sha256": "0c99e46d07f7941a1c20934096e409e49d24585e00daa41f47450baf306405e3"
+    },
+    {
+      "path": "Cache/particles_027.bgeo.sc",
+      "bytes": 408183,
+      "sha256": "0500dc55c619249922ebef4f483342bf7e604bc67db30d757cb2bab6b72d4d9f"
+    },
+    {
+      "path": "Cache/surface_028.bgeo.sc",
+      "bytes": 1139356,
+      "sha256": "a604ba67693a4526bb70a357dd676230da54c8f6a4c40ccf657ccfbec6d912e8"
+    },
+    {
+      "path": "Cache/particles_028.bgeo.sc",
+      "bytes": 440890,
+      "sha256": "c4cbb76da188e1052ba587750f6886ad7c502227f504ab19b79ab125497b412b"
+    },
+    {
+      "path": "Cache/surface_029.bgeo.sc",
+      "bytes": 1185534,
+      "sha256": "2079fabdef27475556b402e569d510a7475fd4d6884668baebfa1bdd5621d7c2"
+    },
+    {
+      "path": "Cache/particles_029.bgeo.sc",
+      "bytes": 457721,
+      "sha256": "d689662007e38f1aed999ee47359350b75b41e18343e4aab1aca342a227d08a6"
+    },
+    {
+      "path": "Cache/surface_030.bgeo.sc",
+      "bytes": 1234019,
+      "sha256": "7d0e13e2bf96d518a58e4e0f84b54bc46597234e021b5d397d568366c59f404f"
+    },
+    {
+      "path": "Cache/particles_030.bgeo.sc",
+      "bytes": 485627,
+      "sha256": "8a28d374f8cd92c4848eefbd6c2e9701bc76484154964658d14ccf7b879661ec"
+    },
+    {
+      "path": "Cache/surface_031.bgeo.sc",
+      "bytes": 1270397,
+      "sha256": "090c404ad2fce7f3e1841aa11c922cfd870d568aa02c4471edf0a0672f9c4b8e"
+    },
+    {
+      "path": "Cache/particles_031.bgeo.sc",
+      "bytes": 507132,
+      "sha256": "2aaa03ab649060cdf260bfa829e163b28100dd1b105a3a21905c84be2315360c"
+    },
+    {
+      "path": "Cache/surface_032.bgeo.sc",
+      "bytes": 1307692,
+      "sha256": "d15377638abcdf32be95d6865fb49795d2d526316f5c4da9d315cae6745533d5"
+    },
+    {
+      "path": "Cache/particles_032.bgeo.sc",
+      "bytes": 528914,
+      "sha256": "67d9cb2a9d6cb29b7bd71946584f6796f65a9e7b94431d76bbce07afdc41da07"
+    },
+    {
+      "path": "Cache/surface_033.bgeo.sc",
+      "bytes": 1333295,
+      "sha256": "0d351e84acbe96616753390319b92699d5936685ecd5294198b7225a9101b46b"
+    },
+    {
+      "path": "Cache/particles_033.bgeo.sc",
+      "bytes": 511141,
+      "sha256": "986cc1c405bce118e0b861dd2acdfd7954aec638e0800f1da1db57f0779e6ebf"
+    },
+    {
+      "path": "Cache/surface_034.bgeo.sc",
+      "bytes": 1353191,
+      "sha256": "b9f6352910b972dd84b7e1a13942f528e7560d2d368fcd51b0d4da721fb8b792"
+    },
+    {
+      "path": "Cache/particles_034.bgeo.sc",
+      "bytes": 528684,
+      "sha256": "e6ea30836cb8fb0cd7331b5aee6b5c5bd5c1a7e16c64973089c60d3aedceda6b"
+    },
+    {
+      "path": "Cache/surface_035.bgeo.sc",
+      "bytes": 1336639,
+      "sha256": "5173621ac9b0f79c5125016506358840a3214ba834b0e7175608353311dbe3c7"
+    },
+    {
+      "path": "Cache/particles_035.bgeo.sc",
+      "bytes": 539048,
+      "sha256": "bf69d0866882a2f2e46be63651eea128e27b02defb2c4edc6f3ed3711d86168c"
+    },
+    {
+      "path": "Cache/surface_036.bgeo.sc",
+      "bytes": 1338061,
+      "sha256": "816eca3c6004c7d8695cdd1043f146987209c26f1ee75ed09a1809db38b1e9d0"
+    },
+    {
+      "path": "Cache/particles_036.bgeo.sc",
+      "bytes": 544571,
+      "sha256": "4b9b920a43d130c55568dff375b7bdf12979557160adf13f8a99083190b2bb83"
+    },
+    {
+      "path": "Cache/surface_037.bgeo.sc",
+      "bytes": 1311128,
+      "sha256": "eba9ed67f74b9ebf996de3e15aa4b7061b8df7e0875790e4c9ccde82822a8b97"
+    },
+    {
+      "path": "Cache/particles_037.bgeo.sc",
+      "bytes": 556534,
+      "sha256": "d7d9745eae2a68898120f8c742f3ddd45ee482badeb3510184f01d600b4af7bf"
+    },
+    {
+      "path": "Cache/surface_038.bgeo.sc",
+      "bytes": 1292496,
+      "sha256": "4bd4f1005a0398239405c9a201ba2d899d548a8c8fe6a2edb580bc5c6fa832c0"
+    },
+    {
+      "path": "Cache/particles_038.bgeo.sc",
+      "bytes": 551659,
+      "sha256": "7451dc01e17e45694eabcb13c15a78a1ddb3a0468bf453dd2c35ea1c9dd581ee"
+    },
+    {
+      "path": "Cache/surface_039.bgeo.sc",
+      "bytes": 1250538,
+      "sha256": "2ed068dfcccbcda6bd69fe40031cb0c72c4474551d06af10660e66323db4072e"
+    },
+    {
+      "path": "Cache/particles_039.bgeo.sc",
+      "bytes": 555027,
+      "sha256": "3d8ea75e6ad2265856461f17d022fbf577330c5a74effe47fb1ec738b4a13737"
+    },
+    {
+      "path": "Cache/surface_040.bgeo.sc",
+      "bytes": 1217859,
+      "sha256": "b37d36ba1be2ba226dd208ff75b2c78d0eb82736f68431e2e1f79191d43adf62"
+    },
+    {
+      "path": "Cache/particles_040.bgeo.sc",
+      "bytes": 557891,
+      "sha256": "7567f74b49ff22494be1513af815b636319c91f5e83238eb26b7e369f315f41d"
+    },
+    {
+      "path": "Cache/surface_041.bgeo.sc",
+      "bytes": 1163640,
+      "sha256": "e365b67b3f188e94b2d065614038fd73ab851dd71193c3bef80eeddc8675bb04"
+    },
+    {
+      "path": "Cache/particles_041.bgeo.sc",
+      "bytes": 562956,
+      "sha256": "84b52a55d1bec94ffa411996c393afebb1a34903cca9b85ed0fdacbfd63fb49d"
+    },
+    {
+      "path": "Cache/surface_042.bgeo.sc",
+      "bytes": 1127876,
+      "sha256": "350f12091f3f793662673c3aeb15f4381c84b31f9bb118b2046fc81f96548bc1"
+    },
+    {
+      "path": "Cache/particles_042.bgeo.sc",
+      "bytes": 561885,
+      "sha256": "e5cb2d4a8438414ef860dbab37c212e81ff5bc19473c06cd9885422bfe89592a"
+    },
+    {
+      "path": "Cache/surface_043.bgeo.sc",
+      "bytes": 1086100,
+      "sha256": "c1f06a81ef36222a8a76218f486f17821062a3b71059ea67a394a00ec13dd232"
+    },
+    {
+      "path": "Cache/particles_043.bgeo.sc",
+      "bytes": 552402,
+      "sha256": "b1d4230789d4c6648031a63e5fc1ff338e2d606cc855ebebccb31cf375cb6514"
+    },
+    {
+      "path": "Cache/surface_044.bgeo.sc",
+      "bytes": 1018174,
+      "sha256": "dff95ebf2256831dfa4f2874e5ac617f50d1a70df2d88d21c2e3a3f837083d9d"
+    },
+    {
+      "path": "Cache/particles_044.bgeo.sc",
+      "bytes": 555218,
+      "sha256": "fa3ecd8888aa57ea961558a9cfbbcf834dd07d7430ad1afb87bc4d5944db785d"
+    },
+    {
+      "path": "Cache/surface_045.bgeo.sc",
+      "bytes": 959956,
+      "sha256": "0b8ccf74cbc3398b927ea4961dfd1af64ac8b65f40869721e110e47d8c192cc0"
+    },
+    {
+      "path": "Cache/particles_045.bgeo.sc",
+      "bytes": 550513,
+      "sha256": "4fe3f714b15cf812ebbfda0a558e01193c5bbd3dc2c9111cb4da89f966c16b2b"
+    },
+    {
+      "path": "Cache/surface_046.bgeo.sc",
+      "bytes": 907128,
+      "sha256": "013c5d7a26d8902f78523c5fe68557a9809b97fe1f7080fc89f75301c3087b59"
+    },
+    {
+      "path": "Cache/particles_046.bgeo.sc",
+      "bytes": 599350,
+      "sha256": "30b7cc41822987ddab55c5be12053003599bdece61afddbc7b658e357b88921b"
+    },
+    {
+      "path": "Cache/surface_047.bgeo.sc",
+      "bytes": 816361,
+      "sha256": "1b45583aef06352dc76d375bd7797be987a4ab89cb2a84ae6c322195c01d7397"
+    },
+    {
+      "path": "Cache/particles_047.bgeo.sc",
+      "bytes": 523728,
+      "sha256": "684a626a8985b1b8abccf85d482a42f2ab485b5adb07c9a63a006ec4b95c3d47"
+    },
+    {
+      "path": "Cache/surface_048.bgeo.sc",
+      "bytes": 776844,
+      "sha256": "3ddd706252b44178834769f0fa206edc3f7e26c6102eb0868d16aac9687997f8"
+    },
+    {
+      "path": "Cache/particles_048.bgeo.sc",
+      "bytes": 524066,
+      "sha256": "5740e0361f6ffe14890acbbfe298fcab6845b4efa24ed68cd9fcd83f5c19930b"
+    }
+  ],
+  "source_files": [
+    {
+      "path": "Source/capture_cached17.py",
+      "bytes": 8889,
+      "sha256": "0c4a7a600d837ddcbcc5cbae447822486ec1a9dfe8244d5d2d0b39b003381497"
+    },
+    {
+      "path": "Source/finalize_evidence.py",
+      "bytes": 7274,
+      "sha256": "9318c074c8f9c196a8f7ecc6ae620a01e09a131dcc098eb438cfe0cd5656c80b"
+    },
+    {
+      "path": "Source/fluid17_owned.cpio",
+      "bytes": 35775,
+      "sha256": "cc4300a4ba7c849afae4f40691127f14989a6b670a919a87ed1782a65506ce47"
+    },
+    {
+      "path": "Source/generate_fluid.py",
+      "bytes": 7790,
+      "sha256": "560db0ec0cf5bcccdc50eb9283a4f71818505754debc9d349085e6d2e6592913"
+    },
+    {
+      "path": "Source/inspect_cache.py",
+      "bytes": 1559,
+      "sha256": "5575778b4e3385018672abca7126e3ae58b0ec10585e7a496afcd703ad2a2e8a"
+    },
+    {
+      "path": "Source/probe_connection.py",
+      "bytes": 2064,
+      "sha256": "bf31ea366f124aa080ce212fd4e7c3da60f0ac4f6783ddd6eb2270207434a012"
+    },
+    {
+      "path": "Source/run_fluid17.py",
+      "bytes": 4745,
+      "sha256": "bb2387c8e767493cc8abdc651232fc2acb7a4355f525dbbc2db2b52d3c79ae68"
+    },
+    {
+      "path": "Source/ui_guard.py",
+      "bytes": 11096,
+      "sha256": "51baa027fd9a04cca2b282a9b8d351f6594d34a7a3289e18f4827f2ec3a6f1e5"
+    },
+    {
+      "path": "Source/validate_cached.py",
+      "bytes": 6708,
+      "sha256": "15699a2070bf7d7e96284d3c41b7669e0d47db8503d30a7d6351a4997d411cde"
+    }
+  ]
+}
