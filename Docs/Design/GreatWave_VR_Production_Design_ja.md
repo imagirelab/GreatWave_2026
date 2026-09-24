@@ -4,11 +4,11 @@
 
 対象：Houdiniで波・白波を制作、Blenderで船などを制作、Unityで乗船・操船・HMD表示を統合する作品。
 
-状態：設計と既存ファイルの調査。以下の検証は今後実施するものであり、シミュレーション・ビルド・実機性能の合格を示すものではない。
+状態：新規検証のための制作計画。実測は番号ごとの記録に分ける。HMD未所持のため、PC画面での準備を先行し、VR実機の合格は保留する。
 
 制作依頼：[プロンプト原文](Original_Request_ja.md)
 
-公開時の注記：本書は上記プロンプトへの回答として作成した制作計画です。既存Unity試作の調査は、作成時のローカル作業ツリー（[コミット efe5aab](https://github.com/imagirelab/GreatWave_2026/tree/efe5aab)）を対象としています。その後GitHubの作業ツリーは制作準備用に整理されているため、本書の旧試作のファイル名・行番号・ローカルパスは現在の配置を示すものではありません。今後の成果物はリポジトリ直下の `Houdini/`、`Blender/`、`Whitewater/`、`Unity/`、`Docs/` に配置します。
+制作方針：旧試作を参照・比較・流用せず、公式資料と新しい検証から制作する。各番号を独立したコミットにし、完成点ごとに実画像・動画を保存して利用者の確認を待つ。詳細は [制作手順](../Workflow/Production_Workflow_ja.md) を参照する。
 
 ## 1. 目標と最初の完成形
 
@@ -36,29 +36,20 @@ HMDと操船の自由度は未確定。設計を進めるため、まず以下�
 
 この前提はユーザーのHMD・操作範囲の決定で更新する。PCVRからHMD単体への変更は、単に画質を下げる作業とは限らない。
 
-## 2. 設計時に参照した既存Unity試作をどう活かすか
+## 2. 新規検証の開始条件
 
-調査対象は作成時の `G:\Unity\Ukeyoe_Claw`（コミット `efe5aab`）。以下はその時点の記録であり、既存の試作は履歴から比較資料として参照する。
+番号01で制作物を含まない新しい開始点と出典方針を記録する。旧試作や履歴内の制作物を参照しない。以下を新しい素材と実行結果で確認する。
 
-| ファイルで確認できた状態 | 設計上の扱い |
+| 対象 | 新たに確認すること |
 |---|---|
-| Unity 6000.4.3f1、Built-in Render Pipeline | 現状を基準に小試験を行い、URP移行は根拠を得てから決める |
-| `Assets/Scenes/Showcase_01.unity` が主な試作 | 既存の見た目を記録し、新しい検証用シーンを分ける |
-| FFT海面、浮世絵風シェーダー、GPUインスタンスによる爪状白波が存在 | 配色・形・発生制御・描画負荷の比較資料として再利用する |
-| OpenXR、XR Interaction Toolkit、Alembicはmanifest/lockに見当たらない | HMD経路・キャッシュ経路は導入と検証が必要 |
-| ビルド対象のシーンが未登録 | Editor表示だけで完了とせず、早期に最小ビルドを作る |
-| Houdini/Blenderの制作元データはAssets内で未確認 | 他の場所にある可能性は残る。着手時に所在とバージョンを確認する |
+| 単位と軸 | Blenderの1m箱と非対称の目印をUnityへ渡し、寸法と方向を実測 |
+| 描画方式 | インストール済みUnityと公式パッケージで最小シーンを作り、採用理由を記録 |
+| HMD経路 | OpenXR設定と対象機器のprofileを確認し、機器入手後に両眼と頭部追跡を実測 |
+| 浮力 | 将来の表示データと問い合わせデータを同じ座標・時刻へ合わせる |
+| 白波と遮蔽 | 新しく作る形状が船や波の後ろで隠れるか、両眼で一致するか確認 |
+| 性能 | 新規ビルドの条件を固定し、PC画面とHMDの測定を分ける |
 
-既存コードから見える優先検証事項は次のとおり。
-
-1. **浮力と表示面の一致。** `FFTOcean_Buoyancy.cs:61–62` にXZ座標の利用意図と実際のXY変換の不一致がある。計算側は一層の生の高さを返す一方、表示側では四層の合成・増幅・波頭変形などを行っている。現在の浮力を正しい基準として引き継がず、同じ波データを参照する設計へ整理する。
-2. **白波の前後関係。** `HokusaiClawInstanced.shader:47–50` には `ZTest Always` があり、通常の奥行き遮蔽を無視する。船や水面の後ろに白波を置く実機テストが必要。
-3. **両眼描画。** 海面にはテッセレーションなどがあり、検索したシェーダーには一般的なステレオ対応マクロが見当たらなかった。全VR方式で動かないという証明ではないが、片眼の正常表示をVR対応の証拠にしない。
-4. **描画周期。** `FFTOcean_Script.cs:912–928` に最大30へ制限する設定処理がある。通常画面の測定条件として記録する。VRではSDK側が描画周期を管理するため、これだけでHMDも30fpsと断定しない。[Unity Application.targetFrameRate](https://docs.unity.cn/6000.0/Documentation/ScriptReference/Application-targetFrameRate.html)
-5. **過去メモと現在の状態。** 現シーンでは画面参照マスク・screen ribbon・world foam plateが無効。過去の引継ぎ文書から現在の有効機能を推定しない。
-
-根拠ファイル：`ProjectSettings/ProjectVersion.txt`、`GraphicsSettings.asset`、`QualitySettings.asset`、`EditorBuildSettings.asset`、`Packages/manifest.json`、`Packages/packages-lock.json`、`Assets/Shaders/FFTOcean_*`、`Assets/Shaders/OceanClawGpuInstancer*`。今回これらのコード・シーン・設定は変更していない。
-
+現在は01〜10のPC成果を中間レビューとして提示する。M0の完成条件を変えず、HMD項目を保留する。11以降への着手はM0の実機確認と利用者の承認後とする。
 ## 3. 全体構成
 
 ```mermaid
@@ -88,7 +79,7 @@ flowchart TD
 | 小さな飛沫 | 白波の粒子から抽出し、必要な密度へ間引く | メッシュ粒子などで補助表現 |
 | 船の近くの反応 | Unityの船の速度・喫水から近似生成 | 船首の泡・航跡。主役の流体へは逆作用しない |
 
-周囲の海に既存FFTを使う案も比較できるが、Houdini波と同じseedを入れるだけで一致するとは限らない。まずはHoudini由来のデータでつなぎ、FFTは位相・振幅・座標の一致を実証できた場合に採用する。
+周囲の海は新規のHoudini由来データで接続を検証する。別方式を検討するときは公式資料に基づく独立した小試験で、位相・振幅・座標の一致を新たに実証してから採用する。
 
 ### 事前計算と操船の境界
 
@@ -176,7 +167,7 @@ flowchart TD
 
 Unity公式Alembicパッケージの対応ビルド対象はデスクトップ系であり、AndroidのQuest単体向け経路として採用しない。PCへ接続して使うQuestは、PCビルドの経路として別に扱う。[Unity Alembic](https://docs.unity.com/en-us/engine/6000.0/manual/packages-list/packages-all/pack-safe/com-unity-formats-alembic)
 
-SideFXのVATには固定トポロジー用とDynamic Remeshing用がある。現在確認できるUnity用URP_VAT3は、Unity 2021.3・URP 12を基準とする設定を含む。これをもって現在の6000.4.3f1・Built-in・HMDとの互換性を保証しない。エクスポーターとデコーダーの版を一組で固定し、必要なら別の小プロジェクトでURPを比較する。[SideFX VAT](https://www.sidefx.com/docs/houdini/nodes/out/labs--vertex_animation_textures-3.1.html)、[URP_VAT3 package.json](https://raw.githubusercontent.com/sideeffects/SideFXLabs/Development/unity/shaders/URP_VAT3/package.json)
+SideFXのVATには固定トポロジー用とDynamic Remeshing用がある。現在確認できるUnity用URP_VAT3は、Unity 2021.3・URP 12を基準とする設定を含む。これをもって新規プロジェクトのUnity・描画方式・HMDとの互換性を保証しない。エクスポーターとデコーダーの版を一組で固定し、必要なら別の小プロジェクトでURPを比較する。[SideFX VAT](https://www.sidefx.com/docs/houdini/nodes/out/labs--vertex_animation_textures-3.1.html)、[URP_VAT3 package.json](https://raw.githubusercontent.com/sideeffects/SideFXLabs/Development/unity/shaders/URP_VAT3/package.json)
 
 ### 5.3 最重要の時間補間テスト
 
@@ -278,7 +269,7 @@ HMD Cameraのローカル姿勢は頭部追跡へ任せる。頭の動きへ平�
 
 輪郭線は、左右眼で同じ位置関係に見えること、近接時に異常に太くならないこと、片眼だけ欠けないことを確認する。VATで動く形状は、本体・深度・影・輪郭の各パスで同じ変形を再現し、全アニメーションのboundsを用意する。
 
-描画方式は、既存Built-inの小試験と必要なVAT/XR経路の試験から決定する。URPを採用する場合も、既存シェーダーがそのまま使えるとは考えない。VRの描画モードに応じたシェーダー対応を検証する。[Unity XR graphics](https://docs.unity3d.com/6000.0/Documentation/Manual/xr-graphics.html)
+描画方式は、新規最小シーンと公式のVAT/XR資料に基づく小試験から決定する。シェーダーは新たに作成するか正規の配布元から導入する。VRの描画モードに応じたシェーダー対応を検証する。[Unity XR graphics](https://docs.unity3d.com/6000.0/Documentation/Manual/xr-graphics.html)
 
 富士は遠い立体モデルまたは意図した奥行きの背景として配置する。HMDの向きについて回る画像にせず、左右眼と頭の平行移動で距離感が破綻しないかを確認する。
 
@@ -286,12 +277,12 @@ HMD Cameraのローカル姿勢は頭部追跡へ任せる。頭の動きへ平�
 
 各行を一つの作業カードにする。作業を終えたら、成果物と確認結果を残す。一つの行で複数の問題が発生した場合はさらに分割し、次の工程で帳尻を合わせない。計算待ちの間は、独立する資料整理・モデル制作・ログ整理を進められる。
 
-### 段階0：制作条件と現状を固定する
+### 段階0：制作条件と新規開始点を固定する
 
 | 番号 | やること | 作るもの・確認すること |
 |---|---|---|
-| 01 | 現在のShowcaseを保存し、同じ視点で画像を撮る | 既存の色・形・設定の比較資料。Gitの保存点も記録 |
-| 02 | HMD、PC/GPU/VRAM、実行方式を決める | 機種、PC接続/単体、表示周波数、画質設定の表 |
+| 01 | 新しいチェックアウトの開始点と出典方針を記録する | Git保存点、制作物が空であること、新規検証の記録方法 |
+| 02 | PC/GPU/VRAMとHMDの有無を調べる | PC接続VRを仮定。HMD未所持、表示周波数・実機画質は未定 |
 | 03 | Unity・Houdini・Labs・Blenderの版と利用可能な出力形式を確認 | 互換性表。ライセンス種別を含む実際の書き出し可否 |
 | 04 | 原画資料を一枚選び、六つの特徴を注記する | 基準画像、配色と構図の観察シート |
 | 05 | 第一完成版の範囲を決める | 船一隻、着座、単発波、操作範囲、体験時間の仮仕様 |
@@ -302,11 +293,11 @@ HMD Cameraのローカル姿勢は頭部追跡へ任せる。頭の動きへ平�
 
 | 番号 | やること | 作るもの・確認すること |
 |---|---|---|
-| 06 | 別名の検証シーンを作る | 平面、1m箱、方位、水平線だけの軽いシーン |
+| 06 | 新規プロジェクトに検証シーンを作る | 平面、1m箱、方位、水平線だけの軽いシーン |
 | 07 | Blenderの1m箱と非対称の方向目印を輸出入する | 尺度、軸、左右反転、ピボットが一致 |
-| 08 | 対象プラットフォームへOpenXRを設定する | 必要な入力profile、Project Validationの確認、XR Origin |
-| 09 | 箱の船と座席を配置し、静止状態で見回す | 自然な目の高さ、船縁との距離、頭の前後左右移動 |
-| 10 | 実行用ビルドをHMDで動かす | 起動・終了・停止・再センタリングと基準フレーム時間 |
+| 08 | Windows向けOpenXRの準備をする | 設定・検証結果・XR Origin。機器固有profileと実機入力はHMD入手後 |
+| 09 | 箱の船と座席を配置し、静止状態で見回す | PC視点操作を先行。実寸感・目の高さ・頭部移動はHMDで再確認 |
+| 10 | PCビルドを検証しHMD項目を保留する | PC起動・停止・画像・動画。HMD起動・再センタリング・性能は実機で追加 |
 
 **次へ進む条件：** 頭の動きと両眼表示が正常で、波を入れる前の性能が記録されている。OpenXRの導入は対象プラットフォームごとに確認する。[Unity OpenXR設定](https://docs.unity3d.com/Packages/com.unity.xr.openxr@1.14/manual/project-configuration.html)
 
@@ -434,7 +425,7 @@ HMD Cameraのローカル姿勢は頭部追跡へ任せる。頭の動きへ平�
 
 | 完成点 | 対応番号 | その時点で見せられるもの |
 |---|---|---|
-| M0 | 01〜10 | 静止した船に乗って見回せるVR |
+| M0 | 01〜10 | 静止した船に乗って見回せるVR。現在はPC準備を先行し、HMD試験と利用者確認まで未完了 |
 | M1 | 11〜20 | 原画の構図と、短い流体のHMD再生 |
 | M2 | 21〜35 | 検証した主役波と独立した白波モデル |
 | M3 | 36〜50 | 浮世絵表現の中で鑑賞・操船できる短い作品 |
@@ -503,28 +494,31 @@ VATのデータテクスチャは通常の色画像とは別に扱う。選ん�
 
 ## 12. 制作データの置き方
 
-以下は回答作成時に提案した、Unityプロジェクト内の構成案。GitHub公開時点のリポジトリでは、Unityプロジェクトを `Unity/`、文書をリポジトリ直下の `Docs/` に置く方針へ読み替える。制作元は対応する `Houdini/`、`Blender/`、`Whitewater/` へ置き、大容量キャッシュの扱いは別途決める。
+新規チェックアウト直下に制作元と記録を分ける。Unityは `Unity/` 自体をプロジェクトの根とする。
 
 ```text
-G:\Unity\Ukeyoe_Claw\
-  Docs\Design\                 設計と決定理由
-  Docs\Validation\             試験結果の索引・小さな記録
-  Assets\GreatWave\
-    Scenes\Tests\              単位、VR、再生、浮力などの検証シーン
-    Scenes\Experience\         統合した作品
-    Art\Boat\                  船と小物のUnity用データ
-    Art\Environment\           富士、空、周辺の景物
-    Water\                     採用した波の再生素材
-    Foam\                      白波モデルと再生素材
-    Rendering\                 材質、シェーダー、描画設定
-    Interaction\               操船、乗客、入力
-    Data\                      clip情報、波条件、品質設定
+GreatWave_2026_Fresh/
+  Docs/Design/                 設計と決定理由
+  Docs/Workflow/               担当・手順・確認条件
+  Docs/Progress/               番号ごとの実行記録
+  Docs/References/             所蔵館原画・出典・観察
+  Docs/Evidence/M0/            実際のUnity出力画像・動画
+  Blender/                     新規モデルの制作元と出力手順
+  Houdini/                     新規流体計算の制作元
+  Whitewater/                  新規白波モデルと別計算
+  Unity/
+    Assets/GreatWave/
+      Scenes/Tests/            単位・静止船・VR等の検証
+      Scenes/Experience/       後続の統合体験
+      Art/                     Unityへ渡した新規素材
+      Scripts/                 入力・計測・表示
+    Packages/                  manifestと固定した版
+    ProjectSettings/           再現可能な設定
 ```
 
-Houdiniの元粒子・VDB・大量の連番キャッシュはUnityのAssets外、例えば `G:\Unity\Ukeyoe_Claw_Production\` 配下へ置く案とする。Houdini/Blenderの制作元と必要な書き出し設定は保存対象にし、再生成可能な巨大キャッシュを通常のGitへ無条件に入れない。必要に応じてGit LFSまたは別ストレージで版管理する。フォルダの作成・移動は本制作着手時に行う。
+大量の粒子・VDB・連番キャッシュとビルドは `Houdini/cache/`、`Unity/Builds/` など追跡外へ置き、再生成条件をGitに保存する。巨大キャッシュを通常のGitへ無条件に追加しない。必要時にGit LFSまたは別ストレージを判断する。
 
-ユーザー指定の `G:\AI\Models` はローカルAIモデル用の領域なので、本作品の流体キャッシュ置き場として流用しない。この設計ではAIモデルのダウンロードは必要ない。
-
+ユーザー指定の `G:\AI\Models` はAIモデル用であり流体キャッシュには使わない。本制作でAIモデルのダウンロードは必要ない。
 ## 13. 判断が必要になったときの分岐
 
 | 問題 | 最初の対応 | 次の選択肢 |
@@ -540,8 +534,6 @@ Houdiniの元粒子・VDB・大量の連番キャッシュはUnityのAssets外�
 
 ## 14. 最初の着手セット
 
-最初の作業は「高精細な大波を計算する」ではなく、**01〜10の静止VRと、16〜20の短い流体の受け渡し**を成立させること。
+今回の範囲は01〜10。新規開始点・機器・ソフト・原画・完成条件を記録した後、新規Unityシーン、Blenderとの単位・軸、OpenXR、静止船、PCビルドを検証する。
 
-順番は、既存試作の保存 → 対象機器と単位の確認 → 箱の船でHMD表示 → 小さな流体の書き出し → 実機で再生形式を選ぶ。この間に11〜15の静止構図を並行して詰められる。
-
-最初のレビューへ持っていく成果物は、静止船から見回せるビルド、原画比較画像、2〜3秒の流体再生、バージョン表、容量・フレーム時間の測定表の五つとする。これが揃ったら、主役の波と白波の本制作へ進む。
+HMDがない間は、実際のPCビルド画像・動画、バージョン表、単位・軸の実測、PC動作結果、HMD保留一覧を提示して利用者の確認を待つ。この中間成果をM0完成としない。HMD入手後にM0を実機で確認し、承認後に11〜20へ進む。構図・流体・白波を先行実装しない。
