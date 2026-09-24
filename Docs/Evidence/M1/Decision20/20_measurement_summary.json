@@ -1,0 +1,2275 @@
+{
+  "classification_ja": "同じ24Hz小試料のWindows PC暫定選択用。HMD/主役波/60Hz VAT/最終描画は未検証。",
+  "runs": 6,
+  "all_runtime_passed": true,
+  "gpu_time_note_ja": "有効なら同offscreen workloadを含むUnityアプリframe GPU時間。shader専用時間・HMD時間ではない。未取得は0msとしない。",
+  "memory_note_ja": "Windows GetProcessMemoryInfoのworking set/private bytes。GPU専用量ではない。peakWorkingSetSinceProcessはプロセス開始以降、private peakは49回ごとの標本最大。",
+  "formats": [
+    {
+      "format": "abc",
+      "process_runs": 3,
+      "scene_load_ms": {
+        "values": [
+          19.6014,
+          19.8911,
+          19.6692
+        ],
+        "median": 19.6692,
+        "minimum": 19.6014,
+        "maximum": 19.8911
+      },
+      "initialize_ms": {
+        "values": [
+          0.9874,
+          0.8771,
+          1.0015
+        ],
+        "median": 0.9874,
+        "minimum": 0.8771,
+        "maximum": 1.0015
+      },
+      "first_render_cpu_ms": {
+        "values": [
+          2.789,
+          2.7831,
+          3.0166
+        ],
+        "median": 2.789,
+        "minimum": 2.7831,
+        "maximum": 3.0166
+      },
+      "first_readback_ms": {
+        "values": [
+          12.0471,
+          10.0991,
+          11.3771
+        ],
+        "median": 11.3771,
+        "minimum": 10.0991,
+        "maximum": 12.0471
+      },
+      "private_after_first_visible_bytes": {
+        "values": [
+          571858944,
+          572530688,
+          577179648
+        ],
+        "median": 572530688,
+        "minimum": 571858944,
+        "maximum": 577179648
+      },
+      "private_delta_first_visible_bytes": {
+        "values": [
+          99401728,
+          99958784,
+          102957056
+        ],
+        "median": 99958784,
+        "minimum": 99401728,
+        "maximum": 102957056
+      },
+      "working_set_after_first_visible_bytes": {
+        "values": [
+          281698304,
+          281677824,
+          283627520
+        ],
+        "median": 281698304,
+        "minimum": 281677824,
+        "maximum": 283627520
+      },
+      "asset_isolation": true,
+      "gpu_feature_enabled": [
+        true,
+        true,
+        true
+      ],
+      "paths": [
+        {
+          "camera_mode": "wide",
+          "views": 1,
+          "pixels_per_view": [
+            1280,
+            720
+          ],
+          "measured_frames_per_run": 980,
+          "warmup_per_run": 98,
+          "gpu_valid_counts": [
+            0,
+            0,
+            0
+          ],
+          "gpu_zero_counts": [
+            972,
+            972,
+            972
+          ],
+          "gpu_missing_counts": [
+            0,
+            0,
+            0
+          ],
+          "cpuUpdate": {
+            "available_all_runs": true,
+            "runs": [
+              {
+                "available": true,
+                "count": 980,
+                "p50": 2.8082000000000003,
+                "p95": 4.867,
+                "p99": 5.3474,
+                "maximum": 6.2325
+              },
+              {
+                "available": true,
+                "count": 980,
+                "p50": 2.8393,
+                "p95": 4.7564,
+                "p99": 5.1345,
+                "maximum": 10.6729
+              },
+              {
+                "available": true,
+                "count": 980,
+                "p50": 2.8562000000000003,
+                "p95": 5.0059000000000005,
+                "p99": 5.4946,
+                "maximum": 6.266100000000001
+              }
+            ],
+            "median_of_run_p50": 2.8393,
+            "maximum_run_p99": 5.4946
+          },
+          "cpuSubmission": {
+            "available_all_runs": true,
+            "runs": [
+              {
+                "available": true,
+                "count": 980,
+                "p50": 0.21810000000000002,
+                "p95": 0.37270000000000003,
+                "p99": 0.4592,
+                "maximum": 0.5303
+              },
+              {
+                "available": true,
+                "count": 980,
+                "p50": 0.2111,
+                "p95": 0.3668,
+                "p99": 0.4339,
+                "maximum": 0.6427
+              },
+              {
+                "available": true,
+                "count": 980,
+                "p50": 0.21910000000000002,
+                "p95": 0.38780000000000003,
+                "p99": 0.48400000000000004,
+                "maximum": 0.605
+              }
+            ],
+            "median_of_run_p50": 0.21810000000000002,
+            "maximum_run_p99": 0.48400000000000004
+          },
+          "frameInterval": {
+            "available_all_runs": true,
+            "runs": [
+              {
+                "available": true,
+                "count": 980,
+                "p50": 3.2823000000004043,
+                "p95": 5.606600000000128,
+                "p99": 6.268099999999777,
+                "maximum": 7.800500000000099
+              },
+              {
+                "available": true,
+                "count": 980,
+                "p50": 3.3074000000015147,
+                "p95": 5.498200000000786,
+                "p99": 5.956700000000481,
+                "maximum": 11.910700000000496
+              },
+              {
+                "available": true,
+                "count": 980,
+                "p50": 3.358000000000416,
+                "p95": 5.815000000000126,
+                "p99": 6.3639000000002,
+                "maximum": 7.410500000000653
+              }
+            ],
+            "median_of_run_p50": 3.3074000000015147,
+            "maximum_run_p99": 6.3639000000002
+          },
+          "frameTimingCpu": {
+            "available_all_runs": true,
+            "runs": [
+              {
+                "available": true,
+                "count": 972,
+                "p50": 3.2871,
+                "p95": 5.5857,
+                "p99": 6.2517,
+                "maximum": 7.7243
+              },
+              {
+                "available": true,
+                "count": 972,
+                "p50": 3.2922,
+                "p95": 5.5016,
+                "p99": 5.9973,
+                "maximum": 11.8663
+              },
+              {
+                "available": true,
+                "count": 972,
+                "p50": 3.3639,
+                "p95": 5.7942,
+                "p99": 6.4752,
+                "maximum": 7.437
+              }
+            ],
+            "median_of_run_p50": 3.2922,
+            "maximum_run_p99": 6.4752
+          },
+          "frameTimingGpu": {
+            "available_all_runs": false,
+            "runs": [
+              {
+                "available": false,
+                "count": 0,
+                "p50": 0.0,
+                "p95": 0.0,
+                "p99": 0.0,
+                "maximum": 0.0
+              },
+              {
+                "available": false,
+                "count": 0,
+                "p50": 0.0,
+                "p95": 0.0,
+                "p99": 0.0,
+                "maximum": 0.0
+              },
+              {
+                "available": false,
+                "count": 0,
+                "p50": 0.0,
+                "p95": 0.0,
+                "p99": 0.0,
+                "maximum": 0.0
+              }
+            ]
+          },
+          "frameTimingMainThread": {
+            "available_all_runs": true,
+            "runs": [
+              {
+                "available": true,
+                "count": 972,
+                "p50": 3.2826,
+                "p95": 5.5801,
+                "p99": 6.2465,
+                "maximum": 7.7156
+              },
+              {
+                "available": true,
+                "count": 972,
+                "p50": 3.2877,
+                "p95": 5.4906,
+                "p99": 5.9874,
+                "maximum": 11.8582
+              },
+              {
+                "available": true,
+                "count": 972,
+                "p50": 3.36,
+                "p95": 5.7833,
+                "p99": 6.4647,
+                "maximum": 7.4291
+              }
+            ],
+            "median_of_run_p50": 3.2877,
+            "maximum_run_p99": 6.4647
+          },
+          "frameTimingRenderThread": {
+            "available_all_runs": false,
+            "runs": [
+              {
+                "available": false,
+                "count": 0,
+                "p50": 0.0,
+                "p95": 0.0,
+                "p99": 0.0,
+                "maximum": 0.0
+              },
+              {
+                "available": false,
+                "count": 0,
+                "p50": 0.0,
+                "p95": 0.0,
+                "p99": 0.0,
+                "maximum": 0.0
+              },
+              {
+                "available": false,
+                "count": 0,
+                "p50": 0.0,
+                "p95": 0.0,
+                "p99": 0.0,
+                "maximum": 0.0
+              }
+            ]
+          },
+          "private_sampled_peak_bytes": {
+            "values": [
+              752459776,
+              757981184,
+              760811520
+            ],
+            "median": 757981184,
+            "minimum": 752459776,
+            "maximum": 760811520
+          },
+          "working_set_process_peak_bytes": {
+            "values": [
+              463847424,
+              468983808,
+              467267584
+            ],
+            "median": 467267584,
+            "minimum": 463847424,
+            "maximum": 468983808
+          }
+        },
+        {
+          "camera_mode": "wide",
+          "views": 2,
+          "pixels_per_view": [
+            1280,
+            720
+          ],
+          "measured_frames_per_run": 980,
+          "warmup_per_run": 98,
+          "gpu_valid_counts": [
+            0,
+            0,
+            0
+          ],
+          "gpu_zero_counts": [
+            972,
+            972,
+            972
+          ],
+          "gpu_missing_counts": [
+            0,
+            0,
+            0
+          ],
+          "cpuUpdate": {
+            "available_all_runs": true,
+            "runs": [
+              {
+                "available": true,
+                "count": 980,
+                "p50": 2.8209,
+                "p95": 4.9261,
+                "p99": 5.417000000000001,
+                "maximum": 5.7358
+              },
+              {
+                "available": true,
+                "count": 980,
+                "p50": 2.8226,
+                "p95": 4.8478,
+                "p99": 5.238700000000001,
+                "maximum": 6.085
+              },
+              {
+                "available": true,
+                "count": 980,
+                "p50": 2.7885,
+                "p95": 4.9247000000000005,
+                "p99": 5.2591,
+                "maximum": 5.6477
+              }
+            ],
+            "median_of_run_p50": 2.8209,
+            "maximum_run_p99": 5.417000000000001
+          },
+          "cpuSubmission": {
+            "available_all_runs": true,
+            "runs": [
+              {
+                "available": true,
+                "count": 980,
+                "p50": 0.303,
+                "p95": 0.5071,
+                "p99": 0.6407,
+                "maximum": 0.7010000000000001
+              },
+              {
+                "available": true,
+                "count": 980,
+                "p50": 0.2952,
+                "p95": 0.4994,
+                "p99": 0.6429,
+                "maximum": 0.8767
+              },
+              {
+                "available": true,
+                "count": 980,
+                "p50": 0.3034,
+                "p95": 0.5026,
+                "p99": 0.5837,
+                "maximum": 0.9314
+              }
+            ],
+            "median_of_run_p50": 0.303,
+            "maximum_run_p99": 0.6429
+          },
+          "frameInterval": {
+            "available_all_runs": true,
+            "runs": [
+              {
+                "available": true,
+                "count": 980,
+                "p50": 3.3916999999998865,
+                "p95": 5.674100000000237,
+                "p99": 6.174500000000194,
+                "maximum": 6.658599999999737
+              },
+              {
+                "available": true,
+                "count": 980,
+                "p50": 3.3441999999999084,
+                "p95": 5.6579000000001045,
+                "p99": 6.1565999999997345,
+                "maximum": 6.760000000000765
+              },
+              {
+                "available": true,
+                "count": 980,
+                "p50": 3.3227000000000118,
+                "p95": 5.68219999999986,
+                "p99": 6.099599999998873,
+                "maximum": 6.8131000000004605
+              }
+            ],
+            "median_of_run_p50": 3.3441999999999084,
+            "maximum_run_p99": 6.174500000000194
+          },
+          "frameTimingCpu": {
+            "available_all_runs": true,
+            "runs": [
+              {
+                "available": true,
+                "count": 972,
+                "p50": 3.3929,
+                "p95": 5.6886,
+                "p99": 6.2413,
+                "maximum": 6.6314
+              },
+              {
+                "available": true,
+                "count": 972,
+                "p50": 3.369,
+                "p95": 5.6579,
+                "p99": 6.2202,
+                "maximum": 6.8208
+              },
+              {
+                "available": true,
+                "count": 972,
+                "p50": 3.3163,
+                "p95": 5.7011,
+                "p99": 6.0779,
+                "maximum": 6.9262
+              }
+            ],
+            "median_of_run_p50": 3.369,
+            "maximum_run_p99": 6.2413
+          },
+          "frameTimingGpu": {
+            "available_all_runs": false,
+            "runs": [
+              {
+                "available": false,
+                "count": 0,
+                "p50": 0.0,
+                "p95": 0.0,
+                "p99": 0.0,
+                "maximum": 0.0
+              },
+              {
+                "available": false,
+                "count": 0,
+                "p50": 0.0,
+                "p95": 0.0,
+                "p99": 0.0,
+                "maximum": 0.0
+              },
+              {
+                "available": false,
+                "count": 0,
+                "p50": 0.0,
+                "p95": 0.0,
+                "p99": 0.0,
+                "maximum": 0.0
+              }
+            ]
+          },
+          "frameTimingMainThread": {
+            "available_all_runs": true,
+            "runs": [
+              {
+                "available": true,
+                "count": 972,
+                "p50": 3.3883,
+                "p95": 5.6801,
+                "p99": 6.2269,
+                "maximum": 6.6216
+              },
+              {
+                "available": true,
+                "count": 972,
+                "p50": 3.3612,
+                "p95": 5.6484,
+                "p99": 6.2114,
+                "maximum": 6.8139
+              },
+              {
+                "available": true,
+                "count": 972,
+                "p50": 3.3121,
+                "p95": 5.6955,
+                "p99": 6.0723,
+                "maximum": 6.9201
+              }
+            ],
+            "median_of_run_p50": 3.3612,
+            "maximum_run_p99": 6.2269
+          },
+          "frameTimingRenderThread": {
+            "available_all_runs": false,
+            "runs": [
+              {
+                "available": false,
+                "count": 0,
+                "p50": 0.0,
+                "p95": 0.0,
+                "p99": 0.0,
+                "maximum": 0.0
+              },
+              {
+                "available": false,
+                "count": 0,
+                "p50": 0.0,
+                "p95": 0.0,
+                "p99": 0.0,
+                "maximum": 0.0
+              },
+              {
+                "available": false,
+                "count": 0,
+                "p50": 0.0,
+                "p95": 0.0,
+                "p99": 0.0,
+                "maximum": 0.0
+              }
+            ]
+          },
+          "private_sampled_peak_bytes": {
+            "values": [
+              753938432,
+              699334656,
+              762118144
+            ],
+            "median": 753938432,
+            "minimum": 699334656,
+            "maximum": 762118144
+          },
+          "working_set_process_peak_bytes": {
+            "values": [
+              467292160,
+              409292800,
+              470183936
+            ],
+            "median": 467292160,
+            "minimum": 409292800,
+            "maximum": 470183936
+          }
+        },
+        {
+          "camera_mode": "near_window",
+          "views": 1,
+          "pixels_per_view": [
+            1280,
+            720
+          ],
+          "measured_frames_per_run": 980,
+          "warmup_per_run": 98,
+          "gpu_valid_counts": [
+            0,
+            0,
+            0
+          ],
+          "gpu_zero_counts": [
+            972,
+            972,
+            972
+          ],
+          "gpu_missing_counts": [
+            0,
+            0,
+            0
+          ],
+          "cpuUpdate": {
+            "available_all_runs": true,
+            "runs": [
+              {
+                "available": true,
+                "count": 980,
+                "p50": 2.8115,
+                "p95": 4.8649000000000004,
+                "p99": 5.234500000000001,
+                "maximum": 5.7457
+              },
+              {
+                "available": true,
+                "count": 980,
+                "p50": 2.8224,
+                "p95": 4.9097,
+                "p99": 5.433400000000001,
+                "maximum": 6.1181
+              },
+              {
+                "available": true,
+                "count": 980,
+                "p50": 2.8375000000000004,
+                "p95": 4.8829,
+                "p99": 5.330900000000001,
+                "maximum": 6.1611
+              }
+            ],
+            "median_of_run_p50": 2.8224,
+            "maximum_run_p99": 5.433400000000001
+          },
+          "cpuSubmission": {
+            "available_all_runs": true,
+            "runs": [
+              {
+                "available": true,
+                "count": 980,
+                "p50": 0.2154,
+                "p95": 0.3652,
+                "p99": 0.4464,
+                "maximum": 0.6362
+              },
+              {
+                "available": true,
+                "count": 980,
+                "p50": 0.2088,
+                "p95": 0.3629,
+                "p99": 0.45640000000000003,
+                "maximum": 0.6635
+              },
+              {
+                "available": true,
+                "count": 980,
+                "p50": 0.2054,
+                "p95": 0.3587,
+                "p99": 0.4612,
+                "maximum": 0.5984
+              }
+            ],
+            "median_of_run_p50": 0.2088,
+            "maximum_run_p99": 0.4612
+          },
+          "frameInterval": {
+            "available_all_runs": true,
+            "runs": [
+              {
+                "available": true,
+                "count": 980,
+                "p50": 3.2533000000007917,
+                "p95": 5.581100000000561,
+                "p99": 5.988399999999672,
+                "maximum": 6.55329999999843
+              },
+              {
+                "available": true,
+                "count": 980,
+                "p50": 3.305299999997402,
+                "p95": 5.6498999999998745,
+                "p99": 6.214600000003401,
+                "maximum": 7.113000000000369
+              },
+              {
+                "available": true,
+                "count": 980,
+                "p50": 3.297700000000958,
+                "p95": 5.622000000000682,
+                "p99": 6.061300000000713,
+                "maximum": 7.104699999999298
+              }
+            ],
+            "median_of_run_p50": 3.297700000000958,
+            "maximum_run_p99": 6.214600000003401
+          },
+          "frameTimingCpu": {
+            "available_all_runs": true,
+            "runs": [
+              {
+                "available": true,
+                "count": 972,
+                "p50": 3.2694,
+                "p95": 5.5833,
+                "p99": 5.9778,
+                "maximum": 6.5399
+              },
+              {
+                "available": true,
+                "count": 972,
+                "p50": 3.3087,
+                "p95": 5.6298,
+                "p99": 6.2214,
+                "maximum": 7.1501
+              },
+              {
+                "available": true,
+                "count": 972,
+                "p50": 3.2751,
+                "p95": 5.6221,
+                "p99": 6.0539,
+                "maximum": 7.1532
+              }
+            ],
+            "median_of_run_p50": 3.2751,
+            "maximum_run_p99": 6.2214
+          },
+          "frameTimingGpu": {
+            "available_all_runs": false,
+            "runs": [
+              {
+                "available": false,
+                "count": 0,
+                "p50": 0.0,
+                "p95": 0.0,
+                "p99": 0.0,
+                "maximum": 0.0
+              },
+              {
+                "available": false,
+                "count": 0,
+                "p50": 0.0,
+                "p95": 0.0,
+                "p99": 0.0,
+                "maximum": 0.0
+              },
+              {
+                "available": false,
+                "count": 0,
+                "p50": 0.0,
+                "p95": 0.0,
+                "p99": 0.0,
+                "maximum": 0.0
+              }
+            ]
+          },
+          "frameTimingMainThread": {
+            "available_all_runs": true,
+            "runs": [
+              {
+                "available": true,
+                "count": 972,
+                "p50": 3.2653,
+                "p95": 5.5775,
+                "p99": 5.9719,
+                "maximum": 6.5318
+              },
+              {
+                "available": true,
+                "count": 972,
+                "p50": 3.3038,
+                "p95": 5.6184,
+                "p99": 6.2153,
+                "maximum": 7.1424
+              },
+              {
+                "available": true,
+                "count": 972,
+                "p50": 3.2701,
+                "p95": 5.6146,
+                "p99": 6.0463,
+                "maximum": 7.1453
+              }
+            ],
+            "median_of_run_p50": 3.2701,
+            "maximum_run_p99": 6.2153
+          },
+          "frameTimingRenderThread": {
+            "available_all_runs": false,
+            "runs": [
+              {
+                "available": false,
+                "count": 0,
+                "p50": 0.0,
+                "p95": 0.0,
+                "p99": 0.0,
+                "maximum": 0.0
+              },
+              {
+                "available": false,
+                "count": 0,
+                "p50": 0.0,
+                "p95": 0.0,
+                "p99": 0.0,
+                "maximum": 0.0
+              },
+              {
+                "available": false,
+                "count": 0,
+                "p50": 0.0,
+                "p95": 0.0,
+                "p99": 0.0,
+                "maximum": 0.0
+              }
+            ]
+          },
+          "private_sampled_peak_bytes": {
+            "values": [
+              754073600,
+              757981184,
+              762118144
+            ],
+            "median": 757981184,
+            "minimum": 754073600,
+            "maximum": 762118144
+          },
+          "working_set_process_peak_bytes": {
+            "values": [
+              468398080,
+              470614016,
+              471162880
+            ],
+            "median": 470614016,
+            "minimum": 468398080,
+            "maximum": 471162880
+          }
+        },
+        {
+          "camera_mode": "near_window",
+          "views": 2,
+          "pixels_per_view": [
+            1280,
+            720
+          ],
+          "measured_frames_per_run": 980,
+          "warmup_per_run": 98,
+          "gpu_valid_counts": [
+            0,
+            0,
+            0
+          ],
+          "gpu_zero_counts": [
+            972,
+            972,
+            972
+          ],
+          "gpu_missing_counts": [
+            0,
+            0,
+            0
+          ],
+          "cpuUpdate": {
+            "available_all_runs": true,
+            "runs": [
+              {
+                "available": true,
+                "count": 980,
+                "p50": 2.8951000000000002,
+                "p95": 4.8978,
+                "p99": 5.2808,
+                "maximum": 5.7977
+              },
+              {
+                "available": true,
+                "count": 980,
+                "p50": 3.0032,
+                "p95": 5.3015,
+                "p99": 6.0068,
+                "maximum": 7.6536
+              },
+              {
+                "available": true,
+                "count": 980,
+                "p50": 2.9075,
+                "p95": 5.1106,
+                "p99": 5.6967,
+                "maximum": 6.1372
+              }
+            ],
+            "median_of_run_p50": 2.9075,
+            "maximum_run_p99": 6.0068
+          },
+          "cpuSubmission": {
+            "available_all_runs": true,
+            "runs": [
+              {
+                "available": true,
+                "count": 980,
+                "p50": 0.3024,
+                "p95": 0.5085000000000001,
+                "p99": 0.6053000000000001,
+                "maximum": 0.7112
+              },
+              {
+                "available": true,
+                "count": 980,
+                "p50": 0.3257,
+                "p95": 0.5702,
+                "p99": 0.7284,
+                "maximum": 1.0234
+              },
+              {
+                "available": true,
+                "count": 980,
+                "p50": 0.3105,
+                "p95": 0.5339,
+                "p99": 0.6416000000000001,
+                "maximum": 0.9106000000000001
+              }
+            ],
+            "median_of_run_p50": 0.3105,
+            "maximum_run_p99": 0.7284
+          },
+          "frameInterval": {
+            "available_all_runs": true,
+            "runs": [
+              {
+                "available": true,
+                "count": 980,
+                "p50": 3.408900000000159,
+                "p95": 5.681700000000234,
+                "p99": 6.1053000000015345,
+                "maximum": 6.728100000000126
+              },
+              {
+                "available": true,
+                "count": 980,
+                "p50": 3.629699999999403,
+                "p95": 6.26049999999978,
+                "p99": 7.239399999999563,
+                "maximum": 8.867600000000309
+              },
+              {
+                "available": true,
+                "count": 980,
+                "p50": 3.466500000000039,
+                "p95": 5.919800000000919,
+                "p99": 6.616400000000411,
+                "maximum": 7.170999999999594
+              }
+            ],
+            "median_of_run_p50": 3.466500000000039,
+            "maximum_run_p99": 7.239399999999563
+          },
+          "frameTimingCpu": {
+            "available_all_runs": true,
+            "runs": [
+              {
+                "available": true,
+                "count": 972,
+                "p50": 3.3989,
+                "p95": 5.6967,
+                "p99": 6.08,
+                "maximum": 6.7506
+              },
+              {
+                "available": true,
+                "count": 972,
+                "p50": 3.6306,
+                "p95": 6.2513,
+                "p99": 7.1691,
+                "maximum": 8.943
+              },
+              {
+                "available": true,
+                "count": 972,
+                "p50": 3.5231,
+                "p95": 5.9056,
+                "p99": 6.6599,
+                "maximum": 7.1618
+              }
+            ],
+            "median_of_run_p50": 3.5231,
+            "maximum_run_p99": 7.1691
+          },
+          "frameTimingGpu": {
+            "available_all_runs": false,
+            "runs": [
+              {
+                "available": false,
+                "count": 0,
+                "p50": 0.0,
+                "p95": 0.0,
+                "p99": 0.0,
+                "maximum": 0.0
+              },
+              {
+                "available": false,
+                "count": 0,
+                "p50": 0.0,
+                "p95": 0.0,
+                "p99": 0.0,
+                "maximum": 0.0
+              },
+              {
+                "available": false,
+                "count": 0,
+                "p50": 0.0,
+                "p95": 0.0,
+                "p99": 0.0,
+                "maximum": 0.0
+              }
+            ]
+          },
+          "frameTimingMainThread": {
+            "available_all_runs": true,
+            "runs": [
+              {
+                "available": true,
+                "count": 972,
+                "p50": 3.3945,
+                "p95": 5.6914,
+                "p99": 6.0746,
+                "maximum": 6.7434
+              },
+              {
+                "available": true,
+                "count": 972,
+                "p50": 3.6186,
+                "p95": 6.2381,
+                "p99": 7.1593,
+                "maximum": 8.9366
+              },
+              {
+                "available": true,
+                "count": 972,
+                "p50": 3.5168,
+                "p95": 5.8945,
+                "p99": 6.6512,
+                "maximum": 7.1535
+              }
+            ],
+            "median_of_run_p50": 3.5168,
+            "maximum_run_p99": 7.1593
+          },
+          "frameTimingRenderThread": {
+            "available_all_runs": false,
+            "runs": [
+              {
+                "available": false,
+                "count": 0,
+                "p50": 0.0,
+                "p95": 0.0,
+                "p99": 0.0,
+                "maximum": 0.0
+              },
+              {
+                "available": false,
+                "count": 0,
+                "p50": 0.0,
+                "p95": 0.0,
+                "p99": 0.0,
+                "maximum": 0.0
+              },
+              {
+                "available": false,
+                "count": 0,
+                "p50": 0.0,
+                "p95": 0.0,
+                "p99": 0.0,
+                "maximum": 0.0
+              }
+            ]
+          },
+          "private_sampled_peak_bytes": {
+            "values": [
+              754073600,
+              757981184,
+              763445248
+            ],
+            "median": 757981184,
+            "minimum": 754073600,
+            "maximum": 763445248
+          },
+          "working_set_process_peak_bytes": {
+            "values": [
+              468992000,
+              470614016,
+              473083904
+            ],
+            "median": 470614016,
+            "minimum": 468992000,
+            "maximum": 473083904
+          }
+        }
+      ]
+    },
+    {
+      "format": "vat",
+      "process_runs": 3,
+      "scene_load_ms": {
+        "values": [
+          166.4145,
+          153.1106,
+          147.2697
+        ],
+        "median": 153.1106,
+        "minimum": 147.2697,
+        "maximum": 166.4145
+      },
+      "initialize_ms": {
+        "values": [
+          2.3602000000000003,
+          2.3091,
+          2.2734
+        ],
+        "median": 2.3091,
+        "minimum": 2.2734,
+        "maximum": 2.3602000000000003
+      },
+      "first_render_cpu_ms": {
+        "values": [
+          2.9798,
+          2.9348,
+          2.9316
+        ],
+        "median": 2.9348,
+        "minimum": 2.9316,
+        "maximum": 2.9798
+      },
+      "first_readback_ms": {
+        "values": [
+          12.684700000000001,
+          9.7529,
+          9.961
+        ],
+        "median": 9.961,
+        "minimum": 9.7529,
+        "maximum": 12.684700000000001
+      },
+      "private_after_first_visible_bytes": {
+        "values": [
+          888606720,
+          857001984,
+          851116032
+        ],
+        "median": 857001984,
+        "minimum": 851116032,
+        "maximum": 888606720
+      },
+      "private_delta_first_visible_bytes": {
+        "values": [
+          414633984,
+          382640128,
+          376590336
+        ],
+        "median": 382640128,
+        "minimum": 376590336,
+        "maximum": 414633984
+      },
+      "working_set_after_first_visible_bytes": {
+        "values": [
+          354414592,
+          322973696,
+          317321216
+        ],
+        "median": 322973696,
+        "minimum": 317321216,
+        "maximum": 354414592
+      },
+      "asset_isolation": true,
+      "gpu_feature_enabled": [
+        true,
+        true,
+        true
+      ],
+      "paths": [
+        {
+          "camera_mode": "wide",
+          "views": 1,
+          "pixels_per_view": [
+            1280,
+            720
+          ],
+          "measured_frames_per_run": 980,
+          "warmup_per_run": 98,
+          "gpu_valid_counts": [
+            0,
+            0,
+            0
+          ],
+          "gpu_zero_counts": [
+            972,
+            972,
+            972
+          ],
+          "gpu_missing_counts": [
+            0,
+            0,
+            0
+          ],
+          "cpuUpdate": {
+            "available_all_runs": true,
+            "runs": [
+              {
+                "available": true,
+                "count": 980,
+                "p50": 0.0013000000000000002,
+                "p95": 0.0019,
+                "p99": 0.0027,
+                "maximum": 0.0058000000000000005
+              },
+              {
+                "available": true,
+                "count": 980,
+                "p50": 0.0013000000000000002,
+                "p95": 0.0018000000000000002,
+                "p99": 0.002,
+                "maximum": 0.030500000000000003
+              },
+              {
+                "available": true,
+                "count": 980,
+                "p50": 0.0015,
+                "p95": 0.0019,
+                "p99": 0.0021000000000000003,
+                "maximum": 0.098
+              }
+            ],
+            "median_of_run_p50": 0.0013000000000000002,
+            "maximum_run_p99": 0.0027
+          },
+          "cpuSubmission": {
+            "available_all_runs": true,
+            "runs": [
+              {
+                "available": true,
+                "count": 980,
+                "p50": 0.1052,
+                "p95": 0.16720000000000002,
+                "p99": 0.2403,
+                "maximum": 0.3729
+              },
+              {
+                "available": true,
+                "count": 980,
+                "p50": 0.12350000000000001,
+                "p95": 0.17450000000000002,
+                "p99": 0.2404,
+                "maximum": 0.6282
+              },
+              {
+                "available": true,
+                "count": 980,
+                "p50": 0.1254,
+                "p95": 0.1694,
+                "p99": 0.2107,
+                "maximum": 0.3406
+              }
+            ],
+            "median_of_run_p50": 0.12350000000000001,
+            "maximum_run_p99": 0.2404
+          },
+          "frameInterval": {
+            "available_all_runs": true,
+            "runs": [
+              {
+                "available": true,
+                "count": 980,
+                "p50": 0.20020000000009475,
+                "p95": 1.575499999999952,
+                "p99": 4.001600000000494,
+                "maximum": 6.560400000000577
+              },
+              {
+                "available": true,
+                "count": 980,
+                "p50": 0.21590000000060172,
+                "p95": 0.29689999999948924,
+                "p99": 0.3507999999996514,
+                "maximum": 0.7339000000001761
+              },
+              {
+                "available": true,
+                "count": 980,
+                "p50": 0.2238999999999436,
+                "p95": 0.31369999999997233,
+                "p99": 0.3790999999999656,
+                "maximum": 0.8916999999999398
+              }
+            ],
+            "median_of_run_p50": 0.21590000000060172,
+            "maximum_run_p99": 4.001600000000494
+          },
+          "frameTimingCpu": {
+            "available_all_runs": true,
+            "runs": [
+              {
+                "available": true,
+                "count": 972,
+                "p50": 0.1976,
+                "p95": 1.5547,
+                "p99": 3.8849,
+                "maximum": 6.5499
+              },
+              {
+                "available": true,
+                "count": 972,
+                "p50": 0.2178,
+                "p95": 0.2982,
+                "p99": 0.3555,
+                "maximum": 0.736
+              },
+              {
+                "available": true,
+                "count": 972,
+                "p50": 0.2254,
+                "p95": 0.3098,
+                "p99": 0.3671,
+                "maximum": 0.459
+              }
+            ],
+            "median_of_run_p50": 0.2178,
+            "maximum_run_p99": 3.8849
+          },
+          "frameTimingGpu": {
+            "available_all_runs": false,
+            "runs": [
+              {
+                "available": false,
+                "count": 0,
+                "p50": 0.0,
+                "p95": 0.0,
+                "p99": 0.0,
+                "maximum": 0.0
+              },
+              {
+                "available": false,
+                "count": 0,
+                "p50": 0.0,
+                "p95": 0.0,
+                "p99": 0.0,
+                "maximum": 0.0
+              },
+              {
+                "available": false,
+                "count": 0,
+                "p50": 0.0,
+                "p95": 0.0,
+                "p99": 0.0,
+                "maximum": 0.0
+              }
+            ]
+          },
+          "frameTimingMainThread": {
+            "available_all_runs": true,
+            "runs": [
+              {
+                "available": true,
+                "count": 972,
+                "p50": 0.1946,
+                "p95": 1.551,
+                "p99": 3.8812,
+                "maximum": 6.5485
+              },
+              {
+                "available": true,
+                "count": 972,
+                "p50": 0.2148,
+                "p95": 0.294,
+                "p99": 0.3536,
+                "maximum": 0.7319
+              },
+              {
+                "available": true,
+                "count": 972,
+                "p50": 0.222,
+                "p95": 0.3069,
+                "p99": 0.3635,
+                "maximum": 0.455
+              }
+            ],
+            "median_of_run_p50": 0.2148,
+            "maximum_run_p99": 3.8812
+          },
+          "frameTimingRenderThread": {
+            "available_all_runs": false,
+            "runs": [
+              {
+                "available": false,
+                "count": 0,
+                "p50": 0.0,
+                "p95": 0.0,
+                "p99": 0.0,
+                "maximum": 0.0
+              },
+              {
+                "available": false,
+                "count": 0,
+                "p50": 0.0,
+                "p95": 0.0,
+                "p99": 0.0,
+                "maximum": 0.0
+              },
+              {
+                "available": false,
+                "count": 0,
+                "p50": 0.0,
+                "p95": 0.0,
+                "p99": 0.0,
+                "maximum": 0.0
+              }
+            ]
+          },
+          "private_sampled_peak_bytes": {
+            "values": [
+              892555264,
+              868163584,
+              858222592
+            ],
+            "median": 868163584,
+            "minimum": 858222592,
+            "maximum": 892555264
+          },
+          "working_set_process_peak_bytes": {
+            "values": [
+              524390400,
+              492867584,
+              487194624
+            ],
+            "median": 492867584,
+            "minimum": 487194624,
+            "maximum": 524390400
+          }
+        },
+        {
+          "camera_mode": "wide",
+          "views": 2,
+          "pixels_per_view": [
+            1280,
+            720
+          ],
+          "measured_frames_per_run": 980,
+          "warmup_per_run": 98,
+          "gpu_valid_counts": [
+            0,
+            0,
+            0
+          ],
+          "gpu_zero_counts": [
+            972,
+            972,
+            972
+          ],
+          "gpu_missing_counts": [
+            0,
+            0,
+            0
+          ],
+          "cpuUpdate": {
+            "available_all_runs": true,
+            "runs": [
+              {
+                "available": true,
+                "count": 980,
+                "p50": 0.0014,
+                "p95": 0.0019,
+                "p99": 0.0032,
+                "maximum": 0.07640000000000001
+              },
+              {
+                "available": true,
+                "count": 980,
+                "p50": 0.0014,
+                "p95": 0.0019,
+                "p99": 0.0028,
+                "maximum": 0.0335
+              },
+              {
+                "available": true,
+                "count": 980,
+                "p50": 0.0014,
+                "p95": 0.0019,
+                "p99": 0.0021000000000000003,
+                "maximum": 0.030600000000000002
+              }
+            ],
+            "median_of_run_p50": 0.0014,
+            "maximum_run_p99": 0.0032
+          },
+          "cpuSubmission": {
+            "available_all_runs": true,
+            "runs": [
+              {
+                "available": true,
+                "count": 980,
+                "p50": 0.2021,
+                "p95": 0.2967,
+                "p99": 0.35800000000000004,
+                "maximum": 0.43720000000000003
+              },
+              {
+                "available": true,
+                "count": 980,
+                "p50": 0.20650000000000002,
+                "p95": 0.2896,
+                "p99": 0.3714,
+                "maximum": 0.4746
+              },
+              {
+                "available": true,
+                "count": 980,
+                "p50": 0.20170000000000002,
+                "p95": 0.2677,
+                "p99": 0.3068,
+                "maximum": 0.3662
+              }
+            ],
+            "median_of_run_p50": 0.2021,
+            "maximum_run_p99": 0.3714
+          },
+          "frameInterval": {
+            "available_all_runs": true,
+            "runs": [
+              {
+                "available": true,
+                "count": 980,
+                "p50": 0.3051999999996724,
+                "p95": 0.4148999999999958,
+                "p99": 0.5055000000000476,
+                "maximum": 0.6724999999994097
+              },
+              {
+                "available": true,
+                "count": 980,
+                "p50": 0.3182999999999936,
+                "p95": 0.7956000000000074,
+                "p99": 1.3112999999997932,
+                "maximum": 2.509699999999615
+              },
+              {
+                "available": true,
+                "count": 980,
+                "p50": 0.30170000000051544,
+                "p95": 0.3866999999999621,
+                "p99": 0.45479999999997744,
+                "maximum": 0.5443000000004972
+              }
+            ],
+            "median_of_run_p50": 0.3051999999996724,
+            "maximum_run_p99": 1.3112999999997932
+          },
+          "frameTimingCpu": {
+            "available_all_runs": true,
+            "runs": [
+              {
+                "available": true,
+                "count": 972,
+                "p50": 0.3049,
+                "p95": 0.4115,
+                "p99": 0.514,
+                "maximum": 0.7359
+              },
+              {
+                "available": true,
+                "count": 972,
+                "p50": 0.3203,
+                "p95": 0.7739,
+                "p99": 1.3128,
+                "maximum": 2.5053
+              },
+              {
+                "available": true,
+                "count": 972,
+                "p50": 0.3029,
+                "p95": 0.3881,
+                "p99": 0.4409,
+                "maximum": 0.5321
+              }
+            ],
+            "median_of_run_p50": 0.3049,
+            "maximum_run_p99": 1.3128
+          },
+          "frameTimingGpu": {
+            "available_all_runs": false,
+            "runs": [
+              {
+                "available": false,
+                "count": 0,
+                "p50": 0.0,
+                "p95": 0.0,
+                "p99": 0.0,
+                "maximum": 0.0
+              },
+              {
+                "available": false,
+                "count": 0,
+                "p50": 0.0,
+                "p95": 0.0,
+                "p99": 0.0,
+                "maximum": 0.0
+              },
+              {
+                "available": false,
+                "count": 0,
+                "p50": 0.0,
+                "p95": 0.0,
+                "p99": 0.0,
+                "maximum": 0.0
+              }
+            ]
+          },
+          "frameTimingMainThread": {
+            "available_all_runs": true,
+            "runs": [
+              {
+                "available": true,
+                "count": 972,
+                "p50": 0.3023,
+                "p95": 0.4085,
+                "p99": 0.5035,
+                "maximum": 0.7326
+              },
+              {
+                "available": true,
+                "count": 972,
+                "p50": 0.3176,
+                "p95": 0.7695,
+                "p99": 1.3087,
+                "maximum": 2.5014
+              },
+              {
+                "available": true,
+                "count": 972,
+                "p50": 0.2993,
+                "p95": 0.3844,
+                "p99": 0.4392,
+                "maximum": 0.5278
+              }
+            ],
+            "median_of_run_p50": 0.3023,
+            "maximum_run_p99": 1.3087
+          },
+          "frameTimingRenderThread": {
+            "available_all_runs": false,
+            "runs": [
+              {
+                "available": false,
+                "count": 0,
+                "p50": 0.0,
+                "p95": 0.0,
+                "p99": 0.0,
+                "maximum": 0.0
+              },
+              {
+                "available": false,
+                "count": 0,
+                "p50": 0.0,
+                "p95": 0.0,
+                "p99": 0.0,
+                "maximum": 0.0
+              },
+              {
+                "available": false,
+                "count": 0,
+                "p50": 0.0,
+                "p95": 0.0,
+                "p99": 0.0,
+                "maximum": 0.0
+              }
+            ]
+          },
+          "private_sampled_peak_bytes": {
+            "values": [
+              893673472,
+              868122624,
+              859185152
+            ],
+            "median": 868122624,
+            "minimum": 859185152,
+            "maximum": 893673472
+          },
+          "working_set_process_peak_bytes": {
+            "values": [
+              524390400,
+              492867584,
+              487194624
+            ],
+            "median": 492867584,
+            "minimum": 487194624,
+            "maximum": 524390400
+          }
+        },
+        {
+          "camera_mode": "near_window",
+          "views": 1,
+          "pixels_per_view": [
+            1280,
+            720
+          ],
+          "measured_frames_per_run": 980,
+          "warmup_per_run": 98,
+          "gpu_valid_counts": [
+            0,
+            0,
+            0
+          ],
+          "gpu_zero_counts": [
+            972,
+            972,
+            972
+          ],
+          "gpu_missing_counts": [
+            0,
+            0,
+            0
+          ],
+          "cpuUpdate": {
+            "available_all_runs": true,
+            "runs": [
+              {
+                "available": true,
+                "count": 980,
+                "p50": 0.0014,
+                "p95": 0.0018000000000000002,
+                "p99": 0.002,
+                "maximum": 0.029
+              },
+              {
+                "available": true,
+                "count": 980,
+                "p50": 0.0014,
+                "p95": 0.0018000000000000002,
+                "p99": 0.0021000000000000003,
+                "maximum": 0.043300000000000005
+              },
+              {
+                "available": true,
+                "count": 980,
+                "p50": 0.0014,
+                "p95": 0.0018000000000000002,
+                "p99": 0.002,
+                "maximum": 0.0263
+              }
+            ],
+            "median_of_run_p50": 0.0014,
+            "maximum_run_p99": 0.0021000000000000003
+          },
+          "cpuSubmission": {
+            "available_all_runs": true,
+            "runs": [
+              {
+                "available": true,
+                "count": 980,
+                "p50": 0.1217,
+                "p95": 0.16820000000000002,
+                "p99": 0.2494,
+                "maximum": 0.2896
+              },
+              {
+                "available": true,
+                "count": 980,
+                "p50": 0.126,
+                "p95": 0.17070000000000002,
+                "p99": 0.22920000000000001,
+                "maximum": 0.2773
+              },
+              {
+                "available": true,
+                "count": 980,
+                "p50": 0.12090000000000001,
+                "p95": 0.1651,
+                "p99": 0.2034,
+                "maximum": 0.3241
+              }
+            ],
+            "median_of_run_p50": 0.1217,
+            "maximum_run_p99": 0.2494
+          },
+          "frameInterval": {
+            "available_all_runs": true,
+            "runs": [
+              {
+                "available": true,
+                "count": 980,
+                "p50": 0.21760000000003998,
+                "p95": 0.2908000000001465,
+                "p99": 0.35700000000016274,
+                "maximum": 0.5291999999998964
+              },
+              {
+                "available": true,
+                "count": 980,
+                "p50": 0.21770000000032041,
+                "p95": 0.2955000000000041,
+                "p99": 0.3533999999998372,
+                "maximum": 0.6611999999996954
+              },
+              {
+                "available": true,
+                "count": 980,
+                "p50": 0.21559999999976043,
+                "p95": 0.27630000000034016,
+                "p99": 0.3105000000003244,
+                "maximum": 0.520800000000321
+              }
+            ],
+            "median_of_run_p50": 0.21760000000003998,
+            "maximum_run_p99": 0.35700000000016274
+          },
+          "frameTimingCpu": {
+            "available_all_runs": true,
+            "runs": [
+              {
+                "available": true,
+                "count": 972,
+                "p50": 0.2179,
+                "p95": 0.2918,
+                "p99": 0.3536,
+                "maximum": 0.5248
+              },
+              {
+                "available": true,
+                "count": 972,
+                "p50": 0.2185,
+                "p95": 0.2943,
+                "p99": 0.353,
+                "maximum": 0.6631
+              },
+              {
+                "available": true,
+                "count": 972,
+                "p50": 0.2157,
+                "p95": 0.2778,
+                "p99": 0.3128,
+                "maximum": 0.51
+              }
+            ],
+            "median_of_run_p50": 0.2179,
+            "maximum_run_p99": 0.3536
+          },
+          "frameTimingGpu": {
+            "available_all_runs": false,
+            "runs": [
+              {
+                "available": false,
+                "count": 0,
+                "p50": 0.0,
+                "p95": 0.0,
+                "p99": 0.0,
+                "maximum": 0.0
+              },
+              {
+                "available": false,
+                "count": 0,
+                "p50": 0.0,
+                "p95": 0.0,
+                "p99": 0.0,
+                "maximum": 0.0
+              },
+              {
+                "available": false,
+                "count": 0,
+                "p50": 0.0,
+                "p95": 0.0,
+                "p99": 0.0,
+                "maximum": 0.0
+              }
+            ]
+          },
+          "frameTimingMainThread": {
+            "available_all_runs": true,
+            "runs": [
+              {
+                "available": true,
+                "count": 972,
+                "p50": 0.2145,
+                "p95": 0.2884,
+                "p99": 0.3501,
+                "maximum": 0.5231
+              },
+              {
+                "available": true,
+                "count": 972,
+                "p50": 0.2155,
+                "p95": 0.2905,
+                "p99": 0.3513,
+                "maximum": 0.6591
+              },
+              {
+                "available": true,
+                "count": 972,
+                "p50": 0.2129,
+                "p95": 0.2746,
+                "p99": 0.3093,
+                "maximum": 0.5084
+              }
+            ],
+            "median_of_run_p50": 0.2145,
+            "maximum_run_p99": 0.3513
+          },
+          "frameTimingRenderThread": {
+            "available_all_runs": false,
+            "runs": [
+              {
+                "available": false,
+                "count": 0,
+                "p50": 0.0,
+                "p95": 0.0,
+                "p99": 0.0,
+                "maximum": 0.0
+              },
+              {
+                "available": false,
+                "count": 0,
+                "p50": 0.0,
+                "p95": 0.0,
+                "p99": 0.0,
+                "maximum": 0.0
+              },
+              {
+                "available": false,
+                "count": 0,
+                "p50": 0.0,
+                "p95": 0.0,
+                "p99": 0.0,
+                "maximum": 0.0
+              }
+            ]
+          },
+          "private_sampled_peak_bytes": {
+            "values": [
+              893673472,
+              868818944,
+              859185152
+            ],
+            "median": 868818944,
+            "minimum": 859185152,
+            "maximum": 893673472
+          },
+          "working_set_process_peak_bytes": {
+            "values": [
+              524390400,
+              492867584,
+              487194624
+            ],
+            "median": 492867584,
+            "minimum": 487194624,
+            "maximum": 524390400
+          }
+        },
+        {
+          "camera_mode": "near_window",
+          "views": 2,
+          "pixels_per_view": [
+            1280,
+            720
+          ],
+          "measured_frames_per_run": 980,
+          "warmup_per_run": 98,
+          "gpu_valid_counts": [
+            0,
+            0,
+            0
+          ],
+          "gpu_zero_counts": [
+            972,
+            972,
+            972
+          ],
+          "gpu_missing_counts": [
+            0,
+            0,
+            0
+          ],
+          "cpuUpdate": {
+            "available_all_runs": true,
+            "runs": [
+              {
+                "available": true,
+                "count": 980,
+                "p50": 0.0015,
+                "p95": 0.0019,
+                "p99": 0.0023,
+                "maximum": 0.0349
+              },
+              {
+                "available": true,
+                "count": 980,
+                "p50": 0.0014,
+                "p95": 0.0019,
+                "p99": 0.0026000000000000003,
+                "maximum": 0.0437
+              },
+              {
+                "available": true,
+                "count": 980,
+                "p50": 0.0016,
+                "p95": 0.0019,
+                "p99": 0.0022,
+                "maximum": 0.035300000000000005
+              }
+            ],
+            "median_of_run_p50": 0.0015,
+            "maximum_run_p99": 0.0026000000000000003
+          },
+          "cpuSubmission": {
+            "available_all_runs": true,
+            "runs": [
+              {
+                "available": true,
+                "count": 980,
+                "p50": 0.2119,
+                "p95": 0.3024,
+                "p99": 0.3491,
+                "maximum": 0.4077
+              },
+              {
+                "available": true,
+                "count": 980,
+                "p50": 0.2076,
+                "p95": 0.2873,
+                "p99": 0.37160000000000004,
+                "maximum": 0.47550000000000003
+              },
+              {
+                "available": true,
+                "count": 980,
+                "p50": 0.2106,
+                "p95": 0.26630000000000004,
+                "p99": 0.3235,
+                "maximum": 0.4048
+              }
+            ],
+            "median_of_run_p50": 0.2106,
+            "maximum_run_p99": 0.37160000000000004
+          },
+          "frameInterval": {
+            "available_all_runs": true,
+            "runs": [
+              {
+                "available": true,
+                "count": 980,
+                "p50": 0.3314000000003148,
+                "p95": 0.7409000000002663,
+                "p99": 1.0929000000006184,
+                "maximum": 1.3415999999999428
+              },
+              {
+                "available": true,
+                "count": 980,
+                "p50": 0.3294000000000352,
+                "p95": 0.7504999999996542,
+                "p99": 1.1841999999999686,
+                "maximum": 1.5799999999996928
+              },
+              {
+                "available": true,
+                "count": 980,
+                "p50": 0.3333000000003139,
+                "p95": 0.767700000000815,
+                "p99": 1.166699999999743,
+                "maximum": 1.4910000000005752
+              }
+            ],
+            "median_of_run_p50": 0.3314000000003148,
+            "maximum_run_p99": 1.1841999999999686
+          },
+          "frameTimingCpu": {
+            "available_all_runs": true,
+            "runs": [
+              {
+                "available": true,
+                "count": 972,
+                "p50": 0.332,
+                "p95": 0.7419,
+                "p99": 1.0868,
+                "maximum": 1.3411
+              },
+              {
+                "available": true,
+                "count": 972,
+                "p50": 0.329,
+                "p95": 0.7454,
+                "p99": 1.1881,
+                "maximum": 1.5782
+              },
+              {
+                "available": true,
+                "count": 972,
+                "p50": 0.3359,
+                "p95": 0.7609,
+                "p99": 1.1582,
+                "maximum": 1.4924
+              }
+            ],
+            "median_of_run_p50": 0.332,
+            "maximum_run_p99": 1.1881
+          },
+          "frameTimingGpu": {
+            "available_all_runs": false,
+            "runs": [
+              {
+                "available": false,
+                "count": 0,
+                "p50": 0.0,
+                "p95": 0.0,
+                "p99": 0.0,
+                "maximum": 0.0
+              },
+              {
+                "available": false,
+                "count": 0,
+                "p50": 0.0,
+                "p95": 0.0,
+                "p99": 0.0,
+                "maximum": 0.0
+              },
+              {
+                "available": false,
+                "count": 0,
+                "p50": 0.0,
+                "p95": 0.0,
+                "p99": 0.0,
+                "maximum": 0.0
+              }
+            ]
+          },
+          "frameTimingMainThread": {
+            "available_all_runs": true,
+            "runs": [
+              {
+                "available": true,
+                "count": 972,
+                "p50": 0.3287,
+                "p95": 0.7384,
+                "p99": 1.0852,
+                "maximum": 1.3371
+              },
+              {
+                "available": true,
+                "count": 972,
+                "p50": 0.3261,
+                "p95": 0.7423,
+                "p99": 1.1843,
+                "maximum": 1.5767
+              },
+              {
+                "available": true,
+                "count": 972,
+                "p50": 0.3336,
+                "p95": 0.7591,
+                "p99": 1.1536,
+                "maximum": 1.4873
+              }
+            ],
+            "median_of_run_p50": 0.3287,
+            "maximum_run_p99": 1.1843
+          },
+          "frameTimingRenderThread": {
+            "available_all_runs": false,
+            "runs": [
+              {
+                "available": false,
+                "count": 0,
+                "p50": 0.0,
+                "p95": 0.0,
+                "p99": 0.0,
+                "maximum": 0.0
+              },
+              {
+                "available": false,
+                "count": 0,
+                "p50": 0.0,
+                "p95": 0.0,
+                "p99": 0.0,
+                "maximum": 0.0
+              },
+              {
+                "available": false,
+                "count": 0,
+                "p50": 0.0,
+                "p95": 0.0,
+                "p99": 0.0,
+                "maximum": 0.0
+              }
+            ]
+          },
+          "private_sampled_peak_bytes": {
+            "values": [
+              895975424,
+              868818944,
+              864903168
+            ],
+            "median": 868818944,
+            "minimum": 864903168,
+            "maximum": 895975424
+          },
+          "working_set_process_peak_bytes": {
+            "values": [
+              524390400,
+              492867584,
+              487194624
+            ],
+            "median": 492867584,
+            "minimum": 487194624,
+            "maximum": 524390400
+          }
+        }
+      ]
+    }
+  ],
+  "input_assets": [
+    {
+      "path": "Unity/Assets/GreatWave/Art/Playback18/fluid17.abc",
+      "bytes": 61097540,
+      "sha256": "7d7921f4b22a4e54b594847a2f564c02d7b3b46d3ecbea611503c7497850b7cc"
+    },
+    {
+      "path": "Unity/Assets/GreatWave/Art/Playback18/VAT/fluid17_mesh.fbx",
+      "bytes": 33561441,
+      "sha256": "1d9887c897857bad93a3599bcbfec6d10cf234e1e57c2fcca26e647c0f085a5c"
+    },
+    {
+      "path": "Unity/Assets/GreatWave/Art/Playback18/VAT/fluid17_pos.exr",
+      "bytes": 10104623,
+      "sha256": "70614740ac07d01e5b3d6cc44bb8f25169923e275326a5c5969354fbe64ffb72"
+    },
+    {
+      "path": "Unity/Assets/GreatWave/Art/Playback18/VAT/fluid17_rot.exr",
+      "bytes": 17302964,
+      "sha256": "1f67d2f1940ba86cbdbdef6de0e3c35f8bc85a04f3185f60406bff916e06e5c8"
+    },
+    {
+      "path": "Unity/Assets/GreatWave/Art/Playback18/VAT/fluid17_lookup.exr",
+      "bytes": 11420866,
+      "sha256": "c1a0bc733c220af07d0c222c8a758524362a534d77dcecf435dec80b7376f5c9"
+    },
+    {
+      "path": "Unity/Assets/GreatWave/Art/Playback18/VAT/metadata.json",
+      "bytes": 277,
+      "sha256": "0e91fe1314adaa3f1561d69d5c8e9829395f093668209608bbb9cf897f0b7b2f"
+    }
+  ],
+  "shared_build_capacity": {
+    "unity_build_report_bytes": 409414591,
+    "payload_file_count": 270,
+    "actual_payload_bytes": 470512131,
+    "note_ja": "実配布一式は実ファイル合計で数える。Unity BuildReportとの差は61,097,540bytesでABC本体サイズと同じだが、報告側の除外原因は断定しない。両形式を含む共通buildであり、方式別パッケージ差ではない。"
+  }
+}

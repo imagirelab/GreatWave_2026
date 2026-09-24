@@ -2,7 +2,17 @@
 
 『神奈川沖浪裏』をHoudini・Blender・UnityでリアルタイムVR作品にする制作記録です。旧試作を参照せず、番号ごとに新規検証してコミットします。
 
-利用者が18を確認し続行を指示したため、19で新しい実FLIPの30/60Hz比較とPC深度・影を検査しました。**19のPC中間成果で確認を待ちます。HMD未所持のため19全体は未完了、20の方式採用は未実施です。** 進行役は指示とレビュー、実装担当のGPT-6は制作とコミットを担当します。
+利用者の最新指示により、代理が各番号を制作・独立レビューして最終作品へ継続します。**20では同じ24Hz小試料のPCロード・メモリ・CPU費用を測り、Built-in＋Alembicを制作の形状基準として暫定継続します。VATは候補を保持。GPU時間・HMD・主役波が未検証のため、最終VR形式は未採用です。** 進行役は指示とレビュー、実装担当のGPT-6は制作とコミットを担当します。
+
+## 20のPC測定と暫定判断を見る
+
+- [Alembicの近景・2秒動画](Docs/Evidence/M1/Decision20/20_abc_2s.mp4)／[Fluid VATの同視点動画](Docs/Evidence/M1/Decision20/20_vat_2s.mp4)
+- [Alembic 1秒](Docs/Evidence/M1/Decision20/20_abc_024.png)／[VAT 1秒](Docs/Evidence/M1/Decision20/20_vat_024.png)
+- [3回ずつの実測表・採用条件・再現方法](Docs/Progress/Step_20_ja.md)／[01〜20の検証状態と残る条件](Docs/Progress/Verification_Status_ja.md)
+
+20専用Windows版の6つの新プロセスで、同じ入力を広景/固定近景・単眼/人工2視点で測りました。新プロセス初回scene読込の中央値はABC 19.67ms、VAT 153.11ms。VATはCPU更新が軽い一方、初回メモリ増分が大きく、GPU時間は追加の通常カメラ診断でも取得できませんでした。映像は計測外の近景カメラによる実描画で、性能値やHMD映像ではありません。
+
+測定用一式は `G:\Unity\GreatWave_2026_Fresh\Unity\Builds\Decision20\`。[ビルド](Tools/Build_Decision20.ps1)／[測定・媒体の再取得](Tools/Run_Decision20.ps1)。次の小振幅波の物理基準など独立した制作へ進み、HMDが必要な判定は保留一覧に残します。
 
 ## 19の時間標本・深度・影を見る
 
@@ -21,7 +31,7 @@
 - [初期2球](Docs/Evidence/M1/Playback18/18_Comparison_000.png)／[結合](Docs/Evidence/M1/Playback18/18_Comparison_003.png)／[分離](Docs/Evidence/M1/Playback18/18_Comparison_024.png)／[2秒末端](Docs/Evidence/M1/Playback18/18_Comparison_048.png)
 - [数値・性能・容量・再現方法・制限](Docs/Progress/Step_18_ja.md)／[Houdini出力と専用デコーダーの出典](Houdini/PlaybackComparison18/README_ja.md)
 
-実Windowsビルドの同じ視点によるオフスクリーン描画です。元の三角化面との位置差は両方式0m、法線角差はVATで最大約0.028°でした。これは小さな技術試料の転送検査で、北斎の砕波・物理精度・HMDの合格ではありません。CPU負荷、容量、未測定のGPU時間/総メモリを区別し、採用方式は決めていません。
+実Windowsビルドの同じ視点によるオフスクリーン描画です。元の三角化面との位置差は両方式0m、法線角差はVATで最大約0.028°でした。これは小さな技術試料の転送検査で、北斎の砕波・物理精度・HMDの合格ではありません。18当時は方式を採用せず、20で独立ロード・メモリを追加してPC制作経路を暫定判断しました。GPU時間と最終VR採用は引き続き保留です。
 
 本機の実行一式は `G:\Unity\GreatWave_2026_Fresh\Unity\Builds\Playback18\`。`GreatWave18.exe`を起動し、1でAlembic、2でVAT、Spaceで停止・再開、Rで先頭、Qで終了。配布にはフォルダー全体が必要です。
 
@@ -53,7 +63,7 @@
 
 実行中のSteam Houdini22.0.429へMCPで接続し、新規の変形格子をAlembicへ書き出しました。Unity EditorとWindows実行版で61時刻と60個の補間点を照合しました。解析式の検査用形状で、流体ではありません。通常起動は2秒で停止し、Rで再生、Spaceで停止・再開、Qで終了。本機の実行ファイルは `G:\Unity\GreatWave_2026_Fresh\Unity\Builds\FixedTopology16\GreatWave16.exe`。移す場合はフォルダー全体が必要です。
 
-既存HIPを保存・読み直さず、所有ノードだけのCPIOを保存・再読込しました。UIと所有ノードの復元を確認し、変更済みフラグとUndo履歴は保持しています。.hiplcの再起動・再読込、HMD、物理キー操作は未検証。17の新規FLIP試料と18の形式比較は上記の別記録へ進み、19のPC試験は上記の新規記録へ進み、HMDと20の方式採用は未実施です。
+既存HIPを保存・読み直さず、所有ノードだけのCPIOを保存・再読込しました。UIと所有ノードの復元を確認し、変更済みフラグとUndo履歴は保持しています。.hiplcの再起動・再読込、HMD、物理キー操作は未検証。17〜20の実流体・転送・時間密度・PC暫定判断は上記の独立記録へ進み、HMDと最終VR採用は保留しています。
 
 ## M0の基礎検証記録
 
@@ -85,4 +95,4 @@ M0の画像・動画は新規Windows実行版の実シーンを、Unityでオフ
 | `Unity/` | リアルタイム表示、HMD体験、船の操作の統合 |
 | `Docs/` | 設計と各段階の確認記録 |
 
-完成点ごとに実際の結果を保存し、確認後に次の工程へ進みます。HMD実機の必須試験は保留一覧に残しています。
+完成点ごとに実際の結果を保存し、代理による番号別の独立確認後に次の工程へ進みます。利用者の毎回の返答を待つ条件は最新指示で解除されました。HMD実機の必須試験は保留一覧に残しています。
