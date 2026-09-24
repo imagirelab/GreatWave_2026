@@ -47,6 +47,7 @@ namespace GreatWave.Editor
                     if (m != null)
                     {
                         if (m.name.Contains("M1_Indigo")) color = new Color(.018f,.10f,.20f);
+                        else if (m.name.Contains("M1_FoamCream")) color = new Color(.95f,.91f,.77f);
                         else if (m.name.Contains("M1_DeepBlue")) color = new Color(.012f,.053f,.12f);
                         else if (m.name.Contains("M1_LightBlue")) color = new Color(.23f,.46f,.53f);
                         else if (m.name.Contains("M1_Blue")) color = new Color(.065f,.27f,.39f);
@@ -205,6 +206,29 @@ namespace GreatWave.Editor
             var points = root.GetComponentsInChildren<MeshFilter>().SelectMany(f => f.sharedMesh.vertices.Select(v => camera.WorldToViewportPoint(f.transform.TransformPoint(v)))).ToArray();
             return Rect.MinMaxRect(points.Min(p => p.x),points.Min(p => p.y),points.Max(p => p.x),points.Max(p => p.y));
         }
+
+        public static void Step13()
+        {
+            var scene = EditorSceneManager.OpenScene(ScenePath);
+            var old = GameObject.Find("M1 static foam and foreground swell");
+            if (old != null) UnityEngine.Object.DestroyImmediate(old);
+            var foam = Model("foam_static.fbx", "M1 static foam and foreground swell", Vector3.zero);
+            var meshes = foam.GetComponentsInChildren<MeshFilter>();
+            var bounds = BoundsOf(foam);
+            bool finite = meshes.All(f => f.sharedMesh.vertices.All(v => IsFinite(v.x) && IsFinite(v.y) && IsFinite(v.z)));
+            bool materials = foam.GetComponentsInChildren<Renderer>().All(r => r.sharedMaterials.All(m => m != null && m.shader != null));
+            var report = new FoamResult { meshCount = meshes.Length, vertexCount = meshes.Sum(m => m.sharedMesh.vertexCount), boundsSize = bounds.size,
+                finite = finite, materialsAssigned = materials, staticNotFoamSimulation = true,
+                passed = meshes.Length == 30 && finite && materials && bounds.size.z > 15 };
+            File.WriteAllText("../Docs/Evidence/M1/13_foam.json",JsonUtility.ToJson(report,true));
+            if (!report.passed) throw new InvalidOperationException("13の白波模型の読み込みが不合格です。");
+            EditorSceneManager.SaveScene(scene); AssetDatabase.SaveAssets();
+            Render(Camera.main,"../Docs/Evidence/M1/13_composition.png");
+            Debug.Log("M1_STEP13_PASS: static modeled foam; no simulation");
+        }
+
+        static bool IsFinite(float f) { return !float.IsNaN(f) && !float.IsInfinity(f); }
+        [Serializable] class FoamResult { public int meshCount,vertexCount; public Vector3 boundsSize; public bool finite,materialsAssigned,staticNotFoamSimulation,passed; }
 
         [Serializable] class PlacementResult
         {
