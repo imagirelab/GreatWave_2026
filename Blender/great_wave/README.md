@@ -2,7 +2,13 @@
 
 このディレクトリには、『神奈川沖浪裏』の最大の波を対象にした、パラメトリックな形状生成、および利用者提供の参照模型を底稿にした変形とアニメーションの研究を収めています。生成コードは `src/gwave/`、旧版のテストは `tests/`、原画からトレースした目標輪郭は `target/` にあります。以前の課題説明と段階記録は `docs/` に残しています。`docs/legacy_readme_2026-09-20.md` は移行前の説明であり、そこに書かれた旧パスと「Git がない」という記述は現在には当てはまりません。
 
-## 現在の比較試作：参照模型からの前進波
+## HoudiniのFLIP結果を実際に表示した比較
+
+**[全槽の固定側面](../../Houdini/wave_tank/previews/試作02_側面.mp4) ｜ [波頭の拡大](../../Houdini/wave_tank/previews/試作02_側面拡大.mp4) ｜ [固定斜視](../../Houdini/wave_tank/previews/試作02_斜視.mp4) ｜ [旧キャッシュの直接表示](../../Houdini/wave_tank/previews/旧キャッシュ_側面.mp4)**
+
+新しいFLIP計算は各72フレーム・24 fpsです。公式Blender MCPからAlembicを読み込み、形と時間を変更せず表示しました。**大きい巻浪の造形はまだ成立していません。** [2条件の結果と旧キャッシュの比較](docs/milestones/2026-09-24_fluid_trials.md)、[計算条件](../../Houdini/wave_tank/README.md)を参照してください。
+
+## 造形の比較試作：参照模型からの前進波
 
 **[追跡視点の動画](deliverables/reference_actor_volume.mp4) ｜ [固定視点の動画](deliverables/reference_actor_fixed.mp4) ｜ [アニメーション内蔵の Blender ファイル](deliverables/reference_actor_animated.blend)**
 

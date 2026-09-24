@@ -7,12 +7,23 @@
 | フォルダー | 役割 | 現状 |
 | --- | --- | --- |
 | `Unity/` | リアルタイム表示、浮世絵表現、HMD 体験、船の操作を統合する | 既存の試作を収録 |
-| `Houdini/` | 波浪の流体シミュレーションとサーフェス化 | Steam版Indieで3フレームのAlembic書出し・再読込みを確認。流体計算とUnity読込みは次段階 |
+| `Houdini/` | 波浪の流体シミュレーションとサーフェス化 | 2条件のFLIP波槽を各72フレーム計算し、AlembicをBlenderで表示。目標の巻浪は未達。Unity読込みは未検証 |
 | `Blender/` | 大波の造形・アニメーション研究と、船などの静的モデルの制作 | 大波の試作と検証を収録。船のモデルは未制作 |
 | `Whitewater/` | 白波を主波面とは別モデルとしてアニメーション化する | Blender による造形・アニメーションの試作を収録。物理的妥当性は未検証 |
 | `Docs/` | 教員の要求、Rider AI による設計、段階ごとの検証記録 | 要求を記録。Rider AI による設計は未実施 |
 
 ## 大波の試作動画
+
+### Houdiniの流体計算：形状確認
+
+- [試作02：全槽の固定側面（3秒）](Houdini/wave_tank/previews/試作02_側面.mp4)
+- [試作02：波頭の固定拡大（3秒）](Houdini/wave_tank/previews/試作02_側面拡大.mp4)
+- [試作02：固定斜視（3秒）](Houdini/wave_tank/previews/試作02_斜視.mp4)
+- [以前のHoudiniキャッシュ：直接表示による比較（約2.29秒）](Houdini/wave_tank/previews/旧キャッシュ_側面.mp4)
+
+新しい2条件では実際のFLIP流体を計算しましたが、**参照模型のような深い開口と大きな巻下げには達していません。** 単色表示で波の形を確認する段階です。[画面による判定](Blender/great_wave/docs/milestones/2026-09-24_fluid_trials.md)、[計算条件と再現手順](Houdini/wave_tank/README.md)に結果と限界を記録しています。
+
+### Blenderの造形・アニメーション比較
 
 - [参照模型を底稿にした前進と巻き下げ：追跡視点（MP4）](Blender/great_wave/deliverables/reference_actor_volume.mp4)
 - [同じ運動を固定視点で確認する動画（MP4）](Blender/great_wave/deliverables/reference_actor_fixed.mp4)

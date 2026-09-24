@@ -1,6 +1,12 @@
 # 大波の試作動画と Blender ファイル
 
-## 現在の比較試作：利用者の参照模型を底稿にした前進波
+## 実流体計算の比較動画
+
+[Houdini試作02の全槽側面](../../../Houdini/wave_tank/previews/試作02_側面.mp4) ｜ [波頭の拡大](../../../Houdini/wave_tank/previews/試作02_側面拡大.mp4) ｜ [固定斜視](../../../Houdini/wave_tank/previews/試作02_斜視.mp4) ｜ [旧キャッシュの直接表示](../../../Houdini/wave_tank/previews/旧キャッシュ_側面.mp4)
+
+新試作は各72フレーム・24 fps・3秒で、実際のFLIP結果を表示しています。深いC形の開口と大きな巻下げは未達です。[判定と制限](../docs/milestones/2026-09-24_fluid_trials.md)を参照してください。
+
+## 造形の比較試作：利用者の参照模型を底稿にした前進波
 
 **[波を追跡する視点](reference_actor_volume.mp4) ｜ [固定した視点](reference_actor_fixed.mp4)**
 
