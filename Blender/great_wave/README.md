@@ -4,6 +4,17 @@
 
 ## HoudiniのFLIP結果を実際に表示した比較
 
+### 最新：参照水体の自由発展
+
+- 主波の単色表示：[固定側面（4秒）](../../Houdini/reference_release/previews/自由発展01_側面.mp4) ／ [固定斜視（4秒）](../../Houdini/reference_release/previews/自由発展01_斜視.mp4)
+- 白波と色面表示：[固定斜視（1秒）](../../Houdini/reference_release/previews/自由発展01_白波と色面_斜視.mp4) ／ [固定側面（1秒）](../../Houdini/reference_release/previews/自由発展01_白波と色面_側面.mp4)
+
+参照の巻いた水体と高さに応じた非零の初期速度から、主波を96フレーム・24 fpsで計算した結果です。白波は第2～24フレームを別に生成・計算・後処理し、第1フレームを白波なしとして表示しています。
+
+**形成と開口の保持は未達です。** 第1・6フレームのC形は第12フレーム（開始から約0.46秒）には保持できず、第17フレーム以降には側壁の影響の懸念があります。初期の粒子表面にも参照からの開口の縮小と唇の厚みの増加があります。[画面・断面の判定](docs/milestones/2026-09-24_reference_release.md)、[Houdiniの計算条件](../../Houdini/reference_release/README.md)に限界を記録します。低い浪からの形成は未確認で、初期速度0の対照A0は未実行です。誘導条件BはNumPyの解析場の確認までで、誘導FLIPは未実行です。
+
+### 以前の波槽・集束波群との比較
+
 追加した[集束波群の側面動画](../../Houdini/focused_packet/previews/集束波_側面.mp4)と[斜視動画](../../Houdini/focused_packet/previews/集束波_斜視.mp4)も各3秒です。前面は急になりますが、参照の深い開口と高い局所峰は未達です。[初期条件と表示の記録](docs/milestones/2026-09-24_focused_packet.md)を参照してください。
 
 **[全槽の固定側面](../../Houdini/wave_tank/previews/試作02_側面.mp4) ｜ [波頭の拡大](../../Houdini/wave_tank/previews/試作02_側面拡大.mp4) ｜ [固定斜視](../../Houdini/wave_tank/previews/試作02_斜視.mp4) ｜ [旧キャッシュの直接表示](../../Houdini/wave_tank/previews/旧キャッシュ_側面.mp4)**

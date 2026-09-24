@@ -45,7 +45,7 @@ def _material():
 
 
 def build(cache_path, end_frame, fps=24, name="浅化する単波のFLIP確認"):
-    """新しい場面へ実キャッシュを読み、他の研究用場面を保持する。"""
+    """新しい場面へ実キャッシュまたは初期表面を読み込む。"""
     cache_path = Path(cache_path).resolve()
     if not cache_path.is_file():
         raise FileNotFoundError(cache_path)
@@ -65,12 +65,17 @@ def build(cache_path, end_frame, fps=24, name="浅化する単波のFLIP確認")
     bg.inputs["Color"].default_value = rgba("#d8d0ba")
     bg.inputs["Strength"].default_value = .65
     previous = set(bpy.data.objects)
-    bpy.ops.wm.alembic_import(filepath=str(cache_path), set_frame_range=False,
-                             always_add_cache_reader=True, as_background_job=False)
+    if cache_path.suffix.lower() == ".obj":
+        if end_frame != 1:
+            raise ValueError("静止OBJの確認は1フレームに限定します")
+        bpy.ops.wm.obj_import(filepath=str(cache_path), forward_axis="NEGATIVE_Z", up_axis="Y")
+    else:
+        bpy.ops.wm.alembic_import(filepath=str(cache_path), set_frame_range=False,
+                                 always_add_cache_reader=True, as_background_job=False)
     imported = [obj for obj in bpy.data.objects if obj not in previous]
     meshes = [obj for obj in imported if obj.type == "MESH"]
     if not meshes:
-        raise ValueError("Alembic にサーフェスメッシュがありません")
+        raise ValueError("入力ファイルにサーフェスメッシュがありません")
     material = _material()
     for index, obj in enumerate(meshes):
         obj.name = f"FLIPの実計算サーフェス_{index+1}"
@@ -92,7 +97,8 @@ def build(cache_path, end_frame, fps=24, name="浅化する単波のFLIP確認")
     scene["検証段階"] = "低解像度の流体計算。北斎の造形・白波・体験の完成品質は未達"
     scene["キャッシュ"] = str(cache_path)
     scene.frame_set(1)
-    manifest = {"説明": "Alembic のサーフェスを変形せず表示する比較場面。", "cache": str(cache_path),
+    manifest = {"説明": "入力サーフェスを変形せず表示する比較場面。", "cache": str(cache_path),
+                "入力形式": cache_path.suffix.lower(),
                 "frame_start": 1, "frame_end": end_frame, "fps": fps,
                 "meshes": [obj.name for obj in meshes], "samples": sample_geometry(meshes, [1, end_frame])}
     (OUTPUT / "import_check.json").write_text(json.dumps(manifest, ensure_ascii=False, indent=2), encoding="utf-8")
@@ -142,11 +148,12 @@ def render_movie(camera="CAM_斜め確認", suffix="oblique"):
     stem = OUTPUT / f"fluid_{suffix}_"
     scene.render.filepath = str(stem)
     bpy.ops.render.render(animation=True)
-    files = list(OUTPUT.glob(stem.name+"*.mp4"))
-    if len(files) != 1:
-        raise RuntimeError("出力した動画を一つに特定できません")
+    # 別視点の末尾名や過去のフレーム範囲を同じ動画と取り違えない。
+    rendered = OUTPUT / f"{stem.name}{scene.frame_start:04d}-{scene.frame_end:04d}.mp4"
+    if not rendered.is_file():
+        raise RuntimeError(f"指定した範囲の動画がありません: {rendered.name}")
     target = OUTPUT / f"fluid_{suffix}.mp4"
-    files[0].replace(target)
+    rendered.replace(target)
     scene.render.image_settings.media_type = "IMAGE"
     scene.render.image_settings.file_format = "PNG"
     return str(target)

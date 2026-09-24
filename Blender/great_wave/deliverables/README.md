@@ -1,5 +1,16 @@
 # 大波の試作動画と Blender ファイル
 
+## 最新：参照水体の自由発展と別計算の白波
+
+- 主波の単色表示：[固定側面（4秒）](../../../Houdini/reference_release/previews/自由発展01_側面.mp4) ／ [固定斜視（4秒）](../../../Houdini/reference_release/previews/自由発展01_斜視.mp4)
+- 白波と色面表示：[固定斜視（1秒）](../../../Houdini/reference_release/previews/自由発展01_白波と色面_斜視.mp4) ／ [固定側面（1秒）](../../../Houdini/reference_release/previews/自由発展01_白波と色面_側面.mp4)
+
+主波は96フレーム・24 fpsのFLIP結果です。巻いた参照水体と高さに応じた非零の初期速度を与えています。白波は第2～24フレームを別に生成・計算・後処理した短い確認で、第1フレームには白波がありません。
+
+**巻浪の形成と保持は未達です。** 第1・6フレームのC形は第12フレーム（開始から約0.46秒）には保持できていません。初期表面には開口の縮小と唇の厚みの増加があり、第17フレーム以降は側壁の影響も懸念されます。[表示と断面の判定](../docs/milestones/2026-09-24_reference_release.md)、[計算条件と制限](../../../Houdini/reference_release/README.md)を参照してください。
+
+低い浪からの形成は未確認、初期速度0の対照A0は未実行です。誘導条件Bは解析速度場のNumPy検証までで、誘導FLIPは未実行です。
+
 ## 実流体計算の比較動画
 
 [集束波群の固定側面](../../../Houdini/focused_packet/previews/集束波_側面.mp4) ｜ [固定斜視](../../../Houdini/focused_packet/previews/集束波_斜視.mp4)。各3秒、造形は未達です。[追加試行の確認範囲](../docs/milestones/2026-09-24_focused_packet.md)を参照してください。
