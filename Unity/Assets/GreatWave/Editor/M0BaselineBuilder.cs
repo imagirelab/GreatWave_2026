@@ -77,7 +77,7 @@ namespace GreatWave.Editor
             sun.intensity = 1.1f;
             sun.transform.rotation = Quaternion.Euler(45, -30, 0);
             PlayerSettings.companyName = "GreatWave Research";
-            PlayerSettings.productName = "GreatWave M0 Desktop Preflight";
+            PlayerSettings.productName = "GreatWave M0 PC確認版";
             PlayerSettings.defaultScreenWidth = 1280;
             PlayerSettings.defaultScreenHeight = 720;
             PlayerSettings.fullScreenMode = FullScreenMode.Windowed;
@@ -87,13 +87,24 @@ namespace GreatWave.Editor
             QualitySettings.antiAliasing = 4;
             PlayerSettings.SetGraphicsAPIs(BuildTarget.StandaloneWindows64, new[] { GraphicsDeviceType.Direct3D11 });
             PlayerSettings.SetScriptingBackend(UnityEditor.Build.NamedBuildTarget.Standalone, ScriptingImplementation.Mono2x);
-            EditorSceneManager.SaveScene(scene, ScenePath);
+            bool sceneSaved = EditorSceneManager.SaveScene(scene, ScenePath);
             EditorBuildSettings.scenes = new[] { new EditorBuildSettingsScene(ScenePath, true) };
             AssetDatabase.SaveAssets();
             var report = new BaselineReport { unity = Application.unityVersion, scene = ScenePath,
                 objects = scene.GetRootGameObjects().Length, cubeSize = GameObject.Find("Unity 1m reference").GetComponent<Renderer>().bounds.size,
-                pipeline = "Built-in（M0暫定）", hmdStatus = "未所持・実機未検証", passed = true };
+                pipeline = "Built-in（M0暫定）", hmdStatus = "未所持・実機未検証" };
+            report.sceneSaved = sceneSaved && File.Exists(ScenePath);
+            report.sceneEnabled = EditorBuildSettings.scenes.Length == 1 && EditorBuildSettings.scenes[0].enabled
+                && EditorBuildSettings.scenes[0].path == ScenePath;
+            report.cubeWithinTolerance = Mathf.Abs(report.cubeSize.x - 1f) <= .001f
+                && Mathf.Abs(report.cubeSize.y - 1f) <= .001f && Mathf.Abs(report.cubeSize.z - 1f) <= .001f;
+            report.cameraConfigured = camera != null && camera.enabled && camera.nearClipPlane > 0
+                && camera.farClipPlane > 200 && camera.CompareTag("MainCamera");
+            report.materialsConfigured = water.shader != null && cream.shader != null;
+            report.passed = report.sceneSaved && report.sceneEnabled && report.cubeWithinTolerance
+                && report.cameraConfigured && report.materialsConfigured;
             File.WriteAllText("../Docs/Evidence/M0/06_baseline.json", JsonUtility.ToJson(report, true));
+            if (!report.passed) throw new InvalidOperationException("06の基準シーン検証が不合格。JSONを確認してください。");
             Debug.Log("M0_STEP06_PASS: scene saved; unit cube=" + report.cubeSize);
         }
 
@@ -102,7 +113,7 @@ namespace GreatWave.Editor
             public string unity, scene, pipeline, hmdStatus;
             public int objects;
             public Vector3 cubeSize;
-            public bool passed;
+            public bool sceneSaved, sceneEnabled, cubeWithinTolerance, cameraConfigured, materialsConfigured, passed;
         }
     }
 }

@@ -14,3 +14,5 @@
 再現：Unityを閉じ、Editorへ `-batchmode -nographics -projectPath <repo>/Unity -executeMethod GreatWave.Editor.M0BaselineBuilder.Create -quit -logFile <path>` を渡す。この操作は基準シーンを06の状態へ再生成するため、後続の船を含むシーンが必要な場合は後続工程も順番に実行する。
 
 今回は画面の見栄え・PC実行ビルド・HMDを検証していない。実出力画像は10でPCビルドから保存する。
+
+レビュー後の再検証：合否を固定値にせず、シーン保存、ビルド登録、各軸±0.001m、カメラの有効設定、材質のshader存在から算出するよう修正した。再実行で全項目がtrue、終了コード0を確認した。Windowsの表示名も日本語にした。
