@@ -1,5 +1,18 @@
 # 大波の試作動画と Blender ファイル
 
+## 現在の比較試作：利用者の参照模型を底稿にした前進波
+
+**[波を追跡する視点](reference_actor_volume.mp4) ｜ [固定した視点](reference_actor_fixed.mp4)**
+
+各450フレーム、30 fps、15秒。形成、前進、前側の唇の巻き下げ、低い波への移行を確認します。追跡視点は波と同速で移動する比較カメラで、固定した船上視点ではありません。
+
+- [アニメーション内蔵の Blender ファイル](reference_actor_animated.blend)
+- [高峰の比較画像](reference_actor_volume.png)
+- [船上の高さからの比較画像](reference_actor_boat.png)
+- [前側が巻き下がる比較画像](reference_actor_curl.png)
+
+基礎造形は利用者提供の `wave_repair_zbrush2.obj` の派生です。新規に造形した作品とは扱いません。**完成品質には達していません。** 着水衝突や流体物理は未検証です。[出典・方法・確認範囲・課題](../docs/milestones/2026-09-24_reference_actor.md)を参照してください。
+
 ## 改訂試作：局所的な高峰と分岐白波
 
 **[斜めから見る動画](localized_wave_volume.mp4) ｜ [原画方向から見る動画](localized_wave_print.mp4)**

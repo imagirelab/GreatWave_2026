@@ -7,18 +7,18 @@
 | フォルダー | 役割 | 現状 |
 | --- | --- | --- |
 | `Unity/` | リアルタイム表示、浮世絵表現、HMD 体験、船の操作を統合する | 既存の試作を収録 |
-| `Houdini/` | 波浪の流体シミュレーションとサーフェス化 | 制作前 |
+| `Houdini/` | 波浪の流体シミュレーションとサーフェス化 | Steam版Indieで3フレームのAlembic書出し・再読込みを確認。流体計算とUnity読込みは次段階 |
 | `Blender/` | 大波の造形・アニメーション研究と、船などの静的モデルの制作 | 大波の試作と検証を収録。船のモデルは未制作 |
 | `Whitewater/` | 白波を主波面とは別モデルとしてアニメーション化する | Blender による造形・アニメーションの試作を収録。物理的妥当性は未検証 |
 | `Docs/` | 教員の要求、Rider AI による設計、段階ごとの検証記録 | 要求を記録。Rider AI による設計は未実施 |
 
 ## 大波の試作動画
 
-- [改訂試作：斜めから見る動き（MP4）](Blender/great_wave/deliverables/localized_wave_volume.mp4)
-- [改訂試作：原画方向から見る動き（MP4）](Blender/great_wave/deliverables/localized_wave_print.mp4)
-- [アニメーションを内蔵した Blender ファイル](Blender/great_wave/deliverables/localized_wave_animated.blend)
+- [参照模型を底稿にした前進と巻き下げ：追跡視点（MP4）](Blender/great_wave/deliverables/reference_actor_volume.mp4)
+- [同じ運動を固定視点で確認する動画（MP4）](Blender/great_wave/deliverables/reference_actor_fixed.mp4)
+- [アニメーションを内蔵した Blender ファイル](Blender/great_wave/deliverables/reference_actor_animated.blend)
 
-改訂試作は局所的な高峰、非対称の肩、独立した分岐白波と小滴を検討するものです。動画は 30 fps、11.5 秒で、立上りから最終姿勢での静止までを収録しています。**参考映像と同等の完成品質に達したという判定ではありません。** 残る問題は[改訂記録](Blender/great_wave/docs/milestones/2026-09-24_localized_wave_rebuild.md)に記載しています。
+現在の比較試作は、利用者提供の3D参考模型を簡略化し、水体と白波を分離して動かしたものです。基礎造形を新たに自作したものではありません。動画は 30 fps、15 秒で、形成、前進、前側の巻き下げ、低波への移行を収録しています。**参考映像と同等の完成品質に達したという判定ではありません。** 制作方法、出典、検証範囲と課題は[改訂記録](Blender/great_wave/docs/milestones/2026-09-24_reference_actor.md)に記載しています。
 
 旧版の動画も[成果物一覧](Blender/great_wave/deliverables/README.md)から比較できます。Houdini の流体シミュレーション、Unity でのリアルタイム表示、HMD での動作は、この Blender 試作では検証していません。
 

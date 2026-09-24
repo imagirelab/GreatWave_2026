@@ -1,12 +1,22 @@
 # Great Wave：Blender による動く大波の試作
 
-このディレクトリには、『神奈川沖浪裏』の最大の波を対象にした**パラメトリックな形状生成とアニメーションの研究**を収めています。形状は `src/gwave/` と `wave_params.json` から生成し、テストは `tests/`、原画からトレースした目標輪郭は `target/` にあります。以前の課題説明と段階記録は `docs/` に残しています。`docs/legacy_readme_2026-09-20.md` は移行前の説明であり、そこに書かれた旧パスと「Git がない」という記述は現在には当てはまりません。
+このディレクトリには、『神奈川沖浪裏』の最大の波を対象にした、パラメトリックな形状生成、および利用者提供の参照模型を底稿にした変形とアニメーションの研究を収めています。生成コードは `src/gwave/`、旧版のテストは `tests/`、原画からトレースした目標輪郭は `target/` にあります。以前の課題説明と段階記録は `docs/` に残しています。`docs/legacy_readme_2026-09-20.md` は移行前の説明であり、そこに書かれた旧パスと「Git がない」という記述は現在には当てはまりません。
 
-## 改訂試作の動画とアニメーション
+## 現在の比較試作：参照模型からの前進波
+
+**[追跡視点の動画](deliverables/reference_actor_volume.mp4) ｜ [固定視点の動画](deliverables/reference_actor_fixed.mp4) ｜ [アニメーション内蔵の Blender ファイル](deliverables/reference_actor_animated.blend)**
+
+利用者提供の `wave_repair_zbrush2.obj` を底稿として簡略化し、水体と白波を別メッシュにしました。新規の独自造形と主張するものではありません。動画は30 fps、15秒です。前側の唇を巻き下げ、後背は遅れて低くします。追跡カメラと固定カメラを分けて、形の変化と前進を確認します。
+
+![参照模型を底稿にした前進波の比較姿勢](deliverables/reference_actor_volume.png)
+
+**目標未達の試作です。** 本格的な水舌の離脱、着水衝突、砕ける白波、体積保存は未実装・未検証です。[出典と制作・確認の記録](docs/milestones/2026-09-24_reference_actor.md)を参照してください。
+
+## 前段階：局所高峰の掃引
 
 **[斜めから見る動画](deliverables/localized_wave_volume.mp4) ｜ [原画方向から見る動画](deliverables/localized_wave_print.mp4) ｜ [アニメーション内蔵の Blender ファイル](deliverables/localized_wave_animated.blend)**
 
-新しい候補は `src/gwave/localized_sweep.py`、`branching_whitewater.py`、`build_localized_scene.py` で生成します。峰方向に同じ断面を展開する処理を見直し、局所的な高峰と非対称な肩を作りました。独立した厚片の白波、小滴、周辺海面の動きを含みます。動画は30 fps、11.5秒です。新しい `.blend` には絶対シェイプキーを保存しているため、外部のPC2キャッシュは不要です。
+前段階の候補は `src/gwave/localized_sweep.py`、`branching_whitewater.py`、`build_localized_scene.py` で生成します。峰方向に同じ断面を展開する処理を見直し、局所的な高峰と非対称な肩を作りました。独立した厚片の白波、小滴、周辺海面の動きを含みます。動画は30 fps、11.5秒です。この `.blend` には絶対シェイプキーを保存しているため、外部のPC2キャッシュは不要です。
 
 ![改訂候補の斜め視点](deliverables/localized_wave_volume.png)
 
@@ -43,6 +53,6 @@
 
 ## バージョン管理
 
-新しい `deliverables/localized_wave_animated.blend` は、動画と対応する比較用アニメーションを単体で開けるように保存した例外です。以下のPC2参照に関する記述は旧版に適用します。
+`deliverables/reference_actor_animated.blend` と `deliverables/localized_wave_animated.blend` は、動画と対応する比較用アニメーションを単体で開けるように保存した例外です。以下のPC2参照に関する記述は旧版に適用します。
 
 `src/`、`tests/`、`target/`、`tools/`、2 つのパラメータファイル、必要な `docs/`、および `deliverables/` の小さな静止確認用ファイルと動画をコミット対象にします。`results/`、`cache/`、`blend/` 内のレンダリング、点キャッシュ、生成されたアニメーション用 `.blend` は再生成可能で、`.gitignore` で除外しています。実行時に生成する本体 PC2 は約 289 MB です。アニメーション用 `.blend` だけでは、対応する点キャッシュがない限り動きを再現できません。コミット前に `git status` を確認し、大きな生成ファイルを誤って含めないようにしてください。
