@@ -6,7 +6,11 @@
 
 ## 22の実水槽・中間結果を見る
 
-最新の22修正06は、保存粒子から旧PFS `.5` の3時刻を厳密再現した後、t6の一面だけ `.25` へ細分化しました。旧新各195断面の読戻しは成立し、中央の高さ差は+0.0483/+0.0726/−0.1481mm。**単一静水時刻の面化感度であり、波形・物理精度・番号22完成は未判定です。** 新しい流体計算や他frameへの拡張は行っていません。
+最新の22修正07は、独立審査後に保存粒子のk474（t7.9）一面だけをPFS `.25` へ細分化しました。旧新各195断面が整合し、中央の高さ差は+0.0760/+0.0036/−0.1589mm。**単一時刻の表示面感度であり、波形・物理精度・番号22完成は未判定です。** 新しい流体計算やdetectorの再判定は行っていません。
+
+- [修正07・中央3測点の原値](Houdini/Wave22/Evidence/Revision07/22_refine07_centers.png)／[195位置の実差](Houdini/Wave22/Evidence/Revision07/22_refine07_spatial_difference.png)／[原JSON・再現・限界](Houdini/Wave22/Evidence/Revision07/README_ja.md)
+
+修正06の旧`.5`三面再現とt6一面の`.25`診断は、当時の証拠をそのまま保持しています。
 
 - [修正06・中央の原水位と面化差](Houdini/Wave22/Evidence/Revision06/22_refine06_centers.png)／[195位置の実差](Houdini/Wave22/Evidence/Revision06/22_refine06_spatial_difference.png)／[失敗履歴・原JSON・再現・限界](Houdini/Wave22/Evidence/Revision06/README_ja.md)
 

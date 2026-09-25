@@ -272,3 +272,27 @@ python -B Houdini/Wave22/Evidence/Revision06/Source/summarize_revision06.py --in
 ```
 
 [Runs/候補/BGEOなし隔離復算](../../Houdini/Wave22/Evidence/Revision06/22_isolated_reproduction.json)で2図・2CSV・摘要・解析manifestの6出力が同一bytesだった。これは公開測定値の復算で、Houdini再実行ではない。[修正06最終出典](../../Houdini/Wave22/Evidence/Revision06/22_revision06_provenance.json)を保存する。**22は中間成果のまま。非砕波連続伝播・full測点・媒体、23精度・25収支/反射、主役波・HMDは別の未完了項目である。**
+
+## 22修正07：k474一面のPFS細分化感度
+
+最新の継続指示に基づき、修正06の原候補/Run/証拠を保持したまま、根担当と独立担当の事前審査後にk474（t7.9）一面だけを実行した。[新しい凍結候補と171項目の離線記録](../../Houdini/Wave22/Candidates/PfsSensitivity07Refine474/README_ja.md)を保存する。唯一の物理入力は修正04 Run `22e7801642` の保存pilotで、新solver・板運動を再計算していない。
+
+Run `pfsrefine07_f2bf190159` はSteam Houdini 22.0.429/Indie/PID26892/FPS24、絶対frame190.6で実行した。Direct/File/Nullの全署名を照合し、許した差は一意属性名によるdetail一覧順だけ。旧k474成功RunとHDA binary/library・Convert評価値が一致し、実評価166 PFSパラメータの差はvoxelsize `.5→.25` だけだった。粒距.04mに対する表示面voxel指定.02→.01mであり、solver格子の細分化ではない。
+
+| 中央点 | 原04 solver符号場 mm | 旧`.5` PFS mm | 新`.25` PFS mm | 新−旧 mm |
+| --- | ---: | ---: | ---: | ---: |
+| G1 | −4.264757 | −13.093209 | −13.017213 | +0.075996 |
+| G2 | −3.595844 | −9.756213 | −9.752607 | +0.003606 |
+| G3 | −2.307102 | −11.981583 | −12.140518 | −0.158936 |
+
+原04中央測点値は121標本/25回二分、05局所断面の中央field値は別定義で−4.264832/−3.595886/−2.306824mm。両方を[中央CSV](../../Houdini/Wave22/Evidence/Revision07/22_refine07_centers.csv)へ保持し、置換や固定10mm補正はしない。旧面の原nativeとsolver原観測の再読誤差は0m。新面160,642点/160,640面・3,497,363bytesは、保存再読のordered P/有向面/型/closedが一致した。
+
+UI復元後に旧新各195位置を別只読RPCで採り、旧側は05公開195断面の指定15項目と完全一致した。座標順・重複なし・同一field・中央solver誤差0・局所単一wet→dryを確認。各面のdefault/主/感度/面限定queryの上下2交点を調べ、面ごとのprimitive根拠と高さ/法線方向が整合した。旧新primitive IDの同一や下底が第2自由面だとは記さない。新`center_parity_passed=false`は旧面に対する差の診断値であり、旧側はtrueである。
+
+[中央原値の実測図](../../Houdini/Wave22/Evidence/Revision07/22_refine07_centers.png)／[195位置の差](../../Houdini/Wave22/Evidence/Revision07/22_refine07_spatial_difference.png)／[195行CSV](../../Houdini/Wave22/Evidence/Revision07/22_refine07_profiles.csv)。全位置の新−旧は−.584275〜+.628144mm、平均+.091844mm、RMS.229214mm。これは近傍位置の分布で独立反復・不確かさではない。単一面から谷候補の採否・伝播・唯一鎖・物理精度を判断しない。isSDF metadata=falseのsolver符号場という制限も保持する。
+
+面化RPC20.837554秒、Auto窓2=8.096435秒、旧/新profile2.959956/10.814633秒。可用RAM最小27,957,891,072bytes、観測private増分228,343,808bytes。節目観測でVRAMや連続ピークではない。UI18/所有ノード削除PASS、通信不明なし、dirtyはtrue→true、undo0→0。HIP保存/読込/clearなし。継承した原窓ラベル`OLD_HALF_PFS`を改変せず、実voxelsize=.25を根拠とする。
+
+[結果README・原記録・再現](../../Houdini/Wave22/Evidence/Revision07/README_ja.md)に5原JSONと2基線JSON、実行前文書6本を無損失gzipで保存した。[原/保存SHA](../../Houdini/Wave22/Evidence/Revision07/22_original_manifest.json)、[本機保持3 BGEO](../../Houdini/Wave22/Evidence/Revision07/22_cache_manifest.json)、[最終出典](../../Houdini/Wave22/Evidence/Revision07/22_revision07_provenance.json)を結ぶ。候補は元bytesの通常Gitファイルで、現況文書更新前の内容もcommit352e1baから別保存した。
+
+[Runs/候補/BGEOなし隔離復算](../../Houdini/Wave22/Evidence/Revision07/22_isolated_reproduction.json)は公開gzipから6出力をbyte同一再現した。新視口動画は作らず、今回の実測グラフと04の実PFS動画を区別する。**22は未完成。k496新面や連続列、q/鎖の再判定は今回未実行。非砕波連続伝播/full測点/媒体、23精度・25収支/反射、主役波・HMDは別の未完了項目を維持する。**

@@ -1,0 +1,480 @@
+{
+  "revision": "22修正07 k474 .25面化感度の単一候補",
+  "scope": "ONE_K474_QUARTER_MESH_SENSITIVITY_ONLY",
+  "status_ja": "実行前の保存候補。root独立審査と明示RUNの後だけ実行する。",
+  "baseline_run": "22e7801642",
+  "sample": 474,
+  "seconds": 7.9,
+  "global_frame": 190.60000000000002,
+  "fps": 24,
+  "record": {
+    "sample": 474,
+    "seconds": 7.9,
+    "global_frame": 190.6,
+    "pilot": {
+      "filename": "pilot_474.bgeo.sc",
+      "kind": "solver",
+      "seconds": 7.9,
+      "sha256": "48177e8fa0343a87a75c4f60ebdb0153adbdd793c252aca7a2a07da65565c40a",
+      "bytes": 4269688
+    },
+    "mesh": {
+      "filename": "mesh_474.bgeo.sc",
+      "kind": "PFS",
+      "seconds": 7.9,
+      "sha256": "116cf67f5decdf35a0a73503c17fed32d93b6972748fc3dadb5052e65e8277c3",
+      "bytes": 870685
+    },
+    "mesh_points": 39078,
+    "mesh_faces": 39076,
+    "gauges": [
+      {
+        "x": 2.242796379968867,
+        "z": 0,
+        "valid": true,
+        "crossing_count": 1,
+        "bottom_value": -0.14236845076084137,
+        "top_value": 0.18027494847774506,
+        "bracket_y": [
+          -0.48,
+          0.1999999189376831
+        ],
+        "eta_m": -0.004264756841695326,
+        "mesh_sampled": true,
+        "mesh_vertical_hit_valid": true,
+        "mesh_eta_m": -0.013093209266662575,
+        "mesh_minus_solver_m": -0.00882845242496725
+      },
+      {
+        "x": 2.9903951732918226,
+        "z": 0,
+        "valid": true,
+        "crossing_count": 1,
+        "bottom_value": -0.1445736438035965,
+        "top_value": 0.1814941018819809,
+        "bracket_y": [
+          -0.48,
+          0.1999999189376831
+        ],
+        "eta_m": -0.003595844023928607,
+        "mesh_sampled": true,
+        "mesh_vertical_hit_valid": true,
+        "mesh_eta_m": -0.009756213426589944,
+        "mesh_minus_solver_m": -0.006160369402661337
+      },
+      {
+        "x": 3.7379939666147783,
+        "z": 0,
+        "valid": true,
+        "crossing_count": 1,
+        "bottom_value": -0.1448196917772293,
+        "top_value": 0.1804797351360321,
+        "bracket_y": [
+          -0.48,
+          0.1999999189376831
+        ],
+        "eta_m": -0.002307101953183235,
+        "mesh_sampled": true,
+        "mesh_vertical_hit_valid": true,
+        "mesh_eta_m": -0.01198158264160154,
+        "mesh_minus_solver_m": -0.009674480688418306
+      }
+    ]
+  },
+  "gauge_x_m": [
+    2.242796379968867,
+    2.9903951732918226,
+    3.7379939666147783
+  ],
+  "mesh_parameters": {
+    "particlesep": 0.04,
+    "surfmethod": "particlefluid",
+    "voxelsize": 0.25,
+    "adaptivity": 0,
+    "dodilate": 0,
+    "dosmooth": 0,
+    "doerode": 0,
+    "dofinalsmooth": 0,
+    "closedcontainer": 0,
+    "closedends": 0,
+    "flattengeo": 0
+  },
+  "node_types": {
+    "PFS": "particlefluidsurface::3.0",
+    "convert": "convert",
+    "file": "file"
+  },
+  "convert_parameters": {
+    "totype": "poly"
+  },
+  "parity": {
+    "new_mesh_saved_reread_exact": true,
+    "original_native_against_successful_replay_exact": true,
+    "original_record_height_tolerance_m": 1e-06,
+    "old_new_geometry_equality_required": false,
+    "old_new_native_equality_required": false,
+    "remesh_file_bytes_equality_required": false
+  },
+  "expected_input_counts": {
+    "points": 53838,
+    "primitives": 5,
+    "actual_particles": 53833
+  },
+  "prior_attempts_manifest_sha256": "843c9659264bb96b5d61d941531812422f1b0170dc2a64c03cbbf4e57d5845bd",
+  "support_origins": [
+    {
+      "path": "Houdini/Wave22/Candidates/PfsSensitivity06Retry03/Source/support06.py",
+      "sha256": "6789c915e402a1f96f89307dbf79f7966e3a689bed3634923ddd4f97cab997e5",
+      "functions": [
+        "file_sha",
+        "memory06",
+        "input_signature06",
+        "menu_observation",
+        "disconnected_file_inputs",
+        "classify_rpc_reply",
+        "serializable_observation"
+      ]
+    },
+    {
+      "path": "Houdini/Wave22/Candidates/PfsSensitivity06Retry03/Source/probe_file06.py",
+      "sha256": "d733391b4b36eef17c6b74ab12b25e56ca5017d9d8324d3c17b7ca1e35fef47d",
+      "functions": [
+        "finite_value06",
+        "value_hash06",
+        "attribute_inventory06",
+        "all_geometry_signature06",
+        "parm_record06",
+        "node_state06"
+      ]
+    },
+    {
+      "path": "Houdini/Wave22/Candidates/PfsSensitivity06Retry01/Source/remesh_pilot06.py",
+      "sha256": "aafdd6c082a1b2d693f29da5aea5f1c377f293bc8bb042152d7ccfc440af1966",
+      "functions": [
+        "mesh_data06",
+        "mesh_hash06",
+        "definition06",
+        "parameters06",
+        "set_verified06",
+        "native_first06"
+      ]
+    },
+    {
+      "path": "Houdini/Wave22/Candidates/PfsSensitivity06Retry01/Source/sensitivity_core.py",
+      "sha256": "09016bf288a82279f10cbefd5f04a9d14b09da49508f14e9636afcc327e4c038",
+      "functions": [
+        "finite_native_hit",
+        "compare_mesh_data"
+      ]
+    },
+    {
+      "path": "Houdini/Wave22/Candidates/PfsSensitivity06Decision04/Source/decision_core06.py",
+      "sha256": "884c758ce2e4a7b8d7de3dce1b87db315e5a070c51634168a8a5745e760a8e73",
+      "functions": [
+        "exact",
+        "canonical_signature",
+        "compare_signatures",
+        "leaf_differences"
+      ]
+    }
+  ],
+  "baseline_files": {
+    "22_cache_manifest.json": "c3c2f265647c6bc25dfb4d564db3dea5b6c91af6dc72d551c2860ebe391dafe8",
+    "Original/22_pilot_samples.json.gz": "45f5f130d42961811b6854409108ca1debbde9be9df520babb02e047b51f00ff",
+    "Original/22_pilot_conditions.json": "051d6eb7246b65ba5cd44f7c6e78689151e2b3f8cf4543e9e6232f2a580f20fb",
+    "Original/22_startup_response.json": "a90e25d236cb19be2aa3ff5a57e41d2730da16ea9ac961979e957df5010d01f5",
+    "Executed_Source/startup_response.py": "4622d07b6af14aa79f0b2c543bc210aee8532b67e508e0c57bf4677353f2ce2c",
+    "Executed_Source/generate_wave_l6.py": "a3cf59b1dc658541edb0a6bdcefddab06c0270e3038c70b63091d10f9f8004bc",
+    "Executed_Source/ui_guard.py": "47b763ab25200b599f3a8a9acb31ade4f40f521df5512e1d80ab2697af2ee2c8"
+  },
+  "decision_freeze": {
+    "path": "Houdini/Wave22/Candidates/PfsSensitivity06Decision04/Evidence/22_decision_candidate_freeze.json",
+    "bytes": 1534,
+    "sha256": "a24d10ee15ea45280103396170ce9c8260df2832f05df68dac27fe48d3fabaa7"
+  },
+  "decision_report": {
+    "path": "Houdini/Wave22/Candidates/PfsSensitivity06Decision04/Evidence/22_file_signature_adjudication.json",
+    "bytes": 17920,
+    "sha256": "c78abfdc1141904ffa48ea6b69f7a240d33075e4a721293e0c443640b90a98c7"
+  },
+  "budgets": {
+    "minimum_available_RAM_bytes": 8589934592,
+    "maximum_private_increase_bytes": 12884901888,
+    "minimum_free_G_bytes": 10737418240,
+    "per_rpc_cooperative_seconds": 90,
+    "rpc_wait_seconds": 180,
+    "maximum_cook_window_seconds": 30,
+    "maximum_mesh_bytes": 16777216,
+    "maximum_report_bytes": 16777216,
+    "auxiliary_reserved_bytes": 67108864,
+    "profile_output_bookkeeping_reserved_bytes": 65536,
+    "maximum_profile_bytes": 16777216,
+    "meaning_ja": "開始G空き15636365312bytes以上、以降10GiB以上。新mesh16MiB・各profile16MiB・主JSON16MiB・全Run64MiB。30秒Auto/90秒RPCは戻り後の協調上限で強制中断しない。",
+    "minimum_start_free_G_bytes": 15636365312
+  },
+  "two_windows_ja": [
+    "同一main-thread RPC。Auto第1窓は所有File/Nullのcookとfreezeだけ。finally Manualへ戻す。",
+    "ManualでDirect/File/Null全署名を比較。detail属性一覧だけ一意nameに対応させ、他は厳密一致。不一致ならPFSを作成/cookせずHOLD。",
+    "入力PASS後だけManualでPFS/Convert/Outを組む。Auto第2窓のcook/freeze後finally Manual。重い署名/JSON/保存/交点はManualで実行。"
+  ],
+  "node_flags": {
+    "owner_display": false,
+    "geo_display": false,
+    "out_display": true,
+    "out_render": true
+  },
+  "profile_195_executed": false,
+  "refinement_allowed": true,
+  "other_samples_allowed": false,
+  "detector_executed": false,
+  "new_solver": false,
+  "ui_restore_checks": 18,
+  "uncertain_rule_ja": "timeout/不明応答は追加RPC・retry・kill・並行cleanupを行わず停止。",
+  "original_raw_hold_retained": true,
+  "solver_height_check_ja": "既存粒子/field全値は入力署名で照合する。面化RPC内はsolver縦線を追加queryせず、UI復元後の原05 readerで旧新中央と近傍の符号場を読む。",
+  "output_cook_ja": "原04と同じくOutのみcook(force=True)。PFS/Convert/Outの前後cookCountは観測する。",
+  "only_execution_change_ja": "原04 k474保存粒子だけ。成功k474旧.5と全入力署名/HDA/Convert/166全評価parmを比較し、voxelsize .5→.25だけを許す。旧/新195断面はUI復元後の別RPC。",
+  "HDA_binary_api_source": "https://www.sidefx.com/docs/houdini/hom/hou/HDASection.html",
+  "support_function_exception": {
+    "name": "definition06",
+    "prior_candidate": "PfsSensitivity06Replay05",
+    "old_lines": "        value = section.contents()\n        value = value.encode('utf8') if isinstance(value, str) else value",
+    "new_lines": "        value = section.binaryContents()\n        assert isinstance(value, bytes), 'HDA sectionの原bytes以外は拒否する'"
+  },
+  "previous_attempt": {
+    "token": "pfsreplay06_55fa260d7f",
+    "raw_result": {
+      "path": "Houdini/Wave22/Runs/pfsreplay06_55fa260d7f/replay_360.json",
+      "bytes": 50241,
+      "sha256": "ea3babbd601a8525978cae65e7f36371ed73dbd6bb152dd6fe2a66051efae524"
+    },
+    "execution": {
+      "path": "Houdini/Wave22/Runs/pfsreplay06_55fa260d7f/execution.json",
+      "bytes": 6062,
+      "sha256": "768f3d624aedd02ba9599da7824ac7a07bdd03490ddd65857469fafed867b548"
+    },
+    "freeze": {
+      "path": "Houdini/Wave22/Candidates/PfsSensitivity06Replay05/Evidence/22_replay_candidate_freeze.json",
+      "bytes": 1650,
+      "sha256": "fb8345f9ce0117e1ef182f583e743f988047af6a80f70e1ff547c1d9f68a3617"
+    },
+    "state": "HOLD_HDA_TEXT_ENCODING_BEFORE_AUTO2",
+    "input_gate_passed": true,
+    "pfs_cook_executed": false,
+    "mesh_exists": false,
+    "failure_type": "UnicodeEncodeError",
+    "ui18_passed": true,
+    "uncertain": false
+  },
+  "profile_dependencies": {
+    "profile_core.py": {
+      "path": "Houdini/Wave22/Candidates/PfsDiagnosis05/Source/profile_core.py",
+      "bytes": 10495,
+      "sha256": "5a1d66fba58398033f7d76f1f9cc2f1ba1f7aed256a399f50f34a80aba6cb308"
+    },
+    "read_profile05.py": {
+      "path": "Houdini/Wave22/Candidates/PfsDiagnosis05/Source/read_profile05.py",
+      "bytes": 7009,
+      "sha256": "1df2f64fc78c1b205a06e2a8f20ef74a944c6b727638592c382cf260e80a8887"
+    }
+  },
+  "intersection": {
+    "native_first": "04と同じy=.4,dir=(0,-1,0),既定引数。primitive>=0が有効",
+    "strict_tolerance_m": 1e-06,
+    "advance_epsilon_m": 2e-06,
+    "sensitivity_tolerance_m": 1e-05,
+    "sensitivity_advance_m": 2e-05,
+    "ray_top_m": 0.4,
+    "ray_bottom_m": -0.7,
+    "maximum_distinct_height_hits": 64,
+    "mesh_parity_tolerance_m": 1e-06,
+    "solver_parity_tolerance_m": 1e-08,
+    "strict_incidence_height_tolerance_m": 1e-06,
+    "incidences_ja": "XZ面候補ごとのnative patternで未統合face/vertex/normalを保持。同一高さの別面を削除しない。主queryの各primitive/高さを面限定queryと照合し、逆方向は各incidence高さが主query内にあるかを照合する。逆方向は共有辺の別primitiveを許す。不一致も原JSONへ保存して次組を保留する。",
+    "default_strict_height_tolerance_m": 1e-06,
+    "default_strict_normal_positive_dot_required": true,
+    "default_primitive_needs_incidence_support": true,
+    "default_strict_same_primitive_required": false
+  },
+  "profile_count_per_mesh": 195,
+  "profile_count_total": 390,
+  "baseline_successes": {
+    "360": {
+      "raw": {
+        "path": "Houdini/Wave22/Runs/pfsreplay06_af76bc8ec2/replay_360.json",
+        "bytes": 71290,
+        "sha256": "45a68fa3f99c0d9d8cc9ec1838bb54ce30f8e2e9275a831442d6a13e2fbbd7b9"
+      },
+      "execution": {
+        "path": "Houdini/Wave22/Runs/pfsreplay06_af76bc8ec2/execution.json",
+        "bytes": 6183,
+        "sha256": "1a23325b15206455173458258f91f17add939f9145f8fcedee228d5ccc7587d2"
+      },
+      "freeze": {
+        "path": "Houdini/Wave22/Candidates/PfsSensitivity06Retry06/Evidence/22_replay_candidate_freeze.json",
+        "bytes": 1846,
+        "sha256": "6041692964c76fe455f88a9ddba510ed3b0f9310da2382b03ee121de959778f6"
+      },
+      "mesh": {
+        "path": "Houdini/Wave22/Runs/pfsreplay06_af76bc8ec2/Cache/replay_360.bgeo.sc",
+        "bytes": 873004,
+        "sha256": "237e960acb41af6e427896e5a0b06bc05f4ebefb7554dfd66063136ae9f977c1"
+      }
+    },
+    "474": {
+      "raw": {
+        "path": "Houdini/Wave22/Runs/pfsreplay06_ac6451419c/replay_474.json",
+        "bytes": 71434,
+        "sha256": "42063ad1ce5ce43ec5a9c5f38f50cc9dd1e17e64120c1e2cfe1445e09a44a639"
+      },
+      "execution": {
+        "path": "Houdini/Wave22/Runs/pfsreplay06_ac6451419c/execution.json",
+        "bytes": 6186,
+        "sha256": "f5150dc7d8b31364680d7d71d308b8ea92acd4b289b63e36f4c796f3aa8fe24e"
+      },
+      "freeze": {
+        "path": "Houdini/Wave22/Candidates/PfsSensitivity06Replay474/Evidence/22_replay_candidate_freeze.json",
+        "bytes": 1836,
+        "sha256": "9e792dcb23c4b66af4f2339d52f1fde865efa83f811b77fd6b7aba3e93e96a78"
+      },
+      "mesh": {
+        "path": "Houdini/Wave22/Runs/pfsreplay06_ac6451419c/Cache/replay_474.bgeo.sc",
+        "bytes": 870685,
+        "sha256": "5ad0c054bd11c9bffc477f89b92f0d8ef69adb183ed01bcb494b123db9a8d24c"
+      }
+    },
+    "496": {
+      "raw": {
+        "path": "Houdini/Wave22/Runs/pfsreplay06_b13cd6bcb8/replay_496.json",
+        "bytes": 71431,
+        "sha256": "2dfc69416695a778c60ea8f326f72487a32b60c1075a8620d69096604bcd4f34"
+      },
+      "execution": {
+        "path": "Houdini/Wave22/Runs/pfsreplay06_b13cd6bcb8/execution.json",
+        "bytes": 6184,
+        "sha256": "8fb78921ba7e42c9f3b0698fb55f9743b9b47b5c7071b0e85ef4d5c1606b4874"
+      },
+      "freeze": {
+        "path": "Houdini/Wave22/Candidates/PfsSensitivity06Replay496/Evidence/22_replay_candidate_freeze.json",
+        "bytes": 2045,
+        "sha256": "c0b4e9130a839344be5c58d3b096775977f0227a1b8864d3e9dcf4bc16ebe774"
+      },
+      "mesh": {
+        "path": "Houdini/Wave22/Runs/pfsreplay06_b13cd6bcb8/Cache/replay_496.bgeo.sc",
+        "bytes": 860227,
+        "sha256": "b33333153a42add5ac1c4cb6b3c3d231295ca647fe84fcbb217228a1fc2291c3"
+      }
+    }
+  },
+  "support_dependency": {
+    "directory": "Houdini/Wave22/Candidates/PfsSensitivity06Refine360",
+    "files": {
+      "replay_support06.py": {
+        "path": "Houdini/Wave22/Candidates/PfsSensitivity06Retry06/Source/replay_support06.py",
+        "bytes": 17321,
+        "sha256": "f483fa8699767c4f6a7f57b4f18ce09b3f326275ea60a99bfe38d63840b6c1c7"
+      },
+      "replay_window06.py": {
+        "path": "Houdini/Wave22/Candidates/PfsSensitivity06Retry06/Source/replay_window06.py",
+        "bytes": 2112,
+        "sha256": "7b53056749d76e2243490a02e23442b91a9e27f57d6ccee1c0ab7c5262297375"
+      }
+    }
+  },
+  "source_basis": {
+    "path": "Houdini/Wave22/Candidates/PfsSensitivity06Refine360/Source/refine_k360.py",
+    "bytes": 14864,
+    "sha256": "a5acd3d2be935e67899089ef075a8ffe1837d4a22a89e5deeb0ef2131b918f6d"
+  },
+  "profile_acceptance_origin": {
+    "path": "Houdini/Wave22/Candidates/PfsSensitivity06/Source/sensitivity_core.py",
+    "bytes": 7929,
+    "sha256": "507fdb09d428a7e65d7171b77139040764b132cb53d082e8b5d469bca7d5075c"
+  },
+  "diagnostic_rules_ja": [
+    "所有SOPで新面保存とUI18復元が完了してから、別RPCで旧195断面を読む。旧profileがHOLDなら新profileへ進まない。",
+    "新旧meshの点面数や座標一致は要求しない。同じ新meshのnative/strict/pattern/二容差の整合を要求する。",
+    "旧新各195の順序/座標/field値は対応し、上下交点数変更/上面法線反転は形状HOLD。下底交点は自由面と呼ばない。",
+    "新center_parity_passed=falseは旧meshとの差だけなら異常ではない。solver中央測点値は原04へ1e-8m以内で対応する。",
+    "完全なprofileだけ独立JSON保存。reader途中例外ではpartial195の保存は保証しない。生成済みmeshと既存完了profileは保持する。",
+    "新旧の生高さ、差、新旧それぞれのsolver符号場との差を保存。固定高さ補正とdetector判定はしない。"
+  ],
+  "budget_protocol": {
+    "profile_payload_size_checked_before_write": true,
+    "profile_oversize_ja": "完全JSONは保存せず容量HOLDの小摘要を保存する。摘要の余裕も無ければ書込なしACKをexecutionへ記録し、後続RPCを禁止する。",
+    "readonly_hip_unsaved_flag_checked": true,
+    "meshing_rpc_cooperative_seconds": 90,
+    "profile_rpc_cooperative_seconds": 90,
+    "maximum_business_rpcs": 3,
+    "nominal_total_business_cooperative_seconds": 270,
+    "readonly_profiles_after_ui18": true,
+    "hard_timeout_kill": false
+  },
+  "frame_contract": {
+    "source_formula": "1+0.4*474",
+    "original_record_frame": 190.6,
+    "requested_frame": 190.60000000000002,
+    "serialization_difference_frames": 2.842170943040401e-14,
+    "assert_tolerance_frames": 1e-08,
+    "meaning_ja": "絶対frame190.6/FPS24を固定。原04式の倍精度値と差0。原JSON十進表示との差は別記する。",
+    "equivalent_original_formula": "1+(474/60)*24"
+  },
+  "comparison_plan": {
+    "path": "Houdini/Wave22/Candidates/PfsSensitivity06Replay474/Source/replay_plan.json",
+    "bytes": 12662,
+    "sha256": "e7a84e8b35daeb538e7938afa142bfcb422d6e186f2ba240f12e201f51c151bf"
+  },
+  "preserved_file_count": 266,
+  "expected_evaluated_PFS_parameter_count": 166,
+  "source_comparison_candidate": "Houdini/Wave22/Candidates/PfsSensitivity06Refine360",
+  "validated_refine360": {
+    "refine_360.json": {
+      "path": "Houdini/Wave22/Runs/pfsrefine06_c208ac35e3/refine_360.json",
+      "bytes": 72923,
+      "sha256": "e61bd89d90ad1b004d8e9b064177f81c478fea561db0b88242919650f8218419"
+    },
+    "execution.json": {
+      "path": "Houdini/Wave22/Runs/pfsrefine06_c208ac35e3/execution.json",
+      "bytes": 8755,
+      "sha256": "442d7dba3e1f17c39cabf1a2e4fe2518ada3b3d6e6e4d07a0b71d3ab66086ccf"
+    },
+    "freeze": {
+      "path": "Houdini/Wave22/Candidates/PfsSensitivity06Refine360/Evidence/22_refine_candidate_freeze.json",
+      "bytes": 2230,
+      "sha256": "8b74775719a0243c34f313cb386eb778dfd8ebfa30244c234127ebe2a25eaa8e"
+    }
+  },
+  "profile05_baseline": {
+    "path": "Houdini/Wave22/Candidates/PfsDiagnosis05/Evidence/Result_22e7801642/Original/profiles_474.json.gz",
+    "bytes": 427646,
+    "sha256": "f1d3b0f8e7978e3c3ab799c25558123d03cc1f1a02e3d3f7aa6a7b41d58aef24",
+    "original_bytes": 3681460,
+    "original_sha256": "9293fc5ab1f3d5995d11f9a08170793fb31fb3959e8a75c74acad83c56e38dde",
+    "comparison_projection": {
+      "bytes": 2174342,
+      "sha256": "2841b0f5d79b7f9e0d0d5896cd8885f458619ea4c543ae9fbe4ed5efcd157344"
+    }
+  },
+  "profile05_comparison_ja": "再読した旧195断面の全profiles・field・幾何指紋・原SHA・中央判定を公開05 k474と厳密照合する。時間/資源/説明/実行metadataだけ比較外。新面には旧profile一致を要求しない。",
+  "inherited_helper_label_ja": "第2Auto窓名OLD_HALF_PFSはbyte同一helperの履歴ラベル。今回のscope/実評価voxelsize .25で判定する。",
+  "approval_ja": "利用者の最新継続指示の下、rootの独立審査と明示RUN後に進める。06の当時の待機文言は改変しない。",
+  "profile05_comparison_fields": [
+    "sample",
+    "seconds",
+    "mesh_sha256",
+    "solver_sha256",
+    "mesh_points",
+    "mesh_faces",
+    "mesh_P_float64_sha256",
+    "field",
+    "profiles",
+    "spatial_neighbour_differences",
+    "center_parity_passed",
+    "strict_incidence_consistency_passed",
+    "strict_incidence_mismatch_profile_indices",
+    "solver_executed",
+    "nodes_created"
+  ],
+  "profile05_excluded_ja": "最上位read_seconds/memory_guard/meaning_ja/UI metadata/実行source・plan SHA等だけを比較外とする。profilesとfieldの全内容（その内部meaning_jaを含む）は厳密比較する。",
+  "reference_cost_ja": "Refine360の一面実測は面化RPC17.634901秒/Auto2 7.250425秒/旧profile2.270634秒/新profile10.993487秒/新mesh3494161bytes。k474費用は未測定。実時間を上限保証や方式速度比較へ転用しない。"
+}

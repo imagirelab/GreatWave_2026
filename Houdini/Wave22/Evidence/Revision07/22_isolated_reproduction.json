@@ -1,0 +1,144 @@
+{
+  "passed": true,
+  "houdini_called": false,
+  "Runs_present": false,
+  "BGEO_present": false,
+  "candidate_directories_present": false,
+  "meaning_ja": "公開原gzipと後処理だけの隔離復算。Houdini再計算や本機BGEO再読ではない。",
+  "source_sha256": "46e3d97e43e5011e23909d2d4c84e6fa285c537ff5150e979aa198b5d6d20011",
+  "inputs": [
+    {
+      "path": "22_original_manifest.json",
+      "bytes": 6358,
+      "sha256": "851ba024a31837e302b27a58d62cf4c5590b87aca95ca963ac74aed2ff560106"
+    },
+    {
+      "path": "22_run_manifest.json",
+      "bytes": 3515,
+      "sha256": "cf61a1cce7771019506586db27ed3b764c2dfd2d7a72844010f1b4b245b5f7c4"
+    },
+    {
+      "path": "Source/summarize_revision07.py",
+      "bytes": 13763,
+      "sha256": "e923e0908bddd442890a2b33fb0985df4ef324f7022d58e9a256c658e54ec942"
+    },
+    {
+      "path": "Source/refine_core06.py",
+      "bytes": 5361,
+      "sha256": "caa873970a9c7ad809a83539519280722154881cdc7dc68aafa1c6d20ae243f6"
+    },
+    {
+      "path": "Source/refine_contract07.py",
+      "bytes": 3855,
+      "sha256": "4d0a585b0205b9dd7893527b15ea2c50a3600657257f95cf683733f0ddde51ab"
+    },
+    {
+      "path": "Source/decision_core06.py",
+      "bytes": 9160,
+      "sha256": "884c758ce2e4a7b8d7de3dce1b87db315e5a070c51634168a8a5745e760a8e73"
+    },
+    {
+      "path": "Baseline/Documents/.gitattributes.gz",
+      "bytes": 646,
+      "sha256": "9b06dd1c9445cfaa65830932f0dd367a84a88a711c8f706201960620b6d6adbb"
+    },
+    {
+      "path": "Baseline/Documents/Docs/Progress/README.md.gz",
+      "bytes": 2235,
+      "sha256": "60998bff50d5d9d3b55b09da9367ba1b96ba655c3e5e2be97d0cbd4f1ab0c6d6"
+    },
+    {
+      "path": "Baseline/Documents/Docs/Progress/Step_22_ja.md.gz",
+      "bytes": 17504,
+      "sha256": "6df999c4fea37d1073b2ab96bf1c7931a834243ddfc996c009747fb3d2d57198"
+    },
+    {
+      "path": "Baseline/Documents/Docs/Progress/Verification_Status_ja.md.gz",
+      "bytes": 3302,
+      "sha256": "af22f5597950899641d55733c5e3d05fb0b0b636f1b0ff40e9c579a336d6ef69"
+    },
+    {
+      "path": "Baseline/Documents/Houdini/Wave22/README_ja.md.gz",
+      "bytes": 7561,
+      "sha256": "d3a3fd0909ccc003c0fa7d9037b6e3bc6cd4b9c6c57a699fe90947937140aed4"
+    },
+    {
+      "path": "Baseline/Documents/README.md.gz",
+      "bytes": 5814,
+      "sha256": "e4e854fd325ec728fa61d55a293beb9fbd4dc2927bc2296be6f64eb9db3ce3e7"
+    },
+    {
+      "path": "Baseline/profiles05_474.json.gz",
+      "bytes": 427646,
+      "sha256": "f1d3b0f8e7978e3c3ab799c25558123d03cc1f1a02e3d3f7aa6a7b41d58aef24"
+    },
+    {
+      "path": "Baseline/replay_474.json.gz",
+      "bytes": 9545,
+      "sha256": "a40668a56364ac6dba24c71811a25fc5aa133a62edfab76f7675c7da7a14c046"
+    },
+    {
+      "path": "Original/pfsrefine07_f2bf190159/execution.json.gz",
+      "bytes": 3167,
+      "sha256": "b3c80824b11be6514314617cfd0b95e23bdcfe43e1596047ce9ccf1268c5a798"
+    },
+    {
+      "path": "Original/pfsrefine07_f2bf190159/profiles_new_474.json.gz",
+      "bytes": 436961,
+      "sha256": "065ebb0e40131a06b7d9e6ff13f932be9f85ba3b484d9b45db56162c031b635b"
+    },
+    {
+      "path": "Original/pfsrefine07_f2bf190159/profiles_old_474.json.gz",
+      "bytes": 428360,
+      "sha256": "f2e041a713a1533884d54e78b3bbc3e0ed408e89e8ffc747075f803d7ef23903"
+    },
+    {
+      "path": "Original/pfsrefine07_f2bf190159/refine_474.json.gz",
+      "bytes": 10347,
+      "sha256": "c1548d26a96db8b6db79256dbaf083747b03f1bd8065a97832ba97822414c12e"
+    },
+    {
+      "path": "Original/pfsrefine07_f2bf190159/refine_474_progress.json.gz",
+      "bytes": 10241,
+      "sha256": "98332e3337459f6a648891b49f418ada67076c08eab641816d773cc5aa53eb03"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "22_refine07_summary.json",
+      "bytes": 6162,
+      "sha256": "493c0a2d7dbf71750d1e2955b978deb4c5ed2eb6faba84a0b0fd9c3dbaab2488",
+      "exact": true
+    },
+    {
+      "path": "22_refine07_centers.csv",
+      "bytes": 677,
+      "sha256": "ec3dd4a1eccd1d21274106513b5e478fb9dc4aaedb0fa2b5432171ed703f13f5",
+      "exact": true
+    },
+    {
+      "path": "22_refine07_profiles.csv",
+      "bytes": 32087,
+      "sha256": "6d8b8cf0b915b26e222afa3e8fc50e41bdbfbf2c66b0c83c0fff85ee8cdfaedb",
+      "exact": true
+    },
+    {
+      "path": "22_refine07_centers.png",
+      "bytes": 134490,
+      "sha256": "52ed04ab04fff3e45880a96a43e878fb405c9f56f4dc5b936d44a68fa495bf56",
+      "exact": true
+    },
+    {
+      "path": "22_refine07_spatial_difference.png",
+      "bytes": 105086,
+      "sha256": "659ebf1a7f191b65daa9dad30c128c62151ffa10c767f124c9249df67be00d6d",
+      "exact": true
+    },
+    {
+      "path": "22_analysis_manifest.json",
+      "bytes": 1616,
+      "sha256": "ee859f0cfa5613fe6c79c30bf9b4f86b33ffe557f7aaa33367d6e16fdf7101a5",
+      "exact": true
+    }
+  ]
+}
