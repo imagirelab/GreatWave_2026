@@ -6,7 +6,11 @@
 
 ## 22の実水槽・中間結果を見る
 
-最新の22修正04は、同じL6・SOP doreseeding=0の新所有DOPで静水判定を再PASSし、同じDOPのままt6〜9.25の実活塞始動を観測しました。**solver符号場には有序の谷候補が一つありますが、PFS表示面は唯一鎖なし。非砕波・無反射・理論精度・番号22完成は未認定です。**
+最新の22修正05は、修正04の既存BGEOを30時刻・5850断面で読み、PFSとsolver符号場の観測差を診断しました。元中央測点値と交点の対応は一致し、G3 PFS候補は元の左prominence不足を確認。**減幅の単一原因は未確定で、PFS唯一鎖なし・番号22未完成を保持します。** 新しい流体計算ではありません。
+
+- [原水位と差](Houdini/Wave22/Candidates/PfsDiagnosis05/Evidence/Result_22e7801642/22_profile05_centers.png)／[実cacheの局所断面](Houdini/Wave22/Candidates/PfsDiagnosis05/Evidence/Result_22e7801642/22_profile05_sections.png)／[G3候補の採否](Houdini/Wave22/Candidates/PfsDiagnosis05/Evidence/Result_22e7801642/22_profile05_G3_prominence.png)／[05の数値・原JSON・再現](Houdini/Wave22/Candidates/PfsDiagnosis05/Evidence/Result_22e7801642/README_ja.md)
+
+修正04は新所有DOPで静水判定を再PASSし、同じDOPのままt6〜9.25の実活塞始動を観測しました。solver場の有序谷候補1鎖とPFS唯一鎖なしを分け、非砕波・理論精度は未認定です。
 
 - [実Houdini PFS動画・97枚/30fps](Houdini/Wave22/Candidates/WaveStart04/Evidence/Result_22e7801642/Media/22_startup_PFS.mp4)／[固定8秒静止画](Houdini/Wave22/Candidates/WaveStart04/Evidence/Result_22e7801642/Media/22_Perspective_480.png)／[原水位の実測図](Houdini/Wave22/Candidates/WaveStart04/Evidence/Result_22e7801642/22_startup_full_series.png)／[数値・出典・限界](Houdini/Wave22/Candidates/WaveStart04/Evidence/Result_22e7801642/README_ja.md)
 

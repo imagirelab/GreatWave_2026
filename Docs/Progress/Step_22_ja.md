@@ -215,3 +215,30 @@ python Houdini/Wave22/Candidates/WaveStart04/Postprocess/summarize_start04.py --
 ```
 
 [Runsなし隔離復算](../../Houdini/Wave22/Candidates/WaveStart04/Evidence/Result_22e7801642/22_isolated_reproduction.json)でCSV・2図・数値摘要と再計算manifestのbytes一致を検証する。これはBGEO再検証やGUI再撮影ではない。[修正04の最終出典](../../Houdini/Wave22/Candidates/WaveStart04/Evidence/22_revision04_provenance.json)が原データ・凍結実行元・後処理・媒体・今回文書を結ぶ。
+
+## 22修正05：既存cacheのPFS局所差を診断
+
+唯一の基線は04 Run `22e7801642`。既存mesh/pilotを `hou.Geometry.loadFromFile` だけで読み、新規solver計算・ノード作成・DOP/SOP cook・UI変更を行っていない。最初のk468を実測審査してから、原JSON SHA・plan/readerを束ねた別許可で残29組を読んだ。[固定計画・68項目の離線検査](../../Houdini/Wave22/Candidates/PfsDiagnosis05/README_ja.md)を保持する。
+
+時刻は7.8〜8.766667秒の30Hz30配対、各Gのx±.12m/.02m刻みとz=−.12/−.06/0/.06/.12mの計195列、全5850断面。60 BGEO/153,892,203bytesの原SHAを照合した。中央90配対の原04 solver121点/25二分・PFS既定first-hitは、原値との差0mだった。主rayはtolerance1µm/前進2µm、感度rayは10µm/20µm。面別patternを含む各11,700交点の双方向primitive/高さ対応が一致し、既定/主/感度queryの高さ差は全0だった。
+
+各列の二交点は上側表示面と底側表示面で、二層の自由水面ではない。上側normal Yは正、下側は負。solverの848,250個のφ標本は有限、5850列で単一wet→dry、零台地・接線零点なし。観測範囲では首命中の取り違え、二容差間の差、標本で見える複数交差はG3不採用を説明する証拠にならなかった。ただし、有限の線・時間・数値許容で未標本化の薄層や全3Dの問題を完全に排除してはいない。`surface` VolumeのisSDF metadata=falseも保持する。
+
+| 元04 G3谷候補 | 時刻 | raw振幅 | 左prominence | 右prominence | 元q=1mm |
+| --- | ---: | ---: | ---: | ---: | --- |
+| solver符号場 | 8.366667s | 3.618661mm | 1.507968mm | 3.396022mm | 採用 |
+| PFS表示面 | 8.266667s | 1.991066mm | 0.827461mm | 1.542008mm | 左だけ不足、不採用 |
+
+元04全時系列・凍結detectorのstatus/onset/featuresを含む結果全体を再現し、原q/候補/唯一鎖は変更しなかった。PFS候補の左右支持は切れていない。rawの最小標本時刻（PFS8.3、solver8.333333）と平滑候補時刻を区別する。二つの候補の.100秒差を波速や物理位相誤差に換算せず、5点の時間幅がPFS4/30秒・solver4/60秒で異なることを残した。近傍断面に中央閾値を移植していない。
+
+[未補正の中央時系列・差](../../Houdini/Wave22/Candidates/PfsDiagnosis05/Evidence/Result_22e7801642/22_profile05_centers.png)／[実cacheのx/z断面](../../Houdini/Wave22/Candidates/PfsDiagnosis05/Evidence/Result_22e7801642/22_profile05_sections.png)／[G3元候補の左右prominence](../../Houdini/Wave22/Candidates/PfsDiagnosis05/Evidence/Result_22e7801642/22_profile05_G3_prominence.png)を公開した。これは実測値の図で、新しい視口画像や想像流体ではない。新動画は作らず、同じ04の実PFS動画を参照する。
+
+G3中央のPFS−原solver差は−9.896538〜−8.300951mmで、固定10mmではない。k496のx断面幅はPFS5.119145mm/符号場2.056885mm、z断面幅は4.205793/2.603760mm。PFSの空間変化が一律に小さいとは言えない。quad対角線補助差は最大.213745mm、投影凸性は未検査で、元nativeを置換していない。PFS3.0の明示smooth類は全0であり、Final Smoothや空間再構成を単一原因と認定しない。定数水位補正も行わない。
+
+原JSON30本110,422,809bytesを12,839,583bytesへ無損失gzip化し、全交点・面頂点・φ・誤差を公開した。[5850行CSV・原gzip・出典](../../Houdini/Wave22/Candidates/PfsDiagnosis05/Evidence/Result_22e7801642/README_ja.md)で元/保存SHAを結ぶ。BGEO本体は本機Runsに保持。読戻し合計69.735298秒、最大2.427344秒/組、空きRAM最小36,150,370,304bytes、UI4項目前後一致、完了不明RPCなし。UI変更がないため18項目復元をしたとは記さない。
+
+```powershell
+python Houdini/Wave22/Candidates/PfsDiagnosis05/Postprocess/summarize_profile05.py --input Houdini/Wave22/Candidates/PfsDiagnosis05/Evidence/Result_22e7801642
+```
+
+[RunsもBGEOもない隔離入力からの復算](../../Houdini/Wave22/Candidates/PfsDiagnosis05/Evidence/Result_22e7801642/22_profile05_isolated_reproduction.json)では、コピーした原gzip/04資料だけで3図・CSV・摘要・解析manifestの6出力が同一bytesとなった。これは新HOM読戻しや物理再計算ではない。[修正05最終出典](../../Houdini/Wave22/Candidates/PfsDiagnosis05/Evidence/22_revision05_provenance.json)に資料・解析・文書を結ぶ。**PFS唯一鎖なし・減幅の単一原因未確定・22未完成を保持する。** 22の非砕波連続伝播/full測点/媒体と、23の理論精度、25の反射/収支は別の後続検証である。
