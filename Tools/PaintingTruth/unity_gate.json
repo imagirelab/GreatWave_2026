@@ -1,0 +1,45 @@
+{
+  "schema": "GreatWave.PaintingTruth.unityGate/1",
+  "number": "23",
+  "note_ja": "編号23 第2部の較正門（Unity 側）の入力。カメラは painting_truth.json の painting_cam をそのまま読む（ここには書かない）。Unity は AF23CalibrationGate.cs、測定は gate_part2.py。",
+  "render": {
+    "width": 1920,
+    "height": 1080,
+    "msaa": 8
+  },
+  "markers_ja": "世界に置く 5 点の標識。各標識は画像面に平行な円板（カメラの向きと同じ回転）で、中心の投影が円の像の中心になる。半径は画面上で radius_px になるよう深度から決める。色は成分 0/1 だけにして、画素の点灯成分の組で標識を区別する（numpy の予測位置は使わない）。",
+  "markers": [
+    { "id": "A_upper_left", "world": [-22.0, 24.0, 6.0], "radius_px": 8.0, "color": [1.0, 0.0, 0.0] },
+    { "id": "B_upper_right", "world": [20.0, 30.0, 80.0], "radius_px": 8.0, "color": [0.0, 1.0, 0.0] },
+    { "id": "C_lower_left_near", "world": [-6.0, 1.6, -44.0], "radius_px": 8.0, "color": [0.0, 0.0, 1.0] },
+    { "id": "D_lower_right", "world": [11.0, 1.5, -20.0], "radius_px": 8.0, "color": [1.0, 1.0, 0.0] },
+    { "id": "E_fuji_apex_far", "world": [37.0, 15.9, 420.0], "radius_px": 8.0, "color": [1.0, 0.0, 1.0] }
+  ],
+  "marker_threshold_px": 0.5,
+  "patches_ja": "平塗り色区。調色板 9 色（targets/palette.json の srgb8 と一致することを gate_part2.py で確かめる）と灰 3 段。rect_px は表示 px の画素端 [x0, y0, x1, y1)（左上原点）。カメラから patch_depth_m の画像面に平行な四角形として描く。",
+  "patch_depth_m": 5.0,
+  "patch_margin_px": 6,
+  "patch_threshold_dE00": 0.5,
+  "patches": [
+    { "name": "white", "srgb8": [251, 246, 227], "rect_px": [200, 60, 565, 360] },
+    { "name": "mizuiro", "srgb8": [193, 212, 199], "rect_px": [585, 60, 950, 360] },
+    { "name": "ai_mid", "srgb8": [41, 105, 148], "rect_px": [970, 60, 1335, 360] },
+    { "name": "ai_dark", "srgb8": [33, 62, 95], "rect_px": [1355, 60, 1720, 360] },
+    { "name": "sky_top", "srgb8": [248, 231, 195], "rect_px": [200, 390, 565, 690] },
+    { "name": "sky_bottom", "srgb8": [129, 130, 124], "rect_px": [585, 390, 950, 690] },
+    { "name": "boat_ochre", "srgb8": [229, 193, 158], "rect_px": [970, 390, 1335, 690] },
+    { "name": "fuji_snow", "srgb8": [251, 248, 229], "rect_px": [1355, 390, 1720, 690] },
+    { "name": "fuji_slope", "srgb8": [42, 66, 96], "rect_px": [200, 720, 565, 1020] },
+    { "name": "grey_064", "srgb8": [64, 64, 64], "rect_px": [585, 720, 950, 1020] },
+    { "name": "grey_128", "srgb8": [128, 128, 128], "rect_px": [970, 720, 1335, 1020] },
+    { "name": "grey_192", "srgb8": [192, 192, 192], "rect_px": [1355, 720, 1720, 1020] }
+  ],
+  "baseline_ja": "M1 Revision01 の構図シーンを開いて PaintingCam v1 から描く。シーンと依存資産は保存しない（前後の SHA-256 で確認）。ID 画像は 3840×2160・MSAA なし。",
+  "baseline": {
+    "scene": "Assets/GreatWave/Scenes/Tests/M1_StaticComposition_Revision01.unity",
+    "boat_left": "M1 left boat",
+    "boat_mid": "M1 middle boat",
+    "boat_fg": "M1 foreground boat",
+    "id_scale": 2
+  }
+}

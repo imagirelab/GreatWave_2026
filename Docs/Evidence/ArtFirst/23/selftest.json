@@ -1,0 +1,1592 @@
+{
+ "schema": "GreatWave.PaintingTruth.selftest/1",
+ "generated_utc": "2026-09-25T16:04:15+00:00",
+ "tools": {
+  "python": "3.10.6",
+  "numpy": "2.2.6",
+  "opencv": "4.12.0"
+ },
+ "truth_manifest_sha256": "42d4a92caac0f7e3da1410998930077f4a167634272d7b59e1fc127b2c4562b6",
+ "sharma2005_ciede2000": {
+  "n_pairs": 34,
+  "max_abs_error": 4.9498977271467126e-05,
+  "max_abs_error_swapped": 4.9498977271467126e-05,
+  "threshold": 0.0001,
+  "pass": true,
+  "pairs": [
+   {
+    "i": 1,
+    "expected": 2.0425,
+    "computed": 2.04246
+   },
+   {
+    "i": 2,
+    "expected": 2.8615,
+    "computed": 2.86151
+   },
+   {
+    "i": 3,
+    "expected": 3.4412,
+    "computed": 3.441191
+   },
+   {
+    "i": 4,
+    "expected": 1.0,
+    "computed": 0.999999
+   },
+   {
+    "i": 5,
+    "expected": 1.0,
+    "computed": 1.000005
+   },
+   {
+    "i": 6,
+    "expected": 1.0,
+    "computed": 1.000013
+   },
+   {
+    "i": 7,
+    "expected": 2.3669,
+    "computed": 2.366859
+   },
+   {
+    "i": 8,
+    "expected": 2.3669,
+    "computed": 2.366859
+   },
+   {
+    "i": 9,
+    "expected": 7.1792,
+    "computed": 7.179172
+   },
+   {
+    "i": 10,
+    "expected": 7.1792,
+    "computed": 7.179163
+   },
+   {
+    "i": 11,
+    "expected": 7.2195,
+    "computed": 7.219472
+   },
+   {
+    "i": 12,
+    "expected": 7.2195,
+    "computed": 7.219474
+   },
+   {
+    "i": 13,
+    "expected": 4.8045,
+    "computed": 4.804522
+   },
+   {
+    "i": 14,
+    "expected": 4.8045,
+    "computed": 4.804525
+   },
+   {
+    "i": 15,
+    "expected": 4.7461,
+    "computed": 4.746071
+   },
+   {
+    "i": 16,
+    "expected": 4.3065,
+    "computed": 4.306482
+   },
+   {
+    "i": 17,
+    "expected": 27.1492,
+    "computed": 27.149231
+   },
+   {
+    "i": 18,
+    "expected": 22.8977,
+    "computed": 22.897692
+   },
+   {
+    "i": 19,
+    "expected": 31.903,
+    "computed": 31.903005
+   },
+   {
+    "i": 20,
+    "expected": 19.4535,
+    "computed": 19.453521
+   },
+   {
+    "i": 21,
+    "expected": 1.0,
+    "computed": 1.000026
+   },
+   {
+    "i": 22,
+    "expected": 1.0,
+    "computed": 0.999973
+   },
+   {
+    "i": 23,
+    "expected": 1.0,
+    "computed": 1.000049
+   },
+   {
+    "i": 24,
+    "expected": 1.0,
+    "computed": 1.000035
+   },
+   {
+    "i": 25,
+    "expected": 1.2644,
+    "computed": 1.26442
+   },
+   {
+    "i": 26,
+    "expected": 1.263,
+    "computed": 1.262959
+   },
+   {
+    "i": 27,
+    "expected": 1.8731,
+    "computed": 1.873071
+   },
+   {
+    "i": 28,
+    "expected": 1.8645,
+    "computed": 1.864495
+   },
+   {
+    "i": 29,
+    "expected": 2.0373,
+    "computed": 2.037258
+   },
+   {
+    "i": 30,
+    "expected": 1.4146,
+    "computed": 1.414578
+   },
+   {
+    "i": 31,
+    "expected": 1.4441,
+    "computed": 1.444129
+   },
+   {
+    "i": 32,
+    "expected": 1.5381,
+    "computed": 1.538117
+   },
+   {
+    "i": 33,
+    "expected": 0.6377,
+    "computed": 0.637728
+   },
+   {
+    "i": 34,
+    "expected": 0.9082,
+    "computed": 0.908233
+   }
+  ],
+  "source_ja": "Sharma, Wu, Dalal (2005) Color Res. Appl. 30(1) 表1 の 34 組（表の値は小数 4 桁）。"
+ },
+ "camera_crosscheck": {
+  "euler_numpy_deg": [
+   354.207593,
+   357.830742,
+   0.0
+  ],
+  "euler_unity_12_placement": [
+   354.20758056640625,
+   357.83074951171875,
+   -1.3408675059167763e-08
+  ],
+  "euler_max_diff_deg": 1.2702475657988543e-05,
+  "fuji_apex_world": [
+   37.0,
+   15.9,
+   420.0
+  ],
+  "fuji_apex_world_note_ja": "M1CompositionBuilder.cs 169-170 行の position (37,-0.1,420)・scale 2 と、12_placement の fujiImportedSize 高さ 8 から頂点 = position + 2*(0,8,0) と推定。",
+  "fuji_apex_numpy_display_px": [
+   1229.0755,
+   713.4721
+  ],
+  "fuji_apex_unity_display_px": [
+   1229.0755,
+   713.4721
+  ],
+  "fuji_apex_diff_px": 1.123938446837585e-05,
+  "fuji_depth_numpy": 479.10387,
+  "fuji_depth_unity": 479.1038513183594,
+  "revision01_layout_camera_matches_spec": true,
+  "world_to_camera_matrix": [
+   [
+    0.99928337,
+    -0.0,
+    0.03785164,
+    2.34680185
+   ],
+   [
+    0.00382016,
+    0.99489409,
+    -0.10085212,
+    -9.23751382
+   ],
+   [
+    0.03765838,
+    -0.10092445,
+    -0.99418112,
+    -61.3364562
+   ],
+   [
+    0.0,
+    0.0,
+    0.0,
+    1.0
+   ]
+  ],
+  "projection_matrix": [
+   [
+    2.43645518,
+    0.0,
+    0.0,
+    0.0
+   ],
+   [
+    0.0,
+    4.33147587,
+    0.0,
+    0.0
+   ],
+   [
+    0.0,
+    0.0,
+    -1.00022225,
+    -0.20002222
+   ],
+   [
+    0.0,
+    0.0,
+    -1.0,
+    0.0
+   ]
+  ],
+  "pass": true,
+  "note_ja": "Unity の既存記録との照合で、Unity 上の 5 点標識による ≤0.5 px 較正門（第2部）の代わりにはしない。"
+ },
+ "self_zero": {
+  "max_over_all_contours_and_colors": 0.0,
+  "n_measures": 26,
+  "pass": true,
+  "metrics": {
+   "78": {
+    "backlog": 78,
+    "measures": [
+     {
+      "target": "78",
+      "family": "sky_envelope",
+      "metric": "labelled Hausdorff (display px)",
+      "value_max_px": 0.0,
+      "p95_px": 0.0,
+      "p50_px": 0.0,
+      "max_truth_to_render": 0.0,
+      "max_render_to_truth": 0.0,
+      "n_truth": 596,
+      "n_render_assigned": 596,
+      "threshold_px": 4.0,
+      "verdict": "pass",
+      "version": "envelope",
+      "worst_display_xy": [
+       357.05,
+       309.0
+      ]
+     }
+    ],
+    "verdict": "pass"
+   },
+   "130": {
+    "backlog": 130,
+    "measures": [
+     {
+      "target": "130",
+      "family": "sky_envelope",
+      "metric": "labelled Hausdorff (display px)",
+      "value_max_px": 0.0,
+      "p95_px": 0.0,
+      "p50_px": 0.0,
+      "max_truth_to_render": 0.0,
+      "max_render_to_truth": 0.0,
+      "n_truth": 495,
+      "n_render_assigned": 495,
+      "threshold_px": 4.0,
+      "verdict": "pass",
+      "version": "envelope",
+      "worst_display_xy": [
+       486.31,
+       191.0
+      ]
+     }
+    ],
+    "verdict": "pass"
+   },
+   "131": {
+    "backlog": 131,
+    "measures": [
+     {
+      "target": "131",
+      "family": "sky_envelope",
+      "metric": "labelled Hausdorff (display px)",
+      "value_max_px": 0.0,
+      "p95_px": 0.0,
+      "p50_px": 0.0,
+      "max_truth_to_render": 0.0,
+      "max_render_to_truth": 0.0,
+      "n_truth": 754,
+      "n_render_assigned": 754,
+      "threshold_px": 4.0,
+      "verdict": "pass",
+      "version": "envelope",
+      "worst_display_xy": [
+       760.12,
+       93.0
+      ]
+     }
+    ],
+    "verdict": "pass"
+   },
+   "132": {
+    "backlog": 132,
+    "measures": [
+     {
+      "target": "132",
+      "family": "sky_envelope",
+      "metric": "labelled Hausdorff (display px)",
+      "value_max_px": 0.0,
+      "p95_px": 0.0,
+      "p50_px": 0.0,
+      "max_truth_to_render": 0.0,
+      "max_render_to_truth": 0.0,
+      "n_truth": 1209,
+      "n_render_assigned": 1209,
+      "threshold_px": 4.0,
+      "verdict": "pass",
+      "version": "envelope",
+      "worst_display_xy": [
+       766.77,
+       92.0
+      ]
+     }
+    ],
+    "verdict": "pass"
+   },
+   "72": {
+    "backlog": 72,
+    "measures": [
+     {
+      "target": "72",
+      "family": "sky_envelope",
+      "metric": "labelled Hausdorff (display px)",
+      "value_max_px": 0.0,
+      "p95_px": 0.0,
+      "p50_px": 0.0,
+      "max_truth_to_render": 0.0,
+      "max_render_to_truth": 0.0,
+      "n_truth": 2161,
+      "n_render_assigned": 2161,
+      "threshold_px": 4.0,
+      "verdict": "pass",
+      "version": "envelope",
+      "worst_display_xy": [
+       1108.03,
+       354.0
+      ]
+     }
+    ],
+    "verdict": "pass"
+   },
+   "71": {
+    "backlog": 71,
+    "measures": [
+     {
+      "target": "71",
+      "family": "sky_envelope",
+      "metric": "labelled Hausdorff (display px)",
+      "value_max_px": 0.0,
+      "p95_px": 0.0,
+      "p50_px": 0.0,
+      "max_truth_to_render": 0.0,
+      "max_render_to_truth": 0.0,
+      "n_truth": 2569,
+      "n_render_assigned": 2569,
+      "threshold_px": 4.0,
+      "verdict": "pass",
+      "version": "envelope",
+      "worst_display_xy": [
+       856.29,
+       383.0
+      ],
+      "iou": 1.0
+     }
+    ],
+    "verdict": "pass"
+   },
+   "76": {
+    "backlog": 76,
+    "measures": [
+     {
+      "target": "sky_dark",
+      "family": "sky_dark",
+      "metric": "labelled Hausdorff (display px)",
+      "value_max_px": 0.0,
+      "p95_px": 0.0,
+      "p50_px": 0.0,
+      "max_truth_to_render": 0.0,
+      "max_render_to_truth": 0.0,
+      "n_truth": 4252,
+      "n_render_assigned": 4252,
+      "threshold_px": 4.0,
+      "verdict": "pass",
+      "version": null,
+      "worst_display_xy": [
+       1496.5,
+       626.0
+      ]
+     },
+     {
+      "target": "sky_bottom",
+      "metric": "CIEDE2000 of region median (3 px erosion)",
+      "value": 0.0,
+      "render_lab": [
+       53.922,
+       -1.386,
+       3.092
+      ],
+      "truth_lab": [
+       53.9225,
+       -1.3855,
+       3.092
+      ],
+      "pixels": 18620,
+      "threshold": 5.0,
+      "verdict": "pass"
+     }
+    ],
+    "verdict": "pass"
+   },
+   "213": {
+    "backlog": 213,
+    "measures": [
+     {
+      "target": "sky_transition",
+      "family": "sky_dark",
+      "metric": "labelled Hausdorff (display px)",
+      "value_max_px": 0.0,
+      "p95_px": 0.0,
+      "p50_px": 0.0,
+      "max_truth_to_render": 0.0,
+      "max_render_to_truth": 0.0,
+      "n_truth": 1582,
+      "n_render_assigned": 1582,
+      "threshold_px": 4.0,
+      "verdict": "pass",
+      "version": null,
+      "worst_display_xy": [
+       1496.5,
+       626.0
+      ]
+     },
+     {
+      "target": "boat_ochre",
+      "metric": "CIEDE2000 of region median (3 px erosion)",
+      "value": 0.0,
+      "render_lab": [
+       80.338,
+       7.818,
+       22.224
+      ],
+      "truth_lab": [
+       80.3381,
+       7.8176,
+       22.2243
+      ],
+      "pixels": 19034,
+      "threshold": 5.0,
+      "verdict": "record-only"
+     }
+    ],
+    "verdict": "pass"
+   },
+   "75": {
+    "backlog": 75,
+    "measures": [
+     {
+      "target": "boat_fg",
+      "family": "boat_fg",
+      "metric": "labelled Hausdorff (display px)",
+      "value_max_px": 0.0,
+      "p95_px": 0.0,
+      "p50_px": 0.0,
+      "max_truth_to_render": 0.0,
+      "max_render_to_truth": 0.0,
+      "n_truth": 4316,
+      "n_render_assigned": 4316,
+      "threshold_px": 4.0,
+      "verdict": "record-only",
+      "version": null,
+      "worst_display_xy": [
+       816.57,
+       833.0
+      ]
+     }
+    ],
+    "verdict": "record-only"
+   },
+   "157": {
+    "backlog": 157,
+    "measures": [
+     {
+      "target": "boat_left",
+      "family": "boat_left",
+      "metric": "labelled Hausdorff (display px)",
+      "value_max_px": 0.0,
+      "p95_px": 0.0,
+      "p50_px": 0.0,
+      "max_truth_to_render": 0.0,
+      "max_render_to_truth": 0.0,
+      "n_truth": 4112,
+      "n_render_assigned": 4112,
+      "threshold_px": 4.0,
+      "verdict": "record-only",
+      "version": null,
+      "worst_display_xy": [
+       190.49,
+       498.0
+      ]
+     }
+    ],
+    "verdict": "record-only"
+   },
+   "159": {
+    "backlog": 159,
+    "measures": [
+     {
+      "target": "boat_mid",
+      "family": "boat_mid",
+      "metric": "labelled Hausdorff (display px)",
+      "value_max_px": 0.0,
+      "p95_px": 0.0,
+      "p50_px": 0.0,
+      "max_truth_to_render": 0.0,
+      "max_render_to_truth": 0.0,
+      "n_truth": 2664,
+      "n_render_assigned": 2664,
+      "threshold_px": 4.0,
+      "verdict": "record-only",
+      "version": null,
+      "worst_display_xy": [
+       1566.54,
+       596.0
+      ]
+     }
+    ],
+    "verdict": "record-only"
+   },
+   "78_claws": {
+    "backlog": 78,
+    "measures": [
+     {
+      "target": "78",
+      "family": "sky_claws",
+      "metric": "labelled Hausdorff (display px)",
+      "value_max_px": 0.0,
+      "p95_px": 0.0,
+      "p50_px": 0.0,
+      "max_truth_to_render": 0.0,
+      "max_render_to_truth": 0.0,
+      "n_truth": 596,
+      "n_render_assigned": 596,
+      "threshold_px": 4.0,
+      "verdict": "record-only",
+      "version": "claws",
+      "worst_display_xy": [
+       357.05,
+       309.0
+      ]
+     }
+    ],
+    "verdict": "record-only"
+   },
+   "130_claws": {
+    "backlog": 130,
+    "measures": [
+     {
+      "target": "130",
+      "family": "sky_claws",
+      "metric": "labelled Hausdorff (display px)",
+      "value_max_px": 0.0,
+      "p95_px": 0.0,
+      "p50_px": 0.0,
+      "max_truth_to_render": 0.0,
+      "max_render_to_truth": 0.0,
+      "n_truth": 495,
+      "n_render_assigned": 495,
+      "threshold_px": 4.0,
+      "verdict": "record-only",
+      "version": "claws",
+      "worst_display_xy": [
+       486.31,
+       191.0
+      ]
+     }
+    ],
+    "verdict": "record-only"
+   },
+   "131_claws": {
+    "backlog": 131,
+    "measures": [
+     {
+      "target": "131",
+      "family": "sky_claws",
+      "metric": "labelled Hausdorff (display px)",
+      "value_max_px": 0.0,
+      "p95_px": 0.0,
+      "p50_px": 0.0,
+      "max_truth_to_render": 0.0,
+      "max_render_to_truth": 0.0,
+      "n_truth": 758,
+      "n_render_assigned": 758,
+      "threshold_px": 4.0,
+      "verdict": "record-only",
+      "version": "claws",
+      "worst_display_xy": [
+       760.12,
+       93.0
+      ]
+     }
+    ],
+    "verdict": "record-only"
+   },
+   "132_claws": {
+    "backlog": 132,
+    "measures": [
+     {
+      "target": "132",
+      "family": "sky_claws",
+      "metric": "labelled Hausdorff (display px)",
+      "value_max_px": 0.0,
+      "p95_px": 0.0,
+      "p50_px": 0.0,
+      "max_truth_to_render": 0.0,
+      "max_render_to_truth": 0.0,
+      "n_truth": 2263,
+      "n_render_assigned": 2263,
+      "threshold_px": 4.0,
+      "verdict": "record-only",
+      "version": "claws",
+      "worst_display_xy": [
+       768.15,
+       92.0
+      ]
+     }
+    ],
+    "verdict": "record-only"
+   },
+   "72_claws": {
+    "backlog": 72,
+    "measures": [
+     {
+      "target": "72",
+      "family": "sky_claws",
+      "metric": "labelled Hausdorff (display px)",
+      "value_max_px": 0.0,
+      "p95_px": 0.0,
+      "p50_px": 0.0,
+      "max_truth_to_render": 0.0,
+      "max_render_to_truth": 0.0,
+      "n_truth": 3467,
+      "n_render_assigned": 3467,
+      "threshold_px": 4.0,
+      "verdict": "record-only",
+      "version": "claws",
+      "worst_display_xy": [
+       1080.23,
+       348.0
+      ]
+     }
+    ],
+    "verdict": "record-only"
+   },
+   "71_claws": {
+    "backlog": 71,
+    "measures": [
+     {
+      "target": "71",
+      "family": "sky_claws",
+      "metric": "labelled Hausdorff (display px)",
+      "value_max_px": 0.0,
+      "p95_px": 0.0,
+      "p50_px": 0.0,
+      "max_truth_to_render": 0.0,
+      "max_render_to_truth": 0.0,
+      "n_truth": 3632,
+      "n_render_assigned": 3632,
+      "threshold_px": 4.0,
+      "verdict": "record-only",
+      "version": "claws",
+      "worst_display_xy": [
+       839.55,
+       376.0
+      ],
+      "iou": 1.0
+     }
+    ],
+    "verdict": "record-only"
+   },
+   "74": {
+    "backlog": 74,
+    "measures": [
+     {
+      "target": "fuji_ridge",
+      "family": "sky_claws",
+      "metric": "labelled Hausdorff (display px)",
+      "value_max_px": 0.0,
+      "p95_px": 0.0,
+      "p50_px": 0.0,
+      "max_truth_to_render": 0.0,
+      "max_render_to_truth": 0.0,
+      "n_truth": 686,
+      "n_render_assigned": 686,
+      "threshold_px": 4.0,
+      "verdict": "record-only",
+      "version": "claws",
+      "worst_display_xy": [
+       1175.34,
+       695.0
+      ]
+     }
+    ],
+    "verdict": "record-only"
+   },
+   "161": {
+    "backlog": 161,
+    "measures": [
+     {
+      "target": "fuji_ridge",
+      "family": "sky_claws",
+      "metric": "labelled Hausdorff (display px)",
+      "value_max_px": 0.0,
+      "p95_px": 0.0,
+      "p50_px": 0.0,
+      "max_truth_to_render": 0.0,
+      "max_render_to_truth": 0.0,
+      "n_truth": 686,
+      "n_render_assigned": 686,
+      "threshold_px": 4.0,
+      "verdict": "record-only",
+      "version": "claws",
+      "worst_display_xy": [
+       1175.34,
+       695.0
+      ]
+     }
+    ],
+    "verdict": "record-only"
+   },
+   "212": {
+    "backlog": 212,
+    "measures": [
+     {
+      "target": "sky_top",
+      "metric": "CIEDE2000 of region median (3 px erosion)",
+      "value": 0.0,
+      "render_lab": [
+       92.322,
+       0.088,
+       19.606
+      ],
+      "truth_lab": [
+       92.3223,
+       0.0883,
+       19.6065
+      ],
+      "pixels": 180262,
+      "threshold": 5.0,
+      "verdict": "pass"
+     }
+    ],
+    "verdict": "pass"
+   },
+   "265": {
+    "backlog": 265,
+    "measures": [
+     {
+      "target": "mizuiro",
+      "metric": "CIEDE2000 of region median (3 px erosion)",
+      "value": 0.0,
+      "render_lab": [
+       83.059,
+       -8.693,
+       4.012
+      ],
+      "truth_lab": [
+       83.0585,
+       -8.6933,
+       4.012
+      ],
+      "pixels": 6546,
+      "threshold": 5.0,
+      "verdict": "record-only"
+     },
+     {
+      "target": "ai_mid",
+      "metric": "CIEDE2000 of region median (3 px erosion)",
+      "value": 0.0,
+      "render_lab": [
+       42.194,
+       -5.449,
+       -29.428
+      ],
+      "truth_lab": [
+       42.1938,
+       -5.4486,
+       -29.4277
+      ],
+      "pixels": 3991,
+      "threshold": 5.0,
+      "verdict": "record-only"
+     }
+    ],
+    "verdict": "record-only"
+   },
+   "162": {
+    "backlog": 162,
+    "measures": [
+     {
+      "target": "fuji_snow",
+      "metric": "CIEDE2000 of region median (3 px erosion)",
+      "value": 0.0,
+      "render_lab": [
+       97.501,
+       -2.19,
+       9.597
+      ],
+      "truth_lab": [
+       97.501,
+       -2.19,
+       9.5966
+      ],
+      "pixels": 4334,
+      "threshold": 5.0,
+      "verdict": "record-only"
+     },
+     {
+      "target": "fuji_slope",
+      "metric": "CIEDE2000 of region median (3 px erosion)",
+      "value": 0.0,
+      "render_lab": [
+       27.469,
+       0.359,
+       -20.35
+      ],
+      "truth_lab": [
+       27.4689,
+       0.3586,
+       -20.3499
+      ],
+      "pixels": 365,
+      "threshold": 5.0,
+      "verdict": "record-only"
+     }
+    ],
+    "verdict": "record-only"
+   },
+   "line_width": {
+    "backlog": null,
+    "measures": [
+     {
+      "target": "outline_line_width",
+      "metric": "藍の輪郭線幅（L* < 61.2 の連続長、法線方向）",
+      "median_display_px": 3.0,
+      "p10_display_px": 2.275,
+      "p90_display_px": 4.0,
+      "median_ref_px": 2.2417,
+      "n_samples": 92,
+      "tolerance": 0.2,
+      "verdict": "record-only"
+     }
+    ],
+    "verdict": "record-only"
+   }
+  }
+ },
+ "synthetic_shift": {
+  "expected_px": 3.0,
+  "tolerance_px": 0.1,
+  "checked": [
+   3.0,
+   3.0,
+   3.0,
+   3.0,
+   3.0286
+  ],
+  "pass": true,
+  "cases": {
+   "dx3.0000_dy0.0000": {
+    "main_wave_union_envelope": {
+     "n_truth": 5215,
+     "n_render_assigned": 5186,
+     "max_px": 3.0,
+     "p95_px": 2.9674,
+     "p50_px": 1.9278,
+     "max_truth_to_render": 3.0,
+     "max_render_to_truth": 3.0
+    },
+    "main_wave_union_claws": {
+     "n_truth": 7579,
+     "n_render_assigned": 7540,
+     "max_px": 3.0,
+     "p95_px": 3.0,
+     "p50_px": 1.8902,
+     "max_truth_to_render": 3.0,
+     "max_render_to_truth": 3.0
+    },
+    "per_target_envelope": {
+     "78": 2.7115,
+     "130": 2.7208,
+     "131": 2.1619,
+     "132": 3.0,
+     "72": 3.0,
+     "71": 3.0
+    }
+   },
+   "dx0.0000_dy3.0000": {
+    "main_wave_union_envelope": {
+     "n_truth": 5215,
+     "n_render_assigned": 5229,
+     "max_px": 3.0,
+     "p95_px": 3.0,
+     "p50_px": 2.2304,
+     "max_truth_to_render": 3.0,
+     "max_render_to_truth": 3.0
+    },
+    "main_wave_union_claws": {
+     "n_truth": 7579,
+     "n_render_assigned": 7569,
+     "max_px": 3.0,
+     "p95_px": 3.0,
+     "p50_px": 2.1437,
+     "max_truth_to_render": 3.0,
+     "max_render_to_truth": 3.0
+    },
+    "per_target_envelope": {
+     "78": 3.0,
+     "130": 2.9542,
+     "131": 3.0,
+     "132": 3.0,
+     "72": 3.0,
+     "71": 3.0
+    }
+   },
+   "dx2.1213_dy2.1213": {
+    "main_wave_union_envelope": {
+     "n_truth": 5215,
+     "n_render_assigned": 5210,
+     "max_px": 3.0278,
+     "p95_px": 2.9988,
+     "p50_px": 2.1076,
+     "max_truth_to_render": 3.0278,
+     "max_render_to_truth": 3.01
+    },
+    "main_wave_union_claws": {
+     "n_truth": 7579,
+     "n_render_assigned": 7528,
+     "max_px": 3.1057,
+     "p95_px": 2.9987,
+     "p50_px": 2.1112,
+     "max_truth_to_render": 3.1057,
+     "max_render_to_truth": 3.0145
+    },
+    "per_target_envelope": {
+     "78": 3.0278,
+     "130": 3.0205,
+     "131": 3.0157,
+     "132": 2.7759,
+     "72": 3.0135,
+     "71": 3.0615
+    }
+   },
+   "synthetic_disk_r200_diag3px_supersampled4x": {
+    "n_truth": 3200,
+    "n_render_assigned": 3200,
+    "max_px": 3.0286,
+    "p95_px": 2.996,
+    "p50_px": 2.1095,
+    "max_truth_to_render": 3.0276,
+    "max_render_to_truth": 3.0286
+   }
+  },
+  "note_ja": "判定は x・y 方向の整数 3 px 移動（主浪 5 区間の和集合、包絡・爪入り）と、4×4 超標本化した円の斜め 3.0 px 移動。原画マスクの斜め移動は記録のみ（区間ごとの値は法線の向きで 3 px 未満になる）。"
+ },
+ "flat_patch": {
+  "deltaE00": {
+   "sky_bottom": 0.2877,
+   "sky_top": 0.1663,
+   "mizuiro": 0.2313,
+   "ai_mid": 0.1211,
+   "fuji_snow": 0.1222,
+   "fuji_slope": 0.1603,
+   "white": 0.1837,
+   "ai_dark": 0.2055,
+   "boat_ochre": 0.1135
+  },
+  "threshold": 0.5,
+  "pass": true,
+  "note_ja": "各色区を調色板の 8bit sRGB で平塗りした合成画像を読み戻した ΔE00（8bit 量子化の誤差のみ）。"
+ },
+ "canny_support": {
+  "canny": {
+   "gaussian_sigma": 0.8,
+   "low": 40,
+   "high": 120,
+   "L2gradient": true,
+   "image": "参照画像の 8bit グレー"
+  },
+  "threshold_ref_px": 1.0,
+  "required_ratio": 0.95,
+  "segments": {
+   "claws_78": {
+    "ratio": 1.0,
+    "n": 413,
+    "p95_ref_px": 0.688
+   },
+   "claws_130": {
+    "ratio": 1.0,
+    "n": 279,
+    "p95_ref_px": 0.454
+   },
+   "claws_131": {
+    "ratio": 1.0,
+    "n": 559,
+    "p95_ref_px": 0.656
+   },
+   "claws_132": {
+    "ratio": 0.9663,
+    "n": 1602,
+    "p95_ref_px": 0.875
+   },
+   "claws_72": {
+    "ratio": 0.9935,
+    "n": 2469,
+    "p95_ref_px": 0.688
+   },
+   "envelope_78": {
+    "ratio": 1.0,
+    "n": 413,
+    "p95_ref_px": 0.688
+   },
+   "envelope_130": {
+    "ratio": 1.0,
+    "n": 279,
+    "p95_ref_px": 0.454
+   },
+   "envelope_131": {
+    "ratio": 1.0,
+    "n": 558,
+    "p95_ref_px": 0.656
+   },
+   "envelope_72": {
+    "ratio": 0.9905,
+    "n": 632,
+    "p95_ref_px": 0.717
+   }
+  },
+  "overall_claws_ratio": 0.9868,
+  "pass": true,
+  "note_ja": "判定は爪入り版（原画の空境界そのもの）の全区間。包絡版は claw_zone 外の点だけ参考記録。"
+ },
+ "colour_mode_roundtrip_record": {
+  "note_ja": "ID 画像なしで原画の表示フレーム画像そのものを色モードで評価した値（表示→参照→表示の再標本化の影響）。記録のみ。",
+  "contours": {
+   "78": [
+    [
+     "78",
+     "envelope",
+     1.1156,
+     0.6172
+    ]
+   ],
+   "130": [
+    [
+     "130",
+     "envelope",
+     0.7673,
+     0.5369
+    ]
+   ],
+   "131": [
+    [
+     "131",
+     "envelope",
+     1.0514,
+     0.6229
+    ]
+   ],
+   "132": [
+    [
+     "132",
+     "envelope",
+     94.4296,
+     78.1785
+    ]
+   ],
+   "72": [
+    [
+     "72",
+     "envelope",
+     81.6973,
+     37.405
+    ]
+   ],
+   "71": [
+    [
+     "71",
+     "envelope",
+     81.6973,
+     21.0453
+    ]
+   ],
+   "76": [
+    [
+     "sky_dark",
+     null,
+     95.5918,
+     59.3774
+    ]
+   ],
+   "213": [
+    [
+     "sky_transition",
+     null,
+     3.3532,
+     0.0445
+    ]
+   ],
+   "75": [
+    [
+     "boat_fg",
+     null,
+     30.2248,
+     1.03
+    ]
+   ],
+   "157": [
+    [
+     "boat_left",
+     null,
+     26.566,
+     2.9545
+    ]
+   ],
+   "159": [
+    [
+     "boat_mid",
+     null,
+     17.3543,
+     0.8941
+    ]
+   ],
+   "78_claws": [
+    [
+     "78",
+     "claws",
+     1.1156,
+     0.6172
+    ]
+   ],
+   "130_claws": [
+    [
+     "130",
+     "claws",
+     0.7673,
+     0.5369
+    ]
+   ],
+   "131_claws": [
+    [
+     "131",
+     "claws",
+     1.2224,
+     0.6313
+    ]
+   ],
+   "132_claws": [
+    [
+     "132",
+     "claws",
+     62.8733,
+     52.3226
+    ]
+   ],
+   "72_claws": [
+    [
+     "72",
+     "claws",
+     59.43,
+     8.9546
+    ]
+   ],
+   "71_claws": [
+    [
+     "71",
+     "claws",
+     59.43,
+     1.4419
+    ]
+   ],
+   "74": [
+    [
+     "fuji_ridge",
+     "claws",
+     95.4186,
+     78.5338
+    ]
+   ],
+   "161": [
+    [
+     "fuji_ridge",
+     "claws",
+     95.4186,
+     78.5338
+    ]
+   ],
+   "212": [],
+   "265": [],
+   "162": [],
+   "line_width": []
+  }
+ },
+ "id_mode_roundtrip_record": {
+  "note_ja": "真値の被覆率を 2 倍に拡大・0.5 で二値化した 3840×2160 の ID 画像を、ID モードで読み戻した値。ID 経路の量子化誤差の目安（記録のみ）。",
+  "contours": {
+   "78": [
+    [
+     "78",
+     0.3655,
+     0.2437
+    ]
+   ],
+   "130": [
+    [
+     "130",
+     0.2429,
+     0.1559
+    ]
+   ],
+   "131": [
+    [
+     "131",
+     0.2406,
+     0.1637
+    ]
+   ],
+   "132": [
+    [
+     "132",
+     0.29,
+     0.1807
+    ]
+   ],
+   "72": [
+    [
+     "72",
+     0.4422,
+     0.2531
+    ]
+   ],
+   "71": [
+    [
+     "71",
+     1.2915,
+     0.2623
+    ]
+   ],
+   "74": [
+    [
+     "fuji_ridge",
+     0.3495,
+     0.1855
+    ]
+   ],
+   "161": [
+    [
+     "fuji_ridge",
+     0.3495,
+     0.1855
+    ]
+   ],
+   "76": [
+    [
+     "sky_dark",
+     1.941,
+     0.6151
+    ]
+   ],
+   "213": [
+    [
+     "sky_transition",
+     1.6462,
+     0.0
+    ]
+   ],
+   "75": [
+    [
+     "boat_fg",
+     1.5842,
+     0.2227
+    ]
+   ],
+   "157": [
+    [
+     "boat_left",
+     4.2114,
+     0.2136
+    ]
+   ],
+   "159": [
+    [
+     "boat_mid",
+     0.5326,
+     0.1864
+    ]
+   ],
+   "212": [],
+   "265": [],
+   "162": [],
+   "line_width": []
+  }
+ },
+ "truth_completeness_record": {
+  "verdict": "record-only",
+  "zone": "claw_zone（manual_annotations.json）",
+  "frame": "参照画像 1200×807",
+  "white_rule": {
+   "blur_sigma_ref_px": 1.0,
+   "L_min": 95.0,
+   "a_max": -0.5,
+   "b_max": 9.0,
+   "min_component_ref_px": 20
+  },
+  "white_px_in_zone": 7726,
+  "truth": {
+   "white_px_in_water": 6883,
+   "white_px_in_sky": 843,
+   "water_coverage_of_white": 0.8909,
+   "sky_components_ge_min": 3,
+   "sky_components_area_ref_px": 443,
+   "largest_sky_components": [
+    {
+     "area_ref_px": 380,
+     "bbox_ref_xywh": [
+      700,
+      93,
+      37,
+      27
+     ],
+     "centroid_ref": [
+      718.7,
+      105.3
+     ],
+     "centroid_display": [
+      1119.0,
+      141.0
+     ]
+    },
+    {
+     "area_ref_px": 39,
+     "bbox_ref_xywh": [
+      738,
+      107,
+      10,
+      5
+     ],
+     "centroid_ref": [
+      742.5,
+      108.7
+     ],
+     "centroid_display": [
+      1150.9,
+      145.7
+     ]
+    },
+    {
+     "area_ref_px": 24,
+     "bbox_ref_xywh": [
+      554,
+      299,
+      5,
+      7
+     ],
+     "centroid_ref": [
+      556.1,
+      301.8
+     ],
+     "centroid_display": [
+      901.5,
+      404.0
+     ]
+    }
+   ]
+  },
+  "control_without_manual_barriers": {
+   "white_px_in_water": 4648,
+   "white_px_in_sky": 3078,
+   "water_coverage_of_white": 0.6016,
+   "sky_components_ge_min": 11,
+   "sky_components_area_ref_px": 2280,
+   "largest_sky_components": [
+    {
+     "area_ref_px": 840,
+     "bbox_ref_xywh": [
+      569,
+      195,
+      63,
+      42
+     ],
+     "centroid_ref": [
+      600.2,
+      210.8
+     ],
+     "centroid_display": [
+      960.5,
+      282.2
+     ]
+    },
+    {
+     "area_ref_px": 559,
+     "bbox_ref_xywh": [
+      638,
+      237,
+      41,
+      38
+     ],
+     "centroid_ref": [
+      660.7,
+      254.9
+     ],
+     "centroid_display": [
+      1041.4,
+      341.3
+     ]
+    },
+    {
+     "area_ref_px": 380,
+     "bbox_ref_xywh": [
+      700,
+      93,
+      37,
+      27
+     ],
+     "centroid_ref": [
+      718.7,
+      105.3
+     ],
+     "centroid_display": [
+      1119.0,
+      141.0
+     ]
+    },
+    {
+     "area_ref_px": 129,
+     "bbox_ref_xywh": [
+      613,
+      239,
+      19,
+      13
+     ],
+     "centroid_ref": [
+      621.8,
+      245.1
+     ],
+     "centroid_display": [
+      989.4,
+      328.2
+     ]
+    },
+    {
+     "area_ref_px": 118,
+     "bbox_ref_xywh": [
+      540,
+      192,
+      22,
+      11
+     ],
+     "centroid_ref": [
+      551.9,
+      196.9
+     ],
+     "centroid_display": [
+      895.9,
+      263.7
+     ]
+    },
+    {
+     "area_ref_px": 106,
+     "bbox_ref_xywh": [
+      636,
+      229,
+      20,
+      17
+     ],
+     "centroid_ref": [
+      643.6,
+      237.5
+     ],
+     "centroid_display": [
+      1018.6,
+      318.0
+     ]
+    },
+    {
+     "area_ref_px": 39,
+     "bbox_ref_xywh": [
+      738,
+      107,
+      10,
+      5
+     ],
+     "centroid_ref": [
+      742.5,
+      108.7
+     ],
+     "centroid_display": [
+      1150.9,
+      145.7
+     ]
+    },
+    {
+     "area_ref_px": 35,
+     "bbox_ref_xywh": [
+      563,
+      207,
+      6,
+      10
+     ],
+     "centroid_ref": [
+      565.3,
+      211.4
+     ],
+     "centroid_display": [
+      913.8,
+      283.0
+     ]
+    }
+   ]
+  },
+  "note_ja": "白い水の色の画素（平滑 L*≥95、a*≤−0.5、b*≤9）のうち、真値（爪入り版）で水側にある割合と、空側に入った塊（開き 1 px 後、20 参照 px² 以上）の一覧。塊には右上の淡い空（約 700〜740, 93〜120）のように色だけでは空と区別できないものが入るので、合否には使わない。control は手動の障壁を外した空（v0 と同じ規則）で、唇の右端の爪群の漏れ（約 569〜632, 195〜237 など）が塊として出ることを示す。"
+ },
+ "unity_markers": {
+  "status": "not_in_selftest",
+  "note_ja": "Unity の世界標識 5 点と numpy 投影の差 ≤0.5 px、Unity の平塗り色区の読み戻しは第2部の gate_part2.py で測る（23_gate.json）。この自己テスト（Python のみ）では測らない。"
+ },
+ "gate_part1_pass": true,
+ "gate_complete": false,
+ "gate_complete_note_ja": "自己テストは第1部の項目だけで、これ単独では較正門を閉じない。較正門全体の判定は 23_gate.json（gate_part2.py）。"
+}

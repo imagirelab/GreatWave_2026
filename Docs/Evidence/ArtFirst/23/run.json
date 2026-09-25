@@ -1,0 +1,163 @@
+{
+ "schema": "GreatWave.Step23.run/1",
+ "generated_utc": "2026-09-25T16:04:51+00:00",
+ "commands": [
+  "py -3.10 Tools/PaintingTruth/extract.py --evidence Docs/Evidence/ArtFirst/23",
+  "py -3.10 Tools/PaintingTruth/evaluate.py --selftest --out-dir Docs/Evidence/ArtFirst/23"
+ ],
+ "cwd": "リポジトリ根（G:/Unity/GreatWave_2026_Fresh）",
+ "tools": {
+  "python": "3.10.6",
+  "numpy": "2.2.6",
+  "opencv": "4.12.0",
+  "pillow": "12.0.0",
+  "os": "Windows-10-10.0.26200-SP0"
+ },
+ "unity": {
+  "version": "6000.4.3f1",
+  "device": "NVIDIA GeForce RTX 3080",
+  "graphics_api": "Direct3D11",
+  "color_space": "Linear",
+  "method_ja": "Editor batchmode：保存しない空シーン → Camera.Render → RenderTexture → ReadPixels → PNG（PC オフスクリーン、HMD ではない）",
+  "gate_render_seconds": 0.24595969915390015,
+  "baseline_render_seconds": 0.35947659611701965
+ },
+ "houdini": null,
+ "blender": null,
+ "inputs": {
+  "Docs/References/Met_JP1847.jpg": "a7e06182eba5205c26b4a71a06eebaead8ef2541f348a15b90174a75fc62cab0",
+  "Tools/PaintingTruth/painting_truth.json": "578116e0f48ca9938586056f6d7b3f66a655abdf0c6d1dc78e5802bd02264758",
+  "Tools/PaintingTruth/manual_annotations.json": "a6979c9ed80039816630d7abf586a4a5840b91e164c58fd0f16a85ebfbaabe5e",
+  "Tools/PaintingTruth/truthlib.py": "1de609746d92378fe3347d5b694650510ddda2c9aa05aaeac6140e5012837d4a",
+  "Tools/PaintingTruth/extract.py": "40d336f74ae74d3e4b2e8b9623c478dea694dda7f1119e472cf54d0ea3d0f1ba",
+  "Tools/PaintingTruth/evaluate.py": "d07b8f36696519fb0354e5070e61217ab4470683f3dd0025a445a1aba2c9cf3b",
+  "Docs/Evidence/M1/12_placement.json": "7d4dc90e84305345449b8e2c756d4224090ed1dabe95c1700312a2de25887718",
+  "Docs/Evidence/M1/Revision01/15_revision_layout.json": "d9dec4c9d5b4390782b844a0578c7aea805b198ca19e410961ba91208e3e14bc"
+ },
+ "outputs": {
+  "Tools/PaintingTruth/targets/main_wave_outline_claws.json": "934c491679df06a06dcdc5ffa0b36295e6f017c9b15e9b261d24d132f0b3e54d",
+  "Tools/PaintingTruth/targets/main_wave_outline_envelope.json": "e457c8e77e66dade6b081554acff214041d08486508ac444a916737f5cedd876",
+  "Tools/PaintingTruth/targets/masks/boat_fg_cov.png": "1b6140738546c70eafa114a1fc36a9989b488802d24d667db8298327599234a1",
+  "Tools/PaintingTruth/targets/masks/boat_left_cov.png": "31920d57abd7cb38edeba34919e8328a9a300683142e0a2c6bb86308d5e039a1",
+  "Tools/PaintingTruth/targets/masks/boat_mid_cov.png": "16b2f1f8cdab41cd9e7db77af0ecd7b82201da99a15310f2290943690981c935",
+  "Tools/PaintingTruth/targets/masks/palette_regions.png": "1aa344e73008a1af48129ec5ff6e63cbbb3260d4722c6e1042c76bf8352b1d7b",
+  "Tools/PaintingTruth/targets/masks/sky_claws_cov.png": "3419b78a690db760ac39772098cd660acaef96e439ccf91a33a5c04c92c71378",
+  "Tools/PaintingTruth/targets/masks/sky_dark_cov.png": "29935037242f147193fc7f09c069294649f20f541d7c5772bb20f7397a29c274",
+  "Tools/PaintingTruth/targets/masks/sky_envelope_cov.png": "18c5e9067060c6844a85865b7f3c3c51d86c944a6f5bfd9f2ea49dcc2bdd17fd",
+  "Tools/PaintingTruth/targets/other_polylines.json": "29fafec9156bfc067750fbefc756e8a6927f748414e9ef601662c24e55886459",
+  "Tools/PaintingTruth/targets/palette.json": "4892bbe38858585ec79dce6b89dff194a63c940be3aba71c6e0be58f770db0fc",
+  "Tools/PaintingTruth/targets/regions.json": "453a6348e54371e7ca85fbeb0849d0cc538cd4321b3380c43677490e48039edd",
+  "Tools/PaintingTruth/targets/truth_manifest.json": "42d4a92caac0f7e3da1410998930077f4a167634272d7b59e1fc127b2c4562b6",
+  "Docs/Evidence/ArtFirst/23/23_baseline_M1R01_blend.png": "c32a90a81fbee0298e7a3ab3e8007afa4f77965aec4d5adaddf115ae973accf5",
+  "Docs/Evidence/ArtFirst/23/23_baseline_M1R01_metrics.json": "e2d693cc7fcd76fb7f2195311a3c9e8abb289862dc6fc53c3a56d6b496726cb9",
+  "Docs/Evidence/ArtFirst/23/23_baseline_M1R01_overlay.png": "53d221a0084de9799a5ec689278200357f2fc49313b967fa51d2f6247f8da868",
+  "Docs/Evidence/ArtFirst/23/23_baseline_M1R01_render.png": "7cc8c7e79b1189d3905b42f7116b71413ddbad6f5e6e21344ace561b98cfc41b",
+  "Docs/Evidence/ArtFirst/23/23_claw_zone_detail.png": "f91d77b32bcb55a327b5ae72b5b0e6f7be9f166853e59f1bccf158685d9966ff",
+  "Docs/Evidence/ArtFirst/23/23_claw_zone_sky_tint.png": "15f967f05acb8106a18051ddf74c06de0f75a553db265b8f17c7669590e25278",
+  "Docs/Evidence/ArtFirst/23/23_gate.json": "d3a156b8a6b6577c1333b95604a99cd56304d6a4ed85ca8d9841874681b28be2",
+  "Docs/Evidence/ArtFirst/23/23_gate_flat_patch.png": "716c06bcedc193e6b9ebf86e94674f289c2c5bbe710812226402845177cbdde9",
+  "Docs/Evidence/ArtFirst/23/23_gate_markers.png": "e83abc1cf95c310c1ed527f7e39455af7d3b33ce984d9d9ef2eab8033822a512",
+  "Docs/Evidence/ArtFirst/23/23_lip_closeup_x5.png": "0b4660eaba6ea964d3b7f2daa185c2dc11952504e5c41d5573e040c01f7f65e3",
+  "Docs/Evidence/ArtFirst/23/23_palette_regions.png": "2e89229234ecd4372b8521ae4b0a0369e16ff4c93f17b3e328b25fc535ae6668",
+  "Docs/Evidence/ArtFirst/23/23_selftest_self_overlay.png": "635b723ce7ebca10f7eb5f2ce346f5922f18f5dbe734029e7058cb176caa58ba",
+  "Docs/Evidence/ArtFirst/23/23_selftest_shift3px_overlay.png": "aec42bc4e3fdd69e448df3a1820dde96b0002354b070fe23e60dd06e473755f4",
+  "Docs/Evidence/ArtFirst/23/23_targets_overlay.png": "a3d8576cd12623b0e801768d195860e3dd6b7e74ac0998e94556f329f8b73368",
+  "Docs/Evidence/ArtFirst/23/metrics.json": "a88ae36f6be41730aa50a27863146e626e8d88530dbd7da65583eef7fe01117a",
+  "Docs/Evidence/ArtFirst/23/selftest.json": "85769caf448387e9e590c61a1b16dccacc38c6855d460e34978ca129e2168cef"
+ },
+ "not_committed": {
+  "Tools/PaintingTruth/build/painting_display.png": "4ca22e5a7c609cbfebbfd11db6770237e01b0f4a077789b4adb28b73bcdd5985"
+ },
+ "not_committed_ja": "表示フレームの原画（約 3 MB）は extract.py で決定的に再生成できるため Git に入れない。",
+ "part2": {
+  "generated_utc": "2026-09-25T16:04:51+00:00",
+  "commands": [
+   "powershell -NoProfile -ExecutionPolicy Bypass -File Tools/PaintingTruth/run_af23_part2.ps1",
+   "（内訳）py -3.10 Tools/PaintingTruth/evaluate.py --selftest --out-dir Docs/Evidence/ArtFirst/23",
+   "（内訳）E:\\6000.4.3f1\\Editor\\Unity.exe -batchmode -projectPath Unity -executeMethod GreatWave.ArtFirst.EditorTools.AF23CalibrationGate.RunAll -logFile Unity/Build/ArtFirst/23/unity_af23_gate.log -quit",
+   "（内訳）py -3.10 Tools/PaintingTruth/gate_part2.py",
+   "（gate_part2.py の中）py -3.10 Tools/PaintingTruth/evaluate.py --render Unity/Build/ArtFirst/23/af23_baseline_M1R01.png --ids Unity/Build/ArtFirst/23/af23_baseline_M1R01_ids.png --idmap Unity/Build/ArtFirst/23/af23_baseline_M1R01_idmap.json --out-dir Unity/Build/ArtFirst/23/eval_M1R01 --name 23_baseline_M1R01"
+  ],
+  "cwd": "リポジトリ根（G:/Unity/GreatWave_2026_Fresh）",
+  "tools": {
+   "python": "3.10.6",
+   "numpy": "2.2.6",
+   "opencv": "4.12.0",
+   "pillow": "12.0.0",
+   "os": "Windows-10-10.0.26200-SP0"
+  },
+  "unity": {
+   "version": "6000.4.3f1",
+   "device": "NVIDIA GeForce RTX 3080",
+   "graphics_api": "Direct3D11",
+   "color_space": "Linear",
+   "method_ja": "Editor batchmode：保存しない空シーン → Camera.Render → RenderTexture → ReadPixels → PNG（PC オフスクリーン、HMD ではない）",
+   "gate_render_seconds": 0.24595969915390015,
+   "baseline_render_seconds": 0.35947659611701965
+  },
+  "inputs": {
+   "Tools/PaintingTruth/painting_truth.json": "578116e0f48ca9938586056f6d7b3f66a655abdf0c6d1dc78e5802bd02264758",
+   "Tools/PaintingTruth/unity_gate.json": "fefe7ead8f944972f5306df21dd549292a0ab3c07c2232e7f843eaf4102e435a",
+   "Tools/PaintingTruth/targets/palette.json": "4892bbe38858585ec79dce6b89dff194a63c940be3aba71c6e0be58f770db0fc",
+   "Tools/PaintingTruth/targets/truth_manifest.json": "42d4a92caac0f7e3da1410998930077f4a167634272d7b59e1fc127b2c4562b6",
+   "Docs/Evidence/ArtFirst/23/selftest.json": "85769caf448387e9e590c61a1b16dccacc38c6855d460e34978ca129e2168cef",
+   "Tools/PaintingTruth/gate_part2.py": "fbde58d2b2a19c40bd993fc41ee0ad97bcf3961bf7d6e3925c39144584a63ccc",
+   "Tools/PaintingTruth/evaluate.py": "d07b8f36696519fb0354e5070e61217ab4470683f3dd0025a445a1aba2c9cf3b",
+   "Tools/PaintingTruth/truthlib.py": "1de609746d92378fe3347d5b694650510ddda2c9aa05aaeac6140e5012837d4a",
+   "Tools/PaintingTruth/run_af23_part2.ps1": "d61ee72b612197e0a0c102447442c436078a74448b96f619fda2602c5fcc48f4",
+   "Unity/Assets/GreatWave/ArtFirst/Editor/AF23CalibrationGate.cs": "731cd02293ec29c06e0d129ff31b334ad2fcc7e5e6c954ec748e906b727b5c4c",
+   "Unity/Assets/GreatWave/ArtFirst/Editor/AF23GateFlat.shader": "116ce6807dd56b56889d0b57688ad030554b2458e4550d0a704e75d6d61f8d84",
+   "Unity/Assets/GreatWave/Scenes/Tests/M1_StaticComposition_Revision01.unity": "6014cd11f76e847441906178a56919df723be012a40908c9502bf059f5f921f8"
+  },
+  "outputs": {
+   "Docs/Evidence/ArtFirst/23/23_gate.json": "d3a156b8a6b6577c1333b95604a99cd56304d6a4ed85ca8d9841874681b28be2",
+   "Docs/Evidence/ArtFirst/23/23_gate_markers.png": "e83abc1cf95c310c1ed527f7e39455af7d3b33ce984d9d9ef2eab8033822a512",
+   "Docs/Evidence/ArtFirst/23/23_gate_flat_patch.png": "716c06bcedc193e6b9ebf86e94674f289c2c5bbe710812226402845177cbdde9",
+   "Docs/Evidence/ArtFirst/23/23_baseline_M1R01_render.png": "7cc8c7e79b1189d3905b42f7116b71413ddbad6f5e6e21344ace561b98cfc41b",
+   "Docs/Evidence/ArtFirst/23/23_baseline_M1R01_overlay.png": "53d221a0084de9799a5ec689278200357f2fc49313b967fa51d2f6247f8da868",
+   "Docs/Evidence/ArtFirst/23/23_baseline_M1R01_blend.png": "c32a90a81fbee0298e7a3ab3e8007afa4f77965aec4d5adaddf115ae973accf5",
+   "Docs/Evidence/ArtFirst/23/23_baseline_M1R01_metrics.json": "e2d693cc7fcd76fb7f2195311a3c9e8abb289862dc6fc53c3a56d6b496726cb9"
+  },
+  "not_committed": {
+   "Unity/Build/ArtFirst/23/af23_baseline_M1R01.png": {
+    "sha256": "7cc8c7e79b1189d3905b42f7116b71413ddbad6f5e6e21344ace561b98cfc41b",
+    "bytes": 359310
+   },
+   "Unity/Build/ArtFirst/23/af23_baseline_M1R01_idmap.json": {
+    "sha256": "c8064688a15f236c654a10c8d80ab7d17328f5fa14e5005b28a10c1c0bbd9ec1",
+    "bytes": 388
+   },
+   "Unity/Build/ArtFirst/23/af23_baseline_M1R01_ids.png": {
+    "sha256": "bb54dff37192a303665d729ee569165304fea804cc8a391028ba4e6136ef5d41",
+    "bytes": 150895
+   },
+   "Unity/Build/ArtFirst/23/af23_baseline_unity_report.json": {
+    "sha256": "d02c7d00246777c429c3b596ceb0efc73d6925a3413c208f70fac8f7efa4e2ac",
+    "bytes": 6195
+   },
+   "Unity/Build/ArtFirst/23/af23_flat_patch.png": {
+    "sha256": "7a30266c06a7445e8abebb054e5bf1e681ca0d8e03673e15aaaf5a6e1fb06b3a",
+    "bytes": 29506
+   },
+   "Unity/Build/ArtFirst/23/af23_flat_patch_linear_rt_control.png": {
+    "sha256": "5e45f671ec1338d83776c7320ce702cda49a86feda91aeb4b4330d0499380426",
+    "bytes": 29516
+   },
+   "Unity/Build/ArtFirst/23/af23_gate_unity_report.json": {
+    "sha256": "b9bf51c330234ad99c7c8d906c6ac1890043c29553439b154e0d2574a5b51210",
+    "bytes": 11622
+   },
+   "Unity/Build/ArtFirst/23/af23_markers.png": {
+    "sha256": "b7bf785f57e9b2d1a29cda9de257b514b9b35739e7fa60b25f216d25e775166d",
+    "bytes": 28310
+   },
+   "Unity/Build/ArtFirst/23/af23_markers_nomsaa.png": {
+    "sha256": "d5f463939b1793e6d2c5ed332a2f8337b9288a58aca363f920d9291829a79335",
+    "bytes": 28057
+   }
+  },
+  "not_committed_ja": "Unity/Build/ArtFirst/23（Git 対象外）。Unity の生の描画・ID 画像（3840×2160）・Unity の報告 JSON・評価器の生出力。run_af23_part2.ps1 で作り直せる。",
+  "baseline_scene_dependencies_unchanged": true,
+  "baseline_scene_sha256": "6014cd11f76e847441906178a56919df723be012a40908c9502bf059f5f921f8"
+ }
+}
