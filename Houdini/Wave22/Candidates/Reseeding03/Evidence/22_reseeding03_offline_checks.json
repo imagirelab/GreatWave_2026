@@ -1,0 +1,205 @@
+{
+  "houdini_or_mcp_called": false,
+  "real_bgeo_decoded": false,
+  "checks": [
+    {
+      "name_ja": "固定格子は99×8×9の7128点",
+      "passed": true
+    },
+    {
+      "name_ja": "範囲と順序は整数cmから固定",
+      "passed": true
+    },
+    {
+      "name_ja": "乱数96照会を全距離走査と照合",
+      "passed": true
+    },
+    {
+      "name_ja": "半径ちょうどの支持を含む",
+      "passed": true
+    },
+    {
+      "name_ja": "半径外の最近距離を丸めない",
+      "passed": true
+    },
+    {
+      "name_ja": "負座標のcellを正しく探索",
+      "passed": true
+    },
+    {
+      "name_ja": "空粒子は拒否",
+      "passed": true
+    },
+    {
+      "name_ja": "非有限粒子は拒否",
+      "passed": true
+    },
+    {
+      "name_ja": "正SDFと支持ありを独立警報",
+      "passed": true
+    },
+    {
+      "name_ja": "負SDFと支持0を独立警報",
+      "passed": true
+    },
+    {
+      "name_ja": "field外でsampleを呼ばず無効",
+      "passed": true
+    },
+    {
+      "name_ja": "非有限を0へ補わず無効とJSON保存",
+      "passed": true
+    },
+    {
+      "name_ja": "一粒子ありを無空洞合格としない",
+      "passed": true
+    },
+    {
+      "name_ja": "低い非ゼロ支持は警報にしない",
+      "passed": true
+    },
+    {
+      "name_ja": "観測時間予算で停止",
+      "passed": true
+    },
+    {
+      "name_ja": "ON/OFF共有警報を新規警報としない",
+      "passed": true
+    },
+    {
+      "name_ja": "無効fieldを警報差比較へ混ぜない",
+      "passed": true
+    },
+    {
+      "name_ja": "初態の全項目一致だけを配対PASS",
+      "passed": true
+    },
+    {
+      "name_ja": "初態差を拒否 sorted_ID_P_sha256",
+      "passed": true
+    },
+    {
+      "name_ja": "初態差を拒否 sorted_ID_v_sha256",
+      "passed": true
+    },
+    {
+      "name_ja": "初態差を拒否 sorted_ID_pscale_sha256",
+      "passed": true
+    },
+    {
+      "name_ja": "初態差を拒否 surface_pressure_initial_fields",
+      "passed": true
+    },
+    {
+      "name_ja": "読戻し定義はhouなし独立namespaceで構築可能",
+      "passed": true
+    },
+    {
+      "name_ja": "Volume保持点を粒子支持から除外",
+      "passed": true
+    },
+    {
+      "name_ja": "RPCは独立したimportと全関数を含む",
+      "passed": true
+    },
+    {
+      "name_ja": "RPCに時刻/ノード/solver/HIP変更APIなし",
+      "passed": true
+    },
+    {
+      "name_ja": "RPC戻り値はJSON/source SHAのみ",
+      "passed": true
+    },
+    {
+      "name_ja": "RPCをhouだけの新規namespaceで模擬実行",
+      "passed": true
+    },
+    {
+      "name_ja": "模擬RPCは原JSON SHAへ結合",
+      "passed": true
+    },
+    {
+      "name_ja": "キャッシュhash不一致は読戻し拒否",
+      "passed": true
+    },
+    {
+      "name_ja": "6時刻を固定しPASSでも駆動しない",
+      "passed": true
+    },
+    {
+      "name_ja": "警報を保持して固定t6まで継続",
+      "passed": true
+    },
+    {
+      "name_ja": "公開L6 fixtureの元静水FAILを保持",
+      "passed": true
+    },
+    {
+      "name_ja": "途中被覆警報を保持して全361点まで続行",
+      "passed": true
+    },
+    {
+      "name_ja": "静水PASSでも駆動を許可しない",
+      "passed": true
+    },
+    {
+      "name_ja": "初態不一致は停止",
+      "passed": true
+    },
+    {
+      "name_ja": "場外非有限は停止",
+      "passed": true
+    },
+    {
+      "name_ja": "元の資源安全違反は停止",
+      "passed": true
+    },
+    {
+      "name_ja": "全7128点の合成負SDF/支持を測定",
+      "passed": true
+    }
+  ],
+  "passed": true,
+  "point_count": 7128,
+  "point_order_sha256": "a96e24d8ff5b0e6f344662c7e670abdbf045a3e253fadcbd62e300ebaa58ea26",
+  "random_bruteforce_max_distance_error_m": 0.0,
+  "source_hashes": {
+    "check_deepwater_logic.py": "4ed33b95f20acfb10ce2df6940aaf6dd335ab043c700c690b02ecec4ce669b7f",
+    "check_reseeding_off.py": "058d916af347dfebf59d4b469b11f9c7a2a366243aefd5ac6d9634b376e3eac5",
+    "deepwater_core.py": "a21e7e23ee93b5622b3cf5a923c2aa356c6bc77008f4246569445841dd7f0941",
+    "readback_deepwater.py": "714858b9863abea752710200d093ef7d2ce9b25f6730567db38860350f382711",
+    "reseeding03_plan.json": "dec680925b88917d4cb1b269bc33b70329f1d0b9f8830ae5bc68f6e8ef348a3b",
+    "reseeding_off_plan.json": "940a6a353e9cb5d80c870236f316089d60c805dfd6f65f9117dad1b51eaf349c",
+    "reseeding_policy.py": "79001660df45b5e343c46730cf2bc4659485c2d7e71ff3c420f82bb52112b673",
+    "run_baseline_readback.py": "4d6039383cbae677eeecae85229ce075012a4fbbe86d1ec1e37275a30cc0eec0",
+    "run_reseeding_off.py": "243b92c80e291fdcae8f6b86437fbd83538d8562b7ae76f74ca0a2e479df9bbc"
+  },
+  "baseline_samples_sha256": "9f88f7e893cd6a2c30973f0e2b8a22065ead99682be25384d5d16ae363bde7c4",
+  "baseline_conditions_sha256": "4dfd2494057248d866a8886cdeac1a1e056c0759ddaa9f129a21b3c138ff3dca",
+  "synthetic_cost": {
+    "particle_count": 54000,
+    "query_count": 7128,
+    "elapsed_seconds": 1.2366003000061028,
+    "occupied_hash_cells": 4800,
+    "fallback_queries": 0,
+    "support_count_distribution": {
+      "min": 41,
+      "median": 52,
+      "p95": 60,
+      "max": 60,
+      "mean": 51.98821548821549
+    },
+    "excludes_ja": "実BGEOのdecode、HOMの7128回sample、MCP、JSON書込みを含まない。実測上限の保証ではない。"
+  },
+  "single_file_estimate": {
+    "sample0_cache_bytes_from_published_manifest": 1058043,
+    "six_cache_bytes_from_published_manifest": 22034153,
+    "first_actual_readback_sample": 0,
+    "real_readback_seconds_unmeasured": true,
+    "reader_seconds_budget": 90,
+    "client_timeout_seconds": 180,
+    "strategy_ja": "承認後にt0一件だけ順次読戻しし、実費用/JSONサイズと有効性を報告してから残り5件を判断する。"
+  },
+  "python": "3.13.2",
+  "limitations_ja": "合成探索の数値検査であり、保存水槽の深水被覆やHOM互換性は未検証。"
+}

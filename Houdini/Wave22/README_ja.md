@@ -107,3 +107,10 @@ python Houdini/Wave22/Source/summarize_checkpoint6.py --curated-only
 [旧槽との原水位比較](Evidence/Length6_Result_db52394211/22_length6_full_series.png)／[固定窓](Evidence/Length6_Result_db52394211/22_length6_late_windows.png)／[361時刻CSV](Evidence/Length6_Result_db52394211/22_length6_gauges.csv)／[元JSONと実設定・復元](Evidence/Curated_Runs/db52394211)／[出典](Evidence/Length6_Result_db52394211/22_result_provenance.json)。548個の実BGEOはローカルRunsに残し、全SHAをmanifestへ保存した。UI18復元合格、造波許可なし、動画なし。詳細数値と限界は[Step22の修正02](../../Docs/Progress/Step_22_ja.md)に記載した。
 
 公開データだけの再計算：`python Houdini/Wave22/Source/summarize_length6.py --curated-only`。これは実BGEO/Houdiniを再評価せず、公開JSONの図・CSV・摘要を作る。
+
+
+## 22修正03：SOP doreseeding OFFの固定6秒診断
+
+同じL6初態をID別P/v/pscale・全surface/pressureで厳密配対し、SOP doreseedingだけ1→0とした。Run4250d4451fは元の静水判定PASS、六時刻×7128点の粗い被覆警報0、UI18復元PASS。PASSでも固定6秒で終了し、造波・波動画はない。内部DOPはonlysourceseeding=1/reseed=1であり、「内部Reseed ParticlesもOFF」「出生なし」とは記さない。
+
+[実ON/OFF図・CSV・全原記録](Candidates/Reseeding03/Evidence/OFF_Result_4250d4451f/README_ja.md)／[事前計画と手順](Candidates/Reseeding03/README_ja.md)／[独立再計算方法と限界](../../Docs/Progress/Step_22_ja.md)。548 BGEOは本機Runs、ON/OFFの全深水原JSONはgzipで公開した。符号場/支持の検査は無空洞・収支・物理精度・波伝播の証明ではない。22は引き続き中間成果である。

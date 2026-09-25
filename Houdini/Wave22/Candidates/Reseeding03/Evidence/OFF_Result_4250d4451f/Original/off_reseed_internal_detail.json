@@ -1,0 +1,53 @@
+{
+  "nodes": [
+    {
+      "relative_path": "wave22/actual_wave_solver",
+      "type": "flipsolver",
+      "parameters": [
+        {
+          "name": "doreseeding",
+          "label": "Enable Reseeding",
+          "value": 0
+        },
+        {
+          "name": "reseeding",
+          "label": "",
+          "value": 0
+        },
+        {
+          "name": "seed",
+          "label": "Random Seed",
+          "value": 2101.0
+        }
+      ]
+    },
+    {
+      "relative_path": "wave22/actual_wave_solver/dopnet1/flipsolver1",
+      "type": "flipsolver::2.0",
+      "parameters": [
+        {
+          "name": "reseedsinglepass",
+          "label": "Single Pass Reseeding",
+          "value": 1
+        },
+        {
+          "name": "onlysourceseeding",
+          "label": "Only Source Seeding",
+          "value": 1
+        },
+        {
+          "name": "reseed",
+          "label": "Reseed Particles",
+          "value": 1
+        },
+        {
+          "name": "seed",
+          "label": "Random Seed",
+          "value": 2101.0
+        }
+      ]
+    }
+  ],
+  "existing_scene_read": false,
+  "meaning_ja": "現OFF所有ノードの補足観測。旧ON報告にない項目の旧値は未測定。設定は変更しない。"
+}

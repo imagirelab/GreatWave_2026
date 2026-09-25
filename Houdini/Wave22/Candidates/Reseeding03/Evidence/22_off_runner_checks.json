@@ -1,0 +1,173 @@
+{
+  "houdini_or_mcp_called": false,
+  "off_simulation_executed": false,
+  "checks": [
+    {
+      "name_ja": "唯一基線と6原JSON/source SHAを照合",
+      "passed": true
+    },
+    {
+      "name_ja": "作成条件でreseedだけの変更を許容",
+      "passed": true
+    },
+    {
+      "name_ja": "他条件変更を拒否 tank_inner_m",
+      "passed": true
+    },
+    {
+      "name_ja": "他条件変更を拒否 piston_start_absolute_seconds",
+      "passed": true
+    },
+    {
+      "name_ja": "他条件変更を拒否 display_voxel_m",
+      "passed": true
+    },
+    {
+      "name_ja": "seed変更を拒否",
+      "passed": true
+    },
+    {
+      "name_ja": "reseed ONのままなら拒否",
+      "passed": true
+    },
+    {
+      "name_ja": "元L6の2つのG3傾きFAILを保持",
+      "passed": true
+    },
+    {
+      "name_ja": "PASSからauthorizeする旧run_phasesを使わない",
+      "passed": true
+    },
+    {
+      "name_ja": "全実標本は固定range361",
+      "passed": true
+    },
+    {
+      "name_ja": "基線と同じhalf-step観測順序を維持",
+      "passed": true
+    },
+    {
+      "name_ja": "時計をManual/frame1へ固定してからcreate",
+      "passed": true
+    },
+    {
+      "name_ja": "完了不明ではcleanupを送らない",
+      "passed": true
+    },
+    {
+      "name_ja": "終了は元18項目UI復元",
+      "passed": true
+    },
+    {
+      "name_ja": "実初期化schemaを所有scopeで採録",
+      "passed": true
+    },
+    {
+      "name_ja": "schema比較は所有ルート名だけを無視",
+      "passed": true
+    },
+    {
+      "name_ja": "実reseed差をschema比較へ保持",
+      "passed": true
+    },
+    {
+      "name_ja": "内部DOPの別設定差も報告",
+      "passed": true
+    },
+    {
+      "name_ja": "補足schemaは読取りだけ",
+      "passed": true
+    },
+    {
+      "name_ja": "constants全依存をコピー後に実評価",
+      "passed": true
+    },
+    {
+      "name_ja": "凍結length6_plan欠落を再現して検出",
+      "passed": true
+    },
+    {
+      "name_ja": "標本RPCを独立namespaceで実行",
+      "passed": true
+    },
+    {
+      "name_ja": "標本RPCが原JSONとsource SHAへ結合",
+      "passed": true
+    },
+    {
+      "name_ja": "t0厳密配対前にはsample1を拒否",
+      "passed": true
+    },
+    {
+      "name_ja": "sample361は無条件拒否",
+      "passed": true
+    },
+    {
+      "name_ja": "配対RPCは原SHA/全指紋一致後だけ許可",
+      "passed": true
+    },
+    {
+      "name_ja": "初期vの差で配対拒否",
+      "passed": true
+    },
+    {
+      "name_ja": "原JSON SHA不一致でも拒否",
+      "passed": true
+    },
+    {
+      "name_ja": "別namespace remote gateが元FAILと完全一致",
+      "passed": true
+    },
+    {
+      "name_ja": "被覆警報は終点選択に使わずt6まで False",
+      "passed": true
+    },
+    {
+      "name_ja": "被覆警報は終点選択に使わずt6まで True",
+      "passed": true
+    },
+    {
+      "name_ja": "6源の基線読戻しコードは実行時のSHAを保持",
+      "passed": true
+    },
+    {
+      "name_ja": "公開fixtureは不変",
+      "passed": true
+    }
+  ],
+  "passed": true,
+  "source_hashes": {
+    "check_deepwater_logic.py": "4ed33b95f20acfb10ce2df6940aaf6dd335ab043c700c690b02ecec4ce669b7f",
+    "check_reseeding_off.py": "058d916af347dfebf59d4b469b11f9c7a2a366243aefd5ac6d9634b376e3eac5",
+    "deepwater_core.py": "a21e7e23ee93b5622b3cf5a923c2aa356c6bc77008f4246569445841dd7f0941",
+    "readback_deepwater.py": "714858b9863abea752710200d093ef7d2ce9b25f6730567db38860350f382711",
+    "reseeding03_plan.json": "dec680925b88917d4cb1b269bc33b70329f1d0b9f8830ae5bc68f6e8ef348a3b",
+    "reseeding_off_plan.json": "940a6a353e9cb5d80c870236f316089d60c805dfd6f65f9117dad1b51eaf349c",
+    "reseeding_policy.py": "79001660df45b5e343c46730cf2bc4659485c2d7e71ff3c420f82bb52112b673",
+    "run_baseline_readback.py": "4d6039383cbae677eeecae85229ce075012a4fbbe86d1ec1e37275a30cc0eec0",
+    "run_reseeding_off.py": "243b92c80e291fdcae8f6b86437fbd83538d8562b7ae76f74ca0a2e479df9bbc"
+  },
+  "unchanged_executed_source_hashes": {
+    "checkpoint_gate.py": "127c84eedb3a0122b3149cc18d1a6b385edf1f95a510614f3df1d9bb710aae36",
+    "generate_wave_l6.py": "a3cf59b1dc658541edb0a6bdcefddab06c0270e3038c70b63091d10f9f8004bc",
+    "grid_metrics_l6.py": "ca01dfa361bfe578199a9cf311b5559b41096c5cda2344a039c5507cce53fb6c",
+    "probe_grid_l6.py": "310e2af520f08b67df6ae41f0ceac1d956c03300354268f5548237b4d90f383b",
+    "ui_guard.py": "47b763ab25200b599f3a8a9acb31ade4f40f521df5512e1d80ab2697af2ee2c8",
+    "length6_plan.json": "6b2769fe7ab2132126f813a8d446cbaef98aaf0aaedab78c6cc22b839be0a33d"
+  },
+  "baseline_summary_sha256": "0fe284952467e15e124be23c6e95e8fbe43bc051307fc59cd38b9ed37565996d",
+  "actual_baseline_cost": {
+    "solver_cook_sum_seconds": 694.2641493002302,
+    "all_548_cache_bytes": 1682590892,
+    "deepwater_readback_six_seconds": 13.931557600037195,
+    "deepwater_original_json_six_bytes": 17109916,
+    "meaning_ja": "実ON基線の費用。OFFの速度・容量を保証しない。追加観測は標本cook時間と別記する。"
+  },
+  "operational_budget": {
+    "reserved_bytes": 3095396352,
+    "initial_required_free_disk_bytes": 16928210944,
+    "maximum_deepwater_read_seconds": 90,
+    "rpc_timeout_seconds": 180
+  },
+  "meaning_ja": "配対・条件差分・独立namespace・固定終点の離線検査。実OFFの初態一致、内部reseed設定、静水結果は未検証。"
+}

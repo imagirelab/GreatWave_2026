@@ -1,0 +1,935 @@
+{
+  "baseline_case": "db52394211",
+  "real_readback_performed": true,
+  "simulation_executed": false,
+  "nodes_or_ui_changed": false,
+  "total_point_time_queries": 42768,
+  "source_execution_records": [
+    {
+      "path": "Runs/deepwater03_c4aab88dc2/execution.json",
+      "sha256": "022b92e5218b4d37b8c0c5191dce41c5371a228c64d1b23b58024b0bcf6b2cc6",
+      "metadata": {
+        "pid": 53912,
+        "version": "22.0.429",
+        "ui": true,
+        "license": "licenseCategoryType.Indie",
+        "fps": 24.0
+      },
+      "source_hashes": {
+        "check_deepwater_logic.py": "4ed33b95f20acfb10ce2df6940aaf6dd335ab043c700c690b02ecec4ce669b7f",
+        "deepwater_core.py": "a21e7e23ee93b5622b3cf5a923c2aa356c6bc77008f4246569445841dd7f0941",
+        "readback_deepwater.py": "714858b9863abea752710200d093ef7d2ce9b25f6730567db38860350f382711",
+        "reseeding_policy.py": "79001660df45b5e343c46730cf2bc4659485c2d7e71ff3c420f82bb52112b673",
+        "run_baseline_readback.py": "4d6039383cbae677eeecae85229ce075012a4fbbe86d1ec1e37275a30cc0eec0"
+      }
+    },
+    {
+      "path": "Runs/deepwater03_6047336bef/execution.json",
+      "sha256": "0ff3712b4ffd87e3a251ee237836fb731efce89f7398db0e0325ae94ab5babc4",
+      "metadata": {
+        "pid": 53912,
+        "version": "22.0.429",
+        "ui": true,
+        "license": "licenseCategoryType.Indie",
+        "fps": 24.0
+      },
+      "source_hashes": {
+        "check_deepwater_logic.py": "4ed33b95f20acfb10ce2df6940aaf6dd335ab043c700c690b02ecec4ce669b7f",
+        "deepwater_core.py": "a21e7e23ee93b5622b3cf5a923c2aa356c6bc77008f4246569445841dd7f0941",
+        "readback_deepwater.py": "714858b9863abea752710200d093ef7d2ce9b25f6730567db38860350f382711",
+        "reseeding_policy.py": "79001660df45b5e343c46730cf2bc4659485c2d7e71ff3c420f82bb52112b673",
+        "run_baseline_readback.py": "4d6039383cbae677eeecae85229ce075012a4fbbe86d1ec1e37275a30cc0eec0"
+      }
+    }
+  ],
+  "rows": [
+    {
+      "sample": 0,
+      "seconds": 0.0,
+      "report_path": "Runs/deepwater03_c4aab88dc2/deepwater_000.json",
+      "report_sha256": "b1926381f0212b6d438bef965d858ee74423e7358bcd71236aef0b5af08864bd",
+      "report_bytes": 2855674,
+      "cache_sha256": "48ef6d332fdc7e8af544a4939aea802c8b87836e43ae430a821a425fbf42da0c",
+      "cache_bytes": 1058043,
+      "combined_reader_sha256": "486f927dea80a86688caee7354a8dc0a8747b9465dadbff219428000e3acda8c",
+      "particle_count": 53794,
+      "primitive_held_points_excluded": 5,
+      "categories": {
+        "invalid_field": 0,
+        "negative_with_support": 7128,
+        "negative_without_support": 0,
+        "nonnegative_with_support": 0,
+        "nonnegative_without_support": 0
+      },
+      "coverage_alarm_point_indices": [],
+      "phi_distribution_m": {
+        "min": -0.23999999463558197,
+        "median": -0.11999931931495667,
+        "p95": -0.05999920889735222,
+        "max": -0.059992771595716476,
+        "mean": -0.12704517117018918
+      },
+      "nearest_distance_distribution_m": {
+        "min": 0.0009037767050943903,
+        "median": 0.01857270696428102,
+        "p95": 0.0287949505181669,
+        "max": 0.038591989383189876,
+        "mean": 0.01851531930449231
+      },
+      "support_count_distribution": {
+        "min": 26,
+        "median": 51,
+        "p95": 74,
+        "max": 86,
+        "mean": 52.84034792368126
+      },
+      "timing_seconds": {
+        "hash": 0.001173799973912537,
+        "load_from_file": 0.001794499985408038,
+        "identify_field_and_particles": 0.6279890000005253,
+        "sampling_and_identity": 2.494155700027477,
+        "total": 3.125112999987323
+      },
+      "rpc_seconds": 3.239772400003858,
+      "ui_metadata_before_after": [
+        {
+          "frame": 1.0,
+          "fps": 24.0,
+          "dirty": true,
+          "update_mode": "updateMode.AutoUpdate"
+        },
+        {
+          "frame": 1.0,
+          "fps": 24.0,
+          "dirty": true,
+          "update_mode": "updateMode.AutoUpdate"
+        }
+      ],
+      "surface_field": {
+        "name": "surface",
+        "type": "primType.Volume",
+        "bounds": {
+          "min": [
+            -0.5099999904632568,
+            -1.1100000143051147,
+            -0.809999942779541
+          ],
+          "max": [
+            6.510000228881836,
+            0.5099999904632568,
+            0.8100000619888306
+          ]
+        },
+        "resolution": [
+          117,
+          27,
+          27
+        ],
+        "voxel_size_m": [
+          0.059999942779541016,
+          0.060000061988830566,
+          0.06000000238418579
+        ],
+        "transform": [
+          3.509999990463257,
+          0.0,
+          0.0,
+          0.0,
+          0.8100000023841858,
+          0.0,
+          0.0,
+          0.0,
+          0.8100000023841858
+        ],
+        "index_zero_center_m": [
+          -0.48000001907348633,
+          -1.0800000429153442,
+          -0.7799999713897705
+        ],
+        "index_unit_steps_m": [
+          [
+            0.059999942779541016,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.060000061988830566,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.06000000238418579
+          ]
+        ],
+        "is_sdf_metadata": false
+      },
+      "initial_pairing_reference": {
+        "particle_count": 53794,
+        "ID_unique": true,
+        "sorted_ID_P_sha256": "6b4e76165b42c1e3b4eb8e4670b9a3777b05a6e4db056a4afb9d0100fc7a2f85",
+        "sorted_ID_v_sha256": "753e9aa44c0c767acd4b89b282e2503c47f091d80cee04bc5c53454d09fd95f5",
+        "sorted_ID_pscale_sha256": "d8b017acd48349afc341bc2836fa9b62dae7fb42930ad05dddf666c256c41233",
+        "pscale_min_max_m": [
+          0.04800000041723251,
+          0.04800000041723251
+        ],
+        "surface_pressure_initial_fields": {
+          "surface": {
+            "name": "surface",
+            "type": "primType.Volume",
+            "bounds": {
+              "min": [
+                -0.5099999904632568,
+                -1.1100000143051147,
+                -0.809999942779541
+              ],
+              "max": [
+                6.510000228881836,
+                0.5099999904632568,
+                0.8100000619888306
+              ]
+            },
+            "resolution": [
+              117,
+              27,
+              27
+            ],
+            "voxel_size_m": [
+              0.059999942779541016,
+              0.060000061988830566,
+              0.06000000238418579
+            ],
+            "transform": [
+              3.509999990463257,
+              0.0,
+              0.0,
+              0.0,
+              0.8100000023841858,
+              0.0,
+              0.0,
+              0.0,
+              0.8100000023841858
+            ],
+            "index_zero_center_m": [
+              -0.48000001907348633,
+              -1.0800000429153442,
+              -0.7799999713897705
+            ],
+            "index_unit_steps_m": [
+              [
+                0.059999942779541016,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.060000061988830566,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                0.06000000238418579
+              ]
+            ],
+            "is_sdf_metadata": false,
+            "all_voxels_sha256": "152303b43425d246c1c9fa58efd5ece36726ad78988d52749d2e57ef8785cbc0",
+            "voxel_hash_encoding": "HOM_values_as_little_endian_float64"
+          },
+          "pressure": {
+            "name": "pressure",
+            "type": "primType.Volume",
+            "bounds": {
+              "min": [
+                -0.26999998092651367,
+                -0.26999998092651367,
+                -0.26999998092651367
+              ],
+              "max": [
+                0.26999998092651367,
+                0.26999998092651367,
+                0.26999998092651367
+              ]
+            },
+            "resolution": [
+              9,
+              9,
+              9
+            ],
+            "voxel_size_m": [
+              0.06000000238418579,
+              0.06000000238418579,
+              0.06000000238418579
+            ],
+            "transform": [
+              0.26999998092651367,
+              0.0,
+              0.0,
+              0.0,
+              0.26999998092651367,
+              0.0,
+              0.0,
+              0.0,
+              0.26999998092651367
+            ],
+            "index_zero_center_m": [
+              -0.23999997973442078,
+              -0.23999997973442078,
+              -0.23999997973442078
+            ],
+            "index_unit_steps_m": [
+              [
+                0.06000000238418579,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.06000000238418579,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                0.06000000238418579
+              ]
+            ],
+            "is_sdf_metadata": false,
+            "all_voxels_sha256": "d1575943c8a4713d0cdfc917aff7903805fab6350d7fcdc2000ccd7839ccd134",
+            "voxel_hash_encoding": "HOM_values_as_little_endian_float64"
+          }
+        },
+        "meaning_ja": "同じID順の元精度P/v/pscaleと全初期fieldを照合する。同seed/同数だけで一致とはしない。"
+      }
+    },
+    {
+      "sample": 30,
+      "seconds": 0.5,
+      "report_path": "Runs/deepwater03_6047336bef/deepwater_030.json",
+      "report_sha256": "0d7f3234ed27599327cc1100cb8db5a3de55b41c26c86f56907397ac3dba28c5",
+      "report_bytes": 2850937,
+      "cache_sha256": "8d3b7e0167243b5b2fbe21fec058b13c848e5397a240aa66953abdb2c9bfc290",
+      "cache_bytes": 4307826,
+      "combined_reader_sha256": "486f927dea80a86688caee7354a8dc0a8747b9465dadbff219428000e3acda8c",
+      "particle_count": 53299,
+      "primitive_held_points_excluded": 5,
+      "categories": {
+        "invalid_field": 0,
+        "negative_with_support": 7128,
+        "negative_without_support": 0,
+        "nonnegative_with_support": 0,
+        "nonnegative_without_support": 0
+      },
+      "coverage_alarm_point_indices": [],
+      "phi_distribution_m": {
+        "min": -0.28766462206840515,
+        "median": -0.14076031744480133,
+        "p95": -0.07236593961715698,
+        "max": -0.04430631920695305,
+        "mean": -0.14016929477835796
+      },
+      "nearest_distance_distribution_m": {
+        "min": 0.0014610312327525247,
+        "median": 0.018448335911974804,
+        "p95": 0.028826353528877656,
+        "max": 0.03874171490931692,
+        "mean": 0.018484693109020914
+      },
+      "support_count_distribution": {
+        "min": 26,
+        "median": 50,
+        "p95": 73,
+        "max": 86,
+        "mean": 52.585157126823795
+      },
+      "timing_seconds": {
+        "hash": 0.0032670999644324183,
+        "load_from_file": 0.004049699986353517,
+        "identify_field_and_particles": 0.4235148000298068,
+        "sampling_and_identity": 1.7356625000247732,
+        "total": 2.166494100005366
+      },
+      "rpc_seconds": 2.2788662999519147,
+      "ui_metadata_before_after": [
+        {
+          "frame": 1.0,
+          "fps": 24.0,
+          "dirty": true,
+          "update_mode": "updateMode.AutoUpdate"
+        },
+        {
+          "frame": 1.0,
+          "fps": 24.0,
+          "dirty": true,
+          "update_mode": "updateMode.AutoUpdate"
+        }
+      ],
+      "surface_field": {
+        "name": "surface",
+        "type": "primType.Volume",
+        "bounds": {
+          "min": [
+            -0.21000003814697266,
+            -0.8100000619888306,
+            -0.5099999308586121
+          ],
+          "max": [
+            6.210000038146973,
+            0.2099999189376831,
+            0.5100000500679016
+          ]
+        },
+        "resolution": [
+          107,
+          17,
+          17
+        ],
+        "voxel_size_m": [
+          0.059999942779541016,
+          0.060000061988830566,
+          0.06000000238418579
+        ],
+        "transform": [
+          3.2100000381469727,
+          0.0,
+          0.0,
+          0.0,
+          0.5099999904632568,
+          0.0,
+          0.0,
+          0.0,
+          0.5099999904632568
+        ],
+        "index_zero_center_m": [
+          -0.18000006675720215,
+          -0.7800000905990601,
+          -0.47999992966651917
+        ],
+        "index_unit_steps_m": [
+          [
+            0.059999942779541016,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.060000061988830566,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.06000000238418579
+          ]
+        ],
+        "is_sdf_metadata": false
+      },
+      "initial_pairing_reference": null
+    },
+    {
+      "sample": 180,
+      "seconds": 3.0,
+      "report_path": "Runs/deepwater03_6047336bef/deepwater_180.json",
+      "report_sha256": "8569a3bc72a30b527d00b1c6bbbfab10e1468f3cbe170b7b0b10edd4852054a0",
+      "report_bytes": 2850762,
+      "cache_sha256": "7eafcd659079f58a11e33fa8a02cde539531e51544fc183cfb98185dbbcfbb43",
+      "cache_bytes": 4184636,
+      "combined_reader_sha256": "486f927dea80a86688caee7354a8dc0a8747b9465dadbff219428000e3acda8c",
+      "particle_count": 51830,
+      "primitive_held_points_excluded": 5,
+      "categories": {
+        "invalid_field": 0,
+        "negative_with_support": 7128,
+        "negative_without_support": 0,
+        "nonnegative_with_support": 0,
+        "nonnegative_without_support": 0
+      },
+      "coverage_alarm_point_indices": [],
+      "phi_distribution_m": {
+        "min": -0.28787145018577576,
+        "median": -0.14010736346244812,
+        "p95": -0.07124487310647964,
+        "max": -0.042156070470809937,
+        "mean": -0.13962222164858437
+      },
+      "nearest_distance_distribution_m": {
+        "min": 0.0005013728435909259,
+        "median": 0.01838537827615936,
+        "p95": 0.02894536523700409,
+        "max": 0.03909719333342432,
+        "mean": 0.01848991563203309
+      },
+      "support_count_distribution": {
+        "min": 26,
+        "median": 50,
+        "p95": 72,
+        "max": 84,
+        "mean": 51.647306397306394
+      },
+      "timing_seconds": {
+        "hash": 0.003084200026933104,
+        "load_from_file": 0.003219700010959059,
+        "identify_field_and_particles": 0.5043174999882467,
+        "sampling_and_identity": 1.7174950999906287,
+        "total": 2.2281165000167675
+      },
+      "rpc_seconds": 2.318926499981899,
+      "ui_metadata_before_after": [
+        {
+          "frame": 1.0,
+          "fps": 24.0,
+          "dirty": true,
+          "update_mode": "updateMode.AutoUpdate"
+        },
+        {
+          "frame": 1.0,
+          "fps": 24.0,
+          "dirty": true,
+          "update_mode": "updateMode.AutoUpdate"
+        }
+      ],
+      "surface_field": {
+        "name": "surface",
+        "type": "primType.Volume",
+        "bounds": {
+          "min": [
+            -0.21000003814697266,
+            -0.8100000619888306,
+            -0.5099999308586121
+          ],
+          "max": [
+            6.210000038146973,
+            0.2099999189376831,
+            0.5100000500679016
+          ]
+        },
+        "resolution": [
+          107,
+          17,
+          17
+        ],
+        "voxel_size_m": [
+          0.059999942779541016,
+          0.060000061988830566,
+          0.06000000238418579
+        ],
+        "transform": [
+          3.2100000381469727,
+          0.0,
+          0.0,
+          0.0,
+          0.5099999904632568,
+          0.0,
+          0.0,
+          0.0,
+          0.5099999904632568
+        ],
+        "index_zero_center_m": [
+          -0.18000006675720215,
+          -0.7800000905990601,
+          -0.47999992966651917
+        ],
+        "index_unit_steps_m": [
+          [
+            0.059999942779541016,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.060000061988830566,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.06000000238418579
+          ]
+        ],
+        "is_sdf_metadata": false
+      },
+      "initial_pairing_reference": null
+    },
+    {
+      "sample": 270,
+      "seconds": 4.5,
+      "report_path": "Runs/deepwater03_6047336bef/deepwater_270.json",
+      "report_sha256": "f364318309ba403ad86bce6bbadb27a7f0c5e8fa7c5cc8b0503d94ac11314806",
+      "report_bytes": 2850743,
+      "cache_sha256": "e611fe29bb1ebb96eb91bb749843bef9335ba95987d17601b67111b216257696",
+      "cache_bytes": 4162546,
+      "combined_reader_sha256": "486f927dea80a86688caee7354a8dc0a8747b9465dadbff219428000e3acda8c",
+      "particle_count": 51674,
+      "primitive_held_points_excluded": 5,
+      "categories": {
+        "invalid_field": 0,
+        "negative_with_support": 7128,
+        "negative_without_support": 0,
+        "nonnegative_with_support": 0,
+        "nonnegative_without_support": 0
+      },
+      "coverage_alarm_point_indices": [],
+      "phi_distribution_m": {
+        "min": -0.2878859043121338,
+        "median": -0.13990893959999084,
+        "p95": -0.07094647735357285,
+        "max": -0.04075825214385986,
+        "mean": -0.13947440326573404
+      },
+      "nearest_distance_distribution_m": {
+        "min": 0.001007478528082125,
+        "median": 0.018368342189362574,
+        "p95": 0.028643309382082285,
+        "max": 0.038415826162248645,
+        "mean": 0.01838818864546756
+      },
+      "support_count_distribution": {
+        "min": 28,
+        "median": 49,
+        "p95": 72,
+        "max": 85,
+        "mean": 51.588664421997755
+      },
+      "timing_seconds": {
+        "hash": 0.0029500999953597784,
+        "load_from_file": 0.003228499961551279,
+        "identify_field_and_particles": 0.41168040002230555,
+        "sampling_and_identity": 1.6873952000169083,
+        "total": 2.105254199996125
+      },
+      "rpc_seconds": 2.191427099984139,
+      "ui_metadata_before_after": [
+        {
+          "frame": 1.0,
+          "fps": 24.0,
+          "dirty": true,
+          "update_mode": "updateMode.AutoUpdate"
+        },
+        {
+          "frame": 1.0,
+          "fps": 24.0,
+          "dirty": true,
+          "update_mode": "updateMode.AutoUpdate"
+        }
+      ],
+      "surface_field": {
+        "name": "surface",
+        "type": "primType.Volume",
+        "bounds": {
+          "min": [
+            -0.21000003814697266,
+            -0.8100000619888306,
+            -0.5099999308586121
+          ],
+          "max": [
+            6.210000038146973,
+            0.2099999189376831,
+            0.5100000500679016
+          ]
+        },
+        "resolution": [
+          107,
+          17,
+          17
+        ],
+        "voxel_size_m": [
+          0.059999942779541016,
+          0.060000061988830566,
+          0.06000000238418579
+        ],
+        "transform": [
+          3.2100000381469727,
+          0.0,
+          0.0,
+          0.0,
+          0.5099999904632568,
+          0.0,
+          0.0,
+          0.0,
+          0.5099999904632568
+        ],
+        "index_zero_center_m": [
+          -0.18000006675720215,
+          -0.7800000905990601,
+          -0.47999992966651917
+        ],
+        "index_unit_steps_m": [
+          [
+            0.059999942779541016,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.060000061988830566,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.06000000238418579
+          ]
+        ],
+        "is_sdf_metadata": false
+      },
+      "initial_pairing_reference": null
+    },
+    {
+      "sample": 315,
+      "seconds": 5.25,
+      "report_path": "Runs/deepwater03_6047336bef/deepwater_315.json",
+      "report_sha256": "b0166c86bed620bd7d0dda959a992e473e3788bc1b56e720d1533094068b7b82",
+      "report_bytes": 2850852,
+      "cache_sha256": "3bab68f302976f86d47211342b7abf24f9d8e33bfbc366dce61b4299cb1864df",
+      "cache_bytes": 4158126,
+      "combined_reader_sha256": "486f927dea80a86688caee7354a8dc0a8747b9465dadbff219428000e3acda8c",
+      "particle_count": 51617,
+      "primitive_held_points_excluded": 5,
+      "categories": {
+        "invalid_field": 0,
+        "negative_with_support": 7128,
+        "negative_without_support": 0,
+        "nonnegative_with_support": 0,
+        "nonnegative_without_support": 0
+      },
+      "coverage_alarm_point_indices": [],
+      "phi_distribution_m": {
+        "min": -0.2878027558326721,
+        "median": -0.13982246816158295,
+        "p95": -0.07087936252355576,
+        "max": -0.04031771793961525,
+        "mean": -0.13938018734808322
+      },
+      "nearest_distance_distribution_m": {
+        "min": 0.0007367907280841031,
+        "median": 0.018357471867672892,
+        "p95": 0.028538803929438382,
+        "max": 0.037431575415942595,
+        "mean": 0.018374898312499447
+      },
+      "support_count_distribution": {
+        "min": 26,
+        "median": 49,
+        "p95": 71,
+        "max": 84,
+        "mean": 51.569725028058365
+      },
+      "timing_seconds": {
+        "hash": 0.002820699999574572,
+        "load_from_file": 0.002942899998743087,
+        "identify_field_and_particles": 0.41237309999996796,
+        "sampling_and_identity": 1.6886370000429451,
+        "total": 2.1067737000412308
+      },
+      "rpc_seconds": 2.199530699988827,
+      "ui_metadata_before_after": [
+        {
+          "frame": 1.0,
+          "fps": 24.0,
+          "dirty": true,
+          "update_mode": "updateMode.AutoUpdate"
+        },
+        {
+          "frame": 1.0,
+          "fps": 24.0,
+          "dirty": true,
+          "update_mode": "updateMode.AutoUpdate"
+        }
+      ],
+      "surface_field": {
+        "name": "surface",
+        "type": "primType.Volume",
+        "bounds": {
+          "min": [
+            -0.21000003814697266,
+            -0.8100000619888306,
+            -0.5099999308586121
+          ],
+          "max": [
+            6.210000038146973,
+            0.2099999189376831,
+            0.5100000500679016
+          ]
+        },
+        "resolution": [
+          107,
+          17,
+          17
+        ],
+        "voxel_size_m": [
+          0.059999942779541016,
+          0.060000061988830566,
+          0.06000000238418579
+        ],
+        "transform": [
+          3.2100000381469727,
+          0.0,
+          0.0,
+          0.0,
+          0.5099999904632568,
+          0.0,
+          0.0,
+          0.0,
+          0.5099999904632568
+        ],
+        "index_zero_center_m": [
+          -0.18000006675720215,
+          -0.7800000905990601,
+          -0.47999992966651917
+        ],
+        "index_unit_steps_m": [
+          [
+            0.059999942779541016,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.060000061988830566,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.06000000238418579
+          ]
+        ],
+        "is_sdf_metadata": false
+      },
+      "initial_pairing_reference": null
+    },
+    {
+      "sample": 360,
+      "seconds": 6.0,
+      "report_path": "Runs/deepwater03_6047336bef/deepwater_360.json",
+      "report_sha256": "55df193aacdb8d4c9e52ec130cf2607d477011c4a74470fcd257504be24b8a37",
+      "report_bytes": 2850948,
+      "cache_sha256": "5b40aaaa7f190d7f22d5349a0ab4f4a388967bd5a8fc2662f0d779daacf97c8c",
+      "cache_bytes": 4162976,
+      "combined_reader_sha256": "486f927dea80a86688caee7354a8dc0a8747b9465dadbff219428000e3acda8c",
+      "particle_count": 51636,
+      "primitive_held_points_excluded": 5,
+      "categories": {
+        "invalid_field": 0,
+        "negative_with_support": 7128,
+        "negative_without_support": 0,
+        "nonnegative_with_support": 0,
+        "nonnegative_without_support": 0
+      },
+      "coverage_alarm_point_indices": [],
+      "phi_distribution_m": {
+        "min": -0.28793007135391235,
+        "median": -0.13970071077346802,
+        "p95": -0.07088731229305267,
+        "max": -0.03924212604761124,
+        "mean": -0.1394860935867811
+      },
+      "nearest_distance_distribution_m": {
+        "min": 0.0012301994845097628,
+        "median": 0.018418072128910556,
+        "p95": 0.028713547290224708,
+        "max": 0.039037444149003536,
+        "mean": 0.018428162154223486
+      },
+      "support_count_distribution": {
+        "min": 25,
+        "median": 50,
+        "p95": 72,
+        "max": 85,
+        "mean": 51.58936588103255
+      },
+      "timing_seconds": {
+        "hash": 0.0032204000162892044,
+        "load_from_file": 0.003584899997804314,
+        "identify_field_and_particles": 0.49499249999644235,
+        "sampling_and_identity": 1.698008299979847,
+        "total": 2.199806099990383
+      },
+      "rpc_seconds": 2.284357500029728,
+      "ui_metadata_before_after": [
+        {
+          "frame": 1.0,
+          "fps": 24.0,
+          "dirty": true,
+          "update_mode": "updateMode.AutoUpdate"
+        },
+        {
+          "frame": 1.0,
+          "fps": 24.0,
+          "dirty": true,
+          "update_mode": "updateMode.AutoUpdate"
+        }
+      ],
+      "surface_field": {
+        "name": "surface",
+        "type": "primType.Volume",
+        "bounds": {
+          "min": [
+            -0.21000003814697266,
+            -0.8100000619888306,
+            -0.5099999308586121
+          ],
+          "max": [
+            6.210000038146973,
+            0.2099999189376831,
+            0.5100000500679016
+          ]
+        },
+        "resolution": [
+          107,
+          17,
+          17
+        ],
+        "voxel_size_m": [
+          0.059999942779541016,
+          0.060000061988830566,
+          0.06000000238418579
+        ],
+        "transform": [
+          3.2100000381469727,
+          0.0,
+          0.0,
+          0.0,
+          0.5099999904632568,
+          0.0,
+          0.0,
+          0.0,
+          0.5099999904632568
+        ],
+        "index_zero_center_m": [
+          -0.18000006675720215,
+          -0.7800000905990601,
+          -0.47999992966651917
+        ],
+        "index_unit_steps_m": [
+          [
+            0.059999942779541016,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.060000061988830566,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.06000000238418579
+          ]
+        ],
+        "is_sdf_metadata": false
+      },
+      "initial_pairing_reference": null
+    }
+  ],
+  "all_registered_points_negative_with_support": true,
+  "baseline_coverage_alarm_count": 0,
+  "json_bytes_total": 17109916,
+  "readback_seconds_total": 13.931557600037195,
+  "rpc_seconds_total": 14.512880499940366,
+  "physical_no_void_pass": false,
+  "meaning_ja": "基線6固定時刻・7128固定点でSDF負かつr=.08m粒子支持を照合した。近表面/薄い空隙/時刻間/連結性/水量/圧力精度は未検証。全点は独立した統計標本ではない。"
+}

@@ -1,0 +1,107 @@
+{
+  "case_id": "GreatWave22_L6_Piston_dp0p04_grid1p5_Preroll6p0",
+  "gravity_domain_actual_m_s2": 9.81,
+  "tank_inner_m": [
+    6.0,
+    0.6,
+    0.6
+  ],
+  "particle_separation_m": 0.04,
+  "collision_pressure_voxel_expected_m": 0.06,
+  "display_voxel_m": 0.02,
+  "piston_half_amplitude_m": 0.02480741527,
+  "piston_ramp_seconds": 3.0,
+  "source_once": true,
+  "boundary_flow_input_connected": false,
+  "air_top_open": true,
+  "absorber_implemented": false,
+  "closed_end_wall": true,
+  "global_fps": 24.0,
+  "disk_settings": [
+    {
+      "name": "cachetodisk",
+      "label": "Allow Caching To Disk",
+      "before": 0,
+      "applied": 0
+    }
+  ],
+  "dop_cache_parameters": [
+    {
+      "name": "cacheenabled",
+      "value": 1
+    },
+    {
+      "name": "cachetodisk",
+      "value": 0
+    },
+    {
+      "name": "cachetodisknoninteractive",
+      "value": 0
+    },
+    {
+      "name": "cachesubsteps",
+      "value": 1
+    },
+    {
+      "name": "cachemaxsize",
+      "value": 768
+    },
+    {
+      "name": "explicitcache",
+      "value": 0
+    },
+    {
+      "name": "explicitcachensteps",
+      "value": 0
+    },
+    {
+      "name": "explicitcachecheckpointspacing",
+      "value": 1
+    }
+  ],
+  "velocity_transfer_token": "apic",
+  "solver_parameters": {
+    "particlesep": 0.04,
+    "gridscale": 1.5,
+    "substep": 5,
+    "minimumsubsteps": 1,
+    "substeps": 4,
+    "veltransfer": 1,
+    "doreseeding": 1,
+    "seed": 2101.0,
+    "useadaptivepressure": 0,
+    "collision": 1,
+    "dowaterline": 0,
+    "donarrowband": 0
+  },
+  "collision_parameters": {
+    "computevel": 1,
+    "computevelsubstep": 5.0,
+    "velscale": 1.0,
+    "dovolume": 1,
+    "dosurface": 1
+  },
+  "memory": {
+    "private_commit_bytes": 6862360576,
+    "working_set_bytes": 2597445632,
+    "peak_working_set_process_lifetime_bytes": 4715032576,
+    "available_physical_bytes": 35557126144
+  },
+  "piston_start_absolute_seconds": 6.0,
+  "solver_sampling_hz": 60,
+  "mesh_sampling_hz": 30.0,
+  "diagnostic_gauge_x_wavelengths": [
+    0.75,
+    1.0,
+    1.25
+  ],
+  "stability_gate": {
+    "window_seconds": 0.75,
+    "minimum_consecutive_windows": 2,
+    "maximum_mean_change_m": 0.003,
+    "maximum_residual_rms_m": 0.003,
+    "maximum_linear_trend_change_per_window_m": 0.003,
+    "maximum_proxy_relative_window_change": 0.01,
+    "meaning_ja": "駆動開始を検討する診断。初期水深・収支・理論精度の合格ではない。"
+  }
+}

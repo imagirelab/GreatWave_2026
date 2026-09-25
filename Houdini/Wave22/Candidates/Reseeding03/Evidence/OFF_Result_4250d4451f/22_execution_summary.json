@@ -1,0 +1,111 @@
+{
+  "token": "4250d4451f",
+  "utc": "2026-09-25T00:47:02.280202+00:00",
+  "metadata": {
+    "pid": 53912,
+    "version": "22.0.429",
+    "ui": true,
+    "license": "licenseCategoryType.Indie",
+    "fps": 24.0
+  },
+  "clock_initialization": {
+    "before": 1.0,
+    "creation_frame": 1.0
+  },
+  "ownership": {
+    "dop_session_id": 97886,
+    "baseline_private": 6868635648
+  },
+  "initial_pair": {
+    "strict_pair_matched": true,
+    "different_fields": [],
+    "meaning_ja": "差があれば初態とreseedの複合変更として停止し、源を調整して一致へ誘導しない。",
+    "baseline_report_sha256": "b1926381f0212b6d438bef965d858ee74423e7358bcd71236aef0b5af08864bd",
+    "candidate_report_sha256": "0eaf05526be38dfce2fc00d19d9b713fa66bffdf842ffa715a93cd1c0e33b80c"
+  },
+  "initialization_schema_comparison": {
+    "ignored_keys": [
+      "owned_path"
+    ],
+    "differences": [
+      {
+        "key": "nodes/wave22/actual_wave_solver/parameters/doreseeding",
+        "baseline": {
+          "name": "doreseeding",
+          "label": "Enable Reseeding",
+          "value": 1
+        },
+        "candidate": {
+          "name": "doreseeding",
+          "label": "Enable Reseeding",
+          "value": 0
+        }
+      }
+    ],
+    "compared_record_count": 57,
+    "meaning_ja": "取得済みSOP・内部DOP設定の観測差。未収録パラメータの一致やOnly Source Seedingとの同義性は証明しない。",
+    "baseline_sha256": "951c21097050e859cbd9e1be72a58fcd14140d9d7f2e6a39d74e31ceb4a0de70",
+    "candidate_sha256": "feb5ed9b60a8117c9d23a40a95c100c36b44b7532168571fa16db7245c2a1201",
+    "observation_code_sha256": "16db0409cf419d178b4c4c1303fba42d2b85316330b36122d2de31f4b39b9646",
+    "additional_detail_sha256": "d13460a5c08f6e6c5497ebe5112d41d005e89f4a8377617f6b6a3bd5213f16c4"
+  },
+  "outcome": {
+    "status": "STATIC_DIAGNOSTIC_COMPLETE",
+    "last_sample": 360,
+    "static_gate_passed": true,
+    "drive_authorized": false
+  },
+  "cleanup": {
+    "checks": {
+      "all_owned_paths_absent": true,
+      "selected_items_restored": true,
+      "global_context_restored": true,
+      "pane_contexts_restored": true,
+      "pane_current_nodes_restored": true,
+      "pane_links_restored": true,
+      "active_tabs_restored": true,
+      "frame_restored": true,
+      "fps_unchanged": true,
+      "update_mode_restored": true,
+      "viewer_state_restored": true,
+      "selection_mode_restored": true,
+      "viewport_type_restored": true,
+      "viewport_visible_mask_restored": true,
+      "camera_binding_restored": true,
+      "camera_lock_restored": true,
+      "camera_export_restored": true,
+      "view_transform_restored": true
+    },
+    "restore_errors": [],
+    "all_ui_and_owned_node_checks_passed": true,
+    "dirty_before": true,
+    "dirty_after": true,
+    "prior_undo_labels_retained": true,
+    "undo_count_before": 562,
+    "undo_count_after": 566,
+    "redo_stack_unchanged": true,
+    "undo_history_cleared": false,
+    "hip_saved_or_loaded": false,
+    "temporary_session_snapshot_removed": true
+  },
+  "source_hashes": {
+    "checkpoint_gate.py": "127c84eedb3a0122b3149cc18d1a6b385edf1f95a510614f3df1d9bb710aae36",
+    "deepwater_core.py": "a21e7e23ee93b5622b3cf5a923c2aa356c6bc77008f4246569445841dd7f0941",
+    "generate_wave_l6.py": "a3cf59b1dc658541edb0a6bdcefddab06c0270e3038c70b63091d10f9f8004bc",
+    "grid_metrics_l6.py": "ca01dfa361bfe578199a9cf311b5559b41096c5cda2344a039c5507cce53fb6c",
+    "length6_plan.json": "6b2769fe7ab2132126f813a8d446cbaef98aaf0aaedab78c6cc22b839be0a33d",
+    "probe_grid_l6.py": "310e2af520f08b67df6ae41f0ceac1d956c03300354268f5548237b4d90f383b",
+    "readback_deepwater.py": "714858b9863abea752710200d093ef7d2ce9b25f6730567db38860350f382711",
+    "reseeding_off_plan.json": "940a6a353e9cb5d80c870236f316089d60c805dfd6f65f9117dad1b51eaf349c",
+    "reseeding_policy.py": "79001660df45b5e343c46730cf2bc4659485c2d7e71ff3c420f82bb52112b673",
+    "run_baseline_readback.py": "4d6039383cbae677eeecae85229ce075012a4fbbe86d1ec1e37275a30cc0eec0",
+    "run_reseeding_off.py": "243b92c80e291fdcae8f6b86437fbd83538d8562b7ae76f74ca0a2e479df9bbc",
+    "ui_guard.py": "47b763ab25200b599f3a8a9acb31ade4f40f521df5512e1d80ab2697af2ee2c8"
+  },
+  "coverage_alert_latched": false,
+  "execution_succeeded": true,
+  "transport_completion_uncertain": false,
+  "raw_execution_report_sha256": "affa9045a7f734508876de6d240ca8b965911a1dd83a4d8d2fbafa35665a638d",
+  "rpc_seconds_sum": 930.4269883994712,
+  "event_count": 379
+}
