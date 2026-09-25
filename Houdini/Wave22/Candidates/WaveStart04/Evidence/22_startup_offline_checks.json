@@ -1,0 +1,281 @@
+{
+  "houdini_or_mcp_called": false,
+  "real_startup_run_executed": false,
+  "checks": [
+    {
+      "name_ja": "OFF公開361標本は元判定PASS",
+      "passed": true
+    },
+    {
+      "name_ja": "ON公開361標本は元判定FAIL",
+      "passed": true
+    },
+    {
+      "name_ja": "同じOFF作成条件だけを許容",
+      "passed": true
+    },
+    {
+      "name_ja": "作成条件変更を拒否 tank_inner_m",
+      "passed": true
+    },
+    {
+      "name_ja": "作成条件変更を拒否 piston_start_absolute_seconds",
+      "passed": true
+    },
+    {
+      "name_ja": "作成条件変更を拒否 piston_half_amplitude_m",
+      "passed": true
+    },
+    {
+      "name_ja": "solver条件変更を拒否 doreseeding",
+      "passed": true
+    },
+    {
+      "name_ja": "solver条件変更を拒否 seed",
+      "passed": true
+    },
+    {
+      "name_ja": "solver条件変更を拒否 gridscale",
+      "passed": true
+    },
+    {
+      "name_ja": "schemaは所有パスだけを無視",
+      "passed": true
+    },
+    {
+      "name_ja": "内部実設定差を検出",
+      "passed": true
+    },
+    {
+      "name_ja": "実ON FAILは361標本で終了しauthorizeを呼ばない",
+      "passed": true
+    },
+    {
+      "name_ja": "実OFF PASSの制御模擬だけ556標本へ進む",
+      "passed": true
+    },
+    {
+      "name_ja": "constantsのlength6_plan依存を実ファイルで満たす",
+      "passed": true
+    },
+    {
+      "name_ja": "length6_plan欠落を検出",
+      "passed": true
+    },
+    {
+      "name_ja": "標本0のRPCは独立namespaceでJSON/SHAを返す",
+      "passed": true
+    },
+    {
+      "name_ja": "厳密初態配対前のsample1を拒否",
+      "passed": true
+    },
+    {
+      "name_ja": "元精度ID/P/v/pscaleと2場の全指紋配対後のみsample1許可",
+      "passed": true
+    },
+    {
+      "name_ja": "初態差を拒否 particle_count",
+      "passed": true
+    },
+    {
+      "name_ja": "初態差を拒否 ID_unique",
+      "passed": true
+    },
+    {
+      "name_ja": "初態差を拒否 sorted_ID_P_sha256",
+      "passed": true
+    },
+    {
+      "name_ja": "初態差を拒否 sorted_ID_v_sha256",
+      "passed": true
+    },
+    {
+      "name_ja": "初態差を拒否 sorted_ID_pscale_sha256",
+      "passed": true
+    },
+    {
+      "name_ja": "初態差を拒否 pscale_min_max_m",
+      "passed": true
+    },
+    {
+      "name_ja": "初態差を拒否 surface_pressure_initial_fields",
+      "passed": true
+    },
+    {
+      "name_ja": "初態ファイルSHA改変を拒否",
+      "passed": true
+    },
+    {
+      "name_ja": "未許可のsample361を拒否",
+      "passed": true
+    },
+    {
+      "name_ja": "remote gate独立namespaceが実OFF PASSと完全一致",
+      "passed": true
+    },
+    {
+      "name_ja": "gateファイルSHAの改変で許可拒否",
+      "passed": true
+    },
+    {
+      "name_ja": "被覆警報があればPASSでも駆動不許可",
+      "passed": true
+    },
+    {
+      "name_ja": "原JSON+条件+policy+gate SHA再確認後だけ同じDOPを許可",
+      "passed": true
+    },
+    {
+      "name_ja": "許可後sample361へ前進",
+      "passed": true
+    },
+    {
+      "name_ja": "続行後も361行入力と許可SHAは不変",
+      "passed": true
+    },
+    {
+      "name_ja": "同じ許可を二重発行しない",
+      "passed": true
+    },
+    {
+      "name_ja": "sample556を拒否",
+      "passed": true
+    },
+    {
+      "name_ja": "DOP sessionIdが変われば停止",
+      "passed": true
+    },
+    {
+      "name_ja": "初期時刻Manual/frame1はcreate前",
+      "passed": true
+    },
+    {
+      "name_ja": "半ステップ観測の元順序を維持",
+      "passed": true
+    },
+    {
+      "name_ja": "不明RPC後は追加cleanupを行わない",
+      "passed": true
+    },
+    {
+      "name_ja": "原UI18復元関数を再利用",
+      "passed": true
+    },
+    {
+      "name_ja": "静水PASSでも被覆holdをsolver故障/静水FAILへ書換えない",
+      "passed": true
+    },
+    {
+      "name_ja": "公開OFF基線全ファイル不変",
+      "passed": true
+    },
+    {
+      "name_ja": "一定の絶対負水位をゼロへ補正せず無応答扱い",
+      "passed": true
+    },
+    {
+      "name_ja": "Eは新run二静水窓の全標本から後窓平均との差を取る",
+      "passed": true
+    },
+    {
+      "name_ja": "宣言したq/両側prominenceで合成峰を検出",
+      "passed": true
+    },
+    {
+      "name_ja": "理論へ合わせず一意な同号三点鎖を検出",
+      "passed": true
+    },
+    {
+      "name_ja": "複数可能鎖を理論近傍で勝手に選ばない",
+      "passed": true
+    },
+    {
+      "name_ja": "終端でprominence窓が切れる極値を保留",
+      "passed": true
+    },
+    {
+      "name_ja": "q未満の合成応答は不検出",
+      "passed": true
+    },
+    {
+      "name_ja": "単一rawスパイクは同符号5標本のonsetにならない",
+      "passed": true
+    },
+    {
+      "name_ja": "SDF/PFS別集計で精度/無反射/22完了は宣言しない",
+      "passed": true
+    }
+  ],
+  "passed": true,
+  "source_hashes": {
+    "check_wave_start.py": "f3cf8e2826259df7bcd49d2569dee539092d0ca0adb1a80585eccfc44ef6f5c3",
+    "deepwater_core.py": "a21e7e23ee93b5622b3cf5a923c2aa356c6bc77008f4246569445841dd7f0941",
+    "readback_deepwater.py": "714858b9863abea752710200d093ef7d2ce9b25f6730567db38860350f382711",
+    "run_baseline_readback.py": "4d6039383cbae677eeecae85229ce075012a4fbbe86d1ec1e37275a30cc0eec0",
+    "run_wave_start.py": "2be0e38536fde29c884779ac3f8222a889652623e5cb12fd70e8a5f28b1849f5",
+    "startup_response.py": "4622d07b6af14aa79f0b2c543bc210aee8532b67e508e0c57bf4677353f2ce2c",
+    "wave_start_plan.json": "8455fe0b3e0348b2b98d492d70d37d3942e5a179d65b2ad0a88d201c1c4292cc"
+  },
+  "frozen_generator_dependencies": {
+    "checkpoint_gate.py": "127c84eedb3a0122b3149cc18d1a6b385edf1f95a510614f3df1d9bb710aae36",
+    "generate_wave_l6.py": "a3cf59b1dc658541edb0a6bdcefddab06c0270e3038c70b63091d10f9f8004bc",
+    "grid_metrics_l6.py": "ca01dfa361bfe578199a9cf311b5559b41096c5cda2344a039c5507cce53fb6c",
+    "probe_grid_l6.py": "310e2af520f08b67df6ae41f0ceac1d956c03300354268f5548237b4d90f383b",
+    "ui_guard.py": "47b763ab25200b599f3a8a9acb31ade4f40f521df5512e1d80ab2697af2ee2c8",
+    "length6_plan.json": "6b2769fe7ab2132126f813a8d446cbaef98aaf0aaedab78c6cc22b839be0a33d"
+  },
+  "off_baseline_measured": {
+    "solver_cook_sum_s": 696.930166099919,
+    "maximum_sample_cook_s": 2.89918409998063,
+    "all_cache_bytes": 1720726649,
+    "mean_solver_plus_optional_PFS_bytes_per_sample": 4739330.055401662,
+    "maximum_solver_plus_PFS_bytes_per_sample": 5214956,
+    "minimum_available_ram_bytes": 33001435136,
+    "maximum_private_commit_bytes": 8981307392
+  },
+  "startup_budget": {
+    "final_sample": 555,
+    "sample_count": 556,
+    "mesh_count": 278,
+    "cache_file_count": 840,
+    "linear_cook_estimate_s": 1073.388289062479,
+    "raw_at_mean_bytes": 2635067510.803324,
+    "raw_at_maximum_bytes": 2899515536,
+    "reserved_bytes": 4731174912,
+    "required_free_disk_before_bytes": 20199768064,
+    "meaning_ja": "静水実績の線形外挿であり、駆動費用の保証ではない。実行時は各標本の既定資源保護で停止する。"
+  },
+  "timing_estimates": {
+    "phase_speed_m_s": 1.9935967821945484,
+    "group_speed_m_s": 1.4033128819709888,
+    "long_wave_speed_m_s": 2.4261079942986874,
+    "gauges": [
+      {
+        "x_m": 2.242796379968867,
+        "carrier_arrival_s": 7.125,
+        "group_arrival_s": 7.598215486213453,
+        "ramp_complete_group_arrival_s": 10.598215486213453,
+        "target_carrier_reflection_s": 10.89427135275089,
+        "long_wave_reflection_possible_s": 10.021751563805237
+      },
+      {
+        "x_m": 2.9903951732918226,
+        "carrier_arrival_s": 7.5,
+        "group_arrival_s": 8.130953981617939,
+        "ramp_complete_group_arrival_s": 11.130953981617939,
+        "target_carrier_reflection_s": 10.51927135275089,
+        "long_wave_reflection_possible_s": 9.71360419564199
+      },
+      {
+        "x_m": 3.7379939666147783,
+        "carrier_arrival_s": 7.875,
+        "group_arrival_s": 8.663692477022423,
+        "ramp_complete_group_arrival_s": 11.663692477022423,
+        "target_carrier_reflection_s": 10.14427135275089,
+        "long_wave_reflection_possible_s": 9.40545682747874
+      }
+    ],
+    "meaning_ja": "線形理論による目安のみ。立上げ過渡は広帯域、初期残動・圧力の遠隔応答・反射を排除しない。9.25秒まででも無反射保証はない。"
+  }
+}

@@ -1,13 +1,13 @@
 # 22：実 FLIP 水槽の中間記録 — 進行波は未完成
 
-最新の22修正03は、同一L6初態のSOP `doreseeding` 1→0対照 `4250d4451f`。**固定6秒の静水診断はPASS、六時刻の粗い被覆警報は0。事前計画どおり造波せず終了した。** 波伝播・物理精度・22全体の完成ではない。以前のFAILと原条件を履歴として保持する。
+最新の22修正04は、新所有DOP `22e7801642` で同L6・SOP doreseeding=0を再計算し、**t6静水再PASS後に同じDOPでt9.25まで実活塞を駆動した。solver場は有序谷候補1鎖、PFS表示面は唯一鎖なし。** 短い始動応答の中間成果であり、非砕波・無反射・理論精度・22完成ではない。以前のFAILと未駆動対照を履歴として保持する。
 
 - [22修正01・t6の全時系列図](../../Houdini/Wave22/Evidence/Checkpoint6_Result_3e5ff87a29/22_static_full_series.png)／[固定判定窓の拡大図](../../Houdini/Wave22/Evidence/Checkpoint6_Result_3e5ff87a29/22_static_late_windows.png)
 - [22修正01・361時刻CSV](../../Houdini/Wave22/Evidence/Checkpoint6_Result_3e5ff87a29/22_checkpoint6_gauges.csv)／[t6判定の原JSON](../../Houdini/Wave22/Evidence/Curated_Runs/3e5ff87a29/22_checkpoint_gate.json)
 
 - [22修正02・L6と旧槽の比較図](../../Houdini/Wave22/Evidence/Length6_Result_db52394211/22_length6_full_series.png)／[固定窓](../../Houdini/Wave22/Evidence/Length6_Result_db52394211/22_length6_late_windows.png)／[比較CSV](../../Houdini/Wave22/Evidence/Length6_Result_db52394211/22_length6_gauges.csv)
 
-**以下の初回記録では静水の駆動開始判定が不合格だった。最新OFF対照の静水PASSは末尾に記載するが、造波段は未実行。** 新規水槽の接続、実時計、キャッシュ、静水の測点を確認したが、手順22が求める非砕波の伝播・複数の峰の到来・伝播動画は未完成である。シミュレーションの実行失敗と、正常に実行できた試料が物理上の開始条件を満たさないことを区別する。
+**以下の初回記録では静水の駆動開始判定が不合格だった。修正03は静水PASSのみ、修正04の実始動は末尾に別記する。** 手順22が求める非砕波の伝播・複数の峰の到来は未完成である。シミュレーションの実行失敗と、正常に実行できた試料が物理上の開始条件を満たさないことを区別する。
 
 - [実Houdini静止画：0秒](../../Houdini/Wave22/Evidence/Still_0652da0179/22_Perspective_000.png)／[3秒](../../Houdini/Wave22/Evidence/Still_0652da0179/22_Perspective_180.png)
 - [181時刻の未補正 SDF と表示mesh](../../Houdini/Wave22/Evidence/Preroll_0652da0179/22_preroll_sdf_mesh.png)／[CSV](../../Houdini/Wave22/Evidence/Preroll_0652da0179/22_preroll_gauges.csv)
@@ -177,3 +177,41 @@ python Houdini/Wave22/Candidates/Reseeding03/Postprocess/summarize_reseeding03.p
 ```
 
 [Runsを含めない隔離復算](../../Houdini/Wave22/Candidates/Reseeding03/Evidence/OFF_Result_4250d4451f/22_isolated_reproduction.json)で図2枚・CSV・統計・READMEと再計算manifestのSHA一致を確認した。この公開再現はローカルBGEO再検証ではない。[最終出典](../../Houdini/Wave22/Candidates/Reseeding03/Evidence/22_revision03_provenance.json)に原入力・実行元・解析元・文書を結ぶ。次の造波試験は別途事前条件・停止条件を審査し、本診断だけで22完了や23精度試験開始を宣言しない。
+
+## 22修正04：静水再判定後、同じDOPで実活塞を始動
+
+Run `22e7801642` は新規所有DOPでt0から再計算した。基線は修正03のOFF `4250d4451f`。L6、λ、三点の絶対位置、dp=.04m、Grid Scale1.5、g9.81m/s²、dt1/120s、APIC、source once、衝突、seed、SOP doreseeding=0、板start6/ramp3/片振幅.02480741527mを固定した。t0のID別P/v/pscale・surface/pressure全voxelと格点を厳密配対し、取得したSOP/内部DOP設定も一致した。清理済み旧DOPや再生キャッシュを新しい計算の代用にしていない。[事前計画の保存版](../../Houdini/Wave22/Candidates/WaveStart04/README_ja.md)と51項目の実行前模擬検査を残した。
+
+原45+45標本の静水判定は再PASS。G3の傾き×.75秒は+.078941585/+.680174425mm、負voxel代理量の窓変化+.001422863%で、修正03の値を再現した。361行のt6入力を独立保存し、その原JSON/条件/policy/gate SHAを両側で検査した。実RPC順序は0始まりevent383の再判定→384の同DOP許可→385のk361採録である。[公開実行摘要](../../Houdini/Wave22/Candidates/WaveStart04/Evidence/Result_22e7801642/22_execution_summary.json)は元execution SHAと順序IDを残す。許可時のパラメータ変更/resetなし、以後も同じDOPで事前固定のk555/t9.25まで前進した。
+
+応答規則は今回の静水二窓からμ=後窓平均、σ=二窓RMSの最大、E=二窓全標本の最大|η−μ|、q=max(1mm,3σ,E)を決める。元水位は補正せず、同符号5標本の持続超過を60Hz onsetとする。PFSは同じ時間幅の3標本/30Hzで別評価する。5点平滑は極値候補検出だけに使い、raw振幅と左右prominenceを要求し、同符号・順序を保つ全候補鎖から唯一の鎖だけを採る。理論に近いピークを選ばない。詳細と端/plateau処理は凍結した関数に記録した。
+
+| 実観測時刻 s | G1 | G2 | G3 |
+| --- | ---: | ---: | ---: |
+| solver符号場・最初の持続超過 | 7.366667 | 7.583333 | 7.816667 |
+| solver符号場・唯一鎖の谷候補 | 7.800000 | 8.000000 | 8.366667 |
+| PFS表示面・最初の持続超過 | 7.466667 | 7.666667 | 7.866667 |
+
+solver場は有序の谷候補を1鎖観測した。隣接遅れ.200/.366667秒をそのまま記録し、理論.375秒との精度試験へ読み替えない。**PFSは応答超過あり・唯一の有効鎖なし**で、solverの判定を表示面へ流用しない。両者の絶対高さの約10mm差は保持し、固定オフセットで水深を合わせていない。[全原水位図](../../Houdini/Wave22/Candidates/WaveStart04/Evidence/Result_22e7801642/22_startup_full_series.png)／[候補検出図](../../Houdini/Wave22/Candidates/WaveStart04/Evidence/Result_22e7801642/22_startup_response.png)／[556時刻CSV](../../Houdini/Wave22/Candidates/WaveStart04/Evidence/Result_22e7801642/22_startup_gauges.csv)を公開した。独立監査でも原関数の再評価と数値が一致した。
+
+`surface` VolumeのisSDF metadata=false、格子予備検査のphysical_pass=falseを保つ。ここでの測点はsolver surface符号場の観測であり、正確な距離場・物理認証を意味しない。六時刻×7128点は**全て始動前t<=6**、42,768点が場内・有限・負φかつ半径.08m内の実粒子支持あり。上側中央値/nearest-rank p95の定義は同じで、駆動中の全域連通・無空洞・漏れ・非砕波へ拡張しない。駆動中は三点の局所交差、PFS、solver/時計/有限/ID/壁外20mm/資源保護に限られる。
+
+実collision vxと解析活塞速度の最大差2.301124×10⁻⁵m/sは既定1×10⁻⁴m/s保護内だった。k360では開始フラグtrueだが解析変位/速度0、実collision vxは9.889719×10⁻⁷m/s。粒子は53,794→54,037、観測ID出生243/消失0であり、質量や全reseed回数ではない。内部onlysourceseeding=1/reseed=1/reseedsinglepass=1も保持した。
+
+556solver/粒子＋278PFS＋6予備場の**840 BGEO/2,640,361,537bytes**を全件SHA照合した。[原JSON/gzip・実行元・全cache manifest](../../Houdini/Wave22/Candidates/WaveStart04/Evidence/Result_22e7801642/README_ja.md)を公開し、BGEO本体は本機Runsに保持する。cook合計1075.137秒/最大2.835秒、581RPC合計1432.576秒。DOP cache最大805,210,137bytes、private commit最大9,054,294,016bytes、空きRAM最小33,594,212,352bytes。18項目UI復元/所有物削除PASS、完了不明RPCなし、HIP保存/読込/clearなし、FPS24維持を独立照合した。
+
+### 実PFS媒体と残る範囲
+
+計算後に新所有File SOPへliteral BGEOだけを読み、原P/有向indicesと配対した。固定UI frame1/FPS24の単一フレーム撮影で、FlipbookのinitializeSimulations(False)/useMotionBlur(False)を明示した。既存DOPへ接続せず、[7枚の原静止画と撮影report](../../Houdini/Wave22/Candidates/WaveStart04/Evidence/Result_22e7801642/Media)を保存した。固定時刻はFront t6/7/8/9/9.233333、斜視t8/9.233333である。
+
+[実視口動画](../../Houdini/Wave22/Candidates/WaveStart04/Evidence/Result_22e7801642/Media/22_startup_PFS.mp4)は固定Frontのk360..552を2刻みで採った97枚、H264/1280×720/30fps/3.233333秒、全復号エラー0。日本語字幕のみ追加、形状加工・空間倍率変更・時刻補間なし。再生末区間はk552/t9.2を保持し、PFS終端k554/t9.233333は別静止画、solver終端t9.25のPFSはない。[媒体manifest](../../Houdini/Wave22/Candidates/WaveStart04/Evidence/Result_22e7801642/Media/22_media_manifest.json)で元BGEO→PNG→動画のSHAと時刻を追える。全槽6mの画角では起伏が微小であるため、動画と実測曲線を併読する。主役大波の証拠と呼ばない。撮影後もUI18とgrid/color復元は全PASSだった。
+
+G3閉端帰還は対象λでt10.144秒、長波上限速度√ghではt9.405秒が目安。停止9.25はこれより早いが、広帯域ramp・初期残動・圧力応答を排除せず無反射は保証しない。ramp完成包絡のG3到来目安11.664秒より前に終了しており、定常5周期や23の精度試験ではない。**結果は短窓の始動応答に限り、22完成・非砕波・主役波・HMDは未認定。**
+
+公開資料からの再計算：
+
+```powershell
+python Houdini/Wave22/Candidates/WaveStart04/Postprocess/summarize_start04.py --input Houdini/Wave22/Candidates/WaveStart04/Evidence/Result_22e7801642
+```
+
+[Runsなし隔離復算](../../Houdini/Wave22/Candidates/WaveStart04/Evidence/Result_22e7801642/22_isolated_reproduction.json)でCSV・2図・数値摘要と再計算manifestのbytes一致を検証する。これはBGEO再検証やGUI再撮影ではない。[修正04の最終出典](../../Houdini/Wave22/Candidates/WaveStart04/Evidence/22_revision04_provenance.json)が原データ・凍結実行元・後処理・媒体・今回文書を結ぶ。

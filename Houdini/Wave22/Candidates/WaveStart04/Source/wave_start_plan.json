@@ -1,0 +1,471 @@
+{
+  "case_revision": "22_WaveStart04_PreRegistered01",
+  "status_ja": "実行前の固定計画。Houdini/MCP未実行。別途審査・明示放行後のみ。",
+  "paired_baseline_case": "4250d4451f",
+  "baseline_commit": "6bcd7fd8620db5490a81a57e2278cb092d9e1219",
+  "only_physical_parameter_change": null,
+  "tank_inner_m": [
+    6.0,
+    0.6,
+    0.6
+  ],
+  "wavelength_m": 2.9903951732918226,
+  "gauge_x_m": [
+    2.242796379968867,
+    2.9903951732918226,
+    3.7379939666147783
+  ],
+  "particle_separation_m": 0.04,
+  "grid_scale": 1.5,
+  "gravity_m_s2": 9.81,
+  "density_kg_m3": 1000,
+  "dop_timestep_s": 0.008333333333333333,
+  "sample_rate_hz": 60,
+  "mesh_stride": 2,
+  "global_fps": 24,
+  "velocity_transfer": "apic",
+  "seed": 2101,
+  "source_once": true,
+  "piston_start_s": 6.0,
+  "stop_s": 9.25,
+  "drive_even_if_static_passed": false,
+  "checkpoint_samples": [
+    0,
+    30,
+    180,
+    270,
+    315,
+    360
+  ],
+  "probe": {
+    "x_integer_centimetres": [
+      6,
+      12,
+      18,
+      24,
+      30,
+      36,
+      42,
+      48,
+      54,
+      60,
+      66,
+      72,
+      78,
+      84,
+      90,
+      96,
+      102,
+      108,
+      114,
+      120,
+      126,
+      132,
+      138,
+      144,
+      150,
+      156,
+      162,
+      168,
+      174,
+      180,
+      186,
+      192,
+      198,
+      204,
+      210,
+      216,
+      222,
+      228,
+      234,
+      240,
+      246,
+      252,
+      258,
+      264,
+      270,
+      276,
+      282,
+      288,
+      294,
+      300,
+      306,
+      312,
+      318,
+      324,
+      330,
+      336,
+      342,
+      348,
+      354,
+      360,
+      366,
+      372,
+      378,
+      384,
+      390,
+      396,
+      402,
+      408,
+      414,
+      420,
+      426,
+      432,
+      438,
+      444,
+      450,
+      456,
+      462,
+      468,
+      474,
+      480,
+      486,
+      492,
+      498,
+      504,
+      510,
+      516,
+      522,
+      528,
+      534,
+      540,
+      546,
+      552,
+      558,
+      564,
+      570,
+      576,
+      582,
+      588,
+      594
+    ],
+    "y_integer_centimetres": [
+      -54,
+      -48,
+      -42,
+      -36,
+      -30,
+      -24,
+      -18,
+      -12
+    ],
+    "z_integer_centimetres": [
+      -24,
+      -18,
+      -12,
+      -6,
+      0,
+      6,
+      12,
+      18,
+      24
+    ],
+    "count_per_checkpoint": 7128,
+    "radius_m": 0.08,
+    "surface_field_name": "surface",
+    "surface_type": "Volume",
+    "maximum_probe_seconds": 90.0,
+    "single_file_readback_first": true,
+    "support_zero_is_only_coarse_alarm": true,
+    "low_nonzero_support_count_does_not_fail": true,
+    "negative_and_supported_is_coverage_label_not_physical_pass": true
+  },
+  "initial_pairing": {
+    "id_P_v_pscale_exact_by_id": true,
+    "surface_pressure_grid_exact": true,
+    "surface_all_voxels_exact": true,
+    "pressure_all_voxels_exact": true,
+    "mismatch_stops_as_invalid_paired_case": true
+  },
+  "static_gate": {
+    "windows_s": [
+      [
+        4.5,
+        5.25
+      ],
+      [
+        5.25,
+        6.0
+      ]
+    ],
+    "left_open_right_closed": true,
+    "maximum_mean_change_m": 0.003,
+    "maximum_rms_about_mean_m": 0.003,
+    "maximum_trend_times_window_m": 0.003,
+    "maximum_negative_sdf_proxy_relative_change": 0.01
+  },
+  "stop_rules_ja": [
+    "基線OFFと同じ新規所有DOPでt0から再計算し、初態ID/P/v/pscale・surface/pressure全voxel/格点が不一致なら停止。",
+    "静水361標本を固定し、t6原判定FAILなら許可せず終了。PASSでも被覆警報があれば駆動せず終了。",
+    "被覆警報は有限・場内の範囲でt6まで保持して診断を完遂。場外/非有限、時計、solver、漏粒、資源の保護違反は早期停止。",
+    "t6入力原JSONを独立ファイルで固定し、SHA・所有DOP・原条件・純関数の両側一致を確認後だけk361を許可。",
+    "駆動後も元collision速度許容差1e-4m/s、横成分1e-6m/s、全solver/資源保護を維持。失敗後に閾値変更して継続しない。",
+    "事前固定t9.25/k555で終了。信号有無で終点を動かさない。応答検出は物理精度・無反射・番号22完了の判定ではない。"
+  ],
+  "resource_budget": {
+    "minimum_available_ram_bytes": 8589934592,
+    "maximum_private_growth_bytes": 12884901888,
+    "maximum_dop_cache_bytes": 845571687,
+    "minimum_disk_free_bytes": 10737418240,
+    "predicted_raw_bytes_per_sample": 8388608,
+    "maximum_sample_seconds": 30.0,
+    "recent_window_samples": 30,
+    "maximum_recent_median_seconds": 6.0,
+    "maximum_projected_remaining_seconds": 5400.0,
+    "probe_reports_reserved_bytes": 67108864
+  },
+  "official_source": "https://www.sidefx.com/docs/houdini/nodes/dop/flipsolver.html#reseeding",
+  "meaning_ja": "SOP doreseeding=0の静水PASSケースを同じ物理条件で再実行し、再PASS後だけ同じDOPで実際の活塞始動を観測。内部DOP reseed=1/onlysourceseeding=1は観測値であり、粒子出生ゼロを意味しない。",
+  "coverage_alert_latched_continue_to_s": 6.0,
+  "paired_alarm_categories": [
+    "shared_baseline_and_off",
+    "baseline_only",
+    "off_only"
+  ],
+  "baseline_executed_sources": {
+    "checkpoint_gate.py": "127c84eedb3a0122b3149cc18d1a6b385edf1f95a510614f3df1d9bb710aae36",
+    "generate_wave_l6.py": "a3cf59b1dc658541edb0a6bdcefddab06c0270e3038c70b63091d10f9f8004bc",
+    "grid_metrics_l6.py": "ca01dfa361bfe578199a9cf311b5559b41096c5cda2344a039c5507cce53fb6c",
+    "probe_grid_l6.py": "310e2af520f08b67df6ae41f0ceac1d956c03300354268f5548237b4d90f383b",
+    "ui_guard.py": "47b763ab25200b599f3a8a9acb31ade4f40f521df5512e1d80ab2697af2ee2c8",
+    "length6_plan.json": "6b2769fe7ab2132126f813a8d446cbaef98aaf0aaedab78c6cc22b839be0a33d"
+  },
+  "baseline_grid_observation_times_s": [
+    0,
+    0.008333333333333333,
+    0.016666666666666666
+  ],
+  "retain_same_grid_observation_order": true,
+  "health_checkpoint_sample": 30,
+  "sample_count": 556,
+  "mesh_sample_count": 278,
+  "expected_cache_counts": {
+    "solver": 556,
+    "display_mesh": 278,
+    "grid_and_collision": 6,
+    "total": 840
+  },
+  "strict_same_dop_and_initial_pair_before_sample1": true,
+  "proposed_command_ja": "run_wave_start.py --execute-reviewed-start-plan（この準備段階では未実行）",
+  "static_stop_s": 6.0,
+  "static_sample_count": 361,
+  "final_sample": 555,
+  "drive_requires_static_pass": true,
+  "piston_ramp_s": 3.0,
+  "piston_half_amplitude_m": 0.02480741527,
+  "baseline_original_manifest_sha256": "31d974c9e83eeb367d0961ff8437712c5eb101cb486ee39121e5f0207e7ae1d8",
+  "baseline_originals": {
+    "Original/off_pilot_samples.json.gz": {
+      "path": "Original/off_pilot_samples.json.gz",
+      "source_sha256": "e04b1a0426b673841ffbe3f4c5aea8011d5fc48e2597dcd4d30d1c1421845883",
+      "source_bytes": 2853567,
+      "stored_sha256": "7788cef75ed967ecd175ef5406baa2facfa12773e18a8ac71680225a1bab601f",
+      "stored_bytes": 145327,
+      "gzip": true
+    },
+    "Original/off_pilot_conditions.json": {
+      "path": "Original/off_pilot_conditions.json",
+      "source_sha256": "7bba20716c7029add357afa12a888cebe7eb304548391119edbef005d7a7e350",
+      "source_bytes": 2447,
+      "stored_sha256": "7bba20716c7029add357afa12a888cebe7eb304548391119edbef005d7a7e350",
+      "stored_bytes": 2447,
+      "gzip": false
+    },
+    "Original/off_checkpoint_gate.json": {
+      "path": "Original/off_checkpoint_gate.json",
+      "source_sha256": "4b575079bf7d94e7c967435671a9bd60466cf805b12a2cc61c2c15dac961efa0",
+      "source_bytes": 4145,
+      "stored_sha256": "4b575079bf7d94e7c967435671a9bd60466cf805b12a2cc61c2c15dac961efa0",
+      "stored_bytes": 4145,
+      "gzip": false
+    },
+    "Original/off_initialization_schema.json": {
+      "path": "Original/off_initialization_schema.json",
+      "source_sha256": "feb5ed9b60a8117c9d23a40a95c100c36b44b7532168571fa16db7245c2a1201",
+      "source_bytes": 6867,
+      "stored_sha256": "feb5ed9b60a8117c9d23a40a95c100c36b44b7532168571fa16db7245c2a1201",
+      "stored_bytes": 6867,
+      "gzip": false
+    },
+    "Original/off_checkpoint_trace.json": {
+      "path": "Original/off_checkpoint_trace.json",
+      "source_sha256": "06d7498cc4d44da7f4a0c9cd0fab841660d37fac171219e8a192953bba31af40",
+      "source_bytes": 119248,
+      "stored_sha256": "06d7498cc4d44da7f4a0c9cd0fab841660d37fac171219e8a192953bba31af40",
+      "stored_bytes": 119248,
+      "gzip": false
+    },
+    "Original/off_initial_strict_pair.json": {
+      "path": "Original/off_initial_strict_pair.json",
+      "source_sha256": "eafbed2e4a0e866ddbf68551f3ca51b944239a3fcdefb1ea4e1ce1bc998cbc16",
+      "source_bytes": 384,
+      "stored_sha256": "eafbed2e4a0e866ddbf68551f3ca51b944239a3fcdefb1ea4e1ce1bc998cbc16",
+      "stored_bytes": 384,
+      "gzip": false
+    },
+    "Original/off_initialization_schema_comparison.json": {
+      "path": "Original/off_initialization_schema_comparison.json",
+      "source_sha256": "e84a5c219cd7ebf3d977a11b0b2051e256ed23438080102aa396a001c6d81bc2",
+      "source_bytes": 948,
+      "stored_sha256": "e84a5c219cd7ebf3d977a11b0b2051e256ed23438080102aa396a001c6d81bc2",
+      "stored_bytes": 948,
+      "gzip": false
+    },
+    "Original/off_reseed_internal_detail.json": {
+      "path": "Original/off_reseed_internal_detail.json",
+      "source_sha256": "d13460a5c08f6e6c5497ebe5112d41d005e89f4a8377617f6b6a3bd5213f16c4",
+      "source_bytes": 1237,
+      "stored_sha256": "d13460a5c08f6e6c5497ebe5112d41d005e89f4a8377617f6b6a3bd5213f16c4",
+      "stored_bytes": 1237,
+      "gzip": false
+    },
+    "Original/off_length6_grid_preflight.json": {
+      "path": "Original/off_length6_grid_preflight.json",
+      "source_sha256": "efb367ed7959da6bfe84976239fdd4442accb1b0cf79ef2482b37183c426a7d7",
+      "source_bytes": 111705,
+      "stored_sha256": "efb367ed7959da6bfe84976239fdd4442accb1b0cf79ef2482b37183c426a7d7",
+      "stored_bytes": 111705,
+      "gzip": false
+    },
+    "Original/off_off_health_checkpoint.json": {
+      "path": "Original/off_off_health_checkpoint.json",
+      "source_sha256": "5e6b37e21ee79bb3af83e1592fb2403b4b96d4256d54090d645707de65e6a3cd",
+      "source_bytes": 107,
+      "stored_sha256": "5e6b37e21ee79bb3af83e1592fb2403b4b96d4256d54090d645707de65e6a3cd",
+      "stored_bytes": 107,
+      "gzip": false
+    },
+    "Original/off_deepwater_000.json.gz": {
+      "path": "Original/off_deepwater_000.json.gz",
+      "source_sha256": "0eaf05526be38dfce2fc00d19d9b713fa66bffdf842ffa715a93cd1c0e33b80c",
+      "source_bytes": 2855675,
+      "stored_sha256": "f3d8f7aab5c7e48887bf51130bb3c5f92c03d0369a1ff7a8e36d9b9591b92d0e",
+      "stored_bytes": 144620,
+      "gzip": true
+    },
+    "Original/off_deepwater_030.json.gz": {
+      "path": "Original/off_deepwater_030.json.gz",
+      "source_sha256": "60b73860c96acf8b37507b6646ba5d8922acd0476548324029b902091522b4e5",
+      "source_bytes": 2850729,
+      "stored_sha256": "24add7bb0912cf1d634b09405453b54f2c864e764f359a573a6f3ee435f80dab",
+      "stored_bytes": 213558,
+      "gzip": true
+    },
+    "Original/off_deepwater_180.json.gz": {
+      "path": "Original/off_deepwater_180.json.gz",
+      "source_sha256": "e9145a7935f5c52df76d85e65ce0e64f2811ae6b029b8c9a7d7a6f32cf36fe7b",
+      "source_bytes": 2850944,
+      "stored_sha256": "ddd87ca19dbeb7280f5531374d97a7ade19b9240be063757e68d437011ad7a3c",
+      "stored_bytes": 213961,
+      "gzip": true
+    },
+    "Original/off_deepwater_270.json.gz": {
+      "path": "Original/off_deepwater_270.json.gz",
+      "source_sha256": "c093ea5d30bc9b07a16d6848e053d41687d63dc730c14daac239c994ebfb57c9",
+      "source_bytes": 2850904,
+      "stored_sha256": "0d62b7500993efb2a269b0c900a04296d6cb031b321b3052220b86ed76b31a66",
+      "stored_bytes": 213754,
+      "gzip": true
+    },
+    "Original/off_deepwater_315.json.gz": {
+      "path": "Original/off_deepwater_315.json.gz",
+      "source_sha256": "c8c0d8e271af124f453d343cdfdd9d1c8fe29ce4a06eca99c01e2b64bafb9af6",
+      "source_bytes": 2850815,
+      "stored_sha256": "5e289d2542ad56d5fc77ce2a820a619ebcdf9bfa4859b4638c430970c3f0812a",
+      "stored_bytes": 214060,
+      "gzip": true
+    },
+    "Original/off_deepwater_360.json.gz": {
+      "path": "Original/off_deepwater_360.json.gz",
+      "source_sha256": "626da26e0ffa8b4bee6fbf2df7e2cee9201cdb61ccb1bcb4370019891dace098",
+      "source_bytes": 2850943,
+      "stored_sha256": "44292b4620612b6f1e28c6937103273b1b77a5830af06d5865cc0096007f8706",
+      "stored_bytes": 213962,
+      "gzip": true
+    }
+  },
+  "baseline_helper_sources": {
+    "deepwater_core.py": "a21e7e23ee93b5622b3cf5a923c2aa356c6bc77008f4246569445841dd7f0941",
+    "readback_deepwater.py": "714858b9863abea752710200d093ef7d2ce9b25f6730567db38860350f382711",
+    "run_baseline_readback.py": "4d6039383cbae677eeecae85229ce075012a4fbbe86d1ec1e37275a30cc0eec0"
+  },
+  "response_detection": {
+    "primary_window_s": [
+      6.0,
+      9.25
+    ],
+    "raw_absolute_heights_primary": true,
+    "t6_relative_auxiliary_onset_only": true,
+    "baseline_windows_s": [
+      [
+        4.5,
+        5.25
+      ],
+      [
+        5.25,
+        6.0
+      ]
+    ],
+    "threshold_formula": "q=max(0.001,3*max(RMS1,RMS2),max(abs(eta-mu2)))",
+    "consecutive_raw_samples_for_onset": 5,
+    "candidate_symmetric_mean_points": 5,
+    "extremum_prominence_m": "at least q on each side inside fixed +/-0.375s neighbourhood",
+    "extremum_neighbourhood_s": 0.375,
+    "ordered_same_sign_adjacent_lag_open_s": [
+      0.03333333333333333,
+      0.75
+    ],
+    "select_by_closeness_to_theory": false,
+    "unique_chain_required": true,
+    "endpoint_truncated_extrema": "PENDING",
+    "wave_accuracy_or_reflection_pass": false,
+    "threshold_source": "same new run, each observable separately",
+    "threshold_envelope_samples": "union of (4.5,5.25] and (5.25,6]; mu2 is second-window mean",
+    "primary_onset_basis": "raw eta minus mu2; five consecutive same-sign samples beyond q at 60Hz",
+    "auxiliary_onset_basis": "raw eta minus raw eta at t6; same q, separate noncorrective annotation",
+    "PFS_onset_count": 3,
+    "PFS_onset_meaning_ja": "30Hzの3標本。60Hzの5標本が覆う4/60秒以上を満たす別観測。",
+    "smoothing_edge_policy": "centred five samples inside primary window only; no padding",
+    "extremum_rule": "strict change into plateau, first equal-height sample retained; maxima left<centre>=right, minima reversed",
+    "prominence_basis": "smoothed eta, minimum of left and right prominence inside +/-0.375s; raw amplitude from mu2 must also reach q",
+    "complete_prominence_support_required": true,
+    "chain_uniqueness": "all eligible same-sign chains together, including both signs; exactly one total",
+    "baseline_subtraction_is_depth_correction": false,
+    "causality_and_period_not_inferred": true,
+    "PFS_last_sample_s": 9.233333333333333,
+    "solver_last_sample_s": 9.25
+  },
+  "timing_estimates": {
+    "phase_speed_m_s": 1.9935967821945484,
+    "group_speed_m_s": 1.4033128819709888,
+    "long_wave_speed_m_s": 2.4261079942986874,
+    "gauges": [
+      {
+        "x_m": 2.242796379968867,
+        "carrier_arrival_s": 7.125,
+        "group_arrival_s": 7.598215486213453,
+        "ramp_complete_group_arrival_s": 10.598215486213453,
+        "target_carrier_reflection_s": 10.89427135275089,
+        "long_wave_reflection_possible_s": 10.021751563805237
+      },
+      {
+        "x_m": 2.9903951732918226,
+        "carrier_arrival_s": 7.5,
+        "group_arrival_s": 8.130953981617939,
+        "ramp_complete_group_arrival_s": 11.130953981617939,
+        "target_carrier_reflection_s": 10.51927135275089,
+        "long_wave_reflection_possible_s": 9.71360419564199
+      },
+      {
+        "x_m": 3.7379939666147783,
+        "carrier_arrival_s": 7.875,
+        "group_arrival_s": 8.663692477022423,
+        "ramp_complete_group_arrival_s": 11.663692477022423,
+        "target_carrier_reflection_s": 10.14427135275089,
+        "long_wave_reflection_possible_s": 9.40545682747874
+      }
+    ],
+    "meaning_ja": "線形理論による目安のみ。立上げ過渡は広帯域、初期残動・圧力の遠隔応答・反射を排除しない。9.25秒まででも無反射保証はない。"
+  },
+  "drive_after_static_pass_and_coverage_clear": true
+}

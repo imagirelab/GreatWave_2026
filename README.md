@@ -6,13 +6,15 @@
 
 ## 22の実水槽・中間結果を見る
 
-最新の22修正03は、同じL6初態のSOP doreseeding 1→0対照です。**固定6秒の静水診断はPASS、六時刻の粗い深水被覆警報は0。造波せず終了し、進行波は未完成です。** 物理精度・収支・無空洞を一括して合格にした結果ではありません。
+最新の22修正04は、同じL6・SOP doreseeding=0の新所有DOPで静水判定を再PASSし、同じDOPのままt6〜9.25の実活塞始動を観測しました。**solver符号場には有序の谷候補が一つありますが、PFS表示面は唯一鎖なし。非砕波・無反射・理論精度・番号22完成は未認定です。**
+
+- [実Houdini PFS動画・97枚/30fps](Houdini/Wave22/Candidates/WaveStart04/Evidence/Result_22e7801642/Media/22_startup_PFS.mp4)／[固定8秒静止画](Houdini/Wave22/Candidates/WaveStart04/Evidence/Result_22e7801642/Media/22_Perspective_480.png)／[原水位の実測図](Houdini/Wave22/Candidates/WaveStart04/Evidence/Result_22e7801642/22_startup_full_series.png)／[数値・出典・限界](Houdini/Wave22/Candidates/WaveStart04/Evidence/Result_22e7801642/README_ja.md)
 
 - [ON/OFFの実時系列図](Houdini/Wave22/Candidates/Reseeding03/Evidence/OFF_Result_4250d4451f/22_reseeding_full_series.png)／[固定窓の図](Houdini/Wave22/Candidates/Reseeding03/Evidence/OFF_Result_4250d4451f/22_reseeding_late_windows.png)／[数値・原JSON・再現](Houdini/Wave22/Candidates/Reseeding03/Evidence/OFF_Result_4250d4451f/README_ja.md)
 
 - [修正02・L6と旧槽の実SDF/PFS比較](Houdini/Wave22/Evidence/Length6_Result_db52394211/22_length6_full_series.png)／[固定窓](Houdini/Wave22/Evidence/Length6_Result_db52394211/22_length6_late_windows.png)／[比較CSV](Houdini/Wave22/Evidence/Length6_Result_db52394211/22_length6_gauges.csv)
 
-以前のt3、旧槽t6、reseeding ONのL6 t6は静水判定FAILで、履歴を保持しています。最新OFFも波は駆動せず、361時刻の未補正測点と表示面・実行/復元記録を保存しました。
+以前のt3、旧槽t6、reseeding ONのL6 t6は静水判定FAILで、履歴を保持しています。修正03のOFF静水対照は未駆動で終了し、修正04では新規計算・再判定の後だけ始動しました。小さい変位の視口動画だけで大波や物理精度を認定しません。
 
 - [未補正の水位と表示面の比較](Houdini/Wave22/Evidence/Preroll_0652da0179/22_preroll_sdf_mesh.png)／[実Houdini静止画・3秒](Houdini/Wave22/Evidence/Still_0652da0179/22_Perspective_180.png)
 - [22の不合格理由・独立レビュー・残る条件](Docs/Progress/Step_22_ja.md)／[181時刻CSV](Houdini/Wave22/Evidence/Preroll_0652da0179/22_preroll_gauges.csv)／[再現方法](Houdini/Wave22/README_ja.md)

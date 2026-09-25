@@ -1,0 +1,515 @@
+{
+  "sample_count": 556,
+  "PFS_count": 278,
+  "static_gate": {
+    "end_seconds": 6.0,
+    "windows": [
+      {
+        "left_open_seconds": 4.5,
+        "right_closed_seconds": 5.25,
+        "count": 45,
+        "gauges": [
+          {
+            "x_m": 2.242796379968867,
+            "z_m": 0,
+            "mean_eta_m": -0.0006308492761789186,
+            "residual_rms_about_mean_m": 4.933713312616742e-05,
+            "linear_trend_m_s": -0.0001494158843435848,
+            "trend_change_per_window_m": -0.0001120619132576886
+          },
+          {
+            "x_m": 2.9903951732918226,
+            "z_m": 0,
+            "mean_eta_m": -0.00033270153223851896,
+            "residual_rms_about_mean_m": 8.128222733201015e-05,
+            "linear_trend_m_s": -0.00020512572403003833,
+            "trend_change_per_window_m": -0.00015384429302252875
+          },
+          {
+            "x_m": 3.7379939666147783,
+            "z_m": 0,
+            "mean_eta_m": -0.0007069591155257433,
+            "residual_rms_about_mean_m": 0.00017745230104579456,
+            "linear_trend_m_s": 0.00010525544627556408,
+            "trend_change_per_window_m": 7.894158470667306e-05
+          }
+        ],
+        "negative_voxel_proxy_mean_m3": 2.361437081502884,
+        "negative_voxel_proxy_first_last_m3": [
+          2.36282428166825,
+          2.362392281616752
+        ],
+        "particle_count_first_last": [
+          53806,
+          53806
+        ],
+        "particle_velocity_rms_mean_m_s": 0.0015387706824325045,
+        "particle_velocity_rms_max_m_s": 0.0018185403146456507,
+        "particle_velocity_max_m_s": 0.04987244078255444
+      },
+      {
+        "left_open_seconds": 5.25,
+        "right_closed_seconds": 6.0,
+        "count": 45,
+        "gauges": [
+          {
+            "x_m": 2.242796379968867,
+            "z_m": 0,
+            "mean_eta_m": -0.0008769217420492241,
+            "residual_rms_about_mean_m": 0.00016609753364522182,
+            "linear_trend_m_s": -0.0007138723316668315,
+            "trend_change_per_window_m": -0.0005354042487501236
+          },
+          {
+            "x_m": 2.9903951732918226,
+            "z_m": 0,
+            "mean_eta_m": -0.0005581315979118344,
+            "residual_rms_about_mean_m": 0.0002354570988038899,
+            "linear_trend_m_s": 0.00047481057760409996,
+            "trend_change_per_window_m": 0.00035610793320307497
+          },
+          {
+            "x_m": 3.7379939666147783,
+            "z_m": 0,
+            "mean_eta_m": -0.0008031537214534999,
+            "residual_rms_about_mean_m": 0.00020042135342730012,
+            "linear_trend_m_s": 0.0009068992339989006,
+            "trend_change_per_window_m": 0.0006801744254991755
+          }
+        ],
+        "negative_voxel_proxy_mean_m3": 2.3614706815068893,
+        "negative_voxel_proxy_first_last_m3": [
+          2.361312281488007,
+          2.36282428166825
+        ],
+        "particle_count_first_last": [
+          53806,
+          53806
+        ],
+        "particle_velocity_rms_mean_m_s": 0.0015605091808795725,
+        "particle_velocity_rms_max_m_s": 0.002295956864763502,
+        "particle_velocity_max_m_s": 0.12763774781027665
+      }
+    ],
+    "gauge_checks": [
+      {
+        "x_m": 2.242796379968867,
+        "mean_change_m": -0.0002460724658703055,
+        "mean_change_passed": true,
+        "both_rms_passed": true,
+        "both_trend_passed": true
+      },
+      {
+        "x_m": 2.9903951732918226,
+        "mean_change_m": -0.00022543006567331546,
+        "mean_change_passed": true,
+        "both_rms_passed": true,
+        "both_trend_passed": true
+      },
+      {
+        "x_m": 3.7379939666147783,
+        "mean_change_m": -9.619460592775661e-05,
+        "mean_change_passed": true,
+        "both_rms_passed": true,
+        "both_trend_passed": true
+      }
+    ],
+    "proxy_relative_window_change": 1.4228625555334773e-05,
+    "diagnostic_stability_passed": true,
+    "wave_verified": false,
+    "physical_accuracy_verified": false,
+    "meaning_ja": "静水待機の駆動許可条件だけ。SDF代理量は実水量ではない。"
+  },
+  "response": {
+    "config": {
+      "primary_window_s": [
+        6.0,
+        9.25
+      ],
+      "raw_absolute_heights_primary": true,
+      "t6_relative_auxiliary_onset_only": true,
+      "baseline_windows_s": [
+        [
+          4.5,
+          5.25
+        ],
+        [
+          5.25,
+          6.0
+        ]
+      ],
+      "threshold_formula": "q=max(0.001,3*max(RMS1,RMS2),max(abs(eta-mu2)))",
+      "consecutive_raw_samples_for_onset": 5,
+      "candidate_symmetric_mean_points": 5,
+      "extremum_prominence_m": "at least q on each side inside fixed +/-0.375s neighbourhood",
+      "extremum_neighbourhood_s": 0.375,
+      "ordered_same_sign_adjacent_lag_open_s": [
+        0.03333333333333333,
+        0.75
+      ],
+      "select_by_closeness_to_theory": false,
+      "unique_chain_required": true,
+      "endpoint_truncated_extrema": "PENDING",
+      "wave_accuracy_or_reflection_pass": false,
+      "threshold_source": "same new run, each observable separately",
+      "threshold_envelope_samples": "union of (4.5,5.25] and (5.25,6]; mu2 is second-window mean",
+      "primary_onset_basis": "raw eta minus mu2; five consecutive same-sign samples beyond q at 60Hz",
+      "auxiliary_onset_basis": "raw eta minus raw eta at t6; same q, separate noncorrective annotation",
+      "PFS_onset_count": 3,
+      "PFS_onset_meaning_ja": "30Hzの3標本。60Hzの5標本が覆う4/60秒以上を満たす別観測。",
+      "smoothing_edge_policy": "centred five samples inside primary window only; no padding",
+      "extremum_rule": "strict change into plateau, first equal-height sample retained; maxima left<centre>=right, minima reversed",
+      "prominence_basis": "smoothed eta, minimum of left and right prominence inside +/-0.375s; raw amplitude from mu2 must also reach q",
+      "complete_prominence_support_required": true,
+      "chain_uniqueness": "all eligible same-sign chains together, including both signs; exactly one total",
+      "baseline_subtraction_is_depth_correction": false,
+      "causality_and_period_not_inferred": true,
+      "PFS_last_sample_s": 9.233333333333333,
+      "solver_last_sample_s": 9.25
+    },
+    "observations": {
+      "solver_surface_sign_field": {
+        "status": "ONE_ORDERED_FEATURE_CHAIN_OBSERVED",
+        "gauges": [
+          {
+            "baseline": {
+              "mu_second_window_m": -0.0008769217420492241,
+              "window_counts": [
+                45,
+                45
+              ],
+              "window_rms_about_mean_m": [
+                4.933713312616742e-05,
+                0.00016609753364522182
+              ],
+              "maximum_baseline_deviation_m": 0.00035751201332575797,
+              "threshold_m": 0.001
+            },
+            "raw_eta_at_t6_m": -0.0009883791569882286,
+            "raw_eta_min_max_m": [
+              -0.010440543732295436,
+              0.002026900551483081
+            ],
+            "onset": {
+              "start_s": 7.366666666666666,
+              "end_s": 7.433333333333334,
+              "sign": -1,
+              "count": 5
+            },
+            "t6_relative_auxiliary_onset_s": 7.366666666666666,
+            "features": [
+              {
+                "time_s": 7.8,
+                "sign": -1,
+                "raw_eta_m": -0.0048023311582476805,
+                "smoothed_eta_m": -0.0047917990366527895,
+                "raw_deviation_from_mu_m": -0.003925409416198456,
+                "t6_relative_auxiliary_m": -0.003813952001259452,
+                "two_sided_prominence_m": 0.002268838697412941
+              },
+              {
+                "time_s": 8.433333333333334,
+                "sign": 1,
+                "raw_eta_m": 0.002026900551483081,
+                "smoothed_eta_m": 0.0020105987188431284,
+                "raw_deviation_from_mu_m": 0.0029038222935323047,
+                "t6_relative_auxiliary_m": 0.0030152797084713094,
+                "two_sided_prominence_m": 0.0027402996094664186
+              }
+            ],
+            "truncated_candidates": [],
+            "meaning_ja": "絶対水位が主記録。t6差分は起動時刻補助のみで、水深・体積の補正ではない。",
+            "x_m": 2.242796379968867
+          },
+          {
+            "baseline": {
+              "mu_second_window_m": -0.0005581315979118344,
+              "window_counts": [
+                45,
+                45
+              ],
+              "window_rms_about_mean_m": [
+                8.128222733201015e-05,
+                0.0002354570988038899
+              ],
+              "maximum_baseline_deviation_m": 0.00041905912176504434,
+              "threshold_m": 0.001
+            },
+            "raw_eta_at_t6_m": -0.0006092637498132554,
+            "raw_eta_min_max_m": [
+              -0.0037961452697410315,
+              0.0014616996939869286
+            ],
+            "onset": {
+              "start_s": 7.583333333333333,
+              "end_s": 7.65,
+              "sign": -1,
+              "count": 5
+            },
+            "t6_relative_auxiliary_onset_s": 7.583333333333333,
+            "features": [
+              {
+                "time_s": 8.0,
+                "sign": -1,
+                "raw_eta_m": -0.0037961452697410315,
+                "smoothed_eta_m": -0.003785637061526773,
+                "raw_deviation_from_mu_m": -0.003238013671829197,
+                "t6_relative_auxiliary_m": -0.003186881519927776,
+                "two_sided_prominence_m": 0.0014237522216138478
+              },
+              {
+                "time_s": 8.8,
+                "sign": 1,
+                "raw_eta_m": 0.0014596135217343738,
+                "smoothed_eta_m": 0.001452752982241672,
+                "raw_deviation_from_mu_m": 0.0020177451196462083,
+                "t6_relative_auxiliary_m": 0.002068877271547629,
+                "two_sided_prominence_m": 0.0033143997910340655
+              }
+            ],
+            "truncated_candidates": [],
+            "meaning_ja": "絶対水位が主記録。t6差分は起動時刻補助のみで、水深・体積の補正ではない。",
+            "x_m": 2.9903951732918226
+          },
+          {
+            "baseline": {
+              "mu_second_window_m": -0.0008031537214534999,
+              "window_counts": [
+                45,
+                45
+              ],
+              "window_rms_about_mean_m": [
+                0.00017745230104579456,
+                0.00020042135342730012
+              ],
+              "maximum_baseline_deviation_m": 0.00038709843444975086,
+              "threshold_m": 0.001
+            },
+            "raw_eta_at_t6_m": -0.000417515590692557,
+            "raw_eta_min_max_m": [
+              -0.004444583944138649,
+              0.0007721632742221465
+            ],
+            "onset": {
+              "start_s": 7.816666666666666,
+              "end_s": 7.883333333333334,
+              "sign": -1,
+              "count": 5
+            },
+            "t6_relative_auxiliary_onset_s": 7.733333333333333,
+            "features": [
+              {
+                "time_s": 8.366666666666667,
+                "sign": -1,
+                "raw_eta_m": -0.004421815061955679,
+                "smoothed_eta_m": -0.0044083564897418595,
+                "raw_deviation_from_mu_m": -0.0036186613405021794,
+                "t6_relative_auxiliary_m": -0.0040042994712631225,
+                "two_sided_prominence_m": 0.0015079677174924407
+              }
+            ],
+            "truncated_candidates": [
+              {
+                "time_s": 8.966666666666667,
+                "sign": 1,
+                "raw_eta_m": 0.0007703452831026812,
+                "smoothed_eta_m": 0.0007640868676729002,
+                "raw_deviation_from_mu_m": 0.0015734990045561813,
+                "t6_relative_auxiliary_m": 0.0011878608737952382
+              }
+            ],
+            "meaning_ja": "絶対水位が主記録。t6差分は起動時刻補助のみで、水深・体積の補正ではない。",
+            "x_m": 3.7379939666147783
+          }
+        ],
+        "all_eligible_chains": [
+          {
+            "sign": -1,
+            "times_s": [
+              7.8,
+              8.0,
+              8.366666666666667
+            ],
+            "adjacent_lags_s": [
+              0.20000000000000018,
+              0.36666666666666714
+            ]
+          }
+        ]
+      },
+      "PFS_display_surface": {
+        "status": "RESPONSE_WITHOUT_UNIQUE_ORDERED_CHAIN",
+        "gauges": [
+          {
+            "baseline": {
+              "mu_second_window_m": -0.010722328268963336,
+              "window_counts": [
+                22,
+                23
+              ],
+              "window_rms_about_mean_m": [
+                4.2027872972059714e-05,
+                0.00012371202088708432
+              ],
+              "maximum_baseline_deviation_m": 0.0002476404542508335,
+              "threshold_m": 0.001
+            },
+            "raw_eta_at_t6_m": -0.010810440778732278,
+            "raw_eta_min_max_m": [
+              -0.017863279581069924,
+              -0.007564878463745095
+            ],
+            "onset": {
+              "start_s": 7.466666666666667,
+              "end_s": 7.533333333333333,
+              "sign": -1,
+              "count": 3
+            },
+            "t6_relative_auxiliary_onset_s": 7.466666666666667,
+            "features": [
+              {
+                "time_s": 7.8,
+                "sign": -1,
+                "raw_eta_m": -0.013416206836700417,
+                "smoothed_eta_m": -0.013359391689300514,
+                "raw_deviation_from_mu_m": -0.0026938785677370816,
+                "t6_relative_auxiliary_m": -0.0026057660579681396,
+                "two_sided_prominence_m": 0.0016336441040039062
+              },
+              {
+                "time_s": 8.5,
+                "sign": 1,
+                "raw_eta_m": -0.007575219869613625,
+                "smoothed_eta_m": -0.007628875970840432,
+                "raw_deviation_from_mu_m": 0.0031471083993497104,
+                "t6_relative_auxiliary_m": 0.0032352209091186523,
+                "two_sided_prominence_m": 0.002932697534561158
+              }
+            ],
+            "truncated_candidates": [],
+            "meaning_ja": "絶対水位が主記録。t6差分は起動時刻補助のみで、水深・体積の補正ではない。",
+            "x_m": 2.242796379968867
+          },
+          {
+            "baseline": {
+              "mu_second_window_m": -0.0076308063838792664,
+              "window_counts": [
+                22,
+                23
+              ],
+              "window_rms_about_mean_m": [
+                5.7342766416768565e-05,
+                0.0001291734543529341
+              ],
+              "maximum_baseline_deviation_m": 0.0002468876216722574,
+              "threshold_m": 0.001
+            },
+            "raw_eta_at_t6_m": -0.007603442668914773,
+            "raw_eta_min_max_m": [
+              -0.009892410039901711,
+              -0.006120121479034402
+            ],
+            "onset": {
+              "start_s": 7.666666666666667,
+              "end_s": 7.733333333333333,
+              "sign": -1,
+              "count": 3
+            },
+            "t6_relative_auxiliary_onset_s": 7.666666666666667,
+            "features": [
+              {
+                "time_s": 8.0,
+                "sign": -1,
+                "raw_eta_m": -0.009892410039901711,
+                "smoothed_eta_m": -0.00986226201057432,
+                "raw_deviation_from_mu_m": -0.0022616036560224448,
+                "t6_relative_auxiliary_m": -0.0022889673709869385,
+                "two_sided_prominence_m": 0.0012061715126037605
+              }
+            ],
+            "truncated_candidates": [
+              {
+                "time_s": 8.833333333333334,
+                "sign": 1,
+                "raw_eta_m": -0.006120121479034402,
+                "smoothed_eta_m": -0.0061695218086242455,
+                "raw_deviation_from_mu_m": 0.0015106849048448648,
+                "t6_relative_auxiliary_m": 0.001483321189880371
+              }
+            ],
+            "meaning_ja": "絶対水位が主記録。t6差分は起動時刻補助のみで、水深・体積の補正ではない。",
+            "x_m": 2.9903951732918226
+          },
+          {
+            "baseline": {
+              "mu_second_window_m": -0.01083958485852115,
+              "window_counts": [
+                22,
+                23
+              ],
+              "window_rms_about_mean_m": [
+                9.036841024295805e-05,
+                9.255343663141335e-05
+              ],
+              "maximum_baseline_deviation_m": 0.00021484235058660123,
+              "threshold_m": 0.001
+            },
+            "raw_eta_at_t6_m": -0.010671025514602639,
+            "raw_eta_min_max_m": [
+              -0.012836223840713479,
+              -0.009418225288391091
+            ],
+            "onset": {
+              "start_s": 7.866666666666666,
+              "end_s": 7.933333333333334,
+              "sign": -1,
+              "count": 3
+            },
+            "t6_relative_auxiliary_onset_s": 7.8,
+            "features": [],
+            "truncated_candidates": [
+              {
+                "time_s": 8.933333333333334,
+                "sign": 1,
+                "raw_eta_m": -0.009419089555740334,
+                "smoothed_eta_m": -0.009459936618804909,
+                "raw_deviation_from_mu_m": 0.001420495302780815,
+                "t6_relative_auxiliary_m": 0.0012519359588623047
+              }
+            ],
+            "meaning_ja": "絶対水位が主記録。t6差分は起動時刻補助のみで、水深・体積の補正ではない。",
+            "x_m": 3.7379939666147783
+          }
+        ],
+        "all_eligible_chains": []
+      }
+    },
+    "wave_verified": false,
+    "physical_accuracy_verified": false,
+    "reflection_free_verified": false,
+    "step22_complete": false,
+    "meaning_ja": "固定短窓の始動特徴候補だけ。候補なしも全波動不存在の証明ではない。表示面とsolver場を別観測とし、理論速度で合格を選ばない。",
+    "sample_sha256": "dfb134266df51534a4a468694abecbcd29ab7154abc9af0c6939061546eb4a8a"
+  },
+  "collision_velocity_max_abs_error_m_s": 2.3011235011541342e-05,
+  "particle_count_first_last": [
+    53794,
+    54037
+  ],
+  "particle_births": 243,
+  "particle_deaths": 0,
+  "resources": {
+    "cook_seconds_sum": 1075.1365178000415,
+    "maximum_sample_cook_seconds": 2.834794199967291,
+    "max_private_bytes": 9054294016,
+    "min_available_RAM_bytes": 33594212352,
+    "max_DOP_cache_bytes": 805210137
+  },
+  "analysis_runtime": {
+    "python": "3.13.2",
+    "matplotlib": "3.11.2"
+  },
+  "font_sha256": "457b306f719a002f1d037b2a3942f2abfa8a55d7bb109bf8950341a3129adb46",
+  "source_sha256": "adf161f538e51fd0760b2efbbc7aff1ce3ebd002e0c29c9c836f8bd0b9221540",
+  "meaning_ja": "原設定での始動観測。応答有無と静水許可は別。物理精度・主役波・22完了は未認定。"
+}

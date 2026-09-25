@@ -1,0 +1,69 @@
+{
+  "houdini_or_mcp_called": false,
+  "passed": true,
+  "checks": [
+    {
+      "name_ja": "全RPC本文は独立して構文成立",
+      "passed": true
+    },
+    {
+      "name_ja": "FRAMEに時刻/FPS/HIP変更/DOPアクセスなし",
+      "passed": true
+    },
+    {
+      "name_ja": "CREATEは所有Fileと色属性だけ",
+      "passed": true
+    },
+    {
+      "name_ja": "事前固定5時刻と追加斜視2枚",
+      "passed": true
+    },
+    {
+      "name_ja": "動画は97枚で最終k552、k554は別静止画",
+      "passed": true
+    },
+    {
+      "name_ja": "独立namespaceで一画像と原JSON SHAを返す",
+      "passed": true
+    },
+    {
+      "name_ja": "File SOP入力なし、Pと有向indicesを直接読戻しに一致",
+      "passed": true
+    },
+    {
+      "name_ja": "固定UI時刻と実物理時刻を別記",
+      "passed": true
+    },
+    {
+      "name_ja": "全危険flipbookフラグを明示False",
+      "passed": true
+    },
+    {
+      "name_ja": "stash設定は所有geoだけ・1280x720",
+      "passed": true
+    },
+    {
+      "name_ja": "cache SHA改変はflipbook前に停止",
+      "passed": true
+    },
+    {
+      "name_ja": "点数不一致はflipbook前に停止",
+      "passed": true
+    },
+    {
+      "name_ja": "不明RPC後の並列cleanupをしない",
+      "passed": true
+    },
+    {
+      "name_ja": "所有登録は直後、UI18に追加表示復元を併用",
+      "passed": true
+    },
+    {
+      "name_ja": "明示executeフラグがない既定は計画表示",
+      "passed": true
+    }
+  ],
+  "source_sha256": "26934c87653c7cfcfa0f06fc790b9e8d521533f60dbe96e5e97e4ce586c96ba9",
+  "check_source_sha256": "bbb11642364208a5802d9670dc8d64ef07a611717ad7e97d43490eab83c43b99",
+  "meaning_ja": "模擬HOMでの保護/構文検査。実GUI/画像成功は未検証。少数静止図を別途preflightする。"
+}
