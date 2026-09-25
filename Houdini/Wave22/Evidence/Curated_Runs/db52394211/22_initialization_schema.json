@@ -1,0 +1,288 @@
+{
+  "owned_path": "/obj/gw22_length6_db52394211",
+  "existing_scene_read": false,
+  "nodes": [
+    {
+      "relative_path": "wave22/actual_wave_solver",
+      "type": "flipsolver",
+      "parameters": [
+        {
+          "name": "particlesep",
+          "label": "Particle Separation",
+          "value": 0.04
+        },
+        {
+          "name": "gridscale",
+          "label": "Grid Scale",
+          "value": 1.5
+        },
+        {
+          "name": "waterline",
+          "label": "Waterline",
+          "value": 0.0
+        },
+        {
+          "name": "initialsurface",
+          "label": "Initial Surface",
+          "value": 1
+        },
+        {
+          "name": "dowaterline",
+          "label": "Enable Waterline",
+          "value": 0
+        },
+        {
+          "name": "extrapdist",
+          "label": "Surface Extrapolation",
+          "value": 0.5
+        },
+        {
+          "name": "doincompressibleair",
+          "label": "Enforce Air Incompressibility",
+          "value": 0
+        },
+        {
+          "name": "partsep",
+          "label": "Apply Particle Separation",
+          "value": 0
+        },
+        {
+          "name": "doreseeding",
+          "label": "Enable Reseeding",
+          "value": 1
+        },
+        {
+          "name": "birththreshold",
+          "label": "Birth Threshold",
+          "value": 0.5
+        },
+        {
+          "name": "deaththreshold",
+          "label": "Death Threshold",
+          "value": 1.5
+        },
+        {
+          "name": "oversamplebounds",
+          "label": "Oversample At Boundaries",
+          "value": 1
+        },
+        {
+          "name": "oversampling",
+          "label": "Surface Oversampling",
+          "value": 1.5
+        },
+        {
+          "name": "oversamplingbandwidth",
+          "label": "Oversampling Bandwidth",
+          "value": 1.0
+        },
+        {
+          "name": "donarrowband",
+          "label": "Enable Particle Narrow Band",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "relative_path": "wave22/actual_wave_solver/dopnet1/flipfluidobject",
+      "type": "flipobject",
+      "parameters": [
+        {
+          "name": "particlesep",
+          "label": "Particle Separation",
+          "value": 0.03999999910593033
+        },
+        {
+          "name": "radiusscale",
+          "label": "Particle Radius Scale",
+          "value": 1.2
+        },
+        {
+          "name": "gridscale",
+          "label": "Grid Scale",
+          "value": 1.5
+        },
+        {
+          "name": "surfacetype",
+          "label": "Input Type",
+          "value": 1,
+          "menu_token": "1",
+          "menu_label": "Particle Field"
+        },
+        {
+          "name": "initfluidattribs",
+          "label": "Initialize Fluid Attributes",
+          "value": 1
+        },
+        {
+          "name": "initvel",
+          "label": "Initialize Velocity",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "relative_path": "wave22/actual_wave_solver/dopnet1/gravity1",
+      "type": "gravity",
+      "parameters": [
+        {
+          "name": "parmop_force",
+          "label": "Force",
+          "value": 1,
+          "menu_token": "always",
+          "menu_label": "![BUTTONS_set_or_create]Set Always"
+        },
+        {
+          "name": "forcex",
+          "label": "Force",
+          "value": 0.0
+        },
+        {
+          "name": "forcey",
+          "label": "Force",
+          "value": -9.81
+        },
+        {
+          "name": "forcez",
+          "label": "Force",
+          "value": 0.0
+        }
+      ]
+    },
+    {
+      "relative_path": "wave22/actual_wave_solver/dopnet1/flipsolver1",
+      "type": "flipsolver::2.0",
+      "parameters": [
+        {
+          "name": "doforces",
+          "label": "Apply External Forces",
+          "value": 1
+        },
+        {
+          "name": "volumeoverrideattrib",
+          "label": "Force Override",
+          "value": "ballistic"
+        },
+        {
+          "name": "reseedsinglepass",
+          "label": "Single Pass Reseeding",
+          "value": 1
+        },
+        {
+          "name": "oversampling",
+          "label": "Surface Oversampling",
+          "value": 1.5
+        },
+        {
+          "name": "oversamplingbandwidth",
+          "label": "Oversampling Bandwidth",
+          "value": 1.0
+        },
+        {
+          "name": "oversamplebounds",
+          "label": "Oversample At Boundaries",
+          "value": 1
+        },
+        {
+          "name": "birththreshold",
+          "label": "Birth Threshold",
+          "value": 0.5
+        },
+        {
+          "name": "deaththreshold",
+          "label": "Death Threshold",
+          "value": 1.5
+        },
+        {
+          "name": "partsep",
+          "label": "Apply Particle Separation",
+          "value": 0
+        },
+        {
+          "name": "volumeamount",
+          "label": "Force Scale",
+          "value": 1.0
+        },
+        {
+          "name": "surfacereinit",
+          "label": "Smooth Surface",
+          "value": 1
+        },
+        {
+          "name": "updatesurface",
+          "label": "Update Surface",
+          "value": 1,
+          "menu_token": "advect",
+          "menu_label": "Advect"
+        },
+        {
+          "name": "usewaterline",
+          "label": "Use Waterline",
+          "value": 0
+        },
+        {
+          "name": "visualwaterline",
+          "label": "Visualize Waterline",
+          "value": 0
+        },
+        {
+          "name": "waterline",
+          "label": "Waterline",
+          "value": 0.0
+        },
+        {
+          "name": "waterlinedirectionx",
+          "label": "Waterline Direction",
+          "value": 0.0
+        },
+        {
+          "name": "waterlinedirectiony",
+          "label": "Waterline Direction",
+          "value": 1.0
+        },
+        {
+          "name": "waterlinedirectionz",
+          "label": "Waterline Direction",
+          "value": 0.0
+        },
+        {
+          "name": "extrapdist",
+          "label": "Surface Extrapolation",
+          "value": 0.5
+        },
+        {
+          "name": "doincompressibleair",
+          "label": "Enforce Air Incompressibility",
+          "value": 0
+        },
+        {
+          "name": "donarrowband",
+          "label": "Enable Particle Narrow Band",
+          "value": 0
+        }
+      ]
+    }
+  ],
+  "actual_boundary_flow_connected": false,
+  "source_activation_expression": "$FF <= 1.001",
+  "source_activation_substep_values": [
+    {
+      "seconds": 0,
+      "global_frame": 1.0,
+      "value": 1.0
+    },
+    {
+      "seconds": 0.008333333333333333,
+      "global_frame": 1.2,
+      "value": 0.0
+    },
+    {
+      "seconds": 0.016666666666666666,
+      "global_frame": 1.4,
+      "value": 0.0
+    }
+  ],
+  "solver_initialsurface_actual": 1,
+  "solver_partsep_actual": 0,
+  "solver_extrapdist_actual": 0.5
+}

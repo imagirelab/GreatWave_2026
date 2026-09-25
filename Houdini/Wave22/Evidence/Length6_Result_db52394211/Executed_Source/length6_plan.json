@@ -1,0 +1,76 @@
+{
+  "case_revision": "22_Length6_Sensitivity01",
+  "execution_state_ja": "事前登録候補。Houdini実行前。",
+  "reference_case": "3e5ff87a29",
+  "piston_start_seconds": 6.0,
+  "observation_end_seconds": 9.5,
+  "sample_rate_hz": 60,
+  "mesh_stride": 2,
+  "particle_separation_m": 0.04,
+  "grid_scale": 1.5,
+  "gravity_m_s2": 9.81,
+  "resource_budget": {
+    "minimum_available_ram_bytes": 8589934592,
+    "maximum_private_growth_bytes": 12884901888,
+    "maximum_dop_cache_bytes": 845571687,
+    "minimum_disk_free_bytes": 10737418240,
+    "predicted_raw_bytes_per_sample": 8388608,
+    "maximum_sample_seconds": 30,
+    "recent_window_samples": 30,
+    "maximum_recent_median_seconds": 6,
+    "maximum_projected_remaining_seconds": 5400,
+    "grid_probe_reserved_bytes": 67108864
+  },
+  "tank_inner_length_m": 6.0,
+  "reference_length_m": 5.980790346583645,
+  "wavelength_m": 2.9903951732918226,
+  "only_design_input_changed": "tank_inner_length_m",
+  "grid_probe_times_seconds": [
+    0,
+    0.008333333333333333,
+    0.016666666666666666
+  ],
+  "health_checkpoint_sample": 30,
+  "static_gate_windows_seconds": [
+    [
+      4.5,
+      5.25
+    ],
+    [
+      5.25,
+      6
+    ]
+  ],
+  "grid_mirror_label_tolerance_cells": 0.001,
+  "collision_probe": {
+    "distances_m": [
+      -0.12,
+      -0.09,
+      -0.06,
+      -0.03,
+      0.0,
+      0.03,
+      0.06,
+      0.09,
+      0.12
+    ],
+    "y_m": [
+      -0.45,
+      -0.3,
+      -0.15
+    ],
+    "z_m": [
+      -0.15,
+      0,
+      0.15
+    ],
+    "wall_bracket_m": [
+      -0.06,
+      0.06
+    ],
+    "wall_bisection_tolerance_m": 1e-05
+  },
+  "old_grid_reference_sample": 1,
+  "initial_P_ID_match_old_required": false,
+  "meaning_ja": "Lに伴う初期粒子・境界・格子の変化を含む感度試験。Egの改善は静水合格条件ではない。"
+}

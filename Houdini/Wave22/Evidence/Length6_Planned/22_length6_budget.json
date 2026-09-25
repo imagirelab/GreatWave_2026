@@ -1,0 +1,57 @@
+{
+  "new_case_executed": false,
+  "old_BGEO_read": false,
+  "reference_token": "3e5ff87a29",
+  "length_ratio": 1.0032118921251483,
+  "reference_total_cache_bytes": 1662166359,
+  "reference_cache_files": 542,
+  "reference_cook_total_seconds": 691.8775886998628,
+  "reference_rpc_total_seconds": 911.5082451000926,
+  "reference_max_private_commit_bytes": 8875130880,
+  "reference_max_dop_bytes": 805279737,
+  "reference_mean_cache_bytes_per_sample": 4604338.944598338,
+  "reference_max_cache_bytes_per_sample": 5133601,
+  "extrapolations": [
+    {
+      "sample_count": 31,
+      "old_case_mean_raw_extrapolation_bytes": 142734507.28254846,
+      "old_case_max_raw_extrapolation_bytes": 159141631,
+      "old_case_mean_cook_extrapolation_seconds": 59.413310940985454
+    },
+    {
+      "sample_count": 361,
+      "old_case_mean_raw_extrapolation_bytes": 1662166359.0,
+      "old_case_max_raw_extrapolation_bytes": 1853229961,
+      "old_case_mean_cook_extrapolation_seconds": 691.8775886998628
+    },
+    {
+      "sample_count": 571,
+      "old_case_mean_raw_extrapolation_bytes": 2629077537.3656507,
+      "old_case_max_raw_extrapolation_bytes": 2931286171,
+      "old_case_mean_cook_extrapolation_seconds": 1094.354856364603
+    }
+  ],
+  "reserved_raw_bytes": 4857004032,
+  "grid_extra_reserved_bytes": 67108864,
+  "required_initial_free_disk_bytes": 20451426304,
+  "budget": {
+    "minimum_available_ram_bytes": 8589934592,
+    "maximum_private_growth_bytes": 12884901888,
+    "maximum_dop_cache_bytes": 845571687,
+    "minimum_disk_free_bytes": 10737418240,
+    "predicted_raw_bytes_per_sample": 8388608,
+    "maximum_sample_seconds": 30,
+    "recent_window_samples": 30,
+    "maximum_recent_median_seconds": 6,
+    "maximum_projected_remaining_seconds": 5400,
+    "grid_probe_reserved_bytes": 67108864
+  },
+  "limits_ja": "旧caseの線形外挿。新幾何・初substep観測・通信/表示・駆動後費用は保証しない。長さ比を精密な費用比例と扱わない。",
+  "source_sha256": "be17e7b028e1499bfe8e6dde64ae200dfb15f93a53a0c4c0b284955b9e64dfdd",
+  "input_sha256": {
+    "Evidence/Curated_Runs/3e5ff87a29/22_pilot_samples.json": "6f58d210f04ad65080b0e3db9f289da1a19428463776102a9755cd7480247be8",
+    "Evidence/Checkpoint6_Result_3e5ff87a29/22_cache_manifest.json": "89bf30711edd00b8fa6024106b4dbf7a9afe2192d15b7bad2b4694fcb3741f87",
+    "Evidence/Curated_Runs/3e5ff87a29/execution_summary.json": "f0548f1c65c78607539df8856923b2f75eb5ab22948e05459c7e4979e0df879b",
+    "Source/length6_plan.json": "6b2769fe7ab2132126f813a8d446cbaef98aaf0aaedab78c6cc22b839be0a33d"
+  }
+}

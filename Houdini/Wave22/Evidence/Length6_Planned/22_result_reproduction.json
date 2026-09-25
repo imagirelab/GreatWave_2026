@@ -1,0 +1,47 @@
+{
+  "case": "db52394211",
+  "mode": "public_curated_only",
+  "houdini_or_mcp_called": false,
+  "raw_runs_present": false,
+  "curated_input_files": 82,
+  "curated_inputs_unchanged": true,
+  "script_sha256": "c14c205fa844daf1d90344f868fb9b485584b30ada613008a33c5accef5d898c",
+  "python": "3.13.2",
+  "matplotlib": "3.11.2",
+  "font_sha256": "457b306f719a002f1d037b2a3942f2abfa8a55d7bb109bf8950341a3129adb46",
+  "command": "python -X utf8 Houdini/Wave22/Source/summarize_length6.py --curated-only",
+  "outputs": [
+    {
+      "path": "Houdini/Wave22/Evidence/Length6_Result_db52394211/22_cache_manifest.json",
+      "sha256": "3de084378cd8cda5815f4166a0ef9903b8670e3cf1f6c72dcc2ca2e3c9e14963",
+      "bytes": 142608,
+      "isolated_output_matches": true
+    },
+    {
+      "path": "Houdini/Wave22/Evidence/Length6_Result_db52394211/22_length6_gauges.csv",
+      "sha256": "3da142b43a6c1b861dc3f0b6fda9f05fe8d631ea51b083cab99d918fbc08adc0",
+      "bytes": 93246,
+      "isolated_output_matches": true
+    },
+    {
+      "path": "Houdini/Wave22/Evidence/Length6_Result_db52394211/22_length6_summary.json",
+      "sha256": "922d9c19fda7509eac90a4cc77afef1cd23416d83f578a21d40f88d434ee316b",
+      "bytes": 137061,
+      "isolated_output_matches": true
+    },
+    {
+      "path": "Houdini/Wave22/Evidence/Length6_Result_db52394211/22_length6_full_series.png",
+      "sha256": "a59823f2e4032d4130cfeddb05787c042047ca9b794bab6ed95591db834735bf",
+      "bytes": 216270,
+      "isolated_output_matches": true
+    },
+    {
+      "path": "Houdini/Wave22/Evidence/Length6_Result_db52394211/22_length6_late_windows.png",
+      "sha256": "7960bc2efee88782cedebd8e47f6d9d8abb2346a117d2897302e6a0cfb968d65",
+      "bytes": 146546,
+      "isolated_output_matches": true
+    }
+  ],
+  "passed": true,
+  "meaning_ja": "公開データだけの隔離コピーで5出力を再計算しSHA一致。BGEO本体の再検査ではない。依存は21のrequirements.lock.txt、Windows Meiryoの同SHAを使用。出典索引は本検査記録と最終文書を含めて後で更新する。"
+}

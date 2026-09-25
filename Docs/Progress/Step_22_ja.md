@@ -1,9 +1,11 @@
 # 22：実 FLIP 水槽の中間記録 — 進行波は未完成
 
-最新の22修正01は、固定条件のままピストン開始だけを作成時にt6へ遅らせた `3e5ff87a29`。**361時刻の静水判定もFAILで、t6後の駆動・波動画はない。** 以下のt3記録を残し、末尾に新しい結果を追加する。
+最新の22修正02は、内槽長だけを6.000mへ変更した感度試験 `db52394211`。**鏡像ラベルは改善したが、361時刻の静水判定は再びFAIL。駆動・波動画はない。** 初期粒子などの派生変化を含むため、格子位相だけの因果とはしない。以下にt3と22修正01の履歴を残し、末尾に最新結果を追記する。
 
-- [最新t6の全時系列図](../../Houdini/Wave22/Evidence/Checkpoint6_Result_3e5ff87a29/22_static_full_series.png)／[固定判定窓の拡大図](../../Houdini/Wave22/Evidence/Checkpoint6_Result_3e5ff87a29/22_static_late_windows.png)
-- [最新361時刻CSV](../../Houdini/Wave22/Evidence/Checkpoint6_Result_3e5ff87a29/22_checkpoint6_gauges.csv)／[t6判定の原JSON](../../Houdini/Wave22/Evidence/Curated_Runs/3e5ff87a29/22_checkpoint_gate.json)
+- [22修正01・t6の全時系列図](../../Houdini/Wave22/Evidence/Checkpoint6_Result_3e5ff87a29/22_static_full_series.png)／[固定判定窓の拡大図](../../Houdini/Wave22/Evidence/Checkpoint6_Result_3e5ff87a29/22_static_late_windows.png)
+- [22修正01・361時刻CSV](../../Houdini/Wave22/Evidence/Checkpoint6_Result_3e5ff87a29/22_checkpoint6_gauges.csv)／[t6判定の原JSON](../../Houdini/Wave22/Evidence/Curated_Runs/3e5ff87a29/22_checkpoint_gate.json)
+
+- [最新L6と旧槽の比較図](../../Houdini/Wave22/Evidence/Length6_Result_db52394211/22_length6_full_series.png)／[固定窓](../../Houdini/Wave22/Evidence/Length6_Result_db52394211/22_length6_late_windows.png)／[比較CSV](../../Houdini/Wave22/Evidence/Length6_Result_db52394211/22_length6_gauges.csv)
 
 **静水の駆動開始判定は不合格。造波段へ進めていない。** 新規水槽の接続、実時計、キャッシュ、静水の測点を確認したが、手順22が求める非砕波の伝播・複数の峰の到来・伝播動画は未完成である。シミュレーションの実行失敗と、正常に実行できた試料が物理上の開始条件を満たさないことを区別する。
 
@@ -99,3 +101,42 @@ python Houdini/Wave22/Source/summarize_checkpoint6.py --curated-only
 [Runsを含まない隔離コピーでの復算記録](../../Houdini/Wave22/Evidence/Checkpoint6_Planned/22_result_reproduction.json)では、2図・CSV・数値摘要・cache manifestの5出力のSHAが一致した。出典索引自体はこの検査記録と最終文書を含めて最後に更新する。
 
 次のケースはこのFAILを保持したまま原因を診断し、変更量・固定窓・停止条件を別途事前定義する。無条件に待機を延長せず、3mm基準を緩めない。
+
+
+## 22修正02：内槽長6.000mでも静水の開始条件FAIL
+
+設計入力はLだけを5.980790346583645→6.000m（+0.3212%）へ変えた。λと三点の絶対x、dp=.04m、Grid Scale1.5、g9.81m/s²、dt1/120s、source once、APIC、seed・reseeding・衝突は保持した。Lに伴って水域・端壁位置と格子との対応、初期粒子が変わり、粒子は旧53,500→新53,794。新初態のP/v有限・ID一意・内槽20mm保護は合格したが、旧P/ID完全一致を要求する対照ではない。[保存した事前計画](../../Houdini/Wave22/Length6_Plan_ja.md)と[実条件・初態・格子・健康点・原361標本](../../Houdini/Wave22/Evidence/Curated_Runs/db52394211)を対応付けた。
+
+t0とt1/60の格子は保存済みBGEOを読み、同時刻のforce再cookを避けた。間のt1/120だけ同じDOPを前進して実時計を確認した。旧t1/60 BGEOのpressure/surface Egは0.320057881cell、新しい拡張場は0.000103315cellで、事前の.001cell鏡像ラベルを満たした。t0の小pressure場は両壁未包含で適用外。新collisionは各時刻81対・18本の壁根を検査し、3時刻合計243対・54根が有効だった。対の最大差は3.446×10⁻⁷m。空のvel VDBは背景速度だけを扱い、boundsやEgを解釈しなかった。旧cacheにcollision場はなく、旧collisionとの比較は未実施である。
+
+0.5秒の31標本健康点は通過したが、これは静水合格ではない。元と同じ(4.5,5.25]と(5.25,6]、各45点で以下を得た。
+
+| 新L6診断点 | 前窓 平均 / 平均まわりRMS | 後窓 平均 / 平均まわりRMS | 窓間平均差 | 傾き×.75秒：前 / 後 |
+| --- | --- | --- | --- | --- |
+| G1 | −1.504 / .706mm | −2.360 / .352mm | −.856mm | −2.411 / +.926mm |
+| G2 | −.482 / .483mm | −2.373 / .773mm | −1.891mm | +.666 / −2.639mm |
+| G3 | −3.032 / 1.925mm | −3.306 / 1.238mm | −.274mm | **+6.430 / −4.033mm** |
+
+独立再計算でも同じFAILを確認した（判定数値の最大差5.4×10⁻²⁰m）。窓間平均差・平均まわりRMSは全点3mm以内だが、G3の両傾きは3mmを超えた。旧Lの同項目は+5.624/−4.552mmで、新Lは前窓の絶対値が増え、後窓は減った。**一方が改善し一方が悪化しており、全体の改善や単一原因の特定とは言えない。** 負SDF代理量は2.351914→2.350315m³、−.067962%で1%以内。これは水量収支ではない。粒子速度RMSの窓平均は3.691→5.182mm/s、粒子数は前51,670→51,617・後51,617→51,636であり質量ではない。
+
+同一30Hz時刻に揃えたG3の比較も保存した（前22点/後23点）。この統計は元60Hzの判定を置き換えない。
+
+| G3 傾き×.75秒 | 前窓 | 後窓 |
+| --- | ---: | ---: |
+| 新L6 SDF・30Hzに限定 | +6.572mm | −4.030mm |
+| 新L6 PFS表示面・30Hz | +5.609mm | −3.359mm |
+| 旧L PFS表示面・30Hz | +4.428mm | −2.642mm |
+
+新SDF/PFSの同時刻相関は.9941/.9896で、表示面にも同方向の変化がある。SDFの読み取りだけのノイズで説明できたとは言わず、初期化・圧力・粒子・衝突等の単独原因も断定しない。表示面とSDFの絶対水位には差が残り、どちらも補正していない。
+
+解析板変位/速度は361時刻全0。実collision vxはk360だけ9.889719×10⁻⁷m/s、他は0で、既存1×10⁻⁴m/s一致性許容内だった。これは造波証拠ではない。gate FAIL後は駆動許可もk361以後もなく、所有ノードを削除した。18項目UI復元全PASS、dirtyはtrueのまま、Undo558→562を保持、HIP保存/読込なし。実時計差最大8.88×10⁻¹⁶s、cook中央値2.225s/最大3.060s、DOP最大767.995MiB、私有コミット最大8.323GiB、空きRAM最小30.459GiBだった。
+
+361solver/粒子、181PFS、6格子/衝突BGEOの**548ファイル1,682,590,892bytes**を全件SHA照合し、[manifest](../../Houdini/Wave22/Evidence/Length6_Result_db52394211/22_cache_manifest.json)を公開した。BGEO本体はローカルRunsに保持する。[数値と原ソースの対応](../../Houdini/Wave22/Evidence/Length6_Result_db52394211/22_length6_summary.json)、[今回の出典](../../Houdini/Wave22/Evidence/Length6_Result_db52394211/22_result_provenance.json)、実行当時Sourceを保存した。
+
+今回の図は実SDF/PFSの原時系列から作ったグラフで、追加のHoudini/Unityビューポート画像や動画ではない。全6秒の底連通・非砕波・伝播・理論精度・収支・HMDは未検証。22の完成点にせず、次の原因診断は別計画とする。公開時系列だけの再計算は次で行う。元のBGEO読戻し検査をこの公開モードで再実施したとは言わない。
+
+```powershell
+python Houdini/Wave22/Source/summarize_length6.py --curated-only
+```
+
+[Runsのない隔離コピーでの再計算記録](../../Houdini/Wave22/Evidence/Length6_Planned/22_result_reproduction.json)では、2図・CSV・数値摘要・cache manifestの5出力が同一SHAとなった。原時系列・条件・実行当時Sourceを変更せず検査した。

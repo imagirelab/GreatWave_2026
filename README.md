@@ -6,12 +6,16 @@
 
 ## 22の実水槽・中間結果を見る
 
-**t3とt6の静水開始条件が不合格となり、両ケースの後続駆動へ進んでいません。進行波は未完成です。** 最新の新規FLIPでは361時刻を実測し、未補正のSDFと表示面、実行・復元記録を保存しました。
+最新の22修正02は内槽長6.000mの感度試験です。格子の鏡像ラベルを満たしても、6秒の静水開始条件はFAILのままで、造波・波動画へ進めていません。
+
+- [最新L6と旧槽の実SDF/PFS比較](Houdini/Wave22/Evidence/Length6_Result_db52394211/22_length6_full_series.png)／[固定窓](Houdini/Wave22/Evidence/Length6_Result_db52394211/22_length6_late_windows.png)／[比較CSV](Houdini/Wave22/Evidence/Length6_Result_db52394211/22_length6_gauges.csv)
+
+**t3、旧槽のt6、新L6のt6は全て静水開始条件が不合格となり、いずれも後続駆動へ進んでいません。進行波は未完成です。** 最新の新規FLIPでは361時刻を実測し、未補正のSDFと表示面、実行・復元記録を保存しました。
 
 - [未補正の水位と表示面の比較](Houdini/Wave22/Evidence/Preroll_0652da0179/22_preroll_sdf_mesh.png)／[実Houdini静止画・3秒](Houdini/Wave22/Evidence/Still_0652da0179/22_Perspective_180.png)
 - [22の不合格理由・独立レビュー・残る条件](Docs/Progress/Step_22_ja.md)／[181時刻CSV](Houdini/Wave22/Evidence/Preroll_0652da0179/22_preroll_gauges.csv)／[再現方法](Houdini/Wave22/README_ja.md)
 
-- [最新t6の未補正SDF/PFS図](Houdini/Wave22/Evidence/Checkpoint6_Result_3e5ff87a29/22_static_full_series.png)／[判定窓の拡大](Houdini/Wave22/Evidence/Checkpoint6_Result_3e5ff87a29/22_static_late_windows.png)／[361時刻CSV](Houdini/Wave22/Evidence/Checkpoint6_Result_3e5ff87a29/22_checkpoint6_gauges.csv)
+- [22修正01・旧槽t6の未補正SDF/PFS図](Houdini/Wave22/Evidence/Checkpoint6_Result_3e5ff87a29/22_static_full_series.png)／[判定窓の拡大](Houdini/Wave22/Evidence/Checkpoint6_Result_3e5ff87a29/22_static_late_windows.png)／[361時刻CSV](Houdini/Wave22/Evidence/Checkpoint6_Result_3e5ff87a29/22_checkpoint6_gauges.csv)
 
 ## 21の小振幅波の基準を見る
 

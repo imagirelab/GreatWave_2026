@@ -1,0 +1,148 @@
+{
+  "houdini_called": false,
+  "new_fluid_simulated": false,
+  "old_BGEO_HOM_read": false,
+  "scope_ja": "公開t6原JSONと明示合成field/namespaceだけ。実HOM互換性・L6の鏡像や静水は未検証。",
+  "input_sha256": {
+    "Evidence\\Curated_Runs\\3e5ff87a29\\22_pilot_samples.json": "6f58d210f04ad65080b0e3db9f289da1a19428463776102a9755cd7480247be8",
+    "Evidence\\Curated_Runs\\3e5ff87a29\\22_pilot_conditions.json": "974ac113b10553b251d56c48e226d99c23b073557d2755cb8a273f7218309407",
+    "Evidence\\Curated_Runs\\3e5ff87a29\\22_checkpoint_gate.json": "716348e9e3a8f0713bf45b134d12ae4398fdf118233f6ad36c455055bb19c003"
+  },
+  "checks": [
+    {
+      "check": "公開t6の全統計を精値のまま再現",
+      "passed": true
+    },
+    {
+      "check": "元G3傾きのFAILを維持",
+      "passed": true
+    },
+    {
+      "check": "計画は固定2窓と旧測点のλを保持",
+      "passed": true
+    },
+    {
+      "check": "初期粒子は旧P/IDとの一致対象外",
+      "passed": true
+    },
+    {
+      "check": "同DOP分岐の模擬検査PASS=False",
+      "passed": true
+    },
+    {
+      "check": "同DOP分岐の模擬検査PASS=True",
+      "passed": true
+    },
+    {
+      "check": "鏡像ラベルが良くても実静水FAILは変わらない",
+      "passed": true
+    },
+    {
+      "check": "旧長の解析格子例は非鏡像",
+      "passed": true
+    },
+    {
+      "check": "整数indexだけ中心をずらしてもEg不変",
+      "passed": true
+    },
+    {
+      "check": "格子の非有限値を拒否",
+      "passed": true
+    },
+    {
+      "check": "零voxelを拒否",
+      "passed": true
+    },
+    {
+      "check": "明示合成の左右壁81対と18根",
+      "passed": true
+    },
+    {
+      "check": "壁鏡像不一致は測定値として保持し物理許可にしない",
+      "passed": true
+    },
+    {
+      "check": "欠けた壁を拒否",
+      "passed": true
+    },
+    {
+      "check": "field外を拒否",
+      "passed": true
+    },
+    {
+      "check": "非有限SDFを拒否",
+      "passed": true
+    },
+    {
+      "check": "Lと新初態保護以外のノード設定式は同じ",
+      "passed": true
+    },
+    {
+      "check": "旧初態一致を要求せず健全性assertを残す",
+      "passed": true
+    },
+    {
+      "check": "所有基線RPCは新namespaceで自足",
+      "passed": true
+    },
+    {
+      "check": "許可RPCは原JSON・新namespaceで再判定: False",
+      "passed": true
+    },
+    {
+      "check": "許可RPCは原JSON・新namespaceで再判定: True",
+      "passed": true
+    },
+    {
+      "check": "原JSONの精値と出典照合を保持",
+      "passed": true
+    },
+    {
+      "check": "原JSON SHA改変を拒否",
+      "passed": true
+    },
+    {
+      "check": "probe関数は新namespaceでindexToPos中心を使用",
+      "passed": true
+    },
+    {
+      "check": "空velは中心/bbox/Egを照会せず背景専用とする",
+      "passed": true
+    },
+    {
+      "check": "格子RPC全体は独立namespaceと精値ACKで自足",
+      "passed": true
+    },
+    {
+      "check": "標本wrapperの独立namespaceと資源・SHA経路",
+      "passed": true
+    },
+    {
+      "check": "新規ソースの構文",
+      "passed": true
+    },
+    {
+      "check": "新規probeの順番が0→半標本→1標本",
+      "passed": true
+    },
+    {
+      "check": "作成前Manualとframe1の既存保護を保持",
+      "passed": true
+    },
+    {
+      "check": "元fixtureは無変更",
+      "passed": true
+    }
+  ],
+  "passed": true,
+  "source_sha256": {
+    "run_length6.py": "ccb0cc079840d6229d34b625a7af5107e4aa5dc426a6db13c6e3e97bb5d42f6b",
+    "generate_wave_l6.py": "a3cf59b1dc658541edb0a6bdcefddab06c0270e3038c70b63091d10f9f8004bc",
+    "length6_plan.json": "6b2769fe7ab2132126f813a8d446cbaef98aaf0aaedab78c6cc22b839be0a33d",
+    "probe_grid_l6.py": "310e2af520f08b67df6ae41f0ceac1d956c03300354268f5548237b4d90f383b",
+    "grid_metrics_l6.py": "ca01dfa361bfe578199a9cf311b5559b41096c5cda2344a039c5507cce53fb6c",
+    "check_length6_logic.py": "6bab2707648a0ece62d70598c63f3023a3b95008030f69ec0f128a7aa3461800",
+    "checkpoint_gate.py": "127c84eedb3a0122b3149cc18d1a6b385edf1f95a510614f3df1d9bb710aae36",
+    "ui_guard.py": "47b763ab25200b599f3a8a9acb31ade4f40f521df5512e1d80ab2697af2ee2c8"
+  }
+}
