@@ -1,0 +1,265 @@
+{
+  "revision": "22修正06 再候補06",
+  "scope": "ONE_K360_OLD_HALF_PFS_REPLAY_ONLY",
+  "status_ja": "実行前に固定する候補。root放行までHoudini未実行。",
+  "baseline_run": "22e7801642",
+  "sample": 360,
+  "seconds": 6.0,
+  "global_frame": 145.0,
+  "fps": 24,
+  "record": {
+    "sample": 360,
+    "seconds": 6.0,
+    "global_frame": 145.0,
+    "pilot": {
+      "filename": "pilot_360.bgeo.sc",
+      "kind": "solver",
+      "seconds": 6.0,
+      "sha256": "26f4e93c8f108958359d1faf06f5fc498fdf43182cf1be9fe87e794d5d89688f",
+      "bytes": 4313913
+    },
+    "mesh": {
+      "filename": "mesh_360.bgeo.sc",
+      "kind": "PFS",
+      "seconds": 6.0,
+      "sha256": "6cdddb10ebb93b51124d8f95bd83fedc1e0d7e71114558fc89ba18f8b5a804cd",
+      "bytes": 873004
+    },
+    "mesh_points": 38926,
+    "mesh_faces": 38924,
+    "gauges": [
+      {
+        "x": 2.242796379968867,
+        "z": 0,
+        "valid": true,
+        "crossing_count": 1,
+        "bottom_value": -0.14213836193084717,
+        "top_value": 0.17907655239105225,
+        "bracket_y": [
+          -0.48,
+          0.1999999189376831
+        ],
+        "eta_m": -0.0009883791569882286,
+        "mesh_sampled": true,
+        "mesh_vertical_hit_valid": true,
+        "mesh_eta_m": -0.010810440778732278,
+        "mesh_minus_solver_m": -0.009822061621744049
+      },
+      {
+        "x": 2.9903951732918226,
+        "z": 0,
+        "valid": true,
+        "crossing_count": 1,
+        "bottom_value": -0.14477309584617615,
+        "top_value": 0.17938672006130219,
+        "bracket_y": [
+          -0.48,
+          0.1999999189376831
+        ],
+        "eta_m": -0.0006092637498132554,
+        "mesh_sampled": true,
+        "mesh_vertical_hit_valid": true,
+        "mesh_eta_m": -0.007603442668914773,
+        "mesh_minus_solver_m": -0.006994178919101517
+      },
+      {
+        "x": 3.7379939666147783,
+        "z": 0,
+        "valid": true,
+        "crossing_count": 1,
+        "bottom_value": -0.14475923776626587,
+        "top_value": 0.17959193885326385,
+        "bracket_y": [
+          -0.48,
+          0.1999999189376831
+        ],
+        "eta_m": -0.000417515590692557,
+        "mesh_sampled": true,
+        "mesh_vertical_hit_valid": true,
+        "mesh_eta_m": -0.010671025514602639,
+        "mesh_minus_solver_m": -0.010253509923910081
+      }
+    ]
+  },
+  "gauge_x_m": [
+    2.242796379968867,
+    2.9903951732918226,
+    3.7379939666147783
+  ],
+  "mesh_parameters": {
+    "particlesep": 0.04,
+    "surfmethod": "particlefluid",
+    "voxelsize": 0.5,
+    "adaptivity": 0,
+    "dodilate": 0,
+    "dosmooth": 0,
+    "doerode": 0,
+    "dofinalsmooth": 0,
+    "closedcontainer": 0,
+    "closedends": 0,
+    "flattengeo": 0
+  },
+  "node_types": {
+    "PFS": "particlefluidsurface::3.0",
+    "convert": "convert",
+    "file": "file"
+  },
+  "convert_parameters": {
+    "totype": "poly"
+  },
+  "parity": {
+    "P_exact": true,
+    "oriented_indices_exact": true,
+    "primitive_type_closed_exact": true,
+    "native_replay_vs_original_exact": true,
+    "original_record_height_tolerance_m": 1e-06,
+    "remesh_file_bytes_equality_required": false
+  },
+  "expected_input_counts": {
+    "points": 53811,
+    "primitives": 5,
+    "actual_particles": 53806
+  },
+  "prior_attempts_manifest_sha256": "cc4a577642837b15696f3a465f4edc4dfdef3d2858e1c0179c2b7e1e2c627d54",
+  "support_origins": [
+    {
+      "path": "Houdini/Wave22/Candidates/PfsSensitivity06Retry03/Source/support06.py",
+      "sha256": "6789c915e402a1f96f89307dbf79f7966e3a689bed3634923ddd4f97cab997e5",
+      "functions": [
+        "file_sha",
+        "memory06",
+        "input_signature06",
+        "menu_observation",
+        "disconnected_file_inputs",
+        "classify_rpc_reply",
+        "serializable_observation"
+      ]
+    },
+    {
+      "path": "Houdini/Wave22/Candidates/PfsSensitivity06Retry03/Source/probe_file06.py",
+      "sha256": "d733391b4b36eef17c6b74ab12b25e56ca5017d9d8324d3c17b7ca1e35fef47d",
+      "functions": [
+        "finite_value06",
+        "value_hash06",
+        "attribute_inventory06",
+        "all_geometry_signature06",
+        "parm_record06",
+        "node_state06"
+      ]
+    },
+    {
+      "path": "Houdini/Wave22/Candidates/PfsSensitivity06Retry01/Source/remesh_pilot06.py",
+      "sha256": "aafdd6c082a1b2d693f29da5aea5f1c377f293bc8bb042152d7ccfc440af1966",
+      "functions": [
+        "mesh_data06",
+        "mesh_hash06",
+        "definition06",
+        "parameters06",
+        "set_verified06",
+        "native_first06"
+      ]
+    },
+    {
+      "path": "Houdini/Wave22/Candidates/PfsSensitivity06Retry01/Source/sensitivity_core.py",
+      "sha256": "09016bf288a82279f10cbefd5f04a9d14b09da49508f14e9636afcc327e4c038",
+      "functions": [
+        "finite_native_hit",
+        "compare_mesh_data"
+      ]
+    },
+    {
+      "path": "Houdini/Wave22/Candidates/PfsSensitivity06Decision04/Source/decision_core06.py",
+      "sha256": "884c758ce2e4a7b8d7de3dce1b87db315e5a070c51634168a8a5745e760a8e73",
+      "functions": [
+        "exact",
+        "canonical_signature",
+        "compare_signatures",
+        "leaf_differences"
+      ]
+    }
+  ],
+  "baseline_files": {
+    "22_cache_manifest.json": "c3c2f265647c6bc25dfb4d564db3dea5b6c91af6dc72d551c2860ebe391dafe8",
+    "Original/22_pilot_samples.json.gz": "45f5f130d42961811b6854409108ca1debbde9be9df520babb02e047b51f00ff",
+    "Original/22_pilot_conditions.json": "051d6eb7246b65ba5cd44f7c6e78689151e2b3f8cf4543e9e6232f2a580f20fb",
+    "Original/22_startup_response.json": "a90e25d236cb19be2aa3ff5a57e41d2730da16ea9ac961979e957df5010d01f5",
+    "Executed_Source/startup_response.py": "4622d07b6af14aa79f0b2c543bc210aee8532b67e508e0c57bf4677353f2ce2c",
+    "Executed_Source/generate_wave_l6.py": "a3cf59b1dc658541edb0a6bdcefddab06c0270e3038c70b63091d10f9f8004bc",
+    "Executed_Source/ui_guard.py": "47b763ab25200b599f3a8a9acb31ade4f40f521df5512e1d80ab2697af2ee2c8"
+  },
+  "decision_freeze": {
+    "path": "Houdini/Wave22/Candidates/PfsSensitivity06Decision04/Evidence/22_decision_candidate_freeze.json",
+    "bytes": 1534,
+    "sha256": "a24d10ee15ea45280103396170ce9c8260df2832f05df68dac27fe48d3fabaa7"
+  },
+  "decision_report": {
+    "path": "Houdini/Wave22/Candidates/PfsSensitivity06Decision04/Evidence/22_file_signature_adjudication.json",
+    "bytes": 17920,
+    "sha256": "c78abfdc1141904ffa48ea6b69f7a240d33075e4a721293e0c443640b90a98c7"
+  },
+  "budgets": {
+    "minimum_available_RAM_bytes": 8589934592,
+    "maximum_private_increase_bytes": 12884901888,
+    "minimum_free_G_bytes": 10737418240,
+    "per_rpc_cooperative_seconds": 90,
+    "rpc_wait_seconds": 180,
+    "maximum_cook_window_seconds": 30,
+    "maximum_mesh_bytes": 16777216,
+    "maximum_report_bytes": 16777216,
+    "auxiliary_reserved_bytes": 67108864
+  },
+  "two_windows_ja": [
+    "同一main-thread RPC。Auto第1窓は所有File/Nullのcookとfreezeだけ。finally Manualへ戻す。",
+    "ManualでDirect/File/Null全署名を比較。detail属性一覧だけ一意nameに対応させ、他は厳密一致。不一致ならPFSを作成/cookせずHOLD。",
+    "入力PASS後だけManualでPFS/Convert/Outを組む。Auto第2窓のcook/freeze後finally Manual。重い署名/JSON/保存/交点はManualで実行。"
+  ],
+  "node_flags": {
+    "owner_display": false,
+    "geo_display": false,
+    "out_display": true,
+    "out_render": true
+  },
+  "profile_195_executed": false,
+  "refinement_allowed": false,
+  "other_samples_allowed": false,
+  "detector_executed": false,
+  "new_solver": false,
+  "ui_restore_checks": 18,
+  "uncertain_rule_ja": "timeout/不明応答は追加RPC・retry・kill・並行cleanupを行わず停止。",
+  "original_raw_hold_retained": true,
+  "solver_height_check_ja": "既存粒子/field全値は入力署名で照合する。本.5-only再現ではsolver縦線を追加queryしない。",
+  "output_cook_ja": "原04と同じくOutのみcook(force=True)。PFS/Convert/Outの前後cookCountは観測する。",
+  "only_execution_change_ja": "definition06だけ、HDASection.contents()のUTF-8再符号化をbinaryContents()原bytesへ変更。sectionを落とさず、decode/encodeやsurrogate置換をしない。",
+  "HDA_binary_api_source": "https://www.sidefx.com/docs/houdini/hom/hou/HDASection.html",
+  "support_function_exception": {
+    "name": "definition06",
+    "prior_candidate": "PfsSensitivity06Replay05",
+    "old_lines": "        value = section.contents()\n        value = value.encode('utf8') if isinstance(value, str) else value",
+    "new_lines": "        value = section.binaryContents()\n        assert isinstance(value, bytes), 'HDA sectionの原bytes以外は拒否する'"
+  },
+  "previous_attempt": {
+    "token": "pfsreplay06_55fa260d7f",
+    "raw_result": {
+      "path": "Houdini/Wave22/Runs/pfsreplay06_55fa260d7f/replay_360.json",
+      "bytes": 50241,
+      "sha256": "ea3babbd601a8525978cae65e7f36371ed73dbd6bb152dd6fe2a66051efae524"
+    },
+    "execution": {
+      "path": "Houdini/Wave22/Runs/pfsreplay06_55fa260d7f/execution.json",
+      "bytes": 6062,
+      "sha256": "768f3d624aedd02ba9599da7824ac7a07bdd03490ddd65857469fafed867b548"
+    },
+    "freeze": {
+      "path": "Houdini/Wave22/Candidates/PfsSensitivity06Replay05/Evidence/22_replay_candidate_freeze.json",
+      "bytes": 1650,
+      "sha256": "fb8345f9ce0117e1ef182f583e743f988047af6a80f70e1ff547c1d9f68a3617"
+    },
+    "state": "HOLD_HDA_TEXT_ENCODING_BEFORE_AUTO2",
+    "input_gate_passed": true,
+    "pfs_cook_executed": false,
+    "mesh_exists": false,
+    "failure_type": "UnicodeEncodeError",
+    "ui18_passed": true,
+    "uncertain": false
+  }
+}

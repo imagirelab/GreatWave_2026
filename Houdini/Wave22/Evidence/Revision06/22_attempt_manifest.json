@@ -1,0 +1,550 @@
+{
+  "cases": [
+    {
+      "label": "Initial",
+      "candidate": "PfsSensitivity06",
+      "token": "pfs06_da9e62c8df",
+      "result": "Original/pfs06_da9e62c8df/replay_360.json.gz",
+      "execution": "Original/pfs06_da9e62c8df/execution.json.gz",
+      "status": "HOLD_ASSERTION_BEFORE_INPUT",
+      "meaning_ja": "入力署名前のAssertionError。原因は原記録だけでは確定しない。PFS未実行。"
+    },
+    {
+      "label": "Retry01",
+      "candidate": "PfsSensitivity06Retry01",
+      "token": "pfs06_4e658eee02",
+      "result": "Original/pfs06_4e658eee02/replay_360.json.gz",
+      "execution": "Original/pfs06_4e658eee02/execution.json.gz",
+      "status": "HOLD_EMPTY_MANUAL_INPUT",
+      "meaning_ja": "ManualのFile/Null入力が空で停止。PFS未実行。"
+    },
+    {
+      "label": "Retry02",
+      "candidate": "PfsSensitivity06Retry02",
+      "token": "file06_261a7a4f72",
+      "result": "Original/file06_261a7a4f72/file_probe_360.json.gz",
+      "execution": "Original/file06_261a7a4f72/execution.json.gz",
+      "status": "HOLD_HOM_KEYWORD",
+      "meaning_ja": "needsToCookのtimeキーワードによるTypeError。Auto窓前に停止。"
+    },
+    {
+      "label": "Retry03",
+      "candidate": "PfsSensitivity06Retry03",
+      "token": "file06_22b8368396",
+      "result": "Original/file06_22b8368396/file_probe_360.json.gz",
+      "execution": "Original/file06_22b8368396/execution.json.gz",
+      "status": "HOLD_RAW_SIGNATURE_ORDER",
+      "meaning_ja": "原比較はdetail属性一覧の順序差でHOLD。別のDecision04で許容範囲を限定した再解釈を保存。"
+    },
+    {
+      "label": "Replay05",
+      "candidate": "PfsSensitivity06Replay05",
+      "token": "pfsreplay06_55fa260d7f",
+      "result": "Original/pfsreplay06_55fa260d7f/replay_360.json.gz",
+      "execution": "Original/pfsreplay06_55fa260d7f/execution.json.gz",
+      "status": "HOLD_HDA_TEXT_ENCODING",
+      "meaning_ja": "入力一致後、HDA文字列UTF-8化でUnicodeEncodeError。第2Auto窓前、meshなし。"
+    },
+    {
+      "label": "Retry06",
+      "candidate": "PfsSensitivity06Retry06",
+      "token": "pfsreplay06_af76bc8ec2",
+      "result": "Original/pfsreplay06_af76bc8ec2/replay_360.json.gz",
+      "execution": "Original/pfsreplay06_af76bc8ec2/execution.json.gz",
+      "status": "PASS_OLD_HALF_K360",
+      "meaning_ja": "HDA原binary bytesを読む修正後、旧.5のk360形状と三点nativeが厳密一致。"
+    },
+    {
+      "label": "Replay474",
+      "candidate": "PfsSensitivity06Replay474",
+      "token": "pfsreplay06_ac6451419c",
+      "result": "Original/pfsreplay06_ac6451419c/replay_474.json.gz",
+      "execution": "Original/pfsreplay06_ac6451419c/execution.json.gz",
+      "status": "PASS_OLD_HALF_K474",
+      "meaning_ja": "旧.5のk474形状と三点nativeが厳密一致。"
+    },
+    {
+      "label": "Replay496",
+      "candidate": "PfsSensitivity06Replay496",
+      "token": "pfsreplay06_b13cd6bcb8",
+      "result": "Original/pfsreplay06_b13cd6bcb8/replay_496.json.gz",
+      "execution": "Original/pfsreplay06_b13cd6bcb8/execution.json.gz",
+      "status": "PASS_OLD_HALF_K496",
+      "meaning_ja": "旧.5のk496形状と三点nativeが厳密一致。"
+    },
+    {
+      "label": "Refine360",
+      "candidate": "PfsSensitivity06Refine360",
+      "token": "pfsrefine06_c208ac35e3",
+      "result": "Original/pfsrefine06_c208ac35e3/refine_360.json.gz",
+      "execution": "Original/pfsrefine06_c208ac35e3/execution.json.gz",
+      "status": "PASS_LOCAL_QUARTER_K360",
+      "meaning_ja": "k360だけ.25へ変更。入力・定義・局所390断面の診断成立。物理/波精度の合格ではない。"
+    }
+  ],
+  "decision04": "Houdini/Wave22/Candidates/PfsSensitivity06Decision04/Evidence/22_file_signature_adjudication.json",
+  "executed_source_maps": [
+    {
+      "token": "pfs06_da9e62c8df",
+      "candidate_directory": "Houdini/Wave22/Candidates/PfsSensitivity06",
+      "executed_sources": [
+        {
+          "name": "build_plan06.py",
+          "bytes": 8948,
+          "sha256": "de504297eb962b63ee4116d514e30b1d7fa03744bffc1f5df7b42a00b7f6da73",
+          "published_source_path": "Houdini/Wave22/Candidates/PfsSensitivity06/Source/build_plan06.py"
+        },
+        {
+          "name": "check_pilot06.py",
+          "bytes": 17793,
+          "sha256": "847a69109a5bef04859bf7cc4ccf0978d67b6614926dd9ee4a9d28ba38961054",
+          "published_source_path": "Houdini/Wave22/Candidates/PfsSensitivity06/Source/check_pilot06.py"
+        },
+        {
+          "name": "pfs06_plan.json",
+          "bytes": 327547,
+          "sha256": "06583ed2fc0b1e63bc3e2e2ff21edeceb105b263a9b7c07514fe429b8aff45b8",
+          "published_source_path": "Houdini/Wave22/Candidates/PfsSensitivity06/Source/pfs06_plan.json"
+        },
+        {
+          "name": "profile_core.py",
+          "bytes": 10495,
+          "sha256": "5a1d66fba58398033f7d76f1f9cc2f1ba1f7aed256a399f50f34a80aba6cb308",
+          "published_source_path": "Houdini/Wave22/Candidates/PfsSensitivity06Refine360/Source/profile_core.py"
+        },
+        {
+          "name": "read_profile05.py",
+          "bytes": 7009,
+          "sha256": "1df2f64fc78c1b205a06e2a8f20ef74a944c6b727638592c382cf260e80a8887",
+          "published_source_path": "Houdini/Wave22/Candidates/PfsSensitivity06Refine360/Source/read_profile05.py"
+        },
+        {
+          "name": "remesh_pilot06.py",
+          "bytes": 17042,
+          "sha256": "e04691bdd7e7acccfde0224982cfd090764999c6bb283a9573e227376f63cb72",
+          "published_source_path": "Houdini/Wave22/Candidates/PfsSensitivity06/Source/remesh_pilot06.py"
+        },
+        {
+          "name": "run_pilot06.py",
+          "bytes": 14060,
+          "sha256": "bcd1c020a708ebf11e87ae814cc8b39dbb612b0f37134ebf2144445d1959cb5c",
+          "published_source_path": "Houdini/Wave22/Candidates/PfsSensitivity06/Source/run_pilot06.py"
+        },
+        {
+          "name": "sensitivity_core.py",
+          "bytes": 7929,
+          "sha256": "507fdb09d428a7e65d7171b77139040764b132cb53d082e8b5d469bca7d5075c",
+          "published_source_path": "Houdini/Wave22/Candidates/PfsSensitivity06/Source/sensitivity_core.py"
+        },
+        {
+          "name": "ui_guard.py",
+          "bytes": 9690,
+          "sha256": "47b763ab25200b599f3a8a9acb31ade4f40f521df5512e1d80ab2697af2ee2c8",
+          "published_source_path": "Houdini/Wave22/Evidence/Revision06/Executed_Source/47b763ab2520_ui_guard.py"
+        }
+      ]
+    },
+    {
+      "token": "pfs06_4e658eee02",
+      "candidate_directory": "Houdini/Wave22/Candidates/PfsSensitivity06Retry01",
+      "executed_sources": [
+        {
+          "name": "build_plan06.py",
+          "bytes": 9588,
+          "sha256": "8560c171cf15857d3aaa477a4294987e20f7c65459e506d444ba7e2d4c3b8fb2",
+          "published_source_path": "Houdini/Wave22/Candidates/PfsSensitivity06Retry01/Source/build_plan06.py"
+        },
+        {
+          "name": "check_pilot06.py",
+          "bytes": 20783,
+          "sha256": "03035d94c8ab2a0aaed7a6160e2d144c534dff8e0b61051b3e214c3c974f1a13",
+          "published_source_path": "Houdini/Wave22/Candidates/PfsSensitivity06Retry01/Source/check_pilot06.py"
+        },
+        {
+          "name": "pfs06_plan.json",
+          "bytes": 328108,
+          "sha256": "108423c647b1c8442f758b07aed4e8dc2c9788593115d2488efe1ea8bf1998f7",
+          "published_source_path": "Houdini/Wave22/Candidates/PfsSensitivity06Retry01/Source/pfs06_plan.json"
+        },
+        {
+          "name": "profile_core.py",
+          "bytes": 10495,
+          "sha256": "5a1d66fba58398033f7d76f1f9cc2f1ba1f7aed256a399f50f34a80aba6cb308",
+          "published_source_path": "Houdini/Wave22/Candidates/PfsSensitivity06Refine360/Source/profile_core.py"
+        },
+        {
+          "name": "read_profile05.py",
+          "bytes": 7009,
+          "sha256": "1df2f64fc78c1b205a06e2a8f20ef74a944c6b727638592c382cf260e80a8887",
+          "published_source_path": "Houdini/Wave22/Candidates/PfsSensitivity06Refine360/Source/read_profile05.py"
+        },
+        {
+          "name": "remesh_pilot06.py",
+          "bytes": 20910,
+          "sha256": "aafdd6c082a1b2d693f29da5aea5f1c377f293bc8bb042152d7ccfc440af1966",
+          "published_source_path": "Houdini/Wave22/Candidates/PfsSensitivity06Retry01/Source/remesh_pilot06.py"
+        },
+        {
+          "name": "run_pilot06.py",
+          "bytes": 14507,
+          "sha256": "8b90cf39b2fb8113057625eec822891c162b15b152a5a7363955158118107913",
+          "published_source_path": "Houdini/Wave22/Candidates/PfsSensitivity06Retry01/Source/run_pilot06.py"
+        },
+        {
+          "name": "sensitivity_core.py",
+          "bytes": 8702,
+          "sha256": "09016bf288a82279f10cbefd5f04a9d14b09da49508f14e9636afcc327e4c038",
+          "published_source_path": "Houdini/Wave22/Candidates/PfsSensitivity06Retry01/Source/sensitivity_core.py"
+        },
+        {
+          "name": "ui_guard.py",
+          "bytes": 9690,
+          "sha256": "47b763ab25200b599f3a8a9acb31ade4f40f521df5512e1d80ab2697af2ee2c8",
+          "published_source_path": "Houdini/Wave22/Evidence/Revision06/Executed_Source/47b763ab2520_ui_guard.py"
+        }
+      ]
+    },
+    {
+      "token": "file06_261a7a4f72",
+      "candidate_directory": "Houdini/Wave22/Candidates/PfsSensitivity06Retry02",
+      "executed_sources": [
+        {
+          "name": "check_file_probe06.py",
+          "bytes": 12018,
+          "sha256": "425c32bf2c4227cb6433739b92d75bf2dbf8167b4dbaf039ac9f04ffad63ddeb",
+          "published_source_path": "Houdini/Wave22/Candidates/PfsSensitivity06Retry02/Source/check_file_probe06.py"
+        },
+        {
+          "name": "file_probe_plan.json",
+          "bytes": 3847,
+          "sha256": "6868e8f197c7e2ee1e50aa3e28e34cb0dc469451e45b4e957a189b7943aa072a",
+          "published_source_path": "Houdini/Wave22/Candidates/PfsSensitivity06Retry02/Source/file_probe_plan.json"
+        },
+        {
+          "name": "probe_file06.py",
+          "bytes": 13812,
+          "sha256": "99045158f73a5969f96f99927a9ba98f52bbcb427b274238c457a6ecd37fe674",
+          "published_source_path": "Houdini/Wave22/Candidates/PfsSensitivity06Retry02/Source/probe_file06.py"
+        },
+        {
+          "name": "run_file_probe06.py",
+          "bytes": 9276,
+          "sha256": "8d594a0ef54c58bcc08b9eab5770b740fd7d74b232bd4dc78c9d6eb37019462c",
+          "published_source_path": "Houdini/Wave22/Candidates/PfsSensitivity06Retry02/Source/run_file_probe06.py"
+        },
+        {
+          "name": "support06.py",
+          "bytes": 6562,
+          "sha256": "6789c915e402a1f96f89307dbf79f7966e3a689bed3634923ddd4f97cab997e5",
+          "published_source_path": "Houdini/Wave22/Candidates/PfsSensitivity06Retry03/Source/support06.py"
+        },
+        {
+          "name": "ui_guard.py",
+          "bytes": 9690,
+          "sha256": "47b763ab25200b599f3a8a9acb31ade4f40f521df5512e1d80ab2697af2ee2c8",
+          "published_source_path": "Houdini/Wave22/Evidence/Revision06/Executed_Source/47b763ab2520_ui_guard.py"
+        }
+      ]
+    },
+    {
+      "token": "file06_22b8368396",
+      "candidate_directory": "Houdini/Wave22/Candidates/PfsSensitivity06Retry03",
+      "executed_sources": [
+        {
+          "name": "check_file_probe06.py",
+          "bytes": 13519,
+          "sha256": "517cff0188fbc47b4f4251e43c8bea7862882ffe1ba755be7a0d805d01074881",
+          "published_source_path": "Houdini/Wave22/Candidates/PfsSensitivity06Retry03/Source/check_file_probe06.py"
+        },
+        {
+          "name": "file_probe_plan.json",
+          "bytes": 4592,
+          "sha256": "2c7d8fb3142c555efa1f04d3aa5e89993efb36901bd22686dd2b48219f3d8d31",
+          "published_source_path": "Houdini/Wave22/Candidates/PfsSensitivity06Retry03/Source/file_probe_plan.json"
+        },
+        {
+          "name": "probe_file06.py",
+          "bytes": 13837,
+          "sha256": "d733391b4b36eef17c6b74ab12b25e56ca5017d9d8324d3c17b7ca1e35fef47d",
+          "published_source_path": "Houdini/Wave22/Candidates/PfsSensitivity06Retry03/Source/probe_file06.py"
+        },
+        {
+          "name": "run_file_probe06.py",
+          "bytes": 9604,
+          "sha256": "f9cfa106e00e3755b05b1c49a73a86ba5cc958a0399788255168da1e605ce351",
+          "published_source_path": "Houdini/Wave22/Candidates/PfsSensitivity06Retry03/Source/run_file_probe06.py"
+        },
+        {
+          "name": "support06.py",
+          "bytes": 6562,
+          "sha256": "6789c915e402a1f96f89307dbf79f7966e3a689bed3634923ddd4f97cab997e5",
+          "published_source_path": "Houdini/Wave22/Candidates/PfsSensitivity06Retry03/Source/support06.py"
+        },
+        {
+          "name": "ui_guard.py",
+          "bytes": 9690,
+          "sha256": "47b763ab25200b599f3a8a9acb31ade4f40f521df5512e1d80ab2697af2ee2c8",
+          "published_source_path": "Houdini/Wave22/Evidence/Revision06/Executed_Source/47b763ab2520_ui_guard.py"
+        }
+      ]
+    },
+    {
+      "token": "pfsreplay06_55fa260d7f",
+      "candidate_directory": "Houdini/Wave22/Candidates/PfsSensitivity06Replay05",
+      "executed_sources": [
+        {
+          "name": "check_replay06.py",
+          "bytes": 13383,
+          "sha256": "86259c4c4f02b012c5fe068d3833e83813abc476386e3a90abf91ffef1217bc2",
+          "published_source_path": "Houdini/Wave22/Candidates/PfsSensitivity06Replay05/Source/check_replay06.py"
+        },
+        {
+          "name": "replay_k360.py",
+          "bytes": 12840,
+          "sha256": "57101cc336bfa3999798dd0f46db781cacb01cb4a3e6162790ea3a878adc09ff",
+          "published_source_path": "Houdini/Wave22/Candidates/PfsSensitivity06Retry06/Source/replay_k360.py"
+        },
+        {
+          "name": "replay_plan.json",
+          "bytes": 7968,
+          "sha256": "0b3205656d24535460f5272e31a2a1ba3f38150c9f7307b0dcce2a01b5f28810",
+          "published_source_path": "Houdini/Wave22/Candidates/PfsSensitivity06Replay05/Source/replay_plan.json"
+        },
+        {
+          "name": "replay_support06.py",
+          "bytes": 17302,
+          "sha256": "0d821020d3e8d5df4b6082d136039ade95564ed8daa606cde8decddba02bb646",
+          "published_source_path": "Houdini/Wave22/Candidates/PfsSensitivity06Replay05/Source/replay_support06.py"
+        },
+        {
+          "name": "replay_window06.py",
+          "bytes": 2112,
+          "sha256": "7b53056749d76e2243490a02e23442b91a9e27f57d6ccee1c0ab7c5262297375",
+          "published_source_path": "Houdini/Wave22/Candidates/PfsSensitivity06Retry06/Source/replay_window06.py"
+        },
+        {
+          "name": "run_replay06.py",
+          "bytes": 11595,
+          "sha256": "d65e15d98e725d0a738f64c771aa3e3f7ea9cb052782eb4cd8ff36e20caf1874",
+          "published_source_path": "Houdini/Wave22/Candidates/PfsSensitivity06Retry06/Source/run_replay06.py"
+        },
+        {
+          "name": "ui_guard.py",
+          "bytes": 9690,
+          "sha256": "47b763ab25200b599f3a8a9acb31ade4f40f521df5512e1d80ab2697af2ee2c8",
+          "published_source_path": "Houdini/Wave22/Evidence/Revision06/Executed_Source/47b763ab2520_ui_guard.py"
+        }
+      ]
+    },
+    {
+      "token": "pfsreplay06_af76bc8ec2",
+      "candidate_directory": "Houdini/Wave22/Candidates/PfsSensitivity06Retry06",
+      "executed_sources": [
+        {
+          "name": "check_replay06.py",
+          "bytes": 18483,
+          "sha256": "7a0218ca3981becb1e27edc8fefe845280b839a54e08d0910c2db5d5f75155e8",
+          "published_source_path": "Houdini/Wave22/Candidates/PfsSensitivity06Retry06/Source/check_replay06.py"
+        },
+        {
+          "name": "replay_k360.py",
+          "bytes": 12840,
+          "sha256": "57101cc336bfa3999798dd0f46db781cacb01cb4a3e6162790ea3a878adc09ff",
+          "published_source_path": "Houdini/Wave22/Candidates/PfsSensitivity06Retry06/Source/replay_k360.py"
+        },
+        {
+          "name": "replay_plan.json",
+          "bytes": 9605,
+          "sha256": "bc06242f24c48dab54f52904c664256cc28b3de248d6f140dfffc970c3ebc351",
+          "published_source_path": "Houdini/Wave22/Candidates/PfsSensitivity06Retry06/Source/replay_plan.json"
+        },
+        {
+          "name": "replay_support06.py",
+          "bytes": 17321,
+          "sha256": "f483fa8699767c4f6a7f57b4f18ce09b3f326275ea60a99bfe38d63840b6c1c7",
+          "published_source_path": "Houdini/Wave22/Candidates/PfsSensitivity06Retry06/Source/replay_support06.py"
+        },
+        {
+          "name": "replay_window06.py",
+          "bytes": 2112,
+          "sha256": "7b53056749d76e2243490a02e23442b91a9e27f57d6ccee1c0ab7c5262297375",
+          "published_source_path": "Houdini/Wave22/Candidates/PfsSensitivity06Retry06/Source/replay_window06.py"
+        },
+        {
+          "name": "run_replay06.py",
+          "bytes": 11595,
+          "sha256": "d65e15d98e725d0a738f64c771aa3e3f7ea9cb052782eb4cd8ff36e20caf1874",
+          "published_source_path": "Houdini/Wave22/Candidates/PfsSensitivity06Retry06/Source/run_replay06.py"
+        },
+        {
+          "name": "ui_guard.py",
+          "bytes": 9690,
+          "sha256": "47b763ab25200b599f3a8a9acb31ade4f40f521df5512e1d80ab2697af2ee2c8",
+          "published_source_path": "Houdini/Wave22/Evidence/Revision06/Executed_Source/47b763ab2520_ui_guard.py"
+        }
+      ]
+    },
+    {
+      "token": "pfsreplay06_ac6451419c",
+      "candidate_directory": "Houdini/Wave22/Candidates/PfsSensitivity06Replay474",
+      "executed_sources": [
+        {
+          "name": "check_replay06.py",
+          "bytes": 22969,
+          "sha256": "827472ae691b46e9a40ccc7c3e44ea1872e908b50978240bf347ee464958c3c6",
+          "published_source_path": "Houdini/Wave22/Candidates/PfsSensitivity06Replay474/Source/check_replay06.py"
+        },
+        {
+          "name": "replay_k474.py",
+          "bytes": 12881,
+          "sha256": "68904a9ca2e05fa19c8a818c4605281925613516175b87193ab71fbdee2e9c03",
+          "published_source_path": "Houdini/Wave22/Candidates/PfsSensitivity06Replay474/Source/replay_k474.py"
+        },
+        {
+          "name": "replay_plan.json",
+          "bytes": 12662,
+          "sha256": "e7a84e8b35daeb538e7938afa142bfcb422d6e186f2ba240f12e201f51c151bf",
+          "published_source_path": "Houdini/Wave22/Candidates/PfsSensitivity06Replay474/Source/replay_plan.json"
+        },
+        {
+          "name": "replay_support06.py",
+          "bytes": 17321,
+          "sha256": "f483fa8699767c4f6a7f57b4f18ce09b3f326275ea60a99bfe38d63840b6c1c7",
+          "published_source_path": "Houdini/Wave22/Candidates/PfsSensitivity06Retry06/Source/replay_support06.py"
+        },
+        {
+          "name": "replay_window06.py",
+          "bytes": 2112,
+          "sha256": "7b53056749d76e2243490a02e23442b91a9e27f57d6ccee1c0ab7c5262297375",
+          "published_source_path": "Houdini/Wave22/Candidates/PfsSensitivity06Retry06/Source/replay_window06.py"
+        },
+        {
+          "name": "run_replay06.py",
+          "bytes": 11609,
+          "sha256": "679ea50f2cc08b034758f08f06c95cae80d3bd4c2f1a86097db0ff0a07af3a82",
+          "published_source_path": "Houdini/Wave22/Candidates/PfsSensitivity06Replay474/Source/run_replay06.py"
+        },
+        {
+          "name": "ui_guard.py",
+          "bytes": 9690,
+          "sha256": "47b763ab25200b599f3a8a9acb31ade4f40f521df5512e1d80ab2697af2ee2c8",
+          "published_source_path": "Houdini/Wave22/Evidence/Revision06/Executed_Source/47b763ab2520_ui_guard.py"
+        }
+      ]
+    },
+    {
+      "token": "pfsreplay06_b13cd6bcb8",
+      "candidate_directory": "Houdini/Wave22/Candidates/PfsSensitivity06Replay496",
+      "executed_sources": [
+        {
+          "name": "check_replay06.py",
+          "bytes": 24927,
+          "sha256": "7371c6a90b073d27cdce92d7b1d525173836f457a816e065c49c199e9808c57a",
+          "published_source_path": "Houdini/Wave22/Candidates/PfsSensitivity06Replay496/Source/check_replay06.py"
+        },
+        {
+          "name": "replay_k496.py",
+          "bytes": 12881,
+          "sha256": "942c6d96b306b5a1526002f1a6bf6918437907bb86f5a5f22f0801dbe190bd54",
+          "published_source_path": "Houdini/Wave22/Candidates/PfsSensitivity06Replay496/Source/replay_k496.py"
+        },
+        {
+          "name": "replay_plan.json",
+          "bytes": 13982,
+          "sha256": "c9f3ea68f0a7ab9126aac7ffbfd72fc3ab49b361063637c0ed9e927950da7501",
+          "published_source_path": "Houdini/Wave22/Candidates/PfsSensitivity06Replay496/Source/replay_plan.json"
+        },
+        {
+          "name": "replay_support06.py",
+          "bytes": 17321,
+          "sha256": "f483fa8699767c4f6a7f57b4f18ce09b3f326275ea60a99bfe38d63840b6c1c7",
+          "published_source_path": "Houdini/Wave22/Candidates/PfsSensitivity06Retry06/Source/replay_support06.py"
+        },
+        {
+          "name": "replay_window06.py",
+          "bytes": 2112,
+          "sha256": "7b53056749d76e2243490a02e23442b91a9e27f57d6ccee1c0ab7c5262297375",
+          "published_source_path": "Houdini/Wave22/Candidates/PfsSensitivity06Retry06/Source/replay_window06.py"
+        },
+        {
+          "name": "run_replay06.py",
+          "bytes": 11609,
+          "sha256": "6bcec34268d030b602b14dd3ac672cf7115cde409ef7682460cca3c87686b4f7",
+          "published_source_path": "Houdini/Wave22/Candidates/PfsSensitivity06Replay496/Source/run_replay06.py"
+        },
+        {
+          "name": "ui_guard.py",
+          "bytes": 9690,
+          "sha256": "47b763ab25200b599f3a8a9acb31ade4f40f521df5512e1d80ab2697af2ee2c8",
+          "published_source_path": "Houdini/Wave22/Evidence/Revision06/Executed_Source/47b763ab2520_ui_guard.py"
+        }
+      ]
+    },
+    {
+      "token": "pfsrefine06_c208ac35e3",
+      "candidate_directory": "Houdini/Wave22/Candidates/PfsSensitivity06Refine360",
+      "executed_sources": [
+        {
+          "name": "check_refine06.py",
+          "bytes": 23084,
+          "sha256": "ba217047f3c1f0bc27b91fa3a04083e38c5841d658c4cee194d27d56ee308047",
+          "published_source_path": "Houdini/Wave22/Candidates/PfsSensitivity06Refine360/Source/check_refine06.py"
+        },
+        {
+          "name": "profile_core.py",
+          "bytes": 10495,
+          "sha256": "5a1d66fba58398033f7d76f1f9cc2f1ba1f7aed256a399f50f34a80aba6cb308",
+          "published_source_path": "Houdini/Wave22/Candidates/PfsSensitivity06Refine360/Source/profile_core.py"
+        },
+        {
+          "name": "read_profile05.py",
+          "bytes": 7009,
+          "sha256": "1df2f64fc78c1b205a06e2a8f20ef74a944c6b727638592c382cf260e80a8887",
+          "published_source_path": "Houdini/Wave22/Candidates/PfsSensitivity06Refine360/Source/read_profile05.py"
+        },
+        {
+          "name": "refine_core06.py",
+          "bytes": 5361,
+          "sha256": "caa873970a9c7ad809a83539519280722154881cdc7dc68aafa1c6d20ae243f6",
+          "published_source_path": "Houdini/Wave22/Candidates/PfsSensitivity06Refine360/Source/refine_core06.py"
+        },
+        {
+          "name": "refine_k360.py",
+          "bytes": 14864,
+          "sha256": "a5acd3d2be935e67899089ef075a8ffe1837d4a22a89e5deeb0ef2131b918f6d",
+          "published_source_path": "Houdini/Wave22/Candidates/PfsSensitivity06Refine360/Source/refine_k360.py"
+        },
+        {
+          "name": "refine_plan.json",
+          "bytes": 16911,
+          "sha256": "8101badedc6a4e6e200636322db5f26ced25f0aaf775b1f20ccc7d57b3b02234",
+          "published_source_path": "Houdini/Wave22/Candidates/PfsSensitivity06Refine360/Source/refine_plan.json"
+        },
+        {
+          "name": "replay_support06.py",
+          "bytes": 17321,
+          "sha256": "f483fa8699767c4f6a7f57b4f18ce09b3f326275ea60a99bfe38d63840b6c1c7",
+          "published_source_path": "Houdini/Wave22/Candidates/PfsSensitivity06Retry06/Source/replay_support06.py"
+        },
+        {
+          "name": "replay_window06.py",
+          "bytes": 2112,
+          "sha256": "7b53056749d76e2243490a02e23442b91a9e27f57d6ccee1c0ab7c5262297375",
+          "published_source_path": "Houdini/Wave22/Candidates/PfsSensitivity06Retry06/Source/replay_window06.py"
+        },
+        {
+          "name": "run_refine06.py",
+          "bytes": 21680,
+          "sha256": "828ec8940aeaeeebc1b383cab27254f1cfe788ca2e7c049333de551349696762",
+          "published_source_path": "Houdini/Wave22/Candidates/PfsSensitivity06Refine360/Source/run_refine06.py"
+        },
+        {
+          "name": "ui_guard.py",
+          "bytes": 9690,
+          "sha256": "47b763ab25200b599f3a8a9acb31ade4f40f521df5512e1d80ab2697af2ee2c8",
+          "published_source_path": "Houdini/Wave22/Evidence/Revision06/Executed_Source/47b763ab2520_ui_guard.py"
+        }
+      ]
+    }
+  ]
+}

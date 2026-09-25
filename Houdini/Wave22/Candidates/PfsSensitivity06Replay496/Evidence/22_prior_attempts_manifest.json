@@ -1,0 +1,804 @@
+{
+  "meaning_ja": "先行候補と実行記録を集合・bytes・SHAで保護する。既存HOLD/成功を変更しない。",
+  "protected_directories": [
+    "Houdini/Wave22/Candidates/PfsSensitivity06",
+    "Houdini/Wave22/Candidates/PfsSensitivity06Retry01",
+    "Houdini/Wave22/Candidates/PfsSensitivity06Retry02",
+    "Houdini/Wave22/Candidates/PfsSensitivity06Retry03",
+    "Houdini/Wave22/Runs/pfs06_da9e62c8df",
+    "Houdini/Wave22/Runs/pfs06_4e658eee02",
+    "Houdini/Wave22/Runs/file06_261a7a4f72",
+    "Houdini/Wave22/Runs/file06_22b8368396",
+    "Houdini/Wave22/Candidates/PfsSensitivity06Decision04",
+    "Houdini/Wave22/Candidates/PfsSensitivity06Replay05",
+    "Houdini/Wave22/Runs/pfsreplay06_55fa260d7f",
+    "Houdini/Wave22/Candidates/PfsSensitivity06Retry06",
+    "Houdini/Wave22/Runs/pfsreplay06_af76bc8ec2",
+    "Houdini/Wave22/Candidates/PfsSensitivity06Replay474",
+    "Houdini/Wave22/Runs/pfsreplay06_ac6451419c"
+  ],
+  "files": [
+    {
+      "path": "Houdini/Wave22/Candidates/PfsSensitivity06/Evidence/22_pfs06_candidate_freeze.json",
+      "bytes": 1713,
+      "sha256": "9755f56dde86304afdcd6a6ad2202ee454bd0951c7d5c2a586ec904487260f60"
+    },
+    {
+      "path": "Houdini/Wave22/Candidates/PfsSensitivity06/Evidence/22_pfs06_offline_checks.json",
+      "bytes": 7620,
+      "sha256": "db1f36bfd1921540d362b555d2aeef1ae71975d7c7212015a52835511d5c52ba"
+    },
+    {
+      "path": "Houdini/Wave22/Candidates/PfsSensitivity06/README_ja.md",
+      "bytes": 12706,
+      "sha256": "5f276d10b0c7206793a3a23eed1a2933068aa267f3caa201965308c9a24c012d"
+    },
+    {
+      "path": "Houdini/Wave22/Candidates/PfsSensitivity06/Source/build_plan06.py",
+      "bytes": 8948,
+      "sha256": "de504297eb962b63ee4116d514e30b1d7fa03744bffc1f5df7b42a00b7f6da73"
+    },
+    {
+      "path": "Houdini/Wave22/Candidates/PfsSensitivity06/Source/check_pilot06.py",
+      "bytes": 17793,
+      "sha256": "847a69109a5bef04859bf7cc4ccf0978d67b6614926dd9ee4a9d28ba38961054"
+    },
+    {
+      "path": "Houdini/Wave22/Candidates/PfsSensitivity06/Source/pfs06_plan.json",
+      "bytes": 327547,
+      "sha256": "06583ed2fc0b1e63bc3e2e2ff21edeceb105b263a9b7c07514fe429b8aff45b8"
+    },
+    {
+      "path": "Houdini/Wave22/Candidates/PfsSensitivity06/Source/remesh_pilot06.py",
+      "bytes": 17042,
+      "sha256": "e04691bdd7e7acccfde0224982cfd090764999c6bb283a9573e227376f63cb72"
+    },
+    {
+      "path": "Houdini/Wave22/Candidates/PfsSensitivity06/Source/run_pilot06.py",
+      "bytes": 14060,
+      "sha256": "bcd1c020a708ebf11e87ae814cc8b39dbb612b0f37134ebf2144445d1959cb5c"
+    },
+    {
+      "path": "Houdini/Wave22/Candidates/PfsSensitivity06/Source/sensitivity_core.py",
+      "bytes": 7929,
+      "sha256": "507fdb09d428a7e65d7171b77139040764b132cb53d082e8b5d469bca7d5075c"
+    },
+    {
+      "path": "Houdini/Wave22/Candidates/PfsSensitivity06Decision04/Evidence/22_decision_candidate_freeze.json",
+      "bytes": 1534,
+      "sha256": "a24d10ee15ea45280103396170ce9c8260df2832f05df68dac27fe48d3fabaa7"
+    },
+    {
+      "path": "Houdini/Wave22/Candidates/PfsSensitivity06Decision04/Evidence/22_decision_offline_checks.json",
+      "bytes": 7304,
+      "sha256": "791becaf0bf8e2931106ea81a5f5891bde32a0e0137e536565e8198fa8e095ef"
+    },
+    {
+      "path": "Houdini/Wave22/Candidates/PfsSensitivity06Decision04/Evidence/22_file_signature_adjudication.json",
+      "bytes": 17920,
+      "sha256": "c78abfdc1141904ffa48ea6b69f7a240d33075e4a721293e0c443640b90a98c7"
+    },
+    {
+      "path": "Houdini/Wave22/Candidates/PfsSensitivity06Decision04/Evidence/22_prior_attempts_manifest.json",
+      "bytes": 16664,
+      "sha256": "bccc3e9fbe1dd29637a4f2315da781855058ac09bd8551a6f5f5cb2a6356af09"
+    },
+    {
+      "path": "Houdini/Wave22/Candidates/PfsSensitivity06Decision04/README_ja.md",
+      "bytes": 6159,
+      "sha256": "f784e327db48d94738f7fc720368f7ed8670aad7c746552d4a9b490209413e65"
+    },
+    {
+      "path": "Houdini/Wave22/Candidates/PfsSensitivity06Decision04/Source/adjudicate_file06.py",
+      "bytes": 6112,
+      "sha256": "ef75c82c1fcd07ff6de63f76efc09e08a64b0d7aab0b0a9f257c046415f5ddfa"
+    },
+    {
+      "path": "Houdini/Wave22/Candidates/PfsSensitivity06Decision04/Source/check_decision06.py",
+      "bytes": 8383,
+      "sha256": "e7ade26afa563bcd9ca1f2db4be87803022094c3321be8eaea01e13d6da5f61a"
+    },
+    {
+      "path": "Houdini/Wave22/Candidates/PfsSensitivity06Decision04/Source/decision_core06.py",
+      "bytes": 9160,
+      "sha256": "884c758ce2e4a7b8d7de3dce1b87db315e5a070c51634168a8a5745e760a8e73"
+    },
+    {
+      "path": "Houdini/Wave22/Candidates/PfsSensitivity06Decision04/Source/decision_plan.json",
+      "bytes": 1606,
+      "sha256": "2a9e00ea3b06bda96c62ce247b8fab887a9266146e6188bac00d32fe610cb2fc"
+    },
+    {
+      "path": "Houdini/Wave22/Candidates/PfsSensitivity06Replay05/Evidence/22_prior_attempts_manifest.json",
+      "bytes": 18691,
+      "sha256": "8f3b2029cb2e8eca15f854cb0606186b5e9b35b134ca9bd4e29442916cb35e83"
+    },
+    {
+      "path": "Houdini/Wave22/Candidates/PfsSensitivity06Replay05/Evidence/22_replay_candidate_freeze.json",
+      "bytes": 1650,
+      "sha256": "fb8345f9ce0117e1ef182f583e743f988047af6a80f70e1ff547c1d9f68a3617"
+    },
+    {
+      "path": "Houdini/Wave22/Candidates/PfsSensitivity06Replay05/Evidence/22_replay_offline_checks.json",
+      "bytes": 7855,
+      "sha256": "2ca31c4a1c32551b4358b33f0a07a831a4bb5ac7b67576963c06210de9bd028d"
+    },
+    {
+      "path": "Houdini/Wave22/Candidates/PfsSensitivity06Replay05/README_ja.md",
+      "bytes": 8080,
+      "sha256": "9562ed031d9f86cad2d1ed2220ee7d7227581c01284a4a520d48d9d738382e97"
+    },
+    {
+      "path": "Houdini/Wave22/Candidates/PfsSensitivity06Replay05/Source/check_replay06.py",
+      "bytes": 13383,
+      "sha256": "86259c4c4f02b012c5fe068d3833e83813abc476386e3a90abf91ffef1217bc2"
+    },
+    {
+      "path": "Houdini/Wave22/Candidates/PfsSensitivity06Replay05/Source/replay_k360.py",
+      "bytes": 12840,
+      "sha256": "57101cc336bfa3999798dd0f46db781cacb01cb4a3e6162790ea3a878adc09ff"
+    },
+    {
+      "path": "Houdini/Wave22/Candidates/PfsSensitivity06Replay05/Source/replay_plan.json",
+      "bytes": 7968,
+      "sha256": "0b3205656d24535460f5272e31a2a1ba3f38150c9f7307b0dcce2a01b5f28810"
+    },
+    {
+      "path": "Houdini/Wave22/Candidates/PfsSensitivity06Replay05/Source/replay_support06.py",
+      "bytes": 17302,
+      "sha256": "0d821020d3e8d5df4b6082d136039ade95564ed8daa606cde8decddba02bb646"
+    },
+    {
+      "path": "Houdini/Wave22/Candidates/PfsSensitivity06Replay05/Source/replay_window06.py",
+      "bytes": 2112,
+      "sha256": "7b53056749d76e2243490a02e23442b91a9e27f57d6ccee1c0ab7c5262297375"
+    },
+    {
+      "path": "Houdini/Wave22/Candidates/PfsSensitivity06Replay05/Source/run_replay06.py",
+      "bytes": 11595,
+      "sha256": "d65e15d98e725d0a738f64c771aa3e3f7ea9cb052782eb4cd8ff36e20caf1874"
+    },
+    {
+      "path": "Houdini/Wave22/Candidates/PfsSensitivity06Replay474/Evidence/22_k360_success_review.json",
+      "bytes": 3251,
+      "sha256": "99fbeacf2a8dde6693e3e6b43e3bb1a56b802827bb556df35ac983b300721e41"
+    },
+    {
+      "path": "Houdini/Wave22/Candidates/PfsSensitivity06Replay474/Evidence/22_prior_attempts_manifest.json",
+      "bytes": 27946,
+      "sha256": "a53fdb5ebd783d0102e54de68b890b8018fd9b8fab3e338e6f10bef7a1cefd5c"
+    },
+    {
+      "path": "Houdini/Wave22/Candidates/PfsSensitivity06Replay474/Evidence/22_replay_candidate_freeze.json",
+      "bytes": 1836,
+      "sha256": "9e792dcb23c4b66af4f2339d52f1fde865efa83f811b77fd6b7aba3e93e96a78"
+    },
+    {
+      "path": "Houdini/Wave22/Candidates/PfsSensitivity06Replay474/Evidence/22_replay_offline_checks.json",
+      "bytes": 14856,
+      "sha256": "177ea7ce60fb55ab0fc32e92787499f95cd91b2f853b2b5d9aede91cba2f7bd8"
+    },
+    {
+      "path": "Houdini/Wave22/Candidates/PfsSensitivity06Replay474/README_ja.md",
+      "bytes": 7942,
+      "sha256": "354d1c0777a5e02227a206ad8e3718d948ca568bfaafa9b81e750b7f1b19a08b"
+    },
+    {
+      "path": "Houdini/Wave22/Candidates/PfsSensitivity06Replay474/Source/check_replay06.py",
+      "bytes": 22969,
+      "sha256": "827472ae691b46e9a40ccc7c3e44ea1872e908b50978240bf347ee464958c3c6"
+    },
+    {
+      "path": "Houdini/Wave22/Candidates/PfsSensitivity06Replay474/Source/replay_k474.py",
+      "bytes": 12881,
+      "sha256": "68904a9ca2e05fa19c8a818c4605281925613516175b87193ab71fbdee2e9c03"
+    },
+    {
+      "path": "Houdini/Wave22/Candidates/PfsSensitivity06Replay474/Source/replay_plan.json",
+      "bytes": 12662,
+      "sha256": "e7a84e8b35daeb538e7938afa142bfcb422d6e186f2ba240f12e201f51c151bf"
+    },
+    {
+      "path": "Houdini/Wave22/Candidates/PfsSensitivity06Replay474/Source/replay_support06.py",
+      "bytes": 17321,
+      "sha256": "f483fa8699767c4f6a7f57b4f18ce09b3f326275ea60a99bfe38d63840b6c1c7"
+    },
+    {
+      "path": "Houdini/Wave22/Candidates/PfsSensitivity06Replay474/Source/replay_window06.py",
+      "bytes": 2112,
+      "sha256": "7b53056749d76e2243490a02e23442b91a9e27f57d6ccee1c0ab7c5262297375"
+    },
+    {
+      "path": "Houdini/Wave22/Candidates/PfsSensitivity06Replay474/Source/run_replay06.py",
+      "bytes": 11609,
+      "sha256": "679ea50f2cc08b034758f08f06c95cae80d3bd4c2f1a86097db0ff0a07af3a82"
+    },
+    {
+      "path": "Houdini/Wave22/Candidates/PfsSensitivity06Retry01/Evidence/22_pfs06_candidate_freeze.json",
+      "bytes": 1732,
+      "sha256": "f0bfab12558bd66a98fcfb719b6d0219020254812bd4e20dedcf5277e39a69cc"
+    },
+    {
+      "path": "Houdini/Wave22/Candidates/PfsSensitivity06Retry01/Evidence/22_pfs06_offline_checks.json",
+      "bytes": 8918,
+      "sha256": "4ce2d254d22ce5a337d80ee478f1c5ea8d03586acc6861d5b65b3a7205bf3998"
+    },
+    {
+      "path": "Houdini/Wave22/Candidates/PfsSensitivity06Retry01/README_ja.md",
+      "bytes": 6200,
+      "sha256": "6090795560a1c0981fb4b5d46113aa2e42012eeafa63fe647bf6bd09499ed30d"
+    },
+    {
+      "path": "Houdini/Wave22/Candidates/PfsSensitivity06Retry01/Source/build_plan06.py",
+      "bytes": 9588,
+      "sha256": "8560c171cf15857d3aaa477a4294987e20f7c65459e506d444ba7e2d4c3b8fb2"
+    },
+    {
+      "path": "Houdini/Wave22/Candidates/PfsSensitivity06Retry01/Source/check_pilot06.py",
+      "bytes": 20783,
+      "sha256": "03035d94c8ab2a0aaed7a6160e2d144c534dff8e0b61051b3e214c3c974f1a13"
+    },
+    {
+      "path": "Houdini/Wave22/Candidates/PfsSensitivity06Retry01/Source/pfs06_plan.json",
+      "bytes": 328108,
+      "sha256": "108423c647b1c8442f758b07aed4e8dc2c9788593115d2488efe1ea8bf1998f7"
+    },
+    {
+      "path": "Houdini/Wave22/Candidates/PfsSensitivity06Retry01/Source/remesh_pilot06.py",
+      "bytes": 20910,
+      "sha256": "aafdd6c082a1b2d693f29da5aea5f1c377f293bc8bb042152d7ccfc440af1966"
+    },
+    {
+      "path": "Houdini/Wave22/Candidates/PfsSensitivity06Retry01/Source/run_pilot06.py",
+      "bytes": 14507,
+      "sha256": "8b90cf39b2fb8113057625eec822891c162b15b152a5a7363955158118107913"
+    },
+    {
+      "path": "Houdini/Wave22/Candidates/PfsSensitivity06Retry01/Source/sensitivity_core.py",
+      "bytes": 8702,
+      "sha256": "09016bf288a82279f10cbefd5f04a9d14b09da49508f14e9636afcc327e4c038"
+    },
+    {
+      "path": "Houdini/Wave22/Candidates/PfsSensitivity06Retry02/Evidence/22_file_probe_candidate_freeze.json",
+      "bytes": 1475,
+      "sha256": "39a719a5e23b4c7494a6d302a54c0b50a2a92bd41918f364a625dd3de3c4d765"
+    },
+    {
+      "path": "Houdini/Wave22/Candidates/PfsSensitivity06Retry02/Evidence/22_file_probe_offline_checks.json",
+      "bytes": 5011,
+      "sha256": "6a7ac69ebf39e09cbe57419ed50a6c8597091fd7e40a9ceebf9539de7d7a4409"
+    },
+    {
+      "path": "Houdini/Wave22/Candidates/PfsSensitivity06Retry02/README_ja.md",
+      "bytes": 6762,
+      "sha256": "44f4b7fe97ce30a7596221d60fddba2372ecd0b87394f719985ada0230458fe7"
+    },
+    {
+      "path": "Houdini/Wave22/Candidates/PfsSensitivity06Retry02/Source/check_file_probe06.py",
+      "bytes": 12018,
+      "sha256": "425c32bf2c4227cb6433739b92d75bf2dbf8167b4dbaf039ac9f04ffad63ddeb"
+    },
+    {
+      "path": "Houdini/Wave22/Candidates/PfsSensitivity06Retry02/Source/file_probe_plan.json",
+      "bytes": 3847,
+      "sha256": "6868e8f197c7e2ee1e50aa3e28e34cb0dc469451e45b4e957a189b7943aa072a"
+    },
+    {
+      "path": "Houdini/Wave22/Candidates/PfsSensitivity06Retry02/Source/probe_file06.py",
+      "bytes": 13812,
+      "sha256": "99045158f73a5969f96f99927a9ba98f52bbcb427b274238c457a6ecd37fe674"
+    },
+    {
+      "path": "Houdini/Wave22/Candidates/PfsSensitivity06Retry02/Source/run_file_probe06.py",
+      "bytes": 9276,
+      "sha256": "8d594a0ef54c58bcc08b9eab5770b740fd7d74b232bd4dc78c9d6eb37019462c"
+    },
+    {
+      "path": "Houdini/Wave22/Candidates/PfsSensitivity06Retry02/Source/support06.py",
+      "bytes": 6562,
+      "sha256": "6789c915e402a1f96f89307dbf79f7966e3a689bed3634923ddd4f97cab997e5"
+    },
+    {
+      "path": "Houdini/Wave22/Candidates/PfsSensitivity06Retry03/Evidence/22_file_probe_candidate_freeze.json",
+      "bytes": 1658,
+      "sha256": "600f61b4effdb58390756b946699237c0f3b0ba26da4b0970594323c4de208e0"
+    },
+    {
+      "path": "Houdini/Wave22/Candidates/PfsSensitivity06Retry03/Evidence/22_file_probe_offline_checks.json",
+      "bytes": 5632,
+      "sha256": "c19d1fa251de9c78d48061e4277ae4ddc9040ef4db868b7cda535b76ec79735b"
+    },
+    {
+      "path": "Houdini/Wave22/Candidates/PfsSensitivity06Retry03/Evidence/22_prior_attempts_manifest.json",
+      "bytes": 12584,
+      "sha256": "b456896c15cf2747582f03afb107a013f23c428e00ad4112556441991c153f53"
+    },
+    {
+      "path": "Houdini/Wave22/Candidates/PfsSensitivity06Retry03/README_ja.md",
+      "bytes": 7730,
+      "sha256": "bb3194766d4133878a396daefe9e519af69231660e654a789541a312746d8d60"
+    },
+    {
+      "path": "Houdini/Wave22/Candidates/PfsSensitivity06Retry03/Source/check_file_probe06.py",
+      "bytes": 13519,
+      "sha256": "517cff0188fbc47b4f4251e43c8bea7862882ffe1ba755be7a0d805d01074881"
+    },
+    {
+      "path": "Houdini/Wave22/Candidates/PfsSensitivity06Retry03/Source/file_probe_plan.json",
+      "bytes": 4592,
+      "sha256": "2c7d8fb3142c555efa1f04d3aa5e89993efb36901bd22686dd2b48219f3d8d31"
+    },
+    {
+      "path": "Houdini/Wave22/Candidates/PfsSensitivity06Retry03/Source/probe_file06.py",
+      "bytes": 13837,
+      "sha256": "d733391b4b36eef17c6b74ab12b25e56ca5017d9d8324d3c17b7ca1e35fef47d"
+    },
+    {
+      "path": "Houdini/Wave22/Candidates/PfsSensitivity06Retry03/Source/run_file_probe06.py",
+      "bytes": 9604,
+      "sha256": "f9cfa106e00e3755b05b1c49a73a86ba5cc958a0399788255168da1e605ce351"
+    },
+    {
+      "path": "Houdini/Wave22/Candidates/PfsSensitivity06Retry03/Source/support06.py",
+      "bytes": 6562,
+      "sha256": "6789c915e402a1f96f89307dbf79f7966e3a689bed3634923ddd4f97cab997e5"
+    },
+    {
+      "path": "Houdini/Wave22/Candidates/PfsSensitivity06Retry06/Evidence/22_previous_run_review.json",
+      "bytes": 4702,
+      "sha256": "552bf6e2b0653aa7eefee347f3a8893d309a5cb7f4e45069687b5a69643b3580"
+    },
+    {
+      "path": "Houdini/Wave22/Candidates/PfsSensitivity06Retry06/Evidence/22_prior_attempts_manifest.json",
+      "bytes": 23105,
+      "sha256": "cc4a577642837b15696f3a465f4edc4dfdef3d2858e1c0179c2b7e1e2c627d54"
+    },
+    {
+      "path": "Houdini/Wave22/Candidates/PfsSensitivity06Retry06/Evidence/22_replay_candidate_freeze.json",
+      "bytes": 1846,
+      "sha256": "6041692964c76fe455f88a9ddba510ed3b0f9310da2382b03ee121de959778f6"
+    },
+    {
+      "path": "Houdini/Wave22/Candidates/PfsSensitivity06Retry06/Evidence/22_replay_offline_checks.json",
+      "bytes": 11705,
+      "sha256": "f5c229862def32e9df9e56bd234aff384cc9195ae3493c5a1c0eaeead61c55eb"
+    },
+    {
+      "path": "Houdini/Wave22/Candidates/PfsSensitivity06Retry06/README_ja.md",
+      "bytes": 9773,
+      "sha256": "cc466435da77bbbdbd7398974c30de2e781934c8c3ea8afb8ffc36fba524c4e0"
+    },
+    {
+      "path": "Houdini/Wave22/Candidates/PfsSensitivity06Retry06/Source/check_replay06.py",
+      "bytes": 18483,
+      "sha256": "7a0218ca3981becb1e27edc8fefe845280b839a54e08d0910c2db5d5f75155e8"
+    },
+    {
+      "path": "Houdini/Wave22/Candidates/PfsSensitivity06Retry06/Source/replay_k360.py",
+      "bytes": 12840,
+      "sha256": "57101cc336bfa3999798dd0f46db781cacb01cb4a3e6162790ea3a878adc09ff"
+    },
+    {
+      "path": "Houdini/Wave22/Candidates/PfsSensitivity06Retry06/Source/replay_plan.json",
+      "bytes": 9605,
+      "sha256": "bc06242f24c48dab54f52904c664256cc28b3de248d6f140dfffc970c3ebc351"
+    },
+    {
+      "path": "Houdini/Wave22/Candidates/PfsSensitivity06Retry06/Source/replay_support06.py",
+      "bytes": 17321,
+      "sha256": "f483fa8699767c4f6a7f57b4f18ce09b3f326275ea60a99bfe38d63840b6c1c7"
+    },
+    {
+      "path": "Houdini/Wave22/Candidates/PfsSensitivity06Retry06/Source/replay_window06.py",
+      "bytes": 2112,
+      "sha256": "7b53056749d76e2243490a02e23442b91a9e27f57d6ccee1c0ab7c5262297375"
+    },
+    {
+      "path": "Houdini/Wave22/Candidates/PfsSensitivity06Retry06/Source/run_replay06.py",
+      "bytes": 11595,
+      "sha256": "d65e15d98e725d0a738f64c771aa3e3f7ea9cb052782eb4cd8ff36e20caf1874"
+    },
+    {
+      "path": "Houdini/Wave22/Runs/file06_22b8368396/execution.json",
+      "bytes": 5857,
+      "sha256": "88305d8f7698cb3d2d204e8fe4417b07db98610018761e9130aecf24f9120d3a"
+    },
+    {
+      "path": "Houdini/Wave22/Runs/file06_22b8368396/file_probe_360.json",
+      "bytes": 100667,
+      "sha256": "2821647739c1e0f0f836350ca4920337e35a9ae780a924ce8bff5601e23c9910"
+    },
+    {
+      "path": "Houdini/Wave22/Runs/file06_22b8368396/proxy.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Houdini/Wave22/Runs/file06_22b8368396/Source/check_file_probe06.py",
+      "bytes": 13519,
+      "sha256": "517cff0188fbc47b4f4251e43c8bea7862882ffe1ba755be7a0d805d01074881"
+    },
+    {
+      "path": "Houdini/Wave22/Runs/file06_22b8368396/Source/file_probe_plan.json",
+      "bytes": 4592,
+      "sha256": "2c7d8fb3142c555efa1f04d3aa5e89993efb36901bd22686dd2b48219f3d8d31"
+    },
+    {
+      "path": "Houdini/Wave22/Runs/file06_22b8368396/Source/probe_file06.py",
+      "bytes": 13837,
+      "sha256": "d733391b4b36eef17c6b74ab12b25e56ca5017d9d8324d3c17b7ca1e35fef47d"
+    },
+    {
+      "path": "Houdini/Wave22/Runs/file06_22b8368396/Source/run_file_probe06.py",
+      "bytes": 9604,
+      "sha256": "f9cfa106e00e3755b05b1c49a73a86ba5cc958a0399788255168da1e605ce351"
+    },
+    {
+      "path": "Houdini/Wave22/Runs/file06_22b8368396/Source/support06.py",
+      "bytes": 6562,
+      "sha256": "6789c915e402a1f96f89307dbf79f7966e3a689bed3634923ddd4f97cab997e5"
+    },
+    {
+      "path": "Houdini/Wave22/Runs/file06_22b8368396/Source/ui_guard.py",
+      "bytes": 9690,
+      "sha256": "47b763ab25200b599f3a8a9acb31ade4f40f521df5512e1d80ab2697af2ee2c8"
+    },
+    {
+      "path": "Houdini/Wave22/Runs/file06_261a7a4f72/execution.json",
+      "bytes": 5871,
+      "sha256": "23f5f1843a5cd99df443f160873e63eeb0d98e295d05aabe74e739986b0f4d8b"
+    },
+    {
+      "path": "Houdini/Wave22/Runs/file06_261a7a4f72/file_probe_360.json",
+      "bytes": 25391,
+      "sha256": "790cf679299c820321e2a11c098a033310de68f82d609c6c8f3c7672b110d174"
+    },
+    {
+      "path": "Houdini/Wave22/Runs/file06_261a7a4f72/proxy.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Houdini/Wave22/Runs/file06_261a7a4f72/Source/check_file_probe06.py",
+      "bytes": 12018,
+      "sha256": "425c32bf2c4227cb6433739b92d75bf2dbf8167b4dbaf039ac9f04ffad63ddeb"
+    },
+    {
+      "path": "Houdini/Wave22/Runs/file06_261a7a4f72/Source/file_probe_plan.json",
+      "bytes": 3847,
+      "sha256": "6868e8f197c7e2ee1e50aa3e28e34cb0dc469451e45b4e957a189b7943aa072a"
+    },
+    {
+      "path": "Houdini/Wave22/Runs/file06_261a7a4f72/Source/probe_file06.py",
+      "bytes": 13812,
+      "sha256": "99045158f73a5969f96f99927a9ba98f52bbcb427b274238c457a6ecd37fe674"
+    },
+    {
+      "path": "Houdini/Wave22/Runs/file06_261a7a4f72/Source/run_file_probe06.py",
+      "bytes": 9276,
+      "sha256": "8d594a0ef54c58bcc08b9eab5770b740fd7d74b232bd4dc78c9d6eb37019462c"
+    },
+    {
+      "path": "Houdini/Wave22/Runs/file06_261a7a4f72/Source/support06.py",
+      "bytes": 6562,
+      "sha256": "6789c915e402a1f96f89307dbf79f7966e3a689bed3634923ddd4f97cab997e5"
+    },
+    {
+      "path": "Houdini/Wave22/Runs/file06_261a7a4f72/Source/ui_guard.py",
+      "bytes": 9690,
+      "sha256": "47b763ab25200b599f3a8a9acb31ade4f40f521df5512e1d80ab2697af2ee2c8"
+    },
+    {
+      "path": "Houdini/Wave22/Runs/pfs06_4e658eee02/execution.json",
+      "bytes": 6913,
+      "sha256": "35ccc97dac64380619d7f1160ace53091f6172812fd2350a4f218cf9c8cfa0f6"
+    },
+    {
+      "path": "Houdini/Wave22/Runs/pfs06_4e658eee02/initial_resource.json",
+      "bytes": 185,
+      "sha256": "2662c49c6e250aa739097709a10b542026af3f890757375346de9362d3adcc14"
+    },
+    {
+      "path": "Houdini/Wave22/Runs/pfs06_4e658eee02/proxy.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Houdini/Wave22/Runs/pfs06_4e658eee02/replay_360.json",
+      "bytes": 12971,
+      "sha256": "49fa9614d683afafc73a1a691f8a86e85d8712a41f0fddc849e5c67d5fcecdb8"
+    },
+    {
+      "path": "Houdini/Wave22/Runs/pfs06_4e658eee02/replay_360_progress.json",
+      "bytes": 12316,
+      "sha256": "887728af45b71498e5c207bc2a9bccf59dd124398fca65342636f39aec789f8f"
+    },
+    {
+      "path": "Houdini/Wave22/Runs/pfs06_4e658eee02/Source/build_plan06.py",
+      "bytes": 9588,
+      "sha256": "8560c171cf15857d3aaa477a4294987e20f7c65459e506d444ba7e2d4c3b8fb2"
+    },
+    {
+      "path": "Houdini/Wave22/Runs/pfs06_4e658eee02/Source/check_pilot06.py",
+      "bytes": 20783,
+      "sha256": "03035d94c8ab2a0aaed7a6160e2d144c534dff8e0b61051b3e214c3c974f1a13"
+    },
+    {
+      "path": "Houdini/Wave22/Runs/pfs06_4e658eee02/Source/pfs06_plan.json",
+      "bytes": 328108,
+      "sha256": "108423c647b1c8442f758b07aed4e8dc2c9788593115d2488efe1ea8bf1998f7"
+    },
+    {
+      "path": "Houdini/Wave22/Runs/pfs06_4e658eee02/Source/profile_core.py",
+      "bytes": 10495,
+      "sha256": "5a1d66fba58398033f7d76f1f9cc2f1ba1f7aed256a399f50f34a80aba6cb308"
+    },
+    {
+      "path": "Houdini/Wave22/Runs/pfs06_4e658eee02/Source/read_profile05.py",
+      "bytes": 7009,
+      "sha256": "1df2f64fc78c1b205a06e2a8f20ef74a944c6b727638592c382cf260e80a8887"
+    },
+    {
+      "path": "Houdini/Wave22/Runs/pfs06_4e658eee02/Source/remesh_pilot06.py",
+      "bytes": 20910,
+      "sha256": "aafdd6c082a1b2d693f29da5aea5f1c377f293bc8bb042152d7ccfc440af1966"
+    },
+    {
+      "path": "Houdini/Wave22/Runs/pfs06_4e658eee02/Source/run_pilot06.py",
+      "bytes": 14507,
+      "sha256": "8b90cf39b2fb8113057625eec822891c162b15b152a5a7363955158118107913"
+    },
+    {
+      "path": "Houdini/Wave22/Runs/pfs06_4e658eee02/Source/sensitivity_core.py",
+      "bytes": 8702,
+      "sha256": "09016bf288a82279f10cbefd5f04a9d14b09da49508f14e9636afcc327e4c038"
+    },
+    {
+      "path": "Houdini/Wave22/Runs/pfs06_4e658eee02/Source/ui_guard.py",
+      "bytes": 9690,
+      "sha256": "47b763ab25200b599f3a8a9acb31ade4f40f521df5512e1d80ab2697af2ee2c8"
+    },
+    {
+      "path": "Houdini/Wave22/Runs/pfs06_da9e62c8df/execution.json",
+      "bytes": 6877,
+      "sha256": "51cdc764819b71345c54189fb4c5229be13bf68c7f3b3b7b5ccfee88000050c4"
+    },
+    {
+      "path": "Houdini/Wave22/Runs/pfs06_da9e62c8df/initial_resource.json",
+      "bytes": 185,
+      "sha256": "4ce0dc055ae938324d9279287686470e9c7ee6c1d4ebf57ea1d071ab899860f9"
+    },
+    {
+      "path": "Houdini/Wave22/Runs/pfs06_da9e62c8df/proxy.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Houdini/Wave22/Runs/pfs06_da9e62c8df/replay_360.json",
+      "bytes": 1105,
+      "sha256": "5f492b54f383ceca50adfe1dbf90b398d489e8be4d6d3207d24a39584922798d"
+    },
+    {
+      "path": "Houdini/Wave22/Runs/pfs06_da9e62c8df/Source/build_plan06.py",
+      "bytes": 8948,
+      "sha256": "de504297eb962b63ee4116d514e30b1d7fa03744bffc1f5df7b42a00b7f6da73"
+    },
+    {
+      "path": "Houdini/Wave22/Runs/pfs06_da9e62c8df/Source/check_pilot06.py",
+      "bytes": 17793,
+      "sha256": "847a69109a5bef04859bf7cc4ccf0978d67b6614926dd9ee4a9d28ba38961054"
+    },
+    {
+      "path": "Houdini/Wave22/Runs/pfs06_da9e62c8df/Source/pfs06_plan.json",
+      "bytes": 327547,
+      "sha256": "06583ed2fc0b1e63bc3e2e2ff21edeceb105b263a9b7c07514fe429b8aff45b8"
+    },
+    {
+      "path": "Houdini/Wave22/Runs/pfs06_da9e62c8df/Source/profile_core.py",
+      "bytes": 10495,
+      "sha256": "5a1d66fba58398033f7d76f1f9cc2f1ba1f7aed256a399f50f34a80aba6cb308"
+    },
+    {
+      "path": "Houdini/Wave22/Runs/pfs06_da9e62c8df/Source/read_profile05.py",
+      "bytes": 7009,
+      "sha256": "1df2f64fc78c1b205a06e2a8f20ef74a944c6b727638592c382cf260e80a8887"
+    },
+    {
+      "path": "Houdini/Wave22/Runs/pfs06_da9e62c8df/Source/remesh_pilot06.py",
+      "bytes": 17042,
+      "sha256": "e04691bdd7e7acccfde0224982cfd090764999c6bb283a9573e227376f63cb72"
+    },
+    {
+      "path": "Houdini/Wave22/Runs/pfs06_da9e62c8df/Source/run_pilot06.py",
+      "bytes": 14060,
+      "sha256": "bcd1c020a708ebf11e87ae814cc8b39dbb612b0f37134ebf2144445d1959cb5c"
+    },
+    {
+      "path": "Houdini/Wave22/Runs/pfs06_da9e62c8df/Source/sensitivity_core.py",
+      "bytes": 7929,
+      "sha256": "507fdb09d428a7e65d7171b77139040764b132cb53d082e8b5d469bca7d5075c"
+    },
+    {
+      "path": "Houdini/Wave22/Runs/pfs06_da9e62c8df/Source/ui_guard.py",
+      "bytes": 9690,
+      "sha256": "47b763ab25200b599f3a8a9acb31ade4f40f521df5512e1d80ab2697af2ee2c8"
+    },
+    {
+      "path": "Houdini/Wave22/Runs/pfsreplay06_55fa260d7f/execution.json",
+      "bytes": 6062,
+      "sha256": "768f3d624aedd02ba9599da7824ac7a07bdd03490ddd65857469fafed867b548"
+    },
+    {
+      "path": "Houdini/Wave22/Runs/pfsreplay06_55fa260d7f/proxy.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Houdini/Wave22/Runs/pfsreplay06_55fa260d7f/replay_360.json",
+      "bytes": 50241,
+      "sha256": "ea3babbd601a8525978cae65e7f36371ed73dbd6bb152dd6fe2a66051efae524"
+    },
+    {
+      "path": "Houdini/Wave22/Runs/pfsreplay06_55fa260d7f/replay_360_progress.json",
+      "bytes": 50060,
+      "sha256": "38df8c23e5e8f9e1ce9785322be2160605fc6a9c54c4bdf50bf54f1da9012dca"
+    },
+    {
+      "path": "Houdini/Wave22/Runs/pfsreplay06_55fa260d7f/Source/check_replay06.py",
+      "bytes": 13383,
+      "sha256": "86259c4c4f02b012c5fe068d3833e83813abc476386e3a90abf91ffef1217bc2"
+    },
+    {
+      "path": "Houdini/Wave22/Runs/pfsreplay06_55fa260d7f/Source/replay_k360.py",
+      "bytes": 12840,
+      "sha256": "57101cc336bfa3999798dd0f46db781cacb01cb4a3e6162790ea3a878adc09ff"
+    },
+    {
+      "path": "Houdini/Wave22/Runs/pfsreplay06_55fa260d7f/Source/replay_plan.json",
+      "bytes": 7968,
+      "sha256": "0b3205656d24535460f5272e31a2a1ba3f38150c9f7307b0dcce2a01b5f28810"
+    },
+    {
+      "path": "Houdini/Wave22/Runs/pfsreplay06_55fa260d7f/Source/replay_support06.py",
+      "bytes": 17302,
+      "sha256": "0d821020d3e8d5df4b6082d136039ade95564ed8daa606cde8decddba02bb646"
+    },
+    {
+      "path": "Houdini/Wave22/Runs/pfsreplay06_55fa260d7f/Source/replay_window06.py",
+      "bytes": 2112,
+      "sha256": "7b53056749d76e2243490a02e23442b91a9e27f57d6ccee1c0ab7c5262297375"
+    },
+    {
+      "path": "Houdini/Wave22/Runs/pfsreplay06_55fa260d7f/Source/run_replay06.py",
+      "bytes": 11595,
+      "sha256": "d65e15d98e725d0a738f64c771aa3e3f7ea9cb052782eb4cd8ff36e20caf1874"
+    },
+    {
+      "path": "Houdini/Wave22/Runs/pfsreplay06_55fa260d7f/Source/ui_guard.py",
+      "bytes": 9690,
+      "sha256": "47b763ab25200b599f3a8a9acb31ade4f40f521df5512e1d80ab2697af2ee2c8"
+    },
+    {
+      "path": "Houdini/Wave22/Runs/pfsreplay06_ac6451419c/Cache/replay_474.bgeo.sc",
+      "bytes": 870685,
+      "sha256": "5ad0c054bd11c9bffc477f89b92f0d8ef69adb183ed01bcb494b123db9a8d24c"
+    },
+    {
+      "path": "Houdini/Wave22/Runs/pfsreplay06_ac6451419c/execution.json",
+      "bytes": 6186,
+      "sha256": "f5150dc7d8b31364680d7d71d308b8ea92acd4b289b63e36f4c796f3aa8fe24e"
+    },
+    {
+      "path": "Houdini/Wave22/Runs/pfsreplay06_ac6451419c/proxy.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Houdini/Wave22/Runs/pfsreplay06_ac6451419c/replay_474.json",
+      "bytes": 71434,
+      "sha256": "42063ad1ce5ce43ec5a9c5f38f50cc9dd1e17e64120c1e2cfe1445e09a44a639"
+    },
+    {
+      "path": "Houdini/Wave22/Runs/pfsreplay06_ac6451419c/replay_474_progress.json",
+      "bytes": 71253,
+      "sha256": "69d571520795be857baa645493cbf2bbc6a4dbde403e0a9adabb6522f0e07909"
+    },
+    {
+      "path": "Houdini/Wave22/Runs/pfsreplay06_ac6451419c/Source/check_replay06.py",
+      "bytes": 22969,
+      "sha256": "827472ae691b46e9a40ccc7c3e44ea1872e908b50978240bf347ee464958c3c6"
+    },
+    {
+      "path": "Houdini/Wave22/Runs/pfsreplay06_ac6451419c/Source/replay_k474.py",
+      "bytes": 12881,
+      "sha256": "68904a9ca2e05fa19c8a818c4605281925613516175b87193ab71fbdee2e9c03"
+    },
+    {
+      "path": "Houdini/Wave22/Runs/pfsreplay06_ac6451419c/Source/replay_plan.json",
+      "bytes": 12662,
+      "sha256": "e7a84e8b35daeb538e7938afa142bfcb422d6e186f2ba240f12e201f51c151bf"
+    },
+    {
+      "path": "Houdini/Wave22/Runs/pfsreplay06_ac6451419c/Source/replay_support06.py",
+      "bytes": 17321,
+      "sha256": "f483fa8699767c4f6a7f57b4f18ce09b3f326275ea60a99bfe38d63840b6c1c7"
+    },
+    {
+      "path": "Houdini/Wave22/Runs/pfsreplay06_ac6451419c/Source/replay_window06.py",
+      "bytes": 2112,
+      "sha256": "7b53056749d76e2243490a02e23442b91a9e27f57d6ccee1c0ab7c5262297375"
+    },
+    {
+      "path": "Houdini/Wave22/Runs/pfsreplay06_ac6451419c/Source/run_replay06.py",
+      "bytes": 11609,
+      "sha256": "679ea50f2cc08b034758f08f06c95cae80d3bd4c2f1a86097db0ff0a07af3a82"
+    },
+    {
+      "path": "Houdini/Wave22/Runs/pfsreplay06_ac6451419c/Source/ui_guard.py",
+      "bytes": 9690,
+      "sha256": "47b763ab25200b599f3a8a9acb31ade4f40f521df5512e1d80ab2697af2ee2c8"
+    },
+    {
+      "path": "Houdini/Wave22/Runs/pfsreplay06_af76bc8ec2/Cache/replay_360.bgeo.sc",
+      "bytes": 873004,
+      "sha256": "237e960acb41af6e427896e5a0b06bc05f4ebefb7554dfd66063136ae9f977c1"
+    },
+    {
+      "path": "Houdini/Wave22/Runs/pfsreplay06_af76bc8ec2/execution.json",
+      "bytes": 6183,
+      "sha256": "1a23325b15206455173458258f91f17add939f9145f8fcedee228d5ccc7587d2"
+    },
+    {
+      "path": "Houdini/Wave22/Runs/pfsreplay06_af76bc8ec2/proxy.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Houdini/Wave22/Runs/pfsreplay06_af76bc8ec2/replay_360.json",
+      "bytes": 71290,
+      "sha256": "45a68fa3f99c0d9d8cc9ec1838bb54ce30f8e2e9275a831442d6a13e2fbbd7b9"
+    },
+    {
+      "path": "Houdini/Wave22/Runs/pfsreplay06_af76bc8ec2/replay_360_progress.json",
+      "bytes": 71109,
+      "sha256": "9e64cb4a53abe96d10a24f9943bf3be730f9b8a99b6545a630ae9c086058326d"
+    },
+    {
+      "path": "Houdini/Wave22/Runs/pfsreplay06_af76bc8ec2/Source/check_replay06.py",
+      "bytes": 18483,
+      "sha256": "7a0218ca3981becb1e27edc8fefe845280b839a54e08d0910c2db5d5f75155e8"
+    },
+    {
+      "path": "Houdini/Wave22/Runs/pfsreplay06_af76bc8ec2/Source/replay_k360.py",
+      "bytes": 12840,
+      "sha256": "57101cc336bfa3999798dd0f46db781cacb01cb4a3e6162790ea3a878adc09ff"
+    },
+    {
+      "path": "Houdini/Wave22/Runs/pfsreplay06_af76bc8ec2/Source/replay_plan.json",
+      "bytes": 9605,
+      "sha256": "bc06242f24c48dab54f52904c664256cc28b3de248d6f140dfffc970c3ebc351"
+    },
+    {
+      "path": "Houdini/Wave22/Runs/pfsreplay06_af76bc8ec2/Source/replay_support06.py",
+      "bytes": 17321,
+      "sha256": "f483fa8699767c4f6a7f57b4f18ce09b3f326275ea60a99bfe38d63840b6c1c7"
+    },
+    {
+      "path": "Houdini/Wave22/Runs/pfsreplay06_af76bc8ec2/Source/replay_window06.py",
+      "bytes": 2112,
+      "sha256": "7b53056749d76e2243490a02e23442b91a9e27f57d6ccee1c0ab7c5262297375"
+    },
+    {
+      "path": "Houdini/Wave22/Runs/pfsreplay06_af76bc8ec2/Source/run_replay06.py",
+      "bytes": 11595,
+      "sha256": "d65e15d98e725d0a738f64c771aa3e3f7ea9cb052782eb4cd8ff36e20caf1874"
+    },
+    {
+      "path": "Houdini/Wave22/Runs/pfsreplay06_af76bc8ec2/Source/ui_guard.py",
+      "bytes": 9690,
+      "sha256": "47b763ab25200b599f3a8a9acb31ade4f40f521df5512e1d80ab2697af2ee2c8"
+    }
+  ],
+  "file_count": 156,
+  "total_bytes": 4939016
+}

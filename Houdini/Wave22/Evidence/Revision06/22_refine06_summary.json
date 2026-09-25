@@ -1,0 +1,418 @@
+{
+  "meaning_ja": "既存k360粒子の面化だけを変更した単一静水時刻の測定。波形検出/物理精度/22完成ではない。",
+  "attempts": [
+    {
+      "label": "Initial",
+      "token": "pfs06_da9e62c8df",
+      "status": "HOLD_ASSERTION_BEFORE_INPUT",
+      "meaning_ja": "入力署名前のAssertionError。原因は原記録だけでは確定しない。PFS未実行。",
+      "original_passed_for_review": false,
+      "original_failure_type": "AssertionError",
+      "original_failure_phase": null,
+      "ui18_passed": true,
+      "dirty_before": true,
+      "dirty_after": true,
+      "metadata": {
+        "pid": 53912,
+        "version": "22.0.429",
+        "license": "licenseCategoryType.Indie",
+        "ui": true,
+        "fps": 24.0
+      },
+      "uncertain": false,
+      "result_path": "Original/pfs06_da9e62c8df/replay_360.json.gz",
+      "execution_path": "Original/pfs06_da9e62c8df/execution.json.gz"
+    },
+    {
+      "label": "Retry01",
+      "token": "pfs06_4e658eee02",
+      "status": "HOLD_EMPTY_MANUAL_INPUT",
+      "meaning_ja": "ManualのFile/Null入力が空で停止。PFS未実行。",
+      "original_passed_for_review": false,
+      "original_failure_type": "AssertionError",
+      "original_failure_phase": "FILE_INPUT_SIGNATURE",
+      "ui18_passed": true,
+      "dirty_before": true,
+      "dirty_after": true,
+      "metadata": {
+        "pid": 53912,
+        "version": "22.0.429",
+        "license": "licenseCategoryType.Indie",
+        "ui": true,
+        "fps": 24.0
+      },
+      "uncertain": false,
+      "result_path": "Original/pfs06_4e658eee02/replay_360.json.gz",
+      "execution_path": "Original/pfs06_4e658eee02/execution.json.gz"
+    },
+    {
+      "label": "Retry02",
+      "token": "file06_261a7a4f72",
+      "status": "HOLD_HOM_KEYWORD",
+      "meaning_ja": "needsToCookのtimeキーワードによるTypeError。Auto窓前に停止。",
+      "original_passed_for_review": false,
+      "original_failure_type": "TypeError",
+      "original_failure_phase": "FILE_LITERAL_BOUND",
+      "ui18_passed": true,
+      "dirty_before": true,
+      "dirty_after": true,
+      "metadata": {
+        "pid": 53912,
+        "version": "22.0.429",
+        "license": "licenseCategoryType.Indie",
+        "ui": true,
+        "fps": 24.0
+      },
+      "uncertain": false,
+      "result_path": "Original/file06_261a7a4f72/file_probe_360.json.gz",
+      "execution_path": "Original/file06_261a7a4f72/execution.json.gz"
+    },
+    {
+      "label": "Retry03",
+      "token": "file06_22b8368396",
+      "status": "HOLD_RAW_SIGNATURE_ORDER",
+      "meaning_ja": "原比較はdetail属性一覧の順序差でHOLD。別のDecision04で許容範囲を限定した再解釈を保存。",
+      "original_passed_for_review": false,
+      "original_failure_type": null,
+      "original_failure_phase": null,
+      "ui18_passed": true,
+      "dirty_before": true,
+      "dirty_after": true,
+      "metadata": {
+        "pid": 53912,
+        "version": "22.0.429",
+        "license": "licenseCategoryType.Indie",
+        "ui": true,
+        "fps": 24.0
+      },
+      "uncertain": false,
+      "result_path": "Original/file06_22b8368396/file_probe_360.json.gz",
+      "execution_path": "Original/file06_22b8368396/execution.json.gz"
+    },
+    {
+      "label": "Replay05",
+      "token": "pfsreplay06_55fa260d7f",
+      "status": "HOLD_HDA_TEXT_ENCODING",
+      "meaning_ja": "入力一致後、HDA文字列UTF-8化でUnicodeEncodeError。第2Auto窓前、meshなし。",
+      "original_passed_for_review": false,
+      "original_failure_type": "UnicodeEncodeError",
+      "original_failure_phase": "CREATE_PFS_AFTER_INPUT_PASS",
+      "ui18_passed": true,
+      "dirty_before": true,
+      "dirty_after": true,
+      "metadata": {
+        "pid": 53912,
+        "version": "22.0.429",
+        "license": "licenseCategoryType.Indie",
+        "ui": true,
+        "fps": 24.0
+      },
+      "uncertain": false,
+      "result_path": "Original/pfsreplay06_55fa260d7f/replay_360.json.gz",
+      "execution_path": "Original/pfsreplay06_55fa260d7f/execution.json.gz"
+    },
+    {
+      "label": "Retry06",
+      "token": "pfsreplay06_af76bc8ec2",
+      "status": "PASS_OLD_HALF_K360",
+      "meaning_ja": "HDA原binary bytesを読む修正後、旧.5のk360形状と三点nativeが厳密一致。",
+      "original_passed_for_review": true,
+      "original_failure_type": null,
+      "original_failure_phase": null,
+      "ui18_passed": true,
+      "dirty_before": true,
+      "dirty_after": true,
+      "metadata": {
+        "pid": 53912,
+        "version": "22.0.429",
+        "license": "licenseCategoryType.Indie",
+        "ui": true,
+        "fps": 24.0
+      },
+      "uncertain": false,
+      "result_path": "Original/pfsreplay06_af76bc8ec2/replay_360.json.gz",
+      "execution_path": "Original/pfsreplay06_af76bc8ec2/execution.json.gz"
+    },
+    {
+      "label": "Replay474",
+      "token": "pfsreplay06_ac6451419c",
+      "status": "PASS_OLD_HALF_K474",
+      "meaning_ja": "旧.5のk474形状と三点nativeが厳密一致。",
+      "original_passed_for_review": true,
+      "original_failure_type": null,
+      "original_failure_phase": null,
+      "ui18_passed": true,
+      "dirty_before": true,
+      "dirty_after": true,
+      "metadata": {
+        "pid": 53912,
+        "version": "22.0.429",
+        "license": "licenseCategoryType.Indie",
+        "ui": true,
+        "fps": 24.0
+      },
+      "uncertain": false,
+      "result_path": "Original/pfsreplay06_ac6451419c/replay_474.json.gz",
+      "execution_path": "Original/pfsreplay06_ac6451419c/execution.json.gz"
+    },
+    {
+      "label": "Replay496",
+      "token": "pfsreplay06_b13cd6bcb8",
+      "status": "PASS_OLD_HALF_K496",
+      "meaning_ja": "旧.5のk496形状と三点nativeが厳密一致。",
+      "original_passed_for_review": true,
+      "original_failure_type": null,
+      "original_failure_phase": null,
+      "ui18_passed": true,
+      "dirty_before": true,
+      "dirty_after": true,
+      "metadata": {
+        "pid": 53912,
+        "version": "22.0.429",
+        "license": "licenseCategoryType.Indie",
+        "ui": true,
+        "fps": 24.0
+      },
+      "uncertain": false,
+      "result_path": "Original/pfsreplay06_b13cd6bcb8/replay_496.json.gz",
+      "execution_path": "Original/pfsreplay06_b13cd6bcb8/execution.json.gz"
+    },
+    {
+      "label": "Refine360",
+      "token": "pfsrefine06_c208ac35e3",
+      "status": "PASS_LOCAL_QUARTER_K360",
+      "meaning_ja": "k360だけ.25へ変更。入力・定義・局所390断面の診断成立。物理/波精度の合格ではない。",
+      "original_passed_for_review": true,
+      "original_failure_type": null,
+      "original_failure_phase": null,
+      "ui18_passed": true,
+      "dirty_before": false,
+      "dirty_after": true,
+      "metadata": {
+        "pid": 26892,
+        "version": "22.0.429",
+        "license": "licenseCategoryType.Indie",
+        "ui": true,
+        "fps": 24.0
+      },
+      "uncertain": false,
+      "result_path": "Original/pfsrefine06_c208ac35e3/refine_360.json.gz",
+      "execution_path": "Original/pfsrefine06_c208ac35e3/execution.json.gz"
+    }
+  ],
+  "old_half_successes": {
+    "Retry06": {
+      "sample": 360,
+      "physical_seconds": 6.0,
+      "meshing_rpc_seconds": 9.392405799997505,
+      "new_mesh": {
+        "filename": "replay_360.bgeo.sc",
+        "bytes": 873004,
+        "sha256": "237e960acb41af6e427896e5a0b06bc05f4ebefb7554dfd66063136ae9f977c1"
+      },
+      "geometry_points_faces": {
+        "points": 38926,
+        "faces": 38924
+      },
+      "geometry_and_native_exact": true,
+      "BGEO_bytes_equal_required": false
+    },
+    "Replay474": {
+      "sample": 474,
+      "physical_seconds": 7.9,
+      "meshing_rpc_seconds": 9.275291100027971,
+      "new_mesh": {
+        "filename": "replay_474.bgeo.sc",
+        "bytes": 870685,
+        "sha256": "5ad0c054bd11c9bffc477f89b92f0d8ef69adb183ed01bcb494b123db9a8d24c"
+      },
+      "geometry_points_faces": {
+        "points": 39078,
+        "faces": 39076
+      },
+      "geometry_and_native_exact": true,
+      "BGEO_bytes_equal_required": false
+    },
+    "Replay496": {
+      "sample": 496,
+      "physical_seconds": 8.266666666666667,
+      "meshing_rpc_seconds": 9.111136999970768,
+      "new_mesh": {
+        "filename": "replay_496.bgeo.sc",
+        "bytes": 860227,
+        "sha256": "b33333153a42add5ac1c4cb6b3c3d231295ca647fe84fcbb217228a1fc2291c3"
+      },
+      "geometry_points_faces": {
+        "points": 38912,
+        "faces": 38910
+      },
+      "geometry_and_native_exact": true,
+      "BGEO_bytes_equal_required": false
+    }
+  },
+  "refine360": {
+    "sample": 360,
+    "physical_seconds": 6.0,
+    "new_solver": false,
+    "detector_executed": false,
+    "physical_pass": false,
+    "metadata": {
+      "pid": 26892,
+      "version": "22.0.429",
+      "license": "licenseCategoryType.Indie",
+      "ui": true,
+      "fps": 24.0
+    },
+    "full_PFS_parameter_count": 166,
+    "different_parameters": [
+      "voxelsize"
+    ],
+    "HDA_and_convert_exact": true,
+    "input_particle_count": 53806,
+    "new_mesh": {
+      "filename": "refine_360.bgeo.sc",
+      "bytes": 3494161,
+      "sha256": "d2f03dc800f074f183323ad9be0a72a1e8b1d972024b606ac84cf339f06a3371"
+    },
+    "old_counts": {
+      "points": 38926,
+      "faces": 38924
+    },
+    "new_counts": {
+      "points": 159932,
+      "faces": 159930
+    },
+    "mesh_fingerprint": {
+      "P_float64_sha256": "0e2b83f384f8c2252e749a192f909da2f52605072214cf319809a1e24ff5b7a5",
+      "oriented_topology_sha256": "d4965ada097f0367ff97aaafa3b9b3a451a42b51f691938c6ae85373e86aca7a"
+    },
+    "original_mesh_fingerprint": {
+      "P_float64_sha256": "182b3cc4ee0b5c1b3dad6a6f8b8faff97909ce11ed1c105002be5b830ad26f9c",
+      "oriented_topology_sha256": "68733b5dd4b00eeeab2b69fb4024f75b24ab90bc386bca4ebd92f0c0821b0dfc"
+    },
+    "saved_mesh_reread_parity": {
+      "passed": true,
+      "checks": {
+        "P": true,
+        "indices": true,
+        "primitive_type_closed": true,
+        "finite": true
+      },
+      "reference_points": 159932,
+      "replay_points": 159932,
+      "reference_faces": 159930,
+      "replay_faces": 159930
+    },
+    "center_raw_differences": [
+      {
+        "gauge": 1,
+        "x_m": 2.242796379968867,
+        "z_m": 0,
+        "old_mesh_eta_m": -0.010810440778732278,
+        "new_mesh_eta_m": -0.010762161016464211,
+        "solver_observed_eta_m": -0.0009883791569882286,
+        "new_minus_old_m": 4.8279762268066406e-05,
+        "old_minus_solver_m": -0.009822061621744049,
+        "new_minus_solver_m": -0.009773781859475982
+      },
+      {
+        "gauge": 2,
+        "x_m": 2.9903951732918226,
+        "z_m": 0,
+        "old_mesh_eta_m": -0.007603442668914773,
+        "new_mesh_eta_m": -0.007530844211578347,
+        "solver_observed_eta_m": -0.0006092637498132554,
+        "new_minus_old_m": 7.259845733642578e-05,
+        "old_minus_solver_m": -0.006994178919101517,
+        "new_minus_solver_m": -0.0069215804617650915
+      },
+      {
+        "gauge": 3,
+        "x_m": 3.7379939666147783,
+        "z_m": 0,
+        "old_mesh_eta_m": -0.010671025514602639,
+        "new_mesh_eta_m": -0.01081908345222471,
+        "solver_observed_eta_m": -0.000417515590692557,
+        "new_minus_old_m": -0.0001480579376220703,
+        "old_minus_solver_m": -0.010253509923910081,
+        "new_minus_solver_m": -0.010401567861532152
+      }
+    ],
+    "profile_count_per_mesh": 195,
+    "profile_count_total": 390,
+    "each_profile_intersections": 2,
+    "profile_old_center_parity": true,
+    "profile_new_center_parity_diagnostic_only": false,
+    "solver_center_max_error_m": 0.0,
+    "local_delta_m": {
+      "min": -0.0004937052726745605,
+      "max": 0.0006781220436096191,
+      "mean": 8.923854583348983e-05,
+      "rms": 0.0002235448504184953
+    },
+    "per_gauge_delta_m": [
+      {
+        "gauge": 1,
+        "count": 65,
+        "min_m": -0.0004145801067352295,
+        "max_m": 0.0006781220436096191,
+        "mean_m": 0.00010936489472022424,
+        "rms_m": 0.0002670453652815938
+      },
+      {
+        "gauge": 2,
+        "count": 65,
+        "min_m": -0.00021561980247497559,
+        "max_m": 0.0003987252712249756,
+        "mean_m": 6.844814007098859e-05,
+        "rms_m": 0.0001581650788491047
+      },
+      {
+        "gauge": 3,
+        "count": 65,
+        "min_m": -0.0004937052726745605,
+        "max_m": 0.0004958212375640869,
+        "mean_m": 8.990260270925668e-05,
+        "rms_m": 0.00023148969990079247
+      }
+    ],
+    "meshing_rpc_seconds": 17.634901000012178,
+    "auto_windows": [
+      {
+        "label": "INPUT_FILE_NULL",
+        "started": true,
+        "manual_restored": true,
+        "seconds": 0.004136200004722923
+      },
+      {
+        "label": "OLD_HALF_PFS",
+        "started": true,
+        "manual_restored": true,
+        "seconds": 7.250424700032454
+      }
+    ],
+    "old_profile_seconds": 2.270633900014218,
+    "new_profile_seconds": 10.993487200001255,
+    "minimum_available_RAM_bytes": 34102996992,
+    "maximum_observed_private_bytes": 4223152128,
+    "maximum_observed_private_increase_bytes": 331362304,
+    "process_lifetime_peak_working_set_bytes": 7250092032,
+    "minimum_observed_free_G_bytes": 909557510144,
+    "ui18_and_owned_cleanup": true,
+    "dirty_before": false,
+    "dirty_after": true,
+    "readonly_profile_metadata_unchanged": true,
+    "transport_completion_uncertain": false,
+    "inherited_window_label_ja": "OLD_HALF_PFSは変更していないwindow helperの履歴ラベル。実設定はvoxelsize=.25。",
+    "memory_limit_ja": "Manual節目/読戻し前後の観測privateで、連続privateピークやVRAMではない。working set peakはプロセス生涯値。"
+  },
+  "original_gzip_file_count": 28,
+  "original_json_bytes": 8252599,
+  "stored_gzip_bytes": 990124,
+  "limitations_ja": [
+    "t6の一時刻だけ。連続波・q・唯一鎖を評価していない。",
+    "局所の上下二交点は二層自由面を意味しない。",
+    "fieldのisSDF metadata=falseを保持。solverを細分化していない。",
+    "HDA/166評価parmの整合は確認したが、未観測の外部DOP状態の不変は証明しない。"
+  ]
+}

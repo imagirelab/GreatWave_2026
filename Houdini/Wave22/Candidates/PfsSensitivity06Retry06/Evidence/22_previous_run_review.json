@@ -1,0 +1,141 @@
+{
+  "meaning_ja": "実行済みReplay05の読み取り再照合。入力は配対したが定義sectionの文字列符号化で保留。PFS面化/幾何parityは未実行。",
+  "token": "pfsreplay06_55fa260d7f",
+  "raw_files": {
+    "token": "pfsreplay06_55fa260d7f",
+    "raw_result": {
+      "path": "Houdini/Wave22/Runs/pfsreplay06_55fa260d7f/replay_360.json",
+      "bytes": 50241,
+      "sha256": "ea3babbd601a8525978cae65e7f36371ed73dbd6bb152dd6fe2a66051efae524"
+    },
+    "execution": {
+      "path": "Houdini/Wave22/Runs/pfsreplay06_55fa260d7f/execution.json",
+      "bytes": 6062,
+      "sha256": "768f3d624aedd02ba9599da7824ac7a07bdd03490ddd65857469fafed867b548"
+    },
+    "freeze": {
+      "path": "Houdini/Wave22/Candidates/PfsSensitivity06Replay05/Evidence/22_replay_candidate_freeze.json",
+      "bytes": 1650,
+      "sha256": "fb8345f9ce0117e1ef182f583e743f988047af6a80f70e1ff547c1d9f68a3617"
+    },
+    "state": "HOLD_HDA_TEXT_ENCODING_BEFORE_AUTO2",
+    "input_gate_passed": true,
+    "pfs_cook_executed": false,
+    "mesh_exists": false,
+    "failure_type": "UnicodeEncodeError",
+    "ui18_passed": true,
+    "uncertain": false
+  },
+  "original_passed": false,
+  "failure_type": "UnicodeEncodeError",
+  "failure_phase": "CREATE_PFS_AFTER_INPUT_PASS",
+  "failure_message": "'utf-8' codec can't encode character '\\udc8b' in position 1: surrogates not allowed",
+  "exception_locations": [
+    {
+      "source_identifier": "<string>",
+      "function": "replay_k360",
+      "line": 505
+    },
+    {
+      "source_identifier": "<string>",
+      "function": "two_windows06",
+      "line": 351
+    },
+    {
+      "source_identifier": "<string>",
+      "function": "prepare_mesh",
+      "line": 467
+    },
+    {
+      "source_identifier": "<string>",
+      "function": "definition06",
+      "line": 188
+    }
+  ],
+  "input_counts": {
+    "all_points": 53811,
+    "actual_particles": 53806,
+    "volumes": 5
+  },
+  "input_canonical_passed": {
+    "FILE": true,
+    "NULL": true
+  },
+  "input_raw_leaf_difference_count": {
+    "FILE": 16,
+    "NULL": 16
+  },
+  "input_auto_window": [
+    {
+      "label": "INPUT_FILE_NULL",
+      "started": true,
+      "manual_restored": true,
+      "seconds": 0.004891899996437132
+    }
+  ],
+  "second_auto_started": false,
+  "output_mesh_count": 0,
+  "seconds": 6.960669799998868,
+  "resource_min_available_bytes": 35840450560,
+  "resource_max_private_bytes": 6715531264,
+  "ui18_checks": {
+    "all_owned_paths_absent": true,
+    "selected_items_restored": true,
+    "global_context_restored": true,
+    "pane_contexts_restored": true,
+    "pane_current_nodes_restored": true,
+    "pane_links_restored": true,
+    "active_tabs_restored": true,
+    "frame_restored": true,
+    "fps_unchanged": true,
+    "update_mode_restored": true,
+    "viewer_state_restored": true,
+    "selection_mode_restored": true,
+    "viewport_type_restored": true,
+    "viewport_visible_mask_restored": true,
+    "camera_binding_restored": true,
+    "camera_lock_restored": true,
+    "camera_export_restored": true,
+    "view_transform_restored": true
+  },
+  "cleanup": {
+    "checks": {
+      "all_owned_paths_absent": true,
+      "selected_items_restored": true,
+      "global_context_restored": true,
+      "pane_contexts_restored": true,
+      "pane_current_nodes_restored": true,
+      "pane_links_restored": true,
+      "active_tabs_restored": true,
+      "frame_restored": true,
+      "fps_unchanged": true,
+      "update_mode_restored": true,
+      "viewer_state_restored": true,
+      "selection_mode_restored": true,
+      "viewport_type_restored": true,
+      "viewport_visible_mask_restored": true,
+      "camera_binding_restored": true,
+      "camera_lock_restored": true,
+      "camera_export_restored": true,
+      "view_transform_restored": true
+    },
+    "restore_errors": [],
+    "all_ui_and_owned_node_checks_passed": true,
+    "dirty_before": true,
+    "dirty_after": true,
+    "prior_undo_labels_retained": true,
+    "undo_count_before": 702,
+    "undo_count_after": 702,
+    "redo_stack_unchanged": true,
+    "undo_history_cleared": false,
+    "hip_saved_or_loaded": false,
+    "temporary_session_snapshot_removed": true
+  },
+  "uncertain": false,
+  "source_cache_sha_after": "26f4e93c8f108958359d1faf06f5fc498fdf43182cf1be9fe87e794d5d89688f",
+  "original_mesh_sha_after": "6cdddb10ebb93b51124d8f95bd83fedc1e0d7e71114558fc89ba18f8b5a804cd",
+  "combined_source_sha256": "e7e66b875452a45a54ab0f66fcee033f3678f7a8a413c01b4c60a422aef94e2e",
+  "plan_sha256": "0b3205656d24535460f5272e31a2a1ba3f38150c9f7307b0dcce2a01b5f28810",
+  "official_binary_api": "https://www.sidefx.com/docs/houdini/hom/hou/HDASection.html",
+  "houdini_called_for_this_review": false
+}

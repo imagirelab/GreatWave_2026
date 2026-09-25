@@ -1,0 +1,31 @@
+{
+  "scope": "OFFLINE_RETRY03_SIGNATURE_ADJUDICATION_ONLY",
+  "houdini_allowed": false,
+  "prior_attempts_manifest_sha256": "bccc3e9fbe1dd29637a4f2315da781855058ac09bd8551a6f5f5cb2a6356af09",
+  "inputs": {
+    "raw_result": {
+      "path": "Houdini/Wave22/Runs/file06_22b8368396/file_probe_360.json",
+      "bytes": 100667,
+      "sha256": "2821647739c1e0f0f836350ca4920337e35a9ae780a924ce8bff5601e23c9910"
+    },
+    "execution": {
+      "path": "Houdini/Wave22/Runs/file06_22b8368396/execution.json",
+      "bytes": 5857,
+      "sha256": "88305d8f7698cb3d2d204e8fe4417b07db98610018761e9130aecf24f9120d3a"
+    },
+    "retry03_freeze": {
+      "path": "Houdini/Wave22/Candidates/PfsSensitivity06Retry03/Evidence/22_file_probe_candidate_freeze.json",
+      "bytes": 1658,
+      "sha256": "600f61b4effdb58390756b946699237c0f3b0ba26da4b0970594323c4de208e0"
+    },
+    "physical_input_cache": {
+      "path": "Houdini/Wave22/Runs/22e7801642/Cache/pilot_360.bgeo.sc",
+      "bytes": 4313913,
+      "sha256": "26f4e93c8f108958359d1faf06f5fc498fdf43182cf1be9fe87e794d5d89688f"
+    }
+  },
+  "allowed_canonicalization": "attribute_inventory.detail を一意のnameをキーにしたmapへ変換する比較用複製のみ。",
+  "other_values": "型・全属性値SHA・配列順・全キーを厳密比較する。",
+  "original_result_policy": "passed=false、equals_direct=false、元16葉差分を保持し、新しい解釈を別ファイルへ保存する。",
+  "next_stage": "本裁定の審査後にだけ別候補のk360旧.5面化parityを準備する。Houdini実行は別の明示放行が必要。"
+}

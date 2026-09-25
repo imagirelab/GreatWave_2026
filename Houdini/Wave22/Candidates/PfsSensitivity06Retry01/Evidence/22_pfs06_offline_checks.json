@@ -1,0 +1,399 @@
+{
+  "revision": "22修正06",
+  "passed": true,
+  "houdini_called": false,
+  "new_meshing_executed": false,
+  "check_count": 95,
+  "checks": [
+    {
+      "name_ja": "3フレームの固定時刻",
+      "passed": true
+    },
+    {
+      "name_ja": "再候補はk360旧面一回のみ",
+      "passed": true
+    },
+    {
+      "name_ja": "File入力tupleが空",
+      "passed": true
+    },
+    {
+      "name_ja": "File未接続None占位を許可",
+      "passed": true
+    },
+    {
+      "name_ja": "File複数のNone占位を許可",
+      "passed": true
+    },
+    {
+      "name_ja": "File実接続は拒否",
+      "passed": true
+    },
+    {
+      "name_ja": "File接続APIの不一致も拒否",
+      "passed": true
+    },
+    {
+      "name_ja": "Menu文字列tokenを正規化",
+      "passed": true
+    },
+    {
+      "name_ja": "先導は旧面3枚の後に新面3枚",
+      "passed": true
+    },
+    {
+      "name_ja": "先頭から新面を作らない",
+      "passed": true
+    },
+    {
+      "name_ja": "旧面1番の不一致で新面cookゼロ",
+      "passed": true
+    },
+    {
+      "name_ja": "旧面2番の不一致で新面cookゼロ",
+      "passed": true
+    },
+    {
+      "name_ja": "旧面3番の不一致で新面cookゼロ",
+      "passed": true
+    },
+    {
+      "name_ja": "正常順序_replay_360",
+      "passed": true
+    },
+    {
+      "name_ja": "正常順序_replay_474",
+      "passed": true
+    },
+    {
+      "name_ja": "正常順序_replay_496",
+      "passed": true
+    },
+    {
+      "name_ja": "正常順序_refine_360",
+      "passed": true
+    },
+    {
+      "name_ja": "正常順序_refine_474",
+      "passed": true
+    },
+    {
+      "name_ja": "正常順序_refine_496",
+      "passed": true
+    },
+    {
+      "name_ja": "先導後の追加要求を拒否",
+      "passed": true
+    },
+    {
+      "name_ja": "同じP/有向indices",
+      "passed": true
+    },
+    {
+      "name_ja": "P一成分差を拒否",
+      "passed": true
+    },
+    {
+      "name_ja": "巻き順反転を拒否",
+      "passed": true
+    },
+    {
+      "name_ja": "閉鎖フラグ差を拒否",
+      "passed": true
+    },
+    {
+      "name_ja": "非有限を拒否",
+      "passed": true
+    },
+    {
+      "name_ja": "唯一の許可parm",
+      "passed": true
+    },
+    {
+      "name_ja": "filter同時変更を拒否",
+      "passed": true
+    },
+    {
+      "name_ja": "scale未変更を拒否",
+      "passed": true
+    },
+    {
+      "name_ja": "通常資源",
+      "passed": true
+    },
+    {
+      "name_ja": "available_bytes超過拒否",
+      "passed": true
+    },
+    {
+      "name_ja": "free_G_bytes超過拒否",
+      "passed": true
+    },
+    {
+      "name_ja": "private_bytes超過拒否",
+      "passed": true
+    },
+    {
+      "name_ja": "30秒cook拒否",
+      "passed": true
+    },
+    {
+      "name_ja": "直近30中位15秒拒否",
+      "passed": true
+    },
+    {
+      "name_ja": "予測90分拒否",
+      "passed": true
+    },
+    {
+      "name_ja": "容量予算",
+      "passed": true
+    },
+    {
+      "name_ja": "primitive0は有効",
+      "passed": true
+    },
+    {
+      "name_ja": "default命中なのにstrict空は保留",
+      "passed": true
+    },
+    {
+      "name_ja": "局所交点の正常例",
+      "passed": true
+    },
+    {
+      "name_ja": "空交点を保留",
+      "passed": true
+    },
+    {
+      "name_ja": "曖昧fieldを保留",
+      "passed": true
+    },
+    {
+      "name_ja": "面限定query不一致を保留",
+      "passed": true
+    },
+    {
+      "name_ja": "dual tolerance差を保留",
+      "passed": true
+    },
+    {
+      "name_ja": "同一面のdefaultとstrict不一致を保留",
+      "passed": true
+    },
+    {
+      "name_ja": "defaultとstrictのnormal方向反転を保留",
+      "passed": true
+    },
+    {
+      "name_ja": "default自体の面限定根拠がなければ保留",
+      "passed": true
+    },
+    {
+      "name_ja": "共有辺の別primitiveは面限定根拠で許可",
+      "passed": true
+    },
+    {
+      "name_ja": "正常RPCの完了",
+      "passed": true
+    },
+    {
+      "name_ja": "実行済みcode errorは既知の完了",
+      "passed": true
+    },
+    {
+      "name_ja": "明示実行拒否は既知の完了",
+      "passed": true
+    },
+    {
+      "name_ja": "読めないRPCは完了不明_None",
+      "passed": true
+    },
+    {
+      "name_ja": "読めないRPCは完了不明_'{bad'",
+      "passed": true
+    },
+    {
+      "name_ja": "読めないRPCは完了不明_'{}'",
+      "passed": true
+    },
+    {
+      "name_ja": "読めないRPCは完了不明_'[]'",
+      "passed": true
+    },
+    {
+      "name_ja": "読めないRPCは完了不明_'{\"executed\":\"true\"}'",
+      "passed": true
+    },
+    {
+      "name_ja": "入力JSONを変更しない",
+      "passed": true
+    },
+    {
+      "name_ja": "全556solver値/時計は不変",
+      "passed": true
+    },
+    {
+      "name_ja": "142面と残りfalse",
+      "passed": true
+    },
+    {
+      "name_ja": "新高さへ旧meshSHAを流用しない",
+      "passed": true
+    },
+    {
+      "name_ja": "原04detector全結果を厳密再現",
+      "passed": true
+    },
+    {
+      "name_ja": "PFS静水窗は22/23標本",
+      "passed": true
+    },
+    {
+      "name_ja": "PFS主窗98標本/末9.233333",
+      "passed": true
+    },
+    {
+      "name_ja": "欠落フレームを拒否",
+      "passed": true
+    },
+    {
+      "name_ja": "無効測点を補わない",
+      "passed": true
+    },
+    {
+      "name_ja": "新面の静水変動でqも増加",
+      "passed": true
+    },
+    {
+      "name_ja": "先導のdetector禁止",
+      "passed": true
+    },
+    {
+      "name_ja": "拡張実行入口なし",
+      "passed": true
+    },
+    {
+      "name_ja": "全候補Pythonの構文",
+      "passed": true
+    },
+    {
+      "name_ja": "独立namespaceの全定義依存",
+      "passed": true
+    },
+    {
+      "name_ja": "Menu索引0とtokenを別照合",
+      "passed": true
+    },
+    {
+      "name_ja": "数値parmは厳密照合",
+      "passed": true
+    },
+    {
+      "name_ja": "別Menu tokenを拒否",
+      "passed": true
+    },
+    {
+      "name_ja": "Menu rawがstrでもtoken配対",
+      "passed": true
+    },
+    {
+      "name_ja": "断言前にraw/type/itemsを記録",
+      "passed": true
+    },
+    {
+      "name_ja": "setter失敗でも実効値が残る",
+      "passed": true
+    },
+    {
+      "name_ja": "Rampをkeys/values/basisへ正規化",
+      "passed": true
+    },
+    {
+      "name_ja": "全parm結果をJSONへ保存可能",
+      "passed": true
+    },
+    {
+      "name_ja": "所有pathだけ正規化",
+      "passed": true
+    },
+    {
+      "name_ja": "native原語0を保存",
+      "passed": true
+    },
+    {
+      "name_ja": "native位置NaNを早期検出",
+      "passed": true
+    },
+    {
+      "name_ja": "native uvw無限を早期検出",
+      "passed": true
+    },
+    {
+      "name_ja": "異常値を失わずJSON保存/保留",
+      "passed": true
+    },
+    {
+      "name_ja": "RPC文字列の構文/注入",
+      "passed": true
+    },
+    {
+      "name_ja": "生成面の保存はnative検査より先",
+      "passed": true
+    },
+    {
+      "name_ja": "作成typeはSOP面化限定",
+      "passed": true
+    },
+    {
+      "name_ja": "許可flag以外は表示のみ",
+      "passed": true
+    },
+    {
+      "name_ja": "既定runnerはHoudini未接続",
+      "passed": true
+    },
+    {
+      "name_ja": "既定runnerの範囲もk360だけ",
+      "passed": true
+    },
+    {
+      "name_ja": "失敗段階と例外位置を保存",
+      "passed": true
+    },
+    {
+      "name_ja": "既存04出典SHA",
+      "passed": true
+    },
+    {
+      "name_ja": "既存05読戻しSHA",
+      "passed": true
+    },
+    {
+      "name_ja": "元計画の科学条件と閾値は不変",
+      "passed": true
+    },
+    {
+      "name_ja": "初回freezeは不変",
+      "passed": true
+    },
+    {
+      "name_ja": "初回の原失敗記録は不変",
+      "passed": true
+    },
+    {
+      "name_ja": "先導6入力BGEOのbytes/SHA",
+      "passed": true
+    }
+  ],
+  "source_hashes": {
+    "build_plan06.py": "8560c171cf15857d3aaa477a4294987e20f7c65459e506d444ba7e2d4c3b8fb2",
+    "check_pilot06.py": "03035d94c8ab2a0aaed7a6160e2d144c534dff8e0b61051b3e214c3c974f1a13",
+    "pfs06_plan.json": "108423c647b1c8442f758b07aed4e8dc2c9788593115d2488efe1ea8bf1998f7",
+    "remesh_pilot06.py": "aafdd6c082a1b2d693f29da5aea5f1c377f293bc8bb042152d7ccfc440af1966",
+    "run_pilot06.py": "8b90cf39b2fb8113057625eec822891c162b15b152a5a7363955158118107913",
+    "sensitivity_core.py": "09016bf288a82279f10cbefd5f04a9d14b09da49508f14e9636afcc327e4c038"
+  },
+  "pilot_input_unique_bytes": 15446499,
+  "meaning_ja": "mock/純関数/公開JSONとファイルSHAの検査だけ。実HOM/HDA/面化/性能/元mesh配対は未実行。"
+}

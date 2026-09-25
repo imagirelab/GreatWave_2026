@@ -1,0 +1,91 @@
+{
+  "revision": "22修正06 再候補03",
+  "scope": "FILE_NULL_K360_ONLY",
+  "houdini_executed": false,
+  "baseline_run": "22e7801642",
+  "sample": 360,
+  "seconds": 6.0,
+  "global_frame": 145.0,
+  "fps": 24,
+  "input": {
+    "filename": "pilot_360.bgeo.sc",
+    "kind": "solver",
+    "seconds": 6.0,
+    "sha256": "26f4e93c8f108958359d1faf06f5fc498fdf43182cf1be9fe87e794d5d89688f",
+    "bytes": 4313913
+  },
+  "expected_actual_particles": 53806,
+  "expected_points": 53811,
+  "expected_primitives": 5,
+  "node_types": [
+    "subnet",
+    "geo",
+    "file",
+    "null"
+  ],
+  "update_mode": "Manual_then_main_thread_AutoUpdate_then_Manual",
+  "owned_object_display": false,
+  "new_meshing": false,
+  "new_solver": false,
+  "automatic_fallback": false,
+  "file_options_policy_ja": "fileのliteral値だけ設定。File無入力を必須とし、filemode/load等は既定実値を観測する。表示旗やFile設定は再調整しない。更新modeだけ固定2段階で比較。",
+  "geometry_scope_ja": "粒子ID/P/v/pscale、全点P、全Volumeのtransform/resolution/voxel全値と、公開属性値/公開群所属/有向接続を照合。内部private属性や未列挙intrinsicは対象外。",
+  "budgets": {
+    "minimum_available_RAM_bytes": 8589934592,
+    "maximum_private_increase_bytes": 12884901888,
+    "minimum_free_G_bytes": 10737418240,
+    "per_rpc_cooperative_seconds": 90,
+    "rpc_wait_seconds": 180,
+    "maximum_report_bytes": 16777216
+  },
+  "support_origins": [
+    {
+      "path": "Houdini/Wave22/Candidates/PfsSensitivity06Retry01/Source/remesh_pilot06.py",
+      "sha256": "aafdd6c082a1b2d693f29da5aea5f1c377f293bc8bb042152d7ccfc440af1966",
+      "functions": [
+        "memory06",
+        "input_signature06"
+      ]
+    },
+    {
+      "path": "Houdini/Wave22/Candidates/PfsSensitivity06Retry01/Source/sensitivity_core.py",
+      "sha256": "09016bf288a82279f10cbefd5f04a9d14b09da49508f14e9636afcc327e4c038",
+      "functions": [
+        "menu_observation",
+        "disconnected_file_inputs",
+        "classify_rpc_reply",
+        "serializable_observation"
+      ]
+    }
+  ],
+  "fixed_evidence": {
+    "Houdini/Wave22/Candidates/PfsSensitivity06/Evidence/22_pfs06_candidate_freeze.json": "9755f56dde86304afdcd6a6ad2202ee454bd0951c7d5c2a586ec904487260f60",
+    "Houdini/Wave22/Candidates/PfsSensitivity06Retry01/Evidence/22_pfs06_candidate_freeze.json": "f0bfab12558bd66a98fcfb719b6d0219020254812bd4e20dedcf5277e39a69cc",
+    "Houdini/Wave22/Runs/pfs06_da9e62c8df/replay_360.json": "5f492b54f383ceca50adfe1dbf90b398d489e8be4d6d3207d24a39584922798d",
+    "Houdini/Wave22/Runs/pfs06_4e658eee02/replay_360.json": "49fa9614d683afafc73a1a691f8a86e85d8712a41f0fddc849e5c67d5fcecdb8",
+    "Houdini/Wave22/Candidates/WaveStart04/Postprocess/capture_start04.py": "26934c87653c7cfcfa0f06fc790b9e8d521533f60dbe96e5e97e4ce586c96ba9",
+    "Houdini/Wave22/Candidates/WaveStart04/Evidence/Result_22e7801642/Executed_Source/ui_guard.py": "47b763ab25200b599f3a8a9acb31ade4f40f521df5512e1d80ab2697af2ee2c8",
+    "Houdini/Wave22/Runs/pfs06_da9e62c8df/execution.json": "51cdc764819b71345c54189fb4c5229be13bf68c7f3b3b7b5ccfee88000050c4",
+    "Houdini/Wave22/Runs/pfs06_4e658eee02/execution.json": "35ccc97dac64380619d7f1160ace53091f6172812fd2350a4f218cf9c8cfa0f6"
+  },
+  "official_sources": [
+    "https://www.sidefx.com/docs/houdini/nodes/sop/file.html",
+    "https://www.sidefx.com/docs/houdini/hom/hou/SopNode.html",
+    "https://www.sidefx.com/docs/houdini/hom/hou/OpNode.html",
+    "https://www.sidefx.com/forum/topic/76888/"
+  ],
+  "update_mode_window_ja": "root審査した固定2段階。Manual前測後、同一main-thread RPC内だけAutoUpdateでFile/Nullを読戻し、finallyでManual復帰。wait/yield/UI描画/別RPCは挟まない。外部DOP内部状態は監視しないため無影響の全証明ではない。",
+  "only_adapter_change_ja": "needsToCook()を無引数で呼び、現在hou.time()を別項目へ記録する。その他の実行動作は再候補02と同一。",
+  "previous_failure": {
+    "token": "file06_261a7a4f72",
+    "failure_type": "TypeError",
+    "failure_message": "OpNode.needsToCook() got an unexpected keyword argument 'time'",
+    "phase": "FILE_LITERAL_BOUND",
+    "auto_started": false,
+    "ui18_passed": true,
+    "uncertain": false,
+    "result_sha256": "790cf679299c820321e2a11c098a033310de68f82d609c6c8f3c7672b110d174",
+    "execution_sha256": "23f5f1843a5cd99df443f160873e63eeb0d98e295d05aabe74e739986b0f4d8b"
+  },
+  "prior_attempts_manifest_sha256": "b456896c15cf2747582f03afb107a013f23c428e00ad4112556441991c153f53"
+}

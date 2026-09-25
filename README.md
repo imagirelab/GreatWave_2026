@@ -6,7 +6,11 @@
 
 ## 22の実水槽・中間結果を見る
 
-最新の22修正05は、修正04の既存BGEOを30時刻・5850断面で読み、PFSとsolver符号場の観測差を診断しました。元中央測点値と交点の対応は一致し、G3 PFS候補は元の左prominence不足を確認。**減幅の単一原因は未確定で、PFS唯一鎖なし・番号22未完成を保持します。** 新しい流体計算ではありません。
+最新の22修正06は、保存粒子から旧PFS `.5` の3時刻を厳密再現した後、t6の一面だけ `.25` へ細分化しました。旧新各195断面の読戻しは成立し、中央の高さ差は+0.0483/+0.0726/−0.1481mm。**単一静水時刻の面化感度であり、波形・物理精度・番号22完成は未判定です。** 新しい流体計算や他frameへの拡張は行っていません。
+
+- [修正06・中央の原水位と面化差](Houdini/Wave22/Evidence/Revision06/22_refine06_centers.png)／[195位置の実差](Houdini/Wave22/Evidence/Revision06/22_refine06_spatial_difference.png)／[失敗履歴・原JSON・再現・限界](Houdini/Wave22/Evidence/Revision06/README_ja.md)
+
+修正05は、同じ04の既存BGEOを30時刻・5850断面で読み、G3 PFS候補の元の左prominence不足を確認しました。減幅の単一原因は未確定、元のPFS唯一鎖なしを保持します。
 
 - [原水位と差](Houdini/Wave22/Candidates/PfsDiagnosis05/Evidence/Result_22e7801642/22_profile05_centers.png)／[実cacheの局所断面](Houdini/Wave22/Candidates/PfsDiagnosis05/Evidence/Result_22e7801642/22_profile05_sections.png)／[G3候補の採否](Houdini/Wave22/Candidates/PfsDiagnosis05/Evidence/Result_22e7801642/22_profile05_G3_prominence.png)／[05の数値・原JSON・再現](Houdini/Wave22/Candidates/PfsDiagnosis05/Evidence/Result_22e7801642/README_ja.md)
 

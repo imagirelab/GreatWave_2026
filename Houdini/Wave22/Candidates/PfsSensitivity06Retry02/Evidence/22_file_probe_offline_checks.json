@@ -1,0 +1,216 @@
+{
+  "revision": "22修正06 再候補02",
+  "passed": true,
+  "houdini_called": false,
+  "check_count": 50,
+  "checks": [
+    {
+      "name_ja": "定義読込はHOM不要",
+      "passed": true
+    },
+    {
+      "name_ja": "再候補scopeはk360のみ",
+      "passed": true
+    },
+    {
+      "name_ja": "新mesh/solverを禁止",
+      "passed": true
+    },
+    {
+      "name_ja": "既存2Run/2freeze/04sourceが不変",
+      "passed": true
+    },
+    {
+      "name_ja": "前回候補の全凍結file不変_PfsSensitivity06",
+      "passed": true
+    },
+    {
+      "name_ja": "前回候補の全凍結file不変_PfsSensitivity06Retry01",
+      "passed": true
+    },
+    {
+      "name_ja": "抽出関数の元source不変",
+      "passed": true
+    },
+    {
+      "name_ja": "補助関数のAST不変_memory06",
+      "passed": true
+    },
+    {
+      "name_ja": "補助関数のAST不変_input_signature06",
+      "passed": true
+    },
+    {
+      "name_ja": "補助関数のAST不変_menu_observation",
+      "passed": true
+    },
+    {
+      "name_ja": "補助関数のAST不変_disconnected_file_inputs",
+      "passed": true
+    },
+    {
+      "name_ja": "補助関数のAST不変_classify_rpc_reply",
+      "passed": true
+    },
+    {
+      "name_ja": "補助関数のAST不変_serializable_observation",
+      "passed": true
+    },
+    {
+      "name_ja": "k360原BGEOのbytes/SHA",
+      "passed": true
+    },
+    {
+      "name_ja": "整数はhashで保持",
+      "passed": true
+    },
+    {
+      "name_ja": "浮動値の差を丸めない",
+      "passed": true
+    },
+    {
+      "name_ja": "辞書の順序に依存しない",
+      "passed": true
+    },
+    {
+      "name_ja": "属性NaNを拒否",
+      "passed": true
+    },
+    {
+      "name_ja": "未知属性型を拒否",
+      "passed": true
+    },
+    {
+      "name_ja": "未接続Noneを許す",
+      "passed": true
+    },
+    {
+      "name_ja": "実接続を拒否",
+      "passed": true
+    },
+    {
+      "name_ja": "不明RPCは停止_invalid",
+      "passed": true
+    },
+    {
+      "name_ja": "不明RPCは停止_{}",
+      "passed": true
+    },
+    {
+      "name_ja": "不明RPCは停止_{\"executed\":null}",
+      "passed": true
+    },
+    {
+      "name_ja": "既知RPC失敗を区別",
+      "passed": true
+    },
+    {
+      "name_ja": "既知RPC成功",
+      "passed": true
+    },
+    {
+      "name_ja": "非Menuのlabel要求を避ける",
+      "passed": true
+    },
+    {
+      "name_ja": "Menu実型と全tokenを保存",
+      "passed": true
+    },
+    {
+      "name_ja": "同RPC内Manual復帰_pass",
+      "passed": true
+    },
+    {
+      "name_ja": "結果JSONを保存_pass",
+      "passed": true
+    },
+    {
+      "name_ja": "direct署名を先に保存_pass",
+      "passed": true
+    },
+    {
+      "name_ja": "Manual空を記録_pass",
+      "passed": true
+    },
+    {
+      "name_ja": "AutoのFile/Null厳密配対",
+      "passed": true
+    },
+    {
+      "name_ja": "geometryによる暗黙cookを区別",
+      "passed": true
+    },
+    {
+      "name_ja": "同RPC内Manual復帰_auto_error",
+      "passed": true
+    },
+    {
+      "name_ja": "結果JSONを保存_auto_error",
+      "passed": true
+    },
+    {
+      "name_ja": "direct署名を先に保存_auto_error",
+      "passed": true
+    },
+    {
+      "name_ja": "Manual空を記録_auto_error",
+      "passed": true
+    },
+    {
+      "name_ja": "Auto例外も失敗phaseを保持",
+      "passed": true
+    },
+    {
+      "name_ja": "同RPC内Manual復帰_empty",
+      "passed": true
+    },
+    {
+      "name_ja": "結果JSONを保存_empty",
+      "passed": true
+    },
+    {
+      "name_ja": "direct署名を先に保存_empty",
+      "passed": true
+    },
+    {
+      "name_ja": "Manual空を記録_empty",
+      "passed": true
+    },
+    {
+      "name_ja": "空のままならHOLD",
+      "passed": true
+    },
+    {
+      "name_ja": "全signature計算はManual",
+      "passed": true
+    },
+    {
+      "name_ja": "probe作成型はgeo/file/nullだけ",
+      "passed": true
+    },
+    {
+      "name_ja": "PFS/solver/描画/待機呼出しなし",
+      "passed": true
+    },
+    {
+      "name_ja": "原cacheは保存しない",
+      "passed": true
+    },
+    {
+      "name_ja": "全構文と独立RPC定義",
+      "passed": true
+    },
+    {
+      "name_ja": "既定runnerは未接続",
+      "passed": true
+    }
+  ],
+  "source_hashes": {
+    "check_file_probe06.py": "425c32bf2c4227cb6433739b92d75bf2dbf8167b4dbaf039ac9f04ffad63ddeb",
+    "file_probe_plan.json": "6868e8f197c7e2ee1e50aa3e28e34cb0dc469451e45b4e957a189b7943aa072a",
+    "probe_file06.py": "99045158f73a5969f96f99927a9ba98f52bbcb427b274238c457a6ecd37fe674",
+    "run_file_probe06.py": "8d594a0ef54c58bcc08b9eab5770b740fd7d74b232bd4dc78c9d6eb37019462c",
+    "support06.py": "6789c915e402a1f96f89307dbf79f7966e3a689bed3634923ddd4f97cab997e5"
+  },
+  "meaning_ja": "合成状態遷移と原ファイルSHAのみ。実HOMのFile/Null/AutoUpdate挙動は未実行。"
+}

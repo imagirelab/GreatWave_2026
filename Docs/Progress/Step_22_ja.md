@@ -242,3 +242,33 @@ python Houdini/Wave22/Candidates/PfsDiagnosis05/Postprocess/summarize_profile05.
 ```
 
 [RunsもBGEOもない隔離入力からの復算](../../Houdini/Wave22/Candidates/PfsDiagnosis05/Evidence/Result_22e7801642/22_profile05_isolated_reproduction.json)では、コピーした原gzip/04資料だけで3図・CSV・摘要・解析manifestの6出力が同一bytesとなった。これは新HOM読戻しや物理再計算ではない。[修正05最終出典](../../Houdini/Wave22/Candidates/PfsDiagnosis05/Evidence/22_revision05_provenance.json)に資料・解析・文書を結ぶ。**PFS唯一鎖なし・減幅の単一原因未確定・22未完成を保持する。** 22の非砕波連続伝播/full測点/媒体と、23の理論精度、25の反射/収支は別の後続検証である。
+
+## 22修正06：旧PFSの再現とt6一面の細分化感度
+
+唯一の物理入力は04 Run `22e7801642` の既存pilot BGEO。新solverや板運動は計算せず、PFS3.0のvoxelsize `.5→.25` だけを変える事前試験を行った。粒距.04mなので指定面化voxelは.02→.01mに相当するが、solver格子の収束試験ではない。**新`.25`はk360/t6一面だけ。波形・q・唯一鎖を再判定せず、次frameは利用者確認後の別審査とする。**
+
+初回/Retry01は入力前assert/Manualの空FileでHOLD、Retry02は`needsToCook(time=...)`のTypeError、Retry03はdetail属性一覧順の差で原HOLD、Replay05はHDA文字列符号化で停止した。原記録を保持し、別のDecision04は一意nameによる一覧順だけの正規化で全署名が一致すると判読した。HDAは公式binaryContentsの原bytesをSHA化し、失敗箇所を別候補で修正した。[全9Runの原JSON・10候補・順序](../../Houdini/Wave22/Evidence/Revision06/README_ja.md)を公開する。5つのHOLDを流体の物理不合格や成功へ読み替えない。
+
+短いAuto更新窓でFile/Nullをfreeze→Manualで全入力署名を判定し、PASS後だけ別Auto窓でOutをforce cookする。旧`.5`のk360/k474/k496は、原04面のordered P・有向面indices・型/closed・3点native・保存再読が厳密一致した。再保存BGEOのfile SHAは異なるので、未検査属性を含む全bytes一致とは記さない。
+
+Refine360 Run `pfsrefine06_c208ac35e3` は新しいSteam Houdini PID26892/22.0.429/Indie/FPS24で実行。成功k360の入力署名・HDA/Convertと照合し、実評価166 PFS parmの差はvoxelsizeだけだった。原JSONの窓名`OLD_HALF_PFS`は同一helperからの履歴ラベルであり、実要求/評価値は`.25`。ラベルを原記録から消していない。
+
+| 中央点 | 原solver符号場 mm | 旧`.5` PFS mm | 新`.25` PFS mm | 新−旧 mm |
+| --- | ---: | ---: | ---: | ---: |
+| G1 | −0.988379 | −10.810441 | −10.762161 | +0.048280 |
+| G2 | −0.609264 | −7.603443 | −7.530844 | +0.072598 |
+| G3 | −0.417516 | −10.671026 | −10.819083 | −0.148058 |
+
+原絶対高さを保ち、固定10mm補正はしない。新面159,932点/159,930面、3,494,161bytesは保存再読一致。旧38,926点/38,924面との形状同一を要求せず、同じ新面のdefault/主/感度/面限定query整合を検査した。UI18復元後に旧新各195位置を別RPCで採り、同じ座標/field・中央solver誤差0・各列上下2交点を確認した。新`center_parity_passed=false`は旧面との差という予告した診断値で、旧面の同フラグはtrueである。
+
+[中央の未補正水位と差の実測図](../../Houdini/Wave22/Evidence/Revision06/22_refine06_centers.png)／[195位置の実差](../../Houdini/Wave22/Evidence/Revision06/22_refine06_spatial_difference.png)／[原値CSV](../../Houdini/Wave22/Evidence/Revision06/22_refine06_profiles.csv)。全195位置の新−旧は−.493705〜+.678122mm、平均+.089239mm、RMS.223545mm。これは局所位置の分布で測定不確かさや独立反復ではない。下底交点を第2自由面と呼ばず、fieldのisSDF metadata=false、全域/時刻間状態未検証を保持する。細分化で旧solverとの差が解消した、波が正しくなったとは判定しない。
+
+面化RPC17.634901秒、2番目Auto窓7.250425秒、旧/新profile2.270634/10.993487秒。観測private増分最大331,362,304bytes、空きRAM最小34,102,996,992bytes。節目観測で連続privateピークやVRAMではなく、旧PIDの`.5`との性能比較もしない。UI18/owned削除はPASS、通信不明なし。一方HIP dirtyはfalse→trueであり、完全に元状態へ戻したとは記さない。HIP保存/読込/clear/undo消去なし。後続只読profileはframe/FPS/mode/dirtyの前後一致を確認した。
+
+28原JSON8,252,599bytesを990,124bytesの無損失gzipで公開し、[元/保存SHA](../../Houdini/Wave22/Evidence/Revision06/22_original_manifest.json)、[本機BGEO manifest](../../Houdini/Wave22/Evidence/Revision06/22_cache_manifest.json)、凍結Sourceを結ぶ。BGEO本体は本機保持。新視口動画は作らず、今回の科学図と04実動画を別資料にする。
+
+```powershell
+python -B Houdini/Wave22/Evidence/Revision06/Source/summarize_revision06.py --input Houdini/Wave22/Evidence/Revision06
+```
+
+[Runs/候補/BGEOなし隔離復算](../../Houdini/Wave22/Evidence/Revision06/22_isolated_reproduction.json)で2図・2CSV・摘要・解析manifestの6出力が同一bytesだった。これは公開測定値の復算で、Houdini再実行ではない。[修正06最終出典](../../Houdini/Wave22/Evidence/Revision06/22_revision06_provenance.json)を保存する。**22は中間成果のまま。非砕波連続伝播・full測点・媒体、23精度・25収支/反射、主役波・HMDは別の未完了項目である。**

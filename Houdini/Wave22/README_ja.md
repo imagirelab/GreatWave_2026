@@ -1,6 +1,8 @@
 # 22：実 FLIP 水槽の中間成果（進行波は未完成）
 
-現在は22修正05で、04の既存BGEOを30時刻・5850断面で読戻し、交点の再現性とG3候補の左prominence不足を確認した。新規solver計算ではなく、[局所断面・原水位・出典](Candidates/PfsDiagnosis05/Evidence/Result_22e7801642/README_ja.md)を保存した。減幅の単一原因は未確定、PFS唯一鎖なしを保持する。
+現在は22修正06で、04保存粒子による旧PFS `.5` の3面再現と、t6一面だけ `.25` にした局所面化感度を確認した。[実測図・原記録・再現・失敗履歴](Evidence/Revision06/README_ja.md)を公開する。旧新各195断面の整合はPASSだが、新solver/波検出/物理精度の合格ではない。利用者の確認前に次frameへ進めず、22未完成を保持する。
+
+修正05の30時刻・5850断面では、[交点の再現性とG3候補の左prominence不足](Candidates/PfsDiagnosis05/Evidence/Result_22e7801642/README_ja.md)を記録した。元PFS唯一鎖なし・減幅の単一原因未確定は今回も変更していない。
 
 修正04は新所有DOPのL6/SOP doreseeding=0をt6まで再計算し、元静水判定PASS後に同一DOPをt9.25まで実駆動した。**短い始動応答は観測したが、非砕波・理論精度・22完成は未認定。** [実結果・媒体](Candidates/WaveStart04/Evidence/Result_22e7801642/README_ja.md)を参照する。以下の初期化FAILや未駆動対照は履歴として保持する。手順17・19の二球試料を波の証拠へ流用していない。
 
