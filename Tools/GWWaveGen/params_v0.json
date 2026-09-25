@@ -1,0 +1,74 @@
+{
+ "schema": "GreatWave.GWWaveGen.params/1",
+ "version": "v0",
+ "number": "24",
+ "note_ja": "gw_wavegen v0 の全パラメータ。編号24（最初の画面：主役波 v0）のプレビュー用。合否判定には使わない。長さは m、角度は度、時間は秒。",
+ "inputs": {
+  "painting_truth": "Tools/PaintingTruth/painting_truth.json",
+  "envelope": "Tools/PaintingTruth/targets/main_wave_outline_envelope.json",
+  "layout": "Docs/Evidence/M1/Revision01/15_revision_layout.json"
+ },
+ "main_plane": {
+  "orientation": "PaintingCam の水平前方 h に垂直な鉛直面（断面が原画の輪郭を横方向に縮めずに受ける向き）",
+  "through": "M1 middle boat（右の船）の位置",
+  "through_boat_name": "M1 middle boat",
+  "note_ja": "15_revision_layout.json の右船 (11.6, 2, -2) を通す。PaintingCam から水平前方 59.5 m。右船と主断面を同じ奥行きに置くと、原画上の船と波の大きさの比がそのまま世界の比になる。"
+ },
+ "grid": {
+  "nu": 320,
+  "nv": 200,
+  "note_ja": "nu は断面（弧長）方向、nv は波峰線方向。頂点数 nu*nv = 64,000。位相（添字）は全フレームで固定。"
+ },
+ "profile": {
+  "visible_samples": 250,
+  "ext_left_samples": 28,
+  "flat_left_samples": 10,
+  "ext_right_samples": 16,
+  "flat_right_samples": 16,
+  "flat_left_m": 70.0,
+  "flat_right_m": 70.0,
+  "ext_right_tangent_samples_px": 24.0,
+  "note_ja": "断面は 平らな海（左）→ 左の延長（画面外で海面から原画左端の輪郭点まで上る）→ 原画包絡の逆投影（78→130→131→132→唇先端→72）→ 右の延長（72 の下端から海面まで下る）→ 平らな海（右）。右の延長の終点（海面）を断面の固定点（アンカー）とする。",
+  "ext_left_m": 55.0
+ },
+ "sweep": {
+  "c_near_m": -42.0,
+  "c_far_m": 36.0,
+  "rows_near": 130,
+  "envelope_near_sigma_m": 16.0,
+  "envelope_near_power": 2.0,
+  "envelope_far_sigma_m": 12.0,
+  "envelope_far_power": 2.0,
+  "note_ja": "c は主断面からの水平前方 h 方向の距離（負がカメラ側）。各断面は主断面と平行な鉛直面に置く（扇状に交わらない）。残す割合 D(c)（1 で原形、0 で平らな海）は c ∈ [-plateau_near, plateau_far] で 1、外側で exp(-(Δc/σ)^p)。D が 1 から squash_below_D まで下がる間に唇を引き込み（前半で上側と下側を中点へ鉛直に寄せて厚みを lip_collapse_max まで潰し、後半で稜線と角を結ぶ弦の中点 Q へ縮める）、その下で高さだけを海面へ潰す。各断面は PaintingCam を中心に k = 1 + c/d0 で相似変形するため、D=1 の断面は原画の同じ輪郭へ投影される。カメラ側の断面は唇以外を海面の高さまで下げる。いずれも原画視点で水域の内側へだけ動く変形。",
+  "plateau_near_m": 6.0,
+  "plateau_far_m": 3.0,
+  "squash_below_D": 0.5,
+  "lip_collapse_max": 0.85
+ },
+ "timeline": {
+  "fps": 30,
+  "frames": 510,
+  "pre_roll_s": 2.0,
+  "formation_s": 10.0,
+  "hold_s": 5.0,
+  "t_star_s": 12.0,
+  "lip_phase_lag": 0.25,
+  "lip_ramp_before_crest_m": 2.0,
+  "lip_ramp_after_crest_m": 4.0,
+  "lip_ramp_after_corner_m": 4.0,
+  "note_ja": "形成率 P_body(t) = smootherstep((t-2)/10)。唇は位相を遅らせ P_lip(t) = smootherstep(((t-2)/10 - lag)/(1 - lag))。各断面 c の K* 形状の線分角を θ*_c として、θ(σ,c,t) = [(1-w(σ))·P_body + w(σ)·P_lip]·θ*_c(σ)（w は唇の重み）。アンカー（右の延長の終点）を固定して積み上げ、左の延長の角度を行ごとに β 倍して左の平らな海を K* と同じ高さへ戻す。転角補間は途中で K* より高くなるので、行ごとに高さを K* の最大までに抑える。t* = 12.0 s で P_body = P_lip = 1 となり K* に一致する。"
+ },
+ "bands": {
+  "note_ja": "仮の平塗り帯（値は AF24Palette.shader の既定値と同じ。生成器は読まない）。帯座標 e = 列重み×UV2.x（白帯からの弧長距離 m、中央断面）＋ 行重み×(1 − UV2.y)。UV2.y は唇の列で D(c)、ほかの列で D(c)·clip(1 − 3(1 − k))。唇の列で D > 0.75 の断面は行重みを lip_row_weight_m にする。e が白・水色・藍中の外縁より小さい順に塗り、残りと海面付近（y < 0.3 m）は藍濃。帯の外縁は形成率に合わせて広がる。色は編号23の調色板（palette.json）の 8bit sRGB。",
+  "white_m": 1.6,
+  "mizuiro_m": 3.2,
+  "ai_mid_m": 7.5,
+  "column_weight": 0.35,
+  "row_weight_m": 18.0,
+  "lip_row_weight_m": 5.0
+ },
+ "continuity_limits": {
+  "max_step_m_30hz_preview": 0.6,
+  "note_ja": "30 Hz での逐フレーム最大変位の目安（編号30の基準値）。v0 では記録のみ。"
+ }
+}
