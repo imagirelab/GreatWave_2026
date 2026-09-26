@@ -1,33 +1,50 @@
 {
   "schema": "GreatWave.PaintingTruth/1",
-  "version": "v0.1",
+  "version": "v0.2",
   "number": "23",
-  "status": "凍結（編号23。第1部の基準に、第2部の較正門と修正1回目の真値修正を加えた版）。変更する場合は新しい version と修正番号で記録する。",
-  "version_history_ja": "v0：編号23 第1部で作成し、コミット前のレビューで唇の右端の爪群が空として抜けていると指摘された（編号24 v0 のプレビューはこの v0 の真値を使った）。v0.1：修正1回目。manual_annotations.json に藍線の途切れを閉じる手動の障壁 3 本を加え、真値を作り直した。このファイルの原画・写像・PaintingCam v1・時間軸・判定規則の数値は v0 から変えていない。",
+  "status": "凍結（番号23。第1部の基準に、第2部の較正門、修正1回目の真値修正、修正2回目の高解像度原画への移行を加えた版）。変更する場合は新しい version と修正番号で記録する。",
+  "version_history_ja": "v0：番号23 第1部で作成し、コミット前のレビューで唇の右端の爪群が空として抜けていると指摘された（番号24 v0 のプレビューはこの v0 の真値を使った）。v0.1：修正1回目。manual_annotations.json に藍線の途切れを閉じる手動の障壁 3 本を加え、真値を作り直した。このファイルの原画・写像・PaintingCam v1・時間軸・判定規則の数値は v0 から変えていない。 v0.2：修正2回目（2026-09-26）。原画を利用者が承認した高解像度の Met_JP1847_DP130155.jpg（3859×2594）に替えた。旧原画 Met_JP1847.jpg（1200×807）は、新原画を画素中心の約束で縦横別の倍率に縮小したものと位置合わせで確かめ（残差は reference.registration_summary）、履歴として残す。表示フレームへの写像は新原画から縦横同じ倍率で決め直し、旧写像との差は横方向だけで最大 0.364 表示 px（display_frame.shift_from_v0_1_ja）。抽出の長さ・面積の値は旧参照 px の値を高解像度 px へ換算し（extraction.conversion_ja）、線の端どうしの狭い途切れを閉じる barrier_dilate_ref_px を加えた。PaintingCam v1・時間軸・判定のしきい値は v0.1 から変えていない。",
   "note_ja": "原画基準・画面写像・PaintingCam v1・時間軸・判定規則を一か所に固定する。numpy 側（extract.py / evaluate.py）と Unity 側（AF23CalibrationGate.cs、第2部）の共通入力。数値は計画上の判定規則であり、このファイル自体は何も合格にしない。較正門の結果は Docs/Evidence/ArtFirst/23/23_gate.json にある。",
   "coordinate_convention_ja": "画素座標はすべて『画素中心が整数』の配列添字系（numpy / OpenCV と同じ）。x は右、y は下が正。表示フレームは 1920×1080。Unity の viewport (vx, vy)（左下原点）とは x = vx*1920 - 0.5, y = (1 - vy)*1080 - 0.5 で対応する。",
   "reference": {
+    "path": "Docs/References/Met_JP1847_DP130155.jpg",
+    "sha256": "cbb9988f2f18b9180a1cc0cf5dbb0e3bbf8f2e85d17930cf6ca9ab36fac36303",
+    "bytes": 2342637,
+    "width": 3859,
+    "height": 2594,
+    "color_space_assumption_ja": "埋め込み ICC プロファイルなし。sRGB（D65）として扱う。",
+    "holder_ja": "メトロポリタン美術館所蔵 JP1847（Met object 45434）の主画像 DP130155。https://images.metmuseum.org/CRDImages/as/original/DP130155.jpg を 2026-09-26 に進行役がダウンロードした（利用者が D3 で「允许下载」と承認）。",
+    "px_per_legacy_ref_px": 3.215104,
+    "px_per_legacy_ref_px_xy": [3.2158333, 3.2143742],
+    "px_per_legacy_ref_px_ja": "旧原画（1200×807）の 1 参照 px に当たる高解像度 px。縦横の倍率（3859/1200、2594/807）の相乗平均。長さの換算に使い、面積は 2 乗する。",
+    "registration_summary": "旧原画は新原画の画素中心の約束での縮小（x 倍率 3859/1200 = 3.21583、y 倍率 2594/807 = 3.21437、差 0.045%）で、裁ち落としと余白の差はない。新原画を INTER_AREA で 1200×807 に縮小して旧原画と ECC で合わせると、残りの平行移動は (-0.0008, 0.0037) 旧参照 px、アフィンの四隅での最大移動は 0.047 旧参照 px（0.063 表示 px）、相関 0.9986。SIFT＋RANSAC の相似変換（独立の確認）は回転 0.0008°、inlier 2290 点、残差 RMS 0.239・p95 0.481 旧参照 px（特徴点の位置の偏りを含む）。画素値は平均 6.7（8bit）違う（縮小フィルターと JPEG の違い）。詳細は Docs/Evidence/ArtFirst/23/23_registration.json。"
+  },
+  "legacy_reference": {
     "path": "Docs/References/Met_JP1847.jpg",
     "sha256": "a7e06182eba5205c26b4a71a06eebaead8ef2541f348a15b90174a75fc62cab0",
     "width": 1200,
     "height": 807,
-    "color_space_assumption_ja": "埋め込み ICC プロファイルなし。sRGB（D65）として扱う。",
-    "holder_ja": "メトロポリタン美術館所蔵 JP1847 の公開画像（リポジトリ既存ファイル）。高解像度原本は未取得。"
+    "role_ja": "v0〜v0.1 の原画。履歴としてリポジトリに残し、真値の抽出には使わない。",
+    "relation_ja": "新原画を画素中心の約束で縮小した画像：x_legacy + 0.5 = (x_h + 0.5)·1200/3859、y_legacy + 0.5 = (y_h + 0.5)·807/2594（縦横の倍率が 0.045% 違う）。裁ち落としや余白の差はない。",
+    "registration_evidence": "Docs/Evidence/ArtFirst/23/23_registration.json"
   },
   "display_frame": {
     "width": 1920,
     "height": 1080,
-    "scale": 1.338289962825279,
-    "scale_expr": "1080 / 807",
-    "offset_x": 157.02602230483274,
-    "offset_x_expr": "(1920 - 1200 * 1080 / 807) / 2",
+    "scale": 0.4163454124903624,
+    "scale_expr": "1080 / 2594",
+    "offset_x": 156.66152659984573,
+    "offset_x_expr": "(1920 - 3859 * 1080 / 2594) / 2",
     "offset_y": 0.0,
-    "painting_extent_px": [1606, 1080],
+    "painting_extent_px": [1606.677, 1080],
     "side_bar_px": 157,
-    "ref_to_display_ja": "x_d = scale * (x_r + 0.5) - 0.5 + offset_x,  y_d = scale * (y_r + 0.5) - 0.5",
+    "ref_to_display_ja": "x_d = scale * (x_r + 0.5) - 0.5 + offset_x,  y_d = scale * (y_r + 0.5) - 0.5（x_r, y_r は高解像度原画の画素中心座標）",
+    "downsample_supersample": 3,
+    "downsample_ja": "原画・マスクを表示フレームへ縮小するときは、3×3 の超標本化格子へ双線形で写し、3×3 を平均する（面積平均の近似）。",
     "scored_columns": [157, 1762],
     "scored_rows": [0, 1079],
-    "excluded_ja": "左右 157 px の黒帯（x < 157 と x > 1762）は採点しない。原画は表示フレームの縦いっぱい（1080 px）に置く。"
+    "excluded_ja": "左右の黒帯（x < 157 と x > 1762）は採点しない。原画は表示フレームの縦いっぱい（1080 px）に置き、幅は 1606.68 px。採点する列は v0.1 と同じ（157〜1762 列はどれも原画の内側）。",
+    "shift_from_v0_1_ja": "v0.1 の写像（旧原画を 1080/807 倍、横オフセット 157.026 px）と同じ内容の点の表示位置の差は、縦 0、横は x_d に比例して −0.364〜+0.364 px（左端 −0.364、中央 0、右端 +0.364）。旧原画の縦横比の歪み（0.045%）を除いて等方にしたためで、主浪の範囲（x_d 157〜1110）では −0.364〜+0.069 px、唇先端（約 1108）で +0.068 px。PaintingCam v1 と縦 1080 px = 縦画角 26° の約束は変えない。値は 23_registration.json。"
   },
   "painting_cam": {
     "id": "PaintingCam v1",
@@ -43,7 +60,7 @@
     "projection": "perspective（physical camera・lens shift なし）",
     "fixed_during_formation": true,
     "fixed_ja": "形成区間を通して位置・向き・画角を固定する（backlog 94）。船上用の揺れは入れない。",
-    "derived_euler_deg_expected": [354.20758056640627, 357.83074951171877, 0.0],
+    "derived_euler_deg_expected": [354.20758056640625, 357.83074951171875, 0.0],
     "source": [
       {
         "path": "Unity/Assets/GreatWave/Editor/M1CompositionBuilder.cs",
@@ -86,7 +103,7 @@
       "boundary_extraction_ja": "領域の被覆率（0..1）を σ=1.0 px のガウスで平滑化し、0.5 等値線を画素中心格子上の線形補間（marching squares）で求め、交点と各セルの中点を点列にする（合成円の 3.0 px 平行移動で誤差 ≤0.035 px を確認）。ID 画像が 3840×2160 の場合は 2×2 平均で 1920×1080 の被覆率にしてから抽出する。",
       "assignment_ja": "描画側の境界点は、同じ族（例: sky 境界）の真値境界点のうち最も近い点のラベルに割り当てる（Voronoi 割当）。対象の最大距離 = max(真値点→描画点の最近距離の最大, 対象に割り当てた描画点→真値点の最近距離の最大)。p95 は両方向の距離を合わせた 95 パーセンタイル。",
       "outline_note_ja": "真値輪郭は『空とそれ以外の境界』で、原画の藍の輪郭線の外縁にあたる。線幅の半分の内側補正は生成器側の仕事で、真値には入れない。",
-      "per_claw_ja": "爪ごとの 4 px は代表 10 形と各列の付け根・先端だけ厳密判定（編号29/33 で定義）。本 v0 では爪入り輪郭を記録のみ。"
+      "per_claw_ja": "爪ごとの 4 px は代表 10 形と各列の付け根・先端だけ厳密判定（番号29/33 で定義）。本 v0 では爪入り輪郭を記録のみ。"
     },
     "color": {
       "metric": "CIEDE2000",
@@ -99,49 +116,62 @@
     "line_width": {
       "tolerance": 0.2,
       "judged": false,
-      "note_ja": "1200×807 では ±20% ≈ ±0.3 参照 px で測定不能。記録のみ。高解像度原本の入手後に判定する。"
+      "note_ja": "v0.1 までは 1200×807 で ±20% ≈ ±0.3 参照 px となり測れなかった。v0.2 の高解像度原画では線幅が約 7 高解像度 px あり、半深さ全幅の輪郭線幅プロファイルを測れるようになった（記録のみ）。判定の可否は 23_line_width.json と Step_23_ja.md の修正2回目に書いた。判定を始めるかは計画（番号36）で決め、この版では judged: false のまま。",
+      "profile": {
+        "method_ja": "空境界（線の外縁）の点から水側への法線に沿って L* を標本化し、空側の中央値と線の芯の最小の中間（半深さ）を下回ってから上回るまでの長さ（半深さ全幅）。",
+        "sky_side_legacy_ref_px": 1.5,
+        "max_width_legacy_ref_px": 6.0,
+        "min_depth_L": 20.0,
+        "spacing_legacy_ref_px": 1.0,
+        "step_ref_px": 0.25,
+        "step_display_px": 0.1
+      }
     },
     "calibration_gate_ja": {
       "sharma2005_ciede2000": "34 組の誤差 < 1e-4",
       "self_zero": "原画と自身の比較 = 0 px",
       "synthetic_shift": "3.0 px 平行移動を 3.0 ± 0.1 px と測る",
       "flat_patch": "平塗り色区の読み戻し ΔE00 < 0.5",
-      "canny_support": "目標折れ線から Canny エッジまで ≤ 1 参照 px の割合 ≥ 95%",
+      "canny_support": "目標折れ線から Canny エッジまで ≤ 1 参照 px の割合 ≥ 95%。v0.2 でも 1 参照 px は凍結時の旧参照 px（= 3.2151 高解像度 px = 1.3383 表示 px）として扱い、しきい値の大きさを変えない。Canny の平滑 σ と閾値も旧参照 px の値を物理的に同じ大きさへ換算する（σ 0.8 → 2.572 高解像度 px、閾値 40/120 → 12.44/37.32）。≤ 1 高解像度 px の割合は記録のみ。",
       "unity_markers": "Unity の世界標識 5 点と numpy 投影の差 ≤ 0.5 px（第2部で実施。結果は 23_gate.json）",
       "unity_flat_patch": "Unity の sRGB 経路で描いた平塗り色区の読み戻し ΔE00 < 0.5（第2部で実施。計画の受入の平塗り項目を Unity の経路でも確かめる）",
       "scope_ja": "較正門は評価器の測り方（色差の式、輪郭距離、平行移動、画面写像、色の経路）と、真値の折れ線が原画のエッジに乗っているか（Canny 支持率＝精度）を確かめる。真値が原画の水の面を漏れなく含むか（完全性）は判定しない。完全性は自己テストの記録のみの項目（truth_completeness_record）で見る。"
     }
   },
   "extraction": {
+    "conversion_ja": "v0.2 の長さ（px）は旧参照 px の v0.1 の値 × px_per_legacy_ref_px（3.2151）、面積は × 3.2151²、勾配（L*/px）は ÷ 3.2151 に換算した。画素の範囲は旧参照 px の画素の範囲を覆う高解像度 px の範囲にした。色のしきい値は変えていない。v0.1 の値は legacy_v0_1 に残した。",
     "sky": {
-      "blur_sigma_L": 0.8,
-      "gradient_threshold_L_per_px": 6.0,
+      "blur_sigma_L": 2.5721,
+      "gradient_threshold_L_per_px": 1.8662,
       "barrier_b_below": -4.0,
       "barrier_L_below": 30.0,
-      "seed_row_ref": 3,
-      "seed_x_ref": [130, 1190],
-      "small_enclosed_area_ref_px": 1200,
-      "refine_iterations": 2,
+      "barrier_dilate_ref_px": 3,
+      "barrier_dilate_ja": "v0.2 で追加。障壁（色・勾配・手動）を半径 3 px の円で膨らませてから塗りつぶし、幅 6 px（約 1.9 旧参照 px）未満の途切れを閉じる。高解像度では線の端どうしの狭い途切れが解像する。手動の障壁 4 本のもとで、半径 0 では空が主浪の水の面へ流れ込み（v0.2 の水の面の 20 px 内側で 107 万 px）、半径 1 で流れ込みは止まるが爪の間へ 1,791 px 多く空が入り、半径 2 では 642 px だった。余裕を見て 3 px にした（23_extract_record.json の gap_closing_radius）。境界の詰めは膨らませる前の色の障壁で止まる。",
+      "seed_row_ref": 11,
+      "seed_x_ref": [419, 3828],
+      "small_enclosed_area_ref_px": 12404,
+      "refine_iterations": 9,
+      "refine_iterations_ja": "v0.1 の 2 回 × 3.2151 ≈ 6 回に、膨らませた 3 px を加えた。",
       "refine_L_tolerance": 12.0,
-      "refine_window_ref_px": 9
+      "refine_window_ref_px": 29
     },
     "envelope": {
-      "close_radius_ref_px": 20,
-      "open_radius_ref_px": 10,
-      "smooth_sigma_ref_px": 4.0,
+      "close_radius_ref_px": 64,
+      "open_radius_ref_px": 32,
+      "smooth_sigma_ref_px": 12.8604,
       "applied_only_inside": "claw_zone（manual_annotations.json）"
     },
     "sky_bands_ref": {
-      "top_y": [0, 100],
-      "top_x": [130, 1199],
-      "bottom_y": [530, 592],
+      "top_y": [0, 324],
+      "top_x": [418, 3858],
+      "bottom_y": [1704, 1905],
       "note_ja": "空上 = 上端帯（生成りの帯）、空下 = 水平線際の暗い帯。明暗の境 L_mid = (L_top + L_bottom) / 2。"
     },
     "sky_dark": {
       "smooth_sigma_display_px": 6.0,
-      "min_y_ref": 300,
+      "min_y_ref": 964,
       "min_component_display_px": 1500,
-      "note_ja": "暗い空 = 空 ∩ 平滑 L* < L_mid（平滑化は空の画素だけの正規化畳み込み）。参照 y >= 300 の帯に限定し、閉じた穴はすべて埋め、1500 px² 未満の島を除く（飛沫の白点・題箋を境界に入れない）。"
+      "note_ja": "暗い空 = 空 ∩ 平滑 L* < L_mid（平滑化は空の画素だけの正規化畳み込み）。参照 y >= 964（旧参照 y 300） の帯に限定し、閉じた穴はすべて埋め、1500 px² 未満の島を除く（飛沫の白点・題箋を境界に入れない）。"
     },
     "palette_seed_lab": {
       "white": [95.2, -2.2, 10.1],
@@ -154,7 +184,45 @@
     "ochre": {
       "b_min": 13.5,
       "L_range": [55.0, 96.0],
-      "blur_sigma": 1.0
+      "blur_sigma": 3.2151
+    },
+    "boat": {
+      "close_radius_ref_px": 6,
+      "fill_enclosed_area_ref_px": 20674,
+      "min_component_ref_px": 310,
+      "note_ja": "v0.1 では truthlib.boat_mask の中の固定値（閉じ 2、穴 2000、最小 30 旧参照 px）。v0.2 で換算してここへ出した。"
+    },
+    "legacy_v0_1": {
+      "sky": {
+        "blur_sigma_L": 0.8,
+        "gradient_threshold_L_per_px": 6.0,
+        "barrier_b_below": -4.0,
+        "barrier_L_below": 30.0,
+        "seed_row_ref": 3,
+        "seed_x_ref": [130, 1190],
+        "small_enclosed_area_ref_px": 1200,
+        "refine_iterations": 2,
+        "refine_L_tolerance": 12.0,
+        "refine_window_ref_px": 9
+      },
+      "envelope": {
+        "close_radius_ref_px": 20,
+        "open_radius_ref_px": 10,
+        "smooth_sigma_ref_px": 4.0,
+        "applied_only_inside": "claw_zone（manual_annotations.json）"
+      },
+      "sky_bands_ref": {
+        "top_y": [0, 100],
+        "top_x": [130, 1199],
+        "bottom_y": [530, 592]
+      },
+      "sky_dark_min_y_ref": 300,
+      "ochre_blur_sigma": 1.0,
+      "boat": {
+        "close_radius_ref_px": 2,
+        "fill_enclosed_area_ref_px": 2000,
+        "min_component_ref_px": 30
+      }
     }
   }
 }

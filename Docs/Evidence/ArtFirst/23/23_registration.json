@@ -1,0 +1,139 @@
+{
+ "schema": "GreatWave.Step23.registration/1",
+ "generated_utc": "2026-09-25T18:44:41+00:00",
+ "tools": {
+  "python": "3.10.6",
+  "numpy": "2.2.6",
+  "opencv": "4.12.0"
+ },
+ "reference": {
+  "path": "Docs/References/Met_JP1847_DP130155.jpg",
+  "sha256": "cbb9988f2f18b9180a1cc0cf5dbb0e3bbf8f2e85d17930cf6ca9ab36fac36303",
+  "size": [
+   3859,
+   2594
+  ]
+ },
+ "legacy": {
+  "path": "Docs/References/Met_JP1847.jpg",
+  "sha256": "a7e06182eba5205c26b4a71a06eebaead8ef2541f348a15b90174a75fc62cab0",
+  "size": [
+   1200,
+   807
+  ]
+ },
+ "pixel_centre_model": {
+  "x_legacy_plus_half": "(x_h + 0.5) * 1200 / 3859",
+  "y_legacy_plus_half": "(y_h + 0.5) * 807 / 2594",
+  "scale_x": 3.2158333333333333,
+  "scale_y": 3.214374225526642,
+  "anisotropy_percent": 0.0454
+ },
+ "ecc_area_resized_vs_legacy": {
+  "translation": {
+   "correlation": 0.998607,
+   "dx_dy_legacy_px": [
+    -0.00079,
+    0.00367
+   ]
+  },
+  "affine": {
+   "correlation": 0.998609,
+   "matrix": [
+    [
+     1.000021,
+     4.6e-05,
+     -0.031375
+    ],
+    [
+     1.4e-05,
+     1.000061,
+     -0.035472
+    ]
+   ],
+   "max_corner_displacement_legacy_px": 0.0474,
+   "max_corner_displacement_display_px": 0.0634
+  },
+  "rgb_abs_diff_mean_8bit": 6.727,
+  "rgb_abs_diff_p99_8bit": 45.0,
+  "note_ja": "高解像度原画を INTER_AREA（画素中心の約束）で 1200×807 に縮小し、旧原画との ECC で残りのずれを測った。幾何の残差は小さいが、画素値は平均 6.7（8bit）違う。旧原画は別の縮小フィルターと JPEG 圧縮を経たとみられる。"
+ },
+ "features_sift_ransac": {
+  "similarity": {
+   "matrix_hi_to_legacy": [
+    [
+     0.31100387,
+     -4.33e-06,
+     -0.22023127
+    ],
+    [
+     4.33e-06,
+     0.31100387,
+     -0.01947721
+    ]
+   ],
+   "inliers": 2290,
+   "matches": 2374,
+   "residual_rms_legacy_px": 0.2391,
+   "residual_p95_legacy_px": 0.4815,
+   "pixel_centre_model_residual_rms_legacy_px": 0.3379,
+   "scale_x": 0.3110039,
+   "scale_y": 0.3110039,
+   "rotation_deg": 0.0008
+  },
+  "affine": {
+   "matrix_hi_to_legacy": [
+    [
+     0.31096043,
+     4.44e-06,
+     -0.17322026
+    ],
+    [
+     1e-07,
+     0.31110433,
+     -0.17017915
+    ]
+   ],
+   "inliers": 2291,
+   "matches": 2374,
+   "residual_rms_legacy_px": 0.229,
+   "residual_p95_legacy_px": 0.4809,
+   "pixel_centre_model_residual_rms_legacy_px": 0.3393,
+   "scale_x": 0.3109604,
+   "scale_y": 0.3111043,
+   "rotation_deg": 2e-05
+  }
+ },
+ "features_note_ja": "SIFT の特徴点は縮尺の違う画像の間で位置に 0.1〜0.2 旧参照 px の偏りが出る。幾何の判断は ECC を主にし、特徴点は独立の確認（回転・倍率）に使う。",
+ "conclusion_ja": "旧原画は新原画を画素中心の約束で縦横別の倍率（3.21583・3.21437、差 0.045%）に縮小したもので、裁ち落としと余白の差はない。ECC のアフィン残差は四隅で最大 0.047 旧参照 px（0.063 表示 px）、回転は 0.0008°（特徴点）。",
+ "display_mapping": {
+  "v0_1": {
+   "scale": 1.338289962825279,
+   "offset_x": 157.02602230483274,
+   "offset_y": 0.0
+  },
+  "v0_2": {
+   "scale": 0.4163454124903624,
+   "offset_x": 156.66152659984573,
+   "offset_y": 0.0
+  },
+  "shift_v0_2_minus_v0_1_display_px": {
+   "dx_at_x_display": {
+    "157": -0.3643,
+    "400": -0.254,
+    "700": -0.1178,
+    "959.5": -0.0,
+    "1108": 0.0674,
+    "1400": 0.2,
+    "1762": 0.3643
+   },
+   "dx_max_abs_painting": 0.3645,
+   "dx_main_wave_range_157_1110": [
+    -0.3643,
+    0.0683
+   ],
+   "dy_max_abs": 0.0
+  },
+  "note_ja": "同じ原画の内容の点の表示位置の差（v0.2 − v0.1）。縦は 0。横は旧原画の縦横比の歪みを除いた分で、x_d に比例する。"
+ }
+}

@@ -1,18 +1,18 @@
 {
  "schema": "GreatWave.PaintingTruth.metrics/1",
- "generated_utc": "2026-09-25T18:49:54+00:00",
+ "generated_utc": "2026-09-25T18:50:07+00:00",
  "tools": {
   "python": "3.10.6",
   "numpy": "2.2.6",
   "opencv": "4.12.0"
  },
- "command": "py -3.10 Tools/PaintingTruth/evaluate.py --render Unity/Build/ArtFirst/23/af23_baseline_M1R01.png --ids Unity/Build/ArtFirst/23/af23_baseline_M1R01_ids.png --idmap Unity/Build/ArtFirst/23/af23_baseline_M1R01_idmap.json --out-dir Unity/Build/ArtFirst/23/eval_M1R01 --name 23_baseline_M1R01",
+ "command": "py -3.10 Tools/PaintingTruth/evaluate.py --render Unity/Build/ArtFirst/24/24_painting_tstar_direct.png --ids Unity/Build/ArtFirst/24/24_painting_tstar_ids.png --idmap Unity/Build/ArtFirst/24/24_idmap.json --out-dir Unity/Build/ArtFirst/23/recheck24 --name 23_recheck24_tstar",
  "input": {
-  "render": "Unity/Build/ArtFirst/23/af23_baseline_M1R01.png",
-  "render_sha256": "7cc8c7e79b1189d3905b42f7116b71413ddbad6f5e6e21344ace561b98cfc41b",
+  "render": "Unity/Build/ArtFirst/24/24_painting_tstar_direct.png",
+  "render_sha256": "0faf8e5e6fe4ec7420ff8d67487b76e0119640b354edf26f0d6ccdc10ebe4686",
   "mode": "ids",
-  "ids": "Unity/Build/ArtFirst/23/af23_baseline_M1R01_ids.png",
-  "ids_sha256": "bb54dff37192a303665d729ee569165304fea804cc8a391028ba4e6136ef5d41"
+  "ids": "Unity/Build/ArtFirst/24/24_painting_tstar_ids.png",
+  "ids_sha256": "ab91aa4fe0220f18de20c1a472cc97a94fab9faeb7843398901cfc7d8860bc5a"
  },
  "truth": {
   "version": "v0.2",
@@ -47,23 +47,23 @@
      "target": "78",
      "family": "sky_envelope",
      "metric": "labelled Hausdorff (display px)",
-     "value_max_px": 404.6533,
-     "p95_px": 382.9922,
-     "p50_px": 54.9496,
-     "max_truth_to_render": 61.7582,
-     "max_render_to_truth": 404.6533,
+     "value_max_px": 0.7582,
+     "p95_px": 0.6366,
+     "p50_px": 0.256,
+     "max_truth_to_render": 0.7582,
+     "max_render_to_truth": 0.753,
      "n_truth": 592,
-     "n_render_assigned": 1092,
+     "n_render_assigned": 596,
      "threshold_px": 4.0,
-     "verdict": "fail",
+     "verdict": "pass",
      "version": "envelope",
      "worst_display_xy": [
-      442.0,
-      749.07
+      317.7,
+      352.0
      ]
     }
    ],
-   "verdict": "fail"
+   "verdict": "pass"
   },
   "130": {
    "backlog": 130,
@@ -72,23 +72,23 @@
      "target": "130",
      "family": "sky_envelope",
      "metric": "labelled Hausdorff (display px)",
-     "value_max_px": 48.699,
-     "p95_px": 45.121,
-     "p50_px": 30.7966,
-     "max_truth_to_render": 47.3767,
-     "max_render_to_truth": 48.699,
+     "value_max_px": 0.505,
+     "p95_px": 0.3795,
+     "p50_px": 0.1896,
+     "max_truth_to_render": 0.505,
+     "max_render_to_truth": 0.4948,
      "n_truth": 496,
-     "n_render_assigned": 558,
+     "n_render_assigned": 496,
      "threshold_px": 4.0,
-     "verdict": "fail",
+     "verdict": "pass",
      "version": "envelope",
      "worst_display_xy": [
-      320.87,
-      275.9
+      357.5,
+      308.0
      ]
     }
    ],
-   "verdict": "fail"
+   "verdict": "pass"
   },
   "131": {
    "backlog": 131,
@@ -97,23 +97,23 @@
      "target": "131",
      "family": "sky_envelope",
      "metric": "labelled Hausdorff (display px)",
-     "value_max_px": 39.9381,
-     "p95_px": 34.1686,
-     "p50_px": 10.2702,
-     "max_truth_to_render": 35.6487,
-     "max_render_to_truth": 39.9381,
+     "value_max_px": 0.6735,
+     "p95_px": 0.5267,
+     "p50_px": 0.2028,
+     "max_truth_to_render": 0.6735,
+     "max_render_to_truth": 0.6735,
      "n_truth": 758,
-     "n_render_assigned": 768,
+     "n_render_assigned": 754,
      "threshold_px": 4.0,
-     "verdict": "fail",
+     "verdict": "pass",
      "version": "envelope",
      "worst_display_xy": [
-      461.5,
-      159.75
+      724.0,
+      93.61
      ]
     }
    ],
-   "verdict": "fail"
+   "verdict": "pass"
   },
   "132": {
    "backlog": 132,
@@ -122,23 +122,23 @@
      "target": "132",
      "family": "sky_envelope",
      "metric": "labelled Hausdorff (display px)",
-     "value_max_px": 248.8821,
-     "p95_px": 239.4992,
-     "p50_px": 168.8868,
-     "max_truth_to_render": 140.5561,
-     "max_render_to_truth": 248.8821,
+     "value_max_px": 1.048,
+     "p95_px": 0.6196,
+     "p50_px": 0.2405,
+     "max_truth_to_render": 1.048,
+     "max_render_to_truth": 1.048,
      "n_truth": 1213,
-     "n_render_assigned": 3034,
+     "n_render_assigned": 1209,
      "threshold_px": 4.0,
-     "verdict": "fail",
+     "verdict": "pass",
      "version": "envelope",
      "worst_display_xy": [
-      1353.37,
-      314.0
+      951.22,
+      185.0
      ]
     }
    ],
-   "verdict": "fail"
+   "verdict": "pass"
   },
   "72": {
    "backlog": 72,
@@ -147,19 +147,19 @@
      "target": "72",
      "family": "sky_envelope",
      "metric": "labelled Hausdorff (display px)",
-     "value_max_px": 404.4588,
-     "p95_px": 293.2485,
-     "p50_px": 80.8107,
-     "max_truth_to_render": 118.1506,
-     "max_render_to_truth": 404.4588,
+     "value_max_px": 9.543,
+     "p95_px": 3.4217,
+     "p50_px": 0.3325,
+     "max_truth_to_render": 8.8077,
+     "max_render_to_truth": 9.543,
      "n_truth": 2145,
-     "n_render_assigned": 5351,
+     "n_render_assigned": 2082,
      "threshold_px": 4.0,
      "verdict": "fail",
      "version": "envelope",
      "worst_display_xy": [
-      442.5,
-      749.23
+      1107.41,
+      376.0
      ]
     }
    ],
@@ -172,21 +172,21 @@
      "target": "71",
      "family": "sky_envelope",
      "metric": "labelled Hausdorff (display px)",
-     "value_max_px": 404.4588,
-     "p95_px": 299.5997,
-     "p50_px": 62.376,
-     "max_truth_to_render": 118.1506,
-     "max_render_to_truth": 404.4588,
+     "value_max_px": 43.4703,
+     "p95_px": 16.0344,
+     "p50_px": 0.3909,
+     "max_truth_to_render": 43.4703,
+     "max_render_to_truth": 25.8856,
      "n_truth": 2529,
-     "n_render_assigned": 4103,
+     "n_render_assigned": 2271,
      "threshold_px": 4.0,
      "verdict": "fail",
      "version": "envelope",
      "worst_display_xy": [
-      442.5,
-      749.23
+      1045.0,
+      744.03
      ],
-     "iou": 0.68962
+     "iou": 0.97472
     }
    ],
    "verdict": "fail"
@@ -213,11 +213,11 @@
     {
      "target": "sky_bottom",
      "metric": "CIEDE2000 of region median (3 px erosion)",
-     "value": 27.6426,
+     "value": 30.7121,
      "render_lab": [
-      86.892,
-      -1.214,
-      19.372
+      92.154,
+      0.206,
+      19.639
      ],
      "truth_lab": [
       53.922498,
@@ -253,11 +253,11 @@
     {
      "target": "boat_ochre",
      "metric": "CIEDE2000 of region median (3 px erosion)",
-     "value": 34.2974,
+     "value": 34.2714,
      "render_lab": [
       41.134,
-      11.786,
-      27.362
+      11.376,
+      26.976
      ],
      "truth_lab": [
       80.361399,
@@ -279,12 +279,12 @@
      "family": "boat_fg",
      "metric": "labelled Hausdorff (display px)",
      "value_max_px": 189.9698,
-     "p95_px": 153.099,
-     "p50_px": 36.626,
-     "max_truth_to_render": 61.767,
+     "p95_px": 153.1081,
+     "p50_px": 34.126,
+     "max_truth_to_render": 58.7996,
      "max_render_to_truth": 189.9698,
      "n_truth": 4400,
-     "n_render_assigned": 4136,
+     "n_render_assigned": 4120,
      "threshold_px": 4.0,
      "verdict": "record-only",
      "version": null,
@@ -303,20 +303,17 @@
      "target": "boat_left",
      "family": "boat_left",
      "metric": "labelled Hausdorff (display px)",
-     "value_max_px": 157.7306,
-     "p95_px": 122.7819,
-     "p50_px": 29.1225,
-     "max_truth_to_render": 157.7306,
-     "max_render_to_truth": 82.9162,
+     "value_max_px": "inf",
+     "p95_px": "inf",
+     "p50_px": "inf",
+     "max_truth_to_render": "inf",
+     "max_render_to_truth": null,
      "n_truth": 3568,
-     "n_render_assigned": 2237,
+     "n_render_assigned": 0,
      "threshold_px": 4.0,
      "verdict": "record-only",
      "version": null,
-     "worst_display_xy": [
-      208.0,
-      498.01
-     ]
+     "error": "描画側の境界なし"
     }
    ],
    "verdict": "record-only"
@@ -328,19 +325,19 @@
      "target": "boat_mid",
      "family": "boat_mid",
      "metric": "labelled Hausdorff (display px)",
-     "value_max_px": 176.5822,
-     "p95_px": 162.6165,
-     "p50_px": 60.7092,
+     "value_max_px": 177.211,
+     "p95_px": 163.3963,
+     "p50_px": 58.9467,
      "max_truth_to_render": 136.4401,
-     "max_render_to_truth": 176.5822,
+     "max_render_to_truth": 177.211,
      "n_truth": 2656,
-     "n_render_assigned": 3643,
+     "n_render_assigned": 3607,
      "threshold_px": 4.0,
      "verdict": "record-only",
      "version": null,
      "worst_display_xy": [
-      1754.23,
-      683.0
+      1753.34,
+      686.0
      ]
     }
    ],
@@ -353,19 +350,19 @@
      "target": "78",
      "family": "sky_claws",
      "metric": "labelled Hausdorff (display px)",
-     "value_max_px": 404.6533,
-     "p95_px": 382.9922,
-     "p50_px": 54.9496,
-     "max_truth_to_render": 61.7582,
-     "max_render_to_truth": 404.6533,
+     "value_max_px": 0.7582,
+     "p95_px": 0.6366,
+     "p50_px": 0.256,
+     "max_truth_to_render": 0.7582,
+     "max_render_to_truth": 0.753,
      "n_truth": 592,
-     "n_render_assigned": 1092,
+     "n_render_assigned": 596,
      "threshold_px": 4.0,
      "verdict": "record-only",
      "version": "claws",
      "worst_display_xy": [
-      442.0,
-      749.07
+      317.7,
+      352.0
      ]
     }
    ],
@@ -378,19 +375,19 @@
      "target": "130",
      "family": "sky_claws",
      "metric": "labelled Hausdorff (display px)",
-     "value_max_px": 48.699,
-     "p95_px": 45.121,
-     "p50_px": 30.7966,
-     "max_truth_to_render": 47.3767,
-     "max_render_to_truth": 48.699,
+     "value_max_px": 0.505,
+     "p95_px": 0.3795,
+     "p50_px": 0.1896,
+     "max_truth_to_render": 0.505,
+     "max_render_to_truth": 0.4948,
      "n_truth": 496,
-     "n_render_assigned": 558,
+     "n_render_assigned": 496,
      "threshold_px": 4.0,
      "verdict": "record-only",
      "version": "claws",
      "worst_display_xy": [
-      320.87,
-      275.9
+      357.5,
+      308.0
      ]
     }
    ],
@@ -403,19 +400,19 @@
      "target": "131",
      "family": "sky_claws",
      "metric": "labelled Hausdorff (display px)",
-     "value_max_px": 39.9381,
-     "p95_px": 34.171,
-     "p50_px": 10.2442,
-     "max_truth_to_render": 35.6487,
-     "max_render_to_truth": 39.9381,
+     "value_max_px": 0.6735,
+     "p95_px": 0.5267,
+     "p50_px": 0.2028,
+     "max_truth_to_render": 0.6735,
+     "max_render_to_truth": 0.6735,
      "n_truth": 758,
-     "n_render_assigned": 766,
+     "n_render_assigned": 754,
      "threshold_px": 4.0,
      "verdict": "record-only",
      "version": "claws",
      "worst_display_xy": [
-      461.5,
-      159.75
+      724.0,
+      93.61
      ]
     }
    ],
@@ -428,19 +425,19 @@
      "target": "132",
      "family": "sky_claws",
      "metric": "labelled Hausdorff (display px)",
-     "value_max_px": 247.6643,
-     "p95_px": 234.6081,
-     "p50_px": 129.2508,
-     "max_truth_to_render": 140.3493,
-     "max_render_to_truth": 247.6643,
+     "value_max_px": 43.7724,
+     "p95_px": 32.7319,
+     "p50_px": 1.1901,
+     "max_truth_to_render": 43.7724,
+     "max_render_to_truth": 12.0732,
      "n_truth": 2002,
-     "n_render_assigned": 3061,
+     "n_render_assigned": 1209,
      "threshold_px": 4.0,
      "verdict": "record-only",
      "version": "claws",
      "worst_display_xy": [
-      1353.37,
-      314.0
+      1026.55,
+      313.27
      ]
     }
    ],
@@ -453,19 +450,19 @@
      "target": "72",
      "family": "sky_claws",
      "metric": "labelled Hausdorff (display px)",
-     "value_max_px": 404.4588,
-     "p95_px": 283.6942,
-     "p50_px": 66.4843,
-     "max_truth_to_render": 118.1506,
-     "max_render_to_truth": 404.4588,
+     "value_max_px": 36.6322,
+     "p95_px": 24.7555,
+     "p50_px": 2.1866,
+     "max_truth_to_render": 36.6322,
+     "max_render_to_truth": 21.3784,
      "n_truth": 3440,
-     "n_render_assigned": 5339,
+     "n_render_assigned": 2082,
      "threshold_px": 4.0,
      "verdict": "record-only",
      "version": "claws",
      "worst_display_xy": [
-      442.5,
-      749.23
+      952.0,
+      385.24
      ]
     }
    ],
@@ -478,21 +475,21 @@
      "target": "71",
      "family": "sky_claws",
      "metric": "labelled Hausdorff (display px)",
-     "value_max_px": 404.4588,
-     "p95_px": 291.2891,
-     "p50_px": 55.7567,
-     "max_truth_to_render": 118.1506,
-     "max_render_to_truth": 404.4588,
+     "value_max_px": 43.4703,
+     "p95_px": 28.5116,
+     "p50_px": 2.7726,
+     "max_truth_to_render": 43.4703,
+     "max_render_to_truth": 25.8856,
      "n_truth": 3552,
-     "n_render_assigned": 4179,
+     "n_render_assigned": 2266,
      "threshold_px": 4.0,
      "verdict": "record-only",
      "version": "claws",
      "worst_display_xy": [
-      442.5,
-      749.23
+      1045.0,
+      744.03
      ],
-     "iou": 0.71636
+     "iou": 0.92439
     }
    ],
    "verdict": "record-only"
@@ -504,19 +501,19 @@
      "target": "fuji_ridge",
      "family": "sky_claws",
      "metric": "labelled Hausdorff (display px)",
-     "value_max_px": 156.0736,
-     "p95_px": 50.8755,
-     "p50_px": 22.5901,
+     "value_max_px": 53.2317,
+     "p95_px": 49.7364,
+     "p50_px": 22.5284,
      "max_truth_to_render": 53.2317,
-     "max_render_to_truth": 156.0736,
+     "max_render_to_truth": 46.6054,
      "n_truth": 680,
-     "n_render_assigned": 633,
+     "n_render_assigned": 603,
      "threshold_px": 4.0,
      "verdict": "record-only",
      "version": "claws",
      "worst_display_xy": [
-      1203.96,
-      539.5
+      1166.17,
+      697.0
      ]
     }
    ],
@@ -529,19 +526,19 @@
      "target": "fuji_ridge",
      "family": "sky_claws",
      "metric": "labelled Hausdorff (display px)",
-     "value_max_px": 156.0736,
-     "p95_px": 50.8755,
-     "p50_px": 22.5901,
+     "value_max_px": 53.2317,
+     "p95_px": 49.7364,
+     "p50_px": 22.5284,
      "max_truth_to_render": 53.2317,
-     "max_render_to_truth": 156.0736,
+     "max_render_to_truth": 46.6054,
      "n_truth": 680,
-     "n_render_assigned": 633,
+     "n_render_assigned": 603,
      "threshold_px": 4.0,
      "verdict": "record-only",
      "version": "claws",
      "worst_display_xy": [
-      1203.96,
-      539.5
+      1166.17,
+      697.0
      ]
     }
    ],
@@ -553,11 +550,11 @@
     {
      "target": "sky_top",
      "metric": "CIEDE2000 of region median (3 px erosion)",
-     "value": 3.741,
+     "value": 0.1737,
      "render_lab": [
-      86.892,
-      -1.214,
-      19.372
+      92.154,
+      0.206,
+      19.639
      ],
      "truth_lab": [
       92.366517,
@@ -577,11 +574,11 @@
     {
      "target": "mizuiro",
      "metric": "CIEDE2000 of region median (3 px erosion)",
-     "value": 65.9344,
+     "value": 58.9557,
      "render_lab": [
-      19.641,
-      0.853,
-      -18.371
+      25.546,
+      0.651,
+      -22.848
      ],
      "truth_lab": [
       82.959445,
@@ -595,11 +592,11 @@
     {
      "target": "ai_mid",
      "metric": "CIEDE2000 of region median (3 px erosion)",
-     "value": 50.932,
+     "value": 15.2096,
      "render_lab": [
-      86.892,
-      -1.214,
-      19.372
+      25.546,
+      0.651,
+      -22.848
      ],
      "truth_lab": [
       42.172478,
@@ -619,11 +616,11 @@
     {
      "target": "fuji_snow",
      "metric": "CIEDE2000 of region median (3 px erosion)",
-     "value": 9.0929,
+     "value": 7.7275,
      "render_lab": [
-      86.892,
-      -1.214,
-      19.372
+      92.154,
+      0.206,
+      19.639
      ],
      "truth_lab": [
       97.65168,
@@ -661,11 +658,11 @@
     {
      "target": "outline_line_width",
      "metric": "藍の輪郭線の半深さ全幅（表示 px、真値の線幅プロファイルと同じ点・同じ測り方）",
-     "median_display_px": 7.3171,
-     "p10_display_px": 7.2352,
-     "p90_display_px": 7.3991,
-     "median_ref_px": 17.5746,
-     "n_samples": 2,
+     "median_display_px": null,
+     "p10_display_px": null,
+     "p90_display_px": null,
+     "median_ref_px": null,
+     "n_samples": 0,
      "segments": {
       "78": {
        "n_points": 176,
@@ -676,10 +673,10 @@
       },
       "130": {
        "n_points": 134,
-       "n_measured": 2,
-       "median_display_px": 7.3171,
+       "n_measured": 0,
+       "median_display_px": null,
        "truth_median_display_px": 3.3426,
-       "ratio_minus_1": 1.189
+       "ratio_minus_1": null
       },
       "131": {
        "n_points": 230,

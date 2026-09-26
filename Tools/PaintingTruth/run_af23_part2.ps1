@@ -1,9 +1,12 @@
-﻿# 編号23 第2部「較正門（Unity 側）と M1 Revision01 の基線差」を最初から作り直す。
+﻿# 番号23 第2部「較正門（Unity 側）と M1 Revision01 の基線差」を最初から作り直す。
 # 1) 評価器の自己テスト（第1部の較正項目）を回し直す
 # 2) Unity 6000.4.3f1 の batchmode で、標識 5 点・平塗り色区・M1 Revision01 基線を PaintingCam v1 から描く
 #    （出力は Unity/Build/ArtFirst/23、Git 対象外。M1 Revision01 シーンは保存しない）
 # 3) gate_part2.py で標識位置と色を測り、評価器で基線差を出し、Docs/Evidence/ArtFirst/23 へまとめる
+#    （修正2回目から、番号24 が保存した t* の画像を今の真値で評価し直す記録も作る。24 のファイルは変えない）
+# 前段（真値を作り直すとき）：py -3.10 Tools/PaintingTruth/register.py、py -3.10 Tools/PaintingTruth/extract.py
 # Unity は同じプロジェクトで 1 プロセスだけ動かす。1 回の計算は 30 分以内（超えたら止める）。
+# 並行作業があるときは、呼び出す側で Unity/Build/unity.lock を作ってから実行し、終わったら消す。
 param([string]$Unity = 'E:\6000.4.3f1\Editor\Unity.exe')
 $ErrorActionPreference = 'Stop'
 $repo = Split-Path -Parent (Split-Path -Parent $PSScriptRoot)
@@ -24,4 +27,4 @@ if ($process.ExitCode -ne 0) { throw "Unity の描画に失敗しました：$lo
 
 & py -3.10 Tools/PaintingTruth/gate_part2.py
 if ($LASTEXITCODE -ne 0) { throw '較正門の測定または基線差の評価に失敗しました（較正門の不合格を含む）。' }
-Write-Output "編号23 第2部の再生成が終わりました：$(Join-Path $repo 'Docs\Evidence\ArtFirst\23')"
+Write-Output "番号23 第2部の再生成が終わりました：$(Join-Path $repo 'Docs\Evidence\ArtFirst\23')"

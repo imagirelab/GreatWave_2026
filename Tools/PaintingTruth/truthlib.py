@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
-"""PaintingTruth 共通処理（編号23「原画基準と評価器 v0」）。
+"""PaintingTruth 共通処理（番号23「原画基準と評価器 v0」、修正2回目で高解像度原画へ移した）。
 
 numpy と OpenCV だけを使う（matplotlib・scipy は使わない）。
 画素座標は画素中心が整数の配列添字系（x 右、y 下）。
+参照画像（ref）は v0.2 から Met_JP1847_DP130155.jpg（3859×2594）。旧原画 Met_JP1847.jpg（1200×807）の
+座標は「旧参照 px（legacy）」と呼び、painting_truth.json の reference.px_per_legacy_ref_px 倍で高解像度 px に換える。
 """
 import hashlib
 import json
@@ -180,7 +182,7 @@ def ciede2000(lab1, lab2, kL=1.0, kC=1.0, kH=1.0):
 
 # ---------------------------------------------------------------- 画面写像
 class FrameMap:
-    """参照画像（1200×807）と表示フレーム（1920×1080）の写像。"""
+    """参照画像（v0.2 は 3859×2594）と表示フレーム（1920×1080）の写像。倍率は縦横同じ（等方）。"""
 
     def __init__(self, spec):
         d = spec["display_frame"]
@@ -192,6 +194,8 @@ class FrameMap:
         self.ox = float(d["offset_x"])
         self.oy = float(d["offset_y"])
         self.x0, self.x1 = d["scored_columns"]
+        # 縮小（s < 1）のときは ss×ss の超標本化格子へ双線形で写してから ss×ss 平均する（面積平均の近似）。
+        self.ss = int(d.get("downsample_supersample", 1))
         # 添字系での順写像 x_d = s*x_r + tx
         self.tx = 0.5 * self.s - 0.5 + self.ox
         self.ty = 0.5 * self.s - 0.5 + self.oy
@@ -207,7 +211,18 @@ class FrameMap:
         return np.stack([(p[..., 0] - self.tx) / self.s, (p[..., 1] - self.ty) / self.s], -1)
 
     def warp_to_disp(self, img, interp=cv2.INTER_LINEAR):
-        return cv2.warpAffine(img, self.M, (self.W, self.H), flags=interp, borderMode=cv2.BORDER_REPLICATE)
+        """参照 → 表示。縮小のときは超標本化して平均する（uint8 は四捨五入して uint8 に戻す）。"""
+        k = self.ss
+        if self.s >= 1.0 or k <= 1 or interp == cv2.INTER_NEAREST:
+            return cv2.warpAffine(img, self.M, (self.W, self.H), flags=interp, borderMode=cv2.BORDER_REPLICATE)
+        Mk = np.array([[k * self.s, 0.0, k * (self.tx + 0.5) - 0.5], [0.0, k * self.s, k * (self.ty + 0.5) - 0.5]])
+        src = np.asarray(img)
+        big = cv2.warpAffine(src.astype(np.float32), Mk, (self.W * k, self.H * k), flags=interp, borderMode=cv2.BORDER_REPLICATE)
+        sh = (self.H, k, self.W, k) + big.shape[2:]
+        out = big.reshape(sh).mean(axis=(1, 3), dtype=np.float64)
+        if src.dtype == np.uint8:
+            return np.clip(np.round(out), 0, 255).astype(np.uint8)
+        return out
 
     def warp_to_ref(self, img, interp=cv2.INTER_LINEAR):
         return cv2.warpAffine(img, self.Minv, (self.rw, self.rh), flags=interp, borderMode=cv2.BORDER_REPLICATE)
@@ -309,6 +324,9 @@ def segment_sky(lab, p, fill_polys=(), barrier_lines=()):
 
     barrier_lines は原画の藍線が途切れた所を閉じる手動の障壁（manual_annotations.json の barriers_ref）。
     色の障壁と同じ扱いにし、塗りつぶしも境界の詰めも越えない。描画の評価（色モード）では使わない。
+    p["barrier_dilate_ref_px"]（v0.2 で追加、既定 0）が正なら、塗りつぶしの前に障壁全体をその半径の円で膨らませ、
+    線の端どうしの狭い途切れ（幅 < 2r）を閉じる。境界の詰め（refine）は膨らませる前の色の障壁で止まるので、
+    境界は線の外縁へ戻る（refine_iterations は膨らませた分を含めて決める）。
     """
     L, a, b = lab[..., 0].astype(np.float32), lab[..., 1].astype(np.float32), lab[..., 2].astype(np.float32)
     Ls = cv2.GaussianBlur(L, (0, 0), p["blur_sigma_L"])
@@ -319,6 +337,9 @@ def segment_sky(lab, p, fill_polys=(), barrier_lines=()):
     if len(barrier_lines):
         colour_barrier |= barrier_lines_mask(L.shape, barrier_lines)
     barrier = colour_barrier | (g > p["gradient_threshold_L_per_px"])
+    r = int(p.get("barrier_dilate_ref_px", 0))
+    if r > 0:
+        barrier = cv2.dilate(barrier.astype(np.uint8), disk(r)).astype(bool)
     n, cc = cv2.connectedComponents((~barrier).astype(np.uint8), connectivity=4)
     y = int(p["seed_row_ref"])
     x0, x1 = p["seed_x_ref"]
@@ -341,12 +362,24 @@ def segment_sky(lab, p, fill_polys=(), barrier_lines=()):
 
 
 def envelope_water(water, zone, p):
-    """claw_zone 内だけ閉じ→開き→平滑化した水マスクに置き換える（爪なし包絡）。"""
-    w = water.astype(np.uint8)
-    w = cv2.morphologyEx(w, cv2.MORPH_CLOSE, disk(int(p["close_radius_ref_px"])))
-    w = cv2.morphologyEx(w, cv2.MORPH_OPEN, disk(int(p["open_radius_ref_px"])))
-    ws = cv2.GaussianBlur(w.astype(np.float32), (0, 0), float(p["smooth_sigma_ref_px"])) > 0.5
-    return np.where(zone, ws, water)
+    """claw_zone 内だけ閉じ→開き→平滑化した水マスクに置き換える（爪なし包絡）。
+
+    計算は claw_zone の外接矩形を余白（閉じ＋開きの半径＋平滑 σ の 5 倍）付きで切り出して行う（高解像度での速度対策）。
+    画像端では全体で計算した場合と同じく、切り出しの縁も画像端に一致させる。
+    """
+    rc, ro, sg = int(p["close_radius_ref_px"]), int(p["open_radius_ref_px"]), float(p["smooth_sigma_ref_px"])
+    ys, xs = np.nonzero(zone)
+    m = rc + ro + int(math.ceil(5 * sg)) + 4
+    y0, y1 = max(0, ys.min() - m), min(zone.shape[0], ys.max() + m + 1)
+    x0, x1 = max(0, xs.min() - m), min(zone.shape[1], xs.max() + m + 1)
+    w = water[y0:y1, x0:x1].astype(np.uint8)
+    w = cv2.morphologyEx(w, cv2.MORPH_CLOSE, disk(rc))
+    w = cv2.morphologyEx(w, cv2.MORPH_OPEN, disk(ro))
+    ws = cv2.GaussianBlur(w.astype(np.float32), (0, 0), sg) > 0.5
+    out = water.copy()
+    sub = zone[y0:y1, x0:x1]
+    out[y0:y1, x0:x1] = np.where(sub, ws, water[y0:y1, x0:x1])
+    return out
 
 
 # ---------------------------------------------------------------- 境界点
@@ -545,20 +578,22 @@ def ochre_mask(lab_ref, sky_ref, p):
     return (b > p["b_min"]) & (L >= p["L_range"][0]) & (L <= p["L_range"][1]) & ~sky_ref
 
 
-def boat_mask(ochre_ref, roi_pts):
+def boat_mask(ochre_ref, roi_pts, p=None):
+    """船ごとの範囲の中の黄土色。p は painting_truth.json の extraction.boat（v0.1 の値は閉じ 2・穴 2000・最小 30 旧参照 px）。"""
+    p = p or {"close_radius_ref_px": 2, "fill_enclosed_area_ref_px": 2000, "min_component_ref_px": 30}
     m = ochre_ref & poly_mask(ochre_ref.shape, roi_pts)
-    m = cv2.morphologyEx(m.astype(np.uint8), cv2.MORPH_CLOSE, disk(2)).astype(bool)
-    m = fill_small_enclosed(m, 2000)
+    m = cv2.morphologyEx(m.astype(np.uint8), cv2.MORPH_CLOSE, disk(int(p["close_radius_ref_px"]))).astype(bool)
+    m = fill_small_enclosed(m, int(p["fill_enclosed_area_ref_px"]))
     n, lab, st, _ = cv2.connectedComponentsWithStats(m.astype(np.uint8), connectivity=8)
     keep = np.zeros_like(m)
     for i in range(1, n):
-        if st[i, 4] >= 30:
+        if st[i, 4] >= int(p["min_component_ref_px"]):
             keep |= lab == i
     return keep
 
 
 def ref_mask_to_cov(mask_ref, fmap):
-    return fmap.warp_to_disp(mask_ref.astype(np.float32), cv2.INTER_LINEAR).astype(np.float64)
+    return np.asarray(fmap.warp_to_disp(mask_ref.astype(np.float32), cv2.INTER_LINEAR), np.float64)
 
 
 def save_cov_png(path, cov):
@@ -574,15 +609,77 @@ def load_cov_png(path):
 
 
 def painting_display(spec, fmap):
-    """原画を表示フレームへ（双線形）。決定的に再生成できる。
+    """原画を表示フレームへ（v0.2：3×3 超標本化の双線形＋平均で縮小）。決定的に再生成できる。
 
     計測用は黒帯部分を端の画素で延長する（BORDER_REPLICATE）。黒帯は採点しないが、
     延長しておくと原画の左右端に人工の境界ができない。見せる図では黒帯を暗くする。
     """
     ref = imread_rgb(repo_abs(spec["reference"]["path"]))
-    disp = cv2.warpAffine(ref, fmap.M, (fmap.W, fmap.H), flags=cv2.INTER_LINEAR,
-                          borderMode=cv2.BORDER_REPLICATE)
+    disp = fmap.warp_to_disp(ref, cv2.INTER_LINEAR)
     return ref, disp
+
+
+def outline_normals(P, sky_img, probe=2.0):
+    """折れ線 P の単位法線（水側＝空の被覆率が下がる向き）。sky_img は P と同じ座標系の空の被覆率（0..1）。"""
+    P = np.asarray(P, np.float64)
+    tan = np.gradient(P, axis=0)
+    tan /= np.maximum(np.linalg.norm(tan, axis=1, keepdims=True), 1e-9)
+    nrm = np.stack([-tan[:, 1], tan[:, 0]], -1)
+    s = np.asarray(sky_img, np.float32)
+
+    def at(Q):
+        return cv2.remap(s, Q[:, 0].astype(np.float32).reshape(1, -1), Q[:, 1].astype(np.float32).reshape(1, -1),
+                         cv2.INTER_LINEAR).ravel()
+    flip = at(P + probe * nrm) > at(P - probe * nrm)
+    nrm[flip] *= -1
+    return nrm
+
+
+def line_width_profile(L_img, P, nrm, p):
+    """藍の輪郭線の幅（半深さ全幅）。P は空境界（線の外縁）上の点、nrm は水側への単位法線。
+
+    各点で法線に沿って L* を step 間隔で標本化し（双線形）、空側 [-a, -a/2] の中央値を空の明度 Ls、[-a/2, b] の最小を
+    線の芯 Lmin とする。深さ Ls − Lmin が min_depth 未満なら「線なし」。しきい T = Ls − 深さ/2 を下回ってから再び上回るまでの
+    長さ（線形補間）を幅とする。b までに上回らない点は「線が暗い面に続く（merged）」として除く。p の長さの単位は L_img の px。
+    戻り値: dict（width、t_in、t_out、depth は該当しない点で nan、reason は 0=測定、1=線なし、2=merged）。
+    """
+    a, b, st = float(p["sky_side"]), float(p["max_width"]), float(p["step"])
+    ts = np.arange(-a, b + 1e-9, st)
+    P = np.asarray(P, np.float64)
+    Q = P[:, None, :] + ts[None, :, None] * np.asarray(nrm, np.float64)[:, None, :]
+    img = np.asarray(L_img, np.float32)
+    v = cv2.remap(img, Q[..., 0].astype(np.float32), Q[..., 1].astype(np.float32), cv2.INTER_LINEAR,
+                  borderMode=cv2.BORDER_REPLICATE).astype(np.float64)
+    n = len(P)
+    out = {k: np.full(n, np.nan) for k in ("width", "t_in", "t_out", "depth")}
+    out["reason"] = np.zeros(n, np.int8)
+    i_half = int(np.searchsorted(ts, -a / 2.0))
+    Ls = np.median(v[:, :max(1, i_half)], axis=1)
+    for i in range(n):
+        seg = v[i, i_half:]
+        k = int(np.argmin(seg))
+        Lmin = seg[k]
+        depth = Ls[i] - Lmin
+        if depth < float(p["min_depth"]):
+            out["reason"][i] = 1
+            continue
+        T = Ls[i] - depth / 2.0
+        below = seg < T
+        j0 = int(np.argmax(below))  # 最初に T を下回る添字（k 以前に必ずある）
+        after = np.flatnonzero(~below[k:])
+        if len(after) == 0:
+            out["reason"][i] = 2
+            continue
+        j1 = k + int(after[0])       # 芯の後で最初に T 以上へ戻る添字
+        def cross(j):  # seg[j-1] と seg[j] の間の T の交点（ts 上）
+            if j == 0:
+                return ts[i_half]
+            y0, y1 = seg[j - 1], seg[j]
+            f = (T - y0) / (y1 - y0) if y1 != y0 else 0.5
+            return ts[i_half + j - 1] + f * st
+        tin, tout = cross(j0), cross(j1)
+        out["width"][i], out["t_in"][i], out["t_out"][i], out["depth"][i] = tout - tin, tin, tout, depth
+    return out
 
 
 def poly_to_disp(fmap, pts_ref):

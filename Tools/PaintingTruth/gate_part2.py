@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""編号23 第2部：Unity 較正門の測定と M1 Revision01 基線差の報告。
+"""番号23 第2部：Unity 較正門の測定と M1 Revision01 基線差の報告。
 
 前提: Unity の AF23CalibrationGate.RunAll が Unity/Build/ArtFirst/23 に描画を書き出していること。
 使い方（リポジトリ根で）:
@@ -13,7 +13,9 @@
    （targets/truth_manifest.json と painting_truth.json）の SHA-256 も書き、evaluate.py はそれが今と違えば暫定にする。
    較正門は評価器の測り方と真値の精度を見るもので、真値の完全性は判定しない（scope_ja、records.truth_completeness）。
 4) M1 Revision01 の基線を評価器（ID モード）にかけ、23_baseline_M1R01_* を Docs/Evidence/ArtFirst/23 へ置く。
-5) 編号23 の metrics.json・run.json へ第2部を入れる（evaluate.merge_step23_part2）。
+5) 番号23 の metrics.json・run.json へ第2部を入れる（evaluate.merge_step23_part2）。
+6) 修正2回目：番号24 が保存した t* の描画と ID 画像（Unity/Build/ArtFirst/24、24 のファイルは変えない）を今の真値で評価し直し、
+   23_recheck24_* を Docs/Evidence/ArtFirst/23 へ置く（記録のみ。24 はプレビューで、合否は採らない）。
 """
 import datetime
 import json
@@ -220,6 +222,45 @@ def fig_baseline_blend(truth, render_png, ids_png, idmap, path):
     T.save_png_reserved(path, img, [(0, 255, 255), (255, 40, 40), (255, 255, 255)])
 
 
+# ---------------------------------------------------------------- 番号24 の再評価（記録のみ）
+B24 = T.repo_abs("Unity/Build/ArtFirst/24")
+R24 = {"render": os.path.join(B24, "24_painting_tstar_direct.png"), "ids": os.path.join(B24, "24_painting_tstar_ids.png"),
+       "idmap": os.path.join(B24, "24_idmap.json")}
+
+
+def recheck24():
+    """番号24 の t* の描画・ID 画像を今の真値で評価し直す。24 の記録（Docs/Evidence/ArtFirst/24/metrics.json）は読むだけで変えない。"""
+    if not all(os.path.exists(p) for p in R24.values()):
+        return {"status": "skipped", "note_ja": "Unity/Build/ArtFirst/24 に番号24 の t* の画像がない。"}
+    out = b("recheck24")
+    cmd = [sys.executable, os.path.join(T.HERE, "evaluate.py"), "--render", R24["render"], "--ids", R24["ids"], "--idmap", R24["idmap"],
+           "--out-dir", out, "--name", "23_recheck24_tstar"]
+    subprocess.run(cmd, check=True, cwd=T.REPO)
+    N = T.load_json(os.path.join(out, "metrics.json"))
+    O = T.load_json(T.repo_abs("Docs/Evidence/ArtFirst/24/metrics.json"))
+    rows = {}
+    for k in ("78", "130", "131", "132", "72", "71"):
+        m = N["items"][k]["measures"][0]
+        o = O["items"].get(k, {}).get("value", {})
+        rows[k] = {"v0_2": {"max_px": m.get("value_max_px"), "p95_px": m.get("p95_px"), "worst_display_xy": m.get("worst_display_xy"),
+                            "iou": m.get("iou"), "evaluator_verdict": m.get("verdict")},
+                   "recorded_by_24_with_truth_v0_1": {"max_px": o.get("max_px"), "p95_px": o.get("p95_px"),
+                                                      "worst_display_xy": o.get("worst_display_xy"), "iou": o.get("iou")}}
+    for k in ("132_claws", "72_claws"):
+        m = N["items"][k]["measures"][0]
+        rows[k] = {"v0_2": {"max_px": m.get("value_max_px"), "p95_px": m.get("p95_px")}}
+    shutil.copyfile(os.path.join(out, "metrics.json"), os.path.join(EVID, "23_recheck24_metrics.json"))
+    ov = T.imread_rgb(os.path.join(out, "23_recheck24_tstar_overlay.png"))
+    T.save_png_reserved(os.path.join(EVID, "23_recheck24_overlay.png"), ov,
+                        [(0, 255, 255), (60, 230, 60), (255, 220, 0), (255, 40, 40), (255, 60, 60), (255, 255, 255), (0, 0, 0)])
+    return {"status": "done", "truth_version": N["truth"]["version"], "provisional": N["provisional"],
+            "inputs_sha256": {T.repo_rel(p): T.sha256_file(p) for p in R24.values()},
+            "command": "py -3.10 " + " ".join(T.repo_rel(c) if os.path.isabs(c) else c for c in cmd[1:]),
+            "values": rows,
+            "note_ja": "番号24（修正1回目）が保存した t* の画像を、真値 %s で評価し直した記録のみ。24 はプレビューで合否を採らない。"
+                       "24 の記録（真値 v0.1）との差は物差し（真値）の違いで、24 の形の改善・悪化ではない。24 のファイルは変えていない。" % N["truth"]["version"]}
+
+
 # ---------------------------------------------------------------- 本体
 def main():
     spec = T.load_spec()
@@ -268,6 +309,9 @@ def main():
         "flat_patch_numpy_dE00": {"value": max(S["flat_patch"]["deltaE00"].values()), "threshold": 0.5,
                                   "pass": S["flat_patch"]["pass"], "source": "selftest.json（第1部、numpy の合成画像）"},
         "canny_support": {"value": S["canny_support"]["overall_claws_ratio"], "threshold": 0.95,
+                          "distance_threshold_ref_px": S["canny_support"]["threshold_ref_px"],
+                          "distance_threshold_ja": "1 旧参照 px（凍結時の大きさ。v0.2 の高解像度 px では %.4f px）" % S["canny_support"]["threshold_ref_px"],
+                          "record_le_1_ref_px": S["canny_support"]["overall_claws_ratio_le_1_ref_px_record"],
                           "pass": S["canny_support"]["pass"], "source": "selftest.json（第1部）"},
         "unity_markers_0p5px": {
             "value_max_px": max(r["diff_px"] for r in mk), "threshold_px": thr, "pass": bool(mk_ok), "per_marker": mk,
@@ -299,10 +343,11 @@ def main():
             "value_min": min(r["dE00_vs_reference"] for r in pc), "value_max": max(r["dE00_vs_reference"] for r in pc), "per_patch": pc,
             "note_ja": "対照：同じ色区を線形（sRGB 符号化なし）の RT に描いた場合。暗い色ほど大きくずれ、較正門がこの誤りを検出できることを示す。記録のみ。"},
         "truth_completeness": {
-            "truth": {k: v for k, v in S["truth_completeness_record"]["truth"].items() if k != "largest_sky_components"},
-            "control_without_manual_barriers": {k: v for k, v in S["truth_completeness_record"]["control_without_manual_barriers"].items()
-                                                if k != "largest_sky_components"},
-            "white_rule": S["truth_completeness_record"]["white_rule"],
+            **{case: {c: ({k: v for k, v in S["truth_completeness_record"][case][c].items() if k != "largest_sky_components"}
+                          if isinstance(S["truth_completeness_record"][case][c], dict) else S["truth_completeness_record"][case][c])
+                      for c in S["truth_completeness_record"][case]}
+               for case in ("truth", "control_without_manual_barriers", "control_without_gap_closing_and_barriers")},
+            "rules": S["truth_completeness_record"]["rules"],
             "source": "selftest.json（第1部、truth_completeness_record。塊の一覧もそこにある）",
             "note_ja": "記録のみ。真値が原画の水の面を漏れなく含むか（完全性）の目安で、較正門の合否には入れない。"},
     }
@@ -315,12 +360,14 @@ def main():
         "generated_utc": _now(),
         "all_pass": bool(all_pass),
         "gate_complete": True,
-        "verdict_ja": ("較正門の全項目が合格した（第1部 5 項目＋補助 1、第2部 Unity 2 項目）。編号26 の前提を満たす。" if all_pass else
-                       "較正門に不合格の項目がある。しきい値は変えずに報告する。編号26 は開始できない。"),
+        "verdict_ja": ("較正門の全項目が合格した（第1部 5 項目＋補助 1、第2部 Unity 2 項目）。番号26 の前提を満たす。" if all_pass else
+                       "較正門に不合格の項目がある。しきい値は変えずに報告する。番号26 は開始できない。"),
         "scope_ja": ("較正門が確かめるのは、評価器の測り方（CIEDE2000 の式、輪郭距離、平行移動、画面写像、Unity の投影と色の経路）と、"
                      "真値の折れ線が原画のエッジに乗っているか（Canny 支持率＝精度）である。真値が原画の水の面を漏れなく含むか（完全性）は"
                      "判定しない。v0 の真値は唇の右端の爪群が空として抜けていたが、抜けた所の境界も藍線に沿うため Canny 支持率は 98.56% で"
-                     "合格していた。完全性は records.truth_completeness（記録のみ）と、人が拡大図で確かめることで見る。"),
+                     "合格していた。完全性は records.truth_completeness（記録のみ）と、人が拡大図で確かめることで見る。"
+                     "真値 v0.2（修正2回目）からは高解像度原画 3859×2594 で測り、Canny 支持率の距離のしきい値は凍結時の 1 旧参照 px の大きさのまま。"),
+        "truth_version": spec["version"],
         "truth_manifest_sha256": T.sha256_file(os.path.join(T.TARGET_DIR, "truth_manifest.json")),
         "painting_truth_sha256": T.sha256_file(T.SPEC_PATH),
         "truth_sha256_ja": "この較正門を回した時の真値。evaluate.py はこの 2 つが今のファイルと違えば provisional: false を出さない。",
@@ -352,7 +399,10 @@ def main():
     fig_baseline_blend(truth, b("af23_baseline_M1R01.png"), b("af23_baseline_M1R01_ids.png"),
                        T.load_json(b("af23_baseline_M1R01_idmap.json")), os.path.join(EVID, "23_baseline_M1R01_blend.png"))
 
-    # 5) 実行記録と編号23 の metrics.json・run.json への統合
+    # 6) 番号24 の保存済み t* を今の真値で評価し直す（記録のみ）
+    recheck = recheck24()
+
+    # 5) 実行記録と番号23 の metrics.json・run.json への統合
     ins = [T.SPEC_PATH, GATE_DEF, os.path.join(T.TARGET_DIR, "palette.json"), os.path.join(T.TARGET_DIR, "truth_manifest.json"),
            os.path.join(EVID, "selftest.json"),
            os.path.join(T.HERE, "gate_part2.py"), os.path.join(T.HERE, "evaluate.py"), os.path.join(T.HERE, "truthlib.py"),
@@ -362,7 +412,10 @@ def main():
            T.repo_abs("Unity/Assets/GreatWave/Scenes/Tests/M1_StaticComposition_Revision01.unity")]
     outs = [os.path.join(EVID, f) for f in ("23_gate.json", "23_gate_markers.png", "23_gate_flat_patch.png", "23_baseline_M1R01_render.png",
                                            "23_baseline_M1R01_overlay.png", "23_baseline_M1R01_blend.png", "23_baseline_M1R01_metrics.json")]
+    if recheck.get("status") == "done":
+        outs += [os.path.join(EVID, f) for f in ("23_recheck24_metrics.json", "23_recheck24_overlay.png")]
     build_files = sorted(f for f in os.listdir(BUILD) if os.path.isfile(b(f)) and not f.endswith(".log"))
+    build_files += sorted(os.path.join("recheck24", f) for f in os.listdir(b("recheck24"))) if os.path.isdir(b("recheck24")) else []
     run_part2 = {
         "generated_utc": _now(),
         "commands": ["powershell -NoProfile -ExecutionPolicy Bypass -File Tools/PaintingTruth/run_af23_part2.ps1",
@@ -380,6 +433,7 @@ def main():
         "not_committed": {T.repo_rel(b(f)): {"sha256": T.sha256_file(b(f)), "bytes": os.path.getsize(b(f))} for f in build_files},
         "not_committed_ja": "Unity/Build/ArtFirst/23（Git 対象外）。Unity の生の描画・ID 画像（3840×2160）・Unity の報告 JSON・評価器の生出力。"
                             "run_af23_part2.ps1 で作り直せる。",
+        "recheck24": recheck,
         "baseline_scene_dependencies_unchanged": br["dependenciesUnchanged"],
         "baseline_scene_sha256": br["sceneSha256"],
     }

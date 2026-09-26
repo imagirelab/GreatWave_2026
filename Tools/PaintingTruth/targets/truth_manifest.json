@@ -1,6 +1,6 @@
 {
  "schema": "GreatWave.PaintingTruth.manifest/1",
- "generated_utc": "2026-09-25T16:04:13+00:00",
+ "generated_utc": "2026-09-25T18:48:05+00:00",
  "command": "py -3.10 Tools/PaintingTruth/extract.py --evidence Docs/Evidence/ArtFirst/23",
  "tools": {
   "python": "3.10.6",
@@ -9,27 +9,30 @@
   "os": "Windows-10-10.0.26200-SP0"
  },
  "inputs": {
+  "Docs/References/Met_JP1847_DP130155.jpg": "cbb9988f2f18b9180a1cc0cf5dbb0e3bbf8f2e85d17930cf6ca9ab36fac36303",
   "Docs/References/Met_JP1847.jpg": "a7e06182eba5205c26b4a71a06eebaead8ef2541f348a15b90174a75fc62cab0",
-  "Tools/PaintingTruth/painting_truth.json": "578116e0f48ca9938586056f6d7b3f66a655abdf0c6d1dc78e5802bd02264758",
-  "Tools/PaintingTruth/manual_annotations.json": "a6979c9ed80039816630d7abf586a4a5840b91e164c58fd0f16a85ebfbaabe5e",
-  "Tools/PaintingTruth/truthlib.py": "1de609746d92378fe3347d5b694650510ddda2c9aa05aaeac6140e5012837d4a",
-  "Tools/PaintingTruth/extract.py": "40d336f74ae74d3e4b2e8b9623c478dea694dda7f1119e472cf54d0ea3d0f1ba"
+  "Tools/PaintingTruth/painting_truth.json": "392860ebeff76a7249056fc339b15e853c0155937efa4feee125f8f974f01c0a",
+  "Tools/PaintingTruth/manual_annotations.json": "019ae34b8f4de577f34253465554b723f9e1fb3e5433fb77072878937e962a49",
+  "Tools/PaintingTruth/truthlib.py": "a2886d5de2c1fac36d702076a57e0630db234c988fb413a70ea50beab6d1f0e1",
+  "Tools/PaintingTruth/extract.py": "1b158c4c804eb42499fdc2c75b0301ec72fa94a00591e3f3e6927d4237c32735"
  },
+ "inputs_note_ja": "旧原画（legacy_reference）は v0.1 の真値を作り直して比べる確認用の図と記録にだけ使い、真値の出力には入らない。",
  "outputs": {
-  "Tools/PaintingTruth/targets/main_wave_outline_claws.json": "934c491679df06a06dcdc5ffa0b36295e6f017c9b15e9b261d24d132f0b3e54d",
-  "Tools/PaintingTruth/targets/main_wave_outline_envelope.json": "e457c8e77e66dade6b081554acff214041d08486508ac444a916737f5cedd876",
-  "Tools/PaintingTruth/targets/masks/boat_fg_cov.png": "1b6140738546c70eafa114a1fc36a9989b488802d24d667db8298327599234a1",
-  "Tools/PaintingTruth/targets/masks/boat_left_cov.png": "31920d57abd7cb38edeba34919e8328a9a300683142e0a2c6bb86308d5e039a1",
-  "Tools/PaintingTruth/targets/masks/boat_mid_cov.png": "16b2f1f8cdab41cd9e7db77af0ecd7b82201da99a15310f2290943690981c935",
-  "Tools/PaintingTruth/targets/masks/palette_regions.png": "1aa344e73008a1af48129ec5ff6e63cbbb3260d4722c6e1042c76bf8352b1d7b",
-  "Tools/PaintingTruth/targets/masks/sky_claws_cov.png": "3419b78a690db760ac39772098cd660acaef96e439ccf91a33a5c04c92c71378",
-  "Tools/PaintingTruth/targets/masks/sky_dark_cov.png": "29935037242f147193fc7f09c069294649f20f541d7c5772bb20f7397a29c274",
-  "Tools/PaintingTruth/targets/masks/sky_envelope_cov.png": "18c5e9067060c6844a85865b7f3c3c51d86c944a6f5bfd9f2ea49dcc2bdd17fd",
-  "Tools/PaintingTruth/targets/other_polylines.json": "29fafec9156bfc067750fbefc756e8a6927f748414e9ef601662c24e55886459",
-  "Tools/PaintingTruth/targets/palette.json": "4892bbe38858585ec79dce6b89dff194a63c940be3aba71c6e0be58f770db0fc",
-  "Tools/PaintingTruth/targets/regions.json": "453a6348e54371e7ca85fbeb0849d0cc538cd4321b3380c43677490e48039edd"
+  "Tools/PaintingTruth/targets/line_width_profile.json": "0d959faf2194492f69dc9a99ae1eb2f7b17533b1c7184323d81f145b3fc3a618",
+  "Tools/PaintingTruth/targets/main_wave_outline_claws.json": "2b4ab8c27679a99357785443e8a5fb26e974be51bd736c3f99b9509f834d7426",
+  "Tools/PaintingTruth/targets/main_wave_outline_envelope.json": "39e085da821ea453ef4549d00cde074086c98a5f6bf9919425beea82eba1eb00",
+  "Tools/PaintingTruth/targets/masks/boat_fg_cov.png": "9017410f0f71bbbdcbe874c939e92e4ad28bd0df92299536dea6e7ae4155a278",
+  "Tools/PaintingTruth/targets/masks/boat_left_cov.png": "c7201803ed9fdaf354e8c67ba45b36d87d4d528ece159a2979745ed37db7b6e7",
+  "Tools/PaintingTruth/targets/masks/boat_mid_cov.png": "23ca1e535ca759f41f3c1dfc72187a5dec6c7543398054a23f1597dbabf84dc9",
+  "Tools/PaintingTruth/targets/masks/palette_regions.png": "3cc85178533bd2729b25c95e075c11ca592d4a7300ece57db545efeb50fe2454",
+  "Tools/PaintingTruth/targets/masks/sky_claws_cov.png": "443586a3a505d9d38a5f851ff712ee1b6c1bbdf546cfd6bfded2311369e4ae3a",
+  "Tools/PaintingTruth/targets/masks/sky_dark_cov.png": "de13cf580dd342665659bf44f321d6bc4853feeb58805a0a3e18a32bde445156",
+  "Tools/PaintingTruth/targets/masks/sky_envelope_cov.png": "780626cec4c1be0846c0f6b52b8dc8ce300ae241b1316783c99a6e1806473d41",
+  "Tools/PaintingTruth/targets/other_polylines.json": "11bc71e369600a26c9ad857b8117b101868ce9d25de7073ec3a4793b8960b14d",
+  "Tools/PaintingTruth/targets/palette.json": "2e550bf3c60eb16ef5d4a37e35c315882a1a05dd6accb79bdea3f5f3f7a90056",
+  "Tools/PaintingTruth/targets/regions.json": "bc96d16b8fd8d4fbee724ecf208424298e07b2c24ec3579f6dc79afe6e5f2721"
  },
  "build_outputs_not_committed": {
-  "Tools/PaintingTruth/build/painting_display.png": "4ca22e5a7c609cbfebbfd11db6770237e01b0f4a077789b4adb28b73bcdd5985"
+  "Tools/PaintingTruth/build/painting_display.png": "eeace9b3441a34862aff191edd9d62d0d4c2999b52eaf24e7d703e94243172e9"
  }
 }

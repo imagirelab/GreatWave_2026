@@ -1,7 +1,8 @@
 {
  "schema": "GreatWave.Step23.run/1",
- "generated_utc": "2026-09-25T16:04:51+00:00",
+ "generated_utc": "2026-09-25T18:50:08+00:00",
  "commands": [
+  "py -3.10 Tools/PaintingTruth/register.py --evidence Docs/Evidence/ArtFirst/23",
   "py -3.10 Tools/PaintingTruth/extract.py --evidence Docs/Evidence/ArtFirst/23",
   "py -3.10 Tools/PaintingTruth/evaluate.py --selftest --out-dir Docs/Evidence/ArtFirst/23"
  ],
@@ -19,58 +20,70 @@
   "graphics_api": "Direct3D11",
   "color_space": "Linear",
   "method_ja": "Editor batchmode：保存しない空シーン → Camera.Render → RenderTexture → ReadPixels → PNG（PC オフスクリーン、HMD ではない）",
-  "gate_render_seconds": 0.24595969915390015,
-  "baseline_render_seconds": 0.35947659611701965
+  "gate_render_seconds": 0.25752198696136475,
+  "baseline_render_seconds": 0.3723897933959961
  },
  "houdini": null,
  "blender": null,
  "inputs": {
+  "Docs/References/Met_JP1847_DP130155.jpg": "cbb9988f2f18b9180a1cc0cf5dbb0e3bbf8f2e85d17930cf6ca9ab36fac36303",
   "Docs/References/Met_JP1847.jpg": "a7e06182eba5205c26b4a71a06eebaead8ef2541f348a15b90174a75fc62cab0",
-  "Tools/PaintingTruth/painting_truth.json": "578116e0f48ca9938586056f6d7b3f66a655abdf0c6d1dc78e5802bd02264758",
-  "Tools/PaintingTruth/manual_annotations.json": "a6979c9ed80039816630d7abf586a4a5840b91e164c58fd0f16a85ebfbaabe5e",
-  "Tools/PaintingTruth/truthlib.py": "1de609746d92378fe3347d5b694650510ddda2c9aa05aaeac6140e5012837d4a",
-  "Tools/PaintingTruth/extract.py": "40d336f74ae74d3e4b2e8b9623c478dea694dda7f1119e472cf54d0ea3d0f1ba",
-  "Tools/PaintingTruth/evaluate.py": "d07b8f36696519fb0354e5070e61217ab4470683f3dd0025a445a1aba2c9cf3b",
+  "Tools/PaintingTruth/painting_truth.json": "392860ebeff76a7249056fc339b15e853c0155937efa4feee125f8f974f01c0a",
+  "Tools/PaintingTruth/manual_annotations.json": "019ae34b8f4de577f34253465554b723f9e1fb3e5433fb77072878937e962a49",
+  "Tools/PaintingTruth/truthlib.py": "a2886d5de2c1fac36d702076a57e0630db234c988fb413a70ea50beab6d1f0e1",
+  "Tools/PaintingTruth/register.py": "c03b0c4ced912f43287be72509c2ae5b9fa8369218593e88c65d286df2bfc42b",
+  "Tools/PaintingTruth/extract.py": "1b158c4c804eb42499fdc2c75b0301ec72fa94a00591e3f3e6927d4237c32735",
+  "Tools/PaintingTruth/evaluate.py": "6db4f84a59b4d99595de0449bdd884abe457be0a84d11c48f26df122e90710d2",
   "Docs/Evidence/M1/12_placement.json": "7d4dc90e84305345449b8e2c756d4224090ed1dabe95c1700312a2de25887718",
   "Docs/Evidence/M1/Revision01/15_revision_layout.json": "d9dec4c9d5b4390782b844a0578c7aea805b198ca19e410961ba91208e3e14bc"
  },
  "outputs": {
-  "Tools/PaintingTruth/targets/main_wave_outline_claws.json": "934c491679df06a06dcdc5ffa0b36295e6f017c9b15e9b261d24d132f0b3e54d",
-  "Tools/PaintingTruth/targets/main_wave_outline_envelope.json": "e457c8e77e66dade6b081554acff214041d08486508ac444a916737f5cedd876",
-  "Tools/PaintingTruth/targets/masks/boat_fg_cov.png": "1b6140738546c70eafa114a1fc36a9989b488802d24d667db8298327599234a1",
-  "Tools/PaintingTruth/targets/masks/boat_left_cov.png": "31920d57abd7cb38edeba34919e8328a9a300683142e0a2c6bb86308d5e039a1",
-  "Tools/PaintingTruth/targets/masks/boat_mid_cov.png": "16b2f1f8cdab41cd9e7db77af0ecd7b82201da99a15310f2290943690981c935",
-  "Tools/PaintingTruth/targets/masks/palette_regions.png": "1aa344e73008a1af48129ec5ff6e63cbbb3260d4722c6e1042c76bf8352b1d7b",
-  "Tools/PaintingTruth/targets/masks/sky_claws_cov.png": "3419b78a690db760ac39772098cd660acaef96e439ccf91a33a5c04c92c71378",
-  "Tools/PaintingTruth/targets/masks/sky_dark_cov.png": "29935037242f147193fc7f09c069294649f20f541d7c5772bb20f7397a29c274",
-  "Tools/PaintingTruth/targets/masks/sky_envelope_cov.png": "18c5e9067060c6844a85865b7f3c3c51d86c944a6f5bfd9f2ea49dcc2bdd17fd",
-  "Tools/PaintingTruth/targets/other_polylines.json": "29fafec9156bfc067750fbefc756e8a6927f748414e9ef601662c24e55886459",
-  "Tools/PaintingTruth/targets/palette.json": "4892bbe38858585ec79dce6b89dff194a63c940be3aba71c6e0be58f770db0fc",
-  "Tools/PaintingTruth/targets/regions.json": "453a6348e54371e7ca85fbeb0849d0cc538cd4321b3380c43677490e48039edd",
-  "Tools/PaintingTruth/targets/truth_manifest.json": "42d4a92caac0f7e3da1410998930077f4a167634272d7b59e1fc127b2c4562b6",
-  "Docs/Evidence/ArtFirst/23/23_baseline_M1R01_blend.png": "c32a90a81fbee0298e7a3ab3e8007afa4f77965aec4d5adaddf115ae973accf5",
-  "Docs/Evidence/ArtFirst/23/23_baseline_M1R01_metrics.json": "e2d693cc7fcd76fb7f2195311a3c9e8abb289862dc6fc53c3a56d6b496726cb9",
-  "Docs/Evidence/ArtFirst/23/23_baseline_M1R01_overlay.png": "53d221a0084de9799a5ec689278200357f2fc49313b967fa51d2f6247f8da868",
+  "Tools/PaintingTruth/targets/line_width_profile.json": "0d959faf2194492f69dc9a99ae1eb2f7b17533b1c7184323d81f145b3fc3a618",
+  "Tools/PaintingTruth/targets/main_wave_outline_claws.json": "2b4ab8c27679a99357785443e8a5fb26e974be51bd736c3f99b9509f834d7426",
+  "Tools/PaintingTruth/targets/main_wave_outline_envelope.json": "39e085da821ea453ef4549d00cde074086c98a5f6bf9919425beea82eba1eb00",
+  "Tools/PaintingTruth/targets/masks/boat_fg_cov.png": "9017410f0f71bbbdcbe874c939e92e4ad28bd0df92299536dea6e7ae4155a278",
+  "Tools/PaintingTruth/targets/masks/boat_left_cov.png": "c7201803ed9fdaf354e8c67ba45b36d87d4d528ece159a2979745ed37db7b6e7",
+  "Tools/PaintingTruth/targets/masks/boat_mid_cov.png": "23ca1e535ca759f41f3c1dfc72187a5dec6c7543398054a23f1597dbabf84dc9",
+  "Tools/PaintingTruth/targets/masks/palette_regions.png": "3cc85178533bd2729b25c95e075c11ca592d4a7300ece57db545efeb50fe2454",
+  "Tools/PaintingTruth/targets/masks/sky_claws_cov.png": "443586a3a505d9d38a5f851ff712ee1b6c1bbdf546cfd6bfded2311369e4ae3a",
+  "Tools/PaintingTruth/targets/masks/sky_dark_cov.png": "de13cf580dd342665659bf44f321d6bc4853feeb58805a0a3e18a32bde445156",
+  "Tools/PaintingTruth/targets/masks/sky_envelope_cov.png": "780626cec4c1be0846c0f6b52b8dc8ce300ae241b1316783c99a6e1806473d41",
+  "Tools/PaintingTruth/targets/other_polylines.json": "11bc71e369600a26c9ad857b8117b101868ce9d25de7073ec3a4793b8960b14d",
+  "Tools/PaintingTruth/targets/palette.json": "2e550bf3c60eb16ef5d4a37e35c315882a1a05dd6accb79bdea3f5f3f7a90056",
+  "Tools/PaintingTruth/targets/regions.json": "bc96d16b8fd8d4fbee724ecf208424298e07b2c24ec3579f6dc79afe6e5f2721",
+  "Tools/PaintingTruth/targets/truth_manifest.json": "8c99033e02c2cbeedec4cf8924e57fe89092c714569afa56c8c8965414880fbd",
+  "Docs/Evidence/ArtFirst/23/23_baseline_M1R01_blend.png": "e16f65927e4422c84d51789b30bf9a11aea84ad656728e020771ca5c170be731",
+  "Docs/Evidence/ArtFirst/23/23_baseline_M1R01_metrics.json": "a5f9008a0f2349947a565d6ff72f07f461cc8d5d80482f8d7d63fd712590b351",
+  "Docs/Evidence/ArtFirst/23/23_baseline_M1R01_overlay.png": "bb276818beef8e342b3a19f54aa523f7963c6f865bd79ad22a418c8c1429e4c3",
   "Docs/Evidence/ArtFirst/23/23_baseline_M1R01_render.png": "7cc8c7e79b1189d3905b42f7116b71413ddbad6f5e6e21344ace561b98cfc41b",
-  "Docs/Evidence/ArtFirst/23/23_claw_zone_detail.png": "f91d77b32bcb55a327b5ae72b5b0e6f7be9f166853e59f1bccf158685d9966ff",
-  "Docs/Evidence/ArtFirst/23/23_claw_zone_sky_tint.png": "15f967f05acb8106a18051ddf74c06de0f75a553db265b8f17c7669590e25278",
-  "Docs/Evidence/ArtFirst/23/23_gate.json": "d3a156b8a6b6577c1333b95604a99cd56304d6a4ed85ca8d9841874681b28be2",
-  "Docs/Evidence/ArtFirst/23/23_gate_flat_patch.png": "716c06bcedc193e6b9ebf86e94674f289c2c5bbe710812226402845177cbdde9",
+  "Docs/Evidence/ArtFirst/23/23_claw_zone_detail.png": "406aa9de05ceeaa88ba1a9ac2f4ad561bb5388ff6d5ee9a98d80c38d794b9ec3",
+  "Docs/Evidence/ArtFirst/23/23_claw_zone_sky_tint.png": "8c04c29f3e0106d5f4614a4c559ce4e9f17bea83d1a4c99f9a25b5bc8dd009d4",
+  "Docs/Evidence/ArtFirst/23/23_crest_closeup.png": "0856cd9f19e05bc6ab2d8892c456cd6a92632adda5edc86c99d4d2a0c5f252a6",
+  "Docs/Evidence/ArtFirst/23/23_extract_record.json": "f44b21a2c86f1b448311933baca8224d7f1a4efb2197ce8c380cfcda84866943",
+  "Docs/Evidence/ArtFirst/23/23_gate.json": "5f20f595b56679052286354580907e1f43f42a5501884938fdf6b56a217b1c16",
+  "Docs/Evidence/ArtFirst/23/23_gate_flat_patch.png": "35765d2c6132366f25f70fd67793776af93ab6a5cabc55bfa15f2d75a8ea1e1e",
   "Docs/Evidence/ArtFirst/23/23_gate_markers.png": "e83abc1cf95c310c1ed527f7e39455af7d3b33ce984d9d9ef2eab8033822a512",
-  "Docs/Evidence/ArtFirst/23/23_lip_closeup_x5.png": "0b4660eaba6ea964d3b7f2daa185c2dc11952504e5c41d5573e040c01f7f65e3",
-  "Docs/Evidence/ArtFirst/23/23_palette_regions.png": "2e89229234ecd4372b8521ae4b0a0369e16ff4c93f17b3e328b25fc535ae6668",
-  "Docs/Evidence/ArtFirst/23/23_selftest_self_overlay.png": "635b723ce7ebca10f7eb5f2ce346f5922f18f5dbe734029e7058cb176caa58ba",
-  "Docs/Evidence/ArtFirst/23/23_selftest_shift3px_overlay.png": "aec42bc4e3fdd69e448df3a1820dde96b0002354b070fe23e60dd06e473755f4",
-  "Docs/Evidence/ArtFirst/23/23_targets_overlay.png": "a3d8576cd12623b0e801768d195860e3dd6b7e74ac0998e94556f329f8b73368",
-  "Docs/Evidence/ArtFirst/23/metrics.json": "a88ae36f6be41730aa50a27863146e626e8d88530dbd7da65583eef7fe01117a",
-  "Docs/Evidence/ArtFirst/23/selftest.json": "85769caf448387e9e590c61a1b16dccacc38c6855d460e34978ca129e2168cef"
+  "Docs/Evidence/ArtFirst/23/23_line_width.json": "b6b32e7428a4335aba02e0ecba0b8a4cdd88018ae87751eb256c1a676babf7d2",
+  "Docs/Evidence/ArtFirst/23/23_line_width_profile.png": "ce6c2e2c255e7029550ead991f486d088c195ed8fa948614883997ce7e6cba1b",
+  "Docs/Evidence/ArtFirst/23/23_lip_closeup_x5.png": "de0cd172cb73e8d76368b37801f1a5ae1caaba8905597ca0bdc99cecceacce78",
+  "Docs/Evidence/ArtFirst/23/23_palette_regions.png": "948010b1ce6d0e7662d3c77eba4058d2305370e7b567bca185e640e21f97ba84",
+  "Docs/Evidence/ArtFirst/23/23_recheck24_metrics.json": "7aaeb5c4de278d744c14164747ef10879e62143e12c33abc707749d0dd6a52f2",
+  "Docs/Evidence/ArtFirst/23/23_recheck24_overlay.png": "35f7088503b72c03ce0fee4624ae32cb998851f0f791ce52564914adbd0bd09a",
+  "Docs/Evidence/ArtFirst/23/23_registration.json": "7bb30e5a169d547898c4c1bc69a056685bd1768b1f26cc83d083cccda22a3443",
+  "Docs/Evidence/ArtFirst/23/23_registration.png": "8c0eb9e4b54b9d1b380c836244535cc43ea3286a58acb93432cd597fae6c897b",
+  "Docs/Evidence/ArtFirst/23/23_selftest_self_overlay.png": "5d3d140fdccc1f064d234ef83f95fc3152d1220de68275c334826eede1795933",
+  "Docs/Evidence/ArtFirst/23/23_selftest_shift3px_overlay.png": "48d297b341d57f3dc0823ea8e65a838d014bd1ada486eb8c52cb92a1b89c0b3a",
+  "Docs/Evidence/ArtFirst/23/23_targets_overlay.png": "9e922bac7205f83c1083bf82529c61a3c8fd62709884c44053c53c2146a9693c",
+  "Docs/Evidence/ArtFirst/23/metrics.json": "2e064250e9fb027cfeaab671e405b76a616570a25afc0b4baa47516bed360faa",
+  "Docs/Evidence/ArtFirst/23/selftest.json": "c85a45ceaebb8877559fbcedf60d05076cc649f2361bb539a24c6560948d726c"
  },
  "not_committed": {
-  "Tools/PaintingTruth/build/painting_display.png": "4ca22e5a7c609cbfebbfd11db6770237e01b0f4a077789b4adb28b73bcdd5985"
+  "Tools/PaintingTruth/build/painting_display.png": "eeace9b3441a34862aff191edd9d62d0d4c2999b52eaf24e7d703e94243172e9"
  },
  "not_committed_ja": "表示フレームの原画（約 3 MB）は extract.py で決定的に再生成できるため Git に入れない。",
+ "reference_ja": "原画は Docs/References/Met_JP1847_DP130155.jpg（2,342,637 bytes、利用者が D3 で承認したダウンロード）。旧原画 Met_JP1847.jpg は履歴として残し、位置合わせと v0.1 との比較にだけ読む。",
  "part2": {
-  "generated_utc": "2026-09-25T16:04:51+00:00",
+  "generated_utc": "2026-09-25T18:50:08+00:00",
   "commands": [
    "powershell -NoProfile -ExecutionPolicy Bypass -File Tools/PaintingTruth/run_af23_part2.ps1",
    "（内訳）py -3.10 Tools/PaintingTruth/evaluate.py --selftest --out-dir Docs/Evidence/ArtFirst/23",
@@ -92,31 +105,33 @@
    "graphics_api": "Direct3D11",
    "color_space": "Linear",
    "method_ja": "Editor batchmode：保存しない空シーン → Camera.Render → RenderTexture → ReadPixels → PNG（PC オフスクリーン、HMD ではない）",
-   "gate_render_seconds": 0.24595969915390015,
-   "baseline_render_seconds": 0.35947659611701965
+   "gate_render_seconds": 0.25752198696136475,
+   "baseline_render_seconds": 0.3723897933959961
   },
   "inputs": {
-   "Tools/PaintingTruth/painting_truth.json": "578116e0f48ca9938586056f6d7b3f66a655abdf0c6d1dc78e5802bd02264758",
-   "Tools/PaintingTruth/unity_gate.json": "fefe7ead8f944972f5306df21dd549292a0ab3c07c2232e7f843eaf4102e435a",
-   "Tools/PaintingTruth/targets/palette.json": "4892bbe38858585ec79dce6b89dff194a63c940be3aba71c6e0be58f770db0fc",
-   "Tools/PaintingTruth/targets/truth_manifest.json": "42d4a92caac0f7e3da1410998930077f4a167634272d7b59e1fc127b2c4562b6",
-   "Docs/Evidence/ArtFirst/23/selftest.json": "85769caf448387e9e590c61a1b16dccacc38c6855d460e34978ca129e2168cef",
-   "Tools/PaintingTruth/gate_part2.py": "fbde58d2b2a19c40bd993fc41ee0ad97bcf3961bf7d6e3925c39144584a63ccc",
-   "Tools/PaintingTruth/evaluate.py": "d07b8f36696519fb0354e5070e61217ab4470683f3dd0025a445a1aba2c9cf3b",
-   "Tools/PaintingTruth/truthlib.py": "1de609746d92378fe3347d5b694650510ddda2c9aa05aaeac6140e5012837d4a",
-   "Tools/PaintingTruth/run_af23_part2.ps1": "d61ee72b612197e0a0c102447442c436078a74448b96f619fda2602c5fcc48f4",
-   "Unity/Assets/GreatWave/ArtFirst/Editor/AF23CalibrationGate.cs": "731cd02293ec29c06e0d129ff31b334ad2fcc7e5e6c954ec748e906b727b5c4c",
-   "Unity/Assets/GreatWave/ArtFirst/Editor/AF23GateFlat.shader": "116ce6807dd56b56889d0b57688ad030554b2458e4550d0a704e75d6d61f8d84",
+   "Tools/PaintingTruth/painting_truth.json": "392860ebeff76a7249056fc339b15e853c0155937efa4feee125f8f974f01c0a",
+   "Tools/PaintingTruth/unity_gate.json": "8e82326bc499bd29913f89a5306a6fa247a5e8c6d9152ade9a20e7e0ad4565fa",
+   "Tools/PaintingTruth/targets/palette.json": "2e550bf3c60eb16ef5d4a37e35c315882a1a05dd6accb79bdea3f5f3f7a90056",
+   "Tools/PaintingTruth/targets/truth_manifest.json": "8c99033e02c2cbeedec4cf8924e57fe89092c714569afa56c8c8965414880fbd",
+   "Docs/Evidence/ArtFirst/23/selftest.json": "c85a45ceaebb8877559fbcedf60d05076cc649f2361bb539a24c6560948d726c",
+   "Tools/PaintingTruth/gate_part2.py": "851ac06c3a97e4f1b9816505727188ea960a88ac433ec75c74a3e5f0d1f6b4fe",
+   "Tools/PaintingTruth/evaluate.py": "6db4f84a59b4d99595de0449bdd884abe457be0a84d11c48f26df122e90710d2",
+   "Tools/PaintingTruth/truthlib.py": "a2886d5de2c1fac36d702076a57e0630db234c988fb413a70ea50beab6d1f0e1",
+   "Tools/PaintingTruth/run_af23_part2.ps1": "4dabe3b36e39ec625751925c141b4bbf17a28c1238596f7c8b911648b44a34e4",
+   "Unity/Assets/GreatWave/ArtFirst/Editor/AF23CalibrationGate.cs": "ab6134f5cdcb7650f8ad8a0deb04e35f805301f8e21b1fc38e2427fa10878837",
+   "Unity/Assets/GreatWave/ArtFirst/Editor/AF23GateFlat.shader": "160a507b140eac3aa02eb2d37a841c76af5bd546df5af66e0cad756e4ef72fca",
    "Unity/Assets/GreatWave/Scenes/Tests/M1_StaticComposition_Revision01.unity": "6014cd11f76e847441906178a56919df723be012a40908c9502bf059f5f921f8"
   },
   "outputs": {
-   "Docs/Evidence/ArtFirst/23/23_gate.json": "d3a156b8a6b6577c1333b95604a99cd56304d6a4ed85ca8d9841874681b28be2",
+   "Docs/Evidence/ArtFirst/23/23_gate.json": "5f20f595b56679052286354580907e1f43f42a5501884938fdf6b56a217b1c16",
    "Docs/Evidence/ArtFirst/23/23_gate_markers.png": "e83abc1cf95c310c1ed527f7e39455af7d3b33ce984d9d9ef2eab8033822a512",
-   "Docs/Evidence/ArtFirst/23/23_gate_flat_patch.png": "716c06bcedc193e6b9ebf86e94674f289c2c5bbe710812226402845177cbdde9",
+   "Docs/Evidence/ArtFirst/23/23_gate_flat_patch.png": "35765d2c6132366f25f70fd67793776af93ab6a5cabc55bfa15f2d75a8ea1e1e",
    "Docs/Evidence/ArtFirst/23/23_baseline_M1R01_render.png": "7cc8c7e79b1189d3905b42f7116b71413ddbad6f5e6e21344ace561b98cfc41b",
-   "Docs/Evidence/ArtFirst/23/23_baseline_M1R01_overlay.png": "53d221a0084de9799a5ec689278200357f2fc49313b967fa51d2f6247f8da868",
-   "Docs/Evidence/ArtFirst/23/23_baseline_M1R01_blend.png": "c32a90a81fbee0298e7a3ab3e8007afa4f77965aec4d5adaddf115ae973accf5",
-   "Docs/Evidence/ArtFirst/23/23_baseline_M1R01_metrics.json": "e2d693cc7fcd76fb7f2195311a3c9e8abb289862dc6fc53c3a56d6b496726cb9"
+   "Docs/Evidence/ArtFirst/23/23_baseline_M1R01_overlay.png": "bb276818beef8e342b3a19f54aa523f7963c6f865bd79ad22a418c8c1429e4c3",
+   "Docs/Evidence/ArtFirst/23/23_baseline_M1R01_blend.png": "e16f65927e4422c84d51789b30bf9a11aea84ad656728e020771ca5c170be731",
+   "Docs/Evidence/ArtFirst/23/23_baseline_M1R01_metrics.json": "a5f9008a0f2349947a565d6ff72f07f461cc8d5d80482f8d7d63fd712590b351",
+   "Docs/Evidence/ArtFirst/23/23_recheck24_metrics.json": "7aaeb5c4de278d744c14164747ef10879e62143e12c33abc707749d0dd6a52f2",
+   "Docs/Evidence/ArtFirst/23/23_recheck24_overlay.png": "35f7088503b72c03ce0fee4624ae32cb998851f0f791ce52564914adbd0bd09a"
   },
   "not_committed": {
    "Unity/Build/ArtFirst/23/af23_baseline_M1R01.png": {
@@ -124,7 +139,7 @@
     "bytes": 359310
    },
    "Unity/Build/ArtFirst/23/af23_baseline_M1R01_idmap.json": {
-    "sha256": "c8064688a15f236c654a10c8d80ab7d17328f5fa14e5005b28a10c1c0bbd9ec1",
+    "sha256": "151b600aba6c35e042d124d7453c14987d3f4342e77ed13d352a99ea9dbfcfaa",
     "bytes": 388
    },
    "Unity/Build/ArtFirst/23/af23_baseline_M1R01_ids.png": {
@@ -132,20 +147,20 @@
     "bytes": 150895
    },
    "Unity/Build/ArtFirst/23/af23_baseline_unity_report.json": {
-    "sha256": "d02c7d00246777c429c3b596ceb0efc73d6925a3413c208f70fac8f7efa4e2ac",
-    "bytes": 6195
+    "sha256": "8c3092618e2261bd12310d8ef3b7434ab4f6df7ef1e078b45417b6f32dd9d304",
+    "bytes": 6194
    },
    "Unity/Build/ArtFirst/23/af23_flat_patch.png": {
-    "sha256": "7a30266c06a7445e8abebb054e5bf1e681ca0d8e03673e15aaaf5a6e1fb06b3a",
-    "bytes": 29506
+    "sha256": "3b4302779e7ff5d1bdf081e5f1a54b5a03ba1768e67c5651f6a5cfcaece8032d",
+    "bytes": 29517
    },
    "Unity/Build/ArtFirst/23/af23_flat_patch_linear_rt_control.png": {
-    "sha256": "5e45f671ec1338d83776c7320ce702cda49a86feda91aeb4b4330d0499380426",
-    "bytes": 29516
+    "sha256": "d1a752ef29b35cb5f55063d8d50090433aef64e874bce3df924ca95834ba6423",
+    "bytes": 29527
    },
    "Unity/Build/ArtFirst/23/af23_gate_unity_report.json": {
-    "sha256": "b9bf51c330234ad99c7c8d906c6ac1890043c29553439b154e0d2574a5b51210",
-    "bytes": 11622
+    "sha256": "8616f4f2655b42514ae312cf149840a30f459bfa61d967b7c6b10025974a92d6",
+    "bytes": 11624
    },
    "Unity/Build/ArtFirst/23/af23_markers.png": {
     "sha256": "b7bf785f57e9b2d1a29cda9de257b514b9b35739e7fa60b25f216d25e775166d",
@@ -154,9 +169,169 @@
    "Unity/Build/ArtFirst/23/af23_markers_nomsaa.png": {
     "sha256": "d5f463939b1793e6d2c5ed332a2f8337b9288a58aca363f920d9291829a79335",
     "bytes": 28057
+   },
+   "Unity/Build/ArtFirst/23/recheck24/23_recheck24_tstar_overlay.png": {
+    "sha256": "d02b34e2f7856640e88387c9f9bd54a02aab8c04810905fc2cf89509fa01371d",
+    "bytes": 42578
+   },
+   "Unity/Build/ArtFirst/23/recheck24/metrics.json": {
+    "sha256": "7aaeb5c4de278d744c14164747ef10879e62143e12c33abc707749d0dd6a52f2",
+    "bytes": 15865
    }
   },
   "not_committed_ja": "Unity/Build/ArtFirst/23（Git 対象外）。Unity の生の描画・ID 画像（3840×2160）・Unity の報告 JSON・評価器の生出力。run_af23_part2.ps1 で作り直せる。",
+  "recheck24": {
+   "status": "done",
+   "truth_version": "v0.2",
+   "provisional": false,
+   "inputs_sha256": {
+    "Unity/Build/ArtFirst/24/24_painting_tstar_direct.png": "0faf8e5e6fe4ec7420ff8d67487b76e0119640b354edf26f0d6ccdc10ebe4686",
+    "Unity/Build/ArtFirst/24/24_painting_tstar_ids.png": "ab91aa4fe0220f18de20c1a472cc97a94fab9faeb7843398901cfc7d8860bc5a",
+    "Unity/Build/ArtFirst/24/24_idmap.json": "82b3a82498649df3bc7adce36bac39b65f04b6a5713d9d735ae6ba2ab2e4efb5"
+   },
+   "command": "py -3.10 Tools/PaintingTruth/evaluate.py --render Unity/Build/ArtFirst/24/24_painting_tstar_direct.png --ids Unity/Build/ArtFirst/24/24_painting_tstar_ids.png --idmap Unity/Build/ArtFirst/24/24_idmap.json --out-dir Unity/Build/ArtFirst/23/recheck24 --name 23_recheck24_tstar",
+   "values": {
+    "78": {
+     "v0_2": {
+      "max_px": 0.7582,
+      "p95_px": 0.6366,
+      "worst_display_xy": [
+       317.7,
+       352.0
+      ],
+      "iou": null,
+      "evaluator_verdict": "pass"
+     },
+     "recorded_by_24_with_truth_v0_1": {
+      "max_px": 0.8165,
+      "p95_px": 0.5188,
+      "worst_display_xy": [
+       240.0,
+       387.33
+      ],
+      "iou": null
+     }
+    },
+    "130": {
+     "v0_2": {
+      "max_px": 0.505,
+      "p95_px": 0.3795,
+      "worst_display_xy": [
+       357.5,
+       308.0
+      ],
+      "iou": null,
+      "evaluator_verdict": "pass"
+     },
+     "recorded_by_24_with_truth_v0_1": {
+      "max_px": 0.7157,
+      "p95_px": 0.4769,
+      "worst_display_xy": [
+       420.89,
+       248.0
+      ],
+      "iou": null
+     }
+    },
+    "131": {
+     "v0_2": {
+      "max_px": 0.6735,
+      "p95_px": 0.5267,
+      "worst_display_xy": [
+       724.0,
+       93.61
+      ],
+      "iou": null,
+      "evaluator_verdict": "pass"
+     },
+     "recorded_by_24_with_truth_v0_1": {
+      "max_px": 0.7103,
+      "p95_px": 0.5528,
+      "worst_display_xy": [
+       675.0,
+       103.82
+      ],
+      "iou": null
+     }
+    },
+    "132": {
+     "v0_2": {
+      "max_px": 1.048,
+      "p95_px": 0.6196,
+      "worst_display_xy": [
+       951.22,
+       185.0
+      ],
+      "iou": null,
+      "evaluator_verdict": "pass"
+     },
+     "recorded_by_24_with_truth_v0_1": {
+      "max_px": 0.862,
+      "p95_px": 0.5352,
+      "worst_display_xy": [
+       1107.95,
+       353.0
+      ],
+      "iou": null
+     }
+    },
+    "72": {
+     "v0_2": {
+      "max_px": 9.543,
+      "p95_px": 3.4217,
+      "worst_display_xy": [
+       1107.41,
+       376.0
+      ],
+      "iou": null,
+      "evaluator_verdict": "fail"
+     },
+     "recorded_by_24_with_truth_v0_1": {
+      "max_px": 10.5354,
+      "p95_px": 4.3056,
+      "worst_display_xy": [
+       1079.96,
+       395.0
+      ],
+      "iou": null
+     }
+    },
+    "71": {
+     "v0_2": {
+      "max_px": 43.4703,
+      "p95_px": 16.0344,
+      "worst_display_xy": [
+       1045.0,
+       744.03
+      ],
+      "iou": 0.97472,
+      "evaluator_verdict": "fail"
+     },
+     "recorded_by_24_with_truth_v0_1": {
+      "max_px": 42.9895,
+      "p95_px": 16.3695,
+      "worst_display_xy": [
+       1045.0,
+       744.51
+      ],
+      "iou": null
+     }
+    },
+    "132_claws": {
+     "v0_2": {
+      "max_px": 43.7724,
+      "p95_px": 32.7319
+     }
+    },
+    "72_claws": {
+     "v0_2": {
+      "max_px": 36.6322,
+      "p95_px": 24.7555
+     }
+    }
+   },
+   "note_ja": "番号24（修正1回目）が保存した t* の画像を、真値 v0.2 で評価し直した記録のみ。24 はプレビューで合否を採らない。24 の記録（真値 v0.1）との差は物差し（真値）の違いで、24 の形の改善・悪化ではない。24 のファイルは変えていない。"
+  },
   "baseline_scene_dependencies_unchanged": true,
   "baseline_scene_sha256": "6014cd11f76e847441906178a56919df723be012a40908c9502bf059f5f921f8"
  }

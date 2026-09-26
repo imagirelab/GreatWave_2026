@@ -1,11 +1,13 @@
 {
  "schema": "GreatWave.Step23.metrics/1",
  "number": "23（第1部：原画基準と評価器 v0／第2部：Unity 較正門と M1 Revision01 基線差）",
- "generated_utc": "2026-09-25T16:04:31+00:00",
+ "revision_ja": "修正2回目（2026-09-26）：真値を高解像度原画 Met_JP1847_DP130155.jpg（3859×2594）へ移した（真値 v0.2）。",
+ "truth_version": "v0.2",
+ "generated_utc": "2026-09-25T18:49:30+00:00",
  "evidence_kind_ja": "第1部は文書準備と numpy/OpenCV 計算。第2部は Unity Editor（batchmode）の PC オフスクリーン描画と、その PNG の numpy/OpenCV 測定。PC ビルド・HMD 実機の結果は含まない。",
  "gate_part1_pass": true,
  "gate_complete": true,
- "gate_complete_ja": "較正門の全項目（第1部 5 項目＋第2部 Unity 2 項目）を実施し、すべて合格した。編号26 の前提を満たす。",
+ "gate_complete_ja": "較正門の全項目（第1部 5 項目＋第2部 Unity 2 項目）を実施し、すべて合格した。番号26 の前提を満たす。",
  "painting_cam_v1": {
   "id": "PaintingCam v1",
   "position": [
@@ -98,18 +100,18 @@
  },
  "envelope_polyline": {
   "path": "Tools/PaintingTruth/targets/main_wave_outline_envelope.json",
-  "sha256": "e457c8e77e66dade6b081554acff214041d08486508ac444a916737f5cedd876"
+  "sha256": "39e085da821ea453ef4549d00cde074086c98a5f6bf9919425beea82eba1eb00"
  },
  "claws_polyline": {
   "path": "Tools/PaintingTruth/targets/main_wave_outline_claws.json",
-  "sha256": "934c491679df06a06dcdc5ffa0b36295e6f017c9b15e9b261d24d132f0b3e54d"
+  "sha256": "2b4ab8c27679a99357785443e8a5fb26e974be51bd736c3f99b9509f834d7426"
  },
  "palette": {
   "white": {
    "lab": [
-    96.7012,
-    -1.6378,
-    9.7455
+    96.731213,
+    -1.687503,
+    9.832239
    ],
    "srgb8": [
     251,
@@ -119,21 +121,21 @@
   },
   "mizuiro": {
    "lab": [
-    83.0585,
-    -8.6933,
-    4.012
+    82.959445,
+    -8.681797,
+    3.907445
    ],
    "srgb8": [
-    193,
-    212,
+    192,
+    211,
     199
    ]
   },
   "ai_mid": {
    "lab": [
-    42.1938,
-    -5.4486,
-    -29.4277
+    42.172478,
+    -5.516938,
+    -29.284714
    ],
    "srgb8": [
     41,
@@ -143,32 +145,32 @@
   },
   "ai_dark": {
    "lab": [
-    25.7154,
-    0.5912,
-    -23.0953
+    25.779442,
+    0.584759,
+    -22.968039
    ],
    "srgb8": [
-    33,
-    62,
-    95
+    34,
+    63,
+    96
    ]
   },
   "sky_top": {
    "lab": [
-    92.3223,
-    0.0883,
-    19.6065
+    92.366517,
+    0.109946,
+    19.552656
    ],
    "srgb8": [
-    248,
-    231,
-    195
+    249,
+    232,
+    196
    ]
   },
   "sky_bottom": {
    "lab": [
-    53.9225,
-    -1.3855,
+    53.922498,
+    -1.367689,
     3.092
    ],
    "srgb8": [
@@ -179,9 +181,9 @@
   },
   "boat_ochre": {
    "lab": [
-    80.3381,
-    7.8176,
-    22.2243
+    80.361399,
+    7.822666,
+    22.672393
    ],
    "srgb8": [
     229,
@@ -191,21 +193,21 @@
   },
   "fuji_snow": {
    "lab": [
-    97.501,
-    -2.19,
-    9.5966
+    97.65168,
+    -2.195321,
+    9.574448
    ],
    "srgb8": [
-    251,
-    248,
-    229
+    252,
+    249,
+    230
    ]
   },
   "fuji_slope": {
    "lab": [
-    27.4689,
-    0.3586,
-    -20.3499
+    27.581539,
+    0.524222,
+    -20.662449
    ],
    "srgb8": [
     42,
@@ -214,25 +216,32 @@
    ]
   }
  },
- "L_mid_sky": 73.1224,
+ "L_mid_sky": 73.1445,
  "items": {
   "def11_reference_crop": {
    "value": {
-    "path": "Docs/References/Met_JP1847.jpg",
-    "sha256": "a7e06182eba5205c26b4a71a06eebaead8ef2541f348a15b90174a75fc62cab0",
+    "path": "Docs/References/Met_JP1847_DP130155.jpg",
+    "sha256": "cbb9988f2f18b9180a1cc0cf5dbb0e3bbf8f2e85d17930cf6ca9ab36fac36303",
     "size": [
-     1200,
-     807
+     3859,
+     2594
     ],
-    "scale": 1.338289962825279,
-    "offset_x": 157.02602230483274,
+    "scale": 0.4163454124903624,
+    "offset_x": 156.66152659984573,
     "scored_columns": [
      157,
      1762
-    ]
+    ],
+    "legacy_reference": {
+     "path": "Docs/References/Met_JP1847.jpg",
+     "sha256": "a7e06182eba5205c26b4a71a06eebaead8ef2541f348a15b90174a75fc62cab0",
+     "width": 1200,
+     "height": 807
+    },
+    "shift_from_v0_1_ja": "v0.1 の写像（旧原画を 1080/807 倍、横オフセット 157.026 px）と同じ内容の点の表示位置の差は、縦 0、横は x_d に比例して −0.364〜+0.364 px（左端 −0.364、中央 0、右端 +0.364）。旧原画の縦横比の歪み（0.045%）を除いて等方にしたためで、主浪の範囲（x_d 157〜1110）では −0.364〜+0.069 px、唇先端（約 1108）で +0.068 px。PaintingCam v1 と縦 1080 px = 縦画角 26° の約束は変えない。値は 23_registration.json。"
    },
    "verdict": "fixed",
-   "note_ja": "定義シート第11行の『原画ファイル・裁切』を固定。"
+   "note_ja": "定義シート第11行の『原画ファイル・裁切』を固定。修正2回目（v0.2）で利用者が承認した高解像度原画へ移した。裁切は旧原画と同じ（23_registration.json）。"
   },
   "def11_frame_t_star": {
    "value": {
@@ -294,13 +303,15 @@
    "verdict": "pass"
   },
   "gate_flat_patch_dE00": {
-   "value": 0.2877,
+   "value": 0.3064,
    "threshold": 0.5,
    "verdict": "pass"
   },
   "gate_canny_support": {
-   "value": 0.9868,
+   "value": 0.9914,
    "threshold": 0.95,
+   "distance_threshold": "1 旧参照 px（= 3.2151 高解像度 px）",
+   "record_le_1_ref_px": 0.9084,
    "verdict": "pass"
   },
   "support_camera_vs_unity_records": {
@@ -333,8 +344,8 @@
       {
        "target": "78",
        "version": "envelope",
-       "value_max_px": 404.7258,
-       "p95_px": 383.1345,
+       "value_max_px": 404.6533,
+       "p95_px": 382.9922,
        "evaluator_verdict": "fail"
       }
      ]
@@ -346,8 +357,8 @@
       {
        "target": "130",
        "version": "envelope",
-       "value_max_px": 50.2123,
-       "p95_px": 45.9945,
+       "value_max_px": 48.699,
+       "p95_px": 45.121,
        "evaluator_verdict": "fail"
       }
      ]
@@ -359,8 +370,8 @@
       {
        "target": "131",
        "version": "envelope",
-       "value_max_px": 41.0337,
-       "p95_px": 34.3747,
+       "value_max_px": 39.9381,
+       "p95_px": 34.1686,
        "evaluator_verdict": "fail"
       }
      ]
@@ -372,8 +383,8 @@
       {
        "target": "132",
        "version": "envelope",
-       "value_max_px": 248.499,
-       "p95_px": 239.1566,
+       "value_max_px": 248.8821,
+       "p95_px": 239.4992,
        "evaluator_verdict": "fail"
       }
      ]
@@ -385,8 +396,8 @@
       {
        "target": "72",
        "version": "envelope",
-       "value_max_px": 404.5615,
-       "p95_px": 292.8895,
+       "value_max_px": 404.4588,
+       "p95_px": 293.2485,
        "evaluator_verdict": "fail"
       }
      ]
@@ -398,8 +409,8 @@
       {
        "target": "71",
        "version": "envelope",
-       "value_max_px": 404.5615,
-       "p95_px": 299.2938,
+       "value_max_px": 404.4588,
+       "p95_px": 299.5997,
        "evaluator_verdict": "fail"
       }
      ]
@@ -416,7 +427,7 @@
       },
       {
        "target": "sky_bottom",
-       "value_dE00": 27.6443,
+       "value_dE00": 27.6426,
        "evaluator_verdict": "fail"
       }
      ]
@@ -433,7 +444,7 @@
       },
       {
        "target": "boat_ochre",
-       "value_dE00": 34.2932,
+       "value_dE00": 34.2974,
        "evaluator_verdict": "record-only"
       }
      ]
@@ -444,8 +455,8 @@
      "measures": [
       {
        "target": "boat_fg",
-       "value_max_px": 189.6889,
-       "p95_px": 153.2289,
+       "value_max_px": 189.9698,
+       "p95_px": 153.099,
        "evaluator_verdict": "record-only"
       }
      ]
@@ -456,8 +467,8 @@
      "measures": [
       {
        "target": "boat_left",
-       "value_max_px": 169.4087,
-       "p95_px": 143.1066,
+       "value_max_px": 157.7306,
+       "p95_px": 122.7819,
        "evaluator_verdict": "record-only"
       }
      ]
@@ -468,8 +479,8 @@
      "measures": [
       {
        "target": "boat_mid",
-       "value_max_px": 176.8001,
-       "p95_px": 162.667,
+       "value_max_px": 176.5822,
+       "p95_px": 162.6165,
        "evaluator_verdict": "record-only"
       }
      ]
@@ -481,8 +492,8 @@
       {
        "target": "78",
        "version": "claws",
-       "value_max_px": 404.7258,
-       "p95_px": 383.1345,
+       "value_max_px": 404.6533,
+       "p95_px": 382.9922,
        "evaluator_verdict": "record-only"
       }
      ]
@@ -494,8 +505,8 @@
       {
        "target": "130",
        "version": "claws",
-       "value_max_px": 50.2123,
-       "p95_px": 45.9945,
+       "value_max_px": 48.699,
+       "p95_px": 45.121,
        "evaluator_verdict": "record-only"
       }
      ]
@@ -507,8 +518,8 @@
       {
        "target": "131",
        "version": "claws",
-       "value_max_px": 41.0337,
-       "p95_px": 34.37,
+       "value_max_px": 39.9381,
+       "p95_px": 34.171,
        "evaluator_verdict": "record-only"
       }
      ]
@@ -520,8 +531,8 @@
       {
        "target": "132",
        "version": "claws",
-       "value_max_px": 238.5293,
-       "p95_px": 210.9353,
+       "value_max_px": 247.6643,
+       "p95_px": 234.6081,
        "evaluator_verdict": "record-only"
       }
      ]
@@ -533,8 +544,8 @@
       {
        "target": "72",
        "version": "claws",
-       "value_max_px": 404.5615,
-       "p95_px": 283.3035,
+       "value_max_px": 404.4588,
+       "p95_px": 283.6942,
        "evaluator_verdict": "record-only"
       }
      ]
@@ -546,8 +557,8 @@
       {
        "target": "71",
        "version": "claws",
-       "value_max_px": 404.5615,
-       "p95_px": 291.0626,
+       "value_max_px": 404.4588,
+       "p95_px": 291.2891,
        "evaluator_verdict": "record-only"
       }
      ]
@@ -559,8 +570,8 @@
       {
        "target": "fuji_ridge",
        "version": "claws",
-       "value_max_px": 155.9123,
-       "p95_px": 50.6786,
+       "value_max_px": 156.0736,
+       "p95_px": 50.8755,
        "evaluator_verdict": "record-only"
       }
      ]
@@ -572,8 +583,8 @@
       {
        "target": "fuji_ridge",
        "version": "claws",
-       "value_max_px": 155.9123,
-       "p95_px": 50.6786,
+       "value_max_px": 156.0736,
+       "p95_px": 50.8755,
        "evaluator_verdict": "record-only"
       }
      ]
@@ -584,7 +595,7 @@
      "measures": [
       {
        "target": "sky_top",
-       "value_dE00": 3.7076,
+       "value_dE00": 3.741,
        "evaluator_verdict": "pass"
       }
      ]
@@ -595,12 +606,12 @@
      "measures": [
       {
        "target": "mizuiro",
-       "value_dE00": 66.2307,
+       "value_dE00": 65.9344,
        "evaluator_verdict": "record-only"
       },
       {
        "target": "ai_mid",
-       "value_dE00": 50.9675,
+       "value_dE00": 50.932,
        "evaluator_verdict": "record-only"
       }
      ]
@@ -611,12 +622,12 @@
      "measures": [
       {
        "target": "fuji_snow",
-       "value_dE00": 9.0171,
+       "value_dE00": 9.0929,
        "evaluator_verdict": "record-only"
       },
       {
        "target": "fuji_slope",
-       "value_dE00": 5.2662,
+       "value_dE00": 5.3505,
        "evaluator_verdict": "record-only"
       }
      ]
@@ -627,7 +638,7 @@
      "measures": [
       {
        "target": "outline_line_width",
-       "median_display_px": 16.0,
+       "median_display_px": 7.3171,
        "evaluator_verdict": "record-only"
       }
      ]
@@ -636,15 +647,27 @@
    "verdict": "record-only（基線。M1 Revision01 は旧い仮置きで、判定の対象ではない）",
    "metrics": "Docs/Evidence/ArtFirst/23/23_baseline_M1R01_metrics.json",
    "provisional": false,
-   "note_ja": "M1 Revision01 の構図シーン（旧い静止の仮形状、未変更）を PaintingCam v1 から描き、評価器 v0 の ID モードで測った差。evaluator_verdict は評価器がこの描画に出した判定で、編号23 の合否ではない。"
+   "note_ja": "M1 Revision01 の構図シーン（旧い静止の仮形状、未変更）を PaintingCam v1 から描き、評価器 v0 の ID モードで測った差。evaluator_verdict は評価器がこの描画に出した判定で、番号23 の合否ではない。"
   },
   "truth_completeness_record": {
    "value": {
-    "water_coverage_of_white": 0.8909,
-    "sky_components_area_ref_px": 443,
+    "truth": {
+     "water_coverage_of_white": 0.895,
+     "water_coverage_of_mizuiro": 0.9998,
+     "sky_components_area_ref_px_white": 5531,
+     "sky_components_area_ref_px_mizuiro": 0
+    },
     "control_without_manual_barriers": {
-     "water_coverage_of_white": 0.6016,
-     "sky_components_area_ref_px": 2280
+     "water_coverage_of_white": 0.8948,
+     "water_coverage_of_mizuiro": 0.9998,
+     "sky_components_area_ref_px_white": 5531,
+     "sky_components_area_ref_px_mizuiro": 0
+    },
+    "control_without_gap_closing_and_barriers": {
+     "water_coverage_of_white": 0.0001,
+     "water_coverage_of_mizuiro": 0.0045,
+     "sky_components_area_ref_px_white": 68596,
+     "sky_components_area_ref_px_mizuiro": 62785
     }
    },
    "verdict": "record-only",
@@ -654,8 +677,8 @@
    "backlog": 78,
    "value": {
     "target": "main_wave_outline_envelope.78",
-    "n_points": 413,
-    "length_display_px": 235.12,
+    "n_points": 411,
+    "length_display_px": 234.95,
     "source": "auto（空マスク境界）＋manual（区間境界）"
    },
    "verdict": "record-only（目標を定義。描画の判定はまだ）",
@@ -665,8 +688,8 @@
      {
       "target": "78",
       "version": "envelope",
-      "value_max_px": 404.7258,
-      "p95_px": 383.1345,
+      "value_max_px": 404.6533,
+      "p95_px": 382.9922,
       "evaluator_verdict": "fail"
      }
     ]
@@ -676,8 +699,8 @@
    "backlog": 130,
    "value": {
     "target": "main_wave_outline_envelope.130",
-    "n_points": 279,
-    "length_display_px": 179.43,
+    "n_points": 278,
+    "length_display_px": 178.77,
     "source": "auto（空マスク境界）＋manual（区間境界）"
    },
    "verdict": "record-only（目標を定義。描画の判定はまだ）",
@@ -687,8 +710,8 @@
      {
       "target": "130",
       "version": "envelope",
-      "value_max_px": 50.2123,
-      "p95_px": 45.9945,
+      "value_max_px": 48.699,
+      "p95_px": 45.121,
       "evaluator_verdict": "fail"
      }
     ]
@@ -699,7 +722,7 @@
    "value": {
     "target": "main_wave_outline_envelope.131",
     "n_points": 559,
-    "length_display_px": 307.76,
+    "length_display_px": 307.36,
     "source": "auto（空マスク境界）＋manual（区間境界）"
    },
    "verdict": "record-only（目標を定義。描画の判定はまだ）",
@@ -709,8 +732,8 @@
      {
       "target": "131",
       "version": "envelope",
-      "value_max_px": 41.0337,
-      "p95_px": 34.3747,
+      "value_max_px": 39.9381,
+      "p95_px": 34.1686,
       "evaluator_verdict": "fail"
      }
     ]
@@ -720,9 +743,9 @@
    "backlog": 132,
    "value": {
     "target": "main_wave_outline_envelope.132",
-    "n_points": 816,
-    "length_display_px": 469.03,
-    "source": "auto+manual（claw_zone 内は形態処理の包絡）＋manual（藍線の途切れを閉じる障壁に沿う 19 点）"
+    "n_points": 824,
+    "length_display_px": 470.84,
+    "source": "auto+manual（claw_zone 内は形態処理の包絡）＋manual（藍線の途切れを閉じる障壁に沿う 4 点）"
    },
    "verdict": "record-only（目標を定義。描画の判定はまだ）",
    "baseline_M1R01": {
@@ -731,8 +754,8 @@
      {
       "target": "132",
       "version": "envelope",
-      "value_max_px": 248.499,
-      "p95_px": 239.1566,
+      "value_max_px": 248.8821,
+      "p95_px": 239.4992,
       "evaluator_verdict": "fail"
      }
     ]
@@ -742,8 +765,8 @@
    "backlog": 72,
    "value": {
     "target": "main_wave_outline_envelope.72",
-    "n_points": 1525,
-    "length_display_px": 858.65,
+    "n_points": 1520,
+    "length_display_px": 852.49,
     "source": "auto+manual（claw_zone 内は形態処理の包絡）"
    },
    "verdict": "record-only（目標を定義。描画の判定はまだ）",
@@ -753,8 +776,8 @@
      {
       "target": "72",
       "version": "envelope",
-      "value_max_px": 404.5615,
-      "p95_px": 292.8895,
+      "value_max_px": 404.4588,
+      "p95_px": 293.2485,
       "evaluator_verdict": "fail"
      }
     ]
@@ -772,8 +795,8 @@
      {
       "target": "71",
       "version": "envelope",
-      "value_max_px": 404.5615,
-      "p95_px": 299.2938,
+      "value_max_px": 404.4588,
+      "p95_px": 299.5997,
       "evaluator_verdict": "fail"
      }
     ]
@@ -796,7 +819,7 @@
      },
      {
       "target": "sky_bottom",
-      "value_dE00": 27.6443,
+      "value_dE00": 27.6426,
       "evaluator_verdict": "fail"
      }
     ]
@@ -819,7 +842,7 @@
      },
      {
       "target": "boat_ochre",
-      "value_dE00": 34.2932,
+      "value_dE00": 34.2974,
       "evaluator_verdict": "record-only"
      }
     ]
@@ -836,7 +859,7 @@
     "measures": [
      {
       "target": "sky_top",
-      "value_dE00": 3.7076,
+      "value_dE00": 3.741,
       "evaluator_verdict": "pass"
      }
     ]
@@ -854,8 +877,8 @@
      {
       "target": "fuji_ridge",
       "version": "claws",
-      "value_max_px": 155.9123,
-      "p95_px": 50.6786,
+      "value_max_px": 156.0736,
+      "p95_px": 50.8755,
       "evaluator_verdict": "record-only"
      }
     ]
@@ -873,8 +896,8 @@
      {
       "target": "fuji_ridge",
       "version": "claws",
-      "value_max_px": 155.9123,
-      "p95_px": 50.6786,
+      "value_max_px": 156.0736,
+      "p95_px": 50.8755,
       "evaluator_verdict": "record-only"
      }
     ]
@@ -891,8 +914,8 @@
     "measures": [
      {
       "target": "boat_fg",
-      "value_max_px": 189.6889,
-      "p95_px": 153.2289,
+      "value_max_px": 189.9698,
+      "p95_px": 153.099,
       "evaluator_verdict": "record-only"
      }
     ]
@@ -909,8 +932,8 @@
     "measures": [
      {
       "target": "boat_left",
-      "value_max_px": 169.4087,
-      "p95_px": 143.1066,
+      "value_max_px": 157.7306,
+      "p95_px": 122.7819,
       "evaluator_verdict": "record-only"
      }
     ]
@@ -927,8 +950,8 @@
     "measures": [
      {
       "target": "boat_mid",
-      "value_max_px": 176.8001,
-      "p95_px": 162.667,
+      "value_max_px": 176.5822,
+      "p95_px": 162.6165,
       "evaluator_verdict": "record-only"
      }
     ]
@@ -945,12 +968,12 @@
     "measures": [
      {
       "target": "fuji_snow",
-      "value_dE00": 9.0171,
+      "value_dE00": 9.0929,
       "evaluator_verdict": "record-only"
      },
      {
       "target": "fuji_slope",
-      "value_dE00": 5.2662,
+      "value_dE00": 5.3505,
       "evaluator_verdict": "record-only"
      }
     ]
@@ -967,49 +990,288 @@
     "measures": [
      {
       "target": "mizuiro",
-      "value_dE00": 66.2307,
+      "value_dE00": 65.9344,
       "evaluator_verdict": "record-only"
      },
      {
       "target": "ai_mid",
-      "value_dE00": 50.9675,
+      "value_dE00": 50.932,
       "evaluator_verdict": "record-only"
      }
     ]
    }
   },
-  "line_width_painting": {
+  "line_width_profile": {
+   "backlog": [
+    195,
+    198
+   ],
    "value": {
-    "median_display_px": 3.0,
-    "median_ref_px": 2.2417,
-    "p10_display_px": 2.275,
-    "p90_display_px": 4.0
+    "segments": {
+     "78": {
+      "median_display_px": 2.78,
+      "p10_display_px": 2.202,
+      "p90_display_px": 3.843,
+      "median_ref_px": 6.678,
+      "n_measured": 148,
+      "n_points": 176
+     },
+     "130": {
+      "median_display_px": 3.343,
+      "p10_display_px": 2.917,
+      "p90_display_px": 4.577,
+      "median_ref_px": 8.029,
+      "n_measured": 134,
+      "n_points": 134
+     },
+     "131": {
+      "median_display_px": 2.867,
+      "p10_display_px": 2.291,
+      "p90_display_px": 3.829,
+      "median_ref_px": 6.885,
+      "n_measured": 230,
+      "n_points": 230
+     },
+     "132": {
+      "median_display_px": 2.292,
+      "p10_display_px": 1.517,
+      "p90_display_px": 3.361,
+      "median_ref_px": 5.504,
+      "n_measured": 536,
+      "n_points": 596
+     },
+     "72": {
+      "median_display_px": 2.629,
+      "p10_display_px": 1.682,
+      "p90_display_px": 5.586,
+      "median_ref_px": 6.315,
+      "n_measured": 713,
+      "n_points": 1025
+     }
+    },
+    "feasibility": {
+     "segment_median_rel_error_max": 0.0425,
+     "repeatability_rel_max": 0.0163,
+     "per_point_rel_error_abs_p95_all": 0.2763,
+     "per_point_within_20pct_all": 0.9323,
+     "segment_level_feasible": true,
+     "per_point_feasible": false
+    }
    },
-   "verdict": "record-only"
+   "verdict": "record-only",
+   "note_ja": "高解像度原画の線幅プロファイル（半深さ全幅、targets/line_width_profile.json）。±20% は判定しない（painting_truth.json の scoring.line_width.judged = false）。判定の可否は 23_line_width.json の feasibility。"
+  },
+  "registration_hires_to_legacy": {
+   "value": {
+    "pixel_centre_model": {
+     "x_legacy_plus_half": "(x_h + 0.5) * 1200 / 3859",
+     "y_legacy_plus_half": "(y_h + 0.5) * 807 / 2594",
+     "scale_x": 3.2158333333333333,
+     "scale_y": 3.214374225526642,
+     "anisotropy_percent": 0.0454
+    },
+    "ecc_affine_max_corner_displacement_legacy_px": 0.0474,
+    "ecc_affine_correlation": 0.998609,
+    "sift_similarity_residual_rms_legacy_px": 0.2391,
+    "sift_similarity_rotation_deg": 0.0008,
+    "display_shift_v0_2_minus_v0_1_px": {
+     "dx_at_x_display": {
+      "157": -0.3643,
+      "400": -0.254,
+      "700": -0.1178,
+      "959.5": -0.0,
+      "1108": 0.0674,
+      "1400": 0.2,
+      "1762": 0.3643
+     },
+     "dx_max_abs_painting": 0.3645,
+     "dx_main_wave_range_157_1110": [
+      -0.3643,
+      0.0683
+     ],
+     "dy_max_abs": 0.0
+    }
+   },
+   "verdict": "record-only",
+   "note_ja": "旧原画は新原画を画素中心の約束で縦横別の倍率（3.21583・3.21437、差 0.045%）に縮小したもので、裁ち落としと余白の差はない。ECC のアフィン残差は四隅で最大 0.047 旧参照 px（0.063 表示 px）、回転は 0.0008°（特徴点）。"
   },
   "gate_unity_flat_patch_dE00": {
-   "value": 0.2877,
+   "value": 0.3064,
    "threshold": 0.5,
    "per_patch": {
-    "white": 0.1837,
-    "mizuiro": 0.2313,
-    "ai_mid": 0.1211,
-    "ai_dark": 0.2055,
-    "sky_top": 0.1663,
-    "sky_bottom": 0.2877,
-    "boat_ochre": 0.1135,
-    "fuji_snow": 0.1222,
-    "fuji_slope": 0.1603,
+    "white": 0.2449,
+    "mizuiro": 0.1327,
+    "ai_mid": 0.1441,
+    "ai_dark": 0.1649,
+    "sky_top": 0.1368,
+    "sky_bottom": 0.3064,
+    "boat_ochre": 0.1332,
+    "fuji_snow": 0.0773,
+    "fuji_slope": 0.1517,
     "grey_064": 0.0,
     "grey_128": 0.0,
     "grey_192": 0.0
    },
    "verdict": "pass",
    "note_ja": "Linear 色空間で、Color 型のプロパティ（8bit sRGB 値）を無光照で sRGB の RT（MSAA 8x → 解決 → RGB24 → PNG）へ描いた。基線の色画像と同じ経路。色区の縁から 6 px 内側の中央値を調色板の lab（灰は入力値）と比べた。"
+  },
+  "recheck_24_tstar": {
+   "backlog": [
+    78,
+    130,
+    131,
+    132,
+    72,
+    71
+   ],
+   "value": {
+    "78": {
+     "v0_2": {
+      "max_px": 0.7582,
+      "p95_px": 0.6366,
+      "worst_display_xy": [
+       317.7,
+       352.0
+      ],
+      "iou": null,
+      "evaluator_verdict": "pass"
+     },
+     "recorded_by_24_with_truth_v0_1": {
+      "max_px": 0.8165,
+      "p95_px": 0.5188,
+      "worst_display_xy": [
+       240.0,
+       387.33
+      ],
+      "iou": null
+     }
+    },
+    "130": {
+     "v0_2": {
+      "max_px": 0.505,
+      "p95_px": 0.3795,
+      "worst_display_xy": [
+       357.5,
+       308.0
+      ],
+      "iou": null,
+      "evaluator_verdict": "pass"
+     },
+     "recorded_by_24_with_truth_v0_1": {
+      "max_px": 0.7157,
+      "p95_px": 0.4769,
+      "worst_display_xy": [
+       420.89,
+       248.0
+      ],
+      "iou": null
+     }
+    },
+    "131": {
+     "v0_2": {
+      "max_px": 0.6735,
+      "p95_px": 0.5267,
+      "worst_display_xy": [
+       724.0,
+       93.61
+      ],
+      "iou": null,
+      "evaluator_verdict": "pass"
+     },
+     "recorded_by_24_with_truth_v0_1": {
+      "max_px": 0.7103,
+      "p95_px": 0.5528,
+      "worst_display_xy": [
+       675.0,
+       103.82
+      ],
+      "iou": null
+     }
+    },
+    "132": {
+     "v0_2": {
+      "max_px": 1.048,
+      "p95_px": 0.6196,
+      "worst_display_xy": [
+       951.22,
+       185.0
+      ],
+      "iou": null,
+      "evaluator_verdict": "pass"
+     },
+     "recorded_by_24_with_truth_v0_1": {
+      "max_px": 0.862,
+      "p95_px": 0.5352,
+      "worst_display_xy": [
+       1107.95,
+       353.0
+      ],
+      "iou": null
+     }
+    },
+    "72": {
+     "v0_2": {
+      "max_px": 9.543,
+      "p95_px": 3.4217,
+      "worst_display_xy": [
+       1107.41,
+       376.0
+      ],
+      "iou": null,
+      "evaluator_verdict": "fail"
+     },
+     "recorded_by_24_with_truth_v0_1": {
+      "max_px": 10.5354,
+      "p95_px": 4.3056,
+      "worst_display_xy": [
+       1079.96,
+       395.0
+      ],
+      "iou": null
+     }
+    },
+    "71": {
+     "v0_2": {
+      "max_px": 43.4703,
+      "p95_px": 16.0344,
+      "worst_display_xy": [
+       1045.0,
+       744.03
+      ],
+      "iou": 0.97472,
+      "evaluator_verdict": "fail"
+     },
+     "recorded_by_24_with_truth_v0_1": {
+      "max_px": 42.9895,
+      "p95_px": 16.3695,
+      "worst_display_xy": [
+       1045.0,
+       744.51
+      ],
+      "iou": null
+     }
+    },
+    "132_claws": {
+     "v0_2": {
+      "max_px": 43.7724,
+      "p95_px": 32.7319
+     }
+    },
+    "72_claws": {
+     "v0_2": {
+      "max_px": 36.6322,
+      "p95_px": 24.7555
+     }
+    }
+   },
+   "truth_version": "v0.2",
+   "metrics": "Docs/Evidence/ArtFirst/23/23_recheck24_metrics.json",
+   "verdict": "record-only（番号24 はプレビュー。合否は採らない）",
+   "note_ja": "番号24（修正1回目）が保存した t* の画像を、真値 v0.2 で評価し直した記録のみ。24 はプレビューで合否を採らない。24 の記録（真値 v0.1）との差は物差し（真値）の違いで、24 の形の改善・悪化ではない。24 のファイルは変えていない。"
   }
  },
  "gate_all_pass": true,
- "gate_scope_ja": "較正門が確かめるのは、評価器の測り方（CIEDE2000 の式、輪郭距離、平行移動、画面写像、Unity の投影と色の経路）と、真値の折れ線が原画のエッジに乗っているか（Canny 支持率＝精度）である。真値が原画の水の面を漏れなく含むか（完全性）は判定しない。v0 の真値は唇の右端の爪群が空として抜けていたが、抜けた所の境界も藍線に沿うため Canny 支持率は 98.56% で合格していた。完全性は records.truth_completeness（記録のみ）と、人が拡大図で確かめることで見る。",
+ "gate_scope_ja": "較正門が確かめるのは、評価器の測り方（CIEDE2000 の式、輪郭距離、平行移動、画面写像、Unity の投影と色の経路）と、真値の折れ線が原画のエッジに乗っているか（Canny 支持率＝精度）である。真値が原画の水の面を漏れなく含むか（完全性）は判定しない。v0 の真値は唇の右端の爪群が空として抜けていたが、抜けた所の境界も藍線に沿うため Canny 支持率は 98.56% で合格していた。完全性は records.truth_completeness（記録のみ）と、人が拡大図で確かめることで見る。真値 v0.2（修正2回目）からは高解像度原画 3859×2594 で測り、Canny 支持率の距離のしきい値は凍結時の 1 旧参照 px の大きさのまま。",
  "gate": {
   "path": "Docs/Evidence/ArtFirst/23/23_gate.json",
   "items": {
@@ -1022,8 +1284,8 @@
    "unity_flat_patch_dE00": true
   },
   "all_pass": true,
-  "truth_manifest_sha256": "42d4a92caac0f7e3da1410998930077f4a167634272d7b59e1fc127b2c4562b6",
-  "painting_truth_sha256": "578116e0f48ca9938586056f6d7b3f66a655abdf0c6d1dc78e5802bd02264758"
+  "truth_manifest_sha256": "8c99033e02c2cbeedec4cf8924e57fe89092c714569afa56c8c8965414880fbd",
+  "painting_truth_sha256": "392860ebeff76a7249056fc339b15e853c0155937efa4feee125f8f974f01c0a"
  },
  "part2": {
   "gate_path": "Docs/Evidence/ArtFirst/23/23_gate.json",
@@ -1034,8 +1296,8 @@
    "graphics_api": "Direct3D11",
    "color_space": "Linear",
    "method_ja": "Editor batchmode：保存しない空シーン → Camera.Render → RenderTexture → ReadPixels → PNG（PC オフスクリーン、HMD ではない）",
-   "gate_render_seconds": 0.24595969915390015,
-   "baseline_render_seconds": 0.35947659611701965
+   "gate_render_seconds": 0.25752198696136475,
+   "baseline_render_seconds": 0.3723897933959961
   }
  }
 }

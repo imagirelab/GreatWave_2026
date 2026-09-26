@@ -11,7 +11,7 @@ using UnityEngine.Rendering;
 
 namespace GreatWave.ArtFirst.EditorTools
 {
-    // 編号23 第2部「較正門（Unity 側）と M1 Revision01 の基線描画」。
+    // 番号23 第2部「較正門（Unity 側）と M1 Revision01 の基線描画」。
     // 1) Gate：保存しない空のシーンに PaintingCam v1（Tools/PaintingTruth/painting_truth.json をそのまま読む）と
     //    世界標識 5 点・平塗り色区を置き、1920×1080 で Camera.Render → RenderTexture → PNG に描く。
     //    位置と色の測定・判定は Tools/PaintingTruth/gate_part2.py が行う（ここでは描くだけ）。
@@ -196,7 +196,7 @@ namespace GreatWave.ArtFirst.EditorTools
             foreach (var m in mats) UnityEngine.Object.DestroyImmediate(m);
             UnityEngine.Object.DestroyImmediate(cam.gameObject);
             rep.idmapJson = OutRoot + "/af23_baseline_M1R01_idmap.json";
-            File.WriteAllText(rep.idmapJson, "{\n \"classes\": {\n  \"sky\": [0, 0, 255],\n  \"boat_left\": [255, 0, 0],\n  \"boat_mid\": [0, 255, 0],\n  \"boat_fg\": [255, 255, 0]\n },\n \"other\": [0, 0, 0],\n \"note_ja\": \"編号23 第2部：M1 Revision01 の ID 画像（3840×2160、MSAA なし）。空＝カメラの背景、三船＝各船の子孫、ほかは全て other（旧主波・支え斜面・白波・参照海面・富士など）。\"\n}\n");
+            File.WriteAllText(rep.idmapJson, "{\n \"classes\": {\n  \"sky\": [0, 0, 255],\n  \"boat_left\": [255, 0, 0],\n  \"boat_mid\": [0, 255, 0],\n  \"boat_fg\": [255, 255, 0]\n },\n \"other\": [0, 0, 0],\n \"note_ja\": \"番号23 第2部：M1 Revision01 の ID 画像（3840×2160、MSAA なし）。空＝カメラの背景、三船＝各船の子孫、ほかは全て other（旧主波・支え斜面・白波・参照海面・富士など）。\"\n}\n");
 
             // 開いたシーンは保存しない。空のシーンへ切り替えて変更を捨て、依存資産の SHA-256 を比べる。
             EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);

@@ -1,0 +1,457 @@
+{
+ "schema": "GreatWave.Step23.extract_record/1",
+ "truth_version": "v0.2",
+ "verdict": "record-only",
+ "note_ja": "値は高解像度 px（ref）の画素数。to_sky は v0.2 の真値で水・比べる側で空、to_water はその逆。interior_water_to_sky は v0.2 の水の面から 20 px 以上内側が空になった画素で、流れ込みの目安。",
+ "v0_1_to_v0_2": {
+  "to_sky_px": 5758,
+  "to_water_px": 5945,
+  "interior_water_to_sky_px": 332,
+  "components_to_sky": [
+   {
+    "area_ref_px": 1421,
+    "area_legacy_ref_px2": 137.5,
+    "bbox_ref_xywh": [
+     1830,
+     431,
+     47,
+     77
+    ],
+    "centroid_ref": [
+     1851.6,
+     467.4
+    ],
+    "centroid_legacy_ref": [
+     575.6,
+     145.0
+    ],
+    "centroid_display": [
+     927.3,
+     194.3
+    ]
+   },
+   {
+    "area_ref_px": 578,
+    "area_legacy_ref_px2": 55.9,
+    "bbox_ref_xywh": [
+     3338,
+     1418,
+     45,
+     57
+    ],
+    "centroid_ref": [
+     3358.0,
+     1442.3
+    ],
+    "centroid_legacy_ref": [
+     1044.1,
+     448.3
+    ],
+    "centroid_display": [
+     1554.5,
+     600.2
+    ]
+   },
+   {
+    "area_ref_px": 135,
+    "area_legacy_ref_px2": 13.1,
+    "bbox_ref_xywh": [
+     2113,
+     770,
+     19,
+     11
+    ],
+    "centroid_ref": [
+     2122.5,
+     776.1
+    ],
+    "centroid_legacy_ref": [
+     659.8,
+     241.0
+    ],
+    "centroid_display": [
+     1040.1,
+     322.8
+    ]
+   },
+   {
+    "area_ref_px": 114,
+    "area_legacy_ref_px2": 11.0,
+    "bbox_ref_xywh": [
+     2135,
+     1054,
+     12,
+     13
+    ],
+    "centroid_ref": [
+     2139.4,
+     1060.7
+    ],
+    "centroid_legacy_ref": [
+     665.1,
+     329.6
+    ],
+    "centroid_display": [
+     1047.1,
+     441.3
+    ]
+   },
+   {
+    "area_ref_px": 104,
+    "area_legacy_ref_px2": 10.1,
+    "bbox_ref_xywh": [
+     1894,
+     444,
+     13,
+     11
+    ],
+    "centroid_ref": [
+     1900.3,
+     448.4
+    ],
+    "centroid_legacy_ref": [
+     590.7,
+     139.1
+    ],
+    "centroid_display": [
+     947.6,
+     186.4
+    ]
+   },
+   {
+    "area_ref_px": 98,
+    "area_legacy_ref_px2": 9.5,
+    "bbox_ref_xywh": [
+     1997,
+     1006,
+     19,
+     13
+    ],
+    "centroid_ref": [
+     2008.7,
+     1013.1
+    ],
+    "centroid_legacy_ref": [
+     624.4,
+     314.8
+    ],
+    "centroid_display": [
+     992.7,
+     421.5
+    ]
+   },
+   {
+    "area_ref_px": 95,
+    "area_legacy_ref_px2": 9.2,
+    "bbox_ref_xywh": [
+     3331,
+     1466,
+     13,
+     13
+    ],
+    "centroid_ref": [
+     3337.5,
+     1472.3
+    ],
+    "centroid_legacy_ref": [
+     1037.7,
+     457.6
+    ],
+    "centroid_display": [
+     1545.9,
+     612.7
+    ]
+   },
+   {
+    "area_ref_px": 93,
+    "area_legacy_ref_px2": 9.0,
+    "bbox_ref_xywh": [
+     2274,
+     865,
+     9,
+     16
+    ],
+    "centroid_ref": [
+     2278.0,
+     871.5
+    ],
+    "centroid_legacy_ref": [
+     708.2,
+     270.7
+    ],
+    "centroid_display": [
+     1104.8,
+     362.5
+    ]
+   }
+  ],
+  "components_to_water": [
+   {
+    "area_ref_px": 161,
+    "area_legacy_ref_px2": 15.6,
+    "bbox_ref_xywh": [
+     1723,
+     1639,
+     14,
+     25
+    ],
+    "centroid_ref": [
+     1729.5,
+     1649.9
+    ],
+    "centroid_legacy_ref": [
+     537.6,
+     512.8
+    ],
+    "centroid_display": [
+     876.4,
+     686.6
+    ]
+   },
+   {
+    "area_ref_px": 91,
+    "area_legacy_ref_px2": 8.8,
+    "bbox_ref_xywh": [
+     1932,
+     630,
+     35,
+     10
+    ],
+    "centroid_ref": [
+     1949.0,
+     635.0
+    ],
+    "centroid_legacy_ref": [
+     605.8,
+     197.2
+    ],
+    "centroid_display": [
+     967.8,
+     264.1
+    ]
+   }
+  ],
+  "note_ja": "比べる側 = v0.1 の真値（旧原画・旧規則・障壁 3 本で作り直し、画素中心の約束で高解像度へ写した）。"
+ },
+ "control_no_gap_closing_no_manual_barriers": {
+  "to_sky_px": 1155069,
+  "to_water_px": 92,
+  "interior_water_to_sky_px": 1073665,
+  "components_to_sky": [
+   {
+    "area_ref_px": 1153906,
+    "area_legacy_ref_px2": 111629.9,
+    "bbox_ref_xywh": [
+     0,
+     229,
+     2289,
+     1536
+    ],
+    "centroid_ref": [
+     1034.9,
+     885.7
+    ],
+    "centroid_legacy_ref": [
+     321.5,
+     275.1
+    ],
+    "centroid_display": [
+     587.3,
+     368.5
+    ]
+   },
+   {
+    "area_ref_px": 269,
+    "area_legacy_ref_px2": 26.0,
+    "bbox_ref_xywh": [
+     3331,
+     1456,
+     28,
+     24
+    ],
+    "centroid_ref": [
+     3345.3,
+     1469.1
+    ],
+    "centroid_legacy_ref": [
+     1040.2,
+     456.6
+    ],
+    "centroid_display": [
+     1549.2,
+     611.4
+    ]
+   }
+  ],
+  "components_to_water": [],
+  "note_ja": "比べる側 = 途切れの閉じ（barrier_dilate_ref_px）を 0 にし、手動の障壁を外した空。"
+ },
+ "barrier_ablation": {
+  "lip_cluster_top_gap": {
+   "to_sky_px": 72,
+   "to_water_px": 0,
+   "interior_water_to_sky_px": 0,
+   "components_to_sky": [
+    {
+     "area_ref_px": 47,
+     "area_legacy_ref_px2": 4.5,
+     "bbox_ref_xywh": [
+      1935,
+      639,
+      13,
+      5
+     ],
+     "centroid_ref": [
+      1941.3,
+      641.6
+     ],
+     "centroid_legacy_ref": [
+      603.5,
+      199.2
+     ],
+     "centroid_display": [
+      964.6,
+      266.8
+     ]
+    },
+    {
+     "area_ref_px": 25,
+     "area_legacy_ref_px2": 2.4,
+     "bbox_ref_xywh": [
+      1949,
+      634,
+      12,
+      4
+     ],
+     "centroid_ref": [
+      1955.6,
+      635.9
+     ],
+     "centroid_legacy_ref": [
+      607.9,
+      197.4
+     ],
+     "centroid_display": [
+      970.6,
+      264.5
+     ]
+    }
+   ],
+   "components_to_water": []
+  },
+  "lip_cluster_pocket_inner": {
+   "to_sky_px": 24,
+   "to_water_px": 0,
+   "interior_water_to_sky_px": 0,
+   "components_to_sky": [
+    {
+     "area_ref_px": 24,
+     "area_legacy_ref_px2": 2.3,
+     "bbox_ref_xywh": [
+      2094,
+      770,
+      14,
+      4
+     ],
+     "centroid_ref": [
+      2099.1,
+      772.4
+     ],
+     "centroid_legacy_ref": [
+      652.6,
+      239.9
+     ],
+     "centroid_display": [
+      1030.3,
+      321.3
+     ]
+    }
+   ],
+   "components_to_water": []
+  },
+  "lip_cluster_curl_right": {
+   "to_sky_px": 72,
+   "to_water_px": 0,
+   "interior_water_to_sky_px": 0,
+   "components_to_sky": [
+    {
+     "area_ref_px": 71,
+     "area_legacy_ref_px2": 6.9,
+     "bbox_ref_xywh": [
+      2222,
+      774,
+      8,
+      13
+     ],
+     "centroid_ref": [
+      2224.5,
+      780.9
+     ],
+     "centroid_legacy_ref": [
+      691.6,
+      242.5
+     ],
+     "centroid_display": [
+      1082.6,
+      324.8
+     ]
+    }
+   ],
+   "components_to_water": []
+  },
+  "crest_hook_bottom_gap": {
+   "to_sky_px": 34,
+   "to_water_px": 0,
+   "interior_water_to_sky_px": 0,
+   "components_to_sky": [
+    {
+     "area_ref_px": 34,
+     "area_legacy_ref_px2": 3.3,
+     "bbox_ref_xywh": [
+      1872,
+      493,
+      3,
+      12
+     ],
+     "centroid_ref": [
+      1872.9,
+      498.5
+     ],
+     "centroid_legacy_ref": [
+      582.2,
+      154.7
+     ],
+     "centroid_display": [
+      936.2,
+      207.3
+     ]
+    }
+   ],
+   "components_to_water": []
+  },
+  "note_ja": "比べる側 = その障壁 1 本だけを外した空（ほかの障壁と途切れの閉じは同じ）。"
+ },
+ "gap_closing_radius": {
+  "radius_0": {
+   "to_sky_px": 1155069,
+   "to_water_px": 92,
+   "interior_water_to_sky_px": 1073665
+  },
+  "radius_1": {
+   "to_sky_px": 1791,
+   "to_water_px": 13,
+   "interior_water_to_sky_px": 0
+  },
+  "radius_2": {
+   "to_sky_px": 642,
+   "to_water_px": 7,
+   "interior_water_to_sky_px": 0
+  },
+  "used": 3,
+  "note_ja": "手動の障壁 4 本はそのままで、途切れの閉じの半径だけを小さくした場合。"
+ },
+ "unity_gate_colour_sync": {
+  "path": "Tools/PaintingTruth/unity_gate.json",
+  "changed": {}
+ }
+}

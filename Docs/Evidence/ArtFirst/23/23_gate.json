@@ -1,13 +1,14 @@
 {
  "schema": "GreatWave.Step23.gate/1",
  "number": "23",
- "generated_utc": "2026-09-25T16:04:44+00:00",
+ "generated_utc": "2026-09-25T18:49:45+00:00",
  "all_pass": true,
  "gate_complete": true,
- "verdict_ja": "較正門の全項目が合格した（第1部 5 項目＋補助 1、第2部 Unity 2 項目）。編号26 の前提を満たす。",
- "scope_ja": "較正門が確かめるのは、評価器の測り方（CIEDE2000 の式、輪郭距離、平行移動、画面写像、Unity の投影と色の経路）と、真値の折れ線が原画のエッジに乗っているか（Canny 支持率＝精度）である。真値が原画の水の面を漏れなく含むか（完全性）は判定しない。v0 の真値は唇の右端の爪群が空として抜けていたが、抜けた所の境界も藍線に沿うため Canny 支持率は 98.56% で合格していた。完全性は records.truth_completeness（記録のみ）と、人が拡大図で確かめることで見る。",
- "truth_manifest_sha256": "42d4a92caac0f7e3da1410998930077f4a167634272d7b59e1fc127b2c4562b6",
- "painting_truth_sha256": "578116e0f48ca9938586056f6d7b3f66a655abdf0c6d1dc78e5802bd02264758",
+ "verdict_ja": "較正門の全項目が合格した（第1部 5 項目＋補助 1、第2部 Unity 2 項目）。番号26 の前提を満たす。",
+ "scope_ja": "較正門が確かめるのは、評価器の測り方（CIEDE2000 の式、輪郭距離、平行移動、画面写像、Unity の投影と色の経路）と、真値の折れ線が原画のエッジに乗っているか（Canny 支持率＝精度）である。真値が原画の水の面を漏れなく含むか（完全性）は判定しない。v0 の真値は唇の右端の爪群が空として抜けていたが、抜けた所の境界も藍線に沿うため Canny 支持率は 98.56% で合格していた。完全性は records.truth_completeness（記録のみ）と、人が拡大図で確かめることで見る。真値 v0.2（修正2回目）からは高解像度原画 3859×2594 で測り、Canny 支持率の距離のしきい値は凍結時の 1 旧参照 px の大きさのまま。",
+ "truth_version": "v0.2",
+ "truth_manifest_sha256": "8c99033e02c2cbeedec4cf8924e57fe89092c714569afa56c8c8965414880fbd",
+ "painting_truth_sha256": "392860ebeff76a7249056fc339b15e853c0155937efa4feee125f8f974f01c0a",
  "truth_sha256_ja": "この較正門を回した時の真値。evaluate.py はこの 2 つが今のファイルと違えば provisional: false を出さない。",
  "problems": [],
  "items": {
@@ -37,14 +38,17 @@
    "source": "selftest.json（第1部）"
   },
   "flat_patch_numpy_dE00": {
-   "value": 0.2877,
+   "value": 0.3064,
    "threshold": 0.5,
    "pass": true,
    "source": "selftest.json（第1部、numpy の合成画像）"
   },
   "canny_support": {
-   "value": 0.9868,
+   "value": 0.9914,
    "threshold": 0.95,
+   "distance_threshold_ref_px": 3.2151,
+   "distance_threshold_ja": "1 旧参照 px（凍結時の大きさ。v0.2 の高解像度 px では 3.2151 px）",
+   "record_le_1_ref_px": 0.9084,
    "pass": true,
    "source": "selftest.json（第1部）"
   },
@@ -213,7 +217,7 @@
    "note_ja": "Unity 6000.4.3f1（Editor batchmode、Direct3D11、Linear 色空間）で painting_truth.json の PaintingCam v1 を組み、画像面に平行な半径 8 px の円板 5 枚を線形 RT・MSAA 8x・1920×1080 で描いた。被覆率で重み付けた重心を、numpy の投影（truthlib.project_world、画素中心 = 整数）と比べた。"
   },
   "unity_flat_patch_dE00": {
-   "value_max": 0.2877,
+   "value_max": 0.3064,
    "threshold": 0.5,
    "pass": true,
    "per_patch": [
@@ -236,12 +240,12 @@
       9.7302
      ],
      "reference_lab": [
-      96.7012,
-      -1.6378,
-      9.7455
+      96.7312,
+      -1.6875,
+      9.8322
      ],
      "reference_kind": "palette.json の lab（調色板の値）",
-     "dE00_vs_reference": 0.1837,
+     "dE00_vs_reference": 0.2449,
      "dE00_vs_input_srgb8": 0.0,
      "max_abs_8bit_diff": 0,
      "distinct_colors_inside": 1,
@@ -251,8 +255,8 @@
     {
      "name": "mizuiro",
      "srgb8_input": [
-      193,
-      212,
+      192,
+      211,
       199
      ],
      "rect_px": [
@@ -262,17 +266,17 @@
       360
      ],
      "render_median_lab": [
-      83.2036,
-      -8.8286,
-      4.2493
+      82.8697,
+      -8.6514,
+      3.7573
      ],
      "reference_lab": [
-      83.0585,
-      -8.6933,
-      4.012
+      82.9594,
+      -8.6818,
+      3.9074
      ],
      "reference_kind": "palette.json の lab（調色板の値）",
-     "dE00_vs_reference": 0.2313,
+     "dE00_vs_reference": 0.1327,
      "dE00_vs_input_srgb8": 0.0,
      "max_abs_8bit_diff": 0,
      "distinct_colors_inside": 1,
@@ -298,12 +302,12 @@
       -29.3911
      ],
      "reference_lab": [
-      42.1938,
-      -5.4486,
-      -29.4277
+      42.1725,
+      -5.5169,
+      -29.2847
      ],
      "reference_kind": "palette.json の lab（調色板の値）",
-     "dE00_vs_reference": 0.1211,
+     "dE00_vs_reference": 0.1441,
      "dE00_vs_input_srgb8": 0.0,
      "max_abs_8bit_diff": 0,
      "distinct_colors_inside": 1,
@@ -313,9 +317,9 @@
     {
      "name": "ai_dark",
      "srgb8_input": [
-      33,
-      62,
-      95
+      34,
+      63,
+      96
      ],
      "rect_px": [
       1355,
@@ -324,17 +328,17 @@
       360
      ],
      "render_median_lab": [
-      25.5465,
-      0.651,
-      -22.8476
+      25.9785,
+      0.5776,
+      -22.8128
      ],
      "reference_lab": [
-      25.7154,
-      0.5912,
-      -23.0953
+      25.7794,
+      0.5848,
+      -22.968
      ],
      "reference_kind": "palette.json の lab（調色板の値）",
-     "dE00_vs_reference": 0.2055,
+     "dE00_vs_reference": 0.1649,
      "dE00_vs_input_srgb8": 0.0,
      "max_abs_8bit_diff": 0,
      "distinct_colors_inside": 1,
@@ -344,9 +348,9 @@
     {
      "name": "sky_top",
      "srgb8_input": [
-      248,
-      231,
-      195
+      249,
+      232,
+      196
      ],
      "rect_px": [
       200,
@@ -355,17 +359,17 @@
       690
      ],
      "render_median_lab": [
-      92.154,
-      0.2056,
-      19.6393
+      92.5043,
+      0.2017,
+      19.6228
      ],
      "reference_lab": [
-      92.3223,
-      0.0883,
-      19.6065
+      92.3665,
+      0.1099,
+      19.5527
      ],
      "reference_kind": "palette.json の lab（調色板の値）",
-     "dE00_vs_reference": 0.1663,
+     "dE00_vs_reference": 0.1368,
      "dE00_vs_input_srgb8": 0.0,
      "max_abs_8bit_diff": 0,
      "distinct_colors_inside": 1,
@@ -392,11 +396,11 @@
      ],
      "reference_lab": [
       53.9225,
-      -1.3855,
+      -1.3677,
       3.092
      ],
      "reference_kind": "palette.json の lab（調色板の値）",
-     "dE00_vs_reference": 0.2877,
+     "dE00_vs_reference": 0.3064,
      "dE00_vs_input_srgb8": 0.0,
      "max_abs_8bit_diff": 0,
      "distinct_colors_inside": 1,
@@ -422,12 +426,12 @@
       22.4151
      ],
      "reference_lab": [
-      80.3381,
-      7.8176,
-      22.2243
+      80.3614,
+      7.8227,
+      22.6724
      ],
      "reference_kind": "palette.json の lab（調色板の値）",
-     "dE00_vs_reference": 0.1135,
+     "dE00_vs_reference": 0.1332,
      "dE00_vs_input_srgb8": 0.0,
      "max_abs_8bit_diff": 0,
      "distinct_colors_inside": 1,
@@ -437,9 +441,9 @@
     {
      "name": "fuji_snow",
      "srgb8_input": [
-      251,
-      248,
-      229
+      252,
+      249,
+      230
      ],
      "rect_px": [
       1355,
@@ -448,17 +452,17 @@
       690
      ],
      "render_median_lab": [
-      97.3499,
-      -2.1921,
-      9.4786
+      97.6967,
+      -2.191,
+      9.4713
      ],
      "reference_lab": [
-      97.501,
-      -2.19,
-      9.5966
+      97.6517,
+      -2.1953,
+      9.5744
      ],
      "reference_kind": "palette.json の lab（調色板の値）",
-     "dE00_vs_reference": 0.1222,
+     "dE00_vs_reference": 0.0773,
      "dE00_vs_input_srgb8": 0.0,
      "max_abs_8bit_diff": 0,
      "distinct_colors_inside": 1,
@@ -484,12 +488,12 @@
       -20.5734
      ],
      "reference_lab": [
-      27.4689,
-      0.3586,
-      -20.3499
+      27.5815,
+      0.5242,
+      -20.6624
      ],
      "reference_kind": "palette.json の lab（調色板の値）",
-     "dE00_vs_reference": 0.1603,
+     "dE00_vs_reference": 0.1517,
      "dE00_vs_input_srgb8": 0.0,
      "max_abs_8bit_diff": 0,
      "distinct_colors_inside": 1,
@@ -785,7 +789,7 @@
    "note_ja": "Unity の worldToCameraMatrix / projectionMatrix（OpenGL 規約）と truthlib.cam_matrices の差（float と float64 の差）。"
   },
   "flat_patch_linear_rt_control": {
-   "value_min": 6.5067,
+   "value_min": 6.6159,
    "value_max": 26.2278,
    "per_patch": [
     {
@@ -807,12 +811,12 @@
       20.2955
      ],
      "reference_lab": [
-      96.7012,
-      -1.6378,
-      9.7455
+      96.7312,
+      -1.6875,
+      9.8322
      ],
      "reference_kind": "palette.json の lab（調色板の値）",
-     "dE00_vs_reference": 6.6852,
+     "dE00_vs_reference": 6.6356,
      "dE00_vs_input_srgb8": 6.7185,
      "max_abs_8bit_diff": 31,
      "distinct_colors_inside": 1,
@@ -822,8 +826,8 @@
     {
      "name": "mizuiro",
      "srgb8_input": [
-      193,
-      212,
+      192,
+      211,
       199
      ],
      "rect_px": [
@@ -833,19 +837,19 @@
       360
      ],
      "render_median_lab": [
-      65.9924,
-      -15.487,
-      7.7618
+      65.2909,
+      -15.1261,
+      6.7407
      ],
      "reference_lab": [
-      83.0585,
-      -8.6933,
-      4.012
+      82.9594,
+      -8.6818,
+      3.9074
      ],
      "reference_kind": "palette.json の lab（調色板の値）",
-     "dE00_vs_reference": 13.7849,
-     "dE00_vs_input_srgb8": 13.8032,
-     "max_abs_8bit_diff": 57,
+     "dE00_vs_reference": 14.1002,
+     "dE00_vs_input_srgb8": 14.0663,
+     "max_abs_8bit_diff": 58,
      "distinct_colors_inside": 1,
      "nonblack_pixels_in_rect": 109500,
      "rect_pixels": 109500
@@ -869,12 +873,12 @@
       -27.243
      ],
      "reference_lab": [
-      42.1938,
-      -5.4486,
-      -29.4277
+      42.1725,
+      -5.5169,
+      -29.2847
      ],
      "reference_kind": "palette.json の lab（調色板の値）",
-     "dE00_vs_reference": 23.4394,
+     "dE00_vs_reference": 23.4281,
      "dE00_vs_input_srgb8": 23.5484,
      "max_abs_8bit_diff": 73,
      "distinct_colors_inside": 1,
@@ -884,9 +888,9 @@
     {
      "name": "ai_dark",
      "srgb8_input": [
-      33,
-      62,
-      95
+      34,
+      63,
+      96
      ],
      "rect_px": [
       1355,
@@ -895,18 +899,18 @@
       360
      ],
      "render_median_lab": [
-      3.4093,
-      1.823,
-      -11.2131
+      3.6796,
+      1.6826,
+      -11.5939
      ],
      "reference_lab": [
-      25.7154,
-      0.5912,
-      -23.0953
+      25.7794,
+      0.5848,
+      -22.968
      ],
      "reference_kind": "palette.json の lab（調色板の値）",
-     "dE00_vs_reference": 16.4573,
-     "dE00_vs_input_srgb8": 16.2765,
+     "dE00_vs_reference": 16.1698,
+     "dE00_vs_input_srgb8": 16.2654,
      "max_abs_8bit_diff": 66,
      "distinct_colors_inside": 1,
      "nonblack_pixels_in_rect": 109500,
@@ -915,9 +919,9 @@
     {
      "name": "sky_top",
      "srgb8_input": [
-      248,
-      231,
-      195
+      249,
+      232,
+      196
      ],
      "rect_px": [
       200,
@@ -926,19 +930,19 @@
       690
      ],
      "render_median_lab": [
-      83.6541,
-      3.7416,
-      36.9324
+      84.4558,
+      4.0992,
+      37.0028
      ],
      "reference_lab": [
-      92.3223,
-      0.0883,
-      19.6065
+      92.3665,
+      0.1099,
+      19.5527
      ],
      "reference_kind": "palette.json の lab（調色板の値）",
-     "dE00_vs_reference": 9.7478,
-     "dE00_vs_input_srgb8": 9.6451,
-     "max_abs_8bit_diff": 56,
+     "dE00_vs_reference": 9.5733,
+     "dE00_vs_input_srgb8": 9.5621,
+     "max_abs_8bit_diff": 55,
      "distinct_colors_inside": 1,
      "nonblack_pixels_in_rect": 109500,
      "rect_pixels": 109500
@@ -963,11 +967,11 @@
      ],
      "reference_lab": [
       53.9225,
-      -1.3855,
+      -1.3677,
       3.092
      ],
      "reference_kind": "palette.json の lab（調色板の値）",
-     "dE00_vs_reference": 26.1612,
+     "dE00_vs_reference": 26.1617,
      "dE00_vs_input_srgb8": 26.3644,
      "max_abs_8bit_diff": 73,
      "distinct_colors_inside": 1,
@@ -993,12 +997,12 @@
       35.9869
      ],
      "reference_lab": [
-      80.3381,
-      7.8176,
-      22.2243
+      80.3614,
+      7.8227,
+      22.6724
      ],
      "reference_kind": "palette.json の lab（調色板の値）",
-     "dE00_vs_reference": 16.0451,
+     "dE00_vs_reference": 16.0127,
      "dE00_vs_input_srgb8": 16.0284,
      "max_abs_8bit_diff": 71,
      "distinct_colors_inside": 1,
@@ -1008,9 +1012,9 @@
     {
      "name": "fuji_snow",
      "srgb8_input": [
-      251,
-      248,
-      229
+      252,
+      249,
+      230
      ],
      "rect_px": [
       1355,
@@ -1019,19 +1023,19 @@
       690
      ],
      "render_median_lab": [
-      94.0969,
-      -3.8564,
-      19.7462
+      95.0455,
+      -4.359,
+      20.0648
      ],
      "reference_lab": [
-      97.501,
-      -2.19,
-      9.5966
+      97.6517,
+      -2.1953,
+      9.5744
      ],
      "reference_kind": "palette.json の lab（調色板の値）",
-     "dE00_vs_reference": 6.5067,
-     "dE00_vs_input_srgb8": 6.555,
-     "max_abs_8bit_diff": 29,
+     "dE00_vs_reference": 6.6159,
+     "dE00_vs_input_srgb8": 6.6887,
+     "max_abs_8bit_diff": 28,
      "distinct_colors_inside": 1,
      "nonblack_pixels_in_rect": 109500,
      "rect_pixels": 109500
@@ -1055,12 +1059,12 @@
       -11.0498
      ],
      "reference_lab": [
-      27.4689,
-      0.3586,
-      -20.3499
+      27.5815,
+      0.5242,
+      -20.6624
      ],
      "reference_kind": "palette.json の lab（調色板の値）",
-     "dE00_vs_reference": 16.7384,
+     "dE00_vs_reference": 16.8501,
      "dE00_vs_input_srgb8": 16.7033,
      "max_abs_8bit_diff": 66,
      "distinct_colors_inside": 1,
@@ -1165,25 +1169,82 @@
   },
   "truth_completeness": {
    "truth": {
-    "white_px_in_water": 6883,
-    "white_px_in_sky": 843,
-    "water_coverage_of_white": 0.8909,
-    "sky_components_ge_min": 3,
-    "sky_components_area_ref_px": 443
+    "white": {
+     "px_in_water": 75479,
+     "px_in_sky": 8855,
+     "water_coverage": 0.895,
+     "sky_components_ge_min": 4,
+     "sky_components_area_ref_px": 5531
+    },
+    "mizuiro": {
+     "px_in_water": 67593,
+     "px_in_sky": 12,
+     "water_coverage": 0.9998,
+     "sky_components_ge_min": 0,
+     "sky_components_area_ref_px": 0
+    },
+    "white_or_mizuiro_water_coverage": 0.9416,
+    "water_coverage_of_white": 0.895,
+    "sky_components_area_ref_px": 5531
    },
    "control_without_manual_barriers": {
-    "white_px_in_water": 4648,
-    "white_px_in_sky": 3078,
-    "water_coverage_of_white": 0.6016,
-    "sky_components_ge_min": 11,
-    "sky_components_area_ref_px": 2280
+    "white": {
+     "px_in_water": 75464,
+     "px_in_sky": 8870,
+     "water_coverage": 0.8948,
+     "sky_components_ge_min": 4,
+     "sky_components_area_ref_px": 5531
+    },
+    "mizuiro": {
+     "px_in_water": 67592,
+     "px_in_sky": 13,
+     "water_coverage": 0.9998,
+     "sky_components_ge_min": 0,
+     "sky_components_area_ref_px": 0
+    },
+    "white_or_mizuiro_water_coverage": 0.9415,
+    "water_coverage_of_white": 0.8948,
+    "sky_components_area_ref_px": 5531
    },
-   "white_rule": {
-    "blur_sigma_ref_px": 1.0,
-    "L_min": 95.0,
-    "a_max": -0.5,
-    "b_max": 9.0,
-    "min_component_ref_px": 20
+   "control_without_gap_closing_and_barriers": {
+    "white": {
+     "px_in_water": 8,
+     "px_in_sky": 84326,
+     "water_coverage": 0.0001,
+     "sky_components_ge_min": 37,
+     "sky_components_area_ref_px": 68596
+    },
+    "mizuiro": {
+     "px_in_water": 304,
+     "px_in_sky": 67301,
+     "water_coverage": 0.0045,
+     "sky_components_ge_min": 59,
+     "sky_components_area_ref_px": 62785
+    },
+    "white_or_mizuiro_water_coverage": 0.0021,
+    "water_coverage_of_white": 0.0001,
+    "sky_components_area_ref_px": 131381
+   },
+   "rules": {
+    "white": {
+     "blur_sigma_legacy_ref_px": 1.0,
+     "L_min": 95.0,
+     "a_max": -0.5,
+     "b_max": 9.0,
+     "min_component_legacy_ref_px2": 20
+    },
+    "mizuiro": {
+     "blur_sigma_legacy_ref_px": 1.0,
+     "L_min": 70.0,
+     "L_below": 95.0,
+     "a_max": -4.5,
+     "b_max": 8.0,
+     "min_component_legacy_ref_px2": 20,
+     "note_ja": "修正2回目で追加。調色板の水色（L* 83.0、a* −8.7、b* 3.9）の周り。外の空（a* ≈ 0、b* ≈ 12〜20）と白は含まない。高解像度の claw_zone で 67,605 px が当たり、真値の空の中は 12 px だった（試算）。"
+    },
+    "px_per_legacy_ref_px": 3.215104,
+    "min_component_ref_px": 207,
+    "opening_radius_ref_px": 3
    },
    "source": "selftest.json（第1部、truth_completeness_record。塊の一覧もそこにある）",
    "note_ja": "記録のみ。真値が原画の水の面を漏れなく含むか（完全性）の目安で、較正門の合否には入れない。"
@@ -1195,8 +1256,8 @@
   "graphics_api": "Direct3D11",
   "color_space": "Linear",
   "method_ja": "Editor batchmode：保存しない空シーン → Camera.Render → RenderTexture → ReadPixels → PNG（PC オフスクリーン、HMD ではない）",
-  "gate_render_seconds": 0.24595969915390015,
-  "baseline_render_seconds": 0.35947659611701965
+  "gate_render_seconds": 0.25752198696136475,
+  "baseline_render_seconds": 0.3723897933959961
  },
  "evidence_kind_ja": "Unity Editor（batchmode）の PC オフスクリーン描画と numpy/OpenCV 測定。PC ビルド・HMD 実機の結果ではない。"
 }

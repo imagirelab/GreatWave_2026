@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""編号23 評価器 v0。1920×1080 の描画 PNG を原画基準（targets/）と比べる。
+"""番号23 評価器 v0。1920×1080 の描画 PNG を原画基準（targets/）と比べる。
 
 使い方（リポジトリ根で）:
     評価:     py -3.10 Tools/PaintingTruth/evaluate.py --render R.png [--ids ID.png --idmap idmap.json] --out-dir DIR
@@ -56,11 +56,15 @@ COLOR_ITEMS = [
     ("boat_ochre", [213], False),
 ]
 MAIN_SEGS = ["78", "130", "131", "132", "72"]
-# 較正門の結果（編号23 第2部の gate_part2.py が書く）。全項目合格で、かつ門の後に真値が変わっていなければ、評価の判定を暫定扱いしない。
+# 較正門の結果（番号23 第2部の gate_part2.py が書く）。全項目合格で、かつ門の後に真値が変わっていなければ、評価の判定を暫定扱いしない。
 GATE_REL = "Docs/Evidence/ArtFirst/23/23_gate.json"
 MANIFEST_PATH = os.path.join(T.TARGET_DIR, "truth_manifest.json")
-# 真値の完全性の記録（記録のみ）。claw_zone の中で「白い水」とみなす色（平滑 L*・a*・b*）の規則。
-WHITE_RULE = {"blur_sigma_ref_px": 1.0, "L_min": 95.0, "a_max": -0.5, "b_max": 9.0, "min_component_ref_px": 20}
+# 真値の完全性の記録（記録のみ）。claw_zone の中で「白い水」「水色（淡い青灰の爪体など）」とみなす色（平滑 L*・a*・b*）の規則。
+# 長さ・面積は旧参照 px（1200×807）の値で書き、reference.px_per_legacy_ref_px で高解像度 px に換算する（v0.2）。
+WHITE_RULE = {"blur_sigma_legacy_ref_px": 1.0, "L_min": 95.0, "a_max": -0.5, "b_max": 9.0, "min_component_legacy_ref_px2": 20}
+MIZUIRO_RULE = {"blur_sigma_legacy_ref_px": 1.0, "L_min": 70.0, "L_below": 95.0, "a_max": -4.5, "b_max": 8.0, "min_component_legacy_ref_px2": 20,
+                "note_ja": "修正2回目で追加。調色板の水色（L* 83.0、a* −8.7、b* 3.9）の周り。外の空（a* ≈ 0、b* ≈ 12〜20）と白は含まない。"
+                           "高解像度の claw_zone で 67,605 px が当たり、真値の空の中は 12 px だった（試算）。"}
 
 
 def gate_status():
@@ -104,6 +108,7 @@ class Truth:
         }
         data = np.fromfile(os.path.join(td, m["palette_regions"]), np.uint8)
         self.label_img = cv2.imdecode(data, cv2.IMREAD_UNCHANGED)
+        self.line_width_profile = T.load_json(os.path.join(td, "line_width_profile.json"))
         self.L_mid = float(self.regions["L_mid"])
         self.ref_rgb, self.disp_rgb = T.painting_display(self.spec, self.fmap)
         self.lab_disp = T.srgb8_to_lab(self.disp_rgb)
@@ -270,41 +275,36 @@ def _r(v, n=4):
 
 
 def line_width(truth, lab, sky_cov):
-    """外周（78/130/131、包絡）に沿った藍の輪郭線の幅（記録のみ）。"""
+    """外周（78/130/131、claw_zone の外で包絡版と爪入り版が同じ所）に沿った藍の輪郭線の幅（記録のみ）。
+
+    修正2回目で、真値の線幅プロファイル（targets/line_width_profile.json、高解像度の半深さ全幅）と同じ点・同じ測り方
+    （truthlib.line_width_profile、表示 px）に揃えた。法線は描画の空の被覆率から水側へ向ける。区間の中央値を真値の区間中央値と比べる。
+    """
     L = lab[..., 0].astype(np.float32)
-    pal = truth.palette["palette"]
-    Lthr = 0.5 * (pal["white"]["lab"][0] + pal["ai_dark"]["lab"][0])
-    segs = [s for s in truth.outline["envelope"]["segments"] if s["id"] in ("78", "130", "131")]
-    P = np.vstack([T.resample_polyline(np.array(s["points_display"]), 8.0) for s in segs])
-    tan = np.gradient(P, axis=0)
-    tan /= np.maximum(np.linalg.norm(tan, axis=1, keepdims=True), 1e-9)
-    nrm = np.stack([-tan[:, 1], tan[:, 0]], -1)
-    # 空の被覆率が小さくなる向き（水側）へ向ける
-    probe = P + 2.0 * nrm
-    sc = cv2.remap(sky_cov.astype(np.float32), probe[:, 0].astype(np.float32).reshape(1, -1),
-                   probe[:, 1].astype(np.float32).reshape(1, -1), cv2.INTER_LINEAR).ravel()
-    sc0 = cv2.remap(sky_cov.astype(np.float32), P[:, 0].astype(np.float32).reshape(1, -1),
-                    P[:, 1].astype(np.float32).reshape(1, -1), cv2.INTER_LINEAR).ravel()
-    nrm[sc > sc0] *= -1
-    ts = np.arange(-4.0, 12.0, 0.25)
-    widths = []
-    for p, n in zip(P, nrm):
-        Q = p[None, :] + ts[:, None] * n[None, :]
-        v = cv2.remap(L, Q[:, 0].astype(np.float32).reshape(1, -1), Q[:, 1].astype(np.float32).reshape(1, -1),
-                      cv2.INTER_LINEAR).ravel()
-        dark = v < Lthr
-        if not dark.any():
+    prof = truth.line_width_profile
+    p = prof["params_display_px"]
+    segs = {}
+    allw = []
+    for s in prof["segments"]:
+        if s["id"] not in ("78", "130", "131"):
             continue
-        k0 = int(np.argmax(dark))
-        k1 = k0 + int(np.argmax(~dark[k0:])) if (~dark[k0:]).any() else len(dark)
-        widths.append((k1 - k0) * 0.25)
-    w = np.array(widths)
-    return {"target": "outline_line_width", "metric": "藍の輪郭線幅（L* < %.1f の連続長、法線方向）" % Lthr,
+        P = np.array(s["points_display"])
+        nrm = T.outline_normals(P, sky_cov, 2.0)
+        r = T.line_width_profile(L, P, nrm, p)
+        w = r["width"][np.isfinite(r["width"])]
+        tw = np.array([v for v in s["width_ref_px"] if v is not None]) * truth.fmap.s
+        tm = float(np.median(tw)) if len(tw) else None
+        rm = float(np.median(w)) if len(w) else None
+        segs[s["id"]] = {"n_points": int(len(P)), "n_measured": int(len(w)), "median_display_px": _r(rm),
+                         "truth_median_display_px": _r(tm), "ratio_minus_1": _r(rm / tm - 1.0) if (rm and tm) else None}
+        allw.append(w)
+    w = np.concatenate(allw) if allw else np.zeros(0)
+    return {"target": "outline_line_width", "metric": "藍の輪郭線の半深さ全幅（表示 px、真値の線幅プロファイルと同じ点・同じ測り方）",
             "median_display_px": _r(float(np.median(w))) if len(w) else None,
             "p10_display_px": _r(float(np.percentile(w, 10))) if len(w) else None,
             "p90_display_px": _r(float(np.percentile(w, 90))) if len(w) else None,
             "median_ref_px": _r(float(np.median(w)) / truth.fmap.s) if len(w) else None,
-            "n_samples": int(len(w)), "tolerance": truth.spec["scoring"]["line_width"]["tolerance"],
+            "n_samples": int(len(w)), "segments": segs, "tolerance": truth.spec["scoring"]["line_width"]["tolerance"],
             "verdict": "record-only"}
 
 
@@ -499,7 +499,7 @@ def selftest(truth, out_dir):
 
 
 def write_step23_metrics(truth, R, out_dir):
-    """編号23 第1部の証拠 metrics.json と run.json。"""
+    """番号23 第1部の証拠 metrics.json と run.json。"""
     spec = truth.spec
     env_path = os.path.join(T.TARGET_DIR, "main_wave_outline_envelope.json")
     claws_path = os.path.join(T.TARGET_DIR, "main_wave_outline_claws.json")
@@ -510,8 +510,11 @@ def write_step23_metrics(truth, R, out_dir):
         "def11_reference_crop": {"value": {"path": spec["reference"]["path"], "sha256": spec["reference"]["sha256"],
                                            "size": [spec["reference"]["width"], spec["reference"]["height"]],
                                            "scale": spec["display_frame"]["scale"], "offset_x": spec["display_frame"]["offset_x"],
-                                           "scored_columns": spec["display_frame"]["scored_columns"]},
-                                 "verdict": "fixed", "note_ja": "定義シート第11行の『原画ファイル・裁切』を固定。"},
+                                           "scored_columns": spec["display_frame"]["scored_columns"],
+                                           "legacy_reference": {k: spec["legacy_reference"][k] for k in ("path", "sha256", "width", "height")},
+                                           "shift_from_v0_1_ja": spec["display_frame"]["shift_from_v0_1_ja"]},
+                                 "verdict": "fixed",
+                                 "note_ja": "定義シート第11行の『原画ファイル・裁切』を固定。修正2回目（v0.2）で利用者が承認した高解像度原画へ移した。裁切は旧原画と同じ（23_registration.json）。"},
         "def11_frame_t_star": {"value": spec["timeline"], "verdict": "fixed（暫定 t*）"},
         "def11_painting_cam_v1": {"value": {k: spec["painting_cam"][k] for k in ("position", "target", "up", "vertical_fov_deg", "aspect", "near", "far")},
                                   "verdict": "fixed（Unity 5 点標識の照合は第2部）"},
@@ -524,6 +527,8 @@ def write_step23_metrics(truth, R, out_dir):
         "gate_flat_patch_dE00": {"value": max(R["flat_patch"]["deltaE00"].values()), "threshold": 0.5,
                                  "verdict": ok(R["flat_patch"]["pass"])},
         "gate_canny_support": {"value": R["canny_support"]["overall_claws_ratio"], "threshold": 0.95,
+                               "distance_threshold": "1 旧参照 px（= %.4f 高解像度 px）" % R["canny_support"]["threshold_ref_px"],
+                               "record_le_1_ref_px": R["canny_support"]["overall_claws_ratio_le_1_ref_px_record"],
                                "verdict": ok(R["canny_support"]["pass"])},
         "support_camera_vs_unity_records": {"value": {"euler_max_diff_deg": R["camera_crosscheck"]["euler_max_diff_deg"],
                                                       "fuji_apex_diff_px": R["camera_crosscheck"]["fuji_apex_diff_px"]},
@@ -532,11 +537,11 @@ def write_step23_metrics(truth, R, out_dir):
         "gate_unity_markers_0p5px": {"value": None, "verdict": "not-run（第2部）"},
         "baseline_gap_M1_Revision01": {"value": None, "verdict": "not-run（第2部）"},
         "truth_completeness_record": {
-            "value": {"water_coverage_of_white": R["truth_completeness_record"]["truth"]["water_coverage_of_white"],
-                      "sky_components_area_ref_px": R["truth_completeness_record"]["truth"]["sky_components_area_ref_px"],
-                      "control_without_manual_barriers": {
-                          "water_coverage_of_white": R["truth_completeness_record"]["control_without_manual_barriers"]["water_coverage_of_white"],
-                          "sky_components_area_ref_px": R["truth_completeness_record"]["control_without_manual_barriers"]["sky_components_area_ref_px"]}},
+            "value": {case: {"water_coverage_of_white": R["truth_completeness_record"][case]["white"]["water_coverage"],
+                             "water_coverage_of_mizuiro": R["truth_completeness_record"][case]["mizuiro"]["water_coverage"],
+                             "sky_components_area_ref_px_white": R["truth_completeness_record"][case]["white"]["sky_components_area_ref_px"],
+                             "sky_components_area_ref_px_mizuiro": R["truth_completeness_record"][case]["mizuiro"]["sky_components_area_ref_px"]}
+                      for case in ("truth", "control_without_manual_barriers", "control_without_gap_closing_and_barriers")},
             "verdict": "record-only",
             "note_ja": "較正門は真値の精度（折れ線が原画のエッジに乗るか）を見るが、完全性（水の面を漏れなく含むか）は見ない。完全性はこの記録のみの値で見る。詳細は selftest.json。"},
     }
@@ -550,10 +555,29 @@ def write_step23_metrics(truth, R, out_dir):
                  ("75", "boat_fg マスク"), ("157", "boat_left マスク"), ("159", "boat_mid マスク"),
                  ("162", "palette.fuji_snow / fuji_slope"), ("265", "palette.mizuiro / ai_mid（対応は未確定）")):
         items[k] = {"backlog": int(k), "value": {"target": v}, "verdict": "record-only（目標を定義。描画の判定はまだ）"}
-    lw = R["self_zero"]["metrics"]["line_width"]["measures"][0]
-    items["line_width_painting"] = {"value": {"median_display_px": lw["median_display_px"], "median_ref_px": lw["median_ref_px"],
-                                              "p10_display_px": lw["p10_display_px"], "p90_display_px": lw["p90_display_px"]},
-                                    "verdict": "record-only"}
+    lwp = os.path.join(out_dir, "23_line_width.json")
+    if os.path.exists(lwp):
+        LW = T.load_json(lwp)
+        items["line_width_profile"] = {
+            "backlog": [195, 198],
+            "value": {"segments": {k: {"median_display_px": v["width_display_px"]["median"], "p10_display_px": v["width_display_px"]["p10"],
+                                       "p90_display_px": v["width_display_px"]["p90"], "median_ref_px": v["width_ref_px"]["median"],
+                                       "n_measured": v["n_measured_ref"], "n_points": v["n_points"]} for k, v in LW["segments"].items()},
+                      "feasibility": {k: v for k, v in LW["feasibility"].items() if k != "criteria_ja"}},
+            "verdict": "record-only",
+            "note_ja": "高解像度原画の線幅プロファイル（半深さ全幅、targets/line_width_profile.json）。±20% は判定しない（painting_truth.json の "
+                       "scoring.line_width.judged = false）。判定の可否は 23_line_width.json の feasibility。"}
+    rgp = os.path.join(out_dir, "23_registration.json")
+    if os.path.exists(rgp):
+        RG = T.load_json(rgp)
+        items["registration_hires_to_legacy"] = {
+            "value": {"pixel_centre_model": RG["pixel_centre_model"],
+                      "ecc_affine_max_corner_displacement_legacy_px": RG["ecc_area_resized_vs_legacy"]["affine"]["max_corner_displacement_legacy_px"],
+                      "ecc_affine_correlation": RG["ecc_area_resized_vs_legacy"]["affine"]["correlation"],
+                      "sift_similarity_residual_rms_legacy_px": RG["features_sift_ransac"]["similarity"]["residual_rms_legacy_px"],
+                      "sift_similarity_rotation_deg": RG["features_sift_ransac"]["similarity"]["rotation_deg"],
+                      "display_shift_v0_2_minus_v0_1_px": RG["display_mapping"]["shift_v0_2_minus_v0_1_display_px"]},
+            "verdict": "record-only", "note_ja": RG["conclusion_ja"]}
     cam = {k: spec["painting_cam"][k] for k in ("id", "position", "target", "up", "vertical_fov_deg", "aspect", "near", "far")}
     cam.update({"source": [s["path"] for s in spec["painting_cam"]["source"]], "euler_deg": [round(v, 6) for v in T.cam_euler_deg(spec)],
                 "world_to_camera_matrix": np.round(view, 8).tolist(), "projection_matrix": np.round(proj, 8).tolist(),
@@ -561,6 +585,8 @@ def write_step23_metrics(truth, R, out_dir):
     M = {
         "schema": "GreatWave.Step23.metrics/1",
         "number": "23（第1部：原画基準と評価器 v0、Python のみ）",
+        "revision_ja": "修正2回目（2026-09-26）：真値を高解像度原画 Met_JP1847_DP130155.jpg（3859×2594）へ移した（真値 %s）。" % spec["version"],
+        "truth_version": spec["version"],
         "generated_utc": _now(),
         "evidence_kind_ja": "文書準備と numpy/OpenCV 計算の結果。Unity 描画・PC ビルド・HMD の結果は含まない。",
         "gate_part1_pass": R["gate_part1_pass"],
@@ -577,8 +603,8 @@ def write_step23_metrics(truth, R, out_dir):
     prev_run = os.path.join(out_dir, "run.json")
     prev_part2 = T.load_json(prev_run).get("part2") if os.path.exists(prev_run) else None
     T.save_json(os.path.join(out_dir, "metrics.json"), M)
-    ins = [T.repo_abs(spec["reference"]["path"]), T.SPEC_PATH, T.MANUAL_PATH]
-    ins += [os.path.join(T.HERE, f) for f in ("truthlib.py", "extract.py", "evaluate.py")]
+    ins = [T.repo_abs(spec["reference"]["path"]), T.repo_abs(spec["legacy_reference"]["path"]), T.SPEC_PATH, T.MANUAL_PATH]
+    ins += [os.path.join(T.HERE, f) for f in ("truthlib.py", "register.py", "extract.py", "evaluate.py")]
     ins += [T.repo_abs("Docs/Evidence/M1/12_placement.json"), T.repo_abs("Docs/Evidence/M1/Revision01/15_revision_layout.json")]
     outs = _step23_outputs(out_dir)
     tools = _tools()
@@ -586,7 +612,8 @@ def write_step23_metrics(truth, R, out_dir):
     run = {
         "schema": "GreatWave.Step23.run/1",
         "generated_utc": _now(),
-        "commands": ["py -3.10 Tools/PaintingTruth/extract.py --evidence Docs/Evidence/ArtFirst/23",
+        "commands": ["py -3.10 Tools/PaintingTruth/register.py --evidence Docs/Evidence/ArtFirst/23",
+                     "py -3.10 Tools/PaintingTruth/extract.py --evidence Docs/Evidence/ArtFirst/23",
                      "py -3.10 Tools/PaintingTruth/evaluate.py --selftest --out-dir Docs/Evidence/ArtFirst/23"],
         "cwd": "リポジトリ根（G:/Unity/GreatWave_2026_Fresh）",
         "tools": tools,
@@ -596,6 +623,7 @@ def write_step23_metrics(truth, R, out_dir):
         "not_committed": {T.repo_rel(os.path.join(T.BUILD_DIR, "painting_display.png")):
                           T.sha256_file(os.path.join(T.BUILD_DIR, "painting_display.png"))},
         "not_committed_ja": "表示フレームの原画（約 3 MB）は extract.py で決定的に再生成できるため Git に入れない。",
+        "reference_ja": "原画は Docs/References/Met_JP1847_DP130155.jpg（2,342,637 bytes、利用者が D3 で承認したダウンロード）。旧原画 Met_JP1847.jpg は履歴として残し、位置合わせと v0.1 との比較にだけ読む。",
     }
     T.save_json(os.path.join(out_dir, "run.json"), run)
     if os.path.exists(os.path.join(out_dir, "23_gate.json")) and prev_part2 is not None:
@@ -609,7 +637,7 @@ def _step23_outputs(out_dir):
 
 
 def merge_step23_part2(out_dir, run_part2):
-    """第2部（較正門の Unity 項目と M1 Revision01 基線差）を編号23 の metrics.json と run.json へ入れる。"""
+    """第2部（較正門の Unity 項目と M1 Revision01 基線差）を番号23 の metrics.json と run.json へ入れる。"""
     G = T.load_json(os.path.join(out_dir, "23_gate.json"))
     bp = os.path.join(out_dir, "23_baseline_M1R01_metrics.json")
     B = T.load_json(bp) if os.path.exists(bp) else None
@@ -623,7 +651,7 @@ def merge_step23_part2(out_dir, run_part2):
     M["gate_complete"] = bool(G["gate_complete"])
     M["gate_all_pass"] = bool(G["all_pass"])
     M["gate_complete_ja"] = ("較正門の全項目（第1部 5 項目＋第2部 Unity 2 項目）を実施し、%s。" %
-                             ("すべて合格した。編号26 の前提を満たす" if G["all_pass"] else "不合格の項目がある。編号26 は開始できない"))
+                             ("すべて合格した。番号26 の前提を満たす" if G["all_pass"] else "不合格の項目がある。番号26 は開始できない"))
     M["gate_scope_ja"] = G.get("scope_ja")
     M["gate"] = {"path": T.repo_rel(os.path.join(out_dir, "23_gate.json")), "items": {k: v["pass"] for k, v in gi.items()},
                  "all_pass": G["all_pass"], "truth_manifest_sha256": G.get("truth_manifest_sha256"),
@@ -652,7 +680,13 @@ def merge_step23_part2(out_dir, run_part2):
             "value": summ, "verdict": "record-only（基線。M1 Revision01 は旧い仮置きで、判定の対象ではない）",
             "metrics": T.repo_rel(bp), "provisional": B.get("provisional"),
             "note_ja": "M1 Revision01 の構図シーン（旧い静止の仮形状、未変更）を PaintingCam v1 から描き、評価器 v0 の ID モードで測った差。"
-                       "evaluator_verdict は評価器がこの描画に出した判定で、編号23 の合否ではない。"}
+                       "evaluator_verdict は評価器がこの描画に出した判定で、番号23 の合否ではない。"}
+    rc = (run_part2 or {}).get("recheck24")
+    if rc and rc.get("status") == "done":
+        it["recheck_24_tstar"] = {
+            "backlog": [78, 130, 131, 132, 72, 71], "value": rc["values"], "truth_version": rc["truth_version"],
+            "metrics": T.repo_rel(os.path.join(out_dir, "23_recheck24_metrics.json")),
+            "verdict": "record-only（番号24 はプレビュー。合否は採らない）", "note_ja": rc["note_ja"]}
     M["part2"] = {"gate_path": T.repo_rel(os.path.join(out_dir, "23_gate.json")),
                   "baseline_metrics": T.repo_rel(bp) if B is not None else None,
                   "unity": G.get("unity")}
@@ -671,14 +705,25 @@ def T_round(res):
 
 
 def canny_support(truth):
+    """目標折れ線（爪入り版）から Canny エッジまでの距離が 1 旧参照 px 以内の割合（較正門）。
+
+    v0.2 では参照画像が高解像度（3859×2594）になったので、Canny の平滑 σ・閾値と距離のしきい値を、凍結時（旧参照 px）と
+    物理的に同じ大きさへ換算する（σ 0.8 → 0.8k、閾値 40/120 → 40/k・120/k、1 旧参照 px → k 高解像度 px、k = px_per_legacy_ref_px）。
+    ≤ 1 高解像度 px の割合は記録のみ。
+    """
     fm = truth.fmap
+    k = float(truth.spec["reference"]["px_per_legacy_ref_px"])
     gray = cv2.cvtColor(truth.ref_rgb, cv2.COLOR_RGB2GRAY)
-    lo, hi = 40, 120
-    edges = cv2.Canny(cv2.GaussianBlur(gray, (0, 0), 0.8), lo, hi, L2gradient=True)
+    sg, lo, hi = 0.8 * k, 40.0 / k, 120.0 / k
+    edges = cv2.Canny(cv2.GaussianBlur(gray, (0, 0), sg), lo, hi, L2gradient=True)
     dist = cv2.distanceTransform((edges == 0).astype(np.uint8), cv2.DIST_L2, cv2.DIST_MASK_PRECISE)
     zone = T.poly_mask(dist.shape, T.load_manual()["polygons_ref"]["claw_zone"]["points"])
-    out = {"canny": {"gaussian_sigma": 0.8, "low": lo, "high": hi, "L2gradient": True, "image": "参照画像の 8bit グレー"},
-           "threshold_ref_px": 1.0, "required_ratio": 0.95, "segments": {}}
+    thr = 1.0 * k
+    out = {"canny": {"gaussian_sigma_ref_px": round(sg, 4), "low": round(lo, 4), "high": round(hi, 4), "L2gradient": True,
+                     "image": "参照画像（高解像度）の 8bit グレー",
+                     "conversion_ja": "凍結時（旧参照 px）の σ 0.8・閾値 40/120 を、k = %.4f で物理的に同じ大きさへ換算した。" % k},
+           "threshold_legacy_ref_px": 1.0, "threshold_ref_px": round(thr, 4), "threshold_display_px": round(thr * fm.s, 4),
+           "required_ratio": 0.95, "segments": {}}
     allv = []
     for ver in ("claws", "envelope"):
         for s in truth.outline[ver]["segments"]:
@@ -690,62 +735,91 @@ def canny_support(truth):
                 v = v[~inz]  # 包絡の形態処理部分は原画のエッジに沿わない（設計どおり）
                 if len(v) == 0:
                     continue
-            ratio = float((v <= 1.0).mean())
-            out["segments"]["%s_%s" % (ver, s["id"])] = {"ratio": round(ratio, 4), "n": int(len(v)),
-                                                        "p95_ref_px": round(float(np.percentile(v, 95)), 3)}
+            out["segments"]["%s_%s" % (ver, s["id"])] = {"ratio": round(float((v <= thr).mean()), 4),
+                                                        "ratio_le_1_ref_px_record": round(float((v <= 1.0).mean()), 4),
+                                                        "n": int(len(v)), "p95_ref_px": round(float(np.percentile(v, 95)), 3)}
             if ver == "claws":
                 allv.append(v)
     allv = np.concatenate(allv)
-    out["overall_claws_ratio"] = round(float((allv <= 1.0).mean()), 4)
+    out["overall_claws_ratio"] = round(float((allv <= thr).mean()), 4)
+    out["overall_claws_ratio_le_1_ref_px_record"] = round(float((allv <= 1.0).mean()), 4)
     out["pass"] = bool(out["overall_claws_ratio"] >= 0.95)
-    out["note_ja"] = "判定は爪入り版（原画の空境界そのもの）の全区間。包絡版は claw_zone 外の点だけ参考記録。"
+    out["note_ja"] = ("判定は爪入り版（原画の空境界そのもの）の全区間で、しきい値は 1 旧参照 px（= %.4f 高解像度 px = %.4f 表示 px）。"
+                      "包絡版は claw_zone 外の点だけ参考記録。ratio_le_1_ref_px_record は ≤ 1 高解像度 px の割合（記録のみ）。" % (thr, thr * fm.s))
     return out
 
 
+def _colour_mask(lab_s, rule, zone):
+    L, a, b = lab_s[..., 0], lab_s[..., 1], lab_s[..., 2]
+    m = (L >= rule["L_min"]) & (a <= rule["a_max"]) & (b <= rule["b_max"]) & zone
+    if "L_below" in rule:
+        m &= L < rule["L_below"]
+    return m
+
+
 def truth_completeness(truth):
-    """真値の完全性（記録のみ）：claw_zone の中の「白い水」の色の画素のうち、爪入り版の真値で水側に入っている割合。
+    """真値の完全性（記録のみ）：claw_zone の中の「白い水」「水色」の色の画素のうち、爪入り版の真値で水側に入っている割合。
 
     較正門の Canny 支持率は「真値の折れ線が原画のエッジに乗っているか」（精度）しか見ない。空が藍線の途切れから
     水の面へ流れ込んでも、流れ込んだ先の境界も藍線に沿うので支持率は下がらない（v0 で実際に起きた）。
-    そこで、色だけで決めた白い水の画素が空側に入っていないかを数える。規則は WHITE_RULE（平滑した L*・a*・b*）。
-    右上の淡い空や爪の鉤の中の小さな白など、色だけでは空と区別できない所も数に入るので、合否には使わない。
-    対照として、手動の障壁を外した（v0 と同じ規則の）空でも同じ値を出す。
+    そこで、色だけで決めた白い水・水色の画素が空側に入っていないかを数える（水色は修正2回目で追加。v0.1 の波頭上部の爪の
+    漏れは淡い水色の爪体に入っており、白だけでは見落とした）。右上の淡い空や爪の鉤の中の小さな白など、色だけでは空と
+    区別できない所も数に入るので、合否には使わない。対照として、手動の障壁を外した空と、途切れの閉じも外した空でも同じ値を出す。
     """
     fm, spec = truth.fmap, truth.spec
+    k = float(spec["reference"]["px_per_legacy_ref_px"])
     man = T.load_manual()
-    wr = WHITE_RULE
-    lab_ref = T.srgb8_to_lab(truth.ref_rgb)
-    Ls = np.stack([cv2.GaussianBlur(lab_ref[..., k].astype(np.float32), (0, 0), wr["blur_sigma_ref_px"]) for k in range(3)], -1)
+    lab_ref = T.srgb8_to_lab(truth.ref_rgb).astype(np.float32)
     zone = T.poly_mask(lab_ref.shape[:2], man["polygons_ref"]["claw_zone"]["points"])
-    white = (Ls[..., 0] >= wr["L_min"]) & (Ls[..., 1] <= wr["a_max"]) & (Ls[..., 2] <= wr["b_max"]) & zone
     sky_truth = fm.warp_to_ref(truth.cov["sky_claws"].astype(np.float32), cv2.INTER_LINEAR) > 0.5
     polys = man["polygons_ref"]
     fills = [polys["sky_fill_cartouche"]["points"], polys["sky_fill_signature"]["points"]]
     sky_ctrl = T.segment_sky(lab_ref, spec["extraction"]["sky"], fills)
+    sky_ctrl0 = T.segment_sky(lab_ref, dict(spec["extraction"]["sky"], barrier_dilate_ref_px=0), fills)
+    rules = {"white": WHITE_RULE, "mizuiro": MIZUIRO_RULE}
+    masks = {}
+    for name, r in rules.items():
+        sg = float(r["blur_sigma_legacy_ref_px"]) * k
+        Ls = np.stack([cv2.GaussianBlur(lab_ref[..., c], (0, 0), sg) for c in range(3)], -1)
+        masks[name] = _colour_mask(Ls, r, zone)
+    min_area = int(round(20 * k * k))
 
     def measure(sky):
-        leak = white & sky
-        lo = cv2.morphologyEx(leak.astype(np.uint8), cv2.MORPH_OPEN, T.disk(1))
-        n, _, st, cen = cv2.connectedComponentsWithStats(lo, connectivity=8)
-        comps = [{"area_ref_px": int(st[i, 4]), "bbox_ref_xywh": [int(v) for v in st[i, :4]],
-                  "centroid_ref": [round(float(c), 1) for c in cen[i]],
-                  "centroid_display": [round(float(c), 1) for c in fm.ref_to_disp(cen[i])]}
-                 for i in range(1, n) if st[i, 4] >= wr["min_component_ref_px"]]
-        comps.sort(key=lambda c: -c["area_ref_px"])
-        return {"white_px_in_water": int((white & ~sky).sum()), "white_px_in_sky": int(leak.sum()),
-                "water_coverage_of_white": round(float((white & ~sky).sum()) / max(1, int(white.sum())), 4),
-                "sky_components_ge_min": len(comps), "sky_components_area_ref_px": int(sum(c["area_ref_px"] for c in comps)),
-                "largest_sky_components": comps[:8]}
+        res = {}
+        for name, m in masks.items():
+            leak = m & sky
+            lo = cv2.morphologyEx(leak.astype(np.uint8), cv2.MORPH_OPEN, T.disk(int(round(k))))
+            n, _, st, cen = cv2.connectedComponentsWithStats(lo, connectivity=8)
+            comps = [{"area_ref_px": int(st[i, 4]), "area_legacy_ref_px2": round(float(st[i, 4]) / (k * k), 1),
+                      "bbox_ref_xywh": [int(v) for v in st[i, :4]],
+                      "centroid_ref": [round(float(c), 1) for c in cen[i]],
+                      "centroid_legacy_ref": [round((float(c) + 0.5) / k - 0.5, 1) for c in cen[i]],
+                      "centroid_display": [round(float(c), 1) for c in fm.ref_to_disp(cen[i])]}
+                     for i in range(1, n) if st[i, 4] >= min_area]
+            comps.sort(key=lambda c: -c["area_ref_px"])
+            res[name] = {"px_in_water": int((m & ~sky).sum()), "px_in_sky": int(leak.sum()),
+                         "water_coverage": round(float((m & ~sky).sum()) / max(1, int(m.sum())), 4),
+                         "sky_components_ge_min": len(comps), "sky_components_area_ref_px": int(sum(c["area_ref_px"] for c in comps)),
+                         "largest_sky_components": comps[:8]}
+        both = masks["white"] | masks["mizuiro"]
+        res["white_or_mizuiro_water_coverage"] = round(float((both & ~sky).sum()) / max(1, int(both.sum())), 4)
+        # 以前の記録と同じ名前の値（白だけ）
+        res["water_coverage_of_white"] = res["white"]["water_coverage"]
+        res["sky_components_area_ref_px"] = res["white"]["sky_components_area_ref_px"] + res["mizuiro"]["sky_components_area_ref_px"]
+        return res
     return {
         "verdict": "record-only",
-        "zone": "claw_zone（manual_annotations.json）", "frame": "参照画像 1200×807",
-        "white_rule": wr, "white_px_in_zone": int(white.sum()),
+        "zone": "claw_zone（manual_annotations.json）", "frame": "参照画像（高解像度 3859×2594）",
+        "rules": {"white": WHITE_RULE, "mizuiro": MIZUIRO_RULE, "px_per_legacy_ref_px": k,
+                  "min_component_ref_px": min_area, "opening_radius_ref_px": int(round(k))},
+        "px_in_zone": {name: int(m.sum()) for name, m in masks.items()},
         "truth": measure(sky_truth),
         "control_without_manual_barriers": measure(sky_ctrl),
-        "note_ja": "白い水の色の画素（平滑 L*≥95、a*≤−0.5、b*≤9）のうち、真値（爪入り版）で水側にある割合と、空側に入った塊（開き 1 px 後、"
-                   "20 参照 px² 以上）の一覧。塊には右上の淡い空（約 700〜740, 93〜120）のように色だけでは空と区別できないものが入るので、"
-                   "合否には使わない。control は手動の障壁を外した空（v0 と同じ規則）で、唇の右端の爪群の漏れ（約 569〜632, 195〜237 など）が"
-                   "塊として出ることを示す。",
+        "control_without_gap_closing_and_barriers": measure(sky_ctrl0),
+        "note_ja": "白い水（平滑 L*≥95、a*≤−0.5、b*≤9）と水色（70≤L*<95、a*≤−4.5、b*≤8）の色の画素のうち、真値（爪入り版）で水側にある割合と、"
+                   "空側に入った塊（開き 1 旧参照 px 後、20 旧参照 px² 以上）の一覧。塊には右上の淡い空のように色だけでは空と区別できないものが入るので、"
+                   "合否には使わない。control_without_manual_barriers は手動の障壁 4 本を外した空、control_without_gap_closing_and_barriers は途切れの閉じも"
+                   "外した空（v0 と同じく、主浪の水の面へ流れ込む）。",
     }
 
 
@@ -805,7 +879,7 @@ def main():
         "t_star_s": truth.spec["timeline"]["t_star_s"],
         "provisional": not gate["all_pass"],
         "gate": gate,
-        "provisional_ja": ("編号23 の較正門（%s）は全項目合格で、門の後に真値は変わっていない。判定は暫定扱いしない。"
+        "provisional_ja": ("番号23 の較正門（%s）は全項目合格で、門の後に真値は変わっていない。判定は暫定扱いしない。"
                            "描画が t* の PaintingCam v1 画像であることは呼び出し側の責任。" % GATE_REL)
         if gate["all_pass"] else
         ("判定は暫定：%s（較正門 %s）。描画が t* の PaintingCam v1 画像であることは呼び出し側の責任。" % (gate.get("refused_ja", ""), GATE_REL)),

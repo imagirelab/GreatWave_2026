@@ -1,0 +1,157 @@
+{
+ "schema": "GreatWave.Step23.line_width/1",
+ "truth_version": "v0.2",
+ "verdict": "record-only",
+ "unit_note_ja": "width_ref_px は高解像度 px、width_display_px は表示 px（= 高解像度 px × 0.416345）。",
+ "segments": {
+  "78": {
+   "n_points": 176,
+   "n_measured_ref": 148,
+   "n_no_line_ref": 0,
+   "n_merged_ref": 28,
+   "n_in_claw_zone": 0,
+   "width_ref_px": {
+    "median": 6.678,
+    "p10": 5.289,
+    "p90": 9.231
+   },
+   "width_display_px": {
+    "median": 2.78,
+    "p10": 2.202,
+    "p90": 3.843
+   },
+   "tolerance_display_px_at_median": 0.556,
+   "measured_at_display": {
+    "n_measured": 146,
+    "median_display_px": 2.83,
+    "median_ratio_minus_1": 0.0179,
+    "per_point_rel_error_abs_median": 0.023,
+    "per_point_rel_error_abs_p95": 0.103,
+    "per_point_within_20pct": 0.9795
+   },
+   "repeatability_half_spacing_median_rel": -0.0115,
+   "local_variation_ref_px": 0.254
+  },
+  "130": {
+   "n_points": 134,
+   "n_measured_ref": 134,
+   "n_no_line_ref": 0,
+   "n_merged_ref": 0,
+   "n_in_claw_zone": 0,
+   "width_ref_px": {
+    "median": 8.029,
+    "p10": 7.006,
+    "p90": 10.994
+   },
+   "width_display_px": {
+    "median": 3.343,
+    "p10": 2.917,
+    "p90": 4.577
+   },
+   "tolerance_display_px_at_median": 0.669,
+   "measured_at_display": {
+    "n_measured": 134,
+    "median_display_px": 3.328,
+    "median_ratio_minus_1": -0.0043,
+    "per_point_rel_error_abs_median": 0.017,
+    "per_point_rel_error_abs_p95": 0.045,
+    "per_point_within_20pct": 1.0
+   },
+   "repeatability_half_spacing_median_rel": -0.0029,
+   "local_variation_ref_px": 0.183
+  },
+  "131": {
+   "n_points": 230,
+   "n_measured_ref": 230,
+   "n_no_line_ref": 0,
+   "n_merged_ref": 0,
+   "n_in_claw_zone": 1,
+   "width_ref_px": {
+    "median": 6.885,
+    "p10": 5.502,
+    "p90": 9.196
+   },
+   "width_display_px": {
+    "median": 2.867,
+    "p10": 2.291,
+    "p90": 3.829
+   },
+   "tolerance_display_px_at_median": 0.573,
+   "measured_at_display": {
+    "n_measured": 230,
+    "median_display_px": 2.932,
+    "median_ratio_minus_1": 0.0229,
+    "per_point_rel_error_abs_median": 0.022,
+    "per_point_rel_error_abs_p95": 0.08,
+    "per_point_within_20pct": 1.0
+   },
+   "repeatability_half_spacing_median_rel": 0.0073,
+   "local_variation_ref_px": 0.182
+  },
+  "132": {
+   "n_points": 596,
+   "n_measured_ref": 536,
+   "n_no_line_ref": 9,
+   "n_merged_ref": 51,
+   "n_in_claw_zone": 596,
+   "width_ref_px": {
+    "median": 5.504,
+    "p10": 3.645,
+    "p90": 8.072
+   },
+   "width_display_px": {
+    "median": 2.292,
+    "p10": 1.517,
+    "p90": 3.361
+   },
+   "tolerance_display_px_at_median": 0.458,
+   "measured_at_display": {
+    "n_measured": 526,
+    "median_display_px": 2.389,
+    "median_ratio_minus_1": 0.0425,
+    "per_point_rel_error_abs_median": 0.044,
+    "per_point_rel_error_abs_p95": 0.332,
+    "per_point_within_20pct": 0.9093
+   },
+   "repeatability_half_spacing_median_rel": 0.0085,
+   "local_variation_ref_px": 0.355
+  },
+  "72": {
+   "n_points": 1025,
+   "n_measured_ref": 713,
+   "n_no_line_ref": 5,
+   "n_merged_ref": 307,
+   "n_in_claw_zone": 761,
+   "width_ref_px": {
+    "median": 6.315,
+    "p10": 4.041,
+    "p90": 13.416
+   },
+   "width_display_px": {
+    "median": 2.629,
+    "p10": 1.682,
+    "p90": 5.586
+   },
+   "tolerance_display_px_at_median": 0.526,
+   "measured_at_display": {
+    "n_measured": 682,
+    "median_display_px": 2.637,
+    "median_ratio_minus_1": 0.0031,
+    "per_point_rel_error_abs_median": 0.039,
+    "per_point_rel_error_abs_p95": 0.385,
+    "per_point_within_20pct": 0.9026
+   },
+   "repeatability_half_spacing_median_rel": 0.0163,
+   "local_variation_ref_px": 0.498
+  }
+ },
+ "feasibility": {
+  "segment_median_rel_error_max": 0.0425,
+  "repeatability_rel_max": 0.0163,
+  "per_point_rel_error_abs_p95_all": 0.2763,
+  "per_point_within_20pct_all": 0.9323,
+  "segment_level_feasible": true,
+  "per_point_feasible": false,
+  "criteria_ja": "区間の中央値の判定ができる条件：表示解像度で測った区間中央値と高解像度の区間中央値の差 ≤5%、かつ点を半間隔ずらした再測定の差 ≤5%（±20% の 1/4）。点ごとの判定ができる条件：点ごとの相対差の p95 ≤10%（±20% の半分）。"
+ }
+}
