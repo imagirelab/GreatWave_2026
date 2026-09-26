@@ -1,0 +1,1684 @@
+{
+ "schema": "GreatWave.AF32.metrics/1",
+ "number": "32",
+ "evidence_kind_ja": "Unity 6000.4.3f1 の Release（Development でない）Windows プレイヤーを見えるウィンドウで動かした PC の実測（RTX 3080・D3D11）と、OpenXR Mock Runtime の両眼の読み出し。HMD 実機の結果ではない。",
+ "hero_assets_ja": "番号26 の K*（45°、kstar_a45.gwb）＋番号28 の NPR v1・外殻線 v0（af28_uvsdf_a45.bin、af28_uvwarp_a45.json）＋番号27 の背景。CP1（370297c）で使ったものと SHA-256 が同じ複製を Unity/Build/ArtFirst/32/data/ に固定して読んだ。",
+ "seat_ja": "右船の座席＝CP1 の候補 (a)（AF_CP1.unity の「CP1 座席候補 右船カメラ」）。D7 の決定に対応するが、27修正01 で作り直す座席とは違う可能性がある。",
+ "build": {
+  "buildResult": "Succeeded",
+  "buildOptions": "None",
+  "totalSize": 100012289,
+  "frameTimingStatsBefore": false,
+  "frameTimingStatsDuringBuild": true,
+  "frameTimingStatsRestored": true,
+  "srcSceneMatchesCommitted": true,
+  "protectedUnchanged": true,
+  "sceneShaders": [
+   "Assets/GreatWave/ArtFirst/Shaders/AF27Flat.shader",
+   "Assets/GreatWave/ArtFirst/Shaders/AF27SkyDome.shader",
+   "Assets/GreatWave/ArtFirst/Shaders/AF28_NPR.shader",
+   "Assets/GreatWave/ArtFirst/Shaders/AF28_Outline.shader"
+  ]
+ },
+ "items": {
+  "gpu_valid_samples": {
+   "name_ja": "GPU の有効標本（FrameTimingManager、Release・見えるウィンドウ）",
+   "criterion": "> 0（番号20 の L68 では 0 件）",
+   "value": {
+    "valid": 341688,
+    "used_total": 347577,
+    "by_condition": {
+     "desk1080_painting": [
+      135141,
+      137027
+     ],
+     "desk1080_seat_right": [
+      150928,
+      154931
+     ],
+     "desk1080_seat_right_vsync": [
+      2700,
+      2700
+     ],
+     "proxy_stereo_seat_right": [
+      52919,
+      52919
+     ]
+    },
+    "hidden_window_diagnostic": {
+     "tag": "hidden1",
+     "valid": 0,
+     "used": 112882,
+     "cpu_ms_mean": 0.0443,
+     "fps_mean": 22574.94,
+     "window_handle_nonzero_samples": 0
+    }
+   },
+   "verdict": "pass"
+  },
+  "81": {
+   "name_ja": "前方の水面が上へ移る動き：1920×1080 で平均 ≥30 fps、95% ≤33.3 ms（RTX3080代測）",
+   "criterion": "平均 ≥30 fps かつ 95% のフレーム ≤33.3 ms",
+   "value": {
+    "desk1080_painting": {
+     "fps_mean_min_of_runs": 2986.19,
+     "interval_ms_p95_max_of_runs": 0.598,
+     "frames_over_33_3ms_total": 0
+    },
+    "desk1080_seat_right": {
+     "fps_mean_min_of_runs": 3367.72,
+     "interval_ms_p95_max_of_runs": 0.56,
+     "frames_over_33_3ms_total": 0
+    },
+    "desk1080_seat_right_vsync": {
+     "fps_mean_min_of_runs": 60.0,
+     "interval_ms_p95_max_of_runs": 16.8137,
+     "frames_over_33_3ms_total": 0
+    }
+   },
+   "verdict_32": "pass-proxy",
+   "verdict": "unverified",
+   "note_ja": "RTX3080代測。静止した終態 K* の画面で、形成の動き（番号30）は未実装。対象 PC（RTX3060）での合格ではないので、バックログの判定は未確認のまま。"
+  },
+  "112": {
+   "name_ja": "延伸・下向きの動き：1920×1080 で平均 ≥30 fps、95% ≤33.3 ms（RTX3080代測）",
+   "criterion": "同上",
+   "value": "81 と同じ測定（静止した K*）",
+   "verdict_32": "pass-proxy",
+   "verdict": "unverified",
+   "note_ja": "81 と同じ理由で、バックログの判定は未確認のまま。"
+  },
+  "proxy_gpu_p95": {
+   "name_ja": "立体の代理の GPU p95（2×2064×2208・4×MSAA）",
+   "criterion": "≤8.9 ms（作業計画 4.0 の 90 Hz 予算）",
+   "value": {
+    "gpu_ms_p95_per_run": [
+     1.1356,
+     1.1479,
+     1.152
+    ],
+    "gpu_ms_p95_max_of_runs": 1.152,
+    "gpu_ms_mean_median": 0.8114,
+    "gpu_ms_max_of_runs": 1.7807,
+    "gpu_over_8_9ms_total": 0,
+    "gpu_over_11_1ms_total": 0,
+    "external_gpu_ms_per_frame_median": 0.8187
+   },
+   "verdict": "pass",
+   "note_ja": "2 台のカメラによる代理（SPI ではない）。Link の約 1 ms・合成器・HMD の runtime は含まない。HMD 実機の 90 Hz の判定は番号34。"
+  },
+  "spi_compile": {
+   "name_ja": "自作シェーダーの SPI コンパイル",
+   "criterion": "全シェーダー・全パスが STEREO_INSTANCING_ON でコンパイルでき、主役波の場面で使うシェーダーの頂点出力に SV_RenderTargetArrayIndex がある",
+   "value": {
+    "shaders": 14,
+    "stage_checks": 108,
+    "all_compiled": true,
+    "hero_scene_shaders": [
+     "GreatWave/ArtFirst/AF27 Flat",
+     "GreatWave/ArtFirst/AF27 Sky Dome",
+     "GreatWave/ArtFirst/AF28 NPR v1",
+     "GreatWave/ArtFirst/AF28 Outline v0"
+    ],
+    "hero_scene_stereo_output": true,
+    "art_first_render_shaders": [
+     "GreatWave/ArtFirst/AF23 Gate Flat",
+     "GreatWave/ArtFirst/AF24 ID Flat",
+     "GreatWave/ArtFirst/AF24 Palette v0",
+     "GreatWave/ArtFirst/AF26 Clay",
+     "GreatWave/ArtFirst/AF27 Flat",
+     "GreatWave/ArtFirst/AF27 Sky Dome",
+     "GreatWave/ArtFirst/AF28 NPR v1",
+     "GreatWave/ArtFirst/AF28 Outline v0"
+    ],
+    "without_stereo_output": [
+     "GreatWave/Playback18/Reference",
+     "GreatWave/Playback18/VAT HDR",
+     "Hidden/GreatWave/ArtFirst/AF28 Bake"
+    ]
+   },
+   "verdict": "pass",
+   "note_ja": "SV_RenderTargetArrayIndex がないのは、Editor 専用の焼き込み（AF28 Bake）と番号18 の比較用（Playback18）のシェーダーで、主役波の場面・プレイヤーでは使わない（記録）。"
+  },
+  "mock_line_diff": {
+   "name_ja": "Mock の両眼で外殻線の画素数の差",
+   "criterion": "<10 %（両眼に共通の視野、隠し領域を除く）",
+   "value": {
+    "mock1": {
+     "left": 3721,
+     "right": 3738,
+     "diff_percent": 0.455
+    },
+    "mock2": {
+     "left": 3721,
+     "right": 3738,
+     "diff_percent": 0.455
+    }
+   },
+   "verdict": "pass",
+   "note_ja": "Mock Runtime の既定（眼 1512×1680、IPD 22 mm、左右で非対称の画角、MSAA 1）。HMD のレンズ越しの見え方ではなく、H3 の代わりにしない。"
+  },
+  "memory": {
+   "name_ja": "GPU メモリの実測（プロセスの専用メモリ）",
+   "criterion": "keypose ≤512 MiB（keypose がある場合）",
+   "value": {
+    "dedicated_mib_max_desktop": 239.4,
+    "dedicated_mib_max_proxy": 699.2,
+    "sdf_texture_bytes": 67108864,
+    "wave_vertices": 80000,
+    "keypose_estimate_mib_plan_format": 165.7,
+    "keypose_estimate_note_ja": "計画の書式（位置 RGBA64＝8 B、法線 RG16＝4 B、15 Hz で 181 層、8 万頂点）での見積りで、実測ではない（適応的に密にする層は含まない）。"
+   },
+   "verdict": "unstarted",
+   "note_ja": "keypose は番号30 で作る（まだない）ので、≤512 MiB は未判定。今の主役波の資産（色区テクスチャ 64 MiB）を含むプロセスの専用メモリだけ実測した。"
+  }
+ },
+ "summary_verdicts": {
+  "gpu_valid_samples": "pass",
+  "81": "unverified",
+  "112": "unverified",
+  "proxy_gpu_p95": "pass",
+  "spi_compile": "pass",
+  "mock_line_diff": "pass",
+  "memory": "unstarted"
+ },
+ "conditions_aggregate": {
+  "desk1080_painting": {
+   "name_ja": "1920×1080・原画視点",
+   "gpu_valid_total": 135141,
+   "timings_used_total": 137027,
+   "gpu_ms_mean_median_of_runs": 0.2804,
+   "gpu_ms_p95_median_of_runs": 0.2724,
+   "gpu_ms_p95_max_of_runs": 0.2744,
+   "gpu_ms_max_of_runs": 4.5578,
+   "cpu_ms_mean_median_of_runs": 0.3289,
+   "cpu_ms_p95_median_of_runs": 0.5913,
+   "fps_mean_min_of_runs": 2986.19,
+   "fps_mean_median_of_runs": 3040.59,
+   "interval_ms_p95_max_of_runs": 0.598,
+   "frames_over_33_3ms_total": 0,
+   "gpu_ms_per_frame_from_busy_median": 0.2922,
+   "dedicated_mib_max": 239.3,
+   "per_run_gpu_ms_p95": [
+    0.2673,
+    0.2744,
+    0.2724
+   ],
+   "per_run_fps_mean": [
+    3108.34,
+    2986.19,
+    3040.59
+   ]
+  },
+  "desk1080_seat_right": {
+   "name_ja": "1920×1080・右船の座席",
+   "gpu_valid_total": 150928,
+   "timings_used_total": 154931,
+   "gpu_ms_mean_median_of_runs": 0.2372,
+   "gpu_ms_p95_median_of_runs": 0.2304,
+   "gpu_ms_p95_max_of_runs": 0.2324,
+   "gpu_ms_max_of_runs": 2.9102,
+   "cpu_ms_mean_median_of_runs": 0.2902,
+   "cpu_ms_p95_median_of_runs": 0.5593,
+   "fps_mean_min_of_runs": 3367.72,
+   "fps_mean_median_of_runs": 3446.02,
+   "interval_ms_p95_max_of_runs": 0.56,
+   "frames_over_33_3ms_total": 0,
+   "gpu_ms_per_frame_from_busy_median": 0.2537,
+   "dedicated_mib_max": 239.4,
+   "per_run_gpu_ms_p95": [
+    0.2263,
+    0.2304,
+    0.2324
+   ],
+   "per_run_fps_mean": [
+    3515.02,
+    3367.72,
+    3446.02
+   ]
+  },
+  "desk1080_seat_right_vsync": {
+   "name_ja": "1920×1080・右船の座席・垂直同期",
+   "gpu_valid_total": 2700,
+   "timings_used_total": 2700,
+   "gpu_ms_mean_median_of_runs": 15.7154,
+   "gpu_ms_p95_median_of_runs": 16.6401,
+   "gpu_ms_p95_max_of_runs": 16.6697,
+   "gpu_ms_max_of_runs": 18.7884,
+   "cpu_ms_mean_median_of_runs": 16.6664,
+   "cpu_ms_p95_median_of_runs": 16.8036,
+   "fps_mean_min_of_runs": 60.0,
+   "fps_mean_median_of_runs": 60.0,
+   "interval_ms_p95_max_of_runs": 16.8137,
+   "frames_over_33_3ms_total": 0,
+   "gpu_ms_per_frame_from_busy_median": 1.4766,
+   "dedicated_mib_max": 239.4,
+   "per_run_gpu_ms_p95": [
+    16.6359,
+    16.6401,
+    16.6697
+   ],
+   "per_run_fps_mean": [
+    60.0,
+    60.0,
+    60.0
+   ],
+   "missed_vsync_frames_total": 0,
+   "vsync_period_ms": 16.6667
+  },
+  "proxy_stereo_seat_right": {
+   "name_ja": "立体の代理 2×(2064×2208, 4×MSAA)・右船の座席",
+   "gpu_valid_total": 52919,
+   "timings_used_total": 52919,
+   "gpu_ms_mean_median_of_runs": 0.8114,
+   "gpu_ms_p95_median_of_runs": 1.1479,
+   "gpu_ms_p95_max_of_runs": 1.152,
+   "gpu_ms_max_of_runs": 1.7807,
+   "cpu_ms_mean_median_of_runs": 0.8523,
+   "cpu_ms_p95_median_of_runs": 1.1762,
+   "fps_mean_min_of_runs": 1170.59,
+   "fps_mean_median_of_runs": 1173.29,
+   "interval_ms_p95_max_of_runs": 1.1802,
+   "frames_over_33_3ms_total": 0,
+   "gpu_ms_per_frame_from_busy_median": 0.8187,
+   "dedicated_mib_max": 699.2,
+   "per_run_gpu_ms_p95": [
+    1.1356,
+    1.1479,
+    1.152
+   ],
+   "per_run_fps_mean": [
+    1184.17,
+    1173.29,
+    1170.59
+   ],
+   "gpu_over_8_9ms_total": 0,
+   "gpu_over_11_1ms_total": 0
+  }
+ },
+ "runs": {
+  "run1": {
+   "exit_code": 0,
+   "hidden_window": false,
+   "is_debug_build": false,
+   "frame_timing_feature_enabled": true,
+   "screen": [
+    1920,
+    1080
+   ],
+   "full_screen_mode": "Windowed",
+   "display_refresh_hz_unity": "60.000",
+   "desktop_resolution": [
+    3840,
+    2160
+   ],
+   "window_handle_nonzero_samples": 72,
+   "window_samples": 73,
+   "idle_nvidia_smi_used_mib": 3174.0,
+   "data_sha256": {
+    "kstar_a45.gwb": "0021696ea0f1dbdd98bf42476ebf2bec5d68a33d3b0b4c490253a0da23b96ff4",
+    "af28_uvsdf_a45.bin": "b60d70834d5dd3bd235444ba2a282544ee4d25d3652260644d1cd4864879b951",
+    "af28_uvwarp_a45.json": "d82169fc055d1d3890eb05c749c2d285da42d05754d99639a106c61d5ce44966"
+   },
+   "unity_memory_after_load_bytes": {
+    "System Used Memory": 366120960,
+    "System Total Used Memory": 27646754816,
+    "App Resident Memory": 366120960,
+    "App Committed Memory": 597413888,
+    "Total Used Memory": 149498519,
+    "Total Reserved Memory": 276713472,
+    "Video Memory Bytes": 10539237376
+   },
+   "conditions": {
+    "desk1080_painting": {
+     "name": "desk1080_painting",
+     "name_ja": "1920×1080・原画視点",
+     "note_ja": "1920×1080 の見えるウィンドウ、原画視点（PaintingCam v1）、画面へ直接描く、4×MSAA、垂直同期なし",
+     "screen": [
+      1920,
+      1080
+     ],
+     "vsync_count": 0,
+     "quality_msaa": 4,
+     "eye": null,
+     "frame_timing_enabled": true,
+     "vsyncs_per_second": 60.0,
+     "window_utc": [
+      "2026-09-26T04:56:42.9941638Z",
+      "2026-09-26T04:56:57.9950564Z"
+     ],
+     "measure_s": 15.0,
+     "unity_frames": 46626,
+     "timings_total": 46633,
+     "timings_used": 46625,
+     "dropped_first": 8,
+     "gpu_valid": 46029,
+     "gpu_zero": 596,
+     "gpu_valid_fraction": 0.9872,
+     "gpu_ms": {
+      "mean": 0.2751,
+      "p50": 0.2611,
+      "p95": 0.2673,
+      "p99": 0.8885,
+      "max": 1.6722
+     },
+     "cpu_ms": {
+      "mean": 0.3217,
+      "p95": 0.5835,
+      "max": 2.7164
+     },
+     "interval_ms": {
+      "mean": 0.3217,
+      "p50": 0.2892,
+      "p95": 0.5835,
+      "p99": 1.0497,
+      "max": 2.7164
+     },
+     "fps_mean": 3108.34,
+     "fps_unity_frames": 3108.36,
+     "dt_ms_mean": 0.3217,
+     "frames_over_33_3ms": 0,
+     "frames_over_33_3ms_fraction": 0.0,
+     "profiler_recorder_gpu": {
+      "name": "Render/GPU Frame Time",
+      "unit": "TimeNanoseconds",
+      "valid": 46029,
+      "total": 46626,
+      "mean_ms": 0.2751,
+      "p95_ms": 0.2673
+     },
+     "unity_memory_recorders_bytes_at_end": {
+      "System Used Memory": 295591936,
+      "System Total Used Memory": 27621588992,
+      "App Resident Memory": 295591936,
+      "App Committed Memory": 632258560,
+      "Total Used Memory": 88070444,
+      "Total Reserved Memory": 278810624,
+      "Video Memory Bytes": 10539237376
+     },
+     "external": {
+      "n_samples": 13,
+      "gpu_busy_fraction": 0.8983,
+      "dedicated_mib_max": 239.3,
+      "nvidia_smi_used_mib_max": 3423.0,
+      "gpu_ms_per_frame_from_busy": 0.289,
+      "nvidia_smi_delta_vs_idle_mib": 249.0
+     }
+    },
+    "desk1080_seat_right": {
+     "name": "desk1080_seat_right",
+     "name_ja": "1920×1080・右船の座席",
+     "note_ja": "1920×1080 の見えるウィンドウ、右船の座席（D7）、画面へ直接描く、4×MSAA、垂直同期なし",
+     "screen": [
+      1920,
+      1080
+     ],
+     "vsync_count": 0,
+     "quality_msaa": 4,
+     "eye": null,
+     "frame_timing_enabled": true,
+     "vsyncs_per_second": 60.0,
+     "window_utc": [
+      "2026-09-26T04:57:01.0933323Z",
+      "2026-09-26T04:57:16.0931720Z"
+     ],
+     "measure_s": 15.0,
+     "unity_frames": 52726,
+     "timings_total": 52733,
+     "timings_used": 52725,
+     "dropped_first": 8,
+     "gpu_valid": 51317,
+     "gpu_zero": 1408,
+     "gpu_valid_fraction": 0.9733,
+     "gpu_ms": {
+      "mean": 0.2312,
+      "p50": 0.2212,
+      "p95": 0.2263,
+      "p99": 0.6839,
+      "max": 1.4807
+     },
+     "cpu_ms": {
+      "mean": 0.2845,
+      "p95": 0.5469,
+      "max": 1.9152
+     },
+     "interval_ms": {
+      "mean": 0.2845,
+      "p50": 0.2499,
+      "p95": 0.5469,
+      "p99": 1.0131,
+      "max": 1.9152
+     },
+     "fps_mean": 3515.02,
+     "fps_unity_frames": 3515.04,
+     "dt_ms_mean": 0.2845,
+     "frames_over_33_3ms": 0,
+     "frames_over_33_3ms_fraction": 0.0,
+     "profiler_recorder_gpu": {
+      "name": "Render/GPU Frame Time",
+      "unit": "TimeNanoseconds",
+      "valid": 51317,
+      "total": 52726,
+      "mean_ms": 0.2312,
+      "p95_ms": 0.2263
+     },
+     "unity_memory_recorders_bytes_at_end": {
+      "System Used Memory": 332169216,
+      "System Total Used Memory": 27600617472,
+      "App Resident Memory": 332169216,
+      "App Committed Memory": 670011392,
+      "Total Used Memory": 91246714,
+      "Total Reserved Memory": 312365056,
+      "Video Memory Bytes": 10539237376
+     },
+     "external": {
+      "n_samples": 13,
+      "gpu_busy_fraction": 0.872,
+      "dedicated_mib_max": 239.4,
+      "nvidia_smi_used_mib_max": 3405.0,
+      "gpu_ms_per_frame_from_busy": 0.2481,
+      "nvidia_smi_delta_vs_idle_mib": 231.0
+     }
+    },
+    "desk1080_seat_right_vsync": {
+     "name": "desk1080_seat_right_vsync",
+     "name_ja": "1920×1080・右船の座席・垂直同期",
+     "note_ja": "上と同じで垂直同期あり（表示の周期に合わせて提示する実際のループ）",
+     "screen": [
+      1920,
+      1080
+     ],
+     "vsync_count": 1,
+     "quality_msaa": 4,
+     "eye": null,
+     "frame_timing_enabled": true,
+     "vsyncs_per_second": 60.0,
+     "window_utc": [
+      "2026-09-26T04:57:19.2375627Z",
+      "2026-09-26T04:57:34.2535344Z"
+     ],
+     "measure_s": 15.016,
+     "unity_frames": 901,
+     "timings_total": 908,
+     "timings_used": 900,
+     "dropped_first": 8,
+     "gpu_valid": 900,
+     "gpu_zero": 0,
+     "gpu_valid_fraction": 1.0,
+     "gpu_ms": {
+      "mean": 15.6369,
+      "p50": 15.7537,
+      "p95": 16.6359,
+      "p99": 16.6943,
+      "max": 17.3947
+     },
+     "cpu_ms": {
+      "mean": 16.6666,
+      "p95": 16.8019,
+      "max": 17.7818
+     },
+     "interval_ms": {
+      "mean": 16.6665,
+      "p50": 16.6667,
+      "p95": 16.8021,
+      "p99": 17.151,
+      "max": 17.7818
+     },
+     "fps_mean": 60.0,
+     "fps_unity_frames": 60.0,
+     "dt_ms_mean": 16.65,
+     "frames_over_33_3ms": 0,
+     "frames_over_33_3ms_fraction": 0.0,
+     "vsync_period_ms": 16.6667,
+     "missed_vsync_frames": 0,
+     "missed_vsync_fraction": 0.0,
+     "gpu_ms_note_ja": "垂直同期ありでは、FrameTiming の GPU 時間が提示の待ちを含む（間隔とほぼ同じになる）。GPU の負荷は垂直同期なしの条件で読む。",
+     "profiler_recorder_gpu": {
+      "name": "Render/GPU Frame Time",
+      "unit": "TimeNanoseconds",
+      "valid": 901,
+      "total": 901,
+      "mean_ms": 15.6371,
+      "p95_ms": 16.6359
+     },
+     "unity_memory_recorders_bytes_at_end": {
+      "System Used Memory": 361558016,
+      "System Total Used Memory": 27596423168,
+      "App Resident Memory": 361558016,
+      "App Committed Memory": 711983104,
+      "Total Used Memory": 111619480,
+      "Total Reserved Memory": 354308096,
+      "Video Memory Bytes": 10539237376
+     },
+     "external": {
+      "n_samples": 13,
+      "gpu_busy_fraction": 0.111,
+      "dedicated_mib_max": 239.4,
+      "nvidia_smi_used_mib_max": 3607.0,
+      "gpu_ms_per_frame_from_busy": 1.85,
+      "nvidia_smi_delta_vs_idle_mib": 433.0
+     }
+    },
+    "proxy_stereo_seat_right": {
+     "name": "proxy_stereo_seat_right",
+     "name_ja": "立体の代理 2×(2064×2208, 4×MSAA)・右船の座席",
+     "note_ja": "立体の代理：右船の座席から左右の眼カメラ（IPD 64 mm、縦画角 96°）で各 2064×2208・4×MSAA の RT へ描き、画面へ縮小表示。垂直同期なし",
+     "screen": [
+      1920,
+      1080
+     ],
+     "vsync_count": 0,
+     "quality_msaa": 4,
+     "eye": [
+      2064,
+      2208,
+      4
+     ],
+     "frame_timing_enabled": true,
+     "vsyncs_per_second": 60.0,
+     "window_utc": [
+      "2026-09-26T04:57:37.3918594Z",
+      "2026-09-26T04:57:52.3922681Z"
+     ],
+     "measure_s": 15.0,
+     "unity_frames": 17763,
+     "timings_total": 17770,
+     "timings_used": 17762,
+     "dropped_first": 8,
+     "gpu_valid": 17762,
+     "gpu_zero": 0,
+     "gpu_valid_fraction": 1.0,
+     "gpu_ms": {
+      "mean": 0.804,
+      "p50": 0.77,
+      "p95": 1.1356,
+      "p99": 1.1903,
+      "max": 1.7807
+     },
+     "cpu_ms": {
+      "mean": 0.8445,
+      "p95": 1.165,
+      "max": 1.8493
+     },
+     "interval_ms": {
+      "mean": 0.8445,
+      "p50": 0.8145,
+      "p95": 1.165,
+      "p99": 1.2514,
+      "max": 1.8493
+     },
+     "fps_mean": 1184.17,
+     "fps_unity_frames": 1184.17,
+     "dt_ms_mean": 0.8445,
+     "frames_over_33_3ms": 0,
+     "frames_over_33_3ms_fraction": 0.0,
+     "gpu_over_8_9ms": 0,
+     "gpu_over_11_1ms": 0,
+     "profiler_recorder_gpu": {
+      "name": "Render/GPU Frame Time",
+      "unit": "TimeNanoseconds",
+      "valid": 17763,
+      "total": 17763,
+      "mean_ms": 0.804,
+      "p95_ms": 1.1356
+     },
+     "unity_memory_recorders_bytes_at_end": {
+      "System Used Memory": 386482176,
+      "System Total Used Memory": 27589083136,
+      "App Resident Memory": 386482176,
+      "App Committed Memory": 1210048512,
+      "Total Used Memory": 95366015,
+      "Total Reserved Memory": 368988160,
+      "Video Memory Bytes": 10539237376
+     },
+     "external": {
+      "n_samples": 14,
+      "gpu_busy_fraction": 0.9595,
+      "dedicated_mib_max": 699.2,
+      "nvidia_smi_used_mib_max": 3887.0,
+      "gpu_ms_per_frame_from_busy": 0.8103,
+      "nvidia_smi_delta_vs_idle_mib": 713.0
+     }
+    }
+   }
+  },
+  "run2": {
+   "exit_code": 0,
+   "hidden_window": false,
+   "is_debug_build": false,
+   "frame_timing_feature_enabled": true,
+   "screen": [
+    1920,
+    1080
+   ],
+   "full_screen_mode": "Windowed",
+   "display_refresh_hz_unity": "60.000",
+   "desktop_resolution": [
+    3840,
+    2160
+   ],
+   "window_handle_nonzero_samples": 72,
+   "window_samples": 73,
+   "idle_nvidia_smi_used_mib": 3173.0,
+   "data_sha256": {
+    "kstar_a45.gwb": "0021696ea0f1dbdd98bf42476ebf2bec5d68a33d3b0b4c490253a0da23b96ff4",
+    "af28_uvsdf_a45.bin": "b60d70834d5dd3bd235444ba2a282544ee4d25d3652260644d1cd4864879b951",
+    "af28_uvwarp_a45.json": "d82169fc055d1d3890eb05c749c2d285da42d05754d99639a106c61d5ce44966"
+   },
+   "unity_memory_after_load_bytes": {
+    "System Used Memory": 364343296,
+    "System Total Used Memory": 27645706240,
+    "App Resident Memory": 364343296,
+    "App Committed Memory": 571973632,
+    "Total Used Memory": 149498606,
+    "Total Reserved Memory": 252588032,
+    "Video Memory Bytes": 10539237376
+   },
+   "conditions": {
+    "desk1080_painting": {
+     "name": "desk1080_painting",
+     "name_ja": "1920×1080・原画視点",
+     "note_ja": "1920×1080 の見えるウィンドウ、原画視点（PaintingCam v1）、画面へ直接描く、4×MSAA、垂直同期なし",
+     "screen": [
+      1920,
+      1080
+     ],
+     "vsync_count": 0,
+     "quality_msaa": 4,
+     "eye": null,
+     "frame_timing_enabled": true,
+     "vsyncs_per_second": 60.0,
+     "window_utc": [
+      "2026-09-26T04:58:03.6403120Z",
+      "2026-09-26T04:58:18.6410989Z"
+     ],
+     "measure_s": 15.0,
+     "unity_frames": 44792,
+     "timings_total": 44799,
+     "timings_used": 44791,
+     "dropped_first": 8,
+     "gpu_valid": 44078,
+     "gpu_zero": 713,
+     "gpu_valid_fraction": 0.9841,
+     "gpu_ms": {
+      "mean": 0.2837,
+      "p50": 0.2652,
+      "p95": 0.2744,
+      "p99": 0.927,
+      "max": 4.5578
+     },
+     "cpu_ms": {
+      "mean": 0.3349,
+      "p95": 0.5913,
+      "max": 13.4262
+     },
+     "interval_ms": {
+      "mean": 0.3349,
+      "p50": 0.2938,
+      "p95": 0.5913,
+      "p99": 1.1135,
+      "max": 13.4262
+     },
+     "fps_mean": 2986.19,
+     "fps_unity_frames": 2986.11,
+     "dt_ms_mean": 0.3349,
+     "frames_over_33_3ms": 0,
+     "frames_over_33_3ms_fraction": 0.0,
+     "profiler_recorder_gpu": {
+      "name": "Render/GPU Frame Time",
+      "unit": "TimeNanoseconds",
+      "valid": 44078,
+      "total": 44792,
+      "mean_ms": 0.2837,
+      "p95_ms": 0.2744
+     },
+     "unity_memory_recorders_bytes_at_end": {
+      "System Used Memory": 291987456,
+      "System Total Used Memory": 27925676032,
+      "App Resident Memory": 291987456,
+      "App Committed Memory": 605990912,
+      "Total Used Memory": 87979143,
+      "Total Reserved Memory": 254685184,
+      "Video Memory Bytes": 10539237376
+     },
+     "external": {
+      "n_samples": 13,
+      "gpu_busy_fraction": 0.8725,
+      "dedicated_mib_max": 239.3,
+      "nvidia_smi_used_mib_max": 3459.0,
+      "gpu_ms_per_frame_from_busy": 0.2922,
+      "nvidia_smi_delta_vs_idle_mib": 286.0
+     }
+    },
+    "desk1080_seat_right": {
+     "name": "desk1080_seat_right",
+     "name_ja": "1920×1080・右船の座席",
+     "note_ja": "1920×1080 の見えるウィンドウ、右船の座席（D7）、画面へ直接描く、4×MSAA、垂直同期なし",
+     "screen": [
+      1920,
+      1080
+     ],
+     "vsync_count": 0,
+     "quality_msaa": 4,
+     "eye": null,
+     "frame_timing_enabled": true,
+     "vsyncs_per_second": 60.0,
+     "window_utc": [
+      "2026-09-26T04:58:21.7383853Z",
+      "2026-09-26T04:58:36.7389780Z"
+     ],
+     "measure_s": 15.0,
+     "unity_frames": 50517,
+     "timings_total": 50524,
+     "timings_used": 50516,
+     "dropped_first": 8,
+     "gpu_valid": 48990,
+     "gpu_zero": 1526,
+     "gpu_valid_fraction": 0.9698,
+     "gpu_ms": {
+      "mean": 0.2372,
+      "p50": 0.2253,
+      "p95": 0.2304,
+      "p99": 0.6642,
+      "max": 2.9102
+     },
+     "cpu_ms": {
+      "mean": 0.2969,
+      "p95": 0.56,
+      "max": 11.6266
+     },
+     "interval_ms": {
+      "mean": 0.2969,
+      "p50": 0.255,
+      "p95": 0.56,
+      "p99": 1.0744,
+      "max": 11.6266
+     },
+     "fps_mean": 3367.72,
+     "fps_unity_frames": 3367.76,
+     "dt_ms_mean": 0.2969,
+     "frames_over_33_3ms": 0,
+     "frames_over_33_3ms_fraction": 0.0,
+     "profiler_recorder_gpu": {
+      "name": "Render/GPU Frame Time",
+      "unit": "TimeNanoseconds",
+      "valid": 48990,
+      "total": 50517,
+      "mean_ms": 0.2372,
+      "p95_ms": 0.2304
+     },
+     "unity_memory_recorders_bytes_at_end": {
+      "System Used Memory": 329203712,
+      "System Total Used Memory": 27411873792,
+      "App Resident Memory": 329203712,
+      "App Committed Memory": 643960832,
+      "Total Used Memory": 91183686,
+      "Total Reserved Memory": 288239616,
+      "Video Memory Bytes": 10539237376
+     },
+     "external": {
+      "n_samples": 13,
+      "gpu_busy_fraction": 0.8545,
+      "dedicated_mib_max": 239.3,
+      "nvidia_smi_used_mib_max": 3931.0,
+      "gpu_ms_per_frame_from_busy": 0.2537,
+      "nvidia_smi_delta_vs_idle_mib": 758.0
+     }
+    },
+    "desk1080_seat_right_vsync": {
+     "name": "desk1080_seat_right_vsync",
+     "name_ja": "1920×1080・右船の座席・垂直同期",
+     "note_ja": "上と同じで垂直同期あり（表示の周期に合わせて提示する実際のループ）",
+     "screen": [
+      1920,
+      1080
+     ],
+     "vsync_count": 1,
+     "quality_msaa": 4,
+     "eye": null,
+     "frame_timing_enabled": true,
+     "vsyncs_per_second": 60.0,
+     "window_utc": [
+      "2026-09-26T04:58:39.8707587Z",
+      "2026-09-26T04:58:54.8875144Z"
+     ],
+     "measure_s": 15.016,
+     "unity_frames": 901,
+     "timings_total": 908,
+     "timings_used": 900,
+     "dropped_first": 8,
+     "gpu_valid": 900,
+     "gpu_zero": 0,
+     "gpu_valid_fraction": 1.0,
+     "gpu_ms": {
+      "mean": 15.7154,
+      "p50": 15.7896,
+      "p95": 16.6401,
+      "p99": 16.7292,
+      "max": 17.1182
+     },
+     "cpu_ms": {
+      "mean": 16.6664,
+      "p95": 16.8036,
+      "max": 17.7445
+     },
+     "interval_ms": {
+      "mean": 16.6664,
+      "p50": 16.6664,
+      "p95": 16.8036,
+      "p99": 17.1395,
+      "max": 17.7445
+     },
+     "fps_mean": 60.0,
+     "fps_unity_frames": 60.0,
+     "dt_ms_mean": 16.65,
+     "frames_over_33_3ms": 0,
+     "frames_over_33_3ms_fraction": 0.0,
+     "vsync_period_ms": 16.6667,
+     "missed_vsync_frames": 0,
+     "missed_vsync_fraction": 0.0,
+     "gpu_ms_note_ja": "垂直同期ありでは、FrameTiming の GPU 時間が提示の待ちを含む（間隔とほぼ同じになる）。GPU の負荷は垂直同期なしの条件で読む。",
+     "profiler_recorder_gpu": {
+      "name": "Render/GPU Frame Time",
+      "unit": "TimeNanoseconds",
+      "valid": 901,
+      "total": 901,
+      "mean_ms": 15.7164,
+      "p95_ms": 16.64
+     },
+     "unity_memory_recorders_bytes_at_end": {
+      "System Used Memory": 364396544,
+      "System Total Used Memory": 27441233920,
+      "App Resident Memory": 364396544,
+      "App Committed Memory": 677646336,
+      "Total Used Memory": 110696579,
+      "Total Reserved Memory": 321794048,
+      "Video Memory Bytes": 10539237376
+     },
+     "external": {
+      "n_samples": 13,
+      "gpu_busy_fraction": 0.0875,
+      "dedicated_mib_max": 239.3,
+      "nvidia_smi_used_mib_max": 3406.0,
+      "gpu_ms_per_frame_from_busy": 1.4583,
+      "nvidia_smi_delta_vs_idle_mib": 233.0
+     }
+    },
+    "proxy_stereo_seat_right": {
+     "name": "proxy_stereo_seat_right",
+     "name_ja": "立体の代理 2×(2064×2208, 4×MSAA)・右船の座席",
+     "note_ja": "立体の代理：右船の座席から左右の眼カメラ（IPD 64 mm、縦画角 96°）で各 2064×2208・4×MSAA の RT へ描き、画面へ縮小表示。垂直同期なし",
+     "screen": [
+      1920,
+      1080
+     ],
+     "vsync_count": 0,
+     "quality_msaa": 4,
+     "eye": [
+      2064,
+      2208,
+      4
+     ],
+     "frame_timing_enabled": true,
+     "vsyncs_per_second": 60.0,
+     "window_utc": [
+      "2026-09-26T04:58:58.0095074Z",
+      "2026-09-26T04:59:13.0094664Z"
+     ],
+     "measure_s": 15.0,
+     "unity_frames": 17600,
+     "timings_total": 17607,
+     "timings_used": 17599,
+     "dropped_first": 8,
+     "gpu_valid": 17599,
+     "gpu_zero": 0,
+     "gpu_valid_fraction": 1.0,
+     "gpu_ms": {
+      "mean": 0.8114,
+      "p50": 0.7772,
+      "p95": 1.1479,
+      "p99": 1.2022,
+      "max": 1.5657
+     },
+     "cpu_ms": {
+      "mean": 0.8523,
+      "p95": 1.1762,
+      "max": 1.5759
+     },
+     "interval_ms": {
+      "mean": 0.8523,
+      "p50": 0.8215,
+      "p95": 1.1762,
+      "p99": 1.2702,
+      "max": 1.5759
+     },
+     "fps_mean": 1173.29,
+     "fps_unity_frames": 1173.3,
+     "dt_ms_mean": 0.8523,
+     "frames_over_33_3ms": 0,
+     "frames_over_33_3ms_fraction": 0.0,
+     "gpu_over_8_9ms": 0,
+     "gpu_over_11_1ms": 0,
+     "profiler_recorder_gpu": {
+      "name": "Render/GPU Frame Time",
+      "unit": "TimeNanoseconds",
+      "valid": 17600,
+      "total": 17600,
+      "mean_ms": 0.8114,
+      "p95_ms": 1.1479
+     },
+     "unity_memory_recorders_bytes_at_end": {
+      "System Used Memory": 373866496,
+      "System Total Used Memory": 27452768256,
+      "App Resident Memory": 373866496,
+      "App Committed Memory": 1174368256,
+      "Total Used Memory": 112060110,
+      "Total Reserved Memory": 334376960,
+      "Video Memory Bytes": 10539237376
+     },
+     "external": {
+      "n_samples": 13,
+      "gpu_busy_fraction": 0.9606,
+      "dedicated_mib_max": 699.2,
+      "nvidia_smi_used_mib_max": 3967.0,
+      "gpu_ms_per_frame_from_busy": 0.8187,
+      "nvidia_smi_delta_vs_idle_mib": 794.0
+     }
+    }
+   }
+  },
+  "run3": {
+   "exit_code": 0,
+   "hidden_window": false,
+   "is_debug_build": false,
+   "frame_timing_feature_enabled": true,
+   "screen": [
+    1920,
+    1080
+   ],
+   "full_screen_mode": "Windowed",
+   "display_refresh_hz_unity": "60.000",
+   "desktop_resolution": [
+    3840,
+    2160
+   ],
+   "window_handle_nonzero_samples": 72,
+   "window_samples": 73,
+   "idle_nvidia_smi_used_mib": 3176.0,
+   "data_sha256": {
+    "kstar_a45.gwb": "0021696ea0f1dbdd98bf42476ebf2bec5d68a33d3b0b4c490253a0da23b96ff4",
+    "af28_uvsdf_a45.bin": "b60d70834d5dd3bd235444ba2a282544ee4d25d3652260644d1cd4864879b951",
+    "af28_uvwarp_a45.json": "d82169fc055d1d3890eb05c749c2d285da42d05754d99639a106c61d5ce44966"
+   },
+   "unity_memory_after_load_bytes": {
+    "System Used Memory": 368218112,
+    "System Total Used Memory": 27474788352,
+    "App Resident Memory": 368218112,
+    "App Committed Memory": 601567232,
+    "Total Used Memory": 149498519,
+    "Total Reserved Memory": 276713472,
+    "Video Memory Bytes": 10539237376
+   },
+   "conditions": {
+    "desk1080_painting": {
+     "name": "desk1080_painting",
+     "name_ja": "1920×1080・原画視点",
+     "note_ja": "1920×1080 の見えるウィンドウ、原画視点（PaintingCam v1）、画面へ直接描く、4×MSAA、垂直同期なし",
+     "screen": [
+      1920,
+      1080
+     ],
+     "vsync_count": 0,
+     "quality_msaa": 4,
+     "eye": null,
+     "frame_timing_enabled": true,
+     "vsyncs_per_second": 60.0,
+     "window_utc": [
+      "2026-09-26T04:59:24.2579234Z",
+      "2026-09-26T04:59:39.2592496Z"
+     ],
+     "measure_s": 15.0,
+     "unity_frames": 45612,
+     "timings_total": 45619,
+     "timings_used": 45611,
+     "dropped_first": 8,
+     "gpu_valid": 45034,
+     "gpu_zero": 577,
+     "gpu_valid_fraction": 0.9873,
+     "gpu_ms": {
+      "mean": 0.2804,
+      "p50": 0.2662,
+      "p95": 0.2724,
+      "p99": 0.9052,
+      "max": 1.8084
+     },
+     "cpu_ms": {
+      "mean": 0.3289,
+      "p95": 0.5979,
+      "max": 3.3678
+     },
+     "interval_ms": {
+      "mean": 0.3289,
+      "p50": 0.2949,
+      "p95": 0.598,
+      "p99": 1.0431,
+      "max": 3.3678
+     },
+     "fps_mean": 3040.59,
+     "fps_unity_frames": 3040.73,
+     "dt_ms_mean": 0.3289,
+     "frames_over_33_3ms": 0,
+     "frames_over_33_3ms_fraction": 0.0,
+     "profiler_recorder_gpu": {
+      "name": "Render/GPU Frame Time",
+      "unit": "TimeNanoseconds",
+      "valid": 45034,
+      "total": 45612,
+      "mean_ms": 0.2804,
+      "p95_ms": 0.2724
+     },
+     "unity_memory_recorders_bytes_at_end": {
+      "System Used Memory": 293830656,
+      "System Total Used Memory": 27433893888,
+      "App Resident Memory": 293830656,
+      "App Committed Memory": 635764736,
+      "Total Used Memory": 87884439,
+      "Total Reserved Memory": 278810624,
+      "Video Memory Bytes": 10539237376
+     },
+     "external": {
+      "n_samples": 13,
+      "gpu_busy_fraction": 0.8966,
+      "dedicated_mib_max": 239.3,
+      "nvidia_smi_used_mib_max": 3466.0,
+      "gpu_ms_per_frame_from_busy": 0.2949,
+      "nvidia_smi_delta_vs_idle_mib": 290.0
+     }
+    },
+    "desk1080_seat_right": {
+     "name": "desk1080_seat_right",
+     "name_ja": "1920×1080・右船の座席",
+     "note_ja": "1920×1080 の見えるウィンドウ、右船の座席（D7）、画面へ直接描く、4×MSAA、垂直同期なし",
+     "screen": [
+      1920,
+      1080
+     ],
+     "vsync_count": 0,
+     "quality_msaa": 4,
+     "eye": null,
+     "frame_timing_enabled": true,
+     "vsyncs_per_second": 60.0,
+     "window_utc": [
+      "2026-09-26T04:59:42.3588546Z",
+      "2026-09-26T04:59:57.3590020Z"
+     ],
+     "measure_s": 15.0,
+     "unity_frames": 51691,
+     "timings_total": 51698,
+     "timings_used": 51690,
+     "dropped_first": 8,
+     "gpu_valid": 50621,
+     "gpu_zero": 1069,
+     "gpu_valid_fraction": 0.9793,
+     "gpu_ms": {
+      "mean": 0.2385,
+      "p50": 0.2273,
+      "p95": 0.2324,
+      "p99": 0.8374,
+      "max": 1.3568
+     },
+     "cpu_ms": {
+      "mean": 0.2902,
+      "p95": 0.5593,
+      "max": 2.1708
+     },
+     "interval_ms": {
+      "mean": 0.2902,
+      "p50": 0.2569,
+      "p95": 0.5593,
+      "p99": 0.9847,
+      "max": 2.1708
+     },
+     "fps_mean": 3446.02,
+     "fps_unity_frames": 3446.03,
+     "dt_ms_mean": 0.2902,
+     "frames_over_33_3ms": 0,
+     "frames_over_33_3ms_fraction": 0.0,
+     "profiler_recorder_gpu": {
+      "name": "Render/GPU Frame Time",
+      "unit": "TimeNanoseconds",
+      "valid": 50622,
+      "total": 51691,
+      "mean_ms": 0.2385,
+      "p95_ms": 0.2324
+     },
+     "unity_memory_recorders_bytes_at_end": {
+      "System Used Memory": 331137024,
+      "System Total Used Memory": 27462205440,
+      "App Resident Memory": 331137024,
+      "App Committed Memory": 673898496,
+      "Total Used Memory": 91244349,
+      "Total Reserved Memory": 312365056,
+      "Video Memory Bytes": 10539237376
+     },
+     "external": {
+      "n_samples": 14,
+      "gpu_busy_fraction": 0.8796,
+      "dedicated_mib_max": 239.4,
+      "nvidia_smi_used_mib_max": 3432.0,
+      "gpu_ms_per_frame_from_busy": 0.2553,
+      "nvidia_smi_delta_vs_idle_mib": 256.0
+     }
+    },
+    "desk1080_seat_right_vsync": {
+     "name": "desk1080_seat_right_vsync",
+     "name_ja": "1920×1080・右船の座席・垂直同期",
+     "note_ja": "上と同じで垂直同期あり（表示の周期に合わせて提示する実際のループ）",
+     "screen": [
+      1920,
+      1080
+     ],
+     "vsync_count": 1,
+     "quality_msaa": 4,
+     "eye": null,
+     "frame_timing_enabled": true,
+     "vsyncs_per_second": 60.0,
+     "window_utc": [
+      "2026-09-26T05:00:00.5044229Z",
+      "2026-09-26T05:00:15.5205375Z"
+     ],
+     "measure_s": 15.016,
+     "unity_frames": 901,
+     "timings_total": 908,
+     "timings_used": 900,
+     "dropped_first": 8,
+     "gpu_valid": 900,
+     "gpu_zero": 0,
+     "gpu_valid_fraction": 1.0,
+     "gpu_ms": {
+      "mean": 15.9687,
+      "p50": 16.3891,
+      "p95": 16.6697,
+      "p99": 16.7906,
+      "max": 18.7884
+     },
+     "cpu_ms": {
+      "mean": 16.6664,
+      "p95": 16.8137,
+      "max": 17.4843
+     },
+     "interval_ms": {
+      "mean": 16.6664,
+      "p50": 16.6624,
+      "p95": 16.8137,
+      "p99": 17.125,
+      "max": 17.4843
+     },
+     "fps_mean": 60.0,
+     "fps_unity_frames": 60.0,
+     "dt_ms_mean": 16.65,
+     "frames_over_33_3ms": 0,
+     "frames_over_33_3ms_fraction": 0.0,
+     "vsync_period_ms": 16.6667,
+     "missed_vsync_frames": 0,
+     "missed_vsync_fraction": 0.0,
+     "gpu_ms_note_ja": "垂直同期ありでは、FrameTiming の GPU 時間が提示の待ちを含む（間隔とほぼ同じになる）。GPU の負荷は垂直同期なしの条件で読む。",
+     "profiler_recorder_gpu": {
+      "name": "Render/GPU Frame Time",
+      "unit": "TimeNanoseconds",
+      "valid": 901,
+      "total": 901,
+      "mean_ms": 15.9697,
+      "p95_ms": 16.6697
+     },
+     "unity_memory_recorders_bytes_at_end": {
+      "System Used Memory": 364482560,
+      "System Total Used Memory": 27519877120,
+      "App Resident Memory": 364482560,
+      "App Committed Memory": 705228800,
+      "Total Used Memory": 111166170,
+      "Total Reserved Memory": 343822336,
+      "Video Memory Bytes": 10539237376
+     },
+     "external": {
+      "n_samples": 13,
+      "gpu_busy_fraction": 0.0886,
+      "dedicated_mib_max": 239.4,
+      "nvidia_smi_used_mib_max": 3422.0,
+      "gpu_ms_per_frame_from_busy": 1.4766,
+      "nvidia_smi_delta_vs_idle_mib": 246.0
+     }
+    },
+    "proxy_stereo_seat_right": {
+     "name": "proxy_stereo_seat_right",
+     "name_ja": "立体の代理 2×(2064×2208, 4×MSAA)・右船の座席",
+     "note_ja": "立体の代理：右船の座席から左右の眼カメラ（IPD 64 mm、縦画角 96°）で各 2064×2208・4×MSAA の RT へ描き、画面へ縮小表示。垂直同期なし",
+     "screen": [
+      1920,
+      1080
+     ],
+     "vsync_count": 0,
+     "quality_msaa": 4,
+     "eye": [
+      2064,
+      2208,
+      4
+     ],
+     "frame_timing_enabled": true,
+     "vsyncs_per_second": 60.0,
+     "window_utc": [
+      "2026-09-26T05:00:18.6430248Z",
+      "2026-09-26T05:00:33.6438702Z"
+     ],
+     "measure_s": 15.0,
+     "unity_frames": 17559,
+     "timings_total": 17566,
+     "timings_used": 17558,
+     "dropped_first": 8,
+     "gpu_valid": 17558,
+     "gpu_zero": 0,
+     "gpu_valid_fraction": 1.0,
+     "gpu_ms": {
+      "mean": 0.8138,
+      "p50": 0.7793,
+      "p95": 1.152,
+      "p99": 1.2022,
+      "max": 1.5299
+     },
+     "cpu_ms": {
+      "mean": 0.8543,
+      "p95": 1.1802,
+      "max": 1.6106
+     },
+     "interval_ms": {
+      "mean": 0.8543,
+      "p50": 0.8232,
+      "p95": 1.1802,
+      "p99": 1.2643,
+      "max": 1.6106
+     },
+     "fps_mean": 1170.59,
+     "fps_unity_frames": 1170.59,
+     "dt_ms_mean": 0.8543,
+     "frames_over_33_3ms": 0,
+     "frames_over_33_3ms_fraction": 0.0,
+     "gpu_over_8_9ms": 0,
+     "gpu_over_11_1ms": 0,
+     "profiler_recorder_gpu": {
+      "name": "Render/GPU Frame Time",
+      "unit": "TimeNanoseconds",
+      "valid": 17559,
+      "total": 17559,
+      "mean_ms": 0.8138,
+      "p95_ms": 1.152
+     },
+     "unity_memory_recorders_bytes_at_end": {
+      "System Used Memory": 375328768,
+      "System Total Used Memory": 27402436608,
+      "App Resident Memory": 375328768,
+      "App Committed Memory": 1195212800,
+      "Total Used Memory": 95173649,
+      "Total Reserved Memory": 350113792,
+      "Video Memory Bytes": 10539237376
+     },
+     "external": {
+      "n_samples": 13,
+      "gpu_busy_fraction": 0.9607,
+      "dedicated_mib_max": 699.2,
+      "nvidia_smi_used_mib_max": 3899.0,
+      "gpu_ms_per_frame_from_busy": 0.8207,
+      "nvidia_smi_delta_vs_idle_mib": 723.0
+     }
+    }
+   }
+  },
+  "hidden1": {
+   "exit_code": 0,
+   "hidden_window": true,
+   "is_debug_build": false,
+   "frame_timing_feature_enabled": true,
+   "screen": [
+    1920,
+    1080
+   ],
+   "full_screen_mode": "Windowed",
+   "display_refresh_hz_unity": "60.000",
+   "desktop_resolution": [
+    3840,
+    2160
+   ],
+   "window_handle_nonzero_samples": 0,
+   "window_samples": 13,
+   "idle_nvidia_smi_used_mib": 3155.0,
+   "data_sha256": {
+    "kstar_a45.gwb": "0021696ea0f1dbdd98bf42476ebf2bec5d68a33d3b0b4c490253a0da23b96ff4",
+    "af28_uvsdf_a45.bin": "b60d70834d5dd3bd235444ba2a282544ee4d25d3652260644d1cd4864879b951",
+    "af28_uvwarp_a45.json": "d82169fc055d1d3890eb05c749c2d285da42d05754d99639a106c61d5ce44966"
+   },
+   "unity_memory_after_load_bytes": {
+    "System Used Memory": 372113408,
+    "System Total Used Memory": 27382513664,
+    "App Resident Memory": 372113408,
+    "App Committed Memory": 586584064,
+    "Total Used Memory": 149410463,
+    "Total Reserved Memory": 259313664,
+    "Video Memory Bytes": 10539237376
+   },
+   "conditions": {
+    "desk1080_seat_right": {
+     "name": "desk1080_seat_right",
+     "name_ja": "1920×1080・右船の座席",
+     "note_ja": "1920×1080 の見えるウィンドウ、右船の座席（D7）、画面へ直接描く、4×MSAA、垂直同期なし",
+     "screen": [
+      1920,
+      1080
+     ],
+     "vsync_count": 0,
+     "quality_msaa": 4,
+     "eye": null,
+     "frame_timing_enabled": true,
+     "vsyncs_per_second": 60.0,
+     "window_utc": [
+      "2026-09-26T05:00:50.5681915Z",
+      "2026-09-26T05:00:55.5677714Z"
+     ],
+     "measure_s": 5.0,
+     "unity_frames": 112883,
+     "timings_total": 112890,
+     "timings_used": 112882,
+     "dropped_first": 8,
+     "gpu_valid": 0,
+     "gpu_zero": 112882,
+     "gpu_valid_fraction": 0.0,
+     "gpu_ms": {
+      "mean": null,
+      "p50": null,
+      "p95": null,
+      "p99": null,
+      "max": null
+     },
+     "cpu_ms": {
+      "mean": 0.0443,
+      "p95": 0.066,
+      "max": 2.5572
+     },
+     "interval_ms": {
+      "mean": 0.0443,
+      "p50": 0.0398,
+      "p95": 0.066,
+      "p99": 0.1192,
+      "max": 2.5572
+     },
+     "fps_mean": 22574.94,
+     "fps_unity_frames": 22576.4,
+     "dt_ms_mean": 0.0443,
+     "frames_over_33_3ms": 0,
+     "frames_over_33_3ms_fraction": 0.0,
+     "profiler_recorder_gpu": {
+      "name": "Render/GPU Frame Time",
+      "unit": "TimeNanoseconds",
+      "valid": 0,
+      "total": 112883,
+      "mean_ms": null,
+      "p95_ms": null
+     },
+     "unity_memory_recorders_bytes_at_end": {
+      "System Used Memory": 384225280,
+      "System Total Used Memory": 27407679488,
+      "App Resident Memory": 384225280,
+      "App Committed Memory": 591302656,
+      "Total Used Memory": 94655143,
+      "Total Reserved Memory": 261410816,
+      "Video Memory Bytes": 10539237376
+     },
+     "external": {
+      "n_samples": 3,
+      "gpu_busy_fraction": 0.0954,
+      "dedicated_mib_max": 115.3,
+      "nvidia_smi_used_mib_max": 3294.0,
+      "gpu_ms_per_frame_from_busy": 0.0042,
+      "nvidia_smi_delta_vs_idle_mib": 139.0
+     }
+    }
+   }
+  }
+ },
+ "mock": {
+  "mock1": {
+   "runtime": [
+    "Unity Mock Runtime",
+    "0.0.2",
+    "1.1.53"
+   ],
+   "plugin": "1.16.0-18-gc7a9defb",
+   "loader": "OpenXRLoader",
+   "xr_enabled": true,
+   "device_active": true,
+   "stereo_mode": "SinglePassInstanced",
+   "eye_texture": [
+    1512,
+    1680,
+    1,
+    "Tex2DArray",
+    2
+   ],
+   "texture_layout": "Texture2DArray",
+   "render_passes": [
+    "pass0 1512x1680 msaa1 Tex2DArray slices2 params2"
+   ],
+   "ipd_m_from_view": 0.022,
+   "tan_x_left": [
+    -1.5422,
+    1.0528
+   ],
+   "tan_x_right": [
+    -1.0554,
+    1.5423
+   ],
+   "tan_common_x": [
+    -1.0554,
+    1.0528
+   ],
+   "tan_common_y": [
+    -1.4099,
+    1.4104
+   ],
+   "crop_left_px": [
+    284,
+    0,
+    1512,
+    1679
+   ],
+   "crop_right_px": [
+    0,
+    3,
+    1227,
+    1680
+   ],
+   "compared_size_px": [
+    1227,
+    1677
+   ],
+   "unmasked_px": 1391630,
+   "line_px_left": 3721,
+   "line_px_right": 3738,
+   "line_px_diff_percent": 0.455,
+   "line_px_full_image": [
+    3752,
+    3738
+   ],
+   "palette_px_common": {
+    "white": [
+     256281,
+     253634
+    ],
+    "mizuiro": [
+     3922,
+     3935
+    ],
+    "ai_mid": [
+     6225,
+     6244
+    ],
+    "ai_dark": [
+     297643,
+     302566
+    ]
+   },
+   "mean_abs_diff_rgb_common": 1.719,
+   "spi_window": {
+    "eye": [
+     2064,
+     2294
+    ],
+    "scale": 1.3651,
+    "frames": 12921,
+    "seconds": 10.001,
+    "frame_interval_ms_mean": 0.774,
+    "external": {
+     "n_samples": 8,
+     "gpu_busy_fraction": 0.9601,
+     "dedicated_mib_max": 701.4,
+     "nvidia_smi_used_mib_max": 3890.0,
+     "gpu_ms_per_frame_from_busy": 0.7431
+    },
+    "app_gpu_time_from_mock_nonzero": 0,
+    "app_gpu_time_samples": 12921,
+    "note_ja": "SPI の経路（Mock、眼 2064 幅、MSAA 1）の GPU 時間を、Windows の GPU Engine（3D）の Running Time の増分から割り出した値。FrameTiming の GPU は XR の経路で 0 になり使えなかった。"
+   },
+   "frame_timing_under_xr": {
+    "timings": 9786,
+    "gpu_valid": 0,
+    "note_ja": "記録のみ。Mock の XR の経路では FrameTiming の GPU の有効値が 0 件。"
+   },
+   "notes": [
+    "ScreenCapture 左 1920x1080、右 1920x1080",
+    "ScreenCapture 両眼 1920x1080",
+    "SPI の窓：眼のテクスチャ 2064x2294、12921 フレーム、10.00 秒。TryGetAppGPUTimeLastFrame は Mock が返す値で実測ではない。"
+   ]
+  },
+  "mock2": {
+   "runtime": [
+    "Unity Mock Runtime",
+    "0.0.2",
+    "1.1.53"
+   ],
+   "plugin": "1.16.0-18-gc7a9defb",
+   "loader": "OpenXRLoader",
+   "xr_enabled": true,
+   "device_active": true,
+   "stereo_mode": "SinglePassInstanced",
+   "eye_texture": [
+    1512,
+    1680,
+    1,
+    "Tex2DArray",
+    2
+   ],
+   "texture_layout": "Texture2DArray",
+   "render_passes": [
+    "pass0 1512x1680 msaa1 Tex2DArray slices2 params2"
+   ],
+   "ipd_m_from_view": 0.022,
+   "tan_x_left": [
+    -1.5422,
+    1.0528
+   ],
+   "tan_x_right": [
+    -1.0554,
+    1.5423
+   ],
+   "tan_common_x": [
+    -1.0554,
+    1.0528
+   ],
+   "tan_common_y": [
+    -1.4099,
+    1.4104
+   ],
+   "crop_left_px": [
+    284,
+    0,
+    1512,
+    1679
+   ],
+   "crop_right_px": [
+    0,
+    3,
+    1227,
+    1680
+   ],
+   "compared_size_px": [
+    1227,
+    1677
+   ],
+   "unmasked_px": 1391630,
+   "line_px_left": 3721,
+   "line_px_right": 3738,
+   "line_px_diff_percent": 0.455,
+   "line_px_full_image": [
+    3752,
+    3738
+   ],
+   "palette_px_common": {
+    "white": [
+     256281,
+     253634
+    ],
+    "mizuiro": [
+     3922,
+     3935
+    ],
+    "ai_mid": [
+     6225,
+     6244
+    ],
+    "ai_dark": [
+     297643,
+     302566
+    ]
+   },
+   "mean_abs_diff_rgb_common": 1.719,
+   "spi_window": {
+    "eye": [
+     2064,
+     2294
+    ],
+    "scale": 1.3651,
+    "frames": 12877,
+    "seconds": 10.001,
+    "frame_interval_ms_mean": 0.7766,
+    "external": {
+     "n_samples": 8,
+     "gpu_busy_fraction": 0.9605,
+     "dedicated_mib_max": 701.4,
+     "nvidia_smi_used_mib_max": 3892.0,
+     "gpu_ms_per_frame_from_busy": 0.7459
+    },
+    "app_gpu_time_from_mock_nonzero": 0,
+    "app_gpu_time_samples": 12877,
+    "note_ja": "SPI の経路（Mock、眼 2064 幅、MSAA 1）の GPU 時間を、Windows の GPU Engine（3D）の Running Time の増分から割り出した値。FrameTiming の GPU は XR の経路で 0 になり使えなかった。"
+   },
+   "frame_timing_under_xr": {
+    "timings": 9719,
+    "gpu_valid": 0,
+    "note_ja": "記録のみ。Mock の XR の経路では FrameTiming の GPU の有効値が 0 件。"
+   },
+   "notes": [
+    "ScreenCapture 左 1920x1080、右 1920x1080",
+    "ScreenCapture 両眼 1920x1080",
+    "SPI の窓：眼のテクスチャ 2064x2294、12877 フレーム、10.00 秒。TryGetAppGPUTimeLastFrame は Mock が返す値で実測ではない。"
+   ]
+  }
+ },
+ "stop_loss": {
+  "triggered": false,
+  "note_ja": "1 日以内に有効な GPU 値が取れたので、Profiler の GPU モジュール・PresentMon には替えていない（PresentMon は導入していない）。"
+ },
+ "figures": [
+  "32_desk_views.png",
+  "32_proxy_stereo.png",
+  "32_mock_eyes.png",
+  "32_metrics_table.png"
+ ]
+}

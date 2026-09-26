@@ -1,0 +1,67 @@
+{
+ "schema": "GreatWave.AF32.run/1",
+ "generated_utc": "2026-09-26T05:10:19+00:00",
+ "commands": [
+  "powershell -NoProfile -ExecutionPolicy Bypass -File Tools/Perf32/af32_run_unity.ps1 -Method GreatWave.ArtFirst.EditorTools.AF32PerfBuild.BuildAll -Log build2",
+  "powershell -NoProfile -ExecutionPolicy Bypass -File Tools/Perf32/af32_run_player.ps1 -Tag run1   （run2・run3 も同じ）",
+  "powershell -NoProfile -ExecutionPolicy Bypass -File Tools/Perf32/af32_run_player.ps1 -Tag hidden1 -Hidden -Conds desk1080_seat_right -Warm 3 -Measure 5",
+  "powershell -NoProfile -ExecutionPolicy Bypass -File Tools/Perf32/af32_run_player.ps1 -Tag mock1 -Mode mock   （mock2 も同じ）",
+  "py -3.10 Tools/Perf32/af32_analyze.py"
+ ],
+ "tools": {
+  "python": "3.10.6",
+  "numpy": "2.2.6",
+  "opencv": "4.12.0",
+  "pillow": "12.0.0",
+  "unity": "6000.4.3f1",
+  "device": "NVIDIA GeForce RTX 3080",
+  "graphics_api": "Direct3D11",
+  "cpu": "12th Gen Intel(R) Core(TM) i7-12700K",
+  "os": "Windows 11  (10.0.26200)",
+  "gpu_driver": "Direct3D 11.0 [level 11.1]",
+  "openxr_package": "com.unity.xr.openxr 1.16.1（導入済み。Mock Runtime はその同梱品）",
+  "external_counters": "Windows の GPU Engine / GPU Process Memory カウンター（Get-Counter）、nvidia-smi（ドライバーに同梱）。新しい導入なし"
+ },
+ "pretests_not_used": {
+  "test1": "Unity/Build/ArtFirst/32/runs/test1/（作る途中の試し。集計に使わない）",
+  "mocktest1": "Unity/Build/ArtFirst/32/runs/mocktest1/（作る途中の試し。集計に使わない）"
+ },
+ "inputs_sha256": {
+  "Unity/Assets/GreatWave/ArtFirst/Scripts/AF32PerfRunner.cs": "6b24a13ab888c27acd93ace44a838929d4276df06fdfb5dc23193a872efdac7a",
+  "Unity/Assets/GreatWave/ArtFirst/Editor/AF32PerfBuild.cs": "e3024681101ace423de0a3269c6fd90cf04c3c6af3a2a02cf150b6e5a5cf6f06",
+  "Unity/Assets/GreatWave/Scenes/Tests/AF32_Perf.unity": "ac981623f63c65a4597c1068b9199f78777098913033a13cf088674190743255",
+  "Unity/Assets/GreatWave/Scenes/Tests/AF_CP1.unity": "553ab44a00710092cbea7d110ebfd467938682a4dfa952535986d6f73d7e8209",
+  "Tools/Perf32/af32_run_unity.ps1": "3b0a59104ac4c3893e430872ad3666fe02b3e2990ec2bea7312d3632cd90db1d",
+  "Tools/Perf32/af32_run_player.ps1": "922d328f2004474c5a8d9f3f74908f4935e6d7bbe1a108e28d295dde17d15cd2",
+  "Tools/Perf32/af32_analyze.py": "db0d33aee4977c9311d3873ffb09a6b6243c618e95e0e859c4e66d5c9a788763",
+  "Unity/Build/ArtFirst/32/data/kstar_a45.gwb": "0021696ea0f1dbdd98bf42476ebf2bec5d68a33d3b0b4c490253a0da23b96ff4",
+  "Unity/Build/ArtFirst/32/data/af28_uvsdf_a45.bin": "b60d70834d5dd3bd235444ba2a282544ee4d25d3652260644d1cd4864879b951",
+  "Unity/Build/ArtFirst/32/data/af28_uvwarp_a45.json": "d82169fc055d1d3890eb05c749c2d285da42d05754d99639a106c61d5ce44966",
+  "Unity/Build/ArtFirst/32/player/AF32Perf.exe": "5be81b3fa7df7c08cadee6f79d6ff3fe95481420f166ba8127390ea669c8b12c",
+  "Unity/Build/ArtFirst/32/player/AF32Perf_Data/level0": "a52933ec1e7f8effbaccb454b3bd28e204dfaabbf94ab601bd28a743cbca7bb2",
+  "Unity/Build/ArtFirst/32/player/AF32Perf_Data/Managed/Assembly-CSharp.dll": "ccd3deca17ebdea6da5dc988d2a56ae8cc154e5b7f7b5fe7e9f29c11b2b99f58",
+  "Unity/Build/ArtFirst/32/player/AF32Perf_Data/globalgamemanagers": "cb1353837ad7128fcf37f2149f081619e1e231a473ce2ae3c6da8b7096db35e5",
+  "Unity/Build/ArtFirst/32/af32_build_report.json": "16b7228babce327d737a784b2be7452a378f97c57ff95460624364d7090e312b",
+  "Unity/Build/ArtFirst/32/af32_spi_compile.json": "694cdcee2623c8ab7760c1e03d9f57203801ccbb8914796822cff21c12b3402a",
+  "Unity/Build/ArtFirst/32/runs/run1/af32_run1.json": "f2c66c00eeea165d72fe64536519ab8d5db4d7cb3d4e293589a4dbf02bb01a00",
+  "Unity/Build/ArtFirst/32/runs/run1/af32_run1_external.json": "8cfd5e426263936aa4b118201e5740424d7b1de6e1462c8b9cd23d7107384d84",
+  "Unity/Build/ArtFirst/32/runs/run2/af32_run2.json": "426cec9a8a445ffd2e218c3c465f4601219e94ca9d4f6ae4a97e54739b0cf880",
+  "Unity/Build/ArtFirst/32/runs/run2/af32_run2_external.json": "631e232b4d67482078ef7eaf3a7edee0536ea8b93eb89c47cb347bfb875fe9f1",
+  "Unity/Build/ArtFirst/32/runs/run3/af32_run3.json": "67baf6dd5454f68c749a73016a4fc2c6ea52d38b7f71f17ee20afbad8826040b",
+  "Unity/Build/ArtFirst/32/runs/run3/af32_run3_external.json": "cbf1da07893d4cfe76b024380938cd557c9fec79984955a29558c15576149109",
+  "Unity/Build/ArtFirst/32/runs/hidden1/af32_hidden1.json": "b5bf45a0d2f33666a68617ee4087fdee1d64d641602a74da2d5db2974827feb1",
+  "Unity/Build/ArtFirst/32/runs/hidden1/af32_hidden1_external.json": "de67cdcc4b3f31447e4a2f083a02dbc70fe97d0993f73c2efaf8170beb1a9ef8",
+  "Unity/Build/ArtFirst/32/runs/mock1/af32_mock1.json": "ebb73b0551acabd0efd9ee73f3002d65ea5c2a5d6124f1957c628c6c764ea96f",
+  "Unity/Build/ArtFirst/32/runs/mock1/af32_mock1_external.json": "314784ed9c52b9b7a6d32e310ca228092090ccf1e30e9f5c76fc13cc3ab5933e",
+  "Unity/Build/ArtFirst/32/runs/mock2/af32_mock2.json": "962e1834176adbe0e328572aaefe844a48ded866128813cf20d2a86d102ac83a",
+  "Unity/Build/ArtFirst/32/runs/mock2/af32_mock2_external.json": "835741925bf43f10bfc1f48d5a97bb34734d40784feea60811f6400671eaa00e"
+ },
+ "outputs_sha256": {
+  "Docs/Evidence/ArtFirst/32/32_desk_views.png": "a14e87044d0f9b6f7a014421761d7deab453eeacb029aec6319fb18a8542c9bc",
+  "Docs/Evidence/ArtFirst/32/32_metrics_table.png": "8fb2bbe9df8f10795b5e7b0471d13ff022f8c859ea4c2600869c3419473176ef",
+  "Docs/Evidence/ArtFirst/32/32_mock_eyes.png": "8740f63d993ed54c237315ae677a54844348e6b3b74cd68d7f745f79ccd49c19",
+  "Docs/Evidence/ArtFirst/32/32_proxy_stereo.png": "eaf33d416c0a8cd3aa6722355e62dc26dfff9a86c74f704dc96fe4d4ec8988aa",
+  "Docs/Evidence/ArtFirst/32/metrics.json": "7aec7a97bdc524e85858c160570f3263912de49a25930937966b1480707bec91"
+ },
+ "not_committed_ja": "Unity/Build/ArtFirst/32/ の下（プレイヤー約 100 MB、生の計時 JSON、各条件の画面、ログ）は既存の /Unity/Build/ の規則で Git 対象外。SHA-256 は上に記録した。"
+}
