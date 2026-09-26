@@ -1,0 +1,955 @@
+{
+ "schema": "GreatWave.AF26R01.metrics/1",
+ "number": "26修正01",
+ "generated_utc": "2026-09-26T15:07:59+00:00",
+ "evidence_kind_ja": "Unity 6000.4.3f1 Editor の batchmode による PC のオフスクリーン描画と、その画像を番号23 の評価器（ID モード、包絡版、真値 v0.2）で測った値。メッシュ検査と座席からの射線は Blender 5.2.2 ヘッドレス。HMD 実機の結果ではない。",
+ "evaluator": {
+  "provisional": false,
+  "gate": {
+   "path": "Docs/Evidence/ArtFirst/23/23_gate.json",
+   "exists": true,
+   "sha256": "5f20f595b56679052286354580907e1f43f42a5501884938fdf6b56a217b1c16",
+   "gate_all_pass": true,
+   "gate_complete": true,
+   "truth_at_gate": {
+    "truth_manifest_sha256": "8c99033e02c2cbeedec4cf8924e57fe89092c714569afa56c8c8965414880fbd",
+    "painting_truth_sha256": "392860ebeff76a7249056fc339b15e853c0155937efa4feee125f8f974f01c0a"
+   },
+   "truth_now": {
+    "truth_manifest_sha256": "8c99033e02c2cbeedec4cf8924e57fe89092c714569afa56c8c8965414880fbd",
+    "painting_truth_sha256": "392860ebeff76a7249056fc339b15e853c0155937efa4feee125f8f974f01c0a"
+   },
+   "truth_unchanged_since_gate": true,
+   "all_pass": true
+  },
+  "truth": {
+   "version": "v0.2",
+   "manifest_sha256": "8c99033e02c2cbeedec4cf8924e57fe89092c714569afa56c8c8965414880fbd",
+   "judged_version": "envelope"
+  }
+ },
+ "kstar": {
+  "gwb_sha256": "e9bc3572590b5b237ddd302fca64f54f2d325813ad787f20e4d7524b6b84cd26",
+  "obj_sha256": "130635e0f41762751d5f6279fa9709ef9f08c89ed73a29bce93e5c84457312a2",
+  "nu": 400,
+  "nv": 240,
+  "generator": "gw_wavegen v2",
+  "fit_info": {
+   "near_edge_row_c": -16.41223655439706,
+   "near_rows_lowered_for_lip": 2,
+   "near_rows_lifted": 10,
+   "near_rows_lip_retracted": 1,
+   "near_rows_lip_collapsed": 0,
+   "near_rows_smoothing_reverted": 2,
+   "near_q_min": 0.9,
+   "near_m_min": 0.0,
+   "far_tail_rows_lip_collapsed": 0,
+   "far_cone_lambda_at_c_b": 1.142615382191008,
+   "far_s_max": 1.142615382191008,
+   "cam_section_a_y_c": [
+    45.605789147052896,
+    3.0,
+    -38.56526494900616
+   ]
+  },
+  "checks": {
+   "vertex_count": 96000,
+   "triangle_count": 190722,
+   "nan": 0,
+   "degenerate_triangles_area_lt_1e-6_m2": 0,
+   "min_triangle_area_m2": 5.468481269048819e-05,
+   "min_edge_m": 0.000226105803771346,
+   "flat_sea_triangles_facing_down": 0,
+   "section_self_intersections_total": 0,
+   "section_self_intersection_rows": [],
+   "final_vertex_sdf_max_px": 2.100644936721295,
+   "final_vertex_sdf_max_px_in_frame": 1.0723135589667077,
+   "rows_fit_before_snap_sdf_max_px": 4.038325937033477,
+   "note_ja": "final_vertex_sdf_max_px は画面の外（採点列の左右 400 px まで、採点列の端の列で評価）も含む。in_frame は PaintingCam の画面内の頂点だけ。"
+  },
+  "snap_tps": {
+   "total_field_abs_max_m": 0.3809454018709567,
+   "total_field_over_local_size_max": 0.02528592559669849,
+   "within_cap": true
+  },
+  "deconvolution_delta_abs_max_m": 0.12010310854099387
+ },
+ "painting_view_id_diff_vs_cp1_kstar": {
+  "sky_xor_px_display": 1206.2
+ },
+ "evaluator_compare": [
+  {
+   "item": "130",
+   "target": "130",
+   "version": "envelope",
+   "r01": 1.953,
+   "r01_p95": 1.8288,
+   "verdict_r01": "pass",
+   "cp1_kstar_same_scene": 1.9675,
+   "cp1_kstar_p95": 1.9058,
+   "27R01_noline": 1.9675,
+   "delta_vs_cp1_kstar": -0.0145,
+   "worst_display_xy": [
+    441.0,
+    232.72
+   ]
+  },
+  {
+   "item": "130_claws",
+   "target": "130",
+   "version": "claws",
+   "r01": 1.953,
+   "r01_p95": 1.8288,
+   "verdict_r01": "record-only",
+   "cp1_kstar_same_scene": 1.9675,
+   "cp1_kstar_p95": 1.9058,
+   "27R01_noline": 1.9675,
+   "delta_vs_cp1_kstar": -0.0145,
+   "worst_display_xy": [
+    441.0,
+    232.72
+   ]
+  },
+  {
+   "item": "131",
+   "target": "131",
+   "version": "envelope",
+   "r01": 1.798,
+   "r01_p95": 1.6465,
+   "verdict_r01": "pass",
+   "cp1_kstar_same_scene": 1.8143,
+   "cp1_kstar_p95": 1.7099,
+   "27R01_noline": 1.8143,
+   "delta_vs_cp1_kstar": -0.0163,
+   "worst_display_xy": [
+    543.0,
+    158.68
+   ]
+  },
+  {
+   "item": "131_claws",
+   "target": "131",
+   "version": "claws",
+   "r01": 1.798,
+   "r01_p95": 1.6465,
+   "verdict_r01": "record-only",
+   "cp1_kstar_same_scene": 1.8143,
+   "cp1_kstar_p95": 1.7099,
+   "27R01_noline": 1.8143,
+   "delta_vs_cp1_kstar": -0.0163,
+   "worst_display_xy": [
+    543.0,
+    158.68
+   ]
+  },
+  {
+   "item": "132",
+   "target": "132",
+   "version": "envelope",
+   "r01": 1.5739,
+   "r01_p95": 1.4087,
+   "verdict_r01": "pass",
+   "cp1_kstar_same_scene": 1.3256,
+   "cp1_kstar_p95": 1.2438,
+   "27R01_noline": 1.3256,
+   "delta_vs_cp1_kstar": 0.2483,
+   "worst_display_xy": [
+    1107.19,
+    352.0
+   ]
+  },
+  {
+   "item": "132_claws",
+   "target": "132",
+   "version": "claws",
+   "r01": 43.0117,
+   "r01_p95": 31.5599,
+   "verdict_r01": "record-only",
+   "cp1_kstar_same_scene": 43.1303,
+   "cp1_kstar_p95": 31.6064,
+   "27R01_noline": 43.1303,
+   "delta_vs_cp1_kstar": -0.1186,
+   "worst_display_xy": [
+    1025.0,
+    312.57
+   ]
+  },
+  {
+   "item": "157",
+   "target": "boat_left",
+   "version": null,
+   "r01": 140.4752,
+   "r01_p95": 101.5936,
+   "verdict_r01": "record-only",
+   "cp1_kstar_same_scene": 126.583,
+   "cp1_kstar_p95": 98.3234,
+   "27R01_noline": 126.583,
+   "delta_vs_cp1_kstar": 13.8922,
+   "worst_display_xy": [
+    191.0,
+    498.42
+   ]
+  },
+  {
+   "item": "159",
+   "target": "boat_mid",
+   "version": null,
+   "r01": 192.3387,
+   "r01_p95": 143.0379,
+   "verdict_r01": "record-only",
+   "cp1_kstar_same_scene": 192.3387,
+   "cp1_kstar_p95": 143.0379,
+   "27R01_noline": 192.3387,
+   "delta_vs_cp1_kstar": 0.0,
+   "worst_display_xy": [
+    1049.28,
+    752.0
+   ]
+  },
+  {
+   "item": "161",
+   "target": "fuji_ridge",
+   "version": "claws",
+   "r01": 5.7562,
+   "r01_p95": 5.3092,
+   "verdict_r01": "record-only",
+   "cp1_kstar_same_scene": 5.7562,
+   "cp1_kstar_p95": 5.3092,
+   "27R01_noline": 5.7562,
+   "delta_vs_cp1_kstar": 0.0,
+   "worst_display_xy": [
+    1265.38,
+    768.0
+   ]
+  },
+  {
+   "item": "162",
+   "target": "fuji_slope",
+   "version": null,
+   "r01": 0.1517,
+   "r01_p95": null,
+   "verdict_r01": "record-only",
+   "cp1_kstar_same_scene": 0.1517,
+   "cp1_kstar_p95": null,
+   "27R01_noline": 0.1517,
+   "delta_vs_cp1_kstar": 0.0,
+   "worst_display_xy": null
+  },
+  {
+   "item": "162",
+   "target": "fuji_snow",
+   "version": null,
+   "r01": 64.4401,
+   "r01_p95": null,
+   "verdict_r01": "record-only",
+   "cp1_kstar_same_scene": 64.4401,
+   "cp1_kstar_p95": null,
+   "27R01_noline": 64.4401,
+   "delta_vs_cp1_kstar": 0.0,
+   "worst_display_xy": null
+  },
+  {
+   "item": "212",
+   "target": "sky_top",
+   "version": null,
+   "r01": 0.2714,
+   "r01_p95": null,
+   "verdict_r01": "pass",
+   "cp1_kstar_same_scene": 0.2714,
+   "cp1_kstar_p95": null,
+   "27R01_noline": 0.2714,
+   "delta_vs_cp1_kstar": 0.0,
+   "worst_display_xy": null
+  },
+  {
+   "item": "213",
+   "target": "boat_ochre",
+   "version": null,
+   "r01": 0.1332,
+   "r01_p95": null,
+   "verdict_r01": "record-only",
+   "cp1_kstar_same_scene": 0.1332,
+   "cp1_kstar_p95": null,
+   "27R01_noline": 0.1332,
+   "delta_vs_cp1_kstar": 0.0,
+   "worst_display_xy": null
+  },
+  {
+   "item": "213",
+   "target": "sky_transition",
+   "version": null,
+   "r01": 16.9325,
+   "r01_p95": 1.8594,
+   "verdict_r01": "fail",
+   "cp1_kstar_same_scene": 16.9325,
+   "cp1_kstar_p95": 1.8594,
+   "27R01_noline": 21.6404,
+   "delta_vs_cp1_kstar": 0.0,
+   "worst_display_xy": [
+    895.0,
+    668.4
+   ]
+  },
+  {
+   "item": "265",
+   "target": "ai_mid",
+   "version": null,
+   "r01": 28.2802,
+   "r01_p95": null,
+   "verdict_r01": "record-only",
+   "cp1_kstar_same_scene": 27.0521,
+   "cp1_kstar_p95": null,
+   "27R01_noline": 0.3312,
+   "delta_vs_cp1_kstar": 1.2281,
+   "worst_display_xy": null
+  },
+  {
+   "item": "265",
+   "target": "mizuiro",
+   "version": null,
+   "r01": 16.8086,
+   "r01_p95": null,
+   "verdict_r01": "record-only",
+   "cp1_kstar_same_scene": 17.3096,
+   "cp1_kstar_p95": null,
+   "27R01_noline": 1.2195,
+   "delta_vs_cp1_kstar": -0.501,
+   "worst_display_xy": null
+  },
+  {
+   "item": "71",
+   "target": "71",
+   "version": "envelope",
+   "r01": 37.4944,
+   "r01_p95": 20.3695,
+   "verdict_r01": "fail",
+   "cp1_kstar_same_scene": 37.4944,
+   "cp1_kstar_p95": 19.3492,
+   "27R01_noline": 37.4944,
+   "delta_vs_cp1_kstar": 0.0,
+   "worst_display_xy": [
+    1044.0,
+    744.42
+   ]
+  },
+  {
+   "item": "71_claws",
+   "target": "71",
+   "version": "claws",
+   "r01": 37.4944,
+   "r01_p95": 23.9427,
+   "verdict_r01": "record-only",
+   "cp1_kstar_same_scene": 37.4944,
+   "cp1_kstar_p95": 23.5471,
+   "27R01_noline": 37.4944,
+   "delta_vs_cp1_kstar": 0.0,
+   "worst_display_xy": [
+    1044.0,
+    744.42
+   ]
+  },
+  {
+   "item": "72",
+   "target": "72",
+   "version": "envelope",
+   "r01": 5.776,
+   "r01_p95": 1.7233,
+   "verdict_r01": "fail",
+   "cp1_kstar_same_scene": 5.5642,
+   "cp1_kstar_p95": 1.5581,
+   "27R01_noline": 5.5642,
+   "delta_vs_cp1_kstar": 0.2118,
+   "worst_display_xy": [
+    915.0,
+    723.39
+   ]
+  },
+  {
+   "item": "72_claws",
+   "target": "72",
+   "version": "claws",
+   "r01": 35.1971,
+   "r01_p95": 22.5832,
+   "verdict_r01": "record-only",
+   "cp1_kstar_same_scene": 34.9844,
+   "cp1_kstar_p95": 22.6911,
+   "27R01_noline": 34.9844,
+   "delta_vs_cp1_kstar": 0.2127,
+   "worst_display_xy": [
+    952.0,
+    385.24
+   ]
+  },
+  {
+   "item": "74",
+   "target": "fuji_ridge",
+   "version": "claws",
+   "r01": 5.7562,
+   "r01_p95": 5.3092,
+   "verdict_r01": "record-only",
+   "cp1_kstar_same_scene": 5.7562,
+   "cp1_kstar_p95": 5.3092,
+   "27R01_noline": 5.7562,
+   "delta_vs_cp1_kstar": 0.0,
+   "worst_display_xy": [
+    1265.38,
+    768.0
+   ]
+  },
+  {
+   "item": "75",
+   "target": "boat_fg",
+   "version": null,
+   "r01": 141.358,
+   "r01_p95": 85.6184,
+   "verdict_r01": "record-only",
+   "cp1_kstar_same_scene": 141.358,
+   "cp1_kstar_p95": 85.6184,
+   "27R01_noline": 141.358,
+   "delta_vs_cp1_kstar": 0.0,
+   "worst_display_xy": [
+    1490.95,
+    941.0
+   ]
+  },
+  {
+   "item": "76",
+   "target": "sky_bottom",
+   "version": null,
+   "r01": 0.2854,
+   "r01_p95": null,
+   "verdict_r01": "pass",
+   "cp1_kstar_same_scene": 0.2854,
+   "cp1_kstar_p95": null,
+   "27R01_noline": 0.2854,
+   "delta_vs_cp1_kstar": 0.0,
+   "worst_display_xy": null
+  },
+  {
+   "item": "76",
+   "target": "sky_dark",
+   "version": null,
+   "r01": 37.4511,
+   "r01_p95": 20.8647,
+   "verdict_r01": "fail",
+   "cp1_kstar_same_scene": 37.4511,
+   "cp1_kstar_p95": 20.5401,
+   "27R01_noline": 94.4382,
+   "delta_vs_cp1_kstar": 0.0,
+   "worst_display_xy": [
+    1044.0,
+    744.36
+   ]
+  },
+  {
+   "item": "78",
+   "target": "78",
+   "version": "envelope",
+   "r01": 1.6408,
+   "r01_p95": 1.4347,
+   "verdict_r01": "pass",
+   "cp1_kstar_same_scene": 2.772,
+   "cp1_kstar_p95": 1.5435,
+   "27R01_noline": 2.772,
+   "delta_vs_cp1_kstar": -1.1312,
+   "worst_display_xy": [
+    157.5,
+    370.46
+   ]
+  },
+  {
+   "item": "78_claws",
+   "target": "78",
+   "version": "claws",
+   "r01": 1.6408,
+   "r01_p95": 1.4347,
+   "verdict_r01": "record-only",
+   "cp1_kstar_same_scene": 2.772,
+   "cp1_kstar_p95": 1.5435,
+   "27R01_noline": 2.772,
+   "delta_vs_cp1_kstar": -1.1312,
+   "worst_display_xy": [
+    157.5,
+    370.46
+   ]
+  }
+ ],
+ "items": {
+  "78": {
+   "criterion": "最大 ≤4 px（表示 px、外殻線なしの ID、包絡版）",
+   "max_px": 1.6408,
+   "p95_px": 1.4347,
+   "cp1_kstar_max_px": 2.772,
+   "worst_display_xy": [
+    157.5,
+    370.46
+   ],
+   "verdict": "pass"
+  },
+  "130": {
+   "criterion": "最大 ≤4 px（表示 px、外殻線なしの ID、包絡版）",
+   "max_px": 1.953,
+   "p95_px": 1.8288,
+   "cp1_kstar_max_px": 1.9675,
+   "worst_display_xy": [
+    441.0,
+    232.72
+   ],
+   "verdict": "pass"
+  },
+  "131": {
+   "criterion": "最大 ≤4 px（表示 px、外殻線なしの ID、包絡版）",
+   "max_px": 1.798,
+   "p95_px": 1.6465,
+   "cp1_kstar_max_px": 1.8143,
+   "worst_display_xy": [
+    543.0,
+    158.68
+   ],
+   "verdict": "pass"
+  },
+  "132": {
+   "criterion": "最大 ≤4 px（表示 px、外殻線なしの ID、包絡版）",
+   "max_px": 1.5739,
+   "p95_px": 1.4087,
+   "cp1_kstar_max_px": 1.3256,
+   "worst_display_xy": [
+    1107.19,
+    352.0
+   ],
+   "verdict": "pass"
+  },
+  "72": {
+   "criterion": "p95 ≤4 px で判定し、最大は記録（CP1 の利用者の裁定）",
+   "p95_px": 1.7233,
+   "max_px_record": 5.776,
+   "cp1_kstar_p95_px": 1.5581,
+   "cp1_kstar_max_px": 5.5642,
+   "worst_display_xy": [
+    915.0,
+    723.39
+   ],
+   "verdict": "pass"
+  },
+  "71": {
+   "criterion": "番号39・40 が前景と右側の仮置きを置き換えた後に判定（CP1 の裁定）",
+   "max_px": 37.4944,
+   "p95_px": 20.3695,
+   "cp1_kstar_max_px": 37.4944,
+   "verdict": "record-only"
+  },
+  "68": {
+   "criterion": "座席 v1 から、波の上側（主断面の唇先）が下側（内壁の下端）より水平に近い（番号26・27修正01 と同じ式）",
+   "horizontal_seat_to_lip_tip_m": 5.123,
+   "horizontal_seat_to_face_bottom_m": 10.64,
+   "lip_tip_elevation_deg": 63.99,
+   "lip_tip_ahead_0p2H_rows_same_formula_ok": 136,
+   "lip_tip_ahead_0p2H_rows_total": 141,
+   "lip_tip_ahead_0p2H_rows_criterion_ja": "唇先が頂より 0.2H 以上前に出る行（断面内で唇先の a − 頂の a ≥ 0.2H、H は行の高さ、H ≥ 2 m の行）。curl_along_crest の「巻きのある行」（0.3H の内壁から唇先までの張り出し ≥0.2H）とは別の判定",
+   "curl_rows_same_formula_ok": 133,
+   "curl_rows_total": 133,
+   "curl_rows_criterion_ja": "巻きのある行（0.3H の高さの内壁から唇先までの張り出し ≥0.2H。curl_along_crest・Step_26_修正01_ja.md 本文と同じ定義）",
+   "verdict": "pass"
+  },
+  "69": {
+   "criterion": "原画視点で右船の両端と波の上下が採点列の中",
+   "boat_visible_bbox_display": [
+    1208.5,
+    587.0,
+    1627.5,
+    858.0
+   ],
+   "boat_tips_projected_px": [
+    [
+     1113.1,
+     899.6
+    ],
+    [
+     1600.0,
+     588.0
+    ]
+   ],
+   "wave_top_y_px": 93.6,
+   "sea_below_main_crest_y_px": 896.5,
+   "verdict": "pass"
+  },
+  "70": {
+   "criterion": "波の上下の像の長さ > 右船の先端間の投影",
+   "wave_vertical_px": 802.9,
+   "boat_tip_to_tip_px": 578.1,
+   "wave_height_main_section_m": 20.8,
+   "crest_peak_height_m_far_lipless_wall": 23.34,
+   "boat_length_m": 11.328,
+   "note_ja": "wave_vertical_px は主断面の頂と、その下の海面の像の縦の長さ。高さは主断面（wave_height_main_section_m）で比べる。波峰線の最高点（crest_peak_height_m_far_lipless_wall）は奥の唇のない壁で、原画視点では主断面に隠れる",
+   "verdict": "pass"
+  },
+  "mesh_checks": {
+   "criterion": "非多様体・面の反転・自己交差・面積 0 の面がすべて 0、縁の辺が格子の外周と一致（Blender 5.2.2）",
+   "vertices": 96000,
+   "faces": 190722,
+   "nonmanifold_edges_gt2_faces": 0,
+   "boundary_edges": 1276,
+   "boundary_edges_expected_grid_perimeter": 1276,
+   "wire_edges": 0,
+   "flipped_inconsistent_winding_edges": 0,
+   "degenerate_faces_area_lt_1e-8": 0,
+   "self_intersecting_face_pairs": 0,
+   "flat_sea_faces_facing_down": 0,
+   "verdict": "pass"
+  },
+  "83_115_116_precheck": {
+   "criterion": "座席 v1 から 5 万本：開いた背面・切断端・穴がすべて 0（事前検査。バックログの判定は番号41）",
+   "rays": {
+    "wave_front": 27234,
+    "wave_back_open": 0,
+    "cut_end": 0,
+    "hole": 0,
+    "sea_outside_footprint": 982,
+    "sky": 21784
+   },
+   "rays_elevation_ge_60deg": {
+    "total": 5942,
+    "hit_wave": 119
+   },
+   "cp1_kstar_same_seat_rays": {
+    "wave_front": 21928,
+    "wave_back_open": 0,
+    "cut_end": 0,
+    "hole": 0,
+    "sea_outside_footprint": 3273,
+    "sky": 24799
+   },
+   "cp1_kstar_rays_elevation_ge_60deg": {
+    "total": 5942,
+    "hit_wave": 82
+   },
+   "verdict": "pass"
+  },
+  "lip_thickness": {
+   "criterion": "唇の厚み ≥0.3 m（巻きのある行で、唇先から 0.75 m 奥の鉛直の厚さの最小）",
+   "min_m": 0.5442915068528564,
+   "at_row_c_m": -28.589934823811728,
+   "verdict": "pass"
+  },
+  "ends_to_sea": {
+   "criterion": "両端の行は海面の高さ（最初と最後の行の最大の高さ < 0.05 m）。端の傾き（行の高さの変化／波峰線の弧長）は記録",
+   "first_row_max_height_m": 0.0,
+   "last_row_max_height_m": 0.0,
+   "max_height_slope_along_crest_near_side": 1.277,
+   "max_height_slope_along_crest_far_side": 2.05,
+   "cp1_max_height_slope_along_crest_far_side": 6.354,
+   "verdict": "pass"
+  },
+  "fixed_topology": {
+   "criterion": "固定位相の格子（nu×nv、UV つき）。Unity で読んだ頂点数が一致",
+   "nu": 400,
+   "nv": 240,
+   "vertices": 96000,
+   "triangles": 190722,
+   "unity_vertex_count": 96000,
+   "verdict": "pass"
+  },
+  "curl_along_crest": {
+   "criterion": "波峰の全体が巻く（記録）：巻きのある行（0.3H の内壁から唇先までの張り出し ≥0.2H）が続く区間の波峰線の弧長。作業計画 9.3 の目安は「高さがピークの半分を超える波峰線の区間 ≈1.2H（参照モデル）、高さは中央が最大」",
+   "curl_rows": 133,
+   "longest_curl_run_c_range_m": [
+    -29.478701929032706,
+    3.85
+   ],
+   "longest_curl_run_crest_arc_m": 35.47,
+   "longest_curl_run_crest_arc_over_H0": 1.709,
+   "curl_above_half_peak_crest_arc_m": 19.21,
+   "curl_above_half_peak_crest_arc_over_H0": 0.926,
+   "curl_above_half_peak_c_range_m": [
+    -13.22,
+    3.85
+   ],
+   "curl_above_half_main_section_height_crest_arc_m": 27.01,
+   "curl_above_half_main_section_height_crest_arc_over_H0": 1.301,
+   "curl_above_half_main_section_height_c_range_m": [
+    -21.01,
+    3.85
+   ],
+   "curl_above_half_main_section_height_rows": 113,
+   "curl_above_half_main_section_height_rows_contiguous": true,
+   "main_section_height_m": 20.8,
+   "half_main_section_height_m": 10.4,
+   "H0_m": 20.753,
+   "crest_above_half_peak_arc_m": 33.61,
+   "crest_above_half_peak_arc_over_H0": 1.62,
+   "crest_above_half_peak_c_range_m": [
+    -13.22,
+    10.82
+   ],
+   "cp1_above_half_peak_length_over_H": 1.075569458557805,
+   "peak_height_m": 23.34,
+   "peak_row_c_m": 5.5,
+   "peak_at_far_lipless_wall": true,
+   "plan_9_3_height_max_at_centre_met": false,
+   "definitions_ja": {
+    "crest_above_half_peak": "作業計画 9.3 の定義どおり：高さ（行の最大の高さ）がピークの半分を超える波峰線の区間。巻きの有無は見ない",
+    "curl_above_half_peak": "巻きのある行のうち、高さがピークの半分を超える区間（最初の行から最後の行までの弧長）",
+    "curl_above_half_main_section_height": "巻きのある行のうち、高さが主断面の高さの半分を超える区間（同じ弧長）。ピークが奥の唇のない壁で中央にないため、基準をピークから主断面の高さに替えた値（計画 9.3 の定義そのものではない）",
+    "note": "ピークの行 c = 5.50 m、ピーク／主断面の高さ = 1.12。ピークが中央（主断面）にないときは、計画 9.3 の「高さは中央が最大」を満たさない"
+   },
+   "reaches_1p2H": {
+    "crest_above_half_peak": true,
+    "curl_above_half_peak": false,
+    "curl_above_half_main_section_height": true
+   },
+   "plan_angle_to_screen_deg": {
+    "near_shoulder_c_-12_to_-2": 45.03628630778066,
+    "near_side_at_main_c_-1_to_0": 43.32171402520758,
+    "far_side_at_main_c_0_to_1": 95.55068801528301,
+    "far_cone_c_0_to_c_b": 94.9225651436998,
+    "far_tail_c_b_to_end": 108.2363792967195
+   },
+   "verdict": "record-only"
+  },
+  "seat_view_lip": {
+   "criterion": "座席 v1 から唇と管の内側が見える（記録。108/109 は番号30）",
+   "eye_world": [
+    3.9544,
+    1.8323,
+    -15.0308
+   ],
+   "nearest_lip_point_above_3m": {
+    "world": [
+     1.32,
+     12.329,
+     -10.637
+    ],
+    "horizontal_m": 5.122506521069747,
+    "elevation_deg": 63.986945004106815
+   },
+   "nearest_lip_tip": {
+    "row_c": 0.0,
+    "world": [
+     1.32,
+     12.329,
+     -10.637
+    ],
+    "horizontal_m": 5.122506521069747,
+    "elevation_deg": 63.986945004106815
+   },
+   "lip_points_within_horizontal_m": {
+    "1.0": 0,
+    "2.0": 0,
+    "3.0": 0,
+    "4.0": 0,
+    "5.0": 0
+   },
+   "lip_elevation_max_deg": 64.02721197302736,
+   "note_ja": "唇（各行の頂〜角の列）の点で、目より 3 m 以上高い点との水平距離と仰角。記録のみ（108/109 は番号30 の範囲）。",
+   "verdict": "record-only"
+  },
+  "reference_model": {
+   "criterion": "参照モデル（Q5）との比較（記録のみ、合否に数えない）",
+   "central_rows_ratios": {
+    "wall_over_H_min_max": [
+     0.271206201000268,
+     0.2787618991437413
+    ],
+    "overhang_over_H_min_max": [
+     0.17898411831393554,
+     0.4201568982837568
+    ],
+    "wall_over_H_median": 0.27537561193296156,
+    "overhang_over_H_median": 0.3958528563459113
+   },
+   "main_row": {
+    "H_m": 20.79984347027383,
+    "wall_at_half_H_m": 5.72573451278571,
+    "wall_over_H": 0.27527776932401743,
+    "lip_tip_a_m": 11.65604088362339,
+    "overhang_face03_to_tip_m": 8.460709271745227,
+    "overhang_over_H": 0.40676792995278443,
+    "lip_vertical_thickness_0p75m_behind_tip_m": 1.532002684525203
+   },
+   "targets": {
+    "wall_thickness_at_half_H": [
+     0.25,
+     0.3
+    ],
+    "overhang_over_H_target": [
+     0.45,
+     0.55
+    ],
+    "reference_central_ranges": {
+     "wall": [
+      0.21,
+      0.31
+     ],
+     "overhang": [
+      0.37,
+      0.61
+     ]
+    },
+    "crest_above_half_peak_length_over_H": 1.2,
+    "lip_thickness_min_m": 0.3,
+    "note_ja": "参照モデル（Q5、wave_repair_zbrush2.obj）の中央部の無次元比率（作業計画 9.3）。wall_ratio の初期値にだけ使い、ほかは K* と並べて記録する（記録のみ）。"
+   },
+   "deviation": {
+    "cp1_a45": {
+     "n": 200000,
+     "mean_m": 4.302013402758443,
+     "p50_m": 3.758716583251953,
+     "p95_m": 9.605438709259033,
+     "max_m": 12.545608520507812,
+     "H_kstar_m": 20.79714685249676,
+     "mean_over_H": 0.20685594198427146,
+     "p50_over_H": 0.1807323191931353,
+     "p95_over_H": 0.4618632919883369,
+     "max_over_H": 0.6032370021468437
+    },
+    "r01_a45": {
+     "n": 200000,
+     "mean_m": 3.087949084808354,
+     "p50_m": 2.2632917165756226,
+     "p95_m": 7.813195705413817,
+     "max_m": 9.717763900756836,
+     "H_kstar_m": 20.79984347027383,
+     "mean_over_H": 0.14846020784827094,
+     "p50_over_H": 0.1088129206265525,
+     "p95_over_H": 0.3756372357599745,
+     "max_over_H": 0.46720370346272133
+    }
+   },
+   "compare": {
+    "note_ja": "記録のみ。参照モデルは読むだけで、形状は成果物に入れていない。",
+    "align": "Docs/Evidence/ArtFirst/26/reference/align_B_upright.json",
+    "H_ref_m": 21.700549575033346,
+    "peak_world_y_m": 22.898780650445993,
+    "section_offsets_H": [
+     -0.9,
+     -0.6,
+     -0.3,
+     0.0,
+     0.15,
+     0.3
+    ],
+    "section_rows": {
+     "cp1": [
+      87,
+      101,
+      118,
+      150,
+      171,
+      185
+     ],
+     "r01": [
+      86,
+      103,
+      124,
+      159,
+      182,
+      216
+     ]
+    },
+    "section_c_m": {
+     "cp1": [
+      -18.718029527175798,
+      -12.520710583841785,
+      -6.332208613982119,
+      0.0,
+      3.185894130926341,
+      6.349319066644707
+     ],
+     "r01": [
+      -18.66550971540474,
+      -12.541156991133931,
+      -6.196659466519891,
+      0.0,
+      3.1,
+      6.26
+     ]
+    },
+    "deviation_vertex_selection_ja": "モデル自身の海面（世界 y 1.20 m）より 0.25H（6.62 m）以上高い頂点から最大 20 万点（番号26 と同じ）",
+    "temp_cache": {
+     "source": "G:\\research\\model\\wave_repair_zbrush2.obj",
+     "source_sha256": "ab4124f9720d6e27d80e2ae063916292898c87606a64441043f6a64de3d53d40",
+     "cache": "C:\\Users\\wang6\\AppData\\Local\\Temp\\claude\\G--research-Wave-Simulation\\8e5c4c96-8d24-4ea4-9deb-76a600e3bd9a\\scratchpad\\af26r01\\q5tmp\\refcache.npz",
+     "cache_sha256": "6a07d6a58c526f5586f2b43444a7cc817c4b91ec562840c7026abfaea06a5042",
+     "vertices": 1131888,
+     "faces": 1148986
+    }
+   },
+   "verdict": "record-only"
+  },
+  "76": {
+   "criterion": "主役波以外の項目の記録（K* を替えても変わらないことの確認）",
+   "value": 37.4511,
+   "cp1_kstar_same_scene": 37.4511,
+   "value_27R01": 94.4382,
+   "verdict": "record-only"
+  },
+  "212": {
+   "criterion": "主役波以外の項目の記録（K* を替えても変わらないことの確認）",
+   "value": 0.2714,
+   "cp1_kstar_same_scene": 0.2714,
+   "value_27R01": 0.2714,
+   "verdict": "pass"
+  },
+  "213": {
+   "criterion": "主役波以外の項目の記録（K* を替えても変わらないことの確認）",
+   "value": 16.9325,
+   "cp1_kstar_same_scene": 16.9325,
+   "value_27R01": 21.6404,
+   "verdict": "record-only"
+  },
+  "74": {
+   "criterion": "主役波以外の項目の記録（K* を替えても変わらないことの確認）",
+   "value": 5.7562,
+   "cp1_kstar_same_scene": 5.7562,
+   "value_27R01": 5.7562,
+   "verdict": "record-only"
+  },
+  "75": {
+   "criterion": "主役波以外の項目の記録（K* を替えても変わらないことの確認）",
+   "value": 141.358,
+   "cp1_kstar_same_scene": 141.358,
+   "value_27R01": 141.358,
+   "verdict": "record-only"
+  },
+  "157": {
+   "criterion": "主役波以外の項目の記録（K* を替えても変わらないことの確認）",
+   "value": 140.4752,
+   "cp1_kstar_same_scene": 126.583,
+   "value_27R01": 126.583,
+   "verdict": "record-only"
+  },
+  "159": {
+   "criterion": "主役波以外の項目の記録（K* を替えても変わらないことの確認）",
+   "value": 192.3387,
+   "cp1_kstar_same_scene": 192.3387,
+   "value_27R01": 192.3387,
+   "verdict": "record-only"
+  }
+ },
+ "status": {
+  "78": "pass",
+  "130": "pass",
+  "131": "pass",
+  "132": "pass",
+  "72": "pass",
+  "71": "record-only",
+  "68": "pass",
+  "69": "pass",
+  "70": "pass",
+  "mesh_checks": "pass",
+  "83_115_116_precheck": "pass",
+  "lip_thickness": "pass",
+  "ends_to_sea": "pass",
+  "fixed_topology": "pass",
+  "curl_along_crest": "record-only",
+  "seat_view_lip": "record-only",
+  "reference_model": "record-only",
+  "76": "record-only",
+  "212": "pass",
+  "213": "record-only",
+  "74": "record-only",
+  "75": "record-only",
+  "157": "record-only",
+  "159": "record-only"
+ }
+}

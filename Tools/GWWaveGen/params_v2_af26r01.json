@@ -1,0 +1,155 @@
+{
+ "schema": "GreatWave.GWWaveGen.params/1",
+ "version": "v2",
+ "number": "26修正01",
+ "note_ja": "gw_wavegen v2（番号26修正01：唇を波峰方向へ延ばし、波峰全体を巻かせる。45° のみ）の全パラメータ。長さは m、角度は度、画素は表示 px（1920×1080）。主断面・目標・逆畳み込み・投影固定は番号26 の v1 と同じ値を使う。",
+ "alpha_deg": 45.0,
+ "inputs": {
+  "painting_truth": "Tools/PaintingTruth/painting_truth.json",
+  "envelope": "Tools/PaintingTruth/targets/main_wave_outline_envelope.json",
+  "sky_envelope_mask": "Tools/PaintingTruth/targets/masks/sky_envelope_cov.png",
+  "line_width_profile": "Tools/PaintingTruth/targets/line_width_profile.json",
+  "layout": "Docs/Evidence/M1/Revision01/15_revision_layout.json"
+ },
+ "anchor": {
+  "v0_plane_through": [
+   11.6,
+   0.0,
+   -2.0
+  ],
+  "note_ja": "波頂の錨点 A：原画の包絡輪郭で最も上の点を通る PaintingCam の光線と、番号24 v0 の主断面（右船 (11.6, 2, -2) を通り PaintingCam の水平前方 h に垂直な鉛直面）の交点。3 解釈とも波頂は同じ 3D 位置（高さ約 20.7 m、24 と同じ奥行き）にする。"
+ },
+ "interpretation_definition_ja": "立体解釈の角度 α は、波峰線（主断面の位置での水平な接線 e）と画面（PaintingCam の像面の水平方向 ea）のなす角。e = cos α·ea + sin α·h（右奥へ向かう）、進行方向 t = sin α·ea − cos α·h（右手前）。α = 90° が番号24 v0（波峰線が視線方向）。断面は e に垂直な鉛直面で、全行が平行（波峰線に垂直）。",
+ "profile": {
+  "n": {
+   "A": 18,
+   "B": 72,
+   "C": 290,
+   "D": 14,
+   "E": 6
+  },
+  "wall_ratio": 0.27,
+  "flat_back_m": 40.0,
+  "flat_front_m": 25.0,
+  "trough_radius_m": 1.5,
+  "corner_turn_deg": 50.0,
+  "note_ja": "主断面 P0 は 平らな海（後ろ）A → 背面の坂 B → 原画の包絡輪郭（最上点 → 132 → 唇先端 → 72 → 内壁の下端）を藍線の半幅だけ内側へ補正して主断面へ逆投影した C → 内壁の下端から鉛直に下り、半径 trough_radius_m で前へ向きを変えて海面へ下りる D → 平らな海（前）E。B は smoothstep の坂で、0.5H の高さで内壁（C）との水平距離が wall_ratio·H（参照モデル Q5 の壁の厚さ 0.25〜0.3H の中央）になるように坂の足の位置を決める。"
+ },
+ "rows": {
+  "nv": 240,
+  "rows_near": 159,
+  "c_min": -60.0,
+  "c_max": 15.0,
+  "near_pow": 1.5,
+  "far_pow": 1.25,
+  "note_ja": "行 = 波峰線方向の断面（c、負がカメラ側＝左手前の肩）。手前は c_min から 0 へ、奥は 0 から c_max へ、0 の近くを密にする。番号26 の 200 行から 240 行へ増やした（奥の錐と尾のため）。",
+  "far_segments": [
+   [
+    2.5,
+    15
+   ],
+   [
+    5.5,
+    40
+   ],
+   [
+    15.0,
+    25
+   ]
+  ]
+ },
+ "fit": {
+  "check_min_y_m": 0.1,
+  "fit_tol_px": 1.0,
+  "offframe_clamp_px": 400.0,
+  "lower_blend_ratio": 0.1,
+  "offframe_gap_m": 2.0,
+  "offframe_decay_m": 10.0,
+  "flat_h_m": 2.5,
+  "flatten_monotone_below_D": 0.3,
+  "far_cone_until_m": 5.5,
+  "far_end_m": 15.0,
+  "far_tail_shrink": 0.8,
+  "far_flatten_from_m": 11.5,
+  "bisect_iters": 22,
+  "note_ja": "行 c の断面は、主断面 P0 を頂 T を中心に k 倍した相似形を、頂が (ac, h) に来るように置き、y < lower_blend_ratio·H0 の部分は海面まで縦に伸縮する。手前の肩：h は巻きを小さく（near_k_probe）した状態で収まる最大、k はその h で収まる最大（上限は相似の h/H0·k_similar_gain）。k_min でも収まらない行は h を下げ直す。画面の左端より外は offframe_gap_m の先から幅 offframe_decay_m のガウスで下げ、h が flat_h_m より低い所から縦に潰す（Df）。奥：c ≤ far_cone_until_m は主断面を PaintingCam の投影中心のまわりに λ 倍した錐（像が主断面と同じ）。その先は far_end_m までに頂の高さと巻きを far_tail_shrink だけ相似に小さくし、far_flatten_from_m から縦に潰して海面へ下ろす。尾の頂の後退 ac は、隠れる範囲で最も前の値（二分法、単調に後退、far_ac_smooth_rows 行で安全側へ平滑化）。",
+  "lip_collapse_max": 0.85,
+  "tip_collapse_taper_m": 1.5,
+  "near_s_smooth_rows": 1.0,
+  "near_m_smooth_rows": 1.5,
+  "lift_ramp_cols": 12,
+  "lift_q_min": 0.3,
+  "lift_q_steps": 15,
+  "near_q_smooth_rows": 3.0,
+  "far_tail_extra_slope": 0.8,
+  "far_full_lip_until_m": 2.5,
+  "far_s_floor": 0.9,
+  "far_retract_lower": false,
+  "lift_wall_ramp_m": 3.0,
+  "cap_cols": 6,
+  "declaw_ramp_m": 0.12,
+  "declaw_end_taper_m": 0.8,
+  "offframe_s_floor": 0.3,
+  "lip_fit_tol_px": 1.5,
+  "tip_round_cols": [
+   14,
+   24
+  ],
+  "tip_round_iters": 25,
+  "near_s_drop_max": 0.03,
+  "lip_check_skip_cols": 6,
+  "trunc_window_m": 2.5
+ },
+ "deconvolution": {
+  "iterations": 40,
+  "gain": 0.35,
+  "max_step_m": 0.15,
+  "delta_max_m": 0.6,
+  "smooth_sigma_samples": 2.0,
+  "note_ja": "主断面 P0 の輪郭部分（C）を、全行の像のうち最も外へ出る点が補正後の目標にちょうど接する（はみ出し E = 0）ように、断面内の法線方向へ少しずつ動かす。"
+ },
+ "snap_tps": {
+  "band_px": 3.0,
+  "snap_max_m": 0.1,
+  "snap_main_max_m": 0.5,
+  "g_min_px_per_m": 10.0,
+  "lock_px": 0.0,
+  "falloff_m": 2.0,
+  "anchor_grid": [
+   24,
+   12
+  ],
+  "rounds": 3,
+  "local_size": "行の頂の高さ（海面からの最大高、1 m 未満は 1 m）",
+  "cap_ratio": 0.08,
+  "note_ja": "最後に、像が補正後の目標から band_px 以内にある頂点（はみ出しを含む）と主断面の輪郭の頂点を、断面の面内の法線方向へ動かして目標の射線上（符号付き距離 0）へ貼り付ける（投影固定。1 回 snap_max_m、主断面は snap_main_max_m まで、rounds 回）。鋭い角と唇先の周りは法線が定まらず面が折り返すので貼り付けない。移動量を (σ, c) 空間（m）の薄板スプライン（TPS）で内部へ広げ、シルエットの頂点から falloff_m 程度で 0 へ減衰させる。平らな海と格子の縁、輪郭から離れた頂点の粗い格子（anchor_grid）は動かさない。TPS の変位の上限は局所寸法（その行の頂の高さ）の cap_ratio。",
+  "snap_nonmain_tip_margin": 25
+ },
+ "reference_ratios_q5": {
+  "wall_thickness_at_half_H": [
+   0.25,
+   0.3
+  ],
+  "overhang_over_H_target": [
+   0.45,
+   0.55
+  ],
+  "reference_central_ranges": {
+   "wall": [
+    0.21,
+    0.31
+   ],
+   "overhang": [
+    0.37,
+    0.61
+   ]
+  },
+  "crest_above_half_peak_length_over_H": 1.2,
+  "lip_thickness_min_m": 0.3,
+  "note_ja": "参照モデル（Q5、wave_repair_zbrush2.obj）の中央部の無次元比率（作業計画 9.3）。wall_ratio の初期値にだけ使い、ほかは K* と並べて記録する（記録のみ）。"
+ },
+ "checks": {
+  "curl_overhang_over_H_min": 0.2,
+  "note_ja": "記録のための「巻きのある行」の判定：0.3H の内壁から唇先までの張り出しが 0.2H 以上。"
+ }
+}
