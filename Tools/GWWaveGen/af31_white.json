@@ -1,0 +1,53 @@
+{
+ "schema": "GreatWave.AF31.white/1",
+ "number": "31",
+ "note_ja": "番号31「白の出現と縞の追従」の全パラメータ（1 つの JSON）。af31_white.py が読む。時間は秒、長さは m。白の時間場 T_white（頂点ごと、固定位相の格子 240 行 × 400 列）は、断面の列に沿った『白の波面の座標』ρ と、時刻の表 ρ_front(t) の逆関数で決める。表示では、終態（t*）の色区が白のテクセルだけを、時刻 t < T_white のあいだ『白の前の色』で塗り、t ≥ T_white で白にする。白でないテクセル（白の中の藍・淡い水色を含む）は時刻によらず終態の色のまま（一時的な白で塗りつぶさない）。",
+ "inputs": {
+  "rig30": "Tools/GWWaveGen/af30_rig.json",
+  "kstar_dir": "Unity/Build/ArtFirst/26修正01/kstar",
+  "kstar_gwb_sha256": "e9bc3572590b5b237ddd302fca64f54f2d325813ad787f20e4d7524b6b84cd26",
+  "bake_sdf": "Unity/Build/ArtFirst/28修正01/bake/af28r01_uvsdf_a45.bin",
+  "bake_sdf_sha256": "305d1777c77c772d51c1b3de038b3702ac73183d678629f3ba2b0e68630562bd",
+  "bake_warp": "Unity/Build/ArtFirst/28修正01/bake/af28r01_uvwarp_a45.json",
+  "bake_warp_sha256": "945aef222f2730ee27ede3b9996234f0e00d53b806aabcfc0f3f05c86bcccafb",
+  "keypose_dir": "Unity/Build/ArtFirst/30/keypose",
+  "keypose_position_sha256": "3d652c8958d82190408c08f69f12ee28d1eb0845ce29b40877cdf4e6143bd066",
+  "note_ja": "番号30 の keypose（Git 対象外）。実行時に af30_keypose.json の position_sha256・ファイルの SHA-256 とこの値の一致を確かめる。"
+ },
+ "timeline": {
+  "t_start_s": 2.0,
+  "t_end_s": 11.8,
+  "t_star_s": 12.0,
+  "note_ja": "白は形成の始まり（rig の t0 = 2.0 s、水面が上がり始める時刻）に面積 0 から現れ、t_end_s = 11.8 s（t* の 0.2 s 前、60 fps で 12 コマ前）に終態の白の全部に届く。t* のフレームは終態（28修正01 の焼き込み）と同じ色になる。"
+ },
+ "front": {
+  "rho_note_ja": "ρ（白の波面の座標）：行（断面）ごとに K* の弧長を区間ごとに正規化した列の座標。頂（j_top）0 → 唇先（j_tip）1 → 角（j_corner）2 → 内壁の下（j_facebot）3 → 前の足（j_E）4。背面の側は頂 0 → 背面の足（j_B）−1。区間の列は af30_rig.json の profile_columns と同じ。上側（頂）から船側（唇先・唇の下面・内壁）へ進む。",
+  "table_front": [[2.0, 0.0], [3.5, 0.05], [5.0, 0.15], [6.5, 0.3], [8.0, 0.5], [9.2, 0.72], [10.0, 0.9], [10.5, 1.0], [11.0, 1.4], [11.35, 2.0], [11.65, 3.0], [11.8, 4.0]],
+  "table_back": [[2.0, 0.0], [4.0, 0.1], [6.5, 0.3], [8.5, 0.55], [10.5, 0.85], [11.8, 1.0]],
+  "table_note_ja": "[時刻 s, 波面の ρ] の組を、端の傾き 0 の単調な 3 次補間（PCHIP、af30_formation.py の clamped_pchip と同じ）でつなぐ。T_white(ρ) はその逆関数。始まりの傾き 0 で、白の面積は 0 から滑らかに増える。唇先（ρ = 1）に 10.5 s（唇が投げ出される区間）、内壁の泡（ρ 2〜3）に 11.35〜11.65 s に届く。",
+  "wobble": {
+   "amplitude": 0.18,
+   "amplitude_back": 0.12,
+   "wavelengths_m": [7.3, 3.1, 1.7],
+   "weights": [0.55, 0.3, 0.15],
+   "phases_rad": [0.4, 2.1, 4.4],
+   "note_ja": "波面の揺らぎ：波峰線方向の座標 c（m）の滑らかな関数 n(c)（3 つの正弦の和、|n| ≤ 1）で、ρ′ = ρ + A·n(c)·(ρ_max/π)·sin(π·ρ/ρ_max)。行ごとに波面の速さが少し変わり、波面が波峰線に沿って波打つ。dρ′/dρ ≥ 1 − A > 0 なので行の中では単調（白は上側から船側へ途切れずに広がり、先回りした白の島を作らない）、ρ = 0 と ρ_max では揺らぎ 0。"
+  }
+ },
+ "pre_white": {
+  "class": "ai_mid",
+  "alternative_class": "mizuiro",
+  "note_ja": "白になる前の色：終態が白のテクセルを、白が届くまでこの色区の色で塗る。既定は藍中（番号28 の第A部で、バックログの『水色』の既定の読みを藍中にした。既定値・利用者未回答）。102 の『水色から白へ変わる』に当たる。淡い水色にすると白の中の淡い水色の斑（175 の 97%）が白の前の色と同じになり見分けられないので、既定にしない（記録として別案を残す）。"
+ },
+ "texture": {
+  "file": "af31_twhite_r32f.bin",
+  "format": "R32 float（TextureFormat.RFloat）、幅 = 列 400、高さ = 行 240、頂点の添字 = 行 × 400 + 列。値は T_white（秒）",
+  "note_ja": "頂点シェーダーが SV_VertexID で Load し、三角形の中は線形に補間する（UV3 の焼き込みと同じ格子）。"
+ },
+ "checks": {
+  "hz": 30.0,
+  "end_s": 17.0,
+  "max_white_fraction_step_per_frame": 0.02,
+  "note_ja": "UV（テクセル）空間の検査の既定値（番号31 で決めた。作業計画に数値はない）：30 Hz の 1 フレームで白くなるテクセルの割合が終態の白の 2% 以下なら『連続して現れる』（跳びなし）とする。"
+ }
+}

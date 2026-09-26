@@ -1,0 +1,336 @@
+{
+ "schema": "GreatWave.AF31.run/1",
+ "number": "31",
+ "generated_utc": "2026-09-26T15:14:54+00:00",
+ "commands": [
+  "powershell -NoProfile -ExecutionPolicy Bypass -File Tools/GWWaveGen/run_af31.ps1",
+  "py -3.10 Tools/GWWaveGen/af31_white.py --stage all",
+  "powershell -NoProfile -ExecutionPolicy Bypass -File Tools/GWWaveGen/run_af31_unity.ps1 -Method GreatWave.ArtFirst.EditorTools.AF31WhiteFormation.BuildAndRender -Log build_render",
+  "py -3.10 Tools/GWWaveGen/af31_tstar_eval.py",
+  "py -3.10 Tools/GWWaveGen/af31_evidence.py"
+ ],
+ "versions": {
+  "python": "3.10.6",
+  "numpy": "2.2.6",
+  "opencv": "4.12.0",
+  "unity": "6000.4.3f1",
+  "device": "NVIDIA GeForce RTX 3080",
+  "graphics_api": "Direct3D11",
+  "color_space": "Linear",
+  "ffmpeg": "ffmpeg-2024-12-19-git-494c961379-full_build"
+ },
+ "unity_render_seconds": 90.87724304199219,
+ "unity_render_passed": true,
+ "protected_unchanged_build": true,
+ "protected_unchanged_render": true,
+ "protected_files": [
+  "Assets/GreatWave/ArtFirst/Prefabs/AF27R01_Context.prefab 9d79b61cf3c37fb9bdaf75d25df6846426512d40ece03f92da7df14f86daa76e",
+  "Assets/GreatWave/ArtFirst/Materials/AF28_NPR.mat feeb19d84a2a9496aa75092a643bcf919ca712bf970059ab279dd7ff52e74018",
+  "Assets/GreatWave/ArtFirst/Materials/AF28_Outline.mat eeea06dcec28347104c1320f8e72b0490719a95d8168676efbf4a4d74955f558",
+  "Assets/GreatWave/ArtFirst/Materials/AF28_SeaFlat.mat a1c3c9b1e1166ae29dc05ad03ab86e74e203722ba4293e6d10b4ccf1e07aad20",
+  "Assets/GreatWave/ArtFirst/Materials/AF27_SkyDome.mat 97443c3c8e252b1056f85b6e171a89a02a754323c72ab84290f476ac4eacc1fa",
+  "Assets/GreatWave/ArtFirst/Meshes/AF27R01_RightSlope.asset ec0dc3010f1854aff0861e1cfe1f810692d60b24086cfff122a91d6bd86ab10c",
+  "Assets/GreatWave/ArtFirst/Shaders/AF28_NPR.shader d94823e203f05fab8f00e7b08d303415136e32d990da0ad5c17cf01788034a82",
+  "Assets/GreatWave/ArtFirst/Shaders/AF28_Outline.shader 417d229b263e6311372684b89c85f43acf1745c4cf2484f5e29715c8f287d58d",
+  "Assets/GreatWave/Shaders/Sampling19/Sampling19Surface.cginc 06e4309fffef04ee938fb930a6c0da02cee645d513d095477919f7d737cf4afb",
+  "Assets/GreatWave/ArtFirst/Shaders/AF30_NPR_Keypose.shader b477a5b5cc5b79539746ab99fc40ab209868b867a0766f904b3b64ef37f7c6cb",
+  "Assets/GreatWave/ArtFirst/Shaders/AF30_Outline_Keypose.shader cbf25f577af8a678bb2e572bcd7f80a8818e2f8687b781d414e1f19da720e867",
+  "Assets/GreatWave/ArtFirst/Shaders/AF30Keypose.cginc 48abe9a591dca9f3b3eacdb4478e9b7188f2c34bf7eb4d56e455b976ba77f5a5",
+  "Assets/GreatWave/ArtFirst/Shaders/AF30KeyposeCore.cginc 0ec186a5c9eaa3ed9351492b351ca407314beb3e5f7c198446eb333cfbd04539",
+  "Assets/GreatWave/ArtFirst/Shaders/AF30KeyposeCapture.compute f5bad1f57dd628060ddb1d31be2602b573a3272e9e6c9af3d8b57b51f9ea3a04",
+  "Assets/GreatWave/ArtFirst/Materials/AF30_NPR_Keypose.mat 5b1827426a384e4b038bb9ea128ada436e2a5679edbaf6935bc901b76f2b6f8a",
+  "Assets/GreatWave/ArtFirst/Materials/AF30_Outline_Keypose.mat ddf1524a34acb89b07174437a4c20df174c2e71104f087a8fa32db1d431bfccc",
+  "Assets/GreatWave/ArtFirst/Scripts/AF26KStarMesh.cs 85ea9c60281d9bd9a1bc6061726ae110194e386ef172e01da1d184ef41ada948",
+  "Assets/GreatWave/ArtFirst/Scripts/AF28NprWave.cs 9f90d7f3dda95b930bac8c43d57ecfb478f7504046f52637e8bd1eecf39a4199",
+  "Assets/GreatWave/ArtFirst/Scripts/AF24WavePlayer.cs c015b7b7cadc6cca3e6a58da631cc60df73f3f1f3c890aa2d36a5829d0ba4c45",
+  "Assets/GreatWave/ArtFirst/Scripts/AF30KeyposeWave.cs 333f8cb8890d240b43635c61bfcf9169378137aad27a72bc3f995a9a858f989d",
+  "Assets/GreatWave/ArtFirst/Scripts/GWClock.cs 203b46b75878131487d2f9bf3eda521b28695b5f67e28005c6ce70ae0325a5bf",
+  "Assets/GreatWave/ArtFirst/Editor/AF28R01NprScene.cs 831f23b7dcf8154c3570aa87f9edd28d90d16370a132b2dd5b38f2261a955564",
+  "Assets/GreatWave/ArtFirst/Editor/AF26R01KStar.cs a63753f7db0a9de95a054f0646c7f8fa4b07fe4ceeb990281c48321212b35c8c",
+  "Assets/GreatWave/ArtFirst/Editor/AF27R01Seat.cs 4d86256323a144145a44cd9a9921f516a0bba9b6093d52629014c588037f3048",
+  "Assets/GreatWave/ArtFirst/Editor/AFCP1Composite.cs 853e0d8d63ba31d02a523edf7f080a9e5acb43cd387fa5eccbfc4fd6e6217f1c",
+  "Assets/GreatWave/ArtFirst/Editor/AF32PerfBuild.cs e3024681101ace423de0a3269c6fd90cf04c3c6af3a2a02cf150b6e5a5cf6f06",
+  "Assets/GreatWave/ArtFirst/Editor/AF30Formation.cs 22f66b47105ea744df514c9c877ecd39f4597c31922fda21e6150d2c8025157d",
+  "Assets/GreatWave/Scenes/Tests/AF28R01_NPR.unity 04fffd488ac86181b286509473bcca45f2ca3025b04dc621d6380d3d4dcbc3cc",
+  "Assets/GreatWave/Scenes/Tests/AF26R01_KStar.unity e5e4da5e95d5838b0a319643abe9a2de126e842c3b0cc445312589fb43add6e8",
+  "Assets/GreatWave/Scenes/Tests/AF27R01_Seat.unity f165a25e522fe13eb35663b34b9bffdd7170c40ce78dff83666c87abd7c56217",
+  "Assets/GreatWave/Scenes/Tests/AF_CP1.unity 553ab44a00710092cbea7d110ebfd467938682a4dfa952535986d6f73d7e8209",
+  "Assets/GreatWave/Scenes/Tests/AF30_Formation.unity 536bad7adfe777d23c1311f6150a401c4f2412ed651b66cfed2fe84621484dae",
+  "../Tools/GWContext/seat_v1.json 4f7553fd6ab29d117266d6f0b6e58c84dc30f36cf440f6de9314b95102517488",
+  "Build/ArtFirst/26修正01/kstar/kstar_a45.gwb e9bc3572590b5b237ddd302fca64f54f2d325813ad787f20e4d7524b6b84cd26",
+  "Build/ArtFirst/28修正01/bake/af28r01_uvsdf_a45.bin 305d1777c77c772d51c1b3de038b3702ac73183d678629f3ba2b0e68630562bd",
+  "Build/ArtFirst/28修正01/bake/af28r01_uvwarp_a45.json 945aef222f2730ee27ede3b9996234f0e00d53b806aabcfc0f3f05c86bcccafb",
+  "Build/ArtFirst/30/keypose/af30_keypose.json af084906f6b74827cb65c93a83a66e31aa150ff7dad956fa1de18d34ff0d90a0",
+  "Build/ArtFirst/30/keypose/af30_pos_rgba16.bin 3d652c8958d82190408c08f69f12ee28d1eb0845ce29b40877cdf4e6143bd066",
+  "Build/ArtFirst/30/keypose/af30_nrm_rg16.bin 7ae3e469057a60e8b2d06d66b8250267926c564a14ac8c4e5da6028acb7a2567"
+ ],
+ "spi": {
+  "passes": [
+   {
+    "shader": "GreatWave/ArtFirst/AF31 NPR White",
+    "pass": "AF31NPRWhite",
+    "keywords": "",
+    "stage": "Vertex",
+    "messages": "",
+    "compiled": true,
+    "stereoCheck": false,
+    "rtArrayIndexInOutput": false
+   },
+   {
+    "shader": "GreatWave/ArtFirst/AF31 NPR White",
+    "pass": "AF31NPRWhite",
+    "keywords": "",
+    "stage": "Fragment",
+    "messages": "",
+    "compiled": true,
+    "stereoCheck": false,
+    "rtArrayIndexInOutput": false
+   },
+   {
+    "shader": "GreatWave/ArtFirst/AF31 NPR White",
+    "pass": "AF31NPRWhite",
+    "keywords": "INSTANCING_ON",
+    "stage": "Vertex",
+    "messages": "",
+    "compiled": true,
+    "stereoCheck": false,
+    "rtArrayIndexInOutput": false
+   },
+   {
+    "shader": "GreatWave/ArtFirst/AF31 NPR White",
+    "pass": "AF31NPRWhite",
+    "keywords": "INSTANCING_ON",
+    "stage": "Fragment",
+    "messages": "",
+    "compiled": true,
+    "stereoCheck": false,
+    "rtArrayIndexInOutput": false
+   },
+   {
+    "shader": "GreatWave/ArtFirst/AF31 NPR White",
+    "pass": "AF31NPRWhite",
+    "keywords": "STEREO_INSTANCING_ON INSTANCING_ON",
+    "stage": "Vertex",
+    "messages": "",
+    "compiled": true,
+    "stereoCheck": true,
+    "rtArrayIndexInOutput": true
+   },
+   {
+    "shader": "GreatWave/ArtFirst/AF31 NPR White",
+    "pass": "AF31NPRWhite",
+    "keywords": "STEREO_INSTANCING_ON INSTANCING_ON",
+    "stage": "Fragment",
+    "messages": "",
+    "compiled": true,
+    "stereoCheck": false,
+    "rtArrayIndexInOutput": false
+   }
+  ],
+  "allCompiled": true,
+  "allStereoOutput": true,
+  "noteJa": "番号30・32 と同じ方法：ShaderData.Pass.CompileVariant（D3D、StandaloneWindows64）でキーワードなし・INSTANCING_ON・STEREO_INSTANCING_ON INSTANCING_ON をコンパイルし、STEREO_INSTANCING_ON の頂点関数の戻り値の構造体に SV_RenderTargetArrayIndex があるかを見た。コンパイルだけで、両眼の描画は確かめていない。"
+ },
+ "scene_sha256": "e898f0cd0f3bb287587c942c30139355e056397b3f796589ecf171228ac6547c",
+ "white_field_sha256": "8a18f2e08a23e139e5cee071ae2a8a9311b06ae095acec6c82c5120c275ea73d",
+ "inputs_sha256": {
+  "Tools/GWWaveGen/af31_white.json": "493413ec5d643062e4f6490fdb03cc834497529bc017641730f2547219bdf4c5",
+  "Tools/GWWaveGen/af31_white.py": "6c7ac38f66e16b2864345e72b58d294340ae3f5a290685ed3c1d299be3689948",
+  "Tools/GWWaveGen/af31_evidence.py": "670f02c2d52e59b1ae307ae705c01d991a2be76a19f80a91cf13789c50629000",
+  "Tools/GWWaveGen/af31_tstar_eval.py": "18892d35d347d9f3f666b6e9f853e07e5f4d543c065a99c33ee7432b79e17548",
+  "Tools/GWWaveGen/run_af31.ps1": "3588e2d3d6d599e35f8a1208969e1d611b49208bbc267cd7f12207e9b7c43178",
+  "Tools/GWWaveGen/run_af31_unity.ps1": "9ca21d6d933be1910b97a1277c3ca194a9f9b33f2dd361a4728b101666fdc6ad",
+  "Unity/Build/ArtFirst/28修正01/bake/af28r01_uvsdf_a45.bin": "305d1777c77c772d51c1b3de038b3702ac73183d678629f3ba2b0e68630562bd",
+  "Unity/Build/ArtFirst/28修正01/bake/af28r01_uvwarp_a45.json": "945aef222f2730ee27ede3b9996234f0e00d53b806aabcfc0f3f05c86bcccafb",
+  "Unity/Build/ArtFirst/26修正01/kstar/kstar_a45.gwb": "e9bc3572590b5b237ddd302fca64f54f2d325813ad787f20e4d7524b6b84cd26",
+  "Unity/Build/ArtFirst/30/keypose/af30_pos_rgba16.bin": "3d652c8958d82190408c08f69f12ee28d1eb0845ce29b40877cdf4e6143bd066",
+  "Unity/Build/ArtFirst/30/keypose/af30_keypose.json": "af084906f6b74827cb65c93a83a66e31aa150ff7dad956fa1de18d34ff0d90a0",
+  "Tools/PaintingTruth/colour/colour_polylines.json": "2c2e9ff76a406879849cffdc2c1c28992d1b7601967ee788d63dd33b9952f66e",
+  "Tools/PaintingTruth/colour/colour_truth.json": "cf85baab92e2c418ae79c63c57cb979707a80ae70aba1b41e357fd0ac1072ea3",
+  "Unity/Assets/GreatWave/ArtFirst/Shaders/AF31_NPR_White.shader": "5a116f9cee183be826d4965094a72ce27f921742380016021650531a284df7ba",
+  "Unity/Assets/GreatWave/ArtFirst/Shaders/AF31_NPR_White.shader.meta": "2624b227536464d39cac883a4a70db057bcec6f2a5cd0150944da7286cbb47a8",
+  "Unity/Assets/GreatWave/ArtFirst/Scripts/AF31WhiteField.cs": "50ddaee6444e103dc169535ad8fea956a81d7a443871d95f8b56ce7bfa50f8bd",
+  "Unity/Assets/GreatWave/ArtFirst/Scripts/AF31WhiteField.cs.meta": "6bfb777f7236aeb22863088d25811fd4d01b0136036c872281bb482ddd43d0e1",
+  "Unity/Assets/GreatWave/ArtFirst/Editor/AF31WhiteFormation.cs": "6b2d44668110d002f0341ae87abe7e9b261cc6f5f0977a43a4169440935c3e14",
+  "Unity/Assets/GreatWave/ArtFirst/Editor/AF31WhiteFormation.cs.meta": "2c8cdfeadd3efb231cca54ea78485bb08cf37a61ba9d081743515022932a7cb4",
+  "Unity/Assets/GreatWave/ArtFirst/Materials/AF31_NPR_White.mat": "ac23e33f9d5453e972c394c81481bbf25f9efecfb04f1bd9d197e9fe882b66b4",
+  "Unity/Assets/GreatWave/ArtFirst/Materials/AF31_NPR_White.mat.meta": "98a236185ab39e614b5a9b301bd961804869227c21caedcfd443d227ef7ddedc",
+  "Unity/Assets/GreatWave/ArtFirst/Materials/AF31_Outline_Keypose.mat": "378904f05a7be30cc1335e6996cb304e693067608cabdb85f2082c05e3a460f5",
+  "Unity/Assets/GreatWave/ArtFirst/Materials/AF31_Outline_Keypose.mat.meta": "446dcd3a714c19810e0683ed759ba1a32592ec1815cb78254b7f51216796e3d8",
+  "Unity/Assets/GreatWave/Scenes/Tests/AF31_White.unity": "e898f0cd0f3bb287587c942c30139355e056397b3f796589ecf171228ac6547c",
+  "Unity/Assets/GreatWave/Scenes/Tests/AF31_White.unity.meta": "38141a11bec92b57b61a5e857d125f63c74ba157aec627438aacd15e3a8725c1"
+ },
+ "not_committed_sha256": {
+  "Unity/Build/ArtFirst/31/af31_build_report.json": {
+   "bytes": 6106,
+   "sha256": "f20b8502eca8fad0140c05af48ff18cab73425881413f76705d0cbf83b36a8bf"
+  },
+  "Unity/Build/ArtFirst/31/af31_render_report.json": {
+   "bytes": 69664,
+   "sha256": "5f47f32a6d2666566020f47b96c8e72fcb4c350b0ba33ba7319473bddcc2ee90"
+  },
+  "Unity/Build/ArtFirst/31/af31_tstar_remeasure.json": {
+   "bytes": 18381,
+   "sha256": "7e3d41146819d3dbe441b07f14d3303344918aaf917f94f81fdb5eafcd4537b8"
+  },
+  "Unity/Build/ArtFirst/31/video/af31_compare_30_60fps.mp4": {
+   "bytes": 2505601,
+   "sha256": "ed85c34c48c37a47228d2160fade20fb46cfe77b802e3660942b41b2a8377baa"
+  },
+  "Unity/Build/ArtFirst/31/video/af31_formation_painting_60fps.mp4": {
+   "bytes": 4244346,
+   "sha256": "928272e604698e068eaa90c7a11c27691b9e1ae1a13dcaf9fbf04561a29d1865"
+  },
+  "Unity/Build/ArtFirst/31/video/af31_formation_painting_off_60fps.mp4": {
+   "bytes": 4938331,
+   "sha256": "68f80d3983c91dc274ef189277e28bdde4eb8bd43046f1711c4a1ef8a0e34594"
+  },
+  "Unity/Build/ArtFirst/31/video/af31_formation_seat_form_60fps.mp4": {
+   "bytes": 3022990,
+   "sha256": "58835fbefafc1628ec2a6a15d448ea4586e36ceb9b6343ecb9db15728f9b7a6b"
+  },
+  "Unity/Build/ArtFirst/31/video/af31_formation_seat_form_waveonly_60fps.mp4": {
+   "bytes": 4586143,
+   "sha256": "2c4311f1758637460c52d193e5c4588a1082c79f4c0d467c22a6000418f1366f"
+  },
+  "Unity/Build/ArtFirst/31/video/af31_formation_seat_form_waveonly_off_60fps.mp4": {
+   "bytes": 6873499,
+   "sha256": "a4d0f48f03a1b187d354fd5c279af4ff3d866d9f9d0d33f5f012084644dbce02"
+  },
+  "Unity/Build/ArtFirst/31/video/af31_formation_side_left_waveonly_60fps.mp4": {
+   "bytes": 2485758,
+   "sha256": "49d30a866a86d6223db555c5be52c68a30f99253ba3cf03aabd4b7dc14510ea9"
+  },
+  "Unity/Build/ArtFirst/31/white/af31_grid.npz": {
+   "bytes": 809233,
+   "sha256": "391946b324a6e7bddb240d290d8b14381d35acaef387b48cb7a8a1276b1951fd"
+  },
+  "Unity/Build/ArtFirst/31/white/af31_texel_cache.npz": {
+   "bytes": 83983133,
+   "sha256": "4f42a0a079a624b0f6461759792a2ad26d93e26c7f07d3f36c3847243c7043bb"
+  },
+  "Unity/Build/ArtFirst/31/white/af31_twhite.json": {
+   "bytes": 1141,
+   "sha256": "c577ac1bc3a9d74ebfb891a659a228f85274085c1341411707f995ee6a818ea3"
+  },
+  "Unity/Build/ArtFirst/31/white/af31_twhite_r32f.bin": {
+   "bytes": 384000,
+   "sha256": "8a18f2e08a23e139e5cee071ae2a8a9311b06ae095acec6c82c5120c275ea73d"
+  },
+  "Unity/Build/ArtFirst/31/white/af31_uv_twhite.png": {
+   "bytes": 559986,
+   "sha256": "d90086f0c847fbacbf0ce26a63b113193efde1be1cff28ed9135e8d73ca90a9c"
+  },
+  "Unity/Build/ArtFirst/31/white/af31_uvcheck.json": {
+   "bytes": 66690,
+   "sha256": "2ad4f01dd2b3a7b38473f0845d8f54c3b087b10e780acd6d1fc27fe47884c24f"
+  }
+ },
+ "ids_png": {
+  "count": 282,
+  "combined_sha256_of_names_and_hashes": "fdbd3f3c339810b23d95e62dcf1e9533bd05a2af5ff493a40a5f10bd86259f12"
+ },
+ "videos": {
+  "painting": {
+   "path": "Unity/Build/ArtFirst/31/video/af31_formation_painting_60fps.mp4",
+   "sha256": "928272e604698e068eaa90c7a11c27691b9e1ae1a13dcaf9fbf04561a29d1865",
+   "frames": 1021,
+   "fps": 60,
+   "bytes": 4244346,
+   "evidence": "Docs/Evidence/ArtFirst/31/af31_formation_painting_60fps.mp4",
+   "evidence_sha256": "928272e604698e068eaa90c7a11c27691b9e1ae1a13dcaf9fbf04561a29d1865",
+   "evidence_bytes": 4244346
+  },
+  "seat_form": {
+   "path": "Unity/Build/ArtFirst/31/video/af31_formation_seat_form_60fps.mp4",
+   "sha256": "58835fbefafc1628ec2a6a15d448ea4586e36ceb9b6343ecb9db15728f9b7a6b",
+   "frames": 1021,
+   "fps": 60,
+   "bytes": 3022990,
+   "evidence": "Docs/Evidence/ArtFirst/31/af31_formation_seat_form_60fps.mp4",
+   "evidence_sha256": "58835fbefafc1628ec2a6a15d448ea4586e36ceb9b6343ecb9db15728f9b7a6b",
+   "evidence_bytes": 3022990
+  },
+  "seat_form_waveonly": {
+   "path": "Unity/Build/ArtFirst/31/video/af31_formation_seat_form_waveonly_60fps.mp4",
+   "sha256": "2c4311f1758637460c52d193e5c4588a1082c79f4c0d467c22a6000418f1366f",
+   "frames": 1021,
+   "fps": 60,
+   "bytes": 4586143,
+   "evidence": "Docs/Evidence/ArtFirst/31/af31_formation_seat_form_waveonly_60fps.mp4",
+   "evidence_sha256": "2c4311f1758637460c52d193e5c4588a1082c79f4c0d467c22a6000418f1366f",
+   "evidence_bytes": 4586143
+  },
+  "side_left_waveonly": {
+   "path": "Unity/Build/ArtFirst/31/video/af31_formation_side_left_waveonly_60fps.mp4",
+   "sha256": "49d30a866a86d6223db555c5be52c68a30f99253ba3cf03aabd4b7dc14510ea9",
+   "frames": 1021,
+   "fps": 60,
+   "bytes": 2485758,
+   "evidence": "Docs/Evidence/ArtFirst/31/af31_formation_side_left_waveonly_60fps.mp4",
+   "evidence_sha256": "49d30a866a86d6223db555c5be52c68a30f99253ba3cf03aabd4b7dc14510ea9",
+   "evidence_bytes": 2485758
+  },
+  "painting_off": {
+   "path": "Unity/Build/ArtFirst/31/video/af31_formation_painting_off_60fps.mp4",
+   "sha256": "68f80d3983c91dc274ef189277e28bdde4eb8bd43046f1711c4a1ef8a0e34594",
+   "frames": 1021,
+   "fps": 60,
+   "bytes": 4938331
+  },
+  "seat_form_waveonly_off": {
+   "path": "Unity/Build/ArtFirst/31/video/af31_formation_seat_form_waveonly_off_60fps.mp4",
+   "sha256": "a4d0f48f03a1b187d354fd5c279af4ff3d866d9f9d0d33f5f012084644dbce02",
+   "frames": 1021,
+   "fps": 60,
+   "bytes": 6873499
+  },
+  "compare_30": {
+   "path": "Unity/Build/ArtFirst/31/video/af31_compare_30_60fps.mp4",
+   "sha256": "ed85c34c48c37a47228d2160fade20fb46cfe77b802e3660942b41b2a8377baa",
+   "bytes": 2505601,
+   "ffmpeg_filter": "[0:v]scale=960:540,drawtext=fontfile='C\\:/Windows/Fonts/YuGothM.ttc':text='白の時間場なし（番号30 の色）':x=12:y=10:fontsize=28:fontcolor=black:box=1:boxcolor=white@0.6[v0];[1:v]scale=960:540,drawtext=fontfile='C\\:/Windows/Fonts/YuGothM.ttc':text='番号31（白の時間場）':x=12:y=10:fontsize=28:fontcolor=black:box=1:boxcolor=white@0.6[v1];[2:v]scale=960:540,drawtext=fontfile='C\\:/Windows/Fonts/YuGothM.ttc':text='座席 なし':x=12:y=10:fontsize=28:fontcolor=black:box=1:boxcolor=white@0.6[v2];[3:v]scale=960:540,drawtext=fontfile='C\\:/Windows/Fonts/YuGothM.ttc':text='座席 番号31':x=12:y=10:fontsize=28:fontcolor=black:box=1:boxcolor=white@0.6[v3];[v0][v1]hstack[t];[v2][v3]hstack[b];[t][b]vstack[o]",
+   "evidence": "Docs/Evidence/ArtFirst/31/af31_compare_30_60fps.mp4",
+   "evidence_sha256": "ed85c34c48c37a47228d2160fade20fb46cfe77b802e3660942b41b2a8377baa",
+   "evidence_bytes": 2505601
+  }
+ },
+ "figures": {
+  "painting": "Docs/Evidence/ArtFirst/31/af31_painting_white.png",
+  "seat_waveonly": "Docs/Evidence/ArtFirst/31/af31_seat_white_waveonly.png",
+  "seat": "Docs/Evidence/ArtFirst/31/af31_seat_white.png",
+  "compare_30": "Docs/Evidence/ArtFirst/31/af31_compare_30.png",
+  "arrival": "Docs/Evidence/ArtFirst/31/af31_arrival.png",
+  "metrics": "Docs/Evidence/ArtFirst/31/af31_white_metrics.png",
+  "stripes": "Docs/Evidence/ArtFirst/31/af31_stripes.png"
+ },
+ "evidence_files_sha256": {
+  "Docs/Evidence/ArtFirst/31/af31_arrival.png": "3916e7fbabfc75c168dffe3c3bb8ee606e70f6d9d2b508a3b4e9acd4c626c932",
+  "Docs/Evidence/ArtFirst/31/af31_compare_30.png": "fd435683109b826e1de388381454dac17869ea65639d3eefe57beb610da23a25",
+  "Docs/Evidence/ArtFirst/31/af31_compare_30_60fps.mp4": "ed85c34c48c37a47228d2160fade20fb46cfe77b802e3660942b41b2a8377baa",
+  "Docs/Evidence/ArtFirst/31/af31_formation_painting_60fps.mp4": "928272e604698e068eaa90c7a11c27691b9e1ae1a13dcaf9fbf04561a29d1865",
+  "Docs/Evidence/ArtFirst/31/af31_formation_seat_form_60fps.mp4": "58835fbefafc1628ec2a6a15d448ea4586e36ceb9b6343ecb9db15728f9b7a6b",
+  "Docs/Evidence/ArtFirst/31/af31_formation_seat_form_waveonly_60fps.mp4": "2c4311f1758637460c52d193e5c4588a1082c79f4c0d467c22a6000418f1366f",
+  "Docs/Evidence/ArtFirst/31/af31_formation_side_left_waveonly_60fps.mp4": "49d30a866a86d6223db555c5be52c68a30f99253ba3cf03aabd4b7dc14510ea9",
+  "Docs/Evidence/ArtFirst/31/af31_painting_white.png": "503dd27d7132051a011733303c036940ee59ce28e37ff67f79eab299ece15aed",
+  "Docs/Evidence/ArtFirst/31/af31_seat_white.png": "ea043c2824125475d45338b00388cac80bff639555b65e1689b145d0e7149794",
+  "Docs/Evidence/ArtFirst/31/af31_seat_white_waveonly.png": "5d46d68aec6f27fe79d261df0e8fc3006fdadf04491ed1e9531a0b02ad3fe6db",
+  "Docs/Evidence/ArtFirst/31/af31_stripes.png": "757f49a2df09f1913cf5a4e9692aadbf69cc8bba3e81ba7d4f01c53d57907a18",
+  "Docs/Evidence/ArtFirst/31/af31_white_metrics.png": "99df119e32bef252001ed3f31f61d1a0cf96fb86fe5cf50c9cf7a0687e6ea6ec",
+  "Docs/Evidence/ArtFirst/31/metrics.json": "4c406651e1e4e2005d271b8b437d1282c5687486627eca092a04043f070065b8"
+ },
+ "white_off_vs_af30_video": {
+  "painting": {
+   "af31_off_sha256": "68f80d3983c91dc274ef189277e28bdde4eb8bd43046f1711c4a1ef8a0e34594",
+   "af30_sha256": "68f80d3983c91dc274ef189277e28bdde4eb8bd43046f1711c4a1ef8a0e34594",
+   "identical": true
+  },
+  "seat_form_waveonly": {
+   "af31_off_sha256": "a4d0f48f03a1b187d354fd5c279af4ff3d866d9f9d0d33f5f012084644dbce02",
+   "af30_sha256": "a4d0f48f03a1b187d354fd5c279af4ff3d866d9f9d0d33f5f012084644dbce02",
+   "identical": true
+  }
+ },
+ "determinism_ja": "2026-09-26 に run_af31.ps1 を 4 回通した（ログは Unity/Build/ArtFirst/31/run_af31_log1〜4.txt）。1 回目と 2 回目は動画 7 本・T_white・ID の画像 282 枚の SHA-256 がすべて一致。2 回目と 3 回目の間で、白がそろった所の色を lerp でなく白そのものにする修正（番号30 の色と 1 ulp の差をなくす）を入れた。3 回目で、Unity が出す白の時間場ありの動画 4 本（原画視点・座席 v1 の場面全体・座席 v1 の主役波だけ・左の側面）と白の時間場を切った座席（主役波だけ）の動画 1 本は 1・2 回目と同じ SHA-256、白の時間場を切った原画視点の動画は 1・2 回目から変わって番号30 の動画と同じ SHA-256 になった（white_off_vs_af30_video）。これを使う 2×2 の比べる動画も変わった。3 回目と 4 回目の間は検査の数え方だけを変え（af31_white.py の白でないテクセルの確かめを全フレームにした。af31_evidence.py の 176 で、2 つの色区が同じ UV の成分に当たる所を成分ごとに数えてから色区へ足すようにし、白が届いてから毎時刻見える色区が 192/197 から 195/197 になった）、4 回目の動画 7 本・T_white・ID の画像 282 枚は 3 回目と同じ SHA-256。証拠は 4 回目の出力。",
+ "seconds": 42.9
+}
