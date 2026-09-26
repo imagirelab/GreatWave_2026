@@ -1,0 +1,902 @@
+{
+ "schema": "GreatWave.Step26.metrics/1",
+ "number": "26（主役波の終態 K*、立体解釈 30°／45°／60°）",
+ "generated_utc": "2026-09-25T22:32:49+00:00",
+ "evidence_kind_ja": "Unity 6000.4.3f1 Editor の batchmode による PC オフスクリーン描画（Camera.Render → RenderTexture → PNG）、評価器（ID モード）、Blender 5.2.2 ヘッドレスのメッシュ検査と射線検査、numpy の生成器の検査。HMD 実機の結果ではない。",
+ "t_star_s": 12.0,
+ "evaluator": {
+  "commands": {
+   "a30": "py -3.10 Tools/PaintingTruth/evaluate.py --render Unity/Build/ArtFirst/26/render/a30/26_a30_painting.png --ids Unity/Build/ArtFirst/26/render/a30/26_a30_painting_ids.png --idmap Unity/Build/ArtFirst/26/render/idmap.json --out-dir Unity/Build/ArtFirst/26/eval/a30 --name 26_a30_painting",
+   "a45": "py -3.10 Tools/PaintingTruth/evaluate.py --render Unity/Build/ArtFirst/26/render/a45/26_a45_painting.png --ids Unity/Build/ArtFirst/26/render/a45/26_a45_painting_ids.png --idmap Unity/Build/ArtFirst/26/render/idmap.json --out-dir Unity/Build/ArtFirst/26/eval/a45 --name 26_a45_painting",
+   "a60": "py -3.10 Tools/PaintingTruth/evaluate.py --render Unity/Build/ArtFirst/26/render/a60/26_a60_painting.png --ids Unity/Build/ArtFirst/26/render/a60/26_a60_painting_ids.png --idmap Unity/Build/ArtFirst/26/render/idmap.json --out-dir Unity/Build/ArtFirst/26/eval/a60 --name 26_a60_painting"
+  },
+  "provisional": {
+   "a30": false,
+   "a45": false,
+   "a60": false
+  },
+  "truth_version": "v0.2",
+  "truth_manifest_sha256": "8c99033e02c2cbeedec4cf8924e57fe89092c714569afa56c8c8965414880fbd",
+  "judged_version": "envelope",
+  "gate": {
+   "path": "Docs/Evidence/ArtFirst/23/23_gate.json",
+   "sha256": "5f20f595b56679052286354580907e1f43f42a5501884938fdf6b56a217b1c16",
+   "gate_all_pass": true,
+   "truth_unchanged_since_gate": true,
+   "all_pass": true
+  }
+ },
+ "summary_max_px": {
+  "a30": {
+   "78": 2.027,
+   "130": 2.1189,
+   "131": 1.7978,
+   "132": 1.4016,
+   "72": 4.5471,
+   "71": 43.4703
+  },
+  "a45": {
+   "78": 2.772,
+   "130": 1.9675,
+   "131": 1.8143,
+   "132": 1.3256,
+   "72": 5.5642,
+   "71": 43.4703
+  },
+  "a60": {
+   "78": 2.1671,
+   "130": 2.0247,
+   "131": 1.7862,
+   "132": 1.5537,
+   "72": 5.1526,
+   "71": 43.4703
+  }
+ },
+ "summary_p95_px": {
+  "a30": {
+   "78": 1.6795,
+   "130": 2.0101,
+   "131": 1.6975,
+   "132": 1.2629,
+   "72": 2.4234,
+   "71": 23.6253
+  },
+  "a45": {
+   "78": 1.5435,
+   "130": 1.9058,
+   "131": 1.7099,
+   "132": 1.2438,
+   "72": 1.5581,
+   "71": 23.8743
+  },
+  "a60": {
+   "78": 1.5487,
+   "130": 1.909,
+   "131": 1.6626,
+   "132": 1.2697,
+   "72": 2.7446,
+   "71": 24.2745
+  }
+ },
+ "items": {
+  "78": {
+   "backlog": 78,
+   "criterion": "t* の PaintingCam v1・1920×1080、評価器 ID モード（3840×2160）、包絡版の最大 ≤4 px",
+   "by_interpretation": {
+    "a30": {
+     "max_px": 2.027,
+     "p95_px": 1.6795,
+     "worst_display_xy": [
+      187.0,
+      380.42
+     ],
+     "verdict": "pass"
+    },
+    "a45": {
+     "max_px": 2.772,
+     "p95_px": 1.5435,
+     "worst_display_xy": [
+      157.5,
+      370.46
+     ],
+     "verdict": "pass"
+    },
+    "a60": {
+     "max_px": 2.1671,
+     "p95_px": 1.5487,
+     "worst_display_xy": [
+      157.5,
+      370.46
+     ],
+     "verdict": "pass"
+    }
+   }
+  },
+  "130": {
+   "backlog": 130,
+   "criterion": "t* の PaintingCam v1・1920×1080、評価器 ID モード（3840×2160）、包絡版の最大 ≤4 px",
+   "by_interpretation": {
+    "a30": {
+     "max_px": 2.1189,
+     "p95_px": 2.0101,
+     "worst_display_xy": [
+      395.62,
+      264.0
+     ],
+     "verdict": "pass"
+    },
+    "a45": {
+     "max_px": 1.9675,
+     "p95_px": 1.9058,
+     "worst_display_xy": [
+      396.1,
+      266.07
+     ],
+     "verdict": "pass"
+    },
+    "a60": {
+     "max_px": 2.0247,
+     "p95_px": 1.909,
+     "worst_display_xy": [
+      404.69,
+      257.79
+     ],
+     "verdict": "pass"
+    }
+   }
+  },
+  "131": {
+   "backlog": 131,
+   "criterion": "t* の PaintingCam v1・1920×1080、評価器 ID モード（3840×2160）、包絡版の最大 ≤4 px",
+   "by_interpretation": {
+    "a30": {
+     "max_px": 1.7978,
+     "p95_px": 1.6975,
+     "worst_display_xy": [
+      543.0,
+      158.68
+     ],
+     "verdict": "pass"
+    },
+    "a45": {
+     "max_px": 1.8143,
+     "p95_px": 1.7099,
+     "worst_display_xy": [
+      725.0,
+      93.36
+     ],
+     "verdict": "pass"
+    },
+    "a60": {
+     "max_px": 1.7862,
+     "p95_px": 1.6626,
+     "worst_display_xy": [
+      730.0,
+      93.21
+     ],
+     "verdict": "pass"
+    }
+   }
+  },
+  "132": {
+   "backlog": 132,
+   "criterion": "t* の PaintingCam v1・1920×1080、評価器 ID モード（3840×2160）、包絡版の最大 ≤4 px",
+   "by_interpretation": {
+    "a30": {
+     "max_px": 1.4016,
+     "p95_px": 1.2629,
+     "worst_display_xy": [
+      1107.89,
+      355.5
+     ],
+     "verdict": "pass"
+    },
+    "a45": {
+     "max_px": 1.3256,
+     "p95_px": 1.2438,
+     "worst_display_xy": [
+      951.11,
+      184.79
+     ],
+     "verdict": "pass"
+    },
+    "a60": {
+     "max_px": 1.5537,
+     "p95_px": 1.2697,
+     "worst_display_xy": [
+      1098.0,
+      337.74
+     ],
+     "verdict": "pass"
+    }
+   }
+  },
+  "72": {
+   "backlog": 72,
+   "criterion": "t* の PaintingCam v1・1920×1080、評価器 ID モード（3840×2160）、包絡版の最大 ≤4 px",
+   "by_interpretation": {
+    "a30": {
+     "max_px": 4.5471,
+     "p95_px": 2.4234,
+     "worst_display_xy": [
+      856.43,
+      647.0
+     ],
+     "verdict": "fail"
+    },
+    "a45": {
+     "max_px": 5.5642,
+     "p95_px": 1.5581,
+     "worst_display_xy": [
+      856.43,
+      647.0
+     ],
+     "verdict": "fail"
+    },
+    "a60": {
+     "max_px": 5.1526,
+     "p95_px": 2.7446,
+     "worst_display_xy": [
+      915.0,
+      723.39
+     ],
+     "verdict": "fail"
+    }
+   },
+   "record_excluding_truth_micro_features": {
+    "note_ja": "記録のみ。真値の内壁の外縁にある 2 つの小さな形（(856, 647) の幅 2 px・長さ約 7 px の突起と、(915, 723) の小さな輪。しぶきの点が輪郭線に付いた所で、藍線の半幅より細い）の周り 12 px の真値点と、そこへ割り当たる描画点を除いた値",
+    "micro_features_display_px": [
+     [
+      856.4,
+      647.0
+     ],
+     [
+      915.0,
+      723.4
+     ]
+    ],
+    "radius_px": 12.0,
+    "by_interpretation": {
+     "a30": {
+      "max_px": 3.2415,
+      "p95_px": 2.3945,
+      "worst_display_xy": [
+       792.22,
+       499.0
+      ]
+     },
+     "a45": {
+      "max_px": 1.7553,
+      "p95_px": 1.4863,
+      "worst_display_xy": [
+       1089.44,
+       416.0
+      ]
+     },
+     "a60": {
+      "max_px": 5.016,
+      "p95_px": 2.5576,
+      "worst_display_xy": [
+       1097.0,
+       365.59
+      ]
+     }
+    }
+   }
+  },
+  "71": {
+   "backlog": 71,
+   "criterion": "71 の空域（region71_clip）の輪郭の最大 ≤4 px",
+   "by_interpretation": {
+    "a30": {
+     "max_px": 43.4703,
+     "p95_px": 23.6253,
+     "iou_region71_clip": 0.96587,
+     "worst_display_xy": [
+      1045.0,
+      744.03
+     ],
+     "verdict": "fail"
+    },
+    "a45": {
+     "max_px": 43.4703,
+     "p95_px": 23.8743,
+     "iou_region71_clip": 0.96562,
+     "worst_display_xy": [
+      1045.0,
+      744.03
+     ],
+     "verdict": "fail"
+    },
+    "a60": {
+     "max_px": 43.4703,
+     "p95_px": 24.2745,
+     "iou_region71_clip": 0.96387,
+     "worst_display_xy": [
+      1045.0,
+      744.03
+     ],
+     "verdict": "fail"
+    }
+   },
+   "note_ja": "最大は (1045, 744) で、空域の下辺（原画では前景の波・右船との境）。この場面の下辺は M1 Revision01 の前景の旧うねり（仮形状）のままで、主役波の形ではない（番号27・39 の範囲）。主役波がつくる上辺と左辺は 72 と同じ点列。"
+  },
+  "68": {
+   "backlog": 68,
+   "criterion": "同じ K* を原画視点と船上の両方に描き、波の上側（唇の先）が下側（内壁の下端）より船側にある",
+   "by_interpretation": {
+    "a30": {
+     "same_kstar_file_both_views": true,
+     "horizontal_distance_seat_to_lip_tip_m": 17.44954504134043,
+     "horizontal_distance_seat_to_face_bottom_m": 23.482105430509716,
+     "upper_closer_to_boat": true,
+     "painting_lip_tip_right_of_face_bottom": true,
+     "verdict": "pass-conditional",
+     "verdict_ja": "暫定合格（船上機位D7未裁定）"
+    },
+    "a45": {
+     "same_kstar_file_both_views": true,
+     "horizontal_distance_seat_to_lip_tip_m": 22.847554853955497,
+     "horizontal_distance_seat_to_face_bottom_m": 26.66760169251881,
+     "upper_closer_to_boat": true,
+     "painting_lip_tip_right_of_face_bottom": true,
+     "verdict": "pass-conditional",
+     "verdict_ja": "暫定合格（船上機位D7未裁定）"
+    },
+    "a60": {
+     "same_kstar_file_both_views": true,
+     "horizontal_distance_seat_to_lip_tip_m": 26.22390866385967,
+     "horizontal_distance_seat_to_face_bottom_m": 28.49433225423619,
+     "upper_closer_to_boat": true,
+     "painting_lip_tip_right_of_face_bottom": true,
+     "verdict": "pass-conditional",
+     "verdict_ja": "暫定合格（船上機位D7未裁定）"
+    }
+   },
+   "verdict_note_ja": "船上機位（座席の船、D7）が未裁定。定義シート第11行（原画／船上の機位が決まるまでは合格としない）により、仮の座席（前景の船の eyeWorld）で条件を満たしても最終の合格にしない。",
+   "note_ja": "座席は 15_revision_layout.json の eyeWorld（前景の船）。水平距離で比べた。同じ .gwb を同じ Unity の実行で 2 視点に描いた。"
+  },
+  "69": {
+   "backlog": 69,
+   "criterion": "原画視点で右船の船首・船尾と波の上下がすべて画面内にある",
+   "by_interpretation": {
+    "a30": {
+     "right_boat_bbox_display_px": [
+      1166.0,
+      590.5,
+      1763.0,
+      904.5
+     ],
+     "right_boat_inside_scored_columns": false,
+     "wave_crest_display_y": 93.64588665962226,
+     "wave_base_display_y_main_section_sea": 896.525113456674,
+     "verdict": "fail"
+    },
+    "a45": {
+     "right_boat_bbox_display_px": [
+      1166.0,
+      590.5,
+      1763.0,
+      904.5
+     ],
+     "right_boat_inside_scored_columns": false,
+     "wave_crest_display_y": 93.64588665962202,
+     "wave_base_display_y_main_section_sea": 896.5131759109275,
+     "verdict": "fail"
+    },
+    "a60": {
+     "right_boat_bbox_display_px": [
+      1166.0,
+      590.5,
+      1763.0,
+      904.0
+     ],
+     "right_boat_inside_scored_columns": false,
+     "wave_crest_display_y": 93.64588665962226,
+     "wave_base_display_y_main_section_sea": 896.5055729357747,
+     "verdict": "fail"
+    }
+   },
+   "note_ja": "右船は M1 Revision01 の仮配置のまま（番号27で配置し直す）。波の下端は主断面の真下の海面の像の位置（前景に隠れる）。"
+  },
+  "70": {
+   "backlog": 70,
+   "criterion": "原画視点の同じ画面で、波の上下の長さが右船の船首から船尾までの長さを超える",
+   "by_interpretation": {
+    "a30": {
+     "wave_vertical_extent_display_px": 802.8792267970517,
+     "right_boat_length_display_px": 626.5099458850498,
+     "crest_height_m": 20.843406493671317,
+     "right_boat_length_m": 18.0,
+     "verdict": "pass"
+    },
+    "a45": {
+     "wave_vertical_extent_display_px": 802.8672892513055,
+     "right_boat_length_display_px": 626.5099458850498,
+     "crest_height_m": 20.88294355710863,
+     "right_boat_length_m": 18.0,
+     "verdict": "pass"
+    },
+    "a60": {
+     "wave_vertical_extent_display_px": 802.8596862761524,
+     "right_boat_length_display_px": 626.5086740266067,
+     "crest_height_m": 20.83693092387288,
+     "right_boat_length_m": 18.0,
+     "verdict": "pass"
+    }
+   },
+   "note_ja": "波の上下の長さは、頂の像から主断面の真下の海面の像までの縦の距離。右船の長さは ID 画像の右船の画素の主軸方向の長さ。"
+  },
+  "83_115_116_precheck": {
+   "backlog": [
+    83,
+    115,
+    116
+   ],
+   "criterion": "座席から 5 万本の射線で、見える穴・切断端・開いた背面がすべて 0（事前検査。判定は番号41）",
+   "by_interpretation": {
+    "a30": {
+     "wave_front": 25242,
+     "wave_back_open": 0,
+     "cut_end": 0,
+     "hole": 0,
+     "sea_outside_footprint": 1264,
+     "sky": 23494,
+     "verdict_precheck": "pass"
+    },
+    "a45": {
+     "wave_front": 25985,
+     "wave_back_open": 0,
+     "cut_end": 0,
+     "hole": 0,
+     "sea_outside_footprint": 946,
+     "sky": 23069,
+     "verdict_precheck": "pass"
+    },
+    "a60": {
+     "wave_front": 28689,
+     "wave_back_open": 0,
+     "cut_end": 0,
+     "hole": 0,
+     "sea_outside_footprint": 740,
+     "sky": 20571,
+     "verdict_precheck": "pass"
+    }
+   },
+   "note_ja": "Blender 5.2.2 の BVH で、座席カメラの前方を中心とする半球へ一様な 5 万本。K* と海面（y = −0.07）だけを置き、船・前景は入れていない。"
+  },
+  "mesh_qa": {
+   "criterion": "Blender ヘッドレス：非多様体・面の反転・自己交差 = 0",
+   "by_interpretation": {
+    "a30": {
+     "nonmanifold_edges_gt2_faces": 0,
+     "boundary_edges": 1196,
+     "boundary_edges_expected_grid_perimeter": 1196,
+     "wire_edges": 0,
+     "flipped_inconsistent_winding_edges": 0,
+     "degenerate_faces_area_lt_1e-8": 0,
+     "self_intersecting_face_pairs": 0,
+     "flat_sea_faces_facing_down": 0,
+     "verdict": "pass"
+    },
+    "a45": {
+     "nonmanifold_edges_gt2_faces": 0,
+     "boundary_edges": 1196,
+     "boundary_edges_expected_grid_perimeter": 1196,
+     "wire_edges": 0,
+     "flipped_inconsistent_winding_edges": 0,
+     "degenerate_faces_area_lt_1e-8": 0,
+     "self_intersecting_face_pairs": 0,
+     "flat_sea_faces_facing_down": 0,
+     "verdict": "pass"
+    },
+    "a60": {
+     "nonmanifold_edges_gt2_faces": 0,
+     "boundary_edges": 1196,
+     "boundary_edges_expected_grid_perimeter": 1196,
+     "wire_edges": 0,
+     "flipped_inconsistent_winding_edges": 0,
+     "degenerate_faces_area_lt_1e-8": 0,
+     "self_intersecting_face_pairs": 0,
+     "flat_sea_faces_facing_down": 0,
+     "verdict": "pass"
+    }
+   }
+  },
+  "construction": {
+   "criterion": "作業計画 4.0：固定位相（約 400×200）、シルエット頂点を目標の射線上へ、内部は TPS（変位 ≤ 局所寸法の 8%）、唇の厚み ≥0.3 m、両端は海面まで、断面は波峰線に垂直",
+   "by_interpretation": {
+    "a30": {
+     "grid_nu_nv": [
+      400,
+      200
+     ],
+     "vertices": 80000,
+     "tps_total_field_max_m": 0.4376456354494937,
+     "tps_total_field_over_local_size_max": 0.03534475498807194,
+     "tps_within_8pct": true,
+     "deconvolution_delta_max_m": 0.33323651014533223,
+     "deconvolution_delta_over_H0": 0.01605738290925261,
+     "untangle_max_move_m": 0.2795215549265985,
+     "lip_thickness_main_row_0p75m_behind_tip_m": 1.1791189848700245,
+     "lip_thickness_min_over_lip_rows_m": 0.8821904436721404,
+     "ends_settle_to_sea_first_last_row_max_height_m": [
+      1.4785222167187347e-27,
+      8.092356133045186e-08
+     ],
+     "section_planes_parallel_normal_e": true,
+     "crest_line_vs_section_normal_deg_max_body_rows": 68.55798777672027,
+     "crest_line_vs_section_normal_deg_split": {
+      "near_body_rows_max_deg": 2.299180512870165,
+      "far_body_rows_max_deg": 68.55798777672027,
+      "far_body_c_range_m": [
+       0.0522679289364722,
+       2.587338040798939
+      ],
+      "note_ja": "手前の肩は断面が波峰線にほぼ垂直。奥の端（波頂から約 3 m）は、唇と内壁を後ろへ下げ背面の坂の足へ向けて縮めるので、頂の頂点の列が後ろへ曲がる"
+     },
+     "crest_line_vs_section_normal_deg_max_live_rows": 68.55798777672027,
+     "final_vertex_sdf_max_px_including_offframe": 2.2806872560158338,
+     "numpy_preview_envelope": {
+      "78": {
+       "max_px": 1.8309,
+       "p95_px": 1.4331,
+       "worst_xy": [
+        188.0,
+        380.66
+       ]
+      },
+      "130": {
+       "max_px": 1.8419,
+       "p95_px": 1.7449,
+       "worst_xy": [
+        395.98,
+        266.0
+       ]
+      },
+      "131": {
+       "max_px": 1.5276,
+       "p95_px": 1.4171,
+       "worst_xy": [
+        497.23,
+        182.17
+       ]
+      },
+      "132": {
+       "max_px": 1.0926,
+       "p95_px": 1.015,
+       "worst_xy": [
+        1056.07,
+        277.96
+       ]
+      },
+      "72": {
+       "max_px": 4.1488,
+       "p95_px": 2.3057,
+       "worst_xy": [
+        856.43,
+        647.0
+       ]
+      },
+      "71": {
+       "max_px": 43.4703,
+       "p95_px": 23.5005,
+       "worst_xy": [
+        1045.0,
+        744.03
+       ]
+      }
+     }
+    },
+    "a45": {
+     "grid_nu_nv": [
+      400,
+      200
+     ],
+     "vertices": 80000,
+     "tps_total_field_max_m": 0.33046988262857935,
+     "tps_total_field_over_local_size_max": 0.029170282781221392,
+     "tps_within_8pct": true,
+     "deconvolution_delta_max_m": 0.2606225637446442,
+     "deconvolution_delta_over_H0": 0.012558396734540608,
+     "untangle_max_move_m": 0.10000000000000013,
+     "lip_thickness_main_row_0p75m_behind_tip_m": 1.484454362179747,
+     "lip_thickness_min_over_lip_rows_m": 1.2962675632336875,
+     "ends_settle_to_sea_first_last_row_max_height_m": [
+      1.6179125414883697e-26,
+      8.107384040989189e-08
+     ],
+     "section_planes_parallel_normal_e": true,
+     "crest_line_vs_section_normal_deg_max_body_rows": 70.8757467129242,
+     "crest_line_vs_section_normal_deg_split": {
+      "near_body_rows_max_deg": 2.1349935489444998,
+      "far_body_rows_max_deg": 70.87574671292423,
+      "far_body_c_range_m": [
+       0.0522679289364722,
+       2.783252791024222
+      ],
+      "note_ja": "手前の肩は断面が波峰線にほぼ垂直。奥の端（波頂から約 3 m）は、唇と内壁を後ろへ下げ背面の坂の足へ向けて縮めるので、頂の頂点の列が後ろへ曲がる"
+     },
+     "crest_line_vs_section_normal_deg_max_live_rows": 70.8757467129242,
+     "final_vertex_sdf_max_px_including_offframe": 2.2795029201783605,
+     "numpy_preview_envelope": {
+      "78": {
+       "max_px": 2.5907,
+       "p95_px": 1.3406,
+       "worst_xy": [
+        157.5,
+        370.46
+       ]
+      },
+      "130": {
+       "max_px": 1.7541,
+       "p95_px": 1.7093,
+       "worst_xy": [
+        394.15,
+        265.13
+       ]
+      },
+      "131": {
+       "max_px": 1.5359,
+       "p95_px": 1.358,
+       "worst_xy": [
+        664.0,
+        103.94
+       ]
+      },
+      "132": {
+       "max_px": 1.1039,
+       "p95_px": 0.998,
+       "worst_xy": [
+        1007.12,
+        263.96
+       ]
+      },
+      "72": {
+       "max_px": 5.0631,
+       "p95_px": 1.2766,
+       "worst_xy": [
+        856.43,
+        647.0
+       ]
+      },
+      "71": {
+       "max_px": 43.4703,
+       "p95_px": 23.658,
+       "worst_xy": [
+        1045.0,
+        744.03
+       ]
+      }
+     }
+    },
+    "a60": {
+     "grid_nu_nv": [
+      400,
+      200
+     ],
+     "vertices": 80000,
+     "tps_total_field_max_m": 0.4026271458676099,
+     "tps_total_field_over_local_size_max": 0.02066626486308261,
+     "tps_within_8pct": true,
+     "deconvolution_delta_max_m": 0.31354455546681226,
+     "deconvolution_delta_over_H0": 0.015108503519155944,
+     "untangle_max_move_m": 0.16769800756671296,
+     "lip_thickness_main_row_0p75m_behind_tip_m": 2.9307136827674505,
+     "lip_thickness_min_over_lip_rows_m": 1.6575927024719448,
+     "ends_settle_to_sea_first_last_row_max_height_m": [
+      8.893471454123265e-05,
+      8.106708126369246e-08
+     ],
+     "section_planes_parallel_normal_e": true,
+     "crest_line_vs_section_normal_deg_max_body_rows": 71.50051575107653,
+     "crest_line_vs_section_normal_deg_split": {
+      "near_body_rows_max_deg": 2.499748969112606,
+      "far_body_rows_max_deg": 71.50051575107652,
+      "far_body_c_range_m": [
+       0.0522679289364722,
+       2.783252791024222
+      ],
+      "note_ja": "手前の肩は断面が波峰線にほぼ垂直。奥の端（波頂から約 3 m）は、唇と内壁を後ろへ下げ背面の坂の足へ向けて縮めるので、頂の頂点の列が後ろへ曲がる"
+     },
+     "crest_line_vs_section_normal_deg_max_live_rows": 71.50051575107653,
+     "final_vertex_sdf_max_px_including_offframe": 5.674718710202299,
+     "numpy_preview_envelope": {
+      "78": {
+       "max_px": 2.0246,
+       "p95_px": 1.2933,
+       "worst_xy": [
+        157.5,
+        370.46
+       ]
+      },
+      "130": {
+       "max_px": 1.7959,
+       "p95_px": 1.7283,
+       "worst_xy": [
+        387.0,
+        271.2
+       ]
+      },
+      "131": {
+       "max_px": 1.4824,
+       "p95_px": 1.3628,
+       "worst_xy": [
+        493.22,
+        187.0
+       ]
+      },
+      "132": {
+       "max_px": 1.7438,
+       "p95_px": 1.0512,
+       "worst_xy": [
+        1097.5,
+        337.0
+       ]
+      },
+      "72": {
+       "max_px": 4.8671,
+       "p95_px": 2.8457,
+       "worst_xy": [
+        915.0,
+        723.39
+       ]
+      },
+      "71": {
+       "max_px": 43.4703,
+       "p95_px": 24.1925,
+       "worst_xy": [
+        1045.0,
+        744.03
+       ]
+      }
+     }
+    }
+   }
+  },
+  "reference_model": {
+   "verdict": "record-only",
+   "compare": {
+    "note_ja": "記録のみ。合否は 68〜72・78・130〜132 などの項目だけで決める。参照モデルは読むだけで、形状は成果物に入れていない。",
+    "reference": {
+     "align": "解B（作業計画 9.4）",
+     "scale_m_per_unit": 1.5719169230017471,
+     "peak_world_y_m": 22.898780650445993,
+     "sea_world_y_m": 1.1982310754126466,
+     "H_ref_m": 21.700549575033346,
+     "crest_dir_world_obj_z": [
+      0.6930138909970177,
+      -0.07321982417376262,
+      0.7171963498464955
+     ],
+     "front_dir_world_obj_minus_x": [
+      0.7189946800567758,
+      -0.0025403404339268466,
+      -0.6950109328064804
+     ],
+     "central_ranges_plan_9_3": {
+      "wall_over_H": [
+       0.21,
+       0.31
+      ],
+      "overhang_over_H": [
+       0.37,
+       0.61
+      ],
+      "lip_vertical_thickness_over_H": [
+       0.02,
+       0.08
+      ],
+      "crest_above_half_peak_length_over_H": 1.2
+     },
+     "deviation_vertex_selection_ja": "モデル自身の海面（世界 y 1.20 m）より 0.25H（6.62 m）以上高い頂点（403099 点から最大 20 万点を無作為に抽出）。海の塊・船の浮彫・前景の小波はおおむね除かれるが、爪（唇の縁の指状の突起と波頂の背面のとげ）は除けていない"
+    },
+    "kstar_main_row_ratios": {
+     "a30": {
+      "H_m": 20.821036631489836,
+      "wall_over_H": 0.2801504952315913,
+      "overhang_over_H": 0.5400972349029597,
+      "lip_vertical_thickness_0p75m_behind_tip_m": 1.1791189848700245,
+      "lip_thickness_min_over_lip_rows_m": 0.8821904436721404,
+      "crest_above_half_peak_length_over_H": 1.0682103019651616
+     },
+     "a45": {
+      "H_m": 20.79714685249676,
+      "wall_over_H": 0.2757365751110217,
+      "overhang_over_H": 0.4110394636161788,
+      "lip_vertical_thickness_0p75m_behind_tip_m": 1.484454362179747,
+      "lip_thickness_min_over_lip_rows_m": 1.2962675632336875,
+      "crest_above_half_peak_length_over_H": 1.075569458557805
+     },
+     "a60": {
+      "H_m": 20.760628933740424,
+      "wall_over_H": 0.2741277449428526,
+      "overhang_over_H": 0.3408700379006795,
+      "lip_vertical_thickness_0p75m_behind_tip_m": 2.9307136827674505,
+      "lip_thickness_min_over_lip_rows_m": 1.6575927024719448,
+      "crest_above_half_peak_length_over_H": 1.866735494611635
+     }
+    },
+    "section_offsets_H": [
+     0.0,
+     -0.3,
+     -0.6,
+     0.15
+    ],
+    "temp_cache": {
+     "source": "G:/research/model/wave_repair_zbrush2.obj",
+     "source_sha256": "ab4124f9720d6e27d80e2ae063916292898c87606a64441043f6a64de3d53d40",
+     "cache": "C:/Users/wang6/AppData/Local/Temp/claude/G--research-Wave-Simulation/8e5c4c96-8d24-4ea4-9deb-76a600e3bd9a/scratchpad/af26/q5tmp\\refcache.npz",
+     "cache_sha256": "6a07d6a58c526f5586f2b43444a7cc817c4b91ec562840c7026abfaea06a5042",
+     "vertices": 1131888,
+     "faces": 1148986
+    },
+    "section_rows": {
+     "a30": [
+      150,
+      118,
+      101,
+      171
+     ],
+     "a45": [
+      150,
+      118,
+      101,
+      171
+     ],
+     "a60": [
+      150,
+      118,
+      101,
+      171
+     ]
+    }
+   },
+   "deviation_reference_to_kstar": {
+    "a30": {
+     "n": 200000,
+     "mean_m": 4.019198004983916,
+     "p50_m": 3.550238609313965,
+     "p95_m": 9.060647344589233,
+     "max_m": 11.418335914611816,
+     "H_kstar_m": 20.821036631489836,
+     "mean_over_H": 0.19303544180433654,
+     "p50_over_H": 0.17051209659487207,
+     "p95_over_H": 0.43516792679216876,
+     "max_over_H": 0.5484038146949259
+    },
+    "a45": {
+     "n": 200000,
+     "mean_m": 4.302013402758443,
+     "p50_m": 3.758716583251953,
+     "p95_m": 9.605438709259033,
+     "max_m": 12.545608520507812,
+     "H_kstar_m": 20.79714685249676,
+     "mean_over_H": 0.20685594198427146,
+     "p50_over_H": 0.1807323191931353,
+     "p95_over_H": 0.4618632919883369,
+     "max_over_H": 0.6032370021468437
+    },
+    "a60": {
+     "n": 200000,
+     "mean_m": 4.714157039597861,
+     "p50_m": 4.397707462310791,
+     "p95_m": 10.16174545288086,
+     "max_m": 13.107075691223145,
+     "H_kstar_m": 20.760628933740424,
+     "mean_over_H": 0.22707197622208625,
+     "p50_over_H": 0.21182920210878506,
+     "p95_over_H": 0.4894719464093821,
+     "max_over_H": 0.6313429006922505
+    }
+   },
+   "self_check_45_ja": "45° 版の壁の厚さと唇の張り出しが参照モデル中央部の範囲（0.21〜0.31H、0.37〜0.61H）に入るか（記録のみ）",
+   "self_check_45": {
+    "wall_over_H": 0.2757365751110217,
+    "wall_in_range": true,
+    "overhang_over_H": 0.4110394636161788,
+    "overhang_in_range": true
+   }
+  }
+ }
+}
