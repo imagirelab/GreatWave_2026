@@ -1,0 +1,1416 @@
+{
+ "schema": "GreatWave.AF28.metrics/1",
+ "number": "28",
+ "part": "B",
+ "t_star_s": 12.0,
+ "camera": "PaintingCam v1",
+ "frame": [
+  1920,
+  1080
+ ],
+ "preferred_key": "a45",
+ "preferred_ja": "立体解釈 45°（作業計画 D6 の既定値・利用者未回答）で判定する。30°・60° は同じ手順で焼いて記録だけにする。",
+ "evidence_kind_ja": "Unity 6000.4.3f1 Editor の batchmode による PC のオフスクリーン描画（RTX 3080、Direct3D11、Linear 色空間）と、その画像の numpy・OpenCV の測定。HMD 実機の結果ではない。",
+ "evaluator": {
+  "method_ja": "・t* = 12.0 s の PaintingCam v1、表示フレーム 1920×1080。色区 ID（3840×2160）を 2×2 平均して色区ごとの被覆率にし、\n      番号23 の評価器と同じく σ 1 px で平滑して 0.5 の等値線の点にする（採点列 157〜1762）。\n    ・主役波以外（前景の波、船、右の海など。原画で主役波の外の画素）は、原画の色区の地図の値で置き換えて比べる\n      （番号27・39 の範囲の遮蔽物を原画のものにした合成の評価）。空との境（主役波の輪郭）は描画のままにする。\n    ・項目の境界：第A部の折れ線（colour_polylines.json）から表示 1.5 px 以内の真値の境界点を、その項目の対象とする。\n      描画の境界点は、同じ色区の真値の境界点のうち最も近い点へ割り当てる（番号23 の評価器と同じラベル付き対称 Hausdorff）。",
+  "truth": "番号28 第A部の色区の正解 v0（colour_truth.json）と番号23 の真値 v0.2",
+  "gate23": {
+   "all_pass": true,
+   "truth_unchanged_since_gate": true
+  },
+  "provisional": false,
+  "structural_note_ja": "t* の原画視点の境界と色は、投影ベイクにより構造上ほぼ一致する（テクセルは自分の投影先の原画の値を持つ）。これは完成を意味しない。船上・側面・背面の見え方と、形成の途中の配色は別に確かめる（作業計画 31 の注意、R11）。"
+ },
+ "items": {
+  "73": {
+   "name_ja": "内側の水色（藍中）の色区の境界",
+   "criterion": "境界 ≤4 px（表示 px、最大）",
+   "value": {
+    "boundary": {
+     "n_truth": 2020,
+     "n_render_assigned": 1921,
+     "max_px": 0.681,
+     "p95_px": 0.165,
+     "p50_px": 0.059,
+     "max_truth_to_render": 0.681,
+     "max_render_to_truth": 0.395,
+     "worst_display_xy": [
+      848.673,
+      643.5
+     ],
+     "class": "ai_mid",
+     "verdict_boundary": "pass"
+    }
+   },
+   "verdict": "pass"
+  },
+  "77": {
+   "name_ja": "下側から始まる縞の本数・並び順と下側端",
+   "criterion": "境界 ≤4 px（表示 px、最大）＋並び",
+   "value": {
+    "lower_ends": {
+     "n_truth": 2904,
+     "n_render_assigned": 2896,
+     "max_px": 1.209,
+     "p95_px": 0.168,
+     "p50_px": 0.045,
+     "max_truth_to_render": 0.519,
+     "max_render_to_truth": 1.209,
+     "worst_display_xy": [
+      591.633,
+      684.0
+     ],
+     "class": "ai_mid",
+     "verdict_boundary": "pass"
+    },
+    "strip_components": {
+     "band_ai_mid": {
+      "truth_n": 18,
+      "render_n": 18,
+      "matched": 18,
+      "order_preserved": true,
+      "missing_in_render": [],
+      "extra_in_render": [],
+      "max_end_shift_along_side_px": 5,
+      "truth_s_ranges": [
+       [
+        296,
+        333
+       ],
+       [
+        371,
+        395
+       ],
+       [
+        562,
+        577
+       ],
+       [
+        825,
+        865
+       ],
+       [
+        882,
+        901
+       ],
+       [
+        982,
+        1038
+       ],
+       [
+        1040,
+        1083
+       ],
+       [
+        1139,
+        1147
+       ],
+       [
+        1172,
+        1208
+       ],
+       [
+        1220,
+        1221
+       ],
+       [
+        1226,
+        1241
+       ],
+       [
+        1275,
+        1276
+       ],
+       [
+        1378,
+        1388
+       ],
+       [
+        1411,
+        1418
+       ],
+       [
+        1438,
+        1439
+       ],
+       [
+        1495,
+        1518
+       ],
+       [
+        1691,
+        1694
+       ],
+       [
+        1700,
+        1714
+       ]
+      ]
+     },
+     "dark_ai_dark": {
+      "truth_n": 18,
+      "render_n": 19,
+      "matched": 18,
+      "order_preserved": true,
+      "missing_in_render": [],
+      "extra_in_render": [
+       {
+        "s_from": 853,
+        "s_to": 863,
+        "area": 20
+       }
+      ],
+      "max_end_shift_along_side_px": 0,
+      "truth_s_ranges": [
+       [
+        44,
+        318
+       ],
+       [
+        316,
+        380
+       ],
+       [
+        388,
+        623
+       ],
+       [
+        624,
+        624
+       ],
+       [
+        625,
+        660
+       ],
+       [
+        816,
+        827
+       ],
+       [
+        852,
+        896
+       ],
+       [
+        883,
+        1019
+       ],
+       [
+        1023,
+        1197
+       ],
+       [
+        1142,
+        1145
+       ],
+       [
+        1196,
+        1226
+       ],
+       [
+        1238,
+        1282
+       ],
+       [
+        1288,
+        1378
+       ],
+       [
+        1387,
+        1415
+       ],
+       [
+        1417,
+        1500
+       ],
+       [
+        1502,
+        1713
+       ],
+       [
+        1701,
+        1708
+       ],
+       [
+        1713,
+        1717
+       ]
+      ]
+     },
+     "pass": true,
+     "ja": "下側（第A部の lower_side の折れ線）から内側 3〜12 px の帯状の範囲（真値・描画の空から 2 px 以内を除く）で、藍中（下側から始まる帯）と藍濃（その間の縞）の連結成分（面積 ≥6 px²）を真値と描画で求め、下側に沿った弧長の範囲の重なりで順に 1 対 1 に対応させた。判定は藍中の帯の本数と並び順（過不足 0、順序が同じ）。藍濃は記録。位置の精度は lower_ends（境界 ≤4 px）で判定する"
+    },
+    "sequence_record": {
+     "truth_n_band_runs": 7,
+     "truth_n_dark_between": 15,
+     "render_n_band_runs": 7,
+     "render_n_dark_between": 14,
+     "same_kinds_in_order": false,
+     "max_run_edge_shift_px": null,
+     "truth_kinds": "FDFD-FDFDFDBDBDFDFDBDBDBDFDFDBDBD",
+     "render_kinds": "FDFD-FDFDFBDBDFDFDBDBDBDFDFDBDBD",
+     "partA_counts": {
+      "n_lower_side_bands": 16,
+      "n_dark_stripes_lower_side": 14
+     },
+     "same_within_4px": false,
+     "ja": "記録のみ：下側に沿って 1 px おきに、内側 3〜12 px の画素の多数決（B 藍中の帯、D 藍濃、F 泡＝白・淡い水色）をとり、6 px 未満の区間を前へ吸収した並び。多数決が拮抗する所では 1 画素の差で種類が入れ替わるので、判定には上の strip_components を使う"
+    }
+   },
+   "verdict": "pass"
+  },
+  "79": {
+   "name_ja": "左側の白の境界",
+   "criterion": "境界 ≤4 px（表示 px、最大）",
+   "value": {
+    "boundary": {
+     "n_truth": 2491,
+     "n_render_assigned": 2452,
+     "max_px": 0.352,
+     "p95_px": 0.157,
+     "p50_px": 0.052,
+     "max_truth_to_render": 0.352,
+     "max_render_to_truth": 0.352,
+     "worst_display_xy": [
+      157.0,
+      447.84
+     ],
+     "class": "white",
+     "verdict_boundary": "pass"
+    }
+   },
+   "verdict": "pass"
+  },
+  "118": {
+   "name_ja": "主要な縞の両側の境界",
+   "criterion": "境界 ≤4 px（表示 px、最大）",
+   "value": {
+    "boundary": {
+     "n_truth": 8184,
+     "n_render_assigned": 8082,
+     "max_px": 0.681,
+     "p95_px": 0.15,
+     "p50_px": 0.05,
+     "max_truth_to_render": 0.681,
+     "max_render_to_truth": 0.41,
+     "worst_display_xy": [
+      848.673,
+      643.5
+     ],
+     "class": "ai_mid",
+     "verdict_boundary": "pass"
+    },
+    "main_stripes": [
+     "MS01:SL07",
+     "MS02:SL08",
+     "MS03:SL09",
+     "MS04:SL12",
+     "MS05:SU05+SL15",
+     "MS06:SL16"
+    ]
+   },
+   "verdict": "pass"
+  },
+  "120": {
+   "name_ja": "唇の白と内側の水色の境",
+   "criterion": "境界 ≤4 px（表示 px、最大）",
+   "value": {
+    "boundary": {
+     "n_truth": 125,
+     "n_render_assigned": 120,
+     "max_px": 0.288,
+     "p95_px": 0.216,
+     "p50_px": 0.074,
+     "max_truth_to_render": 0.288,
+     "max_render_to_truth": 0.252,
+     "worst_display_xy": [
+      825.0,
+      355.694
+     ],
+     "class": "ai_mid",
+     "verdict_boundary": "pass"
+    }
+   },
+   "verdict": "pass"
+  },
+  "133": {
+   "name_ja": "左側から上側へ続く白と上側の境界",
+   "criterion": "境界 ≤4 px（表示 px、最大）＋連続",
+   "value": {
+    "boundary": {
+     "n_truth": 3670,
+     "n_render_assigned": 3526,
+     "max_px": 0.388,
+     "p95_px": 0.168,
+     "p50_px": 0.057,
+     "max_truth_to_render": 0.31,
+     "max_render_to_truth": 0.388,
+     "worst_display_xy": [
+      670.202,
+      234.0
+     ],
+     "class": "white",
+     "verdict_boundary": "pass"
+    },
+    "continuity": {
+     "left_cover": 0.9926,
+     "upper_cover": 0.9922,
+     "pass": true,
+     "ja": "描画の白の連結成分（8 近傍）のうち最も両方を覆うものが、W001 の左側（79 の区域）と上側（133 の区域）の画素をそれぞれ何割覆うか"
+    }
+   },
+   "verdict": "pass"
+  },
+  "134": {
+   "name_ja": "白帯の両側の境界と幅の広狭",
+   "criterion": "境界 ≤4 px（表示 px、最大）＋広狭の順",
+   "value": {
+    "boundary": {
+     "n_truth": 11450,
+     "n_render_assigned": 11337,
+     "max_px": 0.68,
+     "p95_px": 0.166,
+     "p50_px": 0.056,
+     "max_truth_to_render": 0.68,
+     "max_render_to_truth": 0.623,
+     "worst_display_xy": [
+      1090.152,
+      427.0
+     ],
+     "class": "white",
+     "verdict_boundary": "pass"
+    },
+    "width_order": {
+     "truth": [
+      {
+       "kind": "narrow",
+       "i": 1,
+       "arc_fraction": 0.004,
+       "at": [
+        768.128,
+        92.873
+       ],
+       "width": 123.27
+      },
+      {
+       "kind": "wide",
+       "i": 101,
+       "arc_fraction": 0.43,
+       "at": [
+        942.468,
+        174.968
+       ],
+       "width": 207.61
+      },
+      {
+       "kind": "narrow",
+       "i": 218,
+       "arc_fraction": 0.928,
+       "at": [
+        1087.748,
+        328.871
+       ],
+       "width": 168.4
+      }
+     ],
+     "render": [
+      {
+       "kind": "narrow",
+       "i": 1,
+       "arc_fraction": 0.004,
+       "at": [
+        768.128,
+        92.873
+       ],
+       "width": 124.34
+      },
+      {
+       "kind": "wide",
+       "i": 101,
+       "arc_fraction": 0.43,
+       "at": [
+        942.468,
+        174.968
+       ],
+       "width": 207.5
+      },
+      {
+       "kind": "narrow",
+       "i": 218,
+       "arc_fraction": 0.928,
+       "at": [
+        1087.748,
+        328.871
+       ],
+       "width": 166.74
+      }
+     ],
+     "truth_order_ok": true,
+     "render_order_ok": true,
+     "max_arc_fraction_shift": 0.0,
+     "median_abs_width_diff_px": 0.26,
+     "corr_smoothed": 0.999,
+     "pass": true,
+     "partA_order": [
+      {
+       "kind": "narrow",
+       "at_display": [
+        803.873,
+        101.499
+       ],
+       "width": 123.15,
+       "arc_fraction": 0.085
+      },
+      {
+       "kind": "wide",
+       "at_display": [
+        943.272,
+        175.772
+       ],
+       "width": 207.65,
+       "arc_fraction": 0.432
+      },
+      {
+       "kind": "narrow",
+       "at_display": [
+        965.592,
+        232.31
+       ],
+       "width": 161.9,
+       "arc_fraction": 0.568
+      }
+     ],
+     "ja": "132（包絡版）の外輪郭から内向きに、藍の胴（面積 ≥1500 表示 px² の藍中・藍濃）か唇の下の空に当たるまでの幅（2 px おき、31 点の移動平均）。真値と描画に同じ手順を使い、狭→広→狭の順と位置（弧長の割合の差 ≤0.1）を比べる"
+    }
+   },
+   "verdict": "pass"
+  },
+  "175": {
+   "name_ja": "白の中の藍・水色の色区が全部残る",
+   "criterion": "境界 ≤4 px（表示 px、最大）＋全部残る",
+   "value": {
+    "regions_total": 198,
+    "regions_retained": 196,
+    "regions_retained_all_pixels": 194,
+    "lost": [
+     {
+      "id": "M171",
+      "class": "mizuiro",
+      "fraction_all": 0.0,
+      "fraction_interior": 0.0,
+      "same_class_px_interior": 0,
+      "area_display_px2": 12.65,
+      "n_px": 21,
+      "n_px_interior": 2,
+      "centroid_display": [
+       1091.852,
+       427.124
+      ],
+      "min_dist_to_truth_sky_px": 0.0
+     },
+     {
+      "id": "A073",
+      "class": "ai_mid",
+      "fraction_all": 0.5,
+      "fraction_interior": 0.0,
+      "same_class_px_interior": 0,
+      "area_display_px2": 18.2,
+      "n_px": 30,
+      "n_px_interior": 7,
+      "centroid_display": [
+       212.521,
+       388.345
+      ],
+      "min_dist_to_truth_sky_px": 0.0
+     }
+    ],
+    "lost_all_pixels_rule": [
+     {
+      "id": "M170",
+      "class": "mizuiro",
+      "fraction_all": 0.435,
+      "fraction_interior": 0.435,
+      "same_class_px_interior": 10,
+      "area_display_px2": 13.35,
+      "n_px": 23,
+      "n_px_interior": 23,
+      "centroid_display": [
+       946.263,
+       280.298
+      ],
+      "min_dist_to_truth_sky_px": 15.65
+     },
+     {
+      "id": "M171",
+      "class": "mizuiro",
+      "fraction_all": 0.0,
+      "fraction_interior": 0.0,
+      "same_class_px_interior": 0,
+      "area_display_px2": 12.65,
+      "n_px": 21,
+      "n_px_interior": 2,
+      "centroid_display": [
+       1091.852,
+       427.124
+      ],
+      "min_dist_to_truth_sky_px": 0.0
+     },
+     {
+      "id": "A025",
+      "class": "ai_mid",
+      "fraction_all": 0.48,
+      "fraction_interior": 0.671,
+      "same_class_px_interior": 98,
+      "area_display_px2": 220.67,
+      "n_px": 281,
+      "n_px_interior": 146,
+      "centroid_display": [
+       623.596,
+       117.656
+      ],
+      "min_dist_to_truth_sky_px": 0.0
+     },
+     {
+      "id": "A047",
+      "class": "ai_mid",
+      "fraction_all": 0.364,
+      "fraction_interior": 0.625,
+      "same_class_px_interior": 30,
+      "area_display_px2": 82.86,
+      "n_px": 110,
+      "n_px_interior": 48,
+      "centroid_display": [
+       577.444,
+       136.678
+      ],
+      "min_dist_to_truth_sky_px": 0.0
+     }
+    ],
+    "retain_rule_ja": "色区の多角形（第A部）の画素のうち、真値の空から 2 px より内側の画素に、描画の同じ色区の画素が 3 px 以上あれば『残る』とする（形は境界 ≤4 px で判定。空との境の 2 px は輪郭の項目の対象）。全画素に対する割合 ≥0.5 で数えた値も記録（regions_retained_all_pixels）",
+    "boundary_by_class": {
+     "mizuiro": {
+      "n_truth": 35132,
+      "n_render_assigned": 34841,
+      "max_px": 18.375,
+      "p95_px": 0.189,
+      "p50_px": 0.059,
+      "max_truth_to_render": 18.375,
+      "max_render_to_truth": 1.648,
+      "worst_display_xy": [
+       1090.324,
+       427.0
+      ],
+      "class": "mizuiro",
+      "verdict_boundary": "fail"
+     },
+     "ai_mid": {
+      "n_truth": 1834,
+      "n_render_assigned": 1653,
+      "max_px": 2.245,
+      "p95_px": 0.219,
+      "p50_px": 0.059,
+      "max_truth_to_render": 2.245,
+      "max_render_to_truth": 0.435,
+      "worst_display_xy": [
+       567.0,
+       144.283
+      ],
+      "class": "ai_mid",
+      "verdict_boundary": "pass"
+     },
+     "ai_dark": {
+      "n_truth": 1164,
+      "n_render_assigned": 1132,
+      "max_px": 0.34,
+      "p95_px": 0.182,
+      "p50_px": 0.06,
+      "max_truth_to_render": 0.31,
+      "max_render_to_truth": 0.34,
+      "worst_display_xy": [
+       206.0,
+       606.426
+      ],
+      "class": "ai_dark",
+      "verdict_boundary": "pass"
+     }
+    },
+    "boundary_max_px": 18.375,
+    "record_excluding_lost_regions": {
+     "excluded": [
+      "A073",
+      "M171"
+     ],
+     "boundary_by_class": {
+      "mizuiro": {
+       "n_truth": 35131,
+       "n_render_assigned": 34841,
+       "max_px": 1.648,
+       "p95_px": 0.189,
+       "p50_px": 0.059,
+       "max_truth_to_render": 0.813,
+       "max_render_to_truth": 1.648,
+       "worst_display_xy": [
+        856.0,
+        173.849
+       ]
+      },
+      "ai_mid": {
+       "n_truth": 1829,
+       "n_render_assigned": 1653,
+       "max_px": 2.245,
+       "p95_px": 0.216,
+       "p50_px": 0.058,
+       "max_truth_to_render": 2.245,
+       "max_render_to_truth": 0.435,
+       "worst_display_xy": [
+        567.0,
+        144.283
+       ]
+      },
+      "ai_dark": {
+       "n_truth": 1164,
+       "n_render_assigned": 1132,
+       "max_px": 0.34,
+       "p95_px": 0.182,
+       "p50_px": 0.06,
+       "max_truth_to_render": 0.31,
+       "max_render_to_truth": 0.34,
+       "worst_display_xy": [
+        206.0,
+        606.426
+       ]
+      }
+     },
+     "boundary_max_px": 2.245,
+     "ja": "記録のみ：残らなかった色区（輪郭に接する）を除いた境界"
+    },
+    "verdict_boundary": "fail"
+   },
+   "verdict": "fail"
+  },
+  "263": {
+   "name_ja": "内側から下方へ続く水色",
+   "criterion": "境界 ≤4 px（表示 px、最大）＋連続",
+   "value": {
+    "boundary_lower": {
+     "n_truth": 456,
+     "n_render_assigned": 403,
+     "max_px": 0.395,
+     "p95_px": 0.141,
+     "p50_px": 0.054,
+     "max_truth_to_render": 0.377,
+     "max_render_to_truth": 0.395,
+     "worst_display_xy": [
+      853.0,
+      663.432
+     ],
+     "class": "ai_mid",
+     "verdict_boundary": "pass"
+    },
+    "continuity": {
+     "component_cover_of_A001": 0.9691,
+     "render_lowest_point": [
+      883.0,
+      710.0
+     ],
+     "dist_truth_lower_end_px": 0.317,
+     "dist_truth_upper_end_px": 0.458,
+     "pass": true,
+     "ja": "描画の藍中の連結成分のうち内側の帯 A001 を最も覆うもの（覆う割合 ≥0.9）が、真値の上端（唇の下）と下端（前景の小波の縁）の両方から 4 px 以内に届くか"
+    }
+   },
+   "verdict": "pass"
+  },
+  "270": {
+   "name_ja": "白と水色の境",
+   "criterion": "境界 ≤4 px（表示 px、最大）",
+   "value": {
+    "boundary": {
+     "n_truth": 2534,
+     "n_render_assigned": 2397,
+     "max_px": 0.563,
+     "p95_px": 0.151,
+     "p50_px": 0.05,
+     "max_truth_to_render": 0.563,
+     "max_render_to_truth": 0.416,
+     "worst_display_xy": [
+      330.0,
+      553.296
+     ],
+     "class": "white",
+     "verdict_boundary": "pass"
+    },
+    "record_mizuiro_reading": {
+     "n_truth": 6057,
+     "n_render_assigned": 6031,
+     "max_px": 0.623,
+     "p95_px": 0.164,
+     "p50_px": 0.055,
+     "max_truth_to_render": 0.524,
+     "max_render_to_truth": 0.623,
+     "worst_display_xy": [
+      814.277,
+      198.511
+     ],
+     "class": "white",
+     "verdict_boundary": "pass"
+    },
+    "order_ja": "境界の全点が 4 px 以内なら、振れ幅が 4 px を超える曲がりの順序は保たれる（曲がりの順序は境界の距離で代える）"
+   },
+   "verdict": "pass"
+  },
+  "265": {
+   "name_ja": "内側の水色の表示色",
+   "criterion": "ΔE00 ≤5（領域の中央値）",
+   "value": {
+    "target_lab_inner_face": [
+     41.92,
+     -4.878,
+     -29.433
+    ],
+    "render_lab_median": [
+     42.375,
+     -5.362,
+     -28.709
+    ],
+    "n_px": 4178,
+    "dE00": 0.545,
+    "verdict": "pass",
+    "ja": "内側の帯 A001 を 3 px 縮めた範囲で、主役波だけの原画視点の描画の Lab 中央値と、原画の内側の帯の中央値（第A部）の ΔE00"
+   },
+   "verdict": "pass"
+  },
+  "266": {
+   "name_ja": "水色の平塗り（照明の帯 0）",
+   "criterion": "領域内の ΔE00 の標準偏差 <1、帯 0、2 視点の差 ≤5",
+   "value": {
+    "class_default": "ai_mid",
+    "views": {
+     "ai_mid": {
+      "painting_view": {
+       "n_px": 12381,
+       "lab_median": [
+        42.375,
+        -5.362,
+        -28.709
+       ],
+       "dE00_median_to_palette": 0.186,
+       "dE00_to_median_std": 0.5677,
+       "dE00_to_median_p99": 0.0,
+       "dE00_to_median_max": 24.697,
+       "n_px_dev_gt_1": 34,
+       "bands_ge_20px": 0
+      },
+      "boat_view": {
+       "n_px": 6551,
+       "lab_median": [
+        42.375,
+        -5.362,
+        -28.709
+       ],
+       "dE00_median_to_palette": 0.186,
+       "dE00_to_median_std": 0.5189,
+       "dE00_to_median_p99": 0.0,
+       "dE00_to_median_max": 26.228,
+       "n_px_dev_gt_1": 13,
+       "bands_ge_20px": 0
+      },
+      "dE00_boat_vs_painting_median": 0.0
+     },
+     "mizuiro_record": {
+      "painting_view": {
+       "n_px": 23969,
+       "lab_median": [
+        84.441,
+        -7.947,
+        3.961
+       ],
+       "dE00_median_to_palette": 0.152,
+       "dE00_to_median_std": 0.1824,
+       "dE00_to_median_p99": 0.0,
+       "dE00_to_median_max": 14.857,
+       "n_px_dev_gt_1": 43,
+       "bands_ge_20px": 0
+      },
+      "boat_view": {
+       "n_px": 19126,
+       "lab_median": [
+        84.441,
+        -7.947,
+        3.961
+       ],
+       "dE00_median_to_palette": 0.152,
+       "dE00_to_median_std": 0.046,
+       "dE00_to_median_p99": 0.0,
+       "dE00_to_median_max": 5.713,
+       "n_px_dev_gt_1": 4,
+       "bands_ge_20px": 0
+      },
+      "dE00_boat_vs_painting_median": 0.0
+     }
+    },
+    "verdict": "pass",
+    "ja": "『水色』は第A部の既定（藍中、既定値・利用者未回答）。原画視点（真値の色区を 3 px 縮めた範囲）と船上座席（描画の色区 ID を 3 px 縮めた範囲）で、各画素の色と範囲の中央値の ΔE00 の標準偏差 <1、1 ΔE00 を超える画素が 20 px 以上まとまった帯 0、2 視点の中央値の差 ≤5。淡い水色は記録"
+   },
+   "verdict": "pass"
+  },
+  "267": {
+   "name_ja": "白の平塗り（灰色の帯 0）",
+   "criterion": "同上",
+   "value": {
+    "class": "white",
+    "views": {
+     "white": {
+      "painting_view": {
+       "n_px": 101971,
+       "lab_median": [
+        95.742,
+        -1.667,
+        10.237
+       ],
+       "dE00_median_to_palette": 0.206,
+       "dE00_to_median_std": 0.2395,
+       "dE00_to_median_p99": 0.0,
+       "dE00_to_median_max": 33.915,
+       "n_px_dev_gt_1": 111,
+       "bands_ge_20px": 0
+      },
+      "boat_view": {
+       "n_px": 112837,
+       "lab_median": [
+        95.742,
+        -1.667,
+        10.237
+       ],
+       "dE00_median_to_palette": 0.206,
+       "dE00_to_median_std": 0.0799,
+       "dE00_to_median_p99": 0.0,
+       "dE00_to_median_max": 6.719,
+       "n_px_dev_gt_1": 29,
+       "bands_ge_20px": 0
+      },
+      "dE00_boat_vs_painting_median": 0.0
+     }
+    },
+    "verdict": "pass",
+    "ja": "白について 266 と同じ手順（原画にない灰色の帯＝1 ΔE00 を超える 20 px 以上のまとまり 0）"
+   },
+   "verdict": "pass"
+  },
+  "uv_no_empty_texels": {
+   "name_ja": "UV テクスチャに空のテクセルがない",
+   "criterion": "外挿の後に未設定 0、UV で描かれないテクセル 0",
+   "value": {
+    "a45": {
+     "emptyAfterFill": 0,
+     "notRasterised": 0,
+     "noPositiveClass": 245
+    },
+    "a30": {
+     "emptyAfterFill": 0,
+     "notRasterised": 0,
+     "noPositiveClass": 239
+    },
+    "a60": {
+     "emptyAfterFill": 0,
+     "notRasterised": 0,
+     "noPositiveClass": 258
+    }
+   },
+   "verdict": "pass"
+  },
+  "142": {
+   "name_ja": "左側の外周線（事前検査）",
+   "criterion": "記録のみ（正式な判定は番号36）",
+   "value": {
+    "segments": [
+     "78",
+     "130"
+    ],
+    "n_points": 414,
+    "line_present_fraction": 1.0,
+    "centre_offset_max_px": 4.14,
+    "centre_offset_p95_px": 2.64,
+    "render_line_width_median_px": 3.25,
+    "render_line_width_p10_p90_px": [
+     3.0,
+     3.25
+    ],
+    "truth_line_width_median_px": {
+     "78": 2.78,
+     "130": 3.343
+    },
+    "outer_edge_offset_p95_px": 2.75,
+    "ja": "真値の外輪郭（線の外縁、包絡版）の点から水側への法線上（−8〜+8 px、0.25 px おき）で、外殻線の ID の塊の中心と幅を測った。真値の線の中心＝外縁から線幅（区間の中央値）の半分だけ水側。記録のみ"
+   },
+   "verdict": "record-only"
+  },
+  "143": {
+   "name_ja": "上側から船側の端までの外周線（事前検査）",
+   "criterion": "記録のみ（正式な判定は番号36）",
+   "value": {
+    "segments": [
+     "131",
+     "132"
+    ],
+    "n_points": 779,
+    "line_present_fraction": 1.0,
+    "centre_offset_max_px": 3.021,
+    "centre_offset_p95_px": 2.192,
+    "render_line_width_median_px": 3.0,
+    "render_line_width_p10_p90_px": [
+     2.75,
+     3.25
+    ],
+    "truth_line_width_median_px": {
+     "131": 2.867,
+     "132": 2.292
+    },
+    "outer_edge_offset_p95_px": 2.5,
+    "ja": "真値の外輪郭（線の外縁、包絡版）の点から水側への法線上（−8〜+8 px、0.25 px おき）で、外殻線の ID の塊の中心と幅を測った。真値の線の中心＝外縁から線幅（区間の中央値）の半分だけ水側。記録のみ"
+   },
+   "verdict": "record-only"
+  },
+  "178": {
+   "name_ja": "縞の枝分かれ",
+   "criterion": "計画の損切りどおり記録のみ（延期）",
+   "value": {
+    "partA_branch_candidates": 23
+   },
+   "verdict": "record-only"
+  }
+ },
+ "record_other_interpretations": {
+  "a30": {
+   "79": {
+    "boundary_max_px": 0.34,
+    "boundary_verdict": "pass"
+   },
+   "133": {
+    "boundary_max_px": 0.584,
+    "boundary_verdict": "pass"
+   },
+   "134": {
+    "boundary_max_px": 1.942,
+    "boundary_verdict": "pass"
+   },
+   "73": {
+    "boundary_max_px": 0.305,
+    "boundary_verdict": "pass"
+   },
+   "263": {
+    "boundary_max_px": 0.241,
+    "boundary_verdict": "pass"
+   },
+   "120": {
+    "boundary_max_px": 0.288,
+    "boundary_verdict": "pass"
+   },
+   "118": {
+    "boundary_max_px": 0.855,
+    "boundary_verdict": "pass"
+   },
+   "77": {
+    "boundary_max_px": 0.855,
+    "boundary_verdict": "pass"
+   },
+   "270": {
+    "boundary_max_px": 0.598,
+    "boundary_verdict": "pass"
+   },
+   "175": {
+    "boundary_max_px": 18.399,
+    "boundary_verdict": "fail"
+   }
+  },
+  "a60": {
+   "79": {
+    "boundary_max_px": 0.342,
+    "boundary_verdict": "pass"
+   },
+   "133": {
+    "boundary_max_px": 0.38,
+    "boundary_verdict": "pass"
+   },
+   "134": {
+    "boundary_max_px": 0.633,
+    "boundary_verdict": "pass"
+   },
+   "73": {
+    "boundary_max_px": 0.36,
+    "boundary_verdict": "pass"
+   },
+   "263": {
+    "boundary_max_px": 0.36,
+    "boundary_verdict": "pass"
+   },
+   "120": {
+    "boundary_max_px": 0.288,
+    "boundary_verdict": "pass"
+   },
+   "118": {
+    "boundary_max_px": 0.866,
+    "boundary_verdict": "pass"
+   },
+   "77": {
+    "boundary_max_px": 1.17,
+    "boundary_verdict": "pass"
+   },
+   "270": {
+    "boundary_max_px": 0.297,
+    "boundary_verdict": "pass"
+   },
+   "175": {
+    "boundary_max_px": 18.378,
+    "boundary_verdict": "fail"
+   }
+  }
+ },
+ "silhouette_crosscheck_evaluator23": {
+  "class_ids": {
+   "a45": {
+    "78": {
+     "max_px": 2.772,
+     "p95_px": 1.5435,
+     "iou": null,
+     "verdict": "pass"
+    },
+    "130": {
+     "max_px": 1.9675,
+     "p95_px": 1.9058,
+     "iou": null,
+     "verdict": "pass"
+    },
+    "131": {
+     "max_px": 1.8143,
+     "p95_px": 1.7099,
+     "iou": null,
+     "verdict": "pass"
+    },
+    "132": {
+     "max_px": 1.3256,
+     "p95_px": 1.2438,
+     "iou": null,
+     "verdict": "pass"
+    },
+    "72": {
+     "max_px": 5.5642,
+     "p95_px": 1.5581,
+     "iou": null,
+     "verdict": "fail"
+    },
+    "71": {
+     "max_px": 161.3269,
+     "p95_px": 121.2829,
+     "iou": 0.94069,
+     "verdict": "fail"
+    }
+   },
+   "a30": {
+    "78": {
+     "max_px": 2.027,
+     "p95_px": 1.6795,
+     "iou": null,
+     "verdict": "pass"
+    },
+    "130": {
+     "max_px": 2.1189,
+     "p95_px": 2.0101,
+     "iou": null,
+     "verdict": "pass"
+    },
+    "131": {
+     "max_px": 1.7978,
+     "p95_px": 1.6975,
+     "iou": null,
+     "verdict": "pass"
+    },
+    "132": {
+     "max_px": 1.4016,
+     "p95_px": 1.2629,
+     "iou": null,
+     "verdict": "pass"
+    },
+    "72": {
+     "max_px": 4.5471,
+     "p95_px": 2.4234,
+     "iou": null,
+     "verdict": "fail"
+    },
+    "71": {
+     "max_px": 177.8882,
+     "p95_px": 133.0753,
+     "iou": 0.94091,
+     "verdict": "fail"
+    }
+   },
+   "a60": {
+    "78": {
+     "max_px": 2.1671,
+     "p95_px": 1.5487,
+     "iou": null,
+     "verdict": "pass"
+    },
+    "130": {
+     "max_px": 2.0247,
+     "p95_px": 1.909,
+     "iou": null,
+     "verdict": "pass"
+    },
+    "131": {
+     "max_px": 1.7862,
+     "p95_px": 1.6626,
+     "iou": null,
+     "verdict": "pass"
+    },
+    "132": {
+     "max_px": 1.5537,
+     "p95_px": 1.2697,
+     "iou": null,
+     "verdict": "pass"
+    },
+    "72": {
+     "max_px": 5.1526,
+     "p95_px": 2.7446,
+     "iou": null,
+     "verdict": "fail"
+    },
+    "71": {
+     "max_px": 152.417,
+     "p95_px": 123.6247,
+     "iou": 0.93881,
+     "verdict": "fail"
+    }
+   }
+  },
+  "with_outline_shell": {
+   "78": {
+    "max_px": 4.0607,
+    "p95_px": 3.0216,
+    "iou": null,
+    "verdict": "fail"
+   },
+   "130": {
+    "max_px": 2.1703,
+    "p95_px": 2.0899,
+    "iou": null,
+    "verdict": "pass"
+   },
+   "131": {
+    "max_px": 2.2107,
+    "p95_px": 2.0346,
+    "iou": null,
+    "verdict": "pass"
+   },
+   "132": {
+    "max_px": 3.2964,
+    "p95_px": 2.8409,
+    "iou": null,
+    "verdict": "pass"
+   },
+   "72": {
+    "max_px": 3.9642,
+    "p95_px": 2.8485,
+    "iou": null,
+    "verdict": "pass"
+   },
+   "71": {
+    "max_px": 161.3269,
+    "p95_px": 120.659,
+    "iou": 0.93322,
+    "verdict": "fail"
+   }
+  },
+  "ja": "番号23 の評価器（ID モード、包絡版）に、この番号の色区 ID 画像（空＝白）を通した値。主役波の形は番号26 の K* のままなので、78〜72 は番号26 と同じ値になるはず（確認用）。外殻線ありは、外周の外縁の位置（142・143 の参考）"
+ },
+ "bake": {
+  "a45": {
+   "direct": 5498524,
+   "innerDark": 3406899,
+   "uFill": 1579920,
+   "uFillBlue": 729306,
+   "vFill": 809862,
+   "sea": 3229127,
+   "leftoverU": 1523578,
+   "leftoverV": 0,
+   "leftoverDefault": 0,
+   "emptyAfterFill": 0,
+   "noPositiveClass": 245,
+   "onScreen": 14073690,
+   "visible": 6900428,
+   "classCountsDirect": [
+    2614477,
+    920373,
+    579262,
+    1384412
+   ],
+   "classCountsAll": [
+    4368456,
+    1341112,
+    823340,
+    10244308
+   ],
+   "depthRowsFlipped": false,
+   "uvRowsFlipped": true,
+   "depthCheckMatchNormal": 2868,
+   "depthCheckMatchFlipped": 244,
+   "outSdfSha256": "b60d70834d5dd3bd235444ba2a282544ee4d25d3652260644d1cd4864879b951"
+  },
+  "a30": {
+   "direct": 5444824,
+   "innerDark": 3682234,
+   "uFill": 1797574,
+   "uFillBlue": 669714,
+   "vFill": 715953,
+   "sea": 3271441,
+   "leftoverU": 1195476,
+   "leftoverV": 0,
+   "leftoverDefault": 0,
+   "emptyAfterFill": 0,
+   "noPositiveClass": 239,
+   "onScreen": 14581731,
+   "visible": 6854566,
+   "classCountsDirect": [
+    2471841,
+    928262,
+    643546,
+    1401175
+   ],
+   "classCountsAll": [
+    4236761,
+    1315204,
+    1042571,
+    10182680
+   ],
+   "depthRowsFlipped": false,
+   "uvRowsFlipped": true,
+   "depthCheckMatchNormal": 3067,
+   "depthCheckMatchFlipped": 188,
+   "outSdfSha256": "fcd2e19d23bf24906ad1d6481063d554bf6be9a47feb22d82b12b32cae69fec0"
+  },
+  "a60": {
+   "direct": 5489791,
+   "innerDark": 3123563,
+   "uFill": 1362921,
+   "uFillBlue": 748182,
+   "vFill": 1596532,
+   "sea": 2644032,
+   "leftoverU": 1812195,
+   "leftoverV": 0,
+   "leftoverDefault": 0,
+   "emptyAfterFill": 0,
+   "noPositiveClass": 258,
+   "onScreen": 13567133,
+   "visible": 6846788,
+   "classCountsDirect": [
+    2687220,
+    837193,
+    592380,
+    1372998
+   ],
+   "classCountsAll": [
+    4514088,
+    1460125,
+    956228,
+    9846775
+   ],
+   "depthRowsFlipped": false,
+   "uvRowsFlipped": true,
+   "depthCheckMatchNormal": 3095,
+   "depthCheckMatchFlipped": 277,
+   "outSdfSha256": "99b7855131b46d8af9ecb7ca5ab29342c2f476db8aad884eb856cf8634de7feb"
+  }
+ },
+ "palette_srgb8": {
+  "white": [
+   248,
+   243,
+   223
+  ],
+  "mizuiro": [
+   198,
+   215,
+   203
+  ],
+  "ai_mid": [
+   44,
+   105,
+   147
+  ],
+  "ai_dark": [
+   35,
+   64,
+   97
+  ]
+ },
+ "shader_v1": {
+  "unlit_palette_linear_check": {
+   "white": {
+    "painting_view_dE00_median_to_palette": 0.206,
+    "boat_view_dE00_median_to_palette": 0.206
+   },
+   "mizuiro": {
+    "painting_view_dE00_median_to_palette": 0.152,
+    "boat_view_dE00_median_to_palette": 0.152
+   },
+   "ai_mid": {
+    "painting_view_dE00_median_to_palette": 0.186,
+    "boat_view_dE00_median_to_palette": 0.186
+   },
+   "ai_dark": {
+    "painting_view_dE00_median_to_palette": 0.219,
+    "boat_view_dE00_median_to_palette": 0.219
+   }
+  },
+  "unlit_palette_ja": "調色板（第A部の色区の中央値の Lab）と、描画の色区の中央値の ΔE00。0.2 前後は Lab → 8bit sRGB の丸めの分（af28_bake_input_record.json の dE00_rounding と同じ）。Linear 色空間で Color を渡し、sRGB の描画先に書いた値が 8bit で一致したことを示す",
+  "id_mode": {
+   "a45": {
+    "unknown_id_px": 0
+   },
+   "a30": {
+    "unknown_id_px": 0
+   },
+   "a60": {
+    "unknown_id_px": 0
+   }
+  },
+  "id_mode_ja": "ID 表示（大域 _AF28IdMode = 1）で描いた色区 ID 画像に、決めた 6 色以外の画素が何 px あったか（0 が期待値）",
+  "spi_compile": {
+   "all_success": true,
+   "n_variants": 20,
+   "failed": [],
+   "keyword_sets": [
+    "",
+    "INSTANCING_ON",
+    "STEREO_INSTANCING_ON INSTANCING_ON",
+    "STEREO_MULTIVIEW_ON",
+    "UNITY_SINGLE_PASS_STEREO"
+   ],
+   "note_ja": "ShaderData.Pass.CompileVariant でコンパイルだけを行った。立体視での描画・両眼の画像は確かめていない（番号32 の Mock と番号34 の HMD で確かめる）。"
+  },
+  "aa_ja": "上位 2 つの色区の距離の差を fwidth で 1 画素幅に混ぜるアンチエイリアス。原画視点の色の画像（MSAA 8x）で使い、ID 画像では使わない"
+ },
+ "summary_verdicts": {
+  "73": "pass",
+  "77": "pass",
+  "79": "pass",
+  "118": "pass",
+  "120": "pass",
+  "133": "pass",
+  "134": "pass",
+  "175": "fail",
+  "263": "pass",
+  "270": "pass",
+  "265": "pass",
+  "266": "pass",
+  "267": "pass",
+  "uv_no_empty_texels": "pass"
+ },
+ "figures": [
+  "Docs/Evidence/ArtFirst/28/28B_a45_painting.png",
+  "Docs/Evidence/ArtFirst/28/28B_a45_overlay50.png",
+  "Docs/Evidence/ArtFirst/28/28B_a45_boundaries.png",
+  "Docs/Evidence/ArtFirst/28/28B_a45_views.png",
+  "Docs/Evidence/ArtFirst/28/28B_interpretations.png",
+  "Docs/Evidence/ArtFirst/28/28B_a45_closeups.png"
+ ]
+}

@@ -1,0 +1,734 @@
+{
+ "schema": "GreatWave.ArtFirst.metrics/1",
+ "number": "28",
+ "part": "A",
+ "evidence_kind_ja": "文書準備と numpy/OpenCV の計算（原画から真値を作る段）。Unity・PCビルド・HMD 実機の結果は含まない。",
+ "judgement_ja": "第A部は真値を作る段で、どの項目も合否を出さない（すべて record-only）。境界 ≤4 px と ΔE00 ≤5 の判定は第B部（投影ベイクと shader v1 の描画）で行う。",
+ "items": {
+  "73": {
+   "value": {
+    "inner_face_bands": [
+     "SL16"
+    ],
+    "boundary_length_by_neighbour_display_px": {
+     "white": 234.2,
+     "line": 72.9,
+     "ai_dark": 620.2,
+     "-1": 1.9,
+     "sky": 307.0,
+     "mizuiro": 3.2
+    }
+   },
+   "result": "record-only",
+   "judged_in": "28B（投影ベイクと shader v1 の描画を、この真値に照らして判定する）",
+   "truth": "colour_truth.json#/inner_face, colour_polylines.json features kind=inner_face_boundary"
+  },
+  "77": {
+   "value": {
+    "lower_side_ai_mid_bands_ordered": [
+     "SL01",
+     "SL02",
+     "SL03",
+     "SL04",
+     "SL05",
+     "SL06",
+     "SL07",
+     "SL08",
+     "SL09",
+     "SL10",
+     "SL11",
+     "SL12",
+     "SL13",
+     "SL14",
+     "SL15",
+     "SL16"
+    ],
+    "n_lower_side_ai_mid_bands": 16,
+    "n_lower_side_ai_mid_bands_reaching_strip": 10,
+    "lower_side_dark_stripes": [
+     {
+      "id": "KL01",
+      "between": [
+       "foam",
+       "SL02"
+      ],
+      "width_display_px": 296.0,
+      "bands_ending_above": [
+       "SL01"
+      ]
+     },
+     {
+      "id": "KL02",
+      "between": [
+       "SL02",
+       "SL04"
+      ],
+      "width_display_px": 53.0,
+      "bands_ending_above": [
+       "SL03"
+      ]
+     },
+     {
+      "id": "KL03",
+      "between": [
+       "SL04",
+       "foam"
+      ],
+      "width_display_px": 200.0,
+      "bands_ending_above": []
+     },
+     {
+      "id": "KL04",
+      "between": [
+       "foam",
+       "foam"
+      ],
+      "width_display_px": 39.0,
+      "bands_ending_above": []
+     },
+     {
+      "id": "KL05",
+      "between": [
+       "foam",
+       "foam"
+      ],
+      "width_display_px": 56.0,
+      "bands_ending_above": []
+     },
+     {
+      "id": "KL06",
+      "between": [
+       "foam",
+       "SL05"
+      ],
+      "width_display_px": 10.0,
+      "bands_ending_above": []
+     },
+     {
+      "id": "KL07",
+      "between": [
+       "SL05",
+       "SL06"
+      ],
+      "width_display_px": 21.0,
+      "bands_ending_above": []
+     },
+     {
+      "id": "KL08",
+      "between": [
+       "SL06",
+       "SL07"
+      ],
+      "width_display_px": 86.0,
+      "bands_ending_above": []
+     },
+     {
+      "id": "KL09",
+      "between": [
+       "SL07",
+       "SL08"
+      ],
+      "width_display_px": 62.0,
+      "bands_ending_above": []
+     },
+     {
+      "id": "KL10",
+      "between": [
+       "SL08",
+       "SL09"
+      ],
+      "width_display_px": 19.0,
+      "bands_ending_above": []
+     },
+     {
+      "id": "KL11",
+      "between": [
+       "SL09",
+       "SL11"
+      ],
+      "width_display_px": 147.0,
+      "bands_ending_above": [
+       "SL10"
+      ]
+     },
+     {
+      "id": "KL12",
+      "between": [
+       "SL11",
+       "SL12"
+      ],
+      "width_display_px": 31.0,
+      "bands_ending_above": []
+     },
+     {
+      "id": "KL13",
+      "between": [
+       "SL12",
+       "SL14"
+      ],
+      "width_display_px": 83.0,
+      "bands_ending_above": [
+       "SL13"
+      ]
+     },
+     {
+      "id": "KL14",
+      "between": [
+       "SL14",
+       "end"
+      ],
+      "width_display_px": 221.0,
+      "bands_ending_above": [
+       "SL15",
+       "SL16"
+      ]
+     }
+    ],
+    "n_lower_side_dark_stripes": 14,
+    "n_lower_side_dark_stripes_between_two_bands": 8,
+    "lower_ends": {
+     "SL01": {
+      "point_display": [236.724,773.278],
+      "kind": "ai_dark",
+      "gap_to_lower_side_display_px": 21.94
+     },
+     "SL02": {
+      "point_display": [278.359,803.671],
+      "kind": "ai_dark",
+      "gap_to_lower_side_display_px": 1.67
+     },
+     "SL03": {
+      "point_display": [299.176,770.364],
+      "kind": "ai_dark",
+      "gap_to_lower_side_display_px": 23.56
+     },
+     "SL04": {
+      "point_display": [340.394,797.01],
+      "kind": "occluder",
+      "gap_to_lower_side_display_px": 0.83
+     },
+     "SL05": {
+      "point_display": [311.25,636.3],
+      "kind": "occluder",
+      "gap_to_lower_side_display_px": 0.42
+     },
+     "SL06": {
+      "point_display": [345.391,647.958],
+      "kind": "occluder",
+      "gap_to_lower_side_display_px": 2.08
+     },
+     "SL07": {
+      "point_display": [494.442,706.246],
+      "kind": "ai_dark",
+      "gap_to_lower_side_display_px": 2.5
+     },
+     "SL08": {
+      "point_display": [561.89,728.313],
+      "kind": "occluder",
+      "gap_to_lower_side_display_px": 0.83
+     },
+     "SL09": {
+      "point_display": [595.614,703.748],
+      "kind": "occluder",
+      "gap_to_lower_side_display_px": 4.43
+     },
+     "SL10": {
+      "point_display": [597.279,687.094],
+      "kind": "ai_dark",
+      "gap_to_lower_side_display_px": 11.17
+     },
+     "SL11": {
+      "point_display": [654.319,652.538],
+      "kind": "occluder",
+      "gap_to_lower_side_display_px": 1.18
+     },
+     "SL12": {
+      "point_display": [667.642,625.059],
+      "kind": "ai_dark",
+      "gap_to_lower_side_display_px": 3.72
+     },
+     "SL13": {
+      "point_display": [680.132,599.662],
+      "kind": "ai_dark",
+      "gap_to_lower_side_display_px": 10.6
+     },
+     "SL14": {
+      "point_display": [757.156,623.81],
+      "kind": "occluder",
+      "gap_to_lower_side_display_px": 2.08
+     },
+     "SL15": {
+      "point_display": [748.413,574.681],
+      "kind": "dot",
+      "gap_to_lower_side_display_px": 44.41
+     },
+     "SL16": {
+      "point_display": [888.305,707.912],
+      "kind": "ai_dark",
+      "gap_to_lower_side_display_px": 17.57
+     }
+    }
+   },
+   "result": "record-only",
+   "judged_in": "28B（投影ベイクと shader v1 の描画を、この真値に照らして判定する）",
+   "truth": "colour_truth.json#/stripes/lower_side, #/stripes/dark_stripes_lower_side, #/stripes/ai_mid_bands"
+  },
+  "79": {
+   "value": {
+    "main_white": "W001",
+    "white_area_display_px2": 153134.94,
+    "inner_boundary_length_display_px": 1056.8,
+    "inner_boundary_segments": 94
+   },
+   "result": "record-only",
+   "judged_in": "28B（投影ベイクと shader v1 の描画を、この真値に照らして判定する）",
+   "truth": "colour_polylines.json features kind=white_part, zone_item=79（空の側の境界は番号23の 78/130）"
+  },
+  "118": {
+   "value": {
+    "main_stripes": [
+     {
+      "id": "MS01",
+      "bands": [
+       "SL07"
+      ],
+      "total_centerline_length_display_px": 228.8,
+      "lower_end_display": [494.442,706.246],
+      "upper_end_display": [349.138,562.607]
+     },
+     {
+      "id": "MS02",
+      "bands": [
+       "SL08"
+      ],
+      "total_centerline_length_display_px": 204.9,
+      "lower_end_display": [561.89,728.313],
+      "upper_end_display": [430.325,600.078]
+     },
+     {
+      "id": "MS03",
+      "bands": [
+       "SL09"
+      ],
+      "total_centerline_length_display_px": 178.2,
+      "lower_end_display": [595.614,703.748],
+      "upper_end_display": [484.45,580.926]
+     },
+     {
+      "id": "MS04",
+      "bands": [
+       "SL12"
+      ],
+      "total_centerline_length_display_px": 162.9,
+      "lower_end_display": [667.642,625.059],
+      "upper_end_display": [598.529,485.583]
+     },
+     {
+      "id": "MS05",
+      "bands": [
+       "SU05",
+       "SL15"
+      ],
+      "total_centerline_length_display_px": 311.7,
+      "lower_end_display": [748.413,574.681],
+      "upper_end_display": [829.6,308.636]
+     },
+     {
+      "id": "MS06",
+      "bands": [
+       "SL16"
+      ],
+      "total_centerline_length_display_px": 418.4,
+      "lower_end_display": [888.305,707.912],
+      "upper_end_display": [830.433,354.851]
+     }
+    ],
+    "chains": {
+     "inner_face": [
+      "SL16"
+     ],
+     "curl_right_2": [
+      "SU05",
+      "SL15"
+     ]
+    }
+   },
+   "result": "record-only",
+   "judged_in": "28B（投影ベイクと shader v1 の描画を、この真値に照らして判定する）",
+   "truth": "colour_truth.json#/stripes/main_stripes_118, colour_polylines.json features kind=stripe_edge"
+  },
+  "120": {
+   "value": {
+    "boundary_length_display_px": 39.4,
+    "n_segments": 13
+   },
+   "result": "record-only",
+   "judged_in": "28B（投影ベイクと shader v1 の描画を、この真値に照らして判定する）",
+   "truth": "colour_polylines.json features kind=boundary_120"
+  },
+  "133": {
+   "value": {
+    "main_white": "W001",
+    "left_and_upper_in_one_component": true,
+    "inner_boundary_length_display_px": 1646.4,
+    "inner_boundary_segments": 139
+   },
+   "result": "record-only",
+   "judged_in": "28B（投影ベイクと shader v1 の描画を、この真値に照らして判定する）",
+   "truth": "colour_polylines.json features kind=white_part, zone_item=133（空の側は番号23の 131）"
+  },
+  "134": {
+   "value": {
+    "band_width_display_px": {
+     "median": 172.08,
+     "min": 123.15,
+     "max": 207.65
+    },
+    "wide_narrow_order_from_crest": [
+     {
+      "kind": "narrow",
+      "width": 123.15,
+      "at_display": [803.873,101.499]
+     },
+     {
+      "kind": "wide",
+      "width": 207.65,
+      "at_display": [943.272,175.772]
+     },
+     {
+      "kind": "narrow",
+      "width": 161.9,
+      "at_display": [965.592,232.31]
+     }
+    ],
+    "stop_counts": {
+     "ai_dark": 115,
+     "ai_mid": 23,
+     "envelope_sky": 94,
+     "max": 5
+    },
+    "inner_boundary_length_display_px": 5219.9
+   },
+   "result": "record-only",
+   "judged_in": "28B（投影ベイクと shader v1 の描画を、この真値に照らして判定する）",
+   "truth": "colour_truth.json#/white/band_134, colour_polylines.json features kind=white_part, zone_item=134"
+  },
+  "175": {
+   "value": {
+    "non_white_regions_in_white_range": {
+     "mizuiro": {
+      "count": 166,
+      "area_display_px2": 60700.4
+     },
+     "ai_mid": {
+      "count": 16,
+      "area_display_px2": 1652.0
+     },
+     "ai_dark": {
+      "count": 16,
+      "area_display_px2": 1291.9
+     }
+    },
+    "line_area_in_range_display_px2": 42568.7,
+    "white_range_area_display_px2": 228394.5
+   },
+   "result": "record-only",
+   "judged_in": "28B（投影ベイクと shader v1 の描画を、この真値に照らして判定する）",
+   "truth": "colour_truth.json#/white/regions_175, colour_polylines.json regions in_white_range_175=true"
+  },
+  "178": {
+   "value": {
+    "n_branch_candidates": 23,
+    "branch_points": [
+     {
+      "stripe": "SL16",
+      "end": "lower",
+      "point_display": [888.305,707.912]
+     },
+     {
+      "stripe": "SL07",
+      "end": "upper",
+      "point_display": [349.138,562.607]
+     },
+     {
+      "stripe": "SL09",
+      "end": "upper",
+      "point_display": [484.45,580.926]
+     },
+     {
+      "stripe": "SU04",
+      "end": "lower",
+      "point_display": [680.132,419.801]
+     },
+     {
+      "stripe": "SU03",
+      "end": "lower",
+      "point_display": [619.346,369.007]
+     },
+     {
+      "stripe": "SU03",
+      "end": "upper",
+      "point_display": [687.21,271.998]
+     },
+     {
+      "stripe": "SO01",
+      "end": "lower",
+      "point_display": [359.13,530.965]
+     },
+     {
+      "stripe": "SL11",
+      "end": "upper",
+      "point_display": [604.357,580.094]
+     },
+     {
+      "stripe": "SL14",
+      "end": "upper",
+      "point_display": [698.451,528.467]
+     },
+     {
+      "stripe": "SL13",
+      "end": "lower",
+      "point_display": [680.132,599.662]
+     },
+     {
+      "stripe": "SU02",
+      "end": "lower",
+      "point_display": [585.622,357.349]
+     },
+     {
+      "stripe": "SL04",
+      "end": "upper",
+      "point_display": [296.678,775.36]
+     },
+     {
+      "stripe": "SO02",
+      "end": "lower",
+      "point_display": [717.603,323.209]
+     },
+     {
+      "stripe": "SO02",
+      "end": "upper",
+      "point_display": [791.296,271.998]
+     },
+     {
+      "stripe": "SL10",
+      "end": "lower",
+      "point_display": [597.279,687.094]
+     },
+     {
+      "stripe": "SL10",
+      "end": "upper",
+      "point_display": [546.902,628.39]
+     },
+     {
+      "stripe": "SL02",
+      "end": "upper",
+      "point_display": [243.386,776.609]
+     },
+     {
+      "stripe": "SO03",
+      "end": "lower",
+      "point_display": [190.926,421.466]
+     },
+     {
+      "stripe": "SO03",
+      "end": "upper",
+      "point_display": [167.195,416.47]
+     },
+     {
+      "stripe": "SL01",
+      "end": "lower",
+      "point_display": [236.724,773.278]
+     },
+     {
+      "stripe": "SO04",
+      "end": "lower",
+      "point_display": [224.234,420.217]
+     },
+     {
+      "stripe": "SO04",
+      "end": "upper",
+      "point_display": [247.133,398.151]
+     },
+     {
+      "stripe": "SL03",
+      "end": "lower",
+      "point_display": [299.176,770.364]
+     }
+    ]
+   },
+   "result": "record-only",
+   "judged_in": "記録のみ（計画の損切りどおり、分岐の判定は延期できる）",
+   "truth": "colour_truth.json#/stripes/branches_178"
+  },
+  "263": {
+   "value": {
+    "lower_end_display": [888.305,707.912],
+    "lower_end_kind": "ai_dark",
+    "below_lower_end_blue_fraction": 0.103
+   },
+   "result": "record-only",
+   "judged_in": "28B（投影ベイクと shader v1 の描画を、この真値に照らして判定する）",
+   "truth": "colour_truth.json#/inner_face"
+  },
+  "265": {
+   "value": {
+    "target_lab": [41.92,-4.878,-29.433],
+    "dE00_to_ai_mid_median": 0.445,
+    "dE00_to_mizuiro_median": 42.297
+   },
+   "result": "record-only",
+   "judged_in": "28B（投影ベイクと shader v1 の描画を、この真値に照らして判定する）",
+   "truth": "colour_truth.json#/inner_face/lab_median_eroded_3px"
+  },
+  "266/267": {
+   "value": {
+    "flat_targets_lab": {
+     "white": [95.764,-1.508,10.189],
+     "mizuiro": [84.537,-7.955,3.789],
+     "ai_mid": [42.18,-5.36,-28.561],
+     "ai_dark": [26.173,0.396,-22.484]
+    },
+    "flat_targets_srgb8": {
+     "white": [248,243,223],
+     "mizuiro": [198,215,203],
+     "ai_mid": [44,105,147],
+     "ai_dark": [35,64,97]
+    }
+   },
+   "result": "record-only",
+   "judged_in": "28B（投影ベイクと shader v1 の描画を、この真値に照らして判定する）",
+   "truth": "colour_truth.json#/palette_display_median"
+  },
+  "270": {
+   "value": {
+    "ai_mid": {
+     "n_segments": 119,
+     "length_display_px": 852.8,
+     "n_segments_ge20px": 7,
+     "turn_sign_changes_per_100px_median": 0.0
+    },
+    "mizuiro": {
+     "n_segments": 190,
+     "length_display_px": 2419.9,
+     "n_segments_ge20px": 41,
+     "turn_sign_changes_per_100px_median": 5.63
+    }
+   },
+   "default": "ai_mid",
+   "alternative": "mizuiro",
+   "result": "record-only",
+   "judged_in": "28B（投影ベイクと shader v1 の描画を、この真値に照らして判定する）",
+   "truth": "colour_polylines.json features kind=boundary_270_ai_mid（既定）/ boundary_270_mizuiro（別案）"
+  }
+ },
+ "mizuiro_mapping": {
+  "decision": "ai_mid",
+  "status": "既定値・利用者未回答（CP1 で利用者に確かめる）",
+  "per_item_summary_ja": "73・77・118・120・263・265・269 → 藍中（ai_mid）。175（と形成中の 176）→ 白い範囲の中の明るい色は淡い水色（mizuiro）が主で、藍中も残す。270 → 既定は藍中、淡い水色の読み方も記録。266 → 当てはめに依らない。",
+  "per_item": [
+   {
+    "item": 73,
+    "maps_to": "ai_mid"
+   },
+   {
+    "item": 77,
+    "maps_to": "ai_mid"
+   },
+   {
+    "item": 118,
+    "maps_to": "ai_mid"
+   },
+   {
+    "item": 120,
+    "maps_to": "ai_mid"
+   },
+   {
+    "item": 175,
+    "maps_to": "mizuiro（主）と ai_mid（従）。175 は全部残す項目なので、両方と藍濃を残す対象にする（当てはめで対象は変わらない）"
+   },
+   {
+    "item": 263,
+    "maps_to": "ai_mid"
+   },
+   {
+    "item": 265,
+    "maps_to": "ai_mid"
+   },
+   {
+    "item": 269,
+    "maps_to": "ai_mid"
+   },
+   {
+    "item": 270,
+    "maps_to": "ai_mid（既定）。mizuiro の読み方も残し、両方の境界を出す"
+   },
+   {
+    "item": 266,
+    "maps_to": "当てはめに依らない（全色区を中央値で平塗り）"
+   }
+  ],
+  "dE00_mizuiro_vs_ai_mid_medians": 41.85,
+  "result": "record-only"
+ },
+ "palette_display_median": {
+  "white": [95.764,-1.508,10.189],
+  "mizuiro": [84.537,-7.955,3.789],
+  "ai_mid": [42.18,-5.36,-28.561],
+  "ai_dark": [26.173,0.396,-22.484]
+ },
+ "palette_compare_23": {
+  "white": {
+   "dE00_to_palette23": 0.677
+  },
+  "mizuiro": {
+   "dE00_to_palette23": 1.259
+  },
+  "ai_mid": {
+   "dE00_to_palette23": 0.327
+  },
+  "ai_dark": {
+   "dE00_to_palette23": 0.363
+  }
+ },
+ "counts": {
+  "regions_by_class": {
+   "white": 234,
+   "mizuiro": 178,
+   "ai_mid": 77,
+   "ai_dark": 70
+  },
+  "ai_mid_bands": 25,
+  "main_stripes": 6,
+  "hi_px_by_class": {
+   "white": 953968,
+   "mizuiro": 351479,
+   "ai_mid": 210959,
+   "ai_dark": 572242
+  },
+  "line_hi_px": 287128
+ },
+ "outputs": {
+  "truth": "Tools/PaintingTruth/colour/colour_truth.json",
+  "polylines": "Tools/PaintingTruth/colour/colour_polylines.json",
+  "masks": {
+   "white": "Tools/PaintingTruth/colour/masks/mw_white_cov.png",
+   "mizuiro": "Tools/PaintingTruth/colour/masks/mw_mizuiro_cov.png",
+   "ai_mid": "Tools/PaintingTruth/colour/masks/mw_ai_mid_cov.png",
+   "ai_dark": "Tools/PaintingTruth/colour/masks/mw_ai_dark_cov.png",
+   "line": "Tools/PaintingTruth/colour/masks/mw_line_cov.png",
+   "labels_display": "Tools/PaintingTruth/colour/masks/mw_colour_labels.png",
+   "labels_hi": "Tools/PaintingTruth/colour/masks/mw_colour_labels_hi.png"
+  },
+  "figures": {
+   "colour_regions": "Docs/Evidence/ArtFirst/28/28A_colour_regions.png",
+   "stripes": "Docs/Evidence/ArtFirst/28/28A_stripes.png",
+   "stripes_lower": "Docs/Evidence/ArtFirst/28/28A_stripes_lower.png",
+   "white_band": "Docs/Evidence/ArtFirst/28/28A_white_band.png",
+   "white_inner": "Docs/Evidence/ArtFirst/28/28A_white_inner.png",
+   "mizuiro_evidence": "Docs/Evidence/ArtFirst/28/28A_mizuiro_evidence.png",
+   "closeup_lipbase": "Docs/Evidence/ArtFirst/28/28A_closeup_lipbase.png",
+   "closeup_curl_lower": "Docs/Evidence/ArtFirst/28/28A_closeup_curl_lower.png"
+  }
+ }
+}
