@@ -1,0 +1,261 @@
+{
+ "schema": "GreatWave.AF27R01.seat/1",
+ "version": "seat_v1",
+ "number": "27修正01",
+ "decision_ja": "D7 = (a)「座席を唇の下の船へ移す」。利用者の CP1 回答（2026-09-26）で、座席は唇の真下の右船（boat_mid）に置く。",
+ "coordinates_ja": "Unity の世界座標（m、左手系、Y 上）。回転は Unity の Quaternion の成分 (x, y, z, w)。PaintingCam v1 は (0, 3, −62) から +Z 方向を見る。",
+ "boat": {
+  "key": "boat_mid",
+  "m1_name": "M1 middle boat",
+  "role_ja": "右の船（原画で唇の下にいる船）。座席のある船。",
+  "position": [
+   7.02562,
+   2.14815,
+   -14.94194
+  ],
+  "rotation_quat_xyzw": [
+   0.05318306,
+   -0.69576402,
+   0.34223731,
+   0.62925163
+  ],
+  "scale": 1.132835,
+  "tips_depth_m": [
+   45.8367,
+   45.8367
+  ],
+  "root_depth_m": 46.4337,
+  "tip_to_tip_length_m": 11.328,
+  "draft_m": 0.3806,
+  "depth_note_ja": "深さは PaintingCam v1 の光軸方向の距離。tips_depth_m は船の両端の先端（番号27 ではこの点を右船の深度平面 59.11 m に置いた）、root_depth_m は船の根の原点。",
+  "from_27_ja": "番号27 の右船（context_layout.json の boat_mid）を、PaintingCam v1 の投影中心 (0, 3, −62) を中心に k 倍した。回転は番号27 と同じ。原画視点の像は変わらない（両端の投影の差 0.000000 px）。",
+  "k": 0.775407,
+  "position_27": [
+   9.06056,
+   1.90141,
+   -1.31179
+  ],
+  "scale_27": 1.460956,
+  "tips_depth_m_27": [
+   59.1131,
+   59.1131
+  ],
+  "root_depth_m_27": 59.883,
+  "k_rule_ja": "船体の最も低い点が平らな海（y = 0）より喫水（0.35 × 0.96 m × 縮尺）だけ下になる k。"
+ },
+ "seat": {
+  "posture_ja": "座位。目は甲板から 1.2 m 上（世界の上向き）。",
+  "probe_local": [
+   0.0,
+   10.0,
+   3.0
+  ],
+  "eye_above_deck_m": 1.2,
+  "deck_hit_world": [
+   3.9544,
+   0.6323,
+   -15.0308
+  ],
+  "eye_world": [
+   3.9544,
+   1.8323,
+   -15.0308
+  ],
+  "rule_ja": "船の根の局所 (0, 10, z) から船の局所の下向きに甲板（Boat_Deck_Planks）を測り、当たった点の 1.2 m 上（番号27 と同じ測り方）。z は |z| ≤ 3.0 を 0.5 刻みで調べ、K* 45°（番号26）の唇先の線（目より 3 m 以上高い点）に水平距離で最も近い甲板の点を選んだ。選ばれた z = +3.0 は調べた範囲の船首側の端（甲板は局所 z ±3.49 まで、その先は尖った船首）。",
+  "consumers_ja": "Python（番号26・30 など）は seat.eye_world・view.target_world・view.vertical_fov_deg を読む。Unity は unity 区画（JsonUtility）か、プレハブ AF27R01_Context.prefab の「AF27R01 座席 v1」の Transform（位置＝目、向き＝注視点）を使う。番号26 の af26_blender_qa.py には eye_world と view.qa_hemisphere_look_world を渡す。",
+  "up_world": [
+   0.0,
+   1.0,
+   0.0
+  ],
+  "up_note_ja": "視点の上向きは世界の +Y（水平線を水平に保つ）。船の t* の傾き（軸の縦の傾き約 33°・軸まわり 25°）には合わせない（既定値・利用者未回答）。"
+ },
+ "view": {
+  "target_world": [
+   0.655,
+   12.0,
+   -11.155
+  ],
+  "forward_world": [
+   -0.29017,
+   0.894212,
+   0.340862
+  ],
+  "yaw_deg": -40.407,
+  "pitch_deg": 63.407,
+  "vertical_fov_deg": 80.0,
+  "target_source_ja": "K* 45°（番号26 のコミット a2e6abc、kstar_a45.gwb）の唇先の線のうち座席に水平で最も近い点。PC の座席の静止画の注視点に使う。番号26修正01 で唇が変わったら、同じ規則で注視点だけ取り直せばよい（座席の位置は変えない）。",
+  "recenter_yaw_deg": -40.407,
+  "recenter_ja": "HMD の再センタリングの正面（水平の向き）。未検証（HMD 未所持）。",
+  "main_section_lip_tip_world": [
+   1.335,
+   12.235,
+   -10.651
+  ],
+  "qa_hemisphere_look_world": [
+   -2.1368,
+   5.2525,
+   -7.8754
+  ],
+  "qa_hemisphere_ja": "座席からの射線検査（83/115/116 の事前検査）の半球の中心：唇の方位（yaw_deg）で仰角 20°、目から 10 m 先の点。Unity の「座席 v1（唇の方位、仰角 20°）」のカメラと同じ向き。"
+ },
+ "water_contact": {
+  "keel_line_ja": "竜骨の線 y = y0 + slope·s（s は p_ref から船の軸の水平方向 axis_h へ測る水平距離。船体中央部 |z| ≤ 3 の船底の直線当てはめ）。右船の水面（番号40 の右側の波で置き換えるときも）は、船体のすぐ外側で 竜骨の線 + 喫水（0.3806 m）の高さにし、船体の平面図の足跡の中では船底より下に置く（高さ場の水面が船の中の甲板と座席を横切らないように）。",
+  "y0": 1.95634,
+  "slope_dy_ds": -0.64567,
+  "pitch_deg": -32.849,
+  "s_min": -4.4113,
+  "s_max": 5.7355,
+  "axis_h": [
+   -0.999514,
+   0.0,
+   0.031166
+  ],
+  "p_ref": [
+   7.02562,
+   2.14815,
+   -14.94194
+  ],
+  "draft_m": 0.3806,
+  "placeholder_ja": "番号40 までは、右の斜面の仮置きを作り直した水面（Unity の AF27R01_RightSlope.asset）で支える。",
+  "immersion_summary": {
+   "immersion_mid_min_m": 0.3238,
+   "immersion_mid_max_m": 0.426,
+   "immersion_all_min_m": -0.5908,
+   "immersion_all_max_m": 0.4306,
+   "slices_floating": 2,
+   "slices": 11
+  },
+  "immersion_note_ja": "immersion は船の根の局所 z の 11 の切り口ごとの船底の沈み（正が水面より下）。水面より上に出る 2 つは反り上がった船尾の先（局所 z −5.0・−4.6）で、宙に浮いた船体ではない。"
+ },
+ "legacy_seats": {
+  "m1_revision01_eye": [
+   -0.707,
+   1.5143,
+   -33.407
+  ],
+  "number27_fg_eye": [
+   2.9554,
+   1.1602,
+   -32.152
+  ],
+  "cp1_candidate_right_boat_eye_27_pose": [
+   11.274,
+   5.048,
+   -1.582
+  ],
+  "note_ja": "旧い座席。番号27 の手前の船の座席は CP1 まで使った。CP1 の候補 (a) は番号27 の右船の置き方（k なし）での確認用の機位。"
+ },
+ "sources_sha256": {
+  "Tools/GWContext/context_layout.json": "6c5ba436c5cb80a760215532bdd4daa9f5299e3dcf847e1aa1d93a6463714ba8",
+  "Unity/Build/ArtFirst/26/kstar/kstar_a45.gwb": "0021696ea0f1dbdd98bf42476ebf2bec5d68a33d3b0b4c490253a0da23b96ff4",
+  "Unity/Build/ArtFirst/27/dump/boat_blockout.bin": "5fba306e0fb06258ffd2e55fc0d3a17413fbacb1b27b851a547bb28559b458e9",
+  "Unity/Build/ArtFirst/27/dump/revision_slopes.bin": "40b9891c851b78a40632933f4c43b215398225731754d69abd99b790f27b784c",
+  "Tools/PaintingTruth/painting_truth.json": "392860ebeff76a7249056fc339b15e853c0155937efa4feee125f8f974f01c0a"
+ },
+ "generator": "Tools/GWContext/af27r01_seat.py",
+ "painting_cam": {
+  "id": "PaintingCam v1",
+  "position": [
+   0.0,
+   3.0,
+   -62.0
+  ],
+  "target": [
+   -2.5,
+   9.7,
+   4.0
+  ],
+  "up": [
+   0.0,
+   1.0,
+   0.0
+  ],
+  "look_at_rule_ja": "Unity Transform.LookAt(target, Vector3.up) と同じ。forward = normalize(target - position), right = normalize(cross(up, forward)), up' = cross(forward, right)。左手系、カメラは +Z を向く。",
+  "vertical_fov_deg": 26.0,
+  "aspect": 1.7777777777777777,
+  "aspect_expr": "1920 / 1080",
+  "near": 0.1,
+  "far": 900.0,
+  "projection": "perspective（physical camera・lens shift なし）",
+  "fixed_during_formation": true,
+  "fixed_ja": "形成区間を通して位置・向き・画角を固定する（backlog 94）。船上用の揺れは入れない。",
+  "derived_euler_deg_expected": [
+   354.20758056640625,
+   357.83074951171875,
+   0.0
+  ],
+  "source": [
+   {
+    "path": "Unity/Assets/GreatWave/Editor/M1CompositionBuilder.cs",
+    "lines": "14-15, 88-95, 169-177",
+    "content_ja": "ComparisonPosition = (0,3,-62)、ComparisonTarget = (-2.5,9.7,4)、fieldOfView = 26、nearClipPlane = 0.1、farClipPlane = 900、transform.LookAt(ComparisonTarget)。富士は position (37,-0.1,420)・scale 2（169-170 行、照合用）"
+   },
+   {
+    "path": "Unity/Assets/GreatWave/Scripts/M1DesktopViewer.cs",
+    "lines": "58-68",
+    "content_ja": "SelectView は LookAt(view.target, Vector3.up) を使う。view 0『原画比較視点』= 上記の位置・注視点・fieldOfView 26（M1ViewBuilder.cs 31 行）。"
+   },
+   {
+    "path": "Docs/Evidence/M1/Revision01/15_revision_layout.json",
+    "content_ja": "M1 Revision01 の実測記録。comparisonCameraPosition = (0,3,-62)、comparisonCameraTarget = (-2.5, 9.699999809265137, 4)。M1 Revision01 の比較視点と同じ値。"
+   },
+   {
+    "path": "Docs/Evidence/M1/12_placement.json",
+    "content_ja": "Unity が記録した comparisonRotation = (354.20758, 357.83075, 0)、fieldOfView 26、fujiApexViewport = (0.6404039, 0.3389147, z 479.10385)。numpy 投影の照合値として自己テストで使う（Unity 上の 5 点標識による ≤0.5 px 較正は第2部で実施し、23_gate.json に記録した）。"
+   }
+  ],
+  "difference_from_M1_ja": "M1 は 1280×720（16:9）で描画した。PaintingCam v1 は同じ 16:9・縦画角 26° を 1920×1080 で使う。原画は縦 1080 px（= 縦画角 26°）に合わせて中央に置く。"
+ },
+ "unity": {
+  "boatKey": "boat_mid",
+  "boatPosition": [
+   7.02562,
+   2.14815,
+   -14.94194
+  ],
+  "boatRotation": [
+   0.05318306,
+   -0.69576402,
+   0.34223731,
+   0.62925163
+  ],
+  "boatScale": 1.132835,
+  "probeLocal": [
+   0.0,
+   10.0,
+   3.0
+  ],
+  "eyeAboveDeck": 1.2,
+  "eyeNumpy": [
+   3.9544,
+   1.8323,
+   -15.0308
+  ],
+  "target": [
+   0.655,
+   12.0,
+   -11.155
+  ],
+  "fov": 80.0,
+  "waterMeshBin": "Build/ArtFirst/27R01/water/af27r01_right_slope.bin",
+  "keelY0": 1.95634,
+  "keelSlope": -0.64567,
+  "keelAxisH": [
+   -0.999514,
+   0.0,
+   0.031166
+  ],
+  "keelNormalH": [
+   -0.031166,
+   0.0,
+   -0.999514
+  ],
+  "keelRef": [
+   7.02562,
+   2.14815,
+   -14.94194
+  ],
+  "draft": 0.3806
+ }
+}
