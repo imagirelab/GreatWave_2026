@@ -1,0 +1,117 @@
+{
+ "schema": "GreatWave.Step27.run/1",
+ "generated_utc": "2026-09-25T20:00:48+00:00",
+ "cwd": "リポジトリ根（G:/Unity/GreatWave_2026_Fresh）",
+ "commands": [
+  "powershell -NoProfile -ExecutionPolicy Bypass -File Tools/GWContext/run_af27_unity.ps1 -Method GreatWave.ArtFirst.EditorTools.AF27ContextBuilder.Dump -Log dump",
+  "py -3.10 Tools/GWContext/af27_sky.py",
+  "py -3.10 Tools/GWContext/af27_place.py",
+  "powershell -NoProfile -ExecutionPolicy Bypass -File Tools/GWContext/run_af27_unity.ps1 -Method GreatWave.ArtFirst.EditorTools.AF27ContextScene.BuildAndRender -Log build_render",
+  "py -3.10 Tools/GWContext/af27_evidence.py（内部で Tools/PaintingTruth/evaluate.py と ffmpeg を呼ぶ）"
+ ],
+ "unity_lock_ja": "Unity は run_af27_unity.ps1 が Unity/Build/unity.lock を排他的に作ってから起動し、終了後に消した（同じプロジェクトで1プロセスだけ）。",
+ "tools": {
+  "python": "3.10.6",
+  "numpy": "2.2.6",
+  "opencv": "4.12.0",
+  "pillow": "12.0.0",
+  "unity": "6000.4.3f1",
+  "unity_device": "NVIDIA GeForce RTX 3080",
+  "unity_api": "Direct3D11",
+  "unity_color_space": "Linear",
+  "ffmpeg": "ffmpeg version 2024-12-19-git-494c961379-full_build-www.gyan.dev Copyright (c) 2000-2024 the FFmpeg developers",
+  "os": "Windows-10-10.0.26200-SP0",
+  "houdini": null,
+  "blender": null
+ },
+ "ffmpeg_resolved": {
+  "ffmpeg": "G:\\ffmpeg-2024-12-19-git-494c961379-full_build\\bin\\ffmpeg.exe",
+  "ffmpeg_source": "既定値",
+  "ffprobe": "G:\\ffmpeg-2024-12-19-git-494c961379-full_build\\bin\\ffprobe.exe",
+  "ffprobe_source": "ffmpeg と同じフォルダー"
+ },
+ "unity_render_seconds": 23.165525436401367,
+ "inputs": {
+  "Tools/GWContext/sky_dome.json": "a21f74ff763cc98647a8f09c42cfbfe583bf9fff8cfee8fad6bac4378e844597",
+  "Tools/GWContext/context_layout.json": "6c5ba436c5cb80a760215532bdd4daa9f5299e3dcf847e1aa1d93a6463714ba8",
+  "Tools/GWContext/manual_landmarks.json": "bd00ee6daa5d6dad47e9ea1b54d44ac3692204293bd91f3c85344e5622f5f5f4",
+  "Tools/GWContext/af27common.py": "4be716d44a027229032d6281c77fb50f0f71bf208e6a78ebc288a2fc8fef8e12",
+  "Tools/GWContext/af27_sky.py": "da7e8a80b7348c8ffbe9b78e17108f57b718b6434cd0e48854b18fe0a28e3a11",
+  "Tools/GWContext/af27_place.py": "dc0dbb105a53ed6427a940084028740f40057abfc1a1156dd33b540e63b4c972",
+  "Tools/GWContext/af27_evidence.py": "13de79e10115506ffc19d4bad6ef87a277588715f8465573320b086ce09a18cb",
+  "Tools/GWContext/run_af27_unity.ps1": "37b4bdaff4ce4873270a47458fe866e9cce7014851f80a05e41d969d9c3962fe",
+  "Unity/Assets/GreatWave/ArtFirst/Editor/AF27ContextBuilder.cs": "1166c0cfb88b50f4f2218b29382a0aa29bd5aa63c052e5a7ab8c5cc3ed63b6c5",
+  "Unity/Assets/GreatWave/ArtFirst/Editor/AF27ContextScene.cs": "246b1f8b6d591c8de8bc4137cce4946b5cf32a7a2193ec2fc29d6fe9d4b52d67",
+  "Unity/Assets/GreatWave/ArtFirst/Shaders/AF27Flat.shader": "26f03355b3cde72278d9feef937400b8cdacd683ac2252dc0e7a17f83fe51bd7",
+  "Unity/Assets/GreatWave/ArtFirst/Shaders/AF27SkyDome.shader": "6eb68116a01d9c004b612c1dc71d4194a2ea79b8db8bcd9d1a79056d38f9a62d",
+  "Tools/PaintingTruth/targets/truth_manifest.json": "8c99033e02c2cbeedec4cf8924e57fe89092c714569afa56c8c8965414880fbd",
+  "Tools/PaintingTruth/painting_truth.json": "392860ebeff76a7249056fc339b15e853c0155937efa4feee125f8f974f01c0a",
+  "Tools/PaintingTruth/evaluate.py": "6db4f84a59b4d99595de0449bdd884abe457be0a84d11c48f26df122e90710d2",
+  "Tools/PaintingTruth/truthlib.py": "a2886d5de2c1fac36d702076a57e0630db234c988fb413a70ea50beab6d1f0e1",
+  "Docs/Evidence/M1/Revision01/15_revision_layout.json": "d9dec4c9d5b4390782b844a0578c7aea805b198ca19e410961ba91208e3e14bc",
+  "Unity/Build/ArtFirst/24/wave/wave_v0.gwb": "752c03e138d34d2d028f6df7102fc4eba56c6458e3bcd17c1a7d5be47ae92642"
+ },
+ "outputs_committed": {
+  "Docs/Evidence/ArtFirst/27/27_boat_tstar.png": "41f7226f40105776a34b97dcf7f4c4b979a891095e8c105010e5bf4d4ea221c4",
+  "Docs/Evidence/ArtFirst/27/27_contact.png": "0ef9c855d73eb3016e923ca859a3b10e8e52fa9025246d69cbd5ebea6c3cdba0",
+  "Docs/Evidence/ArtFirst/27/27_contour_overlay.png": "3ac51cbc97837add23237eba25601f93ac4b48995bb68ef5ded2849c93259b37",
+  "Docs/Evidence/ArtFirst/27/27_formation_painting.mp4": "fed737b14dadec8c54c3e92e9dfba1ecb5cf769e0f1e9aed6e3c97e3e905c532",
+  "Docs/Evidence/ArtFirst/27/27_overview_tstar.png": "015ad9c14e4466f0653142ca955ea5d8faf0c1b095f84bb12ec11c75ecebc50a",
+  "Docs/Evidence/ArtFirst/27/27_painting_ids.png": "fa35ec949fb1949ac5f1e99e1a4bccd50d53e684553488479b7fdcf63ea7562b",
+  "Docs/Evidence/ArtFirst/27/27_painting_overlay.png": "d2813292d665f560eeef8e62ce3520da7fe56a06d35e708bf949281f05f9cf1b",
+  "Docs/Evidence/ArtFirst/27/27_painting_tstar.png": "abc5a93c2c2e54543e926eee47c6448aff5e0a6a1c080a4ba724bf4f93558384",
+  "Docs/Evidence/ArtFirst/27/27_side_tstar.png": "f3785cdebf0d886f0770bfe0074447af292962edc4712df0c7091dc28e949ae5",
+  "Docs/Evidence/ArtFirst/27/27_sky_detail.png": "83d0f8ad581aec469e0b58f838f329aeba1437e24ec4db1ed2858eac389911b1",
+  "Docs/Evidence/ArtFirst/27/27_sky_profile.png": "216e7d8c9999aec8145d345bf9ed4972ffe7bf654674df68b3c6fb9015cedd3a",
+  "Docs/Evidence/ArtFirst/27/metrics.json": "7dbca47b331e77edc5b4cc877cf47aac91babeba95d387affaf02d588e9065ba"
+ },
+ "unity_assets": {
+  "Unity/Assets/GreatWave/Scenes/Tests/AF27_Context.unity": "ff2c8e1a7667d91e5aac982f68f6b9937ad663217d8a3d8b7133ee1e55ca2c6c",
+  "Unity/Assets/GreatWave/ArtFirst/Prefabs/AF27_Context.prefab": "36671d2e273f24b9214df73ddc6df37503bd68681f2a31e64647a3c2a4f67309",
+  "Unity/Assets/GreatWave/ArtFirst/Prefabs/AF27_SkyDome.prefab": "a97a596b7fd6ac2a69ff30ba1fe8841e2b28d35f3f974d243c3d649a31f5a02f",
+  "Unity/Assets/GreatWave/ArtFirst/Materials/AF27_SkyDome.mat": "97443c3c8e252b1056f85b6e171a89a02a754323c72ab84290f476ac4eacc1fa",
+  "Unity/Assets/GreatWave/ArtFirst/Textures/AF27_SkyThetaT.asset": "0100684c8e30d8b46685522f774ad1fda6b1476f42a29fc6bd3c8caaa38fd0b6",
+  "Unity/Assets/GreatWave/ArtFirst/Textures/AF27_SkyGradient.asset": "221d5b2cb6bd9adbd61bdcf5e28425da2bf47915ad612f7e5f1ea52f5e9756e0",
+  "Unity/Assets/GreatWave/ArtFirst/Materials/AF27_Flat_ai_dark.mat": "8c576b847873410b35bd91a15c8eeb0dfc3b88cf4876c4933eac37ef58fcbfe6",
+  "Unity/Assets/GreatWave/ArtFirst/Materials/AF27_Flat_boat_ochre.mat": "aeddc759bcf217921cfadf9a9beb922ec155cfdde63382c62d2b516efd63c81b",
+  "Unity/Assets/GreatWave/ArtFirst/Materials/AF27_Flat_fuji_slope.mat": "ba3b2f4247ba72788aaed38dd505dfbd75ef9e3261e74276111db102964f4b70",
+  "Unity/Assets/GreatWave/ArtFirst/Materials/AF27_Flat_fuji_snow.mat": "8fc29c64115a287fd54c5d4741971f6e903fe67be89d831fff98a66cf3b056bc",
+  "Unity/Assets/GreatWave/ArtFirst/Materials/AF27_Flat_white.mat": "d5103c1e2618975ea7958e7013201518a3674bdebb3e9da26802c5e2a3a088ab"
+ },
+ "tools_outputs": {
+  "Tools/GWContext/sky_dome.json": "a21f74ff763cc98647a8f09c42cfbfe583bf9fff8cfee8fad6bac4378e844597",
+  "Tools/GWContext/context_layout.json": "6c5ba436c5cb80a760215532bdd4daa9f5299e3dcf847e1aa1d93a6463714ba8"
+ },
+ "not_committed": {
+  "Unity/Build/ArtFirst/27/27_painting_tstar.png": "abc5a93c2c2e54543e926eee47c6448aff5e0a6a1c080a4ba724bf4f93558384",
+  "Unity/Build/ArtFirst/27/27_painting_tstar_ids.png": "2a99779d8f5b7b8023fcc37ad5bef51cefafa0b1896492c6daa40591ca3492b4",
+  "Unity/Build/ArtFirst/27/27_idmap.json": "66e3e67e58ecf2e5176f4bb01481403e928700dccbcdf27d232fa86c565f6f09",
+  "Unity/Build/ArtFirst/27/27_boat_tstar.png": "41f7226f40105776a34b97dcf7f4c4b979a891095e8c105010e5bf4d4ea221c4",
+  "Unity/Build/ArtFirst/27/27_side_tstar.png": "f3785cdebf0d886f0770bfe0074447af292962edc4712df0c7091dc28e949ae5",
+  "Unity/Build/ArtFirst/27/27_overview_tstar.png": "015ad9c14e4466f0653142ca955ea5d8faf0c1b095f84bb12ec11c75ecebc50a",
+  "Unity/Build/ArtFirst/27/27_contact_boat_fg.png": "d043bddeb8821429e1c6c5de2a6bb5166e832c15706a7a71f0a68557f6c0f4ee",
+  "Unity/Build/ArtFirst/27/27_contact_boat_mid.png": "e261720b707876e204681161f5216ff6a6d25db2e7534f5e7f8ee4cea3a470f2",
+  "Unity/Build/ArtFirst/27/27_contact_boat_left.png": "c9d5a5204f1d582a8e01871c2f6ee80d5a609ddf7a457a819fad4f1e787e1d16",
+  "Unity/Build/ArtFirst/27/af27_build_report.json": "81805be3caa2566296da1d9862ab712a92c1c217f3d244d09892b6e6f450b4ba",
+  "Unity/Build/ArtFirst/27/af27_render_report.json": "84f45e74c85e0e5b1cfdc415297e44b5336497de4a6ccdebc6e65c9def7c195f",
+  "Unity/Build/ArtFirst/27/place/place_fit.json": "cba786ff815758c1ecd919c014d10d3550d003ac21d855c6af9d726acac0879e",
+  "Unity/Build/ArtFirst/27/place/place_fit.png": "552141502cfa833d6911426d682ae6229e204a2cce851c651cc8855777a817fe",
+  "Unity/Build/ArtFirst/27/sky/sky_prediction.json": "36fd01eb6bacbc3f52b509cd6292c26eb1b05a75ea0136110bc3014280053886",
+  "Unity/Build/ArtFirst/27/eval/metrics.json": "cc6c9a43df8df1c4b8773d7b09259dccf4aa484c8c109ebffb7cf170edea08bc",
+  "Unity/Build/ArtFirst/27/eval/27_painting_tstar_overlay.png": "3ac51cbc97837add23237eba25601f93ac4b48995bb68ef5ded2849c93259b37",
+  "Unity/Build/ArtFirst/27/dump/dump.json": "fc88b7b6e00341f7563212ed2a94cb265c76b90ceccee2aa6680ea4e9a8a0cc0"
+ },
+ "not_committed_frames": {
+  "dir": "Unity/Build/ArtFirst/27/frames_painting",
+  "count": 510,
+  "sha256_of_names_and_bytes": "ceadd739cc5a67b279f035aa2aaf14971dc11671c7f9fa6b552027d4bedc422d"
+ },
+ "not_committed_ja": "Unity/Build/ArtFirst/27/ は既存の .gitignore（/Unity/Build/）で Git 対象外。ID 画像（3840×2160）、Unity の生の描画、形成の全フレーム、評価器の生出力、報告 JSON。",
+ "reference_model_ja": "参照モデル（Q5 の wave_repair_zbrush2.obj）はこの番号では開いていない（D20 の既定値：船・前景の小波は 27/39 で使わない）。",
+ "post_review_edits_ja": [
+  "2026-09-26、コミット前の独立レビューの指摘で、次を実行の後に直した（Unity・評価器・af27_evidence.py の再実行はしていない。描画・画像・MP4・評価の数値は変えていない）。",
+  "metrics.json：boat_contacts の keel_max_above_surface_m は、竜骨の中線ではなく船の根の空間 z = +5 の端の船首／船尾材の 36 頂点を測っていたので、名前を plus_z_end_post_top_above_surface_m に改め、boat_contacts_note_ja を加えた（値は同じ）。items.213.note_ja の重複して矛盾する一文を除いた。af27_evidence.py も同じ名前と文を書くように直した。",
+  "AF27ContextScene.cs：Contacts() の注記（コメント）だけを、実際に選ばれる点に合わせて直した。コードは変えていない。",
+  "上の3ファイル（metrics.json、af27_evidence.py、AF27ContextScene.cs）の SHA-256 は、直した後のファイルの値に更新した。前提：番号23修正02（真値 v0.2・評価器・高解像度原画）。このコミットは 23修正02 の後に置く。"
+ ]
+}

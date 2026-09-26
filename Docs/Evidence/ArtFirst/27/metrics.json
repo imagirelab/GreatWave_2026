@@ -1,0 +1,664 @@
+{
+ "schema": "GreatWave.Step27.metrics/1",
+ "number": "27 空のドーム・船・富士の配置",
+ "generated_utc": "2026-09-25T20:00:48+00:00",
+ "truth_version": "v0.2",
+ "evidence_kind_ja": "Unity 6000.4.3f1 Editor（batchmode、Direct3D11、Linear、Built-in RP）の PC オフスクリーン描画と、その PNG を番号23 の評価器（ID モード）と numpy で測った結果。HMD 実機の結果ではない。主役波は番号24 の v0（t*）を仮に置いた。",
+ "evaluator": {
+  "metrics": "Unity/Build/ArtFirst/27/eval/metrics.json",
+  "provisional": false,
+  "provisional_ja": "番号23 の較正門（Docs/Evidence/ArtFirst/23/23_gate.json）は全項目合格で、門の後に真値は変わっていない。判定は暫定扱いしない。描画が t* の PaintingCam v1 画像であることは呼び出し側の責任。",
+  "command": "py -3.10 Tools/PaintingTruth/evaluate.py --render Unity/Build/ArtFirst/27/27_painting_tstar.png --ids Unity/Build/ArtFirst/27/27_painting_tstar_ids.png --idmap Unity/Build/ArtFirst/27/27_idmap.json --out-dir Unity/Build/ArtFirst/27/eval --name 27_painting_tstar"
+ },
+ "items": {
+  "76": {
+   "backlog": 76,
+   "requirement_ja": "暗い空の範囲が原画の対応領域から 4 px 以内、表示色の差 ΔE00 ≤ 5",
+   "value": {
+    "contour_max_px": 37.4511,
+    "contour_p95_px": 19.2985,
+    "worst_display_xy": [
+     1044.0,
+     744.36
+    ],
+    "color_dE00_sky_bottom": 0.289,
+    "boundary_breakdown_truth_to_render": {
+     "72": {
+      "n_truth_points": 358,
+      "max_truth_to_render_px": 2.6281,
+      "p95_truth_to_render_px": 1.5244
+     },
+     "boat_mid": {
+      "n_truth_points": 762,
+      "max_truth_to_render_px": 37.4511,
+      "p95_truth_to_render_px": 31.7328
+     },
+     "fuji_ridge": {
+      "n_truth_points": 678,
+      "max_truth_to_render_px": 5.6071,
+      "p95_truth_to_render_px": 5.3414
+     },
+     "other_waves": {
+      "n_truth_points": 790,
+      "max_truth_to_render_px": 24.0061,
+      "p95_truth_to_render_px": 22.3693
+     },
+     "transition": {
+      "n_truth_points": 1572,
+      "max_truth_to_render_px": 16.9325,
+      "p95_truth_to_render_px": 4.1707
+     }
+    }
+   },
+   "verdict": "fail",
+   "verdict_parts": {
+    "contour": "fail",
+    "color": "pass"
+   },
+   "note_ja": "評価器は暗い空の境界の全体（上の移行線と、下で波・富士・右船が空を遮る所）を 4 px で測る。色は合格。境界の最大は右船の船首の所（blockout の船が原画の三日月形と違う）で、内訳は boundary_breakdown（transition は空の中の移行線、boat_mid は右船、72・fuji_ridge・other_waves はそれぞれ主役波の内側・富士・その他の波が遮る所）。"
+  },
+  "212": {
+   "backlog": 212,
+   "requirement_ja": "画面上方が水平線付近より明るく、上方の表示色と原画との色差 ΔE00 ≤ 5",
+   "value": {
+    "color_dE00_sky_top": 0.2714,
+    "render_lab_sky_top": [
+     92.174,
+     -0.02,
+     19.182
+    ],
+    "L_upper_minus_L_horizon": 38.446
+   },
+   "verdict": "pass"
+  },
+  "213": {
+   "backlog": 213,
+   "requirement_ja": "空の明暗移行域のずれ ≤ 4 px、余分な帯状段差がない。波と船の既定配色は ΔE00 ≤ 5",
+   "value": {
+    "transition_max_px": 16.9325,
+    "transition_p95_px": 1.8594,
+    "worst_display_xy": [
+     895.0,
+     668.4
+    ],
+    "transition_max_px_excluding_spray_dip": 2.9482,
+    "transition_p95_px_excluding_spray_dip": 1.22,
+    "band_step_render_minus_float_dome_max_8bit": 0.7216,
+    "band_step_lut_smoothness": {
+     "max_dL_per_display_px": 0.5819,
+     "max_second_diff_L_per_px2": 0.0468
+    },
+    "band_step_adjacent_rows_dE00_max_record": 1.2706,
+    "band_step_adjacent_rows_dE00_p99_record": 0.8183,
+    "band_step_painting_adjacent_rows_dE00_p99_record": 6.2946,
+    "boat_ochre_region_dE00_evaluator": 0.1332,
+    "boat_pixels_median_dE00_vs_palette": 0.1332,
+    "nonsky_pixels_nearest_palette_dE00_fraction": {
+     "le_1": 0.995,
+     "le_5": 0.9968,
+     "n_distinct_colours": 218
+    }
+   },
+   "verdict": "fail",
+   "verdict_parts": {
+    "transition_4px": "fail",
+    "band_step": "pass",
+    "default_colours_boat": "pass"
+   },
+   "note_ja": "移行線の最大は表示 (895, 668) の 1 か所（原画の飛沫の白点が暗い空の帯の上端にかかり、真値の移行線が約 17 px くぼむ所）。そこを除くと最大は transition_max_px_excluding_spray_dip。段差は、描画の空が量子化前のドームの式から 8bit で 1 段を超えて外れないこと（量子化の段だけ）と、色の表が滑らかなこと（band_step_lut_smoothness）で見た。この基準はこの番号で決めた読み方で、バックログに数値はない。隣り合う画素の ΔE00（記録）は原画のぼかしの急な所で 1 を少し超えるが、原画自体の隣り合う画素の差（紙の質感）より小さい。波の既定配色は番号24 v0 の仮の平塗り（真値 v0.1 の調色板の 8bit 値で、v0.2 と 1 段違う色がある）なので、非空の画素ごとに最も近い調色板の色との ΔE00 を測り、≤1・≤5 の画素の割合を記録した（残りは MSAA の縁の混色）。"
+  },
+  "94": {
+   "backlog": 94,
+   "requirement_ja": "原画構図の観察位置と向きは全形成区間で一定",
+   "value": {
+    "frames": 510,
+    "max_position_delta_m": 0.0,
+    "max_angle_delta_deg": 0.0,
+    "max_fov_delta_deg": 0.0,
+    "max_projection_matrix_delta": 0.0,
+    "max_view_matrix_delta": 0.0,
+    "camera_position": {
+     "x": 0.0,
+     "y": 3.0,
+     "z": -62.0
+    },
+    "camera_euler": {
+     "x": 354.20758056640625,
+     "y": 357.83074951171875,
+     "z": -1.3408675059167763e-08
+    },
+    "sky_patch_max_abs_diff_8bit_vs_tstar": 0
+   },
+   "verdict": "pass",
+   "note_ja": "形成の全 510 フレーム（30 Hz、0〜17 s）で PaintingCam の位置・回転・画角・投影行列・ビュー行列を毎フレーム記録し、最初の値との差の最大。sky_patch は右上の空の区画（x 1650〜1909、y 10〜99）の画素が全フレームで t* と同じか（空のドームが世界に固定され、波の形成で変わらない）。"
+  },
+  "74": {
+   "backlog": 74,
+   "value": {
+    "value_max_px": 5.7562,
+    "p95_px": 5.3092,
+    "worst_display_xy": [
+     1265.38,
+     768.0
+    ]
+   },
+   "verdict": "record-only",
+   "note_ja": "富士の稜線（fuji_zone 内の空境界、爪入り版）。報告項目。"
+  },
+  "161": {
+   "backlog": 161,
+   "value": {
+    "value_max_px": 5.7562,
+    "p95_px": 5.3092
+   },
+   "fuji_height_m": 20.191,
+   "fuji_base_width_m": 58.24,
+   "verdict": "record-only"
+  },
+  "162": {
+   "backlog": 162,
+   "value": {
+    "fuji_snow_dE00": 64.4401,
+    "fuji_slope_dE00": 0.1517
+   },
+   "verdict": "record-only",
+   "note_ja": "原画の雪の領域の中央値と比べるので、blockout の雪の形（頂だけ）が原画（山の上半分が白）と違う分がそのまま出る。"
+  },
+  "75": {
+   "backlog": 75,
+   "value": {
+    "value_max_px": 141.358,
+    "p95_px": 85.7144,
+    "worst_display_xy": [
+     1490.95,
+     941.0
+    ]
+   },
+   "verdict": "record-only"
+  },
+  "157": {
+   "backlog": 157,
+   "value": {
+    "value_max_px": "inf",
+    "p95_px": "inf"
+   },
+   "verdict": "record-only",
+   "note_ja": "左奥の船は、仮に置いた番号24 v0 の主役波に全部隠れる（描画側の境界なし＝inf）。番号26 の K* で左下の波の形が決まってから測り直す。"
+  },
+  "159": {
+   "backlog": 159,
+   "value": {
+    "value_max_px": 218.2311,
+    "p95_px": 171.4291,
+    "worst_display_xy": [
+     1049.28,
+     752.0
+    ]
+   },
+   "verdict": "record-only"
+  },
+  "other_evaluator_items_record": {
+   "78": {
+    "verdict_evaluator": "pass",
+    "measures": [
+     {
+      "target": "78",
+      "version": "envelope",
+      "value_max_px": 0.7582,
+      "p95_px": 0.6366,
+      "value": null
+     }
+    ]
+   },
+   "130": {
+    "verdict_evaluator": "pass",
+    "measures": [
+     {
+      "target": "130",
+      "version": "envelope",
+      "value_max_px": 0.505,
+      "p95_px": 0.3795,
+      "value": null
+     }
+    ]
+   },
+   "131": {
+    "verdict_evaluator": "pass",
+    "measures": [
+     {
+      "target": "131",
+      "version": "envelope",
+      "value_max_px": 0.6735,
+      "p95_px": 0.5267,
+      "value": null
+     }
+    ]
+   },
+   "132": {
+    "verdict_evaluator": "pass",
+    "measures": [
+     {
+      "target": "132",
+      "version": "envelope",
+      "value_max_px": 1.048,
+      "p95_px": 0.6196,
+      "value": null
+     }
+    ]
+   },
+   "72": {
+    "verdict_evaluator": "fail",
+    "measures": [
+     {
+      "target": "72",
+      "version": "envelope",
+      "value_max_px": 9.543,
+      "p95_px": 3.4217,
+      "value": null
+     }
+    ]
+   },
+   "71": {
+    "verdict_evaluator": "fail",
+    "measures": [
+     {
+      "target": "71",
+      "version": "envelope",
+      "value_max_px": 37.4944,
+      "p95_px": 11.8833,
+      "value": null
+     }
+    ]
+   },
+   "265": {
+    "verdict_evaluator": "record-only",
+    "measures": [
+     {
+      "target": "mizuiro",
+      "version": null,
+      "value_max_px": null,
+      "p95_px": null,
+      "value": 58.9557
+     },
+     {
+      "target": "ai_mid",
+      "version": null,
+      "value_max_px": null,
+      "p95_px": null,
+      "value": 15.2096
+     }
+    ]
+   }
+  }
+ },
+ "sky_dome": {
+  "theta0_deg": 2.886776,
+  "json": "Tools/GWContext/sky_dome.json",
+  "unity_vs_numpy_prediction": {
+   "max_abs_8bit": 1,
+   "dE00_max": 1.3022,
+   "dE00_p99": 0.7185,
+   "n_pixels": 868587,
+   "note_ja": "Unity のシェーダーの出力と numpy の式（af27_sky.Dome）の差。空の画素（ID の空を 2 px 縮めた内側）。"
+  }
+ },
+ "boats": {
+  "boat_fg": {
+   "role_ja": "手前の船（座席のある船）",
+   "depth_plane_m": 29.4761,
+   "position": [
+    1.25663,
+    -0.22075,
+    -32.24988
+   ],
+   "rotation_quat_xyzw": [
+    0.00981352,
+    -0.72272873,
+    -0.04657451,
+    0.68949089
+   ],
+   "scale": 0.844624,
+   "tip_to_tip_length_m": 8.446,
+   "roll_about_axis_deg": -4.506,
+   "iou_target": 0.385,
+   "iou_m1_revision01": 0.2049,
+   "fit": "iou",
+   "tips_used_px": [
+    [
+     820.187,
+     896.57
+    ],
+    [
+     1489.107,
+     938.841
+    ]
+   ],
+   "landmarks_px": [
+    [
+     815.0,
+     824.0
+    ],
+    [
+     1476.0,
+     935.0
+    ]
+   ],
+   "keel_mid_point": [
+    1.2566,
+    -0.2208,
+    -32.2499
+   ],
+   "draft_m": 0.2838
+  },
+  "boat_mid": {
+   "role_ja": "右の船（番号24 の主断面と同じ深さ）",
+   "depth_plane_m": 59.1131,
+   "position": [
+    9.06056,
+    1.90141,
+    -1.31179
+   ],
+   "rotation_quat_xyzw": [
+    0.05318306,
+    -0.69576402,
+    0.34223731,
+    0.62925163
+   ],
+   "scale": 1.460956,
+   "tip_to_tip_length_m": 14.61,
+   "roll_about_axis_deg": 25.0,
+   "iou_target": 0.0775,
+   "iou_m1_revision01": 0.0,
+   "fit": "stern_line",
+   "tips_used_px": [
+    [
+     1113.085,
+     899.625
+    ],
+    [
+     1600.0,
+     588.0
+    ]
+   ],
+   "landmarks_px": [
+    [
+     1043.8,
+     745.6
+    ],
+    [
+     1600.0,
+     588.0
+    ]
+   ],
+   "keel_mid_point": [
+    9.0606,
+    1.9014,
+    -1.3118
+   ],
+   "draft_m": 0.4909
+  },
+  "boat_left": {
+   "role_ja": "左奥の船",
+   "depth_plane_m": 50.3029,
+   "position": [
+    -15.29231,
+    4.8216,
+    -12.53002
+   ],
+   "rotation_quat_xyzw": [
+    -0.19741692,
+    -0.713191,
+    -0.27414933,
+    0.61418833
+   ],
+   "scale": 0.9981,
+   "tip_to_tip_length_m": 9.981,
+   "roll_about_axis_deg": -4.119,
+   "iou_target": 0.2022,
+   "iou_m1_revision01": 0.0343,
+   "fit": "iou",
+   "tips_used_px": [
+    [
+     208.423,
+     480.0
+    ],
+    [
+     563.582,
+     778.776
+    ]
+   ],
+   "landmarks_px": [
+    [
+     206.7,
+     513.3
+    ],
+    [
+     590.0,
+     775.0
+    ]
+   ],
+   "keel_mid_point": [
+    -15.2923,
+    4.8216,
+    -12.53
+   ],
+   "draft_m": 0.3354
+  }
+ },
+ "boat_contacts": {
+  "boat_fg": {
+   "support": "AF27 参照海面",
+   "keel_mid_below_surface_m": 0.1508,
+   "lowest_hull_below_surface_m": 0.266,
+   "plus_z_end_post_top_above_surface_m": 1.542,
+   "pass_keel_mid_in_contact": true
+  },
+  "boat_mid": {
+   "support": "M1_Revision_RightSlope",
+   "keel_mid_below_surface_m": 0.4909,
+   "lowest_hull_below_surface_m": 2.8845,
+   "plus_z_end_post_top_above_surface_m": -1.5665,
+   "pass_keel_mid_in_contact": true
+  },
+  "boat_left": {
+   "support": "M1_Revision_LeftSupport",
+   "keel_mid_below_surface_m": 0.3354,
+   "lowest_hull_below_surface_m": 0.7726,
+   "plus_z_end_post_top_above_surface_m": 2.9606,
+   "pass_keel_mid_in_contact": true
+  }
+ },
+ "boat_contacts_note_ja": "keel_mid_below_surface_m は竜骨の中央（船の根の原点）が支えの面より下にある量、lowest_hull_below_surface_m は船体の最も低い頂点が面より下にある量。plus_z_end_post_top_above_surface_m は、船の根の空間 z = +5 の端の船首／船尾材の 36 頂点が面より上に出ている量の最大（ほぼ材の最上点）で、竜骨（船底の線）の浮きの量ではない（最初の版では keel_max_above_surface_m と誤って名付けていた）。船底の線の面からの高さは Step_27 の接地の表を見る。",
+ "boats_no_longer_floating": true,
+ "seat": {
+  "boat": "boat_fg（M1 foreground boat）",
+  "eye_world_new": [
+   2.9554,
+   1.1602,
+   -32.152
+  ],
+  "eye_world_m1_revision01": [
+   -0.707,
+   1.5143,
+   -33.407
+  ],
+  "eye_moved_m": 3.8876,
+  "eye_delta": [
+   3.6624,
+   -0.3541,
+   1.255
+  ],
+  "eye_unity": [
+   2.955397129058838,
+   1.160244345664978,
+   -32.152008056640625
+  ],
+  "eye_unity_minus_numpy_m": 4.508822530624457e-05,
+  "rule_ja": "M1RevisionBuilder と同じく船の根の局所 (0,10,−2) から甲板（Boat_Deck_Planks）を測り、その 1.2 m 上（世界の上向き）。測る向きは世界の真下ではなく船の局所の下向き（船が傾いても甲板に当たるように。傾きがなければ同じ）。"
+ },
+ "fuji": {
+  "position": [
+   26.31827,
+   -0.1,
+   420.0
+  ],
+  "scale": [
+   2.42666,
+   2.52383,
+   2.42666
+  ],
+  "depth_plane_m": 477.891,
+  "loss_mean_plus_quarter_max_px": 6.7325,
+  "iterations": 59,
+  "m1": {
+   "position": [
+    37.0,
+    -0.1,
+    420.0
+   ],
+   "scale": 2.0
+  },
+  "height_m": 20.191,
+  "base_width_m": 58.24
+ },
+ "placeholders": {
+  "M1_ForegroundSwell_Static": {
+   "translate_y": 0.0,
+   "materials": [
+    {
+     "submesh": 0,
+     "m1_material": "M1_Blue",
+     "palette": "white",
+     "srgb8": [
+      251,
+      246,
+      227
+     ],
+     "rule_ja": "青 → 原画でこの面の下に最も多い水の色",
+     "painting_class_pixels": {
+      "white": 75543,
+      "mizuiro": 38499,
+      "ai_mid": 25259,
+      "ai_dark": 28881
+     }
+    }
+   ]
+  },
+  "M1_ForegroundFoam_Static": {
+   "translate_y": 0.0,
+   "materials": [
+    {
+     "submesh": 0,
+     "m1_material": "M1_FoamCream",
+     "palette": "white",
+     "srgb8": [
+      251,
+      246,
+      227
+     ],
+     "rule_ja": "白泡 → 白",
+     "painting_class_pixels": {
+      "white": 14154,
+      "mizuiro": 3742,
+      "ai_mid": 1733,
+      "ai_dark": 3036
+     }
+    }
+   ]
+  },
+  "M1_Revision_RightSlope": {
+   "translate_y": 1.6126,
+   "materials": [
+    {
+     "submesh": 0,
+     "m1_material": "M1_Blue",
+     "palette": "white",
+     "srgb8": [
+      251,
+      246,
+      227
+     ],
+     "rule_ja": "青 → 原画でこの面の下に最も多い水の色",
+     "painting_class_pixels": {
+      "white": 35225,
+      "mizuiro": 20858,
+      "ai_mid": 17911,
+      "ai_dark": 11127
+     }
+    },
+    {
+     "submesh": 1,
+     "m1_material": "M1_Indigo",
+     "palette": "ai_dark",
+     "srgb8": [
+      34,
+      63,
+      96
+     ],
+     "rule_ja": "藍・濃い青 → 藍濃",
+     "painting_class_pixels": {
+      "white": 47619,
+      "mizuiro": 38462,
+      "ai_mid": 28973,
+      "ai_dark": 25918
+     }
+    }
+   ]
+  },
+  "M1_Revision_LeftSupport": {
+   "translate_y": 1.7428,
+   "materials": [
+    {
+     "submesh": 0,
+     "m1_material": "M1_Blue",
+     "palette": "white",
+     "srgb8": [
+      251,
+      246,
+      227
+     ],
+     "rule_ja": "青 → 原画でこの面の下に最も多い水の色",
+     "painting_class_pixels": {
+      "white": 12060,
+      "mizuiro": 7679,
+      "ai_mid": 3852,
+      "ai_dark": 1893
+     }
+    },
+    {
+     "submesh": 1,
+     "m1_material": "M1_Indigo",
+     "palette": "ai_dark",
+     "srgb8": [
+      34,
+      63,
+      96
+     ],
+     "rule_ja": "藍・濃い青 → 藍濃",
+     "painting_class_pixels": {
+      "white": 54604,
+      "mizuiro": 28165,
+      "ai_mid": 11631,
+      "ai_dark": 12121
+     }
+    }
+   ]
+  }
+ },
+ "id_image": {
+  "distinct_colors": 4,
+  "path_not_committed": "Unity/Build/ArtFirst/27/27_painting_tstar_ids.png",
+  "sha256": "2a99779d8f5b7b8023fcc37ad5bef51cefafa0b1896492c6daa40591ca3492b4"
+ },
+ "mp4": {
+  "path": "Docs/Evidence/ArtFirst/27/27_formation_painting.mp4",
+  "info": {
+   "codec_name": "h264",
+   "width": 1920,
+   "height": 1080,
+   "r_frame_rate": "30/1",
+   "duration": "17.000000",
+   "nb_read_frames": "510"
+  }
+ }
+}
