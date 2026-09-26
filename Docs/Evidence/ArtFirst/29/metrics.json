@@ -1,0 +1,289 @@
+{
+ "schema": "GreatWave.ArtFirst.metrics/1",
+ "number": "29",
+ "version": "draft1",
+ "note_ja": "番号29 の草稿（CP1 用）。受入の数値は完成版（10/4）の目標で、草稿では記録のみ。どのバックログ項目も合格にしていない。",
+ "plan_ja": "作業計画 4.2 の 29（B線、上限 2 日、9/29〜10/4）。この草稿の時間枠は 1 日。バックログ 95〜98、122〜129、136〜139、240〜256 の前提（爪の一覧）で、この番号自体はバックログ項目を判定しない。",
+ "evidence_kind_ja": "Met 原画（高解像度 DP130155）の numpy/OpenCV 計算と、その重ね図。Unity・Blender・Houdini は使っていない。参照モデル（Q5）は読んでいない。",
+ "items": [
+  {
+   "item": "29受入：一覧から描き直した爪の和集合と原画の白領域の IoU",
+   "target": "≥ 0.85（完成版）",
+   "value": 0.8766,
+   "value_other": {
+    "all_zones": {
+     "target_claw_white_ref_px": 287255,
+     "target_all_white_ref_px": 513230,
+     "body_white_ref_px": 225975,
+     "iou_all_parts_vs_claw_white": 0.8716,
+     "recall_all_parts": 0.9326,
+     "precision_all_parts": 0.9302,
+     "iou_fingers_stems_vs_claw_white": 0.6484,
+     "iou_fingers_only_vs_claw_white": 0.4404,
+     "iou_outline_polygons_vs_claw_white": 0.4561,
+     "iou_all_parts_plus_body_polygons_vs_all_white": 0.9227,
+     "reference_whole_skeleton_mat_iou_vs_claw_white": 0.9484
+    },
+    "main": {
+     "target_claw_white_ref_px": 234615,
+     "target_all_white_ref_px": 357782,
+     "body_white_ref_px": 123167,
+     "iou_all_parts_vs_claw_white": 0.8766,
+     "recall_all_parts": 0.9377,
+     "precision_all_parts": 0.9308,
+     "iou_fingers_stems_vs_claw_white": 0.6946,
+     "iou_fingers_only_vs_claw_white": 0.4542,
+     "iou_outline_polygons_vs_claw_white": 0.4717,
+     "iou_all_parts_plus_body_polygons_vs_all_white": 0.9157,
+     "reference_whole_skeleton_mat_iou_vs_claw_white": 0.9473
+    },
+    "right": {
+     "target_claw_white_ref_px": 52640,
+     "target_all_white_ref_px": 155448,
+     "body_white_ref_px": 102808,
+     "iou_all_parts_vs_claw_white": 0.8494,
+     "recall_all_parts": 0.9099,
+     "precision_all_parts": 0.9274,
+     "iou_fingers_stems_vs_claw_white": 0.4392,
+     "iou_fingers_only_vs_claw_white": 0.3786,
+     "iou_outline_polygons_vs_claw_white": 0.3865,
+     "iou_all_parts_plus_body_polygons_vs_all_white": 0.9392,
+     "reference_whole_skeleton_mat_iou_vs_claw_white": 0.9534
+    },
+    "display_all_zones": {
+     "iou_all_parts_vs_claw_white": 0.8689,
+     "iou_fingers_only_vs_claw_white": 0.3484
+    }
+   },
+   "verdict": "記録のみ（草稿）",
+   "note_ja": "主の値は主浪の波頭の範囲で、指＋幹＋根元の白（base_web）を一覧だけから描き直した和集合と、波頭の平らな白（半径 45 px の円で開いて残る厚い塊）を除いた原画の白（爪の白）の IoU（高解像度 px）。同じ範囲で、指＋幹だけは 0.6946、指だけは 0.4542、輪郭の多角形の和は 0.4717。右側の範囲（白と水色を合わせた面が対象）、2 つの範囲の合計、白の全体（平らな白の多角形を足す）、表示解像度の値も value_other に記す。reference_whole_skeleton_mat は、とげを除いた骨格の全体の内接円の和と白の共通部分（骨格で表せる白の上限の目安）。"
+  },
+  {
+   "item": "29受入：爪の数（backlog 139『配置した約150本』）",
+   "target": "150 ± 15（完成版）",
+   "value": 135,
+   "value_other": {
+    "main_wave_total": 135,
+    "right_side_total": 25,
+    "all_total": 160,
+    "by_row": {
+     "上側": 61,
+     "途中": 27,
+     "船側": 47,
+     "右側": 25
+    },
+    "silhouette_by_row": {
+     "上側": 1,
+     "途中": 6,
+     "船側": 14,
+     "右側": 0
+    },
+    "over_indigo_by_row": {
+     "上側": 7,
+     "途中": 0,
+     "船側": 6,
+     "右側": 18
+    },
+    "base_web_pieces_not_counted": 211,
+    "excluded_candidates_not_counted": 66
+   },
+   "verdict": "記録のみ（草稿）",
+   "note_ja": "主の値は主浪の 3 列（上側・途中・船側）の本数。backlog 139 は主浪の爪の群（B022）の項目なので、右側の波の爪（backlog 240〜256、B055）は別に数えた。両方を足した値も記す。どちらを 150 と比べるかは CP2 で利用者に確かめる。"
+  },
+  {
+   "item": "29受入：代表10形の長短の順序を自動で出力できる",
+   "target": "出力できる",
+   "value": [
+    "C010",
+    "C079",
+    "C082",
+    "C011",
+    "C057",
+    "C059",
+    "C132",
+    "C090",
+    "C108",
+    "C113"
+   ],
+   "verdict": "記録のみ（草稿。候補の選定は利用者の CP2 確認待ち）",
+   "note_ja": "claw_inventory_draft.json の representative_candidates に長さ・根元幅・中央幅の順を出力した。"
+  },
+  {
+   "item": "29：船側中央の爪の候補（backlog 95〜98 の対象）",
+   "target": "利用者が CP2 で指定",
+   "value": [
+    "C098",
+    "C096",
+    "C099"
+   ],
+   "verdict": "記録のみ（候補）"
+  },
+  {
+   "item": "123/124/125/126（代表10形）、122/127/128（各列の根元・先端）、261（隙間）、95〜98（船側中央）、240/243/246（右側）",
+   "target": "番号33・40 で ≤4 px を判定",
+   "value": "一覧に根元・先端・幅・向き・隙間を記録",
+   "verdict": "記録のみ（判定は番号33 など）"
+  },
+  {
+   "item": "自作 Zhang–Suen の確認（合成図形 2 種、原画の白の位相、太さ 2 の残り）",
+   "target": "長方形→中央の 1 本線、穴あき円板と原画の白→成分と穴の数が細線化の前後で同じ、太さ 2 の残り 0",
+   "value": {
+    "selftest": {
+     "rectangle_21x101": {
+      "skeleton_px": 80,
+      "row_min": 20,
+      "row_max": 20,
+      "centre_row": 20,
+      "x_span": [
+       30,
+       109
+      ],
+      "pass": true
+     },
+     "annulus_r15_40": {
+      "components_mask": 1,
+      "components_skeleton": 1,
+      "background_regions_mask": 2,
+      "background_regions_skeleton": 2,
+      "blocks_2x2": 0,
+      "pass": true
+     },
+     "thin_final_staircase": {
+      "removed_px": 7,
+      "px_before": 16,
+      "px_after": 9,
+      "extent_kept": true,
+      "topology_kept": true,
+      "pass": true
+     },
+     "thin_final_block_junction": {
+      "removed_px": 1,
+      "blocks_2x2_after": 0,
+      "pass": true
+     }
+    },
+    "white_vs_skeleton": {
+     "main": {
+      "before_prune": {
+       "components_mask": 11,
+       "components_skeleton": 11,
+       "background_regions_mask": 22,
+       "background_regions_skeleton": 22,
+       "blocks_2x2": 0
+      },
+      "after_prune": {
+       "components_mask": 11,
+       "components_skeleton": 11,
+       "background_regions_mask": 22,
+       "background_regions_skeleton": 22,
+       "blocks_2x2": 0
+      }
+     },
+     "right": {
+      "before_prune": {
+       "components_mask": 1,
+       "components_skeleton": 1,
+       "background_regions_mask": 40,
+       "background_regions_skeleton": 40,
+       "blocks_2x2": 0
+      },
+      "after_prune": {
+       "components_mask": 1,
+       "components_skeleton": 1,
+       "background_regions_mask": 40,
+       "background_regions_skeleton": 40,
+       "blocks_2x2": 0
+      }
+     }
+    },
+    "thin_final_removed_px": {
+     "main": 1827,
+     "right": 832
+    }
+   },
+   "verdict": "合格",
+   "note_ja": "とげの除去の後は、端の枝を除くので成分の数が変わることがある（after_prune は記録のみ）。"
+  },
+  {
+   "item": "空マスクの一致（番号23 真値 v0.2 の sky_claws_cov.png と、同じ手順で作り直した空の表示被覆率の差の最大）",
+   "target": "0（同じ真値を使っている確認）",
+   "value": 0.0,
+   "verdict": "合格"
+  }
+ ],
+ "zones": {
+  "main": {
+   "zhang_suen_iterations": 79,
+   "thin_final_removed_px": 1827,
+   "skeleton_px_before_prune": 17080,
+   "skeleton_px_after_prune": 16283,
+   "edges_before_prune": 490,
+   "terminal_edges_before_prune": 271,
+   "spurs_removed_per_round": [
+    76,
+    0
+   ],
+   "edges_after_prune": 345,
+   "junction_clusters_after_prune": 245,
+   "topology_white_vs_skeleton_before_prune": {
+    "components_mask": 11,
+    "components_skeleton": 11,
+    "background_regions_mask": 22,
+    "background_regions_skeleton": 22,
+    "blocks_2x2": 0
+   },
+   "topology_white_vs_skeleton_after_prune": {
+    "components_mask": 11,
+    "components_skeleton": 11,
+    "background_regions_mask": 22,
+    "background_regions_skeleton": 22,
+    "blocks_2x2": 0
+   },
+   "white_ref_px": 357782,
+   "body_ref_px": 123167,
+   "strokes_total": 262,
+   "strokes_with_endpoint": 188,
+   "strokes_junction_both_ends": 74,
+   "claws": 135,
+   "excluded": 53,
+   "webs": 145
+  },
+  "right": {
+   "zhang_suen_iterations": 36,
+   "thin_final_removed_px": 832,
+   "skeleton_px_before_prune": 6814,
+   "skeleton_px_after_prune": 6767,
+   "edges_before_prune": 143,
+   "terminal_edges_before_prune": 40,
+   "spurs_removed_per_round": [
+    2,
+    0
+   ],
+   "edges_after_prune": 139,
+   "junction_clusters_after_prune": 114,
+   "topology_white_vs_skeleton_before_prune": {
+    "components_mask": 1,
+    "components_skeleton": 1,
+    "background_regions_mask": 40,
+    "background_regions_skeleton": 40,
+    "blocks_2x2": 0
+   },
+   "topology_white_vs_skeleton_after_prune": {
+    "components_mask": 1,
+    "components_skeleton": 1,
+    "background_regions_mask": 40,
+    "background_regions_skeleton": 40,
+    "blocks_2x2": 0
+   },
+   "white_ref_px": 155448,
+   "body_ref_px": 102808,
+   "strokes_total": 96,
+   "strokes_with_endpoint": 38,
+   "strokes_junction_both_ends": 58,
+   "claws": 25,
+   "excluded": 13,
+   "webs": 66
+  }
+ },
+ "zones_note_ja": "計算時間（*_s）は run.json の zones に記す（metrics.json は同じ入力で同じバイト列になるようにする）。"
+}

@@ -1,0 +1,126 @@
+{
+ "schema": "GreatWave.ArtFirst.run/1",
+ "number": "29",
+ "version": "draft1",
+ "generated_utc": "2026-09-25T20:26:18+00:00",
+ "command": "py -3.10 Tools/PaintingTruth/claws29/af29_claw_inventory.py --evidence Docs/Evidence/ArtFirst/29",
+ "tools": {
+  "python": "3.10.6",
+  "numpy": "2.2.6",
+  "opencv": "4.12.0",
+  "pillow": "12.0.0",
+  "os": "Windows-10-10.0.26200-SP0"
+ },
+ "reference_model_used": false,
+ "inputs_sha256": {
+  "Docs/References/Met_JP1847_DP130155.jpg": "cbb9988f2f18b9180a1cc0cf5dbb0e3bbf8f2e85d17930cf6ca9ab36fac36303",
+  "Tools/PaintingTruth/painting_truth.json": "392860ebeff76a7249056fc339b15e853c0155937efa4feee125f8f974f01c0a",
+  "Tools/PaintingTruth/manual_annotations.json": "019ae34b8f4de577f34253465554b723f9e1fb3e5433fb77072878937e962a49",
+  "Tools/PaintingTruth/truthlib.py": "a2886d5de2c1fac36d702076a57e0630db234c988fb413a70ea50beab6d1f0e1",
+  "Tools/PaintingTruth/targets/palette.json": "2e550bf3c60eb16ef5d4a37e35c315882a1a05dd6accb79bdea3f5f3f7a90056",
+  "Tools/PaintingTruth/targets/main_wave_outline_envelope.json": "39e085da821ea453ef4549d00cde074086c98a5f6bf9919425beea82eba1eb00",
+  "Tools/PaintingTruth/targets/masks/sky_claws_cov.png": "443586a3a505d9d38a5f851ff712ee1b6c1bbdf546cfd6bfded2311369e4ae3a",
+  "Tools/PaintingTruth/claws29/af29_params.json": "0588ae04b021f58967f8a52dfd6b2abd46ac187849a9d24c8834739100bd44a4",
+  "Tools/PaintingTruth/claws29/af29_skeleton.py": "a0541324545e5f0ec7a933cbca1404e6f917490af0f81c0adaa0b36603b2fd2f",
+  "Tools/PaintingTruth/claws29/af29_claw_inventory.py": "1c5fbfe0c67bc64111bb247b69e9960305178af857dba62bdfc3565f0cb9de36"
+ },
+ "outputs_sha256": {
+  "Tools/PaintingTruth/claws29/claw_inventory_draft.json": "897da444adccd98b8b42eee7afbdd065199327110bb9ef88478eb9d1edb790e6",
+  "Docs/Evidence/ArtFirst/29/29_claws_overlay_display.png": "cf71adaec64efeecec5afef7ee70faa9501099c7fcb1bbf92bedbca94bdb04ea",
+  "Docs/Evidence/ArtFirst/29/29_claws_overlay_crest.png": "2740cc1e10959fa7f4037a41ec9cfcc08615b6db341a6d3aac2111f56acb3aa5",
+  "Docs/Evidence/ArtFirst/29/29_claws_zoom_boatside.png": "de085026ee1d556f547798eb6fbdaf0c7f27647b925808fa0e982a9d5b9c1be5",
+  "Docs/Evidence/ArtFirst/29/29_claws_zoom_middle.png": "a95c55e7de672fdb79e4e438a096f1c4d02252c6e4f37890602308a1c17ced25",
+  "Docs/Evidence/ArtFirst/29/29_claws_zoom_upper.png": "54fa5ab87bf91895be1105aa00c934f950d2373c70a0c4af6d9b68a2689090f4",
+  "Docs/Evidence/ArtFirst/29/29_claws_zoom_right.png": "10105f3445a0c3c938f0c021ef158271ec9e0da9760948a74a3ab8e9468c184d",
+  "Docs/Evidence/ArtFirst/29/29_skeleton.png": "ed96f38ae57c86f3f2779a4645f805a44c49ed04d99f7d8a9f3537da243c5210",
+  "Docs/Evidence/ArtFirst/29/29_union_iou.png": "cbd7d1115daa85a0fdb669ce8a58f84f0df581c30be800dbaea9ca0aa2cdb333",
+  "Docs/Evidence/ArtFirst/29/29_representative_candidates.png": "066789f54d0c6d8d8b1cb0947691266eac54664838e98fc47c7d7eabf2e8dee9",
+  "Docs/Evidence/ArtFirst/29/metrics.json": "0d8250b9fea89dcf27c41859e1ac36f4eef4469ccef48a61c9036a176746037b"
+ },
+ "outputs_note_ja": "run.json 自身は outputs に含めない（最後に書く）。図は 256 色の PNG（T.save_png_reserved）。",
+ "timings_s": {
+  "sky_s": 12.42,
+  "zones_s": 23.24,
+  "iou_s": 3.67,
+  "total_s": 46.71
+ },
+ "zones": {
+  "main": {
+   "zhang_suen_iterations": 79,
+   "zhang_suen_s": 12.59,
+   "thin_final_removed_px": 1827,
+   "skeleton_px_before_prune": 17080,
+   "skeleton_px_after_prune": 16283,
+   "edges_before_prune": 490,
+   "terminal_edges_before_prune": 271,
+   "spurs_removed_per_round": [
+    76,
+    0
+   ],
+   "prune_s": 2.03,
+   "edges_after_prune": 345,
+   "junction_clusters_after_prune": 245,
+   "topology_white_vs_skeleton_before_prune": {
+    "components_mask": 11,
+    "components_skeleton": 11,
+    "background_regions_mask": 22,
+    "background_regions_skeleton": 22,
+    "blocks_2x2": 0
+   },
+   "topology_white_vs_skeleton_after_prune": {
+    "components_mask": 11,
+    "components_skeleton": 11,
+    "background_regions_mask": 22,
+    "background_regions_skeleton": 22,
+    "blocks_2x2": 0
+   },
+   "white_ref_px": 357782,
+   "body_ref_px": 123167,
+   "strokes_total": 262,
+   "strokes_with_endpoint": 188,
+   "strokes_junction_both_ends": 74,
+   "claws": 135,
+   "excluded": 53,
+   "webs": 145
+  },
+  "right": {
+   "zhang_suen_iterations": 36,
+   "zhang_suen_s": 3.21,
+   "thin_final_removed_px": 832,
+   "skeleton_px_before_prune": 6814,
+   "skeleton_px_after_prune": 6767,
+   "edges_before_prune": 143,
+   "terminal_edges_before_prune": 40,
+   "spurs_removed_per_round": [
+    2,
+    0
+   ],
+   "prune_s": 0.41,
+   "edges_after_prune": 139,
+   "junction_clusters_after_prune": 114,
+   "topology_white_vs_skeleton_before_prune": {
+    "components_mask": 1,
+    "components_skeleton": 1,
+    "background_regions_mask": 40,
+    "background_regions_skeleton": 40,
+    "blocks_2x2": 0
+   },
+   "topology_white_vs_skeleton_after_prune": {
+    "components_mask": 1,
+    "components_skeleton": 1,
+    "background_regions_mask": 40,
+    "background_regions_skeleton": 40,
+    "blocks_2x2": 0
+   },
+   "white_ref_px": 155448,
+   "body_ref_px": 102808,
+   "strokes_total": 96,
+   "strokes_with_endpoint": 38,
+   "strokes_junction_both_ends": 58,
+   "claws": 25,
+   "excluded": 13,
+   "webs": 66
+  }
+ },
+ "sky_mask_check_max_abs_cov_diff": 0.0
+}
