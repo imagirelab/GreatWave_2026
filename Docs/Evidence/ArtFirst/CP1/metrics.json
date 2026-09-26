@@ -1,0 +1,1905 @@
+{
+ "schema": "GreatWave.CP1.metrics/1",
+ "number": "CP1（原画視点の静止した大波：形・色・線・空・船・富士の合成）",
+ "note_time_ja": "生成時刻は run.json にだけ記録する（同じ入力で metrics.json の SHA-256 が一致するように）。",
+ "evidence_kind_ja": "Unity 6000.4.3f1 Editor の batchmode による PC オフスクリーン描画（Camera.Render → RenderTexture → PNG、RTX 3080、Direct3D11、Linear）と、番号23 の評価器（ID モード、包絡版）。座席からの射線は Blender 5.2.2 ヘッドレス（番号26 のスクリプト）。HMD 実機の結果ではない。",
+ "t_star_s": 12.0,
+ "scene": {
+  "path": "Assets/GreatWave/Scenes/Tests/AF_CP1.unity",
+  "sha256": "553ab44a00710092cbea7d110ebfd467938682a4dfa952535986d6f73d7e8209",
+  "protected_unchanged_build": true,
+  "protected_unchanged_render": true
+ },
+ "composition_ja": "番号27 のプレハブ AF27_Context（空のドーム・海・3隻・富士・前景と斜面の仮置き）＋番号26 の K*（kstar_a30／a45／a60.gwb）＋番号28 の AF28_NPR.mat（色区テクスチャ af28_uvsdf_<key>.bin）と AF28_Outline.mat。",
+ "preferred_key": "a45",
+ "preferred_ja": "45°（作業計画 D6 の既定値・利用者未回答）",
+ "seat": {
+  "source": "Tools/GWContext/context_layout.json（番号27 の置き直した手前の船）",
+  "eye": [
+   2.9554,
+   1.1602,
+   -32.152
+  ],
+  "target": [
+   -7.0,
+   5.0,
+   3.0
+  ],
+  "fov": 80.0
+ },
+ "evaluator": {
+  "commands": [
+   "py -3.10 Tools/PaintingTruth/evaluate.py --render Unity/Build/ArtFirst/CP1/render/a30/cp1_a30_painting.png --ids Unity/Build/ArtFirst/CP1/render/a30/cp1_a30_painting_ids.png --idmap Unity/Build/ArtFirst/CP1/render/idmap.json --out-dir Unity/Build/ArtFirst/CP1/eval/a30 --name cp1_a30_painting",
+   "py -3.10 Tools/PaintingTruth/evaluate.py --render Unity/Build/ArtFirst/CP1/render/a30/cp1_a30_painting.png --ids Unity/Build/ArtFirst/CP1/render/a30/cp1_a30_painting_ids_line.png --idmap Unity/Build/ArtFirst/CP1/render/idmap.json --out-dir Unity/Build/ArtFirst/CP1/eval/a30_line --name cp1_a30_painting_line",
+   "py -3.10 Tools/PaintingTruth/evaluate.py --render Unity/Build/ArtFirst/CP1/render/a45/cp1_a45_painting.png --ids Unity/Build/ArtFirst/CP1/render/a45/cp1_a45_painting_ids.png --idmap Unity/Build/ArtFirst/CP1/render/idmap.json --out-dir Unity/Build/ArtFirst/CP1/eval/a45 --name cp1_a45_painting",
+   "py -3.10 Tools/PaintingTruth/evaluate.py --render Unity/Build/ArtFirst/CP1/render/a45/cp1_a45_painting.png --ids Unity/Build/ArtFirst/CP1/render/a45/cp1_a45_painting_ids_line.png --idmap Unity/Build/ArtFirst/CP1/render/idmap.json --out-dir Unity/Build/ArtFirst/CP1/eval/a45_line --name cp1_a45_painting_line",
+   "py -3.10 Tools/PaintingTruth/evaluate.py --render Unity/Build/ArtFirst/CP1/render/a60/cp1_a60_painting.png --ids Unity/Build/ArtFirst/CP1/render/a60/cp1_a60_painting_ids.png --idmap Unity/Build/ArtFirst/CP1/render/idmap.json --out-dir Unity/Build/ArtFirst/CP1/eval/a60 --name cp1_a60_painting",
+   "py -3.10 Tools/PaintingTruth/evaluate.py --render Unity/Build/ArtFirst/CP1/render/a60/cp1_a60_painting.png --ids Unity/Build/ArtFirst/CP1/render/a60/cp1_a60_painting_ids_line.png --idmap Unity/Build/ArtFirst/CP1/render/idmap.json --out-dir Unity/Build/ArtFirst/CP1/eval/a60_line --name cp1_a60_painting_line"
+  ],
+  "provisional": {
+   "a30": false,
+   "a45": false,
+   "a60": false
+  },
+  "truth_version": "v0.2",
+  "truth_manifest_sha256": "8c99033e02c2cbeedec4cf8924e57fe89092c714569afa56c8c8965414880fbd",
+  "gate": {
+   "path": "Docs/Evidence/ArtFirst/23/23_gate.json",
+   "sha256": "5f20f595b56679052286354580907e1f43f42a5501884938fdf6b56a217b1c16",
+   "gate_all_pass": true,
+   "truth_unchanged_since_gate": true,
+   "all_pass": true
+  },
+  "note_ja": "真値 v0.2 と較正門は番号23修正02 の版（CP1 の作業時点では未コミットの作業ツリーの状態）。CP1 はこれに依存する。"
+ },
+ "sources": {
+  "26": {
+   "path": "Docs/Evidence/ArtFirst/26/metrics.json",
+   "sha256": "bc7f262d1918916b6f92f470cb94ed870f0d11bf50d8fb015bf14a0f53756a2b"
+  },
+  "27": {
+   "path": "Docs/Evidence/ArtFirst/27/metrics.json",
+   "sha256": "7dbca47b331e77edc5b4cc877cf47aac91babeba95d387affaf02d588e9065ba"
+  },
+  "28": {
+   "path": "Docs/Evidence/ArtFirst/28/metrics.json",
+   "sha256": "09cfd843f3d3f32df3b649be104e7bdb5c426337c186e864450d93b91843735b"
+  },
+  "29": {
+   "path": "Docs/Evidence/ArtFirst/29/metrics.json",
+   "sha256": "0d8250b9fea89dcf27c41859e1ac36f4eef4469ccef48a61c9036a176746037b"
+  }
+ },
+ "status_counts": {
+  "pass": 18,
+  "fail": 5,
+  "pass-conditional": 2,
+  "record-only": 12,
+  "not-yet": 6,
+  "unverified": 1
+ },
+ "status": [
+  {
+   "group": "形（CP1 合成で再測定。値は 30°/45°/60° の最大 px）",
+   "backlog": [
+    78
+   ],
+   "backlog_ja": "78",
+   "name_ja": "左端から斜め上への外形",
+   "value_ja": "2.03 / 2.77 / 2.17",
+   "verdict": "pass",
+   "verdict_ja": "合格",
+   "note_ja": "外殻線を含めた記録 45°：4.06"
+  },
+  {
+   "group": "形（CP1 合成で再測定。値は 30°/45°/60° の最大 px）",
+   "backlog": [
+    130
+   ],
+   "backlog_ja": "130",
+   "name_ja": "左側の傾き",
+   "value_ja": "2.12 / 1.97 / 2.02",
+   "verdict": "pass",
+   "verdict_ja": "合格",
+   "note_ja": "外殻線を含めた記録 45°：2.17"
+  },
+  {
+   "group": "形（CP1 合成で再測定。値は 30°/45°/60° の最大 px）",
+   "backlog": [
+    131
+   ],
+   "backlog_ja": "131",
+   "name_ja": "上側へのつながり",
+   "value_ja": "1.80 / 1.81 / 1.79",
+   "verdict": "pass",
+   "verdict_ja": "合格",
+   "note_ja": "外殻線を含めた記録 45°：2.21"
+  },
+  {
+   "group": "形（CP1 合成で再測定。値は 30°/45°/60° の最大 px）",
+   "backlog": [
+    132
+   ],
+   "backlog_ja": "132",
+   "name_ja": "船側への曲がり",
+   "value_ja": "1.40 / 1.33 / 1.55",
+   "verdict": "pass",
+   "verdict_ja": "合格",
+   "note_ja": "外殻線を含めた記録 45°：3.30"
+  },
+  {
+   "group": "形（CP1 合成で再測定。値は 30°/45°/60° の最大 px）",
+   "backlog": [
+    72
+   ],
+   "backlog_ja": "72",
+   "name_ja": "内側の輪郭",
+   "value_ja": "4.55 / 5.56 / 5.15",
+   "verdict": "fail",
+   "verdict_ja": "不合格",
+   "note_ja": "真値の小さな形 2 か所を除くと 3.24 / 1.76 / 5.02（記録）"
+  },
+  {
+   "group": "形（CP1 合成で再測定。値は 30°/45°/60° の最大 px）",
+   "backlog": [
+    71
+   ],
+   "backlog_ja": "71",
+   "name_ja": "内側の空域",
+   "value_ja": "37.49 / 37.49 / 37.49",
+   "verdict": "fail",
+   "verdict_ja": "不合格",
+   "note_ja": "下辺は前景・斜面の仮置きと右船（39・40・G18）"
+  },
+  {
+   "group": "形（CP1 合成で再測定。値は 30°/45°/60° の最大 px）",
+   "backlog": [
+    68
+   ],
+   "backlog_ja": "68",
+   "name_ja": "上側が下側より座席の船側",
+   "value_ja": "16.2<22.8 m / 21.6<26.0 m / 24.9<27.8 m",
+   "verdict": "pass-conditional",
+   "verdict_ja": "合格（D7待ち）",
+   "note_ja": "座席（D7）未確定：定義第11行"
+  },
+  {
+   "group": "形（CP1 合成で再測定。値は 30°/45°/60° の最大 px）",
+   "backlog": [
+    69
+   ],
+   "backlog_ja": "69",
+   "name_ja": "右船と波の上下が画面内",
+   "value_ja": "右船 x 1252〜1628",
+   "verdict": "pass",
+   "verdict_ja": "合格",
+   "note_ja": "採点列 157〜1762"
+  },
+  {
+   "group": "形（CP1 合成で再測定。値は 30°/45°/60° の最大 px）",
+   "backlog": [
+    70
+   ],
+   "backlog_ja": "70",
+   "name_ja": "波の上下 > 右船の全長",
+   "value_ja": "803 px > 425 px",
+   "verdict": "pass",
+   "verdict_ja": "合格",
+   "note_ja": "右船は見える部分の長さ"
+  },
+  {
+   "group": "形（CP1 合成で再測定。値は 30°/45°/60° の最大 px）",
+   "backlog": [
+    83,
+    115,
+    116
+   ],
+   "backlog_ja": "83、115、116",
+   "name_ja": "座席からの射線（事前検査）",
+   "value_ja": "穴・切断端・開いた背面 0 / 0 / 0",
+   "verdict": "record-only",
+   "verdict_ja": "記録のみ",
+   "note_ja": "判定は番号41。番号27 の座席で 5 万本"
+  },
+  {
+   "group": "空・船・富士（番号27 の配置、CP1 合成で再測定。45°）",
+   "backlog": [
+    76
+   ],
+   "backlog_ja": "76",
+   "name_ja": "暗い空の範囲と色",
+   "value_ja": "37.45 px／ΔE00 0.29",
+   "verdict": "fail",
+   "verdict_ja": "不合格",
+   "note_ja": "最大は右船の船首 (1044, 744)。色は合格"
+  },
+  {
+   "group": "空・船・富士（番号27 の配置、CP1 合成で再測定。45°）",
+   "backlog": [
+    212
+   ],
+   "backlog_ja": "212",
+   "name_ja": "上方の明るい空",
+   "value_ja": "ΔE00 0.27",
+   "verdict": "pass",
+   "verdict_ja": "合格",
+   "note_ja": ""
+  },
+  {
+   "group": "空・船・富士（番号27 の配置、CP1 合成で再測定。45°）",
+   "backlog": [
+    213
+   ],
+   "backlog_ja": "213",
+   "name_ja": "空の明暗の移行線",
+   "value_ja": "16.93 px",
+   "verdict": "fail",
+   "verdict_ja": "不合格",
+   "note_ja": "飛沫のくぼみを除くと 2.95（記録）"
+  },
+  {
+   "group": "空・船・富士（番号27 の配置、CP1 合成で再測定。45°）",
+   "backlog": [
+    94
+   ],
+   "backlog_ja": "94",
+   "name_ja": "原画視点のカメラ固定",
+   "value_ja": "510 フレームで差 0",
+   "verdict": "pass",
+   "verdict_ja": "合格",
+   "note_ja": "番号27 の値（CP1 は静止画）"
+  },
+  {
+   "group": "空・船・富士（番号27 の配置、CP1 合成で再測定。45°）",
+   "backlog": [
+    74,
+    161
+   ],
+   "backlog_ja": "74、161",
+   "name_ja": "富士の稜線",
+   "value_ja": "5.76 px",
+   "verdict": "record-only",
+   "verdict_ja": "記録のみ",
+   "note_ja": "報告項目"
+  },
+  {
+   "group": "空・船・富士（番号27 の配置、CP1 合成で再測定。45°）",
+   "backlog": [
+    162
+   ],
+   "backlog_ja": "162",
+   "name_ja": "富士の雪と山肌",
+   "value_ja": "雪 ΔE00 64.4／山肌 0.15",
+   "verdict": "record-only",
+   "verdict_ja": "記録のみ",
+   "note_ja": "報告項目"
+  },
+  {
+   "group": "空・船・富士（番号27 の配置、CP1 合成で再測定。45°）",
+   "backlog": [
+    75
+   ],
+   "backlog_ja": "75",
+   "name_ja": "手前の船の外形",
+   "value_ja": "141.4 px",
+   "verdict": "record-only",
+   "verdict_ja": "記録のみ",
+   "note_ja": "報告項目（G18 で形を直す）"
+  },
+  {
+   "group": "空・船・富士（番号27 の配置、CP1 合成で再測定。45°）",
+   "backlog": [
+    159
+   ],
+   "backlog_ja": "159",
+   "name_ja": "右の船の外形",
+   "value_ja": "218.2 px",
+   "verdict": "record-only",
+   "verdict_ja": "記録のみ",
+   "note_ja": "報告項目（G18 で形を直す）"
+  },
+  {
+   "group": "空・船・富士（番号27 の配置、CP1 合成で再測定。45°）",
+   "backlog": [
+    157
+   ],
+   "backlog_ja": "157",
+   "name_ja": "左奥の船の外形",
+   "value_ja": "126.6 px",
+   "verdict": "record-only",
+   "verdict_ja": "記録のみ",
+   "note_ja": "30° 66.5／60° inf（隠れて見えない＝inf）"
+  },
+  {
+   "group": "色面（番号28 の値。45°、主役波だけ＋遮蔽物は原画）",
+   "backlog": [
+    73
+   ],
+   "backlog_ja": "73",
+   "name_ja": "内側の水色（藍中）",
+   "value_ja": "0.68 px",
+   "verdict": "pass",
+   "verdict_ja": "合格",
+   "note_ja": ""
+  },
+  {
+   "group": "色面（番号28 の値。45°、主役波だけ＋遮蔽物は原画）",
+   "backlog": [
+    77
+   ],
+   "backlog_ja": "77",
+   "name_ja": "下側から始まる縞",
+   "value_ja": "1.21 px",
+   "verdict": "pass",
+   "verdict_ja": "合格",
+   "note_ja": ""
+  },
+  {
+   "group": "色面（番号28 の値。45°、主役波だけ＋遮蔽物は原画）",
+   "backlog": [
+    79
+   ],
+   "backlog_ja": "79",
+   "name_ja": "左側の白",
+   "value_ja": "0.35 px",
+   "verdict": "pass",
+   "verdict_ja": "合格",
+   "note_ja": ""
+  },
+  {
+   "group": "色面（番号28 の値。45°、主役波だけ＋遮蔽物は原画）",
+   "backlog": [
+    118
+   ],
+   "backlog_ja": "118",
+   "name_ja": "主要な縞の両側",
+   "value_ja": "0.68 px",
+   "verdict": "pass",
+   "verdict_ja": "合格",
+   "note_ja": ""
+  },
+  {
+   "group": "色面（番号28 の値。45°、主役波だけ＋遮蔽物は原画）",
+   "backlog": [
+    120
+   ],
+   "backlog_ja": "120",
+   "name_ja": "唇の白と内側の水色",
+   "value_ja": "0.29 px",
+   "verdict": "pass",
+   "verdict_ja": "合格",
+   "note_ja": ""
+  },
+  {
+   "group": "色面（番号28 の値。45°、主役波だけ＋遮蔽物は原画）",
+   "backlog": [
+    133
+   ],
+   "backlog_ja": "133",
+   "name_ja": "左から上へ続く白",
+   "value_ja": "0.39 px",
+   "verdict": "pass",
+   "verdict_ja": "合格",
+   "note_ja": ""
+  },
+  {
+   "group": "色面（番号28 の値。45°、主役波だけ＋遮蔽物は原画）",
+   "backlog": [
+    134
+   ],
+   "backlog_ja": "134",
+   "name_ja": "白帯の広狭",
+   "value_ja": "0.68 px",
+   "verdict": "pass",
+   "verdict_ja": "合格",
+   "note_ja": ""
+  },
+  {
+   "group": "色面（番号28 の値。45°、主役波だけ＋遮蔽物は原画）",
+   "backlog": [
+    263
+   ],
+   "backlog_ja": "263",
+   "name_ja": "内側から下方へ続く水色",
+   "value_ja": "0.40 px",
+   "verdict": "pass",
+   "verdict_ja": "合格",
+   "note_ja": ""
+  },
+  {
+   "group": "色面（番号28 の値。45°、主役波だけ＋遮蔽物は原画）",
+   "backlog": [
+    270
+   ],
+   "backlog_ja": "270",
+   "name_ja": "白と水色の境",
+   "value_ja": "0.56 px",
+   "verdict": "pass",
+   "verdict_ja": "合格",
+   "note_ja": ""
+  },
+  {
+   "group": "色面（番号28 の値。45°、主役波だけ＋遮蔽物は原画）",
+   "backlog": [
+    175
+   ],
+   "backlog_ja": "175",
+   "name_ja": "白の中の藍・水色が全部残る",
+   "value_ja": "198 中 196、18.38 px",
+   "verdict": "fail",
+   "verdict_ja": "不合格",
+   "note_ja": "輪郭に接する 2 つ（M171・A073）。除くと 2.25 px"
+  },
+  {
+   "group": "色面（番号28 の値。45°、主役波だけ＋遮蔽物は原画）",
+   "backlog": [
+    265
+   ],
+   "backlog_ja": "265",
+   "name_ja": "内側の水色の表示色",
+   "value_ja": "ΔE00 0.55",
+   "verdict": "pass",
+   "verdict_ja": "合格",
+   "note_ja": ""
+  },
+  {
+   "group": "色面（番号28 の値。45°、主役波だけ＋遮蔽物は原画）",
+   "backlog": [
+    266,
+    267
+   ],
+   "backlog_ja": "266、267",
+   "name_ja": "水色・白の平塗り（照明・灰色の帯 0）",
+   "value_ja": "標準偏差 <1、帯 0",
+   "verdict": "pass-conditional",
+   "verdict_ja": "合格（D7待ち）",
+   "note_ja": "船上の値は座席（D7）未確定"
+  },
+  {
+   "group": "色面（番号28 の値。45°、主役波だけ＋遮蔽物は原画）",
+   "backlog": [
+    142,
+    143
+   ],
+   "backlog_ja": "142、143",
+   "name_ja": "外周の藍線（事前検査）",
+   "value_ja": "中心のずれ 4.14／3.02 px",
+   "verdict": "record-only",
+   "verdict_ja": "記録のみ",
+   "note_ja": "正式な判定は番号36"
+  },
+  {
+   "group": "色面（番号28 の値。45°、主役波だけ＋遮蔽物は原画）",
+   "backlog": [
+    178
+   ],
+   "backlog_ja": "178",
+   "name_ja": "縞の枝分かれ",
+   "value_ja": "候補 23 か所",
+   "verdict": "record-only",
+   "verdict_ja": "記録のみ",
+   "note_ja": "延期（計画の損切り）"
+  },
+  {
+   "group": "爪の一覧（番号29 草稿。すべて記録のみ）",
+   "backlog": [
+    139
+   ],
+   "backlog_ja": "139",
+   "name_ja": "爪の数（約150本）",
+   "value_ja": "主浪 135／右側 25（計 160）",
+   "verdict": "record-only",
+   "verdict_ja": "記録のみ",
+   "note_ja": "CP2 で確認"
+  },
+  {
+   "group": "爪の一覧（番号29 草稿。すべて記録のみ）",
+   "backlog": [],
+   "backlog_ja": "—",
+   "name_ja": "和集合と爪の白の IoU（≥0.85）",
+   "value_ja": "0.877（指＋幹だけ 0.695）",
+   "verdict": "record-only",
+   "verdict_ja": "記録のみ",
+   "note_ja": "分母は波頭の平らな白を除いた白（除かないと 0.601、審査の値）。定義は CP2"
+  },
+  {
+   "group": "爪の一覧（番号29 草稿。すべて記録のみ）",
+   "backlog": [
+    123,
+    124,
+    125,
+    126
+   ],
+   "backlog_ja": "123、124、125、126",
+   "name_ja": "代表10形の候補",
+   "value_ja": "C010, C079, C082, C011, C057 …",
+   "verdict": "record-only",
+   "verdict_ja": "記録のみ",
+   "note_ja": "D8（CP2）"
+  },
+  {
+   "group": "爪の一覧（番号29 草稿。すべて記録のみ）",
+   "backlog": [
+    95,
+    96,
+    97,
+    98
+   ],
+   "backlog_ja": "95、96、97、98",
+   "name_ja": "船側中央の爪の候補",
+   "value_ja": "C098 / C096 / C099",
+   "verdict": "record-only",
+   "verdict_ja": "記録のみ",
+   "note_ja": "C098 は根元幅の条件に当たらない"
+  },
+  {
+   "group": "未着手・未検証（CP1 の範囲外）",
+   "backlog": [
+    80,
+    106,
+    107,
+    108,
+    111,
+    117
+   ],
+   "backlog_ja": "80・106〜108・111・117",
+   "name_ja": "形成の動き K0→K*",
+   "value_ja": "—",
+   "verdict": "not-yet",
+   "verdict_ja": "未着手",
+   "note_ja": "番号30（CP2）"
+  },
+  {
+   "group": "未着手・未検証（CP1 の範囲外）",
+   "backlog": [
+    102,
+    135,
+    176,
+    177
+   ],
+   "backlog_ja": "102、135、176、177",
+   "name_ja": "白の出現・縞の追従",
+   "value_ja": "—",
+   "verdict": "not-yet",
+   "verdict_ja": "未着手",
+   "note_ja": "番号31（CP2）"
+  },
+  {
+   "group": "未着手・未検証（CP1 の範囲外）",
+   "backlog": [
+    81,
+    112
+   ],
+   "backlog_ja": "81、112",
+   "name_ja": "性能（3080 の代理測定）",
+   "value_ja": "—",
+   "verdict": "not-yet",
+   "verdict_ja": "未着手",
+   "note_ja": "番号32（CP2）"
+  },
+  {
+   "group": "未着手・未検証（CP1 の範囲外）",
+   "backlog": [
+    95,
+    96,
+    97,
+    98,
+    122,
+    123,
+    124,
+    125,
+    126,
+    127,
+    128,
+    200
+   ],
+   "backlog_ja": "95〜98・122〜128・200",
+   "name_ja": "爪の終態造形と 3 列の配置",
+   "value_ja": "—",
+   "verdict": "not-yet",
+   "verdict_ja": "未着手",
+   "note_ja": "番号33（CP3）"
+  },
+  {
+   "group": "未着手・未検証（CP1 の範囲外）",
+   "backlog": [
+    142,
+    143,
+    146,
+    147,
+    148,
+    191,
+    192
+   ],
+   "backlog_ja": "142・143・146〜148・191・192",
+   "name_ja": "藍線（外輪郭の正式判定・爪の縁・遮蔽）",
+   "value_ja": "—",
+   "verdict": "not-yet",
+   "verdict_ja": "未着手",
+   "note_ja": "番号36（CP4）"
+  },
+  {
+   "group": "未着手・未検証（CP1 の範囲外）",
+   "backlog": [
+    149,
+    150,
+    151,
+    152
+   ],
+   "backlog_ja": "149〜152",
+   "name_ja": "飛沫",
+   "value_ja": "—",
+   "verdict": "not-yet",
+   "verdict_ja": "未着手",
+   "note_ja": "番号37"
+  },
+  {
+   "group": "未着手・未検証（CP1 の範囲外）",
+   "backlog": [],
+   "backlog_ja": "—",
+   "name_ja": "HMD 実機（H1〜H7、Step_05 L23-34）",
+   "value_ja": "—",
+   "verdict": "unverified",
+   "verdict_ja": "未検証",
+   "note_ja": "HMD 未所持。PC 描画は HMD の結果ではない"
+  }
+ ],
+ "items": {
+  "78": {
+   "backlog": 78,
+   "source": "CP1 合成で再測定",
+   "criterion": "t* の PaintingCam v1・1920×1080、評価器 ID モード（3840×2160）、包絡版、外殻線なしの最大 ≤4 px",
+   "by_interpretation": {
+    "a30": {
+     "max_px": 2.027,
+     "p95_px": 1.6795,
+     "worst_display_xy": [
+      187.0,
+      380.42
+     ],
+     "verdict": "pass",
+     "number26_max_px": 2.027,
+     "record_with_outline_max_px": 4.1086
+    },
+    "a45": {
+     "max_px": 2.772,
+     "p95_px": 1.5435,
+     "worst_display_xy": [
+      157.5,
+      370.46
+     ],
+     "verdict": "pass",
+     "number26_max_px": 2.772,
+     "record_with_outline_max_px": 4.0607
+    },
+    "a60": {
+     "max_px": 2.1671,
+     "p95_px": 1.5487,
+     "worst_display_xy": [
+      157.5,
+      370.46
+     ],
+     "verdict": "pass",
+     "number26_max_px": 2.1671,
+     "record_with_outline_max_px": 3.8334
+    }
+   },
+   "verdict_default_45": "pass"
+  },
+  "130": {
+   "backlog": 130,
+   "source": "CP1 合成で再測定",
+   "criterion": "t* の PaintingCam v1・1920×1080、評価器 ID モード（3840×2160）、包絡版、外殻線なしの最大 ≤4 px",
+   "by_interpretation": {
+    "a30": {
+     "max_px": 2.1189,
+     "p95_px": 2.0101,
+     "worst_display_xy": [
+      395.62,
+      264.0
+     ],
+     "verdict": "pass",
+     "number26_max_px": 2.1189,
+     "record_with_outline_max_px": 2.2447
+    },
+    "a45": {
+     "max_px": 1.9675,
+     "p95_px": 1.9058,
+     "worst_display_xy": [
+      396.1,
+      266.07
+     ],
+     "verdict": "pass",
+     "number26_max_px": 1.9675,
+     "record_with_outline_max_px": 2.1703
+    },
+    "a60": {
+     "max_px": 2.0247,
+     "p95_px": 1.909,
+     "worst_display_xy": [
+      404.69,
+      257.79
+     ],
+     "verdict": "pass",
+     "number26_max_px": 2.0247,
+     "record_with_outline_max_px": 2.1703
+    }
+   },
+   "verdict_default_45": "pass"
+  },
+  "131": {
+   "backlog": 131,
+   "source": "CP1 合成で再測定",
+   "criterion": "t* の PaintingCam v1・1920×1080、評価器 ID モード（3840×2160）、包絡版、外殻線なしの最大 ≤4 px",
+   "by_interpretation": {
+    "a30": {
+     "max_px": 1.7978,
+     "p95_px": 1.6975,
+     "worst_display_xy": [
+      543.0,
+      158.68
+     ],
+     "verdict": "pass",
+     "number26_max_px": 1.7978,
+     "record_with_outline_max_px": 2.2107
+    },
+    "a45": {
+     "max_px": 1.8143,
+     "p95_px": 1.7099,
+     "worst_display_xy": [
+      725.0,
+      93.36
+     ],
+     "verdict": "pass",
+     "number26_max_px": 1.8143,
+     "record_with_outline_max_px": 2.2107
+    },
+    "a60": {
+     "max_px": 1.7862,
+     "p95_px": 1.6626,
+     "worst_display_xy": [
+      730.0,
+      93.21
+     ],
+     "verdict": "pass",
+     "number26_max_px": 1.7862,
+     "record_with_outline_max_px": 2.4089
+    }
+   },
+   "verdict_default_45": "pass"
+  },
+  "132": {
+   "backlog": 132,
+   "source": "CP1 合成で再測定",
+   "criterion": "t* の PaintingCam v1・1920×1080、評価器 ID モード（3840×2160）、包絡版、外殻線なしの最大 ≤4 px",
+   "by_interpretation": {
+    "a30": {
+     "max_px": 1.4016,
+     "p95_px": 1.2629,
+     "worst_display_xy": [
+      1107.89,
+      355.5
+     ],
+     "verdict": "pass",
+     "number26_max_px": 1.4016,
+     "record_with_outline_max_px": 3.4999
+    },
+    "a45": {
+     "max_px": 1.3256,
+     "p95_px": 1.2438,
+     "worst_display_xy": [
+      951.11,
+      184.79
+     ],
+     "verdict": "pass",
+     "number26_max_px": 1.3256,
+     "record_with_outline_max_px": 3.2964
+    },
+    "a60": {
+     "max_px": 1.5537,
+     "p95_px": 1.2697,
+     "worst_display_xy": [
+      1098.0,
+      337.74
+     ],
+     "verdict": "pass",
+     "number26_max_px": 1.5537,
+     "record_with_outline_max_px": 4.7041
+    }
+   },
+   "verdict_default_45": "pass"
+  },
+  "72": {
+   "backlog": 72,
+   "source": "CP1 合成で再測定",
+   "criterion": "t* の PaintingCam v1・1920×1080、評価器 ID モード（3840×2160）、包絡版、外殻線なしの最大 ≤4 px",
+   "by_interpretation": {
+    "a30": {
+     "max_px": 4.5471,
+     "p95_px": 2.4234,
+     "worst_display_xy": [
+      856.43,
+      647.0
+     ],
+     "verdict": "fail",
+     "number26_max_px": 4.5471,
+     "record_with_outline_max_px": 6.2228
+    },
+    "a45": {
+     "max_px": 5.5642,
+     "p95_px": 1.5581,
+     "worst_display_xy": [
+      856.43,
+      647.0
+     ],
+     "verdict": "fail",
+     "number26_max_px": 5.5642,
+     "record_with_outline_max_px": 3.9642
+    },
+    "a60": {
+     "max_px": 5.1526,
+     "p95_px": 2.7446,
+     "worst_display_xy": [
+      915.0,
+      723.39
+     ],
+     "verdict": "fail",
+     "number26_max_px": 5.1526,
+     "record_with_outline_max_px": 6.5992
+    }
+   },
+   "verdict_default_45": "fail",
+   "record_excluding_truth_micro_features": {
+    "note_ja": "記録のみ。番号26 と同じく、真値の内壁の外縁にある 2 つの小さな形の周り 12 px を除いた値",
+    "by_interpretation": {
+     "a30": {
+      "max_px": 3.2415,
+      "p95_px": 2.3945,
+      "worst_display_xy": [
+       792.22,
+       499.0
+      ]
+     },
+     "a45": {
+      "max_px": 1.7553,
+      "p95_px": 1.4863,
+      "worst_display_xy": [
+       1089.44,
+       416.0
+      ]
+     },
+     "a60": {
+      "max_px": 5.016,
+      "p95_px": 2.5576,
+      "worst_display_xy": [
+       1097.0,
+       365.59
+      ]
+     }
+    }
+   }
+  },
+  "71": {
+   "backlog": 71,
+   "source": "CP1 合成で再測定",
+   "criterion": "t* の PaintingCam v1・1920×1080、評価器 ID モード（3840×2160）、包絡版、外殻線なしの最大 ≤4 px",
+   "by_interpretation": {
+    "a30": {
+     "max_px": 37.4944,
+     "p95_px": 18.9647,
+     "worst_display_xy": [
+      1044.0,
+      744.42
+     ],
+     "verdict": "fail",
+     "iou_region71_clip": 0.97033,
+     "number26_max_px": 43.4703,
+     "record_with_outline_max_px": 37.4944
+    },
+    "a45": {
+     "max_px": 37.4944,
+     "p95_px": 19.3492,
+     "worst_display_xy": [
+      1044.0,
+      744.42
+     ],
+     "verdict": "fail",
+     "iou_region71_clip": 0.97007,
+     "number26_max_px": 43.4703,
+     "record_with_outline_max_px": 37.4944
+    },
+    "a60": {
+     "max_px": 37.4944,
+     "p95_px": 19.5155,
+     "worst_display_xy": [
+      1044.0,
+      744.42
+     ],
+     "verdict": "fail",
+     "iou_region71_clip": 0.96831,
+     "number26_max_px": 43.4703,
+     "record_with_outline_max_px": 37.4944
+    }
+   },
+   "verdict_default_45": "fail",
+   "note_ja": "空域の下辺は番号27 の前景のうねり・右の斜面の仮置きと右船が作る（番号39・40・G18 の範囲）。上辺と左辺は 72 と同じ点列。"
+  },
+  "68": {
+   "backlog": 68,
+   "source": "CP1 合成で再測定（座席は番号27 の座席）",
+   "criterion": "同じ K* を原画視点と船上の両方に描き、波の上側（唇の先）が下側（内壁の下端）より座席の船側にある",
+   "seat_eye_world": [
+    2.9554,
+    1.1602,
+    -32.152
+   ],
+   "by_interpretation": {
+    "a30": {
+     "horizontal_distance_seat_to_lip_tip_m": 16.193,
+     "horizontal_distance_seat_to_face_bottom_m": 22.844,
+     "verdict": "pass"
+    },
+    "a45": {
+     "horizontal_distance_seat_to_lip_tip_m": 21.562,
+     "horizontal_distance_seat_to_face_bottom_m": 25.975,
+     "verdict": "pass"
+    },
+    "a60": {
+     "horizontal_distance_seat_to_lip_tip_m": 24.933,
+     "horizontal_distance_seat_to_face_bottom_m": 27.779,
+     "verdict": "pass"
+    }
+   },
+   "final_ja": "座席の船（D7）が未確定なので、定義第11行（原画／船上機位の特定まで合格としない）により最終の合格ではない。"
+  },
+  "69": {
+   "backlog": 69,
+   "source": "CP1 合成で再測定（右船は番号27 の配置）",
+   "criterion": "原画視点で右船の船首・船尾と波の上下がすべて画面内（採点列 157〜1762）にある",
+   "by_interpretation": {
+    "a30": {
+     "right_boat_bbox_display_px": [
+      1251.5,
+      587.0,
+      1627.5,
+      830.5
+     ],
+     "right_boat_inside_scored_columns": true,
+     "wave_crest_display_y": 93.65,
+     "wave_base_display_y_main_section_sea": 896.53,
+     "verdict": "pass"
+    },
+    "a45": {
+     "right_boat_bbox_display_px": [
+      1251.5,
+      587.0,
+      1627.5,
+      830.5
+     ],
+     "right_boat_inside_scored_columns": true,
+     "wave_crest_display_y": 93.65,
+     "wave_base_display_y_main_section_sea": 896.51,
+     "verdict": "pass"
+    },
+    "a60": {
+     "right_boat_bbox_display_px": [
+      1251.5,
+      587.0,
+      1627.5,
+      830.5
+     ],
+     "right_boat_inside_scored_columns": true,
+     "wave_crest_display_y": 93.65,
+     "wave_base_display_y_main_section_sea": 896.51,
+     "verdict": "pass"
+    }
+   },
+   "note_ja": "右船の見える範囲（ID 画像）で判定した。番号27 の右船は船首の側が右の斜面の仮置きの中へ沈む（Step_27）。船の形（G18）は未着手。"
+  },
+  "70": {
+   "backlog": 70,
+   "source": "CP1 合成で再測定",
+   "criterion": "原画視点の同じ画面で、波の上下の長さが右船の船首から船尾までの長さを超える",
+   "by_interpretation": {
+    "a30": {
+     "wave_vertical_extent_display_px": 802.88,
+     "right_boat_visible_length_display_px": 425.35,
+     "crest_height_m": 20.843406493671317,
+     "right_boat_length_m_number27": 14.61,
+     "verdict": "pass"
+    },
+    "a45": {
+     "wave_vertical_extent_display_px": 802.87,
+     "right_boat_visible_length_display_px": 425.35,
+     "crest_height_m": 20.88294355710863,
+     "right_boat_length_m_number27": 14.61,
+     "verdict": "pass"
+    },
+    "a60": {
+     "wave_vertical_extent_display_px": 802.86,
+     "right_boat_visible_length_display_px": 425.35,
+     "crest_height_m": 20.83693092387288,
+     "right_boat_length_m_number27": 14.61,
+     "verdict": "pass"
+    }
+   },
+   "note_ja": "右船の長さは ID 画像の見える画素の主軸方向の長さ（船首の側が斜面に沈むので、船全体の像の長さより短い）。3D では頂の高さ約 20.8 m、右船の先端間 14.61 m。"
+  },
+  "D7_seat_candidates_record": {
+   "source": "CP1 合成（記録のみ）",
+   "verdict": "record-only",
+   "current_seat_eye": [
+    2.9554,
+    1.1602,
+    -32.152
+   ],
+   "candidate_right_boat_eye": [
+    11.274,
+    5.048,
+    -1.582
+   ],
+   "by_interpretation": {
+    "a30": {
+     "current_seat": {
+      "lip_tip_elevation_deg": 32.3,
+      "crest_elevation_deg": 32.1,
+      "horizontal_distance_to_lip_tip_m": 16.19
+     },
+     "candidate_right_boat": {
+      "eye_world": [
+       11.274,
+       5.048,
+       -1.582
+      ],
+      "horizontal_distance_to_lip_tip_m": 17.66,
+      "horizontal_distance_to_face_bottom_m": 16.27,
+      "lip_tip_elevation_deg": 19.8,
+      "crest_elevation_deg": 40.2
+     }
+    },
+    "a45": {
+     "current_seat": {
+      "lip_tip_elevation_deg": 27.2,
+      "crest_elevation_deg": 32.1,
+      "horizontal_distance_to_lip_tip_m": 21.56
+     },
+     "candidate_right_boat": {
+      "eye_world": [
+       11.274,
+       5.048,
+       -1.582
+      ],
+      "horizontal_distance_to_lip_tip_m": 13.46,
+      "horizontal_distance_to_face_bottom_m": 15.01,
+      "lip_tip_elevation_deg": 28.1,
+      "crest_elevation_deg": 40.2
+     }
+    },
+    "a60": {
+     "current_seat": {
+      "lip_tip_elevation_deg": 25.4,
+      "crest_elevation_deg": 32.1,
+      "horizontal_distance_to_lip_tip_m": 24.93
+     },
+     "candidate_right_boat": {
+      "eye_world": [
+       11.274,
+       5.048,
+       -1.582
+      ],
+      "horizontal_distance_to_lip_tip_m": 11.39,
+      "horizontal_distance_to_face_bottom_m": 14.58,
+      "lip_tip_elevation_deg": 34.9,
+      "crest_elevation_deg": 40.2
+     }
+    }
+   },
+   "note_ja": "座席の候補 (a)（唇の下の船＝右船）は番号27 と同じ測り方で甲板の 1.2 m 上に置いた確認用の機位で、座席は決めていない。"
+  },
+  "83_115_116_precheck": {
+   "backlog": [
+    83,
+    115,
+    116
+   ],
+   "source": "番号26 の af26_blender_qa.py を番号27 の座席の目で実行",
+   "criterion": "座席から 5 万本の射線で、見える穴・切断端・開いた背面がすべて 0（事前検査。判定は番号41）",
+   "eye": [
+    2.9554,
+    1.1602,
+    -32.152
+   ],
+   "look_at": [
+    -7.0,
+    5.0,
+    3.0
+   ],
+   "blender": "5.2.2 LTS",
+   "by_interpretation": {
+    "a30": {
+     "wave_front": 24824,
+     "wave_back_open": 0,
+     "cut_end": 0,
+     "hole": 0,
+     "sea_outside_footprint": 1303,
+     "sky": 23873,
+     "verdict_precheck": "pass"
+    },
+    "a45": {
+     "wave_front": 25775,
+     "wave_back_open": 0,
+     "cut_end": 0,
+     "hole": 0,
+     "sea_outside_footprint": 835,
+     "sky": 23390,
+     "verdict_precheck": "pass"
+    },
+    "a60": {
+     "wave_front": 28157,
+     "wave_back_open": 0,
+     "cut_end": 0,
+     "hole": 0,
+     "sea_outside_footprint": 637,
+     "sky": 21206,
+     "verdict_precheck": "pass"
+    }
+   },
+   "verdict": "record-only",
+   "note_ja": "K* と海面（y = −0.07）だけを置き、船・前景は入れていない。番号26 は M1 の座席の目で同じ検査をした（3 案とも 0）。"
+  },
+  "76": {
+   "backlog": 76,
+   "source": "CP1 合成で再測定",
+   "criterion": "暗い空の範囲 ≤4 px、ΔE00 ≤5",
+   "by_interpretation": {
+    "a30": {
+     "contour_max_px": 37.4511,
+     "contour_p95_px": 20.1697,
+     "worst_display_xy": [
+      1044.0,
+      744.36
+     ],
+     "color_dE00_sky_bottom": 0.2854,
+     "verdict": "fail",
+     "boundary_breakdown_truth_to_render": {
+      "72": {
+       "n_truth_points": 358,
+       "max_truth_to_render_px": 3.8429,
+       "p95_truth_to_render_px": 3.5575,
+       "worst_display_xy": [
+        863.65,
+        677.5
+       ]
+      },
+      "boat_mid": {
+       "n_truth_points": 762,
+       "max_truth_to_render_px": 37.4511,
+       "p95_truth_to_render_px": 31.7328,
+       "worst_display_xy": [
+        1044.0,
+        744.36
+       ]
+      },
+      "fuji_ridge": {
+       "n_truth_points": 678,
+       "max_truth_to_render_px": 5.6071,
+       "p95_truth_to_render_px": 5.3414,
+       "worst_display_xy": [
+        1236.65,
+        750.0
+       ]
+      },
+      "other_waves": {
+       "n_truth_points": 790,
+       "max_truth_to_render_px": 24.0061,
+       "p95_truth_to_render_px": 22.5012,
+       "worst_display_xy": [
+        1480.0,
+        651.51
+       ]
+      },
+      "transition": {
+       "n_truth_points": 1572,
+       "max_truth_to_render_px": 16.9325,
+       "p95_truth_to_render_px": 4.1707,
+       "worst_display_xy": [
+        895.0,
+        668.4
+       ]
+      }
+     }
+    },
+    "a45": {
+     "contour_max_px": 37.4511,
+     "contour_p95_px": 20.2024,
+     "worst_display_xy": [
+      1044.0,
+      744.36
+     ],
+     "color_dE00_sky_bottom": 0.2854,
+     "verdict": "fail",
+     "boundary_breakdown_truth_to_render": {
+      "72": {
+       "n_truth_points": 358,
+       "max_truth_to_render_px": 4.1366,
+       "p95_truth_to_render_px": 3.7896,
+       "worst_display_xy": [
+        866.3,
+        681.67
+       ]
+      },
+      "boat_mid": {
+       "n_truth_points": 762,
+       "max_truth_to_render_px": 37.4511,
+       "p95_truth_to_render_px": 31.7328,
+       "worst_display_xy": [
+        1044.0,
+        744.36
+       ]
+      },
+      "fuji_ridge": {
+       "n_truth_points": 678,
+       "max_truth_to_render_px": 5.6071,
+       "p95_truth_to_render_px": 5.3414,
+       "worst_display_xy": [
+        1236.65,
+        750.0
+       ]
+      },
+      "other_waves": {
+       "n_truth_points": 790,
+       "max_truth_to_render_px": 24.0061,
+       "p95_truth_to_render_px": 22.5591,
+       "worst_display_xy": [
+        1480.0,
+        651.51
+       ]
+      },
+      "transition": {
+       "n_truth_points": 1572,
+       "max_truth_to_render_px": 16.9325,
+       "p95_truth_to_render_px": 4.1707,
+       "worst_display_xy": [
+        895.0,
+        668.4
+       ]
+      }
+     }
+    },
+    "a60": {
+     "contour_max_px": 37.4511,
+     "contour_p95_px": 20.3291,
+     "worst_display_xy": [
+      1044.0,
+      744.36
+     ],
+     "color_dE00_sky_bottom": 0.2854,
+     "verdict": "fail",
+     "boundary_breakdown_truth_to_render": {
+      "72": {
+       "n_truth_points": 358,
+       "max_truth_to_render_px": 3.8526,
+       "p95_truth_to_render_px": 2.7193,
+       "worst_display_xy": [
+        852.78,
+        652.0
+       ]
+      },
+      "boat_mid": {
+       "n_truth_points": 762,
+       "max_truth_to_render_px": 37.4511,
+       "p95_truth_to_render_px": 31.7328,
+       "worst_display_xy": [
+        1044.0,
+        744.36
+       ]
+      },
+      "fuji_ridge": {
+       "n_truth_points": 678,
+       "max_truth_to_render_px": 5.6071,
+       "p95_truth_to_render_px": 5.3414,
+       "worst_display_xy": [
+        1236.65,
+        750.0
+       ]
+      },
+      "other_waves": {
+       "n_truth_points": 790,
+       "max_truth_to_render_px": 24.0061,
+       "p95_truth_to_render_px": 22.6252,
+       "worst_display_xy": [
+        1480.0,
+        651.51
+       ]
+      },
+      "transition": {
+       "n_truth_points": 1572,
+       "max_truth_to_render_px": 16.9325,
+       "p95_truth_to_render_px": 4.1707,
+       "worst_display_xy": [
+        895.0,
+        668.4
+       ]
+      }
+     }
+    }
+   },
+   "number27": {
+    "contour_max_px": 37.4511,
+    "color_dE00": 0.289
+   },
+   "measurement_note_ja": "空の項目（76・212・213）は、色画像（外殻線あり）と同じ外殻線ありの ID 画像で測った。最初の集計では外殻線なしの ID 画像と組み合わせたため、空の側に入った線の画素が暗い空と数えられ、76 が最大 86.6〜94.4 px、213 が 21.6 px になった（下の record_noline_ids）。これは測り方の不整合で、判定には使わない。",
+   "record_noline_ids": {
+    "a30": {
+     "76_contour_max_px": 86.5783,
+     "213_transition_max_px": 21.6405
+    },
+    "a45": {
+     "76_contour_max_px": 94.4382,
+     "213_transition_max_px": 21.6404
+    },
+    "a60": {
+     "76_contour_max_px": 94.4382,
+     "213_transition_max_px": 21.6405
+    }
+   }
+  },
+  "213": {
+   "backlog": 213,
+   "source": "CP1 合成で再測定（段差と船の既定配色は番号27 の値）",
+   "criterion": "移行線 ≤4 px、余分な帯状段差なし、波と船の既定配色 ΔE00 ≤5",
+   "by_interpretation": {
+    "a30": {
+     "transition_max_px": 16.9325,
+     "transition_p95_px": 1.8594,
+     "worst_display_xy": [
+      895.0,
+      668.4
+     ],
+     "transition_excluding_spray_dip_record": {
+      "max_px": 2.9482,
+      "p95_px": 1.22
+     },
+     "boat_ochre_dE00_record": 0.1332,
+     "verdict": "fail"
+    },
+    "a45": {
+     "transition_max_px": 16.9325,
+     "transition_p95_px": 1.8594,
+     "worst_display_xy": [
+      895.0,
+      668.4
+     ],
+     "transition_excluding_spray_dip_record": {
+      "max_px": 2.9482,
+      "p95_px": 1.22
+     },
+     "boat_ochre_dE00_record": 0.1332,
+     "verdict": "fail"
+    },
+    "a60": {
+     "transition_max_px": 16.9325,
+     "transition_p95_px": 1.8594,
+     "worst_display_xy": [
+      895.0,
+      668.4
+     ],
+     "transition_excluding_spray_dip_record": {
+      "max_px": 2.9482,
+      "p95_px": 1.22
+     },
+     "boat_ochre_dE00_record": 0.1332,
+     "verdict": "fail"
+    }
+   },
+   "number27_band_step_and_boat_colour": {
+    "band_step_render_minus_float_dome_max_8bit": 0.7216,
+    "boat_pixels_median_dE00_vs_palette": 0.1332
+   }
+  },
+  "212": {
+   "backlog": 212,
+   "source": "CP1 合成で再測定",
+   "criterion": "上方が水平線付近より明るく、ΔE00 ≤5",
+   "by_interpretation": {
+    "a30": {
+     "dE00_sky_top": 0.2714,
+     "verdict": "pass"
+    },
+    "a45": {
+     "dE00_sky_top": 0.2714,
+     "verdict": "pass"
+    },
+    "a60": {
+     "dE00_sky_top": 0.2714,
+     "verdict": "pass"
+    }
+   }
+  },
+  "94": {
+   "backlog": 94,
+   "source": "番号27 から引き継ぎ（CP1 は静止画だけで再測定していない）",
+   "value": {
+    "frames": 510,
+    "max_position_delta_m": 0.0,
+    "max_angle_delta_deg": 0.0,
+    "max_fov_delta_deg": 0.0,
+    "max_projection_matrix_delta": 0.0,
+    "max_view_matrix_delta": 0.0,
+    "camera_position": {
+     "x": 0.0,
+     "y": 3.0,
+     "z": -62.0
+    },
+    "camera_euler": {
+     "x": 354.20758056640625,
+     "y": 357.83074951171875,
+     "z": -1.3408675059167763e-08
+    },
+    "sky_patch_max_abs_diff_8bit_vs_tstar": 0
+   },
+   "verdict": "pass"
+  },
+  "74": {
+   "backlog": 74,
+   "source": "CP1 合成で再測定（報告項目）",
+   "verdict": "record-only",
+   "by_interpretation": {
+    "a30": {
+     "max_px": 5.7562,
+     "p95_px": 5.3092
+    },
+    "a45": {
+     "max_px": 5.7562,
+     "p95_px": 5.3092
+    },
+    "a60": {
+     "max_px": 5.7562,
+     "p95_px": 5.3092
+    }
+   },
+   "number27_max_px": 5.7562
+  },
+  "161": {
+   "backlog": 161,
+   "source": "CP1 合成で再測定（報告項目）",
+   "verdict": "record-only",
+   "by_interpretation": {
+    "a30": {
+     "max_px": 5.7562,
+     "p95_px": 5.3092
+    },
+    "a45": {
+     "max_px": 5.7562,
+     "p95_px": 5.3092
+    },
+    "a60": {
+     "max_px": 5.7562,
+     "p95_px": 5.3092
+    }
+   },
+   "number27_max_px": 5.7562
+  },
+  "75": {
+   "backlog": 75,
+   "source": "CP1 合成で再測定（報告項目）",
+   "verdict": "record-only",
+   "by_interpretation": {
+    "a30": {
+     "max_px": 141.358,
+     "p95_px": 85.6184
+    },
+    "a45": {
+     "max_px": 141.358,
+     "p95_px": 85.6184
+    },
+    "a60": {
+     "max_px": 141.358,
+     "p95_px": 85.6184
+    }
+   },
+   "number27_max_px": 141.358
+  },
+  "157": {
+   "backlog": 157,
+   "source": "CP1 合成で再測定（報告項目）",
+   "verdict": "record-only",
+   "by_interpretation": {
+    "a30": {
+     "max_px": 66.4642,
+     "p95_px": 59.6212
+    },
+    "a45": {
+     "max_px": 126.583,
+     "p95_px": 98.3234
+    },
+    "a60": {
+     "max_px": "inf",
+     "p95_px": "inf"
+    }
+   },
+   "number27_max_px": "inf",
+   "boat_left_visible_display_px2": {
+    "a30": 14652.75,
+    "a45": 5489.0,
+    "a60": 0.0
+   }
+  },
+  "159": {
+   "backlog": 159,
+   "source": "CP1 合成で再測定（報告項目）",
+   "verdict": "record-only",
+   "by_interpretation": {
+    "a30": {
+     "max_px": 218.2311,
+     "p95_px": 171.4291
+    },
+    "a45": {
+     "max_px": 218.2311,
+     "p95_px": 171.4291
+    },
+    "a60": {
+     "max_px": 218.2311,
+     "p95_px": 171.4291
+    }
+   },
+   "number27_max_px": 218.2311
+  },
+  "162": {
+   "backlog": 162,
+   "source": "CP1 合成で再測定（報告項目）",
+   "verdict": "record-only",
+   "by_interpretation": {
+    "a30": {
+     "fuji_snow_dE00": 64.4401,
+     "fuji_slope_dE00": 0.1517
+    },
+    "a45": {
+     "fuji_snow_dE00": 64.4401,
+     "fuji_slope_dE00": 0.1517
+    },
+    "a60": {
+     "fuji_snow_dE00": 64.4401,
+     "fuji_slope_dE00": 0.1517
+    }
+   }
+  },
+  "28_73": {
+   "backlog": 73,
+   "source": "番号28 から引き継ぎ（45°、主役波だけの描画＋主役波以外は原画で合成した評価）",
+   "name_ja": "内側の水色（藍中）の色区の境界",
+   "verdict": "pass",
+   "record_a30_a60": {
+    "a30": {
+     "boundary_max_px": 0.305,
+     "boundary_verdict": "pass"
+    },
+    "a60": {
+     "boundary_max_px": 0.36,
+     "boundary_verdict": "pass"
+    }
+   }
+  },
+  "28_77": {
+   "backlog": 77,
+   "source": "番号28 から引き継ぎ（45°、主役波だけの描画＋主役波以外は原画で合成した評価）",
+   "name_ja": "下側から始まる縞の本数・並び順と下側端",
+   "verdict": "pass",
+   "record_a30_a60": {
+    "a30": {
+     "boundary_max_px": 0.855,
+     "boundary_verdict": "pass"
+    },
+    "a60": {
+     "boundary_max_px": 1.17,
+     "boundary_verdict": "pass"
+    }
+   }
+  },
+  "28_79": {
+   "backlog": 79,
+   "source": "番号28 から引き継ぎ（45°、主役波だけの描画＋主役波以外は原画で合成した評価）",
+   "name_ja": "左側の白の境界",
+   "verdict": "pass",
+   "record_a30_a60": {
+    "a30": {
+     "boundary_max_px": 0.34,
+     "boundary_verdict": "pass"
+    },
+    "a60": {
+     "boundary_max_px": 0.342,
+     "boundary_verdict": "pass"
+    }
+   }
+  },
+  "28_118": {
+   "backlog": 118,
+   "source": "番号28 から引き継ぎ（45°、主役波だけの描画＋主役波以外は原画で合成した評価）",
+   "name_ja": "主要な縞の両側の境界",
+   "verdict": "pass",
+   "record_a30_a60": {
+    "a30": {
+     "boundary_max_px": 0.855,
+     "boundary_verdict": "pass"
+    },
+    "a60": {
+     "boundary_max_px": 0.866,
+     "boundary_verdict": "pass"
+    }
+   }
+  },
+  "28_120": {
+   "backlog": 120,
+   "source": "番号28 から引き継ぎ（45°、主役波だけの描画＋主役波以外は原画で合成した評価）",
+   "name_ja": "唇の白と内側の水色の境",
+   "verdict": "pass",
+   "record_a30_a60": {
+    "a30": {
+     "boundary_max_px": 0.288,
+     "boundary_verdict": "pass"
+    },
+    "a60": {
+     "boundary_max_px": 0.288,
+     "boundary_verdict": "pass"
+    }
+   }
+  },
+  "28_133": {
+   "backlog": 133,
+   "source": "番号28 から引き継ぎ（45°、主役波だけの描画＋主役波以外は原画で合成した評価）",
+   "name_ja": "左側から上側へ続く白と上側の境界",
+   "verdict": "pass",
+   "record_a30_a60": {
+    "a30": {
+     "boundary_max_px": 0.584,
+     "boundary_verdict": "pass"
+    },
+    "a60": {
+     "boundary_max_px": 0.38,
+     "boundary_verdict": "pass"
+    }
+   }
+  },
+  "28_134": {
+   "backlog": 134,
+   "source": "番号28 から引き継ぎ（45°、主役波だけの描画＋主役波以外は原画で合成した評価）",
+   "name_ja": "白帯の両側の境界と幅の広狭",
+   "verdict": "pass",
+   "record_a30_a60": {
+    "a30": {
+     "boundary_max_px": 1.942,
+     "boundary_verdict": "pass"
+    },
+    "a60": {
+     "boundary_max_px": 0.633,
+     "boundary_verdict": "pass"
+    }
+   }
+  },
+  "28_175": {
+   "backlog": 175,
+   "source": "番号28 から引き継ぎ（45°、主役波だけの描画＋主役波以外は原画で合成した評価）",
+   "name_ja": "白の中の藍・水色の色区が全部残る",
+   "verdict": "fail",
+   "record_a30_a60": {
+    "a30": {
+     "boundary_max_px": 18.399,
+     "boundary_verdict": "fail"
+    },
+    "a60": {
+     "boundary_max_px": 18.378,
+     "boundary_verdict": "fail"
+    }
+   },
+   "value_summary": {
+    "regions_total": 198,
+    "regions_retained": 196,
+    "lost": [
+     "M171",
+     "A073"
+    ],
+    "boundary_max_px": 18.38,
+    "without_two_contour_touching_regions_max_px": 2.25
+   }
+  },
+  "28_263": {
+   "backlog": 263,
+   "source": "番号28 から引き継ぎ（45°、主役波だけの描画＋主役波以外は原画で合成した評価）",
+   "name_ja": "内側から下方へ続く水色",
+   "verdict": "pass",
+   "record_a30_a60": {
+    "a30": {
+     "boundary_max_px": 0.241,
+     "boundary_verdict": "pass"
+    },
+    "a60": {
+     "boundary_max_px": 0.36,
+     "boundary_verdict": "pass"
+    }
+   }
+  },
+  "28_270": {
+   "backlog": 270,
+   "source": "番号28 から引き継ぎ（45°、主役波だけの描画＋主役波以外は原画で合成した評価）",
+   "name_ja": "白と水色の境",
+   "verdict": "pass",
+   "record_a30_a60": {
+    "a30": {
+     "boundary_max_px": 0.598,
+     "boundary_verdict": "pass"
+    },
+    "a60": {
+     "boundary_max_px": 0.297,
+     "boundary_verdict": "pass"
+    }
+   }
+  },
+  "28_265": {
+   "backlog": 265,
+   "source": "番号28 から引き継ぎ（45°、主役波だけの描画＋主役波以外は原画で合成した評価）",
+   "name_ja": "内側の水色の表示色",
+   "verdict": "pass",
+   "record_a30_a60": null
+  },
+  "28_266": {
+   "backlog": 266,
+   "source": "番号28 から引き継ぎ（45°、主役波だけの描画＋主役波以外は原画で合成した評価）",
+   "name_ja": "水色の平塗り（照明の帯 0）",
+   "verdict": "pass",
+   "record_a30_a60": null
+  },
+  "28_267": {
+   "backlog": 267,
+   "source": "番号28 から引き継ぎ（45°、主役波だけの描画＋主役波以外は原画で合成した評価）",
+   "name_ja": "白の平塗り（灰色の帯 0）",
+   "verdict": "pass",
+   "record_a30_a60": null
+  },
+  "28_uv_no_empty_texels": {
+   "backlog": null,
+   "source": "番号28 から引き継ぎ（45°、主役波だけの描画＋主役波以外は原画で合成した評価）",
+   "name_ja": "UV テクスチャに空のテクセルがない",
+   "verdict": "pass",
+   "record_a30_a60": null
+  },
+  "28_142": {
+   "backlog": 142,
+   "source": "番号28 から引き継ぎ（45°、主役波だけの描画＋主役波以外は原画で合成した評価）",
+   "name_ja": "左側の外周線（事前検査）",
+   "verdict": "record-only",
+   "record_a30_a60": null
+  },
+  "28_143": {
+   "backlog": 143,
+   "source": "番号28 から引き継ぎ（45°、主役波だけの描画＋主役波以外は原画で合成した評価）",
+   "name_ja": "上側から船側の端までの外周線（事前検査）",
+   "verdict": "record-only",
+   "record_a30_a60": null
+  },
+  "28_178": {
+   "backlog": 178,
+   "source": "番号28 から引き継ぎ（45°、主役波だけの描画＋主役波以外は原画で合成した評価）",
+   "name_ja": "縞の枝分かれ",
+   "verdict": "record-only",
+   "record_a30_a60": null
+  },
+  "29_claws_draft": {
+   "source": "番号29（草稿 draft1）から引き継ぎ",
+   "verdict": "record-only",
+   "items": [
+    {
+     "item": "29受入：一覧から描き直した爪の和集合と原画の白領域の IoU",
+     "target": "≥ 0.85（完成版）",
+     "value": 0.8766,
+     "value_other": {
+      "all_zones": {
+       "target_claw_white_ref_px": 287255,
+       "target_all_white_ref_px": 513230,
+       "body_white_ref_px": 225975,
+       "iou_all_parts_vs_claw_white": 0.8716,
+       "recall_all_parts": 0.9326,
+       "precision_all_parts": 0.9302,
+       "iou_fingers_stems_vs_claw_white": 0.6484,
+       "iou_fingers_only_vs_claw_white": 0.4404,
+       "iou_outline_polygons_vs_claw_white": 0.4561,
+       "iou_all_parts_plus_body_polygons_vs_all_white": 0.9227,
+       "reference_whole_skeleton_mat_iou_vs_claw_white": 0.9484
+      },
+      "main": {
+       "target_claw_white_ref_px": 234615,
+       "target_all_white_ref_px": 357782,
+       "body_white_ref_px": 123167,
+       "iou_all_parts_vs_claw_white": 0.8766,
+       "recall_all_parts": 0.9377,
+       "precision_all_parts": 0.9308,
+       "iou_fingers_stems_vs_claw_white": 0.6946,
+       "iou_fingers_only_vs_claw_white": 0.4542,
+       "iou_outline_polygons_vs_claw_white": 0.4717,
+       "iou_all_parts_plus_body_polygons_vs_all_white": 0.9157,
+       "reference_whole_skeleton_mat_iou_vs_claw_white": 0.9473
+      },
+      "right": {
+       "target_claw_white_ref_px": 52640,
+       "target_all_white_ref_px": 155448,
+       "body_white_ref_px": 102808,
+       "iou_all_parts_vs_claw_white": 0.8494,
+       "recall_all_parts": 0.9099,
+       "precision_all_parts": 0.9274,
+       "iou_fingers_stems_vs_claw_white": 0.4392,
+       "iou_fingers_only_vs_claw_white": 0.3786,
+       "iou_outline_polygons_vs_claw_white": 0.3865,
+       "iou_all_parts_plus_body_polygons_vs_all_white": 0.9392,
+       "reference_whole_skeleton_mat_iou_vs_claw_white": 0.9534
+      },
+      "display_all_zones": {
+       "iou_all_parts_vs_claw_white": 0.8689,
+       "iou_fingers_only_vs_claw_white": 0.3484
+      }
+     },
+     "verdict": "記録のみ（草稿）",
+     "note_ja": "主の値は主浪の波頭の範囲で、指＋幹＋根元の白（base_web）を一覧だけから描き直した和集合と、波頭の平らな白（半径 45 px の円で開いて残る厚い塊）を除いた原画の白（爪の白）の IoU（高解像度 px）。同じ範囲で、指＋幹だけは 0.6946、指だけは 0.4542、輪郭の多角形の和は 0.4717。右側の範囲（白と水色を合わせた面が対象）、2 つの範囲の合計、白の全体（平らな白の多角形を足す）、表示解像度の値も value_other に記す。reference_whole_skeleton_mat は、とげを除いた骨格の全体の内接円の和と白の共通部分（骨格で表せる白の上限の目安）。"
+    },
+    {
+     "item": "29受入：爪の数（backlog 139『配置した約150本』）",
+     "target": "150 ± 15（完成版）",
+     "value": 135,
+     "value_other": {
+      "main_wave_total": 135,
+      "right_side_total": 25,
+      "all_total": 160,
+      "by_row": {
+       "上側": 61,
+       "途中": 27,
+       "船側": 47,
+       "右側": 25
+      },
+      "silhouette_by_row": {
+       "上側": 1,
+       "途中": 6,
+       "船側": 14,
+       "右側": 0
+      },
+      "over_indigo_by_row": {
+       "上側": 7,
+       "途中": 0,
+       "船側": 6,
+       "右側": 18
+      },
+      "base_web_pieces_not_counted": 211,
+      "excluded_candidates_not_counted": 66
+     },
+     "verdict": "記録のみ（草稿）",
+     "note_ja": "主の値は主浪の 3 列（上側・途中・船側）の本数。backlog 139 は主浪の爪の群（B022）の項目なので、右側の波の爪（backlog 240〜256、B055）は別に数えた。両方を足した値も記す。どちらを 150 と比べるかは CP2 で利用者に確かめる。"
+    },
+    {
+     "item": "29受入：代表10形の長短の順序を自動で出力できる",
+     "target": "出力できる",
+     "value": [
+      "C010",
+      "C079",
+      "C082",
+      "C011",
+      "C057",
+      "C059",
+      "C132",
+      "C090",
+      "C108",
+      "C113"
+     ],
+     "verdict": "記録のみ（草稿。候補の選定は利用者の CP2 確認待ち）",
+     "note_ja": "claw_inventory_draft.json の representative_candidates に長さ・根元幅・中央幅の順を出力した。"
+    },
+    {
+     "item": "29：船側中央の爪の候補（backlog 95〜98 の対象）",
+     "target": "利用者が CP2 で指定",
+     "value": [
+      "C098",
+      "C096",
+      "C099"
+     ],
+     "verdict": "記録のみ（候補）"
+    }
+   ]
+  }
+ }
+}
