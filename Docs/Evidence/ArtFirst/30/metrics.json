@@ -1,0 +1,1028 @@
+{
+ "schema": "GreatWave.AF30.metrics/1",
+ "number": "30",
+ "t_star_s": 12.0,
+ "camera": "PaintingCam v1",
+ "frame": [
+  1920,
+  1080
+ ],
+ "evidence_kind_ja": "numpy の rig・連続性の検査、Blender 5.2.2 ヘッドレスのメッシュ検査、Unity 6000.4.3f1 Editor の batchmode による PC のオフスクリーン描画（RTX 3080、Direct3D11、Linear）。HMD 実機の結果ではない（HMD 未所持）。",
+ "rig": {
+  "path": "Tools/GWWaveGen/af30_rig.json",
+  "sha256": "9251b49a1c4da230077b007eb5a37a805a18db8a72b528c285455836d529a7a4"
+ },
+ "kstar_gwb_sha256": "e9bc3572590b5b237ddd302fca64f54f2d325813ad787f20e4d7524b6b84cd26",
+ "keys": {
+  "layers": 181,
+  "rate_hz": 15,
+  "adaptive_added": 0,
+  "adaptive_rounds": [
+   {
+    "round": 0,
+    "keys": 181,
+    "worst_interp_err_m": 0.0019231183904105341,
+    "added": 0
+   }
+  ]
+ },
+ "items": {
+  "80": {
+   "name_ja": "船上の正面中央で、波の上側を上昇前から上昇後まで続けて見られる（形の切替・欠落 0）",
+   "value": {
+    "shape_switch_missing_tear_jump_flip": {
+     "index_constant": true,
+     "vertex_count": 96000,
+     "step_max_m_30hz": 0.1736,
+     "step_limit_m": 0.6,
+     "second_diff_max_m_30hz": 0.00714,
+     "second_diff_limit_m": 0.0218,
+     "normal_dot_min": 0.9849,
+     "face_flips": 0,
+     "section_self_intersections": 0,
+     "edge_stretch_ratio_max": 2.988,
+     "blender_frames_all_zero": true,
+     "blender_frames": 14
+    },
+    "centre_band_elev_deg": {
+     "t0": -90.0,
+     "t6": 17.26,
+     "t9": 52.65,
+     "tstar": 64.03
+    },
+    "centre_band_max_drop_deg_per_frame": 0.0,
+    "ja": "座席 v1 から見た、座席の近くの行（波峰線方向 c が座席 ±5 m）の、海面より 0.3 m 高い水面の最大仰角（座席の形成の向き＝唇の方位の中央に見える）。原画視点と座席で同じ keypose・同じ時計（GWClock）の同じ上昇区間を描いた"
+   },
+   "verdict": "pass"
+  },
+  "106": {
+   "name_ja": "船上の正面中央から左右まで、水面が同じ一面として上へ移る（裂け・位置跳び 0）",
+   "value": {
+    "shape_switch_missing_tear_jump_flip": {
+     "index_constant": true,
+     "vertex_count": 96000,
+     "step_max_m_30hz": 0.1736,
+     "step_limit_m": 0.6,
+     "second_diff_max_m_30hz": 0.00714,
+     "second_diff_limit_m": 0.0218,
+     "normal_dot_min": 0.9849,
+     "face_flips": 0,
+     "section_self_intersections": 0,
+     "edge_stretch_ratio_max": 2.988,
+     "blender_frames_all_zero": true,
+     "blender_frames": 14
+    },
+    "left_elev_tstar": 50.64,
+    "right_elev_tstar": 48.9,
+    "left_max_drop_deg_per_frame": 0.009,
+    "right_max_drop_deg_per_frame": 0.0,
+    "rows_ja": "左 = 手前の肩の行（c が座席 −25〜−5 m）、中央 = 座席 ±5 m、右 = 奥の行（座席 +5〜+15 m）の水面の最大仰角",
+    "ja": "固定位相の一枚の水面シート（添字は全フレーム同じ）。行の間の辺の伸びは K* と K0 の長い方の最大 2.99 倍（裂けの目安 6 倍）"
+   },
+   "verdict": "pass"
+  },
+  "107": {
+   "name_ja": "船側の水面が上向きから船向きへ連続して変わる（面の反転・位置跳び 0）",
+   "value": {
+    "shape_switch_missing_tear_jump_flip": {
+     "index_constant": true,
+     "vertex_count": 96000,
+     "step_max_m_30hz": 0.1736,
+     "step_limit_m": 0.6,
+     "second_diff_max_m_30hz": 0.00714,
+     "second_diff_limit_m": 0.0218,
+     "normal_dot_min": 0.9849,
+     "face_flips": 0,
+     "section_self_intersections": 0,
+     "edge_stretch_ratio_max": 2.988,
+     "blender_frames_all_zero": true,
+     "blender_frames": 14
+    },
+    "face_normal_up_deg": {
+     "t0": 0.0,
+     "t8": 43.88,
+     "tstar": 51.63
+    },
+    "face_normal_dot_to_seat_tstar": 0.722,
+    "face_normal_turn_max_deg_per_frame": 0.387,
+    "ja": "座席の近くの行（c が座席 ±5 m）の内壁（列 j_corner〜j_facebot）の平均の法線"
+   },
+   "verdict": "pass"
+  },
+  "108": {
+   "name_ja": "船上から、前方の水面が船側へ延びて座席の上に入る過程を見られる",
+   "value": {
+    "lip_elev_max_deg": {
+     "t2": -90.0,
+     "t8": 41.16,
+     "t10": 59.21,
+     "tstar": 64.03,
+     "max": 64.03
+    },
+    "lip_elev_max_drop_deg_per_frame": 0.0,
+    "near_rows_tip_elev_deg_tstar": 63.68,
+    "lip_horizontal_min_m_tstar": 5.123,
+    "lip_points_within_5m_horizontal_max": 0,
+    "water_points_elev_ge_70deg_max": 0,
+    "blender_rays_elev_ge_60_hit_wave": {
+     "0.000": 0,
+     "2.000": 0,
+     "4.000": 0,
+     "6.000": 0,
+     "7.000": 0,
+     "8.000": 0,
+     "9.000": 0,
+     "9.500": 0,
+     "10.000": 0,
+     "10.500": 18,
+     "11.000": 68,
+     "11.500": 102,
+     "11.750": 115,
+     "12.000": 119
+    },
+    "lip_elev_max_over_all_frames_at_s": 12.0,
+    "kstar_static_lip_elev_deg": 64.03,
+    "frames_before_tstar_above_kstar": 0,
+    "reading_ja": "読みは決めていない（保留、利用者の選択待ち）。作業計画の受入は「水面が座席の上方へ延びる」、バックログ 108 は「座席の上に入る」で、26修正01・27修正01 は t* の形がこれを満たさないとして、唇を座席の上方へ送ることを番号30 へ回した。ここでは 2 つの読みを測って記録する。(1) 仰角の読み（番号30 が置いた読みで、作業計画の既定値ではない）：座席は右船の座席 v1 に固定したまま、同じ水面（唇）の仰角が前方（t = 2 s で 20° 未満）から 60° 以上へ途切れずに（1 フレームで 1° 以上下がらない）上がる。60° 以上は静止した K*（t*）だけで満たしており、形成の途中で唇の仰角が K* を超える時刻はない（全区間の最大は t* = 12.0 s）。(2) 真上の読み：座席から水平 5 m 以内・仰角 70° 以上に水面が来る。満たさない。"
+   },
+   "verdict": "保留（読みの選択待ち）",
+   "verdict_elevation_reading": "pass",
+   "verdict_overhead_reading": "fail"
+  },
+  "111": {
+   "name_ja": "座席の上へ延びた水面の先が、下向きに曲がる過程を見られる（位置跳び・欠落 0）",
+   "value": {
+    "shape_switch_missing_tear_jump_flip": {
+     "index_constant": true,
+     "vertex_count": 96000,
+     "step_max_m_30hz": 0.1736,
+     "step_limit_m": 0.6,
+     "second_diff_max_m_30hz": 0.00714,
+     "second_diff_limit_m": 0.0218,
+     "normal_dot_min": 0.9849,
+     "face_flips": 0,
+     "section_self_intersections": 0,
+     "edge_stretch_ratio_max": 2.988,
+     "blender_frames_all_zero": true,
+     "blender_frames": 14
+    },
+    "tip_dir_deg": {
+     "t8": -40.71,
+     "t9": -52.9,
+     "t10": -63.2,
+     "t11": -66.35,
+     "tstar": -61.15,
+     "max": 0.0
+    },
+    "tip_dir_step_max_deg_per_frame": 0.584,
+    "tip_jump_max_m_per_frame": 0.1268,
+    "tstar_vs_kstar_max_m": 3.7965515673477057e-06,
+    "lip_parabola": {
+     "main_row_t_apex_s": 9.594,
+     "main_row_G_per_m": 0.2334,
+     "main_row_deviation_m": 0.0106,
+     "full_weight_rows_deviation_max_m": 0.4883
+    },
+    "ja": "座席の近くの行（c が座席 ±3 m）の唇先の向き（唇の上面の最後の 8 列、断面内の水平からの角の中央値。負が下向き）と唇先の位置の 1 フレームの移動"
+   },
+   "verdict": "pass"
+  },
+  "117": {
+   "name_ja": "船上の近景で、前方から座席の上へ曲がる水面を一続きの面として見られる（減面なし、穴・切断 0）",
+   "value": {
+    "same_mesh_all_views_and_frames": true,
+    "vertex_count": 96000,
+    "decimation": "なし（原画視点・座席・側面・背面とも同じ 96,000 頂点の同じ添字）",
+    "contour_diff_px_vs_undecimated": 0.0,
+    "seat_rays_open_back_cut_hole": {
+     "0.000": [
+      0,
+      0,
+      0
+     ],
+     "2.000": [
+      0,
+      0,
+      0
+     ],
+     "4.000": [
+      0,
+      0,
+      0
+     ],
+     "6.000": [
+      0,
+      0,
+      0
+     ],
+     "7.000": [
+      0,
+      0,
+      0
+     ],
+     "8.000": [
+      0,
+      0,
+      0
+     ],
+     "9.000": [
+      0,
+      0,
+      0
+     ],
+     "9.500": [
+      0,
+      0,
+      0
+     ],
+     "10.000": [
+      0,
+      0,
+      0
+     ],
+     "10.500": [
+      0,
+      0,
+      0
+     ],
+     "11.000": [
+      0,
+      0,
+      0
+     ],
+     "11.500": [
+      0,
+      0,
+      0
+     ],
+     "11.750": [
+      0,
+      0,
+      0
+     ],
+     "12.000": [
+      0,
+      0,
+      0
+     ]
+    }
+   },
+   "verdict": "pass"
+  },
+  "interp_shader_vs_numpy": {
+   "name_ja": "シェーダーの補間と numpy の密なフレームの照合（t* ≤1 px、全区間 ≤2 cm）",
+   "value": {
+    "cpu_catmullrom_quantized_vs_dense_max_m_120hz": 0.00252,
+    "cpu_worst_at_t_row_col": [
+     11.975,
+     175,
+     198
+    ],
+    "gpu_vs_numpy_dense_max_m": 0.00236,
+    "gpu_vs_cpu_catmullrom_max_m": 1.908554160351096e-05,
+    "gpu_capture_times": 36,
+    "tstar_px_max": 0.09940595905334125,
+    "tstar_quantized_vs_kstar_max_m": 0.001203253339623861,
+    "keypose_quantization_max_m": 0.0012065159056638027,
+    "ja": "GPU は頂点シェーダーと同じ関数（AF30KeyposeCore.cginc の AF30KeyposePosition）をコンピュートシェーダーで走らせて読み戻した値。t* の px は PaintingCam v1 で K* と比べた画面上の差（画面の周り 50 px までの頂点）"
+   },
+   "verdict": "pass"
+  },
+  "tstar_remeasure": {
+   "name_ja": "t* の再測定が 26修正01／28修正01 と ±0.5 px 以内",
+   "value": {
+    "worst_abs_diff_px": 0.132,
+    "silhouettes": [
+     {
+      "item": "78",
+      "af30_max_px": 1.6408,
+      "af30_p95_px": 1.4254,
+      "r26r01_max_px": 1.6408,
+      "r26r01_p95_px": 1.4347,
+      "r28r01_max_px": 1.6408,
+      "diff_vs_26r01_max_px": 0.0,
+      "diff_vs_26r01_p95_px": -0.009300000000000086,
+      "diff_vs_28r01_max_px": 0.0
+     },
+     {
+      "item": "130",
+      "af30_max_px": 1.9273,
+      "af30_p95_px": 1.8272,
+      "r26r01_max_px": 1.953,
+      "r26r01_p95_px": 1.8288,
+      "r28r01_max_px": 1.953,
+      "diff_vs_26r01_max_px": -0.025700000000000056,
+      "diff_vs_26r01_p95_px": -0.0016000000000000458,
+      "diff_vs_28r01_max_px": -0.025700000000000056
+     },
+     {
+      "item": "131",
+      "af30_max_px": 1.798,
+      "af30_p95_px": 1.6465,
+      "r26r01_max_px": 1.798,
+      "r26r01_p95_px": 1.6465,
+      "r28r01_max_px": 1.798,
+      "diff_vs_26r01_max_px": 0.0,
+      "diff_vs_26r01_p95_px": 0.0,
+      "diff_vs_28r01_max_px": 0.0
+     },
+     {
+      "item": "132",
+      "af30_max_px": 1.5441,
+      "af30_p95_px": 1.3893,
+      "r26r01_max_px": 1.5739,
+      "r26r01_p95_px": 1.4087,
+      "r28r01_max_px": 1.5739,
+      "diff_vs_26r01_max_px": -0.02980000000000005,
+      "diff_vs_26r01_p95_px": -0.019400000000000084,
+      "diff_vs_28r01_max_px": -0.02980000000000005
+     },
+     {
+      "item": "72",
+      "af30_max_px": 5.776,
+      "af30_p95_px": 1.7289,
+      "r26r01_max_px": 5.776,
+      "r26r01_p95_px": 1.7233,
+      "r28r01_max_px": 5.776,
+      "diff_vs_26r01_max_px": 0.0,
+      "diff_vs_26r01_p95_px": 0.005600000000000049,
+      "diff_vs_28r01_max_px": 0.0
+     },
+     {
+      "item": "71",
+      "af30_max_px": 126.247,
+      "af30_p95_px": 108.6978,
+      "r26r01_max_px": 37.4944,
+      "r26r01_p95_px": 20.3695,
+      "r28r01_max_px": 126.247,
+      "diff_vs_26r01_max_px": 88.7526,
+      "diff_vs_26r01_p95_px": 88.3283,
+      "diff_vs_28r01_max_px": 0.0
+     }
+    ],
+    "boundaries": [
+     {
+      "item": "73",
+      "measure": "boundary",
+      "af30_max_px": 0.655,
+      "r28r01_max_px": 0.655,
+      "diff_px": 0.0,
+      "af30_verdict": "pass",
+      "r28r01_verdict": "pass"
+     },
+     {
+      "item": "77",
+      "measure": "lower_ends",
+      "af30_max_px": 1.17,
+      "r28r01_max_px": 1.17,
+      "diff_px": 0.0,
+      "af30_verdict": "pass",
+      "r28r01_verdict": "pass"
+     },
+     {
+      "item": "79",
+      "measure": "boundary",
+      "af30_max_px": 0.34,
+      "r28r01_max_px": 0.34,
+      "diff_px": 0.0,
+      "af30_verdict": "pass",
+      "r28r01_verdict": "pass"
+     },
+     {
+      "item": "118",
+      "measure": "boundary",
+      "af30_max_px": 0.655,
+      "r28r01_max_px": 0.655,
+      "diff_px": 0.0,
+      "af30_verdict": "pass",
+      "r28r01_verdict": "pass"
+     },
+     {
+      "item": "120",
+      "measure": "boundary",
+      "af30_max_px": 0.288,
+      "r28r01_max_px": 0.288,
+      "diff_px": 0.0,
+      "af30_verdict": "pass",
+      "r28r01_verdict": "pass"
+     },
+     {
+      "item": "133",
+      "measure": "boundary",
+      "af30_max_px": 0.534,
+      "r28r01_max_px": 0.402,
+      "diff_px": 0.132,
+      "af30_verdict": "pass",
+      "r28r01_verdict": "pass"
+     },
+     {
+      "item": "134",
+      "measure": "boundary",
+      "af30_max_px": 0.977,
+      "r28r01_max_px": 0.977,
+      "diff_px": 0.0,
+      "af30_verdict": "pass",
+      "r28r01_verdict": "pass"
+     },
+     {
+      "item": "175",
+      "measure": "boundary_by_class/ai_dark",
+      "af30_max_px": 0.337,
+      "r28r01_max_px": 0.309,
+      "diff_px": 0.028,
+      "af30_verdict": "fail",
+      "r28r01_verdict": "fail"
+     },
+     {
+      "item": "175",
+      "measure": "boundary_by_class/ai_mid",
+      "af30_max_px": 2.41,
+      "r28r01_max_px": 2.41,
+      "diff_px": 0.0,
+      "af30_verdict": "fail",
+      "r28r01_verdict": "fail"
+     },
+     {
+      "item": "175",
+      "measure": "boundary_by_class/mizuiro",
+      "af30_max_px": 18.375,
+      "r28r01_max_px": 18.375,
+      "diff_px": 0.0,
+      "af30_verdict": "fail",
+      "r28r01_verdict": "fail"
+     },
+     {
+      "item": "175",
+      "measure": "record_excluding_lost_regions/boundary_by_class/ai_dark",
+      "af30_max_px": 0.337,
+      "r28r01_max_px": 0.309,
+      "diff_px": 0.028,
+      "af30_verdict": "fail",
+      "r28r01_verdict": "fail"
+     },
+     {
+      "item": "175",
+      "measure": "record_excluding_lost_regions/boundary_by_class/ai_mid",
+      "af30_max_px": 2.41,
+      "r28r01_max_px": 2.41,
+      "diff_px": 0.0,
+      "af30_verdict": "fail",
+      "r28r01_verdict": "fail"
+     },
+     {
+      "item": "175",
+      "measure": "record_excluding_lost_regions/boundary_by_class/mizuiro",
+      "af30_max_px": 0.865,
+      "r28r01_max_px": 0.865,
+      "diff_px": 0.0,
+      "af30_verdict": "fail",
+      "r28r01_verdict": "fail"
+     },
+     {
+      "item": "263",
+      "measure": "boundary_lower",
+      "af30_max_px": 0.594,
+      "r28r01_max_px": 0.559,
+      "diff_px": 0.035,
+      "af30_verdict": "pass",
+      "r28r01_verdict": "pass"
+     },
+     {
+      "item": "270",
+      "measure": "boundary",
+      "af30_max_px": 0.563,
+      "r28r01_max_px": 0.563,
+      "diff_px": 0.0,
+      "af30_verdict": "pass",
+      "r28r01_verdict": "pass"
+     },
+     {
+      "item": "270",
+      "measure": "record_mizuiro_reading",
+      "af30_max_px": 0.661,
+      "r28r01_max_px": 0.661,
+      "diff_px": 0.0,
+      "af30_verdict": "pass",
+      "r28r01_verdict": "pass"
+     }
+    ],
+    "verdicts_af30": {
+     "73": "pass",
+     "77": "pass",
+     "79": "pass",
+     "118": "pass",
+     "120": "pass",
+     "133": "pass",
+     "134": "pass",
+     "175": "fail",
+     "263": "pass",
+     "270": "pass",
+     "265": "pass",
+     "266": "pass",
+     "267": "pass",
+     "uv_no_empty_texels": "pass"
+    },
+    "outline_interior_px": 3558
+   },
+   "verdict": "pass"
+  },
+  "continuity_suite": {
+   "name_ja": "連続性の検査一式とガードレール（再生成のたび）",
+   "value": {
+    "hz": 30.0,
+    "frames": 511,
+    "t_from_s": 0.0,
+    "t_to_s": 17.0,
+    "index_sha256": "2b6dcb29bfdaa03573816231156740d09ac39a8b565463c96cfed48cd3f07a55",
+    "vertex_count": 96000,
+    "triangle_count": 190722,
+    "index_constant_ja": "全フレームで同じ三角形の添字（K* の .gwb の添字をそのまま使い、形成では頂点の位置だけを変える）",
+    "step_max_m": 0.17361023418155772,
+    "step_max_at_t_row_col": [
+     6.166666666666667,
+     214,
+     18
+    ],
+    "step_limit_m": 0.6,
+    "second_diff_max_m": 0.007140943617491758,
+    "second_diff_at_t_row_col": [
+     11.0,
+     178,
+     208
+    ],
+    "second_diff_limit_m": 0.0218,
+    "normal_dot_min": 0.9849138762906108,
+    "normal_dot_min_at": [
+     9.066666666666666,
+     63585
+    ],
+    "face_flips": 0,
+    "face_flip_frames": [],
+    "section_self_intersections_total": 0,
+    "section_self_intersection_frames": [],
+    "si_every_frames": 1,
+    "tstar_vs_kstar_max_m": 3.7965515673477057e-06,
+    "tstar_limit_m": 0.0001,
+    "crest_height_nonmonotone_frames": 0,
+    "crest_height_drop_max_m": 0.0,
+    "lip_tip_speed_max_mps": 3.9212789136996813,
+    "lip_tip_speed_at_t": 7.733333333333333,
+    "lip_tip_rows": 140,
+    "lip_speed_limit_mps": 12.0,
+    "lip_parabola_deviation_max_m_rows_full_weight": 0.4883470578727227,
+    "lip_parabola_deviation_main_row_m": 0.010586459788473945,
+    "lip_parabola_ja": "唇先（列 j_tip）の軌跡と、その行の放物線 y = y_apex − G·(a − a_apex)² の縦の差（頂点の後、t* まで）。補正を波峰線方向に平滑したぶんの差（放物線の重み 1 の行）。",
+    "y_min_m": -7.105427357601002e-15,
+    "edge_stretch_ratio_max": 2.9878383857272817,
+    "edge_stretch_limit": 6.0,
+    "rig_info": {
+     "parabola_dy_abs_max_m": 0.2997657606832268,
+     "k_max": 3.8221659384160196,
+     "back_foot_gap_min_m": 6.327612142397193,
+     "front_foot_gap_min_m": 16.54127054462238,
+     "front_not_descending_rows": 0
+    },
+    "pass": {
+     "index_constant": true,
+     "step": true,
+     "second_diff": true,
+     "normal_dot": true,
+     "face_flips": true,
+     "section_self_intersection": true,
+     "tstar": true,
+     "crest_monotone": true,
+     "lip_speed": true,
+     "below_sea_none": true,
+     "edge_stretch": true
+    },
+    "all_pass": true,
+    "seconds": 114.0505850315094,
+    "generated_utc": "2026-09-26T08:49:54+00:00",
+    "rig_sha256": "9251b49a1c4da230077b007eb5a37a805a18db8a72b528c285455836d529a7a4",
+    "kstar_gwb_sha256": "e9bc3572590b5b237ddd302fca64f54f2d325813ad787f20e4d7524b6b84cd26"
+   },
+   "verdict": "pass"
+  },
+  "blender_frames": {
+   "name_ja": "途中のフレームのメッシュ検査（Blender、14 フレーム）",
+   "value": {
+    "0.000": {
+     "nonmanifold_edges_gt2_faces": 0,
+     "boundary_edges": 1276,
+     "flipped_inconsistent_winding_edges": 0,
+     "degenerate_faces_area_lt_1e-8": 0,
+     "self_intersecting_face_pairs": 0,
+     "flat_sea_faces_facing_down": 0,
+     "rays": {
+      "wave_front": 18136,
+      "wave_back_open": 0,
+      "cut_end": 0,
+      "hole": 0,
+      "sea_outside_footprint": 1304,
+      "sky": 30560
+     },
+     "rays_elevation_ge_60deg": {
+      "total": 5942,
+      "hit_wave": 0
+     }
+    },
+    "2.000": {
+     "nonmanifold_edges_gt2_faces": 0,
+     "boundary_edges": 1276,
+     "flipped_inconsistent_winding_edges": 0,
+     "degenerate_faces_area_lt_1e-8": 0,
+     "self_intersecting_face_pairs": 0,
+     "flat_sea_faces_facing_down": 0,
+     "rays": {
+      "wave_front": 18136,
+      "wave_back_open": 0,
+      "cut_end": 0,
+      "hole": 0,
+      "sea_outside_footprint": 1304,
+      "sky": 30560
+     },
+     "rays_elevation_ge_60deg": {
+      "total": 5942,
+      "hit_wave": 0
+     }
+    },
+    "4.000": {
+     "nonmanifold_edges_gt2_faces": 0,
+     "boundary_edges": 1276,
+     "flipped_inconsistent_winding_edges": 0,
+     "degenerate_faces_area_lt_1e-8": 0,
+     "self_intersecting_face_pairs": 0,
+     "flat_sea_faces_facing_down": 0,
+     "rays": {
+      "wave_front": 18213,
+      "wave_back_open": 0,
+      "cut_end": 0,
+      "hole": 0,
+      "sea_outside_footprint": 1227,
+      "sky": 30560
+     },
+     "rays_elevation_ge_60deg": {
+      "total": 5942,
+      "hit_wave": 0
+     }
+    },
+    "6.000": {
+     "nonmanifold_edges_gt2_faces": 0,
+     "boundary_edges": 1276,
+     "flipped_inconsistent_winding_edges": 0,
+     "degenerate_faces_area_lt_1e-8": 0,
+     "self_intersecting_face_pairs": 0,
+     "flat_sea_faces_facing_down": 0,
+     "rays": {
+      "wave_front": 20337,
+      "wave_back_open": 0,
+      "cut_end": 0,
+      "hole": 0,
+      "sea_outside_footprint": 1008,
+      "sky": 28655
+     },
+     "rays_elevation_ge_60deg": {
+      "total": 5942,
+      "hit_wave": 0
+     }
+    },
+    "7.000": {
+     "nonmanifold_edges_gt2_faces": 0,
+     "boundary_edges": 1276,
+     "flipped_inconsistent_winding_edges": 0,
+     "degenerate_faces_area_lt_1e-8": 0,
+     "self_intersecting_face_pairs": 0,
+     "flat_sea_faces_facing_down": 0,
+     "rays": {
+      "wave_front": 21868,
+      "wave_back_open": 0,
+      "cut_end": 0,
+      "hole": 0,
+      "sea_outside_footprint": 979,
+      "sky": 27153
+     },
+     "rays_elevation_ge_60deg": {
+      "total": 5942,
+      "hit_wave": 0
+     }
+    },
+    "8.000": {
+     "nonmanifold_edges_gt2_faces": 0,
+     "boundary_edges": 1276,
+     "flipped_inconsistent_winding_edges": 0,
+     "degenerate_faces_area_lt_1e-8": 0,
+     "self_intersecting_face_pairs": 0,
+     "flat_sea_faces_facing_down": 0,
+     "rays": {
+      "wave_front": 23573,
+      "wave_back_open": 0,
+      "cut_end": 0,
+      "hole": 0,
+      "sea_outside_footprint": 953,
+      "sky": 25474
+     },
+     "rays_elevation_ge_60deg": {
+      "total": 5942,
+      "hit_wave": 0
+     }
+    },
+    "9.000": {
+     "nonmanifold_edges_gt2_faces": 0,
+     "boundary_edges": 1276,
+     "flipped_inconsistent_winding_edges": 0,
+     "degenerate_faces_area_lt_1e-8": 0,
+     "self_intersecting_face_pairs": 0,
+     "flat_sea_faces_facing_down": 0,
+     "rays": {
+      "wave_front": 25212,
+      "wave_back_open": 0,
+      "cut_end": 0,
+      "hole": 0,
+      "sea_outside_footprint": 952,
+      "sky": 23836
+     },
+     "rays_elevation_ge_60deg": {
+      "total": 5942,
+      "hit_wave": 0
+     }
+    },
+    "9.500": {
+     "nonmanifold_edges_gt2_faces": 0,
+     "boundary_edges": 1276,
+     "flipped_inconsistent_winding_edges": 0,
+     "degenerate_faces_area_lt_1e-8": 0,
+     "self_intersecting_face_pairs": 0,
+     "flat_sea_faces_facing_down": 0,
+     "rays": {
+      "wave_front": 25749,
+      "wave_back_open": 0,
+      "cut_end": 0,
+      "hole": 0,
+      "sea_outside_footprint": 971,
+      "sky": 23280
+     },
+     "rays_elevation_ge_60deg": {
+      "total": 5942,
+      "hit_wave": 0
+     }
+    },
+    "10.000": {
+     "nonmanifold_edges_gt2_faces": 0,
+     "boundary_edges": 1276,
+     "flipped_inconsistent_winding_edges": 0,
+     "degenerate_faces_area_lt_1e-8": 0,
+     "self_intersecting_face_pairs": 0,
+     "flat_sea_faces_facing_down": 0,
+     "rays": {
+      "wave_front": 26129,
+      "wave_back_open": 0,
+      "cut_end": 0,
+      "hole": 0,
+      "sea_outside_footprint": 975,
+      "sky": 22896
+     },
+     "rays_elevation_ge_60deg": {
+      "total": 5942,
+      "hit_wave": 0
+     }
+    },
+    "10.500": {
+     "nonmanifold_edges_gt2_faces": 0,
+     "boundary_edges": 1276,
+     "flipped_inconsistent_winding_edges": 0,
+     "degenerate_faces_area_lt_1e-8": 0,
+     "self_intersecting_face_pairs": 0,
+     "flat_sea_faces_facing_down": 0,
+     "rays": {
+      "wave_front": 26550,
+      "wave_back_open": 0,
+      "cut_end": 0,
+      "hole": 0,
+      "sea_outside_footprint": 978,
+      "sky": 22472
+     },
+     "rays_elevation_ge_60deg": {
+      "total": 5942,
+      "hit_wave": 18
+     }
+    },
+    "11.000": {
+     "nonmanifold_edges_gt2_faces": 0,
+     "boundary_edges": 1276,
+     "flipped_inconsistent_winding_edges": 0,
+     "degenerate_faces_area_lt_1e-8": 0,
+     "self_intersecting_face_pairs": 0,
+     "flat_sea_faces_facing_down": 0,
+     "rays": {
+      "wave_front": 26902,
+      "wave_back_open": 0,
+      "cut_end": 0,
+      "hole": 0,
+      "sea_outside_footprint": 979,
+      "sky": 22119
+     },
+     "rays_elevation_ge_60deg": {
+      "total": 5942,
+      "hit_wave": 68
+     }
+    },
+    "11.500": {
+     "nonmanifold_edges_gt2_faces": 0,
+     "boundary_edges": 1276,
+     "flipped_inconsistent_winding_edges": 0,
+     "degenerate_faces_area_lt_1e-8": 0,
+     "self_intersecting_face_pairs": 0,
+     "flat_sea_faces_facing_down": 0,
+     "rays": {
+      "wave_front": 27120,
+      "wave_back_open": 0,
+      "cut_end": 0,
+      "hole": 0,
+      "sea_outside_footprint": 981,
+      "sky": 21899
+     },
+     "rays_elevation_ge_60deg": {
+      "total": 5942,
+      "hit_wave": 102
+     }
+    },
+    "11.750": {
+     "nonmanifold_edges_gt2_faces": 0,
+     "boundary_edges": 1276,
+     "flipped_inconsistent_winding_edges": 0,
+     "degenerate_faces_area_lt_1e-8": 0,
+     "self_intersecting_face_pairs": 0,
+     "flat_sea_faces_facing_down": 0,
+     "rays": {
+      "wave_front": 27211,
+      "wave_back_open": 0,
+      "cut_end": 0,
+      "hole": 0,
+      "sea_outside_footprint": 980,
+      "sky": 21809
+     },
+     "rays_elevation_ge_60deg": {
+      "total": 5942,
+      "hit_wave": 115
+     }
+    },
+    "12.000": {
+     "nonmanifold_edges_gt2_faces": 0,
+     "boundary_edges": 1276,
+     "flipped_inconsistent_winding_edges": 0,
+     "degenerate_faces_area_lt_1e-8": 0,
+     "self_intersecting_face_pairs": 0,
+     "flat_sea_faces_facing_down": 0,
+     "rays": {
+      "wave_front": 27234,
+      "wave_back_open": 0,
+      "cut_end": 0,
+      "hole": 0,
+      "sea_outside_footprint": 982,
+      "sky": 21784
+     },
+     "rays_elevation_ge_60deg": {
+      "total": 5942,
+      "hit_wave": 119
+     }
+    }
+   },
+   "verdict": "pass"
+  },
+  "spi_compile": {
+   "name_ja": "keypose の 2 シェーダーの SPI キーワードでのコンパイル（番号32 と同じ方法）",
+   "value": {
+    "allCompiled": true,
+    "allStereoOutput": true,
+    "passes": 12
+   },
+   "verdict": "pass"
+  },
+  "keypose_memory": {
+   "name_ja": "keypose の容量（計画 ≤512 MiB、判定は番号32 の手順で測る）",
+   "value": {
+    "layers": 181,
+    "position_bytes": 139008000,
+    "normal_bytes": 69504000,
+    "files_total_MiB": 198.9,
+    "unity_runtime_memory_size_MiB_record": 397.7
+   },
+   "verdict": "record-only"
+  },
+  "played_keypose_faces": {
+   "name_ja": "再生される面（16 ビットの keypose の Catmull-Rom）の向きと着色の法線（記録）",
+   "value": {
+    "hz": 30.0,
+    "frames": 511,
+    "keypose_quantization_max_m": 0.0012065159056638027,
+    "tstar_played_vs_kstar_max_m": 0.001203,
+    "kstar_thin_faces_height_lt_1p5mm": 17044,
+    "kstar_thin_faces_rows_min_max": [
+     0,
+     238
+    ],
+    "tstar_faces_reversed_vs_kstar": 73,
+    "tstar_reversed_faces_thin": 73,
+    "tstar_reversed_faces_height_max_mm": 0.669,
+    "tstar_reversed_faces_by_row": {
+     "238": 73
+    },
+    "faces_reversed_vs_rig_face_frames": 790203,
+    "faces_reversed_vs_rig_face_frames_before_tstar": 779180,
+    "faces_reversed_vs_rig_max_per_frame": 6950,
+    "faces_reversed_vs_rig_max_at_s": 3.8333,
+    "faces_reversed_vs_rig_height_in_rig_max_mm": 2.076,
+    "faces_reversed_vs_rig_rows_min_max": [
+     0,
+     238
+    ],
+    "frames_with_reversed_faces": 511,
+    "faces_flipped_vs_previous_frame_face_frames": 17374,
+    "shading_normal_dot_min_adjacent_frames": 0.985,
+    "shading_normal_dot_min_at_s": 9.0667,
+    "ja": "連続性の検査一式（af30_continuity.json）と Blender の検査は float64 の rig で測る。実際に再生されるのは 16 ビットに量子化した key （量子化の差 最大 約 1.2 mm）の Catmull-Rom なので、K* と形成の途中の細長い面（rig での高さが量子化の差と同じ mm の桁）の一部は、巻きの向きが rig と逆になる。reversed_vs_rig は同じ時刻の rig との比較、flipped_vs_previous_frame は再生される面の前のフレームからの反転（連続性の検査一式の face_flips と同じ数え方）。着色は頂点の法線（RG16 の八面体を同じ重みで補間して正規化）を使うので、その連続を隣のフレームとの内積で測る。face-frames は 30 Hz の各フレームの面の数の和（t* の後の静止の区間を含む）。"
+   },
+   "verdict": "record-only"
+  }
+ },
+ "videos": {
+  "painting": {
+   "build": "Unity/Build/ArtFirst/30/video/af30_formation_painting_60fps.mp4",
+   "build_sha256": "68f80d3983c91dc274ef189277e28bdde4eb8bd43046f1711c4a1ef8a0e34594",
+   "bytes": 4938331,
+   "evidence": "Docs/Evidence/ArtFirst/30/af30_formation_painting_60fps.mp4",
+   "evidence_sha256": "68f80d3983c91dc274ef189277e28bdde4eb8bd43046f1711c4a1ef8a0e34594",
+   "evidence_bytes": 4938331,
+   "width": 1920,
+   "height": 1080,
+   "fps": "60/1",
+   "frames_decoded": 1021,
+   "duration_s": 17.016667
+  },
+  "seat_form": {
+   "build": "Unity/Build/ArtFirst/30/video/af30_formation_seat_form_60fps.mp4",
+   "build_sha256": "c22a26788577dd7709149d47b0bb4778f61b884b5202f119d05339bc480ea6f6",
+   "bytes": 4334934,
+   "evidence": "Docs/Evidence/ArtFirst/30/af30_formation_seat_form_60fps.mp4",
+   "evidence_sha256": "c22a26788577dd7709149d47b0bb4778f61b884b5202f119d05339bc480ea6f6",
+   "evidence_bytes": 4334934,
+   "width": 1920,
+   "height": 1080,
+   "fps": "60/1",
+   "frames_decoded": 1021,
+   "duration_s": 17.016667
+  },
+  "seat_form_waveonly": {
+   "build": "Unity/Build/ArtFirst/30/video/af30_formation_seat_form_waveonly_60fps.mp4",
+   "build_sha256": "a4d0f48f03a1b187d354fd5c279af4ff3d866d9f9d0d33f5f012084644dbce02",
+   "bytes": 6873499,
+   "evidence": "Docs/Evidence/ArtFirst/30/af30_formation_seat_form_waveonly_60fps_720p.mp4",
+   "evidence_sha256": "0052747d78a0afd2045baa89811fd738435a783c364d0a4f8fb6b5c4a28af3e9",
+   "evidence_bytes": 1332845,
+   "width": 1920,
+   "height": 1080,
+   "fps": "60/1",
+   "frames_decoded": 1021,
+   "duration_s": 17.016667
+  },
+  "side_left_waveonly": {
+   "build": "Unity/Build/ArtFirst/30/video/af30_formation_side_left_waveonly_60fps.mp4",
+   "build_sha256": "b5a548e51187b7083a9cfd997b5e70f744bcd23dcbf27db88eed1aa287448b11",
+   "bytes": 2995239,
+   "evidence": "Docs/Evidence/ArtFirst/30/af30_formation_side_left_waveonly_60fps.mp4",
+   "evidence_sha256": "b5a548e51187b7083a9cfd997b5e70f744bcd23dcbf27db88eed1aa287448b11",
+   "evidence_bytes": 2995239,
+   "width": 1920,
+   "height": 1080,
+   "fps": "60/1",
+   "frames_decoded": 1021,
+   "duration_s": 17.016667
+  }
+ },
+ "figures": [
+  "af30_back_formation.png",
+  "af30_continuity.png",
+  "af30_painting_formation.png",
+  "af30_seat_formation.png",
+  "af30_seat_formation_waveonly.png",
+  "af30_seat_metrics.png",
+  "af30_sections.png",
+  "af30_side_formation.png",
+  "af30_tstar.png"
+ ],
+ "summary_verdicts": {
+  "80": "pass",
+  "106": "pass",
+  "107": "pass",
+  "108": "保留（読みの選択待ち）",
+  "111": "pass",
+  "117": "pass",
+  "interp_shader_vs_numpy": "pass",
+  "tstar_remeasure": "pass",
+  "continuity_suite": "pass",
+  "blender_frames": "pass",
+  "spi_compile": "pass",
+  "keypose_memory": "record-only",
+  "played_keypose_faces": "record-only"
+ }
+}
