@@ -1,0 +1,60 @@
+{
+ "schema": "GreatWave.DS26.conditions/1",
+ "number": "設計26",
+ "status_ja": "設計26 の初回提出の既定値（利用者未回答：Design_26_ja.md 第10節の D30〜D37）。利用者の回答で確定した後、設計27 の生成器（ds27_*.py）が読む Tools/GWWaveGen/ds26_conditions.json として入れる（予定）。",
+ "units": "m, s, deg。tau = 物理の時刻（t* = 0）、t = 体験の時刻（t* = 12.0 s）。a = K* の断面の進行方向 t、c = 波峰線方向 e。",
+ "categories_ja": {
+  "physical_input": "物理の入力：設計28 の「入力条件の変更」で動かす値",
+  "calibration": "較正：物理の範囲の中で、K* に着くように選んだ値（設計28 では較正の掃引として別に記録）",
+  "art_guidance": "美術の誘導：名前の付いた値。切れる。切った版（P14）と入れた版を両方残す",
+  "numerical": "数値の条件：見え方の物理ではなく、網・補間・加速度の上限のための値"
+ },
+ "physical_input": {
+  "crossing_angle_deg": {"value": 60.0, "note_ja": "二等分線 = K* の進行方向 t、各系は t から ±30°"},
+  "carrier_model_ja": "対称・同振幅・一方向の 2 系（±30°）。論文（§2.2）は x 方向の JONSWAP の主の波列と Δθ 方向の一時的な波群で、各系に σ = 30° の方向の広がり。ここは我々の単純化",
+  "spectrum": {"type": "JONSWAP", "gamma": 3.3},
+  "peak_wavelength_m": {"value": 195.0, "alt": [250.0]},
+  "peak_period_s": {"value": 11.2},
+  "phase_speed_mps": {"value": 17.4},
+  "pattern_speed_c0_mps": {"value": 20.1, "derived_ja": "c / cos(Δθ/2)"},
+  "background_swell_Hs_m": {"value": 5.0},
+  "focus_world_m": [-7.2277, 0.0, -2.7132],
+  "focus_tau_s": 0.0
+ },
+ "calibration": {
+  "jet_onset_peak_row_tau_s": {"value": -2.4, "row_c_m": 3.85, "sweep": [-2.0, -2.4, -2.8]},
+  "jet_onset_floor_s": {"value": 1.2, "note_ja": "行ごとの噴流の始まりは t* の 1.2 s 前より遅くしない（手前の端の行の加速度のため）"},
+  "peel_speed_mps": {"value": 20.0, "sweep": [20.0, 30.0], "note_ja": "解算の 15〜18 m/s を Froude で換算すると 28〜33 m/s"},
+  "release_exponent_p": {"value": 0.5},
+  "crest_decel_beta": {"value": 0.8, "note_ja": "噴流の始まりから t* までに 0.8 c0 へ線形に減速。独立の根拠：Banner ほか 2014（砕ける峰は線形の速さより約 20% 遅い）"},
+  "crest_rise_after_onset_mps": {"value": 1.0},
+  "carrier_amplitude_Ac_m": {"value": 3.0, "note_ja": "K* の主断面の水量と釣り合う値（λ 195〜250 m で 2.9〜3.2 m）"},
+  "stage_tau_peak_row_s": {"a": -4.2, "b": -3.4, "c": -2.4, "d": -2.05, "tolerance_s": 0.3, "main_row_lag_s": 0.19},
+  "stage_H_ratio": {"a": [0.5, 0.7], "b": [0.65, 0.8], "c": [0.8, 0.9], "d_min": 0.9, "nominal": {"a": 0.60, "b": 0.72, "c": 0.89, "d": 0.91}}
+ },
+ "numerical": {
+  "prerelease_rule": {"value": "crest_front_strip", "strip_spacing_m": 0.02, "upper_strip_angle_deg": 40.0, "underside_strip_angle_deg": 80.0},
+  "release_ramp_s": {"value": "min(0.6, T_i/2)", "note_ja": "速度の補間。地面の座標で加速度 ≤ 1.57 g（全 133 行）"},
+  "tube_seam_rule": {"value": "similarity", "note_ja": "縁の最小点 rim と内壁 0.3H の錨の間を、K* の管の天井の形の相似変換で置く"},
+  "keypose_hz": {"approach": 7.5, "breaking_and_collapse": 30},
+  "accel_limit_g": {"value": 2.0, "frame": "ground"}
+ },
+ "time_warp": {
+  "default": {"id": "slowmo_from_apex", "real_time_until_t_s": 7.936, "ramp_to_r0_s": 1.0, "r0": 0.5, "ramp_ends_at": "earliest lip-tip apex (tau -1.432 s, t 8.936 s)", "freeze_ramp_s": 0.4, "hold_s": 2.0, "restart_ramp_s": 2.0},
+  "alternative": {"id": "realtime_hard_freeze", "r": 1.0, "freeze": "instant at t* (t 12.0 s)", "hold_s": 2.0, "restart_ramp_s": 2.0},
+  "old_v1_rejected": {"id": "smoothstep_8_to_12", "reason_ja": "唇先の見かけの縦の加速度が t 9.9 s から上向き（最大 +3.7 m/s²）＝ブレーキをかけて宙に留まる"}
+ },
+ "art_guidance": [
+  {"name": "ds_body_narrow", "on": true, "on_value_ja": "K* の足跡 20.9 m へ狭める", "off_value_ja": "物理の波群の幅（λ 195 m で約 61 m）"},
+  {"name": "ds_back_steep", "on": true, "on_value_ja": "背面 71.5°（K*）", "off_value_ja": "波群の背面（約 41°）"},
+  {"name": "ds_tube_shape", "on": true, "on_value_ja": "管の天井・内壁を K* の形へ（rim より奥）", "off_value_ja": "弾道の下面＋物理の前面（φ の表）だけ"},
+  {"name": "ds_claws", "on": true, "on_value_ja": "縁の鉤・爪 D(u) を段階 c の後に出す", "off_value_ja": "0（出さない）"},
+  {"name": "ds_farwall_hold", "on": true, "on_value_ja": "奥の壁（c > +3.9 m、最高 23.3 m）は t* まで砕けない", "off_value_ja": "高い行から順に砕ける"},
+  {"name": "ds_tube_white_early", "on": true, "on_value_ja": "管の中の白を τ −1.0〜−0.2 s に出す（着水の前）", "off_value_ja": "着水の後だけ"},
+  {"name": "ds_lip_target_kstar", "on": true, "on_value_ja": "唇を K* へ着くように逆算（終点 K* は美術の標的）", "off_value_ja": "E1 の中央値の打ち出しの速さから前向きに積分"},
+  {"name": "ds_swell_calm", "on": true, "on_value_ja": "背景のうねり Hs 5 m を τ −4 s から t* までに 0 へ", "off_value_ja": "Hs 5 m のまま"},
+  {"name": "ds_sea_calm_painting", "on": true, "on_value_ja": "t* の原画視点で見える周りの海（画面の 4.2%）を平らへ（最後の約 2 s）", "off_value_ja": "搬送波（−0.5〜+2.5 m）とうねりが残る"}
+ ],
+ "fixed_art_scale": {"H_star_m": 20.80, "note_ja": "K* の高さ（大きさの選択）。P14 の切った版でも変えない"},
+ "sources_ja": "Docs/Progress/Design_26_ja.md、McAllister ほか 2019（J. Fluid Mech. 860, 767–786, doi:10.1017/jfm.2018.886、CC BY 4.0）、利用者の Houdini 解算（1.abc SHA-256 e945d8a6072b92be7cbab6158b1f28af808a2791513c65b7ebca54d0cb977220、1.fbx b63e2ebe7c149416f90da7f48ac83793d5dc756cf2cec279b6dbe7ff4cf1cc7b。測った数値だけ）"
+}

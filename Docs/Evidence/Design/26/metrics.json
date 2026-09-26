@@ -1,0 +1,1095 @@
+{
+ "schema": "GreatWave.DS26.metrics/1",
+ "number": "設計26",
+ "status_ja": "初回提出（文書と numpy の実験のみ・Unity と HMD なし）。条件の既定値は利用者未回答（Design_26_ja.md 第10節の D30〜D37）。",
+ "evidence_kind_ja": "numpy の実験（K* と美術優先30 の keypose を読むだけ）と、PIL・OpenCV の図。Unity・Houdini・HMD の結果ではない。実験は成果物ではなく、既定値の実行可能性の確認。",
+ "backlog_ja": "直接の項目なし（段階5 の出口条件。計画 §2.1）",
+ "conditions": {
+  "path": "Docs/Evidence/Design/26/ds26_conditions.json",
+  "sha256": "ec8ae040da4a10a371815b207bee7ad5e8c44af6d56b0fb35989aeee8fb6c072"
+ },
+ "kstar_rows_sha256": "c9eff8ddc6aa8f887c809b36431fafe00f5747084d8f689b75b9ae23029322bb",
+ "E1_old_rule": {
+  "what_ja": "唇の膜（巻きのある 133 行の上面の頂→唇先と、下面の唇先→縁の最小点 rim）の各点を、t* に K* へ着く重力だけの軌跡で逆算した（旧規則：放出の前の点を全部、頂の 1 点に置く）。c0 20 m/s、p 0.5、広がり 20 m/s、頂の上昇 1 m/s。",
+  "n_curled_rows": 133,
+  "n_lip_vertices": 16468,
+  "peak_row_c_m": 3.85,
+  "plausibility_range": {
+   "u_over_c": [
+    0.6,
+    1.3
+   ],
+   "w_over_sqrt_gH": [
+    -0.2,
+    0.8
+   ],
+   "eval_tau_min_s": 0.15
+  },
+  "frac_plausible_by_jet_onset_s": {
+   "0.8": {
+    "decel_0p8c0": 0.0647,
+    "no_decel": 0.0116
+   },
+   "1.2": {
+    "decel_0p8c0": 0.2425,
+    "no_decel": 0.0852
+   },
+   "1.6": {
+    "decel_0p8c0": 0.6298,
+    "no_decel": 0.2493
+   },
+   "2.0": {
+    "decel_0p8c0": 0.9867,
+    "no_decel": 0.6671
+   },
+   "2.4": {
+    "no_decel": 1.0,
+    "decel_0p8c0": 1.0
+   },
+   "2.8": {
+    "no_decel": 0.9881,
+    "decel_0p8c0": 0.9881
+   }
+  },
+  "with_tube_roof": {
+   "n_vertices": 30145,
+   "best_frac": 0.9264,
+   "best_params": {
+    "c0": 16,
+    "tau_tip0": 2.8,
+    "p": 0.5,
+    "beta": 0.8,
+    "vpeel": 20.0,
+    "da_frac": 0.0,
+    "vH": 1.0
+   },
+   "bad_cols_hist": {
+    "100": 2,
+    "120": 20,
+    "140": 38,
+    "160": 40,
+    "180": 56,
+    "200": 37,
+    "220": 6,
+    "280": 171,
+    "300": 1827
+   },
+   "ja": "rim より奥の管の天井・内壁まで弾道にすると、格子の最良でも 93%。外れは列 280〜314 に集まる（15〜40 m/s で下へ投げる必要がある）→ 本体として動かす"
+  }
+ },
+ "E4_strip_rule": {
+  "what_ja": "放出の前の唇を峰の前面に列の順で 2 cm おきに並べる（前縁の帯）。各点はその置き場から打ち出され、速度の補間の後は重力だけ。加速度は各点の放出から t* まで（地面の座標）。",
+  "configs": {
+   "A0": {
+    "name": "A0 point Tr0.6 (E1/E3, reviewer reproduction)",
+    "frac_plausible": 1.0,
+    "n_eval": 16274,
+    "accel_ground_g": {
+     "p50": 1.231,
+     "p95": 1.972,
+     "p99": 2.551,
+     "max": 3.051,
+     "frac_gt_2g": 0.046,
+     "n": 16274
+    },
+    "accel_rowcrest_frame_g": {
+     "p95": 2.29,
+     "max": 3.543,
+     "frac_gt_2g": 0.151
+    },
+    "exceed_rows_c_range": [
+     -29.5,
+     -6.2
+    ]
+   },
+   "A1": {
+    "name": "A1 point Tr0.8",
+    "frac_plausible": 1.0,
+    "n_eval": 16274,
+    "accel_ground_g": {
+     "p50": 1.226,
+     "p95": 2.267,
+     "p99": 2.711,
+     "max": 3.137,
+     "frac_gt_2g": 0.094,
+     "n": 16274
+    },
+    "accel_rowcrest_frame_g": {
+     "p95": 2.59,
+     "max": 3.632,
+     "frac_gt_2g": 0.179
+    },
+    "exceed_rows_c_range": [
+     -29.5,
+     -8.1
+    ]
+   },
+   "B1": {
+    "name": "B1 strip Tr0.6",
+    "frac_plausible": 0.9929,
+    "n_eval": 16274,
+    "accel_ground_g": {
+     "p50": 1.142,
+     "p95": 1.472,
+     "p99": 1.706,
+     "max": 1.995,
+     "frac_gt_2g": 0.0,
+     "n": 16274
+    },
+    "accel_rowcrest_frame_g": {
+     "p95": 1.714,
+     "max": 2.276,
+     "frac_gt_2g": 0.011
+    },
+    "exceed_rows_c_range": null
+   },
+   "B2": {
+    "name": "B2 strip Tr=min(0.6,Ti/2)",
+    "frac_plausible": 0.9929,
+    "n_eval": 16274,
+    "accel_ground_g": {
+     "p50": 1.043,
+     "p95": 1.379,
+     "p99": 1.492,
+     "max": 2.429,
+     "frac_gt_2g": 0.001,
+     "n": 16274
+    },
+    "accel_rowcrest_frame_g": {
+     "p95": 1.498,
+     "max": 2.318,
+     "frac_gt_2g": 0.001
+    },
+    "exceed_rows_c_range": [
+     -29.5,
+     -29.5
+    ]
+   },
+   "B3": {
+    "name": "B3 strip Tr0.6 floor1.2",
+    "frac_plausible": 0.9755,
+    "n_eval": 16304,
+    "accel_ground_g": {
+     "p50": 1.109,
+     "p95": 1.433,
+     "p99": 1.602,
+     "max": 1.995,
+     "frac_gt_2g": 0.0,
+     "n": 16304
+    },
+    "accel_rowcrest_frame_g": {
+     "p95": 1.573,
+     "max": 2.212,
+     "frac_gt_2g": 0.003
+    },
+    "exceed_rows_c_range": null
+   },
+   "B4": {
+    "name": "B4 strip Tr0.6 peel30",
+    "frac_plausible": 0.9598,
+    "n_eval": 16308,
+    "accel_ground_g": {
+     "p50": 1.075,
+     "p95": 1.43,
+     "p99": 1.512,
+     "max": 1.719,
+     "frac_gt_2g": 0.0,
+     "n": 16308
+    },
+    "accel_rowcrest_frame_g": {
+     "p95": 1.525,
+     "max": 1.781,
+     "frac_gt_2g": 0.0
+    },
+    "exceed_rows_c_range": null
+   },
+   "B5": {
+    "name": "B5 strip Tr=min(0.6,Ti/2) floor1.2",
+    "frac_plausible": 0.9755,
+    "n_eval": 16304,
+    "accel_ground_g": {
+     "p50": 1.03,
+     "p95": 1.375,
+     "p99": 1.474,
+     "max": 1.569,
+     "frac_gt_2g": 0.0,
+     "n": 16304
+    },
+    "accel_rowcrest_frame_g": {
+     "p95": 1.481,
+     "max": 1.653,
+     "frac_gt_2g": 0.0
+    },
+    "exceed_rows_c_range": null
+   },
+   "B6": {
+    "name": "B6 strip Tr0.6 floor1.2 peel30",
+    "frac_plausible": 0.9598,
+    "n_eval": 16308,
+    "accel_ground_g": {
+     "p50": 1.075,
+     "p95": 1.43,
+     "p99": 1.512,
+     "max": 1.719,
+     "frac_gt_2g": 0.0,
+     "n": 16308
+    },
+    "accel_rowcrest_frame_g": {
+     "p95": 1.525,
+     "max": 1.781,
+     "frac_gt_2g": 0.0
+    },
+    "exceed_rows_c_range": null
+   }
+  },
+  "default_config": "B5",
+  "default": {
+   "frac_plausible": 0.9755,
+   "n_eval": 16304,
+   "n_bad": 400,
+   "bad_reason": {
+    "u_high": 0,
+    "u_low": 0,
+    "w_high": 400,
+    "w_low": 0
+   },
+   "bad_rows_c_m": [
+    -29.5,
+    -29.0,
+    -28.6,
+    -28.1,
+    -27.7,
+    -27.3
+   ],
+   "bad_release_tau_range_s": [
+    -1.2,
+    -0.73
+   ],
+   "u_over_c0_p5_p50_p95": [
+    0.885,
+    1.034,
+    1.128
+   ],
+   "w_mps_p5_p50_p95": [
+    2.91,
+    5.81,
+    8.55
+   ],
+   "w_over_sqrtgH_p5_p50_p95": [
+    0.244,
+    0.473,
+    0.635
+   ],
+   "tip_u_over_c0_main": 1.134,
+   "T_row_min_max_s": [
+    1.2,
+    2.4
+   ]
+  },
+  "strip_sensitivity": [
+   {
+    "tau0": 1.6,
+    "vpeel": 20.0,
+    "floor": 0.3,
+    "frac": 0.9131
+   },
+   {
+    "tau0": 1.6,
+    "vpeel": 20.0,
+    "floor": 1.2,
+    "frac": 0.9754
+   },
+   {
+    "tau0": 1.6,
+    "vpeel": 30.0,
+    "floor": 0.3,
+    "frac": 0.9971
+   },
+   {
+    "tau0": 1.6,
+    "vpeel": 30.0,
+    "floor": 1.2,
+    "frac": 0.9754
+   },
+   {
+    "tau0": 2.0,
+    "vpeel": 20.0,
+    "floor": 0.3,
+    "frac": 0.9971
+   },
+   {
+    "tau0": 2.0,
+    "vpeel": 20.0,
+    "floor": 1.2,
+    "frac": 0.9754
+   },
+   {
+    "tau0": 2.0,
+    "vpeel": 30.0,
+    "floor": 0.3,
+    "frac": 0.9885
+   },
+   {
+    "tau0": 2.0,
+    "vpeel": 30.0,
+    "floor": 1.2,
+    "frac": 0.9755
+   },
+   {
+    "tau0": 2.4,
+    "vpeel": 20.0,
+    "floor": 0.3,
+    "frac": 0.9929
+   },
+   {
+    "tau0": 2.4,
+    "vpeel": 20.0,
+    "floor": 1.2,
+    "frac": 0.9755
+   },
+   {
+    "tau0": 2.4,
+    "vpeel": 30.0,
+    "floor": 0.3,
+    "frac": 0.9598
+   },
+   {
+    "tau0": 2.4,
+    "vpeel": 30.0,
+    "floor": 1.2,
+    "frac": 0.9598
+   },
+   {
+    "tau0": 2.8,
+    "vpeel": 20.0,
+    "floor": 0.3,
+    "frac": 0.9645
+   },
+   {
+    "tau0": 2.8,
+    "vpeel": 20.0,
+    "floor": 1.2,
+    "frac": 0.964
+   },
+   {
+    "tau0": 2.8,
+    "vpeel": 30.0,
+    "floor": 0.3,
+    "frac": 0.8155
+   },
+   {
+    "tau0": 2.8,
+    "vpeel": 30.0,
+    "floor": 1.2,
+    "frac": 0.8155
+   },
+   {
+    "tau0": 2.4,
+    "vpeel": 20.0,
+    "floor": 1.2,
+    "delta": 0.01,
+    "frac": 0.9812
+   },
+   {
+    "tau0": 2.4,
+    "vpeel": 20.0,
+    "floor": 1.2,
+    "delta": 0.02,
+    "frac": 0.9755
+   },
+   {
+    "tau0": 2.4,
+    "vpeel": 20.0,
+    "floor": 1.2,
+    "delta": 0.04,
+    "frac": 0.9582
+   }
+  ],
+  "tip_apex": {
+   "default_main": {
+    "tau_s": -1.232,
+    "y_m": 19.777,
+    "max_rise_above_crest_m": 0.261
+   },
+   "default_peak": {
+    "tau_s": -1.36,
+    "y_m": 21.386,
+    "max_rise_above_crest_m": 0.22
+   },
+   "old_rule_ballistic_main": {
+    "tau_s": -1.393,
+    "y_m": 21.847,
+    "max_rise_above_crest_m": 2.491
+   }
+  }
+ },
+ "E4b_mesh": {
+  "A0 point (E1/E3), tube parked": {
+   "tri_area_min_m2": 0.0,
+   "tri_area_min_kstar_m2": 0.0007724647636754341,
+   "row_edge_min_m": 0.0,
+   "row_edge_stretch_max": 1528.28,
+   "cross_row_edge_stretch_max": 140.44,
+   "seam_stretch_min_max": [
+    1.0,
+    1528.279
+   ],
+   "face_flips": 553,
+   "row_self_intersections": 2434,
+   "row_self_intersections_c_range": [
+    -29.48,
+    3.85
+   ],
+   "row_self_intersections_tau_range": [
+    -2.367,
+    -0.033
+   ]
+  },
+  "B strip, tube parked": {
+   "tri_area_min_m2": 3.5119076146653883e-05,
+   "tri_area_min_kstar_m2": 0.0007724647636754341,
+   "row_edge_min_m": 0.00093,
+   "row_edge_stretch_max": 1388.17,
+   "cross_row_edge_stretch_max": 129.13,
+   "seam_stretch_min_max": [
+    0.135,
+    1388.171
+   ],
+   "face_flips": 560,
+   "row_self_intersections": 2900,
+   "row_self_intersections_c_range": [
+    -29.48,
+    3.85
+   ],
+   "row_self_intersections_tau_range": [
+    -1.567,
+    -0.033
+   ]
+  },
+  "C strip, tube similarity (default)": {
+   "tri_area_min_m2": 0.00028774907007486416,
+   "tri_area_min_kstar_m2": 0.0007724647636754341,
+   "row_edge_min_m": 0.0014,
+   "row_edge_stretch_max": 10.34,
+   "cross_row_edge_stretch_max": 36.24,
+   "seam_stretch_min_max": [
+    0.302,
+    2.365
+   ],
+   "face_flips": 0,
+   "row_self_intersections": 126,
+   "row_self_intersections_c_range": [
+    -29.48,
+    3.7
+   ],
+   "row_self_intersections_tau_range": [
+    -2.7,
+    -0.867
+   ]
+  }
+ },
+ "E2_physical_body": {
+  "focused_group_vs_kstar": {
+   "lambda_200": {
+    "rms_m": 6.98,
+    "max_m": 16.11,
+    "kA_linear": 0.88,
+    "hump_width_m": 68.0,
+    "trough_m": -3.94
+   },
+   "lambda_250": {
+    "rms_m": 7.64,
+    "max_m": 17.73,
+    "kA_linear": 0.74,
+    "hump_width_m": 90.2,
+    "trough_m": -4.23
+   },
+   "lambda_290": {
+    "rms_m": 8.0,
+    "max_m": 18.52,
+    "kA_linear": 0.658,
+    "hump_width_m": 108.4,
+    "trough_m": -4.42
+   }
+  },
+  "kstar_footprint_m": 20.91,
+  "volume_neutral_carrier": {
+   "lambda_200": {
+    "Ac_m_p5_p50_p95": [
+     0.27,
+     2.56,
+     3.54
+    ],
+    "main_row_Ac_m": 3.18
+   },
+   "lambda_250": {
+    "Ac_m_p5_p50_p95": [
+     0.25,
+     2.34,
+     3.26
+    ],
+    "main_row_Ac_m": 2.91
+   }
+  },
+  "sim_window_vs_kstar": {
+   "frames": [
+    "s45",
+    "s48",
+    "s51",
+    "s54"
+   ],
+   "iso_rms_m": [
+    7.19,
+    7.76
+   ],
+   "iso_max_m": [
+    21.26,
+    23.57
+   ],
+   "aniso_f": [
+    0.4,
+    0.425
+   ],
+   "aniso_rms_m": [
+    2.08,
+    2.59
+   ],
+   "aniso_max_m": [
+    6.97,
+    8.13
+   ],
+   "width_0p3H_sim_scaled_m": [
+    25.2,
+    32.4
+   ],
+   "width_0p3H_kstar_m": 17.4,
+   "source_ja": "利用者の Houdini 解算の終盤の断面（リポジトリ外・本機のみの npz から。形はリポジトリに入れない）を Froude で縮尺"
+  }
+ },
+ "E3_keypose": {
+  "instant_switch_cr_err_m": {
+   "15Hz": 0.1056,
+   "30Hz": 0.0507,
+   "60Hz": 0.0249,
+   "120Hz": 0.0131
+  },
+  "velocity_ramp": {
+   "Tr_0.4": {
+    "cr_max_err_m": {
+     "15Hz": 0.00484,
+     "30Hz": 0.00121,
+     "60Hz": 0.0003
+    },
+    "max_accel_over_g": 2.624,
+    "kstar_landing_err_m": 2.403410803708539e-12
+   },
+   "Tr_0.6": {
+    "cr_max_err_m": {
+     "15Hz": 0.00482,
+     "30Hz": 0.0012,
+     "60Hz": 0.0003
+    },
+    "max_accel_over_g": 1.57,
+    "kstar_landing_err_m": 2.3785418079569354e-12
+   },
+   "Tr_0.8": {
+    "cr_max_err_m": {
+     "15Hz": 0.00487,
+     "30Hz": 0.00121,
+     "60Hz": 0.0003
+    },
+    "max_accel_over_g": 1.412,
+    "kstar_landing_err_m": 2.360778239562933e-12
+   }
+  },
+  "capacity_estimate": {
+   "plan_ja": "物理の時刻 −10〜+3 s：接近 6 s を 7.5 Hz、砕波と崩壊 7 s を 30 Hz（E3 の定数から計算）",
+   "layers": 256,
+   "file_MiB": 281.2,
+   "unity_readable_MiB_est": 562.5,
+   "unity_readable_subrect58_MiB_est": 326.2,
+   "limit_MiB": 512
+  }
+ },
+ "E5_artoff": {
+  "artoff_tip_a_y_m": [
+   10.43,
+   11.38
+  ],
+  "kstar_tip_a_y_m": [
+   11.66,
+   12.33
+  ],
+  "lip_upper_chamfer_rms_max_m": [
+   0.57,
+   1.55
+  ],
+  "upper_outline_chamfer_rms_max_m": [
+   4.52,
+   15.55
+  ],
+  "body_footprint_m": 60.8,
+  "back_slope_deg": 40.7,
+  "kstar_back_slope_deg": 71.5,
+  "lip_upper_points": 113,
+  "lip_upper_points_inside_body": 108
+ },
+ "E6_painting_sea": {
+  "frac_hero_sheet": 0.538,
+  "frac_visible_surrounding_sea": 0.0424,
+  "visible_sea_depth_m_min_p50_max": [
+   23.6,
+   104.9,
+   628.2
+  ],
+  "visible_sea_world_XZ_bbox_m": [
+   2.1,
+   191.2,
+   -37.8,
+   577.5
+  ],
+  "carrier_group": {
+   "eta_min_m": -0.47,
+   "eta_max_m": 2.54,
+   "dpx_max": 87.5,
+   "frac_px_over_0p5": 0.971
+  },
+  "carrier_mono": {
+   "eta_min_m": -2.18,
+   "eta_max_m": 2.91,
+   "dpx_max": 177.5
+  },
+  "swell_Hs5_dpx_p50": 28.1,
+  "eta_for_0p5px_m_min_p50": [
+   0.005,
+   0.0223
+  ],
+  "trough_behind_main_line": {
+   "world_XZ_m": [
+    -89.8,
+    73.8
+   ],
+   "display_px": [
+    -473.0,
+    828.0
+   ],
+   "in_painting_frame": false
+  },
+  "gate_ja": "見える周りの海の像のずれ ≤ 0.5 px かつ傾き ≤ 0.5°（t*）。物理の値は満たさない → 美術の誘導 ds_sea_calm_painting・ds_swell_calm"
+ },
+ "P16_time_warp": {
+  "default_slowmo": {
+   "gate_max_upward_mps2": -2.451,
+   "gate_rows_failing": 0,
+   "main_fall_on_screen_s": 2.663,
+   "main_fall_physical_s": 1.232,
+   "events": {
+    "a (round crest), peak row": {
+     "tau": -4.2,
+     "t": 5.92
+    },
+    "b (sharp crest), peak row": {
+     "tau": -3.4,
+     "t": 6.72
+    },
+    "c (jet onset, first white), peak row": {
+     "tau": -2.4,
+     "t": 7.72
+    },
+    "c, main row": {
+     "tau": -2.208,
+     "t": 7.91
+    },
+    "d (overhang >= 0.1H), peak row": {
+     "tau": -2.05,
+     "t": 8.07
+    },
+    "d, main row": {
+     "tau": -1.86,
+     "t": 8.28
+    },
+    "tip apex, peak row": {
+     "tau": -1.36,
+     "t": 9.08
+    },
+    "tip apex, main row": {
+     "tau": -1.232,
+     "t": 9.34
+    },
+    "earliest tip apex (any row)": {
+     "tau": -1.432,
+     "t": 8.94
+    },
+    "jet onset of the farthest curled row (floor 1.2 s)": {
+     "tau": -1.2,
+     "t": 9.4
+    }
+   },
+   "post": {
+    "lip tip passes over the seat": {
+     "tau": 0.227,
+     "t": 15.08
+    },
+    "wave face reaches the seat": {
+     "tau": 0.304,
+     "t": 15.2
+    },
+    "lip tip impact p5": {
+     "tau": 0.513,
+     "t": 15.48
+    },
+    "lip tip impact p50": {
+     "tau": 0.728,
+     "t": 15.72
+    },
+    "lip tip impact p95": {
+     "tau": 0.798,
+     "t": 15.8
+    },
+    "collapse end": {
+     "tau": 3.0,
+     "t": 18.0
+    }
+   },
+   "segments": {
+    "ramp_start_t": 7.936,
+    "apex_t": 8.936,
+    "freeze_ramp_start_t": 11.6,
+    "r0": 0.5,
+    "apparent_g": 2.4525
+   }
+  },
+  "alt_realtime_hardfreeze": {
+   "gate_max_upward_mps2": -9.796,
+   "gate_rows_failing": 0,
+   "main_fall_on_screen_s": 1.232,
+   "main_fall_physical_s": 1.232,
+   "events": {
+    "a (round crest), peak row": {
+     "tau": -4.2,
+     "t": 7.8
+    },
+    "b (sharp crest), peak row": {
+     "tau": -3.4,
+     "t": 8.6
+    },
+    "c (jet onset, first white), peak row": {
+     "tau": -2.4,
+     "t": 9.6
+    },
+    "c, main row": {
+     "tau": -2.208,
+     "t": 9.79
+    },
+    "d (overhang >= 0.1H), peak row": {
+     "tau": -2.05,
+     "t": 9.95
+    },
+    "d, main row": {
+     "tau": -1.86,
+     "t": 10.14
+    },
+    "tip apex, peak row": {
+     "tau": -1.36,
+     "t": 10.64
+    },
+    "tip apex, main row": {
+     "tau": -1.232,
+     "t": 10.77
+    },
+    "earliest tip apex (any row)": {
+     "tau": -1.432,
+     "t": 10.57
+    },
+    "jet onset of the farthest curled row (floor 1.2 s)": {
+     "tau": -1.2,
+     "t": 10.8
+    }
+   },
+   "post": {
+    "lip tip passes over the seat": {
+     "tau": 0.227,
+     "t": 15.08
+    },
+    "wave face reaches the seat": {
+     "tau": 0.304,
+     "t": 15.2
+    },
+    "lip tip impact p5": {
+     "tau": 0.513,
+     "t": 15.48
+    },
+    "lip tip impact p50": {
+     "tau": 0.728,
+     "t": 15.72
+    },
+    "lip tip impact p95": {
+     "tau": 0.798,
+     "t": 15.8
+    },
+    "collapse end": {
+     "tau": 3.0,
+     "t": 18.0
+    }
+   }
+  },
+  "old_v1": {
+   "gate_max_upward_mps2": 3.684,
+   "gate_rows_failing": 133,
+   "main_fall_on_screen_s": 3.203,
+   "main_fall_physical_s": 1.232,
+   "events": {
+    "a (round crest), peak row": {
+     "tau": -4.2,
+     "t": 5.8
+    },
+    "b (sharp crest), peak row": {
+     "tau": -3.4,
+     "t": 6.6
+    },
+    "c (jet onset, first white), peak row": {
+     "tau": -2.4,
+     "t": 7.6
+    },
+    "c, main row": {
+     "tau": -2.208,
+     "t": 7.79
+    },
+    "d (overhang >= 0.1H), peak row": {
+     "tau": -2.05,
+     "t": 7.95
+    },
+    "d, main row": {
+     "tau": -1.86,
+     "t": 8.14
+    },
+    "tip apex, peak row": {
+     "tau": -1.36,
+     "t": 8.66
+    },
+    "tip apex, main row": {
+     "tau": -1.232,
+     "t": 8.8
+    },
+    "earliest tip apex (any row)": {
+     "tau": -1.432,
+     "t": 8.58
+    },
+    "jet onset of the farthest curled row (floor 1.2 s)": {
+     "tau": -1.2,
+     "t": 8.83
+    }
+   },
+   "post": {
+    "lip tip passes over the seat": {
+     "tau": 0.227,
+     "t": 15.08
+    },
+    "wave face reaches the seat": {
+     "tau": 0.304,
+     "t": 15.2
+    },
+    "lip tip impact p5": {
+     "tau": 0.513,
+     "t": 15.48
+    },
+    "lip tip impact p50": {
+     "tau": 0.728,
+     "t": 15.72
+    },
+    "lip tip impact p95": {
+     "tau": 0.798,
+     "t": 15.8
+    },
+    "collapse end": {
+     "tau": 3.0,
+     "t": 18.0
+    }
+   }
+  },
+  "old_warp_new_tips": {
+   "main_A_at_t10": 0.7011895434227808,
+   "main_A_at_t11": 3.0095274330284845,
+   "main_turns_upward_t": 9.881,
+   "main_fall_on_screen_s": 3.2029999999999994,
+   "main_fall_physical_s": 1.232,
+   "ballistic_apex_fall_on_screen_s": 3.3789999999999996,
+   "all_rows_max_upward": 3.6835381890812395,
+   "rows_failing": 133
+  },
+  "old_warp_old_tips": {
+   "main_A_at_t10": 0.984251977046211,
+   "main_A_at_t11": 3.221824258246057,
+   "main_turns_upward_t": 9.836,
+   "main_fall_on_screen_s": 3.2880000000000003,
+   "main_fall_physical_s": 1.309,
+   "ballistic_apex_fall_on_screen_s": 3.3789999999999996,
+   "all_rows_max_upward": 3.9464048471603315,
+   "rows_failing": 133
+  },
+  "tip_apex_new": {
+   "main_tau": -1.232,
+   "main_y": 19.777138981190852,
+   "peak_tau": -1.36,
+   "peak_y": 21.38603923193763,
+   "earliest_tau": -1.432,
+   "earliest_c": 3.4,
+   "latest_tau": -0.32
+  },
+  "candidates": [
+   {
+    "r0": 0.3,
+    "ramp_s": 0.5,
+    "freeze_s": 0.3,
+    "max_upward_mps2": -0.88,
+    "rows_failing": 0,
+    "main_fall_on_screen_s": 4.26
+   },
+   {
+    "r0": 0.3,
+    "ramp_s": 0.5,
+    "freeze_s": 0.5,
+    "max_upward_mps2": -0.88,
+    "rows_failing": 0,
+    "main_fall_on_screen_s": 4.36
+   },
+   {
+    "r0": 0.3,
+    "ramp_s": 1.0,
+    "freeze_s": 0.3,
+    "max_upward_mps2": -0.88,
+    "rows_failing": 0,
+    "main_fall_on_screen_s": 4.26
+   },
+   {
+    "r0": 0.3,
+    "ramp_s": 1.0,
+    "freeze_s": 0.5,
+    "max_upward_mps2": -0.88,
+    "rows_failing": 0,
+    "main_fall_on_screen_s": 4.36
+   },
+   {
+    "r0": 0.4,
+    "ramp_s": 0.5,
+    "freeze_s": 0.3,
+    "max_upward_mps2": -1.57,
+    "rows_failing": 0,
+    "main_fall_on_screen_s": 3.23
+   },
+   {
+    "r0": 0.4,
+    "ramp_s": 0.5,
+    "freeze_s": 0.5,
+    "max_upward_mps2": -1.57,
+    "rows_failing": 0,
+    "main_fall_on_screen_s": 3.33
+   },
+   {
+    "r0": 0.4,
+    "ramp_s": 1.0,
+    "freeze_s": 0.3,
+    "max_upward_mps2": -1.57,
+    "rows_failing": 0,
+    "main_fall_on_screen_s": 3.23
+   },
+   {
+    "r0": 0.4,
+    "ramp_s": 1.0,
+    "freeze_s": 0.5,
+    "max_upward_mps2": -1.57,
+    "rows_failing": 0,
+    "main_fall_on_screen_s": 3.33
+   },
+   {
+    "r0": 0.5,
+    "ramp_s": 0.5,
+    "freeze_s": 0.3,
+    "max_upward_mps2": -2.45,
+    "rows_failing": 0,
+    "main_fall_on_screen_s": 2.61
+   },
+   {
+    "r0": 0.5,
+    "ramp_s": 0.5,
+    "freeze_s": 0.5,
+    "max_upward_mps2": -2.45,
+    "rows_failing": 0,
+    "main_fall_on_screen_s": 2.71
+   },
+   {
+    "r0": 0.5,
+    "ramp_s": 1.0,
+    "freeze_s": 0.3,
+    "max_upward_mps2": -2.45,
+    "rows_failing": 0,
+    "main_fall_on_screen_s": 2.61
+   },
+   {
+    "r0": 0.5,
+    "ramp_s": 1.0,
+    "freeze_s": 0.5,
+    "max_upward_mps2": -2.45,
+    "rows_failing": 0,
+    "main_fall_on_screen_s": 2.71
+   }
+  ],
+  "post_tstar": {
+   "tip_over_seat_height_m": 9.36,
+   "impact_ground_a_p50_m": 25.07,
+   "events_tau_s": {
+    "lip tip passes over the seat": 0.227,
+    "wave face reaches the seat": 0.304,
+    "lip tip impact p5": 0.513,
+    "lip tip impact p50": 0.728,
+    "lip tip impact p95": 0.798,
+    "collapse end": 3.0
+   }
+  }
+ },
+ "diag_af30": {
+  "what_ja": "美術優先30 の再生される 16 ビットの keypose（Unity と同じ非一様 Catmull-Rom）を主断面・全行で測った値（diag_measure.py）。新しい動きが通るべき関門 P1〜P10 に対する今の値",
+  "P1_crest_mean_speed_3_to_12s_mps": 0.527,
+  "P1_crest_speed_9_to_12s_mps": -0.056,
+  "P1_P12_crest_back_travel_m": 0.599,
+  "P2_min_surface_y_m": -0.0002,
+  "P3_volume_above_swl_max_m3": 5783.7,
+  "P3_volume_max_t_s": 9.15,
+  "P3_volume_at_tstar_m3": 4446.0,
+  "P3_volume_loss_frac": 0.231,
+  "P4_tip_apex_t_s": 9.6,
+  "P4_tip_apex_y_m": 15.079,
+  "P4_tip_mean_vertical_accel_apex_to_tstar_mps2": -0.038,
+  "P5_tip_speed_max_mps": 3.69,
+  "P5_tip_speed_max_t_s": 7.65,
+  "P6_lip_speed_at_11s_by_col_mps": {
+   "90": 0.643,
+   "110": 0.35,
+   "130": 0.085,
+   "150": 0.43,
+   "170": 0.929,
+   "185": 1.313,
+   "200": 1.814
+  },
+  "P6_mid_over_root": 0.132,
+  "P6_root_over_tip": 0.355,
+  "P7_face_vertical_t_s": 8.367,
+  "P7_vertical_to_tstar_s": 3.633,
+  "P7_curled_rows_vertical_t_range_s": [
+   6.2,
+   8.6
+  ],
+  "P8_body_speed_p95_at_11p8s_over_max": 0.182,
+  "P9_first_white_uv_s_step31": 2.012,
+  "P9_white_fraction_at_face_vertical": 0.546,
+  "P10_t50_std_across_rows_s": 0.0,
+  "P10_t50_s": 6.733,
+  "kstar_volume_above_swl_m3": 4446.0,
+  "keypose_pos_sha256_prefix": "3d652c89"
+ },
+ "notes_ja": [
+  "目安の範囲（u/c0 0.6〜1.3、w/√(gH) −0.2〜0.8）は自前で、t* の 0.15 s 前より後に放出される点は評価しない。",
+  "E1・E4 は行ごとの 2 次元。E4b だけが行の間の三角形を見るが、本体は代理。E5 は主断面だけの初見積もり。",
+  "E2 の (c) と E2c は、利用者の解算から作った断面の npz（リポジトリ外・本機のみ）が要る。この実行で計算したかは run.json の sim_npz_used。"
+ ]
+}
