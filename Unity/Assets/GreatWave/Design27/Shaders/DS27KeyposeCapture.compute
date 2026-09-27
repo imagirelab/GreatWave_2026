@@ -1,0 +1,16 @@
+// 設計27：検査用。頂点シェーダーと同じ関数（DS27KeyposeCore.cginc の DS27WorldPosition・DS27Normal）で全頂点の位置と法線を計算し、バッファへ書く。
+// DS27Formation（Editor）がこれを読み戻し、ds27_player_ref.py が同じパッケージの numpy の Hermite と照合する（全区間 ≤2 cm、t* で K* と量子化の内）。
+// 出力は頂点ごとに float4 2 つ：(ワールドの位置, 1)、(法線, 0)。
+#pragma kernel DS27Capture
+#include "DS27KeyposeCore.cginc"
+
+RWStructuredBuffer<float4> _DS27Out;
+uint _DS27Count;
+
+[numthreads(64, 1, 1)]
+void DS27Capture(uint3 id : SV_DispatchThreadID)
+{
+    if (id.x >= _DS27Count) return;
+    _DS27Out[2u * id.x] = float4(DS27WorldPosition(id.x), 1.0);
+    _DS27Out[2u * id.x + 1u] = float4(DS27Normal(id.x), 0.0);
+}
