@@ -1,0 +1,38 @@
+{
+ "schema": "GreatWave.UserSimTiming/1",
+ "source": {
+  "note_ja": "利用者の Houdini 解算（力の場で上向きの力を与えて起こした波。Q11 の D37 の①）から測った数値だけ。形・断面・メッシュは入れない（Q12）。出典はファイル名と SHA-256 だけで、置き場所は書かない。値は設計26 の記録（Docs/Progress/Design_26_ja.md）§7.1 の表（見出しの峰の高さ 6.15 m・4.83 m を含む）のものだけ。表の外の値（§3.1 の段階の区切りの細目、§7.1 の「借りないもの」の平行移動の速さ）は入れない。",
+  "files": [
+   {"name": "1.abc", "sha256": "e945d8a6072b92be7cbab6158b1f28af808a2791513c65b7ebca54d0cb977220"},
+   {"name": "1.fbx", "sha256": "b63e2ebe7c149416f90da7f48ac83793d5dc756cf2cec279b6dbe7ff4cf1cc7b"}
+  ],
+  "record": "Docs/Progress/Design_26_ja.md §7.1",
+  "unit_assumption_ja": "1 単位 = 1 m、24 fps（D37 の② は未回答。唇先の縦の加速度の当てはめ 0.82〜0.84 g が 1 g に近いことからの推定）"
+ },
+ "values": [
+  {"name": "crest_height_final", "value": 6.15, "unit": "m", "note_ja": "解算の最終の峰の高さ。K*（20.8 m）への Froude の倍率の基準（時間 ×√(20.8/6.15) = 1.84、長さ ×3.38）"},
+  {"name": "crest_height_at_jet_onset", "value": 4.83, "unit": "m", "note_ja": "噴流の始まりの峰の高さ。Froude の倍率の基準（時間 ×√(20.8/4.83) = 2.08、長さ ×4.31）"},
+  {"name": "crest_height_at_onset_over_final", "value": 0.79, "unit": "ratio", "note_ja": "噴流の始まりの峰 / 最終の峰。段階 c の H/H* 0.8〜0.9 の根拠"},
+  {"name": "stage_duration_a", "value": 0.42, "unit": "s", "note_ja": "段階 a の長さ。押された波の値なので目安。K* へ ×1.84〜2.08 で 0.77〜0.87 s"},
+  {"name": "stage_duration_b", "value": 0.54, "unit": "s", "note_ja": "段階 b の長さ。押された波の値なので目安。K* へ 0.99〜1.12 s"},
+  {"name": "stage_duration_c_phi_ge_80deg", "value": 0.25, "unit": "s", "note_ja": "段階 c の長さ（φ ≥ 80°）。K* へ 0.46〜0.52 s"},
+  {"name": "stage_duration_d_min", "value": 0.50, "unit": "s", "note_ja": "段階 d の長さ（下限。解算の終わりまで）。K* へ ≥ 0.92〜1.04 s"},
+  {"name": "onset_to_overhang_0p1H", "value": 0.167, "unit": "s", "note_ja": "噴流の始まり → 張り出し Lo ≥ 0.1H。K* へ 0.31〜0.35 s（段階 c→d）"},
+  {"name": "front_steepening_30_to_90deg", "value": 0.6, "unit": "s", "note_ja": "前面が 30° → 90°（押された区間の値なので目安）。K* へ 1.1〜1.25 s"},
+  {"name": "front_steepening_90_to_160deg", "value": 0.65, "unit": "s", "note_ja": "前面が 90° → 160°。K* へ 1.2〜1.35 s"},
+  {"name": "crest_angle_at_vertical_front", "value": 120.0, "unit": "deg", "note_ja": "前面が鉛直になる時の頂の角（Stokes の限界の角に近い）。無次元なので K* でも同じ"},
+  {"name": "vertical_front_and_jet_onset_same_frame", "value": 1, "unit": "bool", "note_ja": "前面が鉛直になるコマと噴流の始まりが同じ"},
+  {"name": "crest_rise_rate_a", "value": 3.1, "unit": "m/s", "note_ja": "段階 a の峰の上昇率（押された波の値なので目安）。K* へ ×√(長さの比) で 5.7〜6.4 m/s"},
+  {"name": "crest_rise_rate_b", "value": 4.1, "unit": "m/s", "note_ja": "段階 b（目安）。K* へ 7.5〜8.5 m/s"},
+  {"name": "crest_rise_rate_c", "value": 3.8, "unit": "m/s", "note_ja": "段階 c。K* へ 7.0〜7.9 m/s"},
+  {"name": "crest_rise_rate_d", "value": 1.9, "unit": "m/s", "note_ja": "段階 d。K* へ 3.5〜4.0 m/s"},
+  {"name": "crest_rise_rate_during_d_end", "value": 0.2, "unit": "m/s", "note_ja": "d の間も頂は上がり続け、1.9 → 0.2 m/s へ下がる"},
+  {"name": "jet_initial_upward_speed", "value": [4.0, 4.6], "unit": "m/s", "note_ja": "噴流の上向きの初速（0.51〜0.59 √(gH)。比を使う）"},
+  {"name": "jet_initial_upward_speed_over_sqrt_gH", "value": [0.51, 0.59], "unit": "ratio", "note_ja": "上向きの初速 / √(gH)"},
+  {"name": "jet_initial_horizontal_over_crest_speed", "value": [1.07, 1.1], "unit": "ratio", "note_ja": "噴流の水平の初速 / 峰の速さ"},
+  {"name": "lip_tip_vertical_acceleration", "value": [0.82, 0.84], "unit": "g", "note_ja": "唇先の縦の加速度（放物線の当てはめ、1 単位 = 1 m・24 fps として）"},
+  {"name": "tip_falls_to_0p59H_after_onset", "value": 1.25, "unit": "s", "note_ja": "唇先が 0.59H まで落ちるのは噴流の始まりの 1.25 s 後。K* へ 2.3〜2.6 s（P7 の根拠）"},
+  {"name": "lateral_breaking_spread_speed", "value": [15.0, 18.0], "unit": "m/s", "note_ja": "最も高い点から波峰線に沿って砕波が広がる速さ。K* へ ×√(長さの比) で 28〜33 m/s"}
+ ],
+ "note_ja": "設計27 の範囲で Q12（2026-09-27）が入れてよいとした、利用者の Houdini 解算の数値の JSON（設計28 で作った。設計27 の引き継ぎの 5）。値は解算の単位のまま（Froude の換算は各 note_ja と Design_26_ja.md §7.1 の表。時間 ×1.84〜2.08、長さ ×3.38〜4.31）。借りるのは噴流の始まりの後の唇の軌跡と段階の時間だけで、段階 a・b の長さと上昇率、前面の 30°→90° は押された区間の値なので目安（D33 の既定 (a)、D37 の①）。設計28 の較正の掃引の時間の比較（Tools/GWWaveGen/ds28/ds28_inputs_measure.py の sim_reference。ds28_inputs_run.py が呼ぶ）はこの JSON を参照として読む。設計28 のレビュー対応（2026-09-27）で、表の外から写していた 3 つ（φ ≥ 80° が始まりの 0.08 s 前から、段階 a の始まり → d の始まり 1.21 s、借りない平行移動の速さ 8〜17.5 m/s）とコマの番号の注を消した（どのコードも読んでいなかった）。"
+}
