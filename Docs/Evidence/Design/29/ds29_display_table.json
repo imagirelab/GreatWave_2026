@@ -1,0 +1,5590 @@
+{
+ "src": {
+  "rows": 240,
+  "cols": 400,
+  "vertices": 96000,
+  "layers": 186,
+  "P13": {
+   "items": {
+    "(1)": {
+     "value": 0.512337,
+     "threshold": "< 0.6",
+     "pass_": true,
+     "at": {
+      "row": 185,
+      "col": 220,
+      "tau": 0.0
+     }
+    },
+    "(2)": {
+     "value": 0.02453,
+     "threshold": "≤ 0.0218（2g）",
+     "pass_": false,
+     "at": {
+      "row": 192,
+      "col": 391,
+      "tau": -3.0
+     }
+    },
+    "(3)": {
+     "value": -1.504136,
+     "threshold": "≥ -10.40",
+     "pass_": true,
+     "at": {
+      "tau": -3.3333
+     }
+    },
+    "(4)": {
+     "value": 0.000191,
+     "threshold": "≤ 0.05",
+     "pass_": true,
+     "at": {
+      "main_row": 0.0,
+      "peak_row": 0.0002,
+      "all_rows_max": 0.0001
+     }
+    },
+    "(5a)": {
+     "value": 0.000183,
+     "threshold": "≥ 1e-4",
+     "pass_": true,
+     "at": {
+      "at": {
+       "row": 188,
+       "col": 235,
+       "tri": 0,
+       "tau": -0.7667
+      },
+      "violations": 0,
+      "frames": 0,
+      "tau_range": null
+     }
+    },
+    "(5b)": {
+     "value": 0.001688,
+     "threshold": "≥ 0.005（基準の網で 5 mm に近い・未満の 77 辺は基準 − 量子化の 2 倍）",
+     "pass_": false,
+     "at": {
+      "at": {
+       "row": 186,
+       "col": 239,
+       "tau": -0.9,
+       "K_len_m": 0.12374
+      },
+      "worst_margin_m": -0.00331,
+      "worst_margin_at": {
+       "row": 186,
+       "col": 239,
+       "tau": -0.9,
+       "len_m": 0.00169
+      },
+      "violations": 218,
+      "frames": 51,
+      "tau_range": [
+       -8.2333,
+       -0.4333
+      ]
+     }
+    },
+    "(5c)": {
+     "value": [
+      0.0136,
+      10.419
+     ],
+     "threshold": "0.05〜4",
+     "pass_": false,
+     "at": {
+      "violations": 97,
+      "frames": 59,
+      "tau_range": [
+       -4.9333,
+       -0.2
+      ]
+     }
+    },
+    "(5d)": {
+     "value": [
+      0.0308,
+      14.202
+     ],
+     "threshold": "0.05〜4",
+     "pass_": false,
+     "at": {
+      "violations": 18193,
+      "frames": 357,
+      "tau_range": [
+       -12.0,
+       -0.1333
+      ]
+     }
+    },
+    "(5e)": {
+     "value": [
+      0.1409,
+      2.228
+     ],
+     "threshold": "0.25〜4",
+     "pass_": false,
+     "at": {
+      "violations": 1488,
+      "frames": 298,
+      "tau_range": [
+       -12.0,
+       -2.1
+      ]
+     }
+    },
+    "(5f)": {
+     "value": 0,
+     "threshold": "0",
+     "pass_": true,
+     "at": {
+      "frames": 95,
+      "row": 0,
+      "mid": 0,
+      "both_ge_5mm": 0,
+      "tau_range": null,
+      "examples": []
+     }
+    },
+    "(5g)": {
+     "value": 4,
+     "threshold": "0",
+     "pass_": false,
+     "at": {
+      "resolvable_whole_mesh": 2,
+      "lip_tube_region": 2,
+      "all_incl_slivers": 72541,
+      "first": {
+       "row": 185,
+       "col": 239,
+       "tri": 1,
+       "tau": -0.8667
+      },
+      "first_region": {
+       "row": 185,
+       "col": 239,
+       "tri": 1,
+       "tau": -0.8667
+      },
+      "tau_range": [
+       -0.8667,
+       -0.8667
+      ]
+     }
+    },
+    "(6)": {
+     "value": 3.5e-05,
+     "threshold": "> 0",
+     "pass_": true,
+     "at": {
+      "at": {
+       "row": 59,
+       "col": 210,
+       "tri": 0,
+       "tau": -10.1
+      },
+      "zero_area_faces_whole_mesh_at_tstar": 4504,
+      "violations": 0,
+      "frames": 0,
+      "tau_range": null
+     }
+    }
+   },
+   "n_fail": 6,
+   "n_items": 12,
+   "summary_ja": "12 項目中 6 項目が不合格"
+  },
+  "film": {
+   "-2.25": {
+    "tau": -2.2667,
+    "exact": {
+     "d_0.5m": {
+      "min_m": 0.4342,
+      "p5_m": 0.4541,
+      "rows_below_min": 0,
+      "rows_nan": 0,
+      "rows": 133,
+      "min_row": 183
+     },
+     "d_1.0m": {
+      "min_m": 0.8881,
+      "p5_m": 0.8952,
+      "rows_below_min": 0,
+      "rows_nan": 2,
+      "rows": 133,
+      "min_row": 180
+     },
+     "d_2.0m": {
+      "min_m": 1.7859,
+      "p5_m": 1.8263,
+      "rows_below_min": 0,
+      "rows_nan": 19,
+      "rows": 133,
+      "min_row": 159
+     }
+    },
+    "playback": {
+     "d_0.5m": {
+      "min_m": 0.4341,
+      "p5_m": 0.4537,
+      "rows_below_min": 0,
+      "rows_nan": 0,
+      "rows": 133,
+      "min_row": 183
+     },
+     "d_1.0m": {
+      "min_m": 0.8876,
+      "p5_m": 0.8946,
+      "rows_below_min": 0,
+      "rows_nan": 2,
+      "rows": 133,
+      "min_row": 180
+     },
+     "d_2.0m": {
+      "min_m": 1.7901,
+      "p5_m": 1.8298,
+      "rows_below_min": 0,
+      "rows_nan": 19,
+      "rows": 133,
+      "min_row": 157
+     }
+    }
+   },
+   "-1.333": {
+    "tau": -1.3333,
+    "exact": {
+     "d_0.5m": {
+      "min_m": 0.3925,
+      "p5_m": 0.4204,
+      "rows_below_min": 0,
+      "rows_nan": 0,
+      "rows": 133,
+      "min_row": 104
+     },
+     "d_1.0m": {
+      "min_m": 0.7859,
+      "p5_m": 0.7937,
+      "rows_below_min": 0,
+      "rows_nan": 2,
+      "rows": 133,
+      "min_row": 159
+     },
+     "d_2.0m": {
+      "min_m": 1.5421,
+      "p5_m": 1.5423,
+      "rows_below_min": 0,
+      "rows_nan": 19,
+      "rows": 133,
+      "min_row": 159
+     }
+    },
+    "playback": {
+     "d_0.5m": {
+      "min_m": 0.3924,
+      "p5_m": 0.4203,
+      "rows_below_min": 0,
+      "rows_nan": 0,
+      "rows": 133,
+      "min_row": 104
+     },
+     "d_1.0m": {
+      "min_m": 0.7859,
+      "p5_m": 0.794,
+      "rows_below_min": 0,
+      "rows_nan": 2,
+      "rows": 133,
+      "min_row": 159
+     },
+     "d_2.0m": {
+      "min_m": 1.5416,
+      "p5_m": 1.5421,
+      "rows_below_min": 0,
+      "rows_nan": 19,
+      "rows": 133,
+      "min_row": 161
+     }
+    }
+   },
+   "-0.5": {
+    "tau": -0.5,
+    "exact": {
+     "d_0.5m": {
+      "min_m": 0.2853,
+      "p5_m": 0.4878,
+      "rows_below_min": 1,
+      "rows_nan": 0,
+      "rows": 133,
+      "min_row": 60
+     },
+     "d_1.0m": {
+      "min_m": 0.7663,
+      "p5_m": 0.9592,
+      "rows_below_min": 0,
+      "rows_nan": 0,
+      "rows": 133,
+      "min_row": 60
+     },
+     "d_2.0m": {
+      "min_m": 1.7942,
+      "p5_m": 1.8796,
+      "rows_below_min": 0,
+      "rows_nan": 9,
+      "rows": 133,
+      "min_row": 188
+     }
+    },
+    "playback": {
+     "d_0.5m": {
+      "min_m": 0.2831,
+      "p5_m": 0.4874,
+      "rows_below_min": 1,
+      "rows_nan": 0,
+      "rows": 133,
+      "min_row": 60
+     },
+     "d_1.0m": {
+      "min_m": 0.764,
+      "p5_m": 0.9589,
+      "rows_below_min": 0,
+      "rows_nan": 0,
+      "rows": 133,
+      "min_row": 60
+     },
+     "d_2.0m": {
+      "min_m": 1.794,
+      "p5_m": 1.8793,
+      "rows_below_min": 0,
+      "rows_nan": 9,
+      "rows": 133,
+      "min_row": 188
+     }
+    }
+   },
+   "0.0": {
+    "tau": 0.0,
+    "exact": {
+     "d_0.5m": {
+      "min_m": 0.3704,
+      "p5_m": 0.444,
+      "rows_below_min": 0,
+      "rows_nan": 0,
+      "rows": 133,
+      "min_row": 189
+     },
+     "d_1.0m": {
+      "min_m": 0.564,
+      "p5_m": 0.6907,
+      "rows_below_min": 0,
+      "rows_nan": 0,
+      "rows": 133,
+      "min_row": 63
+     },
+     "d_2.0m": {
+      "min_m": 1.1252,
+      "p5_m": 1.1681,
+      "rows_below_min": 0,
+      "rows_nan": 0,
+      "rows": 133,
+      "min_row": 72
+     }
+    },
+    "playback": {
+     "d_0.5m": {
+      "min_m": 0.37,
+      "p5_m": 0.4443,
+      "rows_below_min": 0,
+      "rows_nan": 0,
+      "rows": 133,
+      "min_row": 189
+     },
+     "d_1.0m": {
+      "min_m": 0.5638,
+      "p5_m": 0.6906,
+      "rows_below_min": 0,
+      "rows_nan": 0,
+      "rows": 133,
+      "min_row": 63
+     },
+     "d_2.0m": {
+      "min_m": 1.1254,
+      "p5_m": 1.1677,
+      "rows_below_min": 0,
+      "rows_nan": 0,
+      "rows": 133,
+      "min_row": 72
+     }
+    }
+   }
+  },
+  "crest_loss": {
+   "exact_crest_height": {
+    "max_m": 0.0,
+    "rms_m": 0.0,
+    "min_m": 0.0,
+    "at": {
+     "tau": -12.0,
+     "row": 0
+    }
+   },
+   "exact_lip_reach": {
+    "max_m": 0.0,
+    "rms_m": 0.0,
+    "min_m": 0.0,
+    "at": {
+     "tau": -12.0,
+     "row": 60
+    }
+   },
+   "playback_crest_height": {
+    "max_m": 0.0019002612521662465,
+    "rms_m": 0.00019302827452590782,
+    "min_m": -0.0017064675107727467,
+    "at": {
+     "tau": -6.0667,
+     "row": 13
+    }
+   },
+   "playback_lip_reach": {
+    "max_m": 0.001086514911435188,
+    "rms_m": 0.0005120532544998792,
+    "min_m": -0.0011227762287546739,
+    "at": {
+     "tau": -12.0,
+     "row": 124
+    }
+   },
+   "note_ja": "源 − 網（正なら網が低い・届かない）。exact は正確な表示の網、playback はパッケージの再生（量子化・Hermite を含む）"
+  },
+  "deviation_from_ds28_motion": {},
+  "tstar": {
+   "package_last_layer_vs_kstar_max_m": 0.0012035540389232022
+  },
+  "hermite": {
+   "frames_30hz_max_m": 0.0034047701850408296,
+   "frames_30hz_at": {
+    "tau": -4.2667,
+    "row": 204,
+    "col": 340
+   },
+   "frames_30hz_p99_of_frame_p99_m": 0.0014664964061500098,
+   "uniform_interval_midpoints": {
+    "n": 170,
+    "max_m": 0.0025989109157141584,
+    "at_tau": -4.90625
+   },
+   "nonuniform_intervals": {
+    "n_intervals": 15,
+    "n_samples": 120,
+    "max_m": 0.003508693842638195,
+    "at_tau": -4.270833333333333,
+    "spacing_at_worst": [
+     0.0625,
+     0.0625,
+     0.03125
+    ],
+    "intervals_tau": [
+     [
+      -11.875,
+      -11.75,
+      2.0
+     ],
+     [
+      -11.75,
+      -11.5,
+      2.0
+     ],
+     [
+      -6.25,
+      -6.0,
+      2.0
+     ],
+     [
+      -6.0,
+      -5.875,
+      2.0
+     ],
+     [
+      -5.375,
+      -5.25,
+      2.0
+     ],
+     [
+      -5.25,
+      -5.1875,
+      2.0
+     ],
+     [
+      -4.3125,
+      -4.25,
+      2.0
+     ],
+     [
+      -4.25,
+      -4.21875,
+      2.0
+     ],
+     [
+      -3.03125,
+      -3.0,
+      3.750000150000032
+     ],
+     [
+      -3.0,
+      -2.991666667,
+      3.750000150000032
+     ],
+     [
+      -2.991666667,
+      -2.983333334,
+      2.000000120000015
+     ],
+     [
+      -2.983333334,
+      -2.966666667,
+      2.000000120000015
+     ],
+     [
+      -2.966666667,
+      -2.933333333,
+      2.0
+     ],
+     [
+      -0.233333333,
+      -0.2,
+      2.000000059999999
+     ],
+     [
+      -0.2,
+      -0.183333334,
+      2.000000059999999
+     ]
+    ]
+   },
+   "note_ja": "パッケージの再生（量子化した節点の Hermite）と正確な表示の網（生成器の値を網に写したもの）の差、全頂点の最大。節点の間隔が変わる所＝隣の区間との間隔の比が 1.5 以上の区間（内側の 8 点）。"
+  },
+  "gpu": {
+   "position_buffer_mib": 102.1728515625,
+   "twhite_mib": 0.3662109375,
+   "mesh_vertex_mib_estimate": 5.859375,
+   "mesh_index_mib": 2.1826400756835938,
+   "note_ja": "位置 = 層 × 頂点 × 6 バイト（設計27 の再生器：StructuredBuffer<uint> に 16 bit × 3、CPU の写しなし）。網の頂点は位置・法線・接線・UV・UV2・UV3 の見積もり（Unity の実測ではない）",
+   "total_mib_estimate": 110.5810775756836,
+   "within_512": true
+  }
+ },
+ "half_r01": {
+  "rows": 120,
+  "cols": 200,
+  "vertices": 24000,
+  "layers": 226,
+  "P13": {
+   "items": {
+    "(1)": {
+     "value": 0.511135,
+     "threshold": "< 0.6",
+     "pass_": true,
+     "at": {
+      "row": 92,
+      "col": 105,
+      "tau": 0.0
+     }
+    },
+    "(2)": {
+     "value": 0.024828,
+     "threshold": "≤ 0.0218（2g）",
+     "pass_": false,
+     "at": {
+      "row": 95,
+      "col": 194,
+      "tau": -3.0
+     }
+    },
+    "(3)": {
+     "value": -1.503731,
+     "threshold": "≥ -10.40",
+     "pass_": true,
+     "at": {
+      "tau": -3.3333
+     }
+    },
+    "(4)": {
+     "value": 0.059469,
+     "threshold": "≤ 0.05",
+     "pass_": false,
+     "at": {
+      "main_row": 0.0003,
+      "peak_row": 0.0595,
+      "all_rows_max": 0.0001
+     }
+    },
+    "(5a)": {
+     "value": 0.001487,
+     "threshold": "≥ 1e-4",
+     "pass_": true,
+     "at": {
+      "at": {
+       "row": 78,
+       "col": 76,
+       "tri": 0,
+       "tau": -8.6667
+      },
+      "violations": 0,
+      "frames": 0,
+      "tau_range": null
+     }
+    },
+    "(5b)": {
+     "value": 0.008327,
+     "threshold": "≥ 0.005（基準の網で 5 mm に近い・未満の 0 辺は基準 − 量子化の 2 倍）",
+     "pass_": true,
+     "at": {
+      "at": {
+       "row": 30,
+       "col": 48,
+       "tau": -2.0667,
+       "K_len_m": 0.04575
+      },
+      "worst_margin_m": 0.00333,
+      "worst_margin_at": {
+       "row": 30,
+       "col": 48,
+       "tau": -2.0667,
+       "len_m": 0.00833
+      },
+      "violations": 0,
+      "frames": 0,
+      "tau_range": null
+     }
+    },
+    "(5c)": {
+     "value": [
+      0.0791,
+      3.975
+     ],
+     "threshold": "0.05〜4",
+     "pass_": true,
+     "at": {
+      "violations": 0,
+      "frames": 0,
+      "tau_range": null
+     }
+    },
+    "(5d)": {
+     "value": [
+      0.05,
+      6.665
+     ],
+     "threshold": "0.05〜4",
+     "pass_": false,
+     "at": {
+      "violations": 741,
+      "frames": 47,
+      "tau_range": [
+       -1.8,
+       -0.2667
+      ]
+     }
+    },
+    "(5e)": {
+     "value": [
+      0.3984,
+      1.968
+     ],
+     "threshold": "0.25〜4",
+     "pass_": true,
+     "at": {
+      "violations": 0,
+      "frames": 0,
+      "tau_range": null
+     }
+    },
+    "(5f)": {
+     "value": 0,
+     "threshold": "0",
+     "pass_": true,
+     "at": {
+      "frames": 95,
+      "row": 0,
+      "mid": 0,
+      "both_ge_5mm": 0,
+      "tau_range": null,
+      "examples": []
+     }
+    },
+    "(5g)": {
+     "value": 0,
+     "threshold": "0",
+     "pass_": true,
+     "at": {
+      "resolvable_whole_mesh": 0,
+      "lip_tube_region": 0,
+      "all_incl_slivers": 0,
+      "first": null,
+      "first_region": null,
+      "tau_range": null
+     }
+    },
+    "(6)": {
+     "value": 0.000887,
+     "threshold": "> 0",
+     "pass_": true,
+     "at": {
+      "at": {
+       "row": 29,
+       "col": 119,
+       "tri": 0,
+       "tau": -10.2333
+      },
+      "zero_area_faces_whole_mesh_at_tstar": 0,
+      "violations": 0,
+      "frames": 0,
+      "tau_range": null
+     }
+    }
+   },
+   "n_fail": 3,
+   "n_items": 12,
+   "summary_ja": "12 項目中 3 項目が不合格"
+  },
+  "film": {
+   "-2.25": {
+    "tau": -2.2667,
+    "exact": {
+     "d_0.5m": {
+      "min_m": 0.4425,
+      "p5_m": 0.4536,
+      "rows_below_min": 0,
+      "rows_nan": 0,
+      "rows": 66,
+      "min_row": 91
+     },
+     "d_1.0m": {
+      "min_m": 0.8905,
+      "p5_m": 0.8985,
+      "rows_below_min": 0,
+      "rows_nan": 1,
+      "rows": 66,
+      "min_row": 89
+     },
+     "d_2.0m": {
+      "min_m": 1.8324,
+      "p5_m": 1.8445,
+      "rows_below_min": 0,
+      "rows_nan": 10,
+      "rows": 66,
+      "min_row": 89
+     }
+    },
+    "playback": {
+     "d_0.5m": {
+      "min_m": 0.4425,
+      "p5_m": 0.4535,
+      "rows_below_min": 0,
+      "rows_nan": 0,
+      "rows": 66,
+      "min_row": 91
+     },
+     "d_1.0m": {
+      "min_m": 0.8896,
+      "p5_m": 0.8986,
+      "rows_below_min": 0,
+      "rows_nan": 1,
+      "rows": 66,
+      "min_row": 89
+     },
+     "d_2.0m": {
+      "min_m": 1.8311,
+      "p5_m": 1.8446,
+      "rows_below_min": 0,
+      "rows_nan": 10,
+      "rows": 66,
+      "min_row": 89
+     }
+    }
+   },
+   "-1.333": {
+    "tau": -1.3333,
+    "exact": {
+     "d_0.5m": {
+      "min_m": 0.3692,
+      "p5_m": 0.3952,
+      "rows_below_min": 0,
+      "rows_nan": 0,
+      "rows": 66,
+      "min_row": 81
+     },
+     "d_1.0m": {
+      "min_m": 0.7378,
+      "p5_m": 0.7975,
+      "rows_below_min": 0,
+      "rows_nan": 1,
+      "rows": 66,
+      "min_row": 81
+     },
+     "d_2.0m": {
+      "min_m": 1.4865,
+      "p5_m": 1.5459,
+      "rows_below_min": 0,
+      "rows_nan": 10,
+      "rows": 66,
+      "min_row": 81
+     }
+    },
+    "playback": {
+     "d_0.5m": {
+      "min_m": 0.3681,
+      "p5_m": 0.3952,
+      "rows_below_min": 0,
+      "rows_nan": 0,
+      "rows": 66,
+      "min_row": 81
+     },
+     "d_1.0m": {
+      "min_m": 0.7372,
+      "p5_m": 0.7976,
+      "rows_below_min": 0,
+      "rows_nan": 1,
+      "rows": 66,
+      "min_row": 81
+     },
+     "d_2.0m": {
+      "min_m": 1.4858,
+      "p5_m": 1.546,
+      "rows_below_min": 0,
+      "rows_nan": 10,
+      "rows": 66,
+      "min_row": 81
+     }
+    }
+   },
+   "-0.5": {
+    "tau": -0.5,
+    "exact": {
+     "d_0.5m": {
+      "min_m": 0.3673,
+      "p5_m": 0.4616,
+      "rows_below_min": 0,
+      "rows_nan": 0,
+      "rows": 66,
+      "min_row": 30
+     },
+     "d_1.0m": {
+      "min_m": 0.8396,
+      "p5_m": 0.9357,
+      "rows_below_min": 0,
+      "rows_nan": 0,
+      "rows": 66,
+      "min_row": 30
+     },
+     "d_2.0m": {
+      "min_m": 1.8115,
+      "p5_m": 1.8288,
+      "rows_below_min": 0,
+      "rows_nan": 4,
+      "rows": 66,
+      "min_row": 77
+     }
+    },
+    "playback": {
+     "d_0.5m": {
+      "min_m": 0.3663,
+      "p5_m": 0.466,
+      "rows_below_min": 0,
+      "rows_nan": 0,
+      "rows": 66,
+      "min_row": 30
+     },
+     "d_1.0m": {
+      "min_m": 0.8393,
+      "p5_m": 0.9357,
+      "rows_below_min": 0,
+      "rows_nan": 0,
+      "rows": 66,
+      "min_row": 30
+     },
+     "d_2.0m": {
+      "min_m": 1.8117,
+      "p5_m": 1.8284,
+      "rows_below_min": 0,
+      "rows_nan": 4,
+      "rows": 66,
+      "min_row": 77
+     }
+    }
+   },
+   "0.0": {
+    "tau": 0.0,
+    "exact": {
+     "d_0.5m": {
+      "min_m": 0.4499,
+      "p5_m": 0.4607,
+      "rows_below_min": 0,
+      "rows_nan": 0,
+      "rows": 66,
+      "min_row": 32
+     },
+     "d_1.0m": {
+      "min_m": 0.5764,
+      "p5_m": 0.725,
+      "rows_below_min": 0,
+      "rows_nan": 0,
+      "rows": 66,
+      "min_row": 31
+     },
+     "d_2.0m": {
+      "min_m": 1.1481,
+      "p5_m": 1.1986,
+      "rows_below_min": 0,
+      "rows_nan": 0,
+      "rows": 66,
+      "min_row": 31
+     }
+    },
+    "playback": {
+     "d_0.5m": {
+      "min_m": 0.4503,
+      "p5_m": 0.4666,
+      "rows_below_min": 0,
+      "rows_nan": 0,
+      "rows": 66,
+      "min_row": 32
+     },
+     "d_1.0m": {
+      "min_m": 0.5763,
+      "p5_m": 0.7245,
+      "rows_below_min": 0,
+      "rows_nan": 0,
+      "rows": 66,
+      "min_row": 31
+     },
+     "d_2.0m": {
+      "min_m": 1.1482,
+      "p5_m": 1.1987,
+      "rows_below_min": 0,
+      "rows_nan": 0,
+      "rows": 66,
+      "min_row": 31
+     }
+    }
+   }
+  },
+  "crest_loss": {
+   "exact_crest_height": {
+    "max_m": 0.3549828541355866,
+    "rms_m": 0.018426592720212395,
+    "min_m": 0.0,
+    "at": {
+     "tau": -5.7667,
+     "row": 119
+    }
+   },
+   "exact_crest_height_curled_rows": {
+    "max_m": 0.05333373872193192,
+    "rms_m": 0.0033545281607373673,
+    "min_m": 0.0,
+    "at": {
+     "tau": -1.8333,
+     "row": 88
+    }
+   },
+   "playback_crest_height_curled_rows": {
+    "max_m": 0.05343847215901931,
+    "rms_m": 0.003355804713207778,
+    "min_m": -0.0016107367992885813,
+    "at": {
+     "tau": -1.8333,
+     "row": 88
+    }
+   },
+   "exact_lip_reach": {
+    "max_m": 5.684341886080802e-14,
+    "rms_m": 8.478721510977095e-15,
+    "min_m": -5.684341886080802e-14,
+    "at": {
+     "tau": -11.6667,
+     "row": 83
+    }
+   },
+   "playback_crest_height": {
+    "max_m": 0.35503926624513316,
+    "rms_m": 0.018440043496840534,
+    "min_m": -0.0016933381237871359,
+    "at": {
+     "tau": -5.7667,
+     "row": 119
+    }
+   },
+   "playback_lip_reach": {
+    "max_m": 0.001063266523516404,
+    "rms_m": 0.0005041595114681129,
+    "min_m": -0.0010032670584507741,
+    "at": {
+     "tau": -11.8667,
+     "row": 89
+    }
+   },
+   "note_ja": "源 − 網（正なら網が低い・届かない）。exact は正確な表示の網、playback はパッケージの再生（量子化・Hermite を含む）。crest_height は全行（平らな余白のうねりを含む）、_curled_rows は主役波の巻きの行（源の行 60〜192）だけ"
+  },
+  "deviation_from_ds28_motion": {
+   "chord_dist_max_m": 4.019101572477423,
+   "chord_dist_max_tau": -2.8,
+   "chord_dist_rms_m": 0.0777087901488901,
+   "chord_normal_max_m": 0.793210689382898,
+   "chord_normal_max_tau": -2.9,
+   "chord_normal_rms_m": 0.0159400058835177,
+   "frames_hz": 10.0,
+   "samples": 25904043,
+   "note_ja": "表示の網（正確）の辺の 1/4・1/2・3/4 の点と、同じ媒介変数の源の面（設計28 の動き）の点の差。距離と源の面の法線の成分"
+  },
+  "tstar": {
+   "vs_kstar_chord_dist_max_m": 2.1869719641878245,
+   "vs_kstar_chord_dist_rms_m": 0.06424960766517183,
+   "vs_kstar_chord_normal_max_m": 0.26689653725250245,
+   "vs_kstar_chord_normal_rms_m": 0.012922014154373182,
+   "vertices_on_kstar_surface_max_m": 0.0,
+   "package_last_layer_vs_exact_max_m": 0.001204001219353497
+  },
+  "hermite": {
+   "frames_30hz_max_m": 0.0034378271761842574,
+   "frames_30hz_at": {
+    "tau": -4.2667,
+    "row": 102,
+    "col": 169
+   },
+   "frames_30hz_p99_of_frame_p99_m": 0.001461509143032858,
+   "uniform_interval_midpoints": {
+    "n": 183,
+    "max_m": 0.0026089222839215543,
+    "at_tau": -4.96875
+   },
+   "nonuniform_intervals": {
+    "n_intervals": 42,
+    "n_samples": 336,
+    "max_m": 0.003511105428359897,
+    "at_tau": -4.270833333333333,
+    "spacing_at_worst": [
+     0.0625,
+     0.0625,
+     0.03125
+    ],
+    "intervals_tau": [
+     [
+      -11.875,
+      -11.75,
+      2.0
+     ],
+     [
+      -11.75,
+      -11.5,
+      2.0
+     ],
+     [
+      -6.25,
+      -6.0,
+      2.0
+     ],
+     [
+      -6.0,
+      -5.875,
+      2.0
+     ],
+     [
+      -5.375,
+      -5.25,
+      2.0
+     ],
+     [
+      -5.25,
+      -5.1875,
+      2.0
+     ],
+     [
+      -4.3125,
+      -4.25,
+      2.0
+     ],
+     [
+      -4.25,
+      -4.21875,
+      2.0
+     ],
+     [
+      -3.03125,
+      -3.0,
+      3.750000150000032
+     ],
+     [
+      -3.0,
+      -2.991666667,
+      3.750000150000032
+     ],
+     [
+      -2.991666667,
+      -2.983333334,
+      2.000000120000015
+     ],
+     [
+      -2.983333334,
+      -2.966666667,
+      2.000000120000015
+     ],
+     [
+      -2.966666667,
+      -2.933333333,
+      2.0
+     ],
+     [
+      -1.933333333,
+      -1.9,
+      2.0000000600000205
+     ],
+     [
+      -1.9,
+      -1.883333334,
+      2.0000000600000205
+     ],
+     [
+      -1.85,
+      -1.833333333,
+      1.9999999399999695
+     ],
+     [
+      -1.833333333,
+      -1.8,
+      2.0000000599999805
+     ],
+     [
+      -1.8,
+      -1.783333334,
+      2.0000000599999805
+     ],
+     [
+      -1.633333333,
+      -1.616666666,
+      2.000000120000015
+     ],
+     [
+      -1.616666666,
+      -1.608333333,
+      2.000000120000015
+     ],
+     [
+      -1.591666667,
+      -1.583333334,
+      2.000000120000015
+     ],
+     [
+      -1.583333334,
+      -1.566666667,
+      2.000000120000015
+     ],
+     [
+      -1.566666667,
+      -1.558333334,
+      2.000000120000015
+     ],
+     [
+      -1.475,
+      -1.466666667,
+      2.0000001199999615
+     ],
+     [
+      -1.466666667,
+      -1.45,
+      2.0000001199999615
+     ],
+     [
+      -1.45,
+      -1.441666666,
+      1.9999998799999996
+     ],
+     [
+      -1.425,
+      -1.416666666,
+      1.9999997600000259
+     ],
+     [
+      -1.416666666,
+      -1.4,
+      2.0000000000000266
+     ],
+     [
+      -1.4,
+      -1.391666667,
+      2.0000000000000266
+     ],
+     [
+      -1.391666667,
+      -1.383333334,
+      2.000000120000015
+     ],
+     [
+      -1.383333334,
+      -1.366666667,
+      2.000000120000015
+     ],
+     [
+      -1.366666667,
+      -1.35,
+      1.9999998799999996
+     ],
+     [
+      -1.35,
+      -1.341666666,
+      1.9999998799999996
+     ],
+     [
+      -1.275,
+      -1.266666667,
+      2.000000120000015
+     ],
+     [
+      -1.266666667,
+      -1.25,
+      2.000000120000015
+     ],
+     [
+      -1.25,
+      -1.241666666,
+      1.9999998799999996
+     ],
+     [
+      -1.241666666,
+      -1.233333333,
+      2.000000120000015
+     ],
+     [
+      -1.233333333,
+      -1.216666666,
+      2.000000120000015
+     ],
+     [
+      -1.116666666,
+      -1.1,
+      2.0000000600000205
+     ],
+     [
+      -1.1,
+      -1.066666667,
+      2.0000000600000205
+     ],
+     [
+      -0.233333333,
+      -0.2,
+      2.000000059999999
+     ],
+     [
+      -0.2,
+      -0.183333334,
+      2.000000059999999
+     ]
+    ]
+   },
+   "note_ja": "パッケージの再生（量子化した節点の Hermite）と正確な表示の網（生成器の値を網に写したもの）の差、全頂点の最大。節点の間隔が変わる所＝隣の区間との間隔の比が 1.5 以上の区間（内側の 8 点）。"
+  },
+  "gpu": {
+   "position_buffer_mib": 31.036376953125,
+   "twhite_mib": 0.091552734375,
+   "mesh_vertex_mib_estimate": 1.46484375,
+   "mesh_index_mib": 0.5420150756835938,
+   "note_ja": "位置 = 層 × 頂点 × 6 バイト（設計27 の再生器：StructuredBuffer<uint> に 16 bit × 3、CPU の写しなし）。網の頂点は位置・法線・接線・UV・UV2・UV3 の見積もり（Unity の実測ではない）",
+   "total_mib_estimate": 33.134788513183594,
+   "within_512": true
+  }
+ },
+ "half_r02": {
+  "rows": 120,
+  "cols": 200,
+  "vertices": 24000,
+  "layers": 226,
+  "P13": {
+   "items": {
+    "(1)": {
+     "value": 0.511481,
+     "threshold": "< 0.6",
+     "pass_": true,
+     "at": {
+      "row": 92,
+      "col": 105,
+      "tau": 0.0
+     }
+    },
+    "(2)": {
+     "value": 0.024828,
+     "threshold": "≤ 0.0218（2g）",
+     "pass_": false,
+     "at": {
+      "row": 95,
+      "col": 194,
+      "tau": -3.0
+     }
+    },
+    "(3)": {
+     "value": -1.503731,
+     "threshold": "≥ -10.40",
+     "pass_": true,
+     "at": {
+      "tau": -3.3333
+     }
+    },
+    "(4)": {
+     "value": 0.061363,
+     "threshold": "≤ 0.05",
+     "pass_": false,
+     "at": {
+      "main_row": 0.0003,
+      "peak_row": 0.0614,
+      "all_rows_max": 0.0001
+     }
+    },
+    "(5a)": {
+     "value": 0.001763,
+     "threshold": "≥ 1e-4",
+     "pass_": true,
+     "at": {
+      "at": {
+       "row": 78,
+       "col": 99,
+       "tri": 0,
+       "tau": -1.9333
+      },
+      "violations": 0,
+      "frames": 0,
+      "tau_range": null
+     }
+    },
+    "(5b)": {
+     "value": 0.005135,
+     "threshold": "≥ 0.005（基準の網で 5 mm に近い・未満の 2 辺は基準 − 量子化の 2 倍）",
+     "pass_": true,
+     "at": {
+      "at": {
+       "row": 30,
+       "col": 100,
+       "tau": 0.0,
+       "K_len_m": 0.00508
+      },
+      "worst_margin_m": 0.00247,
+      "worst_margin_at": {
+       "row": 30,
+       "col": 100,
+       "tau": 0.0,
+       "len_m": 0.00514
+      },
+      "violations": 0,
+      "frames": 0,
+      "tau_range": null
+     }
+    },
+    "(5c)": {
+     "value": [
+      0.0984,
+      3.604
+     ],
+     "threshold": "0.05〜4",
+     "pass_": true,
+     "at": {
+      "violations": 0,
+      "frames": 0,
+      "tau_range": null
+     }
+    },
+    "(5d)": {
+     "value": [
+      0.05,
+      6.665
+     ],
+     "threshold": "0.05〜4",
+     "pass_": false,
+     "at": {
+      "violations": 761,
+      "frames": 48,
+      "tau_range": [
+       -1.8333,
+       -0.2667
+      ]
+     }
+    },
+    "(5e)": {
+     "value": [
+      0.3984,
+      1.968
+     ],
+     "threshold": "0.25〜4",
+     "pass_": true,
+     "at": {
+      "violations": 0,
+      "frames": 0,
+      "tau_range": null
+     }
+    },
+    "(5f)": {
+     "value": 0,
+     "threshold": "0",
+     "pass_": true,
+     "at": {
+      "frames": 95,
+      "row": 0,
+      "mid": 0,
+      "both_ge_5mm": 0,
+      "tau_range": null,
+      "examples": []
+     }
+    },
+    "(5g)": {
+     "value": 0,
+     "threshold": "0",
+     "pass_": true,
+     "at": {
+      "resolvable_whole_mesh": 0,
+      "lip_tube_region": 0,
+      "all_incl_slivers": 1773,
+      "first": null,
+      "first_region": null,
+      "tau_range": null
+     }
+    },
+    "(6)": {
+     "value": 0.000349,
+     "threshold": "> 0",
+     "pass_": true,
+     "at": {
+      "at": {
+       "row": 29,
+       "col": 93,
+       "tri": 0,
+       "tau": -7.1
+      },
+      "zero_area_faces_whole_mesh_at_tstar": 120,
+      "violations": 0,
+      "frames": 0,
+      "tau_range": null
+     }
+    }
+   },
+   "n_fail": 3,
+   "n_items": 12,
+   "summary_ja": "12 項目中 3 項目が不合格"
+  },
+  "film": {
+   "-2.25": {
+    "tau": -2.2667,
+    "exact": {
+     "d_0.5m": {
+      "min_m": 0.4382,
+      "p5_m": 0.4522,
+      "rows_below_min": 0,
+      "rows_nan": 0,
+      "rows": 66,
+      "min_row": 91
+     },
+     "d_1.0m": {
+      "min_m": 0.8951,
+      "p5_m": 0.9004,
+      "rows_below_min": 0,
+      "rows_nan": 1,
+      "rows": 66,
+      "min_row": 89
+     },
+     "d_2.0m": {
+      "min_m": 1.8375,
+      "p5_m": 1.8469,
+      "rows_below_min": 0,
+      "rows_nan": 10,
+      "rows": 66,
+      "min_row": 89
+     }
+    },
+    "playback": {
+     "d_0.5m": {
+      "min_m": 0.4384,
+      "p5_m": 0.452,
+      "rows_below_min": 0,
+      "rows_nan": 0,
+      "rows": 66,
+      "min_row": 91
+     },
+     "d_1.0m": {
+      "min_m": 0.8945,
+      "p5_m": 0.8999,
+      "rows_below_min": 0,
+      "rows_nan": 1,
+      "rows": 66,
+      "min_row": 89
+     },
+     "d_2.0m": {
+      "min_m": 1.8367,
+      "p5_m": 1.8459,
+      "rows_below_min": 0,
+      "rows_nan": 10,
+      "rows": 66,
+      "min_row": 89
+     }
+    }
+   },
+   "-1.333": {
+    "tau": -1.3333,
+    "exact": {
+     "d_0.5m": {
+      "min_m": 0.3834,
+      "p5_m": 0.4184,
+      "rows_below_min": 0,
+      "rows_nan": 0,
+      "rows": 66,
+      "min_row": 80
+     },
+     "d_1.0m": {
+      "min_m": 0.752,
+      "p5_m": 0.7973,
+      "rows_below_min": 0,
+      "rows_nan": 1,
+      "rows": 66,
+      "min_row": 80
+     },
+     "d_2.0m": {
+      "min_m": 1.5008,
+      "p5_m": 1.539,
+      "rows_below_min": 0,
+      "rows_nan": 10,
+      "rows": 66,
+      "min_row": 80
+     }
+    },
+    "playback": {
+     "d_0.5m": {
+      "min_m": 0.3837,
+      "p5_m": 0.4168,
+      "rows_below_min": 0,
+      "rows_nan": 0,
+      "rows": 66,
+      "min_row": 80
+     },
+     "d_1.0m": {
+      "min_m": 0.7519,
+      "p5_m": 0.7972,
+      "rows_below_min": 0,
+      "rows_nan": 1,
+      "rows": 66,
+      "min_row": 80
+     },
+     "d_2.0m": {
+      "min_m": 1.5014,
+      "p5_m": 1.5389,
+      "rows_below_min": 0,
+      "rows_nan": 10,
+      "rows": 66,
+      "min_row": 80
+     }
+    }
+   },
+   "-0.5": {
+    "tau": -0.5,
+    "exact": {
+     "d_0.5m": {
+      "min_m": 0.3753,
+      "p5_m": 0.4662,
+      "rows_below_min": 0,
+      "rows_nan": 0,
+      "rows": 66,
+      "min_row": 30
+     },
+     "d_1.0m": {
+      "min_m": 0.848,
+      "p5_m": 0.9508,
+      "rows_below_min": 0,
+      "rows_nan": 0,
+      "rows": 66,
+      "min_row": 30
+     },
+     "d_2.0m": {
+      "min_m": 1.8566,
+      "p5_m": 1.8683,
+      "rows_below_min": 0,
+      "rows_nan": 5,
+      "rows": 66,
+      "min_row": 94
+     }
+    },
+    "playback": {
+     "d_0.5m": {
+      "min_m": 0.3759,
+      "p5_m": 0.4664,
+      "rows_below_min": 0,
+      "rows_nan": 0,
+      "rows": 66,
+      "min_row": 30
+     },
+     "d_1.0m": {
+      "min_m": 0.8489,
+      "p5_m": 0.9504,
+      "rows_below_min": 0,
+      "rows_nan": 0,
+      "rows": 66,
+      "min_row": 30
+     },
+     "d_2.0m": {
+      "min_m": 1.8566,
+      "p5_m": 1.8682,
+      "rows_below_min": 0,
+      "rows_nan": 5,
+      "rows": 66,
+      "min_row": 94
+     }
+    }
+   },
+   "0.0": {
+    "tau": 0.0,
+    "exact": {
+     "d_0.5m": {
+      "min_m": 0.4144,
+      "p5_m": 0.4402,
+      "rows_below_min": 0,
+      "rows_nan": 0,
+      "rows": 66,
+      "min_row": 32
+     },
+     "d_1.0m": {
+      "min_m": 0.5776,
+      "p5_m": 0.6771,
+      "rows_below_min": 0,
+      "rows_nan": 0,
+      "rows": 66,
+      "min_row": 31
+     },
+     "d_2.0m": {
+      "min_m": 1.1197,
+      "p5_m": 1.1585,
+      "rows_below_min": 0,
+      "rows_nan": 0,
+      "rows": 66,
+      "min_row": 36
+     }
+    },
+    "playback": {
+     "d_0.5m": {
+      "min_m": 0.4146,
+      "p5_m": 0.4401,
+      "rows_below_min": 0,
+      "rows_nan": 0,
+      "rows": 66,
+      "min_row": 32
+     },
+     "d_1.0m": {
+      "min_m": 0.5775,
+      "p5_m": 0.677,
+      "rows_below_min": 0,
+      "rows_nan": 0,
+      "rows": 66,
+      "min_row": 31
+     },
+     "d_2.0m": {
+      "min_m": 1.1195,
+      "p5_m": 1.1585,
+      "rows_below_min": 0,
+      "rows_nan": 0,
+      "rows": 66,
+      "min_row": 36
+     }
+    }
+   }
+  },
+  "crest_loss": {
+   "exact_crest_height": {
+    "max_m": 0.3549828541355866,
+    "rms_m": 0.01844259741017038,
+    "min_m": 0.0,
+    "at": {
+     "tau": -5.7667,
+     "row": 119
+    }
+   },
+   "exact_crest_height_curled_rows": {
+    "max_m": 0.0467919781957562,
+    "rms_m": 0.0035094613176965767,
+    "min_m": 0.0,
+    "at": {
+     "tau": 0.0,
+     "row": 51
+    }
+   },
+   "playback_crest_height_curled_rows": {
+    "max_m": 0.04682767448025871,
+    "rms_m": 0.003510513148147727,
+    "min_m": -0.0016107367992885813,
+    "at": {
+     "tau": 0.0,
+     "row": 51
+    }
+   },
+   "exact_lip_reach": {
+    "max_m": 5.684341886080802e-14,
+    "rms_m": 8.478721510977095e-15,
+    "min_m": -5.684341886080802e-14,
+    "at": {
+     "tau": -11.6667,
+     "row": 83
+    }
+   },
+   "playback_crest_height": {
+    "max_m": 0.35503926624513316,
+    "rms_m": 0.01845603895316634,
+    "min_m": -0.0016933381237871359,
+    "at": {
+     "tau": -5.7667,
+     "row": 119
+    }
+   },
+   "playback_lip_reach": {
+    "max_m": 0.001063266523516404,
+    "rms_m": 0.0005041595114681129,
+    "min_m": -0.0010032670584507741,
+    "at": {
+     "tau": -11.8667,
+     "row": 89
+    }
+   },
+   "note_ja": "源 − 網（正なら網が低い・届かない）。exact は正確な表示の網、playback はパッケージの再生（量子化・Hermite を含む）。crest_height は全行（平らな余白のうねりを含む）、_curled_rows は主役波の巻きの行（源の行 60〜192）だけ"
+  },
+  "deviation_from_ds28_motion": {
+   "chord_dist_max_m": 4.019101572477423,
+   "chord_dist_max_tau": -2.8,
+   "chord_dist_rms_m": 0.07776853400087916,
+   "chord_normal_max_m": 0.793210689382898,
+   "chord_normal_max_tau": -2.9,
+   "chord_normal_rms_m": 0.0159862833135655,
+   "frames_hz": 10.0,
+   "samples": 25904043,
+   "note_ja": "表示の網（正確）の辺の 1/4・1/2・3/4 の点と、同じ媒介変数の源の面（設計28 の動き）の点の差。距離と源の面の法線の成分"
+  },
+  "tstar": {
+   "vs_kstar_chord_dist_max_m": 2.1869719641878245,
+   "vs_kstar_chord_dist_rms_m": 0.06450219355099769,
+   "vs_kstar_chord_normal_max_m": 0.26689653725250245,
+   "vs_kstar_chord_normal_rms_m": 0.01285717917717061,
+   "vertices_on_kstar_surface_max_m": 0.0,
+   "package_last_layer_vs_exact_max_m": 0.001204001219353497
+  },
+  "hermite": {
+   "frames_30hz_max_m": 0.0034378271761842574,
+   "frames_30hz_at": {
+    "tau": -4.2667,
+    "row": 102,
+    "col": 169
+   },
+   "frames_30hz_p99_of_frame_p99_m": 0.001464193137702147,
+   "uniform_interval_midpoints": {
+    "n": 183,
+    "max_m": 0.0026089222839215543,
+    "at_tau": -4.96875
+   },
+   "nonuniform_intervals": {
+    "n_intervals": 42,
+    "n_samples": 336,
+    "max_m": 0.003511105428359897,
+    "at_tau": -4.270833333333333,
+    "spacing_at_worst": [
+     0.0625,
+     0.0625,
+     0.03125
+    ],
+    "intervals_tau": [
+     [
+      -11.875,
+      -11.75,
+      2.0
+     ],
+     [
+      -11.75,
+      -11.5,
+      2.0
+     ],
+     [
+      -6.25,
+      -6.0,
+      2.0
+     ],
+     [
+      -6.0,
+      -5.875,
+      2.0
+     ],
+     [
+      -5.375,
+      -5.25,
+      2.0
+     ],
+     [
+      -5.25,
+      -5.1875,
+      2.0
+     ],
+     [
+      -4.3125,
+      -4.25,
+      2.0
+     ],
+     [
+      -4.25,
+      -4.21875,
+      2.0
+     ],
+     [
+      -3.03125,
+      -3.0,
+      3.750000150000032
+     ],
+     [
+      -3.0,
+      -2.991666667,
+      3.750000150000032
+     ],
+     [
+      -2.991666667,
+      -2.983333334,
+      2.000000120000015
+     ],
+     [
+      -2.983333334,
+      -2.966666667,
+      2.000000120000015
+     ],
+     [
+      -2.966666667,
+      -2.933333333,
+      2.0
+     ],
+     [
+      -1.933333333,
+      -1.9,
+      2.0000000600000205
+     ],
+     [
+      -1.9,
+      -1.883333334,
+      2.0000000600000205
+     ],
+     [
+      -1.85,
+      -1.833333333,
+      1.9999999399999695
+     ],
+     [
+      -1.833333333,
+      -1.8,
+      2.0000000599999805
+     ],
+     [
+      -1.8,
+      -1.783333334,
+      2.0000000599999805
+     ],
+     [
+      -1.633333333,
+      -1.616666666,
+      2.000000120000015
+     ],
+     [
+      -1.616666666,
+      -1.608333333,
+      2.000000120000015
+     ],
+     [
+      -1.591666667,
+      -1.583333334,
+      2.000000120000015
+     ],
+     [
+      -1.583333334,
+      -1.566666667,
+      2.000000120000015
+     ],
+     [
+      -1.566666667,
+      -1.558333334,
+      2.000000120000015
+     ],
+     [
+      -1.475,
+      -1.466666667,
+      2.0000001199999615
+     ],
+     [
+      -1.466666667,
+      -1.45,
+      2.0000001199999615
+     ],
+     [
+      -1.45,
+      -1.441666666,
+      1.9999998799999996
+     ],
+     [
+      -1.425,
+      -1.416666666,
+      1.9999997600000259
+     ],
+     [
+      -1.416666666,
+      -1.4,
+      2.0000000000000266
+     ],
+     [
+      -1.4,
+      -1.391666667,
+      2.0000000000000266
+     ],
+     [
+      -1.391666667,
+      -1.383333334,
+      2.000000120000015
+     ],
+     [
+      -1.383333334,
+      -1.366666667,
+      2.000000120000015
+     ],
+     [
+      -1.366666667,
+      -1.35,
+      1.9999998799999996
+     ],
+     [
+      -1.35,
+      -1.341666666,
+      1.9999998799999996
+     ],
+     [
+      -1.275,
+      -1.266666667,
+      2.000000120000015
+     ],
+     [
+      -1.266666667,
+      -1.25,
+      2.000000120000015
+     ],
+     [
+      -1.25,
+      -1.241666666,
+      1.9999998799999996
+     ],
+     [
+      -1.241666666,
+      -1.233333333,
+      2.000000120000015
+     ],
+     [
+      -1.233333333,
+      -1.216666666,
+      2.000000120000015
+     ],
+     [
+      -1.116666666,
+      -1.1,
+      2.0000000600000205
+     ],
+     [
+      -1.1,
+      -1.066666667,
+      2.0000000600000205
+     ],
+     [
+      -0.233333333,
+      -0.2,
+      2.000000059999999
+     ],
+     [
+      -0.2,
+      -0.183333334,
+      2.000000059999999
+     ]
+    ]
+   },
+   "note_ja": "パッケージの再生（量子化した節点の Hermite）と正確な表示の網（生成器の値を網に写したもの）の差、全頂点の最大。節点の間隔が変わる所＝隣の区間との間隔の比が 1.5 以上の区間（内側の 8 点）。"
+  },
+  "gpu": {
+   "position_buffer_mib": 31.036376953125,
+   "twhite_mib": 0.091552734375,
+   "mesh_vertex_mib_estimate": 1.46484375,
+   "mesh_index_mib": 0.5420150756835938,
+   "note_ja": "位置 = 層 × 頂点 × 6 バイト（設計27 の再生器：StructuredBuffer<uint> に 16 bit × 3、CPU の写しなし）。網の頂点は位置・法線・接線・UV・UV2・UV3 の見積もり（Unity の実測ではない）",
+   "total_mib_estimate": 33.134788513183594,
+   "within_512": true
+  }
+ },
+ "half_r02b": {
+  "rows": 120,
+  "cols": 200,
+  "vertices": 24000,
+  "layers": 213,
+  "P13": {
+   "items": {
+    "(1)": {
+     "value": 0.511481,
+     "threshold": "< 0.6",
+     "pass_": true,
+     "at": {
+      "row": 92,
+      "col": 105,
+      "tau": 0.0
+     }
+    },
+    "(2)": {
+     "value": 0.024828,
+     "threshold": "≤ 0.0218（2g）",
+     "pass_": false,
+     "at": {
+      "row": 95,
+      "col": 194,
+      "tau": -3.0
+     }
+    },
+    "(3)": {
+     "value": -1.503731,
+     "threshold": "≥ -10.40",
+     "pass_": true,
+     "at": {
+      "tau": -3.3333
+     }
+    },
+    "(4)": {
+     "value": 0.061363,
+     "threshold": "≤ 0.05",
+     "pass_": false,
+     "at": {
+      "main_row": 0.0003,
+      "peak_row": 0.0614,
+      "all_rows_max": 0.0001
+     }
+    },
+    "(5a)": {
+     "value": 0.00172,
+     "threshold": "≥ 1e-4",
+     "pass_": true,
+     "at": {
+      "at": {
+       "row": 94,
+       "col": 110,
+       "tri": 0,
+       "tau": -0.7
+      },
+      "violations": 0,
+      "frames": 0,
+      "tau_range": null
+     }
+    },
+    "(5b)": {
+     "value": 0.005135,
+     "threshold": "≥ 0.005（基準の網で 5 mm に近い・未満の 2 辺は基準 − 量子化の 2 倍）",
+     "pass_": true,
+     "at": {
+      "at": {
+       "row": 30,
+       "col": 100,
+       "tau": 0.0,
+       "K_len_m": 0.00508
+      },
+      "worst_margin_m": 0.00247,
+      "worst_margin_at": {
+       "row": 30,
+       "col": 100,
+       "tau": 0.0,
+       "len_m": 0.00514
+      },
+      "violations": 0,
+      "frames": 0,
+      "tau_range": null
+     }
+    },
+    "(5c)": {
+     "value": [
+      0.0919,
+      4.316
+     ],
+     "threshold": "0.05〜4",
+     "pass_": false,
+     "at": {
+      "violations": 773,
+      "frames": 57,
+      "tau_range": [
+       -5.5,
+       -3.6333
+      ]
+     }
+    },
+    "(5d)": {
+     "value": [
+      0.0499,
+      9.684
+     ],
+     "threshold": "0.05〜4",
+     "pass_": false,
+     "at": {
+      "violations": 1463,
+      "frames": 51,
+      "tau_range": [
+       -1.8333,
+       -0.1667
+      ]
+     }
+    },
+    "(5e)": {
+     "value": [
+      0.4263,
+      3.403
+     ],
+     "threshold": "0.25〜4",
+     "pass_": true,
+     "at": {
+      "violations": 0,
+      "frames": 0,
+      "tau_range": null
+     }
+    },
+    "(5f)": {
+     "value": 0,
+     "threshold": "0",
+     "pass_": true,
+     "at": {
+      "frames": 95,
+      "row": 0,
+      "mid": 0,
+      "both_ge_5mm": 0,
+      "tau_range": null,
+      "examples": []
+     }
+    },
+    "(5g)": {
+     "value": 0,
+     "threshold": "0",
+     "pass_": true,
+     "at": {
+      "resolvable_whole_mesh": 0,
+      "lip_tube_region": 0,
+      "all_incl_slivers": 2103,
+      "first": null,
+      "first_region": null,
+      "tau_range": null
+     }
+    },
+    "(6)": {
+     "value": 0.000349,
+     "threshold": "> 0",
+     "pass_": true,
+     "at": {
+      "at": {
+       "row": 29,
+       "col": 93,
+       "tri": 0,
+       "tau": -7.1
+      },
+      "zero_area_faces_whole_mesh_at_tstar": 204,
+      "violations": 0,
+      "frames": 0,
+      "tau_range": null
+     }
+    }
+   },
+   "n_fail": 4,
+   "n_items": 12,
+   "summary_ja": "12 項目中 4 項目が不合格"
+  },
+  "film": {
+   "-2.25": {
+    "tau": -2.2667,
+    "exact": {
+     "d_0.5m": {
+      "min_m": 0.4382,
+      "p5_m": 0.4522,
+      "rows_below_min": 0,
+      "rows_nan": 0,
+      "rows": 66,
+      "min_row": 91
+     },
+     "d_1.0m": {
+      "min_m": 0.8951,
+      "p5_m": 0.9004,
+      "rows_below_min": 0,
+      "rows_nan": 1,
+      "rows": 66,
+      "min_row": 89
+     },
+     "d_2.0m": {
+      "min_m": 1.8375,
+      "p5_m": 1.8469,
+      "rows_below_min": 0,
+      "rows_nan": 10,
+      "rows": 66,
+      "min_row": 89
+     }
+    },
+    "playback": {
+     "d_0.5m": {
+      "min_m": 0.4384,
+      "p5_m": 0.452,
+      "rows_below_min": 0,
+      "rows_nan": 0,
+      "rows": 66,
+      "min_row": 91
+     },
+     "d_1.0m": {
+      "min_m": 0.8945,
+      "p5_m": 0.8999,
+      "rows_below_min": 0,
+      "rows_nan": 1,
+      "rows": 66,
+      "min_row": 89
+     },
+     "d_2.0m": {
+      "min_m": 1.8367,
+      "p5_m": 1.8459,
+      "rows_below_min": 0,
+      "rows_nan": 10,
+      "rows": 66,
+      "min_row": 89
+     }
+    }
+   },
+   "-1.333": {
+    "tau": -1.3333,
+    "exact": {
+     "d_0.5m": {
+      "min_m": 0.3834,
+      "p5_m": 0.4184,
+      "rows_below_min": 0,
+      "rows_nan": 0,
+      "rows": 66,
+      "min_row": 80
+     },
+     "d_1.0m": {
+      "min_m": 0.752,
+      "p5_m": 0.7973,
+      "rows_below_min": 0,
+      "rows_nan": 1,
+      "rows": 66,
+      "min_row": 80
+     },
+     "d_2.0m": {
+      "min_m": 1.5008,
+      "p5_m": 1.539,
+      "rows_below_min": 0,
+      "rows_nan": 10,
+      "rows": 66,
+      "min_row": 80
+     }
+    },
+    "playback": {
+     "d_0.5m": {
+      "min_m": 0.3837,
+      "p5_m": 0.4168,
+      "rows_below_min": 0,
+      "rows_nan": 0,
+      "rows": 66,
+      "min_row": 80
+     },
+     "d_1.0m": {
+      "min_m": 0.7519,
+      "p5_m": 0.7972,
+      "rows_below_min": 0,
+      "rows_nan": 1,
+      "rows": 66,
+      "min_row": 80
+     },
+     "d_2.0m": {
+      "min_m": 1.5014,
+      "p5_m": 1.5389,
+      "rows_below_min": 0,
+      "rows_nan": 10,
+      "rows": 66,
+      "min_row": 80
+     }
+    }
+   },
+   "-0.5": {
+    "tau": -0.5,
+    "exact": {
+     "d_0.5m": {
+      "min_m": 0.3753,
+      "p5_m": 0.4662,
+      "rows_below_min": 0,
+      "rows_nan": 0,
+      "rows": 66,
+      "min_row": 30
+     },
+     "d_1.0m": {
+      "min_m": 0.848,
+      "p5_m": 0.9508,
+      "rows_below_min": 0,
+      "rows_nan": 0,
+      "rows": 66,
+      "min_row": 30
+     },
+     "d_2.0m": {
+      "min_m": 1.8529,
+      "p5_m": 1.8683,
+      "rows_below_min": 0,
+      "rows_nan": 5,
+      "rows": 66,
+      "min_row": 94
+     }
+    },
+    "playback": {
+     "d_0.5m": {
+      "min_m": 0.3759,
+      "p5_m": 0.4664,
+      "rows_below_min": 0,
+      "rows_nan": 0,
+      "rows": 66,
+      "min_row": 30
+     },
+     "d_1.0m": {
+      "min_m": 0.8489,
+      "p5_m": 0.9504,
+      "rows_below_min": 0,
+      "rows_nan": 0,
+      "rows": 66,
+      "min_row": 30
+     },
+     "d_2.0m": {
+      "min_m": 1.8525,
+      "p5_m": 1.8682,
+      "rows_below_min": 0,
+      "rows_nan": 5,
+      "rows": 66,
+      "min_row": 94
+     }
+    }
+   },
+   "0.0": {
+    "tau": 0.0,
+    "exact": {
+     "d_0.5m": {
+      "min_m": 0.4144,
+      "p5_m": 0.4404,
+      "rows_below_min": 0,
+      "rows_nan": 0,
+      "rows": 66,
+      "min_row": 32
+     },
+     "d_1.0m": {
+      "min_m": 0.5776,
+      "p5_m": 0.6771,
+      "rows_below_min": 0,
+      "rows_nan": 0,
+      "rows": 66,
+      "min_row": 31
+     },
+     "d_2.0m": {
+      "min_m": 1.1197,
+      "p5_m": 1.1585,
+      "rows_below_min": 0,
+      "rows_nan": 0,
+      "rows": 66,
+      "min_row": 36
+     }
+    },
+    "playback": {
+     "d_0.5m": {
+      "min_m": 0.4146,
+      "p5_m": 0.4404,
+      "rows_below_min": 0,
+      "rows_nan": 0,
+      "rows": 66,
+      "min_row": 32
+     },
+     "d_1.0m": {
+      "min_m": 0.5776,
+      "p5_m": 0.6772,
+      "rows_below_min": 0,
+      "rows_nan": 0,
+      "rows": 66,
+      "min_row": 31
+     },
+     "d_2.0m": {
+      "min_m": 1.1195,
+      "p5_m": 1.1587,
+      "rows_below_min": 0,
+      "rows_nan": 0,
+      "rows": 66,
+      "min_row": 36
+     }
+    }
+   }
+  },
+  "crest_loss": {
+   "exact_crest_height": {
+    "max_m": 0.3549828541355866,
+    "rms_m": 0.01844259741017038,
+    "min_m": 0.0,
+    "at": {
+     "tau": -5.7667,
+     "row": 119
+    }
+   },
+   "exact_crest_height_curled_rows": {
+    "max_m": 0.0467919781957562,
+    "rms_m": 0.0035094613176965767,
+    "min_m": 0.0,
+    "at": {
+     "tau": 0.0,
+     "row": 51
+    }
+   },
+   "playback_crest_height_curled_rows": {
+    "max_m": 0.04682767448025871,
+    "rms_m": 0.0035105131482513372,
+    "min_m": -0.0016107367992885813,
+    "at": {
+     "tau": 0.0,
+     "row": 51
+    }
+   },
+   "exact_lip_reach": {
+    "max_m": 5.684341886080802e-14,
+    "rms_m": 8.478721510977095e-15,
+    "min_m": -5.684341886080802e-14,
+    "at": {
+     "tau": -11.6667,
+     "row": 83
+    }
+   },
+   "playback_crest_height": {
+    "max_m": 0.35503926624513316,
+    "rms_m": 0.01845603895317678,
+    "min_m": -0.0016933381237871359,
+    "at": {
+     "tau": -5.7667,
+     "row": 119
+    }
+   },
+   "playback_lip_reach": {
+    "max_m": 0.001063266523516404,
+    "rms_m": 0.000504159511468109,
+    "min_m": -0.0010032670584507741,
+    "at": {
+     "tau": -11.8667,
+     "row": 89
+    }
+   },
+   "note_ja": "源 − 網（正なら網が低い・届かない）。exact は正確な表示の網、playback はパッケージの再生（量子化・Hermite を含む）。crest_height は全行（平らな余白のうねりを含む）、_curled_rows は主役波の巻きの行（源の行 60〜192）だけ"
+  },
+  "deviation_from_ds28_motion": {
+   "chord_dist_max_m": 4.019101572477423,
+   "chord_dist_max_tau": -2.8,
+   "chord_dist_rms_m": 0.07776585767951193,
+   "chord_normal_max_m": 0.793210689382898,
+   "chord_normal_max_tau": -2.9,
+   "chord_normal_rms_m": 0.015959759564757533,
+   "frames_hz": 10.0,
+   "samples": 25904043,
+   "note_ja": "表示の網（正確）の辺の 1/4・1/2・3/4 の点と、同じ媒介変数の源の面（設計28 の動き）の点の差。距離と源の面の法線の成分"
+  },
+  "tstar": {
+   "vs_kstar_chord_dist_max_m": 2.1869719641878245,
+   "vs_kstar_chord_dist_rms_m": 0.06450890802549401,
+   "vs_kstar_chord_normal_max_m": 0.26689653725250245,
+   "vs_kstar_chord_normal_rms_m": 0.01266199216603191,
+   "vertices_on_kstar_surface_max_m": 0.0,
+   "package_last_layer_vs_exact_max_m": 0.0011947683421852143
+  },
+  "hermite": {
+   "frames_30hz_max_m": 0.0034378271761842574,
+   "frames_30hz_at": {
+    "tau": -4.2667,
+    "row": 102,
+    "col": 169
+   },
+   "frames_30hz_p99_of_frame_p99_m": 0.001464193137702147,
+   "uniform_interval_midpoints": {
+    "n": 158,
+    "max_m": 0.0027043273922802116,
+    "at_tau": -1.6416666665
+   },
+   "nonuniform_intervals": {
+    "n_intervals": 54,
+    "n_samples": 432,
+    "max_m": 0.003511105428359897,
+    "at_tau": -4.270833333333333,
+    "spacing_at_worst": [
+     0.0625,
+     0.0625,
+     0.03125
+    ],
+    "intervals_tau": [
+     [
+      -11.875,
+      -11.75,
+      2.0
+     ],
+     [
+      -11.75,
+      -11.5,
+      2.0
+     ],
+     [
+      -6.25,
+      -6.0,
+      2.0
+     ],
+     [
+      -6.0,
+      -5.875,
+      2.0
+     ],
+     [
+      -5.375,
+      -5.25,
+      2.0
+     ],
+     [
+      -5.25,
+      -5.1875,
+      2.0
+     ],
+     [
+      -4.3125,
+      -4.25,
+      2.0
+     ],
+     [
+      -4.25,
+      -4.21875,
+      2.0
+     ],
+     [
+      -3.03125,
+      -3.0,
+      3.750000150000032
+     ],
+     [
+      -3.0,
+      -2.991666667,
+      3.750000150000032
+     ],
+     [
+      -2.991666667,
+      -2.983333334,
+      2.000000120000015
+     ],
+     [
+      -2.983333334,
+      -2.966666667,
+      2.000000120000015
+     ],
+     [
+      -2.966666667,
+      -2.933333333,
+      2.0
+     ],
+     [
+      -1.933333333,
+      -1.9,
+      2.0000000600000205
+     ],
+     [
+      -1.9,
+      -1.883333334,
+      2.0000000600000205
+     ],
+     [
+      -1.883333334,
+      -1.866666667,
+      2.0000000000000133
+     ],
+     [
+      -1.866666667,
+      -1.833333333,
+      2.0000000000000133
+     ],
+     [
+      -1.833333333,
+      -1.816666666,
+      2.0000000000000133
+     ],
+     [
+      -1.816666666,
+      -1.8,
+      2.0
+     ],
+     [
+      -1.8,
+      -1.791666667,
+      2.0
+     ],
+     [
+      -1.791666667,
+      -1.783333334,
+      2.0000001199999615
+     ],
+     [
+      -1.783333334,
+      -1.766666667,
+      2.0000001199999615
+     ],
+     [
+      -1.75,
+      -1.733333333,
+      2.000000120000015
+     ],
+     [
+      -1.733333333,
+      -1.725,
+      2.000000120000015
+     ],
+     [
+      -1.725,
+      -1.716666666,
+      1.9999997600000259
+     ],
+     [
+      -1.716666666,
+      -1.7,
+      1.9999997600000259
+     ],
+     [
+      -1.633333333,
+      -1.616666666,
+      2.000000120000015
+     ],
+     [
+      -1.616666666,
+      -1.608333333,
+      2.000000120000015
+     ],
+     [
+      -1.608333333,
+      -1.6,
+      2.0000000000000266
+     ],
+     [
+      -1.6,
+      -1.583333334,
+      2.0000000000000266
+     ],
+     [
+      -1.566666667,
+      -1.55,
+      1.9999998799999996
+     ],
+     [
+      -1.55,
+      -1.541666666,
+      1.9999998799999996
+     ],
+     [
+      -1.541666666,
+      -1.533333333,
+      2.000000120000015
+     ],
+     [
+      -1.533333333,
+      -1.516666666,
+      2.000000120000015
+     ],
+     [
+      -1.5,
+      -1.483333334,
+      1.9999997600000792
+     ],
+     [
+      -1.483333334,
+      -1.475,
+      1.9999997600000792
+     ],
+     [
+      -1.475,
+      -1.466666667,
+      2.0000001199999615
+     ],
+     [
+      -1.466666667,
+      -1.45,
+      2.0000001199999615
+     ],
+     [
+      -1.416666666,
+      -1.4,
+      2.0000000000000266
+     ],
+     [
+      -1.4,
+      -1.391666667,
+      2.0000000000000266
+     ],
+     [
+      -1.391666667,
+      -1.383333334,
+      2.000000120000015
+     ],
+     [
+      -1.383333334,
+      -1.366666667,
+      2.000000120000015
+     ],
+     [
+      -1.366666667,
+      -1.333333333,
+      2.0000000000000133
+     ],
+     [
+      -1.333333333,
+      -1.316666666,
+      2.000000120000015
+     ],
+     [
+      -1.316666666,
+      -1.308333333,
+      2.000000120000015
+     ],
+     [
+      -1.308333333,
+      -1.3,
+      2.0000000000000266
+     ],
+     [
+      -1.3,
+      -1.283333334,
+      2.0000000000000266
+     ],
+     [
+      -1.283333334,
+      -1.266666667,
+      2.0
+     ],
+     [
+      -1.266666667,
+      -1.233333333,
+      2.0
+     ],
+     [
+      -1.233333333,
+      -1.216666666,
+      2.0
+     ],
+     [
+      -1.15,
+      -1.133333333,
+      1.9999999399999961
+     ],
+     [
+      -1.133333333,
+      -1.1,
+      1.9999999399999961
+     ],
+     [
+      -0.233333333,
+      -0.2,
+      2.000000059999999
+     ],
+     [
+      -0.2,
+      -0.183333334,
+      2.000000059999999
+     ]
+    ]
+   },
+   "note_ja": "パッケージの再生（量子化した節点の Hermite）と正確な表示の網（生成器の値を網に写したもの）の差、全頂点の最大。節点の間隔が変わる所＝隣の区間との間隔の比が 1.5 以上の区間（内側の 8 点）。"
+  },
+  "gpu": {
+   "position_buffer_mib": 29.2510986328125,
+   "twhite_mib": 0.091552734375,
+   "mesh_vertex_mib_estimate": 1.46484375,
+   "mesh_index_mib": 0.5420150756835938,
+   "note_ja": "位置 = 層 × 頂点 × 6 バイト（設計27 の再生器：StructuredBuffer<uint> に 16 bit × 3、CPU の写しなし）。網の頂点は位置・法線・接線・UV・UV2・UV3 の見積もり（Unity の実測ではない）",
+   "total_mib_estimate": 31.349510192871094,
+   "within_512": true
+  }
+ },
+ "full_r01": {
+  "rows": 240,
+  "cols": 400,
+  "vertices": 96000,
+  "layers": 210,
+  "P13": {
+   "items": {
+    "(1)": {
+     "value": 0.511835,
+     "threshold": "< 0.6",
+     "pass_": true,
+     "at": {
+      "row": 185,
+      "col": 213,
+      "tau": 0.0
+     }
+    },
+    "(2)": {
+     "value": 0.024529,
+     "threshold": "≤ 0.0218（2g）",
+     "pass_": false,
+     "at": {
+      "row": 192,
+      "col": 391,
+      "tau": -3.0
+     }
+    },
+    "(3)": {
+     "value": -1.504136,
+     "threshold": "≥ -10.40",
+     "pass_": true,
+     "at": {
+      "tau": -3.3333
+     }
+    },
+    "(4)": {
+     "value": 0.000191,
+     "threshold": "≤ 0.05",
+     "pass_": true,
+     "at": {
+      "main_row": 0.0,
+      "peak_row": 0.0002,
+      "all_rows_max": 0.0001
+     }
+    },
+    "(5a)": {
+     "value": 0.000211,
+     "threshold": "≥ 1e-4",
+     "pass_": true,
+     "at": {
+      "at": {
+       "row": 158,
+       "col": 171,
+       "tri": 0,
+       "tau": -10.6
+      },
+      "violations": 0,
+      "frames": 0,
+      "tau_range": null
+     }
+    },
+    "(5b)": {
+     "value": 0.003301,
+     "threshold": "≥ 0.005（基準の網で 5 mm に近い・未満の 0 辺は基準 − 量子化の 2 倍）",
+     "pass_": false,
+     "at": {
+      "at": {
+       "row": 60,
+       "col": 91,
+       "tau": -1.1,
+       "K_len_m": 0.02142
+      },
+      "worst_margin_m": -0.0017,
+      "worst_margin_at": {
+       "row": 60,
+       "col": 91,
+       "tau": -1.1,
+       "len_m": 0.0033
+      },
+      "violations": 26199,
+      "frames": 353,
+      "tau_range": [
+       -12.0,
+       -0.2667
+      ]
+     }
+    },
+    "(5c)": {
+     "value": [
+      0.0375,
+      6.471
+     ],
+     "threshold": "0.05〜4",
+     "pass_": false,
+     "at": {
+      "violations": 9,
+      "frames": 9,
+      "tau_range": [
+       -0.6,
+       -0.3333
+      ]
+     }
+    },
+    "(5d)": {
+     "value": [
+      0.0353,
+      13.116
+     ],
+     "threshold": "0.05〜4",
+     "pass_": false,
+     "at": {
+      "violations": 15224,
+      "frames": 357,
+      "tau_range": [
+       -12.0,
+       -0.1333
+      ]
+     }
+    },
+    "(5e)": {
+     "value": [
+      0.3291,
+      2.449
+     ],
+     "threshold": "0.25〜4",
+     "pass_": true,
+     "at": {
+      "violations": 0,
+      "frames": 0,
+      "tau_range": null
+     }
+    },
+    "(5f)": {
+     "value": 0,
+     "threshold": "0",
+     "pass_": true,
+     "at": {
+      "frames": 95,
+      "row": 0,
+      "mid": 0,
+      "both_ge_5mm": 0,
+      "tau_range": null,
+      "examples": []
+     }
+    },
+    "(5g)": {
+     "value": 0,
+     "threshold": "0",
+     "pass_": true,
+     "at": {
+      "resolvable_whole_mesh": 0,
+      "lip_tube_region": 0,
+      "all_incl_slivers": 12727,
+      "first": null,
+      "first_region": null,
+      "tau_range": null
+     }
+    },
+    "(6)": {
+     "value": 0.000211,
+     "threshold": "> 0",
+     "pass_": true,
+     "at": {
+      "at": {
+       "row": 158,
+       "col": 171,
+       "tri": 0,
+       "tau": -10.6
+      },
+      "zero_area_faces_whole_mesh_at_tstar": 686,
+      "violations": 0,
+      "frames": 0,
+      "tau_range": null
+     }
+    }
+   },
+   "n_fail": 4,
+   "n_items": 12,
+   "summary_ja": "12 項目中 4 項目が不合格"
+  },
+  "film": {
+   "-2.25": {
+    "tau": -2.2667,
+    "exact": {
+     "d_0.5m": {
+      "min_m": 0.4381,
+      "p5_m": 0.4479,
+      "rows_below_min": 0,
+      "rows_nan": 0,
+      "rows": 133,
+      "min_row": 184
+     },
+     "d_1.0m": {
+      "min_m": 0.8907,
+      "p5_m": 0.8979,
+      "rows_below_min": 0,
+      "rows_nan": 2,
+      "rows": 133,
+      "min_row": 180
+     },
+     "d_2.0m": {
+      "min_m": 1.8326,
+      "p5_m": 1.8439,
+      "rows_below_min": 0,
+      "rows_nan": 19,
+      "rows": 133,
+      "min_row": 180
+     }
+    },
+    "playback": {
+     "d_0.5m": {
+      "min_m": 0.4381,
+      "p5_m": 0.4483,
+      "rows_below_min": 0,
+      "rows_nan": 0,
+      "rows": 133,
+      "min_row": 183
+     },
+     "d_1.0m": {
+      "min_m": 0.8902,
+      "p5_m": 0.8979,
+      "rows_below_min": 0,
+      "rows_nan": 2,
+      "rows": 133,
+      "min_row": 180
+     },
+     "d_2.0m": {
+      "min_m": 1.8317,
+      "p5_m": 1.8436,
+      "rows_below_min": 0,
+      "rows_nan": 19,
+      "rows": 133,
+      "min_row": 180
+     }
+    }
+   },
+   "-1.333": {
+    "tau": -1.3333,
+    "exact": {
+     "d_0.5m": {
+      "min_m": 0.3937,
+      "p5_m": 0.4155,
+      "rows_below_min": 0,
+      "rows_nan": 0,
+      "rows": 133,
+      "min_row": 163
+     },
+     "d_1.0m": {
+      "min_m": 0.7604,
+      "p5_m": 0.7866,
+      "rows_below_min": 0,
+      "rows_nan": 2,
+      "rows": 133,
+      "min_row": 163
+     },
+     "d_2.0m": {
+      "min_m": 1.5111,
+      "p5_m": 1.5316,
+      "rows_below_min": 0,
+      "rows_nan": 19,
+      "rows": 133,
+      "min_row": 163
+     }
+    },
+    "playback": {
+     "d_0.5m": {
+      "min_m": 0.3929,
+      "p5_m": 0.4157,
+      "rows_below_min": 0,
+      "rows_nan": 0,
+      "rows": 133,
+      "min_row": 163
+     },
+     "d_1.0m": {
+      "min_m": 0.7603,
+      "p5_m": 0.7863,
+      "rows_below_min": 0,
+      "rows_nan": 2,
+      "rows": 133,
+      "min_row": 163
+     },
+     "d_2.0m": {
+      "min_m": 1.5107,
+      "p5_m": 1.5315,
+      "rows_below_min": 0,
+      "rows_nan": 19,
+      "rows": 133,
+      "min_row": 163
+     }
+    }
+   },
+   "-0.5": {
+    "tau": -0.5,
+    "exact": {
+     "d_0.5m": {
+      "min_m": 0.297,
+      "p5_m": 0.4798,
+      "rows_below_min": 1,
+      "rows_nan": 0,
+      "rows": 133,
+      "min_row": 60
+     },
+     "d_1.0m": {
+      "min_m": 0.7778,
+      "p5_m": 0.9633,
+      "rows_below_min": 0,
+      "rows_nan": 0,
+      "rows": 133,
+      "min_row": 60
+     },
+     "d_2.0m": {
+      "min_m": 1.829,
+      "p5_m": 1.8837,
+      "rows_below_min": 0,
+      "rows_nan": 9,
+      "rows": 133,
+      "min_row": 188
+     }
+    },
+    "playback": {
+     "d_0.5m": {
+      "min_m": 0.297,
+      "p5_m": 0.4804,
+      "rows_below_min": 1,
+      "rows_nan": 0,
+      "rows": 133,
+      "min_row": 60
+     },
+     "d_1.0m": {
+      "min_m": 0.7773,
+      "p5_m": 0.9627,
+      "rows_below_min": 0,
+      "rows_nan": 0,
+      "rows": 133,
+      "min_row": 60
+     },
+     "d_2.0m": {
+      "min_m": 1.8292,
+      "p5_m": 1.8839,
+      "rows_below_min": 0,
+      "rows_nan": 9,
+      "rows": 133,
+      "min_row": 188
+     }
+    }
+   },
+   "0.0": {
+    "tau": 0.0,
+    "exact": {
+     "d_0.5m": {
+      "min_m": 0.3876,
+      "p5_m": 0.4416,
+      "rows_below_min": 0,
+      "rows_nan": 0,
+      "rows": 133,
+      "min_row": 189
+     },
+     "d_1.0m": {
+      "min_m": 0.5681,
+      "p5_m": 0.6904,
+      "rows_below_min": 0,
+      "rows_nan": 0,
+      "rows": 133,
+      "min_row": 63
+     },
+     "d_2.0m": {
+      "min_m": 1.1244,
+      "p5_m": 1.1669,
+      "rows_below_min": 0,
+      "rows_nan": 0,
+      "rows": 133,
+      "min_row": 72
+     }
+    },
+    "playback": {
+     "d_0.5m": {
+      "min_m": 0.3869,
+      "p5_m": 0.4418,
+      "rows_below_min": 0,
+      "rows_nan": 0,
+      "rows": 133,
+      "min_row": 189
+     },
+     "d_1.0m": {
+      "min_m": 0.568,
+      "p5_m": 0.6903,
+      "rows_below_min": 0,
+      "rows_nan": 0,
+      "rows": 133,
+      "min_row": 63
+     },
+     "d_2.0m": {
+      "min_m": 1.124,
+      "p5_m": 1.1671,
+      "rows_below_min": 0,
+      "rows_nan": 0,
+      "rows": 133,
+      "min_row": 72
+     }
+    }
+   }
+  },
+  "crest_loss": {
+   "exact_crest_height": {
+    "max_m": 0.02330064790307773,
+    "rms_m": 0.0006492913660135249,
+    "min_m": 0.0,
+    "at": {
+     "tau": -1.8333,
+     "row": 176
+    }
+   },
+   "exact_crest_height_curled_rows": {
+    "max_m": 0.02330064790307773,
+    "rms_m": 0.0008694518309082507,
+    "min_m": 0.0,
+    "at": {
+     "tau": -1.8333,
+     "row": 176
+    }
+   },
+   "playback_crest_height_curled_rows": {
+    "max_m": 0.023392108520031485,
+    "rms_m": 0.0008864809510794845,
+    "min_m": -0.0016521879295723352,
+    "at": {
+     "tau": -1.8333,
+     "row": 176
+    }
+   },
+   "exact_lip_reach": {
+    "max_m": 0.0,
+    "rms_m": 0.0,
+    "min_m": 0.0,
+    "at": {
+     "tau": -12.0,
+     "row": 60
+    }
+   },
+   "playback_crest_height": {
+    "max_m": 0.023392108520031485,
+    "rms_m": 0.0006774857170500889,
+    "min_m": -0.0017064675107727467,
+    "at": {
+     "tau": -1.8333,
+     "row": 176
+    }
+   },
+   "playback_lip_reach": {
+    "max_m": 0.001086514911435188,
+    "rms_m": 0.0005120532544998737,
+    "min_m": -0.0011227762287546739,
+    "at": {
+     "tau": -12.0,
+     "row": 124
+    }
+   },
+   "note_ja": "源 − 網（正なら網が低い・届かない）。exact は正確な表示の網、playback はパッケージの再生（量子化・Hermite を含む）。crest_height は全行（平らな余白のうねりを含む）、_curled_rows は主役波の巻きの行（源の行 60〜192）だけ"
+  },
+  "deviation_from_ds28_motion": {
+   "chord_dist_max_m": 0.5140294362421525,
+   "chord_dist_max_tau": -2.8,
+   "chord_dist_rms_m": 0.005005801557334884,
+   "chord_normal_max_m": 0.16610208561945164,
+   "chord_normal_max_tau": -1.4,
+   "chord_normal_rms_m": 0.0009624275887687165,
+   "frames_hz": 10.0,
+   "samples": 104079723,
+   "note_ja": "表示の網（正確）の辺の 1/4・1/2・3/4 の点と、同じ媒介変数の源の面（設計28 の動き）の点の差。距離と源の面の法線の成分"
+  },
+  "tstar": {
+   "vs_kstar_chord_dist_max_m": 0.279647505197323,
+   "vs_kstar_chord_dist_rms_m": 0.0047473788448521076,
+   "vs_kstar_chord_normal_max_m": 0.12125935387469555,
+   "vs_kstar_chord_normal_rms_m": 0.0020047878773793914,
+   "vertices_on_kstar_surface_max_m": 0.0,
+   "package_last_layer_vs_exact_max_m": 0.0012055759263224258
+  },
+  "hermite": {
+   "frames_30hz_max_m": 0.0032831463392671654,
+   "frames_30hz_at": {
+    "tau": -4.2667,
+    "row": 205,
+    "col": 344
+   },
+   "frames_30hz_p99_of_frame_p99_m": 0.0014606634574553536,
+   "uniform_interval_midpoints": {
+    "n": 182,
+    "max_m": 0.0031764404255755826,
+    "at_tau": -1.5416666665
+   },
+   "nonuniform_intervals": {
+    "n_intervals": 27,
+    "n_samples": 216,
+    "max_m": 0.003391697194280919,
+    "at_tau": -4.270833333333333,
+    "spacing_at_worst": [
+     0.0625,
+     0.0625,
+     0.03125
+    ],
+    "intervals_tau": [
+     [
+      -11.875,
+      -11.75,
+      2.0
+     ],
+     [
+      -11.75,
+      -11.5,
+      2.0
+     ],
+     [
+      -6.25,
+      -6.0,
+      2.0
+     ],
+     [
+      -6.0,
+      -5.875,
+      2.0
+     ],
+     [
+      -5.375,
+      -5.25,
+      2.0
+     ],
+     [
+      -5.25,
+      -5.1875,
+      2.0
+     ],
+     [
+      -4.3125,
+      -4.25,
+      2.0
+     ],
+     [
+      -4.25,
+      -4.21875,
+      2.0
+     ],
+     [
+      -3.03125,
+      -3.0,
+      3.750000150000032
+     ],
+     [
+      -3.0,
+      -2.991666667,
+      3.750000150000032
+     ],
+     [
+      -2.991666667,
+      -2.983333334,
+      2.000000120000015
+     ],
+     [
+      -2.983333334,
+      -2.966666667,
+      2.000000120000015
+     ],
+     [
+      -2.966666667,
+      -2.933333333,
+      2.0
+     ],
+     [
+      -1.966666667,
+      -1.933333333,
+      2.0
+     ],
+     [
+      -1.933333333,
+      -1.916666666,
+      2.0
+     ],
+     [
+      -1.916666666,
+      -1.9,
+      2.0000000599999805
+     ],
+     [
+      -1.9,
+      -1.866666667,
+      2.0000000599999805
+     ],
+     [
+      -1.866666667,
+      -1.833333333,
+      2.0000000000000133
+     ],
+     [
+      -1.833333333,
+      -1.816666666,
+      2.0000000000000133
+     ],
+     [
+      -1.65,
+      -1.633333333,
+      2.000000120000015
+     ],
+     [
+      -1.633333333,
+      -1.625,
+      2.000000120000015
+     ],
+     [
+      -1.625,
+      -1.616666666,
+      1.9999997599999992
+     ],
+     [
+      -1.616666666,
+      -1.6,
+      1.9999997599999992
+     ],
+     [
+      -1.116666666,
+      -1.1,
+      2.0000000600000205
+     ],
+     [
+      -1.1,
+      -1.066666667,
+      2.0000000600000205
+     ],
+     [
+      -0.233333333,
+      -0.2,
+      2.000000059999999
+     ],
+     [
+      -0.2,
+      -0.183333334,
+      2.000000059999999
+     ]
+    ]
+   },
+   "note_ja": "パッケージの再生（量子化した節点の Hermite）と正確な表示の網（生成器の値を網に写したもの）の差、全頂点の最大。節点の間隔が変わる所＝隣の区間との間隔の比が 1.5 以上の区間（内側の 8 点）。"
+  },
+  "gpu": {
+   "position_buffer_mib": 115.3564453125,
+   "twhite_mib": 0.3662109375,
+   "mesh_vertex_mib_estimate": 5.859375,
+   "mesh_index_mib": 2.1826400756835938,
+   "note_ja": "位置 = 層 × 頂点 × 6 バイト（設計27 の再生器：StructuredBuffer<uint> に 16 bit × 3、CPU の写しなし）。網の頂点は位置・法線・接線・UV・UV2・UV3 の見積もり（Unity の実測ではない）",
+   "total_mib_estimate": 123.7646713256836,
+   "within_512": true
+  }
+ },
+ "full_r02": {
+  "rows": 240,
+  "cols": 400,
+  "vertices": 96000,
+  "layers": 210,
+  "P13": {
+   "items": {
+    "(1)": {
+     "value": 0.511525,
+     "threshold": "< 0.6",
+     "pass_": true,
+     "at": {
+      "row": 185,
+      "col": 212,
+      "tau": 0.0
+     }
+    },
+    "(2)": {
+     "value": 0.024529,
+     "threshold": "≤ 0.0218（2g）",
+     "pass_": false,
+     "at": {
+      "row": 192,
+      "col": 391,
+      "tau": -3.0
+     }
+    },
+    "(3)": {
+     "value": -1.504136,
+     "threshold": "≥ -10.40",
+     "pass_": true,
+     "at": {
+      "tau": -3.3333
+     }
+    },
+    "(4)": {
+     "value": 0.000191,
+     "threshold": "≤ 0.05",
+     "pass_": true,
+     "at": {
+      "main_row": 0.0,
+      "peak_row": 0.0002,
+      "all_rows_max": 0.0001
+     }
+    },
+    "(5a)": {
+     "value": 0.000209,
+     "threshold": "≥ 1e-4",
+     "pass_": true,
+     "at": {
+      "at": {
+       "row": 191,
+       "col": 215,
+       "tri": 0,
+       "tau": -0.4667
+      },
+      "violations": 0,
+      "frames": 0,
+      "tau_range": null
+     }
+    },
+    "(5b)": {
+     "value": 0.002276,
+     "threshold": "≥ 0.005（基準の網で 5 mm に近い・未満の 38 辺は基準 − 量子化の 2 倍）",
+     "pass_": false,
+     "at": {
+      "at": {
+       "row": 60,
+       "col": 201,
+       "tau": -0.1,
+       "K_len_m": 0.00212
+      },
+      "worst_margin_m": -0.0017,
+      "worst_margin_at": {
+       "row": 60,
+       "col": 167,
+       "tau": -0.6333,
+       "len_m": 0.0033
+      },
+      "violations": 156,
+      "frames": 24,
+      "tau_range": [
+       -1.3667,
+       -0.4667
+      ]
+     }
+    },
+    "(5c)": {
+     "value": [
+      0.0375,
+      5.386
+     ],
+     "threshold": "0.05〜4",
+     "pass_": false,
+     "at": {
+      "violations": 13,
+      "frames": 8,
+      "tau_range": [
+       -0.6,
+       -0.3667
+      ]
+     }
+    },
+    "(5d)": {
+     "value": [
+      0.0308,
+      13.116
+     ],
+     "threshold": "0.05〜4",
+     "pass_": false,
+     "at": {
+      "violations": 18529,
+      "frames": 357,
+      "tau_range": [
+       -12.0,
+       -0.1333
+      ]
+     }
+    },
+    "(5e)": {
+     "value": [
+      0.3291,
+      2.449
+     ],
+     "threshold": "0.25〜4",
+     "pass_": true,
+     "at": {
+      "violations": 0,
+      "frames": 0,
+      "tau_range": null
+     }
+    },
+    "(5f)": {
+     "value": 0,
+     "threshold": "0",
+     "pass_": true,
+     "at": {
+      "frames": 95,
+      "row": 0,
+      "mid": 0,
+      "both_ge_5mm": 0,
+      "tau_range": null,
+      "examples": []
+     }
+    },
+    "(5g)": {
+     "value": 0,
+     "threshold": "0",
+     "pass_": true,
+     "at": {
+      "resolvable_whole_mesh": 0,
+      "lip_tube_region": 0,
+      "all_incl_slivers": 28585,
+      "first": null,
+      "first_region": null,
+      "tau_range": null
+     }
+    },
+    "(6)": {
+     "value": 6.1e-05,
+     "threshold": "> 0",
+     "pass_": true,
+     "at": {
+      "at": {
+       "row": 59,
+       "col": 192,
+       "tri": 0,
+       "tau": -3.5
+      },
+      "zero_area_faces_whole_mesh_at_tstar": 1827,
+      "violations": 0,
+      "frames": 0,
+      "tau_range": null
+     }
+    }
+   },
+   "n_fail": 4,
+   "n_items": 12,
+   "summary_ja": "12 項目中 4 項目が不合格"
+  },
+  "film": {
+   "-2.25": {
+    "tau": -2.2667,
+    "exact": {
+     "d_0.5m": {
+      "min_m": 0.4372,
+      "p5_m": 0.4486,
+      "rows_below_min": 0,
+      "rows_nan": 0,
+      "rows": 133,
+      "min_row": 184
+     },
+     "d_1.0m": {
+      "min_m": 0.8914,
+      "p5_m": 0.8975,
+      "rows_below_min": 0,
+      "rows_nan": 2,
+      "rows": 133,
+      "min_row": 180
+     },
+     "d_2.0m": {
+      "min_m": 1.8334,
+      "p5_m": 1.8433,
+      "rows_below_min": 0,
+      "rows_nan": 19,
+      "rows": 133,
+      "min_row": 180
+     }
+    },
+    "playback": {
+     "d_0.5m": {
+      "min_m": 0.4374,
+      "p5_m": 0.4486,
+      "rows_below_min": 0,
+      "rows_nan": 0,
+      "rows": 133,
+      "min_row": 184
+     },
+     "d_1.0m": {
+      "min_m": 0.8908,
+      "p5_m": 0.8971,
+      "rows_below_min": 0,
+      "rows_nan": 2,
+      "rows": 133,
+      "min_row": 180
+     },
+     "d_2.0m": {
+      "min_m": 1.8328,
+      "p5_m": 1.8426,
+      "rows_below_min": 0,
+      "rows_nan": 19,
+      "rows": 133,
+      "min_row": 180
+     }
+    }
+   },
+   "-1.333": {
+    "tau": -1.3333,
+    "exact": {
+     "d_0.5m": {
+      "min_m": 0.3876,
+      "p5_m": 0.394,
+      "rows_below_min": 0,
+      "rows_nan": 0,
+      "rows": 133,
+      "min_row": 160
+     },
+     "d_1.0m": {
+      "min_m": 0.7539,
+      "p5_m": 0.7602,
+      "rows_below_min": 0,
+      "rows_nan": 2,
+      "rows": 133,
+      "min_row": 160
+     },
+     "d_2.0m": {
+      "min_m": 1.5044,
+      "p5_m": 1.5048,
+      "rows_below_min": 0,
+      "rows_nan": 19,
+      "rows": 133,
+      "min_row": 168
+     }
+    },
+    "playback": {
+     "d_0.5m": {
+      "min_m": 0.3874,
+      "p5_m": 0.3942,
+      "rows_below_min": 0,
+      "rows_nan": 0,
+      "rows": 133,
+      "min_row": 160
+     },
+     "d_1.0m": {
+      "min_m": 0.7541,
+      "p5_m": 0.7602,
+      "rows_below_min": 0,
+      "rows_nan": 2,
+      "rows": 133,
+      "min_row": 160
+     },
+     "d_2.0m": {
+      "min_m": 1.5039,
+      "p5_m": 1.505,
+      "rows_below_min": 0,
+      "rows_nan": 19,
+      "rows": 133,
+      "min_row": 167
+     }
+    }
+   },
+   "-0.5": {
+    "tau": -0.5,
+    "exact": {
+     "d_0.5m": {
+      "min_m": 0.2887,
+      "p5_m": 0.4688,
+      "rows_below_min": 1,
+      "rows_nan": 0,
+      "rows": 133,
+      "min_row": 60
+     },
+     "d_1.0m": {
+      "min_m": 0.7698,
+      "p5_m": 0.951,
+      "rows_below_min": 0,
+      "rows_nan": 0,
+      "rows": 133,
+      "min_row": 60
+     },
+     "d_2.0m": {
+      "min_m": 1.7753,
+      "p5_m": 1.8747,
+      "rows_below_min": 0,
+      "rows_nan": 9,
+      "rows": 133,
+      "min_row": 188
+     }
+    },
+    "playback": {
+     "d_0.5m": {
+      "min_m": 0.2954,
+      "p5_m": 0.469,
+      "rows_below_min": 1,
+      "rows_nan": 0,
+      "rows": 133,
+      "min_row": 60
+     },
+     "d_1.0m": {
+      "min_m": 0.7761,
+      "p5_m": 0.9547,
+      "rows_below_min": 0,
+      "rows_nan": 0,
+      "rows": 133,
+      "min_row": 60
+     },
+     "d_2.0m": {
+      "min_m": 1.7755,
+      "p5_m": 1.8757,
+      "rows_below_min": 0,
+      "rows_nan": 9,
+      "rows": 133,
+      "min_row": 188
+     }
+    }
+   },
+   "0.0": {
+    "tau": 0.0,
+    "exact": {
+     "d_0.5m": {
+      "min_m": 0.3689,
+      "p5_m": 0.4478,
+      "rows_below_min": 0,
+      "rows_nan": 0,
+      "rows": 133,
+      "min_row": 189
+     },
+     "d_1.0m": {
+      "min_m": 0.5648,
+      "p5_m": 0.6916,
+      "rows_below_min": 0,
+      "rows_nan": 0,
+      "rows": 133,
+      "min_row": 63
+     },
+     "d_2.0m": {
+      "min_m": 1.1285,
+      "p5_m": 1.1719,
+      "rows_below_min": 0,
+      "rows_nan": 0,
+      "rows": 133,
+      "min_row": 62
+     }
+    },
+    "playback": {
+     "d_0.5m": {
+      "min_m": 0.3684,
+      "p5_m": 0.4479,
+      "rows_below_min": 0,
+      "rows_nan": 0,
+      "rows": 133,
+      "min_row": 189
+     },
+     "d_1.0m": {
+      "min_m": 0.5645,
+      "p5_m": 0.6917,
+      "rows_below_min": 0,
+      "rows_nan": 0,
+      "rows": 133,
+      "min_row": 63
+     },
+     "d_2.0m": {
+      "min_m": 1.1286,
+      "p5_m": 1.1716,
+      "rows_below_min": 0,
+      "rows_nan": 0,
+      "rows": 133,
+      "min_row": 62
+     }
+    }
+   }
+  },
+  "crest_loss": {
+   "exact_crest_height": {
+    "max_m": 0.013629806783296061,
+    "rms_m": 0.00045524989963326704,
+    "min_m": 0.0,
+    "at": {
+     "tau": -1.8333,
+     "row": 177
+    }
+   },
+   "exact_crest_height_curled_rows": {
+    "max_m": 0.013629806783296061,
+    "rms_m": 0.0006083525887131213,
+    "min_m": 0.0,
+    "at": {
+     "tau": -1.8333,
+     "row": 177
+    }
+   },
+   "playback_crest_height_curled_rows": {
+    "max_m": 0.013446278144456869,
+    "rms_m": 0.0006313528474026665,
+    "min_m": -0.0016521879295723352,
+    "at": {
+     "tau": -1.8333,
+     "row": 177
+    }
+   },
+   "exact_lip_reach": {
+    "max_m": 0.0,
+    "rms_m": 0.0,
+    "min_m": 0.0,
+    "at": {
+     "tau": -12.0,
+     "row": 60
+    }
+   },
+   "playback_crest_height": {
+    "max_m": 0.013446278144456869,
+    "rms_m": 0.0004939262477255156,
+    "min_m": -0.0017064675107727467,
+    "at": {
+     "tau": -1.8333,
+     "row": 177
+    }
+   },
+   "playback_lip_reach": {
+    "max_m": 0.001086514911435188,
+    "rms_m": 0.0005120532544998737,
+    "min_m": -0.0011227762287546739,
+    "at": {
+     "tau": -12.0,
+     "row": 124
+    }
+   },
+   "note_ja": "源 − 網（正なら網が低い・届かない）。exact は正確な表示の網、playback はパッケージの再生（量子化・Hermite を含む）。crest_height は全行（平らな余白のうねりを含む）、_curled_rows は主役波の巻きの行（源の行 60〜192）だけ"
+  },
+  "deviation_from_ds28_motion": {
+   "chord_dist_max_m": 0.5140294362421525,
+   "chord_dist_max_tau": -2.8,
+   "chord_dist_rms_m": 0.004924956791323018,
+   "chord_normal_max_m": 0.12125935387466291,
+   "chord_normal_max_tau": 0.0,
+   "chord_normal_rms_m": 0.0008600384005973442,
+   "frames_hz": 10.0,
+   "samples": 104079723,
+   "note_ja": "表示の網（正確）の辺の 1/4・1/2・3/4 の点と、同じ媒介変数の源の面（設計28 の動き）の点の差。距離と源の面の法線の成分"
+  },
+  "tstar": {
+   "vs_kstar_chord_dist_max_m": 0.279647505197323,
+   "vs_kstar_chord_dist_rms_m": 0.004348897369929776,
+   "vs_kstar_chord_normal_max_m": 0.12125935387469555,
+   "vs_kstar_chord_normal_rms_m": 0.0017481797338337033,
+   "vertices_on_kstar_surface_max_m": 0.0,
+   "package_last_layer_vs_exact_max_m": 0.0012030536235874995
+  },
+  "hermite": {
+   "frames_30hz_max_m": 0.0032831463392671654,
+   "frames_30hz_at": {
+    "tau": -4.2667,
+    "row": 205,
+    "col": 344
+   },
+   "frames_30hz_p99_of_frame_p99_m": 0.0014609975508597527,
+   "uniform_interval_midpoints": {
+    "n": 182,
+    "max_m": 0.0031764404255755826,
+    "at_tau": -1.5416666665
+   },
+   "nonuniform_intervals": {
+    "n_intervals": 27,
+    "n_samples": 216,
+    "max_m": 0.003391697194280919,
+    "at_tau": -4.270833333333333,
+    "spacing_at_worst": [
+     0.0625,
+     0.0625,
+     0.03125
+    ],
+    "intervals_tau": [
+     [
+      -11.875,
+      -11.75,
+      2.0
+     ],
+     [
+      -11.75,
+      -11.5,
+      2.0
+     ],
+     [
+      -6.25,
+      -6.0,
+      2.0
+     ],
+     [
+      -6.0,
+      -5.875,
+      2.0
+     ],
+     [
+      -5.375,
+      -5.25,
+      2.0
+     ],
+     [
+      -5.25,
+      -5.1875,
+      2.0
+     ],
+     [
+      -4.3125,
+      -4.25,
+      2.0
+     ],
+     [
+      -4.25,
+      -4.21875,
+      2.0
+     ],
+     [
+      -3.03125,
+      -3.0,
+      3.750000150000032
+     ],
+     [
+      -3.0,
+      -2.991666667,
+      3.750000150000032
+     ],
+     [
+      -2.991666667,
+      -2.983333334,
+      2.000000120000015
+     ],
+     [
+      -2.983333334,
+      -2.966666667,
+      2.000000120000015
+     ],
+     [
+      -2.966666667,
+      -2.933333333,
+      2.0
+     ],
+     [
+      -1.966666667,
+      -1.933333333,
+      2.0
+     ],
+     [
+      -1.933333333,
+      -1.916666666,
+      2.0
+     ],
+     [
+      -1.916666666,
+      -1.9,
+      2.0000000599999805
+     ],
+     [
+      -1.9,
+      -1.866666667,
+      2.0000000599999805
+     ],
+     [
+      -1.866666667,
+      -1.833333333,
+      2.0000000000000133
+     ],
+     [
+      -1.833333333,
+      -1.816666666,
+      2.0000000000000133
+     ],
+     [
+      -1.65,
+      -1.633333333,
+      2.000000120000015
+     ],
+     [
+      -1.633333333,
+      -1.625,
+      2.000000120000015
+     ],
+     [
+      -1.625,
+      -1.616666666,
+      1.9999997599999992
+     ],
+     [
+      -1.616666666,
+      -1.6,
+      1.9999997599999992
+     ],
+     [
+      -1.116666666,
+      -1.1,
+      2.0000000600000205
+     ],
+     [
+      -1.1,
+      -1.066666667,
+      2.0000000600000205
+     ],
+     [
+      -0.233333333,
+      -0.2,
+      2.000000059999999
+     ],
+     [
+      -0.2,
+      -0.183333334,
+      2.000000059999999
+     ]
+    ]
+   },
+   "note_ja": "パッケージの再生（量子化した節点の Hermite）と正確な表示の網（生成器の値を網に写したもの）の差、全頂点の最大。節点の間隔が変わる所＝隣の区間との間隔の比が 1.5 以上の区間（内側の 8 点）。"
+  },
+  "gpu": {
+   "position_buffer_mib": 115.3564453125,
+   "twhite_mib": 0.3662109375,
+   "mesh_vertex_mib_estimate": 5.859375,
+   "mesh_index_mib": 2.1826400756835938,
+   "note_ja": "位置 = 層 × 頂点 × 6 バイト（設計27 の再生器：StructuredBuffer<uint> に 16 bit × 3、CPU の写しなし）。網の頂点は位置・法線・接線・UV・UV2・UV3 の見積もり（Unity の実測ではない）",
+   "total_mib_estimate": 123.7646713256836,
+   "within_512": true
+  }
+ },
+ "full_r02b": {
+  "rows": 240,
+  "cols": 400,
+  "vertices": 96000,
+  "layers": 220,
+  "P13": {
+   "items": {
+    "(1)": {
+     "value": 0.511525,
+     "threshold": "< 0.6",
+     "pass_": true,
+     "at": {
+      "row": 185,
+      "col": 212,
+      "tau": 0.0
+     }
+    },
+    "(2)": {
+     "value": 0.024529,
+     "threshold": "≤ 0.0218（2g）",
+     "pass_": false,
+     "at": {
+      "row": 192,
+      "col": 391,
+      "tau": -3.0
+     }
+    },
+    "(3)": {
+     "value": -1.504136,
+     "threshold": "≥ -10.40",
+     "pass_": true,
+     "at": {
+      "tau": -3.3333
+     }
+    },
+    "(4)": {
+     "value": 0.000191,
+     "threshold": "≤ 0.05",
+     "pass_": true,
+     "at": {
+      "main_row": 0.0,
+      "peak_row": 0.0002,
+      "all_rows_max": 0.0001
+     }
+    },
+    "(5a)": {
+     "value": 0.000209,
+     "threshold": "≥ 1e-4",
+     "pass_": true,
+     "at": {
+      "at": {
+       "row": 191,
+       "col": 215,
+       "tri": 0,
+       "tau": -0.4667
+      },
+      "violations": 0,
+      "frames": 0,
+      "tau_range": null
+     }
+    },
+    "(5b)": {
+     "value": 0.002276,
+     "threshold": "≥ 0.005（基準の網で 5 mm に近い・未満の 63 辺は基準 − 量子化の 2 倍）",
+     "pass_": false,
+     "at": {
+      "at": {
+       "row": 60,
+       "col": 201,
+       "tau": -0.1,
+       "K_len_m": 0.00212
+      },
+      "worst_margin_m": -0.0017,
+      "worst_margin_at": {
+       "row": 60,
+       "col": 167,
+       "tau": -0.6333,
+       "len_m": 0.0033
+      },
+      "violations": 115,
+      "frames": 14,
+      "tau_range": [
+       -0.8667,
+       -0.0333
+      ]
+     }
+    },
+    "(5c)": {
+     "value": [
+      0.0411,
+      5.386
+     ],
+     "threshold": "0.05〜4",
+     "pass_": false,
+     "at": {
+      "violations": 2581,
+      "frames": 139,
+      "tau_range": [
+       -7.4,
+       -0.3667
+      ]
+     }
+    },
+    "(5d)": {
+     "value": [
+      0.0308,
+      17.57
+     ],
+     "threshold": "0.05〜4",
+     "pass_": false,
+     "at": {
+      "violations": 20614,
+      "frames": 358,
+      "tau_range": [
+       -12.0,
+       -0.1
+      ]
+     }
+    },
+    "(5e)": {
+     "value": [
+      0.3633,
+      4.451
+     ],
+     "threshold": "0.25〜4",
+     "pass_": false,
+     "at": {
+      "violations": 78,
+      "frames": 72,
+      "tau_range": [
+       -6.0,
+       -1.7333
+      ]
+     }
+    },
+    "(5f)": {
+     "value": 0,
+     "threshold": "0",
+     "pass_": true,
+     "at": {
+      "frames": 95,
+      "row": 0,
+      "mid": 0,
+      "both_ge_5mm": 0,
+      "tau_range": null,
+      "examples": []
+     }
+    },
+    "(5g)": {
+     "value": 2,
+     "threshold": "0",
+     "pass_": false,
+     "at": {
+      "resolvable_whole_mesh": 1,
+      "lip_tube_region": 1,
+      "all_incl_slivers": 32101,
+      "first": {
+       "row": 187,
+       "col": 224,
+       "tri": 1,
+       "tau": -0.7667
+      },
+      "first_region": {
+       "row": 187,
+       "col": 224,
+       "tri": 1,
+       "tau": -0.7667
+      },
+      "tau_range": [
+       -0.7667,
+       -0.7667
+      ]
+     }
+    },
+    "(6)": {
+     "value": 6.1e-05,
+     "threshold": "> 0",
+     "pass_": true,
+     "at": {
+      "at": {
+       "row": 59,
+       "col": 192,
+       "tri": 0,
+       "tau": -3.5
+      },
+      "zero_area_faces_whole_mesh_at_tstar": 4256,
+      "violations": 0,
+      "frames": 0,
+      "tau_range": null
+     }
+    }
+   },
+   "n_fail": 6,
+   "n_items": 12,
+   "summary_ja": "12 項目中 6 項目が不合格"
+  },
+  "film": {
+   "-2.25": {
+    "tau": -2.2667,
+    "exact": {
+     "d_0.5m": {
+      "min_m": 0.4372,
+      "p5_m": 0.4486,
+      "rows_below_min": 0,
+      "rows_nan": 0,
+      "rows": 133,
+      "min_row": 184
+     },
+     "d_1.0m": {
+      "min_m": 0.8914,
+      "p5_m": 0.8975,
+      "rows_below_min": 0,
+      "rows_nan": 2,
+      "rows": 133,
+      "min_row": 180
+     },
+     "d_2.0m": {
+      "min_m": 1.8334,
+      "p5_m": 1.8433,
+      "rows_below_min": 0,
+      "rows_nan": 19,
+      "rows": 133,
+      "min_row": 180
+     }
+    },
+    "playback": {
+     "d_0.5m": {
+      "min_m": 0.4374,
+      "p5_m": 0.4486,
+      "rows_below_min": 0,
+      "rows_nan": 0,
+      "rows": 133,
+      "min_row": 184
+     },
+     "d_1.0m": {
+      "min_m": 0.8908,
+      "p5_m": 0.8971,
+      "rows_below_min": 0,
+      "rows_nan": 2,
+      "rows": 133,
+      "min_row": 180
+     },
+     "d_2.0m": {
+      "min_m": 1.8328,
+      "p5_m": 1.8426,
+      "rows_below_min": 0,
+      "rows_nan": 19,
+      "rows": 133,
+      "min_row": 180
+     }
+    }
+   },
+   "-1.333": {
+    "tau": -1.3333,
+    "exact": {
+     "d_0.5m": {
+      "min_m": 0.3876,
+      "p5_m": 0.394,
+      "rows_below_min": 0,
+      "rows_nan": 0,
+      "rows": 133,
+      "min_row": 160
+     },
+     "d_1.0m": {
+      "min_m": 0.7539,
+      "p5_m": 0.7602,
+      "rows_below_min": 0,
+      "rows_nan": 2,
+      "rows": 133,
+      "min_row": 160
+     },
+     "d_2.0m": {
+      "min_m": 1.5044,
+      "p5_m": 1.5048,
+      "rows_below_min": 0,
+      "rows_nan": 19,
+      "rows": 133,
+      "min_row": 168
+     }
+    },
+    "playback": {
+     "d_0.5m": {
+      "min_m": 0.3874,
+      "p5_m": 0.3942,
+      "rows_below_min": 0,
+      "rows_nan": 0,
+      "rows": 133,
+      "min_row": 160
+     },
+     "d_1.0m": {
+      "min_m": 0.7541,
+      "p5_m": 0.7602,
+      "rows_below_min": 0,
+      "rows_nan": 2,
+      "rows": 133,
+      "min_row": 160
+     },
+     "d_2.0m": {
+      "min_m": 1.5039,
+      "p5_m": 1.505,
+      "rows_below_min": 0,
+      "rows_nan": 19,
+      "rows": 133,
+      "min_row": 167
+     }
+    }
+   },
+   "-0.5": {
+    "tau": -0.5,
+    "exact": {
+     "d_0.5m": {
+      "min_m": 0.2887,
+      "p5_m": 0.4688,
+      "rows_below_min": 1,
+      "rows_nan": 0,
+      "rows": 133,
+      "min_row": 60
+     },
+     "d_1.0m": {
+      "min_m": 0.7698,
+      "p5_m": 0.951,
+      "rows_below_min": 0,
+      "rows_nan": 0,
+      "rows": 133,
+      "min_row": 60
+     },
+     "d_2.0m": {
+      "min_m": 1.7754,
+      "p5_m": 1.8747,
+      "rows_below_min": 0,
+      "rows_nan": 9,
+      "rows": 133,
+      "min_row": 188
+     }
+    },
+    "playback": {
+     "d_0.5m": {
+      "min_m": 0.2954,
+      "p5_m": 0.469,
+      "rows_below_min": 1,
+      "rows_nan": 0,
+      "rows": 133,
+      "min_row": 60
+     },
+     "d_1.0m": {
+      "min_m": 0.7761,
+      "p5_m": 0.9547,
+      "rows_below_min": 0,
+      "rows_nan": 0,
+      "rows": 133,
+      "min_row": 60
+     },
+     "d_2.0m": {
+      "min_m": 1.7755,
+      "p5_m": 1.8756,
+      "rows_below_min": 0,
+      "rows_nan": 9,
+      "rows": 133,
+      "min_row": 188
+     }
+    }
+   },
+   "0.0": {
+    "tau": 0.0,
+    "exact": {
+     "d_0.5m": {
+      "min_m": 0.3697,
+      "p5_m": 0.4472,
+      "rows_below_min": 0,
+      "rows_nan": 0,
+      "rows": 133,
+      "min_row": 189
+     },
+     "d_1.0m": {
+      "min_m": 0.5648,
+      "p5_m": 0.6916,
+      "rows_below_min": 0,
+      "rows_nan": 0,
+      "rows": 133,
+      "min_row": 63
+     },
+     "d_2.0m": {
+      "min_m": 1.1285,
+      "p5_m": 1.1719,
+      "rows_below_min": 0,
+      "rows_nan": 0,
+      "rows": 133,
+      "min_row": 62
+     }
+    },
+    "playback": {
+     "d_0.5m": {
+      "min_m": 0.3705,
+      "p5_m": 0.4474,
+      "rows_below_min": 0,
+      "rows_nan": 0,
+      "rows": 133,
+      "min_row": 189
+     },
+     "d_1.0m": {
+      "min_m": 0.5649,
+      "p5_m": 0.6916,
+      "rows_below_min": 0,
+      "rows_nan": 0,
+      "rows": 133,
+      "min_row": 63
+     },
+     "d_2.0m": {
+      "min_m": 1.1284,
+      "p5_m": 1.1716,
+      "rows_below_min": 0,
+      "rows_nan": 0,
+      "rows": 133,
+      "min_row": 62
+     }
+    }
+   }
+  },
+  "crest_loss": {
+   "exact_crest_height": {
+    "max_m": 0.013629806783296061,
+    "rms_m": 0.00045524989963326704,
+    "min_m": 0.0,
+    "at": {
+     "tau": -1.8333,
+     "row": 177
+    }
+   },
+   "exact_crest_height_curled_rows": {
+    "max_m": 0.013629806783296061,
+    "rms_m": 0.0006083525887131213,
+    "min_m": 0.0,
+    "at": {
+     "tau": -1.8333,
+     "row": 177
+    }
+   },
+   "playback_crest_height_curled_rows": {
+    "max_m": 0.013446278136871825,
+    "rms_m": 0.0006313528472439676,
+    "min_m": -0.0016521879295723352,
+    "at": {
+     "tau": -1.8333,
+     "row": 177
+    }
+   },
+   "exact_lip_reach": {
+    "max_m": 0.0,
+    "rms_m": 0.0,
+    "min_m": 0.0,
+    "at": {
+     "tau": -12.0,
+     "row": 60
+    }
+   },
+   "playback_crest_height": {
+    "max_m": 0.013446278136871825,
+    "rms_m": 0.0004939262476127962,
+    "min_m": -0.0017064675107727467,
+    "at": {
+     "tau": -1.8333,
+     "row": 177
+    }
+   },
+   "playback_lip_reach": {
+    "max_m": 0.001086514911435188,
+    "rms_m": 0.0005120532544998699,
+    "min_m": -0.0011227762287546739,
+    "at": {
+     "tau": -12.0,
+     "row": 124
+    }
+   },
+   "note_ja": "源 − 網（正なら網が低い・届かない）。exact は正確な表示の網、playback はパッケージの再生（量子化・Hermite を含む）。crest_height は全行（平らな余白のうねりを含む）、_curled_rows は主役波の巻きの行（源の行 60〜192）だけ"
+  },
+  "deviation_from_ds28_motion": {
+   "chord_dist_max_m": 0.5140294362421525,
+   "chord_dist_max_tau": -2.8,
+   "chord_dist_rms_m": 0.004906470062082959,
+   "chord_normal_max_m": 0.11471182193842047,
+   "chord_normal_max_tau": -8.7,
+   "chord_normal_rms_m": 0.0008208153386859372,
+   "frames_hz": 10.0,
+   "samples": 104079723,
+   "note_ja": "表示の網（正確）の辺の 1/4・1/2・3/4 の点と、同じ媒介変数の源の面（設計28 の動き）の点の差。距離と源の面の法線の成分"
+  },
+  "tstar": {
+   "vs_kstar_chord_dist_max_m": 0.279647505197323,
+   "vs_kstar_chord_dist_rms_m": 0.003996261007373017,
+   "vs_kstar_chord_normal_max_m": 0.07498048930235836,
+   "vs_kstar_chord_normal_rms_m": 0.0014064483524609877,
+   "vertices_on_kstar_surface_max_m": 0.0,
+   "package_last_layer_vs_exact_max_m": 0.0012023473881889555
+  },
+  "hermite": {
+   "frames_30hz_max_m": 0.0032831463392671654,
+   "frames_30hz_at": {
+    "tau": -4.2667,
+    "row": 205,
+    "col": 344
+   },
+   "frames_30hz_p99_of_frame_p99_m": 0.0014609975508597527,
+   "uniform_interval_midpoints": {
+    "n": 154,
+    "max_m": 0.0025989109157141584,
+    "at_tau": -4.90625
+   },
+   "nonuniform_intervals": {
+    "n_intervals": 65,
+    "n_samples": 520,
+    "max_m": 0.003391697194280919,
+    "at_tau": -4.270833333333333,
+    "spacing_at_worst": [
+     0.0625,
+     0.0625,
+     0.03125
+    ],
+    "intervals_tau": [
+     [
+      -11.875,
+      -11.75,
+      2.0
+     ],
+     [
+      -11.75,
+      -11.5,
+      2.0
+     ],
+     [
+      -6.25,
+      -6.0,
+      2.0
+     ],
+     [
+      -6.0,
+      -5.875,
+      2.0
+     ],
+     [
+      -5.375,
+      -5.25,
+      2.0
+     ],
+     [
+      -5.25,
+      -5.1875,
+      2.0
+     ],
+     [
+      -4.3125,
+      -4.25,
+      2.0
+     ],
+     [
+      -4.25,
+      -4.21875,
+      2.0
+     ],
+     [
+      -3.03125,
+      -3.0,
+      3.750000150000032
+     ],
+     [
+      -3.0,
+      -2.991666667,
+      3.750000150000032
+     ],
+     [
+      -2.991666667,
+      -2.983333334,
+      2.000000120000015
+     ],
+     [
+      -2.983333334,
+      -2.966666667,
+      2.000000120000015
+     ],
+     [
+      -2.966666667,
+      -2.933333333,
+      2.0
+     ],
+     [
+      -1.9,
+      -1.866666667,
+      1.9999999399999961
+     ],
+     [
+      -1.866666667,
+      -1.85,
+      1.9999999399999961
+     ],
+     [
+      -1.833333333,
+      -1.816666666,
+      2.000000120000015
+     ],
+     [
+      -1.816666666,
+      -1.808333333,
+      2.000000120000015
+     ],
+     [
+      -1.808333333,
+      -1.8,
+      2.0000000000000266
+     ],
+     [
+      -1.8,
+      -1.783333334,
+      2.0000000000000266
+     ],
+     [
+      -1.783333334,
+      -1.775,
+      1.9999997600000259
+     ],
+     [
+      -1.775,
+      -1.766666667,
+      2.000000120000015
+     ],
+     [
+      -1.766666667,
+      -1.75,
+      2.000000120000015
+     ],
+     [
+      -1.75,
+      -1.741666666,
+      1.9999998799999996
+     ],
+     [
+      -1.741666666,
+      -1.733333333,
+      2.000000120000015
+     ],
+     [
+      -1.733333333,
+      -1.716666666,
+      2.000000120000015
+     ],
+     [
+      -1.716666666,
+      -1.708333333,
+      2.0000001199999615
+     ],
+     [
+      -1.708333333,
+      -1.7,
+      2.0
+     ],
+     [
+      -1.7,
+      -1.683333334,
+      2.0
+     ],
+     [
+      -1.683333334,
+      -1.666666667,
+      2.0000001199999615
+     ],
+     [
+      -1.666666667,
+      -1.658333334,
+      2.0000001199999615
+     ],
+     [
+      -1.658333334,
+      -1.65,
+      1.9999998799999996
+     ],
+     [
+      -1.65,
+      -1.633333333,
+      2.000000120000015
+     ],
+     [
+      -1.633333333,
+      -1.625,
+      2.000000120000015
+     ],
+     [
+      -1.625,
+      -1.616666666,
+      1.9999997599999992
+     ],
+     [
+      -1.616666666,
+      -1.6,
+      1.9999999999999467
+     ],
+     [
+      -1.6,
+      -1.591666667,
+      1.9999999999999467
+     ],
+     [
+      -1.591666667,
+      -1.583333334,
+      2.000000120000015
+     ],
+     [
+      -1.583333334,
+      -1.566666667,
+      2.000000120000015
+     ],
+     [
+      -1.566666667,
+      -1.558333334,
+      2.000000120000015
+     ],
+     [
+      -1.558333334,
+      -1.55,
+      1.9999998799999996
+     ],
+     [
+      -1.55,
+      -1.533333333,
+      2.0000001199999615
+     ],
+     [
+      -1.533333333,
+      -1.525,
+      2.0000001199999615
+     ],
+     [
+      -1.525,
+      -1.516666666,
+      1.9999997600000792
+     ],
+     [
+      -1.516666666,
+      -1.5,
+      2.0000000000000266
+     ],
+     [
+      -1.5,
+      -1.491666667,
+      2.0000000000000266
+     ],
+     [
+      -1.491666667,
+      -1.483333334,
+      2.0000001199999615
+     ],
+     [
+      -1.483333334,
+      -1.466666667,
+      2.000000120000015
+     ],
+     [
+      -1.466666667,
+      -1.458333334,
+      2.000000120000015
+     ],
+     [
+      -1.458333334,
+      -1.45,
+      1.9999998799999996
+     ],
+     [
+      -1.45,
+      -1.433333333,
+      2.000000120000015
+     ],
+     [
+      -1.433333333,
+      -1.425,
+      2.000000120000015
+     ],
+     [
+      -1.425,
+      -1.416666666,
+      1.9999997600000259
+     ],
+     [
+      -1.416666666,
+      -1.4,
+      1.9999997600000259
+     ],
+     [
+      -1.366666667,
+      -1.35,
+      1.9999998799999996
+     ],
+     [
+      -1.35,
+      -1.341666666,
+      1.9999998799999996
+     ],
+     [
+      -1.341666666,
+      -1.333333333,
+      2.0000001199999615
+     ],
+     [
+      -1.333333333,
+      -1.316666666,
+      2.0000001199999615
+     ],
+     [
+      -1.316666666,
+      -1.3,
+      2.0
+     ],
+     [
+      -1.3,
+      -1.291666667,
+      2.0
+     ],
+     [
+      -1.291666667,
+      -1.283333334,
+      2.0000001199999615
+     ]
+    ]
+   },
+   "note_ja": "パッケージの再生（量子化した節点の Hermite）と正確な表示の網（生成器の値を網に写したもの）の差、全頂点の最大。節点の間隔が変わる所＝隣の区間との間隔の比が 1.5 以上の区間（内側の 8 点）。"
+  },
+  "gpu": {
+   "position_buffer_mib": 120.849609375,
+   "twhite_mib": 0.3662109375,
+   "mesh_vertex_mib_estimate": 5.859375,
+   "mesh_index_mib": 2.1826400756835938,
+   "note_ja": "位置 = 層 × 頂点 × 6 バイト（設計27 の再生器：StructuredBuffer<uint> に 16 bit × 3、CPU の写しなし）。網の頂点は位置・法線・接線・UV・UV2・UV3 の見積もり（Unity の実測ではない）",
+   "total_mib_estimate": 129.2578353881836,
+   "within_512": true
+  }
+ },
+ "double_r01": {
+  "rows": 480,
+  "cols": 800,
+  "vertices": 384000,
+  "layers": 241,
+  "P13": {
+   "items": {
+    "(1)": {
+     "value": 0.511631,
+     "threshold": "< 0.6",
+     "pass_": true,
+     "at": {
+      "row": 371,
+      "col": 427,
+      "tau": 0.0
+     }
+    },
+    "(2)": {
+     "value": 0.025011,
+     "threshold": "≤ 0.0218（2g）",
+     "pass_": false,
+     "at": {
+      "row": 381,
+      "col": 778,
+      "tau": -3.0
+     }
+    },
+    "(3)": {
+     "value": -1.504138,
+     "threshold": "≥ -10.40",
+     "pass_": true,
+     "at": {
+      "tau": -3.3333
+     }
+    },
+    "(4)": {
+     "value": 0.094828,
+     "threshold": "≤ 0.05",
+     "pass_": false,
+     "at": {
+      "main_row": 0.0003,
+      "peak_row": 0.0948,
+      "all_rows_max": 0.0001
+     }
+    },
+    "(5a)": {
+     "value": 1.4e-05,
+     "threshold": "≥ 1e-4",
+     "pass_": false,
+     "at": {
+      "at": {
+       "row": 372,
+       "col": 461,
+       "tri": 0,
+       "tau": -0.9
+      },
+      "violations": 196796,
+      "frames": 356,
+      "tau_range": [
+       -12.0,
+       -0.1667
+      ]
+     }
+    },
+    "(5b)": {
+     "value": 0.00038,
+     "threshold": "≥ 0.005（基準の網で 5 mm に近い・未満の 55 辺は基準 − 量子化の 2 倍）",
+     "pass_": false,
+     "at": {
+      "at": {
+       "row": 372,
+       "col": 461,
+       "tau": -0.9,
+       "K_len_m": 0.0664
+      },
+      "worst_margin_m": -0.00462,
+      "worst_margin_at": {
+       "row": 372,
+       "col": 461,
+       "tau": -0.9,
+       "len_m": 0.00038
+      },
+      "violations": 1936597,
+      "frames": 359,
+      "tau_range": [
+       -12.0,
+       -0.0667
+      ]
+     }
+    },
+    "(5c)": {
+     "value": [
+      0.0057,
+      9.277
+     ],
+     "threshold": "0.05〜4",
+     "pass_": false,
+     "at": {
+      "violations": 14,
+      "frames": 14,
+      "tau_range": [
+       -0.9,
+       -0.2333
+      ]
+     }
+    },
+    "(5d)": {
+     "value": [
+      0.0345,
+      13.167
+     ],
+     "threshold": "0.05〜4",
+     "pass_": false,
+     "at": {
+      "violations": 47198,
+      "frames": 357,
+      "tau_range": [
+       -12.0,
+       -0.1333
+      ]
+     }
+    },
+    "(5e)": {
+     "value": [
+      0.2269,
+      2.487
+     ],
+     "threshold": "0.25〜4",
+     "pass_": true,
+     "at": {
+      "violations": 0,
+      "frames": 0,
+      "tau_range": null
+     }
+    },
+    "(5f)": {
+     "value": 0,
+     "threshold": "0",
+     "pass_": true,
+     "at": {
+      "frames": 25,
+      "row": 0,
+      "mid": 0,
+      "both_ge_5mm": 0,
+      "tau_range": null,
+      "examples": []
+     }
+    },
+    "(5g)": {
+     "value": 51,
+     "threshold": "0",
+     "pass_": false,
+     "at": {
+      "resolvable_whole_mesh": 43,
+      "lip_tube_region": 8,
+      "all_incl_slivers": 298561,
+      "first": {
+       "row": 473,
+       "col": 510,
+       "tri": 1,
+       "tau": -7.9667
+      },
+      "first_region": {
+       "row": 121,
+       "col": 193,
+       "tri": 0,
+       "tau": -1.1
+      },
+      "tau_range": [
+       -7.9667,
+       -0.6333
+      ]
+     }
+    },
+    "(6)": {
+     "value": 1.4e-05,
+     "threshold": "> 0",
+     "pass_": true,
+     "at": {
+      "at": {
+       "row": 372,
+       "col": 461,
+       "tri": 0,
+       "tau": -0.9
+      },
+      "zero_area_faces_whole_mesh_at_tstar": 19323,
+      "violations": 0,
+      "frames": 0,
+      "tau_range": null
+     }
+    }
+   },
+   "n_fail": 7,
+   "n_items": 12,
+   "summary_ja": "12 項目中 7 項目が不合格"
+  },
+  "film": {
+   "-2.25": {
+    "tau": -2.2667,
+    "exact": {
+     "d_0.5m": {
+      "min_m": 0.4367,
+      "p5_m": 0.4468,
+      "rows_below_min": 0,
+      "rows_nan": 0,
+      "rows": 264,
+      "min_row": 366
+     },
+     "d_1.0m": {
+      "min_m": 0.8887,
+      "p5_m": 0.8963,
+      "rows_below_min": 0,
+      "rows_nan": 4,
+      "rows": 264,
+      "min_row": 360
+     },
+     "d_2.0m": {
+      "min_m": 1.8304,
+      "p5_m": 1.8417,
+      "rows_below_min": 0,
+      "rows_nan": 38,
+      "rows": 264,
+      "min_row": 360
+     }
+    },
+    "playback": {
+     "d_0.5m": {
+      "min_m": 0.4363,
+      "p5_m": 0.4466,
+      "rows_below_min": 0,
+      "rows_nan": 0,
+      "rows": 264,
+      "min_row": 366
+     },
+     "d_1.0m": {
+      "min_m": 0.8872,
+      "p5_m": 0.895,
+      "rows_below_min": 0,
+      "rows_nan": 4,
+      "rows": 264,
+      "min_row": 360
+     },
+     "d_2.0m": {
+      "min_m": 1.8281,
+      "p5_m": 1.84,
+      "rows_below_min": 0,
+      "rows_nan": 38,
+      "rows": 264,
+      "min_row": 360
+     }
+    }
+   },
+   "-1.333": {
+    "tau": -1.3333,
+    "exact": {
+     "d_0.5m": {
+      "min_m": 0.393,
+      "p5_m": 0.4204,
+      "rows_below_min": 0,
+      "rows_nan": 0,
+      "rows": 264,
+      "min_row": 209
+     },
+     "d_1.0m": {
+      "min_m": 0.7749,
+      "p5_m": 0.7964,
+      "rows_below_min": 0,
+      "rows_nan": 4,
+      "rows": 264,
+      "min_row": 327
+     },
+     "d_2.0m": {
+      "min_m": 1.5241,
+      "p5_m": 1.5449,
+      "rows_below_min": 0,
+      "rows_nan": 38,
+      "rows": 264,
+      "min_row": 362
+     }
+    },
+    "playback": {
+     "d_0.5m": {
+      "min_m": 0.3883,
+      "p5_m": 0.4185,
+      "rows_below_min": 0,
+      "rows_nan": 0,
+      "rows": 264,
+      "min_row": 210
+     },
+     "d_1.0m": {
+      "min_m": 0.7744,
+      "p5_m": 0.7968,
+      "rows_below_min": 0,
+      "rows_nan": 4,
+      "rows": 264,
+      "min_row": 327
+     },
+     "d_2.0m": {
+      "min_m": 1.5238,
+      "p5_m": 1.5447,
+      "rows_below_min": 0,
+      "rows_nan": 38,
+      "rows": 264,
+      "min_row": 362
+     }
+    }
+   },
+   "-0.5": {
+    "tau": -0.5,
+    "exact": {
+     "d_0.5m": {
+      "min_m": 0.3696,
+      "p5_m": 0.4826,
+      "rows_below_min": 0,
+      "rows_nan": 0,
+      "rows": 264,
+      "min_row": 121
+     },
+     "d_1.0m": {
+      "min_m": 0.8304,
+      "p5_m": 0.9608,
+      "rows_below_min": 0,
+      "rows_nan": 0,
+      "rows": 264,
+      "min_row": 121
+     },
+     "d_2.0m": {
+      "min_m": 1.7984,
+      "p5_m": 1.8784,
+      "rows_below_min": 0,
+      "rows_nan": 17,
+      "rows": 264,
+      "min_row": 377
+     }
+    },
+    "playback": {
+     "d_0.5m": {
+      "min_m": 0.394,
+      "p5_m": 0.4826,
+      "rows_below_min": 0,
+      "rows_nan": 0,
+      "rows": 264,
+      "min_row": 121
+     },
+     "d_1.0m": {
+      "min_m": 0.8539,
+      "p5_m": 0.9605,
+      "rows_below_min": 0,
+      "rows_nan": 0,
+      "rows": 264,
+      "min_row": 121
+     },
+     "d_2.0m": {
+      "min_m": 1.798,
+      "p5_m": 1.8785,
+      "rows_below_min": 0,
+      "rows_nan": 17,
+      "rows": 264,
+      "min_row": 377
+     }
+    }
+   },
+   "0.0": {
+    "tau": 0.0,
+    "exact": {
+     "d_0.5m": {
+      "min_m": 0.3631,
+      "p5_m": 0.4419,
+      "rows_below_min": 0,
+      "rows_nan": 0,
+      "rows": 264,
+      "min_row": 379
+     },
+     "d_1.0m": {
+      "min_m": 0.5636,
+      "p5_m": 0.687,
+      "rows_below_min": 0,
+      "rows_nan": 0,
+      "rows": 264,
+      "min_row": 126
+     },
+     "d_2.0m": {
+      "min_m": 1.1232,
+      "p5_m": 1.1644,
+      "rows_below_min": 0,
+      "rows_nan": 0,
+      "rows": 264,
+      "min_row": 145
+     }
+    },
+    "playback": {
+     "d_0.5m": {
+      "min_m": 0.3634,
+      "p5_m": 0.4419,
+      "rows_below_min": 0,
+      "rows_nan": 0,
+      "rows": 264,
+      "min_row": 379
+     },
+     "d_1.0m": {
+      "min_m": 0.5636,
+      "p5_m": 0.687,
+      "rows_below_min": 0,
+      "rows_nan": 0,
+      "rows": 264,
+      "min_row": 126
+     },
+     "d_2.0m": {
+      "min_m": 1.123,
+      "p5_m": 1.1639,
+      "rows_below_min": 0,
+      "rows_nan": 0,
+      "rows": 264,
+      "min_row": 145
+     }
+    }
+   }
+  },
+  "crest_loss": {
+   "exact_crest_height": {
+    "max_m": 0.012529402553301594,
+    "rms_m": 0.0005577862847434492,
+    "min_m": 0.0,
+    "at": {
+     "tau": 0.0,
+     "row": 205
+    }
+   },
+   "exact_crest_height_curled_rows": {
+    "max_m": 0.012529402553301594,
+    "rms_m": 0.0007476212416196448,
+    "min_m": 0.0,
+    "at": {
+     "tau": 0.0,
+     "row": 205
+    }
+   },
+   "playback_crest_height_curled_rows": {
+    "max_m": 0.012390585950299737,
+    "rms_m": 0.0007648879059710524,
+    "min_m": -0.0016110905152961763,
+    "at": {
+     "tau": 0.0,
+     "row": 205
+    }
+   },
+   "exact_lip_reach": {
+    "max_m": 5.684341886080802e-14,
+    "rms_m": 9.283016406999882e-15,
+    "min_m": -5.684341886080802e-14,
+    "at": {
+     "tau": -12.0,
+     "row": 314
+    }
+   },
+   "playback_crest_height": {
+    "max_m": 0.012390585950299737,
+    "rms_m": 0.0005886455214031299,
+    "min_m": -0.00170920455204282,
+    "at": {
+     "tau": 0.0,
+     "row": 205
+    }
+   },
+   "playback_lip_reach": {
+    "max_m": 0.0011160450607690109,
+    "rms_m": 0.0005123241918351319,
+    "min_m": -0.0011141282776634398,
+    "at": {
+     "tau": -11.7,
+     "row": 126
+    }
+   },
+   "note_ja": "源 − 網（正なら網が低い・届かない）。exact は正確な表示の網、playback はパッケージの再生（量子化・Hermite を含む）。crest_height は全行（平らな余白のうねりを含む）、_curled_rows は主役波の巻きの行（源の行 60〜192）だけ"
+  },
+  "deviation_from_ds28_motion": {
+   "chord_dist_max_m": 0.5140294362421574,
+   "chord_dist_max_tau": -2.8,
+   "chord_dist_rms_m": 0.004414627265208194,
+   "chord_normal_max_m": 0.08287990280688601,
+   "chord_normal_max_tau": -1.4,
+   "chord_normal_rms_m": 0.0012206128449048026,
+   "frames_hz": 5.0,
+   "samples": 210347703,
+   "note_ja": "表示の網（正確）の辺の 1/4・1/2・3/4 の点と、同じ媒介変数の源の面（設計28 の動き）の点の差。距離と源の面の法線の成分"
+  },
+  "tstar": {
+   "vs_kstar_chord_dist_max_m": 0.27964750519732645,
+   "vs_kstar_chord_dist_rms_m": 0.003758812893828113,
+   "vs_kstar_chord_normal_max_m": 0.06886706247494104,
+   "vs_kstar_chord_normal_rms_m": 0.0014483916694449377,
+   "vertices_on_kstar_surface_max_m": 0.0,
+   "package_last_layer_vs_exact_max_m": 0.0012056576866995323
+  },
+  "hermite": {
+   "frames_30hz_max_m": 0.0034733312808641597,
+   "frames_30hz_at": {
+    "tau": -4.2667,
+    "row": 391,
+    "col": 706
+   },
+   "frames_30hz_p99_of_frame_p99_m": 0.0014599229223739316,
+   "uniform_interval_midpoints": {
+    "n": 215,
+    "max_m": 0.002911415988980328,
+    "at_tau": -1.7083333330000001
+   },
+   "nonuniform_intervals": {
+    "n_intervals": 25,
+    "n_samples": 200,
+    "max_m": 0.0035834725653571178,
+    "at_tau": -4.270833333333333,
+    "spacing_at_worst": [
+     0.0625,
+     0.0625,
+     0.03125
+    ],
+    "intervals_tau": [
+     [
+      -11.875,
+      -11.75,
+      2.0
+     ],
+     [
+      -11.75,
+      -11.5,
+      2.0
+     ],
+     [
+      -6.25,
+      -6.0,
+      2.0
+     ],
+     [
+      -6.0,
+      -5.875,
+      2.0
+     ],
+     [
+      -5.375,
+      -5.25,
+      2.0
+     ],
+     [
+      -5.25,
+      -5.1875,
+      2.0
+     ],
+     [
+      -4.3125,
+      -4.25,
+      2.0
+     ],
+     [
+      -4.25,
+      -4.21875,
+      2.0
+     ],
+     [
+      -3.03125,
+      -3.0,
+      3.750000150000032
+     ],
+     [
+      -3.0,
+      -2.991666667,
+      3.750000150000032
+     ],
+     [
+      -2.991666667,
+      -2.983333334,
+      2.000000120000015
+     ],
+     [
+      -2.983333334,
+      -2.966666667,
+      2.000000120000015
+     ],
+     [
+      -2.966666667,
+      -2.933333333,
+      2.0
+     ],
+     [
+      -2.0,
+      -1.966666667,
+      4.000000120000041
+     ],
+     [
+      -1.966666667,
+      -1.958333334,
+      4.000000120000041
+     ],
+     [
+      -1.958333334,
+      -1.95,
+      1.9999998799999996
+     ],
+     [
+      -1.95,
+      -1.933333333,
+      1.9999998799999996
+     ],
+     [
+      -1.683333334,
+      -1.666666667,
+      2.0000001199999615
+     ],
+     [
+      -1.666666667,
+      -1.658333334,
+      2.0000001199999615
+     ],
+     [
+      -1.225,
+      -1.216666666,
+      1.9999997600000259
+     ],
+     [
+      -1.216666666,
+      -1.2,
+      1.9999997600000259
+     ],
+     [
+      -1.083333334,
+      -1.066666667,
+      2.0
+     ],
+     [
+      -1.066666667,
+      -1.033333333,
+      2.0
+     ],
+     [
+      -0.233333333,
+      -0.2,
+      2.000000059999999
+     ],
+     [
+      -0.2,
+      -0.183333334,
+      2.000000059999999
+     ]
+    ]
+   },
+   "note_ja": "パッケージの再生（量子化した節点の Hermite）と正確な表示の網（生成器の値を網に写したもの）の差、全頂点の最大。節点の間隔が変わる所＝隣の区間との間隔の比が 1.5 以上の区間（内側の 8 点）。"
+  },
+  "gpu": {
+   "position_buffer_mib": 529.541015625,
+   "twhite_mib": 1.46484375,
+   "mesh_vertex_mib_estimate": 23.4375,
+   "mesh_index_mib": 8.759788513183594,
+   "note_ja": "位置 = 層 × 頂点 × 6 バイト（設計27 の再生器：StructuredBuffer<uint> に 16 bit × 3、CPU の写しなし）。網の頂点は位置・法線・接線・UV・UV2・UV3 の見積もり（Unity の実測ではない）",
+   "total_mib_estimate": 563.2031478881836,
+   "within_512": false
+  }
+ }
+}

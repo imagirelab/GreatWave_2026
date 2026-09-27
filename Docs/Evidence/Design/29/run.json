@@ -1,0 +1,960 @@
+{
+ "schema": "GreatWave.DS29.run/1",
+ "number": "設計29",
+ "generated_utc": "2026-09-27T10:33:26+00:00",
+ "machine": "Windows-10-10.0.26200-SP0",
+ "python": "3.10.6",
+ "numpy": "2.2.6",
+ "pillow": "12.0.0",
+ "unity": "6000.4.3f1（Editor batchmode、PC オフスクリーン描画、RTX 3080、Direct3D11）",
+ "blender": "5.2.2（ヘッドレス、--factory-startup）",
+ "ffmpeg": "ffmpeg version 2024-12-19-git-494c961379-full_build-www.gyan.dev Copyright (c) 2000-2024 the FFmpeg developers",
+ "commands": [
+  "（作り手）py -3.10 -B Tools/GWWaveGen/ds29/ds29_build.py --out Unity/Build/Design/29/r01（3 つの密度、約 19 分）",
+  "（修正2）py -3.10 -B Tools/GWWaveGen/ds29/ds29_build.py --out Unity/Build/Design/29/r02 --only none --variant full_240x400:240:400:lip=column（half_120x200:120:200:lip=column も。r02b は :tube=arc_tau_col を足して --out Unity/Build/Design/29/r02b）",
+  "（決定性）py -3.10 -B Tools/GWWaveGen/ds29/ds29_build.py --out Unity/Build/Design/29/r02/_twice --only none --variant full_240x400:240:400:lip=column --variant half_120x200:120:200:lip=column → 8 ファイル × 2 網（keypose.json・pos・twhite・uv3・map.npz・tstar の gwb・obj・meta）の SHA-256 を r02 と比べる",
+  "（測定）py -3.10 -B Tools/GWWaveGen/ds29/ds29_measure.py --display src --out Unity/Build/Design/29/r01/measure、--display Unity/Build/Design/29/<版>/<網> --out Unity/Build/Design/29/<版>/measure（480 × 800 は --dev-every 6 --si-last-hz 2）",
+  "（表）py -3.10 -B Tools/GWWaveGen/ds29/ds29_table.py --names src,half_r01,half_r02,half_r02b,full_r01,full_r02,full_r02b,double_r01 --measure Unity/Build/Design/29/measure_all --out Docs/Evidence/Design/29（measure_all は各版の測定の JSON を名前を変えて写したもの）",
+  "（図、numpy）py -3.10 -B Tools/GWWaveGen/ds29/ds29_figures.py --root Unity/Build/Design/29/r02 --names half_120x200,full_240x400 --out Docs/Evidence/Design/29",
+  "（独立の検査器）py -3.10 -B Tools/GWWaveGen/ds29/ds29_qa.py --package half_120x200=Unity/Build/Design/29/<版>/half_120x200 --package full_240x400=Unity/Build/Design/29/<版>/full_240x400 --ref Unity/Build/Design/28/art_on --blender --out Unity/Build/Design/29/qa_<版> --summary-name ds29_qa_<版>_half_full（r01 は --xcheck も。480 × 800 は別に 1 本）",
+  "（Unity、毎回 powershell -NoProfile -ExecutionPolicy Bypass -File Tools/GWWaveGen/ds29/run_ds29_unity.ps1）-Method GreatWave.Design29.EditorTools.DS29Render.Render -Log <名前> -Package Build/Design/29/<版>/<網> -OutDir Build/Design/29/unity/<網>_<版> -Views \"painting,seat_toward_wave,side_left\" -Extra \"-ds29Name <名前>\"（原版＝設計28 の網は -Package Build/Design/28/art_on -OutDir Build/Design/29/unity/src_d28 -Extra \"-ds29Name src_d28 -ds29MeshFromPackage 0\"）",
+  "（GPU の時間）同じ Method で -OutDir Build/Design/29/unity/timing/<名前> -Skip \"t28,capture,stills,video\" -Extra \"-ds29Name <名前> -ds29TimingFrames 600\"",
+  "（原画の関門）py -3.10 -B Tools/GWWaveGen/ds27/ds27_tstar_eval.py --run Unity/Build/Design/29/unity/<組>",
+  "（設計28 の関門の検査器を張り直しの網へ）py -3.10 -B Tools/GWWaveGen/ds28/ds28_gates.py --package Unity/Build/Design/29/r01/full_240x400 --timewarp Tools/GWWaveGen/ds27/timewarp_default.json --sea Unity/Build/Design/28/art_on/ds27_sea.npz --p20 Unity/Build/Design/28/p20/ds28_p20.json --out Unity/Build/Design/29/gates/full_240x400_default.json",
+  "（GPU の読み戻しと t* の輪郭）py -3.10 -B Tools/GWWaveGen/ds29/ds29_unity_check.py --runs src_d28=Unity/Build/Design/29/unity/src_d28 half_r01=… full_r01=… double_r01=… half_r02=… full_r02=… half_r02b=… full_r02b=… --packages src_d28=Unity/Build/Design/28/art_on half_r02=Unity/Build/Design/29/r02/half_120x200 …（同じ名前）--lod half_r01:src_d28 half_r02:src_d28 half_r02b:src_d28 half_r02:full_r02 --out Unity/Build/Design/29/unity/ds29_unity_check.json",
+  "（証拠）py -3.10 -B Tools/GWWaveGen/ds29/ds29_record.py --half-rev r02 --full-rev r02 --preview <試写のフォルダー>（図・並べた動画・metrics.json・run.json。ffmpeg は G:/ffmpeg-2024-12-19-git-494c961379-full_build/bin/ffmpeg.exe）",
+  "（レビュー対応、30 Hz の全コマ）py -3.10 -B Tools/GWWaveGen/ds29/ds29_review_checks.py mesh --package src_d28=Unity/Build/Design/28/art_on --package full_r02=Unity/Build/Design/29/r02/full_240x400 --package half_r02=Unity/Build/Design/29/r02/half_120x200 --exact src_d28 --out Unity/Build/Design/29/review（blender も同じ --package で、ds29_review_blender.py の 361 コマの BVH）",
+  "（レビュー対応、正確な網）py -3.10 -B Tools/GWWaveGen/ds29/ds29_review_checks.py exact_local --package src_d28=Unity/Build/Design/28/art_on --site 54,348@-10.433333,-10.4,-10.366667,-10.333333 --site 60,150@-0.566667,-0.533333,-0.5 --out Unity/Build/Design/29/review",
+  "（レビュー対応、管の天井の折れ）py -3.10 -B Tools/GWWaveGen/ds29/ds29_review_checks.py folds_region --package src_d28=Unity/Build/Design/28/art_on --package full_r02=Unity/Build/Design/29/r02/full_240x400 --out Unity/Build/Design/29/review",
+  "（レビュー対応、描画）py -3.10 -B Tools/GWWaveGen/ds29/ds29_review_checks.py render --out Unity/Build/Design/29/review --fig Docs/Evidence/Design/29/fig_ds29_lipend_crops.png；summary --out Unity/Build/Design/29/review --evidence Docs/Evidence/Design/29/ds29_review_checks.json",
+  "（レビュー対応、時間の飛び）py -3.10 -B Tools/GWWaveGen/ds29/ds29_review_checks.py temporal --out Unity/Build/Design/29/review（f295〜f360、4 組の動画のコマの差と 60 px の区画の二階差分）",
+  "（レビュー対応、証拠）py -3.10 -B Tools/GWWaveGen/ds29/ds29_record.py --half-rev r02 --full-rev r02 --meta-only（図・動画は作り直さず metrics.json・run.json だけ）"
+ ],
+ "scripts": [
+  {
+   "path": "Tools/GWWaveGen/ds29/ds29_blender_qa.py",
+   "sha256": "2c646a9256504beac94e56c33e5d5de965538fb43130260055cd3189f2e4c640",
+   "bytes": 15773
+  },
+  {
+   "path": "Tools/GWWaveGen/ds29/ds29_build.py",
+   "sha256": "dc3cf97d7a4fc31c4d6a7974dbff8512e3756ca70b987e44e25f0732ae47fe4d",
+   "bytes": 14523
+  },
+  {
+   "path": "Tools/GWWaveGen/ds29/ds29_figures.py",
+   "sha256": "3f6eae9277ec05782788dfdb1b85d090bf3df170fd87da365c0987baadc41c29",
+   "bytes": 7502
+  },
+  {
+   "path": "Tools/GWWaveGen/ds29/ds29_measure.py",
+   "sha256": "3f46f473ef3904c48d9b6938b4d9a87a15f1927bf3966fd92cc7a10e35a4032d",
+   "bytes": 34874
+  },
+  {
+   "path": "Tools/GWWaveGen/ds29/ds29_params.json",
+   "sha256": "ae304b09492d3540993a58100917860c5f973bdc2250b63fd9bba19958da63c1",
+   "bytes": 2952
+  },
+  {
+   "path": "Tools/GWWaveGen/ds29/ds29_qa.py",
+   "sha256": "ca801d91e8f3256414666afc3224618c21d56a4f74824d888c0b89d42e2b09c4",
+   "bytes": 76837
+  },
+  {
+   "path": "Tools/GWWaveGen/ds29/ds29_record.py",
+   "sha256": "fde4f91cf5c75ae85c900633a93a03990add07d9e6a85567809e021eca85bd0a",
+   "bytes": 23375
+  },
+  {
+   "path": "Tools/GWWaveGen/ds29/ds29_review_blender.py",
+   "sha256": "d9eb961f0cb9a158d66acb9a0e5a2c079919fdb2298b635f4ff4dce562e582f2",
+   "bytes": 2921
+  },
+  {
+   "path": "Tools/GWWaveGen/ds29/ds29_review_checks.py",
+   "sha256": "d9e5a926d81ee79829b98d2de87f8a31f5b29cb0c58397506de0bda9fde95a82",
+   "bytes": 36914
+  },
+  {
+   "path": "Tools/GWWaveGen/ds29/ds29_surface.py",
+   "sha256": "5a5143263de1ee10bfbb68e83f5c94371d7014d774246caba4603181adc76d04",
+   "bytes": 20133
+  },
+  {
+   "path": "Tools/GWWaveGen/ds29/ds29_table.py",
+   "sha256": "4991fbba4ed685466f36f27816d1be7781efa96622f17ed57e7a4508ce151834",
+   "bytes": 9250
+  },
+  {
+   "path": "Tools/GWWaveGen/ds29/ds29_unity_check.py",
+   "sha256": "e7eb7eae17aefe0c217bb583a8b583480b6ef8bab5d1095d893f1a34609a9703",
+   "bytes": 8842
+  },
+  {
+   "path": "Tools/GWWaveGen/ds29/run_ds29_unity.ps1",
+   "sha256": "328876c244f81397c33271c7c970e6dd3f5bb9d665010e4675a13a7f6231b0b7",
+   "bytes": 4866
+  },
+  {
+   "path": "Unity/Assets/GreatWave/Design29/Editor/DS29Render.cs",
+   "sha256": "e10dac63ed3d51827fb7b073e8b754c50c5542a23fce2bdf78491427e24241cf",
+   "bytes": 33869
+  },
+  {
+   "path": "Unity/Assets/GreatWave/Design29/Scripts/DS29KeyposePlayer.cs",
+   "sha256": "7c7708a4bf38037f1c47d4f59e546b8d75b32542705aa9d29d553b675973c595",
+   "bytes": 21976
+  }
+ ],
+ "inputs": [
+  {
+   "path": "Unity/Build/ArtFirst/26修正01/kstar/kstar_a45.gwb",
+   "sha256": "e9bc3572590b5b237ddd302fca64f54f2d325813ad787f20e4d7524b6b84cd26",
+   "bytes": 4976696
+  },
+  {
+   "path": "Unity/Build/ArtFirst/28修正01/bake/af28r01_uvsdf_a45.bin",
+   "sha256": "305d1777c77c772d51c1b3de038b3702ac73183d678629f3ba2b0e68630562bd",
+   "bytes": 67108864
+  },
+  {
+   "path": "Unity/Build/ArtFirst/28修正01/bake/af28r01_uvwarp_a45.json",
+   "sha256": "945aef222f2730ee27ede3b9996234f0e00d53b806aabcfc0f3f05c86bcccafb",
+   "bytes": 12348
+  },
+  {
+   "path": "Tools/GWWaveGen/ds28/ds28_model.py",
+   "sha256": "a273b55e27f177d2928afbbf7efbc90dac00b247e8fdeeea8a3285f2f091da41",
+   "bytes": 39400
+  },
+  {
+   "path": "Tools/GWWaveGen/ds28/ds28_params.json",
+   "sha256": "d0dcd8b1b43a244c1263b8b987da1297e539cce1fc5976a102b469e843623a3c",
+   "bytes": 14426
+  },
+  {
+   "path": "Tools/GWWaveGen/ds27/ds27_model.py",
+   "sha256": "916e8f4201e013a455666998c6819d4aa1292d67ed9e8ca653bda17acdb0826a",
+   "bytes": 68606
+  },
+  {
+   "path": "Tools/GWWaveGen/ds27/ds27_gates.py",
+   "sha256": "4cc4031542f0411b5ea33178a71b0373497ddaeb3295789a8eea5b77127d6f46",
+   "bytes": 97307
+  },
+  {
+   "path": "Tools/GWWaveGen/ds27/ds27_tstar_eval.py",
+   "sha256": "fda4a4746a97d79c54d2da6e49f83484aebb38a84b31a0e7cf11174cc55a6776",
+   "bytes": 8395
+  },
+  {
+   "path": "Tools/GWContext/seat_v1.json",
+   "sha256": "4f7553fd6ab29d117266d6f0b6e58c84dc30f36cf440f6de9314b95102517488",
+   "bytes": 9803
+  }
+ ],
+ "packages": [
+  {
+   "path": "Unity/Build/Design/28/art_on/ds27_keypose.json",
+   "sha256": "ed9d0211756daf4bd850cadb403bc73f782de8ee8a45e25aa2db4d494bdb24a1",
+   "bytes": 262206
+  },
+  {
+   "path": "Unity/Build/Design/28/art_on/ds27_pos_rgba16.bin",
+   "sha256": "e3b32fdbd400b44a918f10d0b03cac4dbcfb33139014801d0f7370f04eb65edd",
+   "bytes": 142848000
+  },
+  {
+   "path": "Unity/Build/Design/28/art_on/ds27_twhite_r32f.bin",
+   "sha256": "c8753ba9dc894d5b96384b77b78e610471be6488d370047b57d0fb893a04bbd7",
+   "bytes": 384000
+  },
+  {
+   "path": "Unity/Build/Design/29/r01/half_120x200/ds27_keypose.json",
+   "sha256": "fddc03bdc17c4d1b682b322c0093373abb2932fea9654d394c77e13fac7d400f",
+   "bytes": 263109
+  },
+  {
+   "path": "Unity/Build/Design/29/r01/half_120x200/ds27_pos_rgba16.bin",
+   "sha256": "2df02688f0567fc810e202bd6df2b83118c74339b55f5c7011642b6fcb5f9915",
+   "bytes": 43392000
+  },
+  {
+   "path": "Unity/Build/Design/29/r01/half_120x200/ds27_twhite_r32f.bin",
+   "sha256": "aca2452c211cf78a5c49fd09f89440639729d640e5166b5e3591a54f16ca9d0a",
+   "bytes": 96000
+  },
+  {
+   "path": "Unity/Build/Design/29/r01/half_120x200/ds29_uv3_f32.bin",
+   "sha256": "f332aa222ad533640174a60f50e7f3e09588bcd819113179c571ec86216faf1e",
+   "bytes": 192000
+  },
+  {
+   "path": "Unity/Build/Design/29/r01/half_120x200/tstar/kstar_a45.gwb",
+   "sha256": "800a2c61b66d61cda46f2d0252fc6d9e5b6f5df513a28f4199b068ee92078bf9",
+   "bytes": 1240376
+  },
+  {
+   "path": "Unity/Build/Design/29/r01/full_240x400/ds27_keypose.json",
+   "sha256": "fe0d754b975c893358c1a3318a83307da0f5cbe5765eefb220c736a76b2c40ee",
+   "bytes": 262935
+  },
+  {
+   "path": "Unity/Build/Design/29/r01/full_240x400/ds27_pos_rgba16.bin",
+   "sha256": "c7e04e514c39c8aba5d01575a613cdd8e061545e972136104d0ce5aa6d855ffd",
+   "bytes": 161280000
+  },
+  {
+   "path": "Unity/Build/Design/29/r01/full_240x400/ds27_twhite_r32f.bin",
+   "sha256": "934b99406c3277f068069db6c7568debe6eea84e4b785ec25af929e819b3f359",
+   "bytes": 384000
+  },
+  {
+   "path": "Unity/Build/Design/29/r01/full_240x400/ds29_uv3_f32.bin",
+   "sha256": "743a29583b12b02b09549774c208dbd8c00dc57b939ff02a0f443158953951d9",
+   "bytes": 768000
+  },
+  {
+   "path": "Unity/Build/Design/29/r01/full_240x400/tstar/kstar_a45.gwb",
+   "sha256": "7e4bd2363c42bbaf7eea22ce08422f965ee0eab0da3b73cffa77924708975b67",
+   "bytes": 4976696
+  },
+  {
+   "path": "Unity/Build/Design/29/r02/half_120x200/ds27_keypose.json",
+   "sha256": "972bc3e9d5f7913e88cd2a59c34bee3e35b41cfebe4030d77d7812c4dd4d0139",
+   "bytes": 263106
+  },
+  {
+   "path": "Unity/Build/Design/29/r02/half_120x200/ds27_pos_rgba16.bin",
+   "sha256": "8e7e4c0a6aa2b3a12553ae814aae0c9e04e836e11d34043806fdab8ea91d170c",
+   "bytes": 43392000
+  },
+  {
+   "path": "Unity/Build/Design/29/r02/half_120x200/ds27_twhite_r32f.bin",
+   "sha256": "961a4e51e4bc47194bd9b80ad1d5c0d09e744bf027d80935ba76d6f66d79efbd",
+   "bytes": 96000
+  },
+  {
+   "path": "Unity/Build/Design/29/r02/half_120x200/ds29_uv3_f32.bin",
+   "sha256": "cc2a5c709cd519de0b0e67040c0b9b7389fe48bd9a05bd57ec41c7d4c38e1b81",
+   "bytes": 192000
+  },
+  {
+   "path": "Unity/Build/Design/29/r02/half_120x200/tstar/kstar_a45.gwb",
+   "sha256": "af712bf8cc3f64ab06f94f52ed955a2bcbf17a82b84d54481ef9c701f7b8e344",
+   "bytes": 1240376
+  },
+  {
+   "path": "Unity/Build/Design/29/r02/full_240x400/ds27_keypose.json",
+   "sha256": "d6b8bc0c3e363b86ed691d3c40367a52b7032b7d75b1a2bde37390f35274503c",
+   "bytes": 262932
+  },
+  {
+   "path": "Unity/Build/Design/29/r02/full_240x400/ds27_pos_rgba16.bin",
+   "sha256": "d654bb860f43d942b7ffda2f6f31c19b01c804d1078605caa665fd5c92fffc61",
+   "bytes": 161280000
+  },
+  {
+   "path": "Unity/Build/Design/29/r02/full_240x400/ds27_twhite_r32f.bin",
+   "sha256": "798ee0da05b51b7675484e8ad7ce48c57d0da7de95e4f47837a3dcea045fb61f",
+   "bytes": 384000
+  },
+  {
+   "path": "Unity/Build/Design/29/r02/full_240x400/ds29_uv3_f32.bin",
+   "sha256": "24625e6258f519ed32f9adc12075a59a408f0489c8b3dfdc870c055e60aaaff6",
+   "bytes": 768000
+  },
+  {
+   "path": "Unity/Build/Design/29/r02/full_240x400/tstar/kstar_a45.gwb",
+   "sha256": "a102eb232839125f22efba9e9d3645da95d5572d0e544de670b4df017cef63e8",
+   "bytes": 4976696
+  },
+  {
+   "path": "Unity/Build/Design/29/r02b/half_120x200/ds27_keypose.json",
+   "sha256": "e584f8991023bdc4fe769f8c69620650b840f423e4347696ea73ed7793c6fdea",
+   "bytes": 262979
+  },
+  {
+   "path": "Unity/Build/Design/29/r02b/half_120x200/ds27_pos_rgba16.bin",
+   "sha256": "29bc6f6eb87b8668dbe44c88db93d57899e2c47d11fece494ad1319832424d57",
+   "bytes": 40896000
+  },
+  {
+   "path": "Unity/Build/Design/29/r02b/half_120x200/ds27_twhite_r32f.bin",
+   "sha256": "4a4d65353be5d63551bbcee0cd1586099c14936a33ac56d914fc646037876931",
+   "bytes": 96000
+  },
+  {
+   "path": "Unity/Build/Design/29/r02b/half_120x200/ds29_uv3_f32.bin",
+   "sha256": "e2b2160ea8e9b9a92c2a6b6095e2a2bdc5a5aa8b1adbf25b040bd81a60c9918b",
+   "bytes": 192000
+  },
+  {
+   "path": "Unity/Build/Design/29/r02b/half_120x200/tstar/kstar_a45.gwb",
+   "sha256": "23d4d197e6d891a07e8c812f0dd8a960288b29697fc445a498ac01baedcc7dc8",
+   "bytes": 1240376
+  },
+  {
+   "path": "Unity/Build/Design/29/r02b/full_240x400/ds27_keypose.json",
+   "sha256": "118b72ae737234edcdfa42c16d4f3dd2e0978ae9d3104d5341e1a005fc912158",
+   "bytes": 263048
+  },
+  {
+   "path": "Unity/Build/Design/29/r02b/full_240x400/ds27_pos_rgba16.bin",
+   "sha256": "401440ede96b77a7d25b90695ad6db10356b1e766e270a94beb65d84f12490f1",
+   "bytes": 168960000
+  },
+  {
+   "path": "Unity/Build/Design/29/r02b/full_240x400/ds27_twhite_r32f.bin",
+   "sha256": "edaaed7f9e83f3c3d5210eebf635065364554a59e447b8cc71d5872e9d49ee39",
+   "bytes": 384000
+  },
+  {
+   "path": "Unity/Build/Design/29/r02b/full_240x400/ds29_uv3_f32.bin",
+   "sha256": "cdf9f535f25a96b6418e5ec3364a2ba914d21a6b3d5ca287e7063a8923e1cd7e",
+   "bytes": 768000
+  },
+  {
+   "path": "Unity/Build/Design/29/r02b/full_240x400/tstar/kstar_a45.gwb",
+   "sha256": "5006853d388405664a5330acbd1d9c14e0028c5a53f8322d5f8d115cb702987d",
+   "bytes": 4976696
+  },
+  {
+   "path": "Unity/Build/Design/29/r01/double_480x800/ds27_keypose.json",
+   "sha256": "159163cf4d325050557a0edf7509262ca7c33ae4f3602bf834c2360c50055fc8",
+   "bytes": 263289
+  },
+  {
+   "path": "Unity/Build/Design/29/r01/double_480x800/ds27_pos_rgba16.bin",
+   "sha256": "30f55da1e198ee591f17e2a2fce59e6d2e2d41897b9ff414aaba52cc5937c030",
+   "bytes": 740352000
+  },
+  {
+   "path": "Unity/Build/Design/29/r01/double_480x800/ds27_twhite_r32f.bin",
+   "sha256": "fe4227dadd78b05f8ca9656784ef9f5c19593b8812ed5c141a59c1137ab3c74b",
+   "bytes": 1536000
+  },
+  {
+   "path": "Unity/Build/Design/29/r01/double_480x800/ds29_uv3_f32.bin",
+   "sha256": "0533041dc1a3883da6db13df83b9f18466e3c166a05934e8cf7253b1ca043d05",
+   "bytes": 3072000
+  },
+  {
+   "path": "Unity/Build/Design/29/r01/double_480x800/tstar/kstar_a45.gwb",
+   "sha256": "61a5f1648bae8a04eb91b33671d45833d90e8c7f770d88cff0b4e563b4c28238",
+   "bytes": 19937336
+  }
+ ],
+ "build_outputs": [
+  {
+   "path": "Unity/Build/Design/29/unity/src_d28/ds29_render_report.json",
+   "sha256": "5abdfc4714eb1b2466f4a3e0238ef277e6b4b6856538fb5642a63005760df1d1",
+   "bytes": 14096
+  },
+  {
+   "path": "Unity/Build/Design/29/unity/src_d28/ds27_tstar_remeasure.json",
+   "sha256": "f731977028ec938fa17f052d502d6cee555dac94ad26023317ed467fd31bfe7d",
+   "bytes": 20275
+  },
+  {
+   "path": "Unity/Build/Design/29/r01/measure/src.json",
+   "sha256": "2634ab9ebd55b6e3c202db97d6ff7a324e905b0f2214036f5014b57eef71e630",
+   "bytes": 11283
+  },
+  {
+   "path": "Unity/Build/Design/29/qa_validation/d28_art_on_qa.json",
+   "sha256": "45ad28bc057d948914ad2c8d3ed1742e434d5ae4d8c76eb7fff0050a24402325",
+   "bytes": 293620
+  },
+  {
+   "path": "Unity/Build/Design/29/unity/src_d28/video/ds29_painting_30fps.mp4",
+   "sha256": "440cffd5e76ab616480ca7f38431bed30b590d8f6fe69a36a124e680c495553b",
+   "bytes": 1729100
+  },
+  {
+   "path": "Unity/Build/Design/29/unity/src_d28/video/ds29_seat_toward_wave_30fps.mp4",
+   "sha256": "0c62aae542d47ad4ac34ffadcb6d036d3ce439945a5a3cdceb47091adab11cd6",
+   "bytes": 2155951
+  },
+  {
+   "path": "Unity/Build/Design/29/unity/src_d28/video/ds29_side_left_30fps.mp4",
+   "sha256": "816472d1beb17febe04e8bcec6e99a10c0d554905cc8e019b698b51df23a5d6c",
+   "bytes": 1991314
+  },
+  {
+   "path": "Unity/Build/Design/29/unity/half_120x200/ds29_render_report.json",
+   "sha256": "328454da46a34edea33af83d9199e3ad8bfabf07107f7d58d7b6ce07a4053440",
+   "bytes": 14262
+  },
+  {
+   "path": "Unity/Build/Design/29/unity/half_120x200/ds27_tstar_remeasure.json",
+   "sha256": "3a2c2d046454ddb7f29fef556eb00a3cdee83f2d3740ff0149578557c18c75b2",
+   "bytes": 20377
+  },
+  {
+   "path": "Unity/Build/Design/29/r01/measure/half_120x200.json",
+   "sha256": "3290693fdcd98cd9d420f68e5acfd777419f5fd8c4d2c10610efae9ea34f6514",
+   "bytes": 14176
+  },
+  {
+   "path": "Unity/Build/Design/29/qa_r01/half_120x200_qa.json",
+   "sha256": "2cdd42717bc482749c5df83ff3b79be58f51982e5e7eb174baf94002ebfce403",
+   "bytes": 265295
+  },
+  {
+   "path": "Unity/Build/Design/29/unity/half_120x200/video/ds29_painting_30fps.mp4",
+   "sha256": "6f270655d3615e993fce0bb1170cf7b5e301ebc336cdd19db9eaf1c58a1b88e3",
+   "bytes": 1711407
+  },
+  {
+   "path": "Unity/Build/Design/29/unity/half_120x200/video/ds29_seat_toward_wave_30fps.mp4",
+   "sha256": "f442e3144241a658771ec1a78215d3fad36dd6de9fec5b1ffde40f08ac04279b",
+   "bytes": 2159119
+  },
+  {
+   "path": "Unity/Build/Design/29/unity/half_120x200/video/ds29_side_left_30fps.mp4",
+   "sha256": "0639f126ded8db25c1d4995f7c7517a2c582bc19186524d66e10f074ef0ef69c",
+   "bytes": 1933333
+  },
+  {
+   "path": "Unity/Build/Design/29/unity/full_240x400/ds29_render_report.json",
+   "sha256": "34fac4a12ae72c2a76888751bb62a557355a2d4fce3817c4789784caded90b6b",
+   "bytes": 14263
+  },
+  {
+   "path": "Unity/Build/Design/29/unity/full_240x400/ds27_tstar_remeasure.json",
+   "sha256": "a36ff51efdbc6148ff6ffdcad19c00ba165c70b441ca712926060948b074bc20",
+   "bytes": 20350
+  },
+  {
+   "path": "Unity/Build/Design/29/r01/measure/full_240x400.json",
+   "sha256": "17f72ed30f77b4e091d83f96fdb3587a9661ccdf5234213cf7c3bd60003c6847",
+   "bytes": 13172
+  },
+  {
+   "path": "Unity/Build/Design/29/qa_r01/full_240x400_qa.json",
+   "sha256": "7f6c6a7b13865b9ed3e4226e901fdc5126e4502d9e0978032e94b3d93ae22953",
+   "bytes": 284417
+  },
+  {
+   "path": "Unity/Build/Design/29/unity/full_240x400/video/ds29_painting_30fps.mp4",
+   "sha256": "1f10a1a88ceb1cf59486c7d6ae03181ebf805c0d056ff1fe039b1cfdcfbd8517",
+   "bytes": 1723560
+  },
+  {
+   "path": "Unity/Build/Design/29/unity/full_240x400/video/ds29_seat_toward_wave_30fps.mp4",
+   "sha256": "dbed05853dc3745029da632d2bc9203bccad87f3ec4aa0fa07205908b945afcd",
+   "bytes": 2161975
+  },
+  {
+   "path": "Unity/Build/Design/29/unity/full_240x400/video/ds29_side_left_30fps.mp4",
+   "sha256": "c52201924c85db39127dfb50b6824561b5842c6d1b7433eda5095bfd39f9559c",
+   "bytes": 1998378
+  },
+  {
+   "path": "Unity/Build/Design/29/unity/half_120x200_r02/ds29_render_report.json",
+   "sha256": "2caf03540da2ade8e985a0f6aa1e1812829a53becdc3e3e28ef7bb4e97cdf860",
+   "bytes": 14412
+  },
+  {
+   "path": "Unity/Build/Design/29/unity/half_120x200_r02/ds27_tstar_remeasure.json",
+   "sha256": "b6688a0a81fcc2ee2ad9d571a24ba4b9c9f96e966c3145bbf46dcb5d79adc56d",
+   "bytes": 20381
+  },
+  {
+   "path": "Unity/Build/Design/29/r02/measure/half_120x200.json",
+   "sha256": "e95c3ed658bf46988d525ccc1819b2d83f7e6303d7ac4504a4fc5668281bd0fe",
+   "bytes": 14228
+  },
+  {
+   "path": "Unity/Build/Design/29/qa_r02/half_120x200_qa.json",
+   "sha256": "8dff7de60f8d9dffd4d35efaf887728ecb47b755d3a3ffa3e85d7f815f145bae",
+   "bytes": 269891
+  },
+  {
+   "path": "Unity/Build/Design/29/unity/half_120x200_r02/video/ds29_painting_30fps.mp4",
+   "sha256": "56a08100b76e97a6bc430d960fee188abeffd18af3b84be421d6a7ceec50fb8e",
+   "bytes": 1730597
+  },
+  {
+   "path": "Unity/Build/Design/29/unity/half_120x200_r02/video/ds29_seat_toward_wave_30fps.mp4",
+   "sha256": "8f1230b36e41804f090e07450868fc66db627bfca5006e3deb0d23ba2740fc2a",
+   "bytes": 2146954
+  },
+  {
+   "path": "Unity/Build/Design/29/unity/half_120x200_r02/video/ds29_side_left_30fps.mp4",
+   "sha256": "8e226ea2a8c9b72a28b9f7ebff8ca5be5aba7bfec7a0f94577aa79816492d8b4",
+   "bytes": 1948122
+  },
+  {
+   "path": "Unity/Build/Design/29/unity/full_240x400_r02/ds29_render_report.json",
+   "sha256": "c0b70bebb82bd7a3ee50ac3b64064658d28d01dbb1676b803cb300e8b2abbea6",
+   "bytes": 14416
+  },
+  {
+   "path": "Unity/Build/Design/29/unity/full_240x400_r02/ds27_tstar_remeasure.json",
+   "sha256": "386a3cabe499aafc93e9cd7002d07643ae0a35e701a9afe220fd8e0e2e0ff89d",
+   "bytes": 20368
+  },
+  {
+   "path": "Unity/Build/Design/29/r02/measure/full_240x400.json",
+   "sha256": "5be4d3e31c91917141f585d5ba89b9c2bf8638c97fa4d3ca33af0dd8d009a267",
+   "bytes": 13248
+  },
+  {
+   "path": "Unity/Build/Design/29/qa_r02/full_240x400_qa.json",
+   "sha256": "b8a0d295424ed8226f1bb47160c9500e1643ef5cc9e394e6d5c2284772026c48",
+   "bytes": 289463
+  },
+  {
+   "path": "Unity/Build/Design/29/unity/full_240x400_r02/video/ds29_painting_30fps.mp4",
+   "sha256": "7bee7d81e822a61190de76f701caf6b0a21bac24a4924cb5e37185c3677899a8",
+   "bytes": 1743096
+  },
+  {
+   "path": "Unity/Build/Design/29/unity/full_240x400_r02/video/ds29_seat_toward_wave_30fps.mp4",
+   "sha256": "b0799ead61d64d08c10c0ac1a4fdd6c949eb180f2d3ffc4a063df07aed778295",
+   "bytes": 2174321
+  },
+  {
+   "path": "Unity/Build/Design/29/unity/full_240x400_r02/video/ds29_side_left_30fps.mp4",
+   "sha256": "07435e5ec9f6e1695b6a7530febbce1430a9c71cda63610d5fe108c568d18e88",
+   "bytes": 1993871
+  },
+  {
+   "path": "Unity/Build/Design/29/unity/half_120x200_r02b/ds29_render_report.json",
+   "sha256": "6548152132456c099261d486852b4163fae64e27533599ce284243cba92daff0",
+   "bytes": 14449
+  },
+  {
+   "path": "Unity/Build/Design/29/unity/half_120x200_r02b/ds27_tstar_remeasure.json",
+   "sha256": "587c182f0e1b94b3ccec46bd49f5be4d70996c2421e6f1f7444491bcdaf01c70",
+   "bytes": 20372
+  },
+  {
+   "path": "Unity/Build/Design/29/r02b/measure/half_120x200.json",
+   "sha256": "375db4e34fa762036d0fc2e6225fcbc9b1c55d0a89e5eeed529c4e40890a8b14",
+   "bytes": 15067
+  },
+  {
+   "path": "Unity/Build/Design/29/qa_r02b/half_120x200_qa.json",
+   "sha256": "0d772d48d80d0fe633675cb44053c6e1b69937460e59ba260777bc022f803b7f",
+   "bytes": 273422
+  },
+  {
+   "path": "Unity/Build/Design/29/unity/half_120x200_r02b/video/ds29_painting_30fps.mp4",
+   "sha256": "f2face6a27b1bb26855602338e6392d963ce1e45d07fc1049083100977f47d7b",
+   "bytes": 1731005
+  },
+  {
+   "path": "Unity/Build/Design/29/unity/half_120x200_r02b/video/ds29_seat_toward_wave_30fps.mp4",
+   "sha256": "7e7970315223751ac4f9691b365c38dfc42ac8309793bdb92d8b3550c33bb46f",
+   "bytes": 2159945
+  },
+  {
+   "path": "Unity/Build/Design/29/unity/half_120x200_r02b/video/ds29_side_left_30fps.mp4",
+   "sha256": "46555424b1c4df98a7bf2f12b8d8bda6cc59209d3e5136206dfb4094d55f8362",
+   "bytes": 1957085
+  },
+  {
+   "path": "Unity/Build/Design/29/unity/full_240x400_r02b/ds29_render_report.json",
+   "sha256": "71766f8e9829ed55d7da41236078ba599974e1ec4c5ac6b7af5013a9c856c02e",
+   "bytes": 14450
+  },
+  {
+   "path": "Unity/Build/Design/29/unity/full_240x400_r02b/ds27_tstar_remeasure.json",
+   "sha256": "9322155e65d7647c8e1729573d5b87fc05c042510d7f2928351e6e2ae75e9a4a",
+   "bytes": 20362
+  },
+  {
+   "path": "Unity/Build/Design/29/r02b/measure/full_240x400.json",
+   "sha256": "576f0c81b5e41dd020e7dbc24bc745c6fdc27179ce37cabfa00bf14037eaf3a9",
+   "bytes": 15753
+  },
+  {
+   "path": "Unity/Build/Design/29/qa_r02b/full_240x400_qa.json",
+   "sha256": "0fdefdcf99fa7d00ec508554b8ac29fe5ebae845cee15f5dd252df8656a3bdac",
+   "bytes": 292929
+  },
+  {
+   "path": "Unity/Build/Design/29/unity/full_240x400_r02b/video/ds29_painting_30fps.mp4",
+   "sha256": "87ae9aa878dd0a7e8ff211f9db7a8351a247761fd2f3f5bbb42c73001e8a2857",
+   "bytes": 1754810
+  },
+  {
+   "path": "Unity/Build/Design/29/unity/full_240x400_r02b/video/ds29_seat_toward_wave_30fps.mp4",
+   "sha256": "b2b1af18146bf6c8a6b084bf7fef7bc2d575003d407749bec69b8c543dc1dcb7",
+   "bytes": 2179134
+  },
+  {
+   "path": "Unity/Build/Design/29/unity/full_240x400_r02b/video/ds29_side_left_30fps.mp4",
+   "sha256": "8c28a519cec082601a4b494fc4b42ee89c659e7a81e34e2a3142d82b246f3a3b",
+   "bytes": 2011654
+  },
+  {
+   "path": "Unity/Build/Design/29/unity/double_480x800/ds29_render_report.json",
+   "sha256": "d016c6397727d97f02fa646448cdd4aaea6e0e35d14d639b72e17ade873ade3a",
+   "bytes": 14346
+  },
+  {
+   "path": "Unity/Build/Design/29/unity/double_480x800/ds27_tstar_remeasure.json",
+   "sha256": "7e737e3efc44d36a772f1f28a72db3becc8029596d0e5fd2a602c9058e36e2c2",
+   "bytes": 20318
+  },
+  {
+   "path": "Unity/Build/Design/29/r01/measure/double_480x800.json",
+   "sha256": "75e49ae2573845cbf97c80478bce472af1739b056caed6ba18fa27ae841312a4",
+   "bytes": 13405
+  },
+  {
+   "path": "Unity/Build/Design/29/qa_r01/double_480x800_qa.json",
+   "sha256": "fc2f5fea2068623de4f4bf5fd09d88fc5e66e79b97a43bcedf4304c86a56cf4d",
+   "bytes": 286717
+  },
+  {
+   "path": "Unity/Build/Design/29/unity/double_480x800/video/ds29_painting_30fps.mp4",
+   "sha256": "2fb7c26d8dc297ad59f75eb3c3ea19bffb5a18f564ba3afd94c53ed2f6912bbf",
+   "bytes": 1744437
+  },
+  {
+   "path": "Unity/Build/Design/29/unity/double_480x800/video/ds29_seat_toward_wave_30fps.mp4",
+   "sha256": "c5771275f9851c055800bdbacdcc49dfed4d6d1a6d9442af45101adf7954676b",
+   "bytes": 2157688
+  },
+  {
+   "path": "Unity/Build/Design/29/unity/double_480x800/video/ds29_side_left_30fps.mp4",
+   "sha256": "85da31391df1a9d4dc66e0b72a7a02f2c627fc06f2833c2f679ffa71bb3bf57b",
+   "bytes": 2008632
+  },
+  {
+   "path": "Unity/Build/Design/29/gates/full_240x400_default.json",
+   "sha256": "d558a8569b43fba6a822ce9734fdb38e661b88cd069c657fe889c7e31674ccdd",
+   "bytes": 46072
+  },
+  {
+   "path": "Unity/Build/Design/29/gates/full_240x400_default_ds27.json",
+   "sha256": "9889e5a8a5e790a62d36d17d75f5f560550a0239a0752d54718b9bd1b26df774",
+   "bytes": 31468
+  },
+  {
+   "path": "Unity/Build/Design/29/gates/full_240x400_default_extra.json",
+   "sha256": "40ea18ed5c1393c82d30217405ed65c10efd1820c51192966a0886cded2addba",
+   "bytes": 19457
+  },
+  {
+   "path": "Unity/Build/Design/29/qa_r01/ds29_qa_r01_double.json",
+   "sha256": "29ef9b149bb894b156270e8a2ac5dbb80e36ae4fb70f8015f07a5f707a6d9c0a",
+   "bytes": 8843
+  },
+  {
+   "path": "Unity/Build/Design/29/qa_r01/ds29_qa_r01_double.md",
+   "sha256": "a9ace7e6561db6c8e016cbda29a0ef898cb78a20334d236646af8ac68a88d16a",
+   "bytes": 9778
+  },
+  {
+   "path": "Unity/Build/Design/29/qa_r01/ds29_qa_r01_half_full.json",
+   "sha256": "dafc3806f2ca1ce3e7cd7f868ec79163d8b2d202d0ab820e9918883cc99e6b53",
+   "bytes": 16550
+  },
+  {
+   "path": "Unity/Build/Design/29/qa_r01/ds29_qa_r01_half_full.md",
+   "sha256": "15fb8cd554084663087a5deba69115165509cb429cfbef55604d5e594ca4bf96",
+   "bytes": 16318
+  },
+  {
+   "path": "Unity/Build/Design/29/qa_r02/ds29_qa_r02_half_full.json",
+   "sha256": "f7e136f4372788327d99f6e4c9f0d55807356160ea0f46d71afb4cb0ce7f95bb",
+   "bytes": 16040
+  },
+  {
+   "path": "Unity/Build/Design/29/qa_r02/ds29_qa_r02_half_full.md",
+   "sha256": "85477da75dda6d8e75043b71ecdbd6c1a324daa0c4bb0ccb582e236da36ccd19",
+   "bytes": 16403
+  },
+  {
+   "path": "Unity/Build/Design/29/qa_r02b/ds29_qa_r02b_half_full.json",
+   "sha256": "fa46ff4766e277792a431d6e39e105e618a1cff963bd53a8b734666e53a76ea1",
+   "bytes": 16057
+  },
+  {
+   "path": "Unity/Build/Design/29/qa_r02b/ds29_qa_r02b_half_full.md",
+   "sha256": "6ce0e0ad8d24da97cae61d75cdcdc70bdfcc4d4969d8d329c40296ad35732c71",
+   "bytes": 16514
+  },
+  {
+   "path": "Unity/Build/Design/29/qa_validation/ds29_qa_selftest.json",
+   "sha256": "7f43e003d7586f11d723a2cd99e2d3b998d2ba8daae9a9c1ec4ac9b77cbb7d87",
+   "bytes": 23048
+  },
+  {
+   "path": "Unity/Build/Design/29/qa_validation/ds29_qa_selftest.md",
+   "sha256": "504ae16158aca9a991f5c34236865ab472f735cb3b50f8218de7dec8d0ce0006",
+   "bytes": 9208
+  },
+  {
+   "path": "Unity/Build/Design/29/qa_validation/ds29_qa_validation_d27.json",
+   "sha256": "15df9352b4938d78648e0712ae96fd41f3cc6217b357ff50eaa67fb32f8d1cc4",
+   "bytes": 8698
+  },
+  {
+   "path": "Unity/Build/Design/29/qa_validation/ds29_qa_validation_d27.md",
+   "sha256": "de0e62fcfc8f2e38bf84451822908a74fff29ef9624d77b5d338fcd12f4481cb",
+   "bytes": 10108
+  },
+  {
+   "path": "Unity/Build/Design/29/qa_validation/ds29_qa_validation_d28.json",
+   "sha256": "b7bc0d4d9048dc3c8c14b62e3d9cc29bcd6e72f432967db069180efad62243e2",
+   "bytes": 21053
+  },
+  {
+   "path": "Unity/Build/Design/29/qa_validation/ds29_qa_validation_d28.md",
+   "sha256": "a77987f19b5f97fe39fb7b3ba8cadaba7aac0b61dee12be8e0ac49457d0c08ef",
+   "bytes": 18959
+  },
+  {
+   "path": "Unity/Build/Design/29/r00/ds29_build_log_half_120x200_full_240x400_double_480x800_full_240x400_tubefixed.json",
+   "sha256": "8a905b2ecd1eebe29ecfecbce24d9b0fb6dda4595b0f5c15a5a2a962ea4b3e44",
+   "bytes": 13294
+  },
+  {
+   "path": "Unity/Build/Design/29/r01/ds29_build_log.json",
+   "sha256": "fb60754dbde36f79331cb209fc1f0e7834cab55fb519b02d93cfe9ec25d5fce5",
+   "bytes": 10610
+  },
+  {
+   "path": "Unity/Build/Design/29/r02/ds29_build_log_full_240x400.json",
+   "sha256": "bf03f206a814af3ab43b24197971b3fc49af28d0c0117adeeb4018a15917a4ef",
+   "bytes": 4156
+  },
+  {
+   "path": "Unity/Build/Design/29/r02/ds29_build_log_half_120x200.json",
+   "sha256": "afbdaa165a511f9a02334a45051824f79b267dbc8da42bbfa555591cf2e033d5",
+   "bytes": 4151
+  },
+  {
+   "path": "Unity/Build/Design/29/r02b/ds29_build_log_full_240x400.json",
+   "sha256": "ec1026334e921df833bb9fb40254b533613b2355f79cb7077eefa0c65e198b0c",
+   "bytes": 4183
+  },
+  {
+   "path": "Unity/Build/Design/29/r02b/ds29_build_log_half_120x200.json",
+   "sha256": "3bdbaec0a65001025f56773b1f21e36de9e2e8ea71e6dc4798a079cca69e7750",
+   "bytes": 4168
+  },
+  {
+   "path": "Unity/Build/Design/29/review/bvh_full_r02.json",
+   "sha256": "fd0ee1b9aeea624014b6caf9002b300957997eb9165c5388a7b1be50382167f2",
+   "bytes": 38707
+  },
+  {
+   "path": "Unity/Build/Design/29/review/bvh_half_r02.json",
+   "sha256": "9c2f7bc9b1e838a996b6b2ed8f18060caf51f2890d46ae21e38392476820b3b1",
+   "bytes": 37880
+  },
+  {
+   "path": "Unity/Build/Design/29/review/bvh_src_d28.json",
+   "sha256": "44b0e807c55f7f58faf8cda5660e570a45a217b73df9733248d61ecbb10f7497",
+   "bytes": 38858
+  },
+  {
+   "path": "Unity/Build/Design/29/review/exact_local_src_d28.json",
+   "sha256": "9e014be5bfaea633b09df96dd74dadcbf4b6a93d2f34f27a15d0e118152d63bc",
+   "bytes": 1902
+  },
+  {
+   "path": "Unity/Build/Design/29/review/folds_region.json",
+   "sha256": "65e529bb6098629bdaf5fe4a164ca5d9aa0cc942df4aebbccaba2dded471b7ce",
+   "bytes": 7116
+  },
+  {
+   "path": "Unity/Build/Design/29/review/mesh_full_r02.json",
+   "sha256": "f3d7205760c488cc0b68688bec78934dcd52b34bc3bd1727ebe8114895d220a9",
+   "bytes": 24311
+  },
+  {
+   "path": "Unity/Build/Design/29/review/mesh_half_r02.json",
+   "sha256": "a0d9ce49f5f3e9583143a293dd6456e9ec7166952c5c06d4b59e75fbc4fb278d",
+   "bytes": 14868
+  },
+  {
+   "path": "Unity/Build/Design/29/review/mesh_src_d28.json",
+   "sha256": "337e9e00e2f834f158974f8a5a7810a6fcd5822039d4c47b3533acce503d846a",
+   "bytes": 26230
+  },
+  {
+   "path": "Unity/Build/Design/29/review/render_checks.json",
+   "sha256": "cc068aa77c577ffe3180cd185e79cef06fa1f29554c043e8f92e185b4cc1864c",
+   "bytes": 10170
+  },
+  {
+   "path": "Unity/Build/Design/29/review/temporal.json",
+   "sha256": "84e16fb20849a080aacb9385bbae8055487d1e4ed8c63ca8ff05ea7c52e29dbc",
+   "bytes": 3941
+  },
+  {
+   "path": "Unity/Build/Design/29/unity/ds29_unity_check_r01.json",
+   "sha256": "13a3e6d5d07565a5aab6cb7fd8d9522d63a4db3404231dc6517a3ddd6ca9a2f6",
+   "bytes": 13106
+  }
+ ],
+ "evidence": [
+  {
+   "path": "Docs/Evidence/Design/29/ds29_compare_painting.mp4",
+   "sha256": "106dce4dfb5a80181fde2d67a2bbe35d26d8a21547a65e08bff1032f9e970738",
+   "bytes": 821186
+  },
+  {
+   "path": "Docs/Evidence/Design/29/ds29_compare_seat_toward_wave.mp4",
+   "sha256": "c45c4798c4736b06fe1c5fd5a1dd4b492d61706d29d1ef0b43c59ea4221cde6a",
+   "bytes": 565210
+  },
+  {
+   "path": "Docs/Evidence/Design/29/ds29_compare_side_left.mp4",
+   "sha256": "b56748f5d6011fe0821383beff7b8e9f36c4fcbe9387bc7f0c13d44379575b9f",
+   "bytes": 472794
+  },
+  {
+   "path": "Docs/Evidence/Design/29/ds29_display_table.json",
+   "sha256": "ea855a654229a1cf2048bff42e6dc8aa63f5f33cc8a2b90756fecb9877030ca2",
+   "bytes": 107455
+  },
+  {
+   "path": "Docs/Evidence/Design/29/ds29_display_table.md",
+   "sha256": "fef29ebfbd8eb25f5510e61250926daaebbd8a85eef663d9486b5a22b6f62fff",
+   "bytes": 8533
+  },
+  {
+   "path": "Docs/Evidence/Design/29/ds29_review_checks.json",
+   "sha256": "3a70487db4382d39c94f7a25d140f6a89b8cc07173deb736858641987bb1de69",
+   "bytes": 101494
+  },
+  {
+   "path": "Docs/Evidence/Design/29/ds29_revisions.json",
+   "sha256": "c5702f4956bd70b89605f96d4093ec6cc6cb7641dfcae5558495a15d1e54e28a",
+   "bytes": 7678
+  },
+  {
+   "path": "Docs/Evidence/Design/29/ds29_unity_check.json",
+   "sha256": "1286ceb31677d09de38ce5a7234b6c47a9b4fb8a051f92abcc8aa24d0c237ae5",
+   "bytes": 28265
+  },
+  {
+   "path": "Docs/Evidence/Design/29/fig_ds29_density_painting.png",
+   "sha256": "f7716fed3bb392229401349cb3bb12d91980fb6e987a6479ae224169e309a55e",
+   "bytes": 460524
+  },
+  {
+   "path": "Docs/Evidence/Design/29/fig_ds29_density_seat.png",
+   "sha256": "e08102561bde8023e6d8f485a05f1a0d102c5ccf1079e03d07f9d2fe951eb4d1",
+   "bytes": 122651
+  },
+  {
+   "path": "Docs/Evidence/Design/29/fig_ds29_density_seat_toward_wave.png",
+   "sha256": "47eb89e346617e34189dbe355d2b836ac65a551a72d31cb610601a5bac3e8f8c",
+   "bytes": 283267
+  },
+  {
+   "path": "Docs/Evidence/Design/29/fig_ds29_density_side_left.png",
+   "sha256": "0adfb85e44d3f72dfa06f4f5a5799c661a62b25a2ad10bdb6317d49741229859",
+   "bytes": 256844
+  },
+  {
+   "path": "Docs/Evidence/Design/29/fig_ds29_lip_wire.png",
+   "sha256": "0a08bc0d40819874b7be3f450abde10671d97fcc27f64c01aff0e999ca9fd870",
+   "bytes": 39570
+  },
+  {
+   "path": "Docs/Evidence/Design/29/fig_ds29_lipend_crops.png",
+   "sha256": "b6939b3f589b60fc62cc1629ae6ce4b11139dffde1c5fd29b0fc3bb577415d45",
+   "bytes": 1671659
+  },
+  {
+   "path": "Docs/Evidence/Design/29/fig_ds29_sections.png",
+   "sha256": "fb53370c0f61f43123166a81817a26d5928cd4a1defc116b169284c0bfcd1395",
+   "bytes": 44476
+  },
+  {
+   "path": "Docs/Evidence/Design/29/fig_ds29_tstar_detail.png",
+   "sha256": "e385c2b33141c66d40b30607991defe24bbddfba04de679a3721f451c3de63fa",
+   "bytes": 314217
+  },
+  {
+   "path": "Docs/Evidence/Design/29/metrics.json",
+   "sha256": "8de7003cdb0c94241f8d7fc71c568fb70afa97d5c34ee76b1c662f269669adb4",
+   "bytes": 156187
+  },
+  {
+   "path": "Docs/Evidence/Design/29/qa/ds29_qa_r01_double.json",
+   "sha256": "29ef9b149bb894b156270e8a2ac5dbb80e36ae4fb70f8015f07a5f707a6d9c0a",
+   "bytes": 8843
+  },
+  {
+   "path": "Docs/Evidence/Design/29/qa/ds29_qa_r01_double.md",
+   "sha256": "a9ace7e6561db6c8e016cbda29a0ef898cb78a20334d236646af8ac68a88d16a",
+   "bytes": 9778
+  },
+  {
+   "path": "Docs/Evidence/Design/29/qa/ds29_qa_r01_half_full.json",
+   "sha256": "dafc3806f2ca1ce3e7cd7f868ec79163d8b2d202d0ab820e9918883cc99e6b53",
+   "bytes": 16550
+  },
+  {
+   "path": "Docs/Evidence/Design/29/qa/ds29_qa_r01_half_full.md",
+   "sha256": "15fb8cd554084663087a5deba69115165509cb429cfbef55604d5e594ca4bf96",
+   "bytes": 16318
+  },
+  {
+   "path": "Docs/Evidence/Design/29/qa/ds29_qa_r02_half_full.json",
+   "sha256": "f7e136f4372788327d99f6e4c9f0d55807356160ea0f46d71afb4cb0ce7f95bb",
+   "bytes": 16040
+  },
+  {
+   "path": "Docs/Evidence/Design/29/qa/ds29_qa_r02_half_full.md",
+   "sha256": "85477da75dda6d8e75043b71ecdbd6c1a324daa0c4bb0ccb582e236da36ccd19",
+   "bytes": 16403
+  },
+  {
+   "path": "Docs/Evidence/Design/29/qa/ds29_qa_r02b_half_full.json",
+   "sha256": "fa46ff4766e277792a431d6e39e105e618a1cff963bd53a8b734666e53a76ea1",
+   "bytes": 16057
+  },
+  {
+   "path": "Docs/Evidence/Design/29/qa/ds29_qa_r02b_half_full.md",
+   "sha256": "6ce0e0ad8d24da97cae61d75cdcdc70bdfcc4d4969d8d329c40296ad35732c71",
+   "bytes": 16514
+  },
+  {
+   "path": "Docs/Evidence/Design/29/qa/ds29_qa_selftest.json",
+   "sha256": "7f43e003d7586f11d723a2cd99e2d3b998d2ba8daae9a9c1ec4ac9b77cbb7d87",
+   "bytes": 23048
+  },
+  {
+   "path": "Docs/Evidence/Design/29/qa/ds29_qa_selftest.md",
+   "sha256": "504ae16158aca9a991f5c34236865ab472f735cb3b50f8218de7dec8d0ce0006",
+   "bytes": 9208
+  },
+  {
+   "path": "Docs/Evidence/Design/29/qa/ds29_qa_validation_d27.json",
+   "sha256": "15df9352b4938d78648e0712ae96fd41f3cc6217b357ff50eaa67fb32f8d1cc4",
+   "bytes": 8698
+  },
+  {
+   "path": "Docs/Evidence/Design/29/qa/ds29_qa_validation_d27.md",
+   "sha256": "de0e62fcfc8f2e38bf84451822908a74fff29ef9624d77b5d338fcd12f4481cb",
+   "bytes": 10108
+  },
+  {
+   "path": "Docs/Evidence/Design/29/qa/ds29_qa_validation_d28.json",
+   "sha256": "b7bc0d4d9048dc3c8c14b62e3d9cc29bcd6e72f432967db069180efad62243e2",
+   "bytes": 21053
+  },
+  {
+   "path": "Docs/Evidence/Design/29/qa/ds29_qa_validation_d28.md",
+   "sha256": "a77987f19b5f97fe39fb7b3ba8cadaba7aac0b61dee12be8e0ac49457d0c08ef",
+   "bytes": 18959
+  }
+ ],
+ "protected_ja": "設計26〜28 のコミット済みのファイルは変えていない（Unity の描画は前後の SHA-256 を ds29_render_report.json に記録、場面は保存しない）。K* は読むだけ。",
+ "not_in_repo_ja": "パッケージ・Unity の出力・検査の JSON は Git 対象外の Unity/Build/Design/29/。"
+}

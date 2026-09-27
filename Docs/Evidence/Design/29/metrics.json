@@ -1,0 +1,5879 @@
+{
+ "schema": "GreatWave.DS29.metrics/1",
+ "number": "設計29",
+ "title_ja": "解像度の比較の後、表示用サーフェスを作る（原版と軽量版。穴・法線・薄膜・波頭の欠落）",
+ "generated_utc": "2026-09-27T10:33:26+00:00",
+ "evidence_kind_ja": "numpy の作り手（ds29_build.py）と測定（ds29_measure.py）、独立の検査器（ds29_qa.py、Blender 5.2.2 ヘッドレスの射線 5 万本と BVH）、Unity 6000.4.3f1 の batchmode の PC オフスクリーン描画（RTX 3080、Direct3D11）。HMD 実機ではない。",
+ "shown_sets": [
+  "src_d28",
+  "half_r02",
+  "full_r02",
+  "double_r01"
+ ],
+ "adopted": {
+  "original": "src_d28",
+  "light": "half_r02"
+ },
+ "sets": {
+  "src_d28": {
+   "label_ja": "原版：K* の格子 240 × 400（設計28 のまま）",
+   "revision": "—",
+   "package": "Unity/Build/Design/28/art_on",
+   "unity": {
+    "report": "Unity/Build/Design/29/unity/src_d28/ds29_render_report.json",
+    "report_sha256": "5abdfc4714eb1b2466f4a3e0238ef277e6b4b6856538fb5642a63005760df1d1",
+    "rows": 240,
+    "cols": 400,
+    "layers": 186,
+    "vertices": 96000,
+    "position_buffer_mib": 102.17,
+    "twhite_mib": 0.366,
+    "mesh_vb_mib": 4.39,
+    "mesh_ib_mib": 2.18,
+    "keypose_total_mib": 109.12,
+    "driver_delta_keypose_mib": 102.54,
+    "within_512": true,
+    "sdf_texture_mib_shared": 64.0,
+    "load_s": 1.29,
+    "timing": {
+     "painting": {
+      "on_ms": 0.727,
+      "off_ms": 0.59,
+      "wave_ms": 0.137,
+      "frames": 600
+     },
+     "seat": {
+      "on_ms": 0.571,
+      "off_ms": 0.489,
+      "wave_ms": 0.083,
+      "frames": 600
+     },
+     "source": "Unity/Build/Design/29/unity/timing/src_d28/ds29_render_report.json"
+    },
+    "protected_unchanged": true,
+    "passed": true,
+    "device": "NVIDIA GeForce RTX 3080",
+    "api": "Direct3D11",
+    "mesh": "Unity/Build/ArtFirst/26修正01/kstar/kstar_a45.gwb",
+    "uv3": "28修正01 の列ごと・行ごとの表（Build/ArtFirst/28修正01/bake/af28r01_uvwarp_a45.json）"
+   },
+   "painting_tstar": {
+    "file": "Unity/Build/Design/29/unity/src_d28/ds27_tstar_remeasure.json",
+    "worst_abs_diff_px": 0.247,
+    "pass_": true,
+    "verdict_changes": {},
+    "over_05px": [],
+    "verdicts": {
+     "73": "pass",
+     "77": "pass",
+     "79": "pass",
+     "118": "pass",
+     "120": "pass",
+     "133": "pass",
+     "134": "pass",
+     "175": "fail",
+     "263": "pass",
+     "270": "pass",
+     "265": "pass",
+     "266": "pass",
+     "267": "pass",
+     "uv_no_empty_texels": "pass"
+    },
+    "item266_seat_bands": {
+     "painting": 0,
+     "seat": 0,
+     "seat_low": 0
+    }
+   },
+   "vertices": 96000,
+   "triangles": 190722,
+   "layers": 186,
+   "p13": {
+    "(1)": {
+     "value": 0.512337,
+     "pass_": true,
+     "violations": null
+    },
+    "(2)": {
+     "value": 0.02453,
+     "pass_": false,
+     "violations": null
+    },
+    "(3)": {
+     "value": -1.504136,
+     "pass_": true,
+     "violations": null
+    },
+    "(4)": {
+     "value": 0.000191,
+     "pass_": true,
+     "violations": null
+    },
+    "(5a)": {
+     "value": 0.000183,
+     "pass_": true,
+     "violations": 0
+    },
+    "(5b)": {
+     "value": 0.001688,
+     "pass_": false,
+     "violations": 218
+    },
+    "(5c)": {
+     "value": [
+      0.0136,
+      10.419
+     ],
+     "pass_": false,
+     "violations": 97
+    },
+    "(5d)": {
+     "value": [
+      0.0308,
+      14.202
+     ],
+     "pass_": false,
+     "violations": 18193
+    },
+    "(5e)": {
+     "value": [
+      0.1409,
+      2.228
+     ],
+     "pass_": false,
+     "violations": 1488
+    },
+    "(5f)": {
+     "value": 0,
+     "pass_": true,
+     "violations": null
+    },
+    "(5g)": {
+     "value": 4,
+     "pass_": false,
+     "violations": null
+    },
+    "(6)": {
+     "value": 3.5e-05,
+     "pass_": true,
+     "violations": 0
+    }
+   },
+   "p13_fail": 6,
+   "tstar_vs_kstar": {
+    "package_last_layer_vs_kstar_max_m": 0.0012035540389232022
+   },
+   "crest_loss": {
+    "exact_crest_height": {
+     "max_m": 0.0,
+     "rms_m": 0.0,
+     "min_m": 0.0,
+     "at": {
+      "tau": -12.0,
+      "row": 0
+     }
+    },
+    "exact_lip_reach": {
+     "max_m": 0.0,
+     "rms_m": 0.0,
+     "min_m": 0.0,
+     "at": {
+      "tau": -12.0,
+      "row": 60
+     }
+    },
+    "playback_crest_height": {
+     "max_m": 0.0019002612521662465,
+     "rms_m": 0.00019302827452590782,
+     "min_m": -0.0017064675107727467,
+     "at": {
+      "tau": -6.0667,
+      "row": 13
+     }
+    }
+   },
+   "film": {
+    "-2.25": {
+     "tau": -2.2667,
+     "d_1m_min_m": 0.8876,
+     "rows_below": 0,
+     "d_05m_min_m": 0.4341
+    },
+    "-1.333": {
+     "tau": -1.3333,
+     "d_1m_min_m": 0.7859,
+     "rows_below": 0,
+     "d_05m_min_m": 0.3924
+    },
+    "-0.5": {
+     "tau": -0.5,
+     "d_1m_min_m": 0.764,
+     "rows_below": 0,
+     "d_05m_min_m": 0.2831
+    },
+    "0.0": {
+     "tau": 0.0,
+     "d_1m_min_m": 0.5638,
+     "rows_below": 0,
+     "d_05m_min_m": 0.37
+    }
+   },
+   "hermite": {
+    "frames_30hz_max_m": 0.0034047701850408296,
+    "frames_30hz_at": {
+     "tau": -4.2667,
+     "row": 204,
+     "col": 340
+    },
+    "frames_30hz_p99_of_frame_p99_m": 0.0014664964061500098,
+    "uniform_interval_midpoints": {
+     "n": 170,
+     "max_m": 0.0025989109157141584,
+     "at_tau": -4.90625
+    },
+    "nonuniform_intervals": {
+     "n_intervals": 15,
+     "n_samples": 120,
+     "max_m": 0.003508693842638195,
+     "at_tau": -4.270833333333333,
+     "spacing_at_worst": [
+      0.0625,
+      0.0625,
+      0.03125
+     ],
+     "intervals_tau": [
+      [
+       -11.875,
+       -11.75,
+       2.0
+      ],
+      [
+       -11.75,
+       -11.5,
+       2.0
+      ],
+      [
+       -6.25,
+       -6.0,
+       2.0
+      ],
+      [
+       -6.0,
+       -5.875,
+       2.0
+      ],
+      [
+       -5.375,
+       -5.25,
+       2.0
+      ],
+      [
+       -5.25,
+       -5.1875,
+       2.0
+      ],
+      [
+       -4.3125,
+       -4.25,
+       2.0
+      ],
+      [
+       -4.25,
+       -4.21875,
+       2.0
+      ],
+      [
+       -3.03125,
+       -3.0,
+       3.750000150000032
+      ],
+      [
+       -3.0,
+       -2.991666667,
+       3.750000150000032
+      ],
+      [
+       -2.991666667,
+       -2.983333334,
+       2.000000120000015
+      ],
+      [
+       -2.983333334,
+       -2.966666667,
+       2.000000120000015
+      ],
+      [
+       -2.966666667,
+       -2.933333333,
+       2.0
+      ],
+      [
+       -0.233333333,
+       -0.2,
+       2.000000059999999
+      ],
+      [
+       -0.2,
+       -0.183333334,
+       2.000000059999999
+      ]
+     ]
+    },
+    "note_ja": "パッケージの再生（量子化した節点の Hermite）と正確な表示の網（生成器の値を網に写したもの）の差、全頂点の最大。節点の間隔が変わる所＝隣の区間との間隔の比が 1.5 以上の区間（内側の 8 点）。"
+   },
+   "deviation_from_ds28_motion": {},
+   "gpu_estimate": {
+    "position_buffer_mib": 102.1728515625,
+    "twhite_mib": 0.3662109375,
+    "mesh_vertex_mib_estimate": 5.859375,
+    "mesh_index_mib": 2.1826400756835938,
+    "note_ja": "位置 = 層 × 頂点 × 6 バイト（設計27 の再生器：StructuredBuffer<uint> に 16 bit × 3、CPU の写しなし）。網の頂点は位置・法線・接線・UV・UV2・UV3 の見積もり（Unity の実測ではない）",
+    "total_mib_estimate": 110.5810775756836,
+    "within_512": true
+   },
+   "measure_file": "Unity/Build/Design/29/r01/measure/src.json",
+   "qa": {
+    "非多様体の辺": {
+     "value": 0,
+     "threshold": "0",
+     "pass_": true
+    },
+    "縁の輪（外周のほか＝継ぎ目・穴）": {
+     "value": 0,
+     "threshold": "0（117）",
+     "pass_": true
+    },
+    "面の向きの反転（隣と巻き方向が食い違う辺）": {
+     "value": 0,
+     "threshold": "0",
+     "pass_": true
+    },
+    "使われない頂点・添字の潰れた面": {
+     "value": [
+      0,
+      0
+     ],
+     "threshold": "0",
+     "pass_": true
+    },
+    "位置・頂点法線の NaN（コマの最大）": {
+     "value": 0,
+     "threshold": "0",
+     "pass_": true
+    },
+    "決まらない頂点法線（周りの面がすべて面積 0、コマの最大）": {
+     "value": 199,
+     "threshold": "0",
+     "pass_": false
+    },
+    "隣と逆向きの面（二面角 > 120°、コマの最大）": {
+     "value": 161,
+     "threshold": "0",
+     "pass_": false
+    },
+    "前のコマと比べた面の反転（一覧のコマの和）": {
+     "value": 3,
+     "threshold": "0",
+     "pass_": false
+    },
+    "自己交差（行の断面、線分 ≥ 5 mm、コマの和）": {
+     "value": 1,
+     "threshold": "0",
+     "pass_": false
+    },
+    "唇先の厚さ（唇先から 0.75 m 奥の鉛直）の最小_m": {
+     "value": 0.557,
+     "threshold": "≥ 0.3",
+     "pass_": true
+    },
+    "波頭の欠落：断面の頂の高さの低下／基準の唇・管の点から網までの 3 次元の距離（最大）_m": {
+     "value": [
+      0.0,
+      0.0
+     ],
+     "threshold": "≤ 0.02（暫定）",
+     "pass_": true
+    },
+    "座席 v1 の射線：穴（コマの和）": {
+     "value": 0,
+     "threshold": "0",
+     "pass_": true
+    },
+    "座席 v1 の射線：開いた背面（コマの和）": {
+     "value": 0,
+     "threshold": "0",
+     "pass_": true
+    },
+    "座席 v1 の射線：切断端＋縁の下のすき間（外周、t* のコマ）": {
+     "value": 0,
+     "threshold": "0",
+     "pass_": true
+    },
+    "座席 v1 の射線：切断端／縁の下のすき間（外周、t* より前のコマの和。記録）": {
+     "value": [
+      37215,
+      33303
+     ],
+     "threshold": "記録",
+     "pass_": null
+    },
+    "座席 v1 の射線：継ぎ目の切断（117、コマの和）": {
+     "value": 0,
+     "threshold": "0",
+     "pass_": true
+    },
+    "自己交差（3 次元、BVH の重なり、コマの和）": {
+     "value": 0,
+     "threshold": "0",
+     "pass_": true
+    },
+    "下を向き、上に網のない面（面の向きの反転、コマの和）": {
+     "value": 0,
+     "threshold": "0",
+     "pass_": true
+    },
+    "座席 v1 の射線：平らな海が網の上にある所（記録）": {
+     "value": 435,
+     "threshold": "記録",
+     "pass_": null
+    },
+    "30 Hz：波の枠の 1 コマの変位_m": {
+     "value": 0.5123,
+     "threshold": "< 0.6",
+     "pass_": true
+    },
+    "30 Hz：地面の二階差分（全頂点）_m": {
+     "value": 0.11118,
+     "threshold": "≤ 0.0218（2 g）",
+     "pass_": false
+    },
+    "30 Hz：前のコマと比べた面の反転（通し）": {
+     "value": 7,
+     "threshold": "0",
+     "pass_": false
+    },
+    "30 Hz：唇・管の行の方向の辺の最短_m": {
+     "value": 0.00169,
+     "threshold": "≥ 0.005（t* で近い辺は t* − 2q）",
+     "pass_": false
+    },
+    "30 Hz：唇・管の伸び（t* に対する比、行の方向／行の間）": {
+     "value": [
+      [
+       0.014,
+       10.881
+      ],
+      [
+       0.031,
+       14.185
+      ]
+     ],
+     "threshold": "0.05〜4",
+     "pass_": false
+    }
+   },
+   "qa_file": "Unity/Build/Design/29/qa_validation/d28_art_on_qa.json",
+   "gpu_readback_max_m": 2.3e-05,
+   "outline_vs_ds28_px": {}
+  },
+  "half_r01": {
+   "label_ja": "120 × 200 張り直し（r01）",
+   "revision": "r01",
+   "package": "Unity/Build/Design/29/r01/half_120x200",
+   "unity": {
+    "report": "Unity/Build/Design/29/unity/half_120x200/ds29_render_report.json",
+    "report_sha256": "328454da46a34edea33af83d9199e3ad8bfabf07107f7d58d7b6ce07a4053440",
+    "rows": 120,
+    "cols": 200,
+    "layers": 226,
+    "vertices": 24000,
+    "position_buffer_mib": 31.04,
+    "twhite_mib": 0.092,
+    "mesh_vb_mib": 1.1,
+    "mesh_ib_mib": 0.54,
+    "keypose_total_mib": 32.77,
+    "driver_delta_keypose_mib": 31.13,
+    "within_512": true,
+    "sdf_texture_mib_shared": 64.0,
+    "load_s": 0.4,
+    "timing": {
+     "painting": {
+      "on_ms": 1.046,
+      "off_ms": 0.983,
+      "wave_ms": 0.063,
+      "frames": 180
+     },
+     "seat": {
+      "on_ms": 0.781,
+      "off_ms": 0.731,
+      "wave_ms": 0.05,
+      "frames": 180
+     },
+     "source": "Unity/Build/Design/29/unity/half_120x200/ds29_render_report.json"
+    },
+    "protected_unchanged": true,
+    "passed": true,
+    "device": "NVIDIA GeForce RTX 3080",
+    "api": "Direct3D11",
+    "mesh": "Unity/Build/Design/29/r01/half_120x200/tstar/kstar_a45.gwb",
+    "uv3": "パッケージの頂点ごとの UV3（ds29_uv3_f32.bin）"
+   },
+   "painting_tstar": {
+    "file": "Unity/Build/Design/29/unity/half_120x200/ds27_tstar_remeasure.json",
+    "worst_abs_diff_px": 147.903,
+    "pass_": false,
+    "verdict_changes": {
+     "73": [
+      "pass",
+      "fail"
+     ],
+     "77": [
+      "pass",
+      "fail"
+     ],
+     "118": [
+      "pass",
+      "fail"
+     ],
+     "120": [
+      "pass",
+      "fail"
+     ],
+     "134": [
+      "pass",
+      "fail"
+     ],
+     "270": [
+      "pass",
+      "fail"
+     ],
+     "266": [
+      "pass",
+      "fail"
+     ],
+     "267": [
+      "pass",
+      "fail"
+     ]
+    },
+    "over_05px": [
+     {
+      "item": "73",
+      "measure": "boundary",
+      "px": 7.208,
+      "ref_px": 0.655,
+      "diff_px": 6.553
+     },
+     {
+      "item": "77",
+      "measure": "lower_ends",
+      "px": 2.114,
+      "ref_px": 1.17,
+      "diff_px": 0.944
+     },
+     {
+      "item": "79",
+      "measure": "boundary",
+      "px": 2.875,
+      "ref_px": 0.34,
+      "diff_px": 2.535
+     },
+     {
+      "item": "118",
+      "measure": "boundary",
+      "px": 7.421,
+      "ref_px": 0.655,
+      "diff_px": 6.766
+     },
+     {
+      "item": "120",
+      "measure": "boundary",
+      "px": 4.846,
+      "ref_px": 0.288,
+      "diff_px": 4.558
+     },
+     {
+      "item": "133",
+      "measure": "boundary",
+      "px": 3.785,
+      "ref_px": 0.402,
+      "diff_px": 3.383
+     },
+     {
+      "item": "134",
+      "measure": "boundary",
+      "px": 8.975,
+      "ref_px": 0.977,
+      "diff_px": 7.998
+     },
+     {
+      "item": "175",
+      "measure": "boundary_by_class/ai_dark",
+      "px": 148.212,
+      "ref_px": 0.309,
+      "diff_px": 147.903
+     },
+     {
+      "item": "175",
+      "measure": "boundary_by_class/ai_mid",
+      "px": 3.073,
+      "ref_px": 2.41,
+      "diff_px": 0.663
+     },
+     {
+      "item": "175",
+      "measure": "boundary_by_class/mizuiro",
+      "px": 19.461,
+      "ref_px": 18.375,
+      "diff_px": 1.086
+     },
+     {
+      "item": "175",
+      "measure": "record_excluding_lost_regions/boundary_by_class/ai_dark",
+      "px": 148.212,
+      "ref_px": 0.309,
+      "diff_px": 147.903
+     },
+     {
+      "item": "175",
+      "measure": "record_excluding_lost_regions/boundary_by_class/ai_mid",
+      "px": 3.073,
+      "ref_px": 2.41,
+      "diff_px": 0.663
+     },
+     {
+      "item": "175",
+      "measure": "record_excluding_lost_regions/boundary_by_class/mizuiro",
+      "px": 8.602,
+      "ref_px": 0.865,
+      "diff_px": 7.737
+     },
+     {
+      "item": "263",
+      "measure": "boundary_lower",
+      "px": 2.436,
+      "ref_px": 0.559,
+      "diff_px": 1.877
+     },
+     {
+      "item": "270",
+      "measure": "boundary",
+      "px": 6.048,
+      "ref_px": 0.563,
+      "diff_px": 5.485
+     },
+     {
+      "item": "270",
+      "measure": "record_mizuiro_reading",
+      "px": 8.975,
+      "ref_px": 0.661,
+      "diff_px": 8.314
+     }
+    ],
+    "verdicts": {
+     "73": "fail",
+     "77": "fail",
+     "79": "pass",
+     "118": "fail",
+     "120": "fail",
+     "133": "pass",
+     "134": "fail",
+     "175": "fail",
+     "263": "pass",
+     "270": "fail",
+     "265": "pass",
+     "266": "fail",
+     "267": "fail",
+     "uv_no_empty_texels": "pass"
+    },
+    "item266_seat_bands": {
+     "painting": 3,
+     "seat": 0,
+     "seat_low": 0
+    }
+   },
+   "vertices": 24000,
+   "triangles": 47362,
+   "layers": 226,
+   "p13": {
+    "(1)": {
+     "value": 0.511135,
+     "pass_": true,
+     "violations": null
+    },
+    "(2)": {
+     "value": 0.024828,
+     "pass_": false,
+     "violations": null
+    },
+    "(3)": {
+     "value": -1.503731,
+     "pass_": true,
+     "violations": null
+    },
+    "(4)": {
+     "value": 0.059469,
+     "pass_": false,
+     "violations": null
+    },
+    "(5a)": {
+     "value": 0.001487,
+     "pass_": true,
+     "violations": 0
+    },
+    "(5b)": {
+     "value": 0.008327,
+     "pass_": true,
+     "violations": 0
+    },
+    "(5c)": {
+     "value": [
+      0.0791,
+      3.975
+     ],
+     "pass_": true,
+     "violations": 0
+    },
+    "(5d)": {
+     "value": [
+      0.05,
+      6.665
+     ],
+     "pass_": false,
+     "violations": 741
+    },
+    "(5e)": {
+     "value": [
+      0.3984,
+      1.968
+     ],
+     "pass_": true,
+     "violations": 0
+    },
+    "(5f)": {
+     "value": 0,
+     "pass_": true,
+     "violations": null
+    },
+    "(5g)": {
+     "value": 0,
+     "pass_": true,
+     "violations": null
+    },
+    "(6)": {
+     "value": 0.000887,
+     "pass_": true,
+     "violations": 0
+    }
+   },
+   "p13_fail": 3,
+   "tstar_vs_kstar": {
+    "vs_kstar_chord_dist_max_m": 2.1869719641878245,
+    "vs_kstar_chord_dist_rms_m": 0.06424960766517183,
+    "vs_kstar_chord_normal_max_m": 0.26689653725250245,
+    "vs_kstar_chord_normal_rms_m": 0.012922014154373182,
+    "vertices_on_kstar_surface_max_m": 0.0,
+    "package_last_layer_vs_exact_max_m": 0.001204001219353497
+   },
+   "crest_loss": {
+    "exact_crest_height_curled_rows": {
+     "max_m": 0.05333373872193192,
+     "rms_m": 0.0033545281607373673,
+     "min_m": 0.0,
+     "at": {
+      "tau": -1.8333,
+      "row": 88
+     }
+    },
+    "exact_crest_height": {
+     "max_m": 0.3549828541355866,
+     "rms_m": 0.018426592720212395,
+     "min_m": 0.0,
+     "at": {
+      "tau": -5.7667,
+      "row": 119
+     }
+    },
+    "exact_lip_reach": {
+     "max_m": 5.684341886080802e-14,
+     "rms_m": 8.478721510977095e-15,
+     "min_m": -5.684341886080802e-14,
+     "at": {
+      "tau": -11.6667,
+      "row": 83
+     }
+    },
+    "playback_crest_height_curled_rows": {
+     "max_m": 0.05343847215901931,
+     "rms_m": 0.003355804713207778,
+     "min_m": -0.0016107367992885813,
+     "at": {
+      "tau": -1.8333,
+      "row": 88
+     }
+    },
+    "playback_crest_height": {
+     "max_m": 0.35503926624513316,
+     "rms_m": 0.018440043496840534,
+     "min_m": -0.0016933381237871359,
+     "at": {
+      "tau": -5.7667,
+      "row": 119
+     }
+    }
+   },
+   "film": {
+    "-2.25": {
+     "tau": -2.2667,
+     "d_1m_min_m": 0.8896,
+     "rows_below": 0,
+     "d_05m_min_m": 0.4425
+    },
+    "-1.333": {
+     "tau": -1.3333,
+     "d_1m_min_m": 0.7372,
+     "rows_below": 0,
+     "d_05m_min_m": 0.3681
+    },
+    "-0.5": {
+     "tau": -0.5,
+     "d_1m_min_m": 0.8393,
+     "rows_below": 0,
+     "d_05m_min_m": 0.3663
+    },
+    "0.0": {
+     "tau": 0.0,
+     "d_1m_min_m": 0.5763,
+     "rows_below": 0,
+     "d_05m_min_m": 0.4503
+    }
+   },
+   "hermite": {
+    "frames_30hz_max_m": 0.0034378271761842574,
+    "frames_30hz_at": {
+     "tau": -4.2667,
+     "row": 102,
+     "col": 169
+    },
+    "frames_30hz_p99_of_frame_p99_m": 0.001461509143032858,
+    "uniform_interval_midpoints": {
+     "n": 183,
+     "max_m": 0.0026089222839215543,
+     "at_tau": -4.96875
+    },
+    "nonuniform_intervals": {
+     "n_intervals": 42,
+     "n_samples": 336,
+     "max_m": 0.003511105428359897,
+     "at_tau": -4.270833333333333,
+     "spacing_at_worst": [
+      0.0625,
+      0.0625,
+      0.03125
+     ],
+     "intervals_tau": [
+      [
+       -11.875,
+       -11.75,
+       2.0
+      ],
+      [
+       -11.75,
+       -11.5,
+       2.0
+      ],
+      [
+       -6.25,
+       -6.0,
+       2.0
+      ],
+      [
+       -6.0,
+       -5.875,
+       2.0
+      ],
+      [
+       -5.375,
+       -5.25,
+       2.0
+      ],
+      [
+       -5.25,
+       -5.1875,
+       2.0
+      ],
+      [
+       -4.3125,
+       -4.25,
+       2.0
+      ],
+      [
+       -4.25,
+       -4.21875,
+       2.0
+      ],
+      [
+       -3.03125,
+       -3.0,
+       3.750000150000032
+      ],
+      [
+       -3.0,
+       -2.991666667,
+       3.750000150000032
+      ],
+      [
+       -2.991666667,
+       -2.983333334,
+       2.000000120000015
+      ],
+      [
+       -2.983333334,
+       -2.966666667,
+       2.000000120000015
+      ],
+      [
+       -2.966666667,
+       -2.933333333,
+       2.0
+      ],
+      [
+       -1.933333333,
+       -1.9,
+       2.0000000600000205
+      ],
+      [
+       -1.9,
+       -1.883333334,
+       2.0000000600000205
+      ],
+      [
+       -1.85,
+       -1.833333333,
+       1.9999999399999695
+      ],
+      [
+       -1.833333333,
+       -1.8,
+       2.0000000599999805
+      ],
+      [
+       -1.8,
+       -1.783333334,
+       2.0000000599999805
+      ],
+      [
+       -1.633333333,
+       -1.616666666,
+       2.000000120000015
+      ],
+      [
+       -1.616666666,
+       -1.608333333,
+       2.000000120000015
+      ],
+      [
+       -1.591666667,
+       -1.583333334,
+       2.000000120000015
+      ],
+      [
+       -1.583333334,
+       -1.566666667,
+       2.000000120000015
+      ],
+      [
+       -1.566666667,
+       -1.558333334,
+       2.000000120000015
+      ],
+      [
+       -1.475,
+       -1.466666667,
+       2.0000001199999615
+      ],
+      [
+       -1.466666667,
+       -1.45,
+       2.0000001199999615
+      ],
+      [
+       -1.45,
+       -1.441666666,
+       1.9999998799999996
+      ],
+      [
+       -1.425,
+       -1.416666666,
+       1.9999997600000259
+      ],
+      [
+       -1.416666666,
+       -1.4,
+       2.0000000000000266
+      ],
+      [
+       -1.4,
+       -1.391666667,
+       2.0000000000000266
+      ],
+      [
+       -1.391666667,
+       -1.383333334,
+       2.000000120000015
+      ],
+      [
+       -1.383333334,
+       -1.366666667,
+       2.000000120000015
+      ],
+      [
+       -1.366666667,
+       -1.35,
+       1.9999998799999996
+      ],
+      [
+       -1.35,
+       -1.341666666,
+       1.9999998799999996
+      ],
+      [
+       -1.275,
+       -1.266666667,
+       2.000000120000015
+      ],
+      [
+       -1.266666667,
+       -1.25,
+       2.000000120000015
+      ],
+      [
+       -1.25,
+       -1.241666666,
+       1.9999998799999996
+      ],
+      [
+       -1.241666666,
+       -1.233333333,
+       2.000000120000015
+      ],
+      [
+       -1.233333333,
+       -1.216666666,
+       2.000000120000015
+      ],
+      [
+       -1.116666666,
+       -1.1,
+       2.0000000600000205
+      ],
+      [
+       -1.1,
+       -1.066666667,
+       2.0000000600000205
+      ],
+      [
+       -0.233333333,
+       -0.2,
+       2.000000059999999
+      ],
+      [
+       -0.2,
+       -0.183333334,
+       2.000000059999999
+      ]
+     ]
+    },
+    "note_ja": "パッケージの再生（量子化した節点の Hermite）と正確な表示の網（生成器の値を網に写したもの）の差、全頂点の最大。節点の間隔が変わる所＝隣の区間との間隔の比が 1.5 以上の区間（内側の 8 点）。"
+   },
+   "deviation_from_ds28_motion": {
+    "chord_dist_max_m": 4.019101572477423,
+    "chord_dist_max_tau": -2.8,
+    "chord_dist_rms_m": 0.0777087901488901,
+    "chord_normal_max_m": 0.793210689382898,
+    "chord_normal_max_tau": -2.9,
+    "chord_normal_rms_m": 0.0159400058835177,
+    "frames_hz": 10.0,
+    "samples": 25904043,
+    "note_ja": "表示の網（正確）の辺の 1/4・1/2・3/4 の点と、同じ媒介変数の源の面（設計28 の動き）の点の差。距離と源の面の法線の成分"
+   },
+   "gpu_estimate": {
+    "position_buffer_mib": 31.036376953125,
+    "twhite_mib": 0.091552734375,
+    "mesh_vertex_mib_estimate": 1.46484375,
+    "mesh_index_mib": 0.5420150756835938,
+    "note_ja": "位置 = 層 × 頂点 × 6 バイト（設計27 の再生器：StructuredBuffer<uint> に 16 bit × 3、CPU の写しなし）。網の頂点は位置・法線・接線・UV・UV2・UV3 の見積もり（Unity の実測ではない）",
+    "total_mib_estimate": 33.134788513183594,
+    "within_512": true
+   },
+   "measure_file": "Unity/Build/Design/29/r01/measure/half_120x200.json",
+   "qa": {
+    "非多様体の辺": {
+     "value": 0,
+     "threshold": "0",
+     "pass_": true
+    },
+    "縁の輪（外周のほか＝継ぎ目・穴）": {
+     "value": 0,
+     "threshold": "0（117）",
+     "pass_": true
+    },
+    "面の向きの反転（隣と巻き方向が食い違う辺）": {
+     "value": 0,
+     "threshold": "0",
+     "pass_": true
+    },
+    "使われない頂点・添字の潰れた面": {
+     "value": [
+      0,
+      0
+     ],
+     "threshold": "0",
+     "pass_": true
+    },
+    "位置・頂点法線の NaN（コマの最大）": {
+     "value": 0,
+     "threshold": "0",
+     "pass_": true
+    },
+    "決まらない頂点法線（周りの面がすべて面積 0、コマの最大）": {
+     "value": 0,
+     "threshold": "0",
+     "pass_": true
+    },
+    "隣と逆向きの面（二面角 > 120°、コマの最大）": {
+     "value": 126,
+     "threshold": "0",
+     "pass_": false
+    },
+    "前のコマと比べた面の反転（一覧のコマの和）": {
+     "value": 0,
+     "threshold": "0",
+     "pass_": true
+    },
+    "自己交差（行の断面、線分 ≥ 5 mm、コマの和）": {
+     "value": 0,
+     "threshold": "0",
+     "pass_": true
+    },
+    "唇先の厚さ（唇先から 0.75 m 奥の鉛直）の最小_m": {
+     "value": 0.564,
+     "threshold": "≥ 0.3",
+     "pass_": true
+    },
+    "波頭の欠落：断面の頂の高さの低下／基準の唇・管の点から網までの 3 次元の距離（最大）_m": {
+     "value": [
+      0.1831,
+      0.32728
+     ],
+     "threshold": "≤ 0.02（暫定）",
+     "pass_": false
+    },
+    "座席 v1 の射線：穴（コマの和）": {
+     "value": 0,
+     "threshold": "0",
+     "pass_": true
+    },
+    "座席 v1 の射線：開いた背面（コマの和）": {
+     "value": 0,
+     "threshold": "0",
+     "pass_": true
+    },
+    "座席 v1 の射線：切断端＋縁の下のすき間（外周、t* のコマ）": {
+     "value": 0,
+     "threshold": "0",
+     "pass_": true
+    },
+    "座席 v1 の射線：切断端／縁の下のすき間（外周、t* より前のコマの和。記録）": {
+     "value": [
+      60336,
+      33296
+     ],
+     "threshold": "記録",
+     "pass_": null
+    },
+    "座席 v1 の射線：継ぎ目の切断（117、コマの和）": {
+     "value": 0,
+     "threshold": "0",
+     "pass_": true
+    },
+    "自己交差（3 次元、BVH の重なり、コマの和）": {
+     "value": 0,
+     "threshold": "0",
+     "pass_": true
+    },
+    "下を向き、上に網のない面（面の向きの反転、コマの和）": {
+     "value": 0,
+     "threshold": "0",
+     "pass_": true
+    },
+    "座席 v1 の射線：平らな海が網の上にある所（記録）": {
+     "value": 438,
+     "threshold": "記録",
+     "pass_": null
+    },
+    "30 Hz：波の枠の 1 コマの変位_m": {
+     "value": 0.5111,
+     "threshold": "< 0.6",
+     "pass_": true
+    },
+    "30 Hz：地面の二階差分（全頂点）_m": {
+     "value": 0.10556,
+     "threshold": "≤ 0.0218（2 g）",
+     "pass_": false
+    },
+    "30 Hz：前のコマと比べた面の反転（通し）": {
+     "value": 0,
+     "threshold": "0",
+     "pass_": true
+    },
+    "30 Hz：唇・管の行の方向の辺の最短_m": {
+     "value": 0.00833,
+     "threshold": "≥ 0.005（t* で近い辺は t* − 2q）",
+     "pass_": true
+    },
+    "30 Hz：唇・管の伸び（t* に対する比、行の方向／行の間）": {
+     "value": [
+      [
+       0.079,
+       3.906
+      ],
+      [
+       0.05,
+       6.674
+      ]
+     ],
+     "threshold": "0.05〜4",
+     "pass_": false
+    }
+   },
+   "qa_file": "Unity/Build/Design/29/qa_r01/half_120x200_qa.json",
+   "gpu_readback_max_m": 2.1e-05,
+   "outline_vs_ds28_px": {
+    "painting": 5.0,
+    "seat": 10.817,
+    "seat_low": 8.062
+   }
+  },
+  "full_r01": {
+   "label_ja": "240 × 400 張り直し（r01）",
+   "revision": "r01",
+   "package": "Unity/Build/Design/29/r01/full_240x400",
+   "unity": {
+    "report": "Unity/Build/Design/29/unity/full_240x400/ds29_render_report.json",
+    "report_sha256": "34fac4a12ae72c2a76888751bb62a557355a2d4fce3817c4789784caded90b6b",
+    "rows": 240,
+    "cols": 400,
+    "layers": 210,
+    "vertices": 96000,
+    "position_buffer_mib": 115.36,
+    "twhite_mib": 0.366,
+    "mesh_vb_mib": 4.39,
+    "mesh_ib_mib": 2.18,
+    "keypose_total_mib": 122.3,
+    "driver_delta_keypose_mib": 115.72,
+    "within_512": true,
+    "sdf_texture_mib_shared": 64.0,
+    "load_s": 1.3,
+    "timing": {
+     "painting": {
+      "on_ms": 0.694,
+      "off_ms": 0.603,
+      "wave_ms": 0.091,
+      "frames": 180
+     },
+     "seat": {
+      "on_ms": 0.706,
+      "off_ms": 0.587,
+      "wave_ms": 0.119,
+      "frames": 180
+     },
+     "source": "Unity/Build/Design/29/unity/full_240x400/ds29_render_report.json"
+    },
+    "protected_unchanged": true,
+    "passed": true,
+    "device": "NVIDIA GeForce RTX 3080",
+    "api": "Direct3D11",
+    "mesh": "Unity/Build/Design/29/r01/full_240x400/tstar/kstar_a45.gwb",
+    "uv3": "パッケージの頂点ごとの UV3（ds29_uv3_f32.bin）"
+   },
+   "painting_tstar": {
+    "file": "Unity/Build/Design/29/unity/full_240x400/ds27_tstar_remeasure.json",
+    "worst_abs_diff_px": 1.451,
+    "pass_": false,
+    "verdict_changes": {
+     "266": [
+      "pass",
+      "fail"
+     ]
+    },
+    "over_05px": [
+     {
+      "item": "79",
+      "measure": "boundary",
+      "px": 0.869,
+      "ref_px": 0.34,
+      "diff_px": 0.529
+     },
+     {
+      "item": "134",
+      "measure": "boundary",
+      "px": 2.112,
+      "ref_px": 0.977,
+      "diff_px": 1.135
+     },
+     {
+      "item": "175",
+      "measure": "record_excluding_lost_regions/boundary_by_class/mizuiro",
+      "px": 2.112,
+      "ref_px": 0.865,
+      "diff_px": 1.247
+     },
+     {
+      "item": "270",
+      "measure": "record_mizuiro_reading",
+      "px": 2.112,
+      "ref_px": 0.661,
+      "diff_px": 1.451
+     }
+    ],
+    "verdicts": {
+     "73": "pass",
+     "77": "pass",
+     "79": "pass",
+     "118": "pass",
+     "120": "pass",
+     "133": "pass",
+     "134": "pass",
+     "175": "fail",
+     "263": "pass",
+     "270": "pass",
+     "265": "pass",
+     "266": "fail",
+     "267": "pass",
+     "uv_no_empty_texels": "pass"
+    },
+    "item266_seat_bands": {
+     "painting": 0,
+     "seat": 1,
+     "seat_low": 0
+    }
+   },
+   "vertices": 96000,
+   "triangles": 190722,
+   "layers": 210,
+   "p13": {
+    "(1)": {
+     "value": 0.511835,
+     "pass_": true,
+     "violations": null
+    },
+    "(2)": {
+     "value": 0.024529,
+     "pass_": false,
+     "violations": null
+    },
+    "(3)": {
+     "value": -1.504136,
+     "pass_": true,
+     "violations": null
+    },
+    "(4)": {
+     "value": 0.000191,
+     "pass_": true,
+     "violations": null
+    },
+    "(5a)": {
+     "value": 0.000211,
+     "pass_": true,
+     "violations": 0
+    },
+    "(5b)": {
+     "value": 0.003301,
+     "pass_": false,
+     "violations": 26199
+    },
+    "(5c)": {
+     "value": [
+      0.0375,
+      6.471
+     ],
+     "pass_": false,
+     "violations": 9
+    },
+    "(5d)": {
+     "value": [
+      0.0353,
+      13.116
+     ],
+     "pass_": false,
+     "violations": 15224
+    },
+    "(5e)": {
+     "value": [
+      0.3291,
+      2.449
+     ],
+     "pass_": true,
+     "violations": 0
+    },
+    "(5f)": {
+     "value": 0,
+     "pass_": true,
+     "violations": null
+    },
+    "(5g)": {
+     "value": 0,
+     "pass_": true,
+     "violations": null
+    },
+    "(6)": {
+     "value": 0.000211,
+     "pass_": true,
+     "violations": 0
+    }
+   },
+   "p13_fail": 4,
+   "tstar_vs_kstar": {
+    "vs_kstar_chord_dist_max_m": 0.279647505197323,
+    "vs_kstar_chord_dist_rms_m": 0.0047473788448521076,
+    "vs_kstar_chord_normal_max_m": 0.12125935387469555,
+    "vs_kstar_chord_normal_rms_m": 0.0020047878773793914,
+    "vertices_on_kstar_surface_max_m": 0.0,
+    "package_last_layer_vs_exact_max_m": 0.0012055759263224258
+   },
+   "crest_loss": {
+    "exact_crest_height_curled_rows": {
+     "max_m": 0.02330064790307773,
+     "rms_m": 0.0008694518309082507,
+     "min_m": 0.0,
+     "at": {
+      "tau": -1.8333,
+      "row": 176
+     }
+    },
+    "exact_crest_height": {
+     "max_m": 0.02330064790307773,
+     "rms_m": 0.0006492913660135249,
+     "min_m": 0.0,
+     "at": {
+      "tau": -1.8333,
+      "row": 176
+     }
+    },
+    "exact_lip_reach": {
+     "max_m": 0.0,
+     "rms_m": 0.0,
+     "min_m": 0.0,
+     "at": {
+      "tau": -12.0,
+      "row": 60
+     }
+    },
+    "playback_crest_height_curled_rows": {
+     "max_m": 0.023392108520031485,
+     "rms_m": 0.0008864809510794845,
+     "min_m": -0.0016521879295723352,
+     "at": {
+      "tau": -1.8333,
+      "row": 176
+     }
+    },
+    "playback_crest_height": {
+     "max_m": 0.023392108520031485,
+     "rms_m": 0.0006774857170500889,
+     "min_m": -0.0017064675107727467,
+     "at": {
+      "tau": -1.8333,
+      "row": 176
+     }
+    }
+   },
+   "film": {
+    "-2.25": {
+     "tau": -2.2667,
+     "d_1m_min_m": 0.8902,
+     "rows_below": 0,
+     "d_05m_min_m": 0.4381
+    },
+    "-1.333": {
+     "tau": -1.3333,
+     "d_1m_min_m": 0.7603,
+     "rows_below": 0,
+     "d_05m_min_m": 0.3929
+    },
+    "-0.5": {
+     "tau": -0.5,
+     "d_1m_min_m": 0.7773,
+     "rows_below": 0,
+     "d_05m_min_m": 0.297
+    },
+    "0.0": {
+     "tau": 0.0,
+     "d_1m_min_m": 0.568,
+     "rows_below": 0,
+     "d_05m_min_m": 0.3869
+    }
+   },
+   "hermite": {
+    "frames_30hz_max_m": 0.0032831463392671654,
+    "frames_30hz_at": {
+     "tau": -4.2667,
+     "row": 205,
+     "col": 344
+    },
+    "frames_30hz_p99_of_frame_p99_m": 0.0014606634574553536,
+    "uniform_interval_midpoints": {
+     "n": 182,
+     "max_m": 0.0031764404255755826,
+     "at_tau": -1.5416666665
+    },
+    "nonuniform_intervals": {
+     "n_intervals": 27,
+     "n_samples": 216,
+     "max_m": 0.003391697194280919,
+     "at_tau": -4.270833333333333,
+     "spacing_at_worst": [
+      0.0625,
+      0.0625,
+      0.03125
+     ],
+     "intervals_tau": [
+      [
+       -11.875,
+       -11.75,
+       2.0
+      ],
+      [
+       -11.75,
+       -11.5,
+       2.0
+      ],
+      [
+       -6.25,
+       -6.0,
+       2.0
+      ],
+      [
+       -6.0,
+       -5.875,
+       2.0
+      ],
+      [
+       -5.375,
+       -5.25,
+       2.0
+      ],
+      [
+       -5.25,
+       -5.1875,
+       2.0
+      ],
+      [
+       -4.3125,
+       -4.25,
+       2.0
+      ],
+      [
+       -4.25,
+       -4.21875,
+       2.0
+      ],
+      [
+       -3.03125,
+       -3.0,
+       3.750000150000032
+      ],
+      [
+       -3.0,
+       -2.991666667,
+       3.750000150000032
+      ],
+      [
+       -2.991666667,
+       -2.983333334,
+       2.000000120000015
+      ],
+      [
+       -2.983333334,
+       -2.966666667,
+       2.000000120000015
+      ],
+      [
+       -2.966666667,
+       -2.933333333,
+       2.0
+      ],
+      [
+       -1.966666667,
+       -1.933333333,
+       2.0
+      ],
+      [
+       -1.933333333,
+       -1.916666666,
+       2.0
+      ],
+      [
+       -1.916666666,
+       -1.9,
+       2.0000000599999805
+      ],
+      [
+       -1.9,
+       -1.866666667,
+       2.0000000599999805
+      ],
+      [
+       -1.866666667,
+       -1.833333333,
+       2.0000000000000133
+      ],
+      [
+       -1.833333333,
+       -1.816666666,
+       2.0000000000000133
+      ],
+      [
+       -1.65,
+       -1.633333333,
+       2.000000120000015
+      ],
+      [
+       -1.633333333,
+       -1.625,
+       2.000000120000015
+      ],
+      [
+       -1.625,
+       -1.616666666,
+       1.9999997599999992
+      ],
+      [
+       -1.616666666,
+       -1.6,
+       1.9999997599999992
+      ],
+      [
+       -1.116666666,
+       -1.1,
+       2.0000000600000205
+      ],
+      [
+       -1.1,
+       -1.066666667,
+       2.0000000600000205
+      ],
+      [
+       -0.233333333,
+       -0.2,
+       2.000000059999999
+      ],
+      [
+       -0.2,
+       -0.183333334,
+       2.000000059999999
+      ]
+     ]
+    },
+    "note_ja": "パッケージの再生（量子化した節点の Hermite）と正確な表示の網（生成器の値を網に写したもの）の差、全頂点の最大。節点の間隔が変わる所＝隣の区間との間隔の比が 1.5 以上の区間（内側の 8 点）。"
+   },
+   "deviation_from_ds28_motion": {
+    "chord_dist_max_m": 0.5140294362421525,
+    "chord_dist_max_tau": -2.8,
+    "chord_dist_rms_m": 0.005005801557334884,
+    "chord_normal_max_m": 0.16610208561945164,
+    "chord_normal_max_tau": -1.4,
+    "chord_normal_rms_m": 0.0009624275887687165,
+    "frames_hz": 10.0,
+    "samples": 104079723,
+    "note_ja": "表示の網（正確）の辺の 1/4・1/2・3/4 の点と、同じ媒介変数の源の面（設計28 の動き）の点の差。距離と源の面の法線の成分"
+   },
+   "gpu_estimate": {
+    "position_buffer_mib": 115.3564453125,
+    "twhite_mib": 0.3662109375,
+    "mesh_vertex_mib_estimate": 5.859375,
+    "mesh_index_mib": 2.1826400756835938,
+    "note_ja": "位置 = 層 × 頂点 × 6 バイト（設計27 の再生器：StructuredBuffer<uint> に 16 bit × 3、CPU の写しなし）。網の頂点は位置・法線・接線・UV・UV2・UV3 の見積もり（Unity の実測ではない）",
+    "total_mib_estimate": 123.7646713256836,
+    "within_512": true
+   },
+   "measure_file": "Unity/Build/Design/29/r01/measure/full_240x400.json",
+   "qa": {
+    "非多様体の辺": {
+     "value": 0,
+     "threshold": "0",
+     "pass_": true
+    },
+    "縁の輪（外周のほか＝継ぎ目・穴）": {
+     "value": 0,
+     "threshold": "0（117）",
+     "pass_": true
+    },
+    "面の向きの反転（隣と巻き方向が食い違う辺）": {
+     "value": 0,
+     "threshold": "0",
+     "pass_": true
+    },
+    "使われない頂点・添字の潰れた面": {
+     "value": [
+      0,
+      0
+     ],
+     "threshold": "0",
+     "pass_": true
+    },
+    "位置・頂点法線の NaN（コマの最大）": {
+     "value": 0,
+     "threshold": "0",
+     "pass_": true
+    },
+    "決まらない頂点法線（周りの面がすべて面積 0、コマの最大）": {
+     "value": 0,
+     "threshold": "0",
+     "pass_": true
+    },
+    "隣と逆向きの面（二面角 > 120°、コマの最大）": {
+     "value": 248,
+     "threshold": "0",
+     "pass_": false
+    },
+    "前のコマと比べた面の反転（一覧のコマの和）": {
+     "value": 0,
+     "threshold": "0",
+     "pass_": true
+    },
+    "自己交差（行の断面、線分 ≥ 5 mm、コマの和）": {
+     "value": 0,
+     "threshold": "0",
+     "pass_": true
+    },
+    "唇先の厚さ（唇先から 0.75 m 奥の鉛直）の最小_m": {
+     "value": 0.557,
+     "threshold": "≥ 0.3",
+     "pass_": true
+    },
+    "波頭の欠落：断面の頂の高さの低下／基準の唇・管の点から網までの 3 次元の距離（最大）_m": {
+     "value": [
+      0.0759,
+      0.03458
+     ],
+     "threshold": "≤ 0.02（暫定）",
+     "pass_": false
+    },
+    "座席 v1 の射線：穴（コマの和）": {
+     "value": 0,
+     "threshold": "0",
+     "pass_": true
+    },
+    "座席 v1 の射線：開いた背面（コマの和）": {
+     "value": 0,
+     "threshold": "0",
+     "pass_": true
+    },
+    "座席 v1 の射線：切断端＋縁の下のすき間（外周、t* のコマ）": {
+     "value": 0,
+     "threshold": "0",
+     "pass_": true
+    },
+    "座席 v1 の射線：切断端／縁の下のすき間（外周、t* より前のコマの和。記録）": {
+     "value": [
+      37215,
+      33303
+     ],
+     "threshold": "記録",
+     "pass_": null
+    },
+    "座席 v1 の射線：継ぎ目の切断（117、コマの和）": {
+     "value": 0,
+     "threshold": "0",
+     "pass_": true
+    },
+    "自己交差（3 次元、BVH の重なり、コマの和）": {
+     "value": 0,
+     "threshold": "0",
+     "pass_": true
+    },
+    "下を向き、上に網のない面（面の向きの反転、コマの和）": {
+     "value": 0,
+     "threshold": "0",
+     "pass_": true
+    },
+    "座席 v1 の射線：平らな海が網の上にある所（記録）": {
+     "value": 435,
+     "threshold": "記録",
+     "pass_": null
+    },
+    "30 Hz：波の枠の 1 コマの変位_m": {
+     "value": 0.5118,
+     "threshold": "< 0.6",
+     "pass_": true
+    },
+    "30 Hz：地面の二階差分（全頂点）_m": {
+     "value": 0.11118,
+     "threshold": "≤ 0.0218（2 g）",
+     "pass_": false
+    },
+    "30 Hz：前のコマと比べた面の反転（通し）": {
+     "value": 1,
+     "threshold": "0",
+     "pass_": false
+    },
+    "30 Hz：唇・管の行の方向の辺の最短_m": {
+     "value": 0.0033,
+     "threshold": "≥ 0.005（t* で近い辺は t* − 2q）",
+     "pass_": false
+    },
+    "30 Hz：唇・管の伸び（t* に対する比、行の方向／行の間）": {
+     "value": [
+      [
+       0.038,
+       6.415
+      ],
+      [
+       0.035,
+       13.119
+      ]
+     ],
+     "threshold": "0.05〜4",
+     "pass_": false
+    }
+   },
+   "qa_file": "Unity/Build/Design/29/qa_r01/full_240x400_qa.json",
+   "gpu_readback_max_m": 2.3e-05,
+   "outline_vs_ds28_px": {
+    "painting": 2.121,
+    "seat": 1.0,
+    "seat_low": 1.0
+   }
+  },
+  "half_r02": {
+   "label_ja": "120 × 200 張り直し（r02）",
+   "revision": "r02",
+   "package": "Unity/Build/Design/29/r02/half_120x200",
+   "unity": {
+    "report": "Unity/Build/Design/29/unity/half_120x200_r02/ds29_render_report.json",
+    "report_sha256": "2caf03540da2ade8e985a0f6aa1e1812829a53becdc3e3e28ef7bb4e97cdf860",
+    "rows": 120,
+    "cols": 200,
+    "layers": 226,
+    "vertices": 24000,
+    "position_buffer_mib": 31.04,
+    "twhite_mib": 0.092,
+    "mesh_vb_mib": 1.1,
+    "mesh_ib_mib": 0.54,
+    "keypose_total_mib": 32.77,
+    "driver_delta_keypose_mib": 31.13,
+    "within_512": true,
+    "sdf_texture_mib_shared": 64.0,
+    "load_s": 0.99,
+    "timing": {
+     "painting": {
+      "on_ms": 0.677,
+      "off_ms": 0.592,
+      "wave_ms": 0.084,
+      "frames": 600
+     },
+     "seat": {
+      "on_ms": 0.552,
+      "off_ms": 0.502,
+      "wave_ms": 0.05,
+      "frames": 600
+     },
+     "source": "Unity/Build/Design/29/unity/timing/half_120x200_r02/ds29_render_report.json"
+    },
+    "protected_unchanged": true,
+    "passed": true,
+    "device": "NVIDIA GeForce RTX 3080",
+    "api": "Direct3D11",
+    "mesh": "Unity/Build/Design/29/r02/half_120x200/tstar/kstar_a45.gwb",
+    "uv3": "パッケージの頂点ごとの UV3（ds29_uv3_f32.bin）"
+   },
+   "painting_tstar": {
+    "file": "Unity/Build/Design/29/unity/half_120x200_r02/ds27_tstar_remeasure.json",
+    "worst_abs_diff_px": 150.917,
+    "pass_": false,
+    "verdict_changes": {
+     "73": [
+      "pass",
+      "fail"
+     ],
+     "77": [
+      "pass",
+      "fail"
+     ],
+     "118": [
+      "pass",
+      "fail"
+     ],
+     "120": [
+      "pass",
+      "fail"
+     ],
+     "134": [
+      "pass",
+      "fail"
+     ],
+     "270": [
+      "pass",
+      "fail"
+     ],
+     "266": [
+      "pass",
+      "fail"
+     ],
+     "267": [
+      "pass",
+      "fail"
+     ]
+    },
+    "over_05px": [
+     {
+      "item": "73",
+      "measure": "boundary",
+      "px": 7.208,
+      "ref_px": 0.655,
+      "diff_px": 6.553
+     },
+     {
+      "item": "77",
+      "measure": "lower_ends",
+      "px": 2.114,
+      "ref_px": 1.17,
+      "diff_px": 0.944
+     },
+     {
+      "item": "79",
+      "measure": "boundary",
+      "px": 2.885,
+      "ref_px": 0.34,
+      "diff_px": 2.545
+     },
+     {
+      "item": "118",
+      "measure": "boundary",
+      "px": 7.368,
+      "ref_px": 0.655,
+      "diff_px": 6.713
+     },
+     {
+      "item": "120",
+      "measure": "boundary",
+      "px": 4.755,
+      "ref_px": 0.288,
+      "diff_px": 4.467
+     },
+     {
+      "item": "133",
+      "measure": "boundary",
+      "px": 3.54,
+      "ref_px": 0.402,
+      "diff_px": 3.138
+     },
+     {
+      "item": "134",
+      "measure": "boundary",
+      "px": 8.975,
+      "ref_px": 0.977,
+      "diff_px": 7.998
+     },
+     {
+      "item": "175",
+      "measure": "boundary_by_class/ai_dark",
+      "px": 151.226,
+      "ref_px": 0.309,
+      "diff_px": 150.917
+     },
+     {
+      "item": "175",
+      "measure": "boundary_by_class/ai_mid",
+      "px": 6.059,
+      "ref_px": 2.41,
+      "diff_px": 3.649
+     },
+     {
+      "item": "175",
+      "measure": "boundary_by_class/mizuiro",
+      "px": 19.461,
+      "ref_px": 18.375,
+      "diff_px": 1.086
+     },
+     {
+      "item": "175",
+      "measure": "record_excluding_lost_regions/boundary_by_class/ai_dark",
+      "px": 151.226,
+      "ref_px": 0.309,
+      "diff_px": 150.917
+     },
+     {
+      "item": "175",
+      "measure": "record_excluding_lost_regions/boundary_by_class/ai_mid",
+      "px": 6.059,
+      "ref_px": 2.41,
+      "diff_px": 3.649
+     },
+     {
+      "item": "175",
+      "measure": "record_excluding_lost_regions/boundary_by_class/mizuiro",
+      "px": 8.431,
+      "ref_px": 0.865,
+      "diff_px": 7.566
+     },
+     {
+      "item": "263",
+      "measure": "boundary_lower",
+      "px": 2.436,
+      "ref_px": 0.559,
+      "diff_px": 1.877
+     },
+     {
+      "item": "270",
+      "measure": "boundary",
+      "px": 5.969,
+      "ref_px": 0.563,
+      "diff_px": 5.406
+     },
+     {
+      "item": "270",
+      "measure": "record_mizuiro_reading",
+      "px": 8.975,
+      "ref_px": 0.661,
+      "diff_px": 8.314
+     }
+    ],
+    "verdicts": {
+     "73": "fail",
+     "77": "fail",
+     "79": "pass",
+     "118": "fail",
+     "120": "fail",
+     "133": "pass",
+     "134": "fail",
+     "175": "fail",
+     "263": "pass",
+     "270": "fail",
+     "265": "pass",
+     "266": "fail",
+     "267": "fail",
+     "uv_no_empty_texels": "pass"
+    },
+    "item266_seat_bands": {
+     "painting": 2,
+     "seat": 0,
+     "seat_low": 0
+    }
+   },
+   "vertices": 24000,
+   "triangles": 47362,
+   "layers": 226,
+   "p13": {
+    "(1)": {
+     "value": 0.511481,
+     "pass_": true,
+     "violations": null
+    },
+    "(2)": {
+     "value": 0.024828,
+     "pass_": false,
+     "violations": null
+    },
+    "(3)": {
+     "value": -1.503731,
+     "pass_": true,
+     "violations": null
+    },
+    "(4)": {
+     "value": 0.061363,
+     "pass_": false,
+     "violations": null
+    },
+    "(5a)": {
+     "value": 0.001763,
+     "pass_": true,
+     "violations": 0
+    },
+    "(5b)": {
+     "value": 0.005135,
+     "pass_": true,
+     "violations": 0
+    },
+    "(5c)": {
+     "value": [
+      0.0984,
+      3.604
+     ],
+     "pass_": true,
+     "violations": 0
+    },
+    "(5d)": {
+     "value": [
+      0.05,
+      6.665
+     ],
+     "pass_": false,
+     "violations": 761
+    },
+    "(5e)": {
+     "value": [
+      0.3984,
+      1.968
+     ],
+     "pass_": true,
+     "violations": 0
+    },
+    "(5f)": {
+     "value": 0,
+     "pass_": true,
+     "violations": null
+    },
+    "(5g)": {
+     "value": 0,
+     "pass_": true,
+     "violations": null
+    },
+    "(6)": {
+     "value": 0.000349,
+     "pass_": true,
+     "violations": 0
+    }
+   },
+   "p13_fail": 3,
+   "tstar_vs_kstar": {
+    "vs_kstar_chord_dist_max_m": 2.1869719641878245,
+    "vs_kstar_chord_dist_rms_m": 0.06450219355099769,
+    "vs_kstar_chord_normal_max_m": 0.26689653725250245,
+    "vs_kstar_chord_normal_rms_m": 0.01285717917717061,
+    "vertices_on_kstar_surface_max_m": 0.0,
+    "package_last_layer_vs_exact_max_m": 0.001204001219353497
+   },
+   "crest_loss": {
+    "exact_crest_height_curled_rows": {
+     "max_m": 0.0467919781957562,
+     "rms_m": 0.0035094613176965767,
+     "min_m": 0.0,
+     "at": {
+      "tau": 0.0,
+      "row": 51
+     }
+    },
+    "exact_crest_height": {
+     "max_m": 0.3549828541355866,
+     "rms_m": 0.01844259741017038,
+     "min_m": 0.0,
+     "at": {
+      "tau": -5.7667,
+      "row": 119
+     }
+    },
+    "exact_lip_reach": {
+     "max_m": 5.684341886080802e-14,
+     "rms_m": 8.478721510977095e-15,
+     "min_m": -5.684341886080802e-14,
+     "at": {
+      "tau": -11.6667,
+      "row": 83
+     }
+    },
+    "playback_crest_height_curled_rows": {
+     "max_m": 0.04682767448025871,
+     "rms_m": 0.003510513148147727,
+     "min_m": -0.0016107367992885813,
+     "at": {
+      "tau": 0.0,
+      "row": 51
+     }
+    },
+    "playback_crest_height": {
+     "max_m": 0.35503926624513316,
+     "rms_m": 0.01845603895316634,
+     "min_m": -0.0016933381237871359,
+     "at": {
+      "tau": -5.7667,
+      "row": 119
+     }
+    }
+   },
+   "film": {
+    "-2.25": {
+     "tau": -2.2667,
+     "d_1m_min_m": 0.8945,
+     "rows_below": 0,
+     "d_05m_min_m": 0.4384
+    },
+    "-1.333": {
+     "tau": -1.3333,
+     "d_1m_min_m": 0.7519,
+     "rows_below": 0,
+     "d_05m_min_m": 0.3837
+    },
+    "-0.5": {
+     "tau": -0.5,
+     "d_1m_min_m": 0.8489,
+     "rows_below": 0,
+     "d_05m_min_m": 0.3759
+    },
+    "0.0": {
+     "tau": 0.0,
+     "d_1m_min_m": 0.5775,
+     "rows_below": 0,
+     "d_05m_min_m": 0.4146
+    }
+   },
+   "hermite": {
+    "frames_30hz_max_m": 0.0034378271761842574,
+    "frames_30hz_at": {
+     "tau": -4.2667,
+     "row": 102,
+     "col": 169
+    },
+    "frames_30hz_p99_of_frame_p99_m": 0.001464193137702147,
+    "uniform_interval_midpoints": {
+     "n": 183,
+     "max_m": 0.0026089222839215543,
+     "at_tau": -4.96875
+    },
+    "nonuniform_intervals": {
+     "n_intervals": 42,
+     "n_samples": 336,
+     "max_m": 0.003511105428359897,
+     "at_tau": -4.270833333333333,
+     "spacing_at_worst": [
+      0.0625,
+      0.0625,
+      0.03125
+     ],
+     "intervals_tau": [
+      [
+       -11.875,
+       -11.75,
+       2.0
+      ],
+      [
+       -11.75,
+       -11.5,
+       2.0
+      ],
+      [
+       -6.25,
+       -6.0,
+       2.0
+      ],
+      [
+       -6.0,
+       -5.875,
+       2.0
+      ],
+      [
+       -5.375,
+       -5.25,
+       2.0
+      ],
+      [
+       -5.25,
+       -5.1875,
+       2.0
+      ],
+      [
+       -4.3125,
+       -4.25,
+       2.0
+      ],
+      [
+       -4.25,
+       -4.21875,
+       2.0
+      ],
+      [
+       -3.03125,
+       -3.0,
+       3.750000150000032
+      ],
+      [
+       -3.0,
+       -2.991666667,
+       3.750000150000032
+      ],
+      [
+       -2.991666667,
+       -2.983333334,
+       2.000000120000015
+      ],
+      [
+       -2.983333334,
+       -2.966666667,
+       2.000000120000015
+      ],
+      [
+       -2.966666667,
+       -2.933333333,
+       2.0
+      ],
+      [
+       -1.933333333,
+       -1.9,
+       2.0000000600000205
+      ],
+      [
+       -1.9,
+       -1.883333334,
+       2.0000000600000205
+      ],
+      [
+       -1.85,
+       -1.833333333,
+       1.9999999399999695
+      ],
+      [
+       -1.833333333,
+       -1.8,
+       2.0000000599999805
+      ],
+      [
+       -1.8,
+       -1.783333334,
+       2.0000000599999805
+      ],
+      [
+       -1.633333333,
+       -1.616666666,
+       2.000000120000015
+      ],
+      [
+       -1.616666666,
+       -1.608333333,
+       2.000000120000015
+      ],
+      [
+       -1.591666667,
+       -1.583333334,
+       2.000000120000015
+      ],
+      [
+       -1.583333334,
+       -1.566666667,
+       2.000000120000015
+      ],
+      [
+       -1.566666667,
+       -1.558333334,
+       2.000000120000015
+      ],
+      [
+       -1.475,
+       -1.466666667,
+       2.0000001199999615
+      ],
+      [
+       -1.466666667,
+       -1.45,
+       2.0000001199999615
+      ],
+      [
+       -1.45,
+       -1.441666666,
+       1.9999998799999996
+      ],
+      [
+       -1.425,
+       -1.416666666,
+       1.9999997600000259
+      ],
+      [
+       -1.416666666,
+       -1.4,
+       2.0000000000000266
+      ],
+      [
+       -1.4,
+       -1.391666667,
+       2.0000000000000266
+      ],
+      [
+       -1.391666667,
+       -1.383333334,
+       2.000000120000015
+      ],
+      [
+       -1.383333334,
+       -1.366666667,
+       2.000000120000015
+      ],
+      [
+       -1.366666667,
+       -1.35,
+       1.9999998799999996
+      ],
+      [
+       -1.35,
+       -1.341666666,
+       1.9999998799999996
+      ],
+      [
+       -1.275,
+       -1.266666667,
+       2.000000120000015
+      ],
+      [
+       -1.266666667,
+       -1.25,
+       2.000000120000015
+      ],
+      [
+       -1.25,
+       -1.241666666,
+       1.9999998799999996
+      ],
+      [
+       -1.241666666,
+       -1.233333333,
+       2.000000120000015
+      ],
+      [
+       -1.233333333,
+       -1.216666666,
+       2.000000120000015
+      ],
+      [
+       -1.116666666,
+       -1.1,
+       2.0000000600000205
+      ],
+      [
+       -1.1,
+       -1.066666667,
+       2.0000000600000205
+      ],
+      [
+       -0.233333333,
+       -0.2,
+       2.000000059999999
+      ],
+      [
+       -0.2,
+       -0.183333334,
+       2.000000059999999
+      ]
+     ]
+    },
+    "note_ja": "パッケージの再生（量子化した節点の Hermite）と正確な表示の網（生成器の値を網に写したもの）の差、全頂点の最大。節点の間隔が変わる所＝隣の区間との間隔の比が 1.5 以上の区間（内側の 8 点）。"
+   },
+   "deviation_from_ds28_motion": {
+    "chord_dist_max_m": 4.019101572477423,
+    "chord_dist_max_tau": -2.8,
+    "chord_dist_rms_m": 0.07776853400087916,
+    "chord_normal_max_m": 0.793210689382898,
+    "chord_normal_max_tau": -2.9,
+    "chord_normal_rms_m": 0.0159862833135655,
+    "frames_hz": 10.0,
+    "samples": 25904043,
+    "note_ja": "表示の網（正確）の辺の 1/4・1/2・3/4 の点と、同じ媒介変数の源の面（設計28 の動き）の点の差。距離と源の面の法線の成分"
+   },
+   "gpu_estimate": {
+    "position_buffer_mib": 31.036376953125,
+    "twhite_mib": 0.091552734375,
+    "mesh_vertex_mib_estimate": 1.46484375,
+    "mesh_index_mib": 0.5420150756835938,
+    "note_ja": "位置 = 層 × 頂点 × 6 バイト（設計27 の再生器：StructuredBuffer<uint> に 16 bit × 3、CPU の写しなし）。網の頂点は位置・法線・接線・UV・UV2・UV3 の見積もり（Unity の実測ではない）",
+    "total_mib_estimate": 33.134788513183594,
+    "within_512": true
+   },
+   "measure_file": "Unity/Build/Design/29/r02/measure/half_120x200.json",
+   "qa": {
+    "非多様体の辺": {
+     "value": 0,
+     "threshold": "0",
+     "pass_": true
+    },
+    "縁の輪（外周のほか＝継ぎ目・穴）": {
+     "value": 0,
+     "threshold": "0（117）",
+     "pass_": true
+    },
+    "面の向きの反転（隣と巻き方向が食い違う辺）": {
+     "value": 0,
+     "threshold": "0",
+     "pass_": true
+    },
+    "使われない頂点・添字の潰れた面": {
+     "value": [
+      0,
+      0
+     ],
+     "threshold": "0",
+     "pass_": true
+    },
+    "位置・頂点法線の NaN（コマの最大）": {
+     "value": 0,
+     "threshold": "0",
+     "pass_": true
+    },
+    "決まらない頂点法線（周りの面がすべて面積 0、コマの最大）": {
+     "value": 3,
+     "threshold": "0",
+     "pass_": false
+    },
+    "隣と逆向きの面（二面角 > 120°、コマの最大）": {
+     "value": 89,
+     "threshold": "0",
+     "pass_": false
+    },
+    "前のコマと比べた面の反転（一覧のコマの和）": {
+     "value": 0,
+     "threshold": "0",
+     "pass_": true
+    },
+    "自己交差（行の断面、線分 ≥ 5 mm、コマの和）": {
+     "value": 0,
+     "threshold": "0",
+     "pass_": true
+    },
+    "唇先の厚さ（唇先から 0.75 m 奥の鉛直）の最小_m": {
+     "value": 0.568,
+     "threshold": "≥ 0.3",
+     "pass_": true
+    },
+    "波頭の欠落：断面の頂の高さの低下／基準の唇・管の点から網までの 3 次元の距離（最大）_m": {
+     "value": [
+      0.1913,
+      0.41479
+     ],
+     "threshold": "≤ 0.02（暫定）",
+     "pass_": false
+    },
+    "座席 v1 の射線：穴（コマの和）": {
+     "value": 0,
+     "threshold": "0",
+     "pass_": true
+    },
+    "座席 v1 の射線：開いた背面（コマの和）": {
+     "value": 0,
+     "threshold": "0",
+     "pass_": true
+    },
+    "座席 v1 の射線：切断端＋縁の下のすき間（外周、t* のコマ）": {
+     "value": 0,
+     "threshold": "0",
+     "pass_": true
+    },
+    "座席 v1 の射線：切断端／縁の下のすき間（外周、t* より前のコマの和。記録）": {
+     "value": [
+      60336,
+      33296
+     ],
+     "threshold": "記録",
+     "pass_": null
+    },
+    "座席 v1 の射線：継ぎ目の切断（117、コマの和）": {
+     "value": 0,
+     "threshold": "0",
+     "pass_": true
+    },
+    "自己交差（3 次元、BVH の重なり、コマの和）": {
+     "value": 0,
+     "threshold": "0",
+     "pass_": true
+    },
+    "下を向き、上に網のない面（面の向きの反転、コマの和）": {
+     "value": 0,
+     "threshold": "0",
+     "pass_": true
+    },
+    "座席 v1 の射線：平らな海が網の上にある所（記録）": {
+     "value": 438,
+     "threshold": "記録",
+     "pass_": null
+    },
+    "30 Hz：波の枠の 1 コマの変位_m": {
+     "value": 0.5115,
+     "threshold": "< 0.6",
+     "pass_": true
+    },
+    "30 Hz：地面の二階差分（全頂点）_m": {
+     "value": 0.10556,
+     "threshold": "≤ 0.0218（2 g）",
+     "pass_": false
+    },
+    "30 Hz：前のコマと比べた面の反転（通し）": {
+     "value": 0,
+     "threshold": "0",
+     "pass_": true
+    },
+    "30 Hz：唇・管の行の方向の辺の最短_m": {
+     "value": 0.00514,
+     "threshold": "≥ 0.005（t* で近い辺は t* − 2q）",
+     "pass_": true
+    },
+    "30 Hz：唇・管の伸び（t* に対する比、行の方向／行の間）": {
+     "value": [
+      [
+       0.098,
+       3.603
+      ],
+      [
+       0.05,
+       6.674
+      ]
+     ],
+     "threshold": "0.05〜4",
+     "pass_": false
+    }
+   },
+   "qa_file": "Unity/Build/Design/29/qa_r02/half_120x200_qa.json",
+   "gpu_readback_max_m": 2.1e-05,
+   "outline_vs_ds28_px": {
+    "painting": 3.606,
+    "seat": 10.63,
+    "seat_low": 8.062
+   }
+  },
+  "full_r02": {
+   "label_ja": "240 × 400 張り直し（r02）",
+   "revision": "r02",
+   "package": "Unity/Build/Design/29/r02/full_240x400",
+   "unity": {
+    "report": "Unity/Build/Design/29/unity/full_240x400_r02/ds29_render_report.json",
+    "report_sha256": "c0b70bebb82bd7a3ee50ac3b64064658d28d01dbb1676b803cb300e8b2abbea6",
+    "rows": 240,
+    "cols": 400,
+    "layers": 210,
+    "vertices": 96000,
+    "position_buffer_mib": 115.36,
+    "twhite_mib": 0.366,
+    "mesh_vb_mib": 4.39,
+    "mesh_ib_mib": 2.18,
+    "keypose_total_mib": 122.3,
+    "driver_delta_keypose_mib": 115.72,
+    "within_512": true,
+    "sdf_texture_mib_shared": 64.0,
+    "load_s": 1.67,
+    "timing": {
+     "painting": {
+      "on_ms": 0.741,
+      "off_ms": 0.599,
+      "wave_ms": 0.142,
+      "frames": 600
+     },
+     "seat": {
+      "on_ms": 0.585,
+      "off_ms": 0.497,
+      "wave_ms": 0.088,
+      "frames": 600
+     },
+     "source": "Unity/Build/Design/29/unity/timing/full_240x400_r02/ds29_render_report.json"
+    },
+    "protected_unchanged": true,
+    "passed": true,
+    "device": "NVIDIA GeForce RTX 3080",
+    "api": "Direct3D11",
+    "mesh": "Unity/Build/Design/29/r02/full_240x400/tstar/kstar_a45.gwb",
+    "uv3": "パッケージの頂点ごとの UV3（ds29_uv3_f32.bin）"
+   },
+   "painting_tstar": {
+    "file": "Unity/Build/Design/29/unity/full_240x400_r02/ds27_tstar_remeasure.json",
+    "worst_abs_diff_px": 1.101,
+    "pass_": false,
+    "verdict_changes": {
+     "266": [
+      "pass",
+      "fail"
+     ]
+    },
+    "over_05px": [
+     {
+      "item": "79",
+      "measure": "boundary",
+      "px": 0.869,
+      "ref_px": 0.34,
+      "diff_px": 0.529
+     },
+     {
+      "item": "134",
+      "measure": "boundary",
+      "px": 1.762,
+      "ref_px": 0.977,
+      "diff_px": 0.785
+     },
+     {
+      "item": "175",
+      "measure": "record_excluding_lost_regions/boundary_by_class/mizuiro",
+      "px": 1.762,
+      "ref_px": 0.865,
+      "diff_px": 0.897
+     },
+     {
+      "item": "270",
+      "measure": "record_mizuiro_reading",
+      "px": 1.762,
+      "ref_px": 0.661,
+      "diff_px": 1.101
+     }
+    ],
+    "verdicts": {
+     "73": "pass",
+     "77": "pass",
+     "79": "pass",
+     "118": "pass",
+     "120": "pass",
+     "133": "pass",
+     "134": "pass",
+     "175": "fail",
+     "263": "pass",
+     "270": "pass",
+     "265": "pass",
+     "266": "fail",
+     "267": "pass",
+     "uv_no_empty_texels": "pass"
+    },
+    "item266_seat_bands": {
+     "painting": 0,
+     "seat": 1,
+     "seat_low": 0
+    }
+   },
+   "vertices": 96000,
+   "triangles": 190722,
+   "layers": 210,
+   "p13": {
+    "(1)": {
+     "value": 0.511525,
+     "pass_": true,
+     "violations": null
+    },
+    "(2)": {
+     "value": 0.024529,
+     "pass_": false,
+     "violations": null
+    },
+    "(3)": {
+     "value": -1.504136,
+     "pass_": true,
+     "violations": null
+    },
+    "(4)": {
+     "value": 0.000191,
+     "pass_": true,
+     "violations": null
+    },
+    "(5a)": {
+     "value": 0.000209,
+     "pass_": true,
+     "violations": 0
+    },
+    "(5b)": {
+     "value": 0.002276,
+     "pass_": false,
+     "violations": 156
+    },
+    "(5c)": {
+     "value": [
+      0.0375,
+      5.386
+     ],
+     "pass_": false,
+     "violations": 13
+    },
+    "(5d)": {
+     "value": [
+      0.0308,
+      13.116
+     ],
+     "pass_": false,
+     "violations": 18529
+    },
+    "(5e)": {
+     "value": [
+      0.3291,
+      2.449
+     ],
+     "pass_": true,
+     "violations": 0
+    },
+    "(5f)": {
+     "value": 0,
+     "pass_": true,
+     "violations": null
+    },
+    "(5g)": {
+     "value": 0,
+     "pass_": true,
+     "violations": null
+    },
+    "(6)": {
+     "value": 6.1e-05,
+     "pass_": true,
+     "violations": 0
+    }
+   },
+   "p13_fail": 4,
+   "tstar_vs_kstar": {
+    "vs_kstar_chord_dist_max_m": 0.279647505197323,
+    "vs_kstar_chord_dist_rms_m": 0.004348897369929776,
+    "vs_kstar_chord_normal_max_m": 0.12125935387469555,
+    "vs_kstar_chord_normal_rms_m": 0.0017481797338337033,
+    "vertices_on_kstar_surface_max_m": 0.0,
+    "package_last_layer_vs_exact_max_m": 0.0012030536235874995
+   },
+   "crest_loss": {
+    "exact_crest_height_curled_rows": {
+     "max_m": 0.013629806783296061,
+     "rms_m": 0.0006083525887131213,
+     "min_m": 0.0,
+     "at": {
+      "tau": -1.8333,
+      "row": 177
+     }
+    },
+    "exact_crest_height": {
+     "max_m": 0.013629806783296061,
+     "rms_m": 0.00045524989963326704,
+     "min_m": 0.0,
+     "at": {
+      "tau": -1.8333,
+      "row": 177
+     }
+    },
+    "exact_lip_reach": {
+     "max_m": 0.0,
+     "rms_m": 0.0,
+     "min_m": 0.0,
+     "at": {
+      "tau": -12.0,
+      "row": 60
+     }
+    },
+    "playback_crest_height_curled_rows": {
+     "max_m": 0.013446278144456869,
+     "rms_m": 0.0006313528474026665,
+     "min_m": -0.0016521879295723352,
+     "at": {
+      "tau": -1.8333,
+      "row": 177
+     }
+    },
+    "playback_crest_height": {
+     "max_m": 0.013446278144456869,
+     "rms_m": 0.0004939262477255156,
+     "min_m": -0.0017064675107727467,
+     "at": {
+      "tau": -1.8333,
+      "row": 177
+     }
+    }
+   },
+   "film": {
+    "-2.25": {
+     "tau": -2.2667,
+     "d_1m_min_m": 0.8908,
+     "rows_below": 0,
+     "d_05m_min_m": 0.4374
+    },
+    "-1.333": {
+     "tau": -1.3333,
+     "d_1m_min_m": 0.7541,
+     "rows_below": 0,
+     "d_05m_min_m": 0.3874
+    },
+    "-0.5": {
+     "tau": -0.5,
+     "d_1m_min_m": 0.7761,
+     "rows_below": 0,
+     "d_05m_min_m": 0.2954
+    },
+    "0.0": {
+     "tau": 0.0,
+     "d_1m_min_m": 0.5645,
+     "rows_below": 0,
+     "d_05m_min_m": 0.3684
+    }
+   },
+   "hermite": {
+    "frames_30hz_max_m": 0.0032831463392671654,
+    "frames_30hz_at": {
+     "tau": -4.2667,
+     "row": 205,
+     "col": 344
+    },
+    "frames_30hz_p99_of_frame_p99_m": 0.0014609975508597527,
+    "uniform_interval_midpoints": {
+     "n": 182,
+     "max_m": 0.0031764404255755826,
+     "at_tau": -1.5416666665
+    },
+    "nonuniform_intervals": {
+     "n_intervals": 27,
+     "n_samples": 216,
+     "max_m": 0.003391697194280919,
+     "at_tau": -4.270833333333333,
+     "spacing_at_worst": [
+      0.0625,
+      0.0625,
+      0.03125
+     ],
+     "intervals_tau": [
+      [
+       -11.875,
+       -11.75,
+       2.0
+      ],
+      [
+       -11.75,
+       -11.5,
+       2.0
+      ],
+      [
+       -6.25,
+       -6.0,
+       2.0
+      ],
+      [
+       -6.0,
+       -5.875,
+       2.0
+      ],
+      [
+       -5.375,
+       -5.25,
+       2.0
+      ],
+      [
+       -5.25,
+       -5.1875,
+       2.0
+      ],
+      [
+       -4.3125,
+       -4.25,
+       2.0
+      ],
+      [
+       -4.25,
+       -4.21875,
+       2.0
+      ],
+      [
+       -3.03125,
+       -3.0,
+       3.750000150000032
+      ],
+      [
+       -3.0,
+       -2.991666667,
+       3.750000150000032
+      ],
+      [
+       -2.991666667,
+       -2.983333334,
+       2.000000120000015
+      ],
+      [
+       -2.983333334,
+       -2.966666667,
+       2.000000120000015
+      ],
+      [
+       -2.966666667,
+       -2.933333333,
+       2.0
+      ],
+      [
+       -1.966666667,
+       -1.933333333,
+       2.0
+      ],
+      [
+       -1.933333333,
+       -1.916666666,
+       2.0
+      ],
+      [
+       -1.916666666,
+       -1.9,
+       2.0000000599999805
+      ],
+      [
+       -1.9,
+       -1.866666667,
+       2.0000000599999805
+      ],
+      [
+       -1.866666667,
+       -1.833333333,
+       2.0000000000000133
+      ],
+      [
+       -1.833333333,
+       -1.816666666,
+       2.0000000000000133
+      ],
+      [
+       -1.65,
+       -1.633333333,
+       2.000000120000015
+      ],
+      [
+       -1.633333333,
+       -1.625,
+       2.000000120000015
+      ],
+      [
+       -1.625,
+       -1.616666666,
+       1.9999997599999992
+      ],
+      [
+       -1.616666666,
+       -1.6,
+       1.9999997599999992
+      ],
+      [
+       -1.116666666,
+       -1.1,
+       2.0000000600000205
+      ],
+      [
+       -1.1,
+       -1.066666667,
+       2.0000000600000205
+      ],
+      [
+       -0.233333333,
+       -0.2,
+       2.000000059999999
+      ],
+      [
+       -0.2,
+       -0.183333334,
+       2.000000059999999
+      ]
+     ]
+    },
+    "note_ja": "パッケージの再生（量子化した節点の Hermite）と正確な表示の網（生成器の値を網に写したもの）の差、全頂点の最大。節点の間隔が変わる所＝隣の区間との間隔の比が 1.5 以上の区間（内側の 8 点）。"
+   },
+   "deviation_from_ds28_motion": {
+    "chord_dist_max_m": 0.5140294362421525,
+    "chord_dist_max_tau": -2.8,
+    "chord_dist_rms_m": 0.004924956791323018,
+    "chord_normal_max_m": 0.12125935387466291,
+    "chord_normal_max_tau": 0.0,
+    "chord_normal_rms_m": 0.0008600384005973442,
+    "frames_hz": 10.0,
+    "samples": 104079723,
+    "note_ja": "表示の網（正確）の辺の 1/4・1/2・3/4 の点と、同じ媒介変数の源の面（設計28 の動き）の点の差。距離と源の面の法線の成分"
+   },
+   "gpu_estimate": {
+    "position_buffer_mib": 115.3564453125,
+    "twhite_mib": 0.3662109375,
+    "mesh_vertex_mib_estimate": 5.859375,
+    "mesh_index_mib": 2.1826400756835938,
+    "note_ja": "位置 = 層 × 頂点 × 6 バイト（設計27 の再生器：StructuredBuffer<uint> に 16 bit × 3、CPU の写しなし）。網の頂点は位置・法線・接線・UV・UV2・UV3 の見積もり（Unity の実測ではない）",
+    "total_mib_estimate": 123.7646713256836,
+    "within_512": true
+   },
+   "measure_file": "Unity/Build/Design/29/r02/measure/full_240x400.json",
+   "qa": {
+    "非多様体の辺": {
+     "value": 0,
+     "threshold": "0",
+     "pass_": true
+    },
+    "縁の輪（外周のほか＝継ぎ目・穴）": {
+     "value": 0,
+     "threshold": "0（117）",
+     "pass_": true
+    },
+    "面の向きの反転（隣と巻き方向が食い違う辺）": {
+     "value": 0,
+     "threshold": "0",
+     "pass_": true
+    },
+    "使われない頂点・添字の潰れた面": {
+     "value": [
+      0,
+      0
+     ],
+     "threshold": "0",
+     "pass_": true
+    },
+    "位置・頂点法線の NaN（コマの最大）": {
+     "value": 0,
+     "threshold": "0",
+     "pass_": true
+    },
+    "決まらない頂点法線（周りの面がすべて面積 0、コマの最大）": {
+     "value": 81,
+     "threshold": "0",
+     "pass_": false
+    },
+    "隣と逆向きの面（二面角 > 120°、コマの最大）": {
+     "value": 162,
+     "threshold": "0",
+     "pass_": false
+    },
+    "前のコマと比べた面の反転（一覧のコマの和）": {
+     "value": 0,
+     "threshold": "0",
+     "pass_": true
+    },
+    "自己交差（行の断面、線分 ≥ 5 mm、コマの和）": {
+     "value": 0,
+     "threshold": "0",
+     "pass_": true
+    },
+    "唇先の厚さ（唇先から 0.75 m 奥の鉛直）の最小_m": {
+     "value": 0.562,
+     "threshold": "≥ 0.3",
+     "pass_": true
+    },
+    "波頭の欠落：断面の頂の高さの低下／基準の唇・管の点から網までの 3 次元の距離（最大）_m": {
+     "value": [
+      0.0212,
+      0.03178
+     ],
+     "threshold": "≤ 0.02（暫定）",
+     "pass_": false
+    },
+    "座席 v1 の射線：穴（コマの和）": {
+     "value": 0,
+     "threshold": "0",
+     "pass_": true
+    },
+    "座席 v1 の射線：開いた背面（コマの和）": {
+     "value": 0,
+     "threshold": "0",
+     "pass_": true
+    },
+    "座席 v1 の射線：切断端＋縁の下のすき間（外周、t* のコマ）": {
+     "value": 0,
+     "threshold": "0",
+     "pass_": true
+    },
+    "座席 v1 の射線：切断端／縁の下のすき間（外周、t* より前のコマの和。記録）": {
+     "value": [
+      37215,
+      33303
+     ],
+     "threshold": "記録",
+     "pass_": null
+    },
+    "座席 v1 の射線：継ぎ目の切断（117、コマの和）": {
+     "value": 0,
+     "threshold": "0",
+     "pass_": true
+    },
+    "自己交差（3 次元、BVH の重なり、コマの和）": {
+     "value": 0,
+     "threshold": "0",
+     "pass_": true
+    },
+    "下を向き、上に網のない面（面の向きの反転、コマの和）": {
+     "value": 0,
+     "threshold": "0",
+     "pass_": true
+    },
+    "座席 v1 の射線：平らな海が網の上にある所（記録）": {
+     "value": 435,
+     "threshold": "記録",
+     "pass_": null
+    },
+    "30 Hz：波の枠の 1 コマの変位_m": {
+     "value": 0.5115,
+     "threshold": "< 0.6",
+     "pass_": true
+    },
+    "30 Hz：地面の二階差分（全頂点）_m": {
+     "value": 0.11118,
+     "threshold": "≤ 0.0218（2 g）",
+     "pass_": false
+    },
+    "30 Hz：前のコマと比べた面の反転（通し）": {
+     "value": 0,
+     "threshold": "0",
+     "pass_": true
+    },
+    "30 Hz：唇・管の行の方向の辺の最短_m": {
+     "value": 0.00228,
+     "threshold": "≥ 0.005（t* で近い辺は t* − 2q）",
+     "pass_": false
+    },
+    "30 Hz：唇・管の伸び（t* に対する比、行の方向／行の間）": {
+     "value": [
+      [
+       0.038,
+       5.726
+      ],
+      [
+       0.031,
+       13.119
+      ]
+     ],
+     "threshold": "0.05〜4",
+     "pass_": false
+    }
+   },
+   "qa_file": "Unity/Build/Design/29/qa_r02/full_240x400_qa.json",
+   "gpu_readback_max_m": 2.3e-05,
+   "outline_vs_ds28_px": {
+    "painting": 1.0,
+    "seat": 1.0,
+    "seat_low": 1.0
+   }
+  },
+  "half_r02b": {
+   "label_ja": "120 × 200 張り直し（r02b）",
+   "revision": "r02b",
+   "package": "Unity/Build/Design/29/r02b/half_120x200",
+   "unity": {
+    "report": "Unity/Build/Design/29/unity/half_120x200_r02b/ds29_render_report.json",
+    "report_sha256": "6548152132456c099261d486852b4163fae64e27533599ce284243cba92daff0",
+    "rows": 120,
+    "cols": 200,
+    "layers": 213,
+    "vertices": 24000,
+    "position_buffer_mib": 29.25,
+    "twhite_mib": 0.092,
+    "mesh_vb_mib": 1.1,
+    "mesh_ib_mib": 0.54,
+    "keypose_total_mib": 30.98,
+    "driver_delta_keypose_mib": 29.34,
+    "within_512": true,
+    "sdf_texture_mib_shared": 64.0,
+    "load_s": 0.72,
+    "timing": {
+     "painting": {
+      "on_ms": 1.264,
+      "off_ms": 1.075,
+      "wave_ms": 0.188,
+      "frames": 180
+     },
+     "seat": {
+      "on_ms": 0.987,
+      "off_ms": 0.903,
+      "wave_ms": 0.084,
+      "frames": 180
+     },
+     "source": "Unity/Build/Design/29/unity/half_120x200_r02b/ds29_render_report.json"
+    },
+    "protected_unchanged": true,
+    "passed": true,
+    "device": "NVIDIA GeForce RTX 3080",
+    "api": "Direct3D11",
+    "mesh": "Unity/Build/Design/29/r02b/half_120x200/tstar/kstar_a45.gwb",
+    "uv3": "パッケージの頂点ごとの UV3（ds29_uv3_f32.bin）"
+   },
+   "painting_tstar": {
+    "file": "Unity/Build/Design/29/unity/half_120x200_r02b/ds27_tstar_remeasure.json",
+    "worst_abs_diff_px": 150.917,
+    "pass_": false,
+    "verdict_changes": {
+     "73": [
+      "pass",
+      "fail"
+     ],
+     "77": [
+      "pass",
+      "fail"
+     ],
+     "118": [
+      "pass",
+      "fail"
+     ],
+     "120": [
+      "pass",
+      "fail"
+     ],
+     "134": [
+      "pass",
+      "fail"
+     ],
+     "270": [
+      "pass",
+      "fail"
+     ],
+     "266": [
+      "pass",
+      "fail"
+     ],
+     "267": [
+      "pass",
+      "fail"
+     ]
+    },
+    "over_05px": [
+     {
+      "item": "73",
+      "measure": "boundary",
+      "px": 7.208,
+      "ref_px": 0.655,
+      "diff_px": 6.553
+     },
+     {
+      "item": "77",
+      "measure": "lower_ends",
+      "px": 2.176,
+      "ref_px": 1.17,
+      "diff_px": 1.006
+     },
+     {
+      "item": "79",
+      "measure": "boundary",
+      "px": 2.885,
+      "ref_px": 0.34,
+      "diff_px": 2.545
+     },
+     {
+      "item": "118",
+      "measure": "boundary",
+      "px": 7.368,
+      "ref_px": 0.655,
+      "diff_px": 6.713
+     },
+     {
+      "item": "120",
+      "measure": "boundary",
+      "px": 4.755,
+      "ref_px": 0.288,
+      "diff_px": 4.467
+     },
+     {
+      "item": "133",
+      "measure": "boundary",
+      "px": 3.54,
+      "ref_px": 0.402,
+      "diff_px": 3.138
+     },
+     {
+      "item": "134",
+      "measure": "boundary",
+      "px": 8.863,
+      "ref_px": 0.977,
+      "diff_px": 7.886
+     },
+     {
+      "item": "175",
+      "measure": "boundary_by_class/ai_dark",
+      "px": 151.226,
+      "ref_px": 0.309,
+      "diff_px": 150.917
+     },
+     {
+      "item": "175",
+      "measure": "boundary_by_class/ai_mid",
+      "px": 6.059,
+      "ref_px": 2.41,
+      "diff_px": 3.649
+     },
+     {
+      "item": "175",
+      "measure": "boundary_by_class/mizuiro",
+      "px": 19.461,
+      "ref_px": 18.375,
+      "diff_px": 1.086
+     },
+     {
+      "item": "175",
+      "measure": "record_excluding_lost_regions/boundary_by_class/ai_dark",
+      "px": 151.226,
+      "ref_px": 0.309,
+      "diff_px": 150.917
+     },
+     {
+      "item": "175",
+      "measure": "record_excluding_lost_regions/boundary_by_class/ai_mid",
+      "px": 6.059,
+      "ref_px": 2.41,
+      "diff_px": 3.649
+     },
+     {
+      "item": "175",
+      "measure": "record_excluding_lost_regions/boundary_by_class/mizuiro",
+      "px": 8.431,
+      "ref_px": 0.865,
+      "diff_px": 7.566
+     },
+     {
+      "item": "263",
+      "measure": "boundary_lower",
+      "px": 2.436,
+      "ref_px": 0.559,
+      "diff_px": 1.877
+     },
+     {
+      "item": "270",
+      "measure": "boundary",
+      "px": 5.969,
+      "ref_px": 0.563,
+      "diff_px": 5.406
+     },
+     {
+      "item": "270",
+      "measure": "record_mizuiro_reading",
+      "px": 8.863,
+      "ref_px": 0.661,
+      "diff_px": 8.202
+     }
+    ],
+    "verdicts": {
+     "73": "fail",
+     "77": "fail",
+     "79": "pass",
+     "118": "fail",
+     "120": "fail",
+     "133": "pass",
+     "134": "fail",
+     "175": "fail",
+     "263": "pass",
+     "270": "fail",
+     "265": "pass",
+     "266": "fail",
+     "267": "fail",
+     "uv_no_empty_texels": "pass"
+    },
+    "item266_seat_bands": {
+     "painting": 2,
+     "seat": 0,
+     "seat_low": 0
+    }
+   },
+   "vertices": 24000,
+   "triangles": 47362,
+   "layers": 213,
+   "p13": {
+    "(1)": {
+     "value": 0.511481,
+     "pass_": true,
+     "violations": null
+    },
+    "(2)": {
+     "value": 0.024828,
+     "pass_": false,
+     "violations": null
+    },
+    "(3)": {
+     "value": -1.503731,
+     "pass_": true,
+     "violations": null
+    },
+    "(4)": {
+     "value": 0.061363,
+     "pass_": false,
+     "violations": null
+    },
+    "(5a)": {
+     "value": 0.00172,
+     "pass_": true,
+     "violations": 0
+    },
+    "(5b)": {
+     "value": 0.005135,
+     "pass_": true,
+     "violations": 0
+    },
+    "(5c)": {
+     "value": [
+      0.0919,
+      4.316
+     ],
+     "pass_": false,
+     "violations": 773
+    },
+    "(5d)": {
+     "value": [
+      0.0499,
+      9.684
+     ],
+     "pass_": false,
+     "violations": 1463
+    },
+    "(5e)": {
+     "value": [
+      0.4263,
+      3.403
+     ],
+     "pass_": true,
+     "violations": 0
+    },
+    "(5f)": {
+     "value": 0,
+     "pass_": true,
+     "violations": null
+    },
+    "(5g)": {
+     "value": 0,
+     "pass_": true,
+     "violations": null
+    },
+    "(6)": {
+     "value": 0.000349,
+     "pass_": true,
+     "violations": 0
+    }
+   },
+   "p13_fail": 4,
+   "tstar_vs_kstar": {
+    "vs_kstar_chord_dist_max_m": 2.1869719641878245,
+    "vs_kstar_chord_dist_rms_m": 0.06450890802549401,
+    "vs_kstar_chord_normal_max_m": 0.26689653725250245,
+    "vs_kstar_chord_normal_rms_m": 0.01266199216603191,
+    "vertices_on_kstar_surface_max_m": 0.0,
+    "package_last_layer_vs_exact_max_m": 0.0011947683421852143
+   },
+   "crest_loss": {
+    "exact_crest_height_curled_rows": {
+     "max_m": 0.0467919781957562,
+     "rms_m": 0.0035094613176965767,
+     "min_m": 0.0,
+     "at": {
+      "tau": 0.0,
+      "row": 51
+     }
+    },
+    "exact_crest_height": {
+     "max_m": 0.3549828541355866,
+     "rms_m": 0.01844259741017038,
+     "min_m": 0.0,
+     "at": {
+      "tau": -5.7667,
+      "row": 119
+     }
+    },
+    "exact_lip_reach": {
+     "max_m": 5.684341886080802e-14,
+     "rms_m": 8.478721510977095e-15,
+     "min_m": -5.684341886080802e-14,
+     "at": {
+      "tau": -11.6667,
+      "row": 83
+     }
+    },
+    "playback_crest_height_curled_rows": {
+     "max_m": 0.04682767448025871,
+     "rms_m": 0.0035105131482513372,
+     "min_m": -0.0016107367992885813,
+     "at": {
+      "tau": 0.0,
+      "row": 51
+     }
+    },
+    "playback_crest_height": {
+     "max_m": 0.35503926624513316,
+     "rms_m": 0.01845603895317678,
+     "min_m": -0.0016933381237871359,
+     "at": {
+      "tau": -5.7667,
+      "row": 119
+     }
+    }
+   },
+   "film": {
+    "-2.25": {
+     "tau": -2.2667,
+     "d_1m_min_m": 0.8945,
+     "rows_below": 0,
+     "d_05m_min_m": 0.4384
+    },
+    "-1.333": {
+     "tau": -1.3333,
+     "d_1m_min_m": 0.7519,
+     "rows_below": 0,
+     "d_05m_min_m": 0.3837
+    },
+    "-0.5": {
+     "tau": -0.5,
+     "d_1m_min_m": 0.8489,
+     "rows_below": 0,
+     "d_05m_min_m": 0.3759
+    },
+    "0.0": {
+     "tau": 0.0,
+     "d_1m_min_m": 0.5776,
+     "rows_below": 0,
+     "d_05m_min_m": 0.4146
+    }
+   },
+   "hermite": {
+    "frames_30hz_max_m": 0.0034378271761842574,
+    "frames_30hz_at": {
+     "tau": -4.2667,
+     "row": 102,
+     "col": 169
+    },
+    "frames_30hz_p99_of_frame_p99_m": 0.001464193137702147,
+    "uniform_interval_midpoints": {
+     "n": 158,
+     "max_m": 0.0027043273922802116,
+     "at_tau": -1.6416666665
+    },
+    "nonuniform_intervals": {
+     "n_intervals": 54,
+     "n_samples": 432,
+     "max_m": 0.003511105428359897,
+     "at_tau": -4.270833333333333,
+     "spacing_at_worst": [
+      0.0625,
+      0.0625,
+      0.03125
+     ],
+     "intervals_tau": [
+      [
+       -11.875,
+       -11.75,
+       2.0
+      ],
+      [
+       -11.75,
+       -11.5,
+       2.0
+      ],
+      [
+       -6.25,
+       -6.0,
+       2.0
+      ],
+      [
+       -6.0,
+       -5.875,
+       2.0
+      ],
+      [
+       -5.375,
+       -5.25,
+       2.0
+      ],
+      [
+       -5.25,
+       -5.1875,
+       2.0
+      ],
+      [
+       -4.3125,
+       -4.25,
+       2.0
+      ],
+      [
+       -4.25,
+       -4.21875,
+       2.0
+      ],
+      [
+       -3.03125,
+       -3.0,
+       3.750000150000032
+      ],
+      [
+       -3.0,
+       -2.991666667,
+       3.750000150000032
+      ],
+      [
+       -2.991666667,
+       -2.983333334,
+       2.000000120000015
+      ],
+      [
+       -2.983333334,
+       -2.966666667,
+       2.000000120000015
+      ],
+      [
+       -2.966666667,
+       -2.933333333,
+       2.0
+      ],
+      [
+       -1.933333333,
+       -1.9,
+       2.0000000600000205
+      ],
+      [
+       -1.9,
+       -1.883333334,
+       2.0000000600000205
+      ],
+      [
+       -1.883333334,
+       -1.866666667,
+       2.0000000000000133
+      ],
+      [
+       -1.866666667,
+       -1.833333333,
+       2.0000000000000133
+      ],
+      [
+       -1.833333333,
+       -1.816666666,
+       2.0000000000000133
+      ],
+      [
+       -1.816666666,
+       -1.8,
+       2.0
+      ],
+      [
+       -1.8,
+       -1.791666667,
+       2.0
+      ],
+      [
+       -1.791666667,
+       -1.783333334,
+       2.0000001199999615
+      ],
+      [
+       -1.783333334,
+       -1.766666667,
+       2.0000001199999615
+      ],
+      [
+       -1.75,
+       -1.733333333,
+       2.000000120000015
+      ],
+      [
+       -1.733333333,
+       -1.725,
+       2.000000120000015
+      ],
+      [
+       -1.725,
+       -1.716666666,
+       1.9999997600000259
+      ],
+      [
+       -1.716666666,
+       -1.7,
+       1.9999997600000259
+      ],
+      [
+       -1.633333333,
+       -1.616666666,
+       2.000000120000015
+      ],
+      [
+       -1.616666666,
+       -1.608333333,
+       2.000000120000015
+      ],
+      [
+       -1.608333333,
+       -1.6,
+       2.0000000000000266
+      ],
+      [
+       -1.6,
+       -1.583333334,
+       2.0000000000000266
+      ],
+      [
+       -1.566666667,
+       -1.55,
+       1.9999998799999996
+      ],
+      [
+       -1.55,
+       -1.541666666,
+       1.9999998799999996
+      ],
+      [
+       -1.541666666,
+       -1.533333333,
+       2.000000120000015
+      ],
+      [
+       -1.533333333,
+       -1.516666666,
+       2.000000120000015
+      ],
+      [
+       -1.5,
+       -1.483333334,
+       1.9999997600000792
+      ],
+      [
+       -1.483333334,
+       -1.475,
+       1.9999997600000792
+      ],
+      [
+       -1.475,
+       -1.466666667,
+       2.0000001199999615
+      ],
+      [
+       -1.466666667,
+       -1.45,
+       2.0000001199999615
+      ],
+      [
+       -1.416666666,
+       -1.4,
+       2.0000000000000266
+      ],
+      [
+       -1.4,
+       -1.391666667,
+       2.0000000000000266
+      ],
+      [
+       -1.391666667,
+       -1.383333334,
+       2.000000120000015
+      ],
+      [
+       -1.383333334,
+       -1.366666667,
+       2.000000120000015
+      ],
+      [
+       -1.366666667,
+       -1.333333333,
+       2.0000000000000133
+      ],
+      [
+       -1.333333333,
+       -1.316666666,
+       2.000000120000015
+      ],
+      [
+       -1.316666666,
+       -1.308333333,
+       2.000000120000015
+      ],
+      [
+       -1.308333333,
+       -1.3,
+       2.0000000000000266
+      ],
+      [
+       -1.3,
+       -1.283333334,
+       2.0000000000000266
+      ],
+      [
+       -1.283333334,
+       -1.266666667,
+       2.0
+      ],
+      [
+       -1.266666667,
+       -1.233333333,
+       2.0
+      ],
+      [
+       -1.233333333,
+       -1.216666666,
+       2.0
+      ],
+      [
+       -1.15,
+       -1.133333333,
+       1.9999999399999961
+      ],
+      [
+       -1.133333333,
+       -1.1,
+       1.9999999399999961
+      ],
+      [
+       -0.233333333,
+       -0.2,
+       2.000000059999999
+      ],
+      [
+       -0.2,
+       -0.183333334,
+       2.000000059999999
+      ]
+     ]
+    },
+    "note_ja": "パッケージの再生（量子化した節点の Hermite）と正確な表示の網（生成器の値を網に写したもの）の差、全頂点の最大。節点の間隔が変わる所＝隣の区間との間隔の比が 1.5 以上の区間（内側の 8 点）。"
+   },
+   "deviation_from_ds28_motion": {
+    "chord_dist_max_m": 4.019101572477423,
+    "chord_dist_max_tau": -2.8,
+    "chord_dist_rms_m": 0.07776585767951193,
+    "chord_normal_max_m": 0.793210689382898,
+    "chord_normal_max_tau": -2.9,
+    "chord_normal_rms_m": 0.015959759564757533,
+    "frames_hz": 10.0,
+    "samples": 25904043,
+    "note_ja": "表示の網（正確）の辺の 1/4・1/2・3/4 の点と、同じ媒介変数の源の面（設計28 の動き）の点の差。距離と源の面の法線の成分"
+   },
+   "gpu_estimate": {
+    "position_buffer_mib": 29.2510986328125,
+    "twhite_mib": 0.091552734375,
+    "mesh_vertex_mib_estimate": 1.46484375,
+    "mesh_index_mib": 0.5420150756835938,
+    "note_ja": "位置 = 層 × 頂点 × 6 バイト（設計27 の再生器：StructuredBuffer<uint> に 16 bit × 3、CPU の写しなし）。網の頂点は位置・法線・接線・UV・UV2・UV3 の見積もり（Unity の実測ではない）",
+    "total_mib_estimate": 31.349510192871094,
+    "within_512": true
+   },
+   "measure_file": "Unity/Build/Design/29/r02b/measure/half_120x200.json",
+   "qa": {
+    "非多様体の辺": {
+     "value": 0,
+     "threshold": "0",
+     "pass_": true
+    },
+    "縁の輪（外周のほか＝継ぎ目・穴）": {
+     "value": 0,
+     "threshold": "0（117）",
+     "pass_": true
+    },
+    "面の向きの反転（隣と巻き方向が食い違う辺）": {
+     "value": 0,
+     "threshold": "0",
+     "pass_": true
+    },
+    "使われない頂点・添字の潰れた面": {
+     "value": [
+      0,
+      0
+     ],
+     "threshold": "0",
+     "pass_": true
+    },
+    "位置・頂点法線の NaN（コマの最大）": {
+     "value": 0,
+     "threshold": "0",
+     "pass_": true
+    },
+    "決まらない頂点法線（周りの面がすべて面積 0、コマの最大）": {
+     "value": 9,
+     "threshold": "0",
+     "pass_": false
+    },
+    "隣と逆向きの面（二面角 > 120°、コマの最大）": {
+     "value": 73,
+     "threshold": "0",
+     "pass_": false
+    },
+    "前のコマと比べた面の反転（一覧のコマの和）": {
+     "value": 0,
+     "threshold": "0",
+     "pass_": true
+    },
+    "自己交差（行の断面、線分 ≥ 5 mm、コマの和）": {
+     "value": 0,
+     "threshold": "0",
+     "pass_": true
+    },
+    "唇先の厚さ（唇先から 0.75 m 奥の鉛直）の最小_m": {
+     "value": 0.568,
+     "threshold": "≥ 0.3",
+     "pass_": true
+    },
+    "波頭の欠落：断面の頂の高さの低下／基準の唇・管の点から網までの 3 次元の距離（最大）_m": {
+     "value": [
+      0.1913,
+      0.41524
+     ],
+     "threshold": "≤ 0.02（暫定）",
+     "pass_": false
+    },
+    "座席 v1 の射線：穴（コマの和）": {
+     "value": 0,
+     "threshold": "0",
+     "pass_": true
+    },
+    "座席 v1 の射線：開いた背面（コマの和）": {
+     "value": 0,
+     "threshold": "0",
+     "pass_": true
+    },
+    "座席 v1 の射線：切断端＋縁の下のすき間（外周、t* のコマ）": {
+     "value": 0,
+     "threshold": "0",
+     "pass_": true
+    },
+    "座席 v1 の射線：切断端／縁の下のすき間（外周、t* より前のコマの和。記録）": {
+     "value": [
+      60336,
+      33296
+     ],
+     "threshold": "記録",
+     "pass_": null
+    },
+    "座席 v1 の射線：継ぎ目の切断（117、コマの和）": {
+     "value": 0,
+     "threshold": "0",
+     "pass_": true
+    },
+    "自己交差（3 次元、BVH の重なり、コマの和）": {
+     "value": 0,
+     "threshold": "0",
+     "pass_": true
+    },
+    "下を向き、上に網のない面（面の向きの反転、コマの和）": {
+     "value": 0,
+     "threshold": "0",
+     "pass_": true
+    },
+    "座席 v1 の射線：平らな海が網の上にある所（記録）": {
+     "value": 438,
+     "threshold": "記録",
+     "pass_": null
+    },
+    "30 Hz：波の枠の 1 コマの変位_m": {
+     "value": 0.5115,
+     "threshold": "< 0.6",
+     "pass_": true
+    },
+    "30 Hz：地面の二階差分（全頂点）_m": {
+     "value": 0.10556,
+     "threshold": "≤ 0.0218（2 g）",
+     "pass_": false
+    },
+    "30 Hz：前のコマと比べた面の反転（通し）": {
+     "value": 0,
+     "threshold": "0",
+     "pass_": true
+    },
+    "30 Hz：唇・管の行の方向の辺の最短_m": {
+     "value": 0.00514,
+     "threshold": "≥ 0.005（t* で近い辺は t* − 2q）",
+     "pass_": true
+    },
+    "30 Hz：唇・管の伸び（t* に対する比、行の方向／行の間）": {
+     "value": [
+      [
+       0.092,
+       4.368
+      ],
+      [
+       0.05,
+       9.629
+      ]
+     ],
+     "threshold": "0.05〜4",
+     "pass_": false
+    }
+   },
+   "qa_file": "Unity/Build/Design/29/qa_r02b/half_120x200_qa.json",
+   "gpu_readback_max_m": 2e-05,
+   "outline_vs_ds28_px": {
+    "painting": 3.905,
+    "seat": 10.63,
+    "seat_low": 8.062
+   }
+  },
+  "full_r02b": {
+   "label_ja": "240 × 400 張り直し（r02b）",
+   "revision": "r02b",
+   "package": "Unity/Build/Design/29/r02b/full_240x400",
+   "unity": {
+    "report": "Unity/Build/Design/29/unity/full_240x400_r02b/ds29_render_report.json",
+    "report_sha256": "71766f8e9829ed55d7da41236078ba599974e1ec4c5ac6b7af5013a9c856c02e",
+    "rows": 240,
+    "cols": 400,
+    "layers": 220,
+    "vertices": 96000,
+    "position_buffer_mib": 120.85,
+    "twhite_mib": 0.366,
+    "mesh_vb_mib": 4.39,
+    "mesh_ib_mib": 2.18,
+    "keypose_total_mib": 127.79,
+    "driver_delta_keypose_mib": 121.22,
+    "within_512": true,
+    "sdf_texture_mib_shared": 64.0,
+    "load_s": 1.8,
+    "timing": {
+     "painting": {
+      "on_ms": 1.318,
+      "off_ms": 1.059,
+      "wave_ms": 0.259,
+      "frames": 180
+     },
+     "seat": {
+      "on_ms": 1.019,
+      "off_ms": 0.901,
+      "wave_ms": 0.118,
+      "frames": 180
+     },
+     "source": "Unity/Build/Design/29/unity/full_240x400_r02b/ds29_render_report.json"
+    },
+    "protected_unchanged": true,
+    "passed": true,
+    "device": "NVIDIA GeForce RTX 3080",
+    "api": "Direct3D11",
+    "mesh": "Unity/Build/Design/29/r02b/full_240x400/tstar/kstar_a45.gwb",
+    "uv3": "パッケージの頂点ごとの UV3（ds29_uv3_f32.bin）"
+   },
+   "painting_tstar": {
+    "file": "Unity/Build/Design/29/unity/full_240x400_r02b/ds27_tstar_remeasure.json",
+    "worst_abs_diff_px": 1.142,
+    "pass_": false,
+    "verdict_changes": {},
+    "over_05px": [
+     {
+      "item": "79",
+      "measure": "boundary",
+      "px": 0.869,
+      "ref_px": 0.34,
+      "diff_px": 0.529
+     },
+     {
+      "item": "134",
+      "measure": "boundary",
+      "px": 1.803,
+      "ref_px": 0.977,
+      "diff_px": 0.826
+     },
+     {
+      "item": "175",
+      "measure": "record_excluding_lost_regions/boundary_by_class/mizuiro",
+      "px": 1.803,
+      "ref_px": 0.865,
+      "diff_px": 0.938
+     },
+     {
+      "item": "270",
+      "measure": "record_mizuiro_reading",
+      "px": 1.803,
+      "ref_px": 0.661,
+      "diff_px": 1.142
+     }
+    ],
+    "verdicts": {
+     "73": "pass",
+     "77": "pass",
+     "79": "pass",
+     "118": "pass",
+     "120": "pass",
+     "133": "pass",
+     "134": "pass",
+     "175": "fail",
+     "263": "pass",
+     "270": "pass",
+     "265": "pass",
+     "266": "pass",
+     "267": "pass",
+     "uv_no_empty_texels": "pass"
+    },
+    "item266_seat_bands": {
+     "painting": 0,
+     "seat": 0,
+     "seat_low": 0
+    }
+   },
+   "vertices": 96000,
+   "triangles": 190722,
+   "layers": 220,
+   "p13": {
+    "(1)": {
+     "value": 0.511525,
+     "pass_": true,
+     "violations": null
+    },
+    "(2)": {
+     "value": 0.024529,
+     "pass_": false,
+     "violations": null
+    },
+    "(3)": {
+     "value": -1.504136,
+     "pass_": true,
+     "violations": null
+    },
+    "(4)": {
+     "value": 0.000191,
+     "pass_": true,
+     "violations": null
+    },
+    "(5a)": {
+     "value": 0.000209,
+     "pass_": true,
+     "violations": 0
+    },
+    "(5b)": {
+     "value": 0.002276,
+     "pass_": false,
+     "violations": 115
+    },
+    "(5c)": {
+     "value": [
+      0.0411,
+      5.386
+     ],
+     "pass_": false,
+     "violations": 2581
+    },
+    "(5d)": {
+     "value": [
+      0.0308,
+      17.57
+     ],
+     "pass_": false,
+     "violations": 20614
+    },
+    "(5e)": {
+     "value": [
+      0.3633,
+      4.451
+     ],
+     "pass_": false,
+     "violations": 78
+    },
+    "(5f)": {
+     "value": 0,
+     "pass_": true,
+     "violations": null
+    },
+    "(5g)": {
+     "value": 2,
+     "pass_": false,
+     "violations": null
+    },
+    "(6)": {
+     "value": 6.1e-05,
+     "pass_": true,
+     "violations": 0
+    }
+   },
+   "p13_fail": 6,
+   "tstar_vs_kstar": {
+    "vs_kstar_chord_dist_max_m": 0.279647505197323,
+    "vs_kstar_chord_dist_rms_m": 0.003996261007373017,
+    "vs_kstar_chord_normal_max_m": 0.07498048930235836,
+    "vs_kstar_chord_normal_rms_m": 0.0014064483524609877,
+    "vertices_on_kstar_surface_max_m": 0.0,
+    "package_last_layer_vs_exact_max_m": 0.0012023473881889555
+   },
+   "crest_loss": {
+    "exact_crest_height_curled_rows": {
+     "max_m": 0.013629806783296061,
+     "rms_m": 0.0006083525887131213,
+     "min_m": 0.0,
+     "at": {
+      "tau": -1.8333,
+      "row": 177
+     }
+    },
+    "exact_crest_height": {
+     "max_m": 0.013629806783296061,
+     "rms_m": 0.00045524989963326704,
+     "min_m": 0.0,
+     "at": {
+      "tau": -1.8333,
+      "row": 177
+     }
+    },
+    "exact_lip_reach": {
+     "max_m": 0.0,
+     "rms_m": 0.0,
+     "min_m": 0.0,
+     "at": {
+      "tau": -12.0,
+      "row": 60
+     }
+    },
+    "playback_crest_height_curled_rows": {
+     "max_m": 0.013446278136871825,
+     "rms_m": 0.0006313528472439676,
+     "min_m": -0.0016521879295723352,
+     "at": {
+      "tau": -1.8333,
+      "row": 177
+     }
+    },
+    "playback_crest_height": {
+     "max_m": 0.013446278136871825,
+     "rms_m": 0.0004939262476127962,
+     "min_m": -0.0017064675107727467,
+     "at": {
+      "tau": -1.8333,
+      "row": 177
+     }
+    }
+   },
+   "film": {
+    "-2.25": {
+     "tau": -2.2667,
+     "d_1m_min_m": 0.8908,
+     "rows_below": 0,
+     "d_05m_min_m": 0.4374
+    },
+    "-1.333": {
+     "tau": -1.3333,
+     "d_1m_min_m": 0.7541,
+     "rows_below": 0,
+     "d_05m_min_m": 0.3874
+    },
+    "-0.5": {
+     "tau": -0.5,
+     "d_1m_min_m": 0.7761,
+     "rows_below": 0,
+     "d_05m_min_m": 0.2954
+    },
+    "0.0": {
+     "tau": 0.0,
+     "d_1m_min_m": 0.5649,
+     "rows_below": 0,
+     "d_05m_min_m": 0.3705
+    }
+   },
+   "hermite": {
+    "frames_30hz_max_m": 0.0032831463392671654,
+    "frames_30hz_at": {
+     "tau": -4.2667,
+     "row": 205,
+     "col": 344
+    },
+    "frames_30hz_p99_of_frame_p99_m": 0.0014609975508597527,
+    "uniform_interval_midpoints": {
+     "n": 154,
+     "max_m": 0.0025989109157141584,
+     "at_tau": -4.90625
+    },
+    "nonuniform_intervals": {
+     "n_intervals": 65,
+     "n_samples": 520,
+     "max_m": 0.003391697194280919,
+     "at_tau": -4.270833333333333,
+     "spacing_at_worst": [
+      0.0625,
+      0.0625,
+      0.03125
+     ],
+     "intervals_tau": [
+      [
+       -11.875,
+       -11.75,
+       2.0
+      ],
+      [
+       -11.75,
+       -11.5,
+       2.0
+      ],
+      [
+       -6.25,
+       -6.0,
+       2.0
+      ],
+      [
+       -6.0,
+       -5.875,
+       2.0
+      ],
+      [
+       -5.375,
+       -5.25,
+       2.0
+      ],
+      [
+       -5.25,
+       -5.1875,
+       2.0
+      ],
+      [
+       -4.3125,
+       -4.25,
+       2.0
+      ],
+      [
+       -4.25,
+       -4.21875,
+       2.0
+      ],
+      [
+       -3.03125,
+       -3.0,
+       3.750000150000032
+      ],
+      [
+       -3.0,
+       -2.991666667,
+       3.750000150000032
+      ],
+      [
+       -2.991666667,
+       -2.983333334,
+       2.000000120000015
+      ],
+      [
+       -2.983333334,
+       -2.966666667,
+       2.000000120000015
+      ],
+      [
+       -2.966666667,
+       -2.933333333,
+       2.0
+      ],
+      [
+       -1.9,
+       -1.866666667,
+       1.9999999399999961
+      ],
+      [
+       -1.866666667,
+       -1.85,
+       1.9999999399999961
+      ],
+      [
+       -1.833333333,
+       -1.816666666,
+       2.000000120000015
+      ],
+      [
+       -1.816666666,
+       -1.808333333,
+       2.000000120000015
+      ],
+      [
+       -1.808333333,
+       -1.8,
+       2.0000000000000266
+      ],
+      [
+       -1.8,
+       -1.783333334,
+       2.0000000000000266
+      ],
+      [
+       -1.783333334,
+       -1.775,
+       1.9999997600000259
+      ],
+      [
+       -1.775,
+       -1.766666667,
+       2.000000120000015
+      ],
+      [
+       -1.766666667,
+       -1.75,
+       2.000000120000015
+      ],
+      [
+       -1.75,
+       -1.741666666,
+       1.9999998799999996
+      ],
+      [
+       -1.741666666,
+       -1.733333333,
+       2.000000120000015
+      ],
+      [
+       -1.733333333,
+       -1.716666666,
+       2.000000120000015
+      ],
+      [
+       -1.716666666,
+       -1.708333333,
+       2.0000001199999615
+      ],
+      [
+       -1.708333333,
+       -1.7,
+       2.0
+      ],
+      [
+       -1.7,
+       -1.683333334,
+       2.0
+      ],
+      [
+       -1.683333334,
+       -1.666666667,
+       2.0000001199999615
+      ],
+      [
+       -1.666666667,
+       -1.658333334,
+       2.0000001199999615
+      ],
+      [
+       -1.658333334,
+       -1.65,
+       1.9999998799999996
+      ],
+      [
+       -1.65,
+       -1.633333333,
+       2.000000120000015
+      ],
+      [
+       -1.633333333,
+       -1.625,
+       2.000000120000015
+      ],
+      [
+       -1.625,
+       -1.616666666,
+       1.9999997599999992
+      ],
+      [
+       -1.616666666,
+       -1.6,
+       1.9999999999999467
+      ],
+      [
+       -1.6,
+       -1.591666667,
+       1.9999999999999467
+      ],
+      [
+       -1.591666667,
+       -1.583333334,
+       2.000000120000015
+      ],
+      [
+       -1.583333334,
+       -1.566666667,
+       2.000000120000015
+      ],
+      [
+       -1.566666667,
+       -1.558333334,
+       2.000000120000015
+      ],
+      [
+       -1.558333334,
+       -1.55,
+       1.9999998799999996
+      ],
+      [
+       -1.55,
+       -1.533333333,
+       2.0000001199999615
+      ],
+      [
+       -1.533333333,
+       -1.525,
+       2.0000001199999615
+      ],
+      [
+       -1.525,
+       -1.516666666,
+       1.9999997600000792
+      ],
+      [
+       -1.516666666,
+       -1.5,
+       2.0000000000000266
+      ],
+      [
+       -1.5,
+       -1.491666667,
+       2.0000000000000266
+      ],
+      [
+       -1.491666667,
+       -1.483333334,
+       2.0000001199999615
+      ],
+      [
+       -1.483333334,
+       -1.466666667,
+       2.000000120000015
+      ],
+      [
+       -1.466666667,
+       -1.458333334,
+       2.000000120000015
+      ],
+      [
+       -1.458333334,
+       -1.45,
+       1.9999998799999996
+      ],
+      [
+       -1.45,
+       -1.433333333,
+       2.000000120000015
+      ],
+      [
+       -1.433333333,
+       -1.425,
+       2.000000120000015
+      ],
+      [
+       -1.425,
+       -1.416666666,
+       1.9999997600000259
+      ],
+      [
+       -1.416666666,
+       -1.4,
+       1.9999997600000259
+      ],
+      [
+       -1.366666667,
+       -1.35,
+       1.9999998799999996
+      ],
+      [
+       -1.35,
+       -1.341666666,
+       1.9999998799999996
+      ],
+      [
+       -1.341666666,
+       -1.333333333,
+       2.0000001199999615
+      ],
+      [
+       -1.333333333,
+       -1.316666666,
+       2.0000001199999615
+      ],
+      [
+       -1.316666666,
+       -1.3,
+       2.0
+      ],
+      [
+       -1.3,
+       -1.291666667,
+       2.0
+      ],
+      [
+       -1.291666667,
+       -1.283333334,
+       2.0000001199999615
+      ]
+     ]
+    },
+    "note_ja": "パッケージの再生（量子化した節点の Hermite）と正確な表示の網（生成器の値を網に写したもの）の差、全頂点の最大。節点の間隔が変わる所＝隣の区間との間隔の比が 1.5 以上の区間（内側の 8 点）。"
+   },
+   "deviation_from_ds28_motion": {
+    "chord_dist_max_m": 0.5140294362421525,
+    "chord_dist_max_tau": -2.8,
+    "chord_dist_rms_m": 0.004906470062082959,
+    "chord_normal_max_m": 0.11471182193842047,
+    "chord_normal_max_tau": -8.7,
+    "chord_normal_rms_m": 0.0008208153386859372,
+    "frames_hz": 10.0,
+    "samples": 104079723,
+    "note_ja": "表示の網（正確）の辺の 1/4・1/2・3/4 の点と、同じ媒介変数の源の面（設計28 の動き）の点の差。距離と源の面の法線の成分"
+   },
+   "gpu_estimate": {
+    "position_buffer_mib": 120.849609375,
+    "twhite_mib": 0.3662109375,
+    "mesh_vertex_mib_estimate": 5.859375,
+    "mesh_index_mib": 2.1826400756835938,
+    "note_ja": "位置 = 層 × 頂点 × 6 バイト（設計27 の再生器：StructuredBuffer<uint> に 16 bit × 3、CPU の写しなし）。網の頂点は位置・法線・接線・UV・UV2・UV3 の見積もり（Unity の実測ではない）",
+    "total_mib_estimate": 129.2578353881836,
+    "within_512": true
+   },
+   "measure_file": "Unity/Build/Design/29/r02b/measure/full_240x400.json",
+   "qa": {
+    "非多様体の辺": {
+     "value": 0,
+     "threshold": "0",
+     "pass_": true
+    },
+    "縁の輪（外周のほか＝継ぎ目・穴）": {
+     "value": 0,
+     "threshold": "0（117）",
+     "pass_": true
+    },
+    "面の向きの反転（隣と巻き方向が食い違う辺）": {
+     "value": 0,
+     "threshold": "0",
+     "pass_": true
+    },
+    "使われない頂点・添字の潰れた面": {
+     "value": [
+      0,
+      0
+     ],
+     "threshold": "0",
+     "pass_": true
+    },
+    "位置・頂点法線の NaN（コマの最大）": {
+     "value": 0,
+     "threshold": "0",
+     "pass_": true
+    },
+    "決まらない頂点法線（周りの面がすべて面積 0、コマの最大）": {
+     "value": 198,
+     "threshold": "0",
+     "pass_": false
+    },
+    "隣と逆向きの面（二面角 > 120°、コマの最大）": {
+     "value": 158,
+     "threshold": "0",
+     "pass_": false
+    },
+    "前のコマと比べた面の反転（一覧のコマの和）": {
+     "value": 0,
+     "threshold": "0",
+     "pass_": true
+    },
+    "自己交差（行の断面、線分 ≥ 5 mm、コマの和）": {
+     "value": 0,
+     "threshold": "0",
+     "pass_": true
+    },
+    "唇先の厚さ（唇先から 0.75 m 奥の鉛直）の最小_m": {
+     "value": 0.562,
+     "threshold": "≥ 0.3",
+     "pass_": true
+    },
+    "波頭の欠落：断面の頂の高さの低下／基準の唇・管の点から網までの 3 次元の距離（最大）_m": {
+     "value": [
+      0.0212,
+      0.03178
+     ],
+     "threshold": "≤ 0.02（暫定）",
+     "pass_": false
+    },
+    "座席 v1 の射線：穴（コマの和）": {
+     "value": 0,
+     "threshold": "0",
+     "pass_": true
+    },
+    "座席 v1 の射線：開いた背面（コマの和）": {
+     "value": 0,
+     "threshold": "0",
+     "pass_": true
+    },
+    "座席 v1 の射線：切断端＋縁の下のすき間（外周、t* のコマ）": {
+     "value": 0,
+     "threshold": "0",
+     "pass_": true
+    },
+    "座席 v1 の射線：切断端／縁の下のすき間（外周、t* より前のコマの和。記録）": {
+     "value": [
+      37215,
+      33303
+     ],
+     "threshold": "記録",
+     "pass_": null
+    },
+    "座席 v1 の射線：継ぎ目の切断（117、コマの和）": {
+     "value": 0,
+     "threshold": "0",
+     "pass_": true
+    },
+    "自己交差（3 次元、BVH の重なり、コマの和）": {
+     "value": 0,
+     "threshold": "0",
+     "pass_": true
+    },
+    "下を向き、上に網のない面（面の向きの反転、コマの和）": {
+     "value": 0,
+     "threshold": "0",
+     "pass_": true
+    },
+    "座席 v1 の射線：平らな海が網の上にある所（記録）": {
+     "value": 435,
+     "threshold": "記録",
+     "pass_": null
+    },
+    "30 Hz：波の枠の 1 コマの変位_m": {
+     "value": 0.5115,
+     "threshold": "< 0.6",
+     "pass_": true
+    },
+    "30 Hz：地面の二階差分（全頂点）_m": {
+     "value": 0.11118,
+     "threshold": "≤ 0.0218（2 g）",
+     "pass_": false
+    },
+    "30 Hz：前のコマと比べた面の反転（通し）": {
+     "value": 1,
+     "threshold": "0",
+     "pass_": false
+    },
+    "30 Hz：唇・管の行の方向の辺の最短_m": {
+     "value": 0.00228,
+     "threshold": "≥ 0.005（t* で近い辺は t* − 2q）",
+     "pass_": false
+    },
+    "30 Hz：唇・管の伸び（t* に対する比、行の方向／行の間）": {
+     "value": [
+      [
+       0.041,
+       5.726
+      ],
+      [
+       0.031,
+       17.465
+      ]
+     ],
+     "threshold": "0.05〜4",
+     "pass_": false
+    }
+   },
+   "qa_file": "Unity/Build/Design/29/qa_r02b/full_240x400_qa.json",
+   "gpu_readback_max_m": 2.3e-05,
+   "outline_vs_ds28_px": {
+    "painting": 1.0,
+    "seat": 1.0,
+    "seat_low": 1.0
+   }
+  },
+  "double_r01": {
+   "label_ja": "480 × 800 張り直し（r01）",
+   "revision": "r01",
+   "package": "Unity/Build/Design/29/r01/double_480x800",
+   "unity": {
+    "report": "Unity/Build/Design/29/unity/double_480x800/ds29_render_report.json",
+    "report_sha256": "d016c6397727d97f02fa646448cdd4aaea6e0e35d14d639b72e17ade873ade3a",
+    "rows": 480,
+    "cols": 800,
+    "layers": 241,
+    "vertices": 384000,
+    "position_buffer_mib": 529.54,
+    "twhite_mib": 1.465,
+    "mesh_vb_mib": 17.58,
+    "mesh_ib_mib": 8.76,
+    "keypose_total_mib": 557.34,
+    "driver_delta_keypose_mib": 531.01,
+    "within_512": false,
+    "sdf_texture_mib_shared": 64.0,
+    "load_s": 6.11,
+    "timing": {
+     "painting": {
+      "on_ms": 0.887,
+      "off_ms": 0.597,
+      "wave_ms": 0.291,
+      "frames": 600
+     },
+     "seat": {
+      "on_ms": 0.702,
+      "off_ms": 0.482,
+      "wave_ms": 0.219,
+      "frames": 600
+     },
+     "source": "Unity/Build/Design/29/unity/timing/double_480x800/ds29_render_report.json"
+    },
+    "protected_unchanged": true,
+    "passed": true,
+    "device": "NVIDIA GeForce RTX 3080",
+    "api": "Direct3D11",
+    "mesh": "Unity/Build/Design/29/r01/double_480x800/tstar/kstar_a45.gwb",
+    "uv3": "パッケージの頂点ごとの UV3（ds29_uv3_f32.bin）"
+   },
+   "painting_tstar": {
+    "file": "Unity/Build/Design/29/unity/double_480x800/ds27_tstar_remeasure.json",
+    "worst_abs_diff_px": 2.448,
+    "pass_": false,
+    "verdict_changes": {
+     "266": [
+      "pass",
+      "fail"
+     ]
+    },
+    "over_05px": [
+     {
+      "item": "73",
+      "measure": "boundary",
+      "px": 3.103,
+      "ref_px": 0.655,
+      "diff_px": 2.448
+     },
+     {
+      "item": "79",
+      "measure": "boundary",
+      "px": 1.105,
+      "ref_px": 0.34,
+      "diff_px": 0.765
+     },
+     {
+      "item": "118",
+      "measure": "boundary",
+      "px": 3.103,
+      "ref_px": 0.655,
+      "diff_px": 2.448
+     },
+     {
+      "item": "120",
+      "measure": "boundary",
+      "px": 1.498,
+      "ref_px": 0.288,
+      "diff_px": 1.21
+     },
+     {
+      "item": "133",
+      "measure": "boundary",
+      "px": 1.228,
+      "ref_px": 0.402,
+      "diff_px": 0.826
+     },
+     {
+      "item": "134",
+      "measure": "boundary",
+      "px": 3.202,
+      "ref_px": 0.977,
+      "diff_px": 2.225
+     },
+     {
+      "item": "175",
+      "measure": "boundary_by_class/ai_dark",
+      "px": 0.939,
+      "ref_px": 0.309,
+      "diff_px": 0.63
+     },
+     {
+      "item": "175",
+      "measure": "record_excluding_lost_regions/boundary_by_class/ai_dark",
+      "px": 0.939,
+      "ref_px": 0.309,
+      "diff_px": 0.63
+     },
+     {
+      "item": "175",
+      "measure": "record_excluding_lost_regions/boundary_by_class/mizuiro",
+      "px": 2.344,
+      "ref_px": 0.865,
+      "diff_px": 1.479
+     },
+     {
+      "item": "270",
+      "measure": "boundary",
+      "px": 2.614,
+      "ref_px": 0.563,
+      "diff_px": 2.051
+     },
+     {
+      "item": "270",
+      "measure": "record_mizuiro_reading",
+      "px": 1.825,
+      "ref_px": 0.661,
+      "diff_px": 1.164
+     }
+    ],
+    "verdicts": {
+     "73": "pass",
+     "77": "pass",
+     "79": "pass",
+     "118": "pass",
+     "120": "pass",
+     "133": "pass",
+     "134": "pass",
+     "175": "fail",
+     "263": "pass",
+     "270": "pass",
+     "265": "pass",
+     "266": "fail",
+     "267": "pass",
+     "uv_no_empty_texels": "pass"
+    },
+    "item266_seat_bands": {
+     "painting": 0,
+     "seat": 1,
+     "seat_low": 1
+    }
+   },
+   "vertices": 384000,
+   "triangles": 765442,
+   "layers": 241,
+   "p13": {
+    "(1)": {
+     "value": 0.511631,
+     "pass_": true,
+     "violations": null
+    },
+    "(2)": {
+     "value": 0.025011,
+     "pass_": false,
+     "violations": null
+    },
+    "(3)": {
+     "value": -1.504138,
+     "pass_": true,
+     "violations": null
+    },
+    "(4)": {
+     "value": 0.094828,
+     "pass_": false,
+     "violations": null
+    },
+    "(5a)": {
+     "value": 1.4e-05,
+     "pass_": false,
+     "violations": 196796
+    },
+    "(5b)": {
+     "value": 0.00038,
+     "pass_": false,
+     "violations": 1936597
+    },
+    "(5c)": {
+     "value": [
+      0.0057,
+      9.277
+     ],
+     "pass_": false,
+     "violations": 14
+    },
+    "(5d)": {
+     "value": [
+      0.0345,
+      13.167
+     ],
+     "pass_": false,
+     "violations": 47198
+    },
+    "(5e)": {
+     "value": [
+      0.2269,
+      2.487
+     ],
+     "pass_": true,
+     "violations": 0
+    },
+    "(5f)": {
+     "value": 0,
+     "pass_": true,
+     "violations": null
+    },
+    "(5g)": {
+     "value": 51,
+     "pass_": false,
+     "violations": null
+    },
+    "(6)": {
+     "value": 1.4e-05,
+     "pass_": true,
+     "violations": 0
+    }
+   },
+   "p13_fail": 7,
+   "tstar_vs_kstar": {
+    "vs_kstar_chord_dist_max_m": 0.27964750519732645,
+    "vs_kstar_chord_dist_rms_m": 0.003758812893828113,
+    "vs_kstar_chord_normal_max_m": 0.06886706247494104,
+    "vs_kstar_chord_normal_rms_m": 0.0014483916694449377,
+    "vertices_on_kstar_surface_max_m": 0.0,
+    "package_last_layer_vs_exact_max_m": 0.0012056576866995323
+   },
+   "crest_loss": {
+    "exact_crest_height_curled_rows": {
+     "max_m": 0.012529402553301594,
+     "rms_m": 0.0007476212416196448,
+     "min_m": 0.0,
+     "at": {
+      "tau": 0.0,
+      "row": 205
+     }
+    },
+    "exact_crest_height": {
+     "max_m": 0.012529402553301594,
+     "rms_m": 0.0005577862847434492,
+     "min_m": 0.0,
+     "at": {
+      "tau": 0.0,
+      "row": 205
+     }
+    },
+    "exact_lip_reach": {
+     "max_m": 5.684341886080802e-14,
+     "rms_m": 9.283016406999882e-15,
+     "min_m": -5.684341886080802e-14,
+     "at": {
+      "tau": -12.0,
+      "row": 314
+     }
+    },
+    "playback_crest_height_curled_rows": {
+     "max_m": 0.012390585950299737,
+     "rms_m": 0.0007648879059710524,
+     "min_m": -0.0016110905152961763,
+     "at": {
+      "tau": 0.0,
+      "row": 205
+     }
+    },
+    "playback_crest_height": {
+     "max_m": 0.012390585950299737,
+     "rms_m": 0.0005886455214031299,
+     "min_m": -0.00170920455204282,
+     "at": {
+      "tau": 0.0,
+      "row": 205
+     }
+    }
+   },
+   "film": {
+    "-2.25": {
+     "tau": -2.2667,
+     "d_1m_min_m": 0.8872,
+     "rows_below": 0,
+     "d_05m_min_m": 0.4363
+    },
+    "-1.333": {
+     "tau": -1.3333,
+     "d_1m_min_m": 0.7744,
+     "rows_below": 0,
+     "d_05m_min_m": 0.3883
+    },
+    "-0.5": {
+     "tau": -0.5,
+     "d_1m_min_m": 0.8539,
+     "rows_below": 0,
+     "d_05m_min_m": 0.394
+    },
+    "0.0": {
+     "tau": 0.0,
+     "d_1m_min_m": 0.5636,
+     "rows_below": 0,
+     "d_05m_min_m": 0.3634
+    }
+   },
+   "hermite": {
+    "frames_30hz_max_m": 0.0034733312808641597,
+    "frames_30hz_at": {
+     "tau": -4.2667,
+     "row": 391,
+     "col": 706
+    },
+    "frames_30hz_p99_of_frame_p99_m": 0.0014599229223739316,
+    "uniform_interval_midpoints": {
+     "n": 215,
+     "max_m": 0.002911415988980328,
+     "at_tau": -1.7083333330000001
+    },
+    "nonuniform_intervals": {
+     "n_intervals": 25,
+     "n_samples": 200,
+     "max_m": 0.0035834725653571178,
+     "at_tau": -4.270833333333333,
+     "spacing_at_worst": [
+      0.0625,
+      0.0625,
+      0.03125
+     ],
+     "intervals_tau": [
+      [
+       -11.875,
+       -11.75,
+       2.0
+      ],
+      [
+       -11.75,
+       -11.5,
+       2.0
+      ],
+      [
+       -6.25,
+       -6.0,
+       2.0
+      ],
+      [
+       -6.0,
+       -5.875,
+       2.0
+      ],
+      [
+       -5.375,
+       -5.25,
+       2.0
+      ],
+      [
+       -5.25,
+       -5.1875,
+       2.0
+      ],
+      [
+       -4.3125,
+       -4.25,
+       2.0
+      ],
+      [
+       -4.25,
+       -4.21875,
+       2.0
+      ],
+      [
+       -3.03125,
+       -3.0,
+       3.750000150000032
+      ],
+      [
+       -3.0,
+       -2.991666667,
+       3.750000150000032
+      ],
+      [
+       -2.991666667,
+       -2.983333334,
+       2.000000120000015
+      ],
+      [
+       -2.983333334,
+       -2.966666667,
+       2.000000120000015
+      ],
+      [
+       -2.966666667,
+       -2.933333333,
+       2.0
+      ],
+      [
+       -2.0,
+       -1.966666667,
+       4.000000120000041
+      ],
+      [
+       -1.966666667,
+       -1.958333334,
+       4.000000120000041
+      ],
+      [
+       -1.958333334,
+       -1.95,
+       1.9999998799999996
+      ],
+      [
+       -1.95,
+       -1.933333333,
+       1.9999998799999996
+      ],
+      [
+       -1.683333334,
+       -1.666666667,
+       2.0000001199999615
+      ],
+      [
+       -1.666666667,
+       -1.658333334,
+       2.0000001199999615
+      ],
+      [
+       -1.225,
+       -1.216666666,
+       1.9999997600000259
+      ],
+      [
+       -1.216666666,
+       -1.2,
+       1.9999997600000259
+      ],
+      [
+       -1.083333334,
+       -1.066666667,
+       2.0
+      ],
+      [
+       -1.066666667,
+       -1.033333333,
+       2.0
+      ],
+      [
+       -0.233333333,
+       -0.2,
+       2.000000059999999
+      ],
+      [
+       -0.2,
+       -0.183333334,
+       2.000000059999999
+      ]
+     ]
+    },
+    "note_ja": "パッケージの再生（量子化した節点の Hermite）と正確な表示の網（生成器の値を網に写したもの）の差、全頂点の最大。節点の間隔が変わる所＝隣の区間との間隔の比が 1.5 以上の区間（内側の 8 点）。"
+   },
+   "deviation_from_ds28_motion": {
+    "chord_dist_max_m": 0.5140294362421574,
+    "chord_dist_max_tau": -2.8,
+    "chord_dist_rms_m": 0.004414627265208194,
+    "chord_normal_max_m": 0.08287990280688601,
+    "chord_normal_max_tau": -1.4,
+    "chord_normal_rms_m": 0.0012206128449048026,
+    "frames_hz": 5.0,
+    "samples": 210347703,
+    "note_ja": "表示の網（正確）の辺の 1/4・1/2・3/4 の点と、同じ媒介変数の源の面（設計28 の動き）の点の差。距離と源の面の法線の成分"
+   },
+   "gpu_estimate": {
+    "position_buffer_mib": 529.541015625,
+    "twhite_mib": 1.46484375,
+    "mesh_vertex_mib_estimate": 23.4375,
+    "mesh_index_mib": 8.759788513183594,
+    "note_ja": "位置 = 層 × 頂点 × 6 バイト（設計27 の再生器：StructuredBuffer<uint> に 16 bit × 3、CPU の写しなし）。網の頂点は位置・法線・接線・UV・UV2・UV3 の見積もり（Unity の実測ではない）",
+    "total_mib_estimate": 563.2031478881836,
+    "within_512": false
+   },
+   "measure_file": "Unity/Build/Design/29/r01/measure/double_480x800.json",
+   "qa": {
+    "非多様体の辺": {
+     "value": 0,
+     "threshold": "0",
+     "pass_": true
+    },
+    "縁の輪（外周のほか＝継ぎ目・穴）": {
+     "value": 0,
+     "threshold": "0（117）",
+     "pass_": true
+    },
+    "面の向きの反転（隣と巻き方向が食い違う辺）": {
+     "value": 0,
+     "threshold": "0",
+     "pass_": true
+    },
+    "使われない頂点・添字の潰れた面": {
+     "value": [
+      0,
+      0
+     ],
+     "threshold": "0",
+     "pass_": true
+    },
+    "位置・頂点法線の NaN（コマの最大）": {
+     "value": 0,
+     "threshold": "0",
+     "pass_": true
+    },
+    "決まらない頂点法線（周りの面がすべて面積 0、コマの最大）": {
+     "value": 231,
+     "threshold": "0",
+     "pass_": false
+    },
+    "隣と逆向きの面（二面角 > 120°、コマの最大）": {
+     "value": 280,
+     "threshold": "0",
+     "pass_": false
+    },
+    "前のコマと比べた面の反転（一覧のコマの和）": {
+     "value": 24,
+     "threshold": "0",
+     "pass_": false
+    },
+    "自己交差（行の断面、線分 ≥ 5 mm、コマの和）": {
+     "value": 0,
+     "threshold": "0",
+     "pass_": true
+    },
+    "唇先の厚さ（唇先から 0.75 m 奥の鉛直）の最小_m": {
+     "value": 0.558,
+     "threshold": "≥ 0.3",
+     "pass_": true
+    },
+    "波頭の欠落：断面の頂の高さの低下／基準の唇・管の点から網までの 3 次元の距離（最大）_m": {
+     "value": [
+      0.0206,
+      0.1286
+     ],
+     "threshold": "≤ 0.02（暫定）",
+     "pass_": false
+    },
+    "座席 v1 の射線：穴（コマの和）": {
+     "value": 0,
+     "threshold": "0",
+     "pass_": true
+    },
+    "座席 v1 の射線：開いた背面（コマの和）": {
+     "value": 0,
+     "threshold": "0",
+     "pass_": true
+    },
+    "座席 v1 の射線：切断端＋縁の下のすき間（外周、t* のコマ）": {
+     "value": 0,
+     "threshold": "0",
+     "pass_": true
+    },
+    "座席 v1 の射線：切断端／縁の下のすき間（外周、t* より前のコマの和。記録）": {
+     "value": [
+      18475,
+      33300
+     ],
+     "threshold": "記録",
+     "pass_": null
+    },
+    "座席 v1 の射線：継ぎ目の切断（117、コマの和）": {
+     "value": 0,
+     "threshold": "0",
+     "pass_": true
+    },
+    "自己交差（3 次元、BVH の重なり、コマの和）": {
+     "value": 2,
+     "threshold": "0",
+     "pass_": false
+    },
+    "下を向き、上に網のない面（面の向きの反転、コマの和）": {
+     "value": 0,
+     "threshold": "0",
+     "pass_": true
+    },
+    "座席 v1 の射線：平らな海が網の上にある所（記録）": {
+     "value": 435,
+     "threshold": "記録",
+     "pass_": null
+    },
+    "30 Hz：波の枠の 1 コマの変位_m": {
+     "value": 0.5116,
+     "threshold": "< 0.6",
+     "pass_": true
+    },
+    "30 Hz：地面の二階差分（全頂点）_m": {
+     "value": 0.10828,
+     "threshold": "≤ 0.0218（2 g）",
+     "pass_": false
+    },
+    "30 Hz：前のコマと比べた面の反転（通し）": {
+     "value": 53,
+     "threshold": "0",
+     "pass_": false
+    },
+    "30 Hz：唇・管の行の方向の辺の最短_m": {
+     "value": 0.00038,
+     "threshold": "≥ 0.005（t* で近い辺は t* − 2q）",
+     "pass_": false
+    },
+    "30 Hz：唇・管の伸び（t* に対する比、行の方向／行の間）": {
+     "value": [
+      [
+       0.006,
+       9.993
+      ],
+      [
+       0.034,
+       13.461
+      ]
+     ],
+     "threshold": "0.05〜4",
+     "pass_": false
+    }
+   },
+   "qa_file": "Unity/Build/Design/29/qa_r01/double_480x800_qa.json",
+   "gpu_readback_max_m": 2.3e-05,
+   "outline_vs_ds28_px": {
+    "painting": 0.707,
+    "seat": 3.162,
+    "seat_low": 2.828
+   }
+  }
+ },
+ "outline_lod": {
+  "half_r01_vs_src_d28": {
+   "painting": {
+    "max_px": 5.0,
+    "p99_px": 3.64,
+    "edge_pixels": [
+     6948,
+     6891
+    ],
+    "beyond_rmax": 0,
+    "area_px": [
+     3803614,
+     3806293
+    ],
+    "area_ratio": 1.0007
+   },
+   "seat": {
+    "max_px": 10.817,
+    "p99_px": 3.953,
+    "edge_pixels": [
+     1617,
+     1596
+    ],
+    "beyond_rmax": 0,
+    "area_px": [
+     459346,
+     458649
+    ],
+    "area_ratio": 0.99848
+   },
+   "seat_low": {
+    "max_px": 8.062,
+    "p99_px": 2.828,
+    "edge_pixels": [
+     2226,
+     2210
+    ],
+    "beyond_rmax": 0,
+    "area_px": [
+     1268207,
+     1267543
+    ],
+    "area_ratio": 0.99948
+   }
+  },
+  "half_r02_vs_src_d28": {
+   "painting": {
+    "max_px": 3.606,
+    "p99_px": 2.828,
+    "edge_pixels": [
+     6948,
+     6898
+    ],
+    "beyond_rmax": 0,
+    "area_px": [
+     3803614,
+     3805062
+    ],
+    "area_ratio": 1.00038
+   },
+   "seat": {
+    "max_px": 10.63,
+    "p99_px": 3.606,
+    "edge_pixels": [
+     1617,
+     1590
+    ],
+    "beyond_rmax": 0,
+    "area_px": [
+     459346,
+     458685
+    ],
+    "area_ratio": 0.99856
+   },
+   "seat_low": {
+    "max_px": 8.062,
+    "p99_px": 3.0,
+    "edge_pixels": [
+     2226,
+     2211
+    ],
+    "beyond_rmax": 0,
+    "area_px": [
+     1268207,
+     1267521
+    ],
+    "area_ratio": 0.99946
+   }
+  },
+  "half_r02b_vs_src_d28": {
+   "painting": {
+    "max_px": 3.905,
+    "p99_px": 2.5,
+    "edge_pixels": [
+     6948,
+     6901
+    ],
+    "beyond_rmax": 0,
+    "area_px": [
+     3803614,
+     3804929
+    ],
+    "area_ratio": 1.00035
+   },
+   "seat": {
+    "max_px": 10.63,
+    "p99_px": 3.606,
+    "edge_pixels": [
+     1617,
+     1590
+    ],
+    "beyond_rmax": 0,
+    "area_px": [
+     459346,
+     458690
+    ],
+    "area_ratio": 0.99857
+   },
+   "seat_low": {
+    "max_px": 8.062,
+    "p99_px": 3.0,
+    "edge_pixels": [
+     2226,
+     2210
+    ],
+    "beyond_rmax": 0,
+    "area_px": [
+     1268207,
+     1267528
+    ],
+    "area_ratio": 0.99946
+   }
+  },
+  "half_r02_vs_full_r02": {
+   "painting": {
+    "max_px": 3.202,
+    "p99_px": 2.5,
+    "edge_pixels": [
+     6943,
+     6898
+    ],
+    "beyond_rmax": 0,
+    "area_px": [
+     3803799,
+     3805062
+    ],
+    "area_ratio": 1.00033
+   },
+   "seat": {
+    "max_px": 10.63,
+    "p99_px": 3.606,
+    "edge_pixels": [
+     1615,
+     1590
+    ],
+    "beyond_rmax": 0,
+    "area_px": [
+     459316,
+     458685
+    ],
+    "area_ratio": 0.99863
+   },
+   "seat_low": {
+    "max_px": 8.062,
+    "p99_px": 2.828,
+    "edge_pixels": [
+     2225,
+     2211
+    ],
+    "beyond_rmax": 0,
+    "area_px": [
+     1268165,
+     1267521
+    ],
+    "area_ratio": 0.99949
+   }
+  }
+ },
+ "unity_check": "Unity/Build/Design/29/unity/ds29_unity_check.json",
+ "figures": [
+  "Docs/Evidence/Design/29/fig_ds29_density_painting.png",
+  "Docs/Evidence/Design/29/fig_ds29_density_seat.png",
+  "Docs/Evidence/Design/29/fig_ds29_density_seat_toward_wave.png",
+  "Docs/Evidence/Design/29/fig_ds29_density_side_left.png",
+  "Docs/Evidence/Design/29/fig_ds29_tstar_detail.png",
+  "Docs/Evidence/Design/29/fig_ds29_lipend_crops.png"
+ ],
+ "videos": [
+  "Docs/Evidence/Design/29/ds29_compare_painting.mp4",
+  "Docs/Evidence/Design/29/ds29_compare_seat_toward_wave.mp4",
+  "Docs/Evidence/Design/29/ds29_compare_side_left.mp4"
+ ],
+ "decision": {
+  "original": "src_d28",
+  "original_ja": "原版＝設計28 の既定のパッケージ（Unity/Build/Design/28/art_on、K* の格子 240 × 400、186 層）をそのまま表示用サーフェスにする。t* は K* と同じ網",
+  "light": "half_r02",
+  "light_ja": "軽量版＝120 × 200 の張り直し（r02：唇は K* の列の割り付け、管の天井は形成の間だけその時刻の弧長で一様）。原画視点の関門は大きく落ちる（item 175 の藍濃の境界の測り方が 150.9 px、8 項目が不合格に変わる）。t* の 4 倍の拡大では、原画視点の唇の根元の爪の巻き（x 約 820〜860・y 約 345〜375）が崩れて白い V 字が出て、その左上（x 約 775〜810・y 約 285〜310）に白い細片が 2 本（小さな裂け目）、座席 v1 の頂の尖りが鈍い凹みになりその下に暗い V 字（x 約 1000・y 約 550）。見え方の代わりにはならず、名前を付けた非常用の予備（体験全体の切り替え）に限る。原版の描画の時間が約 0.14 ms なので、軽量版を作らない選択も同じ重さで考えてよい",
+  "option": "full_r02",
+  "option_ja": "選択肢＝240 × 400 の張り直し（r02）。30 Hz の面の反転・断面の交差・行 185 の折れは 0 になるが、t* の原画の関門の 4 つの測り方が 28修正01 より 0.53〜1.10 px 動き（基準 ±0.5 px）、266 が不合格になる。レビュー対応の 30 Hz の全コマの検査では、τ −10.4 s ごろの自己交差 4 コマ（原版と同じ行 54 の面）と管の天井の折れ（隣 2 つと内積 < −0.8 の面 4、原版 9）は r02 にもあり、3 つの視点の描画では網の連続性の差は見分けられない（f295〜f360 の区画ごとの二階差分で、原版だけに出る時間の飛びは 0）",
+  "rejected": [
+   "double_r01",
+   "full_r01",
+   "full_r02b",
+   "half_r01",
+   "half_r02b"
+  ],
+  "rule_ja": "最小の受入（メッシュ検査 0・座席の射線 0・keypose ≤ 512 MiB・原画視点の回帰なし）を全部満たす組を原版にする。満たす組がなければ、原画視点の回帰なしを優先する（原画視点は段階5 の全番号で守ってきた関門で、網の連続性の不合格は設計27・28 と同じく記録のみにしてきたため）。この規則は r02・r02b の網の検査の結果を見る前に決めた",
+  "reasons_ja": [
+   "240 × 400 の張り直し（r01・r02・r02b）はどれも t* の原画の関門で 28修正01 から 0.5 px を超えて動いた（最大 1.451・1.101・1.142 px）。t* で K* の頂点を通らない網は、K* の折れ目（爪の先・唇の下の縁・水色の境）を弦で切るため。t* で K* と同じ網になるのは、行ごとの目印の列を K* の列にそろえた張り直しだけで、それは 3 回目の修正に当たる（損切り）",
+   "設計28 の網は、静止の網の読み（美術優先26 と同じ 1 コマの検査。36 コマ＝τ −4.433〜0 s、3 次元の自己交差は頂点を共有する組を除き両方の面の最小の高さ ≥ 5 mm）で、非多様体・巻き方向の食い違い・下を向いた面・3 次元の自己交差 0、座席の射線（穴・開いた背面・t* の切断端）0、GPU 109.1 MiB（位置 102.2 MiB）、原画の関門は 28修正01 と差 0.247 px で、最小の受入をこの読みで全部満たす唯一の組。厳しい読み（30 Hz の全コマ、頂点を共有する組を含む）では原版も自己交差 7 コマ（量子化による mm の大きさ）で不合格で、満たす組はなく、規則の後半（原画視点の回帰なしを優先）で同じ原版を選ぶ",
+   "480 × 800 は位置のバッファだけで 529.5 MiB（上限 512 MiB）、面の反転 53・3 次元の自己交差 2・決まらない法線 231 で不採用"
+  ],
+  "acceptance_readings_ja": "計画の「メッシュ検査（非多様体・面の反転・自己交差）0」は、美術優先26 の Blender のメッシュ検査（1 コマの網の非多様体・向きの反転・自己交差）の読みで判定した（自己交差は BVH で頂点を共有する組を除き、両方の面の最小の高さ ≥ 5 mm の組、QA の 36 コマ＝τ −4.433〜0 s）。30 Hz の通しで前のコマと比べた面の反転（P13 (5g)、バックログ 107）と断面の自己交差は連続性の項目として別に記録した（原版は 7・1、選択肢の r02 は 0・0）。レビュー対応で厳しい読み（30 Hz の 361 コマ、頂点を共有する組を含む）も測った：原版は自己交差 7 コマ（頂点を 1 つ共有する組の貫通 7：τ −10.433〜−10.333 s の行 54〜55・列 348〜349 の深さ 0.03〜0.04 mm と τ −0.567〜−0.5 s の行 59〜60・列 149〜151 の深さ 2.3〜3.5 mm。頂点を共有しない組 4：τ −10.4 s ごろの行 54 の列 348 と 350）。設計28 の生成器の正確な網ではどれも 0 で、16 bit の量子化が (5b) の短い行の辺をつぶして起きる。r02（240 × 400）は τ −10.4 s ごろの 4 コマ、軽量版 r02 は 0。どちらの読みを採るかは進行役・利用者が確かめる（記録の第8節の表）"
+ },
+ "acceptance_original": {
+  "non_manifold": {
+   "value": 0,
+   "verdict": "合格"
+  },
+  "winding_flips": {
+   "value": 0,
+   "verdict": "合格"
+  },
+  "downward_faces_no_mesh_above": {
+   "value": 0,
+   "verdict": "合格"
+  },
+  "self_intersections_3d_bvh": {
+   "value": 0,
+   "verdict": "合格（静止の網の読みで）",
+   "note_ja": "BVH の重なりから頂点を 1 つでも共有する面の組を除き、両方の面の最小の高さ ≥ 5 mm の組だけを数えた。QA の 36 コマ（τ −4.433〜0 s）だけ。この 3 つの条件を外すと 0 ではない（self_intersections_strict）"
+  },
+  "seat_rays_hole_openback_cutend_tstar": {
+   "value": [
+    0,
+    0,
+    0
+   ],
+   "verdict": "合格（事前検査。判定は番号41）",
+   "note_ja": "5 万本 × 36 コマ。t* より前の外周の切断端 37,215 本は周りの海（設計30）の範囲で記録のみ"
+  },
+  "keypose_gpu_mib": {
+   "value": 109.12,
+   "verdict": "合格",
+   "note_ja": "Unity のバッファの大きさ：位置のバッファ 102.17 MiB ＋ T_white 0.37 MiB ＋ 網の頂点 4.39 MiB・添字 2.18 MiB（色区テクスチャ 64 MiB は全組で共通、別）。Unity の割り当ての数の増え 102.54 MiB（= 107,520,000 B）は位置と T_white の大きさのちょうど和で、独立の測りではなく確かめ"
+  },
+  "painting_regression": {
+   "value_px": 0.247,
+   "verdict": "合格",
+   "note_ja": "28修正01 との差の最大。合否は全項目で 28修正01 と同じ（175 は 28修正01 から不合格）"
+  },
+  "temporal_flips_30hz": {
+   "value": 7,
+   "verdict": "記録のみ（設計28 と同じ、107）"
+  },
+  "section_self_crossing": {
+   "value": 1,
+   "verdict": "記録のみ（τ −0.5 s、行 59 の 5.7 mm の折れ。BVH の検査は頂点を共有する組を除くので 0 だったが、頂点を共有する組の貫通としては 3 コマ＝self_intersections_strict）"
+  },
+  "self_intersections_strict": {
+   "value_frames": 7,
+   "value_shared_vertex_frames": 7,
+   "value_non_shared_frames_361": 4,
+   "verdict": "不合格・記録のみ（厳しい読み。量子化による mm の大きさで描画では見えない）",
+   "taus_s": [
+    -10.433,
+    -10.4,
+    -10.367,
+    -10.333,
+    -0.567,
+    -0.533,
+    -0.5
+   ],
+   "note_ja": "30 Hz の 361 コマ（τ −12〜0 s）、両方の面 ≥ 5 mm。頂点を 1 つ共有する組の貫通（片方の面の向かいの辺がもう片方の面の内を通る）が 7 コマ：行 54〜55・列 348〜349 の τ −10.433〜−10.333 s（4 コマ、深さ 0.03〜0.04 mm、QA の窓の外）と、行 59〜60・列 149〜151 の τ −0.567〜−0.5 s（3 コマ、深さ 2.3〜3.5 mm。断面の 5.7 mm の折れと同じ所）。頂点を共有しない組（BVH、361 コマ）は τ −10.433〜−10.333 s の 4 コマ（面 (54, 348, 1) と (54, 350, 0)）。設計28 の生成器の正確な網（量子化の前）ではどれも 0",
+   "evidence": "Docs/Evidence/Design/29/ds29_review_checks.json（mesh_src_d28・bvh_src_d28・exact_local_src_d28）"
+  },
+  "tube_ceiling_fold_row185": {
+   "value_frames": 13,
+   "tau_s": [
+    -0.867,
+    -0.467
+   ],
+   "verdict": "不合格・記録のみ（静止の検査では見えない）",
+   "note_ja": "面（行 185・列 239・三角形 1、rim の 13 列内側の管の天井）が τ −0.9 s で幅 1.6 mm までつぶれて裏返り、τ −0.867〜−0.467 s の 13 コマ、3 つの隣のうち 2 つと逆を向いたまま（単位法線の内積 −0.94〜−0.10、残りの 1 つとは +0.8〜+0.9）。長さ 0.36〜0.40 m・幅 1.9〜25.5 mm の帯。巻き方向の検査は位相だけ、下を向いた面の検査は管の中では当たらない、座席の射線（約 0.64° おき）は座席から約 30.5 m の幅 2 cm（約 0.04°）には粗すぎる。面のシェーダーは Cull Off・外殻線は Cull Front なので陰や外殻線の筋として出うる（3 視点の動画の f295〜f360 の区画ごとの二階差分では、r02 に対して原版だけに出る飛びは 0）。同じ種類の折れは行 178〜192・列 200〜300 の τ −1.5〜−0.2 s に原版 9 面（内積 < −0.8）、r02 4 面"
+  }
+ },
+ "backlog": {
+  "ja": "計画 §2.1 の設計29 のバックログは 117（つなぎ目の穴と切断 0）と 83・115・116（座席からの射線の事前検査）。83・115・116 は、これまでの記録と同じく射線の 3 つの値（開いた背面・切断端・穴）をまとめて判定した。設計28 から引き継いだ 106・107 も記録した",
+  "items": {
+   "83": {
+    "value": "原版：開いた背面 0・切断端 0（t*）・穴 0（5 万本 × 36 コマ）",
+    "verdict": "合格（事前検査。判定は番号41）"
+   },
+   "115": {
+    "value": "同上（83・115・116 は同じ射線の 3 つの値）",
+    "verdict": "合格（事前検査。判定は番号41）"
+   },
+   "116": {
+    "value": "同上",
+    "verdict": "合格（事前検査。判定は番号41）"
+   },
+   "117": {
+    "value": "原版：外周のほかの縁の輪 0・継ぎ目の切断の射線 0・穴 0、減面なし（輪郭の差 0 px）。軽量版（half_r02）：縁の輪 0・継ぎ目 0・穴 0 だが、原版との t* の輪郭の差 原画視点 3.6 px・座席 v1 10.6 px・座席の低い視点 8.1 px（基準 ≤ 4 px）",
+    "verdict": "合格（原版）／不合格・記録のみ（軽量版の座席の輪郭）"
+   },
+   "106": {
+    "value": "原版：行の間の辺の伸び 14.2 倍（設計28 と同じ）。選択肢 r02：13.1 倍",
+    "verdict": "不合格・記録のみ"
+   },
+   "107": {
+    "value": "原版：面の反転 4（P13 (5g)）、独立の検査器の通しで 7。加えて行 185・列 239 の管の天井の面が τ −0.867〜−0.467 s の 13 コマ、隣 2 つと逆向きのまま（1 コマの反転ではない。初回の提出は「τ −0.87 s の反転」と書いた）。選択肢 r02：面の反転 0・0、行 185 の面の折れ 0（ただし同じ区域の別の面に内積 < −0.8 の折れ 4 面）",
+    "verdict": "不合格・記録のみ（原版）。選択肢では 0"
+   }
+  }
+ },
+ "gate_harness_on_remeshed_grid": {
+  "ja": "設計28 の関門の検査器（ds28_gates.py：ds27_gates ＋ P17〜P19）を 240 × 400 の張り直し（r01）へそのまま当てると、P4・P14・P16・原画の前提が新しく落ち、P3 が通った。検査器は頂点の番号を K* の頂点として読む（唇先の列 ks.lipcol・行ごとの tip_col、t* の位置 = K* の頂点）ので、列を張り直した網では別の点を測る。表示の網の頂点はどの τ でも設計28 の面の上にある（作り手の重心座標）ので、動きの関門（P1〜P19）は設計28 の値のまま。網に依る項目は、作り手の P13 の写し（ds29_measure.py、設計28 の値を再現）と独立の検査器（ds29_qa.py）で測った",
+  "file": "Unity/Build/Design/29/gates/full_240x400_default.json",
+  "values": {
+   "P3": [
+    0.0822,
+    0.2854
+   ],
+   "P4": [
+    -9.752,
+    -9.745
+   ],
+   "P14": [
+    null,
+    6.0086
+   ],
+   "P16": [
+    2.083,
+    -1.395
+   ],
+   "Painting": [
+    3.02209,
+    0.0012
+   ]
+  },
+  "values_ja": "[張り直し r01, 設計28]。P4 は峰の行の tip_col 232 が張り直した網では唇先でない（窓の加速度 −6.86 m/s²）、P14 は隣の版（art_off）のパッケージが同じフォルダーにない、P16 は行 60 の同じ読み、原画の前提は t* の頂点 ≠ K* の頂点（最大 3.02 m、面の上では 0）"
+ },
+ "revisions": {
+  "ja": "損切り：統合の後の修正は 2 回まで。作り手の数え方（r00 = 初回の統合、r01 = 修正1）に合わせ、統合での r02 を修正2 とした（r02 と r02b は同じ修正の 2 つの候補を並べて作った）。修正2 の後も残ったものは記録のみ",
+  "r00": "初回の統合（作り手）：目印の列を行の間でならし、管の天井は全区間でその時刻の弧長で一様。t* の直前の滑りで P13 (2) 0.054、層が 28〜149 増え、480 × 800 は 736 MiB",
+  "r01": "修正1（作り手）：目印は生成器の整数の列、管の天井の弧長は τ −2.0 s まで、−1.0 s で t* の弧長の割り付けへ。唇は t* の弧長で一様。240 × 400：P13 の不合格 6 → 4、面の反転 0。統合で測った t* の原画の関門は 28修正01 と最大 1.451 px（item 79・134・175・270 の 4 つの測り方）、266 が不合格。120 × 200 は 147.9 px、480 × 800 は 2.448 px",
+  "r02": "修正2（統合、候補 A）：唇を t* の弧長で一様（arc_tstar）から、K* の列の割り付けを目印の間で線形に写す（column）へ。240 × 400：原画の関門 1.101 px（266 は不合格のまま）、P13 の不合格 4、独立の検査器の面の反転 0・断面の交差 0・3 次元の自己交差 0、t* の輪郭の差 1.0 px",
+  "r02b": "修正2（統合、候補 B）：r02 に加えて、管の天井の t* の土台も column（arc_tau_col。形成の間はその時刻の弧長、−2.0〜−1.0 s で column へ）。240 × 400：原画の関門 1.142 px（合否はすべて 28修正01 と同じ、266 も合格）、ただし P13 (5e) 78・(5g) 2 に戻り、層 220",
+  "not_done_ja": "修正3 の候補（行ごとの目印を K* の列にそろえ、t* で K* と同じ網にする。管の天井だけ形成の間に弧長で均す）は、損切りで作っていない。原画視点の回帰 0 と P13 (5e) の直しは両立する見込みだが、行 185 の管の天井の折れ（τ −0.867〜−0.467 s の 13 コマ、隣 2 つと逆向きのまま。初回の提出は「τ −0.87 s の面の反転（(5g) 4）」と書いた）は t* の網と同じ割り付けの時刻なので残る見込み"
+ },
+ "hermite_nonuniform": {
+  "ja": "不等間隔の節点での Hermite の補間の差（作り手の ds29_measure.py、量子化を含む再生と正確な網の差）。間隔が隣と 1.5 倍以上変わる区間ごとに 8 点。どの組も最も悪いのは τ −4.27 s（間隔 0.0625 → 0.03125 s）で、0.25 s → 1/30 s の切り替わり（τ −3.0 s）ではない。4 mm の規則（節点の検査 2.5 mm ＋ 量子化 1.2 mm）の内",
+  "max_mm": {
+   "src_d28": 3.51,
+   "half_r02": 3.51,
+   "full_r02": 3.39,
+   "double_r01": 3.58
+  }
+ },
+ "gpu_timing": {
+  "method_ja": "Unity 6000.4.3f1 Editor の batchmode（PC オフスクリーン、RTX 3080、Direct3D11）。原画視点と座席 v1 を 1920 × 1080・MSAA 8x の RT へ描き、毎コマ 1 画素を読み戻して GPU の終わりを待つ壁時計の時間。600 コマ（t = 0〜14 s を等分した τ）の平均を 3 回、中央値。主役波（面と外殻線）を描く場合と隠した場合の差を主役波の分とした。CPU の命令の発行と同期を含むおおよその値で、GPU のタイマーの値ではない。HMD 実機ではない（両眼では頂点の処理がおよそ 2 倍）",
+  "reports": "Unity/Build/Design/29/unity/timing/<組>/ds29_render_report.json",
+  "variance_ja": "同じパッケージでも回によって約 50% 違う：原版は描画の回（180 コマ）で 0.214／0.116 ms、時間だけの回（600 コマ）で 0.137／0.083 ms。480 × 800 は 0.544／0.371 と 0.291／0.219 ms。揺れは軽量版と原版の差（約 0.05 ms）と同じくらいで、密度どうしの小さな差は順番の目安にしかならない",
+  "memory_check_ja": "driverBytesAfterKeypose − driverBytesAfterSurface はどの組も位置と T_white のバッファの大きさのちょうど和（原版 107,520,000 B、軽量版 32,640,000 B、張り直し 121,344,000 B、480 × 800 556,800,000 B）。Unity が頼まれた大きさを数え直した値で、独立の測りではない（バッファの大きさの確かめ）"
+ },
+ "time": {
+  "plan_ja": "計画 §2.1 の設計29 は ≤0.5 日",
+  "actual_ja": "作り手（網の組み立てと測定、r00・r01）約 3 時間（13:15〜16:05 ごろ）と独立の検査器（13:15〜14:15 ごろ、並べて）、統合（Unity の再生器と描画、検査の実行、修正2、証拠と記録）16:10〜17:30 ごろ（約 1.3 時間）。通しで約 4.3 時間（0.53 日）で、計画の上限を超えた。超えた分は 2 回目の修正（r02・r02b の組み立てと測り直し）",
+  "per_run_ja": "1 回の計算はどれも 30 分以内（作り手の組み立て 7〜25 分、測定 14〜28 分、検査器 25〜43 分（480 × 800 の Blender を含む）、Unity 1 回 43〜93 s（run_ds29_unity.ps1 の DS29_UNITY … seconds= の行、描画の 8 回：logs/unity_all.txt の 44・76・93・91 s と logs/unity_*_r02*.txt の 43・56・59・88 s。GPU の時間の 4 回と確かめの 1 回は手順の行を残しておらず、続けた 4 回のログの書き終わりの間隔は 17〜23 s。初回の提出の 15〜47 s は DS29Render の中の totalSeconds（実際は 6.2〜59.4 s）だった）、原画の評価 1〜4 分、レビュー対応の検査 1 回 0.5〜6 分）",
+  "review_ja": "レビュー対応 18:00〜18:40 ごろ（約 0.7 時間）。合計 約 5.0 時間（0.63 日）。網とパッケージは作り直していない（測り直しと文書の直し）"
+ },
+ "handoffs": {
+  "design30_ja": [
+   "原版は設計28 のパッケージのまま（Unity/Build/Design/28/art_on）。設計27 の再生器（DS27KeyposePlayer）でそのまま再生できる。軽量版・張り直しの網は設計29 の DS29KeyposePlayer（行・列をパッケージの json から読み、t* の網の .gwb と頂点ごとの UV3 を読む）で再生する",
+   "外周の縁が平らな仮置きの海より持ち上がる（t* より前の切断端 37,215 本・縁の下 33,303 本、240 × 400 の組で同じ）。周りの海とのつなぎ（設計30）",
+   "奥の壁の行 209〜214 が最後の 0.067 s に 1 コマ 0.11〜0.14 m 下がる（30 Hz の二階差分 0.111 m、約 10 g。P13 (2) は巻きの行だけを見るので出ない）。設計28 の動きの問題で、表示の網では直らない"
+  ],
+  "brushup_ja": [
+   "仕上げ29（83・115〜117）：修正3 の候補（行ごとの目印を K* の列にそろえた張り直し）を作り、原画視点の回帰 0 のまま P13 (5e) と管の天井の網を直せるかを確かめる",
+   "K* 自身に二面角 120° を超える折れ返りが 78 ある（行 156〜158・190〜198、唇・rim の列の割り付けが跳ぶ所）。表示の網の折れ返りの判定は K* を基準にするかを決める",
+   "仕上げ29（採るなら）：量子化の自己交差（τ −10.4 s の行 54、τ −0.5 s の行 60）と、行 185 の管の天井の折れ（τ −0.867〜−0.467 s の 13 コマ）"
+  ],
+  "design36_38_ja": [
+   "設計28 §8 の 5（設計28 の metrics.json の ja）で「設計29・36・38 の範囲」とされた描画の傷 5 つは、原版にすべて残る。原版の 30 fps の動画 3 本は設計28 と SHA-256 まで同じ（440cffd5…・0c62aae5…・816472d1…）、段階の静止画 24 枚は画素まで同じ。4 つの密度で同じように出るので表示の網の問題ではない。設計36・38（色と外殻線）か仕上げ28・29 へ渡し直す",
+   "唇の端の梯子・モアレの塊：残る。座席から波の方向の x 940〜1200・y 0〜560 で原版と違う画素は最大 2.9〜3.6%・平均 1.0〜1.7%（軽量版・張り直し・480 × 800）。1:1 の切り出し（fig_ds29_lipend_crops.png）で 4 組とも同じ梯子。網の問題ではない",
+   "座席から波の方向の画面に固定した縦の継ぎ目：残る。4 組とも同じ所。網の問題ではない",
+   "前面の足の縦の筋：残る。x 0〜1300・y 330〜420 で違う画素は最大 2.1〜3.3%・平均 0.6〜1.6%。網の問題ではない",
+   "τ −1〜−0.3 s に頂の上の爪の模様が埋まっていく：残る。4 組とも同じ。網の問題ではない",
+   "t* ごろの原画視点の左端の横縞：残る。x 0〜400・y 200〜800 で違う画素は最大 4.3〜5.0%・平均 1.0〜2.0%。網の問題ではない",
+   "t* の直前の画像の変わりの大きいコマ（原画視点 f347〜f352＝τ −0.12〜−0.04 s、座席から波の方向 f344〜f349）は 4 組で同じ（コマの差の曲線の相関 0.9979〜1.0、60 px の区画の二階差分で原版だけに出る飛びは r02・480 × 800 に対して 0）。設計28 の動きと色の変わり方（D31 の急な止め）によるもので、網の飛び（ポッピング）ではない",
+   "t* の座席 v1 の白い rim の帯の縁の約 15 px の段々、唇の下の白い区画の櫛の歯、暗い面の斜めの折り目の線はどの密度でも同じ。K* の行ごとの色・UV の境（(5d) の列の割り付けが跳ぶ行）で決まり、3 回目の張り方でも消えない見込み"
+  ]
+ },
+ "determinism": {
+  "ja": "r02 の 240 × 400 と 120 × 200 を、管の天井の新しい張り方（arc_tau_col）を足した後の ds29_surface.py（5a51432…）で作り直し（Unity/Build/Design/29/r02/_twice）、8 ファイル × 2 網＝16 ファイル（ds27_keypose.json・ds27_pos_rgba16.bin・ds27_twhite_r32f.bin・ds29_uv3_f32.bin・ds29_map.npz・tstar/kstar_a45.gwb・.obj・_meta.json）の SHA-256 がすべて同じ。r02 の組み立ての記録（ds29_build_log）の code_sha256 は前のコードの 9a383ca…、パッケージの json は 5a51432…（組み立ての途中でファイルが書き換わった）。不採用の r01 の 3 つのパッケージは前のコード（9a383ca…）で作り、今のコードでは作り直していない（作り手の記録では r01 も 2 回作って 8 ファイルが同じ）",
+  "files_same": 16,
+  "files": 16
+ },
+ "review_response": [
+  {
+   "n": 1,
+   "finding_ja": "原版の「3 次元の自己交差 0」は、頂点を共有する組を除き両方の面 ≥ 5 mm の組だけを数え、36 コマ（τ −4.433〜0 s）だけを見た値。30 Hz の全コマでは頂点を共有する組の貫通が 7 コマある",
+   "action_ja": "30 Hz の 361 コマで測り直した（ds29_review_checks.py mesh・blender・exact_local）。頂点を共有する組の貫通 7 コマ（指摘と同じ所）、頂点を共有しない組も τ −10.4 s ごろの 4 コマ（BVH、QA の窓の外）。正確な網では 0。記録の第0節の 1・第2節・第3節・第5節と acceptance_original・decision を直し、「最小の受入を全部満たした唯一の組」は静止の網の読みの場合に限ると書いた。r02 にも τ −10.4 s の 4 コマがある"
+  },
+  {
+   "n": 2,
+   "finding_ja": "行 185 の項目は「τ −0.87 s の反転」ではなく、面が τ −0.867〜約 −0.45 s の約 13 コマ隣 2 つと折れたまま。静止の検査では見えない",
+   "action_ja": "測り直して同じ結果（13 コマ、τ −0.867〜−0.467 s、内積 −0.94〜−0.10、長さ 0.36〜0.40 m・幅 1.9〜25.5 mm）。第6節の 1・第8節・backlog 107 を直した。r02 は行 185 の面は 0 だが、同じ区域に同じ種類の折れが 4 面（原版 9 面）あると書いた"
+  },
+  {
+   "n": 3,
+   "finding_ja": "設計28 §8 の 5 で設計29・36・38 へ渡された描画の傷に触れていない",
+   "action_ja": "原版の動画 3 本が設計28 と SHA-256 まで同じ、静止画 24 枚が画素まで同じことを確かめ、傷の場所の密度ごとの違う画素を測り、唇の端の 1:1 の切り出し（fig_ds29_lipend_crops.png）を足した。第0節の 7・第6節の 11・第8節・第8.1節・handoffs.design36_38_ja・試写の説明に、傷は残り、密度で変わらず、設計36・38 か仕上げへ渡し直すと書いた"
+  },
+  {
+   "n": 4,
+   "finding_ja": "README の行の記録の列が [29] で、設計26〜28 の [設計26]〜[設計28] と違い、美術優先29 の [29] と紛れる",
+   "action_ja": "kit の row_29.txt を [設計29](Design_29_ja.md) にした（row29_apply.py の列の数の照合はそのまま通る）"
+  },
+  {
+   "n": 5,
+   "finding_ja": "run.json の evidence に qa/ の 14 ファイルがない",
+   "action_ja": "ds29_record.py の evidence を Docs/Evidence/Design/29/ の下のすべてのファイル（qa/ を含む）にし、build_outputs に qa_*/ のまとめとレビュー対応の検査の JSON を足して、--meta-only で run.json を書き直した"
+  },
+  {
+   "n": 6,
+   "finding_ja": "Unity の 1 回の時間「15〜47 s」が違う（手順の seconds= は 43〜93 s）",
+   "action_ja": "記録の第9節の 4、metrics の time.per_run_ja、msg_29.txt を 43〜93 s（手順の行、描画の 8 回）に直し、15〜47 s は DS29Render の中の totalSeconds だったと書いた"
+  },
+  {
+   "n": "提案",
+   "finding_ja": "任意の提案",
+   "action_ja": "採った：GPU の割り当ての増えをバッファの大きさの確かめと書き直した、GPU の時間の約 50% の揺れ、静止の検査の τ の範囲（加えて BVH を 361 コマへ広げた）、開いた背面 0 が under_edge の分け方に依ること、軽量版の t* の傷を 4 倍の拡大で確かめて書いた、r02 の網の連続性の差は描画で見分けられないこと、t* 直前の大きな変わりはポッピングではないこと、唇の端の 1:1 の切り出し、座席 v1 の並べ図の説明、24 枚の静止画と 3 本の動画の一致、t* の段々・櫛の歯・斜めの線が K* の色・UV の境で決まること、決定性のファイルの数（8 × 2 = 16）、r01 も前のコードで作ったこと、ds29_record.py の使い方の --half-rev・--full-rev、__pycache__ の消去、メッシュ検査の読みの行を第8節の表へ、kit の README_ja.txt。直せなかった・違ったもの：提案の「r02 は頂点を共有する組の交差と行 185 の折れを含めてどの検査も 0」は、r02 にも τ −10.4 s ごろの自己交差 4 コマと、同じ区域の別の面の折れがあったので、そのとおりには書かなかった"
+  }
+ ]
+}

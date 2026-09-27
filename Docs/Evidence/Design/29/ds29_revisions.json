@@ -1,0 +1,396 @@
+{
+ "note_ja": "設計29 の修正の記録（損切り：統合の後の修正は 2 回まで）。r00 = 初回の統合、r01 = 修正1（提出版）。値は ds29_measure.py の出力（Unity/Build/Design/29/r00/measure・r01/measure、Git 対象外）。",
+ "r00": {
+  "change_ja": "目印の列（頂・rim・ja）を行の間で σ 2 行のガウスでならした小数、管の天井は全区間でその時刻の弧長で一様（arc_tau）",
+  "src": {
+   "layers": 186,
+   "gpu_position_mib": 102.2,
+   "p13_fail": 6,
+   "p13_failed": [
+    "(2)",
+    "(5b)",
+    "(5c)",
+    "(5d)",
+    "(5e)",
+    "(5g)"
+   ],
+   "p13": {
+    "(2)": {
+     "value": 0.02453,
+     "violations": null
+    },
+    "(4)": {
+     "value": 0.000191,
+     "violations": null
+    },
+    "(5b)": {
+     "value": 0.001688,
+     "violations": 218
+    },
+    "(5c)": {
+     "value": [
+      0.0136,
+      10.419
+     ],
+     "violations": 97
+    },
+    "(5d)": {
+     "value": [
+      0.0308,
+      14.202
+     ],
+     "violations": 18193
+    },
+    "(5e)": {
+     "value": [
+      0.1409,
+      2.228
+     ],
+     "violations": 1488
+    },
+    "(5g)": {
+     "value": 4,
+     "violations": null
+    }
+   },
+   "crest_loss_curled_max_m": null,
+   "tstar_normal_max_m": null,
+   "tstar_normal_rms_m": null
+  },
+  "half_120x200": {
+   "layers": 299,
+   "gpu_position_mib": 41.1,
+   "p13_fail": 4,
+   "p13_failed": [
+    "(2)",
+    "(4)",
+    "(5c)",
+    "(5d)"
+   ],
+   "p13": {
+    "(2)": {
+     "value": 0.051069,
+     "violations": null
+    },
+    "(4)": {
+     "value": 0.060606,
+     "violations": null
+    },
+    "(5b)": {
+     "value": 0.008327,
+     "violations": 0
+    },
+    "(5c)": {
+     "value": [
+      0.0804,
+      5.12
+     ],
+     "violations": 12
+    },
+    "(5d)": {
+     "value": [
+      0.0501,
+      4.863
+     ],
+     "violations": 300
+    },
+    "(5e)": {
+     "value": [
+      0.361,
+      1.074
+     ],
+     "violations": 0
+    },
+    "(5g)": {
+     "value": 0,
+     "violations": null
+    }
+   },
+   "crest_loss_curled_max_m": null,
+   "tstar_normal_max_m": 0.27056468455443705,
+   "tstar_normal_rms_m": 0.013493061526772118
+  },
+  "full_240x400": {
+   "layers": 214,
+   "gpu_position_mib": 117.6,
+   "p13_fail": 4,
+   "p13_failed": [
+    "(2)",
+    "(5b)",
+    "(5c)",
+    "(5d)"
+   ],
+   "p13": {
+    "(2)": {
+     "value": 0.054259,
+     "violations": null
+    },
+    "(4)": {
+     "value": 0.000253,
+     "violations": null
+    },
+    "(5b)": {
+     "value": 0.0033,
+     "violations": 25850
+    },
+    "(5c)": {
+     "value": [
+      0.0703,
+      8.511
+     ],
+     "violations": 13
+    },
+    "(5d)": {
+     "value": [
+      0.0351,
+      11.833
+     ],
+     "violations": 13883
+    },
+    "(5e)": {
+     "value": [
+      0.3328,
+      1.115
+     ],
+     "violations": 0
+    },
+    "(5g)": {
+     "value": 0,
+     "violations": null
+    }
+   },
+   "crest_loss_curled_max_m": null,
+   "tstar_normal_max_m": 0.10659734016252514,
+   "tstar_normal_rms_m": 0.0019240333501584588
+  },
+  "full_240x400_tubefixed": {
+   "layers": 186,
+   "gpu_position_mib": 102.2,
+   "p13_fail": 5,
+   "p13_failed": [
+    "(2)",
+    "(5b)",
+    "(5c)",
+    "(5d)",
+    "(5e)"
+   ],
+   "p13": {
+    "(2)": {
+     "value": 0.024529,
+     "violations": null
+    },
+    "(4)": {
+     "value": 0.000253,
+     "violations": null
+    },
+    "(5b)": {
+     "value": 0.002506,
+     "violations": 30299
+    },
+    "(5c)": {
+     "value": [
+      0.053,
+      8.511
+     ],
+     "violations": 13
+    },
+    "(5d)": {
+     "value": [
+      0.039,
+      13.59
+     ],
+     "violations": 11823
+    },
+    "(5e)": {
+     "value": [
+      0.1487,
+      2.669
+     ],
+     "violations": 355
+    },
+    "(5g)": {
+     "value": 0,
+     "violations": null
+    }
+   },
+   "crest_loss_curled_max_m": null,
+   "tstar_normal_max_m": 0.10659734016252514,
+   "tstar_normal_rms_m": 0.0019240333501584588
+  },
+  "double_480x800": {
+   "layers": 335,
+   "gpu_position_mib": 736.08,
+   "note_ja": "関門の測定は 30 分を超えたので止めた（層と容量だけ）"
+  }
+ },
+ "r01": {
+  "change_ja": "目印の列は設計28 の生成器の整数の列そのまま（頂の列＝源の頂の点、rim・ja の継ぎ目が源と同じ）。管の天井の時刻の弧長は τ −2.0 s まで全部、−1.0 s で 0 へ（smoothstep）。r00 で t* の直前の滑りが P13 (2) を 0.0245 → 0.054 m に悪くし、節点を +28〜+149 層増やしたため",
+  "half_120x200": {
+   "layers": 226,
+   "gpu_position_mib": 31.0,
+   "p13_fail": 3,
+   "p13_failed": [
+    "(2)",
+    "(4)",
+    "(5d)"
+   ],
+   "p13": {
+    "(2)": {
+     "value": 0.024828,
+     "violations": null
+    },
+    "(4)": {
+     "value": 0.059469,
+     "violations": null
+    },
+    "(5b)": {
+     "value": 0.008327,
+     "violations": 0
+    },
+    "(5c)": {
+     "value": [
+      0.0791,
+      3.975
+     ],
+     "violations": 0
+    },
+    "(5d)": {
+     "value": [
+      0.05,
+      6.665
+     ],
+     "violations": 741
+    },
+    "(5e)": {
+     "value": [
+      0.3984,
+      1.968
+     ],
+     "violations": 0
+    },
+    "(5g)": {
+     "value": 0,
+     "violations": null
+    }
+   },
+   "crest_loss_curled_max_m": 0.05333373872193192,
+   "tstar_normal_max_m": 0.26689653725250245,
+   "tstar_normal_rms_m": 0.012922014154373182
+  },
+  "full_240x400": {
+   "layers": 210,
+   "gpu_position_mib": 115.4,
+   "p13_fail": 4,
+   "p13_failed": [
+    "(2)",
+    "(5b)",
+    "(5c)",
+    "(5d)"
+   ],
+   "p13": {
+    "(2)": {
+     "value": 0.024529,
+     "violations": null
+    },
+    "(4)": {
+     "value": 0.000191,
+     "violations": null
+    },
+    "(5b)": {
+     "value": 0.003301,
+     "violations": 26199
+    },
+    "(5c)": {
+     "value": [
+      0.0375,
+      6.471
+     ],
+     "violations": 9
+    },
+    "(5d)": {
+     "value": [
+      0.0353,
+      13.116
+     ],
+     "violations": 15224
+    },
+    "(5e)": {
+     "value": [
+      0.3291,
+      2.449
+     ],
+     "violations": 0
+    },
+    "(5g)": {
+     "value": 0,
+     "violations": null
+    }
+   },
+   "crest_loss_curled_max_m": 0.02330064790307773,
+   "tstar_normal_max_m": 0.12125935387469555,
+   "tstar_normal_rms_m": 0.0020047878773793914
+  },
+  "double_480x800": {
+   "layers": 241,
+   "gpu_position_mib": 529.5,
+   "p13_fail": 7,
+   "p13_failed": [
+    "(2)",
+    "(4)",
+    "(5a)",
+    "(5b)",
+    "(5c)",
+    "(5d)",
+    "(5g)"
+   ],
+   "p13": {
+    "(2)": {
+     "value": 0.025011,
+     "violations": null
+    },
+    "(4)": {
+     "value": 0.094828,
+     "violations": null
+    },
+    "(5a)": {
+     "value": 1.4e-05,
+     "violations": 196796
+    },
+    "(5b)": {
+     "value": 0.00038,
+     "violations": 1936597
+    },
+    "(5c)": {
+     "value": [
+      0.0057,
+      9.277
+     ],
+     "violations": 14
+    },
+    "(5d)": {
+     "value": [
+      0.0345,
+      13.167
+     ],
+     "violations": 47198
+    },
+    "(5e)": {
+     "value": [
+      0.2269,
+      2.487
+     ],
+     "violations": 0
+    },
+    "(5g)": {
+     "value": 51,
+     "violations": null
+    }
+   },
+   "crest_loss_curled_max_m": 0.012529402553301594,
+   "tstar_normal_max_m": 0.06886706247494104,
+   "tstar_normal_rms_m": 0.0014483916694449377,
+   "note_ja": "自己交差 (5f) は最後の 2.5 s も 2 Hz（ほかの網は 30 Hz。30 Hz では 1 回の測定が 1 時間を超えたため）、面の差は 5 Hz"
+  },
+  "rebuild_identical_ja": "提出の前にコードの説明文だけを直して作り直し、位置・T_white・UV3・媒介変数・t* の網の 18 ファイルの SHA-256 が同じことを確かめた（Unity/Build/Design/29/r01/logs/sha_*_rebuild.txt）。half_120x200 は別フォルダーへの 2 回目の生成でも 8 ファイルが同じ（決定性）"
+ }
+}

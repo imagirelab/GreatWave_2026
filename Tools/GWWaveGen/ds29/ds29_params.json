@@ -1,0 +1,47 @@
+{
+ "schema": "GreatWave.DS29.params/1",
+ "number": "設計29",
+ "note_ja": "表示用サーフェスの組み立ての値。動きの源は設計28 の既定（ds28_model.Generator(\"art_on\")、パッケージ Unity/Build/Design/28/art_on の節点）。K* は読むだけ。",
+ "source": {
+  "version": "art_on",
+  "package_dir": "Unity/Build/Design/28/art_on",
+  "package_pos_sha256": "e3b32fdbd400b44a918f10d0b03cac4dbcfb33139014801d0f7370f04eb65edd",
+  "uv3_warp": "Unity/Build/ArtFirst/28修正01/bake/af28r01_uvwarp_a45.json"
+ },
+ "densities": [
+  {"name": "half_120x200", "rows": 120, "cols": 200, "label_ja": "約半分（軽量版の候補）"},
+  {"name": "full_240x400", "rows": 240, "cols": 400, "label_ja": "今と同じ数（原版の候補）"},
+  {"name": "double_480x800", "rows": 480, "cols": 800, "label_ja": "約 2 倍"}
+ ],
+ "segments": {
+  "names": ["back_margin", "back", "lip", "tube", "wall", "front_margin"],
+  "mode": {"back_margin": "column", "back": "column", "lip": "arc_tstar", "tube": "arc_tau", "wall": "column", "front_margin": "column"},
+  "note_ja": "区間の境（目印の列）：0・j_B・頂 root・rim・内壁の錨 ja・j_E・最後の列。column＝K* の列の割り付けを目印の間で線形に写す（今の分布を保つ）。arc_tstar＝t*（K*）の弧長で一様（唇。時刻によらない物質の点なので、唇は重力だけの動きを保つ）。arc_tau＝その時刻の弧長で一様（管の天井と内壁の上。源でも物質の点ではない）。"
+ },
+ "landmark_row_smooth_rows": 0.0,
+ "tube_tau_blend_s": [-2.0, -1.0],
+ "revision": "r01",
+ "revision_note_ja": "r00（初回の統合）：目印の列を行の間で σ 2 行のガウスでならし、管の天井は全区間でその時刻の弧長で一様。r01：目印の列は設計28 の生成器の整数の列そのまま（頂の列＝源の頂の点なので頂の高さを保つ。rim・ja で唇と管の継ぎ目を源と同じ列にする）、管の天井の時刻の弧長は τ −2.0 s まで全部、−1.0 s で 0 へ smoothstep で戻す（t* の直前の滑りが二階差分（P13 (2)）と節点の数を増やしたため）。",
+ "min_segment_gap_columns": 2,
+ "twhite_never": 1.0e9,
+ "knots": {
+  "base": "source_package",
+  "adaptive_tol_m": 0.0025,
+  "adaptive_check_per_interval": 2,
+  "adaptive_max_rounds": 3
+ },
+ "measure": {
+  "hz": 30,
+  "film_d_m": [0.5, 1.0, 2.0],
+  "film_min_m": 0.3,
+  "film_taus": [-2.25, -1.333, -0.5, 0.0],
+  "nonuniform_ratio": 1.5,
+  "nonuniform_samples_per_interval": 8,
+  "edge_samples": [0.25, 0.5, 0.75]
+ },
+ "gpu": {
+  "budget_mib": 512,
+  "bytes_per_vertex_layer": 6,
+  "note_ja": "設計27 の再生器（DS27KeyposePlayer）は RGBA16 の A を捨て、頂点ごとに 16 bit × 3 = 6 バイトを StructuredBuffer<uint>（GPU だけ、CPU の写しなし＝読み取り不可）に詰める。容量 = 層 × 行 × 列 × 6 バイト。"
+ }
+}

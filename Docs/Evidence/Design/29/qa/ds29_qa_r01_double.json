@@ -1,0 +1,268 @@
+{
+ "schema": "GreatWave.DS29.qa/1",
+ "tool": "Tools/GWWaveGen/ds29/ds29_qa.py",
+ "tool_sha256": "ca801d91e8f3256414666afc3224618c21d56a4f74824d888c0b89d42e2b09c4",
+ "blender_tool": "Tools/GWWaveGen/ds29/ds29_blender_qa.py",
+ "blender_tool_sha256": "2c646a9256504beac94e56c33e5d5de965538fb43130260055cd3189f2e4c640",
+ "ds27_gates_sha256": "4cc4031542f0411b5ea33178a71b0373497ddaeb3295789a8eea5b77127d6f46",
+ "kstar_sha256": {
+  "kstar_a45.gwb": "e9bc3572590b5b237ddd302fca64f54f2d325813ad787f20e4d7524b6b84cd26",
+  "kstar_a45_rows.npz": "c9eff8ddc6aa8f887c809b36431fafe00f5747084d8f689b75b9ae23029322bb",
+  "kstar_a45_meta.json": "0651821b9e44f25724c8dc819d04567c97b36aec54e3c04454924949293f22fb"
+ },
+ "ref": "Unity/Build/Design/28/art_on",
+ "ref_pos_sha256": "e3b32fdbd400b44a918f10d0b03cac4dbcfb33139014801d0f7370f04eb65edd",
+ "thresholds": {
+  "step_m": 0.6,
+  "acc_m": 0.0218,
+  "edge_min_m": 0.005,
+  "stretch_lo": 0.05,
+  "stretch_hi": 4.0,
+  "seam_lo": 0.25,
+  "seam_hi": 4.0,
+  "tri_area_m2": 0.0001,
+  "resolvable_alt_m": 0.005,
+  "degenerate_area_m2": 1e-08,
+  "fold_dot": -0.5,
+  "lip_thick_m": 0.3,
+  "lip_behind_m": 0.75,
+  "curl_H_m": 3.0,
+  "crest_tol_m": 0.02,
+  "seg_min_m": 0.005,
+  "microfold_m": 0.05,
+  "lip_ny_min": 0.2
+ },
+ "taus": "last3",
+ "stages": "a=-4.433,b=-3.500,c=-2.933,d=-2.250,apex=-1.333,tstar=0",
+ "rays": 50000,
+ "sea_y": -0.07,
+ "command": "py -3.10 -B Tools/GWWaveGen/ds29/ds29_qa.py --package double_480x800=Unity/Build/Design/29/r01/double_480x800 --ref Unity/Build/Design/28/art_on --blender --out Unity/Build/Design/29/qa_r01 --summary-name ds29_qa_r01_double",
+ "runtime_s": 2557.6,
+ "subjects": {
+  "double_480x800": {
+   "info": {
+    "kind": "包み",
+    "dir": "Unity/Build/Design/29/r01/double_480x800",
+    "keypose_json": "ds27_keypose.json",
+    "version": "art_on",
+    "number": "設計29",
+    "layers": 241,
+    "rows": 480,
+    "cols": 800,
+    "vertices": 384000,
+    "faces": 765442,
+    "tris": "格子（K* と同じ分け方）",
+    "pos_sha256": "30f55da1e198ee591f17e2a2fce59e6d2e2d41897b9ff414aaba52cc5937c030",
+    "pos_bytes": 740352000,
+    "quantization_max_m": 0.00121,
+    "knot_tau_range": [
+     -12.0,
+     0.0
+    ],
+    "checks": [
+     {
+      "item_ja": "pos_sha256 がファイルと一致",
+      "ok": true,
+      "detail": "30f55da1e198"
+     },
+     {
+      "item_ja": "位置のファイル = 層 × 行 × 列 × 8 バイト",
+      "ok": true,
+      "detail": "740352000 バイト"
+     },
+     {
+      "item_ja": "knot_tau が層の数・狭義単調増加",
+      "ok": true,
+      "detail": "-12.000〜0.000 s、間隔 0.0083〜0.2500 s"
+     }
+    ]
+   },
+   "topology": {
+    "vertices": 384000,
+    "faces": 765442,
+    "edges": 1149441,
+    "nonmanifold_edges_gt2": 0,
+    "boundary_edges": 2556,
+    "wire_edges": 0,
+    "winding_inconsistent_edges": 0,
+    "directed_halfedge_dupes": 0,
+    "index_degenerate_faces": 0,
+    "unreferenced_vertices": 0,
+    "boundary_loops": 1,
+    "outer_loop_vertices": 2556,
+    "outer_loop_perimeter_m": 313.68,
+    "inner_loops": 0,
+    "inner_loop_sizes": [],
+    "inner_boundary_vertices": 0,
+    "boundary_vertex_branching": 0,
+    "coincident_boundary_vertex_pairs_unjoined": 0,
+    "boundary_edges_expected_grid_perimeter": 2556
+   },
+   "verdicts": {
+    "非多様体の辺": {
+     "value": 0,
+     "threshold": "0",
+     "pass": true,
+     "note_ja": null
+    },
+    "縁の輪（外周のほか＝継ぎ目・穴）": {
+     "value": 0,
+     "threshold": "0（117）",
+     "pass": true,
+     "note_ja": "縁の辺 2556（格子の外周 2556）、辺でつながらずに重なった縁の頂点の組 0"
+    },
+    "面の向きの反転（隣と巻き方向が食い違う辺）": {
+     "value": 0,
+     "threshold": "0",
+     "pass": true,
+     "note_ja": null
+    },
+    "使われない頂点・添字の潰れた面": {
+     "value": [
+      0,
+      0
+     ],
+     "threshold": "0",
+     "pass": true,
+     "note_ja": null
+    },
+    "位置・頂点法線の NaN（コマの最大）": {
+     "value": 0,
+     "threshold": "0",
+     "pass": true,
+     "note_ja": null
+    },
+    "決まらない頂点法線（周りの面がすべて面積 0、コマの最大）": {
+     "value": 231,
+     "threshold": "0",
+     "pass": false,
+     "note_ja": "設計27 のシェーダー（DS27Normal）は長さ 0 の法線を +Y に置き換えるので NaN にはならない。16 ビットの量子化で詰まった列がつぶれた所"
+    },
+    "隣と逆向きの面（二面角 > 120°、コマの最大）": {
+     "value": 280,
+     "threshold": "0",
+     "pass": false,
+     "note_ja": null
+    },
+    "前のコマと比べた面の反転（一覧のコマの和）": {
+     "value": 24,
+     "threshold": "0",
+     "pass": false,
+     "note_ja": null
+    },
+    "自己交差（行の断面、線分 ≥ 5 mm、コマの和）": {
+     "value": 0,
+     "threshold": "0",
+     "pass": true,
+     "note_ja": null
+    },
+    "唇先の厚さ（唇先から 0.75 m 奥の鉛直）の最小_m": {
+     "value": 0.558,
+     "threshold": "≥ 0.3",
+     "pass": true,
+     "note_ja": "0.3 m 未満の断面 0（コマの和）、上面が表・下面が裏でない断面 0"
+    },
+    "波頭の欠落：断面の頂の高さの低下／基準の唇・管の点から網までの 3 次元の距離（最大）_m": {
+     "value": [
+      0.0206,
+      0.1286
+     ],
+     "threshold": "≤ 0.02（暫定）",
+     "pass": false,
+     "note_ja": "断面の値（記録）：唇先の後退 0.0497 m、唇の形の片側の距離 0.0611 m。断面の値は、行の間隔が狭く行の間で形が大きくずれる所（K* の唇・rim の列の割り付けが飛ぶ行）で切り口がずれやすいので、判定は 3 次元の距離で行う"
+    },
+    "座席 v1 の射線：穴（コマの和）": {
+     "value": 0,
+     "threshold": "0",
+     "pass": true,
+     "note_ja": null
+    },
+    "座席 v1 の射線：開いた背面（コマの和）": {
+     "value": 0,
+     "threshold": "0",
+     "pass": true,
+     "note_ja": null
+    },
+    "座席 v1 の射線：切断端＋縁の下のすき間（外周、t* のコマ）": {
+     "value": 0,
+     "threshold": "0",
+     "pass": true,
+     "note_ja": "切断端＝外周の縁の頂点が平らな海 +0.12 m より高い面に当たった射線（美術優先26 と同じ数え方）。縁の下＝その高さの縁の下をくぐった射線"
+    },
+    "座席 v1 の射線：切断端／縁の下のすき間（外周、t* より前のコマの和。記録）": {
+     "value": [
+      18475,
+      33300
+     ],
+     "threshold": "記録",
+     "pass": null,
+     "note_ja": "外周の縁が周りの波（うねり・搬送波）で平らな仮置きの海より持ち上がる所。周りの海とのつなぎは設計30 の範囲。縁の高さの範囲はコマごとの JSON"
+    },
+    "座席 v1 の射線：継ぎ目の切断（117、コマの和）": {
+     "value": 0,
+     "threshold": "0",
+     "pass": true,
+     "note_ja": null
+    },
+    "自己交差（3 次元、BVH の重なり、コマの和）": {
+     "value": 2,
+     "threshold": "0",
+     "pass": false,
+     "note_ja": "両方の面の最小の高さ ≥ 5 mm の組。細い面を含む全部は 4628"
+    },
+    "下を向き、上に網のない面（面の向きの反転、コマの和）": {
+     "value": 0,
+     "threshold": "0",
+     "pass": true,
+     "note_ja": "最小の高さ ≥ 5 mm の面。細い面を含む全部は 27358"
+    },
+    "座席 v1 の射線：平らな海が網の上にある所（記録）": {
+     "value": 435,
+     "threshold": "記録",
+     "pass": null,
+     "note_ja": "網が平らな仮置きの海 y = −0.07 m より低い所（周りの海の範囲）"
+    },
+    "30 Hz：波の枠の 1 コマの変位_m": {
+     "value": 0.5116,
+     "threshold": "< 0.6",
+     "pass": true,
+     "note_ja": null
+    },
+    "30 Hz：地面の二階差分（全頂点）_m": {
+     "value": 0.10828,
+     "threshold": "≤ 0.0218（2 g）",
+     "pass": false,
+     "note_ja": null
+    },
+    "30 Hz：前のコマと比べた面の反転（通し）": {
+     "value": 53,
+     "threshold": "0",
+     "pass": false,
+     "note_ja": null
+    },
+    "30 Hz：唇・管の行の方向の辺の最短_m": {
+     "value": 0.00038,
+     "threshold": "≥ 0.005（t* で近い辺は t* − 2q）",
+     "pass": false,
+     "note_ja": "違反 2062011（辺 × コマ）"
+    },
+    "30 Hz：唇・管の伸び（t* に対する比、行の方向／行の間）": {
+     "value": [
+      [
+       0.006,
+       9.993
+      ],
+      [
+       0.034,
+       13.461
+      ]
+     ],
+     "threshold": "0.05〜4",
+     "pass": false,
+     "note_ja": "違反 34／47201（辺 × コマ）"
+    }
+   },
+   "xcheck": null
+  }
+ }
+}
