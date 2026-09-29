@@ -1,0 +1,348 @@
+{
+ "schema": "GreatWave.DS34.record_counts/1",
+ "render_report": {
+  "A1_capture": {
+   "frames": 421,
+   "max_abs_claw_frame_minus_k": 0.0,
+   "max_abs_spray_frame_minus_k": 2.842170943040401e-14,
+   "max_abs_hero_tau_minus_warp_tau": 0.0,
+   "root_max_mm_all": 0.02158050239086151,
+   "root_tri_max_mm_all": 0.011796300299465656,
+   "control_one_frame_early_median_of_frame_max_mm": 390.57427978515625,
+   "claws_in_root_table": 148
+  },
+  "A2_occlusion": {
+   "views": [
+    "occl_fg",
+    "occl_left",
+    "occl_mid",
+    "painting",
+    "seat",
+    "seat_low",
+    "seat_toward_wave"
+   ],
+   "times_s": [
+    8.0,
+    9.0,
+    10.0,
+    10.5,
+    11.0,
+    11.5,
+    12.0
+   ],
+   "cases": 98,
+   "by_layer": {
+    "claws": {
+     "hiddenByBoat": 1989,
+     "leak": 0,
+     "cases": 49
+    },
+    "spray": {
+     "hiddenByBoat": 4207,
+     "leak": 0,
+     "cases": 49
+    }
+   },
+   "painting_claws_hidden_px": 286,
+   "painting_claws_hidden_times_s": [
+    10.0,
+    10.5
+   ],
+   "false_positive_px": 0
+  },
+  "A3_stereo": {
+   "pairs": 12,
+   "judged": 9,
+   "max_rel_diff_judged": 0.010420112471055244,
+   "record_only": [
+    [
+     "seat",
+     8.0,
+     0,
+     0
+    ],
+    [
+     "painting",
+     8.0,
+     373,
+     373
+    ],
+    [
+     "seat",
+     9.0,
+     272,
+     267
+    ]
+   ],
+   "spray_max_rel_diff": 0.008917197585105896
+  },
+  "shader_all_compiled": true,
+  "stereo_variant_rt_array_index": true,
+  "protected_unchanged": true,
+  "changed_files": [],
+  "claw_frames_sha256": "6e7629889a47efc0172d40c28364b59eadef48e419d0dad5c279e3fa3d7f7565",
+  "claw_frames_same_as_ds33": true
+ },
+ "playmode": {
+  "rows": 814,
+  "dt_values": [
+   "0.0199999865",
+   "0.0199999921"
+  ],
+  "max_abs_claw_t_minus_t_s": 4.731118679046631e-07,
+  "max_abs_spray_t_minus_t_s": 4.731118679046631e-07,
+  "max_abs_hero_tau_minus_warp_tau": 0.0,
+  "max_abs_claw_frame_minus_30t": 9.911879897117615e-05,
+  "claw_flag_vs_renderer_mismatch_rows": 0,
+  "spray_flag_vs_draw_mismatch_rows": 0,
+  "toggle_sequence_white_claws_spray": [
+   [
+    "111",
+    "0"
+   ],
+   [
+    "011",
+    "12"
+   ],
+   [
+    "001",
+    "12"
+   ],
+   [
+    "000",
+    "12"
+   ],
+   [
+    "111",
+    "12"
+   ]
+  ]
+ },
+ "colour_sym": {
+  "rows": [
+   {
+    "item": "73",
+    "measure": "boundary",
+    "base_28r01_px": 0.303,
+    "no_claws_px": 0.303,
+    "claws_px": 0.303,
+    "verdict_no_claws": "pass",
+    "verdict_claws": "pass"
+   },
+   {
+    "item": "77",
+    "measure": "lower_ends",
+    "base_28r01_px": 1.17,
+    "no_claws_px": 0.867,
+    "claws_px": 0.867,
+    "verdict_no_claws": "pass",
+    "verdict_claws": "pass"
+   },
+   {
+    "item": "79",
+    "measure": "boundary",
+    "base_28r01_px": 0.34,
+    "no_claws_px": 0.357,
+    "claws_px": 1.608,
+    "verdict_no_claws": "pass",
+    "verdict_claws": "pass"
+   },
+   {
+    "item": "118",
+    "measure": "boundary",
+    "base_28r01_px": 0.453,
+    "no_claws_px": 0.867,
+    "claws_px": 0.867,
+    "verdict_no_claws": "pass",
+    "verdict_claws": "pass"
+   },
+   {
+    "item": "120",
+    "measure": "boundary",
+    "base_28r01_px": 0.288,
+    "no_claws_px": 0.288,
+    "claws_px": 0.288,
+    "verdict_no_claws": "pass",
+    "verdict_claws": "pass"
+   },
+   {
+    "item": "133",
+    "measure": "boundary",
+    "base_28r01_px": 0.402,
+    "no_claws_px": 0.718,
+    "claws_px": 8.837,
+    "verdict_no_claws": "pass",
+    "verdict_claws": "fail"
+   },
+   {
+    "item": "134",
+    "measure": "boundary",
+    "base_28r01_px": 0.661,
+    "no_claws_px": 0.634,
+    "claws_px": 9.399,
+    "verdict_no_claws": "pass",
+    "verdict_claws": "fail"
+   },
+   {
+    "item": "175",
+    "measure": "boundary_by_class/ai_dark",
+    "base_28r01_px": 0.309,
+    "no_claws_px": 0.428,
+    "claws_px": 0.428,
+    "verdict_no_claws": "fail",
+    "verdict_claws": "fail"
+   },
+   {
+    "item": "175",
+    "measure": "boundary_by_class/ai_mid",
+    "base_28r01_px": 1.625,
+    "no_claws_px": 0.472,
+    "claws_px": 0.472,
+    "verdict_no_claws": "fail",
+    "verdict_claws": "fail"
+   },
+   {
+    "item": "175",
+    "measure": "boundary_by_class/mizuiro",
+    "base_28r01_px": 0.865,
+    "no_claws_px": 0.978,
+    "claws_px": 22.382,
+    "verdict_no_claws": "fail",
+    "verdict_claws": "fail"
+   },
+   {
+    "item": "263",
+    "measure": "boundary_lower",
+    "base_28r01_px": 0.301,
+    "no_claws_px": 0.25,
+    "claws_px": 0.25,
+    "verdict_no_claws": "pass",
+    "verdict_claws": "pass"
+   },
+   {
+    "item": "270",
+    "measure": "boundary",
+    "base_28r01_px": 0.563,
+    "no_claws_px": 0.563,
+    "claws_px": 3.04,
+    "verdict_no_claws": "pass",
+    "verdict_claws": "pass"
+   },
+   {
+    "item": "270",
+    "measure": "record_mizuiro_reading",
+    "base_28r01_px": 0.661,
+    "no_claws_px": 0.634,
+    "claws_px": 8.65,
+    "verdict_no_claws": "pass",
+    "verdict_claws": "pass"
+   }
+  ],
+  "flat_266_267": {
+   "white": {
+    "no_claws_bands_ge_20px_sym": 0,
+    "claws_bands_ge_20px_sym": 49,
+    "no_claws_bands_ge_20px_strict": 7,
+    "claws_bands_ge_20px_strict": 55,
+    "no_claws_dE00_std_sym": 0.2104,
+    "claws_dE00_std_sym": 1.1489
+   },
+   "mizuiro": {
+    "no_claws_bands_ge_20px_sym": 0,
+    "claws_bands_ge_20px_sym": 12,
+    "no_claws_bands_ge_20px_strict": 0,
+    "claws_bands_ge_20px_strict": 12,
+    "no_claws_dE00_std_sym": 0.1319,
+    "claws_dE00_std_sym": 1.3719
+   },
+   "ai_mid": {
+    "no_claws_bands_ge_20px_sym": 0,
+    "claws_bands_ge_20px_sym": 0,
+    "no_claws_bands_ge_20px_strict": 0,
+    "claws_bands_ge_20px_strict": 0,
+    "no_claws_dE00_std_sym": 0.2862,
+    "claws_dE00_std_sym": 0.2862
+   },
+   "ai_dark": {
+    "no_claws_bands_ge_20px_sym": 0,
+    "claws_bands_ge_20px_sym": 0,
+    "no_claws_bands_ge_20px_strict": 0,
+    "claws_bands_ge_20px_strict": 0,
+    "no_claws_dE00_std_sym": 0.3476,
+    "claws_dE00_std_sym": 0.3476
+   }
+  },
+  "pass_to_fail_in_sym_reading": [
+   "133",
+   "134",
+   "267"
+  ],
+  "note_ja": "両側の読み（設計29修正01 が採った読み。原画の空と描画の空から 2 px 以内を色区の項目から除く）。267 の白の平塗りは、設計29修正01 の記録どおり、両側の読みの 20 px 以上の帯が 0 のとき合格と読む（tstar_sym.json の verdicts_kp_sym の 267 は評価器の定義のままの判定の写しなので使わない）。"
+ },
+ "sky_212_claws": {
+  "colour_changed_px": 10952,
+  "colour_changed_rows_0_379": 8640,
+  "colour_changed_on_no_claw_sky_rows_0_379": 117,
+  "class_id_scale": 2,
+  "class_id_changed_px": 20589,
+  "class_id_changed_on_sky": 860,
+  "note_ja": "色の画像は 1920×1080、色区 ID の画像は 3840×2160（2 倍）。空は爪なしの色区 ID の白"
+ },
+ "outline": {
+  "t28_white": {
+   "132_sigma12_max": 3.755214351150866,
+   "72_sigma24_p95": 4.007498772940381,
+   "ids_sha256": "d174f93894b25d89a813369cfc6a26b5ee2505025aec9509dbb9e7dae9d0f39d"
+  },
+  "t28_claws": {
+   "132_sigma12_max": 3.755214351150866,
+   "72_sigma24_p95": 3.842347481891398,
+   "ids_sha256": "ab1af74760aeb19bb7f076335e5a1b675f746714d1df759ca528f0561562eff6"
+  },
+  "silhouette_78_130_131_claws": {
+   "78": 0.0,
+   "130": 0.0,
+   "131": 0.0
+  },
+  "base_29r01": {
+   "132_sigma12_max": 3.755214351150866,
+   "72_sigma24_p95": 4.007498772940381
+  }
+ },
+ "playmode_images_same": {
+  "1_all_vs_5_all_on_again": true
+ },
+ "file_times": {
+  "build34_created": "2026-09-30 01:02:16",
+  "unity3_started_txt": "2026-09-30 01:11:52",
+  "code_ds34_created": "2026-09-30 01:11:52",
+  "assets_design34_created": "2026-09-30 01:11:52",
+  "unity_logs": {
+   "unity_ds34u3_main.log": [
+    "2026-09-30 01:18:48",
+    "2026-09-30 01:19:20"
+   ],
+   "unity_ds34u3_main2.log": [
+    "2026-09-30 01:20:59",
+    "2026-09-30 01:21:32"
+   ],
+   "unity_ds34u3_playmode.log": [
+    "2026-09-30 01:27:40",
+    "2026-09-30 01:27:59"
+   ],
+   "unity_ds34u3_toggles.log": [
+    "2026-09-30 01:33:25",
+    "2026-09-30 01:33:43"
+   ],
+   "unity_ds34u3_video.log": [
+    "2026-09-30 01:21:47",
+    "2026-09-30 01:22:51"
+   ]
+  },
+  "unity3_metrics": "2026-09-30 01:34:31",
+  "unity3_readme": "2026-09-30 01:35:30",
+  "indep_check_created": "2026-09-30 01:39:57",
+  "indep_check_summary": "2026-09-30 02:04:06",
+  "record_run": "2026-09-30 02:20:00"
+ }
+}

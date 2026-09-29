@@ -1,0 +1,600 @@
+{
+ "schema": "GreatWave.DS34.unity3_metrics/1",
+ "number": "設計34 Unity の部（unity3）",
+ "date": "2026-09-30",
+ "evidence_kind_ja": "Unity 6000.4.3f1 の batchmode の PC オフスクリーン描画（RTX 3080、Direct3D11）と Editor の batch の Play モード。HMD 実機ではない。",
+ "acceptance": {
+  "A1_three_layers_time_offset_0": {
+   "criterion_ja": "3 層の時刻のずれ 0（同じフレーム番号で描く）",
+   "capture_frames": 421,
+   "capture_max_claw_frame_offset": 0.0,
+   "capture_max_spray_frame_offset": 2.842170943040401e-14,
+   "capture_max_hero_tau_minus_tau_t": 0.0,
+   "capture_claws_on_grid_frames": 421,
+   "unity_root_to_sheet_max_mm": 0.02158050239086151,
+   "unity_root_to_sheet_triangle_max_mm": 0.011796300299465656,
+   "control_claws_one_frame_early_median_of_frame_max_mm_t0_to_tstar": 392.29872131347656,
+   "playmode_frames": 814,
+   "playmode_dt_s": 0.0199999865,
+   "playmode_frame_index_mismatch_claws": 0,
+   "playmode_frame_index_mismatch_spray": 0,
+   "playmode_max_abs_claw_t_minus_t_s": 4.731118679046631e-07,
+   "playmode_max_abs_spray_t_minus_t_s": 4.731118679046631e-07,
+   "playmode_max_abs_hero_tau_minus_tau_t": 0.0,
+   "note_ja": "採取：コマ k = 0〜420 ごとに 1 つの t = k/30 を再生器（主役波・海の τ(t)）・爪（コマの表 k）・飛沫（コマの表 k）へ渡す。ずれは 0。Unity の GPU で読み戻した主役波の頂点で、爪の根元とシートの結び付けの点の距離は最大 0.0216 mm（1 コマずらすと中央値 392 mm）。Play モード（Editor、dt 0.02 s）：爪と飛沫は GWClock の秒（float）を読むので t との差は最大 4.7e-07 s、フレーム番号の食い違い 0。",
+   "frame_tolerance_ja": "コマの位置の比べは 1e-6 コマまでを同じとする（飛沫の報告の値 (t − t0)·hz の倍精度の丸め 2.8e-14 コマのため。飛沫の再生器も s ≤ 1e-6 を格子の上として扱い、s が 1 に近いときは次のコマの値をそのまま使う）",
+   "pass": true
+  },
+  "A2_claws_spray_behind_hull_hidden": {
+   "criterion_ja": "船体の後ろの爪・飛沫が船に隠れる",
+   "views": [
+    "occl_fg",
+    "occl_left",
+    "occl_mid",
+    "painting",
+    "seat",
+    "seat_low",
+    "seat_toward_wave"
+   ],
+   "times_s": [
+    8.0,
+    9.0,
+    10.0,
+    10.5,
+    11.0,
+    11.5,
+    12.0
+   ],
+   "renders_per_case": 4,
+   "cases": 98,
+   "hidden_by_boat_px_claws": 1989,
+   "hidden_by_boat_px_spray": 4207,
+   "leak_px_total": 0,
+   "by_view_layer": {
+    "painting/claws": {
+     "frames": 7,
+     "only": 62540,
+     "behind": 286,
+     "hiddenByBoat": 286,
+     "leak": 0,
+     "fullVisible": 60933
+    },
+    "painting/spray": {
+     "frames": 7,
+     "only": 15012,
+     "behind": 0,
+     "hiddenByBoat": 0,
+     "leak": 0,
+     "fullVisible": 14797
+    },
+    "seat/claws": {
+     "frames": 7,
+     "only": 56940,
+     "behind": 0,
+     "hiddenByBoat": 0,
+     "leak": 0,
+     "fullVisible": 23220
+    },
+    "seat/spray": {
+     "frames": 7,
+     "only": 34629,
+     "behind": 0,
+     "hiddenByBoat": 0,
+     "leak": 0,
+     "fullVisible": 34450
+    },
+    "seat_low/claws": {
+     "frames": 7,
+     "only": 52763,
+     "behind": 8,
+     "hiddenByBoat": 8,
+     "leak": 0,
+     "fullVisible": 18604
+    },
+    "seat_low/spray": {
+     "frames": 7,
+     "only": 27926,
+     "behind": 0,
+     "hiddenByBoat": 0,
+     "leak": 0,
+     "fullVisible": 27812
+    },
+    "seat_toward_wave/claws": {
+     "frames": 7,
+     "only": 13930,
+     "behind": 10,
+     "hiddenByBoat": 10,
+     "leak": 0,
+     "fullVisible": 9000
+    },
+    "seat_toward_wave/spray": {
+     "frames": 7,
+     "only": 29446,
+     "behind": 0,
+     "hiddenByBoat": 0,
+     "leak": 0,
+     "fullVisible": 29204
+    },
+    "occl_mid/claws": {
+     "frames": 7,
+     "only": 50394,
+     "behind": 3911,
+     "hiddenByBoat": 477,
+     "leak": 0,
+     "fullVisible": 23184
+    },
+    "occl_mid/spray": {
+     "frames": 7,
+     "only": 29235,
+     "behind": 4680,
+     "hiddenByBoat": 4207,
+     "leak": 0,
+     "fullVisible": 23964
+    },
+    "occl_fg/claws": {
+     "frames": 7,
+     "only": 21639,
+     "behind": 151,
+     "hiddenByBoat": 149,
+     "leak": 0,
+     "fullVisible": 20035
+    },
+    "occl_fg/spray": {
+     "frames": 7,
+     "only": 8669,
+     "behind": 0,
+     "hiddenByBoat": 0,
+     "leak": 0,
+     "fullVisible": 8654
+    },
+    "occl_left/claws": {
+     "frames": 7,
+     "only": 141902,
+     "behind": 2039,
+     "hiddenByBoat": 1059,
+     "leak": 0,
+     "fullVisible": 41221
+    },
+    "occl_left/spray": {
+     "frames": 7,
+     "only": 27601,
+     "behind": 0,
+     "hiddenByBoat": 0,
+     "leak": 0,
+     "fullVisible": 0
+    }
+   },
+   "occl_cams": [
+    {
+     "name": "occl_mid",
+     "pos": {
+      "x": 12.207160949707031,
+      "y": 6.766775608062744,
+      "z": -17.15227699279785
+     },
+     "target": {
+      "x": -0.5888428688049316,
+      "y": 12.130599021911621,
+      "z": -13.106237411499023
+     },
+     "boatMin": {
+      "x": 1.05088472366333,
+      "y": -1.2920997142791748,
+      "z": -16.843032836914062
+     },
+     "boatMax": {
+      "x": 11.985488891601562,
+      "y": 7.1167755126953125,
+      "z": -13.86386489868164
+     },
+     "fov": 60.0,
+     "boat": "AF27 船 boat_mid"
+    },
+    {
+     "name": "occl_fg",
+     "pos": {
+      "x": 3.5200228691101074,
+      "y": 1.2084263563156128,
+      "z": -36.33351516723633
+     },
+     "target": {
+      "x": -6.861032962799072,
+      "y": 9.723271369934082,
+      "z": -17.005611419677734
+     },
+     "boatMin": {
+      "x": -2.9933743476867676,
+      "y": -0.5075116157531738,
+      "z": -33.196258544921875
+     },
+     "boatMax": {
+      "x": 5.581655025482178,
+      "y": 1.5584263801574707,
+      "z": -31.182281494140625
+     },
+     "fov": 60.0,
+     "boat": "AF27 船 boat_fg"
+    },
+    {
+     "name": "occl_left",
+     "pos": {
+      "x": -18.992446899414062,
+      "y": 9.050087928771973,
+      "z": -9.632194519042969
+     },
+     "target": {
+      "x": -9.671537399291992,
+      "y": 10.561308860778809,
+      "z": -15.70202922821045
+     },
+     "boatMin": {
+      "x": -19.27468490600586,
+      "y": 1.610342025756836,
+      "z": -13.889459609985352
+     },
+     "boatMax": {
+      "x": -10.214447021484375,
+      "y": 9.4000883102417,
+      "z": -10.90742301940918
+     },
+     "fov": 60.0,
+     "boat": "AF27 船 boat_left"
+    }
+   ],
+   "note_ja": "①その層だけ ②その層＋船（深度だけ）③場面全体 ④場面全体から船を消す、を同じコマで描く（確認用の色：爪マゼンタ・飛沫シアン、MSAA なし）。①にあって②にない画素＝船の後ろ。そのうち④で見えるもの＝船がなければ見える画素（船に隠されるべき画素）。③で見えている数が漏れ。原画視点（爪 t 10〜11.5 s）・座席の低い視点・座席から波の方向と、確認用の視点 occl_mid・occl_fg・occl_left（舷の外、上端の 0.35 m 下）で数えた。確認用の色が普通の描画に出る画素（誤検出）は 0（falsePositives）。",
+   "false_positive_px": 0,
+   "pass": true
+  },
+  "A3_mock_two_eye_claw_px_lr_diff_lt_10pct": {
+   "criterion_ja": "Mock の両眼で爪の画素数の左右差 <10%",
+   "method_ja": "座席 v1・原画視点のカメラを右の向きへ ±32 mm（IPD 64 mm）ずらして 2 回描き、確認用の色の爪の画素を数える（場面全体、遮蔽あり、MSAA なし）。両目とも 500 px 以上のコマを判定に使い、それより少ないコマは記録のみ（爪が生え始めで小さい）。",
+   "min_px_for_verdict": 500,
+   "judged": [
+    {
+     "view": "painting",
+     "t": 9.0,
+     "L": 1775,
+     "R": 1767,
+     "rel_diff": 0.00451
+    },
+    {
+     "view": "seat",
+     "t": 10.0,
+     "L": 2091,
+     "R": 2112,
+     "rel_diff": 0.00994
+    },
+    {
+     "view": "painting",
+     "t": 10.0,
+     "L": 5983,
+     "R": 6046,
+     "rel_diff": 0.01042
+    },
+    {
+     "view": "seat",
+     "t": 11.0,
+     "L": 5275,
+     "R": 5228,
+     "rel_diff": 0.00891
+    },
+    {
+     "view": "painting",
+     "t": 11.0,
+     "L": 12871,
+     "R": 12932,
+     "rel_diff": 0.00472
+    },
+    {
+     "view": "seat",
+     "t": 12.0,
+     "L": 6234,
+     "R": 6232,
+     "rel_diff": 0.00032
+    },
+    {
+     "view": "painting",
+     "t": 12.0,
+     "L": 15310,
+     "R": 15287,
+     "rel_diff": 0.0015
+    },
+    {
+     "view": "seat",
+     "t": 13.0,
+     "L": 6234,
+     "R": 6232,
+     "rel_diff": 0.00032
+    },
+    {
+     "view": "painting",
+     "t": 13.0,
+     "L": 15310,
+     "R": 15287,
+     "rel_diff": 0.0015
+    }
+   ],
+   "record_only": [
+    {
+     "view": "seat",
+     "t": 8.0,
+     "L": 0,
+     "R": 0,
+     "rel_diff": 0.0
+    },
+    {
+     "view": "painting",
+     "t": 8.0,
+     "L": 373,
+     "R": 373,
+     "rel_diff": 0.0
+    },
+    {
+     "view": "seat",
+     "t": 9.0,
+     "L": 272,
+     "R": 267,
+     "rel_diff": 0.01838
+    }
+   ],
+   "max_rel_diff_judged": 0.010420112870633602,
+   "spray_max_rel_diff_record": 0.008917197585105896,
+   "pass": true
+  },
+  "HMD_H1_H3_H4": {
+   "status": "保留",
+   "note_ja": "PS VR2 は未導入（利用者の手が要る）。Mock の両眼（カメラを 2 回描く PC の代理）と PC の描画で代えた。立体の描画経路（SPI）は爪のシェーダーのコンパイルだけ確かめた（STEREO_INSTANCING_ON の変種、SV_RenderTargetArrayIndex あり）。"
+  }
+ },
+ "regression": {
+  "rule_ja": "計画 §2.0：原画視点に触れたので評価器（ds30b_tstar_regress.py、設計29修正01 と同じ 3 つの読み）を回した。",
+  "t28_white_identical_to_ds31": {
+   "all": true,
+   "files": {
+    "af28r01_painting.png": true,
+    "af28r01_seat.png": true,
+    "af28r01_seat_low.png": true,
+    "af28r01_painting_kstar.png": true,
+    "af28r01_seat_kstar.png": true,
+    "af28r01_seat_low_kstar.png": true,
+    "af28r01_class_ids.png": true,
+    "af28r01_seat_class_ids.png": true,
+    "af28r01_seat_low_class_ids.png": true,
+    "af28r01_line_ids.png": true
+   }
+  },
+  "outline_with_claws": {
+   "78_130_131_px": [
+    3.0289,
+    3.5131,
+    3.0431
+   ],
+   "132_sigma12_max_px": 3.755214351150866,
+   "72_sigma24_p95_px": 3.842347481891398,
+   "diff_vs_29r01": {
+    "78": 0.0,
+    "130": 0.0,
+    "131": 0.0,
+    "132_sigma12_max": 0.0,
+    "72_sigma24_p95": -0.1652
+   },
+   "verdict_ja": "後退なし（78／130／131・132 σ12 は差 0、72 σ24 p95 は 4.0075 → 3.8423 px で良くなった。設計33 の numpy の 3.84 px と同じ）"
+  },
+  "outline_without_claws": {
+   "132_sigma12_max_px": 3.755214351150866,
+   "72_sigma24_p95_px": 4.007498772940381,
+   "diff_vs_29r01": {
+    "78": 0.0,
+    "130": 0.0,
+    "131": 0.0,
+    "132_sigma12_max": 0.0,
+    "72_sigma24_p95": 0.0
+   }
+  },
+  "colour_items_sheet_without_claw_layer": {
+   "worst_abs_diff_px": 13.642,
+   "sym_worst_diff_vs_29r01_px": 0.0,
+   "verdict_changes_vs_28r01": [
+    "134",
+    "267"
+   ],
+   "verdict_ja": "設計31（＝29修正01）と画像が同じなので値も同じ。後退なし"
+  },
+  "colour_items_with_claws_in_class_ids": {
+   "items": {
+    "73": {
+     "no_claws_px": 2.484,
+     "claws_px": 2.484,
+     "verdict_no_claws": "pass",
+     "verdict_claws": "pass"
+    },
+    "77": {
+     "no_claws_px": 0.867,
+     "claws_px": 0.867,
+     "verdict_no_claws": "pass",
+     "verdict_claws": "pass"
+    },
+    "79": {
+     "no_claws_px": 1.012,
+     "claws_px": 1.608,
+     "verdict_no_claws": "pass",
+     "verdict_claws": "pass"
+    },
+    "118": {
+     "no_claws_px": 2.484,
+     "claws_px": 2.484,
+     "verdict_no_claws": "pass",
+     "verdict_claws": "pass"
+    },
+    "120": {
+     "no_claws_px": 0.288,
+     "claws_px": 0.288,
+     "verdict_no_claws": "pass",
+     "verdict_claws": "pass"
+    },
+    "133": {
+     "no_claws_px": 0.718,
+     "claws_px": 8.837,
+     "verdict_no_claws": "pass",
+     "verdict_claws": "fail"
+    },
+    "134": {
+     "no_claws_px": 8.996,
+     "claws_px": 9.399,
+     "verdict_no_claws": "fail",
+     "verdict_claws": "fail"
+    },
+    "175": {
+     "no_claws_px": 16.052,
+     "claws_px": 22.382,
+     "verdict_no_claws": "fail",
+     "verdict_claws": "fail"
+    },
+    "263": {
+     "no_claws_px": 2.484,
+     "claws_px": 2.484,
+     "verdict_no_claws": "pass",
+     "verdict_claws": "pass"
+    },
+    "270": {
+     "no_claws_px": 1.028,
+     "claws_px": 8.65,
+     "verdict_no_claws": "pass",
+     "verdict_claws": "pass"
+    }
+   },
+   "worst_abs_diff_px": 21.517,
+   "verdict_changes_vs_28r01": [
+    "133",
+    "134",
+    "267"
+   ],
+   "sym_worst_diff_vs_29r01_px": 21.404,
+   "verdict_ja": "爪を色区 ID に入れた読みでは、133（左側から上側へ続く白と上側の境界）が 0.718 → 8.837 px で合格 → 不合格になる（最悪の点は表示 (751, 188)：描画の白が真値の白の境界から離れる向き。爪の白と淡い水色の帯が、焼き込みの色面の白と淡い水色の模様の上に重なる）。134（8.996 → 9.399）・175（もともと不合格）は悪くなり、79（1.012 → 1.608）・270 の記録の読み（1.028 → 8.65）は合格のまま悪くなる。評価器の色区の真値（W001 の帯の境界など）は爪の層を含まない。"
+  },
+  "reading_taken_ja": "採った読み（進行役の判断を待つ推奨）：輪郭の項目は爪を ID に入れて測り（後退なし）、色区の項目はシートの色（爪の層を除く）で測る（後退なし）。設計31 が飛沫を ID に入れない読みを採ったのと同じ形。爪を入れた色区の読みの 133 の不合格は限界として記録し、仕上げ33（爪の幅・色区への当てはめ）・設計36（爪の調色）へ渡す。"
+ },
+ "record_only": {
+  "148": "事前検査（記録）：爪・飛沫は不透明（ZWrite On・ZTest LEqual）。遮蔽の検査の③で、船の後ろの爪・飛沫が透ける画素は 0。爪の後ろの藍の線が透けないことは設計38 の線で測る。",
+  "206": "記録：原画視点の t* で、Unity の爪の画素は L 15310・R 15287 px（Mock の片目ずつ、遮蔽あり）。射線の検査の値は設計33 の numpy の再投影（骨格と一覧の中心線の対称 Hausdorff 中央値 0.62 px・最大 3.9 px）を引き継ぎ、Unity では測り直していない。",
+  "shader_checks": [
+   {
+    "keywords": "",
+    "stage": "Vertex",
+    "messages": "",
+    "compiled": true,
+    "stereoCheck": false,
+    "rtArrayIndexInOutput": false
+   },
+   {
+    "keywords": "",
+    "stage": "Fragment",
+    "messages": "",
+    "compiled": true,
+    "stereoCheck": false,
+    "rtArrayIndexInOutput": false
+   },
+   {
+    "keywords": "INSTANCING_ON",
+    "stage": "Vertex",
+    "messages": "",
+    "compiled": true,
+    "stereoCheck": false,
+    "rtArrayIndexInOutput": false
+   },
+   {
+    "keywords": "INSTANCING_ON",
+    "stage": "Fragment",
+    "messages": "",
+    "compiled": true,
+    "stereoCheck": false,
+    "rtArrayIndexInOutput": false
+   },
+   {
+    "keywords": "STEREO_INSTANCING_ON INSTANCING_ON",
+    "stage": "Vertex",
+    "messages": "",
+    "compiled": true,
+    "stereoCheck": true,
+    "rtArrayIndexInOutput": true
+   },
+   {
+    "keywords": "STEREO_INSTANCING_ON INSTANCING_ON",
+    "stage": "Fragment",
+    "messages": "",
+    "compiled": true,
+    "stereoCheck": false,
+    "rtArrayIndexInOutput": false
+   }
+  ],
+  "claw_mesh": {
+   "claws": 148,
+   "vertices": 25052,
+   "triangles": 48032,
+   "white_triangles": 12600,
+   "mizuiro_triangles": 35432,
+   "frames": 421,
+   "hz": 30.0,
+   "load_s": 0.9685686826705933
+  },
+  "spray": {
+   "count": 186,
+   "frames": 421,
+   "hz": 30.0
+  }
+ },
+ "limits_ja": [
+  "爪を色区 ID に入れた評価器の読みで、色区 133 が不合格（8.837 px）、134・175 が悪くなる。爪の帯が焼き込みの色面の模様の上に重なるため。仕上げ33・設計36 へ（上の regression）。",
+  "Mock の両眼は PC でカメラを 2 回描く代理で、立体の描画経路（SPI）ではない。PS VR2 の H1・H3・H4 は保留（未導入）。",
+  "Play モードの確認は Editor の batch（dt 0.02 s 固定）。実時間の PC ビルドと HMD では確かめていない。",
+  "Play モードの爪・飛沫は GWClock の秒（float）を読むので、再生器の t（double）と最大 4.7e-07 s ずれる（フレーム番号は同じ）。",
+  "確認用の視点 occl_mid・occl_fg・occl_left は検査のためだけの視点で、場面には保存していない。飛沫が船に隠される画素は occl_mid だけで確かめた（原画視点と座席では飛沫が船の後ろに来ない）。",
+  "色と線は仮（爪は白と淡い水色の平塗り、線なし）。設計36・38。"
+ ],
+ "backlog": {
+  "148": "記録（事前検査）",
+  "206": "記録"
+ },
+ "fix_rounds": 0,
+ "dev_changes_ja": [
+  "層の入切の一覧のファイル名（W/w の大文字・小文字で入切を書いていた）が Windows で重なり、8 通りが 1 枚に上書きされていたので、W0/W1 の形に直して一覧だけ撮り直した（toggles_run。受入の値にはかかわらない）。",
+  "確認用の視点を船の中心の延長（水の中になった）から、舷の外・上端の 0.35 m 下へ置き直し、④（船を消した場面全体）を足した（受入の値を決める前の作り手の直し。1 回目の採取では確認用の視点の漏れの検査が水面に隠されて自明になっていた）。"
+ ],
+ "figures": [
+  "Unity/Build/Design/34/unity3/fig/fig_ds34_toggles_painting_t11p50.png",
+  "Unity/Build/Design/34/unity3/fig/fig_ds34_toggles_painting_t12p00.png",
+  "Unity/Build/Design/34/unity3/fig/fig_ds34_toggles_seat_t11p50.png",
+  "Unity/Build/Design/34/unity3/fig/fig_ds34_toggles_seat_t12p00.png",
+  "Unity/Build/Design/34/unity3/fig/fig_ds34_stills_sheet.png",
+  "Unity/Build/Design/34/unity3/fig/fig_ds34_occlusion_boat.png",
+  "Unity/Build/Design/34/unity3/fig/fig_ds34_mock_stereo.png",
+  "Unity/Build/Design/34/unity3/fig/fig_ds34_one_clock.png",
+  "Unity/Build/Design/34/unity3/fig/fig_ds34_colour133_claws.png"
+ ],
+ "videos": [
+  "Unity/Build/Design/34/unity3/video/ds34_layers_2x2_painting_30fps.mp4",
+  "Unity/Build/Design/34/unity3/video/ds34_layers_2x2_seat_30fps.mp4"
+ ],
+ "occlusion_figure_rows": [
+  [
+   "painting",
+   "claws",
+   10.0
+  ],
+  [
+   "occl_mid",
+   "claws",
+   11.0
+  ],
+  [
+   "occl_fg",
+   "claws",
+   10.0
+  ],
+  [
+   "occl_mid",
+   "spray",
+   11.0
+  ]
+ ]
+}

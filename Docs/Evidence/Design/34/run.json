@@ -1,0 +1,307 @@
+{
+ "schema": "GreatWave.DS34.run/1",
+ "number": "設計34",
+ "tools": {
+  "unity": "6000.4.3f1",
+  "device": "NVIDIA GeForce RTX 3080",
+  "graphics_api": "Direct3D11",
+  "python": "3.10.6",
+  "numpy": "2.2.6",
+  "opencv": "4.12.0",
+  "pillow": "12.0.0",
+  "ffprobe": "G:/ffmpeg-2024-12-19-git-494c961379-full_build/bin/ffprobe.exe"
+ },
+ "commands_unity_part": [
+  "powershell -NoProfile -ExecutionPolicy Bypass -File Tools/GWWaveGen/ds34/run_ds34_unity.ps1 -Method GreatWave.Design34.EditorTools.DS34Render.Render -Log main2 -Extra \"-ds34Out G:/Unity/GreatWave_2026_Fresh/Unity/Build/Design/34/unity3/main -ds34Skip video\"（26.1 s）",
+  "powershell -NoProfile -ExecutionPolicy Bypass -File Tools/GWWaveGen/ds34/run_ds34_unity.ps1 -Method GreatWave.Design34.EditorTools.DS34Render.Render -Log video -Extra \"-ds34Out G:/Unity/GreatWave_2026_Fresh/Unity/Build/Design/34/unity3/video_run -ds34Skip scene,t28,timing,stills,toggles,occl,stereo,shader\"（65 s）",
+  "powershell -NoProfile -ExecutionPolicy Bypass -File Tools/GWWaveGen/ds34/run_ds34_unity.ps1 -Method GreatWave.Design34.EditorTools.DS34Render.Render -Log toggles -Extra \"-ds34Out G:/Unity/GreatWave_2026_Fresh/Unity/Build/Design/34/unity3/toggles_run -ds34Skip scene,t28,timing,stills,occl,stereo,shader,video\"（18 s。層の入切の一覧だけを撮り直した。main2 の回の一覧はファイル名の大文字・小文字が Windows で重なり 4 枚に上書きされたので main/_stale_run1 へ退けた）",
+  "powershell -NoProfile -ExecutionPolicy Bypass -File Tools/GWWaveGen/ds34/run_ds34_unity.ps1 -NoQuit -Method GreatWave.Design34.EditorTools.DS34PlayModeCheck.Run -Log playmode -Extra \"-ds34Out G:/Unity/GreatWave_2026_Fresh/Unity/Build/Design/34/unity3/playmode\"（19 s）",
+  "py -3.10 -B Tools/GWWaveGen/ds30/ds30b_tstar_regress.py --out Unity/Build/Design/34/unity3/main --sets t28_claws,t28_white（3 分 41 s）",
+  "py -3.10 -B Tools/GWWaveGen/ds34/ds34u3_evidence.py"
+ ],
+ "commands_record": [
+  "py -3.10 -B Tools/GWWaveGen/ds34/ds34_record.py"
+ ],
+ "independent_check_ja": "進行役の独立の検査はリポジトリの外のコード。コードと出力の写しは Git 対象外の Unity/Build/Design/34/indep_check/（ic34_*.py・ic34_*.json）",
+ "scene34_sha256": "2bf63bffd18187c1ebf9e8ba96c3854d0d85c31ef9ab610bfb20b584508a159a",
+ "protected_unchanged": true,
+ "protected_files": [
+  "Assets/GreatWave/Design30/Scenes/DS30_SinglePlayback.unity e67daaa8414a2df40a1f81a65e126e71b44493c429590a0bfc6c4ba0486525f1",
+  "Assets/GreatWave/Design31/Scenes/DS31_WhiteSpray.unity 2c36fd2479cfe9256c2ca2669014bc623ad4e34f76123e8de43eb08e1b5e5312",
+  "Assets/GreatWave/Design30/Scripts/DS30SheetPlayer.cs de28b73834f06d1bbe95e7ae2921ca86f7a5bd7211a3a5ca83b33a17e0b13310",
+  "Assets/GreatWave/Design30/Scripts/DS30SinglePlayback.cs c6cb14d027645308c4958b05000a34854e8869eff4d65a7677010bc0ae89a3e3",
+  "Assets/GreatWave/Design31/Scripts/DS31InstancedParticles.cs f536130cdb4aecf4f69d0678fe973bd19bf77220e4fa951778db19a1ce5eca11",
+  "Assets/GreatWave/Design31/Shaders/DS31_Spray_Unlit.shader 33aec2d5e152e573bee7e6de2860838faf50fecff9da94139bfc3ecf5d13f4b3",
+  "Assets/GreatWave/Design27/Shaders/DS27_NPR_White.shader 04605cfe56b5e5bafcfb5c0bbc73b783a65f6637222eda5950c15e7e8b322dd9",
+  "Assets/GreatWave/Design27/Shaders/DS27KeyposeCore.cginc 816d3a3288a7125fc8494bf137ad68d7c9c68c9c68b61c72d80211ff73f33b4a",
+  "Assets/GreatWave/Design27/Shaders/DS27Keypose.cginc 54265fe59f402b4e89048f46a1c22497d687848b184ab8dd919e0a7b1caae9e0",
+  "Assets/GreatWave/Design27/Shaders/DS27KeyposeCapture.compute 37f0065c6dc531556ac8e2821d6c82363f2fe0094c8ee0a6115948b85888be5a",
+  "Build/Design/31/white/hero_pkg/ds27_keypose.json c20ac1cc62077ca84c9aef92678bcc6d8a1ad2d802de64a96fb950b5b18aedb0",
+  "Build/Design/31/white/ds31_twhite_r32f.bin 5ffc93def0174c953040f0a69088be7856820f1ae9eb7c90b312594d4099f39e",
+  "Build/Design/28R01F/F_final/timewarp_F_final.json 627815c77afc63278c885335bbe6c51178896184559ca30845cf05f23c634a7c",
+  "Build/Design/29R01/bake_kp/bake/af28r01_uvsdf_a45.bin 69c0b26d5e0129598aa19ca8365fa590af9a81c282e5fef8298409fac8470d1a",
+  "Build/Design/31/spray/ds31_spray_frames.json 2c69f0c6b95cddb797393961404a7163f79204008e73f06b51c702a7f9f1753f",
+  "Build/Design/31/spray/ds31_spray_frames.bin 9db0a42811aa2c72f1cefbf8b80386f2e919a8b80fe65f7e91dd6a60c9b25c5f",
+  "Build/Design/33/claws/ds33_claw_layout.json 715b20d6dcea3462aad452532ce6c58e8044349ac4dd238e333048741a540775",
+  "Build/Design/33/claws/ds33_claw_rig.json db00cd419c2844ec030afcfed51a55dc5f654beabf9c2182b34f73e2bdf1e3f2",
+  "Build/Design/33/claws/ds33_claw_frames_f32.bin 6e7629889a47efc0172d40c28364b59eadef48e419d0dad5c279e3fa3d7f7565",
+  "Build/Design/33/claws/ds33_claw_tris_i32.bin 8daeeaa2025b7feb38c11c9068e59754bcdbdd18fe9e704689ddd32b81dbb1b9",
+  "Build/Design/33/claws/ds33_claw_tri_attr_u16.bin ca83cee1e852980a6e1389c9ee39ee58ba840302bd7d4f33150533f8d759bdf0"
+ ],
+ "inputs_sha256": {
+  "Build/Design/33/claws/ds33_claw_layout.json": "715b20d6dcea3462aad452532ce6c58e8044349ac4dd238e333048741a540775",
+  "Build/Design/33/claws/ds33_claw_frames_f32.bin": "6e7629889a47efc0172d40c28364b59eadef48e419d0dad5c279e3fa3d7f7565",
+  "Build/Design/33/claws/ds33_claw_tris_i32.bin": "8daeeaa2025b7feb38c11c9068e59754bcdbdd18fe9e704689ddd32b81dbb1b9",
+  "Build/Design/33/claws/ds33_claw_tri_attr_u16.bin": "ca83cee1e852980a6e1389c9ee39ee58ba840302bd7d4f33150533f8d759bdf0",
+  "Build/Design/33/claws/ds33_claw_rig.json": "db00cd419c2844ec030afcfed51a55dc5f654beabf9c2182b34f73e2bdf1e3f2",
+  "Build/Design/31/spray/ds31_spray_frames.bin": "9db0a42811aa2c72f1cefbf8b80386f2e919a8b80fe65f7e91dd6a60c9b25c5f",
+  "Build/Design/31/spray/ds31_spray_frames.json": "2c69f0c6b95cddb797393961404a7163f79204008e73f06b51c702a7f9f1753f",
+  "Build/Design/31/white/ds31_twhite_r32f.bin": "5ffc93def0174c953040f0a69088be7856820f1ae9eb7c90b312594d4099f39e",
+  "Build/Design/28R01F/F_final/timewarp_F_final.json": "627815c77afc63278c885335bbe6c51178896184559ca30845cf05f23c634a7c",
+  "Assets/GreatWave/Design31/Scenes/DS31_WhiteSpray.unity": "2c36fd2479cfe9256c2ca2669014bc623ad4e34f76123e8de43eb08e1b5e5312"
+ },
+ "code_sha256": {
+  "Unity/Assets/GreatWave/Design34/Scripts/DS34ClawPlayer.cs": "77af1f4946f55fcf165b4b6c9001c1374ceb1a8b9eeea4d1eca8ab86b8380e17",
+  "Unity/Assets/GreatWave/Design34/Scripts/DS34LayerSet.cs": "853b0c543fe32c4479748fc42fddef0a972c72fb4c71eb1b0c65646473d2b7d3",
+  "Unity/Assets/GreatWave/Design34/Shaders/DS34_Claw_Unlit.shader": "954d7e179da0af7d6184e5ddff32b736f1eec682f1fda1bcb8e1548436f9a728",
+  "Unity/Assets/GreatWave/Design34/Shaders/DS34_DepthOnly.shader": "fcf1911e709a4911fbd4b299cb8dfb19564ddb95f6ed710e22b6f73798a2e80d",
+  "Unity/Assets/GreatWave/Design34/Editor/DS34Render.cs": "de8becc793c607f2097ceb222e71bbcc6d3b6e2558780491a5e21b0766f75439",
+  "Unity/Assets/GreatWave/Design34/Editor/DS34PlayModeCheck.cs": "3672e93ccd8dfaab5c68c685959550cae87766715b73b1aee8934c77d6fd56e0",
+  "Unity/Assets/GreatWave/Design34/Scenes/DS34_ThreeLayers.unity": "2bf63bffd18187c1ebf9e8ba96c3854d0d85c31ef9ab610bfb20b584508a159a",
+  "Tools/GWWaveGen/ds34/run_ds34_unity.ps1": "029ad0f7b91d24a3a1f85f609f925051b3f2fdfa0e0175c50dd94093a454256d",
+  "Tools/GWWaveGen/ds34/ds34u3_evidence.py": "4ee71183b89734feea4cf97d6116ce9798ed795e1c9209afd0c54c33141acfa2",
+  "Tools/GWWaveGen/ds34/ds34_record.py": "7fd65e1dc87125823196961925e1436a073403d76210eae89ee4063382bb554d"
+ },
+ "claw_frames_sha256_seen_by_unity": "6e7629889a47efc0172d40c28364b59eadef48e419d0dad5c279e3fa3d7f7565",
+ "spray_sha256_seen_by_unity": "9db0a42811aa2c72f1cefbf8b80386f2e919a8b80fe65f7e91dd6a60c9b25c5f",
+ "unity_part_outputs_sha256": {
+  "metrics.json": "150be153164f95973c405a71a2d1b306b9b9d041ed4f633c72fcfc7fa8a3d9d4",
+  "fig/fig_ds34_colour133_claws.png": "9079a940665f37d27b41d707a4a3540683c83c323ac6c8f0f756f8ffe32524de",
+  "fig/fig_ds34_mock_stereo.png": "d6d9eaf67dca078ec72f9cbbe7ab25ef01203a7738e14ed7eb6af6569fd45ecf",
+  "fig/fig_ds34_occlusion_boat.png": "faee02b6d82bdfbc3832029a7dcca38dca2abae9d15db4971375ef2e779d6b1b",
+  "fig/fig_ds34_one_clock.png": "5a2e5203049d614a7a1b089079647f34b346b06b04c48dd784ce9eb98dca0f70",
+  "fig/fig_ds34_stills_sheet.png": "dda854d5098f4ee4cbcab50c1485f16c2e9561b94f2539497dfa014f2f6469ac",
+  "fig/fig_ds34_toggles_painting_t11p50.png": "56de6e4b17efe13dcbbc92351114091898baa10fe86127e276241abdb9cffd83",
+  "fig/fig_ds34_toggles_painting_t12p00.png": "31350d3f3e7374d3bc2485c95e6ae5fee390d79d324fd7a84f53192f38fb7d6e",
+  "fig/fig_ds34_toggles_seat_t11p50.png": "3a63758e790a59d55494b686033881cb4cf8c63d7665d39f6b7c4e03e002ee5b",
+  "fig/fig_ds34_toggles_seat_t12p00.png": "73c5af3c35203e10048020f89bef80e6bb46add34753e2374372a42d6f3f3971",
+  "main/ds30_tstar_regress.json": "f42c3b47233b6571c1d4b89e60c517647337c5a4302be6615c496b72def63419",
+  "main/ds34_render_report.json": "75c202e51c53e7ab5e16b141c1cf24573c58ef0960f84a607267e27aa02e7308",
+  "video/ds34_layers_2x2_painting_30fps.mp4": "48e1f4d8b4a4b550157d4596dc367910801bd9c0cb9a5c10d9e98116ce9e272d",
+  "video/ds34_layers_2x2_seat_30fps.mp4": "39adeb4c6ec5dc3289665c4db87d3bc892a498ca36fb39d33ca102407c62d7a5",
+  "video_run/ds34_render_report.json": "a183943e8b08108ab0703aa6223c16653b154e19af460212668821c0c06bbce7",
+  "video_run/video/ds34_all_painting_30fps.mp4": "202c8cd7f8e70380d4fae71f8bce4829467a9106a5323aab66d3cac219b56f5c",
+  "video_run/video/ds34_all_seat_30fps.mp4": "8a107eb2c6b2edd42f6a7f374a50cb7ded7a72e6e04b916830dae729a4649e9b",
+  "video_run/video/ds34_claws_painting_30fps.mp4": "ef71eaacd94c6ca9cf33682c2caf8cfb5e32383bd38a0346ed054c13d1fb5c85",
+  "video_run/video/ds34_claws_seat_30fps.mp4": "06a30c64336b98f526a83fdb2179450e0dae006195117bb42c796999bc17caf0",
+  "video_run/video/ds34_spray_painting_30fps.mp4": "becd5e2a90730fa3da657153e40a88b2511c1c85fec1f07a0836d078771d4aba",
+  "video_run/video/ds34_spray_seat_30fps.mp4": "2627d4f3f7a036f01f55a34aebf7cd2be1623ba82e1f5709b3e58163dd0c0beb",
+  "video_run/video/ds34_white_painting_30fps.mp4": "3fadb0a625a8e525aee038c7d0ae25254403b58194571584f9950d9adb5b3e81",
+  "video_run/video/ds34_white_seat_30fps.mp4": "8b6d95cf9992ac4f8ba8b43947cad5fc259fdd9200f9784235905d2afd28e615"
+ },
+ "unity_part_run_json_sha256": "526c7df34bce530d446aa16aad84a349118afa7cf5cfaf9ea07d591ca4017437",
+ "figures": [
+  {
+   "src": [
+    "Unity/Build/Design/34/unity3/fig/fig_ds34_toggles_painting_t12p00.png",
+    "Unity/Build/Design/34/unity3/fig/fig_ds34_toggles_seat_t12p00.png"
+   ],
+   "src_sha256": [
+    "31350d3f3e7374d3bc2485c95e6ae5fee390d79d324fd7a84f53192f38fb7d6e",
+    "73c5af3c35203e10048020f89bef80e6bb46add34753e2374372a42d6f3f3971"
+   ],
+   "scale": 0.8202,
+   "dst": "Docs/Evidence/Design/34/fig_ds34_toggles_t12p00.png"
+  },
+  {
+   "src": [
+    "Unity/Build/Design/34/unity3/fig/fig_ds34_toggles_painting_t11p50.png",
+    "Unity/Build/Design/34/unity3/fig/fig_ds34_toggles_seat_t11p50.png"
+   ],
+   "src_sha256": [
+    "56de6e4b17efe13dcbbc92351114091898baa10fe86127e276241abdb9cffd83",
+    "3a63758e790a59d55494b686033881cb4cf8c63d7665d39f6b7c4e03e002ee5b"
+   ],
+   "scale": 0.8493,
+   "dst": "Docs/Evidence/Design/34/fig_ds34_toggles_t11p50.png"
+  },
+  {
+   "src": "Unity/Build/Design/34/unity3/fig/fig_ds34_stills_sheet.png",
+   "src_sha256": "dda854d5098f4ee4cbcab50c1485f16c2e9561b94f2539497dfa014f2f6469ac",
+   "scale": 1.0,
+   "dst": "Docs/Evidence/Design/34/fig_ds34_stills_sheet.png"
+  },
+  {
+   "src": "Unity/Build/Design/34/unity3/fig/fig_ds34_occlusion_boat.png",
+   "src_sha256": "faee02b6d82bdfbc3832029a7dcca38dca2abae9d15db4971375ef2e779d6b1b",
+   "scale": 0.8267,
+   "dst": "Docs/Evidence/Design/34/fig_ds34_occlusion_boat.png"
+  },
+  {
+   "src": "Unity/Build/Design/34/unity3/fig/fig_ds34_mock_stereo.png",
+   "src_sha256": "d6d9eaf67dca078ec72f9cbbe7ab25ef01203a7738e14ed7eb6af6569fd45ecf",
+   "scale": 0.8267,
+   "dst": "Docs/Evidence/Design/34/fig_ds34_mock_stereo.png"
+  },
+  {
+   "src": "Unity/Build/Design/34/unity3/fig/fig_ds34_one_clock.png",
+   "src_sha256": "5a2e5203049d614a7a1b089079647f34b346b06b04c48dd784ce9eb98dca0f70",
+   "scale": 1.0,
+   "dst": "Docs/Evidence/Design/34/fig_ds34_one_clock.png"
+  },
+  {
+   "src": "Unity/Build/Design/34/unity3/fig/fig_ds34_colour133_claws.png",
+   "src_sha256": "9079a940665f37d27b41d707a4a3540683c83c323ac6c8f0f756f8ffe32524de",
+   "scale": 1.0,
+   "dst": "Docs/Evidence/Design/34/fig_ds34_colour133_claws.png"
+  },
+  {
+   "src": [
+    "Unity/Build/Design/34/unity3/playmode/ds34_playmode_painting_hold_1_all.png",
+    "Unity/Build/Design/34/unity3/playmode/ds34_playmode_painting_hold_2_white_off.png",
+    "Unity/Build/Design/34/unity3/playmode/ds34_playmode_painting_hold_3_white_claws_off.png",
+    "Unity/Build/Design/34/unity3/playmode/ds34_playmode_painting_hold_4_all_off.png"
+   ],
+   "src_sha256": [
+    "02562e405252d959fe7406d8b8ac7b1bc5c1b716f46d6183f62f0ec32a066f1d",
+    "17015acd537dd8e4c9cff467f2a17dfcb18a8e49c0f338fae1c489182a3f5d3b",
+    "8de2459f23e6ce00e9857ef4de42ad63503fb715bed1c3b557f8c0d0f693c218",
+    "eebbfb365779262586310180aac034ff9cab18c20751e489834f9bcab68c91c3"
+   ],
+   "scale": 0.9185,
+   "dst": "Docs/Evidence/Design/34/fig_ds34_playmode_toggles.png"
+  },
+  {
+   "src": [
+    "Unity/Build/Design/34/indep_check/ic34_vis_tstar_crop.png",
+    "Unity/Build/Design/34/indep_check/ic34_vis_lip_zoom.png"
+   ],
+   "src_sha256": [
+    "ef0db477e8067029e801b3c3c97983d0e40d2f2b2da91fb0f42cd35a82331608",
+    "bd94ed39926dabe8004f6d23504240ece9971a077e7ffa42f1d5295194b34137"
+   ],
+   "scale": 0.7603,
+   "dst": "Docs/Evidence/Design/34/fig_ds34_claws_tstar_look.png"
+  }
+ ],
+ "videos": [
+  {
+   "src": "Unity/Build/Design/34/unity3/video/ds34_layers_2x2_painting_30fps.mp4",
+   "dst": "Docs/Evidence/Design/34/ds34_layers_2x2_painting_30fps.mp4",
+   "bytes": 2426050,
+   "sha256": "48e1f4d8b4a4b550157d4596dc367910801bd9c0cb9a5c10d9e98116ce9e272d",
+   "width": 1920,
+   "height": 1080,
+   "frames": 421,
+   "fps": "30/1"
+  },
+  {
+   "src": "Unity/Build/Design/34/unity3/video/ds34_layers_2x2_seat_30fps.mp4",
+   "dst": "Docs/Evidence/Design/34/ds34_layers_2x2_seat_30fps.mp4",
+   "bytes": 865052,
+   "sha256": "39adeb4c6ec5dc3289665c4db87d3bc892a498ca36fb39d33ca102407c62d7a5",
+   "width": 1920,
+   "height": 1080,
+   "frames": 421,
+   "fps": "30/1"
+  },
+  {
+   "src": "Unity/Build/Design/34/unity3/video_run/video/ds34_all_painting_30fps.mp4",
+   "dst": "Docs/Evidence/Design/34/ds34_all_painting_30fps.mp4",
+   "bytes": 2631515,
+   "sha256": "202c8cd7f8e70380d4fae71f8bce4829467a9106a5323aab66d3cac219b56f5c",
+   "width": 1920,
+   "height": 1080,
+   "frames": 421,
+   "fps": "30/1"
+  }
+ ],
+ "json_copies": {
+  "ds34_unity3_metrics.json": {
+   "src": "Unity/Build/Design/34/unity3/metrics.json",
+   "src_sha256": "150be153164f95973c405a71a2d1b306b9b9d041ed4f633c72fcfc7fa8a3d9d4"
+  },
+  "ds34_tstar_regress.json": {
+   "src": "Unity/Build/Design/34/unity3/main/ds30_tstar_regress.json",
+   "src_sha256": "f42c3b47233b6571c1d4b89e60c517647337c5a4302be6615c496b72def63419"
+  },
+  "ds34_tstar_sym_no_claws.json": {
+   "src": "Unity/Build/Design/34/unity3/main/tstar_sym_t28_white/tstar_sym.json",
+   "src_sha256": "cdcbbdd6b3fd0f6a58d9d32e5647dec06ca92febea7956d549b73482675fe5f2"
+  },
+  "ds34_tstar_sym_claws.json": {
+   "src": "Unity/Build/Design/34/unity3/main/tstar_sym_t28_claws/tstar_sym.json",
+   "src_sha256": "3301924eeb499d4cd90c7252a0abcaa49c94417b8f5017b9170c3c07fdc917ca"
+  },
+  "ds34_indep_summary.json": {
+   "src": "Unity/Build/Design/34/indep_check/ic34_summary.json",
+   "src_sha256": "66a4a89503984cc017684864b15b76658abec2729252dd2e7ce8c744c9d7829b"
+  },
+  "ds34_indep_a1_sheet_line.json": {
+   "src": "Unity/Build/Design/34/indep_check/ic34_a1_sheet_line.json",
+   "src_sha256": "70983e5daf125fc063117064f49ca5dae696a405972c03724dcccd93a667c9d9"
+  },
+  "ds34_indep_a1_roots.json": {
+   "src": "Unity/Build/Design/34/indep_check/ic34_a1_roots.json",
+   "src_sha256": "5de0d7c5803332b4e8d1bcad444435017a4030e817ad505fe21fd2fd6af9e476"
+  },
+  "ds34_indep_a1_sheet_whiteoff.json": {
+   "src": "Unity/Build/Design/34/indep_check/ic34_a1_sheet_whiteoff.json",
+   "src_sha256": "112112990eadd40d178aa9b7e57109bcbe0f2090993ce102e63229fdeb230223"
+  },
+  "ds34_indep_a2_recount.json": {
+   "src": "Unity/Build/Design/34/indep_check/ic34_a2_recount.json",
+   "src_sha256": "cb27c9584760764c500004bbddceb784d1a1d3d78b20467f2f51615c98af979c"
+  },
+  "ds34_indep_a2_video.json": {
+   "src": "Unity/Build/Design/34/indep_check/ic34_a2_video.json",
+   "src_sha256": "6a0dbb66dc856c74707de847b9a198a0f186ce6cad2a347f208055419d82177b"
+  },
+  "ds34_indep_a3_stereo.json": {
+   "src": "Unity/Build/Design/34/indep_check/ic34_a3_stereo.json",
+   "src_sha256": "df2b6a4859d696382ef7ea330c5f2ea2c1e6344ae7ea35f0cab5f7c2bff05da5"
+  },
+  "ds34_indep_a1_video.json": {
+   "src": "Unity/Build/Design/34/indep_check/ic34_a1_video.json",
+   "src_sha256": "f93a7347dd7127e9792de181306f1d8d535d50b84c8848e286c6105fce5ce65e",
+   "note_ja": "元の NaN を null にした"
+  },
+  "ds34_render_report_summary.json": {
+   "src": "Unity/Build/Design/34/unity3/main/ds34_render_report.json",
+   "src_sha256": "75c202e51c53e7ab5e16b141c1cf24573c58ef0960f84a607267e27aa02e7308",
+   "note_ja": "コマごとの時刻の表・爪ごとの根元の表・画像の一覧を除いた"
+  },
+  "ds34_record_counts.json": {
+   "src": "Unity/Build/Design/34/record/ds34_record_counts.json"
+  }
+ },
+ "evidence_sha256": {
+  "ds34_all_painting_30fps.mp4": "202c8cd7f8e70380d4fae71f8bce4829467a9106a5323aab66d3cac219b56f5c",
+  "ds34_indep_a1_roots.json": "617222999252488387cfdcc2f1ae39397bb936a9c6ccd6495b3a11980444ed9c",
+  "ds34_indep_a1_sheet_line.json": "e5ac0452672c4343d464fb5163d5b0289b7ba17f1917508e4b80f9a37978053e",
+  "ds34_indep_a1_sheet_whiteoff.json": "439e4cb1d04ea6c28670056c68ea43ceb758a0dbccb7a50a86f7f18a27d151cc",
+  "ds34_indep_a1_video.json": "a2f381120553e05d444a85396c93df8d36419c934acc3e1f6ff0eb969111e086",
+  "ds34_indep_a2_recount.json": "6f0de1cc654e9a5ea63a9d5c6fcba6e39b4c578b3d9581b5ed7aedf2d2106c54",
+  "ds34_indep_a2_video.json": "dc1437994b4b62fb88d7f77cf3fd3286d8a5cded908ac1af33350b8c0a0d7155",
+  "ds34_indep_a3_stereo.json": "4fcb7436ae75291c7614a40c0e70d23cbe4ae845fadca8886355225004b45980",
+  "ds34_indep_summary.json": "d748dbbfd4e4ca673effaae693a49a5edaf6195ec6ff633b907046336c145a97",
+  "ds34_layers_2x2_painting_30fps.mp4": "48e1f4d8b4a4b550157d4596dc367910801bd9c0cb9a5c10d9e98116ce9e272d",
+  "ds34_layers_2x2_seat_30fps.mp4": "39adeb4c6ec5dc3289665c4db87d3bc892a498ca36fb39d33ca102407c62d7a5",
+  "ds34_record_counts.json": "8e76de26683c2b9eb395a61640ec5f07d6f0b26e14de74d9d1514fb990b73de6",
+  "ds34_render_report_summary.json": "a5711a1a9dbd24bd6283d9fe067d85608b9885ec9e4d63990f54d1ccd2778341",
+  "ds34_tstar_regress.json": "f42c3b47233b6571c1d4b89e60c517647337c5a4302be6615c496b72def63419",
+  "ds34_tstar_sym_claws.json": "3301924eeb499d4cd90c7252a0abcaa49c94417b8f5017b9170c3c07fdc917ca",
+  "ds34_tstar_sym_no_claws.json": "cdcbbdd6b3fd0f6a58d9d32e5647dec06ca92febea7956d549b73482675fe5f2",
+  "ds34_unity3_metrics.json": "150be153164f95973c405a71a2d1b306b9b9d041ed4f633c72fcfc7fa8a3d9d4",
+  "fig_ds34_claws_tstar_look.png": "45a8f19e62d1f867b6b776f2ea70c12d98199462bf5f40deb3d657aa6871fb8f",
+  "fig_ds34_colour133_claws.png": "ba16289b8bb15f55d9f55a6284214ffa54225e89fd997a1ae750c3167fb3491d",
+  "fig_ds34_mock_stereo.png": "b73d1ec7ff4465133e277633c3734f98fdc3fc8665a4f3b8cfd8ff79a97a527e",
+  "fig_ds34_occlusion_boat.png": "0b50a59d9d192d19cf1934a9ecd6617a816ed922709822dd65e998249d62f1d5",
+  "fig_ds34_one_clock.png": "5a2e5203049d614a7a1b089079647f34b346b06b04c48dd784ce9eb98dca0f70",
+  "fig_ds34_playmode_toggles.png": "eb873fcce1ede986c989437db8996b61b1e9c8c620e5a555cca8ff92a5d2bb93",
+  "fig_ds34_stills_sheet.png": "dda854d5098f4ee4cbcab50c1485f16c2e9561b94f2539497dfa014f2f6469ac",
+  "fig_ds34_toggles_t11p50.png": "90f1c0e22baee8e548e641cdb65ce4c8a900daf4a036a9c83c4e5611d89d534b",
+  "fig_ds34_toggles_t12p00.png": "c9afad511edf7fda93039ec4eef165e52a09190092f8c69ed48e5e44bd466394",
+  "metrics.json": "07793e1c9c8e6dd26fcb43ec011de47dc6bcf684b4cca81feba90e97143dc8f3"
+ }
+}

@@ -1,0 +1,31 @@
+{
+ "schema": "GreatWave.DS34.indep_check/1",
+ "who": "independent checker (own numpy/OpenCV code; did not run the unity part's code)",
+ "A1_time_offset_0": {
+  "verdict": "pass",
+  "claws_video_vs_claw_table": "ic34_a1_video.json: painting claws-only video frame k best matches claw table frame k (IoU peak at d=0) for k 198-348; ties only where motion stops (k>=354)",
+  "spray_video_vs_spray_table": "ic34_a1_video.json: best d=0 for k 270-348",
+  "sheet_video_vs_own_sheet_tau": "ic34_a1_sheet_line.json: own decode (rgba16+lo, Hermite, O(tau)) at tau(k/30): mean |top edge diff| 0.39-0.81 px at d=0 vs 0.99-4.9 px at d=+-1, k 210-348 (25/25 best d=0); k=354 tie (motion<0.3 px/frame)",
+  "own_sheet_vs_claw_roots": "ic34_a1_roots.json: median 0.000 mm at d=0, ~130-150 mm at d=+-1",
+  "white_off_same_shape_and_frame": "ic34_a1_sheet_whiteoff.json: best d=0 with white band off (0.67-0.87 px)",
+  "playmode_csv": "max |claw_t - t| = max |spray_t - t| = 4.73e-7 s; hero tau equals my tau(t) to 3e-24; claw frame phase vs 30t <= 9.7e-5 frame; toggles match renderer flags"
+ },
+ "A2_boat_occlusion": {
+  "verdict": "pass",
+  "recount_of_unity_pass_images": "ic34_a2_recount.json: 6 saved cases reproduce hidden/leak exactly (leak 0); no diag pixel vanishes outside the behind mask",
+  "video_all_frames": "ic34_a2_video.json: painting claws projected onto boat pixels 1,465 px (k 282-315, sampled every 3rd frame), all hidden; claw pixels drawn over boats 5 isolated single pixels with no projected claw there (encoding noise); seat 0/0"
+ },
+ "A3_mock_stereo": {
+  "verdict": "pass",
+  "own_counts": "painting t10/11/12: 1.07/0.44/0.15 %; seat t10/11/12: 0.95/0.90/0.21 %; numpy no-occlusion +-32 mm: <=0.21 %"
+ },
+ "regression": {
+  "outline": "no regression (78/130/131, 132 s12 unchanged; 72 s24 p95 4.0075->3.8423)",
+  "colour_with_claws_in_class_ids_adopted_sym_reading": {
+   "133": "0.718 -> 8.837 pass->fail",
+   "134": "0.634 -> 9.399 pass->fail (unity part called 134 already failing; that is the definition reading 8.996, not the 29R01 adopted both-sides reading)"
+  },
+  "colour_sheet_without_claw_layer": "identical to DS31/29R01"
+ },
+ "record_error": "unity3 README says 01:05-02:55; files show 01:02 start, outputs finished 01:35 (02:55 was still in the future when checked at 02:03)"
+}

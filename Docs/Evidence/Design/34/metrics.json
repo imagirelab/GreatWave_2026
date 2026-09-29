@@ -1,0 +1,671 @@
+{
+ "schema": "GreatWave.DS34.metrics/1",
+ "number": "設計34",
+ "title_ja": "帯・爪・小飛沫を別々に Unity で再生する",
+ "generated_local": "2026-09-30 02:20:00",
+ "evidence_kind_ja": "Unity 6000.4.3f1 の batchmode の PC オフスクリーン描画（RTX 3080、Direct3D11）と、Editor の batch の Play モード（dt 0.02 s 固定）。進行役の独立の検査は、Unity の部のコードを使わない numpy/OpenCV（動画から取り出したコマと保存された画像）。HMD 実機の結果ではない。利用者は確かめていない。",
+ "acceptance": {
+  "ja": "計画 §2.2 の設計34 の最小の受入（Q26：この番号は最小の受入だけを満たす。修正は 1 回まで）",
+  "A1_three_layers_time_offset_0": {
+   "unity_part": {
+    "capture_frames": 421,
+    "capture_max_claw_frame_offset": 0.0,
+    "capture_max_spray_frame_offset": 2.842170943040401e-14,
+    "capture_max_hero_tau_minus_tau_t": 0.0,
+    "unity_root_to_sheet_max_mm": 0.02158050239086151,
+    "unity_root_to_sheet_triangle_max_mm": 0.011796300299465656,
+    "control_claws_one_frame_early_median_of_frame_max_mm_t0_to_tstar": 392.29872131347656,
+    "playmode_frames": 814,
+    "playmode_frame_index_mismatch_claws": 0,
+    "playmode_frame_index_mismatch_spray": 0,
+    "playmode_max_abs_claw_t_minus_t_s": 4.731118679046631e-07,
+    "playmode_max_abs_spray_t_minus_t_s": 4.731118679046631e-07,
+    "playmode_max_abs_hero_tau_minus_tau_t": 0.0
+   },
+   "independent": {
+    "verdict": "pass",
+    "claws_video_vs_claw_table": "ic34_a1_video.json: painting claws-only video frame k best matches claw table frame k (IoU peak at d=0) for k 198-348; ties only where motion stops (k>=354)",
+    "spray_video_vs_spray_table": "ic34_a1_video.json: best d=0 for k 270-348",
+    "sheet_video_vs_own_sheet_tau": "ic34_a1_sheet_line.json: own decode (rgba16+lo, Hermite, O(tau)) at tau(k/30): mean |top edge diff| 0.39-0.81 px at d=0 vs 0.99-4.9 px at d=+-1, k 210-348 (25/25 best d=0); k=354 tie (motion<0.3 px/frame)",
+    "own_sheet_vs_claw_roots": "ic34_a1_roots.json: median 0.000 mm at d=0, ~130-150 mm at d=+-1",
+    "white_off_same_shape_and_frame": "ic34_a1_sheet_whiteoff.json: best d=0 with white band off (0.67-0.87 px)",
+    "playmode_csv": "max |claw_t - t| = max |spray_t - t| = 4.73e-7 s; hero tau equals my tau(t) to 3e-24; claw frame phase vs 30t <= 9.7e-5 frame; toggles match renderer flags"
+   },
+   "record_recount": {
+    "capture": {
+     "frames": 421,
+     "max_abs_claw_frame_minus_k": 0.0,
+     "max_abs_spray_frame_minus_k": 2.842170943040401e-14,
+     "max_abs_hero_tau_minus_warp_tau": 0.0,
+     "root_max_mm_all": 0.02158050239086151,
+     "root_tri_max_mm_all": 0.011796300299465656,
+     "control_one_frame_early_median_of_frame_max_mm": 390.57427978515625,
+     "claws_in_root_table": 148
+    },
+    "playmode": {
+     "rows": 814,
+     "dt_values": [
+      "0.0199999865",
+      "0.0199999921"
+     ],
+     "max_abs_claw_t_minus_t_s": 4.731118679046631e-07,
+     "max_abs_spray_t_minus_t_s": 4.731118679046631e-07,
+     "max_abs_hero_tau_minus_warp_tau": 0.0,
+     "max_abs_claw_frame_minus_30t": 9.911879897117615e-05,
+     "claw_flag_vs_renderer_mismatch_rows": 0,
+     "spray_flag_vs_draw_mismatch_rows": 0,
+     "toggle_sequence_white_claws_spray": [
+      [
+       "111",
+       "0"
+      ],
+      [
+       "011",
+       "12"
+      ],
+      [
+       "001",
+       "12"
+      ],
+      [
+       "000",
+       "12"
+      ],
+      [
+       "111",
+       "12"
+      ]
+     ]
+    }
+   },
+   "verdict": "合格"
+  },
+  "A2_claws_spray_behind_hull_hidden": {
+   "unity_part": {
+    "views": [
+     "occl_fg",
+     "occl_left",
+     "occl_mid",
+     "painting",
+     "seat",
+     "seat_low",
+     "seat_toward_wave"
+    ],
+    "times_s": [
+     8.0,
+     9.0,
+     10.0,
+     10.5,
+     11.0,
+     11.5,
+     12.0
+    ],
+    "cases": 98,
+    "hidden_by_boat_px_claws": 1989,
+    "hidden_by_boat_px_spray": 4207,
+    "leak_px_total": 0,
+    "false_positive_px": 0
+   },
+   "independent": {
+    "verdict": "pass",
+    "recount_of_unity_pass_images": "ic34_a2_recount.json: 6 saved cases reproduce hidden/leak exactly (leak 0); no diag pixel vanishes outside the behind mask",
+    "video_all_frames": "ic34_a2_video.json: painting claws projected onto boat pixels 1,465 px (k 282-315, sampled every 3rd frame), all hidden; claw pixels drawn over boats 5 isolated single pixels with no projected claw there (encoding noise); seat 0/0"
+   },
+   "record_recount": {
+    "views": [
+     "occl_fg",
+     "occl_left",
+     "occl_mid",
+     "painting",
+     "seat",
+     "seat_low",
+     "seat_toward_wave"
+    ],
+    "times_s": [
+     8.0,
+     9.0,
+     10.0,
+     10.5,
+     11.0,
+     11.5,
+     12.0
+    ],
+    "cases": 98,
+    "by_layer": {
+     "claws": {
+      "hiddenByBoat": 1989,
+      "leak": 0,
+      "cases": 49
+     },
+     "spray": {
+      "hiddenByBoat": 4207,
+      "leak": 0,
+      "cases": 49
+     }
+    },
+    "painting_claws_hidden_px": 286,
+    "painting_claws_hidden_times_s": [
+     10.0,
+     10.5
+    ],
+    "false_positive_px": 0
+   },
+   "verdict": "合格"
+  },
+  "A3_mock_two_eye_claw_px_lr_diff_lt_10pct": {
+   "unity_part": {
+    "judged": [
+     {
+      "view": "painting",
+      "t": 9.0,
+      "L": 1775,
+      "R": 1767,
+      "rel_diff": 0.00451
+     },
+     {
+      "view": "seat",
+      "t": 10.0,
+      "L": 2091,
+      "R": 2112,
+      "rel_diff": 0.00994
+     },
+     {
+      "view": "painting",
+      "t": 10.0,
+      "L": 5983,
+      "R": 6046,
+      "rel_diff": 0.01042
+     },
+     {
+      "view": "seat",
+      "t": 11.0,
+      "L": 5275,
+      "R": 5228,
+      "rel_diff": 0.00891
+     },
+     {
+      "view": "painting",
+      "t": 11.0,
+      "L": 12871,
+      "R": 12932,
+      "rel_diff": 0.00472
+     },
+     {
+      "view": "seat",
+      "t": 12.0,
+      "L": 6234,
+      "R": 6232,
+      "rel_diff": 0.00032
+     },
+     {
+      "view": "painting",
+      "t": 12.0,
+      "L": 15310,
+      "R": 15287,
+      "rel_diff": 0.0015
+     },
+     {
+      "view": "seat",
+      "t": 13.0,
+      "L": 6234,
+      "R": 6232,
+      "rel_diff": 0.00032
+     },
+     {
+      "view": "painting",
+      "t": 13.0,
+      "L": 15310,
+      "R": 15287,
+      "rel_diff": 0.0015
+     }
+    ],
+    "record_only": [
+     {
+      "view": "seat",
+      "t": 8.0,
+      "L": 0,
+      "R": 0,
+      "rel_diff": 0.0
+     },
+     {
+      "view": "painting",
+      "t": 8.0,
+      "L": 373,
+      "R": 373,
+      "rel_diff": 0.0
+     },
+     {
+      "view": "seat",
+      "t": 9.0,
+      "L": 272,
+      "R": 267,
+      "rel_diff": 0.01838
+     }
+    ],
+    "max_rel_diff_judged": 0.010420112870633602,
+    "min_px_for_verdict": 500
+   },
+   "independent": {
+    "verdict": "pass",
+    "own_counts": "painting t10/11/12: 1.07/0.44/0.15 %; seat t10/11/12: 0.95/0.90/0.21 %; numpy no-occlusion +-32 mm: <=0.21 %"
+   },
+   "record_recount": {
+    "pairs": 12,
+    "judged": 9,
+    "max_rel_diff_judged": 0.010420112471055244,
+    "record_only": [
+     [
+      "seat",
+      8.0,
+      0,
+      0
+     ],
+     [
+      "painting",
+      8.0,
+      373,
+      373
+     ],
+     [
+      "seat",
+      9.0,
+      272,
+      267
+     ]
+    ],
+    "spray_max_rel_diff": 0.008917197585105896
+   },
+   "verdict": "合格（PC の代理）"
+  },
+  "HMD_H1_H3_H4": {
+   "verdict": "保留",
+   "ja": "PS VR2 は未導入（利用者の手が要る）。Mock の両眼と PC の描画で代えた。爪のシェーダーは STEREO_INSTANCING_ON の変種のコンパイルだけ確かめた"
+  },
+  "all_pass": true
+ },
+ "backlog": {
+  "ja": "計画 §2.2 の設計34：148（奥の線が透けない、事前検査）、206（記録）",
+  "items": {
+   "148": {
+    "value_ja": "爪・飛沫は不透明（ZWrite On・ZTest LEqual）。遮蔽の検査で、船の後ろの爪・飛沫が透ける画素は 0。爪の後ろの藍の線が透けないことは設計38 で測る",
+    "verdict": "記録のみ（事前検査）"
+   },
+   "206": {
+    "value_ja": "原画視点 t* の Unity の爪の画素 L 15,310・R 15,287 px。射線の検査の値は設計33 の numpy の再投影（骨格と一覧の中心線の対称 Hausdorff 中央値 0.62 px・最大 3.9 px）を引き継ぎ、Unity では測り直していない",
+    "verdict": "記録のみ"
+   }
+  }
+ },
+ "regression": {
+  "rule_ja": "計画 §2.0：原画視点に爪を足したので評価器（ds30b_tstar_regress.py、設計29修正01 と同じ 3 つの読み）を回した",
+  "t28_no_claws_identical_to_ds31": true,
+  "outline_claws_in_ids": {
+   "78_130_131_px": [
+    3.0289,
+    3.5131,
+    3.0431
+   ],
+   "132_sigma12_max_px": 3.755214351150866,
+   "72_sigma24_p95_px": 3.842347481891398,
+   "base_29r01": {
+    "132_sigma12_max": 3.755214351150866,
+    "72_sigma24_p95": 4.007498772940381
+   },
+   "verdict": "後退なし（72 σ24 p95 は良くなった）"
+  },
+  "colour_sheet_without_claw_layer": {
+   "verdict": "後退なし（爪なしの 10 枚が設計31 と SHA-256 まで同じ）",
+   "reading": "採った読み（進行役の決定、Q24）"
+  },
+  "colour_claws_in_ids_sym_reading": {
+   "rows": [
+    {
+     "item": "73",
+     "measure": "boundary",
+     "base_28r01_px": 0.303,
+     "no_claws_px": 0.303,
+     "claws_px": 0.303,
+     "verdict_no_claws": "pass",
+     "verdict_claws": "pass"
+    },
+    {
+     "item": "77",
+     "measure": "lower_ends",
+     "base_28r01_px": 1.17,
+     "no_claws_px": 0.867,
+     "claws_px": 0.867,
+     "verdict_no_claws": "pass",
+     "verdict_claws": "pass"
+    },
+    {
+     "item": "79",
+     "measure": "boundary",
+     "base_28r01_px": 0.34,
+     "no_claws_px": 0.357,
+     "claws_px": 1.608,
+     "verdict_no_claws": "pass",
+     "verdict_claws": "pass"
+    },
+    {
+     "item": "118",
+     "measure": "boundary",
+     "base_28r01_px": 0.453,
+     "no_claws_px": 0.867,
+     "claws_px": 0.867,
+     "verdict_no_claws": "pass",
+     "verdict_claws": "pass"
+    },
+    {
+     "item": "120",
+     "measure": "boundary",
+     "base_28r01_px": 0.288,
+     "no_claws_px": 0.288,
+     "claws_px": 0.288,
+     "verdict_no_claws": "pass",
+     "verdict_claws": "pass"
+    },
+    {
+     "item": "133",
+     "measure": "boundary",
+     "base_28r01_px": 0.402,
+     "no_claws_px": 0.718,
+     "claws_px": 8.837,
+     "verdict_no_claws": "pass",
+     "verdict_claws": "fail"
+    },
+    {
+     "item": "134",
+     "measure": "boundary",
+     "base_28r01_px": 0.661,
+     "no_claws_px": 0.634,
+     "claws_px": 9.399,
+     "verdict_no_claws": "pass",
+     "verdict_claws": "fail"
+    },
+    {
+     "item": "175",
+     "measure": "boundary_by_class/ai_dark",
+     "base_28r01_px": 0.309,
+     "no_claws_px": 0.428,
+     "claws_px": 0.428,
+     "verdict_no_claws": "fail",
+     "verdict_claws": "fail"
+    },
+    {
+     "item": "175",
+     "measure": "boundary_by_class/ai_mid",
+     "base_28r01_px": 1.625,
+     "no_claws_px": 0.472,
+     "claws_px": 0.472,
+     "verdict_no_claws": "fail",
+     "verdict_claws": "fail"
+    },
+    {
+     "item": "175",
+     "measure": "boundary_by_class/mizuiro",
+     "base_28r01_px": 0.865,
+     "no_claws_px": 0.978,
+     "claws_px": 22.382,
+     "verdict_no_claws": "fail",
+     "verdict_claws": "fail"
+    },
+    {
+     "item": "263",
+     "measure": "boundary_lower",
+     "base_28r01_px": 0.301,
+     "no_claws_px": 0.25,
+     "claws_px": 0.25,
+     "verdict_no_claws": "pass",
+     "verdict_claws": "pass"
+    },
+    {
+     "item": "270",
+     "measure": "boundary",
+     "base_28r01_px": 0.563,
+     "no_claws_px": 0.563,
+     "claws_px": 3.04,
+     "verdict_no_claws": "pass",
+     "verdict_claws": "pass"
+    },
+    {
+     "item": "270",
+     "measure": "record_mizuiro_reading",
+     "base_28r01_px": 0.661,
+     "no_claws_px": 0.634,
+     "claws_px": 8.65,
+     "verdict_no_claws": "pass",
+     "verdict_claws": "pass"
+    }
+   ],
+   "flat_266_267": {
+    "white": {
+     "no_claws_bands_ge_20px_sym": 0,
+     "claws_bands_ge_20px_sym": 49,
+     "no_claws_bands_ge_20px_strict": 7,
+     "claws_bands_ge_20px_strict": 55,
+     "no_claws_dE00_std_sym": 0.2104,
+     "claws_dE00_std_sym": 1.1489
+    },
+    "mizuiro": {
+     "no_claws_bands_ge_20px_sym": 0,
+     "claws_bands_ge_20px_sym": 12,
+     "no_claws_bands_ge_20px_strict": 0,
+     "claws_bands_ge_20px_strict": 12,
+     "no_claws_dE00_std_sym": 0.1319,
+     "claws_dE00_std_sym": 1.3719
+    },
+    "ai_mid": {
+     "no_claws_bands_ge_20px_sym": 0,
+     "claws_bands_ge_20px_sym": 0,
+     "no_claws_bands_ge_20px_strict": 0,
+     "claws_bands_ge_20px_strict": 0,
+     "no_claws_dE00_std_sym": 0.2862,
+     "claws_dE00_std_sym": 0.2862
+    },
+    "ai_dark": {
+     "no_claws_bands_ge_20px_sym": 0,
+     "claws_bands_ge_20px_sym": 0,
+     "no_claws_bands_ge_20px_strict": 0,
+     "claws_bands_ge_20px_strict": 0,
+     "no_claws_dE00_std_sym": 0.3476,
+     "claws_dE00_std_sym": 0.3476
+    }
+   },
+   "pass_to_fail": [
+    "133",
+    "134",
+    "267"
+   ],
+   "worse_but_pass": {
+    "79": [
+     0.357,
+     1.608
+    ],
+    "270_boundary": [
+     0.563,
+     3.04
+    ],
+    "270_record_mizuiro_reading": [
+     0.634,
+     8.65
+    ]
+   },
+   "reading": "記録のみ（限界。設計36・設計38・仕上げ33・仕上げ28 へ）"
+  },
+  "colour_claws_in_ids_definition_reading": {
+   "73": {
+    "no_claws_px": 2.484,
+    "claws_px": 2.484,
+    "verdict_no_claws": "pass",
+    "verdict_claws": "pass"
+   },
+   "77": {
+    "no_claws_px": 0.867,
+    "claws_px": 0.867,
+    "verdict_no_claws": "pass",
+    "verdict_claws": "pass"
+   },
+   "79": {
+    "no_claws_px": 1.012,
+    "claws_px": 1.608,
+    "verdict_no_claws": "pass",
+    "verdict_claws": "pass"
+   },
+   "118": {
+    "no_claws_px": 2.484,
+    "claws_px": 2.484,
+    "verdict_no_claws": "pass",
+    "verdict_claws": "pass"
+   },
+   "120": {
+    "no_claws_px": 0.288,
+    "claws_px": 0.288,
+    "verdict_no_claws": "pass",
+    "verdict_claws": "pass"
+   },
+   "133": {
+    "no_claws_px": 0.718,
+    "claws_px": 8.837,
+    "verdict_no_claws": "pass",
+    "verdict_claws": "fail"
+   },
+   "134": {
+    "no_claws_px": 8.996,
+    "claws_px": 9.399,
+    "verdict_no_claws": "fail",
+    "verdict_claws": "fail"
+   },
+   "175": {
+    "no_claws_px": 16.052,
+    "claws_px": 22.382,
+    "verdict_no_claws": "fail",
+    "verdict_claws": "fail"
+   },
+   "263": {
+    "no_claws_px": 2.484,
+    "claws_px": 2.484,
+    "verdict_no_claws": "pass",
+    "verdict_claws": "pass"
+   },
+   "270": {
+    "no_claws_px": 1.028,
+    "claws_px": 8.65,
+    "verdict_no_claws": "pass",
+    "verdict_claws": "pass"
+   }
+  }
+ },
+ "decision": {
+  "taken_ja": "色区の項目は、爪の層を除いたシートの色（爪なしの色区 ID）で測る読みを採り、爪を色区 ID に入れた両側の読みの 133・134・267 の合格 → 不合格は限界として記録する（Unity の部の推奨。進行役の決定、Q24。利用者の決定ではない）",
+  "reason_ja": [
+   "原画の爪は、29修正01 の焼き込みの色面の白と淡い水色の模様として、すでにシートに描かれている。設計33 の 3D の爪はその上に重なるので、評価器の色区の真値（爪の層を持たない）とは二重になる",
+   "爪の色（白と淡い水色の平塗り）と色区への当てはめは、設計36（限定色）と仕上げ33 で決める作業で、この番号の Q26 の 1 回の修正で先取りすると番号の順を崩す",
+   "輪郭の項目は爪を ID に入れても後退がない（72 は良くなる）"
+  ],
+  "dropped_ja": [
+   "爪を色区 ID に入れた読みを関門にして統合しないこと（計画 §2.0 の文言どおりの読み）。段階6 の Unity の再生の土台（設計35 の比較）が止まる",
+   "Q26 の 1 回の修正で、爪の色を下の色区の色に合わせるか、焼き込みの爪の模様を 3D の爪の所で消すこと。設計36 の作業の先取りになる"
+  ],
+  "dissent_ja": "進行役の独立の検査は、この読みは設計31 の飛沫の除き方より弱いと述べた（飛沫が変えた画素は主に空 13,979／14,000 だが、爪は波の本体の上にあり、原画視点の色を本当に変える）。その指摘のとおり、爪の見え方の問題として設計36・38 へ渡す"
+ },
+ "revisions": {
+  "count": 0,
+  "ja": "受入のための修正は 0 回（Q26 の 1 回は使っていない）。作り手の開発中の直し 2 つ（確認用の視点を舷の外へ置き直して④を足した、入切の一覧のファイル名の重なり）は受入の値を決める前の検査の道具の直しで、数えない"
+ },
+ "independent": {
+  "verdict": "pass（必須の指摘 0）",
+  "summary": {
+   "schema": "GreatWave.DS34.indep_check/1",
+   "who": "independent checker (own numpy/OpenCV code; did not run the unity part's code)",
+   "A1_time_offset_0": {
+    "verdict": "pass",
+    "claws_video_vs_claw_table": "ic34_a1_video.json: painting claws-only video frame k best matches claw table frame k (IoU peak at d=0) for k 198-348; ties only where motion stops (k>=354)",
+    "spray_video_vs_spray_table": "ic34_a1_video.json: best d=0 for k 270-348",
+    "sheet_video_vs_own_sheet_tau": "ic34_a1_sheet_line.json: own decode (rgba16+lo, Hermite, O(tau)) at tau(k/30): mean |top edge diff| 0.39-0.81 px at d=0 vs 0.99-4.9 px at d=+-1, k 210-348 (25/25 best d=0); k=354 tie (motion<0.3 px/frame)",
+    "own_sheet_vs_claw_roots": "ic34_a1_roots.json: median 0.000 mm at d=0, ~130-150 mm at d=+-1",
+    "white_off_same_shape_and_frame": "ic34_a1_sheet_whiteoff.json: best d=0 with white band off (0.67-0.87 px)",
+    "playmode_csv": "max |claw_t - t| = max |spray_t - t| = 4.73e-7 s; hero tau equals my tau(t) to 3e-24; claw frame phase vs 30t <= 9.7e-5 frame; toggles match renderer flags"
+   },
+   "A2_boat_occlusion": {
+    "verdict": "pass",
+    "recount_of_unity_pass_images": "ic34_a2_recount.json: 6 saved cases reproduce hidden/leak exactly (leak 0); no diag pixel vanishes outside the behind mask",
+    "video_all_frames": "ic34_a2_video.json: painting claws projected onto boat pixels 1,465 px (k 282-315, sampled every 3rd frame), all hidden; claw pixels drawn over boats 5 isolated single pixels with no projected claw there (encoding noise); seat 0/0"
+   },
+   "A3_mock_stereo": {
+    "verdict": "pass",
+    "own_counts": "painting t10/11/12: 1.07/0.44/0.15 %; seat t10/11/12: 0.95/0.90/0.21 %; numpy no-occlusion +-32 mm: <=0.21 %"
+   },
+   "regression": {
+    "outline": "no regression (78/130/131, 132 s12 unchanged; 72 s24 p95 4.0075->3.8423)",
+    "colour_with_claws_in_class_ids_adopted_sym_reading": {
+     "133": "0.718 -> 8.837 pass->fail",
+     "134": "0.634 -> 9.399 pass->fail (unity part called 134 already failing; that is the definition reading 8.996, not the 29R01 adopted both-sides reading)"
+    },
+    "colour_sheet_without_claw_layer": "identical to DS31/29R01"
+   },
+   "record_error": "unity3 README says 01:05-02:55; files show 01:02 start, outputs finished 01:35 (02:55 was still in the future when checked at 02:03)"
+  }
+ },
+ "discrepancies_ja": [
+  "Unity の部の README の作業時間 01:05〜02:55 は誤り。ファイルの時刻では開始 01:02:16（_started.txt）、再開 01:11:52、最後の出力 01:35:30（README）",
+  "Unity の部の metrics.json の色区の表の『爪なし』の列は評価器の定義のままの読み（134 8.996 px 不合格など）で、設計29修正01 が採った両側の読み（134 0.634 px 合格）と混ざっている。両側の読みでは 133 と 134 の両方が合格 → 不合格",
+  "両側の読みでは 267（白の平塗り）も、20 px 以上の白の帯が 0 → 49 になる（Unity の部と独立の検査の報告には出ていない。記録の時に tstar_sym.json から数えた）",
+  "独立の検査の報告の作業時間 01:48〜02:10 に対し、ファイルの時刻では indep_check の作成 01:39:57、最後の出力 02:04:06",
+  "独立の検査の報告の『±1 で 0.99〜4.9 px』は、ds34_indep_a1_sheet_line.json の平均の差の列では 0.992〜4.603 px。『±1 で約 130〜150 mm』は ds34_indep_a1_roots.json では 128.2〜152.9 mm",
+  "独立の検査の報告の『25／25 で d＝0』は、ファイルでは 25 コマ（k 210〜354）のうち k 210〜348 の 24 コマで d＝0、k 354 は d＝−1（0.343 と 0.389 px で差 0.05 px）",
+  "独立の検査の報告の『爪のコマの位相 ≤ 9.7e-5』は、記録の数え直し（|claw_frame − 30t| の最大）では 9.91e-5 コマ",
+  "Unity の部の README の『原画視点では爪 286 px が船の後ろ（t 10〜11.5 s）』は、描画の報告では t 10 s の 127 px と t 10.5 s の 159 px だけ"
+ ],
+ "handoffs": {
+  "設計35": "3 版の比較はこの場面（DS34_ThreeLayers）と DS34ClawPlayer・DS31InstancedParticles の上で行う。最大密度の性能の代理",
+  "設計36": "爪の色（白と淡い水色の平塗り）を色区と焼き込みの模様に合わせ、爪を色区 ID に入れた読みの 133・134・267 を合格へ戻す。175 は仕上げ36",
+  "設計38": "爪の縁の線（今は線なし）、空へ出る爪が唇の輪郭に作る白い欠け、148 の奥の線",
+  "設計39": "評価器に飛沫と爪の層を分けるマスク（設計31 からの引き継ぎ。この番号は層の入切の 2 つの読みで代えた）",
+  "仕上げ33": "爪の幅と色区への当てはめ、C072 の断面の回り（設計33 からの引き継ぎ）",
+  "仕上げ28": "133・134 の項目の群（計画 §5）",
+  "設計08〜10・PS VR2 の導入の後": "H1・H3・H4"
+ },
+ "time": {
+  "limit_ja": "Q26 の日程で 3 時間。範囲は最小の受入だけで、修正は 1 回まで",
+  "file_times": {
+   "build34_created": "2026-09-30 01:02:16",
+   "unity3_started_txt": "2026-09-30 01:11:52",
+   "code_ds34_created": "2026-09-30 01:11:52",
+   "assets_design34_created": "2026-09-30 01:11:52",
+   "unity_logs": {
+    "unity_ds34u3_main.log": [
+     "2026-09-30 01:18:48",
+     "2026-09-30 01:19:20"
+    ],
+    "unity_ds34u3_main2.log": [
+     "2026-09-30 01:20:59",
+     "2026-09-30 01:21:32"
+    ],
+    "unity_ds34u3_playmode.log": [
+     "2026-09-30 01:27:40",
+     "2026-09-30 01:27:59"
+    ],
+    "unity_ds34u3_toggles.log": [
+     "2026-09-30 01:33:25",
+     "2026-09-30 01:33:43"
+    ],
+    "unity_ds34u3_video.log": [
+     "2026-09-30 01:21:47",
+     "2026-09-30 01:22:51"
+    ]
+   },
+   "unity3_metrics": "2026-09-30 01:34:31",
+   "unity3_readme": "2026-09-30 01:35:30",
+   "indep_check_created": "2026-09-30 01:39:57",
+   "indep_check_summary": "2026-09-30 02:04:06",
+   "record_run": "2026-09-30 02:20:00"
+  },
+  "unity_runs_s": {
+   "main": 26,
+   "video": 65,
+   "toggles": 18,
+   "playmode": 19,
+   "evaluator": 221
+  }
+ }
+}
