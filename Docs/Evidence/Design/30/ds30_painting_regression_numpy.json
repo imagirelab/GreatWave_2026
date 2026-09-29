@@ -1,0 +1,153 @@
+{
+ "schema": "GreatWave.DS30.painting_regression/1",
+ "number": "設計30",
+ "method_ja": "t* の PaintingCam v1 を numpy の z バッファで ID を描き（Unity の描画ではない）、前（29修正01 の場面：主役波の全体・平らな海 y −0.07・右の斜面と手前の小波の仮置き・ForegroundFoam・LeftSupport・船）と後（主役波の本体の列 18〜394・near・far・ForegroundFoam・LeftSupport・船）で、主役波の見える画素と空の画素の違いを、評価器の輪郭の線（targets/main_wave_outline_envelope.json の区間、線の両側 6 px）と原画の大波の区域（regions.json の main_wave_palette_zone）ごとに数えた。主役波の見える画素と空の画素が同じなら、Unity で主役波の描画は同じなので評価器の値も同じ。",
+ "totals": {
+  "hero_visible_changed_px": 13241,
+  "sky_changed_px": 6483,
+  "note_ja": "全画面の違いの大半は原画の大波の区域の外：左下の主役波の尾と唇の下の谷（平らな海 y −0.07 が隠していた、海面より下の主役波の面が見える）、右端の右の高い波の輪郭（仮置きの右の斜面より低い所で空が見える）、水平線の近く。"
+ },
+ "rows": [
+  {
+   "item": "78",
+   "evidence": {
+    "hero_visible_changed_px": 0,
+    "sky_changed_px": 0
+   },
+   "verdict_ja": "変わらない（線の両側 6 px の中で、主役波の見える画素と空の画素の違い 0）"
+  },
+  {
+   "item": "130",
+   "evidence": {
+    "hero_visible_changed_px": 0,
+    "sky_changed_px": 0
+   },
+   "verdict_ja": "変わらない（線の両側 6 px の中で、主役波の見える画素と空の画素の違い 0）"
+  },
+  {
+   "item": "131",
+   "evidence": {
+    "hero_visible_changed_px": 0,
+    "sky_changed_px": 0
+   },
+   "verdict_ja": "変わらない（線の両側 6 px の中で、主役波の見える画素と空の画素の違い 0）"
+  },
+  {
+   "item": "132",
+   "evidence": {
+    "hero_visible_changed_px": 0,
+    "sky_changed_px": 0
+   },
+   "verdict_ja": "変わらない（線の両側 6 px の中で、主役波の見える画素と空の画素の違い 0）"
+  },
+  {
+   "item": "72",
+   "evidence": {
+    "hero_visible_changed_px": 0,
+    "sky_changed_px": 0
+   },
+   "verdict_ja": "変わらない（線の両側 6 px の中で、主役波の見える画素と空の画素の違い 0）"
+  },
+  {
+   "item": "212",
+   "evidence": {
+    "sky_changed_px_in_palette_zone": 0
+   },
+   "verdict_ja": "変わらない見込み（空の色の項目。原画の大波の区域の中で空の画素の違い 0。空の色は空のドームで決まり、海のシートは空の上に出ない）"
+  },
+  {
+   "item": "69・70",
+   "evidence": {},
+   "verdict_ja": "この検査では測れない（評価器の輪郭・色区の項目ではない。Unity の描画と評価器で第B部が確かめる）"
+  },
+  {
+   "item": "73",
+   "evidence": {
+    "hero_visible_changed_px_in_palette_zone": 594
+   },
+   "verdict_ja": "未確定（原画の大波の区域の中で主役波の見える画素が 594 px 変わる。手前の小波の右の斜面に沿った幅 ≤ 21 px の細い帯（x 800〜890、y 676〜750）で、仮置きの小波が隠していた主役波の下の方が見える。色区の境がこの帯を通るかは、第B部の Unity の描画を評価器で測って 28修正01 の値と比べる）"
+  },
+  {
+   "item": "77",
+   "evidence": {
+    "hero_visible_changed_px_in_palette_zone": 594
+   },
+   "verdict_ja": "未確定（原画の大波の区域の中で主役波の見える画素が 594 px 変わる。手前の小波の右の斜面に沿った幅 ≤ 21 px の細い帯（x 800〜890、y 676〜750）で、仮置きの小波が隠していた主役波の下の方が見える。色区の境がこの帯を通るかは、第B部の Unity の描画を評価器で測って 28修正01 の値と比べる）"
+  },
+  {
+   "item": "79",
+   "evidence": {
+    "hero_visible_changed_px_in_palette_zone": 594
+   },
+   "verdict_ja": "未確定（原画の大波の区域の中で主役波の見える画素が 594 px 変わる。手前の小波の右の斜面に沿った幅 ≤ 21 px の細い帯（x 800〜890、y 676〜750）で、仮置きの小波が隠していた主役波の下の方が見える。色区の境がこの帯を通るかは、第B部の Unity の描画を評価器で測って 28修正01 の値と比べる）"
+  },
+  {
+   "item": "118",
+   "evidence": {
+    "hero_visible_changed_px_in_palette_zone": 594
+   },
+   "verdict_ja": "未確定（原画の大波の区域の中で主役波の見える画素が 594 px 変わる。手前の小波の右の斜面に沿った幅 ≤ 21 px の細い帯（x 800〜890、y 676〜750）で、仮置きの小波が隠していた主役波の下の方が見える。色区の境がこの帯を通るかは、第B部の Unity の描画を評価器で測って 28修正01 の値と比べる）"
+  },
+  {
+   "item": "120",
+   "evidence": {
+    "hero_visible_changed_px_in_palette_zone": 594
+   },
+   "verdict_ja": "未確定（原画の大波の区域の中で主役波の見える画素が 594 px 変わる。手前の小波の右の斜面に沿った幅 ≤ 21 px の細い帯（x 800〜890、y 676〜750）で、仮置きの小波が隠していた主役波の下の方が見える。色区の境がこの帯を通るかは、第B部の Unity の描画を評価器で測って 28修正01 の値と比べる）"
+  },
+  {
+   "item": "133",
+   "evidence": {
+    "hero_visible_changed_px_in_palette_zone": 594
+   },
+   "verdict_ja": "未確定（原画の大波の区域の中で主役波の見える画素が 594 px 変わる。手前の小波の右の斜面に沿った幅 ≤ 21 px の細い帯（x 800〜890、y 676〜750）で、仮置きの小波が隠していた主役波の下の方が見える。色区の境がこの帯を通るかは、第B部の Unity の描画を評価器で測って 28修正01 の値と比べる）"
+  },
+  {
+   "item": "134",
+   "evidence": {
+    "hero_visible_changed_px_in_palette_zone": 594
+   },
+   "verdict_ja": "未確定（原画の大波の区域の中で主役波の見える画素が 594 px 変わる。手前の小波の右の斜面に沿った幅 ≤ 21 px の細い帯（x 800〜890、y 676〜750）で、仮置きの小波が隠していた主役波の下の方が見える。色区の境がこの帯を通るかは、第B部の Unity の描画を評価器で測って 28修正01 の値と比べる）"
+  },
+  {
+   "item": "263",
+   "evidence": {
+    "hero_visible_changed_px_in_palette_zone": 594
+   },
+   "verdict_ja": "未確定（原画の大波の区域の中で主役波の見える画素が 594 px 変わる。手前の小波の右の斜面に沿った幅 ≤ 21 px の細い帯（x 800〜890、y 676〜750）で、仮置きの小波が隠していた主役波の下の方が見える。色区の境がこの帯を通るかは、第B部の Unity の描画を評価器で測って 28修正01 の値と比べる）"
+  },
+  {
+   "item": "265",
+   "evidence": {
+    "hero_visible_changed_px_in_palette_zone": 594
+   },
+   "verdict_ja": "未確定（原画の大波の区域の中で主役波の見える画素が 594 px 変わる。手前の小波の右の斜面に沿った幅 ≤ 21 px の細い帯（x 800〜890、y 676〜750）で、仮置きの小波が隠していた主役波の下の方が見える。色区の境がこの帯を通るかは、第B部の Unity の描画を評価器で測って 28修正01 の値と比べる）"
+  },
+  {
+   "item": "266",
+   "evidence": {
+    "hero_visible_changed_px_in_palette_zone": 594
+   },
+   "verdict_ja": "未確定（原画の大波の区域の中で主役波の見える画素が 594 px 変わる。手前の小波の右の斜面に沿った幅 ≤ 21 px の細い帯（x 800〜890、y 676〜750）で、仮置きの小波が隠していた主役波の下の方が見える。色区の境がこの帯を通るかは、第B部の Unity の描画を評価器で測って 28修正01 の値と比べる）"
+  },
+  {
+   "item": "267",
+   "evidence": {
+    "hero_visible_changed_px_in_palette_zone": 594
+   },
+   "verdict_ja": "未確定（原画の大波の区域の中で主役波の見える画素が 594 px 変わる。手前の小波の右の斜面に沿った幅 ≤ 21 px の細い帯（x 800〜890、y 676〜750）で、仮置きの小波が隠していた主役波の下の方が見える。色区の境がこの帯を通るかは、第B部の Unity の描画を評価器で測って 28修正01 の値と比べる）"
+  },
+  {
+   "item": "270",
+   "evidence": {
+    "hero_visible_changed_px_in_palette_zone": 594
+   },
+   "verdict_ja": "未確定（原画の大波の区域の中で主役波の見える画素が 594 px 変わる。手前の小波の右の斜面に沿った幅 ≤ 21 px の細い帯（x 800〜890、y 676〜750）で、仮置きの小波が隠していた主役波の下の方が見える。色区の境がこの帯を通るかは、第B部の Unity の描画を評価器で測って 28修正01 の値と比べる）"
+  }
+ ],
+ "images": [
+  "ds30_painting_tstar_ids_before.png",
+  "ds30_painting_tstar_ids_after.png",
+  "ds30_painting_tstar_ids_diff.png（赤：主役波の見える画素の違い、青：空の画素の違い、緑：主役波の外の白と藍濃の入れ替わり）"
+ ]
+}

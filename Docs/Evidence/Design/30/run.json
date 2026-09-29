@@ -1,0 +1,239 @@
+{
+ "schema": "GreatWave.DS30.run/1",
+ "number": "設計30",
+ "generated_utc": "2026-09-29T10:24:03+00:00",
+ "machine": "Windows-10-10.0.26200-SP0",
+ "python": "3.10.6",
+ "numpy": "2.2.6",
+ "pillow": "12.0.0",
+ "unity": "6000.4.3f1（Editor batchmode、PC オフスクリーン描画、RTX 3080、Direct3D11）",
+ "ffmpeg": "ffmpeg version 2024-12-19-git-494c961379-full_build-www.gyan.dev Copyright (c) 2000-2024 the FFmpeg developers",
+ "commands": [
+  "（第A部、参照モデルの数値）py -3.10 -B Tools/GWWaveGen/ds30/ds30_refmeasure.py cache → measure → delete（SHA-256 を照合してから Git 対象外の Unity/Build/Design/30/_objcache に一時キャッシュ。終わりに削除し ref/ds30_ref_cache_log.json に SHA-256 を残す）",
+  "（第A部、生成）py -3.10 -B Tools/GWWaveGen/ds30/ds30_generate.py（出力 Unity/Build/Design/30/sea。約 48 s）",
+  "（第A部、検査）py -3.10 -B Tools/GWWaveGen/ds30/ds30_checks.py（出力 Unity/Build/Design/30/checks。約 123 s）",
+  "（第A部、配置の記録）py -3.10 -B Tools/GWWaveGen/ds30/ds30_layout.py（出力 Unity/Build/Design/30/layout）",
+  "（第B部）powershell -NoProfile -ExecutionPolicy Bypass -File Tools/GWWaveGen/ds30/run_ds30_unity.ps1 -Method GreatWave.Design30.EditorTools.DS30Render.Render -Log single -Extra \"-ds30Name single\"",
+  "（第B部）powershell -NoProfile -ExecutionPolicy Bypass -File Tools/GWWaveGen/ds30/run_ds30_unity.ps1 -NoQuit -Method GreatWave.Design30.EditorTools.DS30PlayModeCheck.Run -Log playmode -Extra \"-ds30Out Build/Design/30/unity/single/playmode\"",
+  "（第B部）py -3.10 -B Tools/GWWaveGen/ds30/ds30b_tstar_regress.py --out Unity/Build/Design/30/unity/single、ds30b_sheet.py --out …、ds30b_summary.py --out …",
+  "（進行役の独立の検査：リポジトリの外の numpy。出力の写しは Unity/Build/Design/30/indep_check/）",
+  "（直し1）powershell -NoProfile -ExecutionPolicy Bypass -File Tools/GWWaveGen/ds30/run_ds30_unity.ps1 -Method GreatWave.Design30.EditorTools.DS30Render.Render -Log single_fix1 -Extra \"-ds30Name single_fix1\"（既定：-ds30Hide に M1_ForegroundFoam_Static、-ds30AttachFoam 0、-ds30LineInset 10。診断の描画 -ds30Name fix1_diag_i{0,1,3,10,30,400}・fix1_diag_t28_i{8,10,12}）",
+  "（直し1）powershell -NoProfile -ExecutionPolicy Bypass -File Tools/GWWaveGen/ds30/run_ds30_unity.ps1 -NoQuit -Method GreatWave.Design30.EditorTools.DS30PlayModeCheck.Run -Log playmode_fix1 -Extra \"-ds30Out Build/Design/30/unity/single_fix1/playmode\"",
+  "（直し1）py -3.10 -B Tools/GWWaveGen/ds30/ds30b_tstar_regress.py --out Unity/Build/Design/30/unity/single_fix1、ds30b_summary.py、ds30b_sheet.py、ds30_fix1_measure.py",
+  "（記録）py -3.10 -B Tools/GWWaveGen/ds30/ds30_record.py"
+ ],
+ "scripts": {
+  "Tools/GWWaveGen/ds30/ds30_checks.py": "24b1ff04c8e0ccdd5f9f3d49d87a72a3de6840b2d2974e2d056c40fa47224634",
+  "Tools/GWWaveGen/ds30/ds30_fix1_measure.py": "180920a9174e474d0140b580841507d6b6c513723ef1f0460b20281980dbe4e6",
+  "Tools/GWWaveGen/ds30/ds30_generate.py": "17048a119fa511e7013d20a5a2079b755a9b37d27a7ea9d8e45dd889efbdbcc5",
+  "Tools/GWWaveGen/ds30/ds30_layout.py": "ccb2e8827053e9d6d31725b49cd097e96b4c318cf4f3093317f70bea34c69cd7",
+  "Tools/GWWaveGen/ds30/ds30_params.json": "378516d66de6c6746af2477b35f91b4c4914d0344f1e7bf54bd2a58ffb11794f",
+  "Tools/GWWaveGen/ds30/ds30_record.py": "979f50aeb1ee266713335d8e82c25261325738da8b75499a3e9df2445288bdbc",
+  "Tools/GWWaveGen/ds30/ds30_refmeasure.py": "56a488625c606803a65b9bcd29793efe5d70f57f79b496c67faf510247cabde8",
+  "Tools/GWWaveGen/ds30/ds30_sea.py": "2a778cc86ce0ec739562b848c2ab2096db3988f916441fe2f66f01ce64d17133",
+  "Tools/GWWaveGen/ds30/ds30b_sheet.py": "0d41ebf4cb3a7e7f3a0b3b9d3fcc7f5af1eb8075866abb878863566b8397c44f",
+  "Tools/GWWaveGen/ds30/ds30b_summary.py": "54e0c280315fe5268dc2f56f9df5713c6ab889973c43ae1d735011934ae5e6c2",
+  "Tools/GWWaveGen/ds30/ds30b_tstar_regress.py": "81dba35902244557d9e515e103210be60375c2546e409c8a704efc9c57a6909f",
+  "Tools/GWWaveGen/ds30/run_ds30_unity.ps1": "2173f4844fdb1019ce88399c628b477809294bb2e745e9f3e2fb5c8608db4dac",
+  "Unity/Assets/GreatWave/Design30/Editor/DS30PlayModeCheck.cs": "f8f1a4dbd3bca63169dfbe2369be1f18e7706f46e1a66495f4b840b42b1dae6e",
+  "Unity/Assets/GreatWave/Design30/Editor/DS30Render.cs": "4a4c4055996c9f15ef7d73a101554409da5a90365553c1e5ce13ede60557729d",
+  "Unity/Assets/GreatWave/Design30/Scenes/DS30_SinglePlayback.unity": "e67daaa8414a2df40a1f81a65e126e71b44493c429590a0bfc6c4ba0486525f1",
+  "Unity/Assets/GreatWave/Design30/Scripts/DS30AttachToVertex.cs": "1f4fdbbe17b854c75f9a2abaff9de115f72913540e0a1686b6b523d03ed9d278",
+  "Unity/Assets/GreatWave/Design30/Scripts/DS30BoatHeave.cs": "5cc17a4443c7e6d0f48ea25c8907b43b4c22d34525ff82fafe6c1e142b5794be",
+  "Unity/Assets/GreatWave/Design30/Scripts/DS30FlatSeaRing.cs": "a8d81c5fefcf6f788c843aa7931f490ac9b0568b904c8dcec4c2819fb4ca93c3",
+  "Unity/Assets/GreatWave/Design30/Scripts/DS30SeamCurtain.cs": "542a0002f5f10755e67e64c3a2a6ce4e34bc78d15b1ff6649a9dd097ae67eee6",
+  "Unity/Assets/GreatWave/Design30/Scripts/DS30SheetPlayer.cs": "de28b73834f06d1bbe95e7ae2921ca86f7a5bd7211a3a5ca83b33a17e0b13310",
+  "Unity/Assets/GreatWave/Design30/Scripts/DS30SinglePlayback.cs": "c6cb14d027645308c4958b05000a34854e8869eff4d65a7677010bc0ae89a3e3"
+ },
+ "scripts_outside_repo_ja": "進行役の独立の検査のコードは会話の作業フォルダー（リポジトリの外）にあり、コミットしない（作り手のコードを読まずに書いた検査）",
+ "reference_model_ja": "参照モデル wave_repair_zbrush2.obj（SHA-256 AB4124F9…3D40。他者の展示作品のスキャン、作者・所蔵は未確認）は ds30_refmeasure.py だけが読んだ。一時キャッシュの npz は作った時と消した時の SHA-256 が同じ（ds30_ref_cache_log.json）。数値だけを使い、形・画像はリポジトリと成果物に入れていない",
+ "inputs": {
+  "Unity/Build/Design/28R01F/F_final/art_on/ds27_keypose.json": "3349924141106509585fe29bb7f3769554028224d0a0f645bf69c55fd509cc8b",
+  "Unity/Build/Design/28R01F/F_final/art_on/ds27_pos_rgba16.bin": "af08cd4edb8a287551cae2ac8c60af3c4c33bbb39088807571475dc973d85974",
+  "Unity/Build/Design/28R01F/F_final/art_on/ds27_pos_lo_rgba8.bin": "99a29d6a74b595372211120db071fac12d9f338aa14107df921d667d67a83153",
+  "Unity/Build/Design/28R01F/F_final/art_on/ds27_twhite_r32f.bin": "17cf6188c570c1fed921b0f93b001a03394c1c9ad5dd15614eb828affcc0d8d3",
+  "Unity/Build/Design/28R01F/F_final/art_on/ds27_sea.npz": "b20f45dbf88f7e69f799d8fcc87ba8a47958ce8586ae2695b483e024c5a4d496",
+  "Unity/Build/Design/28R01F/F_final/timewarp_F_final.json": "627815c77afc63278c885335bbe6c51178896184559ca30845cf05f23c634a7c",
+  "Unity/Build/Design/29R01/bake_kp/kstar/kstar_a45.gwb": "38a9b11ab63cccb45cf2cb7776ae3a59485d58102e96cabaf828fb36d14cf19a",
+  "Unity/Build/Design/29R01/bake_kp/bake/af28r01_uvsdf_a45.bin": "69c0b26d5e0129598aa19ca8365fa590af9a81c282e5fef8298409fac8470d1a",
+  "Unity/Build/Design/29R01/bake_kp/bake/af28r01_uvwarp_a45.json": "fbd95c900f1e7b84ada6e2bffce4298fd94412041a6a1309d656893789e44964",
+  "Tools/GWContext/seat_v1.json": "4f7553fd6ab29d117266d6f0b6e58c84dc30f36cf440f6de9314b95102517488",
+  "Tools/GWContext/context_layout.json": "6c5ba436c5cb80a760215532bdd4daa9f5299e3dcf847e1aa1d93a6463714ba8",
+  "Docs/Evidence/ArtFirst/26/reference/align_B_upright.json": "097394b7260a1047ff8251e0a59ccd6162e64e6180115854d5d5a89b07fdb2e8"
+ },
+ "build_outputs": {
+  "Unity/Build/Design/30/sea/near/ds27_keypose.json": "cc2c8905fa15638ffc223856bce8432e9c3ea9a7c16671aeaaa1e36884b947f2",
+  "Unity/Build/Design/30/sea/near/ds27_pos_rgba16.bin": "cb62dd8f7d3fb290534d608265aa3d88864245e132a3127a49b63dd540b8a54d",
+  "Unity/Build/Design/30/sea/near/ds27_pos_lo_rgba8.bin": "d658bc2a5cb6676f369fe5f1f4233f0a2604837e79c13da16633ee5a59edcc28",
+  "Unity/Build/Design/30/sea/near/ds27_twhite_r32f.bin": "e3e67cacca1bef38dd8306f5e8039d5a56df4ac0310c3904ab709c39fe8aa0b4",
+  "Unity/Build/Design/30/sea/near/ds30_class_u8.bin": "493b1a59c2a1b3281115156204b356e70c60aec948161f1a54a2b82db5edde5a",
+  "Unity/Build/Design/30/sea/near/ds30_tstar.gwb": "4ce912229c95bece7d90f1cb4830b05e4eb88d0fc2218d41de107617834246e8",
+  "Unity/Build/Design/30/sea/far/ds27_keypose.json": "f5d7b2d897a75bac4cbe3ebb6b9cd27998db5b33f00f075371304f93eaec25b6",
+  "Unity/Build/Design/30/sea/far/ds27_pos_rgba16.bin": "82a6184a318bf2cb91306b9a06620b8b8143242a9551da643b0fc29cbdc0065f",
+  "Unity/Build/Design/30/sea/far/ds27_pos_lo_rgba8.bin": "233999b5d9e8a598e44c6f68c55bee444798767def92b864886f6f5d12b70f07",
+  "Unity/Build/Design/30/sea/far/ds27_twhite_r32f.bin": "49065e771ddf53b2f7d2a5aace9f0b11c441443b1cedd1f0dea6b121b1a83678",
+  "Unity/Build/Design/30/sea/far/ds30_class_u8.bin": "cbd0cf27825c5ff3681615b13da0bf29420b546881d57669834cb82ce839c040",
+  "Unity/Build/Design/30/sea/far/ds30_tstar.gwb": "cb7e3eb7c18fc0a6a3af54417bcdaa720195481682882a42bd00dc94ddc1062b",
+  "Unity/Build/Design/30/sea/near/ds30_ring0_index.json": "9dfaec3c68e121ea83781ecaaf3c0bac9a1712aef32382595f9035fa174f5091",
+  "Unity/Build/Design/30/sea/sea_function.json": "f5b92c3bc839d78c78961c5be367c3de2d206a1e6fa3d6dc0355ebc027144df9",
+  "Unity/Build/Design/30/sea/boat_support.json": "082906b7f1c286a5a41ef4f0ef216e4a2eab44c1e902baff085bc249e3f998d6",
+  "Unity/Build/Design/30/sea/ds30_generate_log.json": "e21ca2fadcb0f724752c2b966ecb536a27578ae358dbefa719ed7d66a94faac5",
+  "Unity/Build/Design/30/sea/README_interface.txt": "558894f7f9a43bccde3ffde8314fe77593f0cc2a145f7b0337d39ecf40f4a6a6",
+  "Unity/Build/Design/30/checks/ds30_checks.json": "c74a434403b9e962256b194bed4405272481913b7976f93b8224804ebe2c4389",
+  "Unity/Build/Design/30/checks/ds30_painting_regression_table.json": "d1556a99e99d70c6419a88fa934b1a88ccfbb923e3a16d86e815c5be3bae27a8",
+  "Unity/Build/Design/30/layout/ds30_layout_record.json": "da51406b0617ba8ea28213450aaf8b1cc1c3d5a647d4ba927e19c88ca7e90167",
+  "Unity/Build/Design/30/ref/ds30_ref_layout.json": "82b0d79833790602a759a35cb5db6b62b7cf6c33618611df8052f162a07b9c48",
+  "Unity/Build/Design/30/ref/ds30_ref_cache_log.json": "34757b413fe383180a56798a84d14d9cd17b3ec66aaf81717b30e6677006c967",
+  "Unity/Build/Design/30/unity/single/ds30_render_report.json": "e473d95579e88034bc25e5e75e233d00edb13a03415e8cf6459b60b4c67cfab0",
+  "Unity/Build/Design/30/unity/single/ds30b_summary.json": "71156a3859c7c8b608220f7e66fbc1178055a2e07d5b45cabd829060393cc2a4",
+  "Unity/Build/Design/30/unity/single/ds30_tstar_regress.json": "83c7914b3eba79b0fbed2c398e93fee3b94b0ca534984aaf1bb30552f4681bac",
+  "Unity/Build/Design/30/unity/single/ds30_playback_frames.csv": "fa2de273adcd9bb7a81169f48f6b75dcc8b2a575fdbb664d36a5b789e3a074b3",
+  "Unity/Build/Design/30/unity/single/ds30_holes.csv": "a9c52e20de1682afefcc1cc3f6146968e9feddaa02fd79e761c9312437adb77e",
+  "Unity/Build/Design/30/unity/single/ds30_holes_noflat.csv": "a15e0cab75f4fc2d20f925d0553ed7fd7dffb9da964eeef33c7557a8eb2a56bb",
+  "Unity/Build/Design/30/unity/single/playmode/ds30_playmode.csv": "169e424f32f4308271c6d7edfa4ea0af975d57cf600ab116b0e7a3462c70cac0",
+  "Unity/Build/Design/30/unity/single/t28_seaids/ds29r01_tstar_verdict.json": "e77abc7b6fb95ce6eac9581d5e5932a045d22bc8e5c741f0abc21d3a23eb653e",
+  "Unity/Build/Design/30/unity/single/t28_seaids/t28/render/af28r01_class_ids.png": "d174f93894b25d89a813369cfc6a26b5ee2505025aec9509dbb9e7dae9d0f39d",
+  "Unity/Build/Design/30/unity/single/t28_seaids/t28/render/af28r01_painting.png": "147c7c974731ca0e0905d743922d7fb862f509b0039eabcaac9e538fb3222762",
+  "Unity/Build/Design/30/unity/single/video/ds30_painting_30fps.mp4": "f8903b6edcb71460145b20350b2ea4c9da1570f7464a83e0e8b83443ff6464ff",
+  "Unity/Build/Design/30/unity/single/video/ds30_seat_30fps.mp4": "023d188a1c8f13ee8630247054e85105aae74b9400c5ed98a1a73b8e1167b5b1",
+  "Unity/Build/Design/30/unity/single/video/ds30_seat_toward_wave_30fps.mp4": "0b747fb7623920b161a82a1bd9875b1bfbe7acc27b8a09ad796e94e103072202",
+  "Unity/Build/Design/30/unity/single/video/ds30_side_left_30fps.mp4": "5e27d10c1a88eda95e137c996ae7822e604cfe067e6ef1cf663b96d13dfa8a2c",
+  "Unity/Build/Design/30/unity/single/video/ds30_grid_2x2_30fps.mp4": "8dc51607007afb752af17a486d5ccebe18c932cd08ba37ab97d544a8fa1ce23f",
+  "Unity/Build/Design/30/unity/single_fix1/ds30_render_report.json": "0337c659f98006c3a985f72a4c1c4fbefbbc47b5d30051950c13962b473587c0",
+  "Unity/Build/Design/30/unity/single_fix1/ds30b_summary.json": "8fbf927667a1b9a4c8dfd3888a3c0c728dc01726c05b5eed5fd515552da2d314",
+  "Unity/Build/Design/30/unity/single_fix1/ds30_tstar_regress.json": "83c7914b3eba79b0fbed2c398e93fee3b94b0ca534984aaf1bb30552f4681bac",
+  "Unity/Build/Design/30/unity/single_fix1/ds30_playback_frames.csv": "fa2de273adcd9bb7a81169f48f6b75dcc8b2a575fdbb664d36a5b789e3a074b3",
+  "Unity/Build/Design/30/unity/single_fix1/ds30_holes.csv": "a9c52e20de1682afefcc1cc3f6146968e9feddaa02fd79e761c9312437adb77e",
+  "Unity/Build/Design/30/unity/single_fix1/ds30_holes_noflat.csv": "a15e0cab75f4fc2d20f925d0553ed7fd7dffb9da964eeef33c7557a8eb2a56bb",
+  "Unity/Build/Design/30/unity/single_fix1/playmode/ds30_playmode.csv": "e3d2e6e5c35478c785abf9ef6c1d852cd55aca77426a359916385331beb97307",
+  "Unity/Build/Design/30/unity/single_fix1/t28_seaids/ds29r01_tstar_verdict.json": "5445e1c87f3efe0f6c444ab2be35f95c29af109f82d9b80cb36a4ce018197f04",
+  "Unity/Build/Design/30/unity/single_fix1/t28_seaids/t28/render/af28r01_class_ids.png": "d174f93894b25d89a813369cfc6a26b5ee2505025aec9509dbb9e7dae9d0f39d",
+  "Unity/Build/Design/30/unity/single_fix1/t28_seaids/t28/render/af28r01_painting.png": "1a33055080b1afd0a081f6f7cfc70836fbc8cff192efdbc3e4048db66e7e9b75",
+  "Unity/Build/Design/30/unity/single_fix1/video/ds30_painting_30fps.mp4": "8f87b8e34c7c2214932e567336937997fc0d09c114e75d1c6657ad0e86123bfd",
+  "Unity/Build/Design/30/unity/single_fix1/video/ds30_seat_30fps.mp4": "8b6d95cf9992ac4f8ba8b43947cad5fc259fdd9200f9784235905d2afd28e615",
+  "Unity/Build/Design/30/unity/single_fix1/video/ds30_seat_toward_wave_30fps.mp4": "3b9edfab1789c9bff8987ae839e3b62630fde8bc99473558c30706516605f6a7",
+  "Unity/Build/Design/30/unity/single_fix1/video/ds30_side_left_30fps.mp4": "540dde5a7eaba229b6c0ec714aeccb86e3b6c118d99333b9a6e48ed757113e11",
+  "Unity/Build/Design/30/unity/single_fix1/video/ds30_grid_2x2_30fps.mp4": "d80f07fbc37c01d84acd871e76705fbb185e3ebf177999657002cd2ec81691f9",
+  "Unity/Build/Design/30/unity/single_fix1/ds30_fix1.json": "8a9715719208b1748db06e06533fc604acb9de67039d33d713e4b8e3d5c1ca21",
+  "Unity/Build/Design/30/unity/single_fix1/fig_ds30_fix1.png": "f106ff60a9db3e4f7522480d60fb35da895c829a59ac735b41eac58f9d505440",
+  "Unity/Build/Design/30/indep_check/seam_out.json": "d5552c4460c2833aecf95c72716ad4ac460a90379f5d6d6510beac0075e9a6dc",
+  "Unity/Build/Design/30/indep_check/eye_play_out.json": "7477a187427b53886e1fb11e203706fe728886419a229a7e64746c27eeabcc43",
+  "Unity/Build/Design/30/indep_check/pen_out.json": "08de76c8425a533a6861e897f22a66d11b6dd824b1f1b9f4eccf3b84b0fbc509",
+  "Unity/Build/Design/30/logs/unity_ds30_single.log": "5fae7d6aafd008f88faa301e82f92b07807973b9a609e43a3819536defaa9af4",
+  "Unity/Build/Design/30/logs/unity_ds30_single_fix1.log": "b3545c44c06ced4b8128301ba0043532094d622c95b38e58e10ca8906638247b",
+  "Unity/Build/Design/30/logs/unity_ds30_playmode.log": "8d0dbdcd07307a9ad13a1eb6ad45bcb29fc0ead408f43506ae991ad42e15834b",
+  "Unity/Build/Design/30/logs/unity_ds30_playmode_fix1.log": "94f252f35bb705af9f5ef9513b215119f6dfe5f5117609874393154318696611"
+ },
+ "evidence": {
+  "Docs/Evidence/Design/30/ds30_checks_numpy.json": "c74a434403b9e962256b194bed4405272481913b7976f93b8224804ebe2c4389",
+  "Docs/Evidence/Design/30/ds30_fix1.json": "8a9715719208b1748db06e06533fc604acb9de67039d33d713e4b8e3d5c1ca21",
+  "Docs/Evidence/Design/30/ds30_grid_2x2_30fps.mp4": "d80f07fbc37c01d84acd871e76705fbb185e3ebf177999657002cd2ec81691f9",
+  "Docs/Evidence/Design/30/ds30_layout_record.json": "da51406b0617ba8ea28213450aaf8b1cc1c3d5a647d4ba927e19c88ca7e90167",
+  "Docs/Evidence/Design/30/ds30_numpy_painting_ids_diff.png": "3647fc64564c96f9a2553a0422a92c15c59ca2478bc7156ff29b640a1e887e04",
+  "Docs/Evidence/Design/30/ds30_painting_30fps.mp4": "8f87b8e34c7c2214932e567336937997fc0d09c114e75d1c6657ad0e86123bfd",
+  "Docs/Evidence/Design/30/ds30_painting_regression_numpy.json": "d1556a99e99d70c6419a88fa934b1a88ccfbb923e3a16d86e815c5be3bae27a8",
+  "Docs/Evidence/Design/30/ds30_painting_tstar.png": "1a33055080b1afd0a081f6f7cfc70836fbc8cff192efdbc3e4048db66e7e9b75",
+  "Docs/Evidence/Design/30/ds30_ref_cache_log.json": "34757b413fe383180a56798a84d14d9cd17b3ec66aaf81717b30e6677006c967",
+  "Docs/Evidence/Design/30/ds30_sea_function.json": "f5b92c3bc839d78c78961c5be367c3de2d206a1e6fa3d6dc0355ebc027144df9",
+  "Docs/Evidence/Design/30/ds30_seat_30fps.mp4": "8b6d95cf9992ac4f8ba8b43947cad5fc259fdd9200f9784235905d2afd28e615",
+  "Docs/Evidence/Design/30/ds30_seat_low_tstar.png": "eef26bcc9659d153e8aab6989fc85760338de7c55e567d625e335ff6868c67c2",
+  "Docs/Evidence/Design/30/ds30_seat_toward_wave_30fps.mp4": "3b9edfab1789c9bff8987ae839e3b62630fde8bc99473558c30706516605f6a7",
+  "Docs/Evidence/Design/30/ds30_seat_toward_wave_t10.png": "f6e2479b340edf15418bed6d185193738dcb3bc3db9959516becc87ba33b1727",
+  "Docs/Evidence/Design/30/ds30_seat_toward_wave_tstar.png": "d2be2b0cc0840ca800db60c09db02469e99f5d5889db251b376c228d131804ef",
+  "Docs/Evidence/Design/30/ds30_side_left_30fps.mp4": "540dde5a7eaba229b6c0ec714aeccb86e3b6c118d99333b9a6e48ed757113e11",
+  "Docs/Evidence/Design/30/ds30_tstar_regress.json": "83c7914b3eba79b0fbed2c398e93fee3b94b0ca534984aaf1bb30552f4681bac",
+  "Docs/Evidence/Design/30/ds30_unity_summary.json": "8fbf927667a1b9a4c8dfd3888a3c0c728dc01726c05b5eed5fd515552da2d314",
+  "Docs/Evidence/Design/30/fig_ds30_fix1.png": "f20bb30ebe77ba04aeb05bcc2a02d2290f908cedf3274e95a96ad7a641485bcd",
+  "Docs/Evidence/Design/30/fig_ds30_layout_plan.png": "c1824d6d4dc076810ef5b7456001bb591a6ededd43f6e357f6a4468abd2faf47",
+  "Docs/Evidence/Design/30/fig_ds30_stills_sheet.png": "32c913dbd12f2b35347d937d363752fb3f3634dcb4c856d64ea22828e3bd7791",
+  "Docs/Evidence/Design/30/metrics.json": "5f3593fc88d9687d0f8821a2d339607d0851490700fa087e198cdddd757b9382"
+ },
+ "evidence_sources": [
+  {
+   "name": "ds30_painting_tstar.png",
+   "how": "copy"
+  },
+  {
+   "name": "ds30_seat_toward_wave_t10.png",
+   "how": "copy"
+  },
+  {
+   "name": "ds30_seat_toward_wave_tstar.png",
+   "how": "copy"
+  },
+  {
+   "name": "ds30_seat_low_tstar.png",
+   "how": "copy"
+  },
+  {
+   "name": "fig_ds30_stills_sheet.png",
+   "how": "fit 3066x1144 -> 1920x716"
+  },
+  {
+   "name": "fig_ds30_fix1.png",
+   "how": "fit 1920x1620 -> 1280x1080"
+  },
+  {
+   "name": "fig_ds30_layout_plan.png",
+   "how": "fit 960x780 -> 1329x1080"
+  },
+  {
+   "name": "ds30_numpy_painting_ids_diff.png",
+   "how": "copy"
+  },
+  {
+   "name": "Docs/Evidence/Design/30/ds30_painting_30fps.mp4",
+   "how": "copy"
+  },
+  {
+   "name": "Docs/Evidence/Design/30/ds30_seat_30fps.mp4",
+   "how": "copy"
+  },
+  {
+   "name": "Docs/Evidence/Design/30/ds30_seat_toward_wave_30fps.mp4",
+   "how": "copy"
+  },
+  {
+   "name": "Docs/Evidence/Design/30/ds30_side_left_30fps.mp4",
+   "how": "copy"
+  },
+  {
+   "name": "Docs/Evidence/Design/30/ds30_grid_2x2_30fps.mp4",
+   "how": "copy"
+  },
+  {
+   "name": "ds30_checks_numpy.json",
+   "how": "copy"
+  },
+  {
+   "name": "ds30_painting_regression_numpy.json",
+   "how": "copy"
+  },
+  {
+   "name": "ds30_layout_record.json",
+   "how": "copy"
+  },
+  {
+   "name": "ds30_ref_cache_log.json",
+   "how": "copy"
+  },
+  {
+   "name": "ds30_sea_function.json",
+   "how": "copy"
+  },
+  {
+   "name": "ds30_unity_summary.json",
+   "how": "copy"
+  },
+  {
+   "name": "ds30_tstar_regress.json",
+   "how": "copy"
+  },
+  {
+   "name": "ds30_fix1.json",
+   "how": "copy"
+  }
+ ],
+ "protected_ja": "設計27〜29 のコミット済みのファイルは変えていない（DS30Render の報告で protectedUnchanged = true、changedFiles は空）。場面は Design30 の DS30_SinglePlayback.unity だけを保存した",
+ "not_in_repo_ja": "海のパッケージ（near 約 157 MB・far）、描画の全出力、GPU の読み戻し、診断の描画は Git 対象外の Unity/Build/Design/30/ に置いた"
+}

@@ -1,0 +1,1036 @@
+{
+ "schema": "GreatWave.DS30.metrics/1",
+ "number": "設計30",
+ "title_ja": "周囲の海と接続し、Unity で単発再生する（右の高い波・手前の小波・谷の続き・船の支えを含む）",
+ "generated_utc": "2026-09-29T10:24:03+00:00",
+ "evidence_kind_ja": "numpy の生成器と検査（第A部）、Unity 6000.4.3f1 の batchmode の PC オフスクリーン描画（RTX 3080、Direct3D11）と Editor の batch の Play モード（第B部・直し1）、美術優先28修正01 の評価器（29修正01 の読み）、進行役の独立の検査（リポジトリの外の numpy）。HMD 実機の結果ではない",
+ "acceptance": {
+  "ja": "計画 §2.1 の設計30 の最小の受入（Q26：この番号は最小の受入だけを満たす）。値は直し1 の後（unity/single_fix1）の Unity の描画と、第A部の numpy の検査、進行役の独立の検査から",
+  "seam_band_recorded": {
+   "verdict": "合格（記録）",
+   "hero_near_numpy": {
+    "height_or_position_gap_with_lo_mm": 0.0076,
+    "gap_16bit_only_mm": 2.802,
+    "velocity_diff_mm_s": 0.96,
+    "normal_dot_front_outside_boat_min": 0.6952,
+    "normal_dot_front_outside_boat_p1": 0.9621,
+    "normal_dot_front_outside_boat_worst": {
+     "tau": -3.875,
+     "near_col": 615,
+     "hero_rc": [
+      238,
+      394
+     ],
+     "dot": 0.6952125097090247
+    },
+    "normal_dot_back_min": 0.892,
+    "normal_dot_back_p1": 0.9924,
+    "normal_dot_under_boat_min": 0.3228,
+    "normal_dot_cone_fans_min": [
+     0.3678,
+     -0.9971
+    ],
+    "note_ja": "第A部（numpy、242 節点）。法線は片側の頂点法線どうしの内積。錐の扇（主役波の行 0・239 の縮んだ点）では法線が決まらない"
+   },
+   "hero_near_unity": {
+    "max_gap_m": 3.2600633858237416e-05,
+    "max_dy_m": 1.0728836059570312e-06,
+    "max_dv_mps": 4.112720489501953e-05,
+    "side_normal_dot_min": 0.3093,
+    "side_normal_dot_p01_min": 0.3632,
+    "side_below09_max": 76,
+    "side_count": 477,
+    "all_points_normal_dot_min": -0.9802,
+    "note_ja": "第B部・直し1 の Unity の GPU の読み戻し（再生の全コマ）。法線は GPU の DS27Normal（主役波は描かない余白の列も含む格子で求める）"
+   },
+   "near_far_unity": {
+    "max_gap_m": 0.0001100326917367056,
+    "tjunction_max_gap_m": 9.437160042580217e-05,
+    "normal_dot_min": 0.9989
+   },
+   "near_far_numpy": {
+    "gap_mm": 0.0455,
+    "tjunction_residual_mm": 0.0121
+   },
+   "independent": {
+    "seam_pos_max_mm_lo": 0.0076,
+    "seam_height_max_mm_lo": 0.0007,
+    "seam_pos_max_mm_hi_only": 2.802,
+    "seam_height_max_mm_hi_only": 0.369,
+    "seam_vel_max_mm_s": 1.256,
+    "seam_vel_mid_interval_max_mm_s": 1.018,
+    "ring_is_body_boundary": true,
+    "ring_n": 1230,
+    "hero_row0_row239_cone_spread_mm": [
+     7.51,
+     8.58
+    ],
+    "seam_orientation_inconsistent_edges": 0,
+    "normal_dot_col18": {
+     "min": 0.892,
+     "p1": 0.9924
+    },
+    "normal_dot_col394": {
+     "min": 0.3228,
+     "p1": 0.5297
+    },
+    "normal_dot_sides_worst": {
+     "dot": 0.32275470268910594,
+     "tau": -2.775,
+     "ring_j": 666,
+     "hero_rc": [
+      187,
+      394
+     ]
+    },
+    "normal_dot_tstar_sides": {
+     "min": 0.5863752426647552,
+     "p1": 0.600140082776505,
+     "n_lt_0.9": 30
+    },
+    "near_far_seam_max_mm": 0.0455,
+    "tjunction_residual_mm": 0.0488,
+    "note_ja": "進行役の独立の検査（作り手のコードを読まずに書いた復号器。リポジトリの外）"
+   }
+  },
+  "no_step_double_surface_hole": {
+   "verdict": "合格（直し1 の後。直しの前は、浮いた泡の仮置き（二重の白）と継ぎ目の灰色の線で不合格）",
+   "holes": {
+    "frames": 141,
+    "seat_worst_px": 0,
+    "painting_worst_px": 0,
+    "without_lowered_flat_sea_and_curtain": {
+     "seat_worst_px": 2,
+     "seat_frames": 6,
+     "painting_worst_px": 2,
+     "painting_frames": 8
+    },
+    "method_ja": "10 Hz のコマ（t = 0〜14 s）で、座席の目から立方体の 5 面（上を除く、各 256²、視野 90°）と原画視点（960 × 540）を、背景をマゼンタにして描き、向きが水平より 0.01 rad 以上下の画素のうち何も描かれない（マゼンタのままの）画素を数えた。描くのは主役波・周りの海のシートと、平らな海（下げたもの・輪）（船・富士・空のドーム・前景の仮置きは隠す）。"
+   },
+   "interpenetration_independent": {
+    "knots": 46,
+    "near_in_hero": 0,
+    "hero_under_near": 0,
+    "near_flip_per_knot_max": 149,
+    "near_flip_area_per_knot_max_m2": 0.00124,
+    "far_flip": 0,
+    "note_ja": "裏返った面は near の行 0 の錐の扇の細片だけ（面積の和 ≤ 0.0013 m²/節点）"
+   },
+   "numpy_flips_near_max": 205,
+   "numpy_flips_far_max": 0,
+   "floating_foam_fixed": {
+    "hidden_by_default": true,
+    "attached_foam": [],
+    "tstar_seat_low_white_px_before_after": [
+     138126,
+     110586
+    ],
+    "seat_video_hold_white_px_before_after": [
+     15216,
+     7957
+    ]
+   },
+   "seam_grey_line_fixed": {
+    "hero_line_inset_cols": 10,
+    "hero_line_triangles": 170168,
+    "hero_triangles": 179728,
+    "grey_rule_ja": "50 < R < 160 かつ B − R < 40、y ≥ 760（1920 × 1080）",
+    "seat_toward_wave_grey_px_frames_330_360_390_420_before": [
+     4384,
+     7561,
+     7581,
+     7581
+    ],
+    "seat_toward_wave_grey_px_frames_330_360_390_420_after": [
+     1020,
+     72,
+     72,
+     72
+    ],
+    "tstar_seat_low_grey_px_before_after": [
+     6279,
+     3823
+    ]
+   },
+   "hero_margins_not_drawn": {
+    "hero_cols": [
+     18,
+     394
+    ],
+    "triangles_drawn": 179728,
+    "triangles_full": 190722
+   },
+   "placeholders_hidden": [
+    "M1_Revision_RightSlope",
+    "M1_ForegroundSwell_Static",
+    "M1_ForegroundFoam_Static"
+   ],
+   "flat_sea": {
+    "mode": "lower",
+    "top_y_m": -9.0
+   },
+   "seam_curtain": true
+  },
+  "tstar_painting_regression": {
+   "verdict": "合格（設計30 による後退なし：主役波＋海の ID 画像で 29修正01 と全部の値の差 0。28修正01 に対する 134・267（定義のままの読み）と 72 σ24 p95 4.0075 px は 29修正01 から引き継いだ状態で、29修正01 の両側の読みでは合格のまま）",
+   "sea_free_control_identical_to_29r01": true,
+   "silhouettes_78_130_131_unity_px": {
+    "78": 3.0289,
+    "130": 3.5131,
+    "131": 3.0431
+   },
+   "silhouettes_diff_vs_29r01_px": {
+    "78": 0.0,
+    "130": 0.0,
+    "131": 0.0
+   },
+   "lfgate": {
+    "132_sigma12_max_px": 3.7552,
+    "72_sigma24_p95_px": 4.0075,
+    "diff_vs_29r01_px": {
+     "132_sigma12_max": 0.0,
+     "72_sigma24_p95": 0.0
+    }
+   },
+   "colour_strict_worst_diff_vs_28r01_px": 13.642,
+   "colour_strict_items_over_0p5": [
+    "73",
+    "79",
+    "118",
+    "134",
+    "175",
+    "263"
+   ],
+   "colour_strict_verdict_changes_vs_28r01": [
+    "134",
+    "267"
+   ],
+   "colour_items": {
+    "73": {
+     "design30_max_px": 2.484,
+     "design29r01_max_px": 2.484,
+     "r28r01_max_px": 0.655,
+     "verdict_now": "pass",
+     "verdict_28r01": "pass",
+     "diff_vs_29r01_px": 0.0
+    },
+    "77": {
+     "design30_max_px": 0.867,
+     "design29r01_max_px": 0.867,
+     "r28r01_max_px": 1.17,
+     "verdict_now": "pass",
+     "verdict_28r01": "pass",
+     "diff_vs_29r01_px": 0.0
+    },
+    "79": {
+     "design30_max_px": 1.012,
+     "design29r01_max_px": 1.012,
+     "r28r01_max_px": 0.34,
+     "verdict_now": "pass",
+     "verdict_28r01": "pass",
+     "diff_vs_29r01_px": 0.0
+    },
+    "118": {
+     "design30_max_px": 2.484,
+     "design29r01_max_px": 2.484,
+     "r28r01_max_px": 0.655,
+     "verdict_now": "pass",
+     "verdict_28r01": "pass",
+     "diff_vs_29r01_px": 0.0
+    },
+    "120": {
+     "design30_max_px": 0.288,
+     "design29r01_max_px": 0.288,
+     "r28r01_max_px": 0.288,
+     "verdict_now": "pass",
+     "verdict_28r01": "pass",
+     "diff_vs_29r01_px": 0.0
+    },
+    "133": {
+     "design30_max_px": 0.718,
+     "design29r01_max_px": 0.718,
+     "r28r01_max_px": 0.402,
+     "verdict_now": "pass",
+     "verdict_28r01": "pass",
+     "diff_vs_29r01_px": 0.0
+    },
+    "134": {
+     "design30_max_px": 8.996,
+     "design29r01_max_px": 8.996,
+     "r28r01_max_px": 0.977,
+     "verdict_now": "fail",
+     "verdict_28r01": "pass",
+     "diff_vs_29r01_px": 0.0
+    },
+    "175": {
+     "design30_max_px": 16.052,
+     "design29r01_max_px": 16.052,
+     "r28r01_max_px": 2.41,
+     "verdict_now": "fail",
+     "verdict_28r01": "fail",
+     "diff_vs_29r01_px": 0.0
+    },
+    "263": {
+     "design30_max_px": 2.484,
+     "design29r01_max_px": 2.484,
+     "r28r01_max_px": 0.559,
+     "verdict_now": "pass",
+     "verdict_28r01": "pass",
+     "diff_vs_29r01_px": 0.0
+    },
+    "270": {
+     "design30_max_px": 1.028,
+     "design29r01_max_px": 1.028,
+     "r28r01_max_px": 0.661,
+     "verdict_now": "pass",
+     "verdict_28r01": "pass",
+     "diff_vs_29r01_px": 0.0
+    }
+   },
+   "colour_265_267": {
+    "265": {
+     "verdict_now": "pass",
+     "verdict_28r01": "pass",
+     "verdict_29r01": "pass"
+    },
+    "266": {
+     "verdict_now": "pass",
+     "verdict_28r01": "pass",
+     "verdict_29r01": "pass"
+    },
+    "267": {
+     "verdict_now": "fail",
+     "verdict_28r01": "pass",
+     "verdict_29r01": "fail"
+    }
+   },
+   "colour_two_sided_worst_px": 1.153,
+   "colour_two_sided_diff_vs_29r01_px": 0.0,
+   "colour_two_sided_267_bands": {
+    "white": 0,
+    "mizuiro": 0,
+    "ai_mid": 0,
+    "ai_dark": 0
+   },
+   "items_212_69_70_ja": "212：原画視点の画像の行 0〜379 は 29修正01 と画素まで同じ（空の上の方）。69・70：t* の主役波と右の船は変わらない（主役波の描画は 29修正01 と同じ、右の船は動かさない）。どちらも別には評価していない",
+   "hero_only_reading_artefact": {
+    "78_unity_px": 691.48,
+    "72_sigma24_p95_px": 562.04,
+    "note_ja": "主役波の本体だけの ID（t28）。余白を描かないので海の所が空になり、評価器が空と読む。回帰ではない（読みは t28_seaids）"
+   },
+   "coverage_vs_29r01": {
+    "class_ids_sky_to_wave_px": 728891,
+    "class_ids_wave_to_sky_px": 0,
+    "painting_first_differing_row": 380,
+    "painting_changed_px": 349288,
+    "note_ja": "ID 画像は 3840 × 2160、原画視点の画像は 1920 × 1080。行 0 から最初に違う行の前までは 29修正01 と画素まで同じ（212 の空の上の方）"
+   },
+   "numpy_part_a": {
+    "78": {
+     "hero_visible_changed_px": 0,
+     "sky_changed_px": 0
+    },
+    "130": {
+     "hero_visible_changed_px": 0,
+     "sky_changed_px": 0
+    },
+    "131": {
+     "hero_visible_changed_px": 0,
+     "sky_changed_px": 0
+    },
+    "132": {
+     "hero_visible_changed_px": 0,
+     "sky_changed_px": 0
+    },
+    "72": {
+     "hero_visible_changed_px": 0,
+     "sky_changed_px": 0
+    },
+    "212": {
+     "sky_changed_px_in_palette_zone": 0
+    },
+    "69・70": {},
+    "73": {
+     "hero_visible_changed_px_in_palette_zone": 594
+    },
+    "77": {
+     "hero_visible_changed_px_in_palette_zone": 594
+    },
+    "79": {
+     "hero_visible_changed_px_in_palette_zone": 594
+    },
+    "118": {
+     "hero_visible_changed_px_in_palette_zone": 594
+    },
+    "120": {
+     "hero_visible_changed_px_in_palette_zone": 594
+    },
+    "133": {
+     "hero_visible_changed_px_in_palette_zone": 594
+    },
+    "134": {
+     "hero_visible_changed_px_in_palette_zone": 594
+    },
+    "263": {
+     "hero_visible_changed_px_in_palette_zone": 594
+    },
+    "265": {
+     "hero_visible_changed_px_in_palette_zone": 594
+    },
+    "266": {
+     "hero_visible_changed_px_in_palette_zone": 594
+    },
+    "267": {
+     "hero_visible_changed_px_in_palette_zone": 594
+    },
+    "270": {
+     "hero_visible_changed_px_in_palette_zone": 594
+    }
+   },
+   "base_29r01_colour_worst_px": 13.642,
+   "base_29r01_sym_worst_px": 1.153
+  },
+  "start_end_no_jump": {
+   "verdict": "合格",
+   "waiting_frames_same_as_t0": true,
+   "holding_frames_same_as_tstar": true,
+   "per_sheet_m": {
+    "hero": {
+     "start_step": 0.6924,
+     "max_next30": 0.695,
+     "median_next30": 0.6918,
+     "end_step_mm": 0.256,
+     "max_prev30": 0.3131,
+     "hold_max_step": 0.0,
+     "play_max_step": 0.8294
+    },
+    "near": {
+     "start_step": 0.6924,
+     "max_next30": 0.695,
+     "median_next30": 0.6918,
+     "end_step_mm": 0.206,
+     "max_prev30": 0.2609,
+     "hold_max_step": 0.0,
+     "play_max_step": 0.8294
+    },
+    "far": {
+     "start_step": 0.668,
+     "max_next30": 0.668,
+     "median_next30": 0.6679,
+     "end_step_mm": 0.238,
+     "max_prev30": 0.2555,
+     "hold_max_step": 0.0,
+     "play_max_step": 0.6683
+    }
+   },
+   "rule_ja": "待機のコマは t = 0 のコマと頂点の SHA-256 が同じ、静止のコマは t* のコマと同じ、開始の最初の 1 コマの最大の動きは続く 30 コマの最大の 1.5 倍以内、t* へ入るコマは前の 30 コマの最大の 1.5 倍以内（進行役の判断の目安）",
+   "jitter": {
+    "ticks": 582,
+    "max_dt_s": 1.2126086265605913,
+    "max_dtau_s": 0.06666667014360517,
+    "max_step_s": 0.06666667014360428,
+    "end_tau": 0.0
+   },
+   "tau_t0": -7.889253653,
+   "tau_tstar": 0.0,
+   "play_mode": {
+    "frames": 749,
+    "states": {
+     "Waiting": 0,
+     "Playing": 601,
+     "Holding": 148
+    },
+    "t_monotonic": true,
+    "t_last": 12.0,
+    "all_sheets_same_tau": true,
+    "end": "静止に入って 1 s\nrows=749",
+    "pass": true
+   },
+   "independent": {
+    "first_steps_m": [
+     0.6924,
+     0.6921,
+     0.6918
+    ],
+    "steps_into_tstar_m": [
+     0.004688,
+     0.001759,
+     0.000255,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "hold_step_max_m": 0.0,
+    "play_step_max_m": 0.8294
+   }
+  },
+  "seat_eye_never_under_water": {
+   "verdict": "合格",
+   "unity": {
+    "frames": 406,
+    "under_water_frames": 0,
+    "min_clearance_m": 1.0728,
+    "at_t_s": 11.033
+   },
+   "numpy_part_a": {
+    "frames": 421,
+    "heave_under_water_frames": 0,
+    "heave_min_clearance_m": 1.0728,
+    "static_under_water_frames": 0,
+    "static_min_clearance_m": 0.1745
+   },
+   "independent": {
+    "heave_under_frames": 0,
+    "heave_min_clear_m": 1.0728,
+    "frame": 331,
+    "static_under_frames": 0,
+    "static_min_clear_m": 0.1745
+   },
+   "heave": {
+    "delta_range_m": [
+     -3.694,
+     0.905
+    ],
+    "max_step_m_per_frame": 0.054,
+    "max_accel_m_s2": 5.97,
+    "smooth_s": 0.3
+   },
+   "eye": {
+    "eye_world_tstar": [
+     3.9544,
+     1.8323,
+     -15.0308
+    ],
+    "deck_world_tstar": [
+     3.9544,
+     0.6323,
+     -15.0308
+    ],
+    "eye_above_deck_m": 1.2,
+    "note_ja": "作業の指示の「甲板の 1.83 m 上」は目のワールドの高さ（y 1.83 m）。目は甲板の 1.2 m 上（seat_v1）"
+   }
+  },
+  "outer_rim_not_above_sea": {
+   "verdict": "合格",
+   "free_edges_numpy": {
+    "count": 246,
+    "y_max_m": -8.0,
+    "taus": [
+     -12.0,
+     -6.0,
+     -3.0,
+     -1.0,
+     0.0
+    ],
+    "note_ja": "自由な縁は far のすその下端（y = −8 m）だけ。どの τ でも同じ"
+   },
+   "hero_cut_edges_design29_29r01": [
+    37215,
+    27866
+   ],
+   "hero_cut_edges_now": 0,
+   "note_ja": "主役波の余白（列 0〜17・395〜399）を描かず、near の行 0 が本体の境の輪（1230 点）へつながる。far の外周は y = 0（半径 650 m）"
+  }
+ },
+ "design": {
+  "ja": "計画 §2.1 の設計30 の中身（Q10・Q16・Q17・Q18 の注記。進行役の読み、既定値・利用者未確認）",
+  "sea_formula": {
+   "formula_ja": "η(x, z, τ) = κ_c(τ)·A_c(c, τ)·Σ_car amp·cos(kx·(x − Ox) + kz·(z − Oz) − ω·τ + φ) + κ_s(τ)·Σ_swell（同じ形）+ g(τ)·F(a, c)。c = (x − Ox)·e_x + (z − Oz)·e_z、a = (x − O_x(τ))·t_x + (z − O_z(τ))·t_z（O(τ) は主役波の frame.origin の線形補間）。A_c(c, τ)：hero の ds27_sea.npz の Ac_knots（節点 × 行、行の c は npz の c）を τ で線形・c で線形に補い、c の範囲の外は端の値 × exp(−(Δc/15)²)。κ_c・κ_s は calm（1 − smoothstep）。F は features（ds30_sea.py の Features.shape と同じ式）、g は growth_knots の線形補間。主役波のシートの内側（本体の境の輪の中）と接続帯（輪 0 から 10 m）では式ではなくシートを読む。",
+   "reference_impl": "Tools/GWWaveGen/ds30/ds30_sea.py（sea_eta）",
+   "carrier_components": 128,
+   "swell_components": 64,
+   "Ac_source": {
+    "file": "Unity/Build/Design/28R01F/F_final/art_on/ds27_sea.npz",
+    "sha256": "b20f45dbf88f7e69f799d8fcc87ba8a47958ce8586ae2695b483e024c5a4d496",
+    "keys": [
+     "knot_tau",
+     "c",
+     "Ac_knots"
+    ]
+   },
+   "Ac_lateral_taper_m": 15.0,
+   "calm": {
+    "ds_swell_calm": true,
+    "swell_calm_tau_s": [
+     -4.0,
+     0.0
+    ],
+    "ds_sea_calm_painting": true,
+    "sea_calm_painting_tau_s": [
+     -2.0,
+     0.0
+    ],
+    "shape_ja": "κ = 1 − smoothstep((τ − τ0)/(τ1 − τ0))。切った版は κ = 1"
+   },
+   "note_ja": "計画の「2〜3 成分の解析式」ではなく、主役波と同じ式（搬送波 128・うねり 64 の成分、行ごとの搬送波の振幅の表 Ac_knots）をそのまま使った（Q10 の注記「主役波と同じ交差うねりと搬送波の解析式」を優先。成分の数を減らすと主役波の境で式が合わない）"
+  },
+  "sheets": {
+   "near": {
+    "rows": 44,
+    "cols": 1231,
+    "y_range_m": [
+     -3.556,
+     18.787
+    ],
+    "precision": {
+     "hi_step_mm": 3.8632383918647406,
+     "max_err_hi_m": 0.0019316190163749525,
+     "max_err_fine_m": 7.574976663704547e-06
+    },
+    "gpu": {
+     "layer_mib": 0.413238525390625,
+     "rgba16_mib": 100.00372314453125,
+     "rgba8_mib": 50.001861572265625,
+     "packed_hi_plus_lo_mib": 150.00558471679688
+    }
+   },
+   "far": {
+    "rows": 19,
+    "cols": 247,
+    "y_range_excluding_skirt_m": [
+     -4.125,
+     3.897
+    ],
+    "precision": {
+     "hi_step_mm": 19.83608571919131,
+     "max_err_hi_m": 0.009917744394101646,
+     "max_err_fine_m": 3.889097456521995e-05
+    },
+    "gpu": {
+     "layer_mib": 0.03580474853515625,
+     "rgba16_mib": 8.664749145507812,
+     "rgba8_mib": 4.332374572753906,
+     "packed_hi_plus_lo_mib": 12.997123718261719
+    },
+    "radius_m": 650,
+    "skirt_bottom_y_m": -8,
+    "radial_taper_m": [
+     380.0,
+     600.0
+    ]
+   },
+   "knot_tau_same": true,
+   "frame_same": true,
+   "layers": 242,
+   "ring0_count": 1230,
+   "gpu_mib_sheets_unity": 357.98
+  },
+  "band": {
+   "carrier_blend_m": 10.0,
+   "feature_blend_m": 4.0,
+   "slope_decay_m": 3.0,
+   "boat_blend_m": 1.0,
+   "note_ja": "接続帯：y(s) = (1 − w_c)·(y0 + σ·s·e^{−s/ℓ}) + w_c·海（搬送波 + うねり）+ w_f·地形の誘導。y0・σ は主役波の境の高さと外向きの傾き（各節点）。w_c = smootherstep(s/10)、w_f = smootherstep(s/4)、ℓ = 3（smootherstep = 6x⁵ − 15x⁴ + 10x³）。s = 0 で高さと傾きが主役波と同じで、重みの曲がりも 0（修正1：smoothstep・3 m では、右の高い波の前で最初の帯の法線が主役波と最大 42° ずれた）。主役波の余白（設計27 の band_b 15・band_f 10 m）と同じ働きを帯が受け持つ。"
+  },
+  "near_outline_ja": "near は本体の境の輪（行 0）から競技場形の外周（前 a +105.0・後 a -110.0・右 c +125.0・左 c -130.0 m）まで 44 行。far は near の外周の 5 列ごとを行 0 とし、半径 650.0 m まで 19 行（far_ring_count 18）、外周の下に -8.0 m のすそ。どれも波の枠とともに動く切り抜き",
+  "guides": {
+   "ds_swell_calm_tau_s": [
+    -4.0,
+    0.0
+   ],
+   "ds_sea_calm_painting_tau_s": [
+    -2.0,
+    0.0
+   ],
+   "ds30_right_wave_peak": {
+    "c": 31.5,
+    "a": 23.4375,
+    "h": 19.0,
+    "h_over_H": 0.937336671520013
+   },
+   "ds30_small_wave_apex": {
+    "a": 15.000000000000002,
+    "c": -13.542831404605183,
+    "h": 5.637135425269798,
+    "h_over_H": 0.27809967139104974
+   },
+   "ds30_small_wave_params": {
+    "apex_a": 15.0,
+    "apex_c": -13.6,
+    "height_m": 5.64,
+    "radius_back_m": 4.2,
+    "radius_front_m": 7.6,
+    "radius_side_m": 7.2,
+    "power": 1.38
+   },
+   "ds30_trough_continue_deepest": {
+    "c": 20,
+    "a": 10.0,
+    "depth": 2.2
+   },
+   "ds30_boat_support": {
+    "inner_m": 1.2,
+    "outer_m": 4.0,
+    "end_fade_m": 2.0
+   },
+   "growth": "g(τ) = 主役波の頂の高さの比（growth_knots、242 点、t* で 1）",
+   "moves_with_wave_frame": true
+  },
+  "layout": {
+   "reference_numbers": {
+    "source": "wave_repair_zbrush2.obj",
+    "source_sha256": "AB4124F9720D6E27D80E2AE063916292898C87606A64441043F6A64DE3D53D40",
+    "credit_ja": "他者の展示作品（北斎『神奈川沖浪裏』の立体作品）のスキャン。作者・所蔵は未確認（D18）。数値だけを借り、形は写さない。",
+    "align": "解B（作業計画 9.4、align_B_upright.json）",
+    "numbers_file": "Unity/Build/Design/30/ref/ds30_ref_layout.json（数値だけ。Git 対象外）",
+    "numbers_file_sha256": "82b0d79833790602a759a35cb5db6b62b7cf6c33618611df8052f162a07b9c48",
+    "H_ref_m": 21.70054974734126,
+    "sea_y_world": 1.1982310754126466,
+    "small_wave": {
+     "apex": {
+      "da": 14.25,
+      "dc": -10.25,
+      "h": 2.3751803098056556,
+      "h_over_H": 0.1094525409475703
+     },
+     "profile": {
+      "+a": {
+       "foot_m": 2.0,
+       "slope_deg": 46.90555890877217
+      },
+      "-a": {
+       "foot_m": 0.5,
+       "slope_deg": 76.83517020663298
+      },
+      "+c": {
+       "foot_m": 1.5,
+       "slope_deg": 54.942618247951025
+      },
+      "-c": {
+       "foot_m": 0.5,
+       "slope_deg": 76.83517020663298
+      }
+     }
+    },
+    "trough": {
+     "da": 7.25,
+     "dc": 0.25,
+     "depth": 9.292087886936084,
+     "depth_over_H": 0.4281959671585991,
+     "front_wall_run_m": NaN,
+     "front_wall_run_over_H": null,
+     "front_wall_slope_deg": null,
+     "half_depth_dc_range": [
+      -13.25,
+      14.75
+     ]
+    },
+    "right_side_max": {
+     "da": 1.75,
+     "dc": 11.75,
+     "h": 15.387468006008252,
+     "h_over_H": 0.709081944243994
+    },
+    "footprint": {
+     "da": [
+      -11.25,
+      18.75
+     ],
+     "dc": [
+      -16.25,
+      16.25
+     ]
+    },
+    "reading_ja": "参照モデルは直径約 30 m の球の彫刻（台座の上）で、大波の前は深さ 0.43 H の椀状の谷、その前の縁に高さ 0.11 H の小さな富士形の小波。右側に別の高い波はない（大波の右の部分が 0.71 H のまま球の切断面 Δc +16 m まで続く。作業計画 9.2 と同じ）。"
+   },
+   "hero": {
+    "H_m": 20.270198080684324,
+    "top_a": -0.1626494979012309,
+    "top_c": -0.7999997722573328,
+    "trough_in_sheet": {
+     "a": 10.22223584357809,
+     "c": 0.20000285796444117,
+     "depth": 5.717188742521957,
+     "depth_over_H": 0.28204898244038
+    },
+    "scale_hero_over_ref": 0.9340868464941916
+   },
+   "first_design": {
+    "note_ja": "参照モデルの配置の数値を、主役波の頂を原点に H の比（0.934）で置いたもの（数値の記録。パッケージは作らない）。",
+    "small_wave": {
+     "a": 13.148088064641,
+     "c": -10.374389948822797,
+     "h": 2.218624685441462,
+     "h_over_H": 0.1094525409475703
+    },
+    "trough": {
+     "a": 6.609480139181659,
+     "c": -0.5664780606337849,
+     "depth": 8.679617071655002,
+     "depth_over_H": 0.4281959671585991,
+     "half_depth_c": [
+      -13.176650488305372,
+      12.977781213531992
+     ]
+    },
+    "right_side": {
+     "a": 1.4720024834636043,
+     "c": 10.175520674049418,
+     "h": 14.373231465262515,
+     "h_over_H": 0.709081944243994
+    }
+   },
+   "second_design_summary": {
+    "small_wave": {
+     "a": 15.000000000000002,
+     "c": -13.542831404605183,
+     "h": 5.637135425269798,
+     "h_over_H": 0.27809967139104974
+    },
+    "right_wave_peak": {
+     "c": 31.5,
+     "a": 23.4375,
+     "h": 19.0,
+     "h_over_H": 0.937336671520013
+    },
+    "trough_in_sheet": {
+     "a": 10.22223584357809,
+     "c": 0.20000285796444117,
+     "depth": 5.717188742521957,
+     "depth_over_H": 0.28204898244038
+    },
+    "trough_continue_deepest": {
+     "c": 20,
+     "a": 10.0,
+     "depth": 2.2
+    }
+   },
+   "differences": [
+    {
+     "id": "D30-1",
+     "item": "手前の小波の位置"
+    },
+    {
+     "id": "D30-2",
+     "item": "手前の小波の高さ"
+    },
+    {
+     "id": "D30-3",
+     "item": "手前の小波の形"
+    },
+    {
+     "id": "D30-4",
+     "item": "大波の下の谷の深さ"
+    },
+    {
+     "id": "D30-5",
+     "item": "谷の続き"
+    },
+    {
+     "id": "D30-6",
+     "item": "右の高い波"
+    },
+    {
+     "id": "D30-7",
+     "item": "周りの海"
+    },
+    {
+     "id": "D30-8",
+     "item": "座席の船の支え"
+    }
+   ],
+   "reference_cache": {
+    "created_sha256": "7d138b07c426612b1fce031ec9fc6112d8e55a961c154ded1f511f6aa09b1cf4",
+    "deleted_sha256": [
+     "7d138b07c426612b1fce031ec9fc6112d8e55a961c154ded1f511f6aa09b1cf4"
+    ],
+    "cache_dir_exists_after_delete": false,
+    "source_sha256": "AB4124F9720D6E27D80E2AE063916292898C87606A64441043F6A64DE3D53D40"
+   },
+   "credit_ja": "他者の展示作品（北斎『神奈川沖浪裏』の立体作品）のスキャン。作者・所蔵は未確認（D18）。数値だけを借り、形は写さない。",
+   "generator_reads_obj": false,
+   "note_ja": "参照モデルは ds30_refmeasure.py だけが読み（SHA-256 を照合、Git 対象外の一時キャッシュ、終わりに削除）、生成器（ds30_generate.py・ds30_sea.py）は OBJ も数値のファイルも読まない。配置の記録 ds30_layout.py は数値のファイル（ds30_ref_layout.json）だけを読む"
+  },
+  "boat_support": {
+   "tstar_keel_immersion_m": [
+    0.451,
+    0.54,
+    0.548,
+    0.542,
+    0.547,
+    0.558,
+    0.566,
+    0.564,
+    0.558,
+    0.552,
+    0.608
+   ],
+   "draft_m": 0.3806,
+   "keel_immersion_heave_m": {
+    "bow_min": -4.835041343899163,
+    "bow_max": 0.450719598062582,
+    "stern_min": 0.49901915372980954,
+    "stern_max": 2.6202463905309417,
+    "all_min": -4.835041343899163,
+    "all_max": 2.6202463905309417
+   },
+   "note_ja": "t* で竜骨 + 喫水の水面（竜骨の沈み 0.45〜0.61 m、喫水 0.38 m）。t* より前は t* の姿勢のまま鉛直だけ上下（heave）"
+  }
+ },
+ "backlog": {
+  "ja": "計画 §2.1 の設計30 のバックログ：88・93（海面が途切れない。記録）、94（原画カメラ固定）",
+  "items": {
+   "88": {
+    "value": "船の周囲から前方の波まで：穴 0 px（座席 5 面 × 141 コマ）、主役波と near の貫通 0、継ぎ目の差 ≤ 0.033 mm、泡の仮置きの二重の白と継ぎ目の灰色の線は直し1 で消した",
+    "verdict": "記録（PC の描画。交接の前・中・後は段階9 の場面の移り変わりで判定）"
+   },
+   "93": {
+    "value": "far は半径 650 m、外周 y = 0、すそ −8 m。原画視点の穴 0 px（141 コマ）。自由な縁はすその下端だけ",
+    "verdict": "記録（三船の向こうから水平線まで。PC の描画）"
+   },
+   "94": {
+    "value": "原画視点のカメラは PaintingCam v1 のまま動かさない（船の上下 DS30BoatHeave が動かすのは座席の 3 つのカメラと船だけ）。4 視点 × 6 時刻の静止画で原画視点の富士の位置は同じ",
+    "verdict": "記録（原画構図の観察位置と向きは一定）"
+   }
+  }
+ },
+ "record_only": {
+  "front_seam_ridge_boat_patch": {
+   "value_ja": "主役波の行 約 150〜158・列 394 の前の継ぎ目に t* で 0.80 m の稜、その 0.6 m 外に −1.0 m の溝（船の支えの 1 m の混ぜ）。法線の内積 0.32〜0.59",
+   "source": "進行役の独立の検査（ridge.py、リポジトリの外）",
+   "verdict": "記録のみ（仕上げ30）"
+  },
+  "near_band_transient_kink": {
+   "value_ja": "τ −3.03〜−2.48 s（t 5.3〜6.5 s）に、主役波の行 172〜193（列 394）の 1〜2 m 外で 0.4〜1.05 m の溝・稜（45° より急）。near の y の二階差分の最大 0.199 m／コマ²（コマ 171）",
+   "part_a_claim_m": 0.0132,
+   "note_ja": "第A部の「コマの動きの変化の最大 0.013 m」は、全頂点の動きの大きさの最大の変化で、頂点ごとの二階差分ではない。頂点ごとでは 0.199 m／コマ²（44 コマで 0.05 を超える）",
+   "verdict": "記録のみ（仕上げ30）"
+  },
+  "seam_normals": {
+   "value_ja": "列 394 の側で頂点法線の内積の最小 0.32（numpy）・0.309（Unity）、t* で 0.586。錐の扇では決まらない",
+   "verdict": "記録のみ（光を使わない平塗りなので陰影には出ない。仕上げ30）"
+  },
+  "far_radial_taper": {
+   "value_m": [
+    380.0,
+    600.0
+   ],
+   "note_ja": "far は半径 380 m から 600 m で式の海を y = 0 へ弱める（ds30_params.json の far_taper_start_m・far_taper_end_m）。sea_function.json の式には書いていない（独立の検査で約 400 m より外で最大 3.4 m 違う）。設計43 の前に sea_function.json へ書く",
+   "verdict": "記録のみ（設計43 の前に直す）"
+  },
+  "colour_stopgap": {
+   "value_ja": "near・far の色は 2 色（藍濃と白）。白は t* の高さ 0.5 m の等高線、白くなる時刻は第A部の T_white。T_white が走る間、白と藍濃の境がぎざぎざ。座席から右の高い波が大きな平らなクリーム色の面に見える。海のシートに外殻線はない",
+   "verdict": "記録のみ（設計36・38）"
+  },
+  "right_wave_join": {
+   "value_ja": "右の高い波は大波と一続きの面だが、波頭の稜では続かない（主役波の右の端は約 0 m の錐。右の高い波は c −8 の 0 m の肩から立ち上がり c +31.5 で 19.0 m）",
+   "verdict": "記録のみ（Q16 の読みの確かめは段階5 の自己評審）"
+  },
+  "trough_legibility": {
+   "value_ja": "谷は幾何にある（K*′ の谷 −5.7 m、主役波の右の端の先の続き 最大 2.2 m）が、光を使わない平塗りでは読めない",
+   "verdict": "記録のみ（段階7）"
+  },
+  "static_props_float": {
+   "value_ja": "M1_Revision_LeftSupport・boat_left・boat_fg は t* より前に浮く・沈む（前から）。座席の船は t* の姿勢のまま鉛直だけ動く（船首が最大 4.8 m 水面の上、船尾が最大 2.6 m 沈む）",
+   "verdict": "記録のみ（段階8）"
+  },
+  "start_speed": {
+   "value_ja": "待機から波の速さ（1 コマ 0.692 m、約 21 m/s）へいきなり入る。Play モードの既定は autoStartDelay 0",
+   "verdict": "記録のみ（設計47 の導入で走ったまま渡す）"
+  },
+  "side_left_sky_clip": {
+   "value_ja": "左の側面の確認用の視点で、カメラが波の枠と動くと空のドームが遠くの面で切れる（29修正01 からある）",
+   "verdict": "記録のみ（確認用の視点だけ）"
+  },
+  "gpu_memory": {
+   "value_mib": 357.98,
+   "hero_near_far_bytes": [
+    232704004,
+    131293540,
+    11375836
+   ],
+   "driver_bytes_before_after": [
+    20373705,
+    469752629
+   ],
+   "verdict": "合格（≤ 512 MiB。Unity のバッファの大きさ）"
+  },
+  "unity_run_seconds": {
+   "render_single": 43.3,
+   "render_single_fix1": 42.9
+  },
+  "hmd": "未検証（PC のオフスクリーン描画と Editor の batch の Play モードだけ。ステレオ・PS VR2 の実機は見ていない）"
+ },
+ "revisions": {
+  "part_a_internal_ja": "第A部の生成器の中の修正1（検査の値を決める前）：混ぜを smoothstep → smootherstep、外向きの傾き σ の頑健な求め方（1 コマの 3 m の跳びを消した）、船の支えの 1 m の混ぜ、上下を竜骨の平均から目の点の下の水面へ（竜骨の平均では 421 コマのうち 311 コマで目が水の下）、上下を 0.3 s の窓でならす（0.1 s では加速度 15 m/s²）、手前の小波の半径と裾の形、numpy の描画の 2 つの誤り（近い面の切りなし・平らな面の並べなし。偽の穴に見えた）",
+  "fix1_after_independent_check_ja": "直し1（Q26 の 1 回）：(1) M1_ForegroundFoam_Static を海があるときの既定で隠し、小波への取り付けを既定で切った。(2) 主役波の外殻線を本体の縁から 10 列内側からだけ描く（outlineColInset）。面の描画は変えない",
+  "fix1_inset_trials": {
+   "rule_ja": "50 < R < 160 かつ B − R < 40、y ≥ 560（1920 × 1080）。記録の時に静止画から数え直した",
+   "cols": {
+    "0": {
+     "t11": 5991,
+     "t12": 9932
+    },
+    "1": {
+     "t11": 5991,
+     "t12": 9932
+    },
+    "3": {
+     "t11": 3251,
+     "t12": 8920
+    },
+    "10": {
+     "t11": 675,
+     "t12": 1158
+    },
+    "30": {
+     "t11": 662,
+     "t12": 813
+    },
+    "400": {
+     "t11": 411,
+     "t12": 0
+    }
+   },
+   "note_ja": "400 は本体の列の数より大きいので主役波の外殻線を描かない読み（比べるための下限）",
+   "inset_8_10_12_pixel_identical": {
+    "value": true,
+    "files": 22,
+    "note_ja": "fix1_diag_t28_i8・i10・i12 の静止画（原画視点・座席・座席から波の方向 × t 6・10・11・12 s）と t* の画像の SHA-256 が同じか"
+   }
+  },
+  "fix1_painting_line_ids_changed": {
+   "size": [
+    3840,
+    2160
+   ],
+   "changed_px": 2296,
+   "rows": [
+    1842,
+    1932
+   ],
+   "note_ja": "t* の原画視点の外殻線の ID 画像（2 倍の大きさ）で、直し1 の前後に違う画素。評価器の値は変わらない"
+  },
+  "values_unchanged_by_fix1": {
+   "tstar_regress_identical": true,
+   "summary_identical": true
+  },
+  "summary_before_fix_differs_only_in_ja": "ds30b_summary.json は隠した物・取り付けた泡・Play モードのコマの数（748 → 749）だけが違う"
+ },
+ "discrepancies_ja": [
+  "第A部の「コマの動きの変化の最大 0.013 m」は全頂点の動きの大きさの変化。頂点ごとの二階差分は 0.199 m／コマ²（独立の検査、第B部の Unity の値も同じ向き）",
+  "far の半径方向の弱め（380〜600 m）が sea_function.json の式にない（ds30_params.json にはある）",
+  "boat_support.json の note_ja と DS30BoatHeave.cs の説明は「0.1 s でならす」のままだが、生成に使った値は ds30_params.json の smooth_s 0.3 s",
+  "Unity/Build/Design/30/sea/README_interface.txt の (4) は泡の仮置きを残す前提のまま。直し1 で既定は隠す",
+  "作業の指示の「甲板の 1.83 m 上」は目のワールドの高さ。目は甲板の 1.2 m 上",
+  "作業の指示にある Q20_quotes.txt は会話の作業フォルダーになかった。Q20 は AGENTS.md の引用で読んだ"
+ ],
+ "decision": {
+  "adopted_ja": "主役波（F_final、精度の層）＋ near（44 × 1231）＋ far（19 × 247）の 3 枚を同じ knot_tau・同じ frame.origin・同じ τ(t) で再生する。主役波は本体の列 18〜394 だけを描き、外殻線は縁から 10 列内側から。平らな仮置きの海は上面 y −9 m へ下げ、near・far の T 字の継ぎ目の下に幕を置く。仮置きの右の斜面・手前の小波・泡は隠す。座席の船は heave（鉛直だけ）",
+  "reading_ja": "t* の回帰は主役波＋海の ID 画像（t28_seaids）で 29修正01 と比べる（主役波だけの ID は余白を描かないので海の所を空と読む）。色区は 29修正01 で採った両側の読みを引き継ぐ",
+  "dropped_ja": "(1) 泡の仮置きを新しい小波に合わせて置き直す：小波の泡と線は設計36・38 で作り直すので、今は隠す。(2) 継ぎ目の外殻線を縁の 1 列だけ切る：灰色の画素は変わらなかった（原因は縁の法線ではなく、座席から縁の近くの谷の壁を横から見ること）。(3) near・far の T 字を生成器で直す（far の行 0 に near の全列）：幕で 0 px になったので仕上げ30 へ"
+ },
+ "handoffs": {
+  "stage5_selfreview_ja": "Q16 の「右の波を大波とつなぐ」の読み（面では一続き、波頭の稜では続かない）の確かめ",
+  "polish30_ja": "前の継ぎ目の船の支えの稜 0.80 m と溝 −1.0 m（法線の内積 ≥ 0.9、稜・溝 ≤ 0.1 m を目標）、near の帯の τ −3.03〜−2.48 s の溝と動きの折れ（≤ 0.05 m／コマ²、45° 以下）、右の高い波の輪の間隔（c 30〜60 m で約 3 m）、一次設計（参照モデルの配置）のパッケージ、near・far の T 字（far の行 0 に near の全列）、ds30_right_wave の形",
+  "design36_38_ja": "海のシートの色（2 色の仮）と外殻線、継ぎ目をまたぐ外殻線（今は主役波の縁の 10 列と海には線がない）、手前の小波の泡と線、主役波の藍濃 (34,63,96) と海の藍濃 (35,64,97) の 1 段の差",
+  "design43_ja": "sea_function.json に far の半径方向の弱めを書く。船は sea_function.json（帯と主役波の中はシート）を読む",
+  "stage8_ja": "船の傾きを水面に合わせる、浮く・沈む静止物",
+  "design47_ja": "導入から走ったまま単発再生へ渡す",
+  "hmd_ja": "設計08〜10（PS VR2 の導入の後）。ステレオ・実時間の再生は未検証"
+ },
+ "time": {
+  "limit_h": 8,
+  "ja": "Q26 の日程で進行役が 8 時間とした。ファイルの時刻で 9/29 16:01（最初のファイル）〜17:11（第A部の最後）、第B部 〜17:26、独立の検査 17:31〜、直し1 17:55〜18:10、記録は 18:13〜。上限の内。Unity の 1 回はどれも 30 分より十分短い（DS30Render の中の時間 43.3 s・42.9 s）"
+ }
+}
