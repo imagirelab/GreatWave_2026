@@ -1,0 +1,620 @@
+{
+ "schema": "GreatWave.DS29R01.metrics/1",
+ "number": "設計29修正01",
+ "title_ja": "表示用サーフェスを設計28修正01 の新しい動き（F_final・K*′）で作り直し、再生器が精度の層を読むようにする",
+ "generated_utc": "2026-09-29T07:56:22+00:00",
+ "evidence_kind_ja": "numpy の検査器（設計29 の検査器を精度の層つきで）、Blender 5.2.2 ヘッドレスの射線と BVH、Unity 6000.4.3f1 の batchmode の PC オフスクリーン描画（RTX 3080、Direct3D11）と美術優先28修正01 の評価器、進行役の独立の検査。HMD 実機の結果ではない",
+ "acceptance": {
+  "ja": "計画 §2.1 の設計29 の最小の受入を、設計28修正01 の F_final のパッケージそのもの（K*′ の格子 240 × 400、242 層）を原版として、精度の層つきの読みで測った。painting_colour_* は設計28修正01 §8 の引き継ぎ (a)（計画 §2.0 の後退の規則：色区の項目を 28修正01 の値へ戻す）",
+  "mesh_static": {
+   "value": [
+    0,
+    0,
+    0,
+    0
+   ],
+   "verdict": "合格",
+   "note_ja": "非多様体・巻き方向の食い違い・下を向き上に網のない面・3 次元の自己交差（BVH、頂点を共有する組を除く、両方の面 ≥ 5 mm）。36 コマ τ −4.433〜0 s。独立の検査：辺 286721・非多様体 0・巻き方向の食い違い 0・外周の輪 1、上に網のない下向きの面は 36 コマで 0"
+  },
+  "section_self_crossing": {
+   "value": 0,
+   "verdict": "合格",
+   "design29": 1
+  },
+  "strict_one_vertex_penetration": {
+   "value": [
+    0,
+    0,
+    0.0
+   ],
+   "value_16bit_only": [
+    40,
+    57,
+    0.02
+   ],
+   "design29": [
+    7,
+    7,
+    3.45
+   ],
+   "verdict": "合格（精度の層つき）",
+   "note_ja": "30 Hz の全 361 コマ τ −12〜0 s、コマ・組・深さの最大 mm（両方の面 ≥ 5 mm）。16 bit だけの読みでは不合格"
+  },
+  "strict_bvh_non_sharing": {
+   "value": [
+    0,
+    0
+   ],
+   "value_16bit_only": [
+    112,
+    529
+   ],
+   "design29": [
+    4,
+    4
+   ],
+   "verdict": "合格（精度の層つき）",
+   "note_ja": "361 コマ、コマ・組。独立の検査（Blender の BVH）も両方の面 ≥ 5 mm で 0。5 mm の条件を外すと 1384 組・150 コマ（行 238〜239 の間の 5 mm より細い面どうし。記録のみ）"
+  },
+  "strict_flips_30hz": {
+   "value": 0,
+   "design29": 7,
+   "verdict": "合格"
+  },
+  "seat_rays_hole_openback_cutend_seam": {
+   "value": [
+    0,
+    0,
+    0,
+    0
+   ],
+   "verdict": "合格（事前検査。判定は番号41）",
+   "note_ja": "5 万本 × 36 コマ。t* より前の外周の切断端／縁の下 [27866, 1396] は周りの海（設計30）の範囲で記録のみ"
+  },
+  "keypose_gpu_mib": {
+   "value": 221.92,
+   "verdict": "合格",
+   "position_16bit_mib": 132.93,
+   "precision_layer_mib": 88.62,
+   "twhite_mib": 0.37,
+   "unity_driver_increase_mib": 221.92,
+   "readable_cpu_copy": false,
+   "note_ja": "DS29KeyposePlayer の GPU だけの GraphicsBuffer（StructuredBuffer<uint>）。網 6.58 MiB と色区テクスチャ 64 MiB は別。直しの回の描画でも 221.92 MiB（ds29_render_report.json の位置 139392000 B ＋ 精度の層 92928000 B ＋ T_white 384000 B）"
+  },
+  "painting_regression_geometry": {
+   "value_px": 0.0,
+   "value_16bit_only_px": 0.073,
+   "verdict": "合格",
+   "gate_values_px_78_130_131_132lf_72lf": [
+    2.741,
+    3.831,
+    2.924,
+    3.905,
+    3.746
+   ],
+   "note_ja": "t* の復号した網で K*′ の評価表の値との差の最大。独立の検査も差 0.000 px"
+  },
+  "painting_unity_silhouettes": {
+   "value_px": {
+    "78": 3.0289,
+    "130": 3.5131,
+    "131": 3.0431
+   },
+   "diff_vs_kstar_prime_px": {
+    "78": 0.2879,
+    "130": -0.3177,
+    "131": 0.1188
+   },
+   "verdict": "合格（K*′ の値と ±0.5 px の内）"
+  },
+  "painting_unity_large_form": {
+   "132_sigma12_max_px": 3.7552,
+   "72_sigma24_p95_px": 4.0075,
+   "diff_vs_kstar_prime_px": {
+    "132_sigma12_max": -0.1498,
+    "72_sigma24_p95": 0.2615
+   },
+   "worst_72_xy": [
+    872.0,
+    696.91
+   ],
+   "verdict": "後退なし（±0.5 px の内）。72 は 4 px の関門を 0.0075 px 超える（記録。仕上げ28）",
+   "note_ja": "引き継ぎ (d)。Unity の t* の色区 ID 画像の空から測った。焼き直しの前・28R01F の画像でも同じ値"
+  },
+  "painting_colour_strict": {
+   "worst_abs_diff_px": 13.642,
+   "items": {
+    "73": {
+     "now_max_px": 2.484,
+     "r28r01_max_px": 0.655,
+     "diff_px": 1.829,
+     "verdict_now": "pass",
+     "verdict_28r01": "pass"
+    },
+    "77": {
+     "now_max_px": 0.867,
+     "r28r01_max_px": 1.17,
+     "diff_px": 0.303,
+     "verdict_now": "pass",
+     "verdict_28r01": "pass"
+    },
+    "79": {
+     "now_max_px": 1.012,
+     "r28r01_max_px": 0.34,
+     "diff_px": 0.672,
+     "verdict_now": "pass",
+     "verdict_28r01": "pass"
+    },
+    "118": {
+     "now_max_px": 2.484,
+     "r28r01_max_px": 0.655,
+     "diff_px": 1.829,
+     "verdict_now": "pass",
+     "verdict_28r01": "pass"
+    },
+    "120": {
+     "now_max_px": 0.288,
+     "r28r01_max_px": 0.288,
+     "diff_px": 0.0,
+     "verdict_now": "pass",
+     "verdict_28r01": "pass"
+    },
+    "133": {
+     "now_max_px": 0.718,
+     "r28r01_max_px": 0.402,
+     "diff_px": 0.316,
+     "verdict_now": "pass",
+     "verdict_28r01": "pass"
+    },
+    "134": {
+     "now_max_px": 8.996,
+     "r28r01_max_px": 0.977,
+     "diff_px": 8.019,
+     "verdict_now": "fail",
+     "verdict_28r01": "pass"
+    },
+    "175": {
+     "now_max_px": 16.052,
+     "r28r01_max_px": 2.41,
+     "diff_px": 13.642,
+     "verdict_now": "fail",
+     "verdict_28r01": "fail"
+    },
+    "263": {
+     "now_max_px": 2.484,
+     "r28r01_max_px": 0.559,
+     "diff_px": 1.925,
+     "verdict_now": "pass",
+     "verdict_28r01": "pass"
+    },
+    "270": {
+     "now_max_px": 1.028,
+     "r28r01_max_px": 0.661,
+     "diff_px": 0.367,
+     "verdict_now": "pass",
+     "verdict_28r01": "pass"
+    }
+   },
+   "items_over_0p5": [
+    "73",
+    "79",
+    "118",
+    "134",
+    "175",
+    "263"
+   ],
+   "265_266_267_now_vs_28r01": {
+    "265": [
+     "pass",
+     "pass"
+    ],
+    "266": [
+     "pass",
+     "pass"
+    ],
+    "267": [
+     "fail",
+     "pass"
+    ]
+   },
+   "267_white_bands_ge_20px": 7,
+   "267_band_areas_px2": [
+    69,
+    30,
+    36,
+    57,
+    64,
+    32,
+    23
+   ],
+   "worst_points_distance_to_sky_px": {
+    "73/118/263": {
+     "dsky_render": 0.0,
+     "dsky_truth": 2.83
+    },
+    "79": {
+     "dsky_render": 0.0,
+     "dsky_truth": 2.24
+    },
+    "134": {
+     "dsky_render": 0.0,
+     "dsky_truth": 2.24
+    },
+    "175ai_mid": {
+     "dsky_render": 1.41,
+     "dsky_truth": 3.61
+    },
+    "175mizuiro": {
+     "dsky_render": 0.0,
+     "dsky_truth": 2.24
+    }
+   },
+   "verdict": "不合格（評価器の定義のままの読み。6 項目が ±0.5 px を超え、134 と 267 が合格 → 不合格）。記録として残し、仕上げ28 へ",
+   "before_rebake_worst_px": 146.469,
+   "note_ja": "焼き直しの前（古い焼き込み、精度の層つき）は最悪 146.47 px。最悪の点と 267 の帯は、描画の空が原画の色区に入り込んだ所（worst_points_distance_to_sky_px：描画の空から 0〜1.41 px、原画の空から 2.24〜3.61 px）"
+  },
+  "painting_colour_two_sided": {
+   "worst_abs_diff_px": 1.153,
+   "rows": [
+    {
+     "item": "73",
+     "measure": "boundary",
+     "kp_sym_max_px": 0.303,
+     "r28_sym_max_px": 0.303,
+     "diff_px": 0.0
+    },
+    {
+     "item": "77",
+     "measure": "lower_ends",
+     "kp_sym_max_px": 0.867,
+     "r28_sym_max_px": 1.17,
+     "diff_px": -0.303
+    },
+    {
+     "item": "79",
+     "measure": "boundary",
+     "kp_sym_max_px": 0.357,
+     "r28_sym_max_px": 0.34,
+     "diff_px": 0.017
+    },
+    {
+     "item": "118",
+     "measure": "boundary",
+     "kp_sym_max_px": 0.867,
+     "r28_sym_max_px": 0.453,
+     "diff_px": 0.414
+    },
+    {
+     "item": "120",
+     "measure": "boundary",
+     "kp_sym_max_px": 0.288,
+     "r28_sym_max_px": 0.288,
+     "diff_px": 0.0
+    },
+    {
+     "item": "133",
+     "measure": "boundary",
+     "kp_sym_max_px": 0.718,
+     "r28_sym_max_px": 0.402,
+     "diff_px": 0.316
+    },
+    {
+     "item": "134",
+     "measure": "boundary",
+     "kp_sym_max_px": 0.634,
+     "r28_sym_max_px": 0.661,
+     "diff_px": -0.027
+    },
+    {
+     "item": "175",
+     "measure": "boundary_by_class/ai_dark",
+     "kp_sym_max_px": 0.428,
+     "r28_sym_max_px": 0.309,
+     "diff_px": 0.119
+    },
+    {
+     "item": "175",
+     "measure": "boundary_by_class/ai_mid",
+     "kp_sym_max_px": 0.472,
+     "r28_sym_max_px": 1.625,
+     "diff_px": -1.153
+    },
+    {
+     "item": "175",
+     "measure": "boundary_by_class/mizuiro",
+     "kp_sym_max_px": 0.978,
+     "r28_sym_max_px": 0.865,
+     "diff_px": 0.113
+    },
+    {
+     "item": "263",
+     "measure": "boundary_lower",
+     "kp_sym_max_px": 0.25,
+     "r28_sym_max_px": 0.301,
+     "diff_px": -0.051
+    },
+    {
+     "item": "270",
+     "measure": "boundary",
+     "kp_sym_max_px": 0.563,
+     "r28_sym_max_px": 0.563,
+     "diff_px": 0.0
+    },
+    {
+     "item": "270",
+     "measure": "record_mizuiro_reading",
+     "kp_sym_max_px": 0.634,
+     "r28_sym_max_px": 0.661,
+     "diff_px": -0.027
+    }
+   ],
+   "verdicts_now": {
+    "73": "pass",
+    "77": "pass",
+    "79": "pass",
+    "118": "pass",
+    "120": "pass",
+    "133": "pass",
+    "134": "pass",
+    "175": "fail",
+    "263": "pass",
+    "270": "pass",
+    "265": "pass",
+    "266": "pass",
+    "267": "fail",
+    "uv_no_empty_texels": "pass"
+   },
+   "verdicts_28r01": {
+    "73": "pass",
+    "77": "pass",
+    "79": "pass",
+    "118": "pass",
+    "120": "pass",
+    "133": "pass",
+    "134": "pass",
+    "175": "fail",
+    "263": "pass",
+    "270": "pass",
+    "265": "pass",
+    "266": "pass",
+    "267": "pass",
+    "uv_no_empty_texels": "pass"
+   },
+   "267_white": 0,
+   "px_removed_near_render_sky": 608,
+   "verdict": "合格（採った読み。175 の藍中の −1.153 px は改善で、175 は 28修正01 から不合格）。進行役の読み（Q24）で、評価器の定義ではない",
+   "note_ja": "輪郭の両側（原画の空または描画の空から 2 px 以内）を除き、28修正01 の描画にも同じ読みを当てて比べた（ds29r01_tstar_sym.py）"
+  },
+  "gpu_readback_vs_numpy_mm": {
+   "value": 0.0252,
+   "captures": 519,
+   "range_tau": [
+    -6.0,
+    0.0
+   ],
+   "rebaked_run_value": 0.0263,
+   "rebaked_run_captures": 15,
+   "vs_16bit_only_mm": [
+    1.201,
+    1.48
+   ],
+   "tstar_gpu_vs_kstar_prime_mm": 0.0138,
+   "independent_all_520_mm": 0.0263,
+   "verdict": "合格（≤ 0.25 mm）"
+  },
+  "old_packages_identical": {
+   "design28": {
+    "files": [
+     34,
+     34
+    ],
+    "videos": [
+     3,
+     3
+    ]
+   },
+   "design28_after_fix": {
+    "files": [
+     34,
+     34
+    ],
+    "videos": [
+     3,
+     3
+    ]
+   },
+   "design27": {
+    "files": [
+     29,
+     29
+    ],
+    "videos": [
+     4,
+     4
+    ]
+   },
+   "verdict": "合格（SHA-256 まで同じ）"
+  },
+  "shader_variants": {
+   "value": true,
+   "stereo_output": true,
+   "compute_errors": 0,
+   "verdict": "合格（コンパイルだけ。ステレオの描画と HMD は未検証）"
+  }
+ },
+ "handoffs_from_design28r01": {
+  "a_rebake": {
+   "value": "K*′ へ焼き直した（直接 3461866 テクセル、空き 0、ラスタ化されない 0、2 回目の焼き込みで SHA-256 が同じ）",
+   "uvsdf_sha256": "69c0b26d5e0129598aa19ca8365fa590af9a81c282e5fef8298409fac8470d1a",
+   "uvwarp_sha256": "fbd95c900f1e7b84ada6e2bffce4298fd94412041a6a1309d656893789e44964",
+   "verdict": "済（両側の読みで合格、評価器の定義のままの読みでは 6 項目が残る）"
+  },
+  "b_gpu_memory": {
+   "value_mib": 221.92,
+   "verdict": "済（読み取り可能の写しを持たない GPU だけのバッファ）"
+  },
+  "c_row239": {
+   "value_fine": [
+    0,
+    27.14,
+    0.4
+   ],
+   "value_16bit_only": [
+    0,
+    156.2,
+    152.533
+   ],
+   "formation_rows_235_237_flipped_normals_fine": [
+    302,
+    19358,
+    113
+   ],
+   "verdict": "直しは要らない（精度の層つきで K*′ と同じ法線。形成の間の奥の端の折れは見えない）"
+  },
+  "d_large_form_from_unity": {
+   "72_sigma24_p95_px": 4.0075,
+   "132_sigma12_max_px": 3.7552,
+   "verdict": "測った（72 は 4 px を 0.0075 px 超える。記録、仕上げ28）"
+  }
+ },
+ "backlog": {
+  "ja": "計画 §2.1 の設計29 のバックログ（117、83・115・116）と、設計28 から引き継いだ 106・107",
+  "items": {
+   "83": {
+    "value": "開いた背面 0・t* の切断端 0・穴 0（5 万本 × 36 コマ）",
+    "verdict": "合格（事前検査。判定は番号41）"
+   },
+   "115": {
+    "value": "同上",
+    "verdict": "合格（事前検査。判定は番号41）"
+   },
+   "116": {
+    "value": "同上",
+    "verdict": "合格（事前検査。判定は番号41）"
+   },
+   "117": {
+    "value": "原版：継ぎ目の切断 0・穴 0、減面なし。軽量版：原画視点の輪郭の差 1.677 px（座席の視点は未測定）",
+    "verdict": "合格（原版）"
+   },
+   "106": {
+    "value": "P13 (5d) 行の間の伸び [0.195, 2.098]（基準 0.05〜4）",
+    "verdict": "合格（設計28・29 は不合格）"
+   },
+   "107": {
+    "value": "30 Hz の面の反転 0（P13 (5g) 0）",
+    "verdict": "合格（設計29 の原版は 7）"
+   },
+   "P13_other": {
+    "(2)": {
+     "value": 0.06733,
+     "threshold": "≤ 0.0218（2 g）",
+     "pass": false
+    },
+    "(5b)": {
+     "value": 0.002912,
+     "threshold": "≥ 0.005（K* で近い辺は K* − 2q）",
+     "pass": false
+    },
+    "(5c)": {
+     "value": [
+      0.011,
+      2.472
+     ],
+     "threshold": "0.05〜4（±2q を差し引いて判定）",
+     "pass": false
+    },
+    "(5e)": {
+     "value": [
+      0.248,
+      1.0
+     ],
+     "threshold": "0.25〜4",
+     "pass": false
+    }
+   }
+  }
+ },
+ "record_only": {
+  "lip_thickness_min_m": {
+   "value": 0.021,
+   "light": 0.027,
+   "design29": 0.557,
+   "verdict": "不合格・記録のみ（K*′ と動きの値。仕上げ28）",
+   "note_ja": "t* は 0.259 m（K*′ 自身 0.259 m、c −24.2 m の 4 断面）。形成の途中は τ −2.7〜−2.4 s の唇の出始めに 0.021〜0.085 m"
+  },
+  "farwall_last_0p067s_m": {
+   "value": 0.01262,
+   "design29": 0.111,
+   "verdict": "合格（設計29 の急な下がりは消えた）"
+  },
+  "ground_second_difference_30hz_m": {
+   "value": 0.06733,
+   "where": "場所：{\"vertex\": 75194, \"tau\": -5.6667}",
+   "verdict": "不合格・記録のみ（動きの値）"
+  },
+  "folds_over_120deg_per_frame_max": {
+   "value": 59,
+   "criterion": "記録（K*′ 自身 11）",
+   "verdict": "記録のみ"
+  },
+  "pre_tstar_rim_cut_under_edge": {
+   "value": [
+    27866,
+    1396
+   ],
+   "verdict": "記録のみ（設計30）"
+  },
+  "layers": 242,
+  "light_120x200": {
+   "layers": "307（38＋23＋4）",
+   "painting_regression_px": 0.669,
+   "gate_values_px": [
+    2.845,
+    3.653,
+    2.908,
+    3.79,
+    4.415
+   ],
+   "outline_diff_vs_original_px": 1.677,
+   "gpu_mib_estimate": 42.16,
+   "verdict": "名前を付けた非常用の予備（原画視点の回帰 0.669 px で不合格。色区と座席の輪郭は未測定。UV3 は古い 28修正01 の表）"
+  },
+  "tstar_fine_vs_16bit_old_bake_263_lower_px": [
+   {
+    "item": "263",
+    "measure": "boundary_lower",
+    "fine_px": 24.896,
+    "r16_px": 23.021,
+    "diff_px": 1.875,
+    "fine_verdict": "fail",
+    "r16_verdict": "fail"
+   }
+  ],
+  "timing_ms_painting_seat": {
+   "with_layer": [
+    0.123,
+    0.101
+   ],
+   "without_layer": [
+    0.157,
+    0.093
+   ],
+   "note_ja": "壁時計のおおよその値。同じ組でも回によって約 50% 揺れる（設計29）。PC の片目で HMD ではない"
+  }
+ },
+ "decision": {
+  "adopted_ja": "原版＝設計28修正01 の F_final のパッケージそのもの（K*′ の格子 240 × 400、242 層）を、精度の層を読む DS29KeyposePlayer で再生し、色区は K*′ へ焼き直した表（af28r01_uvsdf_a45.bin・af28r01_uvwarp_a45.json）で描く",
+  "reading_ja": "色区の後退の判定は、輪郭の両側（原画の空または描画の空から 2 px 以内）を除く読み（ds29r01_tstar_sym.py）で行う。直しの回が推奨した案を Q24 に従って採った（利用者の決定ではない）。評価器の定義のままの読みの値（6 項目・267 の帯 7）は記録し、K*′ の輪郭の差（2.7〜3.8 px）として仕上げ28 へ渡す",
+  "dropped_ja": "(1) 評価器の定義のままで不合格として止める：焼き込みでは K*′ の輪郭の差を動かせないので、止めても直せない。(2) 2 回目の直し（輪郭の差の所の色区を外へ伸ばす焼き込みの規則を足す）：Q26 の「直しは 1 回まで」を超え、原画にない色を空の側へ塗ることになる"
+ },
+ "time": {
+  "ja": "ファイルの時刻で 9/29 14:46（最初のファイル）〜15:36（直しの回の最後）。Part A（再生器）と Part B（測定）は並べて行った。記録は 15:41〜。Q26 の日程の表では 3 時間で、設計28修正01 からの引き継ぎ (a)〜(d) を含めて進行役が 4 時間とした。Unity の 1 回はどれも 30 分より十分短い（DS29Render・DS27Formation の中の時間 7.6〜42.2 s、焼き込み 5.8 s）"
+ },
+ "handoffs_out": {
+  "design30_ja": "t* より前の外周の切断端・縁の下（精度の層つき 27,866／1,396 本）。座席の船を新しい谷に座らせる（設計28修正01 から）",
+  "design36_38_ja": "設計28 から渡された描画の傷（唇の端の梯子・モアレ、縦の継ぎ目、前面の足の縦の筋、爪の模様が埋まる、左端の横縞）。焼き直しの後の t* で面の中を横切る外殻線（K*′ の折れの線）。座席の見えない内壁の平らな藍濃と左の横の外挿の帯（番号41 とも関わる）",
+  "polish28_ja": "評価器の定義のままの読みの色区の差（73・118・263 2.484 px、79 1.012 px、134 8.996 px、175 藍中 16.052 px、267 の白の帯 7）と 72 σ24 の 4.0075 px は、K*′ の輪郭の差（2.7〜3.8 px）によるので、K*′ の縁を原画に合わせ直す時に一緒に直す。唇先の厚さ 0.021 m（t* 0.259 m）。30 Hz の地面の二階差分 0.0673 m",
+  "polish29_ja": "行 234〜239 の張り直し（形成の間の行 235〜237 の法線の折れ、行 238〜239 の 5 mm 未満の細い面どうしの接触）。HMD で見えた時だけ。軽量版を新しい UV3 の表で作り直すこと",
+  "hmd_ja": "設計08〜10（PS VR2 の導入の後）。SPI はコンパイルだけ確かめた"
+ }
+}

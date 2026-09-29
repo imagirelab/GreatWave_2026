@@ -19,6 +19,12 @@ namespace GreatWave.Design29
     //     （AF28NprWave.EnsureLoaded は列ごと・行ごとの表を必ず当てるので、表示の格子では使わない）。
     // 位置・T_white・補間（不等間隔の節点の 3 次 Hermite）・枠の原点 O(τ) の約束は設計27 と同じ（ds27_player_ref.py の冒頭）。
     // 読み込みは 2 段：LoadSurface（メッシュ・UV3・色区テクスチャ）→ LoadKeypose（位置と T_white の GPU バッファ）。GPU の容量を分けて測るため。
+    // 設計29修正01：パッケージに精度の層（ds27_keypose.json の extensions に "pos_lo_rgba8/1"、ファイル ds27_pos_lo_rgba8.bin。
+    //   設計28修正01 の試行E 以後の生成器 ds28r01e_generate.py の export_lo が書く）があり、readPosLo のとき、それも GPU だけの
+    //   StructuredBuffer<uint>（頂点ごとに RGBA8 の 4 バイトをファイルのまま、層 × 頂点）へ読み、大域キーワード DS27_POS_LO を入れて
+    //   位置 = bbox_min + (q16 + lo/255 − 0.5)/65535 × bbox_size で描く（刻み約 7 µm。16 bit だけでは約 1.7 mm）。
+    //   精度の層のないパッケージ（設計27・28・29）と readPosLo = false では、キーワードを切り、設計29 とまったく同じに描く（後方互換）。
+    //   どちらのバッファも CPU に写しを残さない（読み取り不可。設計29 §Q10 の (1)）。
     [RequireComponent(typeof(AF26KStarMesh))]
     [DefaultExecutionOrder(100)]
     public class DS29KeyposePlayer : MonoBehaviour
@@ -42,9 +48,14 @@ namespace GreatWave.Design29
         public bool driveFromClock = false;
         public GWClock clock;
         public string timewarpPath = "../Tools/GWWaveGen/ds27/timewarp_default.json";
+        [Header("設計29修正01：精度の層")]
+        [Tooltip("パッケージに精度の層（extensions の pos_lo_rgba8/1、ds27_pos_lo_rgba8.bin）があれば読む。切ると 16 bit だけ（設計29 と同じ）")]
+        public bool readPosLo = true;
+
+        public const string PosLoExtension = "pos_lo_rgba8/1";
 
         DS27KeyposePlayer.Meta meta;
-        GraphicsBuffer posBuf, whiteBuf;
+        GraphicsBuffer posBuf, whiteBuf, posLoBuf;
         Texture2D sdfTex;
         Mesh mesh;
         DS27TimeWarp warp;
@@ -58,6 +69,14 @@ namespace GreatWave.Design29
         public Vector3 AppliedOrigin { get; private set; }
         public long PositionGpuBytes => posBuf == null ? 0 : (long)posBuf.count * posBuf.stride;
         public long WhiteGpuBytes => whiteBuf == null ? 0 : (long)whiteBuf.count * whiteBuf.stride;
+        public long PosLoGpuBytes => posLoBuf == null ? 0 : (long)posLoBuf.count * posLoBuf.stride;
+        /// <summary>精度の層を読んで使っているか（キーワード DS27_POS_LO を入れて描く）。</summary>
+        public bool PosLoUsed => posLoBuf != null;
+        /// <summary>パッケージの json に精度の層の拡張があったか（readPosLo に関わらず）。</summary>
+        public bool PosLoInPackage { get; private set; }
+        public string PosLoFile { get; private set; } = "";
+        public string PosLoSha256 { get; private set; } = "";
+        public long PosLoAlphaNot255 { get; private set; }
         public long AlphaNot65535 { get; private set; }
         public int WhiteNeverCount { get; private set; }
         public string MeshPath { get; private set; } = "";
@@ -249,6 +268,7 @@ namespace GreatWave.Design29
             WhiteNeverCount = never;
             whiteBuf = new GraphicsBuffer(GraphicsBuffer.Target.Structured, n, 4) { name = "DS29 T_white（τ）" };
             whiteBuf.SetData(tw);
+            LoadPosLo(m, n);
 
             var bmin = new Vector3((float)m.bboxMin[0], (float)m.bboxMin[1], (float)m.bboxMin[2]);
             var bsz = new Vector3((float)m.bboxSize[0], (float)m.bboxSize[1], (float)m.bboxSize[2]);
@@ -267,12 +287,72 @@ namespace GreatWave.Design29
             ApplyTau(0.0);
         }
 
+        /// <summary>設計29修正01：精度の層（RGBA8、層 × 頂点 × 4 バイト）を、ファイルのバイトのまま GPU だけのバッファへ読む。無ければ何もしない。</summary>
+        void LoadPosLo(DS27KeyposePlayer.Meta m, int n)
+        {
+            PosLoInPackage = false; PosLoFile = ""; PosLoSha256 = ""; PosLoAlphaNot255 = 0;
+            var jp = Path.Combine(m.dir, "ds27_keypose.json");
+            var r = DS27Json.AsObj(DS27Json.Parse(System.Text.Encoding.UTF8.GetString(File.ReadAllBytes(jp))), "ds27_keypose.json");
+            bool ext = false;
+            if (DS27Json.Has(r, "extensions") && DS27Json.Get(r, "extensions") is System.Collections.Generic.List<object> el)
+                foreach (var e in el) if (e is string es && es == PosLoExtension) ext = true;
+            if (!ext) return;
+            PosLoInPackage = true;
+            string file = DS27Json.Text(r, "pos_lo_file");
+            string want = DS27Json.Text(r, "pos_lo_sha256");
+            PosLoFile = file;
+            if (!readPosLo) return;
+            string lp = Path.Combine(m.dir, file);
+            long layerBytes = (long)n * 4;
+            var fi = new FileInfo(lp);
+            if (!fi.Exists) throw new FileNotFoundException("精度の層のファイルがありません（json には pos_lo_rgba8/1 がある）。", lp);
+            if (fi.Length != layerBytes * m.layers) throw new InvalidDataException("精度の層の大きさが層 × 行 × 列 × 4 と合いません: " + fi.Length);
+            posLoBuf = new GraphicsBuffer(GraphicsBuffer.Target.Structured, n * m.layers, 4) { name = "DS29 keypose 精度の層（RGBA8）" };
+            var raw = new byte[layerBytes];
+            var words = new uint[n];
+            long alphaBad = 0;
+            using (var sha = SHA256.Create())
+            using (var fs = new FileStream(lp, FileMode.Open, FileAccess.Read, FileShare.Read, 1 << 20))
+            {
+                for (int l = 0; l < m.layers; l++)
+                {
+                    int got = 0;
+                    while (got < raw.Length)
+                    {
+                        int k = fs.Read(raw, got, raw.Length - got);
+                        if (k <= 0) throw new EndOfStreamException("精度の層のファイルが途中で終わっています。");
+                        got += k;
+                    }
+                    sha.TransformBlock(raw, 0, raw.Length, null, 0);
+                    for (int v = 0; v < n; v++) if (raw[4 * v + 3] != 255) alphaBad++;
+                    Buffer.BlockCopy(raw, 0, words, 0, raw.Length);
+                    posLoBuf.SetData(words, 0, l * n, n);
+                }
+                sha.TransformFinalBlock(new byte[0], 0, 0);
+                PosLoSha256 = BitConverter.ToString(sha.Hash).Replace("-", "").ToLowerInvariant();
+            }
+            PosLoAlphaNot255 = alphaBad;
+            if (verifySha256 && PosLoSha256 != want) { ReleaseBuffers(); throw new InvalidDataException("精度の層の SHA-256 が JSON と違います: " + PosLoSha256); }
+        }
+
+        /// <summary>精度の層のキーワードとバッファを大域へ（無ければキーワードを切る＝設計29 と同じ変種）。</summary>
+        void BindPosLoGlobal()
+        {
+            if (posLoBuf != null)
+            {
+                Shader.SetGlobalBuffer(DS27KeyposePlayer.PosLoId, posLoBuf);
+                Shader.EnableKeyword(DS27KeyposePlayer.PosLoKeyword);
+            }
+            else Shader.DisableKeyword(DS27KeyposePlayer.PosLoKeyword);
+        }
+
         /// <summary>シェーダーの大域の値（設計27 と同じ名前）をこのパッケージへ向ける。場面に主役波が複数あるときは、描く直前に呼ぶ。</summary>
         public void BindGlobals()
         {
             var m = meta;
             Shader.SetGlobalBuffer(DS27KeyposePlayer.PosId, posBuf);
             Shader.SetGlobalBuffer(DS27KeyposePlayer.WhiteId, whiteBuf);
+            BindPosLoGlobal();
             Shader.SetGlobalVector(DS27KeyposePlayer.BBoxMinId, new Vector4((float)m.bboxMin[0], (float)m.bboxMin[1], (float)m.bboxMin[2], 0));
             Shader.SetGlobalVector(DS27KeyposePlayer.BBoxSizeId, new Vector4((float)m.bboxSize[0], (float)m.bboxSize[1], (float)m.bboxSize[2], 0));
             Shader.SetGlobalVector(DS27KeyposePlayer.GridId, new Vector4(m.cols, m.rows, m.rows * m.cols, 0));
@@ -316,6 +396,7 @@ namespace GreatWave.Design29
             Shader.SetGlobalFloat(DS27KeyposePlayer.TauId, (float)tau);
             Shader.SetGlobalFloat(DS27KeyposePlayer.EnabledId, 1f);
             Shader.SetGlobalFloat(DS27KeyposePlayer.WhiteEnabledId, whiteEnabled ? 1f : 0f);
+            BindPosLoGlobal();
             AppliedTau = tau;
             AppliedOrigin = o;
         }
@@ -324,6 +405,12 @@ namespace GreatWave.Design29
         public void BindCompute(ComputeShader cs, int kernel)
         {
             LoadKeypose();
+            if (posLoBuf != null)
+            {
+                cs.EnableKeyword(DS27KeyposePlayer.PosLoKeyword);
+                cs.SetBuffer(kernel, DS27KeyposePlayer.PosLoId, posLoBuf);
+            }
+            else cs.DisableKeyword(DS27KeyposePlayer.PosLoKeyword);
             cs.SetBuffer(kernel, DS27KeyposePlayer.PosId, posBuf);
             cs.SetVector(DS27KeyposePlayer.BBoxMinId, new Vector4((float)meta.bboxMin[0], (float)meta.bboxMin[1], (float)meta.bboxMin[2], 0));
             cs.SetVector(DS27KeyposePlayer.BBoxSizeId, new Vector4((float)meta.bboxSize[0], (float)meta.bboxSize[1], (float)meta.bboxSize[2], 0));
@@ -344,6 +431,7 @@ namespace GreatWave.Design29
         {
             posBuf?.Release(); posBuf = null;
             whiteBuf?.Release(); whiteBuf = null;
+            posLoBuf?.Release(); posLoBuf = null;
         }
 
         public void Release()
@@ -369,6 +457,7 @@ namespace GreatWave.Design29
         void OnDestroy()
         {
             Shader.SetGlobalFloat(DS27KeyposePlayer.EnabledId, 0f);
+            Shader.DisableKeyword(DS27KeyposePlayer.PosLoKeyword);
             Release();
             meta = null;
         }

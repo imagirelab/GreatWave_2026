@@ -7,6 +7,10 @@
 //             局所の位置 = _DS27BBoxMin + q/65535 × _DS27BBoxSize（全層の外接箱で正規化。量子化の差は外接箱の 1/131070 の対角）。
 //   _DS27Grid：(列の数 400, 行の数 240, 頂点の数 N, 0)。頂点の添字（SV_VertexID）= 行 × 列の数 + 列（K* の .gwb と同じ並び）。
 //   _DS27Slices・_DS27Weights：補間に使う 4 つの層とその重み（範囲の外は (0, 1, 0, 0)）。重みが 0 の層も読む（分岐をなくす）。
+// 設計29修正01：精度の層（パッケージの ds27_pos_lo_rgba8.bin、拡張 pos_lo_rgba8/1）を、大域のキーワード DS27_POS_LO があるときだけ読む。
+//   _DS27PosLo：頂点 v・層 l の RGBA8 を、uint の (l × N + v) 番目にファイルのバイトのまま置く（R = x、G = y、B = z、A = 255。リトルエンディアン）。
+//   復号：局所の位置 = _DS27BBoxMin + (q + lo/255 − 0.5)/65535 × _DS27BBoxSize（ds28r01e_generate.py の export_lo と同じ式。刻み約 7 µm）。
+//   キーワードのない変種（精度の層のないパッケージ、設計27・28 の再生器）は、下の #else の中の元の式のままで、変える前とまったく同じに計算する。
 #ifndef GREATWAVE_DS27_KEYPOSE_CORE_INCLUDED
 #define GREATWAVE_DS27_KEYPOSE_CORE_INCLUDED
 
@@ -35,9 +39,37 @@ float3 DS27LoadQ(uint vid, float slice)
     return float3(q);
 }
 
+#if defined(DS27_POS_LO)
+StructuredBuffer<uint> _DS27PosLo;
+
+// 精度の層の 8 bit の値（0〜255、x・y・z）
+int3 DS27LoadLoI(uint vid, float slice)
+{
+    uint n = (uint)(_DS27Grid.z + 0.5);
+    uint w = _DS27PosLo[(uint)(slice + 0.5) * n + vid];
+    return int3(w & 0xFFu, (w >> 8) & 0xFFu, (w >> 16) & 0xFFu);
+}
+
+// 16 bit の丸めの残り（16 bit の刻みの単位、−0.5〜+0.5）
+float3 DS27LoadLoOff(uint vid, float slice)
+{
+    return float3(DS27LoadLoI(vid, slice)) / 255.0 - 0.5;
+}
+
+// 2 頂点の差（16 bit の刻みの単位）：16 bit の整数の差（正確）＋ 精度の層の整数の差 / 255
+float3 DS27LoadQDelta(uint a, uint b, float slice)
+{
+    return (DS27LoadQ(a, slice) - DS27LoadQ(b, slice)) + float3(DS27LoadLoI(a, slice) - DS27LoadLoI(b, slice)) / 255.0;
+}
+#endif
+
 float3 DS27LoadLocal(uint vid, float slice)
 {
+#if defined(DS27_POS_LO)
+    return _DS27BBoxMin.xyz + (DS27LoadQ(vid, slice) / 65535.0) * _DS27BBoxSize.xyz + (DS27LoadLoOff(vid, slice) / 65535.0) * _DS27BBoxSize.xyz;
+#else
     return _DS27BBoxMin.xyz + (DS27LoadQ(vid, slice) / 65535.0) * _DS27BBoxSize.xyz;
+#endif
 }
 
 // 4 層の重み付きの和（Hermite）。局所の位置。
@@ -51,11 +83,17 @@ float3 DS27Local(uint vid)
 // （位置を引き算するより桁落ちが小さい。小さい三角形の法線の精度のため）。
 float3 DS27Delta(uint a, uint b)
 {
+#if defined(DS27_POS_LO)
+    float3 d = _DS27Weights.x * DS27LoadQDelta(a, b, _DS27Slices.x) + _DS27Weights.y * DS27LoadQDelta(a, b, _DS27Slices.y)
+             + _DS27Weights.z * DS27LoadQDelta(a, b, _DS27Slices.z) + _DS27Weights.w * DS27LoadQDelta(a, b, _DS27Slices.w);
+    return d * (_DS27BBoxSize.xyz / 65535.0);
+#else
     float3 d = _DS27Weights.x * (DS27LoadQ(a, _DS27Slices.x) - DS27LoadQ(b, _DS27Slices.x))
              + _DS27Weights.y * (DS27LoadQ(a, _DS27Slices.y) - DS27LoadQ(b, _DS27Slices.y))
              + _DS27Weights.z * (DS27LoadQ(a, _DS27Slices.z) - DS27LoadQ(b, _DS27Slices.z))
              + _DS27Weights.w * (DS27LoadQ(a, _DS27Slices.w) - DS27LoadQ(b, _DS27Slices.w));
     return d * (_DS27BBoxSize.xyz / 65535.0);
+#endif
 }
 
 // ワールドの位置 = 波の枠の原点 O(τ) ＋ 局所

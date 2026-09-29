@@ -1,0 +1,498 @@
+{
+ "schema": "GreatWave.DS29R01.unity_check/1",
+ "number": "設計29修正01 Part A（再生器が精度の層を読む）",
+ "acceptance": {
+  "gpu_vs_numpy_le_0p25mm": true,
+  "shader_variants_compile_incl_spi": true,
+  "old_28_pixel_identical": true,
+  "old_27_pixel_identical": true,
+  "keypose_memory_le_512mib": true,
+  "record_only_tstar_fine_vs_16bit_render_le_0p5px": false,
+  "note_ja": "record_only_… は記録のみ：精度の層つきの t* と、同じ古い焼き込み（28修正01）の 16 bit だけの t*（設計28修正01 の F_final）の差。どちらも古い焼き込みを K*′ の形に貼ったままで大きく不合格なので、計画 §2.0 の回帰（K*′ の値と ±0.5 px）の判定は焼き直しの後に行う"
+ },
+ "memory": {
+  "position_16bit_mib": 132.9345703125,
+  "position_lo_mib": 88.623046875,
+  "twhite_mib": 0.3662109375,
+  "keypose_total_mib": 221.923828125,
+  "mesh_vertex_index_mib": 6.577171325683594,
+  "colour_zone_texture_mib": 64.0,
+  "driver_increase_keypose_mib": 221.923828125,
+  "budget_mib": 512,
+  "keypose_within_budget": true,
+  "readable_cpu_copy": false,
+  "note_ja": "位置（16 bit × 3 を詰めた）と精度の層（RGBA8 をファイルのまま）と T_white は GraphicsBuffer（StructuredBuffer、GPU だけ）で、CPU の写しを残さない（読み取り不可）。json の gpu_estimate の fine_texture2darray_readable_mib（531.74）は、読み取り可能な Texture2DArray の見積もりで、この再生器の形ではない。driver_increase_keypose_mib は Unity の割り当ての数の増え（頼んだ大きさの確かめ）"
+ },
+ "gpu": {
+  "schema": "GreatWave.DS29R01.gpu_check/1",
+  "run": "Unity/Build/Design/29R01/unity/f_final",
+  "package": "Unity/Build/Design/28R01F/F_final/art_on",
+  "package_checks": {
+   "pos_sha256_ok": true,
+   "pos_lo_sha256_ok": true,
+   "pos_lo_alpha_not_255": 0
+  },
+  "has_pos_lo": true,
+  "range_tau": [
+   -6.0,
+   0.0
+  ],
+  "captures": 520,
+  "captures_in_range": 519,
+  "by_kind_in_range": {
+   "knot": {
+    "count": 188,
+    "max_vs_fine_mm": 0.0196615794310054,
+    "at_tau": -5.9375,
+    "min_of_max_vs_16bit_only_mm": 1.2013929208143843,
+    "max_of_max_vs_16bit_only_mm": 1.2246194465213118
+   },
+   "midpoint": {
+    "count": 187,
+    "max_vs_fine_mm": 0.022429326178921096,
+    "at_tau": -5.953125,
+    "min_of_max_vs_16bit_only_mm": 1.2952524200287474,
+    "max_of_max_vs_16bit_only_mm": 1.4800422124762782
+   },
+   "frame30": {
+    "count": 144,
+    "max_vs_fine_mm": 0.025190398560329882,
+    "at_tau": -4.866666667,
+    "min_of_max_vs_16bit_only_mm": 1.2392048509682652,
+    "max_of_max_vs_16bit_only_mm": 1.4496825835869942
+   }
+  },
+  "worst_in_range_vs_fine_mm": 0.025190398560329882,
+  "criterion_mm": 0.25,
+  "passed": true,
+  "nan_total": 0,
+  "normal_len_min": 0.9999998069343294,
+  "tstar_vs_kstar": {
+   "kstar_gwb": "Unity/Build/Design/28R01F/kstar_F_final/kstarR4_a45.gwb",
+   "kstar_gwb_sha256": "38a9b11ab63cccb45cf2cb7776ae3a59485d58102e96cabaf828fb36d14cf19a",
+   "gpu_vs_kstar_max_mm": 0.013754104531285748,
+   "numpy_fine_vs_kstar_max_mm": 0.006799748190548336,
+   "numpy_16bit_vs_kstar_max_mm": 1.2090754905806145,
+   "note_ja": "t* の層は K*′ そのもの（量子化の差だけ）。精度の層つきの GPU の読み戻しと K*′ の .gwb（float32、量子化の前）の差"
+  },
+  "seconds": 37.7,
+  "method_ja": "GPU の読み戻し（DS27KeyposeCapture.compute、float32）と、json の約束から書いた numpy の再生（float64、傾きを作る Hermite、精度の層つきの復号 bbox_min + (q16 + lo/255 − 0.5)/65535·bbox_size）の全頂点の差の最大。max_vs_16bit_only_mm は 16 bit だけの numpy との差（GPU が精度の層を読んでいれば量子化の差の大きさまで離れる）"
+ },
+ "regress_d28": {
+  "schema": "GreatWave.DS29R01.regress/1",
+  "new": "Unity/Build/Design/29R01/unity/regress_d28",
+  "ref": "Unity/Build/Design/29/unity/src_d28",
+  "report": "ds29_render_report.json",
+  "files_compared": 34,
+  "files_same_sha256": 34,
+  "videos_compared": 3,
+  "videos_same_sha256": 3,
+  "new_pos_lo_used": false,
+  "pixel_identical": true,
+  "videos": [
+   {
+    "view": "painting",
+    "sha256_new": "440cffd5e76ab616480ca7f38431bed30b590d8f6fe69a36a124e680c495553b",
+    "sha256_ref": "440cffd5e76ab616480ca7f38431bed30b590d8f6fe69a36a124e680c495553b",
+    "same_sha256": true
+   },
+   {
+    "view": "seat_toward_wave",
+    "sha256_new": "0c62aae542d47ad4ac34ffadcb6d036d3ce439945a5a3cdceb47091adab11cd6",
+    "sha256_ref": "0c62aae542d47ad4ac34ffadcb6d036d3ce439945a5a3cdceb47091adab11cd6",
+    "same_sha256": true
+   },
+   {
+    "view": "side_left",
+    "sha256_new": "816472d1beb17febe04e8bcec6e99a10c0d554905cc8e019b698b51df23a5d6c",
+    "sha256_ref": "816472d1beb17febe04e8bcec6e99a10c0d554905cc8e019b698b51df23a5d6c",
+    "same_sha256": true
+   }
+  ],
+  "method_ja": "古い証拠の報告の files・filesSha256・videos と、新しいコードで同じ引数で描いた報告を、出力のフォルダーからの相対の名前で突き合わせ、ファイルの SHA-256 を計り直して比べた（PNG の SHA-256 が同じ＝画素も同じ）"
+ },
+ "regress_d27": {
+  "schema": "GreatWave.DS29R01.regress/1",
+  "new": "Unity/Build/Design/29R01/unity/regress_d27",
+  "ref": "Unity/Build/Design/27/art_on_default",
+  "report": "ds27_render_report.json",
+  "files_compared": 29,
+  "files_same_sha256": 29,
+  "videos_compared": 4,
+  "videos_same_sha256": 4,
+  "new_pos_lo_used": null,
+  "pixel_identical": true,
+  "videos": [
+   {
+    "view": "painting",
+    "sha256_new": "13d79b1aa80fdec94f9e816cfe6fad8a46d36fa3b8d682986827786dba8d9a69",
+    "sha256_ref": "13d79b1aa80fdec94f9e816cfe6fad8a46d36fa3b8d682986827786dba8d9a69",
+    "same_sha256": true
+   },
+   {
+    "view": "seat",
+    "sha256_new": "93d906824c3c191523c331c84c027ff1f3ebf5f74899f51ecb77a5fefb895736",
+    "sha256_ref": "93d906824c3c191523c331c84c027ff1f3ebf5f74899f51ecb77a5fefb895736",
+    "same_sha256": true
+   },
+   {
+    "view": "seat_form",
+    "sha256_new": "1079b3e45f005c9ccc20dad30afe3719bba65f9f523149afba4916a8e96abe2a",
+    "sha256_ref": "1079b3e45f005c9ccc20dad30afe3719bba65f9f523149afba4916a8e96abe2a",
+    "same_sha256": true
+   },
+   {
+    "view": "side_left",
+    "sha256_new": "3bc55b07caee3dc32f22a22e893f3fbb608d11e2a2835e3e3c9b111b9b0d3a31",
+    "sha256_ref": "3bc55b07caee3dc32f22a22e893f3fbb608d11e2a2835e3e3c9b111b9b0d3a31",
+    "same_sha256": true
+   }
+  ],
+  "method_ja": "古い証拠の報告の files・filesSha256・videos と、新しいコードで同じ引数で描いた報告を、出力のフォルダーからの相対の名前で突き合わせ、ファイルの SHA-256 を計り直して比べた（PNG の SHA-256 が同じ＝画素も同じ）"
+ },
+ "tstar_fine_vs_16bit": {
+  "ref_ja": "設計28修正01 の F_final の Unity の t*（16 bit だけの読み、Unity/Build/Design/28R01F/unity/F_final/ds27_tstar_remeasure.json）",
+  "boundaries": [
+   {
+    "item": "73",
+    "measure": "boundary",
+    "fine_px": 65.058,
+    "r16_px": 65.068,
+    "diff_px": -0.01,
+    "fine_verdict": "fail",
+    "r16_verdict": "fail"
+   },
+   {
+    "item": "77",
+    "measure": "lower_ends",
+    "fine_px": 85.562,
+    "r16_px": 85.978,
+    "diff_px": -0.416,
+    "fine_verdict": "fail",
+    "r16_verdict": "fail"
+   },
+   {
+    "item": "79",
+    "measure": "boundary",
+    "fine_px": 45.774,
+    "r16_px": 45.772,
+    "diff_px": 0.002,
+    "fine_verdict": "fail",
+    "r16_verdict": "fail"
+   },
+   {
+    "item": "118",
+    "measure": "boundary",
+    "fine_px": 86.153,
+    "r16_px": 86.23,
+    "diff_px": -0.077,
+    "fine_verdict": "fail",
+    "r16_verdict": "fail"
+   },
+   {
+    "item": "120",
+    "measure": "boundary",
+    "fine_px": 39.716,
+    "r16_px": 39.716,
+    "diff_px": 0.0,
+    "fine_verdict": "fail",
+    "r16_verdict": "fail"
+   },
+   {
+    "item": "133",
+    "measure": "boundary",
+    "fine_px": 37.408,
+    "r16_px": 37.412,
+    "diff_px": -0.004,
+    "fine_verdict": "fail",
+    "r16_verdict": "fail"
+   },
+   {
+    "item": "134",
+    "measure": "boundary",
+    "fine_px": 45.878,
+    "r16_px": 45.878,
+    "diff_px": 0.0,
+    "fine_verdict": "fail",
+    "r16_verdict": "fail"
+   },
+   {
+    "item": "175",
+    "measure": "boundary_by_class/ai_dark",
+    "fine_px": 146.778,
+    "r16_px": 146.442,
+    "diff_px": 0.336,
+    "fine_verdict": "fail",
+    "r16_verdict": "fail"
+   },
+   {
+    "item": "175",
+    "measure": "boundary_by_class/ai_mid",
+    "fine_px": 88.382,
+    "r16_px": 88.382,
+    "diff_px": 0.0,
+    "fine_verdict": "fail",
+    "r16_verdict": "fail"
+   },
+   {
+    "item": "175",
+    "measure": "boundary_by_class/mizuiro",
+    "fine_px": 91.049,
+    "r16_px": 91.049,
+    "diff_px": 0.0,
+    "fine_verdict": "fail",
+    "r16_verdict": "fail"
+   },
+   {
+    "item": "175",
+    "measure": "record_excluding_lost_regions/boundary_by_class/ai_dark",
+    "fine_px": 146.778,
+    "r16_px": 146.442,
+    "diff_px": 0.336,
+    "fine_verdict": "fail",
+    "r16_verdict": "fail"
+   },
+   {
+    "item": "175",
+    "measure": "record_excluding_lost_regions/boundary_by_class/ai_mid",
+    "fine_px": 88.382,
+    "r16_px": 88.382,
+    "diff_px": 0.0,
+    "fine_verdict": "fail",
+    "r16_verdict": "fail"
+   },
+   {
+    "item": "175",
+    "measure": "record_excluding_lost_regions/boundary_by_class/mizuiro",
+    "fine_px": 72.419,
+    "r16_px": 72.419,
+    "diff_px": 0.0,
+    "fine_verdict": "fail",
+    "r16_verdict": "fail"
+   },
+   {
+    "item": "263",
+    "measure": "boundary_lower",
+    "fine_px": 24.896,
+    "r16_px": 23.021,
+    "diff_px": 1.875,
+    "fine_verdict": "fail",
+    "r16_verdict": "fail"
+   },
+   {
+    "item": "270",
+    "measure": "boundary",
+    "fine_px": 67.885,
+    "r16_px": 67.885,
+    "diff_px": 0.0,
+    "fine_verdict": "fail",
+    "r16_verdict": "fail"
+   },
+   {
+    "item": "270",
+    "measure": "record_mizuiro_reading",
+    "fine_px": 44.96,
+    "r16_px": 44.96,
+    "diff_px": 0.0,
+    "fine_verdict": "fail",
+    "r16_verdict": "fail"
+   }
+  ],
+  "silhouettes": [
+   {
+    "item": "78",
+    "fine_max_px": 3.0289,
+    "r16_max_px": 3.0289,
+    "fine_p95_px": 1.798,
+    "r16_p95_px": 1.8661,
+    "diff_max_px": 0.0,
+    "diff_p95_px": -0.06810000000000005
+   },
+   {
+    "item": "130",
+    "fine_max_px": 3.5131,
+    "r16_max_px": 3.5497,
+    "fine_p95_px": 3.3551,
+    "r16_p95_px": 3.3551,
+    "diff_max_px": -0.036599999999999966,
+    "diff_p95_px": 0.0
+   },
+   {
+    "item": "131",
+    "fine_max_px": 3.0431,
+    "r16_max_px": 3.0431,
+    "fine_p95_px": 2.856,
+    "r16_p95_px": 2.8533,
+    "diff_max_px": 0.0,
+    "diff_p95_px": 0.0026999999999999247
+   },
+   {
+    "item": "132",
+    "fine_max_px": 5.9472,
+    "r16_max_px": 5.9472,
+    "fine_p95_px": 5.0703,
+    "r16_p95_px": 5.0667,
+    "diff_max_px": 0.0,
+    "diff_p95_px": 0.0035999999999996035
+   },
+   {
+    "item": "72",
+    "fine_max_px": 10.4105,
+    "r16_max_px": 10.4105,
+    "fine_p95_px": 8.7546,
+    "r16_p95_px": 8.7452,
+    "diff_max_px": 0.0,
+    "diff_p95_px": 0.009399999999999409
+   },
+   {
+    "item": "71",
+    "fine_max_px": 126.247,
+    "r16_max_px": 126.247,
+    "fine_p95_px": 90.2668,
+    "r16_p95_px": 90.2668,
+    "diff_max_px": 0.0,
+    "diff_p95_px": 0.0
+   }
+  ],
+  "worst_abs_diff_px": 1.875,
+  "criterion_px": 0.5,
+  "passed": false,
+  "verdicts_changed": {},
+  "fine_worst_vs_28r01_px": 146.469,
+  "r16_worst_vs_28r01_px": 146.133
+ },
+ "shader_check": {
+  "allCompiled": true,
+  "allStereoOutput": true,
+  "computeErrorCount": 0,
+  "noteJa": "DS27Formation.CheckShaders と同じ方法（ShaderData.Pass.CompileVariant、D3D、StandaloneWindows64）で、キーワードなし・INSTANCING_ON・STEREO_INSTANCING_ON INSTANCING_ON と、それぞれに DS27_POS_LO を足した組をコンパイルした。コンパイルだけで、両眼の描画は確かめていない。コンピュートシェーダーはコンパイルの報告（GetComputeShaderMessages）だけ。"
+ },
+ "timing": {
+  "pos_lo_1": {
+   "posLoUsed": true,
+   "wave_ms": {
+    "painting": 0.1228879988193512,
+    "seat": 0.10115533322095871
+   },
+   "frames": 600
+  },
+  "pos_lo_0": {
+   "posLoUsed": false,
+   "wave_ms": {
+    "painting": 0.15738867223262787,
+    "seat": 0.09275533258914948
+   },
+   "frames": 600
+  },
+  "note_ja": "DS29Render の おおよその GPU 時間（1920 × 1080・MSAA 8x、600 コマ × 3 回の中央値、主役波を描く・隠すの差。壁時計で GPU のタイマーではない。設計29 の記録どおり同じ組でも回によって約 50% 揺れる）。精度の層の有無の差はこの揺れの内。PC の片目で HMD 実機ではない"
+ },
+ "record": {
+  "code_sha256": {
+   "Unity/Assets/GreatWave/Design27/Shaders/DS27KeyposeCore.cginc": "816d3a3288a7125fc8494bf137ad68d7c9c68c9c68b61c72d80211ff73f33b4a",
+   "Unity/Assets/GreatWave/Design27/Shaders/DS27_NPR_White.shader": "04605cfe56b5e5bafcfb5c0bbc73b783a65f6637222eda5950c15e7e8b322dd9",
+   "Unity/Assets/GreatWave/Design27/Shaders/DS27_Outline_Keypose.shader": "eb1bd65679892dfc0dd47d03b09f8cc369cfd76ba224e56acfd497eb3e99d654",
+   "Unity/Assets/GreatWave/Design27/Shaders/DS27KeyposeCapture.compute": "37f0065c6dc531556ac8e2821d6c82363f2fe0094c8ee0a6115948b85888be5a",
+   "Unity/Assets/GreatWave/Design27/Scripts/DS27KeyposePlayer.cs": "13c81a2cd8e7a4ef18731362c95e6198b4d480748b6196cc14892d3011f976e0",
+   "Unity/Assets/GreatWave/Design29/Scripts/DS29KeyposePlayer.cs": "ef1f8db261b10ffcb0f7c8aa79aebde02f7973f07067c05bb722830e3ab8b0e9",
+   "Unity/Assets/GreatWave/Design29/Editor/DS29Render.cs": "2cf6a8f60820d789a894206bba9157e524c1d40e388ceb8dcfcb34adbcfadb70",
+   "Unity/Assets/GreatWave/Design29/Editor/DS29R01ShaderCheck.cs": "eade418796fc308e615a237e3e701c6cf03b970c126f8b9b0d97b35e42f314ad",
+   "Tools/GWWaveGen/ds29r01/ds29r01_unity_check.py": "421871fa77b83609cedc7d965cd02a972928fa7c13dc7aa347558236a1d31f79",
+   "Tools/GWWaveGen/ds29r01/run_ds29r01_unity.ps1": "60d522b447461b8feb77716691142af47e95709d7d82e202bdc32c8c16354ebf"
+  },
+  "inputs_sha256": {
+   "Unity/Build/Design/28R01F/F_final/art_on/ds27_keypose.json": "3349924141106509585fe29bb7f3769554028224d0a0f645bf69c55fd509cc8b",
+   "Unity/Build/Design/28R01F/F_final/art_on/ds27_pos_rgba16.bin": "af08cd4edb8a287551cae2ac8c60af3c4c33bbb39088807571475dc973d85974",
+   "Unity/Build/Design/28R01F/F_final/art_on/ds27_pos_lo_rgba8.bin": "99a29d6a74b595372211120db071fac12d9f338aa14107df921d667d67a83153",
+   "Unity/Build/Design/28R01F/F_final/art_on/ds27_twhite_r32f.bin": "17cf6188c570c1fed921b0f93b001a03394c1c9ad5dd15614eb828affcc0d8d3",
+   "Unity/Build/Design/28R01F/F_final/timewarp_F_final.json": "627815c77afc63278c885335bbe6c51178896184559ca30845cf05f23c634a7c",
+   "Unity/Build/ArtFirst/26修正01/kstar/kstar_a45.gwb": "e9bc3572590b5b237ddd302fca64f54f2d325813ad787f20e4d7524b6b84cd26",
+   "Unity/Build/ArtFirst/28修正01/bake/af28r01_uvsdf_a45.bin": "305d1777c77c772d51c1b3de038b3702ac73183d678629f3ba2b0e68630562bd",
+   "Unity/Build/ArtFirst/28修正01/bake/af28r01_uvwarp_a45.json": "945aef222f2730ee27ede3b9996234f0e00d53b806aabcfc0f3f05c86bcccafb",
+   "Unity/Build/Design/28R01F/kstar_F_final/kstarR4_a45.gwb": "38a9b11ab63cccb45cf2cb7776ae3a59485d58102e96cabaf828fb36d14cf19a"
+  },
+  "outputs_sha256": {
+   "Unity/Build/Design/29R01/unity/f_final/stills/ds29_painting_m05_tau-0.500.png": "2009ba5f7db95db0c95a7987e20fc949ee92210696f7b4ba64f6c002361b426c",
+   "Unity/Build/Design/29R01/unity/f_final/stills/ds29_painting_m1_tau-1.000.png": "6a19fe464140704984971a5e51aaca542bb6bc84276ed6f7a724faf1c3384cd0",
+   "Unity/Build/Design/29R01/unity/f_final/stills/ds29_painting_m2_tau-2.000.png": "e9852651c9c644001cec6fc55718feef7ef11806ddaa5dcd65e4e358be50cd6d",
+   "Unity/Build/Design/29R01/unity/f_final/stills/ds29_painting_m3_tau-3.000.png": "a6ffc342f9a4a44ba7e925a9288d8a32b9e1a4cf3e2344db48295646edce7923",
+   "Unity/Build/Design/29R01/unity/f_final/stills/ds29_painting_m6_tau-6.000.png": "4ac12e622362580d0e1257ad869db346cd79c8048f279242335b85d774cdb819",
+   "Unity/Build/Design/29R01/unity/f_final/stills/ds29_painting_tstar_tau+0.000.png": "9f8beeaa4e3e3d5b06ef17591fc2054eb1a50d922301ca3b048022887ab3abd4",
+   "Unity/Build/Design/29R01/unity/f_final/stills/ds29_seat_m05_tau-0.500.png": "4ee295626e813f0b5b7931bacaa0f2c06c41c0c1e19a76b41150d438442543a5",
+   "Unity/Build/Design/29R01/unity/f_final/stills/ds29_seat_m1_tau-1.000.png": "83bce9bce37cbb632493ff4e95fc0dfb043b282843b60dcfde0d970d48b4c43d",
+   "Unity/Build/Design/29R01/unity/f_final/stills/ds29_seat_m2_tau-2.000.png": "796b698fbd95bf1d62fabc4fa9251d10e127a15eccf28a713296736ea15815c3",
+   "Unity/Build/Design/29R01/unity/f_final/stills/ds29_seat_m3_tau-3.000.png": "796b698fbd95bf1d62fabc4fa9251d10e127a15eccf28a713296736ea15815c3",
+   "Unity/Build/Design/29R01/unity/f_final/stills/ds29_seat_m6_tau-6.000.png": "796b698fbd95bf1d62fabc4fa9251d10e127a15eccf28a713296736ea15815c3",
+   "Unity/Build/Design/29R01/unity/f_final/stills/ds29_seat_toward_wave_m05_tau-0.500.png": "0ad924f2b3e82eb9744706a0eb69fa71b2ccfa34b662978537c6635e4fd3b2d1",
+   "Unity/Build/Design/29R01/unity/f_final/stills/ds29_seat_toward_wave_m1_tau-1.000.png": "b3de2e07f9710215bace238e37bd6126b48099d8ef3882b568448ee4351827e0",
+   "Unity/Build/Design/29R01/unity/f_final/stills/ds29_seat_toward_wave_m2_tau-2.000.png": "cca9155f3704b5b36393346e6a5a952d07665109972c582e7b1dff34bc48f73e",
+   "Unity/Build/Design/29R01/unity/f_final/stills/ds29_seat_toward_wave_m3_tau-3.000.png": "cb53ef26f3f3fa71072e765ab1c707ecaff62bbc8390aa4cc010b1cc75487b62",
+   "Unity/Build/Design/29R01/unity/f_final/stills/ds29_seat_toward_wave_m6_tau-6.000.png": "94a070dc05b37dbb0ee7181deac3d8cd338ebc0f8404b8945563eb3c767cd841",
+   "Unity/Build/Design/29R01/unity/f_final/stills/ds29_seat_toward_wave_tstar_tau+0.000.png": "7f3665dce05f2a07ff060c40989f3824583917443a39557d1edc3d4f38752dd4",
+   "Unity/Build/Design/29R01/unity/f_final/stills/ds29_seat_tstar_tau+0.000.png": "987041a73847753e7a1e0cf894ce16dc29717644b36150023cde4b0b553ede4a",
+   "Unity/Build/Design/29R01/unity/f_final/stills/ds29_side_left_m05_tau-0.500.png": "3cb67c8f13695c19fc2c5ec36c23fdc7d0c40d8a6b0ba3b474155db36ffa85c0",
+   "Unity/Build/Design/29R01/unity/f_final/stills/ds29_side_left_m1_tau-1.000.png": "f7db21288cf69349b42e6673abd81f7257884e43a3664bd58e2e31f25fd6943b",
+   "Unity/Build/Design/29R01/unity/f_final/stills/ds29_side_left_m2_tau-2.000.png": "2616dbf0cb500d3c677732d5204e33f2ce75616427cbcb175ffd4a6e957fad40",
+   "Unity/Build/Design/29R01/unity/f_final/stills/ds29_side_left_m3_tau-3.000.png": "5ac169d099576bdcac2cf12dc90e245fe43f1a44aa9d9c2f0c4d10e1b01ccd4f",
+   "Unity/Build/Design/29R01/unity/f_final/stills/ds29_side_left_m6_tau-6.000.png": "0b120900dc597a89e10da9674d1e7618f59932989119e2e3987839337de80e91",
+   "Unity/Build/Design/29R01/unity/f_final/stills/ds29_side_left_tstar_tau+0.000.png": "2a55c44030addd3f37723c19a0b366cbeec59dbc7d8c18fd31f3487c9cc4f6ef",
+   "Unity/Build/Design/29R01/unity/f_final/video/ds29_painting_30fps.mp4": "f6b5f94d8ed765670d02be749f5e86c1016ecff477e2cf2d2e40c5734e89a60f",
+   "Unity/Build/Design/29R01/unity/f_final/video/ds29_seat_30fps.mp4": "1dc3f9c867f95cb97a7e2aa5be5422cbbe03fcd0e1c58681688601d06f7fcbd6",
+   "Unity/Build/Design/29R01/unity/f_final/video/ds29_seat_toward_wave_30fps.mp4": "ac218d39f6722134d2dac349a4bb5bcde80a588e36d7fb44f0fdf22a3626a965",
+   "Unity/Build/Design/29R01/unity/f_final/video/ds29_side_left_30fps.mp4": "dda469dce06ffb15a2072bac258046171da3c01d29b18140dd48adb434d8e4a6",
+   "Unity/Build/Design/29R01/unity/f_final/t28/render/af28r01_class_ids.png": "6056718016f956ece999cc50d949cad3916dea6affaaf426ac499ecf2d9464ea",
+   "Unity/Build/Design/29R01/unity/f_final/t28/render/af28r01_line_ids.png": "7642949a4c7b478394ee10c6f8a39a29c542de4ef445630ab8563d5a8a6456f9",
+   "Unity/Build/Design/29R01/unity/f_final/t28/render/af28r01_painting.png": "9f8beeaa4e3e3d5b06ef17591fc2054eb1a50d922301ca3b048022887ab3abd4",
+   "Unity/Build/Design/29R01/unity/f_final/t28/render/af28r01_painting_kstar.png": "f1b7889fbd7523b61f4bbc6093b82e1442d4619019c5a49d2a1e66f23e766fd6",
+   "Unity/Build/Design/29R01/unity/f_final/t28/render/af28r01_seat.png": "987041a73847753e7a1e0cf894ce16dc29717644b36150023cde4b0b553ede4a",
+   "Unity/Build/Design/29R01/unity/f_final/t28/render/af28r01_seat_class_ids.png": "399023a49431b25a9a8d0c4b57f8294df6ca6098b64e4731f3ef86761ddc4bc0",
+   "Unity/Build/Design/29R01/unity/f_final/t28/render/af28r01_seat_kstar.png": "78efd924a5816d6ad605ebe3433133387646daff44b309699b504523f45bf453",
+   "Unity/Build/Design/29R01/unity/f_final/t28/render/af28r01_seat_low.png": "87df2c0c71c02d6a0a47fe3869aea6f40fb8bbf89f673ba2d17177ff8936719d",
+   "Unity/Build/Design/29R01/unity/f_final/t28/render/af28r01_seat_low_class_ids.png": "d4d8283999b5945f4a68fd3d1a22387f9c981fb95723d7f2af9dd638d98c9e9a",
+   "Unity/Build/Design/29R01/unity/f_final/t28/render/af28r01_seat_low_kstar.png": "abfc148fe48894d3638f3695b99c6bf26caefcfa23aea837bb5fba18ae94fec2"
+  },
+  "commands": [
+   "powershell -NoProfile -ExecutionPolicy Bypass -File Tools/GWWaveGen/ds29r01/run_ds29r01_unity.ps1 -Method GreatWave.Design29.EditorTools.DS29Render.Render -Log f_final -Package Build/Design/28R01F/F_final/art_on -WarpFile Build/Design/28R01F/F_final/timewarp_F_final.json -OutDir Build/Design/29R01/unity/f_final -Stills \"m6=-6,m3=-3,m2=-2,m1=-1,m05=-0.5,tstar=0\" -Views \"painting,seat,seat_toward_wave,side_left\" -Skip timing -Extra \"-ds29Name f_final -ds29MeshFromPackage 0 -ds29CaptureRange -6,0\"",
+   "powershell -NoProfile -ExecutionPolicy Bypass -File Tools/GWWaveGen/ds29r01/run_ds29r01_unity.ps1 -Method GreatWave.Design29.EditorTools.DS29Render.Render -Log regress_d28 -Package Build/Design/28/art_on -OutDir Build/Design/29R01/unity/regress_d28 -Views \"painting,seat_toward_wave,side_left\" -Skip timing -Extra \"-ds29Name src_d28 -ds29MeshFromPackage 0\"",
+   "powershell -NoProfile -ExecutionPolicy Bypass -File Tools/GWWaveGen/ds29r01/run_ds29r01_unity.ps1 -Method GreatWave.Design27.EditorTools.DS27Formation.RenderOnly -Log regress_d27 -Version art_on -Warp default -OutDir Build/Design/29R01/unity/regress_d27 -Views \"painting,seat,side_left,seat_form\" -Skip \"frames,capture\"",
+   "powershell -NoProfile -ExecutionPolicy Bypass -File Tools/GWWaveGen/ds29r01/run_ds29r01_unity.ps1 -Method GreatWave.Design29.EditorTools.DS29R01ShaderCheck.Run -Log shader_check",
+   "py -3.10 -B Tools/GWWaveGen/ds29r01/ds29r01_unity_check.py gpu --run Unity/Build/Design/29R01/unity/f_final --package Unity/Build/Design/28R01F/F_final/art_on --range=-6,0 --out Unity/Build/Design/29R01/unity/check_gpu_f_final.json",
+   "py -3.10 -B Tools/GWWaveGen/ds29r01/ds29r01_unity_check.py regress --new Unity/Build/Design/29R01/unity/regress_d28 --ref Unity/Build/Design/29/unity/src_d28 --report ds29_render_report.json --out Unity/Build/Design/29R01/unity/check_regress_d28.json",
+   "py -3.10 -B Tools/GWWaveGen/ds29r01/ds29r01_unity_check.py regress --new Unity/Build/Design/29R01/unity/regress_d27 --ref Unity/Build/Design/27/art_on_default --report ds27_render_report.json --out Unity/Build/Design/29R01/unity/check_regress_d27.json",
+   "py -3.10 -B Tools/GWWaveGen/ds27/ds27_tstar_eval.py --run Unity/Build/Design/29R01/unity/f_final",
+   "powershell -NoProfile -ExecutionPolicy Bypass -File Tools/GWWaveGen/ds29r01/run_ds29r01_unity.ps1 -Method GreatWave.Design29.EditorTools.DS29Render.Render -Log timing_f_final_lo<1|0> -Package Build/Design/28R01F/F_final/art_on -WarpFile Build/Design/28R01F/F_final/timewarp_F_final.json -OutDir Build/Design/29R01/unity/timing/f_final_lo<1|0> -Skip \"t28,capture,stills,video\" -Extra \"-ds29Name f_final_lo<1|0> -ds29MeshFromPackage 0 -ds29PosLo <1|0> -ds29TimingFrames 600\"",
+   "py -3.10 -B Tools/GWWaveGen/ds29r01/ds29r01_unity_check.py summary"
+  ],
+  "tools_ja": "Unity 6000.4.3f1（batchmode、Direct3D11、RTX 3080）、py -3.10（numpy 2.2.6、Pillow）、ffmpeg 2024-12-19。PC のオフスクリーン描画で HMD 実機ではない"
+ },
+ "render_report": {
+  "name": "f_final",
+  "package": "G:\\Unity\\GreatWave_2026_Fresh\\Unity\\Build\\Design\\28R01F\\F_final\\art_on",
+  "posLoUsed": true,
+  "posLoFile": "ds27_pos_lo_rgba8.bin",
+  "posLoSha256": "99a29d6a74b595372211120db071fac12d9f338aa14107df921d667d67a83153",
+  "posLoGpuBytes": 92928000,
+  "positionGpuBytes": 139392000,
+  "whiteGpuBytes": 384000,
+  "layers": 242,
+  "passed": true,
+  "protectedUnchanged": true,
+  "totalSeconds": 42.160362243652344,
+  "warpFile": "G:\\Unity\\GreatWave_2026_Fresh\\Unity\\Build\\Design\\28R01F\\F_final\\timewarp_F_final.json",
+  "stillNames": [
+   "m6",
+   "m3",
+   "m2",
+   "m1",
+   "m05",
+   "tstar"
+  ],
+  "stillTau": [
+   -6.0,
+   -3.0,
+   -2.0,
+   -1.0,
+   -0.5,
+   0.0
+  ]
+ }
+}

@@ -80,6 +80,12 @@ namespace GreatWave.Design27
             TauId = Shader.PropertyToID("_DS27Tau"), EnabledId = Shader.PropertyToID("_DS27Enabled"),
             WhiteEnabledId = Shader.PropertyToID("_DS27WhiteEnabled"), DebugId = Shader.PropertyToID("_DS27DebugMode");
 
+        // 設計29修正01：精度の層（パッケージの ds27_pos_lo_rgba8.bin、拡張 pos_lo_rgba8/1）を読むシェーダーの変種の大域キーワードと、そのバッファの名前
+        // （DS27KeyposeCore.cginc）。この再生器（設計27）は精度の層を読まない（16 bit だけで、設計27・28 と同じ）。読むのは設計29 の DS29KeyposePlayer。
+        // 同じ処理の中で DS29KeyposePlayer がキーワードを入れた後でも元の変種で描くよう、この再生器は大域の値を渡すたびにキーワードを切る。
+        public const string PosLoKeyword = "DS27_POS_LO";
+        public static readonly int PosLoId = Shader.PropertyToID("_DS27PosLo");
+
         public string FullDir => Path.GetFullPath(packageDir);
 
         public static Meta ReadMeta(string dir)
@@ -215,6 +221,7 @@ namespace GreatWave.Design27
             meta = m;
             Shader.SetGlobalBuffer(PosId, posBuf);
             Shader.SetGlobalBuffer(WhiteId, whiteBuf);
+            Shader.DisableKeyword(PosLoKeyword);
             Shader.SetGlobalVector(BBoxMinId, bmin);
             Shader.SetGlobalVector(BBoxSizeId, bsz);
             Shader.SetGlobalVector(GridId, new Vector4(m.cols, m.rows, n, 0));
@@ -301,6 +308,7 @@ namespace GreatWave.Design27
             Shader.SetGlobalFloat(TauId, (float)tau);
             Shader.SetGlobalFloat(EnabledId, 1f);
             Shader.SetGlobalFloat(WhiteEnabledId, whiteEnabled ? 1f : 0f);
+            Shader.DisableKeyword(PosLoKeyword);
             AppliedTau = tau;
             AppliedOrigin = o;
         }
@@ -309,6 +317,7 @@ namespace GreatWave.Design27
         public void BindCompute(ComputeShader cs, int kernel)
         {
             EnsureLoaded();
+            cs.DisableKeyword(PosLoKeyword);
             cs.SetBuffer(kernel, PosId, posBuf);
             cs.SetVector(BBoxMinId, new Vector4((float)meta.bboxMin[0], (float)meta.bboxMin[1], (float)meta.bboxMin[2], 0));
             cs.SetVector(BBoxSizeId, new Vector4((float)meta.bboxSize[0], (float)meta.bboxSize[1], (float)meta.bboxSize[2], 0));

@@ -37,6 +37,8 @@ Shader "GreatWave/Design27/DS27 NPR White"
             #pragma vertex vert
             #pragma fragment frag
             #pragma multi_compile_instancing
+            // 設計29修正01：精度の層（DS27KeyposeCore.cginc）。キーワードのない変種は元のまま
+            #pragma multi_compile _ DS27_POS_LO
             #include "DS27Keypose.cginc"
 
             sampler2D _SdfTex;

@@ -2,6 +2,8 @@
 // DS27Formation（Editor）がこれを読み戻し、ds27_player_ref.py が同じパッケージの numpy の Hermite と照合する（全区間 ≤2 cm、t* で K* と量子化の内）。
 // 出力は頂点ごとに float4 2 つ：(ワールドの位置, 1)、(法線, 0)。
 #pragma kernel DS27Capture
+// 設計29修正01：精度の層（DS27KeyposeCore.cginc）。キーワードのない変種は元のまま
+#pragma multi_compile _ DS27_POS_LO
 #include "DS27KeyposeCore.cginc"
 
 RWStructuredBuffer<float4> _DS27Out;

@@ -30,13 +30,21 @@ namespace GreatWave.Design29.EditorTools
     //   足した引数：-ds29Name <名前>、-ds29MeshFromPackage 1|0（0 = 設計28 の K* の格子：メッシュは K* の .gwb、UV3 は 28修正01 の表）、
     //   -ds29StillViews painting,seat,side_left,seat_toward_wave、-ds29TimingFrames 180、-ds29CaptureMax 16。
     // 実行は Tools/GWWaveGen/ds29/run_ds29_unity.ps1（unity.lock の手順、30 分以内）：-Method GreatWave.Design29.EditorTools.DS29Render.Render
+    // 設計29修正01 で足した引数（どれも省けば設計29 と同じ動き）：
+    //   -ds29PosLo 1|0（既定 1。パッケージに精度の層 pos_lo_rgba8/1 があれば読む。0 で 16 bit だけ）、
+    //   -ds29CaptureRange a,b（GPU の読み戻しに、τ ∈ [a, b] の節点のすべて・隣り合う節点の中点のすべて・b から 1/30 s ごとのコマを足す）。
+    //   報告（ds29_render_report.json）に精度の層の欄（posLoInPackage・posLoUsed・posLoFile・posLoSha256・posLoGpuBytes・posLoAlphaNot255）を足した。
+    //   手渡し (a)（色面の焼き直し）で足した引数（どれも省けば設計29 と同じ）：-ds29KStarGwb <.gwb>（-ds29MeshFromPackage 0 のときのメッシュ）、
+    //   -ds29Sdf <色区テクスチャ .bin>、-ds29Warp <UV3 の表 .json>。K*′ への焼き直し（DS29R01Bake）の出力を渡す。
     public static class DS29Render
     {
         const string ContextRootName = "DS27 背景（美術優先27修正01 のプレハブ）";
         const string CamRoot = "DS27 カメラ";
-        const string KStarGwb = "Build/ArtFirst/26修正01/kstar/kstar_a45.gwb";
-        const string Bake28 = "Build/ArtFirst/28修正01/bake/af28r01_uvsdf_a45.bin";
-        const string Warp28 = "Build/ArtFirst/28修正01/bake/af28r01_uvwarp_a45.json";
+        const string KStarGwbDefault = "Build/ArtFirst/26修正01/kstar/kstar_a45.gwb";
+        const string Bake28Default = "Build/ArtFirst/28修正01/bake/af28r01_uvsdf_a45.bin";
+        const string Warp28Default = "Build/ArtFirst/28修正01/bake/af28r01_uvwarp_a45.json";
+        // 設計29修正01：引数 -ds29KStarGwb・-ds29Sdf・-ds29Warp で差し替える（省けば上の既定）
+        static string KStarGwb = KStarGwbDefault, Bake28 = Bake28Default, Warp28 = Warp28Default;
         const string CapturePath = "Assets/GreatWave/Design27/Shaders/DS27KeyposeCapture.compute";
         const string Ffmpeg = "G:/ffmpeg-2024-12-19-git-494c961379-full_build/bin/ffmpeg.exe";
         const int W = 1920, H = 1080;
@@ -66,11 +74,16 @@ namespace GreatWave.Design29.EditorTools
             var total = Stopwatch.StartNew();
             var cfg = DS27Formation.ParseArgs();
             var args = Environment.GetCommandLineArgs();
+            KStarGwb = Arg(args, "-ds29KStarGwb") ?? KStarGwbDefault;
+            Bake28 = Arg(args, "-ds29Sdf") ?? Bake28Default;
+            Warp28 = Arg(args, "-ds29Warp") ?? Warp28Default;
             string name = Arg(args, "-ds29Name") ?? Path.GetFileName(cfg.package.TrimEnd('/', '\\'));
             bool meshFromPkg = (Arg(args, "-ds29MeshFromPackage") ?? "1") == "1";
             var stillViews = (Arg(args, "-ds29StillViews") ?? "painting,seat,side_left,seat_toward_wave").Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
             int timingFrames = int.Parse(Arg(args, "-ds29TimingFrames") ?? "180", CultureInfo.InvariantCulture);
             int captureMax = int.Parse(Arg(args, "-ds29CaptureMax") ?? "16", CultureInfo.InvariantCulture);
+            bool readPosLo = (Arg(args, "-ds29PosLo") ?? "1") == "1";
+            var capRange = Arg(args, "-ds29CaptureRange");
             var stillNames = new List<string>(); var stillTau = new List<double>();
             if (cfg.stillsFromArgs) { stillNames.AddRange(cfg.stillNames); stillTau.AddRange(cfg.stillTau); }
             else foreach (var kv in DefaultStills.Split(',')) { var p = kv.Split('='); stillNames.Add(p[0]); stillTau.Add(double.Parse(p[1], CultureInfo.InvariantCulture)); }
@@ -106,6 +119,7 @@ namespace GreatWave.Design29.EditorTools
             var pl = wave.AddComponent<DS29KeyposePlayer>();
             pl.packageDir = cfg.package; pl.meshFromPackage = meshFromPkg; pl.outline = lr; pl.clock = clock;
             pl.warpPath = Warp28; pl.sdfPath = Bake28; pl.whiteEnabled = true;
+            pl.readPosLo = readPosLo;
 
             // e. GPU の容量
             long g0 = UnityEngine.Profiling.Profiler.GetAllocatedMemoryForGraphicsDriver();
@@ -152,7 +166,10 @@ namespace GreatWave.Design29.EditorTools
                 worldBoundsMin = pl.WorldBounds.min, worldBoundsMax = pl.WorldBounds.max, travelDirWorld = tdir,
                 stillNames = stillNames.ToArray(), stillTau = stillTau.Select(x => (float)x).ToArray(),
                 noteJa = "設計27 の場面を開き、設計27 の主役波を隠して、同じマテリアルで表示用サーフェスの主役波（AF26KStarMesh ＋ DS29KeyposePlayer）をメモリの上だけに足して描いた。場面は保存しない。" +
-                         "GPU の位置のバッファは設計27 と同じ詰め方（頂点ごとに 16 bit × 3、StructuredBuffer<uint>、GPU だけ）。PC のオフスクリーン描画（Editor の batchmode）で、HMD 実機ではない。"
+                         "GPU の位置のバッファは設計27 と同じ詰め方（頂点ごとに 16 bit × 3、StructuredBuffer<uint>、GPU だけ）。PC のオフスクリーン描画（Editor の batchmode）で、HMD 実機ではない。" +
+                         (pl.PosLoUsed ? "設計29修正01：精度の層（RGBA8 をファイルのまま、頂点ごとに 4 バイト、StructuredBuffer<uint>、GPU だけ）も読み、キーワード DS27_POS_LO の変種で描いた。" : ""),
+                posLoInPackage = pl.PosLoInPackage, posLoUsed = pl.PosLoUsed, posLoFile = pl.PosLoFile, posLoSha256 = pl.PosLoSha256,
+                posLoGpuBytes = pl.PosLoGpuBytes, posLoAlphaNot255 = pl.PosLoAlphaNot255, readPosLoArg = readPosLo, captureRange = capRange ?? ""
             };
             Shader.SetGlobalFloat("_AF28IdMode", 0);
             Shader.SetGlobalFloat(DS27KeyposePlayer.DebugId, 0);
@@ -195,6 +212,19 @@ namespace GreatWave.Design29.EditorTools
                     var taus = new List<double> { 0.0, pm.knotTau[0] };
                     taus.AddRange(stillTau);
                     var kt = pm.knotTau;
+                    if (!string.IsNullOrEmpty(capRange))
+                    {
+                        // 設計29修正01：τ ∈ [a, b] の節点・隣り合う節点の中点・b から 1/30 s ごとのコマ
+                        var ab = capRange.Split(',').Select(x => double.Parse(x, CultureInfo.InvariantCulture)).ToArray();
+                        double ca = Math.Min(ab[0], ab[1]), cb = Math.Max(ab[0], ab[1]);
+                        var ktr = pm.knotTau;
+                        for (int i = 0; i < ktr.Length; i++)
+                        {
+                            if (ktr[i] >= ca - 1e-9 && ktr[i] <= cb + 1e-9) taus.Add(ktr[i]);
+                            if (i + 1 < ktr.Length && ktr[i] >= ca - 1e-9 && ktr[i + 1] <= cb + 1e-9) taus.Add(0.5 * (ktr[i] + ktr[i + 1]));
+                        }
+                        for (int f = 0; cb - f / 30.0 >= ca - 1e-9; f++) taus.Add(Math.Round((cb - f / 30.0) * 1e9) / 1e9);
+                    }
                     int extra = Math.Max(0, captureMax - taus.Count);
                     for (int j = 0; j < extra; j++)
                     {
@@ -318,9 +348,10 @@ namespace GreatWave.Design29.EditorTools
             rep.files = files.ToArray();
             rep.filesSha256 = files.Select(Sha).ToArray();
             rep.totalSeconds = (float)total.Elapsed.TotalSeconds;
-            rep.passed = rep.protectedUnchanged && rep.vertexCount == pm.rows * pm.cols && rep.alphaNot65535 == 0;
+            rep.passed = rep.protectedUnchanged && rep.vertexCount == pm.rows * pm.cols && rep.alphaNot65535 == 0 && rep.posLoAlphaNot255 == 0
+                         && (!readPosLo || rep.posLoUsed == rep.posLoInPackage);
             File.WriteAllText(od + "/ds29_render_report.json", JsonUtility.ToJson(rep, true));
-            UnityEngine.Debug.Log("DS29_RENDER_DONE name=" + name + " files=" + files.Count + " seconds=" + rep.totalSeconds + " passed=" + rep.passed);
+            UnityEngine.Debug.Log("DS29_RENDER_DONE name=" + name + " files=" + files.Count + " seconds=" + rep.totalSeconds + " passed=" + rep.passed + " posLo=" + rep.posLoUsed);
             if (!rep.passed) throw new InvalidOperationException("描画の検査が不合格です（ds29_render_report.json）。");
         }
 
@@ -492,6 +523,7 @@ namespace GreatWave.Design29.EditorTools
         [Serializable] class Report
         {
             public string unity, device, graphicsApi, name, package, packageJsonSha256, posSha256, twhiteSha256, meshPath, meshSha256, uv3Source, uv3Sha256, warpFile, warpFileSha256, noteJa, timingMethodJa;
+            public bool posLoInPackage, posLoUsed, readPosLoArg; public string posLoFile, posLoSha256, captureRange; public long posLoGpuBytes, posLoAlphaNot255;   // 設計29修正01
             public int graphicsMemoryMB, rows, cols, layers, vertexCount, meshVertexStreams, whiteNeverCount, captureCount;
             public long indexCount, positionGpuBytes, whiteGpuBytes, meshVertexBufferBytes, meshIndexBufferBytes, sdfTextureBytes, driverBytesBeforeSurface, driverBytesAfterSurface, driverBytesAfterKeypose, alphaNot65535;
             public float surfaceLoadSeconds, keyposeLoadSeconds, totalSeconds;

@@ -1,0 +1,76 @@
+{
+ "schema": "GreatWave.DS29R01.lfgate_unity/1",
+ "method_ja": "設計29修正01（手渡し (d)）：原画の大きな輪郭の関門（132 σ12 最大・72 σ24 p95。設計28修正01 で採った読み）を Unity の画像から測る。\n\nUnity の t* の色区 ID 画像（af28r01_class_ids.png、3840×2160、空 = (255, 255, 255)）の空の画素を 2×2 で平均して 1920×1080 の被覆にし、\n設計28修正01 の関門 Tools/GWWaveGen/kstar_h/kh_gate_lfR4.LFGate にそのまま渡す（海の被覆は 0。ID 画像では海も空ではない）。\nK*′ の幾何の値（設計28修正01 §4.1）：132 σ12 3.905 px、72 σ24 p95 3.746 px。\n\n使い方（リポジトリの根で）:\n    py -3.10 -B Tools/GWWaveGen/ds29r01/ds29r01_lfgate.py [--run Unity/Build/Design/29R01/unity/f_final_kp ...]\n出力：Unity/Build/Design/29R01/unity/lfgate_unity.json",
+ "kstar_prime_geometry": {
+  "132_sigma12_max": 3.905,
+  "72_sigma24_p95": 3.746
+ },
+ "runs": {
+  "Unity/Build/Design/29R01/unity/f_final_kp": {
+   "132_sigma12_max": 3.755214351150866,
+   "132_worst_xy": [
+    1001.0,
+    256.58
+   ],
+   "72_sigma24_p95": 4.007498772940381,
+   "72_worst_xy": [
+    872.0,
+    696.91
+   ],
+   "ids": "Unity/Build/Design/29R01/unity/f_final_kp/t28/render/af28r01_class_ids.png",
+   "ids_sha256": "0bacd2bafee69061ab03026c47d05026d4cb27fd90188a755799d8a5f88df44f",
+   "diff_vs_kstar_prime_px": {
+    "132_sigma12_max": -0.1498,
+    "72_sigma24_p95": 0.2615
+   },
+   "gate_4px": {
+    "132": true,
+    "72": false
+   }
+  },
+  "Unity/Build/Design/29R01/unity/f_final": {
+   "132_sigma12_max": 3.755214351150866,
+   "132_worst_xy": [
+    1001.0,
+    256.58
+   ],
+   "72_sigma24_p95": 4.007498772940381,
+   "72_worst_xy": [
+    872.0,
+    696.91
+   ],
+   "ids": "Unity/Build/Design/29R01/unity/f_final/t28/render/af28r01_class_ids.png",
+   "ids_sha256": "6056718016f956ece999cc50d949cad3916dea6affaaf426ac499ecf2d9464ea",
+   "diff_vs_kstar_prime_px": {
+    "132_sigma12_max": -0.1498,
+    "72_sigma24_p95": 0.2615
+   },
+   "gate_4px": {
+    "132": true,
+    "72": false
+   }
+  },
+  "Unity/Build/Design/28R01F/unity/F_final": {
+   "132_sigma12_max": 3.755214351150866,
+   "132_worst_xy": [
+    1001.0,
+    256.58
+   ],
+   "72_sigma24_p95": 4.007498772940381,
+   "72_worst_xy": [
+    872.0,
+    696.91
+   ],
+   "ids": "Unity/Build/Design/28R01F/unity/F_final/t28/render/af28r01_class_ids.png",
+   "ids_sha256": "343f41135771d1f5264c0425537f5eff60fa68bd0b7a6ca7fe67add4544ae440",
+   "diff_vs_kstar_prime_px": {
+    "132_sigma12_max": -0.1498,
+    "72_sigma24_p95": 0.2615
+   },
+   "gate_4px": {
+    "132": true,
+    "72": false
+   }
+  }
+ }
+}

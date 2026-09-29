@@ -1,0 +1,521 @@
+{
+ "schema": "GreatWave.DS29R01.rebake_summary/1",
+ "number": "設計29修正01（手渡し (a) の直し、1 回だけの直しの回）",
+ "bake": {
+  "tool_ja": "美術優先28修正01 の焼き込み（af28_bake_input.py を包む ds29r01_bake_input.py、AF28R01ProjectionBaker の写し DS29R01ProjectionBaker、外挿 r01）を K*′ で走らせた",
+  "kstar_prime_gwb_sha256": "38a9b11ab63cccb45cf2cb7776ae3a59485d58102e96cabaf828fb36d14cf19a",
+  "direct": 3461866,
+  "emptyAfterFill": 0,
+  "notRasterised": 0,
+  "uvsdf_sha256": "69c0b26d5e0129598aa19ca8365fa590af9a81c282e5fef8298409fac8470d1a",
+  "uvwarp_sha256": "fbd95c900f1e7b84ada6e2bffce4298fd94412041a6a1309d656893789e44964",
+  "deterministic_rerun_same_sha256": true,
+  "paint_side_inputs_same_bytes_as_28r01": true
+ },
+ "render": {
+  "run": "Unity/Build/Design/29R01/unity/f_final_kp",
+  "passed": true,
+  "protectedUnchanged": true,
+  "posLoUsed": true,
+  "meshSha256": "38a9b11ab63cccb45cf2cb7776ae3a59485d58102e96cabaf828fb36d14cf19a",
+  "uv3Sha256": "fbd95c900f1e7b84ada6e2bffce4298fd94412041a6a1309d656893789e44964",
+  "keypose_gpu_mib": 221.92
+ },
+ "strict_reading_vs_28r01": {
+  "worst_abs_diff_px": 13.642,
+  "worst": {
+   "item": "175",
+   "measure": "boundary_by_class/ai_mid",
+   "ds27_max_px": 16.052,
+   "r28r01_max_px": 2.41,
+   "diff_px": 13.642,
+   "ds27_verdict": "fail",
+   "r28r01_verdict": "fail"
+  },
+  "items": {
+   "73": {
+    "measures": 1,
+    "worst_abs_diff_px": 1.829,
+    "verdict_now": "pass",
+    "verdict_28r01": "pass",
+    "worst_measure": "boundary",
+    "now_max_px": 2.484,
+    "r28r01_max_px": 0.655
+   },
+   "77": {
+    "measures": 1,
+    "worst_abs_diff_px": 0.303,
+    "verdict_now": "pass",
+    "verdict_28r01": "pass",
+    "worst_measure": "lower_ends",
+    "now_max_px": 0.867,
+    "r28r01_max_px": 1.17
+   },
+   "79": {
+    "measures": 1,
+    "worst_abs_diff_px": 0.672,
+    "verdict_now": "pass",
+    "verdict_28r01": "pass",
+    "worst_measure": "boundary",
+    "now_max_px": 1.012,
+    "r28r01_max_px": 0.34
+   },
+   "118": {
+    "measures": 1,
+    "worst_abs_diff_px": 1.829,
+    "verdict_now": "pass",
+    "verdict_28r01": "pass",
+    "worst_measure": "boundary",
+    "now_max_px": 2.484,
+    "r28r01_max_px": 0.655
+   },
+   "120": {
+    "measures": 1,
+    "worst_abs_diff_px": 0.0,
+    "verdict_now": "pass",
+    "verdict_28r01": "pass",
+    "worst_measure": "boundary",
+    "now_max_px": 0.288,
+    "r28r01_max_px": 0.288
+   },
+   "133": {
+    "measures": 1,
+    "worst_abs_diff_px": 0.316,
+    "verdict_now": "pass",
+    "verdict_28r01": "pass",
+    "worst_measure": "boundary",
+    "now_max_px": 0.718,
+    "r28r01_max_px": 0.402
+   },
+   "134": {
+    "measures": 1,
+    "worst_abs_diff_px": 8.019,
+    "verdict_now": "fail",
+    "verdict_28r01": "pass",
+    "worst_measure": "boundary",
+    "now_max_px": 8.996,
+    "r28r01_max_px": 0.977
+   },
+   "175": {
+    "measures": 6,
+    "worst_abs_diff_px": 13.642,
+    "verdict_now": "fail",
+    "verdict_28r01": "fail",
+    "worst_measure": "record_excluding_lost_regions/boundary_by_class/ai_mid",
+    "now_max_px": 16.052,
+    "r28r01_max_px": 2.41
+   },
+   "263": {
+    "measures": 1,
+    "worst_abs_diff_px": 1.925,
+    "verdict_now": "pass",
+    "verdict_28r01": "pass",
+    "worst_measure": "boundary_lower",
+    "now_max_px": 2.484,
+    "r28r01_max_px": 0.559
+   },
+   "270": {
+    "measures": 2,
+    "worst_abs_diff_px": 0.367,
+    "verdict_now": "pass",
+    "verdict_28r01": "pass",
+    "worst_measure": "record_mizuiro_reading",
+    "now_max_px": 1.028,
+    "r28r01_max_px": 0.661
+   }
+  },
+  "items_over_0p5": [
+   "73",
+   "79",
+   "118",
+   "134",
+   "175",
+   "263"
+  ]
+ },
+ "strict_265_267": {
+  "265": [
+   "pass",
+   "pass"
+  ],
+  "266": [
+   "pass",
+   "pass"
+  ],
+  "267": [
+   "fail",
+   "pass"
+  ]
+ },
+ "strict_worst_points_at_kstar_prime_silhouette": {
+  "73/118/263": {
+   "dsky_render": 0.0,
+   "dsky_truth": 2.83
+  },
+  "79": {
+   "dsky_render": 0.0,
+   "dsky_truth": 2.24
+  },
+  "134": {
+   "dsky_render": 0.0,
+   "dsky_truth": 2.24
+  },
+  "175ai_mid": {
+   "dsky_render": 1.41,
+   "dsky_truth": 3.61
+  },
+  "175mizuiro": {
+   "dsky_render": 0.0,
+   "dsky_truth": 2.24
+  }
+ },
+ "strict_267_bands": [
+  {
+   "area": 69,
+   "bbox": [
+    925,
+    166,
+    26,
+    21
+   ],
+   "centroid": [
+    938.1,
+    176.2
+   ],
+   "min_dsky_render": 0.0,
+   "min_dsky_truth": 3.16,
+   "frac_render_sky": 0.855,
+   "render_class_counts": {
+    "white": 12,
+    "mizuiro": 0,
+    "ai_mid": 0,
+    "ai_dark": 0
+   }
+  },
+  {
+   "area": 30,
+   "bbox": [
+    1053,
+    280,
+    9,
+    9
+   ],
+   "centroid": [
+    1057.3,
+    282.9
+   ],
+   "min_dsky_render": 0.0,
+   "min_dsky_truth": 3.16,
+   "frac_render_sky": 0.867,
+   "render_class_counts": {
+    "white": 5,
+    "mizuiro": 0,
+    "ai_mid": 0,
+    "ai_dark": 0
+   }
+  },
+  {
+   "area": 36,
+   "bbox": [
+    1100,
+    347,
+    6,
+    13
+   ],
+   "centroid": [
+    1103.1,
+    352.4
+   ],
+   "min_dsky_render": 0.0,
+   "min_dsky_truth": 3.16,
+   "frac_render_sky": 1.0,
+   "render_class_counts": {
+    "white": 3,
+    "mizuiro": 0,
+    "ai_mid": 0,
+    "ai_dark": 0
+   }
+  },
+  {
+   "area": 57,
+   "bbox": [
+    901,
+    412,
+    16,
+    10
+   ],
+   "centroid": [
+    909.9,
+    416.4
+   ],
+   "min_dsky_render": 0.0,
+   "min_dsky_truth": 3.16,
+   "frac_render_sky": 1.0,
+   "render_class_counts": {
+    "white": 2,
+    "mizuiro": 0,
+    "ai_mid": 0,
+    "ai_dark": 0
+   }
+  },
+  {
+   "area": 64,
+   "bbox": [
+    1083,
+    415,
+    6,
+    18
+   ],
+   "centroid": [
+    1085.5,
+    422.4
+   ],
+   "min_dsky_render": 0.0,
+   "min_dsky_truth": 3.16,
+   "frac_render_sky": 0.984,
+   "render_class_counts": {
+    "white": 3,
+    "mizuiro": 0,
+    "ai_mid": 0,
+    "ai_dark": 0
+   }
+  },
+  {
+   "area": 32,
+   "bbox": [
+    939,
+    423,
+    7,
+    9
+   ],
+   "centroid": [
+    942.0,
+    426.8
+   ],
+   "min_dsky_render": 0.0,
+   "min_dsky_truth": 3.16,
+   "frac_render_sky": 1.0,
+   "render_class_counts": {
+    "white": 2,
+    "mizuiro": 0,
+    "ai_mid": 0,
+    "ai_dark": 0
+   }
+  },
+  {
+   "area": 23,
+   "bbox": [
+    1059,
+    458,
+    4,
+    11
+   ],
+   "centroid": [
+    1060.9,
+    462.4
+   ],
+   "min_dsky_render": 0.0,
+   "min_dsky_truth": 3.61,
+   "frac_render_sky": 0.957,
+   "render_class_counts": {
+    "white": 1,
+    "mizuiro": 0,
+    "ai_mid": 0,
+    "ai_dark": 0
+   }
+  }
+ ],
+ "two_sided_reading": {
+  "rows": [
+   {
+    "item": "73",
+    "measure": "boundary",
+    "kp_sym_max_px": 0.303,
+    "r28_sym_max_px": 0.303,
+    "diff_px": 0.0,
+    "kp_verdict_sym": "pass",
+    "r28_verdict_sym": "pass"
+   },
+   {
+    "item": "77",
+    "measure": "lower_ends",
+    "kp_sym_max_px": 0.867,
+    "r28_sym_max_px": 1.17,
+    "diff_px": -0.303,
+    "kp_verdict_sym": "pass",
+    "r28_verdict_sym": "pass"
+   },
+   {
+    "item": "79",
+    "measure": "boundary",
+    "kp_sym_max_px": 0.357,
+    "r28_sym_max_px": 0.34,
+    "diff_px": 0.017,
+    "kp_verdict_sym": "pass",
+    "r28_verdict_sym": "pass"
+   },
+   {
+    "item": "118",
+    "measure": "boundary",
+    "kp_sym_max_px": 0.867,
+    "r28_sym_max_px": 0.453,
+    "diff_px": 0.414,
+    "kp_verdict_sym": "pass",
+    "r28_verdict_sym": "pass"
+   },
+   {
+    "item": "120",
+    "measure": "boundary",
+    "kp_sym_max_px": 0.288,
+    "r28_sym_max_px": 0.288,
+    "diff_px": 0.0,
+    "kp_verdict_sym": "pass",
+    "r28_verdict_sym": "pass"
+   },
+   {
+    "item": "133",
+    "measure": "boundary",
+    "kp_sym_max_px": 0.718,
+    "r28_sym_max_px": 0.402,
+    "diff_px": 0.316,
+    "kp_verdict_sym": "pass",
+    "r28_verdict_sym": "pass"
+   },
+   {
+    "item": "134",
+    "measure": "boundary",
+    "kp_sym_max_px": 0.634,
+    "r28_sym_max_px": 0.661,
+    "diff_px": -0.027,
+    "kp_verdict_sym": "pass",
+    "r28_verdict_sym": "pass"
+   },
+   {
+    "item": "175",
+    "measure": "boundary_by_class/ai_dark",
+    "kp_sym_max_px": 0.428,
+    "r28_sym_max_px": 0.309,
+    "diff_px": 0.119,
+    "kp_verdict_sym": "fail",
+    "r28_verdict_sym": "fail"
+   },
+   {
+    "item": "175",
+    "measure": "boundary_by_class/ai_mid",
+    "kp_sym_max_px": 0.472,
+    "r28_sym_max_px": 1.625,
+    "diff_px": -1.153,
+    "kp_verdict_sym": "fail",
+    "r28_verdict_sym": "fail"
+   },
+   {
+    "item": "175",
+    "measure": "boundary_by_class/mizuiro",
+    "kp_sym_max_px": 0.978,
+    "r28_sym_max_px": 0.865,
+    "diff_px": 0.113,
+    "kp_verdict_sym": "fail",
+    "r28_verdict_sym": "fail"
+   },
+   {
+    "item": "263",
+    "measure": "boundary_lower",
+    "kp_sym_max_px": 0.25,
+    "r28_sym_max_px": 0.301,
+    "diff_px": -0.051,
+    "kp_verdict_sym": "pass",
+    "r28_verdict_sym": "pass"
+   },
+   {
+    "item": "270",
+    "measure": "boundary",
+    "kp_sym_max_px": 0.563,
+    "r28_sym_max_px": 0.563,
+    "diff_px": 0.0,
+    "kp_verdict_sym": "pass",
+    "r28_verdict_sym": "pass"
+   },
+   {
+    "item": "270",
+    "measure": "record_mizuiro_reading",
+    "kp_sym_max_px": 0.634,
+    "r28_sym_max_px": 0.661,
+    "diff_px": -0.027,
+    "kp_verdict_sym": "pass",
+    "r28_verdict_sym": "pass"
+   }
+  ],
+  "worst_abs_diff_px": 1.153,
+  "note_ja": "175 ai_mid の −1.153 は K*′ の方が小さい（改善）。175 は 28修正01 でも不合格（消える色区 M171・A073）",
+  "flat_267_266_painting": {
+   "white": {
+    "sym_bands": 0,
+    "sym_std": 0.2104,
+    "strict_bands": 7
+   },
+   "mizuiro": {
+    "sym_bands": 0,
+    "sym_std": 0.1319,
+    "strict_bands": 0
+   },
+   "ai_mid": {
+    "sym_bands": 0,
+    "sym_std": 0.2862,
+    "strict_bands": 0
+   },
+   "ai_dark": {
+    "sym_bands": 0,
+    "sym_std": 0.3476,
+    "strict_bands": 0
+   }
+  }
+ },
+ "silhouettes_vs_kstar_prime": {
+  "rows": {
+   "78": {
+    "unity_max_px": 3.0289,
+    "kstar_prime_geometry_px": 2.741,
+    "diff_px": 0.2879
+   },
+   "130": {
+    "unity_max_px": 3.5131,
+    "kstar_prime_geometry_px": 3.8308,
+    "diff_px": -0.3177
+   },
+   "131": {
+    "unity_max_px": 3.0431,
+    "kstar_prime_geometry_px": 2.9243,
+    "diff_px": 0.1188
+   }
+  },
+  "worst_abs_diff_px": 0.3177
+ },
+ "large_form_gate_unity": {
+  "132_sigma12_max": 3.755214351150866,
+  "132_worst_xy": [
+   1001.0,
+   256.58
+  ],
+  "72_sigma24_p95": 4.007498772940381,
+  "72_worst_xy": [
+   872.0,
+   696.91
+  ],
+  "ids": "Unity/Build/Design/29R01/unity/f_final_kp/t28/render/af28r01_class_ids.png",
+  "ids_sha256": "0bacd2bafee69061ab03026c47d05026d4cb27fd90188a755799d8a5f88df44f",
+  "diff_vs_kstar_prime_px": {
+   "132_sigma12_max": -0.1498,
+   "72_sigma24_p95": 0.2615
+  },
+  "gate_4px": {
+   "132": true,
+   "72": false
+  }
+ },
+ "regress_d28_after_ds29render_change": {
+  "files_compared": 34,
+  "files_same_sha256": 34,
+  "videos_compared": 3,
+  "videos_same_sha256": 3
+ }
+}

@@ -1,0 +1,414 @@
+{
+ "schema": "GreatWave.DS29R01.tstar_sym/1",
+ "number": "設計29修正01",
+ "method_ja": "設計29修正01（手渡し (a) の記録の読み）：t* の色区の項目を「輪郭の両側を除く」読みでも測る。\n\n美術優先28修正01 の評価器（af28r01_evaluate.py、番号28 の af28_evaluate.ClassBoundary）は、空との境（主役波の輪郭。78〜132・72 の対象）を\n色区の境界の項目から除くのに、真値の点は「真値の空から 2 px 以内」、描画の点は「描画の空から 2 px 以内」だけを除く。\nK* では輪郭の差が 1.4〜1.8 px だったので、この片側の除き方で足りた。K*′ は輪郭の差が 2.7〜3.8 px（設計28修正01 で採った関門）なので、\n**描画の空が原画の色区へ食い込んだ所**で、真値の点（真値の空からは 2 px より遠い）が描画の輪郭の外に落ち、色区の境界の値に輪郭の差が入る。\nここでは、同じ評価器を同じプロセスの中だけで次のように変えて走らせる（元のファイルは変えない。**記録の読みで、評価器の判定ではない**）：\n  - ClassBoundary：真値の点も描画の点も、「真値の空または描画の空から 2 px 以内」なら除く（輪郭の両側を除く。除く幅 2 px は同じ）。\n  - 267・266 の原画視点の平塗り：真値の色区を 3 px 縮めた範囲から、さらに描画の空から 2 px 以内を除いた範囲で測る（描画の空は輪郭の差）。\n同じ読みを、美術優先28修正01 の描画（K* ＋ K* の焼き込み）にも当てて、同じ読み同士で比べる（±0.5 px）。\n\n使い方（リポジトリの根で）:\n    py -3.10 -B Tools/GWWaveGen/ds29r01/ds29r01_tstar_sym.py\n入力：Unity/Build/Design/29R01/unity/f_final_kp/t28（ds29r01_tstar_eval.py が並べたもの）、Unity/Build/ArtFirst/28修正01（読むだけ。写しで測る）\n出力（Git 対象外）：Unity/Build/Design/29R01/unity/tstar_sym/{kp,base28}/evidence/metrics.json と tstar_sym.json",
+ "silhouette_exclude_px": 2.0,
+ "rows": [
+  {
+   "item": "73",
+   "measure": "boundary",
+   "kp_sym_max_px": 0.303,
+   "r28_sym_max_px": 0.303,
+   "diff_px": 0.0,
+   "kp_verdict_sym": "pass",
+   "r28_verdict_sym": "pass"
+  },
+  {
+   "item": "77",
+   "measure": "lower_ends",
+   "kp_sym_max_px": 0.867,
+   "r28_sym_max_px": 1.17,
+   "diff_px": -0.303,
+   "kp_verdict_sym": "pass",
+   "r28_verdict_sym": "pass"
+  },
+  {
+   "item": "79",
+   "measure": "boundary",
+   "kp_sym_max_px": 0.357,
+   "r28_sym_max_px": 0.34,
+   "diff_px": 0.017,
+   "kp_verdict_sym": "pass",
+   "r28_verdict_sym": "pass"
+  },
+  {
+   "item": "118",
+   "measure": "boundary",
+   "kp_sym_max_px": 0.867,
+   "r28_sym_max_px": 0.453,
+   "diff_px": 0.414,
+   "kp_verdict_sym": "pass",
+   "r28_verdict_sym": "pass"
+  },
+  {
+   "item": "120",
+   "measure": "boundary",
+   "kp_sym_max_px": 0.288,
+   "r28_sym_max_px": 0.288,
+   "diff_px": 0.0,
+   "kp_verdict_sym": "pass",
+   "r28_verdict_sym": "pass"
+  },
+  {
+   "item": "133",
+   "measure": "boundary",
+   "kp_sym_max_px": 0.718,
+   "r28_sym_max_px": 0.402,
+   "diff_px": 0.316,
+   "kp_verdict_sym": "pass",
+   "r28_verdict_sym": "pass"
+  },
+  {
+   "item": "134",
+   "measure": "boundary",
+   "kp_sym_max_px": 0.634,
+   "r28_sym_max_px": 0.661,
+   "diff_px": -0.027,
+   "kp_verdict_sym": "pass",
+   "r28_verdict_sym": "pass"
+  },
+  {
+   "item": "175",
+   "measure": "boundary_by_class/ai_dark",
+   "kp_sym_max_px": 0.428,
+   "r28_sym_max_px": 0.309,
+   "diff_px": 0.119,
+   "kp_verdict_sym": "fail",
+   "r28_verdict_sym": "fail"
+  },
+  {
+   "item": "175",
+   "measure": "boundary_by_class/ai_mid",
+   "kp_sym_max_px": 0.472,
+   "r28_sym_max_px": 1.625,
+   "diff_px": -1.153,
+   "kp_verdict_sym": "fail",
+   "r28_verdict_sym": "fail"
+  },
+  {
+   "item": "175",
+   "measure": "boundary_by_class/mizuiro",
+   "kp_sym_max_px": 0.978,
+   "r28_sym_max_px": 0.865,
+   "diff_px": 0.113,
+   "kp_verdict_sym": "fail",
+   "r28_verdict_sym": "fail"
+  },
+  {
+   "item": "263",
+   "measure": "boundary_lower",
+   "kp_sym_max_px": 0.25,
+   "r28_sym_max_px": 0.301,
+   "diff_px": -0.051,
+   "kp_verdict_sym": "pass",
+   "r28_verdict_sym": "pass"
+  },
+  {
+   "item": "270",
+   "measure": "boundary",
+   "kp_sym_max_px": 0.563,
+   "r28_sym_max_px": 0.563,
+   "diff_px": 0.0,
+   "kp_verdict_sym": "pass",
+   "r28_verdict_sym": "pass"
+  },
+  {
+   "item": "270",
+   "measure": "record_mizuiro_reading",
+   "kp_sym_max_px": 0.634,
+   "r28_sym_max_px": 0.661,
+   "diff_px": -0.027,
+   "kp_verdict_sym": "pass",
+   "r28_verdict_sym": "pass"
+  }
+ ],
+ "worst_abs_diff_px": 1.153,
+ "criterion_px": 0.5,
+ "pass": false,
+ "verdicts_kp_sym": {
+  "73": "pass",
+  "77": "pass",
+  "79": "pass",
+  "118": "pass",
+  "120": "pass",
+  "133": "pass",
+  "134": "pass",
+  "175": "fail",
+  "263": "pass",
+  "270": "pass",
+  "265": "pass",
+  "266": "pass",
+  "267": "fail",
+  "uv_no_empty_texels": "pass"
+ },
+ "verdicts_28_sym": {
+  "73": "pass",
+  "77": "pass",
+  "79": "pass",
+  "118": "pass",
+  "120": "pass",
+  "133": "pass",
+  "134": "pass",
+  "175": "fail",
+  "263": "pass",
+  "270": "pass",
+  "265": "pass",
+  "266": "pass",
+  "267": "pass",
+  "uv_no_empty_texels": "pass"
+ },
+ "flat_painting_view_266_267": {
+  "kp": {
+   "white": {
+    "strict": {
+     "n_px": 101971,
+     "lab_median": [
+      95.742,
+      -1.667,
+      10.237
+     ],
+     "dE00_median_to_palette": 0.206,
+     "dE00_to_median_std": 0.4175,
+     "dE00_to_median_p99": 0.0,
+     "dE00_to_median_max": 18.9,
+     "n_px_dev_gt_1": 494,
+     "bands_ge_20px": 7
+    },
+    "sym": {
+     "n_px": 101363,
+     "lab_median": [
+      95.742,
+      -1.667,
+      10.237
+     ],
+     "dE00_median_to_palette": 0.206,
+     "dE00_to_median_std": 0.2104,
+     "dE00_to_median_p99": 0.0,
+     "dE00_to_median_max": 18.9,
+     "n_px_dev_gt_1": 134,
+     "bands_ge_20px": 0
+    },
+    "px_removed_near_render_sky": 608
+   },
+   "mizuiro": {
+    "strict": {
+     "n_px": 23969,
+     "lab_median": [
+      84.441,
+      -7.947,
+      3.961
+     ],
+     "dE00_median_to_palette": 0.152,
+     "dE00_to_median_std": 0.1319,
+     "dE00_to_median_p99": 0.0,
+     "dE00_to_median_max": 10.943,
+     "n_px_dev_gt_1": 36,
+     "bands_ge_20px": 0
+    },
+    "sym": {
+     "n_px": 23958,
+     "lab_median": [
+      84.441,
+      -7.947,
+      3.961
+     ],
+     "dE00_median_to_palette": 0.152,
+     "dE00_to_median_std": 0.1319,
+     "dE00_to_median_p99": 0.0,
+     "dE00_to_median_max": 10.943,
+     "n_px_dev_gt_1": 36,
+     "bands_ge_20px": 0
+    },
+    "px_removed_near_render_sky": 11
+   },
+   "ai_mid": {
+    "strict": {
+     "n_px": 12381,
+     "lab_median": [
+      42.375,
+      -5.362,
+      -28.709
+     ],
+     "dE00_median_to_palette": 0.186,
+     "dE00_to_median_std": 0.2862,
+     "dE00_to_median_p99": 0.0,
+     "dE00_to_median_max": 15.459,
+     "n_px_dev_gt_1": 61,
+     "bands_ge_20px": 0
+    },
+    "sym": {
+     "n_px": 12379,
+     "lab_median": [
+      42.375,
+      -5.362,
+      -28.709
+     ],
+     "dE00_median_to_palette": 0.186,
+     "dE00_to_median_std": 0.2862,
+     "dE00_to_median_p99": 0.0,
+     "dE00_to_median_max": 15.459,
+     "n_px_dev_gt_1": 61,
+     "bands_ge_20px": 0
+    },
+    "px_removed_near_render_sky": 2
+   },
+   "ai_dark": {
+    "strict": {
+     "n_px": 53227,
+     "lab_median": [
+      26.41,
+      0.506,
+      -22.778
+     ],
+     "dE00_median_to_palette": 0.219,
+     "dE00_to_median_std": 0.3476,
+     "dE00_to_median_p99": 0.0,
+     "dE00_to_median_max": 30.127,
+     "n_px_dev_gt_1": 85,
+     "bands_ge_20px": 0
+    },
+    "sym": {
+     "n_px": 53226,
+     "lab_median": [
+      26.41,
+      0.506,
+      -22.778
+     ],
+     "dE00_median_to_palette": 0.219,
+     "dE00_to_median_std": 0.3476,
+     "dE00_to_median_p99": 0.0,
+     "dE00_to_median_max": 30.127,
+     "n_px_dev_gt_1": 85,
+     "bands_ge_20px": 0
+    },
+    "px_removed_near_render_sky": 1
+   }
+  },
+  "base28": {
+   "white": {
+    "strict": {
+     "n_px": 101971,
+     "lab_median": [
+      95.742,
+      -1.667,
+      10.237
+     ],
+     "dE00_median_to_palette": 0.206,
+     "dE00_to_median_std": 0.3099,
+     "dE00_to_median_p99": 0.0,
+     "dE00_to_median_max": 44.23,
+     "n_px_dev_gt_1": 127,
+     "bands_ge_20px": 0
+    },
+    "sym": {
+     "n_px": 101636,
+     "lab_median": [
+      95.742,
+      -1.667,
+      10.237
+     ],
+     "dE00_median_to_palette": 0.206,
+     "dE00_to_median_std": 0.273,
+     "dE00_to_median_p99": 0.0,
+     "dE00_to_median_max": 44.23,
+     "n_px_dev_gt_1": 79,
+     "bands_ge_20px": 0
+    },
+    "px_removed_near_render_sky": 335
+   },
+   "mizuiro": {
+    "strict": {
+     "n_px": 23969,
+     "lab_median": [
+      84.441,
+      -7.947,
+      3.961
+     ],
+     "dE00_median_to_palette": 0.152,
+     "dE00_to_median_std": 0.3075,
+     "dE00_to_median_p99": 0.0,
+     "dE00_to_median_max": 17.602,
+     "n_px_dev_gt_1": 56,
+     "bands_ge_20px": 0
+    },
+    "sym": {
+     "n_px": 23956,
+     "lab_median": [
+      84.441,
+      -7.947,
+      3.961
+     ],
+     "dE00_median_to_palette": 0.152,
+     "dE00_to_median_std": 0.3076,
+     "dE00_to_median_p99": 0.0,
+     "dE00_to_median_max": 17.602,
+     "n_px_dev_gt_1": 56,
+     "bands_ge_20px": 0
+    },
+    "px_removed_near_render_sky": 13
+   },
+   "ai_mid": {
+    "strict": {
+     "n_px": 12381,
+     "lab_median": [
+      42.375,
+      -5.362,
+      -28.709
+     ],
+     "dE00_median_to_palette": 0.186,
+     "dE00_to_median_std": 0.2093,
+     "dE00_to_median_p99": 0.0,
+     "dE00_to_median_max": 10.722,
+     "n_px_dev_gt_1": 37,
+     "bands_ge_20px": 0
+    },
+    "sym": {
+     "n_px": 12330,
+     "lab_median": [
+      42.375,
+      -5.362,
+      -28.709
+     ],
+     "dE00_median_to_palette": 0.186,
+     "dE00_to_median_std": 0.2097,
+     "dE00_to_median_p99": 0.0,
+     "dE00_to_median_max": 10.722,
+     "n_px_dev_gt_1": 37,
+     "bands_ge_20px": 0
+    },
+    "px_removed_near_render_sky": 51
+   },
+   "ai_dark": {
+    "strict": {
+     "n_px": 53227,
+     "lab_median": [
+      26.41,
+      0.506,
+      -22.778
+     ],
+     "dE00_median_to_palette": 0.219,
+     "dE00_to_median_std": 0.6059,
+     "dE00_to_median_p99": 0.0,
+     "dE00_to_median_max": 40.356,
+     "n_px_dev_gt_1": 84,
+     "bands_ge_20px": 1
+    },
+    "sym": {
+     "n_px": 53225,
+     "lab_median": [
+      26.41,
+      0.506,
+      -22.778
+     ],
+     "dE00_median_to_palette": 0.219,
+     "dE00_to_median_std": 0.6059,
+     "dE00_to_median_p99": 0.0,
+     "dE00_to_median_max": 40.356,
+     "n_px_dev_gt_1": 84,
+     "bands_ge_20px": 1
+    },
+    "px_removed_near_render_sky": 2
+   }
+  }
+ }
+}
