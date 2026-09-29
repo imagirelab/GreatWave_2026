@@ -1,0 +1,44 @@
+{
+ "commands": [
+  "py -3.10 Tools/GWWaveGen/ds31/ds31_white.py",
+  "powershell -NoProfile -ExecutionPolicy Bypass -File Tools/GWWaveGen/ds31/run_ds31w_unity.ps1 -Method GreatWave.Design31.EditorTools.DS31Render.Render -Log main -Extra \"-ds31Out Build/Design/31/white/unity/main\"",
+  "py -3.10 -B Tools/GWWaveGen/ds31/ds31_white_evidence.py --run Unity/Build/Design/31/white/unity/main"
+ ],
+ "python": "3.10.6",
+ "numpy": "2.2.6",
+ "opencv": "4.12.0",
+ "inputs": {
+  "package": "G:/Unity/GreatWave_2026_Fresh/Unity/Build/Design/28R01F/F_final/art_on",
+  "pos_sha256": "af08cd4edb8a287551cae2ac8c60af3c4c33bbb39088807571475dc973d85974",
+  "pos_lo_sha256": "99a29d6a74b595372211120db071fac12d9f338aa14107df921d667d67a83153",
+  "twhite_sha256": "17cf6188c570c1fed921b0f93b001a03394c1c9ad5dd15614eb828affcc0d8d3",
+  "warp": "G:/Unity/GreatWave_2026_Fresh/Unity/Build/Design/28R01F/F_final/timewarp_F_final.json",
+  "warp_sha256": "627815c77afc63278c885335bbe6c51178896184559ca30845cf05f23c634a7c",
+  "sdf": "G:/Unity/GreatWave_2026_Fresh/Unity/Build/Design/29R01/bake_kp/bake/af28r01_uvsdf_a45.bin",
+  "sdf_sha256": "69c0b26d5e0129598aa19ca8365fa590af9a81c282e5fef8298409fac8470d1a",
+  "uvwarp": "G:/Unity/GreatWave_2026_Fresh/Unity/Build/Design/29R01/bake_kp/bake/af28r01_uvwarp_a45.json",
+  "uvwarp_sha256": "fbd95c900f1e7b84ada6e2bffce4298fd94412041a6a1309d656893789e44964"
+ },
+ "outputs_sha256": {
+  "evidence/ds31_grid_3x4_30fps.mp4": "12741e6d2d3ebfa8309b9994c944fba19a3536f5beb90d1510d4959263bd6138",
+  "evidence/fig_ds31_adv_stills_sheet.png": "0a840d7fc38dcf854c464d3e365b8389987fafcbddbad249a96cd5244ae37965",
+  "evidence/fig_ds31_air_stills_sheet.png": "ef0799129955d59058424503808d2f4765560b3c2e360ef005c668577c2d9f97",
+  "evidence/fig_ds31_gen_stills_sheet.png": "7fd688fdd55759a4324d4b3d97237122c0a694a52857e6aef28022f0a6db8dba",
+  "evidence/fig_ds31_white_onset.png": "4d5e887547df08b0fec7c18be01cbd8213dded905a2f29df896431f5b7fa9f86",
+  "evidence/metrics_white.json": "08d0d984b642aced5df32a37d1e8bad4a1a907184dc37adb4ff118ae05c96491",
+  "hero_pkg/ds27_keypose.json": "c20ac1cc62077ca84c9aef92678bcc6d8a1ad2d802de64a96fb950b5b18aedb0",
+  "hero_pkg/ds27_pos_lo_rgba8.bin": "99a29d6a74b595372211120db071fac12d9f338aa14107df921d667d67a83153",
+  "hero_pkg/ds27_pos_rgba16.bin": "af08cd4edb8a287551cae2ac8c60af3c4c33bbb39088807571475dc973d85974",
+  "hero_pkg/ds31_twhite_r32f.bin": "5ffc93def0174c953040f0a69088be7856820f1ae9eb7c90b312594d4099f39e",
+  "ds31_marks_born.bin": "337fe942d2edfb94820c9bf45926e6fdfc7cc8db39a8dc27b32aa6083267f231",
+  "ds31_marks_born.json": "0085f2591e9bccfce7687e2e91cc6a57779cd64466c48d9b0fee80c199852f93",
+  "ds31_marks_trace.bin": "907374c352002d958cbb6976b529e283bce98b743c973a9572dc33ca48ba4078",
+  "ds31_marks_trace.json": "bc0d7a9ac0c557661317d4afc2ad1d397113b8d3defa450c99bebf444e900587",
+  "ds31_twhite_r32f.bin": "5ffc93def0174c953040f0a69088be7856820f1ae9eb7c90b312594d4099f39e",
+  "ds31_white_numpy.json": "840e1f121f3cd6e2340cae17d80c9c7bb629c71b2f268ab04409832314fa312c",
+  "ds31_white_onset.json": "ba9fd1ea72732ead354d16dfaa86db50d2c0e9f17953f201cd938e7eedda697c",
+  "ds31_white_onset_f32.bin": "ee9555c0b0826ff9196b58980d02a2626249ea44a541a8c33cf9a58e6aa0a225",
+  "ds31_white_stdout.json": "547c278fa3ef30580d4166fcc1abb2bd8a147dbb42b41df40b3f304cf7896e63"
+ },
+ "unity_files": 376
+}

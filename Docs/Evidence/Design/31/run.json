@@ -1,0 +1,221 @@
+{
+ "schema": "GreatWave.DS31.run/1",
+ "number": "設計31",
+ "generated_utc": "2026-09-29T11:52:02+00:00",
+ "machine": "Windows-10-10.0.26200-SP0",
+ "python": "3.10.6",
+ "numpy": "2.2.6",
+ "opencv": "4.12.0",
+ "unity": "6000.4.3f1（Editor batchmode、PC オフスクリーン描画、RTX 3080、Direct3D11）",
+ "ffmpeg": "G:/ffmpeg-2024-12-19-git-494c961379-full_build/bin/ffmpeg.exe",
+ "commands": [
+  "（白の部）py -3.10 Tools/GWWaveGen/ds31/ds31_white.py（出力 Unity/Build/Design/31/white。--rate-cap 0 で誘導を切る）",
+  "（飛沫の部）py -3.10 Tools/GWWaveGen/ds31/ds31_spray.py（出力 Unity/Build/Design/31/spray。白の部の ds31_twhite_r32f.bin を読む）",
+  "（飛沫の部）py -3.10 Tools/GWWaveGen/ds31/ds31_spray_checks.py（出力 spray/ds31_spray_checks.json と fig/）",
+  "（白の部）powershell -NoProfile -ExecutionPolicy Bypass -File Tools/GWWaveGen/ds31/run_ds31w_unity.ps1 -Method GreatWave.Design31.EditorTools.DS31Render.Render -Log main -Extra \"-ds31Out Build/Design/31/white/unity/main\"",
+  "（白の部、飛沫を色区 ID に入れた読みの記録）py -3.10 -B Tools/GWWaveGen/ds30/ds30b_tstar_regress.py --out Unity/Build/Design/31/white/unity/main --sets t28_spray（設計30 の道具。出力 ds30_tstar_regress.json）",
+  "（白の部）py -3.10 -B Tools/GWWaveGen/ds31/ds31_white_evidence.py --run Unity/Build/Design/31/white/unity/main",
+  "（進行役の独立の検査：リポジトリの外の numpy。出力の写しは Unity/Build/Design/31/indep_check/）",
+  "（記録）py -3.10 -B Tools/GWWaveGen/ds31/ds31_record.py"
+ ],
+ "scripts": {
+  "Tools/GWWaveGen/ds31/ds31_record.py": "50aee028194f28302750dd69b428c194aa26175a1eac1c3f2a00afd7379d632d",
+  "Tools/GWWaveGen/ds31/ds31_spray.py": "7115cf249cde544bca6e9d832b441bc334d85e87e8930078a7a7794a80764c23",
+  "Tools/GWWaveGen/ds31/ds31_spray_checks.py": "0c414c181da08dd3000b44d030387d655be38378d1535de61d5cf6f81a62d991",
+  "Tools/GWWaveGen/ds31/ds31_white.py": "2954da25151296d71513e56f1dda155c4586fe366d466ea8abc229b7a4550d4d",
+  "Tools/GWWaveGen/ds31/ds31_white_evidence.py": "7f1bf02c2b59200f817f837052688f5b89eda48af74a8cad9e8687a4cd084e6b",
+  "Tools/GWWaveGen/ds31/run_ds31w_unity.ps1": "15d3f980447cea5a9379dd774a086fc3ed75d89d17ffd1630d8e80c3b7c8e7b2"
+ },
+ "unity_sources": {
+  "Unity/Assets/GreatWave/Design31.meta": "bf2a65a294e16ab996b9395d33f5917a152dea4e7c9b508ca7086412b442aa6f",
+  "Unity/Assets/GreatWave/Design31/Editor.meta": "f3decd28662fd508d1ec850e6f5ac438123c0ba4b26e84df1831237b2cb02280",
+  "Unity/Assets/GreatWave/Design31/Editor/DS31Render.cs": "348219557c8b5bf117a312f39b726a037af20c74628cd9e39a4cbf6e83e86039",
+  "Unity/Assets/GreatWave/Design31/Editor/DS31Render.cs.meta": "8b1c0aac66ee1e19c803e90e40972d8902fc79dc71f1a005873df1a0f843cbc3",
+  "Unity/Assets/GreatWave/Design31/Scenes.meta": "750a551d4cc12b6254f78aac55e3e1532f9a9fb80b0ef055a9c42779989b28a8",
+  "Unity/Assets/GreatWave/Design31/Scenes/DS31_WhiteSpray.unity": "2c36fd2479cfe9256c2ca2669014bc623ad4e34f76123e8de43eb08e1b5e5312",
+  "Unity/Assets/GreatWave/Design31/Scenes/DS31_WhiteSpray.unity.meta": "7b6bf6888d6b973eb9e275db13b1861118a13b22de2f92e6f629e2f7db0f0a0f",
+  "Unity/Assets/GreatWave/Design31/Scripts.meta": "899d1d9d6ac2678feef09fce621785b02c792c50c92a6f3cb90c4a30e8a3a471",
+  "Unity/Assets/GreatWave/Design31/Scripts/DS31InstancedParticles.cs": "f536130cdb4aecf4f69d0678fe973bd19bf77220e4fa951778db19a1ce5eca11",
+  "Unity/Assets/GreatWave/Design31/Scripts/DS31InstancedParticles.cs.meta": "adbeefb42fa57fc29fb504663e61193022a4d570a7c12014f1755ee184f3267f",
+  "Unity/Assets/GreatWave/Design31/Shaders.meta": "bdd0014447d530e125e033624a21464468c522bd769abf2ad5cbfe34d6183439",
+  "Unity/Assets/GreatWave/Design31/Shaders/DS31_Spray_Unlit.shader": "33aec2d5e152e573bee7e6de2860838faf50fecff9da94139bfc3ecf5d13f4b3",
+  "Unity/Assets/GreatWave/Design31/Shaders/DS31_Spray_Unlit.shader.meta": "fd5fc5ef9282139be57d4fdaa1b2ef315b259ab650a3b6984627a1cf7ede098c"
+ },
+ "inputs": {
+  "white": {
+   "package": "G:/Unity/GreatWave_2026_Fresh/Unity/Build/Design/28R01F/F_final/art_on",
+   "pos_sha256": "af08cd4edb8a287551cae2ac8c60af3c4c33bbb39088807571475dc973d85974",
+   "pos_lo_sha256": "99a29d6a74b595372211120db071fac12d9f338aa14107df921d667d67a83153",
+   "twhite_sha256": "17cf6188c570c1fed921b0f93b001a03394c1c9ad5dd15614eb828affcc0d8d3",
+   "warp": "G:/Unity/GreatWave_2026_Fresh/Unity/Build/Design/28R01F/F_final/timewarp_F_final.json",
+   "warp_sha256": "627815c77afc63278c885335bbe6c51178896184559ca30845cf05f23c634a7c",
+   "sdf": "G:/Unity/GreatWave_2026_Fresh/Unity/Build/Design/29R01/bake_kp/bake/af28r01_uvsdf_a45.bin",
+   "sdf_sha256": "69c0b26d5e0129598aa19ca8365fa590af9a81c282e5fef8298409fac8470d1a",
+   "uvwarp": "G:/Unity/GreatWave_2026_Fresh/Unity/Build/Design/29R01/bake_kp/bake/af28r01_uvwarp_a45.json",
+   "uvwarp_sha256": "fbd95c900f1e7b84ada6e2bffce4298fd94412041a6a1309d656893789e44964"
+  },
+  "spray": {
+   "hero_pkg": "Unity/Build/Design/28R01F/F_final/art_on",
+   "hero_pos_sha256": "af08cd4edb8a287551cae2ac8c60af3c4c33bbb39088807571475dc973d85974",
+   "hero_pos_lo_sha256": "99a29d6a74b595372211120db071fac12d9f338aa14107df921d667d67a83153",
+   "near_pos_sha256": "cb62dd8f7d3fb290534d608265aa3d88864245e132a3127a49b63dd540b8a54d",
+   "twhite": "Unity/Build/Design/31/white/ds31_twhite_r32f.bin",
+   "twhite_sha256": "5ffc93def0174c953040f0a69088be7856820f1ae9eb7c90b312594d4099f39e",
+   "reference": "Docs/References/Met_JP1847_DP130155.jpg",
+   "reference_sha256": "cbb9988f2f18b9180a1cc0cf5dbb0e3bbf8f2e85d17930cf6ca9ab36fac36303",
+   "sky_mask": "Tools/PaintingTruth/targets/masks/sky_claws_cov.png",
+   "sky_mask_sha256": "443586a3a505d9d38a5f851ff712ee1b6c1bbdf546cfd6bfded2311369e4ae3a",
+   "timewarp": "Unity/Build/Design/28R01F/F_final/timewarp_F_final.json",
+   "timewarp_sha256": "627815c77afc63278c885335bbe6c51178896184559ca30845cf05f23c634a7c"
+  },
+  "spray_code_sha256_at_generate": {
+   "ds31_spray.py": "7115cf249cde544bca6e9d832b441bc334d85e87e8930078a7a7794a80764c23"
+  },
+  "stage5_selfreview": {
+   "file": "Docs/Progress/Stage5_SelfReview_ja.md",
+   "sha256": "ee99628250ef6ba6e57cc4e72a4ba54cc6f00ac6dcdd5fd47e7f18a70c420367"
+  }
+ },
+ "build_outputs": {
+  "white/ds31_twhite_r32f.bin": "5ffc93def0174c953040f0a69088be7856820f1ae9eb7c90b312594d4099f39e",
+  "spray/ds31_spray_inst_f32.bin": "c764fe07da806c4da336f7d5580095e969f21db8f94c279b9e9df84fa03cac82",
+  "spray/ds31_spray_knots_f32.bin": "373a8a685eef0efffa5e47d35c19b7ce23d32b4fc5cbaa88e0ee4abe4023debe",
+  "spray/ds31_spray_frames.bin": "9db0a42811aa2c72f1cefbf8b80386f2e919a8b80fe65f7e91dd6a60c9b25c5f",
+  "spray/ds31_sphere42.obj": "882bc74819095dcdc7d3166d5a8f8f4f2e0ea0193dbf7794723fe2de64bb8e2c",
+  "white/ds31_marks_born.bin": "337fe942d2edfb94820c9bf45926e6fdfc7cc8db39a8dc27b32aa6083267f231",
+  "white/ds31_marks_trace.bin": "907374c352002d958cbb6976b529e283bce98b743c973a9572dc33ca48ba4078",
+  "white/unity/main/ds31_render_report.json": "f29c5ade2028d81a7e91a35a11dc56d55ec5fd632d3578cd2d40b8b9f34f2d9b",
+  "indep_check": {
+   "chk_150.json": "ce39b149da1340cc7552793ca7617e6544430cc5601c9331e718a10631ab3d08",
+   "chk_150_section.json": "78a142d3b6f96867f03e7f025a7c3cd8bd40388d2c7b7fa6bf4c79eb9a6de174",
+   "chk_152.json": "e4b9841cdee79e6923d80f8a25b5673e8bbc01561706d06082e1428f68c432ae",
+   "chk_white.json": "3dadec5088762f2e43b90832f0f171d1737c2901ce48c5e0e162f85c0f62272d",
+   "emit2_out.txt": "64fbf5ce76b69cc3c066c15d5035a0a49f8b745f24b236ee8c47fd298aaa5cf6"
+  },
+  "record": {
+   "ds31_ids_spray_sky.json": "6c9163d569ec2928183f8ab604281edcade8ed860aff36517c872c12676630e3",
+   "ds31_s51_frames.json": "1e07660435d75d41bdf24f673ce3bbb94b028f7c2ea4afb3dcde32abed04fe20"
+  }
+ },
+ "evidence": {
+  "ds31_adv_painting_30fps.mp4": "09ae41af0fe339c032778ae700f00c966ac1e5f51ce5bfcbff15000b5669129f",
+  "ds31_air_painting_30fps.mp4": "2349e57002f938d9118e46ad3f66425d907f5a6a5bd7f731de00d8a656005dc1",
+  "ds31_air_painting_t11.png": "3a40ca414435af01eed4e67e2233257ad0dcf3aee74412950ce532f63e4fa7b4",
+  "ds31_air_side_top_30fps.mp4": "bfe0609aa51470ed445a6bb31bb94172f9fdbf3d356a6f03b5c9739bd936974d",
+  "ds31_air_side_top_t11.png": "d220944824cba9cd287b0d23171e29a59b432fefe9c2396ecebdb47f4c09c392",
+  "ds31_gen_painting_30fps.mp4": "11ef0db52da3c3c61f839e1c40f9da88de5c8d61a6dc8d922951ce6cda7fd4f5",
+  "ds31_grid_3x4_30fps.mp4": "12741e6d2d3ebfa8309b9994c944fba19a3536f5beb90d1510d4959263bd6138",
+  "ds31_ids_spray_sky.json": "6c9163d569ec2928183f8ab604281edcade8ed860aff36517c872c12676630e3",
+  "ds31_painting_tstar_spray.png": "65980d87f84e49b94ef78ab8bc6ccbaa037209538f97182430a359eb5a708d60",
+  "ds31_s51_frames.json": "1e07660435d75d41bdf24f673ce3bbb94b028f7c2ea4afb3dcde32abed04fe20",
+  "ds31_spray_checks.json": "39c0c0bfe342cc65e4e591a490d6f524f8c0243fd91812b3799cc243876f9832",
+  "ds31_spray_generate_log.json": "5ecf054a46e4de6827dffd34e557ab17f9fdf60244ab92c7422d25c0a40d4f38",
+  "ds31_spray_package.json": "98cb118884b3519313b8f856720d7cceed42b864470016d097d9923e79ff4cba",
+  "ds31_tstar_regress.json": "aa9bce3f4d4f43261d804d8acbfba75fa5afdb2a9f818a97c36083d7df84092e",
+  "ds31_unity_summary.json": "9e5f8dedfb81bd945a4d8403063445587438444ba55ddaed86c81daa69e13e69",
+  "ds31_white_metrics.json": "08d0d984b642aced5df32a37d1e8bad4a1a907184dc37adb4ff118ae05c96491",
+  "ds31_white_onset.json": "ba9fd1ea72732ead354d16dfaa86db50d2c0e9f17953f201cd938e7eedda697c",
+  "ds31_white_run.json": "976fab6225f7b0f7874002f3aab680973cc73b0bee8e2f3debc1798fe64d392a",
+  "fig_ds31_152_crops.png": "e4a1fd3da314ba037e66c59dbf08c498b930c297d6feab82250b0a70115b64cf",
+  "fig_ds31_adv_stills_sheet.png": "ef04bf6549a70ed9bf17377b6b5678319466754d259d3a057fca5715c659da2c",
+  "fig_ds31_air_stills_sheet.png": "78ec1985e1a03490bcad52fbf89d6304b17af0067209b612235c707dec6124eb",
+  "fig_ds31_gen_stills_sheet.png": "9eb635b96c2a432255532a44690539a14bc798b5306fa85984a6a0b1cf1cfbea",
+  "fig_ds31_spray_stills.png": "8cfc87cb3809f35d4c32e27109237c4fc3a64f4e9aa769dce1cbeedcd0f88fa4",
+  "fig_ds31_spray_tstar_compare.png": "454440c314e8b1e2d15fa822f281b43e979d60fb21658c56d603f24843943732",
+  "fig_ds31_white_onset.png": "4d5e887547df08b0fec7c18be01cbd8213dded905a2f29df896431f5b7fa9f86",
+  "metrics.json": "032a7b70843d10d767b766063c55c79ec073f9d7b8cdd7775a3045e5b6ce14d1"
+ },
+ "evidence_sources": {
+  "ds31_painting_tstar_spray.png": {
+   "source": "Unity/Build/Design/31/white/unity/main/t28_spray/t28/render/af28r01_painting.png（Unity、t*、飛沫あり。そのまま）"
+  },
+  "ds31_air_side_top_t11.png": {
+   "source": "Unity/Build/Design/31/white/unity/main/stills/ds31_air_side_top_t11.00s.png（Unity、確認用の視点 side_top、t 11 s、作品の色。そのまま）"
+  },
+  "ds31_air_painting_t11.png": {
+   "source": "Unity/Build/Design/31/white/unity/main/stills/ds31_air_painting_t11.00s.png（Unity、原画視点、t 11 s、作品の色。そのまま）"
+  },
+  "fig_ds31_white_onset.png": {
+   "source": "Unity/Build/Design/31/white/evidence/fig_ds31_white_onset.png（numpy の白の割合と Unity の ID の数。そのまま）"
+  },
+  "fig_ds31_gen_stills_sheet.png": {
+   "source": "Unity/Build/Design/31/white/evidence/fig_ds31_gen_stills_sheet.png（1920×864 を 1920×1080 の枠へ。縮尺は同じ）"
+  },
+  "fig_ds31_adv_stills_sheet.png": {
+   "source": "Unity/Build/Design/31/white/evidence/fig_ds31_adv_stills_sheet.png（1920×864 を 1920×1080 の枠へ。縮尺は同じ）"
+  },
+  "fig_ds31_air_stills_sheet.png": {
+   "source": "Unity/Build/Design/31/white/evidence/fig_ds31_air_stills_sheet.png（1920×864 を 1920×1080 の枠へ。縮尺は同じ）"
+  },
+  "fig_ds31_spray_tstar_compare.png": {
+   "source": "Unity/Build/Design/31/spray/fig/fig_ds31_spray_tstar_compare.png（3240×1080 を縮めて枠へ）"
+  },
+  "fig_ds31_spray_stills.png": {
+   "source": "Unity/Build/Design/31/spray/fig/fig_ds31_spray_stills.png（5400×1560 を縮めて枠へ）"
+  },
+  "fig_ds31_152_crops.png": {
+   "source": "Unity/Build/Design/31/white/unity/main/pairs/painting_t11.0_on.png・seat_t11.5_on.png（飛沫が変えた画素の最も多い 480×540 の窓を 2 倍に拡大、最近傍）"
+  },
+  "ds31_grid_3x4_30fps.mp4": {
+   "source": "Unity/Build/Design/31/white/evidence/ds31_grid_3x4_30fps.mp4",
+   "sha256": "12741e6d2d3ebfa8309b9994c944fba19a3536f5beb90d1510d4959263bd6138"
+  },
+  "ds31_air_painting_30fps.mp4": {
+   "source": "Unity/Build/Design/31/white/unity/main/video/ds31_air_painting_30fps.mp4",
+   "sha256": "2349e57002f938d9118e46ad3f66425d907f5a6a5bd7f731de00d8a656005dc1"
+  },
+  "ds31_air_side_top_30fps.mp4": {
+   "source": "Unity/Build/Design/31/white/unity/main/video/ds31_air_side_top_30fps.mp4",
+   "sha256": "bfe0609aa51470ed445a6bb31bb94172f9fdbf3d356a6f03b5c9739bd936974d"
+  },
+  "ds31_gen_painting_30fps.mp4": {
+   "source": "Unity/Build/Design/31/white/unity/main/video/ds31_gen_painting_30fps.mp4",
+   "sha256": "11ef0db52da3c3c61f839e1c40f9da88de5c8d61a6dc8d922951ce6cda7fd4f5"
+  },
+  "ds31_adv_painting_30fps.mp4": {
+   "source": "Unity/Build/Design/31/white/unity/main/video/ds31_adv_painting_30fps.mp4",
+   "sha256": "09ae41af0fe339c032778ae700f00c966ac1e5f51ce5bfcbff15000b5669129f"
+  },
+  "ds31_white_metrics.json": {
+   "source": "Unity/Build/Design/31/white/evidence/metrics_white.json",
+   "sha256": "08d0d984b642aced5df32a37d1e8bad4a1a907184dc37adb4ff118ae05c96491"
+  },
+  "ds31_white_run.json": {
+   "source": "Unity/Build/Design/31/white/evidence/run_white.json",
+   "sha256": "976fab6225f7b0f7874002f3aab680973cc73b0bee8e2f3debc1798fe64d392a"
+  },
+  "ds31_white_onset.json": {
+   "source": "Unity/Build/Design/31/white/ds31_white_onset.json",
+   "sha256": "ba9fd1ea72732ead354d16dfaa86db50d2c0e9f17953f201cd938e7eedda697c"
+  },
+  "ds31_spray_checks.json": {
+   "source": "Unity/Build/Design/31/spray/ds31_spray_checks.json",
+   "sha256": "39c0c0bfe342cc65e4e591a490d6f524f8c0243fd91812b3799cc243876f9832"
+  },
+  "ds31_spray_generate_log.json": {
+   "source": "Unity/Build/Design/31/spray/ds31_spray_generate_log.json",
+   "sha256": "5ecf054a46e4de6827dffd34e557ab17f9fdf60244ab92c7422d25c0a40d4f38"
+  },
+  "ds31_spray_package.json": {
+   "source": "Unity/Build/Design/31/spray/ds31_spray_package.json",
+   "sha256": "98cb118884b3519313b8f856720d7cceed42b864470016d097d9923e79ff4cba"
+  },
+  "ds31_tstar_regress.json": {
+   "source": "Unity/Build/Design/31/white/unity/main/ds30_tstar_regress.json",
+   "sha256": "aa9bce3f4d4f43261d804d8acbfba75fa5afdb2a9f818a97c36083d7df84092e"
+  },
+  "ds31_ids_spray_sky.json": {
+   "source": "Unity/Build/Design/31/record/ds31_ids_spray_sky.json",
+   "sha256": "6c9163d569ec2928183f8ab604281edcade8ed860aff36517c872c12676630e3"
+  },
+  "ds31_s51_frames.json": {
+   "source": "Unity/Build/Design/31/record/ds31_s51_frames.json",
+   "sha256": "1e07660435d75d41bdf24f673ce3bbb94b028f7c2ea4afb3dcde32abed04fe20"
+  },
+  "ds31_unity_summary.json": {
+   "source": "Unity/Build/Design/31/white/unity/main/ds31_render_report.json"
+  }
+ },
+ "protected_ja": "DS31Render の報告で protectedUnchanged = True（設計30 の場面・スクリプトなど 11 件）",
+ "not_in_repo_ja": "パッケージの大きなファイル、Unity の描画の全出力（Unity/Build/Design/31/white/unity/main）、試しの出力（white/_tests、spray/_work）、独立の検査のコード（リポジトリの外）と出力の写し（Unity/Build/Design/31/indep_check）は Git 対象外。爪形分析・参照モデル・利用者の解算は使っていない"
+}

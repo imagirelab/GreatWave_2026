@@ -1,0 +1,43 @@
+{
+ "schema": "GreatWave.DS31.spray/1",
+ "number": "設計31",
+ "part": "飛沫 v0",
+ "count": 186,
+ "g_mps2": [
+  0.0,
+  -9.81,
+  0.0
+ ],
+ "clock_ja": "τ は主役波と同じ物理の時刻（t* = 0）。体験の時刻 t から timewarp_F_final.json の τ(t) で求める（主役波・海と同じ τ）。t* の後は τ = 0 のまま（静止）。",
+ "eval_ja": "τ' = min(τ, 0)。τ' < tau_show なら描かない。位置 = p_e + v0·Δ + ½·g·Δ²（Δ = max(τ' − τ_e, 0)）。半径 = radius·smoothstep((τ' − tau_show)/ramp_s)。",
+ "inst_file": "ds31_spray_inst_f32.bin",
+ "inst_sha256": "c764fe07da806c4da336f7d5580095e969f21db8f94c279b9e9df84fa03cac82",
+ "inst_bytes": 8928,
+ "inst_layout_ja": "float32 リトルエンディアン、数 × 12：p_e.xyz（ワールド m）、τ_e（s）、v0.xyz（m/s、τ の秒あたり）、半径（m）、tau_show（s）、ramp_s（s）、mode（0 = 逆弾道、1 = F8）、dot_id",
+ "knots_file": "ds31_spray_knots_f32.bin",
+ "knots_sha256": "373a8a685eef0efffa5e47d35c19b7ce23d32b4fc5cbaa88e0ee4abe4023debe",
+ "knots_bytes": 720192,
+ "knot_tau_source": "主役波のパッケージの knot_tau（242 個）",
+ "knots_layout_ja": "float32、層（242）× 数 × 4（x, y, z, 半径）。主役波の knot_tau での解析式の値（DS27 風）。放出の直後は節点の間で半径が 0 から立ち上がるので、Hermite より解析式を使うこと",
+ "knots_hermite_vs_analytic_max_m": 0.0004546019851403571,
+ "frames_file": "ds31_spray_frames.json",
+ "mesh_file": "ds31_sphere42.obj",
+ "mesh_vertices": 42,
+ "mesh_triangles": 80,
+ "render_ja": "Graphics.RenderMeshInstanced（または DrawMeshInstancedProcedural）で、無照明・不透明の単色（調色板の白）。透明・テクスチャの板（四角い下地）を使わない。藍の線の反転シェル（外殻線）を飛沫に付けない（黒い縁になる）。MSAA は場面のまま",
+ "colour_srgb8": [
+  251,
+  246,
+  227
+ ],
+ "colour_lab": [
+  96.731213,
+  -1.687503,
+  9.832239
+ ],
+ "colour_source": "Tools/PaintingTruth/targets/palette.json の white（白・生成り）",
+ "modes": {
+  "ballistic": 186,
+  "F8": 0
+ }
+}

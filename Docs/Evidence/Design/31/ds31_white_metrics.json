@@ -1,0 +1,1575 @@
+{
+ "schema": "GreatWave.DS31.white_metrics/1",
+ "acceptance": {
+  "102": {
+   "rule_ja": "白が 0 から連続して現れ、終態の白の内側（美術優先31 と同じ既定の読み：30 Hz の 1 コマで白くなる割合が終態の白の 2% 以下、終態が白でない所が白になる数 0）",
+   "value_ja": "テクセルの割合の 1 コマの増分の最大 1.83%（ds31_white_rate_cap の前 2.34%）、世界の面積の増分の最大 1.74%、最初の白 t 5.800 s（τ -2.800）、全部そろう t 11.267 s、終態の白の外の白：頂点 0・Unity の ID（原画視点・座席、各 32 時刻）0 画素",
+   "pass": true,
+   "af31_ja": "美術優先31：最初の白 2.012 s、30 Hz の 1 フレームの増分の最大 0.72%（テクセル）、世界の面積の 1 フレームの増分の最大 1.16%、終態が白でないテクセルが白になる数 0"
+  },
+  "176": {
+   "rule_ja": "白が広がる間も白の中の藍・水色が見える：一時的な白の塗りつぶし 0（Unity の ID の連続で、終態が白でない画素が白で表示された数 0、終態が白でない画素の表示が終態と違う数 0）",
+   "value_ja": "原画視点 32 時刻・座席 32 時刻で、白で表示された色区の画素 0、終態と違う表示の色区の画素 0",
+   "pass": true
+  },
+  "152": {
+   "pairs": 60,
+   "changed_px": 59151,
+   "dark_edge_px": 0,
+   "glow_px": 0,
+   "components": 1639,
+   "square_components": 0,
+   "fill_ratio_max": 0.8888888888888888,
+   "fill_ratio_median": 0.7397959183673469,
+   "components_ge64px": 217,
+   "pass": true,
+   "rule_ja": "152：飛沫あり・なしの同じコマの対（MSAA 8 の色の画像）。飛沫が変えた画素（どれかの色で差 > 6）について、\n    黒い縁＝輝度が「飛沫なしの画素」と「飛沫の白」の両方より 12 以上暗い画素、光る縁＝飛沫の白より 12 以上明るい画素、\n    四角い下地＝変わった画素の連結成分（8 近傍、≥ 64 画素＝形が読める大きさ。4 × 4 画素ほどの点は円でも四角を埋めるので形を問わない）で外接の四角に対する面積の比 ≥ 0.95 のもの（円は約 0.79）。どれも 0 が合格。"
+  },
+  "tstar_regression": {
+   "white_identical_to_ds30_all10": true,
+   "spray": {
+    "af28r01_painting.png": {
+     "diff_px": 4981,
+     "diff_px_rows_0_379": 283
+    },
+    "af28r01_seat.png": {
+     "diff_px": 13988
+    },
+    "af28r01_seat_low.png": {
+     "diff_px": 11919
+    },
+    "af28r01_painting_kstar.png": {
+     "diff_px": 4981
+    },
+    "af28r01_seat_kstar.png": {
+     "diff_px": 13988
+    },
+    "af28r01_seat_low_kstar.png": {
+     "diff_px": 11919
+    },
+    "af28r01_class_ids.png": {
+     "diff_px": 14000
+    },
+    "af28r01_seat_class_ids.png": {
+     "diff_px": 11047
+    },
+    "af28r01_seat_low_class_ids.png": {
+     "diff_px": 9230
+    },
+    "af28r01_line_ids.png": {
+     "diff_px": 14000
+    }
+   },
+   "spray_in_ids_evaluator": {
+    "lfgate": {
+     "132_sigma12_max": 126.74632713241976,
+     "72_sigma24_p95": 122.60391132599085,
+     "ids_sha256": "014fdd21788fcaa879709737ec53a1b1806b24e3ebcfaae60a384add41dff065"
+    },
+    "lfgate_diff_vs_29r01_px": {
+     "132_sigma12_max": 122.9911,
+     "72_sigma24_p95": 118.5964
+    },
+    "silhouette_diff_vs_29r01_px": {
+     "78": 0.0,
+     "130": 0.0,
+     "131": 0.0
+    },
+    "colour_worst_abs_diff_px": 13.642,
+    "items_over_0p5": [
+     "73",
+     "79",
+     "118",
+     "134",
+     "175",
+     "263"
+    ],
+    "sym_worst_abs_diff_px": 1.153,
+    "sym_worst_diff_vs_29r01_px": 0.0,
+    "note_ja": "飛沫を色区 ID（白）に入れて評価器を回した記録。大きな輪郭の関門（132・72）は空の中の飛沫の点を波として読むので大きくなる。採る読みは飛沫を ID に入れない t28_white（設計30 と 10 枚が画素まで同じ）"
+   }
+  },
+  "mock_stereo_record": {
+   "rule_ja": "記録のみ（HMD の項目は保留）：座席 v1・原画視点のカメラを ±0.032 m ずらした 2 回の描画で、飛沫が変えた画素の数の左右差（設計34 の <10% の目安の事前の値）",
+   "rows": [
+    {
+     "view": "seat",
+     "t": 10.0,
+     "sprayPxL": 1888,
+     "sprayPxR": 1898,
+     "relDiff": 0.005268703680485487
+    },
+    {
+     "view": "painting",
+     "t": 10.0,
+     "sprayPxL": 1344,
+     "sprayPxR": 1331,
+     "relDiff": 0.0096726194024086
+    },
+    {
+     "view": "seat",
+     "t": 11.0,
+     "sprayPxL": 7279,
+     "sprayPxR": 7315,
+     "relDiff": 0.004921394400298595
+    },
+    {
+     "view": "painting",
+     "t": 11.0,
+     "sprayPxL": 3135,
+     "sprayPxR": 3114,
+     "relDiff": 0.006698564626276493
+    },
+    {
+     "view": "seat",
+     "t": 12.0,
+     "sprayPxL": 12636,
+     "sprayPxR": 12694,
+     "relDiff": 0.004569087643176317
+    },
+    {
+     "view": "painting",
+     "t": 12.0,
+     "sprayPxL": 4065,
+     "sprayPxR": 4073,
+     "relDiff": 0.001964154187589884
+    }
+   ],
+   "rel_diff_max": 0.0096726194024086
+  }
+ },
+ "ids": {
+  "painting": {
+   "times": 32,
+   "first_white_t": 6.0,
+   "disp_white_final_not_total": 0,
+   "disp_nonwhite_not_final_total": 0,
+   "disp_white_at_tstar": 199513,
+   "final_white_at_tstar": 199513,
+   "disp_white_monotone": true,
+   "series": [
+    [
+     0.0,
+     0,
+     0,
+     0
+    ],
+    [
+     2.0,
+     0,
+     0,
+     0
+    ],
+    [
+     4.0,
+     0,
+     0,
+     0
+    ],
+    [
+     5.5,
+     0,
+     1129,
+     0
+    ],
+    [
+     5.75,
+     0,
+     2165,
+     0
+    ],
+    [
+     6.0,
+     276,
+     3484,
+     0
+    ],
+    [
+     6.25,
+     1002,
+     5107,
+     0
+    ],
+    [
+     6.5,
+     1566,
+     6897,
+     0
+    ],
+    [
+     6.75,
+     2238,
+     8790,
+     0
+    ],
+    [
+     7.0,
+     3028,
+     10814,
+     0
+    ],
+    [
+     7.25,
+     3925,
+     13495,
+     0
+    ],
+    [
+     7.5,
+     4693,
+     16710,
+     0
+    ],
+    [
+     7.75,
+     5632,
+     19815,
+     0
+    ],
+    [
+     8.0,
+     8045,
+     23279,
+     0
+    ],
+    [
+     8.25,
+     11369,
+     27375,
+     0
+    ],
+    [
+     8.5,
+     15339,
+     32725,
+     0
+    ],
+    [
+     8.75,
+     20138,
+     40769,
+     0
+    ],
+    [
+     9.0,
+     26384,
+     49949,
+     0
+    ],
+    [
+     9.25,
+     34470,
+     59095,
+     0
+    ],
+    [
+     9.5,
+     45124,
+     69659,
+     0
+    ],
+    [
+     9.75,
+     56266,
+     79581,
+     0
+    ],
+    [
+     10.0,
+     70227,
+     90859,
+     0
+    ],
+    [
+     10.25,
+     88092,
+     103896,
+     0
+    ],
+    [
+     10.5,
+     113832,
+     118735,
+     0
+    ],
+    [
+     10.75,
+     134996,
+     137350,
+     0
+    ],
+    [
+     11.0,
+     157930,
+     158844,
+     0
+    ],
+    [
+     11.25,
+     178310,
+     178317,
+     0
+    ],
+    [
+     11.5,
+     192163,
+     192163,
+     0
+    ],
+    [
+     11.75,
+     198575,
+     198575,
+     0
+    ],
+    [
+     12.0,
+     199513,
+     199513,
+     0
+    ],
+    [
+     13.0,
+     199513,
+     199513,
+     0
+    ],
+    [
+     14.0,
+     199513,
+     199513,
+     0
+    ]
+   ]
+  },
+  "seat": {
+   "times": 32,
+   "first_white_t": 8.75,
+   "disp_white_final_not_total": 0,
+   "disp_nonwhite_not_final_total": 0,
+   "disp_white_at_tstar": 88560,
+   "final_white_at_tstar": 88560,
+   "disp_white_monotone": true,
+   "series": [
+    [
+     0.0,
+     0,
+     0,
+     0
+    ],
+    [
+     2.0,
+     0,
+     0,
+     0
+    ],
+    [
+     4.0,
+     0,
+     0,
+     0
+    ],
+    [
+     5.5,
+     0,
+     0,
+     0
+    ],
+    [
+     5.75,
+     0,
+     0,
+     0
+    ],
+    [
+     6.0,
+     0,
+     0,
+     0
+    ],
+    [
+     6.25,
+     0,
+     0,
+     0
+    ],
+    [
+     6.5,
+     0,
+     0,
+     0
+    ],
+    [
+     6.75,
+     0,
+     0,
+     0
+    ],
+    [
+     7.0,
+     0,
+     0,
+     0
+    ],
+    [
+     7.25,
+     0,
+     0,
+     0
+    ],
+    [
+     7.5,
+     0,
+     0,
+     0
+    ],
+    [
+     7.75,
+     0,
+     0,
+     0
+    ],
+    [
+     8.0,
+     0,
+     0,
+     0
+    ],
+    [
+     8.25,
+     0,
+     0,
+     0
+    ],
+    [
+     8.5,
+     0,
+     0,
+     0
+    ],
+    [
+     8.75,
+     415,
+     680,
+     0
+    ],
+    [
+     9.0,
+     4099,
+     4165,
+     0
+    ],
+    [
+     9.25,
+     9241,
+     9657,
+     0
+    ],
+    [
+     9.5,
+     13810,
+     14377,
+     0
+    ],
+    [
+     9.75,
+     18039,
+     18040,
+     0
+    ],
+    [
+     10.0,
+     21437,
+     21437,
+     0
+    ],
+    [
+     10.25,
+     27660,
+     27660,
+     0
+    ],
+    [
+     10.5,
+     40685,
+     40685,
+     0
+    ],
+    [
+     10.75,
+     50987,
+     50987,
+     0
+    ],
+    [
+     11.0,
+     68844,
+     68844,
+     0
+    ],
+    [
+     11.25,
+     78484,
+     78484,
+     0
+    ],
+    [
+     11.5,
+     83505,
+     83505,
+     0
+    ],
+    [
+     11.75,
+     87337,
+     87337,
+     0
+    ],
+    [
+     12.0,
+     88560,
+     88560,
+     0
+    ],
+    [
+     13.0,
+     88560,
+     88560,
+     0
+    ],
+    [
+     14.0,
+     88560,
+     88560,
+     0
+    ]
+   ]
+  }
+ },
+ "rows152": [
+  {
+   "pair": "painting_t05.0",
+   "changed_px": 0,
+   "dark_edge_px": 0,
+   "glow_px": 0,
+   "components": 0,
+   "components_lt64px": 0,
+   "square_components": 0
+  },
+  {
+   "pair": "painting_t05.5",
+   "changed_px": 0,
+   "dark_edge_px": 0,
+   "glow_px": 0,
+   "components": 0,
+   "components_lt64px": 0,
+   "square_components": 0
+  },
+  {
+   "pair": "painting_t06.0",
+   "changed_px": 0,
+   "dark_edge_px": 0,
+   "glow_px": 0,
+   "components": 0,
+   "components_lt64px": 0,
+   "square_components": 0
+  },
+  {
+   "pair": "painting_t06.5",
+   "changed_px": 0,
+   "dark_edge_px": 0,
+   "glow_px": 0,
+   "components": 0,
+   "components_lt64px": 0,
+   "square_components": 0
+  },
+  {
+   "pair": "painting_t07.0",
+   "changed_px": 0,
+   "dark_edge_px": 0,
+   "glow_px": 0,
+   "components": 0,
+   "components_lt64px": 0,
+   "square_components": 0
+  },
+  {
+   "pair": "painting_t07.5",
+   "changed_px": 0,
+   "dark_edge_px": 0,
+   "glow_px": 0,
+   "components": 0,
+   "components_lt64px": 0,
+   "square_components": 0
+  },
+  {
+   "pair": "painting_t08.0",
+   "changed_px": 0,
+   "dark_edge_px": 0,
+   "glow_px": 0,
+   "components": 0,
+   "components_lt64px": 0,
+   "square_components": 0
+  },
+  {
+   "pair": "painting_t08.5",
+   "changed_px": 0,
+   "dark_edge_px": 0,
+   "glow_px": 0,
+   "components": 0,
+   "components_lt64px": 0,
+   "square_components": 0
+  },
+  {
+   "pair": "painting_t09.0",
+   "changed_px": 5,
+   "dark_edge_px": 0,
+   "glow_px": 0,
+   "components": 2,
+   "components_lt64px": 2,
+   "square_components": 0
+  },
+  {
+   "pair": "painting_t09.5",
+   "changed_px": 617,
+   "dark_edge_px": 0,
+   "glow_px": 0,
+   "components": 26,
+   "components_lt64px": 23,
+   "square_components": 0
+  },
+  {
+   "pair": "painting_t10.0",
+   "changed_px": 1344,
+   "dark_edge_px": 0,
+   "glow_px": 0,
+   "components": 96,
+   "components_lt64px": 94,
+   "square_components": 0
+  },
+  {
+   "pair": "painting_t10.5",
+   "changed_px": 2351,
+   "dark_edge_px": 0,
+   "glow_px": 0,
+   "components": 152,
+   "components_lt64px": 151,
+   "square_components": 0
+  },
+  {
+   "pair": "painting_t11.0",
+   "changed_px": 3143,
+   "dark_edge_px": 0,
+   "glow_px": 0,
+   "components": 163,
+   "components_lt64px": 160,
+   "square_components": 0
+  },
+  {
+   "pair": "painting_t11.5",
+   "changed_px": 3943,
+   "dark_edge_px": 0,
+   "glow_px": 0,
+   "components": 184,
+   "components_lt64px": 180,
+   "square_components": 0
+  },
+  {
+   "pair": "painting_t12.0",
+   "changed_px": 4027,
+   "dark_edge_px": 0,
+   "glow_px": 0,
+   "components": 182,
+   "components_lt64px": 178,
+   "square_components": 0
+  },
+  {
+   "pair": "seat_t05.0",
+   "changed_px": 0,
+   "dark_edge_px": 0,
+   "glow_px": 0,
+   "components": 0,
+   "components_lt64px": 0,
+   "square_components": 0
+  },
+  {
+   "pair": "seat_t05.5",
+   "changed_px": 0,
+   "dark_edge_px": 0,
+   "glow_px": 0,
+   "components": 0,
+   "components_lt64px": 0,
+   "square_components": 0
+  },
+  {
+   "pair": "seat_t06.0",
+   "changed_px": 0,
+   "dark_edge_px": 0,
+   "glow_px": 0,
+   "components": 0,
+   "components_lt64px": 0,
+   "square_components": 0
+  },
+  {
+   "pair": "seat_t06.5",
+   "changed_px": 0,
+   "dark_edge_px": 0,
+   "glow_px": 0,
+   "components": 0,
+   "components_lt64px": 0,
+   "square_components": 0
+  },
+  {
+   "pair": "seat_t07.0",
+   "changed_px": 0,
+   "dark_edge_px": 0,
+   "glow_px": 0,
+   "components": 0,
+   "components_lt64px": 0,
+   "square_components": 0
+  },
+  {
+   "pair": "seat_t07.5",
+   "changed_px": 0,
+   "dark_edge_px": 0,
+   "glow_px": 0,
+   "components": 0,
+   "components_lt64px": 0,
+   "square_components": 0
+  },
+  {
+   "pair": "seat_t08.0",
+   "changed_px": 0,
+   "dark_edge_px": 0,
+   "glow_px": 0,
+   "components": 0,
+   "components_lt64px": 0,
+   "square_components": 0
+  },
+  {
+   "pair": "seat_t08.5",
+   "changed_px": 0,
+   "dark_edge_px": 0,
+   "glow_px": 0,
+   "components": 0,
+   "components_lt64px": 0,
+   "square_components": 0
+  },
+  {
+   "pair": "seat_t09.0",
+   "changed_px": 0,
+   "dark_edge_px": 0,
+   "glow_px": 0,
+   "components": 0,
+   "components_lt64px": 0,
+   "square_components": 0
+  },
+  {
+   "pair": "seat_t09.5",
+   "changed_px": 340,
+   "dark_edge_px": 0,
+   "glow_px": 0,
+   "components": 7,
+   "components_lt64px": 4,
+   "square_components": 0
+  },
+  {
+   "pair": "seat_t10.0",
+   "changed_px": 1884,
+   "dark_edge_px": 0,
+   "glow_px": 0,
+   "components": 63,
+   "components_lt64px": 56,
+   "square_components": 0
+  },
+  {
+   "pair": "seat_t10.5",
+   "changed_px": 4298,
+   "dark_edge_px": 0,
+   "glow_px": 0,
+   "components": 127,
+   "components_lt64px": 112,
+   "square_components": 0
+  },
+  {
+   "pair": "seat_t11.0",
+   "changed_px": 7300,
+   "dark_edge_px": 0,
+   "glow_px": 0,
+   "components": 132,
+   "components_lt64px": 101,
+   "square_components": 0
+  },
+  {
+   "pair": "seat_t11.5",
+   "changed_px": 11767,
+   "dark_edge_px": 0,
+   "glow_px": 0,
+   "components": 144,
+   "components_lt64px": 72,
+   "square_components": 0
+  },
+  {
+   "pair": "seat_t12.0",
+   "changed_px": 12643,
+   "dark_edge_px": 0,
+   "glow_px": 0,
+   "components": 136,
+   "components_lt64px": 65,
+   "square_components": 0
+  },
+  {
+   "pair": "side_left_t05.0",
+   "changed_px": 0,
+   "dark_edge_px": 0,
+   "glow_px": 0,
+   "components": 0,
+   "components_lt64px": 0,
+   "square_components": 0
+  },
+  {
+   "pair": "side_left_t05.5",
+   "changed_px": 0,
+   "dark_edge_px": 0,
+   "glow_px": 0,
+   "components": 0,
+   "components_lt64px": 0,
+   "square_components": 0
+  },
+  {
+   "pair": "side_left_t06.0",
+   "changed_px": 0,
+   "dark_edge_px": 0,
+   "glow_px": 0,
+   "components": 0,
+   "components_lt64px": 0,
+   "square_components": 0
+  },
+  {
+   "pair": "side_left_t06.5",
+   "changed_px": 0,
+   "dark_edge_px": 0,
+   "glow_px": 0,
+   "components": 0,
+   "components_lt64px": 0,
+   "square_components": 0
+  },
+  {
+   "pair": "side_left_t07.0",
+   "changed_px": 0,
+   "dark_edge_px": 0,
+   "glow_px": 0,
+   "components": 0,
+   "components_lt64px": 0,
+   "square_components": 0
+  },
+  {
+   "pair": "side_left_t07.5",
+   "changed_px": 0,
+   "dark_edge_px": 0,
+   "glow_px": 0,
+   "components": 0,
+   "components_lt64px": 0,
+   "square_components": 0
+  },
+  {
+   "pair": "side_left_t08.0",
+   "changed_px": 0,
+   "dark_edge_px": 0,
+   "glow_px": 0,
+   "components": 0,
+   "components_lt64px": 0,
+   "square_components": 0
+  },
+  {
+   "pair": "side_left_t08.5",
+   "changed_px": 0,
+   "dark_edge_px": 0,
+   "glow_px": 0,
+   "components": 0,
+   "components_lt64px": 0,
+   "square_components": 0
+  },
+  {
+   "pair": "side_left_t09.0",
+   "changed_px": 0,
+   "dark_edge_px": 0,
+   "glow_px": 0,
+   "components": 0,
+   "components_lt64px": 0,
+   "square_components": 0
+  },
+  {
+   "pair": "side_left_t09.5",
+   "changed_px": 1,
+   "dark_edge_px": 0,
+   "glow_px": 0,
+   "components": 1,
+   "components_lt64px": 1,
+   "square_components": 0
+  },
+  {
+   "pair": "side_left_t10.0",
+   "changed_px": 4,
+   "dark_edge_px": 0,
+   "glow_px": 0,
+   "components": 2,
+   "components_lt64px": 2,
+   "square_components": 0
+  },
+  {
+   "pair": "side_left_t10.5",
+   "changed_px": 1,
+   "dark_edge_px": 0,
+   "glow_px": 0,
+   "components": 1,
+   "components_lt64px": 1,
+   "square_components": 0
+  },
+  {
+   "pair": "side_left_t11.0",
+   "changed_px": 0,
+   "dark_edge_px": 0,
+   "glow_px": 0,
+   "components": 0,
+   "components_lt64px": 0,
+   "square_components": 0
+  },
+  {
+   "pair": "side_left_t11.5",
+   "changed_px": 0,
+   "dark_edge_px": 0,
+   "glow_px": 0,
+   "components": 0,
+   "components_lt64px": 0,
+   "square_components": 0
+  },
+  {
+   "pair": "side_left_t12.0",
+   "changed_px": 0,
+   "dark_edge_px": 0,
+   "glow_px": 0,
+   "components": 0,
+   "components_lt64px": 0,
+   "square_components": 0
+  },
+  {
+   "pair": "side_top_t05.0",
+   "changed_px": 0,
+   "dark_edge_px": 0,
+   "glow_px": 0,
+   "components": 0,
+   "components_lt64px": 0,
+   "square_components": 0
+  },
+  {
+   "pair": "side_top_t05.5",
+   "changed_px": 0,
+   "dark_edge_px": 0,
+   "glow_px": 0,
+   "components": 0,
+   "components_lt64px": 0,
+   "square_components": 0
+  },
+  {
+   "pair": "side_top_t06.0",
+   "changed_px": 0,
+   "dark_edge_px": 0,
+   "glow_px": 0,
+   "components": 0,
+   "components_lt64px": 0,
+   "square_components": 0
+  },
+  {
+   "pair": "side_top_t06.5",
+   "changed_px": 0,
+   "dark_edge_px": 0,
+   "glow_px": 0,
+   "components": 0,
+   "components_lt64px": 0,
+   "square_components": 0
+  },
+  {
+   "pair": "side_top_t07.0",
+   "changed_px": 0,
+   "dark_edge_px": 0,
+   "glow_px": 0,
+   "components": 0,
+   "components_lt64px": 0,
+   "square_components": 0
+  },
+  {
+   "pair": "side_top_t07.5",
+   "changed_px": 0,
+   "dark_edge_px": 0,
+   "glow_px": 0,
+   "components": 0,
+   "components_lt64px": 0,
+   "square_components": 0
+  },
+  {
+   "pair": "side_top_t08.0",
+   "changed_px": 0,
+   "dark_edge_px": 0,
+   "glow_px": 0,
+   "components": 0,
+   "components_lt64px": 0,
+   "square_components": 0
+  },
+  {
+   "pair": "side_top_t08.5",
+   "changed_px": 0,
+   "dark_edge_px": 0,
+   "glow_px": 0,
+   "components": 0,
+   "components_lt64px": 0,
+   "square_components": 0
+  },
+  {
+   "pair": "side_top_t09.0",
+   "changed_px": 0,
+   "dark_edge_px": 0,
+   "glow_px": 0,
+   "components": 0,
+   "components_lt64px": 0,
+   "square_components": 0
+  },
+  {
+   "pair": "side_top_t09.5",
+   "changed_px": 61,
+   "dark_edge_px": 0,
+   "glow_px": 0,
+   "components": 3,
+   "components_lt64px": 3,
+   "square_components": 0
+  },
+  {
+   "pair": "side_top_t10.0",
+   "changed_px": 274,
+   "dark_edge_px": 0,
+   "glow_px": 0,
+   "components": 13,
+   "components_lt64px": 13,
+   "square_components": 0
+  },
+  {
+   "pair": "side_top_t10.5",
+   "changed_px": 930,
+   "dark_edge_px": 0,
+   "glow_px": 0,
+   "components": 37,
+   "components_lt64px": 37,
+   "square_components": 0
+  },
+  {
+   "pair": "side_top_t11.0",
+   "changed_px": 1208,
+   "dark_edge_px": 0,
+   "glow_px": 0,
+   "components": 45,
+   "components_lt64px": 45,
+   "square_components": 0
+  },
+  {
+   "pair": "side_top_t11.5",
+   "changed_px": 1453,
+   "dark_edge_px": 0,
+   "glow_px": 0,
+   "components": 59,
+   "components_lt64px": 59,
+   "square_components": 0
+  },
+  {
+   "pair": "side_top_t12.0",
+   "changed_px": 1557,
+   "dark_edge_px": 0,
+   "glow_px": 0,
+   "components": 64,
+   "components_lt64px": 63,
+   "square_components": 0
+  }
+ ],
+ "regression": {
+  "white_vs_ds30": {
+   "af28r01_painting.png": true,
+   "af28r01_seat.png": true,
+   "af28r01_seat_low.png": true,
+   "af28r01_painting_kstar.png": true,
+   "af28r01_seat_kstar.png": true,
+   "af28r01_seat_low_kstar.png": true,
+   "af28r01_class_ids.png": true,
+   "af28r01_seat_class_ids.png": true,
+   "af28r01_seat_low_class_ids.png": true,
+   "af28r01_line_ids.png": true
+  },
+  "spray_vs_ds30": {
+   "af28r01_painting.png": {
+    "diff_px": 4981,
+    "diff_px_rows_0_379": 283
+   },
+   "af28r01_seat.png": {
+    "diff_px": 13988
+   },
+   "af28r01_seat_low.png": {
+    "diff_px": 11919
+   },
+   "af28r01_painting_kstar.png": {
+    "diff_px": 4981
+   },
+   "af28r01_seat_kstar.png": {
+    "diff_px": 13988
+   },
+   "af28r01_seat_low_kstar.png": {
+    "diff_px": 11919
+   },
+   "af28r01_class_ids.png": {
+    "diff_px": 14000
+   },
+   "af28r01_seat_class_ids.png": {
+    "diff_px": 11047
+   },
+   "af28r01_seat_low_class_ids.png": {
+    "diff_px": 9230
+   },
+   "af28r01_line_ids.png": {
+    "diff_px": 14000
+   }
+  },
+  "white_identical_all10": true,
+  "spray_in_ids_evaluator": {
+   "lfgate": {
+    "132_sigma12_max": 126.74632713241976,
+    "72_sigma24_p95": 122.60391132599085,
+    "ids_sha256": "014fdd21788fcaa879709737ec53a1b1806b24e3ebcfaae60a384add41dff065"
+   },
+   "lfgate_diff_vs_29r01_px": {
+    "132_sigma12_max": 122.9911,
+    "72_sigma24_p95": 118.5964
+   },
+   "silhouette_diff_vs_29r01_px": {
+    "78": 0.0,
+    "130": 0.0,
+    "131": 0.0
+   },
+   "colour_worst_abs_diff_px": 13.642,
+   "items_over_0p5": [
+    "73",
+    "79",
+    "118",
+    "134",
+    "175",
+    "263"
+   ],
+   "sym_worst_abs_diff_px": 1.153,
+   "sym_worst_diff_vs_29r01_px": 0.0,
+   "note_ja": "飛沫を色区 ID（白）に入れて評価器を回した記録。大きな輪郭の関門（132・72）は空の中の飛沫の点を波として読むので大きくなる。採る読みは飛沫を ID に入れない t28_white（設計30 と 10 枚が画素まで同じ）"
+  }
+ },
+ "rate_cap": {
+  "cap": 0.018,
+  "frames_changed": 6,
+  "vertices_moved": 9020,
+  "t_shift_max_s": 0.026045573884319495,
+  "tau_shift_max_s": 0.013022787067628716,
+  "window_t": [
+   10.3,
+   10.466666666666667
+  ],
+  "before": {
+   "texel_fraction_max_increment_per_frame": 0.0233669973852505
+  },
+  "file": "ds31_twhite_r32f.bin",
+  "sha256": "5ffc93def0174c953040f0a69088be7856820f1ae9eb7c90b312594d4099f39e"
+ },
+ "numpy": {
+  "rule_ja": "美術優先31 と同じ読み：白は 0 から連続して現れる（30 Hz の 1 コマで白くなる割合が終態の白の 2% 以下）、終態の白の外に白が出ない",
+  "first_white_t": 5.833333333333333,
+  "first_white_tau": -2.7833333338333333,
+  "first_white_tau_exact": -2.799968719482422,
+  "first_white_t_exact": 5.80006256105017,
+  "all_white_t": 11.266666666666667,
+  "all_white_tau": -0.095093164111066,
+  "white_before_first": 0,
+  "vertex_fraction_max_increment_per_frame": 0.020794020794020762,
+  "vertex_fraction_max_increment_frame": 281,
+  "vertex_fraction_monotone": true,
+  "area_fraction_max_increment_per_frame": 0.017372146098419416,
+  "area_fraction_max_increment_frame": 309,
+  "area_final_m2": 1088.5208282198012,
+  "never_white_vertices_turning_white": 0,
+  "threshold_increment": 0.02,
+  "note_vertex_ja": "頂点の数の割合は、唇の帯の列が 2 cm おきに詰まっているので、面の広がりの読みにならない（記録のみ）。判定はテクセルの割合と世界の面積（美術優先31 と同じ）",
+  "texel_white_final": 4030214,
+  "texel_never_white_by_tstar": 704,
+  "texel_fraction_max_increment_per_frame": 0.018259576290489687,
+  "texel_fraction_max_increment_frame": 311,
+  "texel_fraction_monotone": true,
+  "texel_fraction_at_tstar": 0.9998253194495379,
+  "texel_first_white_t": 5.833333333333333,
+  "pass": true,
+  "af31_values_ja": "美術優先31：最初の白 2.012 s、30 Hz の 1 フレームの増分の最大 0.72%（テクセル）、世界の面積の 1 フレームの増分の最大 1.16%、終態が白でないテクセルが白になる数 0"
+ },
+ "onset": {
+  "records": 27027,
+  "regions": {
+   "0": {
+    "name_ja": "背面（頂より後ろ）",
+    "vertices": 7761,
+    "tau_first": -2.222734212875366,
+    "tau_last": -0.34219497442245483,
+    "t_first": 6.954531575249267,
+    "t_last": 10.715610051901503,
+    "speed_median_mps": 19.740450880802804,
+    "speed_p95_mps": 22.29615639033205
+   },
+   "1": {
+    "name_ja": "唇の上面（頂 → 唇先）",
+    "vertices": 12751,
+    "tau_first": -2.799968719482422,
+    "tau_last": -0.10000000149011612,
+    "t_first": 5.80006256105017,
+    "t_last": 11.252078858738644,
+    "speed_median_mps": 19.839117191776488,
+    "speed_p95_mps": 22.938990131374574
+   },
+   "2": {
+    "name_ja": "唇の下面（唇先 → 角）",
+    "vertices": 6439,
+    "tau_first": -2.7803471088409424,
+    "tau_last": -0.40660208463668823,
+    "t_first": 5.839305782751503,
+    "t_last": 10.586795830895625,
+    "speed_median_mps": 18.333902144968093,
+    "speed_p95_mps": 20.78748552913363
+   },
+   "3": {
+    "name_ja": "内壁（角 → 前の足）",
+    "vertices": 76,
+    "tau_first": -0.743633031845093,
+    "tau_last": -0.44122451543808,
+    "t_first": 9.912733936365958,
+    "t_last": 10.51755097012384,
+    "speed_median_mps": 14.176575770198315,
+    "speed_p95_mps": 16.893924064898695
+   }
+  },
+  "j_top_per_row_range": [
+   90,
+   197
+  ],
+  "landmarks": {
+   "j_tip": 200,
+   "j_corner": 314,
+   "j_E": 394
+  },
+  "selection_ja": "T_white が有限（t* までに白になる）かつ 29修正01 の色面で頂点の色区が白、かつ設計30 で描く本体の列 18〜394 の頂点"
+ },
+ "marks": {
+  "born": {
+   "schema": "GreatWave.DS31.particles/1",
+   "frames": 421,
+   "hz": 30,
+   "t0": 0.0,
+   "count": 3000,
+   "file": "ds31_marks_born.bin",
+   "sha256": "337fe942d2edfb94820c9bf45926e6fdfc7cc8db39a8dc27b32aa6083267f231",
+   "bytes": 20208000,
+   "layout_ja": "float32 リトルエンディアン、コマ × 数 × 4（x, y, z, 半径）。ワールドの m。半径 0 は描かない。コマ k は体験の時刻 t = t0 + k/hz（t ≥ 12 s は t* の静止）",
+   "colour": [
+    0.86,
+    0.1,
+    0.08
+   ],
+   "note_ja": "いま白くなった所（T_white を過ぎて 0.25 s 以内の頂点、コマごと最大 3000、シートに付く）。確認用の印で、作品には入れない",
+   "born_counts_max": 3760
+  },
+  "trace": {
+   "schema": "GreatWave.DS31.particles/1",
+   "frames": 421,
+   "hz": 30,
+   "t0": 0.0,
+   "count": 526,
+   "file": "ds31_marks_trace.bin",
+   "sha256": "907374c352002d958cbb6976b529e283bce98b743c973a9572dc33ca48ba4078",
+   "bytes": 3543136,
+   "layout_ja": "float32 リトルエンディアン、コマ × 数 × 4（x, y, z, 半径）。ワールドの m。半径 0 は描かない。コマ k は体験の時刻 t = t0 + k/hz（t ≥ 12 s は t* の静止）",
+   "colour": [
+    0.93,
+    0.42,
+    0.1
+   ],
+   "note_ja": "移流の印（区間ごとに層別に選んだ 526 頂点。白くなった時から t* までシートの頂点に付いて動く）。確認用の印で、作品には入れない",
+   "carry_m_median": 14.646735938648874,
+   "carry_m_max": 56.56920856320628,
+   "carry_m_min": 1.7840037738454948,
+   "picked_regions": {
+    "0": 150,
+    "1": 150,
+    "2": 150,
+    "3": 76
+   }
+  }
+ },
+ "unity": {
+  "unity": "6000.4.3f1",
+  "device": "NVIDIA GeForce RTX 3080",
+  "graphicsApi": "Direct3D11",
+  "heroPkg": "Build/Design/31/white/hero_pkg",
+  "heroTwhiteSha256": "5ffc93def0174c953040f0a69088be7856820f1ae9eb7c90b312594d4099f39e",
+  "scene31": "Assets/GreatWave/Design31/Scenes/DS31_WhiteSpray.unity",
+  "scene31Sha256": "2c36fd2479cfe9256c2ca2669014bc623ad4e34f76123e8de43eb08e1b5e5312",
+  "sprayPath": "G:\\Unity\\GreatWave_2026_Fresh\\Unity\\Build\\Design\\31\\spray\\ds31_spray_frames.json",
+  "protectedUnchanged": true,
+  "shaderAllCompiled": true,
+  "secondsTotal": 97.80952453613281,
+  "tauAtTStar": 0.0
+ },
+ "particles": [
+  {
+   "name": "spray",
+   "dataPath": "G:\\Unity\\GreatWave_2026_Fresh\\Unity\\Build\\Design\\31\\spray\\ds31_spray_frames.json",
+   "dataSha256": "9db0a42811aa2c72f1cefbf8b80386f2e919a8b80fe65f7e91dd6a60c9b25c5f",
+   "count": 186,
+   "frames": 421,
+   "maxAlive": 186,
+   "sphereTriangles": 80,
+   "hz": 30.0,
+   "gpuBytes": 2976,
+   "colour": [
+    0.9843000173568726,
+    0.9646999835968018,
+    0.8902000188827515
+   ]
+  },
+  {
+   "name": "spray_diag",
+   "dataPath": "G:\\Unity\\GreatWave_2026_Fresh\\Unity\\Build\\Design\\31\\spray\\ds31_spray_frames.json",
+   "dataSha256": "9db0a42811aa2c72f1cefbf8b80386f2e919a8b80fe65f7e91dd6a60c9b25c5f",
+   "count": 186,
+   "frames": 421,
+   "maxAlive": 186,
+   "sphereTriangles": 80,
+   "hz": 30.0,
+   "gpuBytes": 2976,
+   "colour": [
+    0.9300000071525574,
+    0.15000000596046448,
+    0.7200000286102295
+   ]
+  },
+  {
+   "name": "born",
+   "dataPath": "G:\\Unity\\GreatWave_2026_Fresh\\Unity\\Build\\Design\\31\\white\\ds31_marks_born.json",
+   "dataSha256": "337fe942d2edfb94820c9bf45926e6fdfc7cc8db39a8dc27b32aa6083267f231",
+   "count": 3000,
+   "frames": 421,
+   "maxAlive": 3000,
+   "sphereTriangles": 80,
+   "hz": 30.0,
+   "gpuBytes": 48000,
+   "colour": [
+    0.8600000143051147,
+    0.10000000149011612,
+    0.07999999821186066
+   ]
+  },
+  {
+   "name": "trace",
+   "dataPath": "G:\\Unity\\GreatWave_2026_Fresh\\Unity\\Build\\Design\\31\\white\\ds31_marks_trace.json",
+   "dataSha256": "907374c352002d958cbb6976b529e283bce98b743c973a9572dc33ca48ba4078",
+   "count": 526,
+   "frames": 421,
+   "maxAlive": 526,
+   "sphereTriangles": 80,
+   "hz": 30.0,
+   "gpuBytes": 8416,
+   "colour": [
+    0.9300000071525574,
+    0.41999998688697815,
+    0.10000000149011612
+   ]
+  }
+ ],
+ "shader_checks": [
+  {
+   "keywords": "",
+   "stage": "Vertex",
+   "messages": "",
+   "compiled": true,
+   "stereoCheck": false,
+   "rtArrayIndexInOutput": false
+  },
+  {
+   "keywords": "",
+   "stage": "Fragment",
+   "messages": "",
+   "compiled": true,
+   "stereoCheck": false,
+   "rtArrayIndexInOutput": false
+  },
+  {
+   "keywords": "INSTANCING_ON",
+   "stage": "Vertex",
+   "messages": "",
+   "compiled": true,
+   "stereoCheck": false,
+   "rtArrayIndexInOutput": false
+  },
+  {
+   "keywords": "INSTANCING_ON",
+   "stage": "Fragment",
+   "messages": "",
+   "compiled": true,
+   "stereoCheck": false,
+   "rtArrayIndexInOutput": false
+  },
+  {
+   "keywords": "STEREO_INSTANCING_ON INSTANCING_ON",
+   "stage": "Vertex",
+   "messages": "",
+   "compiled": true,
+   "stereoCheck": true,
+   "rtArrayIndexInOutput": true
+  },
+  {
+   "keywords": "STEREO_INSTANCING_ON INSTANCING_ON",
+   "stage": "Fragment",
+   "messages": "",
+   "compiled": true,
+   "stereoCheck": false,
+   "rtArrayIndexInOutput": false
+  }
+ ],
+ "videos": [
+  {
+   "set": "gen",
+   "view": "painting",
+   "path": "G:\\Unity\\GreatWave_2026_Fresh\\Unity\\Build\\Design\\31\\white\\unity\\main\\video\\ds31_gen_painting_30fps.mp4",
+   "sha256": "11ef0db52da3c3c61f839e1c40f9da88de5c8d61a6dc8d922951ce6cda7fd4f5",
+   "ffmpegError": "",
+   "frames": 421,
+   "fps": 30,
+   "seconds": 6.3163018226623535
+  },
+  {
+   "set": "gen",
+   "view": "seat",
+   "path": "G:\\Unity\\GreatWave_2026_Fresh\\Unity\\Build\\Design\\31\\white\\unity\\main\\video\\ds31_gen_seat_30fps.mp4",
+   "sha256": "1ac3d049ae4f8778e649b6bfb08e27aab7d09b5b2e9098177573a657d89df699",
+   "ffmpegError": "",
+   "frames": 421,
+   "fps": 30,
+   "seconds": 6.1303300857543945
+  },
+  {
+   "set": "gen",
+   "view": "side_left",
+   "path": "G:\\Unity\\GreatWave_2026_Fresh\\Unity\\Build\\Design\\31\\white\\unity\\main\\video\\ds31_gen_side_left_30fps.mp4",
+   "sha256": "1254ace01b1fc014fb0012a225452afdd4d08a13c1fc81f98a129cdbf60f94c7",
+   "ffmpegError": "",
+   "frames": 421,
+   "fps": 30,
+   "seconds": 5.7352070808410645
+  },
+  {
+   "set": "gen",
+   "view": "side_top",
+   "path": "G:\\Unity\\GreatWave_2026_Fresh\\Unity\\Build\\Design\\31\\white\\unity\\main\\video\\ds31_gen_side_top_30fps.mp4",
+   "sha256": "f9c59733830dd769404f0bd147a3c4610e4dbd664ecbb1328d235d6b3baafb05",
+   "ffmpegError": "",
+   "frames": 421,
+   "fps": 30,
+   "seconds": 6.039710521697998
+  },
+  {
+   "set": "adv",
+   "view": "painting",
+   "path": "G:\\Unity\\GreatWave_2026_Fresh\\Unity\\Build\\Design\\31\\white\\unity\\main\\video\\ds31_adv_painting_30fps.mp4",
+   "sha256": "09ae41af0fe339c032778ae700f00c966ac1e5f51ce5bfcbff15000b5669129f",
+   "ffmpegError": "",
+   "frames": 421,
+   "fps": 30,
+   "seconds": 6.122887134552002
+  },
+  {
+   "set": "adv",
+   "view": "seat",
+   "path": "G:\\Unity\\GreatWave_2026_Fresh\\Unity\\Build\\Design\\31\\white\\unity\\main\\video\\ds31_adv_seat_30fps.mp4",
+   "sha256": "6a111af98adecd503a6bb5a3f4013a9024f85e2be56542913ea0219c8ec01d2e",
+   "ffmpegError": "",
+   "frames": 421,
+   "fps": 30,
+   "seconds": 6.300013065338135
+  },
+  {
+   "set": "adv",
+   "view": "side_left",
+   "path": "G:\\Unity\\GreatWave_2026_Fresh\\Unity\\Build\\Design\\31\\white\\unity\\main\\video\\ds31_adv_side_left_30fps.mp4",
+   "sha256": "e0fa834326534418efa57762665ba21c75eabb97f895a7606680569d3ea8528b",
+   "ffmpegError": "",
+   "frames": 421,
+   "fps": 30,
+   "seconds": 5.932636737823486
+  },
+  {
+   "set": "adv",
+   "view": "side_top",
+   "path": "G:\\Unity\\GreatWave_2026_Fresh\\Unity\\Build\\Design\\31\\white\\unity\\main\\video\\ds31_adv_side_top_30fps.mp4",
+   "sha256": "22d6276f4f04d212c016bc103725e5ce00afce24038bda27d5353f54a48f2212",
+   "ffmpegError": "",
+   "frames": 421,
+   "fps": 30,
+   "seconds": 5.954489707946777
+  },
+  {
+   "set": "air",
+   "view": "painting",
+   "path": "G:\\Unity\\GreatWave_2026_Fresh\\Unity\\Build\\Design\\31\\white\\unity\\main\\video\\ds31_air_painting_30fps.mp4",
+   "sha256": "2349e57002f938d9118e46ad3f66425d907f5a6a5bd7f731de00d8a656005dc1",
+   "ffmpegError": "",
+   "frames": 421,
+   "fps": 30,
+   "seconds": 5.346059322357178
+  },
+  {
+   "set": "air",
+   "view": "seat",
+   "path": "G:\\Unity\\GreatWave_2026_Fresh\\Unity\\Build\\Design\\31\\white\\unity\\main\\video\\ds31_air_seat_30fps.mp4",
+   "sha256": "ddb102b25b15c35f240d5d6d5825827fb30c39d0d519ff6eeb9e299df00f2776",
+   "ffmpegError": "",
+   "frames": 421,
+   "fps": 30,
+   "seconds": 5.350671291351318
+  },
+  {
+   "set": "air",
+   "view": "side_left",
+   "path": "G:\\Unity\\GreatWave_2026_Fresh\\Unity\\Build\\Design\\31\\white\\unity\\main\\video\\ds31_air_side_left_30fps.mp4",
+   "sha256": "e153e0e19e2665e026820b482a99152600623e13b75699e74f0543cc5385e495",
+   "ffmpegError": "",
+   "frames": 421,
+   "fps": 30,
+   "seconds": 5.216413497924805
+  },
+  {
+   "set": "air",
+   "view": "side_top",
+   "path": "G:\\Unity\\GreatWave_2026_Fresh\\Unity\\Build\\Design\\31\\white\\unity\\main\\video\\ds31_air_side_top_30fps.mp4",
+   "sha256": "bfe0609aa51470ed445a6bb31bb94172f9fdbf3d356a6f03b5c9739bd936974d",
+   "ffmpegError": "",
+   "frames": 421,
+   "fps": 30,
+   "seconds": 5.226489067077637
+  }
+ ],
+ "grid_video": {
+  "path": "G:/Unity/GreatWave_2026_Fresh/Unity/Build/Design/31/white/evidence/ds31_grid_3x4_30fps.mp4",
+  "sha256": "12741e6d2d3ebfa8309b9994c944fba19a3536f5beb90d1510d4959263bd6138",
+  "ffmpeg_error": "",
+  "layout_ja": "行＝gen（発生位置：赤＝いま白くなった所の印、赤紫＝飛沫を確認用の色で）・adv（移流：朱＝白くなった後シートに付いて動く印、赤紫＝飛沫）・air（空中の粒子：飛沫だけ、作品の色＝白）、列＝painting・seat・side_left・side_top"
+ },
+ "alive_max": {
+  "spray": 186,
+  "born": 3000,
+  "trace": 526
+ }
+}

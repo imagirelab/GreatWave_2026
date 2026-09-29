@@ -1,0 +1,116 @@
+{
+ "number": "設計31",
+ "part": "飛沫",
+ "schema": "GreatWave.DS31.spray_log/1",
+ "params": {
+  "zone_display": [
+   790.0,
+   290.0,
+   1260.0,
+   770.0
+  ],
+  "dog_sigma": [
+   3.0,
+   10.0
+  ],
+  "white_b_weight": 1.5,
+  "k_noise": 3.0,
+  "dog_min": 2.5,
+  "sky_erode_ref_px": 15,
+  "area_ref_px": [
+   12,
+   2500
+  ],
+  "max_aspect": 3.0,
+  "lip_ref_rows": [
+   125,
+   195
+  ],
+  "lip_col": 200,
+  "layer_m": [
+   0.5,
+   3.0
+  ],
+  "occl_margin_m": 0.3,
+  "emit_rows": [
+   110,
+   215
+  ],
+  "emit_cols": [
+   176,
+   224
+  ],
+  "emit_col_step": 2,
+  "tau_e": [
+   -2.8,
+   -0.08
+  ],
+  "tau_e_step": 0.02,
+  "vel_h": 0.005,
+  "max_angle_deg": 45.0,
+  "speed_ratio": [
+   0.5,
+   2.0
+  ],
+  "score_ratio_w": 20.0,
+  "top_k": 16,
+  "check_hz": 240.0,
+  "check_skip_s": 0.0,
+  "emit_offset_m": 0.01,
+  "sep_m": 0.1,
+  "sep_within_s": 0.3,
+  "vertex_slack_m": 0.1,
+  "parity_gate_m": 1.0,
+  "contact_extra_m": 0.05,
+  "contact_lat_m": 0.6,
+  "inside_dist_m": 1.5,
+  "gap_after_s": 0.2,
+  "near_rows_checked": [
+   0,
+   30
+  ],
+  "ramp_s": 0.08,
+  "f8_fall_s": 0.4,
+  "f8_ramp_s": 0.1,
+  "radius_min_m": 0.03
+ },
+ "inputs": {
+  "hero_pkg": "Unity/Build/Design/28R01F/F_final/art_on",
+  "hero_pos_sha256": "af08cd4edb8a287551cae2ac8c60af3c4c33bbb39088807571475dc973d85974",
+  "hero_pos_lo_sha256": "99a29d6a74b595372211120db071fac12d9f338aa14107df921d667d67a83153",
+  "near_pos_sha256": "cb62dd8f7d3fb290534d608265aa3d88864245e132a3127a49b63dd540b8a54d",
+  "twhite": "Unity/Build/Design/31/white/ds31_twhite_r32f.bin",
+  "twhite_sha256": "5ffc93def0174c953040f0a69088be7856820f1ae9eb7c90b312594d4099f39e",
+  "reference": "Docs/References/Met_JP1847_DP130155.jpg",
+  "reference_sha256": "cbb9988f2f18b9180a1cc0cf5dbb0e3bbf8f2e85d17930cf6ca9ab36fac36303",
+  "sky_mask": "Tools/PaintingTruth/targets/masks/sky_claws_cov.png",
+  "sky_mask_sha256": "443586a3a505d9d38a5f851ff712ee1b6c1bbdf546cfd6bfded2311369e4ae3a",
+  "timewarp": "Unity/Build/Design/28R01F/F_final/timewarp_F_final.json",
+  "timewarp_sha256": "627815c77afc63278c885335bbe6c51178896184559ca30845cf05f23c634a7c"
+ },
+ "code_sha256": {
+  "ds31_spray.py": "7115cf249cde544bca6e9d832b441bc334d85e87e8930078a7a7794a80764c23"
+ },
+ "extract": {
+  "all_candidates": 260,
+  "in_zone": 186,
+  "dog_abs_median": 0.9768321514129639
+ },
+ "place": {
+  "dots": 186,
+  "visible": 186,
+  "dropped_occluded": []
+ },
+ "emit": {
+  "ballistic": 186,
+  "f8": 0,
+  "dropped": 0,
+  "rejected_by_150": 1120
+ },
+ "seconds": 103.76104760169983,
+ "outputs": {
+  "ds31_spray_inst_f32.bin": "c764fe07da806c4da336f7d5580095e969f21db8f94c279b9e9df84fa03cac82",
+  "ds31_spray_knots_f32.bin": "373a8a685eef0efffa5e47d35c19b7ce23d32b4fc5cbaa88e0ee4abe4023debe",
+  "ds31_spray_frames.bin": "9db0a42811aa2c72f1cefbf8b80386f2e919a8b80fe65f7e91dd6a60c9b25c5f"
+ }
+}

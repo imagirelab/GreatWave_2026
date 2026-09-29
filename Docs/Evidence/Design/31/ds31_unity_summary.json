@@ -1,0 +1,311 @@
+{
+ "unity": "6000.4.3f1",
+ "device": "NVIDIA GeForce RTX 3080",
+ "graphicsApi": "Direct3D11",
+ "heroPkg": "Build/Design/31/white/hero_pkg",
+ "heroTwhiteSha256": "5ffc93def0174c953040f0a69088be7856820f1ae9eb7c90b312594d4099f39e",
+ "scene31": "Assets/GreatWave/Design31/Scenes/DS31_WhiteSpray.unity",
+ "scene31Sha256": "2c36fd2479cfe9256c2ca2669014bc623ad4e34f76123e8de43eb08e1b5e5312",
+ "noteJa": "Unity の PC オフスクリーン描画（batchmode）。HMD 実機ではない。粒子は DS31InstancedParticles（光を使わない不透明の小球、1 回の DrawMeshInstancedProcedural）。",
+ "particles": [
+  {
+   "name": "spray",
+   "dataPath": "G:\\Unity\\GreatWave_2026_Fresh\\Unity\\Build\\Design\\31\\spray\\ds31_spray_frames.json",
+   "dataSha256": "9db0a42811aa2c72f1cefbf8b80386f2e919a8b80fe65f7e91dd6a60c9b25c5f",
+   "count": 186,
+   "frames": 421,
+   "maxAlive": 186,
+   "sphereTriangles": 80,
+   "hz": 30.0,
+   "gpuBytes": 2976,
+   "colour": [
+    0.9843000173568726,
+    0.9646999835968018,
+    0.8902000188827515
+   ]
+  },
+  {
+   "name": "spray_diag",
+   "dataPath": "G:\\Unity\\GreatWave_2026_Fresh\\Unity\\Build\\Design\\31\\spray\\ds31_spray_frames.json",
+   "dataSha256": "9db0a42811aa2c72f1cefbf8b80386f2e919a8b80fe65f7e91dd6a60c9b25c5f",
+   "count": 186,
+   "frames": 421,
+   "maxAlive": 186,
+   "sphereTriangles": 80,
+   "hz": 30.0,
+   "gpuBytes": 2976,
+   "colour": [
+    0.9300000071525574,
+    0.15000000596046448,
+    0.7200000286102295
+   ]
+  },
+  {
+   "name": "born",
+   "dataPath": "G:\\Unity\\GreatWave_2026_Fresh\\Unity\\Build\\Design\\31\\white\\ds31_marks_born.json",
+   "dataSha256": "337fe942d2edfb94820c9bf45926e6fdfc7cc8db39a8dc27b32aa6083267f231",
+   "count": 3000,
+   "frames": 421,
+   "maxAlive": 3000,
+   "sphereTriangles": 80,
+   "hz": 30.0,
+   "gpuBytes": 48000,
+   "colour": [
+    0.8600000143051147,
+    0.10000000149011612,
+    0.07999999821186066
+   ]
+  },
+  {
+   "name": "trace",
+   "dataPath": "G:\\Unity\\GreatWave_2026_Fresh\\Unity\\Build\\Design\\31\\white\\ds31_marks_trace.json",
+   "dataSha256": "907374c352002d958cbb6976b529e283bce98b743c973a9572dc33ca48ba4078",
+   "count": 526,
+   "frames": 421,
+   "maxAlive": 526,
+   "sphereTriangles": 80,
+   "hz": 30.0,
+   "gpuBytes": 8416,
+   "colour": [
+    0.9300000071525574,
+    0.41999998688697815,
+    0.10000000149011612
+   ]
+  }
+ ],
+ "stereo": [
+  {
+   "view": "seat",
+   "t": 10.0,
+   "sprayPxL": 1888,
+   "sprayPxR": 1898,
+   "relDiff": 0.005268703680485487
+  },
+  {
+   "view": "painting",
+   "t": 10.0,
+   "sprayPxL": 1344,
+   "sprayPxR": 1331,
+   "relDiff": 0.0096726194024086
+  },
+  {
+   "view": "seat",
+   "t": 11.0,
+   "sprayPxL": 7279,
+   "sprayPxR": 7315,
+   "relDiff": 0.004921394400298595
+  },
+  {
+   "view": "painting",
+   "t": 11.0,
+   "sprayPxL": 3135,
+   "sprayPxR": 3114,
+   "relDiff": 0.006698564626276493
+  },
+  {
+   "view": "seat",
+   "t": 12.0,
+   "sprayPxL": 12636,
+   "sprayPxR": 12694,
+   "relDiff": 0.004569087643176317
+  },
+  {
+   "view": "painting",
+   "t": 12.0,
+   "sprayPxL": 4065,
+   "sprayPxR": 4073,
+   "relDiff": 0.001964154187589884
+  }
+ ],
+ "videos": [
+  {
+   "set": "gen",
+   "view": "painting",
+   "path": "G:\\Unity\\GreatWave_2026_Fresh\\Unity\\Build\\Design\\31\\white\\unity\\main\\video\\ds31_gen_painting_30fps.mp4",
+   "sha256": "11ef0db52da3c3c61f839e1c40f9da88de5c8d61a6dc8d922951ce6cda7fd4f5",
+   "ffmpegError": "",
+   "frames": 421,
+   "fps": 30,
+   "seconds": 6.3163018226623535
+  },
+  {
+   "set": "gen",
+   "view": "seat",
+   "path": "G:\\Unity\\GreatWave_2026_Fresh\\Unity\\Build\\Design\\31\\white\\unity\\main\\video\\ds31_gen_seat_30fps.mp4",
+   "sha256": "1ac3d049ae4f8778e649b6bfb08e27aab7d09b5b2e9098177573a657d89df699",
+   "ffmpegError": "",
+   "frames": 421,
+   "fps": 30,
+   "seconds": 6.1303300857543945
+  },
+  {
+   "set": "gen",
+   "view": "side_left",
+   "path": "G:\\Unity\\GreatWave_2026_Fresh\\Unity\\Build\\Design\\31\\white\\unity\\main\\video\\ds31_gen_side_left_30fps.mp4",
+   "sha256": "1254ace01b1fc014fb0012a225452afdd4d08a13c1fc81f98a129cdbf60f94c7",
+   "ffmpegError": "",
+   "frames": 421,
+   "fps": 30,
+   "seconds": 5.7352070808410645
+  },
+  {
+   "set": "gen",
+   "view": "side_top",
+   "path": "G:\\Unity\\GreatWave_2026_Fresh\\Unity\\Build\\Design\\31\\white\\unity\\main\\video\\ds31_gen_side_top_30fps.mp4",
+   "sha256": "f9c59733830dd769404f0bd147a3c4610e4dbd664ecbb1328d235d6b3baafb05",
+   "ffmpegError": "",
+   "frames": 421,
+   "fps": 30,
+   "seconds": 6.039710521697998
+  },
+  {
+   "set": "adv",
+   "view": "painting",
+   "path": "G:\\Unity\\GreatWave_2026_Fresh\\Unity\\Build\\Design\\31\\white\\unity\\main\\video\\ds31_adv_painting_30fps.mp4",
+   "sha256": "09ae41af0fe339c032778ae700f00c966ac1e5f51ce5bfcbff15000b5669129f",
+   "ffmpegError": "",
+   "frames": 421,
+   "fps": 30,
+   "seconds": 6.122887134552002
+  },
+  {
+   "set": "adv",
+   "view": "seat",
+   "path": "G:\\Unity\\GreatWave_2026_Fresh\\Unity\\Build\\Design\\31\\white\\unity\\main\\video\\ds31_adv_seat_30fps.mp4",
+   "sha256": "6a111af98adecd503a6bb5a3f4013a9024f85e2be56542913ea0219c8ec01d2e",
+   "ffmpegError": "",
+   "frames": 421,
+   "fps": 30,
+   "seconds": 6.300013065338135
+  },
+  {
+   "set": "adv",
+   "view": "side_left",
+   "path": "G:\\Unity\\GreatWave_2026_Fresh\\Unity\\Build\\Design\\31\\white\\unity\\main\\video\\ds31_adv_side_left_30fps.mp4",
+   "sha256": "e0fa834326534418efa57762665ba21c75eabb97f895a7606680569d3ea8528b",
+   "ffmpegError": "",
+   "frames": 421,
+   "fps": 30,
+   "seconds": 5.932636737823486
+  },
+  {
+   "set": "adv",
+   "view": "side_top",
+   "path": "G:\\Unity\\GreatWave_2026_Fresh\\Unity\\Build\\Design\\31\\white\\unity\\main\\video\\ds31_adv_side_top_30fps.mp4",
+   "sha256": "22d6276f4f04d212c016bc103725e5ce00afce24038bda27d5353f54a48f2212",
+   "ffmpegError": "",
+   "frames": 421,
+   "fps": 30,
+   "seconds": 5.954489707946777
+  },
+  {
+   "set": "air",
+   "view": "painting",
+   "path": "G:\\Unity\\GreatWave_2026_Fresh\\Unity\\Build\\Design\\31\\white\\unity\\main\\video\\ds31_air_painting_30fps.mp4",
+   "sha256": "2349e57002f938d9118e46ad3f66425d907f5a6a5bd7f731de00d8a656005dc1",
+   "ffmpegError": "",
+   "frames": 421,
+   "fps": 30,
+   "seconds": 5.346059322357178
+  },
+  {
+   "set": "air",
+   "view": "seat",
+   "path": "G:\\Unity\\GreatWave_2026_Fresh\\Unity\\Build\\Design\\31\\white\\unity\\main\\video\\ds31_air_seat_30fps.mp4",
+   "sha256": "ddb102b25b15c35f240d5d6d5825827fb30c39d0d519ff6eeb9e299df00f2776",
+   "ffmpegError": "",
+   "frames": 421,
+   "fps": 30,
+   "seconds": 5.350671291351318
+  },
+  {
+   "set": "air",
+   "view": "side_left",
+   "path": "G:\\Unity\\GreatWave_2026_Fresh\\Unity\\Build\\Design\\31\\white\\unity\\main\\video\\ds31_air_side_left_30fps.mp4",
+   "sha256": "e153e0e19e2665e026820b482a99152600623e13b75699e74f0543cc5385e495",
+   "ffmpegError": "",
+   "frames": 421,
+   "fps": 30,
+   "seconds": 5.216413497924805
+  },
+  {
+   "set": "air",
+   "view": "side_top",
+   "path": "G:\\Unity\\GreatWave_2026_Fresh\\Unity\\Build\\Design\\31\\white\\unity\\main\\video\\ds31_air_side_top_30fps.mp4",
+   "sha256": "bfe0609aa51470ed445a6bb31bb94172f9fdbf3d356a6f03b5c9739bd936974d",
+   "ffmpegError": "",
+   "frames": 421,
+   "fps": 30,
+   "seconds": 5.226489067077637
+  }
+ ],
+ "shaderChecks": [
+  {
+   "keywords": "",
+   "stage": "Vertex",
+   "messages": "",
+   "compiled": true,
+   "stereoCheck": false,
+   "rtArrayIndexInOutput": false
+  },
+  {
+   "keywords": "",
+   "stage": "Fragment",
+   "messages": "",
+   "compiled": true,
+   "stereoCheck": false,
+   "rtArrayIndexInOutput": false
+  },
+  {
+   "keywords": "INSTANCING_ON",
+   "stage": "Vertex",
+   "messages": "",
+   "compiled": true,
+   "stereoCheck": false,
+   "rtArrayIndexInOutput": false
+  },
+  {
+   "keywords": "INSTANCING_ON",
+   "stage": "Fragment",
+   "messages": "",
+   "compiled": true,
+   "stereoCheck": false,
+   "rtArrayIndexInOutput": false
+  },
+  {
+   "keywords": "STEREO_INSTANCING_ON INSTANCING_ON",
+   "stage": "Vertex",
+   "messages": "",
+   "compiled": true,
+   "stereoCheck": true,
+   "rtArrayIndexInOutput": true
+  },
+  {
+   "keywords": "STEREO_INSTANCING_ON INSTANCING_ON",
+   "stage": "Fragment",
+   "messages": "",
+   "compiled": true,
+   "stereoCheck": false,
+   "rtArrayIndexInOutput": false
+  }
+ ],
+ "protectedFiles": [
+  "Assets/GreatWave/Design30/Scenes/DS30_SinglePlayback.unity e67daaa8414a2df40a1f81a65e126e71b44493c429590a0bfc6c4ba0486525f1",
+  "Assets/GreatWave/Design30/Scripts/DS30SheetPlayer.cs de28b73834f06d1bbe95e7ae2921ca86f7a5bd7211a3a5ca83b33a17e0b13310",
+  "Assets/GreatWave/Design30/Scripts/DS30SinglePlayback.cs c6cb14d027645308c4958b05000a34854e8869eff4d65a7677010bc0ae89a3e3",
+  "Assets/GreatWave/Design30/Editor/DS30Render.cs 4a4c4055996c9f15ef7d73a101554409da5a90365553c1e5ce13ede60557729d",
+  "Assets/GreatWave/Design27/Shaders/DS27_NPR_White.shader 04605cfe56b5e5bafcfb5c0bbc73b783a65f6637222eda5950c15e7e8b322dd9",
+  "Assets/GreatWave/Design27/Shaders/DS27KeyposeCore.cginc 816d3a3288a7125fc8494bf137ad68d7c9c68c9c68b61c72d80211ff73f33b4a",
+  "Assets/GreatWave/Design27/Shaders/DS27Keypose.cginc 54265fe59f402b4e89048f46a1c22497d687848b184ab8dd919e0a7b1caae9e0",
+  "Build/Design/28R01F/F_final/art_on/ds27_keypose.json 3349924141106509585fe29bb7f3769554028224d0a0f645bf69c55fd509cc8b",
+  "Build/Design/28R01F/F_final/art_on/ds27_twhite_r32f.bin 17cf6188c570c1fed921b0f93b001a03394c1c9ad5dd15614eb828affcc0d8d3",
+  "Build/Design/28R01F/F_final/timewarp_F_final.json 627815c77afc63278c885335bbe6c51178896184559ca30845cf05f23c634a7c",
+  "Build/Design/29R01/bake_kp/bake/af28r01_uvsdf_a45.bin 69c0b26d5e0129598aa19ca8365fa590af9a81c282e5fef8298409fac8470d1a"
+ ],
+ "changedFiles": [],
+ "protectedUnchanged": true,
+ "shaderAllCompiled": true,
+ "secondsTotal": 97.80952453613281,
+ "tauAtTStar": 0.0,
+ "source_ja": "Unity/Build/Design/31/white/unity/main/ds31_render_report.json（SHA-256 f29c5ade2028d81a7e91a35a11dc56d55ec5fd632d3578cd2d40b8b9f34f2d9b）から ids・alive・files の配列を除いて抜き出した"
+}

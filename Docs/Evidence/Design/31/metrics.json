@@ -1,0 +1,1038 @@
+{
+ "schema": "GreatWave.DS31.metrics/1",
+ "number": "設計31",
+ "title_ja": "主役波から少量の白波を出す（白の出現 T_white ＋ 飛沫 v0）",
+ "generated_utc": "2026-09-29T11:52:02+00:00",
+ "evidence_kind_ja": "numpy の生成器と検査（白の部・飛沫の部）、Unity 6000.4.3f1 の batchmode の PC オフスクリーン描画（RTX 3080、Direct3D11）、美術優先28修正01 の評価器（29修正01・設計30 の読み）、進行役の独立の検査（作り手のコードを使わない numpy。リポジトリの外）。HMD 実機の結果ではない。Play モードの描画は確かめていない",
+ "acceptance": {
+  "ja": "計画 §2.2 の設計31 の最小の受入（Q26：この番号は最小の受入だけを満たす）",
+  "102": {
+   "rule_ja": "白が 0 から連続して現れ、終態の白の内側（美術優先31 と同じ既定の読み：30 Hz の 1 コマで白くなる割合が終態の白の 2% 以下、終態が白でない所が白になる数 0）",
+   "author_texel_max_increment": 0.018259576290489687,
+   "author_texel_max_increment_before_rate_cap": 0.0233669973852505,
+   "author_area_max_increment": 0.017372146098419416,
+   "first_white_t_s": 5.80006256105017,
+   "all_white_t_s": 11.266666666666667,
+   "never_white_turning_white_vertices": 0,
+   "unity_ids_disp_white_final_not": [
+    0,
+    0
+   ],
+   "unity_ids_times": [
+    32,
+    32
+   ],
+   "independent_texel_bilinear_max_increment": 0.018245929372484926,
+   "independent_frames_over_2pct": 0,
+   "independent_before_rate_cap": 0.023366749259468578,
+   "verdict": "合格（ds31_white_rate_cap の後。これがこの番号の直しの 1 回）"
+  },
+  "176": {
+   "rule_ja": "白が広がる間も白の中の藍・水色が見える：一時的な白の塗りつぶし 0（Unity の ID の連続で、終態が白でない画素が白で表示された数 0、終態が白でない画素の表示が終態と違う数 0）",
+   "value_ja": "原画視点 32 時刻・座席 32 時刻で、白で表示された色区の画素 0、終態と違う表示の色区の画素 0",
+   "independent": {
+    "painting": {
+     "times": 32,
+     "disp_white_final_notwhite": 0,
+     "colourregion_changed": 0,
+     "sky_mismatch": 0,
+     "disp_white_monotone_to_t12": true,
+     "first_disp_white_t": 6.0,
+     "prewhite_colours": [
+      [
+       255,
+       0,
+       0
+      ]
+     ]
+    },
+    "seat": {
+     "times": 32,
+     "disp_white_final_notwhite": 0,
+     "colourregion_changed": 0,
+     "sky_mismatch": 0,
+     "disp_white_monotone_to_t12": true,
+     "first_disp_white_t": 8.75,
+     "prewhite_colours": [
+      [
+       255,
+       0,
+       0
+      ]
+     ]
+    }
+   },
+   "verdict": "合格"
+  },
+  "150": {
+   "rule_ja": "飛沫：水面へ引き戻されるもの 0",
+   "spray_checks": {
+    "pulled_back": 0,
+    "inside_water_any": 0,
+    "never_separated": 0,
+    "hz": 240.0,
+    "min_clearance_after_sep_m": 0.13682133395019522,
+    "clearance_tstar_m": {
+     "min": 0.4539139488937982,
+     "median": 4.020846717334633
+    }
+   },
+   "independent": {
+    "distance_reading": {
+     "n": 186,
+     "hz": 240.0,
+     "sep_margin_m": 0.02,
+     "pulled_back": 2,
+     "inside_water": 2,
+     "never_separated": 0,
+     "separation_time_after_emission_s_max": 0.07999999523162638,
+     "min_clearance_after_separation_m": 0.009222081116113293,
+     "min_clearance_any_time_m": -0.010024535310029871,
+     "clearance_at_tstar_min_m": 0.40821187669477327,
+     "clearance_at_tstar_median_m": 3.9486468429821397,
+     "inside_list": [
+      [
+       31,
+       -0.5791666666666695,
+       0.07187585590006569,
+       0
+      ],
+      [
+       84,
+       -0.8375000000000019,
+       0.6226297306502597,
+       0
+      ]
+     ],
+     "pulled_list": [
+      [
+       31,
+       0.02045296160680271,
+       0
+      ],
+      [
+       84,
+       0.021324367928048857,
+       0
+      ]
+     ],
+     "nearest_surface_at_tstar_counts": {
+      "hero": 184,
+      "near": 2,
+      "far": 0
+     },
+     "frames_vs_analytic_max_m": 3.446879791961333e-06,
+     "frames_visible_before_emission": 0,
+     "frames_first_visible_t": 8.7,
+     "frames_all_visible_at_t12": 186,
+     "seconds": 29.830759286880493
+    },
+    "section_polygon_reading": {
+     "samples": 20602,
+     "hz": 120.0,
+     "particles_with_inside_samples": 0,
+     "inside_samples": 0,
+     "first_inside": [],
+     "p31_inside": 0,
+     "p84_inside": 0
+    }
+   },
+   "note_ja": "独立の検査の最も近い三角形の符号の読みは 31・84 の 2 粒を水の側とした。どちらも最も近い点が網の頂点で符号が決まらない所で、断面の多角形の内外の読み（120 Hz、20,602 の標本）では水の中の標本 0。描く半径（0.08 s で 0 から大きくなる）では距離が 0 以下にならない",
+   "verdict": "合格（飛沫の部の検査 0、独立の検査の断面の読み 0）"
+  },
+  "152": {
+   "rule_ja": "152：飛沫あり・なしの同じコマの対（MSAA 8 の色の画像）。飛沫が変えた画素（どれかの色で差 > 6）について、\n    黒い縁＝輝度が「飛沫なしの画素」と「飛沫の白」の両方より 12 以上暗い画素、光る縁＝飛沫の白より 12 以上明るい画素、\n    四角い下地＝変わった画素の連結成分（8 近傍、≥ 64 画素＝形が読める大きさ。4 × 4 画素ほどの点は円でも四角を埋めるので形を問わない）で外接の四角に対する面積の比 ≥ 0.95 のもの（円は約 0.79）。どれも 0 が合格。",
+   "unity_pairs": {
+    "pairs": 60,
+    "changed_px": 59151,
+    "dark_edge_px": 0,
+    "glow_px": 0,
+    "components": 1639,
+    "components_ge64px": 217,
+    "square_components": 0,
+    "fill_ratio_max": 0.8888888888888888,
+    "fill_ratio_median": 0.7397959183673469
+   },
+   "numpy_tstar": {
+    "visible": 186,
+    "invisible": [],
+    "bbox_ge5": 90,
+    "fill_ge5": {
+     "min": 0.52,
+     "max": 0.8888888888888888,
+     "median": 0.76
+    },
+    "square_base": 0,
+    "square_ids": [],
+    "black_or_bright_edge": 0,
+    "edge_ids": [],
+    "method_ja": "原画視点の t*、1920×1080、無照明の単色の 42 頂点の球（instancing の網そのもの）。四角い下地＝外接箱 ≥5 px の粒子で充填率 > 0.95。黒い縁・光る縁＝粒子の外周 1 px の色が飛沫なしの場面の色と違う、または粒子の内側が単色でない。numpy の描画なので、Unity の描画の確認は別"
+   },
+   "independent_unity": {
+    "pairs": 61,
+    "changed_px": 63178,
+    "dark_edge_px": 0,
+    "bright_edge_px": 0,
+    "nonblend_px": 0,
+    "components": 1831,
+    "comp_ge64": 156,
+    "square_fill_gt_0p9": 0,
+    "square_corner_test": 0,
+    "fill_max": 0.8875,
+    "per_view": {
+     "painting": {
+      "pairs": 15,
+      "changed_px": 15430,
+      "dark": 0,
+      "bright": 0,
+      "nonblend": 0,
+      "comps": 799,
+      "sq": 0
+     },
+     "seat": {
+      "pairs": 15,
+      "changed_px": 38232,
+      "dark": 0,
+      "bright": 0,
+      "nonblend": 0,
+      "comps": 625,
+      "sq": 0
+     },
+     "side_left": {
+      "pairs": 15,
+      "changed_px": 6,
+      "dark": 0,
+      "bright": 0,
+      "nonblend": 0,
+      "comps": 0,
+      "sq": 0
+     },
+     "side": {
+      "pairs": 15,
+      "changed_px": 5483,
+      "dark": 0,
+      "bright": 0,
+      "nonblend": 0,
+      "comps": 225,
+      "sq": 0
+     },
+     "painting_tstar": {
+      "pairs": 1,
+      "changed_px": 4027,
+      "dark": 0,
+      "bright": 0,
+      "nonblend": 0,
+      "comps": 182,
+      "sq": 0
+     }
+    },
+    "worst_examples": []
+   },
+   "verdict": "合格（Unity の描画。numpy の描画でも 0）"
+  },
+  "video": {
+   "rule_ja": "発生位置・移流・空中の粒子を動画で見せる",
+   "value_ja": "Unity の動画 12 本（gen・adv・air × painting・seat・side_left・side_top、1920×1080、30 fps、421 コマ）と 3×4 の並べ動画。証拠には 5 本を写した",
+   "videos": [
+    {
+     "set": "gen",
+     "view": "painting",
+     "frames": 421,
+     "fps": 30,
+     "sha256": "11ef0db52da3c3c61f839e1c40f9da88de5c8d61a6dc8d922951ce6cda7fd4f5"
+    },
+    {
+     "set": "gen",
+     "view": "seat",
+     "frames": 421,
+     "fps": 30,
+     "sha256": "1ac3d049ae4f8778e649b6bfb08e27aab7d09b5b2e9098177573a657d89df699"
+    },
+    {
+     "set": "gen",
+     "view": "side_left",
+     "frames": 421,
+     "fps": 30,
+     "sha256": "1254ace01b1fc014fb0012a225452afdd4d08a13c1fc81f98a129cdbf60f94c7"
+    },
+    {
+     "set": "gen",
+     "view": "side_top",
+     "frames": 421,
+     "fps": 30,
+     "sha256": "f9c59733830dd769404f0bd147a3c4610e4dbd664ecbb1328d235d6b3baafb05"
+    },
+    {
+     "set": "adv",
+     "view": "painting",
+     "frames": 421,
+     "fps": 30,
+     "sha256": "09ae41af0fe339c032778ae700f00c966ac1e5f51ce5bfcbff15000b5669129f"
+    },
+    {
+     "set": "adv",
+     "view": "seat",
+     "frames": 421,
+     "fps": 30,
+     "sha256": "6a111af98adecd503a6bb5a3f4013a9024f85e2be56542913ea0219c8ec01d2e"
+    },
+    {
+     "set": "adv",
+     "view": "side_left",
+     "frames": 421,
+     "fps": 30,
+     "sha256": "e0fa834326534418efa57762665ba21c75eabb97f895a7606680569d3ea8528b"
+    },
+    {
+     "set": "adv",
+     "view": "side_top",
+     "frames": 421,
+     "fps": 30,
+     "sha256": "22d6276f4f04d212c016bc103725e5ce00afce24038bda27d5353f54a48f2212"
+    },
+    {
+     "set": "air",
+     "view": "painting",
+     "frames": 421,
+     "fps": 30,
+     "sha256": "2349e57002f938d9118e46ad3f66425d907f5a6a5bd7f731de00d8a656005dc1"
+    },
+    {
+     "set": "air",
+     "view": "seat",
+     "frames": 421,
+     "fps": 30,
+     "sha256": "ddb102b25b15c35f240d5d6d5825827fb30c39d0d519ff6eeb9e299df00f2776"
+    },
+    {
+     "set": "air",
+     "view": "side_left",
+     "frames": 421,
+     "fps": 30,
+     "sha256": "e153e0e19e2665e026820b482a99152600623e13b75699e74f0543cc5385e495"
+    },
+    {
+     "set": "air",
+     "view": "side_top",
+     "frames": 421,
+     "fps": 30,
+     "sha256": "bfe0609aa51470ed445a6bb31bb94172f9fdbf3d356a6f03b5c9739bd936974d"
+    }
+   ],
+   "verdict": "合格（PC の描画。左の側面では空中の飛沫は見えない）"
+  },
+  "regression_2_0": {
+   "rule_ja": "計画 §2.0：原画視点の回帰がない（段階5確認 §6.3：直前の番号と CP1 の両方で書く）",
+   "vs_ds30": {
+    "t28_white_identical_all10": true,
+    "independent_identical": {
+     "af28r01_class_ids.png": true,
+     "af28r01_line_ids.png": true,
+     "af28r01_painting.png": true,
+     "af28r01_painting_kstar.png": true,
+     "af28r01_seat.png": true,
+     "af28r01_seat_class_ids.png": true,
+     "af28r01_seat_kstar.png": true,
+     "af28r01_seat_low.png": true,
+     "af28r01_seat_low_class_ids.png": true,
+     "af28r01_seat_low_kstar.png": true
+    }
+   },
+   "values_same_as_ds30_29r01": {
+    "78_130_131_px": [
+     3.0289,
+     3.5131,
+     3.0431
+    ],
+    "132_sigma12_max_px": 3.755214351150866,
+    "72_sigma24_p95_px": 4.007498772940381,
+    "colour_worst_abs_diff_px": 13.642,
+    "sym_worst_abs_diff_px": 1.153
+   },
+   "vs_cp1_ja": "段階5確認の記録 §6.3 の表のまま（t* の画像が設計30 と同じなので）：78／130／131 1.64／1.95／1.80 → 3.03／3.51／3.04 px、132 1.57 → 細部込み 5.95・σ12 3.7552 px、72 p95 1.72 → 細部込み 8.75・σ24 4.0075 px、134・267 合格 → 不合格。設計31 による後退はない",
+   "spray_in_ids_record": {
+    "lfgate": {
+     "132_sigma12_max": 126.74632713241976,
+     "72_sigma24_p95": 122.60391132599085,
+     "ids_sha256": "014fdd21788fcaa879709737ec53a1b1806b24e3ebcfaae60a384add41dff065"
+    },
+    "lfgate_diff_vs_29r01_px": {
+     "132_sigma12_max": 122.9911,
+     "72_sigma24_p95": 118.5964
+    },
+    "silhouette_diff_vs_29r01_px": {
+     "78": 0.0,
+     "130": 0.0,
+     "131": 0.0
+    },
+    "colour_worst_abs_diff_px": 13.642,
+    "sym_worst_diff_vs_29r01_px": 0.0,
+    "ids_spray_sky": {
+     "ids_size": [
+      3840,
+      2160
+     ],
+     "spray_changed_id_px": 14000,
+     "spray_changed_id_px_on_sky": 13979,
+     "spray_changed_id_px_on_wave": 21,
+     "dots_on_wave_at_tstar": 6,
+     "dots_on_wave_ids": [
+      10,
+      12,
+      15,
+      18,
+      22,
+      24
+     ],
+     "dots_total": 186,
+     "note_ja": "t* の原画視点の色区 ID（3840×2160）。飛沫なし（t28_white）と飛沫あり（t28_spray）の違い。点の位置は ds31_spray_table.json の x_d・y_d（表示 1920×1080）を ID の大きさへ直した画素の中心"
+    }
+   },
+   "verdict": "合格（採った読み：飛沫の層を色区 ID に入れない。設計30 と画素まで同じ）。飛沫を ID に入れた読みでは 132・72 が約 +123／+119 px（評価器が空の中の飛沫の点を輪郭と読む。記録のみ）"
+  }
+ },
+ "design": {
+  "white": {
+   "twhite_file": "Unity/Build/Design/31/white/ds31_twhite_r32f.bin",
+   "twhite_sha256": "5ffc93def0174c953040f0a69088be7856820f1ae9eb7c90b312594d4099f39e",
+   "twhite_source_sha256": "17cf6188c570c1fed921b0f93b001a03394c1c9ad5dd15614eb828affcc0d8d3",
+   "rate_cap": {
+    "cap": 0.018,
+    "frames_changed": 6,
+    "vertices_moved": 9020,
+    "t_shift_max_s": 0.026045573884319495,
+    "tau_shift_max_s": 0.013022787067628716,
+    "window_t": [
+     10.3,
+     10.466666666666667
+    ],
+    "before": {
+     "texel_fraction_max_increment_per_frame": 0.0233669973852505
+    },
+    "file": "ds31_twhite_r32f.bin",
+    "sha256": "5ffc93def0174c953040f0a69088be7856820f1ae9eb7c90b312594d4099f39e"
+   },
+   "onset": {
+    "records": 27027,
+    "regions": {
+     "0": {
+      "name_ja": "背面（頂より後ろ）",
+      "vertices": 7761,
+      "tau_first": -2.222734212875366,
+      "tau_last": -0.34219497442245483,
+      "t_first": 6.954531575249267,
+      "t_last": 10.715610051901503,
+      "speed_median_mps": 19.740450880802804,
+      "speed_p95_mps": 22.29615639033205
+     },
+     "1": {
+      "name_ja": "唇の上面（頂 → 唇先）",
+      "vertices": 12751,
+      "tau_first": -2.799968719482422,
+      "tau_last": -0.10000000149011612,
+      "t_first": 5.80006256105017,
+      "t_last": 11.252078858738644,
+      "speed_median_mps": 19.839117191776488,
+      "speed_p95_mps": 22.938990131374574
+     },
+     "2": {
+      "name_ja": "唇の下面（唇先 → 角）",
+      "vertices": 6439,
+      "tau_first": -2.7803471088409424,
+      "tau_last": -0.40660208463668823,
+      "t_first": 5.839305782751503,
+      "t_last": 10.586795830895625,
+      "speed_median_mps": 18.333902144968093,
+      "speed_p95_mps": 20.78748552913363
+     },
+     "3": {
+      "name_ja": "内壁（角 → 前の足）",
+      "vertices": 76,
+      "tau_first": -0.743633031845093,
+      "tau_last": -0.44122451543808,
+      "t_first": 9.912733936365958,
+      "t_last": 10.51755097012384,
+      "speed_median_mps": 14.176575770198315,
+      "speed_p95_mps": 16.893924064898695
+     }
+    },
+    "j_top_per_row_range": [
+     90,
+     197
+    ],
+    "landmarks": {
+     "j_tip": 200,
+     "j_corner": 314,
+     "j_E": 394
+    },
+    "selection_ja": "T_white が有限（t* までに白になる）かつ 29修正01 の色面で頂点の色区が白、かつ設計30 で描く本体の列 18〜394 の頂点"
+   },
+   "marks": {
+    "born": {
+     "count": 3000,
+     "frames": 421,
+     "sha256": "337fe942d2edfb94820c9bf45926e6fdfc7cc8db39a8dc27b32aa6083267f231",
+     "note_ja": "いま白くなった所（T_white を過ぎて 0.25 s 以内の頂点、コマごと最大 3000、シートに付く）。確認用の印で、作品には入れない"
+    },
+    "trace": {
+     "count": 526,
+     "frames": 421,
+     "sha256": "907374c352002d958cbb6976b529e283bce98b743c973a9572dc33ca48ba4078",
+     "note_ja": "移流の印（区間ごとに層別に選んだ 526 頂点。白くなった時から t* までシートの頂点に付いて動く）。確認用の印で、作品には入れない"
+    }
+   },
+   "carry_m": {
+    "median": 14.646735938648874,
+    "min": 1.7840037738454948,
+    "max": 56.56920856320628
+   }
+  },
+  "spray": {
+   "params": {
+    "zone_display": [
+     790.0,
+     290.0,
+     1260.0,
+     770.0
+    ],
+    "dog_sigma": [
+     3.0,
+     10.0
+    ],
+    "white_b_weight": 1.5,
+    "k_noise": 3.0,
+    "dog_min": 2.5,
+    "sky_erode_ref_px": 15,
+    "area_ref_px": [
+     12,
+     2500
+    ],
+    "max_aspect": 3.0,
+    "lip_ref_rows": [
+     125,
+     195
+    ],
+    "lip_col": 200,
+    "layer_m": [
+     0.5,
+     3.0
+    ],
+    "occl_margin_m": 0.3,
+    "emit_rows": [
+     110,
+     215
+    ],
+    "emit_cols": [
+     176,
+     224
+    ],
+    "emit_col_step": 2,
+    "tau_e": [
+     -2.8,
+     -0.08
+    ],
+    "tau_e_step": 0.02,
+    "vel_h": 0.005,
+    "max_angle_deg": 45.0,
+    "speed_ratio": [
+     0.5,
+     2.0
+    ],
+    "score_ratio_w": 20.0,
+    "top_k": 16,
+    "check_hz": 240.0,
+    "check_skip_s": 0.0,
+    "emit_offset_m": 0.01,
+    "sep_m": 0.1,
+    "sep_within_s": 0.3,
+    "vertex_slack_m": 0.1,
+    "parity_gate_m": 1.0,
+    "contact_extra_m": 0.05,
+    "contact_lat_m": 0.6,
+    "inside_dist_m": 1.5,
+    "gap_after_s": 0.2,
+    "near_rows_checked": [
+     0,
+     30
+    ],
+    "ramp_s": 0.08,
+    "f8_fall_s": 0.4,
+    "f8_ramp_s": 0.1,
+    "radius_min_m": 0.03
+   },
+   "extract": {
+    "all_candidates": 260,
+    "in_zone": 186,
+    "dog_abs_median": 0.9768321514129639
+   },
+   "place": {
+    "dots": 186,
+    "visible": 186,
+    "dropped_occluded": []
+   },
+   "emit": {
+    "ballistic": 186,
+    "f8": 0,
+    "dropped": 0,
+    "rejected_by_150": 1120
+   },
+   "ballistic": {
+    "angle_deg_max": 10.456543465891158,
+    "angle_deg_median": 0.4320935148669994,
+    "speed_ratio": [
+     0.6917958990398451,
+     1.567035897675091
+    ],
+    "tau_e": [
+     -1.3600000143051147,
+     -0.4000000059604645
+    ],
+    "fall_m": [
+     1.0588418834527893,
+     9.950174322694151
+    ],
+    "emit_after_twhite_min_s": 0.0002851653099059659,
+    "layer_d_m": [
+     0.5045256316661835,
+     2.9881093204021454
+    ]
+   },
+   "reprojection_tstar_px": {
+    "max": 0.0001130246686909154,
+    "median": 2.5257234195652524e-05
+   },
+   "package": {
+    "count": 186,
+    "eval_ja": "τ' = min(τ, 0)。τ' < tau_show なら描かない。位置 = p_e + v0·Δ + ½·g·Δ²（Δ = max(τ' − τ_e, 0)）。半径 = radius·smoothstep((τ' − tau_show)/ramp_s)。",
+    "inst_sha256": "c764fe07da806c4da336f7d5580095e969f21db8f94c279b9e9df84fa03cac82",
+    "knots_sha256": "373a8a685eef0efffa5e47d35c19b7ce23d32b4fc5cbaa88e0ee4abe4023debe",
+    "knots_hermite_vs_analytic_max_m": 0.0004546019851403571,
+    "mesh_vertices": 42,
+    "mesh_triangles": 80,
+    "colour_srgb8": [
+     251,
+     246,
+     227
+    ],
+    "colour_source": "Tools/PaintingTruth/targets/palette.json の white（白・生成り）",
+    "render_ja": "Graphics.RenderMeshInstanced（または DrawMeshInstancedProcedural）で、無照明・不透明の単色（調色板の白）。透明・テクスチャの板（四角い下地）を使わない。藍の線の反転シェル（外殻線）を飛沫に付けない（黒い縁になる）。MSAA は場面のまま"
+   },
+   "frames_sha256": "9db0a42811aa2c72f1cefbf8b80386f2e919a8b80fe65f7e91dd6a60c9b25c5f"
+  },
+  "unity": {
+   "particles": [
+    {
+     "name": "spray",
+     "dataPath": "G:\\Unity\\GreatWave_2026_Fresh\\Unity\\Build\\Design\\31\\spray\\ds31_spray_frames.json",
+     "dataSha256": "9db0a42811aa2c72f1cefbf8b80386f2e919a8b80fe65f7e91dd6a60c9b25c5f",
+     "count": 186,
+     "frames": 421,
+     "maxAlive": 186,
+     "sphereTriangles": 80,
+     "hz": 30.0,
+     "gpuBytes": 2976,
+     "colour": [
+      0.9843000173568726,
+      0.9646999835968018,
+      0.8902000188827515
+     ]
+    },
+    {
+     "name": "spray_diag",
+     "dataPath": "G:\\Unity\\GreatWave_2026_Fresh\\Unity\\Build\\Design\\31\\spray\\ds31_spray_frames.json",
+     "dataSha256": "9db0a42811aa2c72f1cefbf8b80386f2e919a8b80fe65f7e91dd6a60c9b25c5f",
+     "count": 186,
+     "frames": 421,
+     "maxAlive": 186,
+     "sphereTriangles": 80,
+     "hz": 30.0,
+     "gpuBytes": 2976,
+     "colour": [
+      0.9300000071525574,
+      0.15000000596046448,
+      0.7200000286102295
+     ]
+    },
+    {
+     "name": "born",
+     "dataPath": "G:\\Unity\\GreatWave_2026_Fresh\\Unity\\Build\\Design\\31\\white\\ds31_marks_born.json",
+     "dataSha256": "337fe942d2edfb94820c9bf45926e6fdfc7cc8db39a8dc27b32aa6083267f231",
+     "count": 3000,
+     "frames": 421,
+     "maxAlive": 3000,
+     "sphereTriangles": 80,
+     "hz": 30.0,
+     "gpuBytes": 48000,
+     "colour": [
+      0.8600000143051147,
+      0.10000000149011612,
+      0.07999999821186066
+     ]
+    },
+    {
+     "name": "trace",
+     "dataPath": "G:\\Unity\\GreatWave_2026_Fresh\\Unity\\Build\\Design\\31\\white\\ds31_marks_trace.json",
+     "dataSha256": "907374c352002d958cbb6976b529e283bce98b743c973a9572dc33ca48ba4078",
+     "count": 526,
+     "frames": 421,
+     "maxAlive": 526,
+     "sphereTriangles": 80,
+     "hz": 30.0,
+     "gpuBytes": 8416,
+     "colour": [
+      0.9300000071525574,
+      0.41999998688697815,
+      0.10000000149011612
+     ]
+    }
+   ],
+   "shaderAllCompiled": true,
+   "protectedUnchanged": true,
+   "secondsTotal": 97.80952453613281,
+   "scene31": "Assets/GreatWave/Design31/Scenes/DS31_WhiteSpray.unity",
+   "scene31Sha256": "2c36fd2479cfe9256c2ca2669014bc623ad4e34f76123e8de43eb08e1b5e5312"
+  }
+ },
+ "backlog": {
+  "ja": "計画 §2.2 の設計31：102・135・176・177（引き継ぎ）、149〜152（使える水準）",
+  "items": {
+   "102": {
+    "value_ja": "テクセルの割合の 1 コマの増分の最大 1.83%（ds31_white_rate_cap の前 2.34%）、世界の面積の増分の最大 1.74%、最初の白 t 5.800 s（τ -2.800）、全部そろう t 11.267 s、終態の白の外の白：頂点 0・Unity の ID（原画視点・座席、各 32 時刻）0 画素",
+    "verdict": "合格"
+   },
+   "135": {
+    "value_ja": "この番号では測り直していない。美術優先31 の値（上側から船側へ、順位相関 0.988）は古い動き（美術優先30）のもの。今の T_white は唇の上面（区間 1）で最初に白くなる（t 5.80 s）",
+    "verdict": "記録のみ（仕上げ31 で今の動きで測る）"
+   },
+   "176": {
+    "value_ja": "原画視点 32 時刻・座席 32 時刻で、白で表示された色区の画素 0、終態と違う表示の色区の画素 0",
+    "verdict": "合格"
+   },
+   "177": {
+    "value_ja": "この番号では測り直していない。176 の Unity の ID の連続で、白でない色区の表示は全 64 時刻で終態と同じ（縞の色は UV に付いている）。同じ縞が同じ水面とともに上がるかの高さの測りはしていない",
+    "verdict": "記録のみ（仕上げ31）"
+   },
+   "149": {
+    "value": {
+     "dist_gap_0p2s_m": {
+      "min": 0.13142924867745812,
+      "median": 0.3886959822207511
+     },
+     "dist_tstar_m": {
+      "min": 0.4550767729818887,
+      "median": 4.02084647580817
+     },
+     "sep_after_s_max": 0.29750000000009647,
+     "note_ja": "放出の 0.2 s 後と t* の、粒子から水面の頂点までの距離（生成器の読み）。t* ではどの点も原画視点で空の画素の上にある"
+    },
+    "verdict": "記録（放出の 0.2 s 後の隙間の最小 0.131 m。隙間が見えるかは動画で）"
+   },
+   "150": {
+    "verdict": "合格（0）"
+   },
+   "151": {
+    "value": {
+     "dE00_median": 1.9564871197845592,
+     "dE00_p90": 5.216913230453491,
+     "dE00_max": 30.37323999915245,
+     "note_ja": "原画の点の中心 3×3（高解像度の画素）の Lab と、飛沫の色（調色板の白）。点は小さく、紙の地・摺りのむらと混ざるので記録のみ"
+    },
+    "verdict": "記録のみ（ΔE00 の中央値 1.96、p90 5.22、最大 30.4。≤5 は全部では満たさない。仕上げ31・設計36）"
+   },
+   "152": {
+    "verdict": "合格（Unity の描画で 0）"
+   }
+  }
+ },
+ "record_only": {
+  "vertex_count_reading_102": {
+   "value": 0.020794020794020762,
+   "note_ja": "頂点の数の割合は、唇の帯の列が 2 cm おきに詰まっているので、面の広がりの読みにならない（記録のみ）。判定はテクセルの割合と世界の面積（美術優先31 と同じ）。独立の検査も同じ値（0.0208）"
+  },
+  "never_white_texels": {
+   "value": 704,
+   "of": 4030214,
+   "note_ja": "終態の白のテクセルのうち t* までに白にならない数（独立の検査も同じ数）。主役波のパッケージからの引き継ぎ。t = 12 s の原画視点・座席の ID では表示の白と終態の白が同じ"
+  },
+  "emitters_on_non_white": {
+   "value_ja": "non-white emitters 63 classes {1: 39, 3: 19, 2: 5} of which surrounding quads >50% white: 8",
+   "classes_ja": "1 = 淡い水色、2 = 藍中、3 = 藍濃（af31_white.py の CLASS_NAMES の順）",
+   "note_ja": "飛沫の放出点の頂点のうち、29修正01 の色面で終態が白でないもの。τ_e ≥ T_white の条件はこれらの頂点では意味がない（白にならないので）。進行役の独立の検査（Unity/Build/Design/31/indep_check/emit2_out.txt）"
+  },
+  "spray_count": {
+   "value": 186,
+   "plan": "2〜3 千個",
+   "instancing_drawn": {
+    "spray": 186,
+    "spray_diag": 186,
+    "born": 3000,
+    "trace": 526
+   }
+  },
+  "dots_on_wave_at_tstar": {
+   "value": 6,
+   "of": 186
+  },
+  "mock_stereo": {
+   "rule_ja": "記録のみ（HMD の項目は保留）：座席 v1・原画視点のカメラを ±0.032 m ずらした 2 回の描画で、飛沫が変えた画素の数の左右差（設計34 の <10% の目安の事前の値）",
+   "rows": [
+    {
+     "view": "seat",
+     "t": 10.0,
+     "sprayPxL": 1888,
+     "sprayPxR": 1898,
+     "relDiff": 0.005268703680485487
+    },
+    {
+     "view": "painting",
+     "t": 10.0,
+     "sprayPxL": 1344,
+     "sprayPxR": 1331,
+     "relDiff": 0.0096726194024086
+    },
+    {
+     "view": "seat",
+     "t": 11.0,
+     "sprayPxL": 7279,
+     "sprayPxR": 7315,
+     "relDiff": 0.004921394400298595
+    },
+    {
+     "view": "painting",
+     "t": 11.0,
+     "sprayPxL": 3135,
+     "sprayPxR": 3114,
+     "relDiff": 0.006698564626276493
+    },
+    {
+     "view": "seat",
+     "t": 12.0,
+     "sprayPxL": 12636,
+     "sprayPxR": 12694,
+     "relDiff": 0.004569087643176317
+    },
+    {
+     "view": "painting",
+     "t": 12.0,
+     "sprayPxL": 4065,
+     "sprayPxR": 4073,
+     "relDiff": 0.001964154187589884
+    }
+   ],
+   "rel_diff_max": 0.0096726194024086
+  },
+  "s5_1": {
+   "ds31_air_side_left": {
+    "video": "Unity/Build/Design/31/white/unity/main/video/ds31_air_side_left_30fps.mp4",
+    "sha256": "e153e0e19e2665e026820b482a99152600623e13b75699e74f0543cc5385e495",
+    "rows": [
+     {
+      "from": 178,
+      "to": 179,
+      "mean_abs": 0.487,
+      "px_gt16": 13625
+     },
+     {
+      "from": 179,
+      "to": 180,
+      "mean_abs": 0.497,
+      "px_gt16": 14200
+     },
+     {
+      "from": 180,
+      "to": 181,
+      "mean_abs": 0.49,
+      "px_gt16": 14014
+     },
+     {
+      "from": 181,
+      "to": 182,
+      "mean_abs": 0.49,
+      "px_gt16": 13879
+     },
+     {
+      "from": 182,
+      "to": 183,
+      "mean_abs": 0.493,
+      "px_gt16": 14004
+     },
+     {
+      "from": 183,
+      "to": 184,
+      "mean_abs": 0.513,
+      "px_gt16": 14809
+     },
+     {
+      "from": 184,
+      "to": 185,
+      "mean_abs": 2.204,
+      "px_gt16": 36012
+     },
+     {
+      "from": 185,
+      "to": 186,
+      "mean_abs": 0.484,
+      "px_gt16": 13697
+     },
+     {
+      "from": 186,
+      "to": 187,
+      "mean_abs": 0.483,
+      "px_gt16": 13679
+     },
+     {
+      "from": 187,
+      "to": 188,
+      "mean_abs": 0.492,
+      "px_gt16": 14321
+     },
+     {
+      "from": 188,
+      "to": 189,
+      "mean_abs": 0.492,
+      "px_gt16": 14263
+     },
+     {
+      "from": 189,
+      "to": 190,
+      "mean_abs": 0.48,
+      "px_gt16": 13537
+     },
+     {
+      "from": 190,
+      "to": 191,
+      "mean_abs": 0.481,
+      "px_gt16": 13784
+     }
+    ]
+   },
+   "ds30_side_left_evidence": {
+    "video": "Docs/Evidence/Design/30/ds30_side_left_30fps.mp4",
+    "sha256": "540dde5a7eaba229b6c0ec714aeccb86e3b6c118d99333b9a6e48ed757113e11",
+    "rows": [
+     {
+      "from": 178,
+      "to": 179,
+      "mean_abs": 0.484,
+      "px_gt16": 13577
+     },
+     {
+      "from": 179,
+      "to": 180,
+      "mean_abs": 0.495,
+      "px_gt16": 14085
+     },
+     {
+      "from": 180,
+      "to": 181,
+      "mean_abs": 0.49,
+      "px_gt16": 14039
+     },
+     {
+      "from": 181,
+      "to": 182,
+      "mean_abs": 0.49,
+      "px_gt16": 13869
+     },
+     {
+      "from": 182,
+      "to": 183,
+      "mean_abs": 0.492,
+      "px_gt16": 14120
+     },
+     {
+      "from": 183,
+      "to": 184,
+      "mean_abs": 0.514,
+      "px_gt16": 14945
+     },
+     {
+      "from": 184,
+      "to": 185,
+      "mean_abs": 2.205,
+      "px_gt16": 35917
+     },
+     {
+      "from": 185,
+      "to": 186,
+      "mean_abs": 0.486,
+      "px_gt16": 13806
+     },
+     {
+      "from": 186,
+      "to": 187,
+      "mean_abs": 0.483,
+      "px_gt16": 13660
+     },
+     {
+      "from": 187,
+      "to": 188,
+      "mean_abs": 0.492,
+      "px_gt16": 14186
+     },
+     {
+      "from": 188,
+      "to": 189,
+      "mean_abs": 0.491,
+      "px_gt16": 14323
+     },
+     {
+      "from": 189,
+      "to": 190,
+      "mean_abs": 0.48,
+      "px_gt16": 13615
+     },
+     {
+      "from": 190,
+      "to": 191,
+      "mean_abs": 0.481,
+      "px_gt16": 13599
+     }
+    ]
+   },
+   "note_ja": "段階5確認の S5-1（コマ 184→185、t ≈ 6.17 s）。左の側面の動画のコマを ffmpeg で取り出し、隣のコマとの差を数えた。ds31_air_side_left は設計31 の Unity の描画（作品の色、飛沫あり）、ds30_side_left_evidence は設計30 の証拠の動画"
+  },
+  "play_mode": "Play モードの描画（Update の DrawMeshInstancedProcedural）は確かめていない。Play モードは 30 Hz のコマの間を線形に補う",
+  "player_build_shader": "DS31InstancedParticles はシェーダーを Shader.Find で探し、材質の資産から参照していない。PC ビルドでシェーダーが除かれないかは確かめていない（設計34・47）",
+  "hmd": "保留（PS VR2 の導入は利用者の手。SPI のキーワードでのコンパイルと Mock の両眼だけ）"
+ },
+ "revisions": {
+  "fix1_ja": "直し1（Q26 の 1 回）：102 の目安（1 コマ ≤ 2%）を満たすため、名前の付いた誘導 ds31_white_rate_cap で主役波の T_white を早める向きだけに付け替えた（9020 頂点、最大 0.026 s）。前 2.34% → 後 1.83%",
+  "spray_internal_ja": "飛沫の部の作る途中の直し（値を決める前）：水の側の読みを符号から半直線の偶奇に変えた（唇の折り返しで符号が誤る）。偶奇で残った放出の直後の 1〜2 mm のかすめ 3 粒を、放出点を空気の側へ（半径 + 0.01 m）離して消した。直しの 2 回目はない"
+ },
+ "independent": {
+  "files": {
+   "chk_white.json": "Unity/Build/Design/31/indep_check/chk_white.json",
+   "chk_150.json": "Unity/Build/Design/31/indep_check/chk_150.json",
+   "chk_150_section.json": "Unity/Build/Design/31/indep_check/chk_150_section.json",
+   "chk_152.json": "Unity/Build/Design/31/indep_check/chk_152.json",
+   "emit2_out.txt": "Unity/Build/Design/31/indep_check/emit2_out.txt"
+  },
+  "ja": "進行役の独立の検査。コードは会話の作業フォルダー（リポジトリの外）。Unity は走らせていない。git は使っていない"
+ },
+ "discrepancies_ja": [
+  "ds31_white_rate_cap で動いた頂点：白の部の記録 9020、独立の検査 9018（比べ方の違い。原因は確かめていない）",
+  "rate_cap の目標は 1.8%（cap 0.018）だが、テクセルの読みの結果は 1.83%（白の部）・1.82%（独立の検査の双一次の読み）。判定の目安 2% の内",
+  "最初の白：numpy は t 5.800 s、Unity の ID は t 6.00 s（ID は 0.25 s おきの時刻なので）",
+  "150 の離れた後の最小の距離：飛沫の部 0.137 m（離れた＝半径 + 0.10 m）、独立の検査 0.0092 m（離れた＝半径 + 0.02 m）。定義の違い",
+  "離れるまでの時間の最大：150 の検査 0.227 s、149 の記録 0.298 s（生成器の読み）",
+  "DS31Render.cs の説明は実行の手順を run_ds31_unity.ps1 と書くが、ファイルは run_ds31w_unity.ps1",
+  "ds31_spray.py の冒頭の説明は放出の候補の確かめを 120 Hz と書くが、生成の記録の値（params.check_hz）は 240 Hz",
+  "作業の指示の白の部の要約は開始を 18:34 とするが、最初のフォルダー（Unity/Build/Design/31）の作成は 18:36:47"
+ ],
+ "decision": {
+  "adopted_ja": "白の出現は主役波のパッケージの T_white（物理の時刻）に ds31_white_rate_cap を掛けたもの。飛沫 v0 は原画の唇の前の区域の白い点 186 個を射線の上の 0.5〜3 m の層へ置き、逆弾道で唇の頂点から出す。描画は光を使わない不透明の単色の小球（42 頂点）の instancing。原画視点の回帰は飛沫を色区 ID に入れない読みで測る",
+  "dropped_ja": "(1) 飛沫を ID に入れた読みで回帰を判定する：評価器が空の中の点を輪郭と読むので採らない（評価器の飛沫の層のマスクは設計34・39 か仕上げ）。(2) 102 を頂点の数で読む：唇の帯の列が 2 cm おきに詰まっているので面の広がりにならない（記録のみ）。(3) 飛沫の区域を空全体・波の面へ広げる：波の面の白い点は 29修正01 の色面にある。区域の外は仕上げ31。(4) 放出点を終態が白の頂点に限る：見つけたのは独立の検査の後で、Q26 の直しの 1 回は 102 に使ったので、仕上げ31 へ"
+ },
+ "handoffs": {
+  "polish31_ja": "放出点を終態が白の頂点・テクセルに限る、点の抽出を手の注記と照合する、区域の外の点（右上の空・左の波・船の近く）、ΔE00（151）、135・177 を今の動きで測る、飛沫の大小と分布",
+  "design32_33_ja": "発生の表（ds31_white_onset、27,027 記録）は爪の根元の候補。唇の塊の前に来る点は設計33 の爪ができるまで青の上の白い点に見える",
+  "design34_39_ja": "評価器に飛沫の層を除くマスク。設計34 は 3 層を一つの時計で（飛沫は解析式を推奨）。設計39 の小飛沫で数を 2〜3 千個へ",
+  "polish30_ja": "S5-1（コマ 184→185 の切り替わり）は設計31 の描画にも残る（ds31_s51_frames.json）",
+  "hmd_ja": "設計08〜10（PS VR2 の導入の後）。ステレオ（SPI）・実時間の再生・Play モードの描画は未検証"
+ },
+ "time": {
+  "limit_h": 3,
+  "ja": "Q26 の日程で 3 時間（計画 §2.6 の Q26 の表）。ファイルの時刻で 9/29 18:36:47（Unity/Build/Design/31 の作成）〜19:26:41（白の部の最後）、独立の検査 19:29〜19:40、記録は 19:42〜。上限の内。Unity の 1 回は DS31Render の中の時間で 97.8 s"
+ }
+}
