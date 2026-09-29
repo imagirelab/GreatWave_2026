@@ -1,0 +1,712 @@
+{
+ "schema": "GreatWave.Stage6.selfreview_checks/1",
+ "date": "2026-09-30",
+ "method_ja": "段階6確認（自己評審）の進行役の独立の検査。設計31〜35 の作り手のコードは使わず、Unity の出力（動画・画像）を自分で読んだ。評価器だけは計画 §2.0 の道具（ds30b_tstar_regress.py）を、設計34 の t* の画像の写しに回した。コードと出力は Git 対象外の Unity/Build/Design/35/stage6_review/。",
+ "exit3_stereo_mock": {
+  "source": "Unity/Build/Design/34/unity3/main/stereo/*_clawdiag.png（Unity の PC 描画、カメラ ±32 mm の 2 回の描画、爪＝マゼンタ）",
+  "cases": [
+   {
+    "case": "painting_t10.0",
+    "px_L": 6012,
+    "px_R": 6077,
+    "px_diff_pct": 1.07,
+    "iou_no_shift": 0.3671,
+    "best_shift_px": -3,
+    "iou_best_shift": 0.8176,
+    "tufts_L": 87,
+    "tufts_R": 89,
+    "matched": 85,
+    "tufts_only_L_areas": [],
+    "tufts_only_R_areas": [],
+    "L_within_1px_of_R": 0.9982,
+    "L_within_2px_of_R": 0.9997,
+    "R_within_1px_of_L": 0.9988,
+    "R_within_2px_of_L": 1.0,
+    "L_px_farther_than_2px": 2,
+    "R_px_farther_than_2px": 0,
+    "dy_px_abs_max": 0.295,
+    "dy_px_median": -0.007,
+    "dx_px_median": -2.478,
+    "dx_px_min": -2.944,
+    "dx_px_max": -1.81,
+    "area_ratio_min": 0.875,
+    "area_ratio_max": 1.179
+   },
+   {
+    "case": "painting_t11.0",
+    "px_L": 12944,
+    "px_R": 13001,
+    "px_diff_pct": 0.438,
+    "iou_no_shift": 0.3632,
+    "best_shift_px": -3,
+    "iou_best_shift": 0.9157,
+    "tufts_L": 117,
+    "tufts_R": 119,
+    "matched": 113,
+    "tufts_only_L_areas": [],
+    "tufts_only_R_areas": [],
+    "L_within_1px_of_R": 0.9995,
+    "L_within_2px_of_R": 1.0,
+    "R_within_1px_of_L": 0.9988,
+    "R_within_2px_of_L": 0.9996,
+    "L_px_farther_than_2px": 0,
+    "R_px_farther_than_2px": 5,
+    "dy_px_abs_max": 1.019,
+    "dy_px_median": -0.017,
+    "dx_px_median": -2.827,
+    "dx_px_min": -3.527,
+    "dx_px_max": -2.028,
+    "area_ratio_min": 0.915,
+    "area_ratio_max": 1.103
+   },
+   {
+    "case": "painting_t12.0",
+    "px_L": 15310,
+    "px_R": 15287,
+    "px_diff_pct": 0.15,
+    "iou_no_shift": 0.35,
+    "best_shift_px": -3,
+    "iou_best_shift": 0.9359,
+    "tufts_L": 130,
+    "tufts_R": 129,
+    "matched": 129,
+    "tufts_only_L_areas": [],
+    "tufts_only_R_areas": [],
+    "L_within_1px_of_R": 0.9996,
+    "L_within_2px_of_R": 0.9999,
+    "R_within_1px_of_L": 0.9995,
+    "R_within_2px_of_L": 0.9998,
+    "L_px_farther_than_2px": 1,
+    "R_px_farther_than_2px": 3,
+    "dy_px_abs_max": 0.719,
+    "dy_px_median": 0.0,
+    "dx_px_median": -2.954,
+    "dx_px_min": -3.657,
+    "dx_px_max": -2.112,
+    "area_ratio_min": 0.915,
+    "area_ratio_max": 1.074
+   },
+   {
+    "case": "seat_t10.0",
+    "px_L": 2096,
+    "px_R": 2116,
+    "px_diff_pct": 0.945,
+    "iou_no_shift": 0.4317,
+    "best_shift_px": -2,
+    "iou_best_shift": 0.8854,
+    "tufts_L": 24,
+    "tufts_R": 23,
+    "matched": 23,
+    "tufts_only_L_areas": [],
+    "tufts_only_R_areas": [],
+    "L_within_1px_of_R": 0.9981,
+    "L_within_2px_of_R": 0.9981,
+    "R_within_1px_of_L": 0.9991,
+    "R_within_2px_of_L": 1.0,
+    "L_px_farther_than_2px": 4,
+    "R_px_farther_than_2px": 0,
+    "dy_px_abs_max": 0.37,
+    "dy_px_median": -0.026,
+    "dx_px_median": -2.303,
+    "dx_px_min": -2.826,
+    "dx_px_max": 0.612,
+    "area_ratio_min": 0.938,
+    "area_ratio_max": 1.236
+   },
+   {
+    "case": "seat_t11.0",
+    "px_L": 5307,
+    "px_R": 5259,
+    "px_diff_pct": 0.904,
+    "iou_no_shift": 0.3612,
+    "best_shift_px": -3,
+    "iou_best_shift": 0.8309,
+    "tufts_L": 35,
+    "tufts_R": 35,
+    "matched": 34,
+    "tufts_only_L_areas": [],
+    "tufts_only_R_areas": [],
+    "L_within_1px_of_R": 0.9872,
+    "L_within_2px_of_R": 0.9994,
+    "R_within_1px_of_L": 0.9922,
+    "R_within_2px_of_L": 0.999,
+    "L_px_farther_than_2px": 3,
+    "R_px_farther_than_2px": 5,
+    "dy_px_abs_max": 0.91,
+    "dy_px_median": -0.014,
+    "dx_px_median": -3.328,
+    "dx_px_min": -4.353,
+    "dx_px_max": -2.24,
+    "area_ratio_min": 0.891,
+    "area_ratio_max": 1.087
+   },
+   {
+    "case": "seat_t12.0",
+    "px_L": 6320,
+    "px_R": 6307,
+    "px_diff_pct": 0.206,
+    "iou_no_shift": 0.3349,
+    "best_shift_px": -4,
+    "iou_best_shift": 0.8124,
+    "tufts_L": 37,
+    "tufts_R": 38,
+    "matched": 36,
+    "tufts_only_L_areas": [],
+    "tufts_only_R_areas": [],
+    "L_within_1px_of_R": 0.9829,
+    "L_within_2px_of_R": 0.9997,
+    "R_within_1px_of_L": 0.9851,
+    "R_within_2px_of_L": 0.9997,
+    "L_px_farther_than_2px": 2,
+    "R_px_farther_than_2px": 2,
+    "dy_px_abs_max": 1.337,
+    "dy_px_median": -0.035,
+    "dx_px_median": -3.727,
+    "dx_px_min": -5.083,
+    "dx_px_max": -2.289,
+    "area_ratio_min": 0.915,
+    "area_ratio_max": 1.068
+   }
+  ]
+ },
+ "exit1_exit2_video": {
+  "source": "Unity/Build/Design/34/unity3/video_run/video/ds34_{all,white,claws,spray}_{painting,seat}_30fps.mp4",
+  "painting": {
+   "frames": 421,
+   "max_claw_px": 15647,
+   "first_frame_with_claws": 207,
+   "floating_claw_candidates_first_reading": {
+    "frames": [
+     344,
+     346
+    ],
+    "examples": [
+     {
+      "k": 344,
+      "x": 950,
+      "y": 308,
+      "area": 8
+     },
+     {
+      "k": 346,
+      "x": 959,
+      "y": 308,
+      "area": 7
+     }
+    ]
+   },
+   "floating_claw_candidates_ring_check_ja": "候補のどれも、周りの画素（3〜9 px の輪）で空らしい色（R − B > 20）の割合 0。周りはシートの淡い水色 RGB≈(192〜200, 208〜216, 192〜208)。最初の読みの水の面のマスク（B > R + 8 か輝度 < 110）がこの色を落としていたための誤検出",
+   "floating_claw_components_after_check": 0,
+   "top_new_edge_ratio": [
+    {
+     "pair": "183->184",
+     "t_s": 6.133,
+     "value": 1490,
+     "ratio_to_local_median": 1.26
+    },
+    {
+     "pair": "181->182",
+     "t_s": 6.067,
+     "value": 1445,
+     "ratio_to_local_median": 1.22
+    },
+    {
+     "pair": "356->357",
+     "t_s": 11.9,
+     "value": 236,
+     "ratio_to_local_median": 1.18
+    }
+   ],
+   "top_mad_ratio": [
+    {
+     "pair": "184->185",
+     "t_s": 6.167,
+     "value": 1.1333073377609253,
+     "ratio_to_local_median": 1.61
+    },
+    {
+     "pair": "183->184",
+     "t_s": 6.133,
+     "value": 0.7684968113899231,
+     "ratio_to_local_median": 1.12
+    },
+    {
+     "pair": "182->183",
+     "t_s": 6.1,
+     "value": 0.7352411150932312,
+     "ratio_to_local_median": 1.08
+    }
+   ],
+   "top_claw_xor_ratio": [
+    {
+     "pair": "362->363",
+     "t_s": 12.1,
+     "value": 73,
+     "ratio_to_local_median": 3.65
+    },
+    {
+     "pair": "378->379",
+     "t_s": 12.633,
+     "value": 36,
+     "ratio_to_local_median": 1.8
+    },
+    {
+     "pair": "365->366",
+     "t_s": 12.2,
+     "value": 30,
+     "ratio_to_local_median": 1.5
+    },
+    {
+     "pair": "385->386",
+     "t_s": 12.867,
+     "value": 27,
+     "ratio_to_local_median": 1.35
+    }
+   ],
+   "max_ratio_in_top12_pairs_up_to_k359": {
+    "new_edge_px": 1.26,
+    "mad": 1.61,
+    "claw_xor_px": 1.14
+   }
+  },
+  "seat": {
+   "frames": 421,
+   "max_claw_px": 6603,
+   "first_frame_with_claws": 262,
+   "floating_claw_candidates_first_reading": {
+    "frames": [
+     329,
+     330,
+     338,
+     343,
+     344,
+     345,
+     346,
+     347,
+     349,
+     354,
+     355,
+     356,
+     358
+    ],
+    "examples": [
+     {
+      "k": 329,
+      "x": 738,
+      "y": 664,
+      "area": 15
+     },
+     {
+      "k": 330,
+      "x": 738,
+      "y": 652,
+      "area": 15
+     },
+     {
+      "k": 338,
+      "x": 734,
+      "y": 558,
+      "area": 6
+     },
+     {
+      "k": 343,
+      "x": 734,
+      "y": 508,
+      "area": 16
+     },
+     {
+      "k": 344,
+      "x": 734,
+      "y": 500,
+      "area": 17
+     },
+     {
+      "k": 345,
+      "x": 735,
+      "y": 494,
+      "area": 13
+     },
+     {
+      "k": 346,
+      "x": 735,
+      "y": 486,
+      "area": 17
+     },
+     {
+      "k": 347,
+      "x": 736,
+      "y": 480,
+      "area": 21
+     },
+     {
+      "k": 349,
+      "x": 736,
+      "y": 470,
+      "area": 23
+     },
+     {
+      "k": 354,
+      "x": 736,
+      "y": 456,
+      "area": 19
+     },
+     {
+      "k": 355,
+      "x": 736,
+      "y": 456,
+      "area": 12
+     },
+     {
+      "k": 356,
+      "x": 736,
+      "y": 454,
+      "area": 21
+     },
+     {
+      "k": 358,
+      "x": 736,
+      "y": 454,
+      "area": 22
+     }
+    ]
+   },
+   "floating_claw_candidates_ring_check_ja": "候補のどれも、周りの画素（3〜9 px の輪）で空らしい色（R − B > 20）の割合 0。周りはシートの淡い水色 RGB≈(192〜200, 208〜216, 192〜208)。最初の読みの水の面のマスク（B > R + 8 か輝度 < 110）がこの色を落としていたための誤検出",
+   "floating_claw_components_after_check": 0,
+   "top_new_edge_ratio": [
+    {
+     "pair": "267->268",
+     "t_s": 8.933,
+     "value": 227,
+     "ratio_to_local_median": 1.14
+    },
+    {
+     "pair": "282->283",
+     "t_s": 9.433,
+     "value": 806,
+     "ratio_to_local_median": 1.13
+    },
+    {
+     "pair": "349->350",
+     "t_s": 11.667,
+     "value": 5590,
+     "ratio_to_local_median": 1.11
+    }
+   ],
+   "top_mad_ratio": [
+    {
+     "pair": "359->360",
+     "t_s": 12.0,
+     "value": 0.20826388895511627,
+     "ratio_to_local_median": 1.45
+    },
+    {
+     "pair": "87->88",
+     "t_s": 2.933,
+     "value": 0.20259548723697662,
+     "ratio_to_local_median": 1.08
+    },
+    {
+     "pair": "86->87",
+     "t_s": 2.9,
+     "value": 0.201605424284935,
+     "ratio_to_local_median": 1.07
+    }
+   ],
+   "top_claw_xor_ratio": [
+    {
+     "pair": "359->360",
+     "t_s": 12.0,
+     "value": 487,
+     "ratio_to_local_median": 1.75
+    },
+    {
+     "pair": "265->266",
+     "t_s": 8.867,
+     "value": 62,
+     "ratio_to_local_median": 1.09
+    },
+    {
+     "pair": "266->267",
+     "t_s": 8.9,
+     "value": 87,
+     "ratio_to_local_median": 1.05
+    },
+    {
+     "pair": "272->273",
+     "t_s": 9.1,
+     "value": 749,
+     "ratio_to_local_median": 1.05
+    }
+   ],
+   "max_ratio_in_top12_pairs_up_to_k359": {
+    "new_edge_px": 1.14,
+    "mad": 1.08,
+    "claw_xor_px": 1.09
+   }
+  },
+  "note_ja": "比は前後 6 コマの中央値に対する比（床：新しい縁 200 px、MAD 0.05、爪の食い違い 20 px）。コマ 359→360 は動きから静止へ入る所で、静止の側の中央値が 0 に近いので比が上がる。コマ 361 以後の爪の食い違い（≤ 73 px）は動画の圧縮の雑音。",
+  "v1_videos_identical_to_ds34": {
+   "painting": true,
+   "seat": true
+  }
+ },
+ "regression_evaluator_rerun": {
+  "command": "py -3.10 -B Tools/GWWaveGen/ds30/ds30b_tstar_regress.py --out G:/Unity/GreatWave_2026_Fresh/Unity/Build/Design/35/stage6_review/eval --sets t28_claws,t28_white（設計34 の t28_claws・t28_white の render と json の写しに対して）",
+  "sets": {
+   "t28_claws": {
+    "lfgate": {
+     "132_sigma12_max": 3.7552,
+     "72_sigma24_p95": 3.8423
+    },
+    "silhouettes_78_130_131_px": {
+     "78": 3.0289,
+     "130": 3.5131,
+     "131": 3.0431
+    },
+    "sym_colour_over_0p5_vs_28r01": [
+     {
+      "item": "79",
+      "measure": "boundary",
+      "kp_sym_max_px": 1.608,
+      "r28_sym_max_px": 0.34,
+      "diff_px": 1.268,
+      "kp_verdict_sym": "pass",
+      "r28_verdict_sym": "pass"
+     },
+     {
+      "item": "133",
+      "measure": "boundary",
+      "kp_sym_max_px": 8.837,
+      "r28_sym_max_px": 0.402,
+      "diff_px": 8.435,
+      "kp_verdict_sym": "fail",
+      "r28_verdict_sym": "pass"
+     },
+     {
+      "item": "134",
+      "measure": "boundary",
+      "kp_sym_max_px": 9.399,
+      "r28_sym_max_px": 0.661,
+      "diff_px": 8.738,
+      "kp_verdict_sym": "fail",
+      "r28_verdict_sym": "pass"
+     },
+     {
+      "item": "175",
+      "measure": "boundary_by_class/ai_mid",
+      "kp_sym_max_px": 0.472,
+      "r28_sym_max_px": 1.625,
+      "diff_px": -1.153,
+      "kp_verdict_sym": "fail",
+      "r28_verdict_sym": "fail"
+     },
+     {
+      "item": "175",
+      "measure": "boundary_by_class/mizuiro",
+      "kp_sym_max_px": 22.382,
+      "r28_sym_max_px": 0.865,
+      "diff_px": 21.517,
+      "kp_verdict_sym": "fail",
+      "r28_verdict_sym": "fail"
+     },
+     {
+      "item": "270",
+      "measure": "boundary",
+      "kp_sym_max_px": 3.04,
+      "r28_sym_max_px": 0.563,
+      "diff_px": 2.477,
+      "kp_verdict_sym": "pass",
+      "r28_verdict_sym": "pass"
+     },
+     {
+      "item": "270",
+      "measure": "record_mizuiro_reading",
+      "kp_sym_max_px": 8.65,
+      "r28_sym_max_px": 0.661,
+      "diff_px": 7.989,
+      "kp_verdict_sym": "pass",
+      "r28_verdict_sym": "pass"
+     }
+    ],
+    "sym_white_bands_ge20px_267": 49,
+    "sym_diff_vs_29r01_over_0p5": [
+     [
+      "79",
+      "boundary",
+      1.251
+     ],
+     [
+      "133",
+      "boundary",
+      8.119
+     ],
+     [
+      "134",
+      "boundary",
+      8.765
+     ],
+     [
+      "175",
+      "boundary_by_class/mizuiro",
+      21.404
+     ],
+     [
+      "270",
+      "boundary",
+      2.477
+     ],
+     [
+      "270",
+      "record_mizuiro_reading",
+      8.016
+     ]
+    ]
+   },
+   "t28_white": {
+    "lfgate": {
+     "132_sigma12_max": 3.7552,
+     "72_sigma24_p95": 4.0075
+    },
+    "silhouettes_78_130_131_px": {
+     "78": 3.0289,
+     "130": 3.5131,
+     "131": 3.0431
+    },
+    "sym_colour_over_0p5_vs_28r01": [
+     {
+      "item": "175",
+      "measure": "boundary_by_class/ai_mid",
+      "kp_sym_max_px": 0.472,
+      "r28_sym_max_px": 1.625,
+      "diff_px": -1.153,
+      "kp_verdict_sym": "fail",
+      "r28_verdict_sym": "fail"
+     }
+    ],
+    "sym_white_bands_ge20px_267": 0,
+    "sym_diff_vs_29r01_over_0p5": []
+   }
+  },
+  "class_ids_items_78_130_131_132_72_detail": {
+   "t28_claws": {
+    "78": {
+     "max_px": 3.0289,
+     "p95_px": 1.798,
+     "verdict": "pass"
+    },
+    "130": {
+     "max_px": 3.5131,
+     "p95_px": 3.3551,
+     "verdict": "pass"
+    },
+    "131": {
+     "max_px": 3.0431,
+     "p95_px": 2.856,
+     "verdict": "pass"
+    },
+    "132": {
+     "max_px": 5.2998,
+     "p95_px": 4.4995,
+     "verdict": "fail"
+    },
+    "72": {
+     "max_px": 10.2687,
+     "p95_px": 7.8009,
+     "verdict": "fail"
+    }
+   },
+   "t28_white": {
+    "78": {
+     "max_px": 3.0289,
+     "p95_px": 1.798,
+     "verdict": "pass"
+    },
+    "130": {
+     "max_px": 3.5131,
+     "p95_px": 3.3551,
+     "verdict": "pass"
+    },
+    "131": {
+     "max_px": 3.0431,
+     "p95_px": 2.856,
+     "verdict": "pass"
+    },
+    "132": {
+     "max_px": 5.9472,
+     "p95_px": 5.0703,
+     "verdict": "fail"
+    },
+    "72": {
+     "max_px": 10.4105,
+     "p95_px": 8.7546,
+     "verdict": "fail"
+    }
+   }
+  }
+ },
+ "inputs_sha256": {
+  "Unity/Build/Design/34/unity3/video_run/video/ds34_all_painting_30fps.mp4": "202c8cd7f8e70380d4fae71f8bce4829467a9106a5323aab66d3cac219b56f5c",
+  "Unity/Build/Design/34/unity3/video_run/video/ds34_all_seat_30fps.mp4": "8a107eb2c6b2edd42f6a7f374a50cb7ded7a72e6e04b916830dae729a4649e9b",
+  "Unity/Build/Design/34/unity3/video_run/video/ds34_claws_painting_30fps.mp4": "ef71eaacd94c6ca9cf33682c2caf8cfb5e32383bd38a0346ed054c13d1fb5c85",
+  "Unity/Build/Design/34/unity3/video_run/video/ds34_claws_seat_30fps.mp4": "06a30c64336b98f526a83fdb2179450e0dae006195117bb42c796999bc17caf0",
+  "Unity/Build/Design/34/unity3/video_run/video/ds34_spray_painting_30fps.mp4": "becd5e2a90730fa3da657153e40a88b2511c1c85fec1f07a0836d078771d4aba",
+  "Unity/Build/Design/34/unity3/video_run/video/ds34_spray_seat_30fps.mp4": "2627d4f3f7a036f01f55a34aebf7cd2be1623ba82e1f5709b3e58163dd0c0beb",
+  "Unity/Build/Design/34/unity3/video_run/video/ds34_white_painting_30fps.mp4": "3fadb0a625a8e525aee038c7d0ae25254403b58194571584f9950d9adb5b3e81",
+  "Unity/Build/Design/34/unity3/video_run/video/ds34_white_seat_30fps.mp4": "8b6d95cf9992ac4f8ba8b43947cad5fc259fdd9200f9784235905d2afd28e615",
+  "Unity/Build/Design/34/unity3/main/stereo/painting_t10.0_L.png": "b5f9779618babceeb0c795d1b959310f8e4bc4e151b43fd6a8456e4abc856ad8",
+  "Unity/Build/Design/34/unity3/main/stereo/painting_t10.0_L_clawdiag.png": "493dc164db78ff85714022fa2abbdb479d9d076d2901b6eb326bce65b167a815",
+  "Unity/Build/Design/34/unity3/main/stereo/painting_t10.0_R.png": "b8dd10fe8ec46c2775dcab7ca3815a1bb1e0e2bb46629a4eb801ebf63d009a6d",
+  "Unity/Build/Design/34/unity3/main/stereo/painting_t10.0_R_clawdiag.png": "9cc703272e56393020c94b92674e3c4f2d545e29d997365c67a4f98f7e9047fe",
+  "Unity/Build/Design/34/unity3/main/stereo/painting_t11.0_L.png": "67662d8b873c00882ddd33939c73f6c3c1a406b599f0eb21e9176f72170ba499",
+  "Unity/Build/Design/34/unity3/main/stereo/painting_t11.0_L_clawdiag.png": "f2f5bb400cac48c3667da2a9d48f60910e430cac4ea7cbef665f3af2eb688241",
+  "Unity/Build/Design/34/unity3/main/stereo/painting_t11.0_R.png": "7c37201b61e5077ce73ec10fb479fcb725a1bac2d468e7db77e516b273504d11",
+  "Unity/Build/Design/34/unity3/main/stereo/painting_t11.0_R_clawdiag.png": "9665b8bae389f7467437e0af6433eae3c4331b445895d75864745adf36115ed1",
+  "Unity/Build/Design/34/unity3/main/stereo/painting_t12.0_L.png": "aac5b6bd58b9f10951f89a6c1248a51ca600db5495e3b3d6eebd20620ba34cd8",
+  "Unity/Build/Design/34/unity3/main/stereo/painting_t12.0_L_clawdiag.png": "1b9df6459b7aa7037bc303086db7959fa084027ec2502f40c1a14b00ff7530b8",
+  "Unity/Build/Design/34/unity3/main/stereo/painting_t12.0_R.png": "a56f6ae94185e914b3f6b5f7fd6898ff820610157a748feb314ceb52f72333ec",
+  "Unity/Build/Design/34/unity3/main/stereo/painting_t12.0_R_clawdiag.png": "38d4f6629f98aa4b074b476c55aef94c238af7640962b04db927952d8ebc3b98",
+  "Unity/Build/Design/34/unity3/main/stereo/seat_t10.0_L.png": "a442fa206f5677ee7f2a01bd4a10264bc2bd77cec7d93d85c4e3e4548cff5f72",
+  "Unity/Build/Design/34/unity3/main/stereo/seat_t10.0_L_clawdiag.png": "5a3332b8a804451093b242d2540ad14d8baead76d27244cf108b1f2b48e3c4bf",
+  "Unity/Build/Design/34/unity3/main/stereo/seat_t10.0_R.png": "da214f75caea8b783b29e97a875fe3fdba675fca6e1b32ef3a764487d5289941",
+  "Unity/Build/Design/34/unity3/main/stereo/seat_t10.0_R_clawdiag.png": "45b572a01d4c8d7a4a031e3732210bec5b8f92708bf8729446d50ad0b4287dfe",
+  "Unity/Build/Design/34/unity3/main/stereo/seat_t11.0_L.png": "77068b06cc35499d8148575230811f13870aa61cfce1966d8bd2cbee8e0bb304",
+  "Unity/Build/Design/34/unity3/main/stereo/seat_t11.0_L_clawdiag.png": "428e0e4a460ade9c9d89ff12ea5452d457127506cc9facb00316cdbcbe876e06",
+  "Unity/Build/Design/34/unity3/main/stereo/seat_t11.0_R.png": "48a9aae970569b15cbea91132f35fb78e56dbb480739a06087d20a6aa8c2f6eb",
+  "Unity/Build/Design/34/unity3/main/stereo/seat_t11.0_R_clawdiag.png": "c4773d9c96c5269caea72c9144588a4336b47422753fab1b84293881f362879a",
+  "Unity/Build/Design/34/unity3/main/stereo/seat_t12.0_L.png": "40dcedd4fffba62d09a456e94b59f538d7eddef46fa7229d245e91f8886c8516",
+  "Unity/Build/Design/34/unity3/main/stereo/seat_t12.0_L_clawdiag.png": "e43aadfcf625f0d446865d9898dab5f9174474949822ddb5e1f45bb9888b5a38",
+  "Unity/Build/Design/34/unity3/main/stereo/seat_t12.0_R.png": "742eb3e8f8d69820a89d1fd82186e588f2a7627e2830afac2abfdf706737d573",
+  "Unity/Build/Design/34/unity3/main/stereo/seat_t12.0_R_clawdiag.png": "ced3c2829d52e78cd0061b3b67c42fcfb70eae3ae6466c6d98f3201971df6140",
+  "Unity/Build/Design/34/unity3/main/t28_claws/t28/render/af28r01_back.png": "7bb27c4c1619a41ffd2383075580b910241fdf004f2c78151b438a762b42ce6b",
+  "Unity/Build/Design/34/unity3/main/t28_claws/t28/render/af28r01_back_rule28.png": "83f64ec63d8d89a0f365c5c0e8bc16122e1ebb2968c33a0b0f1b6051c019432f",
+  "Unity/Build/Design/34/unity3/main/t28_claws/t28/render/af28r01_back_waveonly.png": "fc2d02e60e2903da70be870ef03dc0382b4d8f675b96f677346348cef2bd5be3",
+  "Unity/Build/Design/34/unity3/main/t28_claws/t28/render/af28r01_class_ids.png": "ab1af74760aeb19bb7f076335e5a1b675f746714d1df759ca528f0561562eff6",
+  "Unity/Build/Design/34/unity3/main/t28_claws/t28/render/af28r01_line_ids.png": "71e0a3637ca3e79815b31a7b329f75e2e01b43cb328899f598f3b50d60442054",
+  "Unity/Build/Design/34/unity3/main/t28_claws/t28/render/af28r01_painting.png": "68a8957cfa5874b603422735dfdd409bc592e42c1a20107adab5c7f3d2851ee1",
+  "Unity/Build/Design/34/unity3/main/t28_claws/t28/render/af28r01_painting_kstar.png": "e5a41b0d00483d71adc513628ecfbfe4c0a0797e51bb351a4e07817b1e133f79",
+  "Unity/Build/Design/34/unity3/main/t28_claws/t28/render/af28r01_painting_rule28.png": "93d916c894f07e244fbf0b18adcf05b218d054cc7f923042c56785317a4d9d5b",
+  "Unity/Build/Design/34/unity3/main/t28_claws/t28/render/af28r01_seat.png": "b6b2b1a7fb3767af5701258a6ac2ad6b4a3e2f82dddbdf65f74a2f7d23224277",
+  "Unity/Build/Design/34/unity3/main/t28_claws/t28/render/af28r01_seat_class_ids.png": "f009ede9a7dc5bcde655be3a47703bdb355b882ec5aa40b4fa654cdf2e54dbf8",
+  "Unity/Build/Design/34/unity3/main/t28_claws/t28/render/af28r01_seat_kstar.png": "06662e538c5432269d9e66df1fdd522790d28b3e36be63958f36d88234d70370",
+  "Unity/Build/Design/34/unity3/main/t28_claws/t28/render/af28r01_seat_left.png": "19d38218124b6a9c8344eb8b18737a2fef6785883dd2711932b6fccf3a42830d",
+  "Unity/Build/Design/34/unity3/main/t28_claws/t28/render/af28r01_seat_left_rule28.png": "4f156f686c06ad24c532757b390534b624fc05e72946e1bc61fc22b8201515f7",
+  "Unity/Build/Design/34/unity3/main/t28_claws/t28/render/af28r01_seat_low.png": "1beb2ba6bebba222c292121b2610f1bead6671cb1f236f3f1072ca2db2ec9b3d",
+  "Unity/Build/Design/34/unity3/main/t28_claws/t28/render/af28r01_seat_low_class_ids.png": "9f3eaa81d487917e6d41b969adb24a36444832f8f80699eaca0c394eb4269c64",
+  "Unity/Build/Design/34/unity3/main/t28_claws/t28/render/af28r01_seat_low_kstar.png": "52f578c8a957c3829059bab4b6975f7dadd683385ee7d5e8b531aec35d253ec7",
+  "Unity/Build/Design/34/unity3/main/t28_claws/t28/render/af28r01_seat_low_rule28.png": "b025120f43b970eb2fd3661c0a0b3bd01e5da6c354a66fdcc1493903e3e0c3d6",
+  "Unity/Build/Design/34/unity3/main/t28_claws/t28/render/af28r01_seat_low_waveonly.png": "ab9623e03224c29a1029a00e48d33f045336e20faaa632f060bfddc4d96f1b59",
+  "Unity/Build/Design/34/unity3/main/t28_claws/t28/render/af28r01_seat_rule28.png": "30cc94878aa9173edb536ed71a6b3ede7f2fff657bdfe906fb1529361fc3c36d",
+  "Unity/Build/Design/34/unity3/main/t28_claws/t28/render/af28r01_seat_waveonly.png": "c3f276f0092f3fc77c2eadf3f41f5a6b3f9e7a17c4ad3cb880ef8f99e9a69574",
+  "Unity/Build/Design/34/unity3/main/t28_claws/t28/render/af28r01_side_left.png": "6a644efb92764d1c066f92920549860cb87c97b2fca0b4862da883c57c04b5d0",
+  "Unity/Build/Design/34/unity3/main/t28_claws/t28/render/af28r01_side_left_rule28.png": "246f60e78c0bf6ca67b4c393efe25d6f18bfcb41594b5648eb9a4f295e944370",
+  "Unity/Build/Design/34/unity3/main/t28_claws/t28/render/af28r01_side_left_waveonly.png": "68de608a09436e1663ffea181d400302468c80495f7552dce4e411f1439dbc97",
+  "Unity/Build/Design/31/white/unity/main/video/ds31_adv_side_top_30fps.mp4": "22d6276f4f04d212c016bc103725e5ce00afce24038bda27d5353f54a48f2212"
+ },
+ "code_sha256": {
+  "s6_stereo.py": "b502f9cdc23f8d9bea6bdfe29c5f783b34e7aa621f694257eb8b030ebe1778ad",
+  "s6_video.py": "f0a0e774be3954c93a3fc03febe4d2f7b6e19c84da830e59dc45708689888b02",
+  "s6_fig_stereo.py": "63e33dd393d645063783e51a36961797109c254d71a51301d5ee2b9a585e2487",
+  "s6_fig_jumps.py": "35eb6664328ac75f06070df5a8dfc3b070f6aaded34d73f675b8b8ba8dff8c6f",
+  "s6_summary.py": "8455da572810a59e599f91c949d263e6fd42c342b81de16c42b15f63c9c7f8e9"
+ }
+}
