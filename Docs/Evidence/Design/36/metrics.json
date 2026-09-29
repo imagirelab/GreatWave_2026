@@ -1,0 +1,913 @@
+{
+ "schema": "GreatWave.Design36.metrics/1",
+ "number": "設計36：限定色と少数の陰影段階（色票、面積・明度）",
+ "evidence_kind_ja": "Unity 6000.4.3f1 の Editor の batchmode の PC オフスクリーン描画（RTX 3080、Direct3D11）と numpy/OpenCV。HMD 実機ではない（PS VR2 は保留）。",
+ "palette": [
+  {
+   "name": "white",
+   "srgb8": [
+    248,
+    243,
+    223
+   ],
+   "hex": "#F8F3DF",
+   "lab": [
+    95.74,
+    -1.67,
+    10.24
+   ],
+   "value_L": 95.74
+  },
+  {
+   "name": "mizuiro",
+   "srgb8": [
+    198,
+    215,
+    203
+   ],
+   "hex": "#C6D7CB",
+   "lab": [
+    84.44,
+    -7.95,
+    3.96
+   ],
+   "value_L": 84.44
+  },
+  {
+   "name": "ai_mid",
+   "srgb8": [
+    44,
+    105,
+    147
+   ],
+   "hex": "#2C6993",
+   "lab": [
+    42.37,
+    -5.36,
+    -28.71
+   ],
+   "value_L": 42.37
+  },
+  {
+   "name": "ai_dark",
+   "srgb8": [
+    35,
+    64,
+    97
+   ],
+   "hex": "#234061",
+   "lab": [
+    26.41,
+    0.51,
+    -22.78
+   ],
+   "value_L": 26.41
+  },
+  {
+   "name": "line",
+   "srgb8": [
+    71,
+    80,
+    95
+   ],
+   "hex": "#47505F",
+   "lab": [
+    33.78,
+    0.2,
+    -9.94
+   ],
+   "value_L": 33.78
+  }
+ ],
+ "acceptance": {
+  "claw_shadow_colour_matches_list": {
+   "A_hidden_faces_list_class": {
+    "match": 148,
+    "of": 148,
+    "pass": true
+   },
+   "B_painting_tstar": {
+    "shadow_px": 1763,
+    "shadow_px_agree": 1657,
+    "shadow_agree_frac": 0.9399,
+    "all_px": 14435,
+    "all_agree_frac": 0.9892,
+    "claws_judged_ge20_shadow_px": 25,
+    "claws_dominant_match": 25,
+    "claws_dominant_match_frac": 1.0,
+    "claws_with_region": 148,
+    "mismatch_ids": []
+   },
+   "criterion_ja": "A：148/148。B：影の画素の一致 ≥ 0.90 かつ、影の画素 20 px 以上の爪で最多の影の色区＝一覧の色区が ≥ 0.90。",
+   "indep": {
+    "list_class_rederived": {
+     "n": 148,
+     "agree_with_builder": 148,
+     "disagree": [],
+     "my_counts": {
+      "mizuiro": 144,
+      "ai_mid": 1,
+      "ai_dark": 3
+     }
+    },
+    "B_painting_tstar_claw_px": {
+     "shadow_px": 1763,
+     "shadow_agree": 1688,
+     "frac": 0.9575,
+     "all_px": 14435,
+     "all_frac": 0.9947,
+     "judged_ge20": 25,
+     "dom_eq_my_list": 25,
+     "dom_mismatch": []
+    },
+    "whole_region_agreement_vs_painting": {
+     "claws": {
+      "all": 0.9928,
+      "n": 27510,
+      "shadow_only": 0.9687,
+      "n_shadow": 6239
+     },
+     "white": {
+      "all": 0.9926,
+      "n": 27323,
+      "shadow_only": 0.9683,
+      "n_shadow": 6239
+     },
+     "base": {
+      "all": 0.9926,
+      "n": 27323,
+      "shadow_only": 0.9683,
+      "n_shadow": 6239
+     },
+     "d34": {
+      "all": 0.8773,
+      "n": 27510,
+      "shadow_only": 0.7596,
+      "n_shadow": 6239
+     }
+    },
+    "claw_mask_check": {
+     "claw_px": 15351,
+     "id_diff_px_claws_vs_white": 218,
+     "id_diff_inside_dilated_claw_mask": 1.0
+    },
+    "hidden_faces": {
+     "seat_t10.00": {
+      "front_px": 2100,
+      "back_px": 16,
+      "back_colour_counts": {
+       "white": 13,
+       "mizuiro": 1,
+       "ai_mid": 0,
+       "ai_dark": 0,
+       "line": 0
+      },
+      "back_off_palette": 2
+     },
+     "seat_t12.00": {
+      "front_px": 6280,
+      "back_px": 38,
+      "back_colour_counts": {
+       "white": 24,
+       "mizuiro": 6,
+       "ai_mid": 0,
+       "ai_dark": 0,
+       "line": 0
+      },
+      "back_off_palette": 8
+     },
+     "painting_t10.00": {
+      "front_px": 6068,
+      "back_px": 8,
+      "back_colour_counts": {
+       "white": 4,
+       "mizuiro": 0,
+       "ai_mid": 0,
+       "ai_dark": 0,
+       "line": 0
+      },
+      "back_off_palette": 4
+     },
+     "painting_t12.00": {
+      "front_px": 15281,
+      "back_px": 5,
+      "back_colour_counts": {
+       "white": 5,
+       "mizuiro": 0,
+       "ai_mid": 0,
+       "ai_dark": 0,
+       "line": 0
+      },
+      "back_off_palette": 0
+     }
+    }
+   },
+   "pass": true
+  },
+  "no_regression_265_266_267": {
+   "t28_claws": {
+    "265_dE00": 0.545,
+    "266_ai_mid_bands_sym": 0,
+    "266_mizuiro_bands_sym": 0,
+    "267_white_bands_sym": 0,
+    "267_white_bands_strict": 4,
+    "vs_29r01": {
+     "265": true,
+     "266": true,
+     "267": true
+    }
+   },
+   "t28_white": {
+    "265_dE00": 0.545,
+    "266_ai_mid_bands_sym": 0,
+    "266_mizuiro_bands_sym": 0,
+    "267_white_bands_sym": 0,
+    "267_white_bands_strict": 7,
+    "vs_29r01": {
+     "265": true,
+     "266": true,
+     "267": true
+    }
+   }
+  },
+  "reference_29r01": {
+   "265_dE00": 0.545,
+   "267_white_bands_strict": 7,
+   "266_ai_mid_bands_sym": 0,
+   "266_mizuiro_bands_sym": 0,
+   "267_white_bands_sym": 0,
+   "verdicts_sym": {
+    "73": "pass",
+    "77": "pass",
+    "79": "pass",
+    "118": "pass",
+    "120": "pass",
+    "133": "pass",
+    "134": "pass",
+    "175": "fail",
+    "263": "pass",
+    "270": "pass",
+    "265": "pass",
+    "266": "pass",
+    "267": "fail",
+    "uv_no_empty_texels": "pass"
+   }
+  },
+  "reference_ds34_claws": {
+   "265_dE00": 0.545,
+   "266_ai_mid_bands_sym": 0,
+   "266_mizuiro_bands_sym": 12,
+   "267_white_bands_sym": 49,
+   "verdicts_sym": {
+    "73": "pass",
+    "77": "pass",
+    "79": "pass",
+    "118": "pass",
+    "120": "pass",
+    "133": "fail",
+    "134": "fail",
+    "175": "fail",
+    "263": "pass",
+    "270": "pass",
+    "265": "pass",
+    "266": "pass",
+    "267": "fail",
+    "uv_no_empty_texels": "pass"
+   }
+  },
+  "pass": true
+ },
+ "record_only_200_root_white": {
+  "n": 148,
+  "render_root_white_ge_0p5": 125,
+  "painting_root_white_ge_0p5": 122,
+  "both_white": 122,
+  "render_white_painting_not": 3,
+  "painting_white_render_not": 0,
+  "mean_abs_diff": 0.0354,
+  "note_ja": "記録のみ（仕上げ33）。一覧の根元の点の半径 2 px（5×5）の中の白の割合。3D の爪の根元の白の円は、t* に原画のカメラを向いていれば原画の色区で塗る（投影）。",
+  "per_claw": []
+ },
+ "regression_plan_2_0": {
+  "t28_claws": {
+   "78_130_131_diff_px": {
+    "78": 0.0,
+    "130": 0.0,
+    "131": 0.0
+   },
+   "132_sigma12_max": 3.7552,
+   "132_base": 3.7552,
+   "72_sigma24_p95": 3.8423,
+   "72_base": 4.0075,
+   "sym_verdict_changes_vs_29r01": {}
+  },
+  "t28_white": {
+   "78_130_131_diff_px": {
+    "78": 0.0,
+    "130": 0.0,
+    "131": 0.0
+   },
+   "132_sigma12_max": 3.7552,
+   "132_base": 3.7552,
+   "72_sigma24_p95": 4.0075,
+   "72_base": 4.0075,
+   "sym_verdict_changes_vs_29r01": {}
+  }
+ },
+ "regression_sym_rows_diff_vs_29r01_worst_px": {
+  "t28_claws": 0.0,
+  "t28_white": 0.0
+ },
+ "regression_verdicts_sym": {
+  "t28_claws": {
+   "73": "pass",
+   "77": "pass",
+   "79": "pass",
+   "118": "pass",
+   "120": "pass",
+   "133": "pass",
+   "134": "pass",
+   "175": "fail",
+   "263": "pass",
+   "270": "pass",
+   "265": "pass",
+   "266": "pass",
+   "267": "fail",
+   "uv_no_empty_texels": "pass"
+  },
+  "t28_white": {
+   "73": "pass",
+   "77": "pass",
+   "79": "pass",
+   "118": "pass",
+   "120": "pass",
+   "133": "pass",
+   "134": "pass",
+   "175": "fail",
+   "263": "pass",
+   "270": "pass",
+   "265": "pass",
+   "266": "pass",
+   "267": "fail",
+   "uv_no_empty_texels": "pass"
+  }
+ },
+ "regress_json_match_builder_vs_indep": {
+  "numeric_leaves": 74,
+  "equal": 74,
+  "different": []
+ },
+ "stage6_condition_4_2_1": {
+  "ds34_claws": {
+   "133": "fail",
+   "134": "fail",
+   "267_white_bands_sym": 49
+  },
+  "ds36_claws": {
+   "133": "pass",
+   "134": "pass",
+   "267_white_bands_sym": 0
+  }
+ },
+ "claw_colours_by_view": {
+  "seat_t10.0": {
+   "claw_px": 2114,
+   "white": 0.7228,
+   "mizuiro": 0.1244,
+   "ai_mid": 0.0,
+   "ai_dark": 0.0,
+   "line": 0.0,
+   "off_palette": 0.1528
+  },
+  "seat_t12.0": {
+   "claw_px": 6269,
+   "white": 0.7907,
+   "mizuiro": 0.1117,
+   "ai_mid": 0.0,
+   "ai_dark": 0.0002,
+   "line": 0.0019,
+   "off_palette": 0.0955
+  },
+  "seat_low_t10.0": {
+   "claw_px": 1614,
+   "white": 0.7057,
+   "mizuiro": 0.1016,
+   "ai_mid": 0.0,
+   "ai_dark": 0.0,
+   "line": 0.0,
+   "off_palette": 0.1927
+  },
+  "seat_low_t12.0": {
+   "claw_px": 2687,
+   "white": 0.7845,
+   "mizuiro": 0.1049,
+   "ai_mid": 0.0,
+   "ai_dark": 0.0,
+   "line": 0.0037,
+   "off_palette": 0.1068
+  },
+  "seat_toward_wave_t10.0": {
+   "claw_px": 3082,
+   "white": 0.7385,
+   "mizuiro": 0.1236,
+   "ai_mid": 0.0,
+   "ai_dark": 0.0003,
+   "line": 0.0003,
+   "off_palette": 0.1372
+  },
+  "seat_toward_wave_t12.0": {
+   "claw_px": 722,
+   "white": 0.7881,
+   "mizuiro": 0.09,
+   "ai_mid": 0.0,
+   "ai_dark": 0.0,
+   "line": 0.0,
+   "off_palette": 0.1219
+  },
+  "painting_t10.0": {
+   "claw_px": 6051,
+   "white": 0.7766,
+   "mizuiro": 0.0992,
+   "ai_mid": 0.0,
+   "ai_dark": 0.001,
+   "line": 0.0,
+   "off_palette": 0.1233
+  },
+  "painting_t12.0": {
+   "claw_px": 15351,
+   "white": 0.8386,
+   "mizuiro": 0.1033,
+   "ai_mid": 0.0001,
+   "ai_dark": 0.0017,
+   "line": 0.0032,
+   "off_palette": 0.0532
+  }
+ },
+ "trough_record": {
+  "seat_t8.0": {
+   "near_px": 120883,
+   "white": 0.7317,
+   "mizuiro": 0.2636,
+   "ai_mid": 0.0,
+   "ai_dark": 0.0,
+   "line": 0.0,
+   "class_edge_px_per_1000": 0.49
+  },
+  "seat_t10.0": {
+   "near_px": 206906,
+   "white": 0.712,
+   "mizuiro": 0.2843,
+   "ai_mid": 0.0,
+   "ai_dark": 0.0,
+   "line": 0.0,
+   "class_edge_px_per_1000": 0.23
+  },
+  "seat_low_t8.0": {
+   "near_px": 639683,
+   "white": 0.122,
+   "mizuiro": 0.1256,
+   "ai_mid": 0.0847,
+   "ai_dark": 0.6632,
+   "line": 0.0,
+   "class_edge_px_per_1000": 1.03
+  },
+  "seat_low_t10.0": {
+   "near_px": 631193,
+   "white": 0.2186,
+   "mizuiro": 0.2122,
+   "ai_mid": 0.2604,
+   "ai_dark": 0.3034,
+   "line": 0.0,
+   "class_edge_px_per_1000": 1.06
+  },
+  "seat_low_t12.0": {
+   "near_px": 4049,
+   "white": 0.0,
+   "mizuiro": 0.0,
+   "ai_mid": 0.0185,
+   "ai_dark": 0.9363,
+   "line": 0.0067,
+   "class_edge_px_per_1000": 6.17
+  },
+  "seat_toward_wave_t8.0": {
+   "near_px": 1442796,
+   "white": 0.0585,
+   "mizuiro": 0.0579,
+   "ai_mid": 0.0657,
+   "ai_dark": 0.8156,
+   "line": 0.0,
+   "class_edge_px_per_1000": 0.59
+  },
+  "seat_toward_wave_t10.0": {
+   "near_px": 1393304,
+   "white": 0.0689,
+   "mizuiro": 0.0997,
+   "ai_mid": 0.2866,
+   "ai_dark": 0.5418,
+   "line": 0.0,
+   "class_edge_px_per_1000": 0.73
+  },
+  "seat_toward_wave_t12.0": {
+   "near_px": 246012,
+   "white": 0.0,
+   "mizuiro": 0.0,
+   "ai_mid": 0.1855,
+   "ai_dark": 0.8092,
+   "line": 0.0002,
+   "class_edge_px_per_1000": 1.48
+  },
+  "painting_t8.0": {
+   "near_px": 647086,
+   "white": 0.1499,
+   "mizuiro": 0.0897,
+   "ai_mid": 0.0865,
+   "ai_dark": 0.6689,
+   "line": 0.0,
+   "class_edge_px_per_1000": 1.17
+  },
+  "painting_t10.0": {
+   "near_px": 724083,
+   "white": 0.2167,
+   "mizuiro": 0.0991,
+   "ai_mid": 0.128,
+   "ai_dark": 0.5497,
+   "line": 0.0001,
+   "class_edge_px_per_1000": 1.48
+  },
+  "painting_t12.0": {
+   "near_px": 527866,
+   "white": 0.1877,
+   "mizuiro": 0.1091,
+   "ai_mid": 0.1665,
+   "ai_dark": 0.5296,
+   "line": 0.0003,
+   "class_edge_px_per_1000": 1.71
+  }
+ },
+ "sea": {
+  "params": {
+   "levels": 8.0,
+   "sea_bounds": {
+    "white": 0.45,
+    "mizuiro": 0.3,
+    "ai_mid": 0.14
+   },
+   "sea_hloc_min": [
+    0.8,
+    2.0
+   ],
+   "sea_kernel": {
+    "near": [
+     9,
+     41
+    ],
+    "far": [
+     5,
+     11
+    ]
+   },
+   "ramp_n": 256,
+   "ramp_scale": 400.0,
+   "trough_y": -0.5,
+   "rim_sigma": [
+    1.2,
+    10.0
+   ],
+   "rim_gain": 2.5,
+   "rim_s": 0.26,
+   "rim_y_max": 0.3,
+   "rim_row_min": 3
+  },
+  "prep": {
+   "near": {
+    "uv3_sha256": "d14b43fe2663ca5b3d1e78996ae23f448b770c53b029426784272f1bed903230",
+    "rows": 44,
+    "cols": 1231,
+    "y_tstar_min": -2.012070417404175,
+    "y_tstar_max": 18.78693199157715,
+    "vertex_class_counts": {
+     "white": 1173,
+     "mizuiro": 551,
+     "ai_mid": 1383,
+     "ai_dark": 51057
+    },
+    "trough_vertices_y_lt_-0.5": 1585,
+    "trough_class_counts": {
+     "white": 0,
+     "mizuiro": 0,
+     "ai_mid": 0,
+     "ai_dark": 1585
+    },
+    "white_time_field_vertices": 3557,
+    "kernel_rows_cols": [
+     9,
+     41
+    ],
+    "trough_rim_vertices_ai_mid": 508,
+    "grid_spacing_m_median": {
+     "rows": 2.098386432628755,
+     "cols": 0.2212444151248061
+    },
+    "package": [
+     "Unity\\Build\\Design\\30\\sea\\near\\ds27_keypose.json",
+     "cc2c8905fa15638ffc223856bce8432e9c3ea9a7c16671aeaaa1e36884b947f2"
+    ]
+   },
+   "far": {
+    "uv3_sha256": "af332a1d449c134f99f9f49348c5440241a1838299807b783f36529ca646a42d",
+    "rows": 19,
+    "cols": 247,
+    "y_tstar_min": -8.0,
+    "y_tstar_max": -7.029511195355553e-09,
+    "vertex_class_counts": {
+     "white": 0,
+     "mizuiro": 0,
+     "ai_mid": 0,
+     "ai_dark": 4693
+    },
+    "trough_vertices_y_lt_-0.5": 247,
+    "trough_class_counts": {
+     "white": 0,
+     "mizuiro": 0,
+     "ai_mid": 0,
+     "ai_dark": 247
+    },
+    "white_time_field_vertices": 0,
+    "kernel_rows_cols": [
+     5,
+     11
+    ],
+    "trough_rim_vertices_ai_mid": 0,
+    "grid_spacing_m_median": {
+     "rows": 18.05857440180997,
+     "cols": 5.376758301337441
+    },
+    "package": [
+     "Unity\\Build\\Design\\30\\sea\\far\\ds27_keypose.json",
+     "f5d7b2d897a75bac4cbe3ebb6b9cd27998db5b33f00f075371304f93eaec25b6"
+    ]
+   }
+  }
+ },
+ "face_check": [
+  {
+   "view": "painting",
+   "t": 12.0,
+   "frontPx": 15281,
+   "backPx": 5
+  },
+  {
+   "view": "seat",
+   "t": 12.0,
+   "frontPx": 6280,
+   "backPx": 38
+  },
+  {
+   "view": "painting",
+   "t": 10.0,
+   "frontPx": 6068,
+   "backPx": 8
+  },
+  {
+   "view": "seat",
+   "t": 10.0,
+   "frontPx": 2100,
+   "backPx": 16
+  }
+ ],
+ "ai_dark_step_tstar": {
+  "definition_ja": "t* の原画視点（1920×1080、爪あり）で、(34,63,96) と (35,64,97) にちょうど等しい画素と、4 近傍で互いに接する画素（両側の合計）。",
+  "inputs": {
+   "ds36": {
+    "path": "Unity/Build/Design/36/palette/unity/t28_claws/t28/render/af28r01_painting.png",
+    "sha256": "ba5fcc16719aaab6ee05056e953c4be49856726d022adc33b63b8de53f2baf5c"
+   },
+   "ds34": {
+    "path": "Unity/Build/Design/34/unity3/main/t28_claws/t28/render/af28r01_painting.png",
+    "sha256": "68a8957cfa5874b603422735dfdd409bc592e42c1a20107adab5c7f3d2851ee1"
+   },
+   "ds36_region": {
+    "path": "Unity/Build/Design/36/palette/unity/chart/ds36_region_painting_t12.00s.png",
+    "sha256": "be6e1caf3ee8e18441d1ac3b1090cf868edd7bbf2df7fcf0cabced2338381c9a"
+   }
+  },
+  "ds36": {
+   "px_34_63_96": 108672,
+   "px_35_64_97": 418062,
+   "boundary_px_34_side": 1146,
+   "boundary_px_35_side": 1146,
+   "boundary_px_both": 2292
+  },
+  "ds34": {
+   "px_34_63_96": 108646,
+   "px_35_64_97": 377631,
+   "boundary_px_34_side": 1091,
+   "boundary_px_35_side": 1091,
+   "boundary_px_both": 2182
+  },
+  "ds36_by_region": {
+   "px_34_63_96": {
+    "other": 108672
+   },
+   "px_35_64_97": {
+    "far": 7283,
+    "near": 279376,
+    "other": 131,
+    "hero": 131246,
+    "claws": 26
+   }
+  }
+ },
+ "other_region_diff_vs_ds34_tstar": {
+  "definition_ja": "t* の原画視点（爪あり、1920×1080）で、設計34 と設計36 の描画の RGB が違う画素のうち、設計36 の領域の画像で主役波・near・far・爪・飛沫でない画素と、そこから最も近い領域の画素までの距離（px、ユークリッド）。",
+  "diff_px": 200005,
+  "outside_named_px": 409,
+  "outside_within_2px": 409,
+  "outside_within_3px": 409,
+  "outside_max_dist_px": 1.4,
+  "inputs": {
+   "ds36": {
+    "path": "Unity/Build/Design/36/palette/unity/t28_claws/t28/render/af28r01_painting.png",
+    "sha256": "ba5fcc16719aaab6ee05056e953c4be49856726d022adc33b63b8de53f2baf5c"
+   },
+   "ds34": {
+    "path": "Unity/Build/Design/34/unity3/main/t28_claws/t28/render/af28r01_painting.png",
+    "sha256": "68a8957cfa5874b603422735dfdd409bc592e42c1a20107adab5c7f3d2851ee1"
+   },
+   "region": {
+    "path": "Unity/Build/Design/36/palette/unity/chart/ds36_region_painting_t12.00s.png",
+    "sha256": "be6e1caf3ee8e18441d1ac3b1090cf868edd7bbf2df7fcf0cabced2338381c9a"
+   }
+  }
+ },
+ "flicker": {
+  "definition_ja": "960×540 に縮めたコマを調色板の 4 色（白・淡い水色・藍中・藍濃。距離 12 以内）へ分け、コマ n−1 と n+1 が同じ色区でコマ n だけ違う画素のうち、3×3 の中に 4 画素以上まとまったもの（ic36_flicker.py と同じ読み）。コマ番号は 0 から（t = n/30 s）。",
+  "ds36_painting": {
+   "path": "Unity/Build/Design/36/palette/unity/video/ds36_palette_painting_30fps.mp4",
+   "sha256": "26cedf9c8e910484fa60c234725233f44f76f6c0a709c55d549b617c4ba286b4",
+   "frames": 421,
+   "cluster_px_max": 1192,
+   "cluster_px_max_frame": 328,
+   "frames_gt50": 70,
+   "window_318_341_max": 1192,
+   "window_318_341_max_frame": 328,
+   "after_frame_362_max": 0
+  },
+  "ds36_seat": {
+   "path": "Unity/Build/Design/36/palette/unity/video/ds36_palette_seat_30fps.mp4",
+   "sha256": "bff6297d8a2594c2fecbab5af7f7063100a0dc2b73de9ecd0c4a2ae653f0f241",
+   "frames": 421,
+   "cluster_px_max": 1597,
+   "cluster_px_max_frame": 330,
+   "frames_gt50": 46,
+   "window_318_341_max": 1597,
+   "window_318_341_max_frame": 330,
+   "after_frame_362_max": 0
+  },
+  "ds36_seat_toward_wave": {
+   "path": "Unity/Build/Design/36/palette/unity/video/ds36_palette_seat_toward_wave_30fps.mp4",
+   "sha256": "ca0600a181ed4b5fe58a01b7a7fe19869d8532a3656c99656e3b3cfdb8d1691d",
+   "frames": 421,
+   "cluster_px_max": 2481,
+   "cluster_px_max_frame": 328,
+   "frames_gt50": 53,
+   "window_318_341_max": 2481,
+   "window_318_341_max_frame": 328,
+   "after_frame_362_max": 0
+  },
+  "ds34_all_painting": {
+   "path": "Unity/Build/Design/34/unity3/video_run/video/ds34_all_painting_30fps.mp4",
+   "sha256": "202c8cd7f8e70380d4fae71f8bce4829467a9106a5323aab66d3cac219b56f5c",
+   "frames": 421,
+   "cluster_px_max": 867,
+   "cluster_px_max_frame": 328,
+   "frames_gt50": 87,
+   "window_318_341_max": 867,
+   "window_318_341_max_frame": 328,
+   "after_frame_362_max": 0
+  },
+  "ds34_all_seat": {
+   "path": "Unity/Build/Design/34/unity3/video_run/video/ds34_all_seat_30fps.mp4",
+   "sha256": "8a107eb2c6b2edd42f6a7f374a50cb7ded7a72e6e04b916830dae729a4649e9b",
+   "frames": 421,
+   "cluster_px_max": 1466,
+   "cluster_px_max_frame": 330,
+   "frames_gt50": 40,
+   "window_318_341_max": 1466,
+   "window_318_341_max_frame": 330,
+   "after_frame_362_max": 0
+  },
+  "ds30_painting": {
+   "path": "Unity/Build/Design/30/unity/single_fix1/video/ds30_painting_30fps.mp4",
+   "sha256": "8f87b8e34c7c2214932e567336937997fc0d09c114e75d1c6657ad0e86123bfd",
+   "frames": 421,
+   "cluster_px_max": 1237,
+   "cluster_px_max_frame": 328,
+   "frames_gt50": 91,
+   "window_318_341_max": 1237,
+   "window_318_341_max_frame": 328,
+   "after_frame_362_max": 0
+  },
+  "ds30_seat": {
+   "path": "Unity/Build/Design/30/unity/single_fix1/video/ds30_seat_30fps.mp4",
+   "sha256": "8b6d95cf9992ac4f8ba8b43947cad5fc259fdd9200f9784235905d2afd28e615",
+   "frames": 421,
+   "cluster_px_max": 1619,
+   "cluster_px_max_frame": 330,
+   "frames_gt50": 48,
+   "window_318_341_max": 1619,
+   "window_318_341_max_frame": 330,
+   "after_frame_362_max": 0
+  },
+  "ds30_seat_toward_wave": {
+   "path": "Unity/Build/Design/30/unity/single_fix1/video/ds30_seat_toward_wave_30fps.mp4",
+   "sha256": "3b9edfab1789c9bff8987ae839e3b62630fde8bc99473558c30706516605f6a7",
+   "frames": 421,
+   "cluster_px_max": 1177,
+   "cluster_px_max_frame": 329,
+   "frames_gt50": 82,
+   "window_318_341_max": 1177,
+   "window_318_341_max_frame": 329,
+   "after_frame_362_max": 0
+  },
+  "ds36_frame330_by_region": {
+   "frame": 330,
+   "note_ja": "前後のコマ 329・331 と比べたコマ 330 の跳び（上と同じ読み）。領域の画像を 960×540 へ最近傍で縮めて分けた。",
+   "painting": {
+    "total": 1120,
+    "by_region": {
+     "hero": 959,
+     "claws": 160,
+     "spray": 1
+    },
+    "region_image": "Unity/Build/Design/36/palette/unity/chart/ds36_region_painting_t11.00s.png",
+    "region_sha256": "aa9e8b67306a1f5da8663021c80cb20ffd842c1e220950f688dc81fa4ec412d0"
+   },
+   "seat": {
+    "total": 1597,
+    "by_region": {
+     "claws": 50,
+     "hero": 1534,
+     "spray": 13
+    },
+    "region_image": "Unity/Build/Design/36/palette/unity/chart/ds36_region_seat_t11.00s.png",
+    "region_sha256": "4c453e33c845d82941057d8b61781bb38edddb51624b260bd290628383162acb"
+   },
+   "seat_toward_wave": {
+    "total": 2038,
+    "by_region": {
+     "hero": 1092,
+     "claws": 46,
+     "spray": 5,
+     "near": 895
+    },
+    "region_image": "Unity/Build/Design/36/palette/unity/chart/ds36_region_seat_toward_wave_t11.00s.png",
+    "region_sha256": "bda54932bc2ad08acba2ebd8daac2eca0ed39d8139120237f8a5b1e3844b2359"
+   }
+  }
+ },
+ "backlog": {
+  "200": "記録のみ（上の record_only_200_root_white）",
+  "265": "回帰なし",
+  "266": "回帰なし",
+  "267": "回帰なし（両側の読みの白の帯 0）",
+  "121": "触っていない（仕上げ36）",
+  "175": "不合格のまま（29修正01 と同じ値。仕上げ36）"
+ },
+ "hmd": "保留（PS VR2 の導入は利用者の手。Q24）。Mock の両眼はこの番号では描いていない。",
+ "fix_rounds": {
+  "used": 1,
+  "limit_q26": 1,
+  "round1_ja": "t* の向きで見える面を決めた版（unity_r1_facing/）で 133 が両側の読みで 8.259 px の不合格 → t* の爪の奥行きの表で見える面を決める版で合格"
+ },
+ "time": {
+  "box_q26_h": 2,
+  "build_start": "2026-09-30 03:30:55",
+  "build_end": "2026-09-30 04:32:09",
+  "file_times": {
+   "build36_created": "2026-09-30 03:30:55",
+   "palette_created": "2026-09-30 03:30:55",
+   "started_txt": "2026-09-30 03:30:55",
+   "tools_ds36_created": "2026-09-30 03:38:32",
+   "assets_design36_created": "2026-09-30 03:50:31",
+   "tdepth_shader_meta_created": "2026-09-30 04:18:19",
+   "unity_r1_facing_created": "2026-09-30 04:05:02",
+   "render_report": "2026-09-30 04:18:55",
+   "regress_json": "2026-09-30 04:27:16",
+   "palette_metrics": "2026-09-30 04:29:52",
+   "started_txt_modified": "2026-09-30 04:32:09",
+   "readme_modified": "2026-09-30 04:32:09",
+   "indep_check_created": "2026-09-30 04:34:39",
+   "indep_check_files": {
+    "ic36_claws.json": "2026-09-30 04:37:00",
+    "ic36_claws.py": "2026-09-30 04:36:50",
+    "ic36_flicker.json": "2026-09-30 04:41:08",
+    "ic36_flicker.py": "2026-09-30 04:39:44",
+    "ic36_flicker_cmp.py": "2026-09-30 04:41:42",
+    "ic36_flicker_vis.py": "2026-09-30 04:41:21"
+   },
+   "indep_frames_last": "2026-09-30 04:42:18",
+   "record_run": "2026-09-30 05:08:18"
+  }
+ }
+}

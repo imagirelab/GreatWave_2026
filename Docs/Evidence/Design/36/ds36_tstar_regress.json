@@ -1,0 +1,220 @@
+{
+ "schema": "GreatWave.DS30.tstar_regress/1",
+ "number": "設計30 第B部",
+ "method_ja": "設計30 第B部：t*（t = 12 s）の原画視点の回帰を、設計29修正01 と同じ 3 つの読みで測る（評価器のファイルは変えない）。\n\nDS30Render が <out>/<組>/t28/render/af28r01_*.png に書いた t* の画像の組ごとに：\n  1) ds29r01_tstar_eval.py --run <out>/<組>（美術優先28修正01 の評価器。色区の境界は 28修正01 の値、輪郭 78／130／131 は K*′ の幾何の値と比べる）\n  2) 大きな輪郭の関門（132 σ12 最大・72 σ24 p95。kh_gate_lfR4.LFGate を ds29r01_lfgate.py と同じ読みで。書き出し先だけ設計30 の出力にする）\n  3) 輪郭の両側を除く読み（ds29r01_tstar_sym.py の関数を、入力と出力の置き場所だけ差し替えて呼ぶ）\n組：t28（主役波の本体だけ。ID と _kstar は周りの海を隠す）、t28_seaids（ID と _kstar に周りの海と平らな海も入れる）。\nt28_ctrl（海なし、29修正01 と同じ場面）は、10 枚の画像が 29修正01 の f_final_kp と画素まで同じことを SHA-256 で確かめる（同じ画像なので評価も同じ）。\n設計29修正01 の値（Unity/Build/Design/29R01/unity/f_final_kp/ds29r01_tstar_verdict.json、tstar_sym/tstar_sym.json、lfgate_unity.json）と並べる。\n\n使い方（リポジトリの根で）:\n    py -3.10 -B Tools/GWWaveGen/ds30/ds30b_tstar_regress.py --out Unity/Build/Design/30/unity/single [--sets t28,t28_seaids]\n出力：<out>/ds30_tstar_regress.json",
+ "sets": {
+  "t28_claws": {
+   "verdict": {
+    "colour_worst_abs_diff_px": 13.642,
+    "items_over_0p5": [
+     "73",
+     "79",
+     "118",
+     "134",
+     "175",
+     "263"
+    ],
+    "silhouettes_vs_kstar_prime": {
+     "rows": {
+      "78": {
+       "unity_max_px": 3.0289,
+       "kstar_prime_geometry_px": 2.741,
+       "diff_px": 0.2879
+      },
+      "130": {
+       "unity_max_px": 3.5131,
+       "kstar_prime_geometry_px": 3.8308,
+       "diff_px": -0.3177
+      },
+      "131": {
+       "unity_max_px": 3.0431,
+       "kstar_prime_geometry_px": 2.9243,
+       "diff_px": 0.1188
+      }
+     },
+     "worst_abs_diff_px": 0.3177
+    },
+    "verdict_changes_vs_28r01": [
+     "267"
+    ],
+    "pass_colour": false,
+    "pass_silhouette": true
+   },
+   "lfgate": {
+    "132_sigma12_max": 3.755214351150866,
+    "72_sigma24_p95": 3.842347481891398,
+    "ids_sha256": "c1003bbc208c4109b00e2d873e753eabed8c58b4111a589a62592d781f753994"
+   },
+   "silhouette_diff_vs_29r01_px": {
+    "78": 0.0,
+    "130": 0.0,
+    "131": 0.0
+   },
+   "lfgate_diff_vs_29r01_px": {
+    "132_sigma12_max": 0.0,
+    "72_sigma24_p95": -0.1652
+   },
+   "sym": {
+    "worst_abs_diff_px": 1.153,
+    "pass": false,
+    "over_0p5": [
+     {
+      "item": "175",
+      "measure": "boundary_by_class/ai_mid",
+      "kp_sym_max_px": 0.472,
+      "r28_sym_max_px": 1.625,
+      "diff_px": -1.153,
+      "kp_verdict_sym": "fail",
+      "r28_verdict_sym": "fail"
+     }
+    ],
+    "flat_painting_view_266_267": {
+     "white": {
+      "sym_bands": 0
+     },
+     "mizuiro": {
+      "sym_bands": 0
+     },
+     "ai_mid": {
+      "sym_bands": 0
+     },
+     "ai_dark": {
+      "sym_bands": 0
+     }
+    },
+    "worst_diff_vs_29r01_px": 0.0,
+    "diff_vs_29r01_over_0p5": []
+   }
+  },
+  "t28_white": {
+   "verdict": {
+    "colour_worst_abs_diff_px": 13.642,
+    "items_over_0p5": [
+     "73",
+     "79",
+     "118",
+     "134",
+     "175",
+     "263"
+    ],
+    "silhouettes_vs_kstar_prime": {
+     "rows": {
+      "78": {
+       "unity_max_px": 3.0289,
+       "kstar_prime_geometry_px": 2.741,
+       "diff_px": 0.2879
+      },
+      "130": {
+       "unity_max_px": 3.5131,
+       "kstar_prime_geometry_px": 3.8308,
+       "diff_px": -0.3177
+      },
+      "131": {
+       "unity_max_px": 3.0431,
+       "kstar_prime_geometry_px": 2.9243,
+       "diff_px": 0.1188
+      }
+     },
+     "worst_abs_diff_px": 0.3177
+    },
+    "verdict_changes_vs_28r01": [
+     "134",
+     "267"
+    ],
+    "pass_colour": false,
+    "pass_silhouette": true
+   },
+   "lfgate": {
+    "132_sigma12_max": 3.755214351150866,
+    "72_sigma24_p95": 4.007498772940381,
+    "ids_sha256": "2461f87f7a600d6e547ae36944640575fb9b4656967901971f48db3f2c8d8f86"
+   },
+   "silhouette_diff_vs_29r01_px": {
+    "78": 0.0,
+    "130": 0.0,
+    "131": 0.0
+   },
+   "lfgate_diff_vs_29r01_px": {
+    "132_sigma12_max": 0.0,
+    "72_sigma24_p95": 0.0
+   },
+   "sym": {
+    "worst_abs_diff_px": 1.153,
+    "pass": false,
+    "over_0p5": [
+     {
+      "item": "175",
+      "measure": "boundary_by_class/ai_mid",
+      "kp_sym_max_px": 0.472,
+      "r28_sym_max_px": 1.625,
+      "diff_px": -1.153,
+      "kp_verdict_sym": "fail",
+      "r28_verdict_sym": "fail"
+     }
+    ],
+    "flat_painting_view_266_267": {
+     "white": {
+      "sym_bands": 0
+     },
+     "mizuiro": {
+      "sym_bands": 0
+     },
+     "ai_mid": {
+      "sym_bands": 0
+     },
+     "ai_dark": {
+      "sym_bands": 0
+     }
+    },
+    "worst_diff_vs_29r01_px": 0.0,
+    "diff_vs_29r01_over_0p5": []
+   }
+  }
+ },
+ "base_29r01": {
+  "colour_worst_abs_diff_px": 13.642,
+  "silhouettes_vs_kstar_prime": {
+   "rows": {
+    "78": {
+     "unity_max_px": 3.0289,
+     "kstar_prime_geometry_px": 2.741,
+     "diff_px": 0.2879
+    },
+    "130": {
+     "unity_max_px": 3.5131,
+     "kstar_prime_geometry_px": 3.8308,
+     "diff_px": -0.3177
+    },
+    "131": {
+     "unity_max_px": 3.0431,
+     "kstar_prime_geometry_px": 2.9243,
+     "diff_px": 0.1188
+    }
+   },
+   "worst_abs_diff_px": 0.3177
+  },
+  "sym_worst_abs_diff_px": 1.153,
+  "lfgate": {
+   "132_sigma12_max": 3.755214351150866,
+   "132_worst_xy": [
+    1001.0,
+    256.58
+   ],
+   "72_sigma24_p95": 4.007498772940381,
+   "72_worst_xy": [
+    872.0,
+    696.91
+   ],
+   "ids": "Unity/Build/Design/29R01/unity/f_final_kp/t28/render/af28r01_class_ids.png",
+   "ids_sha256": "0bacd2bafee69061ab03026c47d05026d4cb27fd90188a755799d8a5f88df44f",
+   "diff_vs_kstar_prime_px": {
+    "132_sigma12_max": -0.1498,
+    "72_sigma24_p95": 0.2615
+   },
+   "gate_4px": {
+    "132": true,
+    "72": false
+   }
+  }
+ }
+}

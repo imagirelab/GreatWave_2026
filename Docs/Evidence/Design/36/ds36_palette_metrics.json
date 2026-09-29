@@ -1,0 +1,1021 @@
+{
+ "schema": "GreatWave.DS36.palette_metrics/1",
+ "palette": [
+  {
+   "name": "white",
+   "srgb8": [
+    248,
+    243,
+    223
+   ],
+   "hex": "#F8F3DF",
+   "lab": [
+    95.74,
+    -1.67,
+    10.24
+   ],
+   "value_L": 95.74
+  },
+  {
+   "name": "mizuiro",
+   "srgb8": [
+    198,
+    215,
+    203
+   ],
+   "hex": "#C6D7CB",
+   "lab": [
+    84.44,
+    -7.95,
+    3.96
+   ],
+   "value_L": 84.44
+  },
+  {
+   "name": "ai_mid",
+   "srgb8": [
+    44,
+    105,
+    147
+   ],
+   "hex": "#2C6993",
+   "lab": [
+    42.37,
+    -5.36,
+    -28.71
+   ],
+   "value_L": 42.37
+  },
+  {
+   "name": "ai_dark",
+   "srgb8": [
+    35,
+    64,
+    97
+   ],
+   "hex": "#234061",
+   "lab": [
+    26.41,
+    0.51,
+    -22.78
+   ],
+   "value_L": 26.41
+  },
+  {
+   "name": "line",
+   "srgb8": [
+    71,
+    80,
+    95
+   ],
+   "hex": "#47505F",
+   "lab": [
+    33.78,
+    0.2,
+    -9.94
+   ],
+   "value_L": 33.78
+  }
+ ],
+ "palette_note_ja": "主役波の材質の値（DS27 NPR White の _White・_Mizuiro・_AiMid・_AiDark）。海のシートはレンダラーの MaterialPropertyBlock で同じ値、爪は DS36 Claw Palette に同じ値、飛沫は白（設計31 の JSON の (251,246,227) から調色板の白へ）。線は主役波の外殻線の材質の _LineColor（線は設計38）。",
+ "spray_colour": {
+  "name": "spray",
+  "value": {
+   "r": 0.9725490212440491,
+   "g": 0.9529411196708679,
+   "b": 0.8745098114013672,
+   "a": 1.0
+  },
+  "r8": 248,
+  "g8": 243,
+  "b8": 223
+ },
+ "sheets": [
+  {
+   "name": "hero",
+   "uv3Source": "列ごと・行ごとの表（Build/Design/29R01/bake_kp/bake/af28r01_uvwarp_a45.json、fbd95c900f1e7b84ada6e2bffce4298fd94412041a6a1309d656893789e44964）",
+   "meshSource": "gwb G:\\Unity\\GreatWave_2026_Fresh\\Unity\\Build\\Design\\29R01\\bake_kp\\kstar\\kstar_a45.gwb",
+   "rows": 240,
+   "cols": 400,
+   "whiteNeverCount": 1200,
+   "whiteFromPackage": false,
+   "white": {
+    "r": 0.9725490212440491,
+    "g": 0.9529411196708679,
+    "b": 0.8745098114013672,
+    "a": 1.0
+   },
+   "mizuiro": {
+    "r": 0.7764706015586853,
+    "g": 0.8431372046470642,
+    "b": 0.7960784435272217,
+    "a": 1.0
+   },
+   "aiMid": {
+    "r": 0.17254894971847534,
+    "g": 0.41176465153694153,
+    "b": 0.5764705538749695,
+    "a": 1.0
+   },
+   "aiDark": {
+    "r": 0.13725483417510986,
+    "g": 0.25098034739494324,
+    "b": 0.38039207458496094,
+    "a": 1.0
+   }
+  },
+  {
+   "name": "near",
+   "uv3Source": "パッケージの頂点ごとの UV3（G:\\Unity\\GreatWave_2026_Fresh\\Unity\\Build\\Design\\36\\palette\\prep\\ds36_sea_uv3_near_f32.bin、d14b43fe2663ca5b3d1e78996ae23f448b770c53b029426784272f1bed903230）",
+   "meshSource": "行 × 列の格子（44 × 1231、DS27Normal と同じ三角形）",
+   "rows": 44,
+   "cols": 1231,
+   "whiteNeverCount": 50607,
+   "whiteFromPackage": false,
+   "white": {
+    "r": 0.9725490212440491,
+    "g": 0.9529411196708679,
+    "b": 0.8745098114013672,
+    "a": 1.0
+   },
+   "mizuiro": {
+    "r": 0.7764706015586853,
+    "g": 0.8431372046470642,
+    "b": 0.7960784435272217,
+    "a": 1.0
+   },
+   "aiMid": {
+    "r": 0.17254891991615295,
+    "g": 0.41176462173461914,
+    "b": 0.5764705538749695,
+    "a": 1.0
+   },
+   "aiDark": {
+    "r": 0.13725480437278748,
+    "g": 0.25098031759262085,
+    "b": 0.38039204478263855,
+    "a": 1.0
+   }
+  },
+  {
+   "name": "far",
+   "uv3Source": "パッケージの頂点ごとの UV3（G:\\Unity\\GreatWave_2026_Fresh\\Unity\\Build\\Design\\36\\palette\\prep\\ds36_sea_uv3_far_f32.bin、af332a1d449c134f99f9f49348c5440241a1838299807b783f36529ca646a42d）",
+   "meshSource": "行 × 列の格子（19 × 247、DS27Normal と同じ三角形）",
+   "rows": 19,
+   "cols": 247,
+   "whiteNeverCount": 4693,
+   "whiteFromPackage": false,
+   "white": {
+    "r": 0.9725490212440491,
+    "g": 0.9529411196708679,
+    "b": 0.8745098114013672,
+    "a": 1.0
+   },
+   "mizuiro": {
+    "r": 0.7764706015586853,
+    "g": 0.8431372046470642,
+    "b": 0.7960784435272217,
+    "a": 1.0
+   },
+   "aiMid": {
+    "r": 0.17254891991615295,
+    "g": 0.41176462173461914,
+    "b": 0.5764705538749695,
+    "a": 1.0
+   },
+   "aiDark": {
+    "r": 0.13725480437278748,
+    "g": 0.25098031759262085,
+    "b": 0.38039204478263855,
+    "a": 1.0
+   }
+  }
+ ],
+ "claw_shadow_acceptance": {
+  "A_hidden_faces_list_class_match": {
+   "match": 148,
+   "of": 148,
+   "pass": true
+  },
+  "B_painting_tstar": {
+   "shadow_px": 1763,
+   "shadow_px_agree": 1657,
+   "shadow_agree_frac": 0.9399,
+   "all_px": 14435,
+   "all_agree_frac": 0.9892,
+   "claws_judged_ge20_shadow_px": 25,
+   "claws_dominant_match": 25,
+   "claws_dominant_match_frac": 1.0,
+   "claws_with_region": 148,
+   "mismatch_ids": []
+  },
+  "criterion_ja": "A：148/148。B：影の画素の一致 ≥ 0.90 かつ、影の画素 20 px 以上の爪で最多の影の色区＝一覧の色区が ≥ 0.90。",
+  "pass": true
+ },
+ "claw_colours_by_view": {
+  "seat_t10.0": {
+   "claw_px": 2114,
+   "white": 0.7228,
+   "mizuiro": 0.1244,
+   "ai_mid": 0.0,
+   "ai_dark": 0.0,
+   "line": 0.0,
+   "off_palette": 0.1528
+  },
+  "seat_t12.0": {
+   "claw_px": 6269,
+   "white": 0.7907,
+   "mizuiro": 0.1117,
+   "ai_mid": 0.0,
+   "ai_dark": 0.0002,
+   "line": 0.0019,
+   "off_palette": 0.0955
+  },
+  "seat_low_t10.0": {
+   "claw_px": 1614,
+   "white": 0.7057,
+   "mizuiro": 0.1016,
+   "ai_mid": 0.0,
+   "ai_dark": 0.0,
+   "line": 0.0,
+   "off_palette": 0.1927
+  },
+  "seat_low_t12.0": {
+   "claw_px": 2687,
+   "white": 0.7845,
+   "mizuiro": 0.1049,
+   "ai_mid": 0.0,
+   "ai_dark": 0.0,
+   "line": 0.0037,
+   "off_palette": 0.1068
+  },
+  "seat_toward_wave_t10.0": {
+   "claw_px": 3082,
+   "white": 0.7385,
+   "mizuiro": 0.1236,
+   "ai_mid": 0.0,
+   "ai_dark": 0.0003,
+   "line": 0.0003,
+   "off_palette": 0.1372
+  },
+  "seat_toward_wave_t12.0": {
+   "claw_px": 722,
+   "white": 0.7881,
+   "mizuiro": 0.09,
+   "ai_mid": 0.0,
+   "ai_dark": 0.0,
+   "line": 0.0,
+   "off_palette": 0.1219
+  },
+  "painting_t10.0": {
+   "claw_px": 6051,
+   "white": 0.7766,
+   "mizuiro": 0.0992,
+   "ai_mid": 0.0,
+   "ai_dark": 0.001,
+   "line": 0.0,
+   "off_palette": 0.1233
+  },
+  "painting_t12.0": {
+   "claw_px": 15351,
+   "white": 0.8386,
+   "mizuiro": 0.1033,
+   "ai_mid": 0.0001,
+   "ai_dark": 0.0017,
+   "line": 0.0032,
+   "off_palette": 0.0532
+  }
+ },
+ "root_white_200": {
+  "n": 148,
+  "render_root_white_ge_0p5": 125,
+  "painting_root_white_ge_0p5": 122,
+  "both_white": 122,
+  "render_white_painting_not": 3,
+  "painting_white_render_not": 0,
+  "mean_abs_diff": 0.0354,
+  "note_ja": "記録のみ（仕上げ33）。一覧の根元の点の半径 2 px（5×5）の中の白の割合。3D の爪の根元の白の円は、t* に原画のカメラを向いていれば原画の色区で塗る（投影）。",
+  "per_claw": []
+ },
+ "trough_record": {
+  "seat_t8.0": {
+   "near_px": 120883,
+   "white": 0.7317,
+   "mizuiro": 0.2636,
+   "ai_mid": 0.0,
+   "ai_dark": 0.0,
+   "line": 0.0,
+   "class_edge_px_per_1000": 0.49
+  },
+  "seat_t10.0": {
+   "near_px": 206906,
+   "white": 0.712,
+   "mizuiro": 0.2843,
+   "ai_mid": 0.0,
+   "ai_dark": 0.0,
+   "line": 0.0,
+   "class_edge_px_per_1000": 0.23
+  },
+  "seat_low_t8.0": {
+   "near_px": 639683,
+   "white": 0.122,
+   "mizuiro": 0.1256,
+   "ai_mid": 0.0847,
+   "ai_dark": 0.6632,
+   "line": 0.0,
+   "class_edge_px_per_1000": 1.03
+  },
+  "seat_low_t10.0": {
+   "near_px": 631193,
+   "white": 0.2186,
+   "mizuiro": 0.2122,
+   "ai_mid": 0.2604,
+   "ai_dark": 0.3034,
+   "line": 0.0,
+   "class_edge_px_per_1000": 1.06
+  },
+  "seat_low_t12.0": {
+   "near_px": 4049,
+   "white": 0.0,
+   "mizuiro": 0.0,
+   "ai_mid": 0.0185,
+   "ai_dark": 0.9363,
+   "line": 0.0067,
+   "class_edge_px_per_1000": 6.17
+  },
+  "seat_toward_wave_t8.0": {
+   "near_px": 1442796,
+   "white": 0.0585,
+   "mizuiro": 0.0579,
+   "ai_mid": 0.0657,
+   "ai_dark": 0.8156,
+   "line": 0.0,
+   "class_edge_px_per_1000": 0.59
+  },
+  "seat_toward_wave_t10.0": {
+   "near_px": 1393304,
+   "white": 0.0689,
+   "mizuiro": 0.0997,
+   "ai_mid": 0.2866,
+   "ai_dark": 0.5418,
+   "line": 0.0,
+   "class_edge_px_per_1000": 0.73
+  },
+  "seat_toward_wave_t12.0": {
+   "near_px": 246012,
+   "white": 0.0,
+   "mizuiro": 0.0,
+   "ai_mid": 0.1855,
+   "ai_dark": 0.8092,
+   "line": 0.0002,
+   "class_edge_px_per_1000": 1.48
+  },
+  "painting_t8.0": {
+   "near_px": 647086,
+   "white": 0.1499,
+   "mizuiro": 0.0897,
+   "ai_mid": 0.0865,
+   "ai_dark": 0.6689,
+   "line": 0.0,
+   "class_edge_px_per_1000": 1.17
+  },
+  "painting_t10.0": {
+   "near_px": 724083,
+   "white": 0.2167,
+   "mizuiro": 0.0991,
+   "ai_mid": 0.128,
+   "ai_dark": 0.5497,
+   "line": 0.0001,
+   "class_edge_px_per_1000": 1.48
+  },
+  "painting_t12.0": {
+   "near_px": 527866,
+   "white": 0.1877,
+   "mizuiro": 0.1091,
+   "ai_mid": 0.1665,
+   "ai_dark": 0.5296,
+   "line": 0.0003,
+   "class_edge_px_per_1000": 1.71
+  }
+ },
+ "sea_prep": {
+  "near": {
+   "uv3_sha256": "d14b43fe2663ca5b3d1e78996ae23f448b770c53b029426784272f1bed903230",
+   "rows": 44,
+   "cols": 1231,
+   "y_tstar_min": -2.012070417404175,
+   "y_tstar_max": 18.78693199157715,
+   "vertex_class_counts": {
+    "white": 1173,
+    "mizuiro": 551,
+    "ai_mid": 1383,
+    "ai_dark": 51057
+   },
+   "trough_vertices_y_lt_-0.5": 1585,
+   "trough_class_counts": {
+    "white": 0,
+    "mizuiro": 0,
+    "ai_mid": 0,
+    "ai_dark": 1585
+   },
+   "white_time_field_vertices": 3557,
+   "kernel_rows_cols": [
+    9,
+    41
+   ],
+   "trough_rim_vertices_ai_mid": 508,
+   "grid_spacing_m_median": {
+    "rows": 2.098386432628755,
+    "cols": 0.2212444151248061
+   },
+   "package": [
+    "Unity\\Build\\Design\\30\\sea\\near\\ds27_keypose.json",
+    "cc2c8905fa15638ffc223856bce8432e9c3ea9a7c16671aeaaa1e36884b947f2"
+   ]
+  },
+  "far": {
+   "uv3_sha256": "af332a1d449c134f99f9f49348c5440241a1838299807b783f36529ca646a42d",
+   "rows": 19,
+   "cols": 247,
+   "y_tstar_min": -8.0,
+   "y_tstar_max": -7.029511195355553e-09,
+   "vertex_class_counts": {
+    "white": 0,
+    "mizuiro": 0,
+    "ai_mid": 0,
+    "ai_dark": 4693
+   },
+   "trough_vertices_y_lt_-0.5": 247,
+   "trough_class_counts": {
+    "white": 0,
+    "mizuiro": 0,
+    "ai_mid": 0,
+    "ai_dark": 247
+   },
+   "white_time_field_vertices": 0,
+   "kernel_rows_cols": [
+    5,
+    11
+   ],
+   "trough_rim_vertices_ai_mid": 0,
+   "grid_spacing_m_median": {
+    "rows": 18.05857440180997,
+    "cols": 5.376758301337441
+   },
+   "package": [
+    "Unity\\Build\\Design\\30\\sea\\far\\ds27_keypose.json",
+    "f5d7b2d897a75bac4cbe3ebb6b9cd27998db5b33f00f075371304f93eaec25b6"
+   ]
+  }
+ },
+ "sea_params": {
+  "levels": 8.0,
+  "sea_bounds": {
+   "white": 0.45,
+   "mizuiro": 0.3,
+   "ai_mid": 0.14
+  },
+  "sea_hloc_min": [
+   0.8,
+   2.0
+  ],
+  "sea_kernel": {
+   "near": [
+    9,
+    41
+   ],
+   "far": [
+    5,
+    11
+   ]
+  },
+  "ramp_n": 256,
+  "ramp_scale": 400.0,
+  "trough_y": -0.5,
+  "rim_sigma": [
+   1.2,
+   10.0
+  ],
+  "rim_gain": 2.5,
+  "rim_s": 0.26,
+  "rim_y_max": 0.3,
+  "rim_row_min": 3
+ },
+ "face_check": [
+  {
+   "view": "painting",
+   "t": 12.0,
+   "frontPx": 15281,
+   "backPx": 5
+  },
+  {
+   "view": "seat",
+   "t": 12.0,
+   "frontPx": 6280,
+   "backPx": 38
+  },
+  {
+   "view": "painting",
+   "t": 10.0,
+   "frontPx": 6068,
+   "backPx": 8
+  },
+  {
+   "view": "seat",
+   "t": 10.0,
+   "frontPx": 2100,
+   "backPx": 16
+  }
+ ],
+ "regression": {
+  "base_29r01": {
+   "colour_worst_abs_diff_px": 13.642,
+   "silhouettes_vs_kstar_prime": {
+    "rows": {
+     "78": {
+      "unity_max_px": 3.0289,
+      "kstar_prime_geometry_px": 2.741,
+      "diff_px": 0.2879
+     },
+     "130": {
+      "unity_max_px": 3.5131,
+      "kstar_prime_geometry_px": 3.8308,
+      "diff_px": -0.3177
+     },
+     "131": {
+      "unity_max_px": 3.0431,
+      "kstar_prime_geometry_px": 2.9243,
+      "diff_px": 0.1188
+     }
+    },
+    "worst_abs_diff_px": 0.3177
+   },
+   "sym_worst_abs_diff_px": 1.153,
+   "lfgate": {
+    "132_sigma12_max": 3.755214351150866,
+    "132_worst_xy": [
+     1001.0,
+     256.58
+    ],
+    "72_sigma24_p95": 4.007498772940381,
+    "72_worst_xy": [
+     872.0,
+     696.91
+    ],
+    "ids": "Unity/Build/Design/29R01/unity/f_final_kp/t28/render/af28r01_class_ids.png",
+    "ids_sha256": "0bacd2bafee69061ab03026c47d05026d4cb27fd90188a755799d8a5f88df44f",
+    "diff_vs_kstar_prime_px": {
+     "132_sigma12_max": -0.1498,
+     "72_sigma24_p95": 0.2615
+    },
+    "gate_4px": {
+     "132": true,
+     "72": false
+    }
+   }
+  },
+  "sets": {
+   "t28_claws": {
+    "265_dE00": 0.545,
+    "265_verdict": "pass",
+    "266_verdict": "pass",
+    "266_ai_mid_bands_sym": 0,
+    "266_mizuiro_bands_sym": 0,
+    "267_white_bands_sym": 0,
+    "verdicts_sym": {
+     "73": "pass",
+     "77": "pass",
+     "79": "pass",
+     "118": "pass",
+     "120": "pass",
+     "133": "pass",
+     "134": "pass",
+     "175": "fail",
+     "263": "pass",
+     "270": "pass",
+     "265": "pass",
+     "266": "pass",
+     "267": "fail",
+     "uv_no_empty_texels": "pass"
+    },
+    "rows_sym": [
+     {
+      "item": "73",
+      "measure": "boundary",
+      "kp_sym_max_px": 0.303,
+      "r28_sym_max_px": 0.303,
+      "diff_px": 0.0,
+      "kp_verdict_sym": "pass",
+      "r28_verdict_sym": "pass"
+     },
+     {
+      "item": "77",
+      "measure": "lower_ends",
+      "kp_sym_max_px": 0.867,
+      "r28_sym_max_px": 1.17,
+      "diff_px": -0.303,
+      "kp_verdict_sym": "pass",
+      "r28_verdict_sym": "pass"
+     },
+     {
+      "item": "79",
+      "measure": "boundary",
+      "kp_sym_max_px": 0.357,
+      "r28_sym_max_px": 0.34,
+      "diff_px": 0.017,
+      "kp_verdict_sym": "pass",
+      "r28_verdict_sym": "pass"
+     },
+     {
+      "item": "118",
+      "measure": "boundary",
+      "kp_sym_max_px": 0.867,
+      "r28_sym_max_px": 0.453,
+      "diff_px": 0.414,
+      "kp_verdict_sym": "pass",
+      "r28_verdict_sym": "pass"
+     },
+     {
+      "item": "120",
+      "measure": "boundary",
+      "kp_sym_max_px": 0.288,
+      "r28_sym_max_px": 0.288,
+      "diff_px": 0.0,
+      "kp_verdict_sym": "pass",
+      "r28_verdict_sym": "pass"
+     },
+     {
+      "item": "133",
+      "measure": "boundary",
+      "kp_sym_max_px": 0.718,
+      "r28_sym_max_px": 0.402,
+      "diff_px": 0.316,
+      "kp_verdict_sym": "pass",
+      "r28_verdict_sym": "pass"
+     },
+     {
+      "item": "134",
+      "measure": "boundary",
+      "kp_sym_max_px": 0.634,
+      "r28_sym_max_px": 0.661,
+      "diff_px": -0.027,
+      "kp_verdict_sym": "pass",
+      "r28_verdict_sym": "pass"
+     },
+     {
+      "item": "175",
+      "measure": "boundary_by_class/ai_dark",
+      "kp_sym_max_px": 0.428,
+      "r28_sym_max_px": 0.309,
+      "diff_px": 0.119,
+      "kp_verdict_sym": "fail",
+      "r28_verdict_sym": "fail"
+     },
+     {
+      "item": "175",
+      "measure": "boundary_by_class/ai_mid",
+      "kp_sym_max_px": 0.472,
+      "r28_sym_max_px": 1.625,
+      "diff_px": -1.153,
+      "kp_verdict_sym": "fail",
+      "r28_verdict_sym": "fail"
+     },
+     {
+      "item": "175",
+      "measure": "boundary_by_class/mizuiro",
+      "kp_sym_max_px": 0.978,
+      "r28_sym_max_px": 0.865,
+      "diff_px": 0.113,
+      "kp_verdict_sym": "fail",
+      "r28_verdict_sym": "fail"
+     },
+     {
+      "item": "263",
+      "measure": "boundary_lower",
+      "kp_sym_max_px": 0.25,
+      "r28_sym_max_px": 0.301,
+      "diff_px": -0.051,
+      "kp_verdict_sym": "pass",
+      "r28_verdict_sym": "pass"
+     },
+     {
+      "item": "270",
+      "measure": "boundary",
+      "kp_sym_max_px": 0.563,
+      "r28_sym_max_px": 0.563,
+      "diff_px": 0.0,
+      "kp_verdict_sym": "pass",
+      "r28_verdict_sym": "pass"
+     },
+     {
+      "item": "270",
+      "measure": "record_mizuiro_reading",
+      "kp_sym_max_px": 0.634,
+      "r28_sym_max_px": 0.661,
+      "diff_px": -0.027,
+      "kp_verdict_sym": "pass",
+      "r28_verdict_sym": "pass"
+     }
+    ],
+    "lfgate": {
+     "132_sigma12_max": 3.755214351150866,
+     "72_sigma24_p95": 3.842347481891398,
+     "ids_sha256": "c1003bbc208c4109b00e2d873e753eabed8c58b4111a589a62592d781f753994"
+    },
+    "silhouette_diff_vs_29r01_px": {
+     "78": 0.0,
+     "130": 0.0,
+     "131": 0.0
+    },
+    "lfgate_diff_vs_29r01_px": {
+     "132_sigma12_max": 0.0,
+     "72_sigma24_p95": -0.1652
+    },
+    "sym_worst_diff_vs_29r01_px": 0.0,
+    "sym_diff_vs_29r01_over_0p5": [],
+    "267_white_bands_strict": 4,
+    "266_mizuiro_bands_strict": 0,
+    "no_regression_265_266_267_vs_29r01": {
+     "265": true,
+     "266": true,
+     "267": true
+    },
+    "plan_2_0": {
+     "78_130_131_diff_px": {
+      "78": 0.0,
+      "130": 0.0,
+      "131": 0.0
+     },
+     "132_sigma12_max": 3.7552,
+     "132_base": 3.7552,
+     "72_sigma24_p95": 3.8423,
+     "72_base": 4.0075,
+     "sym_verdict_changes_vs_29r01": {}
+    }
+   },
+   "t28_white": {
+    "265_dE00": 0.545,
+    "265_verdict": "pass",
+    "266_verdict": "pass",
+    "266_ai_mid_bands_sym": 0,
+    "266_mizuiro_bands_sym": 0,
+    "267_white_bands_sym": 0,
+    "verdicts_sym": {
+     "73": "pass",
+     "77": "pass",
+     "79": "pass",
+     "118": "pass",
+     "120": "pass",
+     "133": "pass",
+     "134": "pass",
+     "175": "fail",
+     "263": "pass",
+     "270": "pass",
+     "265": "pass",
+     "266": "pass",
+     "267": "fail",
+     "uv_no_empty_texels": "pass"
+    },
+    "rows_sym": [
+     {
+      "item": "73",
+      "measure": "boundary",
+      "kp_sym_max_px": 0.303,
+      "r28_sym_max_px": 0.303,
+      "diff_px": 0.0,
+      "kp_verdict_sym": "pass",
+      "r28_verdict_sym": "pass"
+     },
+     {
+      "item": "77",
+      "measure": "lower_ends",
+      "kp_sym_max_px": 0.867,
+      "r28_sym_max_px": 1.17,
+      "diff_px": -0.303,
+      "kp_verdict_sym": "pass",
+      "r28_verdict_sym": "pass"
+     },
+     {
+      "item": "79",
+      "measure": "boundary",
+      "kp_sym_max_px": 0.357,
+      "r28_sym_max_px": 0.34,
+      "diff_px": 0.017,
+      "kp_verdict_sym": "pass",
+      "r28_verdict_sym": "pass"
+     },
+     {
+      "item": "118",
+      "measure": "boundary",
+      "kp_sym_max_px": 0.867,
+      "r28_sym_max_px": 0.453,
+      "diff_px": 0.414,
+      "kp_verdict_sym": "pass",
+      "r28_verdict_sym": "pass"
+     },
+     {
+      "item": "120",
+      "measure": "boundary",
+      "kp_sym_max_px": 0.288,
+      "r28_sym_max_px": 0.288,
+      "diff_px": 0.0,
+      "kp_verdict_sym": "pass",
+      "r28_verdict_sym": "pass"
+     },
+     {
+      "item": "133",
+      "measure": "boundary",
+      "kp_sym_max_px": 0.718,
+      "r28_sym_max_px": 0.402,
+      "diff_px": 0.316,
+      "kp_verdict_sym": "pass",
+      "r28_verdict_sym": "pass"
+     },
+     {
+      "item": "134",
+      "measure": "boundary",
+      "kp_sym_max_px": 0.634,
+      "r28_sym_max_px": 0.661,
+      "diff_px": -0.027,
+      "kp_verdict_sym": "pass",
+      "r28_verdict_sym": "pass"
+     },
+     {
+      "item": "175",
+      "measure": "boundary_by_class/ai_dark",
+      "kp_sym_max_px": 0.428,
+      "r28_sym_max_px": 0.309,
+      "diff_px": 0.119,
+      "kp_verdict_sym": "fail",
+      "r28_verdict_sym": "fail"
+     },
+     {
+      "item": "175",
+      "measure": "boundary_by_class/ai_mid",
+      "kp_sym_max_px": 0.472,
+      "r28_sym_max_px": 1.625,
+      "diff_px": -1.153,
+      "kp_verdict_sym": "fail",
+      "r28_verdict_sym": "fail"
+     },
+     {
+      "item": "175",
+      "measure": "boundary_by_class/mizuiro",
+      "kp_sym_max_px": 0.978,
+      "r28_sym_max_px": 0.865,
+      "diff_px": 0.113,
+      "kp_verdict_sym": "fail",
+      "r28_verdict_sym": "fail"
+     },
+     {
+      "item": "263",
+      "measure": "boundary_lower",
+      "kp_sym_max_px": 0.25,
+      "r28_sym_max_px": 0.301,
+      "diff_px": -0.051,
+      "kp_verdict_sym": "pass",
+      "r28_verdict_sym": "pass"
+     },
+     {
+      "item": "270",
+      "measure": "boundary",
+      "kp_sym_max_px": 0.563,
+      "r28_sym_max_px": 0.563,
+      "diff_px": 0.0,
+      "kp_verdict_sym": "pass",
+      "r28_verdict_sym": "pass"
+     },
+     {
+      "item": "270",
+      "measure": "record_mizuiro_reading",
+      "kp_sym_max_px": 0.634,
+      "r28_sym_max_px": 0.661,
+      "diff_px": -0.027,
+      "kp_verdict_sym": "pass",
+      "r28_verdict_sym": "pass"
+     }
+    ],
+    "lfgate": {
+     "132_sigma12_max": 3.755214351150866,
+     "72_sigma24_p95": 4.007498772940381,
+     "ids_sha256": "2461f87f7a600d6e547ae36944640575fb9b4656967901971f48db3f2c8d8f86"
+    },
+    "silhouette_diff_vs_29r01_px": {
+     "78": 0.0,
+     "130": 0.0,
+     "131": 0.0
+    },
+    "lfgate_diff_vs_29r01_px": {
+     "132_sigma12_max": 0.0,
+     "72_sigma24_p95": 0.0
+    },
+    "sym_worst_diff_vs_29r01_px": 0.0,
+    "sym_diff_vs_29r01_over_0p5": [],
+    "267_white_bands_strict": 7,
+    "266_mizuiro_bands_strict": 0,
+    "no_regression_265_266_267_vs_29r01": {
+     "265": true,
+     "266": true,
+     "267": true
+    },
+    "plan_2_0": {
+     "78_130_131_diff_px": {
+      "78": 0.0,
+      "130": 0.0,
+      "131": 0.0
+     },
+     "132_sigma12_max": 3.7552,
+     "132_base": 3.7552,
+     "72_sigma24_p95": 4.0075,
+     "72_base": 4.0075,
+     "sym_verdict_changes_vs_29r01": {}
+    }
+   }
+  },
+  "reference": {
+   "29R01": {
+    "265_dE00": 0.545,
+    "267_white_bands_strict": 7,
+    "266_ai_mid_bands_sym": 0,
+    "266_mizuiro_bands_sym": 0,
+    "267_white_bands_sym": 0,
+    "verdicts_sym": {
+     "73": "pass",
+     "77": "pass",
+     "79": "pass",
+     "118": "pass",
+     "120": "pass",
+     "133": "pass",
+     "134": "pass",
+     "175": "fail",
+     "263": "pass",
+     "270": "pass",
+     "265": "pass",
+     "266": "pass",
+     "267": "fail",
+     "uv_no_empty_texels": "pass"
+    }
+   },
+   "DS34_claws": {
+    "265_dE00": 0.545,
+    "266_ai_mid_bands_sym": 0,
+    "266_mizuiro_bands_sym": 12,
+    "267_white_bands_sym": 49,
+    "verdicts_sym": {
+     "73": "pass",
+     "77": "pass",
+     "79": "pass",
+     "118": "pass",
+     "120": "pass",
+     "133": "fail",
+     "134": "fail",
+     "175": "fail",
+     "263": "pass",
+     "270": "pass",
+     "265": "pass",
+     "266": "pass",
+     "267": "fail",
+     "uv_no_empty_texels": "pass"
+    }
+   },
+   "DS34_white": {
+    "265_dE00": 0.545,
+    "266_ai_mid_bands_sym": 0,
+    "266_mizuiro_bands_sym": 0,
+    "267_white_bands_sym": 0,
+    "verdicts_sym": {
+     "73": "pass",
+     "77": "pass",
+     "79": "pass",
+     "118": "pass",
+     "120": "pass",
+     "133": "pass",
+     "134": "pass",
+     "175": "fail",
+     "263": "pass",
+     "270": "pass",
+     "265": "pass",
+     "266": "pass",
+     "267": "fail",
+     "uv_no_empty_texels": "pass"
+    }
+   }
+  }
+ },
+ "colour_chart_rows": 122,
+ "figures": [
+  "G:\\Unity\\GreatWave_2026_Fresh\\Unity\\Build\\Design\\36\\palette\\fig\\fig_ds36_before_after.png",
+  "G:\\Unity\\GreatWave_2026_Fresh\\Unity\\Build\\Design\\36\\palette\\fig\\fig_ds36_claw_shadow_tstar.png",
+  "G:\\Unity\\GreatWave_2026_Fresh\\Unity\\Build\\Design\\36\\palette\\fig\\fig_ds36_palette_swatches.png",
+  "G:\\Unity\\GreatWave_2026_Fresh\\Unity\\Build\\Design\\36\\palette\\fig\\fig_ds36_formation_frames.png"
+ ],
+ "colour_chart_csv": "G:\\Unity\\GreatWave_2026_Fresh\\Unity\\Build\\Design\\36\\palette\\ds36_colour_chart.csv",
+ "inputs_sha256": {
+  "Tools\\PaintingTruth\\colour\\masks\\mw_colour_labels.png": "1507106b0b0f5fa6d261567bae7e34c4aa13670a58249dcd0f4c6a005cdab192",
+  "Unity\\Build\\Design\\32\\list+ids\\_regions.npy": "b5313786bf15636683a8f16f3c1a92f35fe5824e4045998e39287f43ba8b7256",
+  "Unity\\Build\\Design\\32\\list+ids\\ds32_claw_inventory.json": "9b73086b72686afc17d5222407f97253ca55864e15e43ee2af613922f6b0df76",
+  "Unity\\Build\\Design\\36\\palette\\prep\\ds36_claw_palette.json": "015fe6c2bcacf2a0ac49e0a545d1f37de197c6f1b4fd9f153c42f6fdfdfd096c",
+  "Unity\\Build\\Design\\36\\palette\\unity\\ds36_render_report.json": "19bfa418f743dc0b92f442506dc40eac847eae92638c5ab08ddec4fdbb9d262d"
+ },
+ "code_sha256": "ecd739b81ae047f91348a02f2abc4057ec12835b11677cbe498f80393b0e56c7"
+}

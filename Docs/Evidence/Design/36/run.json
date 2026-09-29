@@ -1,0 +1,257 @@
+{
+ "schema": "GreatWave.Design36.run/1",
+ "commands": [
+  "py -3.10 -B Tools/GWWaveGen/ds36/ds36_palette_prep.py",
+  "powershell -NoProfile -ExecutionPolicy Bypass -File Tools/GWWaveGen/ds36/run_ds36_unity.ps1 -Method GreatWave.Design36.EditorTools.DS36Render.Render -Log run5 -Extra \"-ds36Out G:/Unity/GreatWave_2026_Fresh/Unity/Build/Design/36/palette/unity\"",
+  "py -3.10 -B Tools/GWWaveGen/ds30/ds30b_tstar_regress.py --out Unity/Build/Design/36/palette/unity --sets t28_claws,t28_white",
+  "py -3.10 -B Tools/GWWaveGen/ds36/ds36_palette_eval.py",
+  "py -3.10 -B Tools/GWWaveGen/ds36/ds36_record.py"
+ ],
+ "environment": {
+  "python": "3.10.6",
+  "numpy": "2.2.6",
+  "opencv": "4.12.0",
+  "pillow": "12.0.0",
+  "unity": "6000.4.3f1",
+  "device": "NVIDIA GeForce RTX 3080",
+  "graphicsApi": "Direct3D11",
+  "os": "Windows-10-10.0.26200-SP0"
+ },
+ "code_sha256": {
+  "Tools/GWWaveGen/ds36/ds36_palette_prep.py": "fab87ed2a988f3aa32455cde82a8edfa5f0679e1a8283b968a48446d26241c78",
+  "Tools/GWWaveGen/ds36/ds36_palette_eval.py": "ecd739b81ae047f91348a02f2abc4057ec12835b11677cbe498f80393b0e56c7",
+  "Tools/GWWaveGen/ds36/run_ds36_unity.ps1": "442290209a3a9fb72b5eab619f0ad4b7e1ab5c1266a95258181b56ceb32c2326",
+  "Tools/GWWaveGen/ds36/ds36_record.py": "4cac89a6dd58989a1999a2a45262293f9aade47383cbd1a817e6e30d39cc651c",
+  "Unity/Assets/GreatWave/Design36/Editor/DS36Render.cs": "ff910194784ed62f670a819fe62ebb86bb984b46c0d59b50e9a340609a006456",
+  "Unity/Assets/GreatWave/Design36/Scripts/DS36ClawPalette.cs": "e7ce29e8d761803bbae44f615bca52114e40b67057f36687f0f21803744fedd1",
+  "Unity/Assets/GreatWave/Design36/Scripts/DS36SeaPalette.cs": "5dfea0bb580abd2fe028ad0723c543ec26ffe069a53b7ee6a855a2d4148cff2f",
+  "Unity/Assets/GreatWave/Design36/Shaders/DS36_Claw_Palette.shader": "3c12157d0472477818cb348a46fa4556f4ff51dca82ce2a52fef988f052fa380",
+  "Unity/Assets/GreatWave/Design36/Shaders/DS36_Claw_TDepth.shader": "399e30cad702ba4203a97fd1963caa15e1b0d8e2a114e5df1c6d03b19ee1f830",
+  "Unity/Assets/GreatWave/Design36/Scenes/DS36_Palette.unity": "38a0274360111ba20ba4e90fe1f46c447e30b6bd0c96f31bdc8e1344273c97d8"
+ },
+ "scene": {
+  "path": "Unity/Assets/GreatWave/Design36/Scenes/DS36_Palette.unity",
+  "sha256": "38a0274360111ba20ba4e90fe1f46c447e30b6bd0c96f31bdc8e1344273c97d8"
+ },
+ "inputs_sha256": {
+  "Tools\\PaintingTruth\\colour\\masks\\mw_colour_labels.png": "1507106b0b0f5fa6d261567bae7e34c4aa13670a58249dcd0f4c6a005cdab192",
+  "Unity\\Build\\Design\\32\\list+ids\\_regions.npy": "b5313786bf15636683a8f16f3c1a92f35fe5824e4045998e39287f43ba8b7256",
+  "Unity\\Build\\Design\\32\\list+ids\\ds32_claw_inventory.json": "9b73086b72686afc17d5222407f97253ca55864e15e43ee2af613922f6b0df76",
+  "Unity\\Build\\Design\\36\\palette\\prep\\ds36_claw_palette.json": "015fe6c2bcacf2a0ac49e0a545d1f37de197c6f1b4fd9f153c42f6fdfdfd096c",
+  "Unity\\Build\\Design\\36\\palette\\unity\\ds36_render_report.json": "19bfa418f743dc0b92f442506dc40eac847eae92638c5ab08ddec4fdbb9d262d",
+  "Unity/Build/Design/36/palette/prep/ds36_claw_label_sdf_3840x2160_rgba8.bin": "ddedb0a7d0d82be99d3ebd80721a712931c752d13324de6607be6da6cb65ad3f",
+  "Unity/Build/Design/36/palette/prep/ds36_sea_ramp_256_rgba8.bin": "1f802be852c30c49827ed53508e3f8372a7c0e7a1acaccd7efd7716facf79b17",
+  "Unity/Build/Design/36/palette/prep/ds36_sea_uv3_near_f32.bin": "d14b43fe2663ca5b3d1e78996ae23f448b770c53b029426784272f1bed903230",
+  "Unity/Build/Design/36/palette/prep/ds36_sea_uv3_far_f32.bin": "af332a1d449c134f99f9f49348c5440241a1838299807b783f36529ca646a42d"
+ },
+ "sea_packages": {
+  "near": [
+   "Unity\\Build\\Design\\30\\sea\\near\\ds27_keypose.json",
+   "cc2c8905fa15638ffc223856bce8432e9c3ea9a7c16671aeaaa1e36884b947f2"
+  ],
+  "far": [
+   "Unity\\Build\\Design\\30\\sea\\far\\ds27_keypose.json",
+   "f5d7b2d897a75bac4cbe3ebb6b9cd27998db5b33f00f075371304f93eaec25b6"
+  ]
+ },
+ "protected_files": [
+  "Assets/GreatWave/Design34/Scenes/DS34_ThreeLayers.unity 2bf63bffd18187c1ebf9e8ba96c3854d0d85c31ef9ab610bfb20b584508a159a",
+  "Assets/GreatWave/Design31/Scenes/DS31_WhiteSpray.unity 2c36fd2479cfe9256c2ca2669014bc623ad4e34f76123e8de43eb08e1b5e5312",
+  "Assets/GreatWave/Design30/Scenes/DS30_SinglePlayback.unity e67daaa8414a2df40a1f81a65e126e71b44493c429590a0bfc6c4ba0486525f1",
+  "Assets/GreatWave/Design30/Scripts/DS30SheetPlayer.cs de28b73834f06d1bbe95e7ae2921ca86f7a5bd7211a3a5ca83b33a17e0b13310",
+  "Assets/GreatWave/Design34/Scripts/DS34ClawPlayer.cs 77af1f4946f55fcf165b4b6c9001c1374ceb1a8b9eeea4d1eca8ab86b8380e17",
+  "Assets/GreatWave/Design34/Shaders/DS34_Claw_Unlit.shader 954d7e179da0af7d6184e5ddff32b736f1eec682f1fda1bcb8e1548436f9a728",
+  "Assets/GreatWave/Design27/Shaders/DS27_NPR_White.shader 04605cfe56b5e5bafcfb5c0bbc73b783a65f6637222eda5950c15e7e8b322dd9",
+  "Assets/GreatWave/Design31/Shaders/DS31_Spray_Unlit.shader 33aec2d5e152e573bee7e6de2860838faf50fecff9da94139bfc3ecf5d13f4b3",
+  "Build/Design/29R01/bake_kp/bake/af28r01_uvsdf_a45.bin 69c0b26d5e0129598aa19ca8365fa590af9a81c282e5fef8298409fac8470d1a",
+  "Build/Design/33/claws/ds33_claw_frames_f32.bin 6e7629889a47efc0172d40c28364b59eadef48e419d0dad5c279e3fa3d7f7565",
+  "Build/Design/30/sea/near/ds27_keypose.json cc2c8905fa15638ffc223856bce8432e9c3ea9a7c16671aeaaa1e36884b947f2",
+  "Build/Design/30/sea/far/ds27_keypose.json f5d7b2d897a75bac4cbe3ebb6b9cd27998db5b33f00f075371304f93eaec25b6"
+ ],
+ "protectedUnchanged": true,
+ "render_seconds_total": 32.600528717041016,
+ "figures": [
+  {
+   "src": "Unity/Build/Design/36/palette/fig/fig_ds36_before_after.png [行 0:1080]",
+   "scale": 0.887,
+   "dst": "Docs/Evidence/Design/36/fig_ds36_before_after_painting.png",
+   "sha256": "a488d3efc4e6875c1890c6f4e5770579fe4a06ca085f11b2ae3f6826439db38f",
+   "src_sha256": "310ba2cbdc7e90c0f8d619a986de360ce0b4419dbb0613b75dd841383a1353f1"
+  },
+  {
+   "src": "Unity/Build/Design/36/palette/fig/fig_ds36_before_after.png [行 1080:2160]",
+   "scale": 0.887,
+   "dst": "Docs/Evidence/Design/36/fig_ds36_before_after_low.png",
+   "sha256": "c7089a87e0837efb4664f73f75ebf844541218b008472f373bcdbf6e82888b4d",
+   "src_sha256": "310ba2cbdc7e90c0f8d619a986de360ce0b4419dbb0613b75dd841383a1353f1"
+  },
+  {
+   "src": "Unity/Build/Design/36/palette/fig/fig_ds36_claw_shadow_tstar.png",
+   "scale": 0.6667,
+   "dst": "Docs/Evidence/Design/36/fig_ds36_claw_shadow_tstar.png",
+   "sha256": "c33d3d038a84c2768d568a68f0b30387e5a56f64b850df532ff9e3fc0efb6a34",
+   "src_sha256": "502557f6f8198779f5a0b5d844d4a1d64011ce4874799513c9a54bce3c779635"
+  },
+  {
+   "src": "Unity/Build/Design/36/palette/ds36_colour_chart.csv",
+   "src_sha256": "5ffaab0e129ffb9e4483fa21e6386b127c7a0726eff4f2ae47881291ca3c4ad1",
+   "rows": [
+    "painting/12.0/hero",
+    "painting/12.0/sea_near",
+    "painting/12.0/sea_far",
+    "painting/12.0/claws",
+    "painting/12.0/spray",
+    "seat/12.0/hero",
+    "seat/12.0/claws",
+    "seat/12.0/spray",
+    "seat_low/12.0/hero",
+    "seat_low/12.0/sea_near",
+    "seat_low/12.0/claws",
+    "seat_toward_wave/10.0/hero",
+    "seat_toward_wave/10.0/sea_near",
+    "seat_toward_wave/10.0/claws"
+   ],
+   "dst": "Docs/Evidence/Design/36/fig_ds36_colour_chart.png",
+   "sha256": "72374c2727ee890e2cc2e9e2efc3c9612fbb2d56fabdc690bc03b656a4a9195e"
+  },
+  {
+   "src": "Unity/Build/Design/36/palette/fig/fig_ds36_formation_frames.png",
+   "scale": 1.0,
+   "dst": "Docs/Evidence/Design/36/fig_ds36_formation_frames.png",
+   "sha256": "b340e3031a0c881e42f29ee8f33519713da96a6800cba471c20c30a214b79433",
+   "src_sha256": "bbde8dc57fcc6ccc919cc48fc593d3d193234996557e62431e32c76aadd40569"
+  },
+  {
+   "src": "Unity/Build/Design/36/palette/unity/t28_claws/t28/render/af28r01_painting.png",
+   "scale": 1.0,
+   "dst": "Docs/Evidence/Design/36/fig_ds36_aidark_step_tstar.png",
+   "sha256": "d209521f31c982a79c1a547296d4e70080f23e223bf661cdc1e8cce0b853e4b3"
+  },
+  {
+   "src": "Unity/Build/Design/36/indep_check/frames/flicker_painting_328.png",
+   "scale": 1.0,
+   "dst": "Docs/Evidence/Design/36/fig_ds36_indep_flicker_painting_f328.png",
+   "sha256": "1eebb9b2f07d23d5b55c0ca7ead9526cec6916d63711332af5310c5a8d219266",
+   "src_sha256": "e5f1b2e0e31e0d3b2c39c631a08d4ef375ac713d192efd7e4777ed7fd95a2032"
+  },
+  {
+   "src": "Unity/Build/Design/36/indep_check/frames/flicker_seat_toward_wave_328.png",
+   "scale": 1.0,
+   "dst": "Docs/Evidence/Design/36/fig_ds36_indep_flicker_seat_toward_wave_f328.png",
+   "sha256": "46ad26458eee959a34ffa262f70ef2ec345be0bcb0b8a7c0db31e1c48ddcd17f",
+   "src_sha256": "cec6cd5859b036fe52e9efddcd513b328b487e395338bdcadfadd62fe661f6b5"
+  },
+  {
+   "src": "Unity/Build/Design/36/indep_check/frames/stw_345.png",
+   "scale": 0.9185,
+   "dst": "Docs/Evidence/Design/36/fig_ds36_indep_foot_streaks_f345.png",
+   "sha256": "0f4cd62c513341ceb3eb6550a8fe89e6bbf541a702d83818372637ea18877bc2",
+   "src_sha256": "87fd8abcab48ef6def282887a04e3e5b0bfd390557271fac2a2e5812fa0fd5b9"
+  }
+ ],
+ "videos": [
+  {
+   "view": "painting",
+   "src": "Unity/Build/Design/36/palette/unity/video/ds36_palette_painting_30fps.mp4",
+   "dst": "Docs/Evidence/Design/36/ds36_palette_painting_30fps.mp4",
+   "bytes": 2479680,
+   "sha256": "26cedf9c8e910484fa60c234725233f44f76f6c0a709c55d549b617c4ba286b4",
+   "width": 1920,
+   "height": 1080,
+   "frames": 421,
+   "fps": "30/1"
+  },
+  {
+   "view": "seat",
+   "src": "Unity/Build/Design/36/palette/unity/video/ds36_palette_seat_30fps.mp4",
+   "dst": "Docs/Evidence/Design/36/ds36_palette_seat_30fps.mp4",
+   "bytes": 1030044,
+   "sha256": "bff6297d8a2594c2fecbab5af7f7063100a0dc2b73de9ecd0c4a2ae653f0f241",
+   "width": 1920,
+   "height": 1080,
+   "frames": 421,
+   "fps": "30/1"
+  },
+  {
+   "view": "seat_toward_wave",
+   "src": "Unity/Build/Design/36/palette/unity/video/ds36_palette_seat_toward_wave_30fps.mp4",
+   "dst": "Docs/Evidence/Design/36/ds36_palette_seat_toward_wave_30fps.mp4",
+   "bytes": 2363656,
+   "sha256": "ca0600a181ed4b5fe58a01b7a7fe19869d8532a3656c99656e3b3cfdb8d1691d",
+   "width": 1920,
+   "height": 1080,
+   "frames": 421,
+   "fps": "30/1"
+  }
+ ],
+ "copies": [
+  {
+   "src": "Unity/Build/Design/36/palette/ds36_palette_metrics.json",
+   "dst": "Docs/Evidence/Design/36/ds36_palette_metrics.json",
+   "bytes": 23663,
+   "sha256": "11ab57254969f7494a7786910eebdfe4fa6df2d296ba16ca3bd429c255744de3"
+  },
+  {
+   "src": "Unity/Build/Design/36/palette/ds36_colour_chart.csv",
+   "dst": "Docs/Evidence/Design/36/ds36_colour_chart.csv",
+   "bytes": 9985,
+   "sha256": "5ffaab0e129ffb9e4483fa21e6386b127c7a0726eff4f2ae47881291ca3c4ad1"
+  },
+  {
+   "src": "Unity/Build/Design/36/palette/ds36_claw_shadow_per_claw.json",
+   "dst": "Docs/Evidence/Design/36/ds36_claw_shadow_per_claw.json",
+   "bytes": 40892,
+   "sha256": "eb18df6c5f8f8304bf1ae0fa75bbdf3b85aa0098f678c95f67da74f3bd96b7d6"
+  },
+  {
+   "src": "Unity/Build/Design/36/palette/unity/ds36_render_report.json",
+   "dst": "Docs/Evidence/Design/36/ds36_render_report.json",
+   "bytes": 30334,
+   "sha256": "19bfa418f743dc0b92f442506dc40eac847eae92638c5ab08ddec4fdbb9d262d"
+  },
+  {
+   "src": "Unity/Build/Design/36/palette/unity/ds30_tstar_regress.json",
+   "dst": "Docs/Evidence/Design/36/ds36_tstar_regress.json",
+   "bytes": 6147,
+   "sha256": "4ca57d3a973d94d4feca5dfc9c11397e4246b36d5236986df5046c2a35b8931e"
+  },
+  {
+   "src": "Unity/Build/Design/36/palette/unity/tstar_sym_t28_claws/tstar_sym.json",
+   "dst": "Docs/Evidence/Design/36/ds36_tstar_sym_claws.json",
+   "bytes": 10611,
+   "sha256": "7258ff1e8a096f7216cd89db3afc22cddbadd1a9aee40b23bcd7222411384322"
+  },
+  {
+   "src": "Unity/Build/Design/36/palette/unity/tstar_sym_t28_white/tstar_sym.json",
+   "dst": "Docs/Evidence/Design/36/ds36_tstar_sym_no_claws.json",
+   "bytes": 10611,
+   "sha256": "cdcbbdd6b3fd0f6a58d9d32e5647dec06ca92febea7956d549b73482675fe5f2"
+  },
+  {
+   "src": "Unity/Build/Design/36/palette/prep/ds36_palette_prep.json",
+   "dst": "Docs/Evidence/Design/36/ds36_palette_prep.json",
+   "bytes": 3105,
+   "sha256": "8d9adda868c516b2681944e0ab6799f78c4f7cb8faa5dfabfe7ccdba38afc93c"
+  },
+  {
+   "src": "Unity/Build/Design/36/indep_check/ic36_claws.json",
+   "dst": "Docs/Evidence/Design/36/ds36_indep_claws.json",
+   "bytes": 3165,
+   "sha256": "208d2cc9dd430eed4ef444752df6e17cf3d98290b707b41d1f5bc8e3cf005963"
+  },
+  {
+   "src": "Unity/Build/Design/36/indep_check/ic36_flicker.json",
+   "dst": "Docs/Evidence/Design/36/ds36_indep_flicker.json",
+   "bytes": 1447,
+   "sha256": "d3e88490c5e93c07cd372ce217f0d9bb1d375abbb3e336187dfa120847d63b55"
+  },
+  {
+   "src": "Unity/Build/Design/36/record/ds36_record_counts.json",
+   "dst": "Docs/Evidence/Design/36/ds36_record_counts.json",
+   "bytes": 8671,
+   "sha256": "bead97e9067eaca7c7bc2cf41d36c0c70acad037918c9bf61a7c96cc6213b05d"
+  }
+ ],
+ "not_used_ja": "参照モデル・利用者の解算・写真のフォルダー・Blender・Houdini は使っていない。爪形分析のフォルダーは、作る部も検査もこの記録も開いていない（コミットの一覧の点検で、ファイルの大きさと SHA-256 を読み取りのみで照合しただけ）。",
+ "record_run": "2026-09-30 05:08:18"
+}
