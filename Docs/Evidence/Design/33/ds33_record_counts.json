@@ -1,0 +1,1731 @@
+{
+ "schema": "GreatWave.DS33.record_counts/1",
+ "note_ja": "記録の時に数えたもの（ds33_record.py）。爪の部の出力 ds33_claw_frames_f32.bin（SHA-256 6e7629889a47efc0172d40c28364b59eadef48e419d0dad5c279e3fa3d7f7565）から。記録のみで、合否は出さない",
+ "band_shape_tstar": {
+  "frame": 360,
+  "rule_ja": "t*（コマ 360）の帯の形。輪 j の幅の軸 B_j＝輪の頂点 0 − 頂点 4（φ 0° と 180°）、輪の中心 C_j＝8 頂点の平均。width_axis：隣り合う輪の B の向きの差（接線まわりのねじれと面の中の曲がりの両方を含む）。twist：隣り合う輪の B を、2 つの輪の中心を結ぶ向きに垂直な面へ写してからの向きの差（接線まわりのねじれ）。turn：中心線の隣り合う 2 区間の向きの差（中心線の折れ）。fold：折れの所の曲率の半径（2 区間の長さの平均 / 折れの角 rad）が輪の幅の半分より小さい所（帯の内側の縁が折れ返る）。記録のみ",
+  "width_axis_deg": {
+   "over_45": 13,
+   "over_30": 36,
+   "top": [
+    [
+     "C013",
+     "T2",
+     95.3
+    ],
+    [
+     "C021",
+     "T1",
+     80.4
+    ],
+    [
+     "C042",
+     "T2",
+     69.7
+    ],
+    [
+     "C065",
+     "T4",
+     69.3
+    ],
+    [
+     "C078",
+     "T2",
+     68.6
+    ],
+    [
+     "C026",
+     "T1",
+     65.4
+    ],
+    [
+     "C049",
+     "T1",
+     62.4
+    ],
+    [
+     "C068",
+     "T1",
+     58.2
+    ]
+   ]
+  },
+  "twist_deg": {
+   "over_45": 1,
+   "over_30": 3,
+   "top": [
+    [
+     "C013",
+     "T2",
+     85.2
+    ],
+    [
+     "C154",
+     "T1",
+     34.2
+    ],
+    [
+     "C072",
+     "T1",
+     34.1
+    ],
+    [
+     "C026",
+     "T1",
+     20.6
+    ],
+    [
+     "C021",
+     "T1",
+     19.6
+    ],
+    [
+     "C095",
+     "T1",
+     16.9
+    ],
+    [
+     "C114",
+     "T1",
+     16.2
+    ],
+    [
+     "C080",
+     "T4",
+     15.6
+    ]
+   ]
+  },
+  "turn_deg": {
+   "over_45": 29,
+   "over_30": 53,
+   "top": [
+    [
+     "C013",
+     "T2",
+     152.2
+    ],
+    [
+     "C093",
+     "T1",
+     84.3
+    ],
+    [
+     "C078",
+     "T2",
+     83.7
+    ],
+    [
+     "C021",
+     "T1",
+     83.5
+    ],
+    [
+     "C049",
+     "T1",
+     83.2
+    ],
+    [
+     "C068",
+     "T1",
+     77.1
+    ],
+    [
+     "C065",
+     "T4",
+     70.9
+    ],
+    [
+     "C125",
+     "T1",
+     70.0
+    ]
+   ]
+  },
+  "fold": {
+   "claws_with_fold": 48,
+   "joints_total": 82,
+   "top": [
+    [
+     "C020",
+     "T1",
+     5
+    ],
+    [
+     "C112",
+     "T1",
+     5
+    ],
+    [
+     "C049",
+     "T1",
+     4
+    ],
+    [
+     "C048",
+     "T1",
+     3
+    ],
+    [
+     "C064",
+     "T1",
+     3
+    ],
+    [
+     "C103",
+     "T1",
+     3
+    ],
+    [
+     "C117",
+     "T1",
+     3
+    ],
+    [
+     "C120",
+     "T1",
+     3
+    ],
+    [
+     "C021",
+     "T1",
+     2
+    ],
+    [
+     "C026",
+     "T1",
+     2
+    ]
+   ]
+  },
+  "per_claw": [
+   {
+    "id": "C001",
+    "type": "T1",
+    "width_axis_max_deg": 5.6,
+    "twist_max_deg": 0.2,
+    "turn_max_deg": 6.0,
+    "fold_joints": 0
+   },
+   {
+    "id": "C002",
+    "type": "T1",
+    "width_axis_max_deg": 30.5,
+    "twist_max_deg": 0.9,
+    "turn_max_deg": 32.8,
+    "fold_joints": 0
+   },
+   {
+    "id": "C003",
+    "type": "T4",
+    "width_axis_max_deg": 11.0,
+    "twist_max_deg": 0.7,
+    "turn_max_deg": 12.6,
+    "fold_joints": 0
+   },
+   {
+    "id": "C004",
+    "type": "T4",
+    "width_axis_max_deg": 23.0,
+    "twist_max_deg": 0.9,
+    "turn_max_deg": 28.2,
+    "fold_joints": 0
+   },
+   {
+    "id": "C005",
+    "type": "T4",
+    "width_axis_max_deg": 15.6,
+    "twist_max_deg": 0.8,
+    "turn_max_deg": 16.9,
+    "fold_joints": 0
+   },
+   {
+    "id": "C006",
+    "type": "T1",
+    "width_axis_max_deg": 3.6,
+    "twist_max_deg": 0.4,
+    "turn_max_deg": 4.8,
+    "fold_joints": 0
+   },
+   {
+    "id": "C007",
+    "type": "T1",
+    "width_axis_max_deg": 2.8,
+    "twist_max_deg": 0.9,
+    "turn_max_deg": 3.2,
+    "fold_joints": 0
+   },
+   {
+    "id": "C008",
+    "type": "T4",
+    "width_axis_max_deg": 8.1,
+    "twist_max_deg": 0.3,
+    "turn_max_deg": 8.2,
+    "fold_joints": 0
+   },
+   {
+    "id": "C009",
+    "type": "T1",
+    "width_axis_max_deg": 5.2,
+    "twist_max_deg": 0.8,
+    "turn_max_deg": 6.1,
+    "fold_joints": 0
+   },
+   {
+    "id": "C010",
+    "type": "branch",
+    "width_axis_max_deg": 37.1,
+    "twist_max_deg": 1.1,
+    "turn_max_deg": 44.7,
+    "fold_joints": 0
+   },
+   {
+    "id": "C011",
+    "type": "T4",
+    "width_axis_max_deg": 10.3,
+    "twist_max_deg": 0.9,
+    "turn_max_deg": 11.0,
+    "fold_joints": 0
+   },
+   {
+    "id": "C012",
+    "type": "T1",
+    "width_axis_max_deg": 3.3,
+    "twist_max_deg": 0.6,
+    "turn_max_deg": 3.3,
+    "fold_joints": 0
+   },
+   {
+    "id": "C013",
+    "type": "T2",
+    "width_axis_max_deg": 95.3,
+    "twist_max_deg": 85.2,
+    "turn_max_deg": 152.2,
+    "fold_joints": 1
+   },
+   {
+    "id": "C014",
+    "type": "T2",
+    "width_axis_max_deg": 48.1,
+    "twist_max_deg": 1.5,
+    "turn_max_deg": 51.8,
+    "fold_joints": 0
+   },
+   {
+    "id": "C015",
+    "type": "T2",
+    "width_axis_max_deg": 18.9,
+    "twist_max_deg": 0.9,
+    "turn_max_deg": 21.9,
+    "fold_joints": 0
+   },
+   {
+    "id": "C016",
+    "type": "branch",
+    "width_axis_max_deg": 21.6,
+    "twist_max_deg": 0.8,
+    "turn_max_deg": 23.7,
+    "fold_joints": 1
+   },
+   {
+    "id": "C017",
+    "type": "T4",
+    "width_axis_max_deg": 18.1,
+    "twist_max_deg": 2.0,
+    "turn_max_deg": 23.5,
+    "fold_joints": 1
+   },
+   {
+    "id": "C018",
+    "type": "T1",
+    "width_axis_max_deg": 14.9,
+    "twist_max_deg": 0.8,
+    "turn_max_deg": 17.3,
+    "fold_joints": 0
+   },
+   {
+    "id": "C019",
+    "type": "T1",
+    "width_axis_max_deg": 2.4,
+    "twist_max_deg": 1.2,
+    "turn_max_deg": 2.6,
+    "fold_joints": 0
+   },
+   {
+    "id": "C020",
+    "type": "T1",
+    "width_axis_max_deg": 36.6,
+    "twist_max_deg": 9.7,
+    "turn_max_deg": 44.1,
+    "fold_joints": 5
+   },
+   {
+    "id": "C021",
+    "type": "T1",
+    "width_axis_max_deg": 80.4,
+    "twist_max_deg": 19.6,
+    "turn_max_deg": 83.5,
+    "fold_joints": 2
+   },
+   {
+    "id": "C022",
+    "type": "T1",
+    "width_axis_max_deg": 6.6,
+    "twist_max_deg": 1.3,
+    "turn_max_deg": 6.8,
+    "fold_joints": 0
+   },
+   {
+    "id": "C023",
+    "type": "T1",
+    "width_axis_max_deg": 20.7,
+    "twist_max_deg": 1.5,
+    "turn_max_deg": 22.8,
+    "fold_joints": 1
+   },
+   {
+    "id": "C024",
+    "type": "T1",
+    "width_axis_max_deg": 9.2,
+    "twist_max_deg": 1.2,
+    "turn_max_deg": 10.6,
+    "fold_joints": 0
+   },
+   {
+    "id": "C025",
+    "type": "T1",
+    "width_axis_max_deg": 17.4,
+    "twist_max_deg": 1.7,
+    "turn_max_deg": 18.5,
+    "fold_joints": 0
+   },
+   {
+    "id": "C026",
+    "type": "T1",
+    "width_axis_max_deg": 65.4,
+    "twist_max_deg": 20.6,
+    "turn_max_deg": 64.3,
+    "fold_joints": 2
+   },
+   {
+    "id": "C027",
+    "type": "T1",
+    "width_axis_max_deg": 4.8,
+    "twist_max_deg": 0.9,
+    "turn_max_deg": 5.0,
+    "fold_joints": 0
+   },
+   {
+    "id": "C028",
+    "type": "T1",
+    "width_axis_max_deg": 6.7,
+    "twist_max_deg": 1.4,
+    "turn_max_deg": 6.7,
+    "fold_joints": 0
+   },
+   {
+    "id": "C029",
+    "type": "T1",
+    "width_axis_max_deg": 27.5,
+    "twist_max_deg": 1.4,
+    "turn_max_deg": 28.5,
+    "fold_joints": 1
+   },
+   {
+    "id": "C030",
+    "type": "T1",
+    "width_axis_max_deg": 3.6,
+    "twist_max_deg": 0.7,
+    "turn_max_deg": 3.9,
+    "fold_joints": 0
+   },
+   {
+    "id": "C031",
+    "type": "T1",
+    "width_axis_max_deg": 1.9,
+    "twist_max_deg": 1.4,
+    "turn_max_deg": 2.0,
+    "fold_joints": 0
+   },
+   {
+    "id": "C032",
+    "type": "T1",
+    "width_axis_max_deg": 10.8,
+    "twist_max_deg": 1.3,
+    "turn_max_deg": 12.7,
+    "fold_joints": 1
+   },
+   {
+    "id": "C033",
+    "type": "T1",
+    "width_axis_max_deg": 15.5,
+    "twist_max_deg": 1.3,
+    "turn_max_deg": 18.3,
+    "fold_joints": 0
+   },
+   {
+    "id": "C034",
+    "type": "T1",
+    "width_axis_max_deg": 2.2,
+    "twist_max_deg": 1.2,
+    "turn_max_deg": 2.2,
+    "fold_joints": 0
+   },
+   {
+    "id": "C035",
+    "type": "T1",
+    "width_axis_max_deg": 2.6,
+    "twist_max_deg": 0.9,
+    "turn_max_deg": 3.0,
+    "fold_joints": 0
+   },
+   {
+    "id": "C036",
+    "type": "T1",
+    "width_axis_max_deg": 14.1,
+    "twist_max_deg": 0.6,
+    "turn_max_deg": 15.0,
+    "fold_joints": 0
+   },
+   {
+    "id": "C037",
+    "type": "T1",
+    "width_axis_max_deg": 13.7,
+    "twist_max_deg": 1.7,
+    "turn_max_deg": 14.9,
+    "fold_joints": 0
+   },
+   {
+    "id": "C038",
+    "type": "T1",
+    "width_axis_max_deg": 11.0,
+    "twist_max_deg": 0.8,
+    "turn_max_deg": 13.0,
+    "fold_joints": 0
+   },
+   {
+    "id": "C039",
+    "type": "T1",
+    "width_axis_max_deg": 24.7,
+    "twist_max_deg": 1.3,
+    "turn_max_deg": 28.0,
+    "fold_joints": 0
+   },
+   {
+    "id": "C040",
+    "type": "branch",
+    "width_axis_max_deg": 8.9,
+    "twist_max_deg": 1.4,
+    "turn_max_deg": 9.3,
+    "fold_joints": 0
+   },
+   {
+    "id": "C041",
+    "type": "T1",
+    "width_axis_max_deg": 12.2,
+    "twist_max_deg": 2.3,
+    "turn_max_deg": 14.1,
+    "fold_joints": 2
+   },
+   {
+    "id": "C042",
+    "type": "T2",
+    "width_axis_max_deg": 69.7,
+    "twist_max_deg": 3.2,
+    "turn_max_deg": 62.8,
+    "fold_joints": 2
+   },
+   {
+    "id": "C043",
+    "type": "T1",
+    "width_axis_max_deg": 9.8,
+    "twist_max_deg": 1.1,
+    "turn_max_deg": 9.9,
+    "fold_joints": 0
+   },
+   {
+    "id": "C044",
+    "type": "T1",
+    "width_axis_max_deg": 8.6,
+    "twist_max_deg": 1.7,
+    "turn_max_deg": 9.9,
+    "fold_joints": 0
+   },
+   {
+    "id": "C045",
+    "type": "T1",
+    "width_axis_max_deg": 6.5,
+    "twist_max_deg": 1.8,
+    "turn_max_deg": 7.1,
+    "fold_joints": 0
+   },
+   {
+    "id": "C046",
+    "type": "T1",
+    "width_axis_max_deg": 2.1,
+    "twist_max_deg": 1.0,
+    "turn_max_deg": 2.3,
+    "fold_joints": 0
+   },
+   {
+    "id": "C047",
+    "type": "T1",
+    "width_axis_max_deg": 3.3,
+    "twist_max_deg": 3.2,
+    "turn_max_deg": 3.0,
+    "fold_joints": 0
+   },
+   {
+    "id": "C048",
+    "type": "T1",
+    "width_axis_max_deg": 32.7,
+    "twist_max_deg": 8.5,
+    "turn_max_deg": 48.3,
+    "fold_joints": 3
+   },
+   {
+    "id": "C049",
+    "type": "T1",
+    "width_axis_max_deg": 62.4,
+    "twist_max_deg": 6.3,
+    "turn_max_deg": 83.2,
+    "fold_joints": 4
+   },
+   {
+    "id": "C050",
+    "type": "T1",
+    "width_axis_max_deg": 17.0,
+    "twist_max_deg": 2.3,
+    "turn_max_deg": 15.7,
+    "fold_joints": 0
+   },
+   {
+    "id": "C051",
+    "type": "T1",
+    "width_axis_max_deg": 37.2,
+    "twist_max_deg": 1.7,
+    "turn_max_deg": 55.1,
+    "fold_joints": 0
+   },
+   {
+    "id": "C052",
+    "type": "T1",
+    "width_axis_max_deg": 31.0,
+    "twist_max_deg": 0.8,
+    "turn_max_deg": 40.1,
+    "fold_joints": 0
+   },
+   {
+    "id": "C053",
+    "type": "T1",
+    "width_axis_max_deg": 30.6,
+    "twist_max_deg": 2.9,
+    "turn_max_deg": 40.0,
+    "fold_joints": 2
+   },
+   {
+    "id": "C054",
+    "type": "branch",
+    "width_axis_max_deg": 36.6,
+    "twist_max_deg": 2.0,
+    "turn_max_deg": 40.0,
+    "fold_joints": 0
+   },
+   {
+    "id": "C055",
+    "type": "T1",
+    "width_axis_max_deg": 25.8,
+    "twist_max_deg": 2.1,
+    "turn_max_deg": 27.6,
+    "fold_joints": 2
+   },
+   {
+    "id": "C056",
+    "type": "T1",
+    "width_axis_max_deg": 28.5,
+    "twist_max_deg": 3.8,
+    "turn_max_deg": 33.2,
+    "fold_joints": 2
+   },
+   {
+    "id": "C057",
+    "type": "T1",
+    "width_axis_max_deg": 42.7,
+    "twist_max_deg": 5.7,
+    "turn_max_deg": 60.2,
+    "fold_joints": 1
+   },
+   {
+    "id": "C058",
+    "type": "T1",
+    "width_axis_max_deg": 19.4,
+    "twist_max_deg": 1.5,
+    "turn_max_deg": 23.4,
+    "fold_joints": 1
+   },
+   {
+    "id": "C059",
+    "type": "T4",
+    "width_axis_max_deg": 21.0,
+    "twist_max_deg": 2.1,
+    "turn_max_deg": 26.5,
+    "fold_joints": 1
+   },
+   {
+    "id": "C060",
+    "type": "branch",
+    "width_axis_max_deg": 9.6,
+    "twist_max_deg": 1.2,
+    "turn_max_deg": 10.8,
+    "fold_joints": 0
+   },
+   {
+    "id": "C061",
+    "type": "T1",
+    "width_axis_max_deg": 9.7,
+    "twist_max_deg": 5.1,
+    "turn_max_deg": 45.2,
+    "fold_joints": 1
+   },
+   {
+    "id": "C062",
+    "type": "T1",
+    "width_axis_max_deg": 4.1,
+    "twist_max_deg": 2.5,
+    "turn_max_deg": 4.6,
+    "fold_joints": 0
+   },
+   {
+    "id": "C063",
+    "type": "T1",
+    "width_axis_max_deg": 7.4,
+    "twist_max_deg": 2.7,
+    "turn_max_deg": 8.0,
+    "fold_joints": 0
+   },
+   {
+    "id": "C064",
+    "type": "T1",
+    "width_axis_max_deg": 23.1,
+    "twist_max_deg": 2.1,
+    "turn_max_deg": 26.3,
+    "fold_joints": 3
+   },
+   {
+    "id": "C065",
+    "type": "T4",
+    "width_axis_max_deg": 69.3,
+    "twist_max_deg": 4.0,
+    "turn_max_deg": 70.9,
+    "fold_joints": 1
+   },
+   {
+    "id": "C066",
+    "type": "T2",
+    "width_axis_max_deg": 8.9,
+    "twist_max_deg": 2.5,
+    "turn_max_deg": 12.5,
+    "fold_joints": 0
+   },
+   {
+    "id": "C067",
+    "type": "T4",
+    "width_axis_max_deg": 14.7,
+    "twist_max_deg": 3.9,
+    "turn_max_deg": 30.2,
+    "fold_joints": 0
+   },
+   {
+    "id": "C068",
+    "type": "T1",
+    "width_axis_max_deg": 58.2,
+    "twist_max_deg": 6.4,
+    "turn_max_deg": 77.1,
+    "fold_joints": 2
+   },
+   {
+    "id": "C069",
+    "type": "T1",
+    "width_axis_max_deg": 44.7,
+    "twist_max_deg": 3.5,
+    "turn_max_deg": 65.8,
+    "fold_joints": 1
+   },
+   {
+    "id": "C070",
+    "type": "T1",
+    "width_axis_max_deg": 2.8,
+    "twist_max_deg": 1.3,
+    "turn_max_deg": 3.0,
+    "fold_joints": 0
+   },
+   {
+    "id": "C071",
+    "type": "T4",
+    "width_axis_max_deg": 44.8,
+    "twist_max_deg": 4.4,
+    "turn_max_deg": 51.3,
+    "fold_joints": 2
+   },
+   {
+    "id": "C072",
+    "type": "T1",
+    "width_axis_max_deg": 33.8,
+    "twist_max_deg": 34.1,
+    "turn_max_deg": 16.5,
+    "fold_joints": 0
+   },
+   {
+    "id": "C073",
+    "type": "T1",
+    "width_axis_max_deg": 22.7,
+    "twist_max_deg": 5.1,
+    "turn_max_deg": 26.3,
+    "fold_joints": 1
+   },
+   {
+    "id": "C074",
+    "type": "T1",
+    "width_axis_max_deg": 28.8,
+    "twist_max_deg": 2.3,
+    "turn_max_deg": 35.2,
+    "fold_joints": 1
+   },
+   {
+    "id": "C075",
+    "type": "T4",
+    "width_axis_max_deg": 28.8,
+    "twist_max_deg": 2.2,
+    "turn_max_deg": 39.1,
+    "fold_joints": 1
+   },
+   {
+    "id": "C076",
+    "type": "T1",
+    "width_axis_max_deg": 15.7,
+    "twist_max_deg": 5.3,
+    "turn_max_deg": 18.0,
+    "fold_joints": 0
+   },
+   {
+    "id": "C077",
+    "type": "branch",
+    "width_axis_max_deg": 13.7,
+    "twist_max_deg": 1.7,
+    "turn_max_deg": 16.0,
+    "fold_joints": 0
+   },
+   {
+    "id": "C078",
+    "type": "T2",
+    "width_axis_max_deg": 68.6,
+    "twist_max_deg": 7.0,
+    "turn_max_deg": 83.7,
+    "fold_joints": 1
+   },
+   {
+    "id": "C079",
+    "type": "branch",
+    "width_axis_max_deg": 41.9,
+    "twist_max_deg": 4.9,
+    "turn_max_deg": 53.8,
+    "fold_joints": 1
+   },
+   {
+    "id": "C080",
+    "type": "T4",
+    "width_axis_max_deg": 44.1,
+    "twist_max_deg": 15.6,
+    "turn_max_deg": 58.0,
+    "fold_joints": 1
+   },
+   {
+    "id": "C081",
+    "type": "T1",
+    "width_axis_max_deg": 11.3,
+    "twist_max_deg": 1.7,
+    "turn_max_deg": 13.2,
+    "fold_joints": 1
+   },
+   {
+    "id": "C082",
+    "type": "T1",
+    "width_axis_max_deg": 16.8,
+    "twist_max_deg": 3.8,
+    "turn_max_deg": 17.0,
+    "fold_joints": 0
+   },
+   {
+    "id": "C083",
+    "type": "T1",
+    "width_axis_max_deg": 31.5,
+    "twist_max_deg": 11.6,
+    "turn_max_deg": 33.5,
+    "fold_joints": 2
+   },
+   {
+    "id": "C084",
+    "type": "T1",
+    "width_axis_max_deg": 7.7,
+    "twist_max_deg": 6.3,
+    "turn_max_deg": 7.9,
+    "fold_joints": 0
+   },
+   {
+    "id": "C085",
+    "type": "T4",
+    "width_axis_max_deg": 18.6,
+    "twist_max_deg": 13.4,
+    "turn_max_deg": 26.4,
+    "fold_joints": 0
+   },
+   {
+    "id": "C086",
+    "type": "T1",
+    "width_axis_max_deg": 11.3,
+    "twist_max_deg": 1.6,
+    "turn_max_deg": 11.5,
+    "fold_joints": 0
+   },
+   {
+    "id": "C087",
+    "type": "branch",
+    "width_axis_max_deg": 10.0,
+    "twist_max_deg": 1.2,
+    "turn_max_deg": 11.3,
+    "fold_joints": 0
+   },
+   {
+    "id": "C088",
+    "type": "T1",
+    "width_axis_max_deg": 44.1,
+    "twist_max_deg": 5.4,
+    "turn_max_deg": 53.9,
+    "fold_joints": 1
+   },
+   {
+    "id": "C089",
+    "type": "T1",
+    "width_axis_max_deg": 7.4,
+    "twist_max_deg": 7.3,
+    "turn_max_deg": 8.1,
+    "fold_joints": 0
+   },
+   {
+    "id": "C090",
+    "type": "T4",
+    "width_axis_max_deg": 28.1,
+    "twist_max_deg": 3.1,
+    "turn_max_deg": 37.1,
+    "fold_joints": 0
+   },
+   {
+    "id": "C091",
+    "type": "T1",
+    "width_axis_max_deg": 7.1,
+    "twist_max_deg": 1.4,
+    "turn_max_deg": 7.9,
+    "fold_joints": 0
+   },
+   {
+    "id": "C092",
+    "type": "T2",
+    "width_axis_max_deg": 52.9,
+    "twist_max_deg": 4.9,
+    "turn_max_deg": 69.8,
+    "fold_joints": 1
+   },
+   {
+    "id": "C093",
+    "type": "T1",
+    "width_axis_max_deg": 51.9,
+    "twist_max_deg": 13.3,
+    "turn_max_deg": 84.3,
+    "fold_joints": 1
+   },
+   {
+    "id": "C094",
+    "type": "T1",
+    "width_axis_max_deg": 14.2,
+    "twist_max_deg": 4.7,
+    "turn_max_deg": 30.5,
+    "fold_joints": 0
+   },
+   {
+    "id": "C095",
+    "type": "T1",
+    "width_axis_max_deg": 27.9,
+    "twist_max_deg": 16.9,
+    "turn_max_deg": 68.0,
+    "fold_joints": 2
+   },
+   {
+    "id": "C096",
+    "type": "T1",
+    "width_axis_max_deg": 6.8,
+    "twist_max_deg": 4.0,
+    "turn_max_deg": 58.7,
+    "fold_joints": 0
+   },
+   {
+    "id": "C097",
+    "type": "T1",
+    "width_axis_max_deg": 3.7,
+    "twist_max_deg": 1.5,
+    "turn_max_deg": 4.0,
+    "fold_joints": 0
+   },
+   {
+    "id": "C098",
+    "type": "T1",
+    "width_axis_max_deg": 9.3,
+    "twist_max_deg": 1.5,
+    "turn_max_deg": 9.9,
+    "fold_joints": 0
+   },
+   {
+    "id": "C099",
+    "type": "T1",
+    "width_axis_max_deg": 5.4,
+    "twist_max_deg": 1.5,
+    "turn_max_deg": 5.5,
+    "fold_joints": 0
+   },
+   {
+    "id": "C100",
+    "type": "T1",
+    "width_axis_max_deg": 7.0,
+    "twist_max_deg": 0.7,
+    "turn_max_deg": 7.1,
+    "fold_joints": 0
+   },
+   {
+    "id": "C101",
+    "type": "T1",
+    "width_axis_max_deg": 2.9,
+    "twist_max_deg": 0.5,
+    "turn_max_deg": 2.9,
+    "fold_joints": 0
+   },
+   {
+    "id": "C102",
+    "type": "T2",
+    "width_axis_max_deg": 12.6,
+    "twist_max_deg": 3.9,
+    "turn_max_deg": 13.4,
+    "fold_joints": 0
+   },
+   {
+    "id": "C103",
+    "type": "T1",
+    "width_axis_max_deg": 13.8,
+    "twist_max_deg": 7.1,
+    "turn_max_deg": 21.6,
+    "fold_joints": 3
+   },
+   {
+    "id": "C104",
+    "type": "T1",
+    "width_axis_max_deg": 30.0,
+    "twist_max_deg": 7.3,
+    "turn_max_deg": 33.2,
+    "fold_joints": 2
+   },
+   {
+    "id": "C105",
+    "type": "T1",
+    "width_axis_max_deg": 28.5,
+    "twist_max_deg": 3.3,
+    "turn_max_deg": 33.7,
+    "fold_joints": 1
+   },
+   {
+    "id": "C106",
+    "type": "T1",
+    "width_axis_max_deg": 18.6,
+    "twist_max_deg": 10.2,
+    "turn_max_deg": 40.8,
+    "fold_joints": 1
+   },
+   {
+    "id": "C108",
+    "type": "T1",
+    "width_axis_max_deg": 12.1,
+    "twist_max_deg": 2.0,
+    "turn_max_deg": 8.3,
+    "fold_joints": 0
+   },
+   {
+    "id": "C109",
+    "type": "T1",
+    "width_axis_max_deg": 22.5,
+    "twist_max_deg": 4.9,
+    "turn_max_deg": 30.4,
+    "fold_joints": 0
+   },
+   {
+    "id": "C110",
+    "type": "T1",
+    "width_axis_max_deg": 15.8,
+    "twist_max_deg": 1.6,
+    "turn_max_deg": 19.7,
+    "fold_joints": 0
+   },
+   {
+    "id": "C111",
+    "type": "T1",
+    "width_axis_max_deg": 8.8,
+    "twist_max_deg": 0.3,
+    "turn_max_deg": 10.0,
+    "fold_joints": 0
+   },
+   {
+    "id": "C112",
+    "type": "T1",
+    "width_axis_max_deg": 22.0,
+    "twist_max_deg": 5.4,
+    "turn_max_deg": 25.6,
+    "fold_joints": 5
+   },
+   {
+    "id": "C113",
+    "type": "T1",
+    "width_axis_max_deg": 7.5,
+    "twist_max_deg": 0.8,
+    "turn_max_deg": 12.8,
+    "fold_joints": 0
+   },
+   {
+    "id": "C114",
+    "type": "T1",
+    "width_axis_max_deg": 16.9,
+    "twist_max_deg": 16.2,
+    "turn_max_deg": 29.5,
+    "fold_joints": 1
+   },
+   {
+    "id": "C115",
+    "type": "T1",
+    "width_axis_max_deg": 4.8,
+    "twist_max_deg": 2.2,
+    "turn_max_deg": 4.9,
+    "fold_joints": 0
+   },
+   {
+    "id": "C116",
+    "type": "T1",
+    "width_axis_max_deg": 12.6,
+    "twist_max_deg": 12.7,
+    "turn_max_deg": 17.4,
+    "fold_joints": 0
+   },
+   {
+    "id": "C117",
+    "type": "T1",
+    "width_axis_max_deg": 22.2,
+    "twist_max_deg": 3.7,
+    "turn_max_deg": 25.0,
+    "fold_joints": 3
+   },
+   {
+    "id": "C118",
+    "type": "T1",
+    "width_axis_max_deg": 40.6,
+    "twist_max_deg": 3.8,
+    "turn_max_deg": 49.6,
+    "fold_joints": 2
+   },
+   {
+    "id": "C119",
+    "type": "T1",
+    "width_axis_max_deg": 38.2,
+    "twist_max_deg": 8.5,
+    "turn_max_deg": 47.7,
+    "fold_joints": 0
+   },
+   {
+    "id": "C120",
+    "type": "T1",
+    "width_axis_max_deg": 38.4,
+    "twist_max_deg": 9.4,
+    "turn_max_deg": 53.8,
+    "fold_joints": 3
+   },
+   {
+    "id": "C121",
+    "type": "T4",
+    "width_axis_max_deg": 16.2,
+    "twist_max_deg": 1.9,
+    "turn_max_deg": 17.1,
+    "fold_joints": 0
+   },
+   {
+    "id": "C122",
+    "type": "T1",
+    "width_axis_max_deg": 4.1,
+    "twist_max_deg": 1.5,
+    "turn_max_deg": 4.8,
+    "fold_joints": 0
+   },
+   {
+    "id": "C123",
+    "type": "T1",
+    "width_axis_max_deg": 24.7,
+    "twist_max_deg": 1.7,
+    "turn_max_deg": 27.3,
+    "fold_joints": 0
+   },
+   {
+    "id": "C124",
+    "type": "T1",
+    "width_axis_max_deg": 12.4,
+    "twist_max_deg": 1.5,
+    "turn_max_deg": 16.8,
+    "fold_joints": 0
+   },
+   {
+    "id": "C125",
+    "type": "T1",
+    "width_axis_max_deg": 52.8,
+    "twist_max_deg": 6.1,
+    "turn_max_deg": 70.0,
+    "fold_joints": 1
+   },
+   {
+    "id": "C126",
+    "type": "T1",
+    "width_axis_max_deg": 25.9,
+    "twist_max_deg": 1.8,
+    "turn_max_deg": 30.8,
+    "fold_joints": 0
+   },
+   {
+    "id": "C127",
+    "type": "T4",
+    "width_axis_max_deg": 13.6,
+    "twist_max_deg": 3.0,
+    "turn_max_deg": 15.9,
+    "fold_joints": 0
+   },
+   {
+    "id": "C128",
+    "type": "T1",
+    "width_axis_max_deg": 6.7,
+    "twist_max_deg": 0.8,
+    "turn_max_deg": 7.5,
+    "fold_joints": 0
+   },
+   {
+    "id": "C154",
+    "type": "T1",
+    "width_axis_max_deg": 34.6,
+    "twist_max_deg": 34.2,
+    "turn_max_deg": 34.6,
+    "fold_joints": 0
+   },
+   {
+    "id": "C155",
+    "type": "T1",
+    "width_axis_max_deg": 5.2,
+    "twist_max_deg": 4.5,
+    "turn_max_deg": 7.8,
+    "fold_joints": 0
+   },
+   {
+    "id": "C156",
+    "type": "T1",
+    "width_axis_max_deg": 13.3,
+    "twist_max_deg": 2.8,
+    "turn_max_deg": 15.3,
+    "fold_joints": 0
+   },
+   {
+    "id": "C157",
+    "type": "T1",
+    "width_axis_max_deg": 10.8,
+    "twist_max_deg": 2.2,
+    "turn_max_deg": 14.1,
+    "fold_joints": 0
+   },
+   {
+    "id": "C158",
+    "type": "T1",
+    "width_axis_max_deg": 9.7,
+    "twist_max_deg": 8.0,
+    "turn_max_deg": 54.8,
+    "fold_joints": 1
+   },
+   {
+    "id": "C159",
+    "type": "T1",
+    "width_axis_max_deg": 8.8,
+    "twist_max_deg": 1.1,
+    "turn_max_deg": 9.3,
+    "fold_joints": 0
+   },
+   {
+    "id": "C160",
+    "type": "T1",
+    "width_axis_max_deg": 16.3,
+    "twist_max_deg": 5.1,
+    "turn_max_deg": 48.5,
+    "fold_joints": 0
+   },
+   {
+    "id": "C161",
+    "type": "T1",
+    "width_axis_max_deg": 47.9,
+    "twist_max_deg": 3.5,
+    "turn_max_deg": 47.9,
+    "fold_joints": 0
+   },
+   {
+    "id": "C162",
+    "type": "T1",
+    "width_axis_max_deg": 9.6,
+    "twist_max_deg": 0.7,
+    "turn_max_deg": 11.2,
+    "fold_joints": 0
+   },
+   {
+    "id": "C163",
+    "type": "T1",
+    "width_axis_max_deg": 7.4,
+    "twist_max_deg": 0.6,
+    "turn_max_deg": 7.8,
+    "fold_joints": 0
+   },
+   {
+    "id": "C164",
+    "type": "T1",
+    "width_axis_max_deg": 16.2,
+    "twist_max_deg": 7.6,
+    "turn_max_deg": 30.1,
+    "fold_joints": 0
+   },
+   {
+    "id": "C165",
+    "type": "T1",
+    "width_axis_max_deg": 34.2,
+    "twist_max_deg": 9.1,
+    "turn_max_deg": 35.2,
+    "fold_joints": 0
+   },
+   {
+    "id": "C166",
+    "type": "T1",
+    "width_axis_max_deg": 9.1,
+    "twist_max_deg": 3.0,
+    "turn_max_deg": 10.1,
+    "fold_joints": 0
+   },
+   {
+    "id": "C167",
+    "type": "T1",
+    "width_axis_max_deg": 32.4,
+    "twist_max_deg": 4.2,
+    "turn_max_deg": 33.4,
+    "fold_joints": 0
+   },
+   {
+    "id": "C168",
+    "type": "T1",
+    "width_axis_max_deg": 20.6,
+    "twist_max_deg": 4.9,
+    "turn_max_deg": 21.5,
+    "fold_joints": 0
+   },
+   {
+    "id": "C170",
+    "type": "T1",
+    "width_axis_max_deg": 15.3,
+    "twist_max_deg": 10.3,
+    "turn_max_deg": 29.6,
+    "fold_joints": 0
+   },
+   {
+    "id": "C171",
+    "type": "T1",
+    "width_axis_max_deg": 8.8,
+    "twist_max_deg": 2.9,
+    "turn_max_deg": 11.3,
+    "fold_joints": 0
+   },
+   {
+    "id": "C172",
+    "type": "T1",
+    "width_axis_max_deg": 33.3,
+    "twist_max_deg": 3.2,
+    "turn_max_deg": 41.5,
+    "fold_joints": 0
+   },
+   {
+    "id": "C173",
+    "type": "T4",
+    "width_axis_max_deg": 16.7,
+    "twist_max_deg": 6.2,
+    "turn_max_deg": 22.9,
+    "fold_joints": 0
+   },
+   {
+    "id": "C174",
+    "type": "T1",
+    "width_axis_max_deg": 11.9,
+    "twist_max_deg": 1.2,
+    "turn_max_deg": 13.1,
+    "fold_joints": 0
+   },
+   {
+    "id": "C175",
+    "type": "T1",
+    "width_axis_max_deg": 29.8,
+    "twist_max_deg": 4.0,
+    "turn_max_deg": 33.6,
+    "fold_joints": 0
+   }
+  ]
+ },
+ "c072_twist_series": {
+  "rule_ja": "C072 のコマごとの接線まわりのねじれの最大（隣り合う輪。band_shape の twist）と、その輪の組の番号 j（輪 j と j+1）",
+  "columns": [
+   "frame",
+   "t_s",
+   "visible",
+   "twist_max_deg",
+   "ring_pair_j"
+  ],
+  "rows": [
+   [
+    194,
+    6.467,
+    false,
+    null,
+    null
+   ],
+   [
+    195,
+    6.5,
+    false,
+    null,
+    null
+   ],
+   [
+    196,
+    6.533,
+    false,
+    null,
+    null
+   ],
+   [
+    197,
+    6.567,
+    true,
+    104.9,
+    2
+   ],
+   [
+    198,
+    6.6,
+    true,
+    105.5,
+    2
+   ],
+   [
+    199,
+    6.633,
+    true,
+    106.5,
+    2
+   ],
+   [
+    200,
+    6.667,
+    true,
+    107.8,
+    2
+   ],
+   [
+    201,
+    6.7,
+    true,
+    108.4,
+    2
+   ],
+   [
+    202,
+    6.733,
+    true,
+    109.2,
+    2
+   ],
+   [
+    203,
+    6.767,
+    true,
+    113.9,
+    1
+   ],
+   [
+    204,
+    6.8,
+    true,
+    114.8,
+    1
+   ],
+   [
+    205,
+    6.833,
+    true,
+    115.0,
+    1
+   ],
+   [
+    206,
+    6.867,
+    true,
+    115.6,
+    1
+   ],
+   [
+    207,
+    6.9,
+    true,
+    116.8,
+    1
+   ],
+   [
+    208,
+    6.933,
+    true,
+    117.6,
+    1
+   ],
+   [
+    209,
+    6.967,
+    true,
+    118.2,
+    1
+   ],
+   [
+    210,
+    7.0,
+    true,
+    118.7,
+    1
+   ],
+   [
+    211,
+    7.033,
+    true,
+    119.2,
+    1
+   ],
+   [
+    212,
+    7.067,
+    true,
+    119.6,
+    1
+   ],
+   [
+    213,
+    7.1,
+    true,
+    119.9,
+    1
+   ],
+   [
+    214,
+    7.133,
+    true,
+    120.1,
+    1
+   ],
+   [
+    215,
+    7.167,
+    true,
+    120.3,
+    1
+   ],
+   [
+    216,
+    7.2,
+    true,
+    120.5,
+    1
+   ],
+   [
+    217,
+    7.233,
+    true,
+    120.7,
+    1
+   ],
+   [
+    218,
+    7.267,
+    true,
+    57.0,
+    0
+   ],
+   [
+    219,
+    7.3,
+    true,
+    56.9,
+    0
+   ],
+   [
+    220,
+    7.333,
+    true,
+    56.8,
+    0
+   ],
+   [
+    221,
+    7.367,
+    true,
+    56.6,
+    0
+   ],
+   [
+    222,
+    7.4,
+    true,
+    56.5,
+    0
+   ],
+   [
+    223,
+    7.433,
+    true,
+    56.4,
+    0
+   ],
+   [
+    224,
+    7.467,
+    true,
+    56.4,
+    0
+   ],
+   [
+    225,
+    7.5,
+    true,
+    56.2,
+    0
+   ]
+  ]
+ },
+ "jumps_px_paintcam": {
+  "rule_ja": "固定の PaintingCam v1（t* の原画視点）で読んだ段の大きさ。段の前のコマの根元に対する形を段のコマの根元へ平行に移し、段のコマの形との差の最大（表示の px）と、そのコマの爪の大きさ（根元から最も遠い頂点まで、px）。動画の左の視点は波の枠と一緒に動くので、この読みは目安",
+  "columns": [
+   "id",
+   "frame",
+   "jump_px",
+   "claw_size_px",
+   "root_x_px",
+   "root_y_px"
+  ],
+  "rows": [
+   [
+    "C072",
+    203,
+    0.86,
+    2.2,
+    -46.4,
+    450.5
+   ],
+   [
+    "C072",
+    218,
+    2.22,
+    5.2,
+    24.0,
+    430.2
+   ],
+   [
+    "C083",
+    209,
+    0.65,
+    2.9,
+    68.2,
+    418.6
+   ],
+   [
+    "C083",
+    219,
+    0.42,
+    3.6,
+    118.0,
+    411.4
+   ],
+   [
+    "C114",
+    220,
+    0.24,
+    2.8,
+    48.3,
+    430.2
+   ],
+   [
+    "C114",
+    235,
+    0.29,
+    3.2,
+    125.4,
+    420.5
+   ],
+   [
+    "C114",
+    241,
+    0.37,
+    3.2,
+    158.1,
+    416.4
+   ],
+   [
+    "C114",
+    247,
+    0.43,
+    3.3,
+    192.0,
+    412.3
+   ]
+  ]
+ },
+ "arc_length_tstar_m": {
+  "rule_ja": "骨格の表 ds33_claw_skel_f32.bin の欄 35（帯の弧長 m）の t*（コマ 360）の値",
+  "max": 4.037,
+  "max_id": "C092",
+  "median": 0.807,
+  "min": 0.115
+ },
+ "root_class_dark": [
+  [
+   "C163",
+   "藍濃",
+   0.061
+  ],
+  [
+   "C165",
+   "藍濃",
+   0.1878
+  ]
+ ],
+ "limit_figure_claws": {
+  "top_row": [
+   "C072 コマ 216〜219"
+  ],
+  "bottom_row_tstar": [
+   "C013",
+   "C021",
+   "C042",
+   "C065"
+  ]
+ }
+}

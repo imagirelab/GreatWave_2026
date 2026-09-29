@@ -1,0 +1,46 @@
+{
+ "schema": "GreatWave.DS33.claws_indep_check/1",
+ "method_ja": "設計33（爪の部）：生成器（ds33_claw_rig.py・ds33_claw_anim.py）と別の組み立てで、受入の値を数え直す（numpy。Unity の描画ではない）。\n\n- 主役波の位置は ds31_white.Pkg（設計31 の numpy の Hermite。生成器は ds30_checks.Pkg と ds27_player_ref の重み）＋ O(τ)。τ(t) は時間曲線の表を読み直す。\n- 105：各爪の根元の頂点（ds33_claw_frames_f32.bin の爪の最初の頂点）と、根元のセルの 2 つの三角形の面との距離（この検査の中の式）。\n- 137：根元の頂点の、根元のセルの三角形の中での重心座標（最小二乗）から材料の座標 (行, 列) を読み、設計32 の sheet_rc との差（セル）と、セルの辺の長さを掛けた m。\n- 139：見える（骨格のファイルの 35 番目の値）が τ ≥ τ_start（ds33_claw_rig.json）と一致し、1 → 0 の変化がない。頂点が有限で、先端が根元から離れている（帯が潰れていない）。\n- 成長の順（3 段の標準曲線）：ω が 1 に届くコマ ≤ g が 0.5 を越えるコマ（根元が白くなる → 伸びる）、g が 0.99 に届くコマ ≤ κ が 0.99 に届くコマ（最後に曲がる）。\n- 頂点数：layout の爪ごとの頂点数 ≤ 600、主爪＋支の合計 ≤ 600。\n- 瞬間移動：先端の頂点の 30 Hz の動きが、前後のコマの大きい方の 4 倍 + 5 cm を超える突出の数。\n- t* の再投影：truthlib.project_world で根元・先端の頂点を投影し、一覧の表示の画素と比べる（記録のみ）。\n出力：Unity/Build/Design/33/claws/ds33_claws_indep_check.json\n",
+ "item105": {
+  "max_m": 1.7112826975364063e-06,
+  "pass_": true
+ },
+ "item137": {
+  "max_param_cells": 8.343572146711945e-05,
+  "max_m": 2.7269752995104464e-06,
+  "pass_": true
+ },
+ "item139": {
+  "visibility_mismatch": 0,
+  "visible_to_hidden": 0,
+  "finite": true,
+  "collapsed_frames_every5": 0,
+  "pass_": true
+ },
+ "growth_order": {
+  "root_whitens_before_extend_bad": [],
+  "curl_last_bad": [],
+  "kappa_when_g_reaches_0p99": {
+   "max": 0.39960989356040955,
+   "median": 0.39876143634319305
+  },
+  "pass_": true
+ },
+ "vertices": {
+  "per_claw_max": 171,
+  "per_instance_max": 310,
+  "pass_": true
+ },
+ "tip_spikes": 0,
+ "reprojection_tstar_truthlib": {
+  "root_max_px": 0.14756422147507844,
+  "tip_max_px": 1.9764563570870883,
+  "tip_p95_px": 0.15295943265470174,
+  "note_ja": "先端の頂点は骨格の曲線の終わり（一覧の先端の表示の画素に置いた関節）。根元は設計32 の sheet_rc（寄せた根元はその分ずれる）"
+ },
+ "inputs": {
+  "frames_sha256": "6e7629889a47efc0172d40c28364b59eadef48e419d0dad5c279e3fa3d7f7565",
+  "skel_sha256": "12365d63b1e9b248cdc3965c49d3a50e8bfde6a499b143d39ea1bc5990ec7453"
+ },
+ "elapsed_s": 9.0
+}

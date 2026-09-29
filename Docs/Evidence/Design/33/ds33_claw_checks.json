@@ -1,0 +1,2719 @@
+{
+ "schema": "GreatWave.DS33.claw_checks/1",
+ "number": "設計33（爪の部）",
+ "frames": 421,
+ "hz": 30,
+ "claws": 148,
+ "evidence_kind_ja": "numpy の生成器の値（Unity の描画ではない。HMD 実機ではない）",
+ "item105": {
+  "rule_ja": "根元の点（帯の根元の中心の頂点）と、そのコマの主役波のシートの三角形（描画と同じ分け方、根元のセルと周り 8 セル）の距離。見えるコマの全部",
+  "max_m": 1.65067661310948e-06,
+  "p99_m": 8.742771218854645e-07,
+  "threshold_m": 0.001,
+  "pass_": true
+ },
+ "item137": {
+  "rule_ja": "根元の滑り：根元の (行, 列) は固定（設計32 の sheet_rc）。独立の読み：各コマで根元の頂点が乗る三角形（根元のセルと周り 8 セル）と重心座標から材料の座標 (行, 列) を読み直し、結び付けた (行, 列) との差（セル）と、そのコマのシートでのワールドの距離",
+  "max_m": 2.0242231691720287e-06,
+  "max_param_cells": 8.327892259140456e-05,
+  "threshold_m": 0.001,
+  "pass_": true
+ },
+ "item139": {
+  "rule_ja": "成長の途中の欠落 0（使える水準）：生まれてから t* まで毎コマ見える（途切れ 0）、s・g・κ・ω が減らない、頂点に NaN がない、帯の面積が 0 のコマがない",
+  "visibility_gaps": [],
+  "never_visible": [],
+  "decreasing_samples": {
+   "s": 0,
+   "g": 0,
+   "kappa": 0,
+   "omega": 0
+  },
+  "nan_frames": 0,
+  "zero_area_frames": 0,
+  "arc_length_drop_over_1pct_frames_record_only": 3,
+  "arc_length_drop_ids_record_only": [
+   "C088",
+   "C095"
+  ],
+  "pass_": true
+ },
+ "vertices": {
+  "per_claw_max": 171,
+  "per_type_instance_max": 310,
+  "threshold": 600,
+  "total": 25052,
+  "triangles": 48032,
+  "pass_": true
+ },
+ "teleport": {
+  "rule_ja": "爪の頂点の 30 Hz のコマの間の動きの最大 ≤ そのコマのシートの頂点の動きの最大 × 1.5 + 2 cm ＋ 2 ×（弧長の増え＋幅の増え）",
+  "count": 0,
+  "first": [],
+  "pass_": true,
+  "max_move_m": 0.5202371524552792,
+  "sheet_max_move_m": 0.8293861413344743
+ },
+ "reprojection_tstar_record_only": {
+  "rule_ja": "t* の骨格の曲線（関節を通る Catmull-Rom）を PaintingCam v1 へ投影し、一覧の中心線（表示の画素）との対称 Hausdorff。4 px は記録のみ（計画）",
+  "hausdorff_px": {
+   "p50": 0.6234999999999999,
+   "p95": 1.8898500000000005,
+   "max": 3.918,
+   "le4": 148
+  },
+  "p95_px": {
+   "p50": 0.5525,
+   "max": 3.353,
+   "le4": 148
+  },
+  "root_px_max": 0.148,
+  "tip_px_max": 1.976,
+  "worst": [
+   {
+    "id": "C092",
+    "type": "T2",
+    "row": "船側",
+    "hausdorff_px": 3.918,
+    "p95_px": 3.353,
+    "root_px": 0.0,
+    "tip_px": 0.016
+   },
+   {
+    "id": "C013",
+    "type": "T2",
+    "row": "上側",
+    "hausdorff_px": 3.775,
+    "p95_px": 2.859,
+    "root_px": 0.0,
+    "tip_px": 0.011
+   },
+   {
+    "id": "C014",
+    "type": "T2",
+    "row": "上側",
+    "hausdorff_px": 3.214,
+    "p95_px": 3.07,
+    "root_px": 0.0,
+    "tip_px": 0.024
+   },
+   {
+    "id": "C075",
+    "type": "T4",
+    "row": "途中",
+    "hausdorff_px": 2.314,
+    "p95_px": 1.996,
+    "root_px": 0.0,
+    "tip_px": 0.126
+   },
+   {
+    "id": "C015",
+    "type": "T2",
+    "row": "上側",
+    "hausdorff_px": 2.086,
+    "p95_px": 1.676,
+    "root_px": 0.0,
+    "tip_px": 0.017
+   },
+   {
+    "id": "C061",
+    "type": "T1",
+    "row": "途中",
+    "hausdorff_px": 1.976,
+    "p95_px": 1.427,
+    "root_px": 0.0,
+    "tip_px": 1.976
+   },
+   {
+    "id": "C072",
+    "type": "T1",
+    "row": "途中",
+    "hausdorff_px": 1.933,
+    "p95_px": 1.739,
+    "root_px": 0.0,
+    "tip_px": 0.196
+   },
+   {
+    "id": "C036",
+    "type": "T1",
+    "row": "上側",
+    "hausdorff_px": 1.928,
+    "p95_px": 1.922,
+    "root_px": 0.0,
+    "tip_px": 0.002
+   },
+   {
+    "id": "C004",
+    "type": "T4",
+    "row": "上側",
+    "hausdorff_px": 1.819,
+    "p95_px": 1.702,
+    "root_px": 0.0,
+    "tip_px": 0.009
+   },
+   {
+    "id": "C080",
+    "type": "T4",
+    "row": "途中",
+    "hausdorff_px": 1.799,
+    "p95_px": 1.115,
+    "root_px": 0.0,
+    "tip_px": 0.008
+   },
+   {
+    "id": "C074",
+    "type": "T1",
+    "row": "途中",
+    "hausdorff_px": 1.712,
+    "p95_px": 1.648,
+    "root_px": 0.0,
+    "tip_px": 0.062
+   },
+   {
+    "id": "C053",
+    "type": "T1",
+    "row": "上側",
+    "hausdorff_px": 1.68,
+    "p95_px": 1.501,
+    "root_px": 0.0,
+    "tip_px": 0.004
+   }
+  ],
+  "per_claw": [
+   {
+    "id": "C001",
+    "type": "T1",
+    "row": "上側",
+    "hausdorff_px": 0.255,
+    "p95_px": 0.235,
+    "root_px": 0.0,
+    "tip_px": 0.004
+   },
+   {
+    "id": "C002",
+    "type": "T1",
+    "row": "上側",
+    "hausdorff_px": 0.718,
+    "p95_px": 0.55,
+    "root_px": 0.001,
+    "tip_px": 0.007
+   },
+   {
+    "id": "C003",
+    "type": "T4",
+    "row": "上側",
+    "hausdorff_px": 1.269,
+    "p95_px": 1.07,
+    "root_px": 0.001,
+    "tip_px": 0.015
+   },
+   {
+    "id": "C004",
+    "type": "T4",
+    "row": "上側",
+    "hausdorff_px": 1.819,
+    "p95_px": 1.702,
+    "root_px": 0.0,
+    "tip_px": 0.009
+   },
+   {
+    "id": "C005",
+    "type": "T4",
+    "row": "上側",
+    "hausdorff_px": 0.41,
+    "p95_px": 0.397,
+    "root_px": 0.0,
+    "tip_px": 0.002
+   },
+   {
+    "id": "C006",
+    "type": "T1",
+    "row": "上側",
+    "hausdorff_px": 0.611,
+    "p95_px": 0.509,
+    "root_px": 0.0,
+    "tip_px": 0.003
+   },
+   {
+    "id": "C007",
+    "type": "T1",
+    "row": "上側",
+    "hausdorff_px": 0.129,
+    "p95_px": 0.115,
+    "root_px": 0.0,
+    "tip_px": 0.003
+   },
+   {
+    "id": "C008",
+    "type": "T4",
+    "row": "上側",
+    "hausdorff_px": 1.157,
+    "p95_px": 1.125,
+    "root_px": 0.0,
+    "tip_px": 0.006
+   },
+   {
+    "id": "C009",
+    "type": "T1",
+    "row": "上側",
+    "hausdorff_px": 0.464,
+    "p95_px": 0.409,
+    "root_px": 0.0,
+    "tip_px": 0.004
+   },
+   {
+    "id": "C010",
+    "type": "branch",
+    "row": "上側",
+    "hausdorff_px": 0.688,
+    "p95_px": 0.623,
+    "root_px": 0.0,
+    "tip_px": 0.008
+   },
+   {
+    "id": "C011",
+    "type": "T4",
+    "row": "上側",
+    "hausdorff_px": 0.806,
+    "p95_px": 0.733,
+    "root_px": 0.0,
+    "tip_px": 0.021
+   },
+   {
+    "id": "C012",
+    "type": "T1",
+    "row": "上側",
+    "hausdorff_px": 0.263,
+    "p95_px": 0.25,
+    "root_px": 0.0,
+    "tip_px": 0.015
+   },
+   {
+    "id": "C013",
+    "type": "T2",
+    "row": "上側",
+    "hausdorff_px": 3.775,
+    "p95_px": 2.859,
+    "root_px": 0.0,
+    "tip_px": 0.011
+   },
+   {
+    "id": "C014",
+    "type": "T2",
+    "row": "上側",
+    "hausdorff_px": 3.214,
+    "p95_px": 3.07,
+    "root_px": 0.0,
+    "tip_px": 0.024
+   },
+   {
+    "id": "C015",
+    "type": "T2",
+    "row": "上側",
+    "hausdorff_px": 2.086,
+    "p95_px": 1.676,
+    "root_px": 0.0,
+    "tip_px": 0.017
+   },
+   {
+    "id": "C016",
+    "type": "branch",
+    "row": "上側",
+    "hausdorff_px": 0.155,
+    "p95_px": 0.154,
+    "root_px": 0.0,
+    "tip_px": 0.005
+   },
+   {
+    "id": "C017",
+    "type": "T4",
+    "row": "上側",
+    "hausdorff_px": 1.089,
+    "p95_px": 1.056,
+    "root_px": 0.0,
+    "tip_px": 0.018
+   },
+   {
+    "id": "C018",
+    "type": "T1",
+    "row": "上側",
+    "hausdorff_px": 0.154,
+    "p95_px": 0.14,
+    "root_px": 0.0,
+    "tip_px": 0.001
+   },
+   {
+    "id": "C019",
+    "type": "T1",
+    "row": "上側",
+    "hausdorff_px": 0.181,
+    "p95_px": 0.149,
+    "root_px": 0.0,
+    "tip_px": 0.004
+   },
+   {
+    "id": "C020",
+    "type": "T1",
+    "row": "上側",
+    "hausdorff_px": 1.266,
+    "p95_px": 1.169,
+    "root_px": 0.0,
+    "tip_px": 0.004
+   },
+   {
+    "id": "C021",
+    "type": "T1",
+    "row": "上側",
+    "hausdorff_px": 1.317,
+    "p95_px": 1.166,
+    "root_px": 0.0,
+    "tip_px": 0.004
+   },
+   {
+    "id": "C022",
+    "type": "T1",
+    "row": "上側",
+    "hausdorff_px": 0.282,
+    "p95_px": 0.255,
+    "root_px": 0.0,
+    "tip_px": 0.006
+   },
+   {
+    "id": "C023",
+    "type": "T1",
+    "row": "上側",
+    "hausdorff_px": 0.325,
+    "p95_px": 0.285,
+    "root_px": 0.0,
+    "tip_px": 0.005
+   },
+   {
+    "id": "C024",
+    "type": "T1",
+    "row": "上側",
+    "hausdorff_px": 0.965,
+    "p95_px": 0.963,
+    "root_px": 0.0,
+    "tip_px": 0.002
+   },
+   {
+    "id": "C025",
+    "type": "T1",
+    "row": "上側",
+    "hausdorff_px": 0.603,
+    "p95_px": 0.574,
+    "root_px": 0.0,
+    "tip_px": 0.004
+   },
+   {
+    "id": "C026",
+    "type": "T1",
+    "row": "上側",
+    "hausdorff_px": 0.524,
+    "p95_px": 0.521,
+    "root_px": 0.0,
+    "tip_px": 0.004
+   },
+   {
+    "id": "C027",
+    "type": "T1",
+    "row": "上側",
+    "hausdorff_px": 0.332,
+    "p95_px": 0.313,
+    "root_px": 0.0,
+    "tip_px": 0.006
+   },
+   {
+    "id": "C028",
+    "type": "T1",
+    "row": "上側",
+    "hausdorff_px": 0.966,
+    "p95_px": 0.881,
+    "root_px": 0.0,
+    "tip_px": 0.002
+   },
+   {
+    "id": "C029",
+    "type": "T1",
+    "row": "上側",
+    "hausdorff_px": 1.089,
+    "p95_px": 0.928,
+    "root_px": 0.0,
+    "tip_px": 0.004
+   },
+   {
+    "id": "C030",
+    "type": "T1",
+    "row": "上側",
+    "hausdorff_px": 0.408,
+    "p95_px": 0.379,
+    "root_px": 0.0,
+    "tip_px": 0.007
+   },
+   {
+    "id": "C031",
+    "type": "T1",
+    "row": "上側",
+    "hausdorff_px": 1.258,
+    "p95_px": 1.207,
+    "root_px": 0.0,
+    "tip_px": 0.004
+   },
+   {
+    "id": "C032",
+    "type": "T1",
+    "row": "上側",
+    "hausdorff_px": 0.048,
+    "p95_px": 0.045,
+    "root_px": 0.0,
+    "tip_px": 0.004
+   },
+   {
+    "id": "C033",
+    "type": "T1",
+    "row": "上側",
+    "hausdorff_px": 0.31,
+    "p95_px": 0.3,
+    "root_px": 0.0,
+    "tip_px": 0.008
+   },
+   {
+    "id": "C034",
+    "type": "T1",
+    "row": "上側",
+    "hausdorff_px": 0.246,
+    "p95_px": 0.181,
+    "root_px": 0.0,
+    "tip_px": 0.007
+   },
+   {
+    "id": "C035",
+    "type": "T1",
+    "row": "上側",
+    "hausdorff_px": 1.17,
+    "p95_px": 1.065,
+    "root_px": 0.0,
+    "tip_px": 0.005
+   },
+   {
+    "id": "C036",
+    "type": "T1",
+    "row": "上側",
+    "hausdorff_px": 1.928,
+    "p95_px": 1.922,
+    "root_px": 0.0,
+    "tip_px": 0.002
+   },
+   {
+    "id": "C037",
+    "type": "T1",
+    "row": "上側",
+    "hausdorff_px": 0.541,
+    "p95_px": 0.509,
+    "root_px": 0.0,
+    "tip_px": 0.008
+   },
+   {
+    "id": "C038",
+    "type": "T1",
+    "row": "上側",
+    "hausdorff_px": 0.306,
+    "p95_px": 0.306,
+    "root_px": 0.0,
+    "tip_px": 0.003
+   },
+   {
+    "id": "C039",
+    "type": "T1",
+    "row": "上側",
+    "hausdorff_px": 0.301,
+    "p95_px": 0.291,
+    "root_px": 0.0,
+    "tip_px": 0.005
+   },
+   {
+    "id": "C040",
+    "type": "branch",
+    "row": "上側",
+    "hausdorff_px": 0.364,
+    "p95_px": 0.334,
+    "root_px": 0.0,
+    "tip_px": 0.004
+   },
+   {
+    "id": "C041",
+    "type": "T1",
+    "row": "上側",
+    "hausdorff_px": 0.019,
+    "p95_px": 0.018,
+    "root_px": 0.0,
+    "tip_px": 0.002
+   },
+   {
+    "id": "C042",
+    "type": "T2",
+    "row": "上側",
+    "hausdorff_px": 0.892,
+    "p95_px": 0.828,
+    "root_px": 0.001,
+    "tip_px": 0.004
+   },
+   {
+    "id": "C043",
+    "type": "T1",
+    "row": "上側",
+    "hausdorff_px": 1.427,
+    "p95_px": 1.341,
+    "root_px": 0.0,
+    "tip_px": 0.002
+   },
+   {
+    "id": "C044",
+    "type": "T1",
+    "row": "上側",
+    "hausdorff_px": 0.28,
+    "p95_px": 0.261,
+    "root_px": 0.0,
+    "tip_px": 0.005
+   },
+   {
+    "id": "C045",
+    "type": "T1",
+    "row": "上側",
+    "hausdorff_px": 0.787,
+    "p95_px": 0.616,
+    "root_px": 0.0,
+    "tip_px": 0.007
+   },
+   {
+    "id": "C046",
+    "type": "T1",
+    "row": "上側",
+    "hausdorff_px": 0.108,
+    "p95_px": 0.108,
+    "root_px": 0.0,
+    "tip_px": 0.002
+   },
+   {
+    "id": "C047",
+    "type": "T1",
+    "row": "上側",
+    "hausdorff_px": 0.202,
+    "p95_px": 0.19,
+    "root_px": 0.0,
+    "tip_px": 0.005
+   },
+   {
+    "id": "C048",
+    "type": "T1",
+    "row": "上側",
+    "hausdorff_px": 1.312,
+    "p95_px": 1.282,
+    "root_px": 0.0,
+    "tip_px": 0.003
+   },
+   {
+    "id": "C049",
+    "type": "T1",
+    "row": "上側",
+    "hausdorff_px": 0.276,
+    "p95_px": 0.261,
+    "root_px": 0.0,
+    "tip_px": 0.005
+   },
+   {
+    "id": "C050",
+    "type": "T1",
+    "row": "上側",
+    "hausdorff_px": 0.582,
+    "p95_px": 0.512,
+    "root_px": 0.0,
+    "tip_px": 0.008
+   },
+   {
+    "id": "C051",
+    "type": "T1",
+    "row": "上側",
+    "hausdorff_px": 1.005,
+    "p95_px": 0.954,
+    "root_px": 0.0,
+    "tip_px": 0.004
+   },
+   {
+    "id": "C052",
+    "type": "T1",
+    "row": "上側",
+    "hausdorff_px": 0.644,
+    "p95_px": 0.627,
+    "root_px": 0.0,
+    "tip_px": 0.007
+   },
+   {
+    "id": "C053",
+    "type": "T1",
+    "row": "上側",
+    "hausdorff_px": 1.68,
+    "p95_px": 1.501,
+    "root_px": 0.0,
+    "tip_px": 0.004
+   },
+   {
+    "id": "C054",
+    "type": "branch",
+    "row": "上側",
+    "hausdorff_px": 0.345,
+    "p95_px": 0.335,
+    "root_px": 0.0,
+    "tip_px": 0.003
+   },
+   {
+    "id": "C055",
+    "type": "T1",
+    "row": "上側",
+    "hausdorff_px": 0.427,
+    "p95_px": 0.421,
+    "root_px": 0.0,
+    "tip_px": 0.002
+   },
+   {
+    "id": "C056",
+    "type": "T1",
+    "row": "上側",
+    "hausdorff_px": 0.644,
+    "p95_px": 0.544,
+    "root_px": 0.0,
+    "tip_px": 0.005
+   },
+   {
+    "id": "C057",
+    "type": "T1",
+    "row": "上側",
+    "hausdorff_px": 0.926,
+    "p95_px": 0.909,
+    "root_px": 0.0,
+    "tip_px": 0.005
+   },
+   {
+    "id": "C058",
+    "type": "T1",
+    "row": "上側",
+    "hausdorff_px": 0.233,
+    "p95_px": 0.206,
+    "root_px": 0.0,
+    "tip_px": 0.007
+   },
+   {
+    "id": "C059",
+    "type": "T4",
+    "row": "上側",
+    "hausdorff_px": 0.999,
+    "p95_px": 0.834,
+    "root_px": 0.0,
+    "tip_px": 0.009
+   },
+   {
+    "id": "C060",
+    "type": "branch",
+    "row": "上側",
+    "hausdorff_px": 1.236,
+    "p95_px": 1.145,
+    "root_px": 0.0,
+    "tip_px": 0.023
+   },
+   {
+    "id": "C061",
+    "type": "T1",
+    "row": "途中",
+    "hausdorff_px": 1.976,
+    "p95_px": 1.427,
+    "root_px": 0.0,
+    "tip_px": 1.976
+   },
+   {
+    "id": "C062",
+    "type": "T1",
+    "row": "途中",
+    "hausdorff_px": 0.317,
+    "p95_px": 0.294,
+    "root_px": 0.0,
+    "tip_px": 0.001
+   },
+   {
+    "id": "C063",
+    "type": "T1",
+    "row": "途中",
+    "hausdorff_px": 0.488,
+    "p95_px": 0.443,
+    "root_px": 0.0,
+    "tip_px": 0.003
+   },
+   {
+    "id": "C064",
+    "type": "T1",
+    "row": "途中",
+    "hausdorff_px": 1.487,
+    "p95_px": 0.846,
+    "root_px": 0.0,
+    "tip_px": 0.005
+   },
+   {
+    "id": "C065",
+    "type": "T4",
+    "row": "途中",
+    "hausdorff_px": 1.396,
+    "p95_px": 1.317,
+    "root_px": 0.0,
+    "tip_px": 0.005
+   },
+   {
+    "id": "C066",
+    "type": "T2",
+    "row": "途中",
+    "hausdorff_px": 1.206,
+    "p95_px": 1.09,
+    "root_px": 0.0,
+    "tip_px": 0.014
+   },
+   {
+    "id": "C067",
+    "type": "T4",
+    "row": "途中",
+    "hausdorff_px": 0.472,
+    "p95_px": 0.44,
+    "root_px": 0.0,
+    "tip_px": 0.005
+   },
+   {
+    "id": "C068",
+    "type": "T1",
+    "row": "途中",
+    "hausdorff_px": 0.467,
+    "p95_px": 0.418,
+    "root_px": 0.0,
+    "tip_px": 0.006
+   },
+   {
+    "id": "C069",
+    "type": "T1",
+    "row": "途中",
+    "hausdorff_px": 0.915,
+    "p95_px": 0.843,
+    "root_px": 0.0,
+    "tip_px": 0.014
+   },
+   {
+    "id": "C070",
+    "type": "T1",
+    "row": "途中",
+    "hausdorff_px": 0.103,
+    "p95_px": 0.099,
+    "root_px": 0.0,
+    "tip_px": 0.011
+   },
+   {
+    "id": "C071",
+    "type": "T4",
+    "row": "途中",
+    "hausdorff_px": 0.613,
+    "p95_px": 0.545,
+    "root_px": 0.0,
+    "tip_px": 0.081
+   },
+   {
+    "id": "C072",
+    "type": "T1",
+    "row": "途中",
+    "hausdorff_px": 1.933,
+    "p95_px": 1.739,
+    "root_px": 0.0,
+    "tip_px": 0.196
+   },
+   {
+    "id": "C073",
+    "type": "T1",
+    "row": "途中",
+    "hausdorff_px": 0.314,
+    "p95_px": 0.299,
+    "root_px": 0.0,
+    "tip_px": 0.056
+   },
+   {
+    "id": "C074",
+    "type": "T1",
+    "row": "途中",
+    "hausdorff_px": 1.712,
+    "p95_px": 1.648,
+    "root_px": 0.0,
+    "tip_px": 0.062
+   },
+   {
+    "id": "C075",
+    "type": "T4",
+    "row": "途中",
+    "hausdorff_px": 2.314,
+    "p95_px": 1.996,
+    "root_px": 0.0,
+    "tip_px": 0.126
+   },
+   {
+    "id": "C076",
+    "type": "T1",
+    "row": "途中",
+    "hausdorff_px": 0.633,
+    "p95_px": 0.577,
+    "root_px": 0.0,
+    "tip_px": 0.001
+   },
+   {
+    "id": "C077",
+    "type": "branch",
+    "row": "途中",
+    "hausdorff_px": 0.146,
+    "p95_px": 0.136,
+    "root_px": 0.0,
+    "tip_px": 0.123
+   },
+   {
+    "id": "C078",
+    "type": "T2",
+    "row": "途中",
+    "hausdorff_px": 1.219,
+    "p95_px": 0.992,
+    "root_px": 0.0,
+    "tip_px": 0.005
+   },
+   {
+    "id": "C079",
+    "type": "branch",
+    "row": "途中",
+    "hausdorff_px": 1.531,
+    "p95_px": 1.423,
+    "root_px": 0.0,
+    "tip_px": 0.004
+   },
+   {
+    "id": "C080",
+    "type": "T4",
+    "row": "途中",
+    "hausdorff_px": 1.799,
+    "p95_px": 1.115,
+    "root_px": 0.0,
+    "tip_px": 0.008
+   },
+   {
+    "id": "C081",
+    "type": "T1",
+    "row": "途中",
+    "hausdorff_px": 0.44,
+    "p95_px": 0.411,
+    "root_px": 0.0,
+    "tip_px": 0.038
+   },
+   {
+    "id": "C082",
+    "type": "T1",
+    "row": "途中",
+    "hausdorff_px": 0.884,
+    "p95_px": 0.822,
+    "root_px": 0.0,
+    "tip_px": 0.038
+   },
+   {
+    "id": "C083",
+    "type": "T1",
+    "row": "途中",
+    "hausdorff_px": 0.57,
+    "p95_px": 0.534,
+    "root_px": 0.0,
+    "tip_px": 0.022
+   },
+   {
+    "id": "C084",
+    "type": "T1",
+    "row": "途中",
+    "hausdorff_px": 0.251,
+    "p95_px": 0.238,
+    "root_px": 0.0,
+    "tip_px": 0.005
+   },
+   {
+    "id": "C085",
+    "type": "T4",
+    "row": "船側",
+    "hausdorff_px": 0.833,
+    "p95_px": 0.793,
+    "root_px": 0.0,
+    "tip_px": 0.003
+   },
+   {
+    "id": "C086",
+    "type": "T1",
+    "row": "船側",
+    "hausdorff_px": 0.508,
+    "p95_px": 0.47,
+    "root_px": 0.0,
+    "tip_px": 0.005
+   },
+   {
+    "id": "C087",
+    "type": "branch",
+    "row": "船側",
+    "hausdorff_px": 1.172,
+    "p95_px": 1.031,
+    "root_px": 0.0,
+    "tip_px": 0.002
+   },
+   {
+    "id": "C088",
+    "type": "T1",
+    "row": "船側",
+    "hausdorff_px": 0.579,
+    "p95_px": 0.539,
+    "root_px": 0.0,
+    "tip_px": 0.006
+   },
+   {
+    "id": "C089",
+    "type": "T1",
+    "row": "船側",
+    "hausdorff_px": 0.436,
+    "p95_px": 0.436,
+    "root_px": 0.0,
+    "tip_px": 0.001
+   },
+   {
+    "id": "C090",
+    "type": "T4",
+    "row": "船側",
+    "hausdorff_px": 1.36,
+    "p95_px": 1.15,
+    "root_px": 0.0,
+    "tip_px": 0.005
+   },
+   {
+    "id": "C091",
+    "type": "T1",
+    "row": "船側",
+    "hausdorff_px": 0.52,
+    "p95_px": 0.451,
+    "root_px": 0.0,
+    "tip_px": 0.022
+   },
+   {
+    "id": "C092",
+    "type": "T2",
+    "row": "船側",
+    "hausdorff_px": 3.918,
+    "p95_px": 3.353,
+    "root_px": 0.0,
+    "tip_px": 0.016
+   },
+   {
+    "id": "C093",
+    "type": "T1",
+    "row": "船側",
+    "hausdorff_px": 1.136,
+    "p95_px": 1.101,
+    "root_px": 0.001,
+    "tip_px": 0.005
+   },
+   {
+    "id": "C094",
+    "type": "T1",
+    "row": "船側",
+    "hausdorff_px": 0.724,
+    "p95_px": 0.654,
+    "root_px": 0.0,
+    "tip_px": 0.006
+   },
+   {
+    "id": "C095",
+    "type": "T1",
+    "row": "船側",
+    "hausdorff_px": 0.944,
+    "p95_px": 0.923,
+    "root_px": 0.0,
+    "tip_px": 0.003
+   },
+   {
+    "id": "C096",
+    "type": "T1",
+    "row": "船側",
+    "hausdorff_px": 0.119,
+    "p95_px": 0.117,
+    "root_px": 0.0,
+    "tip_px": 0.003
+   },
+   {
+    "id": "C097",
+    "type": "T1",
+    "row": "船側",
+    "hausdorff_px": 0.39,
+    "p95_px": 0.354,
+    "root_px": 0.0,
+    "tip_px": 0.006
+   },
+   {
+    "id": "C098",
+    "type": "T1",
+    "row": "船側",
+    "hausdorff_px": 0.971,
+    "p95_px": 0.88,
+    "root_px": 0.0,
+    "tip_px": 0.031
+   },
+   {
+    "id": "C099",
+    "type": "T1",
+    "row": "船側",
+    "hausdorff_px": 0.157,
+    "p95_px": 0.118,
+    "root_px": 0.0,
+    "tip_px": 0.01
+   },
+   {
+    "id": "C100",
+    "type": "T1",
+    "row": "船側",
+    "hausdorff_px": 0.316,
+    "p95_px": 0.298,
+    "root_px": 0.0,
+    "tip_px": 0.005
+   },
+   {
+    "id": "C101",
+    "type": "T1",
+    "row": "船側",
+    "hausdorff_px": 0.147,
+    "p95_px": 0.122,
+    "root_px": 0.0,
+    "tip_px": 0.003
+   },
+   {
+    "id": "C102",
+    "type": "T2",
+    "row": "船側",
+    "hausdorff_px": 1.014,
+    "p95_px": 0.974,
+    "root_px": 0.0,
+    "tip_px": 0.002
+   },
+   {
+    "id": "C103",
+    "type": "T1",
+    "row": "船側",
+    "hausdorff_px": 0.201,
+    "p95_px": 0.184,
+    "root_px": 0.0,
+    "tip_px": 0.009
+   },
+   {
+    "id": "C104",
+    "type": "T1",
+    "row": "船側",
+    "hausdorff_px": 0.419,
+    "p95_px": 0.396,
+    "root_px": 0.0,
+    "tip_px": 0.007
+   },
+   {
+    "id": "C105",
+    "type": "T1",
+    "row": "船側",
+    "hausdorff_px": 0.625,
+    "p95_px": 0.481,
+    "root_px": 0.0,
+    "tip_px": 0.005
+   },
+   {
+    "id": "C106",
+    "type": "T1",
+    "row": "船側",
+    "hausdorff_px": 0.622,
+    "p95_px": 0.567,
+    "root_px": 0.0,
+    "tip_px": 0.004
+   },
+   {
+    "id": "C108",
+    "type": "T1",
+    "row": "船側",
+    "hausdorff_px": 0.682,
+    "p95_px": 0.67,
+    "root_px": 0.0,
+    "tip_px": 0.012
+   },
+   {
+    "id": "C109",
+    "type": "T1",
+    "row": "船側",
+    "hausdorff_px": 0.699,
+    "p95_px": 0.677,
+    "root_px": 0.0,
+    "tip_px": 0.003
+   },
+   {
+    "id": "C110",
+    "type": "T1",
+    "row": "船側",
+    "hausdorff_px": 0.634,
+    "p95_px": 0.555,
+    "root_px": 0.0,
+    "tip_px": 0.035
+   },
+   {
+    "id": "C111",
+    "type": "T1",
+    "row": "船側",
+    "hausdorff_px": 0.333,
+    "p95_px": 0.327,
+    "root_px": 0.0,
+    "tip_px": 0.004
+   },
+   {
+    "id": "C112",
+    "type": "T1",
+    "row": "船側",
+    "hausdorff_px": 0.888,
+    "p95_px": 0.888,
+    "root_px": 0.0,
+    "tip_px": 0.019
+   },
+   {
+    "id": "C113",
+    "type": "T1",
+    "row": "船側",
+    "hausdorff_px": 0.241,
+    "p95_px": 0.22,
+    "root_px": 0.0,
+    "tip_px": 0.001
+   },
+   {
+    "id": "C114",
+    "type": "T1",
+    "row": "船側",
+    "hausdorff_px": 0.287,
+    "p95_px": 0.273,
+    "root_px": 0.0,
+    "tip_px": 0.005
+   },
+   {
+    "id": "C115",
+    "type": "T1",
+    "row": "船側",
+    "hausdorff_px": 0.621,
+    "p95_px": 0.526,
+    "root_px": 0.0,
+    "tip_px": 0.003
+   },
+   {
+    "id": "C116",
+    "type": "T1",
+    "row": "船側",
+    "hausdorff_px": 0.263,
+    "p95_px": 0.22,
+    "root_px": 0.0,
+    "tip_px": 0.003
+   },
+   {
+    "id": "C117",
+    "type": "T1",
+    "row": "船側",
+    "hausdorff_px": 0.455,
+    "p95_px": 0.455,
+    "root_px": 0.0,
+    "tip_px": 0.211
+   },
+   {
+    "id": "C118",
+    "type": "T1",
+    "row": "船側",
+    "hausdorff_px": 0.92,
+    "p95_px": 0.765,
+    "root_px": 0.0,
+    "tip_px": 0.104
+   },
+   {
+    "id": "C119",
+    "type": "T1",
+    "row": "船側",
+    "hausdorff_px": 0.286,
+    "p95_px": 0.275,
+    "root_px": 0.001,
+    "tip_px": 0.046
+   },
+   {
+    "id": "C120",
+    "type": "T1",
+    "row": "船側",
+    "hausdorff_px": 0.462,
+    "p95_px": 0.421,
+    "root_px": 0.001,
+    "tip_px": 0.187
+   },
+   {
+    "id": "C121",
+    "type": "T4",
+    "row": "船側",
+    "hausdorff_px": 0.655,
+    "p95_px": 0.628,
+    "root_px": 0.0,
+    "tip_px": 0.002
+   },
+   {
+    "id": "C122",
+    "type": "T1",
+    "row": "船側",
+    "hausdorff_px": 0.35,
+    "p95_px": 0.321,
+    "root_px": 0.0,
+    "tip_px": 0.007
+   },
+   {
+    "id": "C123",
+    "type": "T1",
+    "row": "船側",
+    "hausdorff_px": 0.569,
+    "p95_px": 0.539,
+    "root_px": 0.0,
+    "tip_px": 0.007
+   },
+   {
+    "id": "C124",
+    "type": "T1",
+    "row": "船側",
+    "hausdorff_px": 0.71,
+    "p95_px": 0.639,
+    "root_px": 0.0,
+    "tip_px": 0.004
+   },
+   {
+    "id": "C125",
+    "type": "T1",
+    "row": "船側",
+    "hausdorff_px": 0.637,
+    "p95_px": 0.566,
+    "root_px": 0.001,
+    "tip_px": 0.018
+   },
+   {
+    "id": "C126",
+    "type": "T1",
+    "row": "船側",
+    "hausdorff_px": 0.82,
+    "p95_px": 0.747,
+    "root_px": 0.0,
+    "tip_px": 0.005
+   },
+   {
+    "id": "C127",
+    "type": "T4",
+    "row": "船側",
+    "hausdorff_px": 1.286,
+    "p95_px": 1.198,
+    "root_px": 0.148,
+    "tip_px": 0.015
+   },
+   {
+    "id": "C128",
+    "type": "T1",
+    "row": "船側",
+    "hausdorff_px": 0.243,
+    "p95_px": 0.24,
+    "root_px": 0.0,
+    "tip_px": 0.007
+   },
+   {
+    "id": "C154",
+    "type": "T1",
+    "row": "船側",
+    "hausdorff_px": 1.01,
+    "p95_px": 0.91,
+    "root_px": 0.0,
+    "tip_px": 0.004
+   },
+   {
+    "id": "C155",
+    "type": "T1",
+    "row": "船側",
+    "hausdorff_px": 0.249,
+    "p95_px": 0.238,
+    "root_px": 0.0,
+    "tip_px": 0.001
+   },
+   {
+    "id": "C156",
+    "type": "T1",
+    "row": "途中",
+    "hausdorff_px": 0.734,
+    "p95_px": 0.57,
+    "root_px": 0.0,
+    "tip_px": 0.009
+   },
+   {
+    "id": "C157",
+    "type": "T1",
+    "row": "上側",
+    "hausdorff_px": 0.117,
+    "p95_px": 0.112,
+    "root_px": 0.0,
+    "tip_px": 0.011
+   },
+   {
+    "id": "C158",
+    "type": "T1",
+    "row": "b区域",
+    "hausdorff_px": 0.144,
+    "p95_px": 0.143,
+    "root_px": 0.001,
+    "tip_px": 0.004
+   },
+   {
+    "id": "C159",
+    "type": "T1",
+    "row": "b区域",
+    "hausdorff_px": 0.66,
+    "p95_px": 0.659,
+    "root_px": 0.0,
+    "tip_px": 0.013
+   },
+   {
+    "id": "C160",
+    "type": "T1",
+    "row": "b区域",
+    "hausdorff_px": 0.781,
+    "p95_px": 0.723,
+    "root_px": 0.001,
+    "tip_px": 0.004
+   },
+   {
+    "id": "C161",
+    "type": "T1",
+    "row": "b区域",
+    "hausdorff_px": 0.627,
+    "p95_px": 0.623,
+    "root_px": 0.0,
+    "tip_px": 0.001
+   },
+   {
+    "id": "C162",
+    "type": "T1",
+    "row": "上側",
+    "hausdorff_px": 0.766,
+    "p95_px": 0.704,
+    "root_px": 0.0,
+    "tip_px": 0.003
+   },
+   {
+    "id": "C163",
+    "type": "T1",
+    "row": "b区域",
+    "hausdorff_px": 0.263,
+    "p95_px": 0.26,
+    "root_px": 0.0,
+    "tip_px": 0.002
+   },
+   {
+    "id": "C164",
+    "type": "T1",
+    "row": "b区域",
+    "hausdorff_px": 0.593,
+    "p95_px": 0.574,
+    "root_px": 0.0,
+    "tip_px": 0.004
+   },
+   {
+    "id": "C165",
+    "type": "T1",
+    "row": "b区域",
+    "hausdorff_px": 0.619,
+    "p95_px": 0.612,
+    "root_px": 0.0,
+    "tip_px": 0.047
+   },
+   {
+    "id": "C166",
+    "type": "T1",
+    "row": "b区域",
+    "hausdorff_px": 0.119,
+    "p95_px": 0.105,
+    "root_px": 0.0,
+    "tip_px": 0.006
+   },
+   {
+    "id": "C167",
+    "type": "T1",
+    "row": "b区域",
+    "hausdorff_px": 0.685,
+    "p95_px": 0.538,
+    "root_px": 0.001,
+    "tip_px": 0.005
+   },
+   {
+    "id": "C168",
+    "type": "T1",
+    "row": "b区域",
+    "hausdorff_px": 1.513,
+    "p95_px": 1.138,
+    "root_px": 0.0,
+    "tip_px": 0.025
+   },
+   {
+    "id": "C170",
+    "type": "T1",
+    "row": "b区域",
+    "hausdorff_px": 1.035,
+    "p95_px": 1.0,
+    "root_px": 0.0,
+    "tip_px": 0.005
+   },
+   {
+    "id": "C171",
+    "type": "T1",
+    "row": "b区域",
+    "hausdorff_px": 0.69,
+    "p95_px": 0.661,
+    "root_px": 0.001,
+    "tip_px": 0.063
+   },
+   {
+    "id": "C172",
+    "type": "T1",
+    "row": "上側",
+    "hausdorff_px": 0.505,
+    "p95_px": 0.404,
+    "root_px": 0.0,
+    "tip_px": 0.021
+   },
+   {
+    "id": "C173",
+    "type": "T4",
+    "row": "b区域",
+    "hausdorff_px": 1.251,
+    "p95_px": 1.027,
+    "root_px": 0.001,
+    "tip_px": 0.026
+   },
+   {
+    "id": "C174",
+    "type": "T1",
+    "row": "上側",
+    "hausdorff_px": 0.167,
+    "p95_px": 0.157,
+    "root_px": 0.0,
+    "tip_px": 0.004
+   },
+   {
+    "id": "C175",
+    "type": "T1",
+    "row": "b区域",
+    "hausdorff_px": 0.835,
+    "p95_px": 0.613,
+    "root_px": 0.001,
+    "tip_px": 0.052
+   }
+  ]
+ },
+ "web_join": {
+  "rule_ja": "波頭の白い帯（web）への継ぎ：根元はシートの色区（29修正01）の上にあり、根元の白の円が面に重なる。成長の開始は根元の T_white（白の帯がそこで白くなる時）",
+  "root_class": {
+   "白": 114,
+   "淡い水色": 32,
+   "藍濃": 2
+  },
+  "dist_to_white_vertex_m": {
+   "p50": 0.0868,
+   "p95": 0.20614500000000002,
+   "max": 0.2696
+  },
+  "per_claw": [
+   {
+    "id": "C001",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0648,
+    "tau_start": -0.9371,
+    "root_twhite": -0.9371
+   },
+   {
+    "id": "C002",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.1008,
+    "tau_start": -0.9838,
+    "root_twhite": -0.956
+   },
+   {
+    "id": "C003",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.1072,
+    "tau_start": -0.9561,
+    "root_twhite": -0.9271
+   },
+   {
+    "id": "C004",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0365,
+    "tau_start": -1.051,
+    "root_twhite": -1.051
+   },
+   {
+    "id": "C005",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.1164,
+    "tau_start": -1.1764,
+    "root_twhite": -1.1636
+   },
+   {
+    "id": "C006",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.1337,
+    "tau_start": -1.0891,
+    "root_twhite": -1.0839
+   },
+   {
+    "id": "C007",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0489,
+    "tau_start": -1.1298,
+    "root_twhite": -1.1164
+   },
+   {
+    "id": "C008",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.1312,
+    "tau_start": -1.1821,
+    "root_twhite": -1.1636
+   },
+   {
+    "id": "C009",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.1122,
+    "tau_start": -0.9164,
+    "root_twhite": -0.9146
+   },
+   {
+    "id": "C010",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.1238,
+    "tau_start": -0.6477,
+    "root_twhite": -1.1227
+   },
+   {
+    "id": "C011",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0846,
+    "tau_start": -1.1595,
+    "root_twhite": -1.1431
+   },
+   {
+    "id": "C012",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0953,
+    "tau_start": -1.0262,
+    "root_twhite": -1.0085
+   },
+   {
+    "id": "C013",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0624,
+    "tau_start": -1.1393,
+    "root_twhite": -1.1256
+   },
+   {
+    "id": "C014",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0795,
+    "tau_start": -1.1987,
+    "root_twhite": -1.1815
+   },
+   {
+    "id": "C015",
+    "root_class": "淡い水色",
+    "dist_to_white_vertex_m": 0.2173,
+    "tau_start": -1.303,
+    "root_twhite": -1.2901
+   },
+   {
+    "id": "C016",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0446,
+    "tau_start": -0.8529,
+    "root_twhite": -1.2119
+   },
+   {
+    "id": "C017",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0781,
+    "tau_start": -1.1502,
+    "root_twhite": -1.1309
+   },
+   {
+    "id": "C018",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0614,
+    "tau_start": -1.2183,
+    "root_twhite": -1.204
+   },
+   {
+    "id": "C019",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0732,
+    "tau_start": -1.3122,
+    "root_twhite": -1.299
+   },
+   {
+    "id": "C020",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0406,
+    "tau_start": -1.3297,
+    "root_twhite": -1.3159
+   },
+   {
+    "id": "C021",
+    "root_class": "淡い水色",
+    "dist_to_white_vertex_m": 0.2151,
+    "tau_start": -1.2573,
+    "root_twhite": -1.2466
+   },
+   {
+    "id": "C022",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0881,
+    "tau_start": -1.1994,
+    "root_twhite": -1.1994
+   },
+   {
+    "id": "C023",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0523,
+    "tau_start": -1.1302,
+    "root_twhite": -1.1052
+   },
+   {
+    "id": "C024",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0792,
+    "tau_start": -1.1144,
+    "root_twhite": -1.1144
+   },
+   {
+    "id": "C025",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0933,
+    "tau_start": -1.1933,
+    "root_twhite": -1.1933
+   },
+   {
+    "id": "C026",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0946,
+    "tau_start": -1.2886,
+    "root_twhite": -1.2886
+   },
+   {
+    "id": "C027",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.1088,
+    "tau_start": -1.0951,
+    "root_twhite": -1.0769
+   },
+   {
+    "id": "C028",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0472,
+    "tau_start": -1.1363,
+    "root_twhite": -1.119
+   },
+   {
+    "id": "C029",
+    "root_class": "淡い水色",
+    "dist_to_white_vertex_m": 0.1236,
+    "tau_start": -1.1307,
+    "root_twhite": -1.1254
+   },
+   {
+    "id": "C030",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0766,
+    "tau_start": -1.012,
+    "root_twhite": -0.9915
+   },
+   {
+    "id": "C031",
+    "root_class": "淡い水色",
+    "dist_to_white_vertex_m": 0.1228,
+    "tau_start": -1.2466,
+    "root_twhite": -1.2403
+   },
+   {
+    "id": "C032",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0561,
+    "tau_start": -1.3804,
+    "root_twhite": -1.3561
+   },
+   {
+    "id": "C033",
+    "root_class": "淡い水色",
+    "dist_to_white_vertex_m": 0.1221,
+    "tau_start": -1.4389,
+    "root_twhite": -1.4254
+   },
+   {
+    "id": "C034",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0764,
+    "tau_start": -1.3709,
+    "root_twhite": -1.3709
+   },
+   {
+    "id": "C035",
+    "root_class": "淡い水色",
+    "dist_to_white_vertex_m": 0.1472,
+    "tau_start": -1.0907,
+    "root_twhite": -1.0715
+   },
+   {
+    "id": "C036",
+    "root_class": "淡い水色",
+    "dist_to_white_vertex_m": 0.2075,
+    "tau_start": -1.4513,
+    "root_twhite": -1.4254
+   },
+   {
+    "id": "C037",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0579,
+    "tau_start": -1.3948,
+    "root_twhite": -1.3948
+   },
+   {
+    "id": "C038",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0258,
+    "tau_start": -1.5437,
+    "root_twhite": -1.5179
+   },
+   {
+    "id": "C039",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.1084,
+    "tau_start": -1.4527,
+    "root_twhite": -1.4527
+   },
+   {
+    "id": "C040",
+    "root_class": "淡い水色",
+    "dist_to_white_vertex_m": 0.1691,
+    "tau_start": -0.7205,
+    "root_twhite": -1.4615
+   },
+   {
+    "id": "C041",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0699,
+    "tau_start": -1.4618,
+    "root_twhite": -1.4518
+   },
+   {
+    "id": "C042",
+    "root_class": "淡い水色",
+    "dist_to_white_vertex_m": 0.0963,
+    "tau_start": -1.5281,
+    "root_twhite": -1.5029
+   },
+   {
+    "id": "C043",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.105,
+    "tau_start": -1.4927,
+    "root_twhite": -1.466
+   },
+   {
+    "id": "C044",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0275,
+    "tau_start": -1.5044,
+    "root_twhite": -1.4801
+   },
+   {
+    "id": "C045",
+    "root_class": "淡い水色",
+    "dist_to_white_vertex_m": 0.1395,
+    "tau_start": -1.5166,
+    "root_twhite": -1.5045
+   },
+   {
+    "id": "C046",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0904,
+    "tau_start": -1.3807,
+    "root_twhite": -1.3807
+   },
+   {
+    "id": "C047",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.057,
+    "tau_start": -1.3087,
+    "root_twhite": -1.2886
+   },
+   {
+    "id": "C048",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0546,
+    "tau_start": -1.365,
+    "root_twhite": -1.3404
+   },
+   {
+    "id": "C049",
+    "root_class": "淡い水色",
+    "dist_to_white_vertex_m": 0.1869,
+    "tau_start": -1.41,
+    "root_twhite": -1.41
+   },
+   {
+    "id": "C050",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0768,
+    "tau_start": -1.3804,
+    "root_twhite": -1.3713
+   },
+   {
+    "id": "C051",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.1155,
+    "tau_start": -1.5469,
+    "root_twhite": -1.5231
+   },
+   {
+    "id": "C052",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.1154,
+    "tau_start": -1.6106,
+    "root_twhite": -1.5975
+   },
+   {
+    "id": "C053",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0673,
+    "tau_start": -1.5844,
+    "root_twhite": -1.5715
+   },
+   {
+    "id": "C054",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0415,
+    "tau_start": -1.0629,
+    "root_twhite": -1.6349
+   },
+   {
+    "id": "C055",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0958,
+    "tau_start": -1.6368,
+    "root_twhite": -1.6233
+   },
+   {
+    "id": "C056",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.1007,
+    "tau_start": -1.6594,
+    "root_twhite": -1.6594
+   },
+   {
+    "id": "C057",
+    "root_class": "淡い水色",
+    "dist_to_white_vertex_m": 0.1814,
+    "tau_start": -1.5312,
+    "root_twhite": -1.5312
+   },
+   {
+    "id": "C058",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0786,
+    "tau_start": -1.5432,
+    "root_twhite": -1.5185
+   },
+   {
+    "id": "C059",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0769,
+    "tau_start": -1.6717,
+    "root_twhite": -1.6561
+   },
+   {
+    "id": "C060",
+    "root_class": "淡い水色",
+    "dist_to_white_vertex_m": 0.1295,
+    "tau_start": -0.931,
+    "root_twhite": -1.3237
+   },
+   {
+    "id": "C061",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0304,
+    "tau_start": -1.5199,
+    "root_twhite": -1.5033
+   },
+   {
+    "id": "C062",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.039,
+    "tau_start": -1.5396,
+    "root_twhite": -1.5298
+   },
+   {
+    "id": "C063",
+    "root_class": "淡い水色",
+    "dist_to_white_vertex_m": 0.1549,
+    "tau_start": -1.5481,
+    "root_twhite": -1.5357
+   },
+   {
+    "id": "C064",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0837,
+    "tau_start": -1.6633,
+    "root_twhite": -1.6368
+   },
+   {
+    "id": "C065",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0769,
+    "tau_start": -1.8038,
+    "root_twhite": -1.791
+   },
+   {
+    "id": "C066",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0243,
+    "tau_start": -1.6056,
+    "root_twhite": -1.601
+   },
+   {
+    "id": "C067",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0551,
+    "tau_start": -1.7016,
+    "root_twhite": -1.6782
+   },
+   {
+    "id": "C068",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.1218,
+    "tau_start": -2.3643,
+    "root_twhite": -2.3572
+   },
+   {
+    "id": "C069",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0191,
+    "tau_start": -2.3944,
+    "root_twhite": -2.3904
+   },
+   {
+    "id": "C070",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.06,
+    "tau_start": -2.4045,
+    "root_twhite": -2.3946
+   },
+   {
+    "id": "C071",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0841,
+    "tau_start": -2.3848,
+    "root_twhite": -2.3848
+   },
+   {
+    "id": "C072",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0063,
+    "tau_start": -2.4268,
+    "root_twhite": -2.417
+   },
+   {
+    "id": "C073",
+    "root_class": "淡い水色",
+    "dist_to_white_vertex_m": 0.1998,
+    "tau_start": -2.4457,
+    "root_twhite": -2.4361
+   },
+   {
+    "id": "C074",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0454,
+    "tau_start": -2.4567,
+    "root_twhite": -2.4457
+   },
+   {
+    "id": "C075",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0684,
+    "tau_start": -2.4587,
+    "root_twhite": -2.4525
+   },
+   {
+    "id": "C076",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.1122,
+    "tau_start": -2.4747,
+    "root_twhite": -2.4587
+   },
+   {
+    "id": "C077",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0605,
+    "tau_start": -1.6181,
+    "root_twhite": -2.4742
+   },
+   {
+    "id": "C078",
+    "root_class": "淡い水色",
+    "dist_to_white_vertex_m": 0.0752,
+    "tau_start": -2.4842,
+    "root_twhite": -2.4842
+   },
+   {
+    "id": "C079",
+    "root_class": "淡い水色",
+    "dist_to_white_vertex_m": 0.1219,
+    "tau_start": -1.1166,
+    "root_twhite": -2.4992
+   },
+   {
+    "id": "C080",
+    "root_class": "淡い水色",
+    "dist_to_white_vertex_m": 0.1397,
+    "tau_start": -2.495,
+    "root_twhite": -2.4853
+   },
+   {
+    "id": "C081",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.1109,
+    "tau_start": -2.4989,
+    "root_twhite": -2.4989
+   },
+   {
+    "id": "C082",
+    "root_class": "淡い水色",
+    "dist_to_white_vertex_m": 0.2207,
+    "tau_start": -2.4956,
+    "root_twhite": -2.4903
+   },
+   {
+    "id": "C083",
+    "root_class": "淡い水色",
+    "dist_to_white_vertex_m": 0.1223,
+    "tau_start": -2.5483,
+    "root_twhite": -2.5439
+   },
+   {
+    "id": "C084",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0818,
+    "tau_start": -2.5046,
+    "root_twhite": -2.5012
+   },
+   {
+    "id": "C085",
+    "root_class": "淡い水色",
+    "dist_to_white_vertex_m": 0.0712,
+    "tau_start": -2.5479,
+    "root_twhite": -2.5431
+   },
+   {
+    "id": "C086",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0872,
+    "tau_start": -0.9502,
+    "root_twhite": -0.9473
+   },
+   {
+    "id": "C087",
+    "root_class": "淡い水色",
+    "dist_to_white_vertex_m": 0.1887,
+    "tau_start": -0.6206,
+    "root_twhite": -0.95
+   },
+   {
+    "id": "C088",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.095,
+    "tau_start": -0.9382,
+    "root_twhite": -0.9351
+   },
+   {
+    "id": "C089",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0364,
+    "tau_start": -0.9581,
+    "root_twhite": -0.9536
+   },
+   {
+    "id": "C090",
+    "root_class": "淡い水色",
+    "dist_to_white_vertex_m": 0.112,
+    "tau_start": -2.6754,
+    "root_twhite": -2.6754
+   },
+   {
+    "id": "C091",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0751,
+    "tau_start": -0.9664,
+    "root_twhite": -0.9648
+   },
+   {
+    "id": "C092",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0912,
+    "tau_start": -0.9607,
+    "root_twhite": -0.9579
+   },
+   {
+    "id": "C093",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.1614,
+    "tau_start": -0.9616,
+    "root_twhite": -0.9616
+   },
+   {
+    "id": "C094",
+    "root_class": "淡い水色",
+    "dist_to_white_vertex_m": 0.1312,
+    "tau_start": -0.9749,
+    "root_twhite": -0.9734
+   },
+   {
+    "id": "C095",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.1418,
+    "tau_start": -0.9786,
+    "root_twhite": -0.9786
+   },
+   {
+    "id": "C096",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.2115,
+    "tau_start": -0.9836,
+    "root_twhite": -0.9817
+   },
+   {
+    "id": "C097",
+    "root_class": "淡い水色",
+    "dist_to_white_vertex_m": 0.2053,
+    "tau_start": -0.95,
+    "root_twhite": -0.947
+   },
+   {
+    "id": "C098",
+    "root_class": "淡い水色",
+    "dist_to_white_vertex_m": 0.1793,
+    "tau_start": -0.9492,
+    "root_twhite": -0.9492
+   },
+   {
+    "id": "C099",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0796,
+    "tau_start": -0.9757,
+    "root_twhite": -0.9731
+   },
+   {
+    "id": "C100",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.1085,
+    "tau_start": -0.9414,
+    "root_twhite": -0.9382
+   },
+   {
+    "id": "C101",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0361,
+    "tau_start": -0.9464,
+    "root_twhite": -0.9464
+   },
+   {
+    "id": "C102",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0387,
+    "tau_start": -2.4742,
+    "root_twhite": -2.4632
+   },
+   {
+    "id": "C103",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0907,
+    "tau_start": -2.448,
+    "root_twhite": -2.4285
+   },
+   {
+    "id": "C104",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0781,
+    "tau_start": -0.9729,
+    "root_twhite": -0.9729
+   },
+   {
+    "id": "C105",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0353,
+    "tau_start": -0.9579,
+    "root_twhite": -0.9571
+   },
+   {
+    "id": "C106",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0836,
+    "tau_start": -2.4209,
+    "root_twhite": -2.4176
+   },
+   {
+    "id": "C108",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.1543,
+    "tau_start": -0.9729,
+    "root_twhite": -0.9701
+   },
+   {
+    "id": "C109",
+    "root_class": "淡い水色",
+    "dist_to_white_vertex_m": 0.1517,
+    "tau_start": -0.9789,
+    "root_twhite": -0.9767
+   },
+   {
+    "id": "C110",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0397,
+    "tau_start": -0.9616,
+    "root_twhite": -0.9603
+   },
+   {
+    "id": "C111",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0899,
+    "tau_start": -0.9768,
+    "root_twhite": -0.9726
+   },
+   {
+    "id": "C112",
+    "root_class": "淡い水色",
+    "dist_to_white_vertex_m": 0.1483,
+    "tau_start": -0.961,
+    "root_twhite": -0.9588
+   },
+   {
+    "id": "C113",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.1051,
+    "tau_start": -2.3718,
+    "root_twhite": -2.3665
+   },
+   {
+    "id": "C114",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0268,
+    "tau_start": -2.4016,
+    "root_twhite": -2.397
+   },
+   {
+    "id": "C115",
+    "root_class": "淡い水色",
+    "dist_to_white_vertex_m": 0.1501,
+    "tau_start": -0.9549,
+    "root_twhite": -0.9549
+   },
+   {
+    "id": "C116",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.116,
+    "tau_start": -2.347,
+    "root_twhite": -1.7697
+   },
+   {
+    "id": "C117",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0349,
+    "tau_start": -2.3685,
+    "root_twhite": -2.3557
+   },
+   {
+    "id": "C118",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0392,
+    "tau_start": -2.4072,
+    "root_twhite": -2.3925
+   },
+   {
+    "id": "C119",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.2066,
+    "tau_start": -2.358,
+    "root_twhite": -2.3445
+   },
+   {
+    "id": "C120",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0227,
+    "tau_start": -2.3184,
+    "root_twhite": -2.3184
+   },
+   {
+    "id": "C121",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.1396,
+    "tau_start": -2.3123,
+    "root_twhite": -2.3123
+   },
+   {
+    "id": "C122",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.1237,
+    "tau_start": -1.65,
+    "root_twhite": -1.6224
+   },
+   {
+    "id": "C123",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0729,
+    "tau_start": -1.7231,
+    "root_twhite": -1.7108
+   },
+   {
+    "id": "C124",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.1278,
+    "tau_start": -1.6875,
+    "root_twhite": -1.6767
+   },
+   {
+    "id": "C125",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.1056,
+    "tau_start": -2.3221,
+    "root_twhite": -2.3221
+   },
+   {
+    "id": "C126",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0864,
+    "tau_start": -1.6636,
+    "root_twhite": -1.6497
+   },
+   {
+    "id": "C127",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0185,
+    "tau_start": -2.3221,
+    "root_twhite": -2.2835
+   },
+   {
+    "id": "C128",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0574,
+    "tau_start": -1.6218,
+    "root_twhite": -1.595
+   },
+   {
+    "id": "C154",
+    "root_class": "淡い水色",
+    "dist_to_white_vertex_m": 0.2696,
+    "tau_start": -2.2927,
+    "root_twhite": -2.2927
+   },
+   {
+    "id": "C155",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.1029,
+    "tau_start": -2.5385,
+    "root_twhite": -2.5385
+   },
+   {
+    "id": "C156",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0834,
+    "tau_start": -1.6864,
+    "root_twhite": -1.6645
+   },
+   {
+    "id": "C157",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0303,
+    "tau_start": -1.5146,
+    "root_twhite": -1.5059
+   },
+   {
+    "id": "C158",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0757,
+    "tau_start": -1.5609,
+    "root_twhite": -1.5609
+   },
+   {
+    "id": "C159",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.1025,
+    "tau_start": -0.6914,
+    "root_twhite": -0.6914
+   },
+   {
+    "id": "C160",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0658,
+    "tau_start": -2.0957,
+    "root_twhite": -2.0957
+   },
+   {
+    "id": "C161",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0463,
+    "tau_start": -2.1227,
+    "root_twhite": -2.1025
+   },
+   {
+    "id": "C162",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0141,
+    "tau_start": -1.3255,
+    "root_twhite": -1.3255
+   },
+   {
+    "id": "C163",
+    "root_class": "藍濃",
+    "dist_to_white_vertex_m": 0.061,
+    "tau_start": -1.26,
+    "root_twhite": -1.2468
+   },
+   {
+    "id": "C164",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0329,
+    "tau_start": -2.0622,
+    "root_twhite": -2.042
+   },
+   {
+    "id": "C165",
+    "root_class": "藍濃",
+    "dist_to_white_vertex_m": 0.1878,
+    "tau_start": -2.0313,
+    "root_twhite": -2.0212
+   },
+   {
+    "id": "C166",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0509,
+    "tau_start": -2.0053,
+    "root_twhite": -1.9948
+   },
+   {
+    "id": "C167",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0438,
+    "tau_start": -2.1012,
+    "root_twhite": -2.0913
+   },
+   {
+    "id": "C168",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0594,
+    "tau_start": -2.021,
+    "root_twhite": -2.0105
+   },
+   {
+    "id": "C170",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.075,
+    "tau_start": -1.2675,
+    "root_twhite": -1.2675
+   },
+   {
+    "id": "C171",
+    "root_class": "淡い水色",
+    "dist_to_white_vertex_m": 0.2324,
+    "tau_start": -1.9242,
+    "root_twhite": -1.9242
+   },
+   {
+    "id": "C172",
+    "root_class": "淡い水色",
+    "dist_to_white_vertex_m": 0.1697,
+    "tau_start": -0.7433,
+    "root_twhite": -0.7404
+   },
+   {
+    "id": "C173",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0483,
+    "tau_start": -2.1213,
+    "root_twhite": -2.1139
+   },
+   {
+    "id": "C174",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.146,
+    "tau_start": -1.0617,
+    "root_twhite": -1.049
+   },
+   {
+    "id": "C175",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.1492,
+    "tau_start": -1.9143,
+    "root_twhite": -1.3589
+   }
+  ]
+ },
+ "visible_frames_first": {
+  "C001": 286,
+  "C002": 283,
+  "C003": 285,
+  "C004": 279,
+  "C005": 272,
+  "C006": 277,
+  "C007": 275,
+  "C008": 272,
+  "C009": 288,
+  "C010": 304,
+  "C011": 273,
+  "C012": 281,
+  "C013": 274,
+  "C014": 271,
+  "C015": 264,
+  "C016": 291,
+  "C017": 273,
+  "C018": 269,
+  "C019": 264,
+  "C020": 263,
+  "C021": 267,
+  "C022": 271,
+  "C023": 275,
+  "C024": 276,
+  "C025": 271,
+  "C026": 265,
+  "C027": 277,
+  "C028": 274,
+  "C029": 275,
+  "C030": 282,
+  "C031": 268,
+  "C032": 260,
+  "C033": 256,
+  "C034": 260,
+  "C035": 277,
+  "C036": 255,
+  "C037": 259,
+  "C038": 250,
+  "C039": 255,
+  "C040": 299,
+  "C041": 255,
+  "C042": 251,
+  "C043": 253,
+  "C044": 252,
+  "C045": 252,
+  "C046": 260,
+  "C047": 264,
+  "C048": 261,
+  "C049": 258,
+  "C050": 260,
+  "C051": 250,
+  "C052": 246,
+  "C053": 247,
+  "C054": 279,
+  "C055": 244,
+  "C056": 243,
+  "C057": 251,
+  "C058": 250,
+  "C059": 242,
+  "C060": 287,
+  "C061": 251,
+  "C062": 250,
+  "C063": 250,
+  "C064": 243,
+  "C065": 234,
+  "C066": 246,
+  "C067": 240,
+  "C068": 201,
+  "C069": 199,
+  "C070": 198,
+  "C071": 199,
+  "C072": 197,
+  "C073": 196,
+  "C074": 195,
+  "C075": 195,
+  "C076": 194,
+  "C077": 245,
+  "C078": 193,
+  "C079": 276,
+  "C080": 193,
+  "C081": 193,
+  "C082": 193,
+  "C083": 190,
+  "C084": 192,
+  "C085": 190,
+  "C086": 285,
+  "C087": 305,
+  "C088": 286,
+  "C089": 285,
+  "C090": 182,
+  "C091": 285,
+  "C092": 285,
+  "C093": 285,
+  "C094": 284,
+  "C095": 284,
+  "C096": 283,
+  "C097": 285,
+  "C098": 286,
+  "C099": 284,
+  "C100": 286,
+  "C101": 286,
+  "C102": 194,
+  "C103": 196,
+  "C104": 284,
+  "C105": 285,
+  "C106": 197,
+  "C108": 284,
+  "C109": 284,
+  "C110": 285,
+  "C111": 284,
+  "C112": 285,
+  "C113": 200,
+  "C114": 198,
+  "C115": 285,
+  "C116": 202,
+  "C117": 200,
+  "C118": 198,
+  "C119": 201,
+  "C120": 203,
+  "C121": 204,
+  "C122": 243,
+  "C123": 239,
+  "C124": 241,
+  "C125": 203,
+  "C126": 243,
+  "C127": 203,
+  "C128": 245,
+  "C154": 205,
+  "C155": 190,
+  "C156": 241,
+  "C157": 252,
+  "C158": 249,
+  "C159": 301,
+  "C160": 217,
+  "C161": 215,
+  "C162": 263,
+  "C163": 267,
+  "C164": 219,
+  "C165": 221,
+  "C166": 222,
+  "C167": 216,
+  "C168": 221,
+  "C170": 266,
+  "C171": 227,
+  "C172": 298,
+  "C173": 215,
+  "C174": 279,
+  "C175": 228
+ },
+ "elapsed_s": 158.7
+}

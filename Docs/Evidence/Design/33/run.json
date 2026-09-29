@@ -1,0 +1,656 @@
+{
+ "schema": "GreatWave.DS33.run/1",
+ "number": "設計33",
+ "generated_utc": "2026-09-29T17:13:55+00:00",
+ "machine": "Windows-10-10.0.26200-SP0",
+ "python": "3.10.6",
+ "numpy": "2.2.6",
+ "opencv": "4.12.0",
+ "ffmpeg": "ffmpeg version 2024-12-19-git-494c961379-full_build-www.gyan.dev Copyright (c) 2000-2024 the FFmpeg developers",
+ "commands": [
+  "py -3.10 -B Tools/GWWaveGen/ds33/ds33_claw_rig.py",
+  "py -3.10 -B Tools/GWWaveGen/ds33/ds33_claw_anim.py",
+  "py -3.10 -B Tools/GWWaveGen/ds33/ds33_claw_render.py --parts still,rows,types,contour,single",
+  "py -3.10 -B Tools/GWWaveGen/ds33/ds33_claw_render.py --parts video",
+  "py -3.10 -B Tools/GWWaveGen/ds33/ds33_claws_indep_check.py",
+  "py -3.10 -B Tools/GWWaveGen/ds33/ds33_claws_record.py",
+  "py -3.10 -B Tools/GWWaveGen/ds33/ds33_harness.py --selftest（測定器の自己試験。約 5 分）",
+  "py -3.10 -B Tools/GWWaveGen/ds33/ds33_harness_claws.py（測定器で爪の部の出力を測る。約 4 分）",
+  "（進行役の独立の検査：リポジトリの外の numpy。コードと出力の写しは Unity/Build/Design/33/indep_check/）",
+  "（記録）py -3.10 -B Tools/GWWaveGen/ds33/ds33_record.py"
+ ],
+ "scripts": {
+  "Tools/GWWaveGen/ds33/ds33_claw_anim.py": "fd4150699f3a5b4d6d8eefeed6680a953ff3baafd0e190a720f2bb0c85ca127a",
+  "Tools/GWWaveGen/ds33/ds33_claw_render.py": "6dcbee84ba5db0d1dbbaceffe494f23f20ef8970d2ab5d1ab022acf8c5701f75",
+  "Tools/GWWaveGen/ds33/ds33_claw_rig.py": "0cd3b3e89b969fede58848fd63383d6a78167d1b8a14cea1dfc9e1a19d0cc3e2",
+  "Tools/GWWaveGen/ds33/ds33_claws_indep_check.py": "3705eab933f62cd078532249744ad2c40a394a5a3008142ea729d851c60e930a",
+  "Tools/GWWaveGen/ds33/ds33_claws_record.py": "0eb263e87f49dcaa1025128afe264087ee4b26c7b7fa5018a9a41241c53e240a",
+  "Tools/GWWaveGen/ds33/ds33_common.py": "3ee88e5c98767a17a34fd0a386e02d26f2100b6e83b812a8fb0f3ec99873a67b",
+  "Tools/GWWaveGen/ds33/ds33_harness.py": "50ac01d71975fddde041880db13db35aa7dafd72fe974b18fd926605beccb3c4",
+  "Tools/GWWaveGen/ds33/ds33_harness_claws.py": "b36d3047b45d32e36291cac8cea5c1c0e03afe3230d27edcb8200e159abf12c6",
+  "Tools/GWWaveGen/ds33/ds33_harness_selftest.py": "0eed0cf1e286909917143ae44b959bd58fcb7f85a30cf64e87d9da5781314183",
+  "Tools/GWWaveGen/ds33/ds33_record.py": "8aa0aa2ee4babf49618680361d181714fca6646d8018b011606ee773d4f190cc"
+ },
+ "scripts_at_claws_run": {
+  "Tools/GWWaveGen/ds33/ds33_claw_anim.py": "fd4150699f3a5b4d6d8eefeed6680a953ff3baafd0e190a720f2bb0c85ca127a",
+  "Tools/GWWaveGen/ds33/ds33_claw_render.py": "6dcbee84ba5db0d1dbbaceffe494f23f20ef8970d2ab5d1ab022acf8c5701f75",
+  "Tools/GWWaveGen/ds33/ds33_claw_rig.py": "0cd3b3e89b969fede58848fd63383d6a78167d1b8a14cea1dfc9e1a19d0cc3e2",
+  "Tools/GWWaveGen/ds33/ds33_claws_indep_check.py": "3705eab933f62cd078532249744ad2c40a394a5a3008142ea729d851c60e930a",
+  "Tools/GWWaveGen/ds33/ds33_claws_record.py": "0eb263e87f49dcaa1025128afe264087ee4b26c7b7fa5018a9a41241c53e240a",
+  "Tools/GWWaveGen/ds33/ds33_common.py": "3ee88e5c98767a17a34fd0a386e02d26f2100b6e83b812a8fb0f3ec99873a67b"
+ },
+ "harness_tool_at_run": {
+  "G:\\Unity\\GreatWave_2026_Fresh\\Tools\\GWWaveGen\\ds33\\ds33_harness.py": "50ac01d71975fddde041880db13db35aa7dafd72fe974b18fd926605beccb3c4"
+ },
+ "inputs": {
+  "inventory": {
+   "path": "Unity/Build/Design/32/list+ids/ds32_claw_inventory.json",
+   "sha256": "9b73086b72686afc17d5222407f97253ca55864e15e43ee2af613922f6b0df76"
+  },
+  "ids": {
+   "path": "Unity/Build/Design/32/list+ids/ds32_ids.json",
+   "sha256": "6fc81ea55a4c4f9ae80165f2fab64a719c0b8d00ba75926ad40a0c25afe4d887"
+  },
+  "claw_readme": {
+   "path": "G:/Unity/Ukeyoe_Claw/Docs/Research/Claw_Analysis/README.md",
+   "sha256": "09ae4ef72d0be786d5ea6d40abc26d70bd5037effe22d40b5a223b7ab4ebc7aa"
+  },
+  "painting_truth": {
+   "path": "Tools/PaintingTruth/painting_truth.json",
+   "sha256": "392860ebeff76a7249056fc339b15e853c0155937efa4feee125f8f974f01c0a"
+  },
+  "hero_pkg": {
+   "path": "Unity/Build/Design/31/white/hero_pkg",
+   "pos_sha256": "af08cd4edb8a287551cae2ac8c60af3c4c33bbb39088807571475dc973d85974"
+  },
+  "timewarp": {
+   "path": "Unity/Build/Design/28R01F/F_final/timewarp_F_final.json",
+   "sha256": "627815c77afc63278c885335bbe6c51178896184559ca30845cf05f23c634a7c"
+  },
+  "colour_sdf": {
+   "path": "Unity/Build/Design/29R01/bake_kp/bake/af28r01_uvsdf_a45.bin",
+   "sha256": "69c0b26d5e0129598aa19ca8365fa590af9a81c282e5fef8298409fac8470d1a"
+  },
+  "colour_uvwarp": {
+   "path": "Unity/Build/Design/29R01/bake_kp/bake/af28r01_uvwarp_a45.json",
+   "sha256": "fbd95c900f1e7b84ada6e2bffce4298fd94412041a6a1309d656893789e44964"
+  },
+  "painting": {
+   "path": "Docs/References/Met_JP1847_DP130155.jpg",
+   "sha256": "cbb9988f2f18b9180a1cc0cf5dbb0e3bbf8f2e85d17930cf6ca9ab36fac36303"
+  },
+  "sea": {
+   "path": "Unity/Build/Design/30/sea"
+  },
+  "claw_readme_ja": "爪形分析の README は数値（96 本の中央値と四分位）だけを写した。爪形分析のフォルダーの画像・マスクは読んでいない"
+ },
+ "harness_inputs_sha256": {
+  "Unity/Build/Design/28R01F/F_final/timewarp_F_final.json": "627815c77afc63278c885335bbe6c51178896184559ca30845cf05f23c634a7c",
+  "Tools/PaintingTruth/painting_truth.json": "392860ebeff76a7249056fc339b15e853c0155937efa4feee125f8f974f01c0a",
+  "Unity/Build/Design/32/list+ids/ds32_claw_inventory.json": "9b73086b72686afc17d5222407f97253ca55864e15e43ee2af613922f6b0df76",
+  "Unity/Build/Design/32/list+ids/ds32_ids.json": "6fc81ea55a4c4f9ae80165f2fab64a719c0b8d00ba75926ad40a0c25afe4d887",
+  "Unity/Build/Design/31/white/hero_pkg/ds27_keypose.json": "c20ac1cc62077ca84c9aef92678bcc6d8a1ad2d802de64a96fb950b5b18aedb0",
+  "Unity/Build/Design/31/white/hero_pkg/ds27_pos_rgba16.bin": "af08cd4edb8a287551cae2ac8c60af3c4c33bbb39088807571475dc973d85974",
+  "Unity/Build/Design/31/white/hero_pkg/ds27_pos_lo_rgba8.bin": "99a29d6a74b595372211120db071fac12d9f338aa14107df921d667d67a83153",
+  "Unity/Build/Design/31/white/hero_pkg/ds31_twhite_r32f.bin": "5ffc93def0174c953040f0a69088be7856820f1ae9eb7c90b312594d4099f39e",
+  "Unity/Build/Design/30/sea/near/ds27_pos_rgba16.bin": "cb62dd8f7d3fb290534d608265aa3d88864245e132a3127a49b63dd540b8a54d",
+  "Unity/Build/Design/30/sea/far/ds27_pos_rgba16.bin": "82a6184a318bf2cb91306b9a06620b8b8143242a9551da643b0fc29cbdc0065f",
+  "Unity/Build/Design/30/sea/near/ds30_ring0_index.json": "9dfaec3c68e121ea83781ecaaf3c0bac9a1712aef32382595f9035fa174f5091"
+ },
+ "claw_analysis_readme_ja": "爪形分析の README（Q8 の例外の 1 ファイル）は爪の部が数値（96 本の中央値と四分位）だけを写した。SHA-256 は inputs の claw_readme。爪形分析のフォルダーの画像・マスクは、どの部も開いていない",
+ "frames_sha256": "6e7629889a47efc0172d40c28364b59eadef48e419d0dad5c279e3fa3d7f7565",
+ "build_outputs": {
+  "Unity/Build/Design/33/claws/README_interface.txt": {
+   "sha256": "f445e1c2982271c7ed82217dc8e9009be01b1104a50b2397b67904ccbf59b1a1",
+   "bytes": 9028
+  },
+  "Unity/Build/Design/33/claws/ds33_claw_checks.json": {
+   "sha256": "92922c438a55729c79a83be74a5969340dc3676289c551ae4b2515b336f3114a",
+   "bytes": 52047
+  },
+  "Unity/Build/Design/33/claws/ds33_claw_frames_f32.bin": {
+   "sha256": "6e7629889a47efc0172d40c28364b59eadef48e419d0dad5c279e3fa3d7f7565",
+   "bytes": 126562704
+  },
+  "Unity/Build/Design/33/claws/ds33_claw_layout.json": {
+   "sha256": "715b20d6dcea3462aad452532ce6c58e8044349ac4dd238e333048741a540775",
+   "bytes": 20183
+  },
+  "Unity/Build/Design/33/claws/ds33_claw_rig.json": {
+   "sha256": "db00cd419c2844ec030afcfed51a55dc5f654beabf9c2182b34f73e2bdf1e3f2",
+   "bytes": 234902
+  },
+  "Unity/Build/Design/33/claws/ds33_claw_rig.npz": {
+   "sha256": "e9d535f7f0e486aba10ca8892231c069da5da67a6aabbe167664d65a1f7ae796",
+   "bytes": 1351926
+  },
+  "Unity/Build/Design/33/claws/ds33_claw_skel_f32.bin": {
+   "sha256": "12365d63b1e9b248cdc3965c49d3a50e8bfde6a499b143d39ea1bc5990ec7453",
+   "bytes": 8972352
+  },
+  "Unity/Build/Design/33/claws/ds33_claw_tri_attr_u16.bin": {
+   "sha256": "ca83cee1e852980a6e1389c9ee39ee58ba840302bd7d4f33150533f8d759bdf0",
+   "bytes": 192128
+  },
+  "Unity/Build/Design/33/claws/ds33_claw_tris_i32.bin": {
+   "sha256": "8daeeaa2025b7feb38c11c9068e59754bcdbdd18fe9e704689ddd32b81dbb1b9",
+   "bytes": 576384
+  },
+  "Unity/Build/Design/33/claws/ds33_claws_indep_check.json": {
+   "sha256": "574095f20019a4aaa6ed15d5a56316923e6d1cf76cea2af8f99bd0dc8cffc338",
+   "bytes": 2939
+  },
+  "Unity/Build/Design/33/claws/ds33_contour_tstar.json": {
+   "sha256": "2a5954b9774a2405cabf422cd763cdc5daac2e26b45646df1ab9e8f159a587da",
+   "bytes": 4635
+  },
+  "Unity/Build/Design/33/claws/ds33_visibility_tstar.json": {
+   "sha256": "9e2e722802630378976e05ac9c7e40f08e7459e9607831cf45e5fd8fed3abb99",
+   "bytes": 3894
+  },
+  "Unity/Build/Design/33/claws/metrics.json": {
+   "sha256": "1643c4ce560a06a61b1a0695f81776225231e1be696a91f588810282495bc02e",
+   "bytes": 10815
+  },
+  "Unity/Build/Design/33/claws/run.json": {
+   "sha256": "091b39b7a723123c57ad8f8cb1b9d03686a92b0b6f32458e6865f354b6480465",
+   "bytes": 7961
+  },
+  "Unity/Build/Design/33/claws/fig/ds33_claws_growth_30fps.mp4": {
+   "sha256": "20e40c91fadf893356ca1f7519ef58a48fb5b745a5acd6e7e3280b003a986b51",
+   "bytes": 6058543
+  },
+  "Unity/Build/Design/33/claws/fig/fig_ds33_contour_tstar.png": {
+   "sha256": "f53206f3d1ec5067596788e5f668de37ea18e3b214dbf0f6de59580757e48a23",
+   "bytes": 2257702
+  },
+  "Unity/Build/Design/33/claws/fig/fig_ds33_growth_stills.png": {
+   "sha256": "ce03035c3d53ef3a97f9078b966ff955dffa538a80637df02b8441d9b7ed1d32",
+   "bytes": 991273
+  },
+  "Unity/Build/Design/33/claws/fig/fig_ds33_rows_boat.png": {
+   "sha256": "788d25a3e48c8f7b7de2ad5f3a0d283b8b7ede28a8c8a670d84d88313f5175cc",
+   "bytes": 3098163
+  },
+  "Unity/Build/Design/33/claws/fig/fig_ds33_rows_boat_render.png": {
+   "sha256": "467bb08a7a52b384bbe25dd44408093b0bfc698d70614a3825c3463f6cdb7f15",
+   "bytes": 200845
+  },
+  "Unity/Build/Design/33/claws/fig/fig_ds33_rows_bregion.png": {
+   "sha256": "cec35b9ec8d2246c4647a8efb7e6783610c43586ae87af1b44d3d8be6605c093",
+   "bytes": 3241531
+  },
+  "Unity/Build/Design/33/claws/fig/fig_ds33_rows_bregion_render.png": {
+   "sha256": "e2311539e3ea9b1e9b4c94c3c105fdb0fd18883630d0d3aec2513ed502b286ac",
+   "bytes": 202820
+  },
+  "Unity/Build/Design/33/claws/fig/fig_ds33_rows_middle.png": {
+   "sha256": "0c0b1f1ea693a6790375ab1263582713e739b7383def364918178b67c9da7e56",
+   "bytes": 2964441
+  },
+  "Unity/Build/Design/33/claws/fig/fig_ds33_rows_middle_render.png": {
+   "sha256": "ed2733672dedeeb0c292202dc680d21b9b2645976b10fce3c3d12e82bdaa6676",
+   "bytes": 205599
+  },
+  "Unity/Build/Design/33/claws/fig/fig_ds33_rows_upper.png": {
+   "sha256": "cc9602228d54eb2b26fc78fe22540b0d1008cdb1791913f7f8f1dcdf4854f683",
+   "bytes": 3590553
+  },
+  "Unity/Build/Design/33/claws/fig/fig_ds33_rows_upper_render.png": {
+   "sha256": "cbf5625b86acd7e38b32dbc76fe04d50b5ea792368da8274c0dbc90b8914951b",
+   "bytes": 249169
+  },
+  "Unity/Build/Design/33/claws/fig/fig_ds33_single_growth.png": {
+   "sha256": "060838233f401ef6cc9d27927d9d772fc33d979acb6db1c489ea3329da59badc",
+   "bytes": 840432
+  },
+  "Unity/Build/Design/33/claws/fig/fig_ds33_tstar_overlay.png": {
+   "sha256": "4fa8e9e89332ad0b948d537e54358329a463352e823f66a8c4fb97c9f3ad4410",
+   "bytes": 3222596
+  },
+  "Unity/Build/Design/33/claws/fig/fig_ds33_tstar_render.png": {
+   "sha256": "00f2d1ff0ac31ffad635d57ddb8afdff15e394f6a5edcc554086d47c9bc2064e",
+   "bytes": 179634
+  },
+  "Unity/Build/Design/33/claws/fig/fig_ds33_types.png": {
+   "sha256": "74ae7ca32e2ee7b1c9bc930631c1a025c5e503575e129ebb7d67b8206ae2d44c",
+   "bytes": 189731
+  },
+  "Unity/Build/Design/33/harness/claws_run/fig_ds33h_outline_132_72.png": {
+   "sha256": "61337be967bd281a138df8d5d2744c8acf15189b2a775c99b0b1322412ab52a4",
+   "bytes": 739996
+  },
+  "Unity/Build/Design/33/harness/claws_run/fig_ds33h_overlay_rows.png": {
+   "sha256": "dde42fb033d325e758a84f853792e7131d46028e0f8f90934e34c9462753d75e",
+   "bytes": 2149723
+  },
+  "Unity/Build/Design/33/harness/claws_run/fig_ds33h_overlay_tstar.png": {
+   "sha256": "e50c7ff1eb4be316e95145ee9257feb4556279ae2b95bb7e5de6ec24068ae7da",
+   "bytes": 3122693
+  },
+  "Unity/Build/Design/33/harness/claws_run/fig_ds33h_tracks.png": {
+   "sha256": "96ade9b35aad1f8bc5d8b0b109650477f560f92564d0d9f08e2cb6145b5138e2",
+   "bytes": 113031
+  },
+  "Unity/Build/Design/33/harness/claws_run/harness_metrics.json": {
+   "sha256": "ef0fda7dc6995a3aeb4f44741f89febdae7b32aaa08492b6c56f602d16ec7fc3",
+   "bytes": 18097
+  },
+  "Unity/Build/Design/33/harness/claws_run/harness_per_claw.json": {
+   "sha256": "98539f88831505104f3a8431c32fc6653f1c11ff3eb9f35609250f27edc044d0",
+   "bytes": 299968
+  },
+  "Unity/Build/Design/33/harness/claws_run/harness_run.json": {
+   "sha256": "435098c309c7ca38804e5fe553f960737f34e7f569c9df55c436c2174877ff23",
+   "bytes": 3594
+  },
+  "Unity/Build/Design/33/harness/selftest/fig_ds33h_outline_132_72_selftest_clean.png": {
+   "sha256": "af43f31c80d47d2fde4b4a8e7d7205d6844334c6b39eb61a770798884e945ae3",
+   "bytes": 740676
+  },
+  "Unity/Build/Design/33/harness/selftest/fig_ds33h_outline_132_72_selftest_defects.png": {
+   "sha256": "97043c6bb506155a4572d46c130d8405eb860a45a26cbb80b27515ed352b1224",
+   "bytes": 740574
+  },
+  "Unity/Build/Design/33/harness/selftest/fig_ds33h_overlay_rows_selftest_clean.png": {
+   "sha256": "444074c95a07b7b8ed96134e4a887ccfc5d2efbea2eff618b139076adc504496",
+   "bytes": 2158091
+  },
+  "Unity/Build/Design/33/harness/selftest/fig_ds33h_overlay_rows_selftest_defects.png": {
+   "sha256": "855a2569aec72bebd9fdfa8fcf66bab137e15e39a5f49ad4bf4d3ee2456b0a40",
+   "bytes": 2159650
+  },
+  "Unity/Build/Design/33/harness/selftest/fig_ds33h_overlay_tstar_selftest_clean.png": {
+   "sha256": "26c1881fa175440f596f4c90e5834225dd27fc19e227f0190c1f316d5f6764e6",
+   "bytes": 3127297
+  },
+  "Unity/Build/Design/33/harness/selftest/fig_ds33h_overlay_tstar_selftest_defects.png": {
+   "sha256": "325962c6bd48a8995db85ba9fdc0f13999c3efe29adcf4ffc1ed46be7a005e83",
+   "bytes": 3127990
+  },
+  "Unity/Build/Design/33/harness/selftest/fig_ds33h_tracks_selftest_clean.png": {
+   "sha256": "3b76f0e1db0eaf59b189114da4ad374f8ee6c6c1992df30fc77f1344f2b5bbac",
+   "bytes": 114179
+  },
+  "Unity/Build/Design/33/harness/selftest/fig_ds33h_tracks_selftest_defects.png": {
+   "sha256": "ad148e0de12bed276272cbd64b9a40995d2a2ff05529b64903d82069366216c7",
+   "bytes": 126536
+  },
+  "Unity/Build/Design/33/harness/selftest/harness_metrics_selftest_clean.json": {
+   "sha256": "7682c0215b4ba05f7929011d8b88eabd1db98d6f25d0507ddc651946b0de1270",
+   "bytes": 18603
+  },
+  "Unity/Build/Design/33/harness/selftest/harness_metrics_selftest_defects.json": {
+   "sha256": "8a19389078cba55494138256ff29203b1c11aca943f730c98c5cbdc014b61fe9",
+   "bytes": 19275
+  },
+  "Unity/Build/Design/33/harness/selftest/harness_per_claw_selftest_clean.json": {
+   "sha256": "3cfd287245e92a14ec757bce47f1d0f4acc20ea7f56af647e463cfed084255d8",
+   "bytes": 298563
+  },
+  "Unity/Build/Design/33/harness/selftest/harness_per_claw_selftest_defects.json": {
+   "sha256": "88ef187c70bb6e0765619fb3c3a35e602196c132039344248dc2fcfc8fe27d48",
+   "bytes": 297060
+  },
+  "Unity/Build/Design/33/harness/selftest/harness_run_selftest_clean.json": {
+   "sha256": "568d0c9719da4ee40d37b6350384a1764f8d1f91fc69f76b7f897ca9f39b7306",
+   "bytes": 2758
+  },
+  "Unity/Build/Design/33/harness/selftest/harness_run_selftest_defects.json": {
+   "sha256": "b64fffe5280ed65219d88c6f88302c5c420ffcf1e6ab3d42770a312f02ab64a8",
+   "bytes": 2766
+  },
+  "Unity/Build/Design/33/harness/selftest/harness_selftest.json": {
+   "sha256": "d20f97ad80201edb63c18541e0a18d50623bffe3864574ecfb5fbb40db51ed7e",
+   "bytes": 6266
+  },
+  "Unity/Build/Design/33/indep_check/chk_geom.json": {
+   "sha256": "5c878b1faf92e1898643f0ee52992c0caa4dfe3ca67cd49b0d7611253f44a1ed",
+   "bytes": 1690
+  },
+  "Unity/Build/Design/33/indep_check/chk_geom.py": {
+   "sha256": "21f265887b90aab291c4c50f641b3bdfd0ace44dc126b00a14a62e317e8ee6f1",
+   "bytes": 9717
+  },
+  "Unity/Build/Design/33/indep_check/chk_growth.json": {
+   "sha256": "864e4159b3a04ad4924ee350953ef34e25b5c3b35683cbffe53933f2fae4fdda",
+   "bytes": 3806
+  },
+  "Unity/Build/Design/33/indep_check/chk_growth.py": {
+   "sha256": "3250f19e05aff6f23e5e59f200b0bd8079c142f5c02e9ec9fca58f6a82c35efb",
+   "bytes": 8210
+  },
+  "Unity/Build/Design/33/indep_check/closeups.py": {
+   "sha256": "59b828af40e4c277d7f7e3d52c514b9022f620a9d0ac1699edd65983c839ca24",
+   "bytes": 2816
+  },
+  "Unity/Build/Design/33/indep_check/closeups_paintcam.png": {
+   "sha256": "4476e7a0dadbddb1b25f28fcda975dec194cab629fdb1abb0707cea2892f1ad2",
+   "bytes": 534452
+  },
+  "Unity/Build/Design/33/indep_check/closeups_side.png": {
+   "sha256": "caab1e62ab35bf66f5526e8f383f0287abd950f862b24062d839d774db7850dd",
+   "bytes": 338683
+  },
+  "Unity/Build/Design/33/indep_check/own_overlay_lip.png": {
+   "sha256": "ddf692b54c11883104ecc867b99227ebf92a1362700ab25f817e9e3bfa5f6b3d",
+   "bytes": 1366480
+  },
+  "Unity/Build/Design/33/indep_check/own_overlay_mid.png": {
+   "sha256": "a4a13a7a7631f2358b3237223aea20de15258d8096ac85676f5101368b14aa28",
+   "bytes": 1500232
+  },
+  "Unity/Build/Design/33/indep_check/proj_rows.json": {
+   "sha256": "41e99e4eb9e09d0e8dbf8e743ac29ebe60a284b81c657c2df89f18697d45a681",
+   "bytes": 36602
+  },
+  "Unity/Build/Design/33/indep_check/render_crops.png": {
+   "sha256": "e5ac3c677317a62631b9db2471a39161ccdbb4e30a06b27faa5a16d364b62216",
+   "bytes": 79104
+  },
+  "Unity/Build/Design/33/indep_check/sheet_a.png": {
+   "sha256": "bc9183370a4106bdb1ab861120e6c6a5b4846aa07b2c23e34dcba3ae552b59c7",
+   "bytes": 954898
+  },
+  "Unity/Build/Design/33/indep_check/sheet_b.png": {
+   "sha256": "c0aaae06303dddb34eb9e3bd429379f6ad326c78b64a7bdfca96cfadb5e78645",
+   "bytes": 1475604
+  },
+  "Unity/Build/Design/33/indep_check/v151_rb.png": {
+   "sha256": "ac2aeb31b19bee5d22ef1a0de8438f3c986df7926aa7610a637e8a170bb39fd2",
+   "bytes": 307805
+  },
+  "Unity/Build/Design/33/indep_check/v196_l.png": {
+   "sha256": "a8dcbcbbc11d4e3b502a5f4662583bfbda4c63e6e0f4ca007673c53503133f41",
+   "bytes": 666863
+  },
+  "Unity/Build/Design/33/indep_check/v196_rb.png": {
+   "sha256": "c681c506cd58a45eceacf5ba868b61b5878a43bc496aa5b0dbc6211557837669",
+   "bytes": 221580
+  },
+  "Unity/Build/Design/33/indep_check/v196_rt.png": {
+   "sha256": "209640e14f1733bdb898bcb9ca2f736c68cba002b8019b7c721b189e6e77b291",
+   "bytes": 297486
+  },
+  "Unity/Build/Design/33/record/ds33_record_counts.json": {
+   "sha256": "79cf0481609d61b58e1760ad12305066ff383bf42d6d8f0ac6e09b97d6109f22",
+   "bytes": 29122
+  },
+  "Unity/Build/Design/33/record/fig_ds33_limit_band_folds.png": {
+   "sha256": "785929cf1ebded54a3f1363cf1373126e07c02b65aa08d2d5e0c36a3f41f1c29",
+   "bytes": 599296
+  }
+ },
+ "evidence": {
+  "ds33_claw_checks.json": {
+   "sha256": "92922c438a55729c79a83be74a5969340dc3676289c551ae4b2515b336f3114a",
+   "bytes": 52047
+  },
+  "ds33_claw_layout.json": {
+   "sha256": "715b20d6dcea3462aad452532ce6c58e8044349ac4dd238e333048741a540775",
+   "bytes": 20183
+  },
+  "ds33_claws_growth_30fps.mp4": {
+   "sha256": "33102b3e6aba165ba8fa646072c26abb88b0a5a5e93a309baa0d188a77b9c865",
+   "bytes": 4196027
+  },
+  "ds33_claws_indep_check.json": {
+   "sha256": "574095f20019a4aaa6ed15d5a56316923e6d1cf76cea2af8f99bd0dc8cffc338",
+   "bytes": 2939
+  },
+  "ds33_claws_part_metrics.json": {
+   "sha256": "1643c4ce560a06a61b1a0695f81776225231e1be696a91f588810282495bc02e",
+   "bytes": 10815
+  },
+  "ds33_contour_tstar.json": {
+   "sha256": "2a5954b9774a2405cabf422cd763cdc5daac2e26b45646df1ab9e8f159a587da",
+   "bytes": 4635
+  },
+  "ds33_harness_metrics.json": {
+   "sha256": "ef0fda7dc6995a3aeb4f44741f89febdae7b32aaa08492b6c56f602d16ec7fc3",
+   "bytes": 18097
+  },
+  "ds33_harness_selftest.json": {
+   "sha256": "d20f97ad80201edb63c18541e0a18d50623bffe3864574ecfb5fbb40db51ed7e",
+   "bytes": 6266
+  },
+  "ds33_indep_chk_geom.json": {
+   "sha256": "5c878b1faf92e1898643f0ee52992c0caa4dfe3ca67cd49b0d7611253f44a1ed",
+   "bytes": 1690
+  },
+  "ds33_indep_chk_growth.json": {
+   "sha256": "864e4159b3a04ad4924ee350953ef34e25b5c3b35683cbffe53933f2fae4fdda",
+   "bytes": 3806
+  },
+  "ds33_record_counts.json": {
+   "sha256": "79cf0481609d61b58e1760ad12305066ff383bf42d6d8f0ac6e09b97d6109f22",
+   "bytes": 29122
+  },
+  "ds33_visibility_tstar.json": {
+   "sha256": "9e2e722802630378976e05ac9c7e40f08e7459e9607831cf45e5fd8fed3abb99",
+   "bytes": 3894
+  },
+  "fig_ds33_contour_tstar.png": {
+   "sha256": "0b8c6df5de46bab0ddc06737a9124015719e1356ca387af2a555d916abcf1a70",
+   "bytes": 854035
+  },
+  "fig_ds33_growth_stills_1.png": {
+   "sha256": "f7a9cf50b33e51c819af2aeaf510aff8e60a2b85d1d506a2c0e5597217816217",
+   "bytes": 345800
+  },
+  "fig_ds33_growth_stills_2.png": {
+   "sha256": "bb96e91450600c9b9483d452e544e482b4b6182969e8ff2c5a050539aeb82ddc",
+   "bytes": 284866
+  },
+  "fig_ds33_limit_band_folds.png": {
+   "sha256": "785929cf1ebded54a3f1363cf1373126e07c02b65aa08d2d5e0c36a3f41f1c29",
+   "bytes": 599296
+  },
+  "fig_ds33_rows_boat.png": {
+   "sha256": "f64f4691c0c9abde8a1acc0671a75fc7b31ecee9998b5cb17a9f08d7a6ee38af",
+   "bytes": 2585157
+  },
+  "fig_ds33_rows_boat_render.png": {
+   "sha256": "0a329731b9d920ac891b2f8296fd35d393d5839e43b592adc299bb883ac85d2e",
+   "bytes": 95658
+  },
+  "fig_ds33_rows_bregion.png": {
+   "sha256": "c3459f7c33e2b2d69ce6811b0ee226a134880759b7be1e9d3f08307969c329a6",
+   "bytes": 2693014
+  },
+  "fig_ds33_rows_bregion_render.png": {
+   "sha256": "94420507875c013aca9ec02c206e915cc3ef53c65129bc6ad16cf5ab2e7e81e9",
+   "bytes": 96615
+  },
+  "fig_ds33_rows_middle.png": {
+   "sha256": "0fef69ab9d26d47d4686637920b2df0c5da5987847f6e158bf972046296cd5f0",
+   "bytes": 2415264
+  },
+  "fig_ds33_rows_middle_render.png": {
+   "sha256": "ed5c37e03738440bb55fe02b81bf2a526e5eef5c90ff8c4d94fb2ead97dbaf52",
+   "bytes": 100342
+  },
+  "fig_ds33_rows_upper.png": {
+   "sha256": "1ea2c44d1f219f6b401287a39048652fd24f5e820705db68552e35360de890b5",
+   "bytes": 3201124
+  },
+  "fig_ds33_rows_upper_render.png": {
+   "sha256": "72b37962a01281a82caee1a4e506bf2eddc12d5eb2482659bd5d63573aabebd5",
+   "bytes": 118134
+  },
+  "fig_ds33_single_growth.png": {
+   "sha256": "d91986fe62453980b90ed223c8111ce4129937c95369264c90bbafb48dd9c740",
+   "bytes": 816660
+  },
+  "fig_ds33_tstar_overlay.png": {
+   "sha256": "d54eb1179775c3ba7ce50465420266b74c472b1a4ee2fff889a28575a3b18f01",
+   "bytes": 3014867
+  },
+  "fig_ds33_tstar_render.png": {
+   "sha256": "f07c2ad7236b9082727072ea2a975d4aab2d0f20414803b7af094ea306c1acfe",
+   "bytes": 89041
+  },
+  "fig_ds33_types.png": {
+   "sha256": "09f728fc8aa305eed557844d367471904e8afa229fbb158dc6df503b790d291e",
+   "bytes": 122153
+  },
+  "fig_ds33h_outline_132_72.png": {
+   "sha256": "ae4af6634af7f0e905989ddc6f039c75d118a02270b7c886a93681e1b2728535",
+   "bytes": 1584802
+  },
+  "metrics.json": {
+   "sha256": "6fe8d9efa511b2ae32e759b67a57f1a9021947115cbccdf1d3779afa84e8b25e",
+   "bytes": 32801
+  }
+ },
+ "evidence_sources": {
+  "png": {
+   "fig_ds33_tstar_overlay.png": {
+    "source": "Unity/Build/Design/33/claws/fig/fig_ds33_tstar_overlay.png",
+    "source_sha256": "4fa8e9e89332ad0b948d537e54358329a463352e823f66a8c4fb97c9f3ad4410",
+    "how_ja": "1920×1080 のまま"
+   },
+   "fig_ds33_tstar_render.png": {
+    "source": "Unity/Build/Design/33/claws/fig/fig_ds33_tstar_render.png",
+    "source_sha256": "00f2d1ff0ac31ffad635d57ddb8afdff15e394f6a5edcc554086d47c9bc2064e",
+    "how_ja": "1920×1080 のまま"
+   },
+   "fig_ds33_rows_upper.png": {
+    "source": "Unity/Build/Design/33/claws/fig/fig_ds33_rows_upper.png",
+    "source_sha256": "cc9602228d54eb2b26fc78fe22540b0d1008cdb1791913f7f8f1dcdf4854f683",
+    "how_ja": "1920×1080 のまま"
+   },
+   "fig_ds33_rows_middle.png": {
+    "source": "Unity/Build/Design/33/claws/fig/fig_ds33_rows_middle.png",
+    "source_sha256": "0c0b1f1ea693a6790375ab1263582713e739b7383def364918178b67c9da7e56",
+    "how_ja": "1920×1080 のまま"
+   },
+   "fig_ds33_rows_boat.png": {
+    "source": "Unity/Build/Design/33/claws/fig/fig_ds33_rows_boat.png",
+    "source_sha256": "788d25a3e48c8f7b7de2ad5f3a0d283b8b7ede28a8c8a670d84d88313f5175cc",
+    "how_ja": "1920×1080 のまま"
+   },
+   "fig_ds33_rows_bregion.png": {
+    "source": "Unity/Build/Design/33/claws/fig/fig_ds33_rows_bregion.png",
+    "source_sha256": "cec35b9ec8d2246c4647a8efb7e6783610c43586ae87af1b44d3d8be6605c093",
+    "how_ja": "1920×1080 のまま"
+   },
+   "fig_ds33_rows_upper_render.png": {
+    "source": "Unity/Build/Design/33/claws/fig/fig_ds33_rows_upper_render.png",
+    "source_sha256": "cbf5625b86acd7e38b32dbc76fe04d50b5ea792368da8274c0dbc90b8914951b",
+    "how_ja": "1920×1080 のまま"
+   },
+   "fig_ds33_rows_middle_render.png": {
+    "source": "Unity/Build/Design/33/claws/fig/fig_ds33_rows_middle_render.png",
+    "source_sha256": "ed2733672dedeeb0c292202dc680d21b9b2645976b10fce3c3d12e82bdaa6676",
+    "how_ja": "1920×1080 のまま"
+   },
+   "fig_ds33_rows_boat_render.png": {
+    "source": "Unity/Build/Design/33/claws/fig/fig_ds33_rows_boat_render.png",
+    "source_sha256": "467bb08a7a52b384bbe25dd44408093b0bfc698d70614a3825c3463f6cdb7f15",
+    "how_ja": "1920×1080 のまま"
+   },
+   "fig_ds33_rows_bregion_render.png": {
+    "source": "Unity/Build/Design/33/claws/fig/fig_ds33_rows_bregion_render.png",
+    "source_sha256": "e2311539e3ea9b1e9b4c94c3c105fdb0fd18883630d0d3aec2513ed502b286ac",
+    "how_ja": "1920×1080 のまま"
+   },
+   "fig_ds33_contour_tstar.png": {
+    "source": "Unity/Build/Design/33/claws/fig/fig_ds33_contour_tstar.png",
+    "source_sha256": "f53206f3d1ec5067596788e5f668de37ea18e3b214dbf0f6de59580757e48a23",
+    "how_ja": "1920×1080 のまま"
+   },
+   "fig_ds33_types.png": {
+    "source": "Unity/Build/Design/33/claws/fig/fig_ds33_types.png",
+    "source_sha256": "74ae7ca32e2ee7b1c9bc930631c1a025c5e503575e129ebb7d67b8206ae2d44c",
+    "how_ja": "2042×1460 を 1920×1080 の枠へ（縮尺 0.740）"
+   },
+   "fig_ds33_single_growth.png": {
+    "source": "Unity/Build/Design/33/claws/fig/fig_ds33_single_growth.png",
+    "source_sha256": "060838233f401ef6cc9d27927d9d772fc33d979acb6db1c489ea3329da59badc",
+    "how_ja": "2892×1518 を 1920×1080 の枠へ（縮尺 0.664）"
+   },
+   "fig_ds33_growth_stills_1.png": {
+    "source": "Unity/Build/Design/33/claws/fig/fig_ds33_growth_stills.png",
+    "source_sha256": "ce03035c3d53ef3a97f9078b966ff955dffa538a80637df02b8441d9b7ed1d32",
+    "how_ja": "1920×1620 の上の 2 段（t 7.0・8.5・9.5・10.3 s）"
+   },
+   "fig_ds33_growth_stills_2.png": {
+    "source": "Unity/Build/Design/33/claws/fig/fig_ds33_growth_stills.png",
+    "source_sha256": "ce03035c3d53ef3a97f9078b966ff955dffa538a80637df02b8441d9b7ed1d32",
+    "how_ja": "1920×1620 の下の 1 段（t 11.0・12.0 s）を 1920×1080 の枠の上へ"
+   },
+   "fig_ds33h_outline_132_72.png": {
+    "source": "Unity/Build/Design/33/harness/claws_run/fig_ds33h_outline_132_72.png",
+    "source_sha256": "61337be967bd281a138df8d5d2744c8acf15189b2a775c99b0b1322412ab52a4",
+    "how_ja": "1920×1080。下の英語の凡例の 2 行を日本語の説明の帯で覆った"
+   },
+   "fig_ds33_limit_band_folds.png": {
+    "source": null,
+    "source_sha256": null,
+    "how_ja": "この道具で描いた（爪の部の頂点のコマの表から）"
+   }
+  },
+  "mp4": {
+   "file": "ds33_claws_growth_30fps.mp4",
+   "source": "Unity/Build/Design/33/claws/fig/ds33_claws_growth_30fps.mp4",
+   "source_sha256": "20e40c91fadf893356ca1f7519ef58a48fb5b745a5acd6e7e3280b003a986b51",
+   "source_bytes": 6058543,
+   "reencode_ja": "libx264 -preset slow -crf 24（元は 6058543 バイトで 5 MB を超えるので符号化し直した。大きさ・コマ数は同じ）",
+   "width": 1920,
+   "height": 1080,
+   "frames": 256,
+   "fps": "30/1",
+   "bytes": 4196027,
+   "content_ja": "t 5.5〜14 s。左＝原画視点の拡大、右上＝波頭を斜め横から、右下＝唇の船側の爪の近く。視点は波の枠と一緒に動き、t* で原画視点と一致する。numpy の描画（Unity ではない）"
+  },
+  "json": {
+   "ds33_claws_part_metrics.json": {
+    "source": "Unity/Build/Design/33/claws/metrics.json",
+    "sha256": "1643c4ce560a06a61b1a0695f81776225231e1be696a91f588810282495bc02e"
+   },
+   "ds33_claw_checks.json": {
+    "source": "Unity/Build/Design/33/claws/ds33_claw_checks.json",
+    "sha256": "92922c438a55729c79a83be74a5969340dc3676289c551ae4b2515b336f3114a"
+   },
+   "ds33_claws_indep_check.json": {
+    "source": "Unity/Build/Design/33/claws/ds33_claws_indep_check.json",
+    "sha256": "574095f20019a4aaa6ed15d5a56316923e6d1cf76cea2af8f99bd0dc8cffc338"
+   },
+   "ds33_contour_tstar.json": {
+    "source": "Unity/Build/Design/33/claws/ds33_contour_tstar.json",
+    "sha256": "2a5954b9774a2405cabf422cd763cdc5daac2e26b45646df1ab9e8f159a587da"
+   },
+   "ds33_visibility_tstar.json": {
+    "source": "Unity/Build/Design/33/claws/ds33_visibility_tstar.json",
+    "sha256": "9e2e722802630378976e05ac9c7e40f08e7459e9607831cf45e5fd8fed3abb99"
+   },
+   "ds33_claw_layout.json": {
+    "source": "Unity/Build/Design/33/claws/ds33_claw_layout.json",
+    "sha256": "715b20d6dcea3462aad452532ce6c58e8044349ac4dd238e333048741a540775"
+   },
+   "ds33_harness_metrics.json": {
+    "source": "Unity/Build/Design/33/harness/claws_run/harness_metrics.json",
+    "sha256": "ef0fda7dc6995a3aeb4f44741f89febdae7b32aaa08492b6c56f602d16ec7fc3"
+   },
+   "ds33_harness_selftest.json": {
+    "source": "Unity/Build/Design/33/harness/selftest/harness_selftest.json",
+    "sha256": "d20f97ad80201edb63c18541e0a18d50623bffe3864574ecfb5fbb40db51ed7e"
+   },
+   "ds33_indep_chk_geom.json": {
+    "source": "Unity/Build/Design/33/indep_check/chk_geom.json",
+    "sha256": "5c878b1faf92e1898643f0ee52992c0caa4dfe3ca67cd49b0d7611253f44a1ed"
+   },
+   "ds33_indep_chk_growth.json": {
+    "source": "Unity/Build/Design/33/indep_check/chk_growth.json",
+    "sha256": "864e4159b3a04ad4924ee350953ef34e25b5c3b35683cbffe53933f2fae4fdda"
+   },
+   "ds33_record_counts.json": {
+    "source": "Unity/Build/Design/33/record/ds33_record_counts.json",
+    "sha256": "79cf0481609d61b58e1760ad12305066ff383bf42d6d8f0ac6e09b97d6109f22"
+   }
+  }
+ },
+ "not_in_repo_ja": "Unity/Build/Design/33/ の全部（爪の部の出力、測定器の出力、進行役の独立の検査の写し、記録の数え）は Git 対象外。頂点のコマの表 ds33_claw_frames_f32.bin（126,562,704 バイト）は、生成器・入力・SHA-256 で再現する",
+ "not_used_ja": "参照モデル、利用者の解算、写真のフォルダー、爪形分析のフォルダーの画像とマスク、禁止の場所、Unity、Blender、Houdini、git の操作"
+}
