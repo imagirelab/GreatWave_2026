@@ -1,0 +1,84 @@
+{
+ "schema": "GreatWave.DS32.id_checks/1",
+ "frames": 421,
+ "hz": 30,
+ "t_star_frame": 360,
+ "bound": 148,
+ "unbound": [
+  "C129",
+  "C130",
+  "C131",
+  "C132",
+  "C133",
+  "C134",
+  "C135",
+  "C136",
+  "C137",
+  "C138",
+  "C139",
+  "C140",
+  "C141",
+  "C142",
+  "C143",
+  "C144",
+  "C145",
+  "C146",
+  "C147",
+  "C148",
+  "C149",
+  "C150",
+  "C151",
+  "C152",
+  "C153"
+ ],
+ "weighted_centroid_record_only": {
+  "claw_group": {
+   "max_move_m": 0.4266,
+   "frames_over_rule_a": 0,
+   "groups_over_rule_a": 0
+  },
+  "white_band_group": {
+   "max_move_m": 3.801,
+   "frames_over_rule_a": 61,
+   "groups_over_rule_a": 31
+  },
+  "spray_group": {
+   "max_move_m": 0.5022,
+   "frames_over_rule_a": 0,
+   "groups_over_rule_a": 0
+  }
+ },
+ "weighted_centroid_note_ja": "記録のみ：群の見える粒の重み付きの重心は、新しい粒（爪の成長 g、白の帯の 0.25 s の立ち上がり、飛沫の半径の 0.08 s の立ち上がり）が加わる所で動く。これは群の中の成長で、同じ粒の動きではないので、瞬間移動の判定には共通の粒の重心を使う",
+ "teleport_rule_ja": "ID（爪の根元・先端、飛沫の粒）：(a) コマの間の動き > max(シートの頂点の動きの最大, 飛沫の粒の動きの最大)×1.5 + 0.02 m、(b) 前後のコマの動きの大きい方の 4 倍 + 0.05 m を超える突出。両方のコマで見えるものだけ。群（爪の房・白の帯・飛沫）：両方のコマで見える粒（共通の粒）の重心の動きに同じ (a)・(b)",
+ "teleports": [],
+ "teleport_count": 0,
+ "flicker_rule_ja": "見える → 見えないの変化（どの ID も t* までに消えない約束）と、2 回目の出現",
+ "flickers": [],
+ "flicker_count": 0,
+ "group_member_lost": [],
+ "group_member_lost_count": 0,
+ "growth_decreasing_samples": 0,
+ "max_moves_m": {
+  "claw_root_max_move_m": 0.3921,
+  "claw_tip_max_move_m": 0.3952,
+  "spray_max_move_m": 0.5022,
+  "claw_group_max_move_m": 0.3916,
+  "band_group_max_move_m": 0.3907,
+  "spray_group_max_move_m": 0.5022
+ },
+ "sheet_max_vertex_move_m": 0.8294,
+ "spray_max_particle_move_m": 0.5022,
+ "reprojection_tstar_display_px": {
+  "root_max": 0.336,
+  "root_p95": 0.048,
+  "tip_max": 0.208,
+  "tip_p95": 0.075,
+  "root_snapped": 0,
+  "root_snap_max_px": 0.0,
+  "note_ja": "寄せた根元はその距離だけずれる。先端は射線の上に置くので 0 に近い（精度の層を含む t* の復号の丸め）"
+ },
+ "pass_teleport_0": true,
+ "pass_flicker_0": true,
+ "pass_129_replace_0": true,
+ "elapsed_s": 15.8
+}

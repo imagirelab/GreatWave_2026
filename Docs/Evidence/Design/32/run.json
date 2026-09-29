@@ -1,0 +1,713 @@
+{
+ "schema": "GreatWave.DS32.run/1",
+ "number": "設計32",
+ "generated_utc": "2026-09-29T15:22:05+00:00",
+ "machine": "Windows-10-10.0.26200-SP0",
+ "python": "3.10.6",
+ "numpy": "2.2.6",
+ "opencv": "4.12.0",
+ "ffmpeg": "G:/ffmpeg-2024-12-19-git-494c961379-full_build/bin/ffmpeg.exe",
+ "commands": [
+  "py -3.10 -X utf8 Tools/GWWaveGen/ds32/ds32_user100_register.py（この実行では回さず、前の出力（SHA-256 は outputs の ds32_user100_registration.json）を使った。単独で約 103 s、同じ結果を再現する）",
+  "py -3.10 -X utf8 Tools/GWWaveGen/ds32/ds32_claw_list.py（9.5 s）",
+  "py -3.10 -X utf8 Tools/GWWaveGen/ds32/ds32_claw_figs.py（3.9 s）",
+  "py -3.10 -X utf8 Tools/GWWaveGen/ds32/ds32_fix01_figs.py（1.1 s）",
+  "py -3.10 -X utf8 Tools/GWWaveGen/ds32/ds32_ids.py（16.1 s）",
+  "py -3.10 -X utf8 Tools/GWWaveGen/ds32/ds32_ids_figs.py（18.1 s）",
+  "py -3.10 -X utf8 Tools/GWWaveGen/ds32/ds32_ids_indep_check.py（7.0 s）",
+  "（まとめて）py -3.10 Tools/GWWaveGen/ds32/ds32_list_ids_run.py --skip-register --determinism",
+  "（進行役の独立の検査：リポジトリの外の numpy。コードと出力の写しは Unity/Build/Design/32/indep_check/）",
+  "（記録）py -3.10 -B Tools/GWWaveGen/ds32/ds32_record.py"
+ ],
+ "scripts": {
+  "Tools/GWWaveGen/ds32/ds32_claw_figs.py": "aa640ce7b4471d1ecb43d16f17d8a787820832f6706ffae8d58617fa0bf971f5",
+  "Tools/GWWaveGen/ds32/ds32_claw_list.py": "e73df9bddf077f688d3dfd193679b7e78ae053448c44e2bc8467586ceaef38e9",
+  "Tools/GWWaveGen/ds32/ds32_fix01_figs.py": "a6872e8a4da5c99e79b5713f4281a90e31f4f32e3d7046fb948cdff951e0e1d0",
+  "Tools/GWWaveGen/ds32/ds32_ids.py": "cf20f950962ac8418afb48fda1bdad306cf92c3dcbaaaa5f90f98bd84fd4c72b",
+  "Tools/GWWaveGen/ds32/ds32_ids_figs.py": "3199d2f63933edbc79735be95deca92a9922abd06828df251fea0fa28e698f66",
+  "Tools/GWWaveGen/ds32/ds32_ids_indep_check.py": "f7b6c4a01caf35805a6ae18612978ddf036a0faee1435977473db2023bc6980c",
+  "Tools/GWWaveGen/ds32/ds32_list_ids_run.py": "642f9175405b91a2a9c1101deca321bc91f05328a56826ba2f9f173e179b7809",
+  "Tools/GWWaveGen/ds32/ds32_record.py": "029b6687504a36bdd21bfd285399e803273bfcb7b49e8ca31321ff3026a1f28a",
+  "Tools/GWWaveGen/ds32/ds32_user100_register.py": "464f6b90a359e7a0d06191b8be9d9e9ea77db4780912cbc5670d887e07ba7f21"
+ },
+ "scripts_at_pipeline_run": {
+  "ds32_claw_figs.py": "aa640ce7b4471d1ecb43d16f17d8a787820832f6706ffae8d58617fa0bf971f5",
+  "ds32_claw_list.py": "e73df9bddf077f688d3dfd193679b7e78ae053448c44e2bc8467586ceaef38e9",
+  "ds32_fix01_figs.py": "a6872e8a4da5c99e79b5713f4281a90e31f4f32e3d7046fb948cdff951e0e1d0",
+  "ds32_ids.py": "cf20f950962ac8418afb48fda1bdad306cf92c3dcbaaaa5f90f98bd84fd4c72b",
+  "ds32_ids_figs.py": "3199d2f63933edbc79735be95deca92a9922abd06828df251fea0fa28e698f66",
+  "ds32_ids_indep_check.py": "f7b6c4a01caf35805a6ae18612978ddf036a0faee1435977473db2023bc6980c",
+  "ds32_list_ids_run.py": "d507afd8bc94e30ce991f4421632dafc9d6c66e0c273533d7fccd41f8890305d",
+  "ds32_user100_register.py": "464f6b90a359e7a0d06191b8be9d9e9ea77db4780912cbc5670d887e07ba7f21"
+ },
+ "scripts_note_ja": "ds32_list_ids_run.py は記録の時に、決定性の検査の 2 回目の出力の置き場（会話の作業フォルダー）を Git 対象外の Unity/Build/Design/32/_det へ変えた。処理は同じで、出力は回し直していない。scripts_at_pipeline_run は修正01 の後の実行の時の値",
+ "shared_modules": {
+  "Tools/GWWaveGen/ds30/ds30_checks.py": "24b1ff04c8e0ccdd5f9f3d49d87a72a3de6840b2d2974e2d056c40fa47224634",
+  "Tools/GWWaveGen/ds30/ds30_sea.py": "2a778cc86ce0ec739562b848c2ab2096db3988f916441fe2f66f01ce64d17133",
+  "Tools/GWWaveGen/ds31/ds31_white.py": "2954da25151296d71513e56f1dda155c4586fe366d466ea8abc229b7a4550d4d",
+  "Tools/GWContext/af27common.py": "4be716d44a027229032d6281c77fb50f0f71bf208e6a78ebc288a2fc8fef8e12",
+  "Tools/GWWaveGen/ds27/ds27_player_ref.py": "97459ec7e8ec82e8550085e8b0df00d1abf830c99bb760003850b350392c3fd5",
+  "Tools/PaintingTruth/truthlib.py": "a2886d5de2c1fac36d702076a57e0630db234c988fb413a70ea50beab6d1f0e1"
+ },
+ "tools_at_pipeline_run": {
+  "python": "3.10.6",
+  "numpy": "2.2.6",
+  "opencv": "4.12.0",
+  "ffmpeg": "ffmpeg version 2024-12-19-git-494c961379-full_build-www.gyan.dev Copyright (c) 2000-2024 the FFmpeg developers",
+  "os": "Windows-10-10.0.26200-SP0"
+ },
+ "inputs": {
+  "Docs/References/Met_JP1847_DP130155.jpg": "cbb9988f2f18b9180a1cc0cf5dbb0e3bbf8f2e85d17930cf6ca9ab36fac36303",
+  "Tools/PaintingTruth/claws29/claw_inventory.json": "1a0af1fda3e90c42c64a890d30fa52afd6c9f21c5e0878159a2dbc73dc8f2615",
+  "Tools/PaintingTruth/painting_truth.json": "392860ebeff76a7249056fc339b15e853c0155937efa4feee125f8f974f01c0a",
+  "Tools/PaintingTruth/manual_annotations.json": "019ae34b8f4de577f34253465554b723f9e1fb3e5433fb77072878937e962a49",
+  "Tools/PaintingTruth/targets/palette.json": "2e550bf3c60eb16ef5d4a37e35c315882a1a05dd6accb79bdea3f5f3f7a90056",
+  "Tools/PaintingTruth/targets/main_wave_outline_envelope.json": "39e085da821ea453ef4549d00cde074086c98a5f6bf9919425beea82eba1eb00",
+  "Tools/GWWaveGen/kstar3/candA4_band_targets.json": "3767f6214a893506447854444dac98f0e4d0eca34d5316a7d61cdcd0ee0691ba",
+  "Unity/Build/Design/31/white/hero_pkg/ds27_keypose.json": "c20ac1cc62077ca84c9aef92678bcc6d8a1ad2d802de64a96fb950b5b18aedb0",
+  "Unity/Build/Design/31/white/hero_pkg/ds27_pos_rgba16.bin": "af08cd4edb8a287551cae2ac8c60af3c4c33bbb39088807571475dc973d85974（keypose.json の値）",
+  "Unity/Build/Design/31/white/hero_pkg/ds27_pos_lo_rgba8.bin": "99a29d6a74b595372211120db071fac12d9f338aa14107df921d667d67a83153（keypose.json の値）",
+  "Unity/Build/Design/31/white/hero_pkg/ds31_twhite_r32f.bin": "5ffc93def0174c953040f0a69088be7856820f1ae9eb7c90b312594d4099f39e",
+  "Unity/Build/Design/28R01F/F_final/timewarp_F_final.json": "627815c77afc63278c885335bbe6c51178896184559ca30845cf05f23c634a7c",
+  "Unity/Build/Design/29R01/bake_kp/bake/af28r01_uvwarp_a45.json": "fbd95c900f1e7b84ada6e2bffce4298fd94412041a6a1309d656893789e44964",
+  "Unity/Build/Design/29R01/bake_kp/bake/af28r01_uvsdf_a45.bin": "69c0b26d5e0129598aa19ca8365fa590af9a81c282e5fef8298409fac8470d1a",
+  "Unity/Build/Design/31/spray/ds31_spray_table.json": "79ab20ca3c5d63d9fb1eaf47c2393860e848815e7132d6e64d09f1bd8009de37",
+  "Unity/Build/Design/31/spray/ds31_spray_frames.bin": "9db0a42811aa2c72f1cefbf8b80386f2e919a8b80fe65f7e91dd6a60c9b25c5f",
+  "Unity/Build/Design/28R01F/kstar_final/kstarR4_a45_meta.json": "b8d6752bdf1a4df8106ffe7e3a96addfa9b04d2c9cab1cb71f4cf7df0ad7f943"
+ },
+ "user_read_only_inputs": {
+  "read_only_ja": "G:/research/爪形分析（Q8・D14/D23 の読み取りの例外）。画像とマスクは複製していない。SHA-256 は ds32_user100_registration.json の sources と user_files_sha256",
+  "points_csv": {
+   "path": "G:/research/爪形分析/final_100_claw_structural_points_v2/final_points_long.csv",
+   "sha256": "39474fff9dbd20f42436a0990d47bd0ec56d41b90e3d53e33d04484aae75c539"
+  },
+  "index_csv": {
+   "path": "G:/research/爪形分析/final_100_claws_centerlines_from_fill_masks_v3/index.csv",
+   "sha256": "a1958245b49ffdc76e832a582a2426a12d5336843fd2df669b3a915eb81ee8de"
+  },
+  "files": 100
+ },
+ "user_files_sha256": {
+  "path_pattern": "G:/research/爪形分析/final_100_claws_centerlines_from_fill_masks_v3/<claw001〜claw100>/original.png と fill_mask.png",
+  "note_ja": "読み取りのみ（Q8・D14/D23）。画像とマスクは複製していない。値は ds32_user100_registration.json の user_files_sha256 の写し",
+  "files": {
+   "claw001": {
+    "original_png_sha256": "787e5b03751684fd92c51b6f80cde2b0dcfd6ecc994b089936e2ab1ab1d642bf",
+    "fill_mask_png_sha256": "c962c0b68f6d39f2f5108f04650537e871f6e5c3f7e119d43fe2e96f8f61b280"
+   },
+   "claw002": {
+    "original_png_sha256": "d86b31d340be70b577619ca24f30fc4b2d57c4ef78b8792f81dda2ef57d62064",
+    "fill_mask_png_sha256": "3788e0fc2fc17278f6d3d8f8fee72382ecdda407f9f7db91eb168b4219bd6c59"
+   },
+   "claw003": {
+    "original_png_sha256": "2f8d1e732238406d665159af9baae43c67aaabb1896808070bae7397a15f179f",
+    "fill_mask_png_sha256": "54a4f1dac79da6a7e896287f9946ee15051a6ddc13b75a78c825f21c164ddeb6"
+   },
+   "claw004": {
+    "original_png_sha256": "883dfd686acf66379f9e9f527595b00961f876b4c9abdbdd1766a2a1ee3dc5b5",
+    "fill_mask_png_sha256": "b6b2329660cb2b0adf46a7d091c5e934522c9df1fa2b014bf4dd61d671e17001"
+   },
+   "claw005": {
+    "original_png_sha256": "828ca56e1ab5915b3e04d700f4fe79ff890077e0dd419abae8812a1b87802c75",
+    "fill_mask_png_sha256": "d8d9c8067e42c62b0e1df4cb8ea9efd61260fbc0a008d375624634e984aa4cd3"
+   },
+   "claw006": {
+    "original_png_sha256": "d07166cd4b4caeabecbcb74b892a73c1fdf2f58b9df53cc3b34f8ea65016aab9",
+    "fill_mask_png_sha256": "5cdc8319d7a8d9e5cff69051698600940cadf821c6bf8416a65c94f6182bcb50"
+   },
+   "claw007": {
+    "original_png_sha256": "71d54659c85f96d0d7276458a2a1803786bf864d6040423419d2bfee2bd48295",
+    "fill_mask_png_sha256": "e0bd1afa2479473fcea268996b3fff23fa84a4422507574512ecbf6460542fbf"
+   },
+   "claw008": {
+    "original_png_sha256": "a4673c4da98d91e93ae1f95a415256e6ebf6a8e96b9821fcdda8299562383d7c",
+    "fill_mask_png_sha256": "537561f27c0906605efcfb95110eb78252606578e36ed798ea16927df7928a07"
+   },
+   "claw009": {
+    "original_png_sha256": "d11babcd1cd23243c2ff070245ca44eae619bafc2ecafa927584421e2cabd484",
+    "fill_mask_png_sha256": "537e1de428d43da041588be602d564cda039309995e29dd01a9208bcaa1f7a2e"
+   },
+   "claw010": {
+    "original_png_sha256": "f10fe789d501262541492b8882ff45ffd307b390a1941f60f4c702a21c0d5a8b",
+    "fill_mask_png_sha256": "cdf6ca5d90d86c8255319acad8889f54dcb89c189f00b80c32fbed8095ce51bc"
+   },
+   "claw011": {
+    "original_png_sha256": "bdd9c34f6d1a9960c3ff9620d60a78778d0776ede74a2782df1d3c7d1469b64d",
+    "fill_mask_png_sha256": "6a63e6c668c79281ad6ee0bd942e0852f9e95806eed202ae99d90d31d9e50e8b"
+   },
+   "claw012": {
+    "original_png_sha256": "8e5671107d4d7da4ef224d5c06c1ceb03df0c1367e4444d5b99438d87b293126",
+    "fill_mask_png_sha256": "9b1da42865e1359488dc6869658875b6353c4ce896b5b45e1e948b07c57e7437"
+   },
+   "claw013": {
+    "original_png_sha256": "7efc2496b05e34a4281ff3d3d2c550248a403f7ce2268de8956f555650978c66",
+    "fill_mask_png_sha256": "0568f8ef6224ec686ad4a1177bd5401c2eb37e1828f0334fdf6946aa9af395b6"
+   },
+   "claw014": {
+    "original_png_sha256": "88ecf97c53b5cfb2a37de247f8c76d3d9b3fd544c542ec71db23f48f0a454037",
+    "fill_mask_png_sha256": "3233f06d37110430d6d94e2810e27a07843a59a6b9fc87edcb84fb0b2cf3b146"
+   },
+   "claw015": {
+    "original_png_sha256": "622d6a4dc71670b3ee6c24a8238795693200e6df2b63738262503cf244a8183b",
+    "fill_mask_png_sha256": "43ce6966c88fffee84ccedbdff5e856d213d4a39d6a5a7c335950d7cbce584bd"
+   },
+   "claw016": {
+    "original_png_sha256": "4d25703c8d85b00120d5708d2513c0c3b931782f3a091af7e343545d61bb3e63",
+    "fill_mask_png_sha256": "19bbb2260ec6c820f08502bc8f6f5ba4cff6a3526c672abb42aeee4757be1639"
+   },
+   "claw017": {
+    "original_png_sha256": "986c44ab1a4a847bd9e7f319ddd1730c96d7ba6d74a0e4cb7fa8f1f2e73698eb",
+    "fill_mask_png_sha256": "27d9e94a0846a604ebeab4f42ef7259b840c31f0500e71cea88b6e7a2d3f06d5"
+   },
+   "claw018": {
+    "original_png_sha256": "3ccfe625ef948b8b98ddc888a8ef23a715f781447396b1f18462f8602721d207",
+    "fill_mask_png_sha256": "2047230896f8f5090b806a631c3616e64028cc00b3130bd92b8dde58f5694e0c"
+   },
+   "claw019": {
+    "original_png_sha256": "7df2a236a1b0f9ce13b703089ed0c1644011d7d6df01d0361a3dde1dea7ce1d8",
+    "fill_mask_png_sha256": "9cabdf9896d29b9cf76db51c37a485c5cfb4ddd51ef7ad4930d634e0b31d27c0"
+   },
+   "claw020": {
+    "original_png_sha256": "483f3bc836e73a9a6f490a27150a48aaee7a0568f13557fd06fb2655544a702c",
+    "fill_mask_png_sha256": "e6e1ee3367958bc31b2a79356442babf655502f5668ad9b06f0b8486483cda7c"
+   },
+   "claw021": {
+    "original_png_sha256": "c4cfe631311e72876e58cfdfcd7e06c1cce0a79d4a9899277312333362613f68",
+    "fill_mask_png_sha256": "b2b6be6e2d51f1a81d5933b011b094cac219fe25aec58607d608140f1831cde4"
+   },
+   "claw022": {
+    "original_png_sha256": "6062c02098a1045b3a60483af8ed6ae16765f2978b79802368af0fe4ef52bc2f",
+    "fill_mask_png_sha256": "0f5089300a7e3720b8ac8376a5b66a76cd64f509bd7a1eeba0dd42ae0270138e"
+   },
+   "claw023": {
+    "original_png_sha256": "6c0e8e94de7b054bd15f67d8366164561128dcc083395c964e871c25dca4d9aa",
+    "fill_mask_png_sha256": "6418f3b784d67d41cbf6f42a8742182c024f53ea4b167bf3247e55f238095d4e"
+   },
+   "claw024": {
+    "original_png_sha256": "c24e1dba8c8a2b933b5a809c8cb82a83a2b4f87be7f18905eb8e6f04c8dbb1e8",
+    "fill_mask_png_sha256": "5bff87e4d834783bba49142075dcc695e9430bb6b1d5ce90b350323ccb066946"
+   },
+   "claw025": {
+    "original_png_sha256": "cd38535f4b3360b22959260d49dc0b63875953d2cc1b1ed0b982572ca7168583",
+    "fill_mask_png_sha256": "3f17e89a4dbba62ed9b2d1c689957a2d4c1f048f07fd9aefb7f5e2e9a1a18f7d"
+   },
+   "claw026": {
+    "original_png_sha256": "80cef0d828b7893066d8e0b75da667ff00144d3fa914bf35994533f9e9ebb685",
+    "fill_mask_png_sha256": "af002f3a43777ff45cf1f53fa34b610fced9b8453832ca7ab3e0f05af6d2f4ce"
+   },
+   "claw027": {
+    "original_png_sha256": "54070052b7c0a44010381ab8ef0426725e6e2be56e460d91f1ccf15b6d70addb",
+    "fill_mask_png_sha256": "a894909fd07c9af95fb8f30289f12b885a1d43989c9f4af301ae2b03fd0ddf4e"
+   },
+   "claw028": {
+    "original_png_sha256": "fba82ee1afec03d3ec6ea380b9cc36ee9a804e02785864b4f1577fcbde507b65",
+    "fill_mask_png_sha256": "15ceb69216a8f5702649655b2eb359b4be972e764fdd5c7063035c06a2d98f12"
+   },
+   "claw029": {
+    "original_png_sha256": "e605313d156eac8ae312814816d63404e7db818194d3bc522c8ebaad07b9a9c6",
+    "fill_mask_png_sha256": "0cc612cdd2a79a4db3617894bf2aa6b631a23596764aa9dc4ae6a2addeddc04e"
+   },
+   "claw030": {
+    "original_png_sha256": "8c5e6203734cd01b16d804e459b8168136c0aec203c28fec855a632df19786f7",
+    "fill_mask_png_sha256": "d8ea099d11ec8af211d0216454a83473210688d7cd730372f2e011686e083533"
+   },
+   "claw031": {
+    "original_png_sha256": "08b55a3e3d00ab01d380952df7545b4c7fb9c8e497580a62b0b4775dd264743f",
+    "fill_mask_png_sha256": "b1bef03c5edd4f2f11f08248012b9d67e944901db03a7edac8608926064ea1b1"
+   },
+   "claw032": {
+    "original_png_sha256": "686c4dbd9e050eb1890b758a7a8e7d355d52e834bcaed061a5d9ddb388939a3c",
+    "fill_mask_png_sha256": "72f07cab3895b988fc735f766f9e1c11fb60ac73a8670778d888be42253822e4"
+   },
+   "claw033": {
+    "original_png_sha256": "0c3fa1574971e92ab2d4cf2f74f168b6f4083e182c7502353dd73f8e08b33872",
+    "fill_mask_png_sha256": "724924784e1c4e9f50e0dbf466055e670c621f32f31bb0ceeb91f84e1a0a736f"
+   },
+   "claw034": {
+    "original_png_sha256": "83b90f1284f9ee3eb40aa434f46023c44d75136b2b059ff2c0ce9433da09c2cf",
+    "fill_mask_png_sha256": "96e8a4d8d1ff2bfcff4b78f0a4b1eb158d0379047c2e6e01572c26d2ed7cabb4"
+   },
+   "claw035": {
+    "original_png_sha256": "5d41dd95f267180e14617b654e19db54b4152879d3429ed2be97495d6d0203ab",
+    "fill_mask_png_sha256": "5730e7e030cf72356c3f3202dde96deba081adab0dddc76b89f2b2659405496b"
+   },
+   "claw036": {
+    "original_png_sha256": "2796f2582e0460e3d802bdc6ef8069530b62396dba2b7dc98b6a6d61706e5ef6",
+    "fill_mask_png_sha256": "8c8c634ab49a422491ccce5119099bacd9ebb405d40013db561646716894cb5d"
+   },
+   "claw037": {
+    "original_png_sha256": "959f9afc787ed31937f36715bf85b8c3dedbf12bea9efab3ea3591b93c0d3bfa",
+    "fill_mask_png_sha256": "c8671c7949bf3d5d9e5f39e7769332c5f38e38524d2d7b5044a04b765d167690"
+   },
+   "claw038": {
+    "original_png_sha256": "0050b805c6ad3e27b9a7e9e3730c61e4eb437975ac9ad2c917ab59e4adaaff21",
+    "fill_mask_png_sha256": "e214e2395aef6c281f6055306db1a97dbb63172c49272ffbca75abeebba17938"
+   },
+   "claw039": {
+    "original_png_sha256": "c68ac2904a8d37dd244daa745bb09d01f69ff706c191aa8fe79d7d014309f361",
+    "fill_mask_png_sha256": "b05317aeff5292244dd0e7f85ebc98815796bbdd4bcc513bfb2b30795fa91006"
+   },
+   "claw040": {
+    "original_png_sha256": "a5f77ca166091f465813a4050552f421407ddd94956d72aac67764494ed9da4d",
+    "fill_mask_png_sha256": "84f08b3303f1b06af705f7d8190ce2d1d44f11b6b537075afdcf7357f2b8ea8d"
+   },
+   "claw041": {
+    "original_png_sha256": "8ea06643b02096a77eda62d5ea4425fb9c2a6749f19b25ad28384ecb3dc2b3f6",
+    "fill_mask_png_sha256": "3fa9fce7967b8de27587b1789ee30b4cc483b73c94d638f1bc0ff16114e3ce6b"
+   },
+   "claw042": {
+    "original_png_sha256": "51e2f09eda0dd999456a0e96214e4d4405bf76ef551d48db6648edb6cc48203f",
+    "fill_mask_png_sha256": "69e9d7e9b3cc89016e85aeb3b02791031258469c715bd6e5a95d26c2740493be"
+   },
+   "claw043": {
+    "original_png_sha256": "e6ff16b7591adedc9fadd6b332fdb9991912003b51154625ec8065e067d506a9",
+    "fill_mask_png_sha256": "0b8692378133bc482f635922928c68dc47d9b927deefcb5a63bad46dfd0b81dd"
+   },
+   "claw044": {
+    "original_png_sha256": "c9d3d38d10a93ad15709ee8a0bd6ec8476cf1213dd1ab8fb002ad3640b68d9ab",
+    "fill_mask_png_sha256": "66e8da930f2586ab56e6c8a4b7d945ecfc0f54dcfc480083a3c32dbab130f85f"
+   },
+   "claw045": {
+    "original_png_sha256": "e88c37926c6d9fce72dcc763044f037f5fb347651c1f4fa032993643c51c97e2",
+    "fill_mask_png_sha256": "7a238eed668edf3942607b1af1d507a4ffa57a193ab0d1abe8082aa202aba0da"
+   },
+   "claw046": {
+    "original_png_sha256": "3451b76637e76b1af1cf9d8ed7cb2048143d8316afb1d1a70672e5ad11fe1f26",
+    "fill_mask_png_sha256": "1efd24940e3ba035514f16ea1be8618bd4c922d50f3fd1dbddd8b69a553ad005"
+   },
+   "claw047": {
+    "original_png_sha256": "de26000a81e490bf3e78589a56168dc9e080a01c21e66eaa00892a1f977de166",
+    "fill_mask_png_sha256": "354ec2c7716f457d6a1d7d8c2f0436b5751d21f2b1aed0dd4a6e3be39d5ad268"
+   },
+   "claw048": {
+    "original_png_sha256": "638790e9046fc1c8cc6503decfffa4cc1041d33e10ecc6de18b7098a7026ea38",
+    "fill_mask_png_sha256": "f3b62d27e8f24f4fc37d4315343327b67add6b29b3a5d5cd32b255aafa2f7f68"
+   },
+   "claw049": {
+    "original_png_sha256": "a9ef8275426e8220027760df86a6b6080a534dc1565d4594197e9712fc1d0f9a",
+    "fill_mask_png_sha256": "c3603dd1f2d596eb63e6c423643c7bd4528d6eee86d9b9fa298d6989f3f1d211"
+   },
+   "claw050": {
+    "original_png_sha256": "eb4429fb9171042cd53cd2848ea598f0517769eff0938a4d4f026f3377335304",
+    "fill_mask_png_sha256": "8b0d9d4550c598c8295761e15be268579c4608d4904ad87cb185aa319eb1dfd1"
+   },
+   "claw051": {
+    "original_png_sha256": "c1a211c7f7e1604559d1609bc1d8bd7ebe36d0d4773dc418ae7208ef550d7da2",
+    "fill_mask_png_sha256": "c39635ac1132afc865cd1ccf103fad4f0bacc34e88c88dfabd9459a6627ca372"
+   },
+   "claw052": {
+    "original_png_sha256": "378f553964cdba9af27d7031454e521e20b518c556ded3060099c6155d99dea8",
+    "fill_mask_png_sha256": "c58363daa2a9e968c9e7e3af2ec7a02b5e012369a0633ef81a09578612467103"
+   },
+   "claw053": {
+    "original_png_sha256": "dbfc6e89e04c1856c718e4e6aaf9b2a09c0cea49faa4e75a725a3b1fc8942715",
+    "fill_mask_png_sha256": "212d8d8ac977fa4bc09622dfc552a47a4826da79618b022e2c1fddbed21bd6c4"
+   },
+   "claw054": {
+    "original_png_sha256": "b283056306549e195592b1fc49b881d753d3c3c470a6c7701cf2dbb862955da6",
+    "fill_mask_png_sha256": "51789b3603eaac90de22bf451c405935521b71d391636e2fee174e331b7f85be"
+   },
+   "claw055": {
+    "original_png_sha256": "e2f2be1daf921c24c9b337b61d8928bc72c41b1a8ecfb126ab97f09e3a21c9ec",
+    "fill_mask_png_sha256": "2c58666c83bfab3d152b80d7efe7d45e44760430bc22c15403096ffde6009956"
+   },
+   "claw056": {
+    "original_png_sha256": "ec69af8620be78f50a9282bfaa55f8c16dd2f5900df5a7fddf0c8429c964232e",
+    "fill_mask_png_sha256": "2daa7e391bc144fd54eb7509c89b987e01e9e4f19d67814c16b8dfdc3aa9c29e"
+   },
+   "claw057": {
+    "original_png_sha256": "6bc9bc75dcd4745372b9e8b4b193d21a83c2f319c7446e329a8d5d4efcb48d97",
+    "fill_mask_png_sha256": "4cce6a11ab73d222c4562c9bfabe49c8de68a3ae16a94c17795ff3eabe68377f"
+   },
+   "claw058": {
+    "original_png_sha256": "f224e4dcebe522ba9356a89b555d791d2711cf2c974b7ecf2d07d1e33264c73a",
+    "fill_mask_png_sha256": "0288d9b86c1cd27c2062892d349916986bfc45bb6eb90204f9edc69494ebcf1b"
+   },
+   "claw059": {
+    "original_png_sha256": "725d6c99fd27520fed63b20e8b429f7b98aabf289bb0ba52a9eba4ca5bd00719",
+    "fill_mask_png_sha256": "73b377a15a0bfec6de9b274fcc3f880db5e3e5e6aae37c737070add2e84aa329"
+   },
+   "claw060": {
+    "original_png_sha256": "ff9591e045de5f4eb050af08f3957ade00d9bfd71f25dacce3d6e5f21d128f1c",
+    "fill_mask_png_sha256": "cbd3dcc288e097c1253f3fd4017404ec8a404c9955bff6f34677d6e8b607af58"
+   },
+   "claw061": {
+    "original_png_sha256": "bdfb748faec7f2f8618a674396e1e03ab172babd820fb92a417ffd0bce27932a",
+    "fill_mask_png_sha256": "150f11f1b2a06ef2b6044ebf76f719a83ceb8addfc5bfc5348c588e281be61f3"
+   },
+   "claw062": {
+    "original_png_sha256": "8976dab0842ec6df99e814c47a22d5ca3555911571729a4b102d8892c5a11243",
+    "fill_mask_png_sha256": "e2fcd42bc4b43fc30091aa53c0025e5f11bc0a6a1f1a076d40070b6c6dccf5c9"
+   },
+   "claw063": {
+    "original_png_sha256": "df36a14084df7fd74908edebe85adcc4f1c7246e25fa993d05bab98a0df9c9c5",
+    "fill_mask_png_sha256": "8460e4855363f99d96039a46bef9da9febc0304b13116f2368dd28649076b616"
+   },
+   "claw064": {
+    "original_png_sha256": "a10ead635be9377ec5aae33c3bcc9a7e26135afbe4fd10eb8fc294a18c9ef8a3",
+    "fill_mask_png_sha256": "a5abc717eed9f0c46052c937df7910462ffaf18594b7f32dd3d83f081eeb480a"
+   },
+   "claw065": {
+    "original_png_sha256": "16b3cef240c25e2c4dd524fd5020163e39b398bc17dfe6dfe378237c2c9485b5",
+    "fill_mask_png_sha256": "d5f53aebf05ba95ff5bc5f81af95b4c68d63bc7f05a352e726660c9246f21447"
+   },
+   "claw066": {
+    "original_png_sha256": "54ee2c7ea9df7130ac17c25473d738815841f456791da74152654482ffc75f62",
+    "fill_mask_png_sha256": "05dbdcf1fca7168667bd33367468f1e2ba2bcca9ffe0390a2a721686005c8bbb"
+   },
+   "claw067": {
+    "original_png_sha256": "f4c8aff3417d2b6d286a28b3fc1a7f0074933d245f6fd86a87509e22569204a4",
+    "fill_mask_png_sha256": "0c93be3ea586d699be4d25a7fff33c9600f0d4e71c2408c053c14fdd216c4e9f"
+   },
+   "claw068": {
+    "original_png_sha256": "bc0fcc3bf1b589c7d16c13832c1db5a0624a90832cde3d8fdcd472b09e5f81b7",
+    "fill_mask_png_sha256": "7a1c69c8269bb72409003cae7e3b3ee29af76040df96a7ba92d098981f27ab56"
+   },
+   "claw069": {
+    "original_png_sha256": "8272a40f98c88a899337a8ce1756d9b903b0f1c10114f1ec70f9fe5b1c03234c",
+    "fill_mask_png_sha256": "e8f0bc7e80eb7b6a86e5920ca0d28aa97105e08621e9a828049a1180c3fd7f57"
+   },
+   "claw070": {
+    "original_png_sha256": "ac4eb54fa8d70e21a6ca10b827e0ffc5f9ce5fa7872cb3e12023ca1db7067b21",
+    "fill_mask_png_sha256": "1372388b931a83e0d6fd158b49bbd782bf981aa5a8e86f59eb3c667750bdef55"
+   },
+   "claw071": {
+    "original_png_sha256": "cee36bcd723e99334c945b99f95c603ed6e8261d20fe5a8d8a5f2327c7ce6b2b",
+    "fill_mask_png_sha256": "0584bea87e13a2d07315d62cf5bf62496ae120060eea29ff390b74284adf596f"
+   },
+   "claw072": {
+    "original_png_sha256": "67b6b0a61288d6ca501ab941a10a37cca2a026b49d87ebf409a46e9fa7079aa3",
+    "fill_mask_png_sha256": "77a9d2ccff028dd6dbe5ef3d226858e5c20f5b69dbbaa65eafbc3728a25f72cf"
+   },
+   "claw073": {
+    "original_png_sha256": "74e94e071f0cc15c5dbf6c56ca9641073178f8c44d64d735cc2c62c2daef1592",
+    "fill_mask_png_sha256": "5cd34f4cebb065d43d94a22b77a2980114ef63d90529a5155fece3af635b3a9e"
+   },
+   "claw074": {
+    "original_png_sha256": "bd1c89596784f1fe07ce69e47a797e7b220b65374e163e6184a74a1b400b814b",
+    "fill_mask_png_sha256": "4fb4e85e9d8d3848cdcbbfbdb0981ec7f2923a631f8fded000fb9c23f3dd4abb"
+   },
+   "claw075": {
+    "original_png_sha256": "91c00759a14978393d7c10a77e42f6af99541bbfed0f77051e1582fed4e1d810",
+    "fill_mask_png_sha256": "629ab27ca0e4f5dffc627d322dc98ef8bfdad006904cabf676a03431ac527c1d"
+   },
+   "claw076": {
+    "original_png_sha256": "8272a40f98c88a899337a8ce1756d9b903b0f1c10114f1ec70f9fe5b1c03234c",
+    "fill_mask_png_sha256": "e8f0bc7e80eb7b6a86e5920ca0d28aa97105e08621e9a828049a1180c3fd7f57"
+   },
+   "claw077": {
+    "original_png_sha256": "094364363f43ea73bfbf1303af9e9dec4ecb30396140ac0631bf4559a66c4ad9",
+    "fill_mask_png_sha256": "00875e74681c44ac0dc620854960168b69ee329a1dc08025055dcb064b436c44"
+   },
+   "claw078": {
+    "original_png_sha256": "0969542301578c9e7a9de0a2f8bc45e030f7ddf9ad21c2576278c2915d6a92f2",
+    "fill_mask_png_sha256": "84d8b87064316219cc557b25dbb7bbd07cf10c418173fa46af612a5657b69e90"
+   },
+   "claw079": {
+    "original_png_sha256": "2dca38c9c4f7d34328bc657e27e3003243a81beeccbc1b79306c07db8860a649",
+    "fill_mask_png_sha256": "c3d0ec23a2838ea0e06aa0622baa7a0676af2c83f2a0312704eb61a3b97cd29c"
+   },
+   "claw080": {
+    "original_png_sha256": "15338f65ff7ca54eb541cee38d2ad2f1acc64e3fe044d2310b7b0d98d5d86901",
+    "fill_mask_png_sha256": "b2fd873ec78a4f830608922d204ec9b221c5d55eea7e62629f414d1f4536ba9c"
+   },
+   "claw081": {
+    "original_png_sha256": "59bfdae7bfb34407cd019bec8061f4ae2898d8c090b166827078b2aa604f575f",
+    "fill_mask_png_sha256": "fd644429374e1cda163ba05e4a5429afcbe75158bee05110841e4bc3c74b06cc"
+   },
+   "claw082": {
+    "original_png_sha256": "07ac1d87b3ce0425b878942d979003e7724e73ffc781b5b2e3b3f4898b8a1ce4",
+    "fill_mask_png_sha256": "c8992853e65caa8c1d2bcd63781aa65b6764ef2c2e773557148b51c180811e58"
+   },
+   "claw083": {
+    "original_png_sha256": "9f5a603dd2a08bb4d97e5128da5ff6c55b993022fa5399c44034d5afc9483d71",
+    "fill_mask_png_sha256": "ff33c316fa65e91a99bd9162825a90eda810a75712afa47a42d4f0944ac15d6d"
+   },
+   "claw084": {
+    "original_png_sha256": "63078a276f21adf2f1c4601431128cd564707c9f4f5f6d36cb1134043c288a1b",
+    "fill_mask_png_sha256": "067aaa759267e6bd3a4d66e4b8aaf4852c60ff23dc04d608f024518f46608928"
+   },
+   "claw085": {
+    "original_png_sha256": "2762a3745cd47431b1be0d5e028266531268a8920b33688bc377bc8660403c24",
+    "fill_mask_png_sha256": "fe9f6cf9f0c0939e7843ee97a762a094cf4888326d371ba3c8e0f0c024802f8c"
+   },
+   "claw086": {
+    "original_png_sha256": "b5d41d48ef2c4c570d74db3b18f043327c08fa9c3ffb384e1cdf0c041cd330b4",
+    "fill_mask_png_sha256": "be1f6710ceb22152ef29b6be7567aae120e00aaaaba1113d462d724e2a680c26"
+   },
+   "claw087": {
+    "original_png_sha256": "63c21e65cc08a4bc7eaa39be89f377b3776683d7070ee68649ee3389160b53ff",
+    "fill_mask_png_sha256": "6bde1332af6d8f56c1b5dad529c861142c14498ca5d19b4a24af1adae0679ce1"
+   },
+   "claw088": {
+    "original_png_sha256": "0f92ff53b918156d5edc537dd7583bdf2dac71f6583e02abb30fdf20c3cdf13a",
+    "fill_mask_png_sha256": "967677164a4878bd254babe4f3cf7126715efe3e79d1f0f69d1988a72ed6ce88"
+   },
+   "claw089": {
+    "original_png_sha256": "137efa1d3e4e32c8b15f7b671837758738c35afa71c085855a64b9d46eaf6bb4",
+    "fill_mask_png_sha256": "666b329d1763b2e9206fb1841276084434c1416af8f986cd305bcd2b2781a7e1"
+   },
+   "claw090": {
+    "original_png_sha256": "e75dbb630c3c96528866e8b14683a0b311d24dbf68a8c62716002cd301c645d2",
+    "fill_mask_png_sha256": "13812f8fdfa0039eafab0e355724f1dc865b4d2970eedab8252b99cb2b219814"
+   },
+   "claw091": {
+    "original_png_sha256": "76d9783c0b3880c06418d618e3d0a9c68cd4e3c2e4621710b74549f867a4728f",
+    "fill_mask_png_sha256": "787ee61ca2fc8afb313a7b5b5c8122052cae76e33d33e16decd7e0b64e14a37b"
+   },
+   "claw092": {
+    "original_png_sha256": "01a8ec967b1630af4adacd30050ffc69809bb0a080adf13180796dd1b9229660",
+    "fill_mask_png_sha256": "911f4e0c4daedca6f1c8d7386a6e86ad4422ccfb48b780776871219154e5019b"
+   },
+   "claw093": {
+    "original_png_sha256": "96e82855e255188a81dae96a2e17a17f5f43734e9eff5f33c2c24bea8d80c8d0",
+    "fill_mask_png_sha256": "47053e91c57fe80318a054862b570b3f365e4e8a8137772c004834f9324446f6"
+   },
+   "claw094": {
+    "original_png_sha256": "1c9d6b493e645f797516cd0134b56fbe89a6583bad463643d853d674bbd380e8",
+    "fill_mask_png_sha256": "107ffc2531e68ba803e8ed18e9d66677eea511b27929fcdaf7eb74437891b01f"
+   },
+   "claw095": {
+    "original_png_sha256": "1ae597be19e7965dcbad19f319fb593f92aa42db4941eded0b9d761d61c138b9",
+    "fill_mask_png_sha256": "a263449d8833041298b2059422a9a267a8445c9a2375874450afd854edfed387"
+   },
+   "claw096": {
+    "original_png_sha256": "cfa53ee908c72edc6103c88dee7b786bca35541502003ea8e3d4e115d4d09846",
+    "fill_mask_png_sha256": "48634ca4837c575639aa5b7241efff9bad0d0f28884359f4966c3c92b94310d9"
+   },
+   "claw097": {
+    "original_png_sha256": "8658b9e4812cb227c8094e3d1774501a27762334c2e5c5898cbe20a0a515e4bf",
+    "fill_mask_png_sha256": "5a1b1a2c966d3d0fe9cf21aa833577cbd5dd8c33eb2259ea3c34962c4b1ee6dc"
+   },
+   "claw098": {
+    "original_png_sha256": "a491fe46d52a9b0fc924073acf93687ed9e3eac9019da87aafb1634faf128590",
+    "fill_mask_png_sha256": "b71a062203e39b54c7a768bfbaf3c473d3af7995c6cd4199c932752754216ecd"
+   },
+   "claw099": {
+    "original_png_sha256": "6ceadb69cb38886de561038fe219625cd1da64394f3b9fabe6da066dc48ec6af",
+    "fill_mask_png_sha256": "0e648610a83c7ed2c41d3d61f0153a5506949490bfc1440217c6f3286046159f"
+   },
+   "claw100": {
+    "original_png_sha256": "7da1f7e7e3ae76249e25adea4ff6d2db23ba0712e42a60b9e2b1ec20b8b23b23",
+    "fill_mask_png_sha256": "2744d875e16a5bda2252e107524c63bf40e6039293d5a57d24c97b40b1c54189"
+   }
+  }
+ },
+ "claw_analysis_readme": {
+  "path": "G:/Unity/Ukeyoe_Claw/Docs/Research/Claw_Analysis/README.md",
+  "sha256": "09ae4ef72d0be786d5ea6d40abc26d70bd5037effe22d40b5a223b7ab4ebc7aa",
+  "note_ja": "Q8 の例外の 1 ファイル（読み取りのみ）。爪形分析の説明として読んだ"
+ },
+ "determinism": {
+  "ds32_claw_inventory.json": {
+   "same": true,
+   "sha256_first": "1c734d0ecbceabd9bbafbfed43099e5acaa781befe6de5c208dc944d3d9b8fba"
+  },
+  "ds32_user100_correspondence.json": {
+   "same": true,
+   "sha256_first": "fed2caf58c9fb9b0158929098318b00194ab43c4926a1b5b6cf49fc23a77a274"
+  },
+  "ds32_claw_list_checks.json": {
+   "same": true,
+   "sha256_first": "81f1a3764cc31c34d7d7950a2f816c76815ad405be8b50a31aa4dd5d1c981451"
+  },
+  "ds32_id_checks.json": {
+   "same": true,
+   "sha256_first": "3e68391f5c8f671e23d592e078fe0d4dda343967a091820946d83d0c3525fb8a"
+  },
+  "ds32_claw_hist_f32.bin": {
+   "same": true,
+   "sha256_first": "4196572a736b8e3d05cece9c7f04322d1d58cf521c7aa5872aa07f1ae89a66a3"
+  },
+  "ds32_group_hist_f32.bin": {
+   "same": true,
+   "sha256_first": "85763c37082c32d4fb83d75e40a18f182fda087ec01701470502e4b435a2401b"
+  },
+  "ds32_band_members_i32.bin": {
+   "same": true,
+   "sha256_first": "973bb4a093a9f4f53b287dc57ada3ad1177a2ab5f2a4b437646aa039206d8516"
+  },
+  "all_same": true,
+  "note_ja": "JSON は経過時間の欄を除いた正準形で比べた。bin はそのまま"
+ },
+ "build_outputs": {
+  "list+ids/README_interface.txt": "4c8560c5aa5062d469cdaa1d24df46728047ebd0ec90b88c637df2b16e6ba058",
+  "list+ids/ds32_band_members_i32.bin": "973bb4a093a9f4f53b287dc57ada3ad1177a2ab5f2a4b437646aa039206d8516",
+  "list+ids/ds32_claw_hist_f32.bin": "4196572a736b8e3d05cece9c7f04322d1d58cf521c7aa5872aa07f1ae89a66a3",
+  "list+ids/ds32_claw_inventory.json": "9b73086b72686afc17d5222407f97253ca55864e15e43ee2af613922f6b0df76",
+  "list+ids/ds32_claw_list_checks.json": "20b676a430ce4b7ce8ec5f7677964d6de25f8d4bde239b82c2da7b0d3bc86df8",
+  "list+ids/ds32_group_hist_f32.bin": "85763c37082c32d4fb83d75e40a18f182fda087ec01701470502e4b435a2401b",
+  "list+ids/ds32_id_checks.json": "27a48dc1d7413d0243d1c16b07d5b1bbe06b2858102a82a80fcff55bc5e5c6e6",
+  "list+ids/ds32_ids.json": "6fc81ea55a4c4f9ae80165f2fab64a719c0b8d00ba75926ad40a0c25afe4d887",
+  "list+ids/ds32_ids_indep_check.json": "1544e46721318fd7f3a700463546ee460b081eebfc27294efc3cd43df68e19c1",
+  "list+ids/ds32_user100_correspondence.json": "90762de01b58c6834725e426e891f8bf061589694d6988b5fb28d7971fe19822",
+  "list+ids/ds32_user100_registration.json": "a6fd0b71ba07767167173c14f95f850843ace88204af7919fc126aa0bf9636de",
+  "list+ids/fig/ds32_ids_30fps.mp4": "28b3b0cb32ee8eab354511f607dde83fd5f26042e4c33a98d940bc8a02f2ef3e",
+  "list+ids/fig/fig_ds32_fix01_c105_c110.png": "d5a0e79045447aca912f40d2dfff30d6692c0322bee559e566e2f9a4c59e9ec0",
+  "list+ids/fig/fig_ds32_fix01_c163_c169.png": "1b842d27a6e6f45274f49018193f1f232f5f10e9e2342efc3521c09859bdbb7f",
+  "list+ids/fig/fig_ds32_fix01_flags.png": "b4964e16be5570fcae03557b653659d396baee619431abe73dbb10c4910ba956",
+  "list+ids/fig/fig_ds32_fix01_truncated.png": "39d9902b8fefd516f7612e5a83af9a2e0e9d603edfb18458e2f6e06473c2d5bc",
+  "list+ids/fig/fig_ds32_ids_tracks.png": "dd6c5521ffabe3b746a76a83e509cd54b90eaccb8de71058ece7ee6f4a637b4c",
+  "list+ids/fig/fig_ds32_ids_tstar.png": "e311d95c124070463f65420d547b1646f1621ea155bd6ca975a1e44d55f7bebf",
+  "list+ids/fig/fig_ds32_named_before_after.png": "da015fbfead61941b13297937f5a0462736934cf4b67267c7d88f791570d589e",
+  "list+ids/fig/fig_ds32_rows_boat.png": "a81a00de971ad52d47fabbc9907f55df335740ada924a2fd4b11f3e3f2538653",
+  "list+ids/fig/fig_ds32_rows_bregion.png": "62441eebd41b1b6f87ac45de1237103aec0338322ea5e66ca31efc2f1d3a7292",
+  "list+ids/fig/fig_ds32_rows_middle.png": "c3cce5288ef4892d7044e0d0f5881e34f9108b84aff56108d1dba7b5b1162f99",
+  "list+ids/fig/fig_ds32_rows_right_untouched.png": "9f79b3d1cd24ee7cf68b7de4340e64fba73571182ab810c548c46f662121dbf7",
+  "list+ids/fig/fig_ds32_rows_upper.png": "26ddf008b93423d3a163460d6884eb380e7307d782d6d314407c889b8ab7b0cc",
+  "list+ids/fig/fig_ds32_user100.png": "c63d7282c6f4c731eb71dc618a277916f76dda96ef1b3dadb289bb3ce474009b"
+ },
+ "build_outputs_prefix01": {
+  "README_interface.txt": "8b5cc13638714ec18e71519dfd17204b7d81184c47b99607b7e562667d75d2a4",
+  "_hist_meta.npy": "76dd60567f7932bc05653e7ffc04bc3cb6b7b63de0cb330a5d6871c803f76fde",
+  "_regions.npy": "fd42d7708c4d86f2f706981ac1dada07f7cf43681bf451a9aec66ae8b55a0037",
+  "ds32_band_members_i32.bin": "973bb4a093a9f4f53b287dc57ada3ad1177a2ab5f2a4b437646aa039206d8516",
+  "ds32_claw_hist_f32.bin": "5cb493e91a00699ade73ed3592bd64c7e1e4a5fce2a1443179f247c8a5c6885b",
+  "ds32_claw_inventory.json": "94c2a22b941a5ba47b6243fccd1e9054d5cda8e2dc07ddaa3d8016a9bd604c44",
+  "ds32_claw_list_checks.json": "e6d57e7c1ac7730134153677d74ef2a88eb58dd1520a17c7ba984b79413caf6b",
+  "ds32_group_hist_f32.bin": "0e476b2cf0767447296b2aa1d8be998ec31f72afddfae92b8619536018e0687d",
+  "ds32_id_checks.json": "9dddeec28ce225e8d7861ccf1ea31fa680f773d5df5187abb55e23936c32bd1e",
+  "ds32_ids.json": "4a943b9fdf3370aace150f87f7b8261023d33d9e517ec1c18b31874e43525a8c",
+  "ds32_ids_indep_check.json": "5585936d5b2710f4c739d907c80b177f9eb617c16c3844e32c3c446b4508e967",
+  "ds32_user100_correspondence.json": "5f753c3cec455f2162a508febab21472b66b3321699491343dd1ab3c4533605e",
+  "ds32_user100_registration.json": "a6fd0b71ba07767167173c14f95f850843ace88204af7919fc126aa0bf9636de",
+  "metrics.json": "9ebc7cf637b57e1ef38877f042d4a39461d6c6a5d7b36b7fec58bdad3c9d9755",
+  "run.json": "85b77d50bd0b4101c655c727315b6f5bc24b847bbc61f085242839c0914e95da"
+ },
+ "record_outputs": {
+  "ds32_record_counts.json": "5b6c348b35d7196aa033a34be66c019815a303501b03b0391abcd9a57eb50040"
+ },
+ "indep_check": {
+  "crops.py": "f1dc41f6c7203795ae657a2161bb7b173b6bd717deb7e4765484fc6155d29bc5",
+  "crops2.py": "82e607b859b4fb88a929ff3f2fbafee5afe4fd3ff9d81911ffe8000aac021da3",
+  "grpchk.py": "5912e0cb4e824cfd4fcb76eec10e97e732a060cb08cad39fd188d78ba465965a",
+  "idchk.py": "e9b6fbb3fa148f34c6e32c9adfd87bfb05ab3ac4dad260a9c2d6a51eacce21ba",
+  "km.py": "bb9c9bbfb9885ca6b8f2c22bb693e7a9fd7c48b696e9104dd4c8650e7e2835ec",
+  "regstat.py": "913d9890914fd41d9368a453d6ce4654fa65209d14cbc8825aea4f25dd8469e5",
+  "shchk.json": "33f614f1adbc305981087670a2d915a26f24ddff8c14845637170018cdd1cca0",
+  "shchk.py": "0c3ff546cec424240bf8b03d140c64421154985bf8a5e30413aa511d7b9472a7",
+  "shchk2.json": "ea40b0b0fb0d527117b5b7813ba04f3e9c8efe2e8bc569a3f3f918f6f1e44077",
+  "shchk2.py": "dc109d45e3144f211a67d2a269e7d108061faa4b1ac6d8deb127389440a69e72",
+  "shortviz.py": "20f78e9b4c252abfc1d4a431b01170ac3d8344243b092ddaa6e08c802809aa09",
+  "shviz.py": "d1d81bfa895f5e383bbd20c16ba849b68b099e91f4821822748daf29dcff291c",
+  "shviz2.py": "c4ebda5701ca60a5fc718c99419fe4bae010844b0e5ede5f68459c79ce5b229a"
+ },
+ "evidence": {
+  "ds32_claw_list_checks.json": "20b676a430ce4b7ce8ec5f7677964d6de25f8d4bde239b82c2da7b0d3bc86df8",
+  "ds32_claw_table.json": "cb3cbfc7f8fd5ad97c776fa0cafc48e26c84ac6a6a96e5b6ba366d866a591f8c",
+  "ds32_id_checks.json": "27a48dc1d7413d0243d1c16b07d5b1bbe06b2858102a82a80fcff55bc5e5c6e6",
+  "ds32_ids_30fps.mp4": "c10d7e2bfcb32ebc971b65ebd131f2c3d3f44e7c7ff19c8fb2284e1389e0b55a",
+  "ds32_ids_indep_check.json": "1544e46721318fd7f3a700463546ee460b081eebfc27294efc3cd43df68e19c1",
+  "ds32_record_counts.json": "5b6c348b35d7196aa033a34be66c019815a303501b03b0391abcd9a57eb50040",
+  "ds32_user100_correspondence.json": "90762de01b58c6834725e426e891f8bf061589694d6988b5fb28d7971fe19822",
+  "fig_ds32_fix01_c105_c110.png": "1a0f05a10eaf67f42ce3d33cf7b4a113c9e5ea424d309c0a1f375916b7845f07",
+  "fig_ds32_fix01_c163_c169.png": "27132f2de563a9d3191e2920fb3749d57caf6d417d20280d485d7975c5add32c",
+  "fig_ds32_fix01_flags.png": "49e4e77ce4d4ac200fde2ec3a59c2b30d906c4cef7aad58b7199291bfcfe3e3e",
+  "fig_ds32_fix01_truncated_1.png": "de47bacd188edebaee20821d02b59373f2896dbe32bbc2b5c9dc8125e0317077",
+  "fig_ds32_fix01_truncated_2.png": "0da343be50582a8da7b618a8f3d5a4c56ca307614b23fe26c19c2d773b96d38d",
+  "fig_ds32_ids_tracks.png": "d7cac383e5d1cc818576a780e460adfc7b93a5155c4f4c4a5d3069c4dfcec84f",
+  "fig_ds32_ids_tstar.png": "acf5349f649d19f09f04d432097dc51b7a074b0076d4ff8972edea6d764e91b2",
+  "fig_ds32_named_before_after.png": "9c5bbd7d1314882cf61214f73c921c1e4490c5f341d1befa220f4f8b76de85c9",
+  "fig_ds32_rows_boat.png": "92a31824201be2ef45d40d885acb4c3177ec757cd6e96991bd5519419593f9d7",
+  "fig_ds32_rows_bregion.png": "f34371610a6b5f546007eb83b2c50e676b985fbf8cc15d593e3af76c28f4309c",
+  "fig_ds32_rows_middle.png": "8c3dcca9b2090d545ff205c67f932c581a5f196ca63fee48584976e442ae47cc",
+  "fig_ds32_rows_right_untouched.png": "09c9e03ffefbf7cfc2d39348ae43fdf0869b760c032c8d7b7e45da658ed16804",
+  "fig_ds32_rows_upper.png": "3e7e6727f08fb6f17bd6394e47964ddeb799e53c1143a27005f3c69937ee1073",
+  "fig_ds32_user100.png": "dc7b289217b8ed151f94a440bd788d4ed7fc440e2dfae4f79490f77f7320c0aa",
+  "metrics.json": "b523f4b336a7d0c25c5b85583121aa0a26103a9ea7d96700aa01f68a2d1e342a"
+ },
+ "evidence_sources": {
+  "fig_ds32_rows_upper.png": {
+   "source": "fig/fig_ds32_rows_upper.png（1920×1080 のまま）",
+   "sha256_source": "26ddf008b93423d3a163460d6884eb380e7307d782d6d314407c889b8ab7b0cc"
+  },
+  "fig_ds32_rows_middle.png": {
+   "source": "fig/fig_ds32_rows_middle.png（1920×1080 のまま）",
+   "sha256_source": "c3cce5288ef4892d7044e0d0f5881e34f9108b84aff56108d1dba7b5b1162f99"
+  },
+  "fig_ds32_rows_boat.png": {
+   "source": "fig/fig_ds32_rows_boat.png（1920×1080 のまま）",
+   "sha256_source": "a81a00de971ad52d47fabbc9907f55df335740ada924a2fd4b11f3e3f2538653"
+  },
+  "fig_ds32_rows_bregion.png": {
+   "source": "fig/fig_ds32_rows_bregion.png（1920×1080 のまま）",
+   "sha256_source": "62441eebd41b1b6f87ac45de1237103aec0338322ea5e66ca31efc2f1d3a7292"
+  },
+  "fig_ds32_rows_right_untouched.png": {
+   "source": "fig/fig_ds32_rows_right_untouched.png（1920×1080 のまま）",
+   "sha256_source": "9f79b3d1cd24ee7cf68b7de4340e64fba73571182ab810c548c46f662121dbf7"
+  },
+  "fig_ds32_user100.png": {
+   "source": "fig/fig_ds32_user100.png（1920×1080 のまま）",
+   "sha256_source": "c63d7282c6f4c731eb71dc618a277916f76dda96ef1b3dadb289bb3ce474009b"
+  },
+  "fig_ds32_ids_tstar.png": {
+   "source": "fig/fig_ds32_ids_tstar.png（1920×1080 のまま）",
+   "sha256_source": "e311d95c124070463f65420d547b1646f1621ea155bd6ca975a1e44d55f7bebf"
+  },
+  "fig_ds32_ids_tracks.png": {
+   "source": "fig/fig_ds32_ids_tracks.png（1920×1080 のまま）",
+   "sha256_source": "dd6c5521ffabe3b746a76a83e509cd54b90eaccb8de71058ece7ee6f4a637b4c"
+  },
+  "fig_ds32_named_before_after.png": {
+   "source": "fig/fig_ds32_named_before_after.png（1920×1656 を 1920×1080 の枠へ。縮尺 0.652）",
+   "sha256_source": "da015fbfead61941b13297937f5a0462736934cf4b67267c7d88f791570d589e"
+  },
+  "fig_ds32_fix01_c105_c110.png": {
+   "source": "fig/fig_ds32_fix01_c105_c110.png（1812×684 を 1920×1080 の枠へ。縮尺 1.000）",
+   "sha256_source": "d5a0e79045447aca912f40d2dfff30d6692c0322bee559e566e2f9a4c59e9ec0"
+  },
+  "fig_ds32_fix01_c163_c169.png": {
+   "source": "fig/fig_ds32_fix01_c163_c169.png（1812×684 を 1920×1080 の枠へ。縮尺 1.000）",
+   "sha256_source": "1b842d27a6e6f45274f49018193f1f232f5f10e9e2342efc3521c09859bdbb7f"
+  },
+  "fig_ds32_fix01_flags.png": {
+   "source": "fig/fig_ds32_fix01_flags.png（2504×892 を 1920×1080 の枠へ。縮尺 0.767）",
+   "sha256_source": "b4964e16be5570fcae03557b653659d396baee619431abe73dbb10c4910ba956"
+  },
+  "fig_ds32_fix01_truncated_1.png": {
+   "source": "fig/fig_ds32_fix01_truncated.png（2504×3460 の段 1〜4 に見出しを付け、1920×1080 の枠へ。縮尺 0.618）",
+   "sha256_source": "39d9902b8fefd516f7612e5a83af9a2e0e9d603edfb18458e2f6e06473c2d5bc"
+  },
+  "fig_ds32_fix01_truncated_2.png": {
+   "source": "fig/fig_ds32_fix01_truncated.png（2504×3460 の段 5〜8 に見出しを付け、1920×1080 の枠へ。縮尺 0.618）",
+   "sha256_source": "39d9902b8fefd516f7612e5a83af9a2e0e9d603edfb18458e2f6e06473c2d5bc"
+  },
+  "ds32_claw_list_checks.json": {
+   "source": "Unity/Build/Design/32/list+ids/ds32_claw_list_checks.json",
+   "sha256": "20b676a430ce4b7ce8ec5f7677964d6de25f8d4bde239b82c2da7b0d3bc86df8"
+  },
+  "ds32_id_checks.json": {
+   "source": "Unity/Build/Design/32/list+ids/ds32_id_checks.json",
+   "sha256": "27a48dc1d7413d0243d1c16b07d5b1bbe06b2858102a82a80fcff55bc5e5c6e6"
+  },
+  "ds32_ids_indep_check.json": {
+   "source": "Unity/Build/Design/32/list+ids/ds32_ids_indep_check.json",
+   "sha256": "1544e46721318fd7f3a700463546ee460b081eebfc27294efc3cd43df68e19c1"
+  },
+  "ds32_user100_correspondence.json": {
+   "source": "Unity/Build/Design/32/list+ids/ds32_user100_correspondence.json",
+   "sha256": "90762de01b58c6834725e426e891f8bf061589694d6988b5fb28d7971fe19822"
+  },
+  "ds32_record_counts.json": {
+   "source": "Unity/Build/Design/32/record/ds32_record_counts.json",
+   "sha256": "5b6c348b35d7196aa033a34be66c019815a303501b03b0391abcd9a57eb50040"
+  },
+  "ds32_claw_table.json": {
+   "source": "ds32_claw_inventory.json と ds32_ids.json から抜き出した（この道具）"
+  },
+  "ds32_ids_30fps.mp4": {
+   "file": "ds32_ids_30fps.mp4",
+   "source": "Unity/Build/Design/32/list+ids/fig/ds32_ids_30fps.mp4",
+   "source_sha256": "28b3b0cb32ee8eab354511f607dde83fd5f26042e4c33a98d940bc8a02f2ef3e",
+   "source_bytes": 5956733,
+   "reencode_ja": "libx264 -preset slow -crf 26（元は 5956733 バイトで 5 MB を超えるので符号化し直した。大きさ・コマ数は同じ）",
+   "width": 1920,
+   "height": 540,
+   "frames": 421,
+   "fps": "30/1",
+   "bytes": 3317249
+  }
+ },
+ "not_in_repo_ja": "一覧と ID の全出力（Unity/Build/Design/32/list+ids/。一覧の本体 ds32_claw_inventory.json、ID の ds32_ids.json、履歴の bin、位置合わせ ds32_user100_registration.json、全解像度の図と動画）、修正01 の前の出力（list+ids_prefix01/）、独立の検査のコードと出力の写し（indep_check/）、記録の数え（record/）は Git 対象外。爪形分析（G:/research/爪形分析）の画像とマスクは複製していない（派生の数値と、パス・SHA-256 だけ）。参照モデル・利用者の解算・写真のフォルダーは使っていない。Unity・Blender・Houdini は使っていない"
+}

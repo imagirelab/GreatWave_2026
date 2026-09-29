@@ -1,0 +1,1430 @@
+{
+ "schema": "GreatWave.DS32.metrics/1",
+ "number": "設計32",
+ "title_ja": "目立つ白波群を選び ID で追跡する（爪の一覧の修正、計画 第6節）",
+ "generated_utc": "2026-09-29T15:22:05+00:00",
+ "evidence_kind_ja": "高解像度原画 DP130155 の numpy/OpenCV の計算と重ね図、主役波のパッケージ（F_final＋設計31 の T_white）の numpy の評価と点の描画、生成器の側の独立の検査（ds32_ids_indep_check.py）、進行役の独立の検査（作り手のコードを使わない numpy。リポジトリの外）。Unity の描画ではない。HMD 実機の結果ではない。利用者は確かめていない",
+ "acceptance": {
+  "ja": "計画 §2.2 の設計32 と §6 の最小の受入（Q26：この番号は最小の受入だけを満たす。修正は 1 回まで）",
+  "6_1_named": {
+   "rule_ja": "利用者が名指しした所（83・84・85、109・中5・110、127 の下）の前後図で、影が内側に入り、起点が口の中央にあり、取りこぼしが加わっている",
+   "value": {
+    "figure": "fig/fig_ds32_named_before_after.png",
+    "shadow_included": {
+     "C083": 0.979,
+     "C084": 0.955,
+     "C085": 0.978,
+     "C105": 0.964,
+     "C109": 0.957,
+     "C110": 0.908,
+     "C154": 0.946
+    },
+    "shadow_included_af29": {
+     "C083": 0.024,
+     "C084": 0.022,
+     "C085": 0.029,
+     "C105": 0.004,
+     "C109": 0.029,
+     "C110": 0.011,
+     "C154": null
+    },
+    "root_moved_px": {
+     "C083": 19.0,
+     "C084": 7.8,
+     "C085": 15.5,
+     "C105": 43.6,
+     "C109": 64.4,
+     "C110": 40.5,
+     "C154": null
+    },
+    "added_below_127": [
+     "C154"
+    ]
+   },
+   "indep_shadow_prefix01": {
+    "C083": {
+     "indep": 0.934,
+     "author": 0.979
+    },
+    "C084": {
+     "indep": 0.896,
+     "author": 0.955
+    },
+    "C085": {
+     "indep": 0.926,
+     "author": 0.978
+    },
+    "C109": {
+     "indep": 0.888,
+     "author": 0.957
+    },
+    "C110": {
+     "indep": 0.662,
+     "author": 0.908
+    },
+    "C154": {
+     "indep": 0.76,
+     "author": 0.946
+    }
+   },
+   "fix01_c105_c110": {
+    "pre": {
+     "a": "C105",
+     "b": "C110",
+     "area_a_px": 3944,
+     "area_b_px": 710,
+     "intersection_px": 549,
+     "intersection_of_smaller": 0.773,
+     "centerline_b_in_region_a": 0.805,
+     "centerline_a_in_region_b": 0.258,
+     "root_a_to_tip_b_px": 9.6
+    },
+    "post": {
+     "a": "C105",
+     "b": "C110",
+     "area_a_px": 2433,
+     "area_b_px": 710,
+     "intersection_px": 0,
+     "intersection_of_smaller": 0.0,
+     "centerline_b_in_region_a": 0.0,
+     "centerline_a_in_region_b": 0.0,
+     "root_a_to_tip_b_px": 58.7
+    },
+    "c107": "C105 に統合（欠番）"
+   },
+   "figures": [
+    "fig_ds32_named_before_after.png",
+    "fig_ds32_fix01_c105_c110.png"
+   ],
+   "verdict": "合格（前後図で確かめた。進行役の目視で、利用者は未確認。修正01 の後）"
+  },
+  "6_2_user100": {
+   "rule_ja": "利用者の 100 本のうち、一覧と対応した本数と、対応しない爪の一覧（理由つき）。位置合わせの残差を記録する",
+   "summary": {
+    "user_total": 100,
+    "matched_existing": 51,
+    "added_from_user": 20,
+    "not_matched": 29,
+    "matched_or_added": 71
+   },
+   "not_matched_reasons": {
+    "手前の波": 11,
+    "位置合わせが不確か（NCC < 0.70）": 7,
+    "主浪の範囲と b区域の帯の外": 9,
+    "重複か位置合わせの誤り（claw071＝C169）": 1,
+    "利用者の爪どうしの重複": 1
+   },
+   "distinct_list_claws_matched": 43,
+   "notes_fix01": {
+    "identical_user_crops": [
+     [
+      "claw069",
+      "claw076"
+     ]
+    ],
+    "list_claws_with_multiple_user_matches": {
+     "C060": [
+      {
+       "user_id": "claw078",
+       "tip_dist_px": 65.1
+      },
+      {
+       "user_id": "claw079",
+       "tip_dist_px": 2.2
+      },
+      {
+       "user_id": "claw097",
+       "tip_dist_px": 62.2
+      }
+     ],
+     "C066": [
+      {
+       "user_id": "claw041",
+       "tip_dist_px": 1.6
+      },
+      {
+       "user_id": "claw095",
+       "tip_dist_px": 5.7
+      }
+     ],
+     "C089": [
+      {
+       "user_id": "claw004",
+       "tip_dist_px": 67.8
+      },
+      {
+       "user_id": "claw010",
+       "tip_dist_px": 68.4
+      }
+     ],
+     "C102": [
+      {
+       "user_id": "claw018",
+       "tip_dist_px": 3.2
+      },
+      {
+       "user_id": "claw035",
+       "tip_dist_px": 6.7
+      }
+     ],
+     "C104": [
+      {
+       "user_id": "claw009",
+       "tip_dist_px": 5.9
+      },
+      {
+       "user_id": "claw012",
+       "tip_dist_px": 3.1
+      }
+     ],
+     "C106": [
+      {
+       "user_id": "claw017",
+       "tip_dist_px": 9.9
+      },
+      {
+       "user_id": "claw026",
+       "tip_dist_px": 7.9
+      }
+     ],
+     "C127": [
+      {
+       "user_id": "claw032",
+       "tip_dist_px": 2.8
+      },
+      {
+       "user_id": "claw085",
+       "tip_dist_px": 11.8
+      }
+     ]
+    },
+    "distinct_list_claws_matched": 43,
+    "matched_or_added_peak_margin_below_0_02": [
+     "claw009",
+     "claw040",
+     "claw077",
+     "claw084",
+     "claw085",
+     "claw097"
+    ],
+    "ja": "記録のみ（修正01 で加えた欄。独立の検査の未解決の指摘）。同じ画像の利用者の爪は同じ所に合う。先端の距離が 60 px を超える対応や、山の差が 0.02 未満の位置合わせは不確かで、仕上げ32 で見直す"
+   },
+   "registration_residuals": {
+    "n": 100,
+    "ecc_used": 89,
+    "ncc_after_ecc": {
+     "median": 0.838,
+     "p10": 0.707,
+     "min": 0.509,
+     "max": 0.965,
+     "below_0_70": 9
+    },
+    "ecc_vs_similarity_corner_px_max_per_claw": {
+     "median": 4.3,
+     "p90": 10.3,
+     "max": 43.3
+    },
+    "peak_margin_below_0_02": 17,
+    "scale": {
+     "min": 0.075,
+     "max": 0.763
+    }
+   },
+   "files": [
+    "ds32_user100_correspondence.json"
+   ],
+   "verdict": "合格（本数と理由の一覧を出した。位置合わせの不確かさは記録のみ）"
+  },
+  "6_3_shadow": {
+   "rule_ja": "囲まれた影：指（領域の中の白）の各画素から最も近い指の画素への向きに、水色だけを通り、先で藍の線に 30 px 以内で当たる水色の画素（指以外の白より指に近いもの。根元を通り中心線に直交する線（口の線）より根元の側と、根元から 5 px 以内を除く）。領域の断面の作り方とは別の組み立て。囲まれた影が 20 px 以上の爪で、そのうち領域に入る割合が 0.50 未満の爪を「影を外した爪」と数える。",
+   "threshold_choice_ja": "「囲まれた影を外した爪」を、囲まれた影のうち領域に入る割合が 0.5 未満（影の半分以上を外した）の爪と読む（進行役の判断、Q24）。美術優先29 の白の多角形は 128 本すべてが 0.12 未満（中央値 0.03）で、利用者の指摘（83・84・85 で影を内側と見なかった）はこの状態。0.8・0.9 の数も並べる。0.9 に届かない分は領域の縁の精度で、爪ごとに原画の輪郭線へ合わせる仕上げ32 へ送る",
+   "tested": 148,
+   "excluded_ds32": 0,
+   "excluded_af29": 127,
+   "counts_by_threshold": {
+    "0.5": {
+     "ds32": 0,
+     "af29": 127
+    },
+    "0.8": {
+     "ds32": 10,
+     "af29": 127
+    },
+    "0.9": {
+     "ds32": 51,
+     "af29": 127
+    }
+   },
+   "quantiles_ds32_p0_p5_p10_p25_p50": [
+    0.63,
+    0.781,
+    0.822,
+    0.879,
+    0.92
+   ],
+   "quantiles_af29_p0_p50_p90_p100": [
+    0.0,
+    0.029,
+    0.06,
+    0.114
+   ],
+   "indep_prefix01": {
+    "file": "Unity/Build/Design/32/indep_check/shchk2.json",
+    "rule_ja": "進行役の独立の検査（shchk2.py）：自前の k-means の色の組、16 方向のうち 11 方向以上が 35 px 以内で暗い色に当たる水色を「囲まれた影」とし、中心線から 25 px の測地の帯の中で、最も近い中心線がその爪のものだけを数える。囲まれた影 20 px 以上の爪を検査する。修正01 の前の一覧で測った",
+    "tested": 149,
+    "below_0_5": 33,
+    "median": 0.727,
+    "af29_median": 0.044
+   },
+   "verdict": "合格（しきい値 0.5 の読み。進行役の判断、Q24。独立の検査の別の定義では 0.5 未満が 33／149（修正01 の前）で、定義は仕上げ32 で決め直す）"
+  },
+  "6_4_rows": {
+   "rule_ja": "列ごとの重ね図（上側・途中・船側）。右側は触らず「低優先・未修正」と明記。輪郭線とのずれは直さない",
+   "figures": [
+    "fig_ds32_rows_upper.png",
+    "fig_ds32_rows_middle.png",
+    "fig_ds32_rows_boat.png",
+    "fig_ds32_rows_bregion.png",
+    "fig_ds32_rows_right_untouched.png"
+   ],
+   "right_side_untouched": {
+    "count": 25,
+    "ids": [
+     "C129",
+     "C153"
+    ],
+    "changed_flag_true": 0,
+    "max_abs_diff_root_ref_px": 0.0,
+    "max_abs_diff_tip_ref_px": 0.0,
+    "max_abs_diff_centerline_ref_px": 0.0,
+    "max_abs_diff_length_ref_px": 1.4
+   },
+   "verdict": "合格（5 枚を出した。右側の 25 本は美術優先29 の根元・先端・中心線のまま）"
+  },
+  "6_5_iou": {
+   "rule_ja": "仮の定義を分母・分子に使った値と、美術優先29 の分母A・B の値を並べて記録する（合否なし）",
+   "value": {
+    "scope_ja": "主浪の範囲（美術優先29 の zones の main の多角形）。b区域と右側は含めない。高解像度 px",
+    "definition_ja": "分母A′＝平らな白（白を半径 45 px の円で開いて残る所）を除く白 ＋ その白に囲まれた影（影の検査と同じ組み立て）。分母B′＝白の全体 ＋ 囲まれた影。分子＝設計32 の爪の領域（藍の輪郭線の内側、影を含む）の和。比べとして、美術優先29 の白の多角形の和を同じ分母で測った値と、美術優先29 の記録の値（分母A・B、分子＝指＋幹＋根元の白など）を並べる。合否は出さない（仕上げ32 で定義を決め直す、D25）。",
+    "pixels": {
+     "denominator_A_prime": 340114,
+     "denominator_B_prime": 451326,
+     "enclosed_shadow_A": 80240,
+     "enclosed_shadow_B": 80701,
+     "flat_white": 110751,
+     "numerator_ds32": 157043,
+     "numerator_af29_polygons": 108908
+    },
+    "ds32_regions_vs_A_prime": 0.4376,
+    "ds32_regions_vs_B_prime": 0.3317,
+    "af29_polygons_vs_A_prime": 0.3178,
+    "af29_polygons_vs_B_prime": 0.2399,
+    "af29_recorded": {
+     "A_all_parts": 0.8766,
+     "B_all_parts": 0.6006,
+     "A_fingers_stems": 0.6854,
+     "B_fingers_stems": 0.4665,
+     "A_outline_polygons": 0.466,
+     "B_outline_polygons": 0.306,
+     "source_ja": "Docs/Evidence/ArtFirst/29/metrics.json（主浪）と Docs/Progress/Step_29_ja.md の IoU の表。分母A・B は白だけ（影を含まない）"
+    },
+    "judgement": "記録のみ"
+   },
+   "verdict": "記録のみ"
+  },
+  "2_2_binding_history": {
+   "rule_ja": "爪の根元を K* の水面シートの (u, v) に結び付け、全コマで ID ごとの根元・先端の位置の履歴を出す",
+   "bound": 148,
+   "unbound_right_side": 25,
+   "frames": 421,
+   "hz": 30,
+   "t_star_frame": 360,
+   "reprojection_tstar_display_px": {
+    "root_max": 0.336,
+    "root_p95": 0.048,
+    "tip_max": 0.208,
+    "tip_p95": 0.075,
+    "root_snapped": 0,
+    "root_snap_max_px": 0.0,
+    "note_ja": "寄せた根元はその距離だけずれる。先端は射線の上に置くので 0 に近い（精度の層を含む t* の復号の丸め）"
+   },
+   "tip_placement": {
+    "sheet": 127,
+    "depth_plane": 21
+   },
+   "t_birth_s": {
+    "min": 6.0491,
+    "median": 8.46285,
+    "max": 10.0171
+   },
+   "sheet": {
+    "package": "Unity/Build/Design/31/white/hero_pkg",
+    "rows": 240,
+    "cols": 400,
+    "body_cols": [
+     18,
+     394
+    ],
+    "tstar_layer": 241,
+    "pos_sha256": "af08cd4edb8a287551cae2ac8c60af3c4c33bbb39088807571475dc973d85974",
+    "pos_lo_sha256": "99a29d6a74b595372211120db071fac12d9f338aa14107df921d667d67a83153",
+    "twhite_sha256": "5ffc93def0174c953040f0a69088be7856820f1ae9eb7c90b312594d4099f39e",
+    "kstar_ja": "最後の層（τ = 0）は K*′ R4（28R01F/kstar_final）。主役波の動きは F_final（DS27 ＋ 精度の層）",
+    "uv_ja": "sheet_rc = (行, 列) の連続の座標。sheet_uv = (列/(C−1), 行/(R−1))。uv3 = 29修正01 の色面の UV（uWarp(列), vWarp(行)）"
+   },
+   "clock": {
+    "hz": 30,
+    "frames": 421,
+    "t0": 0.0,
+    "timewarp": "Unity/Build/Design/28R01F/F_final/timewarp_F_final.json",
+    "timewarp_sha256": "627815c77afc63278c885335bbe6c51178896184559ca30845cf05f23c634a7c",
+    "note_ja": "コマ k は体験の時刻 t = k/30 s、τ = τ(t)（線形補間）。t ≥ 12 s は τ = 0（t* の保持）"
+   },
+   "verdict": "合格（numpy。右側の 25 本は主役波のシートの外なので結び付けていない）"
+  },
+  "teleport_0": {
+   "rule_ja": "ID（爪の根元・先端、飛沫の粒）：(a) コマの間の動き > max(シートの頂点の動きの最大, 飛沫の粒の動きの最大)×1.5 + 0.02 m、(b) 前後のコマの動きの大きい方の 4 倍 + 0.05 m を超える突出。両方のコマで見えるものだけ。群（爪の房・白の帯・飛沫）：両方のコマで見える粒（共通の粒）の重心の動きに同じ (a)・(b)",
+   "teleport_count": 0,
+   "max_moves_m": {
+    "claw_root_max_move_m": 0.3921,
+    "claw_tip_max_move_m": 0.3952,
+    "spray_max_move_m": 0.5022,
+    "claw_group_max_move_m": 0.3916,
+    "band_group_max_move_m": 0.3907,
+    "spray_group_max_move_m": 0.5022
+   },
+   "sheet_max_vertex_move_m": 0.8294,
+   "indep": {
+    "root_vs_indep_eval_max_m": 2.5e-05,
+    "root_move_over_sheet_max_frames": 0,
+    "root_move_max_m": 0.6717,
+    "sheet_vertex_move_max_m": 0.8294,
+    "tip_rigid_length_err_max_m": 6.6e-05,
+    "tip_spike_count": 0,
+    "claw_group_common_move_max_m": 0.3916,
+    "claw_group_over_rule_a": 0
+   },
+   "verdict": "合格（numpy の履歴。Unity の描画ではない）"
+  },
+  "flicker_0": {
+   "rule_ja": "見える → 見えないの変化（どの ID も t* までに消えない約束）と、2 回目の出現",
+   "flicker_count": 0,
+   "growth_decreasing_samples": 0,
+   "indep": {
+    "visible_vs_birth_mismatch": 0,
+    "visible_off_transitions": 0
+   },
+   "verdict": "合格（numpy）"
+  },
+  "129": {
+   "rule_ja": "群の瞬間的な置き換え 0（群から粒が抜けるコマ 0）",
+   "group_member_lost_count": 0,
+   "indep": {
+    "claws_in_exactly_one_group": 148,
+    "claws_bound": 148,
+    "spray_in_exactly_one_group": 186,
+    "spray_total": 186,
+    "band_vertex_duplicates": 0
+   },
+   "verdict": "合格（numpy。使える水準。精度は仕上げ33）"
+  },
+  "regression_2_0": {
+   "rule_ja": "計画 §2.0：原画視点に触れる番号では評価器を回し、合格した項目を後退させない",
+   "value_ja": "この番号は原画視点の描画を変えていない（シート・色面・場面に触れず、爪は描かない）。評価器を回す対象ではない。t* の原画視点の値は設計31 のまま",
+   "verdict": "対象外（記録）"
+  }
+ },
+ "design": {
+  "counts": {
+   "total": 173,
+   "af29": 153,
+   "added": [
+    "C154",
+    "C155",
+    "C156",
+    "C157",
+    "C158",
+    "C159",
+    "C160",
+    "C161",
+    "C162",
+    "C163",
+    "C164",
+    "C165",
+    "C166",
+    "C167",
+    "C168",
+    "C170",
+    "C171",
+    "C172",
+    "C173",
+    "C174",
+    "C175"
+   ],
+   "removed": [
+    "C107",
+    "C169"
+   ],
+   "by_row": {
+    "上側": 64,
+    "途中": 25,
+    "船側": 45,
+    "右側": 25,
+    "b区域": 14
+   },
+   "b_region_q16": [
+    "C158",
+    "C159",
+    "C160",
+    "C161",
+    "C163",
+    "C164",
+    "C165",
+    "C166",
+    "C167",
+    "C168",
+    "C170",
+    "C171",
+    "C172",
+    "C173",
+    "C175"
+   ]
+  },
+  "by_row_origin": {
+   "上側・美術優先29": 60,
+   "途中・美術優先29": 24,
+   "船側・美術優先29": 43,
+   "右側・美術優先29": 25,
+   "船側・加えた": 2,
+   "途中・加えた": 1,
+   "上側・加えた": 4,
+   "b区域・加えた": 14
+  },
+  "status_counts": {
+   "root_kept": 60,
+   "mouth": 69,
+   "mouth_guard_reverted": 1,
+   "root_kept_guard": 15,
+   "mouth_exit": 1,
+   "no_mouth": 2,
+   "右側・低優先・未修正": 25
+  },
+  "root_moved_over_8px": {
+   "途中": 10,
+   "船側": 20
+  },
+  "removed_claws": [
+   {
+    "id": "C107",
+    "origin": "af29",
+    "row_af29": "船側",
+    "row_id_af29": "B23",
+    "kind": "統合",
+    "merged_into": "C105",
+    "reason_ja": "C105 の房（上の線と下の線に囲まれ、中が水色の影）の上の白の縁で、D25 の仮の定義（藍の輪郭線の内側）では同じ房の中にある。修正の前の C107 は中心線の 100%・面積の 98.7% が C105 の領域の中だった。C105 に統合した（修正01、独立の検査の指摘 1）",
+    "fix": "修正01",
+    "root_ref_af29": [
+     1926.0,
+     855.0
+    ],
+    "tip_ref_af29": [
+     1895.0,
+     858.0
+    ],
+    "length_ref_px_af29": 38.7
+   },
+   {
+    "id": "C169",
+    "origin": "ds32_user100",
+    "seed": "claw071",
+    "kind": "重複",
+    "duplicate_of": "C163",
+    "reason_ja": "領域の重なりが小さい方の 99%、中心線の 100% が相手の領域の中、根元が C163 の先端から 1.2 px で、向きが逆（なす角 171°）",
+    "evidence": {
+     "overlap_of_smaller": 0.986,
+     "other_centerline_in_new": 1.0,
+     "new_centerline_in_other": 0.576,
+     "root_to_other_tip_px": 1.2,
+     "angle_deg": 170.7
+    },
+    "fix": "修正01",
+    "note_ja": "初回の出力ではこの ID で加えていた。ID は欠番として残す"
+   }
+  ],
+  "definition_region_ja": "爪の領域（D25 の仮の定義、印刷工程の調査（仕上げ32）まで）：爪を囲む藍の輪郭線の内側。中心線の各点で法線の両側へ、白か水色で空・黄土でない画素を、藍（mix・藍中・藍濃）か空に当たるまでたどった断面の和（片側 40 px まで）。水色の影を含む。",
+  "definition_root_ja": "起点（根元）：先端から根元へ断面をたどり、片側が 40 px の中で藍に当たらなくなる（開く）か、幅が直前 8 断面の中央値の 2.4 倍を超えかつ 10 px 以上広がる所が 2 断面続く最初の所を「口」とし、その一つ手前の断面の中央を根元にする。中心線は断面の中点を 5 点の移動平均でなめらかにし、先端は美術優先29 の先端のまま。口に届かない爪は断面の中点をたどって最大 80 px 延ばす。修正01：最初の口の候補で元の長さの 0.5 倍未満に縮むときは、両側の線（藍）がどちらも終わる所（両側とも 40 px の中で藍に当たらない断面が 2 つ続く所）だけを口と認め、元の根元までになければ美術優先29 の根元の断面の中央を根元にする（先端の鉤のすぐ上や曲がり目を口と読まない）。",
+  "ids_ja": "美術優先29 の ID（C001〜C153）を保つ。加えた爪は C154 から（修正01 でも初回の ID を種ごとに保つ）。消した爪（統合・重複）の ID は欠番とし、理由を removed_claws に残す。右側（C129〜C153）は触らない（低優先・未修正）。",
+  "groups": {
+   "claw": {
+    "total": 34,
+    "prominent": 14
+   },
+   "white_band": {
+    "total": 152,
+    "prominent": 97
+   },
+   "spray": {
+    "total": 73,
+    "prominent": 8
+   }
+  },
+  "prominent_rule_ja": "目立つ群（prominent）：爪の房は 3 本以上、白の帯は 120 頂点以上、飛沫は 4 粒以上。群の ID はすべての群に付け、設計33〜35 は目立つ群から使う",
+  "claw_table": "ds32_claw_table.json"
+ },
+ "backlog": {
+  "ja": "計画 §2.2 の設計32：95〜98・122〜129・136〜139 の前提、129（群の瞬間的な置き換え 0）",
+  "items": {
+   "95〜98・122〜128・136〜139": {
+    "value_ja": "爪の一覧の修正版（173 本、主浪 148 本をシートに結び付け）と ID・群を設計33 へ渡す",
+    "verdict": "記録のみ（前提）"
+   },
+   "129": {
+    "value": 0,
+    "verdict": "合格（numpy）"
+   }
+  }
+ },
+ "record_only": {
+  "weighted_centroid": {
+   "claw_group": {
+    "max_move_m": 0.4266,
+    "frames_over_rule_a": 0,
+    "groups_over_rule_a": 0
+   },
+   "white_band_group": {
+    "max_move_m": 3.801,
+    "frames_over_rule_a": 61,
+    "groups_over_rule_a": 31
+   },
+   "spray_group": {
+    "max_move_m": 0.5022,
+    "frames_over_rule_a": 0,
+    "groups_over_rule_a": 0
+   }
+  },
+  "weighted_centroid_note_ja": "記録のみ：群の見える粒の重み付きの重心は、新しい粒（爪の成長 g、白の帯の 0.25 s の立ち上がり、飛沫の半径の 0.08 s の立ち上がり）が加わる所で動く。これは群の中の成長で、同じ粒の動きではないので、瞬間移動の判定には共通の粒の重心を使う",
+  "fix01_checks": {
+   "region_overlap_pairs": 40,
+   "region_overlap_pairs_gt_0_2": [
+    {
+     "a": "C006",
+     "b": "C007",
+     "of_smaller": 0.298
+    },
+    {
+     "a": "C010",
+     "b": "C013",
+     "of_smaller": 0.204
+    },
+    {
+     "a": "C014",
+     "b": "C016",
+     "of_smaller": 0.249
+    },
+    {
+     "a": "C020",
+     "b": "C021",
+     "of_smaller": 0.268
+    },
+    {
+     "a": "C042",
+     "b": "C045",
+     "of_smaller": 0.213
+    },
+    {
+     "a": "C052",
+     "b": "C053",
+     "of_smaller": 0.221
+    },
+    {
+     "a": "C055",
+     "b": "C064",
+     "of_smaller": 0.234
+    },
+    {
+     "a": "C073",
+     "b": "C103",
+     "of_smaller": 0.202
+    },
+    {
+     "a": "C086",
+     "b": "C097",
+     "of_smaller": 0.258
+    }
+   ],
+   "roots_inside_other_region": [
+    {
+     "root_of": "C010",
+     "row": "上側",
+     "status": "root_kept",
+     "inside_region_of": "C013"
+    },
+    {
+     "root_of": "C016",
+     "row": "上側",
+     "status": "root_kept",
+     "inside_region_of": "C014"
+    },
+    {
+     "root_of": "C040",
+     "row": "上側",
+     "status": "root_kept",
+     "inside_region_of": "C042"
+    },
+    {
+     "root_of": "C042",
+     "row": "上側",
+     "status": "root_kept",
+     "inside_region_of": "C044"
+    },
+    {
+     "root_of": "C045",
+     "row": "上側",
+     "status": "root_kept",
+     "inside_region_of": "C042"
+    },
+    {
+     "root_of": "C053",
+     "row": "上側",
+     "status": "root_kept",
+     "inside_region_of": "C052"
+    },
+    {
+     "root_of": "C054",
+     "row": "上側",
+     "status": "root_kept",
+     "inside_region_of": "C066"
+    },
+    {
+     "root_of": "C060",
+     "row": "上側",
+     "status": "root_kept",
+     "inside_region_of": "C015"
+    },
+    {
+     "root_of": "C064",
+     "row": "途中",
+     "status": "mouth",
+     "inside_region_of": "C055"
+    },
+    {
+     "root_of": "C077",
+     "row": "途中",
+     "status": "mouth",
+     "inside_region_of": "C102"
+    },
+    {
+     "root_of": "C086",
+     "row": "船側",
+     "status": "mouth",
+     "inside_region_of": "C087"
+    },
+    {
+     "root_of": "C087",
+     "row": "船側",
+     "status": "root_kept_guard",
+     "inside_region_of": "C092"
+    },
+    {
+     "root_of": "C090",
+     "row": "船側",
+     "status": "mouth",
+     "inside_region_of": "C089"
+    },
+    {
+     "root_of": "C097",
+     "row": "船側",
+     "status": "mouth",
+     "inside_region_of": "C086"
+    },
+    {
+     "root_of": "C174",
+     "row": "上側",
+     "status": "mouth",
+     "inside_region_of": "C002"
+    }
+   ],
+   "containment_pairs_ge_0_5": [],
+   "short_below_0_5_of_af29": [
+    {
+     "id": "C066",
+     "row": "途中",
+     "status": "mouth_guard_reverted",
+     "length_af29": 233.3,
+     "length_new": 115.4,
+     "ratio": 0.495
+    }
+   ],
+   "continues_past_root_ge_0.6": [
+    {
+     "id": "C066",
+     "row": "途中",
+     "status": "mouth_guard_reverted",
+     "fraction": 0.7,
+     "length_new": 115.4,
+     "length_af29": 233.3
+    },
+    {
+     "id": "C071",
+     "row": "途中",
+     "status": "root_kept_guard",
+     "fraction": 0.8,
+     "length_new": 64.8,
+     "length_af29": 63.6
+    },
+    {
+     "id": "C079",
+     "row": "途中",
+     "status": "mouth",
+     "fraction": 0.6,
+     "length_new": 75.5,
+     "length_af29": 44.8
+    },
+    {
+     "id": "C089",
+     "row": "船側",
+     "status": "mouth",
+     "fraction": 0.8,
+     "length_new": 33.0,
+     "length_af29": 44.8
+    },
+    {
+     "id": "C093",
+     "row": "船側",
+     "status": "root_kept_guard",
+     "fraction": 0.8,
+     "length_new": 47.6,
+     "length_af29": 50.2
+    },
+    {
+     "id": "C097",
+     "row": "船側",
+     "status": "mouth",
+     "fraction": 0.9,
+     "length_new": 44.1,
+     "length_af29": 31.4
+    },
+    {
+     "id": "C105",
+     "row": "船側",
+     "status": "mouth",
+     "fraction": 0.6,
+     "length_new": 71.7,
+     "length_af29": 105.9
+    },
+    {
+     "id": "C174",
+     "row": "上側",
+     "status": "mouth",
+     "fraction": 0.7,
+     "length_new": 44.6,
+     "length_af29": null
+    }
+   ]
+  },
+  "flags_figure": "fig_ds32_fix01_flags.png",
+  "limits_after_fix01": [
+   {
+    "limit_ja": "C066 は元の長さの 0.49 倍（最初の口の候補のまま）。美術優先29 の根元まで戻すと領域が C057 の指を呑み込む",
+    "to": "仕上げ32"
+   },
+   {
+    "limit_ja": "元の長さの 0.5〜0.6 倍の爪 C112（17.9→9.3 px）・C113。C109（中5）は名指しの起点の直しで短くなった",
+    "to": "仕上げ32"
+   },
+   {
+    "limit_ja": "根元の先で指が続く疑い ['C066', 'C071', 'C079', 'C089', 'C093', 'C097', 'C105', 'C174']（目視では多くが体の中の線に当たるだけの誤検出）",
+    "to": "仕上げ32"
+   },
+   {
+    "limit_ja": "領域の重なり 40 組（小さい方の 20% を超えるもの 9 組）と縁のとげ（C007・C082・C093 など）。他の爪の領域の中にある根元 15（上側 9・途中 2・船側 4。上側は美術優先29 の根元のまま、途中・船側の多くは修正01 で戻した美術優先29 の根元どうしの重なり）",
+    "to": "仕上げ32"
+   },
+   {
+    "limit_ja": "影の検査の定義（二つの爪の凹みの側の共有の水色をどちらへ入れるか）。独立の検査の別の定義では 0.5 未満が 33/149",
+    "to": "仕上げ32（D25 の定義し直し）"
+   },
+   {
+    "limit_ja": "利用者の 100 本の位置合わせの不確かさ（C060 に 3 本、先端の距離 62〜68 px の対応 4 本、山の差 < 0.02 の 6 本、同じ画像の claw069・claw076）",
+    "to": "仕上げ32"
+   },
+   {
+    "limit_ja": "C174 は C002 の先の続きかもしれない（possible_continuation_of）",
+    "to": "仕上げ32"
+   },
+   {
+    "limit_ja": "先端 22 本は根元のカメラの深さの面の上にあり、シートから浮くことがある",
+    "to": "設計33（仕上げ33）"
+   },
+   {
+    "limit_ja": "瞬間移動のしきい値 (a) は全体の値（約 1.26 m／コマ）。爪ごとの局所の検査も 0 だった",
+    "to": "設計34"
+   },
+   {
+    "limit_ja": "Unity の再生・Mock の両眼の確認はまだ（numpy だけ）。HMD の実機は保留（PS VR2 の導入待ち）",
+    "to": "設計34・保留"
+   }
+  ],
+  "unity_mock_hmd_ja": "Unity の再生・Mock の両眼は設計34。HMD（PS VR2）は保留（導入は利用者の手）"
+ },
+ "revisions": {
+  "ja": "修正は 1 回（修正01）。進行役の独立の検査の必須の指摘 3 つに対するもの（Q26）",
+  "fix01": {
+   "1_c105_c110": {
+    "judgement": "直した（C105 は房の左の口を根元にし、C107 は C105 に統合。他の爪の中心線の半分以上を含む領域の組 0）",
+    "value": {
+     "C105": {
+      "status": "mouth",
+      "root_ref": [
+       1879.1,
+       874.6
+      ],
+      "length_af29": 105.9,
+      "length_new": 71.7
+     },
+     "C107": {
+      "removed": "統合",
+      "into_or_dup_of": "C105"
+     },
+     "C110": {
+      "status": "mouth",
+      "root_ref": [
+       1870.9,
+       891.2
+      ],
+      "length_new": 42.9
+     },
+     "containment_named_C105_C107_C110": [],
+     "containment_pairs_ge_0_5_all": [],
+     "figures": [
+      "fig/fig_ds32_fix01_c105_c110.png",
+      "fig/fig_ds32_named_before_after.png"
+     ]
+    }
+   },
+   "2_truncated": {
+    "judgement": "直した（元の長さの 0.5 倍未満に縮む口は、両側の線が終わる所だけを口と認め、なければ美術優先29 の根元。残る 0.5 倍未満は ['C066'] で、根元を戻すと C057 の指を呑み込むので最初の候補のまま＝記録した限界、仕上げ32）",
+    "guard_status_counts": {
+     "root_kept_guard": 15,
+     "mouth_exit": 1,
+     "mouth_guard_reverted": 1
+    },
+    "lengths_px": {
+     "C074": {
+      "af29": 56.3,
+      "pre": 17.0,
+      "pre_status": "mouth",
+      "post": 53.2,
+      "post_status": "root_kept_guard"
+     },
+     "C075": {
+      "af29": 70.1,
+      "pre": 16.1,
+      "pre_status": "mouth",
+      "post": 76.1,
+      "post_status": "root_kept_guard"
+     },
+     "C078": {
+      "af29": 68.1,
+      "pre": 15.5,
+      "pre_status": "mouth",
+      "post": 76.4,
+      "post_status": "root_kept_guard"
+     },
+     "C080": {
+      "af29": 106.4,
+      "pre": 34.5,
+      "pre_status": "mouth",
+      "post": 117.5,
+      "post_status": "root_kept_guard"
+     },
+     "C081": {
+      "af29": 37.6,
+      "pre": 9.9,
+      "pre_status": "mouth",
+      "post": 38.2,
+      "post_status": "root_kept_guard"
+     },
+     "C082": {
+      "af29": 42.2,
+      "pre": 9.2,
+      "pre_status": "mouth",
+      "post": 41.5,
+      "post_status": "root_kept_guard"
+     },
+     "C087": {
+      "af29": 36.0,
+      "pre": 13.8,
+      "pre_status": "mouth",
+      "post": 41.2,
+      "post_status": "root_kept_guard"
+     },
+     "C092": {
+      "af29": 141.0,
+      "pre": 63.9,
+      "pre_status": "mouth",
+      "post": 151.6,
+      "post_status": "root_kept_guard"
+     },
+     "C093": {
+      "af29": 50.2,
+      "pre": 15.9,
+      "pre_status": "mouth",
+      "post": 47.6,
+      "post_status": "root_kept_guard"
+     },
+     "C098": {
+      "af29": 42.1,
+      "pre": 12.5,
+      "pre_status": "mouth",
+      "post": 43.9,
+      "post_status": "root_kept_guard"
+     },
+     "C106": {
+      "af29": 68.0,
+      "pre": 15.8,
+      "pre_status": "mouth",
+      "post": 68.4,
+      "post_status": "root_kept_guard"
+     },
+     "C107": {
+      "af29": 38.7,
+      "pre": 19.6,
+      "pre_status": "mouth",
+      "post": null,
+      "post_status": null
+     },
+     "C071": {
+      "af29": 63.6,
+      "pre": 27.9,
+      "pre_status": "mouth",
+      "post": 64.8,
+      "post_status": "root_kept_guard"
+     },
+     "C072": {
+      "af29": 107.6,
+      "pre": 51.6,
+      "pre_status": "mouth",
+      "post": 90.7,
+      "post_status": "mouth_exit"
+     },
+     "C108": {
+      "af29": 53.7,
+      "pre": 23.5,
+      "pre_status": "mouth",
+      "post": 52.0,
+      "post_status": "root_kept_guard"
+     },
+     "C120": {
+      "af29": 25.0,
+      "pre": 12.3,
+      "pre_status": "mouth",
+      "post": 26.9,
+      "post_status": "root_kept_guard"
+     },
+     "C156": {
+      "af29": null,
+      "pre": 19.5,
+      "pre_status": "mouth",
+      "post": 66.2,
+      "post_status": "root_kept_guard"
+     },
+     "C066": {
+      "af29": 233.3,
+      "pre": 115.4,
+      "pre_status": "mouth",
+      "post": 115.4,
+      "post_status": "mouth_guard_reverted"
+     },
+     "C109": {
+      "af29": 132.8,
+      "pre": 77.7,
+      "pre_status": "mouth",
+      "post": 77.7,
+      "post_status": "mouth"
+     },
+     "C112": {
+      "af29": 17.9,
+      "pre": 9.3,
+      "pre_status": "mouth",
+      "post": 9.3,
+      "post_status": "mouth"
+     },
+     "C113": {
+      "af29": 91.8,
+      "pre": 51.7,
+      "pre_status": "mouth",
+      "post": 51.7,
+      "post_status": "mouth"
+     }
+    }
+   },
+   "3_c169": {
+    "judgement": "直した（C169 を重複として消し、ID は欠番、対応表に理由。重複の検査を加えた爪どうしと一覧の爪に回した）",
+    "value": {
+     "removed": [
+      {
+       "id": "C107",
+       "kind": "統合",
+       "merged_into": "C105"
+      },
+      {
+       "id": "C169",
+       "seed": "claw071",
+       "kind": "重複",
+       "duplicate_of": "C163"
+      }
+     ],
+     "C163": {
+      "status": "mouth",
+      "root_ref": [
+       863.4,
+       1393.5
+      ],
+      "length_new": 37.1
+     },
+     "added_after_fix01": [
+      "C154",
+      "C155",
+      "C156",
+      "C157",
+      "C158",
+      "C159",
+      "C160",
+      "C161",
+      "C162",
+      "C163",
+      "C164",
+      "C165",
+      "C166",
+      "C167",
+      "C168",
+      "C170",
+      "C171",
+      "C172",
+      "C173",
+      "C174",
+      "C175"
+     ],
+     "figure": "fig/fig_ds32_fix01_c163_c169.png"
+    }
+   },
+   "flags": {
+    "judgement": "記録のみ（目視では多くが体の中の線に当たるだけの誤検出。仕上げ32 で確かめる）",
+    "list": [
+     {
+      "id": "C066",
+      "row": "途中",
+      "status": "mouth_guard_reverted",
+      "fraction": 0.7,
+      "length_new": 115.4,
+      "length_af29": 233.3
+     },
+     {
+      "id": "C071",
+      "row": "途中",
+      "status": "root_kept_guard",
+      "fraction": 0.8,
+      "length_new": 64.8,
+      "length_af29": 63.6
+     },
+     {
+      "id": "C079",
+      "row": "途中",
+      "status": "mouth",
+      "fraction": 0.6,
+      "length_new": 75.5,
+      "length_af29": 44.8
+     },
+     {
+      "id": "C089",
+      "row": "船側",
+      "status": "mouth",
+      "fraction": 0.8,
+      "length_new": 33.0,
+      "length_af29": 44.8
+     },
+     {
+      "id": "C093",
+      "row": "船側",
+      "status": "root_kept_guard",
+      "fraction": 0.8,
+      "length_new": 47.6,
+      "length_af29": 50.2
+     },
+     {
+      "id": "C097",
+      "row": "船側",
+      "status": "mouth",
+      "fraction": 0.9,
+      "length_new": 44.1,
+      "length_af29": 31.4
+     },
+     {
+      "id": "C105",
+      "row": "船側",
+      "status": "mouth",
+      "fraction": 0.6,
+      "length_new": 71.7,
+      "length_af29": 105.9
+     },
+     {
+      "id": "C174",
+      "row": "上側",
+      "status": "mouth",
+      "fraction": 0.7,
+      "length_new": 44.6,
+      "length_af29": null
+     }
+    ]
+   }
+  },
+  "before_after": {
+   "claws_total": [
+    175,
+    173
+   ],
+   "by_row": [
+    {
+     "上側": 64,
+     "途中": 25,
+     "船側": 46,
+     "右側": 25,
+     "b区域": 15
+    },
+    {
+     "上側": 64,
+     "途中": 25,
+     "船側": 45,
+     "右側": 25,
+     "b区域": 14
+    }
+   ],
+   "root_moved_over_8px": [
+    {
+     "途中": 16,
+     "船側": 27
+    },
+    {
+     "途中": 10,
+     "船側": 20
+    }
+   ],
+   "user100_summary": [
+    {
+     "user_total": 100,
+     "matched_existing": 51,
+     "added_from_user": 21,
+     "not_matched": 28,
+     "matched_or_added": 72
+    },
+    {
+     "user_total": 100,
+     "matched_existing": 51,
+     "added_from_user": 20,
+     "not_matched": 29,
+     "matched_or_added": 71
+    }
+   ],
+   "shadow_tested": [
+    150,
+    148
+   ],
+   "shadow_counts_by_threshold": [
+    {
+     "0.5": {
+      "ds32": 0,
+      "af29": 128
+     },
+     "0.8": {
+      "ds32": 12,
+      "af29": 128
+     },
+     "0.9": {
+      "ds32": 51,
+      "af29": 128
+     }
+    },
+    {
+     "0.5": {
+      "ds32": 0,
+      "af29": 127
+     },
+     "0.8": {
+      "ds32": 10,
+      "af29": 127
+     },
+     "0.9": {
+      "ds32": 51,
+      "af29": 127
+     }
+    }
+   ],
+   "iou_ds32_A_B": [
+    [
+     0.402,
+     0.3046
+    ],
+    [
+     0.4376,
+     0.3317
+    ]
+   ],
+   "iou_af29_A_B": [
+    [
+     0.3193,
+     0.2411
+    ],
+    [
+     0.3178,
+     0.2399
+    ]
+   ],
+   "bound": [
+    150,
+    148
+   ],
+   "groups": [
+    {
+     "claw": {
+      "total": 32,
+      "prominent": 14
+     },
+     "white_band": {
+      "total": 152,
+      "prominent": 97
+     },
+     "spray": {
+      "total": 73,
+      "prominent": 8
+     }
+    },
+    {
+     "claw": {
+      "total": 34,
+      "prominent": 14
+     },
+     "white_band": {
+      "total": 152,
+      "prominent": 97
+     },
+     "spray": {
+      "total": 73,
+      "prominent": 8
+     }
+    }
+   ],
+   "teleport_flicker_129": [
+    [
+     0,
+     0,
+     0
+    ],
+    [
+     0,
+     0,
+     0
+    ]
+   ],
+   "indep_root_diff_m": [
+    2.1e-05,
+    2.5e-05
+   ],
+   "note_ja": "左が修正01 の前（Unity/Build/Design/32/list+ids_prefix01/）、右が後（list+ids/）"
+  },
+  "determinism": {
+   "ds32_claw_inventory.json": {
+    "same": true,
+    "sha256_first": "1c734d0ecbceabd9bbafbfed43099e5acaa781befe6de5c208dc944d3d9b8fba"
+   },
+   "ds32_user100_correspondence.json": {
+    "same": true,
+    "sha256_first": "fed2caf58c9fb9b0158929098318b00194ab43c4926a1b5b6cf49fc23a77a274"
+   },
+   "ds32_claw_list_checks.json": {
+    "same": true,
+    "sha256_first": "81f1a3764cc31c34d7d7950a2f816c76815ad405be8b50a31aa4dd5d1c981451"
+   },
+   "ds32_id_checks.json": {
+    "same": true,
+    "sha256_first": "3e68391f5c8f671e23d592e078fe0d4dda343967a091820946d83d0c3525fb8a"
+   },
+   "ds32_claw_hist_f32.bin": {
+    "same": true,
+    "sha256_first": "4196572a736b8e3d05cece9c7f04322d1d58cf521c7aa5872aa07f1ae89a66a3"
+   },
+   "ds32_group_hist_f32.bin": {
+    "same": true,
+    "sha256_first": "85763c37082c32d4fb83d75e40a18f182fda087ec01701470502e4b435a2401b"
+   },
+   "ds32_band_members_i32.bin": {
+    "same": true,
+    "sha256_first": "973bb4a093a9f4f53b287dc57ada3ad1177a2ab5f2a4b437646aa039206d8516"
+   },
+   "all_same": true,
+   "note_ja": "JSON は経過時間の欄を除いた正準形で比べた。bin はそのまま"
+  }
+ },
+ "independent": {
+  "orchestrator_ja": "進行役の独立の検査（ファイルの時刻で 20:25〜20:39、修正01 の前の出力に対して）。コードは会話の作業フォルダー（リポジトリの外）で、コードと出力の写しは Unity/Build/Design/32/indep_check/。判定は pass = false、必須の指摘 3 つ（第 7 節と第 10 節）。Unity・git・重い計算は使っていない",
+  "orchestrator_files": {
+   "crops.py": "f1dc41f6c7203795ae657a2161bb7b173b6bd717deb7e4765484fc6155d29bc5",
+   "crops2.py": "82e607b859b4fb88a929ff3f2fbafee5afe4fd3ff9d81911ffe8000aac021da3",
+   "grpchk.py": "5912e0cb4e824cfd4fcb76eec10e97e732a060cb08cad39fd188d78ba465965a",
+   "idchk.py": "e9b6fbb3fa148f34c6e32c9adfd87bfb05ab3ac4dad260a9c2d6a51eacce21ba",
+   "km.py": "bb9c9bbfb9885ca6b8f2c22bb693e7a9fd7c48b696e9104dd4c8650e7e2835ec",
+   "regstat.py": "913d9890914fd41d9368a453d6ce4654fa65209d14cbc8825aea4f25dd8469e5",
+   "shchk.json": "33f614f1adbc305981087670a2d915a26f24ddff8c14845637170018cdd1cca0",
+   "shchk.py": "0c3ff546cec424240bf8b03d140c64421154985bf8a5e30413aa511d7b9472a7",
+   "shchk2.json": "ea40b0b0fb0d527117b5b7813ba04f3e9c8efe2e8bc569a3f3f918f6f1e44077",
+   "shchk2.py": "dc109d45e3144f211a67d2a269e7d108061faa4b1ac6d8deb127389440a69e72",
+   "shortviz.py": "20f78e9b4c252abfc1d4a431b01170ac3d8344243b092ddaa6e08c802809aa09",
+   "shviz.py": "d1d81bfa895f5e383bbd20c16ba849b68b099e91f4821822748daf29dcff291c",
+   "shviz2.py": "c4ebda5701ca60a5fc718c99419fe4bae010844b0e5ede5f68459c79ce5b229a"
+  },
+  "author_side": {
+   "file": "ds32_ids_indep_check.json",
+   "pass": true
+  }
+ },
+ "discrepancies_ja": [
+  "最初の部の要約は根元が 8 px 以上動いた爪を途中 16・船側 27 とするが、これは修正01 の前の値。修正01 の後は途中 10・船側 20（ds32_claw_inventory.json の root_moved_over_px）",
+  "list+ids/metrics.json の「修正01 の後に残る限界」は先端が根元の深さの面にある爪を 22 本とするが、修正01 の後の ds32_ids.json では 21 本（148 本のうち。修正01 の前は 22／150）",
+  "独立の検査の報告は C110 の中心線の 75% が C105 の領域の中とするが、記録の時に多角形を塗って数えると 0.81（塗り方の違い。領域の重なり 549／710 px は同じ）",
+  "独立の検査の報告は C163 の中心線の 93% が C169 の領域の中とするが、記録の時に数えると 1.00（塗り方の違い）",
+  "作業の指示の最初の部の要約は開始を 19:42 とするが、Unity/Build/Design/32 と Tools/GWWaveGen/ds32 の作成は 19:46:28",
+  "list+ids/README_interface.txt は列の数を b区域 14 とし、b_region_q16 を 15 本とする。15 本目は上側の列に入れた C172（b区域の帯にかかる加えた爪）",
+  "list+ids/run.json の ds32_list_ids_run.py の SHA-256（d507afd8…）は、記録の時の変更（決定性の検査の 2 回目の出力の置き場を会話の作業フォルダーから Git 対象外の Unity/Build/Design/32/_det へ移した。処理は同じ）の前の値。今の値はこの run.json の scripts"
+ ],
+ "decision": {
+  "adopted_ja": [
+   "爪の領域は D25 の仮の定義（藍の輪郭線の内側、白＋水色の影）。断面の和で作る",
+   "起点は先端から根元へたどった最初の「口」。上側の列は美術優先29 の根元のまま（計画 §6 の 2 は船側と途中の列）",
+   "修正01：元の長さの 0.5 倍未満に縮む口は、両側の線が終わる所だけを口と認め、なければ美術優先29 の根元（戻した根元で他の爪の中心線の半分以上を呑むときは最初の候補）",
+   "影の検査のしきい値 0.5（0.8・0.9 の数も並べる）",
+   "利用者の 100 本は NCC ≥ 0.70 を確かな位置合わせとし、主浪と b区域の帯の外の爪は加えない",
+   "C110・C105・127 の下（C154）は進行役の目視の種",
+   "群の瞬間移動は共通の粒の重心で判定し、見える粒の重み付きの重心は記録のみ",
+   "消した爪（C107 統合、C169 重複）の ID は欠番にし、加えた爪の ID は初回のまま保つ"
+  ],
+  "dropped_ja": [
+   "上側の列の根元にも口の規則を当てる：計画 §6 の 2 の範囲の外。8 本の根元が他の爪の領域の中にあるが、仕上げ32 で見る",
+   "利用者の爪で範囲の外（手前の波・主浪の左の群の下側など）のものを加える：一覧の範囲を広げるかは仕上げ32 で決める",
+   "爪ごとに原画の輪郭線へ合わせる：計画で仕上げ32 へ移した",
+   "C066 の根元を美術優先29 へ戻す：戻すと C057 の指を呑み込む"
+  ],
+  "by_ja": "進行役の判断（Q24）。利用者の決定ではない"
+ },
+ "handoffs": {
+  "design33_ja": "根元は sheet_rc に固定し、各コマで [e1 e2 n] を作り直す。形は region_polygon_ref と centerline から。成長は tau_birth から（今の g(τ) は仮）。先端 21 本は根元の深さの面の上。爪ごとの幅・節などは美術優先29 の一覧から読み、C066 は代表の測定に使わない。b区域の 15 本で Q16 の浪尖の爪を扱う。132・72 の爪のでこぼこはシートを変えずに爪と白の帯で直す",
+  "design34_ja": "Unity の再生と Mock の両眼。瞬間移動のしきい値を爪ごとの局所の読みへ。白の帯は群の重心ではなく頂点の T_white で描く",
+  "polish32_ja": "D25 の定義し直し（影の共有の水色の数え方）、爪ごとに輪郭線へ合わせる、領域の重なり・とげ・他の爪の領域の中の根元、C066・C112・C113、根元の先で指が続く疑い 8 本、利用者の 100 本の位置合わせの不確かさ、C174 と C002、範囲の外の利用者の爪、上側の列の根元",
+  "polish33_ja": "成長・曲がり・遮蔽の精度、先端がシートから浮くこと",
+  "right_claws_ja": "右側の爪（C129〜C153）はブラッシュアップの最後",
+  "hmd_ja": "設計08〜10（PS VR2 の導入の後）。この番号の証拠はすべて numpy"
+ },
+ "time": {
+  "limit_h": 4,
+  "ja": "Q26 の日程で 4 時間（計画 §2.6 の Q26 の表、10/1 の設計32）。ファイルの時刻で 9/29 19:46:28（Unity/Build/Design/32 と Tools/GWWaveGen/ds32 の作成）〜20:21（最初の出力）、進行役の独立の検査 20:25〜20:39、修正01 は 20:43（前の出力の写し list+ids_prefix01 の作成。最初の試みは途中で止まった）〜23:04（修正01 の後の run.json）。記録は 23:08〜23:30 ごろ（この道具・Design_32_ja.md・コミットの一覧）。壁の時計で 19:46〜23:04 は 3 時間 18 分、記録を含めて約 3 時間 45 分で、4 時間の上限の内。20:43〜22:50 には、途中で止まった修正01 の最初の試みの時間が入っていて、作業の時間とは分けられない"
+ }
+}

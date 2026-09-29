@@ -1,0 +1,751 @@
+{
+ "schema": "GreatWave.DS32.claw_list_checks/1",
+ "shadow_check_ja": "囲まれた影：指（領域の中の白）の各画素から最も近い指の画素への向きに、水色だけを通り、先で藍の線に 30 px 以内で当たる水色の画素（指以外の白より指に近いもの。根元を通り中心線に直交する線（口の線）より根元の側と、根元から 5 px 以内を除く）。領域の断面の作り方とは別の組み立て。囲まれた影が 20 px 以上の爪で、そのうち領域に入る割合が 0.50 未満の爪を「影を外した爪」と数える。",
+ "shadow_tested": 148,
+ "shadow_excluded_new": [],
+ "shadow_excluded_af29": [
+  "C001",
+  "C002",
+  "C003",
+  "C004",
+  "C005",
+  "C006",
+  "C007",
+  "C008",
+  "C009",
+  "C010",
+  "C011",
+  "C012",
+  "C013",
+  "C014",
+  "C015",
+  "C016",
+  "C017",
+  "C018",
+  "C019",
+  "C020",
+  "C021",
+  "C022",
+  "C023",
+  "C024",
+  "C025",
+  "C026",
+  "C027",
+  "C028",
+  "C029",
+  "C030",
+  "C031",
+  "C032",
+  "C033",
+  "C034",
+  "C035",
+  "C036",
+  "C037",
+  "C038",
+  "C039",
+  "C040",
+  "C041",
+  "C042",
+  "C043",
+  "C044",
+  "C045",
+  "C046",
+  "C047",
+  "C048",
+  "C049",
+  "C050",
+  "C051",
+  "C052",
+  "C053",
+  "C054",
+  "C055",
+  "C056",
+  "C057",
+  "C058",
+  "C059",
+  "C060",
+  "C061",
+  "C062",
+  "C063",
+  "C064",
+  "C065",
+  "C066",
+  "C067",
+  "C068",
+  "C069",
+  "C070",
+  "C071",
+  "C072",
+  "C073",
+  "C074",
+  "C075",
+  "C076",
+  "C077",
+  "C078",
+  "C079",
+  "C080",
+  "C081",
+  "C082",
+  "C083",
+  "C084",
+  "C085",
+  "C086",
+  "C087",
+  "C088",
+  "C089",
+  "C090",
+  "C091",
+  "C092",
+  "C093",
+  "C094",
+  "C095",
+  "C096",
+  "C097",
+  "C098",
+  "C099",
+  "C100",
+  "C101",
+  "C102",
+  "C103",
+  "C104",
+  "C105",
+  "C106",
+  "C108",
+  "C109",
+  "C110",
+  "C111",
+  "C112",
+  "C113",
+  "C114",
+  "C115",
+  "C116",
+  "C117",
+  "C118",
+  "C119",
+  "C120",
+  "C121",
+  "C122",
+  "C123",
+  "C124",
+  "C125",
+  "C126",
+  "C127",
+  "C128"
+ ],
+ "shadow_below_0_9_ds32": [
+  "C002",
+  "C003",
+  "C006",
+  "C007",
+  "C009",
+  "C012",
+  "C013",
+  "C018",
+  "C020",
+  "C030",
+  "C031",
+  "C033",
+  "C036",
+  "C037",
+  "C040",
+  "C041",
+  "C043",
+  "C047",
+  "C049",
+  "C051",
+  "C052",
+  "C053",
+  "C054",
+  "C055",
+  "C056",
+  "C057",
+  "C061",
+  "C063",
+  "C065",
+  "C075",
+  "C076",
+  "C077",
+  "C078",
+  "C081",
+  "C082",
+  "C093",
+  "C098",
+  "C103",
+  "C112",
+  "C116",
+  "C117",
+  "C118",
+  "C120",
+  "C122",
+  "C124",
+  "C155",
+  "C156",
+  "C158",
+  "C160",
+  "C168",
+  "C175"
+ ],
+ "shadow_pass": true,
+ "shadow_threshold_choice_ja": "「囲まれた影を外した爪」を、囲まれた影のうち領域に入る割合が 0.5 未満（影の半分以上を外した）の爪と読む（進行役の判断、Q24）。美術優先29 の白の多角形は 128 本すべてが 0.12 未満（中央値 0.03）で、利用者の指摘（83・84・85 で影を内側と見なかった）はこの状態。0.8・0.9 の数も並べる。0.9 に届かない分は領域の縁の精度で、爪ごとに原画の輪郭線へ合わせる仕上げ32 へ送る",
+ "shadow_counts_by_threshold": {
+  "0.5": {
+   "ds32": 0,
+   "af29": 127
+  },
+  "0.8": {
+   "ds32": 10,
+   "af29": 127
+  },
+  "0.9": {
+   "ds32": 51,
+   "af29": 127
+  }
+ },
+ "shadow_included_quantiles_ds32": [
+  0.63,
+  0.781,
+  0.822,
+  0.879,
+  0.92
+ ],
+ "shadow_included_quantiles_af29": [
+  0.0,
+  0.029,
+  0.06,
+  0.114
+ ],
+ "iou": {
+  "scope_ja": "主浪の範囲（美術優先29 の zones の main の多角形）。b区域と右側は含めない。高解像度 px",
+  "definition_ja": "分母A′＝平らな白（白を半径 45 px の円で開いて残る所）を除く白 ＋ その白に囲まれた影（影の検査と同じ組み立て）。分母B′＝白の全体 ＋ 囲まれた影。分子＝設計32 の爪の領域（藍の輪郭線の内側、影を含む）の和。比べとして、美術優先29 の白の多角形の和を同じ分母で測った値と、美術優先29 の記録の値（分母A・B、分子＝指＋幹＋根元の白など）を並べる。合否は出さない（仕上げ32 で定義を決め直す、D25）。",
+  "pixels": {
+   "denominator_A_prime": 340114,
+   "denominator_B_prime": 451326,
+   "enclosed_shadow_A": 80240,
+   "enclosed_shadow_B": 80701,
+   "flat_white": 110751,
+   "numerator_ds32": 157043,
+   "numerator_af29_polygons": 108908
+  },
+  "ds32_regions_vs_A_prime": 0.4376,
+  "ds32_regions_vs_B_prime": 0.3317,
+  "af29_polygons_vs_A_prime": 0.3178,
+  "af29_polygons_vs_B_prime": 0.2399,
+  "af29_recorded": {
+   "A_all_parts": 0.8766,
+   "B_all_parts": 0.6006,
+   "A_fingers_stems": 0.6854,
+   "B_fingers_stems": 0.4665,
+   "A_outline_polygons": 0.466,
+   "B_outline_polygons": 0.306,
+   "source_ja": "Docs/Evidence/ArtFirst/29/metrics.json（主浪）と Docs/Progress/Step_29_ja.md の IoU の表。分母A・B は白だけ（影を含まない）"
+  },
+  "judgement": "記録のみ"
+ },
+ "fix01": {
+  "ja": "修正01（独立の検査の 3 つの指摘への 1 回だけの修正、Q26）の検査。口・領域の作り方とは別の組み立て",
+  "region_overlap_pairs": 40,
+  "region_overlap_pairs_gt_0_2": [
+   {
+    "a": "C006",
+    "b": "C007",
+    "of_smaller": 0.298
+   },
+   {
+    "a": "C010",
+    "b": "C013",
+    "of_smaller": 0.204
+   },
+   {
+    "a": "C014",
+    "b": "C016",
+    "of_smaller": 0.249
+   },
+   {
+    "a": "C020",
+    "b": "C021",
+    "of_smaller": 0.268
+   },
+   {
+    "a": "C042",
+    "b": "C045",
+    "of_smaller": 0.213
+   },
+   {
+    "a": "C052",
+    "b": "C053",
+    "of_smaller": 0.221
+   },
+   {
+    "a": "C055",
+    "b": "C064",
+    "of_smaller": 0.234
+   },
+   {
+    "a": "C073",
+    "b": "C103",
+    "of_smaller": 0.202
+   },
+   {
+    "a": "C086",
+    "b": "C097",
+    "of_smaller": 0.258
+   }
+  ],
+  "roots_inside_other_region": [
+   {
+    "root_of": "C010",
+    "row": "上側",
+    "status": "root_kept",
+    "inside_region_of": "C013"
+   },
+   {
+    "root_of": "C016",
+    "row": "上側",
+    "status": "root_kept",
+    "inside_region_of": "C014"
+   },
+   {
+    "root_of": "C040",
+    "row": "上側",
+    "status": "root_kept",
+    "inside_region_of": "C042"
+   },
+   {
+    "root_of": "C042",
+    "row": "上側",
+    "status": "root_kept",
+    "inside_region_of": "C044"
+   },
+   {
+    "root_of": "C045",
+    "row": "上側",
+    "status": "root_kept",
+    "inside_region_of": "C042"
+   },
+   {
+    "root_of": "C053",
+    "row": "上側",
+    "status": "root_kept",
+    "inside_region_of": "C052"
+   },
+   {
+    "root_of": "C054",
+    "row": "上側",
+    "status": "root_kept",
+    "inside_region_of": "C066"
+   },
+   {
+    "root_of": "C060",
+    "row": "上側",
+    "status": "root_kept",
+    "inside_region_of": "C015"
+   },
+   {
+    "root_of": "C064",
+    "row": "途中",
+    "status": "mouth",
+    "inside_region_of": "C055"
+   },
+   {
+    "root_of": "C077",
+    "row": "途中",
+    "status": "mouth",
+    "inside_region_of": "C102"
+   },
+   {
+    "root_of": "C086",
+    "row": "船側",
+    "status": "mouth",
+    "inside_region_of": "C087"
+   },
+   {
+    "root_of": "C087",
+    "row": "船側",
+    "status": "root_kept_guard",
+    "inside_region_of": "C092"
+   },
+   {
+    "root_of": "C090",
+    "row": "船側",
+    "status": "mouth",
+    "inside_region_of": "C089"
+   },
+   {
+    "root_of": "C097",
+    "row": "船側",
+    "status": "mouth",
+    "inside_region_of": "C086"
+   },
+   {
+    "root_of": "C174",
+    "row": "上側",
+    "status": "mouth",
+    "inside_region_of": "C002"
+   }
+  ],
+  "containment_pairs_ge_0_5": [],
+  "containment_named_C105_C107_C110": [],
+  "short_below_0_5_of_af29": [
+   {
+    "id": "C066",
+    "row": "途中",
+    "status": "mouth_guard_reverted",
+    "length_af29": 233.3,
+    "length_new": 115.4,
+    "ratio": 0.495
+   }
+  ],
+  "continues_past_root_ge_0.6": [
+   {
+    "id": "C066",
+    "row": "途中",
+    "status": "mouth_guard_reverted",
+    "fraction": 0.7,
+    "length_new": 115.4,
+    "length_af29": 233.3
+   },
+   {
+    "id": "C071",
+    "row": "途中",
+    "status": "root_kept_guard",
+    "fraction": 0.8,
+    "length_new": 64.8,
+    "length_af29": 63.6
+   },
+   {
+    "id": "C079",
+    "row": "途中",
+    "status": "mouth",
+    "fraction": 0.6,
+    "length_new": 75.5,
+    "length_af29": 44.8
+   },
+   {
+    "id": "C089",
+    "row": "船側",
+    "status": "mouth",
+    "fraction": 0.8,
+    "length_new": 33.0,
+    "length_af29": 44.8
+   },
+   {
+    "id": "C093",
+    "row": "船側",
+    "status": "root_kept_guard",
+    "fraction": 0.8,
+    "length_new": 47.6,
+    "length_af29": 50.2
+   },
+   {
+    "id": "C097",
+    "row": "船側",
+    "status": "mouth",
+    "fraction": 0.9,
+    "length_new": 44.1,
+    "length_af29": 31.4
+   },
+   {
+    "id": "C105",
+    "row": "船側",
+    "status": "mouth",
+    "fraction": 0.6,
+    "length_new": 71.7,
+    "length_af29": 105.9
+   },
+   {
+    "id": "C174",
+    "row": "上側",
+    "status": "mouth",
+    "fraction": 0.7,
+    "length_new": 44.6,
+    "length_af29": null
+   }
+  ],
+  "named_12_and_others": {
+   "C074": {
+    "status": "root_kept_guard",
+    "length_af29": 56.3,
+    "length_new": 53.2,
+    "root_ref": [
+     1986.0,
+     776.0
+    ],
+    "continues_past_root": {
+     "fraction": 0.3,
+     "width_near_root_px": 43.5
+    },
+    "guard": {
+     "first_mouth_index": 10,
+     "first_mouth_reason": "片側が開く",
+     "first_cut_length_px": 17.0,
+     "first_cut_over_old": 0.303,
+     "exit_index": null
+    }
+   },
+   "C075": {
+    "status": "root_kept_guard",
+    "length_af29": 70.1,
+    "length_new": 76.1,
+    "root_ref": [
+     1991.8,
+     703.2
+    ],
+    "continues_past_root": {
+     "fraction": 0.0,
+     "width_near_root_px": 45.0
+    },
+    "guard": {
+     "first_mouth_index": 9,
+     "first_mouth_reason": "片側が開く",
+     "first_cut_length_px": 16.1,
+     "first_cut_over_old": 0.23,
+     "exit_index": null
+    }
+   },
+   "C078": {
+    "status": "root_kept_guard",
+    "length_af29": 68.1,
+    "length_new": 76.4,
+    "root_ref": [
+     2064.6,
+     684.4
+    ],
+    "continues_past_root": {
+     "fraction": 0.1,
+     "width_near_root_px": 18.5
+    },
+    "guard": {
+     "first_mouth_index": 9,
+     "first_mouth_reason": "幅が急に広がる",
+     "first_cut_length_px": 15.4,
+     "first_cut_over_old": 0.227,
+     "exit_index": null
+    }
+   },
+   "C080": {
+    "status": "root_kept_guard",
+    "length_af29": 106.4,
+    "length_new": 117.5,
+    "root_ref": [
+     2046.9,
+     739.0
+    ],
+    "continues_past_root": {
+     "fraction": 0.0,
+     "width_near_root_px": 46.0
+    },
+    "guard": {
+     "first_mouth_index": 20,
+     "first_mouth_reason": "片側が急に遠くなる",
+     "first_cut_length_px": 34.6,
+     "first_cut_over_old": 0.325,
+     "exit_index": null
+    }
+   },
+   "C081": {
+    "status": "root_kept_guard",
+    "length_af29": 37.6,
+    "length_new": 38.2,
+    "root_ref": [
+     2071.0,
+     765.0
+    ],
+    "continues_past_root": {
+     "fraction": 0.5,
+     "width_near_root_px": 30.0
+    },
+    "guard": {
+     "first_mouth_index": 6,
+     "first_mouth_reason": "片側が開く",
+     "first_cut_length_px": 9.9,
+     "first_cut_over_old": 0.262,
+     "exit_index": null
+    }
+   },
+   "C082": {
+    "status": "root_kept_guard",
+    "length_af29": 42.2,
+    "length_new": 41.5,
+    "root_ref": [
+     2090.0,
+     811.0
+    ],
+    "continues_past_root": {
+     "fraction": 0.1,
+     "width_near_root_px": 45.8
+    },
+    "guard": {
+     "first_mouth_index": 6,
+     "first_mouth_reason": "片側が急に遠くなる",
+     "first_cut_length_px": 9.2,
+     "first_cut_over_old": 0.217,
+     "exit_index": null
+    }
+   },
+   "C087": {
+    "status": "root_kept_guard",
+    "length_af29": 36.0,
+    "length_new": 41.2,
+    "root_ref": [
+     2121.0,
+     959.9
+    ],
+    "continues_past_root": {
+     "fraction": 0.0,
+     "width_near_root_px": 13.5
+    },
+    "guard": {
+     "first_mouth_index": 8,
+     "first_mouth_reason": "片側が急に遠くなる",
+     "first_cut_length_px": 13.8,
+     "first_cut_over_old": 0.382,
+     "exit_index": null
+    }
+   },
+   "C092": {
+    "status": "root_kept_guard",
+    "length_af29": 141.0,
+    "length_new": 151.6,
+    "root_ref": [
+     2089.1,
+     983.2
+    ],
+    "continues_past_root": {
+     "fraction": 0.2,
+     "width_near_root_px": 19.2
+    },
+    "guard": {
+     "first_mouth_index": 33,
+     "first_mouth_reason": "片側が急に遠くなる",
+     "first_cut_length_px": 63.8,
+     "first_cut_over_old": 0.453,
+     "exit_index": null
+    }
+   },
+   "C093": {
+    "status": "root_kept_guard",
+    "length_af29": 50.2,
+    "length_new": 47.6,
+    "root_ref": [
+     2145.3,
+     1026.7
+    ],
+    "continues_past_root": {
+     "fraction": 0.8,
+     "width_near_root_px": 27.2
+    },
+    "guard": {
+     "first_mouth_index": 9,
+     "first_mouth_reason": "幅が急に広がる",
+     "first_cut_length_px": 15.9,
+     "first_cut_over_old": 0.316,
+     "exit_index": null
+    }
+   },
+   "C098": {
+    "status": "root_kept_guard",
+    "length_af29": 42.1,
+    "length_new": 43.9,
+    "root_ref": [
+     2057.0,
+     917.0
+    ],
+    "continues_past_root": {
+     "fraction": 0.0,
+     "width_near_root_px": 49.5
+    },
+    "guard": {
+     "first_mouth_index": 6,
+     "first_mouth_reason": "片側が開く",
+     "first_cut_length_px": 12.5,
+     "first_cut_over_old": 0.296,
+     "exit_index": null
+    }
+   },
+   "C106": {
+    "status": "root_kept_guard",
+    "length_af29": 68.0,
+    "length_new": 68.4,
+    "root_ref": [
+     1942.2,
+     837.5
+    ],
+    "continues_past_root": {
+     "fraction": 0.4,
+     "width_near_root_px": 20.5
+    },
+    "guard": {
+     "first_mouth_index": 9,
+     "first_mouth_reason": "片側が開く",
+     "first_cut_length_px": 15.8,
+     "first_cut_over_old": 0.232,
+     "exit_index": null
+    }
+   },
+   "C107": {
+    "removed": "統合",
+    "into_or_dup_of": "C105"
+   },
+   "C105": {
+    "status": "mouth",
+    "length_af29": 105.9,
+    "length_new": 71.7,
+    "root_ref": [
+     1879.1,
+     874.6
+    ],
+    "continues_past_root": {
+     "fraction": 0.6,
+     "width_near_root_px": 29.0
+    },
+    "guard": null
+   },
+   "C110": {
+    "status": "mouth",
+    "length_af29": 14.8,
+    "length_new": 42.9,
+    "root_ref": [
+     1870.9,
+     891.2
+    ],
+    "continues_past_root": {
+     "fraction": 0.3,
+     "width_near_root_px": 19.2
+    },
+    "guard": null
+   },
+   "C169": {
+    "removed": "重複",
+    "into_or_dup_of": "C163"
+   },
+   "C163": {
+    "status": "mouth",
+    "length_af29": null,
+    "length_new": 37.1,
+    "root_ref": [
+     863.4,
+     1393.5
+    ],
+    "continues_past_root": {
+     "fraction": 0.5,
+     "width_near_root_px": 13.5
+    },
+    "guard": null
+   }
+  },
+  "removed": [
+   {
+    "id": "C107",
+    "kind": "統合",
+    "merged_into": "C105"
+   },
+   {
+    "id": "C169",
+    "seed": "claw071",
+    "kind": "重複",
+    "duplicate_of": "C163"
+   }
+  ]
+ },
+ "elapsed_s": 9.3
+}

@@ -1,0 +1,23 @@
+{
+ "schema": "GreatWave.DS32.ids_indep_check/1",
+ "method_ja": "設計32：ID の履歴の独立の検査（生成器 ds32_ids.py と別の組み立て）。\n\n- 主役波の位置は ds31_white.Pkg（設計31 の numpy の Hermite。生成器は ds30_checks.Pkg と ds27_player_ref の重み）で、ワールド = 局所 + O(τ)。\n- τ(t) は時間曲線の表をこの検査で読み直して np.interp。\n- 根元：一覧の (行, 列) の双線形を、この検査の中の式で求め、履歴のファイルの根元と比べる（30 Hz の全コマ）。\n- 先端：|先端 − 根元| = g·|局所のずれ|（剛体の長さ）を全コマで確かめる（座標系の作り方に依らない）。\n- 瞬間移動：根元の 30 Hz の動きが、そのコマのシート（本体の列）の頂点の動きの最大 + 1 mm を超えない（双線形の点は頂点の凸結合なので超えられない）。\n  先端・群：履歴のファイルから前後のコマに対する突出（4 倍 + 5 cm）を数え直す。\n- 点滅：見える（履歴の 8 番目の値）が τ ≥ τ_b（一覧の tau_birth と、この検査の τ(t)）と一致し、1 → 0 の変化がない。\n- t* の再投影：truthlib.project_world（生成器は af27common.Cam）で、根元・先端を一覧の表示の画素と比べる。\n- 群：どの爪も 1 つの爪の群に、どの飛沫の粒も 1 つの飛沫の群に入り、白の帯の群の頂点は重ならない。\n出力：Unity/Build/Design/32/list+ids/ds32_ids_indep_check.json\n",
+ "root_vs_indep_eval_max_m": 2.5e-05,
+ "root_move_over_sheet_max_frames": 0,
+ "root_move_max_m": 0.6717,
+ "sheet_vertex_move_max_m": 0.8294,
+ "tip_rigid_length_err_max_m": 6.6e-05,
+ "tip_spike_count": 0,
+ "claw_group_common_move_max_m": 0.3916,
+ "claw_group_over_rule_a": 0,
+ "visible_vs_birth_mismatch": 0,
+ "visible_off_transitions": 0,
+ "reproj_truthlib_root_max_px": 0.336,
+ "reproj_truthlib_tip_max_px": 0.208,
+ "claws_in_exactly_one_group": 148,
+ "claws_bound": 148,
+ "spray_in_exactly_one_group": 186,
+ "spray_total": 186,
+ "band_vertex_duplicates": 0,
+ "elapsed_s": 6.8,
+ "pass": true
+}
