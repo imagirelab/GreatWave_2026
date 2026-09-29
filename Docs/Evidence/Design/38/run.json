@@ -1,0 +1,444 @@
+{
+ "schema": "GreatWave.Design38.run/1",
+ "commands": [
+  "1 回目の評価（修正前）：powershell -NoProfile -ExecutionPolicy Bypass -File Tools/GWWaveGen/ds38/run_ds38_unity.ps1 -Method GreatWave.Design38.EditorTools.DS38Render.Render -Log run2 -Extra \"-ds38Out G:/Unity/GreatWave_2026_Fresh/Unity/Build/Design/38/outlines/unity -ds38Skip l191,s192,mock,near,video\"（場面・印・t* の組、約 17 s。出力は後で unity_r1_t28/ へ移した）",
+  "1 回目の評価（修正前）：powershell -NoProfile -ExecutionPolicy Bypass -File Tools/GWWaveGen/ds38/run_ds38_unity.ps1 -Method GreatWave.Design38.EditorTools.DS38Render.Render -Log run3 -Extra \"-ds38Out G:/Unity/GreatWave_2026_Fresh/Unity/Build/Design/38/outlines/unity_run3 -ds38Skip scene,mask,t28\"（約 2.5 分。後で unity_r1_seq/ へ移した）",
+  "修正1：powershell -NoProfile -ExecutionPolicy Bypass -File Tools/GWWaveGen/ds38/run_ds38_unity.ps1 -Method GreatWave.Design38.EditorTools.DS38Render.Render -Log fix1 -Extra \"-ds38Out G:/Unity/GreatWave_2026_Fresh/Unity/Build/Design/38/outlines/unity\"（全部、約 2.2 分）",
+  "py -3.10 -B Tools/GWWaveGen/ds30/ds30b_tstar_regress.py --out Unity/Build/Design/38/outlines/unity --sets t28_claws,t28_white（評価器、約 7 分）",
+  "py -3.10 -B Tools/GWWaveGen/ds38/ds38_line_eval.py --unity Unity/Build/Design/38/outlines/unity --out Unity/Build/Design/38/outlines（約 1 分）",
+  "py -3.10 -B Tools/GWWaveGen/ds38/ds38_figs.py --unity Unity/Build/Design/38/outlines/unity --t28 Unity/Build/Design/38/outlines/unity --fig Unity/Build/Design/38/outlines/fig",
+  "確かめ（_DS38FacingMin を足した後、既定 0 で修正1 と画素まで同じか）：powershell -NoProfile -ExecutionPolicy Bypass -File Tools/GWWaveGen/ds38/run_ds38_unity.ps1 -Method GreatWave.Design38.EditorTools.DS38Render.Render -Log verify -Extra \"-ds38Out .../unity_verify -ds38Skip scene,mask,t28,s192,mock,near,video\"",
+  "候補A（採らない。記録）：powershell -NoProfile -ExecutionPolicy Bypass -File Tools/GWWaveGen/ds38/run_ds38_unity.ps1 -Method GreatWave.Design38.EditorTools.DS38Render.Render -Log candA -Extra \"-ds38Out .../unity_cand_a -ds38Skip scene,mask,t28,video -ds38Candidate hero:0:0,near:1:0.15,claws:1:0\"、同 -Log candA_t28video -Extra \"-ds38Out .../unity_cand_a_tv -ds38Skip scene,mask,l191,s192,mock,near -ds38Candidate hero:0:0,near:1:0.15,claws:1:0\"、ds38_line_eval.py --unity .../unity_cand_a、ds30b_tstar_regress.py --out .../unity_cand_a_tv",
+  "修正の回（進行役の検査の後の 1 回、Q26。修正1 の出力 unity/ は unity_fix1/ へ移した）の試し：powershell -NoProfile -ExecutionPolicy Bypass -File Tools/GWWaveGen/ds38/run_ds38_unity.ps1 -Method GreatWave.Design38.EditorTools.DS38Render.Render -Log fixr_xN -Extra \"-ds38Out .../fixr_xN -ds38Skip scene,mask,t28,s192,mock,near,video -ds38Candidate <組>\"（X1 hero:1:0:1:1:0,near:1:0:1:0:0／X2 hero:1:0:1:1:2,near:1:0:1:0:1／X3 hero:1:0:3:1:2,near:1:0.1:1:0:1,claws:1:0:1:0／X4 hero:1:0:3:1:2:0.15,near:1:0:1:0:1:0.15（X4 の 7 つ目の値 _DS38SmoothMax のコードは採らずに消した）／X5 hero:1:0:3:1:2,near:1:0:3:0:1（ds38_fix_eval は回していない。README の F）。prep/ は unity_fix1/prep の写し）、各 ds38_fix_eval.py --unity .../fixr_xN --out .../fixr_xN/ds38_fix_eval.json",
+  "修正の回（採った値は DS38Render.Adopted）：powershell -NoProfile -ExecutionPolicy Bypass -File Tools/GWWaveGen/ds38/run_ds38_unity.ps1 -Method GreatWave.Design38.EditorTools.DS38Render.Render -Log fixround -Extra \"-ds38Out G:/Unity/GreatWave_2026_Fresh/Unity/Build/Design/38/outlines/unity\"（全部、約 2.2 分）、評価器・ds38_line_eval.py（上と同じ）、py -3.10 -B Tools/GWWaveGen/ds38/ds38_fix_eval.py --unity Unity/Build/Design/38/outlines/unity --out Unity/Build/Design/38/outlines/unity/ds38_fix_eval.json（修正1 の unity_fix1 にも同じもの）、ds38_figs.py（上と同じ）、py -3.10 -B Tools/GWWaveGen/ds38/ds38_fixround_figs.py、py -3.10 -B Tools/GWWaveGen/ds38/ds38_summary.py",
+  "py -3.10 -B Tools/GWWaveGen/ds38/ds38_run_record.py",
+  "記録：py -3.10 -B Tools/GWWaveGen/ds38/ds38_record.py（約 1〜2 分）"
+ ],
+ "environment": {
+  "unity": "6000.4.3f1",
+  "device": "NVIDIA GeForce RTX 3080",
+  "graphicsApi": "Direct3D11",
+  "python": "3.10.6",
+  "numpy": "2.2.6",
+  "opencv": "4.12.0",
+  "platform": "Windows-10-10.0.26200-SP0",
+  "ffmpeg": "G:/ffmpeg-2024-12-19-git-494c961379-full_build/bin/ffmpeg.exe",
+  "pillow": "12.0.0",
+  "python_record": "3.10.6",
+  "numpy_record": "2.2.6",
+  "opencv_record": "4.12.0"
+ },
+ "code_sha256": {
+  "Tools/GWWaveGen/ds38/run_ds38_unity.ps1": "b512da90d280855607754fef4e40cab693633251a03f2cc86214aba31d4a1ce0",
+  "Tools/GWWaveGen/ds38/ds38_line_eval.py": "1479db919ada7ab4246760ff2521216fb98087cc0892bfe88ef02d88b00ab602",
+  "Tools/GWWaveGen/ds38/ds38_figs.py": "1ca31de8a097311a6e16ff2c44e5a5fe9cb8a895c0ff6ab39067c8e099a9e45c",
+  "Tools/GWWaveGen/ds38/ds38_run_record.py": "e83634a4b393153645c7b5e2e836cc5ef08e2099357d6c07be4dee7e5cd67f07",
+  "Tools/GWWaveGen/ds38/ds38_fix_eval.py": "d938a826dd759e8c35114f3b4818884e9d195bfd862e6e4573b4dffff75393e8",
+  "Tools/GWWaveGen/ds38/ds38_fixround_figs.py": "bf1153de2069c2a792bacca7a2df437d3070dd257e90a0a078655d4cb85135f2",
+  "Tools/GWWaveGen/ds38/ds38_summary.py": "295bddc6eec918bc4dc6c5ceb6b6e6fa8ca4f2e164e2410262ae047506718bf2",
+  "Unity/Assets/GreatWave/Design38/Editor/DS38Render.cs": "237986bee73f16f62afba87517d077774037839f6c14c87ffddbdd428710af02",
+  "Unity/Assets/GreatWave/Design38/Scripts/DS38SheetOutline.cs": "32c7a092ba4203575db58a8713936c7dd75bbb112f78aaecdf2c140a4a73ee31",
+  "Unity/Assets/GreatWave/Design38/Scripts/DS38ClawOutline.cs": "8ace98295881512a2837f90925746910f3de85d6f66cf1110c1cea70fa8dc749",
+  "Unity/Assets/GreatWave/Design38/Scripts/DS38LineGlobals.cs": "b11eff5b56cf39e185bce4d10f3db80378dc2797eea615db3cb35c3bb5c11d67",
+  "Unity/Assets/GreatWave/Design38/Shaders/DS38LineCommon.cginc": "a940825054fb9085acfd328046071d7b0c7abf8164af3cad8072a65093634455",
+  "Unity/Assets/GreatWave/Design38/Shaders/DS38_Outline_Keypose.shader": "05f0fa694c51fb412783e5c1ec05a888588047ebdc6ba287b039bd3f9dc9c5e1",
+  "Unity/Assets/GreatWave/Design38/Shaders/DS38_Outline_Mesh.shader": "fb8532056bea0c806d1537bbbb4e05240a4e5248a999f01b9a802afecb576e92",
+  "Unity/Assets/GreatWave/Design38/Materials/DS38_Outline_hero.mat": "fbc35bc9473b0ef6b6ae9eae24adf25bf4d219d358ecdc2ab4eeb9b97c1d704c",
+  "Unity/Assets/GreatWave/Design38/Materials/DS38_Outline_near.mat": "8e51899b5797b5ebf2d3d153c4d67bbf2daa014c41f671788bd9c72477cde745",
+  "Unity/Assets/GreatWave/Design38/Materials/DS38_Outline_claws.mat": "915b4681a476c8aa00d014ff6454caddb9dded3ff320e3c1f196244fc0b342f6",
+  "Unity/Assets/GreatWave/Design38/Scenes/DS38_Outlines.unity": "75f19c51c952e440a74722f4472f8d51ca0a0e331929c48f473bc4ec2efe5227",
+  "Tools/GWWaveGen/ds38/ds38_record.py": "6af966c56647961f655275f845c6c956dbf8fecc5c0e774961bfdfa15ed833ec"
+ },
+ "scene": {
+  "path": "Unity/Assets/GreatWave/Design38/Scenes/DS38_Outlines.unity",
+  "sha256": "75f19c51c952e440a74722f4472f8d51ca0a0e331929c48f473bc4ec2efe5227",
+  "render_report_scene38Sha256": "75f19c51c952e440a74722f4472f8d51ca0a0e331929c48f473bc4ec2efe5227"
+ },
+ "inputs_sha256": {
+  "Unity/Build/Design/36/palette/unity/t28_claws/t28/render/af28r01_painting.png": "ba5fcc16719aaab6ee05056e953c4be49856726d022adc33b63b8de53f2baf5c",
+  "Unity/Build/Design/36/palette/unity/t28_claws/t28/render/af28r01_line_ids.png": "ab751faeb4eddcf54ecc79d4783eee3d612ba534389c5ddb857aadf9d52ee66e",
+  "Unity/Build/Design/36/palette/unity/ds30_tstar_regress.json": "4ca57d3a973d94d4feca5dfc9c11397e4246b36d5236986df5046c2a35b8931e",
+  "Unity/Build/Design/29R01/bake_kp/bake/af28r01_uvsdf_a45.bin": "69c0b26d5e0129598aa19ca8365fa590af9a81c282e5fef8298409fac8470d1a",
+  "Unity/Build/Design/33/claws/ds33_claw_frames_f32.bin": "6e7629889a47efc0172d40c28364b59eadef48e419d0dad5c279e3fa3d7f7565"
+ },
+ "protected_files": [
+  "Assets/GreatWave/Design37/Scenes/DS37_FlowLines.unity 9f0ca68c3c50b2048309f313b5556b1dfc15bfaf265b647fdc2be55c5b4ae514",
+  "Assets/GreatWave/Design36/Scenes/DS36_Palette.unity 38a0274360111ba20ba4e90fe1f46c447e30b6bd0c96f31bdc8e1344273c97d8",
+  "Assets/GreatWave/Design34/Scenes/DS34_ThreeLayers.unity 2bf63bffd18187c1ebf9e8ba96c3854d0d85c31ef9ab610bfb20b584508a159a",
+  "Assets/GreatWave/Design30/Scenes/DS30_SinglePlayback.unity e67daaa8414a2df40a1f81a65e126e71b44493c429590a0bfc6c4ba0486525f1",
+  "Assets/GreatWave/Design30/Scripts/DS30SheetPlayer.cs de28b73834f06d1bbe95e7ae2921ca86f7a5bd7211a3a5ca83b33a17e0b13310",
+  "Assets/GreatWave/Design34/Scripts/DS34ClawPlayer.cs 77af1f4946f55fcf165b4b6c9001c1374ceb1a8b9eeea4d1eca8ab86b8380e17",
+  "Assets/GreatWave/Design36/Scripts/DS36SeaPalette.cs 5dfea0bb580abd2fe028ad0723c543ec26ffe069a53b7ee6a855a2d4148cff2f",
+  "Assets/GreatWave/Design36/Scripts/DS36ClawPalette.cs e7ce29e8d761803bbae44f615bca52114e40b67057f36687f0f21803744fedd1",
+  "Assets/GreatWave/Design36/Shaders/DS36_Claw_Palette.shader 3c12157d0472477818cb348a46fa4556f4ff51dca82ce2a52fef988f052fa380",
+  "Assets/GreatWave/Design27/Shaders/DS27_NPR_White.shader 04605cfe56b5e5bafcfb5c0bbc73b783a65f6637222eda5950c15e7e8b322dd9",
+  "Assets/GreatWave/Design27/Shaders/DS27_Outline_Keypose.shader eb1bd65679892dfc0dd47d03b09f8cc369cfd76ba224e56acfd497eb3e99d654",
+  "Assets/GreatWave/Design27/Materials/DS27_Outline_Keypose.mat a95e4b5e749c9014b43f804a3a4aa699c73ba619286f4ea0e6f0eef52b4612bf",
+  "Assets/GreatWave/Design31/Shaders/DS31_Spray_Unlit.shader 33aec2d5e152e573bee7e6de2860838faf50fecff9da94139bfc3ecf5d13f4b3",
+  "Assets/GreatWave/Design37/Scripts/DS37HeadSway.cs ea8e0d069ecd6bdd2a966f55dcc9762c918a5fb2f7933981757c0397297415be",
+  "Build/Design/29R01/bake_kp/bake/af28r01_uvsdf_a45.bin 69c0b26d5e0129598aa19ca8365fa590af9a81c282e5fef8298409fac8470d1a",
+  "Build/Design/33/claws/ds33_claw_frames_f32.bin 6e7629889a47efc0172d40c28364b59eadef48e419d0dad5c279e3fa3d7f7565",
+  "Build/Design/36/palette/prep/ds36_sea_ramp_256_rgba8.bin 1f802be852c30c49827ed53508e3f8372a7c0e7a1acaccd7efd7716facf79b17",
+  "Build/Design/36/palette/prep/ds36_sea_uv3_near_f32.bin d14b43fe2663ca5b3d1e78996ae23f448b770c53b029426784272f1bed903230",
+  "Build/Design/36/palette/prep/ds36_sea_uv3_far_f32.bin af332a1d449c134f99f9f49348c5440241a1838299807b783f36529ca646a42d",
+  "Build/Design/30/sea/near/ds27_keypose.json cc2c8905fa15638ffc223856bce8432e9c3ea9a7c16671aeaaa1e36884b947f2",
+  "Build/Design/30/sea/far/ds27_keypose.json f5d7b2d897a75bac4cbe3ebb6b9cd27998db5b33f00f075371304f93eaec25b6"
+ ],
+ "protectedUnchanged": true,
+ "unity_seconds_fixround": 125.81353759765625,
+ "other_runs": {
+  "first_eval_t28": {
+   "secondsTotal": 10.730818748474121,
+   "protectedUnchanged": true,
+   "candidate": ""
+  },
+  "first_eval_seq": {
+   "secondsTotal": 146.62933349609375,
+   "protectedUnchanged": true,
+   "candidate": ""
+  },
+  "candidate_a": {
+   "secondsTotal": 105.21915435791016,
+   "protectedUnchanged": true,
+   "candidate": "hero:0:0,near:1:0.15,claws:1:0"
+  },
+  "candidate_a_t28_video": {
+   "secondsTotal": 27.264747619628906,
+   "protectedUnchanged": true,
+   "candidate": "hero:0:0,near:1:0.15,claws:1:0"
+  },
+  "verify_tau0": {
+   "secondsTotal": 96.11199951171875,
+   "protectedUnchanged": true,
+   "candidate": ""
+  },
+  "fix1_delivered_before_fixround": {
+   "secondsTotal": 125.40449523925781,
+   "protectedUnchanged": true,
+   "candidate": ""
+  },
+  "fixround_x1": {
+   "secondsTotal": 97.43370056152344,
+   "protectedUnchanged": true,
+   "candidate": "hero:1:0:1:1:0,near:1:0:1:0:0"
+  },
+  "fixround_x2": {
+   "secondsTotal": 96.21635437011719,
+   "protectedUnchanged": true,
+   "candidate": "hero:1:0:1:1:2,near:1:0:1:0:1"
+  },
+  "fixround_x3": {
+   "secondsTotal": 96.10626220703125,
+   "protectedUnchanged": true,
+   "candidate": "hero:1:0:3:1:2,near:1:0.1:1:0:1,claws:1:0:1:0"
+  },
+  "fixround_x4_rejected_code_removed": {
+   "secondsTotal": 97.16643524169922,
+   "protectedUnchanged": true,
+   "candidate": "hero:1:0:3:1:2:0.15,near:1:0:1:0:1:0.15"
+  },
+  "fixround_x5_not_adopted": {
+   "secondsTotal": 96.64820098876953,
+   "protectedUnchanged": true,
+   "candidate": "hero:1:0:3:1:2,near:1:0:3:0:1"
+  }
+ },
+ "verify_tau0_l191_identical_to_fix1": true,
+ "fixround_mask_identical_to_fix1": true,
+ "builder_outputs_sha256": {
+  "Unity/Build/Design/38/outlines/fig/fig_ds38_191.png": "a8ea17fa02e9cbb0f122c4d5f6341c0118440222d55846a389866eeb55d6056b",
+  "Unity/Build/Design/38/outlines/fig/fig_ds38_191_limit_spikes.png": "b25eb74216d6144ba6bed4952082072c53da3b4cf972e35e4303b00d08737b64",
+  "Unity/Build/Design/38/outlines/fig/fig_ds38_before_after.png": "38361604ed8ed9875651b27b5053930033807ff8783993f120bd32c55acd0fe3",
+  "Unity/Build/Design/38/outlines/fig/fig_ds38_claws_seat.png": "7b5b2ca67afd20795de1e292fb8c865ff4838c25bd962b6521c55f39eccdaf75",
+  "Unity/Build/Design/38/outlines/fig/fig_ds38_fixround_before_after.png": "e7c9d665c4baea03e3c829dc7983a1918df799fd33f1fdace4f62859f8b32d9c",
+  "Unity/Build/Design/38/outlines/fig/fig_ds38_fixround_limits.png": "b6c3ad2690a1f22b7edb45a9650a6a7db726171059d091446c4264bd894bff8a",
+  "Unity/Build/Design/38/outlines/fig/fig_ds38_mock.png": "9fcc43e22f713d804819060b6df97e8b41f6d657b5fa57ac4a8ad34e0d169db6",
+  "Unity/Build/Design/38/outlines/fig/fig_ds38_mock_limit_seat_low_t06.png": "3a427b927838b81d35563fc5f89fcff74ddafa65a45580034403f8839df4d912",
+  "Unity/Build/Design/38/outlines/fig/fig_ds38_near.png": "746106de0f5731607fb0baf9d6bc0165104a63e29d404b56cb4664461c9b1173",
+  "Unity/Build/Design/38/outlines/fig/fig_ds38_painting_mask.png": "69d2accc03f2c13df27303058757cce9de7ad48c8d0e902e26ac4a1ac6db34e1",
+  "Unity/Build/Design/38/outlines/fig/fig_ds38_seam.png": "16682a4a6600f5d29e71f240a7de95817b30855aa3b1bab12f085e1acb5ab360",
+  "Unity/Build/Design/38/outlines/unity/ds30_tstar_regress.json": "4ca57d3a973d94d4feca5dfc9c11397e4246b36d5236986df5046c2a35b8931e",
+  "Unity/Build/Design/38/outlines/unity/ds38_fix_eval.json": "5e18274c19d512c55729d4310ab095f2d063c2028ebe1588545b38bb85fd5a7b",
+  "Unity/Build/Design/38/outlines/unity/ds38_render_report.json": "cc7c7745d9c15afd61399d8119caab28dc15d9f837f2ecce23d192b1c184d4ae",
+  "Unity/Build/Design/38/outlines/unity/l191/l191_form_painting.bin": "085a112f959284962fe0a3fa7faf8423605eff307fc477941533cb7d3093741d",
+  "Unity/Build/Design/38/outlines/unity/l191/l191_form_seat.bin": "c68139051ad32c06df6e9b73763e5d11f89ea4dc07babcb4d3e45ea63c951640",
+  "Unity/Build/Design/38/outlines/unity/l191/l191_form_seat_toward_wave.bin": "277e95308dfd1f03131efe573fd0f0184148707695e088a2e5bfe3966029d308",
+  "Unity/Build/Design/38/outlines/unity/l191/l191_sway_seat_toward_wave_t09.bin": "c8b2669e71723fde10bf8b1d4e2ca6c1af850ded726ef0cd99262b2f4272b287",
+  "Unity/Build/Design/38/outlines/unity/prep/ds38_hero_linemask_f32.bin": "338032451dcfa0f72f93f7a7e9250f2475148c5fd1d9dfbdaf44f37d0a6574d3",
+  "Unity/Build/Design/38/outlines/unity/video/ds38_formation_painting_30fps.mp4": "4d87d15a9be7074883746fcdd153155c6c8fecb9aa3e093ad51fb4583340a02f",
+  "Unity/Build/Design/38/outlines/unity/video/ds38_formation_seat_30fps.mp4": "a721d982863b5abe57a2cedf3d92c808ee77e05b1d7a45f539db6f46ace38730",
+  "Unity/Build/Design/38/outlines/unity/video/ds38_formation_seat_toward_wave_30fps.mp4": "aaf97ea2d6c215306bd2c622295cd8d96d2b60a253352ce8d01456dd14c62bdf",
+  "Unity/Build/Design/38/outlines/unity/video/ds38_sway_seat_toward_wave_t09_30fps.mp4": "26a5406184afc0ad8a2209f5e270d37f052a07f5f3702fd3faf15867fddd208e",
+  "Unity/Build/Design/38/outlines/unity/t28_claws/t28/render/af28r01_back.png": "7bb27c4c1619a41ffd2383075580b910241fdf004f2c78151b438a762b42ce6b",
+  "Unity/Build/Design/38/outlines/unity/t28_claws/t28/render/af28r01_back_rule28.png": "83f64ec63d8d89a0f365c5c0e8bc16122e1ebb2968c33a0b0f1b6051c019432f",
+  "Unity/Build/Design/38/outlines/unity/t28_claws/t28/render/af28r01_back_waveonly.png": "fc2d02e60e2903da70be870ef03dc0382b4d8f675b96f677346348cef2bd5be3",
+  "Unity/Build/Design/38/outlines/unity/t28_claws/t28/render/af28r01_class_ids.png": "c1003bbc208c4109b00e2d873e753eabed8c58b4111a589a62592d781f753994",
+  "Unity/Build/Design/38/outlines/unity/t28_claws/t28/render/af28r01_line_ids.png": "589071cb8f5826151c979a219c4a69d4ab4ce614dc9bb6cdc067b6551fb96a0d",
+  "Unity/Build/Design/38/outlines/unity/t28_claws/t28/render/af28r01_painting.png": "9c417474b1e7edab93b62fbd26ef74fb2949ff456f46d587f176162643a4ea99",
+  "Unity/Build/Design/38/outlines/unity/t28_claws/t28/render/af28r01_painting_kstar.png": "ea9cbfdbbf10f9f491079b166eb147c4c320e727b6e9a1aec2f3a42fe05565d6",
+  "Unity/Build/Design/38/outlines/unity/t28_claws/t28/render/af28r01_painting_rule28.png": "93d916c894f07e244fbf0b18adcf05b218d054cc7f923042c56785317a4d9d5b",
+  "Unity/Build/Design/38/outlines/unity/t28_claws/t28/render/af28r01_seat.png": "faf4cd93d77fcd8319ffa6a32004a0c369a02560a7172a3771096f061acefc2f",
+  "Unity/Build/Design/38/outlines/unity/t28_claws/t28/render/af28r01_seat_class_ids.png": "58d89cc74b9893d1a410871239592d37774976f881276f1c1a39180d2a549a56",
+  "Unity/Build/Design/38/outlines/unity/t28_claws/t28/render/af28r01_seat_kstar.png": "119ae6fd52bc21b9d593e96f41c6cb94ec43d839e0adb5a03d92df5693b3b9dd",
+  "Unity/Build/Design/38/outlines/unity/t28_claws/t28/render/af28r01_seat_left.png": "19d38218124b6a9c8344eb8b18737a2fef6785883dd2711932b6fccf3a42830d",
+  "Unity/Build/Design/38/outlines/unity/t28_claws/t28/render/af28r01_seat_left_rule28.png": "4f156f686c06ad24c532757b390534b624fc05e72946e1bc61fc22b8201515f7",
+  "Unity/Build/Design/38/outlines/unity/t28_claws/t28/render/af28r01_seat_low.png": "fb6c10136ab37228a716818e1523c810b1dd7f0914fccd668195127a7a547153",
+  "Unity/Build/Design/38/outlines/unity/t28_claws/t28/render/af28r01_seat_low_class_ids.png": "87ca059e61fae8c818e979b96c5daddfa2c04df188472917cde0628ed42110c1",
+  "Unity/Build/Design/38/outlines/unity/t28_claws/t28/render/af28r01_seat_low_kstar.png": "39fa9b2b2d4a7db059d5659f790062326a752a3c297ff1e2355a23de4e3235c2",
+  "Unity/Build/Design/38/outlines/unity/t28_claws/t28/render/af28r01_seat_low_rule28.png": "b025120f43b970eb2fd3661c0a0b3bd01e5da6c354a66fdcc1493903e3e0c3d6",
+  "Unity/Build/Design/38/outlines/unity/t28_claws/t28/render/af28r01_seat_low_waveonly.png": "ab9623e03224c29a1029a00e48d33f045336e20faaa632f060bfddc4d96f1b59",
+  "Unity/Build/Design/38/outlines/unity/t28_claws/t28/render/af28r01_seat_rule28.png": "30cc94878aa9173edb536ed71a6b3ede7f2fff657bdfe906fb1529361fc3c36d",
+  "Unity/Build/Design/38/outlines/unity/t28_claws/t28/render/af28r01_seat_waveonly.png": "c3f276f0092f3fc77c2eadf3f41f5a6b3f9e7a17c4ad3cb880ef8f99e9a69574",
+  "Unity/Build/Design/38/outlines/unity/t28_claws/t28/render/af28r01_side_left.png": "6a644efb92764d1c066f92920549860cb87c97b2fca0b4862da883c57c04b5d0",
+  "Unity/Build/Design/38/outlines/unity/t28_claws/t28/render/af28r01_side_left_rule28.png": "246f60e78c0bf6ca67b4c393efe25d6f18bfcb41594b5648eb9a4f295e944370",
+  "Unity/Build/Design/38/outlines/unity/t28_claws/t28/render/af28r01_side_left_waveonly.png": "68de608a09436e1663ffea181d400302468c80495f7552dce4e411f1439dbc97",
+  "Unity/Build/Design/38/outlines/unity/t28_white/t28/render/af28r01_back.png": "7bb27c4c1619a41ffd2383075580b910241fdf004f2c78151b438a762b42ce6b",
+  "Unity/Build/Design/38/outlines/unity/t28_white/t28/render/af28r01_back_rule28.png": "83f64ec63d8d89a0f365c5c0e8bc16122e1ebb2968c33a0b0f1b6051c019432f",
+  "Unity/Build/Design/38/outlines/unity/t28_white/t28/render/af28r01_back_waveonly.png": "fc2d02e60e2903da70be870ef03dc0382b4d8f675b96f677346348cef2bd5be3",
+  "Unity/Build/Design/38/outlines/unity/t28_white/t28/render/af28r01_class_ids.png": "2461f87f7a600d6e547ae36944640575fb9b4656967901971f48db3f2c8d8f86",
+  "Unity/Build/Design/38/outlines/unity/t28_white/t28/render/af28r01_line_ids.png": "3dc50b3e9489a29b04e0cff362a012146a9967bb3bf3925a2cbd51a78cc02228",
+  "Unity/Build/Design/38/outlines/unity/t28_white/t28/render/af28r01_painting.png": "cba64c5f8b8e63bd654ed015e7463c2838b71a7ce0e6c3ad2a0baa09a2c00057",
+  "Unity/Build/Design/38/outlines/unity/t28_white/t28/render/af28r01_painting_kstar.png": "92bc7336eae2fa9d70ee8c367e7292e24ed6a60b649ececb25c555c12bf8e025",
+  "Unity/Build/Design/38/outlines/unity/t28_white/t28/render/af28r01_painting_rule28.png": "93d916c894f07e244fbf0b18adcf05b218d054cc7f923042c56785317a4d9d5b",
+  "Unity/Build/Design/38/outlines/unity/t28_white/t28/render/af28r01_seat.png": "68543d9d0d6f5ded946f1b8860b2b803dcbe8afed55cddbf843c6677cc737813",
+  "Unity/Build/Design/38/outlines/unity/t28_white/t28/render/af28r01_seat_class_ids.png": "e25ed38d449e0bc7474b6d963a71d3fcd8c9a3e1fc7c85d56a12408741a246fe",
+  "Unity/Build/Design/38/outlines/unity/t28_white/t28/render/af28r01_seat_kstar.png": "17bd692909242631e9e3c0df3ab87384e32b62e7d21faba92d28872ce3a69958",
+  "Unity/Build/Design/38/outlines/unity/t28_white/t28/render/af28r01_seat_left.png": "19d38218124b6a9c8344eb8b18737a2fef6785883dd2711932b6fccf3a42830d",
+  "Unity/Build/Design/38/outlines/unity/t28_white/t28/render/af28r01_seat_left_rule28.png": "4f156f686c06ad24c532757b390534b624fc05e72946e1bc61fc22b8201515f7",
+  "Unity/Build/Design/38/outlines/unity/t28_white/t28/render/af28r01_seat_low.png": "fb7fcb5102a556b1e15a10c4613afd499334248d75862ff4fc4816a9e3bc87dd",
+  "Unity/Build/Design/38/outlines/unity/t28_white/t28/render/af28r01_seat_low_class_ids.png": "465f67b4d95d926a44d11893ab5c5f889b1b96fba883356d2019de7fe83e7a58",
+  "Unity/Build/Design/38/outlines/unity/t28_white/t28/render/af28r01_seat_low_kstar.png": "8856b2efe92040db41f4ad6ab16807c750eba1fc2f0fa2060f6725fd5f27aec5",
+  "Unity/Build/Design/38/outlines/unity/t28_white/t28/render/af28r01_seat_low_rule28.png": "b025120f43b970eb2fd3661c0a0b3bd01e5da6c354a66fdcc1493903e3e0c3d6",
+  "Unity/Build/Design/38/outlines/unity/t28_white/t28/render/af28r01_seat_low_waveonly.png": "ab9623e03224c29a1029a00e48d33f045336e20faaa632f060bfddc4d96f1b59",
+  "Unity/Build/Design/38/outlines/unity/t28_white/t28/render/af28r01_seat_rule28.png": "30cc94878aa9173edb536ed71a6b3ede7f2fff657bdfe906fb1529361fc3c36d",
+  "Unity/Build/Design/38/outlines/unity/t28_white/t28/render/af28r01_seat_waveonly.png": "c3f276f0092f3fc77c2eadf3f41f5a6b3f9e7a17c4ad3cb880ef8f99e9a69574",
+  "Unity/Build/Design/38/outlines/unity/t28_white/t28/render/af28r01_side_left.png": "6a644efb92764d1c066f92920549860cb87c97b2fca0b4862da883c57c04b5d0",
+  "Unity/Build/Design/38/outlines/unity/t28_white/t28/render/af28r01_side_left_rule28.png": "246f60e78c0bf6ca67b4c393efe25d6f18bfcb41594b5648eb9a4f295e944370",
+  "Unity/Build/Design/38/outlines/unity/t28_white/t28/render/af28r01_side_left_waveonly.png": "68de608a09436e1663ffea181d400302468c80495f7552dce4e411f1439dbc97",
+  "Unity/Build/Design/38/outlines/unity_cand_a/ds38_outlines_metrics.json": "c9f068018134b2ddb6f8f7282128452f3dcf99b98652db9fbc8f6c464883a7b3",
+  "Unity/Build/Design/38/outlines/unity_cand_a_tv/ds30_tstar_regress.json": "4ca57d3a973d94d4feca5dfc9c11397e4246b36d5236986df5046c2a35b8931e",
+  "Unity/Build/Design/38/outlines/unity_cand_a_tv/video/ds38_formation_painting_30fps.mp4": "aed4419a02bde40fe3dccea60560d9488abcc2a355e3ca7a89ab1d7231183305",
+  "Unity/Build/Design/38/outlines/unity_cand_a_tv/video/ds38_formation_seat_30fps.mp4": "c5046687f30b1a31a0a258d8ce2e7c38888598405a459312b3dbc7673c6043ae",
+  "Unity/Build/Design/38/outlines/unity_cand_a_tv/video/ds38_formation_seat_toward_wave_30fps.mp4": "c31d224fdbaf72f9c7aa56c878e4634f34518afe8a804b614b48ad99ac3a156e",
+  "Unity/Build/Design/38/outlines/unity_cand_a_tv/video/ds38_sway_seat_toward_wave_t09_30fps.mp4": "d870fec8dca321a91e595a46aae3e5db643e4b25adc35b75227541c5dc9e6f3e",
+  "Unity/Build/Design/38/outlines/unity_fix1/video/ds38_formation_painting_30fps.mp4": "45ef8ee785e1dec0abe804bfe810c7b348dd707802cc7cd2a7fb93297c3c2c12",
+  "Unity/Build/Design/38/outlines/unity_fix1/video/ds38_formation_seat_30fps.mp4": "c4018e5e4577fc5dc5255dc99704fc92daf1da62c274747f5e302c286d34ac38",
+  "Unity/Build/Design/38/outlines/unity_fix1/video/ds38_formation_seat_toward_wave_30fps.mp4": "4e67eada91d8bde8d3e2486c90893c49973fe32b544bca1687bb6d22646ed7d7",
+  "Unity/Build/Design/38/outlines/unity_fix1/video/ds38_sway_seat_toward_wave_t09_30fps.mp4": "4c2df202f2a027e66c0cbeac4c3ee5d51a185d40467be71a2fdb5e644cf4a641",
+  "Unity/Build/Design/38/outlines/unity_fix1/ds30_tstar_regress.json": "4ca57d3a973d94d4feca5dfc9c11397e4246b36d5236986df5046c2a35b8931e",
+  "Unity/Build/Design/38/outlines/unity_fix1/ds38_acceptance.json": "e82786151faafc7921fb07caaec3e5a7efa210b8fad72d28817db30954111ad1",
+  "Unity/Build/Design/38/outlines/unity_fix1/ds38_fix_eval.json": "79ec8d458edebf704e94dd304a6291e11786c11d6d1027409d032b4ab3fd81b5",
+  "Unity/Build/Design/38/outlines/unity_fix1/ds38_outlines_metrics.json": "6ebc8448a1cd342b7019d34620f773c05a1d697086828945883d76f71023bfb2",
+  "Unity/Build/Design/38/outlines/unity_fix1/ds38_render_report.json": "b2da083b4a4d752fba9c04371c858c7f47731b4e2f36b93e0f0bef7923724549",
+  "Unity/Build/Design/38/outlines/unity_r1_seq/ds38_outlines_metrics.json": "8f126201767bf0fda22da04f42bb5c0037723304954acbb8448e96edab1f4745",
+  "Unity/Build/Design/38/outlines/unity_r1_t28/ds30_tstar_regress.json": "4ca57d3a973d94d4feca5dfc9c11397e4246b36d5236986df5046c2a35b8931e",
+  "Unity/Build/Design/38/outlines/ds38_acceptance.json": "52013e5287c2ed076de3457ac7eb420c8880bd0427c04495bd89f86ca1de0785",
+  "Unity/Build/Design/38/outlines/ds38_outlines_metrics.json": "f5d985649ea192c621f1afc303e9dff9d794947da0803602f23dcb3832df9649",
+  "Unity/Build/Design/38/outlines/fixr_x1/ds38_fix_eval.json": "a06180b617bfba6a8385f23e53460ac4453be903a090b5e350a862e768a6a241",
+  "Unity/Build/Design/38/outlines/fixr_x2/ds38_fix_eval.json": "33eb08a0cf5a50928b9edcda4eec5d2c7fdda9c20c9858de070b8aba9ad0767e",
+  "Unity/Build/Design/38/outlines/fixr_x3/ds38_fix_eval.json": "fe7938ba1817980c31f51440d070e3498bcff2f7147fb069781bd616f3bc0fd6",
+  "Unity/Build/Design/38/outlines/fixr_x4/ds38_fix_eval.json": "5242191a269dda9581de262d54600be73313f450460808d6f635099fbfc5c6a8"
+ },
+ "builder_sha256_checked": 115,
+ "regress_json": {
+  "ds38_fixround": {
+   "path": "Unity/Build/Design/38/outlines/unity/ds30_tstar_regress.json",
+   "sha256": "4ca57d3a973d94d4feca5dfc9c11397e4246b36d5236986df5046c2a35b8931e"
+  },
+  "ds38_fix1": {
+   "path": "Unity/Build/Design/38/outlines/unity_fix1/ds30_tstar_regress.json",
+   "sha256": "4ca57d3a973d94d4feca5dfc9c11397e4246b36d5236986df5046c2a35b8931e"
+  },
+  "ds36_build": {
+   "path": "Unity/Build/Design/36/palette/unity/ds30_tstar_regress.json",
+   "sha256": "4ca57d3a973d94d4feca5dfc9c11397e4246b36d5236986df5046c2a35b8931e"
+  },
+  "ds36_evidence": {
+   "path": "Docs/Evidence/Design/36/ds36_tstar_regress.json",
+   "sha256": "4ca57d3a973d94d4feca5dfc9c11397e4246b36d5236986df5046c2a35b8931e"
+  }
+ },
+ "figures": [
+  {
+   "src": "Unity/Build/Design/38/outlines/fig/fig_ds38_fixround_before_after.png",
+   "dst": "Docs/Evidence/Design/38/fig_ds38_fixround_before_after.png",
+   "bytes": 363546,
+   "sha256": "e7c9d665c4baea03e3c829dc7983a1918df799fd33f1fdace4f62859f8b32d9c"
+  },
+  {
+   "src": "Unity/Build/Design/38/outlines/fig/fig_ds38_fixround_limits.png",
+   "dst": "Docs/Evidence/Design/38/fig_ds38_fixround_limits.png",
+   "bytes": 482332,
+   "sha256": "b6c3ad2690a1f22b7edb45a9650a6a7db726171059d091446c4264bd894bff8a"
+  },
+  {
+   "src": "Unity/Build/Design/38/outlines/fig/fig_ds38_before_after.png",
+   "dst": "Docs/Evidence/Design/38/fig_ds38_before_after.png",
+   "bytes": 503466,
+   "sha256": "38361604ed8ed9875651b27b5053930033807ff8783993f120bd32c55acd0fe3"
+  },
+  {
+   "src": "Unity/Build/Design/38/outlines/fig/fig_ds38_painting_mask.png",
+   "dst": "Docs/Evidence/Design/38/fig_ds38_painting_mask.png",
+   "bytes": 303133,
+   "sha256": "69d2accc03f2c13df27303058757cce9de7ad48c8d0e902e26ac4a1ac6db34e1"
+  },
+  {
+   "src": "Unity/Build/Design/38/outlines/fig/fig_ds38_claws_seat.png",
+   "dst": "Docs/Evidence/Design/38/fig_ds38_claws_seat.png",
+   "bytes": 154766,
+   "sha256": "7b5b2ca67afd20795de1e292fb8c865ff4838c25bd962b6521c55f39eccdaf75"
+  },
+  {
+   "src": "Unity/Build/Design/38/outlines/fig/fig_ds38_seam.png",
+   "dst": "Docs/Evidence/Design/38/fig_ds38_seam.png",
+   "bytes": 787979,
+   "sha256": "16682a4a6600f5d29e71f240a7de95817b30855aa3b1bab12f085e1acb5ab360"
+  },
+  {
+   "src": "Unity/Build/Design/38/outlines/fig/fig_ds38_near.png",
+   "dst": "Docs/Evidence/Design/38/fig_ds38_near.png",
+   "bytes": 286425,
+   "sha256": "746106de0f5731607fb0baf9d6bc0165104a63e29d404b56cb4664461c9b1173"
+  },
+  {
+   "src": "Unity/Build/Design/38/outlines/fig/fig_ds38_mock.png",
+   "dst": "Docs/Evidence/Design/38/fig_ds38_mock.png",
+   "bytes": 410397,
+   "sha256": "9fcc43e22f713d804819060b6df97e8b41f6d657b5fa57ac4a8ad34e0d169db6"
+  },
+  {
+   "src": "Unity/Build/Design/38/outlines/fig/fig_ds38_mock_limit_seat_low_t06.png",
+   "dst": "Docs/Evidence/Design/38/fig_ds38_mock_limit_seat_low_t06.png",
+   "bytes": 188231,
+   "sha256": "3a427b927838b81d35563fc5f89fcff74ddafa65a45580034403f8839df4d912"
+  },
+  {
+   "src": "Unity/Build/Design/38/outlines/fig/fig_ds38_191.png",
+   "dst": "Docs/Evidence/Design/38/fig_ds38_191.png",
+   "bytes": 266369,
+   "sha256": "a8ea17fa02e9cbb0f122c4d5f6341c0118440222d55846a389866eeb55d6056b"
+  },
+  {
+   "src": "Unity/Build/Design/38/outlines/unity_fix1/fig_fix1/fig_ds38_191_limit_spikes.png",
+   "dst": "Docs/Evidence/Design/38/fig_ds38_fix1_spikes.png",
+   "bytes": 270246,
+   "sha256": "ba57d366750c73744e8e07f5565e34e1dd1ee037e5b0e9e5df4c0ca28ad37fd0"
+  }
+ ],
+ "videos": [
+  {
+   "src": "Unity/Build/Design/38/outlines/unity/video/ds38_formation_painting_30fps.mp4",
+   "dst": "Docs/Evidence/Design/38/ds38_formation_painting_30fps.mp4",
+   "bytes": 2835303,
+   "sha256": "4d87d15a9be7074883746fcdd153155c6c8fecb9aa3e093ad51fb4583340a02f",
+   "width": 1920,
+   "height": 1080,
+   "fps": 30.0,
+   "frames": 421
+  },
+  {
+   "src": "Unity/Build/Design/38/outlines/unity/video/ds38_formation_seat_30fps.mp4",
+   "dst": "Docs/Evidence/Design/38/ds38_formation_seat_30fps.mp4",
+   "bytes": 1284599,
+   "sha256": "a721d982863b5abe57a2cedf3d92c808ee77e05b1d7a45f539db6f46ace38730",
+   "width": 1920,
+   "height": 1080,
+   "fps": 30.0,
+   "frames": 421
+  },
+  {
+   "src": "Unity/Build/Design/38/outlines/unity/video/ds38_formation_seat_toward_wave_30fps.mp4",
+   "dst": "Docs/Evidence/Design/38/ds38_formation_seat_toward_wave_30fps.mp4",
+   "bytes": 2678605,
+   "sha256": "aaf97ea2d6c215306bd2c622295cd8d96d2b60a253352ce8d01456dd14c62bdf",
+   "width": 1920,
+   "height": 1080,
+   "fps": 30.0,
+   "frames": 421
+  },
+  {
+   "src": "Unity/Build/Design/38/outlines/unity/video/ds38_sway_seat_toward_wave_t09_30fps.mp4",
+   "dst": "Docs/Evidence/Design/38/ds38_sway_seat_toward_wave_t09_30fps.mp4",
+   "bytes": 491025,
+   "sha256": "26a5406184afc0ad8a2209f5e270d37f052a07f5f3702fd3faf15867fddd208e",
+   "width": 1920,
+   "height": 1080,
+   "fps": 30.0,
+   "frames": 121
+  }
+ ],
+ "copies": [
+  {
+   "src": "Unity/Build/Design/38/outlines/ds38_acceptance.json",
+   "dst": "Docs/Evidence/Design/38/ds38_acceptance.json",
+   "bytes": 39525,
+   "sha256": "52013e5287c2ed076de3457ac7eb420c8880bd0427c04495bd89f86ca1de0785"
+  },
+  {
+   "src": "Unity/Build/Design/38/outlines/ds38_outlines_metrics.json",
+   "dst": "Docs/Evidence/Design/38/ds38_outlines_metrics.json",
+   "bytes": 120610,
+   "sha256": "f5d985649ea192c621f1afc303e9dff9d794947da0803602f23dcb3832df9649"
+  },
+  {
+   "src": "Unity/Build/Design/38/outlines/ds38_run.json",
+   "dst": "Docs/Evidence/Design/38/ds38_run.json",
+   "bytes": 25934,
+   "sha256": "f93ef85ed526accf636bfeb76935f9632789ee7566be4206ebf44bce897068ec"
+  },
+  {
+   "src": "Unity/Build/Design/38/outlines/unity/ds38_fix_eval.json",
+   "dst": "Docs/Evidence/Design/38/ds38_fix_eval.json",
+   "bytes": 24633,
+   "sha256": "5e18274c19d512c55729d4310ab095f2d063c2028ebe1588545b38bb85fd5a7b"
+  }
+ ],
+ "indep_check_files_sha256": {
+  "Unity/Build/Design/38/indep_check/cmp_pt.png": "6ee898bd939cab590950b0ce4fb1e7505c8fda80e074b21008d644b881a14b67",
+  "Unity/Build/Design/38/indep_check/cmp_seat.png": "98d7411f5c6de043c6c2ea2db038dc9a7e61978e2f785856514a57b110f2beb7",
+  "Unity/Build/Design/38/indep_check/cmp_stw.png": "7fc6b1877659745687ec9af1f4ebc12272a5158504b7a131bac67a9d94f83fea",
+  "Unity/Build/Design/38/indep_check/cr_claw_seat.png": "1310faf520a8a66f232da598026d68be11693299cfbca8f7a38332141a29dca3",
+  "Unity/Build/Design/38/indep_check/cr_hero_pt.png": "f2183317d34b0e5d2b504fd7f11dc361ca84d1c06fd294c8ff334bd8f51b2964",
+  "Unity/Build/Design/38/indep_check/cr_sway.png": "ad655151884cc0f7f478f8b61b5294ae6634e9db6784f7e7b565ea9886534295",
+  "Unity/Build/Design/38/indep_check/cr_sway_both.png": "aab0fe1008b6589cabda9208105f3a985157888ec90c6ffde64dc4e709502d7c",
+  "Unity/Build/Design/38/indep_check/cr_sway_r1.png": "ad655151884cc0f7f478f8b61b5294ae6634e9db6784f7e7b565ea9886534295",
+  "Unity/Build/Design/38/indep_check/crop_pt300.png": "785c8f631107378f574b2ce44c2a0a4db7299cf165bf60998d12019f38bf34d2",
+  "Unity/Build/Design/38/indep_check/crop_pt420.png": "8887b5d72f523447b8a2397a7f57b689c38d4e618d2528ab8281af3d8927ac72",
+  "Unity/Build/Design/38/indep_check/crops.py": "1a7b7c7c72b8d8dde6c2be1bb10e77557d269f3232115dcae8db30b473704c65",
+  "Unity/Build/Design/38/indep_check/crops_r1.py": "1a7b7c7c72b8d8dde6c2be1bb10e77557d269f3232115dcae8db30b473704c65",
+  "Unity/Build/Design/38/indep_check/far192_153.png": "4eefed874fe8210bc8bfbf67d3e679bf80e82294a2d37d8ca028e4cb332ae9c7",
+  "Unity/Build/Design/38/indep_check/far192_264.png": "03d879e2713465947119a0433ea3b254f6783a2804bbae35017875cba1d05784",
+  "Unity/Build/Design/38/indep_check/far_254_1367_384.png": "6b25fad9f7656e17c911f8d2502867eb42ded439b0f01173a051e3f9997b3b94",
+  "Unity/Build/Design/38/indep_check/far_264_1439_370.png": "f2befe9700cf997fc9f989f498915f731cf56a4f42bf9eeeb8f8402d7a1dc357",
+  "Unity/Build/Design/38/indep_check/far_264_464_469.png": "0848066e231dd44e3e4147e6a31c9eb9d4855cb377069ec1d311c57bbf3f542c",
+  "Unity/Build/Design/38/indep_check/far_282_1574_343.png": "d0acf80c46b2b12fea54c0450a7b2ed18374ec9dfe32f988546b70e9118487a9",
+  "Unity/Build/Design/38/indep_check/far_282_1729_316.png": "ecb1e671c6cbf2e3705fa1da99e13af9cd8cf01fb29f06ce1d19e146efdf3aea",
+  "Unity/Build/Design/38/indep_check/far_304_1751_305.png": "5f338a85fe0ed3d76b214438494c82c8bd0bca83c199d50cf78de0475e3ee3fa",
+  "Unity/Build/Design/38/indep_check/mock_lr.png": "272f006fce50c7927f5251e939ce4f8b4bec37b8fe94d20a93dfc3273f87d7c9",
+  "Unity/Build/Design/38/indep_check/my191.py": "5d18d5b89c7a4a2ce798677a1163d585cef2c343c54896b14a54f2ff68d215bb",
+  "Unity/Build/Design/38/indep_check/my191_sway_s_form_s.json": "eb935f06079f606c33428135fd65c6fe3412e6971c95317fe02981e3b1ff0c57",
+  "Unity/Build/Design/38/indep_check/my191b.py": "0c2f095920ea6c0ca97c95deb87873ab440627dd05958ec2bd1fe45c59762049",
+  "Unity/Build/Design/38/indep_check/my192.py": "7db43bf58e8e2fd696b7ac6d877924eef6eeb8c2ee9f51b11ad23f1d6ad8ba4c",
+  "Unity/Build/Design/38/indep_check/myjump.py": "826d8e5a8581d16a7dbeb64288d90ef0c29cdd1271ea9663eaba0df37f023953",
+  "Unity/Build/Design/38/indep_check/myjump_a.py": "826d8e5a8581d16a7dbeb64288d90ef0c29cdd1271ea9663eaba0df37f023953",
+  "Unity/Build/Design/38/indep_check/myjump_r1.py": "826d8e5a8581d16a7dbeb64288d90ef0c29cdd1271ea9663eaba0df37f023953",
+  "Unity/Build/Design/38/indep_check/mymock.py": "dbee88b4a160801456fcbb9817c45fd2a93cde820755c2acfd4ddadce94a728b",
+  "Unity/Build/Design/38/indep_check/near4.png": "cc7f7a02fd49aab1e3cee7925643aba9c31711b212faaa0cf4256748c21577b8",
+  "Unity/Build/Design/38/indep_check/pair.py": "6d7dbc484fd3643104a0c349f76335d9131dcdf274347ab2f90326c559b1c64d",
+  "Unity/Build/Design/38/indep_check/rd.py": "b7b85e25a5009e52d3762dfc9afdf1aaeef5df541a5a31f290a74379a8e203d5",
+  "Unity/Build/Design/38/indep_check/seam420.png": "534d0869491b06ab8cbcd521843de65c2091f2a5e813c4047355a7abffdcf62c",
+  "Unity/Build/Design/38/indep_check/seq_pt_296.png": "1d4ac135ac38729671bf20c7ff092e0062213a8acec6dc2953e45e898ea7e828",
+  "Unity/Build/Design/38/indep_check/seq_seat_226.png": "87307caf3d7ce31b243a1317286e861339270d3b6f6490bfb9b01268ea74f3a9",
+  "Unity/Build/Design/38/indep_check/seq_sway.png": "56fca9cb0fe57c3e55b290732df2ca30133b0f8c868c6355202d16ccb88fe68b",
+  "Unity/Build/Design/38/indep_check/tstar_cmp.png": "20432eef4ff800c6b892c2aab3f8fcfd352f4b20d62700f23771b2be4b957dbc",
+  "Unity/Build/Design/38/indep_check/tstar_diff.png": "d69f722f8e2b32db6e12a43e877ca3ea0f70be30a77699f549a79d232e803538",
+  "Unity/Build/Design/38/indep_check/tstar_front.png": "b0161836abf1367b79afdc566f36f459f73c4cd0ffd835586d81776b06a26b4e",
+  "Unity/Build/Design/38/indep_check/tstar_right.png": "3de18ed459f691e8b05af7d94deb845cc629365a2cd0183f27ecc415dc531860",
+  "Unity/Build/Design/38/indep_check/vc_claw_seat.png": "3926ca7d9ce76a4d45d284f37978d460b8b2db4193054b0b4cf5f4127dea73ff",
+  "Unity/Build/Design/38/indep_check/vc_hero_pt.png": "c501713a769988cc3d01d1947d4f164e7a21e677b8edd34948ea75ef4d7a08ab"
+ },
+ "not_kept_note_ja": "unity/l191・s192・mock・near の生データ（線の画素の表と 1 bit、Build/Design/38 の全体で約 1 GB）は Build の中に置いたまま（Git 対象外）。",
+ "not_used_ja": "参照モデル・利用者の解算・写真のフォルダー・Blender・Houdini は使っていない。爪形分析のフォルダーは、作る部も検査もこの記録の道具も開いていない（コミットの一覧の点検で、ファイルの大きさと SHA-256 を読み取りのみで照合しただけ）。",
+ "record_run": "2026-09-30 07:48:26"
+}

@@ -1,0 +1,2187 @@
+{
+ "schema": "GreatWave.Design38.metrics/1",
+ "number": "設計38：必要な輪郭線（片眼欠け、線幅、奥行き、頭の移動時のちらつき）",
+ "evidence_kind_ja": "Unity 6000.4.3f1 の Editor の batchmode の PC オフスクリーン描画（RTX 3080、Direct3D11）と numpy/OpenCV。HMD 実機ではない（PS VR2 の H3・H6 は保留）。Mock の両眼は座席のカメラを ±0.032 m ずらした 2 回の PC の描画で、PS VR2 の立体視（SPI）の描画ではない。頭の揺れは座席のカメラを左右へずらした PC の描画。",
+ "delivered_version_ja": "納める版は修正の回（Q26 の 1 回）の出力 Unity/Build/Design/38/outlines/unity/。修正1 の版は unity_fix1/。",
+ "acceptance": {
+  "191_blink_jump_0": {
+   "criterion_ja": "連続 301 コマ（t 2.0〜12.0 s・30 fps、視点 painting・seat・seat_toward_wave）と頭の揺れ（seat_toward_wave t 9 s、目 ±0.1 m・周期 2 s の 301 コマ）で、一瞬だけ出た線・一瞬だけ消えた線（出どころが同じ線）・跳びの 10 px 以上の塊が 0",
+   "value_fixround": {
+    "form_painting": {
+     "flash": 2,
+     "hole": 0,
+     "jump": 17,
+     "hole_ds37_def": 342,
+     "by_sheet": {
+      "near": {
+       "flash": 2,
+       "hole": 0,
+       "jump": 17
+      }
+     },
+     "line_px_median": 6382,
+     "pass": false
+    },
+    "form_seat": {
+     "flash": 0,
+     "hole": 3,
+     "jump": 4,
+     "hole_ds37_def": 316,
+     "by_sheet": {
+      "near": {
+       "flash": 0,
+       "hole": 3,
+       "jump": 4
+      }
+     },
+     "line_px_median": 1091,
+     "pass": false
+    },
+    "form_seat_toward_wave": {
+     "flash": 0,
+     "hole": 2,
+     "jump": 6,
+     "hole_ds37_def": 158,
+     "by_sheet": {
+      "near": {
+       "flash": 0,
+       "hole": 2,
+       "jump": 3
+      },
+      "claws": {
+       "flash": 0,
+       "hole": 0,
+       "jump": 3
+      }
+     },
+     "line_px_median": 5589,
+     "pass": false
+    },
+    "sway_seat_toward_wave_t09": {
+     "flash": 0,
+     "hole": 0,
+     "jump": 5,
+     "hole_ds37_def": 0,
+     "by_sheet": {
+      "near": {
+       "flash": 0,
+       "hole": 0,
+       "jump": 5
+      }
+     },
+     "line_px_median": 6950,
+     "pass": false
+    }
+   },
+   "value_fix1": {
+    "form_painting": {
+     "flash": 3,
+     "hole": 59,
+     "jump": 16,
+     "hole_ds37_def": 879,
+     "by_sheet": {
+      "near": {
+       "flash": 3,
+       "hole": 59,
+       "jump": 16
+      }
+     },
+     "line_px_median": 10154,
+     "pass": false
+    },
+    "form_seat": {
+     "flash": 1,
+     "hole": 590,
+     "jump": 5,
+     "hole_ds37_def": 1497,
+     "by_sheet": {
+      "near": {
+       "flash": 1,
+       "hole": 590,
+       "jump": 5
+      }
+     },
+     "line_px_median": 1869,
+     "pass": false
+    },
+    "form_seat_toward_wave": {
+     "flash": 0,
+     "hole": 132,
+     "jump": 4,
+     "hole_ds37_def": 442,
+     "by_sheet": {
+      "near": {
+       "flash": 0,
+       "hole": 132,
+       "jump": 1
+      },
+      "claws": {
+       "flash": 0,
+       "hole": 0,
+       "jump": 3
+      }
+     },
+     "line_px_median": 7385,
+     "pass": false
+    },
+    "sway_seat_toward_wave_t09": {
+     "flash": 0,
+     "hole": 0,
+     "jump": 15,
+     "hole_ds37_def": 0,
+     "by_sheet": {
+      "hero": {
+       "flash": 0,
+       "hole": 0,
+       "jump": 15
+      }
+     },
+     "line_px_median": 7703,
+     "pass": false
+    }
+   },
+   "first_eval": {
+    "form_painting": {
+     "flash": 2,
+     "hole": 59,
+     "jump": 12,
+     "hole_ds37_def": 974,
+     "by_sheet": {
+      "near": {
+       "flash": 2,
+       "hole": 59,
+       "jump": 12
+      }
+     },
+     "line_px_median": 14129,
+     "pass": false
+    },
+    "form_seat": {
+     "flash": 1,
+     "hole": 590,
+     "jump": 6,
+     "hole_ds37_def": 1513,
+     "by_sheet": {
+      "near": {
+       "flash": 1,
+       "hole": 590,
+       "jump": 5
+      },
+      "claws": {
+       "flash": 0,
+       "hole": 0,
+       "jump": 1
+      }
+     },
+     "line_px_median": 1869,
+     "pass": false
+    },
+    "form_seat_toward_wave": {
+     "flash": 0,
+     "hole": 132,
+     "jump": 4,
+     "hole_ds37_def": 449,
+     "by_sheet": {
+      "near": {
+       "flash": 0,
+       "hole": 132,
+       "jump": 1
+      },
+      "claws": {
+       "flash": 0,
+       "hole": 0,
+       "jump": 3
+      }
+     },
+     "line_px_median": 7912,
+     "pass": false
+    },
+    "sway_seat_toward_wave_t09": {
+     "flash": 0,
+     "hole": 0,
+     "jump": 0,
+     "hole_ds37_def": 0,
+     "by_sheet": {},
+     "line_px_median": 8068,
+     "pass": true
+    }
+   },
+   "verdict": "不合格"
+  },
+  "192_stale_lines_0": {
+   "criterion_ja": "同じコマをでたらめな順で描き直した線の画素が連続の描画と 1 画素も違わない（48 コマ）。線の画素のうち面から 4 px より離れた塊が 0（画面の縁から 40 px の帯は除く）",
+   "value_fixround": {
+    "diff_px": 0,
+    "orphan_clusters_inner": 0,
+    "orphan_px_inner": 10,
+    "orphan_px_all_incl_border": 93,
+    "orphan_clusters_all_incl_border": 2
+   },
+   "value_fix1": {
+    "diff_px": 0,
+    "orphan_clusters_inner": 0,
+    "orphan_px_inner": 11,
+    "orphan_px_all_incl_border": 97,
+    "orphan_clusters_all_incl_border": 2
+   },
+   "verdict": "合格"
+  },
+  "mock_LR_line_px_diff_lt_10pct": {
+   "criterion_ja": "Mock の両眼（±0.032 m、中心眼をそろえた 2 回の描画）の線の画素の数の差 ÷ 平均 < 10%（両眼の平均 500 px 以上の組）",
+   "pairs_fixround": [
+    {
+     "view": "seat",
+     "t": 6.0,
+     "L_px": 0,
+     "R_px": 0,
+     "rel_diff": 0.0,
+     "one_eye_only_frac_L": 0.0,
+     "one_eye_only_frac_R": 0.0,
+     "pass": null
+    },
+    {
+     "view": "seat",
+     "t": 9.0,
+     "L_px": 4561,
+     "R_px": 4551,
+     "rel_diff": 0.0021949078138718174,
+     "one_eye_only_frac_L": 0.0,
+     "one_eye_only_frac_R": 0.0008789277081960009,
+     "pass": true
+    },
+    {
+     "view": "seat",
+     "t": 10.5,
+     "L_px": 6068,
+     "R_px": 5890,
+     "rel_diff": 0.02977086469309249,
+     "one_eye_only_frac_L": 0.00016479894528675015,
+     "one_eye_only_frac_R": 0.00016977928692699492,
+     "pass": true
+    },
+    {
+     "view": "seat",
+     "t": 12.0,
+     "L_px": 5921,
+     "R_px": 5828,
+     "rel_diff": 0.0158311345646438,
+     "one_eye_only_frac_L": 0.0,
+     "one_eye_only_frac_R": 0.0,
+     "pass": true
+    },
+    {
+     "view": "seat_low",
+     "t": 6.0,
+     "L_px": 2434,
+     "R_px": 2046,
+     "rel_diff": 0.1732142857142857,
+     "one_eye_only_frac_L": 0.10723089564502876,
+     "one_eye_only_frac_R": 0.004398826979472141,
+     "pass": false
+    },
+    {
+     "view": "seat_low",
+     "t": 9.0,
+     "L_px": 5608,
+     "R_px": 5533,
+     "rel_diff": 0.013463782425276008,
+     "one_eye_only_frac_L": 0.0010699001426533524,
+     "one_eye_only_frac_R": 0.0005422013374299657,
+     "pass": true
+    },
+    {
+     "view": "seat_low",
+     "t": 10.5,
+     "L_px": 9313,
+     "R_px": 9042,
+     "rel_diff": 0.02952873876327976,
+     "one_eye_only_frac_L": 0.0003221303554171588,
+     "one_eye_only_frac_R": 0.0,
+     "pass": true
+    },
+    {
+     "view": "seat_low",
+     "t": 12.0,
+     "L_px": 7297,
+     "R_px": 6758,
+     "rel_diff": 0.07669868374244042,
+     "one_eye_only_frac_L": 0.02466767164588187,
+     "one_eye_only_frac_R": 0.0,
+     "pass": true
+    },
+    {
+     "view": "seat_toward_wave",
+     "t": 6.0,
+     "L_px": 5787,
+     "R_px": 5797,
+     "rel_diff": 0.0017265193370165745,
+     "one_eye_only_frac_L": 0.002764817694833247,
+     "one_eye_only_frac_R": 0.0027600483008452647,
+     "pass": true
+    },
+    {
+     "view": "seat_toward_wave",
+     "t": 9.0,
+     "L_px": 6960,
+     "R_px": 6940,
+     "rel_diff": 0.0028776978417266188,
+     "one_eye_only_frac_L": 0.0005747126436781609,
+     "one_eye_only_frac_R": 0.0005763688760806917,
+     "pass": true
+    },
+    {
+     "view": "seat_toward_wave",
+     "t": 10.5,
+     "L_px": 8734,
+     "R_px": 8589,
+     "rel_diff": 0.01674074929284766,
+     "one_eye_only_frac_L": 0.0002289901534234028,
+     "one_eye_only_frac_R": 0.00011642798928862498,
+     "pass": true
+    },
+    {
+     "view": "seat_toward_wave",
+     "t": 12.0,
+     "L_px": 7273,
+     "R_px": 7278,
+     "rel_diff": 0.0006872379905161157,
+     "one_eye_only_frac_L": 0.0,
+     "one_eye_only_frac_R": 0.0,
+     "pass": true
+    }
+   ],
+   "max_rel_diff_judged_fixround": 0.1732142857142857,
+   "max_rel_diff_judged_fix1": 0.26046375966165963,
+   "seat_low_t06_split_fixround": {
+    "L": {
+     "all": 2434,
+     "x_lt_1440": 1893,
+     "x_ge_1440": 541
+    },
+    "R": {
+     "all": 2046,
+     "x_lt_1440": 1887,
+     "x_ge_1440": 159
+    },
+    "rel_diff_x_lt_1440": 0.0031746031746031746
+   },
+   "seat_low_t06_split_fix1": {
+    "L": {
+     "all": 3875,
+     "x_lt_1440": 2813,
+     "x_ge_1440": 1062
+    },
+    "R": {
+     "all": 2982,
+     "x_lt_1440": 2755,
+     "x_ge_1440": 227
+    },
+    "rel_diff_x_lt_1440": 0.020833333333333332
+   },
+   "verdict": "不合格"
+  },
+  "near_lines_not_too_thick": {
+   "criterion_ja": "座席の向きのまま主役波の最も近い点へ 4・8・16 m まで寄せたカメラ（視野 80°）で、DS38 の線の太さの p95 ≤ 3 px。設計27 の外殻線 v0 の決まり（世界寸法の下限 5 cm）と並べる。決まりの上限：押し出し幅 ≤ min(d × 0.0012866, 0.3 m) か d × 1.5 画素の角の大きい方",
+   "probes_fixround": [
+    {
+     "law": "ds38",
+     "dist_m": 4.0,
+     "px": 8461,
+     "p50": 2.0,
+     "p95": 2.799999952316284,
+     "max": 4.393799781799316
+    },
+    {
+     "law": "ds27_v0",
+     "dist_m": 4.0,
+     "px": 22020,
+     "p50": 2.0,
+     "p95": 8.393799781799316,
+     "max": 10.0
+    },
+    {
+     "law": "ds38",
+     "dist_m": 8.0,
+     "px": 6004,
+     "p50": 2.0,
+     "p95": 2.799999952316284,
+     "max": 4.393799781799316
+    },
+    {
+     "law": "ds27_v0",
+     "dist_m": 8.0,
+     "px": 10560,
+     "p50": 2.0,
+     "p95": 4.393799781799316,
+     "max": 6.0
+    },
+    {
+     "law": "ds38",
+     "dist_m": 16.0,
+     "px": 1,
+     "p50": 2.0,
+     "p95": 2.0,
+     "max": 2.0
+    },
+    {
+     "law": "ds27_v0",
+     "dist_m": 16.0,
+     "px": 1,
+     "p50": 2.0,
+     "p95": 2.0,
+     "max": 2.0
+    }
+   ],
+   "verdict": "合格"
+  }
+ },
+ "loose_191": {
+  "definition_ja": "ds38_fix_eval.py：loose_blink＝f−1 と f+1 の同じ画素に同じ出どころ（番号だけ）の線があり、f ではどの線も 1 px の内にない 10 px 以上の塊。appear・vanish＝次のコマの線から 5.5 px より遠い線の塊（頭の揺れの組の出入り）。進行役の検査の定義を別のコードで書いたもの。",
+  "fixround": {
+   "form_painting": {
+    "official": {
+     "flash": 2,
+     "hole": 0,
+     "jump": 17,
+     "by_sheet": {
+      "near": {
+       "flash": 2,
+       "hole": 0,
+       "jump": 17
+      }
+     },
+     "hole_ds37_def": 342,
+     "pass": false
+    },
+    "loose_blink": {
+     "hero": 230,
+     "near": 106,
+     "claws": 0
+    },
+    "appear": {
+     "hero": 267,
+     "near": 842,
+     "claws": 0
+    },
+    "vanish": {
+     "hero": 258,
+     "near": 737,
+     "claws": 0
+    },
+    "ds37_hole": 342,
+    "line_px_by_sheet_total": [
+     0,
+     794175,
+     1700586,
+     0,
+     0
+    ]
+   },
+   "form_seat": {
+    "official": {
+     "flash": 0,
+     "hole": 3,
+     "jump": 4,
+     "by_sheet": {
+      "near": {
+       "flash": 0,
+       "hole": 3,
+       "jump": 4
+      }
+     },
+     "hole_ds37_def": 316,
+     "pass": false
+    },
+    "loose_blink": {
+     "hero": 33,
+     "near": 199,
+     "claws": 18
+    },
+    "appear": {
+     "hero": 693,
+     "near": 592,
+     "claws": 638
+    },
+    "vanish": {
+     "hero": 581,
+     "near": 555,
+     "claws": 673
+    },
+    "ds37_hole": 316,
+    "line_px_by_sheet_total": [
+     0,
+     220100,
+     324830,
+     0,
+     144816
+    ]
+   },
+   "form_seat_toward_wave": {
+    "official": {
+     "flash": 0,
+     "hole": 2,
+     "jump": 6,
+     "by_sheet": {
+      "near": {
+       "flash": 0,
+       "hole": 2,
+       "jump": 3
+      },
+      "claws": {
+       "flash": 0,
+       "hole": 0,
+       "jump": 3
+      }
+     },
+     "hole_ds37_def": 158,
+     "pass": false
+    },
+    "loose_blink": {
+     "hero": 16,
+     "near": 73,
+     "claws": 13
+    },
+    "appear": {
+     "hero": 744,
+     "near": 567,
+     "claws": 445
+    },
+    "vanish": {
+     "hero": 626,
+     "near": 577,
+     "claws": 452
+    },
+    "ds37_hole": 158,
+    "line_px_by_sheet_total": [
+     0,
+     579190,
+     1172402,
+     0,
+     95040
+    ]
+   },
+   "sway_seat_toward_wave_t09": {
+    "official": {
+     "flash": 0,
+     "hole": 0,
+     "jump": 5,
+     "by_sheet": {
+      "near": {
+       "flash": 0,
+       "hole": 0,
+       "jump": 5
+      }
+     },
+     "hole_ds37_def": 0,
+     "pass": false
+    },
+    "loose_blink": {
+     "hero": 0,
+     "near": 0,
+     "claws": 0
+    },
+    "appear": {
+     "hero": 0,
+     "near": 5,
+     "claws": 0
+    },
+    "vanish": {
+     "hero": 0,
+     "near": 5,
+     "claws": 0
+    },
+    "ds37_hole": 0,
+    "line_px_by_sheet_total": [
+     0,
+     841149,
+     1092577,
+     0,
+     161419
+    ]
+   }
+  },
+  "fix1": {
+   "form_painting": {
+    "official": {
+     "flash": 3,
+     "hole": 59,
+     "jump": 16,
+     "by_sheet": {
+      "near": {
+       "flash": 3,
+       "hole": 59,
+       "jump": 16
+      }
+     },
+     "hole_ds37_def": 879,
+     "pass": false
+    },
+    "loose_blink": {
+     "hero": 230,
+     "near": 643,
+     "claws": 0
+    },
+    "appear": {
+     "hero": 267,
+     "near": 1377,
+     "claws": 0
+    },
+    "vanish": {
+     "hero": 258,
+     "near": 1468,
+     "claws": 0
+    },
+    "ds37_hole": 879,
+    "line_px_by_sheet_total": [
+     0,
+     793682,
+     2578483,
+     0,
+     0
+    ]
+   },
+   "form_seat": {
+    "official": {
+     "flash": 1,
+     "hole": 590,
+     "jump": 5,
+     "by_sheet": {
+      "near": {
+       "flash": 1,
+       "hole": 590,
+       "jump": 5
+      }
+     },
+     "hole_ds37_def": 1497,
+     "pass": false
+    },
+    "loose_blink": {
+     "hero": 33,
+     "near": 1378,
+     "claws": 16
+    },
+    "appear": {
+     "hero": 629,
+     "near": 1568,
+     "claws": 626
+    },
+    "vanish": {
+     "hero": 560,
+     "near": 1463,
+     "claws": 658
+    },
+    "ds37_hole": 1497,
+    "line_px_by_sheet_total": [
+     0,
+     245180,
+     704744,
+     0,
+     137157
+    ]
+   },
+   "form_seat_toward_wave": {
+    "official": {
+     "flash": 0,
+     "hole": 132,
+     "jump": 4,
+     "by_sheet": {
+      "near": {
+       "flash": 0,
+       "hole": 132,
+       "jump": 1
+      },
+      "claws": {
+       "flash": 0,
+       "hole": 0,
+       "jump": 3
+      }
+     },
+     "hole_ds37_def": 442,
+     "pass": false
+    },
+    "loose_blink": {
+     "hero": 16,
+     "near": 345,
+     "claws": 13
+    },
+    "appear": {
+     "hero": 684,
+     "near": 807,
+     "claws": 420
+    },
+    "vanish": {
+     "hero": 566,
+     "near": 848,
+     "claws": 443
+    },
+    "ds37_hole": 442,
+    "line_px_by_sheet_total": [
+     0,
+     593591,
+     1454402,
+     0,
+     92487
+    ]
+   },
+   "sway_seat_toward_wave_t09": {
+    "official": {
+     "flash": 0,
+     "hole": 0,
+     "jump": 15,
+     "by_sheet": {
+      "hero": {
+       "flash": 0,
+       "hole": 0,
+       "jump": 15
+      }
+     },
+     "hole_ds37_def": 0,
+     "pass": false
+    },
+    "loose_blink": {
+     "hero": 0,
+     "near": 0,
+     "claws": 0
+    },
+    "appear": {
+     "hero": 15,
+     "near": 0,
+     "claws": 0
+    },
+    "vanish": {
+     "hero": 15,
+     "near": 0,
+     "claws": 0
+    },
+    "ds37_hole": 0,
+    "line_px_by_sheet_total": [
+     0,
+     865519,
+     1296696,
+     0,
+     158069
+    ]
+   }
+  }
+ },
+ "record_only": {
+  "142_143": {
+   "ds36": {
+    "142": {
+     "segments": [
+      "78",
+      "130"
+     ],
+     "n_points": 414,
+     "line_present_fraction": 1.0,
+     "centre_offset_max_px": 7.046,
+     "centre_offset_p95_px": 6.046,
+     "render_line_width_median_px": 3.25,
+     "render_line_width_p10_p90_px": [
+      3.0,
+      3.5
+     ],
+     "truth_line_width_median_px": {
+      "78": 2.78,
+      "130": 3.343
+     },
+     "outer_edge_offset_p95_px": 5.75,
+     "ja": "真値の外輪郭（線の外縁、包絡版）の点から水側への法線上（−8〜+8 px、0.25 px おき）で、外殻線の ID の塊の中心と幅を測った。真値の線の中心＝外縁から線幅（区間の中央値）の半分だけ水側。記録のみ"
+    },
+    "143": {
+     "segments": [
+      "131",
+      "132"
+     ],
+     "n_points": 779,
+     "line_present_fraction": 0.9743,
+     "centre_offset_max_px": 8.021,
+     "centre_offset_p95_px": 6.396,
+     "render_line_width_median_px": 3.25,
+     "render_line_width_p10_p90_px": [
+      3.0,
+      3.25
+     ],
+     "truth_line_width_median_px": {
+      "131": 2.867,
+      "132": 2.292
+     },
+     "outer_edge_offset_p95_px": 6.5,
+     "ja": "真値の外輪郭（線の外縁、包絡版）の点から水側への法線上（−8〜+8 px、0.25 px おき）で、外殻線の ID の塊の中心と幅を測った。真値の線の中心＝外縁から線幅（区間の中央値）の半分だけ水側。記録のみ"
+    }
+   },
+   "ds38_fix1": {
+    "142": {
+     "segments": [
+      "78",
+      "130"
+     ],
+     "n_points": 414,
+     "line_present_fraction": 1.0,
+     "centre_offset_max_px": 7.046,
+     "centre_offset_p95_px": 6.046,
+     "render_line_width_median_px": 3.25,
+     "render_line_width_p10_p90_px": [
+      3.0,
+      3.5
+     ],
+     "truth_line_width_median_px": {
+      "78": 2.78,
+      "130": 3.343
+     },
+     "outer_edge_offset_p95_px": 5.75,
+     "ja": "真値の外輪郭（線の外縁、包絡版）の点から水側への法線上（−8〜+8 px、0.25 px おき）で、外殻線の ID の塊の中心と幅を測った。真値の線の中心＝外縁から線幅（区間の中央値）の半分だけ水側。記録のみ"
+    },
+    "143": {
+     "segments": [
+      "131",
+      "132"
+     ],
+     "n_points": 779,
+     "line_present_fraction": 0.9743,
+     "centre_offset_max_px": 8.021,
+     "centre_offset_p95_px": 6.396,
+     "render_line_width_median_px": 3.25,
+     "render_line_width_p10_p90_px": [
+      3.0,
+      3.25
+     ],
+     "truth_line_width_median_px": {
+      "131": 2.867,
+      "132": 2.292
+     },
+     "outer_edge_offset_p95_px": 6.5,
+     "ja": "真値の外輪郭（線の外縁、包絡版）の点から水側への法線上（−8〜+8 px、0.25 px おき）で、外殻線の ID の塊の中心と幅を測った。真値の線の中心＝外縁から線幅（区間の中央値）の半分だけ水側。記録のみ"
+    }
+   },
+   "ds38_fixround": {
+    "142": {
+     "segments": [
+      "78",
+      "130"
+     ],
+     "n_points": 414,
+     "line_present_fraction": 1.0,
+     "centre_offset_max_px": 7.046,
+     "centre_offset_p95_px": 6.046,
+     "render_line_width_median_px": 3.25,
+     "render_line_width_p10_p90_px": [
+      3.0,
+      3.5
+     ],
+     "truth_line_width_median_px": {
+      "78": 2.78,
+      "130": 3.343
+     },
+     "outer_edge_offset_p95_px": 5.75,
+     "ja": "真値の外輪郭（線の外縁、包絡版）の点から水側への法線上（−8〜+8 px、0.25 px おき）で、外殻線の ID の塊の中心と幅を測った。真値の線の中心＝外縁から線幅（区間の中央値）の半分だけ水側。記録のみ"
+    },
+    "143": {
+     "segments": [
+      "131",
+      "132"
+     ],
+     "n_points": 779,
+     "line_present_fraction": 0.9743,
+     "centre_offset_max_px": 8.021,
+     "centre_offset_p95_px": 6.396,
+     "render_line_width_median_px": 3.25,
+     "render_line_width_p10_p90_px": [
+      3.0,
+      3.25
+     ],
+     "truth_line_width_median_px": {
+      "131": 2.867,
+      "132": 2.292
+     },
+     "outer_edge_offset_p95_px": 6.5,
+     "ja": "真値の外輪郭（線の外縁、包絡版）の点から水側への法線上（−8〜+8 px、0.25 px おき）で、外殻線の ID の塊の中心と幅を測った。真値の線の中心＝外縁から線幅（区間の中央値）の半分だけ水側。記録のみ"
+    }
+   }
+  },
+  "146_147": "記録のみ・測っていない（爪の線は原画視点では描かない決まりなので、原画との ≤4 px は仕上げ38）",
+  "outline_interior_record_evaluator": {
+   "ds36": 6556,
+   "ds38_fix1": 8287,
+   "ds38_fixround": 7295,
+   "note_ja": "評価器は空（主役波・海のどれもない所）から 4 px より内側の線を数えるので、設計38 の値には手前の海（near）の線が入る。"
+  },
+  "195_198": "測っていない（仕上げ38）"
+ },
+ "regression_plan_2_0": {
+  "values": {
+   "ds36_vs_ds38_fixround": {
+    "values_compared": 112,
+    "values_different": 0,
+    "differences": []
+   },
+   "ds36_vs_ds38_fix1": {
+    "values_compared": 112,
+    "values_different": 0,
+    "differences": []
+   },
+   "ds36_vs_candidate_a": {
+    "values_compared": 112,
+    "values_different": 0,
+    "differences": []
+   }
+  },
+  "regress_json_identical_to_ds36": true,
+  "regress_json": {
+   "ds38_fixround": {
+    "path": "Unity/Build/Design/38/outlines/unity/ds30_tstar_regress.json",
+    "sha256": "4ca57d3a973d94d4feca5dfc9c11397e4246b36d5236986df5046c2a35b8931e"
+   },
+   "ds38_fix1": {
+    "path": "Unity/Build/Design/38/outlines/unity_fix1/ds30_tstar_regress.json",
+    "sha256": "4ca57d3a973d94d4feca5dfc9c11397e4246b36d5236986df5046c2a35b8931e"
+   },
+   "ds36_build": {
+    "path": "Unity/Build/Design/36/palette/unity/ds30_tstar_regress.json",
+    "sha256": "4ca57d3a973d94d4feca5dfc9c11397e4246b36d5236986df5046c2a35b8931e"
+   },
+   "ds36_evidence": {
+    "path": "Docs/Evidence/Design/36/ds36_tstar_regress.json",
+    "sha256": "4ca57d3a973d94d4feca5dfc9c11397e4246b36d5236986df5046c2a35b8931e"
+   }
+  },
+  "ds36_values_t28_claws": {
+   "78_130_131_diff_px": {
+    "78": 0.0,
+    "130": 0.0,
+    "131": 0.0
+   },
+   "132_sigma12_max": 3.7552,
+   "132_base": 3.7552,
+   "72_sigma24_p95": 3.8423,
+   "72_base": 4.0075,
+   "sym_verdict_changes_vs_29r01": {}
+  },
+  "note_ja": "原画視点の t* の画像は設計36 と違う（線を変えた）ので評価器を回し直した（爪あり t28_claws・爪なし t28_white）。出力の ds30_tstar_regress.json は設計36 の出力と SHA-256 まで同じ（112 個の値がすべて同じ）。"
+ },
+ "fix_rounds": {
+  "used": 1,
+  "limit_q26": 1,
+  "note_ja": "作る部の修正1（06:05〜06:11）は進行役の検査の前の作る部の中の直し。Q26 の 1 回は進行役の検査の後の「修正の回」（06:53〜）。作る部の修正1 の後の候補A は測っただけで採っていない。",
+  "fixround_experiments": {
+   "x1": "hero:1:0:1:1:0,near:1:0:1:0:0",
+   "x2": "hero:1:0:1:1:2,near:1:0:1:0:1",
+   "x3": "hero:1:0:3:1:2,near:1:0.1:1:0:1,claws:1:0:1:0",
+   "x4": "hero:1:0:3:1:2:0.15,near:1:0:1:0:1:0.15"
+  },
+  "fixround_experiment_tables": {
+   "x1": {
+    "candidate": "hero:1:0:1:1:0,near:1:0:1:0:0",
+    "table": {
+     "form_painting": {
+      "official": {
+       "flash": 3,
+       "hole": 52,
+       "jump": 15,
+       "by_sheet": {
+        "near": {
+         "flash": 3,
+         "hole": 52,
+         "jump": 15
+        }
+       },
+       "hole_ds37_def": 861,
+       "pass": false
+      },
+      "loose_blink": {
+       "hero": 230,
+       "near": 625,
+       "claws": 0
+      },
+      "appear": {
+       "hero": 267,
+       "near": 1368,
+       "claws": 0
+      },
+      "vanish": {
+       "hero": 258,
+       "near": 1454,
+       "claws": 0
+      },
+      "ds37_hole": 861,
+      "line_px_by_sheet_total": [
+       0,
+       793692,
+       2572887,
+       0,
+       0
+      ]
+     },
+     "form_seat": {
+      "official": {
+       "flash": 1,
+       "hole": 586,
+       "jump": 5,
+       "by_sheet": {
+        "near": {
+         "flash": 1,
+         "hole": 586,
+         "jump": 5
+        }
+       },
+       "hole_ds37_def": 1500,
+       "pass": false
+      },
+      "loose_blink": {
+       "hero": 33,
+       "near": 1381,
+       "claws": 18
+      },
+      "appear": {
+       "hero": 629,
+       "near": 1568,
+       "claws": 623
+      },
+      "vanish": {
+       "hero": 561,
+       "near": 1471,
+       "claws": 663
+      },
+      "ds37_hole": 1500,
+      "line_px_by_sheet_total": [
+       0,
+       241981,
+       703654,
+       0,
+       139555
+      ]
+     },
+     "form_seat_toward_wave": {
+      "official": {
+       "flash": 0,
+       "hole": 132,
+       "jump": 4,
+       "by_sheet": {
+        "near": {
+         "flash": 0,
+         "hole": 132,
+         "jump": 1
+        },
+        "claws": {
+         "flash": 0,
+         "hole": 0,
+         "jump": 3
+        }
+       },
+       "hole_ds37_def": 438,
+       "pass": false
+      },
+      "loose_blink": {
+       "hero": 16,
+       "near": 343,
+       "claws": 13
+      },
+      "appear": {
+       "hero": 686,
+       "near": 807,
+       "claws": 429
+      },
+      "vanish": {
+       "hero": 564,
+       "near": 849,
+       "claws": 445
+      },
+      "ds37_hole": 438,
+      "line_px_by_sheet_total": [
+       0,
+       591313,
+       1451943,
+       0,
+       93517
+      ]
+     },
+     "sway_seat_toward_wave_t09": {
+      "official": {
+       "flash": 0,
+       "hole": 0,
+       "jump": 5,
+       "by_sheet": {
+        "hero": {
+         "flash": 0,
+         "hole": 0,
+         "jump": 5
+        }
+       },
+       "hole_ds37_def": 0,
+       "pass": false
+      },
+      "loose_blink": {
+       "hero": 0,
+       "near": 0,
+       "claws": 0
+      },
+      "appear": {
+       "hero": 5,
+       "near": 0,
+       "claws": 0
+      },
+      "vanish": {
+       "hero": 5,
+       "near": 0,
+       "claws": 0
+      },
+      "ds37_hole": 0,
+      "line_px_by_sheet_total": [
+       0,
+       862781,
+       1294658,
+       0,
+       159355
+      ]
+     }
+    }
+   },
+   "x2": {
+    "candidate": "hero:1:0:1:1:2,near:1:0:1:0:1",
+    "table": {
+     "form_painting": {
+      "official": {
+       "flash": 2,
+       "hole": 0,
+       "jump": 17,
+       "by_sheet": {
+        "near": {
+         "flash": 2,
+         "hole": 0,
+         "jump": 17
+        }
+       },
+       "hole_ds37_def": 342,
+       "pass": false
+      },
+      "loose_blink": {
+       "hero": 230,
+       "near": 106,
+       "claws": 0
+      },
+      "appear": {
+       "hero": 267,
+       "near": 842,
+       "claws": 0
+      },
+      "vanish": {
+       "hero": 258,
+       "near": 737,
+       "claws": 0
+      },
+      "ds37_hole": 342,
+      "line_px_by_sheet_total": [
+       0,
+       794175,
+       1700586,
+       0,
+       0
+      ]
+     },
+     "form_seat": {
+      "official": {
+       "flash": 0,
+       "hole": 3,
+       "jump": 4,
+       "by_sheet": {
+        "near": {
+         "flash": 0,
+         "hole": 3,
+         "jump": 4
+        }
+       },
+       "hole_ds37_def": 317,
+       "pass": false
+      },
+      "loose_blink": {
+       "hero": 33,
+       "near": 199,
+       "claws": 18
+      },
+      "appear": {
+       "hero": 717,
+       "near": 592,
+       "claws": 623
+      },
+      "vanish": {
+       "hero": 589,
+       "near": 555,
+       "claws": 666
+      },
+      "ds37_hole": 317,
+      "line_px_by_sheet_total": [
+       0,
+       226246,
+       324830,
+       0,
+       139880
+      ]
+     },
+     "form_seat_toward_wave": {
+      "official": {
+       "flash": 0,
+       "hole": 2,
+       "jump": 6,
+       "by_sheet": {
+        "near": {
+         "flash": 0,
+         "hole": 2,
+         "jump": 3
+        },
+        "claws": {
+         "flash": 0,
+         "hole": 0,
+         "jump": 3
+        }
+       },
+       "hole_ds37_def": 158,
+       "pass": false
+      },
+      "loose_blink": {
+       "hero": 16,
+       "near": 73,
+       "claws": 13
+      },
+      "appear": {
+       "hero": 756,
+       "near": 567,
+       "claws": 428
+      },
+      "vanish": {
+       "hero": 620,
+       "near": 577,
+       "claws": 445
+      },
+      "ds37_hole": 158,
+      "line_px_by_sheet_total": [
+       0,
+       583161,
+       1172402,
+       0,
+       93556
+      ]
+     },
+     "sway_seat_toward_wave_t09": {
+      "official": {
+       "flash": 0,
+       "hole": 0,
+       "jump": 10,
+       "by_sheet": {
+        "near": {
+         "flash": 0,
+         "hole": 0,
+         "jump": 5
+        },
+        "hero": {
+         "flash": 0,
+         "hole": 0,
+         "jump": 5
+        }
+       },
+       "hole_ds37_def": 0,
+       "pass": false
+      },
+      "loose_blink": {
+       "hero": 0,
+       "near": 0,
+       "claws": 0
+      },
+      "appear": {
+       "hero": 5,
+       "near": 5,
+       "claws": 0
+      },
+      "vanish": {
+       "hero": 5,
+       "near": 5,
+       "claws": 0
+      },
+      "ds37_hole": 0,
+      "line_px_by_sheet_total": [
+       0,
+       852389,
+       1092577,
+       0,
+       159480
+      ]
+     }
+    }
+   },
+   "x3": {
+    "candidate": "hero:1:0:3:1:2,near:1:0.1:1:0:1,claws:1:0:1:0",
+    "table": {
+     "form_painting": {
+      "official": {
+       "flash": 0,
+       "hole": 1,
+       "jump": 7,
+       "by_sheet": {
+        "near": {
+         "flash": 0,
+         "hole": 1,
+         "jump": 4
+        },
+        "hero": {
+         "flash": 0,
+         "hole": 0,
+         "jump": 3
+        }
+       },
+       "hole_ds37_def": 248,
+       "pass": false
+      },
+      "loose_blink": {
+       "hero": 230,
+       "near": 18,
+       "claws": 0
+      },
+      "appear": {
+       "hero": 277,
+       "near": 748,
+       "claws": 0
+      },
+      "vanish": {
+       "hero": 277,
+       "near": 669,
+       "claws": 0
+      },
+      "ds37_hole": 248,
+      "line_px_by_sheet_total": [
+       0,
+       799289,
+       619686,
+       0,
+       0
+      ]
+     },
+     "form_seat": {
+      "official": {
+       "flash": 0,
+       "hole": 10,
+       "jump": 10,
+       "by_sheet": {
+        "near": {
+         "flash": 0,
+         "hole": 10,
+         "jump": 10
+        }
+       },
+       "hole_ds37_def": 143,
+       "pass": false
+      },
+      "loose_blink": {
+       "hero": 33,
+       "near": 49,
+       "claws": 3
+      },
+      "appear": {
+       "hero": 722,
+       "near": 708,
+       "claws": 536
+      },
+      "vanish": {
+       "hero": 653,
+       "near": 728,
+       "claws": 661
+      },
+      "ds37_hole": 143,
+      "line_px_by_sheet_total": [
+       0,
+       222331,
+       174820,
+       0,
+       97744
+      ]
+     },
+     "form_seat_toward_wave": {
+      "official": {
+       "flash": 0,
+       "hole": 4,
+       "jump": 7,
+       "by_sheet": {
+        "near": {
+         "flash": 0,
+         "hole": 4,
+         "jump": 3
+        },
+        "claws": {
+         "flash": 0,
+         "hole": 0,
+         "jump": 4
+        }
+       },
+       "hole_ds37_def": 64,
+       "pass": false
+      },
+      "loose_blink": {
+       "hero": 16,
+       "near": 11,
+       "claws": 3
+      },
+      "appear": {
+       "hero": 782,
+       "near": 705,
+       "claws": 358
+      },
+      "vanish": {
+       "hero": 636,
+       "near": 700,
+       "claws": 411
+      },
+      "ds37_hole": 64,
+      "line_px_by_sheet_total": [
+       0,
+       585234,
+       362050,
+       0,
+       63889
+      ]
+     },
+     "sway_seat_toward_wave_t09": {
+      "official": {
+       "flash": 0,
+       "hole": 0,
+       "jump": 0,
+       "by_sheet": {},
+       "hole_ds37_def": 0,
+       "pass": true
+      },
+      "loose_blink": {
+       "hero": 0,
+       "near": 0,
+       "claws": 0
+      },
+      "appear": {
+       "hero": 0,
+       "near": 0,
+       "claws": 0
+      },
+      "vanish": {
+       "hero": 0,
+       "near": 0,
+       "claws": 0
+      },
+      "ds37_hole": 0,
+      "line_px_by_sheet_total": [
+       0,
+       843720,
+       570814,
+       0,
+       90195
+      ]
+     }
+    }
+   },
+   "x4": {
+    "candidate": "hero:1:0:3:1:2:0.15,near:1:0:1:0:1:0.15",
+    "table": {
+     "form_painting": {
+      "official": {
+       "flash": 3,
+       "hole": 2,
+       "jump": 15,
+       "by_sheet": {
+        "near": {
+         "flash": 3,
+         "hole": 2,
+         "jump": 15
+        }
+       },
+       "hole_ds37_def": 486,
+       "pass": false
+      },
+      "loose_blink": {
+       "hero": 230,
+       "near": 250,
+       "claws": 0
+      },
+      "appear": {
+       "hero": 267,
+       "near": 871,
+       "claws": 0
+      },
+      "vanish": {
+       "hero": 258,
+       "near": 914,
+       "claws": 0
+      },
+      "ds37_hole": 486,
+      "line_px_by_sheet_total": [
+       0,
+       793692,
+       2183531,
+       0,
+       0
+      ]
+     },
+     "form_seat": {
+      "official": {
+       "flash": 1,
+       "hole": 148,
+       "jump": 5,
+       "by_sheet": {
+        "near": {
+         "flash": 1,
+         "hole": 148,
+         "jump": 5
+        }
+       },
+       "hole_ds37_def": 715,
+       "pass": false
+      },
+      "loose_blink": {
+       "hero": 33,
+       "near": 597,
+       "claws": 18
+      },
+      "appear": {
+       "hero": 672,
+       "near": 929,
+       "claws": 639
+      },
+      "vanish": {
+       "hero": 580,
+       "near": 882,
+       "claws": 672
+      },
+      "ds37_hole": 715,
+      "line_px_by_sheet_total": [
+       0,
+       225025,
+       537762,
+       0,
+       144646
+      ]
+     },
+     "form_seat_toward_wave": {
+      "official": {
+       "flash": 0,
+       "hole": 27,
+       "jump": 5,
+       "by_sheet": {
+        "near": {
+         "flash": 0,
+         "hole": 27,
+         "jump": 2
+        },
+        "claws": {
+         "flash": 0,
+         "hole": 0,
+         "jump": 3
+        }
+       },
+       "hole_ds37_def": 291,
+       "pass": false
+      },
+      "loose_blink": {
+       "hero": 16,
+       "near": 196,
+       "claws": 13
+      },
+      "appear": {
+       "hero": 699,
+       "near": 513,
+       "claws": 446
+      },
+      "vanish": {
+       "hero": 578,
+       "near": 538,
+       "claws": 452
+      },
+      "ds37_hole": 291,
+      "line_px_by_sheet_total": [
+       0,
+       585952,
+       1373712,
+       0,
+       95006
+      ]
+     },
+     "sway_seat_toward_wave_t09": {
+      "official": {
+       "flash": 0,
+       "hole": 0,
+       "jump": 0,
+       "by_sheet": {},
+       "hole_ds37_def": 0,
+       "pass": true
+      },
+      "loose_blink": {
+       "hero": 0,
+       "near": 0,
+       "claws": 0
+      },
+      "appear": {
+       "hero": 5,
+       "near": 0,
+       "claws": 0
+      },
+      "vanish": {
+       "hero": 5,
+       "near": 0,
+       "claws": 0
+      },
+      "ds37_hole": 0,
+      "line_px_by_sheet_total": [
+       0,
+       842550,
+       1254992,
+       0,
+       161369
+      ]
+     }
+    }
+   }
+  },
+  "x5_from_readme_ja": [
+   "X5 near 押し下げ 3：右の高い波の 2 つの尖りの扇が少し減るだけ（その箱の線の画素 1,070 → 813）→ 採らない。"
+  ],
+  "adopted_materials": {
+   "DS38_Outline_hero": {
+    "pushBack": 3.0,
+    "pushPaint": 1.0,
+    "facingMode": 2.0,
+    "backOnly": 1.0,
+    "facingMin": 0.0,
+    "minPx": 1.5,
+    "maxWidth": 0.30000001192092896,
+    "lineAngle": 0.0012865961762145162
+   },
+   "DS38_Outline_near": {
+    "pushBack": 1.0,
+    "pushPaint": 0.0,
+    "facingMode": 1.0,
+    "backOnly": 1.0,
+    "facingMin": 0.0,
+    "minPx": 1.5,
+    "maxWidth": 0.30000001192092896,
+    "lineAngle": 0.0012865961762145162
+   },
+   "DS38_Outline_claws": {
+    "pushBack": 0.0,
+    "pushPaint": 0.0,
+    "facingMode": 0.0,
+    "backOnly": 1.0,
+    "facingMin": 0.0,
+    "minPx": 1.5,
+    "maxWidth": 0.30000001192092896,
+    "lineAngle": 0.0012865961762145162
+   }
+  },
+  "candidate_a_not_adopted": {
+   "settings_ja": "主役波は幾何シェーダーの表裏の選別なし、near は選別あり＋内積の下限 0.15、爪は選別あり（修正1 の後に測った。採らない）",
+   "191": {
+    "form_painting": {
+     "flash": 0,
+     "hole": 60,
+     "jump": 12,
+     "hole_ds37_def": 840,
+     "by_sheet": {
+      "near": {
+       "flash": 0,
+       "hole": 60,
+       "jump": 9
+      },
+      "hero": {
+       "flash": 0,
+       "hole": 0,
+       "jump": 3
+      }
+     },
+     "line_px_median": 7008,
+     "pass": false
+    },
+    "form_seat": {
+     "flash": 0,
+     "hole": 462,
+     "jump": 10,
+     "hole_ds37_def": 1256,
+     "by_sheet": {
+      "near": {
+       "flash": 0,
+       "hole": 462,
+       "jump": 10
+      }
+     },
+     "line_px_median": 1788,
+     "pass": false
+    },
+    "form_seat_toward_wave": {
+     "flash": 0,
+     "hole": 82,
+     "jump": 7,
+     "hole_ds37_def": 303,
+     "by_sheet": {
+      "near": {
+       "flash": 0,
+       "hole": 82,
+       "jump": 4
+      },
+      "claws": {
+       "flash": 0,
+       "hole": 0,
+       "jump": 3
+      }
+     },
+     "line_px_median": 4814,
+     "pass": false
+    },
+    "sway_seat_toward_wave_t09": {
+     "flash": 0,
+     "hole": 0,
+     "jump": 10,
+     "hole_ds37_def": 0,
+     "by_sheet": {
+      "near": {
+       "flash": 0,
+       "hole": 0,
+       "jump": 10
+      }
+     },
+     "line_px_median": 5512,
+     "pass": false
+    }
+   },
+   "mock_max": 0.08986971550119649,
+   "192_diff_px": 0,
+   "near": true
+  }
+ },
+ "recorder_crosscheck": {
+  "tstar_painting_diff_px": {
+   "definition_ja": "RGB の 3 つのどれかが違う画素の数（1920×1080。爪あり t28_claws の af28r01_painting.png）",
+   "files_sha256": {
+    "ds36": "ba5fcc16719aaab6ee05056e953c4be49856726d022adc33b63b8de53f2baf5c",
+    "ds38_fix1": "15608e6c79f5d4e0f8e78c23607db2f500c10768513abcc1f8f126d16ebf77b2",
+    "ds38_fixround": "9c417474b1e7edab93b62fbd26ef74fb2949ff456f46d587f176162643a4ea99"
+   },
+   "ds36_vs_fix1": 18356,
+   "ds36_vs_fixround": 16768,
+   "fix1_vs_fixround": 2178
+  },
+  "painting_hero_lines_fix1_vs_fixround": {
+   "frames": 301,
+   "hero_px_lost": 35,
+   "hero_px_added": 528,
+   "hero_px_lost_not_on_near_line": 0,
+   "hero_px_added_not_on_near_line": 0,
+   "note_ja": "301 コマの和。near の線の画素（どちらかの版）と重ならない所で主役波の線の画素が違うのは lost/added_not_on_near_line。"
+  },
+  "near_line_px_301_frames": {
+   "fix1": {
+    "form_painting": 2578483,
+    "form_seat": 704744,
+    "form_seat_toward_wave": 1454402
+   },
+   "fixround": {
+    "form_painting": 1700586,
+    "form_seat": 324830,
+    "form_seat_toward_wave": 1172402
+   }
+  },
+  "sway_appear_vanish_recount": {
+   "definition_ja": "進行役の検査の定義：頭の揺れの連続 301 コマ（座席から波の方向 t 9 s、目 ±0.1 m・周期 2 s）で、次のコマ（または前のコマ）のどの線からも 5.5 px より遠い線の、8 近傍で 10 px 以上の塊を、出た（appear）・消えた（vanish）として数えた。by_place は画面の位置（10 px に丸めた塊の中心）ごと、col・row はその塊の線の出どころ（主役波の列・行）。hero_px_from_cells は、出どころの列・行が範囲に入る主役波の線の画素の数（コマ 24〜35）",
+   "runs": {
+    "first_eval_r1": {
+     "dir": "Unity/Build/Design/38/outlines/unity_r1_seq",
+     "bin_sha256": "2531c74ada84cdb20fe20acdd2e535e61f8dbf5b5a5006fcefd3c6909a5af66f",
+     "appear_vanish_clusters": {
+      "hero": 20,
+      "near": 0,
+      "claws": 0
+     },
+     "by_place": {
+      "hero (730, 370)": {
+       "events": 20,
+       "frames": [
+        1,
+        297
+       ],
+       "px": [
+        11,
+        11
+       ],
+       "col": [
+        196.0,
+        196.4
+       ],
+       "row": [
+        107.1,
+        109.4
+       ]
+      }
+     },
+     "hero_px_from_cells_frames_24_35": {
+      "cols212_216_rows124_131": [
+       24,
+       20,
+       16,
+       14,
+       25,
+       20,
+       11,
+       15,
+       26,
+       23,
+       11,
+       15
+      ],
+      "cols195_198_rows106_111": [
+       6,
+       13,
+       17,
+       7,
+       4,
+       11,
+       17,
+       9,
+       4,
+       11,
+       16,
+       11
+      ]
+     }
+    },
+    "fix1": {
+     "dir": "Unity/Build/Design/38/outlines/unity_fix1",
+     "bin_sha256": "69896a66b89b9659c30bcfce2654703159b2326b88595b8cc985897ea8e6e2b1",
+     "appear_vanish_clusters": {
+      "hero": 30,
+      "near": 0,
+      "claws": 0
+     },
+     "by_place": {
+      "hero (820, 290)": {
+       "events": 30,
+       "frames": [
+        0,
+        296
+       ],
+       "px": [
+        12,
+        14
+       ],
+       "col": [
+        213.0,
+        214.9
+       ],
+       "row": [
+        126.3,
+        129.2
+       ]
+      }
+     },
+     "hero_px_from_cells_frames_24_35": {
+      "cols212_216_rows124_131": [
+       24,
+       20,
+       16,
+       14,
+       25,
+       20,
+       11,
+       15,
+       26,
+       23,
+       11,
+       15
+      ],
+      "cols195_198_rows106_111": [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0
+      ]
+     }
+    },
+    "verify_tau0": {
+     "dir": "Unity/Build/Design/38/outlines/unity_verify",
+     "bin_sha256": "69896a66b89b9659c30bcfce2654703159b2326b88595b8cc985897ea8e6e2b1",
+     "appear_vanish_clusters": {
+      "hero": 30,
+      "near": 0,
+      "claws": 0
+     },
+     "by_place": {
+      "hero (820, 290)": {
+       "events": 30,
+       "frames": [
+        0,
+        296
+       ],
+       "px": [
+        12,
+        14
+       ],
+       "col": [
+        213.0,
+        214.9
+       ],
+       "row": [
+        126.3,
+        129.2
+       ]
+      }
+     },
+     "hero_px_from_cells_frames_24_35": {
+      "cols212_216_rows124_131": [
+       24,
+       20,
+       16,
+       14,
+       25,
+       20,
+       11,
+       15,
+       26,
+       23,
+       11,
+       15
+      ],
+      "cols195_198_rows106_111": [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0
+      ]
+     }
+    },
+    "candidate_a": {
+     "dir": "Unity/Build/Design/38/outlines/unity_cand_a",
+     "bin_sha256": "a8d6f26ccf383ca8cd36c13a4e84c830d29b92857f3448a315d2c76757763eb7",
+     "appear_vanish_clusters": {
+      "hero": 20,
+      "near": 20,
+      "claws": 0
+     },
+     "by_place": {
+      "hero (730, 370)": {
+       "events": 20,
+       "frames": [
+        1,
+        297
+       ],
+       "px": [
+        11,
+        11
+       ],
+       "col": [
+        196.0,
+        196.4
+       ],
+       "row": [
+        107.1,
+        109.4
+       ]
+      },
+      "near (1430, 150)": {
+       "events": 10,
+       "frames": [
+        39,
+        290
+       ],
+       "px": [
+        16,
+        16
+       ],
+       "col": [
+        660.4,
+        660.9
+       ],
+       "row": [
+        14.0,
+        14.2
+       ]
+      },
+      "near (1070, 430)": {
+       "events": 10,
+       "frames": [
+        42,
+        287
+       ],
+       "px": [
+        11,
+        11
+       ],
+       "col": [
+        686.1,
+        686.6
+       ],
+       "row": [
+        9.8,
+        10.0
+       ]
+      }
+     },
+     "hero_px_from_cells_frames_24_35": {
+      "cols212_216_rows124_131": [
+       24,
+       20,
+       16,
+       14,
+       25,
+       20,
+       11,
+       15,
+       26,
+       23,
+       11,
+       15
+      ],
+      "cols195_198_rows106_111": [
+       6,
+       13,
+       17,
+       7,
+       4,
+       11,
+       17,
+       9,
+       4,
+       11,
+       16,
+       11
+      ]
+     }
+    },
+    "fixround": {
+     "dir": "Unity/Build/Design/38/outlines/unity",
+     "bin_sha256": "c8b2669e71723fde10bf8b1d4e2ca6c1af850ded726ef0cd99262b2f4272b287",
+     "appear_vanish_clusters": {
+      "hero": 0,
+      "near": 10,
+      "claws": 0
+     },
+     "by_place": {
+      "near (1380, 180)": {
+       "events": 10,
+       "frames": [
+        8,
+        261
+       ],
+       "px": [
+        10,
+        10
+       ],
+       "col": [
+        662.3,
+        662.8
+       ],
+       "row": [
+        13.1,
+        13.2
+       ]
+      }
+     },
+     "hero_px_from_cells_frames_24_35": {
+      "cols212_216_rows124_131": [
+       17,
+       20,
+       14,
+       13,
+       16,
+       20,
+       14,
+       13,
+       18,
+       20,
+       12,
+       12
+      ],
+      "cols195_198_rows106_111": [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0
+      ]
+     }
+    }
+   }
+  },
+  "builder_sha256_checked": 115
+ },
+ "backlog": {
+  "191": {
+   "value": "連続 301 コマ × 3 視点と頭の揺れで、一瞬だけ出た線・一瞬だけ消えた線・跳びの塊 原画視点 2・0・17、座席 0・3・4、座席から波の方向 0・2・6、頭の揺れ 0・0・5（修正の回）",
+   "verdict": "不合格（限界として仕上げ30・38 へ。Q26）"
+  },
+  "192": {
+   "value": "でたらめな順の描き直し 48 コマの差 0 画素、面から 4 px より離れた線の塊 0（縁の帯 40 px を除く）",
+   "verdict": "合格"
+  },
+  "mock_LR_lt_10pct": {
+   "value": "判定した 11 組のうち 10 組が 7.7% 以下、座席の低い視点 t 6 s が 17.3%（x < 1440 では 0.3%）",
+   "verdict": "不合格（1 組。限界として仕上げ38 へ。Q26）"
+  },
+  "near_width_world_cap": {
+   "value": "4・8 m で線の太さ p95 2.8 px（設計27 の決まりでは 8.4・4.4 px）",
+   "verdict": "合格"
+  },
+  "142_143": {
+   "value": "線あり 1.0・0.974、中心のずれ p95 6.046・6.396 px（設計36 と同じ）",
+   "verdict": "記録のみ"
+  },
+  "146_147": {
+   "value": "測っていない（爪の線は原画視点では描かない決まり）",
+   "verdict": "記録のみ（仕上げ38）"
+  },
+  "plan_2_0_regression": {
+   "value": "評価器の 112 個の値が設計36 と同じ",
+   "verdict": "合格（後退なし）"
+  }
+ },
+ "hmd": "PS VR2 の H3・H6 は保留（導入は利用者の手。Q24）。Mock の両眼と頭の揺れは PC の描画。SPI の立体視（幾何シェーダーを含む）と Play モードは確かめていない。",
+ "time": {
+  "box_q26_h": 4,
+  "started_txt": "設計38 第「輪郭線」部 着手 2026-09-30 05:41（時間の上限 4 時間、Q26。バックログ 191・192・142・143・146・147）",
+  "fixround_started_txt": "設計38 修正の回（Q26 の 1 回。進行役の検査の後）着手 2026-09-30 06:53（設計38 の時間の上限 4 時間の残り、〜09:41。バックログ 191・192・142・143・146・147）",
+  "file_times": {
+   "fix1_render_report": "2026-09-30 06:09:58",
+   "fix1_readme": "2026-09-30 07:20:44",
+   "indep_check_first": "2026-09-30 06:35:59",
+   "indep_check_last": "2026-09-30 06:46:13",
+   "fixround_unity_log_date_utc": [
+    "Date: 2026-09-29T23:16:27Z"
+   ],
+   "fixround_render_report": "2026-09-30 07:18:40",
+   "fixround_regress": "2026-09-30 07:22:22",
+   "fixround_metrics": "2026-09-30 07:23:25",
+   "fixround_fix_eval": "2026-09-30 07:26:57",
+   "fixround_acceptance": "2026-09-30 07:30:33",
+   "fixround_x5_render_report": "2026-09-30 07:32:58",
+   "readme": "2026-09-30 07:35:23",
+   "run_builder": "2026-09-30 07:35:38",
+   "materials": {
+    "DS38_Outline_hero": "2026-09-30 07:31:22",
+    "DS38_Outline_near": "2026-09-30 07:31:22",
+    "DS38_Outline_claws": "2026-09-30 07:31:22"
+   }
+  },
+  "unity_seconds_fixround": 125.81353759765625,
+  "record_run": "2026-09-30 07:48:26"
+ }
+}
