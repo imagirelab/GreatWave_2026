@@ -18,7 +18,7 @@
   - [設計29修正01](Design_29_修正01_ja.md)：t\* の原画視点の値と、色区の項目の「両側の読み」（採った読み）。
   - [設計28修正01](Design_28_修正01_ja.md)：時間曲線 `timewarp_F_final.json`（`627815c7…`）。
 - 時間の上限：Q26 の日程（計画 §2.6 の表）で 3 時間。範囲は最小の受入だけで、修正は 1 回まで。
-  - 実績（ファイルの時刻。`ds34_record_counts.json` の `file_times`）：`Unity/Build/Design/34` の作成 01:02:16（Unity の部の `_started.txt` の最初の行も 01:02:16）。Unity の部は 01:11:52 に再開した（`_started.txt` の「再開（Try again）」。`Tools/GWWaveGen/ds34` と `Unity/Assets/GreatWave/Design34` の作成も同じ時刻）。Unity の実行 01:18:48〜01:33:43、Unity の部の最後の出力 01:35:30（`README_interface.txt`）。進行役の独立の検査 01:39:57〜02:04:06（`indep_check` の作成と `ic34_summary.json`）。記録 02:07〜02:23 ごろ（終わりは `Unity/Build/Design/34/READY_TO_COMMIT.txt` の時刻）。
+  - 実績（ファイルの時刻。`ds34_record_counts.json` の `file_times`）：`Unity/Build/Design/34` の作成 01:02:16（Unity の部の `_started.txt` の最初の行も 01:02:16）。Unity の部は 01:11:52 に再開した（`_started.txt` の「再開（Try again）」。`Tools/GWWaveGen/ds34` と `Unity/Assets/GreatWave/Design34` の作成も同じ時刻）。Unity の実行 01:18:48〜01:33:43、Unity の部の最後の出力 01:35:30（`README_interface.txt`）。進行役の独立の検査 01:39:57〜02:04:06（`indep_check` の作成と `ic34_summary.json`）。記録 02:07〜02:22 ごろ（終わりは `Unity/Build/Design/34/READY_TO_COMMIT.txt` の時刻）。
   - 01:02〜02:04 は約 1 時間、記録を含めて約 1 時間 20 分で、上限の内。
   - Unity の部の README の「01:05〜02:55」は誤り（第 10 節の 2）。
   - 1 回の計算：いちばん長いのは評価器で 3 分 41 秒。Unity の 1 回は 26 s（主）・65 s（動画 8 本）・18 s（入切の一覧）・19 s（Play モード）で、30 分の上限より十分短い。

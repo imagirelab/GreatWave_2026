@@ -1,0 +1,1445 @@
+{
+ "schema": "GreatWave.DS35.variants_metrics/1",
+ "number": "設計35 variants の部",
+ "date": "2026-09-30",
+ "evidence_kind_ja": "データは numpy（ds35_variants.py）。動画と静止画は Unity 6000.4.3f1 の Editor の batchmode の PC オフスクリーン描画（camera.Render、8×MSAA）。性能は Release（Development でない）の Windows プレイヤーを見えるウィンドウで動かした PC の実測（RTX 3080、Direct3D11）。HMD 実機ではない。",
+ "d2_note_ja": "D2＝(b)（Q9：美術主導の rig）なので、設計書の設計35 の「物理版」はない。3 版はどれも美術主導の rig の上の数・大きさ・寿命の違いで、物理の解算の版は作っていない（V3 の飛沫は設計31 と同じ逆弾道で解き直したが、美術の配置 p* へ着く誘導で、流体の解算ではない）。",
+ "variants": {
+  "v1_list": {
+   "name_ja": "V1 一覧どおり",
+   "claws": 148,
+   "claw_vertices": 25052,
+   "claw_triangles": 48032,
+   "spray_count": 186,
+   "claw_layout": "Unity/Build/Design/33/claws/ds33_claw_layout.json",
+   "spray": "Unity/Build/Design/31/spray/ds31_spray_frames.json",
+   "rule_ja": null,
+   "first_claw_s": 6.066666666666666,
+   "first_spray_s": 8.7,
+   "claws_full_s": 10.166666666666666,
+   "spray_full_s": 10.633333333333333,
+   "max_triangles": 62912
+  },
+  "v2_light": {
+   "name_ja": "V2 数を減らした軽量版",
+   "claws": 74,
+   "claw_vertices": 12430,
+   "claw_triangles": 23824,
+   "spray_count": 93,
+   "claw_layout": "Unity/Build/Design/35/variants/data/v2_light/claw_layout.json",
+   "spray": "Unity/Build/Design/35/variants/data/v2_light/spray_frames.json",
+   "rule_ja": "爪：主爪（parent なし）と支を 1 群とし、主爪の len_m（t* の 3 次元の長さ）の大きい順に、残す本数が 148 × 0.5 = 74 本に届くまで取る。飛沫：t* の半径の大きい順に 186 × 0.5 = 93 個。どちらも V1 の値をそのまま使う部分集合",
+   "first_claw_s": 6.333333333333333,
+   "first_spray_s": 8.7,
+   "claws_full_s": 10.166666666666666,
+   "spray_full_s": 10.633333333333333,
+   "max_triangles": 31264
+  },
+  "v3_exag": {
+   "name_ja": "V3 大きさ・寿命を誇張した版",
+   "claws": 148,
+   "claw_vertices": 25052,
+   "claw_triangles": 48032,
+   "spray_count": 186,
+   "claw_layout": "Unity/Build/Design/35/variants/data/v3_exag/claw_layout.json",
+   "spray": "Unity/Build/Design/35/variants/data/v3_exag/spray_frames.json",
+   "rule_ja": "爪：ds33_claw_anim と同じ式（関節の (行, 列) と局所のずれ → そのコマのシートで作り直し、帯の輪・根元の白の円）で、輪の幅・厚み・根元の白の円 × 1.5、根元からの (行, 列) のずれと局所のずれ × 1.3、成長の始まり τ_start × 1.6（t = 0 の τ + 0.3 s で頭打ち）。根元は設計32 の sheet_rc のまま（シートの上）",
+   "first_claw_s": 3.6333333333333333,
+   "first_spray_s": 7.066666666666666,
+   "claws_full_s": 9.433333333333334,
+   "spray_full_s": 10.566666666666666,
+   "max_triangles": 62912
+  }
+ },
+ "v3_details": {
+  "claw_life_s_orig_tau": [
+   0.6206,
+   1.4451,
+   2.6754
+  ],
+  "claw_life_s_exag_tau": [
+   0.9929600000000001,
+   2.3121600000000004,
+   4.28064
+  ],
+  "claw_arc_ratio_tstar_median": 1.3028893093173326,
+  "claw_arc_m_tstar_median": [
+   0.8162566326010002,
+   1.0782187752762624
+  ],
+  "claw_first_visible_t_s": 3.6333333333333333,
+  "claw_first_visible_t_s_v1": 6.066666666666666,
+  "claw_nan_claw_frames": 0,
+  "claw_root_offset_max_m": 0.0,
+  "spray_first_visible_t_s": 7.066666666666666,
+  "spray_first_visible_t_s_v1": 8.7,
+  "spray_info": {
+   "how": {
+    "long": 61,
+    "long_mid": 5,
+    "long_low": 15,
+    "same_tau": 104,
+    "orig": 0,
+    "orig_radius1": 1,
+    "orig_failed150": 0
+   },
+   "life_s_orig": [
+    0.4,
+    0.94,
+    1.36
+   ],
+   "life_s_exag": [
+    0.42,
+    1.06,
+    2.176
+   ],
+   "life_ratio_median": 1.0,
+   "life_ratio_mean": 1.2233870967741935,
+   "radius_ratio": [
+    1.0,
+    1.6000000000000003
+   ],
+   "rule_ja": "粒ごとに候補を寿命の倍率 1.6・1.4・1.2・1.0（同じ τ_e で半径だけ大きく解き直す）・元の経路（半径 × 1.6）・元の経路と元の半径の順に、設計31 の check_paths（150）を通る最初のものを採る",
+   "radius_m_exag": [
+    0.048,
+    0.17802493836559077
+   ],
+   "check150": {
+    "chosen_contact": 0,
+    "chosen_inside": 0,
+    "chosen_never_left": 0,
+    "chosen_orig_failed150": 0
+   }
+  }
+ },
+ "params": {
+  "light_claw_frac": 0.5,
+  "light_spray_frac": 0.5,
+  "exag_width": 1.5,
+  "exag_length": 1.3,
+  "exag_life": 1.6,
+  "exag_tau_floor_after_t0_s": 0.3,
+  "exag_spray_radius": 1.6,
+  "exag_spray_life": 1.6
+ },
+ "densest_interval": {
+  "window_s": [
+   11.0,
+   12.0
+  ],
+  "rule_ja": "描く三角形の数（見えている爪の三角形 ＋ 生きている飛沫 × 80）が最大の平らにある区間のうち、t* の直前の 1 秒（動きのある最後の区間）。t* の後も同じ数だが静止しているので、動きを含む t 11〜12 s を実時間の速さで繰り返した",
+  "per_variant": {
+   "v1_list": {
+    "max_triangles": 62912,
+    "plateau_from_s": 10.633333333333333,
+    "window_min_triangles": 62912,
+    "window_is_max_plateau": true
+   },
+   "v2_light": {
+    "max_triangles": 31264,
+    "plateau_from_s": 10.633333333333333,
+    "window_min_triangles": 31264,
+    "window_is_max_plateau": true
+   },
+   "v3_exag": {
+    "max_triangles": 62912,
+    "plateau_from_s": 10.566666666666666,
+    "window_min_triangles": 62912,
+    "window_is_max_plateau": true
+   }
+  }
+ },
+ "acceptance": {
+  "A1_differences_visible_in_video": {
+   "criterion_ja": "3 版の違いが動画で分かる",
+   "videos": [
+    "Unity/Build/Design/35/variants/video/ds35_variants_3up_painting_crest_30fps.mp4",
+    "Unity/Build/Design/35/variants/video/ds35_variants_2x2_painting_30fps.mp4",
+    "Unity/Build/Design/35/variants/video/ds35_variants_2x2_seat_30fps.mp4"
+   ],
+   "pixel_diff_pct_vs_v1": {
+    "v2_light/painting/t10.0": 0.051,
+    "v3_exag/painting/t10.0": 0.344,
+    "v2_light/painting/t11.5": 0.148,
+    "v3_exag/painting/t11.5": 0.982,
+    "v2_light/painting/t12.0": 0.133,
+    "v3_exag/painting/t12.0": 1.037,
+    "v2_light/seat/t10.0": 0.033,
+    "v3_exag/seat/t10.0": 0.161,
+    "v2_light/seat/t11.5": 0.116,
+    "v3_exag/seat/t11.5": 0.714,
+    "v2_light/seat/t12.0": 0.122,
+    "v3_exag/seat/t12.0": 0.744,
+    "v2_light/painting_w0/t10.0": 0.29,
+    "v3_exag/painting_w0/t10.0": 1.125,
+    "v2_light/painting_w0/t11.5": 0.804,
+    "v3_exag/painting_w0/t11.5": 2.578,
+    "v2_light/painting_w0/t12.0": 0.828,
+    "v3_exag/painting_w0/t12.0": 2.685
+   },
+   "rule_ja": "目安：同じ時刻・視点で V1 と ΔRGB > 40 の画素の割合（原画視点は波頭の切り出し 800×1000、座席は全画面）。V2・V3 のそれぞれが t 11.5・12 s の原画視点で、普通の読みか白の帯を切った読みのどちらかで 0.5% 以上（修正1回目で決めた基準。1 回目の提出は普通の読みの原画視点と座席の全部で 0.5% 以上としたが、V2 は 0.12〜0.15% で届かなかった：爪が焼き込みの色面の白と淡い水色の模様に重なるため）",
+   "counts_differ": {
+    "claws": [
+     148,
+     74,
+     148
+    ],
+    "spray": [
+     186,
+     93,
+     186
+    ]
+   },
+   "pass": true
+  },
+  "A2_desktop_1080": {
+   "criterion_ja": "最大密度で 1920×1080 の平均 ≥30 fps・95% ≤33.3 ms（RTX3080 の代理）",
+   "per_variant": {
+    "v1_list": true,
+    "v2_light": true,
+    "v3_exag": true
+   },
+   "values": {
+    "v1_list/desk1080_painting": {
+     "runs": 2,
+     "fps_mean_min": 1902.8,
+     "interval_p95_max": 0.9351,
+     "frames_over_33_3ms": 0,
+     "gpu_p95_max": 0.3686,
+     "gpu_mean_max": 0.366,
+     "cpu_p95_max": 0.9351,
+     "gpu_valid_min": 13264
+    },
+    "v1_list/desk1080_seat": {
+     "runs": 2,
+     "fps_mean_min": 2040.33,
+     "interval_p95_max": 0.8383,
+     "frames_over_33_3ms": 0,
+     "gpu_p95_max": 0.5371,
+     "gpu_mean_max": 0.2677,
+     "cpu_p95_max": 0.8383,
+     "gpu_valid_min": 20890
+    },
+    "v2_light/desk1080_painting": {
+     "runs": 2,
+     "fps_mean_min": 2098.51,
+     "interval_p95_max": 0.888,
+     "frames_over_33_3ms": 0,
+     "gpu_p95_max": 0.3604,
+     "gpu_mean_max": 0.3559,
+     "cpu_p95_max": 0.888,
+     "gpu_valid_min": 18503
+    },
+    "v2_light/desk1080_seat": {
+     "runs": 2,
+     "fps_mean_min": 2411.99,
+     "interval_p95_max": 0.7361,
+     "frames_over_33_3ms": 0,
+     "gpu_p95_max": 0.2519,
+     "gpu_mean_max": 0.2452,
+     "cpu_p95_max": 0.736,
+     "gpu_valid_min": 19645
+    },
+    "v3_exag/desk1080_painting": {
+     "runs": 2,
+     "fps_mean_min": 1850.13,
+     "interval_p95_max": 0.9273,
+     "frames_over_33_3ms": 0,
+     "gpu_p95_max": 0.385,
+     "gpu_mean_max": 0.3797,
+     "cpu_p95_max": 0.9273,
+     "gpu_valid_min": 13379
+    },
+    "v3_exag/desk1080_seat": {
+     "runs": 2,
+     "fps_mean_min": 2060.5,
+     "interval_p95_max": 0.8325,
+     "frames_over_33_3ms": 0,
+     "gpu_p95_max": 0.5857,
+     "gpu_mean_max": 0.2756,
+     "cpu_p95_max": 0.8325,
+     "gpu_valid_min": 20623
+    }
+   },
+   "pass": true
+  },
+  "A3_stereo_proxy_gpu_p95": {
+   "criterion_ja": "立体の代理の GPU p95 ≤8.9 ms（美術優先32 の計測器）",
+   "per_variant": {
+    "v1_list": true,
+    "v2_light": true,
+    "v3_exag": true
+   },
+   "values": {
+    "v1_list/proxy_stereo_seat": {
+     "runs": 2,
+     "fps_mean_min": 1210.89,
+     "interval_p95_max": 1.2357,
+     "frames_over_33_3ms": 0,
+     "gpu_p95_max": 1.1233,
+     "gpu_mean_max": 0.7512,
+     "cpu_p95_max": 1.2357,
+     "gpu_valid_min": 13899
+    },
+    "v2_light/proxy_stereo_seat": {
+     "runs": 2,
+     "fps_mean_min": 1265.61,
+     "interval_p95_max": 1.2042,
+     "frames_over_33_3ms": 0,
+     "gpu_p95_max": 1.1123,
+     "gpu_mean_max": 0.7253,
+     "cpu_p95_max": 1.2042,
+     "gpu_valid_min": 14976
+    },
+    "v3_exag/proxy_stereo_seat": {
+     "runs": 2,
+     "fps_mean_min": 1200.11,
+     "interval_p95_max": 1.2463,
+     "frames_over_33_3ms": 0,
+     "gpu_p95_max": 1.151,
+     "gpu_mean_max": 0.765,
+     "cpu_p95_max": 1.2463,
+     "gpu_valid_min": 14104
+    }
+   },
+   "pass": true
+  },
+  "A4_default_version": {
+   "criterion_ja": "既定の版を 1 つ決める（利用者の段階6確認で変えられる）",
+   "default": "v1_list",
+   "reason_ja": "V1（一覧どおり）を既定にする。①設計32・33 の爪の一覧（原画の爪の位置・向き、t* の骨格の再投影 中央値 0.62 px）に対応する唯一の版で、原画視点のデータは設計34 と SHA-256 まで同じなので、設計34 の回帰の値（78・130・131・132・72 σ24 p95 など）がそのまま使える。②最大密度でも 3 版とも性能の受入に大きな余裕があり、数を減らす理由がない（V2 は PS VR2 の実測で予算を超えたときの控え）。③V3 は爪が原画の爪より長く太く、原画の輪郭との対応が崩れ、飛沫も早く出る（誇張の比較用）。",
+   "v1_data_same_as_ds34": true,
+   "pass": true
+  }
+ },
+ "backlog": {
+  "b81": {
+   "value": "1920×1080・最大密度の代理で合格",
+   "verdict_ja": "RTX3080 の代理で記録。本判定（RTX3060）は保留"
+  },
+  "b112": {
+   "value": "同上",
+   "verdict_ja": "RTX3080 の代理で記録。本判定（RTX3060）は保留"
+  },
+  "b199": {
+   "value": "立体の代理の GPU p95（最大）1.151 ms",
+   "verdict_ja": "代理の測定。HMD 実機（PS VR2）は未導入で保留"
+  }
+ },
+ "regression_ja": "原画視点の既定（V1）は設計34 と同じデータ（爪のコマの表・飛沫の SHA-256 が一致：True）なので、評価器は回していない（計画 §2.0 の回帰は設計34 の値を引き継ぐ）。V2・V3 は比べるための版で、原画視点へ統合しない。",
+ "hmd_ja": "PS VR2 の実機（H1・H3・H4）は利用者の手が要るので保留（Q24）。立体は 2 カメラの代理（美術優先32 と同じ）で、SPI・Link・合成器・レンズの歪みは含まない。",
+ "fix_rounds": {
+  "count": 1,
+  "items_ja": [
+   "A1：1 回目の提出（普通の読みの並べ動画と、原画視点・座席の全部で V1 との違い 0.5% 以上という基準）で V2 の違いが 0.12〜0.15% しかなく不合格。爪の白と淡い水色が焼き込みの色面の同じ色の模様に重なって見分けにくいため。修正1回目：白の帯を切った読み（白いのは爪と飛沫だけ）の原画視点の動画を足し、並べ動画を 2 段（普通の読み・白の帯を切った読み）にして、基準を「原画視点で普通の読みか白の帯を切った読みのどちらかで 0.5% 以上」にした（V2 は 0.80〜0.83%）。",
+   "2×2 の動画：1 回目は説明の静止画の入力の既定の 25 fps のために 50 fps・8.4 s になっていた。入力と出力を 30 fps に固定して作り直した（421 コマ、14.03 s）。"
+  ]
+ },
+ "gpu_zero_note_ja": "FrameTiming の GPU の値は 0 が多い（1920×1080 の条件で全体の 15〜45%。立体の代理は 1〜4%）。1,900 fps を超える速さで GPU の計時が間に合わないためとみられる。美術優先32 と同じく 0 は使わず、1 s を超える壊れた値（最大 4 件）も除いた。1920×1080 の受入はフレームの開始時刻の間隔で見るので、GPU の値の欠けに左右されない。",
+ "xr_log_note_ja": "プレイヤーの起動時に OpenXR のローダーが実行環境を探して XR_ERROR_RUNTIME_UNAVAILABLE を 5 行出すが、XR は使っていない（2 カメラの代理）。測定に影響しない。",
+ "work_time_ja": "2026-09-30 02:04〜02:36（時間枠 2 h の内）。",
+ "runs": {
+  "run1": {
+   "json": "Unity/Build/Design/35/variants/perf/run1/ds35_run1.json",
+   "sha256": "8fa0ce7827cc3b944b715ddd51e85c26d63269e025d7bb8c9781c9139b64f7ca",
+   "device": "NVIDIA GeForce RTX 3080",
+   "graphics_api": "Direct3D11",
+   "cpu": "12th Gen Intel(R) Core(TM) i7-12700K",
+   "quality": "Ultra",
+   "is_debug_build": false,
+   "frame_timing_feature": true,
+   "refresh_hz": "60.000",
+   "screen": [
+    1920,
+    1080
+   ],
+   "fullscreen": "Windowed",
+   "window": [
+    11.0,
+    12.0
+   ],
+   "started": "2026-09-29T18:21:28.1976386Z",
+   "finished": "2026-09-29T18:23:48.5434692Z",
+   "error": "",
+   "working_dir": "G:\\Unity\\GreatWave_2026_Fresh\\Unity",
+   "conditions": [
+    {
+     "variant": "v1_list",
+     "cond": "desk1080_painting",
+     "cond_ja": "1920×1080・原画視点",
+     "measure_s": 12.0,
+     "unity_frames": 23177,
+     "timings_total": 23184,
+     "timings_used": 23176,
+     "gpu_valid": 13264,
+     "gpu_invalid_over_1s": 0,
+     "gpu_zero": 9912,
+     "quality_msaa": 4,
+     "vsync": 0,
+     "screen": [
+      1920,
+      1080
+     ],
+     "eye": null,
+     "fps_mean": 1931.29,
+     "interval_ms": {
+      "mean": 0.5178,
+      "p50": 0.4709,
+      "p95": 0.9351,
+      "max": 2.5935
+     },
+     "frames_over_33_3ms": 0,
+     "gpu_ms": {
+      "mean": 0.3516,
+      "p50": 0.3471,
+      "p95": 0.3635,
+      "max": 2.3214
+     },
+     "cpu_ms": {
+      "mean": 0.5178,
+      "p95": 0.9351,
+      "max": 2.5935
+     },
+     "t_played": [
+      11.0,
+      12.0
+     ],
+     "claws": 148,
+     "claw_vertices": 25052,
+     "claw_triangles": 48032,
+     "spray": 186,
+     "spray_alive": [
+      186,
+      186
+     ],
+     "claw_frames_sha256": "6e7629889a47efc0172d40c28364b59eadef48e419d0dad5c279e3fa3d7f7565",
+     "spray_sha256": "9db0a42811aa2c72f1cefbf8b80386f2e919a8b80fe65f7e91dd6a60c9b25c5f",
+     "load_s": 0.972,
+     "screenshot": "ds35_run1_v1_list_desk1080_painting.png",
+     "eye_images": []
+    },
+    {
+     "variant": "v1_list",
+     "cond": "desk1080_seat",
+     "cond_ja": "1920×1080・座席 v1",
+     "measure_s": 12.0,
+     "unity_frames": 26043,
+     "timings_total": 26050,
+     "timings_used": 26042,
+     "gpu_valid": 21379,
+     "gpu_invalid_over_1s": 0,
+     "gpu_zero": 4663,
+     "quality_msaa": 4,
+     "vsync": 0,
+     "screen": [
+      1920,
+      1080
+     ],
+     "eye": null,
+     "fps_mean": 2170.2,
+     "interval_ms": {
+      "mean": 0.4608,
+      "p50": 0.4173,
+      "p95": 0.8002,
+      "max": 2.8218
+     },
+     "frames_over_33_3ms": 0,
+     "gpu_ms": {
+      "mean": 0.2576,
+      "p50": 0.2427,
+      "p95": 0.2621,
+      "max": 2.1934
+     },
+     "cpu_ms": {
+      "mean": 0.4608,
+      "p95": 0.8002,
+      "max": 2.8218
+     },
+     "t_played": [
+      11.0,
+      12.0
+     ],
+     "claws": 148,
+     "claw_vertices": 25052,
+     "claw_triangles": 48032,
+     "spray": 186,
+     "spray_alive": [
+      186,
+      186
+     ],
+     "claw_frames_sha256": "6e7629889a47efc0172d40c28364b59eadef48e419d0dad5c279e3fa3d7f7565",
+     "spray_sha256": "9db0a42811aa2c72f1cefbf8b80386f2e919a8b80fe65f7e91dd6a60c9b25c5f",
+     "load_s": 0.972,
+     "screenshot": "ds35_run1_v1_list_desk1080_seat.png",
+     "eye_images": []
+    },
+    {
+     "variant": "v1_list",
+     "cond": "proxy_stereo_seat",
+     "cond_ja": "立体の代理・座席 v1（2 眼 4×MSAA）",
+     "measure_s": 12.001,
+     "unity_frames": 14990,
+     "timings_total": 14997,
+     "timings_used": 14989,
+     "gpu_valid": 14454,
+     "gpu_invalid_over_1s": 0,
+     "gpu_zero": 535,
+     "quality_msaa": 4,
+     "vsync": 0,
+     "screen": [
+      1920,
+      1080
+     ],
+     "eye": [
+      2064,
+      2208,
+      4
+     ],
+     "fps_mean": 1249.11,
+     "interval_ms": {
+      "mean": 0.8006,
+      "p50": 0.8141,
+      "p95": 1.1891,
+      "max": 2.9839
+     },
+     "frames_over_33_3ms": 0,
+     "gpu_ms": {
+      "mean": 0.7322,
+      "p50": 0.77,
+      "p95": 1.0865,
+      "max": 2.5938
+     },
+     "cpu_ms": {
+      "mean": 0.8006,
+      "p95": 1.1891,
+      "max": 2.9839
+     },
+     "t_played": [
+      11.0,
+      12.0
+     ],
+     "claws": 148,
+     "claw_vertices": 25052,
+     "claw_triangles": 48032,
+     "spray": 186,
+     "spray_alive": [
+      186,
+      186
+     ],
+     "claw_frames_sha256": "6e7629889a47efc0172d40c28364b59eadef48e419d0dad5c279e3fa3d7f7565",
+     "spray_sha256": "9db0a42811aa2c72f1cefbf8b80386f2e919a8b80fe65f7e91dd6a60c9b25c5f",
+     "load_s": 0.972,
+     "screenshot": "ds35_run1_v1_list_proxy_stereo_seat.png",
+     "eye_images": [
+      "ds35_run1_v1_list_proxy_stereo_seat_L.png",
+      "ds35_run1_v1_list_proxy_stereo_seat_R.png"
+     ]
+    },
+    {
+     "variant": "v2_light",
+     "cond": "desk1080_painting",
+     "cond_ja": "1920×1080・原画視点",
+     "measure_s": 12.0,
+     "unity_frames": 25548,
+     "timings_total": 25555,
+     "timings_used": 25547,
+     "gpu_valid": 19839,
+     "gpu_invalid_over_1s": 0,
+     "gpu_zero": 5708,
+     "quality_msaa": 4,
+     "vsync": 0,
+     "screen": [
+      1920,
+      1080
+     ],
+     "eye": null,
+     "fps_mean": 2129.07,
+     "interval_ms": {
+      "mean": 0.4697,
+      "p50": 0.4098,
+      "p95": 0.888,
+      "max": 5.4668
+     },
+     "frames_over_33_3ms": 0,
+     "gpu_ms": {
+      "mean": 0.3544,
+      "p50": 0.341,
+      "p95": 0.3543,
+      "max": 2.4781
+     },
+     "cpu_ms": {
+      "mean": 0.4697,
+      "p95": 0.888,
+      "max": 5.4668
+     },
+     "t_played": [
+      11.0,
+      12.0
+     ],
+     "claws": 74,
+     "claw_vertices": 12430,
+     "claw_triangles": 23824,
+     "spray": 93,
+     "spray_alive": [
+      93,
+      93
+     ],
+     "claw_frames_sha256": "4a8134afd6901446d5f2ac94210a991a4834194adce3aacc52c57be9bd15a891",
+     "spray_sha256": "1470762f6f8fd6224702ed4078ef4dc3bbecc5a9cdd993e5f054246972a7a225",
+     "load_s": 0.463,
+     "screenshot": "ds35_run1_v2_light_desk1080_painting.png",
+     "eye_images": []
+    },
+    {
+     "variant": "v2_light",
+     "cond": "desk1080_seat",
+     "cond_ja": "1920×1080・座席 v1",
+     "measure_s": 12.0,
+     "unity_frames": 29955,
+     "timings_total": 29962,
+     "timings_used": 29954,
+     "gpu_valid": 19645,
+     "gpu_invalid_over_1s": 0,
+     "gpu_zero": 10309,
+     "quality_msaa": 4,
+     "vsync": 0,
+     "screen": [
+      1920,
+      1080
+     ],
+     "eye": null,
+     "fps_mean": 2496.15,
+     "interval_ms": {
+      "mean": 0.4006,
+      "p50": 0.3527,
+      "p95": 0.6841,
+      "max": 3.3787
+     },
+     "frames_over_33_3ms": 0,
+     "gpu_ms": {
+      "mean": 0.2401,
+      "p50": 0.2335,
+      "p95": 0.2458,
+      "max": 2.2876
+     },
+     "cpu_ms": {
+      "mean": 0.4006,
+      "p95": 0.6841,
+      "max": 3.3787
+     },
+     "t_played": [
+      11.0,
+      12.0
+     ],
+     "claws": 74,
+     "claw_vertices": 12430,
+     "claw_triangles": 23824,
+     "spray": 93,
+     "spray_alive": [
+      93,
+      93
+     ],
+     "claw_frames_sha256": "4a8134afd6901446d5f2ac94210a991a4834194adce3aacc52c57be9bd15a891",
+     "spray_sha256": "1470762f6f8fd6224702ed4078ef4dc3bbecc5a9cdd993e5f054246972a7a225",
+     "load_s": 0.463,
+     "screenshot": "ds35_run1_v2_light_desk1080_seat.png",
+     "eye_images": []
+    },
+    {
+     "variant": "v2_light",
+     "cond": "proxy_stereo_seat",
+     "cond_ja": "立体の代理・座席 v1（2 眼 4×MSAA）",
+     "measure_s": 12.001,
+     "unity_frames": 15572,
+     "timings_total": 15579,
+     "timings_used": 15571,
+     "gpu_valid": 15449,
+     "gpu_invalid_over_1s": 0,
+     "gpu_zero": 122,
+     "quality_msaa": 4,
+     "vsync": 0,
+     "screen": [
+      1920,
+      1080
+     ],
+     "eye": [
+      2064,
+      2208,
+      4
+     ],
+     "fps_mean": 1297.61,
+     "interval_ms": {
+      "mean": 0.7706,
+      "p50": 0.777,
+      "p95": 1.1658,
+      "max": 3.4363
+     },
+     "frames_over_33_3ms": 0,
+     "gpu_ms": {
+      "mean": 0.7095,
+      "p50": 0.7363,
+      "p95": 1.0926,
+      "max": 2.4166
+     },
+     "cpu_ms": {
+      "mean": 0.7707,
+      "p95": 1.1658,
+      "max": 3.4363
+     },
+     "t_played": [
+      11.0,
+      12.0
+     ],
+     "claws": 74,
+     "claw_vertices": 12430,
+     "claw_triangles": 23824,
+     "spray": 93,
+     "spray_alive": [
+      93,
+      93
+     ],
+     "claw_frames_sha256": "4a8134afd6901446d5f2ac94210a991a4834194adce3aacc52c57be9bd15a891",
+     "spray_sha256": "1470762f6f8fd6224702ed4078ef4dc3bbecc5a9cdd993e5f054246972a7a225",
+     "load_s": 0.463,
+     "screenshot": "ds35_run1_v2_light_proxy_stereo_seat.png",
+     "eye_images": [
+      "ds35_run1_v2_light_proxy_stereo_seat_L.png",
+      "ds35_run1_v2_light_proxy_stereo_seat_R.png"
+     ]
+    },
+    {
+     "variant": "v3_exag",
+     "cond": "desk1080_painting",
+     "cond_ja": "1920×1080・原画視点",
+     "measure_s": 12.0,
+     "unity_frames": 22527,
+     "timings_total": 22534,
+     "timings_used": 22526,
+     "gpu_valid": 13520,
+     "gpu_invalid_over_1s": 0,
+     "gpu_zero": 9006,
+     "quality_msaa": 4,
+     "vsync": 0,
+     "screen": [
+      1920,
+      1080
+     ],
+     "eye": null,
+     "fps_mean": 1877.15,
+     "interval_ms": {
+      "mean": 0.5327,
+      "p50": 0.4902,
+      "p95": 0.91,
+      "max": 2.76
+     },
+     "frames_over_33_3ms": 0,
+     "gpu_ms": {
+      "mean": 0.3732,
+      "p50": 0.3543,
+      "p95": 0.3789,
+      "max": 2.5774
+     },
+     "cpu_ms": {
+      "mean": 0.5327,
+      "p95": 0.91,
+      "max": 2.76
+     },
+     "t_played": [
+      11.0,
+      12.0
+     ],
+     "claws": 148,
+     "claw_vertices": 25052,
+     "claw_triangles": 48032,
+     "spray": 186,
+     "spray_alive": [
+      186,
+      186
+     ],
+     "claw_frames_sha256": "077d262c9bfd535938c38ccbeb3823b334a0e9e9f22da7a6b5fd0a6e1e7961a1",
+     "spray_sha256": "6217c1dac750948f85a875ce753dac5379b34c2efec83fb81f840536a637d5de",
+     "load_s": 0.958,
+     "screenshot": "ds35_run1_v3_exag_desk1080_painting.png",
+     "eye_images": []
+    },
+    {
+     "variant": "v3_exag",
+     "cond": "desk1080_seat",
+     "cond_ja": "1920×1080・座席 v1",
+     "measure_s": 12.001,
+     "unity_frames": 24795,
+     "timings_total": 24802,
+     "timings_used": 24794,
+     "gpu_valid": 20643,
+     "gpu_invalid_over_1s": 0,
+     "gpu_zero": 4151,
+     "quality_msaa": 4,
+     "vsync": 0,
+     "screen": [
+      1920,
+      1080
+     ],
+     "eye": null,
+     "fps_mean": 2066.18,
+     "interval_ms": {
+      "mean": 0.484,
+      "p50": 0.4313,
+      "p95": 0.8302,
+      "max": 3.087
+     },
+     "frames_over_33_3ms": 0,
+     "gpu_ms": {
+      "mean": 0.2724,
+      "p50": 0.2529,
+      "p95": 0.5601,
+      "max": 2.7372
+     },
+     "cpu_ms": {
+      "mean": 0.484,
+      "p95": 0.8302,
+      "max": 3.087
+     },
+     "t_played": [
+      11.0,
+      12.0
+     ],
+     "claws": 148,
+     "claw_vertices": 25052,
+     "claw_triangles": 48032,
+     "spray": 186,
+     "spray_alive": [
+      186,
+      186
+     ],
+     "claw_frames_sha256": "077d262c9bfd535938c38ccbeb3823b334a0e9e9f22da7a6b5fd0a6e1e7961a1",
+     "spray_sha256": "6217c1dac750948f85a875ce753dac5379b34c2efec83fb81f840536a637d5de",
+     "load_s": 0.958,
+     "screenshot": "ds35_run1_v3_exag_desk1080_seat.png",
+     "eye_images": []
+    },
+    {
+     "variant": "v3_exag",
+     "cond": "proxy_stereo_seat",
+     "cond_ja": "立体の代理・座席 v1（2 眼 4×MSAA）",
+     "measure_s": 12.001,
+     "unity_frames": 14718,
+     "timings_total": 14725,
+     "timings_used": 14717,
+     "gpu_valid": 14456,
+     "gpu_invalid_over_1s": 0,
+     "gpu_zero": 261,
+     "quality_msaa": 4,
+     "vsync": 0,
+     "screen": [
+      1920,
+      1080
+     ],
+     "eye": [
+      2064,
+      2208,
+      4
+     ],
+     "fps_mean": 1226.44,
+     "interval_ms": {
+      "mean": 0.8154,
+      "p50": 0.8208,
+      "p95": 1.2186,
+      "max": 3.7849
+     },
+     "frames_over_33_3ms": 0,
+     "gpu_ms": {
+      "mean": 0.7466,
+      "p50": 0.7772,
+      "p95": 1.1254,
+      "max": 2.5313
+     },
+     "cpu_ms": {
+      "mean": 0.8154,
+      "p95": 1.2186,
+      "max": 3.7849
+     },
+     "t_played": [
+      11.0,
+      12.0
+     ],
+     "claws": 148,
+     "claw_vertices": 25052,
+     "claw_triangles": 48032,
+     "spray": 186,
+     "spray_alive": [
+      186,
+      186
+     ],
+     "claw_frames_sha256": "077d262c9bfd535938c38ccbeb3823b334a0e9e9f22da7a6b5fd0a6e1e7961a1",
+     "spray_sha256": "6217c1dac750948f85a875ce753dac5379b34c2efec83fb81f840536a637d5de",
+     "load_s": 0.958,
+     "screenshot": "ds35_run1_v3_exag_proxy_stereo_seat.png",
+     "eye_images": [
+      "ds35_run1_v3_exag_proxy_stereo_seat_L.png",
+      "ds35_run1_v3_exag_proxy_stereo_seat_R.png"
+     ]
+    }
+   ]
+  },
+  "run2": {
+   "json": "Unity/Build/Design/35/variants/perf/run2/ds35_run2.json",
+   "sha256": "e1a735af4b44d5da72fe9ea9d45d8a6f17843e54e1eccc7b9ccf3d0619b532e0",
+   "device": "NVIDIA GeForce RTX 3080",
+   "graphics_api": "Direct3D11",
+   "cpu": "12th Gen Intel(R) Core(TM) i7-12700K",
+   "quality": "Ultra",
+   "is_debug_build": false,
+   "frame_timing_feature": true,
+   "refresh_hz": "60.000",
+   "screen": [
+    1920,
+    1080
+   ],
+   "fullscreen": "Windowed",
+   "window": [
+    11.0,
+    12.0
+   ],
+   "started": "2026-09-29T18:24:15.9945476Z",
+   "finished": "2026-09-29T18:26:36.2236111Z",
+   "error": "",
+   "working_dir": "G:\\Unity\\GreatWave_2026_Fresh\\Unity",
+   "conditions": [
+    {
+     "variant": "v1_list",
+     "cond": "desk1080_painting",
+     "cond_ja": "1920×1080・原画視点",
+     "measure_s": 12.0,
+     "unity_frames": 22835,
+     "timings_total": 22842,
+     "timings_used": 22834,
+     "gpu_valid": 13877,
+     "gpu_invalid_over_1s": 1,
+     "gpu_zero": 8956,
+     "quality_msaa": 4,
+     "vsync": 0,
+     "screen": [
+      1920,
+      1080
+     ],
+     "eye": null,
+     "fps_mean": 1902.8,
+     "interval_ms": {
+      "mean": 0.5255,
+      "p50": 0.4848,
+      "p95": 0.884,
+      "max": 2.8947
+     },
+     "frames_over_33_3ms": 0,
+     "gpu_ms": {
+      "mean": 0.366,
+      "p50": 0.3502,
+      "p95": 0.3686,
+      "max": 2.2292
+     },
+     "cpu_ms": {
+      "mean": 0.5255,
+      "p95": 0.884,
+      "max": 2.8947
+     },
+     "t_played": [
+      11.0,
+      12.0
+     ],
+     "claws": 148,
+     "claw_vertices": 25052,
+     "claw_triangles": 48032,
+     "spray": 186,
+     "spray_alive": [
+      186,
+      186
+     ],
+     "claw_frames_sha256": "6e7629889a47efc0172d40c28364b59eadef48e419d0dad5c279e3fa3d7f7565",
+     "spray_sha256": "9db0a42811aa2c72f1cefbf8b80386f2e919a8b80fe65f7e91dd6a60c9b25c5f",
+     "load_s": 0.961,
+     "screenshot": "ds35_run2_v1_list_desk1080_painting.png",
+     "eye_images": []
+    },
+    {
+     "variant": "v1_list",
+     "cond": "desk1080_seat",
+     "cond_ja": "1920×1080・座席 v1",
+     "measure_s": 12.0,
+     "unity_frames": 24485,
+     "timings_total": 24492,
+     "timings_used": 24484,
+     "gpu_valid": 20890,
+     "gpu_invalid_over_1s": 1,
+     "gpu_zero": 3593,
+     "quality_msaa": 4,
+     "vsync": 0,
+     "screen": [
+      1920,
+      1080
+     ],
+     "eye": null,
+     "fps_mean": 2040.33,
+     "interval_ms": {
+      "mean": 0.4901,
+      "p50": 0.434,
+      "p95": 0.8383,
+      "max": 4.4218
+     },
+     "frames_over_33_3ms": 0,
+     "gpu_ms": {
+      "mean": 0.2677,
+      "p50": 0.2468,
+      "p95": 0.5371,
+      "max": 4.222
+     },
+     "cpu_ms": {
+      "mean": 0.4901,
+      "p95": 0.8383,
+      "max": 4.4218
+     },
+     "t_played": [
+      11.0,
+      12.0
+     ],
+     "claws": 148,
+     "claw_vertices": 25052,
+     "claw_triangles": 48032,
+     "spray": 186,
+     "spray_alive": [
+      186,
+      186
+     ],
+     "claw_frames_sha256": "6e7629889a47efc0172d40c28364b59eadef48e419d0dad5c279e3fa3d7f7565",
+     "spray_sha256": "9db0a42811aa2c72f1cefbf8b80386f2e919a8b80fe65f7e91dd6a60c9b25c5f",
+     "load_s": 0.961,
+     "screenshot": "ds35_run2_v1_list_desk1080_seat.png",
+     "eye_images": []
+    },
+    {
+     "variant": "v1_list",
+     "cond": "proxy_stereo_seat",
+     "cond_ja": "立体の代理・座席 v1（2 眼 4×MSAA）",
+     "measure_s": 12.001,
+     "unity_frames": 14531,
+     "timings_total": 14538,
+     "timings_used": 14530,
+     "gpu_valid": 13899,
+     "gpu_invalid_over_1s": 0,
+     "gpu_zero": 631,
+     "quality_msaa": 4,
+     "vsync": 0,
+     "screen": [
+      1920,
+      1080
+     ],
+     "eye": [
+      2064,
+      2208,
+      4
+     ],
+     "fps_mean": 1210.89,
+     "interval_ms": {
+      "mean": 0.8258,
+      "p50": 0.8316,
+      "p95": 1.2357,
+      "max": 4.2677
+     },
+     "frames_over_33_3ms": 0,
+     "gpu_ms": {
+      "mean": 0.7512,
+      "p50": 0.7864,
+      "p95": 1.1233,
+      "max": 2.1811
+     },
+     "cpu_ms": {
+      "mean": 0.8258,
+      "p95": 1.2357,
+      "max": 4.2677
+     },
+     "t_played": [
+      11.0,
+      12.0
+     ],
+     "claws": 148,
+     "claw_vertices": 25052,
+     "claw_triangles": 48032,
+     "spray": 186,
+     "spray_alive": [
+      186,
+      186
+     ],
+     "claw_frames_sha256": "6e7629889a47efc0172d40c28364b59eadef48e419d0dad5c279e3fa3d7f7565",
+     "spray_sha256": "9db0a42811aa2c72f1cefbf8b80386f2e919a8b80fe65f7e91dd6a60c9b25c5f",
+     "load_s": 0.961,
+     "screenshot": "ds35_run2_v1_list_proxy_stereo_seat.png",
+     "eye_images": [
+      "ds35_run2_v1_list_proxy_stereo_seat_L.png",
+      "ds35_run2_v1_list_proxy_stereo_seat_R.png"
+     ]
+    },
+    {
+     "variant": "v2_light",
+     "cond": "desk1080_painting",
+     "cond_ja": "1920×1080・原画視点",
+     "measure_s": 12.0,
+     "unity_frames": 25183,
+     "timings_total": 25190,
+     "timings_used": 25182,
+     "gpu_valid": 18503,
+     "gpu_invalid_over_1s": 0,
+     "gpu_zero": 6679,
+     "quality_msaa": 4,
+     "vsync": 0,
+     "screen": [
+      1920,
+      1080
+     ],
+     "eye": null,
+     "fps_mean": 2098.51,
+     "interval_ms": {
+      "mean": 0.4765,
+      "p50": 0.4236,
+      "p95": 0.8725,
+      "max": 3.6514
+     },
+     "frames_over_33_3ms": 0,
+     "gpu_ms": {
+      "mean": 0.3559,
+      "p50": 0.3461,
+      "p95": 0.3604,
+      "max": 1.9149
+     },
+     "cpu_ms": {
+      "mean": 0.4765,
+      "p95": 0.8725,
+      "max": 3.6514
+     },
+     "t_played": [
+      11.0,
+      12.0
+     ],
+     "claws": 74,
+     "claw_vertices": 12430,
+     "claw_triangles": 23824,
+     "spray": 93,
+     "spray_alive": [
+      93,
+      93
+     ],
+     "claw_frames_sha256": "4a8134afd6901446d5f2ac94210a991a4834194adce3aacc52c57be9bd15a891",
+     "spray_sha256": "1470762f6f8fd6224702ed4078ef4dc3bbecc5a9cdd993e5f054246972a7a225",
+     "load_s": 0.463,
+     "screenshot": "ds35_run2_v2_light_desk1080_painting.png",
+     "eye_images": []
+    },
+    {
+     "variant": "v2_light",
+     "cond": "desk1080_seat",
+     "cond_ja": "1920×1080・座席 v1",
+     "measure_s": 12.0,
+     "unity_frames": 28945,
+     "timings_total": 28952,
+     "timings_used": 28944,
+     "gpu_valid": 20006,
+     "gpu_invalid_over_1s": 4,
+     "gpu_zero": 8934,
+     "quality_msaa": 4,
+     "vsync": 0,
+     "screen": [
+      1920,
+      1080
+     ],
+     "eye": null,
+     "fps_mean": 2411.99,
+     "interval_ms": {
+      "mean": 0.4146,
+      "p50": 0.3652,
+      "p95": 0.7361,
+      "max": 2.1149
+     },
+     "frames_over_33_3ms": 0,
+     "gpu_ms": {
+      "mean": 0.2452,
+      "p50": 0.2365,
+      "p95": 0.2519,
+      "max": 1.7562
+     },
+     "cpu_ms": {
+      "mean": 0.4146,
+      "p95": 0.736,
+      "max": 2.1149
+     },
+     "t_played": [
+      11.0,
+      11.999
+     ],
+     "claws": 74,
+     "claw_vertices": 12430,
+     "claw_triangles": 23824,
+     "spray": 93,
+     "spray_alive": [
+      93,
+      93
+     ],
+     "claw_frames_sha256": "4a8134afd6901446d5f2ac94210a991a4834194adce3aacc52c57be9bd15a891",
+     "spray_sha256": "1470762f6f8fd6224702ed4078ef4dc3bbecc5a9cdd993e5f054246972a7a225",
+     "load_s": 0.463,
+     "screenshot": "ds35_run2_v2_light_desk1080_seat.png",
+     "eye_images": []
+    },
+    {
+     "variant": "v2_light",
+     "cond": "proxy_stereo_seat",
+     "cond_ja": "立体の代理・座席 v1（2 眼 4×MSAA）",
+     "measure_s": 12.002,
+     "unity_frames": 15188,
+     "timings_total": 15195,
+     "timings_used": 15187,
+     "gpu_valid": 14976,
+     "gpu_invalid_over_1s": 0,
+     "gpu_zero": 211,
+     "quality_msaa": 4,
+     "vsync": 0,
+     "screen": [
+      1920,
+      1080
+     ],
+     "eye": [
+      2064,
+      2208,
+      4
+     ],
+     "fps_mean": 1265.61,
+     "interval_ms": {
+      "mean": 0.7901,
+      "p50": 0.8025,
+      "p95": 1.2042,
+      "max": 2.6608
+     },
+     "frames_over_33_3ms": 0,
+     "gpu_ms": {
+      "mean": 0.7253,
+      "p50": 0.7516,
+      "p95": 1.1123,
+      "max": 2.56
+     },
+     "cpu_ms": {
+      "mean": 0.7901,
+      "p95": 1.2042,
+      "max": 2.6608
+     },
+     "t_played": [
+      11.0,
+      12.0
+     ],
+     "claws": 74,
+     "claw_vertices": 12430,
+     "claw_triangles": 23824,
+     "spray": 93,
+     "spray_alive": [
+      93,
+      93
+     ],
+     "claw_frames_sha256": "4a8134afd6901446d5f2ac94210a991a4834194adce3aacc52c57be9bd15a891",
+     "spray_sha256": "1470762f6f8fd6224702ed4078ef4dc3bbecc5a9cdd993e5f054246972a7a225",
+     "load_s": 0.463,
+     "screenshot": "ds35_run2_v2_light_proxy_stereo_seat.png",
+     "eye_images": [
+      "ds35_run2_v2_light_proxy_stereo_seat_L.png",
+      "ds35_run2_v2_light_proxy_stereo_seat_R.png"
+     ]
+    },
+    {
+     "variant": "v3_exag",
+     "cond": "desk1080_painting",
+     "cond_ja": "1920×1080・原画視点",
+     "measure_s": 12.0,
+     "unity_frames": 22202,
+     "timings_total": 22209,
+     "timings_used": 22201,
+     "gpu_valid": 13379,
+     "gpu_invalid_over_1s": 0,
+     "gpu_zero": 8822,
+     "quality_msaa": 4,
+     "vsync": 0,
+     "screen": [
+      1920,
+      1080
+     ],
+     "eye": null,
+     "fps_mean": 1850.13,
+     "interval_ms": {
+      "mean": 0.5405,
+      "p50": 0.4946,
+      "p95": 0.9273,
+      "max": 3.5955
+     },
+     "frames_over_33_3ms": 0,
+     "gpu_ms": {
+      "mean": 0.3797,
+      "p50": 0.3594,
+      "p95": 0.385,
+      "max": 3.3116
+     },
+     "cpu_ms": {
+      "mean": 0.5405,
+      "p95": 0.9273,
+      "max": 3.5955
+     },
+     "t_played": [
+      11.0,
+      12.0
+     ],
+     "claws": 148,
+     "claw_vertices": 25052,
+     "claw_triangles": 48032,
+     "spray": 186,
+     "spray_alive": [
+      186,
+      186
+     ],
+     "claw_frames_sha256": "077d262c9bfd535938c38ccbeb3823b334a0e9e9f22da7a6b5fd0a6e1e7961a1",
+     "spray_sha256": "6217c1dac750948f85a875ce753dac5379b34c2efec83fb81f840536a637d5de",
+     "load_s": 0.925,
+     "screenshot": "ds35_run2_v3_exag_desk1080_painting.png",
+     "eye_images": []
+    },
+    {
+     "variant": "v3_exag",
+     "cond": "desk1080_seat",
+     "cond_ja": "1920×1080・座席 v1",
+     "measure_s": 12.0,
+     "unity_frames": 24726,
+     "timings_total": 24733,
+     "timings_used": 24725,
+     "gpu_valid": 20623,
+     "gpu_invalid_over_1s": 1,
+     "gpu_zero": 4101,
+     "quality_msaa": 4,
+     "vsync": 0,
+     "screen": [
+      1920,
+      1080
+     ],
+     "eye": null,
+     "fps_mean": 2060.5,
+     "interval_ms": {
+      "mean": 0.4853,
+      "p50": 0.4325,
+      "p95": 0.8325,
+      "max": 2.9124
+     },
+     "frames_over_33_3ms": 0,
+     "gpu_ms": {
+      "mean": 0.2756,
+      "p50": 0.255,
+      "p95": 0.5857,
+      "max": 2.1156
+     },
+     "cpu_ms": {
+      "mean": 0.4853,
+      "p95": 0.8325,
+      "max": 2.9124
+     },
+     "t_played": [
+      11.0,
+      12.0
+     ],
+     "claws": 148,
+     "claw_vertices": 25052,
+     "claw_triangles": 48032,
+     "spray": 186,
+     "spray_alive": [
+      186,
+      186
+     ],
+     "claw_frames_sha256": "077d262c9bfd535938c38ccbeb3823b334a0e9e9f22da7a6b5fd0a6e1e7961a1",
+     "spray_sha256": "6217c1dac750948f85a875ce753dac5379b34c2efec83fb81f840536a637d5de",
+     "load_s": 0.925,
+     "screenshot": "ds35_run2_v3_exag_desk1080_seat.png",
+     "eye_images": []
+    },
+    {
+     "variant": "v3_exag",
+     "cond": "proxy_stereo_seat",
+     "cond_ja": "立体の代理・座席 v1（2 眼 4×MSAA）",
+     "measure_s": 12.001,
+     "unity_frames": 14402,
+     "timings_total": 14409,
+     "timings_used": 14401,
+     "gpu_valid": 14104,
+     "gpu_invalid_over_1s": 0,
+     "gpu_zero": 297,
+     "quality_msaa": 4,
+     "vsync": 0,
+     "screen": [
+      1920,
+      1080
+     ],
+     "eye": [
+      2064,
+      2208,
+      4
+     ],
+     "fps_mean": 1200.11,
+     "interval_ms": {
+      "mean": 0.8333,
+      "p50": 0.8395,
+      "p95": 1.2463,
+      "max": 3.7379
+     },
+     "frames_over_33_3ms": 0,
+     "gpu_ms": {
+      "mean": 0.765,
+      "p50": 0.7936,
+      "p95": 1.151,
+      "max": 2.2692
+     },
+     "cpu_ms": {
+      "mean": 0.8333,
+      "p95": 1.2463,
+      "max": 3.7379
+     },
+     "t_played": [
+      11.0,
+      12.0
+     ],
+     "claws": 148,
+     "claw_vertices": 25052,
+     "claw_triangles": 48032,
+     "spray": 186,
+     "spray_alive": [
+      186,
+      186
+     ],
+     "claw_frames_sha256": "077d262c9bfd535938c38ccbeb3823b334a0e9e9f22da7a6b5fd0a6e1e7961a1",
+     "spray_sha256": "6217c1dac750948f85a875ce753dac5379b34c2efec83fb81f840536a637d5de",
+     "load_s": 0.925,
+     "screenshot": "ds35_run2_v3_exag_proxy_stereo_seat.png",
+     "eye_images": [
+      "ds35_run2_v3_exag_proxy_stereo_seat_L.png",
+      "ds35_run2_v3_exag_proxy_stereo_seat_R.png"
+     ]
+    }
+   ]
+  }
+ },
+ "build": {
+  "result": "Succeeded",
+  "seconds": 4.7646352,
+  "protected_unchanged": true,
+  "frame_timing_restored": true
+ },
+ "video_report": {
+  "protected_unchanged": true,
+  "note_ja": "Editor の batchmode の camera.Render（PC オフスクリーン、8×MSAA）。設計34 の動画と同じ描き方。場面は開いただけで保存していない。所要 49 s",
+  "note_w0_ja": "Editor の batchmode の camera.Render（PC オフスクリーン、8×MSAA）。設計34 の動画と同じ描き方。場面は開いただけで保存していない。所要 26 s"
+ },
+ "limits_ja": [
+  "性能は RTX 3080 の PC の代理（対象 PC の RTX3060 ではない）。81・112・199 の本判定は保留。",
+  "立体は 2 カメラの代理で、PS VR2 の実機・SPI・Link の圧縮・合成器は含まない（H1・H3・H4 は保留）。",
+  "V3 の爪は幅・長さを誇張したので、原画視点の輪郭（78・130〜132・72）と色区の値は測っていない（比べるための版で、既定ではない）。",
+  "V3 の飛沫は寿命 × 1.6 を狙ったが、設計31 の 150（水面へ引き戻されない）を通る範囲に下げた粒がある（spray_info の how）。",
+  "違いの目安（画素の割合）は記録で、見え方の良し悪しの判定ではない。"
+ ]
+}

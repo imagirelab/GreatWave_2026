@@ -1,0 +1,890 @@
+{
+ "rule_ja": "各条件で ftStart を並べて先頭 8 件を除き、開始時刻の差を間隔（ms）。平均 fps＝1000／間隔の平均。GPU は 0 より大きく 1 s 未満の値の p95。2 回（run1・run2）のうち fps は小さい方、p95 は大きい方",
+ "runs": {
+  "run1": {
+   "device": "NVIDIA GeForce RTX 3080",
+   "graphicsApi": "Direct3D11",
+   "cpu": "12th Gen Intel(R) Core(TM) i7-12700K",
+   "qualityName": "Ultra",
+   "isDebugBuild": false,
+   "frameTimingFeatureEnabled": true,
+   "fullScreenMode": "Windowed",
+   "screen": [
+    1920,
+    1080
+   ],
+   "window_s": [
+    11.0,
+    12.0
+   ],
+   "startedUtc": "2026-09-29T18:21:28.1976386Z",
+   "finishedUtc": "2026-09-29T18:23:48.5434692Z",
+   "exitCode": 0,
+   "killedByTimeout": false,
+   "exeSha256": "5be81b3fa7df7c08cadee6f79d6ff3fe95481420f166ba8127390ea669c8b12c"
+  },
+  "run2": {
+   "device": "NVIDIA GeForce RTX 3080",
+   "graphicsApi": "Direct3D11",
+   "cpu": "12th Gen Intel(R) Core(TM) i7-12700K",
+   "qualityName": "Ultra",
+   "isDebugBuild": false,
+   "frameTimingFeatureEnabled": true,
+   "fullScreenMode": "Windowed",
+   "screen": [
+    1920,
+    1080
+   ],
+   "window_s": [
+    11.0,
+    12.0
+   ],
+   "startedUtc": "2026-09-29T18:24:15.9945476Z",
+   "finishedUtc": "2026-09-29T18:26:36.2236111Z",
+   "exitCode": 0,
+   "killedByTimeout": false,
+   "exeSha256": "5be81b3fa7df7c08cadee6f79d6ff3fe95481420f166ba8127390ea669c8b12c"
+  }
+ },
+ "table": {
+  "v1_list/desk1080_painting": {
+   "fps_mean_min": 1902.8,
+   "interval_p95_max_ms": 0.9351,
+   "interval_max_ms": 2.895,
+   "frames_over_33_3ms": 0,
+   "gpu_p95_max_ms": 0.3686,
+   "gpu_zero_pct": [
+    42.8,
+    39.2
+   ],
+   "gpu_over_1s": 1,
+   "t_played_s": [
+    11.0,
+    12.0
+   ],
+   "claws": 148,
+   "claw_triangles": 48032,
+   "spray": 186,
+   "spray_alive_min": 186,
+   "eye": [
+    0,
+    0,
+    0
+   ],
+   "quality_msaa": 4,
+   "vsync": 0,
+   "claw_frames_sha256": "6e7629889a47efc0172d40c28364b59eadef48e419d0dad5c279e3fa3d7f7565",
+   "spray_sha256": "9db0a42811aa2c72f1cefbf8b80386f2e919a8b80fe65f7e91dd6a60c9b25c5f"
+  },
+  "v1_list/desk1080_seat": {
+   "fps_mean_min": 2040.33,
+   "interval_p95_max_ms": 0.8383,
+   "interval_max_ms": 4.422,
+   "frames_over_33_3ms": 0,
+   "gpu_p95_max_ms": 0.5371,
+   "gpu_zero_pct": [
+    17.9,
+    14.7
+   ],
+   "gpu_over_1s": 1,
+   "t_played_s": [
+    11.0,
+    12.0
+   ],
+   "claws": 148,
+   "claw_triangles": 48032,
+   "spray": 186,
+   "spray_alive_min": 186,
+   "eye": [
+    0,
+    0,
+    0
+   ],
+   "quality_msaa": 4,
+   "vsync": 0,
+   "claw_frames_sha256": "6e7629889a47efc0172d40c28364b59eadef48e419d0dad5c279e3fa3d7f7565",
+   "spray_sha256": "9db0a42811aa2c72f1cefbf8b80386f2e919a8b80fe65f7e91dd6a60c9b25c5f"
+  },
+  "v1_list/proxy_stereo_seat": {
+   "fps_mean_min": 1210.89,
+   "interval_p95_max_ms": 1.2357,
+   "interval_max_ms": 4.268,
+   "frames_over_33_3ms": 0,
+   "gpu_p95_max_ms": 1.1233,
+   "gpu_zero_pct": [
+    3.6,
+    4.3
+   ],
+   "gpu_over_1s": 0,
+   "t_played_s": [
+    11.0,
+    12.0
+   ],
+   "claws": 148,
+   "claw_triangles": 48032,
+   "spray": 186,
+   "spray_alive_min": 186,
+   "eye": [
+    2064,
+    2208,
+    4
+   ],
+   "quality_msaa": 4,
+   "vsync": 0,
+   "claw_frames_sha256": "6e7629889a47efc0172d40c28364b59eadef48e419d0dad5c279e3fa3d7f7565",
+   "spray_sha256": "9db0a42811aa2c72f1cefbf8b80386f2e919a8b80fe65f7e91dd6a60c9b25c5f"
+  },
+  "v2_light/desk1080_painting": {
+   "fps_mean_min": 2098.51,
+   "interval_p95_max_ms": 0.888,
+   "interval_max_ms": 5.467,
+   "frames_over_33_3ms": 0,
+   "gpu_p95_max_ms": 0.3604,
+   "gpu_zero_pct": [
+    22.3,
+    26.5
+   ],
+   "gpu_over_1s": 0,
+   "t_played_s": [
+    11.0,
+    12.0
+   ],
+   "claws": 74,
+   "claw_triangles": 23824,
+   "spray": 93,
+   "spray_alive_min": 93,
+   "eye": [
+    0,
+    0,
+    0
+   ],
+   "quality_msaa": 4,
+   "vsync": 0,
+   "claw_frames_sha256": "4a8134afd6901446d5f2ac94210a991a4834194adce3aacc52c57be9bd15a891",
+   "spray_sha256": "1470762f6f8fd6224702ed4078ef4dc3bbecc5a9cdd993e5f054246972a7a225"
+  },
+  "v2_light/desk1080_seat": {
+   "fps_mean_min": 2411.99,
+   "interval_p95_max_ms": 0.7361,
+   "interval_max_ms": 3.379,
+   "frames_over_33_3ms": 0,
+   "gpu_p95_max_ms": 0.2519,
+   "gpu_zero_pct": [
+    34.4,
+    30.9
+   ],
+   "gpu_over_1s": 4,
+   "t_played_s": [
+    11.0,
+    12.0
+   ],
+   "claws": 74,
+   "claw_triangles": 23824,
+   "spray": 93,
+   "spray_alive_min": 93,
+   "eye": [
+    0,
+    0,
+    0
+   ],
+   "quality_msaa": 4,
+   "vsync": 0,
+   "claw_frames_sha256": "4a8134afd6901446d5f2ac94210a991a4834194adce3aacc52c57be9bd15a891",
+   "spray_sha256": "1470762f6f8fd6224702ed4078ef4dc3bbecc5a9cdd993e5f054246972a7a225"
+  },
+  "v2_light/proxy_stereo_seat": {
+   "fps_mean_min": 1265.61,
+   "interval_p95_max_ms": 1.2042,
+   "interval_max_ms": 3.436,
+   "frames_over_33_3ms": 0,
+   "gpu_p95_max_ms": 1.1123,
+   "gpu_zero_pct": [
+    0.8,
+    1.4
+   ],
+   "gpu_over_1s": 0,
+   "t_played_s": [
+    11.0001,
+    12.0
+   ],
+   "claws": 74,
+   "claw_triangles": 23824,
+   "spray": 93,
+   "spray_alive_min": 93,
+   "eye": [
+    2064,
+    2208,
+    4
+   ],
+   "quality_msaa": 4,
+   "vsync": 0,
+   "claw_frames_sha256": "4a8134afd6901446d5f2ac94210a991a4834194adce3aacc52c57be9bd15a891",
+   "spray_sha256": "1470762f6f8fd6224702ed4078ef4dc3bbecc5a9cdd993e5f054246972a7a225"
+  },
+  "v3_exag/desk1080_painting": {
+   "fps_mean_min": 1850.13,
+   "interval_p95_max_ms": 0.9273,
+   "interval_max_ms": 3.596,
+   "frames_over_33_3ms": 0,
+   "gpu_p95_max_ms": 0.385,
+   "gpu_zero_pct": [
+    40.0,
+    39.7
+   ],
+   "gpu_over_1s": 0,
+   "t_played_s": [
+    11.0001,
+    12.0
+   ],
+   "claws": 148,
+   "claw_triangles": 48032,
+   "spray": 186,
+   "spray_alive_min": 186,
+   "eye": [
+    0,
+    0,
+    0
+   ],
+   "quality_msaa": 4,
+   "vsync": 0,
+   "claw_frames_sha256": "077d262c9bfd535938c38ccbeb3823b334a0e9e9f22da7a6b5fd0a6e1e7961a1",
+   "spray_sha256": "6217c1dac750948f85a875ce753dac5379b34c2efec83fb81f840536a637d5de"
+  },
+  "v3_exag/desk1080_seat": {
+   "fps_mean_min": 2060.5,
+   "interval_p95_max_ms": 0.8325,
+   "interval_max_ms": 3.087,
+   "frames_over_33_3ms": 0,
+   "gpu_p95_max_ms": 0.5857,
+   "gpu_zero_pct": [
+    16.7,
+    16.6
+   ],
+   "gpu_over_1s": 1,
+   "t_played_s": [
+    11.0,
+    12.0
+   ],
+   "claws": 148,
+   "claw_triangles": 48032,
+   "spray": 186,
+   "spray_alive_min": 186,
+   "eye": [
+    0,
+    0,
+    0
+   ],
+   "quality_msaa": 4,
+   "vsync": 0,
+   "claw_frames_sha256": "077d262c9bfd535938c38ccbeb3823b334a0e9e9f22da7a6b5fd0a6e1e7961a1",
+   "spray_sha256": "6217c1dac750948f85a875ce753dac5379b34c2efec83fb81f840536a637d5de"
+  },
+  "v3_exag/proxy_stereo_seat": {
+   "fps_mean_min": 1200.11,
+   "interval_p95_max_ms": 1.2463,
+   "interval_max_ms": 3.785,
+   "frames_over_33_3ms": 0,
+   "gpu_p95_max_ms": 1.151,
+   "gpu_zero_pct": [
+    1.8,
+    2.1
+   ],
+   "gpu_over_1s": 0,
+   "t_played_s": [
+    11.0001,
+    12.0
+   ],
+   "claws": 148,
+   "claw_triangles": 48032,
+   "spray": 186,
+   "spray_alive_min": 186,
+   "eye": [
+    2064,
+    2208,
+    4
+   ],
+   "quality_msaa": 4,
+   "vsync": 0,
+   "claw_frames_sha256": "077d262c9bfd535938c38ccbeb3823b334a0e9e9f22da7a6b5fd0a6e1e7961a1",
+   "spray_sha256": "6217c1dac750948f85a875ce753dac5379b34c2efec83fb81f840536a637d5de"
+  }
+ },
+ "per_run": {
+  "v1_list/desk1080_painting": [
+   {
+    "tag": "run1",
+    "fps_mean": 1931.29,
+    "interval_p95_ms": 0.9351,
+    "interval_max_ms": 2.593,
+    "frames_over_33_3ms": 0,
+    "frames": 23176,
+    "gpu_p95_ms": 0.3635,
+    "gpu_zero": 9912,
+    "gpu_over_1s": 0,
+    "gpu_zero_pct": 42.8,
+    "t_played_s": [
+     11.0,
+     11.9999
+    ],
+    "claws": 148,
+    "claw_triangles": 48032,
+    "spray": 186,
+    "spray_alive": [
+     186,
+     186
+    ],
+    "quality_msaa": 4,
+    "vsync": 0,
+    "eye": [
+     0,
+     0,
+     0
+    ],
+    "stereo_proxy": false
+   },
+   {
+    "tag": "run2",
+    "fps_mean": 1902.8,
+    "interval_p95_ms": 0.884,
+    "interval_max_ms": 2.895,
+    "frames_over_33_3ms": 0,
+    "frames": 22834,
+    "gpu_p95_ms": 0.3686,
+    "gpu_zero": 8956,
+    "gpu_over_1s": 1,
+    "gpu_zero_pct": 39.2,
+    "t_played_s": [
+     11.0,
+     12.0
+    ],
+    "claws": 148,
+    "claw_triangles": 48032,
+    "spray": 186,
+    "spray_alive": [
+     186,
+     186
+    ],
+    "quality_msaa": 4,
+    "vsync": 0,
+    "eye": [
+     0,
+     0,
+     0
+    ],
+    "stereo_proxy": false
+   }
+  ],
+  "v1_list/desk1080_seat": [
+   {
+    "tag": "run1",
+    "fps_mean": 2170.2,
+    "interval_p95_ms": 0.8002,
+    "interval_max_ms": 2.822,
+    "frames_over_33_3ms": 0,
+    "frames": 26042,
+    "gpu_p95_ms": 0.2621,
+    "gpu_zero": 4663,
+    "gpu_over_1s": 0,
+    "gpu_zero_pct": 17.9,
+    "t_played_s": [
+     11.0,
+     12.0
+    ],
+    "claws": 148,
+    "claw_triangles": 48032,
+    "spray": 186,
+    "spray_alive": [
+     186,
+     186
+    ],
+    "quality_msaa": 4,
+    "vsync": 0,
+    "eye": [
+     0,
+     0,
+     0
+    ],
+    "stereo_proxy": false
+   },
+   {
+    "tag": "run2",
+    "fps_mean": 2040.33,
+    "interval_p95_ms": 0.8383,
+    "interval_max_ms": 4.422,
+    "frames_over_33_3ms": 0,
+    "frames": 24484,
+    "gpu_p95_ms": 0.5371,
+    "gpu_zero": 3593,
+    "gpu_over_1s": 1,
+    "gpu_zero_pct": 14.7,
+    "t_played_s": [
+     11.0,
+     12.0
+    ],
+    "claws": 148,
+    "claw_triangles": 48032,
+    "spray": 186,
+    "spray_alive": [
+     186,
+     186
+    ],
+    "quality_msaa": 4,
+    "vsync": 0,
+    "eye": [
+     0,
+     0,
+     0
+    ],
+    "stereo_proxy": false
+   }
+  ],
+  "v1_list/proxy_stereo_seat": [
+   {
+    "tag": "run1",
+    "fps_mean": 1249.11,
+    "interval_p95_ms": 1.1891,
+    "interval_max_ms": 2.984,
+    "frames_over_33_3ms": 0,
+    "frames": 14989,
+    "gpu_p95_ms": 1.0865,
+    "gpu_zero": 535,
+    "gpu_over_1s": 0,
+    "gpu_zero_pct": 3.6,
+    "t_played_s": [
+     11.0,
+     12.0
+    ],
+    "claws": 148,
+    "claw_triangles": 48032,
+    "spray": 186,
+    "spray_alive": [
+     186,
+     186
+    ],
+    "quality_msaa": 4,
+    "vsync": 0,
+    "eye": [
+     2064,
+     2208,
+     4
+    ],
+    "stereo_proxy": true
+   },
+   {
+    "tag": "run2",
+    "fps_mean": 1210.89,
+    "interval_p95_ms": 1.2357,
+    "interval_max_ms": 4.268,
+    "frames_over_33_3ms": 0,
+    "frames": 14530,
+    "gpu_p95_ms": 1.1233,
+    "gpu_zero": 631,
+    "gpu_over_1s": 0,
+    "gpu_zero_pct": 4.3,
+    "t_played_s": [
+     11.0,
+     11.9998
+    ],
+    "claws": 148,
+    "claw_triangles": 48032,
+    "spray": 186,
+    "spray_alive": [
+     186,
+     186
+    ],
+    "quality_msaa": 4,
+    "vsync": 0,
+    "eye": [
+     2064,
+     2208,
+     4
+    ],
+    "stereo_proxy": true
+   }
+  ],
+  "v2_light/desk1080_painting": [
+   {
+    "tag": "run1",
+    "fps_mean": 2129.07,
+    "interval_p95_ms": 0.888,
+    "interval_max_ms": 5.467,
+    "frames_over_33_3ms": 0,
+    "frames": 25547,
+    "gpu_p95_ms": 0.3543,
+    "gpu_zero": 5708,
+    "gpu_over_1s": 0,
+    "gpu_zero_pct": 22.3,
+    "t_played_s": [
+     11.0,
+     12.0
+    ],
+    "claws": 74,
+    "claw_triangles": 23824,
+    "spray": 93,
+    "spray_alive": [
+     93,
+     93
+    ],
+    "quality_msaa": 4,
+    "vsync": 0,
+    "eye": [
+     0,
+     0,
+     0
+    ],
+    "stereo_proxy": false
+   },
+   {
+    "tag": "run2",
+    "fps_mean": 2098.51,
+    "interval_p95_ms": 0.8725,
+    "interval_max_ms": 3.651,
+    "frames_over_33_3ms": 0,
+    "frames": 25182,
+    "gpu_p95_ms": 0.3604,
+    "gpu_zero": 6679,
+    "gpu_over_1s": 0,
+    "gpu_zero_pct": 26.5,
+    "t_played_s": [
+     11.0001,
+     12.0
+    ],
+    "claws": 74,
+    "claw_triangles": 23824,
+    "spray": 93,
+    "spray_alive": [
+     93,
+     93
+    ],
+    "quality_msaa": 4,
+    "vsync": 0,
+    "eye": [
+     0,
+     0,
+     0
+    ],
+    "stereo_proxy": false
+   }
+  ],
+  "v2_light/desk1080_seat": [
+   {
+    "tag": "run1",
+    "fps_mean": 2496.15,
+    "interval_p95_ms": 0.6841,
+    "interval_max_ms": 3.379,
+    "frames_over_33_3ms": 0,
+    "frames": 29954,
+    "gpu_p95_ms": 0.2458,
+    "gpu_zero": 10309,
+    "gpu_over_1s": 0,
+    "gpu_zero_pct": 34.4,
+    "t_played_s": [
+     11.0,
+     12.0
+    ],
+    "claws": 74,
+    "claw_triangles": 23824,
+    "spray": 93,
+    "spray_alive": [
+     93,
+     93
+    ],
+    "quality_msaa": 4,
+    "vsync": 0,
+    "eye": [
+     0,
+     0,
+     0
+    ],
+    "stereo_proxy": false
+   },
+   {
+    "tag": "run2",
+    "fps_mean": 2411.99,
+    "interval_p95_ms": 0.7361,
+    "interval_max_ms": 2.115,
+    "frames_over_33_3ms": 0,
+    "frames": 28944,
+    "gpu_p95_ms": 0.2519,
+    "gpu_zero": 8934,
+    "gpu_over_1s": 4,
+    "gpu_zero_pct": 30.9,
+    "t_played_s": [
+     11.0,
+     11.9994
+    ],
+    "claws": 74,
+    "claw_triangles": 23824,
+    "spray": 93,
+    "spray_alive": [
+     93,
+     93
+    ],
+    "quality_msaa": 4,
+    "vsync": 0,
+    "eye": [
+     0,
+     0,
+     0
+    ],
+    "stereo_proxy": false
+   }
+  ],
+  "v2_light/proxy_stereo_seat": [
+   {
+    "tag": "run1",
+    "fps_mean": 1297.61,
+    "interval_p95_ms": 1.1658,
+    "interval_max_ms": 3.436,
+    "frames_over_33_3ms": 0,
+    "frames": 15571,
+    "gpu_p95_ms": 1.0926,
+    "gpu_zero": 122,
+    "gpu_over_1s": 0,
+    "gpu_zero_pct": 0.8,
+    "t_played_s": [
+     11.0002,
+     12.0
+    ],
+    "claws": 74,
+    "claw_triangles": 23824,
+    "spray": 93,
+    "spray_alive": [
+     93,
+     93
+    ],
+    "quality_msaa": 4,
+    "vsync": 0,
+    "eye": [
+     2064,
+     2208,
+     4
+    ],
+    "stereo_proxy": true
+   },
+   {
+    "tag": "run2",
+    "fps_mean": 1265.61,
+    "interval_p95_ms": 1.2042,
+    "interval_max_ms": 2.661,
+    "frames_over_33_3ms": 0,
+    "frames": 15187,
+    "gpu_p95_ms": 1.1123,
+    "gpu_zero": 211,
+    "gpu_over_1s": 0,
+    "gpu_zero_pct": 1.4,
+    "t_played_s": [
+     11.0001,
+     11.9999
+    ],
+    "claws": 74,
+    "claw_triangles": 23824,
+    "spray": 93,
+    "spray_alive": [
+     93,
+     93
+    ],
+    "quality_msaa": 4,
+    "vsync": 0,
+    "eye": [
+     2064,
+     2208,
+     4
+    ],
+    "stereo_proxy": true
+   }
+  ],
+  "v3_exag/desk1080_painting": [
+   {
+    "tag": "run1",
+    "fps_mean": 1877.15,
+    "interval_p95_ms": 0.91,
+    "interval_max_ms": 2.76,
+    "frames_over_33_3ms": 0,
+    "frames": 22526,
+    "gpu_p95_ms": 0.3789,
+    "gpu_zero": 9006,
+    "gpu_over_1s": 0,
+    "gpu_zero_pct": 40.0,
+    "t_played_s": [
+     11.0001,
+     12.0
+    ],
+    "claws": 148,
+    "claw_triangles": 48032,
+    "spray": 186,
+    "spray_alive": [
+     186,
+     186
+    ],
+    "quality_msaa": 4,
+    "vsync": 0,
+    "eye": [
+     0,
+     0,
+     0
+    ],
+    "stereo_proxy": false
+   },
+   {
+    "tag": "run2",
+    "fps_mean": 1850.13,
+    "interval_p95_ms": 0.9273,
+    "interval_max_ms": 3.596,
+    "frames_over_33_3ms": 0,
+    "frames": 22201,
+    "gpu_p95_ms": 0.385,
+    "gpu_zero": 8822,
+    "gpu_over_1s": 0,
+    "gpu_zero_pct": 39.7,
+    "t_played_s": [
+     11.0001,
+     12.0
+    ],
+    "claws": 148,
+    "claw_triangles": 48032,
+    "spray": 186,
+    "spray_alive": [
+     186,
+     186
+    ],
+    "quality_msaa": 4,
+    "vsync": 0,
+    "eye": [
+     0,
+     0,
+     0
+    ],
+    "stereo_proxy": false
+   }
+  ],
+  "v3_exag/desk1080_seat": [
+   {
+    "tag": "run1",
+    "fps_mean": 2066.18,
+    "interval_p95_ms": 0.8302,
+    "interval_max_ms": 3.087,
+    "frames_over_33_3ms": 0,
+    "frames": 24794,
+    "gpu_p95_ms": 0.5601,
+    "gpu_zero": 4151,
+    "gpu_over_1s": 0,
+    "gpu_zero_pct": 16.7,
+    "t_played_s": [
+     11.0,
+     11.9999
+    ],
+    "claws": 148,
+    "claw_triangles": 48032,
+    "spray": 186,
+    "spray_alive": [
+     186,
+     186
+    ],
+    "quality_msaa": 4,
+    "vsync": 0,
+    "eye": [
+     0,
+     0,
+     0
+    ],
+    "stereo_proxy": false
+   },
+   {
+    "tag": "run2",
+    "fps_mean": 2060.5,
+    "interval_p95_ms": 0.8325,
+    "interval_max_ms": 2.912,
+    "frames_over_33_3ms": 0,
+    "frames": 24725,
+    "gpu_p95_ms": 0.5857,
+    "gpu_zero": 4101,
+    "gpu_over_1s": 1,
+    "gpu_zero_pct": 16.6,
+    "t_played_s": [
+     11.0,
+     12.0
+    ],
+    "claws": 148,
+    "claw_triangles": 48032,
+    "spray": 186,
+    "spray_alive": [
+     186,
+     186
+    ],
+    "quality_msaa": 4,
+    "vsync": 0,
+    "eye": [
+     0,
+     0,
+     0
+    ],
+    "stereo_proxy": false
+   }
+  ],
+  "v3_exag/proxy_stereo_seat": [
+   {
+    "tag": "run1",
+    "fps_mean": 1226.44,
+    "interval_p95_ms": 1.2186,
+    "interval_max_ms": 3.785,
+    "frames_over_33_3ms": 0,
+    "frames": 14717,
+    "gpu_p95_ms": 1.1254,
+    "gpu_zero": 261,
+    "gpu_over_1s": 0,
+    "gpu_zero_pct": 1.8,
+    "t_played_s": [
+     11.0001,
+     11.9998
+    ],
+    "claws": 148,
+    "claw_triangles": 48032,
+    "spray": 186,
+    "spray_alive": [
+     186,
+     186
+    ],
+    "quality_msaa": 4,
+    "vsync": 0,
+    "eye": [
+     2064,
+     2208,
+     4
+    ],
+    "stereo_proxy": true
+   },
+   {
+    "tag": "run2",
+    "fps_mean": 1200.11,
+    "interval_p95_ms": 1.2463,
+    "interval_max_ms": 3.738,
+    "frames_over_33_3ms": 0,
+    "frames": 14401,
+    "gpu_p95_ms": 1.151,
+    "gpu_zero": 297,
+    "gpu_over_1s": 0,
+    "gpu_zero_pct": 2.1,
+    "t_played_s": [
+     11.0002,
+     12.0
+    ],
+    "claws": 148,
+    "claw_triangles": 48032,
+    "spray": 186,
+    "spray_alive": [
+     186,
+     186
+    ],
+    "quality_msaa": 4,
+    "vsync": 0,
+    "eye": [
+     2064,
+     2208,
+     4
+    ],
+    "stereo_proxy": true
+   }
+  ]
+ }
+}

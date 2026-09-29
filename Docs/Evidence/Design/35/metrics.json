@@ -1,0 +1,664 @@
+{
+ "schema": "GreatWave.DS35.metrics/1",
+ "number": "設計35",
+ "title_ja": "数量・大きさ・寿命を変えて比較する",
+ "generated_local": "2026-09-30 03:00:11",
+ "evidence_kind_ja": "データは numpy。動画と静止画は Unity 6000.4.3f1 の Editor の batchmode の PC オフスクリーン描画（RTX 3080）。性能は Release の Windows プレイヤーを見えるウィンドウで動かした PC の実測（RTX 3080、Direct3D11）で、対象 PC（RTX3060）の実測でも HMD 実機でもない。進行役の独立の検査は、variants の部のコードを使わない numpy/OpenCV。記録の数え直しはこの道具。利用者は確かめていない。",
+ "d2_note_ja": "D2＝(b)（Q9：美術主導の rig）なので、設計書の設計35 の「物理版」はない。3 版はどれも美術主導の rig の上の数・大きさ・寿命の違いで、物理の解算の版は作っていない（V3 の飛沫は設計31 と同じ逆弾道で解き直したが、美術の配置 p* へ着く誘導で、流体の解算ではない）。",
+ "variants": {
+  "v1_list": {
+   "name_ja": "V1 一覧どおり",
+   "claws": 148,
+   "claw_vertices": 25052,
+   "claw_triangles": 48032,
+   "spray_count": 186,
+   "claw_layout": "Unity/Build/Design/33/claws/ds33_claw_layout.json",
+   "spray": "Unity/Build/Design/31/spray/ds31_spray_frames.json",
+   "rule_ja": null,
+   "first_claw_s": 6.066666666666666,
+   "first_spray_s": 8.7,
+   "claws_full_s": 10.166666666666666,
+   "spray_full_s": 10.633333333333333,
+   "max_triangles": 62912
+  },
+  "v2_light": {
+   "name_ja": "V2 数を減らした軽量版",
+   "claws": 74,
+   "claw_vertices": 12430,
+   "claw_triangles": 23824,
+   "spray_count": 93,
+   "claw_layout": "Unity/Build/Design/35/variants/data/v2_light/claw_layout.json",
+   "spray": "Unity/Build/Design/35/variants/data/v2_light/spray_frames.json",
+   "rule_ja": "爪：主爪（parent なし）と支を 1 群とし、主爪の len_m（t* の 3 次元の長さ）の大きい順に、残す本数が 148 × 0.5 = 74 本に届くまで取る。飛沫：t* の半径の大きい順に 186 × 0.5 = 93 個。どちらも V1 の値をそのまま使う部分集合",
+   "first_claw_s": 6.333333333333333,
+   "first_spray_s": 8.7,
+   "claws_full_s": 10.166666666666666,
+   "spray_full_s": 10.633333333333333,
+   "max_triangles": 31264
+  },
+  "v3_exag": {
+   "name_ja": "V3 大きさ・寿命を誇張した版",
+   "claws": 148,
+   "claw_vertices": 25052,
+   "claw_triangles": 48032,
+   "spray_count": 186,
+   "claw_layout": "Unity/Build/Design/35/variants/data/v3_exag/claw_layout.json",
+   "spray": "Unity/Build/Design/35/variants/data/v3_exag/spray_frames.json",
+   "rule_ja": "爪：ds33_claw_anim と同じ式（関節の (行, 列) と局所のずれ → そのコマのシートで作り直し、帯の輪・根元の白の円）で、輪の幅・厚み・根元の白の円 × 1.5、根元からの (行, 列) のずれと局所のずれ × 1.3、成長の始まり τ_start × 1.6（t = 0 の τ + 0.3 s で頭打ち）。根元は設計32 の sheet_rc のまま（シートの上）",
+   "first_claw_s": 3.6333333333333333,
+   "first_spray_s": 7.066666666666666,
+   "claws_full_s": 9.433333333333334,
+   "spray_full_s": 10.566666666666666,
+   "max_triangles": 62912
+  }
+ },
+ "acceptance": {
+  "ja": "計画 §2.2 の設計35 の最小の受入（Q26：最小の受入だけ。修正は 1 回まで）",
+  "A1_differences_visible_in_video": {
+   "variants_part": {
+    "pixel_diff_pct_vs_v1_stills": {
+     "v2_light/painting/t10.0": 0.051,
+     "v3_exag/painting/t10.0": 0.344,
+     "v2_light/painting/t11.5": 0.148,
+     "v3_exag/painting/t11.5": 0.982,
+     "v2_light/painting/t12.0": 0.133,
+     "v3_exag/painting/t12.0": 1.037,
+     "v2_light/seat/t10.0": 0.033,
+     "v3_exag/seat/t10.0": 0.161,
+     "v2_light/seat/t11.5": 0.116,
+     "v3_exag/seat/t11.5": 0.714,
+     "v2_light/seat/t12.0": 0.122,
+     "v3_exag/seat/t12.0": 0.744,
+     "v2_light/painting_w0/t10.0": 0.29,
+     "v3_exag/painting_w0/t10.0": 1.125,
+     "v2_light/painting_w0/t11.5": 0.804,
+     "v3_exag/painting_w0/t11.5": 2.578,
+     "v2_light/painting_w0/t12.0": 0.828,
+     "v3_exag/painting_w0/t12.0": 2.685
+    },
+    "rule_ja": "目安：同じ時刻・視点で V1 と ΔRGB > 40 の画素の割合（原画視点は波頭の切り出し 800×1000、座席は全画面）。V2・V3 のそれぞれが t 11.5・12 s の原画視点で、普通の読みか白の帯を切った読みのどちらかで 0.5% 以上（修正1回目で決めた基準。1 回目の提出は普通の読みの原画視点と座席の全部で 0.5% 以上としたが、V2 は 0.12〜0.15% で届かなかった：爪が焼き込みの色面の白と淡い水色の模様に重なるため）",
+    "counts": {
+     "claws": [
+      148,
+      74,
+      148
+     ],
+     "spray": [
+      186,
+      93,
+      186
+     ]
+    }
+   },
+   "record_recount_video": {
+    "painting": {
+     "v2_light": {
+      "first_s_ge50px": 8.867,
+      "t11p5": {
+       "full_pct": 0.0418,
+       "crest_pct": 0.1079,
+       "crest2_pct": 0.1637
+      },
+      "t12": {
+       "full_pct": 0.0395,
+       "crest_pct": 0.0999,
+       "crest2_pct": 0.1373
+      }
+     },
+     "v3_exag": {
+      "first_s_ge50px": 6.767,
+      "t11p5": {
+       "full_pct": 0.2778,
+       "crest_pct": 0.7141,
+       "crest2_pct": 1.1049
+      },
+      "t12": {
+       "full_pct": 0.3206,
+       "crest_pct": 0.8234,
+       "crest2_pct": 1.249
+      }
+     }
+    },
+    "painting_w0": {
+     "v2_light": {
+      "first_s_ge50px": 6.967,
+      "t11p5": {
+       "full_pct": 0.3223,
+       "crest_pct": 0.8325,
+       "crest2_pct": 1.2949
+      },
+      "t12": {
+       "full_pct": 0.3307,
+       "crest_pct": 0.8546,
+       "crest2_pct": 1.3164
+      }
+     },
+     "v3_exag": {
+      "first_s_ge50px": 6.4,
+      "t11p5": {
+       "full_pct": 1.0083,
+       "crest_pct": 2.609,
+       "crest2_pct": 4.0668
+      },
+      "t12": {
+       "full_pct": 1.0536,
+       "crest_pct": 2.7276,
+       "crest2_pct": 4.2277
+      }
+     }
+    },
+    "seat": {
+     "v2_light": {
+      "first_s_ge50px": 9.4,
+      "t11p5": {
+       "full_pct": 0.1129,
+       "crest_pct": 0.203,
+       "crest2_pct": 0.0623
+      },
+      "t12": {
+       "full_pct": 0.1148,
+       "crest_pct": 0.2132,
+       "crest2_pct": 0.0629
+      }
+     },
+     "v3_exag": {
+      "first_s_ge50px": 8.867,
+      "t11p5": {
+       "full_pct": 0.678,
+       "crest_pct": 1.3334,
+       "crest2_pct": 0.3771
+      },
+      "t12": {
+       "full_pct": 0.7118,
+       "crest_pct": 1.4854,
+       "crest2_pct": 0.5107
+      }
+     }
+    }
+   },
+   "independent_ja": "独立の検査（ds35_indep_a1_diff_out.txt・ds35_indep_a1_curve_out.txt、記録の時に回し直した出力）",
+   "verdict": "合格（白の帯を切った読みの段で。普通の読みの V2 は小さい。限界 2）"
+  },
+  "A2_desktop_1080_mean_ge30fps_p95_le33_3ms": {
+   "variants_part": {
+    "v1_list/desk1080_painting": {
+     "runs": 2,
+     "fps_mean_min": 1902.8,
+     "interval_p95_max": 0.9351,
+     "frames_over_33_3ms": 0,
+     "gpu_p95_max": 0.3686,
+     "gpu_mean_max": 0.366,
+     "cpu_p95_max": 0.9351,
+     "gpu_valid_min": 13264
+    },
+    "v1_list/desk1080_seat": {
+     "runs": 2,
+     "fps_mean_min": 2040.33,
+     "interval_p95_max": 0.8383,
+     "frames_over_33_3ms": 0,
+     "gpu_p95_max": 0.5371,
+     "gpu_mean_max": 0.2677,
+     "cpu_p95_max": 0.8383,
+     "gpu_valid_min": 20890
+    },
+    "v2_light/desk1080_painting": {
+     "runs": 2,
+     "fps_mean_min": 2098.51,
+     "interval_p95_max": 0.888,
+     "frames_over_33_3ms": 0,
+     "gpu_p95_max": 0.3604,
+     "gpu_mean_max": 0.3559,
+     "cpu_p95_max": 0.888,
+     "gpu_valid_min": 18503
+    },
+    "v2_light/desk1080_seat": {
+     "runs": 2,
+     "fps_mean_min": 2411.99,
+     "interval_p95_max": 0.7361,
+     "frames_over_33_3ms": 0,
+     "gpu_p95_max": 0.2519,
+     "gpu_mean_max": 0.2452,
+     "cpu_p95_max": 0.736,
+     "gpu_valid_min": 19645
+    },
+    "v3_exag/desk1080_painting": {
+     "runs": 2,
+     "fps_mean_min": 1850.13,
+     "interval_p95_max": 0.9273,
+     "frames_over_33_3ms": 0,
+     "gpu_p95_max": 0.385,
+     "gpu_mean_max": 0.3797,
+     "cpu_p95_max": 0.9273,
+     "gpu_valid_min": 13379
+    },
+    "v3_exag/desk1080_seat": {
+     "runs": 2,
+     "fps_mean_min": 2060.5,
+     "interval_p95_max": 0.8325,
+     "frames_over_33_3ms": 0,
+     "gpu_p95_max": 0.5857,
+     "gpu_mean_max": 0.2756,
+     "cpu_p95_max": 0.8325,
+     "gpu_valid_min": 20623
+    }
+   },
+   "record_recount": {
+    "v1_list/desk1080_painting": {
+     "fps_mean_min": 1902.8,
+     "interval_p95_max_ms": 0.9351,
+     "frames_over_33_3ms": 0,
+     "interval_max_ms": 2.895
+    },
+    "v1_list/desk1080_seat": {
+     "fps_mean_min": 2040.33,
+     "interval_p95_max_ms": 0.8383,
+     "frames_over_33_3ms": 0,
+     "interval_max_ms": 4.422
+    },
+    "v2_light/desk1080_painting": {
+     "fps_mean_min": 2098.51,
+     "interval_p95_max_ms": 0.888,
+     "frames_over_33_3ms": 0,
+     "interval_max_ms": 5.467
+    },
+    "v2_light/desk1080_seat": {
+     "fps_mean_min": 2411.99,
+     "interval_p95_max_ms": 0.7361,
+     "frames_over_33_3ms": 0,
+     "interval_max_ms": 3.379
+    },
+    "v3_exag/desk1080_painting": {
+     "fps_mean_min": 1850.13,
+     "interval_p95_max_ms": 0.9273,
+     "frames_over_33_3ms": 0,
+     "interval_max_ms": 3.596
+    },
+    "v3_exag/desk1080_seat": {
+     "fps_mean_min": 2060.5,
+     "interval_p95_max_ms": 0.8325,
+     "frames_over_33_3ms": 0,
+     "interval_max_ms": 3.087
+    }
+   },
+   "verdict": "合格（RTX 3080 の代理）"
+  },
+  "A3_stereo_proxy_gpu_p95_le8_9ms": {
+   "variants_part": {
+    "v1_list/proxy_stereo_seat": {
+     "runs": 2,
+     "fps_mean_min": 1210.89,
+     "interval_p95_max": 1.2357,
+     "frames_over_33_3ms": 0,
+     "gpu_p95_max": 1.1233,
+     "gpu_mean_max": 0.7512,
+     "cpu_p95_max": 1.2357,
+     "gpu_valid_min": 13899
+    },
+    "v2_light/proxy_stereo_seat": {
+     "runs": 2,
+     "fps_mean_min": 1265.61,
+     "interval_p95_max": 1.2042,
+     "frames_over_33_3ms": 0,
+     "gpu_p95_max": 1.1123,
+     "gpu_mean_max": 0.7253,
+     "cpu_p95_max": 1.2042,
+     "gpu_valid_min": 14976
+    },
+    "v3_exag/proxy_stereo_seat": {
+     "runs": 2,
+     "fps_mean_min": 1200.11,
+     "interval_p95_max": 1.2463,
+     "frames_over_33_3ms": 0,
+     "gpu_p95_max": 1.151,
+     "gpu_mean_max": 0.765,
+     "cpu_p95_max": 1.2463,
+     "gpu_valid_min": 14104
+    }
+   },
+   "record_recount": {
+    "v1_list/proxy_stereo_seat": {
+     "gpu_p95_max_ms": 1.1233,
+     "gpu_zero_pct": [
+      3.6,
+      4.3
+     ],
+     "interval_p95_max_ms": 1.2357,
+     "eye": [
+      2064,
+      2208,
+      4
+     ]
+    },
+    "v2_light/proxy_stereo_seat": {
+     "gpu_p95_max_ms": 1.1123,
+     "gpu_zero_pct": [
+      0.8,
+      1.4
+     ],
+     "interval_p95_max_ms": 1.2042,
+     "eye": [
+      2064,
+      2208,
+      4
+     ]
+    },
+    "v3_exag/proxy_stereo_seat": {
+     "gpu_p95_max_ms": 1.151,
+     "gpu_zero_pct": [
+      1.8,
+      2.1
+     ],
+     "interval_p95_max_ms": 1.2463,
+     "eye": [
+      2064,
+      2208,
+      4
+     ]
+    }
+   },
+   "verdict": "合格（2 カメラの代理。SPI・PS VR2 ではない）"
+  },
+  "A4_one_default_version": {
+   "default": "v1_list",
+   "reason_ja": "V1（一覧どおり）を既定にする。①設計32・33 の爪の一覧（原画の爪の位置・向き、t* の骨格の再投影 中央値 0.62 px）に対応する唯一の版で、原画視点のデータは設計34 と SHA-256 まで同じなので、設計34 の回帰の値（78・130・131・132・72 σ24 p95 など）がそのまま使える。②最大密度でも 3 版とも性能の受入に大きな余裕があり、数を減らす理由がない（V2 は PS VR2 の実測で予算を超えたときの控え）。③V3 は爪が原画の爪より長く太く、原画の輪郭との対応が崩れ、飛沫も早く出る（誇張の比較用）。",
+   "v1_data_same_as_ds34": true,
+   "verdict": "合格（進行役の決定、Q24。利用者の段階6確認で変えられる）"
+  },
+  "HMD_H1_H3_H4": {
+   "verdict": "保留",
+   "ja": "PS VR2 の実機（H1・H3・H4）は利用者の手が要るので保留（Q24）。立体は 2 カメラの代理（美術優先32 と同じ）で、SPI・Link・合成器・レンズの歪みは含まない。"
+  },
+  "all_pass": true
+ },
+ "backlog": {
+  "ja": "計画 §2.2 の設計35：81・112・199（代理の測定。判定は RTX3060 の実測がないので保留）",
+  "items": {
+   "b81": {
+    "value": "1920×1080・最大密度の代理で合格",
+    "verdict_ja": "RTX3080 の代理で記録。本判定（RTX3060）は保留"
+   },
+   "b112": {
+    "value": "同上",
+    "verdict_ja": "RTX3080 の代理で記録。本判定（RTX3060）は保留"
+   },
+   "b199": {
+    "value": "立体の代理の GPU p95（最大）1.151 ms",
+    "verdict_ja": "代理の測定。HMD 実機（PS VR2）は未導入で保留"
+   }
+  }
+ },
+ "regression": {
+  "ja": "原画視点の既定（V1）は設計34 と同じデータ（爪のコマの表・飛沫の SHA-256 が一致：True）なので、評価器は回していない（計画 §2.0 の回帰は設計34 の値を引き継ぐ）。V2・V3 は比べるための版で、原画視点へ統合しない。",
+  "ds34_open_decision_ja": "設計34 の色区 133・134（と 267）の読みの決定は、設計34 の記録のとおり（爪の層を除いた読みを採り、爪を入れた読みの不合格は限界）。この番号では変えていない"
+ },
+ "densest_interval": {
+  "window_s": [
+   11.0,
+   12.0
+  ],
+  "rule_ja": "描く三角形の数（見えている爪の三角形 ＋ 生きている飛沫 × 80）が最大の平らにある区間のうち、t* の直前の 1 秒（動きのある最後の区間）。t* の後も同じ数だが静止しているので、動きを含む t 11〜12 s を実時間の速さで繰り返した",
+  "per_variant": {
+   "v1_list": {
+    "max_triangles": 62912,
+    "plateau_from_s": 10.633333333333333,
+    "window_min_triangles": 62912,
+    "window_is_max_plateau": true
+   },
+   "v2_light": {
+    "max_triangles": 31264,
+    "plateau_from_s": 10.633333333333333,
+    "window_min_triangles": 31264,
+    "window_is_max_plateau": true
+   },
+   "v3_exag": {
+    "max_triangles": 62912,
+    "plateau_from_s": 10.566666666666666,
+    "window_min_triangles": 62912,
+    "window_is_max_plateau": true
+   }
+  }
+ },
+ "v3": {
+  "part": {
+   "claw_life_s_orig_tau": [
+    0.6206,
+    1.4451,
+    2.6754
+   ],
+   "claw_life_s_exag_tau": [
+    0.9929600000000001,
+    2.3121600000000004,
+    4.28064
+   ],
+   "claw_arc_ratio_tstar_median": 1.3028893093173326,
+   "claw_arc_m_tstar_median": [
+    0.8162566326010002,
+    1.0782187752762624
+   ],
+   "claw_first_visible_t_s": 3.6333333333333333,
+   "claw_first_visible_t_s_v1": 6.066666666666666,
+   "claw_nan_claw_frames": 0,
+   "claw_root_offset_max_m": 0.0,
+   "spray_first_visible_t_s": 7.066666666666666,
+   "spray_first_visible_t_s_v1": 8.7,
+   "spray_info": {
+    "how": {
+     "long": 61,
+     "long_mid": 5,
+     "long_low": 15,
+     "same_tau": 104,
+     "orig": 0,
+     "orig_radius1": 1,
+     "orig_failed150": 0
+    },
+    "life_s_orig": [
+     0.4,
+     0.94,
+     1.36
+    ],
+    "life_s_exag": [
+     0.42,
+     1.06,
+     2.176
+    ],
+    "life_ratio_median": 1.0,
+    "life_ratio_mean": 1.2233870967741935,
+    "radius_ratio": [
+     1.0,
+     1.6000000000000003
+    ],
+    "rule_ja": "粒ごとに候補を寿命の倍率 1.6・1.4・1.2・1.0（同じ τ_e で半径だけ大きく解き直す）・元の経路（半径 × 1.6）・元の経路と元の半径の順に、設計31 の check_paths（150）を通る最初のものを採る",
+    "radius_m_exag": [
+     0.048,
+     0.17802493836559077
+    ],
+    "check150": {
+     "chosen_contact": 0,
+     "chosen_inside": 0,
+     "chosen_never_left": 0,
+     "chosen_orig_failed150": 0
+    }
+   }
+  },
+  "record_recount_claws": {
+   "extent_ratio_tstar": {
+    "median": 1.3038,
+    "p10": 1.278,
+    "p90": 1.3437
+   },
+   "root_vertex_offset_vs_v1_max_m_all_frames": 0.0,
+   "root_vertex_offset_vs_v1_max_m_both_visible": 0.0,
+   "note_ja": "広がり＝各爪の頂点の、根元の点（各爪の最初の頂点。ds33_claw_anim の頂点の並び）からの距離の最大。根元の点の V1 との距離は、全コマと、両方の版で爪が見えているコマで数えた"
+  },
+  "record_recount_spray": {
+   "visible_to_tstar_ratio": {
+    "median": 1.0,
+    "mean": 1.1628,
+    "longer": 81,
+    "same": 105,
+    "shorter": 0
+   },
+   "visible_all_frames_ratio": {
+    "median": 1.0,
+    "mean": 1.0881
+   },
+   "visible_to_tstar_s_v1": [
+    1.4,
+    2.5,
+    3.333
+   ],
+   "visible_to_tstar_s_v3": [
+    1.467,
+    2.733,
+    4.967
+   ],
+   "radius_ratio_tstar": [
+    1.0,
+    1.6,
+    1.6
+   ],
+   "position_tstar_max_diff_vs_v1_m": 0.0,
+   "note_ja": "見えている＝半径 > 0 のコマ。t* まで＝コマ 0〜360。全コマ（0〜420）は t* の後の保持 60 コマを含む"
+  }
+ },
+ "record_recount_data": {
+  "v1_list": {
+   "claws": 148,
+   "claw_vertices": 25052,
+   "claw_triangles": 48032,
+   "spray": 186,
+   "claw_first_visible_frame": 182,
+   "claw_first_visible_s": 6.067,
+   "claw_all_visible_frame": 305,
+   "claw_all_visible_s": 10.167,
+   "spray_first_frame": 261,
+   "spray_first_s": 8.7,
+   "spray_full_frame": 319,
+   "spray_full_s": 10.633,
+   "spray_alive_max": 186,
+   "claw_nan_frames": 0,
+   "claw_extent_tstar_median_m": 0.6738,
+   "spray_radius_tstar_m": [
+    0.03,
+    0.1113
+   ]
+  },
+  "v2_light": {
+   "claws": 74,
+   "claw_vertices": 12430,
+   "claw_triangles": 23824,
+   "spray": 93,
+   "claw_first_visible_frame": 190,
+   "claw_first_visible_s": 6.333,
+   "claw_all_visible_frame": 305,
+   "claw_all_visible_s": 10.167,
+   "spray_first_frame": 261,
+   "spray_first_s": 8.7,
+   "spray_full_frame": 319,
+   "spray_full_s": 10.633,
+   "spray_alive_max": 93,
+   "claw_nan_frames": 0,
+   "claw_extent_tstar_median_m": 0.9973,
+   "spray_radius_tstar_m": [
+    0.0516,
+    0.1113
+   ]
+  },
+  "v3_exag": {
+   "claws": 148,
+   "claw_vertices": 25052,
+   "claw_triangles": 48032,
+   "spray": 186,
+   "claw_first_visible_frame": 109,
+   "claw_first_visible_s": 3.633,
+   "claw_all_visible_frame": 283,
+   "claw_all_visible_s": 9.433,
+   "spray_first_frame": 212,
+   "spray_first_s": 7.067,
+   "spray_full_frame": 317,
+   "spray_full_s": 10.567,
+   "spray_alive_max": 186,
+   "claw_nan_frames": 0,
+   "claw_extent_tstar_median_m": 0.8936,
+   "spray_radius_tstar_m": [
+    0.048,
+    0.178
+   ]
+  }
+ },
+ "v2_subset": {
+  "claws_max_abs_diff_m": 0.0,
+  "claw_ids": 74,
+  "spray_columns_exact_in_v1": 93,
+  "spray_is_largest_radius_at_tstar": true
+ },
+ "sha_consistency": {
+  "player": true,
+  "video_painting_seat": true,
+  "video_painting_w0": true,
+  "player_exe_now": "5be81b3fa7df7c08cadee6f79d6ff3fe95481420f166ba8127390ea669c8b12c"
+ },
+ "fix_rounds": {
+  "count": 1,
+  "items_ja": [
+   "A1：1 回目の提出（普通の読みの並べ動画と、原画視点・座席の全部で V1 との違い 0.5% 以上という基準）で V2 の違いが 0.12〜0.15% しかなく不合格。爪の白と淡い水色が焼き込みの色面の同じ色の模様に重なって見分けにくいため。修正1回目：白の帯を切った読み（白いのは爪と飛沫だけ）の原画視点の動画を足し、並べ動画を 2 段（普通の読み・白の帯を切った読み）にして、基準を「原画視点で普通の読みか白の帯を切った読みのどちらかで 0.5% 以上」にした（V2 は 0.80〜0.83%）。",
+   "2×2 の動画：1 回目は説明の静止画の入力の既定の 25 fps のために 50 fps・8.4 s になっていた。入力と出力を 30 fps に固定して作り直した（421 コマ、14.03 s）。"
+  ]
+ },
+ "gpu_zero_note_ja": "FrameTiming の GPU の値は 0 が多い（1920×1080 の条件で全体の 15〜45%。立体の代理は 1〜4%）。1,900 fps を超える速さで GPU の計時が間に合わないためとみられる。美術優先32 と同じく 0 は使わず、1 s を超える壊れた値（最大 4 件）も除いた。1920×1080 の受入はフレームの開始時刻の間隔で見るので、GPU の値の欠けに左右されない。",
+ "limits_part_ja": [
+  "性能は RTX 3080 の PC の代理（対象 PC の RTX3060 ではない）。81・112・199 の本判定は保留。",
+  "立体は 2 カメラの代理で、PS VR2 の実機・SPI・Link の圧縮・合成器は含まない（H1・H3・H4 は保留）。",
+  "V3 の爪は幅・長さを誇張したので、原画視点の輪郭（78・130〜132・72）と色区の値は測っていない（比べるための版で、既定ではない）。",
+  "V3 の飛沫は寿命 × 1.6 を狙ったが、設計31 の 150（水面へ引き戻されない）を通る範囲に下げた粒がある（spray_info の how）。",
+  "違いの目安（画素の割合）は記録で、見え方の良し悪しの判定ではない。"
+ ],
+ "time": {
+  "limit_ja": "Q26 の日程（計画 §2.6）で 2 時間。範囲は最小の受入だけで、修正は 1 回まで",
+  "part_record_ja": "2026-09-30 02:04〜02:36（時間枠 2 h の内）。",
+  "file_times": {
+   "build35_created": "2026-09-30 02:10:21",
+   "variants_created": "2026-09-30 02:10:21",
+   "tools_ds35_created": "2026-09-30 02:11:47",
+   "ds35_variants_py_created": "2026-09-30 02:12:00",
+   "assets_design35_created": "2026-09-30 02:13:37",
+   "first_data_v2": "2026-09-30 02:12:08",
+   "v3_claws_written": "2026-09-30 02:14:29",
+   "v3_spray_first_log": "2026-09-30 02:16:14",
+   "v3_spray_regenerated": "2026-09-30 02:18:42",
+   "build_report": "2026-09-30 02:16:02",
+   "video_report_painting_seat": "2026-09-30 02:20:17",
+   "perf_run1": [
+    "2026-09-29T18:21:28.1976386Z",
+    "2026-09-29T18:23:48.5434692Z"
+   ],
+   "perf_run2": [
+    "2026-09-29T18:24:15.9945476Z",
+    "2026-09-29T18:26:36.2236111Z"
+   ],
+   "ds35Build_cs_modified": "2026-09-30 02:28:13",
+   "video_report_painting_w0": "2026-09-30 02:28:46",
+   "readme_created": "2026-09-30 02:33:25",
+   "readme_modified": "2026-09-30 02:34:15",
+   "variants_metrics": "2026-09-30 02:34:45",
+   "variants_run": "2026-09-30 02:34:45",
+   "evidence_py_modified": "2026-09-30 02:34:24",
+   "indep_check_scripts": {
+    "ic35_a1_curve.py": "2026-09-30 02:37:50",
+    "ic35_a1_diff.py": "2026-09-30 02:37:22",
+    "ic35_data.py": "2026-09-30 02:41:09",
+    "ic35_map.py": "2026-09-30 02:42:38",
+    "ic35_perf.py": "2026-09-30 02:40:39",
+    "ic35_zoom.py": "2026-09-30 02:41:40",
+    "ic35_zoom_normal_t12.png": "2026-09-30 02:41:41"
+   },
+   "indep_check_rerun_outputs": {
+    "ic35_a1_curve_out.txt": "2026-09-30 02:52:22",
+    "ic35_a1_diff_out.txt": "2026-09-30 02:48:50",
+    "ic35_data_out.txt": "2026-09-30 02:48:47",
+    "ic35_perf_out.txt": "2026-09-30 02:48:46"
+   },
+   "record_run": "2026-09-30 03:00:11"
+  }
+ }
+}

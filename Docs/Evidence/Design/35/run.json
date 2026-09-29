@@ -1,0 +1,409 @@
+{
+ "schema": "GreatWave.DS35.run/1",
+ "number": "設計35",
+ "tools": {
+  "unity": "6000.4.3f1",
+  "device": "NVIDIA GeForce RTX 3080",
+  "graphics_api": "Direct3D11",
+  "cpu": "12th Gen Intel(R) Core(TM) i7-12700K",
+  "python": "3.10.6",
+  "numpy": "2.2.6",
+  "opencv": "4.12.0",
+  "pillow": "12.0.0",
+  "ffprobe": "G:/ffmpeg-2024-12-19-git-494c961379-full_build/bin/ffprobe.exe"
+ },
+ "commands_variants_part": [
+  "py -3.10 -B Tools/GWWaveGen/ds35/ds35_variants.py",
+  "powershell -NoProfile -ExecutionPolicy Bypass -File Tools/GWWaveGen/ds35/run_ds35_unity.ps1 -Method GreatWave.Design35.EditorTools.DS35Build.BuildAll -Log build",
+  "powershell -NoProfile -ExecutionPolicy Bypass -File Tools/GWWaveGen/ds35/run_ds35_unity.ps1 -Method GreatWave.Design35.EditorTools.DS35Build.RenderVideos -Log video -Extra \"-ds35Views painting,seat\"",
+  "powershell -NoProfile -ExecutionPolicy Bypass -File Tools/GWWaveGen/ds35/run_ds35_unity.ps1 -Method GreatWave.Design35.EditorTools.DS35Build.RenderVideos -Log video_w0 -Extra \"-ds35Views painting_w0\"",
+  "powershell -NoProfile -ExecutionPolicy Bypass -File Tools/GWWaveGen/ds35/run_ds35_player.ps1 -Tag run1",
+  "powershell -NoProfile -ExecutionPolicy Bypass -File Tools/GWWaveGen/ds35/run_ds35_player.ps1 -Tag run2",
+  "py -3.10 -B Tools/GWWaveGen/ds35/ds35_variants_evidence.py --tags run1,run2"
+ ],
+ "commands_record": [
+  "py -3.10 -B Tools/GWWaveGen/ds35/ds35_record.py"
+ ],
+ "independent_check_ja": "進行役の独立の検査はリポジトリの外のコード。コードの写しと、記録の時に回し直した出力は Git 対象外の Unity/Build/Design/35/indep_check/（ic35_*.py・ic35_*_out.txt）",
+ "scene_perf": {
+  "path": "Unity/Assets/GreatWave/Design35/Scenes/DS35_Perf.unity",
+  "sha256": "2943ebb4a783f79d2123d93a71c055cc41cd78e9ced7d451ef5a6b713c686c18"
+ },
+ "build_report": {
+  "utc": "2026-09-29T18:15:55.1394996Z",
+  "scene34Sha256Before": "2bf63bffd18187c1ebf9e8ba96c3854d0d85c31ef9ab610bfb20b584508a159a",
+  "scene34Sha256After": "2bf63bffd18187c1ebf9e8ba96c3854d0d85c31ef9ab610bfb20b584508a159a",
+  "scenePerfSha256": "2943ebb4a783f79d2123d93a71c055cc41cd78e9ced7d451ef5a6b713c686c18",
+  "buildResult": "Succeeded",
+  "buildOptions": "None",
+  "frameTimingStatsBefore": false,
+  "frameTimingStatsRestored": true,
+  "protectedUnchanged": true,
+  "keepMaterials": [
+   "Assets/GreatWave/Design35/Materials/DS35_Keep_ClawUnlit.mat",
+   "Assets/GreatWave/Design35/Materials/DS35_Keep_SprayUnlit.mat"
+  ]
+ },
+ "player_exe_sha256": "5be81b3fa7df7c08cadee6f79d6ff3fe95481420f166ba8127390ea669c8b12c",
+ "player_exe_sha256_at_runs": {
+  "run1": "5be81b3fa7df7c08cadee6f79d6ff3fe95481420f166ba8127390ea669c8b12c",
+  "run2": "5be81b3fa7df7c08cadee6f79d6ff3fe95481420f166ba8127390ea669c8b12c"
+ },
+ "inputs": {
+  "claw_layout": "Unity/Build/Design/33/claws/ds33_claw_layout.json",
+  "claw_frames_sha256": "6e7629889a47efc0172d40c28364b59eadef48e419d0dad5c279e3fa3d7f7565",
+  "claw_rig_sha256": "db00cd419c2844ec030afcfed51a55dc5f654beabf9c2182b34f73e2bdf1e3f2",
+  "claw_rig_npz_sha256": "e9d535f7f0e486aba10ca8892231c069da5da67a6aabbe167664d65a1f7ae796",
+  "spray_frames": "Unity/Build/Design/31/spray/ds31_spray_frames.json",
+  "spray_frames_sha256": "9db0a42811aa2c72f1cefbf8b80386f2e919a8b80fe65f7e91dd6a60c9b25c5f",
+  "spray_table_sha256": "79ab20ca3c5d63d9fb1eaf47c2393860e848815e7132d6e64d09f1bd8009de37",
+  "timewarp_sha256": "627815c77afc63278c885335bbe6c51178896184559ca30845cf05f23c634a7c",
+  "code_sha256": {
+   "ds35_variants.py": "33afdda431730e40748956cc659ef4e134cc4340d302739ed554f74e9deafc3d"
+  }
+ },
+ "code_sha256": {
+  "Tools/GWWaveGen/ds35/ds35_variants_evidence.py": "e95f92709f0a9ba8ebb9f14a93218ad0e62ce675b05dcc8aa11b418111bd9a47",
+  "Tools/GWWaveGen/ds35/ds35_variants.py": "33afdda431730e40748956cc659ef4e134cc4340d302739ed554f74e9deafc3d",
+  "Tools/GWWaveGen/ds35/run_ds35_unity.ps1": "cfd945ea255520cb2c4e50d5310300734405657e8fb873474b3c5c73d3dc4115",
+  "Tools/GWWaveGen/ds35/run_ds35_player.ps1": "94e51b9dad1de7b550231d56abdd0f8c135c73daaa5e3a29cfe0dddad89152e1",
+  "Unity/Assets/GreatWave/Design35/Scripts/DS35PerfRunner.cs": "4c751fbfa2afad92e57078f9a1a1a34c4a3eb2185481343d4348e30fd024d79c",
+  "Unity/Assets/GreatWave/Design35/Editor/DS35Build.cs": "373d38a0d00f99af05268fdfdf9f2d0701d7543e6b1a498134ec5705b282ec30",
+  "Tools/GWWaveGen/ds35/ds35_record.py": "ea694588ffa7e7ed238e9f97a20ce3830dbba8f53dde997a6895bab5a735d5a5"
+ },
+ "variants_data_sha256": {
+  "v1_list": {
+   "claw_frames": "6e7629889a47efc0172d40c28364b59eadef48e419d0dad5c279e3fa3d7f7565",
+   "spray_frames": "9db0a42811aa2c72f1cefbf8b80386f2e919a8b80fe65f7e91dd6a60c9b25c5f"
+  },
+  "v2_light": {
+   "claw_frames": "4a8134afd6901446d5f2ac94210a991a4834194adce3aacc52c57be9bd15a891",
+   "spray_frames": "1470762f6f8fd6224702ed4078ef4dc3bbecc5a9cdd993e5f054246972a7a225"
+  },
+  "v3_exag": {
+   "claw_frames": "077d262c9bfd535938c38ccbeb3823b334a0e9e9f22da7a6b5fd0a6e1e7961a1",
+   "spray_frames": "6217c1dac750948f85a875ce753dac5379b34c2efec83fb81f840536a637d5de"
+  }
+ },
+ "variants_part_outputs_sha256": {
+  "Unity/Build/Design/35/variants/data/v2_light/claw_layout.json": {
+   "sha256": "251546a723f6353bc16678156dfc25e8a739753679972dc6810d5c5b875bf4ea",
+   "bytes": 11573
+  },
+  "Unity/Build/Design/35/variants/data/v2_light/spray_frames.json": {
+   "sha256": "119bcd6c20f45bc6424645a11c95102c6b5e56c1e3d0a565f87e83d306cb4a86",
+   "bytes": 599
+  },
+  "Unity/Build/Design/35/variants/data/v3_exag/claw_layout.json": {
+   "sha256": "49b75e205d4ed2e408259ed1cbe84e2d95d6f602046f33c33672d925cf18f15e",
+   "bytes": 22280
+  },
+  "Unity/Build/Design/35/variants/data/v3_exag/spray_frames.json": {
+   "sha256": "f698e131f14f371063eb8449e89c9744cb6d7da943d1fb194f9d3c6a93ae916b",
+   "bytes": 617
+  },
+  "Unity/Build/Design/35/variants/ds35_build_report.json": {
+   "sha256": "4efb2eee6729a58d7d72005f57f942aad77a519b3b617e6206272263d687009a",
+   "bytes": 1472
+  },
+  "Unity/Build/Design/35/variants/ds35_video_report_painting_seat.json": {
+   "sha256": "71440526dd11da63837f14c9d4ffd7dac2b19e6e76a61c50c1c563956a004fe3",
+   "bytes": 6968
+  },
+  "Unity/Build/Design/35/variants/ds35_video_report_painting_w0.json": {
+   "sha256": "451470de5f1d0f28e9193454a5e44b2b503c65c2c8f8e0baef48ddba99fa6efb",
+   "bytes": 4112
+  },
+  "Unity/Build/Design/35/variants/fig/fig_ds35_density_window.png": {
+   "sha256": "e6a650cb0bbbd5dd8c10143bbf3a9be2075625e1af560d875567c2ddc0aa898c",
+   "bytes": 166863
+  },
+  "Unity/Build/Design/35/variants/fig/fig_ds35_perf_table.png": {
+   "sha256": "7d23c79a7a16300d96386e79e535b9e73540305a159a68910c1865f43bc4d15a",
+   "bytes": 423718
+  },
+  "Unity/Build/Design/35/variants/fig/fig_ds35_player_screens.png": {
+   "sha256": "1a7a3eb47597d138dc2c973e1dea6173199645891fd7984d1cf5bb1a454df372",
+   "bytes": 628803
+  },
+  "Unity/Build/Design/35/variants/fig/fig_ds35_stills_painting_crest.png": {
+   "sha256": "5b75dd3f5e2482c594d305e8c9886b3101ed639bf2be6a1cee8782fb5ddcc1ef",
+   "bytes": 1136099
+  },
+  "Unity/Build/Design/35/variants/fig/fig_ds35_stills_painting_crest_w0.png": {
+   "sha256": "4384215d2d68dc0db740f7429e3b068b90dff9c78954f057531d7e8947e6f6d7",
+   "bytes": 1152753
+  },
+  "Unity/Build/Design/35/variants/fig/fig_ds35_stills_seat.png": {
+   "sha256": "18780a1687478de7ba7a2e4f2dc12835b484e6c5a928a2736861ceef010583db",
+   "bytes": 270463
+  },
+  "Unity/Build/Design/35/variants/metrics.json": {
+   "sha256": "d17227c39281eba680fbdefc875062812fbbd774b65952a52ca59f0c197cb7aa",
+   "bytes": 41857
+  },
+  "Unity/Build/Design/35/variants/perf/run1/ds35_run1.json": {
+   "sha256": "8fa0ce7827cc3b944b715ddd51e85c26d63269e025d7bb8c9781c9139b64f7ca",
+   "bytes": 18345726
+  },
+  "Unity/Build/Design/35/variants/perf/run1/ds35_run1_external.json": {
+   "sha256": "6bfd4be3e6afeb3b6ce82ce8d2058843989b5b36f209e746029e434c0dda80a9",
+   "bytes": 172176
+  },
+  "Unity/Build/Design/35/variants/perf/run2/ds35_run2.json": {
+   "sha256": "e1a735af4b44d5da72fe9ea9d45d8a6f17843e54e1eccc7b9ccf3d0619b532e0",
+   "bytes": 17903728
+  },
+  "Unity/Build/Design/35/variants/perf/run2/ds35_run2_external.json": {
+   "sha256": "6b466d40bcb141ebc5b6c29ccb28b98e07da3cb51e3373a5d361d8b7adb972e7",
+   "bytes": 172283
+  },
+  "Unity/Build/Design/35/variants/video/ds35_variants_2x2_painting_30fps.mp4": {
+   "sha256": "3f95fce00291e6d54bfa86e54038b6bf4dee4c7df1532c66b69c1580e8b60580",
+   "bytes": 2059739
+  },
+  "Unity/Build/Design/35/variants/video/ds35_variants_2x2_seat_30fps.mp4": {
+   "sha256": "ad592826c91f960992f4865e44c64fcf1d82bd7ff1239e0a8d445e4cf7453be0",
+   "bytes": 894720
+  },
+  "Unity/Build/Design/35/variants/video/ds35_variants_3up_painting_crest_30fps.mp4": {
+   "sha256": "51edb76ebe03b50764eaf3729821995970278833df20643b8fc11eceb84f528a",
+   "bytes": 2650913
+  }
+ },
+ "variants_part_run_json_sha256": "bea463b3c0582f0c9fc9c0064a2a36f36aa1da340c5537b0f7a5af3aff794166",
+ "video_raw": {
+  "Unity/Build/Design/35/variants/video_raw/ds35_v1_list_painting_30fps.mp4": {
+   "bytes": 2631515,
+   "sha256": "202c8cd7f8e70380d4fae71f8bce4829467a9106a5323aab66d3cac219b56f5c",
+   "width": 1920,
+   "height": 1080,
+   "frames": 421,
+   "fps": "30/1"
+  },
+  "Unity/Build/Design/35/variants/video_raw/ds35_v1_list_painting_w0_30fps.mp4": {
+   "bytes": 2606696,
+   "sha256": "2115ec87c6a0c0234d8cadcff57ef31f5662f7d15f162ef13ed60abf3c278264",
+   "width": 1920,
+   "height": 1080,
+   "frames": 421,
+   "fps": "30/1"
+  },
+  "Unity/Build/Design/35/variants/video_raw/ds35_v1_list_seat_30fps.mp4": {
+   "bytes": 1032009,
+   "sha256": "8a107eb2c6b2edd42f6a7f374a50cb7ded7a72e6e04b916830dae729a4649e9b",
+   "width": 1920,
+   "height": 1080,
+   "frames": 421,
+   "fps": "30/1"
+  },
+  "Unity/Build/Design/35/variants/video_raw/ds35_v2_light_painting_30fps.mp4": {
+   "bytes": 2561556,
+   "sha256": "248e5aef0cbaf71ab7bc81a478a6968a41ec3500628aa40dd80037772144673c",
+   "width": 1920,
+   "height": 1080,
+   "frames": 421,
+   "fps": "30/1"
+  },
+  "Unity/Build/Design/35/variants/video_raw/ds35_v2_light_painting_w0_30fps.mp4": {
+   "bytes": 2493743,
+   "sha256": "3f0ba5deb888b6eb348ce6ee1662c7b3fcf0b051c7d4f21af3ce0fdde7a8ef08",
+   "width": 1920,
+   "height": 1080,
+   "frames": 421,
+   "fps": "30/1"
+  },
+  "Unity/Build/Design/35/variants/video_raw/ds35_v2_light_seat_30fps.mp4": {
+   "bytes": 938682,
+   "sha256": "2314d6e877a11fcc25092b4cc18166b821f79d379320998c61ece4c7db8fa0a1",
+   "width": 1920,
+   "height": 1080,
+   "frames": 421,
+   "fps": "30/1"
+  },
+  "Unity/Build/Design/35/variants/video_raw/ds35_v3_exag_painting_30fps.mp4": {
+   "bytes": 2691151,
+   "sha256": "8b97ef59da4b0ee2bf6da248500beabaff928dbe4a0d4adad94467f2154ef697",
+   "width": 1920,
+   "height": 1080,
+   "frames": 421,
+   "fps": "30/1"
+  },
+  "Unity/Build/Design/35/variants/video_raw/ds35_v3_exag_painting_w0_30fps.mp4": {
+   "bytes": 2697601,
+   "sha256": "16d5b9a876cc2e837d16bd9ffcf1e20e46530769b217638d0d7a733b1cc17720",
+   "width": 1920,
+   "height": 1080,
+   "frames": 421,
+   "fps": "30/1"
+  },
+  "Unity/Build/Design/35/variants/video_raw/ds35_v3_exag_seat_30fps.mp4": {
+   "bytes": 1111128,
+   "sha256": "b3785bf7d039dbe3fb906b0a5e79460b36368761ffd26ef6dcc31c5810e52b29",
+   "width": 1920,
+   "height": 1080,
+   "frames": 421,
+   "fps": "30/1"
+  }
+ },
+ "figures": [
+  {
+   "src": "Unity/Build/Design/35/variants/fig/fig_ds35_stills_painting_crest_w0.png",
+   "src_sha256": "4384215d2d68dc0db740f7429e3b068b90dff9c78954f057531d7e8947e6f6d7",
+   "scale": 0.5096,
+   "dst": "Docs/Evidence/Design/35/fig_ds35_stills_painting_crest_w0.png"
+  },
+  {
+   "src": "Unity/Build/Design/35/variants/fig/fig_ds35_stills_painting_crest.png",
+   "src_sha256": "5b75dd3f5e2482c594d305e8c9886b3101ed639bf2be6a1cee8782fb5ddcc1ef",
+   "scale": 0.5277,
+   "dst": "Docs/Evidence/Design/35/fig_ds35_stills_painting_crest.png"
+  },
+  {
+   "src": "Unity/Build/Design/35/variants/fig/fig_ds35_stills_seat.png",
+   "src_sha256": "18780a1687478de7ba7a2e4f2dc12835b484e6c5a928a2736861ceef010583db",
+   "scale": 0.9143,
+   "dst": "Docs/Evidence/Design/35/fig_ds35_stills_seat.png"
+  },
+  {
+   "src": "Unity/Build/Design/35/variants/fig/fig_ds35_density_window.png",
+   "src_sha256": "e6a650cb0bbbd5dd8c10143bbf3a9be2075625e1af560d875567c2ddc0aa898c",
+   "scale": 1.0,
+   "dst": "Docs/Evidence/Design/35/fig_ds35_density_window.png"
+  },
+  {
+   "src": "Unity/Build/Design/35/variants/fig/fig_ds35_perf_table.png",
+   "src_sha256": "7d23c79a7a16300d96386e79e535b9e73540305a159a68910c1865f43bc4d15a",
+   "scale": 1.0,
+   "dst": "Docs/Evidence/Design/35/fig_ds35_perf_table.png"
+  },
+  {
+   "src": "Unity/Build/Design/35/variants/fig/fig_ds35_player_screens.png",
+   "src_sha256": "1a7a3eb47597d138dc2c973e1dea6173199645891fd7984d1cf5bb1a454df372",
+   "scale": 0.9064,
+   "dst": "Docs/Evidence/Design/35/fig_ds35_player_screens.png"
+  },
+  {
+   "src": "Unity/Build/Design/35/indep_check/ic35_zoom_normal_t12.png",
+   "src_sha256": "3a42d7c10c8ff2692cae28140e8ae97ae35f30aae5e06df061c88c31d480b0e3",
+   "scale": 0.9355,
+   "dst": "Docs/Evidence/Design/35/fig_ds35_indep_v2_normal_t12.png"
+  },
+  {
+   "src": "record (video_raw)",
+   "dst": "Docs/Evidence/Design/35/fig_ds35_diff_curve.png"
+  }
+ ],
+ "videos": [
+  {
+   "src": "Unity/Build/Design/35/variants/video/ds35_variants_3up_painting_crest_30fps.mp4",
+   "dst": "Docs/Evidence/Design/35/ds35_variants_3up_painting_crest_30fps.mp4",
+   "bytes": 2650913,
+   "sha256": "51edb76ebe03b50764eaf3729821995970278833df20643b8fc11eceb84f528a",
+   "width": 1920,
+   "height": 1080,
+   "frames": 421,
+   "fps": "30/1"
+  },
+  {
+   "src": "Unity/Build/Design/35/variants/video/ds35_variants_2x2_painting_30fps.mp4",
+   "dst": "Docs/Evidence/Design/35/ds35_variants_2x2_painting_30fps.mp4",
+   "bytes": 2059739,
+   "sha256": "3f95fce00291e6d54bfa86e54038b6bf4dee4c7df1532c66b69c1580e8b60580",
+   "width": 1920,
+   "height": 1080,
+   "frames": 421,
+   "fps": "30/1"
+  },
+  {
+   "src": "Unity/Build/Design/35/variants/video/ds35_variants_2x2_seat_30fps.mp4",
+   "dst": "Docs/Evidence/Design/35/ds35_variants_2x2_seat_30fps.mp4",
+   "bytes": 894720,
+   "sha256": "ad592826c91f960992f4865e44c64fcf1d82bd7ff1239e0a8d445e4cf7453be0",
+   "width": 1920,
+   "height": 1080,
+   "frames": 421,
+   "fps": "30/1"
+  }
+ ],
+ "json_copies": {
+  "ds35_variants_metrics.json": {
+   "src": "Unity/Build/Design/35/variants/metrics.json",
+   "src_sha256": "d17227c39281eba680fbdefc875062812fbbd774b65952a52ca59f0c197cb7aa"
+  },
+  "ds35_variants_summary.json": {
+   "src": "Unity/Build/Design/35/variants/data/variants_summary.json",
+   "src_sha256": "0eef6ae26ede8f3f48e6507d8ee20f6904b1fe8c9a8b8104cb8ba4ded880d30b"
+  },
+  "ds35_build_report.json": {
+   "src": "Unity/Build/Design/35/variants/ds35_build_report.json",
+   "src_sha256": "4efb2eee6729a58d7d72005f57f942aad77a519b3b617e6206272263d687009a"
+  },
+  "ds35_video_reports.json": {
+   "src": [
+    "Unity/Build/Design/35/variants/ds35_video_report_painting_seat.json",
+    "Unity/Build/Design/35/variants/ds35_video_report_painting_w0.json"
+   ],
+   "src_sha256": [
+    "71440526dd11da63837f14c9d4ffd7dac2b19e6e76a61c50c1c563956a004fe3",
+    "451470de5f1d0f28e9193454a5e44b2b503c65c2c8f8e0baef48ddba99fa6efb"
+   ],
+   "note_ja": "動画ごとの静止画の一覧と絶対パスを除いた"
+  },
+  "ds35_perf_recount.json": {
+   "src": [
+    "Unity/Build/Design/35/variants/perf/run1/ds35_run1.json",
+    "Unity/Build/Design/35/variants/perf/run2/ds35_run2.json"
+   ],
+   "src_sha256": [
+    "8fa0ce7827cc3b944b715ddd51e85c26d63269e025d7bb8c9781c9139b64f7ca",
+    "e1a735af4b44d5da72fe9ea9d45d8a6f17843e54e1eccc7b9ccf3d0619b532e0"
+   ],
+   "note_ja": "生の計時の JSON（各 18 MB 前後）から記録の時に数え直した表"
+  },
+  "ds35_record_counts.json": {
+   "src": "Unity/Build/Design/35/record/ds35_record_counts.json",
+   "note_ja": "性能の表は ds35_perf_recount.json。動画の曲線は 15 コマおき（全コマは Git 対象外の元）"
+  },
+  "ds35_indep_a1_curve_out.txt": {
+   "src": "Unity/Build/Design/35/indep_check/ic35_a1_curve_out.txt",
+   "src_sha256": "db10a07e64490010eaa08fc3156fff95f27112f607c1047c8154ea369f913df3"
+  },
+  "ds35_indep_a1_diff_out.txt": {
+   "src": "Unity/Build/Design/35/indep_check/ic35_a1_diff_out.txt",
+   "src_sha256": "6bdf5325c9a3b419fba775db1e4596882b6e205170405bc6886af2c2341d15d4"
+  },
+  "ds35_indep_data_out.txt": {
+   "src": "Unity/Build/Design/35/indep_check/ic35_data_out.txt",
+   "src_sha256": "881cef9bfb46e216e703ed6ab53ad59c909687e7fad0792e580da088a0a00703"
+  },
+  "ds35_indep_perf_out.txt": {
+   "src": "Unity/Build/Design/35/indep_check/ic35_perf_out.txt",
+   "src_sha256": "3e72c6239b9292da77db69d14ce1c51aa5e01ee8479c8a815a3247dce9cf324a"
+  }
+ },
+ "evidence_sha256": {
+  "ds35_build_report.json": "f8114702aa5d5d20f89e77157e3fdc40205a26202622d54e694eb6b3daceb0f6",
+  "ds35_indep_a1_curve_out.txt": "db10a07e64490010eaa08fc3156fff95f27112f607c1047c8154ea369f913df3",
+  "ds35_indep_a1_diff_out.txt": "6bdf5325c9a3b419fba775db1e4596882b6e205170405bc6886af2c2341d15d4",
+  "ds35_indep_data_out.txt": "881cef9bfb46e216e703ed6ab53ad59c909687e7fad0792e580da088a0a00703",
+  "ds35_indep_perf_out.txt": "3e72c6239b9292da77db69d14ce1c51aa5e01ee8479c8a815a3247dce9cf324a",
+  "ds35_perf_recount.json": "db0166d5479af2c3475d4afe3b20da5da3093cf1342e072a268019cd40b7623d",
+  "ds35_record_counts.json": "4227b57959e1e3a5e63881e042756166f5c3bb0b127e18caa846cd5e99df9527",
+  "ds35_variants_2x2_painting_30fps.mp4": "3f95fce00291e6d54bfa86e54038b6bf4dee4c7df1532c66b69c1580e8b60580",
+  "ds35_variants_2x2_seat_30fps.mp4": "ad592826c91f960992f4865e44c64fcf1d82bd7ff1239e0a8d445e4cf7453be0",
+  "ds35_variants_3up_painting_crest_30fps.mp4": "51edb76ebe03b50764eaf3729821995970278833df20643b8fc11eceb84f528a",
+  "ds35_variants_metrics.json": "7b257f6c9016b245869c6799b14bdf842d4d65281e47090567af35c158ca6c39",
+  "ds35_variants_summary.json": "0eef6ae26ede8f3f48e6507d8ee20f6904b1fe8c9a8b8104cb8ba4ded880d30b",
+  "ds35_video_reports.json": "c114b88baf5a0f9d5948912b646262cbca86c1ae4e19ca5a6ccf3c123efce5f5",
+  "fig_ds35_density_window.png": "485f56ea663daaeadeec607e93a21893fb620cd02c40ea70d69437d3264c0739",
+  "fig_ds35_diff_curve.png": "0c15d8b3bd0b7aebd8fc3c56b243056cebf649b551d898421a413dbcf16046ac",
+  "fig_ds35_indep_v2_normal_t12.png": "4121e5acac3dde97b2ae15fee8104d7178a6d3809b7c965a2da9751c3616d9de",
+  "fig_ds35_perf_table.png": "cd0dc322abdd718bc5284bc7bc3dbe210aa6338ca9eb4ced6031353240393e27",
+  "fig_ds35_player_screens.png": "ff699e44ac6fde7f2f324ffaca4130b7f6fdf6fc1f065ece1978f3f2298569b3",
+  "fig_ds35_stills_painting_crest.png": "9a6c51d36e84ac4e2c2a74f056632f6ca58a92c78a68bfb5ea38245a94dfa44f",
+  "fig_ds35_stills_painting_crest_w0.png": "d50e0bd9f5c342e813e473bf061117e55bb6c3e8dacf49db1d1c78cfa8843087",
+  "fig_ds35_stills_seat.png": "3a3dfe28401fec5d9de1703def7b5b273806d3b20297781850e66cd88790926a",
+  "metrics.json": "33bceafd33435e6df910158c6ce17bae4a3189bf9f2800ffc346fdd72306c3fa"
+ }
+}
