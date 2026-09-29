@@ -1,0 +1,699 @@
+{
+ "schema": "GreatWave.Design37.metrics/1",
+ "number": "設計37：波の流れに沿う線（水面の変形と模様の安定）",
+ "evidence_kind_ja": "Unity 6000.4.3f1 の Editor の batchmode の PC オフスクリーン描画（RTX 3080、Direct3D11）と numpy/OpenCV。HMD 実機ではない（PS VR2 は保留）。頭の揺れは座席のカメラを左右へずらした PC の描画。",
+ "acceptance": {
+  "177_keeps_value": {
+   "criterion_ja": "美術優先31 と同じ藍中の帯 25 本が面の成分へ対応し、同じ面の点が t 2 s → t* で上がり、下側の 8 本の並びの入れ替わり 0、帯の画素が白で塗られる 0、終点 77・118 ≤ 4 px（合否の読みは進行役の判断）",
+   "builder": {
+    "bands_mapped": 25,
+    "bands_total": 25,
+    "rise_all": true,
+    "rise_m_range": [
+     1.573,
+     8.409
+    ],
+    "height_t2_m_range": [
+     0.916,
+     4.924
+    ],
+    "height_tstar_m_range": [
+     2.636,
+     13.149
+    ],
+    "height_total_drop_m_max": 1.211,
+    "height_max_drop_per_0p25s_m": 0.142,
+    "bands_with_any_drop": 12,
+    "lower_bands": [
+     "A024",
+     "A021",
+     "A028",
+     "A018",
+     "A002",
+     "A006",
+     "A003",
+     "A001"
+    ],
+    "lower_order_inversions_max": 0,
+    "lower_order_steps": 41,
+    "band_px_shown_white_total": 0,
+    "display_times": 26,
+    "display_ai_mid_min_frac_record_only": 0.99375,
+    "endpoints_px": {
+     "77": 0.867,
+     "118": 0.867
+    }
+   },
+   "indep": {
+    "bands_mapped": 25,
+    "rise_m_range": [
+     1.515,
+     8.375
+    ],
+    "height_t2_m_range": [
+     0.915,
+     4.863
+    ],
+    "height_tstar_m_range": [
+     2.618,
+     12.969
+    ],
+    "max_drop_per_step_m": 0.144,
+    "reproj_err_p99_max_px": 0.412,
+    "lower_order_inversions_max": 0,
+    "lower_order_steps": 41,
+    "display_counts_other_white_mizuiro_aimid_aidark": [
+     69,
+     0,
+     0,
+     19225,
+     0
+    ],
+    "display_px_total": 19294,
+    "display_ai_mid_share": 0.9964,
+    "display_times": 26
+   },
+   "reference_art_first_31_ja": "美術優先31（Step_31_ja.md の 177 の行）：25 本すべて対応、帯の表示は全 47 時刻で 100% 藍中（ID の画像）、高さは t 2 s の 0 m から t* の 2.7〜13.5 m、唇に乗る 8 本は 0.14〜1.17 m 下がる、下側 8 本の入れ替わり 0、終点 77 1.17 px・118 0.66 px",
+   "pass": true
+  },
+  "screen_sticking_0": {
+   "criterion_ja": "貼り付きの画素の 8 近傍の塊で 10 px 以上のもの。合格 = 全ての組で 0（既定値、進行役の判断）",
+   "definition_ja": "面の動きの法線の成分が 3 px 以上の模様の縁の画素のうち、(1) 縁の両側（±1.5 px）の色区が、動かさない所では次の画像と合い、面の動きだけ動かした所では合わない（移し替えの試し）、かつ (2) 光学的な流れの法線の成分が面の動きの法線の成分の半分未満の画素（2 つの測り方が共に画面への貼り付きを示す所）",
+   "definition_change_ja": "最初の実行は (1) だけで数え、0.1 s の組と頭の揺れの組で 10 px 以上の塊が 4 個出た。4 個とも幅 1〜2 px の細い藍の線の中で、塊の中の光学的な流れの比の中央値は 0.99〜1.01（模様は面とともに動いている）。±1.5 px の両側の見本が 1〜2 px の線を分けられないための誤検出と判断し、(2) を加えた（transfer_only_* に (1) だけの数を残す）。",
+   "builder": {
+    "pairs": 70,
+    "pairs_with_disc_ge200": 37,
+    "stuck_clusters_total": 0,
+    "stuck_px_total": 27,
+    "disc_px_total": 251437,
+    "follow_rate_weighted": 0.9348,
+    "stay_rate_weighted": 0.0419,
+    "of_ratio_median_of_pairs": 0.9976,
+    "control_detects_all_pairs_with_disc_ge200": true,
+    "disc_px_by_sheet_total": {
+     "hero": 209942,
+     "near": 41495,
+     "far": 0
+    },
+    "transfer_only_clusters_total": 4,
+    "transfer_only_of_ratio_median_by_pair": [
+     1.0044,
+     0.9981,
+     0.9984,
+     1.0003
+    ],
+    "of_only_lt0p3_clusters_total": 12
+   },
+   "builder_groups": {
+    "formation_painting_white_off": {
+     "pairs": 13,
+     "pairs_with_disc": 9,
+     "pairs_with_disc_ge200": 8,
+     "disc_px": 62296,
+     "disc_px_by_sheet": {
+      "hero": 48106,
+      "near": 14190,
+      "far": 0
+     },
+     "follow_rate_weighted": 0.9313,
+     "stay_rate_weighted": 0.06,
+     "follow_rate_range": [
+      0.8516,
+      0.9933
+     ],
+     "of_ratio_median_range": [
+      0.9035,
+      1.0
+     ],
+     "neither_frac_range_ge200": [
+      0.0067,
+      0.128
+     ],
+     "stuck_clusters_ge10": 0,
+     "stuck_px": 1,
+     "transfer_only_clusters_ge10": 1,
+     "of_only_lt0p3_clusters_ge10": 1,
+     "control_clusters_min_ge200": 5,
+     "control_detects_all_ge200": true
+    },
+    "formation_painting_white_on": {
+     "pairs": 13,
+     "pairs_with_disc": 9,
+     "pairs_with_disc_ge200": 8,
+     "disc_px": 59442,
+     "disc_px_by_sheet": {
+      "hero": 45230,
+      "near": 14212,
+      "far": 0
+     },
+     "follow_rate_weighted": 0.9276,
+     "stay_rate_weighted": 0.0565,
+     "follow_rate_range": [
+      0.6935,
+      0.9933
+     ],
+     "of_ratio_median_range": [
+      0.8684,
+      0.9995
+     ],
+     "neither_frac_range_ge200": [
+      0.0067,
+      0.1216
+     ],
+     "stuck_clusters_ge10": 0,
+     "stuck_px": 25,
+     "transfer_only_clusters_ge10": 2,
+     "of_only_lt0p3_clusters_ge10": 11,
+     "control_clusters_min_ge200": 5,
+     "control_detects_all_ge200": true
+    },
+    "formation_seat_white_off": {
+     "pairs": 13,
+     "pairs_with_disc": 4,
+     "pairs_with_disc_ge200": 4,
+     "disc_px": 14897,
+     "disc_px_by_sheet": {
+      "hero": 13161,
+      "near": 1736,
+      "far": 0
+     },
+     "follow_rate_weighted": 0.9558,
+     "stay_rate_weighted": 0.0287,
+     "follow_rate_range": [
+      0.9482,
+      1.0
+     ],
+     "of_ratio_median_range": [
+      0.9938,
+      0.9994
+     ],
+     "neither_frac_range_ge200": [
+      0.0,
+      0.0518
+     ],
+     "stuck_clusters_ge10": 0,
+     "stuck_px": 0,
+     "transfer_only_clusters_ge10": 0,
+     "of_only_lt0p3_clusters_ge10": 0,
+     "control_clusters_min_ge200": 9,
+     "control_detects_all_ge200": true
+    },
+    "formation_seat_white_on": {
+     "pairs": 13,
+     "pairs_with_disc": 4,
+     "pairs_with_disc_ge200": 4,
+     "disc_px": 14888,
+     "disc_px_by_sheet": {
+      "hero": 13152,
+      "near": 1736,
+      "far": 0
+     },
+     "follow_rate_weighted": 0.9558,
+     "stay_rate_weighted": 0.0287,
+     "follow_rate_range": [
+      0.9482,
+      1.0
+     ],
+     "of_ratio_median_range": [
+      0.9945,
+      0.9994
+     ],
+     "neither_frac_range_ge200": [
+      0.0,
+      0.0518
+     ],
+     "stuck_clusters_ge10": 0,
+     "stuck_px": 0,
+     "transfer_only_clusters_ge10": 0,
+     "of_only_lt0p3_clusters_ge10": 0,
+     "control_clusters_min_ge200": 9,
+     "control_detects_all_ge200": true
+    },
+    "sway_seat": {
+     "pairs": 9,
+     "pairs_with_disc": 6,
+     "pairs_with_disc_ge200": 6,
+     "disc_px": 38358,
+     "disc_px_by_sheet": {
+      "hero": 36029,
+      "near": 2329,
+      "far": 0
+     },
+     "follow_rate_weighted": 0.9651,
+     "stay_rate_weighted": 0.0168,
+     "follow_rate_range": [
+      0.9619,
+      0.9975
+     ],
+     "of_ratio_median_range": [
+      0.9949,
+      0.9995
+     ],
+     "neither_frac_range_ge200": [
+      0.0025,
+      0.0361
+     ],
+     "stuck_clusters_ge10": 0,
+     "stuck_px": 0,
+     "transfer_only_clusters_ge10": 0,
+     "of_only_lt0p3_clusters_ge10": 0,
+     "control_clusters_min_ge200": 2,
+     "control_detects_all_ge200": true
+    },
+    "sway_seat_toward_wave": {
+     "pairs": 9,
+     "pairs_with_disc": 7,
+     "pairs_with_disc_ge200": 7,
+     "disc_px": 61556,
+     "disc_px_by_sheet": {
+      "hero": 54264,
+      "near": 7292,
+      "far": 0
+     },
+     "follow_rate_weighted": 0.9163,
+     "stay_rate_weighted": 0.0316,
+     "follow_rate_range": [
+      0.9056,
+      1.0
+     ],
+     "of_ratio_median_range": [
+      0.9964,
+      1.0023
+     ],
+     "neither_frac_range_ge200": [
+      0.0,
+      0.0883
+     ],
+     "stuck_clusters_ge10": 0,
+     "stuck_px": 1,
+     "transfer_only_clusters_ge10": 1,
+     "of_only_lt0p3_clusters_ge10": 0,
+     "control_clusters_min_ge200": 3,
+     "control_detects_all_ge200": true
+    },
+    "all_70": {
+     "pairs": 70,
+     "pairs_with_disc": 39,
+     "pairs_with_disc_ge200": 37,
+     "disc_px": 251437,
+     "disc_px_by_sheet": {
+      "hero": 209942,
+      "near": 41495,
+      "far": 0
+     },
+     "follow_rate_weighted": 0.9348,
+     "stay_rate_weighted": 0.0419,
+     "follow_rate_range": [
+      0.6935,
+      1.0
+     ],
+     "of_ratio_median_range": [
+      0.8684,
+      1.0023
+     ],
+     "neither_frac_range_ge200": [
+      0.0,
+      0.128
+     ],
+     "stuck_clusters_ge10": 0,
+     "stuck_px": 27,
+     "transfer_only_clusters_ge10": 4,
+     "of_only_lt0p3_clusters_ge10": 12,
+     "control_clusters_min_ge200": 2,
+     "control_detects_all_ge200": true
+    },
+    "formation_gap1s_record_only": {
+     "pairs": 48,
+     "pairs_with_disc": 24,
+     "pairs_with_disc_ge200": 20,
+     "disc_px": 165432,
+     "disc_px_by_sheet": {
+      "hero": 125724,
+      "near": 39708,
+      "far": 0
+     },
+     "follow_rate_weighted": 0.8991,
+     "stay_rate_weighted": 0.0189,
+     "follow_rate_range": [
+      0.4091,
+      0.9475
+     ],
+     "of_ratio_median_range": [
+      -0.5446,
+      1.0002
+     ],
+     "neither_frac_range_ge200": [
+      0.052,
+      0.1816
+     ],
+     "stuck_clusters_ge10": 0,
+     "stuck_px": 14,
+     "transfer_only_clusters_ge10": 2,
+     "of_only_lt0p3_clusters_ge10": 198,
+     "control_clusters_min_ge200": 13,
+     "control_detects_all_ge200": true
+    },
+    "formation_seat_pairs_without_disc_t": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     12,
+     13
+    ]
+   },
+   "indep": {
+    "formation_white_off": {
+     "pairs": 26,
+     "disc_px": 180177,
+     "disc_px_by_sheet": {
+      "hero": 141873,
+      "near": 38196,
+      "far": 108
+     },
+     "follow": 0.9999,
+     "stay": 0.0001,
+     "worst_pair_follow": 0.9997,
+     "stuck_clusters_ge10": 0,
+     "clusters": {}
+    },
+    "formation_white_on": {
+     "pairs": 26,
+     "disc_px": 182836,
+     "disc_px_by_sheet": {
+      "hero": 144527,
+      "near": 38201,
+      "far": 108
+     },
+     "follow": 0.9958,
+     "stay": 0.0033,
+     "worst_pair_follow": 0.9846,
+     "stuck_clusters_ge10": 11,
+     "clusters": {
+      "form_W1_painting_t06": [
+       [
+        5,
+        463,
+        12
+       ],
+       [
+        18,
+        466,
+        19
+       ]
+      ],
+      "form_W1_painting_t09": [
+       [
+        237,
+        326,
+        30
+       ],
+       [
+        67,
+        477,
+        87
+       ],
+       [
+        42,
+        504,
+        13
+       ]
+      ],
+      "form_W1_painting_t10": [
+       [
+        378,
+        241,
+        60
+       ],
+       [
+        230,
+        350,
+        120
+       ],
+       [
+        145,
+        431,
+        67
+       ],
+       [
+        96,
+        462,
+        42
+       ],
+       [
+        439,
+        583,
+        18
+       ],
+       [
+        407,
+        609,
+        14
+       ]
+      ]
+     }
+    },
+    "sway": {
+     "pairs": 18,
+     "disc_px": 189855,
+     "disc_px_by_sheet": {
+      "hero": 158640,
+      "near": 31215,
+      "far": 0
+     },
+     "follow": 0.9996,
+     "stay": 0.0004,
+     "worst_pair_follow": 0.9985,
+     "stuck_clusters_ge10": 1,
+     "clusters": {
+      "sway_seat_toward_wave_t12_-0.10_+0.10": [
+       [
+        927,
+        497,
+        11
+       ]
+      ]
+     }
+    },
+    "control": {
+     "pairs_ge200": 37,
+     "all_detected": true,
+     "control_stay_frac_min": 1.0
+    }
+   },
+   "pass": true
+  }
+ },
+ "record_only_191_precheck": {
+  "per_view": {
+   "painting": {
+    "frames": 301,
+    "line_px_median": 1682,
+    "flash_clusters_ge10": 0,
+    "hole_clusters_ge10": 530,
+    "hole_frames": [
+     169,
+     170,
+     171,
+     172,
+     173,
+     174,
+     175,
+     176,
+     177,
+     178,
+     179,
+     180,
+     181,
+     182,
+     183,
+     184,
+     185,
+     186,
+     187,
+     188
+    ],
+    "jump_clusters_ge10": 0,
+    "blink_px_frac_median": 0.59161,
+    "hero_move_max_px_median": 9.942,
+    "slow_frames": 15,
+    "blink_clusters_ge10_in_slow_frames": 0
+   },
+   "seat": {
+    "frames": 301,
+    "line_px_median": 0,
+    "flash_clusters_ge10": 0,
+    "hole_clusters_ge10": 35,
+    "hole_frames": [
+     271,
+     272,
+     274,
+     312,
+     313,
+     314,
+     315,
+     316,
+     317,
+     318,
+     319,
+     320,
+     321,
+     322,
+     323,
+     330,
+     331,
+     332,
+     333,
+     334
+    ],
+    "jump_clusters_ge10": 0,
+    "blink_px_frac_median": 0.0,
+    "hero_move_max_px_median": 0.0,
+    "slow_frames": 200,
+    "blink_clusters_ge10_in_slow_frames": 0
+   }
+  },
+  "note_ja": "コマ番号は t = k/30 s（191 の 301 コマは k = 60〜360）。hole_frames は最初の 20 コマだけ。合否は設計38。"
+ },
+ "regression_plan_2_0": {
+  "identical_to_ds36": {
+   "painting_tstar": {
+    "ds37": "Unity/Build/Design/37/flowlines/unity/check/ds37_painting_tstar.png",
+    "ds36": "Unity/Build/Design/36/palette/unity/t28_claws/t28/render/af28r01_painting.png",
+    "sha256": "ba5fcc16719aaab6ee05056e953c4be49856726d022adc33b63b8de53f2baf5c",
+    "identical": true
+   },
+   "formation_painting_video": {
+    "ds37": "Unity/Build/Design/37/flowlines/unity/video/ds37_formation_painting_30fps.mp4",
+    "ds36": "Docs/Evidence/Design/36/ds36_palette_painting_30fps.mp4",
+    "sha256": "26cedf9c8e910484fa60c234725233f44f76f6c0a709c55d549b617c4ba286b4",
+    "identical": true
+   },
+   "formation_seat_video": {
+    "ds37": "Unity/Build/Design/37/flowlines/unity/video/ds37_formation_seat_30fps.mp4",
+    "ds36": "Docs/Evidence/Design/36/ds36_palette_seat_30fps.mp4",
+    "sha256": "bff6297d8a2594c2fecbab5af7f7063100a0dc2b73de9ecd0c4a2ae653f0f241",
+    "identical": true
+   }
+  },
+  "ds36_values_t28_claws": {
+   "78_130_131_diff_px": {
+    "78": 0.0,
+    "130": 0.0,
+    "131": 0.0
+   },
+   "132_sigma12_max": 3.7552,
+   "132_base": 3.7552,
+   "72_sigma24_p95": 3.8423,
+   "72_base": 4.0075,
+   "sym_verdict_changes_vs_29r01": {}
+  },
+  "ds36_verdicts_sym_t28_claws": {
+   "73": "pass",
+   "77": "pass",
+   "79": "pass",
+   "118": "pass",
+   "120": "pass",
+   "133": "pass",
+   "134": "pass",
+   "175": "fail",
+   "263": "pass",
+   "270": "pass",
+   "265": "pass",
+   "266": "pass",
+   "267": "fail",
+   "uv_no_empty_texels": "pass"
+  },
+  "note_ja": "原画視点 t* の画像が設計36 の t28_claws の画像と同じファイル（SHA-256）なので、評価器の値は設計36 のまま。評価器は回し直していない。爪なし（t28_white）の画像は設計37 では描いていない。"
+ },
+ "ds36_handoff_single_frame_flicker": {
+  "note_ja": "設計36 から渡された 1 コマだけの色の跳び（t ≈ 10.9〜11.1 s）は、設計37 では測っていない。形成の動画は設計36 と同じファイルなので、値は設計36 の記録の数え直しのまま（下）。",
+  "ds36_painting": {
+   "sha256": "26cedf9c8e910484fa60c234725233f44f76f6c0a709c55d549b617c4ba286b4",
+   "cluster_px_max": 1192,
+   "cluster_px_max_frame": 328,
+   "frames_gt50": 70,
+   "after_frame_362_max": 0
+  },
+  "ds36_seat": {
+   "sha256": "bff6297d8a2594c2fecbab5af7f7063100a0dc2b73de9ecd0c4a2ae653f0f241",
+   "cluster_px_max": 1597,
+   "cluster_px_max_frame": 330,
+   "frames_gt50": 46,
+   "after_frame_362_max": 0
+  }
+ },
+ "fix_rounds": {
+  "used": 1,
+  "limit_q26": 1,
+  "fix1": {
+   "what_ja": "頭の揺れの形成の動画（座席、t 0〜14 s、目 ±0.1 m・周期 2 s）を揺れのない座席の形成の動画とコマごとに比べた（修正後・修正前）。差は 0〜255 の画素の差の絶対値の平均。ずれは位相相関（960×540 の灰色、ハニングの窓）の画面の px（1920×1080 に直した）。",
+   "cause_ja": "DS37HeadSway.Apply が基準の位置を最初の 1 回だけ読み、動画の繰り返しで揺れが 0 にならない（t = 1/30 s 以降）ため、t = 1/30 s の位置が、DS30BoatHeave が毎コマ座席のカメラに書く船の上下を上書きしていた。",
+   "fix_ja": "DS37HeadSway：前に置いた位置から動かされていたら（船の上下など）今の位置を基準に読み直す。Restore はほかの部品が書き換えた後の位置に触らない。DS37Render.Video：各コマで揺れを外してから時刻を合わせ、そのあと揺れを足す。",
+   "frames": 421,
+   "plain_sha256": "bff6297d8a2594c2fecbab5af7f7063100a0dc2b73de9ecd0c4a2ae653f0f241",
+   "new_sha256": "4b9a51c0b26fd6c0c9a7c4f4ae048c7c2567f860ee817c0ea1a760db066e8d0e",
+   "old_sha256": "62da63e28272e995bb9e7c35aff0e3a87a33f7ecb236b34444f698aabbfb5a2b",
+   "zero_offset_frames": 15,
+   "zero_offset_diff_new_max": 0.27326549639917697,
+   "zero_offset_diff_new_mean": 0.08104910408093279,
+   "zero_offset_diff_old_max": 52.688134002057616,
+   "diff_new_all_max": 5.582521058384773,
+   "diff_old_t_ge_8_mean": 46.61907933267541,
+   "diff_new_t_ge_8_mean": 1.764851839950947,
+   "abs_shift_dy_new_max_px": 0.9469787374863472,
+   "abs_shift_dy_old_max_px": 1997.3848129674952,
+   "abs_shift_dx_new_max_px": 6.384450873519654,
+   "pass": true,
+   "pass_rule_ja": "揺れが 0 のコマ（15 コマ）で差の平均の最大 ≤ 1、全 421 コマで上下のずれの最大 ≤ 2 px（揺れは左右だけ）。既定値、進行役の判断。"
+  },
+  "sway_stills_before_after": {
+   "files_before": 36,
+   "files_after": 36,
+   "byte_identical": 36
+  }
+ },
+ "backlog": {
+  "177": {
+   "value": "藍中の帯 25/25 本（美術優先31 と同じ帯）。同じ面の点の高さ t 2 s → t*：1.57〜8.41 m（上がらない帯 なし）。下側の 8 本の原画視点の x の並びの入れ替わり 最大 0。帯の内側の画素が白で塗られる 0 画素であること：0 画素。表示が藍中の割合 最小 0.9938（16 時刻、記録。藍中でない画素は帯の中の細かい点の混色）。終点 77 0.867 px・118 0.867 px（設計36 の t28_claws の評価器。原画視点の t* の画像は同じ）",
+   "verdict": "合格"
+  },
+  "screen_sticking_0": {
+   "value": "貼り付きの塊 0 個（70 組、見分けられる縁の画素 251437）、感度の対照は全ての組で検出",
+   "verdict": "合格"
+  },
+  "191": {
+   "value": "painting：一瞬だけ出た線の塊 0（コマ []）・一瞬だけ消えた線の塊 530（コマ [169, 170, 171, 172, 173]）・跳びの塊 0（コマ []）、ゆっくりのコマ（15 コマ）の単純な点滅の塊 0、線の画素の中央値 1682（単純な点滅の画素の割合の中央値 0.592：細い線が 1 コマに線幅より大きく動くと 1 コマだけ線になる画素が多いので記録のみ）; seat：一瞬だけ出た線の塊 0（コマ []）・一瞬だけ消えた線の塊 35（コマ [271, 272, 274, 312, 313]）・跳びの塊 0（コマ []）、ゆっくりのコマ（200 コマ）の単純な点滅の塊 0、線の画素の中央値 0（単純な点滅の画素の割合の中央値 0.000：細い線が 1 コマに線幅より大きく動くと 1 コマだけ線になる画素が多いので記録のみ）",
+   "verdict": "記録のみ（事前検査。合否は設計38）"
+  }
+ },
+ "hmd": "保留（PS VR2 の導入は利用者の手。Q24）。Mock の両眼はこの番号では描いていない（設計38）。頭の揺れは PC のカメラのずらしで、HMD の頭の追跡ではない。",
+ "time": {
+  "box_q26_h": 3,
+  "started_txt": [
+   "設計37 第「流れに沿う線」部 着手 2026-09-30 04:50:45（時間の上限 3 時間、Q26。修正は1回まで）",
+   "バックログ：177（縞の追従、値を引き継ぐ）、191（線の点滅・跳び、事前検査）。模様の画面への貼り付き 0（光学的な流れと面の動きの比較）",
+   "設計37 第「流れに沿う線」部 終了 2026-09-30 05:21:33（最小の受入：合格。作品の修正は使っていない）",
+   "設計37 修正1（Q26 の 1 回だけの修正）着手 2026-09-30 05:37:01：確認の must_fix（頭の揺れの形成の動画で座席のカメラが船の上下に付いていかない。DS37HeadSway の基準の位置の持ち越し）",
+   "設計37 修正1 終了 2026-09-30 05:40:31（頭の揺れの形成の動画を直した。揺れ 0 のコマの差の平均 ≤0.27・上下のずれ ≤0.95 px。受入の数は不変）"
+  ],
+  "file_times": {
+   "eval_stdout": "2026-09-30 05:18:46",
+   "render_report_run4": "2026-09-30 05:12:36",
+   "surface_coord_shader": "2026-09-30 05:22:05",
+   "indep_check_first": "2026-09-30 05:26:04",
+   "indep_check_last": "2026-09-30 05:35:00",
+   "fix1_render_report": "2026-09-30 05:38:04",
+   "fix1_compare": "2026-09-30 05:39:32",
+   "metrics_builder": "2026-09-30 05:39:32",
+   "run_builder": "2026-09-30 05:40:31"
+  },
+  "unity_seconds_run4": 53.0254020690918,
+  "unity_seconds_fix1": 27.761714935302734,
+  "eval_seconds": 173.3,
+  "record_run": "2026-09-30 05:48:24"
+ }
+}
