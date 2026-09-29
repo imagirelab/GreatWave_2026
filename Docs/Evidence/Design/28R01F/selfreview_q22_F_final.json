@@ -1,0 +1,308 @@
+{
+ "schema": "GreatWave.ds28r01f.selfreview/1",
+ "number": "設計28修正01 試行F_final",
+ "written": "2026-09-29T14:18:43",
+ "kstar": {
+  "adopted": "R4",
+  "folder": "Unity/Build/Design/28R01F/kstar_final",
+  "gwb_sha256": "38a9b11ab63cccb45cf2cb7776ae3a59485d58102e96cabaf828fb36d14cf19a",
+  "usable": false,
+  "failing_q22_items": [
+   "(1) 中のふくらみ・ドーム",
+   "(6) b区域の 3 つの塊",
+   "(10) 唇の縁の波打ち"
+  ],
+  "reason_ja": "使えると判定された候補はない。最後の再評審が最良に R4 を挙げた（Q24 で推奨を採る）"
+ },
+ "package": {
+  "dir": "Unity/Build/Design/28R01F/F_final/art_on",
+  "pos_sha256": "af08cd4edb8a287551cae2ac8c60af3c4c33bbb39088807571475dc973d85974",
+  "pos_lo_sha256": "99a29d6a74b595372211120db071fac12d9f338aa14107df921d667d67a83153",
+  "timewarp": "Unity/Build/Design/28R01F/F_final/timewarp_F_final.json",
+  "timewarp_sha256": "627815c77afc63278c885335bbe6c51178896184559ca30845cf05f23c634a7c",
+  "layers": 242
+ },
+ "named_values_added": {
+  "ds_anchor_retarget": {
+   "p20_max_m": 9.215,
+   "at": "τ −2.05 行 142 列 313"
+  },
+  "ds_far_hook_early": {
+   "p20_max_m": 2.147,
+   "at": "τ −1.1 行 211 列 315"
+  }
+ },
+ "decisions_q24": [
+  "K*′ は R4（使える候補なし、再評審の最良）",
+  "72 は σ 24 px の大きな輪郭で読む（R3 の評審 2 件の推奨）",
+  "E1（前面が高さとともに立つ）を P18（内壁が戻らない）より先にする",
+  "錨の後ろへの動きは σ の smootherstep（形の変わる速さの段 3.16 → 1.77）",
+  "GPU は設計29修正01 の再生器で読み取り不可のテクスチャにして解く",
+  "奥の行の M3 は K*′ 自身の t* の角との比べで読む（K*′ の奥の行は t* で 110〜125°）"
+ ],
+ "rows": [
+  {
+   "id": "F1",
+   "q22": "没有鼓包（Q21）",
+   "target": "R6 p99 ≤ 0.60 m、R4 p99 ≤ 0.31 m、u11/v9/f180/f200 にドームなし",
+   "value": "R6 p99 0.693、R4 p99 0.378（肩 0.43）、唇の頂のドームと鞍は R3 と同じ",
+   "verdict": "FAIL",
+   "evidence": [
+    "Unity/Build/Q20H/_judge_R3/R4eye/",
+    "Unity/Build/Q20H/final/kstarR4_eval_table.md",
+    "Unity/Build/Design/28R01F/clay/strip_back34_follow_t2_14_E_F_final.png"
+   ]
+  },
+  {
+   "id": "F2",
+   "q22": "没有直角（Q17）",
+   "target": "F02 主断面 θc ≥ 110°・弦 ≥ 125°・折れ ≤ 13°",
+   "value": "137.3°・158.4°・5.6°。奥の行 c +7〜+12.5 は 1 つの弧（Rmin 1.46 m）。F02 の奥の窓は否（唇の頭が入る、記録）",
+   "verdict": "PASS（奥の行は記録）",
+   "evidence": [
+    "Unity/Build/Q20H/final/kstarR4_eval_table.md",
+    "Unity/Build/Q20H/final/fig_sections_R4_R3_A4_Kstar.png"
+   ]
+  },
+  {
+   "id": "F3",
+   "q22": "没有台座",
+   "target": "段・列の組 0",
+   "value": "列の組 0、前の足の鉛直の段 1.0 m（F08、記録）",
+   "verdict": "PASS",
+   "evidence": [
+    "Unity/Build/Q20H/final/kstarR4_eval_table.md"
+   ]
+  },
+  {
+   "id": "F4",
+   "q22": "顶是弧线",
+   "target": "Rmin ≥ 1.5 m",
+   "value": "主断面 2.42 m、奥の行 1.46 m（わずかに下）",
+   "verdict": "PASS（奥の行は境目）",
+   "evidence": [
+    "Unity/Build/Q20H/final/kstarR4_eval_table.md"
+   ]
+  },
+  {
+   "id": "F5",
+   "q22": "浪体饱满",
+   "target": "量感・殻の比 ≥ 0.90",
+   "value": "1.45・1.16（F03 殻 0.46・壁 0.456 > 0.42 は記録）",
+   "verdict": "PASS",
+   "evidence": [
+    "Unity/Build/Q20H/final/kstarR4_eval_table.md"
+   ]
+  },
+  {
+   "id": "F6",
+   "q22": "b区域对齐原画（3 つの大きな塊）",
+   "target": "稜の差 最大 ≤ 30 px・p90 ≤ 15・46/46、u13/v3 で 3 つの塊",
+   "value": "7.1／14.6／30.3 px、36/46、1 つの棚に見える",
+   "verdict": "FAIL",
+   "evidence": [
+    "Unity/Build/Q20H/_judge_R3/R4eye/"
+   ]
+  },
+  {
+   "id": "F7",
+   "q22": "原画視点の輪郭（関門）",
+   "target": "78/130/131 ≤ 4、132 LF ≤ 4、72 LF p95 ≤ 4",
+   "value": "2.74/3.83/2.92、132 LF 3.905、72 LF（σ24）p95 3.75（σ12 では 6.71）。Unity の t* の描画の測り直し 3.03/3.55/3.04、132 細部込み 5.95、72 細部込み p95 8.75（K*′ の幾何 5.91/8.72 と一致）",
+   "verdict": "PASS（σ24 の読み直しを Q24 で採った条件つき）",
+   "evidence": [
+    "Unity/Build/Q20H/final/kstarR4_eval_table.md",
+    "Unity/Build/Design/28R01F/unity/F_final/ds27_tstar_remeasure.json"
+   ]
+  },
+  {
+   "id": "F8",
+   "q22": "唇の縁の波打ちがない",
+   "target": "bump4 d1 p99 ≤ 0.6、先の線の残差 p99 ≤ 0.08 m",
+   "value": "1.20、0.16 m",
+   "verdict": "FAIL",
+   "evidence": [
+    "Unity/Build/Q20H/_judge_R3/R4eye/"
+   ]
+  },
+  {
+   "id": "F9",
+   "q22": "網がきれい",
+   "target": "三角形の交差 0",
+   "value": "BVH・厳密な検査とも 0、裏返り 0。動きの中も 0（下の M1）",
+   "verdict": "PASS",
+   "evidence": [
+    "Unity/Build/Q20H/final/kstarR4_bvh_selfx.json"
+   ]
+  },
+  {
+   "id": "F10",
+   "q22": "横の厚み（Q16、F04）",
+   "target": "側面の影の幅 0.5H0 ≤ 18.5 m",
+   "value": "27.81 m",
+   "verdict": "FAIL（記録）",
+   "evidence": [
+    "Unity/Build/Q20H/final/kstarR4_eval_table.md"
+   ]
+  },
+  {
+   "id": "M1",
+   "q22": "動きに自己交差がない",
+   "target": "0",
+   "value": "生成器の走査：断面 0／局所 0（60 Hz）。独立：断面 0/481（60 Hz）、網のスラブ 0/241（30 Hz）、1/60 s の裏返り 0",
+   "verdict": "PASS",
+   "evidence": [
+    "Unity/Build/Design/28R01F/F_final/scan.json",
+    "<scratchpad>/ds28r01f/indep/mesh30_F_final.json",
+    "<scratchpad>/ds28r01f/indep/sec60_F_final.npz"
+   ]
+  },
+  {
+   "id": "M2",
+   "q22": "动作对准最后一帧（t* = K*′）",
+   "target": "≤ 1 mm",
+   "value": "0.009 mm（gwb float32 0.0096 mm）",
+   "verdict": "PASS",
+   "evidence": [
+    "Unity/Build/Design/28R01F/table_E_F.md"
+   ]
+  },
+  {
+   "id": "M3",
+   "q22": "Q13 唇は上昇の後半に伸び出す",
+   "target": "唇の見え始め ≤ 0.85／0.91 Hf",
+   "value": "0.763／0.832（Lo 0.05H 0.795／0.791）",
+   "verdict": "PASS",
+   "evidence": [
+    "Unity/Build/Design/28R01F/table_E_F.md"
+   ]
+  },
+  {
+   "id": "M4",
+   "q22": "Q15 最高点の後の押し下げがない",
+   "target": "画面 10 s 後の巻き下がり ≤ 0.50、再上昇 0",
+   "value": "0.29／0.32（唇先の列の範囲の最大 0.593 は記録）、再上昇 0",
+   "verdict": "PASS",
+   "evidence": [
+    "Unity/Build/Design/28R01F/review/review_F_final.json",
+    "<scratchpad>/ds28r01f/indep/analyze_E_F_R4_F_final.json"
+   ]
+  },
+  {
+   "id": "M5",
+   "q22": "Q17 小山 → C 字がなだらか",
+   "target": "≥ 3.0 s、速さの段 ≤ 2.0 m/s²",
+   "value": "3.34／3.36 s、1.77／1.58 m/s²、上昇 0.4→0.8 Hf 3.09／2.98 s（E 3.08／2.98）",
+   "verdict": "PASS",
+   "evidence": [
+    "Unity/Build/Design/28R01F/review/review_F_final.json"
+   ]
+  },
+  {
+   "id": "M6",
+   "q22": "E1 前面が高さとともに立つ（Q17 の直角の塊を作らない）",
+   "target": "前面が鉛直になる H/Hf ≥ 0.72",
+   "value": "0.743／0.735（F_R4 0.536／0.647、E 0.736／0.740）。巻きの行の中央値 0.726",
+   "verdict": "PASS",
+   "evidence": [
+    "Unity/Build/Design/28R01F/review/review_F_final.json",
+    "<scratchpad>/ds28r01f/indep/analyze_E_F_R4_F_final.json"
+   ]
+  },
+  {
+   "id": "M7",
+   "q22": "Q17 唇ができる前に頂が直角にならない",
+   "target": "主断面・峰 ≥ 125°、全行で ≤ 110° が画面 0.5 s 以上続く行 0",
+   "value": "142.6／141.5°。K*′ で巻いた 189 行：≤110° が 0.5 s 以上の行 0（F_R4 27、E 2）。ただし 19 行（奥 c +8〜+13）は K*′ 自身の t* の角より 5〜12° 尖る（最小 109.6°、その行の t* 113.6°）",
+   "verdict": "PASS（奥の 19 行は記録）",
+   "evidence": [
+    "<scratchpad>/ds28r01f/indep/analyze2_E_F_R4_F_final.json"
+   ]
+  },
+  {
+   "id": "M8",
+   "q22": "Q16 波の前の谷",
+   "target": "高さとともに深い",
+   "value": "D/H 0.20〜0.28、順位相関 0.99〜1。谷の 96% は最後の物理の 3 s にできる（記録）",
+   "verdict": "PASS",
+   "evidence": [
+    "Unity/Build/Design/28R01F/table_E_F.md",
+    "<scratchpad>/ds28r01f/indep/analyze2_E_F_R4_F_final.json"
+   ]
+  },
+  {
+   "id": "M9",
+   "q22": "Q16 ぎざぎざ・ちらつきがない",
+   "target": "J1 ≤ 7%、節点のこまの段 ≤ 1.3、跳び 0",
+   "value": "J1 2.3%、1.23、粘土の動画のこまの跳び 0。Unity の再生器は 16 bit だけを読む（刻み 1.75 mm、設計29修正01）",
+   "verdict": "PASS（数値と粘土）",
+   "evidence": [
+    "Unity/Build/Design/28R01F/table_E_F.md",
+    "Unity/Build/Design/28R01F/clay/pixel_pops_t2_12.json"
+   ]
+  },
+  {
+   "id": "M10",
+   "q22": "止めで急に止まらない",
+   "target": "止め ≥ 0.8 s、唇先の画面の加速度 ≤ 8 m/s²",
+   "value": "1.13 s、2.86／2.25 m/s²",
+   "verdict": "PASS",
+   "evidence": [
+    "Unity/Build/Design/28R01F/table_E_F.md"
+   ]
+  },
+  {
+   "id": "M11",
+   "q22": "没有明显违和感（見た目の自己評審）",
+   "target": "粘土 5 視点と Unity 4 視点で、はっきりした違和感がない",
+   "value": "E より良い（丸い頂、満ちた背、唇が伸びながら巻く、奥の鉤も同時に育つ）。残り：管が開く時に本体の水が 43% 減る（外の輪郭は縮まず、桶が開くように読める）、内壁が一方向に 6.7 m（最悪 9.3 m）下がる、画面 2〜5 s の正側面で K*′ の幅広い背と急な後ろの足が平たい塊に見える、Unity の色区は古い K* の焼き込みのまま（設計29修正01）",
+   "verdict": "PARTIAL",
+   "evidence": [
+    "Unity/Build/Design/28R01F/clay/video/clay_5views_E_vs_F_final.mp4",
+    "Unity/Build/Design/28R01F/unity/compare/",
+    "Unity/Build/Design/28R01F/clay/strip_side_follow_t2_14_E_F_final.png"
+   ]
+  },
+  {
+   "id": "M12",
+   "q22": "関門 P1〜P20（物理のもっともらしさ、記録のみ）",
+   "target": "各しきい値",
+   "value": "否：P2 P3(0.106) P4 P7(3.0、E 3.13) P11 P13(4/12) P14 P15 P16 P17(0.86/0.96/1.13) P18(9.33 m) P19。合：P1 P5 P6 P8 P9 P10 P12 Painting",
+   "verdict": "FAIL（記録のみ、優先順位の 5）",
+   "evidence": [
+    "Unity/Build/Design/28R01F/F_final/gates/default.json"
+   ]
+  },
+  {
+   "id": "M13",
+   "q22": "M2 跳びなし（体積の 1 こまの変化の比）",
+   "target": "≤ 1",
+   "value": "1.54（生成器側）、1.83（独立）。最大の変化は最後の 2 s（管が開く）",
+   "verdict": "FAIL（記録）",
+   "evidence": [
+    "Unity/Build/Design/28R01F/table_E_F.md"
+   ]
+  },
+  {
+   "id": "M14",
+   "q22": "GPU（精度の層＋読み取り可能の写し）",
+   "target": "≤ 512 MiB",
+   "value": "242 層で 532 MiB（読み取り不可にすれば約 266 MiB、設計29修正01）",
+   "verdict": "FAIL（設計29修正01 へ）",
+   "evidence": [
+    "Unity/Build/Design/28R01F/table_E_F.md"
+   ]
+  },
+  {
+   "id": "M15",
+   "q22": "M5 生成の時間",
+   "target": "≤ 1,800 s",
+   "value": "698 s（全体 1,770 s）、決定性（1 プロセスで作り直した層のバイトが同じ）",
+   "verdict": "PASS",
+   "evidence": [
+    "Unity/Build/Design/28R01F/F_final/pipeline_timing.json",
+    "Unity/Build/Design/28R01F/F_final/art_on/determinism_check.json"
+   ]
+  }
+ ]
+}

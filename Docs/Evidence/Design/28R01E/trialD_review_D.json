@@ -1,0 +1,1021 @@
+{
+ "C1": {
+  "spec": {
+   "pkg": "Unity/Build/Design/28R01C/C1/art_on",
+   "warp": "Tools/GWWaveGen/ds28r01c/timewarp_default_C1.json",
+   "kstar": "Unity/Build/ArtFirst/26修正01/kstar",
+   "carry_sigma": -3.45
+  },
+  "pos_sha256": "0224625436d82ac854f9002f4d97ceb7fd616441554f1076d056a1a0c5b785d9",
+  "layers": 261,
+  "quant_step_mm": 1.693,
+  "gpu_estimate": {
+   "layer_mib": 0.7324,
+   "texture2darray_mib": 191.16,
+   "texture2darray_readable_mib": 382.32,
+   "twhite_mib": 0.366,
+   "budget_mib": 512,
+   "note_ja": "RGBA64 の Texture2DArray（層 × 400 × 240 × 8 バイト）。読み取り可能のままなら CPU の写しで 2 倍（見積もり、Unity の実測は設計29）。法線はパッケージに入れない（再生側で三角形から作る）。"
+  },
+  "landmarks": {
+   "j_corner": 314,
+   "j_E": 394
+  },
+  "pace": {
+   "159": {
+    "events": {
+     "Theta45": {
+      "t": 5.447,
+      "tau": -3.645
+     },
+     "Theta90": {
+      "t": 6.126,
+      "tau": -2.972
+     },
+     "Lo0.15H": {
+      "t": 6.545,
+      "tau": -2.644
+     },
+     "H0.4Hf": {
+      "t": 3.98,
+      "tau": -5.111
+     },
+     "H0.8Hf": {
+      "t": 6.399,
+      "tau": -2.743
+     }
+    },
+    "hump_to_C_s": 1.098,
+    "rise_04_08_s": 2.419,
+    "vdef_up_max_mps": 4.56,
+    "vdef_up_max_t": 6.05,
+    "vdef_up_rise_max_mps2": 7.257,
+    "tau_at_t0": -9.092
+   },
+   "192": {
+    "events": {
+     "Theta45": {
+      "t": 5.223,
+      "tau": -3.868
+     },
+     "Theta90": {
+      "t": 5.892,
+      "tau": -3.2
+     },
+     "Lo0.15H": {
+      "t": 6.243,
+      "tau": -2.868
+     },
+     "H0.4Hf": {
+      "t": 3.788,
+      "tau": -5.303
+     },
+     "H0.8Hf": {
+      "t": 6.166,
+      "tau": -2.935
+     }
+    },
+    "hump_to_C_s": 1.02,
+    "rise_04_08_s": 2.378,
+    "vdef_up_max_mps": 5.027,
+    "vdef_up_max_t": 5.87,
+    "vdef_up_rise_max_mps2": 7.499,
+    "tau_at_t0": -9.092
+   }
+  },
+  "curl": {
+   "159": {
+    "tau_on": -3.258,
+    "visible": {
+     "tau": -2.725,
+     "H_over_Hf": 0.805,
+     "by": "Lo0.10",
+     "gain_after_over_Hf": 0.195
+    },
+    "H_over_Hf_at_top": 0.899,
+    "h_at_visible_m": -2.017,
+    "h_at_top_m": -2.686,
+    "h_at_tstar_m": -8.471,
+    "drop_total_m": 6.454,
+    "share_before_top": 0.104,
+    "share_last_1s_physical": 0.572,
+    "monotone_max_rise_m": 0.0,
+    "monotone_ok": true,
+    "rel_descent_speed_max_mps": 7.466,
+    "tip_apex_tau": -2.25,
+    "tip_max_up_accel_after_apex_mps2": 1.373,
+    "screen": {
+     "warp": "Tools/GWWaveGen/ds28r01c/timewarp_default_C1.json",
+     "tau_at_t10": -0.9,
+     "share_after_t10": 0.541,
+     "t_visible": 6.42,
+     "t_top": 7.6,
+     "t_tip_apex": 7.3,
+     "slow_reached_tau": -2.458,
+     "t_slow_reached": 6.88,
+     "share_in_slow": 0.966,
+     "rel_descent_speed_max_screen_mps": 3.32,
+     "rel_descent_screen_decel_max_mps2": 4.778
+    }
+   },
+   "192": {
+    "tau_on": -3.45,
+    "visible": {
+     "tau": -2.954,
+     "H_over_Hf": 0.795,
+     "by": "Lo0.10",
+     "gain_after_over_Hf": 0.205
+    },
+    "H_over_Hf_at_top": 0.907,
+    "h_at_visible_m": -2.68,
+    "h_at_top_m": -3.886,
+    "h_at_tstar_m": -10.265,
+    "drop_total_m": 7.585,
+    "share_before_top": 0.159,
+    "share_last_1s_physical": 0.521,
+    "monotone_max_rise_m": 0.0,
+    "monotone_ok": true,
+    "rel_descent_speed_max_mps": 7.671,
+    "tip_apex_tau": -2.45,
+    "tip_max_up_accel_after_apex_mps2": 1.713,
+    "screen": {
+     "warp": "Tools/GWWaveGen/ds28r01c/timewarp_default_C1.json",
+     "tau_at_t10": -0.9,
+     "share_after_t10": 0.49,
+     "t_visible": 6.15,
+     "t_top": 7.6,
+     "t_tip_apex": 6.9,
+     "slow_reached_tau": -2.458,
+     "t_slow_reached": 6.88,
+     "share_in_slow": 0.935,
+     "rel_descent_speed_max_screen_mps": 3.41,
+     "rel_descent_screen_decel_max_mps2": 6.114
+    }
+   }
+  },
+  "no_rebound": {
+   "lip": {
+    "n": 16335.0,
+    "rerise_gt_1cm": 0.0,
+    "rerise_max_m": 0.0001,
+    "accp_gt_005": 24.0,
+    "accp_max": 0.5924,
+    "accs_gt_005": 26.0,
+    "accs_gt_05": 0.0,
+    "accs_max": 0.3457
+   },
+   "tube": {
+    "n": 17867.0,
+    "rerise_gt_1cm": 779.0,
+    "rerise_max_m": 0.1203,
+    "accp_gt_005": 2781.0,
+    "accp_max": 10.8028,
+    "accs_gt_005": 2737.0,
+    "accs_gt_05": 1749.0,
+    "accs_max": 3.1749
+   },
+   "worst": {
+    "lip_accs_max": {
+     "row": 159,
+     "col": 224,
+     "apex_tau": -2.288,
+     "value": 0.346
+    },
+    "lip_accp_max": {
+     "row": 159,
+     "col": 224,
+     "apex_tau": -2.288,
+     "value": 0.592
+    },
+    "tube_accp_max": {
+     "row": 166,
+     "col": 260,
+     "apex_tau": -2.342,
+     "value": 10.803
+    },
+    "tube_accs_max": {
+     "row": 167,
+     "col": 260,
+     "apex_tau": -2.346,
+     "value": 3.175
+    },
+    "tube_rerise_max_m": {
+     "row": 176,
+     "col": 261,
+     "apex_tau": -2.425,
+     "value": 0.12
+    },
+    "lip_rerise_max_m": {
+     "row": 184,
+     "col": 145,
+     "apex_tau": -0.942,
+     "value": 0.0
+    }
+   },
+   "reading_ja": "0.25 s の二次の当てはめ（Savitzky–Golay、240 Hz）。画面は既定の時間曲線、止めるための区間の前まで（P16 と同じ）。許容 0.05 m/s²"
+  },
+  "trough": {
+   "100": {
+    "H_tstar": 11.637,
+    "D_tstar_m": -0.0,
+    "D_over_H_tstar": -0.0,
+    "bottom_ahead_of_foot_m": 0.0,
+    "width_half_depth_m": 0.0,
+    "back_D_tstar_m": -0.0,
+    "spearman_H_D": null,
+    "D_tstar_over_maxD": -0.0,
+    "D_m3_over_D_tstar": -0.0,
+    "D_series": {
+     "-8.0": -0.0,
+     "-7.0": -0.0,
+     "-6.0": -0.0,
+     "-5.0": -0.0,
+     "-4.0": -0.0,
+     "-3.0": -0.0,
+     "-2.0": -0.0,
+     "-1.0": -0.0,
+     "-0.0": -0.0
+    },
+    "plinth_pairs_tstar": 0,
+    "plinth_pairs_max_tau_m6_0": 0,
+    "face_below_4m_max_angle_deg_tstar": 90.0
+   },
+   "130": {
+    "H_tstar": 19.155,
+    "D_tstar_m": -0.0,
+    "D_over_H_tstar": -0.0,
+    "bottom_ahead_of_foot_m": 0.0,
+    "width_half_depth_m": 0.0,
+    "back_D_tstar_m": -0.0,
+    "spearman_H_D": null,
+    "D_tstar_over_maxD": -0.0,
+    "D_m3_over_D_tstar": -0.0,
+    "D_series": {
+     "-8.0": -0.0,
+     "-7.0": -0.0,
+     "-6.0": -0.0,
+     "-5.0": -0.0,
+     "-4.0": -0.0,
+     "-3.0": -0.0,
+     "-2.0": -0.0,
+     "-1.0": -0.0,
+     "-0.0": -0.0
+    },
+    "plinth_pairs_tstar": 0,
+    "plinth_pairs_max_tau_m6_0": 0,
+    "face_below_4m_max_angle_deg_tstar": 90.0
+   },
+   "159": {
+    "H_tstar": 20.8,
+    "D_tstar_m": -0.0,
+    "D_over_H_tstar": -0.0,
+    "bottom_ahead_of_foot_m": 0.0,
+    "width_half_depth_m": 0.0,
+    "back_D_tstar_m": -0.0,
+    "spearman_H_D": null,
+    "D_tstar_over_maxD": -0.0,
+    "D_m3_over_D_tstar": -0.0,
+    "D_series": {
+     "-8.0": -0.0,
+     "-7.0": -0.0,
+     "-6.0": -0.0,
+     "-5.0": -0.0,
+     "-4.0": -0.0,
+     "-3.0": -0.0,
+     "-2.0": -0.0,
+     "-1.0": -0.0,
+     "-0.0": -0.0
+    },
+    "plinth_pairs_tstar": 0,
+    "plinth_pairs_max_tau_m6_0": 0,
+    "face_below_4m_max_angle_deg_tstar": 90.0
+   },
+   "192": {
+    "H_tstar": 22.577,
+    "D_tstar_m": -0.0,
+    "D_over_H_tstar": -0.0,
+    "bottom_ahead_of_foot_m": 0.0,
+    "width_half_depth_m": 0.0,
+    "back_D_tstar_m": -0.0,
+    "spearman_H_D": null,
+    "D_tstar_over_maxD": -0.0,
+    "D_m3_over_D_tstar": -0.0,
+    "D_series": {
+     "-8.0": -0.0,
+     "-7.0": -0.0,
+     "-6.0": -0.0,
+     "-5.0": -0.0,
+     "-4.0": -0.0,
+     "-3.0": -0.0,
+     "-2.0": -0.0,
+     "-1.0": -0.0,
+     "-0.0": -0.0
+    },
+    "plinth_pairs_tstar": 0,
+    "plinth_pairs_max_tau_m6_0": 0,
+    "face_below_4m_max_angle_deg_tstar": 90.0
+   },
+   "214": {
+    "H_tstar": 23.338,
+    "D_tstar_m": -0.0,
+    "D_over_H_tstar": -0.0,
+    "bottom_ahead_of_foot_m": 0.0,
+    "width_half_depth_m": 0.0,
+    "back_D_tstar_m": -0.0,
+    "spearman_H_D": null,
+    "D_tstar_over_maxD": -0.0,
+    "D_m3_over_D_tstar": -0.0,
+    "D_series": {
+     "-8.0": -0.0,
+     "-7.0": -0.0,
+     "-6.0": -0.0,
+     "-5.0": -0.0,
+     "-4.0": -0.0,
+     "-3.0": -0.0,
+     "-2.0": -0.0,
+     "-1.0": -0.0,
+     "-0.0": -0.0
+    },
+    "plinth_pairs_tstar": 0,
+    "plinth_pairs_max_tau_m6_0": 0,
+    "face_below_4m_max_angle_deg_tstar": 89.829
+   },
+   "seat_boat_tstar": [
+    {
+     "s": -4.41,
+     "a": 22.09,
+     "c": 3.62,
+     "surface_y": 0.0,
+     "waterline_y": 5.185,
+     "surface_minus_waterline_m": -5.185,
+     "nearest_vertex_dist_m": 0.774
+    },
+    {
+     "s": -3.14,
+     "a": 21.14,
+     "c": 2.79,
+     "surface_y": 0.0,
+     "waterline_y": 4.366,
+     "surface_minus_waterline_m": -4.366,
+     "nearest_vertex_dist_m": 1.952
+    },
+    {
+     "s": -1.87,
+     "a": 20.18,
+     "c": 1.95,
+     "surface_y": 0.0,
+     "waterline_y": 3.547,
+     "surface_minus_waterline_m": -3.547,
+     "nearest_vertex_dist_m": 1.058
+    },
+    {
+     "s": -0.61,
+     "a": 19.22,
+     "c": 1.12,
+     "surface_y": 0.0,
+     "waterline_y": 2.728,
+     "surface_minus_waterline_m": -2.728,
+     "nearest_vertex_dist_m": 0.191
+    },
+    {
+     "s": 0.66,
+     "a": 18.27,
+     "c": 0.29,
+     "surface_y": 0.0,
+     "waterline_y": 1.909,
+     "surface_minus_waterline_m": -1.909,
+     "nearest_vertex_dist_m": 1.412
+    },
+    {
+     "s": 1.93,
+     "a": 17.31,
+     "c": -0.55,
+     "surface_y": 0.0,
+     "waterline_y": 1.091,
+     "surface_minus_waterline_m": -1.09,
+     "nearest_vertex_dist_m": 1.446
+    },
+    {
+     "s": 3.2,
+     "a": 16.35,
+     "c": -1.38,
+     "surface_y": 0.0,
+     "waterline_y": 0.272,
+     "surface_minus_waterline_m": -0.271,
+     "nearest_vertex_dist_m": 0.573
+    },
+    {
+     "s": 4.47,
+     "a": 15.4,
+     "c": -2.21,
+     "surface_y": 0.0,
+     "waterline_y": -0.547,
+     "surface_minus_waterline_m": 0.547,
+     "nearest_vertex_dist_m": 0.218
+    },
+    {
+     "s": 5.74,
+     "a": 14.44,
+     "c": -3.04,
+     "surface_y": 0.0,
+     "waterline_y": -1.366,
+     "surface_minus_waterline_m": 1.366,
+     "nearest_vertex_dist_m": 1.064
+    }
+   ]
+  },
+  "spatial": {
+   "-6.0": {
+    "J1_zigzag_frac": 0.1166,
+    "J3_row_normal_angle_p95_deg": 9.43,
+    "row_edges_gt10deg": 2986
+   },
+   "-4.0": {
+    "J1_zigzag_frac": 0.1485,
+    "J3_row_normal_angle_p95_deg": 12.85,
+    "row_edges_gt10deg": 4867
+   },
+   "-3.0": {
+    "J1_zigzag_frac": 0.1818,
+    "J3_row_normal_angle_p95_deg": 19.54,
+    "row_edges_gt10deg": 8181
+   },
+   "-2.5": {
+    "J1_zigzag_frac": 0.1943,
+    "J3_row_normal_angle_p95_deg": 19.97,
+    "row_edges_gt10deg": 8929
+   },
+   "-2.0": {
+    "J1_zigzag_frac": 0.1913,
+    "J3_row_normal_angle_p95_deg": 20.65,
+    "row_edges_gt10deg": 10178
+   },
+   "-1.5": {
+    "J1_zigzag_frac": 0.1826,
+    "J3_row_normal_angle_p95_deg": 18.02,
+    "row_edges_gt10deg": 9162
+   },
+   "-1.0": {
+    "J1_zigzag_frac": 0.1577,
+    "J3_row_normal_angle_p95_deg": 16.2,
+    "row_edges_gt10deg": 7485
+   },
+   "-0.5": {
+    "J1_zigzag_frac": 0.121,
+    "J3_row_normal_angle_p95_deg": 15.84,
+    "row_edges_gt10deg": 6361
+   },
+   "+0.0": {
+    "J1_zigzag_frac": 0.0569,
+    "J3_row_normal_angle_p95_deg": 12.35,
+    "row_edges_gt10deg": 4337
+   }
+  },
+  "crest_angle": {
+   "159": {
+    "theta_min_deg": 101.0,
+    "theta_at_m1_deg": 115.9,
+    "theta_tstar_deg": 101.0,
+    "sharpen_last_1s_deg": 14.8,
+    "theta_at": {
+     "-1.50": 122.8,
+     "-1.00": 115.9,
+     "-0.75": 111.1,
+     "-0.50": 107.1,
+     "-0.25": 104.5,
+     "+0.00": 101.0
+    }
+   },
+   "192": {
+    "theta_min_deg": 101.2,
+    "theta_at_m1_deg": 115.0,
+    "theta_tstar_deg": 101.2,
+    "sharpen_last_1s_deg": 13.7,
+    "theta_at": {
+     "-1.50": 120.9,
+     "-1.00": 115.0,
+     "-0.75": 111.0,
+     "-0.50": 107.5,
+     "-0.25": 104.9,
+     "+0.00": 101.2
+    }
+   }
+  },
+  "seconds": 73.3
+ },
+ "D": {
+  "spec": {
+   "pkg": "Unity/Build/Design/28R01D/D/art_on",
+   "warp": "Tools/GWWaveGen/ds28r01d/timewarp_default_D.json",
+   "kstar": "Unity/Build/Design/28R01D/kstar_foot",
+   "carry_sigma": -3.7
+  },
+  "pos_sha256": "54e7045aadcdb92152b78cde0fd3bd9117aeb2ad1eaa599897863dfb5224a414",
+  "layers": 182,
+  "quant_step_mm": 1.693,
+  "gpu_estimate": {
+   "layer_mib": 0.7324,
+   "texture2darray_mib": 133.3,
+   "texture2darray_readable_mib": 266.6,
+   "twhite_mib": 0.366,
+   "budget_mib": 512,
+   "note_ja": "RGBA64 の Texture2DArray（層 × 400 × 240 × 8 バイト）。読み取り可能のままなら CPU の写しで 2 倍（見積もり、Unity の実測は設計29）。法線はパッケージに入れない（再生側で三角形から作る）。"
+  },
+  "landmarks": {
+   "j_corner": 314,
+   "j_E": 384
+  },
+  "pace": {
+   "159": {
+    "events": {
+     "Theta45": {
+      "t": 3.153,
+      "tau": -4.858
+     },
+     "Theta90": {
+      "t": 4.476,
+      "tau": -3.942
+     },
+     "Lo0.15H": {
+      "t": 6.451,
+      "tau": -2.682
+     },
+     "H0.4Hf": {
+      "t": 2.814,
+      "tau": -5.172
+     },
+     "H0.8Hf": {
+      "t": 6.232,
+      "tau": -2.807
+     }
+    },
+    "hump_to_C_s": 3.298,
+    "rise_04_08_s": 3.418,
+    "vdef_up_max_mps": 1.665,
+    "vdef_up_max_t": 3.07,
+    "vdef_up_rise_max_mps2": 1.376,
+    "tau_at_t0": -7.985
+   },
+   "192": {
+    "events": {
+     "Theta45": {
+      "t": 2.992,
+      "tau": -5.002
+     },
+     "Theta90": {
+      "t": 4.149,
+      "tau": -4.154
+     },
+     "Lo0.15H": {
+      "t": 6.521,
+      "tau": -2.644
+     },
+     "H0.4Hf": {
+      "t": 2.684,
+      "tau": -5.301
+     },
+     "H0.8Hf": {
+      "t": 6.029,
+      "tau": -2.933
+     }
+    },
+    "hump_to_C_s": 3.529,
+    "rise_04_08_s": 3.345,
+    "vdef_up_max_mps": 1.892,
+    "vdef_up_max_t": 3.03,
+    "vdef_up_rise_max_mps2": 1.488,
+    "tau_at_t0": -7.985
+   }
+  },
+  "curl": {
+   "159": {
+    "tau_on": -3.508,
+    "visible": {
+     "tau": -2.842,
+     "H_over_Hf": 0.79,
+     "by": "Lo0.10",
+     "gain_after_over_Hf": 0.21
+    },
+    "H_over_Hf_at_top": 0.9,
+    "h_at_visible_m": -1.851,
+    "h_at_top_m": -2.653,
+    "h_at_tstar_m": -8.471,
+    "drop_total_m": 6.62,
+    "share_before_top": 0.121,
+    "share_last_1s_physical": 0.568,
+    "monotone_max_rise_m": 0.0,
+    "monotone_ok": true,
+    "rel_descent_speed_max_mps": 7.491,
+    "tip_apex_tau": -2.321,
+    "tip_max_up_accel_after_apex_mps2": 1.665,
+    "screen": {
+     "warp": "Tools/GWWaveGen/ds28r01d/timewarp_default_D.json",
+     "tau_at_t10": -0.9,
+     "share_after_t10": 0.536,
+     "t_visible": 6.17,
+     "t_top": 7.6,
+     "t_tip_apex": 7.16,
+     "slow_reached_tau": null,
+     "t_slow_reached": null,
+     "share_in_slow": null,
+     "rel_descent_speed_max_screen_mps": 3.343,
+     "rel_descent_screen_decel_max_mps2": 2.084
+    }
+   },
+   "192": {
+    "tau_on": -3.7,
+    "visible": {
+     "tau": -2.942,
+     "H_over_Hf": 0.797,
+     "by": "fwd0.5",
+     "gain_after_over_Hf": 0.203
+    },
+    "H_over_Hf_at_top": 0.907,
+    "h_at_visible_m": -2.918,
+    "h_at_top_m": -3.873,
+    "h_at_tstar_m": -10.265,
+    "drop_total_m": 7.347,
+    "share_before_top": 0.13,
+    "share_last_1s_physical": 0.601,
+    "monotone_max_rise_m": 0.0,
+    "monotone_ok": true,
+    "rel_descent_speed_max_mps": 8.158,
+    "tip_apex_tau": -2.429,
+    "tip_max_up_accel_after_apex_mps2": 1.144,
+    "screen": {
+     "warp": "Tools/GWWaveGen/ds28r01d/timewarp_default_D.json",
+     "tau_at_t10": -0.9,
+     "share_after_t10": 0.571,
+     "t_visible": 6.01,
+     "t_top": 7.6,
+     "t_tip_apex": 6.94,
+     "slow_reached_tau": null,
+     "t_slow_reached": null,
+     "share_in_slow": null,
+     "rel_descent_speed_max_screen_mps": 3.725,
+     "rel_descent_screen_decel_max_mps2": 2.231
+    }
+   }
+  },
+  "no_rebound": {
+   "lip": {
+    "n": 16335.0,
+    "rerise_gt_1cm": 0.0,
+    "rerise_max_m": 0.0001,
+    "accp_gt_005": 0.0,
+    "accp_max": 0.0465,
+    "accs_gt_005": 3.0,
+    "accs_gt_05": 0.0,
+    "accs_max": 0.0552
+   },
+   "tube": {
+    "n": 17867.0,
+    "rerise_gt_1cm": 0.0,
+    "rerise_max_m": 0.0001,
+    "accp_gt_005": 3.0,
+    "accp_max": 0.0552,
+    "accs_gt_005": 11.0,
+    "accs_gt_05": 0.0,
+    "accs_max": 0.0553
+   },
+   "worst": {
+    "lip_accs_max": {
+     "row": 157,
+     "col": 220,
+     "apex_tau": -2.337,
+     "value": 0.055
+    },
+    "lip_accp_max": {
+     "row": 123,
+     "col": 164,
+     "apex_tau": -1.942,
+     "value": 0.047
+    },
+    "tube_accp_max": {
+     "row": 123,
+     "col": 226,
+     "apex_tau": -1.954,
+     "value": 0.055
+    },
+    "tube_accs_max": {
+     "row": 175,
+     "col": 260,
+     "apex_tau": -2.429,
+     "value": 0.055
+    },
+    "tube_rerise_max_m": {
+     "row": 151,
+     "col": 242,
+     "apex_tau": -2.079,
+     "value": 0.0
+    },
+    "lip_rerise_max_m": {
+     "row": 176,
+     "col": 152,
+     "apex_tau": -2.392,
+     "value": 0.0
+    }
+   },
+   "reading_ja": "0.25 s の二次の当てはめ（Savitzky–Golay、240 Hz）。画面は既定の時間曲線、止めるための区間の前まで（P16 と同じ）。許容 0.05 m/s²"
+  },
+  "trough": {
+   "100": {
+    "H_tstar": 11.637,
+    "D_tstar_m": 3.491,
+    "D_over_H_tstar": 0.3,
+    "bottom_ahead_of_foot_m": 5.364,
+    "width_half_depth_m": 12.023,
+    "back_D_tstar_m": 1.396,
+    "spearman_H_D": 1.0,
+    "D_tstar_over_maxD": 1.0,
+    "D_m3_over_D_tstar": 0.333,
+    "D_series": {
+     "-8.0": 0.116,
+     "-7.0": 0.154,
+     "-6.0": 0.239,
+     "-5.0": 0.406,
+     "-4.0": 0.69,
+     "-3.0": 1.164,
+     "-2.0": 2.312,
+     "-1.0": 2.933,
+     "-0.0": 3.491
+    },
+    "plinth_pairs_tstar": 0,
+    "plinth_pairs_max_tau_m6_0": 0,
+    "face_below_4m_max_angle_deg_tstar": 73.437
+   },
+   "130": {
+    "H_tstar": 19.154,
+    "D_tstar_m": 5.746,
+    "D_over_H_tstar": 0.3,
+    "bottom_ahead_of_foot_m": 8.291,
+    "width_half_depth_m": 14.899,
+    "back_D_tstar_m": 2.298,
+    "spearman_H_D": 1.0,
+    "D_tstar_over_maxD": 1.0,
+    "D_m3_over_D_tstar": 0.477,
+    "D_series": {
+     "-8.0": 0.195,
+     "-7.0": 0.278,
+     "-6.0": 0.502,
+     "-5.0": 0.893,
+     "-4.0": 1.512,
+     "-3.0": 2.74,
+     "-2.0": 4.608,
+     "-1.0": 5.162,
+     "-0.0": 5.746
+    },
+    "plinth_pairs_tstar": 0,
+    "plinth_pairs_max_tau_m6_0": 0,
+    "face_below_4m_max_angle_deg_tstar": 67.678
+   },
+   "159": {
+    "H_tstar": 20.8,
+    "D_tstar_m": 6.24,
+    "D_over_H_tstar": 0.3,
+    "bottom_ahead_of_foot_m": 8.252,
+    "width_half_depth_m": 14.515,
+    "back_D_tstar_m": 2.496,
+    "spearman_H_D": 1.0,
+    "D_tstar_over_maxD": 1.0,
+    "D_m3_over_D_tstar": 0.557,
+    "D_series": {
+     "-8.0": 0.21,
+     "-7.0": 0.312,
+     "-6.0": 0.525,
+     "-5.0": 1.037,
+     "-4.0": 1.809,
+     "-3.0": 3.477,
+     "-2.0": 5.098,
+     "-1.0": 5.655,
+     "-0.0": 6.24
+    },
+    "plinth_pairs_tstar": 0,
+    "plinth_pairs_max_tau_m6_0": 0,
+    "face_below_4m_max_angle_deg_tstar": 47.82
+   },
+   "192": {
+    "H_tstar": 22.577,
+    "D_tstar_m": 6.773,
+    "D_over_H_tstar": 0.3,
+    "bottom_ahead_of_foot_m": 9.2,
+    "width_half_depth_m": 16.947,
+    "back_D_tstar_m": 2.709,
+    "spearman_H_D": 1.0,
+    "D_tstar_over_maxD": 1.0,
+    "D_m3_over_D_tstar": 0.611,
+    "D_series": {
+     "-8.0": 0.245,
+     "-7.0": 0.37,
+     "-6.0": 0.725,
+     "-5.0": 1.272,
+     "-4.0": 2.12,
+     "-3.0": 4.138,
+     "-2.0": 5.626,
+     "-1.0": 6.186,
+     "-0.0": 6.773
+    },
+    "plinth_pairs_tstar": 0,
+    "plinth_pairs_max_tau_m6_0": 0,
+    "face_below_4m_max_angle_deg_tstar": 47.203
+   },
+   "214": {
+    "H_tstar": 23.338,
+    "D_tstar_m": 7.001,
+    "D_over_H_tstar": 0.3,
+    "bottom_ahead_of_foot_m": 9.475,
+    "width_half_depth_m": 17.978,
+    "back_D_tstar_m": 2.801,
+    "spearman_H_D": 1.0,
+    "D_tstar_over_maxD": 1.0,
+    "D_m3_over_D_tstar": 0.604,
+    "D_series": {
+     "-8.0": 0.254,
+     "-7.0": 0.426,
+     "-6.0": 0.766,
+     "-5.0": 1.309,
+     "-4.0": 2.18,
+     "-3.0": 4.231,
+     "-2.0": 5.853,
+     "-1.0": 6.414,
+     "-0.0": 7.001
+    },
+    "plinth_pairs_tstar": 0,
+    "plinth_pairs_max_tau_m6_0": 0,
+    "face_below_4m_max_angle_deg_tstar": 46.978
+   },
+   "seat_boat_tstar": [
+    {
+     "s": -4.41,
+     "a": 22.09,
+     "c": 3.62,
+     "surface_y": -6.692,
+     "waterline_y": 5.185,
+     "surface_minus_waterline_m": -11.877,
+     "nearest_vertex_dist_m": 0.264
+    },
+    {
+     "s": -3.14,
+     "a": 21.14,
+     "c": 2.79,
+     "surface_y": -6.6,
+     "waterline_y": 4.366,
+     "surface_minus_waterline_m": -10.966,
+     "nearest_vertex_dist_m": 0.191
+    },
+    {
+     "s": -1.87,
+     "a": 20.18,
+     "c": 1.95,
+     "surface_y": -6.475,
+     "waterline_y": 3.547,
+     "surface_minus_waterline_m": -10.022,
+     "nearest_vertex_dist_m": 0.51
+    },
+    {
+     "s": -0.61,
+     "a": 19.22,
+     "c": 1.12,
+     "surface_y": -6.448,
+     "waterline_y": 2.728,
+     "surface_minus_waterline_m": -9.177,
+     "nearest_vertex_dist_m": 0.757
+    },
+    {
+     "s": 0.66,
+     "a": 18.27,
+     "c": 0.29,
+     "surface_y": -6.306,
+     "waterline_y": 1.909,
+     "surface_minus_waterline_m": -8.216,
+     "nearest_vertex_dist_m": 0.391
+    },
+    {
+     "s": 1.93,
+     "a": 17.31,
+     "c": -0.55,
+     "surface_y": -6.031,
+     "waterline_y": 1.091,
+     "surface_minus_waterline_m": -7.121,
+     "nearest_vertex_dist_m": 0.168
+    },
+    {
+     "s": 3.2,
+     "a": 16.35,
+     "c": -1.38,
+     "surface_y": -5.971,
+     "waterline_y": 0.272,
+     "surface_minus_waterline_m": -6.243,
+     "nearest_vertex_dist_m": 0.709
+    },
+    {
+     "s": 4.47,
+     "a": 15.4,
+     "c": -2.21,
+     "surface_y": -5.145,
+     "waterline_y": -0.547,
+     "surface_minus_waterline_m": -4.598,
+     "nearest_vertex_dist_m": 0.097
+    },
+    {
+     "s": 5.74,
+     "a": 14.44,
+     "c": -3.04,
+     "surface_y": -3.994,
+     "waterline_y": -1.366,
+     "surface_minus_waterline_m": -2.628,
+     "nearest_vertex_dist_m": 0.576
+    }
+   ]
+  },
+  "spatial": {
+   "-6.0": {
+    "J1_zigzag_frac": 0.0118,
+    "J3_row_normal_angle_p95_deg": 5.42,
+    "row_edges_gt10deg": 1736
+   },
+   "-4.0": {
+    "J1_zigzag_frac": 0.0218,
+    "J3_row_normal_angle_p95_deg": 5.55,
+    "row_edges_gt10deg": 1118
+   },
+   "-3.0": {
+    "J1_zigzag_frac": 0.0239,
+    "J3_row_normal_angle_p95_deg": 6.95,
+    "row_edges_gt10deg": 1616
+   },
+   "-2.5": {
+    "J1_zigzag_frac": 0.0252,
+    "J3_row_normal_angle_p95_deg": 7.86,
+    "row_edges_gt10deg": 2268
+   },
+   "-2.0": {
+    "J1_zigzag_frac": 0.0322,
+    "J3_row_normal_angle_p95_deg": 9.45,
+    "row_edges_gt10deg": 3076
+   },
+   "-1.5": {
+    "J1_zigzag_frac": 0.0335,
+    "J3_row_normal_angle_p95_deg": 9.97,
+    "row_edges_gt10deg": 3342
+   },
+   "-1.0": {
+    "J1_zigzag_frac": 0.0359,
+    "J3_row_normal_angle_p95_deg": 9.87,
+    "row_edges_gt10deg": 3261
+   },
+   "-0.5": {
+    "J1_zigzag_frac": 0.0557,
+    "J3_row_normal_angle_p95_deg": 11.93,
+    "row_edges_gt10deg": 4315
+   },
+   "+0.0": {
+    "J1_zigzag_frac": 0.0576,
+    "J3_row_normal_angle_p95_deg": 12.51,
+    "row_edges_gt10deg": 4321
+   }
+  },
+  "crest_angle": {
+   "159": {
+    "theta_min_deg": 101.0,
+    "theta_at_m1_deg": 111.7,
+    "theta_tstar_deg": 101.0,
+    "sharpen_last_1s_deg": 10.7,
+    "theta_at": {
+     "-1.50": 117.5,
+     "-1.00": 111.7,
+     "-0.75": 109.3,
+     "-0.50": 105.1,
+     "-0.25": 102.8,
+     "+0.00": 101.0
+    }
+   },
+   "192": {
+    "theta_min_deg": 101.2,
+    "theta_at_m1_deg": 110.1,
+    "theta_tstar_deg": 101.2,
+    "sharpen_last_1s_deg": 8.8,
+    "theta_at": {
+     "-1.50": 112.3,
+     "-1.00": 110.1,
+     "-0.75": 109.2,
+     "-0.50": 106.0,
+     "-0.25": 103.3,
+     "+0.00": 101.2
+    }
+   }
+  },
+  "seconds": 63.9,
+  "rise_vs_C1": {
+   "159": {
+    "max_abs_dH_m": 0.381,
+    "max_abs_dH_over_Hf": 0.0183
+   },
+   "192": {
+    "max_abs_dH_m": 0.015,
+    "max_abs_dH_over_Hf": 0.0007
+   }
+  }
+ },
+ "_definitions_ja": "設計28修正01 試行D：依頼の目標（M1〜M4）を、パッケージ（Unity の再生器と同じ Hermite）から測り、試行C の C1 と並べる検査器。\n\n生成器のコードは読まない（パッケージ・時間曲線・K* のフォルダーだけ）。K* は版ごとに ds28r01d_gates.patch_kstar で差し替えて読む。\n測るもの（行 159＝主断面、192＝峰の行。t は画面の時刻（その版の既定の時間曲線）、τ は物理の時刻）：\n  M1 小山→C 字：前面の回りの角 Θ が 45° を越える画面の時刻から、張り出し Lo が 0.15H を越える画面の時刻まで（Q17 の原型の定義、作業場所\n     q17/pace/secmetrics.py と同じ式。前の足の列は K* の j_E）。形の変わる速さ vdef_up（0.3H より上の頂点の、相似の動きを除いた速さの\n     RMS）の最大と、その立ち上がり（d vdef_up/dt の最大＝速さの段）。上昇：頂の高さ H(τ) の C1 との差の最大（物理の時刻）、画面の\n     0.4 → 0.8 Hf の時間。唇の見える始まり：試行B と同じ（唇先が運びの始まりから前へ 0.5 m、かつ Lo ≥ 0.1H が t* まで続く）の H/Hf。\n  M2 唇（巻きの行の jt+1..rim）と管の天井（rim+1..ja−1）のすべての点：自分の頂点（最高点）の後の再上昇（その後の最小からの上がりの最大）と、\n     0.25 s の二次の当てはめの上下の加速度の最大（物理の時刻と、画面＝既定の時間曲線、止めるための区間の前まで）。0.05 m/s² を超える点の数。\n     試行C の巻き下がりの検査（ds28r01c_curl.row_curl：伸び出しと巻き下がりが一緒か、押し下げが後ろに寄っていないか）。\n  M3 前の谷：行 100・130・159・192・214 の、足（列 j_E）から前 30 m の中の最低点の深さ D(τ)（0.1 s おき、τ −8〜0）、t* の D/H、底の足からの距離、\n     半分の深さの幅、背後の谷、Spearman ρ(H, D)、D(t*)/max D、D(−3)/D(t*)。台座：t* で前の足の列の組 Δa < 0.05 m・Δy > 0.5 m の数、\n     y < 4 m の前面の傾きの最大。座席の船：t* の竜骨の線の下の面の高さと水線（竜骨＋喫水）の差（記録）。\n  M4 行の間のジグザグ J1（隣の行と符号が交互の凸凹の割合）と行の間の法線の角の p95（J3）。τ −6〜0。量子化の刻み。背の保持：頂の角 θc の\n     τ −1.5〜0 の最小と θc(−1) − θc(0)（行 159・192）。\n使い方（リポジトリの根で）：py -3.10 -B Tools/GWWaveGen/ds28r01d/ds28r01d_review.py --tags C1,D --out Unity/Build/Design/28R01D/review/review_D.json\n  版は TAGS の表（パッケージ・時間曲線・K*）か --tag-spec 'D2=<pkg>|<warp>|<kstar>|<carry_start_sigma>' で足す。\n"
+}

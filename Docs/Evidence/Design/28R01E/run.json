@@ -1,0 +1,332 @@
+{
+ "schema": "GreatWave.Design28R01.run/1",
+ "number": "設計28修正01 試行E",
+ "tools": {
+  "python": "py -3.10（numpy 2.2.6）",
+  "blender": "5.2.2（粘土の描画、Workbench）"
+ },
+ "commands": [
+  "py -3.10 -B Tools/GWWaveGen/ds28r01e/ds28r01e_generate.py --name E/art_on",
+  "py -3.10 -B Tools/GWWaveGen/ds28r01e/ds28r01e_pipeline.py --tag E",
+  "py -3.10 -B Tools/GWWaveGen/ds28r01e/ds28r01e_review.py --tags C1,D,E --out Unity/Build/Design/28R01E/review/review_E.json"
+ ],
+ "not_in_repo_ja": "粘土の描画の台本（clay_render_e.py など）はリポジトリの外の作業場所にあり、コミットしない（記録 第 6 節の 6）。table_D_vs_E.json を作った台本もない（第 6 節の 11）。",
+ "inputs_sha256": {
+  "Tools/GWWaveGen/ds28r01e/ds28r01e_model.py": "50edb2bf338ad9ccd7316d0d69219ff4ac9edffa5b36701cd49a8fdb694918ce",
+  "Tools/GWWaveGen/ds28r01e/ds28r01e_params.json": "1d26212c098fbbbe5a333859dba2cdc53a277fe043a5da9818c526b48a38daf6",
+  "Tools/GWWaveGen/ds28r01e/ds28r01e_generate.py": "141744281ed50a365877ef73ca7d0b6eda69d51fcab7ff0943df18e589b4c5f4",
+  "Tools/GWWaveGen/ds28r01e/timewarp_default_E.json": "fe252122e1081b154635db56be100915388ed43c654f948437a0245b875b599c",
+  "Unity/Build/Design/28R01D/kstar_foot/kstar_a45.gwb": "c26825ff8b7cfd897d74a0fd19ce79cbaa27462684df81f8773714373d5eaef7"
+ },
+ "files": [
+  {
+   "file": "table_D_vs_E.json",
+   "source": "Unity/Build/Design/28R01E/review/table_D_vs_E.json",
+   "source_bytes": 17422,
+   "source_sha256": "354a1ef0f377b564d32e2d08b7e62df83e5fc99cee61dcdce200921ab27dfe0b",
+   "bytes": 17422,
+   "sha256": "354a1ef0f377b564d32e2d08b7e62df83e5fc99cee61dcdce200921ab27dfe0b"
+  },
+  {
+   "file": "review_E.json",
+   "source": "Unity/Build/Design/28R01E/review/review_E.json",
+   "source_bytes": 58420,
+   "source_sha256": "4fd1a517bb3cfee1e23148689b28f8f815ab71e5c5b1b8c662ff1839a0da1979",
+   "bytes": 58420,
+   "sha256": "4fd1a517bb3cfee1e23148689b28f8f815ab71e5c5b1b8c662ff1839a0da1979"
+  },
+  {
+   "file": "fig_review_E.png",
+   "source": "Unity/Build/Design/28R01E/review/fig_review_E.png",
+   "source_bytes": 175220,
+   "source_sha256": "f08340fcdfc3b75a48886e8f0215a5678274cd75f9d02769d2d83612ff645ece",
+   "source_px": [
+    1900,
+    2298
+   ],
+   "resized_to_px": [
+    893,
+    1080
+   ],
+   "bytes": 244505,
+   "sha256": "5824a073349884c445f75f1c86f8dc236a0dc72d2bc3feac866d8d47acb93124"
+  },
+  {
+   "file": "fig_strip_C1_D_E.png",
+   "source": "Unity/Build/Design/28R01E/review/fig_strip_C1_D_E.png",
+   "source_bytes": 120692,
+   "source_sha256": "09c36a9b689df1aae787b2de2d38a82519a5e0c3d24c7d28d8f1a3e9b50c3137",
+   "source_px": [
+    3960,
+    620
+   ],
+   "resized_to_px": [
+    1920,
+    301
+   ],
+   "bytes": 252902,
+   "sha256": "572e0eb2e5201ef353ab14717242afc8919d7aca179d1c3dc479beec900ed337"
+  },
+  {
+   "file": "overlap_default.md",
+   "source": "Unity/Build/Design/28R01E/E/overlap/overlap_default.md",
+   "source_bytes": 21145,
+   "source_sha256": "4c9b80790cb1cbe4fd9df6c9abc0d3d8e591a31b576976b91a0b171f7e272d49",
+   "bytes": 21145,
+   "sha256": "4c9b80790cb1cbe4fd9df6c9abc0d3d8e591a31b576976b91a0b171f7e272d49"
+  },
+  {
+   "file": "overlap_default_fig.png",
+   "source": "Unity/Build/Design/28R01E/E/overlap/overlap_default_fig.png",
+   "source_bytes": 64973,
+   "source_sha256": "97a4677ea4eb2883a6f71df32421a18ea551612c36f52d914cad6ea2db81b10c",
+   "source_px": [
+    1600,
+    900
+   ],
+   "bytes": 64973,
+   "sha256": "97a4677ea4eb2883a6f71df32421a18ea551612c36f52d914cad6ea2db81b10c"
+  },
+  {
+   "file": "gates_default_ds27.md",
+   "source": "Unity/Build/Design/28R01E/E/gates/default_ds27.md",
+   "source_bytes": 11372,
+   "source_sha256": "4d52e1b507624634092ee4a249cf58a8a07390d44304a3294aaf5ffa10a24344",
+   "bytes": 11372,
+   "sha256": "4d52e1b507624634092ee4a249cf58a8a07390d44304a3294aaf5ffa10a24344"
+  },
+  {
+   "file": "gates_default.json",
+   "source": "Unity/Build/Design/28R01E/E/gates/default.json",
+   "source_bytes": 43160,
+   "source_sha256": "2c4bd2bc77c9f6b44637744d8e975967ab03d2378fe158cb18f3cc2d92107cdb",
+   "bytes": 43160,
+   "sha256": "2c4bd2bc77c9f6b44637744d8e975967ab03d2378fe158cb18f3cc2d92107cdb"
+  },
+  {
+   "file": "gates_default_extra.json",
+   "source": "Unity/Build/Design/28R01E/E/gates/default_extra.json",
+   "source_bytes": 20579,
+   "source_sha256": "3319f61dc884c83ce3d2e37b12fd53ca093702f5c9f803dff3492c49f81f6208",
+   "bytes": 20579,
+   "sha256": "3319f61dc884c83ce3d2e37b12fd53ca093702f5c9f803dff3492c49f81f6208"
+  },
+  {
+   "file": "gates_default_fine.json",
+   "source": "Unity/Build/Design/28R01E/E/gates/default_fine.json",
+   "source_bytes": 43293,
+   "source_sha256": "86b3b2ed63c1266a12e4f41156501cd5b3fa8f9ff14aa84ab81f91d7de02db8d",
+   "bytes": 43293,
+   "sha256": "86b3b2ed63c1266a12e4f41156501cd5b3fa8f9ff14aa84ab81f91d7de02db8d"
+  },
+  {
+   "file": "gates_default_fine_stop13.json",
+   "source": "Unity/Build/Design/28R01E/E/gates/default_fine_stop13.json",
+   "source_bytes": 43270,
+   "source_sha256": "3481d9739395963c7525c2b57173789c20a3d0a912a59debc632211c95ebdb69",
+   "bytes": 43270,
+   "sha256": "3481d9739395963c7525c2b57173789c20a3d0a912a59debc632211c95ebdb69"
+  },
+  {
+   "file": "gates_alt_fine.json",
+   "source": "Unity/Build/Design/28R01E/E/gates/alt_fine.json",
+   "source_bytes": 43264,
+   "source_sha256": "11dec33e06bb3d7e9a73d3cbd660b6d58d20c0f506dfaa0888a9fc73119aaefa",
+   "bytes": 43264,
+   "sha256": "11dec33e06bb3d7e9a73d3cbd660b6d58d20c0f506dfaa0888a9fc73119aaefa"
+  },
+  {
+   "file": "gates_default_q13.json",
+   "source": "Unity/Build/Design/28R01E/E/gates/default_q13.json",
+   "source_bytes": 46391,
+   "source_sha256": "68f240ba7729cb307b86555159e63660603062f2d6b24da12f96e04533bf0866",
+   "bytes": 46391,
+   "sha256": "68f240ba7729cb307b86555159e63660603062f2d6b24da12f96e04533bf0866"
+  },
+  {
+   "file": "p20_lean_with_height.json",
+   "source": "Unity/Build/Design/28R01E/p20/lean_with_height.json",
+   "source_bytes": 2253,
+   "source_sha256": "f88b6c9adc195a8ecb7796966acdb1a6f8d498f3e9a84f949a75a88f94fd61a7",
+   "bytes": 2253,
+   "sha256": "f88b6c9adc195a8ecb7796966acdb1a6f8d498f3e9a84f949a75a88f94fd61a7"
+  },
+  {
+   "file": "p20_tower_peak_off.json",
+   "source": "Unity/Build/Design/28R01E/p20/tower_peak_off.json",
+   "source_bytes": 2269,
+   "source_sha256": "e9e2212663bc328a54da630008cf57a7ba6a050cc2c6531425548cde591ef03d",
+   "bytes": 2269,
+   "sha256": "e9e2212663bc328a54da630008cf57a7ba6a050cc2c6531425548cde591ef03d"
+  },
+  {
+   "file": "p20_curl_lead.json",
+   "source": "Unity/Build/Design/28R01E/p20/curl_lead.json",
+   "source_bytes": 2219,
+   "source_sha256": "681b90a873676ea40c507c5287d3294152a5d1c87ba8f410c104b069e8c114d5",
+   "bytes": 2219,
+   "sha256": "681b90a873676ea40c507c5287d3294152a5d1c87ba8f410c104b069e8c114d5"
+  },
+  {
+   "file": "p20_back_hold_water.json",
+   "source": "Unity/Build/Design/28R01E/p20/back_hold_water.json",
+   "source_bytes": 2207,
+   "source_sha256": "f7197fc23099efd6eee63013c42eda18301af6897a40a004a412da41aad37c30",
+   "bytes": 2207,
+   "sha256": "f7197fc23099efd6eee63013c42eda18301af6897a40a004a412da41aad37c30"
+  },
+  {
+   "file": "p20_timewarp.json",
+   "source": "Unity/Build/Design/28R01E/p20/timewarp.json",
+   "source_bytes": 322,
+   "source_sha256": "69602146b3c6e876438acfcd8afb7c1aa9235210f02c5875f44cc2af9281932f",
+   "bytes": 322,
+   "sha256": "69602146b3c6e876438acfcd8afb7c1aa9235210f02c5875f44cc2af9281932f"
+  },
+  {
+   "file": "ds28r01e_generate_log.json",
+   "source": "Unity/Build/Design/28R01E/E/art_on/ds28r01e_generate_log.json",
+   "source_bytes": 51211,
+   "source_sha256": "5dcbf748f6e1ece7fe48f45496cf22604341935b696bbc272f74210a41df3389",
+   "bytes": 51211,
+   "sha256": "5dcbf748f6e1ece7fe48f45496cf22604341935b696bbc272f74210a41df3389"
+  },
+  {
+   "file": "ds27_checks.json",
+   "source": "Unity/Build/Design/28R01E/E/art_on/ds27_checks.json",
+   "source_bytes": 37909,
+   "source_sha256": "50700018b7c28fd415d859ef3e376bc2aea964b9e09d14b7f43f3da0accfbc6e",
+   "bytes": 37909,
+   "sha256": "50700018b7c28fd415d859ef3e376bc2aea964b9e09d14b7f43f3da0accfbc6e"
+  },
+  {
+   "file": "clay_3views_D_vs_E_small.mp4",
+   "source": "Unity/Build/Design/28R01E/clay/clay_3views_D_vs_E_small.mp4",
+   "source_bytes": 575413,
+   "source_sha256": "4dca5caa91a4db0d900e9bc4fc211ad5d55d1d746b0832ce5867a1c4867fda73",
+   "bytes": 575413,
+   "sha256": "4dca5caa91a4db0d900e9bc4fc211ad5d55d1d746b0832ce5867a1c4867fda73"
+  },
+  {
+   "file": "sections_t3p5_7p5_C1_D_E.png",
+   "source": "Unity/Build/Design/28R01E/clay/sections_t3p5_7p5_C1_D_E.png",
+   "source_bytes": 136264,
+   "source_sha256": "d0b0f83555e0d37177f82b8d60e34b5de6b961fd0db30bd2991133e7bd372958",
+   "source_px": [
+    3540,
+    1162
+   ],
+   "resized_to_px": [
+    1920,
+    630
+   ],
+   "bytes": 325835,
+   "sha256": "e0361dd92d6013e375834cce68f032bba64fad90c2c1448fb6cf7c612254e8ba"
+  },
+  {
+   "file": "sections_t3p5_7p5_C1_D_E.json",
+   "source": "Unity/Build/Design/28R01E/clay/sections_t3p5_7p5_C1_D_E.json",
+   "source_bytes": 12581,
+   "source_sha256": "a5447c0cf83d20a6e5fb7f47172d59d830928ab9c8b379eedf95a8f8f07bfbc6",
+   "bytes": 12581,
+   "sha256": "a5447c0cf83d20a6e5fb7f47172d59d830928ab9c8b379eedf95a8f8f07bfbc6"
+  },
+  {
+   "file": "pixel_pops_side_follow.json",
+   "source": "Unity/Build/Design/28R01E/clay/pixel_pops_side_follow.json",
+   "source_bytes": 1669,
+   "source_sha256": "d566f3058b431ff81e05887bcc8d8b03323f3e8bfea2348ace01938b91c011a7",
+   "bytes": 1669,
+   "sha256": "d566f3058b431ff81e05887bcc8d8b03323f3e8bfea2348ace01938b91c011a7"
+  },
+  {
+   "file": "sheet_3views_screen_t_D_E.png",
+   "source": "Unity/Build/Design/28R01E/clay/sheet_3views_screen_t_D_E.png",
+   "source_bytes": 1211447,
+   "source_sha256": "cf7f11e908bc22a7a82158998ee78904a6e7bebfb4d8b0b1ffab4b6d7f57e88e",
+   "source_px": [
+    3230,
+    1130
+   ],
+   "resized_to_px": [
+    1920,
+    672
+   ],
+   "bytes": 656865,
+   "sha256": "64f30a08353366913d6c98d19fb251335d75cdc829d084950dd65a65aad1c523"
+  },
+  {
+   "file": "closeups_lip_t7_12_C1_D_E.png",
+   "source": "Unity/Build/Design/28R01E/clay/closeups_lip_t7_12_C1_D_E.png",
+   "source_bytes": 1691181,
+   "source_sha256": "519a4dfdd497655ee5a79f056a069c9fb747748d2eea146a789a3daf3d2f46a8",
+   "source_px": [
+    3080,
+    962
+   ],
+   "resized_to_px": [
+    1920,
+    600
+   ],
+   "bytes": 868512,
+   "sha256": "4a581d1a7abb184a330f99a5df7573990df40d142e9a4a5e03f371af0be72484"
+  },
+  {
+   "file": "trialD_review_D.json",
+   "source": "Unity/Build/Design/28R01D/review/review_D.json",
+   "source_bytes": 26189,
+   "source_sha256": "5cc53b979655a6cbec0a7519c10aa753dab4f01b371c207a3f2e963ea078c23c",
+   "bytes": 26189,
+   "sha256": "5cc53b979655a6cbec0a7519c10aa753dab4f01b371c207a3f2e963ea078c23c"
+  },
+  {
+   "file": "trialD_fig_review_D.png",
+   "source": "Unity/Build/Design/28R01D/review/fig_review_D.png",
+   "source_bytes": 165533,
+   "source_sha256": "ce8ed537a025532ac43a566c98c7930ab399d024d096533a5ea7f17b59b04bc0",
+   "source_px": [
+    1900,
+    2298
+   ],
+   "resized_to_px": [
+    893,
+    1080
+   ],
+   "bytes": 202665,
+   "sha256": "629fc4a3b7fe839f78c08dadbeedd69934743d8477d7ed0421e1586d5295bd07"
+  },
+  {
+   "file": "trialC_summary_ds28r01c.json",
+   "source": "Unity/Build/Design/28R01C/review/summary_ds28r01c.json",
+   "source_bytes": 78490,
+   "source_sha256": "5df2fb1e3b81822ca82daca68a8ff1a32228bdad9d8abd96c93dd5de85f3614e",
+   "bytes": 78490,
+   "sha256": "5df2fb1e3b81822ca82daca68a8ff1a32228bdad9d8abd96c93dd5de85f3614e"
+  },
+  {
+   "file": "trialC_fig_ds28r01c_curl.png",
+   "source": "Unity/Build/Design/28R01C/review/fig_ds28r01c_curl.png",
+   "source_bytes": 280496,
+   "source_sha256": "718703928366d5bdc42edff7bb8361eb7c11ee2882304ebb92f613c7d53eaa5a",
+   "source_px": [
+    2300,
+    2694
+   ],
+   "resized_to_px": [
+    922,
+    1080
+   ],
+   "bytes": 291603,
+   "sha256": "e5756e6312861bfa0617fa551a8f42d0f1ec68b5f7a8217dd8f09a007de3a7f3"
+  },
+  {
+   "file": "trialBC_summary_indep_q15c.json",
+   "source": "Unity/Build/Design/28R01C_indep/summary_indep_q15c.json",
+   "source_bytes": 109513,
+   "source_sha256": "500e8729f496bf3e7ca3b0d1561329ab0e644c7681431c0df797e5d4c5c0b632",
+   "bytes": 109513,
+   "sha256": "500e8729f496bf3e7ca3b0d1561329ab0e644c7681431c0df797e5d4c5c0b632"
+  }
+ ],
+ "made_utc": "2026-09-29T06:47:24.567138Z"
+}

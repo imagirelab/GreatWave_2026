@@ -1,0 +1,914 @@
+{
+ "note_ja": "設計28修正01 試行E（1 回目の繰り返しの後の最終）と試行D・C1 の比べ。値は ds28r01e_review.py（パッケージの Hermite の読み）、関門は ds28r01d_gates.py（16 bit の読み）と ds28r01e_gates.py（精度の層の読み）。行 159/192",
+ "rows": [
+  {
+   "item": "E1 Theta90 H/Hf",
+   "criterion": ">= 0.72",
+   "C1": [
+    0.737,
+    0.727
+   ],
+   "D": [
+    0.549,
+    0.538
+   ],
+   "E_it0": [
+    0.736,
+    0.74
+   ],
+   "E": [
+    0.736,
+    0.74
+   ]
+  },
+  {
+   "item": "E1 Theta45 t [s]",
+   "criterion": "early",
+   "C1": [
+    5.447,
+    5.223
+   ],
+   "D": [
+    3.153,
+    2.992
+   ],
+   "E_it0": [
+    2.887,
+    2.72
+   ],
+   "E": [
+    2.887,
+    2.72
+   ]
+  },
+  {
+   "item": "E1 Theta 85-110 screen s",
+   "criterion": "short",
+   "C1": [
+    0.38,
+    0.32
+   ],
+   "D": [
+    2.02,
+    2.12
+   ],
+   "E_it0": [
+    1.08,
+    1.27
+   ],
+   "E": [
+    1.08,
+    1.27
+   ]
+  },
+  {
+   "item": "E1 theta_c min before lip (Lo<0.05H) deg",
+   "criterion": ">= 125",
+   "C1": [
+    105.6,
+    104.0
+   ],
+   "D": [
+    109.2,
+    108.0
+   ],
+   "E_it0": [
+    132.9,
+    127.1
+   ],
+   "E": [
+    133.2,
+    127.4
+   ]
+  },
+  {
+   "item": "M1 hump->C screen s",
+   "criterion": ">= 3.0",
+   "C1": [
+    1.098,
+    1.02
+   ],
+   "D": [
+    3.298,
+    3.529
+   ],
+   "E_it0": [
+    3.262,
+    3.403
+   ],
+   "E": [
+    3.262,
+    3.403
+   ]
+  },
+  {
+   "item": "M1 vdef max m/s",
+   "criterion": "<= 0.6 x C1 (2.74/3.02)",
+   "C1": [
+    4.56,
+    5.027
+   ],
+   "D": [
+    1.665,
+    1.892
+   ],
+   "E_it0": [
+    1.654,
+    1.65
+   ],
+   "E": [
+    1.653,
+    1.647
+   ]
+  },
+  {
+   "item": "M1 vdef rise max m/s2",
+   "criterion": "<= 2.0",
+   "C1": [
+    7.257,
+    7.499
+   ],
+   "D": [
+    1.376,
+    1.488
+   ],
+   "E_it0": [
+    1.507,
+    1.71
+   ],
+   "E": [
+    1.415,
+    1.735
+   ]
+  },
+  {
+   "item": "M1 rise 0.4->0.8 Hf screen s",
+   "criterion": "record (C1 2.42/2.38)",
+   "C1": [
+    2.419,
+    2.378
+   ],
+   "D": [
+    3.418,
+    3.345
+   ],
+   "E_it0": [
+    3.068,
+    2.946
+   ],
+   "E": [
+    3.068,
+    2.946
+   ]
+  },
+  {
+   "item": "E2 share after t10 (checker col 199)",
+   "criterion": "row 192 <= 0.50",
+   "C1": [
+    0.55,
+    0.537
+   ],
+   "D": [
+    0.551,
+    0.661
+   ],
+   "E_it0": [
+    0.291,
+    0.451
+   ],
+   "E": [
+    0.291,
+    0.451
+   ]
+  },
+  {
+   "item": "E2 share after t10 (checker col 200)",
+   "criterion": "row 192 <= 0.50",
+   "C1": [
+    0.545,
+    0.537
+   ],
+   "D": [
+    0.547,
+    0.661
+   ],
+   "E_it0": [
+    0.29,
+    0.452
+   ],
+   "E": [
+    0.29,
+    0.452
+   ]
+  },
+  {
+   "item": "E2 share after t10 (checker col 223)",
+   "criterion": "row 192 <= 0.50",
+   "C1": [
+    0.492,
+    0.551
+   ],
+   "D": [
+    0.542,
+    0.695
+   ],
+   "E_it0": [
+    0.318,
+    0.485
+   ],
+   "E": [
+    0.318,
+    0.485
+   ]
+  },
+  {
+   "item": "E2 share after t10 (trial-C reading)",
+   "criterion": "record",
+   "C1": [
+    0.541,
+    0.49
+   ],
+   "D": [
+    0.536,
+    0.571
+   ],
+   "E_it0": [
+    0.31,
+    0.387
+   ],
+   "E": [
+    0.31,
+    0.387
+   ]
+  },
+  {
+   "item": "lip visible H/Hf (col 199, tip 1 m)",
+   "criterion": "<= 0.85/0.91",
+   "C1": [
+    0.834,
+    0.887
+   ],
+   "D": [
+    0.846,
+    0.904
+   ],
+   "E_it0": [
+    0.765,
+    0.897
+   ],
+   "E": [
+    0.765,
+    0.897
+   ]
+  },
+  {
+   "item": "E6 sharpen last 2 s deg",
+   "criterion": "<= 5",
+   "C1": [
+    13.24,
+    12.44
+   ],
+   "D": [
+    10.0,
+    8.63
+   ],
+   "E_it0": [
+    0.28,
+    -0.45
+   ],
+   "E": [
+    0.28,
+    -0.45
+   ]
+  },
+  {
+   "item": "E4 tip screen accel last 1 s, wave frame m/s2",
+   "criterion": "<= 8 (J7)",
+   "C1": [
+    13.56,
+    13.06
+   ],
+   "D": [
+    13.95,
+    14.1
+   ],
+   "E_it0": [
+    2.91,
+    3.37
+   ],
+   "E": [
+    2.9,
+    3.36
+   ]
+  },
+  {
+   "item": "E4 tip screen accel last 1 s, ground m/s2",
+   "criterion": "record",
+   "C1": [
+    39.29,
+    36.93
+   ],
+   "D": [
+    39.06,
+    37.43
+   ],
+   "E_it0": [
+    12.29,
+    11.94
+   ],
+   "E": [
+    12.3,
+    11.95
+   ]
+  },
+  {
+   "item": "crest height vs C1 max |dH|/Hf",
+   "criterion": "<= 0.02",
+   "C1": null,
+   "D": [
+    0.0183,
+    0.0007
+   ],
+   "E_it0": [
+    0.0184,
+    0.0007
+   ],
+   "E": [
+    0.0184,
+    0.0007
+   ]
+  },
+  {
+   "item": "front trough D/H at t*",
+   "criterion": "0.30",
+   "C1": [
+    -0.0,
+    -0.0
+   ],
+   "D": [
+    0.3,
+    0.3
+   ],
+   "E_it0": [
+    0.3,
+    0.3
+   ],
+   "E": [
+    0.3,
+    0.3
+   ]
+  }
+ ],
+ "C1": {
+  "warp": {
+   "t_star": 12.0,
+   "r0": 0.5,
+   "stop_start_t": 11.625,
+   "stop_len_s": 0.375,
+   "tau_at_t0": -9.0917,
+   "tau_at_t10": -0.9
+  },
+  "quant_step_mm": 1.6931,
+  "j5": {
+   "fine": {
+    "window_t": [
+     7.0,
+     11.55
+    ],
+    "frames": 272,
+    "knot_frames": 145,
+    "p99_knot_median_deg": 6.7276,
+    "p99_between_median_deg": 1.2124,
+    "ratio_knot_over_between": 5.549,
+    "p99_max_deg": 15.2326
+   },
+   "fine_before_stop": {
+    "window_t": [
+     7.0,
+     11.55
+    ],
+    "frames": 272,
+    "knot_frames": 145,
+    "p99_knot_median_deg": 6.7276,
+    "p99_between_median_deg": 1.2124,
+    "ratio_knot_over_between": 5.549,
+    "p99_max_deg": 15.2326
+   },
+   "hi_only": {
+    "window_t": [
+     7.0,
+     11.55
+    ],
+    "frames": 272,
+    "knot_frames": 145,
+    "p99_knot_median_deg": 6.7276,
+    "p99_between_median_deg": 1.2124,
+    "ratio_knot_over_between": 5.549,
+    "p99_max_deg": 15.2326
+   }
+  },
+  "J1_max": 0.1943,
+  "J3_p95_max": 20.65,
+  "M2": {
+   "lip": {
+    "n": 16335.0,
+    "rerise_gt_1cm": 0.0,
+    "rerise_max_m": 0.0001,
+    "accp_gt_005": 24.0,
+    "accp_max": 0.5924,
+    "accs_gt_005": 26.0,
+    "accs_gt_05": 0.0,
+    "accs_max": 0.3457
+   },
+   "tube": {
+    "n": 17867.0,
+    "rerise_gt_1cm": 779.0,
+    "rerise_max_m": 0.1203,
+    "accp_gt_005": 2781.0,
+    "accp_max": 10.8028,
+    "accs_gt_005": 2737.0,
+    "accs_gt_05": 1749.0,
+    "accs_max": 3.1749
+   },
+   "worst": {
+    "lip_accs_max": {
+     "row": 159,
+     "col": 224,
+     "apex_tau": -2.288,
+     "value": 0.346
+    },
+    "lip_accp_max": {
+     "row": 159,
+     "col": 224,
+     "apex_tau": -2.288,
+     "value": 0.592
+    },
+    "tube_accp_max": {
+     "row": 166,
+     "col": 260,
+     "apex_tau": -2.342,
+     "value": 10.803
+    },
+    "tube_accs_max": {
+     "row": 167,
+     "col": 260,
+     "apex_tau": -2.346,
+     "value": 3.175
+    },
+    "tube_rerise_max_m": {
+     "row": 176,
+     "col": 261,
+     "apex_tau": -2.425,
+     "value": 0.12
+    },
+    "lip_rerise_max_m": {
+     "row": 184,
+     "col": 145,
+     "apex_tau": -0.942,
+     "value": 0.0
+    }
+   },
+   "reading_ja": "0.25 s の二次の当てはめ（Savitzky–Golay、240 Hz）。画面は既定の時間曲線、止めるための区間の前まで（P16 と同じ）。許容 0.05 m/s²"
+  },
+  "M2_before_stop": null,
+  "gpu": {
+   "layer_mib": 0.7324,
+   "texture2darray_mib": 191.16,
+   "texture2darray_readable_mib": 382.32,
+   "twhite_mib": 0.366,
+   "budget_mib": 512,
+   "note_ja": "RGBA64 の Texture2DArray（層 × 400 × 240 × 8 バイト）。読み取り可能のままなら CPU の写しで 2 倍（見積もり、Unity の実測は設計29）。法線はパッケージに入れない（再生側で三角形から作る）。"
+  }
+ },
+ "D": {
+  "warp": {
+   "t_star": 12.0,
+   "r0": 0.5,
+   "stop_start_t": 11.625,
+   "stop_len_s": 0.375,
+   "tau_at_t0": -7.9853,
+   "tau_at_t10": -0.9
+  },
+  "quant_step_mm": 1.6931,
+  "j5": {
+   "fine": {
+    "window_t": [
+     7.0,
+     11.55
+    ],
+    "frames": 272,
+    "knot_frames": 73,
+    "p99_knot_median_deg": 2.0047,
+    "p99_between_median_deg": 1.1852,
+    "ratio_knot_over_between": 1.691,
+    "p99_max_deg": 6.7484
+   },
+   "fine_before_stop": {
+    "window_t": [
+     7.0,
+     11.55
+    ],
+    "frames": 272,
+    "knot_frames": 73,
+    "p99_knot_median_deg": 2.0047,
+    "p99_between_median_deg": 1.1852,
+    "ratio_knot_over_between": 1.691,
+    "p99_max_deg": 6.7484
+   },
+   "hi_only": {
+    "window_t": [
+     7.0,
+     11.55
+    ],
+    "frames": 272,
+    "knot_frames": 73,
+    "p99_knot_median_deg": 2.0047,
+    "p99_between_median_deg": 1.1852,
+    "ratio_knot_over_between": 1.691,
+    "p99_max_deg": 6.7484
+   }
+  },
+  "J1_max": 0.0576,
+  "J3_p95_max": 12.51,
+  "M2": {
+   "lip": {
+    "n": 16335.0,
+    "rerise_gt_1cm": 0.0,
+    "rerise_max_m": 0.0001,
+    "accp_gt_005": 0.0,
+    "accp_max": 0.0465,
+    "accs_gt_005": 3.0,
+    "accs_gt_05": 0.0,
+    "accs_max": 0.0552
+   },
+   "tube": {
+    "n": 17867.0,
+    "rerise_gt_1cm": 0.0,
+    "rerise_max_m": 0.0001,
+    "accp_gt_005": 3.0,
+    "accp_max": 0.0552,
+    "accs_gt_005": 11.0,
+    "accs_gt_05": 0.0,
+    "accs_max": 0.0553
+   },
+   "worst": {
+    "lip_accs_max": {
+     "row": 157,
+     "col": 220,
+     "apex_tau": -2.337,
+     "value": 0.055
+    },
+    "lip_accp_max": {
+     "row": 123,
+     "col": 164,
+     "apex_tau": -1.942,
+     "value": 0.047
+    },
+    "tube_accp_max": {
+     "row": 123,
+     "col": 226,
+     "apex_tau": -1.954,
+     "value": 0.055
+    },
+    "tube_accs_max": {
+     "row": 175,
+     "col": 260,
+     "apex_tau": -2.429,
+     "value": 0.055
+    },
+    "tube_rerise_max_m": {
+     "row": 151,
+     "col": 242,
+     "apex_tau": -2.079,
+     "value": 0.0
+    },
+    "lip_rerise_max_m": {
+     "row": 176,
+     "col": 152,
+     "apex_tau": -2.392,
+     "value": 0.0
+    }
+   },
+   "reading_ja": "0.25 s の二次の当てはめ（Savitzky–Golay、240 Hz）。画面は既定の時間曲線、止めるための区間の前まで（P16 と同じ）。許容 0.05 m/s²"
+  },
+  "M2_before_stop": null,
+  "gpu": {
+   "layer_mib": 0.7324,
+   "texture2darray_mib": 133.3,
+   "texture2darray_readable_mib": 266.6,
+   "twhite_mib": 0.366,
+   "budget_mib": 512,
+   "note_ja": "RGBA64 の Texture2DArray（層 × 400 × 240 × 8 バイト）。読み取り可能のままなら CPU の写しで 2 倍（見積もり、Unity の実測は設計29）。法線はパッケージに入れない（再生側で三角形から作る）。"
+  }
+ },
+ "E_it0": {
+  "warp": {
+   "t_star": 12.0,
+   "r0": 0.5,
+   "stop_start_t": 10.8708,
+   "stop_len_s": 1.1292,
+   "tau_at_t0": -7.8893,
+   "tau_at_t10": -0.7
+  },
+  "quant_step_mm": 0.0066,
+  "j5": {
+   "fine": {
+    "window_t": [
+     7.0,
+     11.55
+    ],
+    "frames": 272,
+    "knot_frames": 77,
+    "p99_knot_median_deg": 0.063,
+    "p99_between_median_deg": 0.0485,
+    "ratio_knot_over_between": 1.299,
+    "p99_max_deg": 0.0881
+   },
+   "fine_before_stop": {
+    "window_t": [
+     7.0,
+     10.821
+    ],
+    "frames": 228,
+    "knot_frames": 69,
+    "p99_knot_median_deg": 0.0654,
+    "p99_between_median_deg": 0.0509,
+    "ratio_knot_over_between": 1.285,
+    "p99_max_deg": 0.0881
+   },
+   "hi_only": {
+    "window_t": [
+     7.0,
+     11.55
+    ],
+    "frames": 272,
+    "knot_frames": 77,
+    "p99_knot_median_deg": 2.038,
+    "p99_between_median_deg": 1.1369,
+    "ratio_knot_over_between": 1.793,
+    "p99_max_deg": 6.4569
+   }
+  },
+  "J1_max": 0.0574,
+  "J3_p95_max": 11.2,
+  "M2": {
+   "lip": {
+    "n": 16335.0,
+    "rerise_gt_1cm": 0.0,
+    "rerise_max_m": 0.0001,
+    "accp_gt_005": 0.0,
+    "accp_max": 0.0006,
+    "accs_gt_005": 8195.0,
+    "accs_gt_05": 5678.0,
+    "accs_max": 2.5907
+   },
+   "tube": {
+    "n": 17867.0,
+    "rerise_gt_1cm": 0.0,
+    "rerise_max_m": 0.0,
+    "accp_gt_005": 0.0,
+    "accp_max": 0.0006,
+    "accs_gt_005": 7333.0,
+    "accs_gt_05": 4844.0,
+    "accs_max": 2.484
+   },
+   "worst": {
+    "lip_accs_max": {
+     "row": 192,
+     "col": 228,
+     "apex_tau": -2.525,
+     "value": 2.591
+    },
+    "lip_accp_max": {
+     "row": 183,
+     "col": 198,
+     "apex_tau": -2.533,
+     "value": 0.001
+    },
+    "tube_accp_max": {
+     "row": 187,
+     "col": 229,
+     "apex_tau": -2.592,
+     "value": 0.001
+    },
+    "tube_accs_max": {
+     "row": 191,
+     "col": 232,
+     "apex_tau": -2.546,
+     "value": 2.484
+    },
+    "lip_rerise_max_m": {
+     "row": 151,
+     "col": 112,
+     "apex_tau": -0.017,
+     "value": 0.0
+    },
+    "tube_rerise_max_m": {
+     "row": 129,
+     "col": 277,
+     "apex_tau": -0.017,
+     "value": 0.0
+    }
+   },
+   "reading_ja": "0.25 s の二次の当てはめ（Savitzky–Golay、240 Hz）。画面は既定の時間曲線、止めるための区間の前まで（P16 と同じ）。許容 0.05 m/s²"
+  },
+  "M2_before_stop": null,
+  "gpu": {
+   "layer_mib": 0.7324,
+   "texture2darray_mib": 130.37,
+   "texture2darray_readable_mib": 260.74,
+   "twhite_mib": 0.366,
+   "budget_mib": 512,
+   "note_ja": "RGBA64 の Texture2DArray（層 × 400 × 240 × 8 バイト）。読み取り可能のままなら CPU の写しで 2 倍（見積もり、Unity の実測は設計29）。法線はパッケージに入れない（再生側で三角形から作る）。",
+   "fine_extra_layer_mib": 0.3662,
+   "fine_texture2darray_mib": 195.56,
+   "fine_texture2darray_readable_mib": 391.11,
+   "fine_note_ja": "精度の層を読む再生器（29修正01）：RGBA64 ＋ RGBA32 の Texture2DArray（層 × 400 × 240 × 12 バイト）。読み取り可能のままなら 2 倍（見積もり）"
+  }
+ },
+ "E": {
+  "warp": {
+   "t_star": 12.0,
+   "r0": 0.5,
+   "stop_start_t": 10.8708,
+   "stop_len_s": 1.1292,
+   "tau_at_t0": -7.8893,
+   "tau_at_t10": -0.7
+  },
+  "quant_step_mm": 0.0066,
+  "j5": {
+   "fine": {
+    "window_t": [
+     7.0,
+     11.55
+    ],
+    "frames": 272,
+    "knot_frames": 86,
+    "p99_knot_median_deg": 0.0597,
+    "p99_between_median_deg": 0.0491,
+    "ratio_knot_over_between": 1.215,
+    "p99_max_deg": 0.0736
+   },
+   "fine_before_stop": {
+    "window_t": [
+     7.0,
+     10.821
+    ],
+    "frames": 228,
+    "knot_frames": 76,
+    "p99_knot_median_deg": 0.0613,
+    "p99_between_median_deg": 0.0539,
+    "ratio_knot_over_between": 1.137,
+    "p99_max_deg": 0.0736
+   },
+   "hi_only": {
+    "window_t": [
+     7.0,
+     11.55
+    ],
+    "frames": 272,
+    "knot_frames": 86,
+    "p99_knot_median_deg": 3.1749,
+    "p99_between_median_deg": 1.5184,
+    "ratio_knot_over_between": 2.091,
+    "p99_max_deg": 3.7752
+   }
+  },
+  "J1_max": 0.0574,
+  "J3_p95_max": 11.2,
+  "M2": {
+   "lip": {
+    "n": 16335.0,
+    "rerise_gt_1cm": 0.0,
+    "rerise_max_m": 0.0001,
+    "accp_gt_005": 0.0,
+    "accp_max": 0.0005,
+    "accs_gt_005": 8194.0,
+    "accs_gt_05": 5682.0,
+    "accs_max": 2.5923
+   },
+   "tube": {
+    "n": 17867.0,
+    "rerise_gt_1cm": 0.0,
+    "rerise_max_m": 0.0,
+    "accp_gt_005": 0.0,
+    "accp_max": 0.0003,
+    "accs_gt_005": 7328.0,
+    "accs_gt_05": 4847.0,
+    "accs_max": 2.4854
+   },
+   "worst": {
+    "lip_rerise_max_m": {
+     "row": 96,
+     "col": 121,
+     "apex_tau": -0.013,
+     "value": 0.0
+    },
+    "lip_accs_max": {
+     "row": 192,
+     "col": 228,
+     "apex_tau": -2.525,
+     "value": 2.592
+    },
+    "lip_accp_max": {
+     "row": 165,
+     "col": 148,
+     "apex_tau": -2.312,
+     "value": 0.001
+    },
+    "tube_accp_max": {
+     "row": 179,
+     "col": 252,
+     "apex_tau": -2.629,
+     "value": 0.0
+    },
+    "tube_accs_max": {
+     "row": 191,
+     "col": 232,
+     "apex_tau": -2.546,
+     "value": 2.485
+    },
+    "tube_rerise_max_m": {
+     "row": 136,
+     "col": 278,
+     "apex_tau": -0.013,
+     "value": 0.0
+    }
+   },
+   "reading_ja": "0.25 s の二次の当てはめ（Savitzky–Golay、240 Hz）。画面は既定の時間曲線、止めるための区間の前まで（P16 と同じ）。許容 0.05 m/s²"
+  },
+  "M2_before_stop": {
+   "lip": {
+    "n": 16335.0,
+    "rerise_gt_1cm": 0.0,
+    "rerise_max_m": 0.0001,
+    "accp_gt_005": 0.0,
+    "accp_max": 0.0005,
+    "accs_gt_005": 0.0,
+    "accs_gt_05": 0.0,
+    "accs_max": 0.0137
+   },
+   "tube": {
+    "n": 17867.0,
+    "rerise_gt_1cm": 0.0,
+    "rerise_max_m": 0.0,
+    "accp_gt_005": 0.0,
+    "accp_max": 0.0003,
+    "accs_gt_005": 0.0,
+    "accs_gt_05": 0.0,
+    "accs_max": 0.0134
+   },
+   "worst": {
+    "lip_rerise_max_m": {
+     "row": 96,
+     "col": 121,
+     "apex_tau": -0.013,
+     "value": 0.0
+    },
+    "lip_accs_max": {
+     "row": 159,
+     "col": 224,
+     "apex_tau": -2.492,
+     "value": 0.014
+    },
+    "lip_accp_max": {
+     "row": 165,
+     "col": 148,
+     "apex_tau": -2.312,
+     "value": 0.001
+    },
+    "tube_accp_max": {
+     "row": 179,
+     "col": 252,
+     "apex_tau": -2.629,
+     "value": 0.0
+    },
+    "tube_accs_max": {
+     "row": 159,
+     "col": 226,
+     "apex_tau": -2.492,
+     "value": 0.013
+    },
+    "tube_rerise_max_m": {
+     "row": 136,
+     "col": 278,
+     "apex_tau": -0.013,
+     "value": 0.0
+    }
+   },
+   "reading_ja": "0.25 s の二次の当てはめ（Savitzky–Golay、240 Hz）。画面は既定の時間曲線、止めるための区間の前まで（P16 と同じ）。許容 0.05 m/s²"
+  },
+  "gpu": {
+   "layer_mib": 0.7324,
+   "texture2darray_mib": 142.09,
+   "texture2darray_readable_mib": 284.18,
+   "twhite_mib": 0.366,
+   "budget_mib": 512,
+   "note_ja": "RGBA64 の Texture2DArray（層 × 400 × 240 × 8 バイト）。読み取り可能のままなら CPU の写しで 2 倍（見積もり、Unity の実測は設計29）。法線はパッケージに入れない（再生側で三角形から作る）。",
+   "fine_extra_layer_mib": 0.3662,
+   "fine_texture2darray_mib": 213.13,
+   "fine_texture2darray_readable_mib": 426.27,
+   "fine_note_ja": "精度の層を読む再生器（29修正01）：RGBA64 ＋ RGBA32 の Texture2DArray（層 × 400 × 240 × 12 バイト）。読み取り可能のままなら 2 倍（見積もり）"
+  }
+ }
+}

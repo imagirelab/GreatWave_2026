@@ -1,0 +1,712 @@
+{
+ "schema": "GreatWave.Design28R01.run/1",
+ "number": "設計28修正01 最後の一コマ K*′ R4 と動き F_final",
+ "tools": {
+  "python": "py -3.10（numpy 2.2.6）",
+  "houdini": "Houdini Indie 22.0.429 の hython（Steam）",
+  "blender": "5.2.2（粘土の描画・BVH）",
+  "unity": "PC オフスクリーン描画（既存の再生器 DS27Formation／DS28ReviewView、16 bit だけを読む）",
+  "hmd": "なし"
+ },
+ "commands": [
+  "py -3.10 Tools/GWWaveGen/kstar_h/kh_R4_make_design.py Docs/Evidence/Design/28R01F/kstarR3_design.json <out.json> --check Docs/Evidence/Design/28R01F/kstarR4_design.json",
+  "py -3.10 Tools/GWWaveGen/kstar_h/kh_R4_deliver.py Unity/Build/Q20H/final/kstarR4_design.json --out <新しいフォルダー> --hip <新しいフォルダー>/kstar_h_R4.hiplc",
+  "py -3.10 -B Tools/GWWaveGen/ds28r01f/ds28r01f_pipeline.py --kstar Unity/Build/Design/28R01F/kstar_final --tag F_final",
+  "py -3.10 -B Tools/GWWaveGen/ds28r01f/ds28r01f_determinism.py --package Unity/Build/Design/28R01F/F_final/art_on",
+  "powershell -NoProfile -ExecutionPolicy Bypass -File Tools/GWWaveGen/ds28r01f/run_ds28r01f_unity.ps1 -Method GreatWave.Design27.EditorTools.DS27Formation.RenderOnly -Package Build/Design/28R01F/F_final/art_on -WarpFile <timewarp_F_final.json> …（引数は台本の冒頭）",
+  "py -3.10 Tools/GWWaveGen/ds27/ds27_tstar_eval.py --run Unity/Build/Design/28R01F/unity/F_final"
+ ],
+ "limits_ja": [
+  "kh_R4_deliver.py は土台のシーン Houdini/Design28R01/kstar_h_base.hiplc を読む。このシーンには参照モデルのパスを持つ file の節点があるのでコミットしない。コミットした kstar_h_R4.hiplc を開いて cook するか、kh_designR4.py の numpy の組み立て（Houdini との差 0.012 m）で形を作り直す。",
+  "kh_R4_deliver.py・kh_eval.py は Git 対象外の比べの形（K*、A4、R3 の rows）と ref_fullness.json（参照モデルから測った数値）を読む。",
+  "粘土の描画・最終の評審・独立の検査の台本はリポジトリの外（作業場所、Unity/Build/Design/28R01F/_scratch）にあり、コミットしない。",
+  "決定性は 242 層のうち 4 層だけの抜き取り。",
+  "コミットした kstar_h_R4.hiplc は、設計の json を Git 対象外の絶対パス G:/Unity/GreatWave_2026_Fresh/Unity/Build/Q20H/final/kstarR4_design.json から読み、台本の場所 G:/Unity/GreatWave_2026_Fresh/Tools/GWWaveGen/kstar_h を絶対パスで sys.path に足す。cook の前に、この証拠の kstarR4_design.json（954883eb…）をその場所へ戻す。",
+  "kh_R4_make_design.py の入力 kstarR3_design.json は Git 対象外の Unity/Build/Q20H/final/_R3/ にしかなかったので、この証拠へ写した。証拠の写しからの作り直しは、閉じる時には走らせていない。",
+  "kh_eval.py の第二の波頭 S1 は、リポジトリの外の作業場所の帯のマスクを読む。fin_eval.py はその場所を環境変数 GW_Q16_CREST_DIR で受け取る（渡さないと S1 は error）。",
+  "kstar3/fin_eval.py を単独で import すると、Git 対象外の Unity/Build/Q20/rubric/tools の rubric_check が要る（candA_common.RUBRIC_TOOLS）。採用の経路（kh_eval.py・kh_R4_quick.py）は先にリポジトリの Tools/GWWaveGen/rubric を読み込む。",
+  "kstar_h_R4.hiplc には、Houdini が節点ごとに書く作成者の文字列（Windows のアカウント名@コンピューター名、53 か所）と、Houdini の個人の設定のフォルダー（利用者のフォルダーの下の houdini22.0/poselib、1 か所）がある。SHA-256 を保つため書き換えていない。"
+ ],
+ "inputs_sha256": {
+  "Unity/Build/Design/28R01F/kstar_final/kstarR4_a45.gwb": "38a9b11ab63cccb45cf2cb7776ae3a59485d58102e96cabaf828fb36d14cf19a",
+  "Unity/Build/Design/28R01F/kstar_final/kstarR4_a45_rows.npz": "a0c256d221f5a3e026f3ff0135481e5a7075daaa57832d2ab4884772b8e79e46",
+  "Unity/Build/Design/28R01F/kstar_final/kstarR4_a45_meta.json": "b8d6752bdf1a4df8106ffe7e3a96addfa9b04d2c9cab1cb71f4cf7df0ad7f943",
+  "Houdini/Design28R01/kstar_h_R4.hiplc": "a626e32a152a967dd063b3e3a7964d3e7b65b02aa461d1e62afa5b840ef0dbe9",
+  "Unity/Build/Q20H/final/kstarR4_design.json": "954883eb676e03006f21d6146e257b693022d329d9c29c67d8595758d3ae40f7",
+  "Tools/GWWaveGen/ds28r01f/ds28r01f_model.py": "3ebc9e7ae508c765da527cf5f1e8bf627b8d94e876411f118ccd232afaf0a3ca",
+  "Tools/GWWaveGen/ds28r01f/ds28r01f_params.json": "0706c2c3130d5f65e1f6f3687a038f1b8da5a45e937fcc8f7b4658fcb561c7da",
+  "Tools/GWWaveGen/ds28r01f/ds28r01f_generate.py": "66b8f419df30af908454776ec34534845be68e3febedbf63c58c753623f64b34",
+  "Tools/GWWaveGen/ds28r01f/ds28r01f_pipeline.py": "47b9402aa09899942aabd09893dc1bade3989a6eb272aea7a7c65f351110e3de",
+  "Unity/Build/Design/28R01F/F_final/timewarp_F_final.json": "627815c77afc63278c885335bbe6c51178896184559ca30845cf05f23c634a7c",
+  "Unity/Build/Design/28R01F/F_final/art_on/ds27_pos_rgba16.bin": "af08cd4edb8a287551cae2ac8c60af3c4c33bbb39088807571475dc973d85974",
+  "Unity/Build/Design/28R01F/F_final/art_on/ds27_pos_lo_rgba8.bin": "99a29d6a74b595372211120db071fac12d9f338aa14107df921d667d67a83153",
+  "Unity/Build/Design/28R01F/F_final/art_on/ds27_keypose.json": "3349924141106509585fe29bb7f3769554028224d0a0f645bf69c55fd509cc8b"
+ },
+ "files": [
+  {
+   "file": "kstar_final_copied_from.json",
+   "source": "Unity/Build/Design/28R01F/kstar_final/_copied_from.json",
+   "source_bytes": 1374,
+   "source_sha256": "fc35a1cb668f947dedd5b811d970d399443c10d99b98185b1caa3048de20a09c",
+   "bytes": 1374,
+   "sha256": "fc35a1cb668f947dedd5b811d970d399443c10d99b98185b1caa3048de20a09c"
+  },
+  {
+   "file": "kstarR4_design.json",
+   "source": "Unity/Build/Q20H/final/kstarR4_design.json",
+   "source_bytes": 52698,
+   "source_sha256": "954883eb676e03006f21d6146e257b693022d329d9c29c67d8595758d3ae40f7",
+   "bytes": 52698,
+   "sha256": "954883eb676e03006f21d6146e257b693022d329d9c29c67d8595758d3ae40f7"
+  },
+  {
+   "file": "kstarR4_eval_table.md",
+   "source": "Unity/Build/Q20H/final/kstarR4_eval_table.md",
+   "source_bytes": 14838,
+   "source_sha256": "65ab72d6ad1ef963acb34ac6e129a3e730089eaff6c2062011c1ffbea04e48b0",
+   "bytes": 14838,
+   "sha256": "65ab72d6ad1ef963acb34ac6e129a3e730089eaff6c2062011c1ffbea04e48b0"
+  },
+  {
+   "file": "kstarR4_mustfix_table.md",
+   "source": "Unity/Build/Q20H/final/kstarR4_mustfix_table.md",
+   "source_bytes": 4925,
+   "source_sha256": "900b5448287472c3d56a8da5a508edc2832b7d69fbcc06b05aef53cf24296945",
+   "bytes": 4925,
+   "sha256": "900b5448287472c3d56a8da5a508edc2832b7d69fbcc06b05aef53cf24296945"
+  },
+  {
+   "file": "kstarR4_deliver_report.json",
+   "source": "Unity/Build/Q20H/final/kstarR4_deliver_report.json",
+   "source_bytes": 11848,
+   "source_sha256": "71930cf8db668e3df133e86b2b18a399cf2dc86f834523478f4c681b3a2cf0c4",
+   "bytes": 11848,
+   "sha256": "71930cf8db668e3df133e86b2b18a399cf2dc86f834523478f4c681b3a2cf0c4",
+   "forbidden_string_hits": [
+    "reality scan",
+    "北斋参考",
+    "research/model",
+    "research\\\\model"
+   ]
+  },
+  {
+   "file": "kstarR4_supplementary.json",
+   "source": "Unity/Build/Q20H/final/kstarR4_supplementary.json",
+   "source_bytes": 18835,
+   "source_sha256": "59caca7f906aa3e66118ee66416d03cd007444d12651e99718dd498fcbca35b0",
+   "bytes": 18835,
+   "sha256": "59caca7f906aa3e66118ee66416d03cd007444d12651e99718dd498fcbca35b0"
+  },
+  {
+   "file": "kstarR4_difference_record.json",
+   "source": "Unity/Build/Q20H/final/kstarR4_difference_record.json",
+   "source_bytes": 62701,
+   "source_sha256": "7a1b2deb45da92a51b0be77b5543eadf8bcad1a47c4693279b5200314bcd1dc9",
+   "bytes": 62701,
+   "sha256": "7a1b2deb45da92a51b0be77b5543eadf8bcad1a47c4693279b5200314bcd1dc9",
+   "forbidden_string_hits": [
+    "wave_repair_zbrush2",
+    "reality scan",
+    "北斋参考",
+    "research/model",
+    "research\\\\model"
+   ]
+  },
+  {
+   "file": "kstarR4_visual_review.json",
+   "source": "Unity/Build/Q20H/final/kstarR4_visual_review.json",
+   "source_bytes": 3344,
+   "source_sha256": "d09c258f5b280aac8911b53a95b3477dc5a96bd72031006f01cbceaba7098e9e",
+   "bytes": 3344,
+   "sha256": "d09c258f5b280aac8911b53a95b3477dc5a96bd72031006f01cbceaba7098e9e"
+  },
+  {
+   "file": "kstarR4_bvh_selfx.json",
+   "source": "Unity/Build/Q20H/final/kstarR4_bvh_selfx.json",
+   "source_bytes": 421,
+   "source_sha256": "212f390e80cd7a3b6b620c58a91373758f9628d3ad6a37e9d6a457c532dbe56f",
+   "bytes": 421,
+   "sha256": "212f390e80cd7a3b6b620c58a91373758f9628d3ad6a37e9d6a457c532dbe56f"
+  },
+  {
+   "file": "kstarR4_retarget_ds28r01e.json",
+   "source": "Unity/Build/Q20H/final/kstarR4_retarget_ds28r01e.json",
+   "source_bytes": 2508,
+   "source_sha256": "471f41d224d435989633a15f89045b74f92eda03390aefeb760c79943ae1d060",
+   "bytes": 2508,
+   "sha256": "471f41d224d435989633a15f89045b74f92eda03390aefeb760c79943ae1d060"
+  },
+  {
+   "file": "kstarR4_houdini_scene_verify.json",
+   "source": "Unity/Build/Q20H/final/houdini_scene_verify.json",
+   "source_bytes": 763,
+   "source_sha256": "1ec123e80962b81db251efefc9437ebe336664266fa1380ad65ededb6625aab2",
+   "bytes": 763,
+   "sha256": "1ec123e80962b81db251efefc9437ebe336664266fa1380ad65ededb6625aab2"
+  },
+  {
+   "file": "kstarR4_fig_gate_large_form.png",
+   "source": "Unity/Build/Q20H/final/fig_gate_large_form.png",
+   "source_bytes": 2719414,
+   "source_sha256": "acf1ed8f5240f18e64688bc3be1222801297d11c94515d5cffcafdd11662c94e",
+   "source_px": [
+    1920,
+    1080
+   ],
+   "bytes": 2719414,
+   "sha256": "acf1ed8f5240f18e64688bc3be1222801297d11c94515d5cffcafdd11662c94e"
+  },
+  {
+   "file": "kstarR4_fig_sections_R4_R3_A4_Kstar.png",
+   "source": "Unity/Build/Q20H/final/fig_sections_R4_R3_A4_Kstar.png",
+   "source_bytes": 626836,
+   "source_sha256": "14e9f781b557b696ea10189e374f678571b93e67ea6d5f8f4fd02a45e8460d88",
+   "source_px": [
+    2080,
+    1360
+   ],
+   "resized_to_px": [
+    1652,
+    1080
+   ],
+   "bytes": 372035,
+   "sha256": "35cd5467c629d83d80eab922a66fe55d990a50b2d8e9be1b1909c37067dddaae"
+  },
+  {
+   "file": "kstarR4_fig_user_failure_views.png",
+   "source": "Unity/Build/Q20H/final/fig_sheet_user_failure_views.png",
+   "source_bytes": 1517737,
+   "source_sha256": "bf4c8ebac6e606d279dabdf1bd0ab86e39da223dabfa618a74771d66952758ba",
+   "source_px": [
+    1990,
+    1408
+   ],
+   "resized_to_px": [
+    1526,
+    1080
+   ],
+   "bytes": 1252525,
+   "sha256": "9797e63b0928b1fadbea267267ace63596ac44e62dbc10b2ab0068792768695d"
+  },
+  {
+   "file": "kstarR4_fig_turntable.png",
+   "source": "Unity/Build/Q20H/final/fig_turntable_R4.png",
+   "source_bytes": 516827,
+   "source_sha256": "86e0f2a922db7983972c09c54359fdeba5c5675d6eb6cb95ba39f7424b5685fc",
+   "source_px": [
+    1280,
+    540
+   ],
+   "bytes": 516827,
+   "sha256": "86e0f2a922db7983972c09c54359fdeba5c5675d6eb6cb95ba39f7424b5685fc"
+  },
+  {
+   "file": "kstarR4_turntable.mp4",
+   "source": "Unity/Build/Q20H/final/turntable_R4.mp4",
+   "source_bytes": 1120431,
+   "source_sha256": "0d2cc202922c1673cb3b7464bb5443139fd558f49c5732d878eca150235d7e75",
+   "bytes": 1120431,
+   "sha256": "0d2cc202922c1673cb3b7464bb5443139fd558f49c5732d878eca150235d7e75"
+  },
+  {
+   "file": "kstarR4_houdini_painting_view.png",
+   "source": "Unity/Build/Q20H/final/houdini_painting_view_R4.png",
+   "source_bytes": 2178018,
+   "source_sha256": "cbee805eaf4d0221278075ee663b46d635031d4d840bc102d0c8e29ae7fc9aef",
+   "source_px": [
+    1920,
+    1080
+   ],
+   "bytes": 2178018,
+   "sha256": "cbee805eaf4d0221278075ee663b46d635031d4d840bc102d0c8e29ae7fc9aef"
+  },
+  {
+   "file": "kstarR1_eval_table.md",
+   "source": "Unity/Build/Q20H/final/_R1/kstarR1_eval_table.md",
+   "source_bytes": 14003,
+   "source_sha256": "7eedc5b7c3a081877552c0b5f284bec1d89f6a5867cd4b63a65ec10ffdff83cf",
+   "bytes": 14003,
+   "sha256": "7eedc5b7c3a081877552c0b5f284bec1d89f6a5867cd4b63a65ec10ffdff83cf"
+  },
+  {
+   "file": "kstarR1_retarget_ds28r01e.json",
+   "source": "Unity/Build/Q20H/final/_R1/kstarR1_retarget_ds28r01e.json",
+   "source_bytes": 2522,
+   "source_sha256": "613502b98467ed90a92f8c53a667558915c66f3451fde7ab18d46ba737012d24",
+   "bytes": 2522,
+   "sha256": "613502b98467ed90a92f8c53a667558915c66f3451fde7ab18d46ba737012d24"
+  },
+  {
+   "file": "judgeR4_file_gate.json",
+   "source": "Unity/Build/Q20H/_judge_R3/R4eye/e4_file_gate.json",
+   "source_bytes": 2831,
+   "source_sha256": "35eb5b615a7c7698ac08ba4625b7031c21026f25570b8b97fb1fb02eb2d2fc84",
+   "bytes": 2831,
+   "sha256": "35eb5b615a7c7698ac08ba4625b7031c21026f25570b8b97fb1fb02eb2d2fc84"
+  },
+  {
+   "file": "judgeR4_num.json",
+   "source": "Unity/Build/Q20H/_judge_R3/R4eye/e4_num.json",
+   "source_bytes": 2774,
+   "source_sha256": "cb0e31b97ea07a21bbc294df736add36fac5ee6977652dde97ab83407dad7315",
+   "bytes": 2774,
+   "sha256": "cb0e31b97ea07a21bbc294df736add36fac5ee6977652dde97ab83407dad7315"
+  },
+  {
+   "file": "judgeR4_mesh.json",
+   "source": "Unity/Build/Q20H/_judge_R3/R4eye/e4_mesh_R4.json",
+   "source_bytes": 759,
+   "source_sha256": "485d067613bce0550310a03f11a92bdc34f838931fbb023d0150759dd1ccdde4",
+   "bytes": 759,
+   "sha256": "485d067613bce0550310a03f11a92bdc34f838931fbb023d0150759dd1ccdde4"
+  },
+  {
+   "file": "judgeR4_bvh.json",
+   "source": "Unity/Build/Q20H/_judge_R3/R4eye/e4_bvh.json",
+   "source_bytes": 77,
+   "source_sha256": "692e32d0e90e02f7dbbae62e813cb5c5a3c66ea141f6e11bf72cbe0b8327fdc3",
+   "bytes": 77,
+   "sha256": "692e32d0e90e02f7dbbae62e813cb5c5a3c66ea141f6e11bf72cbe0b8327fdc3"
+  },
+  {
+   "file": "judgeR4_gate_lip_R4_R3.png",
+   "source": "Unity/Build/Q20H/_judge_R3/R4eye/gate_lip_R4_R3.png",
+   "source_bytes": 826110,
+   "source_sha256": "9fa37ada4fc43f308e9f3a98ce96206eed543c82244246ecf73d83cc687379ef",
+   "source_px": [
+    2290,
+    570
+   ],
+   "resized_to_px": [
+    1920,
+    478
+   ],
+   "bytes": 769366,
+   "sha256": "50f65c337b83db45e29916d25a88b7b2385aa667b99e69abe2eb94c20f3a13c0"
+  },
+  {
+   "file": "judgeR4_pv_R4_R3.png",
+   "source": "Unity/Build/Q20H/_judge_R3/R4eye/pv_R4_R3.png",
+   "source_bytes": 568079,
+   "source_sha256": "c8245701ba8af97445c6009571f44227db8f4f8b136433267a93bf4785ff9c37",
+   "source_px": [
+    2210,
+    700
+   ],
+   "resized_to_px": [
+    1920,
+    608
+   ],
+   "bytes": 748666,
+   "sha256": "4987f56e8b9390dc67cfddd911cb540613e7236da5630a701f4254a4fd6dfc5b"
+  },
+  {
+   "file": "table_E_F.md",
+   "source": "Unity/Build/Design/28R01F/table_E_F.md",
+   "source_bytes": 10887,
+   "source_sha256": "067b65c5dd717140a154009b7e395b33d45c8a10b66d5cfa15210906afc8f5f5",
+   "bytes": 10887,
+   "sha256": "067b65c5dd717140a154009b7e395b33d45c8a10b66d5cfa15210906afc8f5f5"
+  },
+  {
+   "file": "table_E_F.json",
+   "source": "Unity/Build/Design/28R01F/table_E_F.json",
+   "source_bytes": 22434,
+   "source_sha256": "35aceb2170c3b64ed70c2ab9feb89526dbebe40b5e912736ce9f51ffb0d4462b",
+   "bytes": 22434,
+   "sha256": "35aceb2170c3b64ed70c2ab9feb89526dbebe40b5e912736ce9f51ffb0d4462b"
+  },
+  {
+   "file": "selfreview_q22_F_final.json",
+   "source": "Unity/Build/Design/28R01F/F_final/selfreview_q22_F_final.json",
+   "source_bytes": 12106,
+   "source_sha256": "98ade2489df1d7783a8603ffbc8a36dd20a28c5c61c00a2ccf0e6ef5ed626c12",
+   "bytes": 11482,
+   "sha256": "85276672894dce62872c9696ed4d40a5e13b34c0dca3bdace5b3cca411b6b2e6",
+   "note_ja": "写しでは作業場所のパス（6 か所）を <scratchpad> に置き換えた（2026-09-29 コミットの前の検査）。source_sha256 は置き換える前の元のファイル。"
+  },
+  {
+   "file": "F_final_scan.json",
+   "source": "Unity/Build/Design/28R01F/F_final/scan.json",
+   "source_bytes": 11058,
+   "source_sha256": "cf6bd30d2ce0a11ac48c4b1f8128a9474fdd1eb738e94edb5cd8e78cbae9fd59",
+   "bytes": 11058,
+   "sha256": "cf6bd30d2ce0a11ac48c4b1f8128a9474fdd1eb738e94edb5cd8e78cbae9fd59"
+  },
+  {
+   "file": "F_final_gates_default.json",
+   "source": "Unity/Build/Design/28R01F/F_final/gates/default.json",
+   "source_bytes": 45816,
+   "source_sha256": "5bc3697d987b4ed0ceb92ad61b92dc6b5949445d88c514b2dfbaf60adeb10c1a",
+   "bytes": 45816,
+   "sha256": "5bc3697d987b4ed0ceb92ad61b92dc6b5949445d88c514b2dfbaf60adeb10c1a"
+  },
+  {
+   "file": "F_final_overlap_default.json",
+   "source": "Unity/Build/Design/28R01F/F_final/overlap/overlap_default.json",
+   "source_bytes": 880521,
+   "source_sha256": "6942ea241f0aa3922773b4075fe2e55ba2328c03d4b558df134e58bd473f11ec",
+   "bytes": 880521,
+   "sha256": "6942ea241f0aa3922773b4075fe2e55ba2328c03d4b558df134e58bd473f11ec"
+  },
+  {
+   "file": "timewarp_F_final.json",
+   "source": "Unity/Build/Design/28R01F/F_final/timewarp_F_final.json",
+   "source_bytes": 72532,
+   "source_sha256": "627815c77afc63278c885335bbe6c51178896184559ca30845cf05f23c634a7c",
+   "bytes": 72532,
+   "sha256": "627815c77afc63278c885335bbe6c51178896184559ca30845cf05f23c634a7c"
+  },
+  {
+   "file": "F_final_pipeline_timing.json",
+   "source": "Unity/Build/Design/28R01F/F_final/pipeline_timing.json",
+   "source_bytes": 324,
+   "source_sha256": "9330c236366c935969bbbeb75ca2888fc34fd68047df8c7bb16344e20a40aaa2",
+   "bytes": 324,
+   "sha256": "9330c236366c935969bbbeb75ca2888fc34fd68047df8c7bb16344e20a40aaa2"
+  },
+  {
+   "file": "F_final_determinism_check.json",
+   "source": "Unity/Build/Design/28R01F/F_final/art_on/determinism_check.json",
+   "source_bytes": 855,
+   "source_sha256": "6e59dcf8e4d43b1f5882b684ca42f2fa105e9fd327874c06c2594a4cac4d6942",
+   "bytes": 855,
+   "sha256": "6e59dcf8e4d43b1f5882b684ca42f2fa105e9fd327874c06c2594a4cac4d6942"
+  },
+  {
+   "file": "F_final_p20_anchor_retarget.json",
+   "source": "Unity/Build/Design/28R01F/F_final/art_on/p20_anchor_retarget.json",
+   "source_bytes": 2372,
+   "source_sha256": "c37624688e4885601eff17a9d4ec22887996850245a15451345fdccfadff6f25",
+   "bytes": 2372,
+   "sha256": "c37624688e4885601eff17a9d4ec22887996850245a15451345fdccfadff6f25"
+  },
+  {
+   "file": "F_final_p20_far_hook_early.json",
+   "source": "Unity/Build/Design/28R01F/F_final/art_on/p20_far_hook_early.json",
+   "source_bytes": 2167,
+   "source_sha256": "2814280933d7e080d54894f67a2ebfe4d8cb576b353812e717d189e490d878ab",
+   "bytes": 2167,
+   "sha256": "2814280933d7e080d54894f67a2ebfe4d8cb576b353812e717d189e490d878ab"
+  },
+  {
+   "file": "F_final_p20_back_width_retarget.json",
+   "source": "Unity/Build/Design/28R01F/F_final/art_on/p20_back_width_retarget.json",
+   "source_bytes": 2294,
+   "source_sha256": "2d377d092ef200517e4cda54b4a50ee24cf6be31f219bfcc0dba4183d0ebc2f4",
+   "bytes": 2294,
+   "sha256": "2d377d092ef200517e4cda54b4a50ee24cf6be31f219bfcc0dba4183d0ebc2f4"
+  },
+  {
+   "file": "F_final_p20_f_layers.json",
+   "source": "Unity/Build/Design/28R01F/F_final/art_on/p20_f_layers.json",
+   "source_bytes": 10920,
+   "source_sha256": "c4620219acd700bbb88b45f396c94a35e140bafc1d49a1b27da2ddf2bfcdb986",
+   "bytes": 10920,
+   "sha256": "c4620219acd700bbb88b45f396c94a35e140bafc1d49a1b27da2ddf2bfcdb986"
+  },
+  {
+   "file": "F_final_generate_log.json",
+   "source": "Unity/Build/Design/28R01F/F_final/art_on/ds28r01f_generate_log.json",
+   "source_bytes": 68218,
+   "source_sha256": "295a23316864a640ce8613264c7ee36ee6b5af4dd08b778a39cd5450a18efee4",
+   "bytes": 68218,
+   "sha256": "295a23316864a640ce8613264c7ee36ee6b5af4dd08b778a39cd5450a18efee4"
+  },
+  {
+   "file": "F_final_ds27_checks.json",
+   "source": "Unity/Build/Design/28R01F/F_final/art_on/ds27_checks.json",
+   "source_bytes": 37802,
+   "source_sha256": "c19270e8f9082979d5330d6696ca7bb2a76527f2602a653b224511ddad25cc58",
+   "bytes": 37802,
+   "sha256": "c19270e8f9082979d5330d6696ca7bb2a76527f2602a653b224511ddad25cc58"
+  },
+  {
+   "file": "review_F_final.json",
+   "source": "Unity/Build/Design/28R01F/review/review_F_final.json",
+   "source_bytes": 22589,
+   "source_sha256": "12adeaf58fc995bacf32317b9c381a358622f1f25be0bc002849da14a33ac629",
+   "bytes": 22589,
+   "sha256": "12adeaf58fc995bacf32317b9c381a358622f1f25be0bc002849da14a33ac629"
+  },
+  {
+   "file": "clay_5views_E_vs_F_final.mp4",
+   "source": "Unity/Build/Design/28R01F/clay/video/clay_5views_E_vs_F_final.mp4",
+   "source_bytes": 1180602,
+   "source_sha256": "579e1ce51187508142cba8f85116b6d95e3803b9a8f7502e4d773c9fccb7c480",
+   "bytes": 1180602,
+   "sha256": "579e1ce51187508142cba8f85116b6d95e3803b9a8f7502e4d773c9fccb7c480"
+  },
+  {
+   "file": "clay_strip_painting_t2_14_E_F_final.png",
+   "source": "Unity/Build/Design/28R01F/clay/strip_painting_t2_14_E_F_final.png",
+   "source_bytes": 1482943,
+   "source_sha256": "cda3a576633fcf3f6336e3a6ee4be4735fabc21b70c23fb8e92dc7f8b94d28da",
+   "source_px": [
+    4850,
+    1216
+   ],
+   "resized_to_px": [
+    1920,
+    481
+   ],
+   "bytes": 429085,
+   "sha256": "d06deb364f9e0002d88f583c91644d253418d4800d35e2af9d85c8329989a7bd"
+  },
+  {
+   "file": "clay_strip_side_follow_t2_14_E_F_final.png",
+   "source": "Unity/Build/Design/28R01F/clay/strip_side_follow_t2_14_E_F_final.png",
+   "source_bytes": 2001446,
+   "source_sha256": "5a465918a436f2218b2d0f024ea16650c298b3bcfbfe365fdd93170f55f5002b",
+   "source_px": [
+    4850,
+    1112
+   ],
+   "resized_to_px": [
+    1920,
+    440
+   ],
+   "bytes": 476363,
+   "sha256": "36a9c739d343b05fcccbbddf1906f3ecd4988718224ed09fbe8a26740f33da00"
+  },
+  {
+   "file": "clay_strip_back34_follow_t2_14_E_F_final.png",
+   "source": "Unity/Build/Design/28R01F/clay/strip_back34_follow_t2_14_E_F_final.png",
+   "source_bytes": 2212584,
+   "source_sha256": "2bc650fe6b771c1438f5747e303468a45f8a33eff01868e4517955c6aed7d55c",
+   "source_px": [
+    4850,
+    1116
+   ],
+   "resized_to_px": [
+    1920,
+    442
+   ],
+   "bytes": 513865,
+   "sha256": "f925412f9aa23ee7d94e961d9ec3e254f5a6fa7fcf2f98c62a17a5b5839401c6"
+  },
+  {
+   "file": "clay_pixel_pops_t2_12.json",
+   "source": "Unity/Build/Design/28R01F/clay/pixel_pops_t2_12.json",
+   "source_bytes": 572,
+   "source_sha256": "5724bc7c3702d8befc21522a616fe68999569a12f4a6e04a1f0e40c33cc005bf",
+   "bytes": 572,
+   "sha256": "5724bc7c3702d8befc21522a616fe68999569a12f4a6e04a1f0e40c33cc005bf"
+  },
+  {
+   "file": "unity_painting_E_vs_F_final.mp4",
+   "source": "Unity/Build/Design/28R01F/unity/compare/unity_painting_E_vs_F_final.mp4",
+   "source_bytes": 885464,
+   "source_sha256": "2d30c80a9922449c1e8c35f85cdb837f10434b5cfc6e4ff95f9d9ea69afc1dfd",
+   "bytes": 885464,
+   "sha256": "2d30c80a9922449c1e8c35f85cdb837f10434b5cfc6e4ff95f9d9ea69afc1dfd"
+  },
+  {
+   "file": "unity_seat_E_vs_F_final.mp4",
+   "source": "Unity/Build/Design/28R01F/unity/compare/unity_seat_E_vs_F_final.mp4",
+   "source_bytes": 487089,
+   "source_sha256": "4136a57f18607b441d2c4b72024a4337d6d3d051470290e884754ce59cba60ca",
+   "bytes": 487089,
+   "sha256": "4136a57f18607b441d2c4b72024a4337d6d3d051470290e884754ce59cba60ca"
+  },
+  {
+   "file": "unity_seat_toward_wave_E_vs_F_final.mp4",
+   "source": "Unity/Build/Design/28R01F/unity/compare/unity_seat_toward_wave_E_vs_F_final.mp4",
+   "source_bytes": 678008,
+   "source_sha256": "871231677779569435d49faf3e55371a6e365e90c570ec8bc02a9774332394d0",
+   "bytes": 678008,
+   "sha256": "871231677779569435d49faf3e55371a6e365e90c570ec8bc02a9774332394d0"
+  },
+  {
+   "file": "unity_side_left_E_vs_F_final.mp4",
+   "source": "Unity/Build/Design/28R01F/unity/compare/unity_side_left_E_vs_F_final.mp4",
+   "source_bytes": 769624,
+   "source_sha256": "1c5cdb9ac10abc36dbdfe713e6247391e4efe61553bb089122604ca4316c0151",
+   "bytes": 769624,
+   "sha256": "1c5cdb9ac10abc36dbdfe713e6247391e4efe61553bb089122604ca4316c0151"
+  },
+  {
+   "file": "unity_sheet_E_vs_F_final.png",
+   "source": "Unity/Build/Design/28R01F/unity/compare/unity_sheet_E_vs_F_final.png",
+   "source_bytes": 1301776,
+   "source_sha256": "b3948aec38b7fe72e9d73131e030c0b86f931f5e5f85d4ae0fbc1f4c37d993b6",
+   "source_px": [
+    3510,
+    2242
+   ],
+   "resized_to_px": [
+    1691,
+    1080
+   ],
+   "bytes": 636498,
+   "sha256": "d78a2bc5cb40b7aa1cdc35f10463b67c1410e8b1359339e03dd3607cd5e3dc2e"
+  },
+  {
+   "file": "unity_F_final_ds27_tstar_remeasure.json",
+   "source": "Unity/Build/Design/28R01F/unity/F_final/ds27_tstar_remeasure.json",
+   "source_bytes": 20416,
+   "source_sha256": "197cb413df664f6c001bd6cc9e29671e6858124eb88630a8cadd1ad86cac9271",
+   "bytes": 20416,
+   "sha256": "197cb413df664f6c001bd6cc9e29671e6858124eb88630a8cadd1ad86cac9271"
+  },
+  {
+   "file": "unity_F_final_ds27_render_report.json",
+   "source": "Unity/Build/Design/28R01F/unity/F_final/ds27_render_report.json",
+   "source_bytes": 22143,
+   "source_sha256": "760384ace710d9d8a08c89204856a6fe4199f7b6f46a6fd84b741d1c98467f21",
+   "bytes": 22143,
+   "sha256": "760384ace710d9d8a08c89204856a6fe4199f7b6f46a6fd84b741d1c98467f21"
+  },
+  {
+   "file": "unity_E_ds27_tstar_remeasure.json",
+   "source": "Unity/Build/Design/28R01F/unity/E/ds27_tstar_remeasure.json",
+   "source_bytes": 20283,
+   "source_sha256": "49d288a4289e07efbff71e79e2ad3d2d74c791e90db2870bbaeb9bc80189f678",
+   "bytes": 20283,
+   "sha256": "49d288a4289e07efbff71e79e2ad3d2d74c791e90db2870bbaeb9bc80189f678"
+  },
+  {
+   "file": "finalreview_fr_gate.json",
+   "source": "Unity/Build/Design/28R01F/_scratch/final_review/fr_gate.json",
+   "source_bytes": 1657,
+   "source_sha256": "0d6cfd576a5080a96d80da1ac7f7f19bb3184642d0de0dd153e9ee558de24026",
+   "bytes": 1657,
+   "sha256": "0d6cfd576a5080a96d80da1ac7f7f19bb3184642d0de0dd153e9ee558de24026"
+  },
+  {
+   "file": "finalreview_motion_F_final.json",
+   "source": "Unity/Build/Design/28R01F/_scratch/final_review/motion_F_final.json",
+   "source_bytes": 2560,
+   "source_sha256": "9cd44e99ef0f40e5334c6cf98daf78ef7cf4c5cf8471cb111a829b240665dcf7",
+   "bytes": 2560,
+   "sha256": "9cd44e99ef0f40e5334c6cf98daf78ef7cf4c5cf8471cb111a829b240665dcf7"
+  },
+  {
+   "file": "finalreview_hump.json",
+   "source": "Unity/Build/Design/28R01F/_scratch/final_review/hump.json",
+   "source_bytes": 13699,
+   "source_sha256": "8157c47933116464136c7c005a56821a63a55695e85a2cf82fc0dc15e6d9f6c5",
+   "bytes": 13699,
+   "sha256": "8157c47933116464136c7c005a56821a63a55695e85a2cf82fc0dc15e6d9f6c5"
+  },
+  {
+   "file": "finalreview_bvh_F_final.json",
+   "source": "Unity/Build/Design/28R01F/_scratch/final_review/bvh_F_final.json",
+   "source_bytes": 6038,
+   "source_sha256": "46e1869c0216ee97a7075f8847a80591650d8e8ad8c9e60e9f6ab34ea775b282",
+   "bytes": 6038,
+   "sha256": "46e1869c0216ee97a7075f8847a80591650d8e8ad8c9e60e9f6ab34ea775b282"
+  },
+  {
+   "file": "finalreview_pops.json",
+   "source": "Unity/Build/Design/28R01F/_scratch/final_review/pops.json",
+   "source_bytes": 1242,
+   "source_sha256": "6238eb72bf3c6ba002b19c2305d305b3a55ec1c55e4b4418710b07fa23c982da",
+   "bytes": 1242,
+   "sha256": "6238eb72bf3c6ba002b19c2305d305b3a55ec1c55e4b4418710b07fa23c982da"
+  },
+  {
+   "file": "finalreview_crop_back_5_12.png",
+   "source": "Unity/Build/Design/28R01F/_scratch/final_review/frames/crop_back_5_12.png",
+   "source_bytes": 1771596,
+   "source_sha256": "66e196dfa1609946ebeb29e9c3f3b2a4c2bcc549b89ed3224fa8aed1616a4a1e",
+   "source_px": [
+    2100,
+    1260
+   ],
+   "resized_to_px": [
+    1800,
+    1080
+   ],
+   "bytes": 844676,
+   "sha256": "f2d6fc8b034f76a8aa5ececf2cdbf3b40c582c3e0b7a640f7e99b39752dc2cf2"
+  },
+  {
+   "file": "finalreview_crop_side_4_8.png",
+   "source": "Unity/Build/Design/28R01F/_scratch/final_review/frames/crop_side_4_8.png",
+   "source_bytes": 815047,
+   "source_sha256": "36f9e55a201de5d4218e12d3b5be1731c4115e471c2ea5ce5f2bcfc14db315de",
+   "source_px": [
+    1650,
+    840
+   ],
+   "bytes": 815047,
+   "sha256": "36f9e55a201de5d4218e12d3b5be1731c4115e471c2ea5ce5f2bcfc14db315de"
+  },
+  {
+   "file": "finalreview_side_tstar_zoom.png",
+   "source": "Unity/Build/Design/28R01F/_scratch/final_review/frames/side_tstar_zoom.png",
+   "source_bytes": 327582,
+   "source_sha256": "1581e548fac330105bfa1ed5c24e87466c3c98f1b20506ab5583b6911c82120d",
+   "source_px": [
+    925,
+    650
+   ],
+   "bytes": 327582,
+   "sha256": "1581e548fac330105bfa1ed5c24e87466c3c98f1b20506ab5583b6911c82120d"
+  },
+  {
+   "file": "finalreview_F_painting.png",
+   "source": "Unity/Build/Design/28R01F/_scratch/final_review/frames/F_painting.png",
+   "source_bytes": 726222,
+   "source_sha256": "578ea95b6eca44f8f59c0b968f37aad77c2df330f8522135bc4dcdd010af884e",
+   "source_px": [
+    960,
+    1350
+   ],
+   "resized_to_px": [
+    768,
+    1080
+   ],
+   "bytes": 316196,
+   "sha256": "54e1463aef76ea699eb5014456c8b4f9a37dc998c7e84acdf8ff85b10ecb2e49"
+  },
+  {
+   "file": "finalreview_unity_F_painting_tstar.png",
+   "source": "Unity/Build/Design/28R01F/_scratch/final_review/frames/unity_F_painting_tstar.png",
+   "source_bytes": 304590,
+   "source_sha256": "b5c3e3ec4d305047a5583f5aefad0d6ee5ae3e3a1074307a4d26dde121060d36",
+   "source_px": [
+    1440,
+    810
+   ],
+   "bytes": 304590,
+   "sha256": "b5c3e3ec4d305047a5583f5aefad0d6ee5ae3e3a1074307a4d26dde121060d36"
+  },
+  {
+   "file": "indep_analyze_E_F_R4_F_final.json",
+   "source": "<scratchpad>/ds28r01f/indep/analyze_E_F_R4_F_final.json",
+   "source_bytes": 13758,
+   "source_sha256": "b078b703d41090219490fb873e5fbcafc38a9fa0919afe6da84a664a0115c00d",
+   "bytes": 13758,
+   "sha256": "b078b703d41090219490fb873e5fbcafc38a9fa0919afe6da84a664a0115c00d"
+  },
+  {
+   "file": "indep_analyze2_E_F_R4_F_final.json",
+   "source": "<scratchpad>/ds28r01f/indep/analyze2_E_F_R4_F_final.json",
+   "source_bytes": 161515,
+   "source_sha256": "90a66830f237a0db78e83ab69266ef615075a7df37de6e583b67562b1bb315cc",
+   "bytes": 161515,
+   "sha256": "90a66830f237a0db78e83ab69266ef615075a7df37de6e583b67562b1bb315cc"
+  },
+  {
+   "file": "indep_mesh30_F_final.json",
+   "source": "<scratchpad>/ds28r01f/indep/mesh30_F_final.json",
+   "source_bytes": 12549,
+   "source_sha256": "ba2a6b4abb2a426171359915f2827716af68bfa2fb88622b171a2bc81c6c5fa7",
+   "bytes": 12549,
+   "sha256": "ba2a6b4abb2a426171359915f2827716af68bfa2fb88622b171a2bc81c6c5fa7"
+  },
+  {
+   "file": "kstarR3_design.json",
+   "source": "Unity/Build/Q20H/final/_R3/kstarR3_design.json",
+   "source_bytes": 37222,
+   "source_sha256": "203698b6b625b231073e2455867d71e79933c5d4a92600ed7479d5d3ccd145cf",
+   "bytes": 37222,
+   "sha256": "203698b6b625b231073e2455867d71e79933c5d4a92600ed7479d5d3ccd145cf",
+   "note_ja": "kh_R4_make_design.py の入力（R3 の設計。Houdini の設計の鍵の値と当てはめの記録だけ。参照モデルの文字列 0 件）。2026-09-29 コミットの前の検査で加えた。"
+  }
+ ],
+ "made_utc": "2026-09-29T06:47:24.910901Z",
+ "updated_utc": "2026-09-29T07:23:14Z"
+}

@@ -1,0 +1,184 @@
+{
+ "schema": "GreatWave.kstar_h.views/1",
+ "note_ja": "round 3 と同じ 9 視点（v1〜v6 は fin2_bl.py の定義、v7〜v9 は Unity/Build/Q20/rubric/tools/views_user.json）と、利用者の Q21 の失敗の視点 u10〜u13（Unity/Build/Q20L3/candA3b/views_q21_user.json の写し）。座標は Unity ワールド。",
+ "standard": [
+  {
+   "name": "v1_painting",
+   "eye": [
+    0,
+    3.0,
+    -62.0
+   ],
+   "tgt": [
+    -2.5,
+    9.7,
+    4.0
+   ],
+   "vfov": 26,
+   "w": 1280,
+   "h": 720
+  },
+  {
+   "name": "v2_seat",
+   "eye": "SEAT",
+   "tgt": "KSTAR_LIP",
+   "vfov": 80,
+   "w": 1280,
+   "h": 720
+  },
+  {
+   "name": "v3_side_along_crest_cam_side",
+   "eye": "O-130E+10UP",
+   "tgt": "O+10UP",
+   "vfov": 24,
+   "w": 1280,
+   "h": 720
+  },
+  {
+   "name": "v4_true_side_perp_crest_front",
+   "eye": "O+130T+10UP",
+   "tgt": "O+10UP",
+   "vfov": 30,
+   "w": 1280,
+   "h": 720
+  },
+  {
+   "name": "v5_back_three_quarter",
+   "eye": "C0+75(-0.62T+0.78E)+22UP",
+   "tgt": "C0 (=O+9UP)",
+   "vfov": 40,
+   "w": 1280,
+   "h": 720
+  },
+  {
+   "name": "v6_top_down",
+   "eye": "O+200UP (ortho 80, T right, E up)",
+   "tgt": "O",
+   "vfov": 0,
+   "w": 1100,
+   "h": 1000
+  },
+  {
+   "name": "v7_user6_az330_el10",
+   "eye": [
+    11.708867542748454,
+    21.155372436685123,
+    -68.63121610658285
+   ],
+   "tgt": [
+    -8.640885990450112,
+    9.0,
+    -2.766700226910986
+   ],
+   "vfov": 32,
+   "w": 1100,
+   "h": 1000
+  },
+  {
+   "name": "v8_user7_az290_el5",
+   "eye": [
+    -35.698242631394955,
+    15.100901992336071,
+    -67.03705456298596
+   ],
+   "tgt": [
+    -8.640885990450112,
+    9.0,
+    -2.766700226910986
+   ],
+   "vfov": 32,
+   "w": 1100,
+   "h": 1000
+  },
+  {
+   "name": "v9_user8_az030_el25",
+   "eye": [
+    53.21654533597747,
+    38.583278321848965,
+    -16.855271248427574
+   ],
+   "tgt": [
+    -8.640885990450112,
+    9.0,
+    -2.766700226910986
+   ],
+   "vfov": 32,
+   "w": 1100,
+   "h": 1000
+  }
+ ],
+ "user_failure": [
+  {
+   "name": "u11_v9zoom_crest_bulge",
+   "eye": [
+    53.21654533597747,
+    38.583278321848965,
+    -16.855271248427574
+   ],
+   "tgt": [
+    -9.26719057765686,
+    13.0,
+    -4.913265521525568
+   ],
+   "vfov": 20,
+   "w": 1100,
+   "h": 950,
+   "note": "user_img11: the v9 (az 30, el 25) view zoomed on the crest (loop-2 central bulge)"
+  },
+  {
+   "name": "u12a_v5_back_three_quarter",
+   "eye": [
+    -1.5588264274199544,
+    31.0,
+    71.80101686531125
+   ],
+   "tgt": [
+    -7.227685896240013,
+    9.0,
+    -2.7131699203121187
+   ],
+   "vfov": 40,
+   "w": 1280,
+   "h": 720,
+   "note": "user_img12 top: v5 (same camera); user_img12 bottom = v6 top-down (the v6 ortho camera)"
+  },
+  {
+   "name": "u13_v8zoom_b_region",
+   "eye": [
+    -35.698242631394955,
+    15.101901992336071,
+    -67.03705456298596
+   ],
+   "tgt": [
+    -11.306695259073706,
+    11.0,
+    -7.1133611227390166
+   ],
+   "vfov": 22,
+   "w": 1100,
+   "h": 1000,
+   "note": "user_img13: the v8 (az 290, el 5) view zoomed on the b region (red circle)"
+  },
+  {
+   "name": "u10_foot_zoom",
+   "eye": [
+    11.708867542748454,
+    21.155372436685123,
+    -68.63121610658285
+   ],
+   "tgt": [
+    -0.10815511859065241,
+    3.0,
+    -3.8587184815278794
+   ],
+   "vfov": 14,
+   "w": 1100,
+   "h": 850,
+   "note": "user_img10: the foot / trough junction (v7 direction, zoomed)"
+  }
+ ],
+ "sources": {
+  "views_user.json": "Unity/Build/Q20/rubric/tools/views_user.json",
+  "views_q21_user.json": "Unity/Build/Q20L3/candA3b/views_q21_user.json"
+ }
+}

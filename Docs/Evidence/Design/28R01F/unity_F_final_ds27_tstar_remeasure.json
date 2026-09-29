@@ -1,0 +1,694 @@
+{
+ "schema": "GreatWave.DS27.tstar_remeasure/1",
+ "number": "設計27",
+ "method_ja": "設計27：DS27 の再生で描いた t*（τ = 0）の画像を、美術優先28修正01 と同じ評価の手順で測り直す（計画 §2.0 の回帰の確認、設計26 §4.2）。\n美術優先31 の af31_tstar_eval.py と同じ処理で、入出力の場所を引数にした（評価の関数・真値・閾値は同じ）。\n\n使い方（リポジトリの根で）:\n    py -3.10 Tools/GWWaveGen/ds27/ds27_tstar_eval.py --run Unity/Build/Design/27/<版>_<時間曲線>\n入力：\n    <run>/t28/render/af28r01_*.png   DS27Formation.Render が t* に描いた画像（美術優先28修正01 の AF28R01NprScene.Render と同じ名前・同じ採取の設定）\n    Unity/Build/ArtFirst/28修正01/      28修正01 の焼き込みと集計（読むだけ。同じ内容をハードリンクで <run>/t28/ へ並べる）\n    Unity/Build/ArtFirst/30/t28/render/ 美術優先30 の t* の画像（読むだけ。画素の差を記録する）\n処理：28修正01 の af28r01_evaluate.py を読み込み、params の build_dir と evidence_dir だけを <run>/t28 へ向けた一時の params で main() を走らせる。\nDS27 が描かなかった比較用の画像（rule28 の画像・側面・背面など）は 28修正01 のものを並べるだけで、比較には使わない。\n出力：<run>/ds27_tstar_remeasure.json（項目ごとに DS27 の値・28修正01／26修正01 の値・差、美術優先30 の画像との画素の差）。合格：差の最大 ≤ 0.5 px。",
+ "run": "G:\\Unity\\GreatWave_2026_Fresh\\Unity\\Build\\Design\\28R01F\\unity\\F_final",
+ "boundaries_vs_28r01": [
+  {
+   "item": "73",
+   "measure": "boundary",
+   "ds27_max_px": 65.068,
+   "r28r01_max_px": 0.655,
+   "diff_px": 64.413,
+   "ds27_verdict": "fail",
+   "r28r01_verdict": "pass"
+  },
+  {
+   "item": "77",
+   "measure": "lower_ends",
+   "ds27_max_px": 85.978,
+   "r28r01_max_px": 1.17,
+   "diff_px": 84.808,
+   "ds27_verdict": "fail",
+   "r28r01_verdict": "pass"
+  },
+  {
+   "item": "79",
+   "measure": "boundary",
+   "ds27_max_px": 45.772,
+   "r28r01_max_px": 0.34,
+   "diff_px": 45.432,
+   "ds27_verdict": "fail",
+   "r28r01_verdict": "pass"
+  },
+  {
+   "item": "118",
+   "measure": "boundary",
+   "ds27_max_px": 86.23,
+   "r28r01_max_px": 0.655,
+   "diff_px": 85.575,
+   "ds27_verdict": "fail",
+   "r28r01_verdict": "pass"
+  },
+  {
+   "item": "120",
+   "measure": "boundary",
+   "ds27_max_px": 39.716,
+   "r28r01_max_px": 0.288,
+   "diff_px": 39.428,
+   "ds27_verdict": "fail",
+   "r28r01_verdict": "pass"
+  },
+  {
+   "item": "133",
+   "measure": "boundary",
+   "ds27_max_px": 37.412,
+   "r28r01_max_px": 0.402,
+   "diff_px": 37.01,
+   "ds27_verdict": "fail",
+   "r28r01_verdict": "pass"
+  },
+  {
+   "item": "134",
+   "measure": "boundary",
+   "ds27_max_px": 45.878,
+   "r28r01_max_px": 0.977,
+   "diff_px": 44.901,
+   "ds27_verdict": "fail",
+   "r28r01_verdict": "pass"
+  },
+  {
+   "item": "175",
+   "measure": "boundary_by_class/ai_dark",
+   "ds27_max_px": 146.442,
+   "r28r01_max_px": 0.309,
+   "diff_px": 146.133,
+   "ds27_verdict": "fail",
+   "r28r01_verdict": "fail"
+  },
+  {
+   "item": "175",
+   "measure": "boundary_by_class/ai_mid",
+   "ds27_max_px": 88.382,
+   "r28r01_max_px": 2.41,
+   "diff_px": 85.972,
+   "ds27_verdict": "fail",
+   "r28r01_verdict": "fail"
+  },
+  {
+   "item": "175",
+   "measure": "boundary_by_class/mizuiro",
+   "ds27_max_px": 91.049,
+   "r28r01_max_px": 18.375,
+   "diff_px": 72.674,
+   "ds27_verdict": "fail",
+   "r28r01_verdict": "fail"
+  },
+  {
+   "item": "175",
+   "measure": "record_excluding_lost_regions/boundary_by_class/ai_dark",
+   "ds27_max_px": 146.442,
+   "r28r01_max_px": 0.309,
+   "diff_px": 146.133,
+   "ds27_verdict": "fail",
+   "r28r01_verdict": "fail"
+  },
+  {
+   "item": "175",
+   "measure": "record_excluding_lost_regions/boundary_by_class/ai_mid",
+   "ds27_max_px": 88.382,
+   "r28r01_max_px": 2.41,
+   "diff_px": 85.972,
+   "ds27_verdict": "fail",
+   "r28r01_verdict": "fail"
+  },
+  {
+   "item": "175",
+   "measure": "record_excluding_lost_regions/boundary_by_class/mizuiro",
+   "ds27_max_px": 72.419,
+   "r28r01_max_px": 0.865,
+   "diff_px": 71.554,
+   "ds27_verdict": "fail",
+   "r28r01_verdict": "fail"
+  },
+  {
+   "item": "263",
+   "measure": "boundary_lower",
+   "ds27_max_px": 23.021,
+   "r28r01_max_px": 0.559,
+   "diff_px": 22.462,
+   "ds27_verdict": "fail",
+   "r28r01_verdict": "pass"
+  },
+  {
+   "item": "270",
+   "measure": "boundary",
+   "ds27_max_px": 67.885,
+   "r28r01_max_px": 0.563,
+   "diff_px": 67.322,
+   "ds27_verdict": "fail",
+   "r28r01_verdict": "pass"
+  },
+  {
+   "item": "270",
+   "measure": "record_mizuiro_reading",
+   "ds27_max_px": 44.96,
+   "r28r01_max_px": 0.661,
+   "diff_px": 44.299,
+   "ds27_verdict": "fail",
+   "r28r01_verdict": "pass"
+  }
+ ],
+ "silhouettes_vs_26r01_28r01": [
+  {
+   "item": "78",
+   "ds27_max_px": 3.0289,
+   "ds27_p95_px": 1.8661,
+   "r26r01_max_px": 1.6408,
+   "r26r01_p95_px": 1.4347,
+   "r28r01_max_px": 1.6408,
+   "diff_vs_26r01_max_px": 1.3881000000000001,
+   "diff_vs_26r01_p95_px": 0.4314,
+   "diff_vs_28r01_max_px": 1.3881000000000001
+  },
+  {
+   "item": "130",
+   "ds27_max_px": 3.5497,
+   "ds27_p95_px": 3.3551,
+   "r26r01_max_px": 1.953,
+   "r26r01_p95_px": 1.8288,
+   "r28r01_max_px": 1.953,
+   "diff_vs_26r01_max_px": 1.5967,
+   "diff_vs_26r01_p95_px": 1.5263000000000002,
+   "diff_vs_28r01_max_px": 1.5967
+  },
+  {
+   "item": "131",
+   "ds27_max_px": 3.0431,
+   "ds27_p95_px": 2.8533,
+   "r26r01_max_px": 1.798,
+   "r26r01_p95_px": 1.6465,
+   "r28r01_max_px": 1.798,
+   "diff_vs_26r01_max_px": 1.2450999999999999,
+   "diff_vs_26r01_p95_px": 1.2067999999999999,
+   "diff_vs_28r01_max_px": 1.2450999999999999
+  },
+  {
+   "item": "132",
+   "ds27_max_px": 5.9472,
+   "ds27_p95_px": 5.0667,
+   "r26r01_max_px": 1.5739,
+   "r26r01_p95_px": 1.4087,
+   "r28r01_max_px": 1.5739,
+   "diff_vs_26r01_max_px": 4.3732999999999995,
+   "diff_vs_26r01_p95_px": 3.658,
+   "diff_vs_28r01_max_px": 4.3732999999999995
+  },
+  {
+   "item": "72",
+   "ds27_max_px": 10.4105,
+   "ds27_p95_px": 8.7452,
+   "r26r01_max_px": 5.776,
+   "r26r01_p95_px": 1.7233,
+   "r28r01_max_px": 5.776,
+   "diff_vs_26r01_max_px": 4.634500000000001,
+   "diff_vs_26r01_p95_px": 7.0219000000000005,
+   "diff_vs_28r01_max_px": 4.634500000000001
+  },
+  {
+   "item": "71",
+   "ds27_max_px": 126.247,
+   "ds27_p95_px": 90.2668,
+   "r26r01_max_px": 37.4944,
+   "r26r01_p95_px": 20.3695,
+   "r28r01_max_px": 126.247,
+   "diff_vs_26r01_max_px": 88.7526,
+   "diff_vs_26r01_p95_px": 69.8973,
+   "diff_vs_28r01_max_px": 0.0
+  }
+ ],
+ "colour_265_266_267": {
+  "265": {
+   "ds27": {
+    "target_lab_inner_face": [
+     41.92,
+     -4.878,
+     -29.433
+    ],
+    "render_lab_median": [
+     26.41,
+     0.506,
+     -22.778
+    ],
+    "n_px": 4178,
+    "dE00": 14.221,
+    "verdict": "fail",
+    "ja": "番号28 と同じ：内側の帯 A001 を 3 px 縮めた範囲で、主役波だけの原画視点の描画の Lab 中央値と原画の中央値の ΔE00"
+   },
+   "r28r01": {
+    "target_lab_inner_face": [
+     41.92,
+     -4.878,
+     -29.433
+    ],
+    "render_lab_median": [
+     42.375,
+     -5.362,
+     -28.709
+    ],
+    "n_px": 4178,
+    "dE00": 0.545,
+    "verdict": "pass",
+    "ja": "番号28 と同じ：内側の帯 A001 を 3 px 縮めた範囲で、主役波だけの原画視点の描画の Lab 中央値と原画の中央値の ΔE00"
+   },
+   "ds27_verdict": "fail",
+   "r28r01_verdict": "pass"
+  },
+  "266": {
+   "ds27": {
+    "class_default": "ai_mid",
+    "views": {
+     "ai_mid": {
+      "painting_view": {
+       "n_px": 12381,
+       "lab_median": [
+        26.41,
+        0.506,
+        -22.778
+       ],
+       "dE00_median_to_palette": 14.46,
+       "dE00_to_median_std": 26.1864,
+       "dE00_to_median_p99": 65.4252,
+       "dE00_to_median_max": 65.425,
+       "n_px_dev_gt_1": 5425,
+       "bands_ge_20px": 25
+      },
+      "seat_view": {
+       "n_px": 8613,
+       "lab_median": [
+        42.375,
+        -5.362,
+        -28.709
+       ],
+       "dE00_median_to_palette": 0.186,
+       "dE00_to_median_std": 0.093,
+       "dE00_to_median_p99": 0.0,
+       "dE00_to_median_max": 5.556,
+       "n_px_dev_gt_1": 9,
+       "bands_ge_20px": 0
+      },
+      "dE00_seat_vs_painting_median": 14.635,
+      "seat_low_view": {
+       "n_px": 119974,
+       "lab_median": [
+        42.375,
+        -5.362,
+        -28.709
+       ],
+       "dE00_median_to_palette": 0.186,
+       "dE00_to_median_std": 0.196,
+       "dE00_to_median_p99": 0.0,
+       "dE00_to_median_max": 27.611,
+       "n_px_dev_gt_1": 79,
+       "bands_ge_20px": 0
+      },
+      "dE00_seat_low_vs_painting_median": 14.635
+     },
+     "mizuiro_record": {
+      "painting_view": {
+       "n_px": 23969,
+       "lab_median": [
+        90.179,
+        -1.667,
+        7.436
+       ],
+       "dE00_median_to_palette": 8.846,
+       "dE00_to_median_std": 23.3479,
+       "dE00_to_median_p99": 62.0806,
+       "dE00_to_median_max": 62.081,
+       "n_px_dev_gt_1": 23962,
+       "bands_ge_20px": 112
+      },
+      "seat_view": {
+       "n_px": 24287,
+       "lab_median": [
+        84.441,
+        -7.947,
+        3.961
+       ],
+       "dE00_median_to_palette": 0.152,
+       "dE00_to_median_std": 0.0842,
+       "dE00_to_median_p99": 0.0,
+       "dE00_to_median_max": 5.111,
+       "n_px_dev_gt_1": 17,
+       "bands_ge_20px": 0
+      },
+      "dE00_seat_vs_painting_median": 8.81,
+      "seat_low_view": {
+       "n_px": 70951,
+       "lab_median": [
+        84.441,
+        -7.947,
+        3.961
+       ],
+       "dE00_median_to_palette": 0.152,
+       "dE00_to_median_std": 0.0869,
+       "dE00_to_median_p99": 0.0,
+       "dE00_to_median_max": 11.841,
+       "n_px_dev_gt_1": 39,
+       "bands_ge_20px": 0
+      },
+      "dE00_seat_low_vs_painting_median": 8.81
+     }
+    },
+    "verdict": "fail",
+    "seat": "D7 で決まった座席 v1（Tools/GWContext/seat_v1.json、目 [3.9544, 1.8323, -15.0308]、既定の向きの注視点 [0.655, 12.0, -11.155]・縦画角 80.0°、唇の方位の仰角 20° の注視点 [-2.1368, 5.2525, -7.8754]）。",
+    "ja": "『水色』は番号28 第A部の既定（藍中、既定値・利用者未回答）。原画視点（真値の色区を 3 px 縮めた範囲）と、座席 v1 の 2 つの向き（描画の色区 ID を 3 px 縮めた範囲）の全部で、各画素の色と範囲の中央値の ΔE00 の標準偏差 <1、1 ΔE00 を超える画素が 20 px 以上まとまった帯 0、座席と原画視点の中央値の差 ≤5。淡い水色は記録。番号28 では D7 が未決で旧い座席（手前の船）で測った"
+   },
+   "r28r01": {
+    "class_default": "ai_mid",
+    "views": {
+     "ai_mid": {
+      "painting_view": {
+       "n_px": 12381,
+       "lab_median": [
+        42.375,
+        -5.362,
+        -28.709
+       ],
+       "dE00_median_to_palette": 0.186,
+       "dE00_to_median_std": 0.2093,
+       "dE00_to_median_p99": 0.0,
+       "dE00_to_median_max": 10.722,
+       "n_px_dev_gt_1": 37,
+       "bands_ge_20px": 0
+      },
+      "seat_view": {
+       "n_px": 8622,
+       "lab_median": [
+        42.375,
+        -5.362,
+        -28.709
+       ],
+       "dE00_median_to_palette": 0.186,
+       "dE00_to_median_std": 0.3335,
+       "dE00_to_median_p99": 0.0,
+       "dE00_to_median_max": 5.399,
+       "n_px_dev_gt_1": 82,
+       "bands_ge_20px": 0
+      },
+      "dE00_seat_vs_painting_median": 0.0,
+      "seat_low_view": {
+       "n_px": 33129,
+       "lab_median": [
+        42.375,
+        -5.362,
+        -28.709
+       ],
+       "dE00_median_to_palette": 0.186,
+       "dE00_to_median_std": 0.3391,
+       "dE00_to_median_p99": 0.0,
+       "dE00_to_median_max": 32.511,
+       "n_px_dev_gt_1": 84,
+       "bands_ge_20px": 0
+      },
+      "dE00_seat_low_vs_painting_median": 0.0
+     },
+     "mizuiro_record": {
+      "painting_view": {
+       "n_px": 23969,
+       "lab_median": [
+        84.441,
+        -7.947,
+        3.961
+       ],
+       "dE00_median_to_palette": 0.152,
+       "dE00_to_median_std": 0.3075,
+       "dE00_to_median_p99": 0.0,
+       "dE00_to_median_max": 17.602,
+       "n_px_dev_gt_1": 56,
+       "bands_ge_20px": 0
+      },
+      "seat_view": {
+       "n_px": 3890,
+       "lab_median": [
+        84.441,
+        -7.947,
+        3.961
+       ],
+       "dE00_median_to_palette": 0.152,
+       "dE00_to_median_std": 0.1115,
+       "dE00_to_median_p99": 0.0,
+       "dE00_to_median_max": 4.656,
+       "n_px_dev_gt_1": 7,
+       "bands_ge_20px": 0
+      },
+      "dE00_seat_vs_painting_median": 0.0,
+      "seat_low_view": {
+       "n_px": 20436,
+       "lab_median": [
+        84.441,
+        -7.947,
+        3.961
+       ],
+       "dE00_median_to_palette": 0.152,
+       "dE00_to_median_std": 0.0486,
+       "dE00_to_median_p99": 0.0,
+       "dE00_to_median_max": 4.442,
+       "n_px_dev_gt_1": 9,
+       "bands_ge_20px": 0
+      },
+      "dE00_seat_low_vs_painting_median": 0.0
+     }
+    },
+    "verdict": "pass",
+    "seat": "D7 で決まった座席 v1（Tools/GWContext/seat_v1.json、目 [3.9544, 1.8323, -15.0308]、既定の向きの注視点 [0.655, 12.0, -11.155]・縦画角 80.0°、唇の方位の仰角 20° の注視点 [-2.1368, 5.2525, -7.8754]）。",
+    "ja": "『水色』は番号28 第A部の既定（藍中、既定値・利用者未回答）。原画視点（真値の色区を 3 px 縮めた範囲）と、座席 v1 の 2 つの向き（描画の色区 ID を 3 px 縮めた範囲）の全部で、各画素の色と範囲の中央値の ΔE00 の標準偏差 <1、1 ΔE00 を超える画素が 20 px 以上まとまった帯 0、座席と原画視点の中央値の差 ≤5。淡い水色は記録。番号28 では D7 が未決で旧い座席（手前の船）で測った"
+   },
+   "ds27_verdict": "fail",
+   "r28r01_verdict": "pass"
+  },
+  "267": {
+   "ds27": {
+    "class": "white",
+    "views": {
+     "white": {
+      "painting_view": {
+       "n_px": 101971,
+       "lab_median": [
+        95.742,
+        -1.667,
+        10.237
+       ],
+       "dE00_median_to_palette": 0.206,
+       "dE00_to_median_std": 23.152,
+       "dE00_to_median_p99": 65.4252,
+       "dE00_to_median_max": 65.425,
+       "n_px_dev_gt_1": 32789,
+       "bands_ge_20px": 150
+      },
+      "seat_view": {
+       "n_px": 74326,
+       "lab_median": [
+        95.742,
+        -1.667,
+        10.237
+       ],
+       "dE00_median_to_palette": 0.206,
+       "dE00_to_median_std": 0.146,
+       "dE00_to_median_p99": 0.0,
+       "dE00_to_median_max": 12.043,
+       "n_px_dev_gt_1": 107,
+       "bands_ge_20px": 0
+      },
+      "dE00_seat_vs_painting_median": 0.0,
+      "seat_low_view": {
+       "n_px": 109255,
+       "lab_median": [
+        95.742,
+        -1.667,
+        10.237
+       ],
+       "dE00_median_to_palette": 0.206,
+       "dE00_to_median_std": 0.118,
+       "dE00_to_median_p99": 0.0,
+       "dE00_to_median_max": 12.043,
+       "n_px_dev_gt_1": 140,
+       "bands_ge_20px": 1
+      },
+      "dE00_seat_low_vs_painting_median": 0.0
+     }
+    },
+    "verdict": "fail",
+    "seat": "D7 で決まった座席 v1（Tools/GWContext/seat_v1.json、目 [3.9544, 1.8323, -15.0308]、既定の向きの注視点 [0.655, 12.0, -11.155]・縦画角 80.0°、唇の方位の仰角 20° の注視点 [-2.1368, 5.2525, -7.8754]）。",
+    "ja": "白について 266 と同じ手順（原画にない灰色の帯＝1 ΔE00 を超える 20 px 以上のまとまり 0）"
+   },
+   "r28r01": {
+    "class": "white",
+    "views": {
+     "white": {
+      "painting_view": {
+       "n_px": 101971,
+       "lab_median": [
+        95.742,
+        -1.667,
+        10.237
+       ],
+       "dE00_median_to_palette": 0.206,
+       "dE00_to_median_std": 0.3099,
+       "dE00_to_median_p99": 0.0,
+       "dE00_to_median_max": 44.23,
+       "n_px_dev_gt_1": 127,
+       "bands_ge_20px": 0
+      },
+      "seat_view": {
+       "n_px": 21495,
+       "lab_median": [
+        95.742,
+        -1.667,
+        10.237
+       ],
+       "dE00_median_to_palette": 0.206,
+       "dE00_to_median_std": 0.5165,
+       "dE00_to_median_p99": 0.0,
+       "dE00_to_median_max": 19.004,
+       "n_px_dev_gt_1": 112,
+       "bands_ge_20px": 0
+      },
+      "dE00_seat_vs_painting_median": 0.0,
+      "seat_low_view": {
+       "n_px": 35169,
+       "lab_median": [
+        95.742,
+        -1.667,
+        10.237
+       ],
+       "dE00_median_to_palette": 0.206,
+       "dE00_to_median_std": 0.4048,
+       "dE00_to_median_p99": 0.0,
+       "dE00_to_median_max": 22.628,
+       "n_px_dev_gt_1": 118,
+       "bands_ge_20px": 0
+      },
+      "dE00_seat_low_vs_painting_median": 0.0
+     }
+    },
+    "verdict": "pass",
+    "seat": "D7 で決まった座席 v1（Tools/GWContext/seat_v1.json、目 [3.9544, 1.8323, -15.0308]、既定の向きの注視点 [0.655, 12.0, -11.155]・縦画角 80.0°、唇の方位の仰角 20° の注視点 [-2.1368, 5.2525, -7.8754]）。",
+    "ja": "白について 266 と同じ手順（原画にない灰色の帯＝1 ΔE00 を超える 20 px 以上のまとまり 0）"
+   },
+   "ds27_verdict": "fail",
+   "r28r01_verdict": "pass"
+  }
+ },
+ "worst_abs_diff_px": 146.133,
+ "criterion_px": 0.5,
+ "pass": false,
+ "summary_verdicts_ds27": {
+  "73": "fail",
+  "77": "fail",
+  "79": "fail",
+  "118": "fail",
+  "120": "fail",
+  "133": "fail",
+  "134": "fail",
+  "175": "fail",
+  "263": "fail",
+  "270": "fail",
+  "265": "fail",
+  "266": "fail",
+  "267": "fail",
+  "uv_no_empty_texels": "pass"
+ },
+ "summary_verdicts_28r01": {
+  "73": "pass",
+  "77": "pass",
+  "79": "pass",
+  "118": "pass",
+  "120": "pass",
+  "133": "pass",
+  "134": "pass",
+  "175": "fail",
+  "263": "pass",
+  "270": "pass",
+  "265": "pass",
+  "266": "pass",
+  "267": "pass",
+  "uv_no_empty_texels": "pass"
+ },
+ "outline_interior_px": {
+  "ds27": {
+   "r01": 11620,
+   "number28_old_kstar": 3957,
+   "ja": "外殻線 v0 の ID 画像で、描画の空から 4 px より内側（採点列の中）にある線の画素の数（表示 px）。原画にない面の折れ目の線（主断面の折れ、唇の上など）の量。線マスクは番号36。記録のみ"
+  },
+  "r28r01": {
+   "r01": 3555,
+   "number28_old_kstar": 3957,
+   "ja": "外殻線 v0 の ID 画像で、描画の空から 4 px より内側（採点列の中）にある線の画素の数（表示 px）。原画にない面の折れ目の線（主断面の折れ、唇の上など）の量。線マスクは番号36。記録のみ"
+  }
+ },
+ "pixel_diff_vs_af30_t28": {
+  "af28r01_painting.png": {
+   "pixels": 2073600,
+   "differing_pixels": 362203,
+   "differing_gt8": 291974,
+   "max_channel_diff": 216,
+   "fraction_differing": 0.17467351466049383
+  },
+  "af28r01_seat.png": {
+   "pixels": 2073600,
+   "differing_pixels": 327480,
+   "differing_gt8": 326002,
+   "max_channel_diff": 213,
+   "fraction_differing": 0.15792824074074074
+  },
+  "af28r01_seat_low.png": {
+   "pixels": 2073600,
+   "differing_pixels": 484170,
+   "differing_gt8": 419902,
+   "max_channel_diff": 216,
+   "fraction_differing": 0.23349247685185184
+  },
+  "af28r01_painting_kstar.png": {
+   "pixels": 2073600,
+   "differing_pixels": 372707,
+   "differing_gt8": 365392,
+   "max_channel_diff": 214,
+   "fraction_differing": 0.1797391010802469
+  },
+  "af28r01_seat_kstar.png": {
+   "pixels": 2073600,
+   "differing_pixels": 320318,
+   "differing_gt8": 318739,
+   "max_channel_diff": 214,
+   "fraction_differing": 0.15447434413580247
+  },
+  "af28r01_seat_low_kstar.png": {
+   "pixels": 2073600,
+   "differing_pixels": 652841,
+   "differing_gt8": 649022,
+   "max_channel_diff": 214,
+   "fraction_differing": 0.31483458719135804
+  },
+  "af28r01_class_ids.png": {
+   "pixels": 8294400,
+   "differing_pixels": 1377898,
+   "differing_gt8": 1377898,
+   "max_channel_diff": 255,
+   "fraction_differing": 0.16612389081790124
+  },
+  "af28r01_seat_class_ids.png": {
+   "pixels": 2073600,
+   "differing_pixels": 308146,
+   "differing_gt8": 308146,
+   "max_channel_diff": 255,
+   "fraction_differing": 0.14860435956790125
+  },
+  "af28r01_seat_low_class_ids.png": {
+   "pixels": 2073600,
+   "differing_pixels": 626637,
+   "differing_gt8": 626637,
+   "max_channel_diff": 255,
+   "fraction_differing": 0.3021976273148148
+  },
+  "af28r01_line_ids.png": {
+   "pixels": 8294400,
+   "differing_pixels": 1422226,
+   "differing_gt8": 1422226,
+   "max_channel_diff": 255,
+   "fraction_differing": 0.17146821952160493
+  }
+ },
+ "evaluate_rc": 0
+}

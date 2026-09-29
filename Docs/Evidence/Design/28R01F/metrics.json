@@ -1,0 +1,338 @@
+{
+ "schema": "GreatWave.Design28R01.metrics/1",
+ "number": "設計28修正01（閉じた版：最後の一コマ K*′ R4 と動き F_final）",
+ "closing_ja": "時間枠の損切りで閉じた。最良の候補で、Q22 の「使える水準」ではない（進行役の決定、Q24・Q26、2026-09-29 14:50）。",
+ "backlog_ja": "設計28修正01 に割り当てたバックログ項目の番号はない（計画 §4.2 の「その修正」）。項目は Q22 の閉じる条件を分けたもの（記録 第 5 節の # と同じ）。",
+ "final_frame_K_prime_R4": [
+  {
+   "id": "F1",
+   "item": "中ほどのふくらみがない（Q21・Q22）",
+   "value": {
+    "R6_p99_m": 0.693,
+    "R6_max_m": 0.863,
+    "R4_p99_m": 0.378,
+    "sag3m_p99_m": 1.085,
+    "sag3m_over_0.3m_vertices": 6714
+   },
+   "limit": "R6 p99 ≤ 0.6、R4 p99 ≤ 0.31、3 m の撓み p99 ≤ 0.15（暫定）",
+   "verdict": "不合格"
+  },
+  {
+   "id": "F2",
+   "item": "頂が直角でない",
+   "value": {
+    "theta_c_deg": 137.3,
+    "chord_deg": 158.4,
+    "fold_deg": 5.6,
+    "far_rows_theta_c_deg": 72,
+    "near_tail_rows_tstar_chord_deg": "c −39.7〜−26.7（行 20〜43、頂 3.1〜6.8 m）で 67.2〜105.5°"
+   },
+   "limit": "θc ≥ 110、弦角 ≥ 125、折れ ≤ 13（c −5〜+3）",
+   "verdict": "合格（本体の行。奥の行 c > +3 の F02 は窓に唇の頭が入り 72°、記録。手前の尾の行 c −39.7〜−26.7 は t* の ±2 m 弦角が 67〜105.5° で尖る。F02 の窓 c −5〜+3 と最終の評審の H ≥ 8 m の外）"
+  },
+  {
+   "id": "F3",
+   "item": "台座がない",
+   "value": {
+    "column_pairs": 0,
+    "trough_D_over_H": 0.2,
+    "front_foot_step_m": 1.0
+   },
+   "limit": "列の組 0、前の足の段 ≤ 0.5 m",
+   "verdict": "合格（前の足の段 1.00 m は記録。側面の t* で管の中に枕のような盛り上がり）"
+  },
+  {
+   "id": "F4",
+   "item": "頂が弧",
+   "value": {
+    "Rmin_main_m": 2.42,
+    "Rmin_far_m": 1.46
+   },
+   "limit": "Rmin ≥ 1.5",
+   "verdict": "合格（奥の行はわずかに届かない）"
+  },
+  {
+   "id": "F5",
+   "item": "本体が満ちる",
+   "value": {
+    "fullness_ratio": 1.45,
+    "shell_ratio": 1.16,
+    "F03_shell": 0.459,
+    "F03_wall": 0.456
+   },
+   "limit": "比 ≥ 0.90（暫定）、F03 殻・壁 ≤ 0.42 H（緩めた必須）",
+   "verdict": "合格（F03 の 2 つは 0.42 を超えて不合格のまま記録）"
+  },
+  {
+   "id": "F6",
+   "item": "b区域が原画に合う（3 つの大きな房）",
+   "value": {
+    "ridge_median_px": 7.1,
+    "ridge_p90_px": 14.6,
+    "ridge_max_px": 30.3,
+    "samples_covered": "36/46"
+   },
+   "limit": "p90 ≤ 15、最大 ≤ 30、46/46、3 つの房が読める",
+   "verdict": "不合格（1 つの棚に見える）"
+  },
+  {
+   "id": "F7",
+   "item": "原画視点の輪郭 ≤ 4 px（利用者の制約）",
+   "value": {
+    "78_130_131_max_px": [
+     2.741,
+     3.831,
+     2.924
+    ],
+    "132_large_form_max_px": 3.905,
+    "132_raw_max_px": 5.911,
+    "72_large_form_sigma24_p95_px": 3.746,
+    "72_large_form_sigma12_p95_px": 6.714,
+    "72_raw_p95_px": 8.717
+   },
+   "limit": "78／130／131 最大 ≤ 4、132 大きな輪郭 最大 ≤ 4、72 大きな輪郭 p95 ≤ 4",
+   "verdict": "条件付きの合格（72 を σ 24 px で読む進行役の決定の下だけ。σ 12 px では不合格。関門は 9/28 20:00（σ 12）と 9/29（σ 24）の 2 回緩めた）"
+  },
+  {
+   "id": "F8",
+   "item": "横の厚み F04（Q16）",
+   "value": {
+    "side_width_m": 27.8,
+    "front_width_m": 19.6,
+    "far_volume_m3": 1905
+   },
+   "limit": "≤ 18.5 m／≤ 13 m／≤ 600 m³",
+   "verdict": "不合格（記録）"
+  },
+  {
+   "id": "F9",
+   "item": "唇の縁の波打ち",
+   "value": {
+    "bump4_d1_p99": 1.2,
+    "tip_residual_p99_m": 0.16
+   },
+   "limit": "≤ 0.5〜0.6／≤ 0.08",
+   "verdict": "不合格"
+  },
+  {
+   "id": "F10",
+   "item": "網の清潔（t*）",
+   "value": {
+    "bvh_pairs": 0,
+    "flips": 0,
+    "local_selfx": 0,
+    "folds_over_60deg": 0,
+    "lip_clearance_min_m": 0.052
+   },
+   "limit": "0",
+   "verdict": "合格"
+  },
+  {
+   "id": "F11",
+   "item": "評価基準の必須の否",
+   "value": "28/56",
+   "limit": "0",
+   "verdict": "不合格（記録）"
+  }
+ ],
+ "motion_F_final": [
+  {
+   "id": "M1",
+   "item": "自己交差",
+   "value": {
+    "sections_60Hz_frames": "0/481（生成側・独立の検査の両方）",
+    "mesh_slab_30Hz_frames": "0/241",
+    "blender_bvh_30fps": "361 こまのうち 11 こまで 1〜4 組。7 こまは厚み 1〜2 cm の細い帯（τ −7.7〜−6.1、行 164〜180）、τ −6.16 の 1 こまは高さの幅 0.24 m（広がり 1.19 × 0.24 × 1.38 m、行 176〜177）、3 こまは行 238／239（広がり 0.5〜0.7 m。行 239 には長さ 0 の線分 216 本、K*′ から受け継いだ）"
+   },
+   "limit": "0",
+   "verdict": "合格（断面と網の帯の走査で 0。BVH の 11 こまは最終の評審が数値の当たりと読んだもので、そのこまを描いて見えるかどうかは確かめていない）"
+  },
+  {
+   "id": "M2",
+   "item": "t* = K*′",
+   "value": {
+    "precision_layer_mm": 0.0068,
+    "16bit_only_mm": 0.88
+   },
+   "limit": "≤ 1 mm",
+   "verdict": "合格"
+  },
+  {
+   "id": "M3",
+   "item": "Q13 唇は上昇の後半に見え始める",
+   "value": {
+    "lip_tip_1m_H_over_Hf": [
+     0.763,
+     0.832
+    ],
+    "Lo_0.05H_H_over_Hf": [
+     0.795,
+     0.791
+    ]
+   },
+   "limit": "≤ 0.85／0.91",
+   "verdict": "合格"
+  },
+  {
+   "id": "M4",
+   "item": "Q15 頂点の後の押し下げがない",
+   "value": {
+    "curl_share_after_t10_lip_tip_cols_194_200_both_rows": [
+     0.288,
+     0.317
+    ],
+    "col_223_main_row": 0.405,
+    "col_223_peak_row": 0.593,
+    "E_col_223_peak_row": 0.485,
+    "E_peak_row_max_col_232": 0.509,
+    "re_rise": 0
+   },
+   "limit": "峰の行 ≤ 0.50、再上昇 0",
+   "verdict": "合格（最終の評審の判定。ただし峰の行の列 223 の 1 列は 0.593 で上限 0.50 を超える。その列の全体の下がりは 1.36 m。E の同じ列は 0.485）"
+  },
+  {
+   "id": "M5",
+   "item": "Q17 小山 → C 字がなだらか",
+   "value": {
+    "hump_to_C_s": [
+     3.337,
+     3.361
+    ],
+    "rate_step_m_s2": [
+     1.774,
+     1.578
+    ],
+    "rise_0.4_0.8_s": [
+     3.08,
+     2.99
+    ]
+   },
+   "limit": "≥ 3.0 s、≤ 2.0 m/s²",
+   "verdict": "合格"
+  },
+  {
+   "id": "M6",
+   "item": "E1 前面は高さとともに立つ",
+   "value": {
+    "vertical_H_over_Hf": [
+     0.743,
+     0.735
+    ]
+   },
+   "limit": "≥ 0.72",
+   "verdict": "合格"
+  },
+  {
+   "id": "M7",
+   "item": "Q17 唇ができる前に直角にならない",
+   "value": {
+    "main_peak_chord_min_deg": [
+     161.5,
+     160.4
+    ],
+    "far_rows_c11.6_12.6": "98〜108°、≤ 110° が画面 0.67〜1.03 s",
+    "rows_c12.8_13.8": "86〜96°、≤ 110° が 1.1〜1.5 s（≤ 125° が 2.3〜2.7 s）",
+    "rows_le110_ge0p5s": 37,
+    "rows_le110_ge0p5s_breakdown": "奥の行 13（c +11.6〜+14.0）、手前の尾の行 24（c −39.7〜−26.7、頂 3.1〜6.8 m、67〜103°、≤ 110° が 2.1〜4.9 s、t* でも 67〜105.5°）",
+    "rows_sharper_than_own_tstar_by_5deg": 35
+   },
+   "limit": "≥ 125°（±2 m 弦）",
+   "verdict": "一部（主断面・峰の行は合格。奥の行と手前の尾の行は不合格。「≤ 110° の行 0」は生成側の θc の定義による）"
+  },
+  {
+   "id": "M8",
+   "item": "ぎざぎざ・跳び・急な止め",
+   "value": {
+    "pops_5_views": 0,
+    "J1_max": 0.0229,
+    "knot_normal_step": 1.23,
+    "stop_s": 1.13
+   },
+   "limit": "0、≤ 0.07、≤ 1.3、≥ 0.8",
+   "verdict": "合格"
+  },
+  {
+   "id": "M9",
+   "item": "本体の水（P17、M2 の跳びなし）",
+   "value": {
+    "V_tau_minus8_m3": 2987,
+    "V_max_m3": 7348,
+    "V_max_tau_s": -1.97,
+    "V_tstar_m3": 4190,
+    "loss_after_max": 0.43,
+    "last2s_step_ratio_indep": 1.49,
+    "builder_ratio": 1.54,
+    "outer_envelope_m3": {
+     "tau_-8": 3447,
+     "tau_-2": 7800,
+     "tstar": 9374,
+     "note_ja": "最大は t*。τ −1.6〜−1.3 に合わせて約 23 m³ の小さな下がりがあり、厳密には単調でない"
+    },
+    "pull_back_after_min": 0,
+    "main_row_envelope_m2": {
+     "tau_-2": 349,
+     "tau_-1.5": 330,
+     "tau_-1": 339,
+     "tau_-0.5": 369,
+     "tstar": 403
+    }
+   },
+   "limit": "P17 主断面 ≤ 10%、跳び ≤ 1",
+   "verdict": "不合格（物理の関門として。外の輪郭は縮まず、失うのは管が開く分。引き戻しなし）"
+  },
+  {
+   "id": "M10",
+   "item": "はっきりした違和感がない（見た目の審査）",
+   "value": "E より良い。側面 t 4〜6.5 s の平らな頂の塊と鉛直に近い前、後ろからの布をかぶせたようなドーム、Unity の色面は古い焼き込み",
+   "limit": "—",
+   "verdict": "一部"
+  },
+  {
+   "id": "M11",
+   "item": "関門 P1〜P20",
+   "value": "P2・P3（0.106）・P4・P7（3.0）・P11・P13・P14・P15・P16・P17・P18（9.33 m）・P19 が不合格",
+   "limit": "各しきい値",
+   "verdict": "記録のみ"
+  },
+  {
+   "id": "M12",
+   "item": "GPU ≤ 512 MiB",
+   "value": {
+    "readable_copy_MiB": 532,
+    "precision_layer_MiB": 266
+   },
+   "limit": "≤ 512",
+   "verdict": "不合格 → 設計29修正01"
+  },
+  {
+   "id": "M13",
+   "item": "生成の時間",
+   "value": {
+    "generate_s": 697.8,
+    "pipeline_total_s": 1770.2
+   },
+   "limit": "≤ 1,800 s",
+   "verdict": "合格"
+  },
+  {
+   "id": "M14",
+   "item": "決定性",
+   "value": "4/242 層を 1 つのプロセスで作り直してバイトが同じ（抜き取り）",
+   "limit": "—",
+   "verdict": "抜き取りでだけ確かめた"
+  }
+ ],
+ "unity_tstar_remeasure": {
+  "78_130_131_max_px": [
+   3.03,
+   3.55,
+   3.04
+  ],
+  "132_raw_px": 5.95,
+  "72_raw_p95_px": 8.75,
+  "note_ja": "Unity の再生器は 16 bit だけを読む。大きな輪郭（132・72）は幾何から測った値で、Unity の画像の評価器は細部込みの輪郭しか測らない。",
+  "boundary_items_fail": "73・77・79・118・120・133・134・175・270 は 37〜146 px、263 は 22 px の差（古い 28修正01 の焼き込みを K*′ の形に当てたため）",
+  "colour_value_items_fail": "265〜267 は ΔE00 で不合格（265 は ΔE00 14.2）"
+ },
+ "source_ja": "値はこのフォルダーの selfreview_q22_F_final.json・table_E_F.md・kstarR4_eval_table.md・judgeR4_*.json・finalreview_*.json・indep_*.json・unity_F_final_ds27_tstar_remeasure.json。"
+}
