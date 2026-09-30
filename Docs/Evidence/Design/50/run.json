@@ -1,0 +1,69 @@
+{
+ "schema": "GreatWave.DS50.record_run/1",
+ "tool": "Tools/GWWaveGen/ds50/ds50_record.py",
+ "toolSha256": "fb08378e6e1c97122af6137f010e7a2c2a866279a2b7e06dde074539002e3fb4",
+ "python": "3.10.6",
+ "numpy": "2.2.6",
+ "opencv": "4.12.0",
+ "ffmpeg": "ffmpeg・ffprobe 2024-12-19（G: の full_build）",
+ "command": "py -3.10 -B Tools/GWWaveGen/ds50/ds50_record.py",
+ "builderCommandsJa": [
+  "powershell -NoProfile -ExecutionPolicy Bypass -File Tools/GWWaveGen/ds50/run_ds50_unity.ps1 -Method GreatWave.Design50.EditorTools.DS50ReleaseBuild.BuildAll -Log build5",
+  "powershell -NoProfile -ExecutionPolicy Bypass -File Tools/GWWaveGen/ds50/run_ds50_player.ps1 -Tag capture5 -Capture",
+  "powershell -NoProfile -ExecutionPolicy Bypass -File Tools/GWWaveGen/ds50/run_ds50_player.ps1 -Tag main5",
+  "powershell -NoProfile -ExecutionPolicy Bypass -File Tools/GWWaveGen/ds50/run_ds50_player.ps1 -Tag vr4 -Vr",
+  "py -3.10 Tools/GWWaveGen/ds50/ds50_report.py --main main5 --capture capture5 --vr vr4"
+ ],
+ "unity": "6000.4.3f1",
+ "device": "NVIDIA GeForce RTX 3080・12th Gen Intel(R) Core(TM) i7-12700K・Direct3D11・Windows 11 (10.0.26200)",
+ "inputs": {
+  "Unity/Build/Design/50/release/metrics.json": "7bd046b6891d7516801f4098c6dfe5c218d165bbbb16a1018f3e33bc28db928a",
+  "Unity/Build/Design/50/release/run.json": "c81aa6eafc917bc1ffc533f5f8433c83742fa07bfb252f9da73914392880fed8",
+  "Unity/Build/Design/50/release/unity/ds50_build.json": "6a4763f2faf49763cd598a5321eddb1e7e33a1c26d3c6a55c25d9416d7ebbf1a",
+  "Unity/Build/Design/50/release/runs/main5/frames.csv": "7a2fe44ac04fab6249791cf6758340e056f1ed8b5c3a515e0bb8cc9a1dde6632",
+  "Unity/Build/Design/50/release/runs/main5/report.json": "73eb7d91b32b2ef0a533fede0d6b240c44458055a76cb2a70af131151e2e6884",
+  "Unity/Build/Design/50/release/runs/vr4/frames.csv": "6b415db6fd5880183b0ca9578277a9abab30327b27cd7b8bdd5fc1b35f55aebf",
+  "Unity/Build/Design/50/release/runs/vr4/report.json": "e27dc80d4cdb0b1594f869729622067d2c17cac5dd948a2f188a7adfb5a0056f",
+  "Unity/Build/Design/50/release/runs/capture5/frames_capture.csv": "9e6c0638c414135817e67784ae7f5fd8e024472d72a1ce31b3ca8aa30edf1478",
+  "Unity/Build/Design/50/release/runs/capture5/report_capture.json": "fa7b7ee06a69d8338d8026ab8e08a22494dd68c42fc77e50731dca410a7ae5f4",
+  "Unity/Build/Design/50/release/stills/ds50_end.png": "e865fc04d2545fd724f02a282e3fcc6263a98d0f3b1ca1cf4d9d26ad46fecf41",
+  "Unity/Build/Design/50/release/stills/ds50_afterglow.png": "3feaf243f4e3b563ea4c7d679abab1945daff568d266ff1f1797c66fd0c26914",
+  "Unity/Build/Design/50/release/player/GreatWave50.exe": "5be81b3fa7df7c08cadee6f79d6ff3fe95481420f166ba8127390ea669c8b12c",
+  "Unity/Build/Design/50/release/player/GreatWave50_Data/Managed/Assembly-CSharp.dll": "584ba1d7d076e8bb9305b0e6419686af6b3bea3f8bc8279dc417774fc797d053",
+  "Unity/Build/Design/50/release/player/GreatWave50_Data/level0": "2088e9c5ad4f7a329651321be660c814b624994538af58504d4108c55825553b"
+ },
+ "reviewRun": {
+  "Unity/Build/Design/50/release/runs/review_main1/frames.csv": "1dc02fd1a76e836f49e5466681043ff2c544b444bbee6d91a99e1fe54bae26fa",
+  "Unity/Build/Design/50/release/runs/review_main1/report.json": "6fa528cf0f913d90dcee91eda91dd867211c3b5a83df8ec2b94cc49331934d6f"
+ },
+ "committed": {
+  "Unity/Assets/GreatWave/Design50/Scenes/DS50_Release.unity": "51a24616a97f490d9c737d03c45708dba95f5e52cda9b0ab392821bea63556ab",
+  "Unity/Assets/GreatWave/Design50/Scripts/DS50Shell.cs": "b2d67f0029990f9dbf8a56de263289523e14bf530f766c53cd47af8e799e9038",
+  "Unity/Assets/GreatWave/Design50/Scripts/DS50AutoTest.cs": "99586c459f53a4d33703347e955e55423e76d4e634671511d61bebffe09ee81b",
+  "Unity/Assets/GreatWave/Design50/Editor/DS50ReleaseBuild.cs": "17d764c89aa1ba8555c7f8e9813751d6d8d6d7b32418219211fad77cbd0d2b69",
+  "Unity/Assets/GreatWave/Design50/Shaders/DS50_Overlay.shader": "fd7251fb3e9ff9d2945d195afadaa8a92528c07fbdc482290b69b1fb6bbaa334",
+  "Tools/GWWaveGen/ds50/ds50_report.py": "3fb4a39fa1242b88d90a1aa85364c5f6881f72d25a4771239db658a31b17bdd5",
+  "Tools/GWWaveGen/ds50/run_ds50_unity.ps1": "beccfc0800b15546920e0534ddd0c4fee71307cdf476bef7d5ffde1bf6039546",
+  "Tools/GWWaveGen/ds50/run_ds50_player.ps1": "fb63d286cbe8caaffaa8f28a1349001fbe0df16f40fd4300dd168611d121b246"
+ },
+ "ref47": {
+  "path": "Unity/Build/Design/47/flow/unity/main/painting/painting_end.png",
+  "sha256": "faa78462f4305e990ea926c1bfa0e27d8a0dc05ae6a8eeeba7e3e8b95e1e9f5f"
+ },
+ "outputs": {
+  "Docs/Evidence/Design/50/fig_ds50_end_panel.png": "25a4ee205a43cd792c5329f0fb04ea06adc9944b3d71612fc3be91b4b1b10966",
+  "Docs/Evidence/Design/50/stills_ds50_release.png": "7be565680108e345dc68530cfd68276b1b32c911fb51d9b23088df6b411c473a",
+  "Docs/Evidence/Design/50/ds50_entry.png": "a73d332f49c93bc45c452d90517494df137be4d1563430d2ff02f96a8be3c10f",
+  "Docs/Evidence/Design/50/ds50_end.png": "e865fc04d2545fd724f02a282e3fcc6263a98d0f3b1ca1cf4d9d26ad46fecf41",
+  "Docs/Evidence/Design/50/fig_ds50_timeline.png": "32d65b109d83b7295286116ea848764ce639f10b674b00457e69f82040d4a501",
+  "Docs/Evidence/Design/50/fig_ds50_frametime.png": "2606e2136fbcc8644e59d114c906a7c66f479141f74c7b8b2270e428e71ad031",
+  "Docs/Evidence/Design/50/fig_ds50_painting_vs_ds47_diff.png": "18c2bf7239583a1c8dee541e7a987023e7e222dc85b1903477d0d03206856a9e",
+  "Docs/Evidence/Design/50/ds50_release_960x540_30fps.mp4": "d79dff24fd7e66f994399b918a51495cd4d45210eeb728e1003be29c63a86b96",
+  "Docs/Evidence/Design/50/ds50_release_metrics.json": "7bd046b6891d7516801f4098c6dfe5c218d165bbbb16a1018f3e33bc28db928a",
+  "Docs/Evidence/Design/50/ds50_release_run.json": "c81aa6eafc917bc1ffc533f5f8433c83742fa07bfb252f9da73914392880fed8",
+  "Docs/Evidence/Design/50/ds50_build.json": "6a4763f2faf49763cd598a5321eddb1e7e33a1c26d3c6a55c25d9416d7ebbf1a",
+  "Docs/Evidence/Design/50/ds50_record_recount.json": "1b53af2374736711245f9b9565b94c533bc726e2473f93b477aed67fc1680f7e",
+  "Docs/Evidence/Design/50/metrics.json": "b112edb51f0e6a33b53dbe8f64357417afea281f71a0f70edd1dd8e148671246"
+ },
+ "seconds": 7.77
+}

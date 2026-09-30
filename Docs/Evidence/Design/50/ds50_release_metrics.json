@@ -1,0 +1,769 @@
+{
+  "schema": "GreatWave.DS50.release.metrics/1",
+  "generated": "2026-09-30T18:11:42",
+  "build": {
+    "exe": "G:\\Unity\\GreatWave_2026_Fresh\\Unity\\Build\\Design\\50\\release\\player\\GreatWave50.exe",
+    "exeSha256": "5be81b3fa7df7c08cadee6f79d6ff3fe95481420f166ba8127390ea669c8b12c",
+    "assemblyCSharpSha256": "584ba1d7d076e8bb9305b0e6419686af6b3bea3f8bc8279dc417774fc797d053",
+    "level0Sha256": "2088e9c5ad4f7a329651321be660c814b624994538af58504d4108c55825553b",
+    "buildResult": "Succeeded",
+    "buildOptions": "None",
+    "scene": "Assets/GreatWave/Design50/Scenes/DS50_Release.unity",
+    "sceneSha256": "51a24616a97f490d9c737d03c45708dba95f5e52cda9b0ab392821bea63556ab",
+    "playerBytes": 105439845,
+    "dataFiles": 38,
+    "dataBytes": 701651973,
+    "absolutePathsAfter": 0,
+    "rewrites": 3,
+    "protectedUnchanged": true,
+    "layerSetTogglesOff": 1,
+    "frameTimingStatsRestored": true,
+    "runInBackgroundRestored": true
+  },
+  "gates": [
+    {
+      "item": "最小の受入1：開発者の操作を一度も挟まずに入口から出口まで通る（271、通し）",
+      "criterion": "Release の exe・自動の試し（仮想のキーボードで利用者と同じキーだけ）で入口 → 体験 → 終わりの画面 → Q で出口、exit 0、例外・エラー 0、出来事 9",
+      "value": {
+        "main": {
+          "tag": "main5",
+          "pass_": true,
+          "autotestPass": true,
+          "exitCode": 0,
+          "timedOut": false,
+          "quitCause": "end_q",
+          "keysUsed": [
+            "A",
+            "C",
+            "D",
+            "Enter",
+            "Escape",
+            "P",
+            "Q",
+            "W"
+          ],
+          "developerInputs": 0,
+          "entryShownS": 3.0,
+          "endScreenS": 4.0,
+          "eventsFired": 9,
+          "errors": 0,
+          "exceptions": 0,
+          "experienceTotalS": 72.3714,
+          "handoverS": 31.0274,
+          "realSeconds": 90.0,
+          "frames": 58844,
+          "dataRootUsed": true,
+          "workingDirectory": "G:\\Unity\\GreatWave_2026_Fresh\\Unity\\Build\\Design\\50\\release\\runs\\main5",
+          "vrRequested": false,
+          "vrActive": false,
+          "vrStatusJa": "",
+          "screen": "1920x1080",
+          "stopsPassAutotest": [
+            true,
+            true,
+            true
+          ],
+          "comfortPass": [
+            true,
+            true
+          ],
+          "unityLogErrorLines": 0,
+          "openxrRuntimeUnavailableLines": 5
+        },
+        "capture": {
+          "tag": "capture5",
+          "pass_": true,
+          "autotestPass": true,
+          "exitCode": 0,
+          "timedOut": false,
+          "quitCause": "end_q",
+          "keysUsed": [
+            "A",
+            "C",
+            "D",
+            "Enter",
+            "Escape",
+            "P",
+            "Q",
+            "W"
+          ],
+          "developerInputs": 0,
+          "entryShownS": 3.0,
+          "endScreenS": 4.0,
+          "eventsFired": 9,
+          "errors": 0,
+          "exceptions": 0,
+          "experienceTotalS": 72.3457,
+          "handoverS": 31.0,
+          "realSeconds": 73.898,
+          "frames": 2526,
+          "dataRootUsed": true,
+          "workingDirectory": "G:\\Unity\\GreatWave_2026_Fresh\\Unity\\Build\\Design\\50\\release\\runs\\capture5",
+          "vrRequested": false,
+          "vrActive": false,
+          "vrStatusJa": "",
+          "screen": "1920x1080",
+          "stopsPassAutotest": [
+            true,
+            true,
+            true
+          ],
+          "comfortPass": [
+            true,
+            true
+          ],
+          "unityLogErrorLines": 0,
+          "openxrRuntimeUnavailableLines": 5
+        },
+        "vr": {
+          "tag": "vr4",
+          "pass_": true,
+          "autotestPass": true,
+          "exitCode": 0,
+          "timedOut": false,
+          "quitCause": "end_q",
+          "keysUsed": [
+            "A",
+            "C",
+            "D",
+            "Enter",
+            "Escape",
+            "P",
+            "Q",
+            "W"
+          ],
+          "developerInputs": 0,
+          "entryShownS": 3.0,
+          "endScreenS": 4.0,
+          "eventsFired": 9,
+          "errors": 0,
+          "exceptions": 0,
+          "experienceTotalS": 72.3651,
+          "handoverS": 31.0246,
+          "realSeconds": 90.032,
+          "frames": 58990,
+          "dataRootUsed": true,
+          "workingDirectory": "G:\\Unity\\GreatWave_2026_Fresh\\Unity\\Build\\Design\\50\\release\\runs\\vr4",
+          "vrRequested": true,
+          "vrActive": false,
+          "vrStatusJa": "VR を開始できませんでした。PC の画面で続けます。",
+          "screen": "1920x1080",
+          "stopsPassAutotest": [
+            true,
+            true,
+            true
+          ],
+          "comfortPass": [
+            true,
+            true
+          ],
+          "unityLogErrorLines": 0,
+          "openxrRuntimeUnavailableLines": 12
+        }
+      },
+      "verdict": "合格"
+    },
+    {
+      "item": "最小の受入2：停止が即座に効く",
+      "criterion": "押したキーを Input System が読む最初のフレームで停止し、その後は時計・座席の船・音が 1 フレームも進まない（導入・形成・余韻の 3 回）",
+      "value": {
+        "main": [
+          {
+            "label": "導入（操船中）",
+            "key": "P",
+            "phase": "Intro",
+            "injectFrame": 12145,
+            "keySeenFrame": 12146,
+            "resumeFrame": 14453,
+            "framesAfterKeyWhileStopped": 2306,
+            "expAdvanceAfterKeyFrameS": 0.0,
+            "boatMoveAfterKeyFrameM": 0.0,
+            "audioPlayingMax": 0,
+            "clockRunningFrames": 0,
+            "shellStoppedFrames": 2306,
+            "inputLatencyFrames": 1,
+            "injectToFreezeMs": 2.136,
+            "wallTimeStoppedS": 2.0045,
+            "pass": true
+          },
+          {
+            "label": "形成（大波の時刻 6 s）",
+            "key": "Escape",
+            "phase": "Formation",
+            "injectFrame": 37072,
+            "keySeenFrame": 37073,
+            "resumeFrame": 38944,
+            "framesAfterKeyWhileStopped": 1870,
+            "expAdvanceAfterKeyFrameS": 0.0,
+            "boatMoveAfterKeyFrameM": 0.0,
+            "audioPlayingMax": 0,
+            "clockRunningFrames": 0,
+            "shellStoppedFrames": 1870,
+            "inputLatencyFrames": 1,
+            "injectToFreezeMs": 20.638,
+            "wallTimeStoppedS": 1.5014,
+            "pass": true
+          },
+          {
+            "label": "余韻（視点の移動中）",
+            "key": "P",
+            "phase": "Afterglow",
+            "injectFrame": 42247,
+            "keySeenFrame": 42248,
+            "resumeFrame": 43682,
+            "framesAfterKeyWhileStopped": 1433,
+            "expAdvanceAfterKeyFrameS": 0.0,
+            "boatMoveAfterKeyFrameM": 9.5367431640625e-07,
+            "audioPlayingMax": 0,
+            "clockRunningFrames": 0,
+            "shellStoppedFrames": 1433,
+            "inputLatencyFrames": 1,
+            "injectToFreezeMs": 1.068,
+            "wallTimeStoppedS": 1.0022,
+            "pass": true
+          }
+        ],
+        "capture": [
+          {
+            "label": "導入（操船中）",
+            "key": "P",
+            "phase": "Intro",
+            "injectFrame": 422,
+            "keySeenFrame": 423,
+            "resumeFrame": 485,
+            "framesAfterKeyWhileStopped": 61,
+            "expAdvanceAfterKeyFrameS": 0.0,
+            "boatMoveAfterKeyFrameM": 0.0,
+            "audioPlayingMax": 0,
+            "clockRunningFrames": 0,
+            "shellStoppedFrames": 61,
+            "inputLatencyFrames": 1,
+            "injectToFreezeMs": 26.348,
+            "wallTimeStoppedS": 1.3254,
+            "pass": true
+          },
+          {
+            "label": "形成（大波の時刻 6 s）",
+            "key": "Escape",
+            "phase": "Formation",
+            "injectFrame": 1665,
+            "keySeenFrame": 1666,
+            "resumeFrame": 1713,
+            "framesAfterKeyWhileStopped": 46,
+            "expAdvanceAfterKeyFrameS": 0.0,
+            "boatMoveAfterKeyFrameM": 0.0,
+            "audioPlayingMax": 0,
+            "clockRunningFrames": 0,
+            "shellStoppedFrames": 46,
+            "inputLatencyFrames": 1,
+            "injectToFreezeMs": 50.942,
+            "wallTimeStoppedS": 1.0305,
+            "pass": true
+          },
+          {
+            "label": "余韻（視点の移動中）",
+            "key": "P",
+            "phase": "Afterglow",
+            "injectFrame": 2012,
+            "keySeenFrame": 2013,
+            "resumeFrame": 2045,
+            "framesAfterKeyWhileStopped": 31,
+            "expAdvanceAfterKeyFrameS": 0.0,
+            "boatMoveAfterKeyFrameM": 0.0,
+            "audioPlayingMax": 0,
+            "clockRunningFrames": 0,
+            "shellStoppedFrames": 31,
+            "inputLatencyFrames": 1,
+            "injectToFreezeMs": 24.338,
+            "wallTimeStoppedS": 0.739,
+            "pass": true
+          }
+        ]
+      },
+      "verdict": "合格"
+    },
+    {
+      "item": "最小の受入3：体験の終わりが分かる",
+      "criterion": "end の出来事の後に終わりの画面（日本語、終了の操作と自動終了の秒）が出て、Q で出口。初めての人の試遊記録（D29）は保留（利用者の手）",
+      "value": {
+        "endEventFrame": 53082,
+        "endShownFrame": 53082,
+        "endScreenShownS": 4.0,
+        "quitCause": "end_q",
+        "still": "Unity/Build/Design/50/release/stills/ds50_end.png"
+      },
+      "verdict": "合格（PC の自動の試し）。試遊の記録は保留"
+    },
+    {
+      "item": "H2：このPCのフレーム時間 p95/p99（記録）",
+      "criterion": "記録（PS VR2 の 90 Hz の 1 コマ 11.1 ms に照らす。判定は HMD 実機）",
+      "value": {
+        "conditions": "Release・D3D11・1920x1080 の窓・vSync 0・targetFrameRate −1・PC の単眼（XR なし）・NVIDIA GeForce RTX 3080・12th Gen Intel(R) Core(TM) i7-12700K x20",
+        "running_all": {
+          "wallFrameTime": {
+            "frames": 43146,
+            "meanMs": 1.6774,
+            "p50Ms": 1.3721,
+            "p95Ms": 1.9421,
+            "p99Ms": 19.9352,
+            "maxMs": 55.9728,
+            "over11_1ms": 469,
+            "over16_7ms": 469
+          },
+          "cpuFrameTime": {
+            "frames": 43146,
+            "meanMs": 1.6756,
+            "p50Ms": 1.3717,
+            "p95Ms": 1.942,
+            "p99Ms": 19.9133,
+            "maxMs": 55.9716,
+            "over11_1ms": 466,
+            "over16_7ms": 466
+          },
+          "cpuMainThread": {
+            "frames": 43146,
+            "meanMs": 1.6734,
+            "p50Ms": 1.3697,
+            "p95Ms": 1.9394,
+            "p99Ms": 19.91,
+            "maxMs": 55.9686,
+            "over11_1ms": 466,
+            "over16_7ms": 466
+          },
+          "gpuFrameTime": {
+            "frames": 41544,
+            "meanMs": 0.4429,
+            "p50Ms": 0.425,
+            "p95Ms": 0.51,
+            "p99Ms": 0.94,
+            "maxMs": 4.7759,
+            "over11_1ms": 0,
+            "over16_7ms": 0
+          }
+        },
+        "perPhase": {
+          "running_Intro": {
+            "wallFrameTime": {
+              "frames": 21327,
+              "meanMs": 1.4548,
+              "p50Ms": 1.3959,
+              "p95Ms": 1.9074,
+              "p99Ms": 2.2432,
+              "maxMs": 27.2549,
+              "over11_1ms": 1,
+              "over16_7ms": 1
+            },
+            "cpuFrameTime": {
+              "frames": 21327,
+              "meanMs": 1.4547,
+              "p50Ms": 1.3959,
+              "p95Ms": 1.909,
+              "p99Ms": 2.2451,
+              "maxMs": 27.2576,
+              "over11_1ms": 1,
+              "over16_7ms": 1
+            },
+            "cpuMainThread": {
+              "frames": 21327,
+              "meanMs": 1.4525,
+              "p50Ms": 1.3937,
+              "p95Ms": 1.9057,
+              "p99Ms": 2.2423,
+              "maxMs": 27.2542,
+              "over11_1ms": 1,
+              "over16_7ms": 1
+            },
+            "gpuFrameTime": {
+              "frames": 20574,
+              "meanMs": 0.4018,
+              "p50Ms": 0.3953,
+              "p95Ms": 0.4516,
+              "p99Ms": 0.5007,
+              "maxMs": 1.3855,
+              "over11_1ms": 0,
+              "over16_7ms": 0
+            }
+          },
+          "running_Approach": {
+            "wallFrameTime": {
+              "frames": 8864,
+              "meanMs": 1.5055,
+              "p50Ms": 1.4377,
+              "p95Ms": 1.9608,
+              "p99Ms": 2.2956,
+              "maxMs": 3.8902,
+              "over11_1ms": 0,
+              "over16_7ms": 0
+            },
+            "cpuFrameTime": {
+              "frames": 8864,
+              "meanMs": 1.5056,
+              "p50Ms": 1.4376,
+              "p95Ms": 1.9613,
+              "p99Ms": 2.3025,
+              "maxMs": 3.8994,
+              "over11_1ms": 0,
+              "over16_7ms": 0
+            },
+            "cpuMainThread": {
+              "frames": 8864,
+              "meanMs": 1.5034,
+              "p50Ms": 1.4354,
+              "p95Ms": 1.9589,
+              "p99Ms": 2.2985,
+              "maxMs": 3.8951,
+              "over11_1ms": 0,
+              "over16_7ms": 0
+            },
+            "gpuFrameTime": {
+              "frames": 8505,
+              "meanMs": 0.4251,
+              "p50Ms": 0.426,
+              "p95Ms": 0.469,
+              "p99Ms": 0.5099,
+              "maxMs": 1.1121,
+              "over11_1ms": 0,
+              "over16_7ms": 0
+            }
+          },
+          "running_Formation": {
+            "wallFrameTime": {
+              "frames": 468,
+              "meanMs": 25.6329,
+              "p50Ms": 24.2424,
+              "p95Ms": 34.3779,
+              "p99Ms": 49.1973,
+              "maxMs": 55.9728,
+              "over11_1ms": 466,
+              "over16_7ms": 466
+            },
+            "cpuFrameTime": {
+              "frames": 468,
+              "meanMs": 25.3169,
+              "p50Ms": 23.8484,
+              "p95Ms": 34.3759,
+              "p99Ms": 49.1976,
+              "maxMs": 55.9716,
+              "over11_1ms": 460,
+              "over16_7ms": 460
+            },
+            "cpuMainThread": {
+              "frames": 468,
+              "meanMs": 25.3131,
+              "p50Ms": 23.8451,
+              "p95Ms": 34.3721,
+              "p99Ms": 49.1944,
+              "maxMs": 55.9686,
+              "over11_1ms": 460,
+              "over16_7ms": 460
+            },
+            "gpuFrameTime": {
+              "frames": 454,
+              "meanMs": 1.2479,
+              "p50Ms": 0.9549,
+              "p95Ms": 2.4693,
+              "p99Ms": 4.3421,
+              "maxMs": 4.7759,
+              "over11_1ms": 0,
+              "over16_7ms": 0
+            }
+          },
+          "running_Hold": {
+            "wallFrameTime": {
+              "frames": 1497,
+              "meanMs": 1.3387,
+              "p50Ms": 1.1964,
+              "p95Ms": 2.1446,
+              "p99Ms": 3.393,
+              "maxMs": 24.9274,
+              "over11_1ms": 2,
+              "over16_7ms": 2
+            },
+            "cpuFrameTime": {
+              "frames": 1497,
+              "meanMs": 1.3864,
+              "p50Ms": 1.1958,
+              "p95Ms": 2.1535,
+              "p99Ms": 3.667,
+              "maxMs": 25.5329,
+              "over11_1ms": 5,
+              "over16_7ms": 5
+            },
+            "cpuMainThread": {
+              "frames": 1497,
+              "meanMs": 1.3842,
+              "p50Ms": 1.1942,
+              "p95Ms": 2.1484,
+              "p99Ms": 3.6611,
+              "maxMs": 25.53,
+              "over11_1ms": 5,
+              "over16_7ms": 5
+            },
+            "gpuFrameTime": {
+              "frames": 1440,
+              "meanMs": 0.5383,
+              "p50Ms": 0.425,
+              "p95Ms": 2.0327,
+              "p99Ms": 2.1435,
+              "maxMs": 3.8472,
+              "over11_1ms": 0,
+              "over16_7ms": 0
+            }
+          },
+          "running_Afterglow": {
+            "wallFrameTime": {
+              "frames": 10989,
+              "meanMs": 1.2739,
+              "p50Ms": 1.2178,
+              "p95Ms": 1.7414,
+              "p99Ms": 2.0648,
+              "maxMs": 3.4417,
+              "over11_1ms": 0,
+              "over16_7ms": 0
+            },
+            "cpuFrameTime": {
+              "frames": 10989,
+              "meanMs": 1.2738,
+              "p50Ms": 1.2178,
+              "p95Ms": 1.7421,
+              "p99Ms": 2.0708,
+              "maxMs": 3.4509,
+              "over11_1ms": 0,
+              "over16_7ms": 0
+            },
+            "cpuMainThread": {
+              "frames": 10989,
+              "meanMs": 1.2717,
+              "p50Ms": 1.2158,
+              "p95Ms": 1.74,
+              "p99Ms": 2.0641,
+              "maxMs": 3.4476,
+              "over11_1ms": 0,
+              "over16_7ms": 0
+            },
+            "gpuFrameTime": {
+              "frames": 10570,
+              "meanMs": 0.4896,
+              "p50Ms": 0.4813,
+              "p95Ms": 0.5396,
+              "p99Ms": 0.9042,
+              "maxMs": 1.1182,
+              "over11_1ms": 0,
+              "over16_7ms": 0
+            }
+          }
+        },
+        "wholeRun": {
+          "wallFrameTime": {
+            "frames": 58844,
+            "meanMs": 1.5648,
+            "p50Ms": 1.2986,
+            "p95Ms": 1.8706,
+            "p99Ms": 2.9548,
+            "maxMs": 6627.193,
+            "over11_1ms": 472,
+            "over16_7ms": 472
+          },
+          "cpuFrameTime": {
+            "frames": 58840,
+            "meanMs": 1.4522,
+            "p50Ms": 1.2984,
+            "p95Ms": 1.8715,
+            "p99Ms": 2.9517,
+            "maxMs": 1563.1424,
+            "over11_1ms": 471,
+            "over16_7ms": 471
+          },
+          "cpuMainThread": {
+            "frames": 58840,
+            "meanMs": 1.45,
+            "p50Ms": 1.2963,
+            "p95Ms": 1.8687,
+            "p99Ms": 2.9485,
+            "maxMs": 1563.1335,
+            "over11_1ms": 471,
+            "over16_7ms": 471
+          },
+          "gpuFrameTime": {
+            "frames": 55429,
+            "meanMs": 0.4354,
+            "p50Ms": 0.4209,
+            "p95Ms": 0.5089,
+            "p99Ms": 0.983,
+            "maxMs": 4.9398,
+            "over11_1ms": 0,
+            "over16_7ms": 0
+          }
+        }
+      },
+      "verdict": "記録"
+    },
+    {
+      "item": "H7：再センタリング・停止・復帰（HMD の通し）",
+      "criterion": "PS VR2 の実機",
+      "value": "PC の停止・再開は上の最小の受入2。HMD の runtime 側の再センタリング・停止は PS VR2 の導入が要る",
+      "verdict": "保留（利用者の手）"
+    },
+    {
+      "item": "D29：初めての人 1〜2 名の試遊",
+      "criterion": "利用者本人と研究室の 1 名（既定値・利用者未回答）",
+      "value": "exe と操作の説明は用意した（入口の画面）",
+      "verdict": "保留（利用者の手）"
+    },
+    {
+      "item": "--vr（同じ exe）",
+      "criterion": "記録（XR の runtime がなければ PC の画面へ戻る）",
+      "value": {
+        "tag": "vr4",
+        "pass_": true,
+        "autotestPass": true,
+        "exitCode": 0,
+        "timedOut": false,
+        "quitCause": "end_q",
+        "keysUsed": [
+          "A",
+          "C",
+          "D",
+          "Enter",
+          "Escape",
+          "P",
+          "Q",
+          "W"
+        ],
+        "developerInputs": 0,
+        "entryShownS": 3.0,
+        "endScreenS": 4.0,
+        "eventsFired": 9,
+        "errors": 0,
+        "exceptions": 0,
+        "experienceTotalS": 72.3651,
+        "handoverS": 31.0246,
+        "realSeconds": 90.032,
+        "frames": 58990,
+        "dataRootUsed": true,
+        "workingDirectory": "G:\\Unity\\GreatWave_2026_Fresh\\Unity\\Build\\Design\\50\\release\\runs\\vr4",
+        "vrRequested": true,
+        "vrActive": false,
+        "vrStatusJa": "VR を開始できませんでした。PC の画面で続けます。",
+        "screen": "1920x1080",
+        "stopsPassAutotest": [
+          true,
+          true,
+          true
+        ],
+        "comfortPass": [
+          true,
+          true
+        ],
+        "unityLogErrorLines": 0,
+        "openxrRuntimeUnavailableLines": 12
+      },
+      "verdict": "記録（HMD 実機は保留）"
+    },
+    {
+      "item": "原画視点の回帰（計画 §2.0、記録）",
+      "criterion": "余韻の終わりの画を設計47 の painting_end.png と比べる（JPG の記録なので記録のみ）",
+      "value": {
+        "frame": 2401,
+        "exp": 72.2667,
+        "ref": "Unity/Build/Design/47/flow/unity/main/painting/painting_end.png",
+        "refSha256": "faa78462f4305e990ea926c1bfa0e27d8a0dc05ae6a8eeeba7e3e8b95e1e9f5f",
+        "meanAbsDiff": 1.2026,
+        "pctPixelsDiffOver24": 0.6857,
+        "pctPixelsDiffOver64": 0.0094
+      },
+      "verdict": "記録"
+    }
+  ],
+  "video": {
+    "full": "Unity/Build/Design/50/release/ds50_release_30fps.mp4",
+    "small": "Unity/Build/Design/50/release/ds50_release_540p_30fps_small.mp4",
+    "frames": 2525,
+    "firstFrame": 1,
+    "lastFrame": 2525,
+    "seconds": 84.167
+  },
+  "stills": [
+    {
+      "key": "entry",
+      "labelEn": "1 entry screen (Japanese controls)",
+      "frame": 46,
+      "exp": 0.0,
+      "shell": "Entry",
+      "path": "Unity/Build/Design/50/release/stills/ds50_entry.png",
+      "sha256": "a73d332f49c93bc45c452d90517494df137be4d1563430d2ff02f96a8be3c10f"
+    },
+    {
+      "key": "intro",
+      "labelEn": "2 intro: steering (W/A/D)",
+      "frame": 272,
+      "exp": 6.0,
+      "shell": "Running",
+      "path": "Unity/Build/Design/50/release/stills/ds50_intro.png",
+      "sha256": "758cc21398ab93692113bcecbb9fc552b0c2d4e34a6f92636beafdec693e0b5b"
+    },
+    {
+      "key": "stop_intro",
+      "labelEn": "3 stop (P) in intro",
+      "frame": 439,
+      "exp": 11.0333,
+      "shell": "Stopped",
+      "path": "Unity/Build/Design/50/release/stills/ds50_stop_intro.png",
+      "sha256": "9cdfe7f47ab83a9745cc37b52eba2c5fb12f07f476be9d01aef44cb06797105d"
+    },
+    {
+      "key": "comfort",
+      "labelEn": "4 comfort toggle (C) -> L3 notice",
+      "frame": 656,
+      "exp": 16.7333,
+      "shell": "Running",
+      "path": "Unity/Build/Design/50/release/stills/ds50_comfort.png",
+      "sha256": "79f98f1e2830991efca065c28e69be6b6884182dde519906baa5fea139e56ee6"
+    },
+    {
+      "key": "formation",
+      "labelEn": "5 formation: jet start",
+      "frame": 1820,
+      "exp": 53.9667,
+      "shell": "Running",
+      "path": "Unity/Build/Design/50/release/stills/ds50_formation.png",
+      "sha256": "822e34fe83590a46d7216456db7a23fbc9524b4d78bc45a196f4736569f09c7b"
+    },
+    {
+      "key": "stop_formation",
+      "labelEn": "6 stop (Esc) in formation",
+      "frame": 1677,
+      "exp": 50.4,
+      "shell": "Stopped",
+      "path": "Unity/Build/Design/50/release/stills/ds50_stop_formation.png",
+      "sha256": "244a74ab183888b483ba8d1250538a8880a71d92177d855cdea6803100ce2c1b"
+    },
+    {
+      "key": "tstar_hold",
+      "labelEn": "7 t* hold",
+      "frame": 1916,
+      "exp": 57.1667,
+      "shell": "Running",
+      "path": "Unity/Build/Design/50/release/stills/ds50_tstar_hold.png",
+      "sha256": "7dca49c106193ba734b6f9d4cbcfa086865d981d6049a6fad6cce9933451a9c1"
+    },
+    {
+      "key": "afterglow",
+      "labelEn": "8 afterglow: painting view",
+      "frame": 2254,
+      "exp": 67.3667,
+      "shell": "Running",
+      "path": "Unity/Build/Design/50/release/stills/ds50_afterglow.png",
+      "sha256": "3feaf243f4e3b563ea4c7d679abab1945daff568d266ff1f1797c66fd0c26914"
+    },
+    {
+      "key": "end",
+      "labelEn": "9 end screen",
+      "frame": 2435,
+      "exp": 72.3457,
+      "shell": "End",
+      "path": "Unity/Build/Design/50/release/stills/ds50_end.png",
+      "sha256": "e865fc04d2545fd724f02a282e3fcc6263a98d0f3b1ca1cf4d9d26ad46fecf41"
+    }
+  ]
+}

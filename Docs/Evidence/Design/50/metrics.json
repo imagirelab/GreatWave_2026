@@ -1,0 +1,1234 @@
+{
+ "schema": "GreatWave.DS50.record_metrics/1",
+ "numberJa": "設計50：初めての人が入口から出口まで試す",
+ "statusJa": "閉じた（使える水準。最小の受入 3 つを PC の Release のプレイヤーで満たした。H2 は記録、H7 と初めての人の試遊（D29）は保留。受入の判定の後の修正 0 回）",
+ "evidenceKindJa": "Unity 6000.4.3f1 の Windows の Release のプレイヤー（BuildOptions.None、D3D11、1920×1080 の窓、vSync 0）を自動の試し（Input System の仮想のキーボード）で動かした、PC（RTX 3080・i7-12700K）の結果。HMD 実機・人の試遊・ゲームパッドの結果ではない",
+ "planJa": {
+  "deliverable": "Windows の Release ビルド（PC 版と --vr、同じ exe）。日本語の入口画面（操作説明）、停止と揺れ軽減の切替、終了画面。初めての人1〜2名の試遊（D29）",
+  "minimumAcceptance": "開発者の操作を一度も挟まずに入口から出口まで通る。停止が即座に効く。体験の終わりが分かる（試遊記録）。H2 の p95/p99、H7",
+  "dependency": "設計45〜49",
+  "backlog": "271（通し、記録）",
+  "timeBox": "Q26：3 h（計画の時間枠 ≤0.75日＋試遊）"
+ },
+ "acceptance": {
+  "entryToExit": {
+   "item": "271（記録）・最小の受入1",
+   "pass_": true,
+   "runs": {
+    "main5": {
+     "pass_": true,
+     "quitCause": "end_q",
+     "errors": 0,
+     "exceptions": 0,
+     "events": 9,
+     "keys": [
+      "A",
+      "C",
+      "D",
+      "Enter",
+      "Escape",
+      "P",
+      "Q",
+      "W"
+     ],
+     "rows": 58844,
+     "shellOrder": [
+      "Entry",
+      "Running",
+      "Stopped",
+      "Running",
+      "Stopped",
+      "Running",
+      "Stopped",
+      "Running",
+      "End"
+     ],
+     "entryExpMax": 0.0
+    },
+    "vr4": {
+     "pass_": true,
+     "quitCause": "end_q",
+     "errors": 0,
+     "exceptions": 0,
+     "events": 9,
+     "keys": [
+      "A",
+      "C",
+      "D",
+      "Enter",
+      "Escape",
+      "P",
+      "Q",
+      "W"
+     ],
+     "rows": 58990,
+     "shellOrder": [
+      "Entry",
+      "Running",
+      "Stopped",
+      "Running",
+      "Stopped",
+      "Running",
+      "Stopped",
+      "Running",
+      "End"
+     ],
+     "entryExpMax": 0.0
+    },
+    "capture5": {
+     "pass_": true,
+     "quitCause": "end_q",
+     "errors": 0,
+     "exceptions": 0,
+     "events": 9,
+     "keys": [
+      "A",
+      "C",
+      "D",
+      "Enter",
+      "Escape",
+      "P",
+      "Q",
+      "W"
+     ],
+     "rows": 2526,
+     "shellOrder": [
+      "Entry",
+      "Running",
+      "Stopped",
+      "Running",
+      "Stopped",
+      "Running",
+      "Stopped",
+      "Running",
+      "End"
+     ],
+     "entryExpMax": 0.0
+    },
+    "review_main1": {
+     "pass_": true,
+     "quitCause": "end_q",
+     "errors": 0,
+     "exceptions": 0,
+     "events": 9,
+     "keys": [
+      "A",
+      "C",
+      "D",
+      "Enter",
+      "Escape",
+      "P",
+      "Q",
+      "W"
+     ],
+     "rows": 60336,
+     "shellOrder": [
+      "Entry",
+      "Running",
+      "Stopped",
+      "Running",
+      "Stopped",
+      "Running",
+      "Stopped",
+      "Running",
+      "End"
+     ],
+     "entryExpMax": 0.0
+    }
+   },
+   "verdict": "合格"
+  },
+  "stopImmediate": {
+   "item": "最小の受入2",
+   "stops": {
+    "main5": [
+     {
+      "phase": "Intro",
+      "key": "P",
+      "injectToKeyReadMs": 2.1364,
+      "injectToFirstStoppedRowMs": 4.7772,
+      "expDrift": 0.0,
+      "boatDriftM": 0.0,
+      "clockRunningRows": 0,
+      "audioMax": 0,
+      "rows": 2307,
+      "resumed": true
+     },
+     {
+      "phase": "Formation",
+      "key": "Escape",
+      "injectToKeyReadMs": 20.6381,
+      "injectToFirstStoppedRowMs": 21.4653,
+      "expDrift": 0.0,
+      "boatDriftM": 0.0,
+      "clockRunningRows": 0,
+      "audioMax": 0,
+      "rows": 1871,
+      "resumed": true
+     },
+     {
+      "phase": "Afterglow",
+      "key": "P",
+      "injectToKeyReadMs": 1.0676,
+      "injectToFirstStoppedRowMs": 1.6668,
+      "expDrift": 0.0,
+      "boatDriftM": 9.5367431640625e-07,
+      "clockRunningRows": 0,
+      "audioMax": 0,
+      "rows": 1434,
+      "resumed": true
+     }
+    ],
+    "vr4": [
+     {
+      "phase": "Intro",
+      "key": "P",
+      "injectToKeyReadMs": 1.9648,
+      "injectToFirstStoppedRowMs": 3.8202,
+      "expDrift": 0.0,
+      "boatDriftM": 0.0,
+      "clockRunningRows": 0,
+      "audioMax": 0,
+      "rows": 2315,
+      "resumed": true
+     },
+     {
+      "phase": "Formation",
+      "key": "Escape",
+      "injectToKeyReadMs": 20.5326,
+      "injectToFirstStoppedRowMs": 21.5544,
+      "expDrift": 0.0,
+      "boatDriftM": 0.0,
+      "clockRunningRows": 0,
+      "audioMax": 0,
+      "rows": 1940,
+      "resumed": true
+     },
+     {
+      "phase": "Afterglow",
+      "key": "P",
+      "injectToKeyReadMs": 1.2736,
+      "injectToFirstStoppedRowMs": 1.9139,
+      "expDrift": 0.0,
+      "boatDriftM": 9.5367431640625e-07,
+      "clockRunningRows": 0,
+      "audioMax": 0,
+      "rows": 1404,
+      "resumed": true
+     }
+    ],
+    "capture5": [
+     {
+      "phase": "Intro",
+      "key": "P",
+      "injectToKeyReadMs": 26.3481,
+      "injectToFirstStoppedRowMs": 47.6495,
+      "expDrift": 0.0,
+      "boatDriftM": 0.0,
+      "clockRunningRows": 0,
+      "audioMax": 0,
+      "rows": 62,
+      "resumed": true
+     },
+     {
+      "phase": "Formation",
+      "key": "Escape",
+      "injectToKeyReadMs": 50.942,
+      "injectToFirstStoppedRowMs": 72.9802,
+      "expDrift": 0.0,
+      "boatDriftM": 0.0,
+      "clockRunningRows": 0,
+      "audioMax": 0,
+      "rows": 47,
+      "resumed": true
+     },
+     {
+      "phase": "Afterglow",
+      "key": "P",
+      "injectToKeyReadMs": 24.3384,
+      "injectToFirstStoppedRowMs": 47.4652,
+      "expDrift": 0.0,
+      "boatDriftM": 0.0,
+      "clockRunningRows": 0,
+      "audioMax": 0,
+      "rows": 32,
+      "resumed": true
+     }
+    ],
+    "review_main1": [
+     {
+      "phase": "Intro",
+      "key": "P",
+      "injectToKeyReadMs": 1.9505,
+      "injectToFirstStoppedRowMs": 3.8748,
+      "expDrift": 0.0,
+      "boatDriftM": 0.0,
+      "clockRunningRows": 0,
+      "audioMax": 0,
+      "rows": 2335,
+      "resumed": true
+     },
+     {
+      "phase": "Formation",
+      "key": "Escape",
+      "injectToKeyReadMs": 21.1661,
+      "injectToFirstStoppedRowMs": 22.1086,
+      "expDrift": 0.0,
+      "boatDriftM": 0.0,
+      "clockRunningRows": 0,
+      "audioMax": 0,
+      "rows": 2060,
+      "resumed": true
+     },
+     {
+      "phase": "Afterglow",
+      "key": "P",
+      "injectToKeyReadMs": 1.1722,
+      "injectToFirstStoppedRowMs": 1.8531,
+      "expDrift": 0.0,
+      "boatDriftM": 9.5367431640625e-07,
+      "clockRunningRows": 0,
+      "audioMax": 0,
+      "rows": 1506,
+      "resumed": true
+     }
+    ]
+   },
+   "verdict": "合格"
+  },
+  "endClear": {
+   "item": "最小の受入3",
+   "end": {
+    "main5": {
+     "phaseEndFirstRow": 53082,
+     "shellEndFirstRow": 53083,
+     "reportEndEventFrame": 53082,
+     "reportEndShownFrame": 53082,
+     "expDuringEnd": [
+      72.3714,
+      72.3714
+     ],
+     "endRows": 5762,
+     "realS": 4.001,
+     "reportEndScreenRealS": 4.0004
+    },
+    "vr4": {
+     "phaseEndFirstRow": 53208,
+     "shellEndFirstRow": 53209,
+     "reportEndEventFrame": 53208,
+     "reportEndShownFrame": 53208,
+     "expDuringEnd": [
+      72.3651,
+      72.3651
+     ],
+     "endRows": 5782,
+     "realS": 4.0011,
+     "reportEndScreenRealS": 4.0004
+    },
+    "capture5": {
+     "phaseEndFirstRow": 2404,
+     "shellEndFirstRow": 2405,
+     "reportEndEventFrame": 2404,
+     "reportEndShownFrame": 2404,
+     "expDuringEnd": [
+      72.3457,
+      72.3457
+     ],
+     "endRows": 122,
+     "realS": 3.0805,
+     "reportEndScreenRealS": 4.0
+    },
+    "review_main1": {
+     "phaseEndFirstRow": 54234,
+     "shellEndFirstRow": 54235,
+     "reportEndEventFrame": 54234,
+     "reportEndShownFrame": 54234,
+     "expDuringEnd": [
+      72.3535,
+      72.3535
+     ],
+     "endRows": 6102,
+     "realS": 4.0007,
+     "reportEndScreenRealS": 4.0001
+    }
+   },
+   "still": "Docs/Evidence/Design/50/ds50_end.png",
+   "verdict": "合格（PC の自動の試しと静止画）。初めての人の試遊記録（D29）は保留（利用者の手）"
+  },
+  "H2": {
+   "item": "H2（記録）",
+   "conditions": "Release・D3D11・1920x1080 の窓・vSync 0・targetFrameRate −1・PC の単眼（XR なし）・NVIDIA GeForce RTX 3080・12th Gen Intel(R) Core(TM) i7-12700K x20",
+   "main5": {
+    "all": {
+     "wall": {
+      "n": 43146,
+      "mean": 1.6774,
+      "p50": 1.3721,
+      "p95": 1.9421,
+      "p99": 19.9352,
+      "max": 55.9728,
+      "over11_1": 469
+     },
+     "cpuMain": {
+      "n": 43146,
+      "mean": 1.6734,
+      "p50": 1.3697,
+      "p95": 1.9394,
+      "p99": 19.91,
+      "max": 55.9686,
+      "over11_1": 466
+     },
+     "gpu": {
+      "n": 41544,
+      "mean": 0.4429,
+      "p50": 0.425,
+      "p95": 0.51,
+      "p99": 0.94,
+      "max": 4.7759,
+      "over11_1": 0
+     }
+    },
+    "Intro": {
+     "wall": {
+      "n": 21327,
+      "mean": 1.4548,
+      "p50": 1.3959,
+      "p95": 1.9074,
+      "p99": 2.2432,
+      "max": 27.2549,
+      "over11_1": 1
+     },
+     "cpuMain": {
+      "n": 21327,
+      "mean": 1.4525,
+      "p50": 1.3937,
+      "p95": 1.9057,
+      "p99": 2.2423,
+      "max": 27.2542,
+      "over11_1": 1
+     },
+     "gpu": {
+      "n": 20574,
+      "mean": 0.4018,
+      "p50": 0.3953,
+      "p95": 0.4516,
+      "p99": 0.5007,
+      "max": 1.3855,
+      "over11_1": 0
+     }
+    },
+    "Approach": {
+     "wall": {
+      "n": 8864,
+      "mean": 1.5055,
+      "p50": 1.4377,
+      "p95": 1.9608,
+      "p99": 2.2956,
+      "max": 3.8902,
+      "over11_1": 0
+     },
+     "cpuMain": {
+      "n": 8864,
+      "mean": 1.5034,
+      "p50": 1.4354,
+      "p95": 1.9589,
+      "p99": 2.2985,
+      "max": 3.8951,
+      "over11_1": 0
+     },
+     "gpu": {
+      "n": 8505,
+      "mean": 0.4251,
+      "p50": 0.426,
+      "p95": 0.469,
+      "p99": 0.5099,
+      "max": 1.1121,
+      "over11_1": 0
+     }
+    },
+    "Formation": {
+     "wall": {
+      "n": 468,
+      "mean": 25.6329,
+      "p50": 24.2424,
+      "p95": 34.3779,
+      "p99": 49.1973,
+      "max": 55.9728,
+      "over11_1": 466
+     },
+     "cpuMain": {
+      "n": 468,
+      "mean": 25.3131,
+      "p50": 23.8451,
+      "p95": 34.3721,
+      "p99": 49.1944,
+      "max": 55.9686,
+      "over11_1": 460
+     },
+     "gpu": {
+      "n": 454,
+      "mean": 1.2479,
+      "p50": 0.9549,
+      "p95": 2.4693,
+      "p99": 4.3421,
+      "max": 4.7759,
+      "over11_1": 0
+     }
+    },
+    "Hold": {
+     "wall": {
+      "n": 1497,
+      "mean": 1.3387,
+      "p50": 1.1964,
+      "p95": 2.1446,
+      "p99": 3.393,
+      "max": 24.9274,
+      "over11_1": 2
+     },
+     "cpuMain": {
+      "n": 1497,
+      "mean": 1.3842,
+      "p50": 1.1942,
+      "p95": 2.1484,
+      "p99": 3.6611,
+      "max": 25.53,
+      "over11_1": 5
+     },
+     "gpu": {
+      "n": 1440,
+      "mean": 0.5383,
+      "p50": 0.425,
+      "p95": 2.0327,
+      "p99": 2.1435,
+      "max": 3.8472,
+      "over11_1": 0
+     }
+    },
+    "Afterglow": {
+     "wall": {
+      "n": 10989,
+      "mean": 1.2739,
+      "p50": 1.2178,
+      "p95": 1.7414,
+      "p99": 2.0648,
+      "max": 3.4417,
+      "over11_1": 0
+     },
+     "cpuMain": {
+      "n": 10989,
+      "mean": 1.2717,
+      "p50": 1.2158,
+      "p95": 1.74,
+      "p99": 2.0641,
+      "max": 3.4476,
+      "over11_1": 0
+     },
+     "gpu": {
+      "n": 10570,
+      "mean": 0.4896,
+      "p50": 0.4813,
+      "p95": 0.5396,
+      "p99": 0.9042,
+      "max": 1.1182,
+      "over11_1": 0
+     }
+    }
+   },
+   "vr4": {
+    "all": {
+     "wall": {
+      "n": 43152,
+      "mean": 1.677,
+      "p50": 1.3707,
+      "p95": 1.9387,
+      "p99": 20.0324,
+      "max": 54.646,
+      "over11_1": 464
+     },
+     "cpuMain": {
+      "n": 43152,
+      "mean": 1.6728,
+      "p50": 1.3681,
+      "p95": 1.9364,
+      "p99": 19.9986,
+      "max": 54.6433,
+      "over11_1": 461
+     },
+     "gpu": {
+      "n": 41506,
+      "mean": 0.4528,
+      "p50": 0.4219,
+      "p95": 0.5263,
+      "p99": 0.9503,
+      "max": 4.6551,
+      "over11_1": 0
+     }
+    },
+    "Intro": {
+     "wall": {
+      "n": 21413,
+      "mean": 1.4488,
+      "p50": 1.3934,
+      "p95": 1.8897,
+      "p99": 2.2086,
+      "max": 31.1158,
+      "over11_1": 1
+     },
+     "cpuMain": {
+      "n": 21413,
+      "mean": 1.4464,
+      "p50": 1.3912,
+      "p95": 1.8896,
+      "p99": 2.2081,
+      "max": 31.1177,
+      "over11_1": 1
+     },
+     "gpu": {
+      "n": 20641,
+      "mean": 0.4125,
+      "p50": 0.4065,
+      "p95": 0.471,
+      "p99": 0.5315,
+      "max": 1.2902,
+      "over11_1": 0
+     }
+    },
+    "Approach": {
+     "wall": {
+      "n": 8784,
+      "mean": 1.5188,
+      "p50": 1.45,
+      "p95": 2.0019,
+      "p99": 2.3812,
+      "max": 4.2231,
+      "over11_1": 0
+     },
+     "cpuMain": {
+      "n": 8784,
+      "mean": 1.5165,
+      "p50": 1.4478,
+      "p95": 2.001,
+      "p99": 2.3817,
+      "max": 4.2222,
+      "over11_1": 0
+     },
+     "gpu": {
+      "n": 8426,
+      "mean": 0.4342,
+      "p50": 0.4198,
+      "p95": 0.4946,
+      "p99": 0.5466,
+      "max": 1.1602,
+      "over11_1": 0
+     }
+    },
+    "Formation": {
+     "wall": {
+      "n": 463,
+      "mean": 25.8936,
+      "p50": 24.6616,
+      "p95": 34.4185,
+      "p99": 47.9738,
+      "max": 54.646,
+      "over11_1": 461
+     },
+     "cpuMain": {
+      "n": 463,
+      "mean": 25.5669,
+      "p50": 24.5581,
+      "p95": 34.4611,
+      "p99": 47.9698,
+      "max": 54.6433,
+      "over11_1": 455
+     },
+     "gpu": {
+      "n": 451,
+      "mean": 1.2534,
+      "p50": 0.939,
+      "p95": 2.4366,
+      "p99": 4.1165,
+      "max": 4.6551,
+      "over11_1": 0
+     }
+    },
+    "Hold": {
+     "wall": {
+      "n": 1479,
+      "mean": 1.3602,
+      "p50": 1.2281,
+      "p95": 2.0201,
+      "p99": 3.3902,
+      "max": 24.7689,
+      "over11_1": 2
+     },
+     "cpuMain": {
+      "n": 1479,
+      "mean": 1.4062,
+      "p50": 1.2253,
+      "p95": 2.047,
+      "p99": 3.771,
+      "max": 25.9413,
+      "over11_1": 5
+     },
+     "gpu": {
+      "n": 1420,
+      "mean": 0.5386,
+      "p50": 0.4352,
+      "p95": 0.88,
+      "p99": 2.9801,
+      "max": 4.098,
+      "over11_1": 0
+     }
+    },
+    "Afterglow": {
+     "wall": {
+      "n": 11012,
+      "mean": 1.2713,
+      "p50": 1.2159,
+      "p95": 1.7428,
+      "p99": 2.0673,
+      "max": 3.2575,
+      "over11_1": 0
+     },
+     "cpuMain": {
+      "n": 11012,
+      "mean": 1.2689,
+      "p50": 1.2134,
+      "p95": 1.7403,
+      "p99": 2.0688,
+      "max": 3.261,
+      "over11_1": 0
+     },
+     "gpu": {
+      "n": 10567,
+      "mean": 0.5009,
+      "p50": 0.4936,
+      "p95": 0.5601,
+      "p99": 0.9312,
+      "max": 1.3251,
+      "over11_1": 0
+     }
+    }
+   },
+   "review_main1": {
+    "all": {
+     "wall": {
+      "n": 44107,
+      "mean": 1.6404,
+      "p50": 1.3562,
+      "p95": 1.9169,
+      "p99": 19.9101,
+      "max": 55.609,
+      "over11_1": 465
+     },
+     "cpuMain": {
+      "n": 44107,
+      "mean": 1.6364,
+      "p50": 1.354,
+      "p95": 1.9147,
+      "p99": 19.8129,
+      "max": 55.6008,
+      "over11_1": 462
+     },
+     "gpu": {
+      "n": 42443,
+      "mean": 0.4484,
+      "p50": 0.4219,
+      "p95": 0.5243,
+      "p99": 1.0004,
+      "max": 4.948,
+      "over11_1": 0
+     }
+    },
+    "Intro": {
+     "wall": {
+      "n": 21252,
+      "mean": 1.4597,
+      "p50": 1.3943,
+      "p95": 1.9049,
+      "p99": 2.2885,
+      "max": 28.0558,
+      "over11_1": 1
+     },
+     "cpuMain": {
+      "n": 21252,
+      "mean": 1.4575,
+      "p50": 1.3918,
+      "p95": 1.9023,
+      "p99": 2.2908,
+      "max": 28.0568,
+      "over11_1": 1
+     },
+     "gpu": {
+      "n": 20492,
+      "mean": 0.4046,
+      "p50": 0.3963,
+      "p95": 0.4659,
+      "p99": 0.5253,
+      "max": 1.1581,
+      "over11_1": 0
+     }
+    },
+    "Approach": {
+     "wall": {
+      "n": 8898,
+      "mean": 1.4981,
+      "p50": 1.4315,
+      "p95": 1.9501,
+      "p99": 2.2798,
+      "max": 3.7423,
+      "over11_1": 0
+     },
+     "cpuMain": {
+      "n": 8898,
+      "mean": 1.496,
+      "p50": 1.4291,
+      "p95": 1.9467,
+      "p99": 2.2806,
+      "max": 3.7412,
+      "over11_1": 0
+     },
+     "gpu": {
+      "n": 8544,
+      "mean": 0.4202,
+      "p50": 0.4137,
+      "p95": 0.4751,
+      "p99": 0.529,
+      "max": 1.1121,
+      "over11_1": 0
+     }
+    },
+    "Formation": {
+     "wall": {
+      "n": 464,
+      "mean": 25.8115,
+      "p50": 24.6891,
+      "p95": 34.1265,
+      "p99": 46.8916,
+      "max": 55.609,
+      "over11_1": 462
+     },
+     "cpuMain": {
+      "n": 464,
+      "mean": 25.4823,
+      "p50": 24.3994,
+      "p95": 34.1226,
+      "p99": 46.8887,
+      "max": 55.6008,
+      "over11_1": 456
+     },
+     "gpu": {
+      "n": 451,
+      "mean": 1.3467,
+      "p50": 1.0588,
+      "p95": 2.4904,
+      "p99": 4.7058,
+      "max": 4.948,
+      "over11_1": 0
+     }
+    },
+    "Hold": {
+     "wall": {
+      "n": 1441,
+      "mean": 1.4042,
+      "p50": 1.2375,
+      "p95": 2.1562,
+      "p99": 2.97,
+      "max": 26.0368,
+      "over11_1": 2
+     },
+     "cpuMain": {
+      "n": 1441,
+      "mean": 1.4506,
+      "p50": 1.2357,
+      "p95": 2.1646,
+      "p99": 3.1071,
+      "max": 26.0316,
+      "over11_1": 5
+     },
+     "gpu": {
+      "n": 1384,
+      "mean": 0.5771,
+      "p50": 0.427,
+      "p95": 1.537,
+      "p99": 2.6689,
+      "max": 3.8277,
+      "over11_1": 0
+     }
+    },
+    "Afterglow": {
+     "wall": {
+      "n": 12051,
+      "mean": 1.1617,
+      "p50": 1.1018,
+      "p95": 1.5812,
+      "p99": 1.8468,
+      "max": 3.2943,
+      "over11_1": 0
+     },
+     "cpuMain": {
+      "n": 12051,
+      "mean": 1.1597,
+      "p50": 1.0996,
+      "p95": 1.5806,
+      "p99": 1.846,
+      "max": 3.295,
+      "over11_1": 0
+     },
+     "gpu": {
+      "n": 11571,
+      "mean": 0.4966,
+      "p50": 0.4813,
+      "p95": 0.5612,
+      "p99": 0.9308,
+      "max": 1.4049,
+      "over11_1": 0
+     }
+    }
+   },
+   "verdict": "記録"
+  },
+  "H7": {
+   "item": "H7",
+   "verdict": "保留（利用者の手。PC では停止・再開だけを確かめた。再センタリングは押していない）"
+  },
+  "D29": {
+   "item": "初めての人の試遊（D29）",
+   "verdict": "保留（利用者の手）"
+  }
+ },
+ "regression_painting_view": {
+  "verdict": "記録（原画視点の場面は変えていない。Release の余韻の終わりの画は設計47 と JPG の差の範囲）",
+  "ref": "Unity/Build/Design/47/flow/unity/main/painting/painting_end.png",
+  "refSha256": "faa78462f4305e990ea926c1bfa0e27d8a0dc05ae6a8eeeba7e3e8b95e1e9f5f",
+  "lastRunningAfterglowFrame": 2403,
+  "endEventFrame": 2404,
+  "frames": [
+   {
+    "frame": 2403,
+    "exp": 72.3333,
+    "shell": "Running",
+    "meanAbsDiff": 1.2026,
+    "pctOver24": 0.6857,
+    "pctOver64": 0.0094
+   },
+   {
+    "frame": 2401,
+    "exp": 72.2667,
+    "shell": "Running",
+    "meanAbsDiff": 1.2026,
+    "pctOver24": 0.6857,
+    "pctOver64": 0.0094
+   },
+   {
+    "frame": 2404,
+    "exp": 72.3457,
+    "shell": "Running",
+    "meanAbsDiff": 2.563,
+    "pctOver24": 1.6572,
+    "pctOver64": 0.6073
+   }
+  ],
+  "noteJa": "capture5 の JPG（品質は作る部の既定）と設計47 の PNG。JPG の圧縮の差を含む。差は画素ごとの 3 色の差の最大"
+ },
+ "endPanel": {
+  "panelBox": [
+   1018,
+   33,
+   1895,
+   376
+  ],
+  "diffPixelsInBox": 238268,
+  "inkPixelsUnderPanel": 318,
+  "inkBoxUnderPanel": [
+   1018,
+   262,
+   1103,
+   376
+  ],
+  "inkPixelsUnderPanelLeftOf1150": 318,
+  "stills": [
+   "Unity/Build/Design/50/release/stills/ds50_afterglow.png",
+   "Unity/Build/Design/50/release/stills/ds50_end.png"
+  ],
+  "noteJa": "余韻（体験の時刻 67.37 s）と終わりの画面（72.35 s）の静止画の差から板の範囲を読み、余韻の静止画の暗い線（灰 < 110）のうち板の範囲に入るものを数えた。視点は同じ（余韻の留まりの間）"
+ },
+ "video": {
+  "bytes": 1720108,
+  "sha256": "d79dff24fd7e66f994399b918a51495cd4d45210eeb728e1003be29c63a86b96",
+  "codec": "h264",
+  "width": 960,
+  "height": 540,
+  "framesProbe": 2525,
+  "framesDecoded": 2525,
+  "fps": "30/1",
+  "durationS": 84.1667,
+  "meanLumaMin": 114.1256,
+  "meanLumaMinAt": 1879,
+  "blackFramesUnder16": 0,
+  "audioStreams": 0
+ },
+ "build": {
+  "result": "Succeeded",
+  "options": "None",
+  "exe": "5be81b3fa7df7c08cadee6f79d6ff3fe95481420f166ba8127390ea669c8b12c",
+  "dll": "584ba1d7d076e8bb9305b0e6419686af6b3bea3f8bc8279dc417774fc797d053",
+  "level0": "2088e9c5ad4f7a329651321be660c814b624994538af58504d4108c55825553b",
+  "scene": "51a24616a97f490d9c737d03c45708dba95f5e52cda9b0ab392821bea63556ab",
+  "playerBytes": 105439845,
+  "data": {
+   "files": 38,
+   "bytes": 701651973,
+   "bundleMismatch": 0,
+   "sourceMismatch": 0,
+   "sourceMissing": 0,
+   "filesNotInList": []
+  },
+  "scene50": {
+   "bytes": 217944,
+   "absolutePathStrings": 0,
+   "absolutePathStrings49": 3,
+   "objects50": 320,
+   "objects49": 316,
+   "cameras50": 7,
+   "cameras49": 7,
+   "listeners50": 1,
+   "listeners49": 1,
+   "newGuids": {
+    "06abd07be258f2641a314a228434f3fd": "Unity/Assets/GreatWave/Design50/Materials/DS50_Keep_ClawTDepth.mat",
+    "10b8aa1323c4bd74eb6aace77a564cc9": "Unity/Assets/GreatWave/Design50/Materials/DS50_OverlayPanel.mat",
+    "16086e4f3bad2614596b0374aebdf478": "Unity/Assets/GreatWave/Design50/Materials/DS50_Keep_Claw.mat",
+    "318904f68f6cabf47b7d660b9a9e2643": "Unity/Assets/GreatWave/Design50/Materials/DS50_OverlayText.mat",
+    "5462a9028df48ea4ea74619f833b783e": "Unity/Assets/GreatWave/Design50/Materials/DS50_Keep_ClawPalette.mat",
+    "57c9c58144c469f46b65d8219c0ec08b": "Unity/Assets/GreatWave/Design50/Materials/DS50_Keep_Spray.mat",
+    "94faa68e5fb8c2342b03370a8751ca10": "Unity/Assets/GreatWave/Design50/Scripts/DS50Shell.cs",
+    "9aa555c52da70874d9ec6247cb389b75": "Unity/Assets/GreatWave/Design50/Scripts/DS50AutoTest.cs"
+   },
+   "lostGuids": [],
+   "guidCount50": 67,
+   "guidCount49": 59
+  },
+  "protected43Changed": [],
+  "design49FilesChanged": []
+ },
+ "fix_rounds": {
+  "afterAcceptance": 0,
+  "duringBuild": "build1〜build5（作る部の中。受入の判定の前）"
+ },
+ "time": {
+  "timeBoxH": 3,
+  "builderStarted": "2026-09-30 17:23:51（_started.txt）",
+  "builderFinished": "2026-09-30 18:11:54（_finished.txt）",
+  "review": "18:16〜18:21（検査のファイルの時刻）",
+  "record": "18:25〜（READY_TO_COMMIT.txt の時刻まで）"
+ },
+ "diffVsBuilder": {
+  "main5": {
+   "frames": 0,
+   "eventsFired": 0,
+   "keysSame": true,
+   "handoverS": 0.0
+  },
+  "vr4": {
+   "frames": 0,
+   "eventsFired": 0,
+   "keysSame": true,
+   "handoverS": 0.0
+  },
+  "capture5": {
+   "frames": 0,
+   "eventsFired": 0,
+   "keysSame": true,
+   "handoverS": 0.0
+  },
+  "main5_stop0": {
+   "keyRead": 0,
+   "inject": 0,
+   "injectToKeyReadMs": 0.0004,
+   "stoppedRows": 1,
+   "boat": 0.0
+  },
+  "main5_stop1": {
+   "keyRead": 0,
+   "inject": 0,
+   "injectToKeyReadMs": 0.0001,
+   "stoppedRows": 1,
+   "boat": 0.0
+  },
+  "main5_stop2": {
+   "keyRead": 0,
+   "inject": 0,
+   "injectToKeyReadMs": -0.0004,
+   "stoppedRows": 1,
+   "boat": 0.0
+  },
+  "H2_main5": {
+   "all": {
+    "n": 0,
+    "p95": 0.0,
+    "p99": 0.0
+   },
+   "Intro": {
+    "n": 0,
+    "p95": 0.0,
+    "p99": 0.0
+   },
+   "Approach": {
+    "n": 0,
+    "p95": 0.0,
+    "p99": 0.0
+   },
+   "Formation": {
+    "n": 0,
+    "p95": 0.0,
+    "p99": 0.0
+   },
+   "Hold": {
+    "n": 0,
+    "p95": 0.0,
+    "p99": 0.0
+   },
+   "Afterglow": {
+    "n": 0,
+    "p95": 0.0,
+    "p99": 0.0
+   }
+  },
+  "painting": {
+   "frame": 0,
+   "meanAbsDiff": 0.0,
+   "pctOver24": 0.0,
+   "pctOver64": 0.0
+  }
+ },
+ "evidence": [
+  {
+   "dst": "Docs/Evidence/Design/50/fig_ds50_end_panel.png",
+   "placed": "記録で作った（1920×1080）",
+   "size": [
+    1920,
+    1080
+   ],
+   "bytes": 1034713,
+   "sha256": "25a4ee205a43cd792c5329f0fb04ea06adc9944b3d71612fc3be91b4b1b10966"
+  },
+  {
+   "src": "Unity/Build/Design/50/release/stills_ds50_release.png",
+   "dst": "Docs/Evidence/Design/50/stills_ds50_release.png",
+   "from_": [
+    1920,
+    1080
+   ],
+   "placed": "そのまま",
+   "size": [
+    1920,
+    1080
+   ],
+   "bytes": 809717,
+   "sha256": "7be565680108e345dc68530cfd68276b1b32c911fb51d9b23088df6b411c473a"
+  },
+  {
+   "src": "Unity/Build/Design/50/release/stills/ds50_entry.png",
+   "dst": "Docs/Evidence/Design/50/ds50_entry.png",
+   "from_": [
+    1920,
+    1080
+   ],
+   "placed": "そのまま",
+   "size": [
+    1920,
+    1080
+   ],
+   "bytes": 915645,
+   "sha256": "a73d332f49c93bc45c452d90517494df137be4d1563430d2ff02f96a8be3c10f"
+  },
+  {
+   "src": "Unity/Build/Design/50/release/stills/ds50_end.png",
+   "dst": "Docs/Evidence/Design/50/ds50_end.png",
+   "from_": [
+    1920,
+    1080
+   ],
+   "placed": "そのまま",
+   "size": [
+    1920,
+    1080
+   ],
+   "bytes": 1173042,
+   "sha256": "e865fc04d2545fd724f02a282e3fcc6263a98d0f3b1ca1cf4d9d26ad46fecf41"
+  },
+  {
+   "src": "Unity/Build/Design/50/release/fig_ds50_timeline.png",
+   "dst": "Docs/Evidence/Design/50/fig_ds50_timeline.png",
+   "from_": [
+    1600,
+    700
+   ],
+   "placed": "1920×1080 の中央（地は図の地の色 [245, 245, 245]）",
+   "size": [
+    1920,
+    1080
+   ],
+   "bytes": 165437,
+   "sha256": "32d65b109d83b7295286116ea848764ce639f10b674b00457e69f82040d4a501"
+  },
+  {
+   "src": "Unity/Build/Design/50/release/fig_ds50_frametime.png",
+   "dst": "Docs/Evidence/Design/50/fig_ds50_frametime.png",
+   "from_": [
+    1600,
+    900
+   ],
+   "placed": "1920×1080 の中央（地は図の地の色 [245, 245, 245]）",
+   "size": [
+    1920,
+    1080
+   ],
+   "bytes": 430132,
+   "sha256": "2606e2136fbcc8644e59d114c906a7c66f479141f74c7b8b2270e428e71ad031"
+  },
+  {
+   "src": "Unity/Build/Design/50/release/fig_ds50_painting_vs_ds47_diff.png",
+   "dst": "Docs/Evidence/Design/50/fig_ds50_painting_vs_ds47_diff.png",
+   "from_": [
+    1920,
+    1080
+   ],
+   "placed": "そのまま",
+   "size": [
+    1920,
+    1080
+   ],
+   "bytes": 1167989,
+   "sha256": "18c2bf7239583a1c8dee541e7a987023e7e222dc85b1903477d0d03206856a9e"
+  },
+  {
+   "src": "Unity/Build/Design/50/release/ds50_release_540p_30fps_small.mp4",
+   "dst": "Docs/Evidence/Design/50/ds50_release_960x540_30fps.mp4",
+   "placed": "そのまま",
+   "bytes": 1720108,
+   "sha256": "d79dff24fd7e66f994399b918a51495cd4d45210eeb728e1003be29c63a86b96"
+  },
+  {
+   "src": "Unity/Build/Design/50/release/metrics.json",
+   "dst": "Docs/Evidence/Design/50/ds50_release_metrics.json",
+   "placed": "そのまま",
+   "bytes": 24985,
+   "sha256": "7bd046b6891d7516801f4098c6dfe5c218d165bbbb16a1018f3e33bc28db928a"
+  },
+  {
+   "src": "Unity/Build/Design/50/release/run.json",
+   "dst": "Docs/Evidence/Design/50/ds50_release_run.json",
+   "placed": "そのまま",
+   "bytes": 1620,
+   "sha256": "c81aa6eafc917bc1ffc533f5f8433c83742fa07bfb252f9da73914392880fed8"
+  },
+  {
+   "src": "Unity/Build/Design/50/release/unity/ds50_build.json",
+   "dst": "Docs/Evidence/Design/50/ds50_build.json",
+   "placed": "そのまま",
+   "bytes": 12278,
+   "sha256": "6a4763f2faf49763cd598a5321eddb1e7e33a1c26d3c6a55c25d9416d7ebbf1a"
+  }
+ ]
+}
