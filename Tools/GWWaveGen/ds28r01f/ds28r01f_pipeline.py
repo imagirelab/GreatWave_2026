@@ -83,6 +83,7 @@ def main():
     ap.add_argument("--workers", type=int, default=0)
     ap.add_argument("--check-workers", type=int, default=12)
     ap.add_argument("--skip-p20-e", action="store_true", help="E から受け継いだ値の P20（生成器を 2 つずつ作る、約 10 分）を省く")
+    ap.add_argument("--off", default="", help="生成器へそのまま渡す切る名前（, 区切り。仕上げ27：F_final の再現は balance_swell_calm,sea_sample_range）")
     a = ap.parse_args()
     t_all = time.time()
     root = a.root.replace("\\", "/")
@@ -103,6 +104,8 @@ def main():
         cmd = PY + ["%s/ds28r01f/ds28r01f_generate.py" % T, "--kstar", kdir, "--name", "%s/art_on" % tag, "--out", root]
         if a.workers:
             cmd += ["--workers", str(a.workers)]
+        if a.off:
+            cmd += ["--off", a.off]
         bad = PD.run_parallel([("%s_generate" % tag, cmd)], logd)
         timing["generate_s"] = round(time.time() - t0, 1)
         if bad:

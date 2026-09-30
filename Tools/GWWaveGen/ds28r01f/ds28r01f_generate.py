@@ -257,8 +257,22 @@ def _t_p20(args):
         d = np.linalg.norm(X0 - g.to_local(A1, Y1), axis=-1)
         k = int(np.argmax(d))
         out["back_no_undercut"] = (float(d.max()), int(k // d.shape[1]), int(k % d.shape[1]))
+    if getattr(g, "_bal_ks_on", False):
+        # num_balance_swell_calm（仕上げ27）：海の釣り合いの κ_s だけを切った形（F の層なし）との差。F の層（f_apply）ではなく海の中の値なので、ここで測る
+        X0 = g.to_local(A0, Y0)
+        g._bal_ks_on = False
+        g._f_ready = False
+        try:
+            A1, Y1, _ = g.section_y(t)
+        finally:
+            g._f_ready = f
+            g._bal_ks_on = True
+        d = np.linalg.norm(X0 - g.to_local(A1, Y1), axis=-1)
+        k = int(np.argmax(d))
+        out["balance_swell_calm"] = (float(d.max()), int(k // d.shape[1]), int(k % d.shape[1]))
     for nm in list(on) + ["all"]:
-        if nm in ("tail_lip_body", "small_lip_body", "back_no_undercut", "back_width_retarget", "anchor_retarget", "far_hook_early") or (nm != "all" and not on[nm]):
+        if nm in ("tail_lip_body", "small_lip_body", "back_no_undercut", "back_width_retarget", "anchor_retarget", "far_hook_early",
+                  "balance_swell_calm", "sea_sample_range") or (nm != "all" and not on[nm]):
             continue
         L = {k: (False if (nm == "all" or k == nm) else v) for k, v in on.items()}
         Xo = g.to_local(*g.f_apply(t, A0, Y0, L))
@@ -269,6 +283,25 @@ def _t_p20(args):
 
 
 # ================================================================ 主のプロセス
+def export_sea_range(g, B, outdir, a_min, a_max, step=1.0, hz=10.0):
+    """num_sea_sample_range（仕上げ27）：設計27 の export_sea（ds27_generate.py。地面の a −330〜130 m）と同じ中身・同じ式・同じ書式で、
+    a の範囲だけを a_min〜a_max にする（関門 P2・P3 の 225 m の窓が、τ −12 s の頂の後ろでも標本に収まるように）。"""
+    a = np.arange(a_min, a_max + 1e-9, step)
+    kn = B.knots
+    Ak = np.stack([B.Ac[round(float(t), 9)] for t in kn])            # (L, nv)
+    n = int(np.floor(-kn[0] * hz + 1e-9))
+    ts = np.array([-(n - k) / hz for k in range(n + 1)])
+    eta = np.zeros((len(ts), g.K.nv, len(a)), np.float32)
+    Ac = np.zeros((len(ts), g.K.nv), np.float32)
+    for k, t in enumerate(ts):
+        ac = np.array([np.interp(t, kn, Ak[:, r]) for r in range(g.K.nv)])
+        Ac[k] = ac
+        eta[k] = g.sea_outside(float(t), ac, a).astype(np.float32)
+    p = os.path.join(outdir, "ds27_sea.npz")
+    np.savez(p, tau=ts, a=a, eta=eta, Ac=Ac, c=g.K.c, knot_tau=kn, Ac_knots=Ak.astype(np.float32))
+    return p
+
+
 def rel(p):
     try:
         return os.path.relpath(os.path.abspath(p), REPO).replace("\\", "/")
@@ -839,8 +872,14 @@ def main():
         vr["lip_launch_error"] = repr(e)
     if not a.no_sea:
         t0 = time.time()
-        ps = G27.export_sea(g, B, outdir)
-        vr["sea_npz"] = dict(path=rel(ps), sha256=MD.sha256_file(ps))
+        if g.f_on.get("sea_sample_range"):
+            SR = RF["sea_sample_range"]
+            ps = export_sea_range(g, B, outdir, float(SR["a_min_m"]), float(SR["a_max_m"]), float(SR.get("step_m", 1.0)))
+        else:
+            ps = G27.export_sea(g, B, outdir)
+        vr["sea_npz"] = dict(path=rel(ps), sha256=MD.sha256_file(ps),
+                             a_range=[float(RF["sea_sample_range"]["a_min_m"]), float(RF["sea_sample_range"]["a_max_m"])]
+                             if g.f_on.get("sea_sample_range") else [-330.0, 130.0])
         lap("sea", t0)
     if not a.no_check:
         t0 = time.time()
@@ -869,6 +908,7 @@ def main():
             if m > e["max_vertex_diff_m"]:
                 e.update(max_vertex_diff_m=m, at=dict(tau=tau, row=r, col=c, c_m=float(g.K.c[r])))
     names = dict(back_no_undercut="ds_back_no_undercut（近似：ΔL の当てはめは入れた版）", lip_body="num_tail_lip_body＋num_small_lip_body（κ = 0 の行）",
+                 balance_swell_calm="num_balance_swell_calm（仕上げ27。海の釣り合いの κ_s だけを切った形との差）",
                  tstar_exact="num_tstar_exact", sheet_clearance="num_sheet_clearance", bridge="num_bridge_tangles",
                  all="F の層（t*・隙間・橋渡し）の全部（E のまま（κ の差し替えの後）との差）")
     vr["p20"] = {names.get(k, k): v for k, v in p20.items()}

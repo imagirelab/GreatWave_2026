@@ -1,0 +1,2200 @@
+{
+ "schema": "GreatWave.pl27.metrics/1",
+ "number": "仕上げ27",
+ "group_ja": "設計27 単発砕波（設計26 を含む）",
+ "backlog": [
+  80,
+  106,
+  107,
+  108,
+  111
+ ],
+ "time_box_days": 0.5,
+ "evidence_kind_ja": "numpy の生成器・関門の検査器・調べの道具、Unity の PC オフスクリーン描画、Release のプレイヤーの PC の画面のコマ。HMD 実機ではない",
+ "Q10_P2_P3_P13": {
+  "label_ja": "［利用者の言葉］Q10：関門 P2・P3・P13（設計27 の連続性の一式）を採用の動きで測り、安く直せる所を直す",
+  "before": {
+   "package": "Unity/Build/Design/28R01F/F_final/art_on",
+   "gates": "Unity/Build/Design/28R01F/F_final/gates/default.json",
+   "gates_sha256": "5bc3697d987b4ed0ceb92ad61b92dc6b5949445d88c514b2dfbaf60adeb10c1a",
+   "P2": {
+    "value": 0.478,
+    "pass_": false,
+    "worst_row": 198,
+    "worst_tau": -11.983,
+    "main_row_max_ratio": 0.277,
+    "calm_excluded": "τ > -2.0 s（ds_sea_calm_painting で周りの海を平らにする区間）は判定から除いた。記録：その区間の比の最大 0.942",
+    "trough_ahead_min_m": {
+     "主断面": -3.554,
+     "峰で最も高い巻きの行": -3.555
+    }
+   },
+   "P3": {
+    "value": 0.1057,
+    "pass_": false,
+    "worst_row": 104,
+    "full_interval_worst_frac": 1.5342
+   },
+   "P13": {
+    "value": "12 項目中 4 項目が不合格",
+    "pass_": false,
+    "items": {
+     "(1) 波の枠の 1 コマの変位（30 Hz）_m": {
+      "value": 0.340631,
+      "pass_": true
+     },
+     "(2) 地面の二階差分（30 Hz、全巻きの行の全点）_m": {
+      "value": 0.066898,
+      "pass_": false
+     },
+     "(3) 最も低い点_m": {
+      "value": -5.717285,
+      "pass_": true
+     },
+     "(4) 頂の高さの単調（戻りの最大）_m": {
+      "value": 0.000294,
+      "pass_": true
+     },
+     "(5a) 唇・管の三角形の面積の最小_m2": {
+      "value": 0.000258,
+      "pass_": true
+     },
+     "(5b) 行の方向の辺の最小_m": {
+      "value": 0.002404,
+      "pass_": false
+     },
+     "(5c) 辺の長さの K* に対する比（行の方向）": {
+      "value": [
+       0.011,
+       2.475
+      ],
+      "pass_": false
+     },
+     "(5d) 辺の長さの K* に対する比（行の間、縦と斜め）": {
+      "value": [
+       0.194,
+       2.102
+      ],
+      "pass_": true
+     },
+     "(5e) rim と管の天井の継ぎ目の比": {
+      "value": [
+       0.235,
+       1.024
+      ],
+      "pass_": true
+     },
+     "(5f) 自己交差（巻きの行の断面と、隣り合う巻きの行の間の中央の面）": {
+      "value": 0,
+      "pass_": true
+     },
+     "(5g) 面の反転（30 Hz、向きの決まった最後のコマと比べる）": {
+      "value": 130,
+      "pass_": false
+     },
+     "(6) 法線が有限（唇・管の頂点の 1 環の面積の最小 > 0）_m2": {
+      "value": 0.000258,
+      "pass_": true
+     }
+    },
+    "failed": [
+     "(2) 地面の二階差分（30 Hz、全巻きの行の全点）_m",
+     "(5b) 行の方向の辺の最小_m",
+     "(5c) 辺の長さの K* に対する比（行の方向）",
+     "(5g) 面の反転（30 Hz、向きの決まった最後のコマと比べる）"
+    ]
+   },
+   "summary": {
+    "failed": [
+     "P2",
+     "P3",
+     "P4",
+     "P7",
+     "P11",
+     "P13",
+     "P14",
+     "P15",
+     "P16",
+     "P17",
+     "P18",
+     "P19"
+    ],
+    "n_fail": 12
+   },
+   "all_gates": {
+    "P1": {
+     "value": 18.482,
+     "pass_": true
+    },
+    "P2": {
+     "value": 0.478,
+     "pass_": false
+    },
+    "P3": {
+     "value": 0.1057,
+     "pass_": false
+    },
+    "P4": {
+     "value": -1.684,
+     "pass_": false
+    },
+    "P5": {
+     "value": 22.84,
+     "pass_": true
+    },
+    "P6": {
+     "value": 1.003,
+     "pass_": true
+    },
+    "P7": {
+     "value": 3.0,
+     "pass_": false
+    },
+    "P8": {
+     "value": 0.83,
+     "pass_": true
+    },
+    "P9": {
+     "value": 0.277,
+     "pass_": true
+    },
+    "P10": {
+     "value": -0.876,
+     "pass_": true
+    },
+    "P11": {
+     "value": 1.102,
+     "pass_": false
+    },
+    "P12": {
+     "value": 0.0,
+     "pass_": true
+    },
+    "P13": {
+     "value": "12 項目中 4 項目が不合格",
+     "pass_": false
+    },
+    "P14": {
+     "value": null,
+     "pass_": false
+    },
+    "P15": {
+     "value": {
+      "主断面": {
+       "a": null,
+       "b": null,
+       "c": null,
+       "d": -1.983
+      },
+      "峰で最も高い巻きの行": {
+       "a": null,
+       "b": null,
+       "c": null,
+       "d": -1.983
+      }
+     },
+     "pass_": false
+    },
+    "P16": {
+     "value": 2.11,
+     "pass_": false
+    },
+    "Painting": {
+     "value": 0.00121,
+     "pass_": true
+    }
+   },
+   "gates_ds28": {
+    "P17": {
+     "value": {
+      "主断面": 0.8575,
+      "峰で最も高い巻きの行": 0.9577,
+      "巻きの行の最大": 1.1275
+     },
+     "pass_": false
+    },
+    "P18": {
+     "value": 9.33,
+     "pass_": false
+    },
+    "P19": {
+     "value": null,
+     "pass_": false
+    }
+   }
+  },
+  "after": {
+   "package": "Unity/Build/Polish/27/F_p27/art_on",
+   "gates": "Unity/Build/Polish/27/F_p27/gates/default.json",
+   "gates_sha256": "d80c70253d2513eef425180897ffec3b1ee23da0974df293cf85c011fad3e27c",
+   "P2": {
+    "value": 0.146,
+    "pass_": true,
+    "worst_row": 65,
+    "worst_tau": -9.917,
+    "main_row_max_ratio": 0.057,
+    "calm_excluded": "τ > -2.0 s（ds_sea_calm_painting で周りの海を平らにする区間）は判定から除いた。記録：その区間の比の最大 0.942",
+    "trough_ahead_min_m": {
+     "主断面": -3.499,
+     "峰で最も高い巻きの行": -3.493
+    }
+   },
+   "P3": {
+    "value": 0.043,
+    "pass_": true,
+    "worst_row": 141,
+    "full_interval_worst_frac": 0.9363
+   },
+   "P13": {
+    "value": "12 項目中 4 項目が不合格",
+    "pass_": false,
+    "items": {
+     "(1) 波の枠の 1 コマの変位（30 Hz）_m": {
+      "value": 0.340631,
+      "pass_": true
+     },
+     "(2) 地面の二階差分（30 Hz、全巻きの行の全点）_m": {
+      "value": 0.066898,
+      "pass_": false
+     },
+     "(3) 最も低い点_m": {
+      "value": -5.717285,
+      "pass_": true
+     },
+     "(4) 頂の高さの単調（戻りの最大）_m": {
+      "value": 0.000294,
+      "pass_": true
+     },
+     "(5a) 唇・管の三角形の面積の最小_m2": {
+      "value": 0.000258,
+      "pass_": true
+     },
+     "(5b) 行の方向の辺の最小_m": {
+      "value": 0.002404,
+      "pass_": false
+     },
+     "(5c) 辺の長さの K* に対する比（行の方向）": {
+      "value": [
+       0.011,
+       2.475
+      ],
+      "pass_": false
+     },
+     "(5d) 辺の長さの K* に対する比（行の間、縦と斜め）": {
+      "value": [
+       0.194,
+       2.102
+      ],
+      "pass_": true
+     },
+     "(5e) rim と管の天井の継ぎ目の比": {
+      "value": [
+       0.235,
+       1.024
+      ],
+      "pass_": true
+     },
+     "(5f) 自己交差（巻きの行の断面と、隣り合う巻きの行の間の中央の面）": {
+      "value": 0,
+      "pass_": true
+     },
+     "(5g) 面の反転（30 Hz、向きの決まった最後のコマと比べる）": {
+      "value": 130,
+      "pass_": false
+     },
+     "(6) 法線が有限（唇・管の頂点の 1 環の面積の最小 > 0）_m2": {
+      "value": 0.000258,
+      "pass_": true
+     }
+    },
+    "failed": [
+     "(2) 地面の二階差分（30 Hz、全巻きの行の全点）_m",
+     "(5b) 行の方向の辺の最小_m",
+     "(5c) 辺の長さの K* に対する比（行の方向）",
+     "(5g) 面の反転（30 Hz、向きの決まった最後のコマと比べる）"
+    ]
+   },
+   "summary": {
+    "failed": [
+     "P4",
+     "P7",
+     "P13",
+     "P14",
+     "P15",
+     "P16",
+     "P17",
+     "P18",
+     "P19"
+    ],
+    "n_fail": 9
+   },
+   "all_gates": {
+    "P1": {
+     "value": 18.482,
+     "pass_": true
+    },
+    "P2": {
+     "value": 0.146,
+     "pass_": true
+    },
+    "P3": {
+     "value": 0.043,
+     "pass_": true
+    },
+    "P4": {
+     "value": -1.684,
+     "pass_": false
+    },
+    "P5": {
+     "value": 22.84,
+     "pass_": true
+    },
+    "P6": {
+     "value": 1.003,
+     "pass_": true
+    },
+    "P7": {
+     "value": 3.0,
+     "pass_": false
+    },
+    "P8": {
+     "value": 0.83,
+     "pass_": true
+    },
+    "P9": {
+     "value": 0.277,
+     "pass_": true
+    },
+    "P10": {
+     "value": -0.876,
+     "pass_": true
+    },
+    "P11": {
+     "value": 1.082,
+     "pass_": true
+    },
+    "P12": {
+     "value": 0.0,
+     "pass_": true
+    },
+    "P13": {
+     "value": "12 項目中 4 項目が不合格",
+     "pass_": false
+    },
+    "P14": {
+     "value": null,
+     "pass_": false
+    },
+    "P15": {
+     "value": {
+      "主断面": {
+       "a": null,
+       "b": null,
+       "c": null,
+       "d": -1.983
+      },
+      "峰で最も高い巻きの行": {
+       "a": null,
+       "b": null,
+       "c": null,
+       "d": -1.983
+      }
+     },
+     "pass_": false
+    },
+    "P16": {
+     "value": 2.11,
+     "pass_": false
+    },
+    "Painting": {
+     "value": 0.00121,
+     "pass_": true
+    }
+   },
+   "gates_ds28": {
+    "P17": {
+     "value": {
+      "主断面": 0.8575,
+      "峰で最も高い巻きの行": 0.9577,
+      "巻きの行の最大": 1.1275
+     },
+     "pass_": false
+    },
+    "P18": {
+     "value": 9.33,
+     "pass_": false
+    },
+    "P19": {
+     "value": null,
+     "pass_": false
+    }
+   }
+  },
+  "diag_before": {
+   "P2_all": {
+    "max": 0.4784,
+    "at": {
+     "row": 198,
+     "c_m": 6.8,
+     "tau": -11.983
+    },
+    "row_frames_over_0p2": 4619,
+    "rows_over_0p2": [
+     48,
+     49,
+     50,
+     51,
+     52,
+     53,
+     54,
+     55,
+     56,
+     57,
+     58,
+     59,
+     60,
+     61,
+     62,
+     63,
+     64,
+     65,
+     66,
+     67,
+     68,
+     69,
+     70,
+     71,
+     72,
+     73,
+     74,
+     75,
+     76,
+     77,
+     78,
+     79,
+     80,
+     81,
+     82,
+     83,
+     84,
+     85,
+     86,
+     87,
+     88,
+     89,
+     90,
+     91,
+     92,
+     93,
+     94,
+     95,
+     96,
+     97,
+     98,
+     99,
+     100,
+     101,
+     102,
+     103,
+     104,
+     105,
+     106,
+     107,
+     108,
+     109,
+     110,
+     111,
+     112,
+     113,
+     114,
+     115,
+     116,
+     117,
+     118,
+     119,
+     120,
+     121,
+     122,
+     123,
+     124,
+     125,
+     126,
+     127,
+     128,
+     129,
+     130,
+     131,
+     132,
+     133,
+     134,
+     135,
+     136,
+     137,
+     138,
+     139,
+     140,
+     141,
+     142,
+     143,
+     144,
+     145,
+     146,
+     147,
+     148,
+     149,
+     150,
+     151,
+     152,
+     153,
+     154,
+     155,
+     156,
+     157,
+     158,
+     159,
+     160,
+     161,
+     162,
+     163,
+     164,
+     165,
+     166,
+     167,
+     168,
+     169,
+     170,
+     171,
+     172,
+     173,
+     174,
+     175,
+     176,
+     177,
+     178,
+     179,
+     180,
+     181,
+     182,
+     183,
+     184,
+     185,
+     186,
+     187,
+     188,
+     189,
+     190,
+     191,
+     192,
+     193,
+     194,
+     195,
+     196,
+     197,
+     198
+    ],
+    "tau_range_over_0p2": [
+     -12.0,
+     -2.0
+    ]
+   },
+   "P2_window_covered": {
+    "max": 0.3915,
+    "at": {
+     "row": 48,
+     "c_m": -24.73,
+     "tau": -2.017
+    },
+    "row_frames_over_0p2": 212,
+    "rows_over_0p2": [
+     48,
+     49,
+     50,
+     51,
+     52,
+     53,
+     54,
+     55,
+     56,
+     57
+    ],
+    "tau_range_over_0p2": [
+     -2.467,
+     -2.0
+    ]
+   },
+   "P2_window_not_covered": {
+    "max": 0.4784,
+    "at": {
+     "row": 198,
+     "c_m": 6.8,
+     "tau": -11.983
+    },
+    "row_frames_over_0p2": 4407,
+    "rows_over_0p2": [
+     48,
+     49,
+     50,
+     51,
+     52,
+     53,
+     54,
+     55,
+     56,
+     57,
+     58,
+     59,
+     60,
+     61,
+     62,
+     63,
+     64,
+     65,
+     66,
+     67,
+     68,
+     69,
+     70,
+     71,
+     72,
+     73,
+     74,
+     75,
+     76,
+     77,
+     78,
+     79,
+     80,
+     81,
+     82,
+     83,
+     84,
+     85,
+     86,
+     87,
+     88,
+     89,
+     90,
+     91,
+     92,
+     93,
+     94,
+     95,
+     96,
+     97,
+     98,
+     99,
+     100,
+     101,
+     102,
+     103,
+     104,
+     105,
+     106,
+     107,
+     108,
+     109,
+     110,
+     111,
+     112,
+     113,
+     114,
+     115,
+     116,
+     117,
+     118,
+     119,
+     120,
+     121,
+     122,
+     123,
+     124,
+     125,
+     126,
+     127,
+     128,
+     129,
+     130,
+     131,
+     132,
+     133,
+     134,
+     135,
+     136,
+     137,
+     138,
+     139,
+     140,
+     141,
+     142,
+     143,
+     144,
+     145,
+     146,
+     147,
+     148,
+     149,
+     150,
+     151,
+     152,
+     153,
+     154,
+     155,
+     156,
+     157,
+     158,
+     159,
+     160,
+     161,
+     162,
+     163,
+     164,
+     165,
+     166,
+     167,
+     168,
+     169,
+     170,
+     171,
+     172,
+     173,
+     174,
+     175,
+     176,
+     177,
+     178,
+     179,
+     180,
+     181,
+     182,
+     183,
+     184,
+     185,
+     186,
+     187,
+     188,
+     189,
+     190,
+     191,
+     192,
+     193,
+     194,
+     195,
+     196,
+     197,
+     198
+    ],
+    "tau_range_over_0p2": [
+     -12.0,
+     -11.033
+    ]
+   },
+   "P2_ext_sea_all": {
+    "max": 0.3915,
+    "at": {
+     "row": 48,
+     "c_m": -24.73,
+     "tau": -2.017
+    },
+    "row_frames_over_0p2": 212,
+    "rows_over_0p2": [
+     48,
+     49,
+     50,
+     51,
+     52,
+     53,
+     54,
+     55,
+     56,
+     57
+    ],
+    "tau_range_over_0p2": [
+     -2.467,
+     -2.0
+    ]
+   },
+   "P3": {
+    "max": 0.1057,
+    "worst_row": 104,
+    "over_0p1_rows": [
+     90,
+     99,
+     100,
+     101,
+     103,
+     104,
+     105,
+     106,
+     107,
+     108,
+     112,
+     113
+    ]
+   },
+   "P13": {
+    "hz": 30,
+    "acc_2": {
+     "count": 77422,
+     "rows": {
+      "59": 713,
+      "55": 708,
+      "142": 706,
+      "140": 704,
+      "58": 701,
+      "56": 700,
+      "54": 698,
+      "141": 698,
+      "57": 696,
+      "61": 691,
+      "138": 689,
+      "62": 689
+     },
+     "cols": {
+      "18": 1610,
+      "19": 1528,
+      "20": 1448,
+      "17": 1417,
+      "21": 1356,
+      "22": 1261,
+      "16": 1209,
+      "23": 1195,
+      "24": 1092,
+      "25": 1025,
+      "26": 924,
+      "15": 920
+     },
+     "row_range": [
+      48,
+      198
+     ],
+     "col_range": [
+      8,
+      398
+     ],
+     "tau_range": [
+      -6.5333,
+      -0.5333
+     ],
+     "frames": 82,
+     "max": {
+      "row": 187,
+      "col": 394,
+      "tau": -5.6667,
+      "d2_m": 0.0669
+     },
+     "limit_m": 0.0218,
+     "by_tau": {
+      "-68": 2158,
+      "-76": 2091,
+      "-77": 1861,
+      "-67": 1857,
+      "-75": 1781,
+      "-69": 1780,
+      "-34": 1753,
+      "-33": 1682,
+      "-35": 1572,
+      "-78": 1486,
+      "-32": 1438,
+      "-74": 1430
+     }
+    },
+    "edge_5b": {
+     "count": 163,
+     "rows": {
+      "103": 12,
+      "99": 11,
+      "101": 11,
+      "105": 11,
+      "102": 10,
+      "100": 10,
+      "106": 10,
+      "104": 9,
+      "107": 9,
+      "108": 7,
+      "98": 6,
+      "183": 6
+     },
+     "cols": {
+      "209": 62,
+      "210": 52,
+      "208": 36,
+      "211": 8,
+      "207": 5
+     },
+     "row_range": [
+      93,
+      186
+     ],
+     "col_range": [
+      207,
+      211
+     ],
+     "tau_range": [
+      -1.4,
+      -1.1333
+     ],
+     "frames": 9,
+     "min": {
+      "row": 100,
+      "col": 208,
+      "tau": -1.2,
+      "len_m": 0.0024,
+      "K_len_m": 0.07483
+     }
+    },
+    "stretch_5c": {
+     "count": 49848,
+     "rows": {
+      "101": 1137,
+      "103": 1137,
+      "102": 1136,
+      "100": 1135,
+      "104": 1135,
+      "105": 1133,
+      "106": 1130,
+      "107": 1127,
+      "108": 1125,
+      "111": 1124,
+      "109": 1124,
+      "110": 1124
+     },
+     "cols": {
+      "192": 15722,
+      "193": 15499,
+      "191": 11850,
+      "194": 6752,
+      "190": 25
+     },
+     "row_range": [
+      76,
+      137
+     ],
+     "col_range": [
+      190,
+      194
+     ],
+     "tau_range": [
+      -12.0,
+      -2.3667
+     ],
+     "frames": 290,
+     "lo_count": 49848,
+     "hi_count": 0,
+     "lo_min": {
+      "row": 108,
+      "col": 193,
+      "tau": -2.8333,
+      "len_m": 0.00915,
+      "K_len_m": 0.82581,
+      "ratio": 0.0111
+     },
+     "lo_rows": {
+      "101": 1137,
+      "103": 1137,
+      "102": 1136,
+      "100": 1135,
+      "104": 1135,
+      "105": 1133,
+      "106": 1130,
+      "107": 1127,
+      "108": 1125,
+      "111": 1124,
+      "109": 1124,
+      "110": 1124,
+      "112": 1122,
+      "113": 1121,
+      "99": 1119,
+      "114": 1119,
+      "115": 1003,
+      "98": 941,
+      "117": 923,
+      "126": 898
+     },
+     "lo_cols": {
+      "192": 15722,
+      "193": 15499,
+      "191": 11850,
+      "194": 6752,
+      "190": 25
+     },
+     "lo_K_len_m_median": 0.574,
+     "lo_len_m_median": 0.0196,
+     "lo_col_minus_jt": {
+      "102": 15722,
+      "103": 15499,
+      "101": 11850,
+      "104": 6752,
+      "100": 25
+     },
+     "lo_col_minus_jtip": {
+      "3": 11270,
+      "2": 8634,
+      "4": 8438,
+      "5": 7322,
+      "6": 5417,
+      "7": 3476,
+      "1": 2751,
+      "8": 2540
+     }
+    },
+    "flips_5g": {
+     "count": 130,
+     "rows": {
+      "234": 66,
+      "233": 22,
+      "231": 15,
+      "230": 9,
+      "232": 7,
+      "227": 4,
+      "228": 4,
+      "229": 3
+     },
+     "cols": {
+      "187": 40,
+      "169": 9,
+      "170": 8,
+      "168": 7,
+      "186": 5,
+      "148": 5,
+      "118": 4,
+      "91": 4,
+      "166": 4,
+      "167": 4,
+      "139": 4,
+      "138": 4
+     },
+     "row_range": [
+      227,
+      234
+     ],
+     "col_range": [
+      91,
+      187
+     ],
+     "tau_range": [
+      -6.1,
+      -2.2333
+     ],
+     "frames": 48,
+     "first": {
+      "row": 234,
+      "col": 187,
+      "tri": 0,
+      "tau": -6.1
+     },
+     "by_tau": {
+      "-86": 9,
+      "-75": 9,
+      "-81": 8,
+      "-91": 7,
+      "-80": 7,
+      "-72": 6,
+      "-69": 6,
+      "-85": 5,
+      "-82": 5,
+      "-73": 5,
+      "-68": 5,
+      "-84": 5,
+      "-105": 4,
+      "-102": 3,
+      "-89": 3,
+      "-70": 3,
+      "-76": 3,
+      "-77": 3,
+      "-83": 2,
+      "-67": 2
+     }
+    },
+    "landmarks_sample": {
+     "48": {
+      "jt": 97,
+      "jtip": 199,
+      "rim": 204,
+      "ja": 326,
+      "H": 7.2,
+      "c": -24.73
+     },
+     "60": {
+      "jt": 90,
+      "jtip": 197,
+      "rim": 203,
+      "ja": 318,
+      "H": 10.58,
+      "c": -21.07
+     },
+     "72": {
+      "jt": 90,
+      "jtip": 191,
+      "rim": 203,
+      "ja": 316,
+      "H": 11.5,
+      "c": -18.4
+     },
+     "84": {
+      "jt": 90,
+      "jtip": 189,
+      "rim": 202,
+      "ja": 316,
+      "H": 11.13,
+      "c": -16.0
+     },
+     "96": {
+      "jt": 90,
+      "jtip": 187,
+      "rim": 202,
+      "ja": 317,
+      "H": 11.6,
+      "c": -13.6
+     },
+     "108": {
+      "jt": 90,
+      "jtip": 186,
+      "rim": 202,
+      "ja": 318,
+      "H": 13.49,
+      "c": -11.2
+     },
+     "120": {
+      "jt": 90,
+      "jtip": 190,
+      "rim": 202,
+      "ja": 316,
+      "H": 16.01,
+      "c": -8.8
+     },
+     "132": {
+      "jt": 90,
+      "jtip": 190,
+      "rim": 201,
+      "ja": 317,
+      "H": 18.01,
+      "c": -6.4
+     },
+     "144": {
+      "jt": 90,
+      "jtip": 191,
+      "rim": 202,
+      "ja": 316,
+      "H": 19.49,
+      "c": -4.0
+     },
+     "156": {
+      "jt": 90,
+      "jtip": 193,
+      "rim": 203,
+      "ja": 315,
+      "H": 20.21,
+      "c": -1.6
+     },
+     "168": {
+      "jt": 90,
+      "jtip": 194,
+      "rim": 204,
+      "ja": 317,
+      "H": 19.91,
+      "c": 0.8
+     },
+     "180": {
+      "jt": 90,
+      "jtip": 196,
+      "rim": 203,
+      "ja": 321,
+      "H": 19.02,
+      "c": 3.2
+     },
+     "192": {
+      "jt": 90,
+      "jtip": 198,
+      "rim": 203,
+      "ja": 326,
+      "H": 18.56,
+      "c": 5.6
+     }
+    },
+    "landmarks_rows_of_interest": {
+     "79": {
+      "jt": 90,
+      "jtip": 190,
+      "rim": 203,
+      "ja": 316,
+      "H": 11.28,
+      "c": -17.0
+     },
+     "175": {
+      "jt": 90,
+      "jtip": 195,
+      "rim": 203,
+      "ja": 319,
+      "H": 19.34,
+      "c": 2.2
+     },
+     "185": {
+      "jt": 90,
+      "jtip": 197,
+      "rim": 203,
+      "ja": 323,
+      "H": 18.82,
+      "c": 4.2
+     }
+    }
+   }
+  },
+  "diag_after": {
+   "P2_all": {
+    "max": 0.1456,
+    "at": {
+     "row": 65,
+     "c_m": -19.86,
+     "tau": -9.917
+    },
+    "row_frames_over_0p2": 0,
+    "rows_over_0p2": [],
+    "tau_range_over_0p2": null
+   },
+   "P3": {
+    "max": 0.0427,
+    "worst_row": 138,
+    "over_0p1_rows": []
+   },
+   "P13_counts": {
+    "acc_2": 77422,
+    "edge_5b": 163,
+    "stretch_5c": 49848,
+    "flips_5g": 130
+   }
+  },
+  "fixes": [
+   {
+    "name": "num_sea_sample_range",
+    "kind_ja": "数値の条件",
+    "value": "周りの海の標本 a −480〜130 m（F_final は −330〜130 m）",
+    "gate": "P2",
+    "effect_ja": "包み（位置・白・keypose）は変えず、ds27_sea.npz の標本の範囲だけが広がる"
+   },
+   {
+    "name": "num_balance_swell_calm",
+    "kind_ja": "数値の条件",
+    "value": "搬送波の振幅の窓の釣り合いのうねりの項に κ_s(τ) を掛ける",
+    "gate": "P2・P3",
+    "effect_ja": "τ −4〜0 s の A_c と、シートの外端の帯・端の行の海だけが変わる（P20 0.240 m）。本体の列と t* は変わらない"
+   }
+  ],
+  "package_diff": {
+   "knots_same": true,
+   "bbox_same": true,
+   "tstar_layer_max_m": 0.0,
+   "layers_tau_le_m4_max_m": 0.0,
+   "max_m": 0.2397106279087513,
+   "max_at_tau": -1.6,
+   "per_tau_max_m": {
+    "-4.00": 0.0,
+    "-3.50": 0.023,
+    "-3.00": 0.0754,
+    "-2.50": 0.1385,
+    "-2.00": 0.2068,
+    "-1.50": 0.2393,
+    "-1.00": 0.1834,
+    "-0.50": 0.0679,
+    "-0.10": 0.0143,
+    "0.00": 0.0
+   },
+   "body_rows40_230_cols_jB_jE_max_m": 0.000793743801022373,
+   "vertices_changed_gt_1cm": 7274,
+   "rows_with_changes_gt_1cm": [
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    123,
+    124,
+    125,
+    126,
+    127,
+    128,
+    129,
+    130,
+    131,
+    132,
+    133,
+    134,
+    135,
+    136,
+    137,
+    138,
+    139,
+    140,
+    141,
+    142,
+    143,
+    144,
+    145,
+    146,
+    147,
+    148,
+    149,
+    150,
+    151,
+    152,
+    153,
+    154,
+    155,
+    156,
+    157,
+    158,
+    159,
+    160,
+    161,
+    162,
+    163,
+    164,
+    165,
+    166,
+    167,
+    168,
+    169,
+    170,
+    171,
+    172,
+    173,
+    174,
+    175,
+    176,
+    177,
+    178,
+    179,
+    180,
+    181,
+    182,
+    183,
+    184,
+    185,
+    186,
+    187,
+    212,
+    213,
+    214,
+    215,
+    216,
+    217,
+    218,
+    219,
+    220,
+    221,
+    222,
+    223,
+    224,
+    225,
+    236,
+    237,
+    238,
+    239
+   ],
+   "pos_sha256_before": "af08cd4edb8a287551cae2ac8c60af3c4c33bbb39088807571475dc973d85974",
+   "pos_sha256_after": "a92f3446e755ad9ae31efd89b3ba61ee4a29e0e00fa3164175ac56e3105cbf3b",
+   "twhite_same": true
+  },
+  "timewarp_same_t_tau": true,
+  "p20": {
+   "num_tail_lip_body＋num_small_lip_body（κ = 0 の行）": {
+    "max_vertex_diff_m": 1.0367,
+    "at": {
+     "tau": -1.4,
+     "row": 231,
+     "col": 314,
+     "c_m": 13.399999618530273
+    }
+   },
+   "ds_back_no_undercut（近似：ΔL の当てはめは入れた版）": {
+    "max_vertex_diff_m": 0.0,
+    "at": null
+   },
+   "num_balance_swell_calm（仕上げ27。海の釣り合いの κ_s だけを切った形との差）": {
+    "max_vertex_diff_m": 0.2399,
+    "at": {
+     "tau": -1.55,
+     "row": 11,
+     "col": 13,
+     "c_m": -47.51190948486328
+    }
+   },
+   "num_tstar_exact": {
+    "max_vertex_diff_m": 0.0,
+    "at": {
+     "tau": -0.0,
+     "row": 2,
+     "col": 394,
+     "c_m": -57.44440841674805
+    }
+   },
+   "num_sheet_clearance": {
+    "max_vertex_diff_m": 0.0,
+    "at": null
+   },
+   "num_bridge_tangles": {
+    "max_vertex_diff_m": 0.0,
+    "at": null
+   },
+   "F の層（t*・隙間・橋渡し）の全部（E のまま（κ の差し替えの後）との差）": {
+    "max_vertex_diff_m": 0.0,
+    "at": {
+     "tau": -0.0,
+     "row": 2,
+     "col": 394,
+     "c_m": -57.44440841674805
+    }
+   }
+  },
+  "generate_seconds": 666.8,
+  "sea_npz": {
+   "path": "Unity/Build/Polish/27/F_p27/art_on/ds27_sea.npz",
+   "sha256": "30198675e5412ac1d61cf6377dbadb9e142aa3134ed0dd323782d1835e49c44b",
+   "a_range": [
+    -480.0,
+    130.0
+   ]
+  },
+  "verdict": {
+   "P2": "合格",
+   "P3": "合格",
+   "P13": "不合格（(2) 地面の二階差分（30 Hz、全巻きの行の全点）_m・(5b) 行の方向の辺の最小_m・(5c) 辺の長さの K* に対する比（行の方向）・(5g) 面の反転（30 Hz、向きの決まった最後のコマと比べる）。限界として仕上げ28 へ）"
+  },
+  "repro_sampled": {
+   "results": {
+    "repro_F_p27": {
+     "package": "Unity/Build/Polish/27/F_p27/art_on",
+     "off": [],
+     "all_same": true,
+     "layers": [
+      [
+       -12.0,
+       true,
+       true
+      ],
+      [
+       -4.0,
+       true,
+       true
+      ],
+      [
+       -2.0,
+       true,
+       true
+      ],
+      [
+       -1.5,
+       true,
+       true
+      ],
+      [
+       0.0,
+       true,
+       true
+      ]
+     ]
+    },
+    "repro_F_final_off": {
+     "package": "Unity/Build/Design/28R01F/F_final/art_on",
+     "off": [
+      "balance_swell_calm",
+      "sea_sample_range"
+     ],
+     "all_same": true,
+     "layers": [
+      [
+       -12.0,
+       true,
+       true
+      ],
+      [
+       -4.0,
+       true,
+       true
+      ],
+      [
+       -2.0,
+       true,
+       true
+      ],
+      [
+       -1.5,
+       true,
+       true
+      ],
+      [
+       0.0,
+       true,
+       true
+      ]
+     ]
+    }
+   },
+   "note_ja": "1 つのプロセスで節点の 5 層を作り直した抜き取り。全層の一致は確かめていない"
+  }
+ },
+ "unity_before_after": {
+  "diffs": {
+   "painting t03_tau-4.889": {
+    "px_diff_gt0": 0,
+    "px_diff_gt8": 0,
+    "max": 0,
+    "bbox_gt8": null,
+    "before_sha256": "4ac12e622362580d0e1257ad869db346cd79c8048f279242335b85d774cdb819",
+    "after_sha256": "4ac12e622362580d0e1257ad869db346cd79c8048f279242335b85d774cdb819"
+   },
+   "painting t05_tau-3.202": {
+    "px_diff_gt0": 0,
+    "px_diff_gt8": 0,
+    "max": 0,
+    "bbox_gt8": null,
+    "before_sha256": "4ac12e622362580d0e1257ad869db346cd79c8048f279242335b85d774cdb819",
+    "after_sha256": "4ac12e622362580d0e1257ad869db346cd79c8048f279242335b85d774cdb819"
+   },
+   "painting t065_tau-2.450": {
+    "px_diff_gt0": 24,
+    "px_diff_gt8": 0,
+    "max": 1,
+    "bbox_gt8": null,
+    "before_sha256": "128ba552b370c1f5346d7ca30089b2cf7e8256411edddd016fb5df1b89bd1570",
+    "after_sha256": "bf78e099e0cfcb290655ce9b3f2785863c03b466dd0665f95a1053752fb93a2c"
+   },
+   "painting t08_tau-1.700": {
+    "px_diff_gt0": 464,
+    "px_diff_gt8": 353,
+    "max": 54,
+    "bbox_gt8": [
+     599,
+     918,
+     1048,
+     925
+    ],
+    "before_sha256": "ea229f9ce53b7370a82276ce3fe8510da604bb065abe4048b9ef0f748cec6e5b",
+    "after_sha256": "3b2fbcadad8c803bf96c0820597acd2455bad232c93cde4f25785bbe7e1f32a4"
+   },
+   "painting t095_tau-0.950": {
+    "px_diff_gt0": 210,
+    "px_diff_gt8": 2,
+    "max": 14,
+    "bbox_gt8": [
+     579,
+     744,
+     582,
+     746
+    ],
+    "before_sha256": "84525fe0d86b3cdec76762dc40c660f810f4ca427fe9dd3c3ded258abf6c6957",
+    "after_sha256": "ad70eaf0a34da8cdf0135d47768ce557920e24b3ad341ac540e8ef1877e8835d"
+   },
+   "painting t11_tau-0.203": {
+    "px_diff_gt0": 0,
+    "px_diff_gt8": 0,
+    "max": 0,
+    "bbox_gt8": null,
+    "before_sha256": "cc058cb1c07485f23ae3291ad5f4b29973ae2d9587a83dd9ba7ac0b761b09194",
+    "after_sha256": "cc058cb1c07485f23ae3291ad5f4b29973ae2d9587a83dd9ba7ac0b761b09194"
+   },
+   "painting tstar_tau+0.000": {
+    "px_diff_gt0": 0,
+    "px_diff_gt8": 0,
+    "max": 0,
+    "bbox_gt8": null,
+    "before_sha256": "fab3cf29c99d85d5434ddf412346f1b0093025c8c22739c427aca9991b189eae",
+    "after_sha256": "fab3cf29c99d85d5434ddf412346f1b0093025c8c22739c427aca9991b189eae"
+   },
+   "seat t03_tau-4.889": {
+    "px_diff_gt0": 0,
+    "px_diff_gt8": 0,
+    "max": 0,
+    "bbox_gt8": null,
+    "before_sha256": "796b698fbd95bf1d62fabc4fa9251d10e127a15eccf28a713296736ea15815c3",
+    "after_sha256": "796b698fbd95bf1d62fabc4fa9251d10e127a15eccf28a713296736ea15815c3"
+   },
+   "seat t05_tau-3.202": {
+    "px_diff_gt0": 0,
+    "px_diff_gt8": 0,
+    "max": 0,
+    "bbox_gt8": null,
+    "before_sha256": "796b698fbd95bf1d62fabc4fa9251d10e127a15eccf28a713296736ea15815c3",
+    "after_sha256": "796b698fbd95bf1d62fabc4fa9251d10e127a15eccf28a713296736ea15815c3"
+   },
+   "seat t065_tau-2.450": {
+    "px_diff_gt0": 0,
+    "px_diff_gt8": 0,
+    "max": 0,
+    "bbox_gt8": null,
+    "before_sha256": "796b698fbd95bf1d62fabc4fa9251d10e127a15eccf28a713296736ea15815c3",
+    "after_sha256": "796b698fbd95bf1d62fabc4fa9251d10e127a15eccf28a713296736ea15815c3"
+   },
+   "seat t08_tau-1.700": {
+    "px_diff_gt0": 0,
+    "px_diff_gt8": 0,
+    "max": 0,
+    "bbox_gt8": null,
+    "before_sha256": "796b698fbd95bf1d62fabc4fa9251d10e127a15eccf28a713296736ea15815c3",
+    "after_sha256": "796b698fbd95bf1d62fabc4fa9251d10e127a15eccf28a713296736ea15815c3"
+   },
+   "seat t095_tau-0.950": {
+    "px_diff_gt0": 0,
+    "px_diff_gt8": 0,
+    "max": 0,
+    "bbox_gt8": null,
+    "before_sha256": "cac65c4cb1b1f9980b976e8b9cc31c43b9be38dd32bb6abaa250af7dfc273d40",
+    "after_sha256": "cac65c4cb1b1f9980b976e8b9cc31c43b9be38dd32bb6abaa250af7dfc273d40"
+   },
+   "seat t11_tau-0.203": {
+    "px_diff_gt0": 0,
+    "px_diff_gt8": 0,
+    "max": 0,
+    "bbox_gt8": null,
+    "before_sha256": "89cbdaa1643d56741d3d1930e15e49434a1b651f2c2e0621eec0cc24e1f61d54",
+    "after_sha256": "89cbdaa1643d56741d3d1930e15e49434a1b651f2c2e0621eec0cc24e1f61d54"
+   },
+   "seat tstar_tau+0.000": {
+    "px_diff_gt0": 0,
+    "px_diff_gt8": 0,
+    "max": 0,
+    "bbox_gt8": null,
+    "before_sha256": "769cea90f12b24bd2aca2436fbade6107cd48d8efdff04dbcfb8de538774ebab",
+    "after_sha256": "769cea90f12b24bd2aca2436fbade6107cd48d8efdff04dbcfb8de538774ebab"
+   },
+   "side_left t03_tau-4.889": {
+    "px_diff_gt0": 0,
+    "px_diff_gt8": 0,
+    "max": 0,
+    "bbox_gt8": null,
+    "before_sha256": "7cea1b3048125305a6f9a21733d49f808f74411fcbf78de23afc1a481f64429d",
+    "after_sha256": "7cea1b3048125305a6f9a21733d49f808f74411fcbf78de23afc1a481f64429d"
+   },
+   "side_left t05_tau-3.202": {
+    "px_diff_gt0": 6885,
+    "px_diff_gt8": 499,
+    "max": 37,
+    "bbox_gt8": [
+     440,
+     695,
+     1764,
+     1005
+    ],
+    "before_sha256": "aa9891685c65b49eb9f260d02276810291c6f4f371b0b37a69f79d2a78821fa5",
+    "after_sha256": "4938cb7527a8c0c744b856c34e870f4b319a23e19e96ac52f38b9e1871ed6947"
+   },
+   "side_left t065_tau-2.450": {
+    "px_diff_gt0": 17019,
+    "px_diff_gt8": 1353,
+    "max": 37,
+    "bbox_gt8": [
+     33,
+     718,
+     1791,
+     1013
+    ],
+    "before_sha256": "3d206772dc8618657688632b60131f642779a09c445045517f1f4e3e48b845ad",
+    "after_sha256": "8ee3688946f01e4faba69535b4713a8c8d4424d5e8f736e42b62338da5f0dd1a"
+   },
+   "side_left t08_tau-1.700": {
+    "px_diff_gt0": 29583,
+    "px_diff_gt8": 2131,
+    "max": 37,
+    "bbox_gt8": [
+     27,
+     747,
+     1894,
+     1051
+    ],
+    "before_sha256": "bdcfa6a279cf2404d4d0d0f24611fe4734b4751a8e26126ca61f1d22a70e63b9",
+    "after_sha256": "532b27769c9cfb1a67f41883323cf9e0711e45453e7dcc604db0a41fb549d9b0"
+   },
+   "side_left t095_tau-0.950": {
+    "px_diff_gt0": 27111,
+    "px_diff_gt8": 2150,
+    "max": 37,
+    "bbox_gt8": [
+     1530,
+     850,
+     1917,
+     1053
+    ],
+    "before_sha256": "6c19d9cbf72beabd259a9607855413b861620731fb8a5922531277f5ca3aa52e",
+    "after_sha256": "0c288d957e108c2fd6d48183392c1246b8d48a5ac6b60a4b2feaa4848b51ce6d"
+   },
+   "side_left t11_tau-0.203": {
+    "px_diff_gt0": 2142,
+    "px_diff_gt8": 848,
+    "max": 23,
+    "bbox_gt8": [
+     1540,
+     855,
+     1918,
+     1046
+    ],
+    "before_sha256": "941f2139a71a66b4ebe5476f2a3c3e517076386fe91e5930ac8fb657c76c9328",
+    "after_sha256": "5b01586291d7c47f72310e1dddc3311ac52657dbde9a44298d7ab148ec19bf50"
+   },
+   "side_left tstar_tau+0.000": {
+    "px_diff_gt0": 0,
+    "px_diff_gt8": 0,
+    "max": 0,
+    "bbox_gt8": null,
+    "before_sha256": "d720ab242f1383d78600ce50261cde6b33ddd633477899613e12d1668c310bbe",
+    "after_sha256": "d720ab242f1383d78600ce50261cde6b33ddd633477899613e12d1668c310bbe"
+   }
+  },
+  "render": {
+   "passed": true,
+   "protectedUnchanged": true,
+   "meshUnchanged": true,
+   "sceneSha256": "988f1cf504e230f8e0d528152278868639a5d334dcfbf5f158ea1bfbaecddb02",
+   "posSha256": "a92f3446e755ad9ae31efd89b3ba61ee4a29e0e00fa3164175ac56e3105cbf3b",
+   "warpFileSha256": "627815c77afc63278c885335bbe6c51178896184559ca30845cf05f23c634a7c",
+   "totalSeconds": 5.445125579833984
+  }
+ },
+ "ds26_conditions_copy": {
+  "path": "Tools/GWWaveGen/ds26_conditions.json",
+  "sha256": "9e65abe9326b628291ef212400d973cdffa93c00ccdbe2afeddaf75b0e2e6642",
+  "source": {
+   "path": "Docs/Evidence/Design/26/ds26_conditions.json",
+   "sha256": "ec8ae040da4a10a371815b207bee7ad5e8c44af6d56b0fb35989aeee8fb6c072"
+  },
+  "changes": [
+   "schema",
+   "status_ja",
+   "scope_ja",
+   "physical_input.crossing_angle_deg.decided_ja",
+   "time_warp.default.restart_ramp_s",
+   "time_warp.alternative.restart_ramp_s",
+   "time_warp.default.decided_ja",
+   "numerical.keypose_hz.breaking_and_collapse"
+  ],
+  "numbers_changed": false,
+  "verdict": "作った（Q11 を反映。数値は変えない）"
+ },
+ "seat_stills": {
+  "stills": [
+   {
+    "key": "onset",
+    "name_ja": "噴流の始まり",
+    "target_tau": -2.983,
+    "target_t": 5.434,
+    "frame": 1647,
+    "frame_wave_t": 5.421,
+    "frame_tau": -2.9895,
+    "phase": "Formation",
+    "exp_s": 49.766669262200594,
+    "source_jpg": "Unity/Build/Design/50/release/runs/capture5/frames/f_001647.jpg",
+    "source_jpg_sha256": "f2523825c4a7bdc40afa8284ba2e3977b5349e109c9838181fc838abcca76fc8",
+    "png": "Docs/Evidence/Polish/27/seat_v1_exp_onset.png",
+    "png_sha256": "4d8ceeb8d4fc15579220a1d9d6ec05361cfb8bf6918b85bb61d074da14ddd77c",
+    "png_bytes": 267569
+   },
+   {
+    "key": "d",
+    "name_ja": "段階 d",
+    "target_tau": -1.983,
+    "target_t": 7.434,
+    "frame": 1754,
+    "frame_wave_t": 7.421,
+    "frame_tau": -1.9895,
+    "phase": "Formation",
+    "exp_s": 51.76666936650872,
+    "source_jpg": "Unity/Build/Design/50/release/runs/capture5/frames/f_001754.jpg",
+    "source_jpg_sha256": "be6369fd4e77966a2a2720b3850a591036a2419dd58e51bbbd095c9a1293728d",
+    "png": "Docs/Evidence/Polish/27/seat_v1_exp_d.png",
+    "png_sha256": "d17c876e88e2318c2f6c55ae531fa22911821e39f58ca749947b37d86d959e88",
+    "png_bytes": 328584
+   },
+   {
+    "key": "tstar",
+    "name_ja": "t*",
+    "target_tau": 0.0,
+    "target_t": 12.0,
+    "frame": 1892,
+    "frame_wave_t": 12.0,
+    "frame_tau": 0.0,
+    "phase": "Hold",
+    "exp_s": 56.36666960641742,
+    "source_jpg": "Unity/Build/Design/50/release/runs/capture5/frames/f_001892.jpg",
+    "source_jpg_sha256": "63f14ca2c3ced79dde2b204428f2ceddb98c1d13ade6f124839b21411d9fe7ae",
+    "png": "Docs/Evidence/Polish/27/seat_v1_exp_tstar.png",
+    "png_sha256": "b55ae6ce89393c088ee8137807a751ca4c149154d63879714a01a09890855479",
+    "png_bytes": 647393
+   }
+  ],
+  "figure": "Docs/Evidence/Polish/27/fig_pl27_seat_stills.png",
+  "verdict": "置き換えた（体験の場面 DS50_Release の座席 v1。Release のプレイヤーの PC の画面のコマ）"
+ },
+ "backlog_items": {
+  "80": {
+   "name_ja": "船上の正面中央で、波の上側を上昇前から上昇後まで続けて見られる（形の切替・欠落 0）",
+   "value": {
+    "index_constant_ja": "全コマで同じ 96,000 頂点・同じ三角形（包みの約束。Unity の再生も同じ格子）",
+    "continuity_all_pass": false,
+    "continuity_failed": [
+     "(2) 地面の二階差分（30 Hz、全巻きの行の全点）_m",
+     "(5b) 行の方向の辺の最小_m",
+     "(5c) 辺の長さの K* に対する比（行の方向）",
+     "(5g) 面の反転（30 Hz、向きの決まった最後のコマと比べる）"
+    ],
+    "centre_band_elev_deg": {
+     "t0": 0.79,
+     "t2": 2.11,
+     "t4": 5.9,
+     "t6": 12.61,
+     "t8": 20.08,
+     "t9": 25.53,
+     "t10": 34.57,
+     "t11": 55.77,
+     "tstar": 70.83
+    },
+    "centre_band_max_drop_deg_per_frame": 0.0,
+    "moving_eye_record": {
+     "source": "Unity/Build/Design/47/flow/unity/main/ds47_frames.csv",
+     "source_sha256": "eb0c23dbade7423a7e7270d88815fa968cfd54849cb6fe142bfc2ab0d42d4f73",
+     "frames": 360,
+     "eye_ja": "設計47 の走り main（Editor の Play、仮想のキーボードの操船）の HMD Camera の位置。座席の船が導入から形成へ動き、t* で原画の置き方へ着く",
+     "centre_elev_deg": {
+      "t1": 1.55,
+      "t4": 7.44,
+      "t6": 14.81,
+      "t8": 20.86,
+      "t9": 25.36,
+      "t10": 33.7,
+      "t11": 53.22,
+      "t12": 70.65
+     },
+     "centre_max_drop_deg_per_frame": 0.0,
+     "lip_elev_deg": {
+      "t2": 2.55,
+      "t8": 20.86,
+      "t10": 33.7,
+      "t12": 70.65
+     },
+     "lip_max_drop_deg_per_frame": 0.0,
+     "cam_y_range_m": [
+      -2.183,
+      2.776
+     ],
+     "cam_c_range_m": [
+      -1.43,
+      3.71
+     ]
+    }
+   },
+   "verdicts": {
+    "verdict_af30_formula": "不合格",
+    "verdict_item_words": "合格"
+   },
+   "reading_ja": "項目の言葉の読み：形の切替（添字は同じ）・欠落（(5a)・(6)）・位置跳び（(1)）が 0 で、中央の帯の仰角が 1 コマで 1° 以上下がらず、t = 2 s から t* までに 20° 以上上がる。美術優先30 の式は、これに連続性の検査一式がすべて合格を足す"
+  },
+  "106": {
+   "name_ja": "船上の正面中央から左右まで、水面が同じ一面として上へ移る（裂け・位置跳び 0）",
+   "value": {
+    "index_constant_ja": "全コマで同じ 96,000 頂点・同じ三角形（包みの約束。Unity の再生も同じ格子）",
+    "continuity_all_pass": false,
+    "continuity_failed": [
+     "(2) 地面の二階差分（30 Hz、全巻きの行の全点）_m",
+     "(5b) 行の方向の辺の最小_m",
+     "(5c) 辺の長さの K* に対する比（行の方向）",
+     "(5g) 面の反転（30 Hz、向きの決まった最後のコマと比べる）"
+    ],
+    "left_elev_tstar": 57.81,
+    "right_elev_tstar": 44.97,
+    "centre_elev_tstar": 70.83,
+    "left_max_drop_deg_per_frame": 0.0,
+    "right_max_drop_deg_per_frame": 0.0,
+    "rows_ja": "左 = 手前の肩の行（c が座席 −25〜−5 m）、中央 = 座席 ±5 m、右 = 奥の行（座席 +5〜+15 m）の水面の最大仰角"
+   },
+   "verdicts": {
+    "verdict_af30_formula": "不合格",
+    "verdict_item_words": "合格"
+   },
+   "reading_ja": "項目の言葉の読み：裂け（(5d) 行の間の伸び・(5f) 自己交差）と位置跳び（(1)）が 0"
+  },
+  "107": {
+   "name_ja": "船側の水面が上向きから船向きへ連続して変わる（面の反転・位置跳び 0）",
+   "value": {
+    "index_constant_ja": "全コマで同じ 96,000 頂点・同じ三角形（包みの約束。Unity の再生も同じ格子）",
+    "continuity_all_pass": false,
+    "continuity_failed": [
+     "(2) 地面の二階差分（30 Hz、全巻きの行の全点）_m",
+     "(5b) 行の方向の辺の最小_m",
+     "(5c) 辺の長さの K* に対する比（行の方向）",
+     "(5g) 面の反転（30 Hz、向きの決まった最後のコマと比べる）"
+    ],
+    "face_normal_up_deg": {
+     "t0": 4.65,
+     "t8": 34.6,
+     "tstar": 41.81
+    },
+    "face_normal_dot_to_seat_tstar": 0.553,
+    "face_normal_turn_max_deg_per_frame": 0.276,
+    "face_flips_in_item_region_30hz": 0,
+    "t0_note_ja": "t 0 の法線の傾き（上から）は、海のうねり（Hs 5 m）と搬送波で水面が傾く分。美術優先30 の『< 1°』は平らな海の rig の読み",
+    "face_flips_whole_mesh_P13_5g": 130,
+    "region_ja": "座席の近くの行（c が座席 ±5 m）の内壁（列 j_corner〜j_facebot）。P13 の (5g) の 130 は奥の端の行 227〜234（c +12.8〜+14）で、この範囲の外"
+   },
+   "verdicts": {
+    "verdict_af30_formula": "不合格",
+    "verdict_item_words": "不合格"
+   },
+   "reading_ja": "項目の言葉の読み：項目の範囲の面の反転 0・位置跳び 0 で、平均の法線が上向き（t 0 で 1° 未満）から座席の方へ（t* で座席の向きとの内積 > 0.3）1 コマ 5° 未満の回りで変わる"
+  },
+  "108": {
+   "name_ja": "船上から、前方の水面が船側へ延びて座席の上に入る過程を見られる",
+   "value": {
+    "lip_elev_max_deg": {
+     "t2": 2.11,
+     "t6": 12.61,
+     "t8": 20.08,
+     "t10": 34.57,
+     "tstar": 70.83,
+     "max": 70.83
+    },
+    "lip_elev_max_drop_deg_per_frame": 0.0,
+    "near_rows_tip_elev_deg_tstar": 67.72,
+    "lip_horizontal_min_m_tstar": 3.621,
+    "lip_points_within_5m_horizontal_max": 520,
+    "water_points_elev_ge_70deg_max": 49,
+    "lip_elev_max_over_all_frames_at_s": 12.0,
+    "frames_before_tstar_above_tstar": 0,
+    "moving_eye_record": {
+     "source": "Unity/Build/Design/47/flow/unity/main/ds47_frames.csv",
+     "source_sha256": "eb0c23dbade7423a7e7270d88815fa968cfd54849cb6fe142bfc2ab0d42d4f73",
+     "frames": 360,
+     "eye_ja": "設計47 の走り main（Editor の Play、仮想のキーボードの操船）の HMD Camera の位置。座席の船が導入から形成へ動き、t* で原画の置き方へ着く",
+     "centre_elev_deg": {
+      "t1": 1.55,
+      "t4": 7.44,
+      "t6": 14.81,
+      "t8": 20.86,
+      "t9": 25.36,
+      "t10": 33.7,
+      "t11": 53.22,
+      "t12": 70.65
+     },
+     "centre_max_drop_deg_per_frame": 0.0,
+     "lip_elev_deg": {
+      "t2": 2.55,
+      "t8": 20.86,
+      "t10": 33.7,
+      "t12": 70.65
+     },
+     "lip_max_drop_deg_per_frame": 0.0,
+     "cam_y_range_m": [
+      -2.183,
+      2.776
+     ],
+     "cam_c_range_m": [
+      -1.43,
+      3.71
+     ]
+    }
+   },
+   "verdicts": {
+    "verdict_elevation_reading": "合格",
+    "verdict_overhead_reading": "合格"
+   },
+   "reading_ja": "(1) 仰角の読み（美術優先30 が置いた読み）：同じ水面（唇）の仰角が前方（t = 2 s で 20° 未満）から 60° 以上へ途切れずに（1 コマで 1° 以上下がらない）上がる。(2) 真上の読み：座席から水平 5 m 以内・仰角 70° 以上に水面が来る。どちらを判定に使うかは美術優先30 から保留（利用者の選択待ち）。仕上げ27 の判断（Q24）は記録に書く"
+  },
+  "111": {
+   "name_ja": "座席の上へ延びた水面の先が、下向きに曲がる過程を見られる（位置跳び・欠落 0）",
+   "value": {
+    "index_constant_ja": "全コマで同じ 96,000 頂点・同じ三角形（包みの約束。Unity の再生も同じ格子）",
+    "continuity_all_pass": false,
+    "continuity_failed": [
+     "(2) 地面の二階差分（30 Hz、全巻きの行の全点）_m",
+     "(5b) 行の方向の辺の最小_m",
+     "(5c) 辺の長さの K* に対する比（行の方向）",
+     "(5g) 面の反転（30 Hz、向きの決まった最後のコマと比べる）"
+    ],
+    "tip_dir_deg": {
+     "t6": -88.46,
+     "t8": -112.4,
+     "t9": -116.1,
+     "t10": -119.03,
+     "t11": -120.35,
+     "tstar": -122.15,
+     "max": -12.59
+    },
+    "tip_dir_step_max_deg_per_frame": 1.614,
+    "tip_jump_max_m_per_frame": 0.6708,
+    "tip_jump_max_m_per_frame_wave_frame": 0.0951,
+    "tip_jump_note_ja": "地面（世界）の 1 コマの移動は、波の約 20 m/s の進み（1/30 s で約 0.67 m）を含む。美術優先30 の 0.6 m の目安は、その場で育つ rig の値。波の枠（局所）の移動も書く",
+    "tstar_vs_kstar_ok": true,
+    "P4": -1.684,
+    "P16": 2.11,
+    "rows_ja": "座席の近くの行（c が座席 ±3 m）の唇先の向き（唇の上面の最後の 8 列（j_tip−8〜j_tip）、断面の中の水平からの角の中央値。負が下向き）"
+   },
+   "verdicts": {
+    "verdict_af30_formula": "不合格",
+    "verdict_item_words": "不合格",
+    "verdict_item_words_wave_frame": "合格"
+   },
+   "reading_ja": "項目の言葉の読み：t* の唇先の向きが −20° より下向き、1 コマの向きの変化 < 3°、唇先の 1 コマの移動 < 0.6 m、位置跳び・欠落 0。美術優先30 の式は、これに連続性の検査一式と t* = K* を足す"
+  }
+ },
+ "backlog_items_source": {
+  "path": "Unity/Build/Polish/27/seat_items/seat_items_F_final.json",
+  "sha256": "85e5431603f7e1f181281c2ff9be1cf9cf6f02105db1a41400491b62a6f8bd76",
+  "seat": {
+   "path": "Tools/GWContext/seat_v1.json",
+   "sha256": "4f7553fd6ab29d117266d6f0b6e58c84dc30f36cf440f6de9314b95102517488",
+   "eye_world": [
+    3.9544,
+    1.8323,
+    -15.0308
+   ],
+   "c_seat_m": -1.431
+  },
+  "rows": {
+   "near": [
+    142,
+    171
+   ],
+   "face": [
+    132,
+    181
+   ],
+   "left": [
+    44,
+    131
+   ],
+   "right": [
+    182,
+    231
+   ],
+   "lip_rows": 151
+  },
+  "landmarks": {
+   "j_top": 90,
+   "j_tip": 200,
+   "j_corner": 314,
+   "j_facebot": 379
+  }
+ },
+ "painting_evaluator": {
+  "output": "Unity/Build/Polish/27/regress/ds30_tstar_regress.json",
+  "output_sha256": "4ca57d3a973d94d4feca5dfc9c11397e4246b36d5236986df5046c2a35b8931e",
+  "stage8_design40_41_output_sha256": "4ca57d3a973d94d4feca5dfc9c11397e4246b36d5236986df5046c2a35b8931e",
+  "same_as_previous": true,
+  "input_ja": "設計41 の t* の組（Unity/Build/Design/41/model/unity/t28_claws・t28_white の t28 の写し）。段階8確認・段階9確認と同じ入力（体験の場面の t* はこの群で変えていない）",
+  "values": {
+   "t28_claws": {
+    "78": 3.0289,
+    "130": 3.5131,
+    "131": 3.0431,
+    "132_sigma12_max": 3.7552,
+    "72_sigma24_p95": 3.8423,
+    "verdict_changes_vs_28r01": [
+     "267"
+    ],
+    "items_over_0p5": [
+     "73",
+     "79",
+     "118",
+     "134",
+     "175",
+     "263"
+    ],
+    "sym_worst_diff_vs_29r01_px": 0.0,
+    "flat_266_267": {
+     "white": {
+      "sym_bands": 0
+     },
+     "mizuiro": {
+      "sym_bands": 0
+     },
+     "ai_mid": {
+      "sym_bands": 0
+     },
+     "ai_dark": {
+      "sym_bands": 0
+     }
+    }
+   },
+   "t28_white": {
+    "78": 3.0289,
+    "130": 3.5131,
+    "131": 3.0431,
+    "132_sigma12_max": 3.7552,
+    "72_sigma24_p95": 4.0075,
+    "verdict_changes_vs_28r01": [
+     "134",
+     "267"
+    ],
+    "items_over_0p5": [
+     "73",
+     "79",
+     "118",
+     "134",
+     "175",
+     "263"
+    ],
+    "sym_worst_diff_vs_29r01_px": 0.0,
+    "flat_266_267": {
+     "white": {
+      "sym_bands": 0
+     },
+     "mizuiro": {
+      "sym_bands": 0
+     },
+     "ai_mid": {
+      "sym_bands": 0
+     },
+     "ai_dark": {
+      "sym_bands": 0
+     }
+    }
+   }
+  },
+  "cp1_26r01_ja": {
+   "cp1": {
+    "78": 2.772,
+    "130": 1.968,
+    "131": 1.814,
+    "132": 1.326,
+    "72": 1.558
+   },
+   "r26_01": {
+    "78": 1.641,
+    "130": 1.953,
+    "131": 1.798,
+    "132": 1.574,
+    "72": 1.723
+   },
+   "source": "Docs/Progress/Design_40_ja.md 第 0 節の 3・第 3 節の表（ds40_acceptance.json の cp1_26r01_regression_stated）"
+  }
+ },
+ "timing": {
+  "start_local": "2026-09-30T19:45:31+08:00",
+  "pipeline": {
+   "generate_s": 667.2,
+   "warp_s": 2.7,
+   "checks_s": 652.2,
+   "table_s": 0.1,
+   "total_s": 1322.2
+  },
+  "note_ja": "終わりの時刻は記録の本文"
+ },
+ "summary_verdicts": {
+  "Q10 P2（F_p27）": "合格",
+  "Q10 P3（F_p27）": "合格",
+  "Q10 P13（F_p27）": "不合格（4/12。限界として仕上げ28 へ）",
+  "ds26_conditions.json の写し": "作った",
+  "座席の静止画 3 枚": "置き換えた（体験の場面の座席 v1）",
+  "80": "不合格（美術優先30 の式。項目の言葉の読みは 合格、記録）",
+  "106": "不合格（美術優先30 の式。項目の言葉の読みは 合格、記録）",
+  "107": "不合格（美術優先30 の式。項目の言葉の読みは 不合格、記録）",
+  "108": "仰角の読み 合格・真上の読み 合格",
+  "111": "不合格（美術優先30 の式。項目の言葉の読みは 不合格（地面の移動の読み）。波の枠の移動の読みは 合格、記録）",
+  "原画視点の評価器（爪あり・爪なし）": "段階9確認と同じ値（出力の SHA-256 が同じ）"
+ }
+}

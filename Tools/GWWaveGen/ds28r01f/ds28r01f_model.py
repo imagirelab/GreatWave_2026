@@ -53,8 +53,11 @@ MDD, MC, MB, M8, MD = ME.MDD, ME.MC, ME.MB, ME.M8, ME.MD
 REPO = ME.REPO
 PARAMS_F = os.path.join(HERE, "ds28r01f_params.json")
 F_NAMES = ("back_width_retarget", "back_no_undercut", "tail_lip_body", "small_lip_body", "tstar_exact", "sheet_clearance", "bridge",
-           "anchor_retarget", "far_hook_early")
-F_INIT_NAMES = ("back_width_retarget", "anchor_retarget", "far_hook_early")     # 生成器を作る時に決まる（こまごとの層ではない）
+           "anchor_retarget", "far_hook_early", "balance_swell_calm", "sea_sample_range")
+F_INIT_NAMES = ("back_width_retarget", "anchor_retarget", "far_hook_early", "balance_swell_calm")     # 生成器を作る時に決まる（こまごとの層ではない）
+# 仕上げ27（2026-09-30）で足した数値の条件（balance_swell_calm・sea_sample_range）は、params に無ければ切った扱い（F_final と同じ）。
+# sea_sample_range は生成の書き出し（ds28r01f_generate.py の周りの海の標本）だけが読む
+F_OPT_IN = ("anchor_retarget", "far_hook_early", "balance_swell_calm", "sea_sample_range")
 
 
 def load_f(path=PARAMS_F):
@@ -102,6 +105,8 @@ class Generator(ME.Generator):
         self._hook_on = bool(version == "art_on" and (self.RF.get("far_hook_early") or {}).get("on", False) and "far_hook_early" not in off)
         self._hook_mask = None
         self._anc_rt = None
+        # num_balance_swell_calm（仕上げ27）：E の __init__ の中からも海（sea）が呼ばれるので先に決める
+        self._bal_ks_on = bool(version == "art_on" and (self.RF.get("balance_swell_calm") or {}).get("on", False) and "balance_swell_calm" not in off)
         # num_no_rebound_after_apex の格子は、tail_lip_body（唇の強さの差し替え）の後に作る（E の __init__ の中では作らない）
         self._nr_deferred = True
         self._nr_external = bool(defer_no_rebound)
@@ -111,7 +116,7 @@ class Generator(ME.Generator):
         ME.Generator.__init__(self, version, kstar_dir=kstar_dir, log=log, e_overrides=e_overrides, off=e_off,
                               no_rebound_cache=no_rebound_cache)
         on = version == "art_on"
-        self.f_on = {n: bool(on and (self.RF.get(n) or {}).get("on", n not in ("anchor_retarget", "far_hook_early")) and n not in self.f_off)
+        self.f_on = {n: bool(on and (self.RF.get(n) or {}).get("on", n not in F_OPT_IN) and n not in self.f_off)
                      for n in F_NAMES}
         self.f_layers = dict(self.f_on)
         self._tail_rows = self._tail_lip_body() if self.f_on["tail_lip_body"] else []
@@ -566,6 +571,87 @@ class Generator(ME.Generator):
                         Y[r] = h00 * iv["Y0"] + h10 * h * iv["VY0"] + h01 * iv["Y1"] + h11 * h * iv["VY1"]
                         break
         return A, Y
+
+    # ------------------------------------------------------------ num_balance_swell_calm（仕上げ27：関門 P2・P3）
+    def sea(self, tau, A, Y, diag=False):
+        """海（層1）。num_balance_swell_calm が切りなら設計27 の式そのもの（ds27_model.Generator.sea）。
+        入りのとき、搬送波の振幅 A_c,r(τ) を解く窓の釣り合いの、うねりの項（窓のうねり Sw − 本体が置き換えるうねり srepl）に、出力の海と同じ
+        うねりを静める係数 κ_s(τ) を掛ける：areaB ＋ κ_s·(Sw − srepl) ＋ A_c·(Cw − repl) = 0（設計27 の式は κ_s = 1 で解き、出力だけ κ_s を掛けていた。
+        設計27 §3.4 の P2 の原因 (2)）。κ_c（ds_sea_calm_painting）は釣り合いに入れない（ds28r01f_params.json の balance_swell_calm）。
+        この差し替えのほかは設計27 の式と同じ行（振幅の上限・行の方向の平滑・頂点の海・記録の窓の断面積）。"""
+        if not getattr(self, "_bal_ks_on", False):
+            return ME.Generator.sea(self, tau, A, Y, diag=diag)
+        K = self.K
+        nv = K.nv
+        O_tau = self.origin(tau)
+        kc, ks = self.calm_factors(tau)
+        W = self.world_xz(tau, A)
+        car, swl = self.car, self.swl
+        Abal = np.full(nv, np.nan)
+        res = np.zeros(nv)
+        apos = np.zeros(nv)
+        for r in range(nv):
+            a_bf, a_ff = A[r, self.jB], A[r, self.jE]
+            wb = self.w_body[r] if self.has_body[r] else 0.0
+            a_top = A[r, int(self.root[r])] if self.has_body[r] else 0.0
+            a0w, a1w = a_top - self.win_half, a_top + self.win_half
+            Cw = self.line_integral(car, O_tau, K.c[r], a0w, a1w, tau)
+            Sw = self.line_integral(swl, O_tau, K.c[r], a0w, a1w, tau)
+            if wb > 0:
+                core = self.line_integral(car, O_tau, K.c[r], a_bf, a_ff, tau)
+                ab = np.linspace(self.sheet_a0, a_bf, self.n_marg)
+                af = np.linspace(a_ff, self.sheet_a1, self.n_marg)
+                am = np.concatenate([ab, af])
+                wm = self.margin_weight(am, a_bf, a_ff)
+                P3 = O_tau[None, :] + K.c[r] * K.e[None, :] + am[:, None] * K.t[None, :]
+                cm = self.field(car, P3[:, 0], P3[:, 2], tau)
+                marg = np.trapezoid(wm[:self.n_marg] * cm[:self.n_marg], ab) + np.trapezoid(wm[self.n_marg:] * cm[self.n_marg:], af)
+                repl = wb * (core + marg)
+                if self.swell_repl:
+                    core_s = self.line_integral(swl, O_tau, K.c[r], a_bf, a_ff, tau)
+                    sm_ = self.field(swl, P3[:, 0], P3[:, 2], tau)
+                    marg_s = np.trapezoid(wm[:self.n_marg] * sm_[:self.n_marg], ab) + np.trapezoid(wm[self.n_marg:] * sm_[self.n_marg:], af)
+                    srepl = wb * (core_s + marg_s)
+                else:
+                    srepl = 0.0
+            else:
+                repl = 0.0
+                srepl = 0.0
+            areaB = float(np.sum((A[r, 1:] - A[r, :-1]) * (Y[r, 1:] + Y[r, :-1]) / 2.0))
+            Rr = repl - Cw
+            if wb > 0:
+                ab = max(areaB + ks * (Sw - srepl), 0.0) * max(Rr, 0.0) / (Rr * Rr + self.R_min ** 2)     # ← 仕上げ27：κ_s を掛けた
+                if self.cap_pow > 0:
+                    Abal[r] = float(ab / (1.0 + (ab / self.Ac_max) ** self.cap_pow) ** (1.0 / self.cap_pow))
+                else:
+                    Abal[r] = float(self.Ac_max * math.tanh(ab / self.Ac_max))
+        raw = np.where(np.isfinite(Abal), Abal, 0.0) * np.where(self.has_body, self.w_body, 0.0)
+        Ac = self.Ac_smooth @ raw
+        wv = np.ones_like(A)
+        for r in range(nv):
+            wb = self.w_body[r] if self.has_body[r] else 0.0
+            wm = self.margin_weight(A[r], A[r, self.jB], A[r, self.jE])
+            wm[self.jB:self.jE + 1] = 1.0
+            wv[r] = wb * wm
+        need = (1.0 - wv) > 1e-12
+        Cv = np.zeros_like(A)
+        if need.any():
+            Cv[need] = self.field(car, W[..., 0][need], W[..., 1][need], tau)
+        Sv = self.field(swl, W[..., 0], W[..., 1], tau)
+        ws = (1.0 - wv) if self.swell_repl else 1.0
+        Ynew = Y + (1.0 - wv) * kc * Ac[:, None] * Cv + ks * ws * Sv
+        if diag:
+            for r in range(nv):
+                a_top = A[r, int(self.root[r])] if self.has_body[r] else 0.0
+                a0w, a1w = a_top - self.win_half, a_top + self.win_half
+                yph = Y[r] + (1.0 - wv[r]) * Ac[r] * Cv[r] + ((1.0 - wv[r]) if self.swell_repl else 1.0) * Sv[r]
+                area_sheet = float(np.sum((A[r, 1:] - A[r, :-1]) * (yph[1:] + yph[:-1]) / 2.0))
+                outb = Ac[r] * self.line_integral(car, O_tau, K.c[r], a0w, A[r, 0], tau) + self.line_integral(swl, O_tau, K.c[r], a0w, A[r, 0], tau)
+                outf = Ac[r] * self.line_integral(car, O_tau, K.c[r], A[r, -1], a1w, tau) + self.line_integral(swl, O_tau, K.c[r], A[r, -1], a1w, tau)
+                res[r] = area_sheet + outb + outf
+                apos[r] = float(np.sum(np.clip((A[r, 1:] - A[r, :-1]) * (np.clip(yph[1:], 0, None) + np.clip(yph[:-1], 0, None)) / 2.0, None, None)))
+            return Ynew, dict(Ac=Ac, Abal=Abal, A_net=res, A_pos_sheet=apos, kc=kc, ks=ks, wv=wv, balance_swell_calm=True)
+        return Ynew, dict(Ac=Ac, kc=kc, ks=ks)
 
     def section_y(self, tau, diag=False):
         A, Y, d = ME.Generator.section_y(self, tau, diag=diag)
