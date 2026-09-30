@@ -1,0 +1,36 @@
+{
+ "note_ja": "設計44：固定の軌道（numpy 版 ds44_model.Trajectory。C# の DS44Trajectory と同じ手順）を、引き継ぎの状態の格子で試す。\n\n格子：範囲の中の位置 5 × 5（u は範囲の前後の縁から 2 m 内側まで、v ±23 m）× 船首の向き（原画の向き ±0・30・60・90・135・180°）× 速さ（0・1.2・2.4 m/s）= 750。\n数える量：所要 T、首振りの速さの最大、原画の位置より前（u > 2 m）へ出る件数と最大の u、着いた時の向きのずれ。\n範囲の前の縁を −10 m（設計15 の箱の前の縁）にした時と、ds44_steer.json の値（−25 m）の時を比べる（D44-1 の根拠）。",
+ "params": "Unity/Assets/GreatWave/Design44/Data/ds44_steer.json",
+ "range_front_minus25": {
+  "u_front": -25.0,
+  "cases": 750,
+  "T_p50": 39.680169560172985,
+  "T_p95": 58.331488459642216,
+  "T_max": 70.72619813423582,
+  "yawrate_p50": 10.000000000000002,
+  "yawrate_p95": 10.118165890924658,
+  "yawrate_max": 17.0287120905977,
+  "yawrate_over_15": 2,
+  "speed_max": 2.4000000000000004,
+  "end_yaw_err_max_deg": 0.0,
+  "ahead_of_painting_over_2m": 10,
+  "u_max": 4.38137711635135,
+  "with_arc": 525
+ },
+ "range_front_minus10": {
+  "u_front": -10.0,
+  "cases": 750,
+  "T_p50": 39.960756356263715,
+  "T_p95": 58.96057486863958,
+  "T_max": 70.72619813423582,
+  "yawrate_p50": 10.000000000000002,
+  "yawrate_p95": 10.727678891740323,
+  "yawrate_max": 17.7905696371628,
+  "yawrate_over_15": 16,
+  "speed_max": 2.4000000000000004,
+  "end_yaw_err_max_deg": 0.0,
+  "ahead_of_painting_over_2m": 66,
+  "u_max": 19.763427634291183,
+  "with_arc": 525
+ }
+}

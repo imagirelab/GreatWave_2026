@@ -1,0 +1,296 @@
+{
+ "schema": "GreatWave.DS44.record_metrics/1",
+ "number": "設計44",
+ "title_ja": "前進・減速・旋回・停止",
+ "created_utc": "2026-09-30T04:23:53Z",
+ "evidence_kind_ja": "PC の Unity 6000.4.3f1 batchmode（RTX 3080、Direct3D11）の物理と描画、Input System の仮想の機器、numpy の測定、進行役の独立の検査。HMD 実機ではない。利用者は確かめていない",
+ "plan_ja": "計画 §2.4 設計44：導入と接近の区間だけの操船（設計15 の候補範囲）。入力はキーボード／ゲームパッドを先に作り、PS VR2 の Sense は SteamVR 経由で使えれば足す。範囲の外は柔らかく押し戻す。形成の前に座席の船を原画の位置へ導く固定の軌道へ引き継ぐ（D26）",
+ "min_acceptance_ja": "入力から加速と抵抗が働く動画。範囲外の扱いが働く。引き継ぎで向きと速さの跳び 0（91・92 を使える水準で）（計画 §2.4 設計44）",
+ "acceptance": {
+  "input_to_motion": {
+   "pass_": true,
+   "video": "Docs/Evidence/Design/44/ds44_steer_30fps.mp4",
+   "builder": {
+    "v_end": 2.3266233087440096,
+    "onset_s": 0.30000000173846875,
+    "drag_ratio": 0.9873657343840244,
+    "stop_end": 0.02052003652362376,
+    "turn_right_deg": 45.49539621791885
+   },
+   "indep_ja": "独立の検査：W 0 → 2.326 m/s、動き出し 0.125 s（閾値 0.01 m/s。作る部は 0.05 m/s で 0.30 s）、減速の比 0.960（12.5〜20 s。作る部は 13〜20 s で 0.987）、W＋D +45.41°、Space 2.130 → 0.021 m/s、左スティック −17.28°、L2 −0.712 → −1.233 m/s"
+  },
+  "out_of_range": {
+   "pass_": true,
+   "d_max_builder": -2.1487708518020696,
+   "d_max_record": -2.14877129,
+   "criterion_ja": "縁へ向けた前進を押し続けても縁（d = 0）を越えない、区間の終わりで外向きの速さ ≤ 0.05 m/s、離した後に 0.3 m 以上内へ戻る、押し戻しの加速度 ≤ 1 m/s²（快適性の目安。調整値）"
+  },
+  "handover_jumps": {
+   "pass_": true,
+   "heading_step_deg": 0.04141458145774379,
+   "speed_step": 0.0012499551179621093,
+   "record": {
+    "s_last_steering": 70.00000000173847,
+    "s_first_trajectory": 70.00833333376795,
+    "heading_steps_prev_at_next_deg": [
+     0.041450070248458815,
+     0.04141458145772958,
+     0.04115672815191829
+    ],
+    "speed_steps_prev_at_next": [
+     0.001100989379427375,
+     0.0012499551179621093,
+     0.0025000359960056784
+    ],
+    "speed_at_handover": 1.4702546605804732,
+    "heading_at_handover_deg": -36.982545854386274,
+    "window_pm1s": {
+     "heading_steps_over": 0,
+     "speed_steps_over": 0,
+     "heading_step_absmax_deg": 0.041450070248458815,
+     "speed_step_absmax": 0.0025001139476383827
+    },
+    "handover_to_formation": {
+     "heading_steps_over": 0,
+     "speed_steps_over": 0,
+     "heading_step_absmax_deg": 0.11677444009262672,
+     "speed_step_absmax": 0.002500209101855333
+    },
+    "formation_and_hold": {
+     "heading_steps_over": 0,
+     "speed_steps_over": 0,
+     "heading_step_absmax_deg": 0.05900162978002754,
+     "speed_step_absmax": 0.0025001936052186924
+    },
+    "steering_phase": {
+     "heading_step_absmax_deg": 0.08352737811259203,
+     "speed_step_absmax": 0.011449517013370158
+    },
+    "pivot_course_steps_deg": [
+     0.05024690801351994,
+     -0.012743856843854928,
+     -1.273350197973599,
+     -0.007922374474361504,
+     0.004144072828410117,
+     0.005447948778567024
+    ],
+    "pivot_course_step_absmax_pm1s_deg": 1.273350197973599,
+    "note_ja": "向き = 四元数の前の向きの水平の方位、速さ = 重心の水平の速度の大きさ（記録の vx・vz）。根の進む向き = 位置の差の方位"
+   },
+   "criterion_ja": "跳び = 1 段（1/120 s）の変化が物理の上限の 1.5 倍を超えること（向き：12°/s × 1.5 × dt = 0.125°、速さ：1 m/s² × 1.5 × dt = 0.0125 m/s）。引き継ぎの前後 ±1 s と、引き継ぎから形成の始まりまで（軌道の前半、水は t = 0 のコマ）で 0 回なら合格（91・92 を使える水準で）。形成の区間は記録のみ"
+  },
+  "pass_": true
+ },
+ "arrival": {
+  "s": 91.65000000086924,
+  "pos_err_m": 0.003149678134132735,
+  "yaw_err_deg": -0.4233309324607717,
+  "speed": 0.0011517344728156629,
+  "speed_1s_before": 0.301151767788794,
+  "hold_pos_err_max_m": 0.013218038032114075,
+  "hold_yaw_err_absmax_deg": 0.8680571063846401,
+  "pass_": true,
+  "criterion_ja": "t* で原画の水平の位置から ≤ 5 cm、向き ≤ 0.5°、速さ ≤ 0.05 m/s（進行役が決めた目安）"
+ },
+ "trajectory": {
+  "L_m": 36.517337254268455,
+  "T_s": 21.649673576994076,
+  "lead_s": 9.649673576994076,
+  "arc_deg": -43.08396406427494,
+  "arc_R_m": 10.0,
+  "v0": 1.4702546614725744,
+  "vcap": 2.200000047683716,
+  "beta0_deg": 1.6627503309138092,
+  "c_rate_degps": 5.14361464303423,
+  "speed_max": 2.200000205900663,
+  "yawrate_absmax_degps": 14.012746745745972,
+  "u_max_painting_frame": 0.007383336458159897
+ },
+ "trajectory_crosscheck": {
+  "numpy_L": 36.517337122266966,
+  "numpy_T": 21.64967370723733,
+  "numpy_lead": 9.64967370723733,
+  "numpy_arc_deg": -43.08396323277286,
+  "unity_L": 36.517337254268455,
+  "unity_T": 21.649673576994076,
+  "unity_lead": 9.649673576994076,
+  "unity_path_vs_numpy_path_max_m": 1.964224423074784e-06,
+  "actual_vs_numpy_eval_max_m": 0.010319295990490652,
+  "note_ja": "引き継ぎの状態（Unity の記録）から numpy 版で軌道を作り直し、C# の道（400 点）と実際の位置（200 時刻）を比べた"
+ },
+ "backlog": {
+  "82": "記録（操船の範囲と原画の位置へ導く引き継ぎ。計画 §2.4 設計44 の依存・バックログ。使える水準）",
+  "91": "航行から大波の出現への引継ぎ：向き（計画 §5 仕上げ44 の文言から。使える水準：跳び 0）",
+  "92": "航行から大波の出現への引継ぎ：速さ（同上。使える水準：跳び 0）"
+ },
+ "decisions_q24": [
+  "D44-1（Q24、進行役の判断）：操船の範囲は painting frame（原点 = 原画の座席の船の根の xz、u = 原画の船首の向き、v = 右舷）の角を丸めた長方形 u −85〜−25 m・v ±25 m・角の半径 10 m。設計15 の候補範囲（M1 の世界の X 17〜31・Z −22〜−3 m、painting frame で u −24〜−10）は M1 の波のための座標なので、設計15 の規則（主役波の投影の外に船の半径＋余白、観賞の位置へ導く）を今の世界で当て直した。前の縁を −10 m でなく −25 m にしたのは、D26 の引き継ぎの道（15 s 以上で原画の位置へ速さ 0 で着く）の格子の試し（750 の状態）（ds44_grid.py、ds44_trajectory_grid.json）で、−10 m では 66 件が原画の位置の前へ 2 m を超えて出て最大 19.8 m、首振り 15°/s 超 16 件だったのに対し、−25 m では 10 件・最大 4.4 m、2 件だったから。t* の主役波の投影（y > 0.5 m、u ≥ +5.8 m）から 30.8 m 以上離れる。地図には設計15 の箱を灰色で参考に描いた（範囲には含めない）",
+  "D44-2：形成（単発再生の t = 0）の始まりは引き継ぎが決める（s_f = s_h + T − 12 s、T は軌道の所要。最短 15 s）。t* でちょうど原画の位置に速さ 0 で着き、速さ・加速度・首振りの上限を守るため。引き継ぎの時刻（接近の終わり）は設計47 の出来事の表が決める。試験では s_h = 70 s",
+  "D44-3：範囲の外の押し戻しは平行移動だけ（外向きの推力を弱め、内向きの加速度と外向きの速度の減衰）。船首を勝手に回さない（設計書 §7.3「HMDの頭を勝手に回さず」、快適性）",
+  "D44-4：固定の軌道の間は、物理の段ごとに水平の位置と首の向きを軌道の値へ合わせる（高さ・横揺れ・縦揺れは浮力のまま）。run1 の速度の帰還だけの版は、形成の終わりに波が船を大きく傾けた所（傾き最大 64°）で t* のずれが 0.14 m・5.6°、保持の間に最大 0.27 m・15° になったため（修正 1 回目）",
+  "D44-5：操船の数値（最高速 2.4 m/s、抵抗、首振り 10°/s など）は調整値で、資料の値ではない。軌道の上限（速さ 2.2 m/s、加速 0.3・減速 0.6 m/s²、首振り 10°/s）も同じ",
+  "D44-6：入力の確かめは Input System の仮想のキーボードとゲームパッド（InputState.Change）で行い、実際の機器と同じ読み方（DS44Input.Read）で読んだ。手で押す確かめと PS VR2 の Sense は保留（利用者の手）",
+  "D44-7：跳びの判定は 1 段（1/120 s）の変化が物理の上限の 1.5 倍（向き 0.125°、速さ 0.0125 m/s）を超えること。着いた時の目安（≤ 5 cm・≤ 0.5°・≤ 0.05 m/s）も進行役が決めた"
+ ],
+ "limits_builder_ja": [
+  "軌道の首振りの速さは最大 14.0°/s（計画の上限 10°/s を、引き継ぎの時の首振りの差をなめらかに戻す分だけ越えた）。格子の試し（750 の状態）では p95 10.1°/s・最大 17.0°/s、10/750 件が原画の位置の前へ最大 4.4 m 出る。所要 T は中央値 39.7 s・最大 70.7 s（遠い所や逆向きで引き継ぐと、形成の前の固定の軌道が長い）。引き継ぎで加速度は 0.13 → 0.30 m/s² と段で変わる（速さは連続、加加速度は抑えていない）→ 仕上げ44",
+  "導入と接近の水は単発再生の待機（t = 0 のコマ）で止まったうねり。接近でうねりを育てることと、引き継ぎの時刻は設計47",
+  "船用水面データの関心の範囲は固定の長方形（x −31〜109、z −59〜25 m）。外は予備の y = 0（この試験では 0 回）。範囲を広げる時は作り直しの時間（1 回 約 22 ms）が増える",
+  "形成の間、波が座席の船を持ち上げて大きく傾ける（傾き最大 67°、上下の加速度最大 11.5 m/s²、浮力点がすべて水の外の段 79）。設計43 の記録と同じ所。座席の目は全コマで水の上（余裕の最小 0.46 m）→ 設計45・仕上げ43",
+  "Play モードの道（FixedUpdate＋ReadLive で今の機器を読む。DS44_Steer.unity は stepInFixedUpdate = 0 で保存）は回していない（batchmode の Editor で Step を外から 1/120 s で呼んだ）。プロジェクトの固定の時間刻みは 0.02 s（50 Hz、TimeManager 2822399/141120000）で、跳びのしきい値は 1/120 s の段で決めてある → Play モードの刻みでの確かめは設計47。実行順（DS42Buoyancy 0 → DS44BoatSteer 70）は正しい。手で押す確かめ・PS VR2 の Sense・HMD は保留",
+  "ほかの 2 隻は設計43 と同じく自由に浮く。軌道は他の船や右の高い波を避ける計算をしていない（この試験の道は触れていない）",
+  "形成の間、右舷の側に右の高い波（設計30 の周りの海の一部）が立ち、run2 の追う視点と横の視点をふさいだので、run3 で 2 つのカメラを左舷の側へ移した（物理の記録は run2 とバイトで同じ）",
+  "引き継ぎの道は船の根の位置（rb.position）と重心の速度（rb.linearVelocity）から作っている（DS44BoatSteer.Handover）。軌道の間は根を重心の速度で動かし、ω×r（r 約 0.44 m）の分を落とすので、根の進む向きが引き継ぎの次の 1 段（s = 70.0167 s）で −37.37° → −38.65°（1.27°）跳ぶ（横の速度の段 約 0.033 m/s。座席の目では 30 fps の 1 コマ 0.0255 m/s、引き継ぎ前 0.006、操船の間の p99 0.036）。受入の量（首の向きと速さ）は連続（首の向きの段 0.0414°、速さの段 0.00125 m/s）。直し方の案：rb.GetPointVelocity(rb.position) を使うか、道を重心で作る → 仕上げ44",
+  "引き継ぎの時、船は右へ 約 +5°/s で回っていたが、軌道の弧は左へ回る（−43°）。座席の目の進む向きの変わり方が 1 コマ +0.18° から −0.3° へ変わり、横の加速度が 約 0.13 m/s² 段で変わる（上の加速度の段 0.13 → 0.30 m/s² と同じ所。加加速度は抑えていない）→ 仕上げ44",
+  "着いた状態（Arrived）は段の格子のため t* の 1 段（8.3 ms）前に始まる（s = 91.65 s で tPlay = 11.992 s）。速さはすでに 0 なので見た目の差はない → 仕上げ44"
+ ],
+ "fix_rounds": {
+  "count": 1,
+  "fix01_ja": "作る部の中の run2（D44-4）：run1 は軌道を速度の帰還だけで追い、t* のずれ 0.14 m・5.6°（保持で最大 0.27 m・15°）。軌道の間は段ごとに水平の位置と首の向きを軌道へ合わせた。Q26 の修正 1 回はこれに当てた",
+  "not_counted_ja": [
+   "run3：追う視点と横の視点のカメラを左舷の側へ動かしただけ（ds44_steps.csv は run2 とバイトで同じ。設計43 の run2 と同じ扱い）",
+   "検査の後の報告の図の直し（report_fix）：fig_ds44_steer.png の文字の重なりと、動画の crf 23 → 25。Unity と物理は回していない（ds44_steps.csv 643b376f… のまま）"
+  ]
+ },
+ "record_recount": {
+  "file": "Docs/Evidence/Design/44/ds44_record_recount.json",
+  "diff_vs_builder_max": 0.01918832826640937,
+  "diff": {
+   "heading_step": 1.4210854715202004e-14,
+   "speed_step": 0.0,
+   "jumps_window": 0.0,
+   "jumps_lead": 0.0,
+   "d_max": 4.3819793038579746e-07,
+   "arrival_pos": 0.00038747266112472943,
+   "arrival_yaw": 0.01918832826640937,
+   "hold_pos": 0.0,
+   "tilt_max": 0.0,
+   "wet_zero": 0.0,
+   "eye_margin": 0.0
+  }
+ },
+ "builder_sha256_verified": {
+  "files": 22,
+  "all_same": true
+ },
+ "time": {
+  "box_ja": "Q26 の日程で 4 時間（計画 §2.6 の［Q26］の表、10/3 の行。計画の時間枠は ≤1日）",
+  "file_times": {
+   "Tools/GWWaveGen/ds44": {
+    "created": "11:27:36",
+    "modified": "12:17:19"
+   },
+   "Unity/Build/Design/44": {
+    "created": "11:27:36",
+    "modified": "12:13:55"
+   },
+   "Unity/Assets/GreatWave/Design44/Data/ds44_steer.json": {
+    "created": "11:28:04",
+    "modified": "11:46:09"
+   },
+   "Unity/Assets/GreatWave/Design44/Scripts/DS44Trajectory.cs": {
+    "created": "11:36:58",
+    "modified": "11:36:58"
+   },
+   "Unity/Assets/GreatWave/Design44/Scripts/DS44Input.cs": {
+    "created": "11:40:31",
+    "modified": "11:40:31"
+   },
+   "Tools/GWWaveGen/ds44/run_ds44_unity.ps1": {
+    "created": "11:40:38",
+    "modified": "11:40:59"
+   },
+   "Unity/Build/Design/44/steer/run1/ds44_steps.csv": {
+    "created": "11:41:18",
+    "modified": "11:42:32"
+   },
+   "Unity/Build/Design/44/steer/logs/unity_ds44_run1.log": {
+    "created": "11:41:05",
+    "modified": "11:42:32"
+   },
+   "Unity/Assets/GreatWave/Design44/Scripts/DS44BoatSteer.cs": {
+    "created": "11:37:46",
+    "modified": "11:45:55"
+   },
+   "Unity/Build/Design/44/steer/run2/ds44_steps.csv": {
+    "created": "11:52:45",
+    "modified": "11:52:45"
+   },
+   "Unity/Build/Design/44/steer/logs/unity_ds44_run2.log": {
+    "created": "11:46:20",
+    "modified": "11:48:09"
+   },
+   "Unity/Assets/GreatWave/Design44/Editor/DS44SteerTest.cs": {
+    "created": "11:52:45",
+    "modified": "11:52:45"
+   },
+   "Unity/Assets/GreatWave/Design44/Scenes/DS44_Steer.unity": {
+    "created": "11:53:03",
+    "modified": "11:53:03"
+   },
+   "Unity/Build/Design/44/steer/logs/unity_ds44_run3.log": {
+    "created": "11:52:50",
+    "modified": "11:54:40"
+   },
+   "Tools/GWWaveGen/ds44/ds44_model.py": {
+    "created": "11:52:56",
+    "modified": "11:52:56"
+   },
+   "Tools/GWWaveGen/ds44/ds44_measure.py": {
+    "created": "11:53:47",
+    "modified": "11:53:47"
+   },
+   "Tools/GWWaveGen/ds44/ds44_grid.py": {
+    "created": "11:56:22",
+    "modified": "11:56:22"
+   },
+   "Unity/Build/Design/44/steer/ds44_trajectory_grid.json": {
+    "created": "11:56:40",
+    "modified": "11:56:40"
+   },
+   "Tools/GWWaveGen/ds44/ds44_report.py": {
+    "created": "12:09:50",
+    "modified": "12:09:50"
+   },
+   "Unity/Build/Design/44/steer/fig_ds44_steer.png": {
+    "created": "11:51:25",
+    "modified": "12:10:40"
+   },
+   "Unity/Build/Design/44/steer/ds44_steer_30fps.mp4": {
+    "created": "11:50:35",
+    "modified": "12:10:40"
+   },
+   "Unity/Build/Design/44/steer/metrics.json": {
+    "created": "11:51:25",
+    "modified": "12:10:40"
+   },
+   "Unity/Build/Design/44/indep_check/ck44_stdout.txt": {
+    "created": "12:13:55",
+    "modified": "12:13:56"
+   }
+  },
+  "builder_report_ja": "作る部の報告は「4 時間の内の約 37 分（11:20:45〜11:58）、修正 1 回」、報告の図の直しは「約 10 分」",
+  "unity_in_run_s": {
+   "run1": 78.6,
+   "run2": 101.0,
+   "run3": 101.9
+  },
+  "report_s": 50.2
+ },
+ "hmd_ja": "保留（PS VR2 の導入は利用者の手）。PS VR2 の Sense、手で押す機器、HMD の確かめも保留。Mock の両眼は描いていない",
+ "painting_view_ja": "原画視点の場面（DS39_Paper.unity・DS41_Boats.unity）は開いていない。守るファイル 26 の SHA-256 は 3 回の実行の前後で同じ。計画 §2.0 の回帰は対象外",
+ "evidence": [
+  "ds44_indep_check.json",
+  "ds44_record_recount.json",
+  "ds44_steer_30fps.mp4",
+  "ds44_steer_metrics.json",
+  "ds44_steer_run.json",
+  "ds44_trajectory_grid.json",
+  "ds44_unity_report.json",
+  "fig_ds44_handover_chase_frames.png",
+  "fig_ds44_steer.png",
+  "metrics.json",
+  "run.json",
+  "stills_ds44_key_moments.png"
+ ]
+}

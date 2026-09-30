@@ -1,0 +1,196 @@
+{
+ "schema": "GreatWave.DS44.record_recount/1",
+ "number": "設計44",
+ "note_ja": "記録の道具 ds44_record.py の数え直し。作る部の ds44_measure.py・ds44_model.py・ds44_report.py は使わず、ds44_steps.csv・ds44_frames.jsonl・場面のファイルから数えた",
+ "recount": {
+  "steps": 11240,
+  "dt_median": 0.008333333767950535,
+  "modes": {
+   "Arrived": 243,
+   "Steering": 8400,
+   "Trajectory": 2597
+  },
+  "handover": {
+   "s_last_steering": 70.00000000173847,
+   "s_first_trajectory": 70.00833333376795,
+   "heading_steps_prev_at_next_deg": [
+    0.041450070248458815,
+    0.04141458145772958,
+    0.04115672815191829
+   ],
+   "speed_steps_prev_at_next": [
+    0.001100989379427375,
+    0.0012499551179621093,
+    0.0025000359960056784
+   ],
+   "speed_at_handover": 1.4702546605804732,
+   "heading_at_handover_deg": -36.982545854386274,
+   "window_pm1s": {
+    "heading_steps_over": 0,
+    "speed_steps_over": 0,
+    "heading_step_absmax_deg": 0.041450070248458815,
+    "speed_step_absmax": 0.0025001139476383827
+   },
+   "handover_to_formation": {
+    "heading_steps_over": 0,
+    "speed_steps_over": 0,
+    "heading_step_absmax_deg": 0.11677444009262672,
+    "speed_step_absmax": 0.002500209101855333
+   },
+   "formation_and_hold": {
+    "heading_steps_over": 0,
+    "speed_steps_over": 0,
+    "heading_step_absmax_deg": 0.05900162978002754,
+    "speed_step_absmax": 0.0025001936052186924
+   },
+   "steering_phase": {
+    "heading_step_absmax_deg": 0.08352737811259203,
+    "speed_step_absmax": 0.011449517013370158
+   },
+   "pivot_course_steps_deg": [
+    0.05024690801351994,
+    -0.012743856843854928,
+    -1.273350197973599,
+    -0.007922374474361504,
+    0.004144072828410117,
+    0.005447948778567024
+   ],
+   "pivot_course_step_absmax_pm1s_deg": 1.273350197973599,
+   "note_ja": "向き = 四元数の前の向きの水平の方位、速さ = 重心の水平の速度の大きさ（記録の vx・vz）。根の進む向き = 位置の差の方位"
+  },
+  "range": {
+   "d_max_steering": -2.14877129,
+   "s_at_d_max": 50.90000000173847
+  },
+  "formation_start": {
+   "s_first_tPlay_ge0": 79.65833333463719,
+   "handover_plus_lead": 79.64967346191406
+  },
+  "arrival": {
+   "s": 91.65833333463719,
+   "tPlay": 12.000326423875165,
+   "pos_err_m": 0.0027622054730080054,
+   "yaw_err_deg": -0.44251926072718106,
+   "speed": 0.0,
+   "hold_pos_err_max_m": 0.013218038032114075,
+   "hold_yaw_err_absmax_deg": 0.8680571063846401
+  },
+  "tilt": {
+   "max_deg": 66.96751179135691,
+   "s_at_max": 91.64166666710129,
+   "max_steering_deg": 5.874292884740513
+  },
+  "wet_zero_steps": 79,
+  "band_part_of_R2": {
+   "s": [
+    43.13,
+    53.0
+   ],
+   "heading_change_deg": -0.18922265857267462,
+   "yawrate_absmax_degps": 0.0221625343,
+   "note_ja": "R2 の区間のうち帯に入った後（独立の検査の帯への入り s 43.13）。船首を勝手に回さないこと（D44-3）の確かめ"
+  },
+  "run1_arrival": {
+   "s": 91.65833333463719,
+   "pos_err_m": 0.14092422631332507,
+   "yaw_err_deg": -5.763823887142394,
+   "speed": 0.5657139799633203,
+   "hold_pos_err_max_m": 0.2749021283632832,
+   "hold_yaw_err_absmax_deg": 15.304663748995438,
+   "tilt_max_deg": 64.14847374581633
+  },
+  "run1_vs_run2_steering_rows": {
+   "steering_rows": 8400,
+   "rows_differ": 0,
+   "header_same": true
+  },
+  "inputs_src": [
+   "-",
+   "gamepad",
+   "keyboard"
+  ],
+  "seat_eye": {
+   "frames": 2811,
+   "in_water_frames": 0,
+   "no_hit_frames": 0,
+   "margin_min_m": 0.46059870999999997,
+   "margin_min_s": 91.8
+  },
+  "scene": {
+   "sha256": "9ba4eaabc0183887a0c2d9d517cff547f44727d646162ef0be5f6f346ed6a202",
+   "bytes": 274205,
+   "stepInFixedUpdate_values": [
+    0,
+    0,
+    0,
+    0
+   ],
+   "M1_Revision_LeftSupport_m_IsActive": 0,
+   "guid_deps": {
+    "guids": 30,
+    "in_base_scene": 21,
+    "not_in_base": [
+     {
+      "guid": "1da28027e90e1c246af55cd3ab807834",
+      "path": "Unity/Assets/GreatWave/Design42/Scripts/DS42Buoyancy.cs"
+     },
+     {
+      "guid": "247ce09d6e70a4c41890ccd548a7cc63",
+      "path": "Unity/Assets/GreatWave/Design43/Data/ds43_buoyancy_points_boat_fg.json"
+     },
+     {
+      "guid": "3fcf5e2cf0498e44d8c7db798ee3e424",
+      "path": "Unity/Assets/GreatWave/Design43/Data/ds43_buoyancy_points_boat_mid.json"
+     },
+     {
+      "guid": "48ddeff1944963543909d420ef7cc930",
+      "path": "Unity/Assets/GreatWave/Design44/Data/ds44_steer.json"
+     },
+     {
+      "guid": "60eb58fadd47491448431d148c8faa89",
+      "path": "Unity/Assets/GreatWave/Design43/Scripts/DS43BoatWater.cs"
+     },
+     {
+      "guid": "8dfe2ed802cb70a4dbb74afa543a707a",
+      "path": "Unity/Assets/GreatWave/Design44/Scripts/DS44BoatSteer.cs"
+     },
+     {
+      "guid": "9e19e8c345b492a4abe7fc4b8ff34a89",
+      "path": "Unity/Assets/GreatWave/Design43/Data/ds43_buoyancy_points_boat_left.json"
+     },
+     {
+      "guid": "b7ab08253283917419e399b80220b133",
+      "path": "Unity/Assets/GreatWave/Design44/Materials/DS44_Post_Red.mat"
+     },
+     {
+      "guid": "e069d13b669d6af4f86c04e1ec3da559",
+      "path": "Unity/Assets/GreatWave/Design41/Prefabs/DS41_Oshiokuri.prefab"
+     }
+    ]
+   }
+  }
+ },
+ "diff_vs_builder_metrics": {
+  "heading_step": 1.4210854715202004e-14,
+  "speed_step": 0.0,
+  "jumps_window": 0.0,
+  "jumps_lead": 0.0,
+  "d_max": 4.3819793038579746e-07,
+  "arrival_pos": 0.00038747266112472943,
+  "arrival_yaw": 0.01918832826640937,
+  "hold_pos": 0.0,
+  "tilt_max": 0.0,
+  "wet_zero": 0.0,
+  "eye_margin": 0.0
+ },
+ "handover_png": {
+  "frames": [
+   2098,
+   2099,
+   2100,
+   2101
+  ],
+  "source": "ds44_steer_30fps.mp4 の左上（追う視点、960 × 540）",
+  "layout": "2 × 2"
+ }
+}

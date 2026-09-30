@@ -1,0 +1,229 @@
+{
+ "schema": "GreatWave.DS44.steer/1",
+ "noteJa": "設計44：導入と接近の区間の操船（前進・減速・旋回・停止）、範囲の外の柔らかい押し戻し、形成の前の固定の軌道への引き継ぎ（D26）。C#（DS44BoatSteer）と numpy（Tools/GWWaveGen/ds44）が同じこの表を読む。値はすべて調整値・推定（資料の値ではない）。座標は Unity の世界（m、Y 上）。範囲は原画の座席の船の置き方（painting frame：原点 = 原画の根の xz、u = 原画の船首の向き、v = 右舷）で決める。",
+ "painting": {
+  "key": "boat_mid",
+  "x": 7.025619983673096,
+  "z": -14.941940307617188,
+  "yawDeg": -88.21401580521163,
+  "source": "Assets/GreatWave/Design43/Data/ds43_boats.json（boat_mid の rootPos・yawDeg）"
+ },
+ "range": {
+  "uMin": -85.0,
+  "uMax": -25.0,
+  "vMin": -25.0,
+  "vMax": 25.0,
+  "cornerRadius": 10.0,
+  "bandM": 8.0,
+  "pushAccel": 0.3,
+  "pushDampPerS": 1.0,
+  "noteJa": "角を丸めた長方形（painting frame）。原画の位置より船尾側 25〜85 m、左右 ±25 m。設計15 の規則（主役波の投影の外に、船の水平の半径＋余白をとる。観賞の位置は原画の位置）を今の世界で当て直し、D26 の引き継ぎの道（15 s 以上で原画の位置へ速さ 0 で着く、道が原画の位置の前へ出ない）に要る 25 m を前の縁にとった。t* の主役波の投影（y > 0.5 m、u ≥ +5.8 m）から 30.8 m 以上。帯（縁の内側 bandM）で外向きの推力を弱め、内向きの加速度 pushAccel·φ と外向きの速度の減衰 pushDampPerS·φ を足す（φ = smoothstep((d + band)/band)、縁の外では 1 + d/band）。船首を勝手に回さない（頭部追跡と快適性、設計書 §7.3）"
+ },
+ "dyn": {
+  "inputLagS": 0.4,
+  "vMaxFwd": 2.4,
+  "dragLinPerS": 0.04,
+  "dragQuadPerM": 0.08,
+  "reverseRatio": 0.4,
+  "brakePerS": 0.9,
+  "brakeAccelMax": 0.9,
+  "latDragPerS": 2.0,
+  "yawRateMaxDeg": 10.0,
+  "yawAtRestRatio": 0.45,
+  "yawRefSpeed": 1.5,
+  "yawDampPerS": 1.2,
+  "brakeYawDampPerS": 2.0,
+  "noteJa": "推力（重心に加える）= 質量 × a_fwd × 入力、a_fwd = dragLin·vMax + dragQuad·vMax²（最高速 vMaxFwd で抵抗と釣り合う）。後ろ向きは reverseRatio 倍。抵抗 = −質量（dragLin·u + dragQuad·u|u|）（船首方向）、−質量·latDrag·v（横）。首振りのモーメント = 慣性 × yawDamp × yawRateMax × 入力 ×（yawAtRestRatio + (1 − yawAtRestRatio)·min(|u|/yawRefSpeed, 1)）、減衰 −慣性 × yawDamp × ω。停止（押している間）は −質量·brake·u（上限 brakeAccelMax）と首振りの減衰 brakeYawDamp"
+ },
+ "traj": {
+  "leadMinS": 3.0,
+  "formationS": 12.0,
+  "dsM": 0.05,
+  "vMax": 2.2,
+  "aMax": 0.3,
+  "aDecMax": 0.6,
+  "yawRateMaxDeg": 10.0,
+  "arcTriggerDeg": 45.0,
+  "arcExitDeg": 30.0,
+  "arcRadiusM": 10.0,
+  "bezierK": 0.4,
+  "armMinM": 6.0,
+  "yawBlendS": 4.0,
+  "tangentFromVelocityMinSpeed": 0.2,
+  "arcEntryM": 4.0,
+  "arcEntryS": 3.0,
+  "armTimeS": 6.0,
+  "noteJa": "引き継ぎの時の位置・速度・向き・首振りの速さから、原画の位置と向きへ速さ 0 で着く道と速さの表を作る。道：船の進む向きと原画の位置への方位の差が arcTriggerDeg を超える時は円弧（半径 max(arcRadiusM, v0/yawRateMax × 1.15)、曲がりは max(arcEntryM, v0·arcEntryS) の長さで 0 から増やす）で目標の側へ回り（差が arcExitDeg 以下まで）、その後 3 次 Bezier（腕 = max(bezierK·D, armMinM)。円弧のない時は始めの腕を v0·armTimeS 以上）で原画の位置と向きへ。速さ：道の曲がり κ から v ≤ min(vCap, yawRateMax/|κ|)、加速 aMax・減速 aDecMax の前後の走査（始めは引き継ぎの速さ v0、終わりは 0）。所要 T が formationS + leadMinS より短ければ vCap を下げて延ばす。形成（単発再生の t = 0）は引き継ぎの T − formationS 秒後に始め、t* で原画の位置に着く。向きは道の向き＋引き継ぎの時の差（横滑りの角と首振りの速さの差）を yawBlendS 秒でなめらかに 0 へ。軌道の間は段ごとに水平の位置と首の向きを軌道の今の値へ合わせ（前の段の間のずれを戻す）、水平の速度と首振りの速さを段の中ほどの軌道の値にする（上下・横揺れ・縦揺れは浮力のまま）。dsM は道の表の刻み"
+ },
+ "test": {
+  "startU": -75.0,
+  "startV": -6.0,
+  "startYawOffsetDeg": 0.0,
+  "settleS": 4.0,
+  "handoverS": 70.0,
+  "holdAfterStarS": 2.0,
+  "segments": [
+   {
+    "s0": 2.0,
+    "s1": 12.0,
+    "device": "keyboard",
+    "keys": "W",
+    "stick": [
+     0,
+     0
+    ],
+    "trig": [
+     0,
+     0
+    ],
+    "south": 0,
+    "labelJa": "前進（W）：加速"
+   },
+   {
+    "s0": 12.0,
+    "s1": 20.0,
+    "device": "none",
+    "keys": "",
+    "stick": [
+     0,
+     0
+    ],
+    "trig": [
+     0,
+     0
+    ],
+    "south": 0,
+    "labelJa": "入力なし：抵抗で減速"
+   },
+   {
+    "s0": 20.0,
+    "s1": 26.0,
+    "device": "keyboard",
+    "keys": "W D",
+    "stick": [
+     0,
+     0
+    ],
+    "trig": [
+     0,
+     0
+    ],
+    "south": 0,
+    "labelJa": "前進＋右旋回（W＋D）"
+   },
+   {
+    "s0": 26.0,
+    "s1": 31.0,
+    "device": "keyboard",
+    "keys": "Space",
+    "stick": [
+     0,
+     0
+    ],
+    "trig": [
+     0,
+     0
+    ],
+    "south": 0,
+    "labelJa": "停止（Space）"
+   },
+   {
+    "s0": 31.0,
+    "s1": 33.0,
+    "device": "none",
+    "keys": "",
+    "stick": [
+     0,
+     0
+    ],
+    "trig": [
+     0,
+     0
+    ],
+    "south": 0,
+    "labelJa": "入力なし"
+   },
+   {
+    "s0": 33.0,
+    "s1": 38.0,
+    "device": "gamepad",
+    "keys": "",
+    "stick": [
+     -1,
+     0
+    ],
+    "trig": [
+     0,
+     0
+    ],
+    "south": 0,
+    "labelJa": "左旋回（左スティック ←）"
+   },
+   {
+    "s0": 38.0,
+    "s1": 53.0,
+    "device": "gamepad",
+    "keys": "",
+    "stick": [
+     0,
+     0
+    ],
+    "trig": [
+     1,
+     0
+    ],
+    "south": 0,
+    "labelJa": "前進（R2）：範囲の縁へ"
+   },
+   {
+    "s0": 53.0,
+    "s1": 58.0,
+    "device": "none",
+    "keys": "",
+    "stick": [
+     0,
+     0
+    ],
+    "trig": [
+     0,
+     0
+    ],
+    "south": 0,
+    "labelJa": "入力なし：押し戻し"
+   },
+   {
+    "s0": 58.0,
+    "s1": 62.0,
+    "device": "gamepad",
+    "keys": "",
+    "stick": [
+     0,
+     0
+    ],
+    "trig": [
+     0,
+     1
+    ],
+    "south": 0,
+    "labelJa": "減速・後進（L2）"
+   },
+   {
+    "s0": 62.0,
+    "s1": 70.0,
+    "device": "gamepad",
+    "keys": "",
+    "stick": [
+     0.5,
+     0.7
+    ],
+    "trig": [
+     0,
+     0
+    ],
+    "south": 0,
+    "labelJa": "前進＋右（左スティック ↗）"
+   }
+  ],
+  "noteJa": "試験の入力の筋書き（体験の秒 s）。Input System の仮想のキーボードとゲームパッドの状態を InputState.Change で入れ、操船の部品は実際の機器と同じ読み方で読む。handoverS で固定の軌道へ引き継ぐ"
+ }
+}

@@ -1,0 +1,126 @@
+{
+ "schema": "GreatWave.DS44.record_run/1",
+ "number": "設計44",
+ "created_utc": "2026-09-30T04:23:53Z",
+ "tools": {
+  "python": "3.10.6",
+  "numpy": "2.2.6",
+  "opencv": "4.12.0",
+  "unity": "6000.4.3f1（batchmode。記録では使っていない）",
+  "ffmpeg": "G:/ffmpeg-2024-12-19-git-494c961379-full_build/bin/ffmpeg.exe（作る部）",
+  "input_system": "com.unity.inputsystem 1.19.0（Unity/Packages/manifest.json）"
+ },
+ "builder_commands": [
+  "powershell -NoProfile -ExecutionPolicy Bypass -File Tools/GWWaveGen/ds44/run_ds44_unity.ps1 -Method GreatWave.Design44.EditorTools.DS44SteerTest.Run -Log run3",
+  "py -3.10 Tools/GWWaveGen/ds44/ds44_grid.py",
+  "py -3.10 Tools/GWWaveGen/ds44/ds44_report.py"
+ ],
+ "record_commands": [
+  "py -3.10 -B Unity/Build/Design/44/indep_check/ck44_physics.py > Unity/Build/Design/44/indep_check/ck44_stdout.txt（進行役の独立の検査。Git 対象外の写し）",
+  "py -3.10 -B Tools/GWWaveGen/ds44/ds44_record.py",
+  "py -3.10 -B Unity/Build/Design/44/record/ds44_commit_scan.py（コミットの一覧の点検。Git 対象外）"
+ ],
+ "builder_inputs_sha256": {
+  "Unity/Assets/GreatWave/Design44/Data/ds44_steer.json": "5a30f71c0b2d581bd89290b2c9fb2dc9838189002891128ea0237eeca4390b14",
+  "Unity/Assets/GreatWave/Design44/Scripts/DS44SteerConfig.cs": "1bd21e46b5928610e5f80a503cc123b96bb145562f9b75150d491511d23984c1",
+  "Unity/Assets/GreatWave/Design44/Scripts/DS44Trajectory.cs": "fca22b2a5248172bcbf8329562efe541818af62dc61f932eb23f81d2d7484870",
+  "Unity/Assets/GreatWave/Design44/Scripts/DS44Input.cs": "739ed9f6de1f776f2c3186859d236ad9becc0b6df3398f23345d51c4efe4edaf",
+  "Unity/Assets/GreatWave/Design44/Scripts/DS44BoatSteer.cs": "b43f077954e8f3fb5d1416d6e5164cface1c5f8caacf505fb4a28c738dd0dcda",
+  "Unity/Assets/GreatWave/Design44/Editor/DS44SteerTest.cs": "370555151d4ba25023ba7bf81f02d6eb42ee091a3db07ada96f57b4d565d0cc2",
+  "Tools/GWWaveGen/ds44/ds44_model.py": "0264da795e7fb8ce2c39dff3b11c4e44d82241e52bb6357f81e39c692f3b7176",
+  "Tools/GWWaveGen/ds44/ds44_measure.py": "b5ae75f8b5c98e368068bc1db9afba99c4746354c9f350450cda1130282870d9",
+  "Tools/GWWaveGen/ds44/ds44_grid.py": "5893d47d128fe865f0bb56c94c12f99d1781fd341ebbbe895c334d707c258a6c",
+  "Tools/GWWaveGen/ds44/ds44_report.py": "f0b1930e54d0f82109a762ed613eda984d7b555935a58e139d895996f977c74e",
+  "Tools/GWWaveGen/ds44/run_ds44_unity.ps1": "8893969d6e596723270ed2066d32e25cc605d906439d35e57c7bd4a17045a027",
+  "Unity/Assets/GreatWave/Design43/Data/ds43_boats.json": "d40f1531f982e8fce0f36bc7587c2d03c94630ad3abe8ff2d86e781209f43784",
+  "Unity/Assets/GreatWave/Design43/Data/ds43_buoyancy_points_boat_mid.json": "a731b46ca49f59d5be6e89ac4f166c9bb8d6ca444076dbee1049b41c7e0dea68"
+ },
+ "builder_outputs": {
+  "Unity/Build/Design/44/steer/ds44_steer_30fps.mp4": {
+   "sha256": "6689ca41ae1bedf55762bc04ef9f3bc9409e000cf1590e192863f1d9c4c8c635",
+   "bytes": 4402637
+  },
+  "Unity/Build/Design/44/steer/fig_ds44_steer.png": {
+   "sha256": "2658fea782903f095aea83b05a8f91d7c9e089203352eaf8a9a167a054b8751a",
+   "bytes": 478030
+  },
+  "Unity/Build/Design/44/steer/stills_ds44_key_moments.png": {
+   "sha256": "1439f9169358b16d233f8ee4745ef97bbaf862e0896538b3260177eee55c7969",
+   "bytes": 524536
+  },
+  "Unity/Build/Design/44/steer/metrics.json": {
+   "sha256": "b3d69b4fa892c4ecd306cdc17941778eb1290d2bd8e90cf866c591cde4a55bf1",
+   "bytes": 22280
+  },
+  "Unity/Build/Design/44/steer/graph_panel.png": {
+   "sha256": "71110c17987924fbc0b7b78d3445e13b8e2aecb72ce1928856686e4b8eccf34b",
+   "bytes": 122416
+  },
+  "Unity/Build/Design/44/steer/unity/ds44_unity_report.json": {
+   "sha256": "b393ef97329e934c145c4fe6017fcc0997b6dcdd883282f1843cf83bb6ecec29",
+   "bytes": 44334
+  },
+  "Unity/Build/Design/44/steer/unity/ds44_steps.csv": {
+   "sha256": "643b376f09f66628575df640bb4095c68c6e4bf4c081ca1f5f1bcacb7e269fee",
+   "bytes": 4103429
+  },
+  "Unity/Build/Design/44/steer/unity/ds44_frames.jsonl": {
+   "sha256": "e424d5e231043051d976016f5e5a2a78fa6cc36e943c027e3089902d4558c0e5",
+   "bytes": 4108044
+  },
+  "Unity/Build/Design/44/steer/ds44_trajectory_grid.json": {
+   "sha256": "6a250166b58067de94d430293aa7a5354c1a5f83251f894038b7dccb8a5cb999",
+   "bytes": 1687
+  }
+ },
+ "scene": {
+  "path": "Unity/Assets/GreatWave/Design44/Scenes/DS44_Steer.unity",
+  "sha256": "9ba4eaabc0183887a0c2d9d517cff547f44727d646162ef0be5f6f346ed6a202",
+  "bytes": 274205
+ },
+ "code_sha256": {
+  "Tools/GWWaveGen/ds44/ds44_grid.py": "5893d47d128fe865f0bb56c94c12f99d1781fd341ebbbe895c334d707c258a6c",
+  "Tools/GWWaveGen/ds44/ds44_measure.py": "b5ae75f8b5c98e368068bc1db9afba99c4746354c9f350450cda1130282870d9",
+  "Tools/GWWaveGen/ds44/ds44_model.py": "0264da795e7fb8ce2c39dff3b11c4e44d82241e52bb6357f81e39c692f3b7176",
+  "Tools/GWWaveGen/ds44/ds44_record.py": "1efe77b00478aa204fc3aa019c2f7e2e0d74cdb021b4e8ae63435db775ce1686",
+  "Tools/GWWaveGen/ds44/ds44_report.py": "f0b1930e54d0f82109a762ed613eda984d7b555935a58e139d895996f977c74e",
+  "Tools/GWWaveGen/ds44/run_ds44_unity.ps1": "8893969d6e596723270ed2066d32e25cc605d906439d35e57c7bd4a17045a027",
+  "Unity/Assets/GreatWave/Design44/Data.meta": "ce981db20b792e9ff8cad6f3337913796868a3c83160cdbdecfede9e574f6d94",
+  "Unity/Assets/GreatWave/Design44/Editor.meta": "b6d5f957ce5b65f25ecd19d5ff028cdf6d3731ce9989303d702f873a16d949be",
+  "Unity/Assets/GreatWave/Design44/Materials.meta": "ed2097f57d6fced4a2d8aa6dea649762a49831bb53f02bcf5abc90c00ff0319c",
+  "Unity/Assets/GreatWave/Design44/Scenes.meta": "61addb538d9d2efd99664c0bad224ad66fa26da2ca421768109c5891d78060b9",
+  "Unity/Assets/GreatWave/Design44/Scripts.meta": "7476c35b75b717ba4ca2d043d152ea7dbe7e81755f4f98197114924ed433aca7",
+  "Unity/Assets/GreatWave/Design44/Data/ds44_steer.json": "5a30f71c0b2d581bd89290b2c9fb2dc9838189002891128ea0237eeca4390b14",
+  "Unity/Assets/GreatWave/Design44/Data/ds44_steer.json.meta": "f8eb86d9e41caea7e0e3cdda2ea0702701c6a934f5f86766f7a2eb74289d856a",
+  "Unity/Assets/GreatWave/Design44/Editor/DS44SteerTest.cs": "370555151d4ba25023ba7bf81f02d6eb42ee091a3db07ada96f57b4d565d0cc2",
+  "Unity/Assets/GreatWave/Design44/Editor/DS44SteerTest.cs.meta": "6dcebea71672d1aa157363589715544851277035ad8cb466b66b84d8a434f731",
+  "Unity/Assets/GreatWave/Design44/Materials/DS44_Post_Red.mat": "70f03f871c01fa456537d4023f73129d61628f2299146c7c775b06609b9ae507",
+  "Unity/Assets/GreatWave/Design44/Materials/DS44_Post_Red.mat.meta": "52714e396ab790c6564611da9120918edd46b35ea6d166240d1a3ae0ebea3811",
+  "Unity/Assets/GreatWave/Design44/Scenes/DS44_Steer.unity": "9ba4eaabc0183887a0c2d9d517cff547f44727d646162ef0be5f6f346ed6a202",
+  "Unity/Assets/GreatWave/Design44/Scenes/DS44_Steer.unity.meta": "c18448d97df1f6208654b092b86b9ff90166ca6bd6a65abe377b9df5fe9d5574",
+  "Unity/Assets/GreatWave/Design44/Scripts/DS44BoatSteer.cs": "b43f077954e8f3fb5d1416d6e5164cface1c5f8caacf505fb4a28c738dd0dcda",
+  "Unity/Assets/GreatWave/Design44/Scripts/DS44BoatSteer.cs.meta": "34137293e181f1535fbc8ff558d263170ea9aba6b21bc8b803563dbee7506e1d",
+  "Unity/Assets/GreatWave/Design44/Scripts/DS44Input.cs": "739ed9f6de1f776f2c3186859d236ad9becc0b6df3398f23345d51c4efe4edaf",
+  "Unity/Assets/GreatWave/Design44/Scripts/DS44Input.cs.meta": "bf7f9a8fb396dbe2e5612d54ed02c2fe2f24c830e7dfeb9801ade11e66d0741f",
+  "Unity/Assets/GreatWave/Design44/Scripts/DS44SteerConfig.cs": "1bd21e46b5928610e5f80a503cc123b96bb145562f9b75150d491511d23984c1",
+  "Unity/Assets/GreatWave/Design44/Scripts/DS44SteerConfig.cs.meta": "b40c7168f1fad38adc67a12f61473a6b582ec5ee8f85575874252e1a2fd85833",
+  "Unity/Assets/GreatWave/Design44/Scripts/DS44Trajectory.cs": "fca22b2a5248172bcbf8329562efe541818af62dc61f932eb23f81d2d7484870",
+  "Unity/Assets/GreatWave/Design44/Scripts/DS44Trajectory.cs.meta": "580df93c3e79274b04c136625e7764dfd715716e415fbdc55f7b082db31b82a9",
+  "Unity/Assets/GreatWave/Design44.meta": "aa166be71f72feb6ca12fef9f31d5da267e094d811d756e87d1866ca2757814e"
+ },
+ "evidence_sha256": {
+  "Docs/Evidence/Design/44/ds44_indep_check.json": "ac4f5f69911d8162f22a1ffb6fb91a50303904f37832a1f80d6dad1da99fa547",
+  "Docs/Evidence/Design/44/ds44_record_recount.json": "3baf25e82e60de64fe2f155760bc4afb72a87bb03353eec4c9d327ce69c6d333",
+  "Docs/Evidence/Design/44/ds44_steer_30fps.mp4": "6689ca41ae1bedf55762bc04ef9f3bc9409e000cf1590e192863f1d9c4c8c635",
+  "Docs/Evidence/Design/44/ds44_steer_metrics.json": "b3d69b4fa892c4ecd306cdc17941778eb1290d2bd8e90cf866c591cde4a55bf1",
+  "Docs/Evidence/Design/44/ds44_steer_run.json": "a2c2ed3fd53e924e6fccee7de8154a7008b690f4be39b3be95a5733acec705ed",
+  "Docs/Evidence/Design/44/ds44_trajectory_grid.json": "6a250166b58067de94d430293aa7a5354c1a5f83251f894038b7dccb8a5cb999",
+  "Docs/Evidence/Design/44/ds44_unity_report.json": "b393ef97329e934c145c4fe6017fcc0997b6dcdd883282f1843cf83bb6ecec29",
+  "Docs/Evidence/Design/44/fig_ds44_handover_chase_frames.png": "629e4aba3f37237eb8ab553c5b657c14d10648759c8eca6ce8011661c90b5523",
+  "Docs/Evidence/Design/44/fig_ds44_steer.png": "2658fea782903f095aea83b05a8f91d7c9e089203352eaf8a9a167a054b8751a",
+  "Docs/Evidence/Design/44/metrics.json": "7efcdcbc92b7579e7b84851e927fb5132c7410e734c87a2eaf9118a619c65cb4",
+  "Docs/Evidence/Design/44/stills_ds44_key_moments.png": "1439f9169358b16d233f8ee4745ef97bbaf862e0896538b3260177eee55c7969"
+ },
+ "seconds": 1.0,
+ "note_ja": "SHA-256 は作業の木のバイトの値。Unity のコマの JPG（8,433 枚）とログは Git 対象外で SHA-256 を取っていない"
+}
