@@ -1,0 +1,72 @@
+{
+ "schema": "GreatWave.DS42.params/1",
+ "number": "設計42",
+ "note_ja": "設計42（静水の重量・排水・重心）の値。kind は estimate（資料がないので推定）か condition（数値の条件・調整値）。資料の値は設計41 の調べ（oshiokuri_dimensions.json）にあるものだけで、重量・重心・乗員の配置・荷の資料はない。推定は仕上げ42 で見直す。",
+ "boat_key": "boat_mid",
+ "boat_key_note_ja": "座席 v1 の船（右の船）。設計41 の場面の根の縮尺（1.13284 m / 単位、先端間 11.328 m）で浮かべる",
+ "rho_kg_m3": 1025.0,
+ "rho_note_ja": "海水の密度（condition。設計41 の調べの喫水の推定と同じ値）",
+ "g_m_s2": 9.81,
+ "column_step_units": 0.02,
+ "wood": {
+  "kind": "estimate",
+  "sugi_density_kg_m3": 400,
+  "plank_thickness_m": 0.035,
+  "bottom_thickness_m": 0.06,
+  "beam_density_kg_m3": 500,
+  "oar_density_kg_m3": 800,
+  "basis_ja": "資料なし。杉の板（気乾密度 400 kg/m³ 程度）の舷の板 3.5 cm（設計41 の調べの推定）、航（船底板）は厚めの 6 cm、船梁・船縁・水押は 500 kg/m³、櫓は樫と見て 800 kg/m³"
+ },
+ "crew": {
+  "kind": "estimate",
+  "rowers": 8,
+  "rowers_y_from": -0.2,
+  "rowers_y_to": 3.9,
+  "front_y": [-2.2, -1.5],
+  "mass_each_kg": 60,
+  "cg_above_floor_m": 0.35,
+  "own_gyration_m": 0.25,
+  "basis_ja": "漕ぎ手 8 人＋船首側 2 人（Cartwright & Nakamura 2009、設計41 の調べの S8）。一人 60 kg、かがんだ姿勢で重心は床から 0.35 m（推定）。漕ぎ手は櫓の支点の区間（船尾側の約半分、絵の P6）に等間隔、横は中心線の上（左右の平均）とした"
+ },
+ "items": [
+  {"name_ja": "帆柱 3 本（寝かせて船梁の上）", "mass_kg": 75, "y_units": 0.0, "on_floor": false, "z_units": 0.75, "extent_units": [0.3, 6.0, 0.1],
+   "kind": "estimate", "basis_ja": "資料は着脱式 3 本（S1）。本作では立っていない（P7）。1 本 25 kg と推定"},
+  {"name_ja": "帆・綱・道具", "mass_kg": 60, "y_units": 1.0, "on_floor": true, "cg_above_floor_m": 0.15, "extent_units": [0.8, 1.0, 0.2],
+   "kind": "estimate", "basis_ja": "帆 6 反（S2）と綱・手桶など。推定"},
+  {"name_ja": "荷（鮮魚・生簀の水など）", "mass_kg": 250, "y_units": -2.4, "on_floor": true, "cg_above_floor_m": 0.2, "extent_units": [1.0, 1.5, 0.4],
+   "kind": "estimate", "basis_ja": "設計41 の調べの荷 0〜1 t の低めの値。船首寄りの枠（P5）の下に置く。推定"}
+ ],
+ "points": {
+  "kind": "condition",
+  "stations_y_units": [-3.0, -1.5, 0.0, 1.5, 3.0],
+  "level_step_units": 0.01,
+  "basis_ja": "設計41 の浮力点の提案の 5 断面（Blender の y）。左右の 2 点で 10 点"
+ },
+ "damping": {
+  "kind": "condition",
+  "heave_ratio": 0.3,
+  "horizontal_per_s": 0.5,
+  "yaw_per_s": 0.8,
+  "basis_ja": "抵抗の調整値（物理の実測ではない）。上下の減衰比 0.3 から点ごとの鉛直の減衰を決め、水平の抵抗は速度 × 質量 × 0.5 /s、首振りは角速度 × 慣性 × 0.8 /s"
+ },
+ "test": {
+  "kind": "condition",
+  "dt_s": 0.008333333,
+  "fps": 30,
+  "total_s": 44.0,
+  "start_offset_m": 0.15,
+  "start_heel_deg": 6.0,
+  "start_trim_deg": 2.0,
+  "eq_window_s": [7.0, 8.0],
+  "heave_push_t": 8.0,
+  "heave_push_target_m": 0.1,
+  "roll_push_t": 14.0,
+  "roll_push_target_deg": 10.0,
+  "pitch_push_t": 22.0,
+  "pitch_push_target_deg": 3.0,
+  "static_heel_from_t": 28.0,
+  "static_heel_to_t": 36.0,
+  "static_heel_moment_Nm": 824.0,
+  "static_heel_basis_ja": "70 kg の人が船縁（中心線から 1.2 m）に寄った時の横の傾ける力のモーメント 70 × 9.81 × 1.2 ≈ 824 N·m（純粋なモーメントとして与える）"
+ }
+}

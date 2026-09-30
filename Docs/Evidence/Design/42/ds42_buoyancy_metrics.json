@@ -1,0 +1,188 @@
+{
+ "schema": "GreatWave.DS42.metrics/1",
+ "number": "設計42",
+ "part": "buoyancy",
+ "created_utc": "2026-09-30T02:31:20Z",
+ "backlog": {
+  "89": "記録（浮力と表示面の整合の前段：静水の重量・排水容積・重心）"
+ },
+ "min_acceptance_ja": "浮力 ≈ 水密度 × 重力 × 排水容積 と重量の釣り合いを数値で記録。戻りの動画（計画 §2.4 設計42）",
+ "min_acceptance": {
+  "balance_recorded": true,
+  "recovery_video": "Unity/Build/Design/42/buoyancy/ds42_recovery.mp4",
+  "pass": true
+ },
+ "checks": {
+  "rho_g_V_exact_over_weight_within_2pct": {
+   "value": 1.001225856226378,
+   "pass": true
+  },
+  "unity_pose_vs_python_exact": {
+   "draft_diff_mm": -0.06,
+   "heel_diff_deg": -0.0032,
+   "trim_diff_deg": -0.0004,
+   "tol": "喫水 ±5 mm、角 ±0.2°（進行役の判断の閾値）",
+   "pass": true
+  },
+  "recovery_residuals": {
+   "pass": true,
+   "tol": "最後の 1 s の平均のずれ：喫水 1 mm、角 0.05°（進行役の判断の閾値）"
+  },
+  "static_heel_vs_gm": {
+   "rel_diff": 0.0003390652093711117,
+   "pass_within_10pct": true,
+   "kind": "記録（判定は仕上げ42）"
+  },
+  "protected_unchanged": true,
+  "painting_view_touched": false,
+  "painting_view_note_ja": "原画視点の場面（DS41_Boats.unity）は開いていない。新しい検査の場面 DS42_Buoyancy.unity だけで行ったので、評価器の回帰の対象外（計画 §2.0）"
+ },
+ "balance": {
+  "weight_N": 20436.6,
+  "sum_point_buoyancy_N": 20436.6,
+  "sum_point_buoyancy_over_weight": 0.9999997500375211,
+  "rho_g_V_points_N": 20436.6,
+  "V_points_m3": 2.03243,
+  "V_exact_unity_mesh_m3": 2.03492,
+  "rho_g_V_exact_N": 20461.6,
+  "rho_g_V_exact_over_weight": 1.001225856226378,
+  "V_exact_python_columns_m3": 2.0324,
+  "V_needed_m3": 2.03243,
+  "cb_exact_to_cg_horizontal_m": 0.0016,
+  "damping_force_at_rest_N": 0.004,
+  "note_ja": "7〜8 s（放してから釣り合った後、外力の前）の平均。V_exact は Unity の浮力用の閉じた船体（FBX を取り込んだメッシュ）を水面で切った容積で、浮力点の表とは別の計算。Python の柱の積分の容積との差は、FBX の四角形の三角形への分け方の違い（全体の容積で +0.12%）"
+ },
+ "equilibrium_pose": {
+  "draft_mid_m_unity": 0.24904,
+  "draft_mid_m_python_exact": 0.2491,
+  "draft_diff_mm": -0.06,
+  "heel_deg_unity": -0.5889,
+  "heel_deg_python_exact": -0.5857,
+  "heel_diff_deg": -0.0032,
+  "trim_deg_unity": 0.1284,
+  "trim_deg_python_exact": 0.1288,
+  "trim_diff_deg": -0.0004,
+  "freeboard_mid_m": 0.6333,
+  "sign_ja": "喫水は船体中央の船底の水面からの深さ。横傾斜は右舷が下がる向き、縦傾斜は船首が上がる向きが正"
+ },
+ "recovery": [
+  {
+   "event": "drop_settle",
+   "label_ja": "放して釣り合いへ",
+   "t_from": 0.0,
+   "t_to": 8.0,
+   "draft": {
+    "peak_dev": 0.1499,
+    "settle_s_to_10pct_or_tol": 1.033,
+    "residual_last_1s": 1e-06,
+    "tol": 0.001,
+    "pass": true
+   },
+   "heel": {
+    "peak_dev": 6.58525,
+    "settle_s_to_10pct_or_tol": 1.5,
+    "residual_last_1s": 0.000107,
+    "tol": 0.05,
+    "pass": true
+   },
+   "trim": {
+    "peak_dev": 1.87159,
+    "settle_s_to_10pct_or_tol": 1.4,
+    "residual_last_1s": 7e-05,
+    "tol": 0.05,
+    "pass": true
+   }
+  },
+  {
+   "event": "heave_push",
+   "label_ja": "下向きの力積",
+   "t_from": 8.0,
+   "t_to": 14.0,
+   "draft": {
+    "peak_dev": 0.06555,
+    "settle_s_to_10pct_or_tol": 1.2,
+    "residual_last_1s": 1e-06,
+    "tol": 0.001,
+    "pass": true
+   }
+  },
+  {
+   "event": "roll_push",
+   "label_ja": "横の角力積",
+   "t_from": 14.0,
+   "t_to": 22.0,
+   "heel": {
+    "peak_dev": 6.0655,
+    "settle_s_to_10pct_or_tol": 1.867,
+    "residual_last_1s": 0.000398,
+    "tol": 0.05,
+    "pass": true
+   }
+  },
+  {
+   "event": "pitch_push",
+   "label_ja": "縦の角力積",
+   "t_from": 22.0,
+   "t_to": 28.0,
+   "trim": {
+    "peak_dev": 2.16044,
+    "settle_s_to_10pct_or_tol": 1.633,
+    "residual_last_1s": 0.001025,
+    "tol": 0.05,
+    "pass": true
+   }
+  },
+  {
+   "event": "static_heel_release",
+   "label_ja": "静的な横のモーメントを外す",
+   "t_from": 36.0,
+   "t_to": 44.0,
+   "heel": {
+    "peak_dev": 5.98539,
+    "settle_s_to_10pct_or_tol": 1.467,
+    "residual_last_1s": 8.2e-05,
+    "tol": 0.05,
+    "pass": true
+   }
+  }
+ ],
+ "static_heel": {
+  "moment_Nm": 824.0,
+  "heel_measured_deg": 6.0111,
+  "heel_predicted_deg_from_exact_GM": 6.009,
+  "rel_diff": 0.0003390652093711117,
+  "gm_t_implied_m": 0.3843,
+  "gm_t_exact_m": 0.3844,
+  "window_s": [
+   34.0,
+   36.0
+  ],
+  "note_ja": "824 N·m は 70 kg の人が中心線から 1.2 m の船縁へ寄った時の横のモーメント（純粋なモーメントとして与えた）。予測は厳密な復原の硬さ ρ g V GM（1° の数値の微分）から"
+ },
+ "periods": {
+  "heave_s_unity": 0.9123759147336497,
+  "roll_s_unity": 2.108963462626277,
+  "pitch_s_unity": 1.1781476288280661,
+  "heave_s_undamped_rigid": 0.8833,
+  "roll_s_undamped_rigid": 1.9422,
+  "pitch_s_undamped_rigid": 1.1482,
+  "note_ja": "Unity の値は減衰のある振動の見かけの周期（ゼロ交差の間隔 × 2）。付加質量を入れていないので、実際の船より短い（記録のみ）"
+ },
+ "hydrostatics_ref": {
+  "path": "Unity/Build/Design/42/buoyancy/ds42_hydrostatics.json",
+  "mass_total_kg": 2083.2,
+  "kg_m": 0.6023,
+  "lcg_m_aft_of_mid": 0.4013,
+  "gmt_m": 0.3844,
+  "gml_m": 21.7642,
+  "kg_per_cm_immersion": 107.45,
+  "freeboard_mid_m": 0.6333
+ },
+ "limits_to_next_ja": [
+  "静水の釣り合いの喫水 0.249 m は、座席 v1 の置き方の喫水 0.3806 m（M1 の blockout の 0.35 × 深さ）より 132 mm 浅い。原画視点の船は投影固定のまま（設計42 では動かしていない）。表示の船と物理の船の高さのそろえ方は設計43（船用水面データ）で決める",
+  "静水で横に 0.59°（左舷が下がる）傾くのは、櫓 7 丁（左舷 4・右舷 3）の重さの左右差による。乗員の配置（中心線の上と仮定）で打ち消すかは仕上げ42",
+  "付加質量を入れていない。上下・横揺れ・縦揺れの周期は剛体の値で、実際の船より短い。減衰（上下の減衰比 0.3、水平・首振りの抵抗）は調整値",
+  "重量・重心は部品ごとの推定（資料なし）。仕上げ42 で見直す",
+  "浮力点の模型は、横の硬さが厳密値の −0.7%、縦は y_factor で合わせた。船縁が水に入る大きな傾き（約 10° を超える所）は確かめていない"
+ ]
+}

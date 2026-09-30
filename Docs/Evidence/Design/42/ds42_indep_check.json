@@ -1,0 +1,44 @@
+{
+ "schema": "GreatWave.DS42.indep_check/1",
+ "note_ja": "進行役の独立の検査（作る部のコードを使わずに書いた numpy。設計41 の浮力用の閉じた船体を自前の三角形の切り方で Unity の釣り合いの姿勢に置いて容積を測り、自前の Newton 法で厳密な釣り合いを解き直し、±1° の傾けで GM を測り、時系列から戻りを数え直す）。検査の道具はリポジトリの外で書き、写しを Git 対象外の Unity/Build/Design/42/indep_check/ に置いた。記録の時に同じ道具を回し直した出力の行をそのまま入れた。",
+ "script": {
+  "path": "Unity/Build/Design/42/indep_check/chk42.py",
+  "sha256": "98d1299ff187a6231ddf1040da4c40e573f57f7d7bc32096c2bf7de57be4ae6b"
+ },
+ "output": {
+  "path": "Unity/Build/Design/42/indep_check/chk42_output.txt",
+  "sha256": "3dde2363a53c5139bda3b8047503baaffbd8a7251f729c551c22397e890a0f17"
+ },
+ "output_lines": [
+  "scale 1.1328351497650146 rho 1025.0 g 9.81 M 2083.2376085039914",
+  "parts n 29 sum 2083.1 cfg M 2083.24 cg from parts [-0.0042  0.6022 -0.4014] cfg cg [-0.0042  0.6023 -0.4013]",
+  "crew n 10 crew kg 600.0",
+  "hull area m2 total 35.393",
+  "full closed hull volume (blender, handed) 15.493 m3; Unity report 15.5127",
+  "",
+  "Unity eq (7-8 s): keelY -0.24904 draft 0.24904 heel -0.5889 trim 0.1284 yaw 0.4149 pos(0.0721,-0.0194)",
+  "MY clip V 2.03136 m3, needed m/rho 2.03243, ratio 0.99947",
+  "rho g V = 20425.8 N, m g = 20436.6 N, ratio 0.99947",
+  "CB - CG horizontal (x,z) mm: [-0.01  0.17]  |d| mm 0.17",
+  "Unity series at eq: sumF 20436.6, vPoints 2.03243, vExact 2.03492, damp 0.0044",
+  "Unity series CB-CG horiz mm [0.21 1.57]  my CB vs Unity CB mm [-0.22 -0.04 -1.4 ]  my CG vs Unity CG mm [-0. -0. -0.]",
+  "",
+  "MY exact equilibrium: keel -0.24914 (draft 0.24914) heel -0.5870 trim 0.1287  | residual [-3.70987685e-11  9.67628755e-15  4.37316849e-13]",
+  "Unity - mine: draft -0.099 mm, heel -0.0019 deg, trim -0.0003 deg",
+  "MY GM_T (±1deg) 0.3842 m (hydro json 0.3844). Unity x-axis: heel + = starboard down => CB moves +x: GZ sign 1.0",
+  "static heel measured 5.4221 (mean 34-36 s), eq -0.5889, delta 6.0111, predicted from MY GM 5.9905",
+  "drop draft peak 0.1499 last1s 7.6e-07 | heel peak 6.585 last1s 0.0001 | trim peak 1.872 last1s 7.1e-05",
+  "heave draft peak 0.06555 last1s 7.4e-07 | heel peak 0.07466 last1s 0.00029 | trim peak 0.09355 last1s 8.3e-05",
+  "roll draft peak 0.003767 last1s 1.2e-07 | heel peak 6.065 last1s 0.0004 | trim peak 0.005558 last1s 7e-06",
+  "pitch draft peak 0.01352 last1s 1.2e-05 | heel peak 0.08628 last1s 0.00014 | trim peak 2.16 last1s 0.001",
+  "static_release draft peak 0.001911 last1s 1.6e-07 | heel peak 5.985 last1s 8.2e-05 | trim peak 0.01823 last1s 1.4e-05",
+  "end 43-44 s: draft 0.24904 heel -0.5889 trim 0.1284 (eq 0.24904 -0.5889 0.1284); yaw drift 0.5674 deg; pos drift (0.0732, -0.0194) m",
+  "wet points min/max 0 10 sumF/mg at eq 0.9999997641661673",
+  "vExact/vNeed over whole run: min 0.4252 max 1.3578",
+  "hull top point above water at eq (m): max 1.689; hull mesh min y -0.2592"
+ ],
+ "verdict": {
+  "pass": true,
+  "must_fix": 0
+ }
+}

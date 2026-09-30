@@ -1,0 +1,175 @@
+{
+ "schema": "GreatWave.DS42.record_recount/1",
+ "note_ja": "記録の道具が ds42_unity_series.json から、作る部の ds42_report.py を使わずに数え直した値。出来事ごとの last1s_mean_abs_dev は最後の 1 s の平均の絶対のずれ（釣り合いの窓 7〜8 s の平均から）。",
+ "recount": {
+  "eq_window_s": [
+   7.0,
+   8.0
+  ],
+  "draft_m": 0.24904,
+  "heel_deg": -0.5889,
+  "trim_deg": 0.1284,
+  "sum_point_force_N": 20436.6,
+  "sum_point_force_over_mg": 1.0,
+  "v_points_m3": 2.03243,
+  "v_exact_unity_m3": 2.03492,
+  "v_needed_m3": 2.03243,
+  "rho_g_v_exact_N": 20461.6,
+  "v_exact_over_needed": 1.00123,
+  "cb_minus_cg_horizontal_mm": [
+   0.21,
+   1.57
+  ],
+  "damping_force_at_rest_N": 0.0044,
+  "recovery": [
+   {
+    "event": "drop_settle",
+    "t_from": 0.0,
+    "t_to": 8.0,
+    "draft": {
+     "peak_dev": 0.149901,
+     "last1s_mean_abs_dev": 7.58e-07
+    },
+    "heel": {
+     "peak_dev": 6.585254,
+     "last1s_mean_abs_dev": 0.000105
+    },
+    "trim": {
+     "peak_dev": 1.871592,
+     "last1s_mean_abs_dev": 7.08e-05
+    }
+   },
+   {
+    "event": "heave_push",
+    "t_from": 8.0,
+    "t_to": 14.0,
+    "draft": {
+     "peak_dev": 0.065545,
+     "last1s_mean_abs_dev": 7.45e-07
+    },
+    "heel": {
+     "peak_dev": 0.074661,
+     "last1s_mean_abs_dev": 0.000291
+    },
+    "trim": {
+     "peak_dev": 0.093551,
+     "last1s_mean_abs_dev": 8.32e-05
+    }
+   },
+   {
+    "event": "roll_push",
+    "t_from": 14.0,
+    "t_to": 22.0,
+    "draft": {
+     "peak_dev": 0.003767,
+     "last1s_mean_abs_dev": 1.16e-07
+    },
+    "heel": {
+     "peak_dev": 6.065498,
+     "last1s_mean_abs_dev": 0.000398
+    },
+    "trim": {
+     "peak_dev": 0.005558,
+     "last1s_mean_abs_dev": 7.01e-06
+    }
+   },
+   {
+    "event": "pitch_push",
+    "t_from": 22.0,
+    "t_to": 28.0,
+    "draft": {
+     "peak_dev": 0.013519,
+     "last1s_mean_abs_dev": 1.21e-05
+    },
+    "heel": {
+     "peak_dev": 0.086283,
+     "last1s_mean_abs_dev": 0.000143
+    },
+    "trim": {
+     "peak_dev": 2.160442,
+     "last1s_mean_abs_dev": 0.00102
+    }
+   },
+   {
+    "event": "static_heel_release",
+    "t_from": 36.0,
+    "t_to": 44.0,
+    "draft": {
+     "peak_dev": 0.001911,
+     "last1s_mean_abs_dev": 1.56e-07
+    },
+    "heel": {
+     "peak_dev": 5.985393,
+     "last1s_mean_abs_dev": 8.18e-05
+    },
+    "trim": {
+     "peak_dev": 0.018228,
+     "last1s_mean_abs_dev": 1.45e-05
+    }
+   }
+  ],
+  "static_heel_mean_34_36_deg": 5.4221,
+  "static_heel_delta_from_eq_deg": 6.0111,
+  "end_43_44": {
+   "draft": 0.24904,
+   "heel": -0.58892,
+   "trim": 0.1284
+  },
+  "yaw_deg": {
+   "eq_7_8": 0.4149,
+   "max": 0.7409,
+   "t_of_max": 28.867,
+   "end": 0.5674
+  },
+  "pos_xz_m": {
+   "eq_7_8": [
+    0.0721,
+    -0.0194
+   ],
+   "end": [
+    0.0732,
+    -0.0194
+   ]
+  },
+  "wet_points": {
+   "t0": 0,
+   "min_after_t0": 8,
+   "max": 10
+  },
+  "torque_frames_nonzero": 240,
+  "frames": 1321,
+  "stills_python_eq_vs_unity_end": {
+   "port_bow": {
+    "diff_px": 15876,
+    "total_px": 2073600,
+    "bbox_xyxy": [
+     153,
+     251,
+     1555,
+     653
+    ]
+   },
+   "stern": {
+    "diff_px": 34774,
+    "total_px": 2073600,
+    "bbox_xyxy": [
+     656,
+     0,
+     1272,
+     848
+    ]
+   }
+  }
+ },
+ "agree_with_builder_metrics": {
+  "draft": true,
+  "heel": true,
+  "trim": true,
+  "sumF": true,
+  "vExact": true,
+  "static_heel": true,
+  "peaks": true
+ },
+ "sha256_checked": 31,
+ "tracked_changes": []
+}

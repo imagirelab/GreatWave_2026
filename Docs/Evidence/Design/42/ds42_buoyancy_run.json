@@ -1,0 +1,95 @@
+{
+ "schema": "GreatWave.DS42.run/1",
+ "number": "設計42",
+ "part": "buoyancy",
+ "commands": [
+  "py -3.10 -B Tools/GWWaveGen/ds42/ds42_hydro.py",
+  "powershell -NoProfile -ExecutionPolicy Bypass -File Tools/GWWaveGen/ds42/run_ds42_unity.ps1 -Method GreatWave.Design42.EditorTools.DS42BuoyancyTest.Run -Log run",
+  "py -3.10 -B Tools/GWWaveGen/ds42/ds42_report.py"
+ ],
+ "tools": {
+  "python": "3.10.6",
+  "numpy": "2.2.6",
+  "pillow": "12.0.0",
+  "unity": "6000.4.3f1",
+  "graphics": "NVIDIA GeForce RTX 3080 / Direct3D11 / Linear",
+  "ffmpeg": "ffmpeg version 2024-12-19-git-494c961379-full_build-www.gyan.dev Copyright (c) 2000-2024 the FFmpeg developers"
+ },
+ "unity_seconds": 18.401430130004883,
+ "step_microseconds_mean": 13.336913108825684,
+ "frames_rendered_and_removed_after_encoding": 2642,
+ "inputs": {
+  "Unity/Build/Design/41/model/blender/ds41_boat_geom.npz": "c516589f17e8d141cb4682bd0b61166db7cb3a4f17caadfdfe368fba747fae25",
+  "Unity/Build/Design/41/model/blender/ds41_blender_report.json": "9151663414a012492ab5e750a93517fe422f9c391a4d383e9ff39c38003c419a",
+  "Unity/Build/Design/41/model/unity/ds41_build_report.json": "0ac38d1989ab5a3abc5c09b79fdb6bfbc263ca24b5074728b731a515bc319165",
+  "Unity/Build/Design/41/research/oshiokuri_dimensions.json": "47f3f700c125bfdfa891b9b40c6c12c946c91eb05d8d00255b2ef625cd8fab83",
+  "Tools/GWWaveGen/ds42/ds42_params.json": "bd7cbb59b915bd49e5c3c9b708b37f90039a109bf9e33e5ac25d413a30b146e4"
+ },
+ "code": {
+  "Tools/GWWaveGen/ds42/ds42_hydro.py": "2767b5d773b86e999736054ad8af24c6f3e2856ca22ea7ab7a4fcdf339817ccd",
+  "Tools/GWWaveGen/ds42/ds42_params.json": "bd7cbb59b915bd49e5c3c9b708b37f90039a109bf9e33e5ac25d413a30b146e4",
+  "Tools/GWWaveGen/ds42/ds42_report.py": "e44e3d1a2af0cbb9662dbf843fa3a3f3271f2aa22bc6cd9e3d8f8c2c1c3eb919",
+  "Tools/GWWaveGen/ds42/run_ds42_unity.ps1": "0ddb81e9b5e1aa95f1a9e22c608eed9d8e84aa42d22638f6b00b91983ea1d53f",
+  "Unity/Assets/GreatWave/Design42/Scripts/DS42Buoyancy.cs": "93edf99c4f4624fe345f56145b4e4fc03e12e8d51dd4f9e413cd6aca98cfde96",
+  "Unity/Assets/GreatWave/Design42/Scripts/DS42Water.cs": "0dd28e21272d936ff7b0109ec20ed091c14566807dfd37560eeb257257934c19",
+  "Unity/Assets/GreatWave/Design42/Scripts/DS42StillWater.cs": "0199c0a1b45195369dde434fdd02e5dbeacc8bca7b2b25f8a5b8c161dca15464",
+  "Unity/Assets/GreatWave/Design42/Editor/DS42BuoyancyTest.cs": "64cd18a10babd03b15b36120862937e8a66502bebe640ae1d182fda4851d63f1",
+  "Unity/Assets/GreatWave/Design42/Data/ds42_buoyancy_points.json": "599e6c6721e049eec27634d2a7b1728da6f024632ccac957eee2433f244314a4",
+  "Unity/Assets/GreatWave/Design42/Scenes/DS42_Buoyancy.unity": "e536b829ba126df396aa8e404175099ff028330294813ecde336cff7ee97d9a5"
+ },
+ "outputs": {
+  "Unity/Build/Design/42/buoyancy/ds42_recovery.mp4": {
+   "sha256": "604a64bf6606ef0c8890f972d158b4f3e647c49fadf66554a0b1377979fe8053",
+   "bytes": 3328291
+  },
+  "Unity/Build/Design/42/buoyancy/fig_ds42_equilibrium.png": {
+   "sha256": "a91be7ceef5c668ab7fe9cefc626acb98fd51ce4f9593d6bf99dd1cfb3965e75",
+   "bytes": 210475
+  },
+  "Unity/Build/Design/42/buoyancy/ds42_hydrostatics.json": {
+   "sha256": "4742d6447ec5da9cf306ea677d4c788087cf9a939bf99feec036ec6cf82534ee",
+   "bytes": 20542
+  },
+  "Unity/Build/Design/42/buoyancy/ds42_unity_series.json": {
+   "sha256": "f698e0910c54ddd697e6a6c4306a1af4a71c7698dc68785135f77370ed80bdd5",
+   "bytes": 475878
+  },
+  "Unity/Build/Design/42/buoyancy/ds42_unity_report.json": {
+   "sha256": "493406dbd261809005d9b74e55c8eb622b8b4e5b6b6654b89a3c7e61f347f805",
+   "bytes": 5147
+  },
+  "Unity/Build/Design/42/buoyancy/still_python_eq_port_bow.png": {
+   "sha256": "07adc8851ed01b06ae01ff8f699f0aa9f71f71c21c229e9aa78bb6c60c01f6be",
+   "bytes": 111461
+  },
+  "Unity/Build/Design/42/buoyancy/still_python_eq_stern.png": {
+   "sha256": "ecf8d9b24dc62736bf2330ebf5525f1a9f7e3cfc81260a549606a193a6793d89",
+   "bytes": 94809
+  },
+  "Unity/Build/Design/42/buoyancy/still_unity_end_port_bow.png": {
+   "sha256": "c794de6957c409842a76a0028e5cc073e07398088420c257a5d33d841ed91d72",
+   "bytes": 110687
+  },
+  "Unity/Build/Design/42/buoyancy/still_unity_end_stern.png": {
+   "sha256": "0aee25870088f2437f67bc6e9971e1ce0bb91ddd0e20e4b36808bac52d153269",
+   "bytes": 96845
+  },
+  "Unity/Build/Design/42/buoyancy/metrics.json": {
+   "sha256": "33d6cce243cc3547e638ebeb5ebf41ac66a361a287e000d6f13a563525854a2f",
+   "bytes": 6645
+  },
+  "Unity/Build/Design/42/buoyancy/frame_heave_t08.20.png": {
+   "sha256": "5dc3c37078916d5073ae69b52cec57e51e0dd97485de44247d2d100aafe73d2d",
+   "bytes": 507582
+  },
+  "Unity/Build/Design/42/buoyancy/frame_roll_t14.50.png": {
+   "sha256": "e2dea05b75e1495b46784e700e1f6d5bfb8f9b42ca69e979966cca28cfa4dfda",
+   "bytes": 533257
+  },
+  "Unity/Build/Design/42/buoyancy/frame_static_heel_t35.50.png": {
+   "sha256": "acde3d2d2dc87a19bfb2926a86757c5b9842e5f209eb46fb3133d2e1fc36a1bc",
+   "bytes": 518403
+  }
+ },
+ "seconds_report": 23.2
+}

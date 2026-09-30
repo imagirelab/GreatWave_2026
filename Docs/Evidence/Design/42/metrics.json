@@ -1,0 +1,90 @@
+{
+ "schema": "GreatWave.DS42.record_metrics/1",
+ "number": "設計42",
+ "title_ja": "静水で重量・排水容積・重心を合わせる",
+ "plan": "Docs/Design/Stage9_Plan_2026-09-26_ja.md §2.4 設計42",
+ "min_acceptance_ja": "浮力 ≈ 水密度 × 重力 × 排水容積 と重量の釣り合いを数値で記録。戻りの動画（計画 §2.4 設計42）",
+ "acceptance": {
+  "balance_recorded": {
+   "value": {
+    "weight_N": 20436.6,
+    "sum_point_buoyancy_N": 20436.6,
+    "rho_g_V_exact_N": 20461.6,
+    "rho_g_V_exact_over_weight": 1.00123,
+    "V_exact_unity_m3": 2.03492,
+    "V_needed_m3": 2.03243,
+    "V_python_columns_m3": 2.0324
+   },
+   "result": "合格（数値で記録した）"
+  },
+  "recovery_video": {
+   "value": "Docs/Evidence/Design/42/ds42_recovery.mp4（1920×1080、30 fps、1321 コマ、44.03 s、H.264）",
+   "result": "合格（動画がある）"
+  },
+  "unity_equilibrium_vs_python_exact": {
+   "value": {
+    "draft_diff_mm": -0.06,
+    "heel_diff_deg": -0.0032,
+    "trim_diff_deg": -0.0004
+   },
+   "tol_ja": "喫水 ±5 mm、角 ±0.2°（進行役の判断の閾値）",
+   "result": "合格（閾値は作る部の判断。計画の最小の受入の外）"
+  },
+  "recovery_residuals": {
+   "tol_ja": "最後の 1 s の平均のずれ：喫水 1 mm、角 0.05°（進行役の判断の閾値）",
+   "result": "合格（閾値は作る部の判断。計画の最小の受入の外）"
+  },
+  "painting_view_regression": {
+   "value": "原画視点の場面（DS41_Boats.unity）と評価器の入力は開いておらず、tracked のファイルの変更 0",
+   "result": "対象外（計画 §2.0 は原画視点に触れた時だけ）"
+  },
+  "hmd": {
+   "result": "保留（PS VR2 の導入は利用者の手。この番号の最小の受入には HMD の項目はない。船の揺れの HMD の確かめは設計45）"
+  },
+  "pass": true
+ },
+ "backlog": {
+  "89": {
+   "value": "静水の釣り合い：喫水 0.24904 m、横傾斜 -0.5889°、縦傾斜 0.1284°、ρgV/mg 1.0012",
+   "result": "記録のみ（計画 §2.4。浮き方と表示面の整合の判定は設計43・仕上げ43）"
+  }
+ },
+ "builder_metrics": "Docs/Evidence/Design/42/ds42_buoyancy_metrics.json",
+ "hydrostatics": "Docs/Evidence/Design/42/ds42_hydrostatics.json",
+ "record_recount": "Docs/Evidence/Design/42/ds42_record_recount.json",
+ "indep_check": "Docs/Evidence/Design/42/ds42_indep_check.json",
+ "record_crosscheck": {
+  "sha256_checked": 31,
+  "sha256_mismatch": 0,
+  "recount_agrees": {
+   "draft": true,
+   "heel": true,
+   "trim": true,
+   "sumF": true,
+   "vExact": true,
+   "static_heel": true,
+   "peaks": true
+  },
+  "tracked_changes": 0
+ },
+ "fix_rounds": {
+  "count": 0,
+  "note_ja": "Q26 の修正 1 回は使っていない。作る部の中の直し（右舷の浮力点の x の符号、カメラと水面の枠）は Unity の実行の前の開発の中"
+ },
+ "time": {
+  "time_box_h": 2,
+  "time_box_source": "計画 §2.6 の［Q26］の表、10/3 の行（設計42 2 h）",
+  "files_ja": "Build と ds42 の最初のフォルダー 10:17:22、ds42_params.json 10:20:10、ds42_hydrostatics.json 10:20:57、Unity の実行 10:30:32〜10:30:57（ログの開始と設定の戻しの記録）、作る部の最後のファイル（metrics.json・run.json）10:31:20、独立の検査の道具 10:34:48・フレームの切り出し 10:35:14〜10:35:16、記録 10:39:05（最初の記録のファイル）〜",
+  "builder_reported_ja": "作る部の報告は「2 時間の内の約 1.5 時間」。ファイルの時刻（最初のフォルダーから最後の出力まで約 14 分。着手は設計41 の独立の検査の終わり 10:08:30 より後）と合わないので、記録はファイルの時刻を使う",
+  "unity_seconds_in_method": 18.401430130004883,
+  "unity_process_seconds_ja": "約 25 s（ログの Date 02:30:32Z から設定の戻し 02:30:57Z）",
+  "step_microseconds_mean": 13.336913108825684
+ },
+ "handoffs_ja": {
+  "設計43": "物理の釣り合いの喫水 0.249 m と座席 v1 の置き方の喫水 0.3806 m（seat_v1.json）の差 132 mm。表示の船と物理の船のそろえ方。DS42Water の子として設計30 のうねりと主役波のシートの下側の一価の面を読む。",
+  "設計44": "首振りと横の位置のずれ（44 s で 0.567°・x 0.073 m）。前進・旋回の抵抗は今は調整値の水平 0.5 /s・首振り 0.8 /s だけ。",
+  "設計45": "GM_T 0.384 m、70 kg の人が船縁で 6.0°、横揺れの周期 1.94 s（剛体、付加質量なし）・Unity の見かけ 2.11 s。上下の減衰比 0.3 は調整値。HMD の確かめは保留。",
+  "仕上げ43": "重量・重心（部品ごとの推定）、横の慣性半径 0.60 m、付加質量、減衰、大きな傾き（約 7° を超える所）の浮力点の模型。計画 §5 に仕上げ42 の群はないので、89 を持つ仕上げ43 へ入れる（進行役の判断）。",
+  "仕上げ41": "乗員の配置（中心線の上と仮定。櫓 7 丁の左右差による静水の横傾斜 −0.59° を打ち消すか）は、乗員（G25）を持つ仕上げ41 ② へ。"
+ }
+}

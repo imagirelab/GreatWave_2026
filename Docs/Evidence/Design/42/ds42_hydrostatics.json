@@ -1,0 +1,772 @@
+{
+ "schema": "GreatWave.DS42.hydrostatics/1",
+ "number": "設計42",
+ "part": "buoyancy",
+ "created_utc": "2026-09-30T02:20:57Z",
+ "inputs": {
+  "Unity/Build/Design/41/model/blender/ds41_boat_geom.npz": "c516589f17e8d141cb4682bd0b61166db7cb3a4f17caadfdfe368fba747fae25",
+  "Unity/Build/Design/41/model/blender/ds41_blender_report.json": "9151663414a012492ab5e750a93517fe422f9c391a4d383e9ff39c38003c419a",
+  "Unity/Build/Design/41/model/unity/ds41_build_report.json": "0ac38d1989ab5a3abc5c09b79fdb6bfbc263ca24b5074728b731a515bc319165",
+  "Unity/Build/Design/41/research/oshiokuri_dimensions.json": "47f3f700c125bfdfa891b9b40c6c12c946c91eb05d8d00255b2ef625cd8fab83",
+  "Tools/GWWaveGen/ds42/ds42_params.json": "bd7cbb59b915bd49e5c3c9b708b37f90039a109bf9e33e5ac25d413a30b146e4"
+ },
+ "scale_m_per_unit": 1.1328351497650146,
+ "boat_key": "boat_mid",
+ "rho_kg_m3": 1025.0,
+ "g_m_s2": 9.81,
+ "mass": {
+  "total_kg": 2083.2,
+  "cg_blender_units": [
+   0.0037,
+   0.3543,
+   0.5317
+  ],
+  "cg_unity_root_m": [
+   -0.0042,
+   0.6023,
+   -0.4013
+  ],
+  "kg_m": 0.6023,
+  "lcg_m_aft_of_mid": 0.4013,
+  "research41_estimate_kg": 2000.0,
+  "research41_range_kg": [
+   1600.0,
+   3100.0
+  ],
+  "research41_estimate_scaled_kg": 1830.8,
+  "parts": [
+   {
+    "name": "船殻：航（船底板）",
+    "mass_kg": 250.4,
+    "pos_unity_root_m": [
+     -0.0,
+     0.0922,
+     -0.581
+    ],
+    "kind": "estimate",
+    "basis_ja": "設計41 の船殻のメッシュの面積 10.43 m²（|n_z|>0.7 を船底とした）× 板厚 0.060 m × 杉の気乾密度 400 kg/m³"
+   },
+   {
+    "name": "船殻：根棚・上棚・戸立（舷の板）",
+    "mass_kg": 349.5,
+    "pos_unity_root_m": [
+     -0.0001,
+     0.7235,
+     -0.4606
+    ],
+    "kind": "estimate",
+    "basis_ja": "設計41 の船殻のメッシュの面積 24.96 m²（|n_z|>0.7 を船底とした）× 板厚 0.035 m × 杉の気乾密度 400 kg/m³"
+   },
+   {
+    "name": "床（板）",
+    "mass_kg": 199.9,
+    "pos_unity_root_m": [
+     -0.0,
+     0.2616,
+     -0.3883
+    ],
+    "kind": "estimate",
+    "basis_ja": "設計41 の Boat41_Floor の閉じたメッシュの体積 0.4999 m³ × 密度 400 kg/m³"
+   },
+   {
+    "name": "船梁 6 本",
+    "mass_kg": 59.3,
+    "pos_unity_root_m": [
+     0.0,
+     0.9764,
+     -0.8745
+    ],
+    "kind": "estimate",
+    "basis_ja": "設計41 の Boat41_Beams の閉じたメッシュの体積 0.1187 m³ × 密度 500 kg/m³"
+   },
+   {
+    "name": "船縁（左舷）",
+    "mass_kg": 38.4,
+    "pos_unity_root_m": [
+     -0.9148,
+     1.1743,
+     -0.0918
+    ],
+    "kind": "estimate",
+    "basis_ja": "設計41 の Boat41_Gunwale_Port の閉じたメッシュの体積 0.0768 m³ × 密度 500 kg/m³"
+   },
+   {
+    "name": "船縁（右舷）",
+    "mass_kg": 38.4,
+    "pos_unity_root_m": [
+     0.9148,
+     1.1743,
+     -0.0918
+    ],
+    "kind": "estimate",
+    "basis_ja": "設計41 の Boat41_Gunwale_Starboard の閉じたメッシュの体積 0.0768 m³ × 密度 500 kg/m³"
+   },
+   {
+    "name": "水押",
+    "mass_kg": 6.4,
+    "pos_unity_root_m": [
+     0.0,
+     1.497,
+     5.1783
+    ],
+    "kind": "estimate",
+    "basis_ja": "設計41 の Boat41_Stem の閉じたメッシュの体積 0.0129 m³ × 密度 500 kg/m³"
+   },
+   {
+    "name": "船尾の床",
+    "mass_kg": 12.8,
+    "pos_unity_root_m": [
+     0.0,
+     1.8759,
+     -5.3745
+    ],
+    "kind": "estimate",
+    "basis_ja": "設計41 の Boat41_SternDeck の閉じたメッシュの体積 0.0319 m³ × 密度 400 kg/m³"
+   },
+   {
+    "name": "船尾の梯子状の枠",
+    "mass_kg": 4.4,
+    "pos_unity_root_m": [
+     0.0,
+     2.4759,
+     -5.2337
+    ],
+    "kind": "estimate",
+    "basis_ja": "設計41 の Boat41_SternFrame の閉じたメッシュの体積 0.0111 m³ × 密度 400 kg/m³"
+   },
+   {
+    "name": "櫓 P1",
+    "mass_kg": 19.8,
+    "pos_unity_root_m": [
+     -0.1705,
+     0.9662,
+     -1.3131
+    ],
+    "kind": "estimate",
+    "basis_ja": "設計41 の Boat41_Oar_P1 の閉じたメッシュの体積 0.0248 m³ × 密度 800 kg/m³"
+   },
+   {
+    "name": "櫓 P2",
+    "mass_kg": 19.8,
+    "pos_unity_root_m": [
+     -0.3496,
+     0.9587,
+     -1.2417
+    ],
+    "kind": "estimate",
+    "basis_ja": "設計41 の Boat41_Oar_P2 の閉じたメッシュの体積 0.0248 m³ × 密度 800 kg/m³"
+   },
+   {
+    "name": "櫓 P3",
+    "mass_kg": 19.8,
+    "pos_unity_root_m": [
+     -0.5276,
+     0.9732,
+     -1.4054
+    ],
+    "kind": "estimate",
+    "basis_ja": "設計41 の Boat41_Oar_P3 の閉じたメッシュの体積 0.0248 m³ × 密度 800 kg/m³"
+   },
+   {
+    "name": "櫓 P4",
+    "mass_kg": 19.8,
+    "pos_unity_root_m": [
+     -0.7046,
+     0.9823,
+     -1.4796
+    ],
+    "kind": "estimate",
+    "basis_ja": "設計41 の Boat41_Oar_P4 の閉じたメッシュの体積 0.0248 m³ × 密度 800 kg/m³"
+   },
+   {
+    "name": "櫓 S1",
+    "mass_kg": 19.8,
+    "pos_unity_root_m": [
+     0.2602,
+     0.9775,
+     -1.4565
+    ],
+    "kind": "estimate",
+    "basis_ja": "設計41 の Boat41_Oar_S1 の閉じたメッシュの体積 0.0248 m³ × 密度 800 kg/m³"
+   },
+   {
+    "name": "櫓 S2",
+    "mass_kg": 19.8,
+    "pos_unity_root_m": [
+     0.4387,
+     0.9861,
+     -1.5643
+    ],
+    "kind": "estimate",
+    "basis_ja": "設計41 の Boat41_Oar_S2 の閉じたメッシュの体積 0.0248 m³ × 密度 800 kg/m³"
+   },
+   {
+    "name": "櫓 S3",
+    "mass_kg": 19.8,
+    "pos_unity_root_m": [
+     0.6162,
+     0.9589,
+     -1.2242
+    ],
+    "kind": "estimate",
+    "basis_ja": "設計41 の Boat41_Oar_S3 の閉じたメッシュの体積 0.0248 m³ × 密度 800 kg/m³"
+   },
+   {
+    "name": "乗員 1（漕ぎ手）",
+    "mass_kg": 60.0,
+    "pos_unity_root_m": [
+     -0.0,
+     0.6106,
+     0.2266
+    ],
+    "kind": "estimate",
+    "basis_ja": "漕ぎ手 8 人＋船首側 2 人（Cartwright & Nakamura 2009、設計41 の調べの S8）。一人 60 kg、かがんだ姿勢で重心は床から 0.35 m（推定）。漕ぎ手は櫓の支点の区間（船尾側の約半分、絵の P6）に等間隔、横は中心線の上（左右の平均）とした"
+   },
+   {
+    "name": "乗員 2（漕ぎ手）",
+    "mass_kg": 60.0,
+    "pos_unity_root_m": [
+     -0.0,
+     0.6106,
+     -0.437
+    ],
+    "kind": "estimate",
+    "basis_ja": "漕ぎ手 8 人＋船首側 2 人（Cartwright & Nakamura 2009、設計41 の調べの S8）。一人 60 kg、かがんだ姿勢で重心は床から 0.35 m（推定）。漕ぎ手は櫓の支点の区間（船尾側の約半分、絵の P6）に等間隔、横は中心線の上（左右の平均）とした"
+   },
+   {
+    "name": "乗員 3（漕ぎ手）",
+    "mass_kg": 60.0,
+    "pos_unity_root_m": [
+     -0.0,
+     0.6106,
+     -1.1005
+    ],
+    "kind": "estimate",
+    "basis_ja": "漕ぎ手 8 人＋船首側 2 人（Cartwright & Nakamura 2009、設計41 の調べの S8）。一人 60 kg、かがんだ姿勢で重心は床から 0.35 m（推定）。漕ぎ手は櫓の支点の区間（船尾側の約半分、絵の P6）に等間隔、横は中心線の上（左右の平均）とした"
+   },
+   {
+    "name": "乗員 4（漕ぎ手）",
+    "mass_kg": 60.0,
+    "pos_unity_root_m": [
+     -0.0,
+     0.6106,
+     -1.764
+    ],
+    "kind": "estimate",
+    "basis_ja": "漕ぎ手 8 人＋船首側 2 人（Cartwright & Nakamura 2009、設計41 の調べの S8）。一人 60 kg、かがんだ姿勢で重心は床から 0.35 m（推定）。漕ぎ手は櫓の支点の区間（船尾側の約半分、絵の P6）に等間隔、横は中心線の上（左右の平均）とした"
+   },
+   {
+    "name": "乗員 5（漕ぎ手）",
+    "mass_kg": 60.0,
+    "pos_unity_root_m": [
+     -0.0,
+     0.6129,
+     -2.4275
+    ],
+    "kind": "estimate",
+    "basis_ja": "漕ぎ手 8 人＋船首側 2 人（Cartwright & Nakamura 2009、設計41 の調べの S8）。一人 60 kg、かがんだ姿勢で重心は床から 0.35 m（推定）。漕ぎ手は櫓の支点の区間（船尾側の約半分、絵の P6）に等間隔、横は中心線の上（左右の平均）とした"
+   },
+   {
+    "name": "乗員 6（漕ぎ手）",
+    "mass_kg": 60.0,
+    "pos_unity_root_m": [
+     -0.0,
+     0.6509,
+     -3.091
+    ],
+    "kind": "estimate",
+    "basis_ja": "漕ぎ手 8 人＋船首側 2 人（Cartwright & Nakamura 2009、設計41 の調べの S8）。一人 60 kg、かがんだ姿勢で重心は床から 0.35 m（推定）。漕ぎ手は櫓の支点の区間（船尾側の約半分、絵の P6）に等間隔、横は中心線の上（左右の平均）とした"
+   },
+   {
+    "name": "乗員 7（漕ぎ手）",
+    "mass_kg": 60.0,
+    "pos_unity_root_m": [
+     -0.0,
+     0.7403,
+     -3.7545
+    ],
+    "kind": "estimate",
+    "basis_ja": "漕ぎ手 8 人＋船首側 2 人（Cartwright & Nakamura 2009、設計41 の調べの S8）。一人 60 kg、かがんだ姿勢で重心は床から 0.35 m（推定）。漕ぎ手は櫓の支点の区間（船尾側の約半分、絵の P6）に等間隔、横は中心線の上（左右の平均）とした"
+   },
+   {
+    "name": "乗員 8（漕ぎ手）",
+    "mass_kg": 60.0,
+    "pos_unity_root_m": [
+     -0.0,
+     0.8024,
+     -4.4181
+    ],
+    "kind": "estimate",
+    "basis_ja": "漕ぎ手 8 人＋船首側 2 人（Cartwright & Nakamura 2009、設計41 の調べの S8）。一人 60 kg、かがんだ姿勢で重心は床から 0.35 m（推定）。漕ぎ手は櫓の支点の区間（船尾側の約半分、絵の P6）に等間隔、横は中心線の上（左右の平均）とした"
+   },
+   {
+    "name": "乗員 9（船首側）",
+    "mass_kg": 60.0,
+    "pos_unity_root_m": [
+     -0.0,
+     0.6206,
+     2.4922
+    ],
+    "kind": "estimate",
+    "basis_ja": "漕ぎ手 8 人＋船首側 2 人（Cartwright & Nakamura 2009、設計41 の調べの S8）。一人 60 kg、かがんだ姿勢で重心は床から 0.35 m（推定）。漕ぎ手は櫓の支点の区間（船尾側の約半分、絵の P6）に等間隔、横は中心線の上（左右の平均）とした"
+   },
+   {
+    "name": "乗員 10（船首側）",
+    "mass_kg": 60.0,
+    "pos_unity_root_m": [
+     -0.0,
+     0.6106,
+     1.6993
+    ],
+    "kind": "estimate",
+    "basis_ja": "漕ぎ手 8 人＋船首側 2 人（Cartwright & Nakamura 2009、設計41 の調べの S8）。一人 60 kg、かがんだ姿勢で重心は床から 0.35 m（推定）。漕ぎ手は櫓の支点の区間（船尾側の約半分、絵の P6）に等間隔、横は中心線の上（左右の平均）とした"
+   },
+   {
+    "name": "帆柱 3 本（寝かせて船梁の上）",
+    "mass_kg": 75.0,
+    "pos_unity_root_m": [
+     -0.0,
+     0.8496,
+     -0.0
+    ],
+    "kind": "estimate",
+    "basis_ja": "資料は着脱式 3 本（S1）。本作では立っていない（P7）。1 本 25 kg と推定"
+   },
+   {
+    "name": "帆・綱・道具",
+    "mass_kg": 60.0,
+    "pos_unity_root_m": [
+     -0.0,
+     0.4106,
+     -1.1328
+    ],
+    "kind": "estimate",
+    "basis_ja": "帆 6 反（S2）と綱・手桶など。推定"
+   },
+   {
+    "name": "荷（鮮魚・生簀の水など）",
+    "mass_kg": 250.0,
+    "pos_unity_root_m": [
+     -0.0,
+     0.4873,
+     2.7188
+    ],
+    "kind": "estimate",
+    "basis_ja": "設計41 の調べの荷 0〜1 t の低めの値。船首寄りの枠（P5）の下に置く。推定"
+   }
+  ],
+  "inertia_unity_root_kgm2": [
+   [
+    14854.3779,
+    3.5234,
+    -6.999
+   ],
+   [
+    3.5234,
+    15006.7814,
+    297.2928
+   ],
+   [
+    -6.999,
+    297.2928,
+    750.6937
+   ]
+  ],
+  "radii_of_gyration_m": {
+   "roll": 0.6003,
+   "pitch": 2.6703,
+   "yaw": 2.6839
+  }
+ },
+ "columns": {
+  "step_units": 0.02,
+  "count": 39826,
+  "single_hit_dropped": 0,
+  "volume_units3": 10.6571,
+  "closed_mesh_volume_units3": 10.65703,
+  "rel_diff": 2.2625744021687707e-06
+ },
+ "exact_equilibrium": {
+  "method_ja": "柱の積分で ρ V s³ = m、浮心と重心が同じ鉛直線（Newton 法）。三角形を水面で切る方法（clip）で容積と浮心を別に確かめた",
+  "residual": [
+   3.5571545708990016e-12,
+   -1.2803638357872238e-12,
+   8.162854073234804e-13
+  ],
+  "draft_mid_m": 0.2491,
+  "waterline_above_baseline_m_at_y_minus4_bow": 0.239,
+  "waterline_above_baseline_m_at_y_plus4_stern": 0.2593,
+  "trim_deg_bow_up_positive": 0.1288,
+  "heel_deg_starboard_down_positive": -0.5857,
+  "displaced_volume_m3": 2.0324,
+  "buoyancy_N": 20436.6,
+  "weight_N": 20436.6,
+  "clip_volume_m3": 2.0324,
+  "clip_vs_columns_rel": -1.9740011474908045e-06,
+  "cb_blender_units": [
+   0.0079,
+   0.3552,
+   0.1222
+  ],
+  "cb_clip_blender_units": [
+   0.0079,
+   0.3552,
+   0.1222
+  ],
+  "waterplane_m2": 10.4831,
+  "kg_per_cm_immersion": 107.45,
+  "kb_m": 0.1384,
+  "kg_m": 0.6023,
+  "bmt_m": 0.8414,
+  "bml_m": 22.109,
+  "gmt_m_formula": 0.3775,
+  "gml_m_formula": 21.6451,
+  "gmt_m_numeric_1deg": 0.3844,
+  "gml_m_numeric_1deg": 21.7642,
+  "freeboard_mid_m": 0.6333,
+  "placement_draft_m_seat_v1": 0.3806,
+  "research41_draft_estimate_m": 0.2,
+  "research41_draft_range_m": [
+   0.16,
+   0.3
+  ]
+ },
+ "points": {
+  "count": 10,
+  "stations_y_units": [
+   -3.0,
+   -1.5,
+   0.0,
+   1.5,
+   3.0
+  ],
+  "level_step_units": 0.01,
+  "levels": 170,
+  "layout_ja": "設計41 の提案の 5 断面（y = −3, −1.5, 0, 1.5, 3 単位）を区画の中心にし、区画の境は断面の中点。左右は中心線で分ける。点の横の位置は平衡の水線の半区画の r²/x̄（横傾斜の硬さを厳密値に合わせる）、縦の位置は区画の水線面の中心、高さはその位置の船底",
+  "list": [
+   {
+    "station": 0,
+    "side": "port",
+    "pos_unity_root_m": [
+     -0.296,
+     0.0769,
+     3.2151
+    ],
+    "columns": 3222,
+    "volume_at_eq_level_m3": 0.0656
+   },
+   {
+    "station": 0,
+    "side": "starboard",
+    "pos_unity_root_m": [
+     0.2919,
+     0.0769,
+     3.2145
+    ],
+    "columns": 3157,
+    "volume_at_eq_level_m3": 0.0634
+   },
+   {
+    "station": 1,
+    "side": "port",
+    "pos_unity_root_m": [
+     -0.451,
+     0.0,
+     1.7454
+    ],
+    "columns": 3549,
+    "volume_at_eq_level_m3": 0.2428
+   },
+   {
+    "station": 1,
+    "side": "starboard",
+    "pos_unity_root_m": [
+     0.4478,
+     0.0,
+     1.743
+    ],
+    "columns": 3517,
+    "volume_at_eq_level_m3": 0.2366
+   },
+   {
+    "station": 2,
+    "side": "port",
+    "pos_unity_root_m": [
+     -0.532,
+     0.0,
+     -0.0215
+    ],
+    "columns": 3960,
+    "volume_at_eq_level_m3": 0.2869
+   },
+   {
+    "station": 2,
+    "side": "starboard",
+    "pos_unity_root_m": [
+     0.527,
+     0.0,
+     -0.0191
+    ],
+    "columns": 3943,
+    "volume_at_eq_level_m3": 0.2818
+   },
+   {
+    "station": 3,
+    "side": "port",
+    "pos_unity_root_m": [
+     -0.5112,
+     0.0,
+     -1.7968
+    ],
+    "columns": 3886,
+    "volume_at_eq_level_m3": 0.2768
+   },
+   {
+    "station": 3,
+    "side": "starboard",
+    "pos_unity_root_m": [
+     0.5131,
+     0.0,
+     -1.7986
+    ],
+    "columns": 3853,
+    "volume_at_eq_level_m3": 0.2734
+   },
+   {
+    "station": 4,
+    "side": "port",
+    "pos_unity_root_m": [
+     -0.3973,
+     0.0706,
+     -3.5769
+    ],
+    "columns": 5399,
+    "volume_at_eq_level_m3": 0.1479
+   },
+   {
+    "station": 4,
+    "side": "starboard",
+    "pos_unity_root_m": [
+     0.4002,
+     0.0706,
+     -3.5749
+    ],
+    "columns": 5340,
+    "volume_at_eq_level_m3": 0.1457
+   }
+  ],
+  "sum_table_volume_at_eq_level_rel": 3.1343060455935046e-06,
+  "y_factor": 1.0622348384957312,
+  "y_factor_ja": "点の縦の位置＝区画の水線面の中心 × y_factor（縦傾斜の硬さを厳密値に合わせる倍率）",
+  "point_model_equilibrium": {
+   "residual": [
+    2.220446049250313e-16,
+    -1.5612511283791264e-17,
+    1.9924383323766115e-15
+   ],
+   "draft_mid_m": 0.249,
+   "trim_deg_bow_up_positive": 0.1284,
+   "heel_deg_starboard_down_positive": -0.5887,
+   "exact_volume_at_point_model_pose_m3": 2.0314,
+   "exact_buoyancy_over_weight": 0.9994769188619463,
+   "draft_diff_vs_exact_mm": -0.1,
+   "trim_diff_vs_exact_deg": -0.0,
+   "gmt_m": 0.3817,
+   "gml_m": 21.7642,
+   "roll_stiffness_rel_vs_exact": -0.007072744261370945,
+   "pitch_stiffness_rel_vs_exact": 2.5589414742732686e-07
+  }
+ },
+ "damping_and_periods": {
+  "kind": "数値の条件（抵抗の調整値。物理の実測ではない）",
+  "heave_ratio": 0.3,
+  "c_heave_Ns_per_m": 8891.3,
+  "zeta_roll_est": 0.4006,
+  "zeta_pitch_est": 0.2508,
+  "horizontal_per_s": 0.5,
+  "yaw_per_s": 0.8,
+  "k_heave_N_per_m": 105410.7,
+  "k_roll_Nm_per_rad": 7856.8,
+  "k_pitch_Nm_per_rad": 444786.0,
+  "T_heave_s": 0.8833,
+  "T_roll_s": 1.9422,
+  "T_pitch_s": 1.1482,
+  "note_ja": "周期は付加質量を入れない剛体の値（実際の船ではもっと長い）。減衰は点ごとの鉛直の速度に比例する力で、上下の減衰比 heave_ratio から決めた。横・縦揺れの減衰比はその結果の見積もり"
+ },
+ "curves_level_water": [
+  {
+   "level_units": 0.05,
+   "draft_m": 0.0566,
+   "volume_m3": 0.3415,
+   "displacement_kg": 350.0,
+   "waterplane_m2": 6.8103,
+   "kg_per_cm": 69.81,
+   "lcb_m_aft": 0.1982,
+   "kb_m": 0.0297,
+   "bmt_m": 2.1043,
+   "bml_m": 57.366
+  },
+  {
+   "level_units": 0.1,
+   "draft_m": 0.1133,
+   "volume_m3": 0.7618,
+   "displacement_kg": 780.8,
+   "waterplane_m2": 7.993,
+   "kg_per_cm": 81.93,
+   "lcb_m_aft": 0.2571,
+   "kb_m": 0.0606,
+   "bmt_m": 1.2672,
+   "bml_m": 35.818
+  },
+  {
+   "level_units": 0.15,
+   "draft_m": 0.1699,
+   "volume_m3": 1.2456,
+   "displacement_kg": 1276.7,
+   "waterplane_m2": 9.0664,
+   "kg_per_cm": 92.93,
+   "lcb_m_aft": 0.3018,
+   "kb_m": 0.0923,
+   "bmt_m": 1.0017,
+   "bml_m": 27.825
+  },
+  {
+   "level_units": 0.2,
+   "draft_m": 0.2266,
+   "volume_m3": 1.7884,
+   "displacement_kg": 1833.1,
+   "waterplane_m2": 10.0889,
+   "kg_per_cm": 103.41,
+   "lcb_m_aft": 0.3388,
+   "kb_m": 0.1246,
+   "bmt_m": 0.8773,
+   "bml_m": 23.518
+  },
+  {
+   "level_units": 0.25,
+   "draft_m": 0.2832,
+   "volume_m3": 2.3882,
+   "displacement_kg": 2447.9,
+   "waterplane_m2": 11.075,
+   "kg_per_cm": 113.52,
+   "lcb_m_aft": 0.3706,
+   "kb_m": 0.1574,
+   "bmt_m": 0.8115,
+   "bml_m": 20.66
+  },
+  {
+   "level_units": 0.3,
+   "draft_m": 0.3399,
+   "volume_m3": 3.0437,
+   "displacement_kg": 3119.8,
+   "waterplane_m2": 12.0483,
+   "kg_per_cm": 123.49,
+   "lcb_m_aft": 0.3986,
+   "kb_m": 0.1907,
+   "bmt_m": 0.7759,
+   "bml_m": 18.619
+  },
+  {
+   "level_units": 0.35,
+   "draft_m": 0.3965,
+   "volume_m3": 3.7543,
+   "displacement_kg": 3848.1,
+   "waterplane_m2": 13.0262,
+   "kg_per_cm": 133.52,
+   "lcb_m_aft": 0.4236,
+   "kb_m": 0.2244,
+   "bmt_m": 0.7566,
+   "bml_m": 17.157
+  },
+  {
+   "level_units": 0.4,
+   "draft_m": 0.4531,
+   "volume_m3": 4.5163,
+   "displacement_kg": 4629.3,
+   "waterplane_m2": 13.8495,
+   "kg_per_cm": 141.96,
+   "lcb_m_aft": 0.4462,
+   "kb_m": 0.2582,
+   "bmt_m": 0.7195,
+   "bml_m": 15.931
+  },
+  {
+   "level_units": 0.45,
+   "draft_m": 0.5098,
+   "volume_m3": 5.3204,
+   "displacement_kg": 5453.4,
+   "waterplane_m2": 14.5035,
+   "kg_per_cm": 148.66,
+   "lcb_m_aft": 0.466,
+   "kb_m": 0.292,
+   "bmt_m": 0.6784,
+   "bml_m": 14.64
+  },
+  {
+   "level_units": 0.5,
+   "draft_m": 0.5664,
+   "volume_m3": 6.1587,
+   "displacement_kg": 6312.7,
+   "waterplane_m2": 15.079,
+   "kg_per_cm": 154.56,
+   "lcb_m_aft": 0.4807,
+   "kb_m": 0.3255,
+   "bmt_m": 0.6426,
+   "bml_m": 13.479
+  },
+  {
+   "level_units": 0.55,
+   "draft_m": 0.6231,
+   "volume_m3": 7.0284,
+   "displacement_kg": 7204.1,
+   "waterplane_m2": 15.641,
+   "kg_per_cm": 160.32,
+   "lcb_m_aft": 0.4914,
+   "kb_m": 0.3589,
+   "bmt_m": 0.6156,
+   "bml_m": 12.512
+  },
+  {
+   "level_units": 0.6,
+   "draft_m": 0.6797,
+   "volume_m3": 7.9291,
+   "displacement_kg": 8127.3,
+   "waterplane_m2": 16.1575,
+   "kg_per_cm": 165.61,
+   "lcb_m_aft": 0.4996,
+   "kb_m": 0.3921,
+   "bmt_m": 0.5918,
+   "bml_m": 11.654
+  },
+  {
+   "level_units": 0.65,
+   "draft_m": 0.7363,
+   "volume_m3": 8.8594,
+   "displacement_kg": 9080.9,
+   "waterplane_m2": 16.6913,
+   "kg_per_cm": 171.09,
+   "lcb_m_aft": 0.5057,
+   "kb_m": 0.4253,
+   "bmt_m": 0.5751,
+   "bml_m": 10.949
+  },
+  {
+   "level_units": 0.7,
+   "draft_m": 0.793,
+   "volume_m3": 9.8191,
+   "displacement_kg": 10064.6,
+   "waterplane_m2": 17.1882,
+   "kg_per_cm": 176.18,
+   "lcb_m_aft": 0.5103,
+   "kb_m": 0.4585,
+   "bmt_m": 0.56,
+   "bml_m": 10.302
+  }
+ ],
+ "asset": {
+  "path": "Unity/Assets/GreatWave/Design42/Data/ds42_buoyancy_points.json",
+  "sha256": "599e6c6721e049eec27634d2a7b1728da6f024632ccac957eee2433f244314a4",
+  "bytes": 158835
+ },
+ "seconds": 0.5
+}

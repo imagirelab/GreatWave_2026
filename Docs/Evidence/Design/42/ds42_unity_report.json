@@ -1,0 +1,145 @@
+{
+    "unity": "6000.4.3f1",
+    "device": "NVIDIA GeForce RTX 3080",
+    "graphicsApi": "Direct3D11",
+    "colorSpace": "Linear",
+    "utc": "2026-09-30T02:30:38.6108024Z",
+    "scene": "Assets/GreatWave/Design42/Scenes/DS42_Buoyancy.unity",
+    "sceneSha256": "e536b829ba126df396aa8e404175099ff028330294813ecde336cff7ee97d9a5",
+    "cfg": "Assets/GreatWave/Design42/Data/ds42_buoyancy_points.json",
+    "cfgSha256": "599e6c6721e049eec27634d2a7b1728da6f024632ccac957eee2433f244314a4",
+    "paramsSha256": "bd7cbb59b915bd49e5c3c9b708b37f90039a109bf9e33e5ac25d413a30b146e4",
+    "prefabSha256": "977b665c11da03ee9ce3666deefe14d33e667889023e17f45ddbf144db8281f0",
+    "noteJa": "PC の batchmode の描画（HMD 実機ではない）。物理は Physics.simulationMode = Script で手で進め、終わりに元の設定へ戻した。vExact は浮力用の閉じた船体（Boat41_Buoyancy、Unity の頂点）を水面で切った容積で、浮力点の表（vPoints）とは別の計算。draft は船体中央の船底（物理の根の原点）の水面からの深さ（鉛直）。heel は右舷が下がる向き、trim は船首が上がる向きが正（度）。",
+    "massKg": 2083.237548828125,
+    "dt": 0.00833333283662796,
+    "g": 9.8100004196167,
+    "rho": 1025.0,
+    "scale": 1.1328351497650147,
+    "meshVolumeFullM3": 15.512725830078125,
+    "stepMicrosecondsMean": 13.336913108825684,
+    "secondsTotal": 18.401430130004884,
+    "centerOfMassLocal": {
+        "x": -0.004175953101366758,
+        "y": 0.6022766828536987,
+        "z": -0.4013407230377197
+    },
+    "inertiaTensor": {
+        "x": 744.4931640625,
+        "y": 14854.3095703125,
+        "z": 15013.05078125
+    },
+    "gravity": {
+        "x": 0.0,
+        "y": -9.8100004196167,
+        "z": 0.0
+    },
+    "inertiaRot": {
+        "x": -0.48923709988594057,
+        "y": 0.5002345442771912,
+        "z": 0.5000159740447998,
+        "w": 0.5102905631065369
+    },
+    "eqDraftPython": 0.24914109706878663,
+    "eqTrimPython": 0.12876766920089723,
+    "eqHeelPython": -0.5857121348381043,
+    "eqKeelHeightPython": -0.24914109706878663,
+    "events": [
+        {
+            "name": "heave_push",
+            "t": 7.999999523162842,
+            "value": 1481.8753662109375,
+            "unit": "N·s",
+            "noteJa": "重心へ下向きの力積（目標の沈み 0.1 m、減衰なしの見積もり）"
+        },
+        {
+            "name": "roll_push",
+            "t": 13.999999046325684,
+            "value": 423.8692932128906,
+            "unit": "N·m·s",
+            "noteJa": "船首尾の軸まわりの角力積（目標 10°、減衰なしの見積もり）"
+        },
+        {
+            "name": "pitch_push",
+            "t": 22.008331298828126,
+            "value": 4255.99755859375,
+            "unit": "N·m·s",
+            "noteJa": "左右の軸まわりの角力積（目標 3°、減衰なしの見積もり）"
+        },
+        {
+            "name": "static_heel_moment",
+            "t": 28.0,
+            "value": 824.0,
+            "unit": "N·m",
+            "noteJa": "一定の横のモーメント（右舷を下げる向き）を 28〜36 s に与えた"
+        }
+    ],
+    "frames": [
+        "a_00000.jpg",
+        "a_01320.jpg"
+    ],
+    "stills": [
+        "G:/Unity/GreatWave_2026_Fresh/Unity/Build/Design/42/buoyancy/still_python_eq_port_bow.png",
+        "G:/Unity/GreatWave_2026_Fresh/Unity/Build/Design/42/buoyancy/still_python_eq_stern.png",
+        "G:/Unity/GreatWave_2026_Fresh/Unity/Build/Design/42/buoyancy/still_unity_end_port_bow.png",
+        "G:/Unity/GreatWave_2026_Fresh/Unity/Build/Design/42/buoyancy/still_unity_end_stern.png"
+    ],
+    "frameCount": 1321,
+    "pointCount": 10,
+    "pointsLocal": [
+        {
+            "x": -0.2960088551044464,
+            "y": 0.07691781222820282,
+            "z": 3.2150514125823976
+        },
+        {
+            "x": 0.29189038276672366,
+            "y": 0.07691781222820282,
+            "z": 3.2145495414733888
+        },
+        {
+            "x": -0.4509964883327484,
+            "y": 0.0,
+            "z": 1.7454133033752442
+        },
+        {
+            "x": 0.4477823078632355,
+            "y": 0.0,
+            "z": 1.7430062294006348
+        },
+        {
+            "x": -0.5319567918777466,
+            "y": 0.0,
+            "z": -0.021453408524394037
+        },
+        {
+            "x": 0.5269626379013062,
+            "y": 0.0,
+            "z": -0.019055012613534929
+        },
+        {
+            "x": -0.5112215280532837,
+            "y": 0.0,
+            "z": -1.7967500686645508
+        },
+        {
+            "x": 0.5131228566169739,
+            "y": 0.0,
+            "z": -1.798550009727478
+        },
+        {
+            "x": -0.39732903242111208,
+            "y": 0.07059921324253082,
+            "z": -3.576932668685913
+        },
+        {
+            "x": 0.40022099018096926,
+            "y": 0.07059921324253082,
+            "z": -3.5749175548553469
+        }
+    ],
+    "protectedUnchanged": true,
+    "changedFiles": [],
+    "simulationModeBefore": "FixedUpdate",
+    "simulationModeAfter": "FixedUpdate"
+}
