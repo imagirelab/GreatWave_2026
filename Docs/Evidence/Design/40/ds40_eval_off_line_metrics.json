@@ -1,0 +1,705 @@
+{
+ "schema": "GreatWave.PaintingTruth.metrics/1",
+ "generated_utc": "2026-09-30T00:33:07+00:00",
+ "tools": {
+  "python": "3.10.6",
+  "numpy": "2.2.6",
+  "opencv": "4.12.0"
+ },
+ "command": "py -3.10 Tools/PaintingTruth/evaluate.py --render Unity/Build/Design/40/compare/unity/full/painting_t120_off.png --ids Unity/Build/Design/40/compare/unity/full/ids_line.png --idmap Unity/Build/Design/40/compare/eval/idmap.json --out-dir Unity/Build/Design/40/compare/eval/off_line --name off_line",
+ "input": {
+  "render": "Unity/Build/Design/40/compare/unity/full/painting_t120_off.png",
+  "render_sha256": "cca51fbdb2ae99fbd0314ecf3e01c9c008fc314037bdcdc8dc4fe6c01a73408d",
+  "mode": "ids",
+  "ids": "Unity/Build/Design/40/compare/unity/full/ids_line.png",
+  "ids_sha256": "79b1d3c5163e7349b6337ee078fea04ae55c801045ad89a22c22112fbf41a807"
+ },
+ "truth": {
+  "version": "v0.2",
+  "manifest_sha256": "8c99033e02c2cbeedec4cf8924e57fe89092c714569afa56c8c8965414880fbd",
+  "judged_version": "envelope"
+ },
+ "t_star_s": 12.0,
+ "provisional": false,
+ "gate": {
+  "path": "Docs/Evidence/ArtFirst/23/23_gate.json",
+  "exists": true,
+  "sha256": "5f20f595b56679052286354580907e1f43f42a5501884938fdf6b56a217b1c16",
+  "gate_all_pass": true,
+  "gate_complete": true,
+  "truth_at_gate": {
+   "truth_manifest_sha256": "8c99033e02c2cbeedec4cf8924e57fe89092c714569afa56c8c8965414880fbd",
+   "painting_truth_sha256": "392860ebeff76a7249056fc339b15e853c0155937efa4feee125f8f974f01c0a"
+  },
+  "truth_now": {
+   "truth_manifest_sha256": "8c99033e02c2cbeedec4cf8924e57fe89092c714569afa56c8c8965414880fbd",
+   "painting_truth_sha256": "392860ebeff76a7249056fc339b15e853c0155937efa4feee125f8f974f01c0a"
+  },
+  "truth_unchanged_since_gate": true,
+  "all_pass": true
+ },
+ "provisional_ja": "番号23 の較正門（Docs/Evidence/ArtFirst/23/23_gate.json）は全項目合格で、門の後に真値は変わっていない。判定は暫定扱いしない。描画が t* の PaintingCam v1 画像であることは呼び出し側の責任。",
+ "items": {
+  "78": {
+   "backlog": 78,
+   "measures": [
+    {
+     "target": "78",
+     "family": "sky_envelope",
+     "metric": "labelled Hausdorff (display px)",
+     "value_max_px": 5.6768,
+     "p95_px": 4.7211,
+     "p50_px": 3.2959,
+     "max_truth_to_render": 5.6768,
+     "max_render_to_truth": 5.626,
+     "n_truth": 592,
+     "n_render_assigned": 580,
+     "threshold_px": 4.0,
+     "verdict": "fail",
+     "version": "envelope",
+     "worst_display_xy": [
+      297.0,
+      371.26
+     ]
+    }
+   ],
+   "verdict": "fail"
+  },
+  "130": {
+   "backlog": 130,
+   "measures": [
+    {
+     "target": "130",
+     "family": "sky_envelope",
+     "metric": "labelled Hausdorff (display px)",
+     "value_max_px": 6.6931,
+     "p95_px": 6.4755,
+     "p50_px": 3.4376,
+     "max_truth_to_render": 6.6931,
+     "max_render_to_truth": 6.6931,
+     "n_truth": 496,
+     "n_render_assigned": 496,
+     "threshold_px": 4.0,
+     "verdict": "fail",
+     "version": "envelope",
+     "worst_display_xy": [
+      425.74,
+      245.0
+     ]
+    }
+   ],
+   "verdict": "fail"
+  },
+  "131": {
+   "backlog": 131,
+   "measures": [
+    {
+     "target": "131",
+     "family": "sky_envelope",
+     "metric": "labelled Hausdorff (display px)",
+     "value_max_px": 5.7971,
+     "p95_px": 5.4439,
+     "p50_px": 2.4068,
+     "max_truth_to_render": 5.7971,
+     "max_render_to_truth": 5.7797,
+     "n_truth": 758,
+     "n_render_assigned": 760,
+     "threshold_px": 4.0,
+     "verdict": "fail",
+     "version": "envelope",
+     "worst_display_xy": [
+      547.0,
+      157.14
+     ]
+    }
+   ],
+   "verdict": "fail"
+  },
+  "132": {
+   "backlog": 132,
+   "measures": [
+    {
+     "target": "132",
+     "family": "sky_envelope",
+     "metric": "labelled Hausdorff (display px)",
+     "value_max_px": 8.391,
+     "p95_px": 6.897,
+     "p50_px": 3.4497,
+     "max_truth_to_render": 8.3813,
+     "max_render_to_truth": 8.391,
+     "n_truth": 1213,
+     "n_render_assigned": 1211,
+     "threshold_px": 4.0,
+     "verdict": "fail",
+     "version": "envelope",
+     "worst_display_xy": [
+      981.16,
+      243.0
+     ]
+    }
+   ],
+   "verdict": "fail"
+  },
+  "72": {
+   "backlog": 72,
+   "measures": [
+    {
+     "target": "72",
+     "family": "sky_envelope",
+     "metric": "labelled Hausdorff (display px)",
+     "value_max_px": 13.1464,
+     "p95_px": 8.5954,
+     "p50_px": 4.1921,
+     "max_truth_to_render": 13.1464,
+     "max_render_to_truth": 13.1397,
+     "n_truth": 2145,
+     "n_render_assigned": 2002,
+     "threshold_px": 4.0,
+     "verdict": "fail",
+     "version": "envelope",
+     "worst_display_xy": [
+      978.0,
+      421.52
+     ]
+    }
+   ],
+   "verdict": "fail"
+  },
+  "71": {
+   "backlog": 71,
+   "measures": [
+    {
+     "target": "71",
+     "family": "sky_envelope",
+     "metric": "labelled Hausdorff (display px)",
+     "value_max_px": 37.4944,
+     "p95_px": 12.1425,
+     "p50_px": 4.0436,
+     "max_truth_to_render": 37.4944,
+     "max_render_to_truth": 13.1397,
+     "n_truth": 2529,
+     "n_render_assigned": 2212,
+     "threshold_px": 4.0,
+     "verdict": "fail",
+     "version": "envelope",
+     "worst_display_xy": [
+      1044.0,
+      744.42
+     ],
+     "iou": 0.95116
+    }
+   ],
+   "verdict": "fail"
+  },
+  "76": {
+   "backlog": 76,
+   "measures": [
+    {
+     "target": "sky_dark",
+     "family": "sky_dark",
+     "metric": "labelled Hausdorff (display px)",
+     "value_max_px": 37.4511,
+     "p95_px": 19.2455,
+     "p50_px": 2.0,
+     "max_truth_to_render": 37.4511,
+     "max_render_to_truth": 32.3431,
+     "n_truth": 4160,
+     "n_render_assigned": 3976,
+     "threshold_px": 4.0,
+     "verdict": "fail",
+     "version": null,
+     "worst_display_xy": [
+      1044.0,
+      744.36
+     ]
+    },
+    {
+     "target": "sky_bottom",
+     "metric": "CIEDE2000 of region median (3 px erosion)",
+     "value": 0.2224,
+     "render_lab": [
+      53.728,
+      -1.455,
+      3.122
+     ],
+     "truth_lab": [
+      53.922498,
+      -1.367689,
+      3.092
+     ],
+     "pixels": 18813,
+     "threshold": 5.0,
+     "verdict": "pass"
+    }
+   ],
+   "verdict": "fail"
+  },
+  "213": {
+   "backlog": 213,
+   "measures": [
+    {
+     "target": "sky_transition",
+     "family": "sky_dark",
+     "metric": "labelled Hausdorff (display px)",
+     "value_max_px": 4.8815,
+     "p95_px": 2.724,
+     "p50_px": 0.9963,
+     "max_truth_to_render": 4.8815,
+     "max_render_to_truth": 4.6093,
+     "n_truth": 1572,
+     "n_render_assigned": 1546,
+     "threshold_px": 4.0,
+     "verdict": "fail",
+     "version": null,
+     "worst_display_xy": [
+      905.0,
+      652.81
+     ]
+    },
+    {
+     "target": "boat_ochre",
+     "metric": "CIEDE2000 of region median (3 px erosion)",
+     "value": 0.1332,
+     "render_lab": [
+      80.331,
+      7.794,
+      22.415
+     ],
+     "truth_lab": [
+      80.361399,
+      7.822666,
+      22.672393
+     ],
+     "pixels": 18331,
+     "threshold": 5.0,
+     "verdict": "record-only"
+    }
+   ],
+   "verdict": "fail"
+  },
+  "75": {
+   "backlog": 75,
+   "measures": [
+    {
+     "target": "boat_fg",
+     "family": "boat_fg",
+     "metric": "labelled Hausdorff (display px)",
+     "value_max_px": 141.358,
+     "p95_px": 85.6184,
+     "p50_px": 12.6248,
+     "max_truth_to_render": 65.8448,
+     "max_render_to_truth": 141.358,
+     "n_truth": 4400,
+     "n_render_assigned": 3328,
+     "threshold_px": 4.0,
+     "verdict": "record-only",
+     "version": null,
+     "worst_display_xy": [
+      1490.95,
+      941.0
+     ]
+    }
+   ],
+   "verdict": "record-only"
+  },
+  "157": {
+   "backlog": 157,
+   "measures": [
+    {
+     "target": "boat_left",
+     "family": "boat_left",
+     "metric": "labelled Hausdorff (display px)",
+     "value_max_px": 77.5517,
+     "p95_px": 63.5708,
+     "p50_px": 17.5993,
+     "max_truth_to_render": 77.5517,
+     "max_render_to_truth": 56.0886,
+     "n_truth": 3568,
+     "n_render_assigned": 2316,
+     "threshold_px": 4.0,
+     "verdict": "record-only",
+     "version": null,
+     "worst_display_xy": [
+      191.0,
+      498.42
+     ]
+    }
+   ],
+   "verdict": "record-only"
+  },
+  "159": {
+   "backlog": 159,
+   "measures": [
+    {
+     "target": "boat_mid",
+     "family": "boat_mid",
+     "metric": "labelled Hausdorff (display px)",
+     "value_max_px": 160.857,
+     "p95_px": 121.3215,
+     "p50_px": 28.5229,
+     "max_truth_to_render": 160.857,
+     "max_render_to_truth": 115.2009,
+     "n_truth": 2656,
+     "n_render_assigned": 3404,
+     "threshold_px": 4.0,
+     "verdict": "record-only",
+     "version": null,
+     "worst_display_xy": [
+      1050.0,
+      751.48
+     ]
+    }
+   ],
+   "verdict": "record-only"
+  },
+  "78_claws": {
+   "backlog": 78,
+   "measures": [
+    {
+     "target": "78",
+     "family": "sky_claws",
+     "metric": "labelled Hausdorff (display px)",
+     "value_max_px": 5.6768,
+     "p95_px": 4.7211,
+     "p50_px": 3.2959,
+     "max_truth_to_render": 5.6768,
+     "max_render_to_truth": 5.626,
+     "n_truth": 592,
+     "n_render_assigned": 580,
+     "threshold_px": 4.0,
+     "verdict": "record-only",
+     "version": "claws",
+     "worst_display_xy": [
+      297.0,
+      371.26
+     ]
+    }
+   ],
+   "verdict": "record-only"
+  },
+  "130_claws": {
+   "backlog": 130,
+   "measures": [
+    {
+     "target": "130",
+     "family": "sky_claws",
+     "metric": "labelled Hausdorff (display px)",
+     "value_max_px": 6.6931,
+     "p95_px": 6.4755,
+     "p50_px": 3.4376,
+     "max_truth_to_render": 6.6931,
+     "max_render_to_truth": 6.6931,
+     "n_truth": 496,
+     "n_render_assigned": 496,
+     "threshold_px": 4.0,
+     "verdict": "record-only",
+     "version": "claws",
+     "worst_display_xy": [
+      425.74,
+      245.0
+     ]
+    }
+   ],
+   "verdict": "record-only"
+  },
+  "131_claws": {
+   "backlog": 131,
+   "measures": [
+    {
+     "target": "131",
+     "family": "sky_claws",
+     "metric": "labelled Hausdorff (display px)",
+     "value_max_px": 5.7971,
+     "p95_px": 5.4445,
+     "p50_px": 2.4049,
+     "max_truth_to_render": 5.7971,
+     "max_render_to_truth": 5.7797,
+     "n_truth": 758,
+     "n_render_assigned": 759,
+     "threshold_px": 4.0,
+     "verdict": "record-only",
+     "version": "claws",
+     "worst_display_xy": [
+      547.0,
+      157.14
+     ]
+    }
+   ],
+   "verdict": "record-only"
+  },
+  "132_claws": {
+   "backlog": 132,
+   "measures": [
+    {
+     "target": "132",
+     "family": "sky_claws",
+     "metric": "labelled Hausdorff (display px)",
+     "value_max_px": 47.861,
+     "p95_px": 36.3944,
+     "p50_px": 4.9794,
+     "max_truth_to_render": 47.861,
+     "max_render_to_truth": 15.3821,
+     "n_truth": 2002,
+     "n_render_assigned": 1212,
+     "threshold_px": 4.0,
+     "verdict": "record-only",
+     "version": "claws",
+     "worst_display_xy": [
+      1030.0,
+      320.42
+     ]
+    }
+   ],
+   "verdict": "record-only"
+  },
+  "72_claws": {
+   "backlog": 72,
+   "measures": [
+    {
+     "target": "72",
+     "family": "sky_claws",
+     "metric": "labelled Hausdorff (display px)",
+     "value_max_px": 42.5934,
+     "p95_px": 31.4588,
+     "p50_px": 5.5772,
+     "max_truth_to_render": 42.5934,
+     "max_render_to_truth": 21.3773,
+     "n_truth": 3440,
+     "n_render_assigned": 2002,
+     "threshold_px": 4.0,
+     "verdict": "record-only",
+     "version": "claws",
+     "worst_display_xy": [
+      956.0,
+      385.16
+     ]
+    }
+   ],
+   "verdict": "record-only"
+  },
+  "71_claws": {
+   "backlog": 71,
+   "measures": [
+    {
+     "target": "71",
+     "family": "sky_claws",
+     "metric": "labelled Hausdorff (display px)",
+     "value_max_px": 42.5934,
+     "p95_px": 29.6208,
+     "p50_px": 4.9961,
+     "max_truth_to_render": 42.5934,
+     "max_render_to_truth": 21.3001,
+     "n_truth": 3552,
+     "n_render_assigned": 2213,
+     "threshold_px": 4.0,
+     "verdict": "record-only",
+     "version": "claws",
+     "worst_display_xy": [
+      956.0,
+      385.16
+     ],
+     "iou": 0.90763
+    }
+   ],
+   "verdict": "record-only"
+  },
+  "74": {
+   "backlog": 74,
+   "measures": [
+    {
+     "target": "fuji_ridge",
+     "family": "sky_claws",
+     "metric": "labelled Hausdorff (display px)",
+     "value_max_px": 5.7562,
+     "p95_px": 5.3092,
+     "p50_px": 1.6242,
+     "max_truth_to_render": 5.7562,
+     "max_render_to_truth": 5.7284,
+     "n_truth": 680,
+     "n_render_assigned": 680,
+     "threshold_px": 4.0,
+     "verdict": "record-only",
+     "version": "claws",
+     "worst_display_xy": [
+      1265.38,
+      768.0
+     ]
+    }
+   ],
+   "verdict": "record-only"
+  },
+  "161": {
+   "backlog": 161,
+   "measures": [
+    {
+     "target": "fuji_ridge",
+     "family": "sky_claws",
+     "metric": "labelled Hausdorff (display px)",
+     "value_max_px": 5.7562,
+     "p95_px": 5.3092,
+     "p50_px": 1.6242,
+     "max_truth_to_render": 5.7562,
+     "max_render_to_truth": 5.7284,
+     "n_truth": 680,
+     "n_render_assigned": 680,
+     "threshold_px": 4.0,
+     "verdict": "record-only",
+     "version": "claws",
+     "worst_display_xy": [
+      1265.38,
+      768.0
+     ]
+    }
+   ],
+   "verdict": "record-only"
+  },
+  "212": {
+   "backlog": 212,
+   "measures": [
+    {
+     "target": "sky_top",
+     "metric": "CIEDE2000 of region median (3 px erosion)",
+     "value": 0.2714,
+     "render_lab": [
+      92.174,
+      -0.02,
+      19.182
+     ],
+     "truth_lab": [
+      92.366517,
+      0.109946,
+      19.552656
+     ],
+     "pixels": 180325,
+     "threshold": 5.0,
+     "verdict": "pass"
+    }
+   ],
+   "verdict": "pass"
+  },
+  "265": {
+   "backlog": 265,
+   "measures": [
+    {
+     "target": "mizuiro",
+     "metric": "CIEDE2000 of region median (3 px erosion)",
+     "value": 1.2195,
+     "render_lab": [
+      84.441,
+      -7.947,
+      3.961
+     ],
+     "truth_lab": [
+      82.959445,
+      -8.681797,
+      3.907445
+     ],
+     "pixels": 7573,
+     "threshold": 5.0,
+     "verdict": "record-only"
+    },
+    {
+     "target": "ai_mid",
+     "metric": "CIEDE2000 of region median (3 px erosion)",
+     "value": 0.3312,
+     "render_lab": [
+      42.375,
+      -5.362,
+      -28.709
+     ],
+     "truth_lab": [
+      42.172478,
+      -5.516938,
+      -29.284714
+     ],
+     "pixels": 4749,
+     "threshold": 5.0,
+     "verdict": "record-only"
+    }
+   ],
+   "verdict": "record-only"
+  },
+  "162": {
+   "backlog": 162,
+   "measures": [
+    {
+     "target": "fuji_snow",
+     "metric": "CIEDE2000 of region median (3 px erosion)",
+     "value": 64.4401,
+     "render_lab": [
+      27.388,
+      0.5,
+      -20.573
+     ],
+     "truth_lab": [
+      97.65168,
+      -2.195321,
+      9.574448
+     ],
+     "pixels": 4450,
+     "threshold": 5.0,
+     "verdict": "record-only"
+    },
+    {
+     "target": "fuji_slope",
+     "metric": "CIEDE2000 of region median (3 px erosion)",
+     "value": 0.1517,
+     "render_lab": [
+      27.388,
+      0.5,
+      -20.573
+     ],
+     "truth_lab": [
+      27.581539,
+      0.524222,
+      -20.662449
+     ],
+     "pixels": 315,
+     "threshold": 5.0,
+     "verdict": "record-only"
+    }
+   ],
+   "verdict": "record-only"
+  },
+  "line_width": {
+   "backlog": null,
+   "measures": [
+    {
+     "target": "outline_line_width",
+     "metric": "藍の輪郭線の半深さ全幅（表示 px、真値の線幅プロファイルと同じ点・同じ測り方）",
+     "median_display_px": 3.0784,
+     "p10_display_px": 2.2811,
+     "p90_display_px": 3.6505,
+     "median_ref_px": 7.3939,
+     "n_samples": 117,
+     "segments": {
+      "78": {
+       "n_points": 176,
+       "n_measured": 3,
+       "median_display_px": 2.787,
+       "truth_median_display_px": 2.7801,
+       "ratio_minus_1": 0.0025
+      },
+      "130": {
+       "n_points": 134,
+       "n_measured": 38,
+       "median_display_px": 3.0887,
+       "truth_median_display_px": 3.3426,
+       "ratio_minus_1": -0.076
+      },
+      "131": {
+       "n_points": 230,
+       "n_measured": 76,
+       "median_display_px": 3.0754,
+       "truth_median_display_px": 2.8665,
+       "ratio_minus_1": 0.0729
+      }
+     },
+     "tolerance": 0.2,
+     "verdict": "record-only"
+    }
+   ],
+   "verdict": "record-only"
+  }
+ }
+}

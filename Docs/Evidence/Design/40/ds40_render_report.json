@@ -1,0 +1,1034 @@
+{
+    "unity": "6000.4.3f1",
+    "device": "NVIDIA GeForce RTX 3080",
+    "graphicsApi": "Direct3D11",
+    "colorSpace": "Linear",
+    "utc": "2026-09-30T00:27:00.8810363Z",
+    "scene": "Assets/GreatWave/Design39/Scenes/DS39_Paper.unity",
+    "sceneSha256": "7480a99b1e961fa68b3bb7851789a17a70c082f6981b8d1560a46a8324699ddd",
+    "noteJa": "Unity の PC オフスクリーン描画（batchmode、Editor の camera.Render、DS39_Paper.unity を開くだけで保存しない）。HMD 実機ではない。Mock の両眼は座席のカメラを右の向きへ ±0.032 m ずらした 2 回の描画。",
+    "idLegendJa": "full/ids_*.png（3840×2160、線形、MSAA なし）：空 (0,255,255)、boat_left (102,0,0)、boat_mid (0,102,0)、boat_fg (102,102,0)。keypose のシート・爪は _AF28IdMode の色区 ID（白 (255,0,0)・水色 (0,255,0)・藍中 (0,0,255)・藍濃 (255,255,0)）、線 (255,0,255)、CPU のメッシュの other (0,0,0)。飛沫は入れない。",
+    "t28Files": [
+        "G:/Unity/GreatWave_2026_Fresh/Unity/Build/Design/40/compare/unity/t28_white/t28/render/af28r01_painting.png",
+        "G:/Unity/GreatWave_2026_Fresh/Unity/Build/Design/40/compare/unity/t28_white/t28/render/af28r01_seat.png",
+        "G:/Unity/GreatWave_2026_Fresh/Unity/Build/Design/40/compare/unity/t28_white/t28/render/af28r01_seat_low.png",
+        "G:/Unity/GreatWave_2026_Fresh/Unity/Build/Design/40/compare/unity/t28_white/t28/render/af28r01_painting_kstar.png",
+        "G:/Unity/GreatWave_2026_Fresh/Unity/Build/Design/40/compare/unity/t28_white/t28/render/af28r01_seat_kstar.png",
+        "G:/Unity/GreatWave_2026_Fresh/Unity/Build/Design/40/compare/unity/t28_white/t28/render/af28r01_seat_low_kstar.png",
+        "G:/Unity/GreatWave_2026_Fresh/Unity/Build/Design/40/compare/unity/t28_white/t28/render/af28r01_class_ids.png",
+        "G:/Unity/GreatWave_2026_Fresh/Unity/Build/Design/40/compare/unity/t28_white/t28/render/af28r01_seat_class_ids.png",
+        "G:/Unity/GreatWave_2026_Fresh/Unity/Build/Design/40/compare/unity/t28_white/t28/render/af28r01_seat_low_class_ids.png",
+        "G:/Unity/GreatWave_2026_Fresh/Unity/Build/Design/40/compare/unity/t28_white/t28/render/af28r01_line_ids.png",
+        "G:/Unity/GreatWave_2026_Fresh/Unity/Build/Design/40/compare/unity/t28_claws/t28/render/af28r01_painting.png",
+        "G:/Unity/GreatWave_2026_Fresh/Unity/Build/Design/40/compare/unity/t28_claws/t28/render/af28r01_seat.png",
+        "G:/Unity/GreatWave_2026_Fresh/Unity/Build/Design/40/compare/unity/t28_claws/t28/render/af28r01_seat_low.png",
+        "G:/Unity/GreatWave_2026_Fresh/Unity/Build/Design/40/compare/unity/t28_claws/t28/render/af28r01_painting_kstar.png",
+        "G:/Unity/GreatWave_2026_Fresh/Unity/Build/Design/40/compare/unity/t28_claws/t28/render/af28r01_seat_kstar.png",
+        "G:/Unity/GreatWave_2026_Fresh/Unity/Build/Design/40/compare/unity/t28_claws/t28/render/af28r01_seat_low_kstar.png",
+        "G:/Unity/GreatWave_2026_Fresh/Unity/Build/Design/40/compare/unity/t28_claws/t28/render/af28r01_class_ids.png",
+        "G:/Unity/GreatWave_2026_Fresh/Unity/Build/Design/40/compare/unity/t28_claws/t28/render/af28r01_seat_class_ids.png",
+        "G:/Unity/GreatWave_2026_Fresh/Unity/Build/Design/40/compare/unity/t28_claws/t28/render/af28r01_seat_low_class_ids.png",
+        "G:/Unity/GreatWave_2026_Fresh/Unity/Build/Design/40/compare/unity/t28_claws/t28/render/af28r01_line_ids.png"
+    ],
+    "images": [
+        {
+            "view": "painting",
+            "cond": "off",
+            "path": "G:/Unity/GreatWave_2026_Fresh/Unity/Build/Design/40/compare/unity/full/painting_t120_off.png",
+            "sha256": "cca51fbdb2ae99fbd0314ecf3e01c9c008fc314037bdcdc8dc4fe6c01a73408d",
+            "t": 12.0,
+            "dx": 0.0
+        },
+        {
+            "view": "painting",
+            "cond": "all",
+            "path": "G:/Unity/GreatWave_2026_Fresh/Unity/Build/Design/40/compare/unity/full/painting_t120_all.png",
+            "sha256": "613fb3d38300991f70d69b0dc2bb9093f783090c76886ca2bfb9e4077994e34b",
+            "t": 12.0,
+            "dx": 0.0
+        },
+        {
+            "view": "painting",
+            "cond": "ids_noline",
+            "path": "G:/Unity/GreatWave_2026_Fresh/Unity/Build/Design/40/compare/unity/full/ids_noline.png",
+            "sha256": "d2f5c8806d0fd50937d8b2d5412d818858c0fb9d4e125451cdc0ee24a2e0ba52",
+            "t": 12.0,
+            "dx": 0.0
+        },
+        {
+            "view": "painting",
+            "cond": "ids_line",
+            "path": "G:/Unity/GreatWave_2026_Fresh/Unity/Build/Design/40/compare/unity/full/ids_line.png",
+            "sha256": "79b1d3c5163e7349b6337ee078fea04ae55c801045ad89a22c22112fbf41a807",
+            "t": 12.0,
+            "dx": 0.0
+        },
+        {
+            "view": "painting",
+            "cond": "ids_line_noclaws",
+            "path": "G:/Unity/GreatWave_2026_Fresh/Unity/Build/Design/40/compare/unity/full/ids_line_noclaws.png",
+            "sha256": "06b014b6c0cbf11f3f9e73c7410d34549186bf222c38f6d557cececf98fb4aac",
+            "t": 12.0,
+            "dx": 0.0
+        },
+        {
+            "view": "painting",
+            "cond": "ids_noline_noclaws",
+            "path": "G:/Unity/GreatWave_2026_Fresh/Unity/Build/Design/40/compare/unity/full/ids_noline_noclaws.png",
+            "sha256": "48116bce25c20ceaf2000cb678373136ddc8449760f4a6f64afe2b78787e9921",
+            "t": 12.0,
+            "dx": 0.0
+        },
+        {
+            "view": "seat",
+            "cond": "off",
+            "path": "G:/Unity/GreatWave_2026_Fresh/Unity/Build/Design/40/compare/unity/views/seat_t120_off.png",
+            "sha256": "f1c17fa836ea5a199d9f401db5b99bd2ef82d60faa1eb56c043614d644c59213",
+            "t": 12.0,
+            "dx": 0.0
+        },
+        {
+            "view": "seat",
+            "cond": "all",
+            "path": "G:/Unity/GreatWave_2026_Fresh/Unity/Build/Design/40/compare/unity/views/seat_t120_all.png",
+            "sha256": "f39d87675b1e99d2427468ba397a53749b4ea20d916854ec0f688ddcb3b877cd",
+            "t": 12.0,
+            "dx": 0.0
+        },
+        {
+            "view": "seat_low",
+            "cond": "off",
+            "path": "G:/Unity/GreatWave_2026_Fresh/Unity/Build/Design/40/compare/unity/views/seat_low_t120_off.png",
+            "sha256": "596082181fedd4728e79101ba74b347d0d9fea644f7e17d79ab535b6a654c12c",
+            "t": 12.0,
+            "dx": 0.0
+        },
+        {
+            "view": "seat_low",
+            "cond": "all",
+            "path": "G:/Unity/GreatWave_2026_Fresh/Unity/Build/Design/40/compare/unity/views/seat_low_t120_all.png",
+            "sha256": "641816eb1f40fa22b9382b08123ba49dd42398018dc3266ed7e723b79402064b",
+            "t": 12.0,
+            "dx": 0.0
+        },
+        {
+            "view": "seat_toward_wave",
+            "cond": "off",
+            "path": "G:/Unity/GreatWave_2026_Fresh/Unity/Build/Design/40/compare/unity/views/seat_toward_wave_t120_off.png",
+            "sha256": "7b0835b43912ccee599809d88270e651c471ed8cea95480a475b4663a9ec5648",
+            "t": 12.0,
+            "dx": 0.0
+        },
+        {
+            "view": "seat_toward_wave",
+            "cond": "all",
+            "path": "G:/Unity/GreatWave_2026_Fresh/Unity/Build/Design/40/compare/unity/views/seat_toward_wave_t120_all.png",
+            "sha256": "72f43ff97c0cce4619b3415ff15244bfa23d1e17c0347ca858f4fd2265cfe71f",
+            "t": 12.0,
+            "dx": 0.0
+        },
+        {
+            "view": "seat_toward_wave",
+            "cond": "off",
+            "path": "G:/Unity/GreatWave_2026_Fresh/Unity/Build/Design/40/compare/unity/views/seat_toward_wave_t105_off.png",
+            "sha256": "792a347501f1cf448198b194c09ac23ac6f469b965e9318d230e6c129dc6d9f6",
+            "t": 10.5,
+            "dx": 0.0
+        },
+        {
+            "view": "seat_toward_wave",
+            "cond": "all",
+            "path": "G:/Unity/GreatWave_2026_Fresh/Unity/Build/Design/40/compare/unity/views/seat_toward_wave_t105_all.png",
+            "sha256": "e59c6b3a59745f2b2c7009365cde3a4c76737c44db8eeeed38e343a9e178fb62",
+            "t": 10.5,
+            "dx": 0.0
+        },
+        {
+            "view": "side_left",
+            "cond": "off",
+            "path": "G:/Unity/GreatWave_2026_Fresh/Unity/Build/Design/40/compare/unity/views/side_left_t120_off.png",
+            "sha256": "736f4134171e1f7974635c2a07a614216c104d89378e06a1d633d9968829d67f",
+            "t": 12.0,
+            "dx": 0.0
+        },
+        {
+            "view": "side_left",
+            "cond": "all",
+            "path": "G:/Unity/GreatWave_2026_Fresh/Unity/Build/Design/40/compare/unity/views/side_left_t120_all.png",
+            "sha256": "de9ec00f950f3855b427de7f9b87cdbadf860758f2a9074edcce394ba75896ab",
+            "t": 12.0,
+            "dx": 0.0
+        },
+        {
+            "view": "back",
+            "cond": "off",
+            "path": "G:/Unity/GreatWave_2026_Fresh/Unity/Build/Design/40/compare/unity/views/back_t120_off.png",
+            "sha256": "16d0ee76fac944cea00701be27c180edfef583d43e724836e6cd514f1523b125",
+            "t": 12.0,
+            "dx": 0.0
+        },
+        {
+            "view": "back",
+            "cond": "all",
+            "path": "G:/Unity/GreatWave_2026_Fresh/Unity/Build/Design/40/compare/unity/views/back_t120_all.png",
+            "sha256": "eb0b4cf0989c61619820f06cf7f3ad0c66eb07bc6c429e9b3b8c0b400698fcbb",
+            "t": 12.0,
+            "dx": 0.0
+        },
+        {
+            "view": "side_left",
+            "cond": "off_waveonly",
+            "path": "G:/Unity/GreatWave_2026_Fresh/Unity/Build/Design/40/compare/unity/views/side_left_t120_off_waveonly.png",
+            "sha256": "736f4134171e1f7974635c2a07a614216c104d89378e06a1d633d9968829d67f",
+            "t": 12.0,
+            "dx": 0.0
+        },
+        {
+            "view": "back",
+            "cond": "off_waveonly",
+            "path": "G:/Unity/GreatWave_2026_Fresh/Unity/Build/Design/40/compare/unity/views/back_t120_off_waveonly.png",
+            "sha256": "e6c97ab907651fb27b3dfa1d7caf0ab9b66feb78c27c622a0f5ad6220def42ed",
+            "t": 12.0,
+            "dx": 0.0
+        },
+        {
+            "view": "seat",
+            "cond": "mock_L",
+            "path": "G:/Unity/GreatWave_2026_Fresh/Unity/Build/Design/40/compare/unity/mock/seat_t120_L.png",
+            "sha256": "d9cc1792655e4fe819de9d2a3849022c512c9e7f39505b04e8c6080031e59c3e",
+            "t": 12.0,
+            "dx": -0.03200000151991844
+        },
+        {
+            "view": "seat",
+            "cond": "mock_R",
+            "path": "G:/Unity/GreatWave_2026_Fresh/Unity/Build/Design/40/compare/unity/mock/seat_t120_R.png",
+            "sha256": "daee7c67476e7cccb6e7a7a61afb98d99308a1453fb531a3cab7374126f21446",
+            "t": 12.0,
+            "dx": 0.03200000151991844
+        }
+    ],
+    "cameras": [
+        {
+            "view": "painting",
+            "position": {
+                "x": 0.0,
+                "y": 3.0,
+                "z": -62.0
+            },
+            "euler": {
+                "x": 354.20758056640627,
+                "y": 357.83074951171877,
+                "z": -1.3408675059167763e-8
+            },
+            "fov": 26.0,
+            "near": 0.10000000149011612,
+            "far": 900.0,
+            "worldToCamera": [
+                0.9992833733558655,
+                -2.3283064365386965e-10,
+                0.037851642817258838,
+                2.3468017578125,
+                0.003820155980065465,
+                0.9948940873146057,
+                -0.1008521169424057,
+                -9.237513542175293,
+                0.03765837475657463,
+                -0.10092444717884064,
+                -0.9941810965538025,
+                -61.336456298828128,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "projection": [
+                2.436455011367798,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                4.331475734710693,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                -1.0002222061157227,
+                -0.20002222061157227,
+                0.0,
+                0.0,
+                -1.0,
+                0.0
+            ]
+        },
+        {
+            "view": "seat",
+            "position": {
+                "x": 3.954400062561035,
+                "y": 1.8322999477386475,
+                "z": -15.030799865722657
+            },
+            "euler": {
+                "x": 296.5926818847656,
+                "y": 319.59283447265627,
+                "z": 0.0
+            },
+            "fov": 80.0,
+            "near": 0.10000000149011612,
+            "far": 900.0,
+            "worldToCamera": [
+                0.7614572644233704,
+                0.0,
+                0.648215115070343,
+                6.732085227966309,
+                0.5796414613723755,
+                0.44764459133148196,
+                -0.6809039115905762,
+                -13.346883773803711,
+                0.29017001390457156,
+                -0.8942115306854248,
+                -0.3408622741699219,
+                -4.63241720199585,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "projection": [
+                0.670361340045929,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.1917535066604615,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                -1.0002222061157227,
+                -0.20002222061157227,
+                0.0,
+                0.0,
+                -1.0,
+                0.0
+            ]
+        },
+        {
+            "view": "seat_low",
+            "position": {
+                "x": 3.954400062561035,
+                "y": 1.8322999477386475,
+                "z": -15.030799865722657
+            },
+            "euler": {
+                "x": 340.0000305175781,
+                "y": 319.5931396484375,
+                "z": 0.0
+            },
+            "fov": 80.0,
+            "near": 0.10000000149011612,
+            "far": 900.0,
+            "worldToCamera": [
+                0.7614606618881226,
+                0.0,
+                0.6482111215591431,
+                6.732011795043945,
+                0.22170090675354005,
+                0.9396927952766419,
+                -0.26043447852134707,
+                -6.513031959533691,
+                0.6091192960739136,
+                -0.34201958775520327,
+                -0.7155390977859497,
+                -12.53714370727539,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "projection": [
+                0.670361340045929,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.1917535066604615,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                -1.0002222061157227,
+                -0.20002222061157227,
+                0.0,
+                0.0,
+                -1.0,
+                0.0
+            ]
+        },
+        {
+            "view": "side_left",
+            "position": {
+                "x": -90.0,
+                "y": 30.0,
+                "z": -14.0
+            },
+            "euler": {
+                "x": 14.396061897277832,
+                "y": 82.62623596191406,
+                "z": 0.0
+            },
+            "fov": 45.0,
+            "near": 0.10000000149011612,
+            "far": 900.0,
+            "worldToCamera": [
+                0.12834149599075318,
+                0.0,
+                -0.9917300939559937,
+                -2.333486557006836,
+                0.24656720459461213,
+                0.9686002731323242,
+                0.03190871328115463,
+                -6.420238494873047,
+                -0.9605900049209595,
+                0.2486233115196228,
+                -0.12431162595748902,
+                -95.65216064453125,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "projection": [
+                1.3579950332641602,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                2.4142134189605715,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                -1.0002222061157227,
+                -0.20002222061157227,
+                0.0,
+                0.0,
+                -1.0,
+                0.0
+            ]
+        },
+        {
+            "view": "seat_toward_wave",
+            "position": {
+                "x": 3.954400062561035,
+                "y": 1.8322999477386475,
+                "z": -15.030799865722657
+            },
+            "euler": {
+                "x": 0.0,
+                "y": 312.83074951171877,
+                "z": 0.0
+            },
+            "fov": 70.0,
+            "near": 0.10000000149011612,
+            "far": 900.0,
+            "worldToCamera": [
+                0.6798349618911743,
+                0.0,
+                0.7333651781082153,
+                8.334726333618164,
+                0.0,
+                1.0,
+                0.0,
+                -1.8322999477386475,
+                0.7333651781082153,
+                0.0,
+                -0.6798349618911743,
+                -13.11848258972168,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "projection": [
+                0.8033331036567688,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.428147792816162,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                -1.0002222061157227,
+                -0.20002222061157227,
+                0.0,
+                0.0,
+                -1.0,
+                0.0
+            ]
+        },
+        {
+            "view": "back",
+            "position": {
+                "x": -45.0,
+                "y": 30.0,
+                "z": 60.0
+            },
+            "euler": {
+                "x": 16.425756454467775,
+                "y": 147.5876922607422,
+                "z": -4.450507447018026e-7
+            },
+            "fov": 50.0,
+            "near": 0.10000000149011612,
+            "far": 900.0,
+            "worldToCamera": [
+                -0.8442127704620361,
+                -7.450580596923828e-9,
+                -0.5360081791877747,
+                -5.829082489013672,
+                0.1515684425830841,
+                0.9591869711875916,
+                -0.23872029781341554,
+                -7.631812572479248,
+                -0.5141320824623108,
+                0.28277266025543215,
+                0.8097578287124634,
+                -80.20458984375,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "projection": [
+                1.206284999847412,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                2.1445066928863527,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                -1.0002222061157227,
+                -0.20002222061157227,
+                0.0,
+                0.0,
+                -1.0,
+                0.0
+            ]
+        }
+    ],
+    "objects": [
+        {
+            "name": "AF27 空のドーム",
+            "active": true,
+            "position": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "boundsCenter": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "boundsMin": {
+                "x": -800.0,
+                "y": -800.0,
+                "z": -800.0
+            },
+            "boundsMax": {
+                "x": 800.0,
+                "y": 800.0,
+                "z": 800.0
+            },
+            "renderers": 1
+        },
+        {
+            "name": "AF27 参照海面",
+            "active": true,
+            "position": {
+                "x": 0.0,
+                "y": -9.25,
+                "z": 100.0
+            },
+            "boundsCenter": {
+                "x": 0.0,
+                "y": -9.25,
+                "z": 100.0
+            },
+            "boundsMin": {
+                "x": -500.0,
+                "y": -9.5,
+                "z": -400.0
+            },
+            "boundsMax": {
+                "x": 500.0,
+                "y": -9.0,
+                "z": 600.0
+            },
+            "renderers": 1
+        },
+        {
+            "name": "AF27 船 boat_fg",
+            "active": true,
+            "position": {
+                "x": 1.2566299438476563,
+                "y": -0.22075000405311585,
+                "z": -32.249881744384769
+            },
+            "boundsCenter": {
+                "x": 1.294140338897705,
+                "y": 0.5254573822021484,
+                "z": -32.18927001953125
+            },
+            "boundsMin": {
+                "x": -2.9933743476867677,
+                "y": -0.5075116157531738,
+                "z": -33.196258544921878
+            },
+            "boundsMax": {
+                "x": 5.581655025482178,
+                "y": 1.5584263801574708,
+                "z": -31.182281494140626
+            },
+            "renderers": 5
+        },
+        {
+            "name": "AF27 船 boat_mid",
+            "active": true,
+            "position": {
+                "x": 7.025619983673096,
+                "y": 2.1481499671936037,
+                "z": -14.941940307617188
+            },
+            "boundsCenter": {
+                "x": 6.518187046051025,
+                "y": 2.9123380184173586,
+                "z": -15.353448867797852
+            },
+            "boundsMin": {
+                "x": 1.05088472366333,
+                "y": -1.2920997142791749,
+                "z": -16.843032836914064
+            },
+            "boundsMax": {
+                "x": 11.985488891601563,
+                "y": 7.1167755126953129,
+                "z": -13.86386489868164
+            },
+            "renderers": 5
+        },
+        {
+            "name": "AF27 船 boat_left",
+            "active": true,
+            "position": {
+                "x": -15.292309761047364,
+                "y": 4.821599960327148,
+                "z": -12.530019760131836
+            },
+            "boundsCenter": {
+                "x": -14.744565963745118,
+                "y": 5.505215167999268,
+                "z": -12.398441314697266
+            },
+            "boundsMin": {
+                "x": -19.27468490600586,
+                "y": 1.610342025756836,
+                "z": -13.889459609985352
+            },
+            "boundsMax": {
+                "x": -10.214447021484375,
+                "y": 9.4000883102417,
+                "z": -10.90742301940918
+            },
+            "renderers": 5
+        },
+        {
+            "name": "AF27 富士",
+            "active": true,
+            "position": {
+                "x": 26.318269729614259,
+                "y": -0.10000000149011612,
+                "z": 420.0
+            },
+            "boundsCenter": {
+                "x": 26.318269729614259,
+                "y": 9.995318412780762,
+                "z": 420.0
+            },
+            "boundsMin": {
+                "x": -2.8016510009765627,
+                "y": -0.10000419616699219,
+                "z": 390.88006591796877
+            },
+            "boundsMax": {
+                "x": 55.43819046020508,
+                "y": 20.090641021728517,
+                "z": 449.11993408203127
+            },
+            "renderers": 1
+        },
+        {
+            "name": "AF27 仮置き（前景のうねり・斜面、番号39/40 で置き換え）",
+            "active": true,
+            "position": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "boundsCenter": {
+                "x": -15.0,
+                "y": 3.588111400604248,
+                "z": -9.499999046325684
+            },
+            "boundsMin": {
+                "x": -25.0,
+                "y": 0.6427984237670898,
+                "z": -14.999999046325684
+            },
+            "boundsMax": {
+                "x": -5.0,
+                "y": 6.533424377441406,
+                "z": -3.9999990463256838
+            },
+            "renderers": 1
+        },
+        {
+            "name": "AF27R01 座席 v1（右船、甲板から 1.2 m 上）",
+            "active": true,
+            "position": {
+                "x": 3.954355239868164,
+                "y": 1.8322744369506837,
+                "z": -15.030750274658204
+            },
+            "boundsCenter": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "boundsMin": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "boundsMax": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "renderers": 0
+        },
+        {
+            "name": "find:AF27 船 boat_left",
+            "active": true,
+            "position": {
+                "x": -15.292309761047364,
+                "y": 4.821599960327148,
+                "z": -12.530019760131836
+            },
+            "boundsCenter": {
+                "x": -14.744565963745118,
+                "y": 5.505215167999268,
+                "z": -12.398441314697266
+            },
+            "boundsMin": {
+                "x": -19.27468490600586,
+                "y": 1.610342025756836,
+                "z": -13.889459609985352
+            },
+            "boundsMax": {
+                "x": -10.214447021484375,
+                "y": 9.4000883102417,
+                "z": -10.90742301940918
+            },
+            "renderers": 5
+        },
+        {
+            "name": "find:AF27 船 boat_mid",
+            "active": true,
+            "position": {
+                "x": 7.025619983673096,
+                "y": 2.1481499671936037,
+                "z": -14.941940307617188
+            },
+            "boundsCenter": {
+                "x": 6.518187046051025,
+                "y": 2.9123380184173586,
+                "z": -15.353448867797852
+            },
+            "boundsMin": {
+                "x": 1.05088472366333,
+                "y": -1.2920997142791749,
+                "z": -16.843032836914064
+            },
+            "boundsMax": {
+                "x": 11.985488891601563,
+                "y": 7.1167755126953129,
+                "z": -13.86386489868164
+            },
+            "renderers": 5
+        },
+        {
+            "name": "find:AF27 船 boat_fg",
+            "active": true,
+            "position": {
+                "x": 1.2566299438476563,
+                "y": -0.22075000405311585,
+                "z": -32.249881744384769
+            },
+            "boundsCenter": {
+                "x": 1.294140338897705,
+                "y": 0.5254573822021484,
+                "z": -32.18927001953125
+            },
+            "boundsMin": {
+                "x": -2.9933743476867677,
+                "y": -0.5075116157531738,
+                "z": -33.196258544921878
+            },
+            "boundsMax": {
+                "x": 5.581655025482178,
+                "y": 1.5584263801574708,
+                "z": -31.182281494140626
+            },
+            "renderers": 5
+        },
+        {
+            "name": "find:AF27 富士",
+            "active": true,
+            "position": {
+                "x": 26.318269729614259,
+                "y": -0.10000000149011612,
+                "z": 420.0
+            },
+            "boundsCenter": {
+                "x": 26.318269729614259,
+                "y": 9.995318412780762,
+                "z": 420.0
+            },
+            "boundsMin": {
+                "x": -2.8016510009765627,
+                "y": -0.10000419616699219,
+                "z": 390.88006591796877
+            },
+            "boundsMax": {
+                "x": 55.43819046020508,
+                "y": 20.090641021728517,
+                "z": 449.11993408203127
+            },
+            "renderers": 1
+        },
+        {
+            "name": "find:AF27 空のドーム",
+            "active": true,
+            "position": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "boundsCenter": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "boundsMin": {
+                "x": -800.0,
+                "y": -800.0,
+                "z": -800.0
+            },
+            "boundsMax": {
+                "x": 800.0,
+                "y": 800.0,
+                "z": 800.0
+            },
+            "renderers": 1
+        },
+        {
+            "name": "find:AF27 参照海面",
+            "active": true,
+            "position": {
+                "x": 0.0,
+                "y": -9.25,
+                "z": 100.0
+            },
+            "boundsCenter": {
+                "x": 0.0,
+                "y": -9.25,
+                "z": 100.0
+            },
+            "boundsMin": {
+                "x": -500.0,
+                "y": -9.5,
+                "z": -400.0
+            },
+            "boundsMax": {
+                "x": 500.0,
+                "y": -9.0,
+                "z": 600.0
+            },
+            "renderers": 1
+        }
+    ],
+    "idDecisions": [
+        {
+            "renderer": "Boat_Deck_Planks",
+            "shader": "GreatWave/ArtFirst/AF27 Flat",
+            "decision": "boat_fg"
+        },
+        {
+            "renderer": "Boat_Deck_Planks",
+            "shader": "GreatWave/ArtFirst/AF27 Flat",
+            "decision": "boat_mid"
+        },
+        {
+            "renderer": "Boat_Crossbeams",
+            "shader": "GreatWave/ArtFirst/AF27 Flat",
+            "decision": "boat_fg"
+        },
+        {
+            "renderer": "DS30 周りの海 far",
+            "shader": "GreatWave/Design27/DS27 NPR White",
+            "decision": "keep(_AF28IdMode)"
+        },
+        {
+            "renderer": "Boat_Hull_OpenThick",
+            "shader": "GreatWave/ArtFirst/AF27 Flat",
+            "decision": "boat_mid"
+        },
+        {
+            "renderer": "Boat_Gunwale_Left",
+            "shader": "GreatWave/ArtFirst/AF27 Flat",
+            "decision": "boat_left"
+        },
+        {
+            "renderer": "AF27 空のドーム",
+            "shader": "GreatWave/ArtFirst/AF27 Sky Dome",
+            "decision": "sky"
+        },
+        {
+            "renderer": "Boat_Gunwale_Left",
+            "shader": "GreatWave/ArtFirst/AF27 Flat",
+            "decision": "boat_fg"
+        },
+        {
+            "renderer": "Boat_Hull_OpenThick",
+            "shader": "GreatWave/ArtFirst/AF27 Flat",
+            "decision": "boat_fg"
+        },
+        {
+            "renderer": "DS30 継ぎ目の幕（near と far の T 字の継ぎ目の下）",
+            "shader": "GreatWave/ArtFirst/AF27 Flat",
+            "decision": "other"
+        },
+        {
+            "renderer": "Boat_Gunwale_Right",
+            "shader": "GreatWave/ArtFirst/AF27 Flat",
+            "decision": "boat_left"
+        },
+        {
+            "renderer": "Boat_Gunwale_Left",
+            "shader": "GreatWave/ArtFirst/AF27 Flat",
+            "decision": "boat_mid"
+        },
+        {
+            "renderer": "Boat_Deck_Planks",
+            "shader": "GreatWave/ArtFirst/AF27 Flat",
+            "decision": "boat_left"
+        },
+        {
+            "renderer": "DS34 爪の層（設計33 の 148 本の帯、1 つの結合メッシュ）",
+            "shader": "GreatWave/Design36/DS36 Claw Palette",
+            "decision": "keep(_AF28IdMode)"
+        },
+        {
+            "renderer": "Boat_Hull_OpenThick",
+            "shader": "GreatWave/ArtFirst/AF27 Flat",
+            "decision": "boat_left"
+        },
+        {
+            "renderer": "Boat_Crossbeams",
+            "shader": "GreatWave/ArtFirst/AF27 Flat",
+            "decision": "boat_left"
+        },
+        {
+            "renderer": "Boat_Gunwale_Right",
+            "shader": "GreatWave/ArtFirst/AF27 Flat",
+            "decision": "boat_mid"
+        },
+        {
+            "renderer": "DS30 主役波（設計28修正01 の F_final、精度の層つき）",
+            "shader": "GreatWave/Design27/DS27 NPR White",
+            "decision": "keep(_AF28IdMode)"
+        },
+        {
+            "renderer": "Boat_Gunwale_Right",
+            "shader": "GreatWave/ArtFirst/AF27 Flat",
+            "decision": "boat_fg"
+        },
+        {
+            "renderer": "Boat_Crossbeams",
+            "shader": "GreatWave/ArtFirst/AF27 Flat",
+            "decision": "boat_mid"
+        },
+        {
+            "renderer": "DS30 周りの海 near",
+            "shader": "GreatWave/Design27/DS27 NPR White",
+            "decision": "keep(_AF28IdMode)"
+        },
+        {
+            "renderer": "fuji_blockout",
+            "shader": "GreatWave/ArtFirst/AF27 Flat",
+            "decision": "other"
+        },
+        {
+            "renderer": "AF27 参照海面",
+            "shader": "GreatWave/ArtFirst/AF27 Flat",
+            "decision": "other"
+        },
+        {
+            "renderer": "M1_Revision_LeftSupport",
+            "shader": "GreatWave/ArtFirst/AF27 Flat",
+            "decision": "other"
+        }
+    ],
+    "protectedUnchanged": true,
+    "protectedFiles": [
+        "Assets/GreatWave/Design39/Scenes/DS39_Paper.unity 7480a99b1e961fa68b3bb7851789a17a70c082f6981b8d1560a46a8324699ddd",
+        "Assets/GreatWave/Design39/Scenes/DS39_Perf.unity b0795a9eb04cd3ea73e7e136ac39d8eff235bbac1cdd2ddd4a6280c79be3f414",
+        "Assets/GreatWave/Design38/Scenes/DS38_Outlines.unity 75f19c51c952e440a74722f4472f8d51ca0a0e331929c48f473bc4ec2efe5227",
+        "Assets/GreatWave/Design39/Editor/DS39Render.cs da13f13cb31f02e5c9ed2dc410e5f96bd17dbbcba8e9f93f3e32cb0505c3dd48",
+        "Assets/GreatWave/Design39/Scripts/DS39PaperLayers.cs ba6c7f983315983c3c9f6862090bd851258bb6caa1d111fe170520403d094a4d",
+        "Assets/GreatWave/Design39/Shaders/DS39_Paper_Keypose.shader 4f40449073fe3a486853d0aa550ef59bee31be8514e4012e52fe63fa7cf86736",
+        "Assets/GreatWave/Design39/Shaders/DS39_Paper_Mesh.shader a890a106fdc7cb4763c96dd4413b28a4166a180af9b680c5c6deb02cf9d13a10",
+        "Assets/GreatWave/Design39/Materials/DS39_Paper_Keypose.mat c0455d8c7367fa417e80904d2aea8ebb666b9f501810b34fc110c9c417257e82",
+        "Assets/GreatWave/Design39/Materials/DS39_Mura_Keypose.mat 58e9aadcd76ff66d74b496f4bf885ab07a93aaf1eeed3678971053570302d8b9",
+        "Assets/GreatWave/Design39/Materials/DS39_Paper_Mesh.mat d29cd9ace3e537c945619ae2b9f517470dbbbc182238fff66c1cb58b12cc49b2",
+        "Assets/GreatWave/Design39/Materials/DS39_Mura_Mesh.mat 1362df06416120219d573317b6c8f8b4bc2249cdd407ddf77caacd56bcf9200d",
+        "Assets/GreatWave/Design30/Scripts/DS30SheetPlayer.cs de28b73834f06d1bbe95e7ae2921ca86f7a5bd7211a3a5ca83b33a17e0b13310",
+        "Assets/GreatWave/Design34/Scripts/DS34ClawPlayer.cs 77af1f4946f55fcf165b4b6c9001c1374ceb1a8b9eeea4d1eca8ab86b8380e17",
+        "Assets/GreatWave/Design31/Scripts/DS31InstancedParticles.cs f536130cdb4aecf4f69d0678fe973bd19bf77220e4fa951778db19a1ce5eca11",
+        "Assets/GreatWave/Design31/Shaders/DS31_Spray_Unlit.shader 33aec2d5e152e573bee7e6de2860838faf50fecff9da94139bfc3ecf5d13f4b3",
+        "Assets/GreatWave/Design27/Shaders/DS27_NPR_White.shader 04605cfe56b5e5bafcfb5c0bbc73b783a65f6637222eda5950c15e7e8b322dd9",
+        "Assets/GreatWave/Design36/Shaders/DS36_Claw_Palette.shader 3c12157d0472477818cb348a46fa4556f4ff51dca82ce2a52fef988f052fa380",
+        "Assets/GreatWave/Design38/Shaders/DS38_Outline_Keypose.shader 05f0fa694c51fb412783e5c1ec05a888588047ebdc6ba287b039bd3f9dc9c5e1",
+        "Assets/GreatWave/Design38/Shaders/DS38_Outline_Mesh.shader fb8532056bea0c806d1537bbbb4e05240a4e5248a999f01b9a802afecb576e92",
+        "Assets/GreatWave/Design38/Materials/DS38_Outline_hero.mat fbc35bc9473b0ef6b6ae9eae24adf25bf4d219d358ecdc2ab4eeb9b97c1d704c",
+        "Assets/GreatWave/Design38/Materials/DS38_Outline_near.mat 8e51899b5797b5ebf2d3d153c4d67bbf2daa014c41f671788bd9c72477cde745",
+        "Assets/GreatWave/Design38/Materials/DS38_Outline_claws.mat 915b4681a476c8aa00d014ff6454caddb9dded3ff320e3c1f196244fc0b342f6",
+        "Assets/GreatWave/ArtFirst/Shaders/AF24IdFlat.shader f5fa3a08b938e29578fb384f41ce10dc1ae6c67522ba68eed6aeaf19086c9b72",
+        "Assets/GreatWave/ArtFirst/Prefabs/AF27R01_Context.prefab 9d79b61cf3c37fb9bdaf75d25df6846426512d40ece03f92da7df14f86daa76e",
+        "Build/Design/29R01/bake_kp/bake/af28r01_uvsdf_a45.bin 69c0b26d5e0129598aa19ca8365fa590af9a81c282e5fef8298409fac8470d1a",
+        "Build/Design/33/claws/ds33_claw_frames_f32.bin 6e7629889a47efc0172d40c28364b59eadef48e419d0dad5c279e3fa3d7f7565",
+        "Build/Design/31/spray/ds31_spray_frames.bin 9db0a42811aa2c72f1cefbf8b80386f2e919a8b80fe65f7e91dd6a60c9b25c5f",
+        "Build/Design/38/outlines/unity/prep/ds38_hero_linemask_f32.bin 338032451dcfa0f72f93f7a7e9250f2475148c5fd1d9dfbdaf44f37d0a6574d3",
+        "Build/Design/36/palette/prep/ds36_sea_ramp_256_rgba8.bin 1f802be852c30c49827ed53508e3f8372a7c0e7a1acaccd7efd7716facf79b17",
+        "Build/Design/39/paper/spray/ds39_spray_dense_frames.json 6fcc783562fcc70b4dffcb404d8b03d17559d9a0f4c99538d3c137499d23bb72"
+    ],
+    "changedFiles": [],
+    "secondsTotal": 11.827305793762207
+}

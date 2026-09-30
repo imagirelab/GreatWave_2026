@@ -1,0 +1,3254 @@
+{
+ "schema": "GreatWave.Design40.metrics/1",
+ "number": "設計40：原画カメラと船上カメラで比較する（色面・輪郭・余白の合格画像と HMD 記録）",
+ "evidence_kind_ja": "Unity 6000.4.3f1 の Editor の batchmode の PC オフスクリーン描画（camera.Render、RTX 3080、Direct3D11）と、その画像の numpy/OpenCV の測定、評価器（Tools/PaintingTruth/evaluate.py、ds30b_tstar_regress.py）。HMD 実機（PS VR2）の結果ではない。Mock の両眼は座席のカメラを右の向きへ ±0.032 m ずらした PC の描画。",
+ "acceptance": {
+  "no_regression_vs_previous": {
+   "criterion_ja": "CP1 と 26修正01 の合格項目の回帰なし（計画 §2.3）。段階5確認 §6.3・段階6確認 §4.2 の読みで、直前の番号（29修正01／設計30〜39）に対して 78・130・131・132 大きな輪郭・72 σ24 p95・69・70・212、色区（両側の読み、爪あり）を比べる",
+   "regressed_items": [],
+   "silhouette_diff_vs_29r01_px": {
+    "t28_claws": {
+     "78": 0.0,
+     "130": 0.0,
+     "131": 0.0
+    },
+    "t28_white": {
+     "78": 0.0,
+     "130": 0.0,
+     "131": 0.0
+    }
+   },
+   "lfgate": {
+    "t28_claws": {
+     "132_sigma12_max": 3.755214351150866,
+     "72_sigma24_p95": 3.842347481891398,
+     "ids_sha256": "c1003bbc208c4109b00e2d873e753eabed8c58b4111a589a62592d781f753994"
+    },
+    "t28_white": {
+     "132_sigma12_max": 3.755214351150866,
+     "72_sigma24_p95": 4.007498772940381,
+     "ids_sha256": "2461f87f7a600d6e547ae36944640575fb9b4656967901971f48db3f2c8d8f86"
+    }
+   },
+   "lfgate_diff_vs_29r01_px": {
+    "t28_claws": {
+     "132_sigma12_max": 0.0,
+     "72_sigma24_p95": -0.1652
+    },
+    "t28_white": {
+     "132_sigma12_max": 0.0,
+     "72_sigma24_p95": 0.0
+    }
+   },
+   "sym_worst_diff_vs_29r01_px": {
+    "t28_claws": 0.0,
+    "t28_white": 0.0
+   },
+   "sym_267_bands": {
+    "t28_claws": {
+     "white": {
+      "sym_bands": 0
+     },
+     "mizuiro": {
+      "sym_bands": 0
+     },
+     "ai_mid": {
+      "sym_bands": 0
+     },
+     "ai_dark": {
+      "sym_bands": 0
+     }
+    },
+    "t28_white": {
+     "white": {
+      "sym_bands": 0
+     },
+     "mizuiro": {
+      "sym_bands": 0
+     },
+     "ai_mid": {
+      "sym_bands": 0
+     },
+     "ai_dark": {
+      "sym_bands": 0
+     }
+    }
+   },
+   "geometry_68_69_70_94": {
+    "68": {
+     "criterion": "同じ波を原画視点と座席の両方に描き、唇の先が内壁の下端より座席の船側にある（水平距離）",
+     "seat_eye_world": [
+      3.9544,
+      1.8323,
+      -15.0308
+     ],
+     "seat_source": "Tools/GWContext/seat_v1.json（D7 で決まった座席 v1）",
+     "horizontal_distance_seat_to_lip_tip_m": 5.616,
+     "horizontal_distance_seat_to_face_bottom_m": 6.82,
+     "lip_tip_elevation_deg": 60.9,
+     "verdict": "pass",
+     "note_ja": "CP1 と同じ式（K* の主断面の唇の先・内壁の下端）。形は K*′ R4（設計28修正01 の最後の一コマ）。CP1 は座席（D7）未確定で pass-conditional、今は座席 v1 が決まっている。"
+    },
+    "69": {
+     "criterion": "原画視点で右船（座席の船 boat_mid）の船首・船尾と波の上下がすべて画面内（採点列 157〜1762）",
+     "right_boat_bbox_display_px": [
+      1113.5,
+      587.0,
+      1627.5,
+      927.5
+     ],
+     "right_boat_inside_scored_columns": true,
+     "wave_crest_display_y": 116.44,
+     "wave_base_display_y_main_section_sea": 896.16,
+     "unity_camera_crosscheck_px": 0.5,
+     "verdict": "pass"
+    },
+    "70": {
+     "criterion": "原画視点の同じ画面で、波の上下の長さが右船の船首から船尾までの長さを超える",
+     "wave_vertical_extent_display_px": 779.72,
+     "right_boat_visible_length_display_px": 579.38,
+     "crest_height_m": 20.165,
+     "verdict": "pass"
+    },
+    "94": {
+     "criterion": "原画視点のカメラが t* の前後で動かない（番号27 の 510 コマの検査を引き継ぐ）",
+     "painting_camera_position": {
+      "x": 0.0,
+      "y": 3.0,
+      "z": -62.0
+     },
+     "painting_camera_euler": {
+      "x": 354.20758056640625,
+      "y": 357.83074951171875,
+      "z": -1.3408675059167763e-08
+     },
+     "fov": 26.0,
+     "cp1_camera": {
+      "position": [
+       0.0,
+       3.0,
+       -62.0
+      ],
+      "euler": [
+       354.20758056640625,
+       357.83074951171875,
+       0.0
+      ]
+     },
+     "max_position_delta_vs_cp1_m": 0.0,
+     "verdict": "pass",
+     "note_ja": "この番号では静止画だけで、コマを通したカメラの検査は回していない（CP1 と同じく番号27 の 510 コマの値を引き継ぐ）。場面のカメラの値が CP1 の PaintingCam v1 と同じことを照合した。"
+    }
+   },
+   "item_212_dE00": 0.2714,
+   "judged_reading_ja": "爪あり（t28_claws。段階6確認 §4.2 の条件 2）。爪なしは記録",
+   "verdict": "合格"
+  },
+  "cp1_26r01_regression_stated": {
+   "criterion_ja": "CP1／26修正01 に対する後退（段階5確認 §6.3）を隠さずに書く",
+   "rows": [
+    {
+     "item": "78",
+     "cp1": 2.772,
+     "r26r01": 1.6408,
+     "ds40": 3.0289
+    },
+    {
+     "item": "130",
+     "cp1": 1.9675,
+     "r26r01": 1.953,
+     "ds40": 3.5131
+    },
+    {
+     "item": "131",
+     "cp1": 1.8143,
+     "r26r01": 1.798,
+     "ds40": 3.0431
+    },
+    {
+     "item": "132",
+     "cp1": 1.3256,
+     "r26r01": 1.5739,
+     "ds40": 3.7552
+    },
+    {
+     "item": "72",
+     "cp1": 1.5581,
+     "r26r01": 1.7233,
+     "ds40": 3.8423
+    }
+   ],
+   "detail_readings": {
+    "item_132_max_px": 5.2998,
+    "item_72_p95_px": 7.8009,
+    "item_72_max_px": 10.2687
+   },
+   "item_72_no_claws_sigma24_p95": 4.007498772940381,
+   "definition_reading_verdict_changes_vs_28r01": {
+    "t28_claws": [
+     "267"
+    ],
+    "t28_white": [
+     "134",
+     "267"
+    ]
+   },
+   "verdict": "書いた（段階5・6 の終わりと同じ値。戻す先は仕上げ28）"
+  },
+  "record_only_71_76_213": {
+   "criterion_ja": "71・76・213 は仮置きのため記録のみ（Q7 の既定）",
+   "item_71": {
+    "max_px": 37.4944,
+    "p95_px": 9.6781
+   },
+   "item_76": {
+    "line_ids": {
+     "verdict": "fail",
+     "measures": [
+      {
+       "target": "sky_dark",
+       "metric": "labelled Hausdorff (display px)",
+       "value_max_px": 37.4511,
+       "p95_px": 19.2455,
+       "verdict": "fail",
+       "threshold_px": 4.0
+      },
+      {
+       "target": "sky_bottom",
+       "metric": "CIEDE2000 of region median (3 px erosion)",
+       "value": 0.2224,
+       "verdict": "pass"
+      }
+     ]
+    },
+    "noline_ids_max_px": 61.0855
+   },
+   "item_213": {
+    "line_ids": {
+     "verdict": "fail",
+     "measures": [
+      {
+       "target": "sky_transition",
+       "metric": "labelled Hausdorff (display px)",
+       "value_max_px": 4.8815,
+       "p95_px": 2.724,
+       "verdict": "fail",
+       "threshold_px": 4.0
+      },
+      {
+       "target": "boat_ochre",
+       "metric": "CIEDE2000 of region median (3 px erosion)",
+       "value": 0.1332,
+       "verdict": "record-only"
+      }
+     ]
+    },
+    "noline_ids_max_px": 21.6359
+   },
+   "verdict": "記録のみ"
+  },
+  "hmd_h4_h5": {
+   "verdict": "保留",
+   "note_ja": "PS VR2 の導入は利用者の手（Q24）。座席 v1 の Mock の両眼（±0.032 m）と PC の描画だけ。seat_low は揺れの部品がないので Mock を描いていない"
+  }
+ },
+ "item_table_builder": [
+  {
+   "item": "78",
+   "name_ja": "左端から斜め上への外形",
+   "reading_ja": "t* の主役波の ID（評価器23、包絡版）の最大 px。判定は K*′ の幾何の値との差 ≤0.5 px（29修正01 の読み）",
+   "cp1": 2.772,
+   "r26r01": 1.6408,
+   "r29r01": 3.0289,
+   "ds30": 3.0289,
+   "ds39": 3.0289,
+   "ds40": 3.0289,
+   "verdict_ds40": "pass",
+   "judged": true,
+   "note_ja": "全体の合成（near・船・富士入り）の値は 3.0289 px（記録）"
+  },
+  {
+   "item": "130",
+   "name_ja": "左側の傾き",
+   "reading_ja": "t* の主役波の ID（評価器23、包絡版）の最大 px。判定は K*′ の幾何の値との差 ≤0.5 px（29修正01 の読み）",
+   "cp1": 1.9675,
+   "r26r01": 1.953,
+   "r29r01": 3.5131,
+   "ds30": 3.5131,
+   "ds39": 3.5131,
+   "ds40": 3.5131,
+   "verdict_ds40": "pass",
+   "judged": true,
+   "note_ja": "全体の合成（near・船・富士入り）の値は 3.5131 px（記録）"
+  },
+  {
+   "item": "131",
+   "name_ja": "上側へのつながり",
+   "reading_ja": "t* の主役波の ID（評価器23、包絡版）の最大 px。判定は K*′ の幾何の値との差 ≤0.5 px（29修正01 の読み）",
+   "cp1": 1.8143,
+   "r26r01": 1.798,
+   "r29r01": 3.0431,
+   "ds30": 3.0431,
+   "ds39": 3.0431,
+   "ds40": 3.0431,
+   "verdict_ds40": "pass",
+   "judged": true,
+   "note_ja": "全体の合成（near・船・富士入り）の値は 3.0431 px（記録）"
+  },
+  {
+   "item": "132",
+   "name_ja": "船側への曲がり",
+   "reading_ja": "大きな輪郭 σ12 の最大 px（28修正01 の関門の読み）",
+   "cp1": 1.3256,
+   "r26r01": 1.5739,
+   "r29r01": 3.7552,
+   "ds30": 3.7552,
+   "ds39": 3.7552,
+   "ds40": 3.7552,
+   "verdict_ds40": "pass",
+   "judged": true,
+   "note_ja": "細部込みの最大（評価器23、t* の主役波の ID）5.2998 px、全体の合成 5.2998 px（記録）"
+  },
+  {
+   "item": "72",
+   "name_ja": "内側の輪郭",
+   "reading_ja": "大きな輪郭 σ24 の p95 px（28修正01 の関門の読み）。爪あり（判定）",
+   "cp1": 1.5581,
+   "r26r01": 1.7233,
+   "r29r01": 4.0075,
+   "ds30": 4.0075,
+   "ds39": 3.8423,
+   "ds40": 3.8423,
+   "verdict_ds40": "pass",
+   "judged": true,
+   "note_ja": "爪なし 4.0075 px（段階5 の終わりと同じ）。細部込みの p95 7.8009 px・全体の合成 p95 7.8009 px（記録）"
+  },
+  {
+   "item": "71",
+   "name_ja": "内側の空域",
+   "reading_ja": "評価器23 の最大 px（全体の合成、線なしの ID）。記録のみ（Q7 の既定）",
+   "cp1": 37.4944,
+   "r26r01": null,
+   "r29r01": null,
+   "ds30": null,
+   "ds39": null,
+   "ds40": 37.4944,
+   "verdict_ds40": "record-only",
+   "judged": false,
+   "note_ja": "p95 9.6781 px、IoU 0.96293。下辺は near の小波・右の高い波と座席の船"
+  },
+  {
+   "item": "68",
+   "name_ja": "唇の先が内壁の下端より座席の船側",
+   "reading_ja": "座席 v1 から唇の先・内壁の下端までの水平距離 m",
+   "cp1": "21.6 < 26.0（座席未確定）",
+   "r26r01": null,
+   "r29r01": null,
+   "ds30": null,
+   "ds39": null,
+   "ds40": "5.62 < 6.82",
+   "verdict_ds40": "pass",
+   "judged": true,
+   "note_ja": "CP1 は旧い座席（番号27）で pass-conditional"
+  },
+  {
+   "item": "69",
+   "name_ja": "右船と波の上下が画面内",
+   "reading_ja": "右船の bbox（表示 px）と頂・海の y",
+   "cp1": "船 x 1252〜1628、頂 y 93.7・海 y 896.5",
+   "r26r01": null,
+   "r29r01": null,
+   "ds30": null,
+   "ds39": null,
+   "ds40": "船 x 1114〜1628、頂 y 116.4・海 y 896.2",
+   "verdict_ds40": "pass",
+   "judged": true,
+   "note_ja": "29修正01・設計30 では測っていない（段階6確認 §4.1）"
+  },
+  {
+   "item": "70",
+   "name_ja": "波の上下 > 右船の全長",
+   "reading_ja": "表示 px",
+   "cp1": "802.9 > 425.4",
+   "r26r01": null,
+   "r29r01": null,
+   "ds30": null,
+   "ds39": null,
+   "ds40": "779.7 > 579.4",
+   "verdict_ds40": "pass",
+   "judged": true,
+   "note_ja": "頂の高さ 20.16 m（K*′）。CP1 は旧い K*（20.88 m）と番号27 の右船"
+  },
+  {
+   "item": "212",
+   "name_ja": "空の上の方",
+   "reading_ja": "ΔE00（空の上の色区の中央値、線ありの ID）",
+   "cp1": 0.2714,
+   "r26r01": null,
+   "r29r01": null,
+   "ds30": null,
+   "ds39": null,
+   "ds40": 0.2714,
+   "verdict_ds40": "pass",
+   "judged": true,
+   "note_ja": "紙の 3 層を全部入れた記録 ΔE00 0.4209"
+  },
+  {
+   "item": "76",
+   "name_ja": "暗い空の範囲・色",
+   "reading_ja": "範囲の最大 px／ΔE00。記録のみ（Q7 の既定）",
+   "cp1": "37.45 px／ΔE00 0.285",
+   "r26r01": null,
+   "r29r01": null,
+   "ds30": null,
+   "ds39": null,
+   "ds40": "37.45 px／ΔE00 0.222",
+   "verdict_ds40": "record-only",
+   "judged": false,
+   "note_ja": "範囲の p95 19.25 px（CP1 20.20）"
+  },
+  {
+   "item": "213",
+   "name_ja": "明暗の移行線",
+   "reading_ja": "最大 px。記録のみ（Q7 の既定）",
+   "cp1": "16.93 px",
+   "r26r01": null,
+   "r29r01": null,
+   "ds30": null,
+   "ds39": null,
+   "ds40": "4.88 px",
+   "verdict_ds40": "record-only",
+   "judged": false,
+   "note_ja": "p95 2.72 px（CP1 1.86）"
+  },
+  {
+   "item": "94",
+   "name_ja": "原画視点のカメラが動かない",
+   "reading_ja": "場面のカメラの値の照合",
+   "cp1": "510 コマで差 0（番号27）",
+   "r26r01": null,
+   "r29r01": null,
+   "ds30": null,
+   "ds39": null,
+   "ds40": "位置の差 0.000000 m",
+   "verdict_ds40": "pass",
+   "judged": true,
+   "note_ja": "静止画の照合だけ。コマを通した検査は番号27 のまま"
+  },
+  {
+   "item": "74・161",
+   "name_ja": "富士の稜線（74・161）",
+   "reading_ja": "評価器23 の最大 px（報告項目）",
+   "cp1": "5.76 px（p95 5.31）",
+   "r26r01": null,
+   "r29r01": null,
+   "ds30": null,
+   "ds39": null,
+   "ds40": "5.76 px（p95 5.31）",
+   "verdict_ds40": "record-only",
+   "judged": false,
+   "note_ja": ""
+  },
+  {
+   "item": "75",
+   "name_ja": "手前の船",
+   "reading_ja": "評価器23 の最大 px（報告項目）",
+   "cp1": "141.36 px（p95 85.62）",
+   "r26r01": null,
+   "r29r01": null,
+   "ds30": null,
+   "ds39": null,
+   "ds40": "141.36 px（p95 85.62）",
+   "verdict_ds40": "record-only",
+   "judged": false,
+   "note_ja": ""
+  },
+  {
+   "item": "157",
+   "name_ja": "左奥の船",
+   "reading_ja": "評価器23 の最大 px（報告項目）",
+   "cp1": "126.58 px（p95 98.32）",
+   "r26r01": null,
+   "r29r01": null,
+   "ds30": null,
+   "ds39": null,
+   "ds40": "77.55 px（p95 63.53）",
+   "verdict_ds40": "record-only",
+   "judged": false,
+   "note_ja": ""
+  },
+  {
+   "item": "159",
+   "name_ja": "右船（座席の船）",
+   "reading_ja": "評価器23 の最大 px（報告項目）",
+   "cp1": "218.23 px（p95 171.43）",
+   "r26r01": null,
+   "r29r01": null,
+   "ds30": null,
+   "ds39": null,
+   "ds40": "160.86 px（p95 121.18）",
+   "verdict_ds40": "record-only",
+   "judged": false,
+   "note_ja": ""
+  },
+  {
+   "item": "162",
+   "name_ja": "富士の雪・斜面の色",
+   "reading_ja": "ΔE00（報告項目）",
+   "cp1": "雪 64.44・斜面 0.15",
+   "r26r01": null,
+   "r29r01": null,
+   "ds30": null,
+   "ds39": null,
+   "ds40": "雪 64.44・斜面 0.15",
+   "verdict_ds40": "record-only",
+   "judged": false,
+   "note_ja": ""
+  },
+  {
+   "item": "73",
+   "name_ja": "内側の水色（藍中）の色区の境界",
+   "reading_ja": "両側の読み（29修正01 が採った読み）の最大 px、爪あり",
+   "cp1": "pass",
+   "r26r01": null,
+   "r29r01": 0.303,
+   "ds30": 0.303,
+   "ds39": 0.303,
+   "ds40": 0.303,
+   "verdict_ds40": "pass",
+   "judged": true,
+   "note_ja": "29修正01 との差 0.0 px。評価器の定義のままの読み 2.484 px（28修正01 0.655、記録）"
+  },
+  {
+   "item": "77",
+   "name_ja": "下側から始まる縞",
+   "reading_ja": "両側の読み（29修正01 が採った読み）の最大 px、爪あり",
+   "cp1": "pass",
+   "r26r01": null,
+   "r29r01": 0.867,
+   "ds30": 0.867,
+   "ds39": 0.867,
+   "ds40": 0.867,
+   "verdict_ds40": "pass",
+   "judged": true,
+   "note_ja": "29修正01 との差 0.0 px。評価器の定義のままの読み 0.867 px（28修正01 1.170、記録）"
+  },
+  {
+   "item": "79",
+   "name_ja": "縞の並び",
+   "reading_ja": "両側の読み（29修正01 が採った読み）の最大 px、爪あり",
+   "cp1": "pass",
+   "r26r01": null,
+   "r29r01": 0.357,
+   "ds30": 0.357,
+   "ds39": 0.357,
+   "ds40": 0.357,
+   "verdict_ds40": "pass",
+   "judged": true,
+   "note_ja": "29修正01 との差 0.0 px。評価器の定義のままの読み 1.012 px（28修正01 0.340、記録）"
+  },
+  {
+   "item": "118",
+   "name_ja": "内側の色区の境界",
+   "reading_ja": "両側の読み（29修正01 が採った読み）の最大 px、爪あり",
+   "cp1": "pass",
+   "r26r01": null,
+   "r29r01": 0.867,
+   "ds30": 0.867,
+   "ds39": 0.867,
+   "ds40": 0.867,
+   "verdict_ds40": "pass",
+   "judged": true,
+   "note_ja": "29修正01 との差 0.0 px。評価器の定義のままの読み 2.484 px（28修正01 0.655、記録）"
+  },
+  {
+   "item": "120",
+   "name_ja": "境界",
+   "reading_ja": "両側の読み（29修正01 が採った読み）の最大 px、爪あり",
+   "cp1": "pass",
+   "r26r01": null,
+   "r29r01": 0.288,
+   "ds30": 0.288,
+   "ds39": 0.288,
+   "ds40": 0.288,
+   "verdict_ds40": "pass",
+   "judged": true,
+   "note_ja": "29修正01 との差 0.0 px。評価器の定義のままの読み 0.288 px（28修正01 0.288、記録）"
+  },
+  {
+   "item": "133",
+   "name_ja": "左から上へ続く白",
+   "reading_ja": "両側の読み（29修正01 が採った読み）の最大 px、爪あり",
+   "cp1": "pass",
+   "r26r01": null,
+   "r29r01": 0.718,
+   "ds30": 0.718,
+   "ds39": 0.718,
+   "ds40": 0.718,
+   "verdict_ds40": "pass",
+   "judged": true,
+   "note_ja": "29修正01 との差 0.0 px。評価器の定義のままの読み 0.718 px（28修正01 0.402、記録）"
+  },
+  {
+   "item": "134",
+   "name_ja": "白帯の広狭",
+   "reading_ja": "両側の読み（29修正01 が採った読み）の最大 px、爪あり",
+   "cp1": "pass",
+   "r26r01": null,
+   "r29r01": 0.634,
+   "ds30": 0.634,
+   "ds39": 0.634,
+   "ds40": 0.634,
+   "verdict_ds40": "pass",
+   "judged": true,
+   "note_ja": "29修正01 との差 0.0 px。評価器の定義のままの読み 2.047 px（28修正01 0.977、記録）"
+  },
+  {
+   "item": "263",
+   "name_ja": "内側から下方へ続く水色",
+   "reading_ja": "両側の読み（29修正01 が採った読み）の最大 px、爪あり",
+   "cp1": "pass",
+   "r26r01": null,
+   "r29r01": 0.25,
+   "ds30": 0.25,
+   "ds39": 0.25,
+   "ds40": 0.25,
+   "verdict_ds40": "pass",
+   "judged": true,
+   "note_ja": "29修正01 との差 0.0 px。評価器の定義のままの読み 2.484 px（28修正01 0.559、記録）"
+  },
+  {
+   "item": "270",
+   "name_ja": "白と水色の境",
+   "reading_ja": "両側の読み（29修正01 が採った読み）の最大 px、爪あり",
+   "cp1": "pass",
+   "r26r01": null,
+   "r29r01": 0.634,
+   "ds30": 0.634,
+   "ds39": 0.634,
+   "ds40": 0.634,
+   "verdict_ds40": "pass",
+   "judged": true,
+   "note_ja": "29修正01 との差 0.0 px。評価器の定義のままの読み 0.563 px（28修正01 0.563、記録）"
+  },
+  {
+   "item": "175",
+   "name_ja": "爪の色区（もともと不合格）",
+   "reading_ja": "両側の読み（29修正01 が採った読み）の最大 px、爪あり",
+   "cp1": "fail",
+   "r26r01": null,
+   "r29r01": 0.978,
+   "ds30": 0.978,
+   "ds39": 0.978,
+   "ds40": 0.978,
+   "verdict_ds40": "fail",
+   "judged": false,
+   "note_ja": "29修正01 との差 0.0 px。評価器の定義のままの読み 0.428 px（28修正01 0.309、記録）"
+  },
+  {
+   "item": "265",
+   "name_ja": "内側の面の色",
+   "reading_ja": "評価器 28修正01／両側の読み",
+   "cp1": "pass",
+   "r26r01": null,
+   "r29r01": null,
+   "ds30": null,
+   "ds39": null,
+   "ds40": "ΔE00 0.545",
+   "verdict_ds40": "pass",
+   "judged": true,
+   "note_ja": ""
+  },
+  {
+   "item": "266",
+   "name_ja": "色面の均一（原画視点・座席）",
+   "reading_ja": "評価器 28修正01／両側の読み",
+   "cp1": "pass",
+   "r26r01": null,
+   "r29r01": null,
+   "ds30": null,
+   "ds39": null,
+   "ds40": "判定 pass",
+   "verdict_ds40": "pass",
+   "judged": true,
+   "note_ja": ""
+  },
+  {
+   "item": "267",
+   "name_ja": "色面の帯（原画視点）",
+   "reading_ja": "評価器 28修正01／両側の読み",
+   "cp1": "pass",
+   "r26r01": null,
+   "r29r01": null,
+   "ds30": null,
+   "ds39": null,
+   "ds40": "評価器の定義 fail／両側の読み 20 px 以上の帯 {'white': 0, 'mizuiro': 0, 'ai_mid': 0, 'ai_dark': 0}",
+   "verdict_ds40": "pass",
+   "judged": true,
+   "note_ja": "267 は評価器の定義のままでは 29修正01 から不合格（設計36 §2.2 の読み）。両側の読みで帯 0"
+  }
+ ],
+ "evaluator_values_recorder": {
+  "all_line": {
+   "78": {
+    "verdict": "fail",
+    "measures": [
+     {
+      "target": "78",
+      "metric": "labelled Hausdorff (display px)",
+      "value_max_px": 5.6768,
+      "p95_px": 4.7211,
+      "verdict": "fail",
+      "threshold_px": 4.0
+     }
+    ]
+   },
+   "130": {
+    "verdict": "fail",
+    "measures": [
+     {
+      "target": "130",
+      "metric": "labelled Hausdorff (display px)",
+      "value_max_px": 6.6931,
+      "p95_px": 6.4755,
+      "verdict": "fail",
+      "threshold_px": 4.0
+     }
+    ]
+   },
+   "131": {
+    "verdict": "fail",
+    "measures": [
+     {
+      "target": "131",
+      "metric": "labelled Hausdorff (display px)",
+      "value_max_px": 5.7971,
+      "p95_px": 5.4439,
+      "verdict": "fail",
+      "threshold_px": 4.0
+     }
+    ]
+   },
+   "132": {
+    "verdict": "fail",
+    "measures": [
+     {
+      "target": "132",
+      "metric": "labelled Hausdorff (display px)",
+      "value_max_px": 8.391,
+      "p95_px": 6.897,
+      "verdict": "fail",
+      "threshold_px": 4.0
+     }
+    ]
+   },
+   "72": {
+    "verdict": "fail",
+    "measures": [
+     {
+      "target": "72",
+      "metric": "labelled Hausdorff (display px)",
+      "value_max_px": 13.1464,
+      "p95_px": 8.5954,
+      "verdict": "fail",
+      "threshold_px": 4.0
+     }
+    ]
+   },
+   "71": {
+    "verdict": "fail",
+    "measures": [
+     {
+      "target": "71",
+      "metric": "labelled Hausdorff (display px)",
+      "value_max_px": 37.4944,
+      "p95_px": 12.1425,
+      "iou": 0.95116,
+      "verdict": "fail",
+      "threshold_px": 4.0
+     }
+    ]
+   },
+   "76": {
+    "verdict": "fail",
+    "measures": [
+     {
+      "target": "sky_dark",
+      "metric": "labelled Hausdorff (display px)",
+      "value_max_px": 37.4511,
+      "p95_px": 19.3599,
+      "verdict": "fail",
+      "threshold_px": 4.0
+     },
+     {
+      "target": "sky_bottom",
+      "metric": "CIEDE2000 of region median (3 px erosion)",
+      "value": 0.2071,
+      "verdict": "pass"
+     }
+    ]
+   },
+   "213": {
+    "verdict": "pass",
+    "measures": [
+     {
+      "target": "sky_transition",
+      "metric": "labelled Hausdorff (display px)",
+      "value_max_px": 4.0,
+      "p95_px": 3.1458,
+      "verdict": "pass",
+      "threshold_px": 4.0
+     },
+     {
+      "target": "boat_ochre",
+      "metric": "CIEDE2000 of region median (3 px erosion)",
+      "value": 0.5308,
+      "verdict": "record-only"
+     }
+    ]
+   },
+   "75": {
+    "verdict": "record-only",
+    "measures": [
+     {
+      "target": "boat_fg",
+      "metric": "labelled Hausdorff (display px)",
+      "value_max_px": 141.358,
+      "p95_px": 85.6184,
+      "verdict": "record-only",
+      "threshold_px": 4.0
+     }
+    ]
+   },
+   "157": {
+    "verdict": "record-only",
+    "measures": [
+     {
+      "target": "boat_left",
+      "metric": "labelled Hausdorff (display px)",
+      "value_max_px": 77.5517,
+      "p95_px": 63.5708,
+      "verdict": "record-only",
+      "threshold_px": 4.0
+     }
+    ]
+   },
+   "159": {
+    "verdict": "record-only",
+    "measures": [
+     {
+      "target": "boat_mid",
+      "metric": "labelled Hausdorff (display px)",
+      "value_max_px": 160.857,
+      "p95_px": 121.3215,
+      "verdict": "record-only",
+      "threshold_px": 4.0
+     }
+    ]
+   },
+   "78_claws": {
+    "verdict": "record-only",
+    "measures": [
+     {
+      "target": "78",
+      "metric": "labelled Hausdorff (display px)",
+      "value_max_px": 5.6768,
+      "p95_px": 4.7211,
+      "verdict": "record-only",
+      "threshold_px": 4.0
+     }
+    ]
+   },
+   "130_claws": {
+    "verdict": "record-only",
+    "measures": [
+     {
+      "target": "130",
+      "metric": "labelled Hausdorff (display px)",
+      "value_max_px": 6.6931,
+      "p95_px": 6.4755,
+      "verdict": "record-only",
+      "threshold_px": 4.0
+     }
+    ]
+   },
+   "131_claws": {
+    "verdict": "record-only",
+    "measures": [
+     {
+      "target": "131",
+      "metric": "labelled Hausdorff (display px)",
+      "value_max_px": 5.7971,
+      "p95_px": 5.4445,
+      "verdict": "record-only",
+      "threshold_px": 4.0
+     }
+    ]
+   },
+   "132_claws": {
+    "verdict": "record-only",
+    "measures": [
+     {
+      "target": "132",
+      "metric": "labelled Hausdorff (display px)",
+      "value_max_px": 47.861,
+      "p95_px": 36.3944,
+      "verdict": "record-only",
+      "threshold_px": 4.0
+     }
+    ]
+   },
+   "72_claws": {
+    "verdict": "record-only",
+    "measures": [
+     {
+      "target": "72",
+      "metric": "labelled Hausdorff (display px)",
+      "value_max_px": 42.5934,
+      "p95_px": 31.4588,
+      "verdict": "record-only",
+      "threshold_px": 4.0
+     }
+    ]
+   },
+   "71_claws": {
+    "verdict": "record-only",
+    "measures": [
+     {
+      "target": "71",
+      "metric": "labelled Hausdorff (display px)",
+      "value_max_px": 42.5934,
+      "p95_px": 29.6208,
+      "iou": 0.90763,
+      "verdict": "record-only",
+      "threshold_px": 4.0
+     }
+    ]
+   },
+   "74": {
+    "verdict": "record-only",
+    "measures": [
+     {
+      "target": "fuji_ridge",
+      "metric": "labelled Hausdorff (display px)",
+      "value_max_px": 5.7562,
+      "p95_px": 5.3092,
+      "verdict": "record-only",
+      "threshold_px": 4.0
+     }
+    ]
+   },
+   "161": {
+    "verdict": "record-only",
+    "measures": [
+     {
+      "target": "fuji_ridge",
+      "metric": "labelled Hausdorff (display px)",
+      "value_max_px": 5.7562,
+      "p95_px": 5.3092,
+      "verdict": "record-only",
+      "threshold_px": 4.0
+     }
+    ]
+   },
+   "212": {
+    "verdict": "pass",
+    "measures": [
+     {
+      "target": "sky_top",
+      "metric": "CIEDE2000 of region median (3 px erosion)",
+      "value": 0.4209,
+      "verdict": "pass"
+     }
+    ]
+   },
+   "265": {
+    "verdict": "record-only",
+    "measures": [
+     {
+      "target": "mizuiro",
+      "metric": "CIEDE2000 of region median (3 px erosion)",
+      "value": 1.4515,
+      "verdict": "record-only"
+     },
+     {
+      "target": "ai_mid",
+      "metric": "CIEDE2000 of region median (3 px erosion)",
+      "value": 0.8192,
+      "verdict": "record-only"
+     }
+    ]
+   },
+   "162": {
+    "verdict": "record-only",
+    "measures": [
+     {
+      "target": "fuji_snow",
+      "metric": "CIEDE2000 of region median (3 px erosion)",
+      "value": 64.4401,
+      "verdict": "record-only"
+     },
+     {
+      "target": "fuji_slope",
+      "metric": "CIEDE2000 of region median (3 px erosion)",
+      "value": 0.1517,
+      "verdict": "record-only"
+     }
+    ]
+   }
+  },
+  "all_noline": {
+   "78": {
+    "verdict": "pass",
+    "measures": [
+     {
+      "target": "78",
+      "metric": "labelled Hausdorff (display px)",
+      "value_max_px": 3.0289,
+      "p95_px": 1.798,
+      "verdict": "pass",
+      "threshold_px": 4.0
+     }
+    ]
+   },
+   "130": {
+    "verdict": "pass",
+    "measures": [
+     {
+      "target": "130",
+      "metric": "labelled Hausdorff (display px)",
+      "value_max_px": 3.5131,
+      "p95_px": 3.3551,
+      "verdict": "pass",
+      "threshold_px": 4.0
+     }
+    ]
+   },
+   "131": {
+    "verdict": "pass",
+    "measures": [
+     {
+      "target": "131",
+      "metric": "labelled Hausdorff (display px)",
+      "value_max_px": 3.0431,
+      "p95_px": 2.856,
+      "verdict": "pass",
+      "threshold_px": 4.0
+     }
+    ]
+   },
+   "132": {
+    "verdict": "fail",
+    "measures": [
+     {
+      "target": "132",
+      "metric": "labelled Hausdorff (display px)",
+      "value_max_px": 5.2998,
+      "p95_px": 4.4995,
+      "verdict": "fail",
+      "threshold_px": 4.0
+     }
+    ]
+   },
+   "72": {
+    "verdict": "fail",
+    "measures": [
+     {
+      "target": "72",
+      "metric": "labelled Hausdorff (display px)",
+      "value_max_px": 10.2687,
+      "p95_px": 7.8009,
+      "verdict": "fail",
+      "threshold_px": 4.0
+     }
+    ]
+   },
+   "71": {
+    "verdict": "fail",
+    "measures": [
+     {
+      "target": "71",
+      "metric": "labelled Hausdorff (display px)",
+      "value_max_px": 37.4944,
+      "p95_px": 9.6781,
+      "iou": 0.96293,
+      "verdict": "fail",
+      "threshold_px": 4.0
+     }
+    ]
+   },
+   "76": {
+    "verdict": "fail",
+    "measures": [
+     {
+      "target": "sky_dark",
+      "metric": "labelled Hausdorff (display px)",
+      "value_max_px": 58.8549,
+      "p95_px": 22.4034,
+      "verdict": "fail",
+      "threshold_px": 4.0
+     },
+     {
+      "target": "sky_bottom",
+      "metric": "CIEDE2000 of region median (3 px erosion)",
+      "value": 0.2071,
+      "verdict": "pass"
+     }
+    ]
+   },
+   "213": {
+    "verdict": "fail",
+    "measures": [
+     {
+      "target": "sky_transition",
+      "metric": "labelled Hausdorff (display px)",
+      "value_max_px": 19.6455,
+      "p95_px": 3.1458,
+      "verdict": "fail",
+      "threshold_px": 4.0
+     },
+     {
+      "target": "boat_ochre",
+      "metric": "CIEDE2000 of region median (3 px erosion)",
+      "value": 0.5308,
+      "verdict": "record-only"
+     }
+    ]
+   },
+   "75": {
+    "verdict": "record-only",
+    "measures": [
+     {
+      "target": "boat_fg",
+      "metric": "labelled Hausdorff (display px)",
+      "value_max_px": 141.358,
+      "p95_px": 85.6184,
+      "verdict": "record-only",
+      "threshold_px": 4.0
+     }
+    ]
+   },
+   "157": {
+    "verdict": "record-only",
+    "measures": [
+     {
+      "target": "boat_left",
+      "metric": "labelled Hausdorff (display px)",
+      "value_max_px": 77.5517,
+      "p95_px": 63.5295,
+      "verdict": "record-only",
+      "threshold_px": 4.0
+     }
+    ]
+   },
+   "159": {
+    "verdict": "record-only",
+    "measures": [
+     {
+      "target": "boat_mid",
+      "metric": "labelled Hausdorff (display px)",
+      "value_max_px": 160.857,
+      "p95_px": 121.1844,
+      "verdict": "record-only",
+      "threshold_px": 4.0
+     }
+    ]
+   },
+   "78_claws": {
+    "verdict": "record-only",
+    "measures": [
+     {
+      "target": "78",
+      "metric": "labelled Hausdorff (display px)",
+      "value_max_px": 3.0289,
+      "p95_px": 1.798,
+      "verdict": "record-only",
+      "threshold_px": 4.0
+     }
+    ]
+   },
+   "130_claws": {
+    "verdict": "record-only",
+    "measures": [
+     {
+      "target": "130",
+      "metric": "labelled Hausdorff (display px)",
+      "value_max_px": 3.5131,
+      "p95_px": 3.3551,
+      "verdict": "record-only",
+      "threshold_px": 4.0
+     }
+    ]
+   },
+   "131_claws": {
+    "verdict": "record-only",
+    "measures": [
+     {
+      "target": "131",
+      "metric": "labelled Hausdorff (display px)",
+      "value_max_px": 3.0431,
+      "p95_px": 2.856,
+      "verdict": "record-only",
+      "threshold_px": 4.0
+     }
+    ]
+   },
+   "132_claws": {
+    "verdict": "record-only",
+    "measures": [
+     {
+      "target": "132",
+      "metric": "labelled Hausdorff (display px)",
+      "value_max_px": 45.0446,
+      "p95_px": 33.4505,
+      "verdict": "record-only",
+      "threshold_px": 4.0
+     }
+    ]
+   },
+   "72_claws": {
+    "verdict": "record-only",
+    "measures": [
+     {
+      "target": "72",
+      "metric": "labelled Hausdorff (display px)",
+      "value_max_px": 39.6071,
+      "p95_px": 28.3381,
+      "verdict": "record-only",
+      "threshold_px": 4.0
+     }
+    ]
+   },
+   "71_claws": {
+    "verdict": "record-only",
+    "measures": [
+     {
+      "target": "71",
+      "metric": "labelled Hausdorff (display px)",
+      "value_max_px": 39.6071,
+      "p95_px": 27.2697,
+      "iou": 0.92539,
+      "verdict": "record-only",
+      "threshold_px": 4.0
+     }
+    ]
+   },
+   "74": {
+    "verdict": "record-only",
+    "measures": [
+     {
+      "target": "fuji_ridge",
+      "metric": "labelled Hausdorff (display px)",
+      "value_max_px": 5.7562,
+      "p95_px": 5.3092,
+      "verdict": "record-only",
+      "threshold_px": 4.0
+     }
+    ]
+   },
+   "161": {
+    "verdict": "record-only",
+    "measures": [
+     {
+      "target": "fuji_ridge",
+      "metric": "labelled Hausdorff (display px)",
+      "value_max_px": 5.7562,
+      "p95_px": 5.3092,
+      "verdict": "record-only",
+      "threshold_px": 4.0
+     }
+    ]
+   },
+   "212": {
+    "verdict": "pass",
+    "measures": [
+     {
+      "target": "sky_top",
+      "metric": "CIEDE2000 of region median (3 px erosion)",
+      "value": 0.4209,
+      "verdict": "pass"
+     }
+    ]
+   },
+   "265": {
+    "verdict": "record-only",
+    "measures": [
+     {
+      "target": "mizuiro",
+      "metric": "CIEDE2000 of region median (3 px erosion)",
+      "value": 1.4515,
+      "verdict": "record-only"
+     },
+     {
+      "target": "ai_mid",
+      "metric": "CIEDE2000 of region median (3 px erosion)",
+      "value": 0.8192,
+      "verdict": "record-only"
+     }
+    ]
+   },
+   "162": {
+    "verdict": "record-only",
+    "measures": [
+     {
+      "target": "fuji_snow",
+      "metric": "CIEDE2000 of region median (3 px erosion)",
+      "value": 64.4401,
+      "verdict": "record-only"
+     },
+     {
+      "target": "fuji_slope",
+      "metric": "CIEDE2000 of region median (3 px erosion)",
+      "value": 0.1517,
+      "verdict": "record-only"
+     }
+    ]
+   }
+  },
+  "off_line": {
+   "78": {
+    "verdict": "fail",
+    "measures": [
+     {
+      "target": "78",
+      "metric": "labelled Hausdorff (display px)",
+      "value_max_px": 5.6768,
+      "p95_px": 4.7211,
+      "verdict": "fail",
+      "threshold_px": 4.0
+     }
+    ]
+   },
+   "130": {
+    "verdict": "fail",
+    "measures": [
+     {
+      "target": "130",
+      "metric": "labelled Hausdorff (display px)",
+      "value_max_px": 6.6931,
+      "p95_px": 6.4755,
+      "verdict": "fail",
+      "threshold_px": 4.0
+     }
+    ]
+   },
+   "131": {
+    "verdict": "fail",
+    "measures": [
+     {
+      "target": "131",
+      "metric": "labelled Hausdorff (display px)",
+      "value_max_px": 5.7971,
+      "p95_px": 5.4439,
+      "verdict": "fail",
+      "threshold_px": 4.0
+     }
+    ]
+   },
+   "132": {
+    "verdict": "fail",
+    "measures": [
+     {
+      "target": "132",
+      "metric": "labelled Hausdorff (display px)",
+      "value_max_px": 8.391,
+      "p95_px": 6.897,
+      "verdict": "fail",
+      "threshold_px": 4.0
+     }
+    ]
+   },
+   "72": {
+    "verdict": "fail",
+    "measures": [
+     {
+      "target": "72",
+      "metric": "labelled Hausdorff (display px)",
+      "value_max_px": 13.1464,
+      "p95_px": 8.5954,
+      "verdict": "fail",
+      "threshold_px": 4.0
+     }
+    ]
+   },
+   "71": {
+    "verdict": "fail",
+    "measures": [
+     {
+      "target": "71",
+      "metric": "labelled Hausdorff (display px)",
+      "value_max_px": 37.4944,
+      "p95_px": 12.1425,
+      "iou": 0.95116,
+      "verdict": "fail",
+      "threshold_px": 4.0
+     }
+    ]
+   },
+   "76": {
+    "verdict": "fail",
+    "measures": [
+     {
+      "target": "sky_dark",
+      "metric": "labelled Hausdorff (display px)",
+      "value_max_px": 37.4511,
+      "p95_px": 19.2455,
+      "verdict": "fail",
+      "threshold_px": 4.0
+     },
+     {
+      "target": "sky_bottom",
+      "metric": "CIEDE2000 of region median (3 px erosion)",
+      "value": 0.2224,
+      "verdict": "pass"
+     }
+    ]
+   },
+   "213": {
+    "verdict": "fail",
+    "measures": [
+     {
+      "target": "sky_transition",
+      "metric": "labelled Hausdorff (display px)",
+      "value_max_px": 4.8815,
+      "p95_px": 2.724,
+      "verdict": "fail",
+      "threshold_px": 4.0
+     },
+     {
+      "target": "boat_ochre",
+      "metric": "CIEDE2000 of region median (3 px erosion)",
+      "value": 0.1332,
+      "verdict": "record-only"
+     }
+    ]
+   },
+   "75": {
+    "verdict": "record-only",
+    "measures": [
+     {
+      "target": "boat_fg",
+      "metric": "labelled Hausdorff (display px)",
+      "value_max_px": 141.358,
+      "p95_px": 85.6184,
+      "verdict": "record-only",
+      "threshold_px": 4.0
+     }
+    ]
+   },
+   "157": {
+    "verdict": "record-only",
+    "measures": [
+     {
+      "target": "boat_left",
+      "metric": "labelled Hausdorff (display px)",
+      "value_max_px": 77.5517,
+      "p95_px": 63.5708,
+      "verdict": "record-only",
+      "threshold_px": 4.0
+     }
+    ]
+   },
+   "159": {
+    "verdict": "record-only",
+    "measures": [
+     {
+      "target": "boat_mid",
+      "metric": "labelled Hausdorff (display px)",
+      "value_max_px": 160.857,
+      "p95_px": 121.3215,
+      "verdict": "record-only",
+      "threshold_px": 4.0
+     }
+    ]
+   },
+   "78_claws": {
+    "verdict": "record-only",
+    "measures": [
+     {
+      "target": "78",
+      "metric": "labelled Hausdorff (display px)",
+      "value_max_px": 5.6768,
+      "p95_px": 4.7211,
+      "verdict": "record-only",
+      "threshold_px": 4.0
+     }
+    ]
+   },
+   "130_claws": {
+    "verdict": "record-only",
+    "measures": [
+     {
+      "target": "130",
+      "metric": "labelled Hausdorff (display px)",
+      "value_max_px": 6.6931,
+      "p95_px": 6.4755,
+      "verdict": "record-only",
+      "threshold_px": 4.0
+     }
+    ]
+   },
+   "131_claws": {
+    "verdict": "record-only",
+    "measures": [
+     {
+      "target": "131",
+      "metric": "labelled Hausdorff (display px)",
+      "value_max_px": 5.7971,
+      "p95_px": 5.4445,
+      "verdict": "record-only",
+      "threshold_px": 4.0
+     }
+    ]
+   },
+   "132_claws": {
+    "verdict": "record-only",
+    "measures": [
+     {
+      "target": "132",
+      "metric": "labelled Hausdorff (display px)",
+      "value_max_px": 47.861,
+      "p95_px": 36.3944,
+      "verdict": "record-only",
+      "threshold_px": 4.0
+     }
+    ]
+   },
+   "72_claws": {
+    "verdict": "record-only",
+    "measures": [
+     {
+      "target": "72",
+      "metric": "labelled Hausdorff (display px)",
+      "value_max_px": 42.5934,
+      "p95_px": 31.4588,
+      "verdict": "record-only",
+      "threshold_px": 4.0
+     }
+    ]
+   },
+   "71_claws": {
+    "verdict": "record-only",
+    "measures": [
+     {
+      "target": "71",
+      "metric": "labelled Hausdorff (display px)",
+      "value_max_px": 42.5934,
+      "p95_px": 29.6208,
+      "iou": 0.90763,
+      "verdict": "record-only",
+      "threshold_px": 4.0
+     }
+    ]
+   },
+   "74": {
+    "verdict": "record-only",
+    "measures": [
+     {
+      "target": "fuji_ridge",
+      "metric": "labelled Hausdorff (display px)",
+      "value_max_px": 5.7562,
+      "p95_px": 5.3092,
+      "verdict": "record-only",
+      "threshold_px": 4.0
+     }
+    ]
+   },
+   "161": {
+    "verdict": "record-only",
+    "measures": [
+     {
+      "target": "fuji_ridge",
+      "metric": "labelled Hausdorff (display px)",
+      "value_max_px": 5.7562,
+      "p95_px": 5.3092,
+      "verdict": "record-only",
+      "threshold_px": 4.0
+     }
+    ]
+   },
+   "212": {
+    "verdict": "pass",
+    "measures": [
+     {
+      "target": "sky_top",
+      "metric": "CIEDE2000 of region median (3 px erosion)",
+      "value": 0.2714,
+      "verdict": "pass"
+     }
+    ]
+   },
+   "265": {
+    "verdict": "record-only",
+    "measures": [
+     {
+      "target": "mizuiro",
+      "metric": "CIEDE2000 of region median (3 px erosion)",
+      "value": 1.2195,
+      "verdict": "record-only"
+     },
+     {
+      "target": "ai_mid",
+      "metric": "CIEDE2000 of region median (3 px erosion)",
+      "value": 0.3312,
+      "verdict": "record-only"
+     }
+    ]
+   },
+   "162": {
+    "verdict": "record-only",
+    "measures": [
+     {
+      "target": "fuji_snow",
+      "metric": "CIEDE2000 of region median (3 px erosion)",
+      "value": 64.4401,
+      "verdict": "record-only"
+     },
+     {
+      "target": "fuji_slope",
+      "metric": "CIEDE2000 of region median (3 px erosion)",
+      "value": 0.1517,
+      "verdict": "record-only"
+     }
+    ]
+   }
+  },
+  "off_noline": {
+   "78": {
+    "verdict": "pass",
+    "measures": [
+     {
+      "target": "78",
+      "metric": "labelled Hausdorff (display px)",
+      "value_max_px": 3.0289,
+      "p95_px": 1.798,
+      "verdict": "pass",
+      "threshold_px": 4.0
+     }
+    ]
+   },
+   "130": {
+    "verdict": "pass",
+    "measures": [
+     {
+      "target": "130",
+      "metric": "labelled Hausdorff (display px)",
+      "value_max_px": 3.5131,
+      "p95_px": 3.3551,
+      "verdict": "pass",
+      "threshold_px": 4.0
+     }
+    ]
+   },
+   "131": {
+    "verdict": "pass",
+    "measures": [
+     {
+      "target": "131",
+      "metric": "labelled Hausdorff (display px)",
+      "value_max_px": 3.0431,
+      "p95_px": 2.856,
+      "verdict": "pass",
+      "threshold_px": 4.0
+     }
+    ]
+   },
+   "132": {
+    "verdict": "fail",
+    "measures": [
+     {
+      "target": "132",
+      "metric": "labelled Hausdorff (display px)",
+      "value_max_px": 5.2998,
+      "p95_px": 4.4995,
+      "verdict": "fail",
+      "threshold_px": 4.0
+     }
+    ]
+   },
+   "72": {
+    "verdict": "fail",
+    "measures": [
+     {
+      "target": "72",
+      "metric": "labelled Hausdorff (display px)",
+      "value_max_px": 10.2687,
+      "p95_px": 7.8009,
+      "verdict": "fail",
+      "threshold_px": 4.0
+     }
+    ]
+   },
+   "71": {
+    "verdict": "fail",
+    "measures": [
+     {
+      "target": "71",
+      "metric": "labelled Hausdorff (display px)",
+      "value_max_px": 37.4944,
+      "p95_px": 9.6781,
+      "iou": 0.96293,
+      "verdict": "fail",
+      "threshold_px": 4.0
+     }
+    ]
+   },
+   "76": {
+    "verdict": "fail",
+    "measures": [
+     {
+      "target": "sky_dark",
+      "metric": "labelled Hausdorff (display px)",
+      "value_max_px": 61.0855,
+      "p95_px": 22.3257,
+      "verdict": "fail",
+      "threshold_px": 4.0
+     },
+     {
+      "target": "sky_bottom",
+      "metric": "CIEDE2000 of region median (3 px erosion)",
+      "value": 0.2224,
+      "verdict": "pass"
+     }
+    ]
+   },
+   "213": {
+    "verdict": "fail",
+    "measures": [
+     {
+      "target": "sky_transition",
+      "metric": "labelled Hausdorff (display px)",
+      "value_max_px": 21.6359,
+      "p95_px": 3.0445,
+      "verdict": "fail",
+      "threshold_px": 4.0
+     },
+     {
+      "target": "boat_ochre",
+      "metric": "CIEDE2000 of region median (3 px erosion)",
+      "value": 0.1332,
+      "verdict": "record-only"
+     }
+    ]
+   },
+   "75": {
+    "verdict": "record-only",
+    "measures": [
+     {
+      "target": "boat_fg",
+      "metric": "labelled Hausdorff (display px)",
+      "value_max_px": 141.358,
+      "p95_px": 85.6184,
+      "verdict": "record-only",
+      "threshold_px": 4.0
+     }
+    ]
+   },
+   "157": {
+    "verdict": "record-only",
+    "measures": [
+     {
+      "target": "boat_left",
+      "metric": "labelled Hausdorff (display px)",
+      "value_max_px": 77.5517,
+      "p95_px": 63.5295,
+      "verdict": "record-only",
+      "threshold_px": 4.0
+     }
+    ]
+   },
+   "159": {
+    "verdict": "record-only",
+    "measures": [
+     {
+      "target": "boat_mid",
+      "metric": "labelled Hausdorff (display px)",
+      "value_max_px": 160.857,
+      "p95_px": 121.1844,
+      "verdict": "record-only",
+      "threshold_px": 4.0
+     }
+    ]
+   },
+   "78_claws": {
+    "verdict": "record-only",
+    "measures": [
+     {
+      "target": "78",
+      "metric": "labelled Hausdorff (display px)",
+      "value_max_px": 3.0289,
+      "p95_px": 1.798,
+      "verdict": "record-only",
+      "threshold_px": 4.0
+     }
+    ]
+   },
+   "130_claws": {
+    "verdict": "record-only",
+    "measures": [
+     {
+      "target": "130",
+      "metric": "labelled Hausdorff (display px)",
+      "value_max_px": 3.5131,
+      "p95_px": 3.3551,
+      "verdict": "record-only",
+      "threshold_px": 4.0
+     }
+    ]
+   },
+   "131_claws": {
+    "verdict": "record-only",
+    "measures": [
+     {
+      "target": "131",
+      "metric": "labelled Hausdorff (display px)",
+      "value_max_px": 3.0431,
+      "p95_px": 2.856,
+      "verdict": "record-only",
+      "threshold_px": 4.0
+     }
+    ]
+   },
+   "132_claws": {
+    "verdict": "record-only",
+    "measures": [
+     {
+      "target": "132",
+      "metric": "labelled Hausdorff (display px)",
+      "value_max_px": 45.0446,
+      "p95_px": 33.4505,
+      "verdict": "record-only",
+      "threshold_px": 4.0
+     }
+    ]
+   },
+   "72_claws": {
+    "verdict": "record-only",
+    "measures": [
+     {
+      "target": "72",
+      "metric": "labelled Hausdorff (display px)",
+      "value_max_px": 39.6071,
+      "p95_px": 28.3381,
+      "verdict": "record-only",
+      "threshold_px": 4.0
+     }
+    ]
+   },
+   "71_claws": {
+    "verdict": "record-only",
+    "measures": [
+     {
+      "target": "71",
+      "metric": "labelled Hausdorff (display px)",
+      "value_max_px": 39.6071,
+      "p95_px": 27.2697,
+      "iou": 0.92539,
+      "verdict": "record-only",
+      "threshold_px": 4.0
+     }
+    ]
+   },
+   "74": {
+    "verdict": "record-only",
+    "measures": [
+     {
+      "target": "fuji_ridge",
+      "metric": "labelled Hausdorff (display px)",
+      "value_max_px": 5.7562,
+      "p95_px": 5.3092,
+      "verdict": "record-only",
+      "threshold_px": 4.0
+     }
+    ]
+   },
+   "161": {
+    "verdict": "record-only",
+    "measures": [
+     {
+      "target": "fuji_ridge",
+      "metric": "labelled Hausdorff (display px)",
+      "value_max_px": 5.7562,
+      "p95_px": 5.3092,
+      "verdict": "record-only",
+      "threshold_px": 4.0
+     }
+    ]
+   },
+   "212": {
+    "verdict": "pass",
+    "measures": [
+     {
+      "target": "sky_top",
+      "metric": "CIEDE2000 of region median (3 px erosion)",
+      "value": 0.2714,
+      "verdict": "pass"
+     }
+    ]
+   },
+   "265": {
+    "verdict": "record-only",
+    "measures": [
+     {
+      "target": "mizuiro",
+      "metric": "CIEDE2000 of region median (3 px erosion)",
+      "value": 1.2195,
+      "verdict": "record-only"
+     },
+     {
+      "target": "ai_mid",
+      "metric": "CIEDE2000 of region median (3 px erosion)",
+      "value": 0.3312,
+      "verdict": "record-only"
+     }
+    ]
+   },
+   "162": {
+    "verdict": "record-only",
+    "measures": [
+     {
+      "target": "fuji_snow",
+      "metric": "CIEDE2000 of region median (3 px erosion)",
+      "value": 64.4401,
+      "verdict": "record-only"
+     },
+     {
+      "target": "fuji_slope",
+      "metric": "CIEDE2000 of region median (3 px erosion)",
+      "value": 0.1517,
+      "verdict": "record-only"
+     }
+    ]
+   }
+  },
+  "off_noline_noclaws": {
+   "78": {
+    "verdict": "pass",
+    "measures": [
+     {
+      "target": "78",
+      "metric": "labelled Hausdorff (display px)",
+      "value_max_px": 3.0289,
+      "p95_px": 1.798,
+      "verdict": "pass",
+      "threshold_px": 4.0
+     }
+    ]
+   },
+   "130": {
+    "verdict": "pass",
+    "measures": [
+     {
+      "target": "130",
+      "metric": "labelled Hausdorff (display px)",
+      "value_max_px": 3.5131,
+      "p95_px": 3.3551,
+      "verdict": "pass",
+      "threshold_px": 4.0
+     }
+    ]
+   },
+   "131": {
+    "verdict": "pass",
+    "measures": [
+     {
+      "target": "131",
+      "metric": "labelled Hausdorff (display px)",
+      "value_max_px": 3.0431,
+      "p95_px": 2.856,
+      "verdict": "pass",
+      "threshold_px": 4.0
+     }
+    ]
+   },
+   "132": {
+    "verdict": "fail",
+    "measures": [
+     {
+      "target": "132",
+      "metric": "labelled Hausdorff (display px)",
+      "value_max_px": 5.9472,
+      "p95_px": 5.0703,
+      "verdict": "fail",
+      "threshold_px": 4.0
+     }
+    ]
+   },
+   "72": {
+    "verdict": "fail",
+    "measures": [
+     {
+      "target": "72",
+      "metric": "labelled Hausdorff (display px)",
+      "value_max_px": 10.4105,
+      "p95_px": 8.7546,
+      "verdict": "fail",
+      "threshold_px": 4.0
+     }
+    ]
+   },
+   "71": {
+    "verdict": "fail",
+    "measures": [
+     {
+      "target": "71",
+      "metric": "labelled Hausdorff (display px)",
+      "value_max_px": 37.4944,
+      "p95_px": 9.9664,
+      "iou": 0.962,
+      "verdict": "fail",
+      "threshold_px": 4.0
+     }
+    ]
+   },
+   "76": {
+    "verdict": "fail",
+    "measures": [
+     {
+      "target": "sky_dark",
+      "metric": "labelled Hausdorff (display px)",
+      "value_max_px": 61.0855,
+      "p95_px": 22.3257,
+      "verdict": "fail",
+      "threshold_px": 4.0
+     },
+     {
+      "target": "sky_bottom",
+      "metric": "CIEDE2000 of region median (3 px erosion)",
+      "value": 0.2224,
+      "verdict": "pass"
+     }
+    ]
+   },
+   "213": {
+    "verdict": "fail",
+    "measures": [
+     {
+      "target": "sky_transition",
+      "metric": "labelled Hausdorff (display px)",
+      "value_max_px": 21.6359,
+      "p95_px": 3.0445,
+      "verdict": "fail",
+      "threshold_px": 4.0
+     },
+     {
+      "target": "boat_ochre",
+      "metric": "CIEDE2000 of region median (3 px erosion)",
+      "value": 0.1332,
+      "verdict": "record-only"
+     }
+    ]
+   },
+   "75": {
+    "verdict": "record-only",
+    "measures": [
+     {
+      "target": "boat_fg",
+      "metric": "labelled Hausdorff (display px)",
+      "value_max_px": 141.358,
+      "p95_px": 85.6184,
+      "verdict": "record-only",
+      "threshold_px": 4.0
+     }
+    ]
+   },
+   "157": {
+    "verdict": "record-only",
+    "measures": [
+     {
+      "target": "boat_left",
+      "metric": "labelled Hausdorff (display px)",
+      "value_max_px": 77.5517,
+      "p95_px": 63.5295,
+      "verdict": "record-only",
+      "threshold_px": 4.0
+     }
+    ]
+   },
+   "159": {
+    "verdict": "record-only",
+    "measures": [
+     {
+      "target": "boat_mid",
+      "metric": "labelled Hausdorff (display px)",
+      "value_max_px": 160.857,
+      "p95_px": 121.1844,
+      "verdict": "record-only",
+      "threshold_px": 4.0
+     }
+    ]
+   },
+   "78_claws": {
+    "verdict": "record-only",
+    "measures": [
+     {
+      "target": "78",
+      "metric": "labelled Hausdorff (display px)",
+      "value_max_px": 3.0289,
+      "p95_px": 1.798,
+      "verdict": "record-only",
+      "threshold_px": 4.0
+     }
+    ]
+   },
+   "130_claws": {
+    "verdict": "record-only",
+    "measures": [
+     {
+      "target": "130",
+      "metric": "labelled Hausdorff (display px)",
+      "value_max_px": 3.5131,
+      "p95_px": 3.3551,
+      "verdict": "record-only",
+      "threshold_px": 4.0
+     }
+    ]
+   },
+   "131_claws": {
+    "verdict": "record-only",
+    "measures": [
+     {
+      "target": "131",
+      "metric": "labelled Hausdorff (display px)",
+      "value_max_px": 3.0431,
+      "p95_px": 2.856,
+      "verdict": "record-only",
+      "threshold_px": 4.0
+     }
+    ]
+   },
+   "132_claws": {
+    "verdict": "record-only",
+    "measures": [
+     {
+      "target": "132",
+      "metric": "labelled Hausdorff (display px)",
+      "value_max_px": 45.0326,
+      "p95_px": 33.4645,
+      "verdict": "record-only",
+      "threshold_px": 4.0
+     }
+    ]
+   },
+   "72_claws": {
+    "verdict": "record-only",
+    "measures": [
+     {
+      "target": "72",
+      "metric": "labelled Hausdorff (display px)",
+      "value_max_px": 39.5896,
+      "p95_px": 28.4576,
+      "verdict": "record-only",
+      "threshold_px": 4.0
+     }
+    ]
+   },
+   "71_claws": {
+    "verdict": "record-only",
+    "measures": [
+     {
+      "target": "71",
+      "metric": "labelled Hausdorff (display px)",
+      "value_max_px": 39.5896,
+      "p95_px": 27.4759,
+      "iou": 0.92449,
+      "verdict": "record-only",
+      "threshold_px": 4.0
+     }
+    ]
+   },
+   "74": {
+    "verdict": "record-only",
+    "measures": [
+     {
+      "target": "fuji_ridge",
+      "metric": "labelled Hausdorff (display px)",
+      "value_max_px": 5.7562,
+      "p95_px": 5.3092,
+      "verdict": "record-only",
+      "threshold_px": 4.0
+     }
+    ]
+   },
+   "161": {
+    "verdict": "record-only",
+    "measures": [
+     {
+      "target": "fuji_ridge",
+      "metric": "labelled Hausdorff (display px)",
+      "value_max_px": 5.7562,
+      "p95_px": 5.3092,
+      "verdict": "record-only",
+      "threshold_px": 4.0
+     }
+    ]
+   },
+   "212": {
+    "verdict": "pass",
+    "measures": [
+     {
+      "target": "sky_top",
+      "metric": "CIEDE2000 of region median (3 px erosion)",
+      "value": 0.2714,
+      "verdict": "pass"
+     }
+    ]
+   },
+   "265": {
+    "verdict": "record-only",
+    "measures": [
+     {
+      "target": "mizuiro",
+      "metric": "CIEDE2000 of region median (3 px erosion)",
+      "value": 1.2195,
+      "verdict": "record-only"
+     },
+     {
+      "target": "ai_mid",
+      "metric": "CIEDE2000 of region median (3 px erosion)",
+      "value": 0.3312,
+      "verdict": "record-only"
+     }
+    ]
+   },
+   "162": {
+    "verdict": "record-only",
+    "measures": [
+     {
+      "target": "fuji_snow",
+      "metric": "CIEDE2000 of region median (3 px erosion)",
+      "value": 64.4401,
+      "verdict": "record-only"
+     },
+     {
+      "target": "fuji_slope",
+      "metric": "CIEDE2000 of region median (3 px erosion)",
+      "value": 0.1517,
+      "verdict": "record-only"
+     }
+    ]
+   }
+  }
+ },
+ "evaluator_commands": {
+  "all_line": "py -3.10 Tools/PaintingTruth/evaluate.py --render Unity/Build/Design/40/compare/unity/full/painting_t120_all.png --ids Unity/Build/Design/40/compare/unity/full/ids_line.png --idmap Unity/Build/Design/40/compare/eval/idmap.json --out-dir Unity/Build/Design/40/compare/eval/all_line --name all_line",
+  "all_noline": "py -3.10 Tools/PaintingTruth/evaluate.py --render Unity/Build/Design/40/compare/unity/full/painting_t120_all.png --ids Unity/Build/Design/40/compare/unity/full/ids_noline.png --idmap Unity/Build/Design/40/compare/eval/idmap.json --out-dir Unity/Build/Design/40/compare/eval/all_noline --name all_noline",
+  "off_line": "py -3.10 Tools/PaintingTruth/evaluate.py --render Unity/Build/Design/40/compare/unity/full/painting_t120_off.png --ids Unity/Build/Design/40/compare/unity/full/ids_line.png --idmap Unity/Build/Design/40/compare/eval/idmap.json --out-dir Unity/Build/Design/40/compare/eval/off_line --name off_line",
+  "off_noline": "py -3.10 Tools/PaintingTruth/evaluate.py --render Unity/Build/Design/40/compare/unity/full/painting_t120_off.png --ids Unity/Build/Design/40/compare/unity/full/ids_noline.png --idmap Unity/Build/Design/40/compare/eval/idmap.json --out-dir Unity/Build/Design/40/compare/eval/off_noline --name off_noline",
+  "off_noline_noclaws": "py -3.10 Tools/PaintingTruth/evaluate.py --render Unity/Build/Design/40/compare/unity/full/painting_t120_off.png --ids Unity/Build/Design/40/compare/unity/full/ids_noline_noclaws.png --idmap Unity/Build/Design/40/compare/eval/idmap.json --out-dir Unity/Build/Design/40/compare/eval/off_noline_noclaws --name off_noline_noclaws"
+ },
+ "full_composite_evaluator_builder": {
+  "off_noline": {
+   "78": {
+    "max_px": 3.0289,
+    "p95_px": 1.798,
+    "verdict_evaluator": "pass"
+   },
+   "130": {
+    "max_px": 3.5131,
+    "p95_px": 3.3551,
+    "verdict_evaluator": "pass"
+   },
+   "131": {
+    "max_px": 3.0431,
+    "p95_px": 2.856,
+    "verdict_evaluator": "pass"
+   },
+   "132": {
+    "max_px": 5.2998,
+    "p95_px": 4.4995,
+    "verdict_evaluator": "fail"
+   },
+   "72": {
+    "max_px": 10.2687,
+    "p95_px": 7.8009,
+    "verdict_evaluator": "fail"
+   },
+   "71": {
+    "max_px": 37.4944,
+    "p95_px": 9.6781,
+    "verdict_evaluator": "fail"
+   },
+   "212_dE00": 0.2714,
+   "76_max_px": 61.0855,
+   "76_dE00": 0.2224,
+   "213_max_px": 21.6359,
+   "render_sha256": "cca51fbdb2ae99fbd0314ecf3e01c9c008fc314037bdcdc8dc4fe6c01a73408d",
+   "ids_sha256": "d2f5c8806d0fd50937d8b2d5412d818858c0fb9d4e125451cdc0ee24a2e0ba52"
+  },
+  "off_line": {
+   "78": {
+    "max_px": 5.6768,
+    "p95_px": 4.7211,
+    "verdict_evaluator": "fail"
+   },
+   "130": {
+    "max_px": 6.6931,
+    "p95_px": 6.4755,
+    "verdict_evaluator": "fail"
+   },
+   "131": {
+    "max_px": 5.7971,
+    "p95_px": 5.4439,
+    "verdict_evaluator": "fail"
+   },
+   "132": {
+    "max_px": 8.391,
+    "p95_px": 6.897,
+    "verdict_evaluator": "fail"
+   },
+   "72": {
+    "max_px": 13.1464,
+    "p95_px": 8.5954,
+    "verdict_evaluator": "fail"
+   },
+   "71": {
+    "max_px": 37.4944,
+    "p95_px": 12.1425,
+    "verdict_evaluator": "fail"
+   },
+   "212_dE00": 0.2714,
+   "76_max_px": 37.4511,
+   "76_dE00": 0.2224,
+   "213_max_px": 4.8815,
+   "render_sha256": "cca51fbdb2ae99fbd0314ecf3e01c9c008fc314037bdcdc8dc4fe6c01a73408d",
+   "ids_sha256": "79b1d3c5163e7349b6337ee078fea04ae55c801045ad89a22c22112fbf41a807"
+  },
+  "all_line": {
+   "78": {
+    "max_px": 5.6768,
+    "p95_px": 4.7211,
+    "verdict_evaluator": "fail"
+   },
+   "130": {
+    "max_px": 6.6931,
+    "p95_px": 6.4755,
+    "verdict_evaluator": "fail"
+   },
+   "131": {
+    "max_px": 5.7971,
+    "p95_px": 5.4439,
+    "verdict_evaluator": "fail"
+   },
+   "132": {
+    "max_px": 8.391,
+    "p95_px": 6.897,
+    "verdict_evaluator": "fail"
+   },
+   "72": {
+    "max_px": 13.1464,
+    "p95_px": 8.5954,
+    "verdict_evaluator": "fail"
+   },
+   "71": {
+    "max_px": 37.4944,
+    "p95_px": 12.1425,
+    "verdict_evaluator": "fail"
+   },
+   "212_dE00": 0.4209,
+   "76_max_px": 37.4511,
+   "76_dE00": 0.2071,
+   "213_max_px": 4.0,
+   "render_sha256": "613fb3d38300991f70d69b0dc2bb9093f783090c76886ca2bfb9e4077994e34b",
+   "ids_sha256": "79b1d3c5163e7349b6337ee078fea04ae55c801045ad89a22c22112fbf41a807"
+  },
+  "off_noline_noclaws": {
+   "78": {
+    "max_px": 3.0289,
+    "p95_px": 1.798,
+    "verdict_evaluator": "pass"
+   },
+   "130": {
+    "max_px": 3.5131,
+    "p95_px": 3.3551,
+    "verdict_evaluator": "pass"
+   },
+   "131": {
+    "max_px": 3.0431,
+    "p95_px": 2.856,
+    "verdict_evaluator": "pass"
+   },
+   "132": {
+    "max_px": 5.9472,
+    "p95_px": 5.0703,
+    "verdict_evaluator": "fail"
+   },
+   "72": {
+    "max_px": 10.4105,
+    "p95_px": 8.7546,
+    "verdict_evaluator": "fail"
+   },
+   "71": {
+    "max_px": 37.4944,
+    "p95_px": 9.9664,
+    "verdict_evaluator": "fail"
+   },
+   "212_dE00": 0.2714,
+   "76_max_px": 61.0855,
+   "76_dE00": 0.2224,
+   "213_max_px": 21.6359,
+   "render_sha256": "cca51fbdb2ae99fbd0314ecf3e01c9c008fc314037bdcdc8dc4fe6c01a73408d",
+   "ids_sha256": "48116bce25c20ceaf2000cb678373136ddc8449760f4a6f64afe2b78787e9921"
+  },
+  "all_noline": {
+   "78": {
+    "max_px": 3.0289,
+    "p95_px": 1.798,
+    "verdict_evaluator": "pass"
+   },
+   "130": {
+    "max_px": 3.5131,
+    "p95_px": 3.3551,
+    "verdict_evaluator": "pass"
+   },
+   "131": {
+    "max_px": 3.0431,
+    "p95_px": 2.856,
+    "verdict_evaluator": "pass"
+   },
+   "132": {
+    "max_px": 5.2998,
+    "p95_px": 4.4995,
+    "verdict_evaluator": "fail"
+   },
+   "72": {
+    "max_px": 10.2687,
+    "p95_px": 7.8009,
+    "verdict_evaluator": "fail"
+   },
+   "71": {
+    "max_px": 37.4944,
+    "p95_px": 9.6781,
+    "verdict_evaluator": "fail"
+   },
+   "212_dE00": 0.4209,
+   "76_max_px": 58.8549,
+   "76_dE00": 0.2071,
+   "213_max_px": 19.6455,
+   "render_sha256": "613fb3d38300991f70d69b0dc2bb9093f783090c76886ca2bfb9e4077994e34b",
+   "ids_sha256": "d2f5c8806d0fd50937d8b2d5412d818858c0fb9d4e125451cdc0ee24a2e0ba52"
+  }
+ },
+ "record_only": {
+  "paper_layers_all_on": {
+   "212_dE00": 0.4209,
+   "76_max_px": 37.4511,
+   "76_dE00": 0.2071,
+   "213_max_px": 4.0
+  },
+  "mock_seat_t12": {
+   "channel_diff_gt8_px": 70564,
+   "grey_diff_gt8_px": 67531,
+   "builder_value": 70564,
+   "indep_grey_gt8": 67531,
+   "indep_phase_shift_px": [
+    -3.998864707793132,
+    -0.03675891217062599,
+    0.9072425981215488
+   ],
+   "indep_shift_bands_px": {
+    "top": [
+     -4.06,
+     -0.06,
+     0.98
+    ],
+    "mid": [
+     -4.13,
+     -0.01,
+     0.955
+    ],
+    "bot": [
+     -4.84,
+     -0.2,
+     0.762
+    ]
+   }
+  },
+  "id_colour_census_recorder": {
+   "ids_noline": {
+    "n_colours": 9,
+    "size": [
+     3840,
+     2160
+    ],
+    "colours": {
+     "0,0,0": 479130,
+     "0,0,255": 536471,
+     "0,34,0": 142064,
+     "0,255,0": 518229,
+     "0,255,255": 3535470,
+     "34,0,0": 46803,
+     "34,34,0": 164818,
+     "255,0,0": 1150758,
+     "255,255,0": 1720657
+    }
+   },
+   "ids_line": {
+    "n_colours": 10,
+    "size": [
+     3840,
+     2160
+    ],
+    "colours": {
+     "0,0,0": 477072,
+     "0,0,255": 534867,
+     "0,34,0": 140825,
+     "0,255,0": 517582,
+     "0,255,255": 3504007,
+     "34,0,0": 46591,
+     "34,34,0": 164818,
+     "255,0,0": 1147968,
+     "255,0,255": 58200,
+     "255,255,0": 1702470
+    }
+   },
+   "ids_noline_noclaws": {
+    "n_colours": 9,
+    "size": [
+     3840,
+     2160
+    ],
+    "colours": {
+     "0,0,0": 479130,
+     "0,0,255": 536472,
+     "0,34,0": 142064,
+     "0,255,0": 518200,
+     "0,255,255": 3536330,
+     "34,0,0": 46803,
+     "34,34,0": 164818,
+     "255,0,0": 1149925,
+     "255,255,0": 1720658
+    }
+   },
+   "ids_line_noclaws": {
+    "n_colours": 10,
+    "size": [
+     3840,
+     2160
+    ],
+    "colours": {
+     "0,0,0": 477072,
+     "0,0,255": 534868,
+     "0,34,0": 140825,
+     "0,255,0": 517553,
+     "0,255,255": 3504324,
+     "34,0,0": 46591,
+     "34,34,0": 164818,
+     "255,0,0": 1147097,
+     "255,0,255": 58781,
+     "255,255,0": 1702471
+    }
+   }
+  },
+  "layout_vs_reference": {
+   "reference_numbers": {
+    "file": "Unity/Build/Design/30/ref/ds30_ref_layout.json",
+    "sha256": "82b0d79833790602a759a35cb5db6b62b7cf6c33618611df8052f162a07b9c48",
+    "source": "wave_repair_zbrush2.obj",
+    "source_sha256": "AB4124F9720D6E27D80E2AE063916292898C87606A64441043F6A64DE3D53D40",
+    "credit_ja": "他者の展示作品（北斎『神奈川沖浪裏』の立体作品）のスキャン。作者・所蔵は未確認（D18）。数値だけを借り、形は写さない。",
+    "obj_opened_in_ds40": false,
+    "note_ja": "設計30 の ds30_refmeasure.py が測った数値（Δa・Δc・h/H）だけを読む。この番号では OBJ を開かず、一時キャッシュも作らない。"
+   },
+   "first_design_from_ds30": "Docs/Evidence/Design/30/ds30_layout_record.json",
+   "first_design_sha256": "da51406b0617ba8ea28213450aaf8b1cc1c3d5a647d4ba927e19c88ca7e90167",
+   "scale_hero_over_ref": 0.9340868464941916,
+   "rows": [
+    {
+     "name_ja": "主役波の頂（共通の原点）",
+     "reference_first_design_world": [
+      -7.891,
+      20.27,
+      -3.189
+     ],
+     "current_world": [
+      -7.891,
+      20.27,
+      -3.189
+     ],
+     "delta_m": 0.0,
+     "painting_px_reference": [
+      741.2,
+      106.3
+     ],
+     "painting_px_current": [
+      741.2,
+      106.3
+     ],
+     "painting_px_delta": 0.0,
+     "on_screen_reference": true,
+     "on_screen_current": true
+    },
+    {
+     "name_ja": "手前の小波の頂",
+     "reference_first_design_world": [
+      -4.638,
+      2.219,
+      -19.26
+     ],
+     "current_world": [
+      -5.434,
+      5.637,
+      -22.843
+     ],
+     "delta_m": 5.015,
+     "painting_px_reference": [
+      794.3,
+      820.4
+     ],
+     "painting_px_current": [
+      725.6,
+      619.9
+     ],
+     "painting_px_delta": 211.9,
+     "on_screen_reference": true,
+     "on_screen_current": true
+    },
+    {
+     "name_ja": "大波の下の谷の底",
+     "reference_first_design_world": [
+      -2.766,
+      -8.68,
+      -7.622
+     ],
+     "current_world": [
+      0.405,
+      -5.717,
+      -9.516
+     ],
+     "delta_m": 4.734,
+     "painting_px_reference": [
+      928.9,
+      1295.5
+     ],
+     "painting_px_current": [
+      1069.1,
+      1176.9
+     ],
+     "painting_px_delta": 183.6,
+     "on_screen_reference": false,
+     "on_screen_current": false
+    },
+    {
+     "name_ja": "右側の最も高い所／右の高い波の頂",
+     "reference_first_design_world": [
+      0.77,
+      14.373,
+      3.748
+     ],
+     "current_world": [
+      31.375,
+      19.0,
+      4.454
+     ],
+     "delta_m": 30.962,
+     "painting_px_reference": [
+      1074.6,
+      375.1
+     ],
+     "painting_px_current": [
+      2151.2,
+      211.6
+     ],
+     "painting_px_delta": 1089.0,
+     "on_screen_reference": true,
+     "on_screen_current": false
+    }
+   ],
+   "boats_now": {
+    "boat_left": {
+     "bounds_center_world": [
+      -14.745,
+      5.505,
+      -12.398
+     ],
+     "painting_px": [
+      360.0,
+      659.8
+     ]
+    },
+    "boat_mid": {
+     "bounds_center_world": [
+      6.518,
+      2.912,
+      -15.353
+     ],
+     "painting_px": [
+      1379.9,
+      781.7
+     ]
+    },
+    "boat_fg": {
+     "bounds_center_world": [
+      1.294,
+      0.525,
+      -32.189
+     ],
+     "painting_px": [
+      1153.1,
+      975.6
+     ]
+    }
+   },
+   "differences_ds30": [
+    "D30-1 手前の小波の位置",
+    "D30-2 手前の小波の高さ",
+    "D30-3 手前の小波の形",
+    "D30-4 大波の下の谷の深さ",
+    "D30-5 谷の続き",
+    "D30-6 右の高い波",
+    "D30-7 周りの海",
+    "D30-8 座席の船の支え"
+   ],
+   "not_compared_ja": "参照モデルの船は殻に溶け込んだ浮彫で、位置を数値にしていない（設計30 D30-8）。富士・空は参照モデルにない。"
+  },
+  "sea_package_unchanged_since_ds30": true,
+  "sea_package_files": 17,
+  "strict_colour_reading_log": [
+   {
+    "colour_worst_px": 13.642,
+    "over_0p5": "['73', '79', '118', '134', '175', '263']",
+    "sil_worst_px": 0.3177,
+    "flips": "['267']"
+   },
+   {
+    "colour_worst_px": 13.642,
+    "over_0p5": "['73', '79', '118', '134', '175', '263']",
+    "sil_worst_px": 0.3177,
+    "flips": "['134', '267']"
+   }
+  ],
+  "side_left_waveonly_same_file_as_off": true,
+  "back_waveonly_same_file_as_off": false,
+  "indep_check_views_dE76": {
+   "seat_t120": {
+    "shape": [
+     1080,
+     1920
+    ],
+    "dE76_mean": 0.605,
+    "dE76_p99": 1.41,
+    "frac_gt2": 0.0024,
+    "gray_std_off": 70.3,
+    "off_vs39_px": 0
+   },
+   "seat_low_t120": {
+    "shape": [
+     1080,
+     1920
+    ],
+    "dE76_mean": 0.432,
+    "dE76_p99": 1.51,
+    "frac_gt2": 0.0024,
+    "gray_std_off": 83.5,
+    "off_vs39_px": 0
+   },
+   "seat_toward_wave_t105": {
+    "shape": [
+     1080,
+     1920
+    ],
+    "dE76_mean": 0.826,
+    "dE76_p99": 1.65,
+    "frac_gt2": 0.0013,
+    "gray_std_off": 70.7,
+    "off_vs39_px": 0
+   },
+   "seat_toward_wave_t120": {
+    "shape": [
+     1080,
+     1920
+    ],
+    "dE76_mean": 0.458,
+    "dE76_p99": 1.41,
+    "frac_gt2": 0.0023,
+    "gray_std_off": 69.7
+   },
+   "side_left_t120": {
+    "shape": [
+     1080,
+     1920
+    ],
+    "dE76_mean": 0.296,
+    "dE76_p99": 1.41,
+    "frac_gt2": 0.0,
+    "gray_std_off": 70.1
+   },
+   "back_t120": {
+    "shape": [
+     1080,
+     1920
+    ],
+    "dE76_mean": 0.333,
+    "dE76_p99": 1.41,
+    "frac_gt2": 0.0001,
+    "gray_std_off": 72.9
+   }
+  }
+ },
+ "regression_plan_2_0": {
+  "evaluator_output_same_file": true,
+  "sha256": {
+   "ds40": "4ca57d3a973d94d4feca5dfc9c11397e4246b36d5236986df5046c2a35b8931e",
+   "ds39": "4ca57d3a973d94d4feca5dfc9c11397e4246b36d5236986df5046c2a35b8931e",
+   "ds38": "4ca57d3a973d94d4feca5dfc9c11397e4246b36d5236986df5046c2a35b8931e",
+   "ds36_evidence_copy": "4ca57d3a973d94d4feca5dfc9c11397e4246b36d5236986df5046c2a35b8931e"
+  },
+  "protected_unchanged": true,
+  "protected_files": 30,
+  "changed_files": [],
+  "settings_restored": [],
+  "verdict": "合格（後退なし。t* の組と評価器の出力が設計39 と同じ）"
+ },
+ "fix_rounds": {
+  "used": 0,
+  "note_ja": "修正の回は使っていない（Q26 の 1 回は残した）。作る部は評価器23 の出力を --skip-eval で読み直して図と表を作り直した（値は変わらない）"
+ },
+ "recorder_crosscheck": {
+  "builder_sha256_checked": 359,
+  "protected_files_checked": 30,
+  "t28_identity": {
+   "files": 48,
+   "png": 46,
+   "other": 2,
+   "differ": [],
+   "only_one_side": [],
+   "all_same": true,
+   "regress_sha256": {
+    "ds40": "4ca57d3a973d94d4feca5dfc9c11397e4246b36d5236986df5046c2a35b8931e",
+    "ds39": "4ca57d3a973d94d4feca5dfc9c11397e4246b36d5236986df5046c2a35b8931e",
+    "ds38": "4ca57d3a973d94d4feca5dfc9c11397e4246b36d5236986df5046c2a35b8931e",
+    "ds36_evidence_copy": "4ca57d3a973d94d4feca5dfc9c11397e4246b36d5236986df5046c2a35b8931e"
+   },
+   "regress_same_file": true
+  },
+  "images_vs_ds39": {
+   "painting_t120_off": {
+    "differing_px": 0,
+    "max_channel_diff": 0
+   },
+   "painting_t120_all": {
+    "differing_px": 885,
+    "max_channel_diff": 3,
+    "bbox_xyxy": [
+     0,
+     121,
+     1912,
+     972
+    ],
+    "px_gt2": 1
+   },
+   "seat_t120_off": {
+    "differing_px": 0,
+    "max_channel_diff": 0
+   },
+   "seat_t120_all": {
+    "differing_px": 52,
+    "max_channel_diff": 1,
+    "bbox_xyxy": [
+     0,
+     441,
+     1106,
+     1044
+    ],
+    "px_gt2": 0
+   },
+   "seat_low_t120_off": {
+    "differing_px": 0,
+    "max_channel_diff": 0
+   },
+   "seat_low_t120_all": {
+    "differing_px": 251,
+    "max_channel_diff": 2,
+    "bbox_xyxy": [
+     0,
+     1,
+     1230,
+     882
+    ],
+    "px_gt2": 0
+   },
+   "seat_toward_wave_t105_off": {
+    "differing_px": 0,
+    "max_channel_diff": 0
+   },
+   "seat_toward_wave_t105_all": {
+    "differing_px": 410,
+    "max_channel_diff": 2,
+    "bbox_xyxy": [
+     137,
+     0,
+     1900,
+     778
+    ],
+    "px_gt2": 0
+   }
+  },
+  "evaluator_vs_item_table": {
+   "78": {
+    "evaluator": 3.0289,
+    "table": 3.0289,
+    "same": true
+   },
+   "130": {
+    "evaluator": 3.5131,
+    "table": 3.5131,
+    "same": true
+   },
+   "131": {
+    "evaluator": 3.0431,
+    "table": 3.0431,
+    "same": true
+   },
+   "71": {
+    "evaluator": 37.4944,
+    "table": 37.4944,
+    "same": true
+   },
+   "132_detail": {
+    "evaluator": 5.2998,
+    "table": 5.2998,
+    "same": true
+   },
+   "72_detail_p95": {
+    "evaluator": 7.8009,
+    "table": 7.8009,
+    "same": true
+   },
+   "213": {
+    "evaluator": 4.8815,
+    "table": 4.8815,
+    "same": true
+   },
+   "76": {
+    "evaluator": 37.4511,
+    "table": 37.4511,
+    "same": true
+   }
+  },
+  "indep_evaluator_rerun_vs_builder": {
+   "off_noline": {
+    "numeric_values": 298,
+    "all_leaves": 441,
+    "differ": []
+   },
+   "off_line": {
+    "numeric_values": 298,
+    "all_leaves": 441,
+    "differ": []
+   }
+  },
+  "logs": {
+   "Unity/Build/Design/40/compare/logs/ds30b_regress.log": {
+    "lines": 26,
+    "error_lines": 0,
+    "compile_or_shader_errors": 0,
+    "licensing": 0,
+    "other": [],
+    "warnings_cs": 0
+   },
+   "Unity/Build/Design/40/compare/logs/ds40_compare.log": {
+    "lines": 10,
+    "error_lines": 0,
+    "compile_or_shader_errors": 0,
+    "licensing": 0,
+    "other": [],
+    "warnings_cs": 0
+   },
+   "Unity/Build/Design/40/compare/logs/ds40_compare_final.log": {
+    "lines": 6,
+    "error_lines": 0,
+    "compile_or_shader_errors": 0,
+    "licensing": 0,
+    "other": [],
+    "warnings_cs": 0
+   },
+   "Unity/Build/Design/40/compare/logs/unity_ds40_render.log": {
+    "lines": 420,
+    "error_lines": 1,
+    "compile_or_shader_errors": 0,
+    "licensing": 1,
+    "other": [],
+    "warnings_cs": 18
+   }
+  },
+  "render_done": {
+   "seconds": 11.8,
+   "protectedUnchanged": "True"
+  },
+  "regress_real_time": "3m20.101s"
+ },
+ "indep_check": {
+  "files": {
+   "Unity/Build/Design/40/indep_check/crop_left.png": "ed35ef59d68a030cd53f879b9e779d0c395323818e29641448ddd3f55dff290d",
+   "Unity/Build/Design/40/indep_check/crop_upper_right.png": "8547358c01e02ab9f7b09014f7873c14dddb8ca952bc54039c21b9033b606cd1",
+   "Unity/Build/Design/40/indep_check/eval_off_line/metrics.json": "3ab54d1645c7fff65521dab390bee4108f19dbcf4233c2d74736a9dd16a40ad4",
+   "Unity/Build/Design/40/indep_check/eval_off_line/off_line_overlay.png": "96cac76f4627bb1f5cc5c97b9df935f796e7a426b6445f44f4cfd46a2aa460a4",
+   "Unity/Build/Design/40/indep_check/eval_off_noline/metrics.json": "f531f8de7fe08526582ad5f891939b8e15403dd1f681100dd108eb6330ff60dc",
+   "Unity/Build/Design/40/indep_check/eval_off_noline/off_noline_overlay.png": "b01881e8e10a394c564893b767fd9ee84ad682b210856b0c1d211e583cd8ac2e",
+   "Unity/Build/Design/40/indep_check/indep40.json": "4492c6501e093e5726266036fb9ef3c7a2490b8d4a616a85fcb6cd0457524581",
+   "Unity/Build/Design/40/indep_check/indep40.py": "e09ab7b0594280f61f680fe7974c6d55222618385d4ea2f3dc6cdd227b869c57"
+  },
+  "values": {
+   "off_vs39_px": 0,
+   "all_vs39_px": 885,
+   "all_vs39_max": 3,
+   "layout_px_reproj_maxdiff": 0.05974208921281843,
+   "boat_mid_bbox_disp": [
+    1113.5,
+    587.0,
+    1627.5,
+    927.5
+   ],
+   "boat_mid_max_feret_disp": 579.405082822027,
+   "wave_top_render_disp_y": 93.0,
+   "wave_extent_row0_crest_to_sea_px": 791.6451506204089,
+   "wave_extent_render_top_to_sea_px": 804.9140986201351,
+   "68_main": {
+    "tip": [
+     0.9445743155641484,
+     11.929897324665152,
+     -10.288914788188968
+    ],
+    "fb": [
+     0.036986791055832136,
+     -5.712308878646555,
+     -9.447574528243305
+    ],
+    "d_tip": 5.616451371879034,
+    "d_fb": 6.82044961260495,
+    "tip_elev_deg": 60.91646124380515
+   },
+   "68_overhang_along_travel_m": 1.2375655730701993
+  }
+ },
+ "backlog": {
+  "plan_2_3_no_regression": {
+   "value": "78／130／131 3.0289／3.5131／3.0431 px、132 σ12 3.7552 px、72 σ24 p95 3.8423 px（爪あり）・4.0075 px（爪なし）、29修正01 との差 0.0。69・70・212・68・94 合格。色区（両側の読み、爪あり）の差 0.0",
+   "verdict": "合格（直前の番号に対して）"
+  },
+  "plan_2_3_cp1_stated": {
+   "value": "CP1／26修正01 に対する後退は段階5・6 の終わりと同じ値のまま（書いた）",
+   "verdict": "書いた"
+  },
+  "plan_2_3_record_only": {
+   "value": "71 37.4944 px（p95 9.6781）、76・213 は線ありの ID で記録",
+   "verdict": "記録のみ"
+  },
+  "hmd_H4_H5": {
+   "value": "—",
+   "verdict": "保留"
+  },
+  "94": {
+   "value": "原画視点のカメラの位置の差 0.0 m",
+   "verdict": "合格（静止画の照合だけ）"
+  }
+ },
+ "backlog_items": {
+  "78": {
+   "value": 3.0289,
+   "verdict": "合格",
+   "judged": true,
+   "reading_ja": "t* の主役波の ID（評価器23、包絡版）の最大 px。判定は K*′ の幾何の値との差 ≤0.5 px（29修正01 の読み）"
+  },
+  "130": {
+   "value": 3.5131,
+   "verdict": "合格",
+   "judged": true,
+   "reading_ja": "t* の主役波の ID（評価器23、包絡版）の最大 px。判定は K*′ の幾何の値との差 ≤0.5 px（29修正01 の読み）"
+  },
+  "131": {
+   "value": 3.0431,
+   "verdict": "合格",
+   "judged": true,
+   "reading_ja": "t* の主役波の ID（評価器23、包絡版）の最大 px。判定は K*′ の幾何の値との差 ≤0.5 px（29修正01 の読み）"
+  },
+  "132": {
+   "value": 3.7552,
+   "verdict": "合格",
+   "judged": true,
+   "reading_ja": "大きな輪郭 σ12 の最大 px（28修正01 の関門の読み）"
+  },
+  "72": {
+   "value": 3.8423,
+   "verdict": "合格",
+   "judged": true,
+   "reading_ja": "大きな輪郭 σ24 の p95 px（28修正01 の関門の読み）。爪あり（判定）"
+  },
+  "71": {
+   "value": 37.4944,
+   "verdict": "記録のみ",
+   "judged": false,
+   "reading_ja": "評価器23 の最大 px（全体の合成、線なしの ID）。記録のみ（Q7 の既定）"
+  },
+  "68": {
+   "value": "5.62 < 6.82",
+   "verdict": "合格",
+   "judged": true,
+   "reading_ja": "座席 v1 から唇の先・内壁の下端までの水平距離 m"
+  },
+  "69": {
+   "value": "船 x 1114〜1628、頂 y 116.4・海 y 896.2",
+   "verdict": "合格",
+   "judged": true,
+   "reading_ja": "右船の bbox（表示 px）と頂・海の y"
+  },
+  "70": {
+   "value": "779.7 > 579.4",
+   "verdict": "合格",
+   "judged": true,
+   "reading_ja": "表示 px"
+  },
+  "212": {
+   "value": 0.2714,
+   "verdict": "合格",
+   "judged": true,
+   "reading_ja": "ΔE00（空の上の色区の中央値、線ありの ID）"
+  },
+  "76": {
+   "value": "37.45 px／ΔE00 0.222",
+   "verdict": "記録のみ",
+   "judged": false,
+   "reading_ja": "範囲の最大 px／ΔE00。記録のみ（Q7 の既定）"
+  },
+  "213": {
+   "value": "4.88 px",
+   "verdict": "記録のみ",
+   "judged": false,
+   "reading_ja": "最大 px。記録のみ（Q7 の既定）"
+  },
+  "94": {
+   "value": "位置の差 0.000000 m",
+   "verdict": "合格",
+   "judged": true,
+   "reading_ja": "場面のカメラの値の照合"
+  },
+  "74・161": {
+   "value": "5.76 px（p95 5.31）",
+   "verdict": "記録のみ",
+   "judged": false,
+   "reading_ja": "評価器23 の最大 px（報告項目）"
+  },
+  "75": {
+   "value": "141.36 px（p95 85.62）",
+   "verdict": "記録のみ",
+   "judged": false,
+   "reading_ja": "評価器23 の最大 px（報告項目）"
+  },
+  "157": {
+   "value": "77.55 px（p95 63.53）",
+   "verdict": "記録のみ",
+   "judged": false,
+   "reading_ja": "評価器23 の最大 px（報告項目）"
+  },
+  "159": {
+   "value": "160.86 px（p95 121.18）",
+   "verdict": "記録のみ",
+   "judged": false,
+   "reading_ja": "評価器23 の最大 px（報告項目）"
+  },
+  "162": {
+   "value": "雪 64.44・斜面 0.15",
+   "verdict": "記録のみ",
+   "judged": false,
+   "reading_ja": "ΔE00（報告項目）"
+  },
+  "73": {
+   "value": 0.303,
+   "verdict": "合格",
+   "judged": true,
+   "reading_ja": "両側の読み（29修正01 が採った読み）の最大 px、爪あり"
+  },
+  "77": {
+   "value": 0.867,
+   "verdict": "合格",
+   "judged": true,
+   "reading_ja": "両側の読み（29修正01 が採った読み）の最大 px、爪あり"
+  },
+  "79": {
+   "value": 0.357,
+   "verdict": "合格",
+   "judged": true,
+   "reading_ja": "両側の読み（29修正01 が採った読み）の最大 px、爪あり"
+  },
+  "118": {
+   "value": 0.867,
+   "verdict": "合格",
+   "judged": true,
+   "reading_ja": "両側の読み（29修正01 が採った読み）の最大 px、爪あり"
+  },
+  "120": {
+   "value": 0.288,
+   "verdict": "合格",
+   "judged": true,
+   "reading_ja": "両側の読み（29修正01 が採った読み）の最大 px、爪あり"
+  },
+  "133": {
+   "value": 0.718,
+   "verdict": "合格",
+   "judged": true,
+   "reading_ja": "両側の読み（29修正01 が採った読み）の最大 px、爪あり"
+  },
+  "134": {
+   "value": 0.634,
+   "verdict": "合格",
+   "judged": true,
+   "reading_ja": "両側の読み（29修正01 が採った読み）の最大 px、爪あり"
+  },
+  "263": {
+   "value": 0.25,
+   "verdict": "合格",
+   "judged": true,
+   "reading_ja": "両側の読み（29修正01 が採った読み）の最大 px、爪あり"
+  },
+  "270": {
+   "value": 0.634,
+   "verdict": "合格",
+   "judged": true,
+   "reading_ja": "両側の読み（29修正01 が採った読み）の最大 px、爪あり"
+  },
+  "175": {
+   "value": 0.978,
+   "verdict": "不合格",
+   "judged": false,
+   "reading_ja": "両側の読み（29修正01 が採った読み）の最大 px、爪あり"
+  },
+  "265": {
+   "value": "ΔE00 0.545",
+   "verdict": "合格",
+   "judged": true,
+   "reading_ja": "評価器 28修正01／両側の読み"
+  },
+  "266": {
+   "value": "判定 pass",
+   "verdict": "合格",
+   "judged": true,
+   "reading_ja": "評価器 28修正01／両側の読み"
+  },
+  "267": {
+   "value": "評価器の定義 fail／両側の読み 20 px 以上の帯 {'white': 0, 'mizuiro': 0, 'ai_mid': 0, 'ai_dark': 0}",
+   "verdict": "合格",
+   "judged": true,
+   "reading_ja": "評価器 28修正01／両側の読み"
+  }
+ },
+ "hmd": "PS VR2 の H4（船上から見た高さ・厚み・内側空間と実寸）・H5（唇が頭上を越えるときの快適性）は保留（Q24。導入は利用者の手）",
+ "time": {
+  "box_ja": "Q26 の日程で 2 時間（計画の時間枠は ≤0.5 日）",
+  "builder_started": "Wed Sep 30 08:24:42     2026",
+  "builder_readme_ja": "作る部の README の題：08:18〜08:40ごろ（読み 08:18〜、着手の印 08:24:42、約 25 分）",
+  "unity_log": "2026-09-30 08:27:11",
+  "unity_report": "2026-09-30 08:27:11",
+  "regress_output": "2026-09-30 08:31:56",
+  "compare_metrics": "2026-09-30 08:35:19",
+  "builder_readme": "2026-09-30 08:37:11",
+  "builder_run_json": "2026-09-30 08:37:19",
+  "indep_check_files": [
+   "2026-09-30 08:40:05",
+   "2026-09-30 08:42:44"
+  ],
+  "unity_render_seconds": 11.8,
+  "unity_report_secondsTotal": 11.8,
+  "regress_real": "3m20.101s"
+ }
+}

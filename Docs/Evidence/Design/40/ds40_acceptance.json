@@ -1,0 +1,279 @@
+{
+ "schema": "GreatWave.DS40.acceptance/1",
+ "generated_utc": "2026-09-30T00:35:19+00:00",
+ "acceptance": {
+  "no_regression_vs_29r01_ds30": {
+   "criterion_ja": "計画 §2.0 の項目（78・130・131・132 大きな輪郭・72 σ24 p95・69・70・212、色区は 29修正01 が戻した読み）が、29修正01／設計30 で合格した判定のまま",
+   "regressed_items": [],
+   "silhouette_and_lfgate_diff_vs_29r01_px": {
+    "output": "Unity/Build/Design/40/compare/unity/ds30_tstar_regress.json",
+    "sha256": "4ca57d3a973d94d4feca5dfc9c11397e4246b36d5236986df5046c2a35b8931e",
+    "ds39_output_sha256": "4ca57d3a973d94d4feca5dfc9c11397e4246b36d5236986df5046c2a35b8931e",
+    "identical_to_ds39": true,
+    "sym_worst_diff_vs_29r01_px": {
+     "t28_claws": 0.0,
+     "t28_white": 0.0
+    },
+    "silhouette_diff_vs_29r01_px": {
+     "t28_claws": {
+      "78": 0.0,
+      "130": 0.0,
+      "131": 0.0
+     },
+     "t28_white": {
+      "78": 0.0,
+      "130": 0.0,
+      "131": 0.0
+     }
+    },
+    "lfgate_diff_vs_29r01_px": {
+     "t28_claws": {
+      "132_sigma12_max": 0.0,
+      "72_sigma24_p95": -0.1652
+     },
+     "t28_white": {
+      "132_sigma12_max": 0.0,
+      "72_sigma24_p95": 0.0
+     }
+    }
+   },
+   "pass": true
+  },
+  "cp1_26r01_regression_stated": {
+   "criterion_ja": "CP1／26修正01 に対する後退（段階5確認 §6.3）を隠さずに書く",
+   "rows": [
+    {
+     "item": "78",
+     "cp1": 2.772,
+     "r26r01": 1.6408,
+     "ds40": 3.0289
+    },
+    {
+     "item": "130",
+     "cp1": 1.9675,
+     "r26r01": 1.953,
+     "ds40": 3.5131
+    },
+    {
+     "item": "131",
+     "cp1": 1.8143,
+     "r26r01": 1.798,
+     "ds40": 3.0431
+    },
+    {
+     "item": "132",
+     "cp1": 1.3256,
+     "r26r01": 1.5739,
+     "ds40": 3.7552
+    },
+    {
+     "item": "72",
+     "cp1": 1.5581,
+     "r26r01": 1.7233,
+     "ds40": 3.8423
+    }
+   ],
+   "pass": true
+  },
+  "record_only_71_76_213": {
+   "items": [
+    "71",
+    "76",
+    "213"
+   ],
+   "pass": true
+  },
+  "hmd_h4_h5": {
+   "verdict": "保留",
+   "note_ja": "PS VR2 の導入は利用者の手。Mock の両眼（座席 v1、±0.032 m）と PC の描画だけ。"
+  }
+ },
+ "item_table_short": [
+  {
+   "item": "78",
+   "ds40": 3.0289,
+   "verdict_ds40": "pass",
+   "judged": true
+  },
+  {
+   "item": "130",
+   "ds40": 3.5131,
+   "verdict_ds40": "pass",
+   "judged": true
+  },
+  {
+   "item": "131",
+   "ds40": 3.0431,
+   "verdict_ds40": "pass",
+   "judged": true
+  },
+  {
+   "item": "132",
+   "ds40": 3.7552,
+   "verdict_ds40": "pass",
+   "judged": true
+  },
+  {
+   "item": "72",
+   "ds40": 3.8423,
+   "verdict_ds40": "pass",
+   "judged": true
+  },
+  {
+   "item": "71",
+   "ds40": 37.4944,
+   "verdict_ds40": "record-only",
+   "judged": false
+  },
+  {
+   "item": "68",
+   "ds40": "5.62 < 6.82",
+   "verdict_ds40": "pass",
+   "judged": true
+  },
+  {
+   "item": "69",
+   "ds40": "船 x 1114〜1628、頂 y 116.4・海 y 896.2",
+   "verdict_ds40": "pass",
+   "judged": true
+  },
+  {
+   "item": "70",
+   "ds40": "779.7 > 579.4",
+   "verdict_ds40": "pass",
+   "judged": true
+  },
+  {
+   "item": "212",
+   "ds40": 0.2714,
+   "verdict_ds40": "pass",
+   "judged": true
+  },
+  {
+   "item": "76",
+   "ds40": "37.45 px／ΔE00 0.222",
+   "verdict_ds40": "record-only",
+   "judged": false
+  },
+  {
+   "item": "213",
+   "ds40": "4.88 px",
+   "verdict_ds40": "record-only",
+   "judged": false
+  },
+  {
+   "item": "94",
+   "ds40": "位置の差 0.000000 m",
+   "verdict_ds40": "pass",
+   "judged": true
+  },
+  {
+   "item": "74・161",
+   "ds40": "5.76 px（p95 5.31）",
+   "verdict_ds40": "record-only",
+   "judged": false
+  },
+  {
+   "item": "75",
+   "ds40": "141.36 px（p95 85.62）",
+   "verdict_ds40": "record-only",
+   "judged": false
+  },
+  {
+   "item": "157",
+   "ds40": "77.55 px（p95 63.53）",
+   "verdict_ds40": "record-only",
+   "judged": false
+  },
+  {
+   "item": "159",
+   "ds40": "160.86 px（p95 121.18）",
+   "verdict_ds40": "record-only",
+   "judged": false
+  },
+  {
+   "item": "162",
+   "ds40": "雪 64.44・斜面 0.15",
+   "verdict_ds40": "record-only",
+   "judged": false
+  },
+  {
+   "item": "73",
+   "ds40": 0.303,
+   "verdict_ds40": "pass",
+   "judged": true
+  },
+  {
+   "item": "77",
+   "ds40": 0.867,
+   "verdict_ds40": "pass",
+   "judged": true
+  },
+  {
+   "item": "79",
+   "ds40": 0.357,
+   "verdict_ds40": "pass",
+   "judged": true
+  },
+  {
+   "item": "118",
+   "ds40": 0.867,
+   "verdict_ds40": "pass",
+   "judged": true
+  },
+  {
+   "item": "120",
+   "ds40": 0.288,
+   "verdict_ds40": "pass",
+   "judged": true
+  },
+  {
+   "item": "133",
+   "ds40": 0.718,
+   "verdict_ds40": "pass",
+   "judged": true
+  },
+  {
+   "item": "134",
+   "ds40": 0.634,
+   "verdict_ds40": "pass",
+   "judged": true
+  },
+  {
+   "item": "263",
+   "ds40": 0.25,
+   "verdict_ds40": "pass",
+   "judged": true
+  },
+  {
+   "item": "270",
+   "ds40": 0.634,
+   "verdict_ds40": "pass",
+   "judged": true
+  },
+  {
+   "item": "175",
+   "ds40": 0.978,
+   "verdict_ds40": "fail",
+   "judged": false
+  },
+  {
+   "item": "265",
+   "ds40": "ΔE00 0.545",
+   "verdict_ds40": "pass",
+   "judged": true
+  },
+  {
+   "item": "266",
+   "ds40": "判定 pass",
+   "verdict_ds40": "pass",
+   "judged": true
+  },
+  {
+   "item": "267",
+   "ds40": "評価器の定義 fail／両側の読み 20 px 以上の帯 {'white': 0, 'mizuiro': 0, 'ai_mid': 0, 'ai_dark': 0}",
+   "verdict_ds40": "pass",
+   "judged": true
+  }
+ ]
+}

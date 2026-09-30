@@ -1,0 +1,294 @@
+{
+ "schema": "GreatWave.Design40.run/1",
+ "commands": [
+  "powershell -NoProfile -ExecutionPolicy Bypass -File Tools/GWWaveGen/ds40/run_ds40_unity.ps1 -Method GreatWave.Design40.EditorTools.DS40Render.Render -Log render（約 20 s、描画 11.8 s）",
+  "py -3.10 -B Tools/GWWaveGen/ds30/ds30b_tstar_regress.py --out Unity/Build/Design/40/compare/unity --sets t28_claws,t28_white（3 分 20 秒）",
+  "py -3.10 -B Tools/GWWaveGen/ds40/ds40_compare.py（評価器23 を 5 回、約 45 秒。--skip-eval で評価器の出力を読み直して図と表だけ作る）",
+  "py -3.10 -B Tools/GWWaveGen/ds40/ds40_run_record.py",
+  "py -3.10 -B Tools/GWWaveGen/ds40/ds40_record.py（記録。約 30 秒）"
+ ],
+ "evaluator_commands": {
+  "all_line": "py -3.10 Tools/PaintingTruth/evaluate.py --render Unity/Build/Design/40/compare/unity/full/painting_t120_all.png --ids Unity/Build/Design/40/compare/unity/full/ids_line.png --idmap Unity/Build/Design/40/compare/eval/idmap.json --out-dir Unity/Build/Design/40/compare/eval/all_line --name all_line",
+  "all_noline": "py -3.10 Tools/PaintingTruth/evaluate.py --render Unity/Build/Design/40/compare/unity/full/painting_t120_all.png --ids Unity/Build/Design/40/compare/unity/full/ids_noline.png --idmap Unity/Build/Design/40/compare/eval/idmap.json --out-dir Unity/Build/Design/40/compare/eval/all_noline --name all_noline",
+  "off_line": "py -3.10 Tools/PaintingTruth/evaluate.py --render Unity/Build/Design/40/compare/unity/full/painting_t120_off.png --ids Unity/Build/Design/40/compare/unity/full/ids_line.png --idmap Unity/Build/Design/40/compare/eval/idmap.json --out-dir Unity/Build/Design/40/compare/eval/off_line --name off_line",
+  "off_noline": "py -3.10 Tools/PaintingTruth/evaluate.py --render Unity/Build/Design/40/compare/unity/full/painting_t120_off.png --ids Unity/Build/Design/40/compare/unity/full/ids_noline.png --idmap Unity/Build/Design/40/compare/eval/idmap.json --out-dir Unity/Build/Design/40/compare/eval/off_noline --name off_noline",
+  "off_noline_noclaws": "py -3.10 Tools/PaintingTruth/evaluate.py --render Unity/Build/Design/40/compare/unity/full/painting_t120_off.png --ids Unity/Build/Design/40/compare/unity/full/ids_noline_noclaws.png --idmap Unity/Build/Design/40/compare/eval/idmap.json --out-dir Unity/Build/Design/40/compare/eval/off_noline_noclaws --name off_noline_noclaws"
+ },
+ "environment": {
+  "python": "3.10.6",
+  "numpy": "2.2.6",
+  "opencv": "4.12.0",
+  "platform": "Windows-10-10.0.26200-SP0",
+  "python_record": "3.10.6",
+  "numpy_record": "2.2.6",
+  "opencv_record": "4.12.0",
+  "unity": "6000.4.3f1",
+  "device": "NVIDIA GeForce RTX 3080",
+  "graphicsApi": "Direct3D11",
+  "colorSpace": "Linear"
+ },
+ "code_sha256": {
+  "Tools/GWWaveGen/ds40/ds40_compare.py": "4fc2bd483ef91b39ed5db44923bba1a4bf3c1204efde6786a3ef77810488cacd",
+  "Tools/GWWaveGen/ds40/ds40_record.py": "c11634958066c6f1045b49e1ef511a66049984251ff0c5855564557c57d93502",
+  "Tools/GWWaveGen/ds40/ds40_run_record.py": "ad0ece588b65163c6ed7b1884282057b58d7228f5a3c5f0d2497e7bf98fd101f",
+  "Tools/GWWaveGen/ds40/run_ds40_unity.ps1": "25b740b63f012c5dfeec7d83cdeed5630a0ee8c850529ad8b6823e9f56f66023",
+  "Unity/Assets/GreatWave/Design40/Editor/DS40Render.cs": "c0482e72f95793e2e7388a4031a9e61d4b9b370dbdf37628262778ff6892d9c6",
+  "Unity/Assets/GreatWave/Design40/Editor/DS40Render.cs.meta": "f9b657acf788806eb1584167d6510756f1d0a5a9baa83881b0921a7406ebf36a",
+  "Unity/Assets/GreatWave/Design40/Editor.meta": "80ccc1460efc91528b1b6146662ade5ad93f0598d8f477eb66a4e270a9e9dfdc"
+ },
+ "builder_code_sha256": {
+  "Unity/Assets/GreatWave/Design40/Editor/DS40Render.cs": "c0482e72f95793e2e7388a4031a9e61d4b9b370dbdf37628262778ff6892d9c6",
+  "Tools/GWWaveGen/ds40/run_ds40_unity.ps1": "25b740b63f012c5dfeec7d83cdeed5630a0ee8c850529ad8b6823e9f56f66023",
+  "Tools/GWWaveGen/ds40/ds40_compare.py": "4fc2bd483ef91b39ed5db44923bba1a4bf3c1204efde6786a3ef77810488cacd",
+  "Tools/GWWaveGen/ds40/ds40_run_record.py": "ad0ece588b65163c6ed7b1884282057b58d7228f5a3c5f0d2497e7bf98fd101f",
+  "Tools/PaintingTruth/evaluate.py": "6db4f84a59b4d99595de0449bdd884abe457be0a84d11c48f26df122e90710d2",
+  "Tools/PaintingTruth/truthlib.py": "a2886d5de2c1fac36d702076a57e0630db234c988fb413a70ea50beab6d1f0e1",
+  "Tools/GWWaveGen/ds30/ds30b_tstar_regress.py": "81dba35902244557d9e515e103210be60375c2546e409c8a704efc9c57a6909f",
+  "Tools/GWWaveGen/ds29r01/ds29r01_tstar_eval.py": "38dd7896864a31af156311ceda0c045d11672c3a271aeefa054c41d6b9f8557b",
+  "Tools/GWWaveGen/ds29r01/ds29r01_tstar_sym.py": "0c7796d8e4dda37fc39a665b6c6c274947774720ab2feb1c22b109411f783098"
+ },
+ "inputs_sha256": {
+  "Unity/Assets/GreatWave/Design39/Scenes/DS39_Paper.unity": "7480a99b1e961fa68b3bb7851789a17a70c082f6981b8d1560a46a8324699ddd",
+  "Unity/Build/Design/30/ref/ds30_ref_layout.json": "82b0d79833790602a759a35cb5db6b62b7cf6c33618611df8052f162a07b9c48",
+  "Docs/Evidence/Design/30/ds30_layout_record.json": "da51406b0617ba8ea28213450aaf8b1cc1c3d5a647d4ba927e19c88ca7e90167",
+  "Docs/Evidence/Design/30/fig_ds30_layout_plan.png": "c1824d6d4dc076810ef5b7456001bb591a6ededd43f6e357f6a4468abd2faf47",
+  "Docs/Evidence/ArtFirst/CP1/metrics.json": "82e21b235b0bde05d23f945dfb0a05c06ccf28e63c7be2bd0bee5989d930f28a",
+  "Tools/GWContext/seat_v1.json": "4f7553fd6ab29d117266d6f0b6e58c84dc30f36cf440f6de9314b95102517488",
+  "Unity/Build/Design/28R01F/kstar_final/kstarR4_a45_meta.json": "b8d6752bdf1a4df8106ffe7e3a96addfa9b04d2c9cab1cb71f4cf7df0ad7f943",
+  "Unity/Build/Design/28R01F/kstar_final/kstarR4_a45_rows.npz": "a0c256d221f5a3e026f3ff0135481e5a7075daaa57832d2ab4884772b8e79e46",
+  "Unity/Build/Design/39/paper/unity/ds30_tstar_regress.json": "4ca57d3a973d94d4feca5dfc9c11397e4246b36d5236986df5046c2a35b8931e",
+  "Unity/Build/Design/39/paper/unity/onoff/ds39_painting_t120_off.png": "cca51fbdb2ae99fbd0314ecf3e01c9c008fc314037bdcdc8dc4fe6c01a73408d"
+ },
+ "protected_files": [
+  "Assets/GreatWave/Design39/Scenes/DS39_Paper.unity 7480a99b1e961fa68b3bb7851789a17a70c082f6981b8d1560a46a8324699ddd",
+  "Assets/GreatWave/Design39/Scenes/DS39_Perf.unity b0795a9eb04cd3ea73e7e136ac39d8eff235bbac1cdd2ddd4a6280c79be3f414",
+  "Assets/GreatWave/Design38/Scenes/DS38_Outlines.unity 75f19c51c952e440a74722f4472f8d51ca0a0e331929c48f473bc4ec2efe5227",
+  "Assets/GreatWave/Design39/Editor/DS39Render.cs da13f13cb31f02e5c9ed2dc410e5f96bd17dbbcba8e9f93f3e32cb0505c3dd48",
+  "Assets/GreatWave/Design39/Scripts/DS39PaperLayers.cs ba6c7f983315983c3c9f6862090bd851258bb6caa1d111fe170520403d094a4d",
+  "Assets/GreatWave/Design39/Shaders/DS39_Paper_Keypose.shader 4f40449073fe3a486853d0aa550ef59bee31be8514e4012e52fe63fa7cf86736",
+  "Assets/GreatWave/Design39/Shaders/DS39_Paper_Mesh.shader a890a106fdc7cb4763c96dd4413b28a4166a180af9b680c5c6deb02cf9d13a10",
+  "Assets/GreatWave/Design39/Materials/DS39_Paper_Keypose.mat c0455d8c7367fa417e80904d2aea8ebb666b9f501810b34fc110c9c417257e82",
+  "Assets/GreatWave/Design39/Materials/DS39_Mura_Keypose.mat 58e9aadcd76ff66d74b496f4bf885ab07a93aaf1eeed3678971053570302d8b9",
+  "Assets/GreatWave/Design39/Materials/DS39_Paper_Mesh.mat d29cd9ace3e537c945619ae2b9f517470dbbbc182238fff66c1cb58b12cc49b2",
+  "Assets/GreatWave/Design39/Materials/DS39_Mura_Mesh.mat 1362df06416120219d573317b6c8f8b4bc2249cdd407ddf77caacd56bcf9200d",
+  "Assets/GreatWave/Design30/Scripts/DS30SheetPlayer.cs de28b73834f06d1bbe95e7ae2921ca86f7a5bd7211a3a5ca83b33a17e0b13310",
+  "Assets/GreatWave/Design34/Scripts/DS34ClawPlayer.cs 77af1f4946f55fcf165b4b6c9001c1374ceb1a8b9eeea4d1eca8ab86b8380e17",
+  "Assets/GreatWave/Design31/Scripts/DS31InstancedParticles.cs f536130cdb4aecf4f69d0678fe973bd19bf77220e4fa951778db19a1ce5eca11",
+  "Assets/GreatWave/Design31/Shaders/DS31_Spray_Unlit.shader 33aec2d5e152e573bee7e6de2860838faf50fecff9da94139bfc3ecf5d13f4b3",
+  "Assets/GreatWave/Design27/Shaders/DS27_NPR_White.shader 04605cfe56b5e5bafcfb5c0bbc73b783a65f6637222eda5950c15e7e8b322dd9",
+  "Assets/GreatWave/Design36/Shaders/DS36_Claw_Palette.shader 3c12157d0472477818cb348a46fa4556f4ff51dca82ce2a52fef988f052fa380",
+  "Assets/GreatWave/Design38/Shaders/DS38_Outline_Keypose.shader 05f0fa694c51fb412783e5c1ec05a888588047ebdc6ba287b039bd3f9dc9c5e1",
+  "Assets/GreatWave/Design38/Shaders/DS38_Outline_Mesh.shader fb8532056bea0c806d1537bbbb4e05240a4e5248a999f01b9a802afecb576e92",
+  "Assets/GreatWave/Design38/Materials/DS38_Outline_hero.mat fbc35bc9473b0ef6b6ae9eae24adf25bf4d219d358ecdc2ab4eeb9b97c1d704c",
+  "Assets/GreatWave/Design38/Materials/DS38_Outline_near.mat 8e51899b5797b5ebf2d3d153c4d67bbf2daa014c41f671788bd9c72477cde745",
+  "Assets/GreatWave/Design38/Materials/DS38_Outline_claws.mat 915b4681a476c8aa00d014ff6454caddb9dded3ff320e3c1f196244fc0b342f6",
+  "Assets/GreatWave/ArtFirst/Shaders/AF24IdFlat.shader f5fa3a08b938e29578fb384f41ce10dc1ae6c67522ba68eed6aeaf19086c9b72",
+  "Assets/GreatWave/ArtFirst/Prefabs/AF27R01_Context.prefab 9d79b61cf3c37fb9bdaf75d25df6846426512d40ece03f92da7df14f86daa76e",
+  "Build/Design/29R01/bake_kp/bake/af28r01_uvsdf_a45.bin 69c0b26d5e0129598aa19ca8365fa590af9a81c282e5fef8298409fac8470d1a",
+  "Build/Design/33/claws/ds33_claw_frames_f32.bin 6e7629889a47efc0172d40c28364b59eadef48e419d0dad5c279e3fa3d7f7565",
+  "Build/Design/31/spray/ds31_spray_frames.bin 9db0a42811aa2c72f1cefbf8b80386f2e919a8b80fe65f7e91dd6a60c9b25c5f",
+  "Build/Design/38/outlines/unity/prep/ds38_hero_linemask_f32.bin 338032451dcfa0f72f93f7a7e9250f2475148c5fd1d9dfbdaf44f37d0a6574d3",
+  "Build/Design/36/palette/prep/ds36_sea_ramp_256_rgba8.bin 1f802be852c30c49827ed53508e3f8372a7c0e7a1acaccd7efd7716facf79b17",
+  "Build/Design/39/paper/spray/ds39_spray_dense_frames.json 6fcc783562fcc70b4dffcb404d8b03d17559d9a0f4c99538d3c137499d23bb72"
+ ],
+ "protectedUnchanged": true,
+ "builder_outputs_sha256_checked": 359,
+ "regress_json": {
+  "ds40": "Unity/Build/Design/40/compare/unity/ds30_tstar_regress.json",
+  "sha256": {
+   "ds40": "4ca57d3a973d94d4feca5dfc9c11397e4246b36d5236986df5046c2a35b8931e",
+   "ds39": "4ca57d3a973d94d4feca5dfc9c11397e4246b36d5236986df5046c2a35b8931e",
+   "ds38": "4ca57d3a973d94d4feca5dfc9c11397e4246b36d5236986df5046c2a35b8931e",
+   "ds36_evidence_copy": "4ca57d3a973d94d4feca5dfc9c11397e4246b36d5236986df5046c2a35b8931e"
+  }
+ },
+ "figures": {
+  "fig_ds40_item_table.png": {
+   "source": "Unity/Build/Design/40/compare/fig/fig_ds40_item_table.png",
+   "source_sha256": "a4de5627cc122ff3cf50a21b57e6f9a01089540650a0c19ec33b150d07ff7704",
+   "source_size": [
+    1920,
+    1156
+   ],
+   "scale": 0.9343
+  },
+  "fig_ds40_views_sheet.png": {
+   "source": "Unity/Build/Design/40/compare/fig/fig_ds40_views_sheet.png",
+   "source_sha256": "dd31244e82885a43f10dd42b522967ee063b000cc193204f5246e4619ea84ce8",
+   "source_size": [
+    1920,
+    1080
+   ],
+   "scale": 1.0
+  },
+  "fig_ds40_views_extra.png": {
+   "source": "Unity/Build/Design/40/compare/fig/fig_ds40_views_extra.png",
+   "source_sha256": "72036df278d4b81f0ba5e6bd5d2a9e9b7245e93535cb7a4f619dbd80a89c83fe",
+   "source_size": [
+    1920,
+    540
+   ],
+   "scale": 1.0
+  },
+  "fig_ds40_contour_off_noline.png": {
+   "source": "Unity/Build/Design/40/compare/fig/fig_ds40_contour_off_noline.png",
+   "source_sha256": "6328344a5acedda7b1f4f7e2eb0ef9d2e70f0e7a0e0770bcf4dff606677fe420",
+   "source_size": [
+    1920,
+    1080
+   ],
+   "scale": 1.0
+  },
+  "fig_ds40_contour_off_line.png": {
+   "source": "Unity/Build/Design/40/compare/fig/fig_ds40_contour_off_line.png",
+   "source_sha256": "0ecbbdea644986a4001316f8ab1b5350a545894de950d46569959be947b715e5",
+   "source_size": [
+    1920,
+    1080
+   ],
+   "scale": 1.0
+  },
+  "fig_ds40_painting_overlay50.png": {
+   "source": "Unity/Build/Design/40/compare/fig/fig_ds40_painting_overlay50.png",
+   "source_sha256": "7fdc1c614b150e2b05f860a9575b11c2fa3ced236fccfdf0b1ae6439709a17e6",
+   "source_size": [
+    1920,
+    1080
+   ],
+   "scale": 1.0
+  },
+  "fig_ds40_layout_reference.png": {
+   "source": "Unity/Build/Design/40/compare/fig/fig_ds40_layout_reference.png",
+   "source_sha256": "59d9743b0e980457aaf93b253808ac4fa4fd19ed9935aba41af8af83e9b7a0b9",
+   "source_size": [
+    3840,
+    1080
+   ],
+   "kept": "左半分 x 0〜1919",
+   "right_half_is": "Docs/Evidence/Design/30/fig_ds30_layout_plan.png",
+   "plan30_size": [
+    1920,
+    1080
+   ],
+   "plan30_sha256": "c1824d6d4dc076810ef5b7456001bb591a6ededd43f6e357f6a4468abd2faf47",
+   "right_half_vs_plan30": {
+    "differing_px": 5066,
+    "bbox_xyxy": [
+     11,
+     1041,
+     609,
+     1060
+    ]
+   }
+  },
+  "ds40_painting_t120_off.png": {
+   "source": "Unity/Build/Design/40/compare/unity/full/painting_t120_off.png",
+   "source_sha256": "cca51fbdb2ae99fbd0314ecf3e01c9c008fc314037bdcdc8dc4fe6c01a73408d"
+  },
+  "ds40_seat_t120_off.png": {
+   "source": "Unity/Build/Design/40/compare/unity/views/seat_t120_off.png",
+   "source_sha256": "f1c17fa836ea5a199d9f401db5b99bd2ef82d60faa1eb56c043614d644c59213"
+  },
+  "fig_ds40_mock_seat_t120.png": {
+   "source": "ds40_record.py（unity/mock/seat_t120_L・R）"
+  }
+ },
+ "copies": {
+  "Docs/Evidence/Design/40/fig_ds40_item_table.png": {
+   "source": "Unity/Build/Design/40/compare/fig/fig_ds40_item_table.png の 1920×1156 を0.934 倍に縮めて白の余白で 1920×1080 に",
+   "sha256": "a9ff2dca6eee91d35eb9ec7dbd6cf37e04159b997f73d9bfc6406b7f786138f7",
+   "bytes": 403596
+  },
+  "Docs/Evidence/Design/40/fig_ds40_views_sheet.png": {
+   "source": "Unity/Build/Design/40/compare/fig/fig_ds40_views_sheet.png をそのまま",
+   "sha256": "b905006c421bfe3d8e9f06139d647a1ed6f5c6ccd983cfc570809cb642e509f0",
+   "bytes": 569139
+  },
+  "Docs/Evidence/Design/40/fig_ds40_views_extra.png": {
+   "source": "Unity/Build/Design/40/compare/fig/fig_ds40_views_extra.png の 1920×540 を白の余白で 1920×1080 に",
+   "sha256": "f20d5fd2daeb1d7f6497cc019cc0d2b2a7be890f028921abad9571640d5c2bf8",
+   "bytes": 346971
+  },
+  "Docs/Evidence/Design/40/fig_ds40_contour_off_noline.png": {
+   "source": "Unity/Build/Design/40/compare/fig/fig_ds40_contour_off_noline.png をそのまま",
+   "sha256": "50fcfc8c542bf111eece1123548974858d4fb2046126e2de86094e3bd2154bc3",
+   "bytes": 283415
+  },
+  "Docs/Evidence/Design/40/fig_ds40_contour_off_line.png": {
+   "source": "Unity/Build/Design/40/compare/fig/fig_ds40_contour_off_line.png をそのまま",
+   "sha256": "8b6f67bad360138c2ae778a8ce661949992612a79c1ee7032956c54167dbbc7b",
+   "bytes": 274820
+  },
+  "Docs/Evidence/Design/40/fig_ds40_painting_overlay50.png": {
+   "source": "Unity/Build/Design/40/compare/fig/fig_ds40_painting_overlay50.png をそのまま",
+   "sha256": "080fea1fc24dcb9bd2107fa4ed2dd37168c1ad02b5a5ccf47c4be1920db624b4",
+   "bytes": 2733622
+  },
+  "Docs/Evidence/Design/40/fig_ds40_layout_reference.png": {
+   "source": "Unity/Build/Design/40/compare/fig/fig_ds40_layout_reference.png の 3840×1080 の左半分（右半分は設計30 の平面図）",
+   "sha256": "c5dd787939ef656d040236abd05884ee98af3c2c2dc622f129e4de6ba9eb2d53",
+   "bytes": 374863
+  },
+  "Docs/Evidence/Design/40/ds40_painting_t120_off.png": {
+   "source": "Unity/Build/Design/40/compare/unity/full/painting_t120_off.png をバイトのまま",
+   "sha256": "cca51fbdb2ae99fbd0314ecf3e01c9c008fc314037bdcdc8dc4fe6c01a73408d",
+   "bytes": 381229
+  },
+  "Docs/Evidence/Design/40/ds40_seat_t120_off.png": {
+   "source": "Unity/Build/Design/40/compare/unity/views/seat_t120_off.png をバイトのまま",
+   "sha256": "f1c17fa836ea5a199d9f401db5b99bd2ef82d60faa1eb56c043614d644c59213",
+   "bytes": 175547
+  },
+  "Docs/Evidence/Design/40/fig_ds40_mock_seat_t120.png": {
+   "source": "ds40_record.py が unity/mock/seat_t120_L.png・_R.png から作った",
+   "sha256": "79adb2302224697e2bb7dbcabf225a54952c7c8a59a3aaa895226b41c34dcd66",
+   "bytes": 329765
+  },
+  "Docs/Evidence/Design/40/ds40_acceptance.json": {
+   "source": "Unity/Build/Design/40/compare/ds40_acceptance.json",
+   "sha256": "d5e6ca03d7a90122a6ab94467b7a53a625f81339f4dd3e63c710f9f93228cd33",
+   "bytes": 5384
+  },
+  "Docs/Evidence/Design/40/ds40_compare_metrics.json": {
+   "source": "Unity/Build/Design/40/compare/ds40_compare_metrics.json",
+   "sha256": "6cea6155874fbe818b2c421693a6485532eed25c9fcdb05493885604b64b5ec1",
+   "bytes": 39797
+  },
+  "Docs/Evidence/Design/40/ds40_run.json": {
+   "source": "Unity/Build/Design/40/compare/ds40_run.json",
+   "sha256": "f4df9e7b1ec88e89f8c1f4ffc6ff18d834dfc837e388e0840b698de7afb1e538",
+   "bytes": 57099
+  },
+  "Docs/Evidence/Design/40/ds40_render_report.json": {
+   "source": "Unity/Build/Design/40/compare/unity/ds40_render_report.json",
+   "sha256": "c5d4b6646c064156f14205ed0411dcdcde0141defb42b0d0fbdfb80f33c385f1",
+   "bytes": 37541
+  },
+  "Docs/Evidence/Design/40/ds40_eval_off_noline_metrics.json": {
+   "source": "Unity/Build/Design/40/compare/eval/off_noline/metrics.json",
+   "sha256": "5c54ea151bb641b37e83953da76405bf792918bc81cb2d20a57f3dca69067fe6",
+   "bytes": 16020
+  },
+  "Docs/Evidence/Design/40/ds40_eval_off_line_metrics.json": {
+   "source": "Unity/Build/Design/40/compare/eval/off_line/metrics.json",
+   "sha256": "c8b23e1cf26c76f4702e0e448c4aa8b24a2b4467e2d920751e6cfa372b0bdc66",
+   "bytes": 16008
+  }
+ },
+ "indep_check_files_sha256": {
+  "Unity/Build/Design/40/indep_check/crop_left.png": "ed35ef59d68a030cd53f879b9e779d0c395323818e29641448ddd3f55dff290d",
+  "Unity/Build/Design/40/indep_check/crop_upper_right.png": "8547358c01e02ab9f7b09014f7873c14dddb8ca952bc54039c21b9033b606cd1",
+  "Unity/Build/Design/40/indep_check/eval_off_line/metrics.json": "3ab54d1645c7fff65521dab390bee4108f19dbcf4233c2d74736a9dd16a40ad4",
+  "Unity/Build/Design/40/indep_check/eval_off_line/off_line_overlay.png": "96cac76f4627bb1f5cc5c97b9df935f796e7a426b6445f44f4cfd46a2aa460a4",
+  "Unity/Build/Design/40/indep_check/eval_off_noline/metrics.json": "f531f8de7fe08526582ad5f891939b8e15403dd1f681100dd108eb6330ff60dc",
+  "Unity/Build/Design/40/indep_check/eval_off_noline/off_noline_overlay.png": "b01881e8e10a394c564893b767fd9ee84ad682b210856b0c1d211e583cd8ac2e",
+  "Unity/Build/Design/40/indep_check/indep40.json": "4492c6501e093e5726266036fb9ef3c7a2490b8d4a616a85fcb6cd0457524581",
+  "Unity/Build/Design/40/indep_check/indep40.py": "e09ab7b0594280f61f680fe7974c6d55222618385d4ea2f3dc6cdd227b869c57"
+ },
+ "not_kept_note_ja": "Git 対象外（Unity/Build/Design/40/）：作る部の全出力 compare/（Unity の描画、t* の組、全体の合成の色と ID の画像、座席・側面・背面の画像、Mock の両眼、評価器の出力、図、ログ）、進行役の独立の検査の写し indep_check/、記録の点検 record/",
+ "not_used_ja": "参照モデルの OBJ（設計30 が測った数値の JSON だけを読んだ）・利用者の解算・写真のフォルダー・禁止の場所・Blender・Houdini は、作る部・検査・記録のどれも使っていない。爪形分析のフォルダーは、記録の時のコミットの一覧の点検でファイルの大きさと SHA-256 を読み取りのみで調べただけ。git は使っていない。",
+ "record_run": {
+  "seconds": 26.1,
+  "finished": "2026-09-30 08:59:47"
+ }
+}

@@ -1,0 +1,1301 @@
+{
+ "schema": "GreatWave.DS40.compare/1",
+ "number": "設計40 第「比較」部",
+ "generated_utc": "2026-09-30T00:34:54+00:00",
+ "evidence_kind_ja": "Unity 6000.4.3f1 Editor の batchmode の PC オフスクリーン描画（camera.Render、RTX 3080、Direct3D11）と、その画像の numpy・OpenCV の測定。HMD 実機の結果ではない。",
+ "unity_report": {
+  "path": "Unity/Build/Design/40/compare/unity/ds40_render_report.json",
+  "sha256": "c5d4b6646c064156f14205ed0411dcdcde0141defb42b0d0fbdfb80f33c385f1",
+  "protectedUnchanged": true,
+  "scene": "Assets/GreatWave/Design39/Scenes/DS39_Paper.unity",
+  "sceneSha256": "7480a99b1e961fa68b3bb7851789a17a70c082f6981b8d1560a46a8324699ddd",
+  "secondsTotal": 11.827305793762207
+ },
+ "crosscheck": {
+  "t28_same_as_39": {
+   "t28_claws/af28r01_back.png": true,
+   "t28_claws/af28r01_back_rule28.png": true,
+   "t28_claws/af28r01_back_waveonly.png": true,
+   "t28_claws/af28r01_class_ids.png": true,
+   "t28_claws/af28r01_line_ids.png": true,
+   "t28_claws/af28r01_painting.png": true,
+   "t28_claws/af28r01_painting_kstar.png": true,
+   "t28_claws/af28r01_painting_rule28.png": true,
+   "t28_claws/af28r01_seat.png": true,
+   "t28_claws/af28r01_seat_class_ids.png": true,
+   "t28_claws/af28r01_seat_kstar.png": true,
+   "t28_claws/af28r01_seat_left.png": true,
+   "t28_claws/af28r01_seat_left_rule28.png": true,
+   "t28_claws/af28r01_seat_low.png": true,
+   "t28_claws/af28r01_seat_low_class_ids.png": true,
+   "t28_claws/af28r01_seat_low_kstar.png": true,
+   "t28_claws/af28r01_seat_low_rule28.png": true,
+   "t28_claws/af28r01_seat_low_waveonly.png": true,
+   "t28_claws/af28r01_seat_rule28.png": true,
+   "t28_claws/af28r01_seat_waveonly.png": true,
+   "t28_claws/af28r01_side_left.png": true,
+   "t28_claws/af28r01_side_left_rule28.png": true,
+   "t28_claws/af28r01_side_left_waveonly.png": true,
+   "t28_claws/idmap.json": true,
+   "t28_white/af28r01_back.png": true,
+   "t28_white/af28r01_back_rule28.png": true,
+   "t28_white/af28r01_back_waveonly.png": true,
+   "t28_white/af28r01_class_ids.png": true,
+   "t28_white/af28r01_line_ids.png": true,
+   "t28_white/af28r01_painting.png": true,
+   "t28_white/af28r01_painting_kstar.png": true,
+   "t28_white/af28r01_painting_rule28.png": true,
+   "t28_white/af28r01_seat.png": true,
+   "t28_white/af28r01_seat_class_ids.png": true,
+   "t28_white/af28r01_seat_kstar.png": true,
+   "t28_white/af28r01_seat_left.png": true,
+   "t28_white/af28r01_seat_left_rule28.png": true,
+   "t28_white/af28r01_seat_low.png": true,
+   "t28_white/af28r01_seat_low_class_ids.png": true,
+   "t28_white/af28r01_seat_low_kstar.png": true,
+   "t28_white/af28r01_seat_low_rule28.png": true,
+   "t28_white/af28r01_seat_low_waveonly.png": true,
+   "t28_white/af28r01_seat_rule28.png": true,
+   "t28_white/af28r01_seat_waveonly.png": true,
+   "t28_white/af28r01_side_left.png": true,
+   "t28_white/af28r01_side_left_rule28.png": true,
+   "t28_white/af28r01_side_left_waveonly.png": true,
+   "t28_white/idmap.json": true
+  },
+  "t28_same_as_38": {
+   "t28_claws/af28r01_back.png": true,
+   "t28_claws/af28r01_back_rule28.png": true,
+   "t28_claws/af28r01_back_waveonly.png": true,
+   "t28_claws/af28r01_class_ids.png": true,
+   "t28_claws/af28r01_line_ids.png": true,
+   "t28_claws/af28r01_painting.png": true,
+   "t28_claws/af28r01_painting_kstar.png": true,
+   "t28_claws/af28r01_painting_rule28.png": true,
+   "t28_claws/af28r01_seat.png": true,
+   "t28_claws/af28r01_seat_class_ids.png": true,
+   "t28_claws/af28r01_seat_kstar.png": true,
+   "t28_claws/af28r01_seat_left.png": true,
+   "t28_claws/af28r01_seat_left_rule28.png": true,
+   "t28_claws/af28r01_seat_low.png": true,
+   "t28_claws/af28r01_seat_low_class_ids.png": true,
+   "t28_claws/af28r01_seat_low_kstar.png": true,
+   "t28_claws/af28r01_seat_low_rule28.png": true,
+   "t28_claws/af28r01_seat_low_waveonly.png": true,
+   "t28_claws/af28r01_seat_rule28.png": true,
+   "t28_claws/af28r01_seat_waveonly.png": true,
+   "t28_claws/af28r01_side_left.png": true,
+   "t28_claws/af28r01_side_left_rule28.png": true,
+   "t28_claws/af28r01_side_left_waveonly.png": true,
+   "t28_claws/idmap.json": true,
+   "t28_white/af28r01_back.png": true,
+   "t28_white/af28r01_back_rule28.png": true,
+   "t28_white/af28r01_back_waveonly.png": true,
+   "t28_white/af28r01_class_ids.png": true,
+   "t28_white/af28r01_line_ids.png": true,
+   "t28_white/af28r01_painting.png": true,
+   "t28_white/af28r01_painting_kstar.png": true,
+   "t28_white/af28r01_painting_rule28.png": true,
+   "t28_white/af28r01_seat.png": true,
+   "t28_white/af28r01_seat_class_ids.png": true,
+   "t28_white/af28r01_seat_kstar.png": true,
+   "t28_white/af28r01_seat_left.png": true,
+   "t28_white/af28r01_seat_left_rule28.png": true,
+   "t28_white/af28r01_seat_low.png": true,
+   "t28_white/af28r01_seat_low_class_ids.png": true,
+   "t28_white/af28r01_seat_low_kstar.png": true,
+   "t28_white/af28r01_seat_low_rule28.png": true,
+   "t28_white/af28r01_seat_low_waveonly.png": true,
+   "t28_white/af28r01_seat_rule28.png": true,
+   "t28_white/af28r01_seat_waveonly.png": true,
+   "t28_white/af28r01_side_left.png": true,
+   "t28_white/af28r01_side_left_rule28.png": true,
+   "t28_white/af28r01_side_left_waveonly.png": true,
+   "t28_white/idmap.json": true
+  },
+  "painting_off_vs_ds39_off_differing_px": 0,
+  "painting_all_vs_ds39_all_differing_px": 885,
+  "painting_all_vs_ds39_all_max_channel_diff": 3,
+  "painting_all_vs_ds39_all_bbox_xyxy": [
+   0,
+   121,
+   1912,
+   972
+  ],
+  "note_ja": "紙の 3 層を切った原画視点（評価の状態）は設計39 の切の画像と画素まで同じ。全部入の画像の違いは記録（小飛沫の子の粒の描き順か、設計39 の onoff が同じ場面で ①→②→③ の順に入切した後の描画であることによる。評価には使わない）。",
+  "id_colour_census": {
+   "ids_noline": {
+    "colours": {
+     "0,0,0": 479130,
+     "0,0,255": 536471,
+     "0,34,0": 142064,
+     "0,255,0": 518229,
+     "0,255,255": 3535470,
+     "34,0,0": 46803,
+     "34,34,0": 164818,
+     "255,0,0": 1150758,
+     "255,255,0": 1720657
+    },
+    "n_colours": 9
+   },
+   "ids_line": {
+    "colours": {
+     "0,0,0": 477072,
+     "0,0,255": 534867,
+     "0,34,0": 140825,
+     "0,255,0": 517582,
+     "0,255,255": 3504007,
+     "34,0,0": 46591,
+     "34,34,0": 164818,
+     "255,0,0": 1147968,
+     "255,0,255": 58200,
+     "255,255,0": 1702470
+    },
+    "n_colours": 10
+   },
+   "ids_noline_noclaws": {
+    "colours": {
+     "0,0,0": 479130,
+     "0,0,255": 536472,
+     "0,34,0": 142064,
+     "0,255,0": 518200,
+     "0,255,255": 3536330,
+     "34,0,0": 46803,
+     "34,34,0": 164818,
+     "255,0,0": 1149925,
+     "255,255,0": 1720658
+    },
+    "n_colours": 9
+   },
+   "ids_line_noclaws": {
+    "colours": {
+     "0,0,0": 477072,
+     "0,0,255": 534868,
+     "0,34,0": 140825,
+     "0,255,0": 517553,
+     "0,255,255": 3504324,
+     "34,0,0": 46591,
+     "34,34,0": 164818,
+     "255,0,0": 1147097,
+     "255,0,255": 58781,
+     "255,255,0": 1702471
+    },
+    "n_colours": 10
+   }
+  }
+ },
+ "evaluator_commands": [
+  "（前回の出力を読んだ）off_noline",
+  "（前回の出力を読んだ）off_line",
+  "（前回の出力を読んだ）all_line",
+  "（前回の出力を読んだ）off_noline_noclaws",
+  "（前回の出力を読んだ）all_noline"
+ ],
+ "evaluator_gate": {
+  "off_noline": {
+   "provisional": false,
+   "truth_manifest_sha256": "8c99033e02c2cbeedec4cf8924e57fe89092c714569afa56c8c8965414880fbd"
+  },
+  "off_line": {
+   "provisional": false,
+   "truth_manifest_sha256": "8c99033e02c2cbeedec4cf8924e57fe89092c714569afa56c8c8965414880fbd"
+  },
+  "all_line": {
+   "provisional": false,
+   "truth_manifest_sha256": "8c99033e02c2cbeedec4cf8924e57fe89092c714569afa56c8c8965414880fbd"
+  },
+  "off_noline_noclaws": {
+   "provisional": false,
+   "truth_manifest_sha256": "8c99033e02c2cbeedec4cf8924e57fe89092c714569afa56c8c8965414880fbd"
+  },
+  "all_noline": {
+   "provisional": false,
+   "truth_manifest_sha256": "8c99033e02c2cbeedec4cf8924e57fe89092c714569afa56c8c8965414880fbd"
+  }
+ },
+ "geometry_items": {
+  "68": {
+   "criterion": "同じ波を原画視点と座席の両方に描き、唇の先が内壁の下端より座席の船側にある（水平距離）",
+   "seat_eye_world": [
+    3.9544,
+    1.8323,
+    -15.0308
+   ],
+   "seat_source": "Tools/GWContext/seat_v1.json（D7 で決まった座席 v1）",
+   "horizontal_distance_seat_to_lip_tip_m": 5.616,
+   "horizontal_distance_seat_to_face_bottom_m": 6.82,
+   "lip_tip_elevation_deg": 60.9,
+   "verdict": "pass",
+   "note_ja": "CP1 と同じ式（K* の主断面の唇の先・内壁の下端）。形は K*′ R4（設計28修正01 の最後の一コマ）。CP1 は座席（D7）未確定で pass-conditional、今は座席 v1 が決まっている。"
+  },
+  "69": {
+   "criterion": "原画視点で右船（座席の船 boat_mid）の船首・船尾と波の上下がすべて画面内（採点列 157〜1762）",
+   "right_boat_bbox_display_px": [
+    1113.5,
+    587.0,
+    1627.5,
+    927.5
+   ],
+   "right_boat_inside_scored_columns": true,
+   "wave_crest_display_y": 116.44,
+   "wave_base_display_y_main_section_sea": 896.16,
+   "unity_camera_crosscheck_px": 0.5,
+   "verdict": "pass"
+  },
+  "70": {
+   "criterion": "原画視点の同じ画面で、波の上下の長さが右船の船首から船尾までの長さを超える",
+   "wave_vertical_extent_display_px": 779.72,
+   "right_boat_visible_length_display_px": 579.38,
+   "crest_height_m": 20.165,
+   "verdict": "pass"
+  },
+  "94": {
+   "criterion": "原画視点のカメラが t* の前後で動かない（番号27 の 510 コマの検査を引き継ぐ）",
+   "painting_camera_position": {
+    "x": 0.0,
+    "y": 3.0,
+    "z": -62.0
+   },
+   "painting_camera_euler": {
+    "x": 354.20758056640625,
+    "y": 357.83074951171875,
+    "z": -1.3408675059167763e-08
+   },
+   "fov": 26.0,
+   "cp1_camera": {
+    "position": [
+     0.0,
+     3.0,
+     -62.0
+    ],
+    "euler": [
+     354.20758056640625,
+     357.83074951171875,
+     0.0
+    ]
+   },
+   "max_position_delta_vs_cp1_m": 0.0,
+   "verdict": "pass",
+   "note_ja": "この番号では静止画だけで、コマを通したカメラの検査は回していない（CP1 と同じく番号27 の 510 コマの値を引き継ぐ）。場面のカメラの値が CP1 の PaintingCam v1 と同じことを照合した。"
+  }
+ },
+ "item_table": [
+  {
+   "item": "78",
+   "name_ja": "左端から斜め上への外形",
+   "reading_ja": "t* の主役波の ID（評価器23、包絡版）の最大 px。判定は K*′ の幾何の値との差 ≤0.5 px（29修正01 の読み）",
+   "cp1": 2.772,
+   "r26r01": 1.6408,
+   "r29r01": 3.0289,
+   "ds30": 3.0289,
+   "ds39": 3.0289,
+   "ds40": 3.0289,
+   "verdict_ds40": "pass",
+   "judged": true,
+   "note_ja": "全体の合成（near・船・富士入り）の値は 3.0289 px（記録）"
+  },
+  {
+   "item": "130",
+   "name_ja": "左側の傾き",
+   "reading_ja": "t* の主役波の ID（評価器23、包絡版）の最大 px。判定は K*′ の幾何の値との差 ≤0.5 px（29修正01 の読み）",
+   "cp1": 1.9675,
+   "r26r01": 1.953,
+   "r29r01": 3.5131,
+   "ds30": 3.5131,
+   "ds39": 3.5131,
+   "ds40": 3.5131,
+   "verdict_ds40": "pass",
+   "judged": true,
+   "note_ja": "全体の合成（near・船・富士入り）の値は 3.5131 px（記録）"
+  },
+  {
+   "item": "131",
+   "name_ja": "上側へのつながり",
+   "reading_ja": "t* の主役波の ID（評価器23、包絡版）の最大 px。判定は K*′ の幾何の値との差 ≤0.5 px（29修正01 の読み）",
+   "cp1": 1.8143,
+   "r26r01": 1.798,
+   "r29r01": 3.0431,
+   "ds30": 3.0431,
+   "ds39": 3.0431,
+   "ds40": 3.0431,
+   "verdict_ds40": "pass",
+   "judged": true,
+   "note_ja": "全体の合成（near・船・富士入り）の値は 3.0431 px（記録）"
+  },
+  {
+   "item": "132",
+   "name_ja": "船側への曲がり",
+   "reading_ja": "大きな輪郭 σ12 の最大 px（28修正01 の関門の読み）",
+   "cp1": 1.3256,
+   "r26r01": 1.5739,
+   "r29r01": 3.7552,
+   "ds30": 3.7552,
+   "ds39": 3.7552,
+   "ds40": 3.7552,
+   "verdict_ds40": "pass",
+   "judged": true,
+   "note_ja": "細部込みの最大（評価器23、t* の主役波の ID）5.2998 px、全体の合成 5.2998 px（記録）"
+  },
+  {
+   "item": "72",
+   "name_ja": "内側の輪郭",
+   "reading_ja": "大きな輪郭 σ24 の p95 px（28修正01 の関門の読み）。爪あり（判定）",
+   "cp1": 1.5581,
+   "r26r01": 1.7233,
+   "r29r01": 4.0075,
+   "ds30": 4.0075,
+   "ds39": 3.8423,
+   "ds40": 3.8423,
+   "verdict_ds40": "pass",
+   "judged": true,
+   "note_ja": "爪なし 4.0075 px（段階5 の終わりと同じ）。細部込みの p95 7.8009 px・全体の合成 p95 7.8009 px（記録）"
+  },
+  {
+   "item": "71",
+   "name_ja": "内側の空域",
+   "reading_ja": "評価器23 の最大 px（全体の合成、線なしの ID）。記録のみ（Q7 の既定）",
+   "cp1": 37.4944,
+   "r26r01": null,
+   "r29r01": null,
+   "ds30": null,
+   "ds39": null,
+   "ds40": 37.4944,
+   "verdict_ds40": "record-only",
+   "judged": false,
+   "note_ja": "p95 9.6781 px、IoU 0.96293。下辺は near の小波・右の高い波と座席の船"
+  },
+  {
+   "item": "68",
+   "name_ja": "唇の先が内壁の下端より座席の船側",
+   "reading_ja": "座席 v1 から唇の先・内壁の下端までの水平距離 m",
+   "cp1": "21.6 < 26.0（座席未確定）",
+   "r26r01": null,
+   "r29r01": null,
+   "ds30": null,
+   "ds39": null,
+   "ds40": "5.62 < 6.82",
+   "verdict_ds40": "pass",
+   "judged": true,
+   "note_ja": "CP1 は旧い座席（番号27）で pass-conditional"
+  },
+  {
+   "item": "69",
+   "name_ja": "右船と波の上下が画面内",
+   "reading_ja": "右船の bbox（表示 px）と頂・海の y",
+   "cp1": "船 x 1252〜1628、頂 y 93.7・海 y 896.5",
+   "r26r01": null,
+   "r29r01": null,
+   "ds30": null,
+   "ds39": null,
+   "ds40": "船 x 1114〜1628、頂 y 116.4・海 y 896.2",
+   "verdict_ds40": "pass",
+   "judged": true,
+   "note_ja": "29修正01・設計30 では測っていない（段階6確認 §4.1）"
+  },
+  {
+   "item": "70",
+   "name_ja": "波の上下 > 右船の全長",
+   "reading_ja": "表示 px",
+   "cp1": "802.9 > 425.4",
+   "r26r01": null,
+   "r29r01": null,
+   "ds30": null,
+   "ds39": null,
+   "ds40": "779.7 > 579.4",
+   "verdict_ds40": "pass",
+   "judged": true,
+   "note_ja": "頂の高さ 20.16 m（K*′）。CP1 は旧い K*（20.88 m）と番号27 の右船"
+  },
+  {
+   "item": "212",
+   "name_ja": "空の上の方",
+   "reading_ja": "ΔE00（空の上の色区の中央値、線ありの ID）",
+   "cp1": 0.2714,
+   "r26r01": null,
+   "r29r01": null,
+   "ds30": null,
+   "ds39": null,
+   "ds40": 0.2714,
+   "verdict_ds40": "pass",
+   "judged": true,
+   "note_ja": "紙の 3 層を全部入れた記録 ΔE00 0.4209"
+  },
+  {
+   "item": "76",
+   "name_ja": "暗い空の範囲・色",
+   "reading_ja": "範囲の最大 px／ΔE00。記録のみ（Q7 の既定）",
+   "cp1": "37.45 px／ΔE00 0.285",
+   "r26r01": null,
+   "r29r01": null,
+   "ds30": null,
+   "ds39": null,
+   "ds40": "37.45 px／ΔE00 0.222",
+   "verdict_ds40": "record-only",
+   "judged": false,
+   "note_ja": "範囲の p95 19.25 px（CP1 20.20）"
+  },
+  {
+   "item": "213",
+   "name_ja": "明暗の移行線",
+   "reading_ja": "最大 px。記録のみ（Q7 の既定）",
+   "cp1": "16.93 px",
+   "r26r01": null,
+   "r29r01": null,
+   "ds30": null,
+   "ds39": null,
+   "ds40": "4.88 px",
+   "verdict_ds40": "record-only",
+   "judged": false,
+   "note_ja": "p95 2.72 px（CP1 1.86）"
+  },
+  {
+   "item": "94",
+   "name_ja": "原画視点のカメラが動かない",
+   "reading_ja": "場面のカメラの値の照合",
+   "cp1": "510 コマで差 0（番号27）",
+   "r26r01": null,
+   "r29r01": null,
+   "ds30": null,
+   "ds39": null,
+   "ds40": "位置の差 0.000000 m",
+   "verdict_ds40": "pass",
+   "judged": true,
+   "note_ja": "静止画の照合だけ。コマを通した検査は番号27 のまま"
+  },
+  {
+   "item": "74・161",
+   "name_ja": "富士の稜線（74・161）",
+   "reading_ja": "評価器23 の最大 px（報告項目）",
+   "cp1": "5.76 px（p95 5.31）",
+   "r26r01": null,
+   "r29r01": null,
+   "ds30": null,
+   "ds39": null,
+   "ds40": "5.76 px（p95 5.31）",
+   "verdict_ds40": "record-only",
+   "judged": false,
+   "note_ja": ""
+  },
+  {
+   "item": "75",
+   "name_ja": "手前の船",
+   "reading_ja": "評価器23 の最大 px（報告項目）",
+   "cp1": "141.36 px（p95 85.62）",
+   "r26r01": null,
+   "r29r01": null,
+   "ds30": null,
+   "ds39": null,
+   "ds40": "141.36 px（p95 85.62）",
+   "verdict_ds40": "record-only",
+   "judged": false,
+   "note_ja": ""
+  },
+  {
+   "item": "157",
+   "name_ja": "左奥の船",
+   "reading_ja": "評価器23 の最大 px（報告項目）",
+   "cp1": "126.58 px（p95 98.32）",
+   "r26r01": null,
+   "r29r01": null,
+   "ds30": null,
+   "ds39": null,
+   "ds40": "77.55 px（p95 63.53）",
+   "verdict_ds40": "record-only",
+   "judged": false,
+   "note_ja": ""
+  },
+  {
+   "item": "159",
+   "name_ja": "右船（座席の船）",
+   "reading_ja": "評価器23 の最大 px（報告項目）",
+   "cp1": "218.23 px（p95 171.43）",
+   "r26r01": null,
+   "r29r01": null,
+   "ds30": null,
+   "ds39": null,
+   "ds40": "160.86 px（p95 121.18）",
+   "verdict_ds40": "record-only",
+   "judged": false,
+   "note_ja": ""
+  },
+  {
+   "item": "162",
+   "name_ja": "富士の雪・斜面の色",
+   "reading_ja": "ΔE00（報告項目）",
+   "cp1": "雪 64.44・斜面 0.15",
+   "r26r01": null,
+   "r29r01": null,
+   "ds30": null,
+   "ds39": null,
+   "ds40": "雪 64.44・斜面 0.15",
+   "verdict_ds40": "record-only",
+   "judged": false,
+   "note_ja": ""
+  },
+  {
+   "item": "73",
+   "name_ja": "内側の水色（藍中）の色区の境界",
+   "reading_ja": "両側の読み（29修正01 が採った読み）の最大 px、爪あり",
+   "cp1": "pass",
+   "r26r01": null,
+   "r29r01": 0.303,
+   "ds30": 0.303,
+   "ds39": 0.303,
+   "ds40": 0.303,
+   "verdict_ds40": "pass",
+   "judged": true,
+   "note_ja": "29修正01 との差 0.0 px。評価器の定義のままの読み 2.484 px（28修正01 0.655、記録）"
+  },
+  {
+   "item": "77",
+   "name_ja": "下側から始まる縞",
+   "reading_ja": "両側の読み（29修正01 が採った読み）の最大 px、爪あり",
+   "cp1": "pass",
+   "r26r01": null,
+   "r29r01": 0.867,
+   "ds30": 0.867,
+   "ds39": 0.867,
+   "ds40": 0.867,
+   "verdict_ds40": "pass",
+   "judged": true,
+   "note_ja": "29修正01 との差 0.0 px。評価器の定義のままの読み 0.867 px（28修正01 1.170、記録）"
+  },
+  {
+   "item": "79",
+   "name_ja": "縞の並び",
+   "reading_ja": "両側の読み（29修正01 が採った読み）の最大 px、爪あり",
+   "cp1": "pass",
+   "r26r01": null,
+   "r29r01": 0.357,
+   "ds30": 0.357,
+   "ds39": 0.357,
+   "ds40": 0.357,
+   "verdict_ds40": "pass",
+   "judged": true,
+   "note_ja": "29修正01 との差 0.0 px。評価器の定義のままの読み 1.012 px（28修正01 0.340、記録）"
+  },
+  {
+   "item": "118",
+   "name_ja": "内側の色区の境界",
+   "reading_ja": "両側の読み（29修正01 が採った読み）の最大 px、爪あり",
+   "cp1": "pass",
+   "r26r01": null,
+   "r29r01": 0.867,
+   "ds30": 0.867,
+   "ds39": 0.867,
+   "ds40": 0.867,
+   "verdict_ds40": "pass",
+   "judged": true,
+   "note_ja": "29修正01 との差 0.0 px。評価器の定義のままの読み 2.484 px（28修正01 0.655、記録）"
+  },
+  {
+   "item": "120",
+   "name_ja": "境界",
+   "reading_ja": "両側の読み（29修正01 が採った読み）の最大 px、爪あり",
+   "cp1": "pass",
+   "r26r01": null,
+   "r29r01": 0.288,
+   "ds30": 0.288,
+   "ds39": 0.288,
+   "ds40": 0.288,
+   "verdict_ds40": "pass",
+   "judged": true,
+   "note_ja": "29修正01 との差 0.0 px。評価器の定義のままの読み 0.288 px（28修正01 0.288、記録）"
+  },
+  {
+   "item": "133",
+   "name_ja": "左から上へ続く白",
+   "reading_ja": "両側の読み（29修正01 が採った読み）の最大 px、爪あり",
+   "cp1": "pass",
+   "r26r01": null,
+   "r29r01": 0.718,
+   "ds30": 0.718,
+   "ds39": 0.718,
+   "ds40": 0.718,
+   "verdict_ds40": "pass",
+   "judged": true,
+   "note_ja": "29修正01 との差 0.0 px。評価器の定義のままの読み 0.718 px（28修正01 0.402、記録）"
+  },
+  {
+   "item": "134",
+   "name_ja": "白帯の広狭",
+   "reading_ja": "両側の読み（29修正01 が採った読み）の最大 px、爪あり",
+   "cp1": "pass",
+   "r26r01": null,
+   "r29r01": 0.634,
+   "ds30": 0.634,
+   "ds39": 0.634,
+   "ds40": 0.634,
+   "verdict_ds40": "pass",
+   "judged": true,
+   "note_ja": "29修正01 との差 0.0 px。評価器の定義のままの読み 2.047 px（28修正01 0.977、記録）"
+  },
+  {
+   "item": "263",
+   "name_ja": "内側から下方へ続く水色",
+   "reading_ja": "両側の読み（29修正01 が採った読み）の最大 px、爪あり",
+   "cp1": "pass",
+   "r26r01": null,
+   "r29r01": 0.25,
+   "ds30": 0.25,
+   "ds39": 0.25,
+   "ds40": 0.25,
+   "verdict_ds40": "pass",
+   "judged": true,
+   "note_ja": "29修正01 との差 0.0 px。評価器の定義のままの読み 2.484 px（28修正01 0.559、記録）"
+  },
+  {
+   "item": "270",
+   "name_ja": "白と水色の境",
+   "reading_ja": "両側の読み（29修正01 が採った読み）の最大 px、爪あり",
+   "cp1": "pass",
+   "r26r01": null,
+   "r29r01": 0.634,
+   "ds30": 0.634,
+   "ds39": 0.634,
+   "ds40": 0.634,
+   "verdict_ds40": "pass",
+   "judged": true,
+   "note_ja": "29修正01 との差 0.0 px。評価器の定義のままの読み 0.563 px（28修正01 0.563、記録）"
+  },
+  {
+   "item": "175",
+   "name_ja": "爪の色区（もともと不合格）",
+   "reading_ja": "両側の読み（29修正01 が採った読み）の最大 px、爪あり",
+   "cp1": "fail",
+   "r26r01": null,
+   "r29r01": 0.978,
+   "ds30": 0.978,
+   "ds39": 0.978,
+   "ds40": 0.978,
+   "verdict_ds40": "fail",
+   "judged": false,
+   "note_ja": "29修正01 との差 0.0 px。評価器の定義のままの読み 0.428 px（28修正01 0.309、記録）"
+  },
+  {
+   "item": "265",
+   "name_ja": "内側の面の色",
+   "reading_ja": "評価器 28修正01／両側の読み",
+   "cp1": "pass",
+   "r26r01": null,
+   "r29r01": null,
+   "ds30": null,
+   "ds39": null,
+   "ds40": "ΔE00 0.545",
+   "verdict_ds40": "pass",
+   "judged": true,
+   "note_ja": ""
+  },
+  {
+   "item": "266",
+   "name_ja": "色面の均一（原画視点・座席）",
+   "reading_ja": "評価器 28修正01／両側の読み",
+   "cp1": "pass",
+   "r26r01": null,
+   "r29r01": null,
+   "ds30": null,
+   "ds39": null,
+   "ds40": "判定 pass",
+   "verdict_ds40": "pass",
+   "judged": true,
+   "note_ja": ""
+  },
+  {
+   "item": "267",
+   "name_ja": "色面の帯（原画視点）",
+   "reading_ja": "評価器 28修正01／両側の読み",
+   "cp1": "pass",
+   "r26r01": null,
+   "r29r01": null,
+   "ds30": null,
+   "ds39": null,
+   "ds40": "評価器の定義 fail／両側の読み 20 px 以上の帯 {'white': 0, 'mizuiro': 0, 'ai_mid': 0, 'ai_dark': 0}",
+   "verdict_ds40": "pass",
+   "judged": true,
+   "note_ja": "267 は評価器の定義のままでは 29修正01 から不合格（設計36 §2.2 の読み）。両側の読みで帯 0"
+  }
+ ],
+ "regression_evaluator": {
+  "output": "Unity/Build/Design/40/compare/unity/ds30_tstar_regress.json",
+  "sha256": "4ca57d3a973d94d4feca5dfc9c11397e4246b36d5236986df5046c2a35b8931e",
+  "ds39_output_sha256": "4ca57d3a973d94d4feca5dfc9c11397e4246b36d5236986df5046c2a35b8931e",
+  "identical_to_ds39": true,
+  "sym_worst_diff_vs_29r01_px": {
+   "t28_claws": 0.0,
+   "t28_white": 0.0
+  },
+  "silhouette_diff_vs_29r01_px": {
+   "t28_claws": {
+    "78": 0.0,
+    "130": 0.0,
+    "131": 0.0
+   },
+   "t28_white": {
+    "78": 0.0,
+    "130": 0.0,
+    "131": 0.0
+   }
+  },
+  "lfgate_diff_vs_29r01_px": {
+   "t28_claws": {
+    "132_sigma12_max": 0.0,
+    "72_sigma24_p95": -0.1652
+   },
+   "t28_white": {
+    "132_sigma12_max": 0.0,
+    "72_sigma24_p95": 0.0
+   }
+  }
+ },
+ "full_composite_evaluator": {
+  "off_noline": {
+   "78": {
+    "max_px": 3.0289,
+    "p95_px": 1.798,
+    "verdict_evaluator": "pass"
+   },
+   "130": {
+    "max_px": 3.5131,
+    "p95_px": 3.3551,
+    "verdict_evaluator": "pass"
+   },
+   "131": {
+    "max_px": 3.0431,
+    "p95_px": 2.856,
+    "verdict_evaluator": "pass"
+   },
+   "132": {
+    "max_px": 5.2998,
+    "p95_px": 4.4995,
+    "verdict_evaluator": "fail"
+   },
+   "72": {
+    "max_px": 10.2687,
+    "p95_px": 7.8009,
+    "verdict_evaluator": "fail"
+   },
+   "71": {
+    "max_px": 37.4944,
+    "p95_px": 9.6781,
+    "verdict_evaluator": "fail"
+   },
+   "212_dE00": 0.2714,
+   "76_max_px": 61.0855,
+   "76_dE00": 0.2224,
+   "213_max_px": 21.6359,
+   "render_sha256": "cca51fbdb2ae99fbd0314ecf3e01c9c008fc314037bdcdc8dc4fe6c01a73408d",
+   "ids_sha256": "d2f5c8806d0fd50937d8b2d5412d818858c0fb9d4e125451cdc0ee24a2e0ba52"
+  },
+  "off_line": {
+   "78": {
+    "max_px": 5.6768,
+    "p95_px": 4.7211,
+    "verdict_evaluator": "fail"
+   },
+   "130": {
+    "max_px": 6.6931,
+    "p95_px": 6.4755,
+    "verdict_evaluator": "fail"
+   },
+   "131": {
+    "max_px": 5.7971,
+    "p95_px": 5.4439,
+    "verdict_evaluator": "fail"
+   },
+   "132": {
+    "max_px": 8.391,
+    "p95_px": 6.897,
+    "verdict_evaluator": "fail"
+   },
+   "72": {
+    "max_px": 13.1464,
+    "p95_px": 8.5954,
+    "verdict_evaluator": "fail"
+   },
+   "71": {
+    "max_px": 37.4944,
+    "p95_px": 12.1425,
+    "verdict_evaluator": "fail"
+   },
+   "212_dE00": 0.2714,
+   "76_max_px": 37.4511,
+   "76_dE00": 0.2224,
+   "213_max_px": 4.8815,
+   "render_sha256": "cca51fbdb2ae99fbd0314ecf3e01c9c008fc314037bdcdc8dc4fe6c01a73408d",
+   "ids_sha256": "79b1d3c5163e7349b6337ee078fea04ae55c801045ad89a22c22112fbf41a807"
+  },
+  "all_line": {
+   "78": {
+    "max_px": 5.6768,
+    "p95_px": 4.7211,
+    "verdict_evaluator": "fail"
+   },
+   "130": {
+    "max_px": 6.6931,
+    "p95_px": 6.4755,
+    "verdict_evaluator": "fail"
+   },
+   "131": {
+    "max_px": 5.7971,
+    "p95_px": 5.4439,
+    "verdict_evaluator": "fail"
+   },
+   "132": {
+    "max_px": 8.391,
+    "p95_px": 6.897,
+    "verdict_evaluator": "fail"
+   },
+   "72": {
+    "max_px": 13.1464,
+    "p95_px": 8.5954,
+    "verdict_evaluator": "fail"
+   },
+   "71": {
+    "max_px": 37.4944,
+    "p95_px": 12.1425,
+    "verdict_evaluator": "fail"
+   },
+   "212_dE00": 0.4209,
+   "76_max_px": 37.4511,
+   "76_dE00": 0.2071,
+   "213_max_px": 4.0,
+   "render_sha256": "613fb3d38300991f70d69b0dc2bb9093f783090c76886ca2bfb9e4077994e34b",
+   "ids_sha256": "79b1d3c5163e7349b6337ee078fea04ae55c801045ad89a22c22112fbf41a807"
+  },
+  "off_noline_noclaws": {
+   "78": {
+    "max_px": 3.0289,
+    "p95_px": 1.798,
+    "verdict_evaluator": "pass"
+   },
+   "130": {
+    "max_px": 3.5131,
+    "p95_px": 3.3551,
+    "verdict_evaluator": "pass"
+   },
+   "131": {
+    "max_px": 3.0431,
+    "p95_px": 2.856,
+    "verdict_evaluator": "pass"
+   },
+   "132": {
+    "max_px": 5.9472,
+    "p95_px": 5.0703,
+    "verdict_evaluator": "fail"
+   },
+   "72": {
+    "max_px": 10.4105,
+    "p95_px": 8.7546,
+    "verdict_evaluator": "fail"
+   },
+   "71": {
+    "max_px": 37.4944,
+    "p95_px": 9.9664,
+    "verdict_evaluator": "fail"
+   },
+   "212_dE00": 0.2714,
+   "76_max_px": 61.0855,
+   "76_dE00": 0.2224,
+   "213_max_px": 21.6359,
+   "render_sha256": "cca51fbdb2ae99fbd0314ecf3e01c9c008fc314037bdcdc8dc4fe6c01a73408d",
+   "ids_sha256": "48116bce25c20ceaf2000cb678373136ddc8449760f4a6f64afe2b78787e9921"
+  },
+  "all_noline": {
+   "78": {
+    "max_px": 3.0289,
+    "p95_px": 1.798,
+    "verdict_evaluator": "pass"
+   },
+   "130": {
+    "max_px": 3.5131,
+    "p95_px": 3.3551,
+    "verdict_evaluator": "pass"
+   },
+   "131": {
+    "max_px": 3.0431,
+    "p95_px": 2.856,
+    "verdict_evaluator": "pass"
+   },
+   "132": {
+    "max_px": 5.2998,
+    "p95_px": 4.4995,
+    "verdict_evaluator": "fail"
+   },
+   "72": {
+    "max_px": 10.2687,
+    "p95_px": 7.8009,
+    "verdict_evaluator": "fail"
+   },
+   "71": {
+    "max_px": 37.4944,
+    "p95_px": 9.6781,
+    "verdict_evaluator": "fail"
+   },
+   "212_dE00": 0.4209,
+   "76_max_px": 58.8549,
+   "76_dE00": 0.2071,
+   "213_max_px": 19.6455,
+   "render_sha256": "613fb3d38300991f70d69b0dc2bb9093f783090c76886ca2bfb9e4077994e34b",
+   "ids_sha256": "d2f5c8806d0fd50937d8b2d5412d818858c0fb9d4e125451cdc0ee24a2e0ba52"
+  }
+ },
+ "full_composite_note_ja": "全体の合成（near の海・右の高い波・3隻・富士・飛沫入り）を評価器23 に通した値。78〜72 は主役波の外輪郭のほか、near の海や船が空と接する所の点も入るので、判定には t* の主役波の ID（t28_claws）の値を使う（29修正01 からの読み）。",
+ "acceptance": {
+  "no_regression_vs_29r01_ds30": {
+   "criterion_ja": "計画 §2.0 の項目（78・130・131・132 大きな輪郭・72 σ24 p95・69・70・212、色区は 29修正01 が戻した読み）が、29修正01／設計30 で合格した判定のまま",
+   "regressed_items": [],
+   "silhouette_and_lfgate_diff_vs_29r01_px": {
+    "output": "Unity/Build/Design/40/compare/unity/ds30_tstar_regress.json",
+    "sha256": "4ca57d3a973d94d4feca5dfc9c11397e4246b36d5236986df5046c2a35b8931e",
+    "ds39_output_sha256": "4ca57d3a973d94d4feca5dfc9c11397e4246b36d5236986df5046c2a35b8931e",
+    "identical_to_ds39": true,
+    "sym_worst_diff_vs_29r01_px": {
+     "t28_claws": 0.0,
+     "t28_white": 0.0
+    },
+    "silhouette_diff_vs_29r01_px": {
+     "t28_claws": {
+      "78": 0.0,
+      "130": 0.0,
+      "131": 0.0
+     },
+     "t28_white": {
+      "78": 0.0,
+      "130": 0.0,
+      "131": 0.0
+     }
+    },
+    "lfgate_diff_vs_29r01_px": {
+     "t28_claws": {
+      "132_sigma12_max": 0.0,
+      "72_sigma24_p95": -0.1652
+     },
+     "t28_white": {
+      "132_sigma12_max": 0.0,
+      "72_sigma24_p95": 0.0
+     }
+    }
+   },
+   "pass": true
+  },
+  "cp1_26r01_regression_stated": {
+   "criterion_ja": "CP1／26修正01 に対する後退（段階5確認 §6.3）を隠さずに書く",
+   "rows": [
+    {
+     "item": "78",
+     "cp1": 2.772,
+     "r26r01": 1.6408,
+     "ds40": 3.0289
+    },
+    {
+     "item": "130",
+     "cp1": 1.9675,
+     "r26r01": 1.953,
+     "ds40": 3.5131
+    },
+    {
+     "item": "131",
+     "cp1": 1.8143,
+     "r26r01": 1.798,
+     "ds40": 3.0431
+    },
+    {
+     "item": "132",
+     "cp1": 1.3256,
+     "r26r01": 1.5739,
+     "ds40": 3.7552
+    },
+    {
+     "item": "72",
+     "cp1": 1.5581,
+     "r26r01": 1.7233,
+     "ds40": 3.8423
+    }
+   ],
+   "pass": true
+  },
+  "record_only_71_76_213": {
+   "items": [
+    "71",
+    "76",
+    "213"
+   ],
+   "pass": true
+  },
+  "hmd_h4_h5": {
+   "verdict": "保留",
+   "note_ja": "PS VR2 の導入は利用者の手。Mock の両眼（座席 v1、±0.032 m）と PC の描画だけ。"
+  }
+ },
+ "mock_seat_t12": {
+  "differing_px": 70564,
+  "note_ja": "Mock の両眼の画像の違いの画素（チャンネル差 > 8）。視差があるので 0 にはならない。記録のみ。"
+ },
+ "layout_vs_reference": {
+  "d24_ja": "D24（既定値・利用者未回答）：参照モデル（Q5）の配置は記録のみの比較図。数値と印だけで、参照モデルの形・画像は描かない。",
+  "reference_numbers": {
+   "file": "Unity/Build/Design/30/ref/ds30_ref_layout.json",
+   "sha256": "82b0d79833790602a759a35cb5db6b62b7cf6c33618611df8052f162a07b9c48",
+   "source": "wave_repair_zbrush2.obj",
+   "source_sha256": "AB4124F9720D6E27D80E2AE063916292898C87606A64441043F6A64DE3D53D40",
+   "credit_ja": "他者の展示作品（北斎『神奈川沖浪裏』の立体作品）のスキャン。作者・所蔵は未確認（D18）。数値だけを借り、形は写さない。",
+   "obj_opened_in_ds40": false,
+   "note_ja": "設計30 の ds30_refmeasure.py が測った数値（Δa・Δc・h/H）だけを読む。この番号では OBJ を開かず、一時キャッシュも作らない。"
+  },
+  "first_design_from_ds30": "Docs/Evidence/Design/30/ds30_layout_record.json",
+  "first_design_sha256": "da51406b0617ba8ea28213450aaf8b1cc1c3d5a647d4ba927e19c88ca7e90167",
+  "frame_focus_world": [
+   -7.228,
+   0.0,
+   -2.713
+  ],
+  "scale_hero_over_ref": 0.9340868464941916,
+  "rows": [
+   {
+    "name_ja": "主役波の頂（共通の原点）",
+    "reference_first_design_world": [
+     -7.891,
+     20.27,
+     -3.189
+    ],
+    "current_world": [
+     -7.891,
+     20.27,
+     -3.189
+    ],
+    "delta_m": 0.0,
+    "painting_px_reference": [
+     741.2,
+     106.3
+    ],
+    "painting_px_current": [
+     741.2,
+     106.3
+    ],
+    "painting_px_delta": 0.0,
+    "on_screen_reference": true,
+    "on_screen_current": true
+   },
+   {
+    "name_ja": "手前の小波の頂",
+    "reference_first_design_world": [
+     -4.638,
+     2.219,
+     -19.26
+    ],
+    "current_world": [
+     -5.434,
+     5.637,
+     -22.843
+    ],
+    "delta_m": 5.015,
+    "painting_px_reference": [
+     794.3,
+     820.4
+    ],
+    "painting_px_current": [
+     725.6,
+     619.9
+    ],
+    "painting_px_delta": 211.9,
+    "on_screen_reference": true,
+    "on_screen_current": true
+   },
+   {
+    "name_ja": "大波の下の谷の底",
+    "reference_first_design_world": [
+     -2.766,
+     -8.68,
+     -7.622
+    ],
+    "current_world": [
+     0.405,
+     -5.717,
+     -9.516
+    ],
+    "delta_m": 4.734,
+    "painting_px_reference": [
+     928.9,
+     1295.5
+    ],
+    "painting_px_current": [
+     1069.1,
+     1176.9
+    ],
+    "painting_px_delta": 183.6,
+    "on_screen_reference": false,
+    "on_screen_current": false
+   },
+   {
+    "name_ja": "右側の最も高い所／右の高い波の頂",
+    "reference_first_design_world": [
+     0.77,
+     14.373,
+     3.748
+    ],
+    "current_world": [
+     31.375,
+     19.0,
+     4.454
+    ],
+    "delta_m": 30.962,
+    "painting_px_reference": [
+     1074.6,
+     375.1
+    ],
+    "painting_px_current": [
+     2151.2,
+     211.6
+    ],
+    "painting_px_delta": 1089.0,
+    "on_screen_reference": true,
+    "on_screen_current": false
+   }
+  ],
+  "boats_now": {
+   "boat_left": {
+    "bounds_center_world": [
+     -14.745,
+     5.505,
+     -12.398
+    ],
+    "painting_px": [
+     360.0,
+     659.8
+    ]
+   },
+   "boat_mid": {
+    "bounds_center_world": [
+     6.518,
+     2.912,
+     -15.353
+    ],
+    "painting_px": [
+     1379.9,
+     781.7
+    ]
+   },
+   "boat_fg": {
+    "bounds_center_world": [
+     1.294,
+     0.525,
+     -32.189
+    ],
+    "painting_px": [
+     1153.1,
+     975.6
+    ]
+   }
+  },
+  "sea_package_unchanged_since_ds30": {
+   "Unity/Build/Design/30/sea/near/ds27_keypose.json": {
+    "ds30": "cc2c8905fa15638ffc223856bce8432e9c3ea9a7c16671aeaaa1e36884b947f2",
+    "now": "cc2c8905fa15638ffc223856bce8432e9c3ea9a7c16671aeaaa1e36884b947f2",
+    "same": true
+   },
+   "Unity/Build/Design/30/sea/near/ds27_pos_rgba16.bin": {
+    "ds30": "cb62dd8f7d3fb290534d608265aa3d88864245e132a3127a49b63dd540b8a54d",
+    "now": "cb62dd8f7d3fb290534d608265aa3d88864245e132a3127a49b63dd540b8a54d",
+    "same": true
+   },
+   "Unity/Build/Design/30/sea/near/ds27_pos_lo_rgba8.bin": {
+    "ds30": "d658bc2a5cb6676f369fe5f1f4233f0a2604837e79c13da16633ee5a59edcc28",
+    "now": "d658bc2a5cb6676f369fe5f1f4233f0a2604837e79c13da16633ee5a59edcc28",
+    "same": true
+   },
+   "Unity/Build/Design/30/sea/near/ds27_twhite_r32f.bin": {
+    "ds30": "e3e67cacca1bef38dd8306f5e8039d5a56df4ac0310c3904ab709c39fe8aa0b4",
+    "now": "e3e67cacca1bef38dd8306f5e8039d5a56df4ac0310c3904ab709c39fe8aa0b4",
+    "same": true
+   },
+   "Unity/Build/Design/30/sea/near/ds30_class_u8.bin": {
+    "ds30": "493b1a59c2a1b3281115156204b356e70c60aec948161f1a54a2b82db5edde5a",
+    "now": "493b1a59c2a1b3281115156204b356e70c60aec948161f1a54a2b82db5edde5a",
+    "same": true
+   },
+   "Unity/Build/Design/30/sea/near/ds30_tstar.gwb": {
+    "ds30": "4ce912229c95bece7d90f1cb4830b05e4eb88d0fc2218d41de107617834246e8",
+    "now": "4ce912229c95bece7d90f1cb4830b05e4eb88d0fc2218d41de107617834246e8",
+    "same": true
+   },
+   "Unity/Build/Design/30/sea/far/ds27_keypose.json": {
+    "ds30": "f5d7b2d897a75bac4cbe3ebb6b9cd27998db5b33f00f075371304f93eaec25b6",
+    "now": "f5d7b2d897a75bac4cbe3ebb6b9cd27998db5b33f00f075371304f93eaec25b6",
+    "same": true
+   },
+   "Unity/Build/Design/30/sea/far/ds27_pos_rgba16.bin": {
+    "ds30": "82a6184a318bf2cb91306b9a06620b8b8143242a9551da643b0fc29cbdc0065f",
+    "now": "82a6184a318bf2cb91306b9a06620b8b8143242a9551da643b0fc29cbdc0065f",
+    "same": true
+   },
+   "Unity/Build/Design/30/sea/far/ds27_pos_lo_rgba8.bin": {
+    "ds30": "233999b5d9e8a598e44c6f68c55bee444798767def92b864886f6f5d12b70f07",
+    "now": "233999b5d9e8a598e44c6f68c55bee444798767def92b864886f6f5d12b70f07",
+    "same": true
+   },
+   "Unity/Build/Design/30/sea/far/ds27_twhite_r32f.bin": {
+    "ds30": "49065e771ddf53b2f7d2a5aace9f0b11c441443b1cedd1f0dea6b121b1a83678",
+    "now": "49065e771ddf53b2f7d2a5aace9f0b11c441443b1cedd1f0dea6b121b1a83678",
+    "same": true
+   },
+   "Unity/Build/Design/30/sea/far/ds30_class_u8.bin": {
+    "ds30": "cbd0cf27825c5ff3681615b13da0bf29420b546881d57669834cb82ce839c040",
+    "now": "cbd0cf27825c5ff3681615b13da0bf29420b546881d57669834cb82ce839c040",
+    "same": true
+   },
+   "Unity/Build/Design/30/sea/far/ds30_tstar.gwb": {
+    "ds30": "cb7e3eb7c18fc0a6a3af54417bcdaa720195481682882a42bd00dc94ddc1062b",
+    "now": "cb7e3eb7c18fc0a6a3af54417bcdaa720195481682882a42bd00dc94ddc1062b",
+    "same": true
+   },
+   "Unity/Build/Design/30/sea/near/ds30_ring0_index.json": {
+    "ds30": "9dfaec3c68e121ea83781ecaaf3c0bac9a1712aef32382595f9035fa174f5091",
+    "now": "9dfaec3c68e121ea83781ecaaf3c0bac9a1712aef32382595f9035fa174f5091",
+    "same": true
+   },
+   "Unity/Build/Design/30/sea/sea_function.json": {
+    "ds30": "f5b92c3bc839d78c78961c5be367c3de2d206a1e6fa3d6dc0355ebc027144df9",
+    "now": "f5b92c3bc839d78c78961c5be367c3de2d206a1e6fa3d6dc0355ebc027144df9",
+    "same": true
+   },
+   "Unity/Build/Design/30/sea/boat_support.json": {
+    "ds30": "082906b7f1c286a5a41ef4f0ef216e4a2eab44c1e902baff085bc249e3f998d6",
+    "now": "082906b7f1c286a5a41ef4f0ef216e4a2eab44c1e902baff085bc249e3f998d6",
+    "same": true
+   },
+   "Unity/Build/Design/30/sea/ds30_generate_log.json": {
+    "ds30": "e21ca2fadcb0f724752c2b966ecb536a27578ae358dbefa719ed7d66a94faac5",
+    "now": "e21ca2fadcb0f724752c2b966ecb536a27578ae358dbefa719ed7d66a94faac5",
+    "same": true
+   },
+   "Unity/Build/Design/30/sea/README_interface.txt": {
+    "ds30": "558894f7f9a43bccde3ffde8314fe77593f0cc2a145f7b0337d39ecf40f4a6a6",
+    "now": "558894f7f9a43bccde3ffde8314fe77593f0cc2a145f7b0337d39ecf40f4a6a6",
+    "same": true
+   }
+  },
+  "differences_ds30": [
+   "D30-1 手前の小波の位置",
+   "D30-2 手前の小波の高さ",
+   "D30-3 手前の小波の形",
+   "D30-4 大波の下の谷の深さ",
+   "D30-5 谷の続き",
+   "D30-6 右の高い波",
+   "D30-7 周りの海",
+   "D30-8 座席の船の支え"
+  ],
+  "not_compared_ja": "参照モデルの船は殻に溶け込んだ浮彫で、位置を数値にしていない（設計30 D30-8）。富士・空は参照モデルにない。",
+  "plan_figure_source": {
+   "path": "Docs/Evidence/Design/30/fig_ds30_layout_plan.png",
+   "sha256": "c1824d6d4dc076810ef5b7456001bb591a6ededd43f6e357f6a4468abd2faf47"
+  }
+ },
+ "figures": [
+  "Unity/Build/Design/40/compare/fig/fig_ds40_contour_off_line.png",
+  "Unity/Build/Design/40/compare/fig/fig_ds40_contour_off_noline.png",
+  "Unity/Build/Design/40/compare/fig/fig_ds40_item_table.png",
+  "Unity/Build/Design/40/compare/fig/fig_ds40_layout_reference.png",
+  "Unity/Build/Design/40/compare/fig/fig_ds40_painting_overlay50.png",
+  "Unity/Build/Design/40/compare/fig/fig_ds40_views_extra.png",
+  "Unity/Build/Design/40/compare/fig/fig_ds40_views_sheet.png"
+ ]
+}
