@@ -1,0 +1,186 @@
+{
+ "schema": "GreatWave.DS43.record_recount/1",
+ "number": "設計43",
+ "note_ja": "記録の道具 ds43_record.py の数え直し。作る部の図の道具（ds43_report.py）は使わず、ds43_frames.jsonl・ds43_series.npz・全体の視点の JPG・場面のファイルから数えた。重い GPU の読み戻しは読んでいない",
+ "recount": {
+  "frames": 421,
+  "tau": {
+   "tauWater_minus_tauPlay_absmax_s": 0.0,
+   "tauSheets_minus_tauPlay_absmax_s": 0.0,
+   "tau_play_first_last": [
+    -7.889253653,
+    0
+   ],
+   "frames_tau_static_at_end": 60
+  },
+  "hull_vs_display": {
+   "nonbreaking_samples": 42968,
+   "absmax_m": 4.073680558747128e-05,
+   "p99_m": 8.324780078004032e-06
+  },
+  "per_boat": {
+   "boat_mid": {
+    "nonbreaking_samples": 15577,
+    "nonbreaking_absmax_m": 4.073680558747128e-05,
+    "hit_count_mismatch": 0,
+    "no_display_hit": 0,
+    "breaking_samples": 0,
+    "breaking_underside_absmax_m": null,
+    "first_breaking_t": null,
+    "wet_zero_frames": 24,
+    "wet_zero_t": [
+     11.166666666666666,
+     11.933333333333334
+    ],
+    "tilt_max_deg": 54.66496902959223,
+    "tilt_max_t": 12.133333333333333,
+    "tilt_max_deg_t_le_9s": 9.228170859986157,
+    "heave_acc_30hz_absmax": 15.216830999999775,
+    "heave_acc_30hz_absmax_t": 12.633333333333333,
+    "heave_acc_30hz_absmax_t_le_9s": 3.1570739999998265,
+    "root_y_range_m": [
+     -3.41177559,
+     5.014037
+    ]
+   },
+   "boat_fg": {
+    "nonbreaking_samples": 15577,
+    "nonbreaking_absmax_m": 3.3784273922865538e-06,
+    "hit_count_mismatch": 0,
+    "no_display_hit": 0,
+    "breaking_samples": 0,
+    "breaking_underside_absmax_m": null,
+    "first_breaking_t": null,
+    "wet_zero_frames": 0,
+    "wet_zero_t": null,
+    "tilt_max_deg": 7.831539281864874,
+    "tilt_max_t": 2.066666666666667,
+    "tilt_max_deg_t_le_9s": 7.831539281864874,
+    "heave_acc_30hz_absmax": 6.186212999999796,
+    "heave_acc_30hz_absmax_t": 1.1,
+    "heave_acc_30hz_absmax_t_le_9s": 6.186212999999796,
+    "root_y_range_m": [
+     -1.818688,
+     0.06928006
+    ]
+   },
+   "boat_left": {
+    "nonbreaking_samples": 11814,
+    "nonbreaking_absmax_m": 1.1510553505011956e-05,
+    "hit_count_mismatch": 0,
+    "no_display_hit": 0,
+    "breaking_samples": 3763,
+    "breaking_underside_absmax_m": 5.157328112748161e-05,
+    "first_breaking_t": 10.266666666666667,
+    "wet_zero_frames": 100,
+    "wet_zero_t": [
+     9.966666666666667,
+     13.833333333333334
+    ],
+    "tilt_max_deg": 157.2107655045761,
+    "tilt_max_t": 12.6,
+    "tilt_max_deg_t_le_9s": 20.980171171861482,
+    "heave_acc_30hz_absmax": 65.0822004,
+    "heave_acc_30hz_absmax_t": 11.3,
+    "heave_acc_30hz_absmax_t_le_9s": 19.17635400000024,
+    "root_y_range_m": [
+     -1.42800355,
+     6.6838975
+    ]
+   }
+  },
+  "display_under_boat_mid_points": {
+   "rise_speed_max_m_s": 4.610320782641615,
+   "rise_speed_max_t": 10.766666666666667,
+   "acc_min_m_s2": -38.5272282655015,
+   "acc_min_t": 10.966666666666667,
+   "note_ja": "boat_mid の浮力点 10 の下の表示面の高さ（numpy が GPU の読み戻しから求めた hd）の平均の 30 Hz の差分。点は船とともに動く"
+  },
+  "seat_eye": {
+   "in_water_frames": 0,
+   "margin_min_m": 0.4879704669969691,
+   "margin_min_t": 12.233333333333333
+  },
+  "wide_view_boat_pixels_run3": {
+   "rule_ja": "全体の視点の JPG（960 × 540）で、船の根の位置を投影した点の ±18 px の中の、赤 ≥ 150・赤 − 青 ≥ 40・赤 ≥ 緑 の画素の数",
+   "boats": {
+    "boat_mid": {
+     "frames_t2_10": 241,
+     "frames_with_boat_pixels": 241,
+     "median_px": 86.0,
+     "min_px": 47,
+     "min_px_t": 7.7,
+     "px_at_t2_t6_t9": [
+      104,
+      50,
+      111
+     ]
+    },
+    "boat_fg": {
+     "frames_t2_10": 241,
+     "frames_with_boat_pixels": 241,
+     "median_px": 69.0,
+     "min_px": 45,
+     "min_px_t": 8.6,
+     "px_at_t2_t6_t9": [
+      77,
+      72,
+      80
+     ]
+    },
+    "boat_left": {
+     "frames_t2_10": 241,
+     "frames_with_boat_pixels": 241,
+     "median_px": 83.0,
+     "min_px": 23,
+     "min_px_t": 9.133333333333333,
+     "px_at_t2_t6_t9": [
+      91,
+      60,
+      39
+     ]
+    }
+   }
+  },
+  "scene": {
+   "sha256": "13e097bc382b2739138dc721d35616a97798b43e3408d983dcac603236337c9e",
+   "bytes": 206705,
+   "M1_Revision_LeftSupport_m_IsActive": 0,
+   "stepInFixedUpdate_values": [
+    0,
+    0,
+    0
+   ]
+  }
+ },
+ "diff_vs_builder_metrics": {
+  "hull_absmax": 0.0,
+  "hull_p99": 0.0,
+  "eye_margin": 0.0,
+  "boat_mid_absmax": 0.0,
+  "boat_mid_samples": 0.0,
+  "boat_mid_wet0": 0.0,
+  "boat_mid_heave_acc_all": 0.0,
+  "boat_fg_absmax": 0.0,
+  "boat_fg_samples": 0.0,
+  "boat_fg_wet0": 0.0,
+  "boat_fg_heave_acc_all": 0.0,
+  "boat_left_absmax": 0.0,
+  "boat_left_samples": 0.0,
+  "boat_left_wet0": 0.0,
+  "boat_left_heave_acc_all": 0.0
+ },
+ "fix01_letterbox": {
+  "src_size": [
+   960,
+   810
+  ],
+  "scale": 1.3333333333333333,
+  "placed": [
+   320,
+   0,
+   1280,
+   1080
+  ]
+ }
+}

@@ -1,0 +1,354 @@
+{
+ "schema": "GreatWave.DS43.metrics/1",
+ "number": "設計43",
+ "part": "boatwater",
+ "created_utc": "2026-09-30T03:17:47Z",
+ "backlog": {
+  "89": "記録（浮力と表示面の整合：非砕波域の船底サンプルの高さの差）",
+  "90": "記録（船用水面データと表示の同じ時計）",
+  "203": "記録（船用データの形式：有効領域・原点・時刻・高さ）"
+ },
+ "min_acceptance_ja": "非砕波域で船底と表示面の差 ≤5 cm（設計書 §11 の出発点）。時刻のずれ 0 フレーム（計画 §2.4 設計43）。作業の指示：座席の目が全コマで水の上（設計30 の検査）",
+ "min_acceptance": {
+  "hull_vs_display": {
+   "criterion_m": 0.05,
+   "value_absmax_m": 4.073680558747128e-05,
+   "p99_m": 8.324780078004032e-06,
+   "nonbreaking_samples": 42968,
+   "pass_": true
+  },
+  "time_offset": {
+   "criterion_frames": 0,
+   "tau_offset_s": 0.0,
+   "sheets_offset_s": 0.0,
+   "best_lag_frames": 0,
+   "lag_rms_m": {
+    "-3": 0.16588272683799227,
+    "-2": 0.11200484607850425,
+    "-1": 0.05718256535105213,
+    "0": 1.3628257428977525e-06,
+    "1": 0.05646085092791568,
+    "2": 0.11163265631402354,
+    "3": 0.16698703905831205
+   },
+   "pass_": true
+  },
+  "seat_eye_above_water": {
+   "frames": 421,
+   "in_water_frames": 0,
+   "margin_min_m": 0.4879704669969691,
+   "margin_min_t": 12.233333333333333,
+   "pass_": true
+  },
+  "pass_": true
+ },
+ "position_offset": {
+  "delta_xz_m": [
+   2.632229103884295e-06,
+   -4.442441784686134e-06
+  ],
+  "samples": 42968,
+  "slope_abs_p95": 0.7689628002846592,
+  "note_ja": "表示面の傾き g（交わった三角形の面）から、船用水面データと表示面の高さの差を水平のずれ δ で説明できるかの最小二乗（δ ≈ 0 なら位置のずれなし）"
+ },
+ "per_boat": {
+  "boat_mid": {
+   "nonbreaking_samples": 15577,
+   "nonbreaking_absmax_m": 4.073680558747128e-05,
+   "nonbreaking_p99_m": 2.2974065099408134e-05,
+   "nonbreaking_rms_m": 3.952509678284663e-06,
+   "breaking_samples": 0,
+   "breaking_underside_absmax_m": null,
+   "breaking_frames": null,
+   "hit_count_mismatch": 0,
+   "no_display_hit": 0,
+   "wet_zero_frames": 24,
+   "wet_zero_t": [
+    11.166666666666666,
+    11.933333333333334
+   ]
+  },
+  "boat_fg": {
+   "nonbreaking_samples": 15577,
+   "nonbreaking_absmax_m": 3.3784273922865538e-06,
+   "nonbreaking_p99_m": 2.1086996530428338e-06,
+   "nonbreaking_rms_m": 6.626987374005067e-07,
+   "breaking_samples": 0,
+   "breaking_underside_absmax_m": null,
+   "breaking_frames": null,
+   "hit_count_mismatch": 0,
+   "no_display_hit": 0,
+   "wet_zero_frames": 0,
+   "wet_zero_t": null
+  },
+  "boat_left": {
+   "nonbreaking_samples": 11814,
+   "nonbreaking_absmax_m": 1.1510553505011956e-05,
+   "nonbreaking_p99_m": 7.87475048856682e-06,
+   "nonbreaking_rms_m": 1.8645763618247933e-06,
+   "breaking_samples": 3763,
+   "breaking_underside_absmax_m": 5.157328112748161e-05,
+   "breaking_frames": [
+    308,
+    420
+   ],
+   "hit_count_mismatch": 0,
+   "no_display_hit": 0,
+   "wet_zero_frames": 100,
+   "wet_zero_t": [
+    9.966666666666667,
+    13.833333333333334
+   ]
+  }
+ },
+ "motion_record": {
+  "boat_mid": {
+   "heave_acc_absmax_nonbreaking_t_le_9s": 3.1570739999998265,
+   "heave_acc_absmax_all": 15.216830999999775,
+   "keel_y_range_m": [
+    -3.41177559,
+    5.014037
+   ],
+   "first_breaking_t": null,
+   "wet_zero_frames": 24
+  },
+  "boat_fg": {
+   "heave_acc_absmax_nonbreaking_t_le_9s": 6.186212999999796,
+   "heave_acc_absmax_all": 6.186212999999796,
+   "keel_y_range_m": [
+    -1.818688,
+    0.06928006
+   ],
+   "first_breaking_t": null,
+   "wet_zero_frames": 0
+  },
+  "boat_left": {
+   "heave_acc_absmax_nonbreaking_t_le_9s": 19.17635400000024,
+   "heave_acc_absmax_all": 65.0822004,
+   "keel_y_range_m": [
+    -1.42800355,
+    6.6838975
+   ],
+   "first_breaking_t": 10.266666666666667,
+   "wet_zero_frames": 100
+  }
+ },
+ "gpu_vs_numpy_decode_absmax_m": 0.00017195696887029044,
+ "sea_function": {
+  "file": "Unity/Build/Design/43/boatwater/sea_function_ds43.json",
+  "sha256": "54d4d3c1045355b478949e780f7bfc77efaaee74e7da27593a26ce91b8f0f4a5",
+  "far_taper": {
+   "on": true,
+   "start_m": 380.0,
+   "end_m": 600.0,
+   "center_ac_m": [
+    -2.5,
+    -2.5
+   ],
+   "center_source_ja": "競技場（near の外周：前 a +105、後 a −110、右 c +125、左 c −130 m）の中心 ((105 − 110)/2, (125 − 130)/2) = (−2.5, −2.5)。波の枠とともに動く（a・c は O(τ) からの局所の軸）",
+   "shape_ja": "w_far(r) = 1 − smoothstep((r − 380)/(600 − 380))、smoothstep(x) = x²(3 − 2x)（0〜1 に切る）。r = √((a − a_c0)² + (c − c_c0)²)",
+   "applies_to_ja": "搬送波とうねりの和（周りの海）だけ。地形の誘導 g·F には掛けない。far のシートでは行 1〜16 がこの式、行 0 は near の外周の写し、行 17（半径 650 m）は y = 0、行 18 は −8 m のすそ",
+   "source": {
+    "file": "Tools/GWWaveGen/ds30/ds30_generate.py",
+    "params": "Tools/GWWaveGen/ds30/ds30_params.json（grid.far_taper_start_m・far_taper_end_m）"
+   }
+  },
+  "verification": {
+   "knots_checked": [
+    0,
+    10,
+    20,
+    30,
+    40,
+    50,
+    60,
+    70,
+    80,
+    90,
+    100,
+    110,
+    120,
+    130,
+    140,
+    150,
+    160,
+    170,
+    180,
+    190,
+    200,
+    210,
+    220,
+    230,
+    240,
+    241
+   ],
+   "far_rows_1_16_absmax_m_with_taper": 1.6844900090351445e-05,
+   "far_rows_1_16_absmax_m_without_taper": 3.269410097396444,
+   "near_rows_outside_band_absmax_m": 2.5381369077592808e-05,
+   "near_rule_ja": "near は、行 0（主役波の輪）からの実際の水平距離 s ≥ 10 m の頂点（接続帯の外）。外周の行は除く",
+   "note_ja": "節点の層の頂点（16 bit + 精度の層）とこの式の差。弱めを入れると far の頂点と量子化の大きさで合い、入れないと設計30 の独立の検査の値（約 400 m より外で最大 3.4 m）と同じ大きさで違う"
+  }
+ },
+ "analytic_vs_display_precheck": {
+  "boat_mid": {
+   "far": {
+    "samples": 2718,
+    "single": 2718,
+    "absmax_single": 0.09443348596027773,
+    "p95_single": 0.07203472367245813,
+    "t_range": [
+     0.0,
+     3.533333333333333
+    ]
+   },
+   "near": {
+    "samples": 5901,
+    "single": 5901,
+    "absmax_single": 0.0398748794174375,
+    "p95_single": 0.009125051726355249,
+    "t_range": [
+     3.1666666666666665,
+     10.9
+    ]
+   },
+   "near_band": {
+    "samples": 1128,
+    "single": 1128,
+    "absmax_single": 2.0328161291694915,
+    "p95_single": 0.19187893293585792,
+    "t_range": [
+     10.433333333333334,
+     12.0
+    ]
+   }
+  },
+  "boat_fg": {
+   "far": {
+    "samples": 3022,
+    "single": 3022,
+    "absmax_single": 0.16933305573570934,
+    "p95_single": 0.14514558971501573,
+    "t_range": [
+     0.0,
+     3.8333333333333335
+    ]
+   },
+   "near": {
+    "samples": 6725,
+    "single": 6725,
+    "absmax_single": 0.0046979830845557125,
+    "p95_single": 0.001826571033726764,
+    "t_range": [
+     3.6,
+     12.0
+    ]
+   }
+  },
+  "boat_left": {
+   "far": {
+    "samples": 1989,
+    "single": 1989,
+    "absmax_single": 0.025605100879502185,
+    "p95_single": 0.010403042723343244,
+    "t_range": [
+     0.0,
+     2.566666666666667
+    ]
+   },
+   "near": {
+    "samples": 5561,
+    "single": 5561,
+    "absmax_single": 0.135113782100309,
+    "p95_single": 0.00872886191052391,
+    "t_range": [
+     2.3,
+     9.566666666666666
+    ]
+   },
+   "near_band": {
+    "samples": 851,
+    "single": 851,
+    "absmax_single": 0.792224670103685,
+    "p95_single": 0.6396077818625194,
+    "t_range": [
+     9.0,
+     10.633333333333333
+    ]
+   },
+   "hero": {
+    "samples": 1346,
+    "single": 113,
+    "absmax_single": 10.323400462259187,
+    "p95_single": 10.168324002954426,
+    "t_range": [
+     10.033333333333333,
+     12.0
+    ]
+   }
+  }
+ },
+ "design": {
+  "reader_ja": "DS43BoatWater（DS42Water の子）：再生器 DS30SinglePlayback の τ（シートへ渡したのと同じ値）を問い合わせのたびに見て、主役波（本体の列 18〜394）・near・far の パッケージを CPU で同じ式（16 bit + 精度の層、Hermite の 4 層、O(τ)）で復号し、船のまわりの関心の範囲の三角形の一様格子（1 m）で、点の鉛直の線の最も低い交わり（下側の一価の面）を返す",
+  "boats_ja": "3 隻とも設計42 の DS42Buoyancy（浮力点 10）。boat_mid は設計42 の表、boat_fg・boat_left は縮尺の比で相似に直した表（ds43_boats.py）。原画の水平の位置と首の向き、縦・横の傾き 0 で置き、t = 0 の水で 4 s ならしてから再生",
+  "clock_ja": "物理 dt = 1/120 s、1 コマ（1/30 s）に 4 段。各段の前に再生器へ同じ時刻を Seek し、船はその τ の水を読む。コマの記録は再生器の t = n/30 で行う",
+  "unity_seconds": 58.873802185058594,
+  "rebuild_ms_mean": 20.339731228313664,
+  "rebuilds": 1441,
+  "queries": 64803,
+  "fallbacks": 0,
+  "region_xz": [
+   -31.292308807373047,
+   -48.249881744384766,
+   23.025619506835938,
+   3.469982147216797
+  ],
+  "protected_unchanged": true,
+  "painting_view_touched": false,
+  "hidden_objects_test_scene": [
+   "DS27 背景（美術優先27修正01 のプレハブ）/AF27 船 boat_left/boat_blockout",
+   "DS27 背景（美術優先27修正01 のプレハブ）/AF27 船 boat_fg/boat_blockout",
+   "DS27 背景（美術優先27修正01 のプレハブ）/AF27 船 boat_mid/boat_blockout",
+   "DS27 背景（美術優先27修正01 のプレハブ）/AF27 仮置き（前景のうねり・斜面、番号39/40 で置き換え）/revision_slopes/M1_Revision_LeftSupport"
+  ],
+  "painting_view_note_ja": "原画視点の場面は変えていない（DS30_SinglePlayback.unity は開いただけで保存せず、写しを DS43_BoatWater.unity に保存。守るファイル 17 個の SHA-256 は前後で同じ）。評価器の回帰の対象外（計画 §2.0）"
+ },
+ "decisions_q24": [
+  {
+   "id": "D43-1",
+   "choice_ja": "船は設計30 の式そのものではなく、表示と同じ標本（near・far のシート。式の値を頂点に持つ）と主役波の本体の下側の一価の面を読む",
+   "reason_ja": "前の確かめで、式と表示の網の差が far で最大 16.9 cm（boat_fg）・9.4 cm（boat_mid）あり、式を読むと ≤5 cm を満たせない。シートの頂点は式と 0.017 mm で合う（sea_function_ds43.json）ので、うねりの定義は同じ",
+   "rejected_ja": "式を読む（far の網の間で 17 cm）。far の表示を細かくする（原画視点に触れる。仕上げ30 の候補）"
+  },
+  {
+   "id": "D43-2",
+   "choice_ja": "非砕波域 = 船底サンプルの鉛直の線と表示面の交わりが 1 つ（一価）。2 つ以上は砕波域（唇・巻き込みの下）で、下の面を読み、差は記録のみ",
+   "reason_ja": "設計書 §7.2 の「巻き込みのない一価の水面で表せる範囲」をそのまま数える読み"
+  },
+  {
+   "id": "D43-3",
+   "choice_ja": "3 隻を自由に浮かべ、形成の区間（砕波域）でもそのまま物理で動かした（固定の軌道への引き継ぎは設計44 の D26）",
+   "reason_ja": "設計43 の受入は非砕波域だけ。砕波域での振る舞い（打ち上げ・転覆）は設計44・47 への申し送りとして記録する"
+  }
+ ],
+ "record_only_ja": [
+  "boat_left は t ≈ 9.97 s から主役波の本体（左の支えの所）に入り、唇の下（交わり 3）で打ち上げられ、傾き最大 157°（転覆）・上下の加速度最大 65 m/s²。原画の t* の姿勢には戻らない（設計47 の演出・固定の軌道で扱う）",
+  "boat_mid（座席）は t 11.17〜11.93 s に浮力点がすべて水の外（打ち上げ）、傾き最大 55°、上下の加速度最大 15 m/s²。目は全コマで水の上（余裕の最小 0.49 m）。原画の t* の姿勢（船首上げ 33°）と位置には一致しない → 設計44 の固定の軌道への引き継ぎ（D26）、設計45 の快適さ",
+  "修正の1回（確かめの must_fix）：run2 までの全体の動画で boat_left が t ≈ 2〜10 s に見えなかったのは、小波や白い面の陰ではなく、DS30_SinglePlayback.unity で有効のまま残っていた美術優先の静的な仮置き M1_Revision_LeftSupport（revision_slopes.fbx、y 0.64〜6.53 m、x −25〜−5、z −15〜−4）の下に、自由に浮く boat_left が入っていたため（その上面は 421 コマ中 322 コマで船底の 37 サンプルすべての上、全コマで 1 サンプル以上の上、竜骨からの高さの中央値 5.8 m）。3 枚の海のシートは全体のカメラから boat_left を隠していない。試験の場面（DS43BoatWaterTest の HideNames）でだけ隠して run3 を取り直した。船はこの網を読まないので ds43_frames.jsonl は run2 とバイトまで同じで、数値は変わらない",
+  "原画の場面では t* の boat_left（根 y 4.82）は今も M1_Revision_LeftSupport の上に乗っている。t* より前に自由に浮く・演出で動かす boat_left は、仕上げ30 でこの仮置きを置き換えるまで、この静的な面と食い違う（設計47 の背景の船の演出へ申し送り）",
+  "boat_mid の打ち上げ（t 11.17〜11.93 s）の元は表示の水そのもの：浮力点の下の表示面が t 10.77 s に 4.6 m/s で上がり、t 10.97 s に最大 −38.5 m/s²（約 −3.9 g）で減速する（near のシートのつなぎの帯。確かめの測定）。船用水面データは表示と合っており、自由表面らしくない表示の動きが船を投げる → 設計44 の引き継ぎは t ≈ 10.5 s より前、設計45 の快適さ、仕上げ30・43",
+  "時刻のずれ 0 フレームは試験の手順（各物理の段の前に再生器へ Seek）でだけ示した。Play では FixedUpdate が DS30SinglePlayback.Update（τ を決める）より先に走るので、船は 1 コマ前の水を読む（ずれ 1 コマで RMS 5.7 cm・最大 0.53 m）。保存した DS43_BoatWater.unity の DS42Buoyancy は stepInFixedUpdate = 0（試験が手で Step するため）で、Play では浮力が働かず沈む。設計44・46 で実行時の順序（物理の前に時計を進める、または時計から浮力を進める）と Play でのずれの測定が要る",
+  "boat_fg は全区間で一価の海の上。上下の加速度の最大 6.2 m/s²（t 1.1 s、far の粗い網の上）",
+  "far の表示の網は粗く、網の折れ目で水面の加速度が跳ぶ（船の上下の加速度に出る）。仕上げ30・仕上げ43 の候補",
+  "水の流速（設計書 §5 の船用データの流速）は読んでいない。水平の抵抗は設計42 のまま絶対速度に対して働く（仕上げ43）",
+  "関心の範囲（船のまわり ±16 m）の外は予備の y = 0。試験では予備の使用 0 回。設計44 の操船域では範囲を船に合わせて動かす必要がある",
+  "HMD 実機ではない。PC の batchmode（RTX 3080、Direct3D11）の Editor の物理と描画だけ"
+ ],
+ "outputs": {
+  "video": "Unity/Build/Design/43/boatwater/ds43_boatwater_wide_seat_30fps.mp4",
+  "figure": "Unity/Build/Design/43/boatwater/fig_ds43_boatwater.png",
+  "stills": "Unity/Build/Design/43/boatwater/stills_ds43_t06_t11.5.png",
+  "measure": "Unity/Build/Design/43/boatwater/measure/ds43_measure.json",
+  "unity_report": "Unity/Build/Design/43/boatwater/unity/ds43_unity_report.json",
+  "sea_function": "Unity/Build/Design/43/boatwater/sea_function_ds43.json"
+ }
+}

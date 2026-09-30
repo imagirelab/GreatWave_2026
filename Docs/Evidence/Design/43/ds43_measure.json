@@ -1,0 +1,111 @@
+{
+ "number": "設計43",
+ "part": "boatwater",
+ "frames": 421,
+ "samples_per_boat": 37,
+ "boats": [
+  "boat_mid",
+  "boat_fg",
+  "boat_left"
+ ],
+ "sample_note_ja": "船底のサンプル = 浮力点 10（設計42 の表の点）＋ 船底の平面（根の局所 y = 0）の 9 × 3 の格子（縦 ±0.42 L、横 ±0.3 B）。各コマの船の姿勢で世界へ写した点の xz で比べる",
+ "display_note_ja": "表示面 = 同じコマに GPU で描いた 3 枚のシート（主役波は本体の列 18〜394 の四角、near は全部、far はすその四角を除く）の頂点（DS27KeyposeCapture の読み戻し）と、点の鉛直の線の交わり（numpy。Unity の読み手のコードは使わない）。一価 = 交わりが 1 つ、砕波域 = 交わりが 2 つ以上（唇・巻き込みの下）",
+ "per_boat": {
+  "boat_mid": {
+   "nonbreaking_samples": 15577,
+   "nonbreaking_absmax_m": 4.073680558747128e-05,
+   "nonbreaking_p99_m": 2.2974065099408134e-05,
+   "nonbreaking_rms_m": 3.952509678284663e-06,
+   "breaking_samples": 0,
+   "breaking_underside_absmax_m": null,
+   "breaking_frames": null,
+   "hit_count_mismatch": 0,
+   "no_display_hit": 0,
+   "wet_zero_frames": 24,
+   "wet_zero_t": [
+    11.166666666666666,
+    11.933333333333334
+   ]
+  },
+  "boat_fg": {
+   "nonbreaking_samples": 15577,
+   "nonbreaking_absmax_m": 3.3784273922865538e-06,
+   "nonbreaking_p99_m": 2.1086996530428338e-06,
+   "nonbreaking_rms_m": 6.626987374005067e-07,
+   "breaking_samples": 0,
+   "breaking_underside_absmax_m": null,
+   "breaking_frames": null,
+   "hit_count_mismatch": 0,
+   "no_display_hit": 0,
+   "wet_zero_frames": 0,
+   "wet_zero_t": null
+  },
+  "boat_left": {
+   "nonbreaking_samples": 11814,
+   "nonbreaking_absmax_m": 1.1510553505011956e-05,
+   "nonbreaking_p99_m": 7.87475048856682e-06,
+   "nonbreaking_rms_m": 1.8645763618247933e-06,
+   "breaking_samples": 3763,
+   "breaking_underside_absmax_m": 5.157328112748161e-05,
+   "breaking_frames": [
+    308,
+    420
+   ],
+   "hit_count_mismatch": 0,
+   "no_display_hit": 0,
+   "wet_zero_frames": 100,
+   "wet_zero_t": [
+    9.966666666666667,
+    13.833333333333334
+   ]
+  }
+ },
+ "acceptance_hull_vs_display": {
+  "criterion_m": 0.05,
+  "nonbreaking_samples": 42968,
+  "absmax_m": 4.073680558747128e-05,
+  "p99_m": 8.324780078004032e-06,
+  "pass_": true
+ },
+ "acceptance_time_offset": {
+  "criterion_frames": 0,
+  "tau_water_minus_play_absmax_s": 0.0,
+  "tau_sheets_minus_play_absmax_s": 0.0,
+  "frame_step_tau_median_s": 0.01666666716666665,
+  "offset_frames_from_tau": 0.0,
+  "lag_search_rms_m": {
+   "-3": 0.16588272683799227,
+   "-2": 0.11200484607850425,
+   "-1": 0.05718256535105213,
+   "0": 1.3628257428977525e-06,
+   "1": 0.05646085092791568,
+   "2": 0.11163265631402354,
+   "3": 0.16698703905831205
+  },
+  "lag_search_frames_used": 103,
+  "best_lag_frames": 0,
+  "pass_": true,
+  "note_ja": "τ は再生器（DS30SinglePlayback.Tau）・各シートが描いた τ（AppliedTau）・船用水面データが使った τ（TauUsed）をコマごとに記録。ずらしの探索は、浮力点の船用水面データの高さを、L コマずらした表示面と比べた二乗平均（一価で動いている区間、3 コマおき）"
+ },
+ "position_offset": {
+  "delta_xz_m": [
+   2.632229103884295e-06,
+   -4.442441784686134e-06
+  ],
+  "samples": 42968,
+  "slope_abs_p95": 0.7689628002846592,
+  "note_ja": "表示面の傾き g（交わった三角形の面）から、船用水面データと表示面の高さの差を水平のずれ δ で説明できるかの最小二乗（δ ≈ 0 なら位置のずれなし）"
+ },
+ "seat_eye": {
+  "frames": 421,
+  "in_water_frames": 0,
+  "margin_min_m": 0.4879704669969691,
+  "margin_min_t": 12.233333333333333,
+  "frames_with_surface_above_eye": 0,
+  "unity_vs_numpy_eye_hits_same": true,
+  "pass_": true,
+  "note_ja": "目の水平の位置の鉛直の線と表示面の交わり（numpy）。目より上の交わりの数が奇数なら水の中。余裕 = 目 − 目の下の最も近い面"
+ },
+ "gpu_vs_numpy_decode_absmax_m": 0.00017195696887029044,
+ "seconds": 21.8
+}

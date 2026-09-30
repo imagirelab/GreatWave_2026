@@ -1,0 +1,248 @@
+{
+ "schema": "GreatWave.DS43.record_metrics/1",
+ "number": "設計43",
+ "title_ja": "船用水面データで小波へ反応させる",
+ "created_utc": "2026-09-30T03:25:04Z",
+ "evidence_kind_ja": "PC の Unity 6000.4.3f1 batchmode（RTX 3080、Direct3D11）の物理と描画、numpy の測定、進行役の独立の検査。HMD 実機ではない。利用者は確かめていない",
+ "plan_ja": "計画 §2.4 設計43：設計30 のうねりと、主役波のシートの下側の一価の面を、同じ時計で船が読む。表示面と船底の差、位置と時刻のずれを測る",
+ "min_acceptance_ja": "非砕波域で船底と表示面の差 ≤5 cm（設計書 §11 の出発点）。時刻のずれ 0 フレーム（計画 §2.4 設計43）。作業の指示：座席の目が全コマで水の上（設計30 の検査）",
+ "acceptance": {
+  "hull_vs_display": {
+   "criterion_m": 0.05,
+   "builder_absmax_m": 4.073680558747128e-05,
+   "builder_p99_m": 8.324780078004032e-06,
+   "record_recount_absmax_m": 4.073680558747128e-05,
+   "indep_absmax_m": 4.073680558747128e-05,
+   "samples": 42968,
+   "pass_": true
+  },
+  "time_offset": {
+   "criterion_frames": 0,
+   "builder_best_lag": 0,
+   "builder_lag_rms_m": {
+    "-3": 0.16588272683799227,
+    "-2": 0.11200484607850425,
+    "-1": 0.05718256535105213,
+    "0": 1.3628257428977525e-06,
+    "1": 0.05646085092791568,
+    "2": 0.11163265631402354,
+    "3": 0.16698703905831205
+   },
+   "indep_best_lag": "0",
+   "indep_lag": {
+    "-2": {
+     "rms": 0.11354428244251565,
+     "absmax": 1.0624068509441225,
+     "n": 19051
+    },
+    "-1": {
+     "rms": 0.057107676325128566,
+     "absmax": 0.530227579734901,
+     "n": 19052
+    },
+    "0": {
+     "rms": 1.8537035445872705e-06,
+     "absmax": 4.073680558747128e-05,
+     "n": 19054
+    },
+    "1": {
+     "rms": 0.057367232852178304,
+     "absmax": 0.5337114510072949,
+     "n": 19040
+    },
+    "2": {
+     "rms": 0.11309822402560137,
+     "absmax": 1.062601840026331,
+     "n": 19017
+    }
+   },
+   "record_tau_offsets_s": [
+    0.0,
+    0.0
+   ],
+   "pass_": true,
+   "scope_ja": "試験の手順（各物理の段の前に再生器へ Seek）でだけ示した。Play の順序では 1 コマ遅れる見込み（限界 1）"
+  },
+  "seat_eye_above_water": {
+   "in_water_frames": 0,
+   "margin_min_m": 0.4879704669969691,
+   "margin_min_t": 12.233333333333333,
+   "pass_": true
+  },
+  "position_offset": {
+   "delta_xz_m": [
+    2.632229103884295e-06,
+    -4.442441784686134e-06
+   ],
+   "samples": 42968,
+   "slope_abs_p95": 0.7689628002846592,
+   "note_ja": "表示面の傾き g（交わった三角形の面）から、船用水面データと表示面の高さの差を水平のずれ δ で説明できるかの最小二乗（δ ≈ 0 なら位置のずれなし）"
+  },
+  "pass_": true
+ },
+ "backlog": {
+  "89": "記録（浮力と表示面の整合：非砕波域の船底サンプルの高さの差）",
+  "90": "記録（船用水面データと表示の同じ時計）",
+  "203": "記録（船用データの形式：有効領域・原点・時刻・高さ）"
+ },
+ "decisions_q24": [
+  {
+   "id": "D43-1",
+   "choice_ja": "船は設計30 の式そのものではなく、表示と同じ標本（near・far のシート。式の値を頂点に持つ）と主役波の本体の下側の一価の面を読む",
+   "reason_ja": "前の確かめで、式と表示の網の差が far で最大 16.9 cm（boat_fg）・9.4 cm（boat_mid）あり、式を読むと ≤5 cm を満たせない。シートの頂点は式と 0.017 mm で合う（sea_function_ds43.json）ので、うねりの定義は同じ",
+   "rejected_ja": "式を読む（far の網の間で 17 cm）。far の表示を細かくする（原画視点に触れる。仕上げ30 の候補）"
+  },
+  {
+   "id": "D43-2",
+   "choice_ja": "非砕波域 = 船底サンプルの鉛直の線と表示面の交わりが 1 つ（一価）。2 つ以上は砕波域（唇・巻き込みの下）で、下の面を読み、差は記録のみ",
+   "reason_ja": "設計書 §7.2 の「巻き込みのない一価の水面で表せる範囲」をそのまま数える読み"
+  },
+  {
+   "id": "D43-3",
+   "choice_ja": "3 隻を自由に浮かべ、形成の区間（砕波域）でもそのまま物理で動かした（固定の軌道への引き継ぎは設計44 の D26）",
+   "reason_ja": "設計43 の受入は非砕波域だけ。砕波域での振る舞い（打ち上げ・転覆）は設計44・47 への申し送りとして記録する"
+  }
+ ],
+ "fix_rounds": {
+  "count": 1,
+  "fix01_ja": "確かめの必須の指摘：boat_left が全体の動画の t ≈ 2〜10 s に見えないのは、DS30 の場面で有効のまま残っていた静的な仮置き M1_Revision_LeftSupport の下に入っていたため。試験の場面だけで隠して run3 を取り直した。ds43_frames.jsonl は run2 とバイトまで同じ",
+  "after_visibility": {
+   "frames_t2_10": 241,
+   "frames_with_boat_pixels": 241,
+   "median_px": 83.0,
+   "min_px": 23,
+   "min_px_t": 9.133333333333333,
+   "px_at_t2_t6_t9": [
+    91,
+    60,
+    39
+   ]
+  }
+ },
+ "record_recount": {
+  "file": "Docs/Evidence/Design/43/ds43_record_recount.json",
+  "diff_vs_builder_max": 0.0
+ },
+ "builder_sha256_verified": {
+  "files": 37,
+  "all_same": true
+ },
+ "time": {
+  "box_ja": "Q26 の日程で 3 時間（計画 §2.6 の［Q26］の表、10/3 の行。計画の時間枠は ≤0.75日）",
+  "file_times": {
+   "Tools/GWWaveGen/ds43": {
+    "created": "10:43:33",
+    "modified": "11:25:02"
+   },
+   "Unity/Build/Design/43": {
+    "created": "10:43:33",
+    "modified": "11:23:27"
+   },
+   "Tools/GWWaveGen/ds43/ds43_common.py": {
+    "created": "10:44:19",
+    "modified": "10:44:19"
+   },
+   "Unity/Build/Design/43/boatwater/precheck/ds43_precheck_analytic_vs_display.json": {
+    "created": "10:44:55",
+    "modified": "10:44:55"
+   },
+   "Tools/GWWaveGen/ds43/ds43_boats.py": {
+    "created": "10:47:22",
+    "modified": "10:47:22"
+   },
+   "Unity/Assets/GreatWave/Design43/Scripts/DS43SheetReader.cs": {
+    "created": "10:48:43",
+    "modified": "10:48:43"
+   },
+   "Unity/Assets/GreatWave/Design43/Scripts/DS43BoatWater.cs": {
+    "created": "10:49:02",
+    "modified": "10:49:02"
+   },
+   "Tools/GWWaveGen/ds43/run_ds43_unity.ps1": {
+    "created": "10:50:52",
+    "modified": "10:51:04"
+   },
+   "Unity/Build/Design/43/boatwater/logs/unity_ds43_run1.log": {
+    "created": "10:51:09",
+    "modified": "10:52:16"
+   },
+   "Tools/GWWaveGen/ds43/ds43_measure.py": {
+    "created": "10:53:30",
+    "modified": "10:53:30"
+   },
+   "Tools/GWWaveGen/ds43/ds43_sea_function.py": {
+    "created": "10:55:05",
+    "modified": "10:55:21"
+   },
+   "Unity/Build/Design/43/boatwater/sea_function_ds43.json": {
+    "created": "10:55:09",
+    "modified": "10:55:24"
+   },
+   "Unity/Build/Design/43/boatwater/logs/unity_ds43_run2.log": {
+    "created": "10:57:36",
+    "modified": "10:58:42"
+   },
+   "Tools/GWWaveGen/ds43/ds43_report.py": {
+    "created": "10:59:16",
+    "modified": "11:17:47"
+   },
+   "Unity/Build/Design/43/indep_check/chk43.py": {
+    "created": "11:23:27",
+    "modified": "11:03:54"
+   },
+   "Unity/Build/Design/43/indep_check/chk43_result.json": {
+    "created": "11:23:27",
+    "modified": "11:05:28"
+   },
+   "Unity/Build/Design/43/indep_check/ls_check.py": {
+    "created": "11:23:27",
+    "modified": "11:09:09"
+   },
+   "Unity/Assets/GreatWave/Design43/Editor/DS43BoatWaterTest.cs": {
+    "created": "11:13:45",
+    "modified": "11:13:45"
+   },
+   "Unity/Build/Design/43/boatwater/logs/unity_ds43_run3.log": {
+    "created": "11:13:52",
+    "modified": "11:14:59"
+   },
+   "Unity/Assets/GreatWave/Design43/Scenes/DS43_BoatWater.unity": {
+    "created": "11:14:04",
+    "modified": "11:14:04"
+   },
+   "Unity/Build/Design/43/boatwater/metrics.json": {
+    "created": "10:56:59",
+    "modified": "11:17:47"
+   }
+  },
+  "builder_report_ja": "作る部の報告は「3 時間の内の約 2 時間 40 分」。ファイルの時刻と合わない（記録の第 9 節）",
+  "unity_in_run_s": 58.873802185058594,
+  "measure_s": 21.8,
+  "precheck_s": 11.3,
+  "indep_check_s": 85.5
+ },
+ "hmd_ja": "保留（PS VR2 の導入は利用者の手）。Mock の両眼も描いていない",
+ "painting_view_ja": "原画視点の場面は変えていない（DS30_SinglePlayback.unity は開いただけで保存しない）。守るファイル 17 の SHA-256 は前後で同じ。計画 §2.0 の回帰は対象外",
+ "handoffs_ja": [
+  "設計44：座席の船の固定の軌道への引き継ぎは t ≈ 10.5 s より前（boat_mid は t 11.17〜11.93 s に打ち上げられる）。表示の船（原画の場面は設計30 の上下のまま）と物理の船のそろえ方（喫水の差 132 mm、設計42 の限界 1）。Play の実行の順序（物理の前に時計を進める、または時計から浮力を進める）と Play でのずれの測定。関心の範囲（±16 m の固定）を船に合わせて動かす。首振りのずれ（設計42 の限界 7）",
+  "設計45：上下の加速度（boat_fg 6.2 m/s²・far の網の折れ目、boat_mid 15.2 m/s²・打ち上げ）",
+  "設計46：共通時計から水面と船用水面データを進める（今は DS30SinglePlayback の τ を読む）",
+  "設計47：背景の船（boat_fg・boat_left）の演出。boat_left は t* に M1_Revision_LeftSupport の上に乗る",
+  "仕上げ30：far の網を細かくする、または far の頂点の式、M1_Revision_LeftSupport の置き換え、near の接続の帯の表示の動き（−38.5 m/s²）",
+  "仕上げ43（89・90・203）：水の流速、式を読む道、相似の表の質量、砕波域の浸かり方"
+ ],
+ "evidence": [
+  "ds43_boatwater_metrics.json",
+  "ds43_boatwater_run.json",
+  "ds43_boatwater_wide_seat_30fps.mp4",
+  "ds43_indep_check.json",
+  "ds43_measure.json",
+  "ds43_precheck_analytic_vs_display.json",
+  "ds43_record_recount.json",
+  "ds43_unity_report.json",
+  "fig_ds43_boatwater.png",
+  "fig_ds43_fix01_leftsupport_before_after.png",
+  "sea_function_ds43.json",
+  "stills_ds43_t06_t11.5.png"
+ ]
+}
