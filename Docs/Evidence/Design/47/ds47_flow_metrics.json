@@ -1,0 +1,385 @@
+{
+ "schema": "GreatWave.DS47.flow_metrics/1",
+ "noteJa": "設計47（導入→接近→形成→保持→余韻）。PC の Unity の Editor の Play モード（batchmode、1 フレーム = 1/90 s）の記録から numpy・OpenCV・ffmpeg で数え直した値。HMD 実機ではない。",
+ "acceptance": {
+  "86_video_black_and_cut": {
+   "value": {
+    "frames": 2197,
+    "seconds": 73.23333333333333,
+    "blackFrames": 0,
+    "cutFrames": 0,
+    "maxMad": 16.333141326904297,
+    "maxMadAt": 60.93111257813871,
+    "minHistCorr": 0.9970865477057131,
+    "minMeanLuma": 116.38298080632715,
+    "ffmpegBlackIntervals": 0,
+    "ffmpegSceneChanges": 0
+   },
+   "threshold": "黒 0・カット 0（86 を使える水準で）",
+   "pass": true
+  },
+  "114_ridden_boat_at_painting_position": {
+   "value": {
+    "vertexMaxPx": 0.00013647876039613038,
+    "vertexP95Px": 0.0001258271950064227,
+    "maskIoU": 1.0,
+    "hausdorffPx": 0.0,
+    "rootPosDiffM": 9.5367431640625e-07,
+    "rootRotDiffDeg": 0
+   },
+   "threshold": "記録（原画視点の ≤4 px に照らす。頂点の写しの最大 ≤ 4 px、IoU ≥ 0.99）",
+   "pass": true
+  }
+ },
+ "flow": {
+  "totalS": 73.1430950761979,
+  "targetTotalS": 72.0,
+  "handover": {
+   "s": 34.00888970401138,
+   "lead": 11.134205372186518,
+   "waveStart": 45.143095076197895,
+   "afterglowStart": 59.143095076197895,
+   "end": 73.1430950761979,
+   "predictedTotal": 73.1430950761979,
+   "predictions": 40,
+   "reason": "target",
+   "trajT": 23.134205372186518,
+   "trajL": 33.0920378401653,
+   "trajV0": 0.37240427334544557
+  },
+  "events": [
+   {
+    "id": "intro_start",
+    "eventT": 1e-06,
+    "clockT": 0.019999992102384567,
+    "step": 2,
+    "fired": true
+   },
+   {
+    "id": "handover",
+    "eventT": 34.00888970401138,
+    "clockT": 34.00888970401138,
+    "step": 3061,
+    "fired": true
+   },
+   {
+    "id": "formation_start",
+    "eventT": 45.143095076197895,
+    "clockT": 45.153334418311715,
+    "step": 4064,
+    "fired": true
+   },
+   {
+    "id": "a_to_d_start",
+    "eventT": 52.59309488546303,
+    "clockT": 52.59777904301882,
+    "step": 4734,
+    "fired": true
+   },
+   {
+    "id": "jet_start",
+    "eventT": 54.74309545766762,
+    "clockT": 54.75333465076983,
+    "step": 4928,
+    "fired": true
+   },
+   {
+    "id": "t_star",
+    "eventT": 57.143095076197895,
+    "clockT": 57.15333470888436,
+    "step": 5144,
+    "fired": true
+   },
+   {
+    "id": "afterglow_start",
+    "eventT": 59.143095076197895,
+    "clockT": 59.15333475731313,
+    "step": 5324,
+    "fired": true
+   },
+   {
+    "id": "afterglow_settled",
+    "eventT": 65.1430950761979,
+    "clockT": 65.15333490259945,
+    "step": 5864,
+    "fired": true
+   },
+   {
+    "id": "end",
+    "eventT": 73.1430950761979,
+    "clockT": 73.1430950761979,
+    "step": 6584,
+    "fired": true
+   }
+  ],
+  "clockEnd": {
+   "experienceEnd": 73.1430950761979,
+   "state": "Stopped",
+   "ended": true,
+   "stages": [
+    "flow@5",
+    "water@10",
+    "seat_boat@15",
+    "boat_water@20",
+    "white@30",
+    "claws@40",
+    "spray@50",
+    "events@90"
+   ]
+  },
+  "phaseCameraSteps": {
+   "Intro": {
+    "frames": 3057,
+    "maxPosStepM": 0.02635913555228602,
+    "maxRotStepDeg": 0.018580002185534555,
+    "maxFovStepDeg": 0.0,
+    "maxPosSpeedMps": 2.3723221422614156
+   },
+   "Approach": {
+    "frames": 1003,
+    "maxPosStepM": 0.01997610001895431,
+    "maxRotStepDeg": 0.018580002185534555,
+    "maxFovStepDeg": 0.0,
+    "maxPosSpeedMps": 1.7978489581720776
+   },
+   "Formation": {
+    "frames": 1080,
+    "maxPosStepM": 0.028529333572700644,
+    "maxRotStepDeg": 0.018580002185534555,
+    "maxFovStepDeg": 0.0,
+    "maxPosSpeedMps": 2.5676399593692305
+   },
+   "Hold": {
+    "frames": 180,
+    "maxPosStepM": 0.004193175723543264,
+    "maxRotStepDeg": 0.018580002185534555,
+    "maxFovStepDeg": 0.0,
+    "maxPosSpeedMps": 0.3773858059807278
+   },
+   "Afterglow": {
+    "frames": 1260,
+    "maxPosStepM": 0.1637203208131717,
+    "maxRotStepDeg": 0.576975784494531,
+    "maxFovStepDeg": 0.1875,
+    "maxPosSpeedMps": 14.734828516390614
+   },
+   "End": {
+    "frames": 10,
+    "maxPosStepM": 0.0,
+    "maxRotStepDeg": 0.0,
+    "maxFovStepDeg": 0.0,
+    "maxPosSpeedMps": 0.0
+   }
+  },
+  "boatFormationHold": {
+   "maxPitchDeg": 32.89927979985421,
+   "maxRollDeg": 20.897731372675935,
+   "pitchAtEnd": -32.89927979985421,
+   "rollAtEnd": -20.897731372675935,
+   "maxRootYStepMPerFrame": 0.0219724178314209,
+   "maxVertSpeedMps": 1.9775175569435055,
+   "yLocalMinusRootAtFormationStart": 0.01525273369445801
+  },
+  "boatWater": {
+   "rebuilds": 1084,
+   "rebuildMsTotal": 23656.67429999998,
+   "fallbacks": 0,
+   "queries": 43142
+  },
+  "input": {
+   "frames": 3058,
+   "fallbackFrames": 0
+  },
+  "frames90Hz": 6591,
+  "captured": 2197
+ },
+ "painting_114_images": {
+  "ridePixels": 32827,
+  "paintingBoatPixels": 32827,
+  "iou": 1.0,
+  "hausdorffPx": 0.0,
+  "centroidShiftPx": 0.0,
+  "rideBboxPx": [
+   1113,
+   551,
+   1616,
+   922
+  ],
+  "diffPixelsEndVsRefboat": 4,
+  "diffPixelsViewEndVsPaintingEnd": 0,
+  "diffPixelsVsDs46TStar": 4,
+  "diffPixelsVsDs46TStarOver8": 3,
+  "maxAbsDiffVsDs46": 24,
+  "ref46": "G:/Unity/GreatWave_2026_Fresh/Unity/Build/Design/46/clock/unity/tstar/painting_t120_off_ds46clock.png",
+  "ref46Sha256": "efcceae4a3cc63a512349fd390dadb191a28ceea3f3097ca1ae7eca018ac2880"
+ },
+ "variant_stop_and_leave": {
+  "handover": {
+   "s": 16.008889268152416,
+   "lead": 28.095772097548434,
+   "waveStart": 44.10466136570085,
+   "afterglowStart": 58.10466136570085,
+   "end": 72.10466136570085,
+   "predictedTotal": 72.10466136570085,
+   "predictions": 4,
+   "reason": "target",
+   "trajT": 40.09577209754843,
+   "trajL": 72.33716080780717,
+   "trajV0": 0.035721150941472095
+  },
+  "totalS": 72.10466136570085,
+  "pauseRuns": [
+   {
+    "frames": 270,
+    "exp": 11.508889159187675,
+    "phase": "Intro",
+    "expConstant": true,
+    "boatMoveM": 0.0,
+    "durationS": 3.000000072643161
+   },
+   {
+    "frames": 135,
+    "exp": 56.90889025852084,
+    "phase": "Hold",
+    "expConstant": true,
+    "boatMoveM": 0.0,
+    "durationS": 1.5000000363215804
+   }
+  ],
+  "pauseCount": {
+   "count": 2,
+   "resumes": 2
+  },
+  "leaves": [
+   {
+    "name": "intro_leave",
+    "started": 990,
+    "paused": 1035,
+    "restored": 1260,
+    "resumed": 1305,
+    "expStart": 11.008889147080481,
+    "expPaused": 11.508889159187675,
+    "expResumed": 11.508889159187675,
+    "offset": [
+     0.800000011920929,
+     0,
+     0
+    ]
+   },
+   {
+    "name": "hold_leave",
+    "started": 5346,
+    "paused": 5391,
+    "restored": 5481,
+    "resumed": 5526,
+    "expStart": 56.40889024641365,
+    "expPaused": 56.90889025852084,
+    "expResumed": 56.90889025852084,
+    "offset": [
+     0,
+     0,
+     -0.8999999761581421
+    ]
+   }
+  ],
+  "expFrozenWhilePaused": true,
+  "vertexPx": {
+   "meshPairs": 45,
+   "vertices": 8679,
+   "maxPx": 0.00013647876039613038,
+   "p95Px": 0.0001258271950064227,
+   "noteJa": "乗っていた船と原画の場面の boat_mid（同じプレハブ）の同じ頂点を、原画視点の 1920×1080 へ写した位置の差"
+  },
+  "poseVsPaintingJson": {
+   "posDiffM": 9.5367431640625e-07,
+   "rotDiffDeg": 0
+  },
+  "events": [
+   {
+    "id": "intro_start",
+    "eventT": 1e-06,
+    "clockT": 0.019999992102384567,
+    "step": 2,
+    "fired": true
+   },
+   {
+    "id": "handover",
+    "eventT": 16.008889268152416,
+    "clockT": 16.008889268152416,
+    "step": 1441,
+    "fired": true
+   },
+   {
+    "id": "formation_start",
+    "eventT": 44.10466136570085,
+    "clockT": 44.10888994857669,
+    "step": 3970,
+    "fired": true
+   },
+   {
+    "id": "a_to_d_start",
+    "eventT": 51.554661174965986,
+    "clockT": 51.56444568466395,
+    "step": 4641,
+    "fired": true
+   },
+   {
+    "id": "jet_start",
+    "eventT": 53.704661747170576,
+    "clockT": 53.7088901810348,
+    "step": 4834,
+    "fired": true
+   },
+   {
+    "id": "t_star",
+    "eventT": 56.10466136570085,
+    "clockT": 56.10889023914933,
+    "step": 5050,
+    "fired": true
+   },
+   {
+    "id": "afterglow_start",
+    "eventT": 58.10466136570085,
+    "clockT": 58.108890287578106,
+    "step": 5230,
+    "fired": true
+   },
+   {
+    "id": "afterglow_settled",
+    "eventT": 64.10466136570085,
+    "clockT": 64.10889043286443,
+    "step": 5770,
+    "fired": true
+   },
+   {
+    "id": "end",
+    "eventT": 72.10466136570085,
+    "clockT": 72.10466136570085,
+    "step": 6490,
+    "fired": true
+   }
+  ]
+ },
+ "ffmpeg": {
+  "cmd": "G:/ffmpeg-2024-12-19-git-494c961379-full_build/bin/ffmpeg.exe -hide_banner -nostats -i G:/Unity/GreatWave_2026_Fresh/Unity/Build/Design/47/flow/ds47_flow_30fps.mp4 -vf blackdetect=d=0.03:pix_th=0.10,scdet=threshold=10 -an -f null -",
+  "blackIntervals": 0,
+  "blackLines": [],
+  "sceneChanges": 0,
+  "sceneLines": []
+ },
+ "backlog": {
+  "86": "通しの動画で黒画面・カットの途切れ 0（使える水準）。acceptance を参照",
+  "114": "記録：原画視点で乗っていた船が原画の位置にある。acceptance を参照",
+  "84": "記録のみ：接近でうねりを 1.5 倍へ育てる演出は入れていない（表示のシートが焼いたコマで、待機は t = 0 のコマ）。仕上げ47 へ",
+  "85": "記録のみ：乗客の上下動の倍率は設計45 の L0（kV = 0。速い上下を渡さない、遅い上下は渡る）を既定にした",
+  "109_110_113": "記録のみ：座席からの見上げ（形成・t*・保持）は stills_ds47_flow.png の座席の視点（PC の HMD Camera、頭の向きは座席の正面のまま）。頭を上げた追跡は HMD の保留"
+ },
+ "regression": {
+  "paintingView": "原画視点の場面（DS41_Boats・DS46_Clock・DS39_Paper）は変えていない（ds47_build.json の protectedUnchanged）。終わりの原画視点と設計46 の t* の原画視点の画素の差は painting_114_images",
+  "build": {
+   "protectedUnchanged": true,
+   "changed": []
+  }
+ },
+ "seconds": 28.043872117996216
+}

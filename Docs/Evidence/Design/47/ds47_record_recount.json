@@ -1,0 +1,1169 @@
+{
+ "main": {
+  "rows": 6591,
+  "frames_contiguous": true,
+  "frame_range": [
+   2,
+   6592
+  ],
+  "dt_values": [
+   0.011111111380159855
+  ],
+  "exp_first_last": [
+   0.031111103482544422,
+   73.1430950761979
+  ],
+  "running_increment_ne_dt": 0,
+  "experience_decreases": 0,
+  "phase_order": [
+   "Intro",
+   "Approach",
+   "Formation",
+   "Hold",
+   "Afterglow",
+   "End"
+  ],
+  "phase_frames": {
+   "Intro": 3058,
+   "Approach": 1003,
+   "Formation": 1080,
+   "Hold": 180,
+   "Afterglow": 1260,
+   "End": 10
+  },
+  "phase_first_exp": {
+   "Intro": 0.031111103482544422,
+   "Approach": 34.00888970401138,
+   "Formation": 45.153334418311715,
+   "Hold": 57.15333470888436,
+   "Afterglow": 59.15333475731313,
+   "End": 73.1430950761979
+  },
+  "events": {
+   "count": 9,
+   "fired_once_each": true,
+   "ids": [
+    "intro_start",
+    "handover",
+    "formation_start",
+    "a_to_d_start",
+    "jet_start",
+    "t_star",
+    "afterglow_start",
+    "afterglow_settled",
+    "end"
+   ],
+   "lag_s": [
+    0.019999,
+    0.0,
+    0.010239,
+    0.004684,
+    0.010239,
+    0.01024,
+    0.01024,
+    0.01024,
+    0.0
+   ],
+   "max_lag_s": 0.019998992102384566,
+   "min_lag_s": 0.0,
+   "max_lag_lt_one_90Hz_frame": false,
+   "table_vs_flow_json_max_abs_s": 3.8146972514141453e-07,
+   "csv_events_fired_final": 9,
+   "csv_events_skipped_final": 0
+  },
+  "handover": {
+   "s": 34.00888970401138,
+   "lead": 11.134205372186518,
+   "trajT": 23.134205372186518,
+   "lead_eq_trajT_minus_12": true,
+   "waveStart": 45.143095076197895,
+   "afterglowStart": 59.143095076197895,
+   "end": 73.1430950761979,
+   "predictedTotal": 73.1430950761979,
+   "total_from_parts": 73.1430950761979,
+   "within_60_90": true,
+   "reason": "target",
+   "predictions": 40,
+   "in_intro_window": true,
+   "predicted_ge_target": true
+  },
+  "seam_handover": {
+   "label": "handover",
+   "row": 3058,
+   "frame": 3060,
+   "exp": 34.00888970401138,
+   "steps_m_around": [
+    [
+     3057,
+     0.00417,
+     0.0016
+    ],
+    [
+     3058,
+     0.00415,
+     0.0019
+    ],
+    [
+     3059,
+     0.00413,
+     0.0022
+    ],
+    [
+     3060,
+     0.00415,
+     0.0026
+    ],
+    [
+     3061,
+     0.00439,
+     0.0037
+    ],
+    [
+     3062,
+     0.0044,
+     0.005
+    ],
+    [
+     3063,
+     0.00439,
+     0.0064
+    ],
+    [
+     3064,
+     0.00439,
+     0.0078
+    ]
+   ],
+   "max_step_m_around": 0.00439719267009567,
+   "min_step_m_around": 0.004130040759551294,
+   "max_rot_step_deg_around": 0.007809330847322362,
+   "median_step_m_before_90": 0.005218150584481994,
+   "max_step_m_before_90": 0.006428115225027777
+  },
+  "seam_formation_start": {
+   "label": "formation_start",
+   "row": 4061,
+   "frame": 4063,
+   "exp": 45.153334418311715,
+   "steps_m_around": [
+    [
+     4060,
+     0.0163,
+     0.1143
+    ],
+    [
+     4061,
+     0.01631,
+     0.1143
+    ],
+    [
+     4062,
+     0.0163,
+     0.1143
+    ],
+    [
+     4063,
+     0.01632,
+     0.0
+    ],
+    [
+     4064,
+     0.01699,
+     0.1111
+    ],
+    [
+     4065,
+     0.01705,
+     0.1111
+    ],
+    [
+     4066,
+     0.01714,
+     0.1111
+    ],
+    [
+     4067,
+     0.01722,
+     0.1111
+    ]
+   ],
+   "max_step_m_around": 0.01721570699493625,
+   "min_step_m_around": 0.016298653570525488,
+   "max_rot_step_deg_around": 0.11434938577073034,
+   "median_step_m_before_90": 0.016079592275184185,
+   "max_step_m_before_90": 0.016270764133700544
+  },
+  "boat_speed_at_handover_mps": 0.3740709340062671,
+  "buoyancy_steer_intro_approach": {
+   "frames": 4061,
+   "non_kinematic": 4061,
+   "wet_points_values": [
+    10
+   ],
+   "steering_frames": 3058,
+   "trajectory_frames": 3533,
+   "steer_modes": {
+    "Steering": 3058,
+    "Trajectory": 3533
+   },
+   "nonzero_throttle_frames": 2609,
+   "nonzero_turn_frames": 1170,
+   "stop_frames": 0
+  },
+  "scripted_after_formation": {
+   "frames": 2530,
+   "kinematic": 2530
+  },
+  "comfort_levels": [
+   0
+  ],
+  "formation_hold_boat": {
+   "max_abs_pitch_deg": 32.899279866175036,
+   "max_tilt_from_vertical_deg": 40.52783441126466,
+   "tilt_at_end_deg": 40.52783441126466,
+   "pitch_at_end_deg": -32.899279866175036,
+   "max_root_y_step_m": 0.0219724178314209,
+   "max_abs_vertical_speed_mps": 1.9775175569435055,
+   "y_min_max_m": [
+    -3.4781363010406494,
+    3.0712180137634277
+   ],
+   "root_minus_floating_height_m_formation": [
+    -0.414429184994507,
+    1.5443570017121582
+   ],
+   "root_minus_floating_height_at_wave": [
+    9.899128470456091,
+    11.032461831232396
+   ],
+   "max_tilt_intro_approach_deg": 10.266465360178294
+  },
+  "approach_to_painting_pose": {
+   "rows_before_hold": [
+    [
+     5138,
+     11.954684075785664,
+     0.0075792251716919725,
+     0.024689960432577915
+    ],
+    [
+     5139,
+     11.965795187165824,
+     0.005439255713435905,
+     0.018200627903039317
+    ],
+    [
+     5140,
+     11.976906298545984,
+     0.003651304560227947,
+     0.012055745717700612
+    ],
+    [
+     5141,
+     11.988017409926144,
+     0.00189409599065722,
+     0.006141142264997682
+    ],
+    [
+     5142,
+     11.999128521306304,
+     0.00013784140820065008,
+     0.000438723366090443
+    ],
+    [
+     5143,
+     12.0,
+     9.5367431640625e-07,
+     6.15664931839995e-06
+    ],
+    [
+     5144,
+     12.0,
+     9.5367431640625e-07,
+     6.15664931839995e-06
+    ]
+   ],
+   "end_pos_diff_m": 9.5367431640625e-07,
+   "end_rot_diff_deg": 6.15664931839995e-06,
+   "hold_to_end_max_pos_diff_m": 9.5367431640625e-07,
+   "hold_to_end_max_rot_diff_deg": 6.15664931839995e-06
+  },
+  "camera": {
+   "Intro": {
+    "frames": 3058,
+    "max_pos_step_m": 0.02635913555228602,
+    "max_speed_mps": 2.3723221422614156,
+    "max_rot_step_deg": 0.0,
+    "max_fov_step_deg": 0.0
+   },
+   "Approach": {
+    "frames": 1003,
+    "max_pos_step_m": 0.01997610001895431,
+    "max_speed_mps": 1.7978489581720776,
+    "max_rot_step_deg": 0.0,
+    "max_fov_step_deg": 0.0
+   },
+   "Formation": {
+    "frames": 1080,
+    "max_pos_step_m": 0.028529333572700644,
+    "max_speed_mps": 2.5676399593692305,
+    "max_rot_step_deg": 0.0,
+    "max_fov_step_deg": 0.0
+   },
+   "Hold": {
+    "frames": 180,
+    "max_pos_step_m": 0.004193175723543264,
+    "max_speed_mps": 0.3773858059807278,
+    "max_rot_step_deg": 0.0,
+    "max_fov_step_deg": 0.0
+   },
+   "Afterglow": {
+    "frames": 1260,
+    "max_pos_step_m": 0.1637203208131717,
+    "max_speed_mps": 14.734828516390614,
+    "max_rot_step_deg": 0.5778104893423672,
+    "max_fov_step_deg": 0.1875
+   },
+   "End": {
+    "frames": 10,
+    "max_pos_step_m": 0.0,
+    "max_speed_mps": 0.0,
+    "max_rot_step_deg": 1.7075472925031877e-06,
+    "max_fov_step_deg": 0.0
+   }
+  },
+  "camera_extra": {
+   "afterglow_start_to_end_distance_m": 47.14978716975597,
+   "afterglow_path_length_m": 47.61702017128246,
+   "fov_start_end": [
+    80.0,
+    26.0
+   ],
+   "yaw_deg_before_afterglow_minmax": [
+    -40.407081908169964,
+    -40.407081908169964
+   ],
+   "boat_yaw_deg_before_afterglow_minmax": [
+    -142.81025454609724,
+    -38.13755318668504
+   ]
+  },
+  "head_offset_nonzero_frames": 0,
+  "boat_water": {
+   "rebuilds_csv_final": 1084,
+   "rebuilds": 1084,
+   "ms_mean": 21.82350027675275,
+   "fallbacks": 0,
+   "queries": 43142,
+   "rebuild_rows_by_phase": {
+    "Intro": 0,
+    "Approach": 0,
+    "Formation": 1080,
+    "Hold": 1,
+    "Afterglow": 0,
+    "End": 0
+   }
+  },
+  "input": {
+   "frames": 3058,
+   "fallbackFrames": 0
+  },
+  "pause_runs": [],
+  "leaves": [],
+  "captured": {
+   "rows": 2196,
+   "exp_step_min_max": [
+    0.0,
+    0.033333334140479565
+   ],
+   "exp_step_not_1_30": 3,
+   "exp_step_not_1_30_where": [
+    73.1430950761979,
+    73.1430950761979,
+    73.1430950761979
+   ]
+  },
+  "pose_vs_painting_json_unity": {
+   "posDiffM": 9.5367431640625e-07,
+   "rotDiffDeg": 0
+  },
+  "vertex_px_unity": {
+   "meshPairs": 45,
+   "vertices": 8679,
+   "maxPx": 0.00013647876039613038,
+   "p95Px": 0.0001258271950064227,
+   "noteJa": "乗っていた船と原画の場面の boat_mid（同じプレハブ）の同じ頂点を、原画視点の 1920×1080 へ写した位置の差"
+  },
+  "view_cam_vs_painting_unity": {
+   "posDiffM": 0,
+   "rotDiffDeg": 0,
+   "fovView": 26,
+   "fovPainting": 26
+  },
+  "flow_log": [
+   "place h=-0.9358 hAtStart=0.0000 tau=0.0000",
+   "init exp=0.0000 fixedDt=0.0111111114",
+   "handover exp=34.0089 lead=11.1342 T=23.1342 waveStart=45.1431 end=73.1431 reason=target",
+   "phase Intro→Approach exp=34.0089",
+   "phase Approach→Formation exp=45.1533",
+   "formation_capture exp=45.1533 tw=0.0102 offPos=(-0.0150, -0.0153, 0.0067) offYaw=0.000",
+   "phase Formation→Hold exp=57.1533",
+   "phase Hold→Afterglow exp=59.1533",
+   "afterglow_capture exp=59.1533 fov0=80.00 xr=False",
+   "phase Afterglow→End exp=73.1431"
+  ]
+ },
+ "variant": {
+  "rows": 6902,
+  "frames_contiguous": true,
+  "frame_range": [
+   2,
+   6903
+  ],
+  "dt_values": [
+   0.011111111380159855
+  ],
+  "exp_first_last": [
+   0.031111103482544422,
+   72.10466136570085
+  ],
+  "running_increment_ne_dt": 0,
+  "experience_decreases": 0,
+  "phase_order": [
+   "Intro",
+   "Approach",
+   "Formation",
+   "Hold",
+   "Afterglow",
+   "End"
+  ],
+  "phase_frames": {
+   "Intro": 1708,
+   "Approach": 2529,
+   "Formation": 1080,
+   "Hold": 315,
+   "Afterglow": 1260,
+   "End": 10
+  },
+  "phase_first_exp": {
+   "Intro": 0.031111103482544422,
+   "Approach": 16.008889268152416,
+   "Formation": 44.10888994857669,
+   "Hold": 56.10889023914933,
+   "Afterglow": 58.108890287578106,
+   "End": 72.10466136570085
+  },
+  "events": {
+   "count": 9,
+   "fired_once_each": true,
+   "ids": [
+    "intro_start",
+    "handover",
+    "formation_start",
+    "a_to_d_start",
+    "jet_start",
+    "t_star",
+    "afterglow_start",
+    "afterglow_settled",
+    "end"
+   ],
+   "lag_s": [
+    0.019999,
+    0.0,
+    0.004229,
+    0.009785,
+    0.004228,
+    0.004229,
+    0.004229,
+    0.004229,
+    0.0
+   ],
+   "max_lag_s": 0.019998992102384566,
+   "min_lag_s": 0.0,
+   "max_lag_lt_one_90Hz_frame": false,
+   "table_vs_flow_json_max_abs_s": 3.8146972514141453e-07,
+   "csv_events_fired_final": 9,
+   "csv_events_skipped_final": 0
+  },
+  "handover": {
+   "s": 16.008889268152416,
+   "lead": 28.095772097548434,
+   "trajT": 40.09577209754843,
+   "lead_eq_trajT_minus_12": true,
+   "waveStart": 44.10466136570085,
+   "afterglowStart": 58.10466136570085,
+   "end": 72.10466136570085,
+   "predictedTotal": 72.10466136570085,
+   "total_from_parts": 72.10466136570085,
+   "within_60_90": true,
+   "reason": "target",
+   "predictions": 4,
+   "in_intro_window": true,
+   "predicted_ge_target": true
+  },
+  "seam_handover": {
+   "label": "handover",
+   "row": 1708,
+   "frame": 1710,
+   "exp": 16.008889268152416,
+   "steps_m_around": [
+    [
+     1707,
+     0.0004,
+     0.0
+    ],
+    [
+     1708,
+     0.0004,
+     0.0
+    ],
+    [
+     1709,
+     0.0004,
+     0.0
+    ],
+    [
+     1710,
+     0.00041,
+     0.0
+    ],
+    [
+     1711,
+     0.00122,
+     0.0003
+    ],
+    [
+     1712,
+     0.00121,
+     0.0003
+    ],
+    [
+     1713,
+     0.00122,
+     0.0003
+    ],
+    [
+     1714,
+     0.00122,
+     0.0003
+    ]
+   ],
+   "max_step_m_around": 0.0012215425401049201,
+   "min_step_m_around": 0.00039708548141809087,
+   "max_rot_step_deg_around": 0.00033342238468044174,
+   "median_step_m_before_90": 0.0004047173639068091,
+   "max_step_m_before_90": 0.0004123463110943458
+  },
+  "seam_formation_start": {
+   "label": "formation_start",
+   "row": 4237,
+   "frame": 4239,
+   "exp": 44.10888994857669,
+   "steps_m_around": [
+    [
+     4236,
+     0.02445,
+     0.0177
+    ],
+    [
+     4237,
+     0.02446,
+     0.0178
+    ],
+    [
+     4238,
+     0.02446,
+     0.0179
+    ],
+    [
+     4239,
+     0.02445,
+     0.0
+    ],
+    [
+     4240,
+     0.02458,
+     0.0085
+    ],
+    [
+     4241,
+     0.02456,
+     0.0086
+    ],
+    [
+     4242,
+     0.02454,
+     0.0086
+    ],
+    [
+     4243,
+     0.02453,
+     0.0086
+    ]
+   ],
+   "max_step_m_around": 0.02458447442741764,
+   "min_step_m_around": 0.024445138465323406,
+   "max_rot_step_deg_around": 0.01789724265778676,
+   "median_step_m_before_90": 0.024451471294950754,
+   "max_step_m_before_90": 0.02445623492944782
+  },
+  "boat_speed_at_handover_mps": 0.0373878192923907,
+  "buoyancy_steer_intro_approach": {
+   "frames": 4237,
+   "non_kinematic": 3967,
+   "wet_points_values": [
+    10
+   ],
+   "steering_frames": 1708,
+   "trajectory_frames": 5194,
+   "steer_modes": {
+    "Steering": 1708,
+    "Trajectory": 5194
+   },
+   "nonzero_throttle_frames": 450,
+   "nonzero_turn_frames": 0,
+   "stop_frames": 360
+  },
+  "scripted_after_formation": {
+   "frames": 2665,
+   "kinematic": 2665
+  },
+  "comfort_levels": [
+   0
+  ],
+  "formation_hold_boat": {
+   "max_abs_pitch_deg": 32.899279866175036,
+   "max_tilt_from_vertical_deg": 40.527835621264096,
+   "tilt_at_end_deg": 40.52783441126466,
+   "pitch_at_end_deg": -32.899279866175036,
+   "max_root_y_step_m": 0.02159559726715088,
+   "max_abs_vertical_speed_mps": 1.9436037069804069,
+   "y_min_max_m": [
+    -3.1738595962524414,
+    3.071139335632324
+   ],
+   "root_minus_floating_height_m_formation": [
+    -0.4140198259637451,
+    1.5414173604553223
+   ],
+   "root_minus_floating_height_at_wave": [
+    9.90422882259827,
+    11.037562183374575
+   ],
+   "max_tilt_intro_approach_deg": 4.650828352651534
+  },
+  "approach_to_painting_pose": {
+   "rows_before_hold": [
+    [
+     5314,
+     11.948673316547683,
+     0.008739438875375817,
+     0.007257603908595317
+    ],
+    [
+     5315,
+     11.959784427927843,
+     0.006596589874275652,
+     0.004581645635649881
+    ],
+    [
+     5316,
+     11.970895539308003,
+     0.004602789667355315,
+     0.002519774028475535
+    ],
+    [
+     5317,
+     11.982006650688163,
+     0.002844574095546481,
+     0.001101481834272549
+    ],
+    [
+     5318,
+     11.993117762068323,
+     0.0010875719005861621,
+     0.0002731542007356452
+    ],
+    [
+     5319,
+     12.0,
+     0.0,
+     2.4148365394514667e-06
+    ],
+    [
+     5320,
+     12.0,
+     9.5367431640625e-07,
+     6.15664931839995e-06
+    ]
+   ],
+   "end_pos_diff_m": 9.5367431640625e-07,
+   "end_rot_diff_deg": 6.15664931839995e-06,
+   "hold_to_end_max_pos_diff_m": 9.5367431640625e-07,
+   "hold_to_end_max_rot_diff_deg": 6.15664931839995e-06
+  },
+  "camera": {
+   "Intro": {
+    "frames": 1708,
+    "max_pos_step_m": 0.8000022785466465,
+    "max_speed_mps": 72.0002033257574,
+    "max_rot_step_deg": 0.0,
+    "max_fov_step_deg": 0.0
+   },
+   "Approach": {
+    "frames": 2529,
+    "max_pos_step_m": 0.024689146059749527,
+    "max_speed_mps": 2.2220230915725305,
+    "max_rot_step_deg": 0.0,
+    "max_fov_step_deg": 0.0
+   },
+   "Formation": {
+    "frames": 1080,
+    "max_pos_step_m": 0.029221865496719464,
+    "max_speed_mps": 2.629967831021693,
+    "max_rot_step_deg": 0.0,
+    "max_fov_step_deg": 0.0
+   },
+   "Hold": {
+    "frames": 315,
+    "max_pos_step_m": 0.9001185550244744,
+    "max_speed_mps": 81.01066799057904,
+    "max_rot_step_deg": 0.0,
+    "max_fov_step_deg": 0.0
+   },
+   "Afterglow": {
+    "frames": 1260,
+    "max_pos_step_m": 0.16371585629795732,
+    "max_speed_mps": 14.734426710031048,
+    "max_rot_step_deg": 0.5778236211574193,
+    "max_fov_step_deg": 0.18750381469726562
+   },
+   "End": {
+    "frames": 10,
+    "max_pos_step_m": 0.0,
+    "max_speed_mps": 0.0,
+    "max_rot_step_deg": 1.7075472925031877e-06,
+    "max_fov_step_deg": 0.0
+   }
+  },
+  "camera_extra": {
+   "afterglow_start_to_end_distance_m": 47.14981935996179,
+   "afterglow_path_length_m": 47.61704806668274,
+   "fov_start_end": [
+    80.0,
+    26.0
+   ],
+   "yaw_deg_before_afterglow_minmax": [
+    -40.407081908169964,
+    -40.407081908169964
+   ],
+   "boat_yaw_deg_before_afterglow_minmax": [
+    -89.66034397574086,
+    -77.66064365017169
+   ]
+  },
+  "head_offset_nonzero_frames": 405,
+  "boat_water": {
+   "rebuilds_csv_final": 1084,
+   "rebuilds": 1084,
+   "ms_mean": 22.053257749077506,
+   "fallbacks": 0,
+   "queries": 42202,
+   "rebuild_rows_by_phase": {
+    "Intro": 0,
+    "Approach": 0,
+    "Formation": 1080,
+    "Hold": 1,
+    "Afterglow": 0,
+    "End": 0
+   }
+  },
+  "input": {
+   "frames": 1438,
+   "fallbackFrames": 0
+  },
+  "pause_runs": [
+   {
+    "rows": [
+     1033,
+     1302
+    ],
+    "frames": 270,
+    "phase": [
+     "Intro"
+    ],
+    "exp_range": 0.0,
+    "boat_move_m": 0.0,
+    "clock_states": [
+     "Stopped"
+    ],
+    "duration_s": 3.000000072643161,
+    "reason": [
+     "leave"
+    ]
+   },
+   {
+    "rows": [
+     5389,
+     5523
+    ],
+    "frames": 135,
+    "phase": [
+     "Hold"
+    ],
+    "exp_range": 0.0,
+    "boat_move_m": 0.0,
+    "clock_states": [
+     "Stopped"
+    ],
+    "duration_s": 1.5000000363215804,
+    "reason": [
+     "leave"
+    ]
+   }
+  ],
+  "leaves": [
+   {
+    "name": "intro_leave",
+    "started": 990,
+    "paused": 1035,
+    "restored": 1260,
+    "resumed": 1305,
+    "offset": [
+     0.800000011920929,
+     0,
+     0
+    ],
+    "pause_after_frames": 45,
+    "resume_after_frames": 45,
+    "pause_after_s": 0.5,
+    "resume_after_s": 0.5,
+    "exp_paused_eq_resumed": true
+   },
+   {
+    "name": "hold_leave",
+    "started": 5346,
+    "paused": 5391,
+    "restored": 5481,
+    "resumed": 5526,
+    "offset": [
+     0,
+     0,
+     -0.8999999761581421
+    ],
+    "pause_after_frames": 45,
+    "resume_after_frames": 45,
+    "pause_after_s": 0.5,
+    "resume_after_s": 0.5,
+    "exp_paused_eq_resumed": true
+   }
+  ],
+  "captured": {
+   "rows": 0,
+   "exp_step_min_max": null,
+   "exp_step_not_1_30": null,
+   "exp_step_not_1_30_where": null
+  },
+  "pose_vs_painting_json_unity": {
+   "posDiffM": 9.5367431640625e-07,
+   "rotDiffDeg": 0
+  },
+  "vertex_px_unity": {
+   "meshPairs": 45,
+   "vertices": 8679,
+   "maxPx": 0.00013647876039613038,
+   "p95Px": 0.0001258271950064227,
+   "noteJa": "乗っていた船と原画の場面の boat_mid（同じプレハブ）の同じ頂点を、原画視点の 1920×1080 へ写した位置の差"
+  },
+  "view_cam_vs_painting_unity": {
+   "posDiffM": 0,
+   "rotDiffDeg": 0,
+   "fovView": 26,
+   "fovPainting": 26
+  },
+  "flow_log": [
+   "place h=-0.9358 hAtStart=0.0000 tau=0.0000",
+   "init exp=0.0000 fixedDt=0.0111111114",
+   "pause reason=leave exp=11.5089",
+   "resume exp=11.5089",
+   "handover exp=16.0089 lead=28.0958 T=40.0958 waveStart=44.1047 end=72.1047 reason=target",
+   "phase Intro→Approach exp=16.0089",
+   "phase Approach→Formation exp=44.1089",
+   "formation_capture exp=44.1089 tw=0.0042 offPos=(-0.0243, -0.0019, 0.0035) offYaw=0.000",
+   "phase Formation→Hold exp=56.1089",
+   "pause reason=leave exp=56.9089",
+   "resume exp=56.9089",
+   "phase Hold→Afterglow exp=58.1089",
+   "afterglow_capture exp=58.1089 fov0=80.00 xr=False",
+   "phase Afterglow→End exp=72.1047"
+  ]
+ },
+ "painting_pose_boat_mid": {
+  "rootPos": [
+   7.025619983673096,
+   2.1481499671936035,
+   -14.941940307617188
+  ],
+  "rootRot_xyzw": [
+   0.05318306013941765,
+   -0.6957640051841736,
+   0.34223732352256775,
+   0.6292516589164734
+  ],
+  "local_plus_z_world": [
+   -0.8392188319429131,
+   -0.5431638661204629,
+   0.026168046420090296
+  ],
+  "local_plus_z_pitch_deg": -32.89927776085935,
+  "note_ja": "ds43_boats.json の boat_mid の根の局所 +z を世界へ回した向き。y が負なら +z の端が下がる"
+ },
+ "video_86": {
+  "frames": 2197,
+  "fps": 30.0,
+  "size": [
+   1920,
+   1080
+  ],
+  "seconds": 73.23333333333333,
+  "black_frames(mean<20 or dark>0.9)": 0,
+  "min_mean_luma": 115.49537953317902,
+  "min_mean_luma_frame": 1702,
+  "max_dark_fraction": 4.822530864197531e-07,
+  "max_mad_480x270": 16.38135802469136,
+  "max_mad_frame": 1827,
+  "max_mad_t_s": 60.9,
+  "frames_mad_gt_40": 0,
+  "max_spike_ratio": 4.352949904482816,
+  "max_spike_frame": 1411,
+  "cuts(mad>20 and spike>3)": 0,
+  "near_frozen_frames(mad<0.02)": 260
+ },
+ "painting_114": {
+  "sha256": {
+   "painting_end": "faa78462f4305e990ea926c1bfa0e27d8a0dc05ae6a8eeeba7e3e8b95e1e9f5f",
+   "view_end": "faa78462f4305e990ea926c1bfa0e27d8a0dc05ae6a8eeeba7e3e8b95e1e9f5f",
+   "refboat": "efcceae4a3cc63a512349fd390dadb191a28ceea3f3097ca1ae7eca018ac2880",
+   "noboat": "cb16e79393ef96e169f02cc2e375c2e09cb7e4ecdeb3a4dcdb0867597bac6740",
+   "variant_painting_end": "faa78462f4305e990ea926c1bfa0e27d8a0dc05ae6a8eeeba7e3e8b95e1e9f5f",
+   "ds41_saved": "efcceae4a3cc63a512349fd390dadb191a28ceea3f3097ca1ae7eca018ac2880",
+   "ds46_clock": "efcceae4a3cc63a512349fd390dadb191a28ceea3f3097ca1ae7eca018ac2880"
+  },
+  "view_end_vs_painting_end": {
+   "px": 0,
+   "px_over_8": 0,
+   "max": 0,
+   "bbox_xyxy": null
+  },
+  "painting_end_vs_ds41_saved": {
+   "px": 4,
+   "px_over_8": 3,
+   "max": 24,
+   "bbox_xyxy": [
+    1444,
+    583,
+    1601,
+    781
+   ]
+  },
+  "painting_end_vs_ds46_clock": {
+   "px": 4,
+   "px_over_8": 3,
+   "max": 24,
+   "bbox_xyxy": [
+    1444,
+    583,
+    1601,
+    781
+   ]
+  },
+  "refboat_vs_ds41_saved": {
+   "px": 0,
+   "px_over_8": 0,
+   "max": 0,
+   "bbox_xyxy": null
+  },
+  "ds46_vs_ds41": {
+   "px": 0,
+   "px_over_8": 0,
+   "max": 0,
+   "bbox_xyxy": null
+  },
+  "variant_end_vs_main_end": {
+   "px": 0,
+   "px_over_8": 0,
+   "max": 0,
+   "bbox_xyxy": null
+  },
+  "variant_end_vs_ds41_saved": {
+   "px": 4,
+   "px_over_8": 3,
+   "max": 24,
+   "bbox_xyxy": [
+    1444,
+    583,
+    1601,
+    781
+   ]
+  },
+  "mask_threshold": 24,
+  "ride_mask_px": 31322,
+  "refboat_mask_px": 31322,
+  "ds41_boat_mask_px": 31322,
+  "iou_ride_vs_refboat": 1.0,
+  "iou_ride_vs_ds41": 1.0,
+  "centroid_shift_px": 0.0,
+  "ride_bbox_xyxy": [
+   1114,
+   551,
+   1616,
+   922
+  ],
+  "video_last_frame_vs_painting_end_mean_abs": 1.525034882973251,
+  "video_last_frame_vs_painting_end_px_over_40": 3839
+ },
+ "scene": {
+  "path": "Unity/Assets/GreatWave/Design47/Scenes/DS47_Flow.unity",
+  "bytes": 197738,
+  "sha256": "b1500d248cc75aa28f599fae72c2ddd6702048220f060f0713512f2d196ab12b",
+  "guids_ds46": 39,
+  "guids_ds47": 50,
+  "new_vs_ds46": {
+   "1da28027e90e1c246af55cd3ab807834": "Unity/Assets/GreatWave/Design42/Scripts/DS42Buoyancy.cs",
+   "3fcf5e2cf0498e44d8c7db798ee3e424": "Unity/Assets/GreatWave/Design43/Data/ds43_buoyancy_points_boat_mid.json",
+   "48ddeff1944963543909d420ef7cc930": "Unity/Assets/GreatWave/Design44/Data/ds44_steer.json",
+   "588431decf755ec45b7b577ed47ace76": "Unity/Assets/GreatWave/Design47/Scripts/DS47Flow.cs",
+   "7ee37c7849b3f404095469c827a6fd0f": "Unity/Assets/GreatWave/Design47/Data/ds47_flow.json",
+   "8dfe2ed802cb70a4dbb74afa543a707a": "Unity/Assets/GreatWave/Design44/Scripts/DS44BoatSteer.cs",
+   "ab2bfb08ae93517459ce6797466b515b": "Unity/Assets/GreatWave/Design45/Data/ds45_comfort.json",
+   "c2fadf230d1919748a9aa21d40f74619": "（Assets の下にない）",
+   "d3856bc543dfcb54db99faa86cc362a3": "Unity/Assets/GreatWave/Design47/Materials/DS47_LeaveOverlay.mat",
+   "d3f311d15643b8d4f89f31dedcaac2ad": "Unity/Assets/GreatWave/Design45/Scripts/DS45RiderComfort.cs",
+   "e0cb9aa70a22847b5925ee5f067c10a9": "（Assets の下にない）"
+  },
+  "dropped_vs_ds46": 0,
+  "clock": {
+   "mode": "1",
+   "advanceBeforePhysics": "1",
+   "startSeconds": "0",
+   "endSeconds": "1000000",
+   "waveStartSeconds": "1000000",
+   "tStarSeconds": "12",
+   "maxStepSeconds": "0.06666666666666667"
+  },
+  "buoyancy_stepInFixedUpdate": "1",
+  "steer_stepInFixedUpdate": "0",
+  "rider": {
+   "startLevel": "0",
+   "stepInLateUpdate": "1",
+   "readInput": "1"
+  },
+  "flow": {
+   "startWaterY": "-0.9357658",
+   "eqDraftM": "0.24914105",
+   "placeAtStart": "1"
+  },
+  "absolute_paths": [
+   "G:/Unity/GreatWave_2026_Fresh/Unity/Build/Design/39/paper/spray/ds39_spray_dense_frames.json",
+   "G:\\Unity\\GreatWave_2026_Fresh\\Unity\\Build\\Design\\36\\palette\\prep\\ds36_sea_uv3_far_f32.bin",
+   "G:\\Unity\\GreatWave_2026_Fresh\\Unity\\Build\\Design\\36\\palette\\prep\\ds36_sea_uv3_near_f32.bin"
+  ],
+  "absolute_paths_same_as_ds46": true,
+  "leftsupport_in_scene": true
+ },
+ "line_endings": {
+  "Tools/GWWaveGen/ds47/ds47_record.py": "LF",
+  "Tools/GWWaveGen/ds47/ds47_report.py": "LF",
+  "Tools/GWWaveGen/ds47/run_ds47_unity.ps1": "LF",
+  "Unity/Assets/GreatWave/Design47.meta": "LF",
+  "Unity/Assets/GreatWave/Design47/Data.meta": "LF",
+  "Unity/Assets/GreatWave/Design47/Data/ds47_flow.json": "LF",
+  "Unity/Assets/GreatWave/Design47/Data/ds47_flow.json.meta": "LF",
+  "Unity/Assets/GreatWave/Design47/Editor.meta": "LF",
+  "Unity/Assets/GreatWave/Design47/Editor/DS47FlowBuild.cs": "LF",
+  "Unity/Assets/GreatWave/Design47/Editor/DS47FlowBuild.cs.meta": "LF",
+  "Unity/Assets/GreatWave/Design47/Editor/DS47FlowPlay.cs": "LF",
+  "Unity/Assets/GreatWave/Design47/Editor/DS47FlowPlay.cs.meta": "LF",
+  "Unity/Assets/GreatWave/Design47/Materials.meta": "LF",
+  "Unity/Assets/GreatWave/Design47/Materials/DS47_LeaveOverlay.mat": "LF",
+  "Unity/Assets/GreatWave/Design47/Materials/DS47_LeaveOverlay.mat.meta": "LF",
+  "Unity/Assets/GreatWave/Design47/Scenes.meta": "LF",
+  "Unity/Assets/GreatWave/Design47/Scenes/DS47_Flow.unity": "LF",
+  "Unity/Assets/GreatWave/Design47/Scenes/DS47_Flow.unity.meta": "LF",
+  "Unity/Assets/GreatWave/Design47/Scripts.meta": "LF",
+  "Unity/Assets/GreatWave/Design47/Scripts/DS47Flow.cs": "LF",
+  "Unity/Assets/GreatWave/Design47/Scripts/DS47Flow.cs.meta": "LF",
+  "Unity/Assets/GreatWave/Design47/Scripts/DS47Recorder.cs": "LF",
+  "Unity/Assets/GreatWave/Design47/Scripts/DS47Recorder.cs.meta": "LF"
+ },
+ "diff_vs_builder": {
+  "video_frames": 0,
+  "video_black": 0,
+  "video_cut": 0,
+  "total_s_main": 0.0,
+  "total_s_variant": 0.0,
+  "handover_s_main": 0.0,
+  "end_pos_diff_m_main": 0.0,
+  "ride_mask_px": -1505,
+  "iou": 0.0,
+  "px_vs_ds46": 0,
+  "px_vs_ds46_over8": 0,
+  "max_vs_ds46": 0,
+  "pause_runs": 0,
+  "pause_frames": [
+   0,
+   0
+  ],
+  "boat_water_rebuilds": 0,
+  "afterglow_max_speed_mps": 0.0
+ },
+ "diff_nonzero_keys": [
+  "ride_mask_px"
+ ],
+ "independent_check_files": {
+  "Unity/Build/Design/47/indep_check/afterglow.jpg": "16f401e8df600e8a22c8b094d68b4f42bd849959b3b6bd580e8b3b2a2c9c7c73",
+  "Unity/Build/Design/47/indep_check/ag_dense.jpg": "f98eae0a71d8bb62129fc84f9807379b62ab380bf0baacbb5f6631e4f24b4b44",
+  "Unity/Build/Design/47/indep_check/csv_chk.py": "6cfd274c9003b5d39df9a304c498c0a98284d2d062be5a7317a29be94ac5cb6f",
+  "Unity/Build/Design/47/indep_check/diff_1354_1355.png": "56781cc314a8476fb481798399d3fbd188788896a4afe180379e0668ad51c939",
+  "Unity/Build/Design/47/indep_check/diff_1410_1411.png": "1888121e4256eb8d80f7cb5e4250a7c7a40bd9f3d30fa8bdd474b5467a1056f3",
+  "Unity/Build/Design/47/indep_check/diff_1411_1412.png": "d50291de76de4474f80033c4c4820540803ddd46bbb1ff41a47512658faa6abe",
+  "Unity/Build/Design/47/indep_check/diff_vidlast_paintend.jpg": "bdb213f49ca99456531f78754399f20690c8c129ab3e1aa49b01005ac50eaa01",
+  "Unity/Build/Design/47/indep_check/diffs.jpg": "d563e2eef2421f6718192b66b22fa467793012548128faace54a5763a628302e",
+  "Unity/Build/Design/47/indep_check/form_seat.jpg": "ce61850e43281b91029d2d5f2b54bac5f8ab0807c90fcf40e06edb4e08036a1a",
+  "Unity/Build/Design/47/indep_check/mk_sheet.py": "8beae0f6215071858ca32a8dc6bfa176a3f43143721eb64bdbd335f521973044",
+  "Unity/Build/Design/47/indep_check/paused.jpg": "d41d77291944d4bac2288d000e52ba1fa674805f09ecd5435f6d9749c3dcfaee",
+  "Unity/Build/Design/47/indep_check/px114.py": "4972e81a5f4ce773146030b138a37fe95f681fe5043bd43f5d00e3f7d56819c7",
+  "Unity/Build/Design/47/indep_check/ride_mask_overlay.jpg": "2eba6c2dd57ea7713bfa524de92df3d791249764c4248029b63b1f2079833836",
+  "Unity/Build/Design/47/indep_check/sheet_every2s.jpg": "64fce6189618612a1090d610362c99804411ae3779823746ae590774178649d6",
+  "Unity/Build/Design/47/indep_check/spikes.jpg": "d2803365e677bcc8259388181353e8733b213b6ceaef97c7c0ce10b6aacc53aa",
+  "Unity/Build/Design/47/indep_check/video_chk.json": "de693a7512f91bf21a020ddb9e85b9498b430b1df710c5492e14ecb07ae96c32",
+  "Unity/Build/Design/47/indep_check/video_chk.py": "b9cb901c9d5936a004793194208a92d2cfaac22b7b5243fadee38475994a604d"
+ },
+ "video_720p_copy": {
+  "crf": 26,
+  "bytes": 2557533,
+  "size": "1280x720",
+  "preset": "slow",
+  "scan": {
+   "frames": 2197,
+   "fps": 30.0,
+   "size": [
+    1280,
+    720
+   ],
+   "seconds": 73.23333333333333,
+   "black_frames(mean<20 or dark>0.9)": 0,
+   "min_mean_luma": 115.530126953125,
+   "min_mean_luma_frame": 1702,
+   "max_dark_fraction": 5.4253472222222224e-06,
+   "max_mad_480x270": 16.20820987654321,
+   "max_mad_frame": 1827,
+   "max_mad_t_s": 60.9,
+   "frames_mad_gt_40": 0,
+   "max_spike_ratio": 4.377846391354689,
+   "max_spike_frame": 1411,
+   "cuts(mad>20 and spike>3)": 0,
+   "near_frozen_frames(mad<0.02)": 278
+  }
+ }
+}

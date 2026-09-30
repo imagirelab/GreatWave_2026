@@ -1,0 +1,72 @@
+{
+ "schema": "GreatWave.DS47.flow_run/1",
+ "python": "3.10.6",
+ "numpy": "2.2.6",
+ "opencv": "4.12.0",
+ "ffmpeg": "ffmpeg version 2024-12-19-git-494c961379-full_build-www.gyan.dev Copyright (c) 2000-2024 the FFmpeg developers",
+ "unity": "6000.4.3f1",
+ "device": "NVIDIA GeForce RTX 3080",
+ "videoCmd": "G:/ffmpeg-2024-12-19-git-494c961379-full_build/bin/ffmpeg.exe -y -hide_banner -loglevel error -framerate 30 -i G:/Unity/GreatWave_2026_Fresh/Unity/Build/Design/47/flow/unity/main/frames/f_%05d.jpg -c:v libx264 -pix_fmt yuv420p -crf 20 -preset medium G:/Unity/GreatWave_2026_Fresh/Unity/Build/Design/47/flow/ds47_flow_30fps.mp4",
+ "unityCmds": [
+  "powershell -NoProfile -ExecutionPolicy Bypass -File Tools/GWWaveGen/ds47/run_ds47_unity.ps1 -Method GreatWave.Design47.EditorTools.DS47FlowPlay.BuildScene -Log build5",
+  "powershell -NoProfile -ExecutionPolicy Bypass -File Tools/GWWaveGen/ds47/run_ds47_unity.ps1 -NoQuit -Method GreatWave.Design47.EditorTools.DS47FlowPlay.Run -Log main5 -Extra \"-ds47Script main\"",
+  "powershell -NoProfile -ExecutionPolicy Bypass -File Tools/GWWaveGen/ds47/run_ds47_unity.ps1 -NoQuit -Method GreatWave.Design47.EditorTools.DS47FlowPlay.Run -Log variant8 -Extra \"-ds47Script variant\"",
+  "py -3.10 Tools/GWWaveGen/ds47/ds47_report.py"
+ ],
+ "inputs": {
+  "Unity/Build/Design/47/flow/unity/main/ds47_play.json": "0100b5bc276163ffe7ffc03fbfb16309ac6b0b406e5dcc6968d977f06c566e6b",
+  "Unity/Build/Design/47/flow/unity/main/ds47_frames.csv": "eb0c23dbade7423a7e7270d88815fa968cfd54849cb6fe142bfc2ab0d42d4f73",
+  "Unity/Build/Design/47/flow/unity/variant/ds47_play.json": "94d0e2ab25fedeed3291a1746731c9b3ce131f546391daa4a9aae3f4c5456ce2",
+  "Unity/Build/Design/47/flow/unity/variant/ds47_frames.csv": "2fbe89cccdba8bee6638323108310478d243b226e174488347bc9ddcca5c1768",
+  "Unity/Build/Design/47/flow/unity/ds47_build.json": "ad9401f5a7c44ab6f8012cfadb1cda8ff0dcb257dd0b24aa43e0c4efe9ab7845",
+  "Unity/Build/Design/46/clock/unity/tstar/painting_t120_off_ds46clock.png": "efcceae4a3cc63a512349fd390dadb191a28ceea3f3097ca1ae7eca018ac2880",
+  "Unity/Assets/GreatWave/Design47/Data/ds47_flow.json": "de6df6287c5016e7227d466c1d90c70023d7267a51c51990a7b872a0acd4fdf5",
+  "Unity/Assets/GreatWave/Design47/Scripts/DS47Flow.cs": "911945a6f9e70813f30f9abefdfc4d75a57f6e944ecfb143b66355ea4e0d826a",
+  "Unity/Assets/GreatWave/Design47/Scripts/DS47Recorder.cs": "8978e66bcec31bb5bcec997149e8be59ba9dcbc696ec0576d80cedbf8fa14d0d",
+  "Unity/Assets/GreatWave/Design47/Editor/DS47FlowBuild.cs": "34dccc12755bf8fb6777d56f2cfbbf3947ca9e0c646f818aa55bd61f6f2477c2",
+  "Unity/Assets/GreatWave/Design47/Editor/DS47FlowPlay.cs": "b3bfa5702e4b98dacf1bdd59b0223c4a1d7fbaf2b2c0bcb914ecf565c5a869ce",
+  "Unity/Assets/GreatWave/Design47/Scenes/DS47_Flow.unity": "b1500d248cc75aa28f599fae72c2ddd6702048220f060f0713512f2d196ab12b",
+  "Unity/Build/Design/47/flow/unity/main/painting/painting_end.png": "faa78462f4305e990ea926c1bfa0e27d8a0dc05ae6a8eeeba7e3e8b95e1e9f5f",
+  "Unity/Build/Design/47/flow/unity/main/painting/painting_end_noboat.png": "cb16e79393ef96e169f02cc2e375c2e09cb7e4ecdeb3a4dcdb0867597bac6740",
+  "Unity/Build/Design/47/flow/unity/main/painting/painting_end_refboat.png": "efcceae4a3cc63a512349fd390dadb191a28ceea3f3097ca1ae7eca018ac2880",
+  "Unity/Build/Design/47/flow/unity/main/painting/view_end.png": "faa78462f4305e990ea926c1bfa0e27d8a0dc05ae6a8eeeba7e3e8b95e1e9f5f"
+ },
+ "outputs": {
+  "Unity/Build/Design/47/flow/ds47_flow_30fps.mp4": {
+   "sha256": "94d3f99be2f1691f36a667bb31ca4b625e722701bf900d83c8b7c11d4502de54",
+   "bytes": 12420431
+  },
+  "Unity/Build/Design/47/flow/fig_ds47_timeline.png": {
+   "sha256": "b2e5e717d017980cb47b5c50c6fd57f42515f31f55873d63c0df8e9e6b38ac88",
+   "bytes": 251963
+  },
+  "Unity/Build/Design/47/flow/stills_ds47_flow.png": {
+   "sha256": "3e16b52e62db75e125ffd1c0fdabbb6c83bfd02bb816375a16490928db2acbf8",
+   "bytes": 1005337
+  },
+  "Unity/Build/Design/47/flow/fig_ds47_114.png": {
+   "sha256": "c175cb3503663002475b0f49073eef1b4dc8347693126e22a65d7a380c90c4d0",
+   "bytes": 503134
+  },
+  "Unity/Build/Design/47/flow/fig_ds47_variant.png": {
+   "sha256": "a14a98ab97b8b6e14e4ac53ba073a8812ae6802fb52844f9f85c0dec94d4f4dc",
+   "bytes": 383575
+  },
+  "Unity/Build/Design/47/flow/metrics.json": {
+   "sha256": "f505d5cb4a3fa32de49c4b798c4d12505933ad2867428c68c68b54e3084fc989",
+   "bytes": 10320
+  }
+ },
+ "iterationsJa": [
+  "build1・build2：C# の書き間違い（Key の名前の衝突・置換の誤り）で compile できず、直した",
+  "main1：Play の batchmode で EditorApplication.Step の 1 フレームが 1/90 s（固定の時間刻み）になり、3330 フレームで体験の 37 s までしか進まず引き継ぎに届かなかったので打ち切り、フレームの時間の和で 1/30 s ごとに描く形に替えた",
+  "variant1〜2：状態の記録の文字列の誤りで compile できず／50 回待つ進め方が遅いので打ち切り、止めた状態で毎回 Step する形に替えた",
+  "variant3・main2・variant4：通った。形成の始まりで物理の船と時計の姿勢の高さの差 2.13 m（原画の置き方の高さへ 3 s で持ち上がる）を見つけ、高さもその場の水から原画の置き方へ移す形に替えた。出発点で船が 1.2 m 落ちるのを見つけた",
+  "dbg1〜2：Editor で出発点の水面を読み、−0.936 m と確かめた。Play の Start では再生器が一時 τ = 0（t*）にあり、その水（≈ 0）を読んでいた → 場面を作る時に τ(0) の水面を読んで startWaterY に入れる形に替えた（build4）",
+  "main3・variant5：通った。余韻の終わりの HMD Camera の画が原画視点の描画と 100,944 画素違う（線の縁）のを見つけ、HDR の違い（HMD Camera 1、DS27 painting 0）と分かったので、HMD Camera の描き方を原画視点のカメラにそろえた（build5）",
+  "main4：形成の始まりのつなぎ目で 1 フレーム水平に止まるのを直すため、実行中にコードを変えたので打ち切った",
+  "main5・variant7：最終のコード。ただし打ち切った main4 の外側の命令が残っていて、variant6 が variant7 の後に同じ出力の場所へ重ねて走った（同じコード）ので、variant だけを variant8 として一つで走らせ直した",
+  "受入の数値は main5 と variant8 の記録から数えた"
+ ],
+ "seconds": 28.097302675247192
+}

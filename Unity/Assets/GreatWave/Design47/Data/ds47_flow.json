@@ -1,0 +1,93 @@
+{
+  "schema": "GreatWave.DS47.flow/1",
+  "noteJa": "設計47：導入 → 接近 → 形成 → t* の保持 → 余韻 を一本につなぐ絵コンテと演出の出来事の表。時刻は体験の秒（GWClock.ExperienceSeconds、Master）。値は進行役が決めた既定値（Q24・Q26。利用者未回答）。DS47Flow（Unity）と Tools/GWWaveGen/ds47 が同じこの表を読む。大波の時刻（wave）は設計30 の単発再生の t（0〜12 s、t* = 12 s）、形成の中身は設計28修正01 の F_final の τ(t)（D31 の (a)）で、この番号では変えない。",
+  "storyboard": [
+    { "key": "intro", "nameJa": "導入", "untilJa": "引き継ぎまで（introMinS〜introMaxS、下の timing）", "contentJa": "静かな海（単発再生の待機、t = 0 のコマ）の上で、座席の船を操船する（設計44 の前進・減速・旋回・停止。範囲の縁は柔らかく押し戻す）。乗客は設計45 の L0（水平維持）。遠くに原画の位置の 2 隻（boat_fg・boat_left）が見える" },
+    { "key": "approach", "nameJa": "接近", "untilJa": "引き継ぎから形成の始まりまで（軌道の所要 T − 12 s、最短 3 s）", "contentJa": "固定の軌道（設計44、D26）へ引き継ぎ、原画の位置へ導かれる。入力は読まない。うねりを 1.5 倍へ育てる演出は仕上げ47（swell の項。v1 は待機のコマのまま）" },
+    { "key": "formation", "nameJa": "形成", "untilJa": "12 s（大波の時刻 0 → t*）", "contentJa": "単発再生（F_final の τ(t)）。座席の船は時計で決める姿勢（水平の位置と向き = 軌道 ＋ 着く所のずれの補正、高さ = その場の水に浮く高さから原画の置き方 ＋ 設計30 の支えの Δ(t) へ、傾き = 形成の始まりの物理の傾きから原画の傾きへ）へ移り、t* でちょうど原画の置き方になる（D47-2）" },
+    { "key": "hold", "nameJa": "t* の保持", "untilJa": "2 s（Q11・D31）", "contentJa": "原画の瞬間で止める（白・藍・爪・飛沫は t* の終態、設計46 の 181）。座席の船は原画の置き方のまま" },
+    { "key": "afterglow", "nameJa": "余韻", "untilJa": "move 6 s ＋ dwell 8 s", "contentJa": "時刻は t* のまま。乗客の視点（RiderComfortRoot）が座席の目から持ち上がり、自分の船を見下ろしてから、原画の視点（DS27 painting の位置・向き・画角）へなめらかに移る（カットも暗転もしない。D47-3）。着いた後は原画の構図で、乗っていた船が原画の船の位置にある（最小の V1、114）" }
+  ],
+  "timing": {
+    "introMinS": 15.0,
+    "introMaxS": 45.0,
+    "targetTotalS": 72.0,
+    "handoverCheckEveryS": 0.5,
+    "physicsDtS": 0.011111111111111112,
+    "formationS": 12.0,
+    "holdS": 2.0,
+    "afterglowMoveS": 6.0,
+    "afterglowDwellS": 8.0,
+    "noteJa": "physicsDtS：体験の間の物理の固定の時間刻み（1/90 s。PS VR2 の 90 Hz の 1 コマに 1 段、PC の 30 fps の記録で 1 コマ 3 段。ProjectSettings の 0.02 s は変えず、DS47Flow が Play の始めに Time.fixedDeltaTime へ入れる。D47-5）。引き継ぎの時刻（接近の始まり）は、introMinS を過ぎてから handoverCheckEveryS ごとに、今の船の状態から軌道を仮に作り（設計44 の DS44Trajectory、本番と同じ手順）、体験の全長の見込み s + (T − 12) + 12 + hold + move + dwell が targetTotalS 以上になった所、遅くとも introMaxS で決める（D47-1）。船が止まっていても、範囲の縁にいても、同じ規則で引き継ぐ。形成の始まりは引き継ぎが決める（設計44 の D44-2）"
+  },
+  "start": {
+    "u": -80.0,
+    "v": -8.0,
+    "yawOffsetDeg": 0.0,
+    "noteJa": "座席の船の出発点（painting frame：原点 = 原画の座席の船の根の xz、u = 原画の船首の向き、v = 右舷）。高さは Play の始めに船用水面データ（設計43）の水面 − 静水の喫水で置く"
+  },
+  "formationPose": {
+    "attStartWaveS": 5.0,
+    "attEndWaveS": 12.0,
+    "offsetDecayS": 3.0,
+    "noteJa": "形成の間の座席の船の姿勢（D47-2）。傾き（縦・横）は大波の時刻 attStartWaveS〜attEndWaveS で、形成の始まりの物理の傾きから原画の傾き（縦 33°・軸まわり 25°）へ smoothstep で移す。高さも同じ重みで、その場の水（船用水面データの下側の一価の面 − 静水の喫水）から原画の置き方の高さ ＋ 設計30 の支えの Δ(t) へ移す。形成の始まりの物理の姿勢と時計の姿勢の差（位置・向き）は offsetDecayS 秒で 0 へ（跳ばない）。t* 以後は原画の置き方そのもの"
+  },
+  "afterglow": {
+    "arcUpM": 3.0,
+    "lookBoatUntil": 0.35,
+    "boatLookLocal": [0.0, 0.8, 0.0],
+    "pcSeatVfovDeg": 80.0,
+    "rotateRigInXr": false,
+    "noteJa": "視点の道：座席の目 → 原画の視点へ、smootherstep で進め、途中を arcUpM だけ持ち上げる。向きは前半（lookBoatUntil まで）で自分の船（根の局所 boatLookLocal）を見る向きへ、後半で原画の視点の向きへ。PC では画角も座席の pcSeatVfovDeg から原画の 26° へ移す。XR（HMD）では向きと画角を動かさず（頭の向きは本人のまま）、位置だけを動かす（rotateRigInXr = false。実機の快適性は保留）"
+  },
+  "leave": {
+    "radiusHM": 0.6,
+    "radiusVM": 0.5,
+    "graceS": 0.5,
+    "returnGraceS": 0.5,
+    "overlayColor": [0.93, 0.89, 0.80, 0.9],
+    "textColor": [0.137, 0.251, 0.380, 1.0],
+    "messageJa": "座席へお戻りください\n（体験を一時停止しています）",
+    "noteJa": "観賞の位置から外れた時（D47-4）：頭（HMD Camera）が座席の目から水平 radiusHM・上下 radiusVM を超えて graceS 秒続いたら、体験を一時停止する（共通時計を Stop、座席の船の物理を止める）。紙の色の覆いと案内の文字を目の前に出す（暗転しない）。戻って returnGraceS 秒たったら再開する。導入・接近・形成・保持で働き、余韻（視点を動かす間と着いた後）では働かない"
+  },
+  "stopMidway": {
+    "noteJa": "船が途中で止まった時（D47-1）：導入で船が止まっても（停止の操作・入力なし・範囲の縁）、引き継ぎは上の timing の規則で必ず起こり、固定の軌道は止まった状態（速さ 0）からでも原画の位置へ t* にちょうど着く（設計44 の軌道）。接近・形成・保持では入力を読まないので、船は止まらない。一時停止（観賞の位置から外れた時、設計50 の停止の切替）の間は、時計と座席の船の物理を一緒に止め、再開で同じ所から続ける（軌道の時刻は物理の段で進むので、止めている間は進まない）"
+  },
+  "comfort": {
+    "defaultLevel": 0,
+    "noteJa": "乗客の揺れは設計45 の L0（水平維持）を既定とする（Q24）。1〜4 キー・十字キーの切替と座席リセットは設計45 のまま"
+  },
+  "swell": {
+    "approachGainFrom": 0.6667,
+    "approachGainTo": 1.0,
+    "implementedV1": false,
+    "noteJa": "接近でうねりを 1.5 倍へ育てる（計画 §2.5 の設計47）は、表示のシートが設計30 の焼いたコマ（待機は t = 0 のコマで止まる）なので、この番号では入れない。計画 §5 の仕上げ47「接近の上下動の成長」へ送る（形成の始まりで 1.0 になり、原画視点は変えない作り方に限る）"
+  },
+  "events": [
+    { "id": "intro_start", "anchor": "experience", "offset": 0.0, "kind": "once", "noteJa": "体験の始まり（導入、操船の開始）" },
+    { "id": "handover", "anchor": "handover", "offset": 0.0, "kind": "once", "noteJa": "固定の軌道への引き継ぎ（接近の始まり。時刻は timing の規則で決まり、決めたその段で起こす）" },
+    { "id": "formation_start", "anchor": "wave", "offset": 0.0, "kind": "once", "noteJa": "形成の始まり（大波の時刻 0）。地鳴りの始まり（設計49）" },
+    { "id": "a_to_d_start", "anchor": "wave", "offset": 7.45, "kind": "once", "noteJa": "Q10 の時間の骨格の a→d（2.15 s）の始まりの目安（12 − 2.4 − 2.15）" },
+    { "id": "jet_start", "anchor": "wave", "offset": 9.6, "kind": "once", "noteJa": "噴流の始まりの目安（t* の 2.4 s 前）" },
+    { "id": "t_star", "anchor": "wave", "offset": 12.0, "kind": "once", "noteJa": "原画の瞬間 t*（白・藍・爪・飛沫の終態、設計46 の 181）。保持の始まり" },
+    { "id": "afterglow_start", "anchor": "afterglow", "offset": 0.0, "kind": "once", "noteJa": "保持の終わり（t* + 2 s）。余韻の始まり、視点が座席を離れる" },
+    { "id": "afterglow_settled", "anchor": "afterglow", "offset": 6.0, "kind": "once", "noteJa": "原画の視点に着いた（move の終わり）" },
+    { "id": "end", "anchor": "afterglow", "offset": 14.0, "kind": "once", "noteJa": "体験の終わり（時計が止まる。終了画面は設計50）" }
+  ],
+  "demo": {
+    "noteJa": "試験だけ（Play モードの通しの動画の筋書き。体験の秒 s。場面には入れない）。入力は Input System の仮想のキーボードの状態を DS44Input.Read で読む（実際の機器と同じ読み方）",
+    "main": [
+      { "s0": 1.0, "s1": 9.0, "keys": "W", "labelJa": "前進" },
+      { "s0": 9.0, "s1": 14.0, "keys": "W D", "labelJa": "前進しながら右へ" },
+      { "s0": 14.0, "s1": 18.0, "keys": "", "labelJa": "入力なし（抵抗で遅くなる）" },
+      { "s0": 18.0, "s1": 26.0, "keys": "W A", "labelJa": "前進しながら左へ" },
+      { "s0": 26.0, "s1": 60.0, "keys": "W", "labelJa": "前進（引き継ぎの後は読まれない）" }
+    ],
+    "variant": [
+      { "s0": 1.0, "s1": 6.0, "keys": "W", "labelJa": "前進" },
+      { "s0": 6.0, "s1": 10.0, "keys": "Space", "labelJa": "停止（この後は入力なしで止まったまま = 途中で止まった船）" }
+    ],
+    "variantLeave": { "s0": 11.0, "s1": 14.0, "offsetM": [0.8, 0.0, 0.0], "noteJa": "頭を右へ 0.8 m ずらす（HMD Camera の局所の位置。試験だけ）→ 一時停止 → 戻して再開" },
+    "variantLeaveHold": { "waveOffsetS": 12.3, "durS": 1.5, "offsetM": [0.0, 0.0, -0.9], "noteJa": "保持の間（形成の始まり + 12.3 s）にも頭を後ろへ 0.9 m ずらす（保持の間の一時停止と再開）" }
+  }
+}

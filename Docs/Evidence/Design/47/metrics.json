@@ -1,0 +1,777 @@
+{
+ "schema": "GreatWave.DS47.record_metrics/1",
+ "number": "設計47",
+ "title_ja": "導入→接近→砕波→余韻をつなぐ",
+ "created_utc": "2026-09-30T07:53:36Z",
+ "evidence_kind_ja": "PC の Unity 6000.4.3f1 の Editor の Play モード（batchmode。止めた状態で EditorApplication.Step により 1 フレーム = 1/90 s ずつ進め、30 fps の動画のコマはオフスクリーンで描いた。RTX 3080）。入力は Input System の仮想のキーボードを DS44Input.Read で読んだ。頭の動きは HMD Camera の局所の位置を試験がずらした。進行役の独立の検査（numpy・OpenCV）、記録の数え直し（numpy・OpenCV・ffmpeg）。HMD 実機ではない。Release のプレイヤーではない。実時間の Play ではない。利用者は確かめていない",
+ "plan_ja": "計画 §2.5 設計47：絵コンテと演出イベントの表（JSON）。導入（静かな海で操船）→ 接近（うねりが 1.5 倍へ育つ、固定軌道へ引き継ぎ）→ 形成（Q10 の時間の骨格）→ t* で 2 s 保持 → 余韻（同じ時刻の原画視点を見せ、自分の船を原画の中で見つける最小の V1）。全体 60〜90 秒",
+ "min_acceptance_ja": "通し動画で黒画面・カットの途切れ 0（86 を使える水準で）。原画視点で乗っている船が原画の位置にある（114 を記録）",
+ "backlog": [
+  "84",
+  "85",
+  "86",
+  "109",
+  "110",
+  "113",
+  "114"
+ ],
+ "acceptance": [
+  {
+   "item": "86：通し動画で黒画面・カットの途切れ 0",
+   "result": "合格",
+   "value": {
+    "video": {
+     "frames": 2197,
+     "fps": 30.0,
+     "size": [
+      1920,
+      1080
+     ],
+     "seconds": 73.23333333333333,
+     "bytes": 12420431,
+     "sha256": "94d3f99be2f1691f36a667bb31ca4b625e722701bf900d83c8b7c11d4502de54"
+    },
+    "record_black": 0,
+    "record_cuts": 0,
+    "record_frames_mad_gt_40": 0,
+    "record_min_mean_luma": 115.49537953317902,
+    "record_max_mad": 16.38135802469136,
+    "record_max_mad_t_s": 60.9,
+    "builder": {
+     "frames": 2197,
+     "seconds": 73.23333333333333,
+     "blackFrames": 0,
+     "cutFrames": 0,
+     "maxMad": 16.333141326904297,
+     "maxMadAt": 60.93111257813871,
+     "minHistCorr": 0.9970865477057131,
+     "minMeanLuma": 116.38298080632715,
+     "ffmpegBlackIntervals": 0,
+     "ffmpegSceneChanges": 0
+    },
+    "indep": {
+     "black": 0,
+     "cuts": 0,
+     "minMeanY": 115.49537953317902,
+     "minSsim": 0.6898617123491909,
+     "maxEcr": 0.2604501607717042,
+     "maxSpike": 4.454894409304225
+    },
+    "captured_exp_step": [
+     0.0,
+     0.033333334140479565
+    ]
+   }
+  },
+  {
+   "item": "114（記録）：原画視点で乗っている船が原画の位置にある",
+   "result": "合格（記録）",
+   "value": {
+    "end_pos_diff_m": 9.5367431640625e-07,
+    "end_rot_diff_deg": 6.15664931839995e-06,
+    "vertex_px_unity": {
+     "meshPairs": 45,
+     "vertices": 8679,
+     "maxPx": 0.00013647876039613038,
+     "p95Px": 0.0001258271950064227,
+     "noteJa": "乗っていた船と原画の場面の boat_mid（同じプレハブ）の同じ頂点を、原画視点の 1920×1080 へ写した位置の差"
+    },
+    "iou_ride_vs_refboat": 1.0,
+    "centroid_shift_px": 0.0,
+    "ride_mask_px": 31322,
+    "view_end_vs_painting_end_px": 0,
+    "painting_end_vs_ds41_saved": {
+     "px": 4,
+     "px_over_8": 3,
+     "max": 24,
+     "bbox_xyxy": [
+      1444,
+      583,
+      1601,
+      781
+     ]
+    },
+    "variant_end_pos_diff_m": 9.5367431640625e-07
+   }
+  },
+  {
+   "item": "計画 §2.0 の回帰なし（原画視点）",
+   "result": "合格（原画視点の場面は SHA-256 のまま。終わりの原画視点は設計41・46 と 4 画素の差で、どれも乗っていた船の縁。評価器は回していない）",
+   "value": {
+    "painting_scenes_unchanged": true,
+    "protected_files": 28,
+    "px_vs_ds41": 4,
+    "refboat_vs_ds41_px": 0
+   }
+  },
+  {
+   "item": "段階8確認 F8-3（物理の船・操船・乗客・船用水面データを一つの体験の場面に入れ、Play で回す）",
+   "result": "Editor の Play モードで済み（Release は設計50）",
+   "value": {
+    "buoyancy_nonkinematic_intro_approach": {
+     "frames": 4061,
+     "non_kinematic": 4061,
+     "wet_points_values": [
+      10
+     ],
+     "steering_frames": 3058,
+     "trajectory_frames": 3533,
+     "steer_modes": {
+      "Steering": 3058,
+      "Trajectory": 3533
+     },
+     "nonzero_throttle_frames": 2609,
+     "nonzero_turn_frames": 1170,
+     "stop_frames": 0
+    },
+    "comfort_levels": [
+     0
+    ],
+    "boat_water_rebuilds": 1084,
+    "scene_saved_values": {
+     "clock": {
+      "mode": "1",
+      "advanceBeforePhysics": "1",
+      "startSeconds": "0",
+      "endSeconds": "1000000",
+      "waveStartSeconds": "1000000",
+      "tStarSeconds": "12",
+      "maxStepSeconds": "0.06666666666666667"
+     },
+     "buoyancy_stepInFixedUpdate": "1",
+     "steer_stepInFixedUpdate": "0",
+     "rider": {
+      "startLevel": "0",
+      "stepInLateUpdate": "1",
+      "readInput": "1"
+     }
+    }
+   }
+  },
+  {
+   "item": "HMD（PS VR2）",
+   "result": "保留（導入は利用者の手）。余韻の視点の移動の快適さ、座席の見上げ（109・110・113）、頭の追跡での一時停止は実機で確かめていない"
+  }
+ ],
+ "acceptance_record": {
+  "flow_main": {
+   "s": 34.00888970401138,
+   "lead": 11.134205372186518,
+   "trajT": 23.134205372186518,
+   "waveStart": 45.143095076197895,
+   "afterglowStart": 59.143095076197895,
+   "end": 73.1430950761979,
+   "predictedTotal": 73.1430950761979,
+   "predictions": 40,
+   "reason": "target",
+   "within_60_90": true
+  },
+  "flow_variant": {
+   "s": 16.008889268152416,
+   "lead": 28.095772097548434,
+   "trajT": 40.09577209754843,
+   "waveStart": 44.10466136570085,
+   "afterglowStart": 58.10466136570085,
+   "end": 72.10466136570085,
+   "predictedTotal": 72.10466136570085,
+   "predictions": 4,
+   "reason": "target",
+   "within_60_90": true
+  },
+  "variant_speed_at_handover_mps": 0.0373878192923907,
+  "events_main": {
+   "count": 9,
+   "fired_once_each": true,
+   "ids": [
+    "intro_start",
+    "handover",
+    "formation_start",
+    "a_to_d_start",
+    "jet_start",
+    "t_star",
+    "afterglow_start",
+    "afterglow_settled",
+    "end"
+   ],
+   "lag_s": [
+    0.019999,
+    0.0,
+    0.010239,
+    0.004684,
+    0.010239,
+    0.01024,
+    0.01024,
+    0.01024,
+    0.0
+   ],
+   "max_lag_s": 0.019998992102384566,
+   "min_lag_s": 0.0,
+   "max_lag_lt_one_90Hz_frame": false,
+   "table_vs_flow_json_max_abs_s": 3.8146972514141453e-07,
+   "csv_events_fired_final": 9,
+   "csv_events_skipped_final": 0
+  },
+  "events_variant": {
+   "count": 9,
+   "fired_once_each": true,
+   "ids": [
+    "intro_start",
+    "handover",
+    "formation_start",
+    "a_to_d_start",
+    "jet_start",
+    "t_star",
+    "afterglow_start",
+    "afterglow_settled",
+    "end"
+   ],
+   "lag_s": [
+    0.019999,
+    0.0,
+    0.004229,
+    0.009785,
+    0.004228,
+    0.004229,
+    0.004229,
+    0.004229,
+    0.0
+   ],
+   "max_lag_s": 0.019998992102384566,
+   "min_lag_s": 0.0,
+   "max_lag_lt_one_90Hz_frame": false,
+   "table_vs_flow_json_max_abs_s": 3.8146972514141453e-07,
+   "csv_events_fired_final": 9,
+   "csv_events_skipped_final": 0
+  },
+  "seams_main": {
+   "handover": {
+    "label": "handover",
+    "row": 3058,
+    "frame": 3060,
+    "exp": 34.00888970401138,
+    "steps_m_around": [
+     [
+      3057,
+      0.00417,
+      0.0016
+     ],
+     [
+      3058,
+      0.00415,
+      0.0019
+     ],
+     [
+      3059,
+      0.00413,
+      0.0022
+     ],
+     [
+      3060,
+      0.00415,
+      0.0026
+     ],
+     [
+      3061,
+      0.00439,
+      0.0037
+     ],
+     [
+      3062,
+      0.0044,
+      0.005
+     ],
+     [
+      3063,
+      0.00439,
+      0.0064
+     ],
+     [
+      3064,
+      0.00439,
+      0.0078
+     ]
+    ],
+    "max_step_m_around": 0.00439719267009567,
+    "min_step_m_around": 0.004130040759551294,
+    "max_rot_step_deg_around": 0.007809330847322362,
+    "median_step_m_before_90": 0.005218150584481994,
+    "max_step_m_before_90": 0.006428115225027777
+   },
+   "formation_start": {
+    "label": "formation_start",
+    "row": 4061,
+    "frame": 4063,
+    "exp": 45.153334418311715,
+    "steps_m_around": [
+     [
+      4060,
+      0.0163,
+      0.1143
+     ],
+     [
+      4061,
+      0.01631,
+      0.1143
+     ],
+     [
+      4062,
+      0.0163,
+      0.1143
+     ],
+     [
+      4063,
+      0.01632,
+      0.0
+     ],
+     [
+      4064,
+      0.01699,
+      0.1111
+     ],
+     [
+      4065,
+      0.01705,
+      0.1111
+     ],
+     [
+      4066,
+      0.01714,
+      0.1111
+     ],
+     [
+      4067,
+      0.01722,
+      0.1111
+     ]
+    ],
+    "max_step_m_around": 0.01721570699493625,
+    "min_step_m_around": 0.016298653570525488,
+    "max_rot_step_deg_around": 0.11434938577073034,
+    "median_step_m_before_90": 0.016079592275184185,
+    "max_step_m_before_90": 0.016270764133700544
+   }
+  },
+  "formation_hold_boat_main": {
+   "max_abs_pitch_deg": 32.899279866175036,
+   "max_tilt_from_vertical_deg": 40.52783441126466,
+   "tilt_at_end_deg": 40.52783441126466,
+   "pitch_at_end_deg": -32.899279866175036,
+   "max_root_y_step_m": 0.0219724178314209,
+   "max_abs_vertical_speed_mps": 1.9775175569435055,
+   "y_min_max_m": [
+    -3.4781363010406494,
+    3.0712180137634277
+   ],
+   "root_minus_floating_height_m_formation": [
+    -0.414429184994507,
+    1.5443570017121582
+   ],
+   "root_minus_floating_height_at_wave": [
+    9.899128470456091,
+    11.032461831232396
+   ],
+   "max_tilt_intro_approach_deg": 10.266465360178294
+  },
+  "camera_main": {
+   "Intro": {
+    "frames": 3058,
+    "max_pos_step_m": 0.02635913555228602,
+    "max_speed_mps": 2.3723221422614156,
+    "max_rot_step_deg": 0.0,
+    "max_fov_step_deg": 0.0
+   },
+   "Approach": {
+    "frames": 1003,
+    "max_pos_step_m": 0.01997610001895431,
+    "max_speed_mps": 1.7978489581720776,
+    "max_rot_step_deg": 0.0,
+    "max_fov_step_deg": 0.0
+   },
+   "Formation": {
+    "frames": 1080,
+    "max_pos_step_m": 0.028529333572700644,
+    "max_speed_mps": 2.5676399593692305,
+    "max_rot_step_deg": 0.0,
+    "max_fov_step_deg": 0.0
+   },
+   "Hold": {
+    "frames": 180,
+    "max_pos_step_m": 0.004193175723543264,
+    "max_speed_mps": 0.3773858059807278,
+    "max_rot_step_deg": 0.0,
+    "max_fov_step_deg": 0.0
+   },
+   "Afterglow": {
+    "frames": 1260,
+    "max_pos_step_m": 0.1637203208131717,
+    "max_speed_mps": 14.734828516390614,
+    "max_rot_step_deg": 0.5778104893423672,
+    "max_fov_step_deg": 0.1875
+   },
+   "End": {
+    "frames": 10,
+    "max_pos_step_m": 0.0,
+    "max_speed_mps": 0.0,
+    "max_rot_step_deg": 1.7075472925031877e-06,
+    "max_fov_step_deg": 0.0
+   }
+  },
+  "camera_extra_main": {
+   "afterglow_start_to_end_distance_m": 47.14978716975597,
+   "afterglow_path_length_m": 47.61702017128246,
+   "fov_start_end": [
+    80.0,
+    26.0
+   ],
+   "yaw_deg_before_afterglow_minmax": [
+    -40.407081908169964,
+    -40.407081908169964
+   ],
+   "boat_yaw_deg_before_afterglow_minmax": [
+    -142.81025454609724,
+    -38.13755318668504
+   ]
+  },
+  "pause_runs_variant": [
+   {
+    "rows": [
+     1033,
+     1302
+    ],
+    "frames": 270,
+    "phase": [
+     "Intro"
+    ],
+    "exp_range": 0.0,
+    "boat_move_m": 0.0,
+    "clock_states": [
+     "Stopped"
+    ],
+    "duration_s": 3.000000072643161,
+    "reason": [
+     "leave"
+    ]
+   },
+   {
+    "rows": [
+     5389,
+     5523
+    ],
+    "frames": 135,
+    "phase": [
+     "Hold"
+    ],
+    "exp_range": 0.0,
+    "boat_move_m": 0.0,
+    "clock_states": [
+     "Stopped"
+    ],
+    "duration_s": 1.5000000363215804,
+    "reason": [
+     "leave"
+    ]
+   }
+  ],
+  "leaves_variant": [
+   {
+    "name": "intro_leave",
+    "started": 990,
+    "paused": 1035,
+    "restored": 1260,
+    "resumed": 1305,
+    "offset": [
+     0.800000011920929,
+     0,
+     0
+    ],
+    "pause_after_frames": 45,
+    "resume_after_frames": 45,
+    "pause_after_s": 0.5,
+    "resume_after_s": 0.5,
+    "exp_paused_eq_resumed": true
+   },
+   {
+    "name": "hold_leave",
+    "started": 5346,
+    "paused": 5391,
+    "restored": 5481,
+    "resumed": 5526,
+    "offset": [
+     0,
+     0,
+     -0.8999999761581421
+    ],
+    "pause_after_frames": 45,
+    "resume_after_frames": 45,
+    "pause_after_s": 0.5,
+    "resume_after_s": 0.5,
+    "exp_paused_eq_resumed": true
+   }
+  ],
+  "boat_water_main": {
+   "rebuilds_csv_final": 1084,
+   "rebuilds": 1084,
+   "ms_mean": 21.82350027675275,
+   "fallbacks": 0,
+   "queries": 43142,
+   "rebuild_rows_by_phase": {
+    "Intro": 0,
+    "Approach": 0,
+    "Formation": 1080,
+    "Hold": 1,
+    "Afterglow": 0,
+    "End": 0
+   }
+  },
+  "painting_pose_bow_note": {
+   "rootPos": [
+    7.025619983673096,
+    2.1481499671936035,
+    -14.941940307617188
+   ],
+   "rootRot_xyzw": [
+    0.05318306013941765,
+    -0.6957640051841736,
+    0.34223732352256775,
+    0.6292516589164734
+   ],
+   "local_plus_z_world": [
+    -0.8392188319429131,
+    -0.5431638661204629,
+    0.026168046420090296
+   ],
+   "local_plus_z_pitch_deg": -32.89927776085935,
+   "note_ja": "ds43_boats.json の boat_mid の根の局所 +z を世界へ回した向き。y が負なら +z の端が下がる"
+  }
+ },
+ "record_recount": {
+  "file": "Docs/Evidence/Design/47/ds47_record_recount.json",
+  "diff_vs_builder": {
+   "video_frames": 0,
+   "video_black": 0,
+   "video_cut": 0,
+   "total_s_main": 0.0,
+   "total_s_variant": 0.0,
+   "handover_s_main": 0.0,
+   "end_pos_diff_m_main": 0.0,
+   "ride_mask_px": -1505,
+   "iou": 0.0,
+   "px_vs_ds46": 0,
+   "px_vs_ds46_over8": 0,
+   "max_vs_ds46": 0,
+   "pause_runs": 0,
+   "pause_frames": [
+    0,
+    0
+   ],
+   "boat_water_rebuilds": 0,
+   "afterglow_max_speed_mps": 0.0
+  }
+ },
+ "builder_sha256_verified": {
+  "files": 24,
+  "protected": 28,
+  "all_same": true
+ },
+ "fix_rounds": {
+  "count": 0,
+  "ja": "作る部の中の作り直し（compile の誤り 2、打ち切った実行 4、場面の作り直し 5 回）は受入の判定の前の作る途中の変更で、作る部の最終の実行（build5・main5・variant8）で最小の受入を満たした。進行役の独立の検査は必須の指摘 0。修正の回（Q26 の 1 回）は使っていない"
+ },
+ "time": {
+  "box_ja": "Q26 の日程で 4 時間（計画 §2.6 の［Q26］の表、10/3 の行の設計47。計画の時間枠は ≤1日）",
+  "started": "2026-09-30 14:21:28",
+  "builder_finished": "2026-09-30 15:32:58",
+  "file_times": {
+   "Unity/Build/Design/47/flow/_started.txt": {
+    "created": "14:21:28",
+    "modified": "14:21:28"
+   },
+   "Unity/Assets/GreatWave/Design47.meta": {
+    "created": "14:41:27",
+    "modified": "14:42:04"
+   },
+   "Tools/GWWaveGen/ds47/run_ds47_unity.ps1": {
+    "created": "14:40:59",
+    "modified": "14:41:18"
+   },
+   "Unity/Assets/GreatWave/Design47/Scripts/DS47Recorder.cs": {
+    "created": "15:05:34",
+    "modified": "15:05:34"
+   },
+   "Unity/Assets/GreatWave/Design47/Data/ds47_flow.json": {
+    "created": "14:33:21",
+    "modified": "15:08:33"
+   },
+   "Unity/Assets/GreatWave/Design47/Editor/DS47FlowPlay.cs": {
+    "created": "15:15:11",
+    "modified": "15:15:11"
+   },
+   "Unity/Assets/GreatWave/Design47/Editor/DS47FlowBuild.cs": {
+    "created": "14:38:12",
+    "modified": "15:22:50"
+   },
+   "Unity/Assets/GreatWave/Design47/Materials/DS47_LeaveOverlay.mat": {
+    "created": "15:22:58",
+    "modified": "15:22:58"
+   },
+   "Unity/Assets/GreatWave/Design47/Scripts/DS47Flow.cs": {
+    "created": "14:36:09",
+    "modified": "15:23:55"
+   },
+   "Unity/Assets/GreatWave/Design47/Scenes/DS47_Flow.unity": {
+    "created": "15:23:04",
+    "modified": "15:23:04"
+   },
+   "Unity/Build/Design/47/flow/logs/unity_ds47_build1.log": {
+    "created": "14:41:23",
+    "modified": "14:41:30"
+   },
+   "Unity/Build/Design/47/flow/logs/unity_ds47_build2.log": {
+    "created": "14:41:45",
+    "modified": "14:41:50"
+   },
+   "Unity/Build/Design/47/flow/logs/unity_ds47_build3.log": {
+    "created": "14:41:59",
+    "modified": "14:42:06"
+   },
+   "Unity/Build/Design/47/flow/logs/unity_ds47_build4.log": {
+    "created": "15:17:02",
+    "modified": "15:17:16"
+   },
+   "Unity/Build/Design/47/flow/logs/unity_ds47_build5.log": {
+    "created": "15:22:51",
+    "modified": "15:23:04"
+   },
+   "Unity/Build/Design/47/flow/logs/unity_ds47_dbg1.log": {
+    "created": "15:14:52",
+    "modified": "15:14:58"
+   },
+   "Unity/Build/Design/47/flow/logs/unity_ds47_dbg2.log": {
+    "created": "15:15:13",
+    "modified": "15:15:26"
+   },
+   "Unity/Build/Design/47/flow/logs/unity_ds47_main1.log": {
+    "created": "14:42:17",
+    "modified": "14:54:48"
+   },
+   "Unity/Build/Design/47/flow/logs/unity_ds47_main2.log": {
+    "created": "15:08:41",
+    "modified": "15:10:51"
+   },
+   "Unity/Build/Design/47/flow/logs/unity_ds47_main3.log": {
+    "created": "15:17:26",
+    "modified": "15:19:34"
+   },
+   "Unity/Build/Design/47/flow/logs/unity_ds47_main4.log": {
+    "created": "15:23:17",
+    "modified": "15:24:11"
+   },
+   "Unity/Build/Design/47/flow/logs/unity_ds47_main5.log": {
+    "created": "15:24:27",
+    "modified": "15:26:33"
+   },
+   "Unity/Build/Design/47/flow/logs/unity_ds47_variant1.log": {
+    "created": "14:55:43",
+    "modified": "14:55:49"
+   },
+   "Unity/Build/Design/47/flow/logs/unity_ds47_variant2.log": {
+    "created": "15:01:29",
+    "modified": "15:04:28"
+   },
+   "Unity/Build/Design/47/flow/logs/unity_ds47_variant3.log": {
+    "created": "15:05:57",
+    "modified": "15:07:23"
+   },
+   "Unity/Build/Design/47/flow/logs/unity_ds47_variant4.log": {
+    "created": "15:11:03",
+    "modified": "15:12:26"
+   },
+   "Unity/Build/Design/47/flow/logs/unity_ds47_variant5.log": {
+    "created": "15:19:35",
+    "modified": "15:20:58"
+   },
+   "Unity/Build/Design/47/flow/logs/unity_ds47_variant6.log": {
+    "created": "15:28:12",
+    "modified": "15:29:37"
+   },
+   "Unity/Build/Design/47/flow/logs/unity_ds47_variant7.log": {
+    "created": "15:26:34",
+    "modified": "15:27:56"
+   },
+   "Unity/Build/Design/47/flow/logs/unity_ds47_variant8.log": {
+    "created": "15:30:23",
+    "modified": "15:31:46"
+   },
+   "Unity/Build/Design/47/flow/unity/debug_start_height.txt": {
+    "created": "15:15:26",
+    "modified": "15:15:26"
+   },
+   "Unity/Build/Design/47/flow/unity/ds47_build.json": {
+    "created": "14:42:05",
+    "modified": "15:23:04"
+   },
+   "Unity/Build/Design/47/flow/unity/main/ds47_play.json": {
+    "created": "15:26:33",
+    "modified": "15:26:33"
+   },
+   "Unity/Build/Design/47/flow/unity/variant/ds47_play.json": {
+    "created": "15:31:45",
+    "modified": "15:31:45"
+   },
+   "Unity/Build/Design/47/flow/ds47_flow_30fps.mp4": {
+    "created": "15:12:35",
+    "modified": "15:32:05"
+   },
+   "Unity/Build/Design/47/flow/metrics.json": {
+    "created": "15:13:03",
+    "modified": "15:32:26"
+   },
+   "Unity/Build/Design/47/flow/_finished.txt": {
+    "created": "15:29:56",
+    "modified": "15:32:58"
+   },
+   "Tools/GWWaveGen/ds47/ds47_report.py": {
+    "created": "15:31:57",
+    "modified": "15:31:57"
+   },
+   "Unity/Build/Design/47/indep_check/video_chk.py": {
+    "created": "15:50:13",
+    "modified": "15:36:02"
+   },
+   "Unity/Build/Design/47/indep_check/video_chk.json": {
+    "created": "15:50:13",
+    "modified": "15:36:59"
+   },
+   "Unity/Build/Design/47/indep_check/csv_chk.py": {
+    "created": "15:50:13",
+    "modified": "15:38:39"
+   },
+   "Unity/Build/Design/47/indep_check/px114.py": {
+    "created": "15:50:13",
+    "modified": "15:40:20"
+   },
+   "Unity/Build/Design/47/indep_check/paused.jpg": {
+    "created": "15:50:13",
+    "modified": "15:44:16"
+   }
+  }
+ },
+ "hmd_ja": "保留（PS VR2 の導入は利用者の手）。Mock の両目の描画はこの番号では描いていない。PC の座席の視点（HMD Camera を画面のカメラとして描いた単眼）だけ",
+ "painting_view_ja": "DS41_Boats.unity・DS46_Clock.unity・DS39_Paper.unity は SHA-256 のまま（ほかの守るファイルとあわせて 28）。体験の終わりの原画視点は設計41・46 の t* の原画視点と 4 画素の差（どれも乗っていた船の縁、最大 24/255）で、波の画素は同じ",
+ "evidence": [
+  "ds47_build.json",
+  "ds47_flow_720p_30fps.mp4",
+  "ds47_flow_metrics.json",
+  "ds47_flow_run.json",
+  "ds47_indep_video_summary.json",
+  "ds47_play_main.json",
+  "ds47_play_variant.json",
+  "ds47_record_recount.json",
+  "fig_ds47_114.png",
+  "fig_ds47_timeline.png",
+  "fig_ds47_variant.png",
+  "metrics.json",
+  "run.json",
+  "stills_ds47_flow.png"
+ ]
+}
