@@ -1,0 +1,529 @@
+{
+ "schema": "GreatWave.DS46.clock_metrics/1",
+ "number": "設計46",
+ "part": "clock（共通時計）",
+ "created_utc": "2026-09-30T06:03:48Z",
+ "evidence_kind_ja": "PC の Unity 6000.4.3f1 batchmode（RTX 3080、Direct3D11）。Editor の計算と描画、Editor の Play モード（batchmode で 1 フレームずつ回す、dt 0.02 s）。HMD 実機ではない。利用者は確かめていない",
+ "plan_ja": "計画 §2.5 設計46：秒の時計 1 つ（GWClock。美術優先30 の最小版を広げる）で、水面・白・爪・飛沫・船用データ・演出を進める。停止・再開・初期化・途中からの再生",
+ "min_acceptance_ja": "停止・再開・初期化・途中再生の後、同じ時刻で同じ形（頂点のハッシュが一致）。181（白・藍・爪・飛沫が同じ t* で終態）",
+ "acceptance": [
+  {
+   "item": "同じ時刻で同じ形（Editor の 4 つの道）",
+   "criterion": "形のハッシュ一式が基準の通しと一致",
+   "value": {
+    "compared": 19,
+    "mismatched": 0,
+    "hash_keys": [
+     "boat",
+     "claws",
+     "events",
+     "image_painting",
+     "sheet_far",
+     "sheet_hero",
+     "sheet_near",
+     "spray",
+     "white"
+    ],
+    "stopped_32_steps_same": true
+   },
+   "judge": "合格"
+  },
+  {
+   "item": "同じ時刻で同じ形（Play モード）",
+   "criterion": "Editor の基準の通しと一致（画像を除く形のデータ）、止めた 20 フレームで同じ",
+   "value": {
+    "compared_with_editor": 8,
+    "mismatched": 0,
+    "stop_frames": 20,
+    "stop_same": true
+   },
+   "judge": "合格"
+  },
+  {
+   "item": "181 白・藍・爪・飛沫が同じ t* で終態（見える状態の読み。採った読み）",
+   "criterion": "描いた白・藍の色面・爪・飛沫の印が t* = 12.0 s で最終に達し、それより前には達しない（1/32 s の格子、t* のまわり 1/256 s）",
+   "value": {
+    "white_img": {
+     "name_ja": "白：描いた白（色区 ID、白あり）",
+     "t_final": 12.0,
+     "t_last_change": 11.96875,
+     "distinct": 385,
+     "final_at_tstar": true
+    },
+    "indigo_img": {
+     "name_ja": "藍：色面の模様（色区 ID、白なし）",
+     "t_final": 12.0,
+     "t_last_change": 11.96875,
+     "distinct": 385,
+     "final_at_tstar": true
+    },
+    "claws": {
+     "name_ja": "爪",
+     "t_final": 12.0,
+     "t_last_change": 11.96875,
+     "distinct": 385,
+     "final_at_tstar": true
+    },
+    "spray": {
+     "name_ja": "飛沫（v0 と密）",
+     "t_final": 12.0,
+     "t_last_change": 11.96875,
+     "distinct": 108,
+     "final_at_tstar": true
+    }
+   },
+   "judge": "合格"
+  }
+ ],
+ "acceptance_record": {
+  "b181_white_arrival_ja": "白の到着の場（頂点の旗 T_white ≤ τ）は t = 11.28125 s（τ = -0.0903 s）で最終（白の頂点 94800）に達し、t* より 0.719 s 早い。その後の白は面の動きと三角形の中の縁（g = τ − T_white）で t* まで動く。厳しい読み（白の到着そのものが t* で終わる）では早い → 限界として仕上げ46 へ",
+  "b181_white_flags": {
+   "name_ja": "白：頂点の旗",
+   "t_final": 11.28125,
+   "t_last_change": 11.25,
+   "distinct": 177,
+   "final_at_tstar": false
+  },
+  "b181_hero_geometry": {
+   "name_ja": "主役波の形（参考）",
+   "t_final": 12.0,
+   "t_last_change": 11.96875,
+   "distinct": 385,
+   "final_at_tstar": true
+  },
+  "b181_fine_before_tstar": [
+   {
+    "t": 11.96875,
+    "tau": -1.0596e-05,
+    "whiteFlagsDiff": 0,
+    "whiteImgDiffPx": 16,
+    "indigoImgDiffPx": 16,
+    "clawsMaxDiffM": 0.0001850128173828125,
+    "sprayMaxDiff": 0.0002593994140625,
+    "heroMaxDiffM": 0.00015401840209960938,
+    "allFinal": false,
+    "allStillMoving": true
+   },
+   {
+    "t": 11.97265625,
+    "tau": -7.1363748586098324e-06,
+    "whiteFlagsDiff": 0,
+    "whiteImgDiffPx": 13,
+    "indigoImgDiffPx": 13,
+    "clawsMaxDiffM": 0.0001621246337890625,
+    "sprayMaxDiff": 0.0002269744873046875,
+    "heroMaxDiffM": 0.00010395050048828125,
+    "allFinal": false,
+    "allStillMoving": true
+   },
+   {
+    "t": 11.9765625,
+    "tau": -4.5226250677097595e-06,
+    "whiteFlagsDiff": 0,
+    "whiteImgDiffPx": 7,
+    "indigoImgDiffPx": 7,
+    "clawsMaxDiffM": 0.0001392364501953125,
+    "sprayMaxDiff": 0.000194549560546875,
+    "heroMaxDiffM": 6.532669067382812e-05,
+    "allFinal": false,
+    "allStillMoving": true
+   },
+   {
+    "t": 11.98046875,
+    "tau": -2.6382500454797685e-06,
+    "whiteFlagsDiff": 0,
+    "whiteImgDiffPx": 6,
+    "indigoImgDiffPx": 6,
+    "clawsMaxDiffM": 0.00011539459228515625,
+    "sprayMaxDiff": 0.0001621246337890625,
+    "heroMaxDiffM": 3.8623809814453125e-05,
+    "allFinal": false,
+    "allStillMoving": true
+   },
+   {
+    "t": 11.984375,
+    "tau": -1.3657499447399017e-06,
+    "whiteFlagsDiff": 0,
+    "whiteImgDiffPx": 3,
+    "indigoImgDiffPx": 3,
+    "clawsMaxDiffM": 9.250640869140625e-05,
+    "sprayMaxDiff": 0.00012969970703125,
+    "heroMaxDiffM": 2.002716064453125e-05,
+    "allFinal": false,
+    "allStillMoving": true
+   },
+   {
+    "t": 11.98828125,
+    "tau": -5.859375071250759e-07,
+    "whiteFlagsDiff": 0,
+    "whiteImgDiffPx": 4,
+    "indigoImgDiffPx": 4,
+    "clawsMaxDiffM": 6.961822509765625e-05,
+    "sprayMaxDiff": 9.72747802734375e-05,
+    "heroMaxDiffM": 9.5367431640625e-06,
+    "allFinal": false,
+    "allStillMoving": true
+   },
+   {
+    "t": 11.9921875,
+    "tau": -1.781250105000212e-07,
+    "whiteFlagsDiff": 0,
+    "whiteImgDiffPx": 1,
+    "indigoImgDiffPx": 1,
+    "clawsMaxDiffM": 4.673004150390625e-05,
+    "sprayMaxDiff": 6.4849853515625e-05,
+    "heroMaxDiffM": 7.62939453125e-06,
+    "allFinal": false,
+    "allStillMoving": true
+   },
+   {
+    "t": 11.99609375,
+    "tau": -2.3437498125001327e-08,
+    "whiteFlagsDiff": 0,
+    "whiteImgDiffPx": 0,
+    "indigoImgDiffPx": 0,
+    "clawsMaxDiffM": 2.288818359375e-05,
+    "sprayMaxDiff": 3.24249267578125e-05,
+    "heroMaxDiffM": 3.814697265625e-06,
+    "allFinal": false,
+    "allStillMoving": false
+   }
+  ],
+  "b181_fine_at_or_after_all_final": true,
+  "sync_edit_steps": {
+   "steps": 1394,
+   "bad": 0
+  },
+  "sync_play_frames": {
+   "frames": 1138,
+   "bad": 0
+  },
+  "tstar_painting_ab": {
+   "diff_pixels_ds41_path_vs_clock": 0,
+   "diff_pixels_clock_vs_ds41_committed_output": 0,
+   "sha256": "9418d113c02c3ed485dc9045bf835d2ff7cd64848260d59551d6a392fc10ccde"
+  },
+  "physics_reads_water": {
+   "early_update_frames_lag0": 1076,
+   "early_update_frames_lag1": 0,
+   "control_update_frames_lag1": 60,
+   "control_update_frames_lag0": 0,
+   "fixed_steps_per_frame": {
+    "0": 2,
+    "1": 1136
+   },
+   "deltaTime": {
+    "0.0199999921": 1,
+    "0.0199999865": 1137
+   }
+  },
+  "events": {
+   "R": [
+    {
+     "id": "formation_start",
+     "eventT": 2,
+     "clockT": 2,
+     "step": 66,
+     "fired": true
+    },
+    {
+     "id": "t_star",
+     "eventT": 12,
+     "clockT": 12,
+     "step": 386,
+     "fired": true
+    },
+    {
+     "id": "hold_end",
+     "eventT": 14,
+     "clockT": 14,
+     "step": 450,
+     "fired": true
+    }
+   ],
+   "S3": [
+    {
+     "id": "t_star",
+     "eventT": 12,
+     "clockT": 13,
+     "step": 1081,
+     "fired": false
+    },
+    {
+     "id": "t_star",
+     "eventT": 12,
+     "clockT": 12,
+     "step": 1210,
+     "fired": true
+    },
+    {
+     "id": "hold_end",
+     "eventT": 14,
+     "clockT": 14,
+     "step": 1274,
+     "fired": true
+    }
+   ],
+   "S4": [
+    {
+     "id": "formation_start",
+     "eventT": 2,
+     "clockT": 2,
+     "step": 1339,
+     "fired": true
+    },
+    {
+     "id": "t_star",
+     "eventT": 12,
+     "clockT": 12,
+     "step": 1340,
+     "fired": false
+    },
+    {
+     "id": "formation_start",
+     "eventT": 2,
+     "clockT": 10.5,
+     "step": 1342,
+     "fired": false
+    },
+    {
+     "id": "t_star",
+     "eventT": 12,
+     "clockT": 12,
+     "step": 1390,
+     "fired": true
+    }
+   ],
+   "R_once_each_lag_lt_step": true,
+   "S3_seek_skips_then_fires": true
+  },
+  "stages": [
+   "water@10",
+   "boat_water@20",
+   "white@30",
+   "claws@40",
+   "spray@50",
+   "events@90"
+  ],
+  "protected_unchanged": true
+ },
+ "backlog": {
+  "181": "見える状態の読みで合格（描いた白・藍・爪・飛沫が t* = 12.0 s で最終、t* の後は変わらない）。白の到着の場は 0.719 s 早く終わる（記録、仕上げ46）",
+  "199": "記録なし（性能は設計50 の通しと H2。この部では測っていない）"
+ },
+ "compare_rows": [
+  {
+   "seq": "S1",
+   "label": "stop_at_5",
+   "exp": 5,
+   "keys": 9,
+   "mismatch": []
+  },
+  {
+   "seq": "S1",
+   "label": "stopped_32_frames",
+   "exp": 5,
+   "keys": 9,
+   "mismatch": []
+  },
+  {
+   "seq": "S1",
+   "label": "resume_t8",
+   "exp": 8,
+   "keys": 9,
+   "mismatch": []
+  },
+  {
+   "seq": "S1",
+   "label": "resume_t10.5",
+   "exp": 10.5,
+   "keys": 9,
+   "mismatch": []
+  },
+  {
+   "seq": "S1",
+   "label": "resume_t12",
+   "exp": 12,
+   "keys": 9,
+   "mismatch": []
+  },
+  {
+   "seq": "S1",
+   "label": "resume_t14",
+   "exp": 14,
+   "keys": 9,
+   "mismatch": []
+  },
+  {
+   "seq": "S2",
+   "label": "init_from_end",
+   "exp": 0,
+   "keys": 9,
+   "mismatch": []
+  },
+  {
+   "seq": "S2",
+   "label": "t3",
+   "exp": 3,
+   "keys": 9,
+   "mismatch": []
+  },
+  {
+   "seq": "S2",
+   "label": "t5",
+   "exp": 5,
+   "keys": 9,
+   "mismatch": []
+  },
+  {
+   "seq": "S3",
+   "label": "seek_t10.5",
+   "exp": 10.5,
+   "keys": 9,
+   "mismatch": []
+  },
+  {
+   "seq": "S3",
+   "label": "seek_t3",
+   "exp": 3,
+   "keys": 9,
+   "mismatch": []
+  },
+  {
+   "seq": "S3",
+   "label": "seek_t13",
+   "exp": 13,
+   "keys": 9,
+   "mismatch": []
+  },
+  {
+   "seq": "S3",
+   "label": "seek_t8",
+   "exp": 8,
+   "keys": 9,
+   "mismatch": []
+  },
+  {
+   "seq": "S3",
+   "label": "play_from_8_t12",
+   "exp": 12,
+   "keys": 9,
+   "mismatch": []
+  },
+  {
+   "seq": "S3",
+   "label": "play_from_8_t14",
+   "exp": 14,
+   "keys": 9,
+   "mismatch": []
+  },
+  {
+   "seq": "S4",
+   "label": "running_seek_t12",
+   "exp": 12,
+   "keys": 9,
+   "mismatch": []
+  },
+  {
+   "seq": "S4",
+   "label": "running_seek_t0",
+   "exp": 0,
+   "keys": 9,
+   "mismatch": []
+  },
+  {
+   "seq": "S4",
+   "label": "running_seek_t10.5",
+   "exp": 10.5,
+   "keys": 9,
+   "mismatch": []
+  },
+  {
+   "seq": "S4",
+   "label": "play_from_10.5_t13",
+   "exp": 13,
+   "keys": 9,
+   "mismatch": []
+  }
+ ],
+ "playmode_rows": [
+  {
+   "label": "stop_a",
+   "frame": 251,
+   "exp": 5.0199966207146645,
+   "state": "Stopped",
+   "vsEditorR": null
+  },
+  {
+   "label": "stop_b",
+   "frame": 271,
+   "exp": 5.0199966207146645,
+   "state": "Stopped",
+   "vsEditorR": null
+  },
+  {
+   "label": "seek8_after_play",
+   "frame": 441,
+   "exp": 8,
+   "state": "Stopped",
+   "vsEditorR": []
+  },
+  {
+   "label": "init_a",
+   "frame": 587,
+   "exp": 0,
+   "state": "Stopped",
+   "vsEditorR": []
+  },
+  {
+   "label": "seek8_after_init",
+   "frame": 587,
+   "exp": 8,
+   "state": "Stopped",
+   "vsEditorR": []
+  },
+  {
+   "label": "seek12_a",
+   "frame": 587,
+   "exp": 12,
+   "state": "Stopped",
+   "vsEditorR": []
+  },
+  {
+   "label": "end14",
+   "frame": 1138,
+   "exp": 14,
+   "state": "Stopped",
+   "vsEditorR": []
+  },
+  {
+   "label": "seek12_b",
+   "frame": 1138,
+   "exp": 12,
+   "state": "Stopped",
+   "vsEditorR": []
+  },
+  {
+   "label": "seek8_after_end",
+   "frame": 1138,
+   "exp": 8,
+   "state": "Stopped",
+   "vsEditorR": []
+  },
+  {
+   "label": "init_b",
+   "frame": 1138,
+   "exp": 0,
+   "state": "Stopped",
+   "vsEditorR": []
+  }
+ ],
+ "playmode_notes": [
+  "fixedDeltaTime=0.0199999921 captureDeltaTime=0",
+  "stop_held=true tStop=5.0199966207146645 frames=20",
+  "stop_same_shape=true"
+ ],
+ "painting_view_ja": "原画視点は変えていない：DS41_Boats.unity は SHA-256 のまま。時計の道で描いた t* の原画視点は、設計41 の道の描画・設計41 の出力 painting_t120_off.png と画素まで同じ（差 0 画素）。評価器は画素の関数なので値も同じ（回し直していない）",
+ "hmd_ja": "PS VR2 は保留（導入は利用者の手）。この部は時計と形のデータだけで、両眼の描画は変えていない",
+ "pass": true
+}

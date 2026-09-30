@@ -1,0 +1,69 @@
+DS41 scene GWClock.mode=Legacy playInPlayMode=False DS31.followClockInPlayMode=True/True
+scene stages=water@10,boat_water@20,white@30,claws@40,spray@50,events@90 mode=Master play.enabled=False play.clock=null sprayFollow=False/False clawsFollow=False end=14 tStar=12
+T0 tstar painting (own capture, clock.Seek(12)) vs DS41 saved painting_t120_off.png diff_px=0
+T1 stopped at 4.371161958643933 held=True
+CMP T1_stopped_40_advances keys=13 mismatch=[]
+CMP T1_play_resume_irregular_to_9.8420578223431328_vs_seek keys=13 mismatch=[]
+CMP T1_seek_back_to_stop_time_4.371161958643933 keys=13 mismatch=[]
+CMP T2_init_from_middle_play_to_2.915034241043049_vs_seek keys=13 mismatch=[]
+T3 running after seek: Running
+CMP T3_seek_running_then_play_to_12.628927944287152_vs_seek keys=13 mismatch=[]
+CMP T3_hold_12.628927944287152_vs_tstar_except_events keys=13 mismatch=[]
+T4 end exp=14 state=Stopped ended=True
+T4 resume at end keeps stopped=True step unchanged=True
+CMP T4_end_vs_seek14 keys=13 mismatch=[]
+T4 seek beyond end clamps to 14
+T5 seek(-5) exp=0
+CMP T5_seek_negative_vs_initialise keys=13 mismatch=[]
+T6[0] ops=R R A114 I I K9.766 R S -> exp=9.76604040468393 state=Stopped
+CMP T6_fuzz_0_vs_seek keys=13 mismatch=[]
+T6[1] ops=K1.004 R I R K12.754 S R -> exp=12.753822370317682 state=Running
+CMP T6_fuzz_1_vs_seek keys=13 mismatch=[]
+T6[2] ops=R A46 A79 I I R R -> exp=0 state=Running
+CMP T6_fuzz_2_vs_seek keys=13 mismatch=[]
+T6[3] ops=I K8.242 R R R Ir A73 S S R -> exp=2.8203826929857265 state=Running
+CMP T6_fuzz_3_vs_seek keys=13 mismatch=[]
+T6[4] ops=A76 A37 Ir A94 R A89 R S A110 K1.604 -> exp=1.604102605303797 state=Stopped
+CMP T6_fuzz_4_vs_seek keys=11 mismatch=[]
+T6[5] ops=I S K14.9 A80 S K1.558 -> exp=1.5575313207495638 state=Stopped
+CMP T6_fuzz_5_vs_seek keys=11 mismatch=[]
+T6[6] ops=S A62 S K8.982 K8.126 S R -> exp=8.1261620117007585 state=Running
+CMP T6_fuzz_6_vs_seek keys=11 mismatch=[]
+T6[7] ops=I K14.21 S S Ir R A46 A48 -> exp=3.7519492290134626 state=Running
+CMP T6_fuzz_7_vs_seek keys=11 mismatch=[]
+T6[8] ops=S S S A19 R S I I I K3.547 S -> exp=3.5470379090621309 state=Stopped
+CMP T6_fuzz_8_vs_seek keys=11 mismatch=[]
+T6[9] ops=I R K5.281 I S A91 S A119 Ir S K8.711 R -> exp=8.7112466291111179 state=Running
+CMP T6_fuzz_9_vs_seek keys=11 mismatch=[]
+T7 t=11 tau=-0.202546296 claws=4.5495815277099609 spray=4.4165740013122559 dense=4.37537145614624 hero=2.9487442970275879 paintingPx=173332 idPx=163107
+T7 t=11.28 tau=-0.0907208336646501 claws=1.812779426574707 spray=1.9799196720123291 dense=1.961449146270752 hero=1.3193068504333496 paintingPx=132376 idPx=118852
+T7 t=11.5 tau=-0.034360532 claws=0.55917930603027344 spray=0.74924015998840332 dense=0.74225068092346191 hero=0.49971818923950195 paintingPx=94990 idPx=81013
+T7 t=11.75 tau=-0.004860207 claws=0.076516151428222656 spray=0.10722637176513672 dense=0.10622644424438477 hero=0.070635795593261719 paintingPx=41305 idPx=25795
+T7 t=11.9 tau=-0.000332755 claws=0.005176544189453125 spray=0.0072560310363769531 dense=0.0071883201599121094 hero=0.0048346519470214844 paintingPx=16523 idPx=3022
+T7 t=11.977777777777778 tau=-3.8643334537063464E-06 claws=0.0001316070556640625 spray=0.00018453598022460938 dense=0.00018262863159179688 hero=5.626678466796875E-05 paintingPx=1975 idPx=226
+T7 t=11.988888888888889 tau=-5.1666667933340085E-07 claws=6.580352783203125E-05 spray=9.2029571533203125E-05 dense=9.1552734375E-05 hero=3.2722949981689453E-05 paintingPx=559 idPx=92
+T7 t=11.991666666666667 tau=-2.0000003800000008E-07 claws=4.9591064453125E-05 spray=6.9141387939453125E-05 dense=6.866455078125E-05 hero=7.62939453125E-06 paintingPx=337 idPx=63
+T7 t=11.994444444444444 tau=-8.3333328666715258E-08 claws=3.337860107421875E-05 spray=4.6253204345703125E-05 dense=4.57763671875E-05 hero=7.62939453125E-06 paintingPx=185 idPx=41
+T7 t=11.999 tau=-5.9999995199970142E-09 claws=5.7220458984375E-06 spray=8.106231689453125E-06 dense=8.106231689453125E-06 hero=4.76837158203125E-07 paintingPx=17 idPx=5
+T7 t=12 tau=0 claws=0 spray=0 dense=0 hero=0 paintingPx=0 idPx=0
+T7 t=12.011111111111111 tau=0 claws=0 spray=0 dense=0 hero=0 paintingPx=0 idPx=0
+T7 t=12.5 tau=0 claws=0 spray=0 dense=0 hero=0 paintingPx=0 idPx=0
+T7 t=13 tau=0 claws=0 spray=0 dense=0 hero=0 paintingPx=0 idPx=0
+T7 t=13.99 tau=0 claws=0 spray=0 dense=0 hero=0 paintingPx=0 idPx=0
+T7w white-only (geometry at t*, white tau=tau(10.5)=-0.45) idPx=2178 paintingPx=2422
+T7w white-only (geometry at t*, white tau=tau(11)=-0.202546296) idPx=271 paintingPx=456
+T7w white-only (geometry at t*, white tau=tau(11.2)=-0.118518519) idPx=58 paintingPx=267
+T7w white-only (geometry at t*, white tau=tau(11.25)=-0.100708008) idPx=0 paintingPx=219
+T7w white-only (geometry at t*, white tau=tau(11.28125)=-0.090316772) idPx=0 paintingPx=0
+T7w white-only (geometry at t*, white tau=tau(11.4)=-0.05625) idPx=0 paintingPx=0
+T7w white-only (geometry at t*, white tau=tau(11.6)=-0.018518519) idPx=0 paintingPx=0
+T7w white-only (geometry at t*, white tau=tau(11.8)=-0.002546296) idPx=0 paintingPx=0
+T7w white-only (geometry at t*, white tau=tau(11.9)=-0.000332755) idPx=0 paintingPx=0
+T7w white-only (geometry at t*, white tau=tau(11.95)=-4.2499E-05) idPx=0 paintingPx=0
+T7w white-only (geometry at t*, white tau=tau(11.98)=-2.80880007276763E-06) idPx=0 paintingPx=0
+T7w white-only (geometry at t*, white tau=tau(11.99)=-3.9000002280004056E-07) idPx=0 paintingPx=0
+T7w white-only (geometry at t*, white tau=tau(11.988888888888889)=-5.1666667933340085E-07) idPx=0 paintingPx=0
+T7w white-only (geometry at t*, white tau=tau(12)=0) idPx=0 paintingPx=0
+T8 fired=formation_start@2.0099537975601631F t_star@12.011115308582831F hold_end@14F
+T8 seeks only: formation_start@12.5S t_star@12.5S formation_start@13S t_star@13S
+SUMMARY compared=18 mismatched=0 seconds=65.2

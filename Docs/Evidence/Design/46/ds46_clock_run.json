@@ -1,0 +1,72 @@
+{
+ "schema": "GreatWave.DS46.clock_run/1",
+ "number": "設計46",
+ "part": "clock",
+ "created_utc": "2026-09-30T06:03:48Z",
+ "tools": {
+  "python": "3.10.6",
+  "numpy": "2.2.6",
+  "opencv": "4.12.0",
+  "unity": "6000.4.3f1（batchmode、E:/6000.4.3f1/Editor/Unity.exe）"
+ },
+ "commands": [
+  "powershell -NoProfile -ExecutionPolicy Bypass -File Tools/GWWaveGen/ds46/run_ds46_unity.ps1 -Method GreatWave.Design46.EditorTools.DS46ClockTest.Run -Log run1（93 s。場面の保存・t* の A/B・基準の通し・4 つの道・181）",
+  "powershell -NoProfile -ExecutionPolicy Bypass -File Tools/GWWaveGen/ds46/run_ds46_unity.ps1 -NoQuit -Method GreatWave.Design46.EditorTools.DS46PlayModeCheck.Run -Log playmode（43 s。Play モード）",
+  "py -3.10 -B Tools/GWWaveGen/ds46/ds46_clock_report.py"
+ ],
+ "inputs_sha256": {
+  "Build/Design/28R01F/F_final/timewarp_F_final.json": "627815c77afc63278c885335bbe6c51178896184559ca30845cf05f23c634a7c",
+  "Build/Design/33/claws/ds33_claw_frames_f32.bin": "6e7629889a47efc0172d40c28364b59eadef48e419d0dad5c279e3fa3d7f7565",
+  "Build/Design/41/model/unity/full/painting_t120_off.png": "efcceae4a3cc63a512349fd390dadb191a28ceea3f3097ca1ae7eca018ac2880",
+  "Assets/GreatWave/Design41/Scenes/DS41_Boats.unity": "e171a4a94d114aa2d62b889602887bf66cb5f118c82988dcfd4f5c11f18f8301"
+ },
+ "code_sha256": {
+  "Unity/Assets/GreatWave/ArtFirst/Scripts/GWClock.cs": "e2d9c83f54f15d915fb4a7e327c72c65bc958a616543dd50716396e06c8177ac",
+  "Unity/Assets/GreatWave/Design31/Scripts/DS31InstancedParticles.cs": "f6bf5a52b6e7f4b65ba3a04d6eec00d804f43706f29e00e4c5335ddc039fa35a",
+  "Unity/Assets/GreatWave/Design46/Scripts/DS46ClockBus.cs": "1d1fef188fdc4870ddb051c0c62b8d7c461750765af9734c96b99d2b95712856",
+  "Unity/Assets/GreatWave/Design46/Scripts/DS46EventTrack.cs": "3dc58b0062fa2d3c3594869a0eba6beaa62d9832cdec0bc16745ddc2e5dcbce7",
+  "Unity/Assets/GreatWave/Design46/Scripts/DS46FixedProbe.cs": "e536fb0495d020eebbf3d780dabbfbff93d871ac2851e05b4e0293ca275ed11e",
+  "Unity/Assets/GreatWave/Design46/Data/ds46_events.json": "63fb12c344222c2ff74614b4ff82247a0c371ad245876293cef83ffa62743de0",
+  "Unity/Assets/GreatWave/Design46/Editor/DS46Probe.cs": "fe64483169f06c7c7c2a72ab0ce00f79cf5946828bb89d7e75f1d2c38fde7a12",
+  "Unity/Assets/GreatWave/Design46/Editor/DS46ClockTest.cs": "30f6d04a9b78e65912b4e6760ed83dd0295fb155b94b1cec5c00b3511b94b9d0",
+  "Unity/Assets/GreatWave/Design46/Editor/DS46PlayModeCheck.cs": "cb8e2476dee26e5a3c1b29edcedf022a24e2ee905f6cd2f5b822bc14baf68580",
+  "Unity/Assets/GreatWave/Design46/Scenes/DS46_Clock.unity": "af3fbaa195b5ae9f34ce5afd9d192a9c826c21ad8f5192c11e90c1da08ba6cc8",
+  "Tools/GWWaveGen/ds46/run_ds46_unity.ps1": "dd3a11bd3f8be380bdc0d13f550e3a070c972467e52eac833d9a8334e502d49a",
+  "Tools/GWWaveGen/ds46/ds46_clock_report.py": "bbd5d91015a6e820917a8a447e041c652b18e5a85234346cfe36a536ad643be3"
+ },
+ "outputs_sha256": {
+  "Unity/Build/Design/46/clock/unity/ds46_clock_report.json": "20a223e797f7782ca8c5d89808a01bb96c27089d8d948940708f02041f5bb0a4",
+  "Unity/Build/Design/46/clock/unity/ds46_steps.csv": "c19dac57b01e5f539481109d888233af2c153771e590d8627593bfa003faa845",
+  "Unity/Build/Design/46/clock/playmode/ds46_playmode.json": "be04eb80ed46de1329d66cb656a757de1d252b7828aefcab06946958010bd9c4",
+  "Unity/Build/Design/46/clock/playmode/ds46_playmode.csv": "15ab05150001e6b3394a878f874a6d31c1957e3c4be80bc653e297e874655cbf",
+  "Unity/Build/Design/46/clock/unity/tstar/painting_t120_off_ds41path.png": "efcceae4a3cc63a512349fd390dadb191a28ceea3f3097ca1ae7eca018ac2880",
+  "Unity/Build/Design/46/clock/unity/tstar/painting_t120_off_ds46clock.png": "efcceae4a3cc63a512349fd390dadb191a28ceea3f3097ca1ae7eca018ac2880",
+  "Unity/Build/Design/46/clock/metrics.json": "d622301e12428b7efe237827049d9e5f7579c7f39c04590ead962634e7d69b13",
+  "Unity/Build/Design/46/clock/fig_ds46_clock.png": "063e0e4d53885fbf2a18f53e0a6a99b9878f85ba8e57c77a31e3b672cff62012",
+  "Unity/Build/Design/46/clock/stills_ds46_clock.png": "8e089b315e26e604a0c139b1ccf61616d3f45e6070b77c6205545ebf2d7a4102"
+ },
+ "unity_logs": {
+  "Unity/Build/Design/46/clock/logs/unity_ds46_run1.log": "0c813c4a84cde4a6aab6652c0bc7fdcf94b3c96511c590c028e6ecc06d37b115",
+  "Unity/Build/Design/46/clock/logs/unity_ds46_playmode.log": "15be71ea41dfe98ae7da9e0134ebf8c5a4fa8e2d5894f6ee240b0e550e520712"
+ },
+ "settings_restore": {
+  "run1": {
+   "log": "run1",
+   "method": "GreatWave.Design46.EditorTools.DS46ClockTest.Run",
+   "utc": "2026-09-30T05:59:37.2897510Z",
+   "restored": [],
+   "addedFiles": [],
+   "noteJa": "Unity の終了後に設定ファイルのバイトを起動前の控えと比べ、変わったものを控えへ戻した。新しくできたファイルは消さずに記録だけした。"
+  },
+  "playmode": {
+   "log": "playmode",
+   "method": "GreatWave.Design46.EditorTools.DS46PlayModeCheck.Run",
+   "utc": "2026-09-30T06:00:58.2801218Z",
+   "restored": [],
+   "addedFiles": [],
+   "noteJa": "Unity の終了後に設定ファイルのバイトを起動前の控えと比べ、変わったものを控えへ戻した。新しくできたファイルは消さずに記録だけした。"
+  }
+ },
+ "seconds_report": 0.4,
+ "note_ja": "Play モードのログにある UnityEditor.Search.SearchDatabase の ArgumentOutOfRangeException は、Editor の起動時の検索の索引の作りで、設計34 の Play モードのログにも同じものがある（この番号のコードではない）"
+}

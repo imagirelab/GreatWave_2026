@@ -1,0 +1,347 @@
+{
+ "schema": "GreatWave.DS46.record_metrics/1",
+ "number": "設計46",
+ "title_ja": "共通時計で水面・白波・船用データを同期する",
+ "created_utc": "2026-09-30T06:35:30Z",
+ "evidence_kind_ja": "PC の Unity 6000.4.3f1 batchmode（RTX 3080、Direct3D11）。Editor の計算と描画（時計を外から進める）と、Editor の Play モード（batchmode でプレイヤーのループを 1 フレームずつ回す、dt 0.02 s）。進行役の独立の検査（Unity の batch と numpy）、記録の数え直し（numpy）。HMD 実機ではない。Release のプレイヤーではない。利用者は確かめていない",
+ "plan_ja": "計画 §2.5 設計46：秒の時計1つ（GWClock。美術優先30 の最小版を広げる）で、水面・白・爪・飛沫・船用データ・演出を進める。停止・再開・初期化・途中からの再生",
+ "min_acceptance_ja": "停止・再開・初期化・途中再生の後、同じ時刻で同じ形（頂点のハッシュが一致）。181（白・藍・爪・飛沫が同じ t* で終態）",
+ "backlog": [
+  "181",
+  "199"
+ ],
+ "acceptance": [
+  {
+   "item": "停止・再開・初期化・途中再生の後、同じ時刻で同じ形（頂点のハッシュが一致）",
+   "result": "合格",
+   "value": {
+    "editor_compared": 19,
+    "editor_mismatched": 0,
+    "editor_hash_keys": [
+     "boat",
+     "claws",
+     "events",
+     "image_painting",
+     "sheet_far",
+     "sheet_hero",
+     "sheet_near",
+     "spray",
+     "white"
+    ],
+    "play_compared": 8,
+    "play_mismatched": 0,
+    "play_stopped_frames_same": 20,
+    "indep_unity_compared": 18,
+    "indep_unity_mismatched": 0
+   }
+  },
+  {
+   "item": "181：白・藍・爪・飛沫が同じ t* で終態（見える状態の読み。採った読み）",
+   "result": "合格",
+   "value": {
+    "white_img": {
+     "t_final": 12.0,
+     "t_last_change": 11.96875,
+     "distinct": 385,
+     "changes": 384,
+     "changes_after_tstar": 0,
+     "final_at_tstar": true
+    },
+    "indigo_img": {
+     "t_final": 12.0,
+     "t_last_change": 11.96875,
+     "distinct": 385,
+     "changes": 384,
+     "changes_after_tstar": 0,
+     "final_at_tstar": true
+    },
+    "claws": {
+     "t_final": 12.0,
+     "t_last_change": 11.96875,
+     "distinct": 385,
+     "changes": 384,
+     "changes_after_tstar": 0,
+     "final_at_tstar": true
+    },
+    "spray": {
+     "t_final": 12.0,
+     "t_last_change": 11.96875,
+     "distinct": 108,
+     "changes": 107,
+     "changes_after_tstar": 0,
+     "final_at_tstar": true
+    }
+   }
+  },
+  {
+   "item": "計画 §2.0 の回帰なし（原画視点）",
+   "result": "合格（画素が同じ。評価器は回していない）",
+   "value": {
+    "px_clock_vs_ds41_saved": 0,
+    "px_ds41path_vs_clock": 0,
+    "px_indep_clock_vs_ds41_saved": 0
+   }
+  },
+  {
+   "item": "HMD（PS VR2）",
+   "result": "保留（導入は利用者の手）"
+  }
+ ],
+ "acceptance_record": {
+  "b181_strict_white_arrival": {
+   "result": "記録のみ（限界。仕上げ46）",
+   "white_flags": {
+    "t_final": 11.28125,
+    "t_last_change": 11.25,
+    "distinct": 177,
+    "changes": 176,
+    "changes_after_tstar": 0,
+    "final_at_tstar": false
+   },
+   "white_vertices_final": 94800,
+   "tau_at_full": -0.090316772,
+   "early_by_s": 0.71875,
+   "reading_ja": "白の到着の場（頂点の旗 T_white ≤ τ）は t = 11.28125 s で最終に達し、t* より 0.719 s 早い。進行役の独立の検査で、形を t* に止めて白の τ だけを動かすと、白そのものの寄与は t = 11.28125 s から 0 画素（色区 ID の画像では 11.25 s から）。その後の白は、下の面が動くことで運ばれるだけで、三角形の中の縁は動かない（作る部の記録の「三角形の中の縁で t* まで動く」は誤り。作る部のファイルは変えていない）",
+   "indep_white_only_px": [
+    [
+     10.5,
+     2178,
+     2422
+    ],
+    [
+     11.0,
+     271,
+     456
+    ],
+    [
+     11.2,
+     58,
+     267
+    ],
+    [
+     11.25,
+     0,
+     219
+    ],
+    [
+     11.28125,
+     0,
+     0
+    ]
+   ]
+  },
+  "sync": {
+   "editor_steps": 1394,
+   "editor_bad": 0,
+   "play_frames": 1138,
+   "play_bad": 0
+  },
+  "physics_reads_water": {
+   "builder_column": {
+    "0,1": 60,
+    "1,0": 1076
+   },
+   "own": {
+    "0,1": 60,
+    "1,0": 956
+   },
+   "fixed_per_frame": {
+    "0": 2,
+    "1": 1136
+   }
+  },
+  "events": {
+   "R_fired": [
+    [
+     "formation_start",
+     2,
+     2,
+     true
+    ],
+    [
+     "t_star",
+     12,
+     12,
+     true
+    ],
+    [
+     "hold_end",
+     14,
+     14,
+     true
+    ]
+   ],
+   "R_once_each_lag0": true,
+   "S3": [
+    [
+     "t_star",
+     12,
+     13,
+     false
+    ],
+    [
+     "t_star",
+     12,
+     12,
+     true
+    ],
+    [
+     "hold_end",
+     14,
+     14,
+     true
+    ]
+   ],
+   "S4": [
+    [
+     "formation_start",
+     2,
+     2,
+     true
+    ],
+    [
+     "t_star",
+     12,
+     12,
+     false
+    ],
+    [
+     "formation_start",
+     2,
+     10.5,
+     false
+    ],
+    [
+     "t_star",
+     12,
+     12,
+     true
+    ]
+   ],
+   "seek_or_init_fired": 0
+  }
+ },
+ "record_recount": {
+  "file": "Docs/Evidence/Design/46/ds46_record_recount.json",
+  "diff_vs_builder": {
+   "editor_compared": 0,
+   "editor_mismatched": 0,
+   "play_compared": 0,
+   "play_mismatched": 0,
+   "sync_edit_steps": 0,
+   "sync_play_frames": 0,
+   "b181_t_final_white_img": 0.0,
+   "b181_t_final_indigo_img": 0.0,
+   "b181_t_final_claws": 0.0,
+   "b181_t_final_spray": 0.0,
+   "b181_t_final_white_flags": 0.0
+  }
+ },
+ "builder_sha256_verified": {
+  "files": 27,
+  "protected": 14,
+  "all_same": true
+ },
+ "fix_rounds": {
+  "count": 0,
+  "ja": "作る部の最初の実行で最小の受入を満たし、進行役の独立の検査は必須の指摘 0。修正の回は使っていない"
+ },
+ "time": {
+  "box_ja": "Q26 の日程で 2 時間（計画 §2.6 の［Q26］の表、10/3 の行。計画の時間枠は ≤0.5日）",
+  "file_times": {
+   "Unity/Assets/GreatWave/Design31/Scripts/DS31InstancedParticles.cs": {
+    "created": "18:55:06",
+    "modified": "13:50:14"
+   },
+   "Unity/Assets/GreatWave/Design46/Data/ds46_events.json": {
+    "created": "13:51:38",
+    "modified": "13:51:38"
+   },
+   "Unity/Assets/GreatWave/Design46/Scripts/DS46EventTrack.cs": {
+    "created": "13:51:55",
+    "modified": "13:51:55"
+   },
+   "Unity/Assets/GreatWave/Design46/Scripts/DS46ClockBus.cs": {
+    "created": "13:52:13",
+    "modified": "13:52:13"
+   },
+   "Unity/Assets/GreatWave/ArtFirst/Scripts/GWClock.cs": {
+    "created": "13:49:55",
+    "modified": "13:53:14"
+   },
+   "Unity/Assets/GreatWave/Design46/Scripts/DS46FixedProbe.cs": {
+    "created": "13:53:24",
+    "modified": "13:53:24"
+   },
+   "Unity/Assets/GreatWave/Design46/Editor/DS46Probe.cs": {
+    "created": "13:53:51",
+    "modified": "13:53:51"
+   },
+   "Unity/Assets/GreatWave/Design46/Editor/DS46ClockTest.cs": {
+    "created": "13:56:13",
+    "modified": "13:56:13"
+   },
+   "Unity/Assets/GreatWave/Design46/Editor/DS46PlayModeCheck.cs": {
+    "created": "13:57:07",
+    "modified": "13:57:07"
+   },
+   "Tools/GWWaveGen/ds46/run_ds46_unity.ps1": {
+    "created": "13:57:55",
+    "modified": "13:57:55"
+   },
+   "Unity/Build/Design/46/clock/_started.txt": {
+    "created": "13:57:47",
+    "modified": "13:58:03"
+   },
+   "Unity/Assets/GreatWave/Design46/Scenes/DS46_Clock.unity": {
+    "created": "13:58:14",
+    "modified": "13:58:14"
+   },
+   "Unity/Build/Design/46/clock/logs/unity_ds46_run1.log": {
+    "created": "13:58:04",
+    "modified": "13:59:37"
+   },
+   "Unity/Build/Design/46/clock/logs/unity_ds46_playmode.log": {
+    "created": "14:00:15",
+    "modified": "14:00:58"
+   },
+   "Unity/Build/Design/46/clock/metrics.json": {
+    "created": "14:03:36",
+    "modified": "14:03:48"
+   },
+   "Unity/Build/Design/46/indep_check/chk46_recount.py": {
+    "created": "14:09:36",
+    "modified": "14:09:36"
+   },
+   "Unity/Build/Design/46/indep_check/logs/unity_indep46_run1.log": {
+    "created": "14:14:31",
+    "modified": "14:15:45"
+   },
+   "Unity/Build/Design/46/indep_check/logs/unity_indep46_run2.log": {
+    "created": "14:16:30",
+    "modified": "14:17:43"
+   },
+   "Unity/Build/Design/46/indep_check/Indep46Check.cs.txt": {
+    "created": "14:20:15",
+    "modified": "14:20:15"
+   }
+  }
+ },
+ "hmd_ja": "保留（PS VR2 の導入は利用者の手）。この番号は時計と形のデータで、両眼の描画は変えていない。Mock の両目は描いていない",
+ "painting_view_ja": "DS41_Boats.unity と DS39_Paper.unity は SHA-256 のまま。時計の道の t* の原画視点は設計41 の出力と 0 画素の差で、評価器（画素の関数）の値も同じ",
+ "evidence": [
+  "ds46_clock_metrics.json",
+  "ds46_clock_report.json",
+  "ds46_clock_run.json",
+  "ds46_indep_recount.json",
+  "ds46_indep_unity.txt",
+  "ds46_playmode.csv",
+  "ds46_playmode.json",
+  "ds46_record_recount.json",
+  "ds46_steps.csv",
+  "fig_ds46_clock.png",
+  "metrics.json",
+  "run.json",
+  "stills_ds46_clock.png"
+ ]
+}

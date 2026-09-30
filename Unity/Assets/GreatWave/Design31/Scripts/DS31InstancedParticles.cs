@@ -28,6 +28,8 @@ namespace GreatWave.Design31
         public int subdivisions = 1;
         public GWClock clock;
         public bool drawInPlayMode = true;
+        [Tooltip("Play モードで GWClock の秒を読んで粒子を当てる（設計46 の共通時計の場面では切り、時計の段が ApplyT を呼ぶ）")]
+        public bool followClockInPlayMode = true;
         public bool verifySha256 = true;
 
         public int Count { get; private set; }
@@ -134,8 +136,11 @@ namespace GreatWave.Design31
         void Update()
         {
             if (!Application.isPlaying || !drawInPlayMode || buf == null) return;
-            var c = clock != null ? clock : GWClock.Active;
-            if (c != null) ApplyT(c.Seconds);
+            if (followClockInPlayMode)
+            {
+                var c = clock != null ? clock : GWClock.Active;
+                if (c != null) ApplyT(c.Seconds);
+            }
             if (Count > 0)
                 Graphics.DrawMeshInstancedProcedural(sphere, 0, mat, new Bounds(Vector3.zero, Vector3.one * 2000f), Count, null, ShadowCastingMode.Off, false, gameObject.layer);
         }

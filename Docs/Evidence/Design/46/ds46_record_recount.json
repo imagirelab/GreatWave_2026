@@ -1,0 +1,497 @@
+{
+ "editor_same_shape": {
+  "compared": 19,
+  "mismatched": 0,
+  "keys_per_compare": [
+   9
+  ],
+  "hash_keys": [
+   "boat",
+   "claws",
+   "events",
+   "image_painting",
+   "sheet_far",
+   "sheet_hero",
+   "sheet_near",
+   "spray",
+   "white"
+  ],
+  "tau_wave_passed_all_equal": true,
+  "reference_snaps": [
+   [
+    "init",
+    0
+   ],
+   [
+    "t3",
+    3
+   ],
+   [
+    "t5",
+    5
+   ],
+   [
+    "t8",
+    8
+   ],
+   [
+    "t10.5",
+    10.5
+   ],
+   [
+    "t12",
+    12
+   ],
+   [
+    "t13",
+    13
+   ],
+   [
+    "t14",
+    14
+   ]
+  ],
+  "reference_distinct_hero_hash_upto_tstar": 6,
+  "reference_snaps_upto_tstar": 6,
+  "hold_t13_equals_t12_except_events": true,
+  "end_t14_equals_t12_except_events": true,
+  "stopped_32_advances_same_step_and_hashes": true,
+  "rows": [
+   {
+    "seq": "S1",
+    "label": "stop_at_5",
+    "exp": 5,
+    "keys": 9,
+    "mismatch": []
+   },
+   {
+    "seq": "S1",
+    "label": "stopped_32_frames",
+    "exp": 5,
+    "keys": 9,
+    "mismatch": []
+   },
+   {
+    "seq": "S1",
+    "label": "resume_t8",
+    "exp": 8,
+    "keys": 9,
+    "mismatch": []
+   },
+   {
+    "seq": "S1",
+    "label": "resume_t10.5",
+    "exp": 10.5,
+    "keys": 9,
+    "mismatch": []
+   },
+   {
+    "seq": "S1",
+    "label": "resume_t12",
+    "exp": 12,
+    "keys": 9,
+    "mismatch": []
+   },
+   {
+    "seq": "S1",
+    "label": "resume_t14",
+    "exp": 14,
+    "keys": 9,
+    "mismatch": []
+   },
+   {
+    "seq": "S2",
+    "label": "init_from_end",
+    "exp": 0,
+    "keys": 9,
+    "mismatch": []
+   },
+   {
+    "seq": "S2",
+    "label": "t3",
+    "exp": 3,
+    "keys": 9,
+    "mismatch": []
+   },
+   {
+    "seq": "S2",
+    "label": "t5",
+    "exp": 5,
+    "keys": 9,
+    "mismatch": []
+   },
+   {
+    "seq": "S3",
+    "label": "seek_t10.5",
+    "exp": 10.5,
+    "keys": 9,
+    "mismatch": []
+   },
+   {
+    "seq": "S3",
+    "label": "seek_t3",
+    "exp": 3,
+    "keys": 9,
+    "mismatch": []
+   },
+   {
+    "seq": "S3",
+    "label": "seek_t13",
+    "exp": 13,
+    "keys": 9,
+    "mismatch": []
+   },
+   {
+    "seq": "S3",
+    "label": "seek_t8",
+    "exp": 8,
+    "keys": 9,
+    "mismatch": []
+   },
+   {
+    "seq": "S3",
+    "label": "play_from_8_t12",
+    "exp": 12,
+    "keys": 9,
+    "mismatch": []
+   },
+   {
+    "seq": "S3",
+    "label": "play_from_8_t14",
+    "exp": 14,
+    "keys": 9,
+    "mismatch": []
+   },
+   {
+    "seq": "S4",
+    "label": "running_seek_t12",
+    "exp": 12,
+    "keys": 9,
+    "mismatch": []
+   },
+   {
+    "seq": "S4",
+    "label": "running_seek_t0",
+    "exp": 0,
+    "keys": 9,
+    "mismatch": []
+   },
+   {
+    "seq": "S4",
+    "label": "running_seek_t10.5",
+    "exp": 10.5,
+    "keys": 9,
+    "mismatch": []
+   },
+   {
+    "seq": "S4",
+    "label": "play_from_10.5_t13",
+    "exp": 13,
+    "keys": 9,
+    "mismatch": []
+   }
+  ]
+ },
+ "steps_csv": {
+  "rows": 1394,
+  "sync_bad_sum": 0,
+  "wave_clamp_bad": 0,
+  "boat_tau_ne_tau": 0,
+  "reference_rows": 449,
+  "reference_dt": [
+   0.03125
+  ],
+  "reference_range": [
+   0.0,
+   14.0
+  ],
+  "white_vertices_final": 94800,
+  "white_vertices_first_full_t": 11.28125,
+  "tau_at_white_full": -0.090316772
+ },
+ "b181_grid": {
+  "hero": {
+   "t_final": 12.0,
+   "t_last_change": 11.96875,
+   "distinct": 385,
+   "changes": 384,
+   "changes_after_tstar": 0,
+   "final_at_tstar": true
+  },
+  "white_flags": {
+   "t_final": 11.28125,
+   "t_last_change": 11.25,
+   "distinct": 177,
+   "changes": 176,
+   "changes_after_tstar": 0,
+   "final_at_tstar": false
+  },
+  "white_img": {
+   "t_final": 12.0,
+   "t_last_change": 11.96875,
+   "distinct": 385,
+   "changes": 384,
+   "changes_after_tstar": 0,
+   "final_at_tstar": true
+  },
+  "indigo_img": {
+   "t_final": 12.0,
+   "t_last_change": 11.96875,
+   "distinct": 385,
+   "changes": 384,
+   "changes_after_tstar": 0,
+   "final_at_tstar": true
+  },
+  "claws": {
+   "t_final": 12.0,
+   "t_last_change": 11.96875,
+   "distinct": 385,
+   "changes": 384,
+   "changes_after_tstar": 0,
+   "final_at_tstar": true
+  },
+  "spray": {
+   "t_final": 12.0,
+   "t_last_change": 11.96875,
+   "distinct": 108,
+   "changes": 107,
+   "changes_after_tstar": 0,
+   "final_at_tstar": true
+  }
+ },
+ "b181_fine_1_256": {
+  "before_tstar_all_layers_nonzero_until": 11.9921875,
+  "at_or_after_tstar_all_zero": true,
+  "white_indigo_px_before_tstar": [
+   16,
+   13,
+   7,
+   6,
+   3,
+   4,
+   1,
+   0
+  ],
+  "claws_m_range_before_tstar": [
+   2.288818359375e-05,
+   0.0001850128173828125
+  ],
+  "spray_range_before_tstar": [
+   3.24249267578125e-05,
+   0.0002593994140625
+  ],
+  "id_image_size_ja": "色区 ID の画像 480 × 270（DS46ClockTest.SheetIds）"
+ },
+ "playmode": {
+  "frames": 1138,
+  "sync_bad_sum": 0,
+  "boat_tau_ne_pb_tau": 0,
+  "deltaTime": {
+   "0.0199999921": 1,
+   "0.0199999865": 1137
+  },
+  "fixed_count_per_frame": {
+   "0": 2,
+   "1": 1136
+  },
+  "lag_frames_builder_column(advance_before_physics,lag)": {
+   "0,1": 60,
+   "1,0": 1076
+  },
+  "lag_frames_own(advance_before_physics,lag)": {
+   "0,1": 60,
+   "1,0": 956
+  },
+  "running_increment_ne_deltaTime": 0,
+  "stopped_frames_at_5_02": 20,
+  "stopped_steps": [
+   "252"
+  ],
+  "stop_a_equals_stop_b": true,
+  "vs_editor_reference": [
+   [
+    "stop_a",
+    5.0199966207146645,
+    "基準なし"
+   ],
+   [
+    "stop_b",
+    5.0199966207146645,
+    "基準なし"
+   ],
+   [
+    "seek8_after_play",
+    8,
+    [],
+    8
+   ],
+   [
+    "init_a",
+    0,
+    [],
+    8
+   ],
+   [
+    "seek8_after_init",
+    8,
+    [],
+    8
+   ],
+   [
+    "seek12_a",
+    12,
+    [],
+    8
+   ],
+   [
+    "end14",
+    14,
+    [],
+    8
+   ],
+   [
+    "seek12_b",
+    12,
+    [],
+    8
+   ],
+   [
+    "seek8_after_end",
+    8,
+    [],
+    8
+   ],
+   [
+    "init_b",
+    0,
+    [],
+    8
+   ]
+  ],
+  "compared_with_editor": 8,
+  "mismatched_with_editor": 0
+ },
+ "events": {
+  "R_fired": [
+   [
+    "formation_start",
+    2,
+    2,
+    true
+   ],
+   [
+    "t_star",
+    12,
+    12,
+    true
+   ],
+   [
+    "hold_end",
+    14,
+    14,
+    true
+   ]
+  ],
+  "R_once_each_lag0": true,
+  "S3": [
+   [
+    "t_star",
+    12,
+    13,
+    false
+   ],
+   [
+    "t_star",
+    12,
+    12,
+    true
+   ],
+   [
+    "hold_end",
+    14,
+    14,
+    true
+   ]
+  ],
+  "S4": [
+   [
+    "formation_start",
+    2,
+    2,
+    true
+   ],
+   [
+    "t_star",
+    12,
+    12,
+    false
+   ],
+   [
+    "formation_start",
+    2,
+    10.5,
+    false
+   ],
+   [
+    "t_star",
+    12,
+    12,
+    true
+   ]
+  ],
+  "seek_or_init_fired": 0
+ },
+ "painting_tstar": {
+  "sha256": {
+   "ds41_saved": "efcceae4a3cc63a512349fd390dadb191a28ceea3f3097ca1ae7eca018ac2880",
+   "ds41_path": "efcceae4a3cc63a512349fd390dadb191a28ceea3f3097ca1ae7eca018ac2880",
+   "ds46_clock": "efcceae4a3cc63a512349fd390dadb191a28ceea3f3097ca1ae7eca018ac2880",
+   "indep_clock": "efcceae4a3cc63a512349fd390dadb191a28ceea3f3097ca1ae7eca018ac2880"
+  },
+  "px_ds41path_vs_clock": 0,
+  "px_clock_vs_ds41_saved": 0,
+  "px_indep_clock_vs_ds41_saved": 0,
+  "px_painting_t12_vs_t13": 0,
+  "px_seat_t12_vs_t13": 0,
+  "px_painting_t12_vs_tstar_clock": 0,
+  "size": [
+   1080,
+   1920,
+   3
+  ]
+ },
+ "scene_dependencies": {
+  "guids_ds41": 36,
+  "guids_ds46": 39,
+  "new_vs_ds41": {
+   "60eb58fadd47491448431d148c8faa89": "Unity/Assets/GreatWave/Design43/Scripts/DS43BoatWater.cs",
+   "7804c8e2b6254ae4593866d2516e28ef": "Unity/Assets/GreatWave/Design46/Scripts/DS46ClockBus.cs",
+   "a5f6b468ee73bea438d543aa38e666f8": "Unity/Assets/GreatWave/Design46/Scripts/DS46EventTrack.cs"
+  },
+  "dropped_vs_ds41": 0,
+  "absolute_paths_in_scene": [
+   "G:/Unity/GreatWave_2026_Fresh/Unity/Build/Design/39/paper/spray/ds39_spray_dense_frames.json",
+   "G:\\Unity\\GreatWave_2026_Fresh\\Unity\\Build\\Design\\36\\palette\\prep\\ds36_sea_uv3_far_f32.bin",
+   "G:\\Unity\\GreatWave_2026_Fresh\\Unity\\Build\\Design\\36\\palette\\prep\\ds36_sea_uv3_near_f32.bin"
+  ],
+  "absolute_paths_same_as_ds41": true
+ },
+ "independent_check_files": {
+  "Unity/Build/Design/46/indep_check/chk46_recount.json": "55ef447c46a87dd500b433c9a03d43fb0dca108e5f1c4adcc8c2fd8fd7a8c9d2",
+  "Unity/Build/Design/46/indep_check/unity/indep46_unity.txt": "4a28c649bef48927dd6da23ef14f4af00ff6de52c050f763d138c6fd03555d8d",
+  "Unity/Build/Design/46/indep_check/unity/indep_tstar_clock_painting_off.png": "efcceae4a3cc63a512349fd390dadb191a28ceea3f3097ca1ae7eca018ac2880"
+ },
+ "diff_vs_builder": {
+  "editor_compared": 0,
+  "editor_mismatched": 0,
+  "play_compared": 0,
+  "play_mismatched": 0,
+  "sync_edit_steps": 0,
+  "sync_play_frames": 0,
+  "b181_t_final_white_img": 0.0,
+  "b181_t_final_indigo_img": 0.0,
+  "b181_t_final_claws": 0.0,
+  "b181_t_final_spray": 0.0,
+  "b181_t_final_white_flags": 0.0
+ }
+}

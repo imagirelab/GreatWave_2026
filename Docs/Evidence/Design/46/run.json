@@ -1,0 +1,113 @@
+{
+ "schema": "GreatWave.DS46.record_run/1",
+ "number": "設計46",
+ "created_utc": "2026-09-30T06:35:30Z",
+ "tools": {
+  "python": "3.10.6",
+  "numpy": "2.2.6",
+  "opencv": "4.12.0",
+  "unity": "6000.4.3f1（batchmode。作る部と独立の検査。記録では使っていない）"
+ },
+ "builder_commands": [
+  "powershell -NoProfile -ExecutionPolicy Bypass -File Tools/GWWaveGen/ds46/run_ds46_unity.ps1 -Method GreatWave.Design46.EditorTools.DS46ClockTest.Run -Log run1（93 s。場面の保存・t* の A/B・基準の通し・4 つの道・181）",
+  "powershell -NoProfile -ExecutionPolicy Bypass -File Tools/GWWaveGen/ds46/run_ds46_unity.ps1 -NoQuit -Method GreatWave.Design46.EditorTools.DS46PlayModeCheck.Run -Log playmode（43 s。Play モード）",
+  "py -3.10 -B Tools/GWWaveGen/ds46/ds46_clock_report.py"
+ ],
+ "check_commands_ja": [
+  "進行役の独立の検査：Unity/Build/Design/46/indep_check/run_indep46_unity.ps1（Indep46Check.cs.txt を一時に Editor へ置いて 2 回実行し、終わりに消した。Git 対象外）",
+  "py -3.10 Unity/Build/Design/46/indep_check/chk46_recount.py（Git 対象外）"
+ ],
+ "record_commands": [
+  "py -3.10 -B Tools/GWWaveGen/ds46/ds46_record.py",
+  "py -3.10 -B Unity/Build/Design/46/record/ds46_commit_scan.py（コミットの一覧の点検。Git 対象外）"
+ ],
+ "builder_inputs_sha256": {
+  "Build/Design/28R01F/F_final/timewarp_F_final.json": "627815c77afc63278c885335bbe6c51178896184559ca30845cf05f23c634a7c",
+  "Build/Design/33/claws/ds33_claw_frames_f32.bin": "6e7629889a47efc0172d40c28364b59eadef48e419d0dad5c279e3fa3d7f7565",
+  "Build/Design/41/model/unity/full/painting_t120_off.png": "efcceae4a3cc63a512349fd390dadb191a28ceea3f3097ca1ae7eca018ac2880",
+  "Assets/GreatWave/Design41/Scenes/DS41_Boats.unity": "e171a4a94d114aa2d62b889602887bf66cb5f118c82988dcfd4f5c11f18f8301"
+ },
+ "builder_code_sha256": {
+  "Unity/Assets/GreatWave/ArtFirst/Scripts/GWClock.cs": "e2d9c83f54f15d915fb4a7e327c72c65bc958a616543dd50716396e06c8177ac",
+  "Unity/Assets/GreatWave/Design31/Scripts/DS31InstancedParticles.cs": "f6bf5a52b6e7f4b65ba3a04d6eec00d804f43706f29e00e4c5335ddc039fa35a",
+  "Unity/Assets/GreatWave/Design46/Scripts/DS46ClockBus.cs": "1d1fef188fdc4870ddb051c0c62b8d7c461750765af9734c96b99d2b95712856",
+  "Unity/Assets/GreatWave/Design46/Scripts/DS46EventTrack.cs": "3dc58b0062fa2d3c3594869a0eba6beaa62d9832cdec0bc16745ddc2e5dcbce7",
+  "Unity/Assets/GreatWave/Design46/Scripts/DS46FixedProbe.cs": "e536fb0495d020eebbf3d780dabbfbff93d871ac2851e05b4e0293ca275ed11e",
+  "Unity/Assets/GreatWave/Design46/Data/ds46_events.json": "63fb12c344222c2ff74614b4ff82247a0c371ad245876293cef83ffa62743de0",
+  "Unity/Assets/GreatWave/Design46/Editor/DS46Probe.cs": "fe64483169f06c7c7c2a72ab0ce00f79cf5946828bb89d7e75f1d2c38fde7a12",
+  "Unity/Assets/GreatWave/Design46/Editor/DS46ClockTest.cs": "30f6d04a9b78e65912b4e6760ed83dd0295fb155b94b1cec5c00b3511b94b9d0",
+  "Unity/Assets/GreatWave/Design46/Editor/DS46PlayModeCheck.cs": "cb8e2476dee26e5a3c1b29edcedf022a24e2ee905f6cd2f5b822bc14baf68580",
+  "Unity/Assets/GreatWave/Design46/Scenes/DS46_Clock.unity": "af3fbaa195b5ae9f34ce5afd9d192a9c826c21ad8f5192c11e90c1da08ba6cc8",
+  "Tools/GWWaveGen/ds46/run_ds46_unity.ps1": "dd3a11bd3f8be380bdc0d13f550e3a070c972467e52eac833d9a8334e502d49a",
+  "Tools/GWWaveGen/ds46/ds46_clock_report.py": "bbd5d91015a6e820917a8a447e041c652b18e5a85234346cfe36a536ad643be3"
+ },
+ "builder_outputs_sha256": {
+  "Unity/Build/Design/46/clock/unity/ds46_clock_report.json": "20a223e797f7782ca8c5d89808a01bb96c27089d8d948940708f02041f5bb0a4",
+  "Unity/Build/Design/46/clock/unity/ds46_steps.csv": "c19dac57b01e5f539481109d888233af2c153771e590d8627593bfa003faa845",
+  "Unity/Build/Design/46/clock/playmode/ds46_playmode.json": "be04eb80ed46de1329d66cb656a757de1d252b7828aefcab06946958010bd9c4",
+  "Unity/Build/Design/46/clock/playmode/ds46_playmode.csv": "15ab05150001e6b3394a878f874a6d31c1957e3c4be80bc653e297e874655cbf",
+  "Unity/Build/Design/46/clock/unity/tstar/painting_t120_off_ds41path.png": "efcceae4a3cc63a512349fd390dadb191a28ceea3f3097ca1ae7eca018ac2880",
+  "Unity/Build/Design/46/clock/unity/tstar/painting_t120_off_ds46clock.png": "efcceae4a3cc63a512349fd390dadb191a28ceea3f3097ca1ae7eca018ac2880",
+  "Unity/Build/Design/46/clock/metrics.json": "d622301e12428b7efe237827049d9e5f7579c7f39c04590ead962634e7d69b13",
+  "Unity/Build/Design/46/clock/fig_ds46_clock.png": "063e0e4d53885fbf2a18f53e0a6a99b9878f85ba8e57c77a31e3b672cff62012",
+  "Unity/Build/Design/46/clock/stills_ds46_clock.png": "8e089b315e26e604a0c139b1ccf61616d3f45e6070b77c6205545ebf2d7a4102"
+ },
+ "protected_sha256": {
+  "Unity/Assets/GreatWave/Design41/Scenes/DS41_Boats.unity": "e171a4a94d114aa2d62b889602887bf66cb5f118c82988dcfd4f5c11f18f8301",
+  "Unity/Assets/GreatWave/Design39/Scenes/DS39_Paper.unity": "7480a99b1e961fa68b3bb7851789a17a70c082f6981b8d1560a46a8324699ddd",
+  "Unity/Assets/GreatWave/Design30/Scenes/DS30_SinglePlayback.unity": "e67daaa8414a2df40a1f81a65e126e71b44493c429590a0bfc6c4ba0486525f1",
+  "Unity/Assets/GreatWave/Design34/Scenes/DS34_ThreeLayers.unity": "2bf63bffd18187c1ebf9e8ba96c3854d0d85c31ef9ab610bfb20b584508a159a",
+  "Unity/Assets/GreatWave/Design43/Scenes/DS43_BoatWater.unity": "13e097bc382b2739138dc721d35616a97798b43e3408d983dcac603236337c9e",
+  "Unity/Assets/GreatWave/Design44/Scenes/DS44_Steer.unity": "9ba4eaabc0183887a0c2d9d517cff547f44727d646162ef0be5f6f346ed6a202",
+  "Unity/Assets/GreatWave/Design45/Scenes/DS45_Comfort.unity": "13f7755a90f44e211556174bfeca44b1b4c77e501d1b5b4368463f859b267994",
+  "Unity/Assets/GreatWave/Design30/Scripts/DS30SinglePlayback.cs": "c6cb14d027645308c4958b05000a34854e8869eff4d65a7677010bc0ae89a3e3",
+  "Unity/Assets/GreatWave/Design30/Scripts/DS30SheetPlayer.cs": "de28b73834f06d1bbe95e7ae2921ca86f7a5bd7211a3a5ca83b33a17e0b13310",
+  "Unity/Assets/GreatWave/Design34/Scripts/DS34ClawPlayer.cs": "77af1f4946f55fcf165b4b6c9001c1374ceb1a8b9eeea4d1eca8ab86b8380e17",
+  "Unity/Assets/GreatWave/Design43/Scripts/DS43BoatWater.cs": "2e154ac5719dd631656c66ec4ad94646b492dc6d1007c71570e9170aa2eb634b",
+  "Tools/GWContext/seat_v1.json": "4f7553fd6ab29d117266d6f0b6e58c84dc30f36cf440f6de9314b95102517488",
+  "Unity/Build/Design/28R01F/F_final/timewarp_F_final.json": "627815c77afc63278c885335bbe6c51178896184559ca30845cf05f23c634a7c",
+  "Unity/Build/Design/33/claws/ds33_claw_frames_f32.bin": "6e7629889a47efc0172d40c28364b59eadef48e419d0dad5c279e3fa3d7f7565"
+ },
+ "scene": {
+  "path": "Unity/Assets/GreatWave/Design46/Scenes/DS46_Clock.unity",
+  "sha256": "af3fbaa195b5ae9f34ce5afd9d192a9c826c21ad8f5192c11e90c1da08ba6cc8",
+  "bytes": 174837
+ },
+ "settings_restore": {
+  "run1": {
+   "log": "run1",
+   "method": "GreatWave.Design46.EditorTools.DS46ClockTest.Run",
+   "utc": "2026-09-30T05:59:37.2897510Z",
+   "restored": [],
+   "addedFiles": [],
+   "noteJa": "Unity の終了後に設定ファイルのバイトを起動前の控えと比べ、変わったものを控えへ戻した。新しくできたファイルは消さずに記録だけした。"
+  },
+  "playmode": {
+   "log": "playmode",
+   "method": "GreatWave.Design46.EditorTools.DS46PlayModeCheck.Run",
+   "utc": "2026-09-30T06:00:58.2801218Z",
+   "restored": [],
+   "addedFiles": [],
+   "noteJa": "Unity の終了後に設定ファイルのバイトを起動前の控えと比べ、変わったものを控えへ戻した。新しくできたファイルは消さずに記録だけした。"
+  }
+ },
+ "record_code_sha256": {
+  "Tools/GWWaveGen/ds46/ds46_record.py": "51c24f4866d839a40e685773c8c9c0f9f0dded8ef56908b6b0f63b9e3d2d2cd5"
+ },
+ "evidence_sha256": {
+  "Docs/Evidence/Design/46/ds46_clock_metrics.json": "d622301e12428b7efe237827049d9e5f7579c7f39c04590ead962634e7d69b13",
+  "Docs/Evidence/Design/46/ds46_clock_report.json": "20a223e797f7782ca8c5d89808a01bb96c27089d8d948940708f02041f5bb0a4",
+  "Docs/Evidence/Design/46/ds46_clock_run.json": "18f84f6242e495d48e09aae0f31aa49bd73b10ec028d3d5192c956cda2964452",
+  "Docs/Evidence/Design/46/ds46_indep_recount.json": "55ef447c46a87dd500b433c9a03d43fb0dca108e5f1c4adcc8c2fd8fd7a8c9d2",
+  "Docs/Evidence/Design/46/ds46_indep_unity.txt": "4a28c649bef48927dd6da23ef14f4af00ff6de52c050f763d138c6fd03555d8d",
+  "Docs/Evidence/Design/46/ds46_playmode.csv": "15ab05150001e6b3394a878f874a6d31c1957e3c4be80bc653e297e874655cbf",
+  "Docs/Evidence/Design/46/ds46_playmode.json": "be04eb80ed46de1329d66cb656a757de1d252b7828aefcab06946958010bd9c4",
+  "Docs/Evidence/Design/46/ds46_record_recount.json": "c8cb5e91e34b722f64a1c5e6869667acfcd5aef96bd3d0040140cd013f0e38cf",
+  "Docs/Evidence/Design/46/ds46_steps.csv": "c19dac57b01e5f539481109d888233af2c153771e590d8627593bfa003faa845",
+  "Docs/Evidence/Design/46/fig_ds46_clock.png": "063e0e4d53885fbf2a18f53e0a6a99b9878f85ba8e57c77a31e3b672cff62012",
+  "Docs/Evidence/Design/46/stills_ds46_clock.png": "8e089b315e26e604a0c139b1ccf61616d3f45e6070b77c6205545ebf2d7a4102"
+ },
+ "evidence_sha256_metrics": "ad98900823b047ee40c98b90dc295631124c57c34ac4e00ad794799533a5120f",
+ "seconds": 0.5,
+ "note_ja": "SHA-256 は作業の木のバイトの値。コマの PNG（stills の 8 枚、t* の 2 枚）とログは Git 対象外。独立の検査の写しは検査の出力のまま（ds46_indep_recount.json・ds46_indep_unity.txt）"
+}
