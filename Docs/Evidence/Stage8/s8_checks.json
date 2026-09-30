@@ -1,0 +1,946 @@
+{
+ "schema": "GreatWave.Stage8.selfreview_checks/1",
+ "stage": "段階8確認（自己評審、Q24）",
+ "note_ja": "Unity の PC 描画の動画・静止画と Unity の記録から、進行役が自分のコードで数えた値。HMD（PS VR2）の結果ではない。設計41〜45 の作る部・検査・記録のコードは使っていない。",
+ "regression_evaluator_rerun": {
+  "command": "py -3.10 -B Tools/GWWaveGen/ds30/ds30b_tstar_regress.py --out G:/Unity/GreatWave_2026_Fresh/Unity/Build/Design/45/stage8_review/regress --sets t28_claws,t28_white",
+  "input_ja": "設計41 の t* の組（Unity/Build/Design/41/model/unity/t28_claws・t28_white の t28 の写し。評価器の出力は写していない）",
+  "output_sha256": "4ca57d3a973d94d4feca5dfc9c11397e4246b36d5236986df5046c2a35b8931e",
+  "design41_output_sha256": "4ca57d3a973d94d4feca5dfc9c11397e4246b36d5236986df5046c2a35b8931e",
+  "design40_output_sha256": "4ca57d3a973d94d4feca5dfc9c11397e4246b36d5236986df5046c2a35b8931e",
+  "same_file_as_41_and_40": true,
+  "leaves": 112,
+  "numeric_leaves": 74,
+  "differences": [],
+  "seconds": 211,
+  "exit": 0
+ },
+ "identity_checks": {
+  "note_ja": "原画視点の場面と座席 v1 は、設計41 の記録の値のまま（設計42〜45 は原画視点に触れていない）",
+  "files": {
+   "Unity/Assets/GreatWave/Design41/Scenes/DS41_Boats.unity": {
+    "now": "e171a4a94d114aa2d62b889602887bf66cb5f118c82988dcfd4f5c11f18f8301",
+    "recorded": "e171a4a94d114aa2d62b889602887bf66cb5f118c82988dcfd4f5c11f18f8301",
+    "same": true
+   },
+   "Unity/Assets/GreatWave/Design39/Scenes/DS39_Paper.unity": {
+    "now": "7480a99b1e961fa68b3bb7851789a17a70c082f6981b8d1560a46a8324699ddd",
+    "recorded": "7480a99b1e961fa68b3bb7851789a17a70c082f6981b8d1560a46a8324699ddd",
+    "same": true
+   },
+   "Tools/GWContext/seat_v1.json": {
+    "now": "4f7553fd6ab29d117266d6f0b6e58c84dc30f36cf440f6de9314b95102517488",
+    "recorded": "4f7553fd6ab29d117266d6f0b6e58c84dc30f36cf440f6de9314b95102517488",
+    "same": true
+   }
+  },
+  "git_tracked_changes": 0,
+  "unity_lock_present": false
+ },
+ "hmd_camera_write_grep": {
+  "note_ja": "設計42〜45 の実行時のコード（Scripts）で Transform・Rigidbody の姿勢を書く行。HMD Camera・Camera Offset を書く行はない",
+  "writes": [
+   {
+    "file": "Unity/Assets/GreatWave/Design44/Scripts/DS44BoatSteer.cs",
+    "line": 170,
+    "text": "rb.position = new Vector3(now.pos.x, p.y, now.pos.y);"
+   },
+   {
+    "file": "Unity/Assets/GreatWave/Design44/Scripts/DS44BoatSteer.cs",
+    "line": 171,
+    "text": "rb.rotation = Quaternion.AngleAxis(yerr, Vector3.up) * rb.rotation;"
+   },
+   {
+    "file": "Unity/Assets/GreatWave/Design45/Scripts/DS45RiderComfort.cs",
+    "line": 66,
+    "text": "transform.SetPositionAndRotation(p.pos, p.rot);"
+   },
+   {
+    "file": "Unity/Assets/GreatWave/Design45/Scripts/DS45RiderComfort.cs",
+    "line": 90,
+    "text": "xrOrigin.SetLocalPositionAndRotation(o.pos, o.rot);"
+   }
+  ]
+ },
+ "hull_checks": {
+  "schema": "GreatWave.Stage8.selfreview_hull/1",
+  "note_ja": "段階8確認で進行役が自分のコードで数えた値。設計41 の網（ds41_boat_geom.npz）と設計43・45 の Unity の記録から。HMD の結果ではない。",
+  "A_display_water_inside_hull_ds43": {
+   "boat_mid": {
+    "t0_9": {
+     "samples_single": 10027,
+     "water_above_floor_inside_hull": 1905,
+     "fraction": 0.19,
+     "frames_with_any": 190,
+     "max_depth_above_floor_m": 0.1398,
+     "p95_depth_above_floor_m": 0.1211
+    },
+    "all": {
+     "samples_single": 15577,
+     "water_above_floor_inside_hull": 2763,
+     "fraction": 0.1774,
+     "frames_with_any": 300,
+     "max_depth_above_floor_m": 0.6769,
+     "p95_depth_above_floor_m": 0.2632
+    },
+    "t0_1": {
+     "samples_single": 1147,
+     "water_above_floor_inside_hull": 32,
+     "fraction": 0.0279
+    },
+    "samples_with_floor_above": 7719,
+    "frames": 421,
+    "first_t_with_any": 0.0
+   },
+   "boat_fg": {
+    "t0_9": {
+     "samples_single": 10027,
+     "water_above_floor_inside_hull": 2218,
+     "fraction": 0.2212,
+     "frames_with_any": 242,
+     "max_depth_above_floor_m": 0.0948,
+     "p95_depth_above_floor_m": 0.0503
+    },
+    "all": {
+     "samples_single": 15577,
+     "water_above_floor_inside_hull": 2294,
+     "fraction": 0.1473,
+     "frames_with_any": 264,
+     "max_depth_above_floor_m": 0.0948,
+     "p95_depth_above_floor_m": 0.0502
+    },
+    "t0_1": {
+     "samples_single": 1147,
+     "water_above_floor_inside_hull": 27,
+     "fraction": 0.0235
+    },
+    "samples_with_floor_above": 7450,
+    "frames": 421,
+    "first_t_with_any": 0.0
+   },
+   "boat_left": {
+    "t0_9": {
+     "samples_single": 10027,
+     "water_above_floor_inside_hull": 2427,
+     "fraction": 0.242,
+     "frames_with_any": 271,
+     "max_depth_above_floor_m": 0.7233,
+     "p95_depth_above_floor_m": 0.0942
+    },
+    "all": {
+     "samples_single": 11814,
+     "water_above_floor_inside_hull": 2704,
+     "fraction": 0.2289,
+     "frames_with_any": 294,
+     "max_depth_above_floor_m": 0.7233,
+     "p95_depth_above_floor_m": 0.2541
+    },
+    "t0_1": {
+     "samples_single": 1147,
+     "water_above_floor_inside_hull": 135,
+     "fraction": 0.1177
+    },
+    "samples_with_floor_above": 5604,
+    "frames": 421,
+    "first_t_with_any": 0.0
+   }
+  },
+  "A2_note_ja": "設計42 の静水：床の上面の頂点の船底からの高さと、厳密な釣り合いの水線（船体中央 0.2491 m、船首側 0.239・船尾側 0.2593 m）",
+  "A2_still_water_floor_clearance_m": {
+   "min": 0.0066,
+   "at_y_units": 1.89,
+   "max": 0.3024,
+   "mean": 0.0524,
+   "heel_extra_at_half_width_m": 0.0058
+  },
+  "B_rider_points_vs_hull_ds45_run3": {
+   "assumption_ja": "手の点は設計45 の記録と同じ乗客の枠の (±0.25, −0.45, +0.35) m。腰は目の 0.80 m 下（乗客の枠）と仮に置いた（体の模型はない）。船体は設計41 の浮力用の閉じた船体（舷の上縁まで）と敷板。",
+   "eye_check": {
+    "seat_eye_blender_xyz_mean": [
+     -0.3778,
+     -2.4246,
+     1.1885
+    ]
+   },
+   "main": {
+    "eye": {
+     "steer": {
+      "n": 2099,
+      "below_floor": 0,
+      "through_side": 0,
+      "outside_above_sheer": 2099
+     },
+     "lead": {
+      "n": 290,
+      "below_floor": 0,
+      "through_side": 0,
+      "outside_above_sheer": 290
+     },
+     "formation": {
+      "n": 360,
+      "below_floor": 0,
+      "through_side": 0,
+      "outside_above_sheer": 360
+     },
+     "hold": {
+      "n": 61,
+      "below_floor": 0,
+      "through_side": 0,
+      "outside_above_sheer": 61
+     },
+     "all": {
+      "n": 2810,
+      "below_floor": 0,
+      "through_side": 0,
+      "outside_above_sheer": 2810
+     }
+    },
+    "hand_L": {
+     "steer": {
+      "n": 2099,
+      "below_floor": 0,
+      "through_side": 0,
+      "outside_above_sheer": 0
+     },
+     "lead": {
+      "n": 290,
+      "below_floor": 0,
+      "through_side": 67,
+      "outside_above_sheer": 0
+     },
+     "formation": {
+      "n": 360,
+      "below_floor": 0,
+      "through_side": 255,
+      "outside_above_sheer": 17
+     },
+     "hold": {
+      "n": 61,
+      "below_floor": 0,
+      "through_side": 8,
+      "outside_above_sheer": 30
+     },
+     "all": {
+      "n": 2810,
+      "below_floor": 0,
+      "through_side": 330,
+      "outside_above_sheer": 47
+     },
+     "worst_below_floor_m": 0.0,
+     "max_through_side_m": 0.0768,
+     "p50_through_side_m": 0.0337,
+     "first_s_penetration": 77.433,
+     "s_of_penetration_range": [
+      77.433,
+      92.533
+     ]
+    },
+    "hand_R": {
+     "steer": {
+      "n": 2099,
+      "below_floor": 0,
+      "through_side": 2099,
+      "outside_above_sheer": 0
+     },
+     "lead": {
+      "n": 290,
+      "below_floor": 0,
+      "through_side": 166,
+      "outside_above_sheer": 0
+     },
+     "formation": {
+      "n": 360,
+      "below_floor": 0,
+      "through_side": 0,
+      "outside_above_sheer": 0
+     },
+     "hold": {
+      "n": 61,
+      "below_floor": 0,
+      "through_side": 22,
+      "outside_above_sheer": 19
+     },
+     "all": {
+      "n": 2810,
+      "below_floor": 0,
+      "through_side": 2287,
+      "outside_above_sheer": 19
+     },
+     "worst_below_floor_m": 0.0,
+     "max_through_side_m": 0.3046,
+     "p50_through_side_m": 0.0541,
+     "first_s_penetration": 0.033,
+     "s_of_penetration_range": [
+      0.033,
+      93.267
+     ]
+    },
+    "hip": {
+     "steer": {
+      "n": 2099,
+      "below_floor": 0,
+      "through_side": 0,
+      "outside_above_sheer": 0
+     },
+     "lead": {
+      "n": 290,
+      "below_floor": 0,
+      "through_side": 0,
+      "outside_above_sheer": 0
+     },
+     "formation": {
+      "n": 360,
+      "below_floor": 0,
+      "through_side": 0,
+      "outside_above_sheer": 0
+     },
+     "hold": {
+      "n": 61,
+      "below_floor": 0,
+      "through_side": 24,
+      "outside_above_sheer": 0
+     },
+     "all": {
+      "n": 2810,
+      "below_floor": 0,
+      "through_side": 24,
+      "outside_above_sheer": 0
+     },
+     "worst_below_floor_m": 0.0,
+     "max_through_side_m": 0.3946,
+     "p50_through_side_m": 0.287,
+     "first_s_penetration": 92.133,
+     "s_of_penetration_range": [
+      92.133,
+      92.9
+     ]
+    }
+   },
+   "L0": {
+    "eye": {
+     "steer": {
+      "n": 2099,
+      "below_floor": 0,
+      "through_side": 0,
+      "outside_above_sheer": 2099
+     },
+     "lead": {
+      "n": 290,
+      "below_floor": 0,
+      "through_side": 0,
+      "outside_above_sheer": 290
+     },
+     "formation": {
+      "n": 360,
+      "below_floor": 0,
+      "through_side": 0,
+      "outside_above_sheer": 360
+     },
+     "hold": {
+      "n": 61,
+      "below_floor": 0,
+      "through_side": 0,
+      "outside_above_sheer": 61
+     },
+     "all": {
+      "n": 2810,
+      "below_floor": 0,
+      "through_side": 0,
+      "outside_above_sheer": 2810
+     }
+    },
+    "hand_L": {
+     "steer": {
+      "n": 2099,
+      "below_floor": 0,
+      "through_side": 0,
+      "outside_above_sheer": 0
+     },
+     "lead": {
+      "n": 290,
+      "below_floor": 0,
+      "through_side": 0,
+      "outside_above_sheer": 0
+     },
+     "formation": {
+      "n": 360,
+      "below_floor": 0,
+      "through_side": 49,
+      "outside_above_sheer": 17
+     },
+     "hold": {
+      "n": 61,
+      "below_floor": 0,
+      "through_side": 8,
+      "outside_above_sheer": 31
+     },
+     "all": {
+      "n": 2810,
+      "below_floor": 0,
+      "through_side": 57,
+      "outside_above_sheer": 48
+     },
+     "worst_below_floor_m": 0.0,
+     "max_through_side_m": 0.0695,
+     "p50_through_side_m": 0.0127,
+     "first_s_penetration": 80.233,
+     "s_of_penetration_range": [
+      80.233,
+      92.533
+     ]
+    },
+    "hand_R": {
+     "steer": {
+      "n": 2099,
+      "below_floor": 0,
+      "through_side": 1699,
+      "outside_above_sheer": 0
+     },
+     "lead": {
+      "n": 290,
+      "below_floor": 0,
+      "through_side": 186,
+      "outside_above_sheer": 0
+     },
+     "formation": {
+      "n": 360,
+      "below_floor": 0,
+      "through_side": 57,
+      "outside_above_sheer": 0
+     },
+     "hold": {
+      "n": 61,
+      "below_floor": 0,
+      "through_side": 22,
+      "outside_above_sheer": 18
+     },
+     "all": {
+      "n": 2810,
+      "below_floor": 0,
+      "through_side": 1964,
+      "outside_above_sheer": 18
+     },
+     "worst_below_floor_m": 0.0,
+     "max_through_side_m": 0.3078,
+     "p50_through_side_m": 0.0474,
+     "first_s_penetration": 0.033,
+     "s_of_penetration_range": [
+      0.033,
+      93.267
+     ]
+    },
+    "hip": {
+     "steer": {
+      "n": 2099,
+      "below_floor": 0,
+      "through_side": 0,
+      "outside_above_sheer": 0
+     },
+     "lead": {
+      "n": 290,
+      "below_floor": 0,
+      "through_side": 0,
+      "outside_above_sheer": 0
+     },
+     "formation": {
+      "n": 360,
+      "below_floor": 0,
+      "through_side": 0,
+      "outside_above_sheer": 0
+     },
+     "hold": {
+      "n": 61,
+      "below_floor": 0,
+      "through_side": 24,
+      "outside_above_sheer": 0
+     },
+     "all": {
+      "n": 2810,
+      "below_floor": 0,
+      "through_side": 24,
+      "outside_above_sheer": 0
+     },
+     "worst_below_floor_m": 0.0,
+     "max_through_side_m": 0.3946,
+     "p50_through_side_m": 0.287,
+     "first_s_penetration": 92.133,
+     "s_of_penetration_range": [
+      92.133,
+      92.9
+     ]
+    }
+   },
+   "L1": {
+    "eye": {
+     "steer": {
+      "n": 2099,
+      "below_floor": 0,
+      "through_side": 0,
+      "outside_above_sheer": 2099
+     },
+     "lead": {
+      "n": 290,
+      "below_floor": 0,
+      "through_side": 0,
+      "outside_above_sheer": 290
+     },
+     "formation": {
+      "n": 360,
+      "below_floor": 0,
+      "through_side": 0,
+      "outside_above_sheer": 360
+     },
+     "hold": {
+      "n": 61,
+      "below_floor": 0,
+      "through_side": 0,
+      "outside_above_sheer": 61
+     },
+     "all": {
+      "n": 2810,
+      "below_floor": 0,
+      "through_side": 0,
+      "outside_above_sheer": 2810
+     }
+    },
+    "hand_L": {
+     "steer": {
+      "n": 2099,
+      "below_floor": 0,
+      "through_side": 0,
+      "outside_above_sheer": 0
+     },
+     "lead": {
+      "n": 290,
+      "below_floor": 0,
+      "through_side": 0,
+      "outside_above_sheer": 0
+     },
+     "formation": {
+      "n": 360,
+      "below_floor": 0,
+      "through_side": 57,
+      "outside_above_sheer": 17
+     },
+     "hold": {
+      "n": 61,
+      "below_floor": 0,
+      "through_side": 6,
+      "outside_above_sheer": 32
+     },
+     "all": {
+      "n": 2810,
+      "below_floor": 0,
+      "through_side": 63,
+      "outside_above_sheer": 49
+     },
+     "worst_below_floor_m": 0.0,
+     "max_through_side_m": 0.0307,
+     "p50_through_side_m": 0.0094,
+     "first_s_penetration": 80.267,
+     "s_of_penetration_range": [
+      80.267,
+      92.533
+     ]
+    },
+    "hand_R": {
+     "steer": {
+      "n": 2099,
+      "below_floor": 0,
+      "through_side": 1697,
+      "outside_above_sheer": 0
+     },
+     "lead": {
+      "n": 290,
+      "below_floor": 0,
+      "through_side": 185,
+      "outside_above_sheer": 0
+     },
+     "formation": {
+      "n": 360,
+      "below_floor": 0,
+      "through_side": 65,
+      "outside_above_sheer": 0
+     },
+     "hold": {
+      "n": 61,
+      "below_floor": 0,
+      "through_side": 22,
+      "outside_above_sheer": 15
+     },
+     "all": {
+      "n": 2810,
+      "below_floor": 0,
+      "through_side": 1969,
+      "outside_above_sheer": 15
+     },
+     "worst_below_floor_m": 0.0,
+     "max_through_side_m": 0.272,
+     "p50_through_side_m": 0.0462,
+     "first_s_penetration": 0.033,
+     "s_of_penetration_range": [
+      0.033,
+      93.267
+     ]
+    },
+    "hip": {
+     "steer": {
+      "n": 2099,
+      "below_floor": 0,
+      "through_side": 0,
+      "outside_above_sheer": 0
+     },
+     "lead": {
+      "n": 290,
+      "below_floor": 0,
+      "through_side": 0,
+      "outside_above_sheer": 0
+     },
+     "formation": {
+      "n": 360,
+      "below_floor": 0,
+      "through_side": 0,
+      "outside_above_sheer": 0
+     },
+     "hold": {
+      "n": 61,
+      "below_floor": 0,
+      "through_side": 25,
+      "outside_above_sheer": 0
+     },
+     "all": {
+      "n": 2810,
+      "below_floor": 0,
+      "through_side": 25,
+      "outside_above_sheer": 0
+     },
+     "worst_below_floor_m": 0.0,
+     "max_through_side_m": 0.3553,
+     "p50_through_side_m": 0.2782,
+     "first_s_penetration": 92.133,
+     "s_of_penetration_range": [
+      92.133,
+      92.933
+     ]
+    }
+   },
+   "L2": {
+    "eye": {
+     "steer": {
+      "n": 2099,
+      "below_floor": 0,
+      "through_side": 0,
+      "outside_above_sheer": 2099
+     },
+     "lead": {
+      "n": 290,
+      "below_floor": 0,
+      "through_side": 0,
+      "outside_above_sheer": 290
+     },
+     "formation": {
+      "n": 360,
+      "below_floor": 0,
+      "through_side": 0,
+      "outside_above_sheer": 360
+     },
+     "hold": {
+      "n": 61,
+      "below_floor": 0,
+      "through_side": 0,
+      "outside_above_sheer": 61
+     },
+     "all": {
+      "n": 2810,
+      "below_floor": 0,
+      "through_side": 0,
+      "outside_above_sheer": 2810
+     }
+    },
+    "hand_L": {
+     "steer": {
+      "n": 2099,
+      "below_floor": 0,
+      "through_side": 0,
+      "outside_above_sheer": 0
+     },
+     "lead": {
+      "n": 290,
+      "below_floor": 0,
+      "through_side": 0,
+      "outside_above_sheer": 0
+     },
+     "formation": {
+      "n": 360,
+      "below_floor": 0,
+      "through_side": 0,
+      "outside_above_sheer": 17
+     },
+     "hold": {
+      "n": 61,
+      "below_floor": 0,
+      "through_side": 6,
+      "outside_above_sheer": 32
+     },
+     "all": {
+      "n": 2810,
+      "below_floor": 0,
+      "through_side": 6,
+      "outside_above_sheer": 49
+     },
+     "worst_below_floor_m": 0.0,
+     "max_through_side_m": 0.027,
+     "p50_through_side_m": 0.0184,
+     "first_s_penetration": 92.367,
+     "s_of_penetration_range": [
+      92.367,
+      92.533
+     ]
+    },
+    "hand_R": {
+     "steer": {
+      "n": 2099,
+      "below_floor": 0,
+      "through_side": 2099,
+      "outside_above_sheer": 0
+     },
+     "lead": {
+      "n": 290,
+      "below_floor": 0,
+      "through_side": 290,
+      "outside_above_sheer": 0
+     },
+     "formation": {
+      "n": 360,
+      "below_floor": 0,
+      "through_side": 218,
+      "outside_above_sheer": 0
+     },
+     "hold": {
+      "n": 61,
+      "below_floor": 0,
+      "through_side": 22,
+      "outside_above_sheer": 15
+     },
+     "all": {
+      "n": 2810,
+      "below_floor": 0,
+      "through_side": 2629,
+      "outside_above_sheer": 15
+     },
+     "worst_below_floor_m": 0.0,
+     "max_through_side_m": 0.2731,
+     "p50_through_side_m": 0.0631,
+     "first_s_penetration": 0.033,
+     "s_of_penetration_range": [
+      0.033,
+      93.267
+     ]
+    },
+    "hip": {
+     "steer": {
+      "n": 2099,
+      "below_floor": 0,
+      "through_side": 0,
+      "outside_above_sheer": 0
+     },
+     "lead": {
+      "n": 290,
+      "below_floor": 0,
+      "through_side": 0,
+      "outside_above_sheer": 0
+     },
+     "formation": {
+      "n": 360,
+      "below_floor": 0,
+      "through_side": 0,
+      "outside_above_sheer": 0
+     },
+     "hold": {
+      "n": 61,
+      "below_floor": 0,
+      "through_side": 25,
+      "outside_above_sheer": 0
+     },
+     "all": {
+      "n": 2810,
+      "below_floor": 0,
+      "through_side": 25,
+      "outside_above_sheer": 0
+     },
+     "worst_below_floor_m": 0.0,
+     "max_through_side_m": 0.3553,
+     "p50_through_side_m": 0.2782,
+     "first_s_penetration": 92.133,
+     "s_of_penetration_range": [
+      92.133,
+      92.933
+     ]
+    }
+   },
+   "L3": {
+    "eye": {
+     "steer": {
+      "n": 2099,
+      "below_floor": 0,
+      "through_side": 0,
+      "outside_above_sheer": 2099
+     },
+     "lead": {
+      "n": 290,
+      "below_floor": 0,
+      "through_side": 0,
+      "outside_above_sheer": 290
+     },
+     "formation": {
+      "n": 360,
+      "below_floor": 0,
+      "through_side": 0,
+      "outside_above_sheer": 360
+     },
+     "hold": {
+      "n": 61,
+      "below_floor": 0,
+      "through_side": 0,
+      "outside_above_sheer": 61
+     },
+     "all": {
+      "n": 2810,
+      "below_floor": 0,
+      "through_side": 0,
+      "outside_above_sheer": 2810
+     }
+    },
+    "hand_L": {
+     "steer": {
+      "n": 2099,
+      "below_floor": 0,
+      "through_side": 0,
+      "outside_above_sheer": 0
+     },
+     "lead": {
+      "n": 290,
+      "below_floor": 0,
+      "through_side": 0,
+      "outside_above_sheer": 0
+     },
+     "formation": {
+      "n": 360,
+      "below_floor": 0,
+      "through_side": 0,
+      "outside_above_sheer": 15
+     },
+     "hold": {
+      "n": 61,
+      "below_floor": 0,
+      "through_side": 15,
+      "outside_above_sheer": 18
+     },
+     "all": {
+      "n": 2810,
+      "below_floor": 0,
+      "through_side": 15,
+      "outside_above_sheer": 33
+     },
+     "worst_below_floor_m": 0.0,
+     "max_through_side_m": 0.0856,
+     "p50_through_side_m": 0.046,
+     "first_s_penetration": 92.267,
+     "s_of_penetration_range": [
+      92.267,
+      92.733
+     ]
+    },
+    "hand_R": {
+     "steer": {
+      "n": 2099,
+      "below_floor": 0,
+      "through_side": 2099,
+      "outside_above_sheer": 0
+     },
+     "lead": {
+      "n": 290,
+      "below_floor": 0,
+      "through_side": 290,
+      "outside_above_sheer": 0
+     },
+     "formation": {
+      "n": 360,
+      "below_floor": 0,
+      "through_side": 261,
+      "outside_above_sheer": 0
+     },
+     "hold": {
+      "n": 61,
+      "below_floor": 0,
+      "through_side": 21,
+      "outside_above_sheer": 15
+     },
+     "all": {
+      "n": 2810,
+      "below_floor": 0,
+      "through_side": 2671,
+      "outside_above_sheer": 15
+     },
+     "worst_below_floor_m": 0.0,
+     "max_through_side_m": 0.2772,
+     "p50_through_side_m": 0.0652,
+     "first_s_penetration": 0.033,
+     "s_of_penetration_range": [
+      0.033,
+      93.233
+     ]
+    },
+    "hip": {
+     "steer": {
+      "n": 2099,
+      "below_floor": 0,
+      "through_side": 0,
+      "outside_above_sheer": 0
+     },
+     "lead": {
+      "n": 290,
+      "below_floor": 0,
+      "through_side": 0,
+      "outside_above_sheer": 0
+     },
+     "formation": {
+      "n": 360,
+      "below_floor": 0,
+      "through_side": 0,
+      "outside_above_sheer": 0
+     },
+     "hold": {
+      "n": 61,
+      "below_floor": 0,
+      "through_side": 25,
+      "outside_above_sheer": 0
+     },
+     "all": {
+      "n": 2810,
+      "below_floor": 0,
+      "through_side": 25,
+      "outside_above_sheer": 0
+     },
+     "worst_below_floor_m": 0.0,
+     "max_through_side_m": 0.3736,
+     "p50_through_side_m": 0.288,
+     "first_s_penetration": 92.1,
+     "s_of_penetration_range": [
+      92.1,
+      92.9
+     ]
+    }
+   }
+  },
+  "seconds": 22.6
+ },
+ "video_frames_ja": "Docs/Evidence/Design/42〜45 の MP4 から ffmpeg で抜いたコマ（Git 対象外の Unity/Build/Design/45/stage8_review/frames/）。並べ図は fig_s8_video_frames.png",
+ "code_sha256": {
+  "s8_figs.py": "8d40a0a69891ac363bd043b282002c4ac00cceda675d162a05d567d0c642b36e",
+  "s8_hull.py": "da4748e79f18b86ff603a69b98e26f65030121c01da6b937b255e642d3f8aeb0",
+  "s8_sanity.py": "67d18dec60da8bb8e1cd70d51284d1fc97212185c25f76da4c9e0b6ad2cd99ed",
+  "s8_sheet.py": "7d0b2c46610ac9f185d4ca05380cab2bc833a29eef7fa6c4fea8bba40f7df05c",
+  "s8_summary.py": "402da2450a87c4745f341bd4f1d8405f94da8d5c1760cf994dbd141865868695"
+ }
+}
