@@ -1,0 +1,103 @@
+{
+ "schema": "GreatWave.DS45.record_run/1",
+ "number": "設計45",
+ "created_utc": "2026-09-30T05:17:51Z",
+ "tools": {
+  "python": "3.10.6",
+  "numpy": "2.2.6",
+  "opencv": "4.12.0",
+  "unity": "6000.4.3f1（batchmode。記録では使っていない）",
+  "ffmpeg": "G:/ffmpeg-2024-12-19-git-494c961379-full_build/bin/ffmpeg.exe（作る部の動画と、記録の 4 段の並べの縮めた写し）",
+  "input_system": "com.unity.inputsystem（Unity/Packages/manifest.json）"
+ },
+ "builder_commands": [
+  "powershell -NoProfile -ExecutionPolicy Bypass -File Tools/GWWaveGen/ds45/run_ds45_unity.ps1 -Method GreatWave.Design45.EditorTools.DS45ComfortTest.Run -Log run3（修正の回。run1・run2 の控えは Build/Design/45/comfort/run1・run2）",
+  "py -3.10 Tools/GWWaveGen/ds45/ds45_codecheck.py",
+  "py -3.10 Tools/GWWaveGen/ds45/ds45_report.py"
+ ],
+ "record_commands": [
+  "py -3.10 -B Tools/GWWaveGen/ds45/ds45_record.py",
+  "py -3.10 -B Unity/Build/Design/45/record/ds45_commit_scan.py（コミットの一覧の点検。Git 対象外）"
+ ],
+ "builder_inputs_sha256": {
+  "Unity/Assets/GreatWave/Design45/Data/ds45_comfort.json": "170a2d83fdaf811b43af24a9fbe66413435c6789c24137866a7d945ec52c2890",
+  "Unity/Assets/GreatWave/Design45/Scripts/DS45ComfortConfig.cs": "2ce18bba9a421be27115c0c0ca7786b878519544197d43300535650ea09883a9",
+  "Unity/Assets/GreatWave/Design45/Scripts/DS45ComfortSolver.cs": "f2c04c0e38a9002f59edba3774761ace5c899e3c0e10ee985cb62f464c4aede4",
+  "Unity/Assets/GreatWave/Design45/Scripts/DS45ComfortInput.cs": "343a284aa0d1a0736d296afb896ea2fa1e5ca15a290b7c6c584792136f41fd9a",
+  "Unity/Assets/GreatWave/Design45/Scripts/DS45RiderComfort.cs": "87cbe066ca185efcfa584a7cbc98b4379ffdb2b9cfbac7e5590ffaeb9868afe1",
+  "Unity/Assets/GreatWave/Design45/Editor/DS45ComfortTest.cs": "041ff21d50c870ac64082810424fbdf83ea483ab009e2e2b525fa716a56fd812",
+  "Unity/Assets/GreatWave/Design45/Scenes/DS45_Comfort.unity": "13f7755a90f44e211556174bfeca44b1b4c77e501d1b5b4368463f859b267994",
+  "Tools/GWWaveGen/ds45/ds45_codecheck.py": "0de4b8e0f2c233ceca5611a1b07c8365bc4e46f1584987f7478566d756359991",
+  "Tools/GWWaveGen/ds45/ds45_report.py": "ff789fd34bb629fd64b318bef445bc94e8e7da31dbe89aa7d4dde86ca5f26787",
+  "Tools/GWWaveGen/ds45/run_ds45_unity.ps1": "0cb51c9057e8d58b0c389104da170ee5c31aef7494b627a6882c0e084e111df6",
+  "Unity/Build/Design/44/steer/unity/ds44_steps.csv": "643b376f09f66628575df640bb4095c68c6e4bf4c081ca1f5f1bcacb7e269fee",
+  "Unity/Build/Design/44/steer/unity/ds44_frames.jsonl": "e424d5e231043051d976016f5e5a2a78fa6cc36e943c027e3089902d4558c0e5",
+  "Unity/Build/Design/30/sea/boat_support.json": "082906b7f1c286a5a41ef4f0ef216e4a2eab44c1e902baff085bc249e3f998d6",
+  "Tools/GWContext/seat_v1.json": "4f7553fd6ab29d117266d6f0b6e58c84dc30f36cf440f6de9314b95102517488",
+  "Unity/Assets/GreatWave/Design44/Scenes/DS44_Steer.unity": "9ba4eaabc0183887a0c2d9d517cff547f44727d646162ef0be5f6f346ed6a202"
+ },
+ "builder_outputs_sha256": {
+  "metrics.json": "a135579d1727c43da2091d58be37bbfc19556505f2fb048d06a6dacb81386e5c",
+  "codecheck.json": "58751834360132e3547b6d1d0e640281d11c15a27947820152edd6712e296218",
+  "fig_ds45_comfort.png": "61a08d40e1aaa70f1c0686fca8903d01a8fef170d644cb54e508596c489ccc12",
+  "stills_ds45_levels.png": "76cf9643e85b8a7e2a1b1627d2a7d501282518f9f809fab68f7344c044c691e4",
+  "fix_ds45_seated_before_after.png": "7fe74e8572fb9250587458ee266aa1910a546631d231a83fe143aca8dc645af5",
+  "stereo_ds45_mock.png": "b8073d24b29e6332c944777108f1eee1a8084299eec6b46c1781725ebdcfa11a",
+  "ds45_levels_grid_30fps.mp4": "0ad033f75b4b47516c0e1e35e41aa851eb18f45729a6f1f1182b08e9ee22ea2a",
+  "ds45_main_switching_30fps.mp4": "b330196586d9f8fb52dffd915d4d5db8a87f552c9976647d2358e3b54f287c88",
+  "unity/ds45_rider.csv": "464f906327522302e8ff6bd0f05ca9037f8c1587b93fa4bda34aea23b1340bd9",
+  "unity/ds45_heave30.csv": "75fee14d80fd301927e86b4c70a56e2b8672f89dfcb9d008432c8a5a82314916",
+  "unity/ds45_unity_report.json": "1c27f0c12de5ca8cc05d8b26c7cc65392ba0694275e8ba8bbe92e0e114ab45f2"
+ },
+ "scene": {
+  "path": "Unity/Assets/GreatWave/Design45/Scenes/DS45_Comfort.unity",
+  "sha256": "13f7755a90f44e211556174bfeca44b1b4c77e501d1b5b4368463f859b267994",
+  "bytes": 282789
+ },
+ "grid_mp4_reencode": {
+  "crf": 26,
+  "bytes": 2868588,
+  "size": "1280x720"
+ },
+ "code_sha256": {
+  "Tools/GWWaveGen/ds45/ds45_codecheck.py": "0de4b8e0f2c233ceca5611a1b07c8365bc4e46f1584987f7478566d756359991",
+  "Tools/GWWaveGen/ds45/ds45_record.py": "65855adc1681b62d9c8e3e5c050e719e100ab1276dd93bd34ca2af46aaf65c4a",
+  "Tools/GWWaveGen/ds45/ds45_report.py": "ff789fd34bb629fd64b318bef445bc94e8e7da31dbe89aa7d4dde86ca5f26787",
+  "Tools/GWWaveGen/ds45/run_ds45_unity.ps1": "0cb51c9057e8d58b0c389104da170ee5c31aef7494b627a6882c0e084e111df6",
+  "Unity/Assets/GreatWave/Design45/Data.meta": "2fffe6bfd7080ce0082011d7561a615e404ba2bddd5079c62e1f5dd88ede814e",
+  "Unity/Assets/GreatWave/Design45/Editor.meta": "ad51905c583d0265a5a7e9c40b3aa5286fb5e1c75f9112e6923efb502e1bf7ad",
+  "Unity/Assets/GreatWave/Design45/Scenes.meta": "6f5a8539001f9400dfb6463fd4534f189b5f2cbd40152d46113b23a482ce0860",
+  "Unity/Assets/GreatWave/Design45/Scripts.meta": "18a6a485b6d96cf0a4c148ececf3f15593b386d13dcab22b6b0f82864e4d67d9",
+  "Unity/Assets/GreatWave/Design45/Data/ds45_comfort.json": "170a2d83fdaf811b43af24a9fbe66413435c6789c24137866a7d945ec52c2890",
+  "Unity/Assets/GreatWave/Design45/Data/ds45_comfort.json.meta": "300e30c22e7778c95b38b2596d48a934b5abd8bf490bd084e5dc418c3803d127",
+  "Unity/Assets/GreatWave/Design45/Editor/DS45ComfortTest.cs": "041ff21d50c870ac64082810424fbdf83ea483ab009e2e2b525fa716a56fd812",
+  "Unity/Assets/GreatWave/Design45/Editor/DS45ComfortTest.cs.meta": "e2663926f0847893bcbeda8615217f856b5b0c05529a6006dfdcceef3d1675b3",
+  "Unity/Assets/GreatWave/Design45/Scenes/DS45_Comfort.unity": "13f7755a90f44e211556174bfeca44b1b4c77e501d1b5b4368463f859b267994",
+  "Unity/Assets/GreatWave/Design45/Scenes/DS45_Comfort.unity.meta": "cd8b47cc72609e773d0d0d2caa729d201a9b625ac7dba626d1c339260d6f2b88",
+  "Unity/Assets/GreatWave/Design45/Scripts/DS45ComfortConfig.cs": "2ce18bba9a421be27115c0c0ca7786b878519544197d43300535650ea09883a9",
+  "Unity/Assets/GreatWave/Design45/Scripts/DS45ComfortConfig.cs.meta": "d8bc63a89e339a12dd5a9f9035e0247c91044d0f44784643ffbc24b761be52ea",
+  "Unity/Assets/GreatWave/Design45/Scripts/DS45ComfortInput.cs": "343a284aa0d1a0736d296afb896ea2fa1e5ca15a290b7c6c584792136f41fd9a",
+  "Unity/Assets/GreatWave/Design45/Scripts/DS45ComfortInput.cs.meta": "dfd9543191b4b7f0b4b3f4782e4a7d5a4a485b604d9bd5f28d484300729104bf",
+  "Unity/Assets/GreatWave/Design45/Scripts/DS45ComfortSolver.cs": "f2c04c0e38a9002f59edba3774761ace5c899e3c0e10ee985cb62f464c4aede4",
+  "Unity/Assets/GreatWave/Design45/Scripts/DS45ComfortSolver.cs.meta": "5b7f186992010b9cde8aa0f8dd14e9956aca08a75b5ef13d56d6c9ab1701f042",
+  "Unity/Assets/GreatWave/Design45/Scripts/DS45RiderComfort.cs": "87cbe066ca185efcfa584a7cbc98b4379ffdb2b9cfbac7e5590ffaeb9868afe1",
+  "Unity/Assets/GreatWave/Design45/Scripts/DS45RiderComfort.cs.meta": "9b64483109e574c5c8133c51adccdeb354f0f0622e7ccff057442a92d4792606",
+  "Unity/Assets/GreatWave/Design45.meta": "3425750e8a83290b4ec09d50f43d5d661f82a99232b58ca077bc50479d9739e7"
+ },
+ "evidence_sha256": {
+  "Docs/Evidence/Design/45/ds45_codecheck.json": "58751834360132e3547b6d1d0e640281d11c15a27947820152edd6712e296218",
+  "Docs/Evidence/Design/45/ds45_comfort_metrics.json": "a135579d1727c43da2091d58be37bbfc19556505f2fb048d06a6dacb81386e5c",
+  "Docs/Evidence/Design/45/ds45_comfort_run.json": "868341d01d8dc125a40b416ec16f80b93e44cc9520b52aad6b11f1e1378e2443",
+  "Docs/Evidence/Design/45/ds45_levels_grid_30fps.mp4": "2659c4416734cd99ac83751e939b7782d604a602f7fe7d2dea38ca280974dee0",
+  "Docs/Evidence/Design/45/ds45_main_switching_30fps.mp4": "b330196586d9f8fb52dffd915d4d5db8a87f552c9976647d2358e3b54f287c88",
+  "Docs/Evidence/Design/45/ds45_record_recount.json": "d67d0a10dd649ead0e693d51a565b8d5c660b9d6117a2c8073a539d98255c17c",
+  "Docs/Evidence/Design/45/ds45_unity_report.json": "1c27f0c12de5ca8cc05d8b26c7cc65392ba0694275e8ba8bbe92e0e114ab45f2",
+  "Docs/Evidence/Design/45/fig_ds45_comfort.png": "61a08d40e1aaa70f1c0686fca8903d01a8fef170d644cb54e508596c489ccc12",
+  "Docs/Evidence/Design/45/fix_ds45_seated_before_after.png": "7fe74e8572fb9250587458ee266aa1910a546631d231a83fe143aca8dc645af5",
+  "Docs/Evidence/Design/45/metrics.json": "8d4f7383895882a62370a910d545306e0b121af5e3e826933cc0ff763c19f466",
+  "Docs/Evidence/Design/45/stereo_ds45_mock.png": "b8073d24b29e6332c944777108f1eee1a8084299eec6b46c1781725ebdcfa11a",
+  "Docs/Evidence/Design/45/stills_ds45_levels.png": "76cf9643e85b8a7e2a1b1627d2a7d501282518f9f809fab68f7344c044c691e4"
+ },
+ "seconds": 8.4,
+ "note_ja": "SHA-256 は作業の木のバイトの値。Unity のコマの JPG（5 × 2,811 枚と Mock の両目 32 枚）とログは Git 対象外で SHA-256 を取っていない"
+}

@@ -1,0 +1,975 @@
+{
+ "schema": "GreatWave.DS45.record_metrics/1",
+ "number": "設計45",
+ "title_ja": "乗客の揺れを一種類ずつ調整する",
+ "created_utc": "2026-09-30T05:17:51Z",
+ "evidence_kind_ja": "PC の Unity 6000.4.3f1 batchmode（RTX 3080、Direct3D11）。船は設計44 の run3 の記録を入れただけ（物理は解いていない）。Input System の仮想の機器、numpy の測定、進行役の独立の検査。HMD 実機ではない。利用者は確かめていない",
+ "plan_ja": "計画 §2.4 設計45：RiderComfortRoot に4段（水平維持 → 弱い上下動 → 旋回 → 傾斜）の設定。頭部の追跡は上書きしない（設計書 §7.3 の構造）。利用者の試遊記録（PS VR2、約1時間）",
+ "min_acceptance_ja": "4段を切り替えられる。HMD Camera のローカル姿勢に手を入れていない（コードの検査）。H5・H7 の記録",
+ "acceptance": [
+  {
+   "item": "4 段を切り替えられる（計画 §2.4 の最小の受入）",
+   "result": "合格"
+  },
+  {
+   "item": "HMD Camera のローカル姿勢に手を入れていない（コードの検査）",
+   "result": "合格"
+  },
+  {
+   "item": "着座（修正の回の確認。計画の最小の受入の外）：どの段でも、目は船の枠で座席の目から上 maxDevUpM・下 maxDevDownM の中、船縁の上端（座席の目の 0.149 m 下。設計41）より上",
+   "result": "合格"
+  },
+  {
+   "item": "H5（唇が頭上を越えるときの快適性、PS VR2）",
+   "result": "保留"
+  },
+  {
+   "item": "H7（再センタリング・停止・復帰のアプリ側＝座席リセット、PS VR2）",
+   "result": "保留（計算の検査は済み。実機は未検証）"
+  },
+  {
+   "item": "利用者の試遊記録（PS VR2、約 1 時間）",
+   "result": "保留"
+  }
+ ],
+ "acceptance_record": {
+  "switch_levels": {
+   "result": "合格",
+   "level_changes": [
+    {
+     "s": 12.0,
+     "frm": "L0",
+     "to": "L1"
+    },
+    {
+     "s": 24.0,
+     "frm": "L1",
+     "to": "L2"
+    },
+    {
+     "s": 36.0,
+     "frm": "L2",
+     "to": "L3"
+    },
+    {
+     "s": 54.0,
+     "frm": "L3",
+     "to": "L2"
+    },
+    {
+     "s": 60.0,
+     "frm": "L2",
+     "to": "L1"
+    },
+    {
+     "s": 66.0,
+     "frm": "L1",
+     "to": "L0"
+    },
+    {
+     "s": 84.0,
+     "frm": "L0",
+     "to": "L3"
+    },
+    {
+     "s": 88.0,
+     "frm": "L3",
+     "to": "L0"
+    }
+   ],
+   "resets": [
+    {
+     "s": 48.0,
+     "count": 1
+    },
+    {
+     "s": 90.0,
+     "count": 2
+    }
+   ],
+   "main_equals_fixed_level_after_blend_max_pos_m": 0.0,
+   "rotation_per_step": {
+    "main": {
+     "max_deg_atan2": 52.6721,
+     "p95_deg_atan2": 0.0562,
+     "max_deg_acos": 52.67209,
+     "steps_over_0p01deg_atan2": 1728
+    },
+    "L0": {
+     "max_deg_atan2": 0.0,
+     "p95_deg_atan2": 0.0,
+     "max_deg_acos": 0.03724,
+     "steps_over_0p01deg_atan2": 0
+    },
+    "L1": {
+     "max_deg_atan2": 0.0,
+     "p95_deg_atan2": 0.0,
+     "max_deg_acos": 0.03724,
+     "steps_over_0p01deg_atan2": 0
+    },
+    "L2": {
+     "max_deg_atan2": 0.11679,
+     "p95_deg_atan2": 0.08332,
+     "max_deg_acos": 0.11978,
+     "steps_over_0p01deg_atan2": 4834
+    },
+    "L3": {
+     "max_deg_atan2": 0.11691,
+     "p95_deg_atan2": 0.08335,
+     "max_deg_acos": 0.12366,
+     "steps_over_0p01deg_atan2": 5178
+    },
+    "main_reset_snaps_deg": [
+     25.675,
+     52.672
+    ],
+    "main_max_deg_except_reset_steps": 0.08673,
+    "switch_windows": [
+     {
+      "s": 12.0,
+      "main_max_deg": 0.0,
+      "fixed_levels_max_deg": 0.0
+     },
+     {
+      "s": 24.0,
+      "main_max_deg": 0.08338,
+      "fixed_levels_max_deg": 0.08338
+     },
+     {
+      "s": 36.0,
+      "main_max_deg": 0.03779,
+      "fixed_levels_max_deg": 0.03771
+     },
+     {
+      "s": 54.0,
+      "main_max_deg": 0.02104,
+      "fixed_levels_max_deg": 0.0017
+     },
+     {
+      "s": 60.0,
+      "main_max_deg": 6e-05,
+      "fixed_levels_max_deg": 0.00013
+     },
+     {
+      "s": 66.0,
+      "main_max_deg": 0.0,
+      "fixed_levels_max_deg": 0.0
+     },
+     {
+      "s": 84.0,
+      "main_max_deg": 0.08673,
+      "fixed_levels_max_deg": 0.06073
+     },
+     {
+      "s": 88.0,
+      "main_max_deg": 0.044,
+      "fixed_levels_max_deg": 0.044
+     }
+    ]
+   }
+  },
+  "hmd_local_pose": {
+   "result": "合格",
+   "runtime_writes": [
+    "transform.SetPositionAndRotation（DS45RiderComfort.cs:66）",
+    "xrOrigin.SetLocalPositionAndRotation（DS45RiderComfort.cs:90）"
+   ],
+   "hmd_checks": 56205,
+   "hmd_local_pos_max_change": 0.0,
+   "hmd_local_rot_max_deg": 0.0,
+   "hmd_world_minus_root_max_m": {
+    "main": 0.0,
+    "L0": 0.0,
+    "L1": 0.0,
+    "L2": 0.0,
+    "L3": 0.0
+   }
+  },
+  "h5": {
+   "result": "保留",
+   "stand_in_ja": "PC の代わり：4 段の並べの動画（頭を 30° 上げた試験だけのカメラ）、Mock の両目の静止画（±0.032 m、s 84・86.67・t*・93.6）"
+  },
+  "h7": {
+   "result": "保留（計算の検査は済み。実機は未検証）",
+   "recenter": {
+    "recenterMaxPosErrM": 0.0,
+    "recenterMaxYawErrDeg": 6.708976343361428e-06,
+    "recenterCases": 4,
+    "resetCountInRun": 2
+   }
+  },
+  "playtest": {
+   "result": "保留",
+   "note_ja": "PS VR2 は未導入（利用者の手）"
+  }
+ },
+ "seated_fix_gate": {
+  "result": "合格（修正の回の確認。計画の最小の受入の外）",
+  "record": {
+   "main": {
+    "steering": {
+     "up_min_m": -0.019,
+     "up_max_m": 0.0131,
+     "horiz_max_m": 0.0675,
+     "below_gunwale_top_fraction": 0.0
+    },
+    "approach": {
+     "up_min_m": -0.0279,
+     "up_max_m": 0.0207,
+     "horiz_max_m": 0.0426,
+     "below_gunwale_top_fraction": 0.0
+    },
+    "formation": {
+     "up_min_m": -0.0995,
+     "up_max_m": 0.0999,
+     "horiz_max_m": 0.2486,
+     "below_gunwale_top_fraction": 0.0
+    },
+    "hold": {
+     "up_min_m": -0.0977,
+     "up_max_m": 0.0999,
+     "horiz_max_m": 0.2485,
+     "below_gunwale_top_fraction": 0.0
+    },
+    "all": {
+     "up_min_m": -0.0995,
+     "up_max_m": 0.0999,
+     "horiz_max_m": 0.2486,
+     "below_gunwale_top_fraction": 0.0
+    }
+   },
+   "L0": {
+    "steering": {
+     "up_min_m": -0.0272,
+     "up_max_m": 0.0198,
+     "horiz_max_m": 0.0674,
+     "below_gunwale_top_fraction": 0.0
+    },
+    "approach": {
+     "up_min_m": -0.0279,
+     "up_max_m": 0.0207,
+     "horiz_max_m": 0.0426,
+     "below_gunwale_top_fraction": 0.0
+    },
+    "formation": {
+     "up_min_m": -0.0999,
+     "up_max_m": 0.0999,
+     "horiz_max_m": 0.2486,
+     "below_gunwale_top_fraction": 0.0
+    },
+    "hold": {
+     "up_min_m": -0.0977,
+     "up_max_m": 0.0999,
+     "horiz_max_m": 0.2485,
+     "below_gunwale_top_fraction": 0.0
+    },
+    "all": {
+     "up_min_m": -0.0999,
+     "up_max_m": 0.0999,
+     "horiz_max_m": 0.2486,
+     "below_gunwale_top_fraction": 0.0
+    }
+   },
+   "L1": {
+    "steering": {
+     "up_min_m": -0.018,
+     "up_max_m": 0.0131,
+     "horiz_max_m": 0.0675,
+     "below_gunwale_top_fraction": 0.0
+    },
+    "approach": {
+     "up_min_m": -0.0189,
+     "up_max_m": 0.0134,
+     "horiz_max_m": 0.0431,
+     "below_gunwale_top_fraction": 0.0
+    },
+    "formation": {
+     "up_min_m": -0.0983,
+     "up_max_m": 0.0995,
+     "horiz_max_m": 0.2384,
+     "below_gunwale_top_fraction": 0.0
+    },
+    "hold": {
+     "up_min_m": -0.0935,
+     "up_max_m": 0.0991,
+     "horiz_max_m": 0.2383,
+     "below_gunwale_top_fraction": 0.0
+    },
+    "all": {
+     "up_min_m": -0.0983,
+     "up_max_m": 0.0995,
+     "horiz_max_m": 0.2384,
+     "below_gunwale_top_fraction": 0.0
+    }
+   },
+   "L2": {
+    "steering": {
+     "up_min_m": -0.018,
+     "up_max_m": 0.0131,
+     "horiz_max_m": 0.0675,
+     "below_gunwale_top_fraction": 0.0
+    },
+    "approach": {
+     "up_min_m": -0.0189,
+     "up_max_m": 0.0134,
+     "horiz_max_m": 0.0431,
+     "below_gunwale_top_fraction": 0.0
+    },
+    "formation": {
+     "up_min_m": -0.0983,
+     "up_max_m": 0.0995,
+     "horiz_max_m": 0.2384,
+     "below_gunwale_top_fraction": 0.0
+    },
+    "hold": {
+     "up_min_m": -0.0935,
+     "up_max_m": 0.0991,
+     "horiz_max_m": 0.2383,
+     "below_gunwale_top_fraction": 0.0
+    },
+    "all": {
+     "up_min_m": -0.0983,
+     "up_max_m": 0.0995,
+     "horiz_max_m": 0.2384,
+     "below_gunwale_top_fraction": 0.0
+    }
+   },
+   "L3": {
+    "steering": {
+     "up_min_m": -0.018,
+     "up_max_m": 0.0131,
+     "horiz_max_m": 0.0675,
+     "below_gunwale_top_fraction": 0.0
+    },
+    "approach": {
+     "up_min_m": -0.0189,
+     "up_max_m": 0.0134,
+     "horiz_max_m": 0.0431,
+     "below_gunwale_top_fraction": 0.0
+    },
+    "formation": {
+     "up_min_m": -0.0983,
+     "up_max_m": 0.0995,
+     "horiz_max_m": 0.2384,
+     "below_gunwale_top_fraction": 0.0
+    },
+    "hold": {
+     "up_min_m": -0.0935,
+     "up_max_m": 0.0991,
+     "horiz_max_m": 0.2383,
+     "below_gunwale_top_fraction": 0.0
+    },
+    "all": {
+     "up_min_m": -0.0983,
+     "up_max_m": 0.0995,
+     "horiz_max_m": 0.2384,
+     "below_gunwale_top_fraction": 0.0
+    }
+   }
+  },
+  "run2_before_fix_ja": "修正の前（run2。控えは Build/Design/45/comfort/run2）。独立の検査が数えた値：形成の間、目は船の枠で L0 −0.576〜+0.557 m、L1〜L3 −0.517〜+0.500 m、船縁の上端より下 L0 53.8%・L1〜L3 46.7%",
+  "run2_before_fix_record": {
+   "file": "Unity/Build/Design/45/comfort/run2/ds45_rider_run2.csv",
+   "sha256": "7c7a5570a236916f35bafaeb4194be64e2b8327d4bf140b091fa6addc488fd88",
+   "main": {
+    "up_min_m": -0.5483,
+    "up_max_m": 0.5573,
+    "below_gunwale_top_fraction": 0.5264,
+    "above_0p3m_fraction": 0.2382
+   },
+   "L0": {
+    "up_min_m": -0.5764,
+    "up_max_m": 0.5573,
+    "below_gunwale_top_fraction": 0.5375,
+    "above_0p3m_fraction": 0.2604
+   },
+   "L1": {
+    "up_min_m": -0.5166,
+    "up_max_m": 0.5002,
+    "below_gunwale_top_fraction": 0.4674,
+    "above_0p3m_fraction": 0.2215
+   },
+   "L2": {
+    "up_min_m": -0.5166,
+    "up_max_m": 0.5002,
+    "below_gunwale_top_fraction": 0.4674,
+    "above_0p3m_fraction": 0.2215
+   },
+   "L3": {
+    "up_min_m": -0.5166,
+    "up_max_m": 0.5002,
+    "below_gunwale_top_fraction": 0.4674,
+    "above_0p3m_fraction": 0.2215
+   }
+  }
+ },
+ "backlog85": {
+  "result": "記録のみ",
+  "kV": {
+   "L0": 0.0,
+   "L1": 0.35,
+   "L2": 0.35,
+   "L3": 0.35
+  },
+  "heave30": {
+   "frames": 421,
+   "dt_s": [
+    0.033332,
+    0.033334
+   ],
+   "boat": {
+    "acc": {
+     "max": 5.9689,
+     "p95": 2.996
+    },
+    "range_y_m": 4.5994
+   },
+   "boat_painting_pose_tilt_deg": 40.528,
+   "L0": {
+    "acc": {
+     "max": 6.8302,
+     "p95": 1.8208
+    },
+    "ratio_to_boat": 1.1443,
+    "up_min_m": -0.0983,
+    "up_max_m": 0.0965,
+    "below_gunwale_top_fraction": 0.0,
+    "tilt_max_deg": 0.0
+   },
+   "L1": {
+    "acc": {
+     "max": 5.1859,
+     "p95": 2.2458
+    },
+    "ratio_to_boat": 0.8688,
+    "up_min_m": -0.0913,
+    "up_max_m": 0.0864,
+    "below_gunwale_top_fraction": 0.0,
+    "tilt_max_deg": 0.0
+   },
+   "L2": {
+    "acc": {
+     "max": 5.1859,
+     "p95": 2.2458
+    },
+    "ratio_to_boat": 0.8688,
+    "up_min_m": -0.0913,
+    "up_max_m": 0.0864,
+    "below_gunwale_top_fraction": 0.0,
+    "tilt_max_deg": 0.0
+   },
+   "L3": {
+    "acc": {
+     "max": 5.1859,
+     "p95": 2.2458
+    },
+    "ratio_to_boat": 0.8688,
+    "up_min_m": -0.0913,
+    "up_max_m": 0.0864,
+    "below_gunwale_top_fraction": 0.0,
+    "tilt_max_deg": 7.5516
+   }
+  },
+  "replay_acc_vert_30hz": {
+   "boat": {
+    "steering": {
+     "max": 0.2192,
+     "p95": 0.0702
+    },
+    "approach": {
+     "max": 0.159,
+     "p95": 0.0808
+    },
+    "formation": {
+     "max": 16.5367,
+     "p95": 8.712
+    },
+    "hold": {
+     "max": 17.7759,
+     "p95": 16.7163
+    },
+    "all": {
+     "max": 17.7759,
+     "p95": 1.8885
+    }
+   },
+   "main": {
+    "steering": {
+     "max": 0.1457,
+     "p95": 0.049
+    },
+    "approach": {
+     "max": 0.0975,
+     "p95": 0.0573
+    },
+    "formation": {
+     "max": 16.1412,
+     "p95": 5.8594
+    },
+    "hold": {
+     "max": 16.148,
+     "p95": 13.9174
+    },
+    "all": {
+     "max": 16.148,
+     "p95": 1.4389
+    }
+   },
+   "L0": {
+    "steering": {
+     "max": 0.1352,
+     "p95": 0.0456
+    },
+    "approach": {
+     "max": 0.0975,
+     "p95": 0.0573
+    },
+    "formation": {
+     "max": 16.1412,
+     "p95": 5.8594
+    },
+    "hold": {
+     "max": 16.148,
+     "p95": 13.9174
+    },
+    "all": {
+     "max": 16.148,
+     "p95": 1.4446
+    }
+   },
+   "L1": {
+    "steering": {
+     "max": 0.1457,
+     "p95": 0.0492
+    },
+    "approach": {
+     "max": 0.1115,
+     "p95": 0.0603
+    },
+    "formation": {
+     "max": 15.2684,
+     "p95": 6.856
+    },
+    "hold": {
+     "max": 15.1898,
+     "p95": 12.9507
+    },
+    "all": {
+     "max": 15.2684,
+     "p95": 1.541
+    }
+   },
+   "L2": {
+    "steering": {
+     "max": 0.1457,
+     "p95": 0.0492
+    },
+    "approach": {
+     "max": 0.1115,
+     "p95": 0.0603
+    },
+    "formation": {
+     "max": 15.2684,
+     "p95": 6.856
+    },
+    "hold": {
+     "max": 15.1898,
+     "p95": 12.9507
+    },
+    "all": {
+     "max": 15.2684,
+     "p95": 1.541
+    }
+   },
+   "L3": {
+    "steering": {
+     "max": 0.1457,
+     "p95": 0.0492
+    },
+    "approach": {
+     "max": 0.1115,
+     "p95": 0.0603
+    },
+    "formation": {
+     "max": 15.2684,
+     "p95": 6.856
+    },
+    "hold": {
+     "max": 15.1898,
+     "p95": 12.9507
+    },
+    "all": {
+     "max": 15.2684,
+     "p95": 1.541
+    }
+   }
+  },
+  "replay_acc_horiz_30hz": {
+   "boat": {
+    "steering": {
+     "max": 1.9925,
+     "p95": 0.4868
+    },
+    "approach": {
+     "max": 3.924,
+     "p95": 0.7675
+    },
+    "formation": {
+     "max": 12.2939,
+     "p95": 4.8624
+    },
+    "hold": {
+     "max": 14.8047,
+     "p95": 11.5743
+    },
+    "all": {
+     "max": 14.8047,
+     "p95": 1.1421
+    }
+   },
+   "main": {
+    "steering": {
+     "max": 1.5111,
+     "p95": 0.5136
+    },
+    "approach": {
+     "max": 0.9128,
+     "p95": 0.8083
+    },
+    "formation": {
+     "max": 10.2324,
+     "p95": 5.8064
+    },
+    "hold": {
+     "max": 22.8696,
+     "p95": 14.124
+    },
+    "all": {
+     "max": 22.8696,
+     "p95": 1.1415
+    }
+   },
+   "L0": {
+    "steering": {
+     "max": 1.5111,
+     "p95": 0.5137
+    },
+    "approach": {
+     "max": 0.9128,
+     "p95": 0.8083
+    },
+    "formation": {
+     "max": 10.2324,
+     "p95": 5.8064
+    },
+    "hold": {
+     "max": 22.8696,
+     "p95": 14.124
+    },
+    "all": {
+     "max": 22.8696,
+     "p95": 1.1426
+    }
+   },
+   "L1": {
+    "steering": {
+     "max": 1.5111,
+     "p95": 0.5136
+    },
+    "approach": {
+     "max": 0.9124,
+     "p95": 0.8094
+    },
+    "formation": {
+     "max": 8.8665,
+     "p95": 5.2557
+    },
+    "hold": {
+     "max": 15.319,
+     "p95": 12.6348
+    },
+    "all": {
+     "max": 15.319,
+     "p95": 1.1579
+    }
+   },
+   "L2": {
+    "steering": {
+     "max": 1.5111,
+     "p95": 0.5136
+    },
+    "approach": {
+     "max": 0.9124,
+     "p95": 0.8094
+    },
+    "formation": {
+     "max": 8.8665,
+     "p95": 5.2557
+    },
+    "hold": {
+     "max": 15.319,
+     "p95": 12.6348
+    },
+    "all": {
+     "max": 15.319,
+     "p95": 1.1579
+    }
+   },
+   "L3": {
+    "steering": {
+     "max": 1.5111,
+     "p95": 0.5136
+    },
+    "approach": {
+     "max": 0.9124,
+     "p95": 0.8094
+    },
+    "formation": {
+     "max": 8.8665,
+     "p95": 5.2557
+    },
+    "hold": {
+     "max": 15.319,
+     "p95": 12.6348
+    },
+    "all": {
+     "max": 15.319,
+     "p95": 1.1579
+    }
+   }
+  },
+  "note_ja": "修正の後（run3）の船の枠の頭打ちで、保持（t* の後 2 s、船が約 150°/s で回る）の L0 の水平の加速度の最大は 22.87 m/s²（船 14.80 の 1.54 倍。run1・run2 は 15.28）。記録の時に見つけた限界"
+ },
+ "at_tstar": {
+  "s": 91.6333,
+  "main": {
+   "norm_m": 0.2679,
+   "boat_frame_m": [
+    0.0497,
+    0.0999,
+    -0.2436
+   ],
+   "yaw_minus_seat_facing_deg": -1.315
+  },
+  "L0": {
+   "norm_m": 0.2679,
+   "boat_frame_m": [
+    0.0497,
+    0.0999,
+    -0.2436
+   ],
+   "yaw_minus_seat_facing_deg": 0.384
+  },
+  "L1": {
+   "norm_m": 0.2582,
+   "boat_frame_m": [
+    0.0422,
+    0.0992,
+    -0.2346
+   ],
+   "yaw_minus_seat_facing_deg": 0.384
+  },
+  "L2": {
+   "norm_m": 0.2582,
+   "boat_frame_m": [
+    0.0422,
+    0.0992,
+    -0.2346
+   ],
+   "yaw_minus_seat_facing_deg": 0.0
+  },
+  "L3": {
+   "norm_m": 0.2582,
+   "boat_frame_m": [
+    0.0422,
+    0.0992,
+    -0.2346
+   ],
+   "yaw_minus_seat_facing_deg": 0.0
+  }
+ },
+ "fix_rounds": {
+  "count": 1,
+  "builder_run2_ja": "作る部の中の run2：run1（omegaV 2.5、速度の先回り 1、世界の上下で頭打ち 0.45 m）は設計30 の上下の L0 の最大を 5.97 → 5.66 m/s² しか下げなかったので、betaV を足し omegaV 1.0・betaV 0.5・頭打ち 0.6 m にした（2.36 m/s²）。作る部はこれを修正の回と書いたが、自分で決めた調整の範囲の中の直しで、検査の指摘への修正ではない",
+  "fix01_ja": "検査の後の run3（Q26 の修正 1 回）：run2 は形成の間に目が船の枠で −0.58〜+0.56 m 動き、形成の 54 %（L0）で船縁の上端より下へ沈んだ。頭打ちを船の枠の上 0.10・下 0.10・水平 0.25 m に移し、omegaV を 4.0 にした（D45-10）。目は全段で ±0.10 m、船縁の上端より下 0 %"
+ },
+ "record_recount": {
+  "file": "Docs/Evidence/Design/45/ds45_record_recount.json",
+  "diff_vs_builder_max": 0.0001,
+  "diff": {
+   "accVertMax_boat_steering": 0.0,
+   "accHorizMax_boat_steering": 0.0,
+   "accVertMax_boat_formation": 0.0,
+   "accHorizMax_boat_formation": 0.0,
+   "accVertMax_boat_hold": 0.0,
+   "accHorizMax_boat_hold": 0.0,
+   "accVertMax_main_steering": 0.0,
+   "accHorizMax_main_steering": 0.0,
+   "accVertMax_main_formation": 0.0,
+   "accHorizMax_main_formation": 0.0,
+   "accVertMax_main_hold": 0.0,
+   "accHorizMax_main_hold": 0.0,
+   "accVertMax_L0_steering": 0.0,
+   "accHorizMax_L0_steering": 0.0,
+   "accVertMax_L0_formation": 0.0,
+   "accHorizMax_L0_formation": 0.0,
+   "accVertMax_L0_hold": 0.0,
+   "accHorizMax_L0_hold": 0.0,
+   "accVertMax_L1_steering": 0.0,
+   "accHorizMax_L1_steering": 0.0,
+   "accVertMax_L1_formation": 0.0,
+   "accHorizMax_L1_formation": 0.0,
+   "accVertMax_L1_hold": 0.0,
+   "accHorizMax_L1_hold": 0.0,
+   "accVertMax_L2_steering": 0.0,
+   "accHorizMax_L2_steering": 0.0,
+   "accVertMax_L2_formation": 0.0,
+   "accHorizMax_L2_formation": 0.0,
+   "accVertMax_L2_hold": 0.0,
+   "accHorizMax_L2_hold": 0.0,
+   "accVertMax_L3_steering": 0.0,
+   "accHorizMax_L3_steering": 0.0,
+   "accVertMax_L3_formation": 0.0,
+   "accHorizMax_L3_formation": 0.0,
+   "accVertMax_L3_hold": 0.0,
+   "accHorizMax_L3_hold": 0.0,
+   "seatUpMin_main": 0.0,
+   "seatUpMax_main": 0.0,
+   "seatUpMin_L0": 0.0,
+   "seatUpMax_L0": 0.0,
+   "seatUpMin_L1": 0.0,
+   "seatUpMax_L1": 0.0,
+   "seatUpMin_L2": 0.0,
+   "seatUpMax_L2": 0.0,
+   "seatUpMin_L3": 0.0,
+   "seatUpMax_L3": 0.0,
+   "heave30_boat_max": 0.0001,
+   "heave30_L0_max": 0.0,
+   "heave30_L1_max": 0.0,
+   "heave30_L2_max": 0.0,
+   "heave30_L3_max": 0.0,
+   "tstar_norm_main": 0.0,
+   "tstar_norm_L0": 0.0,
+   "tstar_norm_L1": 0.0,
+   "tstar_norm_L2": 0.0,
+   "tstar_norm_L3": 0.0
+  }
+ },
+ "builder_sha256_verified": {
+  "files": 26,
+  "all_same": true
+ },
+ "time": {
+  "box_ja": "Q26 の日程で 2 時間（計画 §2.6 の［Q26］の表、10/3 の行。計画の時間枠は ≤0.5日＋利用者の試遊）",
+  "file_times": {
+   "Unity/Build/Design/45": {
+    "created": "12:20:10",
+    "modified": "13:12:27"
+   },
+   "Unity/Assets/GreatWave/Design45/Scripts/DS45ComfortConfig.cs": {
+    "created": "12:20:26",
+    "modified": "12:56:18"
+   },
+   "Unity/Assets/GreatWave/Design45/Scripts/DS45ComfortSolver.cs": {
+    "created": "12:20:56",
+    "modified": "12:54:03"
+   },
+   "Unity/Assets/GreatWave/Design45/Scripts/DS45ComfortInput.cs": {
+    "created": "12:21:28",
+    "modified": "12:21:28"
+   },
+   "Unity/Assets/GreatWave/Design45/Scripts/DS45RiderComfort.cs": {
+    "created": "12:21:37",
+    "modified": "12:21:37"
+   },
+   "Unity/Assets/GreatWave/Design45/Data/ds45_comfort.json": {
+    "created": "12:21:50",
+    "modified": "12:56:26"
+   },
+   "Unity/Assets/GreatWave/Design45/Editor/DS45ComfortTest.cs": {
+    "created": "12:24:13",
+    "modified": "12:56:18"
+   },
+   "Tools/GWWaveGen/ds45/run_ds45_unity.ps1": {
+    "created": "12:24:40",
+    "modified": "12:25:23"
+   },
+   "Tools/GWWaveGen/ds45/ds45_codecheck.py": {
+    "created": "12:26:34",
+    "modified": "12:26:34"
+   },
+   "Unity/Build/Design/45/comfort/logs/unity_ds45_run1.log": {
+    "created": "12:25:28",
+    "modified": "12:26:34"
+   },
+   "Unity/Build/Design/45/comfort/run1": {
+    "created": "12:32:46",
+    "modified": "12:32:46"
+   },
+   "Tools/GWWaveGen/ds45/ds45_report.py": {
+    "created": "12:33:12",
+    "modified": "12:59:28"
+   },
+   "Unity/Build/Design/45/comfort/logs/unity_ds45_run2.log": {
+    "created": "12:33:18",
+    "modified": "12:34:25"
+   },
+   "Unity/Build/Design/45/comfort/run2": {
+    "created": "12:53:38",
+    "modified": "12:57:35"
+   },
+   "Unity/Build/Design/45/comfort/unity/frames": {
+    "created": "12:56:46",
+    "modified": "12:57:54"
+   },
+   "Unity/Build/Design/45/comfort/logs/unity_ds45_run3.log": {
+    "created": "12:56:36",
+    "modified": "12:57:54"
+   },
+   "Unity/Assets/GreatWave/Design45/Scenes/DS45_Comfort.unity": {
+    "created": "12:56:50",
+    "modified": "12:56:50"
+   },
+   "Unity/Build/Design/45/comfort/codecheck.json": {
+    "created": "12:26:35",
+    "modified": "12:58:09"
+   },
+   "Unity/Build/Design/45/comfort/metrics.json": {
+    "created": "12:29:05",
+    "modified": "12:59:29"
+   },
+   "Unity/Build/Design/45/comfort/ds45_levels_grid_30fps.mp4": {
+    "created": "12:29:05",
+    "modified": "13:00:40"
+   },
+   "Unity/Build/Design/45/comfort/run.json": {
+    "created": "12:30:22",
+    "modified": "13:00:40"
+   }
+  },
+  "builder_report_ja": "作る部の報告は「2 時間の内の約 27 分（12:11〜12:38 ごろ）」、修正の回はファイルの時刻で 12:47〜13:00",
+  "unity_in_run_s": {
+   "run1": 57.6,
+   "run2": 59.3,
+   "run3": 68.9
+  },
+  "report_s": 71.2
+ },
+ "hmd_ja": "保留（PS VR2 の導入は利用者の手）。H5・H7・約 1 時間の試遊・PS VR2 の Sense・手で押す機器・Play モードの頭部追跡は確かめていない",
+ "painting_view_ja": "原画視点の場面（DS39_Paper.unity）は開いていない。守るファイル 19 の SHA-256 は 3 回の実行の前後で同じ。計画 §2.0 の回帰は対象外",
+ "evidence": [
+  "ds45_codecheck.json",
+  "ds45_comfort_metrics.json",
+  "ds45_comfort_run.json",
+  "ds45_levels_grid_30fps.mp4",
+  "ds45_main_switching_30fps.mp4",
+  "ds45_record_recount.json",
+  "ds45_unity_report.json",
+  "fig_ds45_comfort.png",
+  "fix_ds45_seated_before_after.png",
+  "metrics.json",
+  "run.json",
+  "stereo_ds45_mock.png",
+  "stills_ds45_levels.png"
+ ]
+}

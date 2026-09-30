@@ -1,0 +1,1599 @@
+{
+ "schema": "GreatWave.DS45.metrics/1",
+ "number": "設計45 乗客の揺れを一種類ずつ調整する（part comfort）",
+ "noteJa": "PC の batchmode の記録から数え直した値（HMD 実機ではない）。船の動きは設計44 の run3 の記録（物理は解き直していない）。加速度は 30 Hz の位置の 2 階差分。段の値（kV・kTilt など）は進行役の調整値（D45-5）。",
+ "gates": [
+  {
+   "item": "4 段を切り替えられる（計画 §2.4 の最小の受入）",
+   "value": {
+    "inputPath": "InputState.Change",
+    "switchLog": [
+     "s 12.000000001738469：set1@keyboard（段 L0 → L1）",
+     "s 24.000000001738467：set2@keyboard（段 L1 → L2）",
+     "s 36.000000001738471：set3@keyboard（段 L2 → L3）",
+     "s 48.000000001738471：reset@keyboard（段 L3 → L3）",
+     "s 54.000000001738471：d-1@gamepad（段 L3 → L2）",
+     "s 60.000000001738471：d-1@gamepad（段 L2 → L1）",
+     "s 66.000000001738471：d-1@gamepad（段 L1 → L0）",
+     "s 84.000000001738471：set3@keyboard（段 L0 → L3）",
+     "s 88.000000001738471：set0@keyboard（段 L3 → L0）",
+     "s 90.000000001738471：reset@gamepad（段 L0 → L0）"
+    ],
+    "levelTimelineMatches": true,
+    "resetCount": 2,
+    "noJumpAtSwitch": true,
+    "jumpRuleJa": "切り替えの窓（押してから blendS + 0.25 s）で、段ごとの回転 ≤ max(0.5°, 段を固定した 2 つの乗客の最大 + 0.05°)、船の目に対する乗客の目の動き ≤ max(1 cm、段を固定した 2 つの乗客の最大 + 2 mm)／段（1/120 s）。座席リセットの段そのものは除く（利用者の操作による瞬時の向きの戻し。量は resetSnap_deg）。閾値は進行役が決めた（D45-7）"
+   },
+   "result": "合格"
+  },
+  {
+   "item": "HMD Camera のローカル姿勢に手を入れていない（コードの検査）",
+   "value": {
+    "staticCodeCheckPassed": true,
+    "runtimeWrites": [
+     "transform.SetPositionAndRotation（DS45RiderComfort.cs:66）",
+     "xrOrigin.SetLocalPositionAndRotation（DS45RiderComfort.cs:90）"
+    ],
+    "hmdLocalPosMaxAbsChange": 0.0,
+    "hmdLocalRotMaxAngleDeg": 0.0,
+    "hmdChecks": 56205,
+    "hmdCameraReferencedBy": [
+     "DS45RiderComfort.hmdCamera（RiderComfortRoot）",
+     "XROrigin.m_Camera（RiderComfortRoot/XR Origin）"
+    ],
+    "structureSiblingsOk": true
+   },
+   "result": "合格"
+  },
+  {
+   "item": "着座（修正の回の確認。計画の最小の受入の外）：どの段でも、目は船の枠で座席の目から上 maxDevUpM・下 maxDevDownM の中、船縁の上端（座席の目の 0.149 m 下。設計41）より上",
+   "value": {
+    "maxDevUpM": 0.1,
+    "maxDevDownM": 0.1,
+    "maxDevHM": 0.25,
+    "seatEyeAboveGunwaleM": 0.149,
+    "run44ReplayAllSteps": {
+     "main": {
+      "upMin_m": -0.0995,
+      "upMax_m": 0.0999,
+      "horizMax_m": 0.2486,
+      "belowGunwaleTop_fraction": 0.0
+     },
+     "L0": {
+      "upMin_m": -0.0999,
+      "upMax_m": 0.0999,
+      "horizMax_m": 0.2486,
+      "belowGunwaleTop_fraction": 0.0
+     },
+     "L1": {
+      "upMin_m": -0.0983,
+      "upMax_m": 0.0995,
+      "horizMax_m": 0.2384,
+      "belowGunwaleTop_fraction": 0.0
+     },
+     "L2": {
+      "upMin_m": -0.0983,
+      "upMax_m": 0.0995,
+      "horizMax_m": 0.2384,
+      "belowGunwaleTop_fraction": 0.0
+     },
+     "L3": {
+      "upMin_m": -0.0983,
+      "upMax_m": 0.0995,
+      "horizMax_m": 0.2384,
+      "belowGunwaleTop_fraction": 0.0
+     }
+    },
+    "heave30": {
+     "L0": {
+      "eyeInBoatFrameUp_m": {
+       "min": -0.0983,
+       "max": 0.0965
+      },
+      "belowGunwaleTop_fraction": 0.0
+     },
+     "L1": {
+      "eyeInBoatFrameUp_m": {
+       "min": -0.0913,
+       "max": 0.0864
+      },
+      "belowGunwaleTop_fraction": 0.0
+     },
+     "L2": {
+      "eyeInBoatFrameUp_m": {
+       "min": -0.0913,
+       "max": 0.0864
+      },
+      "belowGunwaleTop_fraction": 0.0
+     },
+     "L3": {
+      "eyeInBoatFrameUp_m": {
+       "min": -0.0913,
+       "max": 0.0864
+      },
+      "belowGunwaleTop_fraction": 0.0
+     }
+    },
+    "accMaxRatioToBoat": {
+     "L0": {
+      "formation_sf_tstar": 0.9761,
+      "hold_tstar_end": 0.9084,
+      "heave30": 1.1443
+     },
+     "L1": {
+      "formation_sf_tstar": 0.9233,
+      "hold_tstar_end": 0.8545,
+      "heave30": 0.8688
+     },
+     "L2": {
+      "formation_sf_tstar": 0.9233,
+      "hold_tstar_end": 0.8545,
+      "heave30": 0.8688
+     },
+     "L3": {
+      "formation_sf_tstar": 0.9233,
+      "hold_tstar_end": 0.8545,
+      "heave30": 0.8688
+     }
+    },
+    "run2BeforeFix": {
+     "noteJa": "修正の前（run2。控えは Build/Design/45/comfort/run2）。独立の検査が数えた値：形成の間、目は船の枠で L0 −0.576〜+0.557 m、L1〜L3 −0.517〜+0.500 m、船縁の上端より下 L0 53.8%・L1〜L3 46.7%",
+     "heave30AccMax": {
+      "L0": 2.3645,
+      "L1": 2.8,
+      "L2": 2.8,
+      "L3": 2.8
+     },
+     "formationAccMax": {
+      "L0": 26.2789,
+      "L1": 12.5654,
+      "L2": 12.5654,
+      "L3": 12.5654
+     }
+    }
+   },
+   "result": "合格"
+  },
+  {
+   "item": "H5（唇が頭上を越えるときの快適性、PS VR2）",
+   "value": "PS VR2 は未導入（利用者の手）。PC の代わりの動画（4 段の並べ、頭を 30° 上げた視点）と Mock の両目の静止画（stereo_ds45_mock.png、±0.032 m）だけ",
+   "result": "保留"
+  },
+  {
+   "item": "H7（再センタリング・停止・復帰のアプリ側＝座席リセット、PS VR2）",
+   "value": {
+    "recenterMaxPosErrM": 0.0,
+    "recenterMaxYawErrDeg": 6.708976343361428e-06,
+    "recenterCases": 4,
+    "resetCountInRun": 2
+   },
+   "result": "保留（計算の検査は済み。実機は未検証）"
+  },
+  {
+   "item": "利用者の試遊記録（PS VR2、約 1 時間）",
+   "value": "PS VR2 は未導入。PC の代わりの動画だけ",
+   "result": "保留"
+  }
+ ],
+ "backlog85_heaveScale": {
+  "noteJa": "バックログ 85（上下動の倍率、記録）。段ごとの kV と、設計30 の座席の上下（最大 約 6 m/s²）・設計44 の物理の船を入れた時の乗客の上下の加速度",
+  "kV": {
+   "L0": 0.0,
+   "L1": 0.35,
+   "L2": 0.35,
+   "L3": 0.35
+  },
+  "heave30": {
+   "boat": {
+    "accVert_mps2": {
+     "max": 5.969,
+     "p95": 2.996
+    },
+    "rangeY_m": 4.5994
+   },
+   "L0": {
+    "accVert_mps2": {
+     "max": 6.8302,
+     "p95": 1.8208
+    },
+    "rangeY_m": 4.5041,
+    "eyeFromSeatEyeVert_m": {
+     "max": 0.1838,
+     "p95": 0.1778
+    },
+    "tilt_deg_max": 0.0,
+    "eyeInBoatFrameUp_m": {
+     "min": -0.0983,
+     "max": 0.0965
+    },
+    "eyeBelowGunwaleTop_fraction": 0.0,
+    "accMaxRatioToBoat": 1.1443
+   },
+   "L1": {
+    "accVert_mps2": {
+     "max": 5.1859,
+     "p95": 2.2458
+    },
+    "rangeY_m": 4.5202,
+    "eyeFromSeatEyeVert_m": {
+     "max": 0.1481,
+     "p95": 0.1417
+    },
+    "tilt_deg_max": 0.0,
+    "eyeInBoatFrameUp_m": {
+     "min": -0.0913,
+     "max": 0.0864
+    },
+    "eyeBelowGunwaleTop_fraction": 0.0,
+    "accMaxRatioToBoat": 0.8688
+   },
+   "L2": {
+    "accVert_mps2": {
+     "max": 5.1859,
+     "p95": 2.2458
+    },
+    "rangeY_m": 4.5202,
+    "eyeFromSeatEyeVert_m": {
+     "max": 0.1481,
+     "p95": 0.1417
+    },
+    "tilt_deg_max": 0.0,
+    "eyeInBoatFrameUp_m": {
+     "min": -0.0913,
+     "max": 0.0864
+    },
+    "eyeBelowGunwaleTop_fraction": 0.0,
+    "accMaxRatioToBoat": 0.8688
+   },
+   "L3": {
+    "accVert_mps2": {
+     "max": 5.1859,
+     "p95": 2.2458
+    },
+    "rangeY_m": 4.5202,
+    "eyeFromSeatEyeVert_m": {
+     "max": 0.1481,
+     "p95": 0.1417
+    },
+    "tilt_deg_max": 7.5516,
+    "eyeInBoatFrameUp_m": {
+     "min": -0.0913,
+     "max": 0.0864
+    },
+    "eyeBelowGunwaleTop_fraction": 0.0,
+    "accMaxRatioToBoat": 0.8688
+   }
+  },
+  "result": "記録のみ"
+ },
+ "run44Replay": {
+  "sections_s": {
+   "steering_0_70": [
+    0.0,
+    70.0
+   ],
+   "approach_70_sf": [
+    70.0,
+    79.6497
+   ],
+   "formation_sf_tstar": [
+    79.6497,
+    91.6497
+   ],
+   "hold_tstar_end": [
+    91.6497,
+    93.6667
+   ],
+   "all": [
+    0.0,
+    93.6667
+   ]
+  },
+  "byLevel": {
+   "boat": {
+    "steering_0_70": {
+     "accVert_mps2": {
+      "max": 0.2192,
+      "p95": 0.0702
+     },
+     "accHoriz_mps2": {
+      "max": 1.9925,
+      "p95": 0.4868
+     },
+     "angSpeed_degps": {
+      "max": 10.1171,
+      "p95": 8.5904
+     },
+     "yawRate_degps": {
+      "max": 10.0227,
+      "p95": 8.6199
+     },
+     "tilt_deg": {
+      "max": 5.8743,
+      "p95": 5.3381
+     }
+    },
+    "approach_70_sf": {
+     "accVert_mps2": {
+      "max": 0.159,
+      "p95": 0.0808
+     },
+     "accHoriz_mps2": {
+      "max": 3.924,
+      "p95": 0.7675
+     },
+     "angSpeed_degps": {
+      "max": 14.3523,
+      "p95": 14.0602
+     },
+     "yawRate_degps": {
+      "max": 14.0108,
+      "p95": 13.8284
+     },
+     "tilt_deg": {
+      "max": 8.4278,
+      "p95": 8.3392
+     }
+    },
+    "formation_sf_tstar": {
+     "accVert_mps2": {
+      "max": 16.5367,
+      "p95": 8.712
+     },
+     "accHoriz_mps2": {
+      "max": 12.2939,
+      "p95": 4.8624
+     },
+     "angSpeed_degps": {
+      "max": 74.7264,
+      "p95": 51.5438
+     },
+     "yawRate_degps": {
+      "max": 7.072,
+      "p95": 7.0174
+     },
+     "tilt_deg": {
+      "max": 66.955,
+      "p95": 55.87
+     }
+    },
+    "hold_tstar_end": {
+     "accVert_mps2": {
+      "max": 17.7759,
+      "p95": 16.7163
+     },
+     "accHoriz_mps2": {
+      "max": 14.8047,
+      "p95": 11.5743
+     },
+     "angSpeed_degps": {
+      "max": 151.2669,
+      "p95": 148.5579
+     },
+     "yawRate_degps": {
+      "max": 3.3459,
+      "p95": 2.6592
+     },
+     "tilt_deg": {
+      "max": 66.9115,
+      "p95": 65.3241
+     }
+    },
+    "all": {
+     "accVert_mps2": {
+      "max": 17.7759,
+      "p95": 1.8885
+     },
+     "accHoriz_mps2": {
+      "max": 14.8047,
+      "p95": 1.1421
+     },
+     "angSpeed_degps": {
+      "max": 151.2669,
+      "p95": 14.1247
+     },
+     "yawRate_degps": {
+      "max": 14.0108,
+      "p95": 10.0003
+     },
+     "tilt_deg": {
+      "max": 66.955,
+      "p95": 19.7382
+     }
+    }
+   },
+   "L0": {
+    "steering_0_70": {
+     "accVert_mps2": {
+      "max": 0.1352,
+      "p95": 0.0456
+     },
+     "accHoriz_mps2": {
+      "max": 1.5111,
+      "p95": 0.5137
+     },
+     "angSpeed_degps": {
+      "max": 1.1171,
+      "p95": 1.1171
+     },
+     "yawRate_degps": {
+      "max": 0.0,
+      "p95": 0.0
+     },
+     "tilt_deg": {
+      "max": 0.0,
+      "p95": 0.0
+     },
+     "eyeFromSeatEye_m": {
+      "max": 0.0683,
+      "p95": 0.0374
+     },
+     "eyeFromSeatEyeVert_m": {
+      "max": 0.027,
+      "p95": 0.0176
+     },
+     "eyeInBoatFrameUp_m": {
+      "min": -0.0272,
+      "max": 0.0198
+     },
+     "eyeInBoatFrameHoriz_m_max": 0.0674,
+     "eyeBelowGunwaleTop_fraction": 0.0,
+     "handsVsBoatSeatFrame_m": {
+      "max": 0.4272,
+      "p95": 0.3778
+     }
+    },
+    "approach_70_sf": {
+     "accVert_mps2": {
+      "max": 0.0975,
+      "p95": 0.0573
+     },
+     "accHoriz_mps2": {
+      "max": 0.9128,
+      "p95": 0.8083
+     },
+     "angSpeed_degps": {
+      "max": 1.1171,
+      "p95": 1.1171
+     },
+     "yawRate_degps": {
+      "max": 0.0,
+      "p95": 0.0
+     },
+     "tilt_deg": {
+      "max": 0.0,
+      "p95": 0.0
+     },
+     "eyeFromSeatEye_m": {
+      "max": 0.0502,
+      "p95": 0.0475
+     },
+     "eyeFromSeatEyeVert_m": {
+      "max": 0.0269,
+      "p95": 0.026
+     },
+     "eyeInBoatFrameUp_m": {
+      "min": -0.0279,
+      "max": 0.0207
+     },
+     "eyeInBoatFrameHoriz_m_max": 0.0426,
+     "eyeBelowGunwaleTop_fraction": 0.0,
+     "handsVsBoatSeatFrame_m": {
+      "max": 0.3909,
+      "p95": 0.3898
+     }
+    },
+    "formation_sf_tstar": {
+     "accVert_mps2": {
+      "max": 16.1412,
+      "p95": 5.8594
+     },
+     "accHoriz_mps2": {
+      "max": 10.2324,
+      "p95": 5.8064
+     },
+     "angSpeed_degps": {
+      "max": 1.1171,
+      "p95": 1.1171
+     },
+     "yawRate_degps": {
+      "max": 0.0,
+      "p95": 0.0
+     },
+     "tilt_deg": {
+      "max": 0.0,
+      "p95": 0.0
+     },
+     "eyeFromSeatEye_m": {
+      "max": 0.2679,
+      "p95": 0.2173
+     },
+     "eyeFromSeatEyeVert_m": {
+      "max": 0.2678,
+      "p95": 0.2073
+     },
+     "eyeInBoatFrameUp_m": {
+      "min": -0.0999,
+      "max": 0.0999
+     },
+     "eyeInBoatFrameHoriz_m_max": 0.2486,
+     "eyeBelowGunwaleTop_fraction": 0.0,
+     "handsVsBoatSeatFrame_m": {
+      "max": 0.7185,
+      "p95": 0.6213
+     }
+    },
+    "hold_tstar_end": {
+     "accVert_mps2": {
+      "max": 16.148,
+      "p95": 13.9174
+     },
+     "accHoriz_mps2": {
+      "max": 22.8696,
+      "p95": 14.124
+     },
+     "angSpeed_degps": {
+      "max": 1.1171,
+      "p95": 1.1171
+     },
+     "yawRate_degps": {
+      "max": 0.0,
+      "p95": 0.0
+     },
+     "tilt_deg": {
+      "max": 0.0,
+      "p95": 0.0
+     },
+     "eyeFromSeatEye_m": {
+      "max": 0.2678,
+      "p95": 0.2659
+     },
+     "eyeFromSeatEyeVert_m": {
+      "max": 0.2671,
+      "p95": 0.2606
+     },
+     "eyeInBoatFrameUp_m": {
+      "min": -0.0977,
+      "max": 0.0999
+     },
+     "eyeInBoatFrameHoriz_m_max": 0.2485,
+     "eyeBelowGunwaleTop_fraction": 0.0,
+     "handsVsBoatSeatFrame_m": {
+      "max": 0.6926,
+      "p95": 0.6884
+     }
+    },
+    "all": {
+     "accVert_mps2": {
+      "max": 16.148,
+      "p95": 1.4446
+     },
+     "accHoriz_mps2": {
+      "max": 22.8696,
+      "p95": 1.1426
+     },
+     "angSpeed_degps": {
+      "max": 1.1171,
+      "p95": 1.1171
+     },
+     "yawRate_degps": {
+      "max": 0.0,
+      "p95": 0.0
+     },
+     "tilt_deg": {
+      "max": 0.0,
+      "p95": 0.0
+     },
+     "eyeFromSeatEye_m": {
+      "max": 0.2679,
+      "p95": 0.1213
+     },
+     "eyeFromSeatEyeVert_m": {
+      "max": 0.2678,
+      "p95": 0.1095
+     },
+     "eyeInBoatFrameUp_m": {
+      "min": -0.0999,
+      "max": 0.0999
+     },
+     "eyeInBoatFrameHoriz_m_max": 0.2486,
+     "eyeBelowGunwaleTop_fraction": 0.0,
+     "handsVsBoatSeatFrame_m": {
+      "max": 0.7185,
+      "p95": 0.4125
+     }
+    }
+   },
+   "L1": {
+    "steering_0_70": {
+     "accVert_mps2": {
+      "max": 0.1457,
+      "p95": 0.0492
+     },
+     "accHoriz_mps2": {
+      "max": 1.5111,
+      "p95": 0.5136
+     },
+     "angSpeed_degps": {
+      "max": 1.1171,
+      "p95": 1.1171
+     },
+     "yawRate_degps": {
+      "max": 0.0,
+      "p95": 0.0
+     },
+     "tilt_deg": {
+      "max": 0.0,
+      "p95": 0.0
+     },
+     "eyeFromSeatEye_m": {
+      "max": 0.0679,
+      "p95": 0.0372
+     },
+     "eyeFromSeatEyeVert_m": {
+      "max": 0.0178,
+      "p95": 0.0115
+     },
+     "eyeInBoatFrameUp_m": {
+      "min": -0.018,
+      "max": 0.0131
+     },
+     "eyeInBoatFrameHoriz_m_max": 0.0675,
+     "eyeBelowGunwaleTop_fraction": 0.0,
+     "handsVsBoatSeatFrame_m": {
+      "max": 0.4272,
+      "p95": 0.3777
+     }
+    },
+    "approach_70_sf": {
+     "accVert_mps2": {
+      "max": 0.1115,
+      "p95": 0.0603
+     },
+     "accHoriz_mps2": {
+      "max": 0.9124,
+      "p95": 0.8094
+     },
+     "angSpeed_degps": {
+      "max": 1.1171,
+      "p95": 1.1171
+     },
+     "yawRate_degps": {
+      "max": 0.0,
+      "p95": 0.0
+     },
+     "tilt_deg": {
+      "max": 0.0,
+      "p95": 0.0
+     },
+     "eyeFromSeatEye_m": {
+      "max": 0.047,
+      "p95": 0.044
+     },
+     "eyeFromSeatEyeVert_m": {
+      "max": 0.0177,
+      "p95": 0.0171
+     },
+     "eyeInBoatFrameUp_m": {
+      "min": -0.0189,
+      "max": 0.0134
+     },
+     "eyeInBoatFrameHoriz_m_max": 0.0431,
+     "eyeBelowGunwaleTop_fraction": 0.0,
+     "handsVsBoatSeatFrame_m": {
+      "max": 0.3903,
+      "p95": 0.3889
+     }
+    },
+    "formation_sf_tstar": {
+     "accVert_mps2": {
+      "max": 15.2684,
+      "p95": 6.856
+     },
+     "accHoriz_mps2": {
+      "max": 8.8665,
+      "p95": 5.2557
+     },
+     "angSpeed_degps": {
+      "max": 1.1171,
+      "p95": 1.1171
+     },
+     "yawRate_degps": {
+      "max": 0.0,
+      "p95": 0.0
+     },
+     "tilt_deg": {
+      "max": 0.0,
+      "p95": 0.0
+     },
+     "eyeFromSeatEye_m": {
+      "max": 0.2582,
+      "p95": 0.1821
+     },
+     "eyeFromSeatEyeVert_m": {
+      "max": 0.2577,
+      "p95": 0.1641
+     },
+     "eyeInBoatFrameUp_m": {
+      "min": -0.0983,
+      "max": 0.0995
+     },
+     "eyeInBoatFrameHoriz_m_max": 0.2384,
+     "eyeBelowGunwaleTop_fraction": 0.0,
+     "handsVsBoatSeatFrame_m": {
+      "max": 0.675,
+      "p95": 0.5914
+     }
+    },
+    "hold_tstar_end": {
+     "accVert_mps2": {
+      "max": 15.1898,
+      "p95": 12.9507
+     },
+     "accHoriz_mps2": {
+      "max": 15.319,
+      "p95": 12.6348
+     },
+     "angSpeed_degps": {
+      "max": 1.1171,
+      "p95": 1.1171
+     },
+     "yawRate_degps": {
+      "max": 0.0,
+      "p95": 0.0
+     },
+     "tilt_deg": {
+      "max": 0.0,
+      "p95": 0.0
+     },
+     "eyeFromSeatEye_m": {
+      "max": 0.2577,
+      "p95": 0.2516
+     },
+     "eyeFromSeatEyeVert_m": {
+      "max": 0.2563,
+      "p95": 0.2406
+     },
+     "eyeInBoatFrameUp_m": {
+      "min": -0.0935,
+      "max": 0.0991
+     },
+     "eyeInBoatFrameHoriz_m_max": 0.2383,
+     "eyeBelowGunwaleTop_fraction": 0.0,
+     "handsVsBoatSeatFrame_m": {
+      "max": 0.6851,
+      "p95": 0.6802
+     }
+    },
+    "all": {
+     "accVert_mps2": {
+      "max": 15.2684,
+      "p95": 1.541
+     },
+     "accHoriz_mps2": {
+      "max": 15.319,
+      "p95": 1.1579
+     },
+     "angSpeed_degps": {
+      "max": 1.1171,
+      "p95": 1.1171
+     },
+     "yawRate_degps": {
+      "max": 0.0,
+      "p95": 0.0
+     },
+     "tilt_deg": {
+      "max": 0.0,
+      "p95": 0.0
+     },
+     "eyeFromSeatEye_m": {
+      "max": 0.2582,
+      "p95": 0.1077
+     },
+     "eyeFromSeatEyeVert_m": {
+      "max": 0.2577,
+      "p95": 0.1
+     },
+     "eyeInBoatFrameUp_m": {
+      "min": -0.0983,
+      "max": 0.0995
+     },
+     "eyeInBoatFrameHoriz_m_max": 0.2384,
+     "eyeBelowGunwaleTop_fraction": 0.0,
+     "handsVsBoatSeatFrame_m": {
+      "max": 0.6851,
+      "p95": 0.4112
+     }
+    }
+   },
+   "L2": {
+    "steering_0_70": {
+     "accVert_mps2": {
+      "max": 0.1457,
+      "p95": 0.0492
+     },
+     "accHoriz_mps2": {
+      "max": 1.5111,
+      "p95": 0.5136
+     },
+     "angSpeed_degps": {
+      "max": 10.0449,
+      "p95": 8.5686
+     },
+     "yawRate_degps": {
+      "max": 10.0227,
+      "p95": 8.62
+     },
+     "tilt_deg": {
+      "max": 0.0,
+      "p95": 0.0
+     },
+     "eyeFromSeatEye_m": {
+      "max": 0.0679,
+      "p95": 0.0372
+     },
+     "eyeFromSeatEyeVert_m": {
+      "max": 0.0178,
+      "p95": 0.0115
+     },
+     "eyeInBoatFrameUp_m": {
+      "min": -0.018,
+      "max": 0.0131
+     },
+     "eyeInBoatFrameHoriz_m_max": 0.0675,
+     "eyeBelowGunwaleTop_fraction": 0.0,
+     "handsVsBoatSeatFrame_m": {
+      "max": 0.0818,
+      "p95": 0.0602
+     }
+    },
+    "approach_70_sf": {
+     "accVert_mps2": {
+      "max": 0.1115,
+      "p95": 0.0603
+     },
+     "accHoriz_mps2": {
+      "max": 0.9124,
+      "p95": 0.8094
+     },
+     "angSpeed_degps": {
+      "max": 13.9993,
+      "p95": 13.7818
+     },
+     "yawRate_degps": {
+      "max": 14.0108,
+      "p95": 13.8284
+     },
+     "tilt_deg": {
+      "max": 0.0,
+      "p95": 0.0
+     },
+     "eyeFromSeatEye_m": {
+      "max": 0.047,
+      "p95": 0.044
+     },
+     "eyeFromSeatEyeVert_m": {
+      "max": 0.0177,
+      "p95": 0.0171
+     },
+     "eyeInBoatFrameUp_m": {
+      "min": -0.0189,
+      "max": 0.0134
+     },
+     "eyeInBoatFrameHoriz_m_max": 0.0431,
+     "eyeBelowGunwaleTop_fraction": 0.0,
+     "handsVsBoatSeatFrame_m": {
+      "max": 0.0852,
+      "p95": 0.0811
+     }
+    },
+    "formation_sf_tstar": {
+     "accVert_mps2": {
+      "max": 15.2684,
+      "p95": 6.856
+     },
+     "accHoriz_mps2": {
+      "max": 8.8665,
+      "p95": 5.2557
+     },
+     "angSpeed_degps": {
+      "max": 7.0845,
+      "p95": 6.948
+     },
+     "yawRate_degps": {
+      "max": 7.072,
+      "p95": 7.0174
+     },
+     "tilt_deg": {
+      "max": 0.0,
+      "p95": 0.0
+     },
+     "eyeFromSeatEye_m": {
+      "max": 0.2582,
+      "p95": 0.1821
+     },
+     "eyeFromSeatEyeVert_m": {
+      "max": 0.2577,
+      "p95": 0.1641
+     },
+     "eyeInBoatFrameUp_m": {
+      "min": -0.0983,
+      "max": 0.0995
+     },
+     "eyeInBoatFrameHoriz_m_max": 0.2384,
+     "eyeBelowGunwaleTop_fraction": 0.0,
+     "handsVsBoatSeatFrame_m": {
+      "max": 0.6753,
+      "p95": 0.5918
+     }
+    },
+    "hold_tstar_end": {
+     "accVert_mps2": {
+      "max": 15.1898,
+      "p95": 12.9507
+     },
+     "accHoriz_mps2": {
+      "max": 15.319,
+      "p95": 12.6348
+     },
+     "angSpeed_degps": {
+      "max": 3.3708,
+      "p95": 2.6154
+     },
+     "yawRate_degps": {
+      "max": 3.3459,
+      "p95": 2.6591
+     },
+     "tilt_deg": {
+      "max": 0.0,
+      "p95": 0.0
+     },
+     "eyeFromSeatEye_m": {
+      "max": 0.2577,
+      "p95": 0.2516
+     },
+     "eyeFromSeatEyeVert_m": {
+      "max": 0.2563,
+      "p95": 0.2406
+     },
+     "eyeInBoatFrameUp_m": {
+      "min": -0.0935,
+      "max": 0.0991
+     },
+     "eyeInBoatFrameHoriz_m_max": 0.2383,
+     "eyeBelowGunwaleTop_fraction": 0.0,
+     "handsVsBoatSeatFrame_m": {
+      "max": 0.6876,
+      "p95": 0.683
+     }
+    },
+    "all": {
+     "accVert_mps2": {
+      "max": 15.2684,
+      "p95": 1.541
+     },
+     "accHoriz_mps2": {
+      "max": 15.319,
+      "p95": 1.1579
+     },
+     "angSpeed_degps": {
+      "max": 13.9993,
+      "p95": 9.9649
+     },
+     "yawRate_degps": {
+      "max": 14.0108,
+      "p95": 10.0003
+     },
+     "tilt_deg": {
+      "max": 0.0,
+      "p95": 0.0
+     },
+     "eyeFromSeatEye_m": {
+      "max": 0.2582,
+      "p95": 0.1077
+     },
+     "eyeFromSeatEyeVert_m": {
+      "max": 0.2577,
+      "p95": 0.1
+     },
+     "eyeInBoatFrameUp_m": {
+      "min": -0.0983,
+      "max": 0.0995
+     },
+     "eyeInBoatFrameHoriz_m_max": 0.2384,
+     "eyeBelowGunwaleTop_fraction": 0.0,
+     "handsVsBoatSeatFrame_m": {
+      "max": 0.6876,
+      "p95": 0.256
+     }
+    }
+   },
+   "L3": {
+    "steering_0_70": {
+     "accVert_mps2": {
+      "max": 0.1457,
+      "p95": 0.0492
+     },
+     "accHoriz_mps2": {
+      "max": 1.5111,
+      "p95": 0.5136
+     },
+     "angSpeed_degps": {
+      "max": 10.0796,
+      "p95": 8.5852
+     },
+     "yawRate_degps": {
+      "max": 10.0227,
+      "p95": 8.62
+     },
+     "tilt_deg": {
+      "max": 2.0015,
+      "p95": 1.83
+     },
+     "eyeFromSeatEye_m": {
+      "max": 0.0679,
+      "p95": 0.0372
+     },
+     "eyeFromSeatEyeVert_m": {
+      "max": 0.0178,
+      "p95": 0.0115
+     },
+     "eyeInBoatFrameUp_m": {
+      "min": -0.018,
+      "max": 0.0131
+     },
+     "eyeInBoatFrameHoriz_m_max": 0.0675,
+     "eyeBelowGunwaleTop_fraction": 0.0,
+     "handsVsBoatSeatFrame_m": {
+      "max": 0.0767,
+      "p95": 0.0448
+     }
+    },
+    "approach_70_sf": {
+     "accVert_mps2": {
+      "max": 0.1115,
+      "p95": 0.0603
+     },
+     "accHoriz_mps2": {
+      "max": 0.9124,
+      "p95": 0.8094
+     },
+     "angSpeed_degps": {
+      "max": 14.0209,
+      "p95": 13.7815
+     },
+     "yawRate_degps": {
+      "max": 14.0108,
+      "p95": 13.8284
+     },
+     "tilt_deg": {
+      "max": 2.7802,
+      "p95": 2.7666
+     },
+     "eyeFromSeatEye_m": {
+      "max": 0.047,
+      "p95": 0.044
+     },
+     "eyeFromSeatEyeVert_m": {
+      "max": 0.0177,
+      "p95": 0.0171
+     },
+     "eyeInBoatFrameUp_m": {
+      "min": -0.0189,
+      "max": 0.0134
+     },
+     "eyeInBoatFrameHoriz_m_max": 0.0431,
+     "eyeBelowGunwaleTop_fraction": 0.0,
+     "handsVsBoatSeatFrame_m": {
+      "max": 0.0641,
+      "p95": 0.0611
+     }
+    },
+    "formation_sf_tstar": {
+     "accVert_mps2": {
+      "max": 15.2684,
+      "p95": 6.856
+     },
+     "accHoriz_mps2": {
+      "max": 8.8665,
+      "p95": 5.2557
+     },
+     "angSpeed_degps": {
+      "max": 7.3885,
+      "p95": 7.2027
+     },
+     "yawRate_degps": {
+      "max": 7.072,
+      "p95": 7.0174
+     },
+     "tilt_deg": {
+      "max": 7.8367,
+      "p95": 7.5026
+     },
+     "eyeFromSeatEye_m": {
+      "max": 0.2582,
+      "p95": 0.1821
+     },
+     "eyeFromSeatEyeVert_m": {
+      "max": 0.2577,
+      "p95": 0.1641
+     },
+     "eyeInBoatFrameUp_m": {
+      "min": -0.0983,
+      "max": 0.0995
+     },
+     "eyeInBoatFrameHoriz_m_max": 0.2384,
+     "eyeBelowGunwaleTop_fraction": 0.0,
+     "handsVsBoatSeatFrame_m": {
+      "max": 0.6151,
+      "p95": 0.5285
+     }
+    },
+    "hold_tstar_end": {
+     "accVert_mps2": {
+      "max": 15.1898,
+      "p95": 12.9507
+     },
+     "accHoriz_mps2": {
+      "max": 15.319,
+      "p95": 12.6348
+     },
+     "angSpeed_degps": {
+      "max": 13.71,
+      "p95": 13.3382
+     },
+     "yawRate_degps": {
+      "max": 3.3459,
+      "p95": 2.6591
+     },
+     "tilt_deg": {
+      "max": 7.8841,
+      "p95": 7.8825
+     },
+     "eyeFromSeatEye_m": {
+      "max": 0.2577,
+      "p95": 0.2516
+     },
+     "eyeFromSeatEyeVert_m": {
+      "max": 0.2563,
+      "p95": 0.2406
+     },
+     "eyeInBoatFrameUp_m": {
+      "min": -0.0935,
+      "max": 0.0991
+     },
+     "eyeInBoatFrameHoriz_m_max": 0.2383,
+     "eyeBelowGunwaleTop_fraction": 0.0,
+     "handsVsBoatSeatFrame_m": {
+      "max": 0.629,
+      "p95": 0.6253
+     }
+    },
+    "all": {
+     "accVert_mps2": {
+      "max": 15.2684,
+      "p95": 1.541
+     },
+     "accHoriz_mps2": {
+      "max": 15.319,
+      "p95": 1.1579
+     },
+     "angSpeed_degps": {
+      "max": 14.0209,
+      "p95": 9.9688
+     },
+     "yawRate_degps": {
+      "max": 14.0108,
+      "p95": 10.0003
+     },
+     "tilt_deg": {
+      "max": 7.8841,
+      "p95": 5.3858
+     },
+     "eyeFromSeatEye_m": {
+      "max": 0.2582,
+      "p95": 0.1077
+     },
+     "eyeFromSeatEyeVert_m": {
+      "max": 0.2577,
+      "p95": 0.1
+     },
+     "eyeInBoatFrameUp_m": {
+      "min": -0.0983,
+      "max": 0.0995
+     },
+     "eyeInBoatFrameHoriz_m_max": 0.2384,
+     "eyeBelowGunwaleTop_fraction": 0.0,
+     "handsVsBoatSeatFrame_m": {
+      "max": 0.629,
+      "p95": 0.2072
+     }
+    }
+   },
+   "main": {
+    "steering_0_70": {
+     "accVert_mps2": {
+      "max": 0.1457,
+      "p95": 0.049
+     },
+     "accHoriz_mps2": {
+      "max": 1.5111,
+      "p95": 0.5136
+     },
+     "angSpeed_degps": {
+      "max": 770.226,
+      "p95": 4.3956
+     },
+     "yawRate_degps": {
+      "max": 385.0954,
+      "p95": 4.497
+     },
+     "tilt_deg": {
+      "max": 2.0015,
+      "p95": 1.83
+     },
+     "eyeFromSeatEye_m": {
+      "max": 0.0679,
+      "p95": 0.0372
+     },
+     "eyeFromSeatEyeVert_m": {
+      "max": 0.0194,
+      "p95": 0.0152
+     },
+     "eyeInBoatFrameUp_m": {
+      "min": -0.019,
+      "max": 0.0131
+     },
+     "eyeInBoatFrameHoriz_m_max": 0.0675,
+     "eyeBelowGunwaleTop_fraction": 0.0,
+     "handsVsBoatSeatFrame_m": {
+      "max": 0.2692,
+      "p95": 0.2232
+     }
+    },
+    "approach_70_sf": {
+     "accVert_mps2": {
+      "max": 0.0975,
+      "p95": 0.0573
+     },
+     "accHoriz_mps2": {
+      "max": 0.9128,
+      "p95": 0.8083
+     },
+     "angSpeed_degps": {
+      "max": 0.0,
+      "p95": 0.0
+     },
+     "yawRate_degps": {
+      "max": 0.0,
+      "p95": 0.0
+     },
+     "tilt_deg": {
+      "max": 0.0,
+      "p95": 0.0
+     },
+     "eyeFromSeatEye_m": {
+      "max": 0.0502,
+      "p95": 0.0475
+     },
+     "eyeFromSeatEyeVert_m": {
+      "max": 0.0269,
+      "p95": 0.026
+     },
+     "eyeInBoatFrameUp_m": {
+      "min": -0.0279,
+      "max": 0.0207
+     },
+     "eyeInBoatFrameHoriz_m_max": 0.0426,
+     "eyeBelowGunwaleTop_fraction": 0.0,
+     "handsVsBoatSeatFrame_m": {
+      "max": 0.4045,
+      "p95": 0.3829
+     }
+    },
+    "formation_sf_tstar": {
+     "accVert_mps2": {
+      "max": 16.1412,
+      "p95": 5.8594
+     },
+     "accHoriz_mps2": {
+      "max": 10.2324,
+      "p95": 5.8064
+     },
+     "angSpeed_degps": {
+      "max": 1580.1626,
+      "p95": 8.4319
+     },
+     "yawRate_degps": {
+      "max": 790.0816,
+      "p95": 7.0259
+     },
+     "tilt_deg": {
+      "max": 5.5322,
+      "p95": 5.4991
+     },
+     "eyeFromSeatEye_m": {
+      "max": 0.2679,
+      "p95": 0.2173
+     },
+     "eyeFromSeatEyeVert_m": {
+      "max": 0.2678,
+      "p95": 0.2073
+     },
+     "eyeInBoatFrameUp_m": {
+      "min": -0.0995,
+      "max": 0.0999
+     },
+     "eyeInBoatFrameHoriz_m_max": 0.2486,
+     "eyeBelowGunwaleTop_fraction": 0.0,
+     "handsVsBoatSeatFrame_m": {
+      "max": 0.7198,
+      "p95": 0.6231
+     }
+    },
+    "hold_tstar_end": {
+     "accVert_mps2": {
+      "max": 16.148,
+      "p95": 13.9174
+     },
+     "accHoriz_mps2": {
+      "max": 22.8696,
+      "p95": 14.124
+     },
+     "angSpeed_degps": {
+      "max": 0.0,
+      "p95": 0.0
+     },
+     "yawRate_degps": {
+      "max": 0.0,
+      "p95": 0.0
+     },
+     "tilt_deg": {
+      "max": 0.0,
+      "p95": 0.0
+     },
+     "eyeFromSeatEye_m": {
+      "max": 0.2678,
+      "p95": 0.2659
+     },
+     "eyeFromSeatEyeVert_m": {
+      "max": 0.2671,
+      "p95": 0.2606
+     },
+     "eyeInBoatFrameUp_m": {
+      "min": -0.0977,
+      "max": 0.0999
+     },
+     "eyeInBoatFrameHoriz_m_max": 0.2485,
+     "eyeBelowGunwaleTop_fraction": 0.0,
+     "handsVsBoatSeatFrame_m": {
+      "max": 0.698,
+      "p95": 0.6941
+     }
+    },
+    "all": {
+     "accVert_mps2": {
+      "max": 16.148,
+      "p95": 1.4389
+     },
+     "accHoriz_mps2": {
+      "max": 22.8696,
+      "p95": 1.1415
+     },
+     "angSpeed_degps": {
+      "max": 1580.1626,
+      "p95": 6.6739
+     },
+     "yawRate_degps": {
+      "max": 790.0816,
+      "p95": 6.2484
+     },
+     "tilt_deg": {
+      "max": 5.5322,
+      "p95": 1.9937
+     },
+     "eyeFromSeatEye_m": {
+      "max": 0.2679,
+      "p95": 0.1132
+     },
+     "eyeFromSeatEyeVert_m": {
+      "max": 0.2678,
+      "p95": 0.1028
+     },
+     "eyeInBoatFrameUp_m": {
+      "min": -0.0995,
+      "max": 0.0999
+     },
+     "eyeInBoatFrameHoriz_m_max": 0.2486,
+     "eyeBelowGunwaleTop_fraction": 0.0,
+     "handsVsBoatSeatFrame_m": {
+      "max": 0.7198,
+      "p95": 0.4695
+     }
+    }
+   }
+  },
+  "atTstar": {
+   "L0": {
+    "eyeFromSeatEye_m": 0.2679,
+    "tilt_deg": 0.0,
+    "yawMinusSeatYaw_deg": 0.384
+   },
+   "L1": {
+    "eyeFromSeatEye_m": 0.2582,
+    "tilt_deg": 0.0,
+    "yawMinusSeatYaw_deg": 0.384
+   },
+   "L2": {
+    "eyeFromSeatEye_m": 0.2582,
+    "tilt_deg": 0.0,
+    "yawMinusSeatYaw_deg": 0.0
+   },
+   "L3": {
+    "eyeFromSeatEye_m": 0.2582,
+    "tilt_deg": 7.837,
+    "yawMinusSeatYaw_deg": 0.0
+   },
+   "main": {
+    "eyeFromSeatEye_m": 0.2679,
+    "tilt_deg": 0.0,
+    "yawMinusSeatYaw_deg": -1.315
+   }
+  },
+  "atEnd": {
+   "L0": {
+    "eyeFromSeatEye_m": 0.2032
+   },
+   "L1": {
+    "eyeFromSeatEye_m": 0.1726
+   },
+   "L2": {
+    "eyeFromSeatEye_m": 0.1726
+   },
+   "L3": {
+    "eyeFromSeatEye_m": 0.1726
+   },
+   "main": {
+    "eyeFromSeatEye_m": 0.2032
+   }
+  },
+  "switches": [
+   {
+    "s": 12.0,
+    "cmd": "set1@keyboard",
+    "from": "L0",
+    "to": "L1",
+    "reset": false,
+    "maxRotPerStep_deg": 0.03724,
+    "fixedLevelsMaxRotPerStep_deg": 0.03724,
+    "maxRelMovePerStep_m": 0.00023,
+    "fixedLevelsMaxRelMovePerStep_m": 0.00023,
+    "resetSnap_deg": null
+   },
+   {
+    "s": 24.0,
+    "cmd": "set2@keyboard",
+    "from": "L1",
+    "to": "L2",
+    "reset": false,
+    "maxRotPerStep_deg": 0.09599,
+    "fixedLevelsMaxRotPerStep_deg": 0.09472,
+    "maxRelMovePerStep_m": 8e-05,
+    "fixedLevelsMaxRelMovePerStep_m": 8e-05,
+    "resetSnap_deg": null
+   },
+   {
+    "s": 36.0,
+    "cmd": "set3@keyboard",
+    "from": "L2",
+    "to": "L3",
+    "reset": false,
+    "maxRotPerStep_deg": 0.05392,
+    "fixedLevelsMaxRotPerStep_deg": 0.05442,
+    "maxRelMovePerStep_m": 2e-05,
+    "fixedLevelsMaxRelMovePerStep_m": 2e-05,
+    "resetSnap_deg": null
+   },
+   {
+    "s": 48.0,
+    "cmd": "reset@keyboard",
+    "from": "L3",
+    "to": "L3",
+    "reset": true,
+    "maxRotPerStep_deg": 0.04697,
+    "fixedLevelsMaxRotPerStep_deg": 0.04697,
+    "maxRelMovePerStep_m": 9e-05,
+    "fixedLevelsMaxRelMovePerStep_m": 0.0001,
+    "resetSnap_deg": 25.675
+   },
+   {
+    "s": 54.0,
+    "cmd": "d-1@gamepad",
+    "from": "L3",
+    "to": "L2",
+    "reset": false,
+    "maxRotPerStep_deg": 0.03813,
+    "fixedLevelsMaxRotPerStep_deg": 0.04343,
+    "maxRelMovePerStep_m": 4e-05,
+    "fixedLevelsMaxRelMovePerStep_m": 4e-05,
+    "resetSnap_deg": null
+   },
+   {
+    "s": 60.0,
+    "cmd": "d-1@gamepad",
+    "from": "L2",
+    "to": "L1",
+    "reset": false,
+    "maxRotPerStep_deg": 0.0,
+    "fixedLevelsMaxRotPerStep_deg": 0.03724,
+    "maxRelMovePerStep_m": 5e-05,
+    "fixedLevelsMaxRelMovePerStep_m": 5e-05,
+    "resetSnap_deg": null
+   },
+   {
+    "s": 66.0,
+    "cmd": "d-1@gamepad",
+    "from": "L1",
+    "to": "L0",
+    "reset": false,
+    "maxRotPerStep_deg": 0.0,
+    "fixedLevelsMaxRotPerStep_deg": 0.03724,
+    "maxRelMovePerStep_m": 0.0001,
+    "fixedLevelsMaxRelMovePerStep_m": 8e-05,
+    "resetSnap_deg": null
+   },
+   {
+    "s": 84.0,
+    "cmd": "set3@keyboard",
+    "from": "L0",
+    "to": "L3",
+    "reset": false,
+    "maxRotPerStep_deg": 0.08792,
+    "fixedLevelsMaxRotPerStep_deg": 0.0727,
+    "maxRelMovePerStep_m": 0.00117,
+    "fixedLevelsMaxRelMovePerStep_m": 0.0018,
+    "resetSnap_deg": null
+   },
+   {
+    "s": 88.0,
+    "cmd": "set0@keyboard",
+    "from": "L3",
+    "to": "L0",
+    "reset": false,
+    "maxRotPerStep_deg": 0.04801,
+    "fixedLevelsMaxRotPerStep_deg": 0.057,
+    "maxRelMovePerStep_m": 0.00092,
+    "fixedLevelsMaxRelMovePerStep_m": 0.00092,
+    "resetSnap_deg": null
+   },
+   {
+    "s": 90.0,
+    "cmd": "reset@gamepad",
+    "from": "L0",
+    "to": "L0",
+    "reset": true,
+    "maxRotPerStep_deg": 0.0,
+    "fixedLevelsMaxRotPerStep_deg": 0.03724,
+    "maxRelMovePerStep_m": 0.01269,
+    "fixedLevelsMaxRelMovePerStep_m": 0.01269,
+    "resetSnap_deg": 52.672
+   }
+  ],
+  "cameraWorldEqualsRiderRootMaxM": 0.0,
+  "result": "記録のみ"
+ },
+ "sources": {
+  "boatStepsCsv": {
+   "path": "Unity/Build/Design/44/steer/unity/ds44_steps.csv",
+   "sha256": "643b376f09f66628575df640bb4095c68c6e4bf4c081ca1f5f1bcacb7e269fee"
+  },
+  "boatFramesJsonl": {
+   "path": "Unity/Build/Design/44/steer/unity/ds44_frames.jsonl",
+   "sha256": "e424d5e231043051d976016f5e5a2a78fa6cc36e943c027e3089902d4558c0e5"
+  },
+  "heave30": {
+   "path": "Unity/Build/Design/30/sea/boat_support.json",
+   "sha256": "082906b7f1c286a5a41ef4f0ef216e4a2eab44c1e902baff085bc249e3f998d6"
+  }
+ }
+}

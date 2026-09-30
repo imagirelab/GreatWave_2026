@@ -1,0 +1,51 @@
+{
+  "schema": "GreatWave.DS45.comfort/1",
+  "noteJa": "設計45 の乗客の揺れの 4 段（設計書 §7.3：水平維持 → 弱い上下動 → 旋回 → 傾斜を一種類ずつ足す）。値はどれも進行役が決めた調整値で、資料の値ではない（D45-5）。遅い上下（omegaV より遅いもの。大波に持ち上げられるなど）は全段で渡る（乗客が船から離れないため）。速い上下は kV の割合だけ渡る。水平の細かい揺れは全段で除く。打ち消す量は船の枠で測って頭打ちにする（船の上向き +maxDevUpM・下向き −maxDevDownM、船の水平 maxDevHM）ので、乗客は座席に座ったままでいる（設計書 §7.3 の最初の設定「着座、水平維持、上下動最小」の着座を先にする）。",
+  "fixNoteJa": "修正の回（run3）：run2 の上下（omegaV 1.0、betaV 0.5、世界の上下で頭打ち 0.6 m）では、形成の間に目が座席の目から船の枠で −0.58〜+0.56 m 動き、形成の 54%（L0）で目が船縁の上端より下へ沈んで船内が視野を埋めた。頭打ちを船の枠の ±0.10 m（座席の目は船縁の上端より 0.149 m 上。設計41）へ移し、この予算で形成の加速度の山が船より大きくならない所として omegaV を 4.0 にした（numpy の写しで omegaV 1〜8・betaV 0〜1・壁のばねの案を比べた。進行役の調整値、D45-5）。",
+  "eyeHeightM": 1.2,
+  "seatYawOffsetDeg": 47.807015805211634,
+  "seatYawOffsetSourceJa": "Tools/GWContext/seat_v1.json の view.recenter_yaw_deg（−40.407、唇の方位）− 設計43 の ds43_boats.json の boat_mid の yawDeg（−88.21401580521163、原画の船首の向き）",
+  "blendS": 1.0,
+  "omegaV": 4.0,
+  "betaV": 0.5,
+  "omegaH": 4.0,
+  "omegaTilt": 3.0,
+  "maxDevUpM": 0.1,
+  "maxDevDownM": 0.1,
+  "maxDevHM": 0.25,
+  "seatEyeAboveGunwaleM": 0.149,
+  "seatEyeAboveGunwaleSourceJa": "Docs/Progress/Design_41_ja.md の最小の受入 3（目の所の断面で、目は船縁の上端より 0.149 m 上。船の枠）",
+  "defaultLevel": 0,
+  "levels": [
+    { "key": "L0", "nameJa": "水平維持（上下動最小）", "kV": 0.0, "yawFollow": false, "kTilt": 0.0, "tiltMaxDeg": 0.0 },
+    { "key": "L1", "nameJa": "弱い上下動", "kV": 0.35, "yawFollow": false, "kTilt": 0.0, "tiltMaxDeg": 0.0 },
+    { "key": "L2", "nameJa": "旋回", "kV": 0.35, "yawFollow": true, "kTilt": 0.0, "tiltMaxDeg": 0.0 },
+    { "key": "L3", "nameJa": "傾斜", "kV": 0.35, "yawFollow": true, "kTilt": 0.35, "tiltMaxDeg": 8.0 }
+  ],
+  "test": {
+    "boatStepsCsv": "G:/Unity/GreatWave_2026_Fresh/Unity/Build/Design/44/steer/unity/ds44_steps.csv",
+    "boatFramesJsonl": "G:/Unity/GreatWave_2026_Fresh/Unity/Build/Design/44/steer/unity/ds44_frames.jsonl",
+    "heave30Json": "G:/Unity/GreatWave_2026_Fresh/Unity/Build/Design/30/sea/boat_support.json",
+    "boatsJson": "Assets/GreatWave/Design43/Data/ds43_boats.json",
+    "seatV1Json": "G:/Unity/GreatWave_2026_Fresh/Tools/GWContext/seat_v1.json",
+    "switches": [
+      { "s": 12.0, "device": "keyboard", "key": "Digit2", "button": "" },
+      { "s": 24.0, "device": "keyboard", "key": "Digit3", "button": "" },
+      { "s": 36.0, "device": "keyboard", "key": "Digit4", "button": "" },
+      { "s": 48.0, "device": "keyboard", "key": "R", "button": "" },
+      { "s": 54.0, "device": "gamepad", "key": "", "button": "DpadDown" },
+      { "s": 60.0, "device": "gamepad", "key": "", "button": "DpadDown" },
+      { "s": 66.0, "device": "gamepad", "key": "", "button": "DpadDown" },
+      { "s": 84.0, "device": "keyboard", "key": "Digit4", "button": "" },
+      { "s": 88.0, "device": "keyboard", "key": "Digit1", "button": "" },
+      { "s": 90.0, "device": "gamepad", "key": "", "button": "Select" }
+    ],
+    "holdS": 0.1,
+    "lookUpDeg": 30.0,
+    "vfovDeg": 90.0,
+    "width": 640,
+    "height": 360,
+    "stereoS": [84.0, 86.6667, 91.6497, 93.6],
+    "ipdM": 0.064
+  }
+}

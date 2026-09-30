@@ -1,0 +1,152 @@
+{
+ "schema": "GreatWave.DS45.codecheck/1",
+ "runtimeFolder": "Unity/Assets/GreatWave/Design45/Scripts",
+ "runtimeWrites": [
+  {
+   "file": "DS45RiderComfort.cs",
+   "line": 66,
+   "kind": "call",
+   "receiver": "transform",
+   "member": "SetPositionAndRotation",
+   "code": "transform.SetPositionAndRotation(p.pos, p.rot);"
+  },
+  {
+   "file": "DS45RiderComfort.cs",
+   "line": 90,
+   "kind": "call",
+   "receiver": "xrOrigin",
+   "member": "SetLocalPositionAndRotation",
+   "code": "xrOrigin.SetLocalPositionAndRotation(o.pos, o.rot);"
+  }
+ ],
+ "runtimeWritesToHmdOrOffset": [],
+ "runtimeWritesOtherThanOwnTransformOrXrOrigin": [],
+ "hmdCameraMentions": [
+  {
+   "file": "DS45RiderComfort.cs",
+   "line": 27,
+   "code": "public Transform hmdCamera;"
+  },
+  {
+   "file": "DS45RiderComfort.cs",
+   "line": 87,
+   "code": "if (xrOrigin != null && cameraOffset != null && hmdCamera != null)"
+  },
+  {
+   "file": "DS45RiderComfort.cs",
+   "line": 89,
+   "code": "var o = DS45ComfortSolver.RecenterOrigin(cameraOffset.localPosition, cameraOffset.localRotation, hmdCamera.localPosition, hmdCamera.localRotation);"
+  }
+ ],
+ "hmdCameraMentionsThatWrite": [],
+ "editorWrites": [
+  {
+   "file": "DS45ComfortTest.cs",
+   "line": 145,
+   "kind": "call",
+   "receiver": "go.transform",
+   "member": "SetParent",
+   "code": "go.transform.SetParent(r.cam, false);"
+  },
+  {
+   "file": "DS45ComfortTest.cs",
+   "line": 146,
+   "kind": "assign",
+   "receiver": "go.transform",
+   "member": "localRotation",
+   "code": "go.transform.localRotation = Quaternion.Euler(-T.lookUpDeg, 0f, 0f);"
+  },
+  {
+   "file": "DS45ComfortTest.cs",
+   "line": 191,
+   "kind": "call",
+   "receiver": "seatRoot",
+   "member": "SetPositionAndRotation",
+   "code": "seatRoot.SetPositionAndRotation(V3(fb.pos), Q4(fb.rot));"
+  },
+  {
+   "file": "DS45ComfortTest.cs",
+   "line": 199,
+   "kind": "call",
+   "receiver": "seatRoot",
+   "member": "SetPositionAndRotation",
+   "code": "seatRoot.SetPositionAndRotation(row.p, row.q);"
+  },
+  {
+   "file": "DS45ComfortTest.cs",
+   "line": 222,
+   "kind": "call",
+   "receiver": "tf",
+   "member": "SetPositionAndRotation",
+   "code": "if (boatTf.TryGetValue(fb.key, out var tf)) tf.SetPositionAndRotation(V3(fb.pos), Q4(fb.rot));"
+  },
+  {
+   "file": "DS45ComfortTest.cs",
+   "line": 235,
+   "kind": "assign",
+   "receiver": "r.look.transform",
+   "member": "localPosition",
+   "code": "r.look.transform.localPosition = lp + r.look.transform.localRotation * new Vector3(eye * T.ipdM * 0.5f, 0f, 0f);"
+  },
+  {
+   "file": "DS45ComfortTest.cs",
+   "line": 238,
+   "kind": "assign",
+   "receiver": "r.look.transform",
+   "member": "localPosition",
+   "code": "r.look.transform.localPosition = lp;"
+  },
+  {
+   "file": "DS45ComfortTest.cs",
+   "line": 279,
+   "kind": "call",
+   "receiver": "origin.transform",
+   "member": "SetParent",
+   "code": "origin.transform.SetParent(root.transform, false);"
+  },
+  {
+   "file": "DS45ComfortTest.cs",
+   "line": 280,
+   "kind": "assign",
+   "receiver": "origin.transform",
+   "member": "localPosition",
+   "code": "origin.transform.localPosition = new Vector3(0f, -cfg.eyeHeightM, 0f);"
+  },
+  {
+   "file": "DS45ComfortTest.cs",
+   "line": 282,
+   "kind": "call",
+   "receiver": "offset.transform",
+   "member": "SetParent",
+   "code": "offset.transform.SetParent(origin.transform, false);"
+  },
+  {
+   "file": "DS45ComfortTest.cs",
+   "line": 284,
+   "kind": "call",
+   "receiver": "camGo.transform",
+   "member": "SetParent",
+   "code": "camGo.transform.SetParent(offset.transform, false);"
+  },
+  {
+   "file": "DS45ComfortTest.cs",
+   "line": 294,
+   "kind": "assign",
+   "receiver": "offset.transform",
+   "member": "localPosition",
+   "code": "offset.transform.localPosition = new Vector3(0f, cfg.eyeHeightM, 0f);"
+  },
+  {
+   "file": "DS45ComfortTest.cs",
+   "line": 393,
+   "kind": "call",
+   "receiver": "go.transform",
+   "member": "SetPositionAndRotation",
+   "code": "go.transform.SetPositionAndRotation(p0 + new Vector3(0f, f.delta_m, 0f), q0);"
+  }
+ ],
+ "editorWritesOnCameraNames": [],
+ "editorWritesHmdPose": [],
+ "passed": true,
+ "noteJa": "受け手の式を正規表現で拾った静的な検査。実行時の検査（Unity で HMD Camera の局所の姿勢が一度も変わらない）は ds45_unity_report.json の hmdLocalPosMaxAbsChange・hmdLocalRotMaxAngleDeg。"
+}
