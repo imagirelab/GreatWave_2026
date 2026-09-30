@@ -1,0 +1,1862 @@
+{
+ "schema": "GreatWave.Design39.metrics/1",
+ "number": "設計39：紙・摺り・小飛沫を一つずつ加える（オン/オフ、追加 GPU 時間）",
+ "evidence_kind_ja": "Unity 6000.4.3f1 の Editor の batchmode の PC オフスクリーン描画（camera.Render、RTX 3080、Direct3D11）と、Release の Windows プレイヤー DS39Perf.exe の PC の実測（FrameTiming。RTX 3080 の代理）、numpy/OpenCV/scikit-image の評価。頭の揺れは座席のカメラを右の向きへずらした PC の描画で、HMD の頭の追跡ではない。HMD 実機（PS VR2）の結果ではない。",
+ "acceptance": {
+  "off_does_not_disturb_de00": {
+   "criterion_ja": "評価と原画比較は全部切で行う（ΔE00 の測定を乱さない）。既定は全部切",
+   "builder": {
+    "t28_images_same_pixels_as_ds38": true,
+    "images_compared": 20,
+    "evaluator_values_compared": 60,
+    "evaluator_values_different": 0,
+    "default_state": "全部切"
+   },
+   "builder_verdict": "合格",
+   "recorder": {
+    "files_compared": 48,
+    "png": 46,
+    "other": 2,
+    "differ": [],
+    "only_one_side": [],
+    "regress_same_file": true,
+    "regress_sha256": "4ca57d3a973d94d4feca5dfc9c11397e4246b36d5236986df5046c2a35b8931e"
+   },
+   "scene_defaults": {
+    "DS39_Paper.unity": {
+     "sha256": "7480a99b1e961fa68b3bb7851789a17a70c082f6981b8d1560a46a8324699ddd",
+     "paperOn": 0,
+     "muraOn": 0,
+     "sprayOn": 0,
+     "paperAmp": 0.03,
+     "muraAmp": 0.04,
+     "dense_spray_drawInPlayMode": 0,
+     "dense_spray_dataPath": "G:/Unity/GreatWave_2026_Fresh/Unity/Build/Design/39/paper/spray/ds39_spray_dense_frames.json"
+    },
+    "DS39_Perf.unity": {
+     "sha256": "b0795a9eb04cd3ea73e7e136ac39d8eff235bbac1cdd2ddd4a6280c79be3f414",
+     "paperOn": 0,
+     "muraOn": 0,
+     "sprayOn": 0,
+     "paperAmp": 0.03,
+     "muraAmp": 0.04,
+     "dense_spray_drawInPlayMode": 0,
+     "dense_spray_dataPath": "G:/Unity/GreatWave_2026_Fresh/Unity/Build/Design/39/paper/spray/ds39_spray_dense_frames.json"
+    }
+   },
+   "verdict": "合格"
+  },
+  "no_swim_with_head_motion": {
+   "criterion_ja": "入れても頭の移動（±0.1 m）で質感が泳がない。作る部の定義：面の座標の升（格子の 1/64）ごとの表でコマ B を予測した残り ÷ 模様の散らばり = N、÷ 画面の同じ画素の差 = S。① は S・N ≤ 0.35、② は N ≤ 0.35（すべての組、画素は主役波・near・far をまとめて）。利得 15 の描画",
+   "paper": {
+    "S_range": [
+     0.096,
+     0.1982
+    ],
+    "N_range": [
+     0.0916,
+     0.2351
+    ],
+    "N_screen_fixed_control_range": [
+     0.9468,
+     1.3464
+    ]
+   },
+   "mura": {
+    "N_range": [
+     0.0355,
+     0.1801
+    ],
+    "N_screen_fixed_control_range": [
+     0.1152,
+     0.2363
+    ]
+   },
+   "rows": {
+    "seat_toward_wave_t090 -100_vs_+100": {
+     "disp_px_median": 49.67,
+     "paper": {
+      "S": 0.1726,
+      "N": 0.2351,
+      "N_screen_fixed_control": 1.3464,
+      "by_sheet": {
+       "1": 0.4575,
+       "2": 0.2351
+      }
+     },
+     "mura": {
+      "S": 0.2037,
+      "N": 0.0355,
+      "N_screen_fixed_control": 0.1717,
+      "by_sheet": {
+       "1": 0.0307,
+       "2": 0.0356
+      }
+     }
+    },
+    "seat_toward_wave_t090 -050_vs_+050": {
+     "disp_px_median": 24.67,
+     "paper": {
+      "S": 0.1974,
+      "N": 0.2343,
+      "N_screen_fixed_control": 1.1694,
+      "by_sheet": {
+       "1": 0.4606,
+       "2": 0.2344
+      }
+     },
+     "mura": {
+      "S": 0.3138,
+      "N": 0.0375,
+      "N_screen_fixed_control": 0.1152,
+      "by_sheet": {
+       "1": 0.0696,
+       "2": 0.0351
+      }
+     }
+    },
+    "seat_toward_wave_t090 -100_vs_+000": {
+     "disp_px_median": 24.69,
+     "paper": {
+      "S": 0.1973,
+      "N": 0.2345,
+      "N_screen_fixed_control": 1.1706,
+      "by_sheet": {
+       "1": 0.4369,
+       "2": 0.2346
+      }
+     },
+     "mura": {
+      "S": 0.3123,
+      "N": 0.0373,
+      "N_screen_fixed_control": 0.1154,
+      "by_sheet": {
+       "1": 0.0667,
+       "2": 0.0352
+      }
+     }
+    },
+    "seat_toward_wave_t090 +000_vs_+100": {
+     "disp_px_median": 24.55,
+     "paper": {
+      "S": 0.1982,
+      "N": 0.235,
+      "N_screen_fixed_control": 1.1682,
+      "by_sheet": {
+       "1": 0.4489,
+       "2": 0.2351
+      }
+     },
+     "mura": {
+      "S": 0.3125,
+      "N": 0.0374,
+      "N_screen_fixed_control": 0.1156,
+      "by_sheet": {
+       "1": 0.0691,
+       "2": 0.0351
+      }
+     }
+    },
+    "seat_t120 -100_vs_+100": {
+     "disp_px_median": 11.0,
+     "paper": {
+      "S": 0.1016,
+      "N": 0.1277,
+      "N_screen_fixed_control": 1.2542,
+      "by_sheet": {
+       "1": 0.1277
+      }
+     },
+     "mura": {
+      "S": 0.7028,
+      "N": 0.1801,
+      "N_screen_fixed_control": 0.2363,
+      "by_sheet": {
+       "1": 0.1801
+      }
+     }
+    },
+    "seat_t120 -050_vs_+050": {
+     "disp_px_median": 6.0,
+     "paper": {
+      "S": 0.1022,
+      "N": 0.0971,
+      "N_screen_fixed_control": 0.9501,
+      "by_sheet": {
+       "1": 0.0971
+      }
+     },
+     "mura": {
+      "S": 0.3257,
+      "N": 0.0658,
+      "N_screen_fixed_control": 0.1913,
+      "by_sheet": {
+       "1": 0.0658
+      }
+     }
+    },
+    "seat_t120 -100_vs_+000": {
+     "disp_px_median": 6.0,
+     "paper": {
+      "S": 0.1092,
+      "N": 0.1036,
+      "N_screen_fixed_control": 0.9468,
+      "by_sheet": {
+       "1": 0.1036
+      }
+     },
+     "mura": {
+      "S": 0.3381,
+      "N": 0.0692,
+      "N_screen_fixed_control": 0.1922,
+      "by_sheet": {
+       "1": 0.0692
+      }
+     }
+    },
+    "seat_t120 +000_vs_+100": {
+     "disp_px_median": 6.0,
+     "paper": {
+      "S": 0.096,
+      "N": 0.0916,
+      "N_screen_fixed_control": 0.9539,
+      "by_sheet": {
+       "1": 0.0916
+      }
+     },
+     "mura": {
+      "S": 0.3207,
+      "N": 0.0644,
+      "N_screen_fixed_control": 0.1899,
+      "by_sheet": {
+       "1": 0.0644
+      }
+     }
+    }
+   },
+   "hero_sheet_paper_N_seat_toward_wave": [
+    0.4575,
+    0.4606,
+    0.4369,
+    0.4489
+   ],
+   "bin_sweep_pair_m100_p100": {
+    "16": {
+     "seat_toward_wave_t090": {
+      "paper_S": 0.4015,
+      "paper_N": 0.5443,
+      "mura_N": 0.0609,
+      "n_px": 1392389,
+      "paper_N_screen_fixed_control": 1.2516,
+      "paper_by_sheet": {
+       "1": {
+        "n": 30895,
+        "N": 0.5461
+       },
+       "2": {
+        "n": 1361466,
+        "N": 0.5446
+       }
+      }
+     },
+     "seat_t120": {
+      "paper_S": 0.1826,
+      "paper_N": 0.2297,
+      "mura_N": 0.1649,
+      "n_px": 328673,
+      "paper_N_screen_fixed_control": 1.2454,
+      "paper_by_sheet": {
+       "1": {
+        "n": 328673,
+        "N": 0.2297
+       }
+      }
+     }
+    },
+    "64": {
+     "seat_toward_wave_t090": {
+      "paper_S": 0.1726,
+      "paper_N": 0.2351,
+      "mura_N": 0.0355,
+      "n_px": 1104424,
+      "paper_N_screen_fixed_control": 1.3464,
+      "paper_by_sheet": {
+       "1": {
+        "n": 7674,
+        "N": 0.4575
+       },
+       "2": {
+        "n": 1096727,
+        "N": 0.2351
+       }
+      }
+     },
+     "seat_t120": {
+      "paper_S": 0.1016,
+      "paper_N": 0.1277,
+      "mura_N": 0.1801,
+      "n_px": 88452,
+      "paper_N_screen_fixed_control": 1.2542,
+      "paper_by_sheet": {
+       "1": {
+        "n": 88452,
+        "N": 0.1277
+       }
+      }
+     }
+    },
+    "256": {
+     "seat_toward_wave_t090": {
+      "paper_S": 0.0784,
+      "paper_N": 0.1092,
+      "mura_N": 0.0232,
+      "n_px": 368615,
+      "paper_N_screen_fixed_control": 1.3944,
+      "paper_by_sheet": {
+       "1": {
+        "n": 1967,
+        "N": 0.4479
+       },
+       "2": {
+        "n": 366647,
+        "N": 0.1092
+       }
+      }
+     },
+     "seat_t120": {
+      "paper_S": 0.0813,
+      "paper_N": 0.1002,
+      "mura_N": 0.1528,
+      "n_px": 20654,
+      "paper_N_screen_fixed_control": 1.2294,
+      "paper_by_sheet": {
+       "1": {
+        "n": 20654,
+        "N": 0.1002
+       }
+      }
+     }
+    }
+   },
+   "builder_verdict": "合格（PC 描画の揺れ。② は検査で見分けられない限界を記録）",
+   "indep_check": {
+    "seat_toward_wave_t090 -100 vs +100": {
+     "hero": {
+      "paper": {
+       "N": 0.4147,
+       "N_screen": 0.9116,
+       "S": 0.455,
+       "F_std": 0.0019,
+       "n": 118627
+      },
+      "mura": {
+       "N": 0.0321,
+       "N_screen": 0.2147,
+       "S": 0.1497,
+       "F_std": 0.05591,
+       "n": 118627
+      }
+     },
+     "near": {
+      "paper": {
+       "N": 0.0923,
+       "N_screen": 1.3605,
+       "S": 0.0679,
+       "F_std": 0.03376,
+       "n": 1245607
+      },
+      "mura": {
+       "N": 0.0194,
+       "N_screen": 0.1925,
+       "S": 0.1007,
+       "F_std": 0.0297,
+       "n": 1245607
+      }
+     }
+    },
+    "seat_toward_wave_t090 -100 vs +000": {
+     "hero": {
+      "paper": {
+       "N": 0.3993,
+       "N_screen": 0.7605,
+       "S": 0.525,
+       "F_std": 0.00189,
+       "n": 118166
+      },
+      "mura": {
+       "N": 0.0305,
+       "N_screen": 0.1294,
+       "S": 0.2357,
+       "F_std": 0.05596,
+       "n": 118166
+      }
+     },
+     "near": {
+      "paper": {
+       "N": 0.0898,
+       "N_screen": 1.1824,
+       "S": 0.076,
+       "F_std": 0.03375,
+       "n": 1265115
+      },
+      "mura": {
+       "N": 0.0187,
+       "N_screen": 0.1176,
+       "S": 0.1593,
+       "F_std": 0.02961,
+       "n": 1265115
+      }
+     }
+    },
+    "seat_t120 -100 vs +100": {
+     "hero": {
+      "paper": {
+       "N": 0.1691,
+       "N_screen": 1.2724,
+       "S": 0.1329,
+       "F_std": 0.01971,
+       "n": 576279
+      },
+      "mura": {
+       "N": 0.1673,
+       "N_screen": 0.2839,
+       "S": 0.5894,
+       "F_std": 0.05025,
+       "n": 576279
+      }
+     }
+    },
+    "seat_t120 -100 vs +000": {
+     "hero": {
+      "paper": {
+       "N": 0.1491,
+       "N_screen": 0.9579,
+       "S": 0.1556,
+       "F_std": 0.01966,
+       "n": 580724
+      },
+      "mura": {
+       "N": 0.1304,
+       "N_screen": 0.2129,
+       "S": 0.6127,
+       "F_std": 0.05031,
+       "n": 580724
+      }
+     }
+    }
+   },
+   "verdict": "合格（PC 描画の揺れ。HMD は保留）"
+  },
+  "onoff_images_and_gpu": {
+   "criterion_ja": "各オン/オフの画像と追加 GPU 時間（成果物）",
+   "images": [
+    "ds39_painting_t120_all.png",
+    "ds39_painting_t120_mura.png",
+    "ds39_painting_t120_off.png",
+    "ds39_painting_t120_paper.png",
+    "ds39_painting_t120_spray.png",
+    "ds39_seat_low_t120_all.png",
+    "ds39_seat_low_t120_mura.png",
+    "ds39_seat_low_t120_off.png",
+    "ds39_seat_low_t120_paper.png",
+    "ds39_seat_low_t120_spray.png",
+    "ds39_seat_t120_all.png",
+    "ds39_seat_t120_mura.png",
+    "ds39_seat_t120_off.png",
+    "ds39_seat_t120_paper.png",
+    "ds39_seat_t120_spray.png",
+    "ds39_seat_toward_wave_t105_all.png",
+    "ds39_seat_toward_wave_t105_mura.png",
+    "ds39_seat_toward_wave_t105_off.png",
+    "ds39_seat_toward_wave_t105_paper.png",
+    "ds39_seat_toward_wave_t105_spray.png"
+   ],
+   "gpu_delta_median_ms": {
+    "paper": {
+     "desk1080_painting": {
+      "run1": 0.4362,
+      "run2": 0.3635
+     },
+     "desk1080_seat": {
+      "run1": 0.3021,
+      "run2": 0.2745
+     },
+     "proxy_stereo_seat": {
+      "run1": 0.7158,
+      "run2": 0.7476
+     }
+    },
+    "mura": {
+     "desk1080_painting": {
+      "run1": 0.3789,
+      "run2": 0.3717
+     },
+     "desk1080_seat": {
+      "run1": 0.3287,
+      "run2": 0.2826
+     },
+     "proxy_stereo_seat": {
+      "run1": 1.0967,
+      "run2": 1.1367
+     }
+    },
+    "spray": {
+     "desk1080_painting": {
+      "run1": 0.0348,
+      "run2": 0.0368
+     },
+     "desk1080_seat": {
+      "run1": 0.0277,
+      "run2": 0.0323
+     },
+     "proxy_stereo_seat": {
+      "run1": 0.0605,
+      "run2": 0.041
+     }
+    },
+    "all": {
+     "desk1080_painting": {
+      "run1": 0.7895,
+      "run2": 0.7721
+     },
+     "desk1080_seat": {
+      "run1": 0.6001,
+      "run2": 0.5868
+     },
+     "proxy_stereo_seat": {
+      "run1": 2.2969,
+      "run2": 2.3281
+     }
+    }
+   },
+   "gpu_all_on_proxy": {
+    "run1": {
+     "median": 3.3311,
+     "p95": 3.909,
+     "zero_frac": 0.0,
+     "n": 2373,
+     "spray_count": 503
+    },
+    "run2": {
+     "median": 3.3408,
+     "p95": 3.9057,
+     "zero_frac": 0.0,
+     "n": 2378,
+     "spray_count": 503
+    }
+   },
+   "gpu_base_proxy": {
+    "run1": {
+     "median": 1.0342,
+     "p95": 1.407,
+     "zero_frac": 0.3007,
+     "n": 4388,
+     "spray_count": 186
+    },
+    "run2": {
+     "median": 1.0127,
+     "p95": 1.2841,
+     "zero_frac": 0.2795,
+     "n": 4936,
+     "spray_count": 186
+    }
+   },
+   "verdict": "作った（記録）"
+  }
+ },
+ "record_only": {
+  "onoff_de00_builder": {
+   "ds39_painting_t120": {
+    "paper": {
+     "mean": 0.2145,
+     "p95": 0.5791,
+     "max": 1.819,
+     "frac_gt2": 0.0,
+     "frac_gt5": 0.0
+    },
+    "mura": {
+     "mean": 0.2686,
+     "p95": 0.6408,
+     "max": 1.931,
+     "frac_gt2": 0.0,
+     "frac_gt5": 0.0
+    },
+    "spray": {
+     "mean": 0.0091,
+     "p95": 0.0,
+     "max": 65.426,
+     "frac_gt2": 0.00078,
+     "frac_gt5": 0.00037
+    },
+    "all": {
+     "mean": 0.3487,
+     "p95": 0.8639,
+     "max": 65.426,
+     "frac_gt2": 0.00078,
+     "frac_gt5": 0.00037
+    }
+   },
+   "ds39_seat_low_t120": {
+    "paper": {
+     "mean": 0.1148,
+     "p95": 0.4162,
+     "max": 4.798,
+     "frac_gt2": 0.0,
+     "frac_gt5": 0.0
+    },
+    "mura": {
+     "mean": 0.1632,
+     "p95": 0.5441,
+     "max": 4.798,
+     "frac_gt2": 0.0,
+     "frac_gt5": 0.0
+    },
+    "spray": {
+     "mean": 0.0968,
+     "p95": 0.0,
+     "max": 65.426,
+     "frac_gt2": 0.00235,
+     "frac_gt5": 0.00226
+    },
+    "all": {
+     "mean": 0.3227,
+     "p95": 0.7065,
+     "max": 65.426,
+     "frac_gt2": 0.00236,
+     "frac_gt5": 0.00227
+    }
+   },
+   "ds39_seat_t120": {
+    "paper": {
+     "mean": 0.1797,
+     "p95": 0.2359,
+     "max": 1.927,
+     "frac_gt2": 0.0,
+     "frac_gt5": 0.0
+    },
+    "mura": {
+     "mean": 0.239,
+     "p95": 0.5172,
+     "max": 2.07,
+     "frac_gt2": 0.0,
+     "frac_gt5": 0.0
+    },
+    "spray": {
+     "mean": 0.105,
+     "p95": 0.0,
+     "max": 65.426,
+     "frac_gt2": 0.00239,
+     "frac_gt5": 0.00232
+    },
+    "all": {
+     "mean": 0.4595,
+     "p95": 0.6346,
+     "max": 65.426,
+     "frac_gt2": 0.00239,
+     "frac_gt5": 0.00232
+    }
+   },
+   "ds39_seat_toward_wave_t105": {
+    "paper": {
+     "mean": 0.2262,
+     "p95": 0.5166,
+     "max": 1.792,
+     "frac_gt2": 0.0,
+     "frac_gt5": 0.0
+    },
+    "mura": {
+     "mean": 0.3309,
+     "p95": 0.6231,
+     "max": 1.858,
+     "frac_gt2": 0.0,
+     "frac_gt5": 0.0
+    },
+    "spray": {
+     "mean": 0.0483,
+     "p95": 0.0,
+     "max": 65.426,
+     "frac_gt2": 0.00124,
+     "frac_gt5": 0.00122
+    },
+    "all": {
+     "mean": 0.5445,
+     "p95": 1.0418,
+     "max": 65.426,
+     "frac_gt2": 0.00124,
+     "frac_gt5": 0.00122
+    }
+   }
+  },
+  "onoff_recorder": {
+   "painting_t120": {
+    "paper": {
+     "de00_gt2_px": 0,
+     "de00_gt5_px": 0,
+     "de00_max": 1.819,
+     "de00_mean": 0.2145,
+     "changed_px_frac": 0.7181,
+     "max_level_diff": 3,
+     "ratio_std_pct": 0.307,
+     "ratio_p99_abs_pct": 0.503,
+     "ratio_px": 2073600
+    },
+    "mura": {
+     "de00_gt2_px": 0,
+     "de00_gt5_px": 0,
+     "de00_max": 1.931,
+     "de00_mean": 0.2686,
+     "changed_px_frac": 0.77,
+     "max_level_diff": 4,
+     "ratio_std_pct": 0.427,
+     "ratio_p99_abs_pct": 1.02,
+     "ratio_px": 2073600
+    },
+    "spray": {
+     "de00_gt2_px": 1621,
+     "de00_gt5_px": 773,
+     "de00_max": 65.426,
+     "de00_mean": 0.0091,
+     "changed_px_frac": 0.0012,
+     "max_level_diff": 213
+    },
+    "all": {
+     "de00_gt2_px": 1614,
+     "de00_gt5_px": 774,
+     "de00_max": 65.426,
+     "de00_mean": 0.3487,
+     "changed_px_frac": 0.6022,
+     "max_level_diff": 213
+    }
+   },
+   "seat_t120": {
+    "paper": {
+     "de00_gt2_px": 0,
+     "de00_gt5_px": 0,
+     "de00_max": 1.927,
+     "de00_mean": 0.1797,
+     "changed_px_frac": 0.7782,
+     "max_level_diff": 9,
+     "ratio_std_pct": 0.231,
+     "ratio_p99_abs_pct": 0.452,
+     "ratio_px": 2073600
+    },
+    "mura": {
+     "de00_gt2_px": 1,
+     "de00_gt5_px": 0,
+     "de00_max": 2.07,
+     "de00_mean": 0.239,
+     "changed_px_frac": 0.8036,
+     "max_level_diff": 10,
+     "ratio_std_pct": 0.469,
+     "ratio_p99_abs_pct": 1.02,
+     "ratio_px": 2073600,
+     "de00_gt2_bbox_xy": [
+      857,
+      459,
+      857,
+      459
+     ]
+    },
+    "spray": {
+     "de00_gt2_px": 4966,
+     "de00_gt5_px": 4806,
+     "de00_max": 65.426,
+     "de00_mean": 0.105,
+     "changed_px_frac": 0.0025,
+     "max_level_diff": 213
+    },
+    "all": {
+     "de00_gt2_px": 4966,
+     "de00_gt5_px": 4821,
+     "de00_max": 65.426,
+     "de00_mean": 0.4595,
+     "changed_px_frac": 0.7805,
+     "max_level_diff": 213
+    }
+   },
+   "seat_low_t120": {
+    "paper": {
+     "de00_gt2_px": 1,
+     "de00_gt5_px": 0,
+     "de00_max": 4.798,
+     "de00_mean": 0.1148,
+     "changed_px_frac": 0.4259,
+     "max_level_diff": 23,
+     "ratio_std_pct": 0.241,
+     "ratio_p99_abs_pct": 0.487,
+     "ratio_px": 2073600,
+     "de00_gt2_bbox_xy": [
+      1051,
+      167,
+      1051,
+      167
+     ]
+    },
+    "mura": {
+     "de00_gt2_px": 1,
+     "de00_gt5_px": 0,
+     "de00_max": 4.798,
+     "de00_mean": 0.1632,
+     "changed_px_frac": 0.484,
+     "max_level_diff": 23,
+     "ratio_std_pct": 0.372,
+     "ratio_p99_abs_pct": 1.02,
+     "ratio_px": 2073600,
+     "de00_gt2_bbox_xy": [
+      1051,
+      167,
+      1051,
+      167
+     ]
+    },
+    "spray": {
+     "de00_gt2_px": 4866,
+     "de00_gt5_px": 4692,
+     "de00_max": 65.426,
+     "de00_mean": 0.0968,
+     "changed_px_frac": 0.0024,
+     "max_level_diff": 213
+    },
+    "all": {
+     "de00_gt2_px": 4884,
+     "de00_gt5_px": 4704,
+     "de00_max": 65.426,
+     "de00_mean": 0.3227,
+     "changed_px_frac": 0.4459,
+     "max_level_diff": 213
+    }
+   },
+   "seat_toward_wave_t105": {
+    "paper": {
+     "de00_gt2_px": 0,
+     "de00_gt5_px": 0,
+     "de00_max": 1.792,
+     "de00_mean": 0.2262,
+     "changed_px_frac": 0.6582,
+     "max_level_diff": 3,
+     "ratio_std_pct": 0.308,
+     "ratio_p99_abs_pct": 0.676,
+     "ratio_px": 2073600
+    },
+    "mura": {
+     "de00_gt2_px": 0,
+     "de00_gt5_px": 0,
+     "de00_max": 1.858,
+     "de00_mean": 0.3309,
+     "changed_px_frac": 0.7827,
+     "max_level_diff": 4,
+     "ratio_std_pct": 0.367,
+     "ratio_p99_abs_pct": 1.02,
+     "ratio_px": 2073600
+    },
+    "spray": {
+     "de00_gt2_px": 2563,
+     "de00_gt5_px": 2536,
+     "de00_max": 65.426,
+     "de00_mean": 0.0483,
+     "changed_px_frac": 0.0013,
+     "max_level_diff": 213
+    },
+    "all": {
+     "de00_gt2_px": 2575,
+     "de00_gt5_px": 2537,
+     "de00_max": 65.426,
+     "de00_mean": 0.5445,
+     "changed_px_frac": 0.7434,
+     "max_level_diff": 213
+    }
+   }
+  },
+  "player_screens_recorder": {
+   "run1": {
+    "paper|desk1080_painting": {
+     "size": [
+      1920,
+      1080
+     ],
+     "changed_px_frac": 0.7182,
+     "max_level_diff": 3,
+     "p99_level_diff": 1.0
+    },
+    "mura|desk1080_painting": {
+     "size": [
+      1920,
+      1080
+     ],
+     "changed_px_frac": 0.7701,
+     "max_level_diff": 5,
+     "p99_level_diff": 2.0
+    },
+    "spray|desk1080_painting": {
+     "size": [
+      1920,
+      1080
+     ],
+     "changed_px_frac": 0.0011,
+     "max_level_diff": 213,
+     "p99_level_diff": 0.0
+    },
+    "all|desk1080_painting": {
+     "size": [
+      1920,
+      1080
+     ],
+     "changed_px_frac": 0.6018,
+     "max_level_diff": 213,
+     "p99_level_diff": 3.0
+    },
+    "paper|desk1080_seat": {
+     "size": [
+      1920,
+      1080
+     ],
+     "changed_px_frac": 0.7782,
+     "max_level_diff": 2,
+     "p99_level_diff": 1.0
+    },
+    "mura|desk1080_seat": {
+     "size": [
+      1920,
+      1080
+     ],
+     "changed_px_frac": 0.8036,
+     "max_level_diff": 4,
+     "p99_level_diff": 2.0
+    },
+    "spray|desk1080_seat": {
+     "size": [
+      1920,
+      1080
+     ],
+     "changed_px_frac": 0.0023,
+     "max_level_diff": 213,
+     "p99_level_diff": 0.0
+    },
+    "all|desk1080_seat": {
+     "size": [
+      1920,
+      1080
+     ],
+     "changed_px_frac": 0.7804,
+     "max_level_diff": 213,
+     "p99_level_diff": 3.0
+    },
+    "paper|proxy_stereo_seat": {
+     "size": [
+      1920,
+      1080
+     ],
+     "changed_px_frac": 0.6852,
+     "max_level_diff": 3,
+     "p99_level_diff": 1.0
+    },
+    "mura|proxy_stereo_seat": {
+     "size": [
+      1920,
+      1080
+     ],
+     "changed_px_frac": 0.7213,
+     "max_level_diff": 4,
+     "p99_level_diff": 2.0
+    },
+    "spray|proxy_stereo_seat": {
+     "size": [
+      1920,
+      1080
+     ],
+     "changed_px_frac": 0.0039,
+     "max_level_diff": 213,
+     "p99_level_diff": 0.0
+    },
+    "all|proxy_stereo_seat": {
+     "size": [
+      1920,
+      1080
+     ],
+     "changed_px_frac": 0.7065,
+     "max_level_diff": 213,
+     "p99_level_diff": 3.0
+    }
+   },
+   "run2": {
+    "paper|desk1080_painting": {
+     "size": [
+      1920,
+      1080
+     ],
+     "changed_px_frac": 0.7182,
+     "max_level_diff": 3,
+     "p99_level_diff": 1.0
+    },
+    "mura|desk1080_painting": {
+     "size": [
+      1920,
+      1080
+     ],
+     "changed_px_frac": 0.7701,
+     "max_level_diff": 5,
+     "p99_level_diff": 2.0
+    },
+    "spray|desk1080_painting": {
+     "size": [
+      1920,
+      1080
+     ],
+     "changed_px_frac": 0.0011,
+     "max_level_diff": 213,
+     "p99_level_diff": 0.0
+    },
+    "all|desk1080_painting": {
+     "size": [
+      1920,
+      1080
+     ],
+     "changed_px_frac": 0.6018,
+     "max_level_diff": 213,
+     "p99_level_diff": 3.0
+    },
+    "paper|desk1080_seat": {
+     "size": [
+      1920,
+      1080
+     ],
+     "changed_px_frac": 0.7782,
+     "max_level_diff": 2,
+     "p99_level_diff": 1.0
+    },
+    "mura|desk1080_seat": {
+     "size": [
+      1920,
+      1080
+     ],
+     "changed_px_frac": 0.8036,
+     "max_level_diff": 4,
+     "p99_level_diff": 2.0
+    },
+    "spray|desk1080_seat": {
+     "size": [
+      1920,
+      1080
+     ],
+     "changed_px_frac": 0.0023,
+     "max_level_diff": 213,
+     "p99_level_diff": 0.0
+    },
+    "all|desk1080_seat": {
+     "size": [
+      1920,
+      1080
+     ],
+     "changed_px_frac": 0.7804,
+     "max_level_diff": 213,
+     "p99_level_diff": 3.0
+    },
+    "paper|proxy_stereo_seat": {
+     "size": [
+      1920,
+      1080
+     ],
+     "changed_px_frac": 0.6852,
+     "max_level_diff": 3,
+     "p99_level_diff": 1.0
+    },
+    "mura|proxy_stereo_seat": {
+     "size": [
+      1920,
+      1080
+     ],
+     "changed_px_frac": 0.7213,
+     "max_level_diff": 4,
+     "p99_level_diff": 2.0
+    },
+    "spray|proxy_stereo_seat": {
+     "size": [
+      1920,
+      1080
+     ],
+     "changed_px_frac": 0.0039,
+     "max_level_diff": 213,
+     "p99_level_diff": 0.0
+    },
+    "all|proxy_stereo_seat": {
+     "size": [
+      1920,
+      1080
+     ],
+     "changed_px_frac": 0.7065,
+     "max_level_diff": 213,
+     "p99_level_diff": 3.0
+    }
+   }
+  },
+  "perf_rows": {
+   "base|desk1080_painting": {
+    "run1": {
+     "gpu_n": 7873,
+     "gpu_zero_frac": 0.112,
+     "gpu_median_ms": 0.469,
+     "gpu_mean_ms": 0.493,
+     "gpu_p95_ms": 0.5683,
+     "fps_mean": 1108.2,
+     "interval_p95_ms": 1.2554,
+     "spray_count": 186,
+     "spray_alive_max": 186
+    },
+    "run2": {
+     "gpu_n": 7974,
+     "gpu_zero_frac": 0.1579,
+     "gpu_median_ms": 0.4721,
+     "gpu_mean_ms": 0.4979,
+     "gpu_p95_ms": 0.5775,
+     "fps_mean": 1183.7,
+     "interval_p95_ms": 1.1984,
+     "spray_count": 186,
+     "spray_alive_max": 186
+    }
+   },
+   "base|desk1080_seat": {
+    "run1": {
+     "gpu_n": 8276,
+     "gpu_zero_frac": 0.0796,
+     "gpu_median_ms": 0.3635,
+     "gpu_mean_ms": 0.3882,
+     "gpu_p95_ms": 0.4782,
+     "fps_mean": 1124.0,
+     "interval_p95_ms": 1.2395,
+     "spray_count": 186,
+     "spray_alive_max": 186
+    },
+    "run2": {
+     "gpu_n": 8351,
+     "gpu_zero_frac": 0.0761,
+     "gpu_median_ms": 0.3635,
+     "gpu_mean_ms": 0.3837,
+     "gpu_p95_ms": 0.4434,
+     "fps_mean": 1129.9,
+     "interval_p95_ms": 1.2321,
+     "spray_count": 186,
+     "spray_alive_max": 186
+    }
+   },
+   "base|proxy_stereo_seat": {
+    "run1": {
+     "gpu_n": 4388,
+     "gpu_zero_frac": 0.3007,
+     "gpu_median_ms": 1.0342,
+     "gpu_mean_ms": 1.0572,
+     "gpu_p95_ms": 1.407,
+     "fps_mean": 784.3,
+     "interval_p95_ms": 1.8141,
+     "spray_count": 186,
+     "spray_alive_max": 186
+    },
+    "run2": {
+     "gpu_n": 4936,
+     "gpu_zero_frac": 0.2795,
+     "gpu_median_ms": 1.0127,
+     "gpu_mean_ms": 1.0081,
+     "gpu_p95_ms": 1.2841,
+     "fps_mean": 856.4,
+     "interval_p95_ms": 1.5965,
+     "spray_count": 186,
+     "spray_alive_max": 186
+    }
+   },
+   "paper|desk1080_painting": {
+    "run1": {
+     "gpu_n": 4403,
+     "gpu_zero_frac": 0.3668,
+     "gpu_median_ms": 0.9052,
+     "gpu_mean_ms": 0.93,
+     "gpu_p95_ms": 1.1109,
+     "fps_mean": 869.4,
+     "interval_p95_ms": 1.6127,
+     "spray_count": 186,
+     "spray_alive_max": 186
+    },
+    "run2": {
+     "gpu_n": 4750,
+     "gpu_zero_frac": 0.3746,
+     "gpu_median_ms": 0.8356,
+     "gpu_mean_ms": 0.8502,
+     "gpu_p95_ms": 0.8991,
+     "fps_mean": 949.6,
+     "interval_p95_ms": 1.4647,
+     "spray_count": 186,
+     "spray_alive_max": 186
+    }
+   },
+   "paper|desk1080_seat": {
+    "run1": {
+     "gpu_n": 6167,
+     "gpu_zero_frac": 0.2583,
+     "gpu_median_ms": 0.6656,
+     "gpu_mean_ms": 0.6833,
+     "gpu_p95_ms": 0.8117,
+     "fps_mean": 1039.5,
+     "interval_p95_ms": 1.3287,
+     "spray_count": 186,
+     "spray_alive_max": 186
+    },
+    "run2": {
+     "gpu_n": 6397,
+     "gpu_zero_frac": 0.2255,
+     "gpu_median_ms": 0.638,
+     "gpu_mean_ms": 0.6521,
+     "gpu_p95_ms": 0.7485,
+     "fps_mean": 1032.6,
+     "interval_p95_ms": 1.3545,
+     "spray_count": 186,
+     "spray_alive_max": 186
+    }
+   },
+   "paper|proxy_stereo_seat": {
+    "run1": {
+     "gpu_n": 4325,
+     "gpu_zero_frac": 0.0016,
+     "gpu_median_ms": 1.75,
+     "gpu_mean_ms": 1.7891,
+     "gpu_p95_ms": 2.2743,
+     "fps_mean": 541.7,
+     "interval_p95_ms": 2.3466,
+     "spray_count": 186,
+     "spray_alive_max": 186
+    },
+    "run2": {
+     "gpu_n": 4308,
+     "gpu_zero_frac": 0.0044,
+     "gpu_median_ms": 1.7603,
+     "gpu_mean_ms": 1.7865,
+     "gpu_p95_ms": 2.2804,
+     "fps_mean": 541.0,
+     "interval_p95_ms": 2.3574,
+     "spray_count": 186,
+     "spray_alive_max": 186
+    }
+   },
+   "mura|desk1080_painting": {
+    "run1": {
+     "gpu_n": 4809,
+     "gpu_zero_frac": 0.3666,
+     "gpu_median_ms": 0.8479,
+     "gpu_mean_ms": 0.8632,
+     "gpu_p95_ms": 0.9458,
+     "fps_mean": 949.0,
+     "interval_p95_ms": 1.4493,
+     "spray_count": 186,
+     "spray_alive_max": 186
+    },
+    "run2": {
+     "gpu_n": 4839,
+     "gpu_zero_frac": 0.3625,
+     "gpu_median_ms": 0.8438,
+     "gpu_mean_ms": 0.8589,
+     "gpu_p95_ms": 0.9277,
+     "fps_mean": 948.8,
+     "interval_p95_ms": 1.4643,
+     "spray_count": 186,
+     "spray_alive_max": 186
+    }
+   },
+   "mura|desk1080_seat": {
+    "run1": {
+     "gpu_n": 5816,
+     "gpu_zero_frac": 0.2247,
+     "gpu_median_ms": 0.6922,
+     "gpu_mean_ms": 0.7224,
+     "gpu_p95_ms": 1.0583,
+     "fps_mean": 937.7,
+     "interval_p95_ms": 1.5491,
+     "spray_count": 186,
+     "spray_alive_max": 186
+    },
+    "run2": {
+     "gpu_n": 6329,
+     "gpu_zero_frac": 0.2357,
+     "gpu_median_ms": 0.6461,
+     "gpu_mean_ms": 0.6635,
+     "gpu_p95_ms": 0.7989,
+     "fps_mean": 1035.2,
+     "interval_p95_ms": 1.3559,
+     "spray_count": 186,
+     "spray_alive_max": 186
+    }
+   },
+   "mura|proxy_stereo_seat": {
+    "run1": {
+     "gpu_n": 3652,
+     "gpu_zero_frac": 0.0,
+     "gpu_median_ms": 2.1309,
+     "gpu_mean_ms": 2.1345,
+     "gpu_p95_ms": 2.667,
+     "fps_mean": 456.6,
+     "interval_p95_ms": 2.7249,
+     "spray_count": 186,
+     "spray_alive_max": 186
+    },
+    "run2": {
+     "gpu_n": 3636,
+     "gpu_zero_frac": 0.0003,
+     "gpu_median_ms": 2.1494,
+     "gpu_mean_ms": 2.1437,
+     "gpu_p95_ms": 2.6839,
+     "fps_mean": 454.7,
+     "interval_p95_ms": 2.7361,
+     "spray_count": 186,
+     "spray_alive_max": 186
+    }
+   },
+   "spray|desk1080_painting": {
+    "run1": {
+     "gpu_n": 7562,
+     "gpu_zero_frac": 0.1699,
+     "gpu_median_ms": 0.5038,
+     "gpu_mean_ms": 0.5328,
+     "gpu_p95_ms": 0.6747,
+     "fps_mean": 1138.8,
+     "interval_p95_ms": 1.2426,
+     "spray_count": 503,
+     "spray_alive_max": 503
+    },
+    "run2": {
+     "gpu_n": 7472,
+     "gpu_zero_frac": 0.1414,
+     "gpu_median_ms": 0.5089,
+     "gpu_mean_ms": 0.5353,
+     "gpu_p95_ms": 0.6425,
+     "fps_mean": 1088.0,
+     "interval_p95_ms": 1.2913,
+     "spray_count": 503,
+     "spray_alive_max": 503
+    }
+   },
+   "spray|desk1080_seat": {
+    "run1": {
+     "gpu_n": 8884,
+     "gpu_zero_frac": 0.0945,
+     "gpu_median_ms": 0.3912,
+     "gpu_mean_ms": 0.4164,
+     "gpu_p95_ms": 0.5303,
+     "fps_mean": 1226.4,
+     "interval_p95_ms": 1.1664,
+     "spray_count": 503,
+     "spray_alive_max": 503
+    },
+    "run2": {
+     "gpu_n": 8274,
+     "gpu_zero_frac": 0.0812,
+     "gpu_median_ms": 0.3958,
+     "gpu_mean_ms": 0.4177,
+     "gpu_p95_ms": 0.5018,
+     "fps_mean": 1125.6,
+     "interval_p95_ms": 1.2302,
+     "spray_count": 503,
+     "spray_alive_max": 503
+    }
+   },
+   "spray|proxy_stereo_seat": {
+    "run1": {
+     "gpu_n": 5360,
+     "gpu_zero_frac": 0.1795,
+     "gpu_median_ms": 1.0947,
+     "gpu_mean_ms": 1.1044,
+     "gpu_p95_ms": 1.4756,
+     "fps_mean": 816.7,
+     "interval_p95_ms": 1.6604,
+     "spray_count": 503,
+     "spray_alive_max": 503
+    },
+    "run2": {
+     "gpu_n": 5042,
+     "gpu_zero_frac": 0.2434,
+     "gpu_median_ms": 1.0537,
+     "gpu_mean_ms": 1.0568,
+     "gpu_p95_ms": 1.3947,
+     "fps_mean": 833.0,
+     "interval_p95_ms": 1.6516,
+     "spray_count": 503,
+     "spray_alive_max": 503
+    }
+   },
+   "all|desk1080_painting": {
+    "run1": {
+     "gpu_n": 5669,
+     "gpu_zero_frac": 0.0195,
+     "gpu_median_ms": 1.2585,
+     "gpu_mean_ms": 1.3219,
+     "gpu_p95_ms": 1.7388,
+     "fps_mean": 722.9,
+     "interval_p95_ms": 1.8329,
+     "spray_count": 503,
+     "spray_alive_max": 503
+    },
+    "run2": {
+     "gpu_n": 5691,
+     "gpu_zero_frac": 0.0275,
+     "gpu_median_ms": 1.2442,
+     "gpu_mean_ms": 1.2987,
+     "gpu_p95_ms": 1.7234,
+     "fps_mean": 731.6,
+     "interval_p95_ms": 1.8093,
+     "spray_count": 503,
+     "spray_alive_max": 503
+    }
+   },
+   "all|desk1080_seat": {
+    "run1": {
+     "gpu_n": 5081,
+     "gpu_zero_frac": 0.2898,
+     "gpu_median_ms": 0.9636,
+     "gpu_mean_ms": 0.9655,
+     "gpu_p95_ms": 1.1141,
+     "fps_mean": 894.3,
+     "interval_p95_ms": 1.5312,
+     "spray_count": 503,
+     "spray_alive_max": 503
+    },
+    "run2": {
+     "gpu_n": 5088,
+     "gpu_zero_frac": 0.2924,
+     "gpu_median_ms": 0.9503,
+     "gpu_mean_ms": 0.9484,
+     "gpu_p95_ms": 1.0813,
+     "fps_mean": 898.8,
+     "interval_p95_ms": 1.526,
+     "spray_count": 503,
+     "spray_alive_max": 503
+    }
+   },
+   "all|proxy_stereo_seat": {
+    "run1": {
+     "gpu_n": 2373,
+     "gpu_zero_frac": 0.0,
+     "gpu_median_ms": 3.3311,
+     "gpu_mean_ms": 3.3144,
+     "gpu_p95_ms": 3.909,
+     "fps_mean": 296.8,
+     "interval_p95_ms": 3.9652,
+     "spray_count": 503,
+     "spray_alive_max": 503
+    },
+    "run2": {
+     "gpu_n": 2378,
+     "gpu_zero_frac": 0.0,
+     "gpu_median_ms": 3.3408,
+     "gpu_mean_ms": 3.307,
+     "gpu_p95_ms": 3.9057,
+     "fps_mean": 297.3,
+     "interval_p95_ms": 3.9711,
+     "spray_count": 503,
+     "spray_alive_max": 503
+    }
+   }
+  },
+  "perf_delta_vs_base": {
+   "paper": {
+    "desk1080_painting": {
+     "run1": {
+      "d_median_ms": 0.4362,
+      "d_mean_ms": 0.437,
+      "d_p95_ms": 0.5426
+     },
+     "run2": {
+      "d_median_ms": 0.3635,
+      "d_mean_ms": 0.3523,
+      "d_p95_ms": 0.3216
+     }
+    },
+    "desk1080_seat": {
+     "run1": {
+      "d_median_ms": 0.3021,
+      "d_mean_ms": 0.2951,
+      "d_p95_ms": 0.3335
+     },
+     "run2": {
+      "d_median_ms": 0.2745,
+      "d_mean_ms": 0.2684,
+      "d_p95_ms": 0.3051
+     }
+    },
+    "proxy_stereo_seat": {
+     "run1": {
+      "d_median_ms": 0.7158,
+      "d_mean_ms": 0.7319,
+      "d_p95_ms": 0.8673
+     },
+     "run2": {
+      "d_median_ms": 0.7476,
+      "d_mean_ms": 0.7784,
+      "d_p95_ms": 0.9963
+     }
+    }
+   },
+   "mura": {
+    "desk1080_painting": {
+     "run1": {
+      "d_median_ms": 0.3789,
+      "d_mean_ms": 0.3702,
+      "d_p95_ms": 0.3775
+     },
+     "run2": {
+      "d_median_ms": 0.3717,
+      "d_mean_ms": 0.361,
+      "d_p95_ms": 0.3502
+     }
+    },
+    "desk1080_seat": {
+     "run1": {
+      "d_median_ms": 0.3287,
+      "d_mean_ms": 0.3342,
+      "d_p95_ms": 0.5801
+     },
+     "run2": {
+      "d_median_ms": 0.2826,
+      "d_mean_ms": 0.2798,
+      "d_p95_ms": 0.3555
+     }
+    },
+    "proxy_stereo_seat": {
+     "run1": {
+      "d_median_ms": 1.0967,
+      "d_mean_ms": 1.0773,
+      "d_p95_ms": 1.26
+     },
+     "run2": {
+      "d_median_ms": 1.1367,
+      "d_mean_ms": 1.1356,
+      "d_p95_ms": 1.3998
+     }
+    }
+   },
+   "spray": {
+    "desk1080_painting": {
+     "run1": {
+      "d_median_ms": 0.0348,
+      "d_mean_ms": 0.0398,
+      "d_p95_ms": 0.1064
+     },
+     "run2": {
+      "d_median_ms": 0.0368,
+      "d_mean_ms": 0.0374,
+      "d_p95_ms": 0.065
+     }
+    },
+    "desk1080_seat": {
+     "run1": {
+      "d_median_ms": 0.0277,
+      "d_mean_ms": 0.0282,
+      "d_p95_ms": 0.0521
+     },
+     "run2": {
+      "d_median_ms": 0.0323,
+      "d_mean_ms": 0.034,
+      "d_p95_ms": 0.0584
+     }
+    },
+    "proxy_stereo_seat": {
+     "run1": {
+      "d_median_ms": 0.0605,
+      "d_mean_ms": 0.0472,
+      "d_p95_ms": 0.0686
+     },
+     "run2": {
+      "d_median_ms": 0.041,
+      "d_mean_ms": 0.0487,
+      "d_p95_ms": 0.1106
+     }
+    }
+   },
+   "all": {
+    "desk1080_painting": {
+     "run1": {
+      "d_median_ms": 0.7895,
+      "d_mean_ms": 0.8289,
+      "d_p95_ms": 1.1705
+     },
+     "run2": {
+      "d_median_ms": 0.7721,
+      "d_mean_ms": 0.8008,
+      "d_p95_ms": 1.1459
+     }
+    },
+    "desk1080_seat": {
+     "run1": {
+      "d_median_ms": 0.6001,
+      "d_mean_ms": 0.5773,
+      "d_p95_ms": 0.6359
+     },
+     "run2": {
+      "d_median_ms": 0.5868,
+      "d_mean_ms": 0.5647,
+      "d_p95_ms": 0.6379
+     }
+    },
+    "proxy_stereo_seat": {
+     "run1": {
+      "d_median_ms": 2.2969,
+      "d_mean_ms": 2.2572,
+      "d_p95_ms": 2.502
+     },
+     "run2": {
+      "d_median_ms": 2.3281,
+      "d_mean_ms": 2.2989,
+      "d_p95_ms": 2.6216
+     }
+    }
+   }
+  },
+  "spray_dense": {
+   "parents": 186,
+   "children_made": 558,
+   "children_kept": 317,
+   "rejected_by_150": 241,
+   "total_with_parents": 503,
+   "density_ratio": 2.704301075268817,
+   "child_radius_m": {
+    "min": 0.015,
+    "median": 0.025475483194996627,
+    "max": 0.06482400878374707
+   },
+   "alive_children_at_t": {
+    "t8": 0,
+    "t10": 282,
+    "t11": 317,
+    "t12": 317
+   },
+   "first_child_t": 8.8,
+   "params": {
+    "children_per_parent": 3,
+    "seed": 39031,
+    "dtau_max_s": 0.06,
+    "off_min_m": 0.03,
+    "off_max_m": 0.15,
+    "ang_max_deg": 7.0,
+    "speed_lo": 0.85,
+    "speed_hi": 1.1,
+    "rad_lo": 0.35,
+    "rad_hi": 0.65,
+    "rad_min_m": 0.015
+   }
+  },
+  "render_report_rest": [
+   {
+    "sheet": "hero",
+    "slices": [
+     241,
+     241,
+     241,
+     241
+    ],
+    "weights": [
+     0.0,
+     1.0,
+     0.0,
+     0.0
+    ],
+    "origin": [
+     -7.227685928344727,
+     0.0,
+     -2.713169813156128
+    ],
+    "subMeshes": 1,
+    "baseMaterials": 1
+   },
+   {
+    "sheet": "near",
+    "slices": [
+     241,
+     241,
+     241,
+     241
+    ],
+    "weights": [
+     0.0,
+     1.0,
+     0.0,
+     0.0
+    ],
+    "origin": [
+     -7.227685928344727,
+     0.0,
+     -2.713169813156128
+    ],
+    "subMeshes": 1,
+    "baseMaterials": 1
+   },
+   {
+    "sheet": "far",
+    "slices": [
+     241,
+     241,
+     241,
+     241
+    ],
+    "weights": [
+     0.0,
+     1.0,
+     0.0,
+     0.0
+    ],
+    "origin": [
+     -7.227685928344727,
+     0.0,
+     -2.713169813156128
+    ],
+    "subMeshes": 1,
+    "baseMaterials": 1
+   }
+  ],
+  "render_report_mesh_targets": 51,
+  "render_report_mesh_targets_by_shader": {
+   "GreatWave/ArtFirst/AF27 Flat": 22,
+   "GreatWave/ArtFirst/AF27 Sky Dome": 1,
+   "Standard": 28
+  },
+  "render_report_note_ja": "unity/ds39_render_report.json は利得 15 の揺れの描き直し（-Log swim15）で上書きされ、t28Files・images・videos・scene39 が空。最初の実行の記録は logs/unity_ds39_render.log"
+ },
+ "regression_plan_2_0": {
+  "evaluator_output_same_as_ds38": true,
+  "sha256": "4ca57d3a973d94d4feca5dfc9c11397e4246b36d5236986df5046c2a35b8931e",
+  "values_in_file": 112,
+  "key_values": {
+   "/t28_claws/lfgate/132_sigma12_max": 3.755214351150866,
+   "/t28_claws/lfgate/72_sigma24_p95": 3.842347481891398,
+   "/t28_claws/lfgate_diff_vs_29r01_px/132_sigma12_max": 0.0,
+   "/t28_claws/lfgate_diff_vs_29r01_px/72_sigma24_p95": -0.1652,
+   "/t28_claws/silhouette_diff_vs_29r01_px/130": 0.0,
+   "/t28_claws/silhouette_diff_vs_29r01_px/131": 0.0,
+   "/t28_claws/silhouette_diff_vs_29r01_px/78": 0.0,
+   "/t28_white/lfgate/132_sigma12_max": 3.755214351150866,
+   "/t28_white/lfgate/72_sigma24_p95": 4.007498772940381,
+   "/t28_white/lfgate_diff_vs_29r01_px/132_sigma12_max": 0.0,
+   "/t28_white/lfgate_diff_vs_29r01_px/72_sigma24_p95": 0.0,
+   "/t28_white/silhouette_diff_vs_29r01_px/130": 0.0,
+   "/t28_white/silhouette_diff_vs_29r01_px/131": 0.0,
+   "/t28_white/silhouette_diff_vs_29r01_px/78": 0.0
+  },
+  "builder_values_compared": 60,
+  "protected_unchanged": true,
+  "build_protected_unchanged": true,
+  "ds38_materials_after_ds39_runs": {
+   "DS38_Outline_hero.mat": {
+    "sha256": "fbc35bc9473b0ef6b6ae9eae24adf25bf4d219d358ecdc2ab4eeb9b97c1d704c",
+    "mtime": "2026-09-30 08:27:11"
+   },
+   "DS38_Outline_near.mat": {
+    "sha256": "8e51899b5797b5ebf2d3d153c4d67bbf2daa014c41f671788bd9c72477cde745",
+    "mtime": "2026-09-30 08:27:11"
+   },
+   "DS38_Outline_claws.mat": {
+    "sha256": "915b4681a476c8aa00d014ff6454caddb9dded3ff320e3c1f196244fc0b342f6",
+    "mtime": "2026-09-30 07:31:22"
+   }
+  },
+  "verdict": "合格（後退なし。全部切は設計38 と同じ）"
+ },
+ "fix_rounds": {
+  "used": 0,
+  "note_ja": "修正の回は使っていない（Q26 の 1 回は残した）。頭の揺れの測り方を受入の判定の前に 2 回直した（製品は変えていない）",
+  "measurement_corrections": [
+   "最初の定義（面の座標を 1/4 格子の升で 1 画素に対応させ、中央値の絶対差 E_面/E_画面 ≤ 0.35）は、利得 6 の描画で 8 bit の丸めが模様の振れと同じ大きさになり、升が紙の地の粒より粗く、② は画面の移りでほとんど変わらず E_画面 = 0 になって判定できなかった（受入の判定の前の測り方の直し。修正の回に数えない）。利得を 15 に上げ、升を面の表の予測に替えた。その升を 1/16 格子にした 2 回目の読みでは、near のシート（44 行 × 1,231 列の粗い格子）の升が紙の地の粒（2.5〜7 cm）より大きく、表の予測そのものが粒をならしてしまい、N が 0.54 になった（升を 1/64・1/256 にすると 0.24・0.11 へ下がる。Q_sweep）。模様が面からずれているのではなく升の粗さによるので、升を 1/64 格子にした（これも受入の判定の前の測り方の直し）。"
+  ]
+ },
+ "recorder_crosscheck": {
+  "builder_sha256_checked": 81,
+  "t28_identity": {
+   "files": 48,
+   "png": 46,
+   "other": 2,
+   "differ": [],
+   "only_one_side": [],
+   "all_same": true,
+   "regress_sha256_ds39": "4ca57d3a973d94d4feca5dfc9c11397e4246b36d5236986df5046c2a35b8931e",
+   "regress_sha256_ds38": "4ca57d3a973d94d4feca5dfc9c11397e4246b36d5236986df5046c2a35b8931e",
+   "regress_same_file": true
+  },
+  "logs": {
+   "Unity/Build/Design/39/paper/logs/unity_ds39_build.log": {
+    "lines": 4064,
+    "error_lines": 1,
+    "compile_or_shader_errors": 0,
+    "licensing": 1,
+    "xr_runtime_unavailable": 0,
+    "other": []
+   },
+   "Unity/Build/Design/39/paper/logs/unity_ds39_render.log": {
+    "lines": 474,
+    "error_lines": 1,
+    "compile_or_shader_errors": 0,
+    "licensing": 1,
+    "xr_runtime_unavailable": 0,
+    "other": []
+   },
+   "Unity/Build/Design/39/paper/logs/unity_ds39_swim15.log": {
+    "lines": 409,
+    "error_lines": 1,
+    "compile_or_shader_errors": 0,
+    "licensing": 1,
+    "xr_runtime_unavailable": 0,
+    "other": []
+   },
+   "Unity/Build/Design/39/paper/perf/run1/player_run1.log": {
+    "lines": 67,
+    "error_lines": 6,
+    "compile_or_shader_errors": 0,
+    "licensing": 0,
+    "xr_runtime_unavailable": 5,
+    "other": []
+   },
+   "Unity/Build/Design/39/paper/perf/run2/player_run2.log": {
+    "lines": 67,
+    "error_lines": 6,
+    "compile_or_shader_errors": 0,
+    "licensing": 0,
+    "xr_runtime_unavailable": 5,
+    "other": []
+   }
+  }
+ },
+ "backlog": {
+  "plan_2_3_off_de00": {
+   "value": "全部切の t* の組 48 ファイル（PNG 46・ほか 2）が設計38 と同じ。評価器の出力が設計38 と SHA-256 まで同じ（4ca57d3a…）。場面の既定は全部切",
+   "verdict": "合格"
+  },
+  "plan_2_3_no_swim": {
+   "value": "① S 0.096〜0.198・N 0.092〜0.235（画面に貼り付けた対照 N 0.95〜1.35）、② N 0.035〜0.180（対照 0.12〜0.24）。基準 0.35",
+   "verdict": "合格（PC 描画の揺れ。HMD は保留）"
+  },
+  "plan_2_3_onoff_gpu": {
+   "value": "入切の画像 20 枚、立体の代理の GPU の中央値の差（run1／run2）① +0.716／+0.748・② +1.097／+1.137・③ +0.060／+0.041・全部 +2.297／+2.328 ms",
+   "verdict": "作った（記録）"
+  },
+  "plan_2_0_regression": {
+   "value": "評価器の 112 個の値が設計38 と同じ",
+   "verdict": "合格（後退なし）"
+  }
+ },
+ "hmd": "PS VR2 の実機での見え方・GPU 時間・立体視（SPI）は保留（Q24。導入は利用者の手）",
+ "time": {
+  "box_ja": "Q26 の日程で 2 時間（計画の時間枠は ≤0.5 日）",
+  "builder_started": "2026-09-30T07:40:50+08:00",
+  "builder_readme_ja": "作る部の README の題：07:36〜08:10ごろ（約 35 分）",
+  "builder_last_file": "2026-09-30 08:04:54",
+  "spray_made": "2026-09-30 07:45:58",
+  "unity_render_log": "2026-09-30 07:51:24",
+  "unity_swim15_log": "2026-09-30 07:54:10",
+  "build_report": "2026-09-30 07:54:26",
+  "perf_run1": "2026-09-30 07:57:32",
+  "perf_run2": "2026-09-30 08:00:32",
+  "evaluator": "2026-09-30 08:04:07",
+  "metrics": "2026-09-30 08:02:25",
+  "builder_run_json": "2026-09-30 08:04:48",
+  "indep_check_files": [
+   "2026-09-30 08:08:04",
+   "2026-09-30 08:17:17"
+  ],
+  "unity_seconds_render": 31.0,
+  "unity_seconds_swim15": 11.2,
+  "build_seconds": 5.7,
+  "eval_seconds": 48.5,
+  "spray_seconds": 33.3
+ }
+}

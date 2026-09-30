@@ -1,0 +1,140 @@
+{
+ "schema": "GreatWave.DS39.acceptance/1",
+ "number": "設計39",
+ "part": "紙",
+ "plan": "計画 §2.3 の設計39：最小の受入＝評価と原画比較は全部切で行う（ΔE00 の測定を乱さない）、入れても頭の移動で質感が泳がない。成果物＝各オン/オフの画像と追加 GPU 時間",
+ "acceptance": [
+  {
+   "item": "評価と原画比較は全部切（ΔE00 を乱さない）",
+   "value": {
+    "t28_images_same_pixels_as_ds38": true,
+    "images_compared": 20,
+    "evaluator_values_compared": 60,
+    "evaluator_values_different": 0,
+    "default_state": "全部切"
+   },
+   "verdict": "合格"
+  },
+  {
+   "item": "入れても頭の移動で質感が泳がない（±0.1 m の揺れ）",
+   "value": {
+    "worst": {
+     "paper": {
+      "S": 0.1982,
+      "N": 0.2351
+     },
+     "mura": {
+      "S": 0.7028,
+      "N": 0.1801
+     }
+    },
+    "all_pass": true,
+    "threshold": 0.35,
+    "bins_per_cell": 64.0,
+    "videos": [
+     "Unity/Build/Design/39/paper/unity/video/ds39_sway_seat_toward_wave_t09_all_30fps.mp4",
+     "Unity/Build/Design/39/paper/unity/video/ds39_sway_seat_toward_wave_t09_paper_mura_gain6_30fps.mp4",
+     "Unity/Build/Design/39/paper/unity/video/ds39_sway_seat_tstar_all_30fps.mp4"
+    ]
+   },
+   "verdict": "合格（PC 描画の揺れ。② は検査で見分けられない限界を記録）"
+  },
+  {
+   "item": "各オン/オフの画像と追加 GPU 時間（成果物）",
+   "value": {
+    "images": 20,
+    "gpu_delta_median_ms": {
+     "paper": {
+      "desk1080_painting": {
+       "run1": 0.4362,
+       "run2": 0.3635
+      },
+      "desk1080_seat": {
+       "run1": 0.3021,
+       "run2": 0.2745
+      },
+      "proxy_stereo_seat": {
+       "run1": 0.7158,
+       "run2": 0.7476
+      }
+     },
+     "mura": {
+      "desk1080_painting": {
+       "run1": 0.3789,
+       "run2": 0.3717
+      },
+      "desk1080_seat": {
+       "run1": 0.3287,
+       "run2": 0.2826
+      },
+      "proxy_stereo_seat": {
+       "run1": 1.0967,
+       "run2": 1.1367
+      }
+     },
+     "spray": {
+      "desk1080_painting": {
+       "run1": 0.0348,
+       "run2": 0.0368
+      },
+      "desk1080_seat": {
+       "run1": 0.0277,
+       "run2": 0.0323
+      },
+      "proxy_stereo_seat": {
+       "run1": 0.0605,
+       "run2": 0.041
+      }
+     },
+     "all": {
+      "desk1080_painting": {
+       "run1": 0.7895,
+       "run2": 0.7721
+      },
+      "desk1080_seat": {
+       "run1": 0.6001,
+       "run2": 0.5868
+      },
+      "proxy_stereo_seat": {
+       "run1": 2.2969,
+       "run2": 2.3281
+      }
+     }
+    }
+   },
+   "verdict": "作った（記録）"
+  }
+ ],
+ "regression": {
+  "done": true,
+  "note_ja": "values_* は sets の数値の葉。ファイル全体（112 個の値）は SHA-256 で比べた（file_same）",
+  "values_compared": 60,
+  "values_different": 0,
+  "only_ds39": 0,
+  "only_ds38": 0,
+  "different_keys": [],
+  "ds39": "Unity/Build/Design/39/paper/unity/ds30_tstar_regress.json",
+  "ds38": "Unity/Build/Design/38/outlines/unity/ds30_tstar_regress.json",
+  "file_sha256_ds39": "4ca57d3a973d94d4feca5dfc9c11397e4246b36d5236986df5046c2a35b8931e",
+  "file_sha256_ds38": "4ca57d3a973d94d4feca5dfc9c11397e4246b36d5236986df5046c2a35b8931e",
+  "file_same": true,
+  "key_values": {
+   "/t28_claws/lfgate/132_sigma12_max": 3.755214351150866,
+   "/t28_claws/lfgate/72_sigma24_p95": 3.842347481891398,
+   "/t28_claws/lfgate_diff_vs_29r01_px/132_sigma12_max": 0.0,
+   "/t28_claws/lfgate_diff_vs_29r01_px/72_sigma24_p95": -0.1652,
+   "/t28_claws/silhouette_diff_vs_29r01_px/130": 0.0,
+   "/t28_claws/silhouette_diff_vs_29r01_px/131": 0.0,
+   "/t28_claws/silhouette_diff_vs_29r01_px/78": 0.0,
+   "/t28_white/lfgate/132_sigma12_max": 3.755214351150866,
+   "/t28_white/lfgate/72_sigma24_p95": 4.007498772940381,
+   "/t28_white/lfgate_diff_vs_29r01_px/132_sigma12_max": 0.0,
+   "/t28_white/lfgate_diff_vs_29r01_px/72_sigma24_p95": 0.0,
+   "/t28_white/silhouette_diff_vs_29r01_px/130": 0.0,
+   "/t28_white/silhouette_diff_vs_29r01_px/131": 0.0,
+   "/t28_white/silhouette_diff_vs_29r01_px/78": 0.0
+  }
+ },
+ "hmd": "PS VR2 は保留（Q24。利用者の手が要る）。Mock の両眼は使っていない（この番号の受入は頭の揺れと GPU 時間）",
+ "fix_rounds_used": 0
+}
