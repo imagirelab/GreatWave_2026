@@ -1,0 +1,1124 @@
+{
+ "schema": "GreatWave.DS41.model_metrics/1",
+ "number": "設計41 第「モデル」部",
+ "generated_utc": "2026-09-30T01:58:14+00:00",
+ "evidence_kind_ja": "Blender 5.2.2 ヘッドレスの制作と往復の検査、Unity 6000.4.3f1 Editor の batchmode の取り込みの検査と PC オフスクリーン描画（camera.Render、RTX 3080、Direct3D11）、その画像の numpy・OpenCV の測定。HMD 実機の結果ではない。",
+ "design07_check": {
+  "criterion_ja": "Unity の実際の取り込みで尺度・軸・左右の反転なし（設計07 の検査）。FBX を原点に置き、部品ごとのワールドの頂点の範囲を Blender の値の (x, y, z) → (−x, z, −y) と比べる",
+  "fbx_same_as_blender_output": true,
+  "importer": "globalScale=1 useFileScale=True useFileUnits=True bakeAxisConversion=False fileScale=1",
+  "bounds_max_abs_diff_units": 1.0728836059570312e-06,
+  "tip_to_tip_units": 10.000404357910156,
+  "beam_units": 2.1293139457702637,
+  "bow_tip_measured": {
+   "x": 0.0,
+   "y": 1.7750005722045898,
+   "z": 4.999999523162842
+  },
+  "stern_tip_measured": {
+   "x": 0.0,
+   "y": 1.6849994659423828,
+   "z": -4.999999523162842
+  },
+  "forward": {
+   "x": 0.0,
+   "y": 0.008999746292829514,
+   "z": 0.9999594688415527
+  },
+  "up": {
+   "x": 2.2324291304443022e-09,
+   "y": 0.9999594688415527,
+   "z": -0.008999748155474663
+  },
+  "right": {
+   "x": 1.0,
+   "y": 0.0,
+   "z": 0.0
+  },
+  "triple_product": 0.9999999403953552,
+  "starboard_oars_plusX": 3,
+  "port_oars_minusX": 4,
+  "hull_outward_fraction": 1.0,
+  "scale": true,
+  "axis": true,
+  "mirror": true,
+  "normals": true,
+  "blender_roundtrip": {
+   "blend_reopen": {
+    "names_match": true,
+    "max_abs_diff_m": 0.0,
+    "pass": true
+   },
+   "fbx_reimport": {
+    "names_match": true,
+    "max_abs_diff_m": 1.000000000139778e-06,
+    "pass": true
+   }
+  },
+  "verdict": "pass"
+ },
+ "painting_view_boats": {
+  "75": {
+   "name_ja": "手前の船",
+   "target": "boat_fg",
+   "ds41_max_px": 146.3537,
+   "ds41_p95_px": 101.2867,
+   "ds41_p50_px": 13.0257,
+   "ds41_truth_to_render_max": 60.6489,
+   "ds41_render_to_truth_max": 146.3537,
+   "ds41_worst_display_xy": [
+    1495.85,
+    940.0
+   ],
+   "ds40_max_px": 141.358,
+   "ds40_p95_px": 85.6184,
+   "cp1_max_px": 141.358,
+   "cp1_p95_px": 85.6184,
+   "change_vs_cp1_max_px": 4.9957,
+   "change_vs_cp1_p95_px": 15.6683,
+   "change_vs_ds40_max_px": 4.9957,
+   "change_vs_ds40_p95_px": 15.6683,
+   "verdict": "record-only（判定は仕上げ40・41）"
+  },
+  "157": {
+   "name_ja": "左奥の船",
+   "target": "boat_left",
+   "ds41_max_px": 78.7542,
+   "ds41_p95_px": 63.2,
+   "ds41_p50_px": 16.9774,
+   "ds41_truth_to_render_max": 78.7542,
+   "ds41_render_to_truth_max": 53.3831,
+   "ds41_worst_display_xy": [
+    191.0,
+    498.42
+   ],
+   "ds40_max_px": 77.5517,
+   "ds40_p95_px": 63.5295,
+   "cp1_max_px": 126.583,
+   "cp1_p95_px": 98.3234,
+   "change_vs_cp1_max_px": -47.8288,
+   "change_vs_cp1_p95_px": -35.1234,
+   "change_vs_ds40_max_px": 1.2025,
+   "change_vs_ds40_p95_px": -0.3295,
+   "verdict": "record-only（判定は仕上げ40・41）"
+  },
+  "159": {
+   "name_ja": "右の船（座席の船）",
+   "target": "boat_mid",
+   "ds41_max_px": 155.2812,
+   "ds41_p95_px": 109.356,
+   "ds41_p50_px": 30.4992,
+   "ds41_truth_to_render_max": 155.2812,
+   "ds41_render_to_truth_max": 104.973,
+   "ds41_worst_display_xy": [
+    1050.0,
+    751.48
+   ],
+   "ds40_max_px": 160.857,
+   "ds40_p95_px": 121.1844,
+   "cp1_max_px": 218.2311,
+   "cp1_p95_px": 171.4291,
+   "change_vs_cp1_max_px": -62.9499,
+   "change_vs_cp1_p95_px": -62.0731,
+   "change_vs_ds40_max_px": -5.5758,
+   "change_vs_ds40_p95_px": -11.8284,
+   "verdict": "record-only（判定は仕上げ40・41）"
+  },
+  "74": {
+   "name_ja": "富士の稜線（74・161）",
+   "ds41_max_px": 5.7562,
+   "ds41_p95_px": 5.3092,
+   "ds40_max_px": 5.7562,
+   "cp1_max_px": 5.7562,
+   "cp1_p95_px": 5.3092,
+   "change_vs_cp1_max_px": 0.0,
+   "verdict": "record-only（判定は仕上げ40）"
+  }
+ },
+ "boat_mask_iou_record": {
+  "values": {
+   "boat_fg": {
+    "ds41": 0.3693,
+    "ds41_render_px": 35057,
+    "ds40": 0.3443,
+    "ds40_render_px": 40912,
+    "truth_px": 20281
+   },
+   "boat_left": {
+    "ds41": 0.1258,
+    "ds41_render_px": 10714,
+    "ds40": 0.1209,
+    "ds40_render_px": 11643,
+    "truth_px": 5286
+   },
+   "boat_mid": {
+    "ds41": 0.0854,
+    "ds41_render_px": 36403,
+    "ds40": 0.0958,
+    "ds40_render_px": 35411,
+    "truth_px": 5482
+   }
+  },
+  "note_ja": "原画の船の塗りのマスク（targets/masks/*_cov.png、0.5 で二値）と、全体の ID 画像の船の色の画素（1920×1080 に 2×2 平均して 0.5）の IoU。記録のみ。"
+ },
+ "evaluator_commands": [
+  "py -3.10 -B Tools/PaintingTruth/evaluate.py --render Unity/Build/Design/41/model/unity/full/painting_t120_off.png --ids Unity/Build/Design/41/model/unity/full/ids_noline.png --idmap Unity/Build/Design/41/model/eval/idmap.json --out-dir Unity/Build/Design/41/model/eval/off_noline --name off_noline",
+  "py -3.10 -B Tools/PaintingTruth/evaluate.py --render Unity/Build/Design/41/model/unity/full/painting_t120_off.png --ids Unity/Build/Design/41/model/unity/full/ids_line.png --idmap Unity/Build/Design/41/model/eval/idmap.json --out-dir Unity/Build/Design/41/model/eval/off_line --name off_line"
+ ],
+ "evaluator_gate": {
+  "off_noline": {
+   "provisional": false,
+   "truth_manifest_sha256": "8c99033e02c2cbeedec4cf8924e57fe89092c714569afa56c8c8965414880fbd"
+  },
+  "off_line": {
+   "provisional": false,
+   "truth_manifest_sha256": "8c99033e02c2cbeedec4cf8924e57fe89092c714569afa56c8c8965414880fbd"
+  }
+ },
+ "regression": {
+  "criterion_ja": "計画 §2.0：原画視点に触れる番号で、合格していた項目（78・130・131・132 大きな輪郭・72 σ24 p95・69・70・212、色区は 29修正01 が戻した読み）を後退させない。比べの基準は直前の番号（設計40）",
+  "t_star_wave_images_identical_to_ds40": {
+   "t28_claws/af28r01_back.png": true,
+   "t28_claws/af28r01_back_rule28.png": true,
+   "t28_claws/af28r01_back_waveonly.png": true,
+   "t28_claws/af28r01_class_ids.png": true,
+   "t28_claws/af28r01_line_ids.png": true,
+   "t28_claws/af28r01_painting_kstar.png": true,
+   "t28_claws/af28r01_painting_rule28.png": true,
+   "t28_claws/af28r01_seat_class_ids.png": true,
+   "t28_claws/af28r01_seat_kstar.png": true,
+   "t28_claws/af28r01_seat_left.png": true,
+   "t28_claws/af28r01_seat_left_rule28.png": true,
+   "t28_claws/af28r01_seat_low_class_ids.png": true,
+   "t28_claws/af28r01_seat_low_kstar.png": true,
+   "t28_claws/af28r01_seat_low_rule28.png": true,
+   "t28_claws/af28r01_seat_low_waveonly.png": true,
+   "t28_claws/af28r01_seat_rule28.png": true,
+   "t28_claws/af28r01_seat_waveonly.png": true,
+   "t28_claws/af28r01_side_left.png": true,
+   "t28_claws/af28r01_side_left_rule28.png": true,
+   "t28_claws/af28r01_side_left_waveonly.png": true,
+   "t28_claws/idmap.json": true,
+   "t28_white/af28r01_back.png": true,
+   "t28_white/af28r01_back_rule28.png": true,
+   "t28_white/af28r01_back_waveonly.png": true,
+   "t28_white/af28r01_class_ids.png": true,
+   "t28_white/af28r01_line_ids.png": true,
+   "t28_white/af28r01_painting_kstar.png": true,
+   "t28_white/af28r01_painting_rule28.png": true,
+   "t28_white/af28r01_seat_class_ids.png": true,
+   "t28_white/af28r01_seat_kstar.png": true,
+   "t28_white/af28r01_seat_left.png": true,
+   "t28_white/af28r01_seat_left_rule28.png": true,
+   "t28_white/af28r01_seat_low_class_ids.png": true,
+   "t28_white/af28r01_seat_low_kstar.png": true,
+   "t28_white/af28r01_seat_low_rule28.png": true,
+   "t28_white/af28r01_seat_low_waveonly.png": true,
+   "t28_white/af28r01_seat_rule28.png": true,
+   "t28_white/af28r01_seat_waveonly.png": true,
+   "t28_white/af28r01_side_left.png": true,
+   "t28_white/af28r01_side_left_rule28.png": true,
+   "t28_white/af28r01_side_left_waveonly.png": true,
+   "t28_white/idmap.json": true
+  },
+  "context_images_changed_ja": "af28r01_painting.png・af28r01_seat.png・af28r01_seat_low.png は船を含む合成なので変わってよい",
+  "context_images_same": {
+   "t28_claws/af28r01_painting.png": false,
+   "t28_claws/af28r01_seat.png": true,
+   "t28_claws/af28r01_seat_low.png": false,
+   "t28_white/af28r01_painting.png": false,
+   "t28_white/af28r01_seat.png": true,
+   "t28_white/af28r01_seat_low.png": false
+  },
+  "regress_evaluator_numbers_compared": 54,
+  "regress_evaluator_numbers_differing_from_ds40": {},
+  "silhouettes_78_130_131_max_px": {
+   "78": 3.0289,
+   "130": 3.5131,
+   "131": 3.0431
+  },
+  "lfgate": {
+   "132_sigma12_max": 3.755214351150866,
+   "72_sigma24_p95": 3.842347481891398,
+   "72_sigma24_p95_noclaws": 4.007498772940381
+  },
+  "sym_worst_diff_vs_29r01_px": {
+   "t28_claws": 0.0,
+   "t28_white": 0.0
+  },
+  "geometry_items": {
+   "68": {
+    "horizontal_distance_seat_to_lip_tip_m": 5.616,
+    "horizontal_distance_seat_to_face_bottom_m": 6.82,
+    "verdict": "pass",
+    "note_ja": "座席 v1 と K*′ は変えていないので設計40 と同じ値になるはず"
+   },
+   "69": {
+    "right_boat_bbox_display_px": [
+     1114.0,
+     551.5,
+     1616.5,
+     922.5
+    ],
+    "inside_scored_columns": true,
+    "scored_columns": [
+     157,
+     1762
+    ],
+    "wave_crest_display_y": 116.44,
+    "wave_base_display_y": 896.16,
+    "verdict": "pass"
+   },
+   "70": {
+    "wave_vertical_extent_display_px": 779.72,
+    "right_boat_length_display_px": 582.42,
+    "verdict": "pass"
+   },
+   "212": {
+    "ds41_dE00": 0.2714,
+    "ds40_dE00": 0.2714,
+    "verdict": "pass"
+   },
+   "94": {
+    "painting_camera_position": {
+     "x": 0.0,
+     "y": 3.0,
+     "z": -62.0
+    },
+    "max_position_delta_vs_cp1_m": 0.0,
+    "verdict": "pass"
+   }
+  },
+  "record_only": {
+   "71": {
+    "ds41_max_px": 37.4944,
+    "ds40_max_px": 37.4944
+   },
+   "76": {
+    "ds41_max_px": 37.4511,
+    "ds40_max_px": 37.4511
+   },
+   "213": {
+    "ds41_max_px": 4.8815,
+    "ds40_max_px": 4.8815
+   },
+   "note_ja": "71・76・213 は Q7 の既定で記録のみ（仕上げ30 の後に仕上げ40 で判定）。76 の下の境は船も作る"
+  },
+  "items_previously_pass": [
+   "130",
+   "131",
+   "132",
+   "212",
+   "69",
+   "70",
+   "72",
+   "78"
+  ],
+  "regressed_items": [],
+  "pass": true
+ },
+ "seat_v1_vs_gunwale": {
+  "seat_v1_unchanged": true,
+  "seat_eye_world": [
+   3.9544,
+   1.8323,
+   -15.0308
+  ],
+  "seat_rule_ja": "船の根の局所 (0, 10, z) から船の局所の下向きに甲板（Boat_Deck_Planks）を測り、当たった点の 1.2 m 上（番号27 と同じ測り方）。z は |z| ≤ 3.0 を 0.5 刻みで調べ、K* 45°（番号26）の唇先の線（目より 3 m 以上高い点）に水平距離で最も近い甲板の点を選んだ。選ばれた z = +3.0 は調べた範囲の船首側の端（甲板は局所 z ±3.49 まで、その先は尖った船首）。",
+  "boat_mid_scale": 1.132835,
+  "eye_in_boat_local_blender_units": [
+   -0.3778,
+   -2.4246,
+   1.1885
+  ],
+  "new_deck_hit": {
+   "object": "Boat41_Floor",
+   "local_z_units": 0.3774,
+   "world": [
+    3.9577,
+    0.6272,
+    -15.028
+   ],
+   "eye_above_new_deck_world_m": 1.205,
+   "old_deck_hit_world": [
+    3.9544,
+    0.6323,
+    -15.0308
+   ],
+   "deck_shift_world_m": 0.0067,
+   "note_ja": "座席 v1 の規則（船の根の局所 (0, 10, 3) から船の局所の下向きに最初に当たる面）を新しい船で測り直した点。座席の目は seat_v1.json のまま変えない（計画 R11）"
+  },
+  "gunwale_top_at_seat_station": {
+   "local_z_units": 1.0568,
+   "half_width_units": 0.7954,
+   "rails": {
+    "starboard（Blender −X、Unity +X）": {
+     "world": [
+      3.9339,
+      1.8877,
+      -14.5383
+     ],
+     "eye_above_rail_world_vertical_m": -0.055,
+     "horizontal_distance_eye_to_rail_m": 0.493
+    },
+    "port（Blender +X、Unity −X）": {
+     "world": [
+      4.2987,
+      1.2449,
+      -16.1819
+     ],
+     "eye_above_rail_world_vertical_m": 0.587,
+     "horizontal_distance_eye_to_rail_m": 1.202
+    }
+   },
+   "eye_above_rail_local_m": 0.149,
+   "rail_above_new_deck_local_m": 0.77
+  },
+  "blockout_for_comparison": {
+   "gunwale_top_local_units": 1.0577,
+   "half_width_units": 0.7362,
+   "eye_above_rail_world_vertical_m": {
+    "starboard": -0.032,
+    "port": 0.563
+   },
+   "eye_above_rail_local_m": 0.148
+  },
+  "note_ja": "船は t* で縦 33°・軸まわり 25° 傾いているので、世界の鉛直で測った目と船縁の高さの差は左右で違う。局所の値は船の床に対する座った目の高さの読み。"
+ },
+ "painting_view_tip_projection": {
+  "values": {
+   "boat_left": {
+    "bow": {
+     "ds41_px": [
+      208.82,
+      480.4
+     ],
+     "blockout_px": [
+      208.923,
+      480.5
+     ],
+     "diff_px": 0.1434
+    },
+    "stern": {
+     "ds41_px": [
+      564.062,
+      779.246
+     ],
+     "blockout_px": [
+      564.082,
+      779.276
+     ],
+     "diff_px": 0.0363
+    }
+   },
+   "boat_mid": {
+    "bow": {
+     "ds41_px": [
+      1113.745,
+      900.409
+     ],
+     "blockout_px": [
+      1113.585,
+      900.125
+     ],
+     "diff_px": 0.3253
+    },
+    "stern": {
+     "ds41_px": [
+      1600.797,
+      588.696
+     ],
+     "blockout_px": [
+      1600.5,
+      588.5
+     ],
+     "diff_px": 0.3556
+    }
+   },
+   "boat_fg": {
+    "bow": {
+     "ds41_px": [
+      820.648,
+      897.047
+     ],
+     "blockout_px": [
+      820.686,
+      897.07
+     ],
+     "diff_px": 0.0444
+    },
+    "stern": {
+     "ds41_px": [
+      1489.796,
+      939.333
+     ],
+     "blockout_px": [
+      1489.607,
+      939.342
+     ],
+     "diff_px": 0.1885
+    }
+   }
+  },
+  "note_ja": "blockout の先端の点は x = 0.012（blockout の頂点）、新しい船は x = 0。差はその 12 mm × 縮尺の分だけ"
+ },
+ "model": {
+  "reference_length_m": {
+   "value": 11.667,
+   "kind": "source",
+   "src": "S1（押送船の全長 38尺5寸、1813 年の史料。石井謙治『和船 II』を典拠とする百科）",
+   "note_ja": "置き方の枠の 10 に当てる。1 単位 = 1.1667 m（この長さの船のとき）"
+  },
+  "real_dimensions_per_boat": {
+   "boat_left": {
+    "scale": 0.9981,
+    "tip_to_tip_m": 9.981,
+    "beam_m": 2.126,
+    "depth_mid_m": 0.778,
+    "vs_source_length_11_667_m_percent": -14.45,
+    "root_position": {
+     "x": -15.292309761047363,
+     "y": 4.821599960327148,
+     "z": -12.530019760131836
+    },
+    "root_rotation": {
+     "x": -0.19741693139076233,
+     "y": -0.7131909728050232,
+     "z": -0.2741493582725525,
+     "w": 0.6141883134841919
+    }
+   },
+   "boat_mid": {
+    "scale": 1.132835,
+    "tip_to_tip_m": 11.328,
+    "beam_m": 2.413,
+    "depth_mid_m": 0.882,
+    "vs_source_length_11_667_m_percent": -2.9,
+    "root_position": {
+     "x": 7.025619983673096,
+     "y": 2.1481499671936035,
+     "z": -14.941940307617188
+    },
+    "root_rotation": {
+     "x": 0.05318306013941765,
+     "y": -0.6957640051841736,
+     "z": 0.34223732352256775,
+     "w": 0.6292516589164734
+    }
+   },
+   "boat_fg": {
+    "scale": 0.844624,
+    "tip_to_tip_m": 8.446,
+    "beam_m": 1.799,
+    "depth_mid_m": 0.658,
+    "vs_source_length_11_667_m_percent": -27.61,
+    "root_position": {
+     "x": 1.2566299438476562,
+     "y": -0.22075000405311584,
+     "z": -32.249881744384766
+    },
+    "root_rotation": {
+     "x": 0.00981352012604475,
+     "y": -0.7227287292480469,
+     "z": -0.046574510633945465,
+     "w": 0.6894909143447876
+    }
+   }
+  },
+  "root_position_diff_vs_ds40_m": {
+   "boat_left": 0.0,
+   "boat_mid": 0.0,
+   "boat_fg": 0.0
+  },
+  "parts": {
+   "Boat41_Beams": {
+    "vertices": 48,
+    "polygons": 36,
+    "materials": [
+     "GW_Boat_Edge"
+    ]
+   },
+   "Boat41_Buoyancy": {
+    "vertices": 283,
+    "polygons": 281,
+    "materials": [
+     "GW_Boat_Helper"
+    ]
+   },
+   "Boat41_Col_Bow": {
+    "vertices": 78,
+    "polygons": 152,
+    "materials": [
+     "GW_Boat_Helper"
+    ]
+   },
+   "Boat41_Col_Mid": {
+    "vertices": 102,
+    "polygons": 200,
+    "materials": [
+     "GW_Boat_Helper"
+    ]
+   },
+   "Boat41_Col_Stern": {
+    "vertices": 84,
+    "polygons": 164,
+    "materials": [
+     "GW_Boat_Helper"
+    ]
+   },
+   "Boat41_Floor": {
+    "vertices": 192,
+    "polygons": 144,
+    "materials": [
+     "GW_Boat_Plank"
+    ]
+   },
+   "Boat41_Gunwale_Port": {
+    "vertices": 160,
+    "polygons": 158,
+    "materials": [
+     "GW_Boat_Edge"
+    ]
+   },
+   "Boat41_Gunwale_Starboard": {
+    "vertices": 160,
+    "polygons": 158,
+    "materials": [
+     "GW_Boat_Edge"
+    ]
+   },
+   "Boat41_Hull": {
+    "vertices": 283,
+    "polygons": 241,
+    "materials": [
+     "GW_Boat_Wood"
+    ]
+   },
+   "Boat41_Oar_P1": {
+    "vertices": 32,
+    "polygons": 22,
+    "materials": [
+     "GW_Boat_Oar"
+    ]
+   },
+   "Boat41_Oar_P2": {
+    "vertices": 32,
+    "polygons": 22,
+    "materials": [
+     "GW_Boat_Oar"
+    ]
+   },
+   "Boat41_Oar_P3": {
+    "vertices": 32,
+    "polygons": 22,
+    "materials": [
+     "GW_Boat_Oar"
+    ]
+   },
+   "Boat41_Oar_P4": {
+    "vertices": 32,
+    "polygons": 22,
+    "materials": [
+     "GW_Boat_Oar"
+    ]
+   },
+   "Boat41_Oar_S1": {
+    "vertices": 32,
+    "polygons": 22,
+    "materials": [
+     "GW_Boat_Oar"
+    ]
+   },
+   "Boat41_Oar_S2": {
+    "vertices": 32,
+    "polygons": 22,
+    "materials": [
+     "GW_Boat_Oar"
+    ]
+   },
+   "Boat41_Oar_S3": {
+    "vertices": 32,
+    "polygons": 22,
+    "materials": [
+     "GW_Boat_Oar"
+    ]
+   },
+   "Boat41_Stem": {
+    "vertices": 6,
+    "polygons": 5,
+    "materials": [
+     "GW_Boat_Wood"
+    ]
+   },
+   "Boat41_SternDeck": {
+    "vertices": 32,
+    "polygons": 24,
+    "materials": [
+     "GW_Boat_Wood"
+    ]
+   },
+   "Boat41_SternFrame": {
+    "vertices": 40,
+    "polygons": 30,
+    "materials": [
+     "GW_Boat_Wood"
+    ]
+   }
+  },
+  "collision": [
+   {
+    "name": "Boat41_Col_Bow",
+    "u": [
+     0.0,
+     0.34
+    ],
+    "triangles": 152,
+    "vertices": 78
+   },
+   {
+    "name": "Boat41_Col_Mid",
+    "u": [
+     0.3,
+     0.7
+    ],
+    "triangles": 200,
+    "vertices": 102
+   },
+   {
+    "name": "Boat41_Col_Stern",
+    "u": [
+     0.66,
+     1.0
+    ],
+    "triangles": 164,
+    "vertices": 84
+   }
+  ],
+  "buoyancy_hull_volume_units3": 10.65703,
+  "hydrostatics_table_units": [
+   {
+    "draft_units": 0.05,
+    "volume_units3": 0.23488,
+    "waterplane_area_units2": 5.295,
+    "lcb_y_blender": 0.1749,
+    "vcb_z": 0.0262
+   },
+   {
+    "draft_units": 0.1,
+    "volume_units3": 0.524,
+    "waterplane_area_units2": 6.23938,
+    "lcb_y_blender": 0.227,
+    "vcb_z": 0.0535
+   },
+   {
+    "draft_units": 0.15,
+    "volume_units3": 0.85678,
+    "waterplane_area_units2": 7.06125,
+    "lcb_y_blender": 0.2664,
+    "vcb_z": 0.0815
+   },
+   {
+    "draft_units": 0.171,
+    "volume_units3": 1.00872,
+    "waterplane_area_units2": 7.40813,
+    "lcb_y_blender": 0.2808,
+    "vcb_z": 0.0934
+   },
+   {
+    "draft_units": 0.2,
+    "volume_units3": 1.23012,
+    "waterplane_area_units2": 7.83938,
+    "lcb_y_blender": 0.2991,
+    "vcb_z": 0.11
+   },
+   {
+    "draft_units": 0.25,
+    "volume_units3": 1.64271,
+    "waterplane_area_units2": 8.63563,
+    "lcb_y_blender": 0.3271,
+    "vcb_z": 0.139
+   },
+   {
+    "draft_units": 0.3,
+    "volume_units3": 2.09361,
+    "waterplane_area_units2": 9.38938,
+    "lcb_y_blender": 0.3518,
+    "vcb_z": 0.1684
+   },
+   {
+    "draft_units": 0.35,
+    "volume_units3": 2.58239,
+    "waterplane_area_units2": 10.14438,
+    "lcb_y_blender": 0.3739,
+    "vcb_z": 0.1981
+   },
+   {
+    "draft_units": 0.4,
+    "volume_units3": 3.10658,
+    "waterplane_area_units2": 10.77875,
+    "lcb_y_blender": 0.3939,
+    "vcb_z": 0.228
+   },
+   {
+    "draft_units": 0.45,
+    "volume_units3": 3.65976,
+    "waterplane_area_units2": 11.295,
+    "lcb_y_blender": 0.4115,
+    "vcb_z": 0.2578
+   },
+   {
+    "draft_units": 0.5,
+    "volume_units3": 4.23612,
+    "waterplane_area_units2": 11.74688,
+    "lcb_y_blender": 0.4242,
+    "vcb_z": 0.2874
+   },
+   {
+    "draft_units": 0.6,
+    "volume_units3": 5.45381,
+    "waterplane_area_units2": 12.60375,
+    "lcb_y_blender": 0.4409,
+    "vcb_z": 0.3461
+   },
+   {
+    "draft_units": 0.7,
+    "volume_units3": 6.75397,
+    "waterplane_area_units2": 13.38625,
+    "lcb_y_blender": 0.4504,
+    "vcb_z": 0.4047
+   }
+  ],
+  "buoyancy_points": [
+   {
+    "blender": [
+     -0.15336,
+     -3.0,
+     0.14745
+    ],
+    "unity_local": [
+     0.15336,
+     0.14745,
+     3.0
+    ]
+   },
+   {
+    "blender": [
+     0.15336,
+     -3.0,
+     0.14745
+    ],
+    "unity_local": [
+     -0.15336,
+     0.14745,
+     3.0
+    ]
+   },
+   {
+    "blender": [
+     -0.2531,
+     -1.5,
+     0.0
+    ],
+    "unity_local": [
+     0.2531,
+     0.0,
+     1.5
+    ]
+   },
+   {
+    "blender": [
+     0.2531,
+     -1.5,
+     0.0
+    ],
+    "unity_local": [
+     -0.2531,
+     0.0,
+     1.5
+    ]
+   },
+   {
+    "blender": [
+     -0.29281,
+     0.0,
+     0.0
+    ],
+    "unity_local": [
+     0.29281,
+     0.0,
+     -0.0
+    ]
+   },
+   {
+    "blender": [
+     0.29281,
+     0.0,
+     0.0
+    ],
+    "unity_local": [
+     -0.29281,
+     0.0,
+     -0.0
+    ]
+   },
+   {
+    "blender": [
+     -0.28491,
+     1.5,
+     0.0
+    ],
+    "unity_local": [
+     0.28491,
+     0.0,
+     -1.5
+    ]
+   },
+   {
+    "blender": [
+     0.28491,
+     1.5,
+     0.0
+    ],
+    "unity_local": [
+     -0.28491,
+     0.0,
+     -1.5
+    ]
+   },
+   {
+    "blender": [
+     -0.24822,
+     3.0,
+     0.06614
+    ],
+    "unity_local": [
+     0.24822,
+     0.06614,
+     -3.0
+    ]
+   },
+   {
+    "blender": [
+     0.24822,
+     3.0,
+     0.06614
+    ],
+    "unity_local": [
+     -0.24822,
+     0.06614,
+     -3.0
+    ]
+   }
+  ],
+  "hydrostatics_boat_mid_at_research_draft": {
+   "draft_m": 0.194,
+   "volume_m3": 1.466,
+   "displacement_t_seawater_1025": 1.503,
+   "note_ja": "調べの部の喫水の推定 0.20 m（全長 11.667 m）を右船の縮尺へ直した値。静水の釣り合いは設計42"
+  },
+  "blender_checks": {
+   "hull_outward_normals": {
+    "faces_checked": 224,
+    "outward": 224,
+    "fraction": 1.0
+   },
+   "buoyancy_closed": {
+    "non_manifold_edges": 0,
+    "boundary_edges": 0,
+    "degenerate_faces": 0,
+    "signed_volume": 10.657033
+   },
+   "collision_closed": {
+    "Boat41_Col_Bow": {
+     "non_manifold_edges": 0,
+     "boundary_edges": 0,
+     "degenerate_faces": 0,
+     "signed_volume": 2.713967
+    },
+    "Boat41_Col_Mid": {
+     "non_manifold_edges": 0,
+     "boundary_edges": 0,
+     "degenerate_faces": 0,
+     "signed_volume": 5.469898
+    },
+    "Boat41_Col_Stern": {
+     "non_manifold_edges": 0,
+     "boundary_edges": 0,
+     "degenerate_faces": 0,
+     "signed_volume": 4.43579
+    }
+   },
+   "hull_open_sheet": {
+    "non_manifold_edges": 81,
+    "boundary_edges": 81,
+    "degenerate_faces": 0,
+    "signed_volume": null
+   }
+  },
+  "tips": {
+   "bow_tip_blender": {
+    "target": [
+     0.0,
+     -5.0,
+     1.775
+    ],
+    "nearest_vertex_distance": 2.3841857821338408e-08
+   },
+   "stern_tip_blender": {
+    "target": [
+     0.0,
+     5.0,
+     1.685
+    ],
+    "nearest_vertex_distance": 5.7220459037665705e-08
+   }
+  },
+  "research_input": {
+   "Unity/Build/Design/41/research/oshiokuri_dimensions.json": {
+    "sha256": "47f3f700c125bfdfa891b9b40c6c12c946c91eb05d8d00255b2ef625cd8fab83",
+    "bytes": 20097
+   },
+   "Unity/Build/Design/41/research/dims.json": "無い"
+  },
+  "prefab_parts": [
+   "Boat41_Beams：表示（AF27_Flat_ai_dark）",
+   "Boat41_Buoyancy：浮力用の船体（MeshFilter だけ、描画なし）",
+   "Boat41_Col_Bow：衝突形状（MeshCollider convex、描画なし）",
+   "Boat41_Col_Mid：衝突形状（MeshCollider convex、描画なし）",
+   "Boat41_Col_Stern：衝突形状（MeshCollider convex、描画なし）",
+   "Boat41_Floor：表示（AF27_Flat_boat_ochre）",
+   "Boat41_Gunwale_Port：表示（AF27_Flat_ai_dark）",
+   "Boat41_Gunwale_Starboard：表示（AF27_Flat_ai_dark）",
+   "Boat41_Hull：表示（AF27_Flat_boat_ochre）",
+   "Boat41_Oar_P1：表示（AF27_Flat_ai_dark）",
+   "Boat41_Oar_P2：表示（AF27_Flat_ai_dark）",
+   "Boat41_Oar_P3：表示（AF27_Flat_ai_dark）",
+   "Boat41_Oar_P4：表示（AF27_Flat_ai_dark）",
+   "Boat41_Oar_S1：表示（AF27_Flat_ai_dark）",
+   "Boat41_Oar_S2：表示（AF27_Flat_ai_dark）",
+   "Boat41_Oar_S3：表示（AF27_Flat_ai_dark）",
+   "Boat41_Stem：表示（AF27_Flat_boat_ochre）",
+   "Boat41_SternDeck：表示（AF27_Flat_boat_ochre）",
+   "Boat41_SternFrame：表示（AF27_Flat_boat_ochre）"
+  ],
+  "scene_build": {
+   "scene41": "Assets/GreatWave/Design41/Scenes/DS41_Boats.unity",
+   "scene41_sha256": "e171a4a94d114aa2d62b889602887bf66cb5f118c82988dcfd4f5c11f18f8301",
+   "prefab_sha256": "977b665c11da03ee9ce3666deefe14d33e667889023e17f45ddbf144db8281f0",
+   "scene39_unchanged": true,
+   "boats": [
+    {
+     "key": "boat_left",
+     "position": {
+      "x": -15.292309761047363,
+      "y": 4.821599960327148,
+      "z": -12.530019760131836
+     },
+     "scale": {
+      "x": 0.9980998635292053,
+      "y": 0.9980999231338501,
+      "z": 0.9980998039245605
+     },
+     "rotation": {
+      "x": -0.19741693139076233,
+      "y": -0.7131909728050232,
+      "z": -0.2741493582725525,
+      "w": 0.6141883134841919
+     },
+     "removedChildren": [
+      "boat_blockout"
+     ],
+     "placed": "DS41 押送船（boat_left）（船尾の枠は切）"
+    },
+    {
+     "key": "boat_mid",
+     "position": {
+      "x": 7.025619983673096,
+      "y": 2.1481499671936035,
+      "z": -14.941940307617188
+     },
+     "scale": {
+      "x": 1.1328351497650146,
+      "y": 1.132835030555725,
+      "z": 1.1328351497650146
+     },
+     "rotation": {
+      "x": 0.05318306013941765,
+      "y": -0.6957640051841736,
+      "z": 0.34223732352256775,
+      "w": 0.6292516589164734
+     },
+     "removedChildren": [
+      "boat_blockout"
+     ],
+     "placed": "DS41 押送船（boat_mid）"
+    },
+    {
+     "key": "boat_fg",
+     "position": {
+      "x": 1.2566299438476562,
+      "y": -0.22075000405311584,
+      "z": -32.249881744384766
+     },
+     "scale": {
+      "x": 0.8446240425109863,
+      "y": 0.8446239829063416,
+      "z": 0.8446239829063416
+     },
+     "rotation": {
+      "x": 0.00981352012604475,
+      "y": -0.7227287292480469,
+      "z": -0.046574510633945465,
+      "w": 0.6894909143447876
+     },
+     "removedChildren": [
+      "boat_blockout"
+     ],
+     "placed": "DS41 押送船（boat_fg）（船尾の枠は切）"
+    }
+   ],
+   "protected_unchanged": true
+  },
+  "render_protected_unchanged": true
+ },
+ "figures": {
+  "ds41_painting_t120_off.png": {
+   "sha256": "ca242c9adc3a6d5d9f22fe624849b7098d0161d14f2722c490c02411ce4f9021",
+   "bytes": 322440
+  },
+  "fig_ds41_blender_model.png": {
+   "sha256": "45794655da523bcb93454d2fe1b93835de6d6c70e2ec6a44a348e318e952c885",
+   "bytes": 1530965
+  },
+  "fig_ds41_close_before_after.png": {
+   "sha256": "4467ab9b6431dc8ed70e66f0ebe9ed09989ceffef8b06c9b8c9c57774306d025",
+   "bytes": 450023
+  },
+  "fig_ds41_eval_overlay_boats.png": {
+   "sha256": "c75df82806477f576cb71ba96cdf8469c5c5eb13371fa973818b8d6e1eab6474",
+   "bytes": 148565
+  },
+  "fig_ds41_painting_before_after.png": {
+   "sha256": "037e98a09e7d7cdd9a93991f5792a4b931d2a7e144a8c4a80e4219d5b1506a26",
+   "bytes": 2133952
+  },
+  "fig_ds41_painting_overlay50_boats.png": {
+   "sha256": "76cf2bbede831b74def86f6c43576a6d18dbbac3ab4d45c2b449c977345a4190",
+   "bytes": 1500144
+  },
+  "fig_ds41_views.png": {
+   "sha256": "fbbe54d7e9defbab4a8d5cceca331cb0e61a0581b38131f385fee4984c8c2d7f",
+   "bytes": 605509
+  }
+ },
+ "acceptance": {
+  "items": {
+   "design07_no_scale_axis_mirror_error": true,
+   "record_74_75_157_159_and_change_from_cp1": true,
+   "record_seat_v1_eye_vs_gunwale": true,
+   "no_regression_painting_view": true
+  },
+  "pass": true,
+  "criterion_ja": "計画 §2.4 設計41 の最小の受入：Unity で尺度・軸・左右の反転なし（設計07 の検査）。原画視点の 74・75・157・159 を記録し CP1 からの変化を示す（判定は仕上げ40・41）。座席 v1 の目の高さと船縁の関係を記録。＋計画 §2.0 の回帰なし"
+ }
+}

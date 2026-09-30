@@ -1,0 +1,1437 @@
+{
+ "schema": "GreatWave.DS41.model_run/1",
+ "generated_utc": "2026-09-30T01:58:16+00:00",
+ "tools": {
+  "blender": {
+   "blender": "5.2.2 LTS",
+   "build_hash": "d13f752e3b9c"
+  },
+  "unity": "6000.4.3f1",
+  "device": "NVIDIA GeForce RTX 3080",
+  "graphics_api": "Direct3D11",
+  "python": "3.10.6",
+  "numpy": "2.2.6",
+  "opencv": "4.12.0"
+ },
+ "commands_ja": [
+  "\"G:/SteamLibrary/steamapps/common/Blender/blender.exe\" --background --factory-startup --python-exit-code 1 --python Tools/GWWaveGen/ds41/ds41_boat_blender.py",
+  "py -3.10 -B Tools/GWWaveGen/ds41/ds41_stage_unity.py",
+  "powershell -NoProfile -ExecutionPolicy Bypass -File Tools/GWWaveGen/ds41/run_ds41_unity.ps1 -Method GreatWave.Design41.EditorTools.DS41Boats.ImportCheck -Log ImportCheck",
+  "powershell -NoProfile -ExecutionPolicy Bypass -File Tools/GWWaveGen/ds41/run_ds41_unity.ps1 -Method GreatWave.Design41.EditorTools.DS41Boats.BuildScene -Log BuildScene",
+  "powershell -NoProfile -ExecutionPolicy Bypass -File Tools/GWWaveGen/ds41/run_ds41_unity.ps1 -Method GreatWave.Design41.EditorTools.DS41Boats.Render -Log Render",
+  "py -3.10 -B Tools/GWWaveGen/ds30/ds30b_tstar_regress.py --out Unity/Build/Design/41/model/unity --sets t28_claws,t28_white",
+  "py -3.10 -B Tools/GWWaveGen/ds41/ds41_compare.py",
+  "py -3.10 -B Tools/PaintingTruth/evaluate.py --render Unity/Build/Design/41/model/unity/full/painting_t120_off.png --ids Unity/Build/Design/41/model/unity/full/ids_noline.png --idmap Unity/Build/Design/41/model/eval/idmap.json --out-dir Unity/Build/Design/41/model/eval/off_noline --name off_noline",
+  "py -3.10 -B Tools/PaintingTruth/evaluate.py --render Unity/Build/Design/41/model/unity/full/painting_t120_off.png --ids Unity/Build/Design/41/model/unity/full/ids_line.png --idmap Unity/Build/Design/41/model/eval/idmap.json --out-dir Unity/Build/Design/41/model/eval/off_line --name off_line"
+ ],
+ "inputs": {
+  "Tools/GWContext/seat_v1.json": "4f7553fd6ab29d117266d6f0b6e58c84dc30f36cf440f6de9314b95102517488",
+  "Docs/Evidence/ArtFirst/CP1/metrics.json": "82e21b235b0bde05d23f945dfb0a05c06ccf28e63c7be2bd0bee5989d930f28a",
+  "Tools/PaintingTruth/build/painting_display.png": "eeace9b3441a34862aff191edd9d62d0d4c2999b52eaf24e7d703e94243172e9",
+  "Unity/Build/Design/40/compare/unity/ds30_tstar_regress.json": "4ca57d3a973d94d4feca5dfc9c11397e4246b36d5236986df5046c2a35b8931e",
+  "Unity/Build/Design/40/compare/unity/ds40_render_report.json": "c5d4b6646c064156f14205ed0411dcdcde0141defb42b0d0fbdfb80f33c385f1",
+  "Unity/Build/Design/41/research/oshiokuri_dimensions.json": "47f3f700c125bfdfa891b9b40c6c12c946c91eb05d8d00255b2ef625cd8fab83"
+ },
+ "code": {
+  "Tools/GWWaveGen/ds41/ds41_boat_blender.py": {
+   "sha256": "e08e07f051497f875170799cbaf8392008aa54926f661ec02b30955641a29b42",
+   "bytes": 32253
+  },
+  "Tools/GWWaveGen/ds41/ds41_boat_params.json": {
+   "sha256": "6e582d35a476ff54ca77ec0b963cf408686bc25ba893c0b6c098f81b2ee778f9",
+   "bytes": 7221
+  },
+  "Tools/GWWaveGen/ds41/ds41_compare.py": {
+   "sha256": "66703ad145391e2b977313fb851cc1f458047a5132204d278a355ca8dffb5fdb",
+   "bytes": 36387
+  },
+  "Tools/GWWaveGen/ds41/ds41_research_table.py": {
+   "sha256": "1d545b288aba29a90f933ec5671797c18d0ba1b51da4b39bff662b2cb04359e5",
+   "bytes": 19563
+  },
+  "Tools/GWWaveGen/ds41/ds41_stage_unity.py": {
+   "sha256": "208095727a9f526429097fe20c926f588befb1d5cab13747adb9183d57f0443f",
+   "bytes": 3841
+  },
+  "Tools/GWWaveGen/ds41/run_ds41_unity.ps1": {
+   "sha256": "fe4a3981a9c830b155c48ba69611d7b1625f60795727ba2612e72da4dbb811bb",
+   "bytes": 5289
+  }
+ },
+ "unity_assets": {
+  "Unity/Assets/GreatWave/Design41/Editor/DS41Boats.cs": "3cee5fb9e5f161b2afb10b0a0cb92ef1bdf2aefa9b6397afa520808e9ee2258f",
+  "Unity/Assets/GreatWave/Design41/Models/ds41_oshiokuri.fbx": "f4bc4087351e246e9f4c9cc87bf4bf67f15b52242dde10855b950ead96fdef23",
+  "Unity/Assets/GreatWave/Design41/Models/ds41_oshiokuri.fbx.meta": "768309bed01ed2cff884533c6ce7b3178311ab095acb5fbb2a6a1fa0abe596f6",
+  "Unity/Assets/GreatWave/Design41/Prefabs/DS41_Oshiokuri.prefab": "977b665c11da03ee9ce3666deefe14d33e667889023e17f45ddbf144db8281f0",
+  "Unity/Assets/GreatWave/Design41/Scenes/DS41_Boats.unity": "e171a4a94d114aa2d62b889602887bf66cb5f118c82988dcfd4f5c11f18f8301"
+ },
+ "outputs_blender": {
+  "Unity/Build/Design/41/model/blender/ds41_blender_report.json": {
+   "sha256": "9151663414a012492ab5e750a93517fe422f9c391a4d383e9ff39c38003c419a",
+   "bytes": 38495
+  },
+  "Unity/Build/Design/41/model/blender/ds41_boat_geom.npz": {
+   "sha256": "c516589f17e8d141cb4682bd0b61166db7cb3a4f17caadfdfe368fba747fae25",
+   "bytes": 28339
+  },
+  "Unity/Build/Design/41/model/blender/ds41_oshiokuri.blend": {
+   "sha256": "301bfae9722c25f6b901d6c83801d69808c26c99d01adfc6fb829c974dbbbf88",
+   "bytes": 127882
+  },
+  "Unity/Build/Design/41/model/blender/ds41_oshiokuri.blend1": {
+   "sha256": "469f4d75f4ea0e1b35749714d7c054b21087e8c9cbfb0c352a6f6390599f93ba",
+   "bytes": 127902
+  },
+  "Unity/Build/Design/41/model/blender/ds41_oshiokuri.fbx": {
+   "sha256": "f4bc4087351e246e9f4c9cc87bf4bf67f15b52242dde10855b950ead96fdef23",
+   "bytes": 120156
+  },
+  "Unity/Build/Design/41/model/blender/preview_helpers_side_port.png": {
+   "sha256": "f8f015079d346821ed49d799818ebc660e95be634971a7840ac8407d10f71bbd",
+   "bytes": 1410290
+  },
+  "Unity/Build/Design/41/model/blender/preview_helpers_three_quarter_bow.png": {
+   "sha256": "79e7c306f53be8670621c035e8e3614164c130dc164e323e3ec4cf63ce7af336",
+   "bytes": 1402414
+  },
+  "Unity/Build/Design/41/model/blender/preview_helpers_top.png": {
+   "sha256": "90380d081b9ccae4247ad5e0f3dcc3d524095315a52646ca2bc8d248276f681f",
+   "bytes": 1397186
+  },
+  "Unity/Build/Design/41/model/blender/preview_visual_inside_from_stern.png": {
+   "sha256": "d5d54b76df5f1db68c646796a7f006a52dbb7defaf18bc1ab1baa28694898039",
+   "bytes": 1517120
+  },
+  "Unity/Build/Design/41/model/blender/preview_visual_side_port.png": {
+   "sha256": "2a5682f32ef5bf046d2aed79188e68cb338d946966e2328edeb687efda8ee1bd",
+   "bytes": 1429731
+  },
+  "Unity/Build/Design/41/model/blender/preview_visual_three_quarter_bow.png": {
+   "sha256": "79f1267f59a2654007d45e367409789d752333319b752e8fe8a43e43500b4fe0",
+   "bytes": 1489604
+  },
+  "Unity/Build/Design/41/model/blender/preview_visual_top.png": {
+   "sha256": "5d14c44feea1fc1d158ab8b7a8485078ba29acd6dc07f00cab8e010454d63953",
+   "bytes": 1547073
+  }
+ },
+ "outputs_unity": {
+  "Unity/Build/Design/41/model/unity/ds30_tstar_regress.json": {
+   "sha256": "4ca57d3a973d94d4feca5dfc9c11397e4246b36d5236986df5046c2a35b8931e",
+   "bytes": 6147
+  },
+  "Unity/Build/Design/41/model/unity/ds41_build_report.json": {
+   "sha256": "0ac38d1989ab5a3abc5c09b79fdb6bfbc263ca24b5074728b731a515bc319165",
+   "bytes": 4522
+  },
+  "Unity/Build/Design/41/model/unity/ds41_import_check.json": {
+   "sha256": "543ce75abc0fbc0317b5f38717aab19c28ba256bac8044e4c38d36f46c2846b5",
+   "bytes": 24744
+  },
+  "Unity/Build/Design/41/model/unity/ds41_render_report.json": {
+   "sha256": "a50bf92b9cc60ba54efe1a1916a4aaa2d0cf4d23950e8f04f776a1dd275e079a",
+   "bytes": 28707
+  },
+  "Unity/Build/Design/41/model/unity/ds41_unity_expect.json": {
+   "sha256": "bcfb7a1e76b60c10f486f963cfb4b9ad6b6e7eb743c793a8b34595ad7f725244",
+   "bytes": 4986
+  },
+  "Unity/Build/Design/41/model/unity/full/ids_line.png": {
+   "sha256": "6db3110210383868ae4a68d2d57ca5a9b0fd2fcd09aa0bc4709f3307fd55c4eb",
+   "bytes": 293469
+  },
+  "Unity/Build/Design/41/model/unity/full/ids_noline.png": {
+   "sha256": "3e6e4071d277e35ff8faa32a167b19c58c85e982970496d71563d26ea68af24f",
+   "bytes": 274822
+  },
+  "Unity/Build/Design/41/model/unity/full/painting_t120_all.png": {
+   "sha256": "a79bfb4f8fc6a9a74a23d09e86b4393a67f4b2dd45345d1468fdc0d575fe7a5e",
+   "bytes": 702202
+  },
+  "Unity/Build/Design/41/model/unity/full/painting_t120_off.png": {
+   "sha256": "efcceae4a3cc63a512349fd390dadb191a28ceea3f3097ca1ae7eca018ac2880",
+   "bytes": 390369
+  },
+  "Unity/Build/Design/41/model/unity/t28_claws/ds27_tstar_remeasure.json": {
+   "sha256": "200f3c32c1bd968d82d454bfb0fc1875da3499f8b6bc9031bc969815a0c0449a",
+   "bytes": 20358
+  },
+  "Unity/Build/Design/41/model/unity/t28_claws/ds29r01_tstar_verdict.json": {
+   "sha256": "4be7b8aa06610b12c101efaa5d97db48a3e17a0f4ca07b9fa5ba621de97bf78f",
+   "bytes": 13958
+  },
+  "Unity/Build/Design/41/model/unity/t28_claws/t28/af28r01_build_report.json": {
+   "sha256": "8e623f2002651909ad2d8f0de798aa2e44fdf2aa5ab55a1e0d18b1146cd38c68",
+   "bytes": 3663
+  },
+  "Unity/Build/Design/41/model/unity/t28_claws/t28/af28r01_render_report.json": {
+   "sha256": "91b73b361cc62d5f57d7a83fca74ab454e8d49ed216b7d26456bd7e22930d7e3",
+   "bytes": 6828
+  },
+  "Unity/Build/Design/41/model/unity/t28_claws/t28/ds27_t28_params.json": {
+   "sha256": "6c7cc724e5dbeaea6b08f781675bac45dcbe5ba70e0f9997b279ac83e81ccb6a",
+   "bytes": 7768
+  },
+  "Unity/Build/Design/41/model/unity/t28_claws/t28/bake/af28r01_bake_a45.json": {
+   "sha256": "b547ec8f72b7e15650b0abe642b325d1dd999ecaa8256f0efe665d29711bb97c",
+   "bytes": 3089
+  },
+  "Unity/Build/Design/41/model/unity/t28_claws/t28/bake/af28r01_bake_a45_rule28.json": {
+   "sha256": "2ad1a5e06f6eb0768aa55edc0f836b2b1102bbbe0c91b6a3dcab2fcb3e404f4b",
+   "bytes": 3103
+  },
+  "Unity/Build/Design/41/model/unity/t28_claws/t28/bake/af28r01_uvwarp_a45.json": {
+   "sha256": "fbd95c900f1e7b84ada6e2bffce4298fd94412041a6a1309d656893789e44964",
+   "bytes": 12373
+  },
+  "Unity/Build/Design/41/model/unity/t28_claws/t28/bake_input/af28_bake_input_record.json": {
+   "sha256": "58343ee730f5c17e07d94ea783c7a6fa69ee4725287fa32235b8446bdbb604d3",
+   "bytes": 4883
+  },
+  "Unity/Build/Design/41/model/unity/t28_claws/t28/bake_input/af28_bake_meta.json": {
+   "sha256": "cb4a778b9a1bded7c38ebf401df4b091a242cf8a3c2b781e42903f3645d384a7",
+   "bytes": 10553
+  },
+  "Unity/Build/Design/41/model/unity/t28_claws/t28/eval23_class_ids/af28r01_class_ids_overlay.png": {
+   "sha256": "a4610d9d5b7108369cd7a3ce84716b3bfc4de9e39cf06449b0afa40f6713e680",
+   "bytes": 91142
+  },
+  "Unity/Build/Design/41/model/unity/t28_claws/t28/eval23_class_ids/idmap_sky.json": {
+   "sha256": "2544ca9e340c8fbe9bd04180cf4b9e911b2b7609f371041aeef6dfcfde2542bc",
+   "bytes": 156
+  },
+  "Unity/Build/Design/41/model/unity/t28_claws/t28/eval23_class_ids/metrics.json": {
+   "sha256": "fc046b7720131fe96a857fa7820d9020e438ff7da320ad56e71ad8e3906cc2f8",
+   "bytes": 16014
+  },
+  "Unity/Build/Design/41/model/unity/t28_claws/t28/eval23_line_ids/af28r01_line_ids_overlay.png": {
+   "sha256": "a2ee7f9b2eafe88723d8301ceac20a90f9d11fc3f45c533fbd180827c590d4b2",
+   "bytes": 92503
+  },
+  "Unity/Build/Design/41/model/unity/t28_claws/t28/eval23_line_ids/idmap_sky.json": {
+   "sha256": "2544ca9e340c8fbe9bd04180cf4b9e911b2b7609f371041aeef6dfcfde2542bc",
+   "bytes": 156
+  },
+  "Unity/Build/Design/41/model/unity/t28_claws/t28/eval23_line_ids/metrics.json": {
+   "sha256": "1d19fae5da20f928780c2f87ff9e119982849ebdc25561389e414dedb4221fe2",
+   "bytes": 16009
+  },
+  "Unity/Build/Design/41/model/unity/t28_claws/t28/evidence/28R01_boundaries.png": {
+   "sha256": "836f63037f787e1da11a8e88504996006b3216cac728f6169aaacbb0c5b523cd",
+   "bytes": 1075170
+  },
+  "Unity/Build/Design/41/model/unity/t28_claws/t28/evidence/28R01_compare_cp1.png": {
+   "sha256": "83ff2fbf1b80b445fc713f665f335f8a16e3c5ce310e19b806fc58d00e4995f6",
+   "bytes": 137295
+  },
+  "Unity/Build/Design/41/model/unity/t28_claws/t28/evidence/28R01_leftedge.png": {
+   "sha256": "39b214f37f638b0cb663b810cf8facd10bcabbf3f8de21849b49bcb0512a9944",
+   "bytes": 110424
+  },
+  "Unity/Build/Design/41/model/unity/t28_claws/t28/evidence/28R01_overlay50.png": {
+   "sha256": "0fd9a11597c42b0fed5ba2ed8a20a98acdfb760f9c98019ab45593e1b206da6d",
+   "bytes": 1040596
+  },
+  "Unity/Build/Design/41/model/unity/t28_claws/t28/evidence/28R01_painting.png": {
+   "sha256": "f5298604fc3e7affe38a28e3d9247bc33355159274e27ee1f696e4894af31619",
+   "bytes": 303060
+  },
+  "Unity/Build/Design/41/model/unity/t28_claws/t28/evidence/28R01_seat.png": {
+   "sha256": "e92505b9e779ce90c37508a63858fbc5ab919c2b51dc03483934b76a6b4e3a8d",
+   "bytes": 137606
+  },
+  "Unity/Build/Design/41/model/unity/t28_claws/t28/evidence/28R01_side.png": {
+   "sha256": "226898041f47da49c80255f5146639b69dea46c5367521a92c74719dc5870d29",
+   "bytes": 77071
+  },
+  "Unity/Build/Design/41/model/unity/t28_claws/t28/evidence/28R01_uv.png": {
+   "sha256": "779a962fb4caea9eea20c474789991c14ff065c7a6d87f023effd71ac946ad27",
+   "bytes": 71936
+  },
+  "Unity/Build/Design/41/model/unity/t28_claws/t28/evidence/metrics.json": {
+   "sha256": "14aa3b7c7adbbbd46d7a0c342e699499d8b2869c6c872d6a98e3da85e5a29f57",
+   "bytes": 36153
+  },
+  "Unity/Build/Design/41/model/unity/t28_claws/t28/evidence/run.json": {
+   "sha256": "e9fe1a1ccf031636c25a6c6387872d8da658768e4c92b8de5b8660a9acbe13d2",
+   "bytes": 17112
+  },
+  "Unity/Build/Design/41/model/unity/t28_claws/t28/render/af28r01_back.png": {
+   "sha256": "7bb27c4c1619a41ffd2383075580b910241fdf004f2c78151b438a762b42ce6b",
+   "bytes": 110295
+  },
+  "Unity/Build/Design/41/model/unity/t28_claws/t28/render/af28r01_back_rule28.png": {
+   "sha256": "83f64ec63d8d89a0f365c5c0e8bc16122e1ebb2968c33a0b0f1b6051c019432f",
+   "bytes": 109727
+  },
+  "Unity/Build/Design/41/model/unity/t28_claws/t28/render/af28r01_back_waveonly.png": {
+   "sha256": "fc2d02e60e2903da70be870ef03dc0382b4d8f675b96f677346348cef2bd5be3",
+   "bytes": 102851
+  },
+  "Unity/Build/Design/41/model/unity/t28_claws/t28/render/af28r01_class_ids.png": {
+   "sha256": "c1003bbc208c4109b00e2d873e753eabed8c58b4111a589a62592d781f753994",
+   "bytes": 279004
+  },
+  "Unity/Build/Design/41/model/unity/t28_claws/t28/render/af28r01_line_ids.png": {
+   "sha256": "589071cb8f5826151c979a219c4a69d4ab4ce614dc9bb6cdc067b6551fb96a0d",
+   "bytes": 302035
+  },
+  "Unity/Build/Design/41/model/unity/t28_claws/t28/render/af28r01_painting.png": {
+   "sha256": "00a4e0e1420431074c47db231e2289f40977c0c9c54867a402669809a124d7e5",
+   "bytes": 376797
+  },
+  "Unity/Build/Design/41/model/unity/t28_claws/t28/render/af28r01_painting_kstar.png": {
+   "sha256": "ea9cbfdbbf10f9f491079b166eb147c4c320e727b6e9a1aec2f3a42fe05565d6",
+   "bytes": 285314
+  },
+  "Unity/Build/Design/41/model/unity/t28_claws/t28/render/af28r01_painting_rule28.png": {
+   "sha256": "93d916c894f07e244fbf0b18adcf05b218d054cc7f923042c56785317a4d9d5b",
+   "bytes": 358659
+  },
+  "Unity/Build/Design/41/model/unity/t28_claws/t28/render/af28r01_seat.png": {
+   "sha256": "faf4cd93d77fcd8319ffa6a32004a0c369a02560a7172a3771096f061acefc2f",
+   "bytes": 153667
+  },
+  "Unity/Build/Design/41/model/unity/t28_claws/t28/render/af28r01_seat_class_ids.png": {
+   "sha256": "58d89cc74b9893d1a410871239592d37774976f881276f1c1a39180d2a549a56",
+   "bytes": 60272
+  },
+  "Unity/Build/Design/41/model/unity/t28_claws/t28/render/af28r01_seat_kstar.png": {
+   "sha256": "119ae6fd52bc21b9d593e96f41c6cb94ec43d839e0adb5a03d92df5693b3b9dd",
+   "bytes": 128494
+  },
+  "Unity/Build/Design/41/model/unity/t28_claws/t28/render/af28r01_seat_left.png": {
+   "sha256": "19d38218124b6a9c8344eb8b18737a2fef6785883dd2711932b6fccf3a42830d",
+   "bytes": 281067
+  },
+  "Unity/Build/Design/41/model/unity/t28_claws/t28/render/af28r01_seat_left_rule28.png": {
+   "sha256": "4f156f686c06ad24c532757b390534b624fc05e72946e1bc61fc22b8201515f7",
+   "bytes": 282500
+  },
+  "Unity/Build/Design/41/model/unity/t28_claws/t28/render/af28r01_seat_low.png": {
+   "sha256": "8628c653f2d2f7f274e1c087a3bf48211dd8b18a0ede2473414769bcbfb8a4aa",
+   "bytes": 259092
+  },
+  "Unity/Build/Design/41/model/unity/t28_claws/t28/render/af28r01_seat_low_class_ids.png": {
+   "sha256": "87ca059e61fae8c818e979b96c5daddfa2c04df188472917cde0628ed42110c1",
+   "bytes": 95233
+  },
+  "Unity/Build/Design/41/model/unity/t28_claws/t28/render/af28r01_seat_low_kstar.png": {
+   "sha256": "39fa9b2b2d4a7db059d5659f790062326a752a3c297ff1e2355a23de4e3235c2",
+   "bytes": 223408
+  },
+  "Unity/Build/Design/41/model/unity/t28_claws/t28/render/af28r01_seat_low_rule28.png": {
+   "sha256": "b025120f43b970eb2fd3661c0a0b3bd01e5da6c354a66fdcc1493903e3e0c3d6",
+   "bytes": 239311
+  },
+  "Unity/Build/Design/41/model/unity/t28_claws/t28/render/af28r01_seat_low_waveonly.png": {
+   "sha256": "ab9623e03224c29a1029a00e48d33f045336e20faaa632f060bfddc4d96f1b59",
+   "bytes": 293532
+  },
+  "Unity/Build/Design/41/model/unity/t28_claws/t28/render/af28r01_seat_rule28.png": {
+   "sha256": "30cc94878aa9173edb536ed71a6b3ede7f2fff657bdfe906fb1529361fc3c36d",
+   "bytes": 153042
+  },
+  "Unity/Build/Design/41/model/unity/t28_claws/t28/render/af28r01_seat_waveonly.png": {
+   "sha256": "c3f276f0092f3fc77c2eadf3f41f5a6b3f9e7a17c4ad3cb880ef8f99e9a69574",
+   "bytes": 149378
+  },
+  "Unity/Build/Design/41/model/unity/t28_claws/t28/render/af28r01_side_left.png": {
+   "sha256": "6a644efb92764d1c066f92920549860cb87c97b2fca0b4862da883c57c04b5d0",
+   "bytes": 126191
+  },
+  "Unity/Build/Design/41/model/unity/t28_claws/t28/render/af28r01_side_left_rule28.png": {
+   "sha256": "246f60e78c0bf6ca67b4c393efe25d6f18bfcb41594b5648eb9a4f295e944370",
+   "bytes": 126717
+  },
+  "Unity/Build/Design/41/model/unity/t28_claws/t28/render/af28r01_side_left_waveonly.png": {
+   "sha256": "68de608a09436e1663ffea181d400302468c80495f7552dce4e411f1439dbc97",
+   "bytes": 124759
+  },
+  "Unity/Build/Design/41/model/unity/t28_claws/t28/render/idmap.json": {
+   "sha256": "947cca590f715666aa0b67fcc6740b652401e9fd38862e922e27b23d1d8a79dc",
+   "bytes": 448
+  },
+  "Unity/Build/Design/41/model/unity/t28_white/ds27_tstar_remeasure.json": {
+   "sha256": "2349fc11c81ec0a7491f270721830ec76e4e953833ec10c445e9bbd8655d5078",
+   "bytes": 20398
+  },
+  "Unity/Build/Design/41/model/unity/t28_white/ds29r01_tstar_verdict.json": {
+   "sha256": "b188e8c1e7547029f52d79903ee4f64c379e3843ad78cc89428a57823fa189d3",
+   "bytes": 13969
+  },
+  "Unity/Build/Design/41/model/unity/t28_white/t28/af28r01_build_report.json": {
+   "sha256": "8e623f2002651909ad2d8f0de798aa2e44fdf2aa5ab55a1e0d18b1146cd38c68",
+   "bytes": 3663
+  },
+  "Unity/Build/Design/41/model/unity/t28_white/t28/af28r01_render_report.json": {
+   "sha256": "91b73b361cc62d5f57d7a83fca74ab454e8d49ed216b7d26456bd7e22930d7e3",
+   "bytes": 6828
+  },
+  "Unity/Build/Design/41/model/unity/t28_white/t28/ds27_t28_params.json": {
+   "sha256": "c575635684c30ae02650c8e1f385b03ef3e6cffada985f3764528ad71eb5f12f",
+   "bytes": 7768
+  },
+  "Unity/Build/Design/41/model/unity/t28_white/t28/bake/af28r01_bake_a45.json": {
+   "sha256": "b547ec8f72b7e15650b0abe642b325d1dd999ecaa8256f0efe665d29711bb97c",
+   "bytes": 3089
+  },
+  "Unity/Build/Design/41/model/unity/t28_white/t28/bake/af28r01_bake_a45_rule28.json": {
+   "sha256": "2ad1a5e06f6eb0768aa55edc0f836b2b1102bbbe0c91b6a3dcab2fcb3e404f4b",
+   "bytes": 3103
+  },
+  "Unity/Build/Design/41/model/unity/t28_white/t28/bake/af28r01_uvwarp_a45.json": {
+   "sha256": "fbd95c900f1e7b84ada6e2bffce4298fd94412041a6a1309d656893789e44964",
+   "bytes": 12373
+  },
+  "Unity/Build/Design/41/model/unity/t28_white/t28/bake_input/af28_bake_input_record.json": {
+   "sha256": "58343ee730f5c17e07d94ea783c7a6fa69ee4725287fa32235b8446bdbb604d3",
+   "bytes": 4883
+  },
+  "Unity/Build/Design/41/model/unity/t28_white/t28/bake_input/af28_bake_meta.json": {
+   "sha256": "cb4a778b9a1bded7c38ebf401df4b091a242cf8a3c2b781e42903f3645d384a7",
+   "bytes": 10553
+  },
+  "Unity/Build/Design/41/model/unity/t28_white/t28/eval23_class_ids/af28r01_class_ids_overlay.png": {
+   "sha256": "96cb130399243f59915c79a58411915a0d4140800455cade5ba9718fe62adebc",
+   "bytes": 90835
+  },
+  "Unity/Build/Design/41/model/unity/t28_white/t28/eval23_class_ids/idmap_sky.json": {
+   "sha256": "2544ca9e340c8fbe9bd04180cf4b9e911b2b7609f371041aeef6dfcfde2542bc",
+   "bytes": 156
+  },
+  "Unity/Build/Design/41/model/unity/t28_white/t28/eval23_class_ids/metrics.json": {
+   "sha256": "c600b4c731473996a1b8b1134a66013ff599b2ae85425de3ba9560bb32efbb17",
+   "bytes": 16014
+  },
+  "Unity/Build/Design/41/model/unity/t28_white/t28/eval23_line_ids/af28r01_line_ids_overlay.png": {
+   "sha256": "34922008c2ad5272d62aad579c15f0c4c80ff990da66a4165fdc8dabbeee9147",
+   "bytes": 92345
+  },
+  "Unity/Build/Design/41/model/unity/t28_white/t28/eval23_line_ids/idmap_sky.json": {
+   "sha256": "2544ca9e340c8fbe9bd04180cf4b9e911b2b7609f371041aeef6dfcfde2542bc",
+   "bytes": 156
+  },
+  "Unity/Build/Design/41/model/unity/t28_white/t28/eval23_line_ids/metrics.json": {
+   "sha256": "1f10660709edf6825897fd0ea5fd4a7681b2d812ee6e00b0f8ea529086cfb6a0",
+   "bytes": 16008
+  },
+  "Unity/Build/Design/41/model/unity/t28_white/t28/evidence/28R01_boundaries.png": {
+   "sha256": "cfc9cde57ee9ce1bcbaaf3cf08acfc6f826bfa7547cfd823299b4711d8f655ce",
+   "bytes": 1075576
+  },
+  "Unity/Build/Design/41/model/unity/t28_white/t28/evidence/28R01_compare_cp1.png": {
+   "sha256": "69700cef558e3abaf0761e11eba61aa853b491a0b24c951295a7783e4144fdba",
+   "bytes": 136503
+  },
+  "Unity/Build/Design/41/model/unity/t28_white/t28/evidence/28R01_leftedge.png": {
+   "sha256": "93127cb41a28e06a00e77c43794be6c275a50e2016fa30c5d9b6337f15388d9e",
+   "bytes": 110264
+  },
+  "Unity/Build/Design/41/model/unity/t28_white/t28/evidence/28R01_overlay50.png": {
+   "sha256": "eb653215650309aff72f0bae2e906ee80831c0e3ebb5f3bf1374411e267b540f",
+   "bytes": 1040605
+  },
+  "Unity/Build/Design/41/model/unity/t28_white/t28/evidence/28R01_painting.png": {
+   "sha256": "a3cbff010cb40a68015cda6a55079a2212fe4572eed96e15893ec50f9b78be56",
+   "bytes": 302807
+  },
+  "Unity/Build/Design/41/model/unity/t28_white/t28/evidence/28R01_seat.png": {
+   "sha256": "944808cca850a68c8fa9ad8a37c4bbfb732bcb99918f07e9cf26f935b58a6ac4",
+   "bytes": 135754
+  },
+  "Unity/Build/Design/41/model/unity/t28_white/t28/evidence/28R01_side.png": {
+   "sha256": "226898041f47da49c80255f5146639b69dea46c5367521a92c74719dc5870d29",
+   "bytes": 77071
+  },
+  "Unity/Build/Design/41/model/unity/t28_white/t28/evidence/28R01_uv.png": {
+   "sha256": "779a962fb4caea9eea20c474789991c14ff065c7a6d87f023effd71ac946ad27",
+   "bytes": 71936
+  },
+  "Unity/Build/Design/41/model/unity/t28_white/t28/evidence/metrics.json": {
+   "sha256": "c6ddb0ce442cbdae0afb71bcd2294b307a109160bc0d8a144e6c6a2f2b4b03cd",
+   "bytes": 36150
+  },
+  "Unity/Build/Design/41/model/unity/t28_white/t28/evidence/run.json": {
+   "sha256": "0403a2852f6863731daea76bb54f9e5c26534a81df7925ec4b6c83490bc998ef",
+   "bytes": 17112
+  },
+  "Unity/Build/Design/41/model/unity/t28_white/t28/render/af28r01_back.png": {
+   "sha256": "7bb27c4c1619a41ffd2383075580b910241fdf004f2c78151b438a762b42ce6b",
+   "bytes": 110295
+  },
+  "Unity/Build/Design/41/model/unity/t28_white/t28/render/af28r01_back_rule28.png": {
+   "sha256": "83f64ec63d8d89a0f365c5c0e8bc16122e1ebb2968c33a0b0f1b6051c019432f",
+   "bytes": 109727
+  },
+  "Unity/Build/Design/41/model/unity/t28_white/t28/render/af28r01_back_waveonly.png": {
+   "sha256": "fc2d02e60e2903da70be870ef03dc0382b4d8f675b96f677346348cef2bd5be3",
+   "bytes": 102851
+  },
+  "Unity/Build/Design/41/model/unity/t28_white/t28/render/af28r01_class_ids.png": {
+   "sha256": "2461f87f7a600d6e547ae36944640575fb9b4656967901971f48db3f2c8d8f86",
+   "bytes": 278568
+  },
+  "Unity/Build/Design/41/model/unity/t28_white/t28/render/af28r01_line_ids.png": {
+   "sha256": "3dc50b3e9489a29b04e0cff362a012146a9967bb3bf3925a2cbd51a78cc02228",
+   "bytes": 301805
+  },
+  "Unity/Build/Design/41/model/unity/t28_white/t28/render/af28r01_painting.png": {
+   "sha256": "1cbe6930b1df599d2139e776110487616b3414e49cc86b15b3bdb1becacc04aa",
+   "bytes": 376302
+  },
+  "Unity/Build/Design/41/model/unity/t28_white/t28/render/af28r01_painting_kstar.png": {
+   "sha256": "92bc7336eae2fa9d70ee8c367e7292e24ed6a60b649ececb25c555c12bf8e025",
+   "bytes": 284860
+  },
+  "Unity/Build/Design/41/model/unity/t28_white/t28/render/af28r01_painting_rule28.png": {
+   "sha256": "93d916c894f07e244fbf0b18adcf05b218d054cc7f923042c56785317a4d9d5b",
+   "bytes": 358659
+  },
+  "Unity/Build/Design/41/model/unity/t28_white/t28/render/af28r01_seat.png": {
+   "sha256": "68543d9d0d6f5ded946f1b8860b2b803dcbe8afed55cddbf843c6677cc737813",
+   "bytes": 142672
+  },
+  "Unity/Build/Design/41/model/unity/t28_white/t28/render/af28r01_seat_class_ids.png": {
+   "sha256": "e25ed38d449e0bc7474b6d963a71d3fcd8c9a3e1fc7c85d56a12408741a246fe",
+   "bytes": 60170
+  },
+  "Unity/Build/Design/41/model/unity/t28_white/t28/render/af28r01_seat_kstar.png": {
+   "sha256": "17bd692909242631e9e3c0df3ab87384e32b62e7d21faba92d28872ce3a69958",
+   "bytes": 126954
+  },
+  "Unity/Build/Design/41/model/unity/t28_white/t28/render/af28r01_seat_left.png": {
+   "sha256": "19d38218124b6a9c8344eb8b18737a2fef6785883dd2711932b6fccf3a42830d",
+   "bytes": 281067
+  },
+  "Unity/Build/Design/41/model/unity/t28_white/t28/render/af28r01_seat_left_rule28.png": {
+   "sha256": "4f156f686c06ad24c532757b390534b624fc05e72946e1bc61fc22b8201515f7",
+   "bytes": 282500
+  },
+  "Unity/Build/Design/41/model/unity/t28_white/t28/render/af28r01_seat_low.png": {
+   "sha256": "733a426306fd9c6a405046a6e6bf7683a770b06b30e9bb084b2c05f5973dd080",
+   "bytes": 252771
+  },
+  "Unity/Build/Design/41/model/unity/t28_white/t28/render/af28r01_seat_low_class_ids.png": {
+   "sha256": "465f67b4d95d926a44d11893ab5c5f889b1b96fba883356d2019de7fe83e7a58",
+   "bytes": 95254
+  },
+  "Unity/Build/Design/41/model/unity/t28_white/t28/render/af28r01_seat_low_kstar.png": {
+   "sha256": "8856b2efe92040db41f4ad6ab16807c750eba1fc2f0fa2060f6725fd5f27aec5",
+   "bytes": 222052
+  },
+  "Unity/Build/Design/41/model/unity/t28_white/t28/render/af28r01_seat_low_rule28.png": {
+   "sha256": "b025120f43b970eb2fd3661c0a0b3bd01e5da6c354a66fdcc1493903e3e0c3d6",
+   "bytes": 239311
+  },
+  "Unity/Build/Design/41/model/unity/t28_white/t28/render/af28r01_seat_low_waveonly.png": {
+   "sha256": "ab9623e03224c29a1029a00e48d33f045336e20faaa632f060bfddc4d96f1b59",
+   "bytes": 293532
+  },
+  "Unity/Build/Design/41/model/unity/t28_white/t28/render/af28r01_seat_rule28.png": {
+   "sha256": "30cc94878aa9173edb536ed71a6b3ede7f2fff657bdfe906fb1529361fc3c36d",
+   "bytes": 153042
+  },
+  "Unity/Build/Design/41/model/unity/t28_white/t28/render/af28r01_seat_waveonly.png": {
+   "sha256": "c3f276f0092f3fc77c2eadf3f41f5a6b3f9e7a17c4ad3cb880ef8f99e9a69574",
+   "bytes": 149378
+  },
+  "Unity/Build/Design/41/model/unity/t28_white/t28/render/af28r01_side_left.png": {
+   "sha256": "6a644efb92764d1c066f92920549860cb87c97b2fca0b4862da883c57c04b5d0",
+   "bytes": 126191
+  },
+  "Unity/Build/Design/41/model/unity/t28_white/t28/render/af28r01_side_left_rule28.png": {
+   "sha256": "246f60e78c0bf6ca67b4c393efe25d6f18bfcb41594b5648eb9a4f295e944370",
+   "bytes": 126717
+  },
+  "Unity/Build/Design/41/model/unity/t28_white/t28/render/af28r01_side_left_waveonly.png": {
+   "sha256": "68de608a09436e1663ffea181d400302468c80495f7552dce4e411f1439dbc97",
+   "bytes": 124759
+  },
+  "Unity/Build/Design/41/model/unity/t28_white/t28/render/idmap.json": {
+   "sha256": "947cca590f715666aa0b67fcc6740b652401e9fd38862e922e27b23d1d8a79dc",
+   "bytes": 448
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_claws/tstar_sym.json": {
+   "sha256": "7258ff1e8a096f7216cd89db3afc22cddbadd1a9aee40b23bcd7222411384322",
+   "bytes": 10611
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_claws/base28/af28r01_build_report.json": {
+   "sha256": "8e623f2002651909ad2d8f0de798aa2e44fdf2aa5ab55a1e0d18b1146cd38c68",
+   "bytes": 3663
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_claws/base28/af28r01_render_report.json": {
+   "sha256": "91b73b361cc62d5f57d7a83fca74ab454e8d49ed216b7d26456bd7e22930d7e3",
+   "bytes": 6828
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_claws/base28/sym_params.json": {
+   "sha256": "fa76d47574ba44dd6622425166c20a78e35b49b285998bfe2f96bb4b9f50431f",
+   "bytes": 7830
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_claws/base28/bake/af28r01_bake_a45.json": {
+   "sha256": "3c3131e09b07e48b79c2ef6db356505b383899eea1bf64d67aec422fb0ea13fd",
+   "bytes": 3086
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_claws/base28/bake/af28r01_bake_a45_rule28.json": {
+   "sha256": "cad99f06e906bcdc9983ad50dce6582f899f5b4bae1785eabbb4fc4b4d72d93a",
+   "bytes": 3096
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_claws/base28/bake/af28r01_uvwarp_a45.json": {
+   "sha256": "945aef222f2730ee27ede3b9996234f0e00d53b806aabcfc0f3f05c86bcccafb",
+   "bytes": 12348
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_claws/base28/bake_input/af28_bake_input_record.json": {
+   "sha256": "a2920b61c702b3dd203d618eb8d2e3d5ad8201a0969dfe795ad805f34c622e76",
+   "bytes": 4748
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_claws/base28/bake_input/af28_bake_meta.json": {
+   "sha256": "56d94453dda93e8e5095cb9bc9b0656cebd7e51d9b2ecb2d96cbd8a943432576",
+   "bytes": 10544
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_claws/base28/eval23_class_ids/af28r01_class_ids_overlay.png": {
+   "sha256": "2f5d7e1061938eb73b7241ab69ea6aba34b12260fd874f593ebf4b00a2d1c7cf",
+   "bytes": 87272
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_claws/base28/eval23_class_ids/idmap_sky.json": {
+   "sha256": "2544ca9e340c8fbe9bd04180cf4b9e911b2b7609f371041aeef6dfcfde2542bc",
+   "bytes": 156
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_claws/base28/eval23_class_ids/metrics.json": {
+   "sha256": "8aa945df99f5bb6531fd10bb440d60a7a17cbcb779fc94c184618b63d61105db",
+   "bytes": 16097
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_claws/base28/eval23_line_ids/af28r01_line_ids_overlay.png": {
+   "sha256": "a2e5704eaf4f5a7fc30975c9a6adef2b8474924305aa72d471dfecb5c3c8270e",
+   "bytes": 89527
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_claws/base28/eval23_line_ids/idmap_sky.json": {
+   "sha256": "2544ca9e340c8fbe9bd04180cf4b9e911b2b7609f371041aeef6dfcfde2542bc",
+   "bytes": 156
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_claws/base28/eval23_line_ids/metrics.json": {
+   "sha256": "f5788f4304a6a1ea94c8ece9e5152a7f86208e308a343347ae4c081519e08cc9",
+   "bytes": 16095
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_claws/base28/evidence/28R01_boundaries.png": {
+   "sha256": "5acc0ed6d193a19b653a4c8d0ba2e947eadbd40bff89ac0f429aa8f3d673b51a",
+   "bytes": 1076726
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_claws/base28/evidence/28R01_compare_cp1.png": {
+   "sha256": "ddb90c47ea83cf27e9ea6abef007addf1708ce74dd361c9f1c9a507e1251decc",
+   "bytes": 128784
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_claws/base28/evidence/28R01_leftedge.png": {
+   "sha256": "b93952ba762ee8df64de57ebf4b3364f4c972874e7c0e4d642fe9780022a8822",
+   "bytes": 107147
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_claws/base28/evidence/28R01_overlay50.png": {
+   "sha256": "d23c65746da8bae4a4fb7de7d6a34725c69f035b954381b4040ea01f5e187631",
+   "bytes": 1048362
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_claws/base28/evidence/28R01_painting.png": {
+   "sha256": "f0e3d653dd460a003e8e249f25f8f9429d5d8c73a580a5da7c9d3d14f25d9fdb",
+   "bytes": 286342
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_claws/base28/evidence/28R01_seat.png": {
+   "sha256": "f586d6692c9a30d706837c0a616385379b238c3979e1fbbcb94b3142b1e63f8a",
+   "bytes": 134361
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_claws/base28/evidence/28R01_side.png": {
+   "sha256": "226898041f47da49c80255f5146639b69dea46c5367521a92c74719dc5870d29",
+   "bytes": 77071
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_claws/base28/evidence/28R01_uv.png": {
+   "sha256": "19860f3bb020bed1ad04da5f145af5cde6c3d4f728adc934a41ca9ea7dd5baf4",
+   "bytes": 72096
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_claws/base28/evidence/metrics.json": {
+   "sha256": "56b7471dfecf56a2365b6ba91a3a2a7bdacbb6f4babf3a2c45a3d6f130332391",
+   "bytes": 36904
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_claws/base28/evidence/run.json": {
+   "sha256": "424109e22c88f9177180459da3097426cd6996d460ded25a17771d8e888c7034",
+   "bytes": 17841
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_claws/base28/render/af28r01_back.png": {
+   "sha256": "7bb27c4c1619a41ffd2383075580b910241fdf004f2c78151b438a762b42ce6b",
+   "bytes": 110295
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_claws/base28/render/af28r01_back_rule28.png": {
+   "sha256": "83f64ec63d8d89a0f365c5c0e8bc16122e1ebb2968c33a0b0f1b6051c019432f",
+   "bytes": 109727
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_claws/base28/render/af28r01_back_waveonly.png": {
+   "sha256": "fc2d02e60e2903da70be870ef03dc0382b4d8f675b96f677346348cef2bd5be3",
+   "bytes": 102851
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_claws/base28/render/af28r01_class_ids.png": {
+   "sha256": "bc3f5e0140df012efeecdb41a75c2015febf61995c53f95105052582ac1c7078",
+   "bytes": 261854
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_claws/base28/render/af28r01_line_ids.png": {
+   "sha256": "e63c983a30bbcb5fdc2b5f3e3fd33b19bc82b28096dc370359a9cc8accfcec26",
+   "bytes": 273927
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_claws/base28/render/af28r01_painting.png": {
+   "sha256": "8a8acb0abcdfb971cd36f66539866990c776f9ad7c7a22979a0732be605c2d82",
+   "bytes": 358050
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_claws/base28/render/af28r01_painting_kstar.png": {
+   "sha256": "0f80dc0befe69aa8235758160f09b6e42aba5009374b268af9e77ef0751ee7e3",
+   "bytes": 269885
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_claws/base28/render/af28r01_painting_rule28.png": {
+   "sha256": "93d916c894f07e244fbf0b18adcf05b218d054cc7f923042c56785317a4d9d5b",
+   "bytes": 358659
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_claws/base28/render/af28r01_seat.png": {
+   "sha256": "e58c8e29ed0551c4a67b7cedf39db40b4780a327d28c8a7b610c0e5798d6f2da",
+   "bytes": 151376
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_claws/base28/render/af28r01_seat_class_ids.png": {
+   "sha256": "11708ec3b6b375d9dcd9bfdd46cffffac3b63d1eb6ce9959f490f6c852dd7444",
+   "bytes": 63048
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_claws/base28/render/af28r01_seat_kstar.png": {
+   "sha256": "8847b16169cf6157b9e2509fab1aaddb41843c7391392189b74a8afa8c3700b4",
+   "bytes": 134689
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_claws/base28/render/af28r01_seat_left.png": {
+   "sha256": "19d38218124b6a9c8344eb8b18737a2fef6785883dd2711932b6fccf3a42830d",
+   "bytes": 281067
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_claws/base28/render/af28r01_seat_left_rule28.png": {
+   "sha256": "4f156f686c06ad24c532757b390534b624fc05e72946e1bc61fc22b8201515f7",
+   "bytes": 282500
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_claws/base28/render/af28r01_seat_low.png": {
+   "sha256": "88ac39e410e277bffa0f43c819ddbbe13aef35bbee3e2f388b1b2a2cd9900971",
+   "bytes": 237360
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_claws/base28/render/af28r01_seat_low_class_ids.png": {
+   "sha256": "bc9d0b6853d66824ed5a4de4512f92587983ca8c46522478b401a1e8b053890a",
+   "bytes": 98730
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_claws/base28/render/af28r01_seat_low_kstar.png": {
+   "sha256": "2590c9fd81eeae0f7ca42d6af13659779194743a9a82b38039f41a9a75394d22",
+   "bytes": 235943
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_claws/base28/render/af28r01_seat_low_rule28.png": {
+   "sha256": "b025120f43b970eb2fd3661c0a0b3bd01e5da6c354a66fdcc1493903e3e0c3d6",
+   "bytes": 239311
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_claws/base28/render/af28r01_seat_low_waveonly.png": {
+   "sha256": "ab9623e03224c29a1029a00e48d33f045336e20faaa632f060bfddc4d96f1b59",
+   "bytes": 293532
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_claws/base28/render/af28r01_seat_rule28.png": {
+   "sha256": "30cc94878aa9173edb536ed71a6b3ede7f2fff657bdfe906fb1529361fc3c36d",
+   "bytes": 153042
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_claws/base28/render/af28r01_seat_waveonly.png": {
+   "sha256": "c3f276f0092f3fc77c2eadf3f41f5a6b3f9e7a17c4ad3cb880ef8f99e9a69574",
+   "bytes": 149378
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_claws/base28/render/af28r01_side_left.png": {
+   "sha256": "6a644efb92764d1c066f92920549860cb87c97b2fca0b4862da883c57c04b5d0",
+   "bytes": 126191
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_claws/base28/render/af28r01_side_left_rule28.png": {
+   "sha256": "246f60e78c0bf6ca67b4c393efe25d6f18bfcb41594b5648eb9a4f295e944370",
+   "bytes": 126717
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_claws/base28/render/af28r01_side_left_waveonly.png": {
+   "sha256": "68de608a09436e1663ffea181d400302468c80495f7552dce4e411f1439dbc97",
+   "bytes": 124759
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_claws/base28/render/idmap.json": {
+   "sha256": "947cca590f715666aa0b67fcc6740b652401e9fd38862e922e27b23d1d8a79dc",
+   "bytes": 448
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_claws/kp/af28r01_build_report.json": {
+   "sha256": "8e623f2002651909ad2d8f0de798aa2e44fdf2aa5ab55a1e0d18b1146cd38c68",
+   "bytes": 3663
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_claws/kp/af28r01_render_report.json": {
+   "sha256": "91b73b361cc62d5f57d7a83fca74ab454e8d49ed216b7d26456bd7e22930d7e3",
+   "bytes": 6828
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_claws/kp/sym_params.json": {
+   "sha256": "cb16c43cb92dab0c5eb393cd3f3741c535132694135e915bef339cf87a8ac3ce",
+   "bytes": 7823
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_claws/kp/bake/af28r01_bake_a45.json": {
+   "sha256": "b547ec8f72b7e15650b0abe642b325d1dd999ecaa8256f0efe665d29711bb97c",
+   "bytes": 3089
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_claws/kp/bake/af28r01_bake_a45_rule28.json": {
+   "sha256": "2ad1a5e06f6eb0768aa55edc0f836b2b1102bbbe0c91b6a3dcab2fcb3e404f4b",
+   "bytes": 3103
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_claws/kp/bake/af28r01_uvwarp_a45.json": {
+   "sha256": "fbd95c900f1e7b84ada6e2bffce4298fd94412041a6a1309d656893789e44964",
+   "bytes": 12373
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_claws/kp/bake_input/af28_bake_input_record.json": {
+   "sha256": "58343ee730f5c17e07d94ea783c7a6fa69ee4725287fa32235b8446bdbb604d3",
+   "bytes": 4883
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_claws/kp/bake_input/af28_bake_meta.json": {
+   "sha256": "cb4a778b9a1bded7c38ebf401df4b091a242cf8a3c2b781e42903f3645d384a7",
+   "bytes": 10553
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_claws/kp/eval23_class_ids/af28r01_class_ids_overlay.png": {
+   "sha256": "a4610d9d5b7108369cd7a3ce84716b3bfc4de9e39cf06449b0afa40f6713e680",
+   "bytes": 91142
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_claws/kp/eval23_class_ids/idmap_sky.json": {
+   "sha256": "2544ca9e340c8fbe9bd04180cf4b9e911b2b7609f371041aeef6dfcfde2542bc",
+   "bytes": 156
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_claws/kp/eval23_class_ids/metrics.json": {
+   "sha256": "c1f0e5633d90b6626de2cab695f3881b40a2aae269f6d2a72ab55d9211d5fd59",
+   "bytes": 16068
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_claws/kp/eval23_line_ids/af28r01_line_ids_overlay.png": {
+   "sha256": "a2ee7f9b2eafe88723d8301ceac20a90f9d11fc3f45c533fbd180827c590d4b2",
+   "bytes": 92503
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_claws/kp/eval23_line_ids/idmap_sky.json": {
+   "sha256": "2544ca9e340c8fbe9bd04180cf4b9e911b2b7609f371041aeef6dfcfde2542bc",
+   "bytes": 156
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_claws/kp/eval23_line_ids/metrics.json": {
+   "sha256": "a5041d943337a759df23416bb9c70533703ef3b79e482dec7968751cd89b46fc",
+   "bytes": 16063
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_claws/kp/evidence/28R01_boundaries.png": {
+   "sha256": "cba679a3ba4792bd348baa9c9e4898123cd32122b9ab454e4aade38382b0f0ff",
+   "bytes": 1076786
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_claws/kp/evidence/28R01_compare_cp1.png": {
+   "sha256": "83ff2fbf1b80b445fc713f665f335f8a16e3c5ce310e19b806fc58d00e4995f6",
+   "bytes": 137295
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_claws/kp/evidence/28R01_leftedge.png": {
+   "sha256": "39b214f37f638b0cb663b810cf8facd10bcabbf3f8de21849b49bcb0512a9944",
+   "bytes": 110424
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_claws/kp/evidence/28R01_overlay50.png": {
+   "sha256": "0fd9a11597c42b0fed5ba2ed8a20a98acdfb760f9c98019ab45593e1b206da6d",
+   "bytes": 1040596
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_claws/kp/evidence/28R01_painting.png": {
+   "sha256": "f5298604fc3e7affe38a28e3d9247bc33355159274e27ee1f696e4894af31619",
+   "bytes": 303060
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_claws/kp/evidence/28R01_seat.png": {
+   "sha256": "e92505b9e779ce90c37508a63858fbc5ab919c2b51dc03483934b76a6b4e3a8d",
+   "bytes": 137606
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_claws/kp/evidence/28R01_side.png": {
+   "sha256": "226898041f47da49c80255f5146639b69dea46c5367521a92c74719dc5870d29",
+   "bytes": 77071
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_claws/kp/evidence/28R01_uv.png": {
+   "sha256": "779a962fb4caea9eea20c474789991c14ff065c7a6d87f023effd71ac946ad27",
+   "bytes": 71936
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_claws/kp/evidence/metrics.json": {
+   "sha256": "71f8c23beee670d29b8864b8b1c68996a48ba0d14c7e7ff0e0887acf5d5679d2",
+   "bytes": 36209
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_claws/kp/evidence/run.json": {
+   "sha256": "d6100e8a80010a3f87ea9108cbc6cb990859a3c197ba545c3cbe3a977c98ca5f",
+   "bytes": 17615
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_claws/kp/render/af28r01_back.png": {
+   "sha256": "7bb27c4c1619a41ffd2383075580b910241fdf004f2c78151b438a762b42ce6b",
+   "bytes": 110295
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_claws/kp/render/af28r01_back_rule28.png": {
+   "sha256": "83f64ec63d8d89a0f365c5c0e8bc16122e1ebb2968c33a0b0f1b6051c019432f",
+   "bytes": 109727
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_claws/kp/render/af28r01_back_waveonly.png": {
+   "sha256": "fc2d02e60e2903da70be870ef03dc0382b4d8f675b96f677346348cef2bd5be3",
+   "bytes": 102851
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_claws/kp/render/af28r01_class_ids.png": {
+   "sha256": "c1003bbc208c4109b00e2d873e753eabed8c58b4111a589a62592d781f753994",
+   "bytes": 279004
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_claws/kp/render/af28r01_line_ids.png": {
+   "sha256": "589071cb8f5826151c979a219c4a69d4ab4ce614dc9bb6cdc067b6551fb96a0d",
+   "bytes": 302035
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_claws/kp/render/af28r01_painting.png": {
+   "sha256": "00a4e0e1420431074c47db231e2289f40977c0c9c54867a402669809a124d7e5",
+   "bytes": 376797
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_claws/kp/render/af28r01_painting_kstar.png": {
+   "sha256": "ea9cbfdbbf10f9f491079b166eb147c4c320e727b6e9a1aec2f3a42fe05565d6",
+   "bytes": 285314
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_claws/kp/render/af28r01_painting_rule28.png": {
+   "sha256": "93d916c894f07e244fbf0b18adcf05b218d054cc7f923042c56785317a4d9d5b",
+   "bytes": 358659
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_claws/kp/render/af28r01_seat.png": {
+   "sha256": "faf4cd93d77fcd8319ffa6a32004a0c369a02560a7172a3771096f061acefc2f",
+   "bytes": 153667
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_claws/kp/render/af28r01_seat_class_ids.png": {
+   "sha256": "58d89cc74b9893d1a410871239592d37774976f881276f1c1a39180d2a549a56",
+   "bytes": 60272
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_claws/kp/render/af28r01_seat_kstar.png": {
+   "sha256": "119ae6fd52bc21b9d593e96f41c6cb94ec43d839e0adb5a03d92df5693b3b9dd",
+   "bytes": 128494
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_claws/kp/render/af28r01_seat_left.png": {
+   "sha256": "19d38218124b6a9c8344eb8b18737a2fef6785883dd2711932b6fccf3a42830d",
+   "bytes": 281067
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_claws/kp/render/af28r01_seat_left_rule28.png": {
+   "sha256": "4f156f686c06ad24c532757b390534b624fc05e72946e1bc61fc22b8201515f7",
+   "bytes": 282500
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_claws/kp/render/af28r01_seat_low.png": {
+   "sha256": "8628c653f2d2f7f274e1c087a3bf48211dd8b18a0ede2473414769bcbfb8a4aa",
+   "bytes": 259092
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_claws/kp/render/af28r01_seat_low_class_ids.png": {
+   "sha256": "87ca059e61fae8c818e979b96c5daddfa2c04df188472917cde0628ed42110c1",
+   "bytes": 95233
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_claws/kp/render/af28r01_seat_low_kstar.png": {
+   "sha256": "39fa9b2b2d4a7db059d5659f790062326a752a3c297ff1e2355a23de4e3235c2",
+   "bytes": 223408
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_claws/kp/render/af28r01_seat_low_rule28.png": {
+   "sha256": "b025120f43b970eb2fd3661c0a0b3bd01e5da6c354a66fdcc1493903e3e0c3d6",
+   "bytes": 239311
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_claws/kp/render/af28r01_seat_low_waveonly.png": {
+   "sha256": "ab9623e03224c29a1029a00e48d33f045336e20faaa632f060bfddc4d96f1b59",
+   "bytes": 293532
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_claws/kp/render/af28r01_seat_rule28.png": {
+   "sha256": "30cc94878aa9173edb536ed71a6b3ede7f2fff657bdfe906fb1529361fc3c36d",
+   "bytes": 153042
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_claws/kp/render/af28r01_seat_waveonly.png": {
+   "sha256": "c3f276f0092f3fc77c2eadf3f41f5a6b3f9e7a17c4ad3cb880ef8f99e9a69574",
+   "bytes": 149378
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_claws/kp/render/af28r01_side_left.png": {
+   "sha256": "6a644efb92764d1c066f92920549860cb87c97b2fca0b4862da883c57c04b5d0",
+   "bytes": 126191
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_claws/kp/render/af28r01_side_left_rule28.png": {
+   "sha256": "246f60e78c0bf6ca67b4c393efe25d6f18bfcb41594b5648eb9a4f295e944370",
+   "bytes": 126717
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_claws/kp/render/af28r01_side_left_waveonly.png": {
+   "sha256": "68de608a09436e1663ffea181d400302468c80495f7552dce4e411f1439dbc97",
+   "bytes": 124759
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_claws/kp/render/idmap.json": {
+   "sha256": "947cca590f715666aa0b67fcc6740b652401e9fd38862e922e27b23d1d8a79dc",
+   "bytes": 448
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_white/tstar_sym.json": {
+   "sha256": "cdcbbdd6b3fd0f6a58d9d32e5647dec06ca92febea7956d549b73482675fe5f2",
+   "bytes": 10611
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_white/base28/af28r01_build_report.json": {
+   "sha256": "8e623f2002651909ad2d8f0de798aa2e44fdf2aa5ab55a1e0d18b1146cd38c68",
+   "bytes": 3663
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_white/base28/af28r01_render_report.json": {
+   "sha256": "91b73b361cc62d5f57d7a83fca74ab454e8d49ed216b7d26456bd7e22930d7e3",
+   "bytes": 6828
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_white/base28/sym_params.json": {
+   "sha256": "62dec0952e6acfb1e35e2ab3b18444c51cf6431d52ba2f5f5ef4ba96bea54c72",
+   "bytes": 7830
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_white/base28/bake/af28r01_bake_a45.json": {
+   "sha256": "3c3131e09b07e48b79c2ef6db356505b383899eea1bf64d67aec422fb0ea13fd",
+   "bytes": 3086
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_white/base28/bake/af28r01_bake_a45_rule28.json": {
+   "sha256": "cad99f06e906bcdc9983ad50dce6582f899f5b4bae1785eabbb4fc4b4d72d93a",
+   "bytes": 3096
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_white/base28/bake/af28r01_uvwarp_a45.json": {
+   "sha256": "945aef222f2730ee27ede3b9996234f0e00d53b806aabcfc0f3f05c86bcccafb",
+   "bytes": 12348
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_white/base28/bake_input/af28_bake_input_record.json": {
+   "sha256": "a2920b61c702b3dd203d618eb8d2e3d5ad8201a0969dfe795ad805f34c622e76",
+   "bytes": 4748
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_white/base28/bake_input/af28_bake_meta.json": {
+   "sha256": "56d94453dda93e8e5095cb9bc9b0656cebd7e51d9b2ecb2d96cbd8a943432576",
+   "bytes": 10544
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_white/base28/eval23_class_ids/af28r01_class_ids_overlay.png": {
+   "sha256": "2f5d7e1061938eb73b7241ab69ea6aba34b12260fd874f593ebf4b00a2d1c7cf",
+   "bytes": 87272
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_white/base28/eval23_class_ids/idmap_sky.json": {
+   "sha256": "2544ca9e340c8fbe9bd04180cf4b9e911b2b7609f371041aeef6dfcfde2542bc",
+   "bytes": 156
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_white/base28/eval23_class_ids/metrics.json": {
+   "sha256": "886363ac27f880df8d2afc9f1e32e73901b9a2ea06db8e356d4bd6f6495ac52b",
+   "bytes": 16097
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_white/base28/eval23_line_ids/af28r01_line_ids_overlay.png": {
+   "sha256": "a2e5704eaf4f5a7fc30975c9a6adef2b8474924305aa72d471dfecb5c3c8270e",
+   "bytes": 89527
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_white/base28/eval23_line_ids/idmap_sky.json": {
+   "sha256": "2544ca9e340c8fbe9bd04180cf4b9e911b2b7609f371041aeef6dfcfde2542bc",
+   "bytes": 156
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_white/base28/eval23_line_ids/metrics.json": {
+   "sha256": "a78709ca3073f11339e24d5c2f3112cfb25d4724a89ca98a95937d34ecb7df76",
+   "bytes": 16095
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_white/base28/evidence/28R01_boundaries.png": {
+   "sha256": "5acc0ed6d193a19b653a4c8d0ba2e947eadbd40bff89ac0f429aa8f3d673b51a",
+   "bytes": 1076726
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_white/base28/evidence/28R01_compare_cp1.png": {
+   "sha256": "ddb90c47ea83cf27e9ea6abef007addf1708ce74dd361c9f1c9a507e1251decc",
+   "bytes": 128784
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_white/base28/evidence/28R01_leftedge.png": {
+   "sha256": "b93952ba762ee8df64de57ebf4b3364f4c972874e7c0e4d642fe9780022a8822",
+   "bytes": 107147
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_white/base28/evidence/28R01_overlay50.png": {
+   "sha256": "d23c65746da8bae4a4fb7de7d6a34725c69f035b954381b4040ea01f5e187631",
+   "bytes": 1048362
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_white/base28/evidence/28R01_painting.png": {
+   "sha256": "f0e3d653dd460a003e8e249f25f8f9429d5d8c73a580a5da7c9d3d14f25d9fdb",
+   "bytes": 286342
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_white/base28/evidence/28R01_seat.png": {
+   "sha256": "f586d6692c9a30d706837c0a616385379b238c3979e1fbbcb94b3142b1e63f8a",
+   "bytes": 134361
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_white/base28/evidence/28R01_side.png": {
+   "sha256": "226898041f47da49c80255f5146639b69dea46c5367521a92c74719dc5870d29",
+   "bytes": 77071
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_white/base28/evidence/28R01_uv.png": {
+   "sha256": "19860f3bb020bed1ad04da5f145af5cde6c3d4f728adc934a41ca9ea7dd5baf4",
+   "bytes": 72096
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_white/base28/evidence/metrics.json": {
+   "sha256": "4f8aed9ba3722bcb949cd5ced8ce4a349615caa38aaadb923c35bc5c83107788",
+   "bytes": 36904
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_white/base28/evidence/run.json": {
+   "sha256": "a8f267170d9f0ab6871ec5bbbc59fe39cb90e66beda4c07ab604682bd1af67a2",
+   "bytes": 17841
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_white/base28/render/af28r01_back.png": {
+   "sha256": "7bb27c4c1619a41ffd2383075580b910241fdf004f2c78151b438a762b42ce6b",
+   "bytes": 110295
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_white/base28/render/af28r01_back_rule28.png": {
+   "sha256": "83f64ec63d8d89a0f365c5c0e8bc16122e1ebb2968c33a0b0f1b6051c019432f",
+   "bytes": 109727
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_white/base28/render/af28r01_back_waveonly.png": {
+   "sha256": "fc2d02e60e2903da70be870ef03dc0382b4d8f675b96f677346348cef2bd5be3",
+   "bytes": 102851
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_white/base28/render/af28r01_class_ids.png": {
+   "sha256": "bc3f5e0140df012efeecdb41a75c2015febf61995c53f95105052582ac1c7078",
+   "bytes": 261854
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_white/base28/render/af28r01_line_ids.png": {
+   "sha256": "e63c983a30bbcb5fdc2b5f3e3fd33b19bc82b28096dc370359a9cc8accfcec26",
+   "bytes": 273927
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_white/base28/render/af28r01_painting.png": {
+   "sha256": "8a8acb0abcdfb971cd36f66539866990c776f9ad7c7a22979a0732be605c2d82",
+   "bytes": 358050
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_white/base28/render/af28r01_painting_kstar.png": {
+   "sha256": "0f80dc0befe69aa8235758160f09b6e42aba5009374b268af9e77ef0751ee7e3",
+   "bytes": 269885
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_white/base28/render/af28r01_painting_rule28.png": {
+   "sha256": "93d916c894f07e244fbf0b18adcf05b218d054cc7f923042c56785317a4d9d5b",
+   "bytes": 358659
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_white/base28/render/af28r01_seat.png": {
+   "sha256": "e58c8e29ed0551c4a67b7cedf39db40b4780a327d28c8a7b610c0e5798d6f2da",
+   "bytes": 151376
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_white/base28/render/af28r01_seat_class_ids.png": {
+   "sha256": "11708ec3b6b375d9dcd9bfdd46cffffac3b63d1eb6ce9959f490f6c852dd7444",
+   "bytes": 63048
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_white/base28/render/af28r01_seat_kstar.png": {
+   "sha256": "8847b16169cf6157b9e2509fab1aaddb41843c7391392189b74a8afa8c3700b4",
+   "bytes": 134689
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_white/base28/render/af28r01_seat_left.png": {
+   "sha256": "19d38218124b6a9c8344eb8b18737a2fef6785883dd2711932b6fccf3a42830d",
+   "bytes": 281067
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_white/base28/render/af28r01_seat_left_rule28.png": {
+   "sha256": "4f156f686c06ad24c532757b390534b624fc05e72946e1bc61fc22b8201515f7",
+   "bytes": 282500
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_white/base28/render/af28r01_seat_low.png": {
+   "sha256": "88ac39e410e277bffa0f43c819ddbbe13aef35bbee3e2f388b1b2a2cd9900971",
+   "bytes": 237360
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_white/base28/render/af28r01_seat_low_class_ids.png": {
+   "sha256": "bc9d0b6853d66824ed5a4de4512f92587983ca8c46522478b401a1e8b053890a",
+   "bytes": 98730
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_white/base28/render/af28r01_seat_low_kstar.png": {
+   "sha256": "2590c9fd81eeae0f7ca42d6af13659779194743a9a82b38039f41a9a75394d22",
+   "bytes": 235943
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_white/base28/render/af28r01_seat_low_rule28.png": {
+   "sha256": "b025120f43b970eb2fd3661c0a0b3bd01e5da6c354a66fdcc1493903e3e0c3d6",
+   "bytes": 239311
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_white/base28/render/af28r01_seat_low_waveonly.png": {
+   "sha256": "ab9623e03224c29a1029a00e48d33f045336e20faaa632f060bfddc4d96f1b59",
+   "bytes": 293532
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_white/base28/render/af28r01_seat_rule28.png": {
+   "sha256": "30cc94878aa9173edb536ed71a6b3ede7f2fff657bdfe906fb1529361fc3c36d",
+   "bytes": 153042
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_white/base28/render/af28r01_seat_waveonly.png": {
+   "sha256": "c3f276f0092f3fc77c2eadf3f41f5a6b3f9e7a17c4ad3cb880ef8f99e9a69574",
+   "bytes": 149378
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_white/base28/render/af28r01_side_left.png": {
+   "sha256": "6a644efb92764d1c066f92920549860cb87c97b2fca0b4862da883c57c04b5d0",
+   "bytes": 126191
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_white/base28/render/af28r01_side_left_rule28.png": {
+   "sha256": "246f60e78c0bf6ca67b4c393efe25d6f18bfcb41594b5648eb9a4f295e944370",
+   "bytes": 126717
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_white/base28/render/af28r01_side_left_waveonly.png": {
+   "sha256": "68de608a09436e1663ffea181d400302468c80495f7552dce4e411f1439dbc97",
+   "bytes": 124759
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_white/base28/render/idmap.json": {
+   "sha256": "947cca590f715666aa0b67fcc6740b652401e9fd38862e922e27b23d1d8a79dc",
+   "bytes": 448
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_white/kp/af28r01_build_report.json": {
+   "sha256": "8e623f2002651909ad2d8f0de798aa2e44fdf2aa5ab55a1e0d18b1146cd38c68",
+   "bytes": 3663
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_white/kp/af28r01_render_report.json": {
+   "sha256": "91b73b361cc62d5f57d7a83fca74ab454e8d49ed216b7d26456bd7e22930d7e3",
+   "bytes": 6828
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_white/kp/sym_params.json": {
+   "sha256": "efdb036a5c18e628892df04352cb685ccd6165cb471dbbdb367bf2ec1df76d20",
+   "bytes": 7823
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_white/kp/bake/af28r01_bake_a45.json": {
+   "sha256": "b547ec8f72b7e15650b0abe642b325d1dd999ecaa8256f0efe665d29711bb97c",
+   "bytes": 3089
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_white/kp/bake/af28r01_bake_a45_rule28.json": {
+   "sha256": "2ad1a5e06f6eb0768aa55edc0f836b2b1102bbbe0c91b6a3dcab2fcb3e404f4b",
+   "bytes": 3103
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_white/kp/bake/af28r01_uvwarp_a45.json": {
+   "sha256": "fbd95c900f1e7b84ada6e2bffce4298fd94412041a6a1309d656893789e44964",
+   "bytes": 12373
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_white/kp/bake_input/af28_bake_input_record.json": {
+   "sha256": "58343ee730f5c17e07d94ea783c7a6fa69ee4725287fa32235b8446bdbb604d3",
+   "bytes": 4883
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_white/kp/bake_input/af28_bake_meta.json": {
+   "sha256": "cb4a778b9a1bded7c38ebf401df4b091a242cf8a3c2b781e42903f3645d384a7",
+   "bytes": 10553
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_white/kp/eval23_class_ids/af28r01_class_ids_overlay.png": {
+   "sha256": "96cb130399243f59915c79a58411915a0d4140800455cade5ba9718fe62adebc",
+   "bytes": 90835
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_white/kp/eval23_class_ids/idmap_sky.json": {
+   "sha256": "2544ca9e340c8fbe9bd04180cf4b9e911b2b7609f371041aeef6dfcfde2542bc",
+   "bytes": 156
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_white/kp/eval23_class_ids/metrics.json": {
+   "sha256": "2b72d68e2eea818611619ee6a5a8495aa53d80ea6f25973b0cd6eb83f19bb6c7",
+   "bytes": 16068
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_white/kp/eval23_line_ids/af28r01_line_ids_overlay.png": {
+   "sha256": "34922008c2ad5272d62aad579c15f0c4c80ff990da66a4165fdc8dabbeee9147",
+   "bytes": 92345
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_white/kp/eval23_line_ids/idmap_sky.json": {
+   "sha256": "2544ca9e340c8fbe9bd04180cf4b9e911b2b7609f371041aeef6dfcfde2542bc",
+   "bytes": 156
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_white/kp/eval23_line_ids/metrics.json": {
+   "sha256": "06e0ea6f3c94d2d7e305660712731d5ed23c99bffcf8ba40f69c66eaecd77f47",
+   "bytes": 16062
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_white/kp/evidence/28R01_boundaries.png": {
+   "sha256": "e58fec146e3b9e85c4df87b2819edbb92f9d98b4d92207e557708ebc56fbb1eb",
+   "bytes": 1076793
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_white/kp/evidence/28R01_compare_cp1.png": {
+   "sha256": "69700cef558e3abaf0761e11eba61aa853b491a0b24c951295a7783e4144fdba",
+   "bytes": 136503
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_white/kp/evidence/28R01_leftedge.png": {
+   "sha256": "93127cb41a28e06a00e77c43794be6c275a50e2016fa30c5d9b6337f15388d9e",
+   "bytes": 110264
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_white/kp/evidence/28R01_overlay50.png": {
+   "sha256": "eb653215650309aff72f0bae2e906ee80831c0e3ebb5f3bf1374411e267b540f",
+   "bytes": 1040605
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_white/kp/evidence/28R01_painting.png": {
+   "sha256": "a3cbff010cb40a68015cda6a55079a2212fe4572eed96e15893ec50f9b78be56",
+   "bytes": 302807
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_white/kp/evidence/28R01_seat.png": {
+   "sha256": "944808cca850a68c8fa9ad8a37c4bbfb732bcb99918f07e9cf26f935b58a6ac4",
+   "bytes": 135754
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_white/kp/evidence/28R01_side.png": {
+   "sha256": "226898041f47da49c80255f5146639b69dea46c5367521a92c74719dc5870d29",
+   "bytes": 77071
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_white/kp/evidence/28R01_uv.png": {
+   "sha256": "779a962fb4caea9eea20c474789991c14ff065c7a6d87f023effd71ac946ad27",
+   "bytes": 71936
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_white/kp/evidence/metrics.json": {
+   "sha256": "1d47598fb30c93d01ab019f7c4246bf2d85eb0ead383fdec0826a1df5c2d6636",
+   "bytes": 36208
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_white/kp/evidence/run.json": {
+   "sha256": "9a53112d483cda2d8bb726b69ff1dcfe4cc9100e931003bfded9dea4efd680df",
+   "bytes": 17615
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_white/kp/render/af28r01_back.png": {
+   "sha256": "7bb27c4c1619a41ffd2383075580b910241fdf004f2c78151b438a762b42ce6b",
+   "bytes": 110295
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_white/kp/render/af28r01_back_rule28.png": {
+   "sha256": "83f64ec63d8d89a0f365c5c0e8bc16122e1ebb2968c33a0b0f1b6051c019432f",
+   "bytes": 109727
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_white/kp/render/af28r01_back_waveonly.png": {
+   "sha256": "fc2d02e60e2903da70be870ef03dc0382b4d8f675b96f677346348cef2bd5be3",
+   "bytes": 102851
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_white/kp/render/af28r01_class_ids.png": {
+   "sha256": "2461f87f7a600d6e547ae36944640575fb9b4656967901971f48db3f2c8d8f86",
+   "bytes": 278568
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_white/kp/render/af28r01_line_ids.png": {
+   "sha256": "3dc50b3e9489a29b04e0cff362a012146a9967bb3bf3925a2cbd51a78cc02228",
+   "bytes": 301805
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_white/kp/render/af28r01_painting.png": {
+   "sha256": "1cbe6930b1df599d2139e776110487616b3414e49cc86b15b3bdb1becacc04aa",
+   "bytes": 376302
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_white/kp/render/af28r01_painting_kstar.png": {
+   "sha256": "92bc7336eae2fa9d70ee8c367e7292e24ed6a60b649ececb25c555c12bf8e025",
+   "bytes": 284860
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_white/kp/render/af28r01_painting_rule28.png": {
+   "sha256": "93d916c894f07e244fbf0b18adcf05b218d054cc7f923042c56785317a4d9d5b",
+   "bytes": 358659
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_white/kp/render/af28r01_seat.png": {
+   "sha256": "68543d9d0d6f5ded946f1b8860b2b803dcbe8afed55cddbf843c6677cc737813",
+   "bytes": 142672
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_white/kp/render/af28r01_seat_class_ids.png": {
+   "sha256": "e25ed38d449e0bc7474b6d963a71d3fcd8c9a3e1fc7c85d56a12408741a246fe",
+   "bytes": 60170
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_white/kp/render/af28r01_seat_kstar.png": {
+   "sha256": "17bd692909242631e9e3c0df3ab87384e32b62e7d21faba92d28872ce3a69958",
+   "bytes": 126954
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_white/kp/render/af28r01_seat_left.png": {
+   "sha256": "19d38218124b6a9c8344eb8b18737a2fef6785883dd2711932b6fccf3a42830d",
+   "bytes": 281067
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_white/kp/render/af28r01_seat_left_rule28.png": {
+   "sha256": "4f156f686c06ad24c532757b390534b624fc05e72946e1bc61fc22b8201515f7",
+   "bytes": 282500
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_white/kp/render/af28r01_seat_low.png": {
+   "sha256": "733a426306fd9c6a405046a6e6bf7683a770b06b30e9bb084b2c05f5973dd080",
+   "bytes": 252771
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_white/kp/render/af28r01_seat_low_class_ids.png": {
+   "sha256": "465f67b4d95d926a44d11893ab5c5f889b1b96fba883356d2019de7fe83e7a58",
+   "bytes": 95254
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_white/kp/render/af28r01_seat_low_kstar.png": {
+   "sha256": "8856b2efe92040db41f4ad6ab16807c750eba1fc2f0fa2060f6725fd5f27aec5",
+   "bytes": 222052
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_white/kp/render/af28r01_seat_low_rule28.png": {
+   "sha256": "b025120f43b970eb2fd3661c0a0b3bd01e5da6c354a66fdcc1493903e3e0c3d6",
+   "bytes": 239311
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_white/kp/render/af28r01_seat_low_waveonly.png": {
+   "sha256": "ab9623e03224c29a1029a00e48d33f045336e20faaa632f060bfddc4d96f1b59",
+   "bytes": 293532
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_white/kp/render/af28r01_seat_rule28.png": {
+   "sha256": "30cc94878aa9173edb536ed71a6b3ede7f2fff657bdfe906fb1529361fc3c36d",
+   "bytes": 153042
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_white/kp/render/af28r01_seat_waveonly.png": {
+   "sha256": "c3f276f0092f3fc77c2eadf3f41f5a6b3f9e7a17c4ad3cb880ef8f99e9a69574",
+   "bytes": 149378
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_white/kp/render/af28r01_side_left.png": {
+   "sha256": "6a644efb92764d1c066f92920549860cb87c97b2fca0b4862da883c57c04b5d0",
+   "bytes": 126191
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_white/kp/render/af28r01_side_left_rule28.png": {
+   "sha256": "246f60e78c0bf6ca67b4c393efe25d6f18bfcb41594b5648eb9a4f295e944370",
+   "bytes": 126717
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_white/kp/render/af28r01_side_left_waveonly.png": {
+   "sha256": "68de608a09436e1663ffea181d400302468c80495f7552dce4e411f1439dbc97",
+   "bytes": 124759
+  },
+  "Unity/Build/Design/41/model/unity/tstar_sym_t28_white/kp/render/idmap.json": {
+   "sha256": "947cca590f715666aa0b67fcc6740b652401e9fd38862e922e27b23d1d8a79dc",
+   "bytes": 448
+  },
+  "Unity/Build/Design/41/model/unity/views/back_t120_off.png": {
+   "sha256": "16d0ee76fac944cea00701be27c180edfef583d43e724836e6cd514f1523b125",
+   "bytes": 144938
+  },
+  "Unity/Build/Design/41/model/unity/views/close_boat_fg_t120_off.png": {
+   "sha256": "2e8964e4c69a10911a2add53e62350f0f59beafebe9b041cb80c8abfa638b880",
+   "bytes": 101737
+  },
+  "Unity/Build/Design/41/model/unity/views/close_boat_fg_t120_off_blockout.png": {
+   "sha256": "792897fab2c70efbc5ec08efa270e2b03d5e92ddf742e2b1cf00d439fd736caf",
+   "bytes": 88063
+  },
+  "Unity/Build/Design/41/model/unity/views/close_boat_left_t120_off.png": {
+   "sha256": "6d90c1f91f24ea9aa99858ceb181754d13ab6cae692aba372f73dd574fa185ef",
+   "bytes": 214124
+  },
+  "Unity/Build/Design/41/model/unity/views/close_boat_left_t120_off_blockout.png": {
+   "sha256": "4810a15dcdf6db8d8bd5dea56a8f671eea8525fe5abdaf42b219d84b29e96f0f",
+   "bytes": 209507
+  },
+  "Unity/Build/Design/41/model/unity/views/close_boat_mid_t120_off.png": {
+   "sha256": "bdf7627f7089beda7a0213587a89ba48f40b521d4a0b0d013584f3d576e92d3a",
+   "bytes": 190556
+  },
+  "Unity/Build/Design/41/model/unity/views/close_boat_mid_t120_off_blockout.png": {
+   "sha256": "04820484c4b98acdc7c70b35268f02ea61b4f3a1f6e4086117011efb46039510",
+   "bytes": 169313
+  },
+  "Unity/Build/Design/41/model/unity/views/painting_t120_off_blockout.png": {
+   "sha256": "cca51fbdb2ae99fbd0314ecf3e01c9c008fc314037bdcdc8dc4fe6c01a73408d",
+   "bytes": 381229
+  },
+  "Unity/Build/Design/41/model/unity/views/seat_low_t120_off.png": {
+   "sha256": "37534793314ce0c6ad3175ada2b829f0ff680d5d25776a513c5eeff91c073cf5",
+   "bytes": 278461
+  },
+  "Unity/Build/Design/41/model/unity/views/seat_t120_off.png": {
+   "sha256": "f1c17fa836ea5a199d9f401db5b99bd2ef82d60faa1eb56c043614d644c59213",
+   "bytes": 175547
+  },
+  "Unity/Build/Design/41/model/unity/views/seat_t120_off_blockout.png": {
+   "sha256": "f1c17fa836ea5a199d9f401db5b99bd2ef82d60faa1eb56c043614d644c59213",
+   "bytes": 175547
+  },
+  "Unity/Build/Design/41/model/unity/views/seat_toward_wave_t120_off.png": {
+   "sha256": "0597e56f11fe8600b660c3d0210cc8f52dea5d36018bdd590f77bf08c7238fbf",
+   "bytes": 238043
+  },
+  "Unity/Build/Design/41/model/unity/views/side_left_t120_off.png": {
+   "sha256": "59925e943e3b5745a99314ddeed07daf0df5c33774f6c9f9972b650b3f176656",
+   "bytes": 175001
+  }
+ },
+ "outputs_eval": {
+  "Unity/Build/Design/41/model/eval/idmap.json": {
+   "sha256": "c3aa975572508236a43a359cc4b64402e48490f0d1c265d4d29198972217ab50",
+   "bytes": 358
+  },
+  "Unity/Build/Design/41/model/eval/off_line/metrics.json": {
+   "sha256": "6a2da1140ff8cc7db1a4d388f63ff782886dbb79bac557817ebce473e11ea1a5",
+   "bytes": 16001
+  },
+  "Unity/Build/Design/41/model/eval/off_line/off_line_overlay.png": {
+   "sha256": "8b18cb2dccfc3010eda46a500e772e50496b65fb2b92011816fe79f5edda7187",
+   "bytes": 108316
+  },
+  "Unity/Build/Design/41/model/eval/off_noline/metrics.json": {
+   "sha256": "4fca821df687b8220c5b5a2df96b0d22ec53f5363a5af17761d4a8c288035fb4",
+   "bytes": 16012
+  },
+  "Unity/Build/Design/41/model/eval/off_noline/off_noline_overlay.png": {
+   "sha256": "1e59b3ad680c63452e87d4e874d3c0741da536cc95cae72aed8fa195ca551e45",
+   "bytes": 110120
+  }
+ },
+ "figures": {
+  "ds41_painting_t120_off.png": {
+   "sha256": "ca242c9adc3a6d5d9f22fe624849b7098d0161d14f2722c490c02411ce4f9021",
+   "bytes": 322440
+  },
+  "fig_ds41_blender_model.png": {
+   "sha256": "45794655da523bcb93454d2fe1b93835de6d6c70e2ec6a44a348e318e952c885",
+   "bytes": 1530965
+  },
+  "fig_ds41_close_before_after.png": {
+   "sha256": "4467ab9b6431dc8ed70e66f0ebe9ed09989ceffef8b06c9b8c9c57774306d025",
+   "bytes": 450023
+  },
+  "fig_ds41_eval_overlay_boats.png": {
+   "sha256": "c75df82806477f576cb71ba96cdf8469c5c5eb13371fa973818b8d6e1eab6474",
+   "bytes": 148565
+  },
+  "fig_ds41_painting_before_after.png": {
+   "sha256": "037e98a09e7d7cdd9a93991f5792a4b931d2a7e144a8c4a80e4219d5b1506a26",
+   "bytes": 2133952
+  },
+  "fig_ds41_painting_overlay50_boats.png": {
+   "sha256": "76cf2bbede831b74def86f6c43576a6d18dbbac3ab4d45c2b449c977345a4190",
+   "bytes": 1500144
+  },
+  "fig_ds41_views.png": {
+   "sha256": "fbbe54d7e9defbab4a8d5cceca331cb0e61a0581b38131f385fee4984c8c2d7f",
+   "bytes": 605509
+  }
+ },
+ "not_committed_ja": "Unity/Build/Design/41/model/ 以下はすべて Git 対象外（/Unity/Build/）。.blend・FBX の制作元は Build に置き、Unity の資産の FBX は同じバイト（ds41_stage_unity.py が写す）。"
+}

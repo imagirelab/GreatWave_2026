@@ -1,0 +1,238 @@
+{
+ "schema": "GreatWave.DS41.boat_params/2",
+ "number": "設計41",
+ "note_ja": "押送船の Blender モデルの寸法の値。単位は『置き方の枠』（船首の先端と船尾の先端の間を 10 とする。M1 の blockout と同じ枠。資料の全長 11.667 m を 10 に当てる）。実寸は船ごとの縮尺（context_layout.json と seat_v1.json の scale）を掛けた値。kind は source（所蔵館・公的機関・辞典などの資料の値）、estimate（資料がなく推定した値）、painting（原画からの推定、または原画に合わせた置き方の値）。値の出典は同じ番号の調べの部（research）の表。",
+ "research_input": {
+  "path": "Unity/Build/Design/41/research/oshiokuri_dimensions.json",
+  "note_ja": "調べの部の表（Git 対象外）。adopted_for_model の値を比に直して入れた。SHA-256 はモデルの報告（ds41_blender_report.json の research_input）に書く"
+ },
+ "reference_length_m": {
+  "value": 11.667,
+  "kind": "source",
+  "src": "S1（押送船の全長 38尺5寸、1813 年の史料。石井謙治『和船 II』を典拠とする百科）",
+  "note_ja": "置き方の枠の 10 に当てる。1 単位 = 1.1667 m（この長さの船のとき）"
+ },
+ "frame": {
+  "tip_to_tip_units": 10.0,
+  "bow_tip_blender": [
+   0.0,
+   -5.0,
+   1.775
+  ],
+  "stern_tip_blender": [
+   0.0,
+   5.0,
+   1.685
+  ],
+  "note_ja": "両端の先端は美術優先27 の af27_place.py の TIP_PLUS_Z・TIP_MINUS_Z（Unity の船の根の局所 (0.012, 1.775, ±5.0)）と同じ点。Blender では船首 −Y、上 +Z、原点は竜骨の中央（船底の中央の高さ 0）。これで原画視点の両端の投影は変わらない。両端の高さ（反り）は原画に合わせた置き方の値で、調べの部の控えめな推定（船首 0.9 m・船尾 0.5 m）は採らない（kind painting）"
+ },
+ "hull": {
+  "beam_over_length": {
+   "value": 0.213,
+   "kind": "source",
+   "src": "S1・S2（幅 8尺2寸 = 2.485 m）",
+   "note_ja": "2.485 / 11.667。舷の上縁（上棚の外）の最大幅と読む（読み方は推定）"
+  },
+  "depth_over_length": {
+   "value": 0.0779,
+   "kind": "source",
+   "src": "S1（深さ 3尺 = 0.909 m）",
+   "note_ja": "0.909 / 11.667。船体中央で船底から舷の上縁までと読む（読み方は推定）"
+  },
+  "bottom_half_width_over_half_beam": {
+   "value": 0.46,
+   "kind": "estimate",
+   "note_ja": "航（かわら）と根棚の張り出し。二階造り（S2・S9）の断面の形の推定"
+  },
+  "knuckle_height_fraction": 0.45,
+  "knuckle_width_fraction": 0.62,
+  "bow_end_bottom_y": -4.3,
+  "bow_end_sheer_y": -4.88,
+  "stern_end_bottom_y": 4.52,
+  "stern_end_sheer_y": 4.8,
+  "rocker_start_abs_y": 2.0,
+  "bow_rocker_rise": 0.78,
+  "stern_rocker_rise": 0.42,
+  "sheer_low_y": 0.4,
+  "bow_sheer_height": {
+   "value": 1.7,
+   "kind": "painting",
+   "note_ja": "船首は尖って高い（S2、絵の P9）。水押の先端 1.775 の少し下"
+  },
+  "stern_sheer_height": {
+   "value": 1.6,
+   "kind": "painting",
+   "note_ja": "戸立の上縁。艫の板の上面 1.685（船尾の先端）の少し下"
+  },
+  "sheer_exponent": 2.1,
+  "max_beam_y": 0.3,
+  "stern_half_beam_end_fraction": 0.62,
+  "stations": 41
+ },
+ "stem": {
+  "width": 0.09,
+  "depth": 0.16,
+  "kind": "painting",
+  "note_ja": "水押（みよし）。原画の 3 隻の尖って高い船首（P9）"
+ },
+ "stern": {
+  "deck_top": 1.685,
+  "deck_from_y": 4.5,
+  "deck_to_y": 5.0,
+  "thickness": 0.05,
+  "half_width": 0.42,
+  "note_ja": "戸立（平らな船尾板、和船一般 S9）の上の艫の板。船尾の先端の点はこの板の後ろの上縁の中央"
+ },
+ "stern_frame": {
+  "height_above_deck": 0.95,
+  "post_x": 0.3,
+  "post_y": 4.62,
+  "post_size": 0.05,
+  "rungs": 3,
+  "kind": "painting",
+  "note_ja": "右の船の船尾の梯子状の枠（絵の P8、舷の上から約 1.2 m）。用途は資料で未確認"
+ },
+ "floor": {
+  "offset_above_bottom": 0.23,
+  "thickness": 0.05,
+  "from_y": -3.45,
+  "to_y": 3.9,
+  "plank_pitch": 0.3,
+  "gap": 0.02,
+  "kind": "estimate",
+  "note_ja": "敷板。座席 v1 の目（甲板から 1.2 m 上、seat_v1.json を変えない）を保つため、座席の所（Blender の y = −3）の上面を blockout の甲板（0.378）とほぼ同じにした（0.377）。調べの部の推定（船底から 0.2 m = 0.171 単位）より 0.06 単位高い"
+ },
+ "beams": {
+  "y": [
+   -2.9,
+   -1.5,
+   0.0,
+   1.5,
+   2.9,
+   4.1
+  ],
+  "below_sheer": 0.07,
+  "size_y": 0.1,
+  "size_z": 0.08,
+  "note_ja": "船梁（ふなばり）。二階造りを船梁で補強（S2・S9）"
+ },
+ "gunwale": {
+  "width": 0.07,
+  "height": 0.08,
+  "top_above_sheer": 0.03,
+  "note_ja": "船縁（ふなべり）の縁材。原画では船体の上の縁に藍の線が見える"
+ },
+ "oars": {
+  "pivot_y": [
+   -0.2,
+   0.483,
+   1.167,
+   1.85,
+   2.533,
+   3.217,
+   3.9
+  ],
+  "sides": [
+   "P",
+   "S",
+   "P",
+   "S",
+   "P",
+   "S",
+   "P"
+  ],
+  "inboard_length": 1.286,
+  "outboard_length": 3.6,
+  "blade_length": 1.2,
+  "blade_width": 0.111,
+  "blade_thickness": 0.03,
+  "shaft_radius": 0.035,
+  "direction_out_aft_down": [
+   0.45,
+   0.62,
+   -0.64
+  ],
+  "kind": {
+   "count": "source（櫓 7 丁、S1・S2）",
+   "length": "estimate（和船一般の櫓の腕 1.5 m・脚 4.2 m・幅 0.13 m の下限、S10）",
+   "layout": "estimate（左舷 4・右舷 3 を船尾側の約 6 割に交互。絵の漕ぎ手の位置 P6）",
+   "pose": "estimate（収めた姿。原画の漕ぎ手の姿勢 P6 から。漕ぐ姿の値 direction_out_aft_down は残し、設計44 以後で使う）"
+  },
+  "note_ja": "櫓（ろ）。長さは 1.5 m → 1.286 単位、4.2 m → 3.6 単位、幅 0.13 m → 0.111 単位",
+  "pose": "stowed",
+  "stowed": {
+   "y_start": -1.25,
+   "y_jitter": [
+    0.0,
+    0.12,
+    -0.08,
+    0.2,
+    0.05,
+    -0.12,
+    0.1
+   ],
+   "rest_beams_y": [
+    0.0,
+    2.9
+   ],
+   "x_offsets": {
+    "P": [
+     0.14,
+     0.3,
+     0.46,
+     0.62
+    ],
+    "S": [
+     0.22,
+     0.38,
+     0.54
+    ]
+   },
+   "note_ja": "収めた姿（船梁の上に船の軸と平行に寝かせる）。原画の漕ぎ手は立って漕がず、かがみ込んで櫓にしがみつく（P6）ので、原画視点で船の外へ櫓を出さない。rowing の姿（direction_out_aft_down）は設計44 の操船で使う"
+  }
+ },
+ "collision": {
+  "pieces_u": [
+   [
+    0.0,
+    0.34
+   ],
+   [
+    0.3,
+    0.7
+   ],
+   [
+    0.66,
+    1.0
+   ]
+  ],
+  "note_ja": "衝突形状：船殻（船縁まで）を 3 つの凸包に分けた簡単な形"
+ },
+ "buoyancy": {
+  "grid_step": 0.025,
+  "drafts": [
+   0.05,
+   0.1,
+   0.15,
+   0.171,
+   0.2,
+   0.25,
+   0.3,
+   0.35,
+   0.4,
+   0.45,
+   0.5,
+   0.6,
+   0.7
+  ],
+  "points_y": [
+   -3.0,
+   -1.5,
+   0.0,
+   1.5,
+   3.0
+  ],
+  "points_x_fraction_of_bottom": 0.6,
+  "note_ja": "浮力用の船体：船殻の外面を舷の上縁までふさいだ閉じた形。排水容積の表は船の局所の水平の水面（縦・横の傾き 0）で数える。0.171 単位は調べの部の喫水の推定 0.20 m（全長 11.667 m のとき）"
+ }
+}

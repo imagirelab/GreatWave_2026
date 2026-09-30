@@ -1,0 +1,2588 @@
+{
+ "schema": "GreatWave.DS41.blender_report/1",
+ "number": "設計41",
+ "created_utc": "2026-09-30T01:51:38.050379+00:00",
+ "software": {
+  "blender": "5.2.2 LTS",
+  "build_hash": "d13f752e3b9c"
+ },
+ "params": {
+  "path": "Tools/GWWaveGen/ds41/ds41_boat_params.json",
+  "sha256": "6e582d35a476ff54ca77ec0b963cf408686bc25ba893c0b6c098f81b2ee778f9",
+  "values": {
+   "schema": "GreatWave.DS41.boat_params/2",
+   "number": "設計41",
+   "note_ja": "押送船の Blender モデルの寸法の値。単位は『置き方の枠』（船首の先端と船尾の先端の間を 10 とする。M1 の blockout と同じ枠。資料の全長 11.667 m を 10 に当てる）。実寸は船ごとの縮尺（context_layout.json と seat_v1.json の scale）を掛けた値。kind は source（所蔵館・公的機関・辞典などの資料の値）、estimate（資料がなく推定した値）、painting（原画からの推定、または原画に合わせた置き方の値）。値の出典は同じ番号の調べの部（research）の表。",
+   "research_input": {
+    "path": "Unity/Build/Design/41/research/oshiokuri_dimensions.json",
+    "note_ja": "調べの部の表（Git 対象外）。adopted_for_model の値を比に直して入れた。SHA-256 はモデルの報告（ds41_blender_report.json の research_input）に書く"
+   },
+   "reference_length_m": {
+    "value": 11.667,
+    "kind": "source",
+    "src": "S1（押送船の全長 38尺5寸、1813 年の史料。石井謙治『和船 II』を典拠とする百科）",
+    "note_ja": "置き方の枠の 10 に当てる。1 単位 = 1.1667 m（この長さの船のとき）"
+   },
+   "frame": {
+    "tip_to_tip_units": 10.0,
+    "bow_tip_blender": [
+     0.0,
+     -5.0,
+     1.775
+    ],
+    "stern_tip_blender": [
+     0.0,
+     5.0,
+     1.685
+    ],
+    "note_ja": "両端の先端は美術優先27 の af27_place.py の TIP_PLUS_Z・TIP_MINUS_Z（Unity の船の根の局所 (0.012, 1.775, ±5.0)）と同じ点。Blender では船首 −Y、上 +Z、原点は竜骨の中央（船底の中央の高さ 0）。これで原画視点の両端の投影は変わらない。両端の高さ（反り）は原画に合わせた置き方の値で、調べの部の控えめな推定（船首 0.9 m・船尾 0.5 m）は採らない（kind painting）"
+   },
+   "hull": {
+    "beam_over_length": {
+     "value": 0.213,
+     "kind": "source",
+     "src": "S1・S2（幅 8尺2寸 = 2.485 m）",
+     "note_ja": "2.485 / 11.667。舷の上縁（上棚の外）の最大幅と読む（読み方は推定）"
+    },
+    "depth_over_length": {
+     "value": 0.0779,
+     "kind": "source",
+     "src": "S1（深さ 3尺 = 0.909 m）",
+     "note_ja": "0.909 / 11.667。船体中央で船底から舷の上縁までと読む（読み方は推定）"
+    },
+    "bottom_half_width_over_half_beam": {
+     "value": 0.46,
+     "kind": "estimate",
+     "note_ja": "航（かわら）と根棚の張り出し。二階造り（S2・S9）の断面の形の推定"
+    },
+    "knuckle_height_fraction": 0.45,
+    "knuckle_width_fraction": 0.62,
+    "bow_end_bottom_y": -4.3,
+    "bow_end_sheer_y": -4.88,
+    "stern_end_bottom_y": 4.52,
+    "stern_end_sheer_y": 4.8,
+    "rocker_start_abs_y": 2.0,
+    "bow_rocker_rise": 0.78,
+    "stern_rocker_rise": 0.42,
+    "sheer_low_y": 0.4,
+    "bow_sheer_height": {
+     "value": 1.7,
+     "kind": "painting",
+     "note_ja": "船首は尖って高い（S2、絵の P9）。水押の先端 1.775 の少し下"
+    },
+    "stern_sheer_height": {
+     "value": 1.6,
+     "kind": "painting",
+     "note_ja": "戸立の上縁。艫の板の上面 1.685（船尾の先端）の少し下"
+    },
+    "sheer_exponent": 2.1,
+    "max_beam_y": 0.3,
+    "stern_half_beam_end_fraction": 0.62,
+    "stations": 41
+   },
+   "stem": {
+    "width": 0.09,
+    "depth": 0.16,
+    "kind": "painting",
+    "note_ja": "水押（みよし）。原画の 3 隻の尖って高い船首（P9）"
+   },
+   "stern": {
+    "deck_top": 1.685,
+    "deck_from_y": 4.5,
+    "deck_to_y": 5.0,
+    "thickness": 0.05,
+    "half_width": 0.42,
+    "note_ja": "戸立（平らな船尾板、和船一般 S9）の上の艫の板。船尾の先端の点はこの板の後ろの上縁の中央"
+   },
+   "stern_frame": {
+    "height_above_deck": 0.95,
+    "post_x": 0.3,
+    "post_y": 4.62,
+    "post_size": 0.05,
+    "rungs": 3,
+    "kind": "painting",
+    "note_ja": "右の船の船尾の梯子状の枠（絵の P8、舷の上から約 1.2 m）。用途は資料で未確認"
+   },
+   "floor": {
+    "offset_above_bottom": 0.23,
+    "thickness": 0.05,
+    "from_y": -3.45,
+    "to_y": 3.9,
+    "plank_pitch": 0.3,
+    "gap": 0.02,
+    "kind": "estimate",
+    "note_ja": "敷板。座席 v1 の目（甲板から 1.2 m 上、seat_v1.json を変えない）を保つため、座席の所（Blender の y = −3）の上面を blockout の甲板（0.378）とほぼ同じにした（0.377）。調べの部の推定（船底から 0.2 m = 0.171 単位）より 0.06 単位高い"
+   },
+   "beams": {
+    "y": [
+     -2.9,
+     -1.5,
+     0.0,
+     1.5,
+     2.9,
+     4.1
+    ],
+    "below_sheer": 0.07,
+    "size_y": 0.1,
+    "size_z": 0.08,
+    "note_ja": "船梁（ふなばり）。二階造りを船梁で補強（S2・S9）"
+   },
+   "gunwale": {
+    "width": 0.07,
+    "height": 0.08,
+    "top_above_sheer": 0.03,
+    "note_ja": "船縁（ふなべり）の縁材。原画では船体の上の縁に藍の線が見える"
+   },
+   "oars": {
+    "pivot_y": [
+     -0.2,
+     0.483,
+     1.167,
+     1.85,
+     2.533,
+     3.217,
+     3.9
+    ],
+    "sides": [
+     "P",
+     "S",
+     "P",
+     "S",
+     "P",
+     "S",
+     "P"
+    ],
+    "inboard_length": 1.286,
+    "outboard_length": 3.6,
+    "blade_length": 1.2,
+    "blade_width": 0.111,
+    "blade_thickness": 0.03,
+    "shaft_radius": 0.035,
+    "direction_out_aft_down": [
+     0.45,
+     0.62,
+     -0.64
+    ],
+    "kind": {
+     "count": "source（櫓 7 丁、S1・S2）",
+     "length": "estimate（和船一般の櫓の腕 1.5 m・脚 4.2 m・幅 0.13 m の下限、S10）",
+     "layout": "estimate（左舷 4・右舷 3 を船尾側の約 6 割に交互。絵の漕ぎ手の位置 P6）",
+     "pose": "estimate（収めた姿。原画の漕ぎ手の姿勢 P6 から。漕ぐ姿の値 direction_out_aft_down は残し、設計44 以後で使う）"
+    },
+    "note_ja": "櫓（ろ）。長さは 1.5 m → 1.286 単位、4.2 m → 3.6 単位、幅 0.13 m → 0.111 単位",
+    "pose": "stowed",
+    "stowed": {
+     "y_start": -1.25,
+     "y_jitter": [
+      0.0,
+      0.12,
+      -0.08,
+      0.2,
+      0.05,
+      -0.12,
+      0.1
+     ],
+     "rest_beams_y": [
+      0.0,
+      2.9
+     ],
+     "x_offsets": {
+      "P": [
+       0.14,
+       0.3,
+       0.46,
+       0.62
+      ],
+      "S": [
+       0.22,
+       0.38,
+       0.54
+      ]
+     },
+     "note_ja": "収めた姿（船梁の上に船の軸と平行に寝かせる）。原画の漕ぎ手は立って漕がず、かがみ込んで櫓にしがみつく（P6）ので、原画視点で船の外へ櫓を出さない。rowing の姿（direction_out_aft_down）は設計44 の操船で使う"
+    }
+   },
+   "collision": {
+    "pieces_u": [
+     [
+      0.0,
+      0.34
+     ],
+     [
+      0.3,
+      0.7
+     ],
+     [
+      0.66,
+      1.0
+     ]
+    ],
+    "note_ja": "衝突形状：船殻（船縁まで）を 3 つの凸包に分けた簡単な形"
+   },
+   "buoyancy": {
+    "grid_step": 0.025,
+    "drafts": [
+     0.05,
+     0.1,
+     0.15,
+     0.171,
+     0.2,
+     0.25,
+     0.3,
+     0.35,
+     0.4,
+     0.45,
+     0.5,
+     0.6,
+     0.7
+    ],
+    "points_y": [
+     -3.0,
+     -1.5,
+     0.0,
+     1.5,
+     3.0
+    ],
+    "points_x_fraction_of_bottom": 0.6,
+    "note_ja": "浮力用の船体：船殻の外面を舷の上縁までふさいだ閉じた形。排水容積の表は船の局所の水平の水面（縦・横の傾き 0）で数える。0.171 単位は調べの部の喫水の推定 0.20 m（全長 11.667 m のとき）"
+   }
+  }
+ },
+ "research_input": {
+  "Unity/Build/Design/41/research/oshiokuri_dimensions.json": {
+   "sha256": "47f3f700c125bfdfa891b9b40c6c12c946c91eb05d8d00255b2ef625cd8fab83",
+   "bytes": 20097
+  },
+  "Unity/Build/Design/41/research/dims.json": "無い"
+ },
+ "coordinates": {
+  "unit": "placement frame（先端間 10）",
+  "handedness": "right",
+  "up": "+Z",
+  "boat_forward": "-Y",
+  "blender_to_unity": "(x, y, z) -> (-x, z, -y)（設計07 の実測）",
+  "origin": "竜骨の中央（船底の中央、z = 0）"
+ },
+ "derived_units": {
+  "half_beam_max": 1.065,
+  "depth_mid": 0.7789999999999999,
+  "bottom_half_width_max": 0.4899,
+  "extent_visual_blender": {
+   "x": [
+    -1.0693306922912598,
+    1.0646569728851318
+   ],
+   "y": [
+    -5.0,
+    5.0
+   ],
+   "z": [
+    0.0,
+    2.634999990463257
+   ]
+  }
+ },
+ "tips": {
+  "bow_tip_blender": {
+   "target": [
+    0.0,
+    -5.0,
+    1.775
+   ],
+   "nearest_vertex_distance": 2.3841857821338408e-08
+  },
+  "stern_tip_blender": {
+   "target": [
+    0.0,
+    5.0,
+    1.685
+   ],
+   "nearest_vertex_distance": 5.7220459037665705e-08
+  }
+ },
+ "objects": {
+  "Boat41_Beams": {
+   "vertices": 48,
+   "polygons": 36,
+   "min": [
+    -1.01383,
+    -2.95,
+    0.633084
+   ],
+   "max": [
+    1.01383,
+    4.15,
+    1.27958
+   ],
+   "centroid": [
+    0.0,
+    0.683333,
+    0.889122
+   ],
+   "location": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "rotation_euler": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "scale": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "materials": [
+    "GW_Boat_Edge"
+   ]
+  },
+  "Boat41_Buoyancy": {
+   "vertices": 283,
+   "polygons": 281,
+   "min": [
+    -1.064657,
+    -4.88,
+    0.0
+   ],
+   "max": [
+    1.064657,
+    4.8,
+    1.7
+   ],
+   "centroid": [
+    0.0,
+    0.112283,
+    0.507834
+   ],
+   "location": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "rotation_euler": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "scale": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "materials": [
+    "GW_Boat_Helper"
+   ]
+  },
+  "Boat41_Col_Bow": {
+   "vertices": 78,
+   "polygons": 152,
+   "min": [
+    -0.916004,
+    -5.0,
+    0.0
+   ],
+   "max": [
+    0.916004,
+    -1.4335,
+    1.775
+   ],
+   "centroid": [
+    0.0,
+    -2.964399,
+    0.672753
+   ],
+   "location": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "rotation_euler": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "scale": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "materials": [
+    "GW_Boat_Helper"
+   ]
+  },
+  "Boat41_Col_Mid": {
+   "vertices": 102,
+   "polygons": 200,
+   "min": [
+    -1.064657,
+    -1.976,
+    0.0
+   ],
+   "max": [
+    1.064657,
+    1.896,
+    0.951189
+   ],
+   "centroid": [
+    0.0,
+    0.0375,
+    0.400667
+   ],
+   "location": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "rotation_euler": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "scale": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "materials": [
+    "GW_Boat_Helper"
+   ]
+  },
+  "Boat41_Col_Stern": {
+   "vertices": 84,
+   "polygons": 164,
+   "min": [
+    -1.028361,
+    1.6535,
+    0.0
+   ],
+   "max": [
+    1.028361,
+    4.8,
+    1.6
+   ],
+   "centroid": [
+    0.0,
+    3.154538,
+    0.621778
+   ],
+   "location": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "rotation_euler": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "scale": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "materials": [
+    "GW_Boat_Helper"
+   ]
+  },
+  "Boat41_Floor": {
+   "vertices": 192,
+   "polygons": 144,
+   "min": [
+    -0.631751,
+    -3.44,
+    0.18
+   ],
+   "max": [
+    0.631751,
+    3.74,
+    0.479187
+   ],
+   "centroid": [
+    0.0,
+    0.15,
+    0.241868
+   ],
+   "location": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "rotation_euler": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "scale": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "materials": [
+    "GW_Boat_Plank"
+   ]
+  },
+  "Boat41_Gunwale_Port": {
+   "vertices": 160,
+   "polygons": 158,
+   "min": [
+    0.053474,
+    -4.638,
+    0.729052
+   ],
+   "max": [
+    1.064657,
+    4.8,
+    1.643585
+   ],
+   "centroid": [
+    0.79628,
+    0.081,
+    1.050566
+   ],
+   "location": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "rotation_euler": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "scale": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "materials": [
+    "GW_Boat_Edge"
+   ]
+  },
+  "Boat41_Gunwale_Starboard": {
+   "vertices": 160,
+   "polygons": 158,
+   "min": [
+    -1.064657,
+    -4.638,
+    0.729052
+   ],
+   "max": [
+    -0.053474,
+    4.8,
+    1.643585
+   ],
+   "centroid": [
+    -0.79628,
+    0.081,
+    1.050566
+   ],
+   "location": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "rotation_euler": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "scale": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "materials": [
+    "GW_Boat_Edge"
+   ]
+  },
+  "Boat41_Hull": {
+   "vertices": 283,
+   "polygons": 241,
+   "min": [
+    -1.064657,
+    -4.88,
+    0.0
+   ],
+   "max": [
+    1.064657,
+    4.8,
+    1.7
+   ],
+   "centroid": [
+    0.0,
+    0.112283,
+    0.507834
+   ],
+   "location": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "rotation_euler": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "scale": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "materials": [
+    "GW_Boat_Wood"
+   ]
+  },
+  "Boat41_Oar_P1": {
+   "vertices": 32,
+   "polygons": 22,
+   "min": [
+    0.0845,
+    -1.252963,
+    0.612006
+   ],
+   "max": [
+    1.061065,
+    3.637269,
+    1.076955
+   ],
+   "centroid": [
+    0.364016,
+    1.007115,
+    0.866771
+   ],
+   "location": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "rotation_euler": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "scale": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "materials": [
+    "GW_Boat_Oar"
+   ]
+  },
+  "Boat41_Oar_P2": {
+   "vertices": 32,
+   "polygons": 22,
+   "min": [
+    0.2445,
+    -1.332963,
+    0.605209
+   ],
+   "max": [
+    1.054977,
+    3.55727,
+    1.070158
+   ],
+   "centroid": [
+    0.482494,
+    1.288865,
+    0.864518
+   ],
+   "location": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "rotation_euler": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "scale": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "materials": [
+    "GW_Boat_Oar"
+   ]
+  },
+  "Boat41_Oar_P3": {
+   "vertices": 32,
+   "polygons": 22,
+   "min": [
+    0.4045,
+    -1.202963,
+    0.616254
+   ],
+   "max": [
+    0.970348,
+    3.68727,
+    1.081203
+   ],
+   "centroid": [
+    0.581337,
+    1.727865,
+    0.91243
+   ],
+   "location": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "rotation_euler": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "scale": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "materials": [
+    "GW_Boat_Oar"
+   ]
+  },
+  "Boat41_Oar_P4": {
+   "vertices": 32,
+   "polygons": 22,
+   "min": [
+    0.5645,
+    -1.152963,
+    0.620502
+   ],
+   "max": [
+    0.810992,
+    3.925,
+    1.386733
+   ],
+   "centroid": [
+    0.661498,
+    2.107116,
+    0.997684
+   ],
+   "location": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "rotation_euler": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "scale": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "materials": [
+    "GW_Boat_Oar"
+   ]
+  },
+  "Boat41_Oar_S1": {
+   "vertices": 32,
+   "polygons": 22,
+   "min": [
+    -1.069331,
+    -1.132963,
+    0.622201
+   ],
+   "max": [
+    -0.1645,
+    3.75727,
+    1.087151
+   ],
+   "centroid": [
+    -0.426083,
+    1.267866,
+    0.872074
+   ],
+   "location": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "rotation_euler": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "scale": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "materials": [
+    "GW_Boat_Oar"
+   ]
+  },
+  "Boat41_Oar_S2": {
+   "vertices": 32,
+   "polygons": 22,
+   "min": [
+    -1.021986,
+    -1.052963,
+    0.628998
+   ],
+   "max": [
+    -0.3245,
+    3.83727,
+    1.093948
+   ],
+   "centroid": [
+    -0.534246,
+    1.669615,
+    0.897071
+   ],
+   "location": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "rotation_euler": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "scale": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "materials": [
+    "GW_Boat_Oar"
+   ]
+  },
+  "Boat41_Oar_S3": {
+   "vertices": 32,
+   "polygons": 22,
+   "min": [
+    -0.899948,
+    -1.372963,
+    0.60181
+   ],
+   "max": [
+    -0.4845,
+    3.51727,
+    1.200844
+   ],
+   "centroid": [
+    -0.623737,
+    1.771365,
+    0.937193
+   ],
+   "location": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "rotation_euler": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "scale": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "materials": [
+    "GW_Boat_Oar"
+   ]
+  },
+  "Boat41_Stem": {
+   "vertices": 6,
+   "polygons": 5,
+   "min": [
+    -0.045,
+    -5.0,
+    0.75
+   ],
+   "max": [
+    0.045,
+    -4.186672,
+    1.863452
+   ],
+   "centroid": [
+    0.0,
+    -4.571115,
+    1.321468
+   ],
+   "location": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "rotation_euler": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "scale": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "materials": [
+    "GW_Boat_Wood"
+   ]
+  },
+  "Boat41_SternDeck": {
+   "vertices": 32,
+   "polygons": 24,
+   "min": [
+    -0.42,
+    4.5,
+    1.5
+   ],
+   "max": [
+    0.42,
+    5.0,
+    1.685
+   ],
+   "centroid": [
+    0.0,
+    4.685,
+    1.61375
+   ],
+   "location": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "rotation_euler": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "scale": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "materials": [
+    "GW_Boat_Wood"
+   ]
+  },
+  "Boat41_SternFrame": {
+   "vertices": 40,
+   "polygons": 30,
+   "min": [
+    -0.325,
+    4.595,
+    1.685
+   ],
+   "max": [
+    0.325,
+    4.645,
+    2.635
+   ],
+   "centroid": [
+    0.0,
+    4.62,
+    2.200714
+   ],
+   "location": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "rotation_euler": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "scale": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "materials": [
+    "GW_Boat_Wood"
+   ]
+  }
+ },
+ "tables": {
+  "floor": [
+   {
+    "y": -3.3,
+    "top_z": 0.47919,
+    "half_width": 0.2498
+   },
+   {
+    "y": -3.0,
+    "top_z": 0.37745,
+    "half_width": 0.3016
+   },
+   {
+    "y": -2.7,
+    "top_z": 0.30225,
+    "half_width": 0.3487
+   },
+   {
+    "y": -2.4,
+    "top_z": 0.25359,
+    "half_width": 0.3923
+   },
+   {
+    "y": -2.1,
+    "top_z": 0.23147,
+    "half_width": 0.4339
+   },
+   {
+    "y": -1.8,
+    "top_z": 0.23,
+    "half_width": 0.4745
+   },
+   {
+    "y": -1.5,
+    "top_z": 0.23,
+    "half_width": 0.5116
+   },
+   {
+    "y": -1.2,
+    "top_z": 0.23,
+    "half_width": 0.5443
+   },
+   {
+    "y": -0.9,
+    "top_z": 0.23,
+    "half_width": 0.5724
+   },
+   {
+    "y": -0.6,
+    "top_z": 0.23,
+    "half_width": 0.5955
+   },
+   {
+    "y": -0.3,
+    "top_z": 0.23,
+    "half_width": 0.6132
+   },
+   {
+    "y": -0.0,
+    "top_z": 0.23,
+    "half_width": 0.6254
+   },
+   {
+    "y": 0.3,
+    "top_z": 0.23,
+    "half_width": 0.6318
+   },
+   {
+    "y": 0.6,
+    "top_z": 0.23,
+    "half_width": 0.6295
+   },
+   {
+    "y": 0.9,
+    "top_z": 0.23,
+    "half_width": 0.6223
+   },
+   {
+    "y": 1.2,
+    "top_z": 0.23,
+    "half_width": 0.611
+   },
+   {
+    "y": 1.5,
+    "top_z": 0.23,
+    "half_width": 0.596
+   },
+   {
+    "y": 1.8,
+    "top_z": 0.23,
+    "half_width": 0.5776
+   },
+   {
+    "y": 2.1,
+    "top_z": 0.23066,
+    "half_width": 0.5546
+   },
+   {
+    "y": 2.4,
+    "top_z": 0.24058,
+    "half_width": 0.5298
+   },
+   {
+    "y": 2.7,
+    "top_z": 0.26241,
+    "half_width": 0.5048
+   },
+   {
+    "y": 3.0,
+    "top_z": 0.29614,
+    "half_width": 0.4794
+   },
+   {
+    "y": 3.3,
+    "top_z": 0.34177,
+    "half_width": 0.4534
+   },
+   {
+    "y": 3.6,
+    "top_z": 0.39931,
+    "half_width": 0.4265
+   }
+  ],
+  "beams": [
+   {
+    "y": -2.9,
+    "center_z": 1.0122,
+    "half_length": 0.6033
+   },
+   {
+    "y": -1.5,
+    "center_z": 0.7767,
+    "half_length": 0.8853
+   },
+   {
+    "y": 0.0,
+    "center_z": 0.6731,
+    "half_length": 1.0138
+   },
+   {
+    "y": 1.5,
+    "center_z": 0.7137,
+    "half_length": 0.9938
+   },
+   {
+    "y": 2.9,
+    "center_z": 0.9195,
+    "half_length": 0.8851
+   },
+   {
+    "y": 4.1,
+    "center_z": 1.2396,
+    "half_length": 0.7217
+   }
+  ],
+  "oars": [
+   {
+    "name": "Boat41_Oar_P1",
+    "pivot": [
+     1.0361,
+     -0.2,
+     0.8186
+    ],
+    "blade_tip": [
+     0.14,
+     3.636,
+     1.062
+    ]
+   },
+   {
+    "name": "Boat41_Oar_S1",
+    "pivot": [
+     -1.0443,
+     0.483,
+     0.8092
+    ],
+    "blade_tip": [
+     -0.22,
+     3.756,
+     1.0722
+    ]
+   },
+   {
+    "name": "Boat41_Oar_P2",
+    "pivot": [
+     1.03,
+     1.167,
+     0.8299
+    ],
+    "blade_tip": [
+     0.3,
+     3.556,
+     1.0552
+    ]
+   },
+   {
+    "name": "Boat41_Oar_S2",
+    "pivot": [
+     -0.997,
+     1.85,
+     0.8888
+    ],
+    "blade_tip": [
+     -0.38,
+     3.836,
+     1.079
+    ]
+   },
+   {
+    "name": "Boat41_Oar_P3",
+    "pivot": [
+     0.9453,
+     2.533,
+     0.9885
+    ],
+    "blade_tip": [
+     0.46,
+     3.686,
+     1.0663
+    ]
+   },
+   {
+    "name": "Boat41_Oar_S3",
+    "pivot": [
+     -0.8749,
+     3.217,
+     1.1308
+    ],
+    "blade_tip": [
+     -0.54,
+     3.516,
+     1.0518
+    ]
+   },
+   {
+    "name": "Boat41_Oar_P4",
+    "pivot": [
+     0.786,
+     3.9,
+     1.3167
+    ],
+    "blade_tip": [
+     0.62,
+     3.736,
+     1.0705
+    ]
+   }
+  ],
+  "collision": [
+   {
+    "name": "Boat41_Col_Bow",
+    "u": [
+     0.0,
+     0.34
+    ],
+    "triangles": 152,
+    "vertices": 78
+   },
+   {
+    "name": "Boat41_Col_Mid",
+    "u": [
+     0.3,
+     0.7
+    ],
+    "triangles": 200,
+    "vertices": 102
+   },
+   {
+    "name": "Boat41_Col_Stern",
+    "u": [
+     0.66,
+     1.0
+    ],
+    "triangles": 164,
+    "vertices": 84
+   }
+  ]
+ },
+ "stations": [
+  {
+   "u": 0.0,
+   "bottom_center": [
+    0.0,
+    -4.3,
+    0.78
+   ],
+   "chine": [
+    0.0,
+    -4.3,
+    0.78
+   ],
+   "knuckle": [
+    0.0,
+    -4.561,
+    1.194
+   ],
+   "sheer": [
+    0.0,
+    -4.88,
+    1.7
+   ]
+  },
+  {
+   "u": 0.025,
+   "bottom_center": [
+    0.0,
+    -4.0795,
+    0.63761
+   ],
+   "chine": [
+    0.05809,
+    -4.0795,
+    0.63761
+   ],
+   "knuckle": [
+    0.09863,
+    -4.33082,
+    1.0768
+   ],
+   "sheer": [
+    0.12347,
+    -4.638,
+    1.61358
+   ]
+  },
+  {
+   "u": 0.05,
+   "bottom_center": [
+    0.0,
+    -3.859,
+    0.50956
+   ],
+   "chine": [
+    0.10601,
+    -3.859,
+    0.50956
+   ],
+   "knuckle": [
+    0.18006,
+    -4.10065,
+    0.96949
+   ],
+   "sheer": [
+    0.22544,
+    -4.396,
+    1.53162
+   ]
+  },
+  {
+   "u": 0.075,
+   "bottom_center": [
+    0.0,
+    -3.6385,
+    0.39585
+   ],
+   "chine": [
+    0.14923,
+    -3.6385,
+    0.39585
+   ],
+   "knuckle": [
+    0.2536,
+    -3.87047,
+    0.87205
+   ],
+   "sheer": [
+    0.31756,
+    -4.154,
+    1.45408
+   ]
+  },
+  {
+   "u": 0.1,
+   "bottom_center": [
+    0.0,
+    -3.418,
+    0.29648
+   ],
+   "chine": [
+    0.18883,
+    -3.418,
+    0.29648
+   ],
+   "knuckle": [
+    0.32105,
+    -3.6403,
+    0.78449
+   ],
+   "sheer": [
+    0.40209,
+    -3.912,
+    1.38094
+   ]
+  },
+  {
+   "u": 0.125,
+   "bottom_center": [
+    0.0,
+    -3.1975,
+    0.21144
+   ],
+   "chine": [
+    0.22532,
+    -3.1975,
+    0.21144
+   ],
+   "knuckle": [
+    0.38329,
+    -3.41012,
+    0.70678
+   ],
+   "sheer": [
+    0.48011,
+    -3.67,
+    1.31218
+   ]
+  },
+  {
+   "u": 0.15,
+   "bottom_center": [
+    0.0,
+    -2.977,
+    0.14074
+   ],
+   "chine": [
+    0.25898,
+    -2.977,
+    0.14074
+   ],
+   "knuckle": [
+    0.4408,
+    -3.17995,
+    0.63891
+   ],
+   "sheer": [
+    0.55224,
+    -3.428,
+    1.24778
+   ]
+  },
+  {
+   "u": 0.175,
+   "bottom_center": [
+    0.0,
+    -2.7565,
+    0.08438
+   ],
+   "chine": [
+    0.29002,
+    -2.7565,
+    0.08438
+   ],
+   "knuckle": [
+    0.49392,
+    -2.94977,
+    0.58088
+   ],
+   "sheer": [
+    0.61889,
+    -3.186,
+    1.18771
+   ]
+  },
+  {
+   "u": 0.2,
+   "bottom_center": [
+    0.0,
+    -2.536,
+    0.04236
+   ],
+   "chine": [
+    0.31856,
+    -2.536,
+    0.04236
+   ],
+   "knuckle": [
+    0.54288,
+    -2.7196,
+    0.53267
+   ],
+   "sheer": [
+    0.68036,
+    -2.944,
+    1.13193
+   ]
+  },
+  {
+   "u": 0.225,
+   "bottom_center": [
+    0.0,
+    -2.3155,
+    0.01468
+   ],
+   "chine": [
+    0.34472,
+    -2.3155,
+    0.01468
+   ],
+   "knuckle": [
+    0.58784,
+    -2.48942,
+    0.49426
+   ],
+   "sheer": [
+    0.73685,
+    -2.702,
+    1.08042
+   ]
+  },
+  {
+   "u": 0.25,
+   "bottom_center": [
+    0.0,
+    -2.095,
+    0.00133
+   ],
+   "chine": [
+    0.36857,
+    -2.095,
+    0.00133
+   ],
+   "knuckle": [
+    0.62896,
+    -2.25925,
+    0.46565
+   ],
+   "sheer": [
+    0.78855,
+    -2.46,
+    1.03315
+   ]
+  },
+  {
+   "u": 0.275,
+   "bottom_center": [
+    0.0,
+    -1.8745,
+    0.0
+   ],
+   "chine": [
+    0.39017,
+    -1.8745,
+    0.0
+   ],
+   "knuckle": [
+    0.66632,
+    -2.02907,
+    0.44554
+   ],
+   "sheer": [
+    0.83557,
+    -2.218,
+    0.99009
+   ]
+  },
+  {
+   "u": 0.3,
+   "bottom_center": [
+    0.0,
+    -1.654,
+    0.0
+   ],
+   "chine": [
+    0.40957,
+    -1.654,
+    0.0
+   ],
+   "knuckle": [
+    0.70001,
+    -1.7989,
+    0.42804
+   ],
+   "sheer": [
+    0.87803,
+    -1.976,
+    0.95119
+   ]
+  },
+  {
+   "u": 0.325,
+   "bottom_center": [
+    0.0,
+    -1.4335,
+    0.0
+   ],
+   "chine": [
+    0.42681,
+    -1.4335,
+    0.0
+   ],
+   "knuckle": [
+    0.73011,
+    -1.56872,
+    0.41239
+   ],
+   "sheer": [
+    0.916,
+    -1.734,
+    0.91642
+   ]
+  },
+  {
+   "u": 0.35,
+   "bottom_center": [
+    0.0,
+    -1.213,
+    0.0
+   ],
+   "chine": [
+    0.44193,
+    -1.213,
+    0.0
+   ],
+   "knuckle": [
+    0.75667,
+    -1.33855,
+    0.39858
+   ],
+   "sheer": [
+    0.94957,
+    -1.492,
+    0.88572
+   ]
+  },
+  {
+   "u": 0.375,
+   "bottom_center": [
+    0.0,
+    -0.9925,
+    0.0
+   ],
+   "chine": [
+    0.45495,
+    -0.9925,
+    0.0
+   ],
+   "knuckle": [
+    0.77972,
+    -1.10837,
+    0.38658
+   ],
+   "sheer": [
+    0.97878,
+    -1.25,
+    0.85907
+   ]
+  },
+  {
+   "u": 0.4,
+   "bottom_center": [
+    0.0,
+    -0.772,
+    0.0
+   ],
+   "chine": [
+    0.46589,
+    -0.772,
+    0.0
+   ],
+   "knuckle": [
+    0.79932,
+    -0.8782,
+    0.37637
+   ],
+   "sheer": [
+    1.00369,
+    -1.008,
+    0.83638
+   ]
+  },
+  {
+   "u": 0.425,
+   "bottom_center": [
+    0.0,
+    -0.5515,
+    0.0
+   ],
+   "chine": [
+    0.47477,
+    -0.5515,
+    0.0
+   ],
+   "knuckle": [
+    0.81549,
+    -0.64802,
+    0.36793
+   ],
+   "sheer": [
+    1.02432,
+    -0.766,
+    0.81762
+   ]
+  },
+  {
+   "u": 0.45,
+   "bottom_center": [
+    0.0,
+    -0.331,
+    0.0
+   ],
+   "chine": [
+    0.4816,
+    -0.331,
+    0.0
+   ],
+   "knuckle": [
+    0.82825,
+    -0.41785,
+    0.36121
+   ],
+   "sheer": [
+    1.04071,
+    -0.524,
+    0.80269
+   ]
+  },
+  {
+   "u": 0.475,
+   "bottom_center": [
+    0.0,
+    -0.1105,
+    0.0
+   ],
+   "chine": [
+    0.48639,
+    -0.1105,
+    0.0
+   ],
+   "knuckle": [
+    0.83762,
+    -0.18768,
+    0.35618
+   ],
+   "sheer": [
+    1.05289,
+    -0.282,
+    0.79152
+   ]
+  },
+  {
+   "u": 0.5,
+   "bottom_center": [
+    0.0,
+    0.11,
+    0.0
+   ],
+   "chine": [
+    0.48915,
+    0.11,
+    0.0
+   ],
+   "knuckle": [
+    0.84362,
+    0.0425,
+    0.35279
+   ],
+   "sheer": [
+    1.06087,
+    -0.04,
+    0.78399
+   ]
+  },
+  {
+   "u": 0.525,
+   "bottom_center": [
+    0.0,
+    0.3305,
+    0.0
+   ],
+   "chine": [
+    0.48989,
+    0.3305,
+    0.0
+   ],
+   "knuckle": [
+    0.84625,
+    0.27268,
+    0.35097
+   ],
+   "sheer": [
+    1.06466,
+    0.202,
+    0.77993
+   ]
+  },
+  {
+   "u": 0.55,
+   "bottom_center": [
+    0.0,
+    0.551,
+    0.0
+   ],
+   "chine": [
+    0.48924,
+    0.551,
+    0.0
+   ],
+   "knuckle": [
+    0.84595,
+    0.50285,
+    0.35057
+   ],
+   "sheer": [
+    1.06459,
+    0.444,
+    0.77905
+   ]
+  },
+  {
+   "u": 0.575,
+   "bottom_center": [
+    0.0,
+    0.7715,
+    0.0
+   ],
+   "chine": [
+    0.48758,
+    0.7715,
+    0.0
+   ],
+   "knuckle": [
+    0.84373,
+    0.73302,
+    0.35174
+   ],
+   "sheer": [
+    1.06202,
+    0.686,
+    0.78164
+   ]
+  },
+  {
+   "u": 0.6,
+   "bottom_center": [
+    0.0,
+    0.992,
+    0.0
+   ],
+   "chine": [
+    0.48489,
+    0.992,
+    0.0
+   ],
+   "knuckle": [
+    0.83967,
+    0.9632,
+    0.35485
+   ],
+   "sheer": [
+    1.05712,
+    0.928,
+    0.78856
+   ]
+  },
+  {
+   "u": 0.625,
+   "bottom_center": [
+    0.0,
+    1.2125,
+    0.0
+   ],
+   "chine": [
+    0.4812,
+    1.2125,
+    0.0
+   ],
+   "knuckle": [
+    0.83378,
+    1.19338,
+    0.36005
+   ],
+   "sheer": [
+    1.04987,
+    1.17,
+    0.80012
+   ]
+  },
+  {
+   "u": 0.65,
+   "bottom_center": [
+    0.0,
+    1.433,
+    0.0
+   ],
+   "chine": [
+    0.47648,
+    1.433,
+    0.0
+   ],
+   "knuckle": [
+    0.82604,
+    1.42355,
+    0.36742
+   ],
+   "sheer": [
+    1.04029,
+    1.412,
+    0.81649
+   ]
+  },
+  {
+   "u": 0.675,
+   "bottom_center": [
+    0.0,
+    1.6535,
+    0.0
+   ],
+   "chine": [
+    0.47075,
+    1.6535,
+    0.0
+   ],
+   "knuckle": [
+    0.81647,
+    1.65373,
+    0.37702
+   ],
+   "sheer": [
+    1.02836,
+    1.654,
+    0.83782
+   ]
+  },
+  {
+   "u": 0.7,
+   "bottom_center": [
+    0.0,
+    1.874,
+    0.0
+   ],
+   "chine": [
+    0.464,
+    1.874,
+    0.0
+   ],
+   "knuckle": [
+    0.80506,
+    1.8839,
+    0.38889
+   ],
+   "sheer": [
+    1.01409,
+    1.896,
+    0.8642
+   ]
+  },
+  {
+   "u": 0.725,
+   "bottom_center": [
+    0.0,
+    2.0945,
+    0.00059
+   ],
+   "chine": [
+    0.45624,
+    2.0945,
+    0.00059
+   ],
+   "knuckle": [
+    0.79181,
+    2.11408,
+    0.40341
+   ],
+   "sheer": [
+    0.99749,
+    2.138,
+    0.89573
+   ]
+  },
+  {
+   "u": 0.75,
+   "bottom_center": [
+    0.0,
+    2.315,
+    0.00656
+   ],
+   "chine": [
+    0.44746,
+    2.315,
+    0.00656
+   ],
+   "knuckle": [
+    0.77673,
+    2.34425,
+    0.42323
+   ],
+   "sheer": [
+    0.97854,
+    2.38,
+    0.93249
+   ]
+  },
+  {
+   "u": 0.775,
+   "bottom_center": [
+    0.0,
+    2.5355,
+    0.01897
+   ],
+   "chine": [
+    0.43766,
+    2.5355,
+    0.01897
+   ],
+   "knuckle": [
+    0.7598,
+    2.57443,
+    0.44898
+   ],
+   "sheer": [
+    0.95725,
+    2.622,
+    0.97455
+   ]
+  },
+  {
+   "u": 0.8,
+   "bottom_center": [
+    0.0,
+    2.756,
+    0.0378
+   ],
+   "chine": [
+    0.42684,
+    2.756,
+    0.0378
+   ],
+   "knuckle": [
+    0.74104,
+    2.8046,
+    0.48067
+   ],
+   "sheer": [
+    0.93362,
+    2.864,
+    1.02196
+   ]
+  },
+  {
+   "u": 0.825,
+   "bottom_center": [
+    0.0,
+    2.9765,
+    0.06307
+   ],
+   "chine": [
+    0.41501,
+    2.9765,
+    0.06307
+   ],
+   "knuckle": [
+    0.72044,
+    3.03477,
+    0.51834
+   ],
+   "sheer": [
+    0.90764,
+    3.106,
+    1.07479
+   ]
+  },
+  {
+   "u": 0.85,
+   "bottom_center": [
+    0.0,
+    3.197,
+    0.09476
+   ],
+   "chine": [
+    0.40217,
+    3.197,
+    0.09476
+   ],
+   "knuckle": [
+    0.69801,
+    3.26495,
+    0.562
+   ],
+   "sheer": [
+    0.87933,
+    3.348,
+    1.13308
+   ]
+  },
+  {
+   "u": 0.875,
+   "bottom_center": [
+    0.0,
+    3.4175,
+    0.13289
+   ],
+   "chine": [
+    0.3883,
+    3.4175,
+    0.13289
+   ],
+   "knuckle": [
+    0.67374,
+    3.49512,
+    0.61169
+   ],
+   "sheer": [
+    0.84868,
+    3.59,
+    1.19688
+   ]
+  },
+  {
+   "u": 0.9,
+   "bottom_center": [
+    0.0,
+    3.638,
+    0.17745
+   ],
+   "chine": [
+    0.37342,
+    3.638,
+    0.17745
+   ],
+   "knuckle": [
+    0.64763,
+    3.7253,
+    0.6674
+   ],
+   "sheer": [
+    0.81568,
+    3.832,
+    1.26624
+   ]
+  },
+  {
+   "u": 0.925,
+   "bottom_center": [
+    0.0,
+    3.8585,
+    0.22844
+   ],
+   "chine": [
+    0.35753,
+    3.8585,
+    0.22844
+   ],
+   "knuckle": [
+    0.61968,
+    3.95548,
+    0.72918
+   ],
+   "sheer": [
+    0.78035,
+    4.074,
+    1.34119
+   ]
+  },
+  {
+   "u": 0.95,
+   "bottom_center": [
+    0.0,
+    4.079,
+    0.28586
+   ],
+   "chine": [
+    0.34061,
+    4.079,
+    0.28586
+   ],
+   "knuckle": [
+    0.58989,
+    4.18565,
+    0.79703
+   ],
+   "sheer": [
+    0.74267,
+    4.316,
+    1.42178
+   ]
+  },
+  {
+   "u": 0.975,
+   "bottom_center": [
+    0.0,
+    4.2995,
+    0.34972
+   ],
+   "chine": [
+    0.32268,
+    4.2995,
+    0.34972
+   ],
+   "knuckle": [
+    0.55827,
+    4.41582,
+    0.87096
+   ],
+   "sheer": [
+    0.70266,
+    4.558,
+    1.50804
+   ]
+  },
+  {
+   "u": 1.0,
+   "bottom_center": [
+    0.0,
+    4.52,
+    0.42
+   ],
+   "chine": [
+    0.30374,
+    4.52,
+    0.42
+   ],
+   "knuckle": [
+    0.52481,
+    4.646,
+    0.951
+   ],
+   "sheer": [
+    0.6603,
+    4.8,
+    1.6
+   ]
+  }
+ ],
+ "hydrostatics": {
+  "closed_mesh_volume_units3": 10.65703,
+  "column_integral_volume_units3": 10.6572,
+  "volume_agreement_rel": 2e-05,
+  "grid_step_units": 0.025,
+  "columns": 25496,
+  "table": [
+   {
+    "draft_units": 0.05,
+    "volume_units3": 0.23488,
+    "waterplane_area_units2": 5.295,
+    "lcb_y_blender": 0.1749,
+    "vcb_z": 0.0262
+   },
+   {
+    "draft_units": 0.1,
+    "volume_units3": 0.524,
+    "waterplane_area_units2": 6.23938,
+    "lcb_y_blender": 0.227,
+    "vcb_z": 0.0535
+   },
+   {
+    "draft_units": 0.15,
+    "volume_units3": 0.85678,
+    "waterplane_area_units2": 7.06125,
+    "lcb_y_blender": 0.2664,
+    "vcb_z": 0.0815
+   },
+   {
+    "draft_units": 0.171,
+    "volume_units3": 1.00872,
+    "waterplane_area_units2": 7.40813,
+    "lcb_y_blender": 0.2808,
+    "vcb_z": 0.0934
+   },
+   {
+    "draft_units": 0.2,
+    "volume_units3": 1.23012,
+    "waterplane_area_units2": 7.83938,
+    "lcb_y_blender": 0.2991,
+    "vcb_z": 0.11
+   },
+   {
+    "draft_units": 0.25,
+    "volume_units3": 1.64271,
+    "waterplane_area_units2": 8.63563,
+    "lcb_y_blender": 0.3271,
+    "vcb_z": 0.139
+   },
+   {
+    "draft_units": 0.3,
+    "volume_units3": 2.09361,
+    "waterplane_area_units2": 9.38938,
+    "lcb_y_blender": 0.3518,
+    "vcb_z": 0.1684
+   },
+   {
+    "draft_units": 0.35,
+    "volume_units3": 2.58239,
+    "waterplane_area_units2": 10.14438,
+    "lcb_y_blender": 0.3739,
+    "vcb_z": 0.1981
+   },
+   {
+    "draft_units": 0.4,
+    "volume_units3": 3.10658,
+    "waterplane_area_units2": 10.77875,
+    "lcb_y_blender": 0.3939,
+    "vcb_z": 0.228
+   },
+   {
+    "draft_units": 0.45,
+    "volume_units3": 3.65976,
+    "waterplane_area_units2": 11.295,
+    "lcb_y_blender": 0.4115,
+    "vcb_z": 0.2578
+   },
+   {
+    "draft_units": 0.5,
+    "volume_units3": 4.23612,
+    "waterplane_area_units2": 11.74688,
+    "lcb_y_blender": 0.4242,
+    "vcb_z": 0.2874
+   },
+   {
+    "draft_units": 0.6,
+    "volume_units3": 5.45381,
+    "waterplane_area_units2": 12.60375,
+    "lcb_y_blender": 0.4409,
+    "vcb_z": 0.3461
+   },
+   {
+    "draft_units": 0.7,
+    "volume_units3": 6.75397,
+    "waterplane_area_units2": 13.38625,
+    "lcb_y_blender": 0.4504,
+    "vcb_z": 0.4047
+   }
+  ],
+  "note_ja": "水面は船の局所の水平面 z = 喫水（縦・横の傾き 0）。実寸は 船の縮尺 s を掛けて：長さ ×s、面積 ×s²、容積 ×s³。"
+ },
+ "buoyancy_points": [
+  {
+   "blender": [
+    -0.15336,
+    -3.0,
+    0.14745
+   ],
+   "unity_local": [
+    0.15336,
+    0.14745,
+    3.0
+   ]
+  },
+  {
+   "blender": [
+    0.15336,
+    -3.0,
+    0.14745
+   ],
+   "unity_local": [
+    -0.15336,
+    0.14745,
+    3.0
+   ]
+  },
+  {
+   "blender": [
+    -0.2531,
+    -1.5,
+    0.0
+   ],
+   "unity_local": [
+    0.2531,
+    0.0,
+    1.5
+   ]
+  },
+  {
+   "blender": [
+    0.2531,
+    -1.5,
+    0.0
+   ],
+   "unity_local": [
+    -0.2531,
+    0.0,
+    1.5
+   ]
+  },
+  {
+   "blender": [
+    -0.29281,
+    0.0,
+    0.0
+   ],
+   "unity_local": [
+    0.29281,
+    0.0,
+    -0.0
+   ]
+  },
+  {
+   "blender": [
+    0.29281,
+    0.0,
+    0.0
+   ],
+   "unity_local": [
+    -0.29281,
+    0.0,
+    -0.0
+   ]
+  },
+  {
+   "blender": [
+    -0.28491,
+    1.5,
+    0.0
+   ],
+   "unity_local": [
+    0.28491,
+    0.0,
+    -1.5
+   ]
+  },
+  {
+   "blender": [
+    0.28491,
+    1.5,
+    0.0
+   ],
+   "unity_local": [
+    -0.28491,
+    0.0,
+    -1.5
+   ]
+  },
+  {
+   "blender": [
+    -0.24822,
+    3.0,
+    0.06614
+   ],
+   "unity_local": [
+    0.24822,
+    0.06614,
+    -3.0
+   ]
+  },
+  {
+   "blender": [
+    0.24822,
+    3.0,
+    0.06614
+   ],
+   "unity_local": [
+    -0.24822,
+    0.06614,
+    -3.0
+   ]
+  }
+ ],
+ "checks": {
+  "hull_outward_normals": {
+   "faces_checked": 224,
+   "outward": 224,
+   "fraction": 1.0
+  },
+  "buoyancy_closed": {
+   "non_manifold_edges": 0,
+   "boundary_edges": 0,
+   "degenerate_faces": 0,
+   "signed_volume": 10.657033
+  },
+  "collision_closed": {
+   "Boat41_Col_Bow": {
+    "non_manifold_edges": 0,
+    "boundary_edges": 0,
+    "degenerate_faces": 0,
+    "signed_volume": 2.713967
+   },
+   "Boat41_Col_Mid": {
+    "non_manifold_edges": 0,
+    "boundary_edges": 0,
+    "degenerate_faces": 0,
+    "signed_volume": 5.469898
+   },
+   "Boat41_Col_Stern": {
+    "non_manifold_edges": 0,
+    "boundary_edges": 0,
+    "degenerate_faces": 0,
+    "signed_volume": 4.43579
+   }
+  },
+  "hull_open_sheet": {
+   "non_manifold_edges": 81,
+   "boundary_edges": 81,
+   "degenerate_faces": 0,
+   "signed_volume": null
+  }
+ },
+ "export_flags": {
+  "check_existing": false,
+  "use_selection": true,
+  "global_scale": 1.0,
+  "apply_unit_scale": true,
+  "apply_scale_options": "FBX_SCALE_UNITS",
+  "axis_forward": "-Z",
+  "axis_up": "Y",
+  "use_space_transform": true,
+  "bake_space_transform": false,
+  "object_types": [
+   "MESH"
+  ],
+  "use_mesh_modifiers": true,
+  "use_triangles": true,
+  "mesh_smooth_type": "OFF",
+  "use_custom_props": true,
+  "bake_anim": false,
+  "add_leaf_bones": false,
+  "path_mode": "STRIP",
+  "embed_textures": false
+ },
+ "reimport_flags": {
+  "global_scale": 1.0,
+  "use_manual_orientation": false,
+  "bake_space_transform": false,
+  "use_anim": false,
+  "use_image_search": false,
+  "use_custom_props": true
+ },
+ "roundtrip": {
+  "blend_reopen": {
+   "names_match": true,
+   "max_abs_diff_m": 0.0,
+   "pass": true
+  },
+  "fbx_reimport": {
+   "names_match": true,
+   "max_abs_diff_m": 1.000000000139778e-06,
+   "pass": true
+  }
+ },
+ "files": {
+  "ds41_boat_blender.py": {
+   "bytes": 32253,
+   "sha256": "e08e07f051497f875170799cbaf8392008aa54926f661ec02b30955641a29b42"
+  },
+  "ds41_boat_params.json": {
+   "bytes": 7221,
+   "sha256": "6e582d35a476ff54ca77ec0b963cf408686bc25ba893c0b6c098f81b2ee778f9"
+  },
+  "ds41_oshiokuri.blend": {
+   "bytes": 127882,
+   "sha256": "301bfae9722c25f6b901d6c83801d69808c26c99d01adfc6fb829c974dbbbf88"
+  },
+  "ds41_oshiokuri.fbx": {
+   "bytes": 120156,
+   "sha256": "f4bc4087351e246e9f4c9cc87bf4bf67f15b52242dde10855b950ead96fdef23"
+  },
+  "ds41_boat_geom.npz": {
+   "bytes": 28339,
+   "sha256": "c516589f17e8d141cb4682bd0b61166db7cb3a4f17caadfdfe368fba747fae25"
+  },
+  "preview_visual_side_port.png": {
+   "bytes": 1429731,
+   "sha256": "2a5682f32ef5bf046d2aed79188e68cb338d946966e2328edeb687efda8ee1bd"
+  },
+  "preview_visual_top.png": {
+   "bytes": 1547073,
+   "sha256": "5d14c44feea1fc1d158ab8b7a8485078ba29acd6dc07f00cab8e010454d63953"
+  },
+  "preview_visual_three_quarter_bow.png": {
+   "bytes": 1489604,
+   "sha256": "79f1267f59a2654007d45e367409789d752333319b752e8fe8a43e43500b4fe0"
+  },
+  "preview_visual_inside_from_stern.png": {
+   "bytes": 1517120,
+   "sha256": "d5d54b76df5f1db68c646796a7f006a52dbb7defaf18bc1ab1baa28694898039"
+  },
+  "preview_helpers_side_port.png": {
+   "bytes": 1410290,
+   "sha256": "f8f015079d346821ed49d799818ebc660e95be634971a7840ac8407d10f71bbd"
+  },
+  "preview_helpers_top.png": {
+   "bytes": 1397186,
+   "sha256": "90380d081b9ccae4247ad5e0f3dcc3d524095315a52646ca2bc8d248276f681f"
+  },
+  "preview_helpers_three_quarter_bow.png": {
+   "bytes": 1402414,
+   "sha256": "79e7c306f53be8670621c035e8e3614164c130dc164e323e3ec4cf63ce7af336"
+  }
+ },
+ "unity_validation": "NOT_RUN（DS41Boats.ImportCheck で行う）",
+ "hmd_validation": "NOT_RUN",
+ "pass": true
+}
