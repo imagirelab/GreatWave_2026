@@ -1,0 +1,311 @@
+{
+ "schema": "GreatWave.DS49.record_metrics/1",
+ "numberJa": "設計49：波・木船・風の音",
+ "statusJa": "閉じた（使える水準。最小の受入 2 つを満たした。受入の判定の後の修正 0 回。作る途中の直し 1 つ＝音の流れへの写し方）",
+ "evidenceKindJa": "Unity 6000.4.3f1 の Editor の Play モード（batchmode、準備の後は一時停止を解き Time.captureDeltaTime = 1/90 s）と AudioRenderer のオフラインの混ぜ（48 kHz・ステレオ）、PC（NVIDIA GeForce RTX 3080）。HMD 実機・Release・実時間の音の出力ではない。人は聞いていない",
+ "planJa": {
+  "deliverable": "波の地鳴り（形成で強まる）、崩壊の音、風、船のきしみ。numpy で合成して WAV にする（D27。ダウンロードはしない）。位置と出来事に合わせた 3D の AudioSource",
+  "minimumAcceptance": "音と見た目の時刻のずれ ≤1 フレーム（時計から駆動）。方向が合う（PC の画面で確認）",
+  "dependency": "設計46・47",
+  "backlog": "計画の表に項目番号はない",
+  "q11": "崩壊の音は作らない（Q11）。t* のツケ打ちで代える（D49-1）"
+ },
+ "acceptance": {
+  "syncWithinOneFrame": {
+   "criterionJa": "音と見た目の時刻のずれ ≤1 フレーム（1/90 s = 11.1 ms = 533 標本）、時計から駆動",
+   "pass": true,
+   "startsSameStepAsEvent": true,
+   "contentZeroMinusEventMs": {
+    "wind": -7.484004074695101e-13,
+    "creak": -7.484004074695101e-13,
+    "rumble": 0.0,
+    "tstar": 7.105427357601002e-12
+   },
+   "audioLeadToFirstFrameFrames": {
+    "rumble": 0.6144693762335862,
+    "tstar": 0.6144955277714814
+   },
+   "mixLagSamples": {
+    "rumble": -0.31421129662414626,
+    "tstar": -0.27206794165900294,
+    "wind": -0.10815294498319376,
+    "creak": -0.04280059874850128
+   },
+   "mixPeakR": {
+    "rumble": 0.93682874165969,
+    "tstar": 0.994580952617243,
+    "wind": 0.6349907334915529,
+    "creak": 0.30346491763493766
+   },
+   "mixRAtPlusMinus1Frame": {
+    "rumble": [
+     -0.12343261445896724,
+     -0.12350945507011038
+    ],
+    "tstar": [
+     0.0718453700399815,
+     0.061853141102228865
+    ],
+    "wind": [
+     0.029232931732875896,
+     0.02803981420213222
+    ],
+    "creak": [
+     0.024532268426656716,
+     0.027037444852424736
+    ]
+   },
+   "tstarClackOnsetMinusEventMs": -0.27779942886496656,
+   "streamDspMinusSamples": [
+    10.901333333333326,
+    10.90133333333334
+   ],
+   "streamBlockSizes": [
+    0,
+    1024
+   ],
+   "mapOffsetMinusStreamMs": 0.0,
+   "resyncs": {
+    "rumble": 0,
+    "tstar": 0,
+    "wind": 1,
+    "creak": 1
+   },
+   "absDriftMaxMsWhilePlaying": {
+    "rumble": 0.006966095536853345,
+    "tstar": 0.006966095536853345,
+    "wind": 0.0010078976275806895,
+    "creak": 0.0010078976275806895
+   },
+   "readJa": "4 つの音はどれも出来事と同じ時計の段で始まり、クリップの標本 0 は出来事の時刻に予約された。混ぜた音の中身の遅れは 1 標本より小さい。形成の始まりと t* の音は、それを見せる最初のフレームより 0.61 フレーム早い（出来事がフレームの間にあるため）"
+  },
+  "directionAtListener": {
+   "criterionJa": "方向が合う（PC の画面で確認）",
+   "pass": true,
+   "builderWindows02s": {
+    "rumble": {
+     "windows": 58,
+     "eligible": 24,
+     "signAgree": 24,
+     "signAgreeFrac": 1.0,
+     "corrPanSinAz": 0.9999352849124482
+    },
+    "tstar": {
+     "windows": 17,
+     "eligible": 17,
+     "signAgree": 17,
+     "signAgreeFrac": 1.0,
+     "corrPanSinAz": 0.9982300800073469
+    },
+    "wind": {
+     "windows": 331,
+     "eligible": 331,
+     "signAgree": 331,
+     "signAgreeFrac": 1.0,
+     "corrPanSinAz": 0.9792278010686063
+    },
+    "creak": {
+     "windows": 73,
+     "eligible": 55,
+     "signAgree": 55,
+     "signAgreeFrac": 1.0,
+     "corrPanSinAz": 0.9986071214685652
+    }
+   },
+   "headTurn": {
+    "right90": {
+     "windows": 12,
+     "panMean": -0.4738791503176493,
+     "sinAzMean": -0.6189270379301234
+    },
+    "left90": {
+     "windows": 13,
+     "panMean": 0.4353534016069401,
+     "sinAzMean": 0.6189272340466064
+    },
+    "none": {
+     "windows": 25,
+     "panMean": -0.6436052686645958,
+     "sinAzMean": -0.7854484356514965
+    }
+   },
+   "tstarClackPanHigh60ms": 0.3026052602670039,
+   "tstarSourceListenerLocalM": [
+    6.72472620010376,
+    -1.942465901374817,
+    14.002508163452148
+   ],
+   "readJa": "左右だけ（Unity の標準のパンで、HRTF はない）。左右がはっきりした窓で符号が全部合い、頭を左へ 90° 向けた時だけ風の左右が入れ替わる。PC の画面の確かめは独立の検査（音源の位置を聞き手のカメラの画へ投影）"
+  }
+ },
+ "regression_painting_view": {
+  "painting_end_sha256": "faa78462f4305e990ea926c1bfa0e27d8a0dc05ae6a8eeeba7e3e8b95e1e9f5f",
+  "same_as_48": true,
+  "pixelsDifferent": 0,
+  "evaluatorRerun": false,
+  "readJa": "体験の終わりの原画視点は設計48（と設計47）と画素まで同じ。原画視点の場面は SHA-256 のまま。評価器は回していない"
+ },
+ "play_path": {
+  "scene": "Unity/Assets/GreatWave/Design49/Scenes/DS49_Sound.unity",
+  "sceneSha256": "90894c9a45d9f9f064f7adff30ee09f5792b2c24906376e2d4ba8eaf5455ea3b",
+  "sceneBytes": 215109,
+  "frameRows": 6506,
+  "framesInLog": 6507,
+  "events": {
+   "intro_start": {
+    "fired": true,
+    "clockMinusEventMs": 19.998992102384566
+   },
+   "handover": {
+    "fired": true,
+    "clockMinusEventMs": 0.0
+   },
+   "formation_start": {
+    "fired": true,
+    "clockMinusEventMs": 6.8274375137065135
+   },
+   "a_to_d_start": {
+    "fired": true,
+    "clockMinusEventMs": 1.2722529556725704
+   },
+   "jet_start": {
+    "fired": true,
+    "clockMinusEventMs": 6.827288502094575
+   },
+   "t_star": {
+    "fired": true,
+    "clockMinusEventMs": 6.827728086349794
+   },
+   "afterglow_start": {
+    "fired": true,
+    "clockMinusEventMs": 6.827776515123674
+   },
+   "afterglow_settled": {
+    "fired": true,
+    "clockMinusEventMs": 6.827921801445314
+   },
+   "end": {
+    "fired": true,
+    "clockMinusEventMs": 0.0
+   }
+  },
+  "handover": {
+   "s": 36.50888976454735,
+   "waveStart": 44.21317362486458,
+   "afterglowStart": 58.21317362486458,
+   "end": 72.21317362486458,
+   "reason": "target"
+  },
+  "errors": {
+   "sound": 0,
+   "flow": 0,
+   "boatWaterFallbacks": 0,
+   "boatWaterQueries": 42302,
+   "inputFrames": 3283,
+   "inputFallbackFrames": 0
+  },
+  "audioSamples": 3469312,
+  "protectedUnchanged": true,
+  "protectedCount": 43,
+  "settingsRestored": 0,
+  "settingsAddedFile": "Unity/ProjectSettings/PackageManagerSettings.asset（main2、GUI の Editor。コミットしない）"
+ },
+ "wav": {
+  "rumble": {
+   "samples": 576000,
+   "seconds": 12.0,
+   "bytes": 1152044,
+   "peakDbfs": -2.0001827379579966,
+   "firstNonZeroSample": 422,
+   "loopSeamJump": null,
+   "stepP999": 741.002000000095
+  },
+  "tstar": {
+   "samples": 163200,
+   "seconds": 3.4,
+   "bytes": 326444,
+   "peakDbfs": -3.0003622493859567,
+   "firstNonZeroSample": 0,
+   "loopSeamJump": null,
+   "stepP999": 2513.4060000000754
+  },
+  "wind": {
+   "samples": 768000,
+   "seconds": 16.0,
+   "bytes": 1536044,
+   "peakDbfs": -6.000477743319013,
+   "firstNonZeroSample": 0,
+   "loopSeamJump": 197,
+   "stepP999": 979.0
+  },
+  "creak": {
+   "samples": 576000,
+   "seconds": 12.0,
+   "bytes": 1152044,
+   "peakDbfs": -4.0000883347026726,
+   "firstNonZeroSample": 29569,
+   "loopSeamJump": 0,
+   "stepP999": 1499.00400000019
+  }
+ },
+ "wavBytesTotal": 4166576,
+ "mixPeak": 0.617265522480011,
+ "evidenceVideo": {
+  "file": "Docs/Evidence/Design/49/ds49_sound_960x540_30fps.mp4",
+  "bytes": 2762058,
+  "frames": 2166,
+  "offsetMs": -3.1597433352104076,
+  "builderMp4OffsetMs": -22.493076668538947
+ },
+ "main8BeforeFix": {
+  "mapErrorMs": 11.111111380159855,
+  "mixLagSamples": {
+   "rumble": -533.3249809275245,
+   "tstar": -56.271574188205015
+  }
+ },
+ "record_only": [
+  "実時間の出力の遅れ（DSP の塊 1024 × 4、ドライバー、HMD の表示）は測っていない（設計50・仕上げ49、PS VR2 は保留）",
+  "合わせ直しの許容 0.05 s（4.5 フレーム）は 1 フレームより緩い。実時間ではその内のずれを直さない（仕上げ49）",
+  "方向は左右だけ。前後と高さは分けられない（HRTF なし）",
+  "地鳴りの位置は主役波の描画の範囲の中心で粗い。t* の音の位置は爪の範囲の中心で、画では波の面の右下の縁",
+  "人は聞いていない。音色・音量の釣り合い・ツケ打ちが合うかは決めていない（既定値、Q24）",
+  "一時停止・再開・Seek・初期化の音の道は Play で試していない",
+  "試験の道が設計47・48（EditorApplication.Step）と違う（一時停止を解いて captureDeltaTime で進める）",
+  "作る部の動画は音が 22 ms 早い（証拠の写しは記録で合わせ直した）",
+  "他の 2 隻のきしみ、海の地の音・船べりの水の音はない"
+ ],
+ "hmd": "保留（利用者の手）。PS VR2 での音と画の遅れ、方向、音量。Mock の両目はこの番号では描いていない",
+ "fix_rounds": {
+  "afterAcceptance": 0,
+  "buildPhaseJa": "作る途中の直し 1 つ（D49-2：音の流れへの写し方を、今の段の時刻から前の段の最小へ。main8 → main9・main10）と、同じ実行で見つけたきしみの角速度の不具合（main9 → main10）。どちらも受入の判定の前"
+ },
+ "time": {
+  "boxQ26": "2 時間",
+  "builderStartReportJa": "16:19（作る部の報告）",
+  "builderStartedFile": "16:25:04（_started.txt）",
+  "firstFile": "16:25:47（ds49_sound.json）",
+  "builderFinishedFile": "17:14:25（_finished.txt）",
+  "checkerFiles": "17:18:51〜17:23:03（独立の検査の道具の時刻）",
+  "recordStart": "17:25",
+  "builderMinutesJa": "約 55 分（16:19〜17:14）。独立の検査の終わりまで約 64 分"
+ },
+ "diffVsBuilder": {
+  "stream_dspMinusSamplesMin": 0.0,
+  "stream_remainderMax": 0.0,
+  "stream_e0": 0.0,
+  "samples": 0,
+  "mixPeak": 0.0,
+  "rumbleLeadFrames": 0.0,
+  "tstarLeadFrames": 0.0,
+  "paintingPixels": 0,
+  "lagSamples_rumble": -0.332319882246795,
+  "resyncs_rumble": 0,
+  "lagSamples_tstar": -0.2692451736921439,
+  "resyncs_tstar": 0,
+  "lagSamples_wind": -0.048200237616225154,
+  "resyncs_wind": 0,
+  "lagSamples_creak": -0.03847528747319115,
+  "resyncs_creak": 0
+ }
+}

@@ -1,0 +1,154 @@
+{
+  "schema": "GreatWave.DS49.sound/1",
+  "noteJa": "設計49：波・木船・風の音。音はすべて numpy で合成した WAV（D27。ダウンロードも録音もしない。Tools/GWWaveGen/ds49/ds49_synth.py がこの表の synth を読んで作る）。Unity の DS49Sound が同じ表の tracks を読み、共通時計（GWClock、Master。設計46）の段として、出来事の表（設計47 の ds47_flow.json の events）の時刻から再生の位置を決める（音の中身の時刻 = 体験の時刻 − 出来事の時刻）。t* の後の崩壊の音は作らない（Q11）。代わりに t* の瞬間に歌舞伎の見得のツケ打ち（「バッタリ」）の打音を置き、時間の止まる 2 s の保持を支える（進行役の選択、Q24。利用者未回答）。値は進行役が決めた既定値。",
+  "sampleRate": 48000,
+  "synth": {
+    "seed": 4901,
+    "rumble": {
+      "file": "ds49_rumble.wav",
+      "lengthS": 12.0,
+      "noteJa": "波の地鳴り。大波の時刻 t = 0（形成の始まり）から t* = 12 s まで。形成で強まる（-28 dB → 0 dB、指数 1.3）。a→d（7.45 s）で盛り上がり、噴流の始まり（9.6 s）から水の裂ける音（中域の帯）が加わる。t* でちょうど切れる（時間が止まる。崩壊の音は作らない）",
+      "startDb": -28.0,
+      "growthExp": 1.3,
+      "subHz": [18.0, 70.0],
+      "roarHz": [70.0, 260.0],
+      "washHz": [350.0, 2600.0],
+      "adS": 7.45,
+      "jetS": 9.6,
+      "swellHz": 0.32,
+      "fadeInS": 0.25,
+      "fadeOutS": 0.02,
+      "peakDbfs": -2.0
+    },
+    "tstar": {
+      "file": "ds49_tstar.wav",
+      "lengthS": 3.4,
+      "noteJa": "t* の瞬間（原画の瞬間）。ツケ打ちの 2 打（0 s と 0.085 s。木の板を拍子木で打つ乾いた音）＋低い胴の響き（90 → 48 Hz）＋止まった飛沫のかすかな高い響き（2 s の保持の間に消える）。最初の打音の立ち上がりが標本 0",
+      "hitsS": [0.0, 0.085],
+      "hitsAmp": [0.75, 1.0],
+      "hitModesHz": [1180.0, 2350.0, 3480.0, 5150.0],
+      "hitModesDecayS": [0.045, 0.028, 0.018, 0.010],
+      "hitModesAmp": [1.0, 0.6, 0.35, 0.2],
+      "boomHz": [90.0, 48.0],
+      "boomDecayS": 0.7,
+      "boomAmp": 0.55,
+      "shimmerHz": [3000.0, 9000.0],
+      "shimmerAmp": 0.05,
+      "shimmerDecayS": 1.1,
+      "peakDbfs": -3.0
+    },
+    "wind": {
+      "file": "ds49_wind.wav",
+      "lengthS": 16.0,
+      "crossfadeS": 1.0,
+      "noteJa": "風（輪にして繰り返す。終わりの 1 s を始めへ等しい力で重ねてつなぐ）。広い帯の風の音と、突風に合わせて強まる 2 本の笛の音",
+      "bandHz": [150.0, 1800.0],
+      "whistleHz": [620.0, 910.0],
+      "whistleWidthHz": 22.0,
+      "whistleAmp": 0.35,
+      "gustHz": [0.07, 0.13, 0.21],
+      "peakDbfs": -6.0
+    },
+    "creak": {
+      "file": "ds49_creak.wav",
+      "lengthS": 12.0,
+      "noteJa": "木船のきしみ（輪にして繰り返す）。板の擦れ（stick-slip のパルス列、速さが 0.2〜0.6 s で変わる）を木の響き（3 つの減衰する正弦）に通したもの 9 つを輪の中に置く（輪の継ぎ目をまたがない）",
+      "count": 9,
+      "durS": [0.25, 0.65],
+      "rateHz": [28.0, 75.0],
+      "modesHz": [380.0, 820.0, 1450.0],
+      "modesDecayS": [0.035, 0.022, 0.012],
+      "peakDbfs": -4.0
+    }
+  },
+  "tracks": [
+    {
+      "key": "rumble",
+      "nameJa": "波の地鳴り",
+      "clip": "ds49_rumble.wav",
+      "anchorEvent": "formation_start",
+      "loop": false,
+      "place": "hero",
+      "volume": 1.0,
+      "minDistanceM": 60.0,
+      "maxDistanceM": 1500.0,
+      "spreadDeg": 40.0,
+      "noteJa": "位置 = 主役波のシート（hero）の描画の範囲の中心（毎段）。出来事 formation_start で始まる"
+    },
+    {
+      "key": "tstar",
+      "nameJa": "t* の瞬間（ツケ打ち）",
+      "clip": "ds49_tstar.wav",
+      "anchorEvent": "t_star",
+      "loop": false,
+      "place": "crest",
+      "volume": 1.0,
+      "minDistanceM": 60.0,
+      "maxDistanceM": 1500.0,
+      "spreadDeg": 30.0,
+      "noteJa": "位置 = t* の爪（DS34 の爪の描画の範囲の中心。無ければ主役波の範囲の上の端）。出来事 t_star で始まる"
+    },
+    {
+      "key": "wind",
+      "nameJa": "風",
+      "clip": "ds49_wind.wav",
+      "anchorEvent": "intro_start",
+      "loop": true,
+      "place": "wind",
+      "volume": 0.55,
+      "minDistanceM": 8.0,
+      "maxDistanceM": 500.0,
+      "spreadDeg": 30.0,
+      "noteJa": "位置 = 聞き手 ＋ 風の来る向き × windDistanceM（向きは世界に固定。原画のカメラの左 = 大波の側から、windFromYawOffsetDeg だけ回す）。音量は下の windGain（時計の関数）"
+    },
+    {
+      "key": "creak",
+      "nameJa": "木船のきしみ",
+      "clip": "ds49_creak.wav",
+      "anchorEvent": "intro_start",
+      "loop": true,
+      "place": "boat",
+      "volume": 0.8,
+      "minDistanceM": 1.5,
+      "maxDistanceM": 80.0,
+      "spreadDeg": 0.0,
+      "noteJa": "位置 = 座席の船の根の局所 creakLocal。音量は船の動き（傾きの角速度と水平の速さ。体験の時刻で微分し 0.25 s でならす）で決める。t* の保持で船が止まれば鳴らない"
+    }
+  ],
+  "place": {
+    "windFromYawOffsetDeg": 0.0,
+    "windDistanceM": 15.0,
+    "creakLocal": [0.0, 0.35, -0.6]
+  },
+  "windGain": {
+    "intro": 0.45,
+    "formationPeak": 0.9,
+    "hold": 0.12,
+    "holdDropS": 0.12,
+    "afterglowPeak": 0.3,
+    "endFadeS": 3.0,
+    "noteJa": "風の音量（track の volume に掛ける）：導入・接近 intro、形成で smoothstep(t/12) により formationPeak へ、t* で holdDropS のうちに hold へ下げる（時間が止まる）、余韻の視点の移動の間に afterglowPeak へ戻し、終わりの endFadeS で 0 へ"
+  },
+  "creakGain": {
+    "angDegSLow": 0.6,
+    "angDegSHigh": 8.0,
+    "speedLow": 0.3,
+    "speedHigh": 4.0,
+    "angWeight": 0.75,
+    "speedWeight": 0.25,
+    "smoothS": 0.25
+  },
+  "sync": {
+    "resyncToleranceS": 0.05,
+    "dopplerLevel": 0.0,
+    "stageOrder": 95,
+    "noteJa": "毎段、再生の位置（標本）を 体験の時刻 − 出来事の時刻 と比べ、resyncToleranceS を超えてずれたら合わせ直す（実時間では音の処理の塊が 1024 標本 ≈ 21 ms なので、塊の粒より大きいずれだけを直す）。止めている間（時計の停止・一時停止）は音も止め、再開で合わせ直す。途中からの再生（Seek）・初期化でも同じ規則で位置を決める。ドップラーは切る（音の中身の時刻を時計に合わせたまま保つ）"
+  },
+  "demo": {
+    "noteJa": "試験だけ（Play モードの通しの筋書き。体験の秒 s。場面には入れない）。操船は設計47 の demo.main と同じ。頭の向きの試験：導入で頭（HMD Camera の局所の向き）を右へ 90° と左へ 90° 回し、風の左右が入れ替わるかを聞き手で確かめる",
+    "headTurns": [
+      { "s0": 3.0, "s1": 5.5, "yawDeg": 90.0, "labelJa": "右を向く" },
+      { "s0": 5.5, "s1": 8.0, "yawDeg": -90.0, "labelJa": "左を向く" }
+    ]
+  }
+}

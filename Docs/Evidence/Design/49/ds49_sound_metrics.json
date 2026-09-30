@@ -1,0 +1,319 @@
+{
+ "schema": "GreatWave.DS49.metrics/1",
+ "acceptance": {
+  "syncWithinOneFrame": {
+   "pass": true,
+   "eventLog": true,
+   "mixXcorr": true,
+   "noteJa": "出来事の記録（始めた段と位置）と、混ぜた音の相互相関の山の遅れの両方で ≤ 1 フレーム（1/90 s）"
+  },
+  "directionAtListener": {
+   "pass": true,
+   "headTurnFlip": true,
+   "noteJa": "左右がはっきりした窓（|sin 方位角| > 0.25、その音の割合 > 5%）で、測った左右の釣り合いの符号が音の位置の左右と合う割合 ≥ 95%（窓が 5 以上の音）。頭の向きの試験で風の左右が入れ替わる"
+  }
+ },
+ "stream": {
+  "e0": 0.019999992102384567,
+  "dspMinusSamplesMin": 10.901333333333326,
+  "dspMinusSamplesMax": 10.90133333333334,
+  "remainderSamplesMin": -4039.6656274143606,
+  "remainderSamplesMax": 1002.7500287294388,
+  "blockSizes": [
+   0,
+   1024
+  ]
+ },
+ "starts": [
+  {
+   "track": "wind",
+   "event": "intro_start",
+   "eventT": 1e-06,
+   "startExp": 0.019999992102384567,
+   "eventClockT": 0.019999992102384567,
+   "eventStep": 2,
+   "startStep": 2,
+   "sameStep": true,
+   "firstVisualFrameDelayS": 0.019998992102384566,
+   "firstVisualFrameDelayFrames": 1.799909289214611,
+   "scheduled": true,
+   "contentZeroAtS": 9.999999992515995e-07,
+   "contentZeroMinusEventMs": -7.484004074695101e-13,
+   "audioMinusFirstVisualFrameFrames": -1.7999092892146784,
+   "stepDtS": 0.019999992102384567,
+   "eventInsideStep": true,
+   "audioMinusFirstVisualFrameInStepDt": -0.9999499999802933
+  },
+  {
+   "track": "creak",
+   "event": "intro_start",
+   "eventT": 1e-06,
+   "startExp": 0.019999992102384567,
+   "eventClockT": 0.019999992102384567,
+   "eventStep": 2,
+   "startStep": 2,
+   "sameStep": true,
+   "firstVisualFrameDelayS": 0.019998992102384566,
+   "firstVisualFrameDelayFrames": 1.799909289214611,
+   "scheduled": true,
+   "contentZeroAtS": 9.999999992515995e-07,
+   "contentZeroMinusEventMs": -7.484004074695101e-13,
+   "audioMinusFirstVisualFrameFrames": -1.7999092892146784,
+   "stepDtS": 0.019999992102384567,
+   "eventInsideStep": true,
+   "audioMinusFirstVisualFrameInStepDt": -0.9999499999802933
+  },
+  {
+   "track": "rumble",
+   "event": "formation_start",
+   "eventT": 44.21317362486458,
+   "startExp": 44.22000106237829,
+   "eventClockT": 44.22000106237829,
+   "eventStep": 3980,
+   "startStep": 3980,
+   "sameStep": true,
+   "firstVisualFrameDelayS": 0.0068274375137065135,
+   "firstVisualFrameDelayFrames": 0.6144693762335862,
+   "scheduled": true,
+   "contentZeroAtS": 44.21317362486458,
+   "contentZeroMinusEventMs": 0.0,
+   "audioMinusFirstVisualFrameFrames": -0.6144693762335862,
+   "stepDtS": 0.011111111380159855,
+   "eventInsideStep": true,
+   "audioMinusFirstVisualFrameInStepDt": -0.6144693613545873
+  },
+  {
+   "track": "tstar",
+   "event": "t_star",
+   "eventT": 56.21317362486458,
+   "startExp": 56.22000135295093,
+   "eventClockT": 56.22000135295093,
+   "eventStep": 5060,
+   "startStep": 5060,
+   "sameStep": true,
+   "firstVisualFrameDelayS": 0.0068277280863497936,
+   "firstVisualFrameDelayFrames": 0.6144955277714814,
+   "scheduled": true,
+   "contentZeroAtS": 56.21317362486459,
+   "contentZeroMinusEventMs": 7.105427357601002e-12,
+   "audioMinusFirstVisualFrameFrames": -0.6144955277708419,
+   "stepDtS": 0.011111111380159855,
+   "eventInsideStep": true,
+   "audioMinusFirstVisualFrameInStepDt": -0.6144955128912098
+  }
+ ],
+ "sync": {
+  "rumble": {
+   "segmentS": [
+    47.21317362486458,
+    56.01317362486458
+   ],
+   "lagSamples": 0.018108585622648703,
+   "lagMs": 0.000377262200471848,
+   "lagFrames": 3.3953598042466316e-05,
+   "peakCorr": 0.9368541222124023,
+   "withinOneFrame": true
+  },
+  "tstar": {
+   "segmentS": [
+    56.21317362486458,
+    58.21317362486458
+   ],
+   "lagSamples": -0.0028227679668590263,
+   "lagMs": -5.880766597622971e-05,
+   "lagFrames": -5.292689937860674e-06,
+   "peakCorr": 0.9970120266719548,
+   "withinOneFrame": true
+  },
+  "wind": {
+   "segmentS": [
+    1.0,
+    15.0
+   ],
+   "lagSamples": -0.05995270736696861,
+   "lagMs": -0.001249014736811846,
+   "lagFrames": -0.00011241132631306615,
+   "peakCorr": 0.6350174561897591,
+   "withinOneFrame": true
+  },
+  "creak": {
+   "segmentS": [
+    0.3755555562674999,
+    55.55333467014134
+   ],
+   "lagSamples": -0.004325311275310125,
+   "lagMs": -9.011065156896094e-05,
+   "lagFrames": -8.109958641206484e-06,
+   "peakCorr": 0.27318265504499467,
+   "withinOneFrame": true
+  }
+ },
+ "direction": {
+  "rumble": {
+   "windows": 58,
+   "eligible": 24,
+   "signAgree": 24,
+   "signAgreeFrac": 1.0,
+   "corrPanSinAz": 0.9999352849124482
+  },
+  "tstar": {
+   "windows": 17,
+   "eligible": 17,
+   "signAgree": 17,
+   "signAgreeFrac": 1.0,
+   "corrPanSinAz": 0.9982300800073469
+  },
+  "wind": {
+   "windows": 331,
+   "eligible": 331,
+   "signAgree": 331,
+   "signAgreeFrac": 1.0,
+   "corrPanSinAz": 0.9792278010686063
+  },
+  "creak": {
+   "windows": 73,
+   "eligible": 55,
+   "signAgree": 55,
+   "signAgreeFrac": 1.0,
+   "corrPanSinAz": 0.9986071214685652
+  }
+ },
+ "headTurn": {
+  "right90": {
+   "windows": 12,
+   "panMean": -0.4738791503176493,
+   "sinAzMean": -0.6189270379301234
+  },
+  "left90": {
+   "windows": 13,
+   "panMean": 0.4353534016069401,
+   "sinAzMean": 0.6189272340466064
+  },
+  "none": {
+   "windows": 25,
+   "panMean": -0.6436052686645958,
+   "sinAzMean": -0.7854484356514965
+  }
+ },
+ "frames": {
+  "count": 6506,
+  "dtMin": 0.0,
+  "dtMax": 0.011111111380159855,
+  "audioSamples": 3469312,
+  "samplesPerFrame": [
+   0,
+   1024
+  ],
+  "audioSamplesWithClock": 3469312,
+  "clockSpanS": 72.18206252138204,
+  "firstAudioFrameExp": 0.031111103482544422,
+  "samplesBeforeClockReady": 0
+ },
+ "mixPeak": 0.617265522480011,
+ "wavGain": 1.0,
+ "resyncs": {
+  "rumble": 0,
+  "tstar": 0,
+  "wind": 1,
+  "creak": 1
+ },
+ "startsCount": {
+  "rumble": 1,
+  "tstar": 1,
+  "wind": 1,
+  "creak": 1
+ },
+ "errors": {
+  "sound": 0,
+  "flow": 0,
+  "boatWaterFallbacks": 0
+ },
+ "events": [
+  {
+   "id": "intro_start",
+   "eventT": 1e-06,
+   "clockT": 0.019999992102384567,
+   "step": 2,
+   "fired": true
+  },
+  {
+   "id": "handover",
+   "eventT": 36.50888976454735,
+   "clockT": 36.50888976454735,
+   "step": 3286,
+   "fired": true
+  },
+  {
+   "id": "formation_start",
+   "eventT": 44.21317362486458,
+   "clockT": 44.22000106237829,
+   "step": 3980,
+   "fired": true
+  },
+  {
+   "id": "a_to_d_start",
+   "eventT": 51.66317343412972,
+   "clockT": 51.66444568708539,
+   "step": 4650,
+   "fired": true
+  },
+  {
+   "id": "jet_start",
+   "eventT": 53.81317400633431,
+   "clockT": 53.8200012948364,
+   "step": 4844,
+   "fired": true
+  },
+  {
+   "id": "t_star",
+   "eventT": 56.21317362486458,
+   "clockT": 56.22000135295093,
+   "step": 5060,
+   "fired": true
+  },
+  {
+   "id": "afterglow_start",
+   "eventT": 58.21317362486458,
+   "clockT": 58.220001401379704,
+   "step": 5240,
+   "fired": true
+  },
+  {
+   "id": "afterglow_settled",
+   "eventT": 64.21317362486458,
+   "clockT": 64.22000154666603,
+   "step": 5780,
+   "fired": true
+  },
+  {
+   "id": "end",
+   "eventT": 72.21317362486458,
+   "clockT": 72.21317362486458,
+   "step": 6500,
+   "fired": true
+  }
+ ],
+ "handover": {
+  "s": 36.50888976454735,
+  "waveStart": 44.21317362486458,
+  "afterglowStart": 58.21317362486458,
+  "end": 72.21317362486458,
+  "reason": "target"
+ },
+ "paintingRegression": {
+  "painting_end": "G:/Unity/GreatWave_2026_Fresh/Unity/Build/Design/49/sound/unity/main/painting/painting_end.png",
+  "sha256": "faa78462f4305e990ea926c1bfa0e27d8a0dc05ae6a8eeeba7e3e8b95e1e9f5f",
+  "ref48": "G:/Unity/GreatWave_2026_Fresh/Unity/Build/Design/48/wake/unity/main/painting/painting_end.png",
+  "ref48Sha256": "faa78462f4305e990ea926c1bfa0e27d8a0dc05ae6a8eeeba7e3e8b95e1e9f5f",
+  "pixelsDifferent": 0,
+  "maxDiff": 0
+ },
+ "protectedUnchanged": true,
+ "protectedCount": 43,
+ "outputs": {
+  "video": "G:/Unity/GreatWave_2026_Fresh/Unity/Build/Design/49/sound/ds49_sound_30fps.mp4",
+  "video720": "G:/Unity/GreatWave_2026_Fresh/Unity/Build/Design/49/sound/ds49_sound_540p_30fps_small.mp4",
+  "wavFromCap0": "G:/Unity/GreatWave_2026_Fresh/Unity/Build/Design/49/sound/ds49_mix_from_cap0.wav",
+  "wavFull": "G:/Unity/GreatWave_2026_Fresh/Unity/Build/Design/49/sound/ds49_mix_full.wav"
+ }
+}
