@@ -1,0 +1,63 @@
+{
+  "schema": "GreatWave.DS48.wake/1",
+  "noteJa": "設計48：座席の船の船首の泡と航跡（調色板の白の平たいメッシュ）。値は進行役が決めた既定値（Q24・Q26。利用者未回答）。DS48Wake（Unity）と Tools/GWWaveGen/ds48 が同じこの表を読む。速さと旋回の角速度は、船の根の姿勢の差を共通時計の体験の秒で割って出す（物理・固定の軌道・時計の姿勢のどの段でも同じ読み方。一時停止の間は時計が止まるので、泡も航跡も止まる）。",
+  "color": {
+    "srgb8": [251, 246, 227],
+    "source": "Tools/PaintingTruth/targets/palette.json（palette.white.srgb8、白・生成り）",
+    "sourceSha256": "2e550bf3c60eb16ef5d4a37e35c315882a1a05dd6accb79bdea3f5f3f7a90056"
+  },
+  "motion": {
+    "smoothS": 0.25,
+    "vMinMs": 0.15,
+    "vFullMs": 2.2,
+    "yawRateFullDegS": 8.0,
+    "teleportM": 3.0,
+    "noteJa": "速さ v（前向きの成分）と旋回の角速度 r は時定数 smoothS の指数平滑。速さの重み sv = smoothstep((v − vMinMs)/(vFullMs − vMinMs))（設計44 の前進の上限 2.4 m/s の手前で 1）。旋回の重み sr = clamp(r / yawRateFullDegS, −1, 1)（設計44 の旋回の上限 10°/s）。1 段で teleportM を超えて動いたら（場面の置き直し）履歴を消す"
+  },
+  "bow": {
+    "stations": 12,
+    "lenMinM": 1.2,
+    "lenPerSpeedM": 1.6,
+    "widthM": 0.9,
+    "widthMinFrac": 0.0,
+    "turnAsym": 0.7,
+    "bowFullLenFrac": 0.22,
+    "liftM": 0.05,
+    "noteJa": "船首の泡：左右の舷に沿った平たい帯（船首の先から後ろへ lenMinM + lenPerSpeedM × sv の長さ）。帯の外への幅 = widthM × sv × 側の重み × 形（船首の近くで最も広く、後ろで 0）。側の重み = 1 + turnAsym × sr × 側の符号（右旋回 sr > 0 では外側の左舷が広く、内側の右舷が狭い）。船体の水線の幅は、船首から bowFullLenFrac × 長さで全幅に達する放物線で近似。高さは船用水面データ（設計43）の水面 + liftM"
+  },
+  "wake": {
+    "emitEveryS": 0.08,
+    "lifeS": 7.0,
+    "washHalfWidthM": 0.55,
+    "washGrowMs": 0.18,
+    "armWidthM": 0.32,
+    "armAngleDeg": 19.47,
+    "armTurnAsym": 0.6,
+    "liftM": 0.04,
+    "noteJa": "航跡：船尾の点を emitEveryS ごと（体験の秒）に履歴へ入れる（位置・右の向き・その時の sv と sr）。(1) 中央の泡の帯：半幅 = sv_e × (washHalfWidthM + washGrowMs × 年齢) × (1 − (年齢/lifeS)²)。(2) 両側の腕（ケルビンの波の角 19.47°）：出た点から横へ v_e × 年齢 × tan(armAngleDeg) 離れた所に幅 armWidthM × sv_e × (1 − 年齢/lifeS) × 側の重み（1 + armTurnAsym × sr_e × 外側の符号）の細い帯。旋回すると履歴の道が曲がるので、帯と腕も曲がる。年齢とともに白が途切れ途切れになる（シェーダーの切り抜き）"
+  },
+  "gate": {
+    "fadeStartWaveS": 0.0,
+    "fadeEndWaveS": 2.0,
+    "guardHeightM": 0.4,
+    "noteJa": "主役波の上に出さない（D48-2）：(1) 時刻：大波の時刻 fadeStartWaveS から新しい泡を出さず、船首の泡と航跡の全部の幅を fadeEndWaveS までに 0 へ縮め、その後はメッシュを空にして描かない（形成・保持・余韻・終わりには出ない。大波が立ち上がる前に消える）。(2) 場所：水面（船用水面データの下側の一価の面）が guardHeightM より高い所、または鉛直の線がシートと 2 回以上交わる所（巻き込み・唇の下）の頂点は描かない"
+  },
+  "shader": {
+    "dashFreqPerM": 0.55,
+    "acrossFreq": 2.5,
+    "solidLife": 0.25,
+    "noteJa": "シェーダー（DS48_Foam、平塗りの不透明の白、切り抜き）：年齢の割合 life（0 = 新しい、1 = 消える）が solidLife までは切れ目なし、その後は道の長さ方向の値の雑音で白がちぎれて減る"
+  },
+  "demo": {
+    "noteJa": "試験だけ（Play モードの筋書き。体験の秒 s。場面には入れない）。直進の加速 → 右旋回 → 直進 → 左旋回 → 入力なし（減速）→ 停止 → 再び前進。引き継ぎの後は入力を読まない（設計47）",
+    "main": [
+      { "s0": 1.0, "s1": 7.0, "keys": "W", "labelJa": "前進（加速）" },
+      { "s0": 7.0, "s1": 12.0, "keys": "W D", "labelJa": "前進しながら右へ" },
+      { "s0": 12.0, "s1": 15.0, "keys": "W", "labelJa": "前進" },
+      { "s0": 15.0, "s1": 21.0, "keys": "W A", "labelJa": "前進しながら左へ" },
+      { "s0": 21.0, "s1": 24.0, "keys": "", "labelJa": "入力なし（抵抗で遅くなる）" },
+      { "s0": 24.0, "s1": 26.5, "keys": "Space", "labelJa": "停止" },
+      { "s0": 26.5, "s1": 60.0, "keys": "W", "labelJa": "前進（引き継ぎの後は読まれない）" }
+    ]
+  }
+}

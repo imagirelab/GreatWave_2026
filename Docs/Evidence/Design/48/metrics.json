@@ -1,0 +1,290 @@
+{
+ "schema": "GreatWave.DS48.record_metrics/1",
+ "number": "設計48",
+ "title_ja": "船首泡・航跡",
+ "created_utc": "2026-09-30T08:23:56Z",
+ "evidence_kind_ja": "PC の Unity 6000.4.3f1 の Editor の Play モード（batchmode、EditorApplication.Step で 1 フレーム = 1/90 s）の記録。HMD 実機・Release・実時間ではない。",
+ "plan_ja": "計画 §2.5 設計48：調色板の白の平たいメッシュで、船首の泡と航跡。速度と旋回に反応する（依存 設計44、時間枠 ≤0.5日、Q26 で 2 h）",
+ "min_acceptance_ja": "操作の方向に反応する動画。主役波の上に航跡が出ない",
+ "acceptance": [
+  {
+   "item": "操作の方向に反応する動画",
+   "result": "合格",
+   "value": {
+    "right_turn_frames": 372,
+    "right_port_gt_stbd_frac": 1.0,
+    "right_median_port_over_stbd": 5.66666685932202,
+    "right_arm_port_gt_stbd_frac": 1.0,
+    "left_turn_frames": 459,
+    "left_stbd_gt_port_frac": 1.0,
+    "left_median_stbd_over_port": 5.66666685932202,
+    "left_arm_stbd_gt_port_frac": 0.8061002178649237,
+    "yaw_only_right_frames": 529,
+    "yaw_only_right_port_gt_frac": 1.0,
+    "yaw_only_left_frames": 616,
+    "yaw_only_left_stbd_gt_frac": 1.0,
+    "right_turn_exp_range": [
+     7.886666849255562,
+     12.008889171294868
+    ],
+    "left_turn_exp_range": [
+     15.920000377111137,
+     21.00888938922435
+    ],
+    "straight_frames": 1898,
+    "straight_corr_speed_bow": 0.9892248780791192,
+    "stopped_frames": 90,
+    "stopped_max_bow_w": 0.0014582512667402625,
+    "stopped_exp_range": [
+     26.34222285170108,
+     36.49777865316719
+    ],
+    "max_bow_w": 1.4609839916229248,
+    "speed_at_max_bow": 2.2479472160339355,
+    "yaw_at_max_bow": 8.016522407531738,
+    "max_speed": 2.38598370552063,
+    "max_abs_yaw": 9.977932929992676,
+    "input_frames_steer": 2924
+   },
+   "video": "Docs/Evidence/Design/48/ds48_wake_1280x480_30fps.mp4"
+  },
+  {
+   "item": "主役波の上に航跡が出ない",
+   "result": "合格",
+   "value": {
+    "mask_samples": 1446,
+    "overlap_px_sum": 0,
+    "overlap_samples": 0,
+    "after_fade_samples": 522,
+    "after_fade_wake_px_max": 0,
+    "after_fade_hero_visible_samples": 435,
+    "after_fade_frames": 2350,
+    "after_fade_visible_verts": 0,
+    "after_fade_renderer_on": 0,
+    "after_fade_samples_stored": 0,
+    "first_gate_zero_wave": 2.0064323011225014,
+    "renderer_on_frames_by_phase": {
+     "Intro": 3283,
+     "Approach": 694,
+     "Formation": 180,
+     "Hold": 0,
+     "Afterglow": 0,
+     "End": 0
+    },
+    "frames_by_phase": {
+     "Intro": 3283,
+     "Approach": 694,
+     "Formation": 1080,
+     "Hold": 180,
+     "Afterglow": 1260,
+     "End": 10
+    },
+    "wave0_2_frames": 180,
+    "wave0_2_renderer_on": 180,
+    "wave0_2_mask_checks": {
+     "chase": {
+      "n": 20,
+      "wake_visible": 20,
+      "hero_visible": 0
+     },
+     "hmd": {
+      "n": 20,
+      "wake_visible": 0,
+      "hero_visible": 7
+     }
+    },
+    "guard_hidden_sum": 9684,
+    "guard_hidden_wave_range": [
+     1.3286545069327502,
+     1.9953211897423415
+    ],
+    "gate_max_while_guard_hidden": 0.26238393783569336,
+    "max_visible_vertex_y": 0.4499105215072632,
+    "guard_height_m": 0.4
+   }
+  }
+ ],
+ "regression_painting_view": {
+  "result": "合格（評価器は回していない。画素が同じ）",
+  "value": {
+   "sha256": "faa78462f4305e990ea926c1bfa0e27d8a0dc05ae6a8eeeba7e3e8b95e1e9f5f",
+   "ref47_sha256": "faa78462f4305e990ea926c1bfa0e27d8a0dc05ae6a8eeeba7e3e8b95e1e9f5f",
+   "px_diff": 0,
+   "max_diff": 0,
+   "size": [
+    1920,
+    1080
+   ]
+  }
+ },
+ "play_path": {
+  "frames": 6507,
+  "csv_rows": 6507,
+  "captured": 2169,
+  "fixedDeltaTime": 0.011111111380159855,
+  "events_fired": 9,
+  "events": 9,
+  "event_lag_s": {
+   "intro_start": 0.019999,
+   "handover": 0.0,
+   "formation_start": 0.006432,
+   "a_to_d_start": 0.000877,
+   "jet_start": 0.006432,
+   "t_star": 0.006433,
+   "afterglow_start": 0.006433,
+   "afterglow_settled": 0.006433,
+   "end": 0.0
+  },
+  "handover": {
+   "s": 36.50888976454735,
+   "waveStart": 44.21356880968456,
+   "afterglowStart": 58.21356880968456,
+   "end": 72.21356880968456,
+   "reason": "target"
+  },
+  "flow_errors": 0,
+  "wake_errors": 0,
+  "wake_teleports": 0,
+  "boat_water_fallbacks": 0,
+  "boat_water_queries": 42292,
+  "input_frames": 3282,
+  "input_fallback_frames": 0,
+  "wake_rebuilds": 4159,
+  "wake_tick_ms_mean": 0.1321393515673026,
+  "wake_tick_ms_max": 3.1534,
+  "hull": {
+   "bowZ": 5.6641764640808105,
+   "sternZ": -5.6641716957092285,
+   "halfBeam": 1.2113749980926514
+  },
+  "final": {
+   "images": [
+    "painting/painting_end.png",
+    "painting/view_end.png"
+   ],
+   "wakeRendererOn": false,
+   "wakeVertexCount": 0
+  },
+  "phase_first_exp": {
+   "Intro": 0.031111103482544422,
+   "Approach": 36.50888976454735,
+   "Formation": 44.22000106237829,
+   "Hold": 56.22000135295093,
+   "Afterglow": 58.220001401379704,
+   "End": 72.21356880968456
+  },
+  "exp_end": 72.21356880968456
+ },
+ "record_only": {
+  "seat_view": {
+   "hmd_samples": 723,
+   "hmd_wake_px_max": 0,
+   "hmd_wake_visible_samples": 0,
+   "looks_white_px": {
+    "approach_h+4_yaw+110.png": {
+     "px_white": 0,
+     "size": [
+      960,
+      540
+     ]
+    },
+    "approach_h+4_yaw+180.png": {
+     "px_white": 0,
+     "size": [
+      960,
+      540
+     ]
+    },
+    "approach_h+4_yaw-110.png": {
+     "px_white": 0,
+     "size": [
+      960,
+      540
+     ]
+    },
+    "turn_left_s19.5_yaw+110.png": {
+     "px_white": 0,
+     "size": [
+      960,
+      540
+     ]
+    },
+    "turn_left_s19.5_yaw+180.png": {
+     "px_white": 203,
+     "size": [
+      960,
+      540
+     ]
+    },
+    "turn_left_s19.5_yaw-110.png": {
+     "px_white": 0,
+     "size": [
+      960,
+      540
+     ]
+    },
+    "turn_right_s10.5_yaw+110.png": {
+     "px_white": 455,
+     "size": [
+      960,
+      540
+     ]
+    },
+    "turn_right_s10.5_yaw+180.png": {
+     "px_white": 533,
+     "size": [
+      960,
+      540
+     ]
+    },
+    "turn_right_s10.5_yaw-110.png": {
+     "px_white": 0,
+     "size": [
+      960,
+      540
+     ]
+    }
+   }
+  },
+  "formation_speed": {
+   "wave2_5_speed_min": 2.15620493888855,
+   "wave2_5_speed_max": 2.199995756149292,
+   "last_wave_speed_gt_0_2": 11.517543642539337,
+   "wave_at_2_speed": 2.1884336471557617
+  },
+  "color": {
+   "cfg_srgb8": [
+    251,
+    246,
+    227
+   ],
+   "palette_white_srgb8": [
+    251,
+    246,
+    227
+   ],
+   "palette_sha256": "2e550bf3c60eb16ef5d4a37e35c315882a1a05dd6accb79bdea3f5f3f7a90056",
+   "cfg_source_sha256": "2e550bf3c60eb16ef5d4a37e35c315882a1a05dd6accb79bdea3f5f3f7a90056",
+   "same": true
+  }
+ },
+ "hmd": "保留（利用者の手。PS VR2 は未導入）",
+ "builder_sha256_verified": {
+  "files": 19,
+  "protected": 35,
+  "all_same": true
+ },
+ "record_recount": {
+  "file": "Docs/Evidence/Design/48/ds48_record_recount.json",
+  "max_abs_diff_vs_builder": 0.0
+ },
+ "fix_rounds": {
+  "count": 0,
+  "ja": "受入を判定した後の修正の回は使っていない。作る部の Unity の実行 build1・main1〜3 は判定の前の作る途中の実行で、最終は build2・main4。"
+ },
+ "time": {
+  "box_ja": "Q26 の日程で 2 時間（計画 §2.6 の［Q26］の表、10/4 の行の設計48）",
+  "file_times_ja": "作る部の最初のファイル ds48_wake.json 15:51:07、Unity の build1 15:55、最終の build2 16:07:29・main4 16:09:46（UTC 08:09:46）、動画と図 16:10、独立の検査の出力 16:12〜16:17（いずれも +08:00）"
+ },
+ "pass": true
+}

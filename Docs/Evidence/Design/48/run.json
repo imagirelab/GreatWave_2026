@@ -1,0 +1,80 @@
+{
+ "schema": "GreatWave.DS48.record_run/1",
+ "python": "3.10.6",
+ "numpy": "2.2.6",
+ "opencv": "4.12.0",
+ "ffmpeg": "ffmpeg version 2024-12-19-git-494c961379-full_build-www.gyan.dev Copyright (c) 2000-2024 the FFmpeg developers",
+ "cmd": "py -3.10 -B Tools/GWWaveGen/ds48/ds48_record.py",
+ "builder_cmds": [
+  "powershell -NoProfile -ExecutionPolicy Bypass -File Tools/GWWaveGen/ds48/run_ds48_unity.ps1 -Method GreatWave.Design48.EditorTools.DS48WakePlay.BuildScene -Log build2",
+  "powershell -NoProfile -ExecutionPolicy Bypass -File Tools/GWWaveGen/ds48/run_ds48_unity.ps1 -NoQuit -Method GreatWave.Design48.EditorTools.DS48WakePlay.Run -Log main4",
+  "py -3.10 Tools/GWWaveGen/ds48/ds48_report.py"
+ ],
+ "inputs": {
+  "Unity/Build/Design/48/wake/run.json": "61281770b53cd82e2f3f5ebb1fc8d3e6ad0b8162255b48cad2792ef72f91bd49",
+  "Unity/Build/Design/48/wake/metrics.json": "ef5684f3d4a4812daec5f48d263e0e17c09434c687708cf246d90e0845b314b5",
+  "Unity/Build/Design/48/wake/unity/ds48_build.json": "0a14dcb0ad044525b15e3f6a469c271a46abff1152db177683a8d74ee483b32e",
+  "Unity/Build/Design/48/wake/unity/main/ds48_play.json": "51b53fa8eb843ca3ad0240a9b17ee77f2eea65270a04d3114b8f24bccbd805ac",
+  "Unity/Build/Design/48/wake/unity/main/ds48_frames.csv": "7f80dcb42157423ee8dd3d07542f8227e20935ab163a4aac64e5b739ae89eb45",
+  "Unity/Build/Design/48/wake/unity/main/ds48_masks.csv": "45d56a115714d95f09dd1bbec2865f0a3571ab61adda0769fe3f4bdb4e3e680e",
+  "Unity/Build/Design/48/wake/unity/main/painting/painting_end.png": "faa78462f4305e990ea926c1bfa0e27d8a0dc05ae6a8eeeba7e3e8b95e1e9f5f",
+  "Unity/Build/Design/47/flow/unity/main/painting/painting_end.png": "faa78462f4305e990ea926c1bfa0e27d8a0dc05ae6a8eeeba7e3e8b95e1e9f5f",
+  "Unity/Assets/GreatWave/Design48/Data/ds48_wake.json": "a99d1600ffd6d1b17f525b420fcb063f3e8279ca56169afbe7ea527e098af2e2",
+  "Tools/PaintingTruth/targets/palette.json": "2e550bf3c60eb16ef5d4a37e35c315882a1a05dd6accb79bdea3f5f3f7a90056",
+  "Unity/Assets/GreatWave/Design47/Scenes/DS47_Flow.unity": "b1500d248cc75aa28f599fae72c2ddd6702048220f060f0713512f2d196ab12b",
+  "Unity/Assets/GreatWave/Design48/Scenes/DS48_Wake.unity": "738a2381fda747bf66effb6a554469c99c044c30993acbd9bad71c5bed7d30cc",
+  "Unity/Build/Design/48/wake/ds48_wake_30fps.mp4": "09807015aa7a2eb555dbfb297ee276f63a0654dcc0a0b23881651c4211393fe5",
+  "Unity/Build/Design/48/wake/unity/main/look/approach_h+4_yaw+110.png": "41c37694e5b4f8c974784fdcaba9e99e41fcf53fe8723db76246f748456fc825",
+  "Unity/Build/Design/48/wake/unity/main/look/approach_h+4_yaw+180.png": "dd507f8d75fa1c23fd804ebf7ad63d3bbddb93ead8ffcc8be3063d9d7cf969c2",
+  "Unity/Build/Design/48/wake/unity/main/look/approach_h+4_yaw-110.png": "4dfa0ee3495eefdc17ac0d96aed56b1077cb132e06d2e12c146951e14036f552",
+  "Unity/Build/Design/48/wake/unity/main/look/turn_left_s19.5_yaw+110.png": "d8cbaa32f98bf006640808e6539c8bd214fea99ff758761641b9d253cbe5060d",
+  "Unity/Build/Design/48/wake/unity/main/look/turn_left_s19.5_yaw+180.png": "3f12c80c4d1580c308802fc8355ba09cfbc4b4cfe033f53ea8498e9e7bdcba2a",
+  "Unity/Build/Design/48/wake/unity/main/look/turn_left_s19.5_yaw-110.png": "ccf6b490e9784507ce30274ab434dcf84a0bc5927999ab2116e79fc1b6b0aa8f",
+  "Unity/Build/Design/48/wake/unity/main/look/turn_right_s10.5_yaw+110.png": "7ad12f5d1c3c7a1c84c919348d0b8d8852c56fc9b39808ff8ac0b4dfd487fce5",
+  "Unity/Build/Design/48/wake/unity/main/look/turn_right_s10.5_yaw+180.png": "7e6ae396dced2a1731da3987453200a2227dbc44765bbf381c65dbf475ad86b1",
+  "Unity/Build/Design/48/wake/unity/main/look/turn_right_s10.5_yaw-110.png": "c11571bb2148ba33f232cf833a7e7f7bf035c3f90efe48f3d83cda6e09ad03f6"
+ },
+ "outputs": {
+  "Docs/Evidence/Design/48/ds48_build.json": {
+   "sha256": "0a14dcb0ad044525b15e3f6a469c271a46abff1152db177683a8d74ee483b32e",
+   "bytes": 4709
+  },
+  "Docs/Evidence/Design/48/ds48_play.json": {
+   "sha256": "51b53fa8eb843ca3ad0240a9b17ee77f2eea65270a04d3114b8f24bccbd805ac",
+   "bytes": 4507
+  },
+  "Docs/Evidence/Design/48/ds48_record_recount.json": {
+   "sha256": "410796122909fdc9763a30044f4be68fa8a22b8d9e7089e0832d16430bb7e8f7",
+   "bytes": 12456
+  },
+  "Docs/Evidence/Design/48/ds48_wake_1280x480_30fps.mp4": {
+   "sha256": "906e401c3a196d002eac66e11360ddba5d4c34e71f02d271711acaece0b1d143",
+   "bytes": 1545975
+  },
+  "Docs/Evidence/Design/48/ds48_wake_metrics.json": {
+   "sha256": "ef5684f3d4a4812daec5f48d263e0e17c09434c687708cf246d90e0845b314b5",
+   "bytes": 8174
+  },
+  "Docs/Evidence/Design/48/ds48_wake_run.json": {
+   "sha256": "61281770b53cd82e2f3f5ebb1fc8d3e6ad0b8162255b48cad2792ef72f91bd49",
+   "bytes": 3400
+  },
+  "Docs/Evidence/Design/48/fig_ds48_reaction.png": {
+   "sha256": "1bf1a978b56462073a0292c838e09c84713a11cd139661709ba1a38fdd79e396",
+   "bytes": 390835
+  },
+  "Docs/Evidence/Design/48/metrics.json": {
+   "sha256": "cbe96ff9dd1a4f0a74912e8d611e9b918d23bcd0de91ed1d90ecd9cafec3484f",
+   "bytes": 7821
+  },
+  "Docs/Evidence/Design/48/stills_ds48_seat_look.png": {
+   "sha256": "ef833ba5c710fdd9349d2fae9d572010c2c508f43a4b82c173824f2aba91b4dc",
+   "bytes": 416131
+  },
+  "Docs/Evidence/Design/48/stills_ds48_wake.png": {
+   "sha256": "5790ac7e71a84ce8b83d4da60541f02c525b0ad9055387642f1412f2dd082422",
+   "bytes": 313577
+  }
+ },
+ "seconds": 6.8
+}

@@ -1,0 +1,53 @@
+{
+ "schema": "GreatWave.DS48.wake_run/1",
+ "python": "3.10.6",
+ "numpy": "2.2.6",
+ "opencv": "4.12.0",
+ "ffmpeg": "ffmpeg version 2024-12-19-git-494c961379-full_build-www.gyan.dev Copyright (c) 2000-2024 the FFmpeg developers",
+ "unity": "6000.4.3f1",
+ "device": "NVIDIA GeForce RTX 3080",
+ "unityCmds": [
+  "powershell -NoProfile -ExecutionPolicy Bypass -File Tools/GWWaveGen/ds48/run_ds48_unity.ps1 -Method GreatWave.Design48.EditorTools.DS48WakePlay.BuildScene -Log build2",
+  "powershell -NoProfile -ExecutionPolicy Bypass -File Tools/GWWaveGen/ds48/run_ds48_unity.ps1 -NoQuit -Method GreatWave.Design48.EditorTools.DS48WakePlay.Run -Log main4",
+  "py -3.10 Tools/GWWaveGen/ds48/ds48_report.py"
+ ],
+ "inputs": {
+  "Unity/Build/Design/48/wake/unity/main/ds48_play.json": "51b53fa8eb843ca3ad0240a9b17ee77f2eea65270a04d3114b8f24bccbd805ac",
+  "Unity/Build/Design/48/wake/unity/main/ds48_frames.csv": "7f80dcb42157423ee8dd3d07542f8227e20935ab163a4aac64e5b739ae89eb45",
+  "Unity/Build/Design/48/wake/unity/main/ds48_masks.csv": "45d56a115714d95f09dd1bbec2865f0a3571ab61adda0769fe3f4bdb4e3e680e",
+  "Unity/Build/Design/48/wake/unity/ds48_build.json": "0a14dcb0ad044525b15e3f6a469c271a46abff1152db177683a8d74ee483b32e",
+  "Unity/Build/Design/48/wake/unity/main/painting/painting_end.png": "faa78462f4305e990ea926c1bfa0e27d8a0dc05ae6a8eeeba7e3e8b95e1e9f5f",
+  "Unity/Build/Design/47/flow/unity/main/painting/painting_end.png": "faa78462f4305e990ea926c1bfa0e27d8a0dc05ae6a8eeeba7e3e8b95e1e9f5f",
+  "Unity/Assets/GreatWave/Design48/Data/ds48_wake.json": "a99d1600ffd6d1b17f525b420fcb063f3e8279ca56169afbe7ea527e098af2e2",
+  "Unity/Assets/GreatWave/Design48/Scripts/DS48Wake.cs": "102fba4206d5792b23c3d206312b6ab8ef26dbfaad4bba557ef9da846273617b",
+  "Unity/Assets/GreatWave/Design48/Scripts/DS48Recorder.cs": "d9938b00d9e42f809fcb9d5903ce597ca21b001b79eb4b850d85c39a2a813f27",
+  "Unity/Assets/GreatWave/Design48/Shaders/DS48_Foam.shader": "ecac66a8906d9e691affd2573de21d1fb5c1c13be85ed1c0a2205e3322858fe1",
+  "Unity/Assets/GreatWave/Design48/Editor/DS48WakeBuild.cs": "90d028e6d6b9ff6fd360373d758ace2bf1397298a982f1ca7dc8f9b9165ba5a6",
+  "Unity/Assets/GreatWave/Design48/Editor/DS48WakePlay.cs": "e9ad5f5883903c6b5ca599bf3b032ab4938996aba20fb5a66691ff1aff121636",
+  "Unity/Assets/GreatWave/Design48/Scenes/DS48_Wake.unity": "738a2381fda747bf66effb6a554469c99c044c30993acbd9bad71c5bed7d30cc",
+  "Unity/Assets/GreatWave/Design48/Materials/DS48_Foam.mat": "1e6688b5f152e81109b222665ede1f45cd75499412cd9669c8d35bfea4bf2402"
+ },
+ "outputs": {
+  "Unity/Build/Design/48/wake/ds48_wake_30fps.mp4": {
+   "sha256": "09807015aa7a2eb555dbfb297ee276f63a0654dcc0a0b23881651c4211393fe5",
+   "bytes": 7594378
+  },
+  "Unity/Build/Design/48/wake/fig_ds48_reaction.png": {
+   "sha256": "cb2abf749d433dc4ac9e522539b13d99a6a34cfb70002b5572be9aff115f7308",
+   "bytes": 373745
+  },
+  "Unity/Build/Design/48/wake/stills_ds48_wake.png": {
+   "sha256": "5fc15c79023bb51b5cc373cbe0e0a61c131b36128053442ee11ff4cacf66e908",
+   "bytes": 457146
+  },
+  "Unity/Build/Design/48/wake/stills_ds48_seat_look.png": {
+   "sha256": "ef833ba5c710fdd9349d2fae9d572010c2c508f43a4b82c173824f2aba91b4dc",
+   "bytes": 416131
+  },
+  "Unity/Build/Design/48/wake/metrics.json": {
+   "sha256": "ef5684f3d4a4812daec5f48d263e0e17c09434c687708cf246d90e0845b314b5",
+   "bytes": 8174
+  }
+ },
+ "seconds": 16.4
+}

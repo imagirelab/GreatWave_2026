@@ -1,0 +1,523 @@
+{
+ "schema": "GreatWave.DS48.record_recount/1",
+ "created_utc": "2026-09-30T08:23:56Z",
+ "noteJa": "記録の道具 ds48_record.py が、作る部の数え直し（ds48_report.py）を使わずに生の記録から数え直した値。PC の Editor の Play の記録で、HMD 実機ではない。",
+ "builder_sha256_verified": {
+  "files": 19,
+  "protected": 35,
+  "all_same": true
+ },
+ "recount": {
+  "acceptance1": {
+   "right_turn_frames": 372,
+   "right_port_gt_stbd_frac": 1.0,
+   "right_median_port_over_stbd": 5.66666685932202,
+   "right_arm_port_gt_stbd_frac": 1.0,
+   "left_turn_frames": 459,
+   "left_stbd_gt_port_frac": 1.0,
+   "left_median_stbd_over_port": 5.66666685932202,
+   "left_arm_stbd_gt_port_frac": 0.8061002178649237,
+   "yaw_only_right_frames": 529,
+   "yaw_only_right_port_gt_frac": 1.0,
+   "yaw_only_left_frames": 616,
+   "yaw_only_left_stbd_gt_frac": 1.0,
+   "right_turn_exp_range": [
+    7.886666849255562,
+    12.008889171294868
+   ],
+   "left_turn_exp_range": [
+    15.920000377111137,
+    21.00888938922435
+   ],
+   "straight_frames": 1898,
+   "straight_corr_speed_bow": 0.9892248780791192,
+   "stopped_frames": 90,
+   "stopped_max_bow_w": 0.0014582512667402625,
+   "stopped_exp_range": [
+    26.34222285170108,
+    36.49777865316719
+   ],
+   "max_bow_w": 1.4609839916229248,
+   "speed_at_max_bow": 2.2479472160339355,
+   "yaw_at_max_bow": 8.016522407531738,
+   "max_speed": 2.38598370552063,
+   "max_abs_yaw": 9.977932929992676,
+   "input_frames_steer": 2924
+  },
+  "acceptance2": {
+   "mask_samples": 1446,
+   "overlap_px_sum": 0,
+   "overlap_samples": 0,
+   "after_fade_samples": 522,
+   "after_fade_wake_px_max": 0,
+   "after_fade_hero_visible_samples": 435,
+   "after_fade_frames": 2350,
+   "after_fade_visible_verts": 0,
+   "after_fade_renderer_on": 0,
+   "after_fade_samples_stored": 0,
+   "first_gate_zero_wave": 2.0064323011225014,
+   "renderer_on_frames_by_phase": {
+    "Intro": 3283,
+    "Approach": 694,
+    "Formation": 180,
+    "Hold": 0,
+    "Afterglow": 0,
+    "End": 0
+   },
+   "frames_by_phase": {
+    "Intro": 3283,
+    "Approach": 694,
+    "Formation": 1080,
+    "Hold": 180,
+    "Afterglow": 1260,
+    "End": 10
+   },
+   "wave0_2_frames": 180,
+   "wave0_2_renderer_on": 180,
+   "wave0_2_mask_checks": {
+    "chase": {
+     "n": 20,
+     "wake_visible": 20,
+     "hero_visible": 0
+    },
+    "hmd": {
+     "n": 20,
+     "wake_visible": 0,
+     "hero_visible": 7
+    }
+   },
+   "guard_hidden_sum": 9684,
+   "guard_hidden_wave_range": [
+    1.3286545069327502,
+    1.9953211897423415
+   ],
+   "gate_max_while_guard_hidden": 0.26238393783569336,
+   "max_visible_vertex_y": 0.4499105215072632,
+   "guard_height_m": 0.4,
+   "per_phase_cam": {
+    "Intro/chase": {
+     "n": 365,
+     "wake_visible": 348,
+     "hero_visible": 0,
+     "overlap": 0
+    },
+    "Intro/hmd": {
+     "n": 365,
+     "wake_visible": 0,
+     "hero_visible": 256,
+     "overlap": 0
+    },
+    "Approach/chase": {
+     "n": 77,
+     "wake_visible": 77,
+     "hero_visible": 0,
+     "overlap": 0
+    },
+    "Approach/hmd": {
+     "n": 77,
+     "wake_visible": 0,
+     "hero_visible": 77,
+     "overlap": 0
+    },
+    "Formation/chase": {
+     "n": 120,
+     "wake_visible": 20,
+     "hero_visible": 13,
+     "overlap": 0
+    },
+    "Formation/hmd": {
+     "n": 120,
+     "wake_visible": 0,
+     "hero_visible": 107,
+     "overlap": 0
+    },
+    "Hold/chase": {
+     "n": 20,
+     "wake_visible": 0,
+     "hero_visible": 20,
+     "overlap": 0
+    },
+    "Hold/hmd": {
+     "n": 20,
+     "wake_visible": 0,
+     "hero_visible": 20,
+     "overlap": 0
+    },
+    "Afterglow/chase": {
+     "n": 140,
+     "wake_visible": 0,
+     "hero_visible": 140,
+     "overlap": 0
+    },
+    "Afterglow/hmd": {
+     "n": 140,
+     "wake_visible": 0,
+     "hero_visible": 140,
+     "overlap": 0
+    },
+    "End/chase": {
+     "n": 1,
+     "wake_visible": 0,
+     "hero_visible": 1,
+     "overlap": 0
+    },
+    "End/hmd": {
+     "n": 1,
+     "wake_visible": 0,
+     "hero_visible": 1,
+     "overlap": 0
+    }
+   }
+  },
+  "limit_formation_speed": {
+   "wave2_5_speed_min": 2.15620493888855,
+   "wave2_5_speed_max": 2.199995756149292,
+   "last_wave_speed_gt_0_2": 11.517543642539337,
+   "wave_at_2_speed": 2.1884336471557617
+  },
+  "seat_view": {
+   "hmd_samples": 723,
+   "hmd_wake_px_max": 0,
+   "hmd_wake_visible_samples": 0,
+   "looks_white_px": {
+    "approach_h+4_yaw+110.png": {
+     "px_white": 0,
+     "size": [
+      960,
+      540
+     ]
+    },
+    "approach_h+4_yaw+180.png": {
+     "px_white": 0,
+     "size": [
+      960,
+      540
+     ]
+    },
+    "approach_h+4_yaw-110.png": {
+     "px_white": 0,
+     "size": [
+      960,
+      540
+     ]
+    },
+    "turn_left_s19.5_yaw+110.png": {
+     "px_white": 0,
+     "size": [
+      960,
+      540
+     ]
+    },
+    "turn_left_s19.5_yaw+180.png": {
+     "px_white": 203,
+     "size": [
+      960,
+      540
+     ]
+    },
+    "turn_left_s19.5_yaw-110.png": {
+     "px_white": 0,
+     "size": [
+      960,
+      540
+     ]
+    },
+    "turn_right_s10.5_yaw+110.png": {
+     "px_white": 455,
+     "size": [
+      960,
+      540
+     ]
+    },
+    "turn_right_s10.5_yaw+180.png": {
+     "px_white": 533,
+     "size": [
+      960,
+      540
+     ]
+    },
+    "turn_right_s10.5_yaw-110.png": {
+     "px_white": 0,
+     "size": [
+      960,
+      540
+     ]
+    }
+   }
+  },
+  "painting_view": {
+   "sha256": "faa78462f4305e990ea926c1bfa0e27d8a0dc05ae6a8eeeba7e3e8b95e1e9f5f",
+   "ref47_sha256": "faa78462f4305e990ea926c1bfa0e27d8a0dc05ae6a8eeeba7e3e8b95e1e9f5f",
+   "px_diff": 0,
+   "max_diff": 0,
+   "size": [
+    1920,
+    1080
+   ]
+  },
+  "play": {
+   "frames": 6507,
+   "csv_rows": 6507,
+   "captured": 2169,
+   "fixedDeltaTime": 0.011111111380159855,
+   "events_fired": 9,
+   "events": 9,
+   "event_lag_s": {
+    "intro_start": 0.019999,
+    "handover": 0.0,
+    "formation_start": 0.006432,
+    "a_to_d_start": 0.000877,
+    "jet_start": 0.006432,
+    "t_star": 0.006433,
+    "afterglow_start": 0.006433,
+    "afterglow_settled": 0.006433,
+    "end": 0.0
+   },
+   "handover": {
+    "s": 36.50888976454735,
+    "waveStart": 44.21356880968456,
+    "afterglowStart": 58.21356880968456,
+    "end": 72.21356880968456,
+    "reason": "target"
+   },
+   "flow_errors": 0,
+   "wake_errors": 0,
+   "wake_teleports": 0,
+   "boat_water_fallbacks": 0,
+   "boat_water_queries": 42292,
+   "input_frames": 3282,
+   "input_fallback_frames": 0,
+   "wake_rebuilds": 4159,
+   "wake_tick_ms_mean": 0.1321393515673026,
+   "wake_tick_ms_max": 3.1534,
+   "hull": {
+    "bowZ": 5.6641764640808105,
+    "sternZ": -5.6641716957092285,
+    "halfBeam": 1.2113749980926514
+   },
+   "final": {
+    "images": [
+     "painting/painting_end.png",
+     "painting/view_end.png"
+    ],
+    "wakeRendererOn": false,
+    "wakeVertexCount": 0
+   },
+   "phase_first_exp": {
+    "Intro": 0.031111103482544422,
+    "Approach": 36.50888976454735,
+    "Formation": 44.22000106237829,
+    "Hold": 56.22000135295093,
+    "Afterglow": 58.220001401379704,
+    "End": 72.21356880968456
+   },
+   "exp_end": 72.21356880968456
+  },
+  "color": {
+   "cfg_srgb8": [
+    251,
+    246,
+    227
+   ],
+   "palette_white_srgb8": [
+    251,
+    246,
+    227
+   ],
+   "palette_sha256": "2e550bf3c60eb16ef5d4a37e35c315882a1a05dd6accb79bdea3f5f3f7a90056",
+   "cfg_source_sha256": "2e550bf3c60eb16ef5d4a37e35c315882a1a05dd6accb79bdea3f5f3f7a90056",
+   "same": true
+  }
+ },
+ "vs_builder": {
+  "pairs": {
+   "rightTurnFrames": [
+    372,
+    372
+   ],
+   "leftTurnFrames": [
+    459,
+    459
+   ],
+   "rightTurnPortGtStbdFrac": [
+    1.0,
+    1.0
+   ],
+   "leftTurnStbdGtPortFrac": [
+    1.0,
+    1.0
+   ],
+   "leftTurnArmStbdGtPortFrac": [
+    0.8061002178649237,
+    0.8061002178649237
+   ],
+   "straightCorr": [
+    0.9892248780791192,
+    0.9892248780791192
+   ],
+   "stoppedMaxBowWidth": [
+    0.0014582512667402625,
+    0.0014582512667402625
+   ],
+   "overlapPxSum": [
+    0,
+    0
+   ],
+   "afterFadeWakePxMax": [
+    0,
+    0
+   ],
+   "framesAfterFade": [
+    2350,
+    2350
+   ],
+   "framesAfterFadeRendererOn": [
+    0,
+    0
+   ],
+   "firstFrameGateZeroWave": [
+    2.0064323011225014,
+    2.0064323011225014
+   ],
+   "guardHiddenVertexInstances": [
+    9684,
+    9684
+   ],
+   "maxVisibleVertexY": [
+    0.4499105215072632,
+    0.4499105215072632
+   ],
+   "paintingPxDiff": [
+    0,
+    0
+   ],
+   "hmdForwardWakePxMax": [
+    0,
+    0
+   ]
+  },
+  "diff_record_minus_builder": {
+   "rightTurnFrames": 0.0,
+   "leftTurnFrames": 0.0,
+   "rightTurnPortGtStbdFrac": 0.0,
+   "leftTurnStbdGtPortFrac": 0.0,
+   "leftTurnArmStbdGtPortFrac": 0.0,
+   "straightCorr": 0.0,
+   "stoppedMaxBowWidth": 0.0,
+   "overlapPxSum": 0.0,
+   "afterFadeWakePxMax": 0.0,
+   "framesAfterFade": 0.0,
+   "framesAfterFadeRendererOn": 0.0,
+   "firstFrameGateZeroWave": 0.0,
+   "guardHiddenVertexInstances": 0.0,
+   "maxVisibleVertexY": 0.0,
+   "paintingPxDiff": 0.0,
+   "hmdForwardWakePxMax": 0.0
+  },
+  "max_abs_diff": 0.0,
+  "builder_pass": true
+ },
+ "scene": {
+  "guids47": 50,
+  "guids48": 53,
+  "new": {
+   "2965222476cdc0746ade1ee04e89d459": "Unity/Assets/GreatWave/Design48/Data/ds48_wake.json",
+   "cc0a1e9040261cd45b1128900d7ac710": "Unity/Assets/GreatWave/Design48/Scripts/DS48Wake.cs",
+   "fb724fea3ebd6b142ba824a5dc1922f0": "Unity/Assets/GreatWave/Design48/Materials/DS48_Foam.mat"
+  },
+  "dropped": [],
+  "entries47": 296,
+  "entries48": 301,
+  "cameras47": 7,
+  "cameras48": 7,
+  "scene_bytes": 201048,
+  "scene_sha256": "738a2381fda747bf66effb6a554469c99c044c30993acbd9bad71c5bed7d30cc"
+ },
+ "line_endings": {
+  "Tools/GWWaveGen/ds48/ds48_record.py": "LF",
+  "Tools/GWWaveGen/ds48/ds48_report.py": "LF",
+  "Tools/GWWaveGen/ds48/run_ds48_unity.ps1": "CRLF",
+  "Unity/Assets/GreatWave/Design48.meta": "LF",
+  "Unity/Assets/GreatWave/Design48/Data.meta": "LF",
+  "Unity/Assets/GreatWave/Design48/Data/ds48_wake.json": "LF",
+  "Unity/Assets/GreatWave/Design48/Data/ds48_wake.json.meta": "LF",
+  "Unity/Assets/GreatWave/Design48/Editor.meta": "LF",
+  "Unity/Assets/GreatWave/Design48/Editor/DS48WakeBuild.cs": "LF",
+  "Unity/Assets/GreatWave/Design48/Editor/DS48WakeBuild.cs.meta": "LF",
+  "Unity/Assets/GreatWave/Design48/Editor/DS48WakePlay.cs": "LF",
+  "Unity/Assets/GreatWave/Design48/Editor/DS48WakePlay.cs.meta": "LF",
+  "Unity/Assets/GreatWave/Design48/Materials.meta": "LF",
+  "Unity/Assets/GreatWave/Design48/Materials/DS48_Foam.mat": "LF",
+  "Unity/Assets/GreatWave/Design48/Materials/DS48_Foam.mat.meta": "LF",
+  "Unity/Assets/GreatWave/Design48/Scenes.meta": "LF",
+  "Unity/Assets/GreatWave/Design48/Scenes/DS48_Wake.unity": "LF",
+  "Unity/Assets/GreatWave/Design48/Scenes/DS48_Wake.unity.meta": "LF",
+  "Unity/Assets/GreatWave/Design48/Scripts.meta": "LF",
+  "Unity/Assets/GreatWave/Design48/Scripts/DS48Recorder.cs": "LF",
+  "Unity/Assets/GreatWave/Design48/Scripts/DS48Recorder.cs.meta": "LF",
+  "Unity/Assets/GreatWave/Design48/Scripts/DS48Wake.cs": "LF",
+  "Unity/Assets/GreatWave/Design48/Scripts/DS48Wake.cs.meta": "LF",
+  "Unity/Assets/GreatWave/Design48/Shaders.meta": "LF",
+  "Unity/Assets/GreatWave/Design48/Shaders/DS48_Foam.shader": "LF",
+  "Unity/Assets/GreatWave/Design48/Shaders/DS48_Foam.shader.meta": "LF"
+ },
+ "evidence": {
+  "fig_ds48_reaction.png": {
+   "src_size": [
+    1920,
+    1300
+   ],
+   "scale": 0.8308,
+   "placed": [
+    162,
+    0,
+    1595,
+    1080
+   ]
+  },
+  "stills_ds48_wake.png": {
+   "src_size": [
+    1920,
+    1440
+   ],
+   "scale": 0.75,
+   "placed": [
+    240,
+    0,
+    1440,
+    1080
+   ]
+  },
+  "stills_ds48_seat_look.png": {
+   "src_size": [
+    1920,
+    1080
+   ],
+   "scale": 1.0
+  },
+  "video": {
+   "src": {
+    "size": [
+     1920,
+     720
+    ],
+    "fps": "30/1",
+    "frames": 2169,
+    "duration_s": 72.3,
+    "bytes": 7594378
+   },
+   "src_sha256": "09807015aa7a2eb555dbfb297ee276f63a0654dcc0a0b23881651c4211393fe5",
+   "copy": {
+    "size": [
+     1280,
+     480
+    ],
+    "fps": "30/1",
+    "frames": 2169,
+    "duration_s": 72.3,
+    "bytes": 1545975
+   },
+   "crf": 26
+  }
+ }
+}
