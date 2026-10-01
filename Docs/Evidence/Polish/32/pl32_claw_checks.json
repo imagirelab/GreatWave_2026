@@ -1,0 +1,3766 @@
+{
+ "schema": "GreatWave.DS33.claw_checks/1",
+ "number": "設計33（爪の部）",
+ "frames": 421,
+ "hz": 30,
+ "claws": 209,
+ "evidence_kind_ja": "numpy の生成器の値（Unity の描画ではない。HMD 実機ではない）",
+ "item105": {
+  "rule_ja": "根元の点（帯の根元の中心の頂点）と、そのコマの主役波のシートの三角形（描画と同じ分け方、根元のセルと周り 8 セル）の距離。見えるコマの全部",
+  "max_m": 1.2552182407682006e-06,
+  "p99_m": 8.297057325854095e-07,
+  "threshold_m": 0.001,
+  "pass_": true
+ },
+ "item137": {
+  "rule_ja": "根元の滑り：根元の (行, 列) は固定（設計32 の sheet_rc）。独立の読み：各コマで根元の頂点が乗る三角形（根元のセルと周り 8 セル）と重心座標から材料の座標 (行, 列) を読み直し、結び付けた (行, 列) との差（セル）と、そのコマのシートでのワールドの距離",
+  "max_m": 2.0309810377737843e-06,
+  "max_param_cells": 6.256028110193024e-05,
+  "threshold_m": 0.001,
+  "pass_": true
+ },
+ "item139": {
+  "rule_ja": "成長の途中の欠落 0（使える水準）：生まれてから t* まで毎コマ見える（途切れ 0）、s・g・κ・ω が減らない、頂点に NaN がない、帯の面積が 0 のコマがない",
+  "visibility_gaps": [],
+  "never_visible": [],
+  "decreasing_samples": {
+   "s": 0,
+   "g": 0,
+   "kappa": 0,
+   "omega": 0
+  },
+  "nan_frames": 0,
+  "zero_area_frames": 0,
+  "arc_length_drop_over_1pct_frames_record_only": 18,
+  "arc_length_drop_ids_record_only": [
+   "C095",
+   "C119",
+   "C173",
+   "C215",
+   "C222"
+  ],
+  "pass_": true
+ },
+ "vertices": {
+  "per_claw_max": 171,
+  "per_type_instance_max": 310,
+  "threshold": 600,
+  "total": 35419,
+  "triangles": 67912,
+  "pass_": true
+ },
+ "teleport": {
+  "rule_ja": "爪の頂点の 30 Hz のコマの間の動きの最大 ≤ そのコマのシートの頂点の動きの最大 × 1.5 + 2 cm ＋ 2 ×（弧長の増え＋幅の増え）",
+  "count": 1,
+  "first": [
+   [
+    "C161",
+    335,
+    0.42118403879083804,
+    0.4208619024386927
+   ]
+  ],
+  "pass_": false,
+  "max_move_m": 0.6795074174224314,
+  "sheet_max_move_m": 0.8292201323318447
+ },
+ "reprojection_tstar_record_only": {
+  "rule_ja": "t* の骨格の曲線（関節を通る Catmull-Rom）を PaintingCam v1 へ投影し、一覧の中心線（表示の画素）との対称 Hausdorff。4 px は記録のみ（計画）",
+  "hausdorff_px": {
+   "p50": 0.46,
+   "p95": 1.5131999999999999,
+   "max": 3.716,
+   "le4": 209
+  },
+  "p95_px": {
+   "p50": 0.439,
+   "max": 3.301,
+   "le4": 209
+  },
+  "root_px_max": 0.051,
+  "tip_px_max": 2.101,
+  "worst": [
+   {
+    "id": "C002",
+    "type": "T4",
+    "row": "上側",
+    "hausdorff_px": 3.716,
+    "p95_px": 3.301,
+    "root_px": 0.0,
+    "tip_px": 0.014
+   },
+   {
+    "id": "C010",
+    "type": "branch",
+    "row": "上側",
+    "hausdorff_px": 2.294,
+    "p95_px": 2.232,
+    "root_px": 0.0,
+    "tip_px": 0.018
+   },
+   {
+    "id": "C095",
+    "type": "T1",
+    "row": "船側",
+    "hausdorff_px": 2.101,
+    "p95_px": 0.927,
+    "root_px": 0.0,
+    "tip_px": 2.101
+   },
+   {
+    "id": "C013",
+    "type": "T2",
+    "row": "上側",
+    "hausdorff_px": 2.035,
+    "p95_px": 1.982,
+    "root_px": 0.0,
+    "tip_px": 0.013
+   },
+   {
+    "id": "C061",
+    "type": "T1",
+    "row": "途中",
+    "hausdorff_px": 1.976,
+    "p95_px": 1.816,
+    "root_px": 0.0,
+    "tip_px": 1.976
+   },
+   {
+    "id": "C075",
+    "type": "T1",
+    "row": "途中",
+    "hausdorff_px": 1.948,
+    "p95_px": 1.854,
+    "root_px": 0.0,
+    "tip_px": 0.006
+   },
+   {
+    "id": "C183",
+    "type": "T1",
+    "row": "b区域",
+    "hausdorff_px": 1.616,
+    "p95_px": 1.602,
+    "root_px": 0.001,
+    "tip_px": 0.029
+   },
+   {
+    "id": "C176",
+    "type": "T1",
+    "row": "b区域",
+    "hausdorff_px": 1.603,
+    "p95_px": 1.601,
+    "root_px": 0.0,
+    "tip_px": 0.009
+   },
+   {
+    "id": "C196",
+    "type": "T1",
+    "row": "b区域",
+    "hausdorff_px": 1.586,
+    "p95_px": 1.545,
+    "root_px": 0.0,
+    "tip_px": 0.021
+   },
+   {
+    "id": "C096",
+    "type": "T1",
+    "row": "船側",
+    "hausdorff_px": 1.582,
+    "p95_px": 1.12,
+    "root_px": 0.0,
+    "tip_px": 1.583
+   },
+   {
+    "id": "C004",
+    "type": "T4",
+    "row": "上側",
+    "hausdorff_px": 1.518,
+    "p95_px": 1.477,
+    "root_px": 0.0,
+    "tip_px": 0.007
+   },
+   {
+    "id": "C021",
+    "type": "T4",
+    "row": "上側",
+    "hausdorff_px": 1.506,
+    "p95_px": 1.333,
+    "root_px": 0.0,
+    "tip_px": 0.007
+   }
+  ],
+  "per_claw": [
+   {
+    "id": "C001",
+    "type": "T1",
+    "row": "上側",
+    "hausdorff_px": 0.264,
+    "p95_px": 0.245,
+    "root_px": 0.001,
+    "tip_px": 0.006
+   },
+   {
+    "id": "C002",
+    "type": "T4",
+    "row": "上側",
+    "hausdorff_px": 3.716,
+    "p95_px": 3.301,
+    "root_px": 0.0,
+    "tip_px": 0.014
+   },
+   {
+    "id": "C003",
+    "type": "T1",
+    "row": "上側",
+    "hausdorff_px": 0.53,
+    "p95_px": 0.521,
+    "root_px": 0.0,
+    "tip_px": 0.016
+   },
+   {
+    "id": "C004",
+    "type": "T4",
+    "row": "上側",
+    "hausdorff_px": 1.518,
+    "p95_px": 1.477,
+    "root_px": 0.0,
+    "tip_px": 0.007
+   },
+   {
+    "id": "C005",
+    "type": "T4",
+    "row": "上側",
+    "hausdorff_px": 0.474,
+    "p95_px": 0.439,
+    "root_px": 0.001,
+    "tip_px": 0.01
+   },
+   {
+    "id": "C006",
+    "type": "T1",
+    "row": "上側",
+    "hausdorff_px": 0.334,
+    "p95_px": 0.326,
+    "root_px": 0.051,
+    "tip_px": 0.003
+   },
+   {
+    "id": "C007",
+    "type": "T1",
+    "row": "上側",
+    "hausdorff_px": 0.035,
+    "p95_px": 0.034,
+    "root_px": 0.0,
+    "tip_px": 0.003
+   },
+   {
+    "id": "C008",
+    "type": "T4",
+    "row": "上側",
+    "hausdorff_px": 1.093,
+    "p95_px": 1.07,
+    "root_px": 0.0,
+    "tip_px": 0.012
+   },
+   {
+    "id": "C009",
+    "type": "T1",
+    "row": "上側",
+    "hausdorff_px": 0.039,
+    "p95_px": 0.033,
+    "root_px": 0.0,
+    "tip_px": 0.006
+   },
+   {
+    "id": "C010",
+    "type": "branch",
+    "row": "上側",
+    "hausdorff_px": 2.294,
+    "p95_px": 2.232,
+    "root_px": 0.0,
+    "tip_px": 0.018
+   },
+   {
+    "id": "C011",
+    "type": "T1",
+    "row": "上側",
+    "hausdorff_px": 0.554,
+    "p95_px": 0.531,
+    "root_px": 0.0,
+    "tip_px": 0.021
+   },
+   {
+    "id": "C012",
+    "type": "T1",
+    "row": "上側",
+    "hausdorff_px": 0.036,
+    "p95_px": 0.035,
+    "root_px": 0.0,
+    "tip_px": 0.008
+   },
+   {
+    "id": "C013",
+    "type": "T2",
+    "row": "上側",
+    "hausdorff_px": 2.035,
+    "p95_px": 1.982,
+    "root_px": 0.0,
+    "tip_px": 0.013
+   },
+   {
+    "id": "C014",
+    "type": "branch",
+    "row": "上側",
+    "hausdorff_px": 1.015,
+    "p95_px": 0.967,
+    "root_px": 0.0,
+    "tip_px": 0.013
+   },
+   {
+    "id": "C015",
+    "type": "T2",
+    "row": "上側",
+    "hausdorff_px": 0.831,
+    "p95_px": 0.719,
+    "root_px": 0.0,
+    "tip_px": 0.002
+   },
+   {
+    "id": "C016",
+    "type": "T1",
+    "row": "上側",
+    "hausdorff_px": 0.099,
+    "p95_px": 0.094,
+    "root_px": 0.0,
+    "tip_px": 0.013
+   },
+   {
+    "id": "C017",
+    "type": "T1",
+    "row": "上側",
+    "hausdorff_px": 0.451,
+    "p95_px": 0.377,
+    "root_px": 0.0,
+    "tip_px": 0.002
+   },
+   {
+    "id": "C018",
+    "type": "T1",
+    "row": "上側",
+    "hausdorff_px": 0.208,
+    "p95_px": 0.188,
+    "root_px": 0.0,
+    "tip_px": 0.006
+   },
+   {
+    "id": "C019",
+    "type": "T1",
+    "row": "上側",
+    "hausdorff_px": 0.621,
+    "p95_px": 0.605,
+    "root_px": 0.0,
+    "tip_px": 0.007
+   },
+   {
+    "id": "C020",
+    "type": "T1",
+    "row": "上側",
+    "hausdorff_px": 0.27,
+    "p95_px": 0.26,
+    "root_px": 0.0,
+    "tip_px": 0.004
+   },
+   {
+    "id": "C021",
+    "type": "T4",
+    "row": "上側",
+    "hausdorff_px": 1.506,
+    "p95_px": 1.333,
+    "root_px": 0.0,
+    "tip_px": 0.007
+   },
+   {
+    "id": "C022",
+    "type": "T1",
+    "row": "上側",
+    "hausdorff_px": 0.256,
+    "p95_px": 0.236,
+    "root_px": 0.0,
+    "tip_px": 0.008
+   },
+   {
+    "id": "C023",
+    "type": "T1",
+    "row": "上側",
+    "hausdorff_px": 0.188,
+    "p95_px": 0.186,
+    "root_px": 0.0,
+    "tip_px": 0.006
+   },
+   {
+    "id": "C024",
+    "type": "T1",
+    "row": "上側",
+    "hausdorff_px": 0.693,
+    "p95_px": 0.682,
+    "root_px": 0.0,
+    "tip_px": 0.0
+   },
+   {
+    "id": "C025",
+    "type": "T1",
+    "row": "上側",
+    "hausdorff_px": 0.402,
+    "p95_px": 0.397,
+    "root_px": 0.0,
+    "tip_px": 0.006
+   },
+   {
+    "id": "C026",
+    "type": "T1",
+    "row": "上側",
+    "hausdorff_px": 0.237,
+    "p95_px": 0.207,
+    "root_px": 0.0,
+    "tip_px": 0.006
+   },
+   {
+    "id": "C027",
+    "type": "T1",
+    "row": "上側",
+    "hausdorff_px": 0.268,
+    "p95_px": 0.254,
+    "root_px": 0.0,
+    "tip_px": 0.005
+   },
+   {
+    "id": "C028",
+    "type": "T1",
+    "row": "上側",
+    "hausdorff_px": 0.127,
+    "p95_px": 0.121,
+    "root_px": 0.0,
+    "tip_px": 0.002
+   },
+   {
+    "id": "C029",
+    "type": "T1",
+    "row": "上側",
+    "hausdorff_px": 0.324,
+    "p95_px": 0.309,
+    "root_px": 0.0,
+    "tip_px": 0.004
+   },
+   {
+    "id": "C030",
+    "type": "T1",
+    "row": "上側",
+    "hausdorff_px": 0.31,
+    "p95_px": 0.287,
+    "root_px": 0.0,
+    "tip_px": 0.007
+   },
+   {
+    "id": "C031",
+    "type": "T1",
+    "row": "上側",
+    "hausdorff_px": 0.263,
+    "p95_px": 0.24,
+    "root_px": 0.0,
+    "tip_px": 0.008
+   },
+   {
+    "id": "C032",
+    "type": "T1",
+    "row": "上側",
+    "hausdorff_px": 1.361,
+    "p95_px": 1.358,
+    "root_px": 0.0,
+    "tip_px": 0.004
+   },
+   {
+    "id": "C033",
+    "type": "T1",
+    "row": "上側",
+    "hausdorff_px": 0.873,
+    "p95_px": 0.851,
+    "root_px": 0.0,
+    "tip_px": 0.004
+   },
+   {
+    "id": "C034",
+    "type": "T1",
+    "row": "上側",
+    "hausdorff_px": 0.238,
+    "p95_px": 0.177,
+    "root_px": 0.0,
+    "tip_px": 0.009
+   },
+   {
+    "id": "C035",
+    "type": "T1",
+    "row": "上側",
+    "hausdorff_px": 0.302,
+    "p95_px": 0.301,
+    "root_px": 0.0,
+    "tip_px": 0.005
+   },
+   {
+    "id": "C036",
+    "type": "T1",
+    "row": "上側",
+    "hausdorff_px": 0.41,
+    "p95_px": 0.401,
+    "root_px": 0.0,
+    "tip_px": 0.002
+   },
+   {
+    "id": "C037",
+    "type": "T1",
+    "row": "上側",
+    "hausdorff_px": 0.353,
+    "p95_px": 0.332,
+    "root_px": 0.0,
+    "tip_px": 0.004
+   },
+   {
+    "id": "C038",
+    "type": "T1",
+    "row": "上側",
+    "hausdorff_px": 0.904,
+    "p95_px": 0.858,
+    "root_px": 0.0,
+    "tip_px": 0.008
+   },
+   {
+    "id": "C039",
+    "type": "T1",
+    "row": "上側",
+    "hausdorff_px": 0.374,
+    "p95_px": 0.369,
+    "root_px": 0.0,
+    "tip_px": 0.006
+   },
+   {
+    "id": "C040",
+    "type": "T1",
+    "row": "上側",
+    "hausdorff_px": 0.311,
+    "p95_px": 0.285,
+    "root_px": 0.0,
+    "tip_px": 0.004
+   },
+   {
+    "id": "C041",
+    "type": "T1",
+    "row": "上側",
+    "hausdorff_px": 1.159,
+    "p95_px": 1.155,
+    "root_px": 0.0,
+    "tip_px": 0.001
+   },
+   {
+    "id": "C042",
+    "type": "T1",
+    "row": "上側",
+    "hausdorff_px": 0.602,
+    "p95_px": 0.571,
+    "root_px": 0.0,
+    "tip_px": 0.003
+   },
+   {
+    "id": "C043",
+    "type": "T1",
+    "row": "上側",
+    "hausdorff_px": 1.361,
+    "p95_px": 1.303,
+    "root_px": 0.001,
+    "tip_px": 0.008
+   },
+   {
+    "id": "C044",
+    "type": "T1",
+    "row": "上側",
+    "hausdorff_px": 0.243,
+    "p95_px": 0.207,
+    "root_px": 0.0,
+    "tip_px": 0.007
+   },
+   {
+    "id": "C045",
+    "type": "T1",
+    "row": "上側",
+    "hausdorff_px": 0.472,
+    "p95_px": 0.44,
+    "root_px": 0.0,
+    "tip_px": 0.003
+   },
+   {
+    "id": "C046",
+    "type": "T1",
+    "row": "上側",
+    "hausdorff_px": 0.07,
+    "p95_px": 0.067,
+    "root_px": 0.0,
+    "tip_px": 0.002
+   },
+   {
+    "id": "C047",
+    "type": "T1",
+    "row": "上側",
+    "hausdorff_px": 0.062,
+    "p95_px": 0.057,
+    "root_px": 0.0,
+    "tip_px": 0.005
+   },
+   {
+    "id": "C048",
+    "type": "T1",
+    "row": "上側",
+    "hausdorff_px": 0.441,
+    "p95_px": 0.434,
+    "root_px": 0.0,
+    "tip_px": 0.003
+   },
+   {
+    "id": "C049",
+    "type": "T1",
+    "row": "上側",
+    "hausdorff_px": 0.036,
+    "p95_px": 0.036,
+    "root_px": 0.0,
+    "tip_px": 0.005
+   },
+   {
+    "id": "C050",
+    "type": "T1",
+    "row": "上側",
+    "hausdorff_px": 0.34,
+    "p95_px": 0.306,
+    "root_px": 0.0,
+    "tip_px": 0.008
+   },
+   {
+    "id": "C051",
+    "type": "T1",
+    "row": "上側",
+    "hausdorff_px": 0.346,
+    "p95_px": 0.326,
+    "root_px": 0.0,
+    "tip_px": 0.002
+   },
+   {
+    "id": "C052",
+    "type": "T1",
+    "row": "上側",
+    "hausdorff_px": 0.176,
+    "p95_px": 0.154,
+    "root_px": 0.0,
+    "tip_px": 0.008
+   },
+   {
+    "id": "C053",
+    "type": "T1",
+    "row": "上側",
+    "hausdorff_px": 0.787,
+    "p95_px": 0.726,
+    "root_px": 0.0,
+    "tip_px": 0.003
+   },
+   {
+    "id": "C054",
+    "type": "branch",
+    "row": "上側",
+    "hausdorff_px": 0.452,
+    "p95_px": 0.446,
+    "root_px": 0.0,
+    "tip_px": 0.003
+   },
+   {
+    "id": "C055",
+    "type": "T1",
+    "row": "上側",
+    "hausdorff_px": 0.112,
+    "p95_px": 0.105,
+    "root_px": 0.0,
+    "tip_px": 0.002
+   },
+   {
+    "id": "C056",
+    "type": "T1",
+    "row": "上側",
+    "hausdorff_px": 0.565,
+    "p95_px": 0.545,
+    "root_px": 0.0,
+    "tip_px": 0.004
+   },
+   {
+    "id": "C057",
+    "type": "T1",
+    "row": "上側",
+    "hausdorff_px": 1.476,
+    "p95_px": 1.47,
+    "root_px": 0.0,
+    "tip_px": 0.005
+   },
+   {
+    "id": "C058",
+    "type": "T1",
+    "row": "上側",
+    "hausdorff_px": 0.689,
+    "p95_px": 0.666,
+    "root_px": 0.0,
+    "tip_px": 0.01
+   },
+   {
+    "id": "C059",
+    "type": "T4",
+    "row": "上側",
+    "hausdorff_px": 1.087,
+    "p95_px": 0.973,
+    "root_px": 0.0,
+    "tip_px": 0.008
+   },
+   {
+    "id": "C060",
+    "type": "T4",
+    "row": "上側",
+    "hausdorff_px": 1.231,
+    "p95_px": 1.023,
+    "root_px": 0.0,
+    "tip_px": 0.038
+   },
+   {
+    "id": "C061",
+    "type": "T1",
+    "row": "途中",
+    "hausdorff_px": 1.976,
+    "p95_px": 1.816,
+    "root_px": 0.0,
+    "tip_px": 1.976
+   },
+   {
+    "id": "C062",
+    "type": "T1",
+    "row": "途中",
+    "hausdorff_px": 0.472,
+    "p95_px": 0.459,
+    "root_px": 0.0,
+    "tip_px": 0.003
+   },
+   {
+    "id": "C063",
+    "type": "T1",
+    "row": "途中",
+    "hausdorff_px": 0.494,
+    "p95_px": 0.448,
+    "root_px": 0.0,
+    "tip_px": 0.003
+   },
+   {
+    "id": "C064",
+    "type": "T1",
+    "row": "途中",
+    "hausdorff_px": 0.339,
+    "p95_px": 0.308,
+    "root_px": 0.0,
+    "tip_px": 0.005
+   },
+   {
+    "id": "C065",
+    "type": "T2",
+    "row": "途中",
+    "hausdorff_px": 0.923,
+    "p95_px": 0.861,
+    "root_px": 0.0,
+    "tip_px": 0.005
+   },
+   {
+    "id": "C066",
+    "type": "T2",
+    "row": "途中",
+    "hausdorff_px": 1.064,
+    "p95_px": 0.929,
+    "root_px": 0.0,
+    "tip_px": 0.005
+   },
+   {
+    "id": "C067",
+    "type": "branch",
+    "row": "途中",
+    "hausdorff_px": 0.497,
+    "p95_px": 0.451,
+    "root_px": 0.0,
+    "tip_px": 0.005
+   },
+   {
+    "id": "C068",
+    "type": "T1",
+    "row": "途中",
+    "hausdorff_px": 0.373,
+    "p95_px": 0.328,
+    "root_px": 0.0,
+    "tip_px": 0.014
+   },
+   {
+    "id": "C069",
+    "type": "T1",
+    "row": "途中",
+    "hausdorff_px": 0.639,
+    "p95_px": 0.611,
+    "root_px": 0.0,
+    "tip_px": 0.015
+   },
+   {
+    "id": "C070",
+    "type": "T1",
+    "row": "途中",
+    "hausdorff_px": 0.202,
+    "p95_px": 0.179,
+    "root_px": 0.0,
+    "tip_px": 0.003
+   },
+   {
+    "id": "C071",
+    "type": "T1",
+    "row": "途中",
+    "hausdorff_px": 0.645,
+    "p95_px": 0.59,
+    "root_px": 0.0,
+    "tip_px": 0.247
+   },
+   {
+    "id": "C072",
+    "type": "T1",
+    "row": "途中",
+    "hausdorff_px": 1.483,
+    "p95_px": 1.395,
+    "root_px": 0.0,
+    "tip_px": 0.026
+   },
+   {
+    "id": "C073",
+    "type": "T1",
+    "row": "途中",
+    "hausdorff_px": 0.894,
+    "p95_px": 0.891,
+    "root_px": 0.0,
+    "tip_px": 0.014
+   },
+   {
+    "id": "C074",
+    "type": "T1",
+    "row": "途中",
+    "hausdorff_px": 1.061,
+    "p95_px": 1.03,
+    "root_px": 0.001,
+    "tip_px": 0.076
+   },
+   {
+    "id": "C075",
+    "type": "T1",
+    "row": "途中",
+    "hausdorff_px": 1.948,
+    "p95_px": 1.854,
+    "root_px": 0.0,
+    "tip_px": 0.006
+   },
+   {
+    "id": "C076",
+    "type": "T1",
+    "row": "途中",
+    "hausdorff_px": 0.358,
+    "p95_px": 0.305,
+    "root_px": 0.001,
+    "tip_px": 0.001
+   },
+   {
+    "id": "C077",
+    "type": "branch",
+    "row": "途中",
+    "hausdorff_px": 0.081,
+    "p95_px": 0.076,
+    "root_px": 0.001,
+    "tip_px": 0.046
+   },
+   {
+    "id": "C078",
+    "type": "T1",
+    "row": "途中",
+    "hausdorff_px": 1.016,
+    "p95_px": 0.92,
+    "root_px": 0.0,
+    "tip_px": 0.005
+   },
+   {
+    "id": "C079",
+    "type": "T1",
+    "row": "途中",
+    "hausdorff_px": 0.238,
+    "p95_px": 0.222,
+    "root_px": 0.0,
+    "tip_px": 0.004
+   },
+   {
+    "id": "C080",
+    "type": "T4",
+    "row": "途中",
+    "hausdorff_px": 1.081,
+    "p95_px": 0.912,
+    "root_px": 0.0,
+    "tip_px": 0.003
+   },
+   {
+    "id": "C081",
+    "type": "T1",
+    "row": "途中",
+    "hausdorff_px": 0.208,
+    "p95_px": 0.178,
+    "root_px": 0.0,
+    "tip_px": 0.02
+   },
+   {
+    "id": "C082",
+    "type": "T1",
+    "row": "途中",
+    "hausdorff_px": 0.327,
+    "p95_px": 0.298,
+    "root_px": 0.0,
+    "tip_px": 0.008
+   },
+   {
+    "id": "C083",
+    "type": "T1",
+    "row": "途中",
+    "hausdorff_px": 0.523,
+    "p95_px": 0.449,
+    "root_px": 0.0,
+    "tip_px": 0.022
+   },
+   {
+    "id": "C084",
+    "type": "T1",
+    "row": "途中",
+    "hausdorff_px": 0.329,
+    "p95_px": 0.297,
+    "root_px": 0.0,
+    "tip_px": 0.007
+   },
+   {
+    "id": "C085",
+    "type": "T4",
+    "row": "船側",
+    "hausdorff_px": 1.237,
+    "p95_px": 1.129,
+    "root_px": 0.0,
+    "tip_px": 0.003
+   },
+   {
+    "id": "C086",
+    "type": "T1",
+    "row": "船側",
+    "hausdorff_px": 0.717,
+    "p95_px": 0.674,
+    "root_px": 0.0,
+    "tip_px": 0.005
+   },
+   {
+    "id": "C087",
+    "type": "branch",
+    "row": "船側",
+    "hausdorff_px": 0.39,
+    "p95_px": 0.382,
+    "root_px": 0.0,
+    "tip_px": 0.002
+   },
+   {
+    "id": "C088",
+    "type": "T1",
+    "row": "船側",
+    "hausdorff_px": 0.498,
+    "p95_px": 0.452,
+    "root_px": 0.0,
+    "tip_px": 0.005
+   },
+   {
+    "id": "C089",
+    "type": "T1",
+    "row": "船側",
+    "hausdorff_px": 0.31,
+    "p95_px": 0.287,
+    "root_px": 0.0,
+    "tip_px": 0.001
+   },
+   {
+    "id": "C090",
+    "type": "T4",
+    "row": "船側",
+    "hausdorff_px": 0.566,
+    "p95_px": 0.432,
+    "root_px": 0.0,
+    "tip_px": 0.005
+   },
+   {
+    "id": "C091",
+    "type": "T1",
+    "row": "船側",
+    "hausdorff_px": 0.445,
+    "p95_px": 0.403,
+    "root_px": 0.0,
+    "tip_px": 0.005
+   },
+   {
+    "id": "C092",
+    "type": "T2",
+    "row": "船側",
+    "hausdorff_px": 1.021,
+    "p95_px": 0.94,
+    "root_px": 0.0,
+    "tip_px": 0.888
+   },
+   {
+    "id": "C093",
+    "type": "T1",
+    "row": "船側",
+    "hausdorff_px": 0.687,
+    "p95_px": 0.647,
+    "root_px": 0.0,
+    "tip_px": 0.001
+   },
+   {
+    "id": "C094",
+    "type": "T1",
+    "row": "船側",
+    "hausdorff_px": 0.843,
+    "p95_px": 0.779,
+    "root_px": 0.0,
+    "tip_px": 0.006
+   },
+   {
+    "id": "C095",
+    "type": "T1",
+    "row": "船側",
+    "hausdorff_px": 2.101,
+    "p95_px": 0.927,
+    "root_px": 0.0,
+    "tip_px": 2.101
+   },
+   {
+    "id": "C096",
+    "type": "T1",
+    "row": "船側",
+    "hausdorff_px": 1.582,
+    "p95_px": 1.12,
+    "root_px": 0.0,
+    "tip_px": 1.583
+   },
+   {
+    "id": "C097",
+    "type": "T1",
+    "row": "船側",
+    "hausdorff_px": 0.314,
+    "p95_px": 0.286,
+    "root_px": 0.001,
+    "tip_px": 0.007
+   },
+   {
+    "id": "C098",
+    "type": "T1",
+    "row": "船側",
+    "hausdorff_px": 0.328,
+    "p95_px": 0.315,
+    "root_px": 0.0,
+    "tip_px": 0.021
+   },
+   {
+    "id": "C099",
+    "type": "T1",
+    "row": "船側",
+    "hausdorff_px": 0.258,
+    "p95_px": 0.249,
+    "root_px": 0.0,
+    "tip_px": 0.003
+   },
+   {
+    "id": "C100",
+    "type": "T1",
+    "row": "船側",
+    "hausdorff_px": 0.324,
+    "p95_px": 0.282,
+    "root_px": 0.0,
+    "tip_px": 0.009
+   },
+   {
+    "id": "C101",
+    "type": "T1",
+    "row": "船側",
+    "hausdorff_px": 0.151,
+    "p95_px": 0.134,
+    "root_px": 0.0,
+    "tip_px": 0.01
+   },
+   {
+    "id": "C102",
+    "type": "T2",
+    "row": "船側",
+    "hausdorff_px": 0.346,
+    "p95_px": 0.294,
+    "root_px": 0.0,
+    "tip_px": 0.003
+   },
+   {
+    "id": "C103",
+    "type": "T1",
+    "row": "船側",
+    "hausdorff_px": 0.303,
+    "p95_px": 0.256,
+    "root_px": 0.0,
+    "tip_px": 0.001
+   },
+   {
+    "id": "C104",
+    "type": "T1",
+    "row": "船側",
+    "hausdorff_px": 0.346,
+    "p95_px": 0.335,
+    "root_px": 0.0,
+    "tip_px": 0.003
+   },
+   {
+    "id": "C105",
+    "type": "T1",
+    "row": "船側",
+    "hausdorff_px": 0.432,
+    "p95_px": 0.38,
+    "root_px": 0.0,
+    "tip_px": 0.006
+   },
+   {
+    "id": "C106",
+    "type": "T1",
+    "row": "船側",
+    "hausdorff_px": 0.23,
+    "p95_px": 0.206,
+    "root_px": 0.0,
+    "tip_px": 0.004
+   },
+   {
+    "id": "C108",
+    "type": "T1",
+    "row": "船側",
+    "hausdorff_px": 0.417,
+    "p95_px": 0.398,
+    "root_px": 0.0,
+    "tip_px": 0.006
+   },
+   {
+    "id": "C109",
+    "type": "T1",
+    "row": "船側",
+    "hausdorff_px": 0.616,
+    "p95_px": 0.573,
+    "root_px": 0.0,
+    "tip_px": 0.003
+   },
+   {
+    "id": "C110",
+    "type": "T1",
+    "row": "船側",
+    "hausdorff_px": 0.244,
+    "p95_px": 0.227,
+    "root_px": 0.0,
+    "tip_px": 0.033
+   },
+   {
+    "id": "C111",
+    "type": "T1",
+    "row": "船側",
+    "hausdorff_px": 0.542,
+    "p95_px": 0.519,
+    "root_px": 0.0,
+    "tip_px": 0.004
+   },
+   {
+    "id": "C113",
+    "type": "T1",
+    "row": "船側",
+    "hausdorff_px": 0.555,
+    "p95_px": 0.448,
+    "root_px": 0.001,
+    "tip_px": 0.001
+   },
+   {
+    "id": "C114",
+    "type": "T1",
+    "row": "船側",
+    "hausdorff_px": 0.485,
+    "p95_px": 0.482,
+    "root_px": 0.0,
+    "tip_px": 0.005
+   },
+   {
+    "id": "C115",
+    "type": "T1",
+    "row": "船側",
+    "hausdorff_px": 0.674,
+    "p95_px": 0.573,
+    "root_px": 0.038,
+    "tip_px": 0.012
+   },
+   {
+    "id": "C116",
+    "type": "T1",
+    "row": "船側",
+    "hausdorff_px": 0.081,
+    "p95_px": 0.078,
+    "root_px": 0.0,
+    "tip_px": 0.003
+   },
+   {
+    "id": "C117",
+    "type": "T1",
+    "row": "船側",
+    "hausdorff_px": 1.026,
+    "p95_px": 1.026,
+    "root_px": 0.0,
+    "tip_px": 0.042
+   },
+   {
+    "id": "C118",
+    "type": "T1",
+    "row": "船側",
+    "hausdorff_px": 0.399,
+    "p95_px": 0.391,
+    "root_px": 0.0,
+    "tip_px": 0.097
+   },
+   {
+    "id": "C119",
+    "type": "T1",
+    "row": "船側",
+    "hausdorff_px": 0.409,
+    "p95_px": 0.397,
+    "root_px": 0.001,
+    "tip_px": 0.048
+   },
+   {
+    "id": "C120",
+    "type": "T1",
+    "row": "船側",
+    "hausdorff_px": 0.193,
+    "p95_px": 0.166,
+    "root_px": 0.001,
+    "tip_px": 0.195
+   },
+   {
+    "id": "C121",
+    "type": "T4",
+    "row": "船側",
+    "hausdorff_px": 0.668,
+    "p95_px": 0.617,
+    "root_px": 0.0,
+    "tip_px": 0.004
+   },
+   {
+    "id": "C122",
+    "type": "T1",
+    "row": "船側",
+    "hausdorff_px": 0.512,
+    "p95_px": 0.457,
+    "root_px": 0.0,
+    "tip_px": 0.008
+   },
+   {
+    "id": "C123",
+    "type": "T1",
+    "row": "船側",
+    "hausdorff_px": 0.8,
+    "p95_px": 0.754,
+    "root_px": 0.0,
+    "tip_px": 0.007
+   },
+   {
+    "id": "C124",
+    "type": "T1",
+    "row": "船側",
+    "hausdorff_px": 0.494,
+    "p95_px": 0.492,
+    "root_px": 0.0,
+    "tip_px": 0.002
+   },
+   {
+    "id": "C125",
+    "type": "T1",
+    "row": "船側",
+    "hausdorff_px": 0.797,
+    "p95_px": 0.749,
+    "root_px": 0.0,
+    "tip_px": 0.032
+   },
+   {
+    "id": "C126",
+    "type": "T1",
+    "row": "船側",
+    "hausdorff_px": 0.285,
+    "p95_px": 0.216,
+    "root_px": 0.0,
+    "tip_px": 0.005
+   },
+   {
+    "id": "C127",
+    "type": "T4",
+    "row": "船側",
+    "hausdorff_px": 1.205,
+    "p95_px": 1.145,
+    "root_px": 0.001,
+    "tip_px": 0.021
+   },
+   {
+    "id": "C128",
+    "type": "T1",
+    "row": "船側",
+    "hausdorff_px": 0.129,
+    "p95_px": 0.123,
+    "root_px": 0.0,
+    "tip_px": 0.005
+   },
+   {
+    "id": "C154",
+    "type": "T1",
+    "row": "船側",
+    "hausdorff_px": 0.481,
+    "p95_px": 0.416,
+    "root_px": 0.0,
+    "tip_px": 0.006
+   },
+   {
+    "id": "C155",
+    "type": "T1",
+    "row": "船側",
+    "hausdorff_px": 0.147,
+    "p95_px": 0.143,
+    "root_px": 0.0,
+    "tip_px": 0.001
+   },
+   {
+    "id": "C156",
+    "type": "T1",
+    "row": "途中",
+    "hausdorff_px": 0.779,
+    "p95_px": 0.73,
+    "root_px": 0.0,
+    "tip_px": 0.01
+   },
+   {
+    "id": "C157",
+    "type": "T1",
+    "row": "上側",
+    "hausdorff_px": 0.347,
+    "p95_px": 0.286,
+    "root_px": 0.0,
+    "tip_px": 0.003
+   },
+   {
+    "id": "C158",
+    "type": "T1",
+    "row": "b区域",
+    "hausdorff_px": 0.25,
+    "p95_px": 0.236,
+    "root_px": 0.0,
+    "tip_px": 0.004
+   },
+   {
+    "id": "C159",
+    "type": "T1",
+    "row": "b区域",
+    "hausdorff_px": 0.665,
+    "p95_px": 0.61,
+    "root_px": 0.0,
+    "tip_px": 0.013
+   },
+   {
+    "id": "C160",
+    "type": "T1",
+    "row": "b区域",
+    "hausdorff_px": 0.39,
+    "p95_px": 0.379,
+    "root_px": 0.001,
+    "tip_px": 0.004
+   },
+   {
+    "id": "C161",
+    "type": "T1",
+    "row": "b区域",
+    "hausdorff_px": 0.91,
+    "p95_px": 0.838,
+    "root_px": 0.0,
+    "tip_px": 0.002
+   },
+   {
+    "id": "C162",
+    "type": "T1",
+    "row": "上側",
+    "hausdorff_px": 0.459,
+    "p95_px": 0.439,
+    "root_px": 0.0,
+    "tip_px": 0.004
+   },
+   {
+    "id": "C163",
+    "type": "T1",
+    "row": "b区域",
+    "hausdorff_px": 0.2,
+    "p95_px": 0.196,
+    "root_px": 0.0,
+    "tip_px": 0.002
+   },
+   {
+    "id": "C164",
+    "type": "T1",
+    "row": "b区域",
+    "hausdorff_px": 0.479,
+    "p95_px": 0.474,
+    "root_px": 0.0,
+    "tip_px": 0.023
+   },
+   {
+    "id": "C165",
+    "type": "T1",
+    "row": "b区域",
+    "hausdorff_px": 0.694,
+    "p95_px": 0.621,
+    "root_px": 0.0,
+    "tip_px": 0.007
+   },
+   {
+    "id": "C166",
+    "type": "T1",
+    "row": "b区域",
+    "hausdorff_px": 0.451,
+    "p95_px": 0.372,
+    "root_px": 0.001,
+    "tip_px": 0.004
+   },
+   {
+    "id": "C167",
+    "type": "T1",
+    "row": "b区域",
+    "hausdorff_px": 0.529,
+    "p95_px": 0.456,
+    "root_px": 0.001,
+    "tip_px": 0.003
+   },
+   {
+    "id": "C168",
+    "type": "T1",
+    "row": "b区域",
+    "hausdorff_px": 0.622,
+    "p95_px": 0.611,
+    "root_px": 0.001,
+    "tip_px": 0.007
+   },
+   {
+    "id": "C170",
+    "type": "T1",
+    "row": "b区域",
+    "hausdorff_px": 0.705,
+    "p95_px": 0.678,
+    "root_px": 0.0,
+    "tip_px": 0.005
+   },
+   {
+    "id": "C171",
+    "type": "T1",
+    "row": "b区域",
+    "hausdorff_px": 0.398,
+    "p95_px": 0.359,
+    "root_px": 0.001,
+    "tip_px": 0.208
+   },
+   {
+    "id": "C172",
+    "type": "T1",
+    "row": "上側",
+    "hausdorff_px": 0.515,
+    "p95_px": 0.441,
+    "root_px": 0.0,
+    "tip_px": 0.021
+   },
+   {
+    "id": "C173",
+    "type": "T4",
+    "row": "b区域",
+    "hausdorff_px": 1.106,
+    "p95_px": 0.96,
+    "root_px": 0.0,
+    "tip_px": 0.016
+   },
+   {
+    "id": "C175",
+    "type": "T1",
+    "row": "b区域",
+    "hausdorff_px": 0.573,
+    "p95_px": 0.568,
+    "root_px": 0.001,
+    "tip_px": 0.004
+   },
+   {
+    "id": "C176",
+    "type": "T1",
+    "row": "b区域",
+    "hausdorff_px": 1.603,
+    "p95_px": 1.601,
+    "root_px": 0.0,
+    "tip_px": 0.009
+   },
+   {
+    "id": "C177",
+    "type": "T1",
+    "row": "b区域",
+    "hausdorff_px": 0.486,
+    "p95_px": 0.48,
+    "root_px": 0.0,
+    "tip_px": 0.003
+   },
+   {
+    "id": "C178",
+    "type": "T1",
+    "row": "b区域",
+    "hausdorff_px": 0.164,
+    "p95_px": 0.162,
+    "root_px": 0.0,
+    "tip_px": 0.166
+   },
+   {
+    "id": "C179",
+    "type": "T1",
+    "row": "b区域",
+    "hausdorff_px": 0.775,
+    "p95_px": 0.705,
+    "root_px": 0.0,
+    "tip_px": 0.044
+   },
+   {
+    "id": "C180",
+    "type": "T1",
+    "row": "b区域",
+    "hausdorff_px": 0.326,
+    "p95_px": 0.314,
+    "root_px": 0.0,
+    "tip_px": 0.009
+   },
+   {
+    "id": "C181",
+    "type": "T1",
+    "row": "b区域",
+    "hausdorff_px": 0.366,
+    "p95_px": 0.353,
+    "root_px": 0.0,
+    "tip_px": 0.006
+   },
+   {
+    "id": "C182",
+    "type": "T1",
+    "row": "b区域",
+    "hausdorff_px": 0.897,
+    "p95_px": 0.708,
+    "root_px": 0.001,
+    "tip_px": 0.005
+   },
+   {
+    "id": "C183",
+    "type": "T1",
+    "row": "b区域",
+    "hausdorff_px": 1.616,
+    "p95_px": 1.602,
+    "root_px": 0.001,
+    "tip_px": 0.029
+   },
+   {
+    "id": "C184",
+    "type": "T1",
+    "row": "b区域",
+    "hausdorff_px": 0.814,
+    "p95_px": 0.766,
+    "root_px": 0.0,
+    "tip_px": 0.012
+   },
+   {
+    "id": "C185",
+    "type": "T1",
+    "row": "b区域",
+    "hausdorff_px": 0.396,
+    "p95_px": 0.393,
+    "root_px": 0.0,
+    "tip_px": 0.042
+   },
+   {
+    "id": "C186",
+    "type": "T1",
+    "row": "b区域",
+    "hausdorff_px": 0.285,
+    "p95_px": 0.267,
+    "root_px": 0.0,
+    "tip_px": 0.003
+   },
+   {
+    "id": "C187",
+    "type": "T1",
+    "row": "b区域",
+    "hausdorff_px": 0.543,
+    "p95_px": 0.515,
+    "root_px": 0.001,
+    "tip_px": 0.019
+   },
+   {
+    "id": "C188",
+    "type": "T1",
+    "row": "b区域",
+    "hausdorff_px": 1.08,
+    "p95_px": 0.973,
+    "root_px": 0.0,
+    "tip_px": 0.065
+   },
+   {
+    "id": "C189",
+    "type": "T1",
+    "row": "b区域",
+    "hausdorff_px": 0.482,
+    "p95_px": 0.445,
+    "root_px": 0.0,
+    "tip_px": 0.005
+   },
+   {
+    "id": "C190",
+    "type": "T1",
+    "row": "b区域",
+    "hausdorff_px": 0.179,
+    "p95_px": 0.177,
+    "root_px": 0.0,
+    "tip_px": 0.004
+   },
+   {
+    "id": "C191",
+    "type": "T1",
+    "row": "b区域",
+    "hausdorff_px": 0.308,
+    "p95_px": 0.271,
+    "root_px": 0.001,
+    "tip_px": 0.001
+   },
+   {
+    "id": "C192",
+    "type": "T1",
+    "row": "b区域",
+    "hausdorff_px": 0.413,
+    "p95_px": 0.402,
+    "root_px": 0.001,
+    "tip_px": 0.003
+   },
+   {
+    "id": "C193",
+    "type": "T1",
+    "row": "b区域",
+    "hausdorff_px": 0.366,
+    "p95_px": 0.317,
+    "root_px": 0.001,
+    "tip_px": 0.047
+   },
+   {
+    "id": "C194",
+    "type": "T2",
+    "row": "b区域",
+    "hausdorff_px": 1.343,
+    "p95_px": 1.223,
+    "root_px": 0.0,
+    "tip_px": 0.077
+   },
+   {
+    "id": "C195",
+    "type": "T1",
+    "row": "b区域",
+    "hausdorff_px": 0.277,
+    "p95_px": 0.243,
+    "root_px": 0.0,
+    "tip_px": 0.007
+   },
+   {
+    "id": "C196",
+    "type": "T1",
+    "row": "b区域",
+    "hausdorff_px": 1.586,
+    "p95_px": 1.545,
+    "root_px": 0.0,
+    "tip_px": 0.021
+   },
+   {
+    "id": "C197",
+    "type": "T1",
+    "row": "b区域",
+    "hausdorff_px": 0.191,
+    "p95_px": 0.156,
+    "root_px": 0.0,
+    "tip_px": 0.003
+   },
+   {
+    "id": "C198",
+    "type": "T1",
+    "row": "b区域",
+    "hausdorff_px": 0.689,
+    "p95_px": 0.617,
+    "root_px": 0.001,
+    "tip_px": 0.036
+   },
+   {
+    "id": "C199",
+    "type": "T1",
+    "row": "b区域",
+    "hausdorff_px": 1.27,
+    "p95_px": 1.056,
+    "root_px": 0.0,
+    "tip_px": 0.296
+   },
+   {
+    "id": "C200",
+    "type": "branch",
+    "row": "b区域",
+    "hausdorff_px": 0.564,
+    "p95_px": 0.53,
+    "root_px": 0.0,
+    "tip_px": 0.007
+   },
+   {
+    "id": "C201",
+    "type": "T1",
+    "row": "b区域",
+    "hausdorff_px": 0.266,
+    "p95_px": 0.253,
+    "root_px": 0.0,
+    "tip_px": 0.02
+   },
+   {
+    "id": "C202",
+    "type": "T1",
+    "row": "b区域",
+    "hausdorff_px": 0.722,
+    "p95_px": 0.615,
+    "root_px": 0.001,
+    "tip_px": 0.174
+   },
+   {
+    "id": "C203",
+    "type": "T1",
+    "row": "b区域",
+    "hausdorff_px": 0.59,
+    "p95_px": 0.522,
+    "root_px": 0.0,
+    "tip_px": 0.043
+   },
+   {
+    "id": "C204",
+    "type": "T1",
+    "row": "b区域",
+    "hausdorff_px": 0.364,
+    "p95_px": 0.343,
+    "root_px": 0.001,
+    "tip_px": 0.002
+   },
+   {
+    "id": "C205",
+    "type": "T1",
+    "row": "b区域",
+    "hausdorff_px": 0.495,
+    "p95_px": 0.483,
+    "root_px": 0.0,
+    "tip_px": 0.007
+   },
+   {
+    "id": "C206",
+    "type": "T1",
+    "row": "b区域",
+    "hausdorff_px": 0.253,
+    "p95_px": 0.233,
+    "root_px": 0.0,
+    "tip_px": 0.006
+   },
+   {
+    "id": "C207",
+    "type": "T1",
+    "row": "b区域",
+    "hausdorff_px": 0.779,
+    "p95_px": 0.66,
+    "root_px": 0.001,
+    "tip_px": 0.004
+   },
+   {
+    "id": "C208",
+    "type": "T4",
+    "row": "b区域",
+    "hausdorff_px": 0.94,
+    "p95_px": 0.824,
+    "root_px": 0.0,
+    "tip_px": 0.003
+   },
+   {
+    "id": "C209",
+    "type": "branch",
+    "row": "b区域",
+    "hausdorff_px": 0.46,
+    "p95_px": 0.448,
+    "root_px": 0.0,
+    "tip_px": 0.004
+   },
+   {
+    "id": "C210",
+    "type": "branch",
+    "row": "b区域",
+    "hausdorff_px": 0.287,
+    "p95_px": 0.279,
+    "root_px": 0.001,
+    "tip_px": 0.01
+   },
+   {
+    "id": "C211",
+    "type": "T1",
+    "row": "b区域",
+    "hausdorff_px": 0.423,
+    "p95_px": 0.403,
+    "root_px": 0.0,
+    "tip_px": 0.027
+   },
+   {
+    "id": "C212",
+    "type": "T2",
+    "row": "b区域",
+    "hausdorff_px": 0.838,
+    "p95_px": 0.746,
+    "root_px": 0.0,
+    "tip_px": 0.045
+   },
+   {
+    "id": "C213",
+    "type": "T2",
+    "row": "b区域",
+    "hausdorff_px": 1.48,
+    "p95_px": 1.442,
+    "root_px": 0.0,
+    "tip_px": 0.003
+   },
+   {
+    "id": "C214",
+    "type": "T1",
+    "row": "b区域",
+    "hausdorff_px": 0.106,
+    "p95_px": 0.089,
+    "root_px": 0.0,
+    "tip_px": 0.052
+   },
+   {
+    "id": "C215",
+    "type": "T2",
+    "row": "b区域",
+    "hausdorff_px": 1.019,
+    "p95_px": 1.012,
+    "root_px": 0.0,
+    "tip_px": 0.004
+   },
+   {
+    "id": "C216",
+    "type": "T1",
+    "row": "b区域",
+    "hausdorff_px": 0.895,
+    "p95_px": 0.866,
+    "root_px": 0.0,
+    "tip_px": 0.005
+   },
+   {
+    "id": "C217",
+    "type": "T1",
+    "row": "b区域",
+    "hausdorff_px": 0.395,
+    "p95_px": 0.349,
+    "root_px": 0.0,
+    "tip_px": 0.005
+   },
+   {
+    "id": "C218",
+    "type": "T4",
+    "row": "b区域",
+    "hausdorff_px": 0.759,
+    "p95_px": 0.685,
+    "root_px": 0.0,
+    "tip_px": 0.004
+   },
+   {
+    "id": "C219",
+    "type": "T1",
+    "row": "b区域",
+    "hausdorff_px": 0.256,
+    "p95_px": 0.239,
+    "root_px": 0.0,
+    "tip_px": 0.009
+   },
+   {
+    "id": "C220",
+    "type": "T1",
+    "row": "b区域",
+    "hausdorff_px": 0.164,
+    "p95_px": 0.164,
+    "root_px": 0.0,
+    "tip_px": 0.016
+   },
+   {
+    "id": "C221",
+    "type": "T1",
+    "row": "b区域",
+    "hausdorff_px": 0.092,
+    "p95_px": 0.086,
+    "root_px": 0.001,
+    "tip_px": 0.054
+   },
+   {
+    "id": "C222",
+    "type": "branch",
+    "row": "b区域",
+    "hausdorff_px": 0.159,
+    "p95_px": 0.127,
+    "root_px": 0.0,
+    "tip_px": 0.003
+   },
+   {
+    "id": "C223",
+    "type": "T1",
+    "row": "b区域",
+    "hausdorff_px": 0.896,
+    "p95_px": 0.855,
+    "root_px": 0.001,
+    "tip_px": 0.003
+   },
+   {
+    "id": "C224",
+    "type": "T1",
+    "row": "b区域",
+    "hausdorff_px": 0.441,
+    "p95_px": 0.39,
+    "root_px": 0.0,
+    "tip_px": 0.068
+   },
+   {
+    "id": "C225",
+    "type": "T1",
+    "row": "b区域",
+    "hausdorff_px": 0.146,
+    "p95_px": 0.136,
+    "root_px": 0.0,
+    "tip_px": 0.004
+   },
+   {
+    "id": "C226",
+    "type": "T4",
+    "row": "b区域",
+    "hausdorff_px": 0.406,
+    "p95_px": 0.384,
+    "root_px": 0.0,
+    "tip_px": 0.004
+   },
+   {
+    "id": "C227",
+    "type": "T1",
+    "row": "b区域",
+    "hausdorff_px": 0.219,
+    "p95_px": 0.215,
+    "root_px": 0.0,
+    "tip_px": 0.02
+   },
+   {
+    "id": "C228",
+    "type": "T1",
+    "row": "b区域",
+    "hausdorff_px": 0.459,
+    "p95_px": 0.432,
+    "root_px": 0.0,
+    "tip_px": 0.008
+   },
+   {
+    "id": "C229",
+    "type": "T1",
+    "row": "b区域",
+    "hausdorff_px": 0.285,
+    "p95_px": 0.28,
+    "root_px": 0.0,
+    "tip_px": 0.005
+   },
+   {
+    "id": "C230",
+    "type": "T1",
+    "row": "b区域",
+    "hausdorff_px": 0.628,
+    "p95_px": 0.617,
+    "root_px": 0.001,
+    "tip_px": 0.005
+   },
+   {
+    "id": "C231",
+    "type": "T1",
+    "row": "b区域",
+    "hausdorff_px": 0.99,
+    "p95_px": 0.929,
+    "root_px": 0.0,
+    "tip_px": 0.002
+   },
+   {
+    "id": "C232",
+    "type": "T1",
+    "row": "b区域",
+    "hausdorff_px": 0.486,
+    "p95_px": 0.454,
+    "root_px": 0.001,
+    "tip_px": 0.003
+   },
+   {
+    "id": "C233",
+    "type": "T1",
+    "row": "b区域",
+    "hausdorff_px": 0.103,
+    "p95_px": 0.084,
+    "root_px": 0.0,
+    "tip_px": 0.003
+   },
+   {
+    "id": "C234",
+    "type": "T1",
+    "row": "b区域",
+    "hausdorff_px": 0.215,
+    "p95_px": 0.189,
+    "root_px": 0.0,
+    "tip_px": 0.002
+   },
+   {
+    "id": "C235",
+    "type": "T1",
+    "row": "b区域",
+    "hausdorff_px": 1.066,
+    "p95_px": 0.928,
+    "root_px": 0.0,
+    "tip_px": 0.019
+   },
+   {
+    "id": "C236",
+    "type": "T1",
+    "row": "b区域",
+    "hausdorff_px": 0.6,
+    "p95_px": 0.553,
+    "root_px": 0.0,
+    "tip_px": 0.012
+   },
+   {
+    "id": "C237",
+    "type": "T1",
+    "row": "b区域",
+    "hausdorff_px": 0.23,
+    "p95_px": 0.221,
+    "root_px": 0.0,
+    "tip_px": 0.005
+   },
+   {
+    "id": "C238",
+    "type": "T1",
+    "row": "b区域",
+    "hausdorff_px": 0.143,
+    "p95_px": 0.138,
+    "root_px": 0.0,
+    "tip_px": 0.009
+   }
+  ]
+ },
+ "web_join": {
+  "rule_ja": "波頭の白い帯（web）への継ぎ：根元はシートの色区（29修正01）の上にあり、根元の白の円が面に重なる。成長の開始は根元の T_white（白の帯がそこで白くなる時）",
+  "root_class": {
+   "白": 178,
+   "藍濃": 31
+  },
+  "dist_to_white_vertex_m": {
+   "p50": 0.0878,
+   "p95": 0.9516799999999989,
+   "max": 3.4111
+  },
+  "per_claw": [
+   {
+    "id": "C001",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0617,
+    "tau_start": -1.7312,
+    "root_twhite": -1.7495
+   },
+   {
+    "id": "C002",
+    "root_class": "藍濃",
+    "dist_to_white_vertex_m": 0.2202,
+    "tau_start": -1.7648,
+    "root_twhite": -1.7691
+   },
+   {
+    "id": "C003",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0692,
+    "tau_start": -1.7821,
+    "root_twhite": -1.8002
+   },
+   {
+    "id": "C004",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0546,
+    "tau_start": -1.7561,
+    "root_twhite": -1.7736
+   },
+   {
+    "id": "C005",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0858,
+    "tau_start": -1.7763,
+    "root_twhite": -1.788
+   },
+   {
+    "id": "C006",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0109,
+    "tau_start": -1.8318,
+    "root_twhite": -1.8493
+   },
+   {
+    "id": "C007",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.1184,
+    "tau_start": -1.8159,
+    "root_twhite": -1.8337
+   },
+   {
+    "id": "C008",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.1316,
+    "tau_start": -1.788,
+    "root_twhite": -1.806
+   },
+   {
+    "id": "C009",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0926,
+    "tau_start": -1.9032,
+    "root_twhite": -1.9203
+   },
+   {
+    "id": "C010",
+    "root_class": "藍濃",
+    "dist_to_white_vertex_m": 0.3661,
+    "tau_start": -1.3069,
+    "root_twhite": -1.8816
+   },
+   {
+    "id": "C011",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0908,
+    "tau_start": -1.806,
+    "root_twhite": -1.806
+   },
+   {
+    "id": "C012",
+    "root_class": "藍濃",
+    "dist_to_white_vertex_m": 0.1816,
+    "tau_start": -1.9091,
+    "root_twhite": -1.9091
+   },
+   {
+    "id": "C013",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0524,
+    "tau_start": -1.9037,
+    "root_twhite": -1.9037
+   },
+   {
+    "id": "C014",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0466,
+    "tau_start": -1.2954,
+    "root_twhite": -1.812
+   },
+   {
+    "id": "C015",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.1234,
+    "tau_start": -1.7954,
+    "root_twhite": -1.8115
+   },
+   {
+    "id": "C016",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.1041,
+    "tau_start": -1.8666,
+    "root_twhite": -1.8737
+   },
+   {
+    "id": "C017",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0655,
+    "tau_start": -1.906,
+    "root_twhite": -1.906
+   },
+   {
+    "id": "C018",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0508,
+    "tau_start": -1.9428,
+    "root_twhite": -1.949
+   },
+   {
+    "id": "C019",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.1298,
+    "tau_start": -1.8504,
+    "root_twhite": -1.8504
+   },
+   {
+    "id": "C020",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0934,
+    "tau_start": -1.8835,
+    "root_twhite": -1.8933
+   },
+   {
+    "id": "C021",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0992,
+    "tau_start": -1.9341,
+    "root_twhite": -1.9341
+   },
+   {
+    "id": "C022",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0862,
+    "tau_start": -1.9843,
+    "root_twhite": -1.989
+   },
+   {
+    "id": "C023",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0766,
+    "tau_start": -2.0472,
+    "root_twhite": -2.0623
+   },
+   {
+    "id": "C024",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0835,
+    "tau_start": -2.076,
+    "root_twhite": -2.0821
+   },
+   {
+    "id": "C025",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0673,
+    "tau_start": -1.9954,
+    "root_twhite": -2.0072
+   },
+   {
+    "id": "C026",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0291,
+    "tau_start": -1.9416,
+    "root_twhite": -1.9543
+   },
+   {
+    "id": "C027",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0362,
+    "tau_start": -2.2668,
+    "root_twhite": -2.2668
+   },
+   {
+    "id": "C028",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0901,
+    "tau_start": -2.0307,
+    "root_twhite": -2.038
+   },
+   {
+    "id": "C029",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.1045,
+    "tau_start": -2.1157,
+    "root_twhite": -2.1268
+   },
+   {
+    "id": "C030",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0902,
+    "tau_start": -2.4427,
+    "root_twhite": -2.4482
+   },
+   {
+    "id": "C031",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0761,
+    "tau_start": -1.9602,
+    "root_twhite": -1.9706
+   },
+   {
+    "id": "C032",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0695,
+    "tau_start": -1.913,
+    "root_twhite": -1.913
+   },
+   {
+    "id": "C033",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.1182,
+    "tau_start": -1.8255,
+    "root_twhite": -1.8288
+   },
+   {
+    "id": "C034",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0572,
+    "tau_start": -1.8554,
+    "root_twhite": -1.8554
+   },
+   {
+    "id": "C035",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0855,
+    "tau_start": -2.3671,
+    "root_twhite": -2.4175
+   },
+   {
+    "id": "C036",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0768,
+    "tau_start": -1.8029,
+    "root_twhite": -1.8173
+   },
+   {
+    "id": "C037",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.101,
+    "tau_start": -1.8478,
+    "root_twhite": -1.8618
+   },
+   {
+    "id": "C038",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.1189,
+    "tau_start": -1.6776,
+    "root_twhite": -1.6899
+   },
+   {
+    "id": "C039",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.1169,
+    "tau_start": -1.7531,
+    "root_twhite": -1.7674
+   },
+   {
+    "id": "C040",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0368,
+    "tau_start": -1.7857,
+    "root_twhite": -1.7977
+   },
+   {
+    "id": "C041",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0665,
+    "tau_start": -1.8516,
+    "root_twhite": -1.8632
+   },
+   {
+    "id": "C042",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.1074,
+    "tau_start": -1.7765,
+    "root_twhite": -1.7776
+   },
+   {
+    "id": "C043",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0879,
+    "tau_start": -1.7571,
+    "root_twhite": -1.759
+   },
+   {
+    "id": "C044",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.089,
+    "tau_start": -1.8289,
+    "root_twhite": -1.8289
+   },
+   {
+    "id": "C045",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0574,
+    "tau_start": -1.7752,
+    "root_twhite": -1.7765
+   },
+   {
+    "id": "C046",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.047,
+    "tau_start": -1.9549,
+    "root_twhite": -1.9555
+   },
+   {
+    "id": "C047",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.048,
+    "tau_start": -1.9999,
+    "root_twhite": -2.0013
+   },
+   {
+    "id": "C048",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0612,
+    "tau_start": -1.992,
+    "root_twhite": -2.0009
+   },
+   {
+    "id": "C049",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0568,
+    "tau_start": -1.9358,
+    "root_twhite": -1.9358
+   },
+   {
+    "id": "C050",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.031,
+    "tau_start": -1.9664,
+    "root_twhite": -1.9664
+   },
+   {
+    "id": "C051",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0554,
+    "tau_start": -1.7925,
+    "root_twhite": -1.7932
+   },
+   {
+    "id": "C052",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0587,
+    "tau_start": -1.6698,
+    "root_twhite": -1.6705
+   },
+   {
+    "id": "C053",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0596,
+    "tau_start": -1.6991,
+    "root_twhite": -1.7006
+   },
+   {
+    "id": "C054",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.1042,
+    "tau_start": -1.1365,
+    "root_twhite": -1.6709
+   },
+   {
+    "id": "C055",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0546,
+    "tau_start": -1.6036,
+    "root_twhite": -1.6204
+   },
+   {
+    "id": "C056",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0329,
+    "tau_start": -1.6921,
+    "root_twhite": -1.7082
+   },
+   {
+    "id": "C057",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0545,
+    "tau_start": -1.8505,
+    "root_twhite": -1.8645
+   },
+   {
+    "id": "C058",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0828,
+    "tau_start": -1.66,
+    "root_twhite": -1.6617
+   },
+   {
+    "id": "C059",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0944,
+    "tau_start": -1.4891,
+    "root_twhite": -1.5092
+   },
+   {
+    "id": "C060",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.1293,
+    "tau_start": -1.7954,
+    "root_twhite": -1.8115
+   },
+   {
+    "id": "C061",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0182,
+    "tau_start": -1.9664,
+    "root_twhite": -1.9771
+   },
+   {
+    "id": "C062",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0372,
+    "tau_start": -1.8721,
+    "root_twhite": -1.8726
+   },
+   {
+    "id": "C063",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.1045,
+    "tau_start": -1.8828,
+    "root_twhite": -1.8841
+   },
+   {
+    "id": "C064",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.1095,
+    "tau_start": -1.6039,
+    "root_twhite": -1.6039
+   },
+   {
+    "id": "C065",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0729,
+    "tau_start": -1.4502,
+    "root_twhite": -1.4502
+   },
+   {
+    "id": "C066",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0935,
+    "tau_start": -1.7285,
+    "root_twhite": -1.7423
+   },
+   {
+    "id": "C067",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0582,
+    "tau_start": -0.5054,
+    "root_twhite": -1.6971
+   },
+   {
+    "id": "C068",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0789,
+    "tau_start": -1.246,
+    "root_twhite": -1.2742
+   },
+   {
+    "id": "C069",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.1041,
+    "tau_start": -1.1381,
+    "root_twhite": -1.1662
+   },
+   {
+    "id": "C070",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.1066,
+    "tau_start": -1.2682,
+    "root_twhite": -1.2682
+   },
+   {
+    "id": "C071",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.058,
+    "tau_start": -1.0052,
+    "root_twhite": -1.0275
+   },
+   {
+    "id": "C072",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0708,
+    "tau_start": -1.1393,
+    "root_twhite": -1.1446
+   },
+   {
+    "id": "C073",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0682,
+    "tau_start": -1.0286,
+    "root_twhite": -1.0286
+   },
+   {
+    "id": "C074",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.1244,
+    "tau_start": -1.0286,
+    "root_twhite": -1.0476
+   },
+   {
+    "id": "C075",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0948,
+    "tau_start": -1.1723,
+    "root_twhite": -1.1763
+   },
+   {
+    "id": "C076",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0414,
+    "tau_start": -1.2304,
+    "root_twhite": -1.2514
+   },
+   {
+    "id": "C077",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0351,
+    "tau_start": -0.6932,
+    "root_twhite": -1.0302
+   },
+   {
+    "id": "C078",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0962,
+    "tau_start": -1.2067,
+    "root_twhite": -1.2406
+   },
+   {
+    "id": "C079",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.084,
+    "tau_start": -1.2794,
+    "root_twhite": -1.305
+   },
+   {
+    "id": "C080",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0596,
+    "tau_start": -1.0789,
+    "root_twhite": -1.1056
+   },
+   {
+    "id": "C081",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0641,
+    "tau_start": -1.0382,
+    "root_twhite": -1.0584
+   },
+   {
+    "id": "C082",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0646,
+    "tau_start": -1.0116,
+    "root_twhite": -1.0137
+   },
+   {
+    "id": "C083",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0352,
+    "tau_start": -1.0314,
+    "root_twhite": -1.0427
+   },
+   {
+    "id": "C084",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.073,
+    "tau_start": -0.9967,
+    "root_twhite": -1.0005
+   },
+   {
+    "id": "C085",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0484,
+    "tau_start": -1.0098,
+    "root_twhite": -1.0098
+   },
+   {
+    "id": "C086",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0242,
+    "tau_start": -0.9448,
+    "root_twhite": -0.9587
+   },
+   {
+    "id": "C087",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0891,
+    "tau_start": -0.6302,
+    "root_twhite": -0.9683
+   },
+   {
+    "id": "C088",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.1195,
+    "tau_start": -0.9628,
+    "root_twhite": -0.9708
+   },
+   {
+    "id": "C089",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0489,
+    "tau_start": -1.0194,
+    "root_twhite": -1.1283
+   },
+   {
+    "id": "C090",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.1188,
+    "tau_start": -1.0432,
+    "root_twhite": -1.05
+   },
+   {
+    "id": "C091",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.1261,
+    "tau_start": -0.9994,
+    "root_twhite": -1.0079
+   },
+   {
+    "id": "C092",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.042,
+    "tau_start": -0.9831,
+    "root_twhite": -0.9923
+   },
+   {
+    "id": "C093",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.1161,
+    "tau_start": -0.9947,
+    "root_twhite": -1.2483
+   },
+   {
+    "id": "C094",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.1103,
+    "tau_start": -1.0303,
+    "root_twhite": -1.0303
+   },
+   {
+    "id": "C095",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.1729,
+    "tau_start": -1.0796,
+    "root_twhite": -1.1142
+   },
+   {
+    "id": "C096",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.118,
+    "tau_start": -1.1448,
+    "root_twhite": -1.1448
+   },
+   {
+    "id": "C097",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0672,
+    "tau_start": -0.9468,
+    "root_twhite": -0.9603
+   },
+   {
+    "id": "C098",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0842,
+    "tau_start": -0.9546,
+    "root_twhite": -0.9701
+   },
+   {
+    "id": "C099",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.179,
+    "tau_start": -1.0736,
+    "root_twhite": -1.1597
+   },
+   {
+    "id": "C100",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0868,
+    "tau_start": -0.9294,
+    "root_twhite": -0.9294
+   },
+   {
+    "id": "C101",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0899,
+    "tau_start": -0.9475,
+    "root_twhite": -0.9557
+   },
+   {
+    "id": "C102",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0948,
+    "tau_start": -1.0186,
+    "root_twhite": -1.0302
+   },
+   {
+    "id": "C103",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0734,
+    "tau_start": -1.0156,
+    "root_twhite": -1.0173
+   },
+   {
+    "id": "C104",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0421,
+    "tau_start": -1.3102,
+    "root_twhite": -1.3292
+   },
+   {
+    "id": "C105",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0942,
+    "tau_start": -1.2908,
+    "root_twhite": -1.306
+   },
+   {
+    "id": "C106",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0081,
+    "tau_start": -0.9977,
+    "root_twhite": -1.0035
+   },
+   {
+    "id": "C108",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0574,
+    "tau_start": -1.3102,
+    "root_twhite": -1.3417
+   },
+   {
+    "id": "C109",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.1056,
+    "tau_start": -1.4985,
+    "root_twhite": -1.512
+   },
+   {
+    "id": "C110",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0673,
+    "tau_start": -1.3466,
+    "root_twhite": -1.3466
+   },
+   {
+    "id": "C111",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.1625,
+    "tau_start": -1.5432,
+    "root_twhite": -1.5432
+   },
+   {
+    "id": "C113",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0212,
+    "tau_start": -0.984,
+    "root_twhite": -0.994
+   },
+   {
+    "id": "C114",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0625,
+    "tau_start": -1.0013,
+    "root_twhite": -1.0045
+   },
+   {
+    "id": "C115",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0162,
+    "tau_start": -1.3809,
+    "root_twhite": -1.4186
+   },
+   {
+    "id": "C116",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0331,
+    "tau_start": -0.9768,
+    "root_twhite": -0.9809
+   },
+   {
+    "id": "C117",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0807,
+    "tau_start": -0.9925,
+    "root_twhite": -0.9925
+   },
+   {
+    "id": "C118",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0443,
+    "tau_start": -1.1014,
+    "root_twhite": -1.1157
+   },
+   {
+    "id": "C119",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.2254,
+    "tau_start": -0.9863,
+    "root_twhite": -1.0129
+   },
+   {
+    "id": "C120",
+    "root_class": "藍濃",
+    "dist_to_white_vertex_m": 0.1536,
+    "tau_start": -0.9772,
+    "root_twhite": -1.0004
+   },
+   {
+    "id": "C121",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0821,
+    "tau_start": -1.3368,
+    "root_twhite": -1.3387
+   },
+   {
+    "id": "C122",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0699,
+    "tau_start": -1.5876,
+    "root_twhite": -1.6036
+   },
+   {
+    "id": "C123",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.091,
+    "tau_start": -1.4427,
+    "root_twhite": -1.4446
+   },
+   {
+    "id": "C124",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0385,
+    "tau_start": -1.4429,
+    "root_twhite": -1.4429
+   },
+   {
+    "id": "C125",
+    "root_class": "藍濃",
+    "dist_to_white_vertex_m": 0.7717,
+    "tau_start": -1.1624,
+    "root_twhite": -1.1624
+   },
+   {
+    "id": "C126",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.1291,
+    "tau_start": -1.5495,
+    "root_twhite": -1.5495
+   },
+   {
+    "id": "C127",
+    "root_class": "藍濃",
+    "dist_to_white_vertex_m": 0.7285,
+    "tau_start": -0.9743,
+    "root_twhite": -1.0008
+   },
+   {
+    "id": "C128",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.1295,
+    "tau_start": -1.5675,
+    "root_twhite": -1.5855
+   },
+   {
+    "id": "C154",
+    "root_class": "藍濃",
+    "dist_to_white_vertex_m": 0.344,
+    "tau_start": -0.9604,
+    "root_twhite": -0.9772
+   },
+   {
+    "id": "C155",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.104,
+    "tau_start": -0.9997,
+    "root_twhite": -1.0044
+   },
+   {
+    "id": "C156",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0893,
+    "tau_start": -1.6753,
+    "root_twhite": -1.6788
+   },
+   {
+    "id": "C157",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0503,
+    "tau_start": -1.8645,
+    "root_twhite": -1.8666
+   },
+   {
+    "id": "C158",
+    "root_class": "藍濃",
+    "dist_to_white_vertex_m": 2.1958,
+    "tau_start": -0.9689,
+    "root_twhite": -0.9752
+   },
+   {
+    "id": "C159",
+    "root_class": "藍濃",
+    "dist_to_white_vertex_m": 1.0378,
+    "tau_start": -0.4675,
+    "root_twhite": -0.4754
+   },
+   {
+    "id": "C160",
+    "root_class": "藍濃",
+    "dist_to_white_vertex_m": 0.5191,
+    "tau_start": -0.9452,
+    "root_twhite": -0.973
+   },
+   {
+    "id": "C161",
+    "root_class": "藍濃",
+    "dist_to_white_vertex_m": 1.1746,
+    "tau_start": -1.1125,
+    "root_twhite": -1.1731
+   },
+   {
+    "id": "C162",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.1036,
+    "tau_start": -1.8329,
+    "root_twhite": -1.8329
+   },
+   {
+    "id": "C163",
+    "root_class": "藍濃",
+    "dist_to_white_vertex_m": 1.3913,
+    "tau_start": -0.8622,
+    "root_twhite": -0.8641
+   },
+   {
+    "id": "C164",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.041,
+    "tau_start": -0.9708,
+    "root_twhite": -0.9708
+   },
+   {
+    "id": "C165",
+    "root_class": "藍濃",
+    "dist_to_white_vertex_m": 0.3362,
+    "tau_start": -0.967,
+    "root_twhite": -0.9676
+   },
+   {
+    "id": "C166",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.1093,
+    "tau_start": -1.0157,
+    "root_twhite": -1.0233
+   },
+   {
+    "id": "C167",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0239,
+    "tau_start": -0.9842,
+    "root_twhite": -0.9848
+   },
+   {
+    "id": "C168",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0878,
+    "tau_start": -0.9819,
+    "root_twhite": -0.9881
+   },
+   {
+    "id": "C170",
+    "root_class": "藍濃",
+    "dist_to_white_vertex_m": 0.4405,
+    "tau_start": -0.8859,
+    "root_twhite": -0.8911
+   },
+   {
+    "id": "C171",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.2389,
+    "tau_start": -0.9071,
+    "root_twhite": -0.9291
+   },
+   {
+    "id": "C172",
+    "root_class": "藍濃",
+    "dist_to_white_vertex_m": 0.6277,
+    "tau_start": -0.535,
+    "root_twhite": -0.5474
+   },
+   {
+    "id": "C173",
+    "root_class": "藍濃",
+    "dist_to_white_vertex_m": 0.5993,
+    "tau_start": -1.0132,
+    "root_twhite": -1.0168
+   },
+   {
+    "id": "C175",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.1075,
+    "tau_start": -0.9071,
+    "root_twhite": -0.9071
+   },
+   {
+    "id": "C176",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0771,
+    "tau_start": -0.9548,
+    "root_twhite": -0.958
+   },
+   {
+    "id": "C177",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0637,
+    "tau_start": -1.5406,
+    "root_twhite": -1.5406
+   },
+   {
+    "id": "C178",
+    "root_class": "藍濃",
+    "dist_to_white_vertex_m": 0.1935,
+    "tau_start": -1.509,
+    "root_twhite": -1.5263
+   },
+   {
+    "id": "C179",
+    "root_class": "藍濃",
+    "dist_to_white_vertex_m": 0.1688,
+    "tau_start": -1.48,
+    "root_twhite": -1.5159
+   },
+   {
+    "id": "C180",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0795,
+    "tau_start": -0.9153,
+    "root_twhite": -0.9239
+   },
+   {
+    "id": "C181",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0378,
+    "tau_start": -0.9943,
+    "root_twhite": -1.0018
+   },
+   {
+    "id": "C182",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0861,
+    "tau_start": -1.0128,
+    "root_twhite": -1.0169
+   },
+   {
+    "id": "C183",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.048,
+    "tau_start": -1.0302,
+    "root_twhite": -1.0426
+   },
+   {
+    "id": "C184",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0661,
+    "tau_start": -0.9119,
+    "root_twhite": -0.9176
+   },
+   {
+    "id": "C185",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.1061,
+    "tau_start": -0.9104,
+    "root_twhite": -0.9104
+   },
+   {
+    "id": "C186",
+    "root_class": "藍濃",
+    "dist_to_white_vertex_m": 0.4371,
+    "tau_start": -1.0043,
+    "root_twhite": -1.0043
+   },
+   {
+    "id": "C187",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0745,
+    "tau_start": -0.9448,
+    "root_twhite": -0.9448
+   },
+   {
+    "id": "C188",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.1264,
+    "tau_start": -0.9895,
+    "root_twhite": -0.9895
+   },
+   {
+    "id": "C189",
+    "root_class": "藍濃",
+    "dist_to_white_vertex_m": 0.2311,
+    "tau_start": -0.989,
+    "root_twhite": -0.9938
+   },
+   {
+    "id": "C190",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.051,
+    "tau_start": -0.9887,
+    "root_twhite": -0.9933
+   },
+   {
+    "id": "C191",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0813,
+    "tau_start": -0.9933,
+    "root_twhite": -0.9936
+   },
+   {
+    "id": "C192",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.02,
+    "tau_start": -0.8653,
+    "root_twhite": -0.87
+   },
+   {
+    "id": "C193",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0383,
+    "tau_start": -0.8709,
+    "root_twhite": -0.8709
+   },
+   {
+    "id": "C194",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0443,
+    "tau_start": -0.8864,
+    "root_twhite": -0.8887
+   },
+   {
+    "id": "C195",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.068,
+    "tau_start": -0.964,
+    "root_twhite": -0.9686
+   },
+   {
+    "id": "C196",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0879,
+    "tau_start": -0.9807,
+    "root_twhite": -0.9851
+   },
+   {
+    "id": "C197",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0921,
+    "tau_start": -0.5177,
+    "root_twhite": -0.5218
+   },
+   {
+    "id": "C198",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0283,
+    "tau_start": -0.8775,
+    "root_twhite": -0.8805
+   },
+   {
+    "id": "C199",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0806,
+    "tau_start": -0.8772,
+    "root_twhite": -0.8802
+   },
+   {
+    "id": "C200",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.022,
+    "tau_start": -0.5598,
+    "root_twhite": -0.8892
+   },
+   {
+    "id": "C201",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.043,
+    "tau_start": -0.9799,
+    "root_twhite": -0.9802
+   },
+   {
+    "id": "C202",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0718,
+    "tau_start": -0.8613,
+    "root_twhite": -0.8656
+   },
+   {
+    "id": "C203",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0819,
+    "tau_start": -0.8793,
+    "root_twhite": -0.8793
+   },
+   {
+    "id": "C204",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.1141,
+    "tau_start": -0.957,
+    "root_twhite": -0.965
+   },
+   {
+    "id": "C205",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.127,
+    "tau_start": -0.9708,
+    "root_twhite": -0.9711
+   },
+   {
+    "id": "C206",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0481,
+    "tau_start": -0.924,
+    "root_twhite": -0.9317
+   },
+   {
+    "id": "C207",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0398,
+    "tau_start": -0.957,
+    "root_twhite": -0.9685
+   },
+   {
+    "id": "C208",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.1093,
+    "tau_start": -0.9247,
+    "root_twhite": -0.9317
+   },
+   {
+    "id": "C209",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0953,
+    "tau_start": -0.5794,
+    "root_twhite": -0.8258
+   },
+   {
+    "id": "C210",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.1516,
+    "tau_start": -0.4107,
+    "root_twhite": -0.9485
+   },
+   {
+    "id": "C211",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.1014,
+    "tau_start": -0.8565,
+    "root_twhite": -0.8604
+   },
+   {
+    "id": "C212",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0552,
+    "tau_start": -0.9291,
+    "root_twhite": -0.9485
+   },
+   {
+    "id": "C213",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0946,
+    "tau_start": -0.8184,
+    "root_twhite": -0.8184
+   },
+   {
+    "id": "C214",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.1193,
+    "tau_start": -0.9126,
+    "root_twhite": -0.9209
+   },
+   {
+    "id": "C215",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.055,
+    "tau_start": -0.8543,
+    "root_twhite": -0.8543
+   },
+   {
+    "id": "C216",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.106,
+    "tau_start": -0.8532,
+    "root_twhite": -0.8532
+   },
+   {
+    "id": "C217",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0668,
+    "tau_start": -0.8516,
+    "root_twhite": -0.8531
+   },
+   {
+    "id": "C218",
+    "root_class": "藍濃",
+    "dist_to_white_vertex_m": 1.771,
+    "tau_start": -0.6904,
+    "root_twhite": -0.6958
+   },
+   {
+    "id": "C219",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.135,
+    "tau_start": -0.8672,
+    "root_twhite": -0.8672
+   },
+   {
+    "id": "C220",
+    "root_class": "藍濃",
+    "dist_to_white_vertex_m": 0.8225,
+    "tau_start": -0.4739,
+    "root_twhite": -0.4766
+   },
+   {
+    "id": "C221",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.1152,
+    "tau_start": -0.8745,
+    "root_twhite": -0.879
+   },
+   {
+    "id": "C222",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0591,
+    "tau_start": -0.4438,
+    "root_twhite": -0.8498
+   },
+   {
+    "id": "C223",
+    "root_class": "藍濃",
+    "dist_to_white_vertex_m": 0.2483,
+    "tau_start": -0.9271,
+    "root_twhite": -0.9271
+   },
+   {
+    "id": "C224",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.095,
+    "tau_start": -0.9417,
+    "root_twhite": -0.9437
+   },
+   {
+    "id": "C225",
+    "root_class": "藍濃",
+    "dist_to_white_vertex_m": 2.7338,
+    "tau_start": -0.6687,
+    "root_twhite": -0.6743
+   },
+   {
+    "id": "C226",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.017,
+    "tau_start": -0.8367,
+    "root_twhite": -0.8411
+   },
+   {
+    "id": "C227",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.1478,
+    "tau_start": -0.8992,
+    "root_twhite": -0.9071
+   },
+   {
+    "id": "C228",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.1521,
+    "tau_start": -0.8793,
+    "root_twhite": -0.8793
+   },
+   {
+    "id": "C229",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.0406,
+    "tau_start": -0.8349,
+    "root_twhite": -0.8361
+   },
+   {
+    "id": "C230",
+    "root_class": "藍濃",
+    "dist_to_white_vertex_m": 0.2662,
+    "tau_start": -0.911,
+    "root_twhite": -0.911
+   },
+   {
+    "id": "C231",
+    "root_class": "藍濃",
+    "dist_to_white_vertex_m": 1.5041,
+    "tau_start": -0.8727,
+    "root_twhite": -0.8788
+   },
+   {
+    "id": "C232",
+    "root_class": "藍濃",
+    "dist_to_white_vertex_m": 0.3688,
+    "tau_start": -0.9091,
+    "root_twhite": -0.9253
+   },
+   {
+    "id": "C233",
+    "root_class": "藍濃",
+    "dist_to_white_vertex_m": 2.6903,
+    "tau_start": -0.5258,
+    "root_twhite": -0.5288
+   },
+   {
+    "id": "C234",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.1159,
+    "tau_start": -0.8788,
+    "root_twhite": -0.8949
+   },
+   {
+    "id": "C235",
+    "root_class": "藍濃",
+    "dist_to_white_vertex_m": 2.2553,
+    "tau_start": -0.4308,
+    "root_twhite": -0.4308
+   },
+   {
+    "id": "C236",
+    "root_class": "白",
+    "dist_to_white_vertex_m": 0.033,
+    "tau_start": -0.8478,
+    "root_twhite": -0.8497
+   },
+   {
+    "id": "C237",
+    "root_class": "藍濃",
+    "dist_to_white_vertex_m": 3.0672,
+    "tau_start": -0.3851,
+    "root_twhite": -0.3884
+   },
+   {
+    "id": "C238",
+    "root_class": "藍濃",
+    "dist_to_white_vertex_m": 3.4111,
+    "tau_start": -0.3773,
+    "root_twhite": -0.3778
+   }
+  ]
+ },
+ "visible_frames_first": {
+  "C001": 239,
+  "C002": 237,
+  "C003": 236,
+  "C004": 237,
+  "C005": 236,
+  "C006": 233,
+  "C007": 234,
+  "C008": 235,
+  "C009": 228,
+  "C010": 264,
+  "C011": 234,
+  "C012": 228,
+  "C013": 228,
+  "C014": 265,
+  "C015": 235,
+  "C016": 231,
+  "C017": 228,
+  "C018": 226,
+  "C019": 231,
+  "C020": 229,
+  "C021": 226,
+  "C022": 223,
+  "C023": 220,
+  "C024": 218,
+  "C025": 223,
+  "C026": 226,
+  "C027": 206,
+  "C028": 221,
+  "C029": 216,
+  "C030": 196,
+  "C031": 225,
+  "C032": 228,
+  "C033": 233,
+  "C034": 231,
+  "C035": 200,
+  "C036": 234,
+  "C037": 232,
+  "C038": 242,
+  "C039": 237,
+  "C040": 235,
+  "C041": 231,
+  "C042": 236,
+  "C043": 237,
+  "C044": 233,
+  "C045": 236,
+  "C046": 225,
+  "C047": 223,
+  "C048": 223,
+  "C049": 226,
+  "C050": 225,
+  "C051": 235,
+  "C052": 242,
+  "C053": 241,
+  "C054": 274,
+  "C055": 246,
+  "C056": 241,
+  "C057": 231,
+  "C058": 243,
+  "C059": 253,
+  "C060": 235,
+  "C061": 225,
+  "C062": 230,
+  "C063": 230,
+  "C064": 246,
+  "C065": 255,
+  "C066": 239,
+  "C067": 312,
+  "C068": 268,
+  "C069": 274,
+  "C070": 266,
+  "C071": 282,
+  "C072": 274,
+  "C073": 281,
+  "C074": 281,
+  "C075": 272,
+  "C076": 269,
+  "C077": 301,
+  "C078": 270,
+  "C079": 266,
+  "C080": 278,
+  "C081": 280,
+  "C082": 282,
+  "C083": 281,
+  "C084": 283,
+  "C085": 282,
+  "C086": 286,
+  "C087": 305,
+  "C088": 285,
+  "C089": 281,
+  "C090": 280,
+  "C091": 283,
+  "C092": 284,
+  "C093": 283,
+  "C094": 281,
+  "C095": 278,
+  "C096": 274,
+  "C097": 286,
+  "C098": 285,
+  "C099": 278,
+  "C100": 287,
+  "C101": 286,
+  "C102": 281,
+  "C103": 282,
+  "C104": 264,
+  "C105": 265,
+  "C106": 283,
+  "C108": 264,
+  "C109": 253,
+  "C110": 262,
+  "C111": 250,
+  "C113": 283,
+  "C114": 282,
+  "C115": 260,
+  "C116": 284,
+  "C117": 283,
+  "C118": 276,
+  "C119": 283,
+  "C120": 284,
+  "C121": 262,
+  "C122": 247,
+  "C123": 256,
+  "C124": 256,
+  "C125": 273,
+  "C126": 250,
+  "C127": 284,
+  "C128": 248,
+  "C154": 285,
+  "C155": 283,
+  "C156": 242,
+  "C157": 231,
+  "C158": 284,
+  "C159": 314,
+  "C160": 286,
+  "C161": 276,
+  "C162": 233,
+  "C163": 291,
+  "C164": 284,
+  "C165": 284,
+  "C166": 282,
+  "C167": 283,
+  "C168": 284,
+  "C170": 289,
+  "C171": 288,
+  "C172": 310,
+  "C173": 282,
+  "C175": 288,
+  "C176": 285,
+  "C177": 250,
+  "C178": 252,
+  "C179": 254,
+  "C180": 288,
+  "C181": 283,
+  "C182": 282,
+  "C183": 281,
+  "C184": 288,
+  "C185": 288,
+  "C186": 282,
+  "C187": 286,
+  "C188": 283,
+  "C189": 283,
+  "C190": 283,
+  "C191": 283,
+  "C192": 291,
+  "C193": 290,
+  "C194": 289,
+  "C195": 285,
+  "C196": 284,
+  "C197": 311,
+  "C198": 290,
+  "C199": 290,
+  "C200": 309,
+  "C201": 284,
+  "C202": 291,
+  "C203": 290,
+  "C204": 285,
+  "C205": 284,
+  "C206": 287,
+  "C207": 285,
+  "C208": 287,
+  "C209": 308,
+  "C210": 318,
+  "C211": 291,
+  "C212": 287,
+  "C213": 293,
+  "C214": 288,
+  "C215": 291,
+  "C216": 291,
+  "C217": 291,
+  "C218": 301,
+  "C219": 290,
+  "C220": 314,
+  "C221": 290,
+  "C222": 316,
+  "C223": 287,
+  "C224": 286,
+  "C225": 302,
+  "C226": 292,
+  "C227": 289,
+  "C228": 290,
+  "C229": 292,
+  "C230": 288,
+  "C231": 290,
+  "C232": 288,
+  "C233": 311,
+  "C234": 290,
+  "C235": 317,
+  "C236": 292,
+  "C237": 319,
+  "C238": 320
+ },
+ "elapsed_s": 69.2,
+ "pl32_note_ja": "仕上げ32：pl32_claws.py で、一覧と ID（Unity/Build/Polish/32/list）・主役波（Unity/Build/Polish/32/white/hero_pkg）・時間曲線（G_p28rec）・支の判定（branch_inside_tol 1e6）・根元の色区（PL29 の白の範囲）を差し替えて回した"
+}

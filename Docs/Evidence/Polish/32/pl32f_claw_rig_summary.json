@@ -1,0 +1,4279 @@
+{
+ "stats": {
+  "types": {
+   "T1": 160,
+   "T4": 17,
+   "branch": 4,
+   "T3": 1,
+   "T2": 2
+  },
+  "segments": {
+   "3": 144,
+   "4": 40
+  },
+  "joint_how": {
+   "fit3": 129,
+   "fit4": 24,
+   "template_short": 11,
+   "fit3_refit": 4,
+   "fit4_tipguard": 13,
+   "fit4_refit": 2,
+   "fit4_tipguard_refit": 1
+  },
+  "hanging": 33,
+  "list_ratio_median_3seg": [
+   0.3895,
+   0.3334,
+   0.2464
+  ],
+  "list_ratio_p25_3seg": [
+   0.3073,
+   0.2681,
+   0.2053
+  ],
+  "list_ratio_p75_3seg": [
+   0.4698,
+   0.4121,
+   0.2938
+  ],
+  "list_turn_abs_median_3seg_deg": [
+   29.26,
+   37.44
+  ],
+  "list_turn_abs_p25_3seg_deg": [
+   20.34,
+   24.36
+  ],
+  "list_turn_abs_p75_3seg_deg": [
+   39.72,
+   44.4
+  ],
+  "n_vert_max": 171,
+  "instance_vert_max": 449,
+  "slender_percentiles": [
+   1.64,
+   2.53,
+   3.29,
+   4.53,
+   5.85
+  ],
+  "dropped_white_root": 29,
+  "free_why": {
+   "白の範囲の外の面（pl32f_hang_over_indigo）": 44,
+   "面の縁の外（射線から 0.75 px 超、pl32f_hit_exact）": 6,
+   "奥すぎる面（設計33 の窓）": 8,
+   "射線が面に当たらない": 9
+  }
+ },
+ "params": {
+  "cl_step_ref_px": 1.5,
+  "depth_window_m": 1.5,
+  "min_seg_frac": 0.1,
+  "four_seg_min_len_ref_px": 70.0,
+  "four_seg_rms_gain": 0.4,
+  "four_seg_rms_min_ref_px": 1.0,
+  "template_min_len_ref_px": 18.0,
+  "degenerate_ratio": 0.1,
+  "refit_min_seg_frac": 0.2,
+  "slender_thin": 6.0,
+  "branch_sigma": [
+   0.35,
+   0.97
+  ],
+  "branch_dist_factor": 0.6,
+  "branch_dist_add_ref_px": 10.0,
+  "max_branches": 2,
+  "branch_inside_tol_ref_px": 1000000.0,
+  "branch_len_tol": 0.9,
+  "width_cap_len_frac": 0.45,
+  "width_min_ref_px": 4.0,
+  "width_max_ref_px": 48.0,
+  "foreshort_min": 0.4,
+  "growth_samples": 41,
+  "stage": {
+   "s1": 0.2,
+   "s2": 0.75,
+   "g_birth": 0.04,
+   "g1": 0.12,
+   "k0": 0.25,
+   "k1": 0.4,
+   "w0": 0.3
+  },
+  "branch_start_margin": 0.05,
+  "branch_latest_tau": -0.25,
+  "ring": 8,
+  "band_center_frac": 0.25,
+  "skirt": {
+   "back": 0.4,
+   "semi_t": 0.85,
+   "semi_b": 0.8,
+   "max_radius_m": 0.45,
+   "lift_m": 0.01,
+   "n": 8
+  },
+  "fold_ratio": 1.6,
+  "fold_add_m": 0.15,
+  "fold_samples": 12,
+  "tip_guard_deg": 10.0,
+  "hit_exact_px": 0.75,
+  "free_front_m": 0.1
+ },
+ "dropped_white_root": [
+  {
+   "id": "C010",
+   "row": "上側",
+   "b_region_q16": false,
+   "white_corners": 0,
+   "tau_birth_from": "2x2"
+  },
+  {
+   "id": "C125",
+   "row": "船側",
+   "b_region_q16": false,
+   "white_corners": 0,
+   "tau_birth_from": "2x2"
+  },
+  {
+   "id": "C127",
+   "row": "船側",
+   "b_region_q16": false,
+   "white_corners": 0,
+   "tau_birth_from": "2x2"
+  },
+  {
+   "id": "C154",
+   "row": "船側",
+   "b_region_q16": false,
+   "white_corners": 1,
+   "tau_birth_from": "2x2"
+  },
+  {
+   "id": "C158",
+   "row": "b区域",
+   "b_region_q16": true,
+   "white_corners": 0,
+   "tau_birth_from": "2x2"
+  },
+  {
+   "id": "C159",
+   "row": "b区域",
+   "b_region_q16": true,
+   "white_corners": 0,
+   "tau_birth_from": "2x2"
+  },
+  {
+   "id": "C160",
+   "row": "b区域",
+   "b_region_q16": true,
+   "white_corners": 0,
+   "tau_birth_from": "2x2"
+  },
+  {
+   "id": "C161",
+   "row": "b区域",
+   "b_region_q16": true,
+   "white_corners": 0,
+   "tau_birth_from": "2x2"
+  },
+  {
+   "id": "C163",
+   "row": "b区域",
+   "b_region_q16": true,
+   "white_corners": 0,
+   "tau_birth_from": "2x2"
+  },
+  {
+   "id": "C165",
+   "row": "b区域",
+   "b_region_q16": true,
+   "white_corners": 0,
+   "tau_birth_from": "2x2"
+  },
+  {
+   "id": "C170",
+   "row": "b区域",
+   "b_region_q16": true,
+   "white_corners": 0,
+   "tau_birth_from": "2x2"
+  },
+  {
+   "id": "C172",
+   "row": "上側",
+   "b_region_q16": true,
+   "white_corners": 0,
+   "tau_birth_from": "2x2"
+  },
+  {
+   "id": "C173",
+   "row": "b区域",
+   "b_region_q16": true,
+   "white_corners": 0,
+   "tau_birth_from": "2x2"
+  },
+  {
+   "id": "C186",
+   "row": "b区域",
+   "b_region_q16": true,
+   "white_corners": 0,
+   "tau_birth_from": "2x2"
+  },
+  {
+   "id": "C197",
+   "row": "b区域",
+   "b_region_q16": true,
+   "white_corners": 1,
+   "tau_birth_from": "2x2"
+  },
+  {
+   "id": "C218",
+   "row": "b区域",
+   "b_region_q16": true,
+   "white_corners": 0,
+   "tau_birth_from": "2x2"
+  },
+  {
+   "id": "C220",
+   "row": "b区域",
+   "b_region_q16": true,
+   "white_corners": 0,
+   "tau_birth_from": "2x2"
+  },
+  {
+   "id": "C225",
+   "row": "b区域",
+   "b_region_q16": true,
+   "white_corners": 0,
+   "tau_birth_from": "2x2"
+  },
+  {
+   "id": "C230",
+   "row": "b区域",
+   "b_region_q16": true,
+   "white_corners": 1,
+   "tau_birth_from": "2x2"
+  },
+  {
+   "id": "C231",
+   "row": "b区域",
+   "b_region_q16": true,
+   "white_corners": 0,
+   "tau_birth_from": "2x2"
+  },
+  {
+   "id": "C232",
+   "row": "b区域",
+   "b_region_q16": true,
+   "white_corners": 0,
+   "tau_birth_from": "2x2"
+  },
+  {
+   "id": "C233",
+   "row": "b区域",
+   "b_region_q16": true,
+   "white_corners": 0,
+   "tau_birth_from": "2x2"
+  },
+  {
+   "id": "C235",
+   "row": "b区域",
+   "b_region_q16": true,
+   "white_corners": 0,
+   "tau_birth_from": "2x2"
+  },
+  {
+   "id": "C237",
+   "row": "b区域",
+   "b_region_q16": true,
+   "white_corners": 0,
+   "tau_birth_from": "2x2"
+  },
+  {
+   "id": "C238",
+   "row": "b区域",
+   "b_region_q16": true,
+   "white_corners": 0,
+   "tau_birth_from": "2x2"
+  },
+  {
+   "id": "C242",
+   "row": "主浪の左下",
+   "b_region_q16": false,
+   "white_corners": 0,
+   "tau_birth_from": "2x2"
+  },
+  {
+   "id": "C243",
+   "row": "主浪の左下",
+   "b_region_q16": false,
+   "white_corners": 0,
+   "tau_birth_from": "2x2"
+  },
+  {
+   "id": "C244",
+   "row": "主浪の左下",
+   "b_region_q16": false,
+   "white_corners": 0,
+   "tau_birth_from": "2x2"
+  },
+  {
+   "id": "C245",
+   "row": "主浪の左下",
+   "b_region_q16": false,
+   "white_corners": 0,
+   "tau_birth_from": "2x2"
+  }
+ ],
+ "claws": [
+  {
+   "id": "C001",
+   "row": "上側",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "free",
+    "free"
+   ],
+   "free_why": [
+    null,
+    "白の範囲の外の面（pl32f_hang_over_indigo）",
+    "白の範囲の外の面（pl32f_hang_over_indigo）"
+   ],
+   "len_m": 0.4033
+  },
+  {
+   "id": "C002",
+   "row": "上側",
+   "type": "T4",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "free",
+    "free",
+    "free"
+   ],
+   "free_why": [
+    "白の範囲の外の面（pl32f_hang_over_indigo）",
+    "白の範囲の外の面（pl32f_hang_over_indigo）",
+    "白の範囲の外の面（pl32f_hang_over_indigo）"
+   ],
+   "len_m": 1.1993
+  },
+  {
+   "id": "C003",
+   "row": "上側",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 4,
+   "joint_how": "fit4",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null,
+    null
+   ],
+   "len_m": 0.8792
+  },
+  {
+   "id": "C004",
+   "row": "上側",
+   "type": "T4",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 0.9774
+  },
+  {
+   "id": "C005",
+   "row": "上側",
+   "type": "T4",
+   "parent": null,
+   "children": [],
+   "segments": 4,
+   "joint_how": "fit4",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null,
+    null
+   ],
+   "len_m": 0.9715
+  },
+  {
+   "id": "C006",
+   "row": "上側",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 0.7085
+  },
+  {
+   "id": "C007",
+   "row": "上側",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 0.2624
+  },
+  {
+   "id": "C008",
+   "row": "上側",
+   "type": "T4",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 1.1463
+  },
+  {
+   "id": "C009",
+   "row": "上側",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 0.525
+  },
+  {
+   "id": "C011",
+   "row": "上側",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "free",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    "白の範囲の外の面（pl32f_hang_over_indigo）",
+    null
+   ],
+   "len_m": 0.697
+  },
+  {
+   "id": "C012",
+   "row": "上側",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "free",
+    "free",
+    "free"
+   ],
+   "free_why": [
+    "白の範囲の外の面（pl32f_hang_over_indigo）",
+    "白の範囲の外の面（pl32f_hang_over_indigo）",
+    "白の範囲の外の面（pl32f_hang_over_indigo）"
+   ],
+   "len_m": 0.47
+  },
+  {
+   "id": "C013",
+   "row": "上側",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "free",
+    "free",
+    "free"
+   ],
+   "free_why": [
+    "白の範囲の外の面（pl32f_hang_over_indigo）",
+    "白の範囲の外の面（pl32f_hang_over_indigo）",
+    "白の範囲の外の面（pl32f_hang_over_indigo）"
+   ],
+   "len_m": 1.8223
+  },
+  {
+   "id": "C014",
+   "row": "上側",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 0.792
+  },
+  {
+   "id": "C015",
+   "row": "上側",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "free",
+    "free"
+   ],
+   "free_why": [
+    null,
+    "白の範囲の外の面（pl32f_hang_over_indigo）",
+    "白の範囲の外の面（pl32f_hang_over_indigo）"
+   ],
+   "len_m": 1.0817
+  },
+  {
+   "id": "C016",
+   "row": "上側",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 0.2876
+  },
+  {
+   "id": "C017",
+   "row": "上側",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 4,
+   "joint_how": "fit4",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null,
+    null
+   ],
+   "len_m": 1.2335
+  },
+  {
+   "id": "C018",
+   "row": "上側",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 0.5777
+  },
+  {
+   "id": "C019",
+   "row": "上側",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 0.5868
+  },
+  {
+   "id": "C020",
+   "row": "上側",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 0.6053
+  },
+  {
+   "id": "C021",
+   "row": "上側",
+   "type": "T4",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 0.9397
+  },
+  {
+   "id": "C022",
+   "row": "上側",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 0.8705
+  },
+  {
+   "id": "C023",
+   "row": "上側",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 0.4013
+  },
+  {
+   "id": "C024",
+   "row": "上側",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "template_short",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 0.4303
+  },
+  {
+   "id": "C025",
+   "row": "上側",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 1.0134
+  },
+  {
+   "id": "C026",
+   "row": "上側",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 0.369
+  },
+  {
+   "id": "C027",
+   "row": "上側",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3_refit",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 0.4934
+  },
+  {
+   "id": "C028",
+   "row": "上側",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 0.9894
+  },
+  {
+   "id": "C029",
+   "row": "上側",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 0.5463
+  },
+  {
+   "id": "C030",
+   "row": "上側",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 0.9939
+  },
+  {
+   "id": "C031",
+   "row": "上側",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3_refit",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 0.7326
+  },
+  {
+   "id": "C032",
+   "row": "上側",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "template_short",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 0.2179
+  },
+  {
+   "id": "C033",
+   "row": "上側",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "template_short",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 0.2934
+  },
+  {
+   "id": "C034",
+   "row": "上側",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 0.8249
+  },
+  {
+   "id": "C035",
+   "row": "上側",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 1.0708
+  },
+  {
+   "id": "C036",
+   "row": "上側",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "template_short",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 0.2136
+  },
+  {
+   "id": "C037",
+   "row": "上側",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 0.5184
+  },
+  {
+   "id": "C038",
+   "row": "上側",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 4,
+   "joint_how": "fit4_tipguard",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null,
+    null
+   ],
+   "len_m": 0.7273
+  },
+  {
+   "id": "C039",
+   "row": "上側",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 0.4865
+  },
+  {
+   "id": "C040",
+   "row": "上側",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 0.4556
+  },
+  {
+   "id": "C041",
+   "row": "上側",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "template_short",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 0.2612
+  },
+  {
+   "id": "C042",
+   "row": "上側",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 0.7282
+  },
+  {
+   "id": "C043",
+   "row": "上側",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 1.0644
+  },
+  {
+   "id": "C044",
+   "row": "上側",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 0.9942
+  },
+  {
+   "id": "C045",
+   "row": "上側",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 1.285
+  },
+  {
+   "id": "C046",
+   "row": "上側",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 1.0057
+  },
+  {
+   "id": "C047",
+   "row": "上側",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 0.6367
+  },
+  {
+   "id": "C048",
+   "row": "上側",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "template_short",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 0.3108
+  },
+  {
+   "id": "C049",
+   "row": "上側",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 0.2862
+  },
+  {
+   "id": "C050",
+   "row": "上側",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 0.9422
+  },
+  {
+   "id": "C051",
+   "row": "上側",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 4,
+   "joint_how": "fit4_tipguard",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null,
+    null
+   ],
+   "len_m": 0.7245
+  },
+  {
+   "id": "C052",
+   "row": "上側",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 0.3191
+  },
+  {
+   "id": "C053",
+   "row": "上側",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 4,
+   "joint_how": "fit4",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null,
+    null
+   ],
+   "len_m": 1.1724
+  },
+  {
+   "id": "C054",
+   "row": "上側",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 0.6557
+  },
+  {
+   "id": "C055",
+   "row": "上側",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 0.3381
+  },
+  {
+   "id": "C056",
+   "row": "上側",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 1.3786
+  },
+  {
+   "id": "C057",
+   "row": "上側",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "template_short",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 0.5018
+  },
+  {
+   "id": "C058",
+   "row": "上側",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 0.6643
+  },
+  {
+   "id": "C059",
+   "row": "上側",
+   "type": "T4",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 0.8551
+  },
+  {
+   "id": "C060",
+   "row": "上側",
+   "type": "T4",
+   "parent": null,
+   "children": [],
+   "segments": 4,
+   "joint_how": "fit4_refit",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null,
+    null
+   ],
+   "len_m": 1.5504
+  },
+  {
+   "id": "C061",
+   "row": "途中",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "free",
+    "free"
+   ],
+   "free_why": [
+    null,
+    "面の縁の外（射線から 0.75 px 超、pl32f_hit_exact）",
+    "面の縁の外（射線から 0.75 px 超、pl32f_hit_exact）"
+   ],
+   "len_m": 0.5413
+  },
+  {
+   "id": "C062",
+   "row": "途中",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 1.5736
+  },
+  {
+   "id": "C063",
+   "row": "途中",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 0.9535
+  },
+  {
+   "id": "C064",
+   "row": "途中",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 0.5621
+  },
+  {
+   "id": "C065",
+   "row": "途中",
+   "type": "T4",
+   "parent": null,
+   "children": [],
+   "segments": 4,
+   "joint_how": "fit4",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null,
+    null
+   ],
+   "len_m": 2.3095
+  },
+  {
+   "id": "C066",
+   "row": "途中",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 4,
+   "joint_how": "fit4",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null,
+    null
+   ],
+   "len_m": 2.234
+  },
+  {
+   "id": "C067",
+   "row": "途中",
+   "type": "T4",
+   "parent": null,
+   "children": [],
+   "segments": 4,
+   "joint_how": "fit4",
+   "joint_kind": [
+    "sheet",
+    "free",
+    "free",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    "奥すぎる面（設計33 の窓）",
+    "奥すぎる面（設計33 の窓）",
+    null,
+    null
+   ],
+   "len_m": 1.6735
+  },
+  {
+   "id": "C068",
+   "row": "途中",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 0.6449
+  },
+  {
+   "id": "C069",
+   "row": "途中",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 1.0174
+  },
+  {
+   "id": "C070",
+   "row": "途中",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 0.6291
+  },
+  {
+   "id": "C071",
+   "row": "途中",
+   "type": "T4",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 0.7459
+  },
+  {
+   "id": "C072",
+   "row": "途中",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 4,
+   "joint_how": "fit4_tipguard",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null,
+    null
+   ],
+   "len_m": 1.0874
+  },
+  {
+   "id": "C073",
+   "row": "途中",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "template_short",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 0.171
+  },
+  {
+   "id": "C074",
+   "row": "途中",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 4,
+   "joint_how": "fit4_tipguard_refit",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null,
+    null
+   ],
+   "len_m": 0.4873
+  },
+  {
+   "id": "C075",
+   "row": "途中",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 0.6086
+  },
+  {
+   "id": "C076",
+   "row": "途中",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 0.6703
+  },
+  {
+   "id": "C077",
+   "row": "途中",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 0.1979
+  },
+  {
+   "id": "C078",
+   "row": "途中",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 4,
+   "joint_how": "fit4_tipguard",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null,
+    null
+   ],
+   "len_m": 1.174
+  },
+  {
+   "id": "C079",
+   "row": "途中",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 4,
+   "joint_how": "fit4",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null,
+    null
+   ],
+   "len_m": 1.2723
+  },
+  {
+   "id": "C080",
+   "row": "途中",
+   "type": "T4",
+   "parent": null,
+   "children": [],
+   "segments": 4,
+   "joint_how": "fit4",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null,
+    null
+   ],
+   "len_m": 1.3697
+  },
+  {
+   "id": "C081",
+   "row": "途中",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 0.3252
+  },
+  {
+   "id": "C082",
+   "row": "途中",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 0.3546
+  },
+  {
+   "id": "C083",
+   "row": "途中",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 0.7939
+  },
+  {
+   "id": "C084",
+   "row": "途中",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 0.3519
+  },
+  {
+   "id": "C085",
+   "row": "船側",
+   "type": "T4",
+   "parent": null,
+   "children": [],
+   "segments": 4,
+   "joint_how": "fit4_refit",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "free",
+    "free"
+   ],
+   "free_why": [
+    null,
+    null,
+    "射線が面に当たらない",
+    "射線が面に当たらない"
+   ],
+   "len_m": 1.4205
+  },
+  {
+   "id": "C086",
+   "row": "船側",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 1.8524
+  },
+  {
+   "id": "C087",
+   "row": "船側",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 1.2772
+  },
+  {
+   "id": "C088",
+   "row": "船側",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 1.4206
+  },
+  {
+   "id": "C089",
+   "row": "船側",
+   "type": "branch",
+   "parent": "C092",
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 0.4901
+  },
+  {
+   "id": "C090",
+   "row": "船側",
+   "type": "T4",
+   "parent": null,
+   "children": [],
+   "segments": 4,
+   "joint_how": "fit4",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "free",
+    "free",
+    "free"
+   ],
+   "free_why": [
+    null,
+    "射線が面に当たらない",
+    "射線が面に当たらない",
+    "射線が面に当たらない"
+   ],
+   "len_m": 0.8475
+  },
+  {
+   "id": "C091",
+   "row": "船側",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 4,
+   "joint_how": "fit4_tipguard",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null,
+    null
+   ],
+   "len_m": 1.5182
+  },
+  {
+   "id": "C092",
+   "row": "船側",
+   "type": "T3",
+   "parent": null,
+   "children": [
+    "C093",
+    "C089"
+   ],
+   "segments": 4,
+   "joint_how": "fit4",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet",
+    "free"
+   ],
+   "free_why": [
+    null,
+    null,
+    null,
+    "面の縁の外（射線から 0.75 px 超、pl32f_hit_exact）"
+   ],
+   "len_m": 3.5148
+  },
+  {
+   "id": "C093",
+   "row": "船側",
+   "type": "branch",
+   "parent": "C092",
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 1.4851
+  },
+  {
+   "id": "C094",
+   "row": "船側",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 4,
+   "joint_how": "fit4",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet",
+    "free"
+   ],
+   "free_why": [
+    null,
+    null,
+    null,
+    "射線が面に当たらない"
+   ],
+   "len_m": 1.6669
+  },
+  {
+   "id": "C095",
+   "row": "船側",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "free"
+   ],
+   "free_why": [
+    null,
+    null,
+    "面の縁の外（射線から 0.75 px 超、pl32f_hit_exact）"
+   ],
+   "len_m": 0.5878
+  },
+  {
+   "id": "C096",
+   "row": "船側",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "free"
+   ],
+   "free_why": [
+    null,
+    null,
+    "面の縁の外（射線から 0.75 px 超、pl32f_hit_exact）"
+   ],
+   "len_m": 0.8655
+  },
+  {
+   "id": "C097",
+   "row": "船側",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 1.5399
+  },
+  {
+   "id": "C098",
+   "row": "船側",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 1.0007
+  },
+  {
+   "id": "C099",
+   "row": "船側",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 1.0401
+  },
+  {
+   "id": "C100",
+   "row": "船側",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 1.0571
+  },
+  {
+   "id": "C101",
+   "row": "船側",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 0.7386
+  },
+  {
+   "id": "C102",
+   "row": "船側",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 0.4693
+  },
+  {
+   "id": "C103",
+   "row": "船側",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 0.235
+  },
+  {
+   "id": "C104",
+   "row": "船側",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 1.0492
+  },
+  {
+   "id": "C105",
+   "row": "船側",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 1.735
+  },
+  {
+   "id": "C106",
+   "row": "船側",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "free",
+    "free",
+    "free"
+   ],
+   "free_why": [
+    "奥すぎる面（設計33 の窓）",
+    "奥すぎる面（設計33 の窓）",
+    "奥すぎる面（設計33 の窓）"
+   ],
+   "len_m": 0.582
+  },
+  {
+   "id": "C108",
+   "row": "船側",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 1.2496
+  },
+  {
+   "id": "C109",
+   "row": "船側",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "free"
+   ],
+   "free_why": [
+    null,
+    null,
+    "射線が面に当たらない"
+   ],
+   "len_m": 1.2471
+  },
+  {
+   "id": "C110",
+   "row": "船側",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 0.6561
+  },
+  {
+   "id": "C111",
+   "row": "船側",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "free",
+    "free"
+   ],
+   "free_why": [
+    null,
+    "射線が面に当たらない",
+    "射線が面に当たらない"
+   ],
+   "len_m": 0.8454
+  },
+  {
+   "id": "C113",
+   "row": "船側",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "free",
+    "free"
+   ],
+   "free_why": [
+    null,
+    "奥すぎる面（設計33 の窓）",
+    "奥すぎる面（設計33 の窓）"
+   ],
+   "len_m": 0.4389
+  },
+  {
+   "id": "C114",
+   "row": "船側",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 0.3919
+  },
+  {
+   "id": "C115",
+   "row": "船側",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 4,
+   "joint_how": "fit4_tipguard",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "free",
+    "free",
+    "free"
+   ],
+   "free_why": [
+    null,
+    "白の範囲の外の面（pl32f_hang_over_indigo）",
+    "白の範囲の外の面（pl32f_hang_over_indigo）",
+    "白の範囲の外の面（pl32f_hang_over_indigo）"
+   ],
+   "len_m": 0.7116
+  },
+  {
+   "id": "C116",
+   "row": "船側",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 0.2106
+  },
+  {
+   "id": "C117",
+   "row": "船側",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "template_short",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 0.1171
+  },
+  {
+   "id": "C118",
+   "row": "船側",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 0.8106
+  },
+  {
+   "id": "C119",
+   "row": "船側",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 0.6275
+  },
+  {
+   "id": "C120",
+   "row": "船側",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "free",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    "白の範囲の外の面（pl32f_hang_over_indigo）",
+    null,
+    null
+   ],
+   "len_m": 0.5553
+  },
+  {
+   "id": "C121",
+   "row": "船側",
+   "type": "T4",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "free",
+    "free"
+   ],
+   "free_why": [
+    null,
+    "白の範囲の外の面（pl32f_hang_over_indigo）",
+    "白の範囲の外の面（pl32f_hang_over_indigo）"
+   ],
+   "len_m": 1.4039
+  },
+  {
+   "id": "C122",
+   "row": "船側",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 4,
+   "joint_how": "fit4_tipguard",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null,
+    null
+   ],
+   "len_m": 0.7598
+  },
+  {
+   "id": "C123",
+   "row": "船側",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 0.9964
+  },
+  {
+   "id": "C124",
+   "row": "船側",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "free",
+    "free"
+   ],
+   "free_why": [
+    null,
+    "白の範囲の外の面（pl32f_hang_over_indigo）",
+    "白の範囲の外の面（pl32f_hang_over_indigo）"
+   ],
+   "len_m": 0.8195
+  },
+  {
+   "id": "C126",
+   "row": "船側",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 4,
+   "joint_how": "fit4",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null,
+    null
+   ],
+   "len_m": 1.0274
+  },
+  {
+   "id": "C128",
+   "row": "船側",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 0.5939
+  },
+  {
+   "id": "C155",
+   "row": "船側",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 0.5632
+  },
+  {
+   "id": "C156",
+   "row": "途中",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 1.6446
+  },
+  {
+   "id": "C157",
+   "row": "上側",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 1.1163
+  },
+  {
+   "id": "C162",
+   "row": "上側",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 0.7298
+  },
+  {
+   "id": "C164",
+   "row": "b区域",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 0.4801
+  },
+  {
+   "id": "C166",
+   "row": "b区域",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "free"
+   ],
+   "free_why": [
+    null,
+    null,
+    "白の範囲の外の面（pl32f_hang_over_indigo）"
+   ],
+   "len_m": 0.5448
+  },
+  {
+   "id": "C167",
+   "row": "b区域",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 0.4617
+  },
+  {
+   "id": "C168",
+   "row": "b区域",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 4,
+   "joint_how": "fit4",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null,
+    null
+   ],
+   "len_m": 0.5792
+  },
+  {
+   "id": "C171",
+   "row": "b区域",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 4,
+   "joint_how": "fit4",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null,
+    null
+   ],
+   "len_m": 0.8198
+  },
+  {
+   "id": "C175",
+   "row": "b区域",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3_refit",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 0.5353
+  },
+  {
+   "id": "C176",
+   "row": "b区域",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "template_short",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 0.4341
+  },
+  {
+   "id": "C177",
+   "row": "b区域",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 0.3155
+  },
+  {
+   "id": "C178",
+   "row": "b区域",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "free"
+   ],
+   "free_why": [
+    null,
+    null,
+    "白の範囲の外の面（pl32f_hang_over_indigo）"
+   ],
+   "len_m": 0.5037
+  },
+  {
+   "id": "C179",
+   "row": "b区域",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "free",
+    "free",
+    "free"
+   ],
+   "free_why": [
+    "白の範囲の外の面（pl32f_hang_over_indigo）",
+    "白の範囲の外の面（pl32f_hang_over_indigo）",
+    "白の範囲の外の面（pl32f_hang_over_indigo）"
+   ],
+   "len_m": 1.3212
+  },
+  {
+   "id": "C180",
+   "row": "b区域",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 0.2891
+  },
+  {
+   "id": "C181",
+   "row": "b区域",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 0.3278
+  },
+  {
+   "id": "C182",
+   "row": "b区域",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 4,
+   "joint_how": "fit4",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null,
+    null
+   ],
+   "len_m": 0.661
+  },
+  {
+   "id": "C183",
+   "row": "b区域",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "template_short",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "free",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    "奥すぎる面（設計33 の窓）",
+    null
+   ],
+   "len_m": 0.3891
+  },
+  {
+   "id": "C184",
+   "row": "b区域",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 4,
+   "joint_how": "fit4",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null,
+    null
+   ],
+   "len_m": 0.7682
+  },
+  {
+   "id": "C185",
+   "row": "b区域",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 0.4207
+  },
+  {
+   "id": "C187",
+   "row": "b区域",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 4,
+   "joint_how": "fit4",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null,
+    null
+   ],
+   "len_m": 0.9325
+  },
+  {
+   "id": "C188",
+   "row": "b区域",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 4,
+   "joint_how": "fit4_tipguard",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null,
+    null
+   ],
+   "len_m": 0.556
+  },
+  {
+   "id": "C189",
+   "row": "b区域",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 4,
+   "joint_how": "fit4_tipguard",
+   "joint_kind": [
+    "sheet",
+    "free",
+    "free",
+    "free",
+    "free"
+   ],
+   "free_why": [
+    "白の範囲の外の面（pl32f_hang_over_indigo）",
+    "白の範囲の外の面（pl32f_hang_over_indigo）",
+    "白の範囲の外の面（pl32f_hang_over_indigo）",
+    "白の範囲の外の面（pl32f_hang_over_indigo）"
+   ],
+   "len_m": 0.2677
+  },
+  {
+   "id": "C190",
+   "row": "b区域",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 0.2781
+  },
+  {
+   "id": "C191",
+   "row": "b区域",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 0.22
+  },
+  {
+   "id": "C192",
+   "row": "b区域",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 0.2309
+  },
+  {
+   "id": "C193",
+   "row": "b区域",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 0.3791
+  },
+  {
+   "id": "C194",
+   "row": "b区域",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 4,
+   "joint_how": "fit4_tipguard",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null,
+    null
+   ],
+   "len_m": 0.6061
+  },
+  {
+   "id": "C195",
+   "row": "b区域",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 0.4427
+  },
+  {
+   "id": "C196",
+   "row": "b区域",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 4,
+   "joint_how": "fit4_tipguard",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null,
+    null
+   ],
+   "len_m": 0.5287
+  },
+  {
+   "id": "C198",
+   "row": "b区域",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 4,
+   "joint_how": "fit4",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null,
+    null
+   ],
+   "len_m": 0.5114
+  },
+  {
+   "id": "C199",
+   "row": "b区域",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 0.8704
+  },
+  {
+   "id": "C200",
+   "row": "b区域",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 0.5839
+  },
+  {
+   "id": "C201",
+   "row": "b区域",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 0.2216
+  },
+  {
+   "id": "C202",
+   "row": "b区域",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 4,
+   "joint_how": "fit4",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null,
+    null
+   ],
+   "len_m": 0.6121
+  },
+  {
+   "id": "C203",
+   "row": "b区域",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3_refit",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 0.6524
+  },
+  {
+   "id": "C204",
+   "row": "b区域",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 4,
+   "joint_how": "fit4",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null,
+    null
+   ],
+   "len_m": 0.7617
+  },
+  {
+   "id": "C205",
+   "row": "b区域",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 0.4787
+  },
+  {
+   "id": "C206",
+   "row": "b区域",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 0.6553
+  },
+  {
+   "id": "C207",
+   "row": "b区域",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "free",
+    "free",
+    "free"
+   ],
+   "free_why": [
+    "白の範囲の外の面（pl32f_hang_over_indigo）",
+    "白の範囲の外の面（pl32f_hang_over_indigo）",
+    "白の範囲の外の面（pl32f_hang_over_indigo）"
+   ],
+   "len_m": 0.5569
+  },
+  {
+   "id": "C208",
+   "row": "b区域",
+   "type": "T4",
+   "parent": null,
+   "children": [],
+   "segments": 4,
+   "joint_how": "fit4",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null,
+    null
+   ],
+   "len_m": 0.8779
+  },
+  {
+   "id": "C209",
+   "row": "b区域",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 4,
+   "joint_how": "fit4_tipguard",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null,
+    null
+   ],
+   "len_m": 0.2097
+  },
+  {
+   "id": "C210",
+   "row": "b区域",
+   "type": "branch",
+   "parent": "C212",
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 0.2394
+  },
+  {
+   "id": "C211",
+   "row": "b区域",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 4,
+   "joint_how": "fit4",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null,
+    null
+   ],
+   "len_m": 0.7859
+  },
+  {
+   "id": "C212",
+   "row": "b区域",
+   "type": "T2",
+   "parent": null,
+   "children": [
+    "C210"
+   ],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 0.4617
+  },
+  {
+   "id": "C213",
+   "row": "b区域",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "free",
+    "free",
+    "free"
+   ],
+   "free_why": [
+    "面の縁の外（射線から 0.75 px 超、pl32f_hit_exact）",
+    "白の範囲の外の面（pl32f_hang_over_indigo）",
+    "白の範囲の外の面（pl32f_hang_over_indigo）"
+   ],
+   "len_m": 0.4268
+  },
+  {
+   "id": "C214",
+   "row": "b区域",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 0.233
+  },
+  {
+   "id": "C215",
+   "row": "b区域",
+   "type": "T2",
+   "parent": null,
+   "children": [
+    "C222"
+   ],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "free"
+   ],
+   "free_why": [
+    null,
+    null,
+    "白の範囲の外の面（pl32f_hang_over_indigo）"
+   ],
+   "len_m": 0.6857
+  },
+  {
+   "id": "C216",
+   "row": "b区域",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 0.6402
+  },
+  {
+   "id": "C217",
+   "row": "b区域",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 0.4181
+  },
+  {
+   "id": "C219",
+   "row": "b区域",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 0.3415
+  },
+  {
+   "id": "C221",
+   "row": "b区域",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 0.6163
+  },
+  {
+   "id": "C222",
+   "row": "b区域",
+   "type": "branch",
+   "parent": "C215",
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 0.2301
+  },
+  {
+   "id": "C223",
+   "row": "b区域",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "free"
+   ],
+   "free_why": [
+    null,
+    null,
+    "白の範囲の外の面（pl32f_hang_over_indigo）"
+   ],
+   "len_m": 0.5798
+  },
+  {
+   "id": "C224",
+   "row": "b区域",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "free",
+    "free",
+    "free"
+   ],
+   "free_why": [
+    "白の範囲の外の面（pl32f_hang_over_indigo）",
+    "白の範囲の外の面（pl32f_hang_over_indigo）",
+    "白の範囲の外の面（pl32f_hang_over_indigo）"
+   ],
+   "len_m": 0.5184
+  },
+  {
+   "id": "C226",
+   "row": "b区域",
+   "type": "T4",
+   "parent": null,
+   "children": [],
+   "segments": 4,
+   "joint_how": "fit4",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "free",
+    "free",
+    "free"
+   ],
+   "free_why": [
+    null,
+    "白の範囲の外の面（pl32f_hang_over_indigo）",
+    "白の範囲の外の面（pl32f_hang_over_indigo）",
+    "白の範囲の外の面（pl32f_hang_over_indigo）"
+   ],
+   "len_m": 0.6579
+  },
+  {
+   "id": "C227",
+   "row": "b区域",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 0.3332
+  },
+  {
+   "id": "C228",
+   "row": "b区域",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 4,
+   "joint_how": "fit4_tipguard",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null,
+    null
+   ],
+   "len_m": 0.6085
+  },
+  {
+   "id": "C229",
+   "row": "b区域",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 0.2865
+  },
+  {
+   "id": "C234",
+   "row": "b区域",
+   "type": "T1",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 0.5506
+  },
+  {
+   "id": "C236",
+   "row": "b区域",
+   "type": "T4",
+   "parent": null,
+   "children": [],
+   "segments": 3,
+   "joint_how": "fit3",
+   "joint_kind": [
+    "sheet",
+    "sheet",
+    "sheet",
+    "sheet"
+   ],
+   "free_why": [
+    null,
+    null,
+    null
+   ],
+   "len_m": 1.1892
+  }
+ ]
+}

@@ -1,0 +1,505 @@
+{
+ "rule_ja": "仕上げ32 修正の回 1：審査の指摘の所を、描いた画像（Unity の PC オフスクリーン描画）で数える（numpy・OpenCV）。\n\n1. b区域の帯の中の白い地の上の暗い線（作る部の pl32_bregion_lines.json と同じ読み：b区域の候補の範囲（pl32_bregion_candidates.json の zone_ref を\n   表示の px へ）の中で、灰の明るさ < 110 かつ 31 px の中央値 > 170 の画素と、6 px 以上の連結成分）。原画・前（仕上げ31）・作る部・修正の回 1。\n2. b区域の帯の中の水色の版の割合（白い地の上の水色：表示の色が (203, 215, 206) から ΔRGB 30 以内）。原画の房の付け根の水色の雲の量の目安（記録のみ）。\n3. 藍の上の爪（座席・座席から波の方向・左右の側面・後ろ 65°・真上・原画視点の t 6・9・10.5・12 s）：作品のままの画像と爪なしの画像で\n   20 より色が違う画素のうち、爪なしの画像で藍（明るさ < 110）の所（藍の上に出た爪の画素）。審査で「藍の上の白い棒・くねった白」とされた\n   座席の左端と座席から波の方向の左上は、その矩形の中も数える。\n4. 原画視点 t 10.5 s の b区域の「閉じた輪」：作品のままと爪なしの差の画素の連結成分のうち、穴（中の白）を囲む輪の数（記録のみ）。\n出力：Unity/Build/Polish/32/fix01/measure/pl32f_measure.json\n",
+ "bregion_lines_tstar": {
+  "painting": {
+   "dark_line_px": 8257,
+   "components": 176
+  },
+  "before": {
+   "dark_line_px": 1793,
+   "components": 20
+  },
+  "before_clawfree": {
+   "dark_line_px": 1793,
+   "components": 20
+  },
+  "build": {
+   "dark_line_px": 5400,
+   "components": 91
+  },
+  "build_clawfree": {
+   "dark_line_px": 1793,
+   "components": 20
+  },
+  "fix01": {
+   "dark_line_px": 5592,
+   "components": 77
+  },
+  "fix01_clawfree": {
+   "dark_line_px": 1793,
+   "components": 20
+  }
+ },
+ "bregion_mizuiro_fraction_tstar": {
+  "painting": 0.4602,
+  "before": 0.2582,
+  "build": 0.2514,
+  "fix01": 0.3114
+ },
+ "claws_over_indigo": {
+  "before": {
+   "painting_t060": {
+    "px": 0,
+    "components_ge20": 0,
+    "largest": 0
+   },
+   "painting_t090": {
+    "px": 696,
+    "components_ge20": 8,
+    "largest": 143
+   },
+   "painting_t105": {
+    "px": 2389,
+    "components_ge20": 22,
+    "largest": 449
+   },
+   "painting_t120": {
+    "px": 3222,
+    "components_ge20": 19,
+    "largest": 444
+   },
+   "seat_t060": {
+    "px": 0,
+    "components_ge20": 0,
+    "largest": 0
+   },
+   "seat_t090": {
+    "px": 36,
+    "components_ge20": 1,
+    "largest": 23
+   },
+   "seat_t105": {
+    "px": 2796,
+    "components_ge20": 32,
+    "largest": 473
+   },
+   "seat_t120": {
+    "px": 7764,
+    "components_ge20": 57,
+    "largest": 840
+   },
+   "seat_t120_spot": {
+    "px": 3372,
+    "components_ge20": 18,
+    "largest": 840
+   },
+   "seat_toward_wave_t060": {
+    "px": 0,
+    "components_ge20": 0,
+    "largest": 0
+   },
+   "seat_toward_wave_t090": {
+    "px": 365,
+    "components_ge20": 6,
+    "largest": 80
+   },
+   "seat_toward_wave_t105": {
+    "px": 3054,
+    "components_ge20": 37,
+    "largest": 684
+   },
+   "seat_toward_wave_t120": {
+    "px": 6792,
+    "components_ge20": 67,
+    "largest": 415
+   },
+   "seat_toward_wave_t120_spot": {
+    "px": 974,
+    "components_ge20": 9,
+    "largest": 216
+   },
+   "side_left_t060": {
+    "px": 14,
+    "components_ge20": 0,
+    "largest": 9
+   },
+   "side_left_t090": {
+    "px": 98,
+    "components_ge20": 1,
+    "largest": 27
+   },
+   "side_left_t105": {
+    "px": 493,
+    "components_ge20": 6,
+    "largest": 112
+   },
+   "side_left_t120": {
+    "px": 1265,
+    "components_ge20": 5,
+    "largest": 947
+   },
+   "side_right_t060": {
+    "px": 10,
+    "components_ge20": 0,
+    "largest": 10
+   },
+   "side_right_t090": {
+    "px": 49,
+    "components_ge20": 0,
+    "largest": 10
+   },
+   "side_right_t105": {
+    "px": 923,
+    "components_ge20": 8,
+    "largest": 73
+   },
+   "side_right_t120": {
+    "px": 1018,
+    "components_ge20": 1,
+    "largest": 21
+   },
+   "back65_t060": {
+    "px": 0,
+    "components_ge20": 0,
+    "largest": 0
+   },
+   "back65_t090": {
+    "px": 204,
+    "components_ge20": 1,
+    "largest": 20
+   },
+   "back65_t105": {
+    "px": 644,
+    "components_ge20": 11,
+    "largest": 38
+   },
+   "back65_t120": {
+    "px": 720,
+    "components_ge20": 11,
+    "largest": 34
+   },
+   "top_t060": {
+    "px": 0,
+    "components_ge20": 0,
+    "largest": 0
+   },
+   "top_t090": {
+    "px": 175,
+    "components_ge20": 1,
+    "largest": 21
+   },
+   "top_t105": {
+    "px": 708,
+    "components_ge20": 7,
+    "largest": 47
+   },
+   "top_t120": {
+    "px": 1498,
+    "components_ge20": 5,
+    "largest": 605
+   }
+  },
+  "build": {
+   "painting_t060": {
+    "px": 0,
+    "components_ge20": 0,
+    "largest": 0
+   },
+   "painting_t090": {
+    "px": 164,
+    "components_ge20": 3,
+    "largest": 50
+   },
+   "painting_t105": {
+    "px": 3749,
+    "components_ge20": 38,
+    "largest": 423
+   },
+   "painting_t120": {
+    "px": 7158,
+    "components_ge20": 38,
+    "largest": 465
+   },
+   "seat_t060": {
+    "px": 0,
+    "components_ge20": 0,
+    "largest": 0
+   },
+   "seat_t090": {
+    "px": 30,
+    "components_ge20": 0,
+    "largest": 3
+   },
+   "seat_t105": {
+    "px": 2577,
+    "components_ge20": 37,
+    "largest": 306
+   },
+   "seat_t120": {
+    "px": 10847,
+    "components_ge20": 75,
+    "largest": 1008
+   },
+   "seat_t120_spot": {
+    "px": 6300,
+    "components_ge20": 30,
+    "largest": 1008
+   },
+   "seat_toward_wave_t060": {
+    "px": 0,
+    "components_ge20": 0,
+    "largest": 0
+   },
+   "seat_toward_wave_t090": {
+    "px": 117,
+    "components_ge20": 2,
+    "largest": 37
+   },
+   "seat_toward_wave_t105": {
+    "px": 3393,
+    "components_ge20": 50,
+    "largest": 458
+   },
+   "seat_toward_wave_t120": {
+    "px": 9741,
+    "components_ge20": 78,
+    "largest": 1211
+   },
+   "seat_toward_wave_t120_spot": {
+    "px": 3346,
+    "components_ge20": 15,
+    "largest": 1211
+   },
+   "side_left_t060": {
+    "px": 14,
+    "components_ge20": 0,
+    "largest": 9
+   },
+   "side_left_t090": {
+    "px": 72,
+    "components_ge20": 0,
+    "largest": 11
+   },
+   "side_left_t105": {
+    "px": 644,
+    "components_ge20": 9,
+    "largest": 106
+   },
+   "side_left_t120": {
+    "px": 1395,
+    "components_ge20": 8,
+    "largest": 944
+   },
+   "side_right_t060": {
+    "px": 10,
+    "components_ge20": 0,
+    "largest": 10
+   },
+   "side_right_t090": {
+    "px": 49,
+    "components_ge20": 0,
+    "largest": 10
+   },
+   "side_right_t105": {
+    "px": 908,
+    "components_ge20": 8,
+    "largest": 73
+   },
+   "side_right_t120": {
+    "px": 1023,
+    "components_ge20": 1,
+    "largest": 21
+   },
+   "back65_t060": {
+    "px": 0,
+    "components_ge20": 0,
+    "largest": 0
+   },
+   "back65_t090": {
+    "px": 204,
+    "components_ge20": 1,
+    "largest": 20
+   },
+   "back65_t105": {
+    "px": 644,
+    "components_ge20": 11,
+    "largest": 38
+   },
+   "back65_t120": {
+    "px": 720,
+    "components_ge20": 11,
+    "largest": 34
+   },
+   "top_t060": {
+    "px": 0,
+    "components_ge20": 0,
+    "largest": 0
+   },
+   "top_t090": {
+    "px": 112,
+    "components_ge20": 0,
+    "largest": 7
+   },
+   "top_t105": {
+    "px": 835,
+    "components_ge20": 8,
+    "largest": 106
+   },
+   "top_t120": {
+    "px": 1668,
+    "components_ge20": 6,
+    "largest": 614
+   }
+  },
+  "fix01": {
+   "painting_t060": {
+    "px": 0,
+    "components_ge20": 0,
+    "largest": 0
+   },
+   "painting_t090": {
+    "px": 160,
+    "components_ge20": 2,
+    "largest": 50
+   },
+   "painting_t105": {
+    "px": 3001,
+    "components_ge20": 25,
+    "largest": 334
+   },
+   "painting_t120": {
+    "px": 4005,
+    "components_ge20": 26,
+    "largest": 432
+   },
+   "seat_t060": {
+    "px": 0,
+    "components_ge20": 0,
+    "largest": 0
+   },
+   "seat_t090": {
+    "px": 50,
+    "components_ge20": 0,
+    "largest": 15
+   },
+   "seat_t105": {
+    "px": 1995,
+    "components_ge20": 36,
+    "largest": 256
+   },
+   "seat_t120": {
+    "px": 6162,
+    "components_ge20": 62,
+    "largest": 394
+   },
+   "seat_t120_spot": {
+    "px": 2029,
+    "components_ge20": 19,
+    "largest": 248
+   },
+   "seat_toward_wave_t060": {
+    "px": 0,
+    "components_ge20": 0,
+    "largest": 0
+   },
+   "seat_toward_wave_t090": {
+    "px": 131,
+    "components_ge20": 2,
+    "largest": 37
+   },
+   "seat_toward_wave_t105": {
+    "px": 2142,
+    "components_ge20": 38,
+    "largest": 225
+   },
+   "seat_toward_wave_t120": {
+    "px": 6027,
+    "components_ge20": 64,
+    "largest": 415
+   },
+   "seat_toward_wave_t120_spot": {
+    "px": 630,
+    "components_ge20": 7,
+    "largest": 214
+   },
+   "side_left_t060": {
+    "px": 14,
+    "components_ge20": 0,
+    "largest": 9
+   },
+   "side_left_t090": {
+    "px": 94,
+    "components_ge20": 0,
+    "largest": 12
+   },
+   "side_left_t105": {
+    "px": 675,
+    "components_ge20": 9,
+    "largest": 119
+   },
+   "side_left_t120": {
+    "px": 1400,
+    "components_ge20": 7,
+    "largest": 971
+   },
+   "side_right_t060": {
+    "px": 10,
+    "components_ge20": 0,
+    "largest": 10
+   },
+   "side_right_t090": {
+    "px": 45,
+    "components_ge20": 0,
+    "largest": 10
+   },
+   "side_right_t105": {
+    "px": 919,
+    "components_ge20": 8,
+    "largest": 73
+   },
+   "side_right_t120": {
+    "px": 1023,
+    "components_ge20": 1,
+    "largest": 21
+   },
+   "back65_t060": {
+    "px": 0,
+    "components_ge20": 0,
+    "largest": 0
+   },
+   "back65_t090": {
+    "px": 204,
+    "components_ge20": 1,
+    "largest": 20
+   },
+   "back65_t105": {
+    "px": 644,
+    "components_ge20": 11,
+    "largest": 38
+   },
+   "back65_t120": {
+    "px": 720,
+    "components_ge20": 11,
+    "largest": 34
+   },
+   "top_t060": {
+    "px": 0,
+    "components_ge20": 0,
+    "largest": 0
+   },
+   "top_t090": {
+    "px": 114,
+    "components_ge20": 0,
+    "largest": 13
+   },
+   "top_t105": {
+    "px": 825,
+    "components_ge20": 8,
+    "largest": 121
+   },
+   "top_t120": {
+    "px": 1652,
+    "components_ge20": 5,
+    "largest": 619
+   }
+  }
+ },
+ "bregion_closed_rings": {
+  "before_t105": 2,
+  "before_t120": 2,
+  "build_t105": 4,
+  "build_t120": 10,
+  "fix01_t105": 1,
+  "fix01_t120": 5
+ }
+}

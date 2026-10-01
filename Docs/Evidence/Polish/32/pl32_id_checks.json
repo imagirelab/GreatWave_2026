@@ -1,0 +1,102 @@
+{
+ "schema": "GreatWave.DS32.id_checks/1",
+ "frames": 421,
+ "hz": 30,
+ "t_star_frame": 360,
+ "bound": 209,
+ "unbound": [
+  "C129",
+  "C130",
+  "C131",
+  "C132",
+  "C133",
+  "C134",
+  "C135",
+  "C136",
+  "C137",
+  "C138",
+  "C139",
+  "C140",
+  "C141",
+  "C142",
+  "C143",
+  "C144",
+  "C145",
+  "C146",
+  "C147",
+  "C148",
+  "C149",
+  "C150",
+  "C151",
+  "C152",
+  "C153"
+ ],
+ "weighted_centroid_record_only": {
+  "claw_group": {
+   "max_move_m": 0.831,
+   "frames_over_rule_a": 0,
+   "groups_over_rule_a": 0
+  },
+  "white_band_group": {
+   "max_move_m": 1.203,
+   "frames_over_rule_a": 7,
+   "groups_over_rule_a": 6
+  },
+  "spray_group": {
+   "max_move_m": 0.6924,
+   "frames_over_rule_a": 0,
+   "groups_over_rule_a": 0
+  }
+ },
+ "weighted_centroid_note_ja": "記録のみ：群の見える粒の重み付きの重心は、新しい粒（爪の成長 g、白の帯の 0.25 s の立ち上がり、飛沫の半径の 0.08 s の立ち上がり）が加わる所で動く。これは群の中の成長で、同じ粒の動きではないので、瞬間移動の判定には共通の粒の重心を使う",
+ "teleport_rule_ja": "ID（爪の根元・先端、飛沫の粒）：(a) コマの間の動き > max(シートの頂点の動きの最大, 飛沫の粒の動きの最大)×1.5 + 0.02 m、(b) 前後のコマの動きの大きい方の 4 倍 + 0.05 m を超える突出。両方のコマで見えるものだけ。群（爪の房・白の帯・飛沫）：両方のコマで見える粒（共通の粒）の重心の動きに同じ (a)・(b)",
+ "teleports": [],
+ "teleport_count": 0,
+ "flicker_rule_ja": "見える → 見えないの変化（どの ID も t* までに消えない約束）と、2 回目の出現",
+ "flickers": [],
+ "flicker_count": 0,
+ "group_member_lost": [],
+ "group_member_lost_count": 0,
+ "growth_decreasing_samples": 0,
+ "max_moves_m": {
+  "claw_root_max_move_m": 0.3641,
+  "claw_tip_max_move_m": 0.3646,
+  "spray_max_move_m": 0.5704,
+  "claw_group_max_move_m": 0.3641,
+  "band_group_max_move_m": 0.3956,
+  "spray_group_max_move_m": 0.5553
+ },
+ "sheet_max_vertex_move_m": 0.8292,
+ "spray_max_particle_move_m": 0.5704,
+ "reprojection_tstar_display_px": {
+  "root_max": 0.294,
+  "root_p95": 0.077,
+  "tip_max": 0.275,
+  "tip_p95": 0.08,
+  "root_snapped": 0,
+  "root_snap_max_px": 0.0,
+  "note_ja": "寄せた根元はその距離だけずれる。先端は射線の上に置くので 0 に近い（精度の層を含む t* の復号の丸め）"
+ },
+ "pass_teleport_0": true,
+ "pass_flicker_0": true,
+ "pass_129_replace_0": true,
+ "elapsed_s": 20.8,
+ "pl32": {
+  "hero": "Unity/Build/Polish/32/white/hero_pkg",
+  "hero_twhite_sha256": "9f7ab0b69a900b9cfd3b21094b1ee5e2c21f4e34f8950b3894d12fce874dcec6",
+  "warp": "Unity/Build/Polish/28/G_p28rec/timewarp_G_p28rec.json",
+  "warp_sha256": "836224b5b86c194589d44f04115a8652f9b1dc55d9bae5399c0cd8338cb67af7",
+  "white_band_from": "PL29 の白の範囲（pl31_zone_vertex.npy）",
+  "zone_sha256": "6d664a051eb1ef2a07a2d92524f34940517bad10dc8ab8bd0f846410c8222a7a",
+  "spray": {
+   "count": 2500,
+   "order_check_tstar_max_m": 1.0682692254091318e-06
+  },
+  "birth_rule_ja": "pl32_birth_all_corners：爪の誕生 τ_b は根元の格子の 2×2 の T_white の最大（4 つの角がそろって白くなる時）。2×2 に有限の値がなければ設計32 のまま 5×5 の最小",
+  "ds32_ids_sha256": "cf20f950962ac8418afb48fda1bdad306cf92c3dcbaaaa5f90f98bd84fd4c72b",
+  "replaced": [
+   "tau_b = float(fin.min())",
+   "tau_b = float(fin.max()) if tb_how == \"2x2\" else float(fin.min())"
+  ]
+ }
+}

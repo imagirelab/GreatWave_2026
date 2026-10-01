@@ -1,0 +1,43 @@
+{
+ "utc": "2026-10-01T21:18:34.5798343Z",
+ "unity": "6000.4.3f1",
+ "heroPkg": "Build/Polish/32/white/hero_pkg",
+ "heroTwhiteSha256": "9f7ab0b69a900b9cfd3b21094b1ee5e2c21f4e34f8950b3894d12fce874dcec6",
+ "clawLayout": "Build/Polish/32/fix01/claws/ds33_claw_layout.json",
+ "clawLayoutSha256": "b43c0aafb9ddd12613bd8ae78aa3ebd73528d8507de2059a21069bfbdc4c9810",
+ "clawMaterial": "Assets/GreatWave/Polish32/Materials/PL32_Claw_Shade.mat",
+ "clawMaterialSha256": "ea73dc13af7d389aaa61ecaf8dfacee4b2999105d46884659165b34335d314dd",
+ "clawParamFile": "G:/Unity/GreatWave_2026_Fresh/Tools/GWWaveGen/pl32/pl32_claw_params.txt",
+ "clawParams": [
+  "_Steps=0.30,-0.45,0,0",
+  "_Mizuiro=0.79608,0.84314,0.80784,1",
+  "_AiMid=0.79608,0.84314,0.80784,1"
+ ],
+ "scenes": [
+  {
+   "from": "Assets/GreatWave/Polish31/Scenes/PL31_Release.unity",
+   "fromSha256Before": "fae6da09085d31fb032d0a378bd3704e60daff0009c5055b67cebf15fe7f3bcf",
+   "fromSha256After": "fae6da09085d31fb032d0a378bd3704e60daff0009c5055b67cebf15fe7f3bcf",
+   "to": "Assets/GreatWave/Polish32/Scenes/PL32_Release.unity",
+   "toSha256": "3ff1e6f96a24a285e5ceea3e64c9dd6e649f6ccc5b53117b86c96f9a6bf7a50b",
+   "changesJa": [
+    "主役波 packageDir Build/Polish/31/white/hero_pkg → Build/Polish/32/white/hero_pkg（T_white だけ差し替え。pl31_white_claw_pin を外し、pl32_white_spray_pin を掛けた）",
+    "爪 DS34 爪の層（設計33 の 148 本の帯、1 つの結合メッシュ） の layoutPath Build/Design/33/claws/ds33_claw_layout.json → Build/Polish/32/fix01/claws/ds33_claw_layout.json（仕上げ32 修正の回 1 の爪：184 本、K*′ P28R2rec のシート）",
+    "爪 DS34 爪の層（設計33 の 148 本の帯、1 つの結合メッシュ） に PL32ClawLook（pl32f_root_open・pl32f_edge_box・pl32f_tuft_base、根元で線を開く (0.00, 0.30)）",
+    "爪 DS34 爪の層（設計33 の 148 本の帯、1 つの結合メッシュ） に PL32ClawDriver（時刻のコマが変わった時だけ頂点を入れ直す）",
+    "爪の材質 Assets/GreatWave/Polish29/Materials/PL29_Claw_Shade.mat → Assets/GreatWave/Polish32/Materials/PL32_Claw_Shade.mat（摺りの版の色：下面の段を水色の版に）"
+   ]
+  },
+  {
+   "from": "Assets/GreatWave/Polish31/Scenes/PL31_SinglePlayback.unity",
+   "fromSha256Before": "468512a0b41d9dd96f38d654fb3cbfb8a7ce048fac2aa9309fd01acc86225b7c",
+   "fromSha256After": "468512a0b41d9dd96f38d654fb3cbfb8a7ce048fac2aa9309fd01acc86225b7c",
+   "to": "Assets/GreatWave/Polish32/Scenes/PL32_SinglePlayback.unity",
+   "toSha256": "106ae881115377717e4f48ab05c59f6b5bf495419056abb871d87aed1b0b1aa0",
+   "changesJa": [
+    "主役波 packageDir Build/Polish/31/white/hero_pkg → Build/Polish/32/white/hero_pkg（T_white だけ差し替え。pl31_white_claw_pin を外し、pl32_white_spray_pin を掛けた）",
+    "爪の層はない"
+   ]
+  }
+ ]
+}

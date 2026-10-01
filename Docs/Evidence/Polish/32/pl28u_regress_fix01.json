@@ -1,0 +1,677 @@
+{
+ "schema": "GreatWave.Polish28.tstar_regress/1",
+ "number": "仕上げ28（焼き直しと Unity の描画）",
+ "scene": "G:/Unity/GreatWave_2026_Fresh/Unity/Build/Polish/32/fix01/r_fix01",
+ "kstar": "rec",
+ "method_ja": "仕上げ28（焼き直しと Unity の描画）：PL28Render（または DS29Render）が書いた t* の画像の組を、設計30・40 の回帰の評価器と同じ 3 つの読みで測る。\n設計30 の ds30b_tstar_regress.py の手順を写し、K*′ の幾何の値・焼き込みの置き場所を引数にして、72 の大きな輪郭の σ12 の読みを足した（評価器のファイルは変えない）。\n\n組（<scene>/<組>/t28/render/af28r01_*.png）ごとに：\n  1) 評価器の定義のままの読み：pl28u_tstar_eval.py（= ds29r01_tstar_eval.py の固定値を引数にした写し。美術優先28修正01 の評価器）。\n     色区の境界 73・77・79・118・120・133・134・175・263・270 と 265〜267（28修正01 の値と比べる）、輪郭 78／130／131（K*′ の幾何の値と比べる）、\n     細部込みの 132 最大・72 p95（ID 画像の主役波の輪郭）。\n  2) 大きな輪郭：132・72 を σ12（kh_gate_lf.LFGate。28修正01 の 1 回目の緩め。閉じる目安の「σ24 の緩めなし」）と σ24（kh_gate_lfR4.LFGate。\n     28修正01 の 2 回目の緩め。段階5〜9 の関門の読み、記録）で。入力は af28r01_class_ids.png（3840×2160）の空の被覆を 2×2 で平均した 1920×1080。\n  3) 輪郭の両側を除く読み（ds29r01_tstar_sym.py。設計29修正01 が採り、段階5〜9 が関門に使った読み。記録）。\n組：t28_white（爪なし。仕上げ28 の関門の読み）、t28_claws（爪あり。爪は仕上げ32・33 まで合わせ直さないので、そのまま記録）。\n\n使い方（リポジトリの根で。重い numpy の処理と同時に回さない）:\n    py -3.10 -B Tools/GWWaveGen/pl28/pl28u_regress.py --scene Unity/Build/Polish/28/unity/scene_p28 --kstar p28 [--sets t28_white,t28_claws] [--no-sym]\n出力：<scene>/pl28u_regress.json",
+ "sets": {
+  "t28_white": {
+   "strict": {
+    "colour_items": {
+     "73": {
+      "max_now_px": 62.73,
+      "worst_measure": "boundary",
+      "now_at_worst_px": 62.73,
+      "r28r01_at_worst_px": 0.655,
+      "worst_abs_diff_vs_28r01_px": 62.075,
+      "verdict": "fail",
+      "verdict_28r01": "pass"
+     },
+     "77": {
+      "max_now_px": 45.143,
+      "worst_measure": "lower_ends",
+      "now_at_worst_px": 45.143,
+      "r28r01_at_worst_px": 1.17,
+      "worst_abs_diff_vs_28r01_px": 43.973,
+      "verdict": "fail",
+      "verdict_28r01": "pass"
+     },
+     "79": {
+      "max_now_px": 64.912,
+      "worst_measure": "boundary",
+      "now_at_worst_px": 64.912,
+      "r28r01_at_worst_px": 0.34,
+      "worst_abs_diff_vs_28r01_px": 64.572,
+      "verdict": "fail",
+      "verdict_28r01": "pass"
+     },
+     "118": {
+      "max_now_px": 62.73,
+      "worst_measure": "boundary",
+      "now_at_worst_px": 62.73,
+      "r28r01_at_worst_px": 0.655,
+      "worst_abs_diff_vs_28r01_px": 62.075,
+      "verdict": "fail",
+      "verdict_28r01": "pass"
+     },
+     "120": {
+      "max_now_px": 62.73,
+      "worst_measure": "boundary",
+      "now_at_worst_px": 62.73,
+      "r28r01_at_worst_px": 0.288,
+      "worst_abs_diff_vs_28r01_px": 62.442,
+      "verdict": "fail",
+      "verdict_28r01": "pass"
+     },
+     "133": {
+      "max_now_px": 43.209,
+      "worst_measure": "boundary",
+      "now_at_worst_px": 43.209,
+      "r28r01_at_worst_px": 0.402,
+      "worst_abs_diff_vs_28r01_px": 42.807,
+      "verdict": "fail",
+      "verdict_28r01": "pass"
+     },
+     "134": {
+      "max_now_px": 41.102,
+      "worst_measure": "boundary",
+      "now_at_worst_px": 41.102,
+      "r28r01_at_worst_px": 0.977,
+      "worst_abs_diff_vs_28r01_px": 40.125,
+      "verdict": "fail",
+      "verdict_28r01": "pass"
+     },
+     "175": {
+      "max_now_px": 240.592,
+      "worst_measure": "boundary_by_class/mizuiro",
+      "now_at_worst_px": 240.592,
+      "r28r01_at_worst_px": 18.375,
+      "worst_abs_diff_vs_28r01_px": 222.217,
+      "verdict": "fail",
+      "verdict_28r01": "fail"
+     },
+     "263": {
+      "max_now_px": 27.52,
+      "worst_measure": "boundary_lower",
+      "now_at_worst_px": 27.52,
+      "r28r01_at_worst_px": 0.559,
+      "worst_abs_diff_vs_28r01_px": 26.961,
+      "verdict": "fail",
+      "verdict_28r01": "pass"
+     },
+     "270": {
+      "max_now_px": 46.56,
+      "worst_measure": "boundary",
+      "now_at_worst_px": 46.56,
+      "r28r01_at_worst_px": 0.563,
+      "worst_abs_diff_vs_28r01_px": 45.997,
+      "verdict": "fail",
+      "verdict_28r01": "pass"
+     }
+    },
+    "colour_265_267": {
+     "265_dE00": 13.974,
+     "265": "fail",
+     "266": "fail",
+     "267": "fail",
+     "267_bands_ge_20px": {
+      "painting_view": 101,
+      "seat_view": 6,
+      "seat_low_view": 2
+     }
+    },
+    "items_over_0p5_vs_28r01": [
+     "73",
+     "77",
+     "79",
+     "118",
+     "120",
+     "133",
+     "134",
+     "175",
+     "263",
+     "270"
+    ],
+    "verdict_changes_vs_28r01": [
+     "73",
+     "77",
+     "79",
+     "118",
+     "120",
+     "133",
+     "134",
+     "263",
+     "270",
+     "265",
+     "266",
+     "267"
+    ],
+    "silhouettes_definition_reading": {
+     "78": {
+      "max_px": 2.741,
+      "p95_px": 1.6935
+     },
+     "130": {
+      "max_px": 3.5815,
+      "p95_px": 3.3281
+     },
+     "131": {
+      "max_px": 3.4419,
+      "p95_px": 3.1833
+     },
+     "132": {
+      "max_px": 5.9472,
+      "p95_px": 5.0703
+     },
+     "72": {
+      "max_px": 7.983,
+      "p95_px": 5.6807
+     },
+     "71": {
+      "max_px": 38.4804,
+      "p95_px": 10.2842
+     }
+    },
+    "silhouettes_vs_kstar_prime_geometry": {
+     "rows": {
+      "78": {
+       "unity_max_px": 2.741,
+       "kstar_prime_geometry_px": 2.439,
+       "diff_px": 0.302
+      },
+      "130": {
+       "unity_max_px": 3.5815,
+       "kstar_prime_geometry_px": 3.2299,
+       "diff_px": 0.3516
+      },
+      "131": {
+       "unity_max_px": 3.4419,
+       "kstar_prime_geometry_px": 3.3546,
+       "diff_px": 0.0873
+      }
+     },
+     "worst_abs_diff_px": 0.3516
+    },
+    "pass_colour": false,
+    "pass_silhouette": true,
+    "summary_verdicts": {
+     "73": "fail",
+     "77": "fail",
+     "79": "fail",
+     "118": "fail",
+     "120": "fail",
+     "133": "fail",
+     "134": "fail",
+     "175": "fail",
+     "263": "fail",
+     "270": "fail",
+     "265": "fail",
+     "266": "fail",
+     "267": "fail",
+     "uv_no_empty_texels": "pass"
+    }
+   },
+   "large_form": {
+    "ids": "Unity/Build/Polish/32/fix01/r_fix01/t28_white/t28/render/af28r01_class_ids.png",
+    "ids_sha256": "b6a7b26e3dde501b02897c7dacaa1b65653c7341bee13ec2b15036c1482674f1",
+    "s12": {
+     "132_max_px": 3.5576,
+     "132_p95_px": 3.3931,
+     "72_p95_px": 3.8507,
+     "72_max_px": 6.2493,
+     "132_worst_xy": [
+      999.64,
+      260.08
+     ],
+     "72_worst_xy": [
+      872.0,
+      696.91
+     ]
+    },
+    "s24": {
+     "132_max_px": 3.5576,
+     "132_p95_px": 3.3931,
+     "72_p95_px": 3.0435,
+     "72_max_px": 7.8507,
+     "132_worst_xy": [
+      999.64,
+      260.08
+     ],
+     "72_worst_xy": [
+      872.0,
+      696.91
+     ]
+    }
+   },
+   "t28_sha256": {
+    "af28r01_class_ids.png": "b6a7b26e3dde501b02897c7dacaa1b65653c7341bee13ec2b15036c1482674f1",
+    "af28r01_line_ids.png": "9b4517c549f0f09abc06de9966c9bec5d62dd4e79456d296bfd58752fc9b56d8",
+    "af28r01_painting.png": "d0f9c8901d96b136f3dcbb6443b1241e33bc3556669472dae074c87b0f8714e6",
+    "af28r01_painting_kstar.png": "7b7bc22bd5fe3772892ad838542ddd4af70f6830ccd24b20b9bf335ae7fd58e3",
+    "af28r01_seat.png": "4d22a956d0f7ec811b7896c58fce8c2a3bb436373a80df27969c6753e7bedaa4",
+    "af28r01_seat_class_ids.png": "193dcb0e1752cc3f2aa52ac8da4b1d9d49ce6da548aedc483c16b6d544412eb2",
+    "af28r01_seat_kstar.png": "d9ef513252387547ed6271f3ef5d1fb8e4d8eef9f6be062ba2cc3e2d09452615",
+    "af28r01_seat_left.png": "19d38218124b6a9c8344eb8b18737a2fef6785883dd2711932b6fccf3a42830d",
+    "af28r01_seat_low.png": "fa7cbe64781abe4da5669d314ac77bc5a3efb64d849306484ee07f2b6f527223",
+    "af28r01_seat_low_class_ids.png": "8e282efc45ce9a57d8dc4be9c8ff5016d342327922add9a9eb2f8141e4d8b3b7",
+    "af28r01_seat_low_kstar.png": "173a5d59784bc783d02085109a5f466129025c50704a9b05a3d756639fe67678",
+    "af28r01_seat_low_waveonly.png": "ab9623e03224c29a1029a00e48d33f045336e20faaa632f060bfddc4d96f1b59",
+    "af28r01_seat_waveonly.png": "c3f276f0092f3fc77c2eadf3f41f5a6b3f9e7a17c4ad3cb880ef8f99e9a69574"
+   },
+   "sym": {
+    "worst_abs_diff_px": 239.727,
+    "pass": false,
+    "rows": [
+     {
+      "item": "73",
+      "measure": "boundary",
+      "kp_sym_max_px": 32.962,
+      "diff_px": 32.659
+     },
+     {
+      "item": "77",
+      "measure": "lower_ends",
+      "kp_sym_max_px": 45.143,
+      "diff_px": 43.973
+     },
+     {
+      "item": "79",
+      "measure": "boundary",
+      "kp_sym_max_px": 64.912,
+      "diff_px": 64.572
+     },
+     {
+      "item": "118",
+      "measure": "boundary",
+      "kp_sym_max_px": 40.722,
+      "diff_px": 40.269
+     },
+     {
+      "item": "120",
+      "measure": "boundary",
+      "kp_sym_max_px": 8.572,
+      "diff_px": 8.284
+     },
+     {
+      "item": "133",
+      "measure": "boundary",
+      "kp_sym_max_px": 43.209,
+      "diff_px": 42.807
+     },
+     {
+      "item": "134",
+      "measure": "boundary",
+      "kp_sym_max_px": 41.102,
+      "diff_px": 40.441
+     },
+     {
+      "item": "175",
+      "measure": "boundary_by_class/ai_dark",
+      "kp_sym_max_px": 105.894,
+      "diff_px": 105.585
+     },
+     {
+      "item": "175",
+      "measure": "boundary_by_class/ai_mid",
+      "kp_sym_max_px": 177.754,
+      "diff_px": 176.129
+     },
+     {
+      "item": "175",
+      "measure": "boundary_by_class/mizuiro",
+      "kp_sym_max_px": 240.592,
+      "diff_px": 239.727
+     },
+     {
+      "item": "263",
+      "measure": "boundary_lower",
+      "kp_sym_max_px": 27.52,
+      "diff_px": 27.219
+     },
+     {
+      "item": "270",
+      "measure": "boundary",
+      "kp_sym_max_px": 46.56,
+      "diff_px": 45.997
+     },
+     {
+      "item": "270",
+      "measure": "record_mizuiro_reading",
+      "kp_sym_max_px": 40.713,
+      "diff_px": 40.052
+     }
+    ],
+    "flat_painting_view_266_267": {
+     "white": 95,
+     "mizuiro": 64,
+     "ai_mid": 50,
+     "ai_dark": 144
+    }
+   }
+  },
+  "t28_claws": {
+   "strict": {
+    "colour_items": {
+     "73": {
+      "max_now_px": 62.73,
+      "worst_measure": "boundary",
+      "now_at_worst_px": 62.73,
+      "r28r01_at_worst_px": 0.655,
+      "worst_abs_diff_vs_28r01_px": 62.075,
+      "verdict": "fail",
+      "verdict_28r01": "pass"
+     },
+     "77": {
+      "max_now_px": 45.143,
+      "worst_measure": "lower_ends",
+      "now_at_worst_px": 45.143,
+      "r28r01_at_worst_px": 1.17,
+      "worst_abs_diff_vs_28r01_px": 43.973,
+      "verdict": "fail",
+      "verdict_28r01": "pass"
+     },
+     "79": {
+      "max_now_px": 64.912,
+      "worst_measure": "boundary",
+      "now_at_worst_px": 64.912,
+      "r28r01_at_worst_px": 0.34,
+      "worst_abs_diff_vs_28r01_px": 64.572,
+      "verdict": "fail",
+      "verdict_28r01": "pass"
+     },
+     "118": {
+      "max_now_px": 62.73,
+      "worst_measure": "boundary",
+      "now_at_worst_px": 62.73,
+      "r28r01_at_worst_px": 0.655,
+      "worst_abs_diff_vs_28r01_px": 62.075,
+      "verdict": "fail",
+      "verdict_28r01": "pass"
+     },
+     "120": {
+      "max_now_px": 62.73,
+      "worst_measure": "boundary",
+      "now_at_worst_px": 62.73,
+      "r28r01_at_worst_px": 0.288,
+      "worst_abs_diff_vs_28r01_px": 62.442,
+      "verdict": "fail",
+      "verdict_28r01": "pass"
+     },
+     "133": {
+      "max_now_px": 43.209,
+      "worst_measure": "boundary",
+      "now_at_worst_px": 43.209,
+      "r28r01_at_worst_px": 0.402,
+      "worst_abs_diff_vs_28r01_px": 42.807,
+      "verdict": "fail",
+      "verdict_28r01": "pass"
+     },
+     "134": {
+      "max_now_px": 24.536,
+      "worst_measure": "boundary",
+      "now_at_worst_px": 24.536,
+      "r28r01_at_worst_px": 0.977,
+      "worst_abs_diff_vs_28r01_px": 23.559,
+      "verdict": "fail",
+      "verdict_28r01": "pass"
+     },
+     "175": {
+      "max_now_px": 240.592,
+      "worst_measure": "boundary_by_class/mizuiro",
+      "now_at_worst_px": 240.592,
+      "r28r01_at_worst_px": 18.375,
+      "worst_abs_diff_vs_28r01_px": 222.217,
+      "verdict": "fail",
+      "verdict_28r01": "fail"
+     },
+     "263": {
+      "max_now_px": 27.52,
+      "worst_measure": "boundary_lower",
+      "now_at_worst_px": 27.52,
+      "r28r01_at_worst_px": 0.559,
+      "worst_abs_diff_vs_28r01_px": 26.961,
+      "verdict": "fail",
+      "verdict_28r01": "pass"
+     },
+     "270": {
+      "max_now_px": 46.56,
+      "worst_measure": "boundary",
+      "now_at_worst_px": 46.56,
+      "r28r01_at_worst_px": 0.563,
+      "worst_abs_diff_vs_28r01_px": 45.997,
+      "verdict": "fail",
+      "verdict_28r01": "pass"
+     }
+    },
+    "colour_265_267": {
+     "265_dE00": 13.974,
+     "265": "fail",
+     "266": "fail",
+     "267": "fail",
+     "267_bands_ge_20px": {
+      "painting_view": 141,
+      "seat_view": 6,
+      "seat_low_view": 2
+     }
+    },
+    "items_over_0p5_vs_28r01": [
+     "73",
+     "77",
+     "79",
+     "118",
+     "120",
+     "133",
+     "134",
+     "175",
+     "263",
+     "270"
+    ],
+    "verdict_changes_vs_28r01": [
+     "73",
+     "77",
+     "79",
+     "118",
+     "120",
+     "133",
+     "134",
+     "263",
+     "270",
+     "265",
+     "266",
+     "267"
+    ],
+    "silhouettes_definition_reading": {
+     "78": {
+      "max_px": 2.741,
+      "p95_px": 1.6935
+     },
+     "130": {
+      "max_px": 3.5815,
+      "p95_px": 3.3281
+     },
+     "131": {
+      "max_px": 3.4419,
+      "p95_px": 3.1833
+     },
+     "132": {
+      "max_px": 5.3771,
+      "p95_px": 4.4882
+     },
+     "72": {
+      "max_px": 7.9301,
+      "p95_px": 5.1476
+     },
+     "71": {
+      "max_px": 38.4804,
+      "p95_px": 10.0563
+     }
+    },
+    "silhouettes_vs_kstar_prime_geometry": {
+     "rows": {
+      "78": {
+       "unity_max_px": 2.741,
+       "kstar_prime_geometry_px": 2.439,
+       "diff_px": 0.302
+      },
+      "130": {
+       "unity_max_px": 3.5815,
+       "kstar_prime_geometry_px": 3.2299,
+       "diff_px": 0.3516
+      },
+      "131": {
+       "unity_max_px": 3.4419,
+       "kstar_prime_geometry_px": 3.3546,
+       "diff_px": 0.0873
+      }
+     },
+     "worst_abs_diff_px": 0.3516
+    },
+    "pass_colour": false,
+    "pass_silhouette": true,
+    "summary_verdicts": {
+     "73": "fail",
+     "77": "fail",
+     "79": "fail",
+     "118": "fail",
+     "120": "fail",
+     "133": "fail",
+     "134": "fail",
+     "175": "fail",
+     "263": "fail",
+     "270": "fail",
+     "265": "fail",
+     "266": "fail",
+     "267": "fail",
+     "uv_no_empty_texels": "pass"
+    }
+   },
+   "large_form": {
+    "ids": "Unity/Build/Polish/32/fix01/r_fix01/t28_claws/t28/render/af28r01_class_ids.png",
+    "ids_sha256": "85fd91101be43e0b0417a2243cee841b87468308297653a88fe3f3dde5f9885d",
+    "s12": {
+     "132_max_px": 3.5576,
+     "132_p95_px": 3.2345,
+     "72_p95_px": 3.5757,
+     "72_max_px": 6.2493,
+     "132_worst_xy": [
+      999.64,
+      260.08
+     ],
+     "72_worst_xy": [
+      872.0,
+      696.91
+     ]
+    },
+    "s24": {
+     "132_max_px": 3.5576,
+     "132_p95_px": 3.2345,
+     "72_p95_px": 3.1984,
+     "72_max_px": 7.8507,
+     "132_worst_xy": [
+      999.64,
+      260.08
+     ],
+     "72_worst_xy": [
+      872.0,
+      696.91
+     ]
+    }
+   },
+   "t28_sha256": {
+    "af28r01_class_ids.png": "85fd91101be43e0b0417a2243cee841b87468308297653a88fe3f3dde5f9885d",
+    "af28r01_line_ids.png": "16d669f69c583f6998d5c056331e84ce86b3ec8d06dd683ba03e1aec0423e01c",
+    "af28r01_painting.png": "256c3ba57b30111e82642a1a37138eb7b74e752447d4f7c2bdad7b57ed09fffd",
+    "af28r01_painting_kstar.png": "11e7181dcd02ba272bf3db21be80ab648667f96edacebcc431b381a32f387e2f",
+    "af28r01_seat.png": "2ac7f01413213b04acf948612fd0bbe482075243a51a47a1786a2ddcf2c0222b",
+    "af28r01_seat_class_ids.png": "9e698781fc43179b1e50f8e1dcb51a04e891dd40c7ba643d6a98c52d8e54c073",
+    "af28r01_seat_kstar.png": "ab76ab9ab59e9d13ad911b233de056f483a2540c3664956bf8332f6ffa278e8e",
+    "af28r01_seat_left.png": "19d38218124b6a9c8344eb8b18737a2fef6785883dd2711932b6fccf3a42830d",
+    "af28r01_seat_low.png": "369bb81dff05dc0c7e535da93545c4ca7dd83c0ccaa14311a8d11e22c82878ed",
+    "af28r01_seat_low_class_ids.png": "b82d1215fda8b146c78707011d2586ee4b65d4c91e3cc2a3b46121376da82f53",
+    "af28r01_seat_low_kstar.png": "84e788247b81c2b16ab62d3d8b6c59d11e9a8a809cb198773b0ac7ff018140d6",
+    "af28r01_seat_low_waveonly.png": "ab9623e03224c29a1029a00e48d33f045336e20faaa632f060bfddc4d96f1b59",
+    "af28r01_seat_waveonly.png": "c3f276f0092f3fc77c2eadf3f41f5a6b3f9e7a17c4ad3cb880ef8f99e9a69574"
+   },
+   "sym": {
+    "worst_abs_diff_px": 239.727,
+    "pass": false,
+    "rows": [
+     {
+      "item": "73",
+      "measure": "boundary",
+      "kp_sym_max_px": 32.962,
+      "diff_px": 32.659
+     },
+     {
+      "item": "77",
+      "measure": "lower_ends",
+      "kp_sym_max_px": 45.143,
+      "diff_px": 43.973
+     },
+     {
+      "item": "79",
+      "measure": "boundary",
+      "kp_sym_max_px": 64.912,
+      "diff_px": 64.572
+     },
+     {
+      "item": "118",
+      "measure": "boundary",
+      "kp_sym_max_px": 40.722,
+      "diff_px": 40.269
+     },
+     {
+      "item": "120",
+      "measure": "boundary",
+      "kp_sym_max_px": 8.572,
+      "diff_px": 8.284
+     },
+     {
+      "item": "133",
+      "measure": "boundary",
+      "kp_sym_max_px": 43.209,
+      "diff_px": 42.807
+     },
+     {
+      "item": "134",
+      "measure": "boundary",
+      "kp_sym_max_px": 24.536,
+      "diff_px": 23.875
+     },
+     {
+      "item": "175",
+      "measure": "boundary_by_class/ai_dark",
+      "kp_sym_max_px": 105.894,
+      "diff_px": 105.585
+     },
+     {
+      "item": "175",
+      "measure": "boundary_by_class/ai_mid",
+      "kp_sym_max_px": 177.754,
+      "diff_px": 176.129
+     },
+     {
+      "item": "175",
+      "measure": "boundary_by_class/mizuiro",
+      "kp_sym_max_px": 240.592,
+      "diff_px": 239.727
+     },
+     {
+      "item": "263",
+      "measure": "boundary_lower",
+      "kp_sym_max_px": 27.52,
+      "diff_px": 27.219
+     },
+     {
+      "item": "270",
+      "measure": "boundary",
+      "kp_sym_max_px": 46.56,
+      "diff_px": 45.997
+     },
+     {
+      "item": "270",
+      "measure": "record_mizuiro_reading",
+      "kp_sym_max_px": 19.773,
+      "diff_px": 19.112
+     }
+    ],
+    "flat_painting_view_266_267": {
+     "white": 138,
+     "mizuiro": 69,
+     "ai_mid": 50,
+     "ai_dark": 144
+    }
+   }
+  }
+ }
+}

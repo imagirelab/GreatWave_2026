@@ -1,0 +1,6081 @@
+{
+"schema": "GreatWave.Polish32.claw_table/1",
+"note_ja": "仕上げ32 の爪の一覧の要約（領域の多角形と中心線は Git 対象外の Unity/Build/Polish/32/list/ds32_claw_inventory.json）。消した爪は removed_claws",
+"counts": {
+"total": 234,
+"main": 209,
+"right": 25,
+"by_row": {
+"b区域": 77,
+"上側": 63,
+"船側": 44,
+"途中": 25
+},
+"b_region": 78,
+"added_bregion": 63
+},
+"removed_claws": [
+{
+"id": "C107",
+"origin": "af29",
+"row_af29": "船側",
+"row_id_af29": "B23",
+"kind": "統合",
+"merged_into": "C105",
+"reason_ja": "C105 の房（上の線と下の線に囲まれ、中が水色の影）の上の白の縁で、D25 の仮の定義（藍の輪郭線の内側）では同じ房の中にある。修正の前の C107 は中心線の 100%・面積の 98.7% が C105 の領域の中だった。C105 に統合した（修正01、独立の検査の指摘 1）",
+"fix": "修正01",
+"root_ref_af29": [
+1926.0,
+855.0
+],
+"tip_ref_af29": [
+1895.0,
+858.0
+],
+"length_ref_px_af29": 38.7
+},
+{
+"id": "C169",
+"origin": "ds32_user100",
+"seed": "claw071",
+"kind": "重複",
+"duplicate_of": "C163",
+"reason_ja": "領域の重なりが小さい方の 99%、中心線の 100% が相手の領域の中、根元が C163 の先端から 1.2 px で、向きが逆（なす角 171°）",
+"evidence": {
+"overlap_of_smaller": 0.986,
+"other_centerline_in_new": 1.0,
+"new_centerline_in_other": 0.576,
+"root_to_other_tip_px": 1.2,
+"angle_deg": 170.7
+},
+"fix": "修正01",
+"note_ja": "初回の出力ではこの ID で加えていた。ID は欠番として残す"
+},
+{
+"id": "C112",
+"origin": "af29",
+"kind": "消した",
+"reason_ja": "9 px の、墨版の巻いた線の先の小さな白の塊で、指（爪）ではない（美術優先29 の 17.9 px も同じ塊）",
+"fix": "仕上げ32"
+},
+{
+"id": "C174",
+"origin": "ds32_user100",
+"kind": "統合",
+"merged_into": "C002",
+"reason_ja": "C174（利用者の claw083 から設計32 で加えた）は、C002 の指が藍の胴へ垂れ下がる先の続き（C174 の根元が C002 の先端から 10 px、白がつながり、線が両側に続く）。C002 に統合し、C174 は欠番",
+"fix": "仕上げ32"
+}
+],
+"claws": [
+{
+"id": "C001",
+"row": "上側",
+"zone": "main",
+"origin": "af29",
+"status": "pl32_upper_mouth",
+"b_region": false,
+"root_ref": [
+869.0,
+706.0
+],
+"tip_ref": [
+895.0,
+689.0
+],
+"length_ref_px": 35.4,
+"sheet_rc": [
+112.7986,
+129.0685
+],
+"t_birth": 7.9376,
+"group": "GC01",
+"type": "T1",
+"parent": null,
+"len_m": 0.3722
+},
+{
+"id": "C002",
+"row": "上側",
+"zone": "main",
+"origin": "af29",
+"status": "pl32_merged",
+"b_region": false,
+"root_ref": [
+934.0,
+669.0
+],
+"tip_ref": [
+927.0,
+748.0
+],
+"length_ref_px": 98.8,
+"sheet_rc": [
+115.2068,
+131.1783
+],
+"t_birth": 7.8705,
+"group": "GC01",
+"type": "T4",
+"parent": null,
+"len_m": 1.1154
+},
+{
+"id": "C003",
+"row": "上側",
+"zone": "main",
+"origin": "af29",
+"status": "pl32_upper_mouth",
+"b_region": false,
+"root_ref": [
+964.0,
+635.0
+],
+"tip_ref": [
+1016.0,
+665.0
+],
+"length_ref_px": 75.2,
+"sheet_rc": [
+116.8241,
+130.3495
+],
+"t_birth": 7.8359,
+"group": "GC01",
+"type": "T1",
+"parent": null,
+"len_m": 0.8792
+},
+{
+"id": "C004",
+"row": "上側",
+"zone": "main",
+"origin": "af29",
+"status": "pl32_upper_mouth",
+"b_region": false,
+"root_ref": [
+1002.0,
+667.0
+],
+"tip_ref": [
+1021.0,
+733.0
+],
+"length_ref_px": 87.6,
+"sheet_rc": [
+116.9682,
+136.4876
+],
+"t_birth": 7.8877,
+"group": "GC01",
+"type": "T4",
+"parent": null,
+"len_m": 0.9774
+},
+{
+"id": "C005",
+"row": "上側",
+"zone": "main",
+"origin": "af29",
+"status": "root_kept",
+"b_region": false,
+"root_ref": [
+1079.0,
+640.0
+],
+"tip_ref": [
+1003.0,
+615.0
+],
+"length_ref_px": 86.3,
+"sheet_rc": [
+119.6769,
+139.7166
+],
+"t_birth": 7.8474,
+"group": "GC01",
+"type": "T4",
+"parent": null,
+"len_m": 0.9715
+},
+{
+"id": "C006",
+"row": "上側",
+"zone": "main",
+"origin": "af29",
+"status": "pl32_upper_mouth",
+"b_region": false,
+"root_ref": [
+1054.0,
+571.0
+],
+"tip_ref": [
+1047.0,
+535.0
+],
+"length_ref_px": 37.0,
+"sheet_rc": [
+120.9646,
+131.0354
+],
+"t_birth": 7.7363,
+"group": "GC01",
+"type": "T1",
+"parent": null,
+"len_m": 0.7085
+},
+{
+"id": "C007",
+"row": "上側",
+"zone": "main",
+"origin": "af29",
+"status": "pl32_upper_mouth",
+"b_region": false,
+"root_ref": [
+1065.0,
+591.0
+],
+"tip_ref": [
+1077.0,
+574.0
+],
+"length_ref_px": 21.0,
+"sheet_rc": [
+120.5626,
+134.0609
+],
+"t_birth": 7.7682,
+"group": "GC01",
+"type": "T1",
+"parent": null,
+"len_m": 0.2624
+},
+{
+"id": "C008",
+"row": "上側",
+"zone": "main",
+"origin": "af29",
+"status": "pl32_upper_mouth",
+"b_region": false,
+"root_ref": [
+1095.0,
+623.0
+],
+"tip_ref": [
+1137.0,
+704.0
+],
+"length_ref_px": 97.1,
+"sheet_rc": [
+120.5056,
+139.3278
+],
+"t_birth": 7.8239,
+"group": "GC01",
+"type": "T4",
+"parent": null,
+"len_m": 1.1463
+},
+{
+"id": "C009",
+"row": "上側",
+"zone": "main",
+"origin": "af29",
+"status": "pl32_upper_mouth",
+"b_region": false,
+"root_ref": [
+1064.0,
+511.0
+],
+"tip_ref": [
+1072.0,
+534.0
+],
+"length_ref_px": 25.7,
+"sheet_rc": [
+123.7037,
+124.4332
+],
+"t_birth": 7.5935,
+"group": "GC01",
+"type": "T1",
+"parent": null,
+"len_m": 0.525
+},
+{
+"id": "C010",
+"row": "上側",
+"zone": "main",
+"origin": "af29",
+"status": "pl32_upper_mouth",
+"b_region": false,
+"root_ref": [
+1149.0,
+534.0
+],
+"tip_ref": [
+1101.0,
+558.0
+],
+"length_ref_px": 78.2,
+"sheet_rc": [
+124.5454,
+134.4227
+],
+"t_birth": 7.6711,
+"group": "GC01",
+"type": "branch",
+"parent": "C013",
+"len_m": 0.9083
+},
+{
+"id": "C011",
+"row": "上側",
+"zone": "main",
+"origin": "af29",
+"status": "pl32_upper_mouth",
+"b_region": false,
+"root_ref": [
+1108.0,
+604.0
+],
+"tip_ref": [
+1166.0,
+617.0
+],
+"length_ref_px": 63.7,
+"sheet_rc": [
+121.3253,
+138.5065
+],
+"t_birth": 7.788,
+"group": "GC01",
+"type": "T1",
+"parent": null,
+"len_m": 0.6643
+},
+{
+"id": "C012",
+"row": "上側",
+"zone": "main",
+"origin": "af29",
+"status": "pl32_upper_mouth",
+"b_region": false,
+"root_ref": [
+1126.0,
+504.0
+],
+"tip_ref": [
+1133.0,
+521.0
+],
+"length_ref_px": 19.0,
+"sheet_rc": [
+125.2761,
+128.9845
+],
+"t_birth": 7.5819,
+"group": "GC01",
+"type": "T1",
+"parent": null,
+"len_m": 0.3752
+},
+{
+"id": "C013",
+"row": "上側",
+"zone": "main",
+"origin": "af29",
+"status": "pl32_upper_mouth_exit",
+"b_region": false,
+"root_ref": [
+1159.0,
+503.0
+],
+"tip_ref": [
+1205.0,
+597.0
+],
+"length_ref_px": 116.9,
+"sheet_rc": [
+126.0346,
+131.578
+],
+"t_birth": 7.5927,
+"group": "GC01",
+"type": "T2",
+"parent": null,
+"len_m": 1.7375
+},
+{
+"id": "C014",
+"row": "上側",
+"zone": "main",
+"origin": "af29",
+"status": "pl32_upper_mouth",
+"b_region": false,
+"root_ref": [
+1279.0,
+572.0
+],
+"tip_ref": [
+1227.0,
+564.0
+],
+"length_ref_px": 68.1,
+"sheet_rc": [
+126.8976,
+146.6534
+],
+"t_birth": 7.7947,
+"group": "GC02",
+"type": "branch",
+"parent": "C015",
+"len_m": 0.792
+},
+{
+"id": "C015",
+"row": "上側",
+"zone": "main",
+"origin": "af29",
+"status": "pl32_upper_mouth",
+"b_region": false,
+"root_ref": [
+1303.0,
+573.0
+],
+"tip_ref": [
+1263.0,
+645.0
+],
+"length_ref_px": 88.2,
+"sheet_rc": [
+127.5443,
+148.1228
+],
+"t_birth": 7.8091,
+"group": "GC02",
+"type": "T2",
+"parent": null,
+"len_m": 1.0045
+},
+{
+"id": "C016",
+"row": "上側",
+"zone": "main",
+"origin": "af29",
+"status": "pl32_upper_mouth",
+"b_region": false,
+"root_ref": [
+1268.0,
+512.0
+],
+"tip_ref": [
+1281.0,
+497.0
+],
+"length_ref_px": 22.4,
+"sheet_rc": [
+128.4082,
+140.3653
+],
+"t_birth": 7.6668,
+"group": "GC02",
+"type": "T1",
+"parent": null,
+"len_m": 0.2876
+},
+{
+"id": "C017",
+"row": "上側",
+"zone": "main",
+"origin": "af29",
+"status": "pl32_upper_mouth",
+"b_region": false,
+"root_ref": [
+1309.0,
+471.0
+],
+"tip_ref": [
+1343.0,
+530.0
+],
+"length_ref_px": 75.9,
+"sheet_rc": [
+131.0962,
+138.5396
+],
+"t_birth": 7.588,
+"group": "GC02",
+"type": "T1",
+"parent": null,
+"len_m": 1.1495
+},
+{
+"id": "C018",
+"row": "上側",
+"zone": "main",
+"origin": "af29",
+"status": "pl32_upper_mouth",
+"b_region": false,
+"root_ref": [
+1371.0,
+424.0
+],
+"tip_ref": [
+1362.0,
+451.0
+],
+"length_ref_px": 33.8,
+"sheet_rc": [
+134.9823,
+136.6106
+],
+"t_birth": 7.5145,
+"group": "GC02",
+"type": "T1",
+"parent": null,
+"len_m": 0.5777
+},
+{
+"id": "C019",
+"row": "上側",
+"zone": "main",
+"origin": "af29",
+"status": "pl32_upper_mouth",
+"b_region": false,
+"root_ref": [
+1369.0,
+505.0
+],
+"tip_ref": [
+1366.0,
+473.0
+],
+"length_ref_px": 37.9,
+"sheet_rc": [
+131.4975,
+145.5603
+],
+"t_birth": 7.6992,
+"group": "GC02",
+"type": "T1",
+"parent": null,
+"len_m": 0.5868
+},
+{
+"id": "C020",
+"row": "上側",
+"zone": "main",
+"origin": "af29",
+"status": "root_kept",
+"b_region": false,
+"root_ref": [
+1439.0,
+460.0
+],
+"tip_ref": [
+1388.0,
+453.0
+],
+"length_ref_px": 55.4,
+"sheet_rc": [
+135.3193,
+144.4557
+],
+"t_birth": 7.633,
+"group": "GC02",
+"type": "T1",
+"parent": null,
+"len_m": 0.6053
+},
+{
+"id": "C021",
+"row": "上側",
+"zone": "main",
+"origin": "af29",
+"status": "root_kept",
+"b_region": false,
+"root_ref": [
+1397.0,
+430.0
+],
+"tip_ref": [
+1403.0,
+408.0
+],
+"length_ref_px": 57.2,
+"sheet_rc": [
+135.4132,
+138.851
+],
+"t_birth": 7.5319,
+"group": "GC02",
+"type": "T4",
+"parent": null,
+"len_m": 0.9397
+},
+{
+"id": "C022",
+"row": "上側",
+"zone": "main",
+"origin": "af29",
+"status": "pl32_upper_mouth",
+"b_region": false,
+"root_ref": [
+1420.0,
+386.0
+],
+"tip_ref": [
+1423.0,
+422.0
+],
+"length_ref_px": 41.2,
+"sheet_rc": [
+138.6158,
+133.967
+],
+"t_birth": 7.4313,
+"group": "GC02",
+"type": "T1",
+"parent": null,
+"len_m": 0.8705
+},
+{
+"id": "C023",
+"row": "上側",
+"zone": "main",
+"origin": "af29",
+"status": "pl32_upper_mouth",
+"b_region": false,
+"root_ref": [
+1417.0,
+342.0
+],
+"tip_ref": [
+1440.0,
+334.0
+],
+"length_ref_px": 26.2,
+"sheet_rc": [
+141.7767,
+126.4231
+],
+"t_birth": 7.3055,
+"group": "GC02",
+"type": "T1",
+"parent": null,
+"len_m": 0.4013
+},
+{
+"id": "C024",
+"row": "上側",
+"zone": "main",
+"origin": "af29",
+"status": "pl32_upper_mouth",
+"b_region": false,
+"root_ref": [
+1464.0,
+329.0
+],
+"tip_ref": [
+1458.0,
+341.0
+],
+"length_ref_px": 14.4,
+"sheet_rc": [
+144.7545,
+125.5603
+],
+"t_birth": 7.2479,
+"group": "GC02",
+"type": "T1",
+"parent": null,
+"len_m": 0.4303
+},
+{
+"id": "C025",
+"row": "上側",
+"zone": "main",
+"origin": "af29",
+"status": "root_kept",
+"b_region": false,
+"root_ref": [
+1429.0,
+373.0
+],
+"tip_ref": [
+1490.0,
+373.0
+],
+"length_ref_px": 69.9,
+"sheet_rc": [
+139.7915,
+132.3541
+],
+"t_birth": 7.4092,
+"group": "GC02",
+"type": "T1",
+"parent": null,
+"len_m": 1.0134
+},
+{
+"id": "C026",
+"row": "上側",
+"zone": "main",
+"origin": "af29",
+"status": "root_kept",
+"b_region": false,
+"root_ref": [
+1467.0,
+406.0
+],
+"tip_ref": [
+1481.0,
+393.0
+],
+"length_ref_px": 21.3,
+"sheet_rc": [
+138.8878,
+139.105
+],
+"t_birth": 7.5167,
+"group": "GC02",
+"type": "T1",
+"parent": null,
+"len_m": 0.369
+},
+{
+"id": "C027",
+"row": "上側",
+"zone": "main",
+"origin": "af29",
+"status": "pl32_upper_mouth",
+"b_region": false,
+"root_ref": [
+1490.0,
+305.0
+],
+"tip_ref": [
+1525.0,
+298.0
+],
+"length_ref_px": 36.1,
+"sheet_rc": [
+148.1066,
+120.7915
+],
+"t_birth": 6.8664,
+"group": "GC02",
+"type": "T1",
+"parent": null,
+"len_m": 0.4934
+},
+{
+"id": "C028",
+"row": "上側",
+"zone": "main",
+"origin": "af29",
+"status": "pl32_upper_mouth",
+"b_region": false,
+"root_ref": [
+1496.0,
+349.0
+],
+"tip_ref": [
+1505.0,
+380.0
+],
+"length_ref_px": 36.0,
+"sheet_rc": [
+144.3481,
+130.3283
+],
+"t_birth": 7.3387,
+"group": "GC02",
+"type": "T1",
+"parent": null,
+"len_m": 0.9894
+},
+{
+"id": "C029",
+"row": "上側",
+"zone": "main",
+"origin": "af29",
+"status": "root_kept",
+"b_region": false,
+"root_ref": [
+1512.0,
+323.0
+],
+"tip_ref": [
+1545.0,
+315.0
+],
+"length_ref_px": 35.2,
+"sheet_rc": [
+147.6246,
+124.5962
+],
+"t_birth": 7.1687,
+"group": "GC02",
+"type": "T1",
+"parent": null,
+"len_m": 0.5463
+},
+{
+"id": "C030",
+"row": "上側",
+"zone": "main",
+"origin": "af29",
+"status": "pl32_upper_mouth_exit",
+"b_region": false,
+"root_ref": [
+1550.0,
+287.0
+],
+"tip_ref": [
+1558.0,
+320.0
+],
+"length_ref_px": 36.3,
+"sheet_rc": [
+152.5896,
+118.7715
+],
+"t_birth": 6.5145,
+"group": "GC03",
+"type": "T1",
+"parent": null,
+"len_m": 0.9939
+},
+{
+"id": "C031",
+"row": "上側",
+"zone": "main",
+"origin": "af29",
+"status": "pl32_upper_mouth",
+"b_region": false,
+"root_ref": [
+1518.0,
+390.0
+],
+"tip_ref": [
+1507.0,
+419.0
+],
+"length_ref_px": 33.0,
+"sheet_rc": [
+141.8304,
+138.4847
+],
+"t_birth": 7.4796,
+"group": "GC02",
+"type": "T1",
+"parent": null,
+"len_m": 0.7326
+},
+{
+"id": "C032",
+"row": "上側",
+"zone": "main",
+"origin": "af29",
+"status": "pl32_upper_mouth",
+"b_region": false,
+"root_ref": [
+1528.0,
+423.0
+],
+"tip_ref": [
+1516.0,
+428.0
+],
+"length_ref_px": 13.0,
+"sheet_rc": [
+140.1536,
+143.5682
+],
+"t_birth": 7.5739,
+"group": "GC02",
+"type": "T1",
+"parent": null,
+"len_m": 0.2179
+},
+{
+"id": "C033",
+"row": "上側",
+"zone": "main",
+"origin": "af29",
+"status": "pl32_upper_mouth",
+"b_region": false,
+"root_ref": [
+1494.0,
+497.0
+],
+"tip_ref": [
+1489.0,
+482.0
+],
+"length_ref_px": 16.7,
+"sheet_rc": [
+135.5189,
+150.7216
+],
+"t_birth": 7.7489,
+"group": "GC02",
+"type": "T1",
+"parent": null,
+"len_m": 0.2934
+},
+{
+"id": "C034",
+"row": "上側",
+"zone": "main",
+"origin": "af29",
+"status": "root_kept",
+"b_region": false,
+"root_ref": [
+1462.0,
+481.0
+],
+"tip_ref": [
+1469.0,
+528.0
+],
+"length_ref_px": 49.8,
+"sheet_rc": [
+135.1694,
+147.7214
+],
+"t_birth": 7.6893,
+"group": "GC02",
+"type": "T1",
+"parent": null,
+"len_m": 0.8249
+},
+{
+"id": "C035",
+"row": "上側",
+"zone": "main",
+"origin": "af29",
+"status": "root_kept",
+"b_region": false,
+"root_ref": [
+1578.0,
+292.0
+],
+"tip_ref": [
+1593.0,
+328.0
+],
+"length_ref_px": 40.9,
+"sheet_rc": [
+153.607,
+120.1476
+],
+"t_birth": 6.6657,
+"group": "GC03",
+"type": "T1",
+"parent": null,
+"len_m": 1.0708
+},
+{
+"id": "C036",
+"row": "上側",
+"zone": "main",
+"origin": "af29",
+"status": "pl32_upper_mouth",
+"b_region": false,
+"root_ref": [
+1517.0,
+505.0
+],
+"tip_ref": [
+1515.0,
+494.0
+],
+"length_ref_px": 14.5,
+"sheet_rc": [
+135.8925,
+152.4934
+],
+"t_birth": 7.7943,
+"group": "GC02",
+"type": "T1",
+"parent": null,
+"len_m": 0.2136
+},
+{
+"id": "C037",
+"row": "上側",
+"zone": "main",
+"origin": "af29",
+"status": "pl32_upper_mouth",
+"b_region": false,
+"root_ref": [
+1562.0,
+459.0
+],
+"tip_ref": [
+1543.0,
+482.0
+],
+"length_ref_px": 32.2,
+"sheet_rc": [
+139.5387,
+149.0267
+],
+"t_birth": 7.7043,
+"group": "GC02",
+"type": "T1",
+"parent": null,
+"len_m": 0.5184
+},
+{
+"id": "C038",
+"row": "上側",
+"zone": "main",
+"origin": "af29",
+"status": "pl32_upper_mouth",
+"b_region": false,
+"root_ref": [
+1529.0,
+602.0
+],
+"tip_ref": [
+1508.0,
+577.0
+],
+"length_ref_px": 55.3,
+"sheet_rc": [
+132.3741,
+162.4755
+],
+"t_birth": 8.0448,
+"group": "GC04",
+"type": "T1",
+"parent": null,
+"len_m": 0.7209
+},
+{
+"id": "C039",
+"row": "上側",
+"zone": "main",
+"origin": "af29",
+"status": "pl32_upper_mouth",
+"b_region": false,
+"root_ref": [
+1498.0,
+551.0
+],
+"tip_ref": [
+1482.0,
+578.0
+],
+"length_ref_px": 35.6,
+"sheet_rc": [
+133.5329,
+156.1558
+],
+"t_birth": 7.8939,
+"group": "GC02",
+"type": "T1",
+"parent": null,
+"len_m": 0.4865
+},
+{
+"id": "C040",
+"row": "上側",
+"zone": "main",
+"origin": "af29",
+"status": "pl32_upper_mouth",
+"b_region": false,
+"root_ref": [
+1556.0,
+507.0
+],
+"tip_ref": [
+1542.0,
+531.0
+],
+"length_ref_px": 29.8,
+"sheet_rc": [
+137.0011,
+154.2478
+],
+"t_birth": 7.8287,
+"group": "GC02",
+"type": "T1",
+"parent": null,
+"len_m": 0.4556
+},
+{
+"id": "C041",
+"row": "上側",
+"zone": "main",
+"origin": "af29",
+"status": "pl32_upper_mouth",
+"b_region": false,
+"root_ref": [
+1597.0,
+452.0
+],
+"tip_ref": [
+1581.0,
+453.0
+],
+"length_ref_px": 16.6,
+"sheet_rc": [
+141.3116,
+149.0273
+],
+"t_birth": 7.6967,
+"group": "GC02",
+"type": "T1",
+"parent": null,
+"len_m": 0.2612
+},
+{
+"id": "C042",
+"row": "上側",
+"zone": "main",
+"origin": "af29",
+"status": "root_kept",
+"b_region": false,
+"root_ref": [
+1603.0,
+506.0
+],
+"tip_ref": [
+1575.0,
+509.0
+],
+"length_ref_px": 42.5,
+"sheet_rc": [
+138.545,
+155.8175
+],
+"t_birth": 7.8471,
+"group": "GC02",
+"type": "T1",
+"parent": null,
+"len_m": 0.6441
+},
+{
+"id": "C043",
+"row": "上側",
+"zone": "main",
+"origin": "af29",
+"status": "pl32_upper_mouth",
+"b_region": false,
+"root_ref": [
+1529.0,
+540.0
+],
+"tip_ref": [
+1554.0,
+591.0
+],
+"length_ref_px": 75.9,
+"sheet_rc": [
+134.8012,
+156.5018
+],
+"t_birth": 7.8858,
+"group": "GC02",
+"type": "T1",
+"parent": null,
+"len_m": 1.0644
+},
+{
+"id": "C044",
+"row": "上側",
+"zone": "main",
+"origin": "af29",
+"status": "root_kept",
+"b_region": false,
+"root_ref": [
+1620.0,
+468.0
+],
+"tip_ref": [
+1605.0,
+512.0
+],
+"length_ref_px": 49.7,
+"sheet_rc": [
+141.3151,
+151.5873
+],
+"t_birth": 7.7422,
+"group": "GC02",
+"type": "T1",
+"parent": null,
+"len_m": 0.9942
+},
+{
+"id": "C045",
+"row": "上側",
+"zone": "main",
+"origin": "af29",
+"status": "root_kept",
+"b_region": false,
+"root_ref": [
+1587.0,
+511.0
+],
+"tip_ref": [
+1579.0,
+571.0
+],
+"length_ref_px": 62.1,
+"sheet_rc": [
+137.7799,
+155.83
+],
+"t_birth": 7.8495,
+"group": "GC02",
+"type": "T1",
+"parent": null,
+"len_m": 1.1242
+},
+{
+"id": "C046",
+"row": "上側",
+"zone": "main",
+"origin": "af29",
+"status": "root_kept",
+"b_region": false,
+"root_ref": [
+1634.0,
+402.0
+],
+"tip_ref": [
+1641.0,
+374.0
+],
+"length_ref_px": 29.6,
+"sheet_rc": [
+146.8127,
+140.8802
+],
+"t_birth": 7.4902,
+"group": "GC05",
+"type": "T1",
+"parent": null,
+"len_m": 1.0057
+},
+{
+"id": "C047",
+"row": "上側",
+"zone": "main",
+"origin": "af29",
+"status": "pl32_upper_mouth",
+"b_region": false,
+"root_ref": [
+1665.0,
+378.0
+],
+"tip_ref": [
+1653.0,
+395.0
+],
+"length_ref_px": 21.2,
+"sheet_rc": [
+150.8871,
+135.7184
+],
+"t_birth": 7.4001,
+"group": "GC06",
+"type": "T1",
+"parent": null,
+"len_m": 0.6367
+},
+{
+"id": "C048",
+"row": "上側",
+"zone": "main",
+"origin": "af29",
+"status": "pl32_upper_mouth",
+"b_region": false,
+"root_ref": [
+1708.0,
+381.0
+],
+"tip_ref": [
+1693.0,
+379.0
+],
+"length_ref_px": 17.4,
+"sheet_rc": [
+153.0917,
+136.3915
+],
+"t_birth": 7.416,
+"group": "GC06",
+"type": "T1",
+"parent": null,
+"len_m": 0.3108
+},
+{
+"id": "C049",
+"row": "上側",
+"zone": "main",
+"origin": "af29",
+"status": "root_kept",
+"b_region": false,
+"root_ref": [
+1656.0,
+413.0
+],
+"tip_ref": [
+1672.0,
+422.0
+],
+"length_ref_px": 19.4,
+"sheet_rc": [
+147.1611,
+142.6335
+],
+"t_birth": 7.5284,
+"group": "GC05",
+"type": "T1",
+"parent": null,
+"len_m": 0.2862
+},
+{
+"id": "C050",
+"row": "上側",
+"zone": "main",
+"origin": "af29",
+"status": "pl32_upper_mouth",
+"b_region": false,
+"root_ref": [
+1718.0,
+403.0
+],
+"tip_ref": [
+1700.0,
+428.0
+],
+"length_ref_px": 37.2,
+"sheet_rc": [
+151.8478,
+139.9922
+],
+"t_birth": 7.4672,
+"group": "GC06",
+"type": "T1",
+"parent": null,
+"len_m": 0.9422
+},
+{
+"id": "C051",
+"row": "上側",
+"zone": "main",
+"origin": "af29",
+"status": "pl32_upper_mouth",
+"b_region": false,
+"root_ref": [
+1680.0,
+483.0
+],
+"tip_ref": [
+1664.0,
+503.0
+],
+"length_ref_px": 33.7,
+"sheet_rc": [
+142.8884,
+154.6887
+],
+"t_birth": 7.8151,
+"group": "GC02",
+"type": "T1",
+"parent": null,
+"len_m": 0.7033
+},
+{
+"id": "C052",
+"row": "上側",
+"zone": "main",
+"origin": "af29",
+"status": "pl32_upper_mouth_exit",
+"b_region": false,
+"root_ref": [
+1644.0,
+561.0
+],
+"tip_ref": [
+1662.0,
+547.0
+],
+"length_ref_px": 24.0,
+"sheet_rc": [
+136.9053,
+163.6569
+],
+"t_birth": 8.0605,
+"group": "GC02",
+"type": "T1",
+"parent": null,
+"len_m": 0.3191
+},
+{
+"id": "C053",
+"row": "上側",
+"zone": "main",
+"origin": "af29",
+"status": "pl32_upper_mouth_exit",
+"b_region": false,
+"root_ref": [
+1624.0,
+550.0
+],
+"tip_ref": [
+1683.0,
+541.0
+],
+"length_ref_px": 84.2,
+"sheet_rc": [
+136.9036,
+161.6452
+],
+"t_birth": 8.0018,
+"group": "GC02",
+"type": "T1",
+"parent": null,
+"len_m": 1.1724
+},
+{
+"id": "C054",
+"row": "上側",
+"zone": "main",
+"origin": "af29",
+"status": "pl32_upper_mouth",
+"b_region": false,
+"root_ref": [
+1704.0,
+546.0
+],
+"tip_ref": [
+1675.0,
+555.0
+],
+"length_ref_px": 42.8,
+"sheet_rc": [
+139.4576,
+164.0893
+],
+"t_birth": 8.0916,
+"group": "GC02",
+"type": "branch",
+"parent": "C066",
+"len_m": 0.6557
+},
+{
+"id": "C055",
+"row": "上側",
+"zone": "main",
+"origin": "af29",
+"status": "pl32_upper_mouth_exit",
+"b_region": false,
+"root_ref": [
+1655.0,
+590.0
+],
+"tip_ref": [
+1672.0,
+602.0
+],
+"length_ref_px": 23.3,
+"sheet_rc": [
+135.7864,
+167.1506
+],
+"t_birth": 8.1928,
+"group": "GC02",
+"type": "T1",
+"parent": null,
+"len_m": 0.3381
+},
+{
+"id": "C056",
+"row": "上側",
+"zone": "main",
+"origin": "af29",
+"status": "pl32_upper_mouth",
+"b_region": false,
+"root_ref": [
+1806.0,
+521.0
+],
+"tip_ref": [
+1751.0,
+512.0
+],
+"length_ref_px": 68.9,
+"sheet_rc": [
+145.8385,
+161.0878
+],
+"t_birth": 8.0157,
+"group": "GC07",
+"type": "T1",
+"parent": null,
+"len_m": 1.3786
+},
+{
+"id": "C057",
+"row": "上側",
+"zone": "main",
+"origin": "af29",
+"status": "pl32_upper_mouth",
+"b_region": false,
+"root_ref": [
+1783.0,
+467.0
+],
+"tip_ref": [
+1786.0,
+452.0
+],
+"length_ref_px": 15.4,
+"sheet_rc": [
+150.8412,
+149.2861
+],
+"t_birth": 7.699,
+"group": "GC08",
+"type": "T1",
+"parent": null,
+"len_m": 0.5018
+},
+{
+"id": "C058",
+"row": "上側",
+"zone": "main",
+"origin": "af29",
+"status": "pl32_upper_mouth",
+"b_region": false,
+"root_ref": [
+1526.0,
+615.0
+],
+"tip_ref": [
+1477.0,
+623.0
+],
+"length_ref_px": 60.2,
+"sheet_rc": [
+131.8173,
+163.5634
+],
+"t_birth": 8.08,
+"group": "GC04",
+"type": "T1",
+"parent": null,
+"len_m": 0.6643
+},
+{
+"id": "C059",
+"row": "上側",
+"zone": "main",
+"origin": "af29",
+"status": "pl32_upper_mouth",
+"b_region": false,
+"root_ref": [
+1591.0,
+689.0
+],
+"tip_ref": [
+1513.0,
+720.0
+],
+"length_ref_px": 88.5,
+"sheet_rc": [
+129.9846,
+173.4928
+],
+"t_birth": 8.4219,
+"group": "GC09",
+"type": "T4",
+"parent": null,
+"len_m": 0.8551
+},
+{
+"id": "C060",
+"row": "上側",
+"zone": "main",
+"origin": "af29",
+"status": "pl32_upper_mouth",
+"b_region": false,
+"root_ref": [
+1305.0,
+575.0
+],
+"tip_ref": [
+1361.0,
+667.0
+],
+"length_ref_px": 120.9,
+"sheet_rc": [
+127.5477,
+148.4091
+],
+"t_birth": 7.8091,
+"group": "GC02",
+"type": "T4",
+"parent": null,
+"len_m": 1.5504
+},
+{
+"id": "C061",
+"row": "途中",
+"zone": "main",
+"origin": "af29",
+"status": "mouth",
+"b_region": false,
+"root_ref": [
+1868.0,
+428.0
+],
+"tip_ref": [
+1900.0,
+449.0
+],
+"length_ref_px": 39.4,
+"sheet_rc": [
+162.9136,
+139.0159
+],
+"t_birth": 7.4672,
+"group": "GC11",
+"type": "T1",
+"parent": null,
+"len_m": 0.8545
+},
+{
+"id": "C062",
+"row": "途中",
+"zone": "main",
+"origin": "af29",
+"status": "mouth",
+"b_region": false,
+"root_ref": [
+1823.0,
+466.0
+],
+"tip_ref": [
+1813.0,
+500.0
+],
+"length_ref_px": 41.1,
+"sheet_rc": [
+154.1702,
+147.9086
+],
+"t_birth": 7.6559,
+"group": "GC12",
+"type": "T1",
+"parent": null,
+"len_m": 1.5736
+},
+{
+"id": "C063",
+"row": "途中",
+"zone": "main",
+"origin": "af29",
+"status": "mouth",
+"b_region": false,
+"root_ref": [
+1843.0,
+462.0
+],
+"tip_ref": [
+1864.0,
+503.0
+],
+"length_ref_px": 48.9,
+"sheet_rc": [
+156.3548,
+146.532
+],
+"t_birth": 7.6343,
+"group": "GC12",
+"type": "T1",
+"parent": null,
+"len_m": 0.9535
+},
+{
+"id": "C064",
+"row": "途中",
+"zone": "main",
+"origin": "af29",
+"status": "mouth",
+"b_region": false,
+"root_ref": [
+1676.0,
+587.0
+],
+"tip_ref": [
+1725.0,
+571.0
+],
+"length_ref_px": 53.5,
+"sheet_rc": [
+136.4416,
+167.7135
+],
+"t_birth": 8.1921,
+"group": "GC13",
+"type": "T1",
+"parent": null,
+"len_m": 0.5621
+},
+{
+"id": "C065",
+"row": "途中",
+"zone": "main",
+"origin": "af29",
+"status": "mouth",
+"b_region": false,
+"root_ref": [
+1842.0,
+606.0
+],
+"tip_ref": [
+1853.0,
+543.0
+],
+"length_ref_px": 95.6,
+"sheet_rc": [
+139.9192,
+175.5766
+],
+"t_birth": 8.4997,
+"group": "GC14",
+"type": "T2",
+"parent": null,
+"len_m": 2.3095
+},
+{
+"id": "C066",
+"row": "途中",
+"zone": "main",
+"origin": "af29",
+"status": "mouth_guard_reverted",
+"b_region": false,
+"root_ref": [
+1715.0,
+510.0
+],
+"tip_ref": [
+1735.0,
+603.0
+],
+"length_ref_px": 111.0,
+"sheet_rc": [
+142.3062,
+159.3978
+],
+"t_birth": 7.943,
+"group": "GC15",
+"type": "T2",
+"parent": null,
+"len_m": 2.234
+},
+{
+"id": "C067",
+"row": "途中",
+"zone": "main",
+"origin": "af29",
+"status": "mouth",
+"b_region": false,
+"root_ref": [
+1879.0,
+533.0
+],
+"tip_ref": [
+1933.0,
+573.0
+],
+"length_ref_px": 81.7,
+"sheet_rc": [
+149.2674,
+161.0624
+],
+"t_birth": 8.0525,
+"group": "GC15",
+"type": "branch",
+"parent": "C065",
+"len_m": 1.2566
+},
+{
+"id": "C068",
+"row": "途中",
+"zone": "main",
+"origin": "af29",
+"status": "mouth",
+"b_region": false,
+"root_ref": [
+1819.0,
+698.0
+],
+"tip_ref": [
+1801.0,
+721.0
+],
+"length_ref_px": 39.4,
+"sheet_rc": [
+133.9959,
+183.4846
+],
+"t_birth": 8.9081,
+"group": "GC16",
+"type": "T1",
+"parent": null,
+"len_m": 0.6449
+},
+{
+"id": "C069",
+"row": "途中",
+"zone": "main",
+"origin": "af29",
+"status": "mouth",
+"b_region": false,
+"root_ref": [
+1878.0,
+727.0
+],
+"tip_ref": [
+1840.0,
+705.0
+],
+"length_ref_px": 66.5,
+"sheet_rc": [
+134.5434,
+188.3
+],
+"t_birth": 9.1238,
+"group": "GC16",
+"type": "T1",
+"parent": null,
+"len_m": 1.0174
+},
+{
+"id": "C070",
+"row": "途中",
+"zone": "main",
+"origin": "af29",
+"status": "mouth",
+"b_region": false,
+"root_ref": [
+1886.0,
+678.0
+],
+"tip_ref": [
+1887.0,
+711.0
+],
+"length_ref_px": 35.0,
+"sheet_rc": [
+137.4984,
+183.8656
+],
+"t_birth": 8.8636,
+"group": "GC16",
+"type": "T1",
+"parent": null,
+"len_m": 0.6291
+},
+{
+"id": "C071",
+"row": "途中",
+"zone": "main",
+"origin": "af29",
+"status": "root_kept_guard",
+"b_region": false,
+"root_ref": [
+1860.0,
+788.0
+],
+"tip_ref": [
+1911.0,
+763.0
+],
+"length_ref_px": 63.8,
+"sheet_rc": [
+136.2301,
+193.1491
+],
+"t_birth": 9.3896,
+"group": "GC16",
+"type": "T1",
+"parent": null,
+"len_m": 0.6504
+},
+{
+"id": "C072",
+"row": "途中",
+"zone": "main",
+"origin": "af29",
+"status": "mouth_exit",
+"b_region": false,
+"root_ref": [
+1921.0,
+727.0
+],
+"tip_ref": [
+1932.0,
+802.0
+],
+"length_ref_px": 86.8,
+"sheet_rc": [
+136.6547,
+189.963
+],
+"t_birth": 9.1215,
+"group": "GC16",
+"type": "T1",
+"parent": null,
+"len_m": 1.0814
+},
+{
+"id": "C073",
+"row": "途中",
+"zone": "main",
+"origin": "af29",
+"status": "mouth",
+"b_region": false,
+"root_ref": [
+1970.0,
+790.0
+],
+"tip_ref": [
+1955.0,
+793.0
+],
+"length_ref_px": 16.3,
+"sheet_rc": [
+141.2582,
+193.917
+],
+"t_birth": 9.3428,
+"group": "GC16",
+"type": "T1",
+"parent": null,
+"len_m": 0.171
+},
+{
+"id": "C074",
+"row": "途中",
+"zone": "main",
+"origin": "af29",
+"status": "root_kept_guard",
+"b_region": false,
+"root_ref": [
+1986.0,
+776.0
+],
+"tip_ref": [
+1989.0,
+738.0
+],
+"length_ref_px": 49.3,
+"sheet_rc": [
+141.5986,
+193.274
+],
+"t_birth": 9.3428,
+"group": "GC16",
+"type": "T1",
+"parent": null,
+"len_m": 0.4908
+},
+{
+"id": "C075",
+"row": "途中",
+"zone": "main",
+"origin": "af29",
+"status": "root_kept_guard",
+"b_region": false,
+"root_ref": [
+1992.0,
+703.0
+],
+"tip_ref": [
+2001.0,
+765.0
+],
+"length_ref_px": 72.1,
+"sheet_rc": [
+141.3755,
+187.6271
+],
+"t_birth": 9.0554,
+"group": "GC16",
+"type": "T1",
+"parent": null,
+"len_m": 0.6086
+},
+{
+"id": "C076",
+"row": "途中",
+"zone": "main",
+"origin": "af29",
+"status": "mouth",
+"b_region": false,
+"root_ref": [
+2029.0,
+673.0
+],
+"tip_ref": [
+2030.0,
+711.0
+],
+"length_ref_px": 47.0,
+"sheet_rc": [
+144.8067,
+184.1811
+],
+"t_birth": 8.9393,
+"group": "GC16",
+"type": "T1",
+"parent": null,
+"len_m": 0.6703
+},
+{
+"id": "C077",
+"row": "途中",
+"zone": "main",
+"origin": "af29",
+"status": "mouth",
+"b_region": false,
+"root_ref": [
+2040.0,
+796.0
+],
+"tip_ref": [
+2060.0,
+789.0
+],
+"length_ref_px": 22.6,
+"sheet_rc": [
+144.1333,
+194.1792
+],
+"t_birth": 9.3679,
+"group": "GC16",
+"type": "branch",
+"parent": "C102",
+"len_m": 0.1979
+},
+{
+"id": "C078",
+"row": "途中",
+"zone": "main",
+"origin": "af29",
+"status": "root_kept_guard",
+"b_region": false,
+"root_ref": [
+2065.0,
+684.0
+],
+"tip_ref": [
+2108.0,
+694.0
+],
+"length_ref_px": 65.6,
+"sheet_rc": [
+146.2883,
+184.3074
+],
+"t_birth": 8.9866,
+"group": "GC16",
+"type": "T1",
+"parent": null,
+"len_m": 1.1434
+},
+{
+"id": "C079",
+"row": "途中",
+"zone": "main",
+"origin": "af29",
+"status": "mouth",
+"b_region": false,
+"root_ref": [
+2118.0,
+668.0
+],
+"tip_ref": [
+2175.0,
+707.0
+],
+"length_ref_px": 75.8,
+"sheet_rc": [
+151.5826,
+179.0261
+],
+"t_birth": 8.8413,
+"group": "GC16",
+"type": "T1",
+"parent": null,
+"len_m": 1.2723
+},
+{
+"id": "C080",
+"row": "途中",
+"zone": "main",
+"origin": "af29",
+"status": "root_kept_guard",
+"b_region": false,
+"root_ref": [
+2047.0,
+739.0
+],
+"tip_ref": [
+2109.0,
+736.0
+],
+"length_ref_px": 110.2,
+"sheet_rc": [
+143.7496,
+191.1969
+],
+"t_birth": 9.2422,
+"group": "GC16",
+"type": "T4",
+"parent": null,
+"len_m": 1.3697
+},
+{
+"id": "C081",
+"row": "途中",
+"zone": "main",
+"origin": "af29",
+"status": "root_kept_guard",
+"b_region": false,
+"root_ref": [
+2071.0,
+765.0
+],
+"tip_ref": [
+2077.0,
+797.0
+],
+"length_ref_px": 37.2,
+"sheet_rc": [
+144.9264,
+192.356
+],
+"t_birth": 9.3236,
+"group": "GC16",
+"type": "T1",
+"parent": null,
+"len_m": 0.3252
+},
+{
+"id": "C082",
+"row": "途中",
+"zone": "main",
+"origin": "af29",
+"status": "root_kept_guard",
+"b_region": false,
+"root_ref": [
+2090.0,
+811.0
+],
+"tip_ref": [
+2056.0,
+807.0
+],
+"length_ref_px": 39.7,
+"sheet_rc": [
+146.1892,
+194.6992
+],
+"t_birth": 9.3768,
+"group": "GC16",
+"type": "T1",
+"parent": null,
+"len_m": 0.3546
+},
+{
+"id": "C083",
+"row": "途中",
+"zone": "main",
+"origin": "af29",
+"status": "mouth",
+"b_region": false,
+"root_ref": [
+2182.0,
+771.0
+],
+"tip_ref": [
+2223.0,
+793.0
+],
+"length_ref_px": 55.3,
+"sheet_rc": [
+149.8437,
+190.2273
+],
+"t_birth": 9.3371,
+"group": "GC16",
+"type": "T1",
+"parent": null,
+"len_m": 0.7939
+},
+{
+"id": "C084",
+"row": "途中",
+"zone": "main",
+"origin": "af29",
+"status": "mouth",
+"b_region": false,
+"root_ref": [
+2116.0,
+844.0
+],
+"tip_ref": [
+2151.0,
+846.0
+],
+"length_ref_px": 37.9,
+"sheet_rc": [
+147.7146,
+197.3654
+],
+"t_birth": 9.4066,
+"group": "GC16",
+"type": "T1",
+"parent": null,
+"len_m": 0.3519
+},
+{
+"id": "C085",
+"row": "船側",
+"zone": "main",
+"origin": "af29",
+"status": "mouth",
+"b_region": false,
+"root_ref": [
+2184.0,
+815.0
+],
+"tip_ref": [
+2276.0,
+877.0
+],
+"length_ref_px": 134.4,
+"sheet_rc": [
+149.9792,
+193.6037
+],
+"t_birth": 9.3804,
+"group": "GC17",
+"type": "T4",
+"parent": null,
+"len_m": 1.4205
+},
+{
+"id": "C086",
+"row": "船側",
+"zone": "main",
+"origin": "af29",
+"status": "mouth",
+"b_region": false,
+"root_ref": [
+2108.0,
+939.0
+],
+"tip_ref": [
+2130.0,
+904.0
+],
+"length_ref_px": 52.0,
+"sheet_rc": [
+170.9673,
+219.1163
+],
+"t_birth": 9.5105,
+"group": "GC18",
+"type": "T1",
+"parent": null,
+"len_m": 1.8524
+},
+{
+"id": "C087",
+"row": "船側",
+"zone": "main",
+"origin": "af29",
+"status": "root_kept_guard",
+"b_region": false,
+"root_ref": [
+2121.0,
+960.0
+],
+"tip_ref": [
+2133.0,
+926.0
+],
+"length_ref_px": 36.7,
+"sheet_rc": [
+170.1443,
+217.3608
+],
+"t_birth": 9.4794,
+"group": "GC18",
+"type": "branch",
+"parent": "C092",
+"len_m": 1.2772
+},
+{
+"id": "C088",
+"row": "船側",
+"zone": "main",
+"origin": "af29",
+"status": "mouth",
+"b_region": false,
+"root_ref": [
+2141.0,
+885.0
+],
+"tip_ref": [
+2142.0,
+950.0
+],
+"length_ref_px": 74.6,
+"sheet_rc": [
+162.7705,
+213.6607
+],
+"t_birth": 9.4745,
+"group": "GC19",
+"type": "T1",
+"parent": null,
+"len_m": 1.4206
+},
+{
+"id": "C089",
+"row": "船側",
+"zone": "main",
+"origin": "af29",
+"status": "mouth",
+"b_region": false,
+"root_ref": [
+2174.0,
+976.0
+],
+"tip_ref": [
+2204.0,
+979.0
+],
+"length_ref_px": 32.4,
+"sheet_rc": [
+165.1551,
+206.7517
+],
+"t_birth": 9.3612,
+"group": "GC19",
+"type": "T1",
+"parent": null,
+"len_m": 0.3643
+},
+{
+"id": "C090",
+"row": "船側",
+"zone": "main",
+"origin": "af29",
+"status": "mouth",
+"b_region": false,
+"root_ref": [
+2200.0,
+983.0
+],
+"tip_ref": [
+2228.0,
+1030.0
+],
+"length_ref_px": 71.8,
+"sheet_rc": [
+165.4914,
+202.2276
+],
+"t_birth": 9.3135,
+"group": "GC19",
+"type": "T4",
+"parent": null,
+"len_m": 0.8475
+},
+{
+"id": "C091",
+"row": "船側",
+"zone": "main",
+"origin": "af29",
+"status": "mouth",
+"b_region": false,
+"root_ref": [
+2105.0,
+1022.0
+],
+"tip_ref": [
+2138.0,
+1007.0
+],
+"length_ref_px": 43.6,
+"sheet_rc": [
+173.255,
+215.3082
+],
+"t_birth": 9.4012,
+"group": "GC18",
+"type": "T1",
+"parent": null,
+"len_m": 1.5176
+},
+{
+"id": "C092",
+"row": "船側",
+"zone": "main",
+"origin": "af29",
+"status": "root_kept_guard",
+"b_region": false,
+"root_ref": [
+2089.0,
+983.0
+],
+"tip_ref": [
+2152.0,
+1044.0
+],
+"length_ref_px": 139.7,
+"sheet_rc": [
+173.986,
+217.7793
+],
+"t_birth": 9.4337,
+"group": "GC18",
+"type": "T2",
+"parent": null,
+"len_m": 3.8597
+},
+{
+"id": "C093",
+"row": "船側",
+"zone": "main",
+"origin": "af29",
+"status": "root_kept_guard",
+"b_region": false,
+"root_ref": [
+2145.0,
+1027.0
+],
+"tip_ref": [
+2141.0,
+1061.0
+],
+"length_ref_px": 46.1,
+"sheet_rc": [
+168.7003,
+212.6062
+],
+"t_birth": 9.4106,
+"group": "GC18",
+"type": "T1",
+"parent": null,
+"len_m": 1.21
+},
+{
+"id": "C094",
+"row": "船側",
+"zone": "main",
+"origin": "af29",
+"status": "mouth",
+"b_region": false,
+"root_ref": [
+2111.0,
+1072.0
+],
+"tip_ref": [
+2174.0,
+1120.0
+],
+"length_ref_px": 88.7,
+"sheet_rc": [
+173.2149,
+212.5113
+],
+"t_birth": 9.3395,
+"group": "GC18",
+"type": "T1",
+"parent": null,
+"len_m": 1.6669
+},
+{
+"id": "C095",
+"row": "船側",
+"zone": "main",
+"origin": "af29",
+"status": "mouth",
+"b_region": false,
+"root_ref": [
+2096.0,
+1086.0
+],
+"tip_ref": [
+2093.0,
+1126.0
+],
+"length_ref_px": 44.9,
+"sheet_rc": [
+174.5579,
+211.7056
+],
+"t_birth": 9.2407,
+"group": "GC18",
+"type": "T1",
+"parent": null,
+"len_m": 1.0904
+},
+{
+"id": "C096",
+"row": "船側",
+"zone": "main",
+"origin": "af29",
+"status": "mouth",
+"b_region": false,
+"root_ref": [
+2062.0,
+1068.0
+],
+"tip_ref": [
+2032.0,
+1089.0
+],
+"length_ref_px": 37.6,
+"sheet_rc": [
+177.2861,
+212.7697
+],
+"t_birth": 9.1105,
+"group": "GC18",
+"type": "T1",
+"parent": null,
+"len_m": 1.2269
+},
+{
+"id": "C097",
+"row": "船側",
+"zone": "main",
+"origin": "af29",
+"status": "mouth",
+"b_region": false,
+"root_ref": [
+2117.0,
+940.0
+],
+"tip_ref": [
+2081.0,
+958.0
+],
+"length_ref_px": 43.8,
+"sheet_rc": [
+169.8823,
+218.2654
+],
+"t_birth": 9.5063,
+"group": "GC18",
+"type": "T1",
+"parent": null,
+"len_m": 1.5399
+},
+{
+"id": "C098",
+"row": "船側",
+"zone": "main",
+"origin": "af29",
+"status": "root_kept_guard",
+"b_region": false,
+"root_ref": [
+2057.0,
+917.0
+],
+"tip_ref": [
+2087.0,
+931.0
+],
+"length_ref_px": 42.2,
+"sheet_rc": [
+174.7681,
+222.3426
+],
+"t_birth": 9.4909,
+"group": "GC18",
+"type": "T1",
+"parent": null,
+"len_m": 1.0007
+},
+{
+"id": "C099",
+"row": "船側",
+"zone": "main",
+"origin": "af29",
+"status": "mouth",
+"b_region": false,
+"root_ref": [
+2024.0,
+984.0
+],
+"tip_ref": [
+1999.0,
+1017.0
+],
+"length_ref_px": 47.0,
+"sheet_rc": [
+179.5702,
+217.1993
+],
+"t_birth": 9.2528,
+"group": "GC20",
+"type": "T1",
+"parent": null,
+"len_m": 1.0401
+},
+{
+"id": "C100",
+"row": "船側",
+"zone": "main",
+"origin": "af29",
+"status": "mouth",
+"b_region": false,
+"root_ref": [
+2092.0,
+885.0
+],
+"tip_ref": [
+2072.0,
+907.0
+],
+"length_ref_px": 41.7,
+"sheet_rc": [
+170.2736,
+221.8461
+],
+"t_birth": 9.5411,
+"group": "GC18",
+"type": "T1",
+"parent": null,
+"len_m": 1.0571
+},
+{
+"id": "C101",
+"row": "船側",
+"zone": "main",
+"origin": "af29",
+"status": "mouth",
+"b_region": false,
+"root_ref": [
+2049.0,
+901.0
+],
+"tip_ref": [
+2068.0,
+892.0
+],
+"length_ref_px": 24.1,
+"sheet_rc": [
+174.799,
+223.514
+],
+"t_birth": 9.505,
+"group": "GC18",
+"type": "T1",
+"parent": null,
+"len_m": 0.7386
+},
+{
+"id": "C102",
+"row": "船側",
+"zone": "main",
+"origin": "af29",
+"status": "mouth",
+"b_region": false,
+"root_ref": [
+2020.0,
+798.0
+],
+"tip_ref": [
+2031.0,
+843.0
+],
+"length_ref_px": 51.2,
+"sheet_rc": [
+143.4123,
+194.4011
+],
+"t_birth": 9.3628,
+"group": "GC21",
+"type": "T2",
+"parent": null,
+"len_m": 0.4693
+},
+{
+"id": "C103",
+"row": "船側",
+"zone": "main",
+"origin": "af29",
+"status": "mouth",
+"b_region": false,
+"root_ref": [
+1970.0,
+806.0
+],
+"tip_ref": [
+1968.0,
+831.0
+],
+"length_ref_px": 27.0,
+"sheet_rc": [
+141.6769,
+194.9361
+],
+"t_birth": 9.3688,
+"group": "GC21",
+"type": "T1",
+"parent": null,
+"len_m": 0.235
+},
+{
+"id": "C104",
+"row": "船側",
+"zone": "main",
+"origin": "af29",
+"status": "mouth",
+"b_region": false,
+"root_ref": [
+1959.0,
+927.0
+],
+"tip_ref": [
+1950.0,
+979.0
+],
+"length_ref_px": 61.4,
+"sheet_rc": [
+184.0232,
+217.255
+],
+"t_birth": 8.7796,
+"group": "GC22",
+"type": "T1",
+"parent": null,
+"len_m": 1.0492
+},
+{
+"id": "C105",
+"row": "船側",
+"zone": "main",
+"origin": "af29",
+"status": "mouth",
+"b_region": false,
+"root_ref": [
+1879.0,
+875.0
+],
+"tip_ref": [
+1930.0,
+891.0
+],
+"length_ref_px": 70.8,
+"sheet_rc": [
+187.2453,
+223.2951
+],
+"t_birth": 8.8185,
+"group": "GC23",
+"type": "T1",
+"parent": null,
+"len_m": 1.5578
+},
+{
+"id": "C106",
+"row": "船側",
+"zone": "main",
+"origin": "af29",
+"status": "root_kept_guard",
+"b_region": false,
+"root_ref": [
+1942.0,
+837.0
+],
+"tip_ref": [
+1943.0,
+895.0
+],
+"length_ref_px": 67.3,
+"sheet_rc": [
+140.9971,
+198.1007
+],
+"t_birth": 9.4046,
+"group": "GC21",
+"type": "T1",
+"parent": null,
+"len_m": 0.582
+},
+{
+"id": "C108",
+"row": "船側",
+"zone": "main",
+"origin": "af29",
+"status": "root_kept_guard",
+"b_region": false,
+"root_ref": [
+1944.0,
+919.0
+],
+"tip_ref": [
+1900.0,
+898.0
+],
+"length_ref_px": 49.8,
+"sheet_rc": [
+184.9084,
+217.5544
+],
+"t_birth": 8.7796,
+"group": "GC22",
+"type": "T1",
+"parent": null,
+"len_m": 1.2496
+},
+{
+"id": "C109",
+"row": "船側",
+"zone": "main",
+"origin": "af29",
+"status": "mouth",
+"b_region": false,
+"root_ref": [
+1867.0,
+969.0
+],
+"tip_ref": [
+1880.0,
+1029.0
+],
+"length_ref_px": 78.4,
+"sheet_rc": [
+190.2098,
+213.2701
+],
+"t_birth": 8.403,
+"group": "GC23",
+"type": "T1",
+"parent": null,
+"len_m": 1.2471
+},
+{
+"id": "C110",
+"row": "船側",
+"zone": "main",
+"origin": "af29",
+"status": "mouth",
+"b_region": false,
+"root_ref": [
+1871.0,
+891.0
+],
+"tip_ref": [
+1863.0,
+931.0
+],
+"length_ref_px": 41.9,
+"sheet_rc": [
+188.155,
+221.736
+],
+"t_birth": 8.7068,
+"group": "GC23",
+"type": "T1",
+"parent": null,
+"len_m": 0.6561
+},
+{
+"id": "C111",
+"row": "船側",
+"zone": "main",
+"origin": "af29",
+"status": "mouth",
+"b_region": false,
+"root_ref": [
+1829.0,
+976.0
+],
+"tip_ref": [
+1790.0,
+1007.0
+],
+"length_ref_px": 54.3,
+"sheet_rc": [
+192.4789,
+212.557
+],
+"t_birth": 8.3136,
+"group": "GC23",
+"type": "T1",
+"parent": null,
+"len_m": 0.8454
+},
+{
+"id": "C113",
+"row": "船側",
+"zone": "main",
+"origin": "af29",
+"status": "mouth",
+"b_region": false,
+"root_ref": [
+1831.0,
+839.0
+],
+"tip_ref": [
+1825.0,
+886.0
+],
+"length_ref_px": 51.6,
+"sheet_rc": [
+136.9462,
+196.1817
+],
+"t_birth": 9.4321,
+"group": "GC21",
+"type": "T1",
+"parent": null,
+"len_m": 0.4389
+},
+{
+"id": "C114",
+"row": "船側",
+"zone": "main",
+"origin": "af29",
+"status": "mouth",
+"b_region": false,
+"root_ref": [
+1897.0,
+825.0
+],
+"tip_ref": [
+1865.0,
+850.0
+],
+"length_ref_px": 45.5,
+"sheet_rc": [
+139.253,
+196.0827
+],
+"t_birth": 9.3974,
+"group": "GC21",
+"type": "T1",
+"parent": null,
+"len_m": 0.3919
+},
+{
+"id": "C115",
+"row": "船側",
+"zone": "main",
+"origin": "af29",
+"status": "mouth",
+"b_region": false,
+"root_ref": [
+1794.0,
+908.0
+],
+"tip_ref": [
+1761.0,
+930.0
+],
+"length_ref_px": 50.9,
+"sheet_rc": [
+191.9662,
+223.0338
+],
+"t_birth": 8.6382,
+"group": "GC23",
+"type": "T1",
+"parent": null,
+"len_m": 1.4878
+},
+{
+"id": "C116",
+"row": "船側",
+"zone": "main",
+"origin": "af29",
+"status": "mouth",
+"b_region": false,
+"root_ref": [
+1799.0,
+862.0
+],
+"tip_ref": [
+1819.0,
+861.0
+],
+"length_ref_px": 23.8,
+"sheet_rc": [
+135.8675,
+197.942
+],
+"t_birth": 9.4464,
+"group": "GC21",
+"type": "T1",
+"parent": null,
+"len_m": 0.2106
+},
+{
+"id": "C117",
+"row": "船側",
+"zone": "main",
+"origin": "af29",
+"status": "mouth",
+"b_region": false,
+"root_ref": [
+1820.0,
+830.0
+],
+"tip_ref": [
+1811.0,
+830.0
+],
+"length_ref_px": 9.0,
+"sheet_rc": [
+136.2756,
+194.944
+],
+"t_birth": 9.4149,
+"group": "GC21",
+"type": "T1",
+"parent": null,
+"len_m": 0.1171
+},
+{
+"id": "C118",
+"row": "船側",
+"zone": "main",
+"origin": "af29",
+"status": "mouth",
+"b_region": false,
+"root_ref": [
+1886.0,
+741.0
+],
+"tip_ref": [
+1846.0,
+763.0
+],
+"length_ref_px": 58.3,
+"sheet_rc": [
+134.7843,
+190.8687
+],
+"t_birth": 9.1972,
+"group": "GC21",
+"type": "T1",
+"parent": null,
+"len_m": 0.8106
+},
+{
+"id": "C119",
+"row": "船側",
+"zone": "main",
+"origin": "af29",
+"status": "mouth",
+"b_region": false,
+"root_ref": [
+1794.0,
+811.0
+],
+"tip_ref": [
+1775.0,
+847.0
+],
+"length_ref_px": 47.1,
+"sheet_rc": [
+133.9045,
+193.4848
+],
+"t_birth": 9.4275,
+"group": "GC21",
+"type": "T1",
+"parent": null,
+"len_m": 0.6275
+},
+{
+"id": "C120",
+"row": "船側",
+"zone": "main",
+"origin": "af29",
+"status": "root_kept_guard",
+"b_region": false,
+"root_ref": [
+1749.0,
+816.0
+],
+"tip_ref": [
+1771.0,
+815.0
+],
+"length_ref_px": 25.1,
+"sheet_rc": [
+131.3854,
+193.0172
+],
+"t_birth": 9.4455,
+"group": "GC21",
+"type": "T1",
+"parent": null,
+"len_m": 0.3856
+},
+{
+"id": "C121",
+"row": "船側",
+"zone": "main",
+"origin": "af29",
+"status": "mouth",
+"b_region": false,
+"root_ref": [
+1727.0,
+696.0
+],
+"tip_ref": [
+1696.0,
+770.0
+],
+"length_ref_px": 87.5,
+"sheet_rc": [
+131.9584,
+179.5785
+],
+"t_birth": 8.7263,
+"group": "GC21",
+"type": "T4",
+"parent": null,
+"len_m": 1.3128
+},
+{
+"id": "C122",
+"row": "船側",
+"zone": "main",
+"origin": "af29",
+"status": "mouth",
+"b_region": false,
+"root_ref": [
+1646.0,
+606.0
+],
+"tip_ref": [
+1646.0,
+645.0
+],
+"length_ref_px": 44.5,
+"sheet_rc": [
+134.8179,
+168.3603
+],
+"t_birth": 8.2248,
+"group": "GC21",
+"type": "T1",
+"parent": null,
+"len_m": 0.7572
+},
+{
+"id": "C123",
+"row": "船側",
+"zone": "main",
+"origin": "af29",
+"status": "mouth",
+"b_region": false,
+"root_ref": [
+1691.0,
+669.0
+],
+"tip_ref": [
+1687.0,
+721.0
+],
+"length_ref_px": 59.7,
+"sheet_rc": [
+132.6337,
+175.9469
+],
+"t_birth": 8.5145,
+"group": "GC21",
+"type": "T1",
+"parent": null,
+"len_m": 0.9964
+},
+{
+"id": "C124",
+"row": "船側",
+"zone": "main",
+"origin": "af29",
+"status": "mouth",
+"b_region": false,
+"root_ref": [
+1623.0,
+703.0
+],
+"tip_ref": [
+1623.0,
+744.0
+],
+"length_ref_px": 44.9,
+"sheet_rc": [
+129.8645,
+175.9666
+],
+"t_birth": 8.5141,
+"group": "GC21",
+"type": "T1",
+"parent": null,
+"len_m": 0.7287
+},
+{
+"id": "C125",
+"row": "船側",
+"zone": "main",
+"origin": "af29",
+"status": "mouth",
+"b_region": false,
+"root_ref": [
+1696.0,
+792.0
+],
+"tip_ref": [
+1631.0,
+804.0
+],
+"length_ref_px": 82.0,
+"sheet_rc": [
+126.9596,
+187.5588
+],
+"t_birth": 9.0751,
+"group": "GC21",
+"type": "T1",
+"parent": null,
+"len_m": 0.9665
+},
+{
+"id": "C126",
+"row": "船側",
+"zone": "main",
+"origin": "af29",
+"status": "no_mouth",
+"b_region": false,
+"root_ref": [
+1642.0,
+632.0
+],
+"tip_ref": [
+1595.0,
+656.0
+],
+"length_ref_px": 74.9,
+"sheet_rc": [
+133.4983,
+170.6711
+],
+"t_birth": 8.301,
+"group": "GC21",
+"type": "T1",
+"parent": null,
+"len_m": 1.0274
+},
+{
+"id": "C127",
+"row": "船側",
+"zone": "main",
+"origin": "af29",
+"status": "mouth",
+"b_region": false,
+"root_ref": [
+1669.0,
+851.0
+],
+"tip_ref": [
+1613.0,
+851.0
+],
+"length_ref_px": 75.4,
+"sheet_rc": [
+128.4746,
+193.0337
+],
+"t_birth": 9.4514,
+"group": "GC21",
+"type": "T4",
+"parent": null,
+"len_m": 0.9539
+},
+{
+"id": "C128",
+"row": "船側",
+"zone": "main",
+"origin": "af29",
+"status": "mouth",
+"b_region": false,
+"root_ref": [
+1575.0,
+651.0
+],
+"tip_ref": [
+1561.0,
+686.0
+],
+"length_ref_px": 41.0,
+"sheet_rc": [
+131.3978,
+169.3651
+],
+"t_birth": 8.265,
+"group": "GC21",
+"type": "T1",
+"parent": null,
+"len_m": 0.5939
+},
+{
+"id": "C129",
+"row": "右側",
+"zone": "right",
+"origin": "af29",
+"status": "右側・低優先・未修正",
+"b_region": false,
+"root_ref": [
+2736.0,
+2019.0
+],
+"tip_ref": [
+2730.0,
+2020.0
+],
+"length_ref_px": 22.9,
+"sheet_rc": null,
+"t_birth": null,
+"group": null,
+"type": null,
+"parent": null,
+"len_m": null
+},
+{
+"id": "C130",
+"row": "右側",
+"zone": "right",
+"origin": "af29",
+"status": "右側・低優先・未修正",
+"b_region": false,
+"root_ref": [
+2851.0,
+1990.0
+],
+"tip_ref": [
+2875.0,
+2011.0
+],
+"length_ref_px": 33.2,
+"sheet_rc": null,
+"t_birth": null,
+"group": null,
+"type": null,
+"parent": null,
+"len_m": null
+},
+{
+"id": "C131",
+"row": "右側",
+"zone": "right",
+"origin": "af29",
+"status": "右側・低優先・未修正",
+"b_region": false,
+"root_ref": [
+2932.0,
+2002.0
+],
+"tip_ref": [
+2896.0,
+1942.0
+],
+"length_ref_px": 92.1,
+"sheet_rc": null,
+"t_birth": null,
+"group": null,
+"type": null,
+"parent": null,
+"len_m": null
+},
+{
+"id": "C132",
+"row": "右側",
+"zone": "right",
+"origin": "af29",
+"status": "右側・低優先・未修正",
+"b_region": false,
+"root_ref": [
+3066.0,
+1978.0
+],
+"tip_ref": [
+3012.0,
+1925.0
+],
+"length_ref_px": 80.7,
+"sheet_rc": null,
+"t_birth": null,
+"group": null,
+"type": null,
+"parent": null,
+"len_m": null
+},
+{
+"id": "C133",
+"row": "右側",
+"zone": "right",
+"origin": "af29",
+"status": "右側・低優先・未修正",
+"b_region": false,
+"root_ref": [
+3113.0,
+1932.0
+],
+"tip_ref": [
+3050.0,
+1869.0
+],
+"length_ref_px": 98.4,
+"sheet_rc": null,
+"t_birth": null,
+"group": null,
+"type": null,
+"parent": null,
+"len_m": null
+},
+{
+"id": "C134",
+"row": "右側",
+"zone": "right",
+"origin": "af29",
+"status": "右側・低優先・未修正",
+"b_region": false,
+"root_ref": [
+3158.0,
+1910.0
+],
+"tip_ref": [
+3154.0,
+1864.0
+],
+"length_ref_px": 50.6,
+"sheet_rc": null,
+"t_birth": null,
+"group": null,
+"type": null,
+"parent": null,
+"len_m": null
+},
+{
+"id": "C135",
+"row": "右側",
+"zone": "right",
+"origin": "af29",
+"status": "右側・低優先・未修正",
+"b_region": false,
+"root_ref": [
+3210.0,
+1914.0
+],
+"tip_ref": [
+3191.0,
+1860.0
+],
+"length_ref_px": 57.4,
+"sheet_rc": null,
+"t_birth": null,
+"group": null,
+"type": null,
+"parent": null,
+"len_m": null
+},
+{
+"id": "C136",
+"row": "右側",
+"zone": "right",
+"origin": "af29",
+"status": "右側・低優先・未修正",
+"b_region": false,
+"root_ref": [
+3228.0,
+1883.0
+],
+"tip_ref": [
+3244.0,
+1902.0
+],
+"length_ref_px": 25.2,
+"sheet_rc": null,
+"t_birth": null,
+"group": null,
+"type": null,
+"parent": null,
+"len_m": null
+},
+{
+"id": "C137",
+"row": "右側",
+"zone": "right",
+"origin": "af29",
+"status": "右側・低優先・未修正",
+"b_region": false,
+"root_ref": [
+3325.0,
+1896.0
+],
+"tip_ref": [
+3235.0,
+1824.0
+],
+"length_ref_px": 115.9,
+"sheet_rc": null,
+"t_birth": null,
+"group": null,
+"type": null,
+"parent": null,
+"len_m": null
+},
+{
+"id": "C138",
+"row": "右側",
+"zone": "right",
+"origin": "af29",
+"status": "右側・低優先・未修正",
+"b_region": false,
+"root_ref": [
+3370.0,
+1796.0
+],
+"tip_ref": [
+3283.0,
+1736.0
+],
+"length_ref_px": 106.8,
+"sheet_rc": null,
+"t_birth": null,
+"group": null,
+"type": null,
+"parent": null,
+"len_m": null
+},
+{
+"id": "C139",
+"row": "右側",
+"zone": "right",
+"origin": "af29",
+"status": "右側・低優先・未修正",
+"b_region": false,
+"root_ref": [
+3354.0,
+1859.0
+],
+"tip_ref": [
+3362.0,
+1875.0
+],
+"length_ref_px": 23.7,
+"sheet_rc": null,
+"t_birth": null,
+"group": null,
+"type": null,
+"parent": null,
+"len_m": null
+},
+{
+"id": "C140",
+"row": "右側",
+"zone": "right",
+"origin": "af29",
+"status": "右側・低優先・未修正",
+"b_region": false,
+"root_ref": [
+3432.0,
+1811.0
+],
+"tip_ref": [
+3388.0,
+1743.0
+],
+"length_ref_px": 81.9,
+"sheet_rc": null,
+"t_birth": null,
+"group": null,
+"type": null,
+"parent": null,
+"len_m": null
+},
+{
+"id": "C141",
+"row": "右側",
+"zone": "right",
+"origin": "af29",
+"status": "右側・低優先・未修正",
+"b_region": false,
+"root_ref": [
+3414.0,
+1838.0
+],
+"tip_ref": [
+3455.0,
+1847.0
+],
+"length_ref_px": 43.0,
+"sheet_rc": null,
+"t_birth": null,
+"group": null,
+"type": null,
+"parent": null,
+"len_m": null
+},
+{
+"id": "C142",
+"row": "右側",
+"zone": "right",
+"origin": "af29",
+"status": "右側・低優先・未修正",
+"b_region": false,
+"root_ref": [
+3461.0,
+1765.0
+],
+"tip_ref": [
+3529.0,
+1779.0
+],
+"length_ref_px": 69.9,
+"sheet_rc": null,
+"t_birth": null,
+"group": null,
+"type": null,
+"parent": null,
+"len_m": null
+},
+{
+"id": "C143",
+"row": "右側",
+"zone": "right",
+"origin": "af29",
+"status": "右側・低優先・未修正",
+"b_region": false,
+"root_ref": [
+3523.0,
+1745.0
+],
+"tip_ref": [
+3420.0,
+1690.0
+],
+"length_ref_px": 132.5,
+"sheet_rc": null,
+"t_birth": null,
+"group": null,
+"type": null,
+"parent": null,
+"len_m": null
+},
+{
+"id": "C144",
+"row": "右側",
+"zone": "right",
+"origin": "af29",
+"status": "右側・低優先・未修正",
+"b_region": false,
+"root_ref": [
+3528.0,
+1673.0
+],
+"tip_ref": [
+3555.0,
+1699.0
+],
+"length_ref_px": 37.9,
+"sheet_rc": null,
+"t_birth": null,
+"group": null,
+"type": null,
+"parent": null,
+"len_m": null
+},
+{
+"id": "C145",
+"row": "右側",
+"zone": "right",
+"origin": "af29",
+"status": "右側・低優先・未修正",
+"b_region": false,
+"root_ref": [
+3567.0,
+1633.0
+],
+"tip_ref": [
+3523.0,
+1631.0
+],
+"length_ref_px": 51.8,
+"sheet_rc": null,
+"t_birth": null,
+"group": null,
+"type": null,
+"parent": null,
+"len_m": null
+},
+{
+"id": "C146",
+"row": "右側",
+"zone": "right",
+"origin": "af29",
+"status": "右側・低優先・未修正",
+"b_region": false,
+"root_ref": [
+3579.0,
+1611.0
+],
+"tip_ref": [
+3608.0,
+1660.0
+],
+"length_ref_px": 57.8,
+"sheet_rc": null,
+"t_birth": null,
+"group": null,
+"type": null,
+"parent": null,
+"len_m": null
+},
+{
+"id": "C147",
+"row": "右側",
+"zone": "right",
+"origin": "af29",
+"status": "右側・低優先・未修正",
+"b_region": false,
+"root_ref": [
+3616.0,
+1606.0
+],
+"tip_ref": [
+3672.0,
+1660.0
+],
+"length_ref_px": 79.1,
+"sheet_rc": null,
+"t_birth": null,
+"group": null,
+"type": null,
+"parent": null,
+"len_m": null
+},
+{
+"id": "C148",
+"row": "右側",
+"zone": "right",
+"origin": "af29",
+"status": "右側・低優先・未修正",
+"b_region": false,
+"root_ref": [
+3656.0,
+1604.0
+],
+"tip_ref": [
+3581.0,
+1590.0
+],
+"length_ref_px": 85.3,
+"sheet_rc": null,
+"t_birth": null,
+"group": null,
+"type": null,
+"parent": null,
+"len_m": null
+},
+{
+"id": "C149",
+"row": "右側",
+"zone": "right",
+"origin": "af29",
+"status": "右側・低優先・未修正",
+"b_region": false,
+"root_ref": [
+3778.0,
+1486.0
+],
+"tip_ref": [
+3651.0,
+1436.0
+],
+"length_ref_px": 149.1,
+"sheet_rc": null,
+"t_birth": null,
+"group": null,
+"type": null,
+"parent": null,
+"len_m": null
+},
+{
+"id": "C150",
+"row": "右側",
+"zone": "right",
+"origin": "af29",
+"status": "右側・低優先・未修正",
+"b_region": false,
+"root_ref": [
+3766.0,
+1554.0
+],
+"tip_ref": [
+3708.0,
+1461.0
+],
+"length_ref_px": 114.9,
+"sheet_rc": null,
+"t_birth": null,
+"group": null,
+"type": null,
+"parent": null,
+"len_m": null
+},
+{
+"id": "C151",
+"row": "右側",
+"zone": "right",
+"origin": "af29",
+"status": "右側・低優先・未修正",
+"b_region": false,
+"root_ref": [
+3723.0,
+1575.0
+],
+"tip_ref": [
+3779.0,
+1629.0
+],
+"length_ref_px": 79.7,
+"sheet_rc": null,
+"t_birth": null,
+"group": null,
+"type": null,
+"parent": null,
+"len_m": null
+},
+{
+"id": "C152",
+"row": "右側",
+"zone": "right",
+"origin": "af29",
+"status": "右側・低優先・未修正",
+"b_region": false,
+"root_ref": [
+3780.0,
+1367.0
+],
+"tip_ref": [
+3812.0,
+1344.0
+],
+"length_ref_px": 75.2,
+"sheet_rc": null,
+"t_birth": null,
+"group": null,
+"type": null,
+"parent": null,
+"len_m": null
+},
+{
+"id": "C153",
+"row": "右側",
+"zone": "right",
+"origin": "af29",
+"status": "右側・低優先・未修正",
+"b_region": false,
+"root_ref": [
+3828.0,
+1465.0
+],
+"tip_ref": [
+3795.0,
+1420.0
+],
+"length_ref_px": 56.2,
+"sheet_rc": null,
+"t_birth": null,
+"group": null,
+"type": null,
+"parent": null,
+"len_m": null
+},
+{
+"id": "C154",
+"row": "船側",
+"zone": "main",
+"origin": "ds32_manual",
+"status": "mouth",
+"b_region": false,
+"root_ref": [
+1690.0,
+862.0
+],
+"tip_ref": [
+1661.0,
+917.0
+],
+"length_ref_px": 69.8,
+"sheet_rc": [
+131.1063,
+194.3424
+],
+"t_birth": 9.4793,
+"group": "GC21",
+"type": "T1",
+"parent": null,
+"len_m": 0.7395
+},
+{
+"id": "C155",
+"row": "船側",
+"zone": "main",
+"origin": "ds32_user100",
+"status": "mouth",
+"b_region": false,
+"root_ref": [
+2167.0,
+831.0
+],
+"tip_ref": [
+2164.0,
+878.0
+],
+"length_ref_px": 49.8,
+"sheet_rc": [
+149.5181,
+195.1183
+],
+"t_birth": 9.4007,
+"group": "GC17",
+"type": "T1",
+"parent": null,
+"len_m": 0.5632
+},
+{
+"id": "C156",
+"row": "途中",
+"zone": "main",
+"origin": "ds32_user100",
+"status": "root_kept_guard",
+"b_region": false,
+"root_ref": [
+1813.0,
+529.0
+],
+"tip_ref": [
+1791.0,
+581.0
+],
+"length_ref_px": 60.4,
+"sheet_rc": [
+145.4277,
+162.6479
+],
+"t_birth": 8.0494,
+"group": "GC15",
+"type": "T1",
+"parent": null,
+"len_m": 1.6446
+},
+{
+"id": "C157",
+"row": "上側",
+"zone": "main",
+"origin": "ds32_user100",
+"status": "mouth",
+"b_region": false,
+"root_ref": [
+1751.0,
+459.0
+],
+"tip_ref": [
+1721.0,
+483.0
+],
+"length_ref_px": 40.9,
+"sheet_rc": [
+149.2292,
+148.8306
+],
+"t_birth": 7.671,
+"group": "GC08",
+"type": "T1",
+"parent": null,
+"len_m": 1.1163
+},
+{
+"id": "C158",
+"row": "b区域",
+"zone": "main",
+"origin": "ds32_user100",
+"status": "mouth",
+"b_region": true,
+"root_ref": [
+1303.0,
+1129.0
+],
+"tip_ref": [
+1326.0,
+1148.0
+],
+"length_ref_px": 34.3,
+"sheet_rc": [
+118.7813,
+196.5783
+],
+"t_birth": 9.4622,
+"group": "GC24",
+"type": "T1",
+"parent": null,
+"len_m": 0.2939
+},
+{
+"id": "C159",
+"row": "b区域",
+"zone": "main",
+"origin": "ds32_user100",
+"status": "mouth",
+"b_region": true,
+"root_ref": [
+1205.0,
+1238.0
+],
+"tip_ref": [
+1175.0,
+1278.0
+],
+"length_ref_px": 53.5,
+"sheet_rc": [
+165.6958,
+298.2015
+],
+"t_birth": 10.465,
+"group": "GC25",
+"type": "T1",
+"parent": null,
+"len_m": 0.6106
+},
+{
+"id": "C160",
+"row": "b区域",
+"zone": "main",
+"origin": "ds32_user100",
+"status": "mouth",
+"b_region": true,
+"root_ref": [
+1221.0,
+1167.0
+],
+"tip_ref": [
+1230.0,
+1206.0
+],
+"length_ref_px": 48.3,
+"sheet_rc": [
+107.5364,
+191.035
+],
+"t_birth": 9.5095,
+"group": "GC26",
+"type": "T1",
+"parent": null,
+"len_m": 0.3831
+},
+{
+"id": "C161",
+"row": "b区域",
+"zone": "main",
+"origin": "ds32_user100",
+"status": "no_mouth",
+"b_region": true,
+"root_ref": [
+1254.0,
+1016.0
+],
+"tip_ref": [
+1209.0,
+1023.0
+],
+"length_ref_px": 58.2,
+"sheet_rc": [
+111.7969,
+177.0596
+],
+"t_birth": 9.1749,
+"group": "GC27",
+"type": "T1",
+"parent": null,
+"len_m": 2.1235
+},
+{
+"id": "C162",
+"row": "上側",
+"zone": "main",
+"origin": "ds32_user100",
+"status": "mouth",
+"b_region": false,
+"root_ref": [
+1385.0,
+521.0
+],
+"tip_ref": [
+1394.0,
+565.0
+],
+"length_ref_px": 50.6,
+"sheet_rc": [
+131.4128,
+147.9238
+],
+"t_birth": 7.7343,
+"group": "GC02",
+"type": "T1",
+"parent": null,
+"len_m": 0.7298
+},
+{
+"id": "C163",
+"row": "b区域",
+"zone": "main",
+"origin": "ds32_user100",
+"status": "mouth",
+"b_region": true,
+"root_ref": [
+863.0,
+1394.0
+],
+"tip_ref": [
+843.0,
+1420.0
+],
+"length_ref_px": 36.6,
+"sheet_rc": [
+102.9407,
+198.4684
+],
+"t_birth": 9.6756,
+"group": "GC28",
+"type": "T1",
+"parent": null,
+"len_m": 0.2998
+},
+{
+"id": "C164",
+"row": "b区域",
+"zone": "main",
+"origin": "ds32_user100",
+"status": "mouth",
+"b_region": true,
+"root_ref": [
+1040.0,
+1171.0
+],
+"tip_ref": [
+1031.0,
+1216.0
+],
+"length_ref_px": 53.5,
+"sheet_rc": [
+100.8709,
+188.8056
+],
+"t_birth": 9.4584,
+"group": "GC26",
+"type": "T1",
+"parent": null,
+"len_m": 0.4801
+},
+{
+"id": "C165",
+"row": "b区域",
+"zone": "main",
+"origin": "ds32_user100",
+"status": "mouth",
+"b_region": true,
+"root_ref": [
+981.0,
+1189.0
+],
+"tip_ref": [
+949.0,
+1221.0
+],
+"length_ref_px": 62.1,
+"sheet_rc": [
+99.3599,
+189.5696
+],
+"t_birth": 9.466,
+"group": "GC26",
+"type": "T1",
+"parent": null,
+"len_m": 0.5498
+},
+{
+"id": "C166",
+"row": "b区域",
+"zone": "main",
+"origin": "ds32_user100",
+"status": "mouth",
+"b_region": true,
+"root_ref": [
+992.0,
+1011.0
+],
+"tip_ref": [
+964.0,
+1050.0
+],
+"length_ref_px": 51.5,
+"sheet_rc": [
+100.5481,
+178.3359
+],
+"t_birth": 9.3686,
+"group": "GC26",
+"type": "T1",
+"parent": null,
+"len_m": 0.4995
+},
+{
+"id": "C167",
+"row": "b区域",
+"zone": "main",
+"origin": "ds32_user100",
+"status": "mouth",
+"b_region": true,
+"root_ref": [
+1121.0,
+1109.0
+],
+"tip_ref": [
+1109.0,
+1149.0
+],
+"length_ref_px": 59.5,
+"sheet_rc": [
+102.9449,
+185.8678
+],
+"t_birth": 9.4315,
+"group": "GC26",
+"type": "T1",
+"parent": null,
+"len_m": 0.4617
+},
+{
+"id": "C168",
+"row": "b区域",
+"zone": "main",
+"origin": "ds32_user100",
+"status": "mouth",
+"b_region": true,
+"root_ref": [
+889.0,
+1104.0
+],
+"tip_ref": [
+878.0,
+1158.0
+],
+"length_ref_px": 73.8,
+"sheet_rc": [
+96.6709,
+185.2591
+],
+"t_birth": 9.4361,
+"group": "GC26",
+"type": "T1",
+"parent": null,
+"len_m": 0.5792
+},
+{
+"id": "C170",
+"row": "b区域",
+"zone": "main",
+"origin": "ds32_user100",
+"status": "mouth",
+"b_region": true,
+"root_ref": [
+758.0,
+1405.0
+],
+"tip_ref": [
+749.0,
+1462.0
+],
+"length_ref_px": 63.8,
+"sheet_rc": [
+98.1905,
+196.9502
+],
+"t_birth": 9.6282,
+"group": "GC29",
+"type": "T1",
+"parent": null,
+"len_m": 0.5403
+},
+{
+"id": "C171",
+"row": "b区域",
+"zone": "main",
+"origin": "ds32_user100",
+"status": "mouth",
+"b_region": true,
+"root_ref": [
+733.0,
+1283.0
+],
+"tip_ref": [
+763.0,
+1337.0
+],
+"length_ref_px": 74.2,
+"sheet_rc": [
+92.9438,
+192.421
+],
+"t_birth": 9.5858,
+"group": "GC26",
+"type": "T1",
+"parent": null,
+"len_m": 0.8198
+},
+{
+"id": "C172",
+"row": "上側",
+"zone": "main",
+"origin": "ds32_user100",
+"status": "mouth",
+"b_region": true,
+"root_ref": [
+1373.0,
+1151.0
+],
+"tip_ref": [
+1405.0,
+1209.0
+],
+"length_ref_px": 85.3,
+"sheet_rc": [
+172.734,
+292.8493
+],
+"t_birth": 10.3299,
+"group": "GC10",
+"type": "T1",
+"parent": null,
+"len_m": 1.2419
+},
+{
+"id": "C173",
+"row": "b区域",
+"zone": "main",
+"origin": "ds32_user100",
+"status": "mouth",
+"b_region": true,
+"root_ref": [
+1243.0,
+1041.0
+],
+"tip_ref": [
+1325.0,
+1060.0
+],
+"length_ref_px": 104.2,
+"sheet_rc": [
+107.9087,
+180.8418
+],
+"t_birth": 9.3736,
+"group": "GC26",
+"type": "T4",
+"parent": null,
+"len_m": 1.5533
+},
+{
+"id": "C175",
+"row": "b区域",
+"zone": "main",
+"origin": "ds32_user100",
+"status": "mouth",
+"b_region": true,
+"root_ref": [
+710.0,
+1302.0
+],
+"tip_ref": [
+694.0,
+1344.0
+],
+"length_ref_px": 48.6,
+"sheet_rc": [
+92.36,
+192.8281
+],
+"t_birth": 9.5858,
+"group": "GC26",
+"type": "T1",
+"parent": null,
+"len_m": 0.5353
+},
+{
+"id": "C176",
+"row": "b区域",
+"zone": "main",
+"origin": "pl32_bregion",
+"status": "pl32_bregion",
+"b_region": true,
+"root_ref": [
+693.0,
+947.0
+],
+"tip_ref": [
+685.0,
+960.0
+],
+"length_ref_px": 15.4,
+"sheet_rc": [
+89.3574,
+179.319
+],
+"t_birth": 9.4905,
+"group": "GC30",
+"type": "T1",
+"parent": null,
+"len_m": 0.4341
+},
+{
+"id": "C177",
+"row": "b区域",
+"zone": "main",
+"origin": "pl32_bregion",
+"status": "pl32_bregion",
+"b_region": true,
+"root_ref": [
+942.0,
+969.0
+],
+"tip_ref": [
+912.0,
+982.0
+],
+"length_ref_px": 34.8,
+"sheet_rc": [
+110.1774,
+155.7574
+],
+"t_birth": 8.3188,
+"group": "GC31",
+"type": "T1",
+"parent": null,
+"len_m": 0.3155
+},
+{
+"id": "C178",
+"row": "b区域",
+"zone": "main",
+"origin": "pl32_bregion",
+"status": "pl32_bregion",
+"b_region": true,
+"root_ref": [
+1096.0,
+959.0
+],
+"tip_ref": [
+1080.0,
+984.0
+],
+"length_ref_px": 37.4,
+"sheet_rc": [
+114.6868,
+163.9822
+],
+"t_birth": 8.382,
+"group": "GC32",
+"type": "T1",
+"parent": null,
+"len_m": 0.4887
+},
+{
+"id": "C179",
+"row": "b区域",
+"zone": "main",
+"origin": "pl32_bregion",
+"status": "pl32_bregion",
+"b_region": true,
+"root_ref": [
+1107.0,
+966.0
+],
+"tip_ref": [
+1140.0,
+1000.0
+],
+"length_ref_px": 67.6,
+"sheet_rc": [
+114.6218,
+165.1954
+],
+"t_birth": 8.4401,
+"group": "GC32",
+"type": "T1",
+"parent": null,
+"len_m": 1.2596
+},
+{
+"id": "C180",
+"row": "b区域",
+"zone": "main",
+"origin": "pl32_bregion",
+"status": "pl32_bregion",
+"b_region": true,
+"root_ref": [
+667.0,
+1004.0
+],
+"tip_ref": [
+653.0,
+982.0
+],
+"length_ref_px": 29.5,
+"sheet_rc": [
+85.8471,
+183.4072
+],
+"t_birth": 9.5694,
+"group": "GC33",
+"type": "T1",
+"parent": null,
+"len_m": 0.2891
+},
+{
+"id": "C181",
+"row": "b区域",
+"zone": "main",
+"origin": "pl32_bregion",
+"status": "pl32_bregion",
+"b_region": true,
+"root_ref": [
+846.0,
+1038.0
+],
+"tip_ref": [
+882.0,
+1049.0
+],
+"length_ref_px": 40.3,
+"sheet_rc": [
+95.8782,
+181.3073
+],
+"t_birth": 9.4114,
+"group": "GC26",
+"type": "T1",
+"parent": null,
+"len_m": 0.3278
+},
+{
+"id": "C182",
+"row": "b区域",
+"zone": "main",
+"origin": "pl32_bregion",
+"status": "pl32_bregion",
+"b_region": true,
+"root_ref": [
+876.0,
+1015.0
+],
+"tip_ref": [
+899.0,
+1052.0
+],
+"length_ref_px": 71.1,
+"sheet_rc": [
+97.3839,
+178.4498
+],
+"t_birth": 9.3743,
+"group": "GC26",
+"type": "T1",
+"parent": null,
+"len_m": 0.661
+},
+{
+"id": "C183",
+"row": "b区域",
+"zone": "main",
+"origin": "pl32_bregion",
+"status": "pl32_bregion",
+"b_region": true,
+"root_ref": [
+977.0,
+998.0
+],
+"tip_ref": [
+960.0,
+995.0
+],
+"length_ref_px": 17.4,
+"sheet_rc": [
+100.7771,
+176.2691
+],
+"t_birth": 9.3396,
+"group": "GC26",
+"type": "T1",
+"parent": null,
+"len_m": 0.3891
+},
+{
+"id": "C184",
+"row": "b区域",
+"zone": "main",
+"origin": "pl32_bregion",
+"status": "pl32_bregion",
+"b_region": true,
+"root_ref": [
+670.0,
+1028.0
+],
+"tip_ref": [
+614.0,
+1029.0
+],
+"length_ref_px": 76.1,
+"sheet_rc": [
+85.6972,
+184.7634
+],
+"t_birth": 9.5761,
+"group": "GC33",
+"type": "T1",
+"parent": null,
+"len_m": 0.7682
+},
+{
+"id": "C185",
+"row": "b区域",
+"zone": "main",
+"origin": "pl32_bregion",
+"status": "pl32_bregion",
+"b_region": true,
+"root_ref": [
+685.0,
+1064.0
+],
+"tip_ref": [
+652.0,
+1067.0
+],
+"length_ref_px": 34.6,
+"sheet_rc": [
+86.3145,
+186.5731
+],
+"t_birth": 9.5792,
+"group": "GC33",
+"type": "T1",
+"parent": null,
+"len_m": 0.4207
+},
+{
+"id": "C186",
+"row": "b区域",
+"zone": "main",
+"origin": "pl32_bregion",
+"status": "pl32_bregion",
+"b_region": true,
+"root_ref": [
+1236.0,
+1057.0
+],
+"tip_ref": [
+1245.0,
+1095.0
+],
+"length_ref_px": 46.1,
+"sheet_rc": [
+107.0114,
+182.6331
+],
+"t_birth": 9.3914,
+"group": "GC26",
+"type": "T1",
+"parent": null,
+"len_m": 0.3926
+},
+{
+"id": "C187",
+"row": "b区域",
+"zone": "main",
+"origin": "pl32_bregion",
+"status": "pl32_bregion",
+"b_region": true,
+"root_ref": [
+752.0,
+1084.0
+],
+"tip_ref": [
+709.0,
+1101.0
+],
+"length_ref_px": 72.4,
+"sheet_rc": [
+91.0181,
+186.5838
+],
+"t_birth": 9.5105,
+"group": "GC26",
+"type": "T1",
+"parent": null,
+"len_m": 0.9325
+},
+{
+"id": "C188",
+"row": "b区域",
+"zone": "main",
+"origin": "pl32_bregion",
+"status": "pl32_bregion",
+"b_region": true,
+"root_ref": [
+1171.0,
+1083.0
+],
+"tip_ref": [
+1191.0,
+1144.0
+],
+"length_ref_px": 71.0,
+"sheet_rc": [
+104.4786,
+184.5468
+],
+"t_birth": 9.421,
+"group": "GC26",
+"type": "T1",
+"parent": null,
+"len_m": 0.5512
+},
+{
+"id": "C189",
+"row": "b区域",
+"zone": "main",
+"origin": "pl32_bregion",
+"status": "pl32_bregion",
+"b_region": true,
+"root_ref": [
+980.0,
+1085.0
+],
+"tip_ref": [
+961.0,
+1068.0
+],
+"length_ref_px": 28.4,
+"sheet_rc": [
+99.2365,
+184.0414
+],
+"t_birth": 9.4219,
+"group": "GC26",
+"type": "T1",
+"parent": null,
+"len_m": 0.2369
+},
+{
+"id": "C190",
+"row": "b区域",
+"zone": "main",
+"origin": "pl32_bregion",
+"status": "pl32_bregion",
+"b_region": true,
+"root_ref": [
+1090.0,
+1082.0
+],
+"tip_ref": [
+1055.0,
+1081.0
+],
+"length_ref_px": 35.3,
+"sheet_rc": [
+102.1526,
+184.1696
+],
+"t_birth": 9.4225,
+"group": "GC26",
+"type": "T1",
+"parent": null,
+"len_m": 0.2781
+},
+{
+"id": "C191",
+"row": "b区域",
+"zone": "main",
+"origin": "pl32_bregion",
+"status": "pl32_bregion",
+"b_region": true,
+"root_ref": [
+1019.0,
+1080.0
+],
+"tip_ref": [
+997.0,
+1074.0
+],
+"length_ref_px": 27.2,
+"sheet_rc": [
+100.2772,
+183.8267
+],
+"t_birth": 9.4135,
+"group": "GC26",
+"type": "T1",
+"parent": null,
+"len_m": 0.22
+},
+{
+"id": "C192",
+"row": "b区域",
+"zone": "main",
+"origin": "pl32_bregion",
+"status": "pl32_bregion",
+"b_region": true,
+"root_ref": [
+322.0,
+1121.0
+],
+"tip_ref": [
+296.0,
+1134.0
+],
+"length_ref_px": 30.4,
+"sheet_rc": [
+72.923,
+187.2134
+],
+"t_birth": 9.6695,
+"group": "GC33",
+"type": "T1",
+"parent": null,
+"len_m": 0.2309
+},
+{
+"id": "C193",
+"row": "b区域",
+"zone": "main",
+"origin": "pl32_bregion",
+"status": "pl32_bregion",
+"b_region": true,
+"root_ref": [
+370.0,
+1124.0
+],
+"tip_ref": [
+352.0,
+1161.0
+],
+"length_ref_px": 51.7,
+"sheet_rc": [
+74.1652,
+188.9295
+],
+"t_birth": 9.6582,
+"group": "GC33",
+"type": "T1",
+"parent": null,
+"len_m": 0.3791
+},
+{
+"id": "C194",
+"row": "b区域",
+"zone": "main",
+"origin": "pl32_bregion",
+"status": "pl32_bregion",
+"b_region": true,
+"root_ref": [
+607.0,
+1105.0
+],
+"tip_ref": [
+656.0,
+1138.0
+],
+"length_ref_px": 67.7,
+"sheet_rc": [
+82.2211,
+189.0037
+],
+"t_birth": 9.6272,
+"group": "GC33",
+"type": "T2",
+"parent": null,
+"len_m": 0.5947
+},
+{
+"id": "C195",
+"row": "b区域",
+"zone": "main",
+"origin": "pl32_bregion",
+"status": "pl32_bregion",
+"b_region": true,
+"root_ref": [
+818.0,
+1124.0
+],
+"tip_ref": [
+794.0,
+1160.0
+],
+"length_ref_px": 54.6,
+"sheet_rc": [
+94.3002,
+187.0434
+],
+"t_birth": 9.4719,
+"group": "GC26",
+"type": "T1",
+"parent": null,
+"len_m": 0.4427
+},
+{
+"id": "C196",
+"row": "b区域",
+"zone": "main",
+"origin": "pl32_bregion",
+"status": "pl32_bregion",
+"b_region": true,
+"root_ref": [
+947.0,
+1125.0
+],
+"tip_ref": [
+927.0,
+1181.0
+],
+"length_ref_px": 68.4,
+"sheet_rc": [
+98.2701,
+186.2314
+],
+"t_birth": 9.4386,
+"group": "GC26",
+"type": "T1",
+"parent": null,
+"len_m": 0.524
+},
+{
+"id": "C197",
+"row": "b区域",
+"zone": "main",
+"origin": "pl32_bregion",
+"status": "pl32_bregion",
+"b_region": true,
+"root_ref": [
+1342.0,
+1125.0
+],
+"tip_ref": [
+1337.0,
+1151.0
+],
+"length_ref_px": 28.8,
+"sheet_rc": [
+170.3651,
+291.3227
+],
+"t_birth": 10.3646,
+"group": "GC34",
+"type": "T1",
+"parent": null,
+"len_m": 0.349
+},
+{
+"id": "C198",
+"row": "b区域",
+"zone": "main",
+"origin": "pl32_bregion",
+"status": "pl32_bregion",
+"b_region": true,
+"root_ref": [
+491.0,
+1112.0
+],
+"tip_ref": [
+434.0,
+1127.0
+],
+"length_ref_px": 71.6,
+"sheet_rc": [
+77.9468,
+189.2494
+],
+"t_birth": 9.645,
+"group": "GC33",
+"type": "T1",
+"parent": null,
+"len_m": 0.5114
+},
+{
+"id": "C199",
+"row": "b区域",
+"zone": "main",
+"origin": "pl32_bregion",
+"status": "pl32_bregion",
+"b_region": true,
+"root_ref": [
+529.0,
+1128.0
+],
+"tip_ref": [
+491.0,
+1207.0
+],
+"length_ref_px": 102.2,
+"sheet_rc": [
+79.2988,
+190.3359
+],
+"t_birth": 9.6455,
+"group": "GC33",
+"type": "T1",
+"parent": null,
+"len_m": 0.8704
+},
+{
+"id": "C200",
+"row": "b区域",
+"zone": "main",
+"origin": "pl32_bregion",
+"status": "pl32_bregion",
+"b_region": true,
+"root_ref": [
+622.0,
+1127.0
+],
+"tip_ref": [
+620.0,
+1183.0
+],
+"length_ref_px": 61.0,
+"sheet_rc": [
+82.9316,
+190.071
+],
+"t_birth": 9.637,
+"group": "GC33",
+"type": "branch",
+"parent": "C194",
+"len_m": 0.5839
+},
+{
+"id": "C201",
+"row": "b区域",
+"zone": "main",
+"origin": "pl32_bregion",
+"status": "pl32_bregion",
+"b_region": true,
+"root_ref": [
+1012.0,
+1133.0
+],
+"tip_ref": [
+995.0,
+1153.0
+],
+"length_ref_px": 28.5,
+"sheet_rc": [
+100.0021,
+186.7174
+],
+"t_birth": 9.4402,
+"group": "GC26",
+"type": "T1",
+"parent": null,
+"len_m": 0.2216
+},
+{
+"id": "C202",
+"row": "b区域",
+"zone": "main",
+"origin": "pl32_bregion",
+"status": "pl32_bregion",
+"b_region": true,
+"root_ref": [
+324.0,
+1150.0
+],
+"tip_ref": [
+276.0,
+1165.0
+],
+"length_ref_px": 80.9,
+"sheet_rc": [
+72.7352,
+191.3134
+],
+"t_birth": 9.6775,
+"group": "GC33",
+"type": "T1",
+"parent": null,
+"len_m": 0.6121
+},
+{
+"id": "C203",
+"row": "b区域",
+"zone": "main",
+"origin": "pl32_bregion",
+"status": "pl32_bregion",
+"b_region": true,
+"root_ref": [
+577.0,
+1142.0
+],
+"tip_ref": [
+574.0,
+1203.0
+],
+"length_ref_px": 63.1,
+"sheet_rc": [
+81.2796,
+190.7508
+],
+"t_birth": 9.6415,
+"group": "GC33",
+"type": "T1",
+"parent": null,
+"len_m": 0.6524
+},
+{
+"id": "C204",
+"row": "b区域",
+"zone": "main",
+"origin": "pl32_bregion",
+"status": "pl32_bregion",
+"b_region": true,
+"root_ref": [
+860.0,
+1207.0
+],
+"tip_ref": [
+871.0,
+1138.0
+],
+"length_ref_px": 96.5,
+"sheet_rc": [
+96.0995,
+190.4093
+],
+"t_birth": 9.486,
+"group": "GC26",
+"type": "T1",
+"parent": null,
+"len_m": 0.7617
+},
+{
+"id": "C205",
+"row": "b区域",
+"zone": "main",
+"origin": "pl32_bregion",
+"status": "pl32_bregion",
+"b_region": true,
+"root_ref": [
+1101.0,
+1160.0
+],
+"tip_ref": [
+1056.0,
+1158.0
+],
+"length_ref_px": 61.3,
+"sheet_rc": [
+102.5199,
+188.5535
+],
+"t_birth": 9.4585,
+"group": "GC26",
+"type": "T1",
+"parent": null,
+"len_m": 0.4787
+},
+{
+"id": "C206",
+"row": "b区域",
+"zone": "main",
+"origin": "pl32_bregion",
+"status": "pl32_bregion",
+"b_region": true,
+"root_ref": [
+751.0,
+1156.0
+],
+"tip_ref": [
+713.0,
+1145.0
+],
+"length_ref_px": 44.3,
+"sheet_rc": [
+90.9956,
+189.7304
+],
+"t_birth": 9.5521,
+"group": "GC26",
+"type": "T1",
+"parent": null,
+"len_m": 0.6553
+},
+{
+"id": "C207",
+"row": "b区域",
+"zone": "main",
+"origin": "pl32_bregion",
+"status": "pl32_bregion",
+"b_region": true,
+"root_ref": [
+1149.0,
+1176.0
+],
+"tip_ref": [
+1112.0,
+1231.0
+],
+"length_ref_px": 71.9,
+"sheet_rc": [
+104.1914,
+190.1125
+],
+"t_birth": 9.486,
+"group": "GC26",
+"type": "T1",
+"parent": null,
+"len_m": 0.8759
+},
+{
+"id": "C208",
+"row": "b区域",
+"zone": "main",
+"origin": "pl32_bregion",
+"status": "pl32_bregion",
+"b_region": true,
+"root_ref": [
+753.0,
+1172.0
+],
+"tip_ref": [
+711.0,
+1188.0
+],
+"length_ref_px": 75.1,
+"sheet_rc": [
+91.3149,
+190.2156
+],
+"t_birth": 9.5505,
+"group": "GC26",
+"type": "T4",
+"parent": null,
+"len_m": 0.8779
+},
+{
+"id": "C209",
+"row": "b区域",
+"zone": "main",
+"origin": "pl32_bregion",
+"status": "pl32_bregion",
+"b_region": true,
+"root_ref": [
+138.0,
+1195.0
+],
+"tip_ref": [
+159.0,
+1177.0
+],
+"length_ref_px": 29.2,
+"sheet_rc": [
+66.572,
+199.6502
+],
+"t_birth": 9.7608,
+"group": "GC35",
+"type": "branch",
+"parent": "C213",
+"len_m": 0.207
+},
+{
+"id": "C210",
+"row": "b区域",
+"zone": "main",
+"origin": "pl32_bregion",
+"status": "pl32_bregion",
+"b_region": true,
+"root_ref": [
+806.0,
+1202.0
+],
+"tip_ref": [
+787.0,
+1186.0
+],
+"length_ref_px": 26.4,
+"sheet_rc": [
+94.2213,
+190.5124
+],
+"t_birth": 9.503,
+"group": "GC26",
+"type": "branch",
+"parent": "C212",
+"len_m": 0.2394
+},
+{
+"id": "C211",
+"row": "b区域",
+"zone": "main",
+"origin": "pl32_bregion",
+"status": "pl32_bregion",
+"b_region": true,
+"root_ref": [
+369.0,
+1212.0
+],
+"tip_ref": [
+416.0,
+1210.0
+],
+"length_ref_px": 78.6,
+"sheet_rc": [
+75.5019,
+194.2383
+],
+"t_birth": 9.687,
+"group": "GC33",
+"type": "T1",
+"parent": null,
+"len_m": 0.7859
+},
+{
+"id": "C212",
+"row": "b区域",
+"zone": "main",
+"origin": "pl32_bregion",
+"status": "pl32_bregion",
+"b_region": true,
+"root_ref": [
+789.0,
+1221.0
+],
+"tip_ref": [
+823.0,
+1197.0
+],
+"length_ref_px": 55.4,
+"sheet_rc": [
+93.9046,
+191.108
+],
+"t_birth": 9.5418,
+"group": "GC26",
+"type": "T2",
+"parent": null,
+"len_m": 0.4617
+},
+{
+"id": "C213",
+"row": "b区域",
+"zone": "main",
+"origin": "pl32_bregion",
+"status": "pl32_bregion",
+"b_region": true,
+"root_ref": [
+128.0,
+1204.0
+],
+"tip_ref": [
+161.0,
+1241.0
+],
+"length_ref_px": 54.8,
+"sheet_rc": [
+66.429,
+200.9916
+],
+"t_birth": 9.7631,
+"group": "GC35",
+"type": "T2",
+"parent": null,
+"len_m": 0.397
+},
+{
+"id": "C214",
+"row": "b区域",
+"zone": "main",
+"origin": "pl32_bregion",
+"status": "pl32_bregion",
+"b_region": true,
+"root_ref": [
+725.0,
+1246.0
+],
+"tip_ref": [
+735.0,
+1223.0
+],
+"length_ref_px": 25.5,
+"sheet_rc": [
+91.5726,
+191.876
+],
+"t_birth": 9.5748,
+"group": "GC26",
+"type": "T1",
+"parent": null,
+"len_m": 0.233
+},
+{
+"id": "C215",
+"row": "b区域",
+"zone": "main",
+"origin": "pl32_bregion",
+"status": "pl32_bregion",
+"b_region": true,
+"root_ref": [
+360.0,
+1237.0
+],
+"tip_ref": [
+356.0,
+1300.0
+],
+"length_ref_px": 66.4,
+"sheet_rc": [
+75.7656,
+195.9569
+],
+"t_birth": 9.6913,
+"group": "GC33",
+"type": "T2",
+"parent": null,
+"len_m": 0.6857
+},
+{
+"id": "C216",
+"row": "b区域",
+"zone": "main",
+"origin": "pl32_bregion",
+"status": "pl32_bregion",
+"b_region": true,
+"root_ref": [
+383.0,
+1231.0
+],
+"tip_ref": [
+408.0,
+1278.0
+],
+"length_ref_px": 59.1,
+"sheet_rc": [
+76.5254,
+194.7558
+],
+"t_birth": 9.6935,
+"group": "GC33",
+"type": "T1",
+"parent": null,
+"len_m": 0.6402
+},
+{
+"id": "C217",
+"row": "b区域",
+"zone": "main",
+"origin": "pl32_bregion",
+"status": "pl32_bregion",
+"b_region": true,
+"root_ref": [
+316.0,
+1237.0
+],
+"tip_ref": [
+332.0,
+1270.0
+],
+"length_ref_px": 40.0,
+"sheet_rc": [
+73.6691,
+198.3584
+],
+"t_birth": 9.6968,
+"group": "GC33",
+"type": "T1",
+"parent": null,
+"len_m": 0.4181
+},
+{
+"id": "C218",
+"row": "b区域",
+"zone": "main",
+"origin": "pl32_bregion",
+"status": "pl32_bregion",
+"b_region": true,
+"root_ref": [
+222.0,
+1239.0
+],
+"tip_ref": [
+215.0,
+1288.0
+],
+"length_ref_px": 62.2,
+"sheet_rc": [
+86.6009,
+255.4521
+],
+"t_birth": 10.0193,
+"group": "GC36",
+"type": "T4",
+"parent": null,
+"len_m": 1.1777
+},
+{
+"id": "C219",
+"row": "b区域",
+"zone": "main",
+"origin": "pl32_bregion",
+"status": "pl32_bregion",
+"b_region": true,
+"root_ref": [
+602.0,
+1256.0
+],
+"tip_ref": [
+566.0,
+1257.0
+],
+"length_ref_px": 38.4,
+"sheet_rc": [
+85.4325,
+192.763
+],
+"t_birth": 9.6655,
+"group": "GC26",
+"type": "T1",
+"parent": null,
+"len_m": 0.3415
+},
+{
+"id": "C220",
+"row": "b区域",
+"zone": "main",
+"origin": "pl32_bregion",
+"status": "pl32_bregion",
+"b_region": true,
+"root_ref": [
+1240.0,
+1252.0
+],
+"tip_ref": [
+1219.0,
+1254.0
+],
+"length_ref_px": 22.0,
+"sheet_rc": [
+167.4812,
+299.1013
+],
+"t_birth": 10.4521,
+"group": "GC25",
+"type": "T1",
+"parent": null,
+"len_m": 0.2488
+},
+{
+"id": "C221",
+"row": "b区域",
+"zone": "main",
+"origin": "pl32_bregion",
+"status": "pl32_bregion",
+"b_region": true,
+"root_ref": [
+632.0,
+1276.0
+],
+"tip_ref": [
+612.0,
+1320.0
+],
+"length_ref_px": 51.1,
+"sheet_rc": [
+87.5498,
+192.8693
+],
+"t_birth": 9.6511,
+"group": "GC26",
+"type": "T1",
+"parent": null,
+"len_m": 0.6163
+},
+{
+"id": "C222",
+"row": "b区域",
+"zone": "main",
+"origin": "pl32_bregion",
+"status": "pl32_bregion",
+"b_region": true,
+"root_ref": [
+365.0,
+1269.0
+],
+"tip_ref": [
+386.0,
+1264.0
+],
+"length_ref_px": 24.1,
+"sheet_rc": [
+76.2878,
+198.6428
+],
+"t_birth": 9.7081,
+"group": "GC33",
+"type": "branch",
+"parent": "C215",
+"len_m": 0.2301
+},
+{
+"id": "C223",
+"row": "b区域",
+"zone": "main",
+"origin": "pl32_bregion",
+"status": "pl32_bregion",
+"b_region": true,
+"root_ref": [
+814.0,
+1317.0
+],
+"tip_ref": [
+771.0,
+1364.0
+],
+"length_ref_px": 69.2,
+"sheet_rc": [
+96.9878,
+192.8497
+],
+"t_birth": 9.5457,
+"group": "GC26",
+"type": "T1",
+"parent": null,
+"len_m": 0.7267
+},
+{
+"id": "C224",
+"row": "b区域",
+"zone": "main",
+"origin": "pl32_bregion",
+"status": "pl32_bregion",
+"b_region": true,
+"root_ref": [
+889.0,
+1272.0
+],
+"tip_ref": [
+912.0,
+1315.0
+],
+"length_ref_px": 66.1,
+"sheet_rc": [
+98.3696,
+191.9865
+],
+"t_birth": 9.5166,
+"group": "GC26",
+"type": "T1",
+"parent": null,
+"len_m": 0.7131
+},
+{
+"id": "C225",
+"row": "b区域",
+"zone": "main",
+"origin": "pl32_bregion",
+"status": "pl32_bregion",
+"b_region": true,
+"root_ref": [
+190.0,
+1293.0
+],
+"tip_ref": [
+165.0,
+1275.0
+],
+"length_ref_px": 34.6,
+"sheet_rc": [
+87.7873,
+264.4539
+],
+"t_birth": 10.0627,
+"group": "GC37",
+"type": "T1",
+"parent": null,
+"len_m": 0.6035
+},
+{
+"id": "C226",
+"row": "b区域",
+"zone": "main",
+"origin": "pl32_bregion",
+"status": "pl32_bregion",
+"b_region": true,
+"root_ref": [
+474.0,
+1299.0
+],
+"tip_ref": [
+518.0,
+1351.0
+],
+"length_ref_px": 83.2,
+"sheet_rc": [
+82.0146,
+195.0957
+],
+"t_birth": 9.7265,
+"group": "GC38",
+"type": "T4",
+"parent": null,
+"len_m": 0.9412
+},
+{
+"id": "C227",
+"row": "b区域",
+"zone": "main",
+"origin": "pl32_bregion",
+"status": "pl32_bregion",
+"b_region": true,
+"root_ref": [
+698.0,
+1295.0
+],
+"tip_ref": [
+670.0,
+1294.0
+],
+"length_ref_px": 30.7,
+"sheet_rc": [
+91.5832,
+192.7763
+],
+"t_birth": 9.6015,
+"group": "GC26",
+"type": "T1",
+"parent": null,
+"len_m": 0.3332
+},
+{
+"id": "C228",
+"row": "b区域",
+"zone": "main",
+"origin": "pl32_bregion",
+"status": "pl32_bregion",
+"b_region": true,
+"root_ref": [
+644.0,
+1328.0
+],
+"tip_ref": [
+663.0,
+1293.0
+],
+"length_ref_px": 44.7,
+"sheet_rc": [
+90.0484,
+193.7038
+],
+"t_birth": 9.6414,
+"group": "GC26",
+"type": "T1",
+"parent": null,
+"len_m": 0.5322
+},
+{
+"id": "C229",
+"row": "b区域",
+"zone": "main",
+"origin": "pl32_bregion",
+"status": "pl32_bregion",
+"b_region": true,
+"root_ref": [
+451.0,
+1310.0
+],
+"tip_ref": [
+450.0,
+1340.0
+],
+"length_ref_px": 30.7,
+"sheet_rc": [
+81.18,
+196.9297
+],
+"t_birth": 9.7303,
+"group": "GC38",
+"type": "T1",
+"parent": null,
+"len_m": 0.2865
+},
+{
+"id": "C230",
+"row": "b区域",
+"zone": "main",
+"origin": "pl32_bregion",
+"status": "pl32_bregion",
+"b_region": true,
+"root_ref": [
+978.0,
+1308.0
+],
+"tip_ref": [
+978.0,
+1354.0
+],
+"length_ref_px": 53.9,
+"sheet_rc": [
+102.8883,
+192.9908
+],
+"t_birth": 9.5779,
+"group": "GC39",
+"type": "T1",
+"parent": null,
+"len_m": 1.7489
+},
+{
+"id": "C231",
+"row": "b区域",
+"zone": "main",
+"origin": "pl32_bregion",
+"status": "pl32_bregion",
+"b_region": true,
+"root_ref": [
+1014.0,
+1316.0
+],
+"tip_ref": [
+1040.0,
+1354.0
+],
+"length_ref_px": 63.0,
+"sheet_rc": [
+108.5072,
+196.6231
+],
+"t_birth": 9.6546,
+"group": "GC40",
+"type": "T1",
+"parent": null,
+"len_m": 0.5461
+},
+{
+"id": "C232",
+"row": "b区域",
+"zone": "main",
+"origin": "pl32_bregion",
+"status": "pl32_bregion",
+"b_region": true,
+"root_ref": [
+827.0,
+1328.0
+],
+"tip_ref": [
+807.0,
+1372.0
+],
+"length_ref_px": 60.8,
+"sheet_rc": [
+97.794,
+193.0773
+],
+"t_birth": 9.5818,
+"group": "GC26",
+"type": "T1",
+"parent": null,
+"len_m": 0.8393
+},
+{
+"id": "C233",
+"row": "b区域",
+"zone": "main",
+"origin": "pl32_bregion",
+"status": "pl32_bregion",
+"b_region": true,
+"root_ref": [
+408.0,
+1343.0
+],
+"tip_ref": [
+418.0,
+1326.0
+],
+"length_ref_px": 21.2,
+"sheet_rc": [
+111.9652,
+293.1335
+],
+"t_birth": 10.3483,
+"group": "GC41",
+"type": "T1",
+"parent": null,
+"len_m": 0.2649
+},
+{
+"id": "C234",
+"row": "b区域",
+"zone": "main",
+"origin": "pl32_bregion",
+"status": "pl32_bregion",
+"b_region": true,
+"root_ref": [
+661.0,
+1359.0
+],
+"tip_ref": [
+643.0,
+1398.0
+],
+"length_ref_px": 45.0,
+"sheet_rc": [
+91.9901,
+194.3276
+],
+"t_birth": 9.6423,
+"group": "GC26",
+"type": "T1",
+"parent": null,
+"len_m": 0.5506
+},
+{
+"id": "C235",
+"row": "b区域",
+"zone": "main",
+"origin": "pl32_bregion",
+"status": "pl32_bregion",
+"b_region": true,
+"root_ref": [
+1099.0,
+1346.0
+],
+"tip_ref": [
+1049.0,
+1364.0
+],
+"length_ref_px": 55.3,
+"sheet_rc": [
+162.2517,
+303.7367
+],
+"t_birth": 10.5384,
+"group": "GC42",
+"type": "T1",
+"parent": null,
+"len_m": 0.6113
+},
+{
+"id": "C236",
+"row": "b区域",
+"zone": "main",
+"origin": "pl32_bregion",
+"status": "pl32_bregion",
+"b_region": true,
+"root_ref": [
+563.0,
+1386.0
+],
+"tip_ref": [
+641.0,
+1377.0
+],
+"length_ref_px": 92.1,
+"sheet_rc": [
+88.0424,
+198.3963
+],
+"t_birth": 9.7045,
+"group": "GC26",
+"type": "T1",
+"parent": null,
+"len_m": 0.9026
+},
+{
+"id": "C237",
+"row": "b区域",
+"zone": "main",
+"origin": "pl32_bregion",
+"status": "pl32_bregion",
+"b_region": true,
+"root_ref": [
+921.0,
+1385.0
+],
+"tip_ref": [
+897.0,
+1421.0
+],
+"length_ref_px": 51.3,
+"sheet_rc": [
+154.822,
+305.4391
+],
+"t_birth": 10.6298,
+"group": "GC43",
+"type": "T1",
+"parent": null,
+"len_m": 0.5797
+},
+{
+"id": "C238",
+"row": "b区域",
+"zone": "main",
+"origin": "pl32_bregion",
+"status": "pl32_bregion",
+"b_region": true,
+"root_ref": [
+888.0,
+1431.0
+],
+"tip_ref": [
+884.0,
+1411.0
+],
+"length_ref_px": 20.6,
+"sheet_rc": [
+153.6365,
+307.5948
+],
+"t_birth": 10.6455,
+"group": "GC43",
+"type": "T1",
+"parent": null,
+"len_m": 0.2332
+}
+]
+}
