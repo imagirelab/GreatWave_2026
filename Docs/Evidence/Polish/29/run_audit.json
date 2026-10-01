@@ -1,0 +1,161 @@
+{
+ "group": "仕上げ29",
+ "part": "AUDIT",
+ "dateLocal": "2026-10-01 12:31",
+ "commands": [
+  "powershell -NoProfile -ExecutionPolicy Bypass -File Tools/GWWaveGen/pl29/run_pl29_unity.ps1 -Method GreatWave.Polish29.EditorTools.PL29Audit.Render -Log audit_before_p28 -Extra \"-pl29State p28 -pl29Out G:/Unity/GreatWave_2026_Fresh/Unity/Build/Polish/29/before/p28\"",
+  "powershell … run_pl29_unity.ps1 -Method GreatWave.Polish29.EditorTools.PL29Audit.Render -Log audit_before_stage9 -Extra \"-pl29State stage9 -pl29Out G:/Unity/GreatWave_2026_Fresh/Unity/Build/Polish/29/before/stage9\"",
+  "powershell … run_pl29_unity.ps1 -Method GreatWave.Polish29.EditorTools.PL29Audit.Render -Log audit_before_p28_f71 -Extra \"-pl29State p28 -pl29Out G:/Unity/GreatWave_2026_Fresh/Unity/Build/Polish/29/before/p28_f71 -pl29Skip views,tt -pl29Times 12 -pl29F71 264,351\"",
+  "py -3.10 -B Tools/GWWaveGen/pl29/pl29_audit_measure.py --before G:/Unity/GreatWave_2026_Fresh/Unity/Build/Polish/29/before/p28 --cat G:/Unity/GreatWave_2026_Fresh/Unity/Build/Polish/28/unity/bake_rec/bake/af28r01_uvcat_a45.bin --out G:/Unity/GreatWave_2026_Fresh/Unity/Build/Polish/29/before/p28/audit",
+  "py -3.10 -B Tools/GWWaveGen/pl29/pl29_audit_measure.py --before G:/Unity/GreatWave_2026_Fresh/Unity/Build/Polish/29/before/stage9 --cat G:/Unity/GreatWave_2026_Fresh/Unity/Build/Design/29R01/bake_kp/bake/af28r01_uvcat_a45.bin --out G:/Unity/GreatWave_2026_Fresh/Unity/Build/Polish/29/before/stage9/audit",
+  "py -3.10 -B Tools/GWWaveGen/pl28/pl28_f71_count.py --kind pngseq --src Unity/Build/Polish/29/before/p28_f71/f71 --glob \"painting_f*.png\" --first 264 --name p28rec_pl29 --out Unity/Build/Polish/29/before/p28_f71/count_pngseq.json --win 270,345 --win 265,269 --win 346,350",
+  "py -3.10 -B Tools/GWWaveGen/pl29/pl29_audit_sheets.py --before G:/Unity/GreatWave_2026_Fresh/Unity/Build/Polish/29/before/p28 --out G:/Unity/GreatWave_2026_Fresh/Unity/Build/Polish/29/before/sheets",
+  "py -3.10 -B Tools/GWWaveGen/pl29/pl29_audit_record.py --before G:/Unity/GreatWave_2026_Fresh/Unity/Build/Polish/29/before --evidence G:/Unity/GreatWave_2026_Fresh/Docs/Evidence/Polish/29"
+ ],
+ "tools": {
+  "unity": "6000.4.3f1",
+  "device": "NVIDIA GeForce RTX 3080",
+  "graphicsApi": "Direct3D11",
+  "colorSpace": "Linear",
+  "python": "3.10.6",
+  "platform": "Windows-10-10.0.26200-SP0",
+  "numpy": "2.2.6",
+  "pillow": "12.0.0",
+  "scipy": "1.15.3",
+  "opencv": "4.12.0"
+ },
+ "code": {
+  "Unity/Assets/GreatWave/Polish29/Editor/PL29Audit.cs": "e974892246a6c16270316b3c0f2e72440aeccc9ba5d8072d4f0a8f1dfa939816",
+  "Unity/Assets/GreatWave/Polish29/Shaders/PL29_HeroDiag.shader": "7b7198eb129c0e0340942c939f5767edf6aefab62b3df0a5a2dff3d51723c72b",
+  "Tools/GWWaveGen/pl29/run_pl29_unity.ps1": "74dc817577eedd2ec5a238ce8c193b20ef5e614676e40da536287155228ebf82",
+  "Tools/GWWaveGen/pl29/pl29_audit_measure.py": "042f92a5e1c1e00ac77e71a6b501b2609b942fe7a922d4282773d53ed0f77a69",
+  "Tools/GWWaveGen/pl29/pl29_audit_sheets.py": "802dbd65d74dddcc8f3013d4b57ef64c9270d4cba709b74a08d6d7cb071414c3",
+  "Tools/GWWaveGen/pl29/pl29_audit_record.py": "7dbb105b0e9a77efa8ce8e57eb128a9868f5541247cdbde509f6be12f74a2411",
+  "Tools/GWWaveGen/pl28/pl28_f71_count.py": "89bc7a5c587dfd9f842f61c517bf1097feb17439d79f3589068eed98fc78faf4",
+  "Tools/GWWaveGen/pl28/pl28_s7_video.py": "852dddcead5c92a9011442d7a886649b7ecbc90d46a2e90196ac7edf61937721"
+ },
+ "inputs": {
+  "heroPackage": "Build/Polish/28/G_p28rec/art_on",
+  "heroPackageJsonSha256": "837eca90afa7921b0b8815842cef52101ce674fcd207c8aad62294ee9445a31b",
+  "heroMeshGwb": "Build/Polish/28/unity/bake_rec/kstar/kstar_a45.gwb",
+  "heroMeshSha256": "a3bb1c81a79a15b7903729bd845a2d4b2660d3a06a417a218ae66f58eeb01e94",
+  "heroSdf": "Build/Polish/28/unity/bake_rec/bake/af28r01_uvsdf_a45.bin",
+  "heroSdfSha256": "e81ce5c65932211181bcb15d8ced12b0726ac2149403b4a4ebb5b7832a9cc3c0",
+  "heroUvWarp": "Build/Polish/28/unity/bake_rec/bake/af28r01_uvwarp_a45.json",
+  "heroUvWarpSha256": "f12fb552cb7d9d6ece5f5a9808109666ebb38a2aef86ce79bf284d8e96cb7428",
+  "timewarp": "Build/Polish/28/G_p28rec/timewarp_G_p28rec.json",
+  "timewarpSha256": "836224b5b86c194589d44f04115a8652f9b1dc55d9bae5399c0cd8338cb67af7",
+  "scene": "Assets/GreatWave/Design39/Scenes/DS39_Paper.unity",
+  "sceneSha256": "7480a99b1e961fa68b3bb7851789a17a70c082f6981b8d1560a46a8324699ddd",
+  "uvcat": "G:/Unity/GreatWave_2026_Fresh/Unity/Build/Polish/28/unity/bake_rec/bake/af28r01_uvcat_a45.bin",
+  "uvcatSha256": "969aeb1d7a93a418b3be13e3aac8012a6d76fbe2e28627743a3b5ed38f7db31a"
+ },
+ "unityReport": {
+  "p28": {
+   "path": "Unity/Build/Polish/29/before/p28/pl29_audit_report.json",
+   "sha256": "87967d3aa7ee982670ffea4689b40da3c37b18b86fc9fcbc75779a6f10a07807",
+   "images": 560,
+   "secondsTotal": 46.463592529296875,
+   "protectedUnchanged": true,
+   "changedFiles": []
+  },
+  "stage9": {
+   "path": "Unity/Build/Polish/29/before/stage9/pl29_audit_report.json",
+   "sha256": "3e1052b9987f5d87b904e2faffc88ac756ce0fbce900832d68fe6506f02172c3",
+   "images": 560,
+   "secondsTotal": 46.2361946105957,
+   "protectedUnchanged": true
+  }
+ },
+ "outputsHeavy": {
+  "before_p28": "Unity/Build/Polish/29/before/p28",
+  "before_stage9": "Unity/Build/Polish/29/before/stage9",
+  "f71_frames": "Unity/Build/Polish/29/before/p28_f71/f71",
+  "audit_metrics_full": {
+   "path": "Unity/Build/Polish/29/before/p28/audit/audit_metrics.json",
+   "sha256": "255cef9f54ce65dcd7d3662f11be6fe042b11eba3334390e5df83c1265e759d5"
+  },
+  "components": {
+   "path": "Unity/Build/Polish/29/before/p28/audit/components.json",
+   "sha256": "638322df07b0cc2330b6d753ce2e1014024aee7b34aa12377647af31290f3d15"
+  }
+ },
+ "figures": [
+  {
+   "file": "Docs/Evidence/Polish/29/fig_pl29a_before_t060.png",
+   "sha256": "cbd27f4918a9bdd1ce1303bdcb61617f0478dc89cf8656f3cb262099d6ced215",
+   "bytes": 461594
+  },
+  {
+   "file": "Docs/Evidence/Polish/29/fig_pl29a_before_t090.png",
+   "sha256": "713a0619e2c16afc741649cb7bf2a60e9c074a7a10327b260afeb803c2eed642",
+   "bytes": 527616
+  },
+  {
+   "file": "Docs/Evidence/Polish/29/fig_pl29a_before_t105.png",
+   "sha256": "013ee1746aa90305859521d369835fcc836d5c08eb6830cfd69c8bccde4bea08",
+   "bytes": 667108
+  },
+  {
+   "file": "Docs/Evidence/Polish/29/fig_pl29a_before_t120.png",
+   "sha256": "9d50c63df83932d13ac7fa18308f58fcdd549351b2627fa6fbd65ebcacd80669",
+   "bytes": 753593
+  },
+  {
+   "file": "Docs/Evidence/Polish/29/fig_pl29a_counts.png",
+   "sha256": "acd3eab8c62b70553425b9d19ee559e36919dcced81b89f7f85bc473f8097ee4",
+   "bytes": 173433
+  },
+  {
+   "file": "Docs/Evidence/Polish/29/fig_pl29a_crops_band.png",
+   "sha256": "cb0e451587a6ea44e66c51217afb6e0bee3222afad1ff039c8970c5b9f851a6f",
+   "bytes": 800882
+  },
+  {
+   "file": "Docs/Evidence/Polish/29/fig_pl29a_crops_claw.png",
+   "sha256": "d84c88a259f56fff506653e1526bf9e384da83bfbfdbb93655aa596c181fd8f9",
+   "bytes": 768470
+  },
+  {
+   "file": "Docs/Evidence/Polish/29/fig_pl29a_crops_flat.png",
+   "sha256": "18e9afb345b516412719a903efd57ce43b5097b6ddbdc3284b9e809c19e661ff",
+   "bytes": 811440
+  },
+  {
+   "file": "Docs/Evidence/Polish/29/fig_pl29a_crops_seam.png",
+   "sha256": "7d9116198999d893e0f9cc77a8c7ef07a9a000b7b4f3f653228933962e1604b3",
+   "bytes": 998361
+  },
+  {
+   "file": "Docs/Evidence/Polish/29/fig_pl29a_crops_stretch.png",
+   "sha256": "1ae51e698c48c3323cf4027b6385d8e0e76ebc65d3094f01393b469b11f91123",
+   "bytes": 1111944
+  },
+  {
+   "file": "Docs/Evidence/Polish/29/fig_pl29a_turntable_t060.png",
+   "sha256": "417c32f57221741bcec55245a29bccac39be1caab4d6b3ba266783df044c3087",
+   "bytes": 546663
+  },
+  {
+   "file": "Docs/Evidence/Polish/29/fig_pl29a_turntable_t090.png",
+   "sha256": "e1168359b9f0013d0c3e5dc3a2f8c07ee18fc23a1996165316acac60832c4324",
+   "bytes": 604024
+  },
+  {
+   "file": "Docs/Evidence/Polish/29/fig_pl29a_turntable_t105.png",
+   "sha256": "0be30ec1870c9173933fcf4de0151e3e098cb845fcdec57b9d6a696439665c2d",
+   "bytes": 656669
+  },
+  {
+   "file": "Docs/Evidence/Polish/29/fig_pl29a_turntable_t120.png",
+   "sha256": "61fd8c63b7221dff90fdbe82c69f674b3395cba6cd42e796c2fb3dd190bd1f5c",
+   "bytes": 667290
+  }
+ ],
+ "metrics": {
+  "path": "Docs/Evidence/Polish/29/metrics_audit.json",
+  "sha256": "3addcafc11263fe702f682d08820151d9fa0f7ee7dbca5fca89f21e091c37bcb"
+ },
+ "referenceUseJa": "参照モデル（wave_repair_zbrush2.obj）・写真（北斋参考）・G:/research/Wave Simulation は、この点検では読んでいない。",
+ "noteJa": "Unity の PC オフスクリーン描画（batchmode、RTX 3080、Direct3D11）。HMD 実機ではない。場面・スクリプト・シェーダー・データは変えていない（守るファイルの SHA-256 は前後で同じ）。git は書いていない。"
+}

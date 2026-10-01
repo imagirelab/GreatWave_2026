@@ -1,0 +1,174 @@
+{
+ "schema": "GreatWave.Polish29.code_check/1",
+ "noteJa": "仕上げ29（Q28）のコードの点検：主役波と周りの海の材質の道（場面 → シートの読み込み → 材質 → シェーダー → 面の座標の生成器）に、",
+ "shader": {
+  "file": "Unity/Assets/GreatWave/Polish29/Shaders/PL29_Ukiyoe_Hero.shader",
+  "sha256": "60b3f8d9ceef5a619b618c4335ddcab326e7e5ef5d818675c2cf2c048903990e",
+  "forbiddenTokenCounts": {
+   "\\bsampler2D\\b": 0,
+   "\\bTexture2D\\b": 0,
+   "\\btex2D": 0,
+   "\\bSAMPLE_TEXTURE": 0,
+   "_SdfTex": 0,
+   "PaintVP": 0,
+   "_LabelSdf": 0,
+   "\\bunity_MatrixVP\\b": 0,
+   "ComputeScreenPos": 0,
+   "\\bUNITY_MATRIX_VP\\b": 0
+  },
+  "vertexInputs": [
+   "float4 vertex : POSITION;",
+   "float4 a : TEXCOORD3;",
+   "float4 b : TEXCOORD4;",
+   "float4 nst : TEXCOORD5;",
+   "uint vid : SV_VertexID;",
+   "UNITY_VERTEX_INPUT_INSTANCE_ID"
+  ],
+  "readsBakeUv3_TEXCOORD2": false,
+  "keyposeAndGlobals": [
+   "_DS27Enabled",
+   "_DS27Tau",
+   "_DS27White",
+   "_DS27WhiteEnabled"
+  ],
+  "clipTransforms": [
+   "UnityWorldToClipPos"
+  ],
+  "pass": true
+ },
+ "component": {
+  "file": "Unity/Assets/GreatWave/Polish29/Scripts/PL29UkiyoeHero.cs",
+  "sha256": "b1eceb73d383dd9f67ece8fa7bc46977465c404ed0b93b0e93c5b22663d429c1",
+  "tokenCounts": {
+   "\\bCamera\\b": 0,
+   "sdfPath": 0,
+   "warpPath": 0,
+   "uv3File": 0,
+   "[Pp]aint": 0,
+   "worldToCamera": 0,
+   "projectionMatrix": 0,
+   "SetUVs\\(2": 0
+  },
+  "pass": true
+ },
+ "attrGenerator": {
+  "file": "Tools/GWWaveGen/pl29/pl29_hero_attr.py",
+  "sha256": "0bf8b7c39afb9a741b845bafb340dca158acb9851d62fbd989309317d3d27131",
+  "identifierHits": [],
+  "fileOpens": [
+   "p, \"rb\"",
+   "p, \"rb\"",
+   "a.meta, encoding=\"utf-8\"",
+   "os.path.join(a.out, \"pl29_hero_attr.json\""
+  ],
+  "inputsJa": "--gwb（K*′ の .gwb）と --meta（目印の列 profile.index と H0_m）だけ",
+  "pass": true
+ },
+ "material": {
+  "file": "Unity/Assets/GreatWave/Polish29/Materials/PL29_Ukiyoe_Hero.mat",
+  "sha256": "10876cdc616e9d9428b136a10fd98fbc63fac9e67e5331b2513a68acfa7c1bc8",
+  "shaderGuid": "a620763d6041e2149a8f53dcb418c2c3",
+  "shaderIsPL29": true,
+  "texEnvsEmpty": true,
+  "pass": true
+ },
+ "scenes": [
+  {
+   "file": "Unity/Assets/GreatWave/Polish29/Scenes/PL29_Release.unity",
+   "sha256": "61d789e538555e0a50cd4b3dd016a59351d23a1f5954210c351ca827e3e61d08",
+   "hero": {
+    "packageDir": "Build/Polish/28/G_p28rec/art_on",
+    "meshGwb": "Build/Polish/28/kstar_p28rec/kstarP28R2rec_a45.gwb",
+    "uv3File": "",
+    "warpPath": "",
+    "sdfPath": "",
+    "flatClass": "-1"
+   },
+   "heroRendererMaterialGuids": [
+    "b330b359f5f36ba49bd0e5c58b00724f"
+   ],
+   "pl29UkiyoeHeroOnHero": true,
+   "ds36ClawPaletteEnabled": [
+    false
+   ],
+   "timewarpPath": "Build/Polish/28/G_p28rec/timewarp_G_p28rec.json",
+   "pass": true
+  },
+  {
+   "file": "Unity/Assets/GreatWave/Polish29/Scenes/PL29_SinglePlayback.unity",
+   "sha256": "b190e69f0f9e324221827816da2737a6c444e803049a85bb600e0db1d1794f29",
+   "hero": {
+    "packageDir": "Build/Polish/28/G_p28rec/art_on",
+    "meshGwb": "Build/Polish/28/kstar_p28rec/kstarP28R2rec_a45.gwb",
+    "uv3File": "",
+    "warpPath": "",
+    "sdfPath": "",
+    "flatClass": "-1"
+   },
+   "heroRendererMaterialGuids": [
+    "b330b359f5f36ba49bd0e5c58b00724f"
+   ],
+   "pl29UkiyoeHeroOnHero": true,
+   "ds36ClawPaletteEnabled": [],
+   "timewarpPath": "Build/Polish/28/G_p28rec/timewarp_G_p28rec.json",
+   "pass": true
+  }
+ ],
+ "sea": {
+  "file": "Tools/GWWaveGen/ds36/ds36_palette_prep.py",
+  "sha256": "fab87ed2a988f3aa32455cde82a8edfa5f0679e1a8283b968a48446d26241c78",
+  "seaPartCalls": [
+   "sea_part",
+   "sha256",
+   "tstar_world"
+  ],
+  "paintingInputsReachedFromSeaPart": [],
+  "pass": true,
+  "sheetPlayerCameraTokens": 0
+ },
+ "runtime": {
+  "render": {
+   "heroSdf": "",
+   "heroUvWarp": "",
+   "heroUv3File": "",
+   "heroUv3Source": "なし（平塗り）",
+   "heroShader": "GreatWave/Polish29/PL29 Ukiyoe Keypose",
+   "clawPalette": "d34",
+   "pass": true
+  },
+  "playmode": [
+   {
+    "scene": "Assets/GreatWave/Polish29/Scenes/PL29_SinglePlayback.unity",
+    "end": "静止に入って 1.5 s",
+    "rows": 816,
+    "sawPl29Shader": true,
+    "sawApplied": true,
+    "bakePathsEmptyAllFrames": true,
+    "pass": true
+   },
+   {
+    "scene": "Assets/GreatWave/Polish29/Scenes/PL29_Release.unity",
+    "end": "体験の終わりの画面に入って 1.5 s",
+    "rows": 6738,
+    "sawPl29Shader": true,
+    "sawApplied": true,
+    "bakePathsEmptyAllFrames": true,
+    "pass": true
+   }
+  ]
+ },
+ "recordOnly": {
+  "ds38_outline": {
+   "file": "Unity/Assets/GreatWave/Design38/Shaders/DS38_Outline_Keypose.shader",
+   "usesLineMask": true,
+   "usesPushPaint": true,
+   "noteJa": "主役波の外殻線（設計38）は、原画視点で原画にない線を描かない頂点の印（ds38_hero_linemask_f32.bin、原画視点で作った）と、原画視点の押し下げの重みを使う。線の見える・見えないの決まりで、色・溝・白の材質ではない。仕上げ38 で扱う（記録のみ）。"
+  },
+  "ds36_claw_palette": {
+   "file": "Unity/Assets/GreatWave/Design36/Shaders/DS36_Claw_Palette.shader",
+   "usesPaintingLabelSdf": true,
+   "noteJa": "設計36 の爪の色は原画視点の画面の位置で原画の色区の表を引く（投影）。Polish29 の場面では DS36ClawPalette を切り、設計34 の視点によらない白・淡い水色にした。"
+  }
+ },
+ "allPass": true
+}

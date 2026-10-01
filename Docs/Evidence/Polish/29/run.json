@@ -1,0 +1,603 @@
+{
+ "schema": "GreatWave.Polish29.run/1",
+ "made_local": "2026-10-01T16:02:39+08:00",
+ "timing": {
+  "group_start": "2026-10-01T12:05",
+  "record_end": "2026-10-01T16:02",
+  "parts": {
+   "study": "12:05〜12:25",
+   "audit": "〜12:31",
+   "build": "12:33〜14:02",
+   "fix01": "14:22〜15:45",
+   "record": "15:46〜"
+  }
+ },
+ "parts": {
+  "audit": "run_audit.json",
+  "build": "run_build.json",
+  "fix01": "run_fix01.json"
+ },
+ "tools": {
+  "python": "3.10.6",
+  "unity": "6000.4.3f1（batchmode、unity.lock で 1 つずつ、Direct3D11、RTX 3080）",
+  "blender": "Steam Blender 5.2.2（座席の射線の qa だけ）",
+  "ffmpeg": "G:/ffmpeg-2024-12-19-git-494c961379-full_build",
+  "houdini": "使っていない"
+ },
+ "record_commands": [
+  "py -3.10 -B Tools/GWWaveGen/pl29/pl29_view_sheets.py --before Unity/Build/Polish/29/before/p28 --after Unity/Build/Polish/29/fix01/p29g --audit Docs/Evidence/Polish/29/metrics_audit.json --fix Docs/Evidence/Polish/29/metrics_fix01.json --out Docs/Evidence/Polish/29",
+  "py -3.10 -B Tools/GWWaveGen/ds29r01/ds29r01_measure.py qa --kstar Unity/Build/Polish/28/kstar_p28rec --package G_p28rec=Unity/Build/Polish/28/G_p28rec/art_on --out G:/Unity/GreatWave_2026_Fresh/Unity/Build/Polish/29/record/qa_G_p28rec",
+  "py -3.10 -B Tools/GWWaveGen/pl29/pl29_code_check.py …修正の回と同じ引数… --out G:/Unity/GreatWave_2026_Fresh/Unity/Build/Polish/29/record/codecheck（再実行。修正の回の code_check_fix01.json と鍵ごとに同じ）",
+  "py -3.10 -B Tools/GWWaveGen/pl29/pl29_final_record.py --qa … --codecheck … --moved …",
+  "py -3.10 -B Tools/GWWaveGen/pl28/pl28_commit_deps.py Unity/Build/Polish/29/commit/seed.txt Unity/Build/Polish/29/commit_list.txt Unity/Build/Polish/29/commit/commit_deps_report.json"
+ ],
+ "code_check_rerun": {
+  "file": "Unity/Build/Polish/29/record/codecheck/code_check.json",
+  "sha256": "a0bfa1a209128a8bbae274ce2f6fe075e9fee1edb2d67999c7f1d151653c62d2",
+  "allPass": true
+ },
+ "seat_ray_qa": {
+  "file": "Unity/Build/Polish/29/record/qa_G_p28rec/ds29r01_qa_G_p28rec_fine.json",
+  "sha256": "adc85733fe8cc3b01c5012cccc56fba31716155df71354cab405e9ecde4fa00c",
+  "runtime_s": 78.1,
+  "rays": 50000,
+  "command": "py -3.10 -B Tools/GWWaveGen/ds29/ds29_qa.py --package G_p28rec_fine=G:\\Unity\\GreatWave_2026_Fresh\\Unity/Build/Polish/28/G_p28rec/art_on --out G:/Unity/GreatWave_2026_Fresh/Unity/Build/Polish/29/record/qa_G_p28rec --summary-name ds29r01_qa_G_p28rec_fine --title 設計29修正01：表示用サーフェスの検査（ds29_qa、K*′、復号 fine） --blender",
+  "subject": {
+   "topology": {
+    "vertices": 96000,
+    "faces": 190722,
+    "edges": 286721,
+    "nonmanifold_edges_gt2": 0,
+    "boundary_edges": 1276,
+    "wire_edges": 0,
+    "winding_inconsistent_edges": 0,
+    "directed_halfedge_dupes": 0,
+    "index_degenerate_faces": 0,
+    "unreferenced_vertices": 0,
+    "boundary_loops": 1,
+    "outer_loop_vertices": 1276,
+    "outer_loop_perimeter_m": 331.68,
+    "inner_loops": 0,
+    "inner_loop_sizes": [],
+    "inner_boundary_vertices": 0,
+    "boundary_vertex_branching": 0,
+    "coincident_boundary_vertex_pairs_unjoined": 0,
+    "boundary_edges_expected_grid_perimeter": 1276
+   },
+   "verdicts": {
+    "非多様体の辺": {
+     "value": 0,
+     "threshold": "0",
+     "pass": true,
+     "note_ja": null
+    },
+    "縁の輪（外周のほか＝継ぎ目・穴）": {
+     "value": 0,
+     "threshold": "0（117）",
+     "pass": true,
+     "note_ja": "縁の辺 1276（格子の外周 1276）、辺でつながらずに重なった縁の頂点の組 0"
+    },
+    "面の向きの反転（隣と巻き方向が食い違う辺）": {
+     "value": 0,
+     "threshold": "0",
+     "pass": true,
+     "note_ja": null
+    },
+    "使われない頂点・添字の潰れた面": {
+     "value": [
+      0,
+      0
+     ],
+     "threshold": "0",
+     "pass": true,
+     "note_ja": null
+    },
+    "位置・頂点法線の NaN（コマの最大）": {
+     "value": 0,
+     "threshold": "0",
+     "pass": true,
+     "note_ja": null
+    },
+    "決まらない頂点法線（周りの面がすべて面積 0、コマの最大）": {
+     "value": 0,
+     "threshold": "0",
+     "pass": true,
+     "note_ja": "設計27 のシェーダー（DS27Normal）は長さ 0 の法線を +Y に置き換えるので NaN にはならない。16 ビットの量子化で詰まった列がつぶれた所"
+    },
+    "隣と逆向きの面（二面角 > 120°、コマの最大）": {
+     "value": 77,
+     "threshold": "0",
+     "pass": false,
+     "note_ja": null
+    },
+    "前のコマと比べた面の反転（一覧のコマの和）": {
+     "value": 0,
+     "threshold": "0",
+     "pass": true,
+     "note_ja": null
+    },
+    "自己交差（行の断面、線分 ≥ 5 mm、コマの和）": {
+     "value": 0,
+     "threshold": "0",
+     "pass": true,
+     "note_ja": null
+    },
+    "唇先の厚さ（唇先から 0.75 m 奥の鉛直）の最小_m": {
+     "value": 0.041,
+     "threshold": "≥ 0.3",
+     "pass": false,
+     "note_ja": "0.3 m 未満の断面 102（コマの和）、上面が表・下面が裏でない断面 0"
+    },
+    "座席 v1 の射線：穴（コマの和）": {
+     "value": 0,
+     "threshold": "0",
+     "pass": true,
+     "note_ja": null
+    },
+    "座席 v1 の射線：開いた背面（コマの和）": {
+     "value": 0,
+     "threshold": "0",
+     "pass": true,
+     "note_ja": null
+    },
+    "座席 v1 の射線：切断端＋縁の下のすき間（外周、t* のコマ）": {
+     "value": 0,
+     "threshold": "0",
+     "pass": true,
+     "note_ja": "切断端＝外周の縁の頂点が平らな海 +0.12 m より高い面に当たった射線（美術優先26 と同じ数え方）。縁の下＝その高さの縁の下をくぐった射線"
+    },
+    "座席 v1 の射線：切断端／縁の下のすき間（外周、t* より前のコマの和。記録）": {
+     "value": [
+      28183,
+      1375
+     ],
+     "threshold": "記録",
+     "pass": null,
+     "note_ja": "外周の縁が周りの波（うねり・搬送波）で平らな仮置きの海より持ち上がる所。周りの海とのつなぎは設計30 の範囲。縁の高さの範囲はコマごとの JSON"
+    },
+    "座席 v1 の射線：継ぎ目の切断（117、コマの和）": {
+     "value": 0,
+     "threshold": "0",
+     "pass": true,
+     "note_ja": null
+    },
+    "自己交差（3 次元、BVH の重なり、コマの和）": {
+     "value": 0,
+     "threshold": "0",
+     "pass": true,
+     "note_ja": "両方の面の最小の高さ ≥ 5 mm の組。細い面を含む全部は 0"
+    },
+    "下を向き、上に網のない面（面の向きの反転、コマの和）": {
+     "value": 0,
+     "threshold": "0",
+     "pass": true,
+     "note_ja": "最小の高さ ≥ 5 mm の面。細い面を含む全部は 130"
+    },
+    "座席 v1 の射線：平らな海が網の上にある所（記録）": {
+     "value": 34315,
+     "threshold": "記録",
+     "pass": null,
+     "note_ja": "網が平らな仮置きの海 y = −0.07 m より低い所（周りの海の範囲）"
+    },
+    "30 Hz：波の枠の 1 コマの変位_m": {
+     "value": 0.3409,
+     "threshold": "< 0.6",
+     "pass": true,
+     "note_ja": null
+    },
+    "30 Hz：地面の二階差分（全頂点）_m": {
+     "value": 0.07198,
+     "threshold": "≤ 0.0218（2 g）",
+     "pass": false,
+     "note_ja": null
+    },
+    "30 Hz：前のコマと比べた面の反転（通し）": {
+     "value": 0,
+     "threshold": "0",
+     "pass": true,
+     "note_ja": null
+    },
+    "30 Hz：唇・管の行の方向の辺の最短_m": {
+     "value": 0.00292,
+     "threshold": "≥ 0.005（t* で近い辺は t* − 2q）",
+     "pass": false,
+     "note_ja": "違反 139（辺 × コマ）"
+    },
+    "30 Hz：唇・管の伸び（t* に対する比、行の方向／行の間）": {
+     "value": [
+      [
+       0.011,
+       2.348
+      ],
+      [
+       0.196,
+       2.12
+      ]
+     ],
+     "threshold": "0.05〜4",
+     "pass": false,
+     "note_ja": "違反 60069／0（辺 × コマ）"
+    }
+   },
+   "xcheck": null
+  }
+ },
+ "reference_use": {
+  "reference_model": "参照モデル wave_repair_zbrush2.obj は、仕上げ29 のどの部でも開いていない（各部の報告）。生成器は読まない（F13-1）。",
+  "photos": "G:\\research\\reality scan\\北斋参考 の写真は、調べ（STUDY）で読み取りだけに使い、数値・比率だけを ref_material_numbers.json に書いた。修正の回は調べの作業用の縮小の一覧を見ただけ。写真と写真から作った画像は、リポジトリと証拠に入れていない。Exif は写していない。",
+  "wave_simulation_q27": "使っていない。",
+  "incident": "調べの最初の一覧の命令で、許されたフォルダーの親 G:\\research\\reality scan の直下の名前の一覧を取った（ファイルは開いておらず、作ったものはない。名前は記録に写していない）。"
+ },
+ "photo_derived_temp_images_moved_out": {
+  "count": 45,
+  "noteJa": "調べ（STUDY）が Git 対象外の Unity/Build/Polish/29/study/view/ に置いた、写真から作った作業用の縮小・切り抜き（jpg）。AGENTS.md の Q16（一時データはリポジトリの外）と調べの記録の「仕上げ29 の終わりに消す」に合わせ、群の終わりに、リポジトリの外のこの会話の一時フォルダー（C: ドライブ）へ動かした（消してはいない。中身は開いていない）。動かす前と後の SHA-256 は同じ。",
+  "files_sha256": {
+   "cr_cu4.jpg": "2252ba5ad229ec515216a808b9a3209425905925be2a83cfea54e5558aa84590",
+   "cr_cu44.jpg": "2b8aeab7740a942cb708b25738c4a5d63214908fe8ebc42adb4977de61203330",
+   "cr_omohan.jpg": "b094f4bdae7092f1a2bbe26de533b78ca2f6f8a1a6998a3c424d0b530c043efd",
+   "cr_wavecolor.jpg": "e7e4c22bdf7d78e944cd88b7bb037ef7e4b08a4607752db21b0dd4e91c7259ed",
+   "cs_closeup3x.jpg": "fb3b4221e5df05641f0d61e557b7a671c9eb6ba7a9abe535e508692eac9c687d",
+   "cs_near_45.jpg": "92f15490ddc7711d737970f8e222711b50957cec89459435d34bfa131d13560b",
+   "cs_near_h.jpg": "bbf60899de66ccfa00f6369dab219aa8bbacfe3be599ffb0a674ab44da9ca8f6",
+   "cs_pan50.jpg": "268c4c2170676ff690d2a2a75c4452bb6335388f9c75594e18b4f515c213428e",
+   "cs_panh.jpg": "0953c868478c68bf12b85dcaee6cee2ca30f6c5306d5a8c4910e644499f2dc79",
+   "cu3_14.jpg": "e5cc77b04d890c77fa865d8e8589daf3d21a8df34965ce8f0495d9971e04de7c",
+   "cu3_20.jpg": "cd031ff5196e40a9f619fae5c8c1e40498fe33096636c831122c345e5e6d720c",
+   "cu3_28.jpg": "d50fc80d52a87c21384aed34650486bfc108df32893e26709ae7652703e89ca4",
+   "cu3_36.jpg": "c56bcb887b7fde29ec7947968bc6f23c21fbe1022ca73b916ce440bce22810e4",
+   "cu3_4.jpg": "c2623cbd4de49507dd6868ced9434a7d823af3a367336d562d599a61c16d7ae5",
+   "cu3_44.jpg": "da635539cebb3f34c89a7b761e902aef0788e9ae3bb62dc1a08481975d2c8097",
+   "cu3_52.jpg": "bab44278cab1c95db9376b3605519d97cf9d3dd6c2bb0e3fd6308251b8a2e083",
+   "cu3_9.jpg": "170c820cb69b0f6946cc63ae10d92b3079bbf5aa29412ab062d3bd55088e0063",
+   "cu3_9b.jpg": "618c5ee311ff6ea1fdf106e3ab857c0a066de544276a26ba64e4e55c83e03299",
+   "g_back.jpg": "dae2d76017fa7aa82782b1f4d792f2d642d89b56f9df866d7d0a748b4c9e345d",
+   "g_cu28.jpg": "48440b696ff48d36d2438d7b544769e83ba14b0f37bfeed12c65b0922c18fd66",
+   "g_fg15.jpg": "777ff5d89c17e430dc8f7c2165191d6ee5b0391a2365f33c23ec271679b2ddfa",
+   "g_left45.jpg": "c6d75a84a3e82ef9da06e37556b4674511b989b8a5a72cafc12db17d23d15647",
+   "g_n45_15.jpg": "b1164ade018c41e182800060655101f8e43caec986edc9e94d4f7c7df643cfac",
+   "g_nh_18.jpg": "1f6b9d90b80846860c63949fd921a78b3c85effe2835790b90d54b7e18992088",
+   "g_nh_46.jpg": "b161933e4de122f08a7987f5703c3f3de0789932cef9053a456a0cb9ccb8e74a",
+   "mk_nh46.jpg": "7c7f2540193f9baa484e463c6bd252133a177c1d741670f05bca5a0c2dd76094",
+   "n45_15.jpg": "752636157de940512ee37a18d04efbf2a40b723b2a0f3f9793f3323a4165516a",
+   "n45_45.jpg": "018e56723fef9b7bacdcd302eaaaf939003d41a1e334956777c9b3fd3a474aff",
+   "nh_1.jpg": "c046fdb1b333fd44cb5bf3a4beccd8189f2d4c173fdb38fda2ffaea01decae52",
+   "nh_18.jpg": "bfda428415e6dc9b62684e5cfff49e52542d3e2b7f59632a8d10b5bcaadeb4b1",
+   "nh_46.jpg": "92e409ed88dba0ff08356c3ee2c1758051afea3f2ff832b1c0ca05954e8011d9",
+   "top/右45.jpg": "2c53ea676e22921291c75a673a1663cdedf0a6b3240b2b8a92bb1e1690bf9d51",
+   "top/右图.jpg": "d992289ca6dd54aea11270c2e03019a4fd539c2345ab0ce0b8006bb827830872",
+   "top/左45.jpg": "5ebfa531d51feeda31745e0be2b2ed854278dfca5c94f7e8fd8faa8c99d71d2e",
+   "top/左图.jpg": "2292558d7fcaf8bec2dcc6f2b1e03e4701d49a82f8abce64533f289b5dc9ed1b",
+   "top/微信图片_20260526223722_1770_65.jpg": "30249777260d20907a494c440b0e0c2157af40fe31dc52407a9dd1f3ae88524c",
+   "top/微信图片_20260526223727_1771_65.jpg": "0f7e1a1891cfdd37f2c19fc829f21cdbb395461a9f96819142e7cc06c686c342",
+   "top/微信图片_20260526223940_1772_65.jpg": "437af1233cd33cf066ba9b5e39fd42cf67b5d3a8b86d9ac1b533c03560f45a1c",
+   "top/微信图片_20260526224051_1773_65.jpg": "aeb49c036221589e6c883c5f831c2cae79e37aed404f70cc801ea2f0a92b2f72",
+   "top/微信图片_20260526224053_1774_65.jpg": "5c418d0e8e89acf531bb491a1c53a8dcd0b32a7885f6d3229e9bccb6159ab48f",
+   "top/微信图片_20260526224318_1775_65.jpg": "026dfff22eda92f808ae66dc2c2a359baa3b1d1aef3615789d56799fb3435ea4",
+   "top/微信图片_20260526224323_1777_65.jpg": "1bcece1efa4b6c4a6fbb04622dfc80a17a37a45010f7245903e61c2cfecc70a4",
+   "top/正面图.jpg": "f721c9509d3b7b8ef6b5702a27ba5ebfe0554602ae435501f80440e9f0199af7",
+   "top/背图.jpg": "982b355b10a363db2ecb1cb99a59d11345c14acda6396e45d217b2f82daf4f17",
+   "top/顶图、.jpg": "4c05cfc09f2ec41f0cc45049200f8c01f3fc4ec08d96f7d0a5f55168de58accb"
+  }
+ },
+ "evidence_sha256": {
+  "catalogue_audit.json": {
+   "sha256": "638322df07b0cc2330b6d753ce2e1014024aee7b34aa12377647af31290f3d15",
+   "bytes": 130233
+  },
+  "claw_sep_build.json": {
+   "sha256": "823282d353bc7ea055ad93622ed066348cbe24b7e230134789eeb9476e6f9ef1",
+   "bytes": 10182
+  },
+  "claw_sep_fix01.json": {
+   "sha256": "1bbca0402b3e122ddb24489a4406b02d8dde8c2d83e4b22187d000f43af782bb",
+   "bytes": 10191
+  },
+  "code_check_build.json": {
+   "sha256": "274e4be3b5b6500508df4e4d0c398b92669216df6859ef0ee66c05fc32383f8f",
+   "bytes": 5648
+  },
+  "code_check_fix01.json": {
+   "sha256": "a0bfa1a209128a8bbae274ce2f6fe075e9fee1edb2d67999c7f1d151653c62d2",
+   "bytes": 9476
+  },
+  "fig_pl29_ba_view_back65.png": {
+   "sha256": "bf158e37b8aa9d5cf16b726d2149f37d6b7745a08ddd394a8ce345020b59a10d",
+   "bytes": 622428
+  },
+  "fig_pl29_ba_view_painting.png": {
+   "sha256": "6df3c6d6cffcf4e6ad177b681586da8561ce54cf66b71f326ee9be2e8b2f236f",
+   "bytes": 1012893
+  },
+  "fig_pl29_ba_view_seat.png": {
+   "sha256": "fdc42d444b22ec8cdfcdaa6eeddc7df9b9281a94ad0b3fad9375e03a3a887969",
+   "bytes": 503054
+  },
+  "fig_pl29_ba_view_seat_toward_wave.png": {
+   "sha256": "ddd9bf2424aa86faeddc62ad2ae0dfaab3612976db9d667ab2156cd811a0a4c3",
+   "bytes": 904710
+  },
+  "fig_pl29_ba_view_side_left.png": {
+   "sha256": "c86942567bae26ccf8d3dc29fa58f0778f21079278cb15d5cc8e05759ac80d02",
+   "bytes": 558308
+  },
+  "fig_pl29_ba_view_side_right.png": {
+   "sha256": "c90e791972a32040af47d4d682fdbd82d7cde963844952bb2d50b282c0192bf2",
+   "bytes": 430690
+  },
+  "fig_pl29_ba_view_top.png": {
+   "sha256": "89812867781eaca6d8ed890ae27ee6a20dc4bf26f47a9c6de393cfdf4024b56b",
+   "bytes": 414110
+  },
+  "fig_pl29a_before_t060.png": {
+   "sha256": "cbd27f4918a9bdd1ce1303bdcb61617f0478dc89cf8656f3cb262099d6ced215",
+   "bytes": 461594
+  },
+  "fig_pl29a_before_t090.png": {
+   "sha256": "713a0619e2c16afc741649cb7bf2a60e9c074a7a10327b260afeb803c2eed642",
+   "bytes": 527616
+  },
+  "fig_pl29a_before_t105.png": {
+   "sha256": "013ee1746aa90305859521d369835fcc836d5c08eb6830cfd69c8bccde4bea08",
+   "bytes": 667108
+  },
+  "fig_pl29a_before_t120.png": {
+   "sha256": "9d50c63df83932d13ac7fa18308f58fcdd549351b2627fa6fbd65ebcacd80669",
+   "bytes": 753593
+  },
+  "fig_pl29a_counts.png": {
+   "sha256": "acd3eab8c62b70553425b9d19ee559e36919dcced81b89f7f85bc473f8097ee4",
+   "bytes": 173433
+  },
+  "fig_pl29a_crops_band.png": {
+   "sha256": "cb0e451587a6ea44e66c51217afb6e0bee3222afad1ff039c8970c5b9f851a6f",
+   "bytes": 800882
+  },
+  "fig_pl29a_crops_claw.png": {
+   "sha256": "d84c88a259f56fff506653e1526bf9e384da83bfbfdbb93655aa596c181fd8f9",
+   "bytes": 768470
+  },
+  "fig_pl29a_crops_flat.png": {
+   "sha256": "18e9afb345b516412719a903efd57ce43b5097b6ddbdc3284b9e809c19e661ff",
+   "bytes": 811440
+  },
+  "fig_pl29a_crops_seam.png": {
+   "sha256": "7d9116198999d893e0f9cc77a8c7ef07a9a000b7b4f3f653228933962e1604b3",
+   "bytes": 998361
+  },
+  "fig_pl29a_crops_stretch.png": {
+   "sha256": "1ae51e698c48c3323cf4027b6385d8e0e76ebc65d3094f01393b469b11f91123",
+   "bytes": 1111944
+  },
+  "fig_pl29a_turntable_t060.png": {
+   "sha256": "417c32f57221741bcec55245a29bccac39be1caab4d6b3ba266783df044c3087",
+   "bytes": 546663
+  },
+  "fig_pl29a_turntable_t090.png": {
+   "sha256": "e1168359b9f0013d0c3e5dc3a2f8c07ee18fc23a1996165316acac60832c4324",
+   "bytes": 604024
+  },
+  "fig_pl29a_turntable_t105.png": {
+   "sha256": "0be30ec1870c9173933fcf4de0151e3e098cb845fcdec57b9d6a696439665c2d",
+   "bytes": 656669
+  },
+  "fig_pl29a_turntable_t120.png": {
+   "sha256": "61fd8c63b7221dff90fdbe82c69f674b3395cba6cd42e796c2fb3dd190bd1f5c",
+   "bytes": 667290
+  },
+  "fig_pl29b_ba_crops.png": {
+   "sha256": "84d3125f80c19d46e641c6ddef2a134a344fe69ccc64aeba660d02ec55ab2420",
+   "bytes": 1106783
+  },
+  "fig_pl29b_ba_t060_asis.png": {
+   "sha256": "91611b14703d80e0389126149c202607ea8686d888f279d0d3296f4369007a1c",
+   "bytes": 514651
+  },
+  "fig_pl29b_ba_t060_clawfree.png": {
+   "sha256": "7811b8beabbba4c2aaa14afff5a03c069d0ec3de1abec606c909d75e44f0c0d7",
+   "bytes": 510701
+  },
+  "fig_pl29b_ba_t090_asis.png": {
+   "sha256": "9b8323eafa49014a0aa1e8db0f4483ab9382a2f36eb0abbeb98098b6a6e9dcb8",
+   "bytes": 619203
+  },
+  "fig_pl29b_ba_t090_clawfree.png": {
+   "sha256": "57c8e3c405d1982c27b93578a01c7fc5e5dd48bb079e70ba2596f599f7cd71ae",
+   "bytes": 612116
+  },
+  "fig_pl29b_ba_t105_asis.png": {
+   "sha256": "4db770bc4a364d5ad5778a01666fabedb2b4e6ce24758280f9827199da1f4d51",
+   "bytes": 834215
+  },
+  "fig_pl29b_ba_t105_clawfree.png": {
+   "sha256": "e936ae41fb4480bdc80d4e1c08c074d89999aa449b69a1391238e233d89f3b5c",
+   "bytes": 793136
+  },
+  "fig_pl29b_ba_t120_asis.png": {
+   "sha256": "dd44191cb3888274ef05fa206491d995e7e5762af54530c1e2590c59c6d5fe46",
+   "bytes": 981582
+  },
+  "fig_pl29b_ba_t120_clawfree.png": {
+   "sha256": "e1a2d4873d85988a5c9f55feec037b739f18cd177b9c2f4f0688cfcd078815dd",
+   "bytes": 912478
+  },
+  "fig_pl29b_ba_turntable_t060.png": {
+   "sha256": "f033167fa36f9ea724d776f874e9b792fd990e5f65d3e717a259d54c339d0f75",
+   "bytes": 512596
+  },
+  "fig_pl29b_ba_turntable_t090.png": {
+   "sha256": "23b30dea8d59aa133009c8ca3269d83c31ad5f439c3682929a7bf12aa0ced942",
+   "bytes": 623334
+  },
+  "fig_pl29b_ba_turntable_t105.png": {
+   "sha256": "ef2497e51a9b2347bd4bcd3873537263cdc08f28bd3ae60bef3b56ce20842a42",
+   "bytes": 648114
+  },
+  "fig_pl29b_ba_turntable_t120.png": {
+   "sha256": "18643b5c57b89643e6fdf84fa486ab30555d52529ed5f8e649e21ba82dd85f43",
+   "bytes": 629551
+  },
+  "fig_pl29b_painting_compare.png": {
+   "sha256": "20fc6ab9aef1bcd0fcfe61ac21d94067850359c1439750f7f3b74a461177e982",
+   "bytes": 726426
+  },
+  "fig_pl29b_playmode_release.png": {
+   "sha256": "ddefc544e9167811f5b71a932c9a8d7b912accf8eb7ac7c5a99fececda96cf63",
+   "bytes": 283283
+  },
+  "fig_pl29c_ba_crops.png": {
+   "sha256": "018ee3f3495cfd3be8b8e075b9b15477f844801ca2dcc92748489388006a3e0f",
+   "bytes": 1243911
+  },
+  "fig_pl29c_ba_t060_asis.png": {
+   "sha256": "e2d957b73c15da32af4f5b879fadd35f2324f8a58b248fb453052e13a8cb640b",
+   "bytes": 519255
+  },
+  "fig_pl29c_ba_t060_clawfree.png": {
+   "sha256": "e6a3d01f1a88adfb82bb3def3a0dfa081b8f13b740370362f8a02a4a7eb0f827",
+   "bytes": 516405
+  },
+  "fig_pl29c_ba_t090_asis.png": {
+   "sha256": "bd0cc54b1f78cc39943cf06256a2660d01bd6bf69d04057e9be5787f964d5dec",
+   "bytes": 629696
+  },
+  "fig_pl29c_ba_t090_clawfree.png": {
+   "sha256": "7cf87416b1f62bbc003f6450a2854c705da23d4eec03d5db4afe10ab3a410a2f",
+   "bytes": 618691
+  },
+  "fig_pl29c_ba_t105_asis.png": {
+   "sha256": "49441f90c98fff3ae63f8cedff204bfbe4823bec6835055bc9ff2c591c684e99",
+   "bytes": 879080
+  },
+  "fig_pl29c_ba_t105_clawfree.png": {
+   "sha256": "4c9bfeea9aabb50dc3acffc17a2d4f25d5b52faf7f932ef1ad9edbf6f4dde607",
+   "bytes": 832337
+  },
+  "fig_pl29c_ba_t120_asis.png": {
+   "sha256": "d013da3ec39aeddb711c15f312a674d636ccc059b2d541863a7f0b3ea4b028de",
+   "bytes": 1064777
+  },
+  "fig_pl29c_ba_t120_clawfree.png": {
+   "sha256": "f5a65663370780af7535cbc7c92f9a1180761040ddc58f803d6f0f3294b79d77",
+   "bytes": 989227
+  },
+  "fig_pl29c_ba_turntable_t060.png": {
+   "sha256": "33292426d6176d274a3a5d6bf910c0579970deb7c8ac78ababd7d9ac7aa78bf9",
+   "bytes": 524454
+  },
+  "fig_pl29c_ba_turntable_t090.png": {
+   "sha256": "358b6b77743a12d7d36f99e63e5ee0e8bee94e01b23229d7b18a2b7ff7247db6",
+   "bytes": 637497
+  },
+  "fig_pl29c_ba_turntable_t105.png": {
+   "sha256": "abca8a1dedf703d090b0ca772d57e3b6f54f7f3d0195fe26575fa6ba4aa0d67c",
+   "bytes": 671884
+  },
+  "fig_pl29c_ba_turntable_t120.png": {
+   "sha256": "5a15035cc5636fbcd971a7d6fcd83f4e0263e66737abdd3df377fcf184518853",
+   "bytes": 659180
+  },
+  "fig_pl29c_claws.png": {
+   "sha256": "6f67c7393a25fa94d5c102fbbbdc33e5d956963b256d03d2b7eddabe047b5399",
+   "bytes": 717653
+  },
+  "fig_pl29c_lip.png": {
+   "sha256": "b58988d2e2269ba63931e7cc8653ba705a0371ac1e1639475692f4f437a3352c",
+   "bytes": 198236
+  },
+  "fig_pl29c_painting_compare.png": {
+   "sha256": "9b7409c7577b8089c49138fd083077889b58cd8967556134d9d1993950770a9c",
+   "bytes": 642183
+  },
+  "fig_pl29c_release_exe.png": {
+   "sha256": "a119ae80170a5dd5136aa98b8248de414dd9bfdf3be0b20537792c525a69589b",
+   "bytes": 857188
+  },
+  "fig_pl29c_stretch.png": {
+   "sha256": "adfa3788b91598ff928f44fa15dd03f9e952b577c8fb0462b8208f910911041e",
+   "bytes": 637157
+  },
+  "gpu_fix01.json": {
+   "sha256": "5e02f7402ce1a4b2928c368d977eae6300648d981c8dc28d2836819486299ebb",
+   "bytes": 2931
+  },
+  "lip_dashes_fix01.json": {
+   "sha256": "5a96dd118a7c01e02cdb43876cae8dd8b0e3a8a3f2d02a57ac65cfc89ae66eb6",
+   "bytes": 1260
+  },
+  "metrics.json": {
+   "sha256": "8c2f32e927ad68c0d12bf759b87d09d426059ba55d7add25a4170107b29f31e7",
+   "bytes": 47760
+  },
+  "metrics_audit.json": {
+   "sha256": "3addcafc11263fe702f682d08820151d9fa0f7ee7dbca5fca89f21e091c37bcb",
+   "bytes": 73712
+  },
+  "metrics_build.json": {
+   "sha256": "a277596b61109134dfff4c7fae974d4302b46bba7075b05e71b857176ff8eb49",
+   "bytes": 28643
+  },
+  "metrics_fix01.json": {
+   "sha256": "499d0715c9f61bc9b37ed11b5b55d2a892ab6230c548a031487ba4224a876431",
+   "bytes": 38938
+  },
+  "pl29b_ba_painting_30fps.mp4": {
+   "sha256": "4224d0c1aca45d2517b8260f417992b20f181ba3d3231bc0c1d4265774d5cba1",
+   "bytes": 948549
+  },
+  "pl29b_ba_seat_30fps.mp4": {
+   "sha256": "a6cfc79f7e77aa1fb98109efda3b83784dff48e5a874ddfe63ed5ee3d14b4f42",
+   "bytes": 368434
+  },
+  "pl29b_ba_tt_30fps.mp4": {
+   "sha256": "3773f19194b503eb14ecfb9ef3fafe48647708c89a10da841a1bcc8bd51641d5",
+   "bytes": 739873
+  },
+  "pl29c_ba_painting_30fps.mp4": {
+   "sha256": "f4c68a8d11bc81146cfae0a63055dea024c783a3c9a95b50088e76375590a7bc",
+   "bytes": 674509
+  },
+  "pl29c_ba_seat_30fps.mp4": {
+   "sha256": "a8db0d3da45e8ee3273eae8f72fccb553f14f9dc5cac5b5151721547f8f82261",
+   "bytes": 295484
+  },
+  "pl29c_ba_tt_30fps.mp4": {
+   "sha256": "5c090260704c4891cfb21529d7ab951efa56d71f95ab37c31648da8c6ec51a85",
+   "bytes": 488256
+  },
+  "ref_material_numbers.json": {
+   "sha256": "4dfb229181999221e6e2e0126f3a1570aaea355bad54217a7dbcae9cd31f2631",
+   "bytes": 35063
+  },
+  "release_build_fix01.json": {
+   "sha256": "2ab9aaafd72dc808f4a9500ca5a0756c885d779ea86eaff4d06ffb5742d8fc8a",
+   "bytes": 12973
+  },
+  "run_audit.json": {
+   "sha256": "ba41fb06970b9f4b0000e53b3d9c0bf30949f506209cea5e0f5ea34368f71204",
+   "bytes": 8697
+  },
+  "run_build.json": {
+   "sha256": "51fe5850e73467f29669d5016c5a4dd19780a4da900e1564c5588c61627464b1",
+   "bytes": 11932
+  },
+  "run_fix01.json": {
+   "sha256": "1222e897ec467e840aa595526a2ba9bfcb771bd31ba966d4b1247eb5a226a287",
+   "bytes": 15847
+  },
+  "stretch_fix01.json": {
+   "sha256": "e0d41185edb294d460ba6931408db5712d66539be0c6123b8aa6798d215ea801",
+   "bytes": 3599
+  }
+ },
+ "build_outputs_git_ignored": {
+  "attr_fix01": {
+   "path": "Build/Polish/29/fix01/attr/pl29_hero_attr_f32.bin",
+   "sha256": "2d8b394e7cd9428f688478056e9b9f689e177c077970ba2feaa9eaa15839e0e8"
+  },
+  "release_exe": {
+   "path": "Unity/Build/Polish/29/release/player/GreatWave50.exe",
+   "sha256": "5be81b3fa7df7c08cadee6f79d6ff3fe95481420f166ba8127390ea669c8b12c"
+  },
+  "renders": "Unity/Build/Polish/29/before/p28・after/p29d・fix01/p29g（全部の描画・診断・回り台・F7-1・動画）"
+ }
+}

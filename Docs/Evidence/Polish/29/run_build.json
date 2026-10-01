@@ -1,0 +1,163 @@
+{
+ "group": "仕上げ29",
+ "part": "BUILD",
+ "time": {
+  "start": "2026-10-01T12:33",
+  "end": "2026-10-01T14:02"
+ },
+ "tools": {
+  "unity": "6000.4.3f1（E:/6000.4.3f1/Editor/Unity.exe、batchmode、unity.lock で 1 つずつ）",
+  "python": "py -3.10（numpy・scipy・Pillow・OpenCV）",
+  "ffmpeg": "G:/ffmpeg-2024-12-19-git-494c961379-full_build/bin/ffmpeg.exe",
+  "device": "NVIDIA GeForce RTX 3080"
+ },
+ "commands": [
+  "py -3.10 -B Tools/GWWaveGen/pl29/pl29_hero_attr.py --gwb G:/Unity/GreatWave_2026_Fresh/Unity/Build/Polish/28/kstar_p28rec/kstarP28R2rec_a45.gwb --meta G:/Unity/GreatWave_2026_Fresh/Unity/Build/Polish/28/kstar_p28rec/kstarP28R2rec_a45_meta.json --out G:/Unity/GreatWave_2026_Fresh/Unity/Build/Polish/29/after/attr",
+  "powershell -File Tools/GWWaveGen/pl29/run_pl29_unity.ps1 -Method GreatWave.Polish29.EditorTools.PL29Setup.BuildScenes -Log setup_scenes3 -Extra \"-pl29ParamFile <repo>/Tools/GWWaveGen/pl29/pl29_material_params.txt -pl29Out <repo>/Unity/Build/Polish/29/after/setup\"",
+  "powershell -File Tools/GWWaveGen/pl29/run_pl29_unity.ps1 -Method GreatWave.Polish29.EditorTools.PL29Setup.EnsureMaterial -Log setup_mat2 -Extra \"-pl29ParamFile <repo>/Tools/GWWaveGen/pl29/pl29_material_params.txt\"（材質のファイルからシェーダーにない古い値を 1 つ消した。値は同じ）",
+  "powershell -File Tools/GWWaveGen/pl29/run_pl29_unity.ps1 -Method GreatWave.Polish29.EditorTools.PL29Render.Render -Log after_full_d -Extra \"-pl29Out <repo>/Unity/Build/Polish/29/after/p29d -pl29ParamFile <repo>/Tools/GWWaveGen/pl29/pl29_material_params.txt -pl29F71 264,351\"",
+  "powershell -File Tools/GWWaveGen/pl29/run_pl29_unity.ps1 -Method GreatWave.Polish29.EditorTools.PL29Render.Render -Log f71_90 -Extra \"-pl29Out <repo>/Unity/Build/Polish/29/after/f71_90 -pl29Only f71 -pl29F71 810,1035 -pl29F71Hz 90 -pl29ParamFile <params>\"",
+  "powershell -File Tools/GWWaveGen/pl29/run_pl29_unity.ps1 -Method GreatWave.Polish29.EditorTools.PL29Audit.Render -Log f71_90_before -Extra \"-pl29State p28 -pl29Out <repo>/Unity/Build/Polish/29/before/p28_f71_90 -pl29Skip views,tt,diag -pl29F71 810,1035 -pl29F71Hz 90\"",
+  "powershell -File Tools/GWWaveGen/pl29/run_pl29_unity.ps1 -Method GreatWave.Polish28.EditorTools.PL28Render.Render -Log before_video -Extra \"-pl28State p28 -pl28Out <repo>/Unity/Build/Polish/29/before/p28_video -pl28Skip t28,full,views,tt -pl28VideoViews painting,seat -pl28HeroPkg Build/Polish/28/G_p28rec/art_on -pl28HeroGwb Build/Polish/28/unity/bake_rec/kstar/kstar_a45.gwb -pl28HeroSdf Build/Polish/28/unity/bake_rec/bake/af28r01_uvsdf_a45.bin -pl28HeroUvWarp Build/Polish/28/unity/bake_rec/bake/af28r01_uvwarp_a45.json -pl28Timewarp Build/Polish/28/G_p28rec/timewarp_G_p28rec.json\"",
+  "powershell -File Tools/GWWaveGen/pl29/run_pl29_unity.ps1 -NoQuit -Method GreatWave.Polish29.EditorTools.PL29PlayModeCheck.Run -Log playmode_single -Extra \"-pl29Scene Assets/GreatWave/Polish29/Scenes/PL29_SinglePlayback.unity -pl29Out <repo>/Unity/Build/Polish/29/after/playmode_single -pl29Limit 120\"",
+  "powershell -File Tools/GWWaveGen/pl29/run_pl29_unity.ps1 -NoQuit -Method GreatWave.Polish29.EditorTools.PL29PlayModeCheck.Run -Log playmode_release -Extra \"-pl29Scene Assets/GreatWave/Polish29/Scenes/PL29_Release.unity -pl29Out <repo>/Unity/Build/Polish/29/after/playmode_release -pl29Limit 400\"",
+  "py -3.10 -B Tools/GWWaveGen/pl28/pl28u_regress.py --scene Unity/Build/Polish/29/after/p29d --kstar rec",
+  "py -3.10 Tools/PaintingTruth/evaluate.py --render <p29d>/full/painting_t120_off.png --ids <p29d>/full/<ids_noline|ids_noline_noclaws|ids_line|ids_line_noclaws>.png --idmap Unity/Build/Design/40/compare/eval/idmap.json --out-dir <p29d>/eval23/p29d_<組> --name p29d_<組>",
+  "py -3.10 -B Tools/GWWaveGen/pl28/pl28_f71_count.py --kind pngseq --src <p29d>/f71 --glob painting_f*.png --first 264 --name p29d_png --win 270,345 --out <p29d>/f71_count_pngseq.json（90 Hz は --first 810、窓なし）",
+  "py -3.10 -B Tools/GWWaveGen/pl29/pl29_after_measure.py --after Unity/Build/Polish/29/after/p29d --audit Docs/Evidence/Polish/29/metrics_audit.json --rec Unity/Build/Polish/28/unity/scene_rec --out Unity/Build/Polish/29/after/p29d/measure",
+  "py -3.10 -B Tools/GWWaveGen/pl29/pl29_build_sheets.py --before Unity/Build/Polish/29/before/p28 --after Unity/Build/Polish/29/after/p29d --out Unity/Build/Polish/29/after/sheets --catalogue Docs/Evidence/Polish/29/catalogue_audit.json",
+  "py -3.10 -B Tools/GWWaveGen/pl29/pl29_fig_extra.py --before Unity/Build/Polish/29/before/p28 --after Unity/Build/Polish/29/after/p29d --playmode Unity/Build/Polish/29/after/playmode_release --out Unity/Build/Polish/29/after/sheets",
+  "ffmpeg -i <前の動画 pl28_<v>_30fps.mp4> -i <後の動画 pl29_<v>_30fps.mp4> -filter_complex drawtext…hstack -c:v libx264 -crf 25 → Unity/Build/Polish/29/after/videos_ba/pl29b_ba_<v>_30fps.mp4（v = painting・seat・tt）",
+  "py -3.10 -B Tools/GWWaveGen/pl29/pl29_code_check.py --render Unity/Build/Polish/29/after/p29d --playmode Unity/Build/Polish/29/after/playmode_single Unity/Build/Polish/29/after/playmode_release --out Unity/Build/Polish/29/after/codecheck",
+  "py -3.10 -B Tools/GWWaveGen/pl29/pl29_build_record.py --start 2026-10-01T12:33 --end <時刻>"
+ ],
+ "noteJa": "p29d の描画は、材質のファイルからシェーダーにない古い値（_FrontWhite、シェーダーは読まない）を消す前のファイル（SHA-256 8911ffb382ad8bc4639d394324a9396ce0adf09c203aa62a86248f7ec1c3faef）に、同じ数値のファイル（-pl29ParamFile）を当てて描いた。今の材質のファイルの値と同じ。",
+ "files": {
+  "generator_attr": {
+   "path": "Tools/GWWaveGen/pl29/pl29_hero_attr.py",
+   "sha256": "0bf8b7c39afb9a741b845bafb340dca158acb9851d62fbd989309317d3d27131"
+  },
+  "params": {
+   "path": "Tools/GWWaveGen/pl29/pl29_material_params.txt",
+   "sha256": "f274bb3d0f790238f82b905acc473cdafe77fa8e058e7788fb1807e88d8dd4cb"
+  },
+  "shader": {
+   "path": "Unity/Assets/GreatWave/Polish29/Shaders/PL29_Ukiyoe_Hero.shader",
+   "sha256": "60b3f8d9ceef5a619b618c4335ddcab326e7e5ef5d818675c2cf2c048903990e"
+  },
+  "component": {
+   "path": "Unity/Assets/GreatWave/Polish29/Scripts/PL29UkiyoeHero.cs",
+   "sha256": "b1eceb73d383dd9f67ece8fa7bc46977465c404ed0b93b0e93c5b22663d429c1"
+  },
+  "material": {
+   "path": "Unity/Assets/GreatWave/Polish29/Materials/PL29_Ukiyoe_Hero.mat",
+   "sha256": "10876cdc616e9d9428b136a10fd98fbc63fac9e67e5331b2513a68acfa7c1bc8"
+  },
+  "render": {
+   "path": "Unity/Assets/GreatWave/Polish29/Editor/PL29Render.cs",
+   "sha256": "d7165695b912f483f9f9ec6a6b6375a64b1362400b246dd19a5325efe6f2a886"
+  },
+  "setup": {
+   "path": "Unity/Assets/GreatWave/Polish29/Editor/PL29Setup.cs",
+   "sha256": "1481c075c05d882eda14354650844c4ce1bc3210668ccbd6eb6866e32f746ae8"
+  },
+  "playmode": {
+   "path": "Unity/Assets/GreatWave/Polish29/Editor/PL29PlayModeCheck.cs",
+   "sha256": "60d4b8d762399f012f4fa9dfa7140765e4d1bb262130382c3dfc57aeceb63eaf"
+  },
+  "audit_edit": {
+   "path": "Unity/Assets/GreatWave/Polish29/Editor/PL29Audit.cs",
+   "sha256": "59483c4d67c8fd92ab53776956717917491c6756c0c3fe48025498d3066e1906"
+  },
+  "scene_release": {
+   "path": "Unity/Assets/GreatWave/Polish29/Scenes/PL29_Release.unity",
+   "sha256": "61d789e538555e0a50cd4b3dd016a59351d23a1f5954210c351ca827e3e61d08"
+  },
+  "scene_single": {
+   "path": "Unity/Assets/GreatWave/Polish29/Scenes/PL29_SinglePlayback.unity",
+   "sha256": "b190e69f0f9e324221827816da2737a6c444e803049a85bb600e0db1d1794f29"
+  },
+  "measure": {
+   "path": "Tools/GWWaveGen/pl29/pl29_after_measure.py",
+   "sha256": "4983d7f4f412695e1b9344d6fd724f11bf3472ac1e1edd77da19e6477f4b69b4"
+  },
+  "code_check": {
+   "path": "Tools/GWWaveGen/pl29/pl29_code_check.py",
+   "sha256": "c1d9ae06cd31c30584d9e817808441e2595d2e9555167944f6a984210f600004"
+  },
+  "sheets": {
+   "path": "Tools/GWWaveGen/pl29/pl29_build_sheets.py",
+   "sha256": "0585ab13f83b58a803a39a40aa56af057ea0be0544275b6e853fffd31a89f768"
+  },
+  "fig_extra": {
+   "path": "Tools/GWWaveGen/pl29/pl29_fig_extra.py",
+   "sha256": "32a55ffd6f6042263dd295f4a2835f2ad261e92ac7a12989cb6088b61a65b1a1"
+  },
+  "quicksheet": {
+   "path": "Tools/GWWaveGen/pl29/pl29_quicksheet.py",
+   "sha256": "863fb86b580f2a141b57b6cbc7955faecaac1f25de46a43b231a6af58164067b"
+  },
+  "runner": {
+   "path": "Tools/GWWaveGen/pl29/run_pl29_unity.ps1",
+   "sha256": "a17cd23ea34ee8d8a1914d7aa0ee8ccaaa0348114740cfa3a831c93025c267e1"
+  },
+  "record": {
+   "path": "Tools/GWWaveGen/pl29/pl29_build_record.py",
+   "sha256": "1b2f8b9a921330dca0a53eb78f3d26d59e9db5a381a5a0300f7cb7e44df5e044"
+  },
+  "attr_out": {
+   "path": "Unity/Build/Polish/29/after/attr/pl29_hero_attr_f32.bin（Git 対象外）",
+   "sha256": "4e2d124ba71343f0ad78eefae4893882e3fbfb0bb05d575048678c110dbc5d91"
+  },
+  "kstar_gwb_in": {
+   "path": "Unity/Build/Polish/28/kstar_p28rec/kstarP28R2rec_a45.gwb（Git 対象外）",
+   "sha256": "a3bb1c81a79a15b7903729bd845a2d4b2660d3a06a417a218ae66f58eeb01e94"
+  },
+  "kstar_meta_in": {
+   "path": "Unity/Build/Polish/28/kstar_p28rec/kstarP28R2rec_a45_meta.json（Git 対象外）",
+   "sha256": "90f8dbe1d04be6b9d25f7321645f9d472747cfc01737bd69f8ea4a8418c42a84"
+  }
+ },
+ "renderOutputs": {
+  "p29d_report": "Unity/Build/Polish/29/after/p29d/pl29_render_report.json",
+  "p29d_report_sha256": "17d134f860244e4b93a2a511a54d901f40def3d87a62fe08fab0136698be27b5",
+  "videos": [
+   {
+    "name": "painting",
+    "sha256": "0ee0f922cd544fcfdf3c73ae97edce65a427d029eca6a639afa1906963754162",
+    "frames": 421
+   },
+   {
+    "name": "seat",
+    "sha256": "062d32d090c02903bed0547b7e8778a47e6a72234715267c22544762c77dc1b8",
+    "frames": 421
+   },
+   {
+    "name": "tt",
+    "sha256": "8f1290cae0701852bb37374aa87b28c4fcde234601ecf981bcd07538d2a7dea9",
+    "frames": 120
+   }
+  ]
+ },
+ "evidence": {
+  "fig_pl29b_ba_crops.png": "84d3125f80c19d46e641c6ddef2a134a344fe69ccc64aeba660d02ec55ab2420",
+  "fig_pl29b_ba_t060_asis.png": "91611b14703d80e0389126149c202607ea8686d888f279d0d3296f4369007a1c",
+  "fig_pl29b_ba_t060_clawfree.png": "7811b8beabbba4c2aaa14afff5a03c069d0ec3de1abec606c909d75e44f0c0d7",
+  "fig_pl29b_ba_t090_asis.png": "9b8323eafa49014a0aa1e8db0f4483ab9382a2f36eb0abbeb98098b6a6e9dcb8",
+  "fig_pl29b_ba_t090_clawfree.png": "57c8e3c405d1982c27b93578a01c7fc5e5dd48bb079e70ba2596f599f7cd71ae",
+  "fig_pl29b_ba_t105_asis.png": "4db770bc4a364d5ad5778a01666fabedb2b4e6ce24758280f9827199da1f4d51",
+  "fig_pl29b_ba_t105_clawfree.png": "e936ae41fb4480bdc80d4e1c08c074d89999aa449b69a1391238e233d89f3b5c",
+  "fig_pl29b_ba_t120_asis.png": "dd44191cb3888274ef05fa206491d995e7e5762af54530c1e2590c59c6d5fe46",
+  "fig_pl29b_ba_t120_clawfree.png": "e1a2d4873d85988a5c9f55feec037b739f18cd177b9c2f4f0688cfcd078815dd",
+  "fig_pl29b_ba_turntable_t060.png": "f033167fa36f9ea724d776f874e9b792fd990e5f65d3e717a259d54c339d0f75",
+  "fig_pl29b_ba_turntable_t090.png": "23b30dea8d59aa133009c8ca3269d83c31ad5f439c3682929a7bf12aa0ced942",
+  "fig_pl29b_ba_turntable_t105.png": "ef2497e51a9b2347bd4bcd3873537263cdc08f28bd3ae60bef3b56ce20842a42",
+  "fig_pl29b_ba_turntable_t120.png": "18643b5c57b89643e6fdf84fa486ab30555d52529ed5f8e649e21ba82dd85f43",
+  "fig_pl29b_painting_compare.png": "20fc6ab9aef1bcd0fcfe61ac21d94067850359c1439750f7f3b74a461177e982",
+  "fig_pl29b_playmode_release.png": "ddefc544e9167811f5b71a932c9a8d7b912accf8eb7ac7c5a99fececda96cf63",
+  "pl29b_ba_painting_30fps.mp4": "4224d0c1aca45d2517b8260f417992b20f181ba3d3231bc0c1d4265774d5cba1",
+  "pl29b_ba_seat_30fps.mp4": "a6cfc79f7e77aa1fb98109efda3b83784dff48e5a874ddfe63ed5ee3d14b4f42",
+  "pl29b_ba_tt_30fps.mp4": "3773f19194b503eb14ecfb9ef3fafe48647708c89a10da841a1bcc8bd51641d5",
+  "code_check_build.json": "274e4be3b5b6500508df4e4d0c398b92669216df6859ef0ee66c05fc32383f8f"
+ }
+}

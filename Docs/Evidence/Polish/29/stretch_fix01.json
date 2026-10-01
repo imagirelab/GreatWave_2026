@@ -1,0 +1,118 @@
+{
+ "schema": "GreatWave.Polish29.stretch/1",
+ "noteJa": "仕上げ29 修正の回：主役波の材質の面の座標（s・c）が、K*′ の t* の面の上でどれだけ伸び縮みするかを測る（記録用。描画はしない）。",
+ "inputs": {
+  "gwb": "G:/Unity/GreatWave_2026_Fresh/Unity/Build/Polish/28/kstar_p28rec/kstarP28R2rec_a45.gwb",
+  "gwb_sha256": "a3bb1c81a79a15b7903729bd845a2d4b2660d3a06a417a218ae66f58eeb01e94",
+  "before": "G:/Unity/GreatWave_2026_Fresh/Unity/Build/Polish/29/after/attr/pl29_hero_attr_f32.bin",
+  "before_sha256": "4e2d124ba71343f0ad78eefae4893882e3fbfb0bb05d575048678c110dbc5d91",
+  "after": "G:/Unity/GreatWave_2026_Fresh/Unity/Build/Polish/29/fix01/attr/pl29_hero_attr_f32.bin",
+  "after_sha256": "2d8b394e7cd9428f688478056e9b9f689e177c077970ba2feaa9eaa15839e0e8"
+ },
+ "lambda_m": 0.95,
+ "cols": [
+  18,
+  394
+ ],
+ "before_uv2": {
+  "name": "前の版（UV2 の s・行の c）",
+  "triangles": 179728,
+  "area_m2": 3652.9270743716165,
+  "groove_spacing_factor_p5_p50_p95": [
+   1.001,
+   1.112,
+   2.233
+  ],
+  "groove_spacing_m_p50_p95": [
+   1.057,
+   2.121
+  ],
+  "groove_spacing_area_frac_gt2": 0.079,
+  "groove_spacing_area_frac_lt0p5": 0.0,
+  "c5_15_groove_spacing_factor_p50": 1.633,
+  "c5_15_area_frac_gt2": 0.337,
+  "flow_length_factor_p5_p50_p95": [
+   0.186,
+   0.975,
+   2.45
+  ],
+  "anisotropy_p50_p95": [
+   1.959,
+   9.162
+  ]
+ },
+ "after_arc": {
+  "name": "修正の版（t* の面の弧長 sa・ca）",
+  "triangles": 179728,
+  "area_m2": 3652.9270743716165,
+  "groove_spacing_factor_p5_p50_p95": [
+   0.354,
+   0.939,
+   0.999
+  ],
+  "groove_spacing_m_p50_p95": [
+   0.892,
+   0.949
+  ],
+  "groove_spacing_area_frac_gt2": 0.0,
+  "groove_spacing_area_frac_lt0p5": 0.107,
+  "c5_15_groove_spacing_factor_p50": 0.636,
+  "c5_15_area_frac_gt2": 0.0,
+  "flow_length_factor_p5_p50_p95": [
+   0.308,
+   0.838,
+   0.999
+  ],
+  "anisotropy_p50_p95": [
+   2.307,
+   17.638
+  ],
+  "groove_vs_flow_angle_deg_p50_p95": [
+   5.12,
+   49.05
+  ]
+ },
+ "after_grooves_octave": {
+  "groove_base_spacing_factor_p5_p50_p95": [
+   1.001,
+   1.098,
+   1.684
+  ],
+  "groove_effective_spacing_factor_p5_p50_p95": [
+   0.942,
+   0.971,
+   1.0
+  ],
+  "groove_effective_area_frac_gt1p2": 0.0,
+  "groove_effective_area_frac_lt0p8": 0.0,
+  "noteJa": "溝は行の c の上、kc で本数を 2 倍ずつ（FlowLines）。基の間隔は λ·2^f、間の溝が太さ f で加わる。実効の間隔は λ·2^f/(1+f)（0.94〜1.0 λ）"
+ },
+ "after_grooves_octave_c5_15": {
+  "groove_base_spacing_factor_p5_p50_p95": [
+   1.008,
+   1.245,
+   1.9
+  ],
+  "groove_effective_spacing_factor_p5_p50_p95": [
+   0.942,
+   0.96,
+   0.998
+  ],
+  "groove_effective_area_frac_gt1p2": 0.0,
+  "groove_effective_area_frac_lt0p8": 0.0,
+  "noteJa": "溝は行の c の上、kc で本数を 2 倍ずつ（FlowLines）。基の間隔は λ·2^f、間の溝が太さ f で加わる。実効の間隔は λ·2^f/(1+f)（0.94〜1.0 λ）"
+ },
+ "area_factor_p5_p50_p95": {
+  "before_uv2_s_c": [
+   0.237,
+   1.277,
+   4.044
+  ],
+  "after_sa_ca": [
+   0.514,
+   0.961,
+   1.597
+  ]
+ },
+ "readingJa": "before_uv2 は作る部の材質（溝・点・舌を UV2 の s と行の c の上に置いた）。after_arc の groove_* は ca の上に溝を置いた場合の値（ずれが大きいので溝には使わない）。修正の回の溝は after_grooves_octave（行の c の上、kc で本数を 2 倍ずつ）。点・房・泡の粒は after_arc の (sa, ca)。"
+}

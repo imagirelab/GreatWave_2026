@@ -1,0 +1,1399 @@
+{
+ "group": "仕上げ29",
+ "part": "修正の回 1 回目（Q28 は［利用者の言葉］の項目なので 2 回まで）",
+ "time": {
+  "start": "2026-10-01T14:22",
+  "end": "2026-10-01T15:45"
+ },
+ "noteJa": "Unity 6000.4.3f1 の PC オフスクリーン描画（RTX 3080、Direct3D11）と、Release のプレイヤーを PC で動かした結果。HMD 実機ではない。投影＝前の点検（PL29Audit、投影の焼き込み）、作る部＝p29d、修正の回＝p29g（同じ形 K*′ P28R2rec と動き G_p28rec）。同じ視点・同じ時刻・同じ数え方。",
+ "materialParams": [
+  "_BackB=0.41,0.41,0.24,0.10",
+  "_BackC=-30,-8,6,14",
+  "_BackWave=0.02,7,0,0",
+  "_FrontC0=-14,-12.5,-10.5,-8",
+  "_FrontC1=-6.8,-5,5,7",
+  "_FrontE0=2.15,1.75,1.38,1.38",
+  "_FrontE1=1.95,2.5,2.55,1.95",
+  "_Finger=2.8,0.30,0.15,4",
+  "_Finger2=0.78,3.1,0.6,1",
+  "_Finger3=0.4,0.25,0,0",
+  "_Fringe=0.7,0.06,0.05,1",
+  "_LobeShade=0.16,0.45,0.05,1",
+  "_FoamCells=1.2,0.40,0.9,0.65",
+  "_FoamCells2=0,0.97,0.3,1",
+  "_FoamDots=0.55,0.11,0.55,0.35",
+  "_TipFoam=0",
+  "_MinRowH=0.08",
+  "_ShadeDir=0,1,-0.6,0",
+  "_ShadeK=-0.35",
+  "_ShadeStatic=1",
+  "_ShadeFront=0",
+  "_GrooveLambda=0.95",
+  "_GrooveRatio=0.18,0.32,0,0",
+  "_GrooveWander=0.08,9,0,0",
+  "_GrooveDash=8,0.9,1,0",
+  "_GrooveFadePx=3,6,0,0",
+  "_Dots=0.67,0.07,0.30,0.25",
+  "_EdgeLinePx=1.5",
+  "_EdgeGrazing=0.06,0.2,0,0",
+  "_FeaturePx=1.0,2.5,0,0",
+  "_WhiteLines=3,0.07,0.92,1"
+ ],
+ "clawParams": [
+  "_Steps=0.30,-0.45,0,0"
+ ],
+ "gatesPaintingView": {
+  "t28_white": {
+   "78": {
+    "after_px": 2.741,
+    "p28rec_px": 2.741,
+    "cp1_px": 2.772,
+    "r26r01_px": 1.641,
+    "gate_px": 4.0,
+    "pass": true,
+    "regressVsP28rec_px": 0.0
+   },
+   "130": {
+    "after_px": 3.5815,
+    "p28rec_px": 3.5815,
+    "cp1_px": 1.968,
+    "r26r01_px": 1.953,
+    "gate_px": 4.0,
+    "pass": true,
+    "regressVsP28rec_px": 0.0
+   },
+   "131": {
+    "after_px": 3.4419,
+    "p28rec_px": 3.4419,
+    "cp1_px": 1.814,
+    "r26r01_px": 1.798,
+    "gate_px": 4.0,
+    "pass": true,
+    "regressVsP28rec_px": 0.0
+   },
+   "132_s12_max": {
+    "after_px": 3.5576,
+    "p28rec_px": 3.5576,
+    "cp1_px": 1.326,
+    "r26r01_px": 1.574,
+    "gate_px": 4.0,
+    "pass": true,
+    "regressVsP28rec_px": 0.0
+   },
+   "72_s12_p95": {
+    "after_px": 3.8507,
+    "p28rec_px": 3.8507,
+    "cp1_px": 1.558,
+    "r26r01_px": 1.723,
+    "gate_px": 4.0,
+    "pass": true,
+    "regressVsP28rec_px": 0.0
+   }
+  },
+  "t28_claws": {
+   "78": {
+    "after_px": 2.741,
+    "p28rec_px": 2.741,
+    "cp1_px": 2.772,
+    "r26r01_px": 1.641,
+    "gate_px": 4.0,
+    "pass": true,
+    "regressVsP28rec_px": 0.0
+   },
+   "130": {
+    "after_px": 3.5815,
+    "p28rec_px": 3.5815,
+    "cp1_px": 1.968,
+    "r26r01_px": 1.953,
+    "gate_px": 4.0,
+    "pass": true,
+    "regressVsP28rec_px": 0.0
+   },
+   "131": {
+    "after_px": 3.4419,
+    "p28rec_px": 3.4419,
+    "cp1_px": 1.814,
+    "r26r01_px": 1.798,
+    "gate_px": 4.0,
+    "pass": true,
+    "regressVsP28rec_px": 0.0
+   },
+   "132_s12_max": {
+    "after_px": 3.5576,
+    "p28rec_px": 3.5576,
+    "cp1_px": 1.326,
+    "r26r01_px": 1.574,
+    "gate_px": 4.0,
+    "pass": true,
+    "regressVsP28rec_px": 0.0
+   },
+   "72_s12_p95": {
+    "after_px": 3.5698,
+    "p28rec_px": 3.5698,
+    "cp1_px": 1.558,
+    "r26r01_px": 1.723,
+    "gate_px": 4.0,
+    "pass": true,
+    "regressVsP28rec_px": 0.0
+   }
+  }
+ },
+ "gatesNoteJa": "輪郭の関門 78・130・131・132（σ12）・72（σ12）は形の値で、修正の回でも P28R2rec・作る部と小数第 4 位まで同じ（後退なし）。CP1／26修正01 との差は仕上げ28 のまま。",
+ "evaluator23": {
+  "off_noline": {
+   "after_pass": 4,
+   "after_fail": 5,
+   "p28rec_pass": 4,
+   "p28rec_fail": 5,
+   "changed": []
+  },
+  "off_noline_noclaws": {
+   "after_pass": 4,
+   "after_fail": 5,
+   "p28rec_pass": 4,
+   "p28rec_fail": 5,
+   "changed": []
+  },
+  "off_line": {
+   "after_pass": 1,
+   "after_fail": 8,
+   "p28rec_pass": 1,
+   "p28rec_fail": 8,
+   "changed": []
+  },
+  "off_line_noclaws": {
+   "after_pass": 1,
+   "after_fail": 8,
+   "p28rec_pass": 1,
+   "p28rec_fail": 8,
+   "changed": []
+  }
+ },
+ "colourItemsNewReading": {
+  "t28_white": {
+   "73": {
+    "after_px": 62.73,
+    "after_verdict": "fail",
+    "p28rec_px": 2.484,
+    "p28rec_verdict": "pass",
+    "r28r01_px": 0.655,
+    "worst_measure": "boundary"
+   },
+   "77": {
+    "after_px": 45.143,
+    "after_verdict": "fail",
+    "p28rec_px": 0.855,
+    "p28rec_verdict": "pass",
+    "r28r01_px": 1.17,
+    "worst_measure": "lower_ends"
+   },
+   "79": {
+    "after_px": 64.912,
+    "after_verdict": "fail",
+    "p28rec_px": 1.017,
+    "p28rec_verdict": "pass",
+    "r28r01_px": 0.34,
+    "worst_measure": "boundary"
+   },
+   "118": {
+    "after_px": 62.73,
+    "after_verdict": "fail",
+    "p28rec_px": 2.484,
+    "p28rec_verdict": "pass",
+    "r28r01_px": 0.655,
+    "worst_measure": "boundary"
+   },
+   "120": {
+    "after_px": 62.73,
+    "after_verdict": "fail",
+    "p28rec_px": 0.288,
+    "p28rec_verdict": "pass",
+    "r28r01_px": 0.288,
+    "worst_measure": "boundary"
+   },
+   "133": {
+    "after_px": 43.209,
+    "after_verdict": "fail",
+    "p28rec_px": 0.743,
+    "p28rec_verdict": "pass",
+    "r28r01_px": 0.402,
+    "worst_measure": "boundary"
+   },
+   "134": {
+    "after_px": 41.102,
+    "after_verdict": "fail",
+    "p28rec_px": 7.264,
+    "p28rec_verdict": "fail",
+    "r28r01_px": 0.977,
+    "worst_measure": "boundary"
+   },
+   "175": {
+    "after_px": 240.592,
+    "after_verdict": "fail",
+    "p28rec_px": 18.401,
+    "p28rec_verdict": "fail",
+    "r28r01_px": 18.375,
+    "worst_measure": "boundary_by_class/mizuiro"
+   },
+   "263": {
+    "after_px": 27.52,
+    "after_verdict": "fail",
+    "p28rec_px": 2.484,
+    "p28rec_verdict": "pass",
+    "r28r01_px": 0.559,
+    "worst_measure": "boundary_lower"
+   },
+   "270": {
+    "after_px": 46.56,
+    "after_verdict": "fail",
+    "p28rec_px": 0.951,
+    "p28rec_verdict": "pass",
+    "r28r01_px": 0.563,
+    "worst_measure": "boundary"
+   },
+   "265_267": {
+    "after": {
+     "265_dE00": 13.974,
+     "265": "fail",
+     "266": "fail",
+     "267": "fail",
+     "267_bands_ge_20px": {
+      "painting_view": 101,
+      "seat_view": 6,
+      "seat_low_view": 2
+     }
+    },
+    "p28rec": {
+     "265_dE00": 0.545,
+     "265": "pass",
+     "266": "pass",
+     "267": "fail",
+     "267_bands_ge_20px": {
+      "painting_view": 6,
+      "seat_view": 0,
+      "seat_low_view": 0
+     }
+    }
+   }
+  },
+  "t28_claws": {
+   "73": {
+    "after_px": 62.73,
+    "after_verdict": "fail",
+    "p28rec_px": 2.484,
+    "p28rec_verdict": "pass",
+    "r28r01_px": 0.655,
+    "worst_measure": "boundary"
+   },
+   "77": {
+    "after_px": 45.143,
+    "after_verdict": "fail",
+    "p28rec_px": 0.855,
+    "p28rec_verdict": "pass",
+    "r28r01_px": 1.17,
+    "worst_measure": "lower_ends"
+   },
+   "79": {
+    "after_px": 64.912,
+    "after_verdict": "fail",
+    "p28rec_px": 1.017,
+    "p28rec_verdict": "pass",
+    "r28r01_px": 0.34,
+    "worst_measure": "boundary"
+   },
+   "118": {
+    "after_px": 62.73,
+    "after_verdict": "fail",
+    "p28rec_px": 2.484,
+    "p28rec_verdict": "pass",
+    "r28r01_px": 0.655,
+    "worst_measure": "boundary"
+   },
+   "120": {
+    "after_px": 62.73,
+    "after_verdict": "fail",
+    "p28rec_px": 0.288,
+    "p28rec_verdict": "pass",
+    "r28r01_px": 0.288,
+    "worst_measure": "boundary"
+   },
+   "133": {
+    "after_px": 43.209,
+    "after_verdict": "fail",
+    "p28rec_px": 0.743,
+    "p28rec_verdict": "pass",
+    "r28r01_px": 0.402,
+    "worst_measure": "boundary"
+   },
+   "134": {
+    "after_px": 41.478,
+    "after_verdict": "fail",
+    "p28rec_px": 2.047,
+    "p28rec_verdict": "pass",
+    "r28r01_px": 0.977,
+    "worst_measure": "boundary"
+   },
+   "175": {
+    "after_px": 240.592,
+    "after_verdict": "fail",
+    "p28rec_px": 18.401,
+    "p28rec_verdict": "fail",
+    "r28r01_px": 18.375,
+    "worst_measure": "boundary_by_class/mizuiro"
+   },
+   "263": {
+    "after_px": 27.52,
+    "after_verdict": "fail",
+    "p28rec_px": 2.484,
+    "p28rec_verdict": "pass",
+    "r28r01_px": 0.559,
+    "worst_measure": "boundary_lower"
+   },
+   "270": {
+    "after_px": 46.56,
+    "after_verdict": "fail",
+    "p28rec_px": 0.951,
+    "p28rec_verdict": "pass",
+    "r28r01_px": 0.563,
+    "worst_measure": "boundary"
+   },
+   "265_267": {
+    "after": {
+     "265_dE00": 13.974,
+     "265": "fail",
+     "266": "fail",
+     "267": "fail",
+     "267_bands_ge_20px": {
+      "painting_view": 114,
+      "seat_view": 6,
+      "seat_low_view": 2
+     }
+    },
+    "p28rec": {
+     "265_dE00": 0.545,
+     "265": "pass",
+     "266": "pass",
+     "267": "fail",
+     "267_bands_ge_20px": {
+      "painting_view": 4,
+      "seat_view": 0,
+      "seat_low_view": 0
+     }
+    }
+   }
+  }
+ },
+ "paintingMatch": {
+  "projection": {
+   "白と藍の一致": 1.0,
+   "色区の一致": 0.998,
+   "白": {
+    "iou": 0.96,
+    "render": 0.441,
+    "painting": 0.458
+   },
+   "淡い水色": {
+    "iou": 0.871,
+    "render": 0.13,
+    "painting": 0.148
+   },
+   "藍中": {
+    "iou": 0.947,
+    "render": 0.101,
+    "painting": 0.105
+   },
+   "藍濃": {
+    "iou": 0.893,
+    "render": 0.258,
+    "painting": 0.288
+   }
+  },
+  "build_p29d": {
+   "白と藍の一致": 0.814,
+   "色区の一致": 0.571,
+   "白": {
+    "iou": 0.552,
+    "render": 0.431,
+    "painting": 0.458
+   },
+   "淡い水色": {
+    "iou": 0.14,
+    "render": 0.12,
+    "painting": 0.148
+   },
+   "藍中": {
+    "iou": 0.08,
+    "render": 0.059,
+    "painting": 0.105
+   },
+   "藍濃": {
+    "iou": 0.386,
+    "render": 0.319,
+    "painting": 0.288
+   }
+  },
+  "fix_p29g_claws1": {
+   "白": {
+    "iou": 0.537,
+    "render": 0.459,
+    "painting": 0.458
+   },
+   "淡い水色": {
+    "iou": 0.094,
+    "render": 0.095,
+    "painting": 0.148
+   },
+   "藍中": {
+    "iou": 0.086,
+    "render": 0.064,
+    "painting": 0.105
+   },
+   "藍濃": {
+    "iou": 0.384,
+    "render": 0.312,
+    "painting": 0.288
+   },
+   "白と藍の一致": 0.812,
+   "色区の一致": 0.561
+  },
+  "fix_p29g_claws0": {
+   "白": {
+    "iou": 0.526,
+    "render": 0.452,
+    "painting": 0.458
+   },
+   "淡い水色": {
+    "iou": 0.094,
+    "render": 0.098,
+    "painting": 0.148
+   },
+   "藍中": {
+    "iou": 0.085,
+    "render": 0.064,
+    "painting": 0.105
+   },
+   "藍濃": {
+    "iou": 0.381,
+    "render": 0.315,
+    "painting": 0.288
+   },
+   "白と藍の一致": 0.807,
+   "色区の一致": 0.554
+  }
+ },
+ "clawSeparation": {
+  "build_p29d": {
+   "painting": {
+    "pieces": 180,
+    "readable": 53,
+    "readableFrac": 0.294,
+    "clawPx": 24065
+   },
+   "seat": {
+    "pieces": 66,
+    "readable": 64,
+    "readableFrac": 0.97,
+    "clawPx": 10714
+   },
+   "seat_toward_wave": {
+    "pieces": 15,
+    "readable": 15,
+    "readableFrac": 1.0,
+    "clawPx": 2444
+   },
+   "side_left": {
+    "pieces": 0,
+    "readable": 0,
+    "readableFrac": null,
+    "clawPx": 850
+   },
+   "side_right": {
+    "pieces": 0,
+    "readable": 0,
+    "readableFrac": null,
+    "clawPx": 0
+   },
+   "back65": {
+    "pieces": 0,
+    "readable": 0,
+    "readableFrac": null,
+    "clawPx": 0
+   },
+   "top": {
+    "pieces": 4,
+    "readable": 2,
+    "readableFrac": 0.5,
+    "clawPx": 1714
+   },
+   "turntable": {
+    "pieces": 421,
+    "readable": 346,
+    "readableFrac": 0.822,
+    "clawPx": 54855
+   }
+  },
+  "fix_p29g": {
+   "painting": {
+    "pieces": 180,
+    "readable": 157,
+    "readableFrac": 0.872,
+    "clawPx": 24065
+   },
+   "seat": {
+    "pieces": 66,
+    "readable": 62,
+    "readableFrac": 0.939,
+    "clawPx": 10714
+   },
+   "seat_toward_wave": {
+    "pieces": 15,
+    "readable": 15,
+    "readableFrac": 1.0,
+    "clawPx": 2444
+   },
+   "side_left": {
+    "pieces": 0,
+    "readable": 0,
+    "readableFrac": null,
+    "clawPx": 850
+   },
+   "side_right": {
+    "pieces": 0,
+    "readable": 0,
+    "readableFrac": null,
+    "clawPx": 0
+   },
+   "back65": {
+    "pieces": 0,
+    "readable": 0,
+    "readableFrac": null,
+    "clawPx": 0
+   },
+   "top": {
+    "pieces": 4,
+    "readable": 2,
+    "readableFrac": 0.5,
+    "clawPx": 1714
+   },
+   "turntable": {
+    "pieces": 421,
+    "readable": 337,
+    "readableFrac": 0.8,
+    "clawPx": 54855
+   }
+  },
+  "thresholds": {
+   "minPiecePx": 40,
+   "darkRelLum": 0.3,
+   "readableSepFrac": 0.6
+  }
+ },
+ "clawMeltedIdReading": {
+  "fix_p29g": {
+   "images": 72,
+   "heroPx": 31323837,
+   "flatCoreFracOfHero": 0.0104,
+   "flatRegions": 28,
+   "clawPieces": 509,
+   "clawPiecesMelted": 182,
+   "clawMeltedEdgeFrac": 0.6226
+  },
+  "byView": {
+   "painting": {
+    "after": {
+     "images": 4,
+     "heroPx": 905633,
+     "flatCoreFracOfHero": 0.0001,
+     "flatRegions": 0,
+     "clawPieces": 174,
+     "clawPiecesMelted": 43,
+     "clawMeltedEdgeFrac": 0.5966
+    },
+    "before": {
+     "images": 4,
+     "flatCoreFracOfHero": 0.0139,
+     "flatRegions": 2,
+     "clawPieces": 174,
+     "clawPiecesMelted": 0,
+     "seamSegments": 57,
+     "bands": 4,
+     "directFrac": 0.7021
+    }
+   },
+   "seat": {
+    "after": {
+     "images": 8,
+     "heroPx": 3010058,
+     "flatCoreFracOfHero": 0.0001,
+     "flatRegions": 0,
+     "clawPieces": 67,
+     "clawPiecesMelted": 8,
+     "clawMeltedEdgeFrac": 0.4547
+    },
+    "before": {
+     "images": 7,
+     "flatCoreFracOfHero": 0.4245,
+     "flatRegions": 8,
+     "clawPieces": 67,
+     "clawPiecesMelted": 0,
+     "seamSegments": 178,
+     "bands": 16,
+     "directFrac": 0.1934
+    }
+   },
+   "seat_toward_wave": {
+    "after": {
+     "images": 4,
+     "heroPx": 2239099,
+     "flatCoreFracOfHero": 0.0001,
+     "flatRegions": 0,
+     "clawPieces": 15,
+     "clawPiecesMelted": 1,
+     "clawMeltedEdgeFrac": 0.3405
+    },
+    "before": {
+     "images": 4,
+     "flatCoreFracOfHero": 0.4139,
+     "flatRegions": 6,
+     "clawPieces": 15,
+     "clawPiecesMelted": 0,
+     "seamSegments": 129,
+     "bands": 10,
+     "directFrac": 0.1621
+    }
+   },
+   "side_left": {
+    "after": {
+     "images": 4,
+     "heroPx": 1125736,
+     "flatCoreFracOfHero": 0.001,
+     "flatRegions": 0,
+     "clawPieces": 5,
+     "clawPiecesMelted": 1,
+     "clawMeltedEdgeFrac": 0.5571
+    },
+    "before": {
+     "images": 4,
+     "flatCoreFracOfHero": 0.0755,
+     "flatRegions": 6,
+     "clawPieces": 5,
+     "clawPiecesMelted": 0,
+     "seamSegments": 16,
+     "bands": 4,
+     "directFrac": 0.0549
+    }
+   },
+   "side_right": {
+    "after": {
+     "images": 4,
+     "heroPx": 541806,
+     "flatCoreFracOfHero": 0.0,
+     "flatRegions": 0,
+     "clawPieces": 0,
+     "clawPiecesMelted": 0,
+     "clawMeltedEdgeFrac": 0.0
+    },
+    "before": {
+     "images": 4,
+     "flatCoreFracOfHero": 0.0065,
+     "flatRegions": 0,
+     "clawPieces": 0,
+     "clawPiecesMelted": 0,
+     "seamSegments": 34,
+     "bands": 5,
+     "directFrac": 0.0084
+    }
+   },
+   "back65": {
+    "after": {
+     "images": 4,
+     "heroPx": 1678566,
+     "flatCoreFracOfHero": 0.0014,
+     "flatRegions": 0,
+     "clawPieces": 0,
+     "clawPiecesMelted": 0,
+     "clawMeltedEdgeFrac": 0.0
+    },
+    "before": {
+     "images": 4,
+     "flatCoreFracOfHero": 0.1659,
+     "flatRegions": 10,
+     "clawPieces": 0,
+     "clawPiecesMelted": 0,
+     "seamSegments": 0,
+     "bands": 4,
+     "directFrac": 0.0002
+    }
+   },
+   "top": {
+    "after": {
+     "images": 4,
+     "heroPx": 531386,
+     "flatCoreFracOfHero": 0.0047,
+     "flatRegions": 1,
+     "clawPieces": 7,
+     "clawPiecesMelted": 3,
+     "clawMeltedEdgeFrac": 0.6576
+    },
+    "before": {
+     "images": 4,
+     "flatCoreFracOfHero": 0.0207,
+     "flatRegions": 1,
+     "clawPieces": 7,
+     "clawPiecesMelted": 0,
+     "seamSegments": 25,
+     "bands": 4,
+     "directFrac": 0.1151
+    }
+   },
+   "turntable": {
+    "after": {
+     "images": 48,
+     "heroPx": 24436285,
+     "flatCoreFracOfHero": 0.0131,
+     "flatRegions": 27,
+     "clawPieces": 430,
+     "clawPiecesMelted": 170,
+     "clawMeltedEdgeFrac": 0.6446
+    },
+    "before": {
+     "images": 48,
+     "flatCoreFracOfHero": 0.1915,
+     "flatRegions": 109,
+     "clawPieces": 430,
+     "clawPiecesMelted": 0
+    }
+   }
+  },
+  "noteJa": "pl29_after_measure.py の「溶けた爪」は線なしの ID の画像で数えるので、縁の線を数えない。修正の回は主役波の前の白の陰の板をやめた（爪の後ろが白）ので、この読みでは溶けた片が 6 → 182 に増えた。作品のままの色の画像（線あり）で数えた clawSeparation を正とする（記録のみ）。"
+ },
+ "lipDashes": {
+  "p28": {
+   "dir": "G:/Unity/GreatWave_2026_Fresh/Unity/Build/Polish/29/before/p28",
+   "t120": {
+    "smallDarkPieces": 1,
+    "smallDarkPx": 15,
+    "darkPx": 1085
+   },
+   "t105": {
+    "smallDarkPieces": 5,
+    "smallDarkPx": 54,
+    "darkPx": 11804
+   }
+  },
+  "p29d": {
+   "dir": "G:/Unity/GreatWave_2026_Fresh/Unity/Build/Polish/29/after/p29d",
+   "t120": {
+    "smallDarkPieces": 21,
+    "smallDarkPx": 91,
+    "darkPx": 6078
+   },
+   "t105": {
+    "smallDarkPieces": 12,
+    "smallDarkPx": 62,
+    "darkPx": 15649
+   }
+  },
+  "p29g": {
+   "dir": "G:/Unity/GreatWave_2026_Fresh/Unity/Build/Polish/29/fix01/p29g",
+   "t120": {
+    "smallDarkPieces": 1,
+    "smallDarkPx": 4,
+    "darkPx": 2065
+   },
+   "t105": {
+    "smallDarkPieces": 12,
+    "smallDarkPx": 58,
+    "darkPx": 5933
+   }
+  }
+ },
+ "stretch": {
+  "before_uv2": {
+   "name": "前の版（UV2 の s・行の c）",
+   "triangles": 179728,
+   "area_m2": 3652.9270743716165,
+   "groove_spacing_factor_p5_p50_p95": [
+    1.001,
+    1.112,
+    2.233
+   ],
+   "groove_spacing_m_p50_p95": [
+    1.057,
+    2.121
+   ],
+   "groove_spacing_area_frac_gt2": 0.079,
+   "groove_spacing_area_frac_lt0p5": 0.0,
+   "c5_15_groove_spacing_factor_p50": 1.633,
+   "c5_15_area_frac_gt2": 0.337,
+   "flow_length_factor_p5_p50_p95": [
+    0.186,
+    0.975,
+    2.45
+   ],
+   "anisotropy_p50_p95": [
+    1.959,
+    9.162
+   ]
+  },
+  "after_arc_ca": {
+   "name": "修正の版（t* の面の弧長 sa・ca）",
+   "triangles": 179728,
+   "area_m2": 3652.9270743716165,
+   "groove_spacing_factor_p5_p50_p95": [
+    0.354,
+    0.939,
+    0.999
+   ],
+   "groove_spacing_m_p50_p95": [
+    0.892,
+    0.949
+   ],
+   "groove_spacing_area_frac_gt2": 0.0,
+   "groove_spacing_area_frac_lt0p5": 0.107,
+   "c5_15_groove_spacing_factor_p50": 0.636,
+   "c5_15_area_frac_gt2": 0.0,
+   "flow_length_factor_p5_p50_p95": [
+    0.308,
+    0.838,
+    0.999
+   ],
+   "anisotropy_p50_p95": [
+    2.307,
+    17.638
+   ],
+   "groove_vs_flow_angle_deg_p50_p95": [
+    5.12,
+    49.05
+   ]
+  },
+  "after_grooves_octave": {
+   "groove_base_spacing_factor_p5_p50_p95": [
+    1.001,
+    1.098,
+    1.684
+   ],
+   "groove_effective_spacing_factor_p5_p50_p95": [
+    0.942,
+    0.971,
+    1.0
+   ],
+   "groove_effective_area_frac_gt1p2": 0.0,
+   "groove_effective_area_frac_lt0p8": 0.0,
+   "noteJa": "溝は行の c の上、kc で本数を 2 倍ずつ（FlowLines）。基の間隔は λ·2^f、間の溝が太さ f で加わる。実効の間隔は λ·2^f/(1+f)（0.94〜1.0 λ）"
+  },
+  "after_grooves_octave_c5_15": {
+   "groove_base_spacing_factor_p5_p50_p95": [
+    1.008,
+    1.245,
+    1.9
+   ],
+   "groove_effective_spacing_factor_p5_p50_p95": [
+    0.942,
+    0.96,
+    0.998
+   ],
+   "groove_effective_area_frac_gt1p2": 0.0,
+   "groove_effective_area_frac_lt0p8": 0.0,
+   "noteJa": "溝は行の c の上、kc で本数を 2 倍ずつ（FlowLines）。基の間隔は λ·2^f、間の溝が太さ f で加わる。実効の間隔は λ·2^f/(1+f)（0.94〜1.0 λ）"
+  },
+  "area_factor": {
+   "before_uv2_s_c": [
+    0.237,
+    1.277,
+    4.044
+   ],
+   "after_sa_ca": [
+    0.514,
+    0.961,
+    1.597
+   ]
+  },
+  "readingJa": "before_uv2 は作る部の材質（溝・点・舌を UV2 の s と行の c の上に置いた）。after_arc の groove_* は ca の上に溝を置いた場合の値（ずれが大きいので溝には使わない）。修正の回の溝は after_grooves_octave（行の c の上、kc で本数を 2 倍ずつ）。点・房・泡の粒は after_arc の (sa, ca)。",
+  "reviewerReadingJa": "作る部の評審の読み：溝の 3 次元の間隔は 0.95 m × 1.21（p50）・× 2.73（p95）、c 5〜15 m の中央値 2.39 倍・2 倍を超える面積 68%、異方性 p95 6.7。"
+ },
+ "f71": {
+  "fps30_projection": {
+   "file": "Unity/Build/Polish/29/before/p28_f71/count_pngseq.json",
+   "frames": 86,
+   "M1b_sum_px": 52813,
+   "M1b_per_frame_px": 614.1,
+   "M1b_max_px": 1643,
+   "M1b_blobs_ge20": 306,
+   "M1b_max_blob_px": 404,
+   "M2_line_off": 89,
+   "window_270_345": {
+    "M1b_sum_px": 52069,
+    "M1b_max_px": 1643
+   }
+  },
+  "fps30_build_p29d": {
+   "file": "Unity/Build/Polish/29/after/p29d/f71_count_pngseq.json",
+   "frames": 86,
+   "M1b_sum_px": 57567,
+   "M1b_per_frame_px": 669.4,
+   "M1b_max_px": 1289,
+   "M1b_blobs_ge20": 600,
+   "M1b_max_blob_px": 645,
+   "M2_line_off": 254,
+   "window_270_345": {
+    "M1b_sum_px": 55492,
+    "M1b_max_px": 1289
+   }
+  },
+  "fps30_fix_p29g": {
+   "file": "Unity/Build/Polish/29/fix01/p29g/f71_count_pngseq.json",
+   "frames": 86,
+   "M1b_sum_px": 84428,
+   "M1b_per_frame_px": 981.7,
+   "M1b_max_px": 1815,
+   "M1b_blobs_ge20": 798,
+   "M1b_max_blob_px": 978,
+   "M2_line_off": 193,
+   "window_270_345": {
+    "M1b_sum_px": 80988,
+    "M1b_max_px": 1815
+   }
+  },
+  "hz90_projection": {
+   "file": "Unity/Build/Polish/29/before/p28_f71_90/f71_count_90.json",
+   "frames": 224,
+   "M1b_sum_px": 1192,
+   "M1b_per_frame_px": 5.3,
+   "M1b_max_px": 25,
+   "M1b_blobs_ge20": 0,
+   "M1b_max_blob_px": 0,
+   "M2_line_off": 0
+  },
+  "hz90_build_p29d": {
+   "file": "Unity/Build/Polish/29/after/f71_90/f71_count_90.json",
+   "frames": 224,
+   "M1b_sum_px": 5411,
+   "M1b_per_frame_px": 24.2,
+   "M1b_max_px": 61,
+   "M1b_blobs_ge20": 1,
+   "M1b_max_blob_px": 20,
+   "M2_line_off": 1
+  },
+  "hz90_fix_p29g": {
+   "file": "Unity/Build/Polish/29/fix01/f71_90/f71_count_90.json",
+   "frames": 224,
+   "M1b_sum_px": 11849,
+   "M1b_per_frame_px": 52.9,
+   "M1b_max_px": 141,
+   "M1b_blobs_ge20": 3,
+   "M1b_max_blob_px": 24,
+   "M2_line_off": 0
+  },
+  "fps30_fix_splits": {
+   "xa_nofringe": {
+    "file": "Unity/Build/Polish/29/fix01/xa_nofringe/f71_count_pngseq.json",
+    "frames": 86,
+    "M1b_sum_px": 89064,
+    "M1b_per_frame_px": 1035.6,
+    "M1b_max_px": 2013,
+    "M1b_blobs_ge20": 846,
+    "M1b_max_blob_px": 1010,
+    "M2_line_off": 164,
+    "window_270_345": {
+     "M1b_sum_px": 85705,
+     "M1b_max_px": 2013
+    }
+   },
+   "xb_nofoamdots": {
+    "file": "Unity/Build/Polish/29/fix01/xb_nofoamdots/f71_count_pngseq.json",
+    "frames": 86,
+    "M1b_sum_px": 89305,
+    "M1b_per_frame_px": 1038.4,
+    "M1b_max_px": 1975,
+    "M1b_blobs_ge20": 870,
+    "M1b_max_blob_px": 1052,
+    "M2_line_off": 201,
+    "window_270_345": {
+     "M1b_sum_px": 85783,
+     "M1b_max_px": 1975
+    }
+   },
+   "xc_nofoamcells": {
+    "file": "Unity/Build/Polish/29/fix01/xc_nofoamcells/f71_count_pngseq.json",
+    "frames": 86,
+    "M1b_sum_px": 85528,
+    "M1b_per_frame_px": 994.5,
+    "M1b_max_px": 1830,
+    "M1b_blobs_ge20": 852,
+    "M1b_max_blob_px": 1057,
+    "M2_line_off": 188,
+    "window_270_345": {
+     "M1b_sum_px": 82049,
+     "M1b_max_px": 1830
+    }
+   },
+   "xd_nolobes": {
+    "file": "Unity/Build/Polish/29/fix01/xd_nolobes/f71_count_pngseq.json",
+    "frames": 86,
+    "M1b_sum_px": 95168,
+    "M1b_per_frame_px": 1106.6,
+    "M1b_max_px": 2164,
+    "M1b_blobs_ge20": 961,
+    "M1b_max_blob_px": 1159,
+    "M2_line_off": 122,
+    "window_270_345": {
+     "M1b_sum_px": 91424,
+     "M1b_max_px": 2164
+    }
+   },
+   "xe_nogroove": {
+    "file": "Unity/Build/Polish/29/fix01/xe_nogroove/f71_count_pngseq.json",
+    "frames": 86,
+    "M1b_sum_px": 45406,
+    "M1b_per_frame_px": 528.0,
+    "M1b_max_px": 990,
+    "M1b_blobs_ge20": 549,
+    "M1b_max_blob_px": 697,
+    "M2_line_off": 211,
+    "window_270_345": {
+     "M1b_sum_px": 44083,
+     "M1b_max_px": 990
+    }
+   },
+   "xf_nogroove_nodots_nolines": {
+    "file": "Unity/Build/Polish/29/fix01/xf_nogroove_nodots_nolines/f71_count_pngseq.json",
+    "frames": 86,
+    "M1b_sum_px": 10397,
+    "M1b_per_frame_px": 120.9,
+    "M1b_max_px": 281,
+    "M1b_blobs_ge20": 53,
+    "M1b_max_blob_px": 76,
+    "M2_line_off": 218,
+    "window_270_345": {
+     "M1b_sum_px": 10184,
+     "M1b_max_px": 281
+    }
+   }
+  },
+  "noteJa": "数え方は段階7確認・仕上げ28・作る部と同じ（pl28_f71_count.py --kind pngseq、爪なし・飛沫なし・線あり、無圧縮の PNG）。x* は修正の回の材質の切り分けの試し（採らない）。"
+ },
+ "gpu": {
+  "fix_p29g": {
+   "timingHeroMs": {
+    "painting_1920x1080_msaa8": 0.568,
+    "seat_1920x1080_msaa8": 0.247,
+    "seat_toward_wave_1920x1080_msaa8": 0.688,
+    "seat_toward_wave_2eyes_2064x2208_msaa4": 0.954
+   },
+   "keyposeGpuBytes": 241344004,
+   "meshVertexBufferBytes": 9216000,
+   "meshVertexStrides": [
+    96
+   ],
+   "meshRuntimeBytes": 22878960,
+   "sdfTextureBytes": 0
+  },
+  "fix_runs": [
+   {
+    "run": "gpu2",
+    "timing": {
+     "painting_1920x1080_msaa8": 0.272,
+     "seat_1920x1080_msaa8": 0.167,
+     "seat_toward_wave_1920x1080_msaa8": 0.46,
+     "seat_toward_wave_2eyes_2064x2208_msaa4": 0.891
+    }
+   },
+   {
+    "run": "gpu3",
+    "timing": {
+     "painting_1920x1080_msaa8": 0.318,
+     "seat_1920x1080_msaa8": 0.246,
+     "seat_toward_wave_1920x1080_msaa8": 0.565,
+     "seat_toward_wave_2eyes_2064x2208_msaa4": 0.954
+    }
+   },
+   {
+    "run": "gpu4",
+    "timing": {
+     "painting_1920x1080_msaa8": 0.258,
+     "seat_1920x1080_msaa8": 0.232,
+     "seat_toward_wave_1920x1080_msaa8": 0.504,
+     "seat_toward_wave_2eyes_2064x2208_msaa4": 1.066
+    }
+   },
+   {
+    "run": "p29g",
+    "timing": {
+     "painting_1920x1080_msaa8": 0.568,
+     "seat_1920x1080_msaa8": 0.247,
+     "seat_toward_wave_1920x1080_msaa8": 0.688,
+     "seat_toward_wave_2eyes_2064x2208_msaa4": 0.954
+    }
+   }
+  ],
+  "build_and_projection": {
+   "noteJa": "作る部の評審（judge_gpu、Unity/Build/Polish/29/judge_nc/gpu）が測った値。方法は修正の回の gpu と同じ（壁時計、RTX 3080、HMD ではない）。",
+   "projection_before": {
+    "heroMs_2eyes_2064x2208_msaa4": 0.4906,
+    "sdfTextureBytes": 134218683,
+    "meshVertexBufferBytes": 4608000,
+    "meshVertexStride": 48
+   },
+   "build_p29d": {
+    "heroMs_2eyes_2064x2208_msaa4": 0.643,
+    "sdfTextureBytes": 0,
+    "meshVertexBufferBytes": 9216000,
+    "meshVertexStride": 96
+   },
+   "summaryJa": "作る部：主役波の面 +0.15 ms（2 眼 2064×2208・MSAA 4、0.49 → 0.64 ms、壁時計の見当、RTX 3080、HMD ではない）。色区の SDF テクスチャを外した（実行時 −134 MB／GPU で約 −64 MiB）。頂点バッファ 4.6 → 9.2 MB（面の座標の UV3〜5）。keypose のバッファ（heroGpuBytes 241,344,004）は変わらない。"
+  },
+  "methodJa": "Editor batchmode。主役波の面だけを残し（ほかのレンダラーは隠す）、t 6〜12 s を等分した 120 コマを RT へ描いて毎コマ 1 画素を読み戻す壁時計の平均を 3 回、主役波あり・なしで測り中央値の差を主役波の分とした（作る部の評審の judge_gpu と同じ方法）。2 眼は同じカメラで 2 回描く。GPU のタイマーではない。HMD 実機ではない。"
+ },
+ "codeCheck": {
+  "allPass": true,
+  "shader": true,
+  "shaderCameraPosOnlyForLineFade": true,
+  "component": true,
+  "attrGenerator": true,
+  "material": true,
+  "scenes": [
+   {
+    "file": "Unity/Assets/GreatWave/Polish29/Scenes/PL29_Release.unity",
+    "pass": true,
+    "bakeStringsInScene": [],
+    "seaFlatUv3Leftovers": []
+   },
+   {
+    "file": "Unity/Assets/GreatWave/Polish29/Scenes/PL29_SinglePlayback.unity",
+    "pass": true,
+    "bakeStringsInScene": [],
+    "seaFlatUv3Leftovers": [
+     "far: ds29_uv3_f32.bin",
+     "near: ds29_uv3_f32.bin"
+    ]
+   }
+  ],
+  "sea": true,
+  "claw": true,
+  "release": true,
+  "runtimeRender": true,
+  "runtimePlaymode": [
+   true,
+   true
+  ],
+  "recordOnly": {
+   "ds38_outline": {
+    "file": "Unity/Assets/GreatWave/Design38/Shaders/DS38_Outline_Keypose.shader",
+    "usesLineMask": true,
+    "usesPushPaint": true,
+    "noteJa": "主役波の外殻線（設計38）は、原画視点で原画にない線を描かない頂点の印（ds38_hero_linemask_f32.bin、原画視点で作った）と、原画視点の押し下げの重みを使う。線の見える・見えないの決まりで、色・溝・白の材質ではない。仕上げ38 で扱う（記録のみ）。"
+   },
+   "ds50_release_scene": {
+    "file": "Unity/Assets/GreatWave/Design50/Scenes/DS50_Release.unity",
+    "sha256": "51a24616a97f490d9c737d03c45708dba95f5e52cda9b0ab392821bea63556ab",
+    "bakeStrings": [
+     "Build/Design/29R01/bake_kp/bake/af28r01_uvsdf_a45.bin",
+     "Build/Design/29R01/bake_kp/bake/af28r01_uvwarp_a45.json",
+     "Build/Design/29R01/bake_kp/kstar/kstar_a45.gwb",
+     "Build/Design/31/white/hero_pkg",
+     "ds29_uv3_f32.bin"
+    ],
+    "noteJa": "設計50 の場面（と Build/Design/50/release の exe）は仕上げ29 の前の投影の焼き込みのまま。記録のため変えない。体験の Release は PL29ReleaseBuild が PL29_Release.unity から作る（10）。"
+   },
+   "ds36_claw_palette": {
+    "file": "Unity/Assets/GreatWave/Design36/Shaders/DS36_Claw_Palette.shader",
+    "usesPaintingLabelSdf": true,
+    "noteJa": "設計36 の爪の色は原画視点の画面の位置で原画の色区の表を引く（投影）。Polish29 の場面では DS36ClawPalette を切り、設計34 の視点によらない白・淡い水色にした。"
+   }
+  }
+ },
+ "release": {
+  "build": {
+   "scenesInBuild": [
+    "Assets/GreatWave/Polish29/Scenes/PL29_Release.unity"
+   ],
+   "playerPath": "G:\\Unity\\GreatWave_2026_Fresh\\Unity\\Build\\Polish\\29\\release\\player\\GreatWave50.exe",
+   "exeSha256": "5be81b3fa7df7c08cadee6f79d6ff3fe95481420f166ba8127390ea669c8b12c",
+   "buildResult": "Succeeded",
+   "heroPackageDir": "Build/Polish/28/G_p28rec/art_on",
+   "heroMeshGwb": "Build/Polish/28/kstar_p28rec/kstarP28R2rec_a45.gwb",
+   "heroSdfPath": "",
+   "heroWarpPath": "",
+   "heroUv3File": "",
+   "heroShader": "GreatWave/Polish29/PL29 Ukiyoe Keypose",
+   "heroAttr": "Build/Polish/29/fix01/attr/pl29_hero_attr_f32.bin",
+   "heroAttrSha256": "2d8b394e7cd9428f688478056e9b9f689e177c077970ba2feaa9eaa15839e0e8",
+   "timewarp": "Build/Polish/28/G_p28rec/timewarp_G_p28rec.json",
+   "clawShadeOnClaws": true,
+   "mustHavePresent": true,
+   "mustHaveMissing": [],
+   "bakeFilesAbsent": true,
+   "bakeFilesFound": [],
+   "dataFiles": 45,
+   "dataBytes": 720781821,
+   "dataSources": [
+    "Build/Polish/28/kstar_p28rec/kstarP28R2rec_a45.gwb",
+    "Build/Polish/28/G_p28rec/art_on",
+    "Build/Design/38/outlines/unity/prep/ds38_hero_linemask_f32.bin",
+    "Build/Polish/29/fix01/attr/pl29_hero_attr_f32.bin",
+    "Build/Design/30/sea/near",
+    "Build/Design/36/palette/prep/ds36_sea_uv3_near_f32.bin",
+    "Build/Design/36/palette/prep/ds36_sea_ramp_256_rgba8.bin",
+    "Build/Design/30/sea/far",
+    "Build/Design/36/palette/prep/ds36_sea_uv3_far_f32.bin",
+    "Build/Polish/28/G_p28rec/timewarp_G_p28rec.json",
+    "Build/Design/30/sea/boat_support.json",
+    "Build/Design/31/spray/ds31_spray_frames.json",
+    "Build/Design/39/paper/spray/ds39_spray_dense_frames.json",
+    "Build/Design/33/claws/ds33_claw_layout.json",
+    "Build/Design/36/palette/prep/ds36_claw_palette.json",
+    "Assets/GreatWave/Design46/Data/ds46_events.json"
+   ]
+  },
+  "runs": {
+   "main1": {
+    "dir": "Unity/Build/Polish/29/release/runs/main1",
+    "launch": {
+     "tag": "main1",
+     "exe": "G:\\Unity\\GreatWave_2026_Fresh\\Unity\\Build\\Polish\\29\\release\\player\\GreatWave50.exe",
+     "exeSha256": "5be81b3fa7df7c08cadee6f79d6ff3fe95481420f166ba8127390ea669c8b12c",
+     "args": "-screen-fullscreen 0 -screen-width 1920 -screen-height 1080 -logFile \"G:\\Unity\\GreatWave_2026_Fresh\\Unity\\Build\\Polish\\29\\release\\runs\\main1\\player.log\" --ds50auto main --ds50out \"G:\\Unity\\GreatWave_2026_Fresh\\Unity\\Build\\Polish\\29\\release\\runs\\main1\"",
+     "workingDirectory": "G:\\Unity\\GreatWave_2026_Fresh\\Unity\\Build\\Polish\\29\\release\\runs\\main1",
+     "utcStart": "2026-10-01T07:08:22.4557569Z",
+     "seconds": 93.624,
+     "exitCode": 0,
+     "timedOut": false,
+     "developerInputs": 0,
+     "noteJa": "プレイヤーの起動と終わりの待ちだけを行った。途中の操作はプレイヤーの中の自動の試し（仮想のキーボード）だけ。"
+    },
+    "report": {
+     "pass": true,
+     "errors": 0,
+     "exceptions": 0,
+     "warnings": 0,
+     "frames": 61686,
+     "realSeconds": 89.7520577,
+     "quitCause": "end_q",
+     "dataRootUsed": true,
+     "gpu": "NVIDIA GeForce RTX 3080",
+     "capturedFrames": 0,
+     "waveStartS": 44.36648002956021,
+     "experienceEndS": 72.36648002956021
+    }
+   },
+   "capture1": {
+    "dir": "Unity/Build/Polish/29/release/runs/capture1",
+    "launch": {
+     "tag": "capture1",
+     "exe": "G:\\Unity\\GreatWave_2026_Fresh\\Unity\\Build\\Polish\\29\\release\\player\\GreatWave50.exe",
+     "exeSha256": "5be81b3fa7df7c08cadee6f79d6ff3fe95481420f166ba8127390ea669c8b12c",
+     "args": "-screen-fullscreen 0 -screen-width 1920 -screen-height 1080 -logFile \"G:\\Unity\\GreatWave_2026_Fresh\\Unity\\Build\\Polish\\29\\release\\runs\\capture1\\player.log\" --ds50auto main --ds50out \"G:\\Unity\\GreatWave_2026_Fresh\\Unity\\Build\\Polish\\29\\release\\runs\\capture1\" --ds50capture",
+     "workingDirectory": "G:\\Unity\\GreatWave_2026_Fresh\\Unity\\Build\\Polish\\29\\release\\runs\\capture1",
+     "utcStart": "2026-10-01T07:10:04.3747862Z",
+     "seconds": 77.88,
+     "exitCode": 0,
+     "timedOut": false,
+     "developerInputs": 0,
+     "noteJa": "プレイヤーの起動と終わりの待ちだけを行った。途中の操作はプレイヤーの中の自動の試し（仮想のキーボード）だけ。"
+    },
+    "report": {
+     "pass": true,
+     "errors": 0,
+     "exceptions": 0,
+     "warnings": 0,
+     "frames": 2526,
+     "realSeconds": 74.13616200000001,
+     "quitCause": "end_q",
+     "dataRootUsed": true,
+     "gpu": "NVIDIA GeForce RTX 3080",
+     "capturedFrames": 2525,
+     "waveStartS": 44.345710851914184,
+     "experienceEndS": 72.34571085191419
+    }
+   }
+  }
+ },
+ "playmode": [
+  {
+   "scene": "Assets/GreatWave/Polish29/Scenes/PL29_SinglePlayback.unity",
+   "end": "静止に入って 1.5 s",
+   "rows": 815,
+   "sawPl29Shader": true,
+   "sawApplied": true,
+   "bakePathsEmptyAllFrames": true,
+   "lastHeroShader": "GreatWave/Polish29/PL29 Ukiyoe Keypose"
+  },
+  {
+   "scene": "Assets/GreatWave/Polish29/Scenes/PL29_Release.unity",
+   "end": "体験の終わりの画面に入って 1.5 s",
+   "rows": 6732,
+   "sawPl29Shader": true,
+   "sawApplied": true,
+   "bakePathsEmptyAllFrames": true,
+   "lastHeroShader": "GreatWave/Polish29/PL29 Ukiyoe Keypose"
+  }
+ ],
+ "renderReport": {
+  "unity": "6000.4.3f1",
+  "device": "NVIDIA GeForce RTX 3080",
+  "graphicsApi": "Direct3D11",
+  "colorSpace": "Linear",
+  "heroPackage": "Build/Polish/28/G_p28rec/art_on",
+  "heroPackageJsonSha256": "837eca90afa7921b0b8815842cef52101ce674fcd207c8aad62294ee9445a31b",
+  "heroMeshGwb": "Build/Polish/28/kstar_p28rec/kstarP28R2rec_a45.gwb",
+  "heroMeshSha256": "a3bb1c81a79a15b7903729bd845a2d4b2660d3a06a417a218ae66f58eeb01e94",
+  "timewarp": "Build/Polish/28/G_p28rec/timewarp_G_p28rec.json",
+  "timewarpSha256": "836224b5b86c194589d44f04115a8652f9b1dc55d9bae5399c0cd8338cb67af7",
+  "heroShader": "GreatWave/Polish29/PL29 Ukiyoe Keypose",
+  "material": "Assets/GreatWave/Polish29/Materials/PL29_Ukiyoe_Hero.mat",
+  "materialSha256": "6aeaa6dbe069f37a3f712290ee064c162c51012cc64dd3c1bf4881c18d2e7dc3",
+  "attr": "Build/Polish/29/fix01/attr/pl29_hero_attr_f32.bin",
+  "attrSha256": "2d8b394e7cd9428f688478056e9b9f689e177c077970ba2feaa9eaa15839e0e8",
+  "paramFile": "G:/Unity/GreatWave_2026_Fresh/Tools/GWWaveGen/pl29/pl29_material_params.txt",
+  "paramFileSha256": "55c5ebc1086941691fb6cff7b06f0bf70550510090891700a231ba3f3004d407",
+  "clawPalette": "d34",
+  "clawShade": "PL29ClawShade（GreatWave/Polish29/PL29 Claw Shade）",
+  "clawMaterial": "Assets/GreatWave/Polish29/Materials/PL29_Claw_Shade.mat",
+  "clawMaterialSha256": "78a5c072dc4ccf02f5ee754fa52b79261bf283751ffd4fdc95f50493c95217fb",
+  "clawSteps": "(0.300, -0.450, 0.000, 0.000)",
+  "clawVertexClasses": [
+   10264,
+   6004,
+   8784
+  ],
+  "clawLinesEverywhere": true,
+  "heroSdf": "",
+  "heroUvWarp": "",
+  "heroUv3File": "",
+  "heroUv3Source": "なし（平塗り）",
+  "heroGpuBytes": 241344004,
+  "protectedUnchanged": true,
+  "secondsTotal": 52.14934539794922
+ },
+ "evidenceFiles": [
+  "fig_pl29c_ba_crops.png",
+  "fig_pl29c_ba_t060_asis.png",
+  "fig_pl29c_ba_t060_clawfree.png",
+  "fig_pl29c_ba_t090_asis.png",
+  "fig_pl29c_ba_t090_clawfree.png",
+  "fig_pl29c_ba_t105_asis.png",
+  "fig_pl29c_ba_t105_clawfree.png",
+  "fig_pl29c_ba_t120_asis.png",
+  "fig_pl29c_ba_t120_clawfree.png",
+  "fig_pl29c_ba_turntable_t060.png",
+  "fig_pl29c_ba_turntable_t090.png",
+  "fig_pl29c_ba_turntable_t105.png",
+  "fig_pl29c_ba_turntable_t120.png",
+  "fig_pl29c_claws.png",
+  "fig_pl29c_lip.png",
+  "fig_pl29c_painting_compare.png",
+  "fig_pl29c_release_exe.png",
+  "fig_pl29c_stretch.png",
+  "pl29c_ba_painting_30fps.mp4",
+  "pl29c_ba_seat_30fps.mp4",
+  "pl29c_ba_tt_30fps.mp4",
+  "code_check_fix01.json",
+  "stretch_fix01.json",
+  "claw_sep_fix01.json",
+  "claw_sep_build.json",
+  "lip_dashes_fix01.json",
+  "gpu_fix01.json",
+  "release_build_fix01.json"
+ ]
+}
