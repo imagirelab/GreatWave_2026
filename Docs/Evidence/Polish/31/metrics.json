@@ -1,0 +1,1104 @@
+{
+ "schema": "GreatWave.Polish31.metrics/1",
+ "group": "仕上げ31（設計31 白波の発生と飛沫）",
+ "date": "2026-10-02",
+ "state_ja": "作る部と修正の回 1 回（計画 §5.1。この群に［利用者の言葉］の項目はないので 1 回）。修正01 は自己評審の指摘 9 件（白の 1 画素の線、尾の頂の糸、計画の 4 行、前の記述、爪の芽、150 の検査の範囲、仕上げ30 のコミット、放出点の Hash1、149 の子）。自己評審の must-fix への修正の回 1 の後、記録の部（2026-10-02）で証拠と提出の一覧を整えた。進行役の再評審の前。HMD 実機ではない",
+ "user_words_ja": "計画 §5.3 仕上げ31：「この群に、利用者の言葉でまだ満たしていないものはない」。［利用者の言葉］の項目は 0 件（2 回目の修正の回はない）。Q28（色に原画カメラの投影を使わない）は守る：白は材質 PL29 の白の範囲 ∧ T_white ≤ τ、飛沫の色は限定色 2 段を粒の t* の世界の高さで決める",
+ "record_phase": {
+  "date": "2026-10-02",
+  "checks_ja": [
+   "証拠の PNG 20 枚がどれも 1920×1080、MP4 5 本がどれも 5 MB 以下（最大 1.69 MB）",
+   "run.json の code_sha256（18 ファイル）が今のファイルと同じ（記録の部で直した pl31_sheets.py・pl31_record.py は再実行で更新）",
+   "PL31 の場面 2 つの guid 78 個：追跡済みの .meta 73、この群の PL31SprayFollow.cs.meta 1、パッケージ 2（XR Origin・TrackedPoseDriver）、組み込み 2",
+   "場面の SHA-256（PL31_Release fae6da09…・PL31_SinglePlayback 468512a0…）、T_white 76e00d0b…、exe 5be81b3f… が metrics.json と同じ",
+   "追跡済みのファイルの変更 0（git status）。README.md・Docs/Progress/README.md は変えていない"
+  ],
+  "sheets_ja": "視点ごとの前後の図 7 枚の見出しの 2 行目が右端で切れていた（「原画の点 210」の後）ので、pl31_sheets.py で見出しを短くし、前・後の中身を図の下の欄に折り返した。拡大の段は切り抜きの縦横の比の高さで上に詰めた。回り台の 4 枚は作り直してもバイト単位で同じ（同じ描画から作れることの確かめ）。動画は作り直していない"
+ },
+ "before_ja": "前＝コミットした仕上げ30（b9140db、2026-10-01 22:31:47 +0800、修正02 を含む）。前の描画 r_before2（22:57）はこのコミットの後に -pl31Old 1 で作った",
+ "backlog": [
+  "102",
+  "135",
+  "149",
+  "150",
+  "151",
+  "152",
+  "172",
+  "173",
+  "174",
+  "176",
+  "201",
+  "220",
+  "223",
+  "226",
+  "230"
+ ],
+ "time_box_days": 1.0,
+ "plan_rows": {
+  "1 白の出現・発生の表・放出点を G_p28rec で作り直す": {
+   "result": "作り直した（修正01 で白の順を作り直した）",
+   "twhite_sha256": "76e00d0bb8ce2818da4467194eeec537b123bbf8147bc2a727be6fda40ceaa4a",
+   "onset_records": 39809,
+   "judgement": "満たす"
+  },
+  "2 放出点を終態が白の頂点に限る": {
+   "emitters_zone_white": 2495,
+   "emitters_total": 2495,
+   "emitters_white_before_emit": 2495,
+   "emitters_hash_robust": 2495,
+   "emitters_r0": {
+    "emitters": 2495,
+    "zone_f64_pos": 2495,
+    "robust_pos": 2462,
+    "robust_over_0p01": 2459,
+    "zone_min": 0.030810372462081403
+   },
+   "emitters_fx01": {
+    "emitters": 2495,
+    "zone_f64_pos": 2495,
+    "robust_pos": 2495,
+    "robust_over_0p01": 2495,
+    "zone_min": 0.017871436807873176
+   },
+   "before_ja": "設計31：63／186 が白でない頂点。修正前（仕上げ31 の 1 回目）：2,495 とも白の範囲だが、房の Hash1 によらない白の範囲は 2,462（この道具の下限の読み）",
+   "judgement": "満たす（2,495／2,495 が Hash1 によらない白の範囲で、放出の時に白）"
+  },
+  "3 原画の白い点の取り出しを手の注記と照合・区域の外の点・主役波の前に来る 6 点": {
+   "eye": {
+    "all_candidates": 260,
+    "accepted": 210,
+    "lip_front": 186,
+    "right_sky": 15,
+    "near_boat": 9,
+    "eye_listed": 24
+   },
+   "over_hero": 6,
+   "over_hero_white_kept": 6,
+   "judgement": "満たす（目の照合 1 回。二人目なし）"
+  },
+  "4 飛沫の数・大小・分布（2〜3 千個）、設計39 の ③ の子": {
+   "total": 2500,
+   "parents": 210,
+   "children": 2290,
+   "child_rules": {
+    "inside_dot": 200,
+    "over_white": 2090
+   },
+   "child_rules_r0": {
+    "offscreen": 231,
+    "occluded": 1939,
+    "inside_dot": 50,
+    "over_white": 70
+   },
+   "painting_tstar_components_outside_dots": 0,
+   "radius_m": {
+    "parent": [
+     0.03,
+     0.0514,
+     0.1132
+    ],
+    "child": [
+     0.0202,
+     0.0481,
+     0.1295
+    ]
+   },
+   "radius_p10_50_90": {
+    "spray_r0_parent": [
+     0.0355,
+     0.0514,
+     0.0815
+    ],
+    "spray_r0_child": [
+     0.02,
+     0.0272,
+     0.0468
+    ],
+    "spray_r0_inside_dot": [
+     50,
+     0.02,
+     0.0249,
+     0.0368
+    ],
+    "spray_r0_over_white": [
+     70,
+     0.02,
+     0.0266,
+     0.0462
+    ],
+    "spray_r0_occluded": [
+     1939,
+     0.02,
+     0.0272,
+     0.0467
+    ],
+    "spray_r0_offscreen": [
+     231,
+     0.02,
+     0.0281,
+     0.0491
+    ],
+    "spray_r0_tone": [
+     902,
+     1598
+    ],
+    "spray_parent": [
+     0.0355,
+     0.0514,
+     0.0815
+    ],
+    "spray_child": [
+     0.0324,
+     0.0481,
+     0.0752
+    ],
+    "spray_inside_dot": [
+     200,
+     0.0287,
+     0.0393,
+     0.0529
+    ],
+    "spray_over_white": [
+     2090,
+     0.0331,
+     0.0494,
+     0.0761
+    ],
+    "spray_tone": [
+     2372,
+     128
+    ]
+   },
+   "judgement": "満たす（数 2,500。子の半径は原画の点に合わせた親の分布 ×0.85〜1.15、原画の点の中の子は点の円に収まる大きさ。原画視点の分布は原画の点の中 200（点ごと 2 個まで）・白の上 2,090 で、t* に原画にない点 0。原画視点の外の分布は原画に手本がなく、唇のまわりの飛沫として目で確かめた）"
+  },
+  "5 151 の ΔE00": {
+   "colour_reading_before": {
+    "median": 2.0526863770553043,
+    "p90": 5.380665942791582,
+    "max": 30.37323999915245,
+    "over5": 25
+   },
+   "colour_reading_after": {
+    "median": 2.3250681155961663,
+    "p90": 3.844911672770476,
+    "max": 27.075623118252484,
+    "over5": 7
+   },
+   "render_reading_before": {
+    "n": 186,
+    "median": 2.128247622151854,
+    "p90": 4.330344158130667,
+    "max": 26.48118485864459,
+    "over5": 14
+   },
+   "render_reading_after": {
+    "n": 210,
+    "median": 2.540785373256197,
+    "p90": 4.340682936222098,
+    "max": 23.987786588604447,
+    "over5": 14
+   },
+   "judgement": "改善（≤5 は全部では満たさない。記録のみ）"
+  },
+  "6 135・177 を今の動きで測る、F8 の見え方": {
+   "b135_before": -0.04242424242424241,
+   "b135_r0": 0.9636363636363635,
+   "b135_after": 0.9272727272727272,
+   "b135_back": 0.9999999999999999,
+   "b135_bins_after": [
+    8.274712877872288,
+    8.370158167355557,
+    8.38265376455913,
+    8.420194928851359,
+    8.570496199866103,
+    8.370834997964797,
+    8.575374560975852,
+    9.43864821488069,
+    9.796113840347061,
+    10.045006247036953
+   ],
+   "b177_all_rise": true,
+   "b177_rise_min_m": 0.296,
+   "f8_variant": {
+    "parents": 210,
+    "ok150": 210
+   },
+   "f8_used": 5,
+   "judgement": "測った（135：0.93。爪の根元の白（pl31_white_claw_pin）で F 1.6〜2.0 の区間が早まる。177 合格、F8 は図で比べた）"
+  },
+  "7 V3 の寿命が 150 で延びない粒": {
+   "extendable_x1_6": 71,
+   "not_extendable": 134,
+   "before_ja": "設計35：105／186 が同じ",
+   "judgement": "測った（134／205 は延ばせない。V3 は比べの版で場面に入らない）"
+  },
+  "8 評価器に飛沫と爪の層を分けるマスク": {
+   "decision_ja": "評価器の ID には飛沫を入れない今の読みを続け、飛沫の印は『飛沫あり − 飛沫なし』の差の画像で別に数える（pl31_measure.py）。評価器そのものは変えない",
+   "judgement": "決めた"
+  },
+  "9 白の出現の精度（美術優先31 の残り）": {
+   "b102": {
+    "surface_max": 0.019376790610210803,
+    "world_max": 0.018991989607217374,
+    "over2_surface": 0,
+    "over2_world": 0,
+    "first_white_t": 5.800448799241013,
+    "all_white_t": 10.766666666666667
+   },
+   "b102_before": {
+    "surface_max": 0.022129764322681433,
+    "world_max": 0.021518425007418518,
+    "over2_surface": 7,
+    "over2_world": 5
+   },
+   "b102_r0": {
+    "surface_max": 0.018328466724452985,
+    "world_max": 0.019584370319731925
+   },
+   "unity_outside_final_white_max_px": 4,
+   "unity_nonwhite_changed_max_px": 0,
+   "judgement": "満たす"
+  }
+ },
+ "fix01": {
+  "white_order": {
+   "mode": "patch",
+   "seed_row": 160,
+   "c_seed_m": -0.800000011920929,
+   "s_crest_seed_m": 63.16982650756836,
+   "ks": 1.0,
+   "kb": 1.0,
+   "band_front_m": 0.0,
+   "band_back_m": 0.0,
+   "vertices": 89349,
+   "tau_shift_abs_median_s": 0.21050268411636353,
+   "tau_shift_abs_max_s": 2.6724015325307846,
+   "rule_ja": "d = √(Δc² + (max(|Δs| − w, 0)/k)²) の順（前 k = ks・w = band_front_m、背 k = kb・w = band_back_m）。頂の両側の幅 w の帯は、頂に沿って白が届いた時にそろって白くなる。本体の列の有限の T_white の値の集まりを d の順に割り当て直す",
+   "claws_after_order": {
+    "zone_rooted": 131,
+    "violations": 46,
+    "violations_any": 49,
+    "lag_max_s": 3.246850331868428,
+    "violations_bilinear_1frame": 43,
+    "lag_bilinear_max_s": 3.2347943627867846,
+    "rule_ja": "violations：根元の格子の 4 頂点がそろって白くなる時刻が最初に見えるコマより半コマ超遅い。violations_bilinear_1frame：根元の T_white を双線形に補った時刻が 1 コマ超遅い"
+   },
+   "after_order_before_cap": {
+    "tag": "pl31_white_order（patch）・pl31_white_claw_pin の後（cap の前）",
+    "final_white_area_tstar_m2": 1492.4854072545945,
+    "final_white_samples": 716343,
+    "zone_samples_never_white": 0,
+    "zone_area_never_white_m2": 0.0,
+    "first_white_t": 5.833333333333333,
+    "first_white_tau": -2.799775600433349,
+    "first_white_t_exact": 5.800448799241013,
+    "all_white_t": 10.766666666666667,
+    "surface_fraction_max_increment": 0.019376790610210803,
+    "surface_fraction_max_increment_t": 9.6,
+    "surface_frames_over_2pct": 0,
+    "world_fraction_max_increment": 0.018991989607217374,
+    "world_fraction_max_increment_t": 9.6,
+    "world_frames_over_2pct": 0,
+    "monotone_surface": true
+   }
+  },
+  "claw_pin": {
+   "r_pin_m": 0.6,
+   "v_pin_mps": 1.5,
+   "cone_m": 0.6,
+   "vertices_moved": 3504,
+   "rule_ja": "白の範囲に根元がある爪ごとに、根元から r_pin 以内の T_white をその爪の最初に見えるコマの半コマ前までに、外は根元から v_pin で広がる円錐の時刻までに早める（円錐は根元から r_pin + cone_m まで。早める向きだけ）"
+  },
+  "rate_cap": null,
+  "claws_136": {
+   "rule_ja": "設計33 の爪（場面で再生する焼き込み）のうち根元が白の範囲にあるもの。根元の格子の 4 頂点がそろって白くなる時刻（t）が、最初に見えるコマの時刻より半コマ以上遅いものを「白くなる前に伸び始める」と数える",
+   "before_pl30": {
+    "zone_rooted": 131,
+    "violations": 83,
+    "violations_any": 105,
+    "lag_max_s": 1.1273934050683234,
+    "violations_bilinear_1frame": 8,
+    "lag_bilinear_max_s": 1.0609637969714516,
+    "rule_ja": "violations：根元の格子の 4 頂点がそろって白くなる時刻が最初に見えるコマより半コマ超遅い。violations_bilinear_1frame：根元の T_white を双線形に補った時刻が 1 コマ超遅い"
+   },
+   "r0": {
+    "zone_rooted": 131,
+    "violations": 38,
+    "violations_any": 38,
+    "lag_max_s": 1.9560658539809843,
+    "violations_bilinear_1frame": 38,
+    "lag_bilinear_max_s": 1.9198021899350666,
+    "rule_ja": "violations：根元の格子の 4 頂点がそろって白くなる時刻が最初に見えるコマより半コマ超遅い。violations_bilinear_1frame：根元の T_white を双線形に補った時刻が 1 コマ超遅い"
+   },
+   "after": {
+    "zone_rooted": 131,
+    "violations": 0,
+    "violations_any": 0,
+    "lag_max_s": -0.016666666666666607,
+    "violations_bilinear_1frame": 0,
+    "lag_bilinear_max_s": -0.01666666666666572,
+    "rule_ja": "violations：根元の格子の 4 頂点がそろって白くなる時刻が最初に見えるコマより半コマ超遅い。violations_bilinear_1frame：根元の T_white を双線形に補った時刻が 1 コマ超遅い"
+   },
+   "judge_reading_ja": "自己評審の読み：修正前 32／131（前 8）、最大 +1.68 s（C171）"
+  },
+  "check150": {
+   "rule_ja": "主役波の本体の列 18〜394・近い海 64 行・遠い海 19 行の全部。240 Hz の各コマで最も近い頂点までの距離（接触）、偶奇は頂点から 1 m 以内と、parity_hz ごとと τ = 0 には全部の点。離れない（放出から 0.3 s のうちに半径 + 0.10 m 離れない）も数える",
+   "r0": {
+    "inside": 11,
+    "inside_tstar_hold": 11,
+    "contact": 0,
+    "never_left": 0,
+    "inside_by_kind": {
+     "parent": 0,
+     "child": 11
+    },
+    "gap_0p2s_m": {
+     "parent": {
+      "min": 0.13312329423553895,
+      "median": 0.3481819459922729,
+      "under_0p1": 0
+     },
+     "child": {
+      "min": 0.07069851912203835,
+      "median": 1.1322782776754283,
+      "under_0p1": 1
+     }
+    }
+   },
+   "after": {
+    "inside": 0,
+    "inside_tstar_hold": 0,
+    "contact": 0,
+    "never_left": 0,
+    "inside_by_kind": {
+     "parent": 0,
+     "child": 0
+    },
+    "gap_0p2s_m": {
+     "parent": {
+      "min": 0.13312329423553895,
+      "median": 0.42285083057236517,
+      "under_0p1": 0
+     },
+     "child": {
+      "min": 0.11208372694747909,
+      "median": 0.36993914121457294,
+      "under_0p1": 0
+     }
+    }
+   },
+   "judge_reading_ja": "自己評審の読み：修正前 9 粒が水へ入り 8 粒が t* の保持で水の中"
+  },
+  "children": {
+   "mode": "targeted",
+   "targets": {
+    "inside_dot_tries": 1332,
+    "inside_dot_targets": 1025,
+    "over_white_tries": 10500,
+    "over_white_targets": 3467
+   },
+   "candidates": 4492,
+   "no_solution": 0,
+   "failed": {
+    "contact": 218,
+    "inside": 1097,
+    "never_left": 1538,
+    "gap": 845
+   },
+   "inside_examples": [
+    {
+     "rule": "inside_dot",
+     "tau": -0.2958333333332086,
+     "p": [
+      -3.8189788793926507,
+      13.399768052995398,
+      -9.374273031956555
+     ]
+    },
+    {
+     "rule": "inside_dot",
+     "tau": -0.316666666666543,
+     "p": [
+      -4.151850303215002,
+      13.490675763698015,
+      -9.032926863945372
+     ]
+    },
+    {
+     "rule": "inside_dot",
+     "tau": -0.5833333333332229,
+     "p": [
+      -8.468444035831764,
+      14.546732442823835,
+      -4.5668835031900725
+     ]
+    },
+    {
+     "rule": "inside_dot",
+     "tau": -0.5624999999998885,
+     "p": [
+      -8.13460720140629,
+      14.491657992804353,
+      -4.890573408256534
+     ]
+    },
+    {
+     "rule": "inside_dot",
+     "tau": -0.4999999999998854,
+     "p": [
+      -7.011513771650385,
+      14.1336325695016,
+      -6.001854967017863
+     ]
+    },
+    {
+     "rule": "inside_dot",
+     "tau": -0.4999999999998854,
+     "p": [
+      -7.19712226415893,
+      14.134460972092162,
+      -6.2402184872685105
+     ]
+    },
+    {
+     "rule": "inside_dot",
+     "tau": -0.6624999999998935,
+     "p": [
+      -9.520025041837243,
+      14.733461812853744,
+      -3.0078073559635747
+     ]
+    },
+    {
+     "rule": "inside_dot",
+     "tau": -0.6499999999998929,
+     "p": [
+      -9.537572294712133,
+      14.698338712957352,
+      -3.542289078031305
+     ]
+    },
+    {
+     "rule": "inside_dot",
+     "tau": -0.6333333333332254,
+     "p": [
+      -9.08239190613649,
+      14.670123116361475,
+      -3.5211761532535046
+     ]
+    },
+    {
+     "rule": "inside_dot",
+     "tau": -0.6583333333332266,
+     "p": [
+      -9.66890423362055,
+      14.845827052425774,
+      -2.9152750709304946
+     ]
+    },
+    {
+     "rule": "inside_dot",
+     "tau": -0.6708333333332273,
+     "p": [
+      -9.871156898725062,
+      14.867989515876506,
+      -2.683540066287528
+     ]
+    },
+    {
+     "rule": "inside_dot",
+     "tau": -0.5083333333332192,
+     "p": [
+      -6.712516806560176,
+      13.914486708549525,
+      -5.569309055013779
+     ]
+    },
+    {
+     "rule": "inside_dot",
+     "tau": -0.5041666666665523,
+     "p": [
+      -6.630070659763867,
+      14.10774166276856,
+      -5.088093489848631
+     ]
+    },
+    {
+     "rule": "inside_dot",
+     "tau": -0.4999999999998854,
+     "p": [
+      -6.448547298342012,
+      13.886905462945283,
+      -5.287700050691621
+     ]
+    },
+    {
+     "rule": "inside_dot",
+     "tau": -0.48333333333321793,
+     "p": [
+      -6.200018626282064,
+      13.821971133835843,
+      -5.6433300487512055
+     ]
+    },
+    {
+     "rule": "inside_dot",
+     "tau": -0.579166666666556,
+     "p": [
+      -7.724967255921818,
+      14.351256792020886,
+      -3.0622643479234126
+     ]
+    },
+    {
+     "rule": "inside_dot",
+     "tau": -0.5541666666665548,
+     "p": [
+      -7.344886393909709,
+      14.301848385691182,
+      -3.3436404654478813
+     ]
+    },
+    {
+     "rule": "inside_dot",
+     "tau": -0.5208333333332198,
+     "p": [
+      -6.839710654541345,
+      14.186259428357397,
+      -3.3134060482087984
+     ]
+    },
+    {
+     "rule": "inside_dot",
+     "tau": -0.4416666666665492,
+     "p": [
+      -10.902507892984065,
+      12.803099979722111,
+      -9.424307545700847
+     ]
+    },
+    {
+     "rule": "inside_dot",
+     "tau": -0.4541666666665498,
+     "p": [
+      -10.830637834399798,
+      12.730677113234913,
+      -9.475864794266027
+     ]
+    }
+   ],
+   "passed": 2927,
+   "dropped_visible_in_render": 111,
+   "chosen": 2290,
+   "rules": {
+    "inside_dot": 200,
+    "over_white": 2090
+   },
+   "need": 2290
+  },
+  "children_r0": {
+   "offscreen": 231,
+   "occluded": 1939,
+   "inside_dot": 50,
+   "over_white": 70
+  },
+  "painting_white_fraction_unity": {
+   "painting_t058": 0.0,
+   "painting_t060": 0.0,
+   "painting_t065": 0.063,
+   "painting_t070": 0.157,
+   "painting_t075": 0.275,
+   "painting_t080": 0.511,
+   "painting_t085": 0.673,
+   "painting_t090": 0.771,
+   "painting_t095": 0.819,
+   "painting_t100": 0.933,
+   "painting_t105": 0.995,
+   "painting_t110": 1.0,
+   "painting_t115": 1.0,
+   "painting_t120": 1.0
+  },
+  "painting_white_fraction_unity_before": {
+   "painting_t058": 0.0,
+   "painting_t060": 0.03,
+   "painting_t065": 0.077,
+   "painting_t070": 0.106,
+   "painting_t075": 0.132,
+   "painting_t080": 0.249,
+   "painting_t085": 0.408,
+   "painting_t090": 0.515,
+   "painting_t095": 0.62,
+   "painting_t100": 0.878,
+   "painting_t105": 0.96,
+   "painting_t110": 0.994,
+   "painting_t115": 1.0,
+   "painting_t120": 1.0
+  }
+ },
+ "painting_gates": {
+  "after": {
+   "t28_white": {
+    "sha_same_as_pl30": true,
+    "s12": {
+     "132_max_px": 3.5576,
+     "132_p95_px": 3.3931,
+     "72_p95_px": 3.8507,
+     "72_max_px": 6.2493,
+     "132_worst_xy": [
+      999.64,
+      260.08
+     ],
+     "72_worst_xy": [
+      872.0,
+      696.91
+     ]
+    }
+   },
+   "t28_claws": {
+    "sha_same_as_pl30": true,
+    "s12": {
+     "132_max_px": 3.5576,
+     "132_p95_px": 3.2345,
+     "72_p95_px": 3.5698,
+     "72_max_px": 6.2493,
+     "132_worst_xy": [
+      999.64,
+      260.08
+     ],
+     "72_worst_xy": [
+      872.0,
+      696.91
+     ]
+    }
+   }
+  },
+  "cp1": {
+   "g78": 2.772,
+   "g130": 1.968,
+   "g131": 1.814,
+   "g132": 1.326,
+   "g72": 1.558
+  },
+  "ds26r01": {
+   "g78": 1.641,
+   "g130": 1.953,
+   "g131": 1.798,
+   "g132": 1.574,
+   "g72": 1.723
+  },
+  "note_ja": "t* の ID の画像（t28_white・t28_claws）が仕上げ30 と SHA-256 まで同じなので、形の関門の値は仕上げ30 と同じ"
+ },
+ "evaluator23": {
+  "after": {
+   "noline": {
+    "pass_": 4,
+    "fail": 5,
+    "sky": [
+     {
+      "item": "76",
+      "target": "sky_dark",
+      "value_max_px": 61.0855,
+      "p95_px": 22.3829,
+      "verdict": "fail"
+     },
+     {
+      "item": "76",
+      "target": "sky_bottom",
+      "value_max_px": null,
+      "p95_px": null,
+      "verdict": "pass"
+     },
+     {
+      "item": "212",
+      "target": "sky_top",
+      "value_max_px": null,
+      "p95_px": null,
+      "verdict": "pass"
+     },
+     {
+      "item": "213",
+      "target": "sky_transition",
+      "value_max_px": 21.6404,
+      "p95_px": 2.7262,
+      "verdict": "fail"
+     },
+     {
+      "item": "213",
+      "target": "boat_ochre",
+      "value_max_px": null,
+      "p95_px": null,
+      "verdict": "record-only"
+     }
+    ]
+   },
+   "noline_noclaws": {
+    "pass_": 4,
+    "fail": 5,
+    "sky": [
+     {
+      "item": "76",
+      "target": "sky_dark",
+      "value_max_px": 61.0855,
+      "p95_px": 22.3829,
+      "verdict": "fail"
+     },
+     {
+      "item": "76",
+      "target": "sky_bottom",
+      "value_max_px": null,
+      "p95_px": null,
+      "verdict": "pass"
+     },
+     {
+      "item": "212",
+      "target": "sky_top",
+      "value_max_px": null,
+      "p95_px": null,
+      "verdict": "pass"
+     },
+     {
+      "item": "213",
+      "target": "sky_transition",
+      "value_max_px": 21.6404,
+      "p95_px": 2.7262,
+      "verdict": "fail"
+     },
+     {
+      "item": "213",
+      "target": "boat_ochre",
+      "value_max_px": null,
+      "p95_px": null,
+      "verdict": "record-only"
+     }
+    ]
+   },
+   "line": {
+    "pass_": 2,
+    "fail": 7,
+    "sky": [
+     {
+      "item": "76",
+      "target": "sky_dark",
+      "value_max_px": 35.3717,
+      "p95_px": 18.6282,
+      "verdict": "fail"
+     },
+     {
+      "item": "76",
+      "target": "sky_bottom",
+      "value_max_px": null,
+      "p95_px": null,
+      "verdict": "pass"
+     },
+     {
+      "item": "212",
+      "target": "sky_top",
+      "value_max_px": null,
+      "p95_px": null,
+      "verdict": "pass"
+     },
+     {
+      "item": "213",
+      "target": "sky_transition",
+      "value_max_px": 3.8134,
+      "p95_px": 2.3337,
+      "verdict": "pass"
+     },
+     {
+      "item": "213",
+      "target": "boat_ochre",
+      "value_max_px": null,
+      "p95_px": null,
+      "verdict": "record-only"
+     }
+    ]
+   },
+   "line_noclaws": {
+    "pass_": 2,
+    "fail": 7,
+    "sky": [
+     {
+      "item": "76",
+      "target": "sky_dark",
+      "value_max_px": 35.3717,
+      "p95_px": 18.6282,
+      "verdict": "fail"
+     },
+     {
+      "item": "76",
+      "target": "sky_bottom",
+      "value_max_px": null,
+      "p95_px": null,
+      "verdict": "pass"
+     },
+     {
+      "item": "212",
+      "target": "sky_top",
+      "value_max_px": null,
+      "p95_px": null,
+      "verdict": "pass"
+     },
+     {
+      "item": "213",
+      "target": "sky_transition",
+      "value_max_px": 3.8134,
+      "p95_px": 2.3337,
+      "verdict": "pass"
+     },
+     {
+      "item": "213",
+      "target": "boat_ochre",
+      "value_max_px": null,
+      "p95_px": null,
+      "verdict": "record-only"
+     }
+    ]
+   }
+  },
+  "r0": {
+   "noline": {
+    "pass_": 4,
+    "fail": 5
+   },
+   "noline_noclaws": {
+    "pass_": 4,
+    "fail": 5
+   },
+   "line": {
+    "pass_": 2,
+    "fail": 7
+   },
+   "line_noclaws": {
+    "pass_": 2,
+    "fail": 7
+   }
+  },
+  "pl30": {
+   "noline": {
+    "pass_": 4,
+    "fail": 5,
+    "sky": [
+     {
+      "item": "76",
+      "target": "sky_dark",
+      "value_max_px": 61.0855,
+      "p95_px": 22.3644,
+      "verdict": "fail"
+     },
+     {
+      "item": "76",
+      "target": "sky_bottom",
+      "value_max_px": null,
+      "p95_px": null,
+      "verdict": "pass"
+     },
+     {
+      "item": "212",
+      "target": "sky_top",
+      "value_max_px": null,
+      "p95_px": null,
+      "verdict": "pass"
+     },
+     {
+      "item": "213",
+      "target": "sky_transition",
+      "value_max_px": 19.1438,
+      "p95_px": 2.9983,
+      "verdict": "fail"
+     },
+     {
+      "item": "213",
+      "target": "boat_ochre",
+      "value_max_px": null,
+      "p95_px": null,
+      "verdict": "record-only"
+     }
+    ]
+   },
+   "noline_noclaws": {
+    "pass_": 4,
+    "fail": 5,
+    "sky": [
+     {
+      "item": "76",
+      "target": "sky_dark",
+      "value_max_px": 61.0855,
+      "p95_px": 22.3644,
+      "verdict": "fail"
+     },
+     {
+      "item": "76",
+      "target": "sky_bottom",
+      "value_max_px": null,
+      "p95_px": null,
+      "verdict": "pass"
+     },
+     {
+      "item": "212",
+      "target": "sky_top",
+      "value_max_px": null,
+      "p95_px": null,
+      "verdict": "pass"
+     },
+     {
+      "item": "213",
+      "target": "sky_transition",
+      "value_max_px": 19.1438,
+      "p95_px": 2.9983,
+      "verdict": "fail"
+     },
+     {
+      "item": "213",
+      "target": "boat_ochre",
+      "value_max_px": null,
+      "p95_px": null,
+      "verdict": "record-only"
+     }
+    ]
+   },
+   "line": {
+    "pass_": 1,
+    "fail": 8,
+    "sky": [
+     {
+      "item": "76",
+      "target": "sky_dark",
+      "value_max_px": 35.3717,
+      "p95_px": 18.6013,
+      "verdict": "fail"
+     },
+     {
+      "item": "76",
+      "target": "sky_bottom",
+      "value_max_px": null,
+      "p95_px": null,
+      "verdict": "pass"
+     },
+     {
+      "item": "212",
+      "target": "sky_top",
+      "value_max_px": null,
+      "p95_px": null,
+      "verdict": "pass"
+     },
+     {
+      "item": "213",
+      "target": "sky_transition",
+      "value_max_px": 4.8815,
+      "p95_px": 2.724,
+      "verdict": "fail"
+     },
+     {
+      "item": "213",
+      "target": "boat_ochre",
+      "value_max_px": null,
+      "p95_px": null,
+      "verdict": "record-only"
+     }
+    ]
+   },
+   "line_noclaws": {
+    "pass_": 1,
+    "fail": 8,
+    "sky": [
+     {
+      "item": "76",
+      "target": "sky_dark",
+      "value_max_px": 35.3717,
+      "p95_px": 18.6013,
+      "verdict": "fail"
+     },
+     {
+      "item": "76",
+      "target": "sky_bottom",
+      "value_max_px": null,
+      "p95_px": null,
+      "verdict": "pass"
+     },
+     {
+      "item": "212",
+      "target": "sky_top",
+      "value_max_px": null,
+      "p95_px": null,
+      "verdict": "pass"
+     },
+     {
+      "item": "213",
+      "target": "sky_transition",
+      "value_max_px": 4.8815,
+      "p95_px": 2.724,
+      "verdict": "fail"
+     },
+     {
+      "item": "213",
+      "target": "boat_ochre",
+      "value_max_px": null,
+      "p95_px": null,
+      "verdict": "record-only"
+     }
+    ]
+   }
+  },
+  "changed_vs_pl30": {
+   "noline": {},
+   "noline_noclaws": {},
+   "line": {
+    "213": [
+     "pass",
+     "fail"
+    ]
+   },
+   "line_noclaws": {
+    "213": [
+     "pass",
+     "fail"
+    ]
+   }
+  }
+ },
+ "unity": {
+  "render_after_seconds": 36.413387298583984,
+  "render_protected_unchanged": true,
+  "spray_data": [
+   "G:/Unity/GreatWave_2026_Fresh/Unity/Build/Polish/31/spray/pl31_spray_tone0_frames.json a1ad8e9a20c73a7b9966841b6e6971dff0b679e23e384e68aee3ad3b0f5d6e4d count=2372 colour=RGBA(0.9843, 0.9647, 0.8902, 1.0000)",
+   "G:/Unity/GreatWave_2026_Fresh/Unity/Build/Polish/31/spray/pl31_spray_tone1_frames.json eaadc88b871771574263c86e07467dcb49bedecf9cf4bc0feb7c1717ec4cce0d count=128 colour=RGBA(0.9216, 0.9020, 0.8353, 1.0000)"
+  ],
+  "hero_twhite_sha256": "76e00d0bb8ce2818da4467194eeec537b123bbf8147bc2a727be6fda40ceaa4a",
+  "before_spray": [
+   "Build/Design/31/spray/ds31_spray_frames.json 9db0a42811aa2c72f1cefbf8b80386f2e919a8b80fe65f7e91dd6a60c9b25c5f count=186 colour=RGBA(0.9725, 0.9529, 0.8745, 1.0000)"
+  ],
+  "playmode_single_rows": 817,
+  "playmode_release_rows": 6732,
+  "scenes": [
+   {
+    "to": "Assets/GreatWave/Polish31/Scenes/PL31_Release.unity",
+    "sha256": "fae6da09085d31fb032d0a378bd3704e60daff0009c5055b67cebf15fe7f3bcf"
+   },
+   {
+    "to": "Assets/GreatWave/Polish31/Scenes/PL31_SinglePlayback.unity",
+    "sha256": "468512a0b41d9dd96f38d654fb3cbfb8a7ce048fac2aa9309fd01acc86225b7c"
+   }
+  ],
+  "release": {
+   "result": "Succeeded",
+   "data_files": 44,
+   "data_bytes": 813044946,
+   "mustHave": true,
+   "bake_absent": true,
+   "absolute_paths": 0,
+   "scene_sha256": "fae6da09085d31fb032d0a378bd3704e60daff0009c5055b67cebf15fe7f3bcf",
+   "exe_sha256": "5be81b3fa7df7c08cadee6f79d6ff3fe95481420f166ba8127390ea669c8b12c"
+  },
+  "player_run": {
+   "pass_": true,
+   "frames": 50968,
+   "errors": 0,
+   "exceptions": 0,
+   "quitCause": "end_q"
+  }
+ },
+ "measure_r0": {
+  "components_outside_dots": 0,
+  "px": 0
+ }
+}

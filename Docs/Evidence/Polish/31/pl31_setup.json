@@ -1,0 +1,37 @@
+{
+    "utc": "2026-10-01T17:54:19.2975459Z",
+    "unity": "6000.4.3f1",
+    "heroPkg": "Build/Polish/31/white/hero_pkg",
+    "heroTwhiteSha256": "76e00d0bb8ce2818da4467194eeec537b123bbf8147bc2a727be6fda40ceaa4a",
+    "sprayDir": "Build/Polish/31/spray",
+    "sprayFiles": [
+        "Build/Polish/31/spray/pl31_spray_tone0_frames.json 35ef718560dd32008ccadcd4a76449aedd4e81b4dc3930743e563da5123f63dc",
+        "Build/Polish/31/spray/pl31_spray_tone1_frames.json 5bce4c1626d2ed57329e857480052558f5752b290f9459554e6bdd948624ec54"
+    ],
+    "scenes": [
+        {
+            "from": "Assets/GreatWave/Polish30/Scenes/PL30_Release.unity",
+            "fromSha256Before": "fbfc465ead6fdd1c389f641e872277c7c8d50da8aebdb32e5bb9472e7df149e0",
+            "fromSha256After": "fbfc465ead6fdd1c389f641e872277c7c8d50da8aebdb32e5bb9472e7df149e0",
+            "to": "Assets/GreatWave/Polish31/Scenes/PL31_Release.unity",
+            "toSha256": "fae6da09085d31fb032d0a378bd3704e60daff0009c5055b67cebf15fe7f3bcf",
+            "changesJa": [
+                "主役波 packageDir Build/Polish/28/G_p28rec/art_on → Build/Polish/31/white/hero_pkg（T_white だけ差し替え。修正01：pl31_white_order（patch）・pl31_white_claw_pin。pl31_white_rate_cap は 2% を越える時だけ掛かり、修正01 では掛からなかった）",
+                "飛沫 DS31 spray の dataPath Build/Design/31/spray/ds31_spray_frames.json → Build/Polish/31/spray/pl31_spray_tone0_frames.json（白・生成り、色は JSON）",
+                "灰の白の段を 2 つ目の DS31InstancedParticles（Build/Polish/31/spray/pl31_spray_tone1_frames.json）で足し、入切を PL31SprayFollow で 1 つ目に合わせた",
+                "DS46ClockBus の sprays に灰の白の段を加えた：DS46 共通時計の段"
+            ]
+        },
+        {
+            "from": "Assets/GreatWave/Polish30/Scenes/PL30_SinglePlayback.unity",
+            "fromSha256Before": "3372822344b75407d525ff1c01861a731d11c1620c5396318fca90155b1097a9",
+            "fromSha256After": "3372822344b75407d525ff1c01861a731d11c1620c5396318fca90155b1097a9",
+            "to": "Assets/GreatWave/Polish31/Scenes/PL31_SinglePlayback.unity",
+            "toSha256": "468512a0b41d9dd96f38d654fb3cbfb8a7ce048fac2aa9309fd01acc86225b7c",
+            "changesJa": [
+                "主役波 packageDir Build/Polish/28/G_p28rec/art_on → Build/Polish/31/white/hero_pkg（T_white だけ差し替え。修正01：pl31_white_order（patch）・pl31_white_claw_pin。pl31_white_rate_cap は 2% を越える時だけ掛かり、修正01 では掛からなかった）",
+                "飛沫の層はない（単発再生の場面）"
+            ]
+        }
+    ]
+}

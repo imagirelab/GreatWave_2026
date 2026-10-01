@@ -1,0 +1,60 @@
+{
+ "schema": "GreatWave.DS31.white_onset/1",
+ "number_ja": "仕上げ31：白の出現（T_white）を発生位置と時刻にした表（G_p28rec・PL29 の白の範囲）",
+ "file": "pl31_white_onset_f32.bin",
+ "sha256": "d6d5b06895cec69dc118e23f5f06dd463ea99f5ed62d94349c3f4c6e58e145ba",
+ "records": 39809,
+ "fields": [
+  "row",
+  "col",
+  "tau_white",
+  "t_white",
+  "x",
+  "y",
+  "z",
+  "vx",
+  "vy",
+  "vz",
+  "region",
+  "nx",
+  "ny",
+  "nz",
+  "vertex"
+ ],
+ "layout_ja": "float32 リトルエンディアン、記録 × 15。T_white の早い順。位置はワールド（m）、速度はワールドの m/s（τ の秒あたり、波の枠の動きを含む）、法線は t* の面の法線（面の座標 C）。region：0 背・1 唇の上面・2 唇の下面と管の天井・3 管の奥と前面",
+ "selection_ja": "材質 PL29 の白の範囲（頂点の面の座標で zZone > 0）、T_white が有限、本体の列 18〜394。投影の色面は使わない",
+ "regions": {
+  "0": {
+   "name_ja": "背（F < 1）",
+   "vertices": 10143,
+   "t_first": 5.8078698168264165,
+   "t_last": 10.743570233391358,
+   "speed_median_mps": 20.25305030605712
+  },
+  "1": {
+   "name_ja": "唇の上面（頂 → 唇の先、F 1〜2）",
+   "vertices": 23428,
+   "t_first": 5.80006256105017,
+   "t_last": 10.744414235161377,
+   "speed_median_mps": 20.11238861472635
+  },
+  "2": {
+   "name_ja": "唇の下面・管の天井（F 2〜3）",
+   "vertices": 6238,
+   "t_first": 6.05,
+   "t_last": 10.745757366226746,
+   "speed_median_mps": 18.930265273271264
+  }
+ },
+ "inputs": {
+  "package": "G:/Unity/GreatWave_2026_Fresh/Unity/Build/Polish/28/G_p28rec/art_on",
+  "pos_sha256": "c8c0b61afecc98243941f307d8f832cf51340f2b03286eb57bce98c7bd23d75a",
+  "twhite_sha256": "76e00d0bb8ce2818da4467194eeec537b123bbf8147bc2a727be6fda40ceaa4a",
+  "warp": "G:/Unity/GreatWave_2026_Fresh/Unity/Build/Polish/28/G_p28rec/timewarp_G_p28rec.json",
+  "warp_sha256": "836224b5b86c194589d44f04115a8652f9b1dc55d9bae5399c0cd8338cb67af7",
+  "attr": "G:/Unity/GreatWave_2026_Fresh/Unity/Build/Polish/29/fix01/attr/pl29_hero_attr_f32.bin",
+  "attr_sha256": "2d8b394e7cd9428f688478056e9b9f689e177c077970ba2feaa9eaa15839e0e8",
+  "params": "G:/Unity/GreatWave_2026_Fresh/Tools/GWWaveGen/pl29/pl29_material_params.txt",
+  "params_sha256": "55c5ebc1086941691fb6cff7b06f0bf70550510090891700a231ba3f3004d407"
+ }
+}
