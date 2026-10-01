@@ -1,0 +1,5848 @@
+{
+ "schema": "GreatWave.Polish28.metrics_motion/1",
+ "made_local": "2026-10-01T05:57:46+0800",
+ "note_ja": "仕上げ28 の動きの当て直し（計画 §5.3 仕上げ28 の Q10 の行と動きの項目）。numpy の生成器と検査器・Blender の粘土・Unity の PC オフスクリーン描画。HMD 実機ではない。関門 P1〜P20 は計画のとおり測って記録し、合否は閉じる目安に入れない",
+ "kstar_freeze": {
+  "schema": "GreatWave.Polish28.kstar_p28_freeze/1",
+  "note_ja": "仕上げ28：採用の最後の一コマ K*′ P28R2（修正 2 回目の最良の候補。数の判定：閉じる目安 7 のうち 3 を満たし R4 は 1。ドームは消えていない）を凍結した。3 ファイルは r2/cand の写しでバイトまで同じ。付随の記録（設計の json・組み立ての報告・OBJ）は凍結のフォルダーに入れず、元の場所の SHA-256 だけを記す（ds28r01f_pipeline は *.gwb・*_rows.npz・*_meta.json が 1 つずつのフォルダーを求める）",
+  "source": "Unity/Build/Polish/28/r2/cand",
+  "frozen_local": "2026-10-01T03:05:03+0800",
+  "files": {
+   "kstarP28R2_a45.gwb": {
+    "sha256": "79ff9fde8ea8ebf9b04897915d19717108fe826f0626b72384e891a6d53c6992",
+    "bytes": 4976696
+   },
+   "kstarP28R2_a45_rows.npz": {
+    "sha256": "7cc210f3cc93a3f9965ef0d24fe5eafb5c1640fc3e60c3f08fea7ff328d40766",
+    "bytes": 1428922
+   },
+   "kstarP28R2_a45_meta.json": {
+    "sha256": "f17551d541761b7c6afd82cf9819bc1b4a18e6737f2a9ca925d459ca2cfdce8e",
+    "bytes": 10276
+   }
+  },
+  "side_records": {
+   "r2/cand/r2_design.json": {
+    "sha256": "b4354a2f670510508331371aee9ec8479f62901c6eebd07ad28233b0a6882828",
+    "bytes": 1506
+   },
+   "r2/cand/kstarP28R2_a45_build_report.json": {
+    "sha256": "a3a14aec25187ee567df1b550ae98607f1f8206f8006be2e7c9abf57b1237f09",
+    "bytes": 6135
+   },
+   "r2/cand/kstarP28R2_a45_build_aux.npz": {
+    "sha256": "9da0040c87be0a818b123e51f9c1f83ad812048d22067061b0f3d85160d6be0d",
+    "bytes": 9295
+   },
+   "r2/cand/kstarP28R2_a45.obj": {
+    "sha256": "bc862ea0f03dd625e1ff9c28dcacdfe73514c9673bf99dead0b202b0d94b543f",
+    "bytes": 12440433
+   },
+   "r2/cand/build_log.txt": {
+    "sha256": "24ece33f0ad674d5128e9d4dc590ca003cafdc9bc3f9a712118933c56b623f4a",
+    "bytes": 2382
+   }
+  }
+ },
+ "adopted": "G_p28b",
+ "gates_default_16bit": {
+  "F_final": {
+   "P1": {
+    "value": 18.482,
+    "pass_": true
+   },
+   "P2": {
+    "value": 0.478,
+    "pass_": false
+   },
+   "P3": {
+    "value": 0.1057,
+    "pass_": false
+   },
+   "P4": {
+    "value": -1.684,
+    "pass_": false
+   },
+   "P5": {
+    "value": 22.84,
+    "pass_": true
+   },
+   "P6": {
+    "value": 1.003,
+    "pass_": true
+   },
+   "P7": {
+    "value": 3.0,
+    "pass_": false
+   },
+   "P8": {
+    "value": 0.83,
+    "pass_": true
+   },
+   "P9": {
+    "value": 0.277,
+    "pass_": true
+   },
+   "P10": {
+    "value": -0.876,
+    "pass_": true
+   },
+   "P11": {
+    "value": 1.102,
+    "pass_": false
+   },
+   "P12": {
+    "value": 0.0,
+    "pass_": true
+   },
+   "P13": {
+    "value": "12 項目中 4 項目が不合格",
+    "pass_": false
+   },
+   "P14": {
+    "value": null,
+    "pass_": false
+   },
+   "P15": {
+    "value": {
+     "主断面": {
+      "a": null,
+      "b": null,
+      "c": null,
+      "d": -1.983
+     },
+     "峰で最も高い巻きの行": {
+      "a": null,
+      "b": null,
+      "c": null,
+      "d": -1.983
+     }
+    },
+    "pass_": false
+   },
+   "P16": {
+    "value": 2.11,
+    "pass_": false
+   },
+   "P17": {
+    "value": {
+     "主断面": 0.8575,
+     "峰で最も高い巻きの行": 0.9577,
+     "巻きの行の最大": 1.1275
+    },
+    "pass_": false
+   },
+   "P18": {
+    "value": 9.33,
+    "pass_": false
+   },
+   "P19": {
+    "value": null,
+    "pass_": false
+   },
+   "Painting": {
+    "value": 0.0012,
+    "pass_": true
+   },
+   "P13_items": {
+    "(1) 波の枠の 1 コマの変位（30 Hz）": {
+     "value": 0.3406,
+     "pass_": true
+    },
+    "(2) 地面の二階差分（30 Hz、全巻きの行の全点）": {
+     "value": 0.0669,
+     "pass_": false
+    },
+    "(3) 最も低い点_m": {
+     "value": -5.7173,
+     "pass_": true
+    },
+    "(4) 頂の高さの単調（戻りの最大）": {
+     "value": 0.0003,
+     "pass_": true
+    },
+    "(5a) 唇・管の三角形の面積の最小_m2": {
+     "value": 0.0003,
+     "pass_": true
+    },
+    "(5b) 行の方向の辺の最小_m": {
+     "value": 0.0024,
+     "pass_": false
+    },
+    "(5c) 辺の長さの K* に対する比（行の方向）": {
+     "value": [
+      0.011,
+      2.475
+     ],
+     "pass_": false
+    },
+    "(5d) 辺の長さの K* に対する比（行の間、縦と斜め）": {
+     "value": [
+      0.194,
+      2.102
+     ],
+     "pass_": true
+    },
+    "(5e) rim と管の天井の継ぎ目の比": {
+     "value": [
+      0.235,
+      1.024
+     ],
+     "pass_": true
+    },
+    "(5f) 自己交差（巻きの行の断面と、隣り合う巻きの行の間の中央の面）": {
+     "value": 0,
+     "pass_": true
+    },
+    "(5g) 面の反転（30 Hz、向きの決まった最後のコマと比べる）": {
+     "value": 130,
+     "pass_": false
+    },
+    "(6) 法線が有限（唇・管の頂点の 1 環の面積の最小 > 0）": {
+     "value": 0.0003,
+     "pass_": true
+    }
+   },
+   "P17_main_row": {
+    "onset_tau": -3.0,
+    "max_change_frac": 0.8575,
+    "at_tau": 0.0,
+    "A_onset_m2": 289.7,
+    "A_tstar_m2": 134.0,
+    "A_min_after_m2": 134.0,
+    "A_max_after_m2": 312.6,
+    "from_jet_onset_frac": 0.9695,
+    "before_onset_from_tau_m3p4_range_frac": 0.141
+   },
+   "failed": [
+    "P2",
+    "P3",
+    "P4",
+    "P7",
+    "P11",
+    "P13",
+    "P14",
+    "P15",
+    "P16",
+    "P17",
+    "P18",
+    "P19"
+   ]
+  },
+  "F_p27": {
+   "P1": {
+    "value": 18.482,
+    "pass_": true
+   },
+   "P2": {
+    "value": 0.146,
+    "pass_": true
+   },
+   "P3": {
+    "value": 0.043,
+    "pass_": true
+   },
+   "P4": {
+    "value": -1.684,
+    "pass_": false
+   },
+   "P5": {
+    "value": 22.84,
+    "pass_": true
+   },
+   "P6": {
+    "value": 1.003,
+    "pass_": true
+   },
+   "P7": {
+    "value": 3.0,
+    "pass_": false
+   },
+   "P8": {
+    "value": 0.83,
+    "pass_": true
+   },
+   "P9": {
+    "value": 0.277,
+    "pass_": true
+   },
+   "P10": {
+    "value": -0.876,
+    "pass_": true
+   },
+   "P11": {
+    "value": 1.082,
+    "pass_": true
+   },
+   "P12": {
+    "value": 0.0,
+    "pass_": true
+   },
+   "P13": {
+    "value": "12 項目中 4 項目が不合格",
+    "pass_": false
+   },
+   "P14": {
+    "value": null,
+    "pass_": false
+   },
+   "P15": {
+    "value": {
+     "主断面": {
+      "a": null,
+      "b": null,
+      "c": null,
+      "d": -1.983
+     },
+     "峰で最も高い巻きの行": {
+      "a": null,
+      "b": null,
+      "c": null,
+      "d": -1.983
+     }
+    },
+    "pass_": false
+   },
+   "P16": {
+    "value": 2.11,
+    "pass_": false
+   },
+   "P17": {
+    "value": {
+     "主断面": 0.8575,
+     "峰で最も高い巻きの行": 0.9577,
+     "巻きの行の最大": 1.1275
+    },
+    "pass_": false
+   },
+   "P18": {
+    "value": 9.33,
+    "pass_": false
+   },
+   "P19": {
+    "value": null,
+    "pass_": false
+   },
+   "Painting": {
+    "value": 0.0012,
+    "pass_": true
+   },
+   "P13_items": {
+    "(1) 波の枠の 1 コマの変位（30 Hz）": {
+     "value": 0.3406,
+     "pass_": true
+    },
+    "(2) 地面の二階差分（30 Hz、全巻きの行の全点）": {
+     "value": 0.0669,
+     "pass_": false
+    },
+    "(3) 最も低い点_m": {
+     "value": -5.7173,
+     "pass_": true
+    },
+    "(4) 頂の高さの単調（戻りの最大）": {
+     "value": 0.0003,
+     "pass_": true
+    },
+    "(5a) 唇・管の三角形の面積の最小_m2": {
+     "value": 0.0003,
+     "pass_": true
+    },
+    "(5b) 行の方向の辺の最小_m": {
+     "value": 0.0024,
+     "pass_": false
+    },
+    "(5c) 辺の長さの K* に対する比（行の方向）": {
+     "value": [
+      0.011,
+      2.475
+     ],
+     "pass_": false
+    },
+    "(5d) 辺の長さの K* に対する比（行の間、縦と斜め）": {
+     "value": [
+      0.194,
+      2.102
+     ],
+     "pass_": true
+    },
+    "(5e) rim と管の天井の継ぎ目の比": {
+     "value": [
+      0.235,
+      1.024
+     ],
+     "pass_": true
+    },
+    "(5f) 自己交差（巻きの行の断面と、隣り合う巻きの行の間の中央の面）": {
+     "value": 0,
+     "pass_": true
+    },
+    "(5g) 面の反転（30 Hz、向きの決まった最後のコマと比べる）": {
+     "value": 130,
+     "pass_": false
+    },
+    "(6) 法線が有限（唇・管の頂点の 1 環の面積の最小 > 0）": {
+     "value": 0.0003,
+     "pass_": true
+    }
+   },
+   "P17_main_row": {
+    "onset_tau": -3.0,
+    "max_change_frac": 0.8575,
+    "at_tau": 0.0,
+    "A_onset_m2": 289.7,
+    "A_tstar_m2": 134.0,
+    "A_min_after_m2": 134.0,
+    "A_max_after_m2": 312.6,
+    "from_jet_onset_frac": 0.9695,
+    "before_onset_from_tau_m3p4_range_frac": 0.141
+   },
+   "failed": [
+    "P4",
+    "P7",
+    "P13",
+    "P14",
+    "P15",
+    "P16",
+    "P17",
+    "P18",
+    "P19"
+   ]
+  },
+  "G_final": {
+   "P1": {
+    "value": 18.482,
+    "pass_": true
+   },
+   "P2": {
+    "value": 0.155,
+    "pass_": true
+   },
+   "P3": {
+    "value": 0.0282,
+    "pass_": true
+   },
+   "P4": {
+    "value": -1.679,
+    "pass_": false
+   },
+   "P5": {
+    "value": 22.839,
+    "pass_": true
+   },
+   "P6": {
+    "value": 1.003,
+    "pass_": true
+   },
+   "P7": {
+    "value": 3.0,
+    "pass_": false
+   },
+   "P8": {
+    "value": 0.83,
+    "pass_": true
+   },
+   "P9": {
+    "value": 0.273,
+    "pass_": true
+   },
+   "P10": {
+    "value": -0.878,
+    "pass_": true
+   },
+   "P11": {
+    "value": 1.055,
+    "pass_": true
+   },
+   "P12": {
+    "value": 0.0,
+    "pass_": true
+   },
+   "P13": {
+    "value": "12 項目中 4 項目が不合格",
+    "pass_": false
+   },
+   "P14": {
+    "value": null,
+    "pass_": false
+   },
+   "P15": {
+    "value": {
+     "主断面": {
+      "a": null,
+      "b": null,
+      "c": null,
+      "d": -1.983
+     },
+     "峰で最も高い巻きの行": {
+      "a": null,
+      "b": null,
+      "c": null,
+      "d": -1.983
+     }
+    },
+    "pass_": false
+   },
+   "P16": {
+    "value": 2.15,
+    "pass_": false
+   },
+   "P17": {
+    "value": {
+     "主断面": 0.9509,
+     "峰で最も高い巻きの行": 1.061,
+     "巻きの行の最大": 1.1072
+    },
+    "pass_": false
+   },
+   "P18": {
+    "value": 8.098,
+    "pass_": false
+   },
+   "P19": {
+    "value": null,
+    "pass_": false
+   },
+   "Painting": {
+    "value": 0.0012,
+    "pass_": true
+   },
+   "P13_items": {
+    "(1) 波の枠の 1 コマの変位（30 Hz）": {
+     "value": 0.3413,
+     "pass_": true
+    },
+    "(2) 地面の二階差分（30 Hz、全巻きの行の全点）": {
+     "value": 0.0727,
+     "pass_": false
+    },
+    "(3) 最も低い点_m": {
+     "value": -5.7173,
+     "pass_": true
+    },
+    "(4) 頂の高さの単調（戻りの最大）": {
+     "value": 0.0003,
+     "pass_": true
+    },
+    "(5a) 唇・管の三角形の面積の最小_m2": {
+     "value": 0.0003,
+     "pass_": true
+    },
+    "(5b) 行の方向の辺の最小_m": {
+     "value": 0.0032,
+     "pass_": false
+    },
+    "(5c) 辺の長さの K* に対する比（行の方向）": {
+     "value": [
+      0.011,
+      2.343
+     ],
+     "pass_": false
+    },
+    "(5d) 辺の長さの K* に対する比（行の間、縦と斜め）": {
+     "value": [
+      0.195,
+      2.128
+     ],
+     "pass_": true
+    },
+    "(5e) rim と管の天井の継ぎ目の比": {
+     "value": [
+      0.233,
+      1.031
+     ],
+     "pass_": true
+    },
+    "(5f) 自己交差（巻きの行の断面と、隣り合う巻きの行の間の中央の面）": {
+     "value": 0,
+     "pass_": true
+    },
+    "(5g) 面の反転（30 Hz、向きの決まった最後のコマと比べる）": {
+     "value": 85,
+     "pass_": false
+    },
+    "(6) 法線が有限（唇・管の頂点の 1 環の面積の最小 > 0）": {
+     "value": 0.0003,
+     "pass_": true
+    }
+   },
+   "P17_main_row": {
+    "onset_tau": -3.0,
+    "max_change_frac": 0.9509,
+    "at_tau": 0.0,
+    "A_onset_m2": 274.2,
+    "A_tstar_m2": 117.4,
+    "A_min_after_m2": 117.4,
+    "A_max_after_m2": 294.3,
+    "from_jet_onset_frac": 1.0577,
+    "before_onset_from_tau_m3p4_range_frac": 0.1434
+   },
+   "failed": [
+    "P4",
+    "P7",
+    "P13",
+    "P14",
+    "P15",
+    "P16",
+    "P17",
+    "P18",
+    "P19"
+   ]
+  },
+  "G_p28a": {
+   "P1": {
+    "value": 18.482,
+    "pass_": true
+   },
+   "P2": {
+    "value": 0.155,
+    "pass_": true
+   },
+   "P3": {
+    "value": 0.0251,
+    "pass_": true
+   },
+   "P4": {
+    "value": -1.679,
+    "pass_": false
+   },
+   "P5": {
+    "value": 22.839,
+    "pass_": true
+   },
+   "P6": {
+    "value": 1.003,
+    "pass_": true
+   },
+   "P7": {
+    "value": 3.0,
+    "pass_": false
+   },
+   "P8": {
+    "value": 0.835,
+    "pass_": true
+   },
+   "P9": {
+    "value": 0.273,
+    "pass_": true
+   },
+   "P10": {
+    "value": -0.878,
+    "pass_": true
+   },
+   "P11": {
+    "value": 1.019,
+    "pass_": true
+   },
+   "P12": {
+    "value": 0.0,
+    "pass_": true
+   },
+   "P13": {
+    "value": "12 項目中 4 項目が不合格",
+    "pass_": false
+   },
+   "P14": {
+    "value": null,
+    "pass_": false
+   },
+   "P15": {
+    "value": {
+     "主断面": {
+      "a": null,
+      "b": null,
+      "c": null,
+      "d": -1.983
+     },
+     "峰で最も高い巻きの行": {
+      "a": null,
+      "b": null,
+      "c": null,
+      "d": -1.983
+     }
+    },
+    "pass_": false
+   },
+   "P16": {
+    "value": 2.15,
+    "pass_": false
+   },
+   "P17": {
+    "value": {
+     "主断面": 0.8923,
+     "峰で最も高い巻きの行": 0.9983,
+     "巻きの行の最大": 1.041
+    },
+    "pass_": false
+   },
+   "P18": {
+    "value": 8.098,
+    "pass_": false
+   },
+   "P19": {
+    "value": null,
+    "pass_": false
+   },
+   "Painting": {
+    "value": 0.0012,
+    "pass_": true
+   },
+   "P13_items": {
+    "(1) 波の枠の 1 コマの変位（30 Hz）": {
+     "value": 0.3413,
+     "pass_": true
+    },
+    "(2) 地面の二階差分（30 Hz、全巻きの行の全点）": {
+     "value": 0.0727,
+     "pass_": false
+    },
+    "(3) 最も低い点_m": {
+     "value": -5.7173,
+     "pass_": true
+    },
+    "(4) 頂の高さの単調（戻りの最大）": {
+     "value": 0.0003,
+     "pass_": true
+    },
+    "(5a) 唇・管の三角形の面積の最小_m2": {
+     "value": 0.0003,
+     "pass_": true
+    },
+    "(5b) 行の方向の辺の最小_m": {
+     "value": 0.0032,
+     "pass_": false
+    },
+    "(5c) 辺の長さの K* に対する比（行の方向）": {
+     "value": [
+      0.011,
+      2.018
+     ],
+     "pass_": false
+    },
+    "(5d) 辺の長さの K* に対する比（行の間、縦と斜め）": {
+     "value": [
+      0.195,
+      2.128
+     ],
+     "pass_": true
+    },
+    "(5e) rim と管の天井の継ぎ目の比": {
+     "value": [
+      0.233,
+      1.031
+     ],
+     "pass_": true
+    },
+    "(5f) 自己交差（巻きの行の断面と、隣り合う巻きの行の間の中央の面）": {
+     "value": 0,
+     "pass_": true
+    },
+    "(5g) 面の反転（30 Hz、向きの決まった最後のコマと比べる）": {
+     "value": 19,
+     "pass_": false
+    },
+    "(6) 法線が有限（唇・管の頂点の 1 環の面積の最小 > 0）": {
+     "value": 0.0003,
+     "pass_": true
+    }
+   },
+   "P17_main_row": {
+    "onset_tau": -3.0,
+    "max_change_frac": 0.8923,
+    "at_tau": 0.0,
+    "A_onset_m2": 264.5,
+    "A_tstar_m2": 117.4,
+    "A_min_after_m2": 117.4,
+    "A_max_after_m2": 283.4,
+    "from_jet_onset_frac": 0.9905,
+    "before_onset_from_tau_m3p4_range_frac": 0.1374
+   },
+   "failed": [
+    "P4",
+    "P7",
+    "P13",
+    "P14",
+    "P15",
+    "P16",
+    "P17",
+    "P18",
+    "P19"
+   ]
+  },
+  "G_p28b": {
+   "P1": {
+    "value": 18.482,
+    "pass_": true
+   },
+   "P2": {
+    "value": 0.155,
+    "pass_": true
+   },
+   "P3": {
+    "value": 0.0282,
+    "pass_": true
+   },
+   "P4": {
+    "value": -1.679,
+    "pass_": false
+   },
+   "P5": {
+    "value": 22.839,
+    "pass_": true
+   },
+   "P6": {
+    "value": 1.003,
+    "pass_": true
+   },
+   "P7": {
+    "value": 3.0,
+    "pass_": false
+   },
+   "P8": {
+    "value": 0.83,
+    "pass_": true
+   },
+   "P9": {
+    "value": 0.273,
+    "pass_": true
+   },
+   "P10": {
+    "value": -0.878,
+    "pass_": true
+   },
+   "P11": {
+    "value": 1.055,
+    "pass_": true
+   },
+   "P12": {
+    "value": 0.0,
+    "pass_": true
+   },
+   "P13": {
+    "value": "12 項目中 4 項目が不合格",
+    "pass_": false
+   },
+   "P14": {
+    "value": null,
+    "pass_": false
+   },
+   "P15": {
+    "value": {
+     "主断面": {
+      "a": null,
+      "b": null,
+      "c": null,
+      "d": -1.983
+     },
+     "峰で最も高い巻きの行": {
+      "a": null,
+      "b": null,
+      "c": null,
+      "d": -1.983
+     }
+    },
+    "pass_": false
+   },
+   "P16": {
+    "value": 2.15,
+    "pass_": false
+   },
+   "P17": {
+    "value": {
+     "主断面": 0.9509,
+     "峰で最も高い巻きの行": 1.061,
+     "巻きの行の最大": 1.1072
+    },
+    "pass_": false
+   },
+   "P18": {
+    "value": 8.098,
+    "pass_": false
+   },
+   "P19": {
+    "value": null,
+    "pass_": false
+   },
+   "Painting": {
+    "value": 0.0012,
+    "pass_": true
+   },
+   "P13_items": {
+    "(1) 波の枠の 1 コマの変位（30 Hz）": {
+     "value": 0.3413,
+     "pass_": true
+    },
+    "(2) 地面の二階差分（30 Hz、全巻きの行の全点）": {
+     "value": 0.0727,
+     "pass_": false
+    },
+    "(3) 最も低い点_m": {
+     "value": -5.7173,
+     "pass_": true
+    },
+    "(4) 頂の高さの単調（戻りの最大）": {
+     "value": 0.0003,
+     "pass_": true
+    },
+    "(5a) 唇・管の三角形の面積の最小_m2": {
+     "value": 0.0003,
+     "pass_": true
+    },
+    "(5b) 行の方向の辺の最小_m": {
+     "value": 0.0032,
+     "pass_": false
+    },
+    "(5c) 辺の長さの K* に対する比（行の方向）": {
+     "value": [
+      0.011,
+      2.343
+     ],
+     "pass_": false
+    },
+    "(5d) 辺の長さの K* に対する比（行の間、縦と斜め）": {
+     "value": [
+      0.195,
+      2.128
+     ],
+     "pass_": true
+    },
+    "(5e) rim と管の天井の継ぎ目の比": {
+     "value": [
+      0.233,
+      1.031
+     ],
+     "pass_": true
+    },
+    "(5f) 自己交差（巻きの行の断面と、隣り合う巻きの行の間の中央の面）": {
+     "value": 0,
+     "pass_": true
+    },
+    "(5g) 面の反転（30 Hz、向きの決まった最後のコマと比べる）": {
+     "value": 15,
+     "pass_": false
+    },
+    "(6) 法線が有限（唇・管の頂点の 1 環の面積の最小 > 0）": {
+     "value": 0.0003,
+     "pass_": true
+    }
+   },
+   "P17_main_row": {
+    "onset_tau": -3.0,
+    "max_change_frac": 0.9509,
+    "at_tau": 0.0,
+    "A_onset_m2": 274.2,
+    "A_tstar_m2": 117.4,
+    "A_min_after_m2": 117.4,
+    "A_max_after_m2": 294.3,
+    "from_jet_onset_frac": 1.0577,
+    "before_onset_from_tau_m3p4_range_frac": 0.1434
+   },
+   "failed": [
+    "P4",
+    "P7",
+    "P13",
+    "P14",
+    "P15",
+    "P16",
+    "P17",
+    "P18",
+    "P19"
+   ]
+  }
+ },
+ "gates_other_sets_failed": {
+  "F_final": {
+   "default_fine": {
+    "failed": [
+     "P2",
+     "P3",
+     "P4",
+     "P7",
+     "P11",
+     "P13",
+     "P14",
+     "P15",
+     "P16",
+     "P17",
+     "P18",
+     "P19"
+    ],
+    "n_fail": 12
+   },
+   "default_fine_stop13": {
+    "failed": [
+     "P2",
+     "P3",
+     "P4",
+     "P7",
+     "P11",
+     "P13",
+     "P14",
+     "P15",
+     "P16",
+     "P17",
+     "P18",
+     "P19"
+    ],
+    "n_fail": 12
+   },
+   "alt": {
+    "failed": [
+     "P2",
+     "P3",
+     "P4",
+     "P7",
+     "P11",
+     "P13",
+     "P14",
+     "P15",
+     "P16",
+     "P17",
+     "P18",
+     "P19"
+    ],
+    "n_fail": 12
+   },
+   "default_q13": {
+    "failed": [
+     "P2",
+     "P3",
+     "P4",
+     "P7",
+     "P11",
+     "P13",
+     "P14",
+     "P15",
+     "P16",
+     "P17",
+     "P18",
+     "P19",
+     "P15_d_taller_than_c",
+     "P15_prime"
+    ],
+    "n_fail": 14
+   }
+  },
+  "G_final": {
+   "default_fine": {
+    "failed": [
+     "P4",
+     "P7",
+     "P13",
+     "P14",
+     "P15",
+     "P16",
+     "P17",
+     "P18",
+     "P19"
+    ],
+    "n_fail": 9
+   },
+   "default_fine_stop13": {
+    "failed": [
+     "P4",
+     "P7",
+     "P13",
+     "P14",
+     "P15",
+     "P16",
+     "P17",
+     "P18",
+     "P19"
+    ],
+    "n_fail": 9
+   },
+   "alt": {
+    "failed": [
+     "P4",
+     "P7",
+     "P13",
+     "P14",
+     "P15",
+     "P16",
+     "P17",
+     "P18",
+     "P19"
+    ],
+    "n_fail": 9
+   },
+   "default_q13": {
+    "failed": [
+     "P4",
+     "P7",
+     "P13",
+     "P14",
+     "P15",
+     "P16",
+     "P17",
+     "P18",
+     "P19",
+     "P15_d_taller_than_c",
+     "P15_prime"
+    ],
+    "n_fail": 11
+   }
+  },
+  "G_p28a": {
+   "default_fine": {
+    "failed": [
+     "P4",
+     "P7",
+     "P13",
+     "P14",
+     "P15",
+     "P16",
+     "P17",
+     "P18",
+     "P19"
+    ],
+    "n_fail": 9
+   },
+   "default_fine_stop13": {
+    "failed": [
+     "P4",
+     "P7",
+     "P13",
+     "P14",
+     "P15",
+     "P16",
+     "P17",
+     "P18",
+     "P19"
+    ],
+    "n_fail": 9
+   },
+   "alt": {
+    "failed": [
+     "P4",
+     "P7",
+     "P13",
+     "P14",
+     "P15",
+     "P16",
+     "P17",
+     "P18",
+     "P19"
+    ],
+    "n_fail": 9
+   },
+   "default_q13": {
+    "failed": [
+     "P4",
+     "P7",
+     "P13",
+     "P14",
+     "P15",
+     "P16",
+     "P17",
+     "P18",
+     "P19",
+     "P15_d_taller_than_c",
+     "P15_prime"
+    ],
+    "n_fail": 11
+   }
+  },
+  "G_p28b": {
+   "default_fine": {
+    "failed": [
+     "P4",
+     "P7",
+     "P13",
+     "P14",
+     "P15",
+     "P16",
+     "P17",
+     "P18",
+     "P19"
+    ],
+    "n_fail": 9
+   },
+   "default_fine_stop13": {
+    "failed": [
+     "P4",
+     "P7",
+     "P13",
+     "P14",
+     "P15",
+     "P16",
+     "P17",
+     "P18",
+     "P19"
+    ],
+    "n_fail": 9
+   },
+   "alt": {
+    "failed": [
+     "P4",
+     "P7",
+     "P13",
+     "P14",
+     "P15",
+     "P16",
+     "P17",
+     "P18",
+     "P19"
+    ],
+    "n_fail": 9
+   },
+   "default_q13": {
+    "failed": [
+     "P4",
+     "P7",
+     "P13",
+     "P14",
+     "P15",
+     "P16",
+     "P17",
+     "P18",
+     "P19",
+     "P15_d_taller_than_c",
+     "P15_prime"
+    ],
+    "n_fail": 11
+   }
+  }
+ },
+ "scan_60hz": {
+  "F_final": {
+   "m1": {
+    "hz": 60.0,
+    "frames": 481,
+    "section_selfx_frames": 0,
+    "local_selfx_motion_frames": 0,
+    "verdict_ja": "断面の自己交差 0 こま・動きが作った局所の自己交差 0 こま"
+   },
+   "tstar_vs_kstar_m": {
+    "max_vs_kstar_rows_m": 9.060009880285287e-06,
+    "max_vs_gwb_float32_m": 9.572419767753857e-06,
+    "threshold_m": 0.001
+   },
+   "V_scan_max": [
+    "-2.00",
+    7117.1
+   ],
+   "V_scan_tstar": 4190.3,
+   "V_scan_loss_frac": 0.4112
+  },
+  "G_final": {
+   "m1": {
+    "hz": 60.0,
+    "frames": 481,
+    "section_selfx_frames": 0,
+    "local_selfx_motion_frames": 0,
+    "verdict_ja": "断面の自己交差 0 こま・動きが作った局所の自己交差 0 こま"
+   },
+   "tstar_vs_kstar_m": {
+    "max_vs_kstar_rows_m": 9.060009880285287e-06,
+    "max_vs_gwb_float32_m": 1.0219055259815815e-05,
+    "threshold_m": 0.001
+   },
+   "V_scan_max": [
+    "-2.00",
+    6717.4
+   ],
+   "V_scan_tstar": 4758.7,
+   "V_scan_loss_frac": 0.2916
+  },
+  "G_p28a": {
+   "m1": {
+    "hz": 60.0,
+    "frames": 481,
+    "section_selfx_frames": 0,
+    "local_selfx_motion_frames": 0,
+    "verdict_ja": "断面の自己交差 0 こま・動きが作った局所の自己交差 0 こま"
+   },
+   "tstar_vs_kstar_m": {
+    "max_vs_kstar_rows_m": 9.060009880285287e-06,
+    "max_vs_gwb_float32_m": 1.0219055259815815e-05,
+    "threshold_m": 0.001
+   },
+   "V_scan_max": [
+    "-2.00",
+    6470.0
+   ],
+   "V_scan_tstar": 4758.7,
+   "V_scan_loss_frac": 0.2645
+  },
+  "G_p28b": {
+   "m1": {
+    "hz": 60.0,
+    "frames": 481,
+    "section_selfx_frames": 0,
+    "local_selfx_motion_frames": 0,
+    "verdict_ja": "断面の自己交差 0 こま・動きが作った局所の自己交差 0 こま"
+   },
+   "tstar_vs_kstar_m": {
+    "max_vs_kstar_rows_m": 9.060009880285287e-06,
+    "max_vs_gwb_float32_m": 1.0219055259815815e-05,
+    "threshold_m": 0.001
+   },
+   "V_scan_max": [
+    "-2.00",
+    6683.0
+   ],
+   "V_scan_tstar": 4758.7,
+   "V_scan_loss_frac": 0.2879
+  }
+ },
+ "final_review_motion_definitions": {
+  "F_final": {
+   "V_max": [
+    7348.0,
+    -1.966667,
+    7.467
+   ],
+   "V_loss_frac_from_max": 0.43,
+   "V_m3": {
+    "-8.0": 2987.1,
+    "-6.0": 2927.4,
+    "-4.0": 5161.8,
+    "-3.0": 6208.8,
+    "-2.5": 6895.9,
+    "-2.0": 7346.0,
+    "-1.5": 6776.8,
+    "-1.0": 5657.2,
+    "-0.5": 4628.8,
+    "+0.0": 4190.3
+   },
+   "V_step_last2s_max_before_max_ratio": [
+    38.48,
+    25.9,
+    1.486
+   ],
+   "selfx_frames_60hz": 0,
+   "chord_rows_le110_ge0p5s": 37,
+   "chord_rows_le125_ge0p5s": 49,
+   "chord_min_deg": 67.2,
+   "chord_argmin_row": 20,
+   "chord_main_peak_min": [
+    161.5,
+    160.4
+   ],
+   "chord_worst_rows": [
+    [
+     20,
+     -39.73,
+     67.2,
+     4.88,
+     6.18,
+     67.2
+    ],
+    [
+     21,
+     -38.97,
+     68.2,
+     4.94,
+     6.28,
+     68.2
+    ],
+    [
+     22,
+     -38.24,
+     69.9,
+     4.94,
+     6.34,
+     69.9
+    ],
+    [
+     23,
+     -37.53,
+     71.5,
+     4.88,
+     6.31,
+     71.5
+    ],
+    [
+     24,
+     -36.83,
+     73.4,
+     4.78,
+     6.28,
+     73.4
+    ],
+    [
+     25,
+     -36.16,
+     75.4,
+     4.64,
+     6.18,
+     75.4
+    ]
+   ]
+  },
+  "G_final": {
+   "V_max": [
+    6977.5,
+    -1.983333,
+    7.433
+   ],
+   "V_loss_frac_from_max": 0.318,
+   "V_m3": {
+    "-8.0": 2918.8,
+    "-6.0": 2820.9,
+    "-4.0": 4992.5,
+    "-3.0": 5960.9,
+    "-2.5": 6580.2,
+    "-2.0": 6976.5,
+    "-1.5": 6446.0,
+    "-1.0": 5564.2,
+    "-0.5": 4936.4,
+    "+0.0": 4758.7
+   },
+   "V_step_last2s_max_before_max_ratio": [
+    32.23,
+    23.81,
+    1.354
+   ],
+   "selfx_frames_60hz": 0,
+   "chord_rows_le110_ge0p5s": 18,
+   "chord_rows_le125_ge0p5s": 32,
+   "chord_min_deg": 86.7,
+   "chord_argmin_row": 233,
+   "chord_main_peak_min": [
+    161.5,
+    160.4
+   ],
+   "chord_worst_rows": [
+    [
+     233,
+     13.8,
+     86.7,
+     1.4,
+     2.69,
+     125.1
+    ],
+    [
+     234,
+     14.0,
+     87.7,
+     1.33,
+     2.49,
+     106.4
+    ],
+    [
+     232,
+     13.6,
+     88.3,
+     1.3,
+     2.67,
+     127.0
+    ],
+    [
+     231,
+     13.4,
+     91.0,
+     1.17,
+     2.52,
+     127.8
+    ],
+    [
+     230,
+     13.2,
+     93.7,
+     1.07,
+     2.33,
+     131.8
+    ],
+    [
+     229,
+     13.0,
+     95.5,
+     1.0,
+     2.2,
+     133.5
+    ]
+   ]
+  },
+  "G_p28a": {
+   "V_max": [
+    6717.5,
+    -1.95,
+    7.5
+   ],
+   "V_loss_frac_from_max": 0.292,
+   "V_m3": {
+    "-8.0": 2804.7,
+    "-6.0": 2656.4,
+    "-4.0": 4799.2,
+    "-3.0": 5747.7,
+    "-2.5": 6319.0,
+    "-2.0": 6712.1,
+    "-1.5": 6316.2,
+    "-1.0": 5552.1,
+    "-0.5": 4936.4,
+    "+0.0": 4758.7
+   },
+   "V_step_last2s_max_before_max_ratio": [
+    26.86,
+    22.41,
+    1.199
+   ],
+   "selfx_frames_60hz": 0,
+   "chord_rows_le110_ge0p5s": 0,
+   "chord_rows_le125_ge0p5s": 36,
+   "chord_min_deg": 99.4,
+   "chord_argmin_row": 232,
+   "chord_main_peak_min": [
+    160.3,
+    158.2
+   ],
+   "chord_worst_rows": [
+    [
+     232,
+     13.6,
+     99.4,
+     0.43,
+     1.22,
+     127.0
+    ],
+    [
+     231,
+     13.4,
+     99.4,
+     0.43,
+     1.17,
+     127.8
+    ],
+    [
+     233,
+     13.8,
+     99.4,
+     0.43,
+     1.22,
+     125.1
+    ],
+    [
+     230,
+     13.2,
+     100.9,
+     0.4,
+     1.12,
+     131.8
+    ],
+    [
+     234,
+     14.0,
+     102.6,
+     0.27,
+     1.05,
+     106.4
+    ],
+    [
+     229,
+     13.0,
+     103.0,
+     0.33,
+     1.03,
+     133.5
+    ]
+   ]
+  },
+  "G_p28b": {
+   "V_max": [
+    6941.1,
+    -1.983333,
+    7.433
+   ],
+   "V_loss_frac_from_max": 0.314,
+   "V_m3": {
+    "-8.0": 2918.8,
+    "-6.0": 2820.9,
+    "-4.0": 4992.5,
+    "-3.0": 5952.0,
+    "-2.5": 6554.9,
+    "-2.0": 6940.2,
+    "-1.5": 6418.7,
+    "-1.0": 5558.5,
+    "-0.5": 4936.4,
+    "+0.0": 4758.7
+   },
+   "V_step_last2s_max_before_max_ratio": [
+    31.45,
+    23.41,
+    1.344
+   ],
+   "selfx_frames_60hz": 0,
+   "chord_rows_le110_ge0p5s": 0,
+   "chord_rows_le125_ge0p5s": 32,
+   "chord_min_deg": 99.4,
+   "chord_argmin_row": 232,
+   "chord_main_peak_min": [
+    161.5,
+    160.4
+   ],
+   "chord_worst_rows": [
+    [
+     232,
+     13.6,
+     99.4,
+     0.43,
+     1.22,
+     127.0
+    ],
+    [
+     231,
+     13.4,
+     99.4,
+     0.43,
+     1.17,
+     127.8
+    ],
+    [
+     233,
+     13.8,
+     99.4,
+     0.43,
+     1.22,
+     125.1
+    ],
+    [
+     230,
+     13.2,
+     100.9,
+     0.37,
+     1.12,
+     131.8
+    ],
+    [
+     234,
+     14.0,
+     102.6,
+     0.27,
+     1.05,
+     106.4
+    ],
+    [
+     229,
+     13.0,
+     103.0,
+     0.33,
+     1.03,
+     133.5
+    ]
+   ]
+  }
+ },
+ "p13_2_map": {
+  "F_final": {
+   "package": "Unity/Build/Design/28R01F/F_final/art_on",
+   "fine": false,
+   "limit_m": 0.0218,
+   "rows": [
+    48,
+    198
+   ],
+   "frames": 361,
+   "max_m": 0.06689768725028213,
+   "at": [
+    187,
+    394
+   ],
+   "vertex_frames_over": 77422,
+   "vertices_over": 18808,
+   "bands": {
+    "back_foot_cols_0_30": {
+     "vertex_frames_over": 19892,
+     "max_m": 0.04903,
+     "at": [
+      57,
+      18
+     ]
+    },
+    "back_31_89": {
+     "vertex_frames_over": 6889,
+     "max_m": 0.03541,
+     "at": [
+      59,
+      1
+     ]
+    },
+    "crest_lip_90_200": {
+     "vertex_frames_over": 0,
+     "max_m": 0.01797,
+     "at": [
+      157,
+      107
+     ]
+    },
+    "tube_201_313": {
+     "vertex_frames_over": 38200,
+     "max_m": 0.04222,
+     "at": [
+      113,
+      54
+     ]
+    },
+    "front_314_378": {
+     "vertex_frames_over": 12210,
+     "max_m": 0.03808,
+     "at": [
+      186,
+      63
+     ]
+    },
+    "front_foot_379_399": {
+     "vertex_frames_over": 231,
+     "max_m": 0.0669,
+     "at": [
+      187,
+      15
+     ]
+    }
+   },
+   "top_cols": [
+    [
+     18,
+     1610,
+     0.049
+    ],
+    [
+     19,
+     1528,
+     0.047
+    ],
+    [
+     20,
+     1448,
+     0.0471
+    ],
+    [
+     17,
+     1417,
+     0.0464
+    ],
+    [
+     21,
+     1356,
+     0.0462
+    ],
+    [
+     22,
+     1261,
+     0.0447
+    ],
+    [
+     16,
+     1209,
+     0.0448
+    ],
+    [
+     23,
+     1195,
+     0.0432
+    ],
+    [
+     24,
+     1092,
+     0.0421
+    ],
+    [
+     25,
+     1025,
+     0.0418
+    ],
+    [
+     26,
+     924,
+     0.0397
+    ],
+    [
+     15,
+     920,
+     0.0433
+    ],
+    [
+     27,
+     863,
+     0.0406
+    ],
+    [
+     28,
+     791,
+     0.0386
+    ],
+    [
+     29,
+     734,
+     0.038
+    ]
+   ],
+   "top_rows": [
+    [
+     59,
+     713,
+     0.0473
+    ],
+    [
+     55,
+     708,
+     0.0461
+    ],
+    [
+     142,
+     706,
+     0.0388
+    ],
+    [
+     140,
+     704,
+     0.0387
+    ],
+    [
+     58,
+     701,
+     0.0471
+    ],
+    [
+     56,
+     700,
+     0.0485
+    ],
+    [
+     54,
+     698,
+     0.0461
+    ],
+    [
+     141,
+     698,
+     0.0389
+    ],
+    [
+     57,
+     696,
+     0.049
+    ],
+    [
+     61,
+     691,
+     0.0484
+    ],
+    [
+     138,
+     689,
+     0.0383
+    ],
+    [
+     62,
+     689,
+     0.0468
+    ],
+    [
+     137,
+     687,
+     0.0385
+    ],
+    [
+     143,
+     687,
+     0.0393
+    ],
+    [
+     139,
+     686,
+     0.0385
+    ]
+   ],
+   "tau_range_over": [
+    -6.5333,
+    -0.5333
+   ],
+   "frames_over": 82
+  },
+  "G_final": {
+   "package": "Unity/Build/Polish/28/G_final/art_on",
+   "fine": false,
+   "limit_m": 0.0218,
+   "rows": [
+    48,
+    198
+   ],
+   "frames": 361,
+   "max_m": 0.07270527950336299,
+   "at": [
+    186,
+    394
+   ],
+   "vertex_frames_over": 77207,
+   "vertices_over": 18840,
+   "bands": {
+    "back_foot_cols_0_30": {
+     "vertex_frames_over": 20051,
+     "max_m": 0.04971,
+     "at": [
+      61,
+      18
+     ]
+    },
+    "back_31_89": {
+     "vertex_frames_over": 6422,
+     "max_m": 0.03562,
+     "at": [
+      56,
+      1
+     ]
+    },
+    "crest_lip_90_200": {
+     "vertex_frames_over": 0,
+     "max_m": 0.01802,
+     "at": [
+      172,
+      110
+     ]
+    },
+    "tube_201_313": {
+     "vertex_frames_over": 37351,
+     "max_m": 0.04404,
+     "at": [
+      116,
+      51
+     ]
+    },
+    "front_314_378": {
+     "vertex_frames_over": 13118,
+     "max_m": 0.04071,
+     "at": [
+      186,
+      64
+     ]
+    },
+    "front_foot_379_399": {
+     "vertex_frames_over": 265,
+     "max_m": 0.07271,
+     "at": [
+      186,
+      15
+     ]
+    }
+   },
+   "top_cols": [
+    [
+     18,
+     1626,
+     0.0497
+    ],
+    [
+     19,
+     1534,
+     0.0477
+    ],
+    [
+     20,
+     1448,
+     0.0465
+    ],
+    [
+     17,
+     1441,
+     0.0459
+    ],
+    [
+     21,
+     1362,
+     0.0457
+    ],
+    [
+     22,
+     1264,
+     0.043
+    ],
+    [
+     16,
+     1217,
+     0.0437
+    ],
+    [
+     23,
+     1175,
+     0.0447
+    ],
+    [
+     24,
+     1083,
+     0.042
+    ],
+    [
+     25,
+     1034,
+     0.043
+    ],
+    [
+     26,
+     962,
+     0.0397
+    ],
+    [
+     15,
+     952,
+     0.0405
+    ],
+    [
+     27,
+     879,
+     0.0394
+    ],
+    [
+     28,
+     808,
+     0.0378
+    ],
+    [
+     29,
+     735,
+     0.0387
+    ]
+   ],
+   "top_rows": [
+    [
+     141,
+     737,
+     0.0402
+    ],
+    [
+     55,
+     735,
+     0.0454
+    ],
+    [
+     139,
+     735,
+     0.0402
+    ],
+    [
+     140,
+     733,
+     0.0407
+    ],
+    [
+     143,
+     730,
+     0.041
+    ],
+    [
+     59,
+     727,
+     0.0474
+    ],
+    [
+     58,
+     724,
+     0.0477
+    ],
+    [
+     142,
+     720,
+     0.0402
+    ],
+    [
+     138,
+     711,
+     0.0407
+    ],
+    [
+     137,
+     710,
+     0.0404
+    ],
+    [
+     144,
+     708,
+     0.041
+    ],
+    [
+     57,
+     707,
+     0.0478
+    ],
+    [
+     136,
+     707,
+     0.0415
+    ],
+    [
+     54,
+     706,
+     0.0451
+    ],
+    [
+     60,
+     702,
+     0.0465
+    ]
+   ],
+   "tau_range_over": [
+    -6.5667,
+    -0.5333
+   ],
+   "frames_over": 82
+  },
+  "G_p28a": {
+   "package": "Unity/Build/Polish/28/G_p28a/art_on",
+   "fine": false,
+   "limit_m": 0.0218,
+   "rows": [
+    48,
+    198
+   ],
+   "frames": 361,
+   "max_m": 0.07270527950336299,
+   "at": [
+    186,
+    394
+   ],
+   "vertex_frames_over": 77198,
+   "vertices_over": 18834,
+   "bands": {
+    "back_foot_cols_0_30": {
+     "vertex_frames_over": 20051,
+     "max_m": 0.04971,
+     "at": [
+      61,
+      18
+     ]
+    },
+    "back_31_89": {
+     "vertex_frames_over": 6413,
+     "max_m": 0.03562,
+     "at": [
+      56,
+      1
+     ]
+    },
+    "crest_lip_90_200": {
+     "vertex_frames_over": 0,
+     "max_m": 0.01802,
+     "at": [
+      172,
+      110
+     ]
+    },
+    "tube_201_313": {
+     "vertex_frames_over": 37351,
+     "max_m": 0.04404,
+     "at": [
+      116,
+      51
+     ]
+    },
+    "front_314_378": {
+     "vertex_frames_over": 13118,
+     "max_m": 0.04071,
+     "at": [
+      186,
+      64
+     ]
+    },
+    "front_foot_379_399": {
+     "vertex_frames_over": 265,
+     "max_m": 0.07271,
+     "at": [
+      186,
+      15
+     ]
+    }
+   },
+   "top_cols": [
+    [
+     18,
+     1626,
+     0.0497
+    ],
+    [
+     19,
+     1534,
+     0.0477
+    ],
+    [
+     20,
+     1448,
+     0.0465
+    ],
+    [
+     17,
+     1441,
+     0.0459
+    ],
+    [
+     21,
+     1362,
+     0.0457
+    ],
+    [
+     22,
+     1264,
+     0.043
+    ],
+    [
+     16,
+     1217,
+     0.0437
+    ],
+    [
+     23,
+     1175,
+     0.0447
+    ],
+    [
+     24,
+     1083,
+     0.042
+    ],
+    [
+     25,
+     1034,
+     0.043
+    ],
+    [
+     26,
+     962,
+     0.0397
+    ],
+    [
+     15,
+     952,
+     0.0405
+    ],
+    [
+     27,
+     879,
+     0.0394
+    ],
+    [
+     28,
+     808,
+     0.0378
+    ],
+    [
+     29,
+     735,
+     0.0387
+    ]
+   ],
+   "top_rows": [
+    [
+     141,
+     737,
+     0.0402
+    ],
+    [
+     55,
+     735,
+     0.0454
+    ],
+    [
+     139,
+     735,
+     0.0402
+    ],
+    [
+     140,
+     733,
+     0.0407
+    ],
+    [
+     143,
+     730,
+     0.041
+    ],
+    [
+     59,
+     727,
+     0.0474
+    ],
+    [
+     58,
+     725,
+     0.0477
+    ],
+    [
+     142,
+     720,
+     0.0402
+    ],
+    [
+     138,
+     711,
+     0.0407
+    ],
+    [
+     137,
+     710,
+     0.0404
+    ],
+    [
+     144,
+     708,
+     0.041
+    ],
+    [
+     136,
+     707,
+     0.0415
+    ],
+    [
+     57,
+     706,
+     0.0478
+    ],
+    [
+     54,
+     706,
+     0.0451
+    ],
+    [
+     134,
+     701,
+     0.0407
+    ]
+   ],
+   "tau_range_over": [
+    -6.5667,
+    -0.5333
+   ],
+   "frames_over": 82
+  }
+ },
+ "loaf_M10": {
+  "E_F_G": {
+   "schema": "GreatWave.Polish28.loaf/1",
+   "times": [
+    4.0,
+    4.5,
+    5.0,
+    5.5,
+    6.0,
+    6.5,
+    7.0
+   ],
+   "t_travel": [
+    0.7333652004044829,
+    -0.0,
+    -0.6798348938056156
+   ],
+   "tags": {
+    "E": {
+     "package": "Unity/Build/Design/28R01E/E/art_on",
+     "warp": "Tools/GWWaveGen/ds28r01e/timewarp_default_E.json",
+     "sign": 1.0,
+     "by_t": {
+      "4.0": {
+       "tau": -3.894,
+       "H_m": 13.314,
+       "plateau_95_m": 7.0,
+       "plateau_95_over_H": 0.5258,
+       "front_run_80_m": 8.6,
+       "back_run_80_m": 6.6,
+       "loaf_index": 0.767,
+       "crest_radius_m": 8.74,
+       "crest_radius_over_H": 0.656
+      },
+      "4.5": {
+       "tau": -3.4904,
+       "H_m": 15.122,
+       "plateau_95_m": 6.8,
+       "plateau_95_over_H": 0.4497,
+       "front_run_80_m": 8.4,
+       "back_run_80_m": 7.5,
+       "loaf_index": 0.893,
+       "crest_radius_m": 8.02,
+       "crest_radius_over_H": 0.531
+      },
+      "5.0": {
+       "tau": -3.2019,
+       "H_m": 16.759,
+       "plateau_95_m": 7.0,
+       "plateau_95_over_H": 0.4177,
+       "front_run_80_m": 8.7,
+       "back_run_80_m": 7.2,
+       "loaf_index": 0.828,
+       "crest_radius_m": 7.71,
+       "crest_radius_over_H": 0.46
+      },
+      "5.5": {
+       "tau": -2.95,
+       "H_m": 18.356,
+       "plateau_95_m": 7.3,
+       "plateau_95_over_H": 0.3977,
+       "front_run_80_m": 9.2,
+       "back_run_80_m": 8.1,
+       "loaf_index": 0.88,
+       "crest_radius_m": 7.74,
+       "crest_radius_over_H": 0.421
+      },
+      "6.0": {
+       "tau": -2.7,
+       "H_m": 19.856,
+       "plateau_95_m": 7.2,
+       "plateau_95_over_H": 0.3626,
+       "front_run_80_m": 9.9,
+       "back_run_80_m": 7.4,
+       "loaf_index": 0.747,
+       "crest_radius_m": 7.54,
+       "crest_radius_over_H": 0.38
+      },
+      "6.5": {
+       "tau": -2.45,
+       "H_m": 20.679,
+       "plateau_95_m": 7.3,
+       "plateau_95_over_H": 0.353,
+       "front_run_80_m": 10.3,
+       "back_run_80_m": 7.2,
+       "loaf_index": 0.699,
+       "crest_radius_m": 7.65,
+       "crest_radius_over_H": 0.37
+      },
+      "7.0": {
+       "tau": -2.2,
+       "H_m": 20.961,
+       "plateau_95_m": 7.2,
+       "plateau_95_over_H": 0.3435,
+       "front_run_80_m": 10.3,
+       "back_run_80_m": 6.5,
+       "loaf_index": 0.631,
+       "crest_radius_m": 7.73,
+       "crest_radius_over_H": 0.369
+      }
+     }
+    },
+    "F_final": {
+     "package": "Unity/Build/Design/28R01F/F_final/art_on",
+     "warp": "Unity/Build/Design/28R01F/F_final/timewarp_F_final.json",
+     "sign": 1.0,
+     "by_t": {
+      "4.0": {
+       "tau": -3.894,
+       "H_m": 11.148,
+       "plateau_95_m": 8.0,
+       "plateau_95_over_H": 0.7176,
+       "front_run_80_m": 3.5,
+       "back_run_80_m": 14.9,
+       "loaf_index": 4.257,
+       "crest_radius_m": 6.01,
+       "crest_radius_over_H": 0.539
+      },
+      "4.5": {
+       "tau": -3.4904,
+       "H_m": 12.582,
+       "plateau_95_m": 7.8,
+       "plateau_95_over_H": 0.6199,
+       "front_run_80_m": 3.2,
+       "back_run_80_m": 14.7,
+       "loaf_index": 4.594,
+       "crest_radius_m": 4.61,
+       "crest_radius_over_H": 0.366
+      },
+      "5.0": {
+       "tau": -3.2019,
+       "H_m": 13.91,
+       "plateau_95_m": 8.1,
+       "plateau_95_over_H": 0.5823,
+       "front_run_80_m": 3.3,
+       "back_run_80_m": 14.6,
+       "loaf_index": 4.424,
+       "crest_radius_m": 4.37,
+       "crest_radius_over_H": 0.314
+      },
+      "5.5": {
+       "tau": -2.95,
+       "H_m": 15.239,
+       "plateau_95_m": 8.7,
+       "plateau_95_over_H": 0.5709,
+       "front_run_80_m": 3.6,
+       "back_run_80_m": 14.2,
+       "loaf_index": 3.944,
+       "crest_radius_m": 5.62,
+       "crest_radius_over_H": 0.369
+      },
+      "6.0": {
+       "tau": -2.7,
+       "H_m": 16.626,
+       "plateau_95_m": 8.3,
+       "plateau_95_over_H": 0.4992,
+       "front_run_80_m": 4.0,
+       "back_run_80_m": 14.3,
+       "loaf_index": 3.575,
+       "crest_radius_m": 7.42,
+       "crest_radius_over_H": 0.446
+      },
+      "6.5": {
+       "tau": -2.45,
+       "H_m": 17.601,
+       "plateau_95_m": 8.4,
+       "plateau_95_over_H": 0.4772,
+       "front_run_80_m": 4.7,
+       "back_run_80_m": 14.4,
+       "loaf_index": 3.064,
+       "crest_radius_m": 7.86,
+       "crest_radius_over_H": 0.447
+      },
+      "7.0": {
+       "tau": -2.2,
+       "H_m": 18.037,
+       "plateau_95_m": 8.6,
+       "plateau_95_over_H": 0.4768,
+       "front_run_80_m": 5.5,
+       "back_run_80_m": 14.4,
+       "loaf_index": 2.618,
+       "crest_radius_m": 6.91,
+       "crest_radius_over_H": 0.383
+      }
+     }
+    },
+    "G_final": {
+     "package": "Unity/Build/Polish/28/G_final/art_on",
+     "warp": "Unity/Build/Polish/28/G_final/timewarp_G_final.json",
+     "sign": 1.0,
+     "by_t": {
+      "4.0": {
+       "tau": -3.894,
+       "H_m": 11.148,
+       "plateau_95_m": 7.9,
+       "plateau_95_over_H": 0.7087,
+       "front_run_80_m": 3.5,
+       "back_run_80_m": 14.2,
+       "loaf_index": 4.057,
+       "crest_radius_m": 6.03,
+       "crest_radius_over_H": 0.541
+      },
+      "4.5": {
+       "tau": -3.4904,
+       "H_m": 12.582,
+       "plateau_95_m": 7.9,
+       "plateau_95_over_H": 0.6279,
+       "front_run_80_m": 3.2,
+       "back_run_80_m": 14.0,
+       "loaf_index": 4.375,
+       "crest_radius_m": 4.62,
+       "crest_radius_over_H": 0.367
+      },
+      "5.0": {
+       "tau": -3.2019,
+       "H_m": 13.91,
+       "plateau_95_m": 8.2,
+       "plateau_95_over_H": 0.5895,
+       "front_run_80_m": 3.3,
+       "back_run_80_m": 13.7,
+       "loaf_index": 4.152,
+       "crest_radius_m": 4.38,
+       "crest_radius_over_H": 0.315
+      },
+      "5.5": {
+       "tau": -2.95,
+       "H_m": 15.239,
+       "plateau_95_m": 8.8,
+       "plateau_95_over_H": 0.5775,
+       "front_run_80_m": 3.6,
+       "back_run_80_m": 13.9,
+       "loaf_index": 3.861,
+       "crest_radius_m": 5.64,
+       "crest_radius_over_H": 0.37
+      },
+      "6.0": {
+       "tau": -2.7,
+       "H_m": 16.626,
+       "plateau_95_m": 8.3,
+       "plateau_95_over_H": 0.4992,
+       "front_run_80_m": 4.0,
+       "back_run_80_m": 13.9,
+       "loaf_index": 3.475,
+       "crest_radius_m": 7.45,
+       "crest_radius_over_H": 0.448
+      },
+      "6.5": {
+       "tau": -2.45,
+       "H_m": 17.601,
+       "plateau_95_m": 8.4,
+       "plateau_95_over_H": 0.4772,
+       "front_run_80_m": 4.7,
+       "back_run_80_m": 13.8,
+       "loaf_index": 2.936,
+       "crest_radius_m": 7.68,
+       "crest_radius_over_H": 0.436
+      },
+      "7.0": {
+       "tau": -2.2,
+       "H_m": 18.037,
+       "plateau_95_m": 8.6,
+       "plateau_95_over_H": 0.4768,
+       "front_run_80_m": 5.5,
+       "back_run_80_m": 13.7,
+       "loaf_index": 2.491,
+       "crest_radius_m": 7.02,
+       "crest_radius_over_H": 0.389
+      }
+     }
+    }
+   }
+  },
+  "fix": {
+   "G_p28a": {
+    "schema": "GreatWave.Polish28.loaf/1",
+    "times": [
+     4.0,
+     4.5,
+     5.0,
+     5.5,
+     6.0,
+     6.5,
+     7.0
+    ],
+    "t_travel": [
+     0.7333652004044829,
+     -0.0,
+     -0.6798348938056156
+    ],
+    "tags": {
+     "G_final": {
+      "package": "Unity/Build/Polish/28/G_final/art_on",
+      "warp": "Unity/Build/Polish/28/G_final/timewarp_G_final.json",
+      "sign": 1.0,
+      "by_t": {
+       "4.0": {
+        "tau": -3.894,
+        "H_m": 11.148,
+        "plateau_95_m": 7.9,
+        "plateau_95_over_H": 0.7087,
+        "front_run_80_m": 3.5,
+        "back_run_80_m": 14.2,
+        "loaf_index": 4.057,
+        "crest_radius_m": 6.03,
+        "crest_radius_over_H": 0.541
+       },
+       "4.5": {
+        "tau": -3.4904,
+        "H_m": 12.582,
+        "plateau_95_m": 7.9,
+        "plateau_95_over_H": 0.6279,
+        "front_run_80_m": 3.2,
+        "back_run_80_m": 14.0,
+        "loaf_index": 4.375,
+        "crest_radius_m": 4.62,
+        "crest_radius_over_H": 0.367
+       },
+       "5.0": {
+        "tau": -3.2019,
+        "H_m": 13.91,
+        "plateau_95_m": 8.2,
+        "plateau_95_over_H": 0.5895,
+        "front_run_80_m": 3.3,
+        "back_run_80_m": 13.7,
+        "loaf_index": 4.152,
+        "crest_radius_m": 4.38,
+        "crest_radius_over_H": 0.315
+       },
+       "5.5": {
+        "tau": -2.95,
+        "H_m": 15.239,
+        "plateau_95_m": 8.8,
+        "plateau_95_over_H": 0.5775,
+        "front_run_80_m": 3.6,
+        "back_run_80_m": 13.9,
+        "loaf_index": 3.861,
+        "crest_radius_m": 5.64,
+        "crest_radius_over_H": 0.37
+       },
+       "6.0": {
+        "tau": -2.7,
+        "H_m": 16.626,
+        "plateau_95_m": 8.3,
+        "plateau_95_over_H": 0.4992,
+        "front_run_80_m": 4.0,
+        "back_run_80_m": 13.9,
+        "loaf_index": 3.475,
+        "crest_radius_m": 7.45,
+        "crest_radius_over_H": 0.448
+       },
+       "6.5": {
+        "tau": -2.45,
+        "H_m": 17.601,
+        "plateau_95_m": 8.4,
+        "plateau_95_over_H": 0.4772,
+        "front_run_80_m": 4.7,
+        "back_run_80_m": 13.8,
+        "loaf_index": 2.936,
+        "crest_radius_m": 7.68,
+        "crest_radius_over_H": 0.436
+       },
+       "7.0": {
+        "tau": -2.2,
+        "H_m": 18.037,
+        "plateau_95_m": 8.6,
+        "plateau_95_over_H": 0.4768,
+        "front_run_80_m": 5.5,
+        "back_run_80_m": 13.7,
+        "loaf_index": 2.491,
+        "crest_radius_m": 7.02,
+        "crest_radius_over_H": 0.389
+       }
+      }
+     },
+     "G_p28a": {
+      "package": "Unity/Build/Polish/28/G_p28a/art_on",
+      "warp": "Unity/Build/Polish/28/G_p28a/timewarp_G_p28a.json",
+      "sign": 1.0,
+      "by_t": {
+       "4.0": {
+        "tau": -3.894,
+        "H_m": 11.148,
+        "plateau_95_m": 6.3,
+        "plateau_95_over_H": 0.5651,
+        "front_run_80_m": 3.5,
+        "back_run_80_m": 11.7,
+        "loaf_index": 3.343,
+        "crest_radius_m": 6.7,
+        "crest_radius_over_H": 0.601
+       },
+       "4.5": {
+        "tau": -3.4904,
+        "H_m": 12.582,
+        "plateau_95_m": 6.9,
+        "plateau_95_over_H": 0.5484,
+        "front_run_80_m": 3.2,
+        "back_run_80_m": 12.0,
+        "loaf_index": 3.75,
+        "crest_radius_m": 4.6,
+        "crest_radius_over_H": 0.366
+       },
+       "5.0": {
+        "tau": -3.2019,
+        "H_m": 13.91,
+        "plateau_95_m": 7.4,
+        "plateau_95_over_H": 0.532,
+        "front_run_80_m": 3.3,
+        "back_run_80_m": 12.0,
+        "loaf_index": 3.636,
+        "crest_radius_m": 4.31,
+        "crest_radius_over_H": 0.31
+       },
+       "5.5": {
+        "tau": -2.95,
+        "H_m": 15.239,
+        "plateau_95_m": 8.0,
+        "plateau_95_over_H": 0.525,
+        "front_run_80_m": 3.6,
+        "back_run_80_m": 12.0,
+        "loaf_index": 3.333,
+        "crest_radius_m": 5.56,
+        "crest_radius_over_H": 0.365
+       },
+       "6.0": {
+        "tau": -2.7,
+        "H_m": 16.626,
+        "plateau_95_m": 6.8,
+        "plateau_95_over_H": 0.409,
+        "front_run_80_m": 4.0,
+        "back_run_80_m": 12.0,
+        "loaf_index": 3.0,
+        "crest_radius_m": 7.37,
+        "crest_radius_over_H": 0.443
+       },
+       "6.5": {
+        "tau": -2.45,
+        "H_m": 17.601,
+        "plateau_95_m": 6.9,
+        "plateau_95_over_H": 0.392,
+        "front_run_80_m": 4.7,
+        "back_run_80_m": 12.0,
+        "loaf_index": 2.553,
+        "crest_radius_m": 7.8,
+        "crest_radius_over_H": 0.443
+       },
+       "7.0": {
+        "tau": -2.2,
+        "H_m": 18.037,
+        "plateau_95_m": 7.2,
+        "plateau_95_over_H": 0.3992,
+        "front_run_80_m": 5.5,
+        "back_run_80_m": 11.8,
+        "loaf_index": 2.145,
+        "crest_radius_m": 7.46,
+        "crest_radius_over_H": 0.414
+       }
+      }
+     }
+    }
+   },
+   "G_p28b": {
+    "schema": "GreatWave.Polish28.loaf/1",
+    "times": [
+     4.0,
+     4.5,
+     5.0,
+     5.5,
+     6.0,
+     6.5,
+     7.0
+    ],
+    "t_travel": [
+     0.7333652004044829,
+     -0.0,
+     -0.6798348938056156
+    ],
+    "tags": {
+     "G_p28b": {
+      "package": "Unity/Build/Polish/28/G_p28b/art_on",
+      "warp": "Unity/Build/Polish/28/G_p28b/timewarp_G_p28b.json",
+      "sign": 1.0,
+      "by_t": {
+       "4.0": {
+        "tau": -3.894,
+        "H_m": 11.148,
+        "plateau_95_m": 7.9,
+        "plateau_95_over_H": 0.7087,
+        "front_run_80_m": 3.5,
+        "back_run_80_m": 14.2,
+        "loaf_index": 4.057,
+        "crest_radius_m": 6.03,
+        "crest_radius_over_H": 0.541
+       },
+       "4.5": {
+        "tau": -3.4904,
+        "H_m": 12.582,
+        "plateau_95_m": 7.9,
+        "plateau_95_over_H": 0.6279,
+        "front_run_80_m": 3.2,
+        "back_run_80_m": 14.0,
+        "loaf_index": 4.375,
+        "crest_radius_m": 4.62,
+        "crest_radius_over_H": 0.367
+       },
+       "5.0": {
+        "tau": -3.2019,
+        "H_m": 13.91,
+        "plateau_95_m": 8.2,
+        "plateau_95_over_H": 0.5895,
+        "front_run_80_m": 3.3,
+        "back_run_80_m": 13.7,
+        "loaf_index": 4.152,
+        "crest_radius_m": 4.38,
+        "crest_radius_over_H": 0.315
+       },
+       "5.5": {
+        "tau": -2.95,
+        "H_m": 15.239,
+        "plateau_95_m": 8.8,
+        "plateau_95_over_H": 0.5775,
+        "front_run_80_m": 3.6,
+        "back_run_80_m": 13.9,
+        "loaf_index": 3.861,
+        "crest_radius_m": 5.64,
+        "crest_radius_over_H": 0.37
+       },
+       "6.0": {
+        "tau": -2.7,
+        "H_m": 16.626,
+        "plateau_95_m": 8.3,
+        "plateau_95_over_H": 0.4992,
+        "front_run_80_m": 4.0,
+        "back_run_80_m": 13.9,
+        "loaf_index": 3.475,
+        "crest_radius_m": 7.45,
+        "crest_radius_over_H": 0.448
+       },
+       "6.5": {
+        "tau": -2.45,
+        "H_m": 17.601,
+        "plateau_95_m": 8.4,
+        "plateau_95_over_H": 0.4772,
+        "front_run_80_m": 4.7,
+        "back_run_80_m": 13.8,
+        "loaf_index": 2.936,
+        "crest_radius_m": 7.68,
+        "crest_radius_over_H": 0.436
+       },
+       "7.0": {
+        "tau": -2.2,
+        "H_m": 18.037,
+        "plateau_95_m": 8.6,
+        "plateau_95_over_H": 0.4768,
+        "front_run_80_m": 5.5,
+        "back_run_80_m": 13.7,
+        "loaf_index": 2.491,
+        "crest_radius_m": 6.85,
+        "crest_radius_over_H": 0.38
+       }
+      }
+     }
+    }
+   }
+  }
+ },
+ "review_q13_q15_q17": {
+  "G_final": {
+   "pace": {
+    "164": {
+     "events": {
+      "Theta45": {
+       "t": 2.89,
+       "tau": -4.999
+      },
+      "Theta90": {
+       "t": 5.405,
+       "tau": -2.997
+      },
+      "Lo0.15H": {
+       "t": 6.227,
+       "tau": -2.586
+      },
+      "H0.4Hf": {
+       "t": 2.739,
+       "tau": -5.151
+      },
+      "H0.8Hf": {
+       "t": 5.817,
+       "tau": -2.792
+      }
+     },
+     "hump_to_C_s": 3.337,
+     "rise_04_08_s": 3.078,
+     "vdef_up_max_mps": 1.695,
+     "vdef_up_max_t": 5.88,
+     "vdef_up_rise_max_mps2": 1.767,
+     "tau_at_t0": -7.889
+    },
+    "183": {
+     "events": {
+      "Theta45": {
+       "t": 2.768,
+       "tau": -5.121
+      },
+      "Theta90": {
+       "t": 5.19,
+       "tau": -3.105
+      },
+      "Lo0.15H": {
+       "t": 6.126,
+       "tau": -2.637
+      },
+      "H0.4Hf": {
+       "t": 2.676,
+       "tau": -5.213
+      },
+      "H0.8Hf": {
+       "t": 5.667,
+       "tau": -2.867
+      }
+     },
+     "hump_to_C_s": 3.358,
+     "rise_04_08_s": 2.991,
+     "vdef_up_max_mps": 1.584,
+     "vdef_up_max_t": 5.63,
+     "vdef_up_rise_max_mps2": 1.565,
+     "tau_at_t0": -7.889
+    }
+   },
+   "front_crest": {
+    "164": {
+     "events": {
+      "Theta45": {
+       "t": 2.89,
+       "tau": -4.999,
+       "H_over_Hf": 0.416
+      },
+      "Theta90": {
+       "t": 5.405,
+       "tau": -2.997,
+       "H_over_Hf": 0.743
+      },
+      "Lo0.05H": {
+       "t": 5.783,
+       "tau": -2.809,
+       "H_over_Hf": 0.795
+      },
+      "Lo0.10H": {
+       "t": 6.01,
+       "tau": -2.695,
+       "H_over_Hf": 0.826
+      },
+      "Lo0.15H": {
+       "t": 6.227,
+       "tau": -2.586,
+       "H_over_Hf": 0.849
+      }
+     },
+     "Theta90_H_over_Hf": 0.743,
+     "Theta45_H_over_Hf": 0.416,
+     "Theta_85_110_s": 1.1,
+     "theta_c_min_before_lip_deg": 142.5,
+     "theta_c_min_before_lip_t": 4.98,
+     "theta_c_le110_before_lip_s": 0.0,
+     "theta_c_le110_all_s": 0.0,
+     "sharpen_last2s_deg": 0.77,
+     "theta_c_t10_deg": 138.0,
+     "theta_c_tstar_deg": 137.2,
+     "theta_c_min_last2s_deg": 137.2,
+     "theta_c_at_t": {
+      "4.0": 149.2,
+      "5.0": 142.5,
+      "5.5": 142.9,
+      "6.0": 143.0,
+      "6.5": 144.2,
+      "7.0": 141.2,
+      "8.0": 139.3,
+      "9.0": 137.4,
+      "10.0": 138.0,
+      "11.0": 137.7,
+      "11.5": 137.4,
+      "12.0": 137.2
+     }
+    },
+    "183": {
+     "events": {
+      "Theta45": {
+       "t": 2.768,
+       "tau": -5.121,
+       "H_over_Hf": 0.41
+      },
+      "Theta90": {
+       "t": 5.19,
+       "tau": -3.105,
+       "H_over_Hf": 0.735
+      },
+      "Lo0.05H": {
+       "t": 5.596,
+       "tau": -2.902,
+       "H_over_Hf": 0.79
+      },
+      "Lo0.10H": {
+       "t": 5.848,
+       "tau": -2.776,
+       "H_over_Hf": 0.822
+      },
+      "Lo0.15H": {
+       "t": 6.126,
+       "tau": -2.637,
+       "H_over_Hf": 0.848
+      }
+     },
+     "Theta90_H_over_Hf": 0.735,
+     "Theta45_H_over_Hf": 0.41,
+     "Theta_85_110_s": 1.2,
+     "theta_c_min_before_lip_deg": 141.4,
+     "theta_c_min_before_lip_t": 5.58,
+     "theta_c_le110_before_lip_s": 0.0,
+     "theta_c_le110_all_s": 0.0,
+     "sharpen_last2s_deg": -0.83,
+     "theta_c_t10_deg": 136.0,
+     "theta_c_tstar_deg": 136.8,
+     "theta_c_min_last2s_deg": 136.0,
+     "theta_c_at_t": {
+      "4.0": 149.3,
+      "5.0": 142.6,
+      "5.5": 141.6,
+      "6.0": 140.8,
+      "6.5": 140.3,
+      "7.0": 139.5,
+      "8.0": 137.4,
+      "9.0": 135.0,
+      "10.0": 136.0,
+      "11.0": 136.8,
+      "11.5": 136.9,
+      "12.0": 136.8
+     }
+    }
+   },
+   "curl": {
+    "164": {
+     "tau_on": -3.81,
+     "visible": {
+      "tau": -2.671,
+      "H_over_Hf": 0.831,
+      "by": "Lo0.10",
+      "gain_after_over_Hf": 0.169
+     },
+     "H_over_Hf_at_top": 0.894,
+     "h_at_visible_m": -1.318,
+     "h_at_top_m": -2.744,
+     "h_at_tstar_m": -8.217,
+     "drop_total_m": 6.899,
+     "share_before_top": 0.207,
+     "share_last_1s_physical": 0.415,
+     "monotone_max_rise_m": 0.0,
+     "monotone_ok": true,
+     "rel_descent_speed_max_mps": 5.099,
+     "tip_apex_tau": -2.454,
+     "tip_max_up_accel_after_apex_mps2": 0.007,
+     "screen": {
+      "warp": "Unity/Build/Polish/28/G_final/timewarp_G_final.json",
+      "tau_at_t10": -0.7,
+      "share_after_t10": 0.311,
+      "t_visible": 6.06,
+      "t_top": 7.2,
+      "t_tip_apex": 6.49,
+      "slow_reached_tau": null,
+      "t_slow_reached": null,
+      "share_in_slow": null,
+      "rel_descent_speed_max_screen_mps": 1.605,
+      "rel_descent_screen_decel_max_mps2": 3.042
+     }
+    },
+    "183": {
+     "tau_on": -3.62,
+     "visible": {
+      "tau": -2.708,
+      "H_over_Hf": 0.836,
+      "by": "Lo0.10",
+      "gain_after_over_Hf": 0.164
+     },
+     "H_over_Hf_at_top": 0.889,
+     "h_at_visible_m": -1.412,
+     "h_at_top_m": -2.583,
+     "h_at_tstar_m": -6.95,
+     "drop_total_m": 5.538,
+     "share_before_top": 0.211,
+     "share_last_1s_physical": 0.422,
+     "monotone_max_rise_m": 0.0,
+     "monotone_ok": true,
+     "rel_descent_speed_max_mps": 4.616,
+     "tip_apex_tau": -2.521,
+     "tip_max_up_accel_after_apex_mps2": 0.011,
+     "screen": {
+      "warp": "Unity/Build/Polish/28/G_final/timewarp_G_final.json",
+      "tau_at_t10": -0.7,
+      "share_after_t10": 0.322,
+      "t_visible": 5.98,
+      "t_top": 7.2,
+      "t_tip_apex": 6.36,
+      "slow_reached_tau": null,
+      "t_slow_reached": null,
+      "share_in_slow": null,
+      "rel_descent_speed_max_screen_mps": 1.406,
+      "rel_descent_screen_decel_max_mps2": 2.745
+     }
+    }
+   },
+   "no_rebound_before_stop": {
+    "lip": {
+     "n": 17070.0,
+     "rerise_gt_1cm": 0.0,
+     "rerise_max_m": 0.0001,
+     "accp_gt_005": 0.0,
+     "accp_max": 0.0004,
+     "accs_gt_005": 0.0,
+     "accs_gt_05": 0.0,
+     "accs_max": 0.0005
+    },
+    "tube": {
+     "n": 17412.0,
+     "rerise_gt_1cm": 0.0,
+     "rerise_max_m": 0.0,
+     "accp_gt_005": 0.0,
+     "accp_max": 0.0003,
+     "accs_gt_005": 0.0,
+     "accs_gt_05": 0.0,
+     "accs_max": 0.0003
+    },
+    "worst": {
+     "lip_rerise_max_m": {
+      "row": 91,
+      "col": 127,
+      "apex_tau": -0.013,
+      "value": 0.0
+     },
+     "tube_rerise_max_m": {
+      "row": 69,
+      "col": 237,
+      "apex_tau": -0.013,
+      "value": 0.0
+     },
+     "lip_accp_max": {
+      "row": 163,
+      "col": 155,
+      "apex_tau": -2.317,
+      "value": 0.0
+     },
+     "tube_accp_max": {
+      "row": 143,
+      "col": 216,
+      "apex_tau": -2.263,
+      "value": 0.0
+     },
+     "lip_accs_max": {
+      "row": 169,
+      "col": 149,
+      "apex_tau": -2.325,
+      "value": 0.001
+     },
+     "tube_accs_max": {
+      "row": 105,
+      "col": 216,
+      "apex_tau": -2.017,
+      "value": 0.0
+     }
+    },
+    "reading_ja": "0.25 s の二次の当てはめ（Savitzky–Golay、240 Hz）。画面は既定の時間曲線、止めるための区間の前まで（P16 と同じ）。許容 0.05 m/s²"
+   }
+  },
+  "G_p28a": {
+   "pace": {
+    "164": {
+     "events": {
+      "Theta45": {
+       "t": 2.89,
+       "tau": -4.999
+      },
+      "Theta90": {
+       "t": 5.405,
+       "tau": -2.997
+      },
+      "Lo0.15H": {
+       "t": 6.227,
+       "tau": -2.586
+      },
+      "H0.4Hf": {
+       "t": 2.739,
+       "tau": -5.151
+      },
+      "H0.8Hf": {
+       "t": 5.817,
+       "tau": -2.792
+      }
+     },
+     "hump_to_C_s": 3.337,
+     "rise_04_08_s": 3.078,
+     "vdef_up_max_mps": 1.693,
+     "vdef_up_max_t": 5.88,
+     "vdef_up_rise_max_mps2": 1.765,
+     "tau_at_t0": -7.889
+    },
+    "183": {
+     "events": {
+      "Theta45": {
+       "t": 2.768,
+       "tau": -5.121
+      },
+      "Theta90": {
+       "t": 5.19,
+       "tau": -3.105
+      },
+      "Lo0.15H": {
+       "t": 6.126,
+       "tau": -2.637
+      },
+      "H0.4Hf": {
+       "t": 2.676,
+       "tau": -5.213
+      },
+      "H0.8Hf": {
+       "t": 5.667,
+       "tau": -2.867
+      }
+     },
+     "hump_to_C_s": 3.358,
+     "rise_04_08_s": 2.991,
+     "vdef_up_max_mps": 1.583,
+     "vdef_up_max_t": 5.63,
+     "vdef_up_rise_max_mps2": 1.562,
+     "tau_at_t0": -7.889
+    }
+   },
+   "front_crest": {
+    "164": {
+     "events": {
+      "Theta45": {
+       "t": 2.89,
+       "tau": -4.999,
+       "H_over_Hf": 0.416
+      },
+      "Theta90": {
+       "t": 5.405,
+       "tau": -2.997,
+       "H_over_Hf": 0.743
+      },
+      "Lo0.05H": {
+       "t": 5.783,
+       "tau": -2.809,
+       "H_over_Hf": 0.795
+      },
+      "Lo0.10H": {
+       "t": 6.01,
+       "tau": -2.695,
+       "H_over_Hf": 0.826
+      },
+      "Lo0.15H": {
+       "t": 6.227,
+       "tau": -2.586,
+       "H_over_Hf": 0.849
+      }
+     },
+     "Theta90_H_over_Hf": 0.743,
+     "Theta45_H_over_Hf": 0.416,
+     "Theta_85_110_s": 1.1,
+     "theta_c_min_before_lip_deg": 138.8,
+     "theta_c_min_before_lip_t": 5.08,
+     "theta_c_le110_before_lip_s": 0.0,
+     "theta_c_le110_all_s": 0.0,
+     "sharpen_last2s_deg": 0.77,
+     "theta_c_t10_deg": 138.0,
+     "theta_c_tstar_deg": 137.2,
+     "theta_c_min_last2s_deg": 137.2,
+     "theta_c_at_t": {
+      "4.0": 145.6,
+      "5.0": 138.8,
+      "5.5": 139.0,
+      "6.0": 138.8,
+      "6.5": 139.8,
+      "7.0": 136.9,
+      "8.0": 136.6,
+      "9.0": 137.1,
+      "10.0": 138.0,
+      "11.0": 137.7,
+      "11.5": 137.4,
+      "12.0": 137.2
+     }
+    },
+    "183": {
+     "events": {
+      "Theta45": {
+       "t": 2.768,
+       "tau": -5.121,
+       "H_over_Hf": 0.41
+      },
+      "Theta90": {
+       "t": 5.19,
+       "tau": -3.105,
+       "H_over_Hf": 0.735
+      },
+      "Lo0.05H": {
+       "t": 5.596,
+       "tau": -2.902,
+       "H_over_Hf": 0.79
+      },
+      "Lo0.10H": {
+       "t": 5.848,
+       "tau": -2.776,
+       "H_over_Hf": 0.822
+      },
+      "Lo0.15H": {
+       "t": 6.126,
+       "tau": -2.637,
+       "H_over_Hf": 0.848
+      }
+     },
+     "Theta90_H_over_Hf": 0.735,
+     "Theta45_H_over_Hf": 0.41,
+     "Theta_85_110_s": 1.2,
+     "theta_c_min_before_lip_deg": 136.7,
+     "theta_c_min_before_lip_t": 5.58,
+     "theta_c_le110_before_lip_s": 0.0,
+     "theta_c_le110_all_s": 0.0,
+     "sharpen_last2s_deg": -0.83,
+     "theta_c_t10_deg": 136.0,
+     "theta_c_tstar_deg": 136.8,
+     "theta_c_min_last2s_deg": 136.0,
+     "theta_c_at_t": {
+      "4.0": 145.3,
+      "5.0": 138.3,
+      "5.5": 136.9,
+      "6.0": 135.9,
+      "6.5": 135.3,
+      "7.0": 134.7,
+      "8.0": 134.8,
+      "9.0": 134.9,
+      "10.0": 136.0,
+      "11.0": 136.8,
+      "11.5": 136.9,
+      "12.0": 136.8
+     }
+    }
+   },
+   "curl": {
+    "164": {
+     "tau_on": -3.81,
+     "visible": {
+      "tau": -2.671,
+      "H_over_Hf": 0.831,
+      "by": "Lo0.10",
+      "gain_after_over_Hf": 0.169
+     },
+     "H_over_Hf_at_top": 0.894,
+     "h_at_visible_m": -1.318,
+     "h_at_top_m": -2.744,
+     "h_at_tstar_m": -8.217,
+     "drop_total_m": 6.899,
+     "share_before_top": 0.207,
+     "share_last_1s_physical": 0.415,
+     "monotone_max_rise_m": 0.0,
+     "monotone_ok": true,
+     "rel_descent_speed_max_mps": 5.099,
+     "tip_apex_tau": -2.454,
+     "tip_max_up_accel_after_apex_mps2": 0.007,
+     "screen": {
+      "warp": "Unity/Build/Polish/28/G_p28a/timewarp_G_p28a.json",
+      "tau_at_t10": -0.7,
+      "share_after_t10": 0.311,
+      "t_visible": 6.06,
+      "t_top": 7.2,
+      "t_tip_apex": 6.49,
+      "slow_reached_tau": null,
+      "t_slow_reached": null,
+      "share_in_slow": null,
+      "rel_descent_speed_max_screen_mps": 1.605,
+      "rel_descent_screen_decel_max_mps2": 3.042
+     }
+    },
+    "183": {
+     "tau_on": -3.62,
+     "visible": {
+      "tau": -2.708,
+      "H_over_Hf": 0.836,
+      "by": "Lo0.10",
+      "gain_after_over_Hf": 0.164
+     },
+     "H_over_Hf_at_top": 0.889,
+     "h_at_visible_m": -1.412,
+     "h_at_top_m": -2.583,
+     "h_at_tstar_m": -6.95,
+     "drop_total_m": 5.538,
+     "share_before_top": 0.211,
+     "share_last_1s_physical": 0.422,
+     "monotone_max_rise_m": 0.0,
+     "monotone_ok": true,
+     "rel_descent_speed_max_mps": 4.616,
+     "tip_apex_tau": -2.521,
+     "tip_max_up_accel_after_apex_mps2": 0.011,
+     "screen": {
+      "warp": "Unity/Build/Polish/28/G_p28a/timewarp_G_p28a.json",
+      "tau_at_t10": -0.7,
+      "share_after_t10": 0.322,
+      "t_visible": 5.98,
+      "t_top": 7.2,
+      "t_tip_apex": 6.36,
+      "slow_reached_tau": null,
+      "t_slow_reached": null,
+      "share_in_slow": null,
+      "rel_descent_speed_max_screen_mps": 1.406,
+      "rel_descent_screen_decel_max_mps2": 2.745
+     }
+    }
+   },
+   "no_rebound_before_stop": {
+    "lip": {
+     "n": 17070.0,
+     "rerise_gt_1cm": 0.0,
+     "rerise_max_m": 0.0001,
+     "accp_gt_005": 0.0,
+     "accp_max": 0.0004,
+     "accs_gt_005": 0.0,
+     "accs_gt_05": 0.0,
+     "accs_max": 0.0005
+    },
+    "tube": {
+     "n": 17412.0,
+     "rerise_gt_1cm": 0.0,
+     "rerise_max_m": 0.0,
+     "accp_gt_005": 0.0,
+     "accp_max": 0.0003,
+     "accs_gt_005": 0.0,
+     "accs_gt_05": 0.0,
+     "accs_max": 0.0003
+    },
+    "worst": {
+     "lip_rerise_max_m": {
+      "row": 91,
+      "col": 127,
+      "apex_tau": -0.013,
+      "value": 0.0
+     },
+     "tube_rerise_max_m": {
+      "row": 69,
+      "col": 237,
+      "apex_tau": -0.013,
+      "value": 0.0
+     },
+     "lip_accp_max": {
+      "row": 163,
+      "col": 155,
+      "apex_tau": -2.317,
+      "value": 0.0
+     },
+     "tube_accp_max": {
+      "row": 143,
+      "col": 216,
+      "apex_tau": -2.263,
+      "value": 0.0
+     },
+     "lip_accs_max": {
+      "row": 169,
+      "col": 149,
+      "apex_tau": -2.325,
+      "value": 0.001
+     },
+     "tube_accs_max": {
+      "row": 105,
+      "col": 216,
+      "apex_tau": -2.017,
+      "value": 0.0
+     }
+    },
+    "reading_ja": "0.25 s の二次の当てはめ（Savitzky–Golay、240 Hz）。画面は既定の時間曲線、止めるための区間の前まで（P16 と同じ）。許容 0.05 m/s²"
+   }
+  },
+  "G_p28b": {
+   "pace": {
+    "164": {
+     "events": {
+      "Theta45": {
+       "t": 2.89,
+       "tau": -4.999
+      },
+      "Theta90": {
+       "t": 5.405,
+       "tau": -2.997
+      },
+      "Lo0.15H": {
+       "t": 6.227,
+       "tau": -2.586
+      },
+      "H0.4Hf": {
+       "t": 2.739,
+       "tau": -5.151
+      },
+      "H0.8Hf": {
+       "t": 5.817,
+       "tau": -2.792
+      }
+     },
+     "hump_to_C_s": 3.337,
+     "rise_04_08_s": 3.078,
+     "vdef_up_max_mps": 1.695,
+     "vdef_up_max_t": 5.88,
+     "vdef_up_rise_max_mps2": 1.767,
+     "tau_at_t0": -7.889
+    },
+    "183": {
+     "events": {
+      "Theta45": {
+       "t": 2.768,
+       "tau": -5.121
+      },
+      "Theta90": {
+       "t": 5.19,
+       "tau": -3.105
+      },
+      "Lo0.15H": {
+       "t": 6.126,
+       "tau": -2.637
+      },
+      "H0.4Hf": {
+       "t": 2.676,
+       "tau": -5.213
+      },
+      "H0.8Hf": {
+       "t": 5.667,
+       "tau": -2.867
+      }
+     },
+     "hump_to_C_s": 3.358,
+     "rise_04_08_s": 2.991,
+     "vdef_up_max_mps": 1.584,
+     "vdef_up_max_t": 5.63,
+     "vdef_up_rise_max_mps2": 1.565,
+     "tau_at_t0": -7.889
+    }
+   },
+   "front_crest": {
+    "164": {
+     "events": {
+      "Theta45": {
+       "t": 2.89,
+       "tau": -4.999,
+       "H_over_Hf": 0.416
+      },
+      "Theta90": {
+       "t": 5.405,
+       "tau": -2.997,
+       "H_over_Hf": 0.743
+      },
+      "Lo0.05H": {
+       "t": 5.783,
+       "tau": -2.809,
+       "H_over_Hf": 0.795
+      },
+      "Lo0.10H": {
+       "t": 6.01,
+       "tau": -2.695,
+       "H_over_Hf": 0.826
+      },
+      "Lo0.15H": {
+       "t": 6.227,
+       "tau": -2.586,
+       "H_over_Hf": 0.849
+      }
+     },
+     "Theta90_H_over_Hf": 0.743,
+     "Theta45_H_over_Hf": 0.416,
+     "Theta_85_110_s": 1.1,
+     "theta_c_min_before_lip_deg": 142.5,
+     "theta_c_min_before_lip_t": 4.98,
+     "theta_c_le110_before_lip_s": 0.0,
+     "theta_c_le110_all_s": 0.0,
+     "sharpen_last2s_deg": 0.77,
+     "theta_c_t10_deg": 138.0,
+     "theta_c_tstar_deg": 137.2,
+     "theta_c_min_last2s_deg": 137.2,
+     "theta_c_at_t": {
+      "4.0": 149.2,
+      "5.0": 142.5,
+      "5.5": 142.9,
+      "6.0": 143.0,
+      "6.5": 144.2,
+      "7.0": 141.2,
+      "8.0": 139.3,
+      "9.0": 137.4,
+      "10.0": 138.0,
+      "11.0": 137.7,
+      "11.5": 137.4,
+      "12.0": 137.2
+     }
+    },
+    "183": {
+     "events": {
+      "Theta45": {
+       "t": 2.768,
+       "tau": -5.121,
+       "H_over_Hf": 0.41
+      },
+      "Theta90": {
+       "t": 5.19,
+       "tau": -3.105,
+       "H_over_Hf": 0.735
+      },
+      "Lo0.05H": {
+       "t": 5.596,
+       "tau": -2.902,
+       "H_over_Hf": 0.79
+      },
+      "Lo0.10H": {
+       "t": 5.848,
+       "tau": -2.776,
+       "H_over_Hf": 0.822
+      },
+      "Lo0.15H": {
+       "t": 6.126,
+       "tau": -2.637,
+       "H_over_Hf": 0.848
+      }
+     },
+     "Theta90_H_over_Hf": 0.735,
+     "Theta45_H_over_Hf": 0.41,
+     "Theta_85_110_s": 1.2,
+     "theta_c_min_before_lip_deg": 141.4,
+     "theta_c_min_before_lip_t": 5.58,
+     "theta_c_le110_before_lip_s": 0.0,
+     "theta_c_le110_all_s": 0.0,
+     "sharpen_last2s_deg": -0.83,
+     "theta_c_t10_deg": 136.0,
+     "theta_c_tstar_deg": 136.8,
+     "theta_c_min_last2s_deg": 136.0,
+     "theta_c_at_t": {
+      "4.0": 149.3,
+      "5.0": 142.6,
+      "5.5": 141.6,
+      "6.0": 140.8,
+      "6.5": 140.3,
+      "7.0": 139.5,
+      "8.0": 137.4,
+      "9.0": 135.0,
+      "10.0": 136.0,
+      "11.0": 136.8,
+      "11.5": 136.9,
+      "12.0": 136.8
+     }
+    }
+   },
+   "curl": {
+    "164": {
+     "tau_on": -3.81,
+     "visible": {
+      "tau": -2.671,
+      "H_over_Hf": 0.831,
+      "by": "Lo0.10",
+      "gain_after_over_Hf": 0.169
+     },
+     "H_over_Hf_at_top": 0.894,
+     "h_at_visible_m": -1.318,
+     "h_at_top_m": -2.744,
+     "h_at_tstar_m": -8.217,
+     "drop_total_m": 6.899,
+     "share_before_top": 0.207,
+     "share_last_1s_physical": 0.415,
+     "monotone_max_rise_m": 0.0,
+     "monotone_ok": true,
+     "rel_descent_speed_max_mps": 5.099,
+     "tip_apex_tau": -2.454,
+     "tip_max_up_accel_after_apex_mps2": 0.007,
+     "screen": {
+      "warp": "Unity/Build/Polish/28/G_p28b/timewarp_G_p28b.json",
+      "tau_at_t10": -0.7,
+      "share_after_t10": 0.311,
+      "t_visible": 6.06,
+      "t_top": 7.2,
+      "t_tip_apex": 6.49,
+      "slow_reached_tau": null,
+      "t_slow_reached": null,
+      "share_in_slow": null,
+      "rel_descent_speed_max_screen_mps": 1.605,
+      "rel_descent_screen_decel_max_mps2": 3.042
+     }
+    },
+    "183": {
+     "tau_on": -3.62,
+     "visible": {
+      "tau": -2.708,
+      "H_over_Hf": 0.836,
+      "by": "Lo0.10",
+      "gain_after_over_Hf": 0.164
+     },
+     "H_over_Hf_at_top": 0.889,
+     "h_at_visible_m": -1.412,
+     "h_at_top_m": -2.583,
+     "h_at_tstar_m": -6.95,
+     "drop_total_m": 5.538,
+     "share_before_top": 0.211,
+     "share_last_1s_physical": 0.422,
+     "monotone_max_rise_m": 0.0,
+     "monotone_ok": true,
+     "rel_descent_speed_max_mps": 4.616,
+     "tip_apex_tau": -2.521,
+     "tip_max_up_accel_after_apex_mps2": 0.011,
+     "screen": {
+      "warp": "Unity/Build/Polish/28/G_p28b/timewarp_G_p28b.json",
+      "tau_at_t10": -0.7,
+      "share_after_t10": 0.322,
+      "t_visible": 5.98,
+      "t_top": 7.2,
+      "t_tip_apex": 6.36,
+      "slow_reached_tau": null,
+      "t_slow_reached": null,
+      "share_in_slow": null,
+      "rel_descent_speed_max_screen_mps": 1.406,
+      "rel_descent_screen_decel_max_mps2": 2.745
+     }
+    }
+   },
+   "no_rebound_before_stop": {
+    "lip": {
+     "n": 17070.0,
+     "rerise_gt_1cm": 0.0,
+     "rerise_max_m": 0.0001,
+     "accp_gt_005": 0.0,
+     "accp_max": 0.0004,
+     "accs_gt_005": 0.0,
+     "accs_gt_05": 0.0,
+     "accs_max": 0.0005
+    },
+    "tube": {
+     "n": 17412.0,
+     "rerise_gt_1cm": 0.0,
+     "rerise_max_m": 0.0,
+     "accp_gt_005": 0.0,
+     "accp_max": 0.0003,
+     "accs_gt_005": 0.0,
+     "accs_gt_05": 0.0,
+     "accs_max": 0.0003
+    },
+    "worst": {
+     "lip_rerise_max_m": {
+      "row": 91,
+      "col": 127,
+      "apex_tau": -0.013,
+      "value": 0.0
+     },
+     "tube_rerise_max_m": {
+      "row": 69,
+      "col": 237,
+      "apex_tau": -0.013,
+      "value": 0.0
+     },
+     "lip_accp_max": {
+      "row": 163,
+      "col": 155,
+      "apex_tau": -2.317,
+      "value": 0.0
+     },
+     "tube_accp_max": {
+      "row": 143,
+      "col": 216,
+      "apex_tau": -2.263,
+      "value": 0.0
+     },
+     "lip_accs_max": {
+      "row": 169,
+      "col": 149,
+      "apex_tau": -2.325,
+      "value": 0.001
+     },
+     "tube_accs_max": {
+      "row": 105,
+      "col": 216,
+      "apex_tau": -2.017,
+      "value": 0.0
+     }
+    },
+    "reading_ja": "0.25 s の二次の当てはめ（Savitzky–Golay、240 Hz）。画面は既定の時間曲線、止めるための区間の前まで（P16 と同じ）。許容 0.05 m/s²"
+   }
+  },
+  "F_final": {
+   "pace": {
+    "164": {
+     "events": {
+      "Theta45": {
+       "t": 2.89,
+       "tau": -4.999
+      },
+      "Theta90": {
+       "t": 5.405,
+       "tau": -2.997
+      },
+      "Lo0.15H": {
+       "t": 6.227,
+       "tau": -2.586
+      },
+      "H0.4Hf": {
+       "t": 2.739,
+       "tau": -5.151
+      },
+      "H0.8Hf": {
+       "t": 5.817,
+       "tau": -2.792
+      }
+     },
+     "hump_to_C_s": 3.337,
+     "rise_04_08_s": 3.078,
+     "vdef_up_max_mps": 1.697,
+     "vdef_up_max_t": 5.88,
+     "vdef_up_rise_max_mps2": 1.774,
+     "tau_at_t0": -7.889
+    },
+    "183": {
+     "events": {
+      "Theta45": {
+       "t": 2.768,
+       "tau": -5.121
+      },
+      "Theta90": {
+       "t": 5.191,
+       "tau": -3.105
+      },
+      "Lo0.15H": {
+       "t": 6.129,
+       "tau": -2.636
+      },
+      "H0.4Hf": {
+       "t": 2.675,
+       "tau": -5.215
+      },
+      "H0.8Hf": {
+       "t": 5.665,
+       "tau": -2.868
+      }
+     },
+     "hump_to_C_s": 3.361,
+     "rise_04_08_s": 2.99,
+     "vdef_up_max_mps": 1.585,
+     "vdef_up_max_t": 5.63,
+     "vdef_up_rise_max_mps2": 1.578,
+     "tau_at_t0": -7.889
+    }
+   },
+   "front_crest": {
+    "164": {
+     "events": {
+      "Theta45": {
+       "t": 2.89,
+       "tau": -4.999,
+       "H_over_Hf": 0.416
+      },
+      "Theta90": {
+       "t": 5.405,
+       "tau": -2.997,
+       "H_over_Hf": 0.743
+      },
+      "Lo0.05H": {
+       "t": 5.783,
+       "tau": -2.809,
+       "H_over_Hf": 0.795
+      },
+      "Lo0.10H": {
+       "t": 6.01,
+       "tau": -2.695,
+       "H_over_Hf": 0.826
+      },
+      "Lo0.15H": {
+       "t": 6.227,
+       "tau": -2.586,
+       "H_over_Hf": 0.849
+      }
+     },
+     "Theta90_H_over_Hf": 0.743,
+     "Theta45_H_over_Hf": 0.416,
+     "Theta_85_110_s": 1.1,
+     "theta_c_min_before_lip_deg": 142.6,
+     "theta_c_min_before_lip_t": 4.98,
+     "theta_c_le110_before_lip_s": 0.0,
+     "theta_c_le110_all_s": 0.0,
+     "sharpen_last2s_deg": 0.76,
+     "theta_c_t10_deg": 138.2,
+     "theta_c_tstar_deg": 137.4,
+     "theta_c_min_last2s_deg": 137.4,
+     "theta_c_at_t": {
+      "4.0": 149.3,
+      "5.0": 142.6,
+      "5.5": 143.1,
+      "6.0": 143.1,
+      "6.5": 144.3,
+      "7.0": 141.4,
+      "8.0": 139.5,
+      "9.0": 137.5,
+      "10.0": 138.2,
+      "11.0": 137.9,
+      "11.5": 137.6,
+      "12.0": 137.4
+     }
+    },
+    "183": {
+     "events": {
+      "Theta45": {
+       "t": 2.768,
+       "tau": -5.121,
+       "H_over_Hf": 0.41
+      },
+      "Theta90": {
+       "t": 5.191,
+       "tau": -3.105,
+       "H_over_Hf": 0.735
+      },
+      "Lo0.05H": {
+       "t": 5.598,
+       "tau": -2.901,
+       "H_over_Hf": 0.791
+      },
+      "Lo0.10H": {
+       "t": 5.85,
+       "tau": -2.775,
+       "H_over_Hf": 0.823
+      },
+      "Lo0.15H": {
+       "t": 6.129,
+       "tau": -2.636,
+       "H_over_Hf": 0.849
+      }
+     },
+     "Theta90_H_over_Hf": 0.735,
+     "Theta45_H_over_Hf": 0.41,
+     "Theta_85_110_s": 1.2,
+     "theta_c_min_before_lip_deg": 141.5,
+     "theta_c_min_before_lip_t": 5.58,
+     "theta_c_le110_before_lip_s": 0.0,
+     "theta_c_le110_all_s": 0.0,
+     "sharpen_last2s_deg": -0.86,
+     "theta_c_t10_deg": 135.9,
+     "theta_c_tstar_deg": 136.8,
+     "theta_c_min_last2s_deg": 135.9,
+     "theta_c_at_t": {
+      "4.0": 149.4,
+      "5.0": 142.7,
+      "5.5": 141.7,
+      "6.0": 140.9,
+      "6.5": 140.3,
+      "7.0": 139.5,
+      "8.0": 137.4,
+      "9.0": 134.9,
+      "10.0": 135.9,
+      "11.0": 136.8,
+      "11.5": 136.8,
+      "12.0": 136.8
+     }
+    }
+   },
+   "curl": {
+    "164": {
+     "tau_on": -3.81,
+     "visible": {
+      "tau": -2.671,
+      "H_over_Hf": 0.831,
+      "by": "Lo0.10",
+      "gain_after_over_Hf": 0.169
+     },
+     "H_over_Hf_at_top": 0.894,
+     "h_at_visible_m": -1.318,
+     "h_at_top_m": -2.746,
+     "h_at_tstar_m": -8.235,
+     "drop_total_m": 6.917,
+     "share_before_top": 0.206,
+     "share_last_1s_physical": 0.415,
+     "monotone_max_rise_m": 0.0,
+     "monotone_ok": true,
+     "rel_descent_speed_max_mps": 5.1,
+     "tip_apex_tau": -2.454,
+     "tip_max_up_accel_after_apex_mps2": 0.005,
+     "screen": {
+      "warp": "Unity/Build/Design/28R01F/F_final/timewarp_F_final.json",
+      "tau_at_t10": -0.7,
+      "share_after_t10": 0.31,
+      "t_visible": 6.06,
+      "t_top": 7.2,
+      "t_tip_apex": 6.49,
+      "slow_reached_tau": null,
+      "t_slow_reached": null,
+      "share_in_slow": null,
+      "rel_descent_speed_max_screen_mps": 1.607,
+      "rel_descent_screen_decel_max_mps2": 3.043
+     }
+    },
+    "183": {
+     "tau_on": -3.62,
+     "visible": {
+      "tau": -2.708,
+      "H_over_Hf": 0.836,
+      "by": "Lo0.10",
+      "gain_after_over_Hf": 0.164
+     },
+     "H_over_Hf_at_top": 0.889,
+     "h_at_visible_m": -1.418,
+     "h_at_top_m": -2.608,
+     "h_at_tstar_m": -7.051,
+     "drop_total_m": 5.633,
+     "share_before_top": 0.211,
+     "share_last_1s_physical": 0.42,
+     "monotone_max_rise_m": 0.0,
+     "monotone_ok": true,
+     "rel_descent_speed_max_mps": 4.64,
+     "tip_apex_tau": -2.525,
+     "tip_max_up_accel_after_apex_mps2": 0.008,
+     "screen": {
+      "warp": "Unity/Build/Design/28R01F/F_final/timewarp_F_final.json",
+      "tau_at_t10": -0.7,
+      "share_after_t10": 0.32,
+      "t_visible": 5.98,
+      "t_top": 7.2,
+      "t_tip_apex": 6.35,
+      "slow_reached_tau": null,
+      "t_slow_reached": null,
+      "share_in_slow": null,
+      "rel_descent_speed_max_screen_mps": 1.418,
+      "rel_descent_screen_decel_max_mps2": 2.76
+     }
+    }
+   },
+   "no_rebound_before_stop": {
+    "lip": {
+     "n": 16975.0,
+     "rerise_gt_1cm": 0.0,
+     "rerise_max_m": 0.0001,
+     "accp_gt_005": 0.0,
+     "accp_max": 0.0024,
+     "accs_gt_005": 0.0,
+     "accs_gt_05": 0.0,
+     "accs_max": 0.0061
+    },
+    "tube": {
+     "n": 17286.0,
+     "rerise_gt_1cm": 0.0,
+     "rerise_max_m": 0.0,
+     "accp_gt_005": 0.0,
+     "accp_max": 0.0003,
+     "accs_gt_005": 0.0,
+     "accs_gt_05": 0.0,
+     "accs_max": 0.0004
+    },
+    "worst": {
+     "lip_rerise_max_m": {
+      "row": 78,
+      "col": 125,
+      "apex_tau": -0.013,
+      "value": 0.0
+     },
+     "tube_rerise_max_m": {
+      "row": 133,
+      "col": 235,
+      "apex_tau": -0.013,
+      "value": 0.0
+     },
+     "lip_accp_max": {
+      "row": 182,
+      "col": 195,
+      "apex_tau": -2.529,
+      "value": 0.002
+     },
+     "tube_accp_max": {
+      "row": 142,
+      "col": 205,
+      "apex_tau": -2.25,
+      "value": 0.0
+     },
+     "lip_accs_max": {
+      "row": 182,
+      "col": 195,
+      "apex_tau": -2.529,
+      "value": 0.006
+     },
+     "tube_accs_max": {
+      "row": 146,
+      "col": 207,
+      "apex_tau": -2.296,
+      "value": 0.0
+     }
+    },
+    "reading_ja": "0.25 s の二次の当てはめ（Savitzky–Golay、240 Hz）。画面は既定の時間曲線、止めるための区間の前まで（P16 と同じ）。許容 0.05 m/s²"
+   }
+  }
+ },
+ "F7_1": {
+  "video_ds29r01": {
+   "windows_video_frames": {
+    "60_269": {
+     "frames": [
+      60,
+      269
+     ],
+     "M1b_sum_px": 3579,
+     "M1b_max_px": 221,
+     "M1b_argmax_frame": 265,
+     "M1_sum_px": 21304,
+     "M1b_frames_over_50px": 25
+    },
+    "270_345": {
+     "frames": [
+      270,
+      345
+     ],
+     "M1b_sum_px": 82478,
+     "M1b_max_px": 2261,
+     "M1b_argmax_frame": 325,
+     "M1_sum_px": 199115,
+     "M1b_frames_over_50px": 76
+    },
+    "346_360": {
+     "frames": [
+      346,
+      360
+     ],
+     "M1b_sum_px": 117,
+     "M1b_max_px": 82,
+     "M1b_argmax_frame": 346,
+     "M1_sum_px": 326,
+     "M1b_frames_over_50px": 1
+    }
+   }
+  },
+  "lossless": {
+   "270_345": {
+    "frames": [
+     270,
+     345
+    ],
+    "M1b_sum_px": 51097,
+    "M1b_max_px": 1459,
+    "M1b_argmax_frame": 325,
+    "M1_sum_px": 200552,
+    "M1b_frames_over_50px": 76
+   },
+   "265_269": {
+    "frames": [
+     265,
+     269
+    ],
+    "M1b_sum_px": 723,
+    "M1b_max_px": 158,
+    "M1b_argmax_frame": 269,
+    "M1_sum_px": 4586,
+    "M1b_frames_over_50px": 5
+   },
+   "346_350": {
+    "frames": [
+     346,
+     350
+    ],
+    "M1b_sum_px": 33,
+    "M1b_max_px": 33,
+    "M1b_argmax_frame": 346,
+    "M1_sum_px": 136,
+    "M1b_frames_over_50px": 0
+   }
+  },
+  "reencoded": {
+   "270_345": {
+    "frames": [
+     270,
+     345
+    ],
+    "M1b_sum_px": 82851,
+    "M1b_max_px": 2322,
+    "M1b_argmax_frame": 326,
+    "M1_sum_px": 198996,
+    "M1b_frames_over_50px": 76
+   },
+   "265_269": {
+    "frames": [
+     265,
+     269
+    ],
+    "M1b_sum_px": 1139,
+    "M1b_max_px": 262,
+    "M1b_argmax_frame": 268,
+    "M1_sum_px": 4633,
+    "M1b_frames_over_50px": 5
+   },
+   "346_350": {
+    "frames": [
+     346,
+     350
+    ],
+    "M1b_sum_px": 100,
+    "M1b_max_px": 78,
+    "M1b_argmax_frame": 346,
+    "M1_sum_px": 229,
+    "M1b_frames_over_50px": 1
+   }
+  },
+  "tracked_vs_fixed": {
+   "t9_11p5": {
+    "frames": [
+     270,
+     345
+    ],
+    "n_frames": 76,
+    "vertex_samples": 1259029,
+    "inner_samples": 932777,
+    "tracked_flips": 8788,
+    "fixed_flips": 39004,
+    "tracked_flip_rate": 0.00698,
+    "fixed_flip_rate": 0.03098,
+    "tracked_flips_inner": 0,
+    "fixed_flips_inner": 5690,
+    "tracked_flip_rate_inner": 0.0,
+    "fixed_flip_rate_inner": 0.0061,
+    "fullframe_fixed_flip_px": 1023720,
+    "speed_px_p50_median": 5.784
+   },
+   "all": {
+    "frames": [
+     265,
+     350
+    ],
+    "n_frames": 86,
+    "vertex_samples": 1429081,
+    "inner_samples": 1058653,
+    "tracked_flips": 10056,
+    "fixed_flips": 41088,
+    "tracked_flip_rate": 0.00704,
+    "fixed_flip_rate": 0.02875,
+    "tracked_flips_inner": 0,
+    "fixed_flips_inner": 5757,
+    "tracked_flip_rate_inner": 0.0,
+    "fixed_flip_rate_inner": 0.00544,
+    "fullframe_fixed_flip_px": 1059982,
+    "speed_px_p50_median": 5.644
+   }
+  },
+  "geometry": {
+   "F_final": {
+    "fine": {
+     "t2_9": {
+      "t": [
+       2.0,
+       9.0
+      ],
+      "frames": 210,
+      "vertices_mean": 5189.2,
+      "speed_p50_px": {
+       "n": 210,
+       "p50": 4.577,
+       "p95": 7.9351,
+       "p99": 8.2119,
+       "max": 8.2416
+      },
+      "speed_p95_px": {
+       "n": 210,
+       "p50": 6.2029,
+       "p95": 9.6553,
+       "p99": 9.9389,
+       "max": 9.9724
+      },
+      "reversals_sum": 0,
+      "reversals_max": 0,
+      "reversals_gt_05px_sum": 0,
+      "reversal_rate": 0.0,
+      "acc_p99_px": {
+       "n": 210,
+       "p50": 0.0958,
+       "p95": 0.252,
+       "p99": 0.2607,
+       "max": 0.2629
+      },
+      "acc_max_px": 0.3166,
+      "acc_ratio_p99": {
+       "n": 210,
+       "p50": 0.0143,
+       "p95": 0.0531,
+       "p99": 0.0551,
+       "max": 0.0553
+      }
+     },
+     "t9_11p5": {
+      "t": [
+       9.0,
+       11.5
+      ],
+      "frames": 75,
+      "vertices_mean": 18236.3,
+      "speed_p50_px": {
+       "n": 75,
+       "p50": 5.7926,
+       "p95": 6.7547,
+       "p99": 6.8119,
+       "max": 6.821
+      },
+      "speed_p95_px": {
+       "n": 75,
+       "p50": 8.1848,
+       "p95": 9.6782,
+       "p99": 9.7521,
+       "max": 9.7663
+      },
+      "reversals_sum": 0,
+      "reversals_max": 0,
+      "reversals_gt_05px_sum": 0,
+      "reversal_rate": 0.0,
+      "acc_p99_px": {
+       "n": 75,
+       "p50": 0.1331,
+       "p95": 0.5123,
+       "p99": 0.5264,
+       "max": 0.5278
+      },
+      "acc_max_px": 0.9247,
+      "acc_ratio_p99": {
+       "n": 75,
+       "p50": 0.0162,
+       "p95": 0.0684,
+       "p99": 0.0882,
+       "max": 0.0933
+      }
+     },
+     "t11p5_12": {
+      "t": [
+       11.5,
+       12.0
+      ],
+      "frames": 15,
+      "vertices_mean": 22390.8,
+      "speed_p50_px": {
+       "n": 15,
+       "p50": 1.0255,
+       "p95": 2.6901,
+       "p99": 2.8568,
+       "max": 2.8984
+      },
+      "speed_p95_px": {
+       "n": 15,
+       "p50": 1.5285,
+       "p95": 3.9671,
+       "p99": 4.206,
+       "max": 4.2657
+      },
+      "reversals_sum": 0,
+      "reversals_max": 0,
+      "reversals_gt_05px_sum": 0,
+      "reversal_rate": 0.0,
+      "acc_p99_px": {
+       "n": 15,
+       "p50": 0.3779,
+       "p95": 0.5135,
+       "p99": 0.5191,
+       "max": 0.5205
+      },
+      "acc_max_px": 0.9253,
+      "acc_ratio_p99": {
+       "n": 15,
+       "p50": 0.2038,
+       "p95": 0.5945,
+       "p99": 0.6187,
+       "max": 0.6247
+      }
+     }
+    },
+    "hi16": {
+     "t2_9": {
+      "t": [
+       2.0,
+       9.0
+      ],
+      "frames": 210,
+      "vertices_mean": 5189.0,
+      "speed_p50_px": {
+       "n": 210,
+       "p50": 4.5759,
+       "p95": 7.9469,
+       "p99": 8.208,
+       "max": 8.2415
+      },
+      "speed_p95_px": {
+       "n": 210,
+       "p50": 6.1999,
+       "p95": 9.6553,
+       "p99": 9.94,
+       "max": 9.9717
+      },
+      "reversals_sum": 0,
+      "reversals_max": 0,
+      "reversals_gt_05px_sum": 0,
+      "reversal_rate": 0.0,
+      "acc_p99_px": {
+       "n": 210,
+       "p50": 0.1024,
+       "p95": 0.2532,
+       "p99": 0.262,
+       "max": 0.2641
+      },
+      "acc_max_px": 0.3265,
+      "acc_ratio_p99": {
+       "n": 210,
+       "p50": 0.0204,
+       "p95": 0.0533,
+       "p99": 0.0552,
+       "max": 0.0556
+      }
+     },
+     "t9_11p5": {
+      "t": [
+       9.0,
+       11.5
+      ],
+      "frames": 75,
+      "vertices_mean": 18236.4,
+      "speed_p50_px": {
+       "n": 75,
+       "p50": 5.7924,
+       "p95": 6.755,
+       "p99": 6.8127,
+       "max": 6.8228
+      },
+      "speed_p95_px": {
+       "n": 75,
+       "p50": 8.1871,
+       "p95": 9.6756,
+       "p99": 9.7476,
+       "max": 9.7616
+      },
+      "reversals_sum": 0,
+      "reversals_max": 0,
+      "reversals_gt_05px_sum": 0,
+      "reversal_rate": 0.0,
+      "acc_p99_px": {
+       "n": 75,
+       "p50": 0.1459,
+       "p95": 0.5153,
+       "p99": 0.5276,
+       "max": 0.5283
+      },
+      "acc_max_px": 0.9239,
+      "acc_ratio_p99": {
+       "n": 75,
+       "p50": 0.0216,
+       "p95": 0.0731,
+       "p99": 0.0923,
+       "max": 0.0947
+      }
+     },
+     "t11p5_12": {
+      "t": [
+       11.5,
+       12.0
+      ],
+      "frames": 15,
+      "vertices_mean": 22389.9,
+      "speed_p50_px": {
+       "n": 15,
+       "p50": 1.0258,
+       "p95": 2.6914,
+       "p99": 2.8578,
+       "max": 2.8994
+      },
+      "speed_p95_px": {
+       "n": 15,
+       "p50": 1.5277,
+       "p95": 3.9662,
+       "p99": 4.207,
+       "max": 4.2672
+      },
+      "reversals_sum": 0,
+      "reversals_max": 0,
+      "reversals_gt_05px_sum": 0,
+      "reversal_rate": 0.0,
+      "acc_p99_px": {
+       "n": 15,
+       "p50": 0.3777,
+       "p95": 0.5146,
+       "p99": 0.5197,
+       "max": 0.521
+      },
+      "acc_max_px": 0.9248,
+      "acc_ratio_p99": {
+       "n": 15,
+       "p50": 0.2039,
+       "p95": 0.595,
+       "p99": 0.6188,
+       "max": 0.6247
+      }
+     }
+    }
+   },
+   "G_final": {
+    "fine": {
+     "t2_9": {
+      "t": [
+       2.0,
+       9.0
+      ],
+      "frames": 210,
+      "vertices_mean": 5193.4,
+      "speed_p50_px": {
+       "n": 210,
+       "p50": 4.5745,
+       "p95": 7.9243,
+       "p99": 8.1948,
+       "max": 8.2369
+      },
+      "speed_p95_px": {
+       "n": 210,
+       "p50": 6.2146,
+       "p95": 9.6527,
+       "p99": 9.9398,
+       "max": 9.972
+      },
+      "reversals_sum": 0,
+      "reversals_max": 0,
+      "reversals_gt_05px_sum": 0,
+      "reversal_rate": 0.0,
+      "acc_p99_px": {
+       "n": 210,
+       "p50": 0.0952,
+       "p95": 0.2502,
+       "p99": 0.2596,
+       "max": 0.2625
+      },
+      "acc_max_px": 0.3066,
+      "acc_ratio_p99": {
+       "n": 210,
+       "p50": 0.0143,
+       "p95": 0.0531,
+       "p99": 0.0551,
+       "max": 0.0555
+      }
+     },
+     "t9_11p5": {
+      "t": [
+       9.0,
+       11.5
+      ],
+      "frames": 75,
+      "vertices_mean": 18366.6,
+      "speed_p50_px": {
+       "n": 75,
+       "p50": 5.8353,
+       "p95": 6.7442,
+       "p99": 6.7945,
+       "max": 6.8079
+      },
+      "speed_p95_px": {
+       "n": 75,
+       "p50": 8.1799,
+       "p95": 9.6554,
+       "p99": 9.7301,
+       "max": 9.7394
+      },
+      "reversals_sum": 0,
+      "reversals_max": 0,
+      "reversals_gt_05px_sum": 0,
+      "reversal_rate": 0.0,
+      "acc_p99_px": {
+       "n": 75,
+       "p50": 0.1333,
+       "p95": 0.5105,
+       "p99": 0.5255,
+       "max": 0.5256
+      },
+      "acc_max_px": 0.9292,
+      "acc_ratio_p99": {
+       "n": 75,
+       "p50": 0.0124,
+       "p95": 0.0685,
+       "p99": 0.0882,
+       "max": 0.0933
+      }
+     },
+     "t11p5_12": {
+      "t": [
+       11.5,
+       12.0
+      ],
+      "frames": 15,
+      "vertices_mean": 22351.7,
+      "speed_p50_px": {
+       "n": 15,
+       "p50": 1.0328,
+       "p95": 2.6975,
+       "p99": 2.8656,
+       "max": 2.9076
+      },
+      "speed_p95_px": {
+       "n": 15,
+       "p50": 1.5254,
+       "p95": 3.9584,
+       "p99": 4.1977,
+       "max": 4.2575
+      },
+      "reversals_sum": 0,
+      "reversals_max": 0,
+      "reversals_gt_05px_sum": 0,
+      "reversal_rate": 0.0,
+      "acc_p99_px": {
+       "n": 15,
+       "p50": 0.3792,
+       "p95": 0.5157,
+       "p99": 0.5203,
+       "max": 0.5214
+      },
+      "acc_max_px": 0.9243,
+      "acc_ratio_p99": {
+       "n": 15,
+       "p50": 0.2038,
+       "p95": 0.5962,
+       "p99": 0.619,
+       "max": 0.6247
+      }
+     }
+    },
+    "hi16": {
+     "t2_9": {
+      "t": [
+       2.0,
+       9.0
+      ],
+      "frames": 210,
+      "vertices_mean": 5192.9,
+      "speed_p50_px": {
+       "n": 210,
+       "p50": 4.5761,
+       "p95": 7.9592,
+       "p99": 8.1951,
+       "max": 8.2367
+      },
+      "speed_p95_px": {
+       "n": 210,
+       "p50": 6.2152,
+       "p95": 9.6528,
+       "p99": 9.94,
+       "max": 9.9723
+      },
+      "reversals_sum": 0,
+      "reversals_max": 0,
+      "reversals_gt_05px_sum": 0,
+      "reversal_rate": 0.0,
+      "acc_p99_px": {
+       "n": 210,
+       "p50": 0.1032,
+       "p95": 0.2506,
+       "p99": 0.2615,
+       "max": 0.2644
+      },
+      "acc_max_px": 0.3118,
+      "acc_ratio_p99": {
+       "n": 210,
+       "p50": 0.0182,
+       "p95": 0.0531,
+       "p99": 0.0554,
+       "max": 0.0561
+      }
+     },
+     "t9_11p5": {
+      "t": [
+       9.0,
+       11.5
+      ],
+      "frames": 75,
+      "vertices_mean": 18365.3,
+      "speed_p50_px": {
+       "n": 75,
+       "p50": 5.8357,
+       "p95": 6.7421,
+       "p99": 6.7954,
+       "max": 6.8059
+      },
+      "speed_p95_px": {
+       "n": 75,
+       "p50": 8.1766,
+       "p95": 9.657,
+       "p99": 9.7282,
+       "max": 9.7405
+      },
+      "reversals_sum": 0,
+      "reversals_max": 0,
+      "reversals_gt_05px_sum": 0,
+      "reversal_rate": 0.0,
+      "acc_p99_px": {
+       "n": 75,
+       "p50": 0.1445,
+       "p95": 0.512,
+       "p99": 0.5249,
+       "max": 0.5255
+      },
+      "acc_max_px": 0.9297,
+      "acc_ratio_p99": {
+       "n": 75,
+       "p50": 0.0157,
+       "p95": 0.0733,
+       "p99": 0.092,
+       "max": 0.0947
+      }
+     },
+     "t11p5_12": {
+      "t": [
+       11.5,
+       12.0
+      ],
+      "frames": 15,
+      "vertices_mean": 22349.7,
+      "speed_p50_px": {
+       "n": 15,
+       "p50": 1.0328,
+       "p95": 2.6979,
+       "p99": 2.867,
+       "max": 2.9093
+      },
+      "speed_p95_px": {
+       "n": 15,
+       "p50": 1.5238,
+       "p95": 3.9564,
+       "p99": 4.1947,
+       "max": 4.2543
+      },
+      "reversals_sum": 0,
+      "reversals_max": 0,
+      "reversals_gt_05px_sum": 0,
+      "reversal_rate": 0.0,
+      "acc_p99_px": {
+       "n": 15,
+       "p50": 0.3786,
+       "p95": 0.5162,
+       "p99": 0.5204,
+       "max": 0.5215
+      },
+      "acc_max_px": 0.9238,
+      "acc_ratio_p99": {
+       "n": 15,
+       "p50": 0.2039,
+       "p95": 0.5967,
+       "p99": 0.6191,
+       "max": 0.6247
+      }
+     }
+    }
+   },
+   "G_p28b": {
+    "fine": {
+     "t2_9": {
+      "t": [
+       2.0,
+       9.0
+      ],
+      "frames": 210,
+      "vertices_mean": 5245.0,
+      "speed_p50_px": {
+       "n": 210,
+       "p50": 4.6238,
+       "p95": 7.9243,
+       "p99": 8.1948,
+       "max": 8.2369
+      },
+      "speed_p95_px": {
+       "n": 210,
+       "p50": 5.9044,
+       "p95": 9.6527,
+       "p99": 9.9398,
+       "max": 9.972
+      },
+      "reversals_sum": 0,
+      "reversals_max": 0,
+      "reversals_gt_05px_sum": 0,
+      "reversal_rate": 0.0,
+      "acc_p99_px": {
+       "n": 210,
+       "p50": 0.0946,
+       "p95": 0.252,
+       "p99": 0.2603,
+       "max": 0.265
+      },
+      "acc_max_px": 0.3066,
+      "acc_ratio_p99": {
+       "n": 210,
+       "p50": 0.015,
+       "p95": 0.0534,
+       "p99": 0.0553,
+       "max": 0.0557
+      }
+     },
+     "t9_11p5": {
+      "t": [
+       9.0,
+       11.5
+      ],
+      "frames": 75,
+      "vertices_mean": 18338.3,
+      "speed_p50_px": {
+       "n": 75,
+       "p50": 5.8368,
+       "p95": 6.7442,
+       "p99": 6.7945,
+       "max": 6.8079
+      },
+      "speed_p95_px": {
+       "n": 75,
+       "p50": 8.1803,
+       "p95": 9.6554,
+       "p99": 9.7301,
+       "max": 9.7394
+      },
+      "reversals_sum": 0,
+      "reversals_max": 0,
+      "reversals_gt_05px_sum": 0,
+      "reversal_rate": 0.0,
+      "acc_p99_px": {
+       "n": 75,
+       "p50": 0.1333,
+       "p95": 0.5105,
+       "p99": 0.5255,
+       "max": 0.5256
+      },
+      "acc_max_px": 0.9292,
+      "acc_ratio_p99": {
+       "n": 75,
+       "p50": 0.0124,
+       "p95": 0.0685,
+       "p99": 0.0882,
+       "max": 0.0933
+      }
+     },
+     "t11p5_12": {
+      "t": [
+       11.5,
+       12.0
+      ],
+      "frames": 15,
+      "vertices_mean": 22351.7,
+      "speed_p50_px": {
+       "n": 15,
+       "p50": 1.0328,
+       "p95": 2.6975,
+       "p99": 2.8656,
+       "max": 2.9076
+      },
+      "speed_p95_px": {
+       "n": 15,
+       "p50": 1.5254,
+       "p95": 3.9584,
+       "p99": 4.1977,
+       "max": 4.2575
+      },
+      "reversals_sum": 0,
+      "reversals_max": 0,
+      "reversals_gt_05px_sum": 0,
+      "reversal_rate": 0.0,
+      "acc_p99_px": {
+       "n": 15,
+       "p50": 0.3792,
+       "p95": 0.5157,
+       "p99": 0.5203,
+       "max": 0.5214
+      },
+      "acc_max_px": 0.9243,
+      "acc_ratio_p99": {
+       "n": 15,
+       "p50": 0.2038,
+       "p95": 0.5962,
+       "p99": 0.619,
+       "max": 0.6247
+      }
+     }
+    },
+    "hi16": {
+     "t2_9": {
+      "t": [
+       2.0,
+       9.0
+      ],
+      "frames": 210,
+      "vertices_mean": 5244.7,
+      "speed_p50_px": {
+       "n": 210,
+       "p50": 4.6242,
+       "p95": 7.9592,
+       "p99": 8.1951,
+       "max": 8.2367
+      },
+      "speed_p95_px": {
+       "n": 210,
+       "p50": 5.9026,
+       "p95": 9.6528,
+       "p99": 9.94,
+       "max": 9.9723
+      },
+      "reversals_sum": 0,
+      "reversals_max": 0,
+      "reversals_gt_05px_sum": 0,
+      "reversal_rate": 0.0,
+      "acc_p99_px": {
+       "n": 210,
+       "p50": 0.1031,
+       "p95": 0.2524,
+       "p99": 0.264,
+       "max": 0.267
+      },
+      "acc_max_px": 0.3118,
+      "acc_ratio_p99": {
+       "n": 210,
+       "p50": 0.018,
+       "p95": 0.0536,
+       "p99": 0.0558,
+       "max": 0.0564
+      }
+     },
+     "t9_11p5": {
+      "t": [
+       9.0,
+       11.5
+      ],
+      "frames": 75,
+      "vertices_mean": 18336.7,
+      "speed_p50_px": {
+       "n": 75,
+       "p50": 5.837,
+       "p95": 6.7421,
+       "p99": 6.7954,
+       "max": 6.8059
+      },
+      "speed_p95_px": {
+       "n": 75,
+       "p50": 8.1766,
+       "p95": 9.657,
+       "p99": 9.7282,
+       "max": 9.7405
+      },
+      "reversals_sum": 0,
+      "reversals_max": 0,
+      "reversals_gt_05px_sum": 0,
+      "reversal_rate": 0.0,
+      "acc_p99_px": {
+       "n": 75,
+       "p50": 0.1445,
+       "p95": 0.512,
+       "p99": 0.5249,
+       "max": 0.5255
+      },
+      "acc_max_px": 0.9297,
+      "acc_ratio_p99": {
+       "n": 75,
+       "p50": 0.0157,
+       "p95": 0.0733,
+       "p99": 0.092,
+       "max": 0.0947
+      }
+     },
+     "t11p5_12": {
+      "t": [
+       11.5,
+       12.0
+      ],
+      "frames": 15,
+      "vertices_mean": 22349.7,
+      "speed_p50_px": {
+       "n": 15,
+       "p50": 1.0328,
+       "p95": 2.6979,
+       "p99": 2.867,
+       "max": 2.9093
+      },
+      "speed_p95_px": {
+       "n": 15,
+       "p50": 1.5238,
+       "p95": 3.9564,
+       "p99": 4.1947,
+       "max": 4.2543
+      },
+      "reversals_sum": 0,
+      "reversals_max": 0,
+      "reversals_gt_05px_sum": 0,
+      "reversal_rate": 0.0,
+      "acc_p99_px": {
+       "n": 15,
+       "p50": 0.3786,
+       "p95": 0.5162,
+       "p99": 0.5204,
+       "max": 0.5215
+      },
+      "acc_max_px": 0.9238,
+      "acc_ratio_p99": {
+       "n": 15,
+       "p50": 0.2039,
+       "p95": 0.5967,
+       "p99": 0.6191,
+       "max": 0.6247
+      }
+     }
+    }
+   }
+  },
+  "tau_rate_max_step": {
+   "F_final": 0.02082,
+   "G_final": 0.02082,
+   "G_p28b": 0.02082
+  },
+  "verdict_ja": "原因は動き（精度の層・τ(t)・行き戻り）でも焼き込みの模様の座標でもない。無圧縮でも跳びの約 6 割が残り（残りは x264 の圧縮が足した分）、面に付いて動く点の内側では跳び 0。細かい斑が 1 コマに約 5.8 px 動くことの 30 fps の標本化（描画の側）。仕上げ29（描画・焼き込み）と仕上げ37（1 コマの組の測り方）へ"
+ },
+ "probes_ds28p": {
+  "probe_p_1.json": {
+   "off": {
+    "p20_max_m": 0.0,
+    "back_reversal_cols_gt_0p1m": 1,
+    "back_reversal_worst_m": 0.123,
+    "loaf_index": {
+     "-3.894": 4.057,
+     "-3.490": 4.375,
+     "-3.200": 4.152,
+     "-2.950": 3.861,
+     "-2.700": 3.475,
+     "-2.450": 2.936,
+     "+0.000": 1.519
+    },
+    "chord_rows_le110": {
+     "-2.950": 0,
+     "-2.700": 1,
+     "-2.450": 5,
+     "-2.300": 16,
+     "-2.200": 17,
+     "-2.100": 18,
+     "-2.000": 12,
+     "-1.950": 0,
+     "+0.000": 0
+    }
+   },
+   "a=0.8": {
+    "p20_max_m": 5.162128601710187,
+    "back_reversal_cols_gt_0p1m": 46,
+    "back_reversal_worst_m": 0.986,
+    "loaf_index": {
+     "-3.894": 3.229,
+     "-3.490": 3.594,
+     "-3.200": 3.515,
+     "-2.950": 3.25,
+     "-2.700": 2.95,
+     "-2.450": 2.489,
+     "+0.000": 1.519
+    },
+    "chord_rows_le110": {
+     "-2.950": 0,
+     "-2.700": 1,
+     "-2.450": 14,
+     "-2.300": 21,
+     "-2.200": 21,
+     "-2.100": 21,
+     "-2.000": 12,
+     "-1.950": 0,
+     "+0.000": 0
+    }
+   },
+   "a=1.0": {
+    "p20_max_m": 6.452660752137734,
+    "back_reversal_cols_gt_0p1m": 27,
+    "back_reversal_worst_m": 0.736,
+    "loaf_index": {
+     "-3.894": 3.057,
+     "-3.490": 3.375,
+     "-3.200": 3.364,
+     "-2.950": 3.139,
+     "-2.700": 2.875,
+     "-2.450": 2.468,
+     "+0.000": 1.519
+    },
+    "chord_rows_le110": {
+     "-2.950": 0,
+     "-2.700": 8,
+     "-2.450": 18,
+     "-2.300": 23,
+     "-2.200": 23,
+     "-2.100": 22,
+     "-2.000": 12,
+     "-1.950": 0,
+     "+0.000": 0
+    }
+   },
+   "hook=-4.2/-1.4": {
+    "p20_max_m": 2.4863504555083518,
+    "back_reversal_cols_gt_0p1m": 1,
+    "back_reversal_worst_m": 0.123,
+    "loaf_index": {
+     "-3.894": 4.057,
+     "-3.490": 4.375,
+     "-3.200": 4.152,
+     "-2.950": 3.861,
+     "-2.700": 3.475,
+     "-2.450": 2.936,
+     "+0.000": 1.519
+    },
+    "chord_rows_le110": {
+     "-2.950": 2,
+     "-2.700": 0,
+     "-2.450": 0,
+     "-2.300": 0,
+     "-2.200": 0,
+     "-2.100": 0,
+     "-2.000": 0,
+     "-1.950": 0,
+     "+0.000": 0
+    }
+   },
+   "a=0.8,hook=-4.2/-1.4": {
+    "p20_max_m": 5.162128601710187,
+    "back_reversal_cols_gt_0p1m": 46,
+    "back_reversal_worst_m": 0.986,
+    "loaf_index": {
+     "-3.894": 3.229,
+     "-3.490": 3.594,
+     "-3.200": 3.515,
+     "-2.950": 3.25,
+     "-2.700": 2.95,
+     "-2.450": 2.489,
+     "+0.000": 1.519
+    },
+    "chord_rows_le110": {
+     "-2.950": 3,
+     "-2.700": 2,
+     "-2.450": 1,
+     "-2.300": 0,
+     "-2.200": 0,
+     "-2.100": 0,
+     "-2.000": 0,
+     "-1.950": 0,
+     "+0.000": 0
+    }
+   }
+  },
+  "probe_p_2.json": {
+   "off": {
+    "p20_max_m": 0.0,
+    "back_reversal_cols_gt_0p1m": 1,
+    "back_reversal_worst_m": 0.123,
+    "loaf_index": {
+     "-3.894": 4.057,
+     "-3.490": 4.375,
+     "-3.200": 4.152,
+     "-2.950": 3.861,
+     "-2.700": 3.475,
+     "-2.450": 2.936,
+     "+0.000": 1.519
+    },
+    "chord_rows_le110": {
+     "-2.950": 0,
+     "-2.700": 1,
+     "-2.450": 5,
+     "-2.300": 16,
+     "-2.200": 17,
+     "-2.100": 18,
+     "-2.000": 12,
+     "-1.950": 0,
+     "+0.000": 0
+    }
+   },
+   "k=0": {
+    "p20_max_m": 3.319822646560836,
+    "back_reversal_cols_gt_0p1m": 4,
+    "back_reversal_worst_m": 0.108,
+    "loaf_index": {
+     "-3.894": 3.343,
+     "-3.490": 3.75,
+     "-3.200": 3.636,
+     "-2.950": 3.333,
+     "-2.700": 3.0,
+     "-2.450": 2.553,
+     "+0.000": 1.519
+    },
+    "chord_rows_le110": {
+     "-2.950": 0,
+     "-2.700": 1,
+     "-2.450": 14,
+     "-2.300": 21,
+     "-2.200": 21,
+     "-2.100": 20,
+     "-2.000": 12,
+     "-1.950": 0,
+     "+0.000": 0
+    }
+   },
+   "k=0,eta0=0.3": {
+    "p20_max_m": 3.5417052375272315,
+    "back_reversal_cols_gt_0p1m": 4,
+    "back_reversal_worst_m": 0.107,
+    "loaf_index": {
+     "-3.894": 3.343,
+     "-3.490": 3.75,
+     "-3.200": 3.636,
+     "-2.950": 3.333,
+     "-2.700": 3.0,
+     "-2.450": 2.553,
+     "+0.000": 1.519
+    },
+    "chord_rows_le110": {
+     "-2.950": 0,
+     "-2.700": 1,
+     "-2.450": 14,
+     "-2.300": 21,
+     "-2.200": 21,
+     "-2.100": 20,
+     "-2.000": 12,
+     "-1.950": 0,
+     "+0.000": 0
+    }
+   },
+   "k=0,eta0=0.3,hook=-4.2/-1.4": {
+    "p20_max_m": 3.5417052375272315,
+    "back_reversal_cols_gt_0p1m": 4,
+    "back_reversal_worst_m": 0.107,
+    "loaf_index": {
+     "-3.894": 3.343,
+     "-3.490": 3.75,
+     "-3.200": 3.636,
+     "-2.950": 3.333,
+     "-2.700": 3.0,
+     "-2.450": 2.553,
+     "+0.000": 1.519
+    },
+    "chord_rows_le110": {
+     "-2.950": 2,
+     "-2.700": 0,
+     "-2.450": 0,
+     "-2.300": 0,
+     "-2.200": 0,
+     "-2.100": 0,
+     "-2.000": 0,
+     "-1.950": 0,
+     "+0.000": 0
+    }
+   }
+  }
+ },
+ "timing": {
+  "G_final": {
+   "tag": "G_final",
+   "kstar": "Unity/Build/Polish/28/kstar_G_final",
+   "timing": {
+    "generate_s": 855.7,
+    "warp_s": 4.0,
+    "checks_s": 2212.8,
+    "table_s": 2.0,
+    "total_s": 3074.5
+   },
+   "command": "py -3.10 -B Tools/GWWaveGen/ds28r01f/ds28r01f_pipeline.py --kstar Unity/Build/Polish/28/kstar_p28 --tag G_final --root Unity/Build/Polish/28 --workers 5 --check-workers 4"
+  },
+  "G_p28a": {
+   "tag": "G_p28a",
+   "kstar": "Unity/Build/Polish/28/kstar_G_p28a",
+   "timing": {
+    "warp_s": 4.0,
+    "checks_s": 1730.2,
+    "table_s": 2.0,
+    "total_s": 1736.2
+   },
+   "command": "py -3.10 -B Tools/GWWaveGen/ds28r01f/ds28r01f_pipeline.py --kstar Unity/Build/Polish/28/kstar_p28 --tag G_p28a --root Unity/Build/Polish/28 --skip-generate --check-workers 4"
+  },
+  "G_p28b": {
+   "tag": "G_p28b",
+   "kstar": "Unity/Build/Polish/28/kstar_G_p28b",
+   "timing": {
+    "warp_s": 4.0,
+    "checks_s": 785.8,
+    "table_s": 2.0,
+    "total_s": 791.9
+   },
+   "command": "py -3.10 -B Tools/GWWaveGen/ds28r01f/ds28r01f_pipeline.py --kstar Unity/Build/Polish/28/kstar_p28 --tag G_p28b --root Unity/Build/Polish/28 --skip-generate --skip-p20-e --check-workers 4"
+  }
+ },
+ "p13_2_attribution": {
+  "probe_acc30_a.json": {
+   "limit_m": 0.0218,
+   "rows": [
+    48,
+    198
+   ],
+   "tau": [
+    -7.0,
+    0.0
+   ],
+   "variants": {
+    "base": {
+     "name": "base",
+     "off": [
+      "upper_back_aspect",
+      "far_hook_earlier",
+      "no_rebound"
+     ],
+     "frames": 211,
+     "vertex_frames_over": {
+      "back_foot_0_30": 19723,
+      "back_31_89": 5994,
+      "crest_lip_90_200": 5221,
+      "tube_201_313": 51222,
+      "front_314_378": 12255,
+      "front_foot_379_399": 259
+     },
+     "max_m": {
+      "back_foot_0_30": 0.04796,
+      "back_31_89": 0.03506,
+      "crest_lip_90_200": 1.89021,
+      "tube_201_313": 0.59847,
+      "front_314_378": 0.04037,
+      "front_foot_379_399": 0.07159
+     },
+     "max_all_m": 1.89021,
+     "at": {
+      "row": 108,
+      "col": 174,
+      "tau": -2.4333
+     },
+     "vertex_frames_over_all": 94674,
+     "seconds": 370.8
+    },
+    "back_width_retarget": {
+     "name": "back_width_retarget",
+     "off": [
+      "upper_back_aspect",
+      "far_hook_earlier",
+      "no_rebound",
+      "back_width_retarget"
+     ],
+     "frames": 211,
+     "vertex_frames_over": {
+      "back_foot_0_30": 69267,
+      "back_31_89": 81774,
+      "crest_lip_90_200": 5221,
+      "tube_201_313": 51222,
+      "front_314_378": 12255,
+      "front_foot_379_399": 261
+     },
+     "max_m": {
+      "back_foot_0_30": 0.09547,
+      "back_31_89": 0.07119,
+      "crest_lip_90_200": 1.89021,
+      "tube_201_313": 0.59847,
+      "front_314_378": 0.04037,
+      "front_foot_379_399": 0.07159
+     },
+     "max_all_m": 1.89021,
+     "at": {
+      "row": 108,
+      "col": 174,
+      "tau": -2.4333
+     },
+     "vertex_frames_over_all": 220000,
+     "seconds": 335.7
+    },
+    "anchor_retarget": {
+     "name": "anchor_retarget",
+     "off": [
+      "upper_back_aspect",
+      "far_hook_earlier",
+      "no_rebound",
+      "anchor_retarget"
+     ],
+     "frames": 211,
+     "vertex_frames_over": {
+      "back_foot_0_30": 19723,
+      "back_31_89": 5994,
+      "crest_lip_90_200": 5221,
+      "tube_201_313": 69310,
+      "front_314_378": 28857,
+      "front_foot_379_399": 259
+     },
+     "max_m": {
+      "back_foot_0_30": 0.04796,
+      "back_31_89": 0.03506,
+      "crest_lip_90_200": 1.89021,
+      "tube_201_313": 0.587,
+      "front_314_378": 0.04387,
+      "front_foot_379_399": 0.07159
+     },
+     "max_all_m": 1.89021,
+     "at": {
+      "row": 108,
+      "col": 174,
+      "tau": -2.4333
+     },
+     "vertex_frames_over_all": 129364,
+     "seconds": 333.5
+    },
+    "back_hold": {
+     "name": "back_hold",
+     "off": [
+      "upper_back_aspect",
+      "far_hook_earlier",
+      "no_rebound",
+      "back_hold"
+     ],
+     "frames": 211,
+     "vertex_frames_over": {
+      "back_foot_0_30": 0,
+      "back_31_89": 0,
+      "crest_lip_90_200": 5221,
+      "tube_201_313": 51222,
+      "front_314_378": 12255,
+      "front_foot_379_399": 259
+     },
+     "max_m": {
+      "back_foot_0_30": 0.01205,
+      "back_31_89": 0.01122,
+      "crest_lip_90_200": 1.89021,
+      "tube_201_313": 0.59847,
+      "front_314_378": 0.04037,
+      "front_foot_379_399": 0.07159
+     },
+     "max_all_m": 1.89021,
+     "at": {
+      "row": 108,
+      "col": 174,
+      "tau": -2.4333
+     },
+     "vertex_frames_over_all": 68957,
+     "seconds": 341.3
+    },
+    "near_trough": {
+     "name": "near_trough",
+     "off": [
+      "upper_back_aspect",
+      "far_hook_earlier",
+      "no_rebound",
+      "near_trough"
+     ],
+     "frames": 211,
+     "vertex_frames_over": {
+      "back_foot_0_30": 19723,
+      "back_31_89": 5994,
+      "crest_lip_90_200": 5221,
+      "tube_201_313": 51222,
+      "front_314_378": 12255,
+      "front_foot_379_399": 259
+     },
+     "max_m": {
+      "back_foot_0_30": 0.04796,
+      "back_31_89": 0.03506,
+      "crest_lip_90_200": 1.89021,
+      "tube_201_313": 0.59847,
+      "front_314_378": 0.04037,
+      "front_foot_379_399": 0.07159
+     },
+     "max_all_m": 1.89021,
+     "at": {
+      "row": 108,
+      "col": 174,
+      "tau": -2.4333
+     },
+     "vertex_frames_over_all": 94674,
+     "seconds": 337.4
+    }
+   }
+  },
+  "probe_acc30_b.json": {
+   "limit_m": 0.0218,
+   "rows": [
+    48,
+    198
+   ],
+   "tau": [
+    -7.0,
+    0.0
+   ],
+   "variants": {
+    "lean_with_height": {
+     "name": "lean_with_height",
+     "off": [
+      "upper_back_aspect",
+      "far_hook_earlier",
+      "no_rebound",
+      "lean_with_height"
+     ],
+     "frames": 211,
+     "vertex_frames_over": {
+      "back_foot_0_30": 19723,
+      "back_31_89": 5994,
+      "crest_lip_90_200": 96,
+      "tube_201_313": 41130,
+      "front_314_378": 241,
+      "front_foot_379_399": 347
+     },
+     "max_m": {
+      "back_foot_0_30": 0.04796,
+      "back_31_89": 0.03506,
+      "crest_lip_90_200": 0.12146,
+      "tube_201_313": 0.04041,
+      "front_314_378": 0.05743,
+      "front_foot_379_399": 0.09111
+     },
+     "max_all_m": 0.12146,
+     "at": {
+      "row": 108,
+      "col": 176,
+      "tau": -2.2333
+     },
+     "vertex_frames_over_all": 67531,
+     "seconds": 367.9
+    },
+    "row_smooth": {
+     "name": "row_smooth",
+     "off": [
+      "upper_back_aspect",
+      "far_hook_earlier",
+      "no_rebound",
+      "row_smooth"
+     ],
+     "frames": 211,
+     "vertex_frames_over": {
+      "back_foot_0_30": 20620,
+      "back_31_89": 6717,
+      "crest_lip_90_200": 5304,
+      "tube_201_313": 60135,
+      "front_314_378": 13915,
+      "front_foot_379_399": 616
+     },
+     "max_m": {
+      "back_foot_0_30": 0.04912,
+      "back_31_89": 0.03625,
+      "crest_lip_90_200": 1.90208,
+      "tube_201_313": 0.5889,
+      "front_314_378": 0.07442,
+      "front_foot_379_399": 0.10616
+     },
+     "max_all_m": 1.90208,
+     "at": {
+      "row": 104,
+      "col": 173,
+      "tau": -2.5
+     },
+     "vertex_frames_over_all": 107307,
+     "seconds": 339.7
+    },
+    "back_hold_water": {
+     "name": "back_hold_water",
+     "off": [
+      "upper_back_aspect",
+      "far_hook_earlier",
+      "no_rebound",
+      "back_hold_water"
+     ],
+     "frames": 211,
+     "vertex_frames_over": {
+      "back_foot_0_30": 19120,
+      "back_31_89": 17265,
+      "crest_lip_90_200": 5221,
+      "tube_201_313": 51222,
+      "front_314_378": 12255,
+      "front_foot_379_399": 259
+     },
+     "max_m": {
+      "back_foot_0_30": 0.03941,
+      "back_31_89": 0.04591,
+      "crest_lip_90_200": 1.89021,
+      "tube_201_313": 0.59847,
+      "front_314_378": 0.04037,
+      "front_foot_379_399": 0.07159
+     },
+     "max_all_m": 1.89021,
+     "at": {
+      "row": 108,
+      "col": 174,
+      "tau": -2.4333
+     },
+     "vertex_frames_over_all": 105342,
+     "seconds": 335.2
+    },
+    "lean_pace": {
+     "name": "lean_pace",
+     "off": [
+      "upper_back_aspect",
+      "far_hook_earlier",
+      "no_rebound",
+      "lean_pace"
+     ],
+     "frames": 211,
+     "vertex_frames_over": {
+      "back_foot_0_30": 19723,
+      "back_31_89": 5994,
+      "crest_lip_90_200": 1599,
+      "tube_201_313": 48411,
+      "front_314_378": 12556,
+      "front_foot_379_399": 578
+     },
+     "max_m": {
+      "back_foot_0_30": 0.04796,
+      "back_31_89": 0.03506,
+      "crest_lip_90_200": 0.6902,
+      "tube_201_313": 0.38734,
+      "front_314_378": 0.06142,
+      "front_foot_379_399": 0.10383
+     },
+     "max_all_m": 0.6902,
+     "at": {
+      "row": 106,
+      "col": 174,
+      "tau": -2.2667
+     },
+     "vertex_frames_over_all": 88861,
+     "seconds": 363.7
+    },
+    "row_timing": {
+     "name": "row_timing",
+     "off": [
+      "upper_back_aspect",
+      "far_hook_earlier",
+      "no_rebound",
+      "row_timing"
+     ],
+     "frames": 211,
+     "vertex_frames_over": {
+      "back_foot_0_30": 24972,
+      "back_31_89": 11369,
+      "crest_lip_90_200": 5677,
+      "tube_201_313": 55086,
+      "front_314_378": 11993,
+      "front_foot_379_399": 202
+     },
+     "max_m": {
+      "back_foot_0_30": 0.05528,
+      "back_31_89": 0.04067,
+      "crest_lip_90_200": 2.15389,
+      "tube_201_313": 0.60275,
+      "front_314_378": 0.0371,
+      "front_foot_379_399": 0.06089
+     },
+     "max_all_m": 2.15389,
+     "at": {
+      "row": 102,
+      "col": 174,
+      "tau": -2.4333
+     },
+     "vertex_frames_over_all": 109299,
+     "seconds": 333.3
+    }
+   }
+  }
+ },
+ "ds28p_logs": {
+  "G_p28a": {
+   "schema": "GreatWave.ds28p.generate_log/1",
+   "package": "Unity/Build/Polish/28/G_p28a/art_on",
+   "kstar": "Unity/Build/Polish/28/kstar_p28",
+   "p_on": {
+    "upper_back_aspect": true,
+    "far_hook_earlier": true
+   },
+   "p_params": {
+    "upper_back_aspect": {
+     "name": "ds_upper_back_aspect",
+     "kind_ja": "美術の誘導（M10：側面 t 4〜6.5 s の平らな頂の塊を、頂の後ろの上の背の縦横比を t* の K*′ に寄せて丸い頂にする）",
+     "on": true,
+     "eta0": 0.5,
+     "eta1": 0.9,
+     "row_H_zero_m": 10.0,
+     "row_H_full_m": 14.0,
+     "note_ja": "背の上の部分（K*′ の背の高さの割合 η が eta0〜eta1 で重み 0 → 1）だけ、横の倍率の t* の幅より広い分 Lb′ − 1 を k 倍にする（L_up = 1 + k·(Lb′ − 1)、Lb′ は試行F の背の幅の表）。背の下・足は Lb′ のまま。Lb′ と L_up はどちらも時間とともに 1 へ減るので、背の列の横の動きは単調で、t* の幅より狭くしない（引き戻しを作らない）。行の重みは K*′ の行の高さで row_H_zero_m → row_H_full_m。t* では L_up = 1（K*′ のまま）",
+     "k": 0.0
+    },
+    "far_hook_earlier": {
+     "name": "ds_far_hook_earlier",
+     "kind_ja": "美術の誘導の当て直し（M7：奥の行の唇の前の頂の尖りを、ds_far_hook_early の σ の窓を早めて K*′ の丸い鉤の形を早く混ぜて和らげる）",
+     "on": true,
+     "c_min_m": 10.0,
+     "sigma_start": -4.2,
+     "sigma_end": -1.4,
+     "note_ja": "ds_far_hook_early の鉤の行のうち、K*′ の c が c_min_m 以上の行だけ、ψ_b の smootherstep の窓を σ sigma_start〜sigma_end にする（試行F は −3.2〜−0.6）。唇の模型を使う行（κ = 1）は変わらない。t* は同じ"
+    }
+   },
+   "p_info": {
+    "upper_back_rows": 166,
+    "upper_back_full_rows": 106,
+    "far_hook_earlier_rows": [
+     214,
+     215,
+     216,
+     217,
+     218,
+     219,
+     220,
+     221,
+     222,
+     223,
+     224,
+     225,
+     226,
+     227,
+     228,
+     229,
+     230,
+     231,
+     232,
+     233,
+     234
+    ]
+   },
+   "p_base_shas": {
+    "Tools/GWWaveGen/ds28r01f/ds28r01f_model.py": "322ebbb45565bf9d795568a1e689c33453538953e221fc53bf5bfb289b4838a7",
+    "Tools/GWWaveGen/ds28r01f/ds28r01f_params.json": "b7c7b5992ef43c555adabd41b43aefd5997a7a846fd4e1a1308db24bd8da7307",
+    "Tools/GWWaveGen/ds28r01f/ds28r01f_generate.py": "1090afec3b8894ef52d4fdd2ccac95cf8346720726328dde5a3485816dcf47fc",
+    "Tools/GWWaveGen/ds28r01f/ds28r01f_clearance.py": "652e23132c48889d4a36a0529ab72f5e68a7f728632414bbf0481dcff6ea6727",
+    "Tools/GWWaveGen/ds28r01f/ds28r01f_selfx.py": "2d1b56a2a5900828c0511f62958c18da0631654d6d0a054199be543b83786f2a"
+   },
+   "files": {
+    "ds28p_model.py": "596906dd781c3a7e2cebedc5a914e9170e51258d3be92077bda9db029053078c",
+    "ds28p_generate.py": "8484f503b854c6ae7cd31ba14facd02cbcd38ac6b26342cf1935fb95c641ab9d",
+    "ds28p_params.json": "4d67ab99680b67d8984f0b2b630eab68e943e4df0a0e255671e7b9edf1290dfd"
+   },
+   "command": "py -3.10 -B Tools/GWWaveGen/ds28p/ds28p_generate.py --kstar Unity/Build/Polish/28/kstar_p28 --name G_p28a/art_on --out Unity/Build/Polish/28 --workers 5",
+   "seconds": 804.7,
+   "note_ja": "試行F の生成の記録（ds28r01f_generate_log.json）は、ds28r01f_generate.py がそのまま書いた（子のプロセスの生成器だけを ds28p に差し替えた）"
+  },
+  "G_p28b": {
+   "schema": "GreatWave.ds28p.generate_log/1",
+   "package": "Unity/Build/Polish/28/G_p28b/art_on",
+   "kstar": "Unity/Build/Polish/28/kstar_p28",
+   "p_on": {
+    "upper_back_aspect": false,
+    "far_hook_earlier": true
+   },
+   "p_params": {
+    "upper_back_aspect": {
+     "name": "ds_upper_back_aspect",
+     "kind_ja": "美術の誘導（M10：側面 t 4〜6.5 s の平らな頂の塊を、頂の後ろの上の背の縦横比を t* の K*′ に寄せて丸い頂にする）",
+     "on": true,
+     "eta0": 0.5,
+     "eta1": 0.9,
+     "row_H_zero_m": 10.0,
+     "row_H_full_m": 14.0,
+     "note_ja": "背の上の部分（K*′ の背の高さの割合 η が eta0〜eta1 で重み 0 → 1）だけ、横の倍率の t* の幅より広い分 Lb′ − 1 を k 倍にする（L_up = 1 + k·(Lb′ − 1)、Lb′ は試行F の背の幅の表）。背の下・足は Lb′ のまま。Lb′ と L_up はどちらも時間とともに 1 へ減るので、背の列の横の動きは単調で、t* の幅より狭くしない（引き戻しを作らない）。行の重みは K*′ の行の高さで row_H_zero_m → row_H_full_m。t* では L_up = 1（K*′ のまま）",
+     "k": 0.0
+    },
+    "far_hook_earlier": {
+     "name": "ds_far_hook_earlier",
+     "kind_ja": "美術の誘導の当て直し（M7：奥の行の唇の前の頂の尖りを、ds_far_hook_early の σ の窓を早めて K*′ の丸い鉤の形を早く混ぜて和らげる）",
+     "on": true,
+     "c_min_m": 10.0,
+     "sigma_start": -4.2,
+     "sigma_end": -1.4,
+     "note_ja": "ds_far_hook_early の鉤の行のうち、K*′ の c が c_min_m 以上の行だけ、ψ_b の smootherstep の窓を σ sigma_start〜sigma_end にする（試行F は −3.2〜−0.6）。唇の模型を使う行（κ = 1）は変わらない。t* は同じ"
+    }
+   },
+   "p_info": {
+    "upper_back_rows": 166,
+    "upper_back_full_rows": 106,
+    "far_hook_earlier_rows": [
+     214,
+     215,
+     216,
+     217,
+     218,
+     219,
+     220,
+     221,
+     222,
+     223,
+     224,
+     225,
+     226,
+     227,
+     228,
+     229,
+     230,
+     231,
+     232,
+     233,
+     234
+    ]
+   },
+   "p_base_shas": {
+    "Tools/GWWaveGen/ds28r01f/ds28r01f_model.py": "322ebbb45565bf9d795568a1e689c33453538953e221fc53bf5bfb289b4838a7",
+    "Tools/GWWaveGen/ds28r01f/ds28r01f_params.json": "b7c7b5992ef43c555adabd41b43aefd5997a7a846fd4e1a1308db24bd8da7307",
+    "Tools/GWWaveGen/ds28r01f/ds28r01f_generate.py": "1090afec3b8894ef52d4fdd2ccac95cf8346720726328dde5a3485816dcf47fc",
+    "Tools/GWWaveGen/ds28r01f/ds28r01f_clearance.py": "652e23132c48889d4a36a0529ab72f5e68a7f728632414bbf0481dcff6ea6727",
+    "Tools/GWWaveGen/ds28r01f/ds28r01f_selfx.py": "2d1b56a2a5900828c0511f62958c18da0631654d6d0a054199be543b83786f2a"
+   },
+   "files": {
+    "ds28p_model.py": "596906dd781c3a7e2cebedc5a914e9170e51258d3be92077bda9db029053078c",
+    "ds28p_generate.py": "b6611530b1ce1d6287ecf07f6a26215f92c70bad77b8bbf93cf81601ed7f2050",
+    "ds28p_params.json": "4d67ab99680b67d8984f0b2b630eab68e943e4df0a0e255671e7b9edf1290dfd"
+   },
+   "p_off": [
+    "upper_back_aspect"
+   ],
+   "command": "py -3.10 -B Tools/GWWaveGen/ds28p/ds28p_generate.py --kstar Unity/Build/Polish/28/kstar_p28 --name G_p28b/art_on --out Unity/Build/Polish/28 --workers 5 --p-off upper_back_aspect",
+   "seconds": 789.2,
+   "note_ja": "試行F の生成の記録（ds28r01f_generate_log.json）は、ds28r01f_generate.py がそのまま書いた（子のプロセスの生成器だけを ds28p に差し替えた）"
+  }
+ },
+ "determinism": {
+  "G_p28a": null,
+  "G_p28b": {
+   "package": "Unity/Build/Polish/28/G_p28b/art_on",
+   "workers_in_generation": 5,
+   "single_process": true,
+   "off_log": [],
+   "off_used": [],
+   "f_on_rebuilt": {
+    "back_width_retarget": true,
+    "back_no_undercut": true,
+    "tail_lip_body": true,
+    "small_lip_body": true,
+    "tstar_exact": true,
+    "sheet_clearance": true,
+    "bridge": true,
+    "anchor_retarget": true,
+    "far_hook_early": true,
+    "balance_swell_calm": true,
+    "sea_sample_range": true
+   },
+   "layers_checked": [
+    {
+     "layer": 0,
+     "tau": -12.0,
+     "same_rgba16": true,
+     "same_lo_rgba8": true,
+     "max_diff_counts16": 0
+    },
+    {
+     "layer": 125,
+     "tau": -3.1875,
+     "same_rgba16": true,
+     "same_lo_rgba8": true,
+     "max_diff_counts16": 0
+    },
+    {
+     "layer": 170,
+     "tau": -2.0,
+     "same_rgba16": true,
+     "same_lo_rgba8": true,
+     "max_diff_counts16": 0
+    },
+    {
+     "layer": 250,
+     "tau": 0.0,
+     "same_rgba16": true,
+     "same_lo_rgba8": true,
+     "max_diff_counts16": 0
+    }
+   ],
+   "all_same": true,
+   "seconds": 47.0,
+   "note_ja": "生成は複数のプロセスで節点を評価し、ここでは 1 つのプロセスで同じ層を作り直した。バイトが同じなら、プロセスの数・順によらず決定的"
+  }
+ }
+}

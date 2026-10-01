@@ -1,0 +1,32 @@
+{
+ "schema": "GreatWave.Polish28.run/1",
+ "made_local": "2026-10-01T10:02:16+08:00",
+ "timing": {
+  "start": "2026-09-30T21:20",
+  "end": "2026-10-01T10:30"
+ },
+ "parts": {
+  "shape_round1": "Unity/Build/Polish/28/r1_rays/run.json・r1_faceswap/run.json・r1_backfirst/v4/run.json（Git 対象外）",
+  "shape_round2": "Unity/Build/Polish/28/r2/run.json（Git 対象外）",
+  "motion": "run_motion.json",
+  "unity": "run_unity.json",
+  "recovery": "run_rec.json"
+ },
+ "tools": {
+  "python": "3.10.6",
+  "numpy": "2.2.6",
+  "blender": "Steam Blender 5.2.2（G:/SteamLibrary/steamapps/common/Blender）",
+  "houdini": "Steam Houdini Indie 22.0.429 hython",
+  "unity": "6000.4.3f1（E:\\6000.4.3f1\\Editor\\Unity.exe、batchmode、Direct3D11、RTX 3080）",
+  "ffmpeg": "G:/ffmpeg-2024-12-19-git-494c961379-full_build"
+ },
+ "reference_model": {
+  "generator_reads_it": false,
+  "evaluator": "kh_eval.py（rec_eval.py の包み）が F13 と量感の比べのためだけに、SHA-256 を照合した一時キャッシュ（Unity/Build/Polish/28/rec/_tmp/ref_cache）で読み、終わりに消した。消したキャッシュの SHA-256 は rec/_tmp/deleted_caches_sha256.txt",
+  "deleted_caches": [
+   "71b1a952a099f4ac185a769f7c96d38b019eb2390db9349e779537c2133d9ba6  _kh_ref_f13_cache_31444.npz  (TEMP align-B cache of the reference model for F13, deleted 2026-10-01 09:08:34)",
+   "71b1a952a099f4ac185a769f7c96d38b019eb2390db9349e779537c2133d9ba6  _kh_ref_f13_cache_67020.npz  (TEMP align-B cache of the reference model for F13, deleted 2026-10-01 09:59:22)"
+  ],
+  "copied_into_repo_or_outputs": false
+ }
+}

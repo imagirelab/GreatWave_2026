@@ -1,0 +1,580 @@
+{
+ "schema": "GreatWave.Polish28.metrics/1",
+ "number": "仕上げ28（設計28 原画の弧・最後の一コマ）",
+ "made_local": "2026-10-01T10:02:16+08:00",
+ "state_ja": "閉じていない（閉じる目安 7 のうち 3）。採用は K*′ P28R2rec ＋ 動き G_p28rec（原画視点の後退の回復の版）。HMD 実機の結果ではない。利用者は確かめていない。",
+ "evidence_kind_ja": "numpy の形の生成器と評価器、Houdini の hython（読んで見せるだけ）、動きの生成器と関門の検査器、Blender 5.2.2 の粘土、Unity 6000.4.3f1 の batchmode の PC オフスクリーン描画、原画視点の評価器。HMD 実機の結果ではない。利用者は確かめていない。",
+ "adopted": {
+  "kstar": {
+   "kstarP28R2rec_a45.gwb": {
+    "sha256": "a3bb1c81a79a15b7903729bd845a2d4b2660d3a06a417a218ae66f58eeb01e94",
+    "bytes": 4976696
+   },
+   "kstarP28R2rec_a45_rows.npz": {
+    "sha256": "c55e048d388e41e30289d075089066c481bf2f3b99d84727c655eea9e1a437a3",
+    "bytes": 1429898
+   },
+   "kstarP28R2rec_a45_meta.json": {
+    "sha256": "90f8dbe1d04be6b9d25f7321645f9d472747cfc01737bd69f8ea4a8418c42a84",
+    "bytes": 11361
+   }
+  },
+  "motion": "Unity/Build/Polish/28/G_p28rec（art_on・timewarp_G_p28rec.json）",
+  "motion_sha256": {
+   "ds27_pos_rgba16.bin": "c8c0b61afecc98243941f307d8f832cf51340f2b03286eb57bce98c7bd23d75a",
+   "ds27_pos_lo_rgba8.bin": "d63b534e121374059705680cefc921cf4de329471fc8e96cad00e225ea94df50",
+   "ds27_keypose.json": "837eca90afa7921b0b8815842cef52101ce674fcd207c8aad62294ee9445a31b",
+   "ds27_twhite_r32f.bin": "373d6e85ccdc863ec27bd869f8c9065a798fd01b7ec3b5671cdd8b24be17ff6c",
+   "timewarp_G_p28rec.json": "836224b5b86c194589d44f04115a8652f9b1dc55d9bae5399c0cd8338cb67af7"
+  }
+ },
+ "closing_criteria_plan_5_3": [
+  {
+   "criterion_ja": "後ろ 65° と回り台でドームが見えない（Q21）",
+   "value": {
+    "R6_p99_m": 0.69,
+    "R6_p99_R4_m": 0.693,
+    "by_eye": "R4 と同じに見える（粘土・Unity）"
+   },
+   "verdict": "満たさない"
+  },
+  {
+   "criterion_ja": "b区域が 3 つの房に読める（Q21）",
+   "value": {
+    "lobes_prom6": [
+     [
+      [
+       425.0,
+       384.8,
+       35.9
+      ]
+     ],
+     [
+      279.0,
+      625.0
+     ]
+    ],
+    "top_vs_top_raw": {
+     "max_px": 39.36463704228174,
+     "median_px": 10.383439064537981,
+     "p90_px": 22.281464764389646,
+     "target_samples": 46,
+     "covered_samples": 34
+    }
+   },
+   "verdict": "満たさない（3 つのうち 1 つ）"
+  },
+  {
+   "criterion_ja": "F04 ≤ 18.5 m で本体が薄く見えない（Q16・Q21）",
+   "value": {
+    "F04_0p5H0_m": 27.64,
+    "fullness": 1.35,
+    "shell_ratio": 0.92
+   },
+   "verdict": "F04 は満たさない。薄く見えない は満たす"
+  },
+  {
+   "criterion_ja": "78・130・131 が定義どおりの読みで ≤ 4 px",
+   "value": [
+    2.741,
+    3.5815,
+    3.4419
+   ],
+   "verdict": "満たす"
+  },
+  {
+   "criterion_ja": "132・72 の爪なしの大きな輪郭が σ24 の緩めなし（σ12）で ≤ 4 px",
+   "value": [
+    3.5576,
+    3.8507
+   ],
+   "verdict": "満たす"
+  },
+  {
+   "criterion_ja": "134・267 が合格",
+   "value": {
+    "134_clawfree": 7.264,
+    "267_bands": {
+     "painting_view": 6,
+     "seat_view": 0,
+     "seat_low_view": 0
+    }
+   },
+   "verdict": "満たさない"
+  },
+  {
+   "criterion_ja": "t* の頂と手前の尾の行が弧（Q17）",
+   "value": {
+    "near_tail_min_deg": 123.29,
+    "near_tail_rows_lt110": 0,
+    "main_min_deg": 113.333,
+    "main_rows_lt110": 0
+   },
+   "verdict": "満たす"
+  }
+ ],
+ "closing_criteria_met": "3/7",
+ "backlog": {
+  "68": {
+   "value": "唇先の厚さ（唇先から 0.75 m 奥の鉛直）の最小 0.041 m（t* で 0.281 m）、隣と逆向きの面（二面角 > 120°）77。ds29r01_measure qa（G_p28rec、精度の層、Blender なし）",
+   "verdict": "不合格（記録。≥ 0.3 m）"
+  },
+  "69": {
+   "value": "主役波の頂の表示の y は段階9 と同じ（輪郭の値が P28R2 と同じ）",
+   "verdict": "記録（設計40 で合格）"
+  },
+  "70": {
+   "value": "頂の y が変わらないので、波の上下と右船の長さの関係は設計40 と同じ",
+   "verdict": "記録（設計40 で合格）"
+  },
+  "71": {
+   "value": {
+    "p95_px_clawfree": 15.5975,
+    "p95_px_claws": 15.3813
+   },
+   "verdict": "記録のみ"
+  },
+  "72": {
+   "value": {
+    "sigma12_p95_clawfree": 3.8507,
+    "sigma12_p95_claws": 3.5698,
+    "sigma24_p95_clawfree": 3.0435,
+    "detail_p95_clawfree": 5.6807
+   },
+   "verdict": "合格（σ12、閉じる目安の読み）。細部込みは不合格・仕上げ33"
+  },
+  "73": {
+   "value": 2.484,
+   "verdict": "合格（28修正01 と +1.83 px。±0.5 超え、段階9 と同じ）"
+  },
+  "77": {
+   "value": 0.855,
+   "verdict": "合格"
+  },
+  "78": {
+   "value": 2.741,
+   "verdict": "合格"
+  },
+  "79": {
+   "value": 1.017,
+   "verdict": "合格（28修正01 と +0.68 px。段階9 +0.67）"
+  },
+  "130": {
+   "value": 3.5815,
+   "verdict": "合格（CP1 より +1.61 px）"
+  },
+  "131": {
+   "value": 3.4419,
+   "verdict": "合格（CP1 より +1.63 px）"
+  },
+  "132": {
+   "value": {
+    "sigma12_max_clawfree": 3.5576,
+    "detail_max_clawfree": 5.9472,
+    "detail_max_claws": 5.2998
+   },
+   "verdict": "合格（σ12）。細部込みは不合格・仕上げ33"
+  },
+  "133": {
+   "value": 0.743,
+   "verdict": "合格"
+  },
+  "134": {
+   "value": {
+    "clawfree": 7.264,
+    "claws": 2.047
+   },
+   "verdict": "不合格（爪なし。唇先 (1090, 427) で描画が空）。爪ありは合格（記録）"
+  }
+ },
+ "painting_view_regression_recovery": {
+  "boat_left_157_clawfree": {
+   "rec": {
+    "target": "boat_left",
+    "max_px": 83.9638,
+    "p95_px": 64.8955,
+    "n_render_assigned": 2276,
+    "verdict": "record-only"
+   },
+   "stage9": {
+    "max_px": 77.5517,
+    "p95_px": 63.5708,
+    "n_render_assigned": 2316
+   },
+   "p28r2": {
+    "max_px": 191.036,
+    "p95_px": 152.1509,
+    "n_render_assigned": 1592
+   }
+  },
+  "boats_and_lines_counts": {
+   "scene_stage9": {
+    "boat_left": 46803,
+    "boat_mid": 142064,
+    "boat_fg": 164818,
+    "cpu": 479130,
+    "sky": 3536330,
+    "tan_px_on_stage9_boat_left_1080": 9881,
+    "tan_px_all_lower_left_1080": 9881,
+    "line_px_t28_white_3840": 66288
+   },
+   "scene_p28": {
+    "boat_left": 22429,
+    "boat_mid": 142064,
+    "boat_fg": 164818,
+    "cpu": 270531,
+    "sky": 3537594,
+    "tan_px_on_stage9_boat_left_1080": 4321,
+    "tan_px_all_lower_left_1080": 4321,
+    "line_px_t28_white_3840": 69697,
+    "new_lines_vs_stage9": {
+     "px_3840": 5599,
+     "px_inside_face": 3704,
+     "blobs": [
+      {
+       "px_3840": 2565,
+       "x_1080": [
+        526,
+        549
+       ],
+       "y_1080": [
+        578,
+        783
+       ],
+       "inside_face_frac": 0.81,
+       "kind": "面の中"
+      },
+      {
+       "px_3840": 887,
+       "x_1080": [
+        0,
+        78
+       ],
+       "y_1080": [
+        353,
+        366
+       ],
+       "inside_face_frac": 0.0,
+       "kind": "面の外（輪郭の移動）"
+      },
+      {
+       "px_3840": 706,
+       "x_1080": [
+        213,
+        308
+       ],
+       "y_1080": [
+        426,
+        446
+       ],
+       "inside_face_frac": 1.0,
+       "kind": "面の中"
+      },
+      {
+       "px_3840": 416,
+       "x_1080": [
+        599,
+        656
+       ],
+       "y_1080": [
+        410,
+        420
+       ],
+       "inside_face_frac": 1.0,
+       "kind": "面の中"
+      },
+      {
+       "px_3840": 201,
+       "x_1080": [
+        440,
+        482
+       ],
+       "y_1080": [
+        382,
+        412
+       ],
+       "inside_face_frac": 1.0,
+       "kind": "面の中"
+      },
+      {
+       "px_3840": 195,
+       "x_1080": [
+        959,
+        988
+       ],
+       "y_1080": [
+        424,
+        435
+       ],
+       "inside_face_frac": 0.0,
+       "kind": "面の外（輪郭の移動）"
+      },
+      {
+       "px_3840": 192,
+       "x_1080": [
+        902,
+        937
+       ],
+       "y_1080": [
+        413,
+        427
+       ],
+       "inside_face_frac": 0.0,
+       "kind": "面の外（輪郭の移動）"
+      },
+      {
+       "px_3840": 167,
+       "x_1080": [
+        283,
+        332
+       ],
+       "y_1080": [
+        528,
+        558
+       ],
+       "inside_face_frac": 1.0,
+       "kind": "面の中"
+      },
+      {
+       "px_3840": 136,
+       "x_1080": [
+        1007,
+        1040
+       ],
+       "y_1080": [
+        462,
+        471
+       ],
+       "inside_face_frac": 0.0,
+       "kind": "面の外（輪郭の移動）"
+      }
+     ]
+    }
+   },
+   "scene_rec": {
+    "boat_left": 45366,
+    "boat_mid": 142064,
+    "boat_fg": 164818,
+    "cpu": 444658,
+    "sky": 3537594,
+    "tan_px_on_stage9_boat_left_1080": 9558,
+    "tan_px_all_lower_left_1080": 9558,
+    "line_px_t28_white_3840": 66855,
+    "new_lines_vs_stage9": {
+     "px_3840": 2778,
+     "px_inside_face": 1368,
+     "blobs": [
+      {
+       "px_3840": 887,
+       "x_1080": [
+        0,
+        78
+       ],
+       "y_1080": [
+        353,
+        366
+       ],
+       "inside_face_frac": 0.0,
+       "kind": "面の外（輪郭の移動）"
+      },
+      {
+       "px_3840": 689,
+       "x_1080": [
+        199,
+        308
+       ],
+       "y_1080": [
+        427,
+        453
+       ],
+       "inside_face_frac": 1.0,
+       "kind": "面の中"
+      },
+      {
+       "px_3840": 330,
+       "x_1080": [
+        600,
+        647
+       ],
+       "y_1080": [
+        410,
+        419
+       ],
+       "inside_face_frac": 1.0,
+       "kind": "面の中"
+      },
+      {
+       "px_3840": 195,
+       "x_1080": [
+        959,
+        988
+       ],
+       "y_1080": [
+        424,
+        435
+       ],
+       "inside_face_frac": 0.0,
+       "kind": "面の外（輪郭の移動）"
+      },
+      {
+       "px_3840": 192,
+       "x_1080": [
+        902,
+        937
+       ],
+       "y_1080": [
+        413,
+        427
+       ],
+       "inside_face_frac": 0.0,
+       "kind": "面の外（輪郭の移動）"
+      },
+      {
+       "px_3840": 167,
+       "x_1080": [
+        283,
+        332
+       ],
+       "y_1080": [
+        528,
+        558
+       ],
+       "inside_face_frac": 1.0,
+       "kind": "面の中"
+      },
+      {
+       "px_3840": 136,
+       "x_1080": [
+        1007,
+        1040
+       ],
+       "y_1080": [
+        462,
+        471
+       ],
+       "inside_face_frac": 0.0,
+       "kind": "面の外（輪郭の移動）"
+      },
+      {
+       "px_3840": 115,
+       "x_1080": [
+        440,
+        482
+       ],
+       "y_1080": [
+        385,
+        410
+       ],
+       "inside_face_frac": 1.0,
+       "kind": "面の中"
+      }
+     ]
+    }
+   }
+  }
+ },
+ "motion_gates_G_p28rec_default": {
+  "P1": [
+   18.482,
+   true
+  ],
+  "P2": [
+   0.155,
+   true
+  ],
+  "P3": [
+   0.0465,
+   true
+  ],
+  "P4": [
+   -1.679,
+   false
+  ],
+  "P5": [
+   22.839,
+   true
+  ],
+  "P6": [
+   1.003,
+   true
+  ],
+  "P7": [
+   3.0,
+   false
+  ],
+  "P8": [
+   0.831,
+   true
+  ],
+  "P9": [
+   0.277,
+   true
+  ],
+  "P10": [
+   -0.877,
+   true
+  ],
+  "P11": [
+   1.06,
+   true
+  ],
+  "P12": [
+   0.0,
+   true
+  ],
+  "P13": [
+   "12 項目中 4 項目が不合格",
+   false
+  ],
+  "P14": [
+   null,
+   false
+  ],
+  "P15": [
+   {
+    "主断面": {
+     "a": null,
+     "b": null,
+     "c": null,
+     "d": -1.983
+    },
+    "峰で最も高い巻きの行": {
+     "a": null,
+     "b": null,
+     "c": null,
+     "d": -1.983
+    }
+   },
+   false
+  ],
+  "P16": [
+   2.15,
+   false
+  ],
+  "Painting": [
+   0.0012,
+   true
+  ],
+  "P17": [
+   {
+    "主断面": 0.9431,
+    "峰で最も高い巻きの行": 1.0332,
+    "巻きの行の最大": 1.0918
+   },
+   false
+  ],
+  "P18": [
+   9.374,
+   false
+  ],
+  "P19": [
+   null,
+   false
+  ]
+ },
+ "parts": {
+  "motion": "metrics_motion.json（G_p28b まで）",
+  "unity": "metrics_unity.json（P28R2 まで）",
+  "recovery": "metrics_rec.json（採用の P28R2rec・G_p28rec）"
+ }
+}

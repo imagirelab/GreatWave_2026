@@ -1,0 +1,38 @@
+{
+ "number": "仕上げ28（設計28 原画の弧・最後の一コマ）の動きの当て直し",
+ "schema": "GreatWave.ds28p.params/1",
+ "base": {
+  "note_ja": "試行F の生成器（ds28r01f）を import して継承する。試行F と設計26〜29 のファイルは変えない。読み込む時に、この SHA-256 と照合する（違えば止まる）。F の値（ds28r01f_params.json）はそのまま（仕上げ27 の 2 つの数値の条件を含む）",
+  "trial_f_model": "Tools/GWWaveGen/ds28r01f/ds28r01f_model.py",
+  "trial_f_model_sha256": "322ebbb45565bf9d795568a1e689c33453538953e221fc53bf5bfb289b4838a7",
+  "trial_f_params": "Tools/GWWaveGen/ds28r01f/ds28r01f_params.json",
+  "trial_f_params_sha256": "b7c7b5992ef43c555adabd41b43aefd5997a7a846fd4e1a1308db24bd8da7307",
+  "trial_f_generate": "Tools/GWWaveGen/ds28r01f/ds28r01f_generate.py",
+  "trial_f_generate_sha256": "1090afec3b8894ef52d4fdd2ccac95cf8346720726328dde5a3485816dcf47fc",
+  "trial_f_clearance": "Tools/GWWaveGen/ds28r01f/ds28r01f_clearance.py",
+  "trial_f_clearance_sha256": "652e23132c48889d4a36a0529ab72f5e68a7f728632414bbf0481dcff6ea6727",
+  "trial_f_selfx": "Tools/GWWaveGen/ds28r01f/ds28r01f_selfx.py",
+  "trial_f_selfx_sha256": "2d1b56a2a5900828c0511f62958c18da0631654d6d0a054199be543b83786f2a"
+ },
+ "upper_back_aspect": {
+  "name": "ds_upper_back_aspect",
+  "kind_ja": "美術の誘導（M10：側面 t 4〜6.5 s の平らな頂の塊を、頂の後ろの上の背の縦横比を t* の K*′ に寄せて丸い頂にする）",
+  "on": true,
+  "eta0": 0.5,
+  "eta1": 0.9,
+  "row_H_zero_m": 10.0,
+  "row_H_full_m": 14.0,
+  "note_ja": "背の上の部分（K*′ の背の高さの割合 η が eta0〜eta1 で重み 0 → 1）だけ、横の倍率の t* の幅より広い分 Lb′ − 1 を k 倍にする（L_up = 1 + k·(Lb′ − 1)、Lb′ は試行F の背の幅の表）。背の下・足は Lb′ のまま。Lb′ と L_up はどちらも時間とともに 1 へ減るので、背の列の横の動きは単調で、t* の幅より狭くしない（引き戻しを作らない）。行の重みは K*′ の行の高さで row_H_zero_m → row_H_full_m。t* では L_up = 1（K*′ のまま）",
+  "k": 0.0
+ },
+ "far_hook_earlier": {
+  "name": "ds_far_hook_earlier",
+  "kind_ja": "美術の誘導の当て直し（M7：奥の行の唇の前の頂の尖りを、ds_far_hook_early の σ の窓を早めて K*′ の丸い鉤の形を早く混ぜて和らげる）",
+  "on": true,
+  "c_min_m": 10.0,
+  "sigma_start": -4.2,
+  "sigma_end": -1.4,
+  "note_ja": "ds_far_hook_early の鉤の行のうち、K*′ の c が c_min_m 以上の行だけ、ψ_b の smootherstep の窓を σ sigma_start〜sigma_end にする（試行F は −3.2〜−0.6）。唇の模型を使う行（κ = 1）は変わらない。t* は同じ"
+ },
+ "decisions_ja": {}
+}
