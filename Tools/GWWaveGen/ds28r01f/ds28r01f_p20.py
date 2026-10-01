@@ -86,7 +86,10 @@ def main():
     stage = dict(nr=nr, delip=tuple(sl.get("rows") or ()), gw=gw if os.path.isfile(gw) else None, bridge=br if os.path.isfile(br) else None, layers=None)
     t0 = time.time()
     ptaus = [round(float(t), 9) for t in np.concatenate([np.arange(-9.5, -3.0 + 1e-9, 0.25), np.arange(-2.95, 1e-9, 0.05)])]
-    with mp.get_context("spawn").Pool(a.workers, initializer=GEN._winit, initargs=(kdir, R.get("overrides"), R.get("off") or [])) as pool:
+    # ［仕上げ27 の修正 1 回目（2026-09-30）］記録の f_on に無い F の名前（仕上げ27 で既定に入った 2 つなど）は切る（ds28r01f_pkglog.package_off）
+    import ds28r01f_pkglog as PL
+    off = PL.package_off(R)
+    with mp.get_context("spawn").Pool(a.workers, initializer=GEN._winit, initargs=(kdir, R.get("overrides"), off)) as pool:
         res = list(pool.imap(_t_width, [(t, stage, a.name) for t in ptaus], chunksize=2))
     best = max(res, key=lambda x: x[1])
     notes = dict(back_width_retarget="ρ を 1 に戻した形（E の背の幅の表のまま。水の釣り合いの山 ΔL の当てはめは入れた版のまま＝近似）と、生成と同じ F の形との頂点の差（局所座標）",
@@ -94,7 +97,7 @@ def main():
                  far_hook_early="上の前面の混ぜの重み ψ_b を E の ease-in（σ −3.4〜0）に戻した形と、生成と同じ F の形との頂点の差（局所座標）")
     out = dict(name="ds_" + a.name, kstar=R["kstar"]["dir"], stage={k: (os.path.relpath(v, REPO).replace("\\", "/") if isinstance(v, str) else v)
                                                                             for k, v in stage.items()},
-               max_vertex_diff_m=best[1], at=dict(tau=best[0], row=best[2], col=best[3]),
+               off_used=off, max_vertex_diff_m=best[1], at=dict(tau=best[0], row=best[2], col=best[3]),
                per_tau={"%+.2f" % t: round(m, 4) for t, m, _, _ in res}, seconds=round(time.time() - t0, 1),
                note_ja=notes[a.name])
     with open(os.path.join(pkg, "p20_%s.json" % a.name), "w", encoding="utf-8", newline="\n") as f:

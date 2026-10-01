@@ -1,15 +1,22 @@
 # -*- coding: utf-8 -*-
 """仕上げ27：バックログ 80・106・107・108・111（船上から見た形成）を、採用の動き（28修正01 の F_final、ds27 の包み）で測って記録する。
 
-測り方は美術優先30 の記録（Tools/GWWaveGen/af30_evidence.py の座席の項目。Docs/Evidence/ArtFirst/30/metrics.json）と同じ定義を、
-ds27 の包み（関門の検査器 ds27_gates.py の Package・KStar で読む。16 bit の Hermite）と K*′ R4 の目印の列（meta の profile.index）へ当てた：
+測り方は美術優先30 の記録（Tools/GWWaveGen/af30_evidence.py の座席の項目。Docs/Evidence/ArtFirst/30/metrics.json）の見え方の値の定義を、
+ds27 の包み（関門の検査器 ds27_gates.py の Package・KStar で読む。16 bit の Hermite）と K*′ R4 の目印の列（meta の profile.index）へ当てた
+（判定の式の違いは下の「判定」）：
   目：座席 v1（Tools/GWContext/seat_v1.json の eye_world。右船の唇の下、甲板の 1.2 m 上）。固定（美術優先30・設計27 と同じ）。
       体験の場面では座席の船が動くので、設計47 の走り main（Editor の Play、HMD Camera の位置の記録 ds47_frames.csv）の目でも 80・108 を測る（記録のみ）。
   時刻：体験の時刻 t 0〜14 s、30 Hz。τ(t) は 28修正01 の timewarp_F_final.json（t* = 12 s、12〜14 s は保持）。
   行の組：座席の c（c_seat = (eye − O)·e）から、中央 ±5 m・近く ±3 m・左 −25〜−5 m・右 +5〜+15 m（美術優先30 と同じ）。
   唇：巻きの行（検査器の curled）の列 j_top〜j_corner。唇先の列 j_tip。内壁：列 j_corner〜j_facebot。水面は y > 0.3 m。
-判定：美術優先30 の式（geom_ok は連続性の検査一式がすべて合格）と、項目の言葉だけの読みの両方を書く。連続性の検査一式は
-関門の検査器の P13 の出力（--gates-json）を写す。107 は、面の反転を項目の範囲（座席の近くの行の内壁）でも数える。
+判定：美術優先30 の式と、項目の言葉だけの読みの両方を書く。連続性の検査一式は関門の検査器の P13 の出力（--gates-json）を写す。
+107 は、面の反転を項目の範囲（座席の近くの行の内壁）でも数える。
+  美術優先30 の式（af30_evidence.py の「判定」）：80・106・107 は geom_ok（連続性の検査一式がすべて合格、かつ Blender の途中のフレームの
+  メッシュ検査 bl_all0 がすべて 0）を含む。この道具は Blender の検査を回していないので、80・106・107 は連続性の検査一式だけで判定する
+  （Blender の分は出力の af30_blender_qa_ja に「回していない」と書く）。111 の式は geom_ok を含まない（af30_evidence.py の ok111：
+  t* の唇先の向き < −20°、1 コマの向きの変化 < 3°、唇先の 1 コマの移動 < 0.6 m、t* = K*）。t* = K* は関門の検査器の Painting
+  （τ = 0 の位置 = K*、量子化の内）を写す。唇先の移動は、美術優先30 のとおり地面（世界）で測った値と、波の枠で測った値の両方で判定を書く。
+  ［仕上げ27 の修正 1 回目（2026-09-30）：初めの版は 111 の美術優先30 の式に連続性の検査一式を足していた（誤り）。直した］
 
 使い方（リポジトリの根で）：
   py -3.10 -B Tools/GWWaveGen/pl27/pl27_seat_items.py --package Unity/Build/Design/28R01F/F_final/art_on \
@@ -87,7 +94,8 @@ def main():
     ts = np.arange(0, int(round(14.0 * hz)) + 1) / hz
     its = int(round(12.0 * hz))
     S = {k: [] for k in ("tau", "lip_elev_max", "lip_hdist_min", "near_tip_elev", "centre_elev_max", "left_elev_max", "right_elev_max",
-                         "face_normal_up_deg", "face_normal_to_seat", "tip_dir_deg", "zenith70", "lip_within5m", "face_flips_region")}
+                         "face_normal_up_deg", "face_normal_to_seat", "tip_dir_deg", "zenith70", "lip_within5m", "face_flips_region",
+                         "tip_jump_m", "tip_jump_wave_frame_m")}                    # 唇先の 1 コマの移動の系列（修正 1 回目で足した。図 fig_pl27_111_tip.png）
     prev_fn = None
     face_turn_max = 0.0
     tip_prev = None
@@ -146,10 +154,12 @@ def main():
         tp = X[near_rows, jP]
         if tip_prev is not None:
             tip_jump_max = max(tip_jump_max, float(np.linalg.norm(tp - tip_prev, axis=-1).max()))
+        S["tip_jump_m"].append(float(np.linalg.norm(tp - tip_prev, axis=-1).max()) if tip_prev is not None else float("nan"))
         tip_prev = tp
         tpl = tp - pk.origin(tau)[0]                                # 波の枠（局所。約 20 m/s の進みを除く）
         if tipl_prev is not None:
             tipl_jump_max = max(tipl_jump_max, float(np.linalg.norm(tpl - tipl_prev, axis=-1).max()))
+        S["tip_jump_wave_frame_m"].append(float(np.linalg.norm(tpl - tipl_prev, axis=-1).max()) if tipl_prev is not None else float("nan"))
         tipl_prev = tpl
         if abs(t - round(t)) < 1e-9:
             X_by_t[int(round(t))] = None
@@ -206,6 +216,8 @@ def main():
     common = dict(index_constant_ja="全コマで同じ 96,000 頂点・同じ三角形（包みの約束。Unity の再生も同じ格子）",
                   continuity_P13=cont, continuity_all_pass=geom_ok,
                   continuity_failed=[k for k, v in cont.items() if not v["pass_"]])
+    af30_bl = ("美術優先30 の式の geom_ok は、連続性の検査一式に Blender の途中のフレームのメッシュ検査（bl_all0：非多様体・向きの不揃い・"
+               "面積 0 の面・自己交差の面の組・境界の辺の数）を足す。この道具は Blender の検査を回していない（80・106・107 の式は連続性の検査一式だけで判定）")
     step_ok = pv("(1) 波の枠の 1 コマの変位（30 Hz）_m")[1]
     missing_ok = pv("(5a) 唇・管の三角形の面積の最小_m2")[1] and pv("(6) 法線が有限（唇・管の頂点の 1 環の面積の最小 > 0）_m2")[1]
     tear_ok = pv("(5d) 辺の長さの K* に対する比（行の間、縦と斜め）")[1]
@@ -216,7 +228,7 @@ def main():
     items["80"] = dict(name_ja="船上の正面中央で、波の上側を上昇前から上昇後まで続けて見られる（形の切替・欠落 0）",
                        value=dict(common, centre_band_elev_deg={("t%d" % k): round(float(cen_f[int(k * hz)]), 2) for k in (0, 2, 4, 6, 8, 9, 10, 11)} | {"tstar": round(float(cen_f[its]), 2)},
                                   centre_band_max_drop_deg_per_frame=round(drop_max(S["centre_elev_max"]), 3),
-                                  moving_eye_record=mov),
+                                  moving_eye_record=mov, af30_blender_qa_ja=af30_bl),
                        verdict_af30_formula="合格" if (geom_ok and drop_max(S["centre_elev_max"]) < 1.0 and cen_f[its] > cen_f[h2] + 20) else "不合格",
                        verdict_item_words="合格" if ok80_words else "不合格",
                        reading_ja="項目の言葉の読み：形の切替（添字は同じ）・欠落（(5a)・(6)）・位置跳び（(1)）が 0 で、中央の帯の仰角が 1 コマで 1° 以上下がらず、"
@@ -225,7 +237,8 @@ def main():
                         value=dict(common, left_elev_tstar=round(float(S["left_elev_max"][its]), 2), right_elev_tstar=round(float(S["right_elev_max"][its]), 2),
                                    centre_elev_tstar=round(float(cen_f[its]), 2),
                                    left_max_drop_deg_per_frame=round(drop_max(S["left_elev_max"]), 3), right_max_drop_deg_per_frame=round(drop_max(S["right_elev_max"]), 3),
-                                   rows_ja="左 = 手前の肩の行（c が座席 −25〜−5 m）、中央 = 座席 ±5 m、右 = 奥の行（座席 +5〜+15 m）の水面の最大仰角"),
+                                   rows_ja="左 = 手前の肩の行（c が座席 −25〜−5 m）、中央 = 座席 ±5 m、右 = 奥の行（座席 +5〜+15 m）の水面の最大仰角",
+                                   af30_blender_qa_ja=af30_bl),
                         verdict_af30_formula="合格" if geom_ok else "不合格",
                         verdict_item_words="合格" if (step_ok and tear_ok and selfx_ok) else "不合格",
                         reading_ja="項目の言葉の読み：裂け（(5d) 行の間の伸び・(5f) 自己交差）と位置跳び（(1)）が 0")
@@ -238,7 +251,8 @@ def main():
                                    face_flips_in_item_region_30hz=flips_region,
                                    t0_note_ja="t 0 の法線の傾き（上から）は、海のうねり（Hs 5 m）と搬送波で水面が傾く分。美術優先30 の『< 1°』は平らな海の rig の読み",
                                    face_flips_whole_mesh_P13_5g=P13["(5g) 面の反転（30 Hz、向きの決まった最後のコマと比べる）"]["value"],
-                                   region_ja="座席の近くの行（c が座席 ±5 m）の内壁（列 j_corner〜j_facebot）。P13 の (5g) の 130 は奥の端の行 227〜234（c +12.8〜+14）で、この範囲の外"),
+                                   region_ja="座席の近くの行（c が座席 ±5 m）の内壁（列 j_corner〜j_facebot）。P13 の (5g) の 130 は奥の端の行 227〜234（c +12.8〜+14）で、この範囲の外",
+                                   af30_blender_qa_ja=af30_bl),
                         verdict_af30_formula="合格" if (geom_ok and ok107) else "不合格",
                         verdict_item_words="合格" if (ok107 and flips_region == 0 and step_ok) else "不合格",
                         reading_ja="項目の言葉の読み：項目の範囲の面の反転 0・位置跳び 0 で、平均の法線が上向き（t 0 で 1° 未満）から座席の方へ（t* で座席の向きとの内積 > 0.3）1 コマ 5° 未満の回りで変わる")
@@ -264,19 +278,29 @@ def main():
                                    "どちらを判定に使うかは美術優先30 から保留（利用者の選択待ち）。仕上げ27 の判断（Q24）は記録に書く")
     ok111 = bool(tip[its] < -20 and tipdir_step < 3.0 and tip_jump_max < 0.6)
     ok111_local = bool(tip[its] < -20 and tipdir_step < 3.0 and tipl_jump_max < 0.6)
+    tstar_ok = bool(GJ["gates"]["Painting"]["pass"])
+    # 美術優先30 の ok111（af30_evidence.py）の 4 つの条件。どれが満たされないかを書く（連続性の検査一式は含まない）
+    c111 = [("t* の唇先の向き < −20°", bool(tip[its] < -20)), ("1 コマの向きの変化 < 3°", bool(tipdir_step < 3.0)),
+            ("唇先の 1 コマの移動 < 0.6 m（地面）", bool(tip_jump_max < 0.6)), ("t* = K*（関門の Painting）", tstar_ok)]
+    c111_local = [(n.replace("（地面）", "（波の枠）"), (bool(tipl_jump_max < 0.6) if "移動" in n else ok_)) for n, ok_ in c111]
     items["111"] = dict(name_ja="座席の上へ延びた水面の先が、下向きに曲がる過程を見られる（位置跳び・欠落 0）",
                         value=dict(common, tip_dir_deg={("t%d" % k): round(float(tip[int(k * hz)]), 2) for k in (6, 8, 9, 10, 11)} | {"tstar": round(float(tip[its]), 2), "max": round(float(tip.max()), 2)},
                                    tip_dir_step_max_deg_per_frame=round(tipdir_step, 3), tip_jump_max_m_per_frame=round(tip_jump_max, 4),
                                    tip_jump_max_m_per_frame_wave_frame=round(tipl_jump_max, 4),
                                    tip_jump_note_ja="地面（世界）の 1 コマの移動は、波の約 20 m/s の進み（1/30 s で約 0.67 m）を含む。美術優先30 の 0.6 m の目安は、その場で育つ rig の値。"
                                                     "波の枠（局所）の移動も書く",
-                                   tstar_vs_kstar_ok=bool(GJ["gates"]["Painting"]["pass"]), P4=GJ["gates"]["P4"]["value"], P16=GJ["gates"]["P16"]["value"],
+                                   tstar_vs_kstar_ok=tstar_ok, P4=GJ["gates"]["P4"]["value"], P16=GJ["gates"]["P16"]["value"],
+                                   af30_formula_conditions={n: ok_ for n, ok_ in c111},
+                                   af30_formula_failed=[n for n, ok_ in c111 if not ok_],
+                                   af30_formula_failed_wave_frame=[n for n, ok_ in c111_local if not ok_],
                                    rows_ja="座席の近くの行（c が座席 ±3 m）の唇先の向き（唇の上面の最後の 8 列（j_tip−8〜j_tip）、断面の中の水平からの角の中央値。負が下向き）"),
-                        verdict_af30_formula="合格" if (ok111 and geom_ok) else "不合格",
+                        verdict_af30_formula="合格" if (ok111 and tstar_ok) else "不合格",
+                        verdict_af30_formula_wave_frame="合格" if (ok111_local and tstar_ok) else "不合格",
                         verdict_item_words="合格" if (ok111 and step_ok and missing_ok) else "不合格",
                         verdict_item_words_wave_frame="合格" if (ok111_local and step_ok and missing_ok) else "不合格",
-                        reading_ja="項目の言葉の読み：t* の唇先の向きが −20° より下向き、1 コマの向きの変化 < 3°、唇先の 1 コマの移動 < 0.6 m、位置跳び・欠落 0。"
-                                   "美術優先30 の式は、これに連続性の検査一式と t* = K* を足す")
+                        reading_ja="美術優先30 の式（af30_evidence.py の ok111）：t* の唇先の向きが −20° より下向き、1 コマの向きの変化 < 3°、唇先の 1 コマの移動 < 0.6 m、"
+                                   "t* = K*。連続性の検査一式（P13）は含まない。唇先の移動は地面（美術優先30 の測り方。波の進みを含む）と波の枠の 2 つの読みで書く。"
+                                   "項目の言葉の読み：美術優先30 の式の t* = K* の代わりに位置跳び（(1)）・欠落（(5a)・(6)）0 を足す")
     rep = dict(schema="GreatWave.pl27.seat_items/1", package=DG.rel(ab(a.package)), pos_sha256=pk.pos_sha, kstar=DG.rel(kd),
                timewarp=dict(path=DG.rel(ab(a.timewarp)), sha256=DG.sha256_file(ab(a.timewarp))),
                gates_json=dict(path=DG.rel(ab(a.gates_json)), sha256=DG.sha256_file(ab(a.gates_json))),
@@ -285,6 +309,9 @@ def main():
                rows=dict(near=[int(near_rows.min()), int(near_rows.max())], face=[fr0, fr1], left=[int(left_rows.min()), int(left_rows.max())],
                          right=[int(right_rows.min()), int(right_rows.max())] if len(right_rows) else None, lip_rows=int(len(lip_rows))),
                hz=hz, evidence_kind_ja="包み（16 bit の Hermite）を numpy で読んだ幾何の測定。描画ではない。座席は固定の座席 v1（体験の場面の動く目は記録のみ）",
+               revision_ja="仕上げ27 の修正 1 回目（2026-09-30）：111 の美術優先30 の式を af30_evidence.py の ok111 に合わせた（初めの版は連続性の検査一式を足し、"
+                           "t* = K* を入れていなかった）。唇先の移動の読み（地面・波の枠）ごとの判定と、満たさない条件を書いた。80・106・107 は Blender の検査を"
+                           "回していないことを書いた（af30_blender_qa_ja）。見え方の値の測り方は初めの版と同じ",
                items=items, runtime_s=round(time.time() - t0, 1))
     os.makedirs(os.path.dirname(ab(a.out)), exist_ok=True)
     with open(ab(a.out), "w", encoding="utf-8", newline="\n") as f:

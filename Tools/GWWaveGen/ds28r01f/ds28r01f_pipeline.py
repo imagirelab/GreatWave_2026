@@ -18,6 +18,12 @@
    （F_final の後）ds_anchor_retarget・ds_far_hook_early の P20：<根>/<tag>/art_on/p20_{anchor_retarget,far_hook_early}.json
 4. 比べの表（ds28r01f_table.py）：<根>/table_E_F.{json,md}（あるタグを全部並べる）
 ログは <根>/logs/<tag>_*.log。時間は <根>/<tag>/pipeline_timing.json。
+
+［仕上げ27（2026-09-30）］生成器の既定に 2 つの数値の条件（num_balance_swell_calm・num_sea_sample_range）が入った。採用の F_final を
+作り直すときは --off balance_swell_calm,sea_sample_range を付ける（付けないと仕上げ27 の F_p27 と同じ中身を F_final の名前で作る）。
+［仕上げ27 の修正 1 回目］生成の前に、<根>/<tag>/art_on/ に既にある包みの生成の記録と比べ、記録では入っていない（または名前が無い）
+F の名前が今の既定と --off で入るなら止める（ds28r01f_pkglog.rebuild_conflicts。採用の包みを新しい既定で上書きしないため）。
+新しい既定で作るなら別の --tag にする。
 """
 import argparse
 import glob
@@ -33,6 +39,19 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.abspath(os.path.join(HERE, "..", "..", ".."))
 sys.path.insert(0, os.path.abspath(os.path.join(HERE, "..", "ds28r01d")))
 import ds28r01d_pipeline as PD  # noqa: E402
+
+
+def check_rebuild(root_dir, tag, off):
+    """［仕上げ27 の修正 1 回目］<root_dir>/<tag>/art_on/ に既にある包みを、記録と違う F の名前の入り切りで上書きしないかを確かめる。
+    戻り：(止める名前の list, 記録では入っていたのに --off で切る名前の list)。包みが無ければ ([], [])。"""
+    if HERE not in sys.path:
+        sys.path.insert(0, HERE)
+    import ds28r01f_pkglog as PL
+    old = PL.load_result(os.path.join(root_dir, tag, "art_on"))
+    if old is None:
+        return [], []
+    fon = old.get("f_on") or {}
+    return PL.rebuild_conflicts(old, off), [n for n in off if fon.get(n, False)]
 
 PY = ["py", "-3.10", "-B"]                        # 生成と走査は自分で電力の抑制を切る
 PYL = PY + ["Tools/GWWaveGen/ds28r01f/ds28r01f_proc.py"]   # 関門・検査器は起動器で電力の抑制を切ってから走らせる（ds28r01f_proc.py）
@@ -92,6 +111,15 @@ def main():
     os.makedirs(logd, exist_ok=True)
     tag = a.tag
     timing = {}
+    if not a.skip_generate:
+        bad_on, now_off = check_rebuild(B, tag, [s for s in a.off.split(",") if s])
+        if bad_on:
+            raise SystemExit("[ds28r01f_pipeline] %s/%s/art_on の包みの生成の記録では入っていない（または名前が無い）F の名前 %s が、今の既定で入ります。"
+                             "この包みを作り直すなら --off %s を付けてください（F_final は --off balance_swell_calm,sea_sample_range）。"
+                             "新しい既定で作るなら別の --tag にしてください（仕上げ27）"
+                             % (root, tag, ",".join(bad_on), ",".join(sorted(set(bad_on) | set(s for s in a.off.split(",") if s)))))
+        if now_off:
+            print("注意：%s/%s/art_on の包みの記録で入っていた %s を --off で切って上書きします" % (root, tag, ",".join(now_off)), flush=True)
     if a.no_copy:
         kdir = a.kstar
     else:

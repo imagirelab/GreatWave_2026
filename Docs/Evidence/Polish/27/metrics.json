@@ -1886,7 +1886,8 @@
       -1.43,
       3.71
      ]
-    }
+    },
+    "af30_blender_qa_ja": "美術優先30 の式の geom_ok は、連続性の検査一式に Blender の途中のフレームのメッシュ検査（bl_all0：非多様体・向きの不揃い・面積 0 の面・自己交差の面の組・境界の辺の数）を足す。この道具は Blender の検査を回していない（80・106・107 の式は連続性の検査一式だけで判定）"
    },
    "verdicts": {
     "verdict_af30_formula": "不合格",
@@ -1910,7 +1911,8 @@
     "centre_elev_tstar": 70.83,
     "left_max_drop_deg_per_frame": 0.0,
     "right_max_drop_deg_per_frame": 0.0,
-    "rows_ja": "左 = 手前の肩の行（c が座席 −25〜−5 m）、中央 = 座席 ±5 m、右 = 奥の行（座席 +5〜+15 m）の水面の最大仰角"
+    "rows_ja": "左 = 手前の肩の行（c が座席 −25〜−5 m）、中央 = 座席 ±5 m、右 = 奥の行（座席 +5〜+15 m）の水面の最大仰角",
+    "af30_blender_qa_ja": "美術優先30 の式の geom_ok は、連続性の検査一式に Blender の途中のフレームのメッシュ検査（bl_all0：非多様体・向きの不揃い・面積 0 の面・自己交差の面の組・境界の辺の数）を足す。この道具は Blender の検査を回していない（80・106・107 の式は連続性の検査一式だけで判定）"
    },
    "verdicts": {
     "verdict_af30_formula": "不合格",
@@ -1939,7 +1941,8 @@
     "face_flips_in_item_region_30hz": 0,
     "t0_note_ja": "t 0 の法線の傾き（上から）は、海のうねり（Hs 5 m）と搬送波で水面が傾く分。美術優先30 の『< 1°』は平らな海の rig の読み",
     "face_flips_whole_mesh_P13_5g": 130,
-    "region_ja": "座席の近くの行（c が座席 ±5 m）の内壁（列 j_corner〜j_facebot）。P13 の (5g) の 130 は奥の端の行 227〜234（c +12.8〜+14）で、この範囲の外"
+    "region_ja": "座席の近くの行（c が座席 ±5 m）の内壁（列 j_corner〜j_facebot）。P13 の (5g) の 130 は奥の端の行 227〜234（c +12.8〜+14）で、この範囲の外",
+    "af30_blender_qa_ja": "美術優先30 の式の geom_ok は、連続性の検査一式に Blender の途中のフレームのメッシュ検査（bl_all0：非多様体・向きの不揃い・面積 0 の面・自己交差の面の組・境界の辺の数）を足す。この道具は Blender の検査を回していない（80・106・107 の式は連続性の検査一式だけで判定）"
    },
    "verdicts": {
     "verdict_af30_formula": "不合格",
@@ -2031,19 +2034,30 @@
     "tstar_vs_kstar_ok": true,
     "P4": -1.684,
     "P16": 2.11,
+    "af30_formula_conditions": {
+     "t* の唇先の向き < −20°": true,
+     "1 コマの向きの変化 < 3°": true,
+     "唇先の 1 コマの移動 < 0.6 m（地面）": false,
+     "t* = K*（関門の Painting）": true
+    },
+    "af30_formula_failed": [
+     "唇先の 1 コマの移動 < 0.6 m（地面）"
+    ],
+    "af30_formula_failed_wave_frame": [],
     "rows_ja": "座席の近くの行（c が座席 ±3 m）の唇先の向き（唇の上面の最後の 8 列（j_tip−8〜j_tip）、断面の中の水平からの角の中央値。負が下向き）"
    },
    "verdicts": {
     "verdict_af30_formula": "不合格",
+    "verdict_af30_formula_wave_frame": "合格",
     "verdict_item_words": "不合格",
     "verdict_item_words_wave_frame": "合格"
    },
-   "reading_ja": "項目の言葉の読み：t* の唇先の向きが −20° より下向き、1 コマの向きの変化 < 3°、唇先の 1 コマの移動 < 0.6 m、位置跳び・欠落 0。美術優先30 の式は、これに連続性の検査一式と t* = K* を足す"
+   "reading_ja": "美術優先30 の式（af30_evidence.py の ok111）：t* の唇先の向きが −20° より下向き、1 コマの向きの変化 < 3°、唇先の 1 コマの移動 < 0.6 m、t* = K*。連続性の検査一式（P13）は含まない。唇先の移動は地面（美術優先30 の測り方。波の進みを含む）と波の枠の 2 つの読みで書く。項目の言葉の読み：美術優先30 の式の t* = K* の代わりに位置跳び（(1)）・欠落（(5a)・(6)）0 を足す"
   }
  },
  "backlog_items_source": {
   "path": "Unity/Build/Polish/27/seat_items/seat_items_F_final.json",
-  "sha256": "85e5431603f7e1f181281c2ff9be1cf9cf6f02105db1a41400491b62a6f8bd76",
+  "sha256": "ff925486ee30fcda69a5e0a489b74ae3e62c32cb21c9b2da28004197969152f4",
   "seat": {
    "path": "Tools/GWContext/seat_v1.json",
    "sha256": "4f7553fd6ab29d117266d6f0b6e58c84dc30f36cf440f6de9314b95102517488",
@@ -2173,6 +2187,259 @@
    "source": "Docs/Progress/Design_40_ja.md 第 0 節の 3・第 3 節の表（ds40_acceptance.json の cp1_26r01_regression_stated）"
   }
  },
+ "fix_round_01": {
+  "date_local": "2026-09-30",
+  "start_local": "2026-09-30T20:55+08:00",
+  "must_fix": [
+   {
+    "item_ja": "111 の美術優先30 の式（pl27_seat_items.py）",
+    "before_ja": "連続性の検査一式（P13）を足し、t* = K* を入れていなかった（af30_evidence.py の ok111 と違う）",
+    "after_ja": "af30_evidence.py の ok111 のとおり（t* の唇先の向き < −20°、1 コマの向きの変化 < 3°、唇先の 1 コマの移動 < 0.6 m、t* = K*）。P13 は 111 の式に入らない。満たさないのは地面で測った唇先の移動（波の約 20 m/s の進みを含む）だけ",
+    "verdicts_111": {
+     "verdict_af30_formula": "不合格",
+     "verdict_af30_formula_wave_frame": "合格",
+     "verdict_item_words": "不合格",
+     "verdict_item_words_wave_frame": "合格"
+    },
+    "af30_formula_failed": [
+     "唇先の 1 コマの移動 < 0.6 m（地面）"
+    ],
+    "af30_formula_failed_wave_frame": [],
+    "tip_jump_m_per_frame": {
+     "ground": 0.6708,
+     "wave_frame": 0.0951
+    },
+    "ground_over_0p6": {
+     "t_s": [
+      0.0333,
+      4.1
+     ],
+     "tau_s": [
+      -7.8559,
+      -3.8018
+     ],
+     "tip_dir_deg_at_last": -31.79,
+     "max_after_m": 0.5941,
+     "ja": "地面の唇先の移動が 0.6 m を超えるコマの体験の時刻・物理の時刻の範囲と、その最後のコマの唇先の向き、その後の最大（seat_items_F_final_series.npz の tip_jump_m）"
+    },
+    "figure": "Docs/Evidence/Polish/27/fig_pl27_111_tip.png"
+   },
+   {
+    "item_ja": "F_final の作り直し（ds28r01f_pipeline.py・ds28r01f_determinism.py・ds28r01f_p20.py・pl27_repro_check.py）",
+    "before_ja": "決定性と P20 の台本は、包みの生成の記録の off（F_final は []）だけで生成器を作り直すので、仕上げ27 で既定に入った 2 つの名前が入り、F_final と違う中身を作った（repro_F_final_logoff_only：τ −2.0・−1.5 s の層が 521・603 カウント違う）。一式は F_final の名前で新しい既定の中身を作った",
+    "after_ja": "ds28r01f_pkglog.package_off：記録の f_on に無い F の名前を切る（F_final では balance_swell_calm・sea_sample_range）。決定性の台本で F_final の 4 層がバイトまで同じ（determinism_F_final_pkglog。--out で書いたので F_final の determinism_check.json は書き換えていない）。一式は、既にある包みの記録に無い名前が今の既定で入る時に生成の前で止まる（--tag F_final で確かめた。F_final のファイルの時刻は変わらない）。設計28修正01 の記録の再現の節に［仕上げ27］の注記",
+    "checks": {
+     "determinism_F_final_pkglog": {
+      "path": "Unity/Build/Polish/27/repro/determinism_F_final_pkglog.json",
+      "sha256": "b5049285fb403797b3ba7f65e37b5028bd83fa4850c2cfb590b704ae9f691bef",
+      "off_used": [
+       "balance_swell_calm",
+       "sea_sample_range"
+      ],
+      "all_same": true,
+      "layers": [
+       [
+        -12.0,
+        true,
+        true,
+        0
+       ],
+       [
+        -2.9875,
+        true,
+        true,
+        0
+       ],
+       [
+        -2.0,
+        true,
+        true,
+        0
+       ],
+       [
+        0.0,
+        true,
+        true,
+        0
+       ]
+      ]
+     },
+     "repro_F_final_logoff_only": {
+      "path": "Unity/Build/Polish/27/repro/repro_F_final_logoff_only.json",
+      "sha256": "33d99500d0f9ef894cef567c5b57ad25361413e307c941e193676fa664e95c86",
+      "off_used": [],
+      "all_same": false,
+      "layers": [
+       [
+        -12.0,
+        true,
+        true,
+        0
+       ],
+       [
+        -4.0,
+        true,
+        true,
+        0
+       ],
+       [
+        -2.0,
+        false,
+        false,
+        521
+       ],
+       [
+        -1.5,
+        false,
+        false,
+        603
+       ],
+       [
+        0.0,
+        true,
+        true,
+        0
+       ]
+      ]
+     }
+    }
+   }
+  ],
+  "record_corrections": {
+   "P2_calm_excluded": {
+    "before": "τ > -2.0 s（ds_sea_calm_painting で周りの海を平らにする区間）は判定から除いた。記録：その区間の比の最大 0.942",
+    "after": "τ > -2.0 s（ds_sea_calm_painting で周りの海を平らにする区間）は判定から除いた。記録：その区間の比の最大 0.942"
+   },
+   "P3_full_interval_worst_frac_row": {
+    "before": [
+     1.5342,
+     48
+    ],
+    "after": [
+     0.9363,
+     48
+    ]
+   },
+   "gate_value_changes": {
+    "default": {
+     "P2": [
+      0.478,
+      0.146
+     ],
+     "P3": [
+      0.1057,
+      0.043
+     ],
+     "P11": [
+      1.102,
+      1.082
+     ]
+    },
+    "alt": {
+     "P2": [
+      0.478,
+      0.146
+     ],
+     "P3": [
+      0.1057,
+      0.043
+     ],
+     "P11": [
+      1.102,
+      1.082
+     ]
+    },
+    "default_fine": {
+     "P2": [
+      0.478,
+      0.146
+     ],
+     "P3": [
+      0.1057,
+      0.0425
+     ],
+     "P8": [
+      0.831,
+      0.83
+     ],
+     "P11": [
+      1.102,
+      1.082
+     ]
+    },
+    "default_fine_stop13": {
+     "P2": [
+      0.478,
+      0.146
+     ],
+     "P3": [
+      0.1057,
+      0.0425
+     ],
+     "P8": [
+      0.831,
+      0.83
+     ],
+     "P11": [
+      1.102,
+      1.082
+     ]
+    },
+    "default_q13": {
+     "P2": [
+      0.478,
+      0.146
+     ],
+     "P3": [
+      0.1057,
+      0.043
+     ],
+     "P11": [
+      1.102,
+      1.082
+     ]
+    }
+   },
+   "P13_5g_at": {
+    "before": {
+     "resolvable_whole_mesh": 130,
+     "lip_tube_region": 0,
+     "all_triangles_incl_slivers": 41669,
+     "first": {
+      "row": 234,
+      "col": 187,
+      "tri": 0,
+      "tau": -6.1
+     },
+     "first_region": null,
+     "tau_range": [
+      -6.1,
+      -2.2333
+     ],
+     "note_ja": "全体は K* の最小の高さ ≥ 5 mm の三角形だけ（残り約 15% は細長く、16 ビットの量子化だけで裏返る）。唇・管は全部"
+    },
+    "after": {
+     "resolvable_whole_mesh": 130,
+     "lip_tube_region": 0,
+     "all_triangles_incl_slivers": 41752,
+     "first": {
+      "row": 234,
+      "col": 187,
+      "tri": 0,
+      "tau": -6.1
+     },
+     "first_region": null,
+     "tau_range": [
+      -6.1,
+      -2.2
+     ],
+     "note_ja": "全体は K* の最小の高さ ≥ 5 mm の三角形だけ（残り約 15% は細長く、16 ビットの量子化だけで裏返る）。唇・管は全部"
+    }
+   },
+   "seat_view_note_ja": "設計27 の DS27Formation の座席の視点は τ −4.889〜−1.700 s の 4 枚が同じ画像（空だけ）なので、座席の差 0 画素に意味があるのは τ −0.950 s より後"
+  },
+  "not_done_ja": "P13 の 4 項目の直しはこの修正でも行っていない（［利用者の言葉］の 2 回目の修正は使っていない。計画 §5.2・§5.3 の「連続性の一式の直し」「測って直す」から外れる。記録の第 1.4 節と D-P27-3）"
+ },
  "timing": {
   "start_local": "2026-09-30T19:45:31+08:00",
   "pipeline": {
@@ -2194,7 +2461,7 @@
   "106": "不合格（美術優先30 の式。項目の言葉の読みは 合格、記録）",
   "107": "不合格（美術優先30 の式。項目の言葉の読みは 不合格、記録）",
   "108": "仰角の読み 合格・真上の読み 合格",
-  "111": "不合格（美術優先30 の式。項目の言葉の読みは 不合格（地面の移動の読み）。波の枠の移動の読みは 合格、記録）",
+  "111": "不合格（美術優先30 の式、地面の唇先の移動の読み。満たさないのは 唇先の 1 コマの移動 < 0.6 m（地面） だけで、連続性の検査一式は式に入らない）。波の枠の移動の読みでは 合格。項目の言葉の読みは地面 不合格・波の枠 合格（記録）",
   "原画視点の評価器（爪あり・爪なし）": "段階9確認と同じ値（出力の SHA-256 が同じ）"
  }
 }

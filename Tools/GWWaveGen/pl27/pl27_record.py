@@ -161,6 +161,56 @@ def main():
             R_ = J(q)
             rp[nm] = dict(package=R_["package"], off=R_["off"], all_same=R_["all_same"], layers=[(r["tau"], r["same_rgba16"], r["same_lo_rgba8"]) for r in R_["layers_checked"]])
     out["Q10_P2_P3_P13"]["repro_sampled"] = dict(results=rp, note_ja="1 つのプロセスで節点の 5 層を作り直した抜き取り。全層の一致は確かめていない")
+    # ---- 修正 1 回目（2026-09-30。独立の検査の直すべき点 2 つと、記録の直し）
+    fx = {}
+    for nm in ("determinism_F_final_pkglog", "repro_F_final_logoff_only"):
+        q = os.path.join(B, "repro", nm + ".json")
+        if os.path.isfile(q):
+            R_ = J(q)
+            fx[nm] = dict(path=rel(q), sha256=sha(q), off_used=R_.get("off_used", R_.get("off")), all_same=R_["all_same"],
+                          layers=[(r["tau"], r["same_rgba16"], r["same_lo_rgba8"], r["max_diff_counts16"]) for r in R_["layers_checked"]])
+
+    def gdiff(var):
+        b_, a_ = J(os.path.join(F, "F_final", "gates", var + ".json"))["gates"], J(os.path.join(B, "F_p27", "gates", var + ".json"))["gates"]
+        return {k: [b_[k]["value"], a_[k]["value"]] for k in b_ if b_[k]["value"] != a_[k]["value"]}
+    k5g = "(5g) 面の反転（30 Hz、向きの決まった最後のコマと比べる）"
+    Zs = np.load(os.path.splitext(si_p)[0] + "_series.npz")
+    m06 = Zs["tip_jump_m"] > 0.6
+    last06 = int(np.nonzero(m06)[0].max())
+    g06 = dict(t_s=[round(float(Zs["t"][m06].min()), 4), round(float(Zs["t"][m06].max()), 4)],
+               tau_s=[round(float(Zs["tau"][m06].min()), 4), round(float(Zs["tau"][m06].max()), 4)],
+               tip_dir_deg_at_last=round(float(Zs["tip_dir_deg"][last06]), 2),
+               max_after_m=round(float(np.nanmax(Zs["tip_jump_m"][last06 + 1:])), 4),
+               ja="地面の唇先の移動が 0.6 m を超えるコマの体験の時刻・物理の時刻の範囲と、その最後のコマの唇先の向き、その後の最大（seat_items_F_final_series.npz の tip_jump_m）")
+    i111 = out["backlog_items"]["111"]
+    out["fix_round_01"] = dict(
+        date_local="2026-09-30", start_local="2026-09-30T20:55+08:00",
+        must_fix=[dict(item_ja="111 の美術優先30 の式（pl27_seat_items.py）",
+                       before_ja="連続性の検査一式（P13）を足し、t* = K* を入れていなかった（af30_evidence.py の ok111 と違う）",
+                       after_ja="af30_evidence.py の ok111 のとおり（t* の唇先の向き < −20°、1 コマの向きの変化 < 3°、唇先の 1 コマの移動 < 0.6 m、t* = K*）。"
+                                "P13 は 111 の式に入らない。満たさないのは地面で測った唇先の移動（波の約 20 m/s の進みを含む）だけ",
+                       verdicts_111=i111["verdicts"], af30_formula_failed=i111["value"].get("af30_formula_failed"),
+                       af30_formula_failed_wave_frame=i111["value"].get("af30_formula_failed_wave_frame"),
+                       tip_jump_m_per_frame=dict(ground=i111["value"]["tip_jump_max_m_per_frame"], wave_frame=i111["value"]["tip_jump_max_m_per_frame_wave_frame"]),
+                       ground_over_0p6=g06,
+                       figure="Docs/Evidence/Polish/27/fig_pl27_111_tip.png"),
+                  dict(item_ja="F_final の作り直し（ds28r01f_pipeline.py・ds28r01f_determinism.py・ds28r01f_p20.py・pl27_repro_check.py）",
+                       before_ja="決定性と P20 の台本は、包みの生成の記録の off（F_final は []）だけで生成器を作り直すので、仕上げ27 で既定に入った 2 つの名前が入り、"
+                                 "F_final と違う中身を作った（repro_F_final_logoff_only：τ −2.0・−1.5 s の層が 521・603 カウント違う）。一式は F_final の名前で新しい既定の中身を作った",
+                       after_ja="ds28r01f_pkglog.package_off：記録の f_on に無い F の名前を切る（F_final では balance_swell_calm・sea_sample_range）。決定性の台本で F_final の 4 層が"
+                                "バイトまで同じ（determinism_F_final_pkglog。--out で書いたので F_final の determinism_check.json は書き換えていない）。一式は、既にある包みの"
+                                "記録に無い名前が今の既定で入る時に生成の前で止まる（--tag F_final で確かめた。F_final のファイルの時刻は変わらない）。"
+                                "設計28修正01 の記録の再現の節に［仕上げ27］の注記",
+                       checks=fx)],
+        record_corrections=dict(
+            P2_calm_excluded=dict(before=Gb["gates"]["P2"]["detail"]["calm_painting_excluded_ja"], after=Ga["gates"]["P2"]["detail"]["calm_painting_excluded_ja"]),
+            P3_full_interval_worst_frac_row=dict(before=[Gb["gates"]["P3"]["detail"]["full_interval_worst_frac"], Gb["gates"]["P3"]["detail"]["full_interval_worst_row"]],
+                                                 after=[Ga["gates"]["P3"]["detail"]["full_interval_worst_frac"], Ga["gates"]["P3"]["detail"]["full_interval_worst_row"]]),
+            gate_value_changes={v: gdiff(v) for v in ("default", "alt", "default_fine", "default_fine_stop13", "default_q13")},
+            P13_5g_at=dict(before=Gb["gates"]["P13"]["detail"][k5g]["at"], after=Ga["gates"]["P13"]["detail"][k5g]["at"]),
+            seat_view_note_ja="設計27 の DS27Formation の座席の視点は τ −4.889〜−1.700 s の 4 枚が同じ画像（空だけ）なので、座席の差 0 画素に意味があるのは τ −0.950 s より後"),
+        not_done_ja="P13 の 4 項目の直しはこの修正でも行っていない（［利用者の言葉］の 2 回目の修正は使っていない。計画 §5.2・§5.3 の「連続性の一式の直し」「測って直す」から外れる。"
+                    "記録の第 1.4 節と D-P27-3）")
     # ---- 時間
     pt = J(os.path.join(B, "F_p27", "pipeline_timing.json"))
     out["timing"] = dict(start_local="2026-09-30T19:45:31+08:00", pipeline=pt["timing"], note_ja="終わりの時刻は記録の本文")
@@ -179,6 +229,14 @@ def main():
         "py -3.10 -B Tools/GWWaveGen/pl27/pl27_seat_items.py --package Unity/Build/Design/28R01F/F_final/art_on --kstar Unity/Build/Design/28R01F/kstar_F_final --timewarp Unity/Build/Design/28R01F/F_final/timewarp_F_final.json --gates-json Unity/Build/Design/28R01F/F_final/gates/default_ds27.json --out Unity/Build/Polish/27/seat_items/seat_items_F_final.json",
         "py -3.10 -B Tools/GWWaveGen/ds30/ds30b_tstar_regress.py --out Unity/Build/Polish/27/regress --sets t28_claws,t28_white",
         "py -3.10 -B Tools/GWWaveGen/pl27/pl27_record.py"]
+    # 修正 1 回目（2026-09-30）：111 の式を直した道具の回し直しと、F_final の作り直しの確かめ（上の pl27_seat_items.py は直した版で回し直した）
+    run["commands_fix_round_01"] = [
+        "py -3.10 -B Tools/GWWaveGen/pl27/pl27_seat_items.py --package Unity/Build/Design/28R01F/F_final/art_on --kstar Unity/Build/Design/28R01F/kstar_F_final --timewarp Unity/Build/Design/28R01F/F_final/timewarp_F_final.json --gates-json Unity/Build/Design/28R01F/F_final/gates/default_ds27.json --out Unity/Build/Polish/27/seat_items/seat_items_F_final.json",
+        "py -3.10 -B Tools/GWWaveGen/pl27/pl27_fig_111.py --items Unity/Build/Polish/27/seat_items/seat_items_F_final.json --out Docs/Evidence/Polish/27/fig_pl27_111_tip.png",
+        "py -3.10 -B Tools/GWWaveGen/ds28r01f/ds28r01f_determinism.py --package Unity/Build/Design/28R01F/F_final/art_on --out Unity/Build/Polish/27/repro/determinism_F_final_pkglog.json",
+        "py -3.10 -B Tools/GWWaveGen/pl27/pl27_repro_check.py --package Unity/Build/Design/28R01F/F_final/art_on --off \"\" --out Unity/Build/Polish/27/repro/repro_F_final_logoff_only.json",
+        "py -3.10 -B Tools/GWWaveGen/ds28r01f/ds28r01f_pipeline.py --kstar Unity/Build/Polish/27/_no_such_kstar --tag F_final（生成の前に止まることの確かめ）",
+        "py -3.10 -B Tools/GWWaveGen/pl27/pl27_record.py"]
     ins = [os.path.join(F, "F_final", "art_on", f) for f in ("ds27_keypose.json", "ds27_pos_rgba16.bin", "ds27_pos_lo_rgba8.bin", "ds27_twhite_r32f.bin", "ds27_sea.npz")]
     ins += [os.path.join(F, "F_final", "timewarp_F_final.json"), gb_p, os.path.join(F, "F_final", "gates", "default_ds27.json")]
     ins += [os.path.join(F, "kstar_final", f) for f in sorted(os.listdir(os.path.join(F, "kstar_final"))) if not f.startswith("_")]
@@ -186,13 +244,19 @@ def main():
             P("Unity", "Build", "Design", "50", "release", "runs", "capture5", "frames_capture.csv"),
             P("Unity", "Build", "Design", "47", "flow", "unity", "main", "ds47_frames.csv"),
             P("Tools", "GWWaveGen", "ds28r01f", "ds28r01f_params.json"), P("Tools", "GWWaveGen", "ds28r01f", "ds28r01f_model.py"),
-            P("Tools", "GWWaveGen", "ds28r01f", "ds28r01f_generate.py")]
+            P("Tools", "GWWaveGen", "ds28r01f", "ds28r01f_generate.py"),
+            P("Tools", "GWWaveGen", "ds28r01f", "ds28r01f_pkglog.py"), P("Tools", "GWWaveGen", "ds28r01f", "ds28r01f_determinism.py"),
+            P("Tools", "GWWaveGen", "ds28r01f", "ds28r01f_p20.py"), P("Tools", "GWWaveGen", "ds28r01f", "ds28r01f_pipeline.py"),
+            P("Tools", "GWWaveGen", "pl27", "pl27_seat_items.py"), P("Tools", "GWWaveGen", "pl27", "pl27_repro_check.py"),
+            P("Tools", "GWWaveGen", "pl27", "pl27_fig_111.py"),
+            P("Tools", "GWWaveGen", "af30_evidence.py")]
     run["inputs"] = {rel(p): sha(p) for p in ins if os.path.isfile(p)}
     outs = [os.path.join(B, "F_p27", "art_on", f) for f in ("ds27_keypose.json", "ds27_pos_rgba16.bin", "ds27_pos_lo_rgba8.bin", "ds27_twhite_r32f.bin", "ds27_sea.npz", "ds28r01f_generate_log.json", "ds27_checks.json")]
     outs += [os.path.join(B, "F_p27", "timewarp_F_p27.json"), ga_p, os.path.join(B, "F_p27", "gates", "default_ds27.json"), os.path.join(B, "F_p27", "scan.json"),
              os.path.join(B, "F_p27", "overlap", "overlap_default.json"), os.path.join(B, "review", "review_F_p27.json"),
              os.path.join(B, "diag", "diag_F_final.json"), os.path.join(B, "diag", "diag_F_p27.json"), si_p, os.path.join(B, "unity", "unity_before_after.json"), rg_p,
              os.path.join(B, "repro", "repro_F_p27.json"), os.path.join(B, "repro", "repro_F_final_off.json"),
+             os.path.join(B, "repro", "determinism_F_final_pkglog.json"), os.path.join(B, "repro", "repro_F_final_logoff_only.json"),
              P("Tools", "GWWaveGen", "ds26_conditions.json")]
     outs += [os.path.join(EV, f) for f in sorted(os.listdir(EV)) if f.endswith(".png") or f == "seat_stills.json"]
     run["outputs"] = {rel(p): sha(p) for p in outs if os.path.isfile(p)}
@@ -207,7 +271,10 @@ def main():
         "ds26_conditions.json の写し": "作った", "座席の静止画 3 枚": "置き換えた（体験の場面の座席 v1）",
         "80": vv("80"), "106": vv("106"), "107": vv("107"),
         "108": "仰角の読み %s・真上の読み %s" % (bi["108"]["verdicts"]["verdict_elevation_reading"], bi["108"]["verdicts"]["verdict_overhead_reading"]),
-        "111": vv("111", "（地面の移動の読み）。波の枠の移動の読みは %s" % bi["111"]["verdicts"].get("verdict_item_words_wave_frame")),
+        "111": "%s（美術優先30 の式、地面の唇先の移動の読み。満たさないのは %s だけで、連続性の検査一式は式に入らない）。波の枠の移動の読みでは %s。"
+               "項目の言葉の読みは地面 %s・波の枠 %s（記録）" % (bi["111"]["verdicts"]["verdict_af30_formula"], "・".join(bi["111"]["value"]["af30_formula_failed"]) or "なし",
+                                                 bi["111"]["verdicts"]["verdict_af30_formula_wave_frame"], bi["111"]["verdicts"]["verdict_item_words"],
+                                                 bi["111"]["verdicts"]["verdict_item_words_wave_frame"]),
         "原画視点の評価器（爪あり・爪なし）": "段階9確認と同じ値（出力の SHA-256 が同じ）" if (out.get("painting_evaluator") or {}).get("same_as_previous") else "要確認"}
     with open(os.path.join(EV, "metrics.json"), "w", encoding="utf-8", newline="\n") as f:
         json.dump(out, f, ensure_ascii=False, indent=1)

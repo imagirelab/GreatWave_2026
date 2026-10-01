@@ -2,6 +2,8 @@
 """仕上げ27：生成器（ds28r01f）の抜き取りの再現の確かめ（記録）。ds28r01f_determinism.py と同じ式で、パッケージの節点の層を 1 つのプロセスで
 作り直し、16 bit と精度の層のバイトが同じかを比べる。違いは 2 つ：
   --off：生成の記録の off の代わりに、切る名前を渡す（仕上げ27 で足した balance_swell_calm・sea_sample_range を切って F_final を再現できるか）。
+         ［仕上げ27 の修正 1 回目］--off を渡さない時は、ds28r01f_determinism.py と同じく、記録の off に記録の f_on に無い F の名前を足して切る
+         （ds28r01f_pkglog.package_off。F_final ではこの 2 つが切りになる）。
   --out：結果を書く場所（パッケージのフォルダーに書かない。F_final の determinism_check.json を上書きしないため）。
 層は既定で、最初・τ −4 s・τ −2 s・τ −1.5 s・最後（仕上げ27 の直しが効く区間を含める）。
 
@@ -47,7 +49,8 @@ def main():
     stage = dict(nr=os.path.join(work, "nr_cache_small_lip.npz") if sl.get("rows") else os.path.join(work, "nr_cache.npz"),
                  delip=tuple(sl.get("rows") or ()), gw=os.path.join(work, "guard_window.npz") if os.path.isfile(os.path.join(work, "guard_window.npz")) else None,
                  bridge=os.path.join(work, "bridge.npz") if os.path.isfile(os.path.join(work, "bridge.npz")) else None, layers=None)
-    off = [s for s in a.off.split(",") if s] if a.off is not None else (L.get("off") or [])
+    import ds28r01f_pkglog as PL
+    off = [s for s in a.off.split(",") if s] if a.off is not None else PL.package_off(L)
     GEN._winit(os.path.join(REPO, L["kstar"]["dir"]), L.get("overrides"), off)
     GEN._ensure(stage)
     kn = np.asarray(J["knot_tau"], float)
