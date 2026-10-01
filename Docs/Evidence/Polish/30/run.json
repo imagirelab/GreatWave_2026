@@ -1,0 +1,601 @@
+{
+ "schema": "GreatWave.Polish30.run/1",
+ "number": "仕上げ30",
+ "made_local": "2026-10-01T22:27:06+08:00",
+ "tools": {
+  "python": "py -3.10（numpy 2.2.6・scipy 1.15.3・Pillow・OpenCV 4.12）",
+  "unity": "6000.4.3f1（E:/6000.4.3f1/Editor/Unity.exe、batchmode、unity.lock を run_pl30_unity.ps1 が取る）",
+  "ffmpeg": "G:/ffmpeg-2024-12-19-git-494c961379-full_build/bin/ffmpeg.exe",
+  "gpu": "RTX 3080（Direct3D11）"
+ },
+ "commands": [
+  "py -3.10 -B Tools/GWWaveGen/pl30/pl30_sea_generate.py --out Unity/Build/Polish/30/sea_r2  （後で sea_r2 を Unity/Build/Polish/30/sea へ写した。同じ SHA-256）",
+  "py -3.10 -B Tools/GWWaveGen/pl30/pl30_sea_attr.py --sea Unity/Build/Polish/30/sea_r2",
+  "py -3.10 -B Tools/GWWaveGen/pl30/pl30_checks.py --sea Unity/Build/Polish/30/sea_r2 --out Unity/Build/Polish/30/checks_r2   （座席の船の上下 boat_support.json を書く）",
+  "py -3.10 -B Tools/GWWaveGen/pl30/pl30_checks.py --sea Unity/Build/Polish/30/sea --out Unity/Build/Polish/30/checks_final --skip boatheave",
+  "py -3.10 -B Tools/GWWaveGen/pl30/pl30_checks.py --sea Unity/Build/Design/30/sea --out Unity/Build/Polish/30/checks_before --skip boat,boatheave",
+  "py -3.10 -B Tools/GWWaveGen/pl30/pl30_left_swell.py",
+  "run_pl30_unity.ps1 -Method GreatWave.Polish30.EditorTools.PL30Dump.Run -Log dump2 -Extra \"-pl30Out <B>/dump/pl30_scene_dump.json\"",
+  "run_pl30_unity.ps1 -Method GreatWave.Polish30.EditorTools.PL30Setup.EnsureMaterial -Log ensure_mat6 -Extra \"-pl30SeaParamFile Tools/GWWaveGen/pl30/pl30_sea_params.txt\"",
+  "run_pl30_unity.ps1 -Method GreatWave.Polish30.EditorTools.PL30Render.Render -Log before -Extra \"-pl29Out <B>/before -pl30Old 1 <主役波の引数> -pl29Only views,tt,fuji,s5,video\"（と before_fuji・before_ids）",
+  "run_pl30_unity.ps1 -Method GreatWave.Polish30.EditorTools.PL30Render.Render -Log after_r7 -Extra \"-pl29Out <B>/after_r7 -pl30Sea <B>/sea_r2 -pl30SeaParamFile <params> -pl30LeftSwell <B>/left_swell/pl30_left_swell.json <主役波の引数> -pl29Only views,ids,tt,t28,full,fuji,s5,video -pl29Views painting,seat,seat_toward_wave,side_left,side_right,back65,top,seat_low\"",
+  "主役波の引数 = -pl29Attr Build/Polish/29/fix01/attr/pl29_hero_attr_f32.bin -pl29ClawShade 1 -pl29ParamFile Tools/GWWaveGen/pl29/pl29_material_params.txt -pl29ClawParamFile Tools/GWWaveGen/pl29/pl29_claw_params.txt（仕上げ29 の p29g と同じ）",
+  "py -3.10 -B Tools/GWWaveGen/pl28/pl28u_regress.py --scene Unity/Build/Polish/30/after_r7 --kstar rec",
+  "py -3.10 Tools/PaintingTruth/evaluate.py --render <after_r7>/full/painting_t120_off.png --ids <after_r7>/full/ids_<組>.png --idmap Unity/Build/Design/40/compare/eval/idmap.json --out-dir <after_r7>/eval23/r7_off_<組> --name r7_off_<組>（組 4 つ）",
+  "py -3.10 -B Tools/GWWaveGen/pl30/pl30_measure.py --before Unity/Build/Polish/30/before --after Unity/Build/Polish/30/after_r7 --out Unity/Build/Polish/30/measure_r7",
+  "py -3.10 -B Tools/GWWaveGen/pl30/pl30_sheets.py --before Unity/Build/Polish/30/before --after Unity/Build/Polish/30/after_r7 --measure Unity/Build/Polish/30/measure_r7/pl30_measure.json --out Docs/Evidence/Polish/30",
+  "run_pl30_unity.ps1 -Method GreatWave.Polish30.EditorTools.PL30Setup.BuildScenes -Log build_scenes -Extra \"-pl30Sea Build/Polish/30/sea -pl30SeaParamFile <params>\"",
+  "run_pl30_unity.ps1 -NoQuit -Method GreatWave.Polish29.EditorTools.PL29PlayModeCheck.Run -Log playmode_single|release -Extra \"-pl29Scene Assets/GreatWave/Polish30/Scenes/PL30_<SinglePlayback|Release>.unity -pl29Out <B>/playmode_<single|release> -pl29Limit 120|400\"",
+  "run_pl30_unity.ps1 -Method GreatWave.Polish30.EditorTools.PL30ReleaseBuild.BuildAll -Log release_build",
+  "powershell -File Tools/GWWaveGen/pl30/run_pl30_player.ps1 -Tag main2（main1 は材質の最後の書き直しの前の exe）",
+  "py -3.10 -B Tools/GWWaveGen/pl30/pl30_record.py",
+  "── 修正の回 1（2026-10-01、自己評審の must-fix 12 件）──",
+  "py -3.10 -B Tools/GWWaveGen/pl30/pl30_sea_generate.py --out Unity/Build/Polish/30/sea_f1  （後で sea → sea_r7、sea_f1 → sea に名前を替えた）",
+  "py -3.10 -B Tools/GWWaveGen/pl30/pl30_sea_attr.py --sea Unity/Build/Polish/30/sea_f1",
+  "py -3.10 -B Tools/GWWaveGen/pl30/pl30_checks.py --sea Unity/Build/Polish/30/sea_f1 --out Unity/Build/Polish/30/fix01/checks_pl30_f1  （boat_support.json を書く）",
+  "py -3.10 -B Tools/GWWaveGen/pl30/pl30_left_swell.py  （面の座標を 20 個の並びに）",
+  "py -3.10 -B Tools/GWWaveGen/pl30/pl30_checks.py --sea Unity/Build/Polish/30/sea --out Unity/Build/Polish/30/fix01/checks_final --skip boatheave",
+  "py -3.10 -B Tools/GWWaveGen/pl30/pl30_fix01_checks.py --sea Unity/Build/Polish/30/sea --out Unity/Build/Polish/30/fix01/checks_final（と --sea Unity/Build/Polish/30/sea_r7 --out Unity/Build/Polish/30/fix01/checks_r7）",
+  "run_pl30_unity.ps1 -Method GreatWave.Polish30.EditorTools.PL30Setup.EnsureMaterial -Log f1_ensure10 -Extra \"-pl30SeaParamFile <params>\"",
+  "run_pl30_unity.ps1 -Method GreatWave.Polish30.EditorTools.PL30Render.Render -Log f1_r10 -Extra \"-pl29Out <B>/fix01/r10 -pl30Sea <B>/sea -pl30SeaParamFile <params> -pl30LeftSwell <B>/left_swell/pl30_left_swell.json <主役波の引数> -pl29Only views,ids,tt,t28,full,fuji,s5,video -pl29VideoViews painting,seat,seat_toward_wave,side_left -pl29Views painting,seat,seat_toward_wave,side_left,side_right,back65,top,seat_low\"",
+  "run_pl30_unity.ps1 -Method GreatWave.Polish30.EditorTools.PL30Render.Render -Log f1_r10d -Extra \"-pl29Out <B>/fix01/r10_diag7 （同じ引数） -pl29Only views -pl29Debug 7\"  （谷の縁の段の印）",
+  "py -3.10 -B Tools/GWWaveGen/pl28/pl28u_regress.py --scene Unity/Build/Polish/30/fix01/r10 --kstar rec",
+  "py -3.10 Tools/PaintingTruth/evaluate.py --render <r10>/full/painting_t120_off.png --ids <r10>/full/ids_<組>.png --idmap Unity/Build/Design/40/compare/eval/idmap.json --out-dir <r10>/eval23/f1_off_<組> --name f1_off_<組>（組 4 つ）",
+  "py -3.10 -B Tools/GWWaveGen/pl30/pl30_measure.py --before Unity/Build/Polish/30/before --after Unity/Build/Polish/30/fix01/r10 --out Unity/Build/Polish/30/fix01/measure_r10",
+  "py -3.10 -B Tools/GWWaveGen/pl30/pl30_sheets.py --before Unity/Build/Polish/30/before --after Unity/Build/Polish/30/fix01/r10 --measure Unity/Build/Polish/30/fix01/measure_r10/pl30_measure.json --out Docs/Evidence/Polish/30",
+  "py -3.10 -B Tools/GWWaveGen/pl30/pl30_fix01_sheets.py --r7 Unity/Build/Polish/30/after_r7 --f1 Unity/Build/Polish/30/fix01/r10 --mask Unity/Build/Polish/30/fix01/r10_diag7 --measure Unity/Build/Polish/30/fix01/measure_r10/pl30_measure.json --out Docs/Evidence/Polish/30",
+  "run_pl30_unity.ps1 -Method GreatWave.Polish30.EditorTools.PL30Render.Render -Log f1_gpu_after<k>|f1_gpu_before<k> -Extra \"... -pl29Only gpu -pl29Gpu 1 -pl30GpuTarget sea\"（後は -pl30Sea <B>/sea、前は -pl30Old 1。k = 1〜3 を交互）",
+  "run_pl30_unity.ps1 -Method GreatWave.Polish30.EditorTools.PL30Setup.BuildScenes -Log f1_build_scenes -Extra \"-pl30Sea Build/Polish/30/sea -pl30SeaParamFile <params> -pl30Out <B>/fix01/setup\"",
+  "run_pl30_unity.ps1 -NoQuit -Method GreatWave.Polish29.EditorTools.PL29PlayModeCheck.Run -Log f1_playmode_single|f1_playmode_release -Extra \"-pl29Scene Assets/GreatWave/Polish30/Scenes/PL30_<SinglePlayback|Release>.unity -pl29Out <B>/fix01/playmode_<single|release> -pl29Limit 120|400\"",
+  "run_pl30_unity.ps1 -Method GreatWave.Polish30.EditorTools.PL30ReleaseBuild.BuildAll -Log f1_release_build",
+  "powershell -File Tools/GWWaveGen/pl30/run_pl30_player.ps1 -Tag fix01_main",
+  "py -3.10 -B Tools/GWWaveGen/pl30/pl30_record.py ; py -3.10 -B Tools/GWWaveGen/pl30/pl30_metrics.py",
+  "── 修正の回 2（2026-10-01、自己評審の must-fix 7 件）──",
+  "py -3.10 -B Tools/GWWaveGen/pl30/pl30_fix02_checks.py --sea Unity/Build/Polish/30/sea_f1 --out Unity/Build/Polish/30/fix02/checks_f1  （修正01 の海の全 251 節点の継ぎ目の法線・偽の白の数え。sea → sea_f1 に名前を替えた後）",
+  "py -3.10 -B Tools/GWWaveGen/pl30/pl30_sea_generate.py --out Unity/Build/Polish/30/fix02/try5/sea_a --params Unity/Build/Polish/30/fix02/try5/pl30_params_try5a.json （上り口を高くする案の試し。採った後に同じ値を pl30_params.json へ）",
+  "run_pl30_unity.ps1 -Method GreatWave.Polish30.EditorTools.PL30Render.Render -Log f2_try5a_fuji -Extra \"-pl29Out <B>/fix02/try5/r_a -pl30Sea <B>/fix02/try5/sea_a ... -pl29Only fuji -pl30FujiT1 12 -pl30FujiDt 0.0333333333333 -pl29Times 12\"",
+  "py -3.10 -B Tools/GWWaveGen/pl30/pl30_sea_generate.py --out Unity/Build/Polish/30/sea ; py -3.10 -B Tools/GWWaveGen/pl30/pl30_sea_attr.py --sea Unity/Build/Polish/30/sea",
+  "py -3.10 -B Tools/GWWaveGen/pl30/pl30_growth_table.py --sea Unity/Build/Polish/30/sea  （材質の育ちの表 _GrowR・_GrowS を pl30_sea_params.txt へ）",
+  "py -3.10 -B Tools/GWWaveGen/pl30/pl30_checks.py --sea Unity/Build/Polish/30/sea --out Unity/Build/Polish/30/fix02/checks_final --fuji-t1 12 --fuji-dt 0.125  （boat_support.json を書く）",
+  "py -3.10 -B Tools/GWWaveGen/pl30/pl30_fix01_checks.py --sea Unity/Build/Polish/30/sea --out Unity/Build/Polish/30/fix02/checks_final ; py -3.10 -B Tools/GWWaveGen/pl30/pl30_fix02_checks.py --sea Unity/Build/Polish/30/sea --out Unity/Build/Polish/30/fix02/checks_final",
+  "run_pl30_unity.ps1 -Method GreatWave.Polish30.EditorTools.PL30Setup.EnsureMaterial -Log f2_ensure -Extra \"-pl30SeaParamFile <params>\"",
+  "run_pl30_unity.ps1 -Method GreatWave.Polish30.EditorTools.PL30Render.Render -Log f2_final -Extra \"-pl29Out <B>/fix02/r_final -pl30Sea <B>/sea -pl30SeaParamFile <params> -pl30LeftSwell <B>/left_swell/pl30_left_swell.json <主役波の引数> -pl29Only views,ids,tt,t28,full,fuji,s5,video -pl29VideoViews painting,seat,seat_toward_wave,side_left -pl29Views painting,seat,seat_toward_wave,side_left,side_right,back65,top,seat_low\"",
+  "run_pl30_unity.ps1 -Method GreatWave.Polish30.EditorTools.PL30Render.Render -Log f2_fuji_final（と f2_fuji_f1） -Extra \"-pl29Out <B>/fix02/fuji_final（fuji_f1） -pl30Sea <B>/sea（sea_f1） ... -pl29Only fuji -pl30FujiT1 12 -pl30FujiDt 0.0333333333333 -pl29Times 12\"  （t 5〜12 s の全部のコマ）",
+  "run_pl30_unity.ps1 -Method GreatWave.Polish30.EditorTools.PL30Render.Render -Log f2_final_d7 -Extra \"-pl29Out <B>/fix02/r_final_diag7 （同じ引数） -pl29Only views -pl29Debug 7\"",
+  "py -3.10 -B Tools/GWWaveGen/pl28/pl28u_regress.py --scene Unity/Build/Polish/30/fix02/r_final --kstar rec ; evaluate.py（組 4 つ、--name f2_off_<組>）",
+  "py -3.10 -B Tools/GWWaveGen/pl30/pl30_measure.py --before Unity/Build/Polish/30/before --after Unity/Build/Polish/30/fix02/r_final --out Unity/Build/Polish/30/fix02/measure_final",
+  "py -3.10 -B Tools/GWWaveGen/pl30/pl30_sheets.py --before Unity/Build/Polish/30/before --after Unity/Build/Polish/30/fix02/r_final --measure Unity/Build/Polish/30/fix02/measure_final/pl30_measure.json --out Docs/Evidence/Polish/30",
+  "py -3.10 -B Tools/GWWaveGen/pl30/pl30_fix02_sheets.py --f1 Unity/Build/Polish/30/fix01/r10 --f2 Unity/Build/Polish/30/fix02/r_final --fuji Unity/Build/Polish/30/fix02/fuji_final --fuji-f1 Unity/Build/Polish/30/fix02/fuji_f1 --mask Unity/Build/Polish/30/fix02/r_final_diag7 --out Docs/Evidence/Polish/30",
+  "run_pl30_unity.ps1 -Method GreatWave.Polish30.EditorTools.PL30Render.Render -Log f2_gpu_after<k>（と f2_gpu_before<k>） -Extra \"... -pl29Only gpu -pl29Gpu 1 -pl30GpuTarget sea\"（後は修正02、前は -pl30Old 1。k = 1〜3 を交互）",
+  "run_pl30_unity.ps1 -Method GreatWave.Polish30.EditorTools.PL30Setup.BuildScenes -Log f2_build_scenes -Extra \"-pl30Sea Build/Polish/30/sea -pl30SeaParamFile <params> -pl30Out <B>/fix02/setup\"",
+  "run_pl30_unity.ps1 -NoQuit -Method GreatWave.Polish29.EditorTools.PL29PlayModeCheck.Run -Log f2_playmode_single（と f2_playmode_release） -Extra \"-pl29Scene Assets/GreatWave/Polish30/Scenes/PL30_<SinglePlayback|Release>.unity -pl29Out <B>/fix02/playmode_<single|release> -pl29Limit 120|400\"",
+  "run_pl30_unity.ps1 -Method GreatWave.Polish30.EditorTools.PL30ReleaseBuild.BuildAll -Log f2_release_build ; powershell -File Tools/GWWaveGen/pl30/run_pl30_player.ps1 -Tag fix02_main",
+  "py -3.10 -B Tools/GWWaveGen/pl30/pl30_record.py ; py -3.10 -B Tools/GWWaveGen/pl30/pl30_metrics.py",
+  "── 記録の部（2026-10-01、修正02 の後。新しい描画・計算はしない）──",
+  "py -3.10 -B Tools/GWWaveGen/pl30/pl30_fix01_sheets.py --r7 Unity/Build/Polish/30/after_r7 --f1 Unity/Build/Polish/30/fix01/r10 --mask Unity/Build/Polish/30/fix01/r10_diag7 --measure Unity/Build/Polish/30/fix01/measure_r10/pl30_measure.json --out Docs/Evidence/Polish/30  （縦横の比を保つ tile_fit で作り直し）",
+  "py -3.10 -B Tools/GWWaveGen/pl30/pl30_fix02_sheets.py --f1 Unity/Build/Polish/30/fix01/r10 --f2 Unity/Build/Polish/30/fix02/r_final --fuji Unity/Build/Polish/30/fix02/fuji_final --fuji-f1 Unity/Build/Polish/30/fix02/fuji_f1 --mask Unity/Build/Polish/30/fix02/r_final_diag7 --out Docs/Evidence/Polish/30  （同じ。数の JSON は前と同じ内容。記録の部の見直しの図 fig_pl30_record_review.png も書く）",
+  "py -3.10 -B Tools/GWWaveGen/pl30/pl30_record.py ; py -3.10 -B Tools/GWWaveGen/pl30/pl30_metrics.py ; py -3.10 -B Tools/GWWaveGen/pl30/pl30_record.py  （metrics.json の SHA-256 を run.json へ入れるため record をもう一度）"
+ ],
+ "inputs": {
+  "hero_package_json": {
+   "path": "Unity/Build/Polish/28/G_p28rec/art_on/ds27_keypose.json",
+   "sha256": "837eca90afa7921b0b8815842cef52101ce674fcd207c8aad62294ee9445a31b"
+  },
+  "kstar_meta": {
+   "path": "Unity/Build/Polish/28/kstar_p28rec/kstarP28R2rec_a45_meta.json",
+   "sha256": "90f8dbe1d04be6b9d25f7321645f9d472747cfc01737bd69f8ea4a8418c42a84"
+  },
+  "timewarp": {
+   "path": "Unity/Build/Polish/28/G_p28rec/timewarp_G_p28rec.json",
+   "sha256": "836224b5b86c194589d44f04115a8652f9b1dc55d9bae5399c0cd8338cb67af7"
+  },
+  "scene_dump": {
+   "path": "Unity/Build/Polish/30/dump/pl30_scene_dump.json",
+   "sha256": "470c7cc3301ede053a6277b889816001ceb89dd0a9aafaade14db3cf9d155500"
+  },
+  "seat_v1": {
+   "path": "Tools/GWContext/seat_v1.json",
+   "sha256": "4f7553fd6ab29d117266d6f0b6e58c84dc30f36cf440f6de9314b95102517488"
+  },
+  "painting_truth": {
+   "path": "Tools/PaintingTruth/painting_truth.json",
+   "sha256": "392860ebeff76a7249056fc339b15e853c0155937efa4feee125f8f974f01c0a"
+  }
+ },
+ "reference_use_ja": "参照モデル（G:\\research\\model\\wave_repair_zbrush2.obj）・参照の彫刻の写真（G:\\research\\reality scan\\北斋参考）・G:\\research\\Wave Simulation は、この群のどの部でも開いていない（右の高い波・手前の小波・谷の配置は設計30 の二次設計の数値のまま。生成器は OBJ を読まない（F13-1））。",
+ "code": [
+  {
+   "path": "Tools/GWWaveGen/pl30/pl30_checks.py",
+   "sha256": "d4f77895974637eb76a79d7b594ec869abf453a0c40f9bd091518435f585e81e"
+  },
+  {
+   "path": "Tools/GWWaveGen/pl30/pl30_fix01_checks.py",
+   "sha256": "41d0f639b264794c147ccec9ee3807392833dc1f921c831c92f9701b2493d9c1"
+  },
+  {
+   "path": "Tools/GWWaveGen/pl30/pl30_fix01_sheets.py",
+   "sha256": "546c366a07b8ad15a9d8c0580878cac6eaed3668c3ee0526c7de5e330cd43949"
+  },
+  {
+   "path": "Tools/GWWaveGen/pl30/pl30_fix02_checks.py",
+   "sha256": "a434684973eac773cac081cade702565ebd4c105c9d9fa9f0a221dc6ca439d16"
+  },
+  {
+   "path": "Tools/GWWaveGen/pl30/pl30_fix02_sheets.py",
+   "sha256": "36775c4a487ba9df250cbd50c5f1a6aa154163d61fe29ae92a9765a6d06e26b8"
+  },
+  {
+   "path": "Tools/GWWaveGen/pl30/pl30_gpu_runs.py",
+   "sha256": "96f172732a2791f61e5fff7299c2c0b53fc492cb9041c2189ad8d16cb705e4a8"
+  },
+  {
+   "path": "Tools/GWWaveGen/pl30/pl30_growth_table.py",
+   "sha256": "2bb8074c366be29e51210c592d8fb973787ef244bf0dce4b6045105b0706a882"
+  },
+  {
+   "path": "Tools/GWWaveGen/pl30/pl30_left_swell.py",
+   "sha256": "6352ac204e87e4626716eefc01b31db8d25446de0290eff644492111cebb5a73"
+  },
+  {
+   "path": "Tools/GWWaveGen/pl30/pl30_measure.py",
+   "sha256": "6be333092cb07a4ab1e92300acb7ad6b8ecb34edc8b3e1f0dd941da7c3f10436"
+  },
+  {
+   "path": "Tools/GWWaveGen/pl30/pl30_metrics.py",
+   "sha256": "faf721b7f0e704333f734b439c6c3efe47980244a9692aef5815603cf8292c20"
+  },
+  {
+   "path": "Tools/GWWaveGen/pl30/pl30_params.json",
+   "sha256": "e3a7e9876ea6305b7c43a18ad86c4ce7e335a347490c7b1ef8fba27bc12b53b1"
+  },
+  {
+   "path": "Tools/GWWaveGen/pl30/pl30_record.py",
+   "sha256": "c332022583cdf9968ade2b2235cac4dc228be8a0bcf9fcd45ffb4f024d5f4608"
+  },
+  {
+   "path": "Tools/GWWaveGen/pl30/pl30_sea.py",
+   "sha256": "e45a1e31c2ae6d6f3ae571dd39eb7118ce0e5fc70f20c58db2daab17afc3048f"
+  },
+  {
+   "path": "Tools/GWWaveGen/pl30/pl30_sea_attr.py",
+   "sha256": "58321ee235443e83ff955da16308380d2e66407ad144fc770cfd3bab666562d0"
+  },
+  {
+   "path": "Tools/GWWaveGen/pl30/pl30_sea_generate.py",
+   "sha256": "d3f66a5742cb92cfef1ce06270227f7ae9a267316275e1427d3ef17c600bf425"
+  },
+  {
+   "path": "Tools/GWWaveGen/pl30/pl30_sea_params.txt",
+   "sha256": "31841823c90329436de4929bb6bcd31410c7fd0256a38226491b0aa812bb678d"
+  },
+  {
+   "path": "Tools/GWWaveGen/pl30/pl30_sheets.py",
+   "sha256": "564c1029041b961c3002f9751966a5057309effd6a25c2d9e4c6c4005181d009"
+  },
+  {
+   "path": "Tools/GWWaveGen/pl30/run_pl30_player.ps1",
+   "sha256": "4a57407dbf49acffc7e40dd93d78daff63bf8217c506dcd8ebf1c79d843e03e9"
+  },
+  {
+   "path": "Tools/GWWaveGen/pl30/run_pl30_unity.ps1",
+   "sha256": "171385a43e03f45cf01f7a5c84502fe966174a606c34755f666611c78e2f9fea"
+  },
+  {
+   "path": "Unity/Assets/GreatWave/Polish30/Editor.meta",
+   "sha256": "0cc8d6026b6c20ed148ffc4a13d62d186cbbf402573be5a0c44a9b0f2d04e258"
+  },
+  {
+   "path": "Unity/Assets/GreatWave/Polish30/Editor/PL30Dump.cs",
+   "sha256": "50c3481f126c727eef5741989571ad15963516724783e4108285ed5e583d1ca5"
+  },
+  {
+   "path": "Unity/Assets/GreatWave/Polish30/Editor/PL30Dump.cs.meta",
+   "sha256": "907f44d38e294c36bd33f603f6043e95354fdeb87a212dbef8042bc369cfecbc"
+  },
+  {
+   "path": "Unity/Assets/GreatWave/Polish30/Editor/PL30ReleaseBuild.cs",
+   "sha256": "c91e826794b8028f1de3b36636adec2e41afe303100a3586c597cccb505eda0e"
+  },
+  {
+   "path": "Unity/Assets/GreatWave/Polish30/Editor/PL30ReleaseBuild.cs.meta",
+   "sha256": "a559aac370d1ac407fd8a019598d61515cf0f39f4ed5e8930fff827b87cbacd6"
+  },
+  {
+   "path": "Unity/Assets/GreatWave/Polish30/Editor/PL30Render.cs",
+   "sha256": "ab3c38eed40879e9ccfa885c563d7976462766b2fefae67fcd60de4dedc124fe"
+  },
+  {
+   "path": "Unity/Assets/GreatWave/Polish30/Editor/PL30Render.cs.meta",
+   "sha256": "66b2d2d3f145d02cf892314288da703da994eb90972a58c0162bd999886c7363"
+  },
+  {
+   "path": "Unity/Assets/GreatWave/Polish30/Editor/PL30Setup.cs",
+   "sha256": "a0b440274b3a324bb198138b10422320a2446b8dde85610d18f87abd2c806296"
+  },
+  {
+   "path": "Unity/Assets/GreatWave/Polish30/Editor/PL30Setup.cs.meta",
+   "sha256": "325f108059f6bf291289eb49a4b28e3a18255e51073d7b19574ce82f6dd2d2c7"
+  },
+  {
+   "path": "Unity/Assets/GreatWave/Polish30/Materials.meta",
+   "sha256": "13995c3b7a4b631cbb555816502fc2922ba36cef129e5c427153f1833af81ec3"
+  },
+  {
+   "path": "Unity/Assets/GreatWave/Polish30/Materials/PL30_Outline_far.mat",
+   "sha256": "e2b9bfd1eaf0fa265870aeb69eb42e109140202f3f2e31a43d7f641a73b7ccba"
+  },
+  {
+   "path": "Unity/Assets/GreatWave/Polish30/Materials/PL30_Outline_far.mat.meta",
+   "sha256": "43b4d4748b3a6136f029ce3e59370c2ac820cf5aaab66e43f6a658bdf13dfd67"
+  },
+  {
+   "path": "Unity/Assets/GreatWave/Polish30/Materials/PL30_Ukiyoe_Sea.mat",
+   "sha256": "4c0acf00de7dd2dc925410494d62e893bf86960d3b4663c4b5cc6729a6ceab8d"
+  },
+  {
+   "path": "Unity/Assets/GreatWave/Polish30/Materials/PL30_Ukiyoe_Sea.mat.meta",
+   "sha256": "2a47e840616e86db26f6a24a373e119fcc134d9940af5d431020fa4b5bea740a"
+  },
+  {
+   "path": "Unity/Assets/GreatWave/Polish30/Scenes.meta",
+   "sha256": "4b1ac269c4787352b40b0b79eb6deb883529a7078a5e05e7048f6dd2119516a4"
+  },
+  {
+   "path": "Unity/Assets/GreatWave/Polish30/Scenes/PL30_Release.unity",
+   "sha256": "fbfc465ead6fdd1c389f641e872277c7c8d50da8aebdb32e5bb9472e7df149e0"
+  },
+  {
+   "path": "Unity/Assets/GreatWave/Polish30/Scenes/PL30_Release.unity.meta",
+   "sha256": "dc0e508582ab2324b5edac8a734c180513a00c1ecd42bac1897acd1aaf87bd14"
+  },
+  {
+   "path": "Unity/Assets/GreatWave/Polish30/Scenes/PL30_SinglePlayback.unity",
+   "sha256": "3372822344b75407d525ff1c01861a731d11c1620c5396318fca90155b1097a9"
+  },
+  {
+   "path": "Unity/Assets/GreatWave/Polish30/Scenes/PL30_SinglePlayback.unity.meta",
+   "sha256": "08ab66180cbd72d37c0e058f8102b5225816c3c1af1ff693abb3a12ce44b8935"
+  },
+  {
+   "path": "Unity/Assets/GreatWave/Polish30/Scripts.meta",
+   "sha256": "3a357e10054028997fc31ea3f8ce55b6c73997f4f75aa1b818eae948b0cd2d86"
+  },
+  {
+   "path": "Unity/Assets/GreatWave/Polish30/Scripts/PL30LeftSwell.cs",
+   "sha256": "8c0553da5e05ee171bc4c9da8070b93bf0cc6dc0e224f85560af154ea71f8177"
+  },
+  {
+   "path": "Unity/Assets/GreatWave/Polish30/Scripts/PL30LeftSwell.cs.meta",
+   "sha256": "45b1cc2a4c18dba986fe76fdbf34b75c412d9f5a55088ccd52d3b14bfdc31ec4"
+  },
+  {
+   "path": "Unity/Assets/GreatWave/Polish30/Scripts/PL30UkiyoeSea.cs",
+   "sha256": "8c3acf29c7f12661107a0a8b44d4a5416074ede46ccfc0183f585e11219fba37"
+  },
+  {
+   "path": "Unity/Assets/GreatWave/Polish30/Scripts/PL30UkiyoeSea.cs.meta",
+   "sha256": "81fb540030dd85d90e94e6c4aa3316c1e3ba989b4d0926bd5c15db1893752fde"
+  },
+  {
+   "path": "Unity/Assets/GreatWave/Polish30/Shaders.meta",
+   "sha256": "829f544e5f7faa35636ca61e6b727004140f7c59e53cc25c13d69117a39824a6"
+  },
+  {
+   "path": "Unity/Assets/GreatWave/Polish30/Shaders/PL30_Ukiyoe_Sea.shader",
+   "sha256": "bfb8457d8681caebe1037b1ba17c6f7e3b4dea7f7aa2076ab60c0007d5182126"
+  },
+  {
+   "path": "Unity/Assets/GreatWave/Polish30/Shaders/PL30_Ukiyoe_Sea.shader.meta",
+   "sha256": "c0aa607d0583c4671d9072b46d06ff2736af219d98a2603a3a133d6519d6477d"
+  }
+ ],
+ "data": [
+  {
+   "path": "Unity/Build/Polish/30/sea/near/ds27_keypose.json",
+   "sha256": "b84832f895dd138048a22f330fe694172b5786ff5f4b6cf64be3a9867425c37b",
+   "bytes": 453803
+  },
+  {
+   "path": "Unity/Build/Polish/30/sea/far/ds27_keypose.json",
+   "sha256": "6621cc55ccfb1e61db33bff3ac730201dc890352bd6b9580ae3dcc57fb0084a9",
+   "bytes": 433801
+  },
+  {
+   "path": "Unity/Build/Polish/30/sea/near/pl30_sea_attr_f32.bin",
+   "sha256": "790686bd92152bba96f279912213b97b7d13ecc7885987bdbd223428ddc87f95",
+   "bytes": 6302720
+  },
+  {
+   "path": "Unity/Build/Polish/30/sea/far/pl30_sea_attr_f32.bin",
+   "sha256": "1c7f4a779482d24d2c90f90d39e4cc3a3a41602aa45c28c313088e7f40c04adf",
+   "bytes": 1871120
+  },
+  {
+   "path": "Unity/Build/Polish/30/sea/boat_support.json",
+   "sha256": "e7ddd8e5868b279353b7f8e3597d822a712dfb0bd7c97f8d2365b068297098d2",
+   "bytes": 554016
+  },
+  {
+   "path": "Unity/Build/Polish/30/sea/sea_function.json",
+   "sha256": "5c658005f5819668c74c16df32b58db7252054eff8ed674d640da754370f7f65",
+   "bytes": 47529
+  },
+  {
+   "path": "Unity/Build/Polish/30/sea/near/pl30_rows.json",
+   "sha256": "f43e9627e41028bc3a499c6136c690c02ba0256e8d3cc1d2702ca745c84ab45e",
+   "bytes": 64394
+  },
+  {
+   "path": "Unity/Build/Polish/30/left_swell/pl30_left_swell.json",
+   "sha256": "177b011d12f0ec1c1f656fb27155dd95feb90b3f87f6eae1b7315179592373f4",
+   "bytes": 589651
+  },
+  {
+   "path": "Unity/Build/Polish/30/release/player/GreatWave50.exe",
+   "sha256": "5be81b3fa7df7c08cadee6f79d6ff3fe95481420f166ba8127390ea669c8b12c",
+   "bytes": 667648
+  }
+ ],
+ "evidence": [
+  {
+   "path": "Docs/Evidence/Polish/30/checks_after.json",
+   "sha256": "42854ea0bc742850aa48e718d2c3df781c25eed526108bafa8a17b9edfb4fdf5",
+   "bytes": 18337
+  },
+  {
+   "path": "Docs/Evidence/Polish/30/checks_before.json",
+   "sha256": "a5a52bc180aac192d27a20c3c817eadc47307d9caacfe5cf57745dfe5c9596fa",
+   "bytes": 8054
+  },
+  {
+   "path": "Docs/Evidence/Polish/30/checks_fix01.json",
+   "sha256": "9b38448547b502db29405aabb3cc08912ba3a2beaee7c335cdc53a552f7a4212",
+   "bytes": 51056
+  },
+  {
+   "path": "Docs/Evidence/Polish/30/checks_fix02.json",
+   "sha256": "8a565aba1f500c6984783e0b95751418ef9f6289f868601eec823a02eb7aec8b",
+   "bytes": 21308
+  },
+  {
+   "path": "Docs/Evidence/Polish/30/fig_pl30_ba_turntable_t060.png",
+   "sha256": "245bd36eb5825dab2616b53076406e379f8c94dc9ffebb2420dffa5aee43c149",
+   "bytes": 1153159
+  },
+  {
+   "path": "Docs/Evidence/Polish/30/fig_pl30_ba_turntable_t090.png",
+   "sha256": "c9871a2a2c39ad8cd598d9d18a2879bff30d8d0db6f04de6ba05ff63a58ffaba",
+   "bytes": 1168280
+  },
+  {
+   "path": "Docs/Evidence/Polish/30/fig_pl30_ba_turntable_t105.png",
+   "sha256": "f98eb528965724518e37e26ad551d6544866eea13330d73169e2c1db775f3f71",
+   "bytes": 1179993
+  },
+  {
+   "path": "Docs/Evidence/Polish/30/fig_pl30_ba_turntable_t120.png",
+   "sha256": "5c89bf3ab81ca8b091ae157e3b91e71aa8e9436e5b5d95616bbd09bd515292be",
+   "bytes": 1182951
+  },
+  {
+   "path": "Docs/Evidence/Polish/30/fig_pl30_ba_view_back65.png",
+   "sha256": "32893976163b1d334468642ad8a9338f4ed275d0985806c2d2993bab1a6e8a13",
+   "bytes": 916593
+  },
+  {
+   "path": "Docs/Evidence/Polish/30/fig_pl30_ba_view_painting.png",
+   "sha256": "0511fab381f95d0f912dfb635a927d7616eb3fa4258c31eae14b99a2ae84e3da",
+   "bytes": 916599
+  },
+  {
+   "path": "Docs/Evidence/Polish/30/fig_pl30_ba_view_seat.png",
+   "sha256": "aa1afdff86369e3af8fcd4d3ecc3a3655b0f92cd2f782fac51be453229f388a2",
+   "bytes": 415552
+  },
+  {
+   "path": "Docs/Evidence/Polish/30/fig_pl30_ba_view_seat_toward_wave.png",
+   "sha256": "3748347013718705e714f451eeeb5bcb13c6d71d3e0897ca26333fc8d0171383",
+   "bytes": 1057563
+  },
+  {
+   "path": "Docs/Evidence/Polish/30/fig_pl30_ba_view_side_left.png",
+   "sha256": "dd7b1005ed96ad211b9b791be8cb1a2a6821fac59d21cafaa9b678f39be11270",
+   "bytes": 833740
+  },
+  {
+   "path": "Docs/Evidence/Polish/30/fig_pl30_ba_view_side_right.png",
+   "sha256": "dcd31b36dfccd490b400ffb75c7c6b1f8288d6d279ca2743e5a25f0723fd1a10",
+   "bytes": 880280
+  },
+  {
+   "path": "Docs/Evidence/Polish/30/fig_pl30_ba_view_top.png",
+   "sha256": "5f342eb8e36d6a8993f2f2681451e0e2da16a539611c9b59ae1160ebf1279ab6",
+   "bytes": 925747
+  },
+  {
+   "path": "Docs/Evidence/Polish/30/fig_pl30_fix01_a.png",
+   "sha256": "2bd4e147d971ee4468e7d21aa02af832ee9950880b182a4a9e3bc73a3be90f34",
+   "bytes": 1117654
+  },
+  {
+   "path": "Docs/Evidence/Polish/30/fig_pl30_fix01_b.png",
+   "sha256": "1c0d076af3a7fc80da7c2aaed58adf42aa45f70a58d54a8830a07a5b951decaa",
+   "bytes": 850323
+  },
+  {
+   "path": "Docs/Evidence/Polish/30/fig_pl30_fix01_trough.png",
+   "sha256": "cbc448aee58128ba6577f8f32cb671ccba7310f87db42f6a787dcf9140ca923a",
+   "bytes": 862900
+  },
+  {
+   "path": "Docs/Evidence/Polish/30/fig_pl30_fix02_a.png",
+   "sha256": "2b73737ec1e54007391ab30107a9c21fcb11187337422478bd09525022c75353",
+   "bytes": 751283
+  },
+  {
+   "path": "Docs/Evidence/Polish/30/fig_pl30_fix02_b.png",
+   "sha256": "15671fb1ad671f59e539f676fed274ef16e84a5afd69387a1d5fa46384261bf2",
+   "bytes": 888949
+  },
+  {
+   "path": "Docs/Evidence/Polish/30/fig_pl30_fix02_c.png",
+   "sha256": "984f2caeefd2c14bc2eecc0569800b3fa08547f0e9968cf95cc40b6eb002679d",
+   "bytes": 1194596
+  },
+  {
+   "path": "Docs/Evidence/Polish/30/fig_pl30_fix02_fuji.png",
+   "sha256": "6c8cd9db30b181f98e07d93822113b8ae11f886da70ef1b84fa9a7edf65e1b8b",
+   "bytes": 54592
+  },
+  {
+   "path": "Docs/Evidence/Polish/30/fig_pl30_fix02_tail.png",
+   "sha256": "b33fe595fad33900eee70022073eb09c0337e7084c68cebbd9f7aae2664164e7",
+   "bytes": 741087
+  },
+  {
+   "path": "Docs/Evidence/Polish/30/fig_pl30_fuji.png",
+   "sha256": "ad5b80d26362c27660ace9edc0a16578cb7fb42a619ee6af38ef593bde9617b1",
+   "bytes": 489233
+  },
+  {
+   "path": "Docs/Evidence/Polish/30/fig_pl30_items.png",
+   "sha256": "3ba4193c7f2e41ec3fa82c37ed78d90fa4f85d73ac25564d4023ff47d1f0d49c",
+   "bytes": 980204
+  },
+  {
+   "path": "Docs/Evidence/Polish/30/fig_pl30_record_review.png",
+   "sha256": "265c4e2ced4ab272c417e33d7e95e4b221d89c3b0be98f3fb40d2305231cfbe6",
+   "bytes": 958525
+  },
+  {
+   "path": "Docs/Evidence/Polish/30/fig_pl30_trough_round2_rejected.png",
+   "sha256": "5bf1223384340bf0e6eceb1605b8b1cfd0a84af1ab5a971a69d2dd7550ef83a3",
+   "bytes": 502702
+  },
+  {
+   "path": "Docs/Evidence/Polish/30/gpu_sea_after.json",
+   "sha256": "af40ef9474d265ad505b724faae259b92f547b9f4069ec9c842392003231fd8c",
+   "bytes": 2988
+  },
+  {
+   "path": "Docs/Evidence/Polish/30/gpu_sea_before.json",
+   "sha256": "1787e8e50b7e5b04f74724c94723106743316c769b195d77a5425bef9b610a2c",
+   "bytes": 2973
+  },
+  {
+   "path": "Docs/Evidence/Polish/30/gpu_sea_fix01_runs.json",
+   "sha256": "4708be2d9757bfd9d67d098109a20cb3eb7419bffd61dd0a9d72ddcf7854690b",
+   "bytes": 1920
+  },
+  {
+   "path": "Docs/Evidence/Polish/30/gpu_sea_fix02_runs.json",
+   "sha256": "993d0f38ca28fe25a6ff5e8b65dabc4b43749641ed25759e0d9c1092ba28357c",
+   "bytes": 1725
+  },
+  {
+   "path": "Docs/Evidence/Polish/30/measure_before_after.json",
+   "sha256": "85648918f874ea7c751bf60e530c62e8b6ddd34fa860d9e5293c9e3503cb408e",
+   "bytes": 24789
+  },
+  {
+   "path": "Docs/Evidence/Polish/30/metrics.json",
+   "sha256": "4e0ee98e0275b240df9e90b6529ec8ec24ecc93cb2386da7070fd33ea5278333",
+   "bytes": 70415
+  },
+  {
+   "path": "Docs/Evidence/Polish/30/metrics_measured.json",
+   "sha256": "7a4ccb4d8c1dcbef82e22f078e3b44ab950155b652871d835e1c19e787af8495",
+   "bytes": 260926
+  },
+  {
+   "path": "Docs/Evidence/Polish/30/pl28u_regress_after.json",
+   "sha256": "4d21741a5125a5bb3b4de9cd6568161af74f07e3811570fbcef00af3eaed564b",
+   "bytes": 18764
+  },
+  {
+   "path": "Docs/Evidence/Polish/30/pl30_ba_painting_30fps.mp4",
+   "sha256": "8e4d323b5beedb1a944b4d3f1d619ddd693a9ebaa88fe649886718a3fdfcb886",
+   "bytes": 788377
+  },
+  {
+   "path": "Docs/Evidence/Polish/30/pl30_ba_seat_30fps.mp4",
+   "sha256": "b9a17dc2822677fbe937333e29a38afd9568610ba877c2819ce1b84200661aa2",
+   "bytes": 239563
+  },
+  {
+   "path": "Docs/Evidence/Polish/30/pl30_ba_seat_toward_wave_30fps.mp4",
+   "sha256": "7d507b82467a98b8c11d97760ac0a90549e2357bf400216a5123180188546413",
+   "bytes": 986803
+  },
+  {
+   "path": "Docs/Evidence/Polish/30/pl30_ba_side_left_30fps.mp4",
+   "sha256": "3d2b0d11654930e97a75d83e7843e6d2c34d5abfb42cdf5a7ef596509e318771",
+   "bytes": 402502
+  },
+  {
+   "path": "Docs/Evidence/Polish/30/pl30_ba_tt_30fps.mp4",
+   "sha256": "24a45da195dc4a78939c07c8043b77602433ff688515ab9cccc96d07cdab98ff",
+   "bytes": 647203
+  },
+  {
+   "path": "Docs/Evidence/Polish/30/pl30_fix01_trough_share.json",
+   "sha256": "57064cc6826bc5c9f6421b34c565dcd470a0d06b9b76d7e1b05b146f96b37254",
+   "bytes": 765
+  },
+  {
+   "path": "Docs/Evidence/Polish/30/pl30_fix02_fuji.json",
+   "sha256": "210b516a77c41f2f6d62395991d6f696ef2280edd663c71b3f2f1d9f6f258fec",
+   "bytes": 26448
+  },
+  {
+   "path": "Docs/Evidence/Polish/30/pl30_fix02_trough_share.json",
+   "sha256": "0639d15a6e7a0bb91d8e189bf21e70ddc93f918c786723d926f792c12ab2ae51",
+   "bytes": 534
+  },
+  {
+   "path": "Docs/Evidence/Polish/30/pl30_fix02_white_px.json",
+   "sha256": "1a3b1c896c76b682be7d26cf710cdb826a3c05fa10c933fa403d3f1116c5c99a",
+   "bytes": 2807
+  },
+  {
+   "path": "Docs/Evidence/Polish/30/pl30_generate_log.json",
+   "sha256": "3ba068e45a31e84b1ceef7c5fb24727c2b6ccd601022592c15a00d79fc63469e",
+   "bytes": 26083
+  },
+  {
+   "path": "Docs/Evidence/Polish/30/pl30_sea_function.json",
+   "sha256": "5c658005f5819668c74c16df32b58db7252054eff8ed674d640da754370f7f65",
+   "bytes": 47529
+  },
+  {
+   "path": "Docs/Evidence/Polish/30/pl30_setup.json",
+   "sha256": "94185a7c3d8134719ac81ddf3ca593146c94d27043e86ce040cdbe5c35e54ad5",
+   "bytes": 4111
+  },
+  {
+   "path": "Docs/Evidence/Polish/30/release_build.json",
+   "sha256": "a1c76a056d004e5dff12eea5a27b20d4463df40676b177f81f54b5c66cc0c5e5",
+   "bytes": 14185
+  },
+  {
+   "path": "Docs/Evidence/Polish/30/release_run_fix01_main.json",
+   "sha256": "2ba158f4ba9c8268c9c9e6a57703e77584b6f1299de6d59ac64cf8386bb4df5f",
+   "bytes": 10241
+  },
+  {
+   "path": "Docs/Evidence/Polish/30/release_run_fix02_main.json",
+   "sha256": "dcfee71752e7f536475c0869f154c432589791ff8079a63e5001bd6a03985d41",
+   "bytes": 10227
+  },
+  {
+   "path": "Docs/Evidence/Polish/30/render_report_after.json",
+   "sha256": "3b730844a95a1183e1b69fe1bb883a5ed2bfb5611f545f045e53bd6ba094b6b4",
+   "bytes": 460451
+  },
+  {
+   "path": "Docs/Evidence/Polish/30/render_report_before.json",
+   "sha256": "91099732b375187c005ce181958e18d28076b5c947437ed171644e92041b1a61",
+   "bytes": 59597
+  }
+ ]
+}

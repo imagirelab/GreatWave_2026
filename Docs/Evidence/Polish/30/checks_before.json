@@ -1,0 +1,272 @@
+{
+ "number": "仕上げ30",
+ "schema": "GreatWave.PL30.checks/1",
+ "renderer_ja": "numpy（Unity の描画ではない）",
+ "sea": "Unity/Build/Design/30/sea",
+ "hero": "Unity/Build/Polish/28/G_p28rec/art_on",
+ "near_knots_same_as_hero": false,
+ "near_layers": 242,
+ "near_rows": 44,
+ "near_cols": 1231,
+ "far_rows": 19,
+ "far_cols": 247,
+ "seam": {
+  "ring0_max_diff_m": 3.031462823006578,
+  "note_ja": "節点の時刻が違う（設計30 の海は F_final の 242 節点）ので、τ の 121 点で読んだ隔たりの最大。"
+ },
+ "kink": {
+  "rows_in_band": 18,
+  "max_d2_m_per_frame2": 0.19880868900770743,
+  "max_at": {
+   "frame": 171,
+   "tau": -2.85,
+   "row": 5,
+   "col": 663
+  },
+  "p999_d2": 0.004743184222045947,
+  "frames_over_005": 43,
+  "window_tau_m3p1_m2p4_max_d2": 0.19880868900770743,
+  "max_slope_deg": 69.77685112844269,
+  "max_slope_frame": 183,
+  "max_slope_at": [
+   6,
+   757
+  ],
+  "window_max_slope_deg": 69.77685112844269,
+  "note_ja": "near の継ぎ目から 12 m の内の行の頂点の y の 30 Hz の二階差分（m／コマ²、t 0〜14 s、G_p28rec の時間曲線）と、線分に沿う傾きの最大（継ぎ目から 1 m より外）。窓は設計30 の限界 2 の τ −3.1〜−2.4 s。"
+ },
+ "fuji": {
+  "snow_mask_from": "Unity/Build/Polish/29/fix01/p29g/views/painting_t120_asis.png",
+  "snow_px": 2122,
+  "snow_x": [
+   1130,
+   1222
+  ],
+  "snow_y": [
+   694,
+   744
+  ],
+  "frames": [
+   {
+    "t": 5.0,
+    "tau": -3.201906002,
+    "snow_px": 2122,
+    "snow_visible_frac": 1.0,
+    "snow_visible_frac_sea_only": 1.0,
+    "sea_top_y_over_snow_cols": 794.9641831788374,
+    "hero_top_y_over_snow_cols": Infinity
+   },
+   {
+    "t": 5.25,
+    "tau": -3.075042455,
+    "snow_px": 2122,
+    "snow_visible_frac": 1.0,
+    "snow_visible_frac_sea_only": 1.0,
+    "sea_top_y_over_snow_cols": 794.8699095047282,
+    "hero_top_y_over_snow_cols": Infinity
+   },
+   {
+    "t": 5.5,
+    "tau": -2.95,
+    "snow_px": 2122,
+    "snow_visible_frac": 1.0,
+    "snow_visible_frac_sea_only": 1.0,
+    "sea_top_y_over_snow_cols": 794.9246769460046,
+    "hero_top_y_over_snow_cols": Infinity
+   },
+   {
+    "t": 5.75,
+    "tau": -2.825,
+    "snow_px": 2122,
+    "snow_visible_frac": 1.0,
+    "snow_visible_frac_sea_only": 1.0,
+    "sea_top_y_over_snow_cols": 795.1387326633671,
+    "hero_top_y_over_snow_cols": Infinity
+   },
+   {
+    "t": 6.0,
+    "tau": -2.7,
+    "snow_px": 2122,
+    "snow_visible_frac": 1.0,
+    "snow_visible_frac_sea_only": 1.0,
+    "sea_top_y_over_snow_cols": 778.4687463331413,
+    "hero_top_y_over_snow_cols": Infinity
+   },
+   {
+    "t": 6.25,
+    "tau": -2.575,
+    "snow_px": 2122,
+    "snow_visible_frac": 0.9995287464655985,
+    "snow_visible_frac_sea_only": 0.9995287464655985,
+    "sea_top_y_over_snow_cols": 738.5011346628394,
+    "hero_top_y_over_snow_cols": Infinity
+   },
+   {
+    "t": 6.5,
+    "tau": -2.45,
+    "snow_px": 2122,
+    "snow_visible_frac": 0.7888784165881244,
+    "snow_visible_frac_sea_only": 0.7888784165881244,
+    "sea_top_y_over_snow_cols": 648.5432172747185,
+    "hero_top_y_over_snow_cols": Infinity
+   },
+   {
+    "t": 6.75,
+    "tau": -2.325,
+    "snow_px": 2122,
+    "snow_visible_frac": 0.04429783223374175,
+    "snow_visible_frac_sea_only": 0.04429783223374175,
+    "sea_top_y_over_snow_cols": 515.792177154334,
+    "hero_top_y_over_snow_cols": Infinity
+   },
+   {
+    "t": 7.0,
+    "tau": -2.2,
+    "snow_px": 2122,
+    "snow_visible_frac": 0.0,
+    "snow_visible_frac_sea_only": 0.0,
+    "sea_top_y_over_snow_cols": 440.2529647171018,
+    "hero_top_y_over_snow_cols": Infinity
+   },
+   {
+    "t": 7.25,
+    "tau": -2.075,
+    "snow_px": 2122,
+    "snow_visible_frac": 0.0,
+    "snow_visible_frac_sea_only": 0.0,
+    "sea_top_y_over_snow_cols": 421.5142914782589,
+    "hero_top_y_over_snow_cols": Infinity
+   },
+   {
+    "t": 7.5,
+    "tau": -1.95,
+    "snow_px": 2122,
+    "snow_visible_frac": 0.0,
+    "snow_visible_frac_sea_only": 0.0,
+    "sea_top_y_over_snow_cols": 410.9295796765166,
+    "hero_top_y_over_snow_cols": Infinity
+   },
+   {
+    "t": 7.75,
+    "tau": -1.825,
+    "snow_px": 2122,
+    "snow_visible_frac": 0.0,
+    "snow_visible_frac_sea_only": 0.0,
+    "sea_top_y_over_snow_cols": 416.4914457853917,
+    "hero_top_y_over_snow_cols": Infinity
+   },
+   {
+    "t": 8.0,
+    "tau": -1.7,
+    "snow_px": 2122,
+    "snow_visible_frac": 0.0,
+    "snow_visible_frac_sea_only": 0.0,
+    "sea_top_y_over_snow_cols": 455.24588406704333,
+    "hero_top_y_over_snow_cols": Infinity
+   },
+   {
+    "t": 8.25,
+    "tau": -1.575,
+    "snow_px": 2122,
+    "snow_visible_frac": 0.0,
+    "snow_visible_frac_sea_only": 0.0,
+    "sea_top_y_over_snow_cols": 513.3546705240891,
+    "hero_top_y_over_snow_cols": Infinity
+   },
+   {
+    "t": 8.5,
+    "tau": -1.45,
+    "snow_px": 2122,
+    "snow_visible_frac": 0.0,
+    "snow_visible_frac_sea_only": 0.0,
+    "sea_top_y_over_snow_cols": 529.4044719265818,
+    "hero_top_y_over_snow_cols": Infinity
+   },
+   {
+    "t": 8.75,
+    "tau": -1.325,
+    "snow_px": 2122,
+    "snow_visible_frac": 0.026861451460885956,
+    "snow_visible_frac_sea_only": 0.026861451460885956,
+    "sea_top_y_over_snow_cols": 540.6180831227013,
+    "hero_top_y_over_snow_cols": Infinity
+   },
+   {
+    "t": 9.0,
+    "tau": -1.2,
+    "snow_px": 2122,
+    "snow_visible_frac": 0.088124410933082,
+    "snow_visible_frac_sea_only": 0.088124410933082,
+    "sea_top_y_over_snow_cols": 553.5929748414671,
+    "hero_top_y_over_snow_cols": Infinity
+   },
+   {
+    "t": 9.25,
+    "tau": -1.075,
+    "snow_px": 2122,
+    "snow_visible_frac": 0.0645617342130066,
+    "snow_visible_frac_sea_only": 0.0645617342130066,
+    "sea_top_y_over_snow_cols": 566.938178052908,
+    "hero_top_y_over_snow_cols": Infinity
+   },
+   {
+    "t": 9.5,
+    "tau": -0.95,
+    "snow_px": 2122,
+    "snow_visible_frac": 0.07728557964184732,
+    "snow_visible_frac_sea_only": 0.07728557964184732,
+    "sea_top_y_over_snow_cols": 584.7158255712116,
+    "hero_top_y_over_snow_cols": Infinity
+   },
+   {
+    "t": 9.75,
+    "tau": -0.825,
+    "snow_px": 2122,
+    "snow_visible_frac": 0.028746465598491987,
+    "snow_visible_frac_sea_only": 0.028746465598491987,
+    "sea_top_y_over_snow_cols": 605.6373712479095,
+    "hero_top_y_over_snow_cols": Infinity
+   },
+   {
+    "t": 10.0,
+    "tau": -0.7,
+    "snow_px": 2122,
+    "snow_visible_frac": 0.027332704995287466,
+    "snow_visible_frac_sea_only": 0.027332704995287466,
+    "sea_top_y_over_snow_cols": 655.9005227385204,
+    "hero_top_y_over_snow_cols": Infinity
+   },
+   {
+    "t": 10.25,
+    "tau": -0.575,
+    "snow_px": 2122,
+    "snow_visible_frac": 0.6050895381715363,
+    "snow_visible_frac_sea_only": 0.6050895381715363,
+    "sea_top_y_over_snow_cols": 693.416087622358,
+    "hero_top_y_over_snow_cols": Infinity
+   },
+   {
+    "t": 10.5,
+    "tau": -0.45,
+    "snow_px": 2122,
+    "snow_visible_frac": 0.9957587181903864,
+    "snow_visible_frac_sea_only": 0.9957587181903864,
+    "sea_top_y_over_snow_cols": 738.590476497929,
+    "hero_top_y_over_snow_cols": 898.8546186296093
+   },
+   {
+    "t": 12.0,
+    "tau": 0.0,
+    "snow_px": 2122,
+    "snow_visible_frac": 1.0,
+    "snow_visible_frac_sea_only": 1.0,
+    "sea_top_y_over_snow_cols": 813.7271308407466,
+    "hero_top_y_over_snow_cols": 888.7885460045246
+   }
+  ],
+  "min_visible_frac_t5_10": 0.0,
+  "min_visible_frac_sea_only_t5_10": 0.0,
+  "note_ja": "numpy の投影（原画視点 PaintingCam v1）。網の頂点・辺の中点・四角の中心の投影の列ごとの最も上の y を網の上の縁とし、富士の雪の印（仕上げ29 の t* の原画視点の描画で、雪の色 (252,249,230) ±6 の画素）のうち縁より上に残る割合。sea_only は主役波を数えない（主役波が隠す分は仕上げ30 の責任の外）。"
+ },
+ "seconds": 6.4
+}

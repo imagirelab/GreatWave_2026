@@ -1,0 +1,47 @@
+{
+    "utc": "2026-10-01T13:55:10.3271645Z",
+    "unity": "6000.4.3f1",
+    "material": "Assets/GreatWave/Polish30/Materials/PL30_Ukiyoe_Sea.mat",
+    "materialSha256": "4c0acf00de7dd2dc925410494d62e893bf86960d3b4663c4b5cc6729a6ceab8d",
+    "sea": "Build/Polish/30/sea",
+    "attrSha256": [
+        "near 790686bd92152bba96f279912213b97b7d13ecc7885987bdbd223428ddc87f95",
+        "far 1c7f4a779482d24d2c90f90d39e4cc3a3a41602aa45c28c313088e7f40c04adf"
+    ],
+    "scenes": [
+        {
+            "from": "Assets/GreatWave/Polish29/Scenes/PL29_Release.unity",
+            "fromSha256Before": "00e6625a6e29eafec740daf3ed5edf1eada784244bc7db96adc847dcabb4ec5e",
+            "fromSha256After": "00e6625a6e29eafec740daf3ed5edf1eada784244bc7db96adc847dcabb4ec5e",
+            "to": "Assets/GreatWave/Polish30/Scenes/PL30_Release.unity",
+            "toSha256": "fbfc465ead6fdd1c389f641e872277c7c8d50da8aebdb32e5bb9472e7df149e0",
+            "changesJa": [
+                "near packageDir Build/Design/30/sea/near → Build/Polish/30/sea/near、色区の表・UV3（設計36）を外し、材質を PL30_Ukiyoe_Sea",
+                "far packageDir Build/Design/30/sea/far → Build/Polish/30/sea/far、色区の表・UV3（設計36）を外し、材質を PL30_Ukiyoe_Sea",
+                "PL30UkiyoeSea を付けた（near 790686bd92152bba96f279912213b97b7d13ecc7885987bdbd223428ddc87f95、far 1c7f4a779482d24d2c90f90d39e4cc3a3a41602aa45c28c313088e7f40c04adf）",
+                "設計36 の DS36SeaPalette（t* の高さの段）を切り、再生器への参照を外した：DS36 周りの海の調色板（4 段＋谷の縁）",
+                "座席の船の上下 Build/Design/30/sea/boat_support.json → Build/Polish/30/sea/boat_support.json",
+                "T 字の幕を切った：DS30 継ぎ目の幕（near と far の T 字の継ぎ目の下）（far の行 0 は near の外周の全部の列）",
+                "遠い海に外殻線（DS38SheetOutline、PL30_Outline_far.mat＝near の線の材質の写し）を付けた",
+                "仮置き M1_Revision_LeftSupport を隠した（座席の視点で画面の幅の約 40% を占めた平らな板）",
+                "左奥の船のうねり（PL30LeftSwell、Build/Polish/30/left_swell/pl30_left_swell.json、SHA-256 177b011d12f0ec1c1f656fb27155dd95feb90b3f87f6eae1b7315179592373f4）を置いた。船 AF27 船 boat_left"
+            ]
+        },
+        {
+            "from": "Assets/GreatWave/Polish29/Scenes/PL29_SinglePlayback.unity",
+            "fromSha256Before": "7e528581fb0cd435752a473171397fa4e61ea81b207a021d6dfab0b3922841f0",
+            "fromSha256After": "7e528581fb0cd435752a473171397fa4e61ea81b207a021d6dfab0b3922841f0",
+            "to": "Assets/GreatWave/Polish30/Scenes/PL30_SinglePlayback.unity",
+            "toSha256": "3372822344b75407d525ff1c01861a731d11c1620c5396318fca90155b1097a9",
+            "changesJa": [
+                "near packageDir Build/Design/30/sea/near → Build/Polish/30/sea/near、色区の表・UV3（設計36）を外し、材質を PL30_Ukiyoe_Sea",
+                "far packageDir Build/Design/30/sea/far → Build/Polish/30/sea/far、色区の表・UV3（設計36）を外し、材質を PL30_Ukiyoe_Sea",
+                "PL30UkiyoeSea を付けた（near 790686bd92152bba96f279912213b97b7d13ecc7885987bdbd223428ddc87f95、far 1c7f4a779482d24d2c90f90d39e4cc3a3a41602aa45c28c313088e7f40c04adf）",
+                "座席の船の上下 Build/Design/30/sea/boat_support.json → Build/Polish/30/sea/boat_support.json",
+                "T 字の幕を切った：DS30 継ぎ目の幕（near と far の T 字の継ぎ目の下）（far の行 0 は near の外周の全部の列）",
+                "仮置き M1_Revision_LeftSupport を隠した（座席の視点で画面の幅の約 40% を占めた平らな板）",
+                "左奥の船のうねり（PL30LeftSwell、Build/Polish/30/left_swell/pl30_left_swell.json、SHA-256 177b011d12f0ec1c1f656fb27155dd95feb90b3f87f6eae1b7315179592373f4）を置いた。船 AF27 船 boat_left"
+            ]
+        }
+    ]
+}

@@ -1,0 +1,641 @@
+{
+ "number": "仕上げ30",
+ "schema": "GreatWave.PL30.checks/1",
+ "renderer_ja": "numpy（Unity の描画ではない）",
+ "sea": "Unity/Build/Polish/30/sea",
+ "hero": "Unity/Build/Polish/28/G_p28rec/art_on",
+ "near_knots_same_as_hero": true,
+ "near_layers": 251,
+ "near_rows": 64,
+ "near_cols": 1231,
+ "far_rows": 19,
+ "far_cols": 1231,
+ "seam": {
+  "ring0_max_diff_m": 7.574930492637577e-06,
+  "near_far_T_max_diff_m": 4.6115605130125914e-05,
+  "knots_checked": 51,
+  "normal_dot_min_excl_cone": 0.8646032862464033,
+  "normal_dot_p1_excl_cone": 0.9651007810840155,
+  "normal_dot_tstar_min_excl_cone": 0.8775157339158848,
+  "normal_dot_tstar_front_min": 0.8775157339158848,
+  "normal_dot_below09_tstar": 3,
+  "normal_dot_below09_max_per_knot": 3,
+  "worst": {
+   "knot": 175,
+   "col": 852
+  },
+  "note_ja": "法線は頂点の法線（隣の差の外積）。主役波は本体の列 18〜394 の中で求めた（設計30 は余白の列を含む格子で求めた）。錐の点（主役波の行 0・239）は法線が決まらないので除いた。"
+ },
+ "boat_patch": {
+  "cols": 74,
+  "max_ridge_outside_keel_m": 0.11359723339578609,
+  "max_groove_outside_keel_m": -0.3278617267955845,
+  "where": {
+   "ridge": 0.11359723339578609,
+   "groove": -0.3278617267955845,
+   "ridge_at": {
+    "col": 700,
+    "s": 6.366757479030127,
+    "dk": 2.7494958495117814,
+    "y": 1.0983622408722522
+   },
+   "groove_at": {
+    "col": 715,
+    "s": 4.010509641511362,
+    "dk": 2.4751576336146597,
+    "y": -0.49715997457156375
+   }
+  },
+  "keel_water_minus_keel_m": [
+   0.3603650317527505,
+   0.3449844567875928,
+   0.35686696387410155,
+   0.3250229860084519,
+   0.4425981910794863,
+   0.29706400254705967,
+   0.3480729062783625,
+   0.327013759861015,
+   0.4402763821438982,
+   0.40613370991573916,
+   0.4080034661031857
+  ],
+  "draft_m": 0.3806,
+  "note_ja": "t* の near の、船の支えにかかる列（当て布の重み > 0.01 か、行 0 が竜骨から outer + 3 m の内）で、継ぎ目から 8 m の内の y(s) の本当の山・谷（±1 m の中で最も高い・低い所）の高さ（±1 m の両側の低い方・高い方からの差。正が稜、負が溝）の最大。右の高い波の稜（面の座標 q の ±2 m）は自然の頂なので数えない。竜骨の足跡（inner_m）の内は数えない。keel_water_minus_keel_m は竜骨の 11 点の真下に最も近い near の頂点の高さ − 竜骨（喫水 0.381 m が理想）。"
+ },
+ "kink": {
+  "rows_in_band": 45,
+  "max_d2_m_per_frame2": 0.03780484911573012,
+  "max_at": {
+   "frame": 189,
+   "tau": -2.55,
+   "row": 11,
+   "col": 757
+  },
+  "p999_d2": 0.008328872969016302,
+  "frames_over_005": 0,
+  "window_tau_m3p1_m2p4_max_d2": 0.03780484911573012,
+  "max_slope_deg": 76.50259375970298,
+  "max_slope_frame": 360,
+  "max_slope_at": [
+   6,
+   671
+  ],
+  "window_max_slope_deg": 69.86848449455363,
+  "note_ja": "near の継ぎ目から 12 m の内の行の頂点の y の 30 Hz の二階差分（m／コマ²、t 0〜14 s、G_p28rec の時間曲線）と、線分に沿う傾きの最大（継ぎ目から 1 m より外）。窓は設計30 の限界 2 の τ −3.1〜−2.4 s。"
+ },
+ "fuji": {
+  "snow_mask_from": "Unity/Build/Polish/29/fix01/p29g/views/painting_t120_asis.png",
+  "snow_px": 2122,
+  "snow_x": [
+   1130,
+   1222
+  ],
+  "snow_y": [
+   694,
+   744
+  ],
+  "frames": [
+   {
+    "t": 5.0,
+    "tau": -3.201906002,
+    "snow_px": 2122,
+    "snow_visible_frac": 1.0,
+    "snow_visible_frac_sea_only": 1.0,
+    "sea_top_y_over_snow_cols": 794.8614582511279,
+    "hero_top_y_over_snow_cols": Infinity
+   },
+   {
+    "t": 5.125,
+    "tau": -3.137951149,
+    "snow_px": 2122,
+    "snow_visible_frac": 1.0,
+    "snow_visible_frac_sea_only": 1.0,
+    "sea_top_y_over_snow_cols": 794.8325290413648,
+    "hero_top_y_over_snow_cols": Infinity
+   },
+   {
+    "t": 5.25,
+    "tau": -3.075042455,
+    "snow_px": 2122,
+    "snow_visible_frac": 1.0,
+    "snow_visible_frac_sea_only": 1.0,
+    "sea_top_y_over_snow_cols": 794.7629817689224,
+    "hero_top_y_over_snow_cols": Infinity
+   },
+   {
+    "t": 5.375,
+    "tau": -3.012500035,
+    "snow_px": 2122,
+    "snow_visible_frac": 1.0,
+    "snow_visible_frac_sea_only": 1.0,
+    "sea_top_y_over_snow_cols": 794.8557395534164,
+    "hero_top_y_over_snow_cols": Infinity
+   },
+   {
+    "t": 5.5,
+    "tau": -2.95,
+    "snow_px": 2122,
+    "snow_visible_frac": 1.0,
+    "snow_visible_frac_sea_only": 1.0,
+    "sea_top_y_over_snow_cols": 794.9840543925587,
+    "hero_top_y_over_snow_cols": Infinity
+   },
+   {
+    "t": 5.625,
+    "tau": -2.8875,
+    "snow_px": 2122,
+    "snow_visible_frac": 1.0,
+    "snow_visible_frac_sea_only": 1.0,
+    "sea_top_y_over_snow_cols": 794.9875291390575,
+    "hero_top_y_over_snow_cols": Infinity
+   },
+   {
+    "t": 5.75,
+    "tau": -2.825,
+    "snow_px": 2122,
+    "snow_visible_frac": 1.0,
+    "snow_visible_frac_sea_only": 1.0,
+    "sea_top_y_over_snow_cols": 795.1924849919657,
+    "hero_top_y_over_snow_cols": Infinity
+   },
+   {
+    "t": 5.875,
+    "tau": -2.7625,
+    "snow_px": 2122,
+    "snow_visible_frac": 1.0,
+    "snow_visible_frac_sea_only": 1.0,
+    "sea_top_y_over_snow_cols": 795.432253317094,
+    "hero_top_y_over_snow_cols": Infinity
+   },
+   {
+    "t": 6.0,
+    "tau": -2.7,
+    "snow_px": 2122,
+    "snow_visible_frac": 1.0,
+    "snow_visible_frac_sea_only": 1.0,
+    "sea_top_y_over_snow_cols": 795.5547603106128,
+    "hero_top_y_over_snow_cols": Infinity
+   },
+   {
+    "t": 6.125,
+    "tau": -2.6375,
+    "snow_px": 2122,
+    "snow_visible_frac": 1.0,
+    "snow_visible_frac_sea_only": 1.0,
+    "sea_top_y_over_snow_cols": 795.8762481843881,
+    "hero_top_y_over_snow_cols": Infinity
+   },
+   {
+    "t": 6.25,
+    "tau": -2.575,
+    "snow_px": 2122,
+    "snow_visible_frac": 1.0,
+    "snow_visible_frac_sea_only": 1.0,
+    "sea_top_y_over_snow_cols": 796.2258205474506,
+    "hero_top_y_over_snow_cols": Infinity
+   },
+   {
+    "t": 6.375,
+    "tau": -2.5125,
+    "snow_px": 2122,
+    "snow_visible_frac": 1.0,
+    "snow_visible_frac_sea_only": 1.0,
+    "sea_top_y_over_snow_cols": 796.4790064460457,
+    "hero_top_y_over_snow_cols": Infinity
+   },
+   {
+    "t": 6.5,
+    "tau": -2.45,
+    "snow_px": 2122,
+    "snow_visible_frac": 1.0,
+    "snow_visible_frac_sea_only": 1.0,
+    "sea_top_y_over_snow_cols": 796.8991839231528,
+    "hero_top_y_over_snow_cols": Infinity
+   },
+   {
+    "t": 6.625,
+    "tau": -2.3875,
+    "snow_px": 2122,
+    "snow_visible_frac": 1.0,
+    "snow_visible_frac_sea_only": 1.0,
+    "sea_top_y_over_snow_cols": 793.0492928440053,
+    "hero_top_y_over_snow_cols": Infinity
+   },
+   {
+    "t": 6.75,
+    "tau": -2.325,
+    "snow_px": 2122,
+    "snow_visible_frac": 1.0,
+    "snow_visible_frac_sea_only": 1.0,
+    "sea_top_y_over_snow_cols": 786.893987192056,
+    "hero_top_y_over_snow_cols": Infinity
+   },
+   {
+    "t": 6.875,
+    "tau": -2.2625,
+    "snow_px": 2122,
+    "snow_visible_frac": 1.0,
+    "snow_visible_frac_sea_only": 1.0,
+    "sea_top_y_over_snow_cols": 783.0943776709192,
+    "hero_top_y_over_snow_cols": Infinity
+   },
+   {
+    "t": 7.0,
+    "tau": -2.2,
+    "snow_px": 2122,
+    "snow_visible_frac": 1.0,
+    "snow_visible_frac_sea_only": 1.0,
+    "sea_top_y_over_snow_cols": 780.5440388437454,
+    "hero_top_y_over_snow_cols": Infinity
+   },
+   {
+    "t": 7.125,
+    "tau": -2.1375,
+    "snow_px": 2122,
+    "snow_visible_frac": 1.0,
+    "snow_visible_frac_sea_only": 1.0,
+    "sea_top_y_over_snow_cols": 780.6793633033535,
+    "hero_top_y_over_snow_cols": Infinity
+   },
+   {
+    "t": 7.25,
+    "tau": -2.075,
+    "snow_px": 2122,
+    "snow_visible_frac": 1.0,
+    "snow_visible_frac_sea_only": 1.0,
+    "sea_top_y_over_snow_cols": 781.0581416830656,
+    "hero_top_y_over_snow_cols": Infinity
+   },
+   {
+    "t": 7.375,
+    "tau": -2.0125,
+    "snow_px": 2122,
+    "snow_visible_frac": 1.0,
+    "snow_visible_frac_sea_only": 1.0,
+    "sea_top_y_over_snow_cols": 781.4334899444616,
+    "hero_top_y_over_snow_cols": Infinity
+   },
+   {
+    "t": 7.5,
+    "tau": -1.95,
+    "snow_px": 2122,
+    "snow_visible_frac": 1.0,
+    "snow_visible_frac_sea_only": 1.0,
+    "sea_top_y_over_snow_cols": 781.8031177773396,
+    "hero_top_y_over_snow_cols": Infinity
+   },
+   {
+    "t": 7.625,
+    "tau": -1.8875,
+    "snow_px": 2122,
+    "snow_visible_frac": 1.0,
+    "snow_visible_frac_sea_only": 1.0,
+    "sea_top_y_over_snow_cols": 782.3117727817214,
+    "hero_top_y_over_snow_cols": Infinity
+   },
+   {
+    "t": 7.75,
+    "tau": -1.825,
+    "snow_px": 2122,
+    "snow_visible_frac": 1.0,
+    "snow_visible_frac_sea_only": 1.0,
+    "sea_top_y_over_snow_cols": 783.6527136960982,
+    "hero_top_y_over_snow_cols": Infinity
+   },
+   {
+    "t": 7.875,
+    "tau": -1.7625,
+    "snow_px": 2122,
+    "snow_visible_frac": 1.0,
+    "snow_visible_frac_sea_only": 1.0,
+    "sea_top_y_over_snow_cols": 785.5330154149251,
+    "hero_top_y_over_snow_cols": Infinity
+   },
+   {
+    "t": 8.0,
+    "tau": -1.7,
+    "snow_px": 2122,
+    "snow_visible_frac": 1.0,
+    "snow_visible_frac_sea_only": 1.0,
+    "sea_top_y_over_snow_cols": 785.7306091308574,
+    "hero_top_y_over_snow_cols": Infinity
+   },
+   {
+    "t": 8.125,
+    "tau": -1.6375,
+    "snow_px": 2122,
+    "snow_visible_frac": 1.0,
+    "snow_visible_frac_sea_only": 1.0,
+    "sea_top_y_over_snow_cols": 784.8968314733895,
+    "hero_top_y_over_snow_cols": Infinity
+   },
+   {
+    "t": 8.25,
+    "tau": -1.575,
+    "snow_px": 2122,
+    "snow_visible_frac": 1.0,
+    "snow_visible_frac_sea_only": 1.0,
+    "sea_top_y_over_snow_cols": 784.440805040671,
+    "hero_top_y_over_snow_cols": Infinity
+   },
+   {
+    "t": 8.375,
+    "tau": -1.5125,
+    "snow_px": 2122,
+    "snow_visible_frac": 1.0,
+    "snow_visible_frac_sea_only": 1.0,
+    "sea_top_y_over_snow_cols": 784.8648943866021,
+    "hero_top_y_over_snow_cols": Infinity
+   },
+   {
+    "t": 8.5,
+    "tau": -1.45,
+    "snow_px": 2122,
+    "snow_visible_frac": 1.0,
+    "snow_visible_frac_sea_only": 1.0,
+    "sea_top_y_over_snow_cols": 784.4240078122082,
+    "hero_top_y_over_snow_cols": Infinity
+   },
+   {
+    "t": 8.625,
+    "tau": -1.3875,
+    "snow_px": 2122,
+    "snow_visible_frac": 1.0,
+    "snow_visible_frac_sea_only": 1.0,
+    "sea_top_y_over_snow_cols": 778.2758822153419,
+    "hero_top_y_over_snow_cols": Infinity
+   },
+   {
+    "t": 8.75,
+    "tau": -1.325,
+    "snow_px": 2122,
+    "snow_visible_frac": 1.0,
+    "snow_visible_frac_sea_only": 1.0,
+    "sea_top_y_over_snow_cols": 771.8205262665159,
+    "hero_top_y_over_snow_cols": Infinity
+   },
+   {
+    "t": 8.875,
+    "tau": -1.2625,
+    "snow_px": 2122,
+    "snow_visible_frac": 1.0,
+    "snow_visible_frac_sea_only": 1.0,
+    "sea_top_y_over_snow_cols": 765.9331200773127,
+    "hero_top_y_over_snow_cols": Infinity
+   },
+   {
+    "t": 9.0,
+    "tau": -1.2,
+    "snow_px": 2122,
+    "snow_visible_frac": 1.0,
+    "snow_visible_frac_sea_only": 1.0,
+    "sea_top_y_over_snow_cols": 761.0597121040416,
+    "hero_top_y_over_snow_cols": Infinity
+   },
+   {
+    "t": 9.125,
+    "tau": -1.1375,
+    "snow_px": 2122,
+    "snow_visible_frac": 1.0,
+    "snow_visible_frac_sea_only": 1.0,
+    "sea_top_y_over_snow_cols": 758.1430058565325,
+    "hero_top_y_over_snow_cols": Infinity
+   },
+   {
+    "t": 9.25,
+    "tau": -1.075,
+    "snow_px": 2122,
+    "snow_visible_frac": 1.0,
+    "snow_visible_frac_sea_only": 1.0,
+    "sea_top_y_over_snow_cols": 756.7484746328853,
+    "hero_top_y_over_snow_cols": Infinity
+   },
+   {
+    "t": 9.375,
+    "tau": -1.0125,
+    "snow_px": 2122,
+    "snow_visible_frac": 1.0,
+    "snow_visible_frac_sea_only": 1.0,
+    "sea_top_y_over_snow_cols": 754.7125584201385,
+    "hero_top_y_over_snow_cols": Infinity
+   },
+   {
+    "t": 9.5,
+    "tau": -0.95,
+    "snow_px": 2122,
+    "snow_visible_frac": 1.0,
+    "snow_visible_frac_sea_only": 1.0,
+    "sea_top_y_over_snow_cols": 752.3412647271709,
+    "hero_top_y_over_snow_cols": Infinity
+   },
+   {
+    "t": 9.625,
+    "tau": -0.8875,
+    "snow_px": 2122,
+    "snow_visible_frac": 1.0,
+    "snow_visible_frac_sea_only": 1.0,
+    "sea_top_y_over_snow_cols": 749.5821563486207,
+    "hero_top_y_over_snow_cols": Infinity
+   },
+   {
+    "t": 9.75,
+    "tau": -0.825,
+    "snow_px": 2122,
+    "snow_visible_frac": 1.0,
+    "snow_visible_frac_sea_only": 1.0,
+    "sea_top_y_over_snow_cols": 747.3482647056334,
+    "hero_top_y_over_snow_cols": Infinity
+   },
+   {
+    "t": 9.875,
+    "tau": -0.7625,
+    "snow_px": 2122,
+    "snow_visible_frac": 1.0,
+    "snow_visible_frac_sea_only": 1.0,
+    "sea_top_y_over_snow_cols": 749.0192778431519,
+    "hero_top_y_over_snow_cols": Infinity
+   },
+   {
+    "t": 10.0,
+    "tau": -0.7,
+    "snow_px": 2122,
+    "snow_visible_frac": 1.0,
+    "snow_visible_frac_sea_only": 1.0,
+    "sea_top_y_over_snow_cols": 766.3080161594482,
+    "hero_top_y_over_snow_cols": Infinity
+   },
+   {
+    "t": 10.125,
+    "tau": -0.6375,
+    "snow_px": 2122,
+    "snow_visible_frac": 1.0,
+    "snow_visible_frac_sea_only": 1.0,
+    "sea_top_y_over_snow_cols": 774.1207918705968,
+    "hero_top_y_over_snow_cols": Infinity
+   },
+   {
+    "t": 10.25,
+    "tau": -0.575,
+    "snow_px": 2122,
+    "snow_visible_frac": 1.0,
+    "snow_visible_frac_sea_only": 1.0,
+    "sea_top_y_over_snow_cols": 773.3551314843984,
+    "hero_top_y_over_snow_cols": Infinity
+   },
+   {
+    "t": 10.375,
+    "tau": -0.5125,
+    "snow_px": 2122,
+    "snow_visible_frac": 1.0,
+    "snow_visible_frac_sea_only": 1.0,
+    "sea_top_y_over_snow_cols": 782.9963264383559,
+    "hero_top_y_over_snow_cols": 901.0940847729028
+   },
+   {
+    "t": 10.5,
+    "tau": -0.45,
+    "snow_px": 2122,
+    "snow_visible_frac": 1.0,
+    "snow_visible_frac_sea_only": 1.0,
+    "sea_top_y_over_snow_cols": 784.0348827824901,
+    "hero_top_y_over_snow_cols": 898.8546186296093
+   },
+   {
+    "t": 10.625,
+    "tau": -0.3875,
+    "snow_px": 2122,
+    "snow_visible_frac": 1.0,
+    "snow_visible_frac_sea_only": 1.0,
+    "sea_top_y_over_snow_cols": 784.445978567397,
+    "hero_top_y_over_snow_cols": 897.3289069913529
+   },
+   {
+    "t": 10.75,
+    "tau": -0.325,
+    "snow_px": 2122,
+    "snow_visible_frac": 1.0,
+    "snow_visible_frac_sea_only": 1.0,
+    "sea_top_y_over_snow_cols": 783.4536237224792,
+    "hero_top_y_over_snow_cols": 895.6966655332428
+   },
+   {
+    "t": 10.875,
+    "tau": -0.262641907,
+    "snow_px": 2122,
+    "snow_visible_frac": 1.0,
+    "snow_visible_frac_sea_only": 1.0,
+    "sea_top_y_over_snow_cols": 783.4831261716255,
+    "hero_top_y_over_snow_cols": 894.0245952581373
+   },
+   {
+    "t": 11.0,
+    "tau": -0.202546296,
+    "snow_px": 2122,
+    "snow_visible_frac": 1.0,
+    "snow_visible_frac_sea_only": 1.0,
+    "sea_top_y_over_snow_cols": 781.7046048951466,
+    "hero_top_y_over_snow_cols": 892.7863659476761
+   },
+   {
+    "t": 11.125,
+    "tau": -0.147805391,
+    "snow_px": 2122,
+    "snow_visible_frac": 1.0,
+    "snow_visible_frac_sea_only": 1.0,
+    "sea_top_y_over_snow_cols": 779.986570213015,
+    "hero_top_y_over_snow_cols": 891.9561620796376
+   },
+   {
+    "t": 11.25,
+    "tau": -0.100708008,
+    "snow_px": 2122,
+    "snow_visible_frac": 1.0,
+    "snow_visible_frac_sea_only": 1.0,
+    "sea_top_y_over_snow_cols": 778.7969849409485,
+    "hero_top_y_over_snow_cols": 890.9571949948398
+   },
+   {
+    "t": 11.375,
+    "tau": -0.062695256,
+    "snow_px": 2122,
+    "snow_visible_frac": 1.0,
+    "snow_visible_frac_sea_only": 1.0,
+    "sea_top_y_over_snow_cols": 777.9280248157486,
+    "hero_top_y_over_snow_cols": 890.306062903815
+   },
+   {
+    "t": 11.5,
+    "tau": -0.034360532,
+    "snow_px": 2122,
+    "snow_visible_frac": 1.0,
+    "snow_visible_frac_sea_only": 1.0,
+    "sea_top_y_over_snow_cols": 777.5593968701676,
+    "hero_top_y_over_snow_cols": 889.4817698323778
+   },
+   {
+    "t": 11.625,
+    "tau": -0.015449524,
+    "snow_px": 2122,
+    "snow_visible_frac": 1.0,
+    "snow_visible_frac_sea_only": 1.0,
+    "sea_top_y_over_snow_cols": 777.0054732214481,
+    "hero_top_y_over_snow_cols": 888.9346428385559
+   },
+   {
+    "t": 11.75,
+    "tau": -0.004860207,
+    "snow_px": 2122,
+    "snow_visible_frac": 1.0,
+    "snow_visible_frac_sea_only": 1.0,
+    "sea_top_y_over_snow_cols": 777.0873513466247,
+    "hero_top_y_over_snow_cols": 888.6924263402263
+   },
+   {
+    "t": 11.875,
+    "tau": -0.000642847,
+    "snow_px": 2122,
+    "snow_visible_frac": 1.0,
+    "snow_visible_frac_sea_only": 1.0,
+    "sea_top_y_over_snow_cols": 777.4940599070491,
+    "hero_top_y_over_snow_cols": 888.7758248481601
+   },
+   {
+    "t": 12.0,
+    "tau": 0.0,
+    "snow_px": 2122,
+    "snow_visible_frac": 1.0,
+    "snow_visible_frac_sea_only": 1.0,
+    "sea_top_y_over_snow_cols": 777.4740399351488,
+    "hero_top_y_over_snow_cols": 888.7885460045246
+   }
+  ],
+  "min_visible_frac_t5_10": 1.0,
+  "min_visible_frac_all": 1.0,
+  "min_visible_frac_sea_only_t5_10": 1.0,
+  "note_ja": "numpy の投影（原画視点 PaintingCam v1）。網の頂点・辺の中点・四角の中心の投影の列ごとの最も上の y を網の上の縁とし、富士の雪の印（仕上げ29 の t* の原画視点の描画で、雪の色 (252,249,230) ±6 の画素）のうち縁より上に残る割合。sea_only は主役波を数えない（主役波が隠す分は仕上げ30 の責任の外）。"
+ },
+ "boat_heave": {
+  "frames": 421,
+  "heave_under_water_frames": 0,
+  "heave_min_clearance_m": 1.2517762860654211,
+  "delta_range_m": [
+   -3.438538250022568,
+   0.8995127125535048
+  ],
+  "delta_max_accel_m_per_s2": 6.063084869975299,
+  "tstar_keel_water_minus_keel_m": [
+   0.3435688370979326,
+   0.3805988542959984,
+   0.38060277872529413,
+   0.36799583661587576,
+   0.352246951510347,
+   0.3800874838959749,
+   0.3806041956055821,
+   0.38059752128100166,
+   0.38059999549762974,
+   0.38060295666240784,
+   0.4688456004562511
+  ]
+ },
+ "seconds": 52.6
+}

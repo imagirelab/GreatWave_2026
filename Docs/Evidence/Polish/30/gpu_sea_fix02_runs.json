@@ -1,0 +1,70 @@
+{
+ "number": "仕上げ30 修正02",
+ "method_ja": "PL30Render -pl29Only gpu -pl29Gpu 1 -pl30GpuTarget sea を、前（-pl30Old 1：仕上げ29 の海）と後（修正02 の海）で 3 回ずつ交互に回した（修正01 と同じ方法）。各回は周りの海の面だけを残し t 6〜12 s の 120 コマを RT へ描いて毎コマ 1 画素を読み戻す壁時計の平均を 3 回（あり・なし）とり、中央値の差を海の分とした。GPU のタイマーではない。RTX 3080・Direct3D11。HMD 実機ではない。",
+ "runs": {
+  "painting_1920x1080_msaa8": {
+   "before_ms": [
+    0.3643,
+    0.4359,
+    0.4184
+   ],
+   "after_ms": [
+    0.7079,
+    0.6947,
+    0.6276
+   ],
+   "before_median": 0.4184,
+   "after_median": 0.6947,
+   "diff_median": 0.2763,
+   "fix01_after_median": 0.5844
+  },
+  "seat_1920x1080_msaa8": {
+   "before_ms": [
+    0.1891,
+    0.1819,
+    0.2642
+   ],
+   "after_ms": [
+    0.1593,
+    0.1089,
+    0.095
+   ],
+   "before_median": 0.1891,
+   "after_median": 0.1089,
+   "diff_median": -0.0802,
+   "fix01_after_median": 0.0991
+  },
+  "seat_toward_wave_1920x1080_msaa8": {
+   "before_ms": [
+    0.236,
+    0.3082,
+    0.2154
+   ],
+   "after_ms": [
+    0.5259,
+    0.4921,
+    0.5601
+   ],
+   "before_median": 0.236,
+   "after_median": 0.5259,
+   "diff_median": 0.28990000000000005,
+   "fix01_after_median": 0.5543
+  },
+  "seat_toward_wave_2eyes_2064x2208_msaa4": {
+   "before_ms": [
+    0.581,
+    0.6716,
+    0.585
+   ],
+   "after_ms": [
+    1.3508,
+    1.4399,
+    1.3334
+   ],
+   "before_median": 0.585,
+   "after_median": 1.3508,
+   "diff_median": 0.7658,
+   "fix01_after_median": 1.2694
+  }
+ }
+}
