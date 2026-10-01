@@ -1,0 +1,709 @@
+{
+ "schema": "GreatWave.Polish28r01.metrics/1",
+ "number": "仕上げ28修正01（設計28 原画の弧・最後の一コマ。後ろから見たドームのもう一度の試み。進行役の決定 2026-10-01、Q24）",
+ "made_local": "2026-10-01T12:02:46+08:00",
+ "state_ja": "達成していない。ドームは目で見て消えていない（RIDGE・SHOULDER のどちらも）。どちらも採らず、K*′ P28R2rec と動き G_p28rec のままにする。HMD 実機の結果ではない。利用者は見ていない。",
+ "evidence_kind_ja": "numpy の形の生成器と評価器、Blender 5.2.2 の粘土（Workbench）、numpy の z バッファー（原画視点・座席）。Unity の描画・動きの当て直し・焼き込みはしていない。",
+ "adopted": {
+  "kstar": "K*′ P28R2rec（Unity/Build/Polish/28/kstar_p28rec、変えない）",
+  "motion": "G_p28rec（変えない）",
+  "kstar_gwb_sha256": "a3bb1c81a79a15b7903729bd845a2d4b2660d3a06a417a218ae66f58eeb01e94"
+ },
+ "candidates": {
+  "RIDGE": {
+   "name": "K*′ P28R01RG",
+   "gwb_sha256": "5dd82b432086d33d4fc06fd070855f7082dacd8ab4ffdbc55ddb687171af5570",
+   "verdict": "採らない",
+   "by_eye_ja": "不合格（ドームは消えていない。中ほどの丸い頭が、奥へ上る稜と奥の端の頭巾の頂に変わった）"
+  },
+  "SHOULDER": {
+   "name": "K*′ P28R01SH",
+   "gwb_sha256": "4a37435e1db1a5c668475bcec96c7a07593222be917bdde34b236ba1922123b9",
+   "verdict": "採らない",
+   "by_eye_ja": "消えていない。後ろ 65°・−c 側の後ろで、奥の端の縦の壁が長い斜面（肩）に変わったが、中ほどの丸い頂（頭巾の頭）は土台と同じ。真後ろの丸い山の輪郭は同じ（原画で止まる頂の線と、管の口から見える奥の唇で決まる）で、左下の裾に暗い凹みが増えた。真上からは奥の端が後ろへ長く引かれた鰭になる（Q21 の「从上方看右边…后拉的凸起」と同じ種類）。"
+  }
+ },
+ "dome_by_eye": {
+  "verdict": "満たさない（3 つとも、後ろ 65° と回り台の後ろ側で頭巾の形のドームが残る）",
+  "views_ja": "後ろ 65°・その拡大・真後ろ・−c 側の後ろ・後ろ斜め・真上・回り台（12 コマ）、正面の真横・利用者の視点 v7・v8・v9、原画視点・座席",
+  "judges": [
+   {
+    "best": "P28R2rec",
+    "dome_gone_by_eye": false,
+    "scores_0_10": {
+     "P28R2rec": {
+      "dome_back65": 2,
+      "dome_back90_115": 2,
+      "turntable_back": 2,
+      "painting_view_intact": 10,
+      "user_views_clean": 7,
+      "thickness_Q16": 3,
+      "overall": 4
+     },
+     "RIDGE": {
+      "dome_back65": 3,
+      "dome_back90_115": 5,
+      "turntable_back": 3,
+      "painting_view_intact": 10,
+      "user_views_clean": 4,
+      "thickness_Q16": 2,
+      "overall": 4
+     },
+     "SHOULDER": {
+      "dome_back65": 2,
+      "dome_back90_115": 2,
+      "turntable_back": 1,
+      "painting_view_intact": 10,
+      "user_views_clean": 4,
+      "thickness_Q16": 0,
+      "overall": 2
+     }
+    }
+   },
+   {
+    "best": "P28R2rec",
+    "dome_gone_by_eye": false,
+    "note_ja": "数値の判者。原画視点・座席の不変、関門、b区域、F04、F10、Q17、R6 を gwb から読み直した"
+   }
+  ],
+  "pixel_diff_vs_P28R2rec": {
+   "threshold": "どれかの色の値の差 > 24",
+   "views_1100x1000": {
+    "b65_back65_clay": {
+     "base": 0,
+     "RG": 21150,
+     "SH": 98990
+    },
+    "b65z_back65_zoom": {
+     "base": 0,
+     "RG": 63920,
+     "SH": 171363
+    },
+    "b90_back_straight": {
+     "base": 0,
+     "RG": 14152,
+     "SH": 78397
+    },
+    "b115_back_minus_c": {
+     "base": 0,
+     "RG": 14341,
+     "SH": 64557
+    },
+    "v5_back_three_quarter": {
+     "base": 0,
+     "RG": 11007,
+     "SH": 58089
+    },
+    "v6_top_down": {
+     "base": 0,
+     "RG": 2220,
+     "SH": 36531
+    },
+    "v4_true_side_perp_crest_front": {
+     "base": 0,
+     "RG": 1611,
+     "SH": 0
+    },
+    "v7_user6_az330_el10": {
+     "base": 0,
+     "RG": 2346,
+     "SH": 0
+    },
+    "v8_user7_az290_el5": {
+     "base": 0,
+     "RG": 5271,
+     "SH": 50562
+    },
+    "v1_painting": {
+     "base": 0,
+     "RG": 0,
+     "SH": 0
+    },
+    "v2_seat": {
+     "base": 0,
+     "RG": 0,
+     "SH": 0
+    },
+    "v9_user8_az030_el25": {
+     "base": 0,
+     "RG": 11584,
+     "SH": 13881
+    }
+   },
+   "turntable_1280x720": {
+    "f0120": {
+     "base": 0,
+     "RG": 12839,
+     "SH": 73574
+    },
+    "f0140": {
+     "base": 0,
+     "RG": 32495,
+     "SH": 103088
+    },
+    "f0160": {
+     "base": 0,
+     "RG": 22642,
+     "SH": 58678
+    },
+    "f0180": {
+     "base": 0,
+     "RG": 12125,
+     "SH": 70545
+    },
+    "f0200": {
+     "base": 0,
+     "RG": 10944,
+     "SH": 48909
+    },
+    "f0220": {
+     "base": 0,
+     "RG": 5329,
+     "SH": 28755
+    }
+   },
+   "zoom_boxes": {
+    "v7_user6_az330_el10": [
+     456,
+     133,
+     816,
+     336
+    ],
+    "v8_user7_az290_el5": [
+     0,
+     146,
+     1100,
+     764
+    ],
+    "v4_true_side_perp_crest_front": [
+     509,
+     177,
+     869,
+     380
+    ]
+   }
+  }
+ },
+ "closing_criteria_plan_5_3": [
+  {
+   "criterion_ja": "後ろ 65° と回り台でドームが見えない（Q21）",
+   "verdict": "満たさない（3 つとも）",
+   "value": {
+    "groove_depth_max_m_[y,depth,c]": {
+     "RG": [
+      16.0,
+      0.131,
+      -0.2
+     ],
+     "P28R2rec": [
+      4.0,
+      1.73,
+      0.4
+     ],
+     "A5": [
+      16.0,
+      0.471,
+      -0.8
+     ],
+     "R4": [
+      18.0,
+      0.953,
+      1.6
+     ]
+    },
+    "H_max_m_and_c": {
+     "RG": [
+      21.269,
+      5.8
+     ],
+     "P28R2rec": [
+      20.27,
+      -0.8
+     ],
+     "A5": [
+      20.681,
+      5.4
+     ]
+    },
+    "back_elliptic_frac": {
+     "P28R2rec": 0.359,
+     "RIDGE": 0.372,
+     "SHOULDER": 0.339,
+     "R4": 0.445
+    },
+    "back_plan_bow_0.5H0_0.7H0_m": {
+     "P28R2rec": [
+      4.344,
+      1.263
+     ],
+     "RIDGE": [
+      3.825,
+      1.662
+     ],
+     "SHOULDER": [
+      7.368,
+      2.834
+     ],
+     "R4": [
+      3.929,
+      2.025
+     ]
+    },
+    "R6_p99_record_only": {
+     "P28R2rec": 0.69,
+     "RIDGE": 0.9,
+     "SHOULDER": 0.69,
+     "R4": 0.693,
+     "judge_gwb_reading": {
+      "P28R2rec": 0.684,
+      "RIDGE": 0.879,
+      "SHOULDER": 0.684,
+      "R4": 0.693
+     },
+     "note_ja": "R6 は目で見るドームを測っていない（P28R2rec・SHOULDER の最大は b区域のこぶ c −15・列 174、RIDGE は新しい奥の頂 c +7.0・列 87）"
+    }
+   }
+  },
+  {
+   "criterion_ja": "b区域が 3 つの房に読める（Q21）",
+   "verdict": "満たさない（3 つとも房 1 つ、x 425、際立ち 35.9 px。原画視点が変わらないので同じ）",
+   "value": {
+    "P28R2rec": [
+     [
+      [
+       425.0,
+       384.76206896551724,
+       35.8845977011494
+      ]
+     ],
+     [
+      279.0,
+      625.0
+     ]
+    ],
+    "RG": [
+     [
+      [
+       425.0,
+       384.76206896551724,
+       35.8845977011494
+      ]
+     ],
+     [
+      279.0,
+      625.0
+     ]
+    ],
+    "SH": [
+     [
+      [
+       425.0,
+       384.76206896551724,
+       35.8845977011494
+      ]
+     ],
+     [
+      279.0,
+      625.0
+     ]
+    ]
+   }
+  },
+  {
+   "criterion_ja": "F04 ≤ 18.5 m で本体が薄く見えない（Q16・Q21）",
+   "verdict": "F04 は満たさない（3 つとも）。SHOULDER は大きく悪化、RIDGE は上の段で太る。薄く見えないは満たす",
+   "value": {
+    "F04_0.5H0_m": {
+     "P28R2rec": 27.64,
+     "RIDGE": 27.78,
+     "SHOULDER": 34.85
+    },
+    "F04_0.75H0_m": {
+     "P28R2rec": 23.12,
+     "RIDGE": 24.22,
+     "SHOULDER": 26.97
+    },
+    "F04_0.9H0_m": {
+     "P28R2rec": 12.83,
+     "RIDGE": 18.01,
+     "SHOULDER": 12.83
+    },
+    "rows_abs_c_le_6_width_m": {
+     "P28R2rec": 10.35,
+     "RIDGE": 10.63,
+     "SHOULDER": 19.76
+    },
+    "volume_far_c_gt_0_m3": {
+     "P28R2rec": 1887.51,
+     "RIDGE": 2136,
+     "SHOULDER": 3574.98
+    },
+    "fullness_ratio": {
+     "P28R2rec": 1.35,
+     "RIDGE": 1.51,
+     "SHOULDER": 2.2
+    }
+   }
+  },
+  {
+   "criterion_ja": "78・130・131 が定義どおりの読みで ≤ 4 px",
+   "verdict": "満たす（3 つとも同じ値）",
+   "value": {
+    "unity_P28R2rec_carried": [
+     2.741,
+     3.5815,
+     3.4419
+    ],
+    "geometric_all_three": [
+     2.439,
+     3.23,
+     3.355
+    ],
+    "CP1": [
+     2.772,
+     1.968,
+     1.814
+    ],
+    "26R01": [
+     1.641,
+     1.953,
+     1.798
+    ]
+   }
+  },
+  {
+   "criterion_ja": "132・72（爪なし）が σ24 の緩めなし（σ12）で ≤ 4 px",
+   "verdict": "満たす（3 つとも同じ値）",
+   "value": {
+    "unity_P28R2rec_carried": [
+     3.5576,
+     3.8507
+    ],
+    "lf_sigma12_all_three": [
+     3.79,
+     3.682
+    ],
+    "CP1": [
+     1.326,
+     1.558
+    ],
+    "26R01": [
+     1.574,
+     1.723
+    ]
+   }
+  },
+  {
+   "criterion_ja": "134・267 が合格",
+   "verdict": "満たさない（原画視点が変わらないので仕上げ28 の値のまま：134 爪なし 7.264 px、267 の帯 6）",
+   "value": {
+    "134_clawfree": 7.264,
+    "134_claws": 2.047,
+    "267_bands_clawfree": 6,
+    "267_bands_claws": 4
+   }
+  },
+  {
+   "criterion_ja": "t* の頂と手前の尾の行が弧（Q17）",
+   "verdict": "満たす（3 つとも）。RIDGE は本体の Rmin と稜の行の弦の余裕を減らす",
+   "value": {
+    "arcs": {
+     "P28R2rec": {
+      "near_tail_min_deg": 123.29,
+      "near_tail_rows_lt110": 0,
+      "main_min_deg": 113.333,
+      "main_rows_lt110": 0
+     },
+     "RG": {
+      "near_tail_min_deg": 123.29,
+      "near_tail_rows_lt110": 0,
+      "main_min_deg": 113.353,
+      "main_rows_lt110": 0
+     }
+    },
+    "SHOULDER_arcs": {
+     "near_tail_min_deg": 123.29,
+     "near_tail_rows_lt110": 0,
+     "main_min_deg": 114.028,
+     "main_rows_lt110": 0
+    },
+    "F02_Rmin_c-5..3_m": {
+     "P28R2rec": 2.418,
+     "RIDGE": 1.606,
+     "SHOULDER": 2.418
+    },
+    "ridge_rows_top_chord_min_deg_c-2..9": {
+     "P28R2rec": 137.5,
+     "RIDGE": 120.3
+    }
+   }
+  }
+ ],
+ "closing_criteria_met": "3/7（仕上げ28 と同じ。この修正で変わった目安はない）",
+ "painting_view_unchanged": {
+  "zbuffer_painting_3840x2160_vs_P28R2rec": {
+   "RG": {
+    "coverage_px_rec": 3589195,
+    "coverage_px_cand": 3589195,
+    "coverage_changed_px": 0,
+    "depth_diff_gt_1cm_px": 0,
+    "depth_diff_gt_1mm_px": 0,
+    "depth_diff_max_m": 0.00024128095456887877,
+    "visible_tri_id_changed_px": 0
+   },
+   "SH": {
+    "coverage_px_rec": 3589195,
+    "coverage_px_cand": 3589195,
+    "coverage_changed_px": 0,
+    "depth_diff_gt_1cm_px": 0,
+    "depth_diff_gt_1mm_px": 0,
+    "depth_diff_max_m": 0.0,
+    "visible_tri_id_changed_px": 0
+   }
+  },
+  "seat_angular_raster_0p05deg": {
+   "seat": {
+    "RG": {
+     "added_px": 0,
+     "removed_px": 0,
+     "added_deg2": 0.0
+    },
+    "SH": {
+     "added_px": 0,
+     "removed_px": 0,
+     "added_deg2": 0.0
+    }
+   },
+   "seat+x0.5": {
+    "RG": {
+     "added_px": 0,
+     "removed_px": 0,
+     "added_deg2": 0.0
+    },
+    "SH": {
+     "added_px": 0,
+     "removed_px": 0,
+     "added_deg2": 0.0
+    }
+   },
+   "seat-x0.5": {
+    "RG": {
+     "added_px": 0,
+     "removed_px": 0,
+     "added_deg2": 0.0
+    },
+    "SH": {
+     "added_px": 0,
+     "removed_px": 0,
+     "added_deg2": 0.0
+    }
+   },
+   "seat+y0.5": {
+    "RG": {
+     "added_px": 0,
+     "removed_px": 0,
+     "added_deg2": 0.0
+    },
+    "SH": {
+     "added_px": 0,
+     "removed_px": 0,
+     "added_deg2": 0.0
+    }
+   }
+  },
+  "SHOULDER_check": {
+   "painting_zbuffer_ss1": {
+    "coverage_px_base": 870873,
+    "coverage_px_cand": 870873,
+    "coverage_changed_px": 0,
+    "visible_triangle_changed_px": 0,
+    "depth_change_max_m": 0.0
+   },
+   "painting_zbuffer_ss2": {
+    "coverage_px_base": 3472723,
+    "coverage_px_cand": 3472723,
+    "coverage_changed_px": 0,
+    "visible_triangle_changed_px": 0,
+    "depth_change_max_m": 0.0
+   },
+   "shell_lines_ss1": {
+    "line_px_base": 13185,
+    "line_px_cand": 13185,
+    "new_line_px_vs_base": 0,
+    "identical": true
+   },
+   "H_change_max_m": 0.0
+  },
+  "evaluator_note_ja": "Unity の評価器（爪あり・爪なし）は回していない。原画視点で見える面が画素まで同じ（見える三角形の違い 0 画素、奥行きの差の最大 0.24 mm）なので、値は仕上げ28 の Unity の読み（P28R2rec）のまま。どちらの案も採らないので、採用の状態の値も変わらない。"
+ },
+ "topology_kept": {
+  "RG": {
+   "tris_same": true,
+   "uv_same": true,
+   "uv2_same": true,
+   "move_vs_P28R2rec_m": {
+    "max": 3.0131542869402543,
+    "p99": 2.1545111413512514,
+    "n_gt_1cm": 10671,
+    "rows_moved_c": [
+     -10.999999989235256,
+     11.199999832728045
+    ],
+    "cols_moved": [
+     1,
+     181
+    ]
+   }
+  },
+  "SH": {
+   "tris_same": true,
+   "uv_same": true,
+   "uv2_same": true,
+   "move_vs_P28R2rec_m": {
+    "max": 22.09537049267601,
+    "p99": 13.014703334726525,
+    "n_gt_1cm": 9494,
+    "rows_moved_c": [
+     -8.600000376099752,
+     14.800000166846676
+    ],
+    "cols_moved": [
+     1,
+     84
+    ]
+   }
+  }
+ },
+ "rubric_must_fail_builder_reading": {
+  "P28R2rec": 27,
+  "RIDGE": 28,
+  "SHOULDER": 30,
+  "R4": 28,
+  "RIDGE_added": [
+   "F04 最高点 / H0",
+   "F04 最高点の c（m）"
+  ],
+  "RIDGE_removed": [
+   "F05 奥の端（最高点 + 4 m より奥）の 0.5H(c) の固まりの幅（m、最大）"
+  ],
+  "SHOULDER_added": [
+   "F03 殻の厚み（背の法線、中央値）/ H（範囲）",
+   "F03 背の S 字：曲率の符号の変わり目（数、最大）",
+   "F03 壁 0.5H（水平）/ H（最大）"
+  ]
+ },
+ "surface_quality_record_only": {
+  "bump4_p99": {
+   "P28R2rec": 1.628,
+   "RIDGE": 1.829,
+   "SHOULDER": 1.688
+  },
+  "mean_curvature_extrema": {
+   "P28R2rec": 29,
+   "RIDGE": 31
+  },
+  "cross_row_folds_gt30": {
+   "P28R2rec": 57,
+   "RIDGE": 57,
+   "SHOULDER": 49
+  },
+  "F10_height_step_m": {
+   "P28R2rec": 0.047,
+   "RIDGE": 0.047,
+   "A5": 0.433
+  }
+ },
+ "hc_figure": {
+  "SH_H_minus_base_max_m": 0.0,
+  "base_Hmax": [
+   20.270198820683383,
+   -0.800000011920929
+  ],
+  "RG_Hmax": [
+   21.269071199990673,
+   5.800000190734863
+  ]
+ },
+ "silhouette_freedom_ja": "後ろから見た山の輪郭は行ごとの頂の高さ H(c) で決まる。c ≤ −1 の行は頂が原画の輪郭を描くか、見える点が頂の 0.25 m 以内にあり、空の射線の天井も頂の 0.1〜0.5 m 上しかない。c 9.6〜13.2 の行は管の口から見える唇の約 1 m 上で止まる。背の殻だけを変える案（SHOULDER）は H(c) を変えない。動かせるのは c 0〜9 で頂を上げる向き（天井 20.6〜24.8 m）だけで、それが RIDGE。",
+ "backlog_carried_from_polish28": {
+  "note_ja": "どちらの案も採らないので、採用の状態（P28R2rec・G_p28rec）の値は仕上げ28 の metrics.json のまま",
+  "items": {
+   "68": {
+    "value": "唇先の厚さ（唇先から 0.75 m 奥の鉛直）の最小 0.041 m（t* で 0.281 m）、隣と逆向きの面（二面角 > 120°）77。ds29r01_measure qa（G_p28rec、精度の層、Blender なし）",
+    "verdict": "不合格（記録。≥ 0.3 m）"
+   },
+   "69": {
+    "value": "主役波の頂の表示の y は段階9 と同じ（輪郭の値が P28R2 と同じ）",
+    "verdict": "記録（設計40 で合格）"
+   },
+   "70": {
+    "value": "頂の y が変わらないので、波の上下と右船の長さの関係は設計40 と同じ",
+    "verdict": "記録（設計40 で合格）"
+   },
+   "71": {
+    "value": {
+     "p95_px_clawfree": 15.5975,
+     "p95_px_claws": 15.3813
+    },
+    "verdict": "記録のみ"
+   },
+   "72": {
+    "value": {
+     "sigma12_p95_clawfree": 3.8507,
+     "sigma12_p95_claws": 3.5698,
+     "sigma24_p95_clawfree": 3.0435,
+     "detail_p95_clawfree": 5.6807
+    },
+    "verdict": "合格（σ12、閉じる目安の読み）。細部込みは不合格・仕上げ33"
+   },
+   "73": {
+    "value": 2.484,
+    "verdict": "合格（28修正01 と +1.83 px。±0.5 超え、段階9 と同じ）"
+   },
+   "77": {
+    "value": 0.855,
+    "verdict": "合格"
+   },
+   "78": {
+    "value": 2.741,
+    "verdict": "合格"
+   },
+   "79": {
+    "value": 1.017,
+    "verdict": "合格（28修正01 と +0.68 px。段階9 +0.67）"
+   },
+   "130": {
+    "value": 3.5815,
+    "verdict": "合格（CP1 より +1.61 px）"
+   },
+   "131": {
+    "value": 3.4419,
+    "verdict": "合格（CP1 より +1.63 px）"
+   },
+   "132": {
+    "value": {
+     "sigma12_max_clawfree": 3.5576,
+     "detail_max_clawfree": 5.9472,
+     "detail_max_claws": 5.2998
+    },
+    "verdict": "合格（σ12）。細部込みは不合格・仕上げ33"
+   },
+   "133": {
+    "value": 0.743,
+    "verdict": "合格"
+   },
+   "134": {
+    "value": {
+     "clawfree": 7.264,
+     "claws": 2.047
+    },
+    "verdict": "不合格（爪なし。唇先 (1090, 427) で描画が空）。爪ありは合格（記録）"
+   }
+  }
+ },
+ "not_done_ja": [
+  "Unity の描画（どちらの案も採らないので行わない）",
+  "動きの当て直し・焼き込み・爪・色の作り直し（同じ）",
+  "HMD 実機"
+ ]
+}
