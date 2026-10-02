@@ -1,0 +1,535 @@
+{
+ "rule_ja": "視点は Q28 の 7 つ（原画視点・座席・座席から波の方向・左右の側面・後ろ 65°・真上）と回り台 12 方位、時刻は t 6・9・10.5・12 s。\n描き方は仕上げ33修正01 の r01_run_render.sh と同じ PL33Render（Unity の PC オフスクリーン描画、作品のまま：爪・飛沫・線あり）。\n各図は 1920×1080：上の段＝前、中の段＝後、下の段＝差（|後 − 前| の最大の色の差を 8 倍して黒地に表示）。差の数は ΔRGB > 0 と > 8 の画素。\n使い方：py -3.10 -B Tools/GWWaveGen/pl35/pl35_sheets.py [--before <描画>] [--after <描画>] [--runs <プレイヤーの走り>] [--out <dir>]",
+ "before": "G:/Unity/GreatWave_2026_Fresh/Unity/Build/Polish/33r01/fix01/r_fix01",
+ "after": "G:/Unity/GreatWave_2026_Fresh/Unity/Build/Polish/35/r_after",
+ "stats": {
+  "views/painting/t060": {
+   "pixels": 2073600,
+   "changed_gt0": 0,
+   "changed_gt8": 0,
+   "max": 0
+  },
+  "views/painting/t090": {
+   "pixels": 2073600,
+   "changed_gt0": 0,
+   "changed_gt8": 0,
+   "max": 0
+  },
+  "views/painting/t105": {
+   "pixels": 2073600,
+   "changed_gt0": 0,
+   "changed_gt8": 0,
+   "max": 0
+  },
+  "views/painting/t120": {
+   "pixels": 2073600,
+   "changed_gt0": 0,
+   "changed_gt8": 0,
+   "max": 0
+  },
+  "views/seat/t060": {
+   "pixels": 2073600,
+   "changed_gt0": 0,
+   "changed_gt8": 0,
+   "max": 0
+  },
+  "views/seat/t090": {
+   "pixels": 2073600,
+   "changed_gt0": 0,
+   "changed_gt8": 0,
+   "max": 0
+  },
+  "views/seat/t105": {
+   "pixels": 2073600,
+   "changed_gt0": 0,
+   "changed_gt8": 0,
+   "max": 0
+  },
+  "views/seat/t120": {
+   "pixels": 2073600,
+   "changed_gt0": 0,
+   "changed_gt8": 0,
+   "max": 0
+  },
+  "views/seat_toward_wave/t060": {
+   "pixels": 2073600,
+   "changed_gt0": 0,
+   "changed_gt8": 0,
+   "max": 0
+  },
+  "views/seat_toward_wave/t090": {
+   "pixels": 2073600,
+   "changed_gt0": 0,
+   "changed_gt8": 0,
+   "max": 0
+  },
+  "views/seat_toward_wave/t105": {
+   "pixels": 2073600,
+   "changed_gt0": 0,
+   "changed_gt8": 0,
+   "max": 0
+  },
+  "views/seat_toward_wave/t120": {
+   "pixels": 2073600,
+   "changed_gt0": 0,
+   "changed_gt8": 0,
+   "max": 0
+  },
+  "views/side_left/t060": {
+   "pixels": 2073600,
+   "changed_gt0": 0,
+   "changed_gt8": 0,
+   "max": 0
+  },
+  "views/side_left/t090": {
+   "pixels": 2073600,
+   "changed_gt0": 0,
+   "changed_gt8": 0,
+   "max": 0
+  },
+  "views/side_left/t105": {
+   "pixels": 2073600,
+   "changed_gt0": 0,
+   "changed_gt8": 0,
+   "max": 0
+  },
+  "views/side_left/t120": {
+   "pixels": 2073600,
+   "changed_gt0": 0,
+   "changed_gt8": 0,
+   "max": 0
+  },
+  "views/side_right/t060": {
+   "pixels": 2073600,
+   "changed_gt0": 0,
+   "changed_gt8": 0,
+   "max": 0
+  },
+  "views/side_right/t090": {
+   "pixels": 2073600,
+   "changed_gt0": 0,
+   "changed_gt8": 0,
+   "max": 0
+  },
+  "views/side_right/t105": {
+   "pixels": 2073600,
+   "changed_gt0": 0,
+   "changed_gt8": 0,
+   "max": 0
+  },
+  "views/side_right/t120": {
+   "pixels": 2073600,
+   "changed_gt0": 0,
+   "changed_gt8": 0,
+   "max": 0
+  },
+  "views/back65/t060": {
+   "pixels": 2073600,
+   "changed_gt0": 0,
+   "changed_gt8": 0,
+   "max": 0
+  },
+  "views/back65/t090": {
+   "pixels": 2073600,
+   "changed_gt0": 0,
+   "changed_gt8": 0,
+   "max": 0
+  },
+  "views/back65/t105": {
+   "pixels": 2073600,
+   "changed_gt0": 0,
+   "changed_gt8": 0,
+   "max": 0
+  },
+  "views/back65/t120": {
+   "pixels": 2073600,
+   "changed_gt0": 0,
+   "changed_gt8": 0,
+   "max": 0
+  },
+  "views/top/t060": {
+   "pixels": 2073600,
+   "changed_gt0": 0,
+   "changed_gt8": 0,
+   "max": 0
+  },
+  "views/top/t090": {
+   "pixels": 2073600,
+   "changed_gt0": 0,
+   "changed_gt8": 0,
+   "max": 0
+  },
+  "views/top/t105": {
+   "pixels": 2073600,
+   "changed_gt0": 0,
+   "changed_gt8": 0,
+   "max": 0
+  },
+  "views/top/t120": {
+   "pixels": 2073600,
+   "changed_gt0": 0,
+   "changed_gt8": 0,
+   "max": 0
+  },
+  "tt/t060/az000": {
+   "pixels": 2073600,
+   "changed_gt0": 0,
+   "changed_gt8": 0,
+   "max": 0
+  },
+  "tt/t060/az030": {
+   "pixels": 2073600,
+   "changed_gt0": 0,
+   "changed_gt8": 0,
+   "max": 0
+  },
+  "tt/t060/az060": {
+   "pixels": 2073600,
+   "changed_gt0": 0,
+   "changed_gt8": 0,
+   "max": 0
+  },
+  "tt/t060/az090": {
+   "pixels": 2073600,
+   "changed_gt0": 0,
+   "changed_gt8": 0,
+   "max": 0
+  },
+  "tt/t060/az120": {
+   "pixels": 2073600,
+   "changed_gt0": 0,
+   "changed_gt8": 0,
+   "max": 0
+  },
+  "tt/t060/az150": {
+   "pixels": 2073600,
+   "changed_gt0": 0,
+   "changed_gt8": 0,
+   "max": 0
+  },
+  "tt/t060/az180": {
+   "pixels": 2073600,
+   "changed_gt0": 0,
+   "changed_gt8": 0,
+   "max": 0
+  },
+  "tt/t060/az210": {
+   "pixels": 2073600,
+   "changed_gt0": 0,
+   "changed_gt8": 0,
+   "max": 0
+  },
+  "tt/t060/az240": {
+   "pixels": 2073600,
+   "changed_gt0": 0,
+   "changed_gt8": 0,
+   "max": 0
+  },
+  "tt/t060/az270": {
+   "pixels": 2073600,
+   "changed_gt0": 0,
+   "changed_gt8": 0,
+   "max": 0
+  },
+  "tt/t060/az300": {
+   "pixels": 2073600,
+   "changed_gt0": 0,
+   "changed_gt8": 0,
+   "max": 0
+  },
+  "tt/t060/az330": {
+   "pixels": 2073600,
+   "changed_gt0": 0,
+   "changed_gt8": 0,
+   "max": 0
+  },
+  "tt/t090/az000": {
+   "pixels": 2073600,
+   "changed_gt0": 0,
+   "changed_gt8": 0,
+   "max": 0
+  },
+  "tt/t090/az030": {
+   "pixels": 2073600,
+   "changed_gt0": 0,
+   "changed_gt8": 0,
+   "max": 0
+  },
+  "tt/t090/az060": {
+   "pixels": 2073600,
+   "changed_gt0": 0,
+   "changed_gt8": 0,
+   "max": 0
+  },
+  "tt/t090/az090": {
+   "pixels": 2073600,
+   "changed_gt0": 0,
+   "changed_gt8": 0,
+   "max": 0
+  },
+  "tt/t090/az120": {
+   "pixels": 2073600,
+   "changed_gt0": 0,
+   "changed_gt8": 0,
+   "max": 0
+  },
+  "tt/t090/az150": {
+   "pixels": 2073600,
+   "changed_gt0": 0,
+   "changed_gt8": 0,
+   "max": 0
+  },
+  "tt/t090/az180": {
+   "pixels": 2073600,
+   "changed_gt0": 0,
+   "changed_gt8": 0,
+   "max": 0
+  },
+  "tt/t090/az210": {
+   "pixels": 2073600,
+   "changed_gt0": 0,
+   "changed_gt8": 0,
+   "max": 0
+  },
+  "tt/t090/az240": {
+   "pixels": 2073600,
+   "changed_gt0": 0,
+   "changed_gt8": 0,
+   "max": 0
+  },
+  "tt/t090/az270": {
+   "pixels": 2073600,
+   "changed_gt0": 0,
+   "changed_gt8": 0,
+   "max": 0
+  },
+  "tt/t090/az300": {
+   "pixels": 2073600,
+   "changed_gt0": 0,
+   "changed_gt8": 0,
+   "max": 0
+  },
+  "tt/t090/az330": {
+   "pixels": 2073600,
+   "changed_gt0": 0,
+   "changed_gt8": 0,
+   "max": 0
+  },
+  "tt/t105/az000": {
+   "pixels": 2073600,
+   "changed_gt0": 0,
+   "changed_gt8": 0,
+   "max": 0
+  },
+  "tt/t105/az030": {
+   "pixels": 2073600,
+   "changed_gt0": 0,
+   "changed_gt8": 0,
+   "max": 0
+  },
+  "tt/t105/az060": {
+   "pixels": 2073600,
+   "changed_gt0": 0,
+   "changed_gt8": 0,
+   "max": 0
+  },
+  "tt/t105/az090": {
+   "pixels": 2073600,
+   "changed_gt0": 0,
+   "changed_gt8": 0,
+   "max": 0
+  },
+  "tt/t105/az120": {
+   "pixels": 2073600,
+   "changed_gt0": 0,
+   "changed_gt8": 0,
+   "max": 0
+  },
+  "tt/t105/az150": {
+   "pixels": 2073600,
+   "changed_gt0": 0,
+   "changed_gt8": 0,
+   "max": 0
+  },
+  "tt/t105/az180": {
+   "pixels": 2073600,
+   "changed_gt0": 0,
+   "changed_gt8": 0,
+   "max": 0
+  },
+  "tt/t105/az210": {
+   "pixels": 2073600,
+   "changed_gt0": 0,
+   "changed_gt8": 0,
+   "max": 0
+  },
+  "tt/t105/az240": {
+   "pixels": 2073600,
+   "changed_gt0": 0,
+   "changed_gt8": 0,
+   "max": 0
+  },
+  "tt/t105/az270": {
+   "pixels": 2073600,
+   "changed_gt0": 0,
+   "changed_gt8": 0,
+   "max": 0
+  },
+  "tt/t105/az300": {
+   "pixels": 2073600,
+   "changed_gt0": 0,
+   "changed_gt8": 0,
+   "max": 0
+  },
+  "tt/t105/az330": {
+   "pixels": 2073600,
+   "changed_gt0": 0,
+   "changed_gt8": 0,
+   "max": 0
+  },
+  "tt/t120/az000": {
+   "pixels": 2073600,
+   "changed_gt0": 0,
+   "changed_gt8": 0,
+   "max": 0
+  },
+  "tt/t120/az030": {
+   "pixels": 2073600,
+   "changed_gt0": 0,
+   "changed_gt8": 0,
+   "max": 0
+  },
+  "tt/t120/az060": {
+   "pixels": 2073600,
+   "changed_gt0": 0,
+   "changed_gt8": 0,
+   "max": 0
+  },
+  "tt/t120/az090": {
+   "pixels": 2073600,
+   "changed_gt0": 0,
+   "changed_gt8": 0,
+   "max": 0
+  },
+  "tt/t120/az120": {
+   "pixels": 2073600,
+   "changed_gt0": 0,
+   "changed_gt8": 0,
+   "max": 0
+  },
+  "tt/t120/az150": {
+   "pixels": 2073600,
+   "changed_gt0": 0,
+   "changed_gt8": 0,
+   "max": 0
+  },
+  "tt/t120/az180": {
+   "pixels": 2073600,
+   "changed_gt0": 0,
+   "changed_gt8": 0,
+   "max": 0
+  },
+  "tt/t120/az210": {
+   "pixels": 2073600,
+   "changed_gt0": 0,
+   "changed_gt8": 0,
+   "max": 0
+  },
+  "tt/t120/az240": {
+   "pixels": 2073600,
+   "changed_gt0": 0,
+   "changed_gt8": 0,
+   "max": 0
+  },
+  "tt/t120/az270": {
+   "pixels": 2073600,
+   "changed_gt0": 0,
+   "changed_gt8": 0,
+   "max": 0
+  },
+  "tt/t120/az300": {
+   "pixels": 2073600,
+   "changed_gt0": 0,
+   "changed_gt8": 0,
+   "max": 0
+  },
+  "tt/t120/az330": {
+   "pixels": 2073600,
+   "changed_gt0": 0,
+   "changed_gt8": 0,
+   "max": 0
+  },
+  "player/exp_hmd": {
+   "pixels": 2073600,
+   "changed_gt0": 141873,
+   "changed_gt8": 26690,
+   "max": 214
+  },
+  "player/desk1080_painting": {
+   "pixels": 2073600,
+   "changed_gt0": 0,
+   "changed_gt8": 0,
+   "max": 0
+  },
+  "player/desk1080_seat": {
+   "pixels": 2073600,
+   "changed_gt0": 4103,
+   "changed_gt8": 101,
+   "max": 54
+  },
+  "player/proxy_stereo_hmd_L": {
+   "pixels": 4557312,
+   "changed_gt0": 1052577,
+   "changed_gt8": 837930,
+   "max": 216
+  },
+  "player_same_path/exp_hmd/f1_legacy1_vs_f1_legacy2": {
+   "pixels": 2073600,
+   "changed_gt0": 105802,
+   "changed_gt8": 8477,
+   "max": 214
+  },
+  "player_same_path/exp_hmd/f1_fast1_vs_f1_fast2": {
+   "pixels": 2073600,
+   "changed_gt0": 390428,
+   "changed_gt8": 274257,
+   "max": 216
+  },
+  "player_same_path/desk1080_painting/f1_legacy1_vs_f1_legacy2": {
+   "pixels": 2073600,
+   "changed_gt0": 0,
+   "changed_gt8": 0,
+   "max": 0
+  },
+  "player_same_path/desk1080_painting/f1_fast1_vs_f1_fast2": {
+   "pixels": 2073600,
+   "changed_gt0": 0,
+   "changed_gt8": 0,
+   "max": 0
+  },
+  "player_same_path/desk1080_seat/f1_legacy1_vs_f1_legacy2": {
+   "pixels": 2073600,
+   "changed_gt0": 1660,
+   "changed_gt8": 26,
+   "max": 50
+  },
+  "player_same_path/desk1080_seat/f1_fast1_vs_f1_fast2": {
+   "pixels": 2073600,
+   "changed_gt0": 19,
+   "changed_gt8": 0,
+   "max": 1
+  },
+  "player_same_path/proxy_stereo_hmd_L/f1_legacy1_vs_f1_legacy2": {
+   "pixels": 4557312,
+   "changed_gt0": 991560,
+   "changed_gt8": 785096,
+   "max": 216
+  },
+  "player_same_path/proxy_stereo_hmd_L/f1_fast1_vs_f1_fast2": {
+   "pixels": 4557312,
+   "changed_gt0": 695663,
+   "changed_gt8": 540586,
+   "max": 216
+  }
+ }
+}

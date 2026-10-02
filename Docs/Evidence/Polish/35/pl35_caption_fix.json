@@ -1,0 +1,62 @@
+{
+ "rule_ja": "設計35 の 2×2 の動画の右下の説明は、各版の「最初の爪」をデータの時刻（爪が根元から伸び始めるコマ）で書いていた。V3 の 3.6 s は、\n動画ではその時刻に爪が画面の外にあり、画面で V1 と違って見え始めるのはずっと後（段階6確認 F6-4、設計35 §5 の 1）。\nこの道具は、設計35 の元の動画（Git 対象外の Unity/Build/Design/35/variants/video_raw。作り直さない）から、V2・V3 が V1 と\n初めて 50 画素以上違うコマ（ΔRGB > 40。設計35 の記録の数え直しと同じ読み）を数え直し、説明を\n「データの最初の爪 x.x s（伸び始め）／この視点の画面で V1 と違って見え始める y.y s」の 2 つに分けて書いた 2×2 の動画を作る。\n動画の中身（3 版の描画）と並べ方・速さ（30 fps・421 コマ）は設計35 と同じ。設計35 の証拠（Docs/Evidence/Design/35）は書き換えない。\n出力：--out（既定 Unity/Build/Polish/35/caption）に pl35_ds35_2x2_<視点>_30fps.mp4 と pl35_caption_fix.json。\n使い方：py -3.10 -B Tools/GWWaveGen/pl35/pl35_caption_fix.py",
+ "inputs": {
+  "ds35_v1_list_painting_30fps.mp4": {
+   "bytes": 2631515,
+   "sha256": "202c8cd7f8e70380d4fae71f8bce4829467a9106a5323aab66d3cac219b56f5c"
+  },
+  "ds35_v2_light_painting_30fps.mp4": {
+   "bytes": 2561556,
+   "sha256": "248e5aef0cbaf71ab7bc81a478a6968a41ec3500628aa40dd80037772144673c"
+  },
+  "ds35_v3_exag_painting_30fps.mp4": {
+   "bytes": 2691151,
+   "sha256": "8b97ef59da4b0ee2bf6da248500beabaff928dbe4a0d4adad94467f2154ef697"
+  },
+  "ds35_v1_list_seat_30fps.mp4": {
+   "bytes": 1032009,
+   "sha256": "8a107eb2c6b2edd42f6a7f374a50cb7ded7a72e6e04b916830dae729a4649e9b"
+  },
+  "ds35_v2_light_seat_30fps.mp4": {
+   "bytes": 938682,
+   "sha256": "2314d6e877a11fcc25092b4cc18166b821f79d379320998c61ece4c7db8fa0a1"
+  },
+  "ds35_v3_exag_seat_30fps.mp4": {
+   "bytes": 1111128,
+   "sha256": "b3785bf7d039dbe3fb906b0a5e79460b36368761ffd26ef6dcc31c5810e52b29"
+  }
+ },
+ "views": {
+  "painting": {
+   "first_diff_vs_v1_s": {
+    "v2_light": 8.867,
+    "v3_exag": 6.767
+   },
+   "frames": 421
+  },
+  "painting_w0": {
+   "first_diff_vs_v1_s": {
+    "v2_light": 6.967,
+    "v3_exag": 6.4
+   },
+   "frames": 421
+  },
+  "seat": {
+   "first_diff_vs_v1_s": {
+    "v2_light": 9.4,
+    "v3_exag": 8.867
+   },
+   "frames": 421
+  }
+ },
+ "outputs": {
+  "pl35_ds35_2x2_painting_30fps.mp4": {
+   "bytes": 2100683,
+   "sha256": "5abea0ae276fdcdd1079af10ae8039b29ffe88806027b59fec6a264ea584c753"
+  },
+  "pl35_ds35_2x2_seat_30fps.mp4": {
+   "bytes": 934869,
+   "sha256": "df8cb5c852d579969b4de47a4334f68922f5bc5db54d64121d2a586cea961cff"
+  }
+ }
+}

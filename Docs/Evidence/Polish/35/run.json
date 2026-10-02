@@ -1,0 +1,174 @@
+{
+ "schema": "GreatWave.Polish35.run/1",
+ "tools": {
+  "unity": "6000.4.3f1",
+  "python": "3.10",
+  "numpy": "2.2.6",
+  "ffmpeg": "G:/ffmpeg-2024-12-19-git-494c961379-full_build",
+  "gpu": "NVIDIA GeForce RTX 3080",
+  "cpu": "12th Gen Intel(R) Core(TM) i7-12700K"
+ },
+ "code_sha256": {
+  "Unity/Assets/GreatWave/Polish35/Scripts/PL35PerfProbe.cs": "6d7850a15ca1b4778d33f5533a02a5f0fc341e0a88a1661200d3c5d23433948b",
+  "Unity/Assets/GreatWave/Polish35/Scripts/PL35ClawOutlineFast.cs": "295adf4ff0452db02c959551681cb63d19f8250c1a30fe29ea5b3962cb77270b",
+  "Unity/Assets/GreatWave/Polish35/Editor/PL35Setup.cs": "53dc4a03da2b8a5ce83b718e7fe0ba0f2e4091646da450ae5635c2562a3f0471",
+  "Unity/Assets/GreatWave/Polish35/Editor/PL35ReleaseBuild.cs": "080aeb160d075e22d72cba042c188de7369fb40276966870d18132231714cb51",
+  "Unity/Assets/GreatWave/Polish35/Editor/PL35ClawBench.cs": "74b96d790b416d8d4ef330a85988468bb28bf4106d49674c33cbc8732bc76b64",
+  "Unity/Assets/GreatWave/Polish35/Scenes/PL35_Release.unity": "54ebacadd5af885ca60eec7949dfdbbf1b08c9a8d0e7ff255f25416f37e9f275",
+  "Unity/Assets/GreatWave/Polish35/Scenes/PL35_SinglePlayback.unity": "106ae881115377717e4f48ab05c59f6b5bf495419056abb871d87aed1b0b1aa0",
+  "Tools/GWWaveGen/pl35/pl35_run_unity.ps1": "2fac7396be0009b66599f3b8f3a739543de31e1499a46cf437264850424e28ee",
+  "Tools/GWWaveGen/pl35/pl35_run_player.ps1": "c8e3602461d351773600fa1a5283244db060f93fd34626867379ba3c8e42206f",
+  "Tools/GWWaveGen/pl35/pl35_run_render.sh": "cbe72f4290a3350d7230002adebe1dce7e1046c9b5d85b754e1dc0407339cee2",
+  "Tools/GWWaveGen/pl35/pl35_perf_summary.py": "6df1fd8eb9b066db3ff99279198825a8b74e34deeaefd5e9c12de0e1ba7d7110",
+  "Tools/GWWaveGen/pl35/pl35_formation.py": "12a1a611c7b873f06c8cafdd0d8a0285deaba4fce52ed66f0750efab41942d7e",
+  "Tools/GWWaveGen/pl35/pl35_caption_fix.py": "83b399bd1e2c7f27575b14c1647533bf716cc9865620998addfb5e55c197175f",
+  "Tools/GWWaveGen/pl35/pl35_sheets.py": "aa068d2ac676d33e0c004b38971e3baa598864575583e535b3600cd92a9bcda2",
+  "Tools/GWWaveGen/pl35/pl35_record.py": "632a4b69f9bcc56f029cfb370c0ae0f19767f946dfed240a4cf060dba512839c"
+ },
+ "release_exe": {
+  "path": "G:\\Unity\\GreatWave_2026_Fresh\\Unity\\Build\\Polish\\35\\release\\player\\GreatWave50.exe",
+  "sha256": "5be81b3fa7df7c08cadee6f79d6ff3fe95481420f166ba8127390ea669c8b12c",
+  "scene": "Assets/GreatWave/Polish35/Scenes/PL35_Release.unity",
+  "sceneSha256": "54ebacadd5af885ca60eec7949dfdbbf1b08c9a8d0e7ff255f25416f37e9f275",
+  "dataBytes": 1250313915,
+  "dataFiles": 44
+ },
+ "claw_files": [
+  {
+   "rel": "Build/Polish/33r01/fix01/claws/ds33_claw_frames_f32.bin",
+   "bytes": 528979764,
+   "sha256": "8bb2ebbc8e794fa1bc257bcd0b45c8b05f7f9d6c1eb7bee41a6e6c4757a2d6ed"
+  },
+  {
+   "rel": "Build/Polish/33r01/fix01/claws/ds33_claw_layout.json",
+   "bytes": 129874,
+   "sha256": "5e2b06da951e6875960343bb6790117a0b554b7cdb2eda698221b12ae1cb4825"
+  },
+  {
+   "rel": "Build/Polish/33r01/fix01/claws/ds33_claw_skel_f32.bin",
+   "bytes": 41284944,
+   "sha256": "ecafefc786385e06dd1cdce2b00ba73ed3c5dec3818d75637b930205d3509f17"
+  },
+  {
+   "rel": "Build/Polish/33r01/fix01/claws/ds33_claw_tri_attr_u16.bin",
+   "bytes": 799520,
+   "sha256": "168d188cc383ba0edb17be245cacf3a12886359baa002b6650c335adf103583a"
+  },
+  {
+   "rel": "Build/Polish/33r01/fix01/claws/ds33_claw_tris_i32.bin",
+   "bytes": 2398560,
+   "sha256": "cebb784ca71f33279cabe55633be74cd26b883bbce21a0098fa15c9fab1e4979"
+  }
+ ],
+ "player_runs": {
+  "f1_fast1": {
+   "mode": "perf",
+   "exe": "G:\\Unity\\GreatWave_2026_Fresh\\Unity\\Build\\Polish\\35\\release\\player\\GreatWave50.exe",
+   "exeSha256": "5be81b3fa7df7c08cadee6f79d6ff3fe95481420f166ba8127390ea669c8b12c",
+   "args": "-screen-fullscreen 0 -screen-width 1920 -screen-height 1080 -logFile \"G:\\Unity\\GreatWave_2026_Fresh\\Unity\\Build\\Polish\\35\\runs\\f1_fast1\\player.log\" --pl35perf -pl35out \"G:\\Unity\\GreatWave_2026_Fresh\\Unity\\Build\\Polish\\35\\runs\\f1_fast1\" -pl35tag f1_fast1",
+   "utcStart": "2026-10-02T10:44:28.0452438Z",
+   "seconds": 253.731,
+   "exitCode": 0
+  },
+  "f1_legacy1": {
+   "mode": "perf",
+   "exe": "G:\\Unity\\GreatWave_2026_Fresh\\Unity\\Build\\Polish\\35\\release\\player\\GreatWave50.exe",
+   "exeSha256": "5be81b3fa7df7c08cadee6f79d6ff3fe95481420f166ba8127390ea669c8b12c",
+   "args": "-screen-fullscreen 0 -screen-width 1920 -screen-height 1080 -logFile \"G:\\Unity\\GreatWave_2026_Fresh\\Unity\\Build\\Polish\\35\\runs\\f1_legacy1\\player.log\" --pl35perf -pl35out \"G:\\Unity\\GreatWave_2026_Fresh\\Unity\\Build\\Polish\\35\\runs\\f1_legacy1\" -pl35tag f1_legacy1 --pl35legacy",
+   "utcStart": "2026-10-02T10:48:42.5137627Z",
+   "seconds": 253.645,
+   "exitCode": 0
+  },
+  "f1_fast2": {
+   "mode": "perf",
+   "exe": "G:\\Unity\\GreatWave_2026_Fresh\\Unity\\Build\\Polish\\35\\release\\player\\GreatWave50.exe",
+   "exeSha256": "5be81b3fa7df7c08cadee6f79d6ff3fe95481420f166ba8127390ea669c8b12c",
+   "args": "-screen-fullscreen 0 -screen-width 1920 -screen-height 1080 -logFile \"G:\\Unity\\GreatWave_2026_Fresh\\Unity\\Build\\Polish\\35\\runs\\f1_fast2\\player.log\" --pl35perf -pl35out \"G:\\Unity\\GreatWave_2026_Fresh\\Unity\\Build\\Polish\\35\\runs\\f1_fast2\" -pl35tag f1_fast2",
+   "utcStart": "2026-10-02T10:52:57.0208263Z",
+   "seconds": 253.707,
+   "exitCode": 0
+  },
+  "f1_legacy2": {
+   "mode": "perf",
+   "exe": "G:\\Unity\\GreatWave_2026_Fresh\\Unity\\Build\\Polish\\35\\release\\player\\GreatWave50.exe",
+   "exeSha256": "5be81b3fa7df7c08cadee6f79d6ff3fe95481420f166ba8127390ea669c8b12c",
+   "args": "-screen-fullscreen 0 -screen-width 1920 -screen-height 1080 -logFile \"G:\\Unity\\GreatWave_2026_Fresh\\Unity\\Build\\Polish\\35\\runs\\f1_legacy2\\player.log\" --pl35perf -pl35out \"G:\\Unity\\GreatWave_2026_Fresh\\Unity\\Build\\Polish\\35\\runs\\f1_legacy2\" -pl35tag f1_legacy2 --pl35legacy",
+   "utcStart": "2026-10-02T10:57:11.6604797Z",
+   "seconds": 253.724,
+   "exitCode": 0
+  },
+  "auto_pl33r01_1": {
+   "mode": "auto",
+   "exe": "G:/Unity/GreatWave_2026_Fresh/Unity/Build/Polish/33r01/release/player/GreatWave50.exe",
+   "exeSha256": "5be81b3fa7df7c08cadee6f79d6ff3fe95481420f166ba8127390ea669c8b12c",
+   "args": "-screen-fullscreen 0 -screen-width 1920 -screen-height 1080 -logFile \"G:\\Unity\\GreatWave_2026_Fresh\\Unity\\Build\\Polish\\35\\runs\\auto_pl33r01_1\\player.log\" --ds50auto main --ds50out \"G:\\Unity\\GreatWave_2026_Fresh\\Unity\\Build\\Polish\\35\\runs\\auto_pl33r01_1\"",
+   "utcStart": "2026-10-02T11:01:45.0102530Z",
+   "seconds": 98.171,
+   "exitCode": 0
+  },
+  "auto_pl35_1": {
+   "mode": "auto",
+   "exe": "G:\\Unity\\GreatWave_2026_Fresh\\Unity\\Build\\Polish\\35\\release\\player\\GreatWave50.exe",
+   "exeSha256": "5be81b3fa7df7c08cadee6f79d6ff3fe95481420f166ba8127390ea669c8b12c",
+   "args": "-screen-fullscreen 0 -screen-width 1920 -screen-height 1080 -logFile \"G:\\Unity\\GreatWave_2026_Fresh\\Unity\\Build\\Polish\\35\\runs\\auto_pl35_1\\player.log\" --ds50auto main --ds50out \"G:\\Unity\\GreatWave_2026_Fresh\\Unity\\Build\\Polish\\35\\runs\\auto_pl35_1\"",
+   "utcStart": "2026-10-02T11:03:23.9680683Z",
+   "seconds": 98.04,
+   "exitCode": 0
+  },
+  "auto_pl33r01_2": {
+   "mode": "auto",
+   "exe": "G:/Unity/GreatWave_2026_Fresh/Unity/Build/Polish/33r01/release/player/GreatWave50.exe",
+   "exeSha256": "5be81b3fa7df7c08cadee6f79d6ff3fe95481420f166ba8127390ea669c8b12c",
+   "args": "-screen-fullscreen 0 -screen-width 1920 -screen-height 1080 -logFile \"G:\\Unity\\GreatWave_2026_Fresh\\Unity\\Build\\Polish\\35\\runs\\auto_pl33r01_2\\player.log\" --ds50auto main --ds50out \"G:\\Unity\\GreatWave_2026_Fresh\\Unity\\Build\\Polish\\35\\runs\\auto_pl33r01_2\"",
+   "utcStart": "2026-10-02T11:05:02.7178591Z",
+   "seconds": 98.061,
+   "exitCode": 0
+  },
+  "auto_pl35_2": {
+   "mode": "auto",
+   "exe": "G:\\Unity\\GreatWave_2026_Fresh\\Unity\\Build\\Polish\\35\\release\\player\\GreatWave50.exe",
+   "exeSha256": "5be81b3fa7df7c08cadee6f79d6ff3fe95481420f166ba8127390ea669c8b12c",
+   "args": "-screen-fullscreen 0 -screen-width 1920 -screen-height 1080 -logFile \"G:\\Unity\\GreatWave_2026_Fresh\\Unity\\Build\\Polish\\35\\runs\\auto_pl35_2\\player.log\" --ds50auto main --ds50out \"G:\\Unity\\GreatWave_2026_Fresh\\Unity\\Build\\Polish\\35\\runs\\auto_pl35_2\"",
+   "utcStart": "2026-10-02T11:06:41.5064847Z",
+   "seconds": 97.935,
+   "exitCode": 0
+  },
+  "auto_ds50_1": {
+   "mode": "auto",
+   "exe": "G:/Unity/GreatWave_2026_Fresh/Unity/Build/Design/50/release/player/GreatWave50.exe",
+   "exeSha256": "5be81b3fa7df7c08cadee6f79d6ff3fe95481420f166ba8127390ea669c8b12c",
+   "args": "-screen-fullscreen 0 -screen-width 1920 -screen-height 1080 -logFile \"G:\\Unity\\GreatWave_2026_Fresh\\Unity\\Build\\Polish\\35\\runs\\auto_ds50_1\\player.log\" --ds50auto main --ds50out \"G:\\Unity\\GreatWave_2026_Fresh\\Unity\\Build\\Polish\\35\\runs\\auto_ds50_1\"",
+   "utcStart": "2026-10-02T11:21:07.3063115Z",
+   "seconds": 94.157,
+   "exitCode": 0
+  },
+  "f0_perf1": {
+   "mode": "perf",
+   "exe": "G:\\Unity\\GreatWave_2026_Fresh\\Unity\\Build\\Polish\\35\\release\\player\\GreatWave50.exe",
+   "exeSha256": "5be81b3fa7df7c08cadee6f79d6ff3fe95481420f166ba8127390ea669c8b12c",
+   "args": "-screen-fullscreen 0 -screen-width 1920 -screen-height 1080 -logFile \"G:\\Unity\\GreatWave_2026_Fresh\\Unity\\Build\\Polish\\35\\runs\\f0_perf1\\player.log\" --pl35perf -pl35out \"G:\\Unity\\GreatWave_2026_Fresh\\Unity\\Build\\Polish\\35\\runs\\f0_perf1\" -pl35tag f0_perf1",
+   "utcStart": "2026-10-02T10:30:52.2177671Z",
+   "seconds": 172.063,
+   "exitCode": 0
+  },
+  "f0_perf2": {
+   "mode": "perf",
+   "exe": "G:\\Unity\\GreatWave_2026_Fresh\\Unity\\Build\\Polish\\35\\release\\player\\GreatWave50.exe",
+   "exeSha256": "5be81b3fa7df7c08cadee6f79d6ff3fe95481420f166ba8127390ea669c8b12c",
+   "args": "-screen-fullscreen 0 -screen-width 1920 -screen-height 1080 -logFile \"G:\\Unity\\GreatWave_2026_Fresh\\Unity\\Build\\Polish\\35\\runs\\f0_perf2\\player.log\" --pl35perf -pl35out \"G:\\Unity\\GreatWave_2026_Fresh\\Unity\\Build\\Polish\\35\\runs\\f0_perf2\" -pl35tag f0_perf2",
+   "utcStart": "2026-10-02T10:38:03.1884031Z",
+   "seconds": 253.747,
+   "exitCode": 0
+  }
+ },
+ "commands_ja": [
+  "powershell -File Tools/GWWaveGen/pl35/pl35_run_unity.ps1 -Method GreatWave.Polish35.EditorTools.PL35Setup.BuildScenes -Log setup_fix1 -Extra \"-pl35fix 1\"",
+  "powershell -File Tools/GWWaveGen/pl35/pl35_run_unity.ps1 -Method GreatWave.Polish35.EditorTools.PL35ReleaseBuild.BuildAll -Log release_build_fix1",
+  "powershell -File Tools/GWWaveGen/pl35/pl35_run_player.ps1 -Tag f1_fast1 -Mode perf（f1_legacy1 は -Extra --pl35legacy。f1_fast2・f1_legacy2 と交互）",
+  "powershell -File Tools/GWWaveGen/pl35/pl35_run_player.ps1 -Tag auto_pl35_1 -Mode auto（auto_pl33r01_* は -Exe Unity/Build/Polish/33r01/release/player/GreatWave50.exe。交互）",
+  "powershell -File Tools/GWWaveGen/pl35/pl35_run_unity.ps1 -Method GreatWave.Polish35.EditorTools.PL35ClawBench.Run -Log bench1",
+  "bash Tools/GWWaveGen/pl35/pl35_run_render.sh r_after views,tt,t28,full,video",
+  "py -3.10 -B Tools/PaintingTruth/evaluate.py（4 組、出力 Unity/Build/Polish/35/eval23）・py -3.10 -B Tools/GWWaveGen/pl28/pl28u_regress.py --scene Unity/Build/Polish/35/r_after --kstar rec",
+  "py -3.10 -B Tools/GWWaveGen/pl35/pl35_sheets.py ／ pl35_caption_fix.py ／ pl35_record.py"
+ ]
+}

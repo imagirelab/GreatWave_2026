@@ -1,0 +1,763 @@
+{
+ "schema": "GreatWave.Polish35.metrics/1",
+ "group": "仕上げ35（設計35 数量と負荷）",
+ "date": "2026-10-02",
+ "evidence_kind_ja": "Release（Development でない）の Windows プレイヤーを PC（RTX 3080・i7-12700K、Direct3D11、1920×1080 の窓、垂直同期なし）で動かした実測と、Unity 6000.4.3f1 の PC オフスクリーン描画。HMD 実機ではない（PS VR2 は未導入）。対象 PC の RTX3060 ではない（借りていない）＝代理測定。",
+ "items": [
+  {
+   "plan_line": "RTX3060 を借りられれば同じプレイヤーで実測、借りられなければ代理のまま「代理測定」と明記。81・112・199 の本判定",
+   "user_words": false,
+   "result_ja": "RTX3060 は借りていないので代理測定（RTX 3080）。設計35 の DS35Perf.exe は設計34 の古い場面（爪 148 本・飛沫 186 個・DS27 の材質）を描くので、体験の場面の写し PL35_Release.unity に計測器 PL35PerfProbe を置いて測り直した。81・112・199 は代理で不合格（記録）。本判定（RTX3060・PS VR2）は保留。"
+  },
+  {
+   "plan_line": "2×2 の動画の説明の「最初の爪 3.6 s」の直し（F6-4）",
+   "user_words": false,
+   "result_ja": "説明を「データの最初の爪（根元から伸び始めるコマ）」と「この視点の画面で V1 と違って見え始める時刻」に分けた 2×2 の動画を作り直した（原画視点 V3 6.8 s・V2 8.9 s、座席 V3 8.9 s・V2 9.4 s）。設計35 の証拠は書き換えていない。",
+   "values": {
+    "painting": {
+     "first_diff_vs_v1_s": {
+      "v2_light": 8.867,
+      "v3_exag": 6.767
+     },
+     "frames": 421
+    },
+    "painting_w0": {
+     "first_diff_vs_v1_s": {
+      "v2_light": 6.967,
+      "v3_exag": 6.4
+     },
+     "frames": 421
+    },
+    "seat": {
+     "first_diff_vs_v1_s": {
+      "v2_light": 9.4,
+      "v3_exag": 8.867
+     },
+     "frames": 421
+    }
+   }
+  }
+ ],
+ "backlog": {
+  "b81": {
+   "criterion_ja": "1920×1080 で平均 ≥ 30 fps・95% のフレーム ≤ 33.3 ms（RTX3080 で代理測定）",
+   "value_ja": "最大密度の区間 t 11〜12 s（後、原画視点・座席 v1・体験の画面 × 2 回）：平均 29.0〜30.1 fps、間隔 p95 34.44〜44.14 ms",
+   "verdict_ja": "代理で不合格（95% ≤ 33.3 ms を満たさず、平均は 30 fps の前後）。原因は船用水面データの作り直し（仕上げ43）。本判定（RTX3060）は保留"
+  },
+  "b112": {
+   "criterion_ja": "同上（設計35 と同じ読み）",
+   "value_ja": "同上",
+   "verdict_ja": "同上"
+  },
+  "b199": {
+   "criterion_ja": "波・爪・線・飛沫・船が同時に映る形成の全区間で平均 ≥ 30 fps・95% ≤ 33.3 ms（3080 で代理測定）。VR 代理の GPU p95 ≤ 8.9 ms",
+   "value_ja": "形成の全区間（後 2 回）：平均 29.0・28.7 fps、間隔 p95 45.5・45.4 ms。立体の代理の GPU p95：時刻を止めて 2.15 ms、作り直しを止めて 3.22〜3.27 ms、CPU 律速のまま 13.12〜13.62 ms",
+   "verdict_ja": "フレームの時間は代理で不合格（CPU 律速、船用水面データの作り直し）。GPU の描画の仕事は 8.9 ms の内（CPU 律速の時の FrameTiming の GPU p95 は CPU の待ちを含むとみて記録）。PS VR2 の実機は保留"
+  },
+  "acceptance_81_112_other": {
+   "keypose_le_512MiB_ja": "主役波の keypose（hero_pkg）276.4 MiB ≤ 512 MiB。周りの海の keypose 308.3 MiB、爪の並び 547.0 MiB（コマの表 504.5 MiB）は別に持つ",
+   "mock_line_diff_ja": "「Mock の両眼の線の画素の差 <10%」は Mock では測っていない。2 カメラの代理の左右の眼の暗い画素（輝度 < 60）の数の差は 0.4〜1.8%（参考。線の ID の数ではない）"
+  }
+ },
+ "fix_round_1": {
+  "what_ja": "PL35ClawOutlineFast：共通時計の爪の段を同じ規則（仕上げ32 の PL32ClawDriver の飛ばし）の段で置き換え、縁の線の頂点を DS34ClawPlayer の今の配列から写さずに入れる（DS34ClawPlayer.Current の 1.26 MB の写しをなくす）。法線は今までと同じ RecalculateNormals。--pl35legacy で前の道",
+  "selfcheck_t": [
+   7.01230001449585,
+   9.0,
+   10.5,
+   11.512299537658691,
+   12.0
+  ],
+  "selfcheck_max_vertex_diff": [
+   [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ]
+  ],
+  "selfcheck_max_normal_diff": [
+   [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ]
+  ],
+  "gc_per_8s_no_boatwater_before": [
+   112,
+   113
+  ],
+  "gc_per_8s_no_boatwater_after": [
+   0,
+   0
+  ],
+  "claws_stage_ms_p50_no_boatwater_before": [
+   2.584,
+   2.573
+  ],
+  "claws_stage_ms_p50_no_boatwater_after": [
+   2.359,
+   2.394
+  ],
+  "interval_max_ms_no_boatwater_before": [
+   6.567,
+   6.498
+  ],
+  "interval_max_ms_no_boatwater_after": [
+   5.057,
+   5.474
+  ],
+  "verdict_ja": "ごみ集めとフレームの揺れは減ったが、81・112・199 の判定は変わらない（律速は船用水面データの作り直し）"
+ },
+ "attribution": {
+  "boat_water_rebuild_ms_mean": [
+   29.759,
+   29.365,
+   30.206,
+   29.457
+  ],
+  "stage_ms_p50_exp_hmd_after": {
+   "msSeek_p50": 32.216,
+   "msWater_p50": 0.06,
+   "msBoatWater_p50": 0.001,
+   "msWhite_p50": 0.005,
+   "msClaws_p50": 2.7,
+   "msSpray_p50": 0.05
+  },
+  "gpu_static_stereo_p95": {
+   "ps_static_all": 2.153,
+   "ps_static_no_sea": 1.831,
+   "ps_static_no_hero": 1.536,
+   "ps_static_no_claws": 2.07,
+   "ps_static_no_spray": 2.145
+  },
+  "note_ja": "座席の船の段（seat_boat）の水の問い合わせ（HeightAt → Sync）が作り直しを起こすので、boat_water の段の時間は 0.001 ms で、作り直しの時間は DS43BoatWater.RebuildMsTotal から読んだ"
+ },
+ "claw_bench_editor": [
+  {
+   "nameJa": "DS34ClawPlayer.ApplyT（格子の間、補間）",
+   "msMean": 0.644465,
+   "msMin": 0.6223000000000001,
+   "msMax": 0.7211000000000001,
+   "n": 20
+  },
+  {
+   "nameJa": "DS38ClawOutline.Sync（全部）",
+   "msMean": 1.67297,
+   "msMin": 1.3005,
+   "msMax": 2.436,
+   "n": 20
+  },
+  {
+   "nameJa": "DS34ClawPlayer.Current（配列の写し）",
+   "msMean": 0.127445,
+   "msMin": 0.1188,
+   "msMax": 0.1703,
+   "n": 20
+  },
+  {
+   "nameJa": "線のメッシュ SetVertices",
+   "msMean": 0.08899499999999999,
+   "msMin": 0.08560000000000001,
+   "msMax": 0.1232,
+   "n": 20
+  },
+  {
+   "nameJa": "線のメッシュ RecalculateNormals",
+   "msMean": 1.0951450000000003,
+   "msMin": 1.0405,
+   "msMax": 1.2036,
+   "n": 20
+  },
+  {
+   "nameJa": "爪のメッシュ SetVertices（ApplyT の中の分）",
+   "msMean": 0.050415,
+   "msMin": 0.045000000000000005,
+   "msMax": 0.0955,
+   "n": 20
+  },
+  {
+   "nameJa": "C# の並列の法線（面積の重み）",
+   "msMean": 1.55492,
+   "msMin": 1.1859,
+   "msMax": 2.3825000000000003,
+   "n": 20
+  },
+  {
+   "nameJa": "C# の並列の法線（面の単位法線）",
+   "msMean": 1.9632200000000002,
+   "msMin": 1.826,
+   "msMax": 2.0966,
+   "n": 20
+  },
+  {
+   "nameJa": "線のメッシュ SetNormals",
+   "msMean": 0.10342500000000002,
+   "msMin": 0.08940000000000001,
+   "msMax": 0.2585,
+   "n": 20
+  }
+ ],
+ "data_mib": {
+  "claws": 547.0,
+  "sea": 308.3,
+  "hero_pkg": 276.4,
+  "total": 1192.4,
+  "mono_heap_mb_player": 1200
+ },
+ "regression": {
+  "editor_views_tt_images": 76,
+  "editor_changed_pixels_total": 0,
+  "full_renders_byte_identical": true,
+  "videos_byte_identical": true,
+  "evaluator23": {
+   "line": {
+    "fail": 7,
+    "pass": 2,
+    "record-only": 14
+   },
+   "line_noclaws": {
+    "fail": 7,
+    "pass": 2,
+    "record-only": 14
+   },
+   "noline": {
+    "pass": 4,
+    "fail": 5,
+    "record-only": 14
+   },
+   "noline_noclaws": {
+    "pass": 4,
+    "fail": 5,
+    "record-only": 14
+   }
+  },
+  "gates_ja": "78 2.741・130 3.5815・131 3.4419・132 σ12 3.5789（爪なし 3.5576）・72 σ12 p95 3.9059（爪なし 3.8507）。仕上げ33修正01 と同じ値（描画が画素まで同じ）。CP1 は 2.772・1.968・1.814・1.326・1.558、26修正01 は 1.641・1.953・1.798・1.574・1.723",
+  "player_painting_view_changed_pixels": {
+   "pixels": 2073600,
+   "changed_gt0": 0,
+   "changed_gt8": 0,
+   "max": 0
+  }
+ },
+ "recount": {
+  "probe_dt": {
+   "f1_fast1": {
+    "exp_hmd": {
+     "fps_mean_dt": 29.7,
+     "p95_ms_dt": 34.472,
+     "max_ms_dt": 76.328,
+     "over_33_3_frac_dt": 0.4043
+    },
+    "desk1080_painting": {
+     "fps_mean_dt": 29.6,
+     "p95_ms_dt": 34.858,
+     "max_ms_dt": 74.762,
+     "over_33_3_frac_dt": 0.5109
+    },
+    "desk1080_seat": {
+     "fps_mean_dt": 29.9,
+     "p95_ms_dt": 34.615,
+     "max_ms_dt": 43.721,
+     "over_33_3_frac_dt": 0.4739
+    },
+    "proxy_stereo_hmd": {
+     "fps_mean_dt": 29.6,
+     "p95_ms_dt": 34.646,
+     "max_ms_dt": 75.969,
+     "over_33_3_frac_dt": 0.441
+    },
+    "proxy_stereo_seat": {
+     "fps_mean_dt": 30.2,
+     "p95_ms_dt": 34.114,
+     "max_ms_dt": 34.86,
+     "over_33_3_frac_dt": 0.3632
+    },
+    "exp_hmd_static": {
+     "fps_mean_dt": 1336.2,
+     "p95_ms_dt": 1.126,
+     "max_ms_dt": 1.757,
+     "over_33_3_frac_dt": 0.0
+    },
+    "exp_hmd_no_boatwater": {
+     "fps_mean_dt": 326.5,
+     "p95_ms_dt": 3.719,
+     "max_ms_dt": 5.054,
+     "over_33_3_frac_dt": 0.0
+    },
+    "exp_hmd_no_spray": {
+     "fps_mean_dt": 29.4,
+     "p95_ms_dt": 43.553,
+     "max_ms_dt": 78.449,
+     "over_33_3_frac_dt": 0.3202
+    },
+    "exp_hmd_no_claws": {
+     "fps_mean_dt": 32.7,
+     "p95_ms_dt": 31.588,
+     "max_ms_dt": 73.528,
+     "over_33_3_frac_dt": 0.0357
+    },
+    "exp_hmd_no_all3": {
+     "fps_mean_dt": 1392.3,
+     "p95_ms_dt": 1.089,
+     "max_ms_dt": 2.696,
+     "over_33_3_frac_dt": 0.0
+    },
+    "proxy_stereo_hmd_no_boatwater": {
+     "fps_mean_dt": 302.0,
+     "p95_ms_dt": 4.067,
+     "max_ms_dt": 5.45,
+     "over_33_3_frac_dt": 0.0
+    },
+    "desk1080_painting_static": {
+     "fps_mean_dt": 949.4,
+     "p95_ms_dt": 1.448,
+     "max_ms_dt": 1.906,
+     "over_33_3_frac_dt": 0.0
+    },
+    "desk1080_seat_static": {
+     "fps_mean_dt": 1653.4,
+     "p95_ms_dt": 0.924,
+     "max_ms_dt": 1.753,
+     "over_33_3_frac_dt": 0.0
+    },
+    "ps_static_all": {
+     "fps_mean_dt": 551.0,
+     "p95_ms_dt": 2.236,
+     "max_ms_dt": 2.788,
+     "over_33_3_frac_dt": 0.0
+    },
+    "ps_static_no_sea": {
+     "fps_mean_dt": 668.4,
+     "p95_ms_dt": 1.914,
+     "max_ms_dt": 2.339,
+     "over_33_3_frac_dt": 0.0
+    },
+    "ps_static_no_hero": {
+     "fps_mean_dt": 823.7,
+     "p95_ms_dt": 1.614,
+     "max_ms_dt": 2.117,
+     "over_33_3_frac_dt": 0.0
+    },
+    "ps_static_no_claws": {
+     "fps_mean_dt": 581.1,
+     "p95_ms_dt": 2.157,
+     "max_ms_dt": 2.631,
+     "over_33_3_frac_dt": 0.0
+    },
+    "ps_static_no_spray": {
+     "fps_mean_dt": 560.9,
+     "p95_ms_dt": 2.212,
+     "max_ms_dt": 2.891,
+     "over_33_3_frac_dt": 0.0
+    }
+   },
+   "f1_legacy1": {
+    "exp_hmd": {
+     "fps_mean_dt": 29.8,
+     "p95_ms_dt": 34.99,
+     "max_ms_dt": 36.054,
+     "over_33_3_frac_dt": 0.5281
+    },
+    "desk1080_painting": {
+     "fps_mean_dt": 28.8,
+     "p95_ms_dt": 44.617,
+     "max_ms_dt": 76.012,
+     "over_33_3_frac_dt": 0.5919
+    },
+    "desk1080_seat": {
+     "fps_mean_dt": 29.8,
+     "p95_ms_dt": 35.239,
+     "max_ms_dt": 36.43,
+     "over_33_3_frac_dt": 0.5974
+    },
+    "proxy_stereo_hmd": {
+     "fps_mean_dt": 29.0,
+     "p95_ms_dt": 43.492,
+     "max_ms_dt": 76.711,
+     "over_33_3_frac_dt": 0.5759
+    },
+    "proxy_stereo_seat": {
+     "fps_mean_dt": 28.8,
+     "p95_ms_dt": 43.812,
+     "max_ms_dt": 75.828,
+     "over_33_3_frac_dt": 0.6502
+    },
+    "exp_hmd_static": {
+     "fps_mean_dt": 1332.6,
+     "p95_ms_dt": 1.133,
+     "max_ms_dt": 1.771,
+     "over_33_3_frac_dt": 0.0
+    },
+    "exp_hmd_no_boatwater": {
+     "fps_mean_dt": 295.2,
+     "p95_ms_dt": 4.319,
+     "max_ms_dt": 6.564,
+     "over_33_3_frac_dt": 0.0
+    },
+    "exp_hmd_no_spray": {
+     "fps_mean_dt": 30.0,
+     "p95_ms_dt": 34.698,
+     "max_ms_dt": 36.68,
+     "over_33_3_frac_dt": 0.4678
+    },
+    "exp_hmd_no_claws": {
+     "fps_mean_dt": 31.5,
+     "p95_ms_dt": 41.815,
+     "max_ms_dt": 76.663,
+     "over_33_3_frac_dt": 0.0861
+    },
+    "exp_hmd_no_all3": {
+     "fps_mean_dt": 1388.2,
+     "p95_ms_dt": 1.09,
+     "max_ms_dt": 1.936,
+     "over_33_3_frac_dt": 0.0
+    },
+    "proxy_stereo_hmd_no_boatwater": {
+     "fps_mean_dt": 279.1,
+     "p95_ms_dt": 4.613,
+     "max_ms_dt": 6.803,
+     "over_33_3_frac_dt": 0.0
+    },
+    "desk1080_painting_static": {
+     "fps_mean_dt": 946.8,
+     "p95_ms_dt": 1.462,
+     "max_ms_dt": 1.839,
+     "over_33_3_frac_dt": 0.0
+    },
+    "desk1080_seat_static": {
+     "fps_mean_dt": 1647.1,
+     "p95_ms_dt": 0.918,
+     "max_ms_dt": 2.422,
+     "over_33_3_frac_dt": 0.0
+    },
+    "ps_static_all": {
+     "fps_mean_dt": 551.6,
+     "p95_ms_dt": 2.239,
+     "max_ms_dt": 2.75,
+     "over_33_3_frac_dt": 0.0
+    },
+    "ps_static_no_sea": {
+     "fps_mean_dt": 672.1,
+     "p95_ms_dt": 1.909,
+     "max_ms_dt": 2.373,
+     "over_33_3_frac_dt": 0.0
+    },
+    "ps_static_no_hero": {
+     "fps_mean_dt": 824.0,
+     "p95_ms_dt": 1.612,
+     "max_ms_dt": 2.586,
+     "over_33_3_frac_dt": 0.0
+    },
+    "ps_static_no_claws": {
+     "fps_mean_dt": 581.1,
+     "p95_ms_dt": 2.162,
+     "max_ms_dt": 2.706,
+     "over_33_3_frac_dt": 0.0
+    },
+    "ps_static_no_spray": {
+     "fps_mean_dt": 561.1,
+     "p95_ms_dt": 2.212,
+     "max_ms_dt": 2.704,
+     "over_33_3_frac_dt": 0.0
+    }
+   },
+   "f1_fast2": {
+    "exp_hmd": {
+     "fps_mean_dt": 29.2,
+     "p95_ms_dt": 43.349,
+     "max_ms_dt": 76.066,
+     "over_33_3_frac_dt": 0.4097
+    },
+    "desk1080_painting": {
+     "fps_mean_dt": 30.1,
+     "p95_ms_dt": 34.482,
+     "max_ms_dt": 37.003,
+     "over_33_3_frac_dt": 0.4378
+    },
+    "desk1080_seat": {
+     "fps_mean_dt": 29.4,
+     "p95_ms_dt": 43.174,
+     "max_ms_dt": 76.033,
+     "over_33_3_frac_dt": 0.354
+    },
+    "proxy_stereo_hmd": {
+     "fps_mean_dt": 29.6,
+     "p95_ms_dt": 34.805,
+     "max_ms_dt": 75.937,
+     "over_33_3_frac_dt": 0.3947
+    },
+    "proxy_stereo_seat": {
+     "fps_mean_dt": 29.5,
+     "p95_ms_dt": 35.24,
+     "max_ms_dt": 75.685,
+     "over_33_3_frac_dt": 0.5153
+    },
+    "exp_hmd_static": {
+     "fps_mean_dt": 1329.2,
+     "p95_ms_dt": 1.14,
+     "max_ms_dt": 2.902,
+     "over_33_3_frac_dt": 0.0
+    },
+    "exp_hmd_no_boatwater": {
+     "fps_mean_dt": 321.0,
+     "p95_ms_dt": 3.9,
+     "max_ms_dt": 5.469,
+     "over_33_3_frac_dt": 0.0
+    },
+    "exp_hmd_no_spray": {
+     "fps_mean_dt": 30.2,
+     "p95_ms_dt": 34.606,
+     "max_ms_dt": 35.497,
+     "over_33_3_frac_dt": 0.312
+    },
+    "exp_hmd_no_claws": {
+     "fps_mean_dt": 32.5,
+     "p95_ms_dt": 32.184,
+     "max_ms_dt": 74.236,
+     "over_33_3_frac_dt": 0.0278
+    },
+    "exp_hmd_no_all3": {
+     "fps_mean_dt": 1386.5,
+     "p95_ms_dt": 1.096,
+     "max_ms_dt": 1.818,
+     "over_33_3_frac_dt": 0.0
+    },
+    "proxy_stereo_hmd_no_boatwater": {
+     "fps_mean_dt": 295.7,
+     "p95_ms_dt": 4.21,
+     "max_ms_dt": 5.71,
+     "over_33_3_frac_dt": 0.0
+    },
+    "desk1080_painting_static": {
+     "fps_mean_dt": 944.7,
+     "p95_ms_dt": 1.459,
+     "max_ms_dt": 3.366,
+     "over_33_3_frac_dt": 0.0
+    },
+    "desk1080_seat_static": {
+     "fps_mean_dt": 1638.4,
+     "p95_ms_dt": 0.942,
+     "max_ms_dt": 2.205,
+     "over_33_3_frac_dt": 0.0
+    },
+    "ps_static_all": {
+     "fps_mean_dt": 550.0,
+     "p95_ms_dt": 2.246,
+     "max_ms_dt": 2.741,
+     "over_33_3_frac_dt": 0.0
+    },
+    "ps_static_no_sea": {
+     "fps_mean_dt": 668.4,
+     "p95_ms_dt": 1.919,
+     "max_ms_dt": 3.421,
+     "over_33_3_frac_dt": 0.0
+    },
+    "ps_static_no_hero": {
+     "fps_mean_dt": 821.3,
+     "p95_ms_dt": 1.624,
+     "max_ms_dt": 2.309,
+     "over_33_3_frac_dt": 0.0
+    },
+    "ps_static_no_claws": {
+     "fps_mean_dt": 579.6,
+     "p95_ms_dt": 2.166,
+     "max_ms_dt": 2.751,
+     "over_33_3_frac_dt": 0.0
+    },
+    "ps_static_no_spray": {
+     "fps_mean_dt": 559.9,
+     "p95_ms_dt": 2.216,
+     "max_ms_dt": 2.731,
+     "over_33_3_frac_dt": 0.0
+    }
+   },
+   "f1_legacy2": {
+    "exp_hmd": {
+     "fps_mean_dt": 29.8,
+     "p95_ms_dt": 34.948,
+     "max_ms_dt": 35.502,
+     "over_33_3_frac_dt": 0.5844
+    },
+    "desk1080_painting": {
+     "fps_mean_dt": 29.4,
+     "p95_ms_dt": 35.443,
+     "max_ms_dt": 75.384,
+     "over_33_3_frac_dt": 0.5526
+    },
+    "desk1080_seat": {
+     "fps_mean_dt": 29.3,
+     "p95_ms_dt": 35.427,
+     "max_ms_dt": 77.038,
+     "over_33_3_frac_dt": 0.5244
+    },
+    "proxy_stereo_hmd": {
+     "fps_mean_dt": 28.3,
+     "p95_ms_dt": 44.962,
+     "max_ms_dt": 77.114,
+     "over_33_3_frac_dt": 0.6774
+    },
+    "proxy_stereo_seat": {
+     "fps_mean_dt": 28.7,
+     "p95_ms_dt": 44.481,
+     "max_ms_dt": 77.872,
+     "over_33_3_frac_dt": 0.6937
+    },
+    "exp_hmd_static": {
+     "fps_mean_dt": 1330.1,
+     "p95_ms_dt": 1.139,
+     "max_ms_dt": 1.785,
+     "over_33_3_frac_dt": 0.0
+    },
+    "exp_hmd_no_boatwater": {
+     "fps_mean_dt": 297.7,
+     "p95_ms_dt": 4.269,
+     "max_ms_dt": 6.499,
+     "over_33_3_frac_dt": 0.0
+    },
+    "exp_hmd_no_spray": {
+     "fps_mean_dt": 29.8,
+     "p95_ms_dt": 35.26,
+     "max_ms_dt": 36.027,
+     "over_33_3_frac_dt": 0.5455
+    },
+    "exp_hmd_no_claws": {
+     "fps_mean_dt": 31.3,
+     "p95_ms_dt": 41.801,
+     "max_ms_dt": 71.73,
+     "over_33_3_frac_dt": 0.0868
+    },
+    "exp_hmd_no_all3": {
+     "fps_mean_dt": 1385.6,
+     "p95_ms_dt": 1.1,
+     "max_ms_dt": 2.783,
+     "over_33_3_frac_dt": 0.0
+    },
+    "proxy_stereo_hmd_no_boatwater": {
+     "fps_mean_dt": 278.1,
+     "p95_ms_dt": 4.627,
+     "max_ms_dt": 7.683,
+     "over_33_3_frac_dt": 0.0
+    },
+    "desk1080_painting_static": {
+     "fps_mean_dt": 944.5,
+     "p95_ms_dt": 1.465,
+     "max_ms_dt": 1.867,
+     "over_33_3_frac_dt": 0.0
+    },
+    "desk1080_seat_static": {
+     "fps_mean_dt": 1643.6,
+     "p95_ms_dt": 0.917,
+     "max_ms_dt": 1.807,
+     "over_33_3_frac_dt": 0.0
+    },
+    "ps_static_all": {
+     "fps_mean_dt": 551.3,
+     "p95_ms_dt": 2.244,
+     "max_ms_dt": 2.722,
+     "over_33_3_frac_dt": 0.0
+    },
+    "ps_static_no_sea": {
+     "fps_mean_dt": 670.1,
+     "p95_ms_dt": 1.915,
+     "max_ms_dt": 2.396,
+     "over_33_3_frac_dt": 0.0
+    },
+    "ps_static_no_hero": {
+     "fps_mean_dt": 828.1,
+     "p95_ms_dt": 1.61,
+     "max_ms_dt": 2.913,
+     "over_33_3_frac_dt": 0.0
+    },
+    "ps_static_no_claws": {
+     "fps_mean_dt": 580.3,
+     "p95_ms_dt": 2.162,
+     "max_ms_dt": 2.652,
+     "over_33_3_frac_dt": 0.0
+    },
+    "ps_static_no_spray": {
+     "fps_mean_dt": 561.4,
+     "p95_ms_dt": 2.209,
+     "max_ms_dt": 2.788,
+     "over_33_3_frac_dt": 0.0
+    }
+   }
+  },
+  "formation_real": {
+   "auto_pl33r01_1": {
+    "intervals": 347,
+    "fps_mean_real": 29.0,
+    "p95_ms_real": 44.833,
+    "over_33_3_frac_real": 0.5677
+   },
+   "auto_pl35_1": {
+    "intervals": 346,
+    "fps_mean_real": 28.9,
+    "p95_ms_real": 45.555,
+    "over_33_3_frac_real": 0.5809
+   },
+   "auto_pl33r01_2": {
+    "intervals": 341,
+    "fps_mean_real": 28.4,
+    "p95_ms_real": 45.744,
+    "over_33_3_frac_real": 0.607
+   },
+   "auto_pl35_2": {
+    "intervals": 342,
+    "fps_mean_real": 28.5,
+    "p95_ms_real": 45.369,
+    "over_33_3_frac_real": 0.6082
+   },
+   "auto_ds50_1": {
+    "intervals": 458,
+    "fps_mean_real": 38.2,
+    "p95_ms_real": 34.39,
+    "over_33_3_frac_real": 0.1004
+   }
+  }
+ },
+ "copies_sha256": {
+  "fig_pl35_ba_player_t1195.png": "acd6b1825422278a8d8090512fead421d715d553eaafc99f3f21720d8b4ce3c6",
+  "fig_pl35_ba_turntable_t060.png": "09bd29f982bcd3b43d0c437e8a4b28ac6b9e0147204034e52c37d603a5a035d6",
+  "fig_pl35_ba_turntable_t090.png": "71551a869bddaeeeeba015cd09a21da2ca589b427dbd9f1c1b4e1d50f0ad1e08",
+  "fig_pl35_ba_turntable_t105.png": "b95fa0144abe55cec84fd3dd429ed2892c7ac68c63c34b80db94c686fd8b84f3",
+  "fig_pl35_ba_turntable_t120.png": "03f8efb058fa29a1e3cb0a31489ddd5915adbcae70c9cf6c2ad958877cb8e552",
+  "fig_pl35_ba_view_back65.png": "adf66ba7a213e10372f5ecc33cb87c0008e8663d4449a296fb3fd11db3e3e600",
+  "fig_pl35_ba_view_painting.png": "49bcbc5dd196f14a5e61c3f59fae8caa5fd6510f9fcbb0389f736ad315f86d91",
+  "fig_pl35_ba_view_seat.png": "8d9dfb1ad370e3e53ba7426aac9496e1645c298af1832529577a6d017e78ea9a",
+  "fig_pl35_ba_view_seat_toward_wave.png": "3b6a50ef0dbb94001345422d513fc6872655a175e7f7866522003868373c2f51",
+  "fig_pl35_ba_view_side_left.png": "0c21cc933714177399b7428a5ab8c545d03fa201f386e3873153f3e766689f5a",
+  "fig_pl35_ba_view_side_right.png": "d2d1a3c24b6ef997310c3e43a1f2ae72e8c878a558a7cf589f3a095532a6ff49",
+  "fig_pl35_ba_view_top.png": "882380d58113c77eba9fc0aac2a388c7ecb6352e5337845cefac33b70410507e",
+  "pl35_sheet_diffs.json": "2f56d739202912d4c882b1c232693baa8cd5b0ae66bce020b12b871635ad8b0c",
+  "pl35_ds35_2x2_painting_30fps.mp4": "5abea0ae276fdcdd1079af10ae8039b29ffe88806027b59fec6a264ea584c753",
+  "pl35_ds35_2x2_seat_30fps.mp4": "df8cb5c852d579969b4de47a4334f68922f5bc5db54d64121d2a586cea961cff",
+  "pl35_caption_fix.json": "c4ec663c3685b03611fe382209537fe19fe841d7a737946fd7cbc56b52755627",
+  "fig_pl35_ds35_2x2_painting_t065.png": "254713db956f98e63e2389cb4e876e6e8b07cf0882b694e9f06ed10586e88006",
+  "fig_pl35_ds35_2x2_seat_t090.png": "0f14c24ce612546793d7a3b4c8c19ad56a11b05517579a4cc629464b0527eceb",
+  "release_build.json": "1863cfdb223c48a5f59851114555985cab6259eca22c0074675f32709565c0ad",
+  "setup.json": "859d89793eb1d7e2a2cebb38bc626401ee7b01eee76905d5d637639ec04eb105",
+  "pl35_claw_bench.json": "f6d84c6c2243f7483626325c6faa9fe7b4fbf8c250e87d0e20d2837aa88a39f5",
+  "pl28u_regress.json": "6ab571ede604bbdf4ccd887f9019a781d55ba9ca3616e5a4b058d6f81877c90b",
+  "render_report.json": "0c55c26029314334bec1f2ee42ed512701f1540650e793015fa25b8d3b76c82f",
+  "pl35_formation.json": "c0e241ceddd929306403e39362e8226990bef397e79dfdeb6c1f1f2a66ab7957",
+  "pl35_perf.json": "314a0c2cf3ebf3a193a70fe1e1dde1b63c8a0cade5cc2d52c4706d129fd3dc99"
+ }
+}

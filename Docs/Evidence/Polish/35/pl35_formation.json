@@ -1,0 +1,500 @@
+{
+ "rule_ja": "設計50 の frames.csv（コマごとの udt＝実時間の間隔、FrameTimingManager の ftCpuMain・ftGpu、相 phase、時計の動き clockRunning、止め flowPaused、大波の時刻 wave）から、\n相が Formation で時計が動いている（clockRunning = 1、flowPaused = 0）コマだけを取る。自動の試しは形成の中で停止の試し（P で止めて再開）を 1 回するので、\n止めている間のコマ（時計が進まず段を呼ばない。速い）は除く（仕上げ33 までの sweep_perf.py の相の中央値はこのコマを含んでいた）。\n間隔＝udt（秒→ms）。平均 fps＝1000／間隔の平均、p95・p99・最大、33.3 ms・11.1 ms を超えた割合。大波の時刻 1 s ごとの平均と CPU 主スレッドの中央値も出す。\nHMD の実機ではない（PS VR2 は未導入）。RTX 3080・i7-12700K の PC の代理、1920×1080 の窓、単眼、垂直同期なし。\n使い方：py -3.10 -B Tools/GWWaveGen/pl35/pl35_formation.py --run <dir>[,<dir>...] --out <json>",
+ "runs": [
+  {
+   "run": "auto_pl33r01_1",
+   "formation_rows_all": 2307,
+   "formation_rows_running": 349,
+   "interval_mean_ms": 34.346,
+   "fps_mean": 29.1,
+   "interval_p50_ms": 35.318,
+   "interval_p95_ms": 44.818,
+   "interval_p99_ms": 66.429,
+   "interval_max_ms": 68.752,
+   "over_33_3ms_frac": 0.5702,
+   "over_11_1ms_frac": 0.9943,
+   "cpuMain_p50_ms": 35.248,
+   "cpuMain_p95_ms": 44.813,
+   "gpu_p95_ms": 4.586,
+   "wave_min": 0.0,
+   "wave_max": 11.982,
+   "by_wave_s": {
+    "00": {
+     "n": 35,
+     "interval_mean_ms": 27.86,
+     "interval_p95_ms": 37.03,
+     "cpuMain_p50_ms": 25.71
+    },
+    "01": {
+     "n": 26,
+     "interval_mean_ms": 39.44,
+     "interval_p95_ms": 57.58,
+     "cpuMain_p50_ms": 36.33
+    },
+    "02": {
+     "n": 26,
+     "interval_mean_ms": 37.93,
+     "interval_p95_ms": 67.04,
+     "cpuMain_p50_ms": 35.49
+    },
+    "03": {
+     "n": 35,
+     "interval_mean_ms": 28.17,
+     "interval_p95_ms": 36.34,
+     "cpuMain_p50_ms": 24.93
+    },
+    "04": {
+     "n": 36,
+     "interval_mean_ms": 28.43,
+     "interval_p95_ms": 35.93,
+     "cpuMain_p50_ms": 25.04
+    },
+    "05": {
+     "n": 32,
+     "interval_mean_ms": 30.59,
+     "interval_p95_ms": 37.43,
+     "cpuMain_p50_ms": 25.9
+    },
+    "06": {
+     "n": 29,
+     "interval_mean_ms": 35.32,
+     "interval_p95_ms": 40.72,
+     "cpuMain_p50_ms": 38.45
+    },
+    "07": {
+     "n": 27,
+     "interval_mean_ms": 36.88,
+     "interval_p95_ms": 40.91,
+     "cpuMain_p50_ms": 39.13
+    },
+    "08": {
+     "n": 26,
+     "interval_mean_ms": 37.79,
+     "interval_p95_ms": 42.0,
+     "cpuMain_p50_ms": 40.12
+    },
+    "09": {
+     "n": 25,
+     "interval_mean_ms": 39.72,
+     "interval_p95_ms": 43.13,
+     "cpuMain_p50_ms": 41.15
+    },
+    "10": {
+     "n": 24,
+     "interval_mean_ms": 41.74,
+     "interval_p95_ms": 45.34,
+     "cpuMain_p50_ms": 43.13
+    },
+    "11": {
+     "n": 28,
+     "interval_mean_ms": 36.23,
+     "interval_p95_ms": 45.07,
+     "cpuMain_p50_ms": 33.55
+    }
+   },
+   "pass": true,
+   "errors": 0,
+   "exceptions": 0,
+   "frames": 90107,
+   "exe": "G:/Unity/GreatWave_2026_Fresh/Unity/Build/Polish/33r01/release/player/GreatWave50.exe",
+   "exeSha256": "5be81b3fa7df7c08cadee6f79d6ff3fe95481420f166ba8127390ea669c8b12c",
+   "args": "-screen-fullscreen 0 -screen-width 1920 -screen-height 1080 -logFile \"G:\\Unity\\GreatWave_2026_Fresh\\Unity\\Build\\Polish\\35\\runs\\auto_pl33r01_1\\player.log\" --ds50auto main --ds50out \"G:\\Unity\\GreatWave_2026_Fresh\\Unity\\Build\\Polish\\35\\runs\\auto_pl33r01_1\""
+  },
+  {
+   "run": "auto_pl35_1",
+   "formation_rows_all": 2104,
+   "formation_rows_running": 348,
+   "interval_mean_ms": 34.453,
+   "fps_mean": 29.0,
+   "interval_p50_ms": 35.482,
+   "interval_p95_ms": 45.455,
+   "interval_p99_ms": 66.654,
+   "interval_max_ms": 70.537,
+   "over_33_3ms_frac": 0.5776,
+   "over_11_1ms_frac": 0.9943,
+   "cpuMain_p50_ms": 35.397,
+   "cpuMain_p95_ms": 45.449,
+   "gpu_p95_ms": 4.506,
+   "wave_min": 0.0,
+   "wave_max": 11.982,
+   "by_wave_s": {
+    "00": {
+     "n": 35,
+     "interval_mean_ms": 27.7,
+     "interval_p95_ms": 37.27,
+     "cpuMain_p50_ms": 25.66
+    },
+    "01": {
+     "n": 26,
+     "interval_mean_ms": 37.12,
+     "interval_p95_ms": 54.62,
+     "cpuMain_p50_ms": 35.55
+    },
+    "02": {
+     "n": 26,
+     "interval_mean_ms": 40.43,
+     "interval_p95_ms": 68.27,
+     "cpuMain_p50_ms": 37.12
+    },
+    "03": {
+     "n": 36,
+     "interval_mean_ms": 28.34,
+     "interval_p95_ms": 35.82,
+     "cpuMain_p50_ms": 24.96
+    },
+    "04": {
+     "n": 35,
+     "interval_mean_ms": 28.13,
+     "interval_p95_ms": 36.09,
+     "cpuMain_p50_ms": 25.15
+    },
+    "05": {
+     "n": 32,
+     "interval_mean_ms": 30.62,
+     "interval_p95_ms": 37.14,
+     "cpuMain_p50_ms": 25.71
+    },
+    "06": {
+     "n": 29,
+     "interval_mean_ms": 34.76,
+     "interval_p95_ms": 39.71,
+     "cpuMain_p50_ms": 38.02
+    },
+    "07": {
+     "n": 27,
+     "interval_mean_ms": 37.0,
+     "interval_p95_ms": 41.03,
+     "cpuMain_p50_ms": 39.21
+    },
+    "08": {
+     "n": 26,
+     "interval_mean_ms": 38.39,
+     "interval_p95_ms": 42.53,
+     "cpuMain_p50_ms": 40.36
+    },
+    "09": {
+     "n": 25,
+     "interval_mean_ms": 40.08,
+     "interval_p95_ms": 43.98,
+     "cpuMain_p50_ms": 41.63
+    },
+    "10": {
+     "n": 24,
+     "interval_mean_ms": 42.16,
+     "interval_p95_ms": 45.26,
+     "cpuMain_p50_ms": 43.49
+    },
+    "11": {
+     "n": 27,
+     "interval_mean_ms": 37.03,
+     "interval_p95_ms": 46.55,
+     "cpuMain_p50_ms": 35.72
+    }
+   },
+   "pass": true,
+   "errors": 0,
+   "exceptions": 0,
+   "frames": 89957,
+   "exe": "G:\\Unity\\GreatWave_2026_Fresh\\Unity\\Build\\Polish\\35\\release\\player\\GreatWave50.exe",
+   "exeSha256": "5be81b3fa7df7c08cadee6f79d6ff3fe95481420f166ba8127390ea669c8b12c",
+   "args": "-screen-fullscreen 0 -screen-width 1920 -screen-height 1080 -logFile \"G:\\Unity\\GreatWave_2026_Fresh\\Unity\\Build\\Polish\\35\\runs\\auto_pl35_1\\player.log\" --ds50auto main --ds50out \"G:\\Unity\\GreatWave_2026_Fresh\\Unity\\Build\\Polish\\35\\runs\\auto_pl35_1\""
+  },
+  {
+   "run": "auto_pl33r01_2",
+   "formation_rows_all": 2176,
+   "formation_rows_running": 343,
+   "interval_mean_ms": 34.937,
+   "fps_mean": 28.6,
+   "interval_p50_ms": 35.426,
+   "interval_p95_ms": 45.702,
+   "interval_p99_ms": 67.672,
+   "interval_max_ms": 68.844,
+   "over_33_3ms_frac": 0.5977,
+   "over_11_1ms_frac": 0.9942,
+   "cpuMain_p50_ms": 35.411,
+   "cpuMain_p95_ms": 45.698,
+   "gpu_p95_ms": 4.577,
+   "wave_min": 0.001,
+   "wave_max": 11.975,
+   "by_wave_s": {
+    "00": {
+     "n": 35,
+     "interval_mean_ms": 28.55,
+     "interval_p95_ms": 37.65,
+     "cpuMain_p50_ms": 26.15
+    },
+    "01": {
+     "n": 25,
+     "interval_mean_ms": 39.49,
+     "interval_p95_ms": 59.12,
+     "cpuMain_p50_ms": 36.48
+    },
+    "02": {
+     "n": 26,
+     "interval_mean_ms": 39.11,
+     "interval_p95_ms": 68.57,
+     "cpuMain_p50_ms": 35.79
+    },
+    "03": {
+     "n": 34,
+     "interval_mean_ms": 28.48,
+     "interval_p95_ms": 36.82,
+     "cpuMain_p50_ms": 25.31
+    },
+    "04": {
+     "n": 36,
+     "interval_mean_ms": 28.73,
+     "interval_p95_ms": 37.31,
+     "cpuMain_p50_ms": 25.19
+    },
+    "05": {
+     "n": 32,
+     "interval_mean_ms": 30.62,
+     "interval_p95_ms": 38.21,
+     "cpuMain_p50_ms": 25.67
+    },
+    "06": {
+     "n": 28,
+     "interval_mean_ms": 35.07,
+     "interval_p95_ms": 41.24,
+     "cpuMain_p50_ms": 38.51
+    },
+    "07": {
+     "n": 26,
+     "interval_mean_ms": 38.64,
+     "interval_p95_ms": 43.3,
+     "cpuMain_p50_ms": 40.1
+    },
+    "08": {
+     "n": 26,
+     "interval_mean_ms": 38.87,
+     "interval_p95_ms": 43.21,
+     "cpuMain_p50_ms": 40.72
+    },
+    "09": {
+     "n": 25,
+     "interval_mean_ms": 40.99,
+     "interval_p95_ms": 44.78,
+     "cpuMain_p50_ms": 41.71
+    },
+    "10": {
+     "n": 23,
+     "interval_mean_ms": 42.5,
+     "interval_p95_ms": 46.58,
+     "cpuMain_p50_ms": 43.95
+    },
+    "11": {
+     "n": 27,
+     "interval_mean_ms": 36.97,
+     "interval_p95_ms": 46.25,
+     "cpuMain_p50_ms": 34.51
+    }
+   },
+   "pass": true,
+   "errors": 0,
+   "exceptions": 0,
+   "frames": 89760,
+   "exe": "G:/Unity/GreatWave_2026_Fresh/Unity/Build/Polish/33r01/release/player/GreatWave50.exe",
+   "exeSha256": "5be81b3fa7df7c08cadee6f79d6ff3fe95481420f166ba8127390ea669c8b12c",
+   "args": "-screen-fullscreen 0 -screen-width 1920 -screen-height 1080 -logFile \"G:\\Unity\\GreatWave_2026_Fresh\\Unity\\Build\\Polish\\35\\runs\\auto_pl33r01_2\\player.log\" --ds50auto main --ds50out \"G:\\Unity\\GreatWave_2026_Fresh\\Unity\\Build\\Polish\\35\\runs\\auto_pl33r01_2\""
+  },
+  {
+   "run": "auto_pl35_2",
+   "formation_rows_all": 2297,
+   "formation_rows_running": 344,
+   "interval_mean_ms": 34.859,
+   "fps_mean": 28.7,
+   "interval_p50_ms": 35.569,
+   "interval_p95_ms": 45.41,
+   "interval_p99_ms": 66.644,
+   "interval_max_ms": 69.365,
+   "over_33_3ms_frac": 0.6017,
+   "over_11_1ms_frac": 0.9942,
+   "cpuMain_p50_ms": 35.48,
+   "cpuMain_p95_ms": 45.404,
+   "gpu_p95_ms": 4.657,
+   "wave_min": 0.0,
+   "wave_max": 11.985,
+   "by_wave_s": {
+    "00": {
+     "n": 35,
+     "interval_mean_ms": 28.43,
+     "interval_p95_ms": 37.91,
+     "cpuMain_p50_ms": 26.19
+    },
+    "01": {
+     "n": 26,
+     "interval_mean_ms": 38.72,
+     "interval_p95_ms": 57.37,
+     "cpuMain_p50_ms": 36.01
+    },
+    "02": {
+     "n": 26,
+     "interval_mean_ms": 38.25,
+     "interval_p95_ms": 67.47,
+     "cpuMain_p50_ms": 35.81
+    },
+    "03": {
+     "n": 35,
+     "interval_mean_ms": 28.59,
+     "interval_p95_ms": 36.35,
+     "cpuMain_p50_ms": 25.2
+    },
+    "04": {
+     "n": 34,
+     "interval_mean_ms": 29.13,
+     "interval_p95_ms": 37.49,
+     "cpuMain_p50_ms": 26.26
+    },
+    "05": {
+     "n": 32,
+     "interval_mean_ms": 30.67,
+     "interval_p95_ms": 37.96,
+     "cpuMain_p50_ms": 25.57
+    },
+    "06": {
+     "n": 29,
+     "interval_mean_ms": 35.55,
+     "interval_p95_ms": 40.8,
+     "cpuMain_p50_ms": 38.27
+    },
+    "07": {
+     "n": 26,
+     "interval_mean_ms": 37.48,
+     "interval_p95_ms": 41.79,
+     "cpuMain_p50_ms": 39.62
+    },
+    "08": {
+     "n": 26,
+     "interval_mean_ms": 38.83,
+     "interval_p95_ms": 43.08,
+     "cpuMain_p50_ms": 40.79
+    },
+    "09": {
+     "n": 24,
+     "interval_mean_ms": 41.43,
+     "interval_p95_ms": 45.81,
+     "cpuMain_p50_ms": 42.81
+    },
+    "10": {
+     "n": 23,
+     "interval_mean_ms": 42.75,
+     "interval_p95_ms": 45.41,
+     "cpuMain_p50_ms": 44.06
+    },
+    "11": {
+     "n": 28,
+     "interval_mean_ms": 36.8,
+     "interval_p95_ms": 45.15,
+     "cpuMain_p50_ms": 34.42
+    }
+   },
+   "pass": true,
+   "errors": 0,
+   "exceptions": 0,
+   "frames": 89851,
+   "exe": "G:\\Unity\\GreatWave_2026_Fresh\\Unity\\Build\\Polish\\35\\release\\player\\GreatWave50.exe",
+   "exeSha256": "5be81b3fa7df7c08cadee6f79d6ff3fe95481420f166ba8127390ea669c8b12c",
+   "args": "-screen-fullscreen 0 -screen-width 1920 -screen-height 1080 -logFile \"G:\\Unity\\GreatWave_2026_Fresh\\Unity\\Build\\Polish\\35\\runs\\auto_pl35_2\\player.log\" --ds50auto main --ds50out \"G:\\Unity\\GreatWave_2026_Fresh\\Unity\\Build\\Polish\\35\\runs\\auto_pl35_2\""
+  },
+  {
+   "run": "auto_ds50_1",
+   "formation_rows_all": 2512,
+   "formation_rows_running": 460,
+   "interval_mean_ms": 26.039,
+   "fps_mean": 38.4,
+   "interval_p50_ms": 25.036,
+   "interval_p95_ms": 34.418,
+   "interval_p99_ms": 49.828,
+   "interval_max_ms": 56.733,
+   "over_33_3ms_frac": 0.1043,
+   "over_11_1ms_frac": 0.9957,
+   "cpuMain_p50_ms": 24.777,
+   "cpuMain_p95_ms": 34.414,
+   "gpu_p95_ms": 2.681,
+   "wave_min": 0.001,
+   "wave_max": 11.977,
+   "by_wave_s": {
+    "00": {
+     "n": 46,
+     "interval_mean_ms": 21.38,
+     "interval_p95_ms": 28.93,
+     "cpuMain_p50_ms": 20.29
+    },
+    "01": {
+     "n": 35,
+     "interval_mean_ms": 28.34,
+     "interval_p95_ms": 41.28,
+     "cpuMain_p50_ms": 28.8
+    },
+    "02": {
+     "n": 34,
+     "interval_mean_ms": 29.55,
+     "interval_p95_ms": 54.46,
+     "cpuMain_p50_ms": 29.07
+    },
+    "03": {
+     "n": 45,
+     "interval_mean_ms": 22.65,
+     "interval_p95_ms": 30.07,
+     "cpuMain_p50_ms": 20.76
+    },
+    "04": {
+     "n": 42,
+     "interval_mean_ms": 23.47,
+     "interval_p95_ms": 31.77,
+     "cpuMain_p50_ms": 21.26
+    },
+    "05": {
+     "n": 41,
+     "interval_mean_ms": 24.61,
+     "interval_p95_ms": 30.47,
+     "cpuMain_p50_ms": 21.28
+    },
+    "06": {
+     "n": 40,
+     "interval_mean_ms": 24.82,
+     "interval_p95_ms": 30.51,
+     "cpuMain_p50_ms": 21.42
+    },
+    "07": {
+     "n": 38,
+     "interval_mean_ms": 25.91,
+     "interval_p95_ms": 31.19,
+     "cpuMain_p50_ms": 29.35
+    },
+    "08": {
+     "n": 37,
+     "interval_mean_ms": 27.73,
+     "interval_p95_ms": 32.41,
+     "cpuMain_p50_ms": 30.13
+    },
+    "09": {
+     "n": 34,
+     "interval_mean_ms": 29.49,
+     "interval_p95_ms": 34.35,
+     "cpuMain_p50_ms": 31.85
+    },
+    "10": {
+     "n": 32,
+     "interval_mean_ms": 30.93,
+     "interval_p95_ms": 35.48,
+     "cpuMain_p50_ms": 33.47
+    },
+    "11": {
+     "n": 36,
+     "interval_mean_ms": 27.45,
+     "interval_p95_ms": 35.45,
+     "cpuMain_p50_ms": 25.72
+    }
+   },
+   "pass": true,
+   "errors": 0,
+   "exceptions": 0,
+   "frames": 58097,
+   "exe": "G:/Unity/GreatWave_2026_Fresh/Unity/Build/Design/50/release/player/GreatWave50.exe",
+   "exeSha256": "5be81b3fa7df7c08cadee6f79d6ff3fe95481420f166ba8127390ea669c8b12c",
+   "args": "-screen-fullscreen 0 -screen-width 1920 -screen-height 1080 -logFile \"G:\\Unity\\GreatWave_2026_Fresh\\Unity\\Build\\Polish\\35\\runs\\auto_ds50_1\\player.log\" --ds50auto main --ds50out \"G:\\Unity\\GreatWave_2026_Fresh\\Unity\\Build\\Polish\\35\\runs\\auto_ds50_1\""
+  }
+ ]
+}
