@@ -1,0 +1,513 @@
+{
+ "rule_ja": "画像（Unity の PC オフスクリーン描画、1920×1080、前＝仕上げ33 修正の回 2、後＝SWEEP、同じ視点・同じ時刻 t 9・10.5・12 s）：\n  - 爪の画素：作品のまま（asis）と爪なし（clawfree）の差の最大のチャンネル > 12\n  - 地ごとの爪の画素：爪なしの同じ画素が 空（明るさ ≥ 170 かつ 青 − 赤 < −40 の生成りの空と、明るさ 110〜200 で彩度 < 25 の灰色の空。主役波の白は 青 − 赤 ≈ −25・明るさ ≈ 238 なので白に入る）／藍（明るさ < 110）／白（それ以外）。\n    空と藍の上の爪の画素は、主役波の輪郭の外か藍の面の前へ出た爪（立った指の読みの代わりの数）。白の上は白の面の上の線と陰。\n  - 白い爪の画素：爪の画素のうち、明るさ ≥ 200 かつ 青 − 赤 > −45（白・生成り）の割合（線ばかりでなく白い体が見えるか）\n幾何（爪の並びの t* のコマ）：指（C…）と冠の爪（K…）の輪の中心の、t* の主役波のシートからの高さ（最も近い頂点の法線の向き）の最大の分布と、\n  1 m・2 m 以上立つ本数。3D の長さ（輪の中心と先の折れ線）。頂点・三角形の数。\n出力：--out の sweep_measure.json\n使い方：py -3.10 -B Tools/GWWaveGen/pl33r01/sweep_measure.py --after-run … --after-claws … --out …",
+ "before": {
+  "run": "Unity/Build/Polish/33r01/fix01/r_fix01",
+  "images": {
+   "painting_t090": {
+    "claw": 3390,
+    "over_sky": 100,
+    "over_indigo": 213,
+    "over_white": 3077,
+    "white_body": 1607
+   },
+   "painting_t105": {
+    "claw": 30359,
+    "over_sky": 1506,
+    "over_indigo": 3850,
+    "over_white": 25003,
+    "white_body": 19551
+   },
+   "painting_t120": {
+    "claw": 56438,
+    "over_sky": 2703,
+    "over_indigo": 7087,
+    "over_white": 46648,
+    "white_body": 35947
+   },
+   "seat_t090": {
+    "claw": 1177,
+    "over_sky": 835,
+    "over_indigo": 136,
+    "over_white": 206,
+    "white_body": 427
+   },
+   "seat_t105": {
+    "claw": 44948,
+    "over_sky": 17136,
+    "over_indigo": 7536,
+    "over_white": 20276,
+    "white_body": 30304
+   },
+   "seat_t120": {
+    "claw": 107898,
+    "over_sky": 52899,
+    "over_indigo": 18631,
+    "over_white": 36368,
+    "white_body": 88596
+   },
+   "seat_toward_wave_t090": {
+    "claw": 1426,
+    "over_sky": 979,
+    "over_indigo": 190,
+    "over_white": 257,
+    "white_body": 644
+   },
+   "seat_toward_wave_t105": {
+    "claw": 38317,
+    "over_sky": 7066,
+    "over_indigo": 8727,
+    "over_white": 22524,
+    "white_body": 24752
+   },
+   "seat_toward_wave_t120": {
+    "claw": 11125,
+    "over_sky": 3272,
+    "over_indigo": 6262,
+    "over_white": 1591,
+    "white_body": 9347
+   },
+   "side_left_t090": {
+    "claw": 4388,
+    "over_sky": 154,
+    "over_indigo": 1628,
+    "over_white": 2606,
+    "white_body": 1435
+   },
+   "side_left_t105": {
+    "claw": 11663,
+    "over_sky": 380,
+    "over_indigo": 7275,
+    "over_white": 4008,
+    "white_body": 5286
+   },
+   "side_left_t120": {
+    "claw": 14096,
+    "over_sky": 475,
+    "over_indigo": 9304,
+    "over_white": 4317,
+    "white_body": 6793
+   },
+   "side_right_t090": {
+    "claw": 3215,
+    "over_sky": 82,
+    "over_indigo": 615,
+    "over_white": 2518,
+    "white_body": 1481
+   },
+   "side_right_t105": {
+    "claw": 8160,
+    "over_sky": 86,
+    "over_indigo": 3303,
+    "over_white": 4771,
+    "white_body": 3561
+   },
+   "side_right_t120": {
+    "claw": 9423,
+    "over_sky": 92,
+    "over_indigo": 3430,
+    "over_white": 5901,
+    "white_body": 4193
+   },
+   "back65_t090": {
+    "claw": 8832,
+    "over_sky": 1429,
+    "over_indigo": 471,
+    "over_white": 6932,
+    "white_body": 4085
+   },
+   "back65_t105": {
+    "claw": 19906,
+    "over_sky": 8589,
+    "over_indigo": 1511,
+    "over_white": 9806,
+    "white_body": 9274
+   },
+   "back65_t120": {
+    "claw": 23838,
+    "over_sky": 12254,
+    "over_indigo": 1619,
+    "over_white": 9965,
+    "white_body": 12043
+   },
+   "top_t090": {
+    "claw": 4023,
+    "over_sky": 50,
+    "over_indigo": 240,
+    "over_white": 3733,
+    "white_body": 1032
+   },
+   "top_t105": {
+    "claw": 11197,
+    "over_sky": 255,
+    "over_indigo": 3131,
+    "over_white": 7811,
+    "white_body": 3389
+   },
+   "top_t120": {
+    "claw": 14052,
+    "over_sky": 290,
+    "over_indigo": 5166,
+    "over_white": 8596,
+    "white_body": 4644
+   }
+  },
+  "geometry": {
+   "C": {
+    "n": 184,
+    "h_max_pct": [
+     0.235,
+     0.645,
+     1.278,
+     3.933
+    ],
+    "stand_ge_1m": 45,
+    "stand_ge_2m": 2,
+    "len3d_pct": [
+     0.87,
+     1.44,
+     2.696,
+     5.457
+    ]
+   },
+   "K": {
+    "n": 137,
+    "h_max_pct": [
+     1.172,
+     1.665,
+     2.255,
+     2.865
+    ],
+    "stand_ge_1m": 126,
+    "stand_ge_2m": 35,
+    "len3d_pct": [
+     2.006,
+     2.841,
+     3.697,
+     4.368
+    ]
+   },
+   "W": {
+    "n": 360,
+    "h_max_pct": [
+     0.127,
+     0.242,
+     0.991,
+     3.658
+    ],
+    "stand_ge_1m": 36,
+    "stand_ge_2m": 1,
+    "len3d_pct": [
+     0.464,
+     1.166,
+     2.266,
+     5.363
+    ]
+   },
+   "penetration_centre_v2v6": {
+    "C_t090": {
+     "rings_below_5cm": 0,
+     "rings_checked": 1780,
+     "deepest_m": 0.0
+    },
+    "K_t090": {
+     "rings_below_5cm": 0,
+     "rings_checked": 1000,
+     "deepest_m": 0.0
+    },
+    "W_t090": {
+     "rings_below_5cm": 131,
+     "rings_checked": 2848,
+     "deepest_m": -0.217
+    },
+    "C_t105": {
+     "rings_below_5cm": 0,
+     "rings_checked": 3469,
+     "deepest_m": 0.0
+    },
+    "K_t105": {
+     "rings_below_5cm": 0,
+     "rings_checked": 2532,
+     "deepest_m": 0.0
+    },
+    "W_t105": {
+     "rings_below_5cm": 86,
+     "rings_checked": 5584,
+     "deepest_m": -0.224
+    },
+    "C_t120": {
+     "rings_below_5cm": 2,
+     "rings_checked": 3524,
+     "deepest_m": -0.152
+    },
+    "K_t120": {
+     "rings_below_5cm": 0,
+     "rings_checked": 2518,
+     "deepest_m": 0.0
+    },
+    "W_t120": {
+     "rings_below_5cm": 76,
+     "rings_checked": 5704,
+     "deepest_m": -0.221
+    }
+   },
+   "vertices": 104707,
+   "triangles": 199880,
+   "entries": 681
+  }
+ },
+ "after": {
+  "run": "Unity/Build/Polish/33r02/r_final",
+  "images": {
+   "painting_t090": {
+    "claw": 2785,
+    "over_sky": 91,
+    "over_indigo": 170,
+    "over_white": 2524,
+    "white_body": 1393
+   },
+   "painting_t105": {
+    "claw": 27984,
+    "over_sky": 1325,
+    "over_indigo": 2911,
+    "over_white": 23748,
+    "white_body": 16809
+   },
+   "painting_t120": {
+    "claw": 54183,
+    "over_sky": 2584,
+    "over_indigo": 6086,
+    "over_white": 45513,
+    "white_body": 34434
+   },
+   "seat_t090": {
+    "claw": 908,
+    "over_sky": 580,
+    "over_indigo": 104,
+    "over_white": 224,
+    "white_body": 218
+   },
+   "seat_t105": {
+    "claw": 30968,
+    "over_sky": 7922,
+    "over_indigo": 7113,
+    "over_white": 15933,
+    "white_body": 20380
+   },
+   "seat_t120": {
+    "claw": 82143,
+    "over_sky": 31933,
+    "over_indigo": 19118,
+    "over_white": 31092,
+    "white_body": 67953
+   },
+   "seat_toward_wave_t090": {
+    "claw": 1085,
+    "over_sky": 673,
+    "over_indigo": 162,
+    "over_white": 250,
+    "white_body": 427
+   },
+   "seat_toward_wave_t105": {
+    "claw": 29886,
+    "over_sky": 5090,
+    "over_indigo": 7850,
+    "over_white": 16946,
+    "white_body": 19970
+   },
+   "seat_toward_wave_t120": {
+    "claw": 10708,
+    "over_sky": 3254,
+    "over_indigo": 6084,
+    "over_white": 1370,
+    "white_body": 8921
+   },
+   "side_left_t090": {
+    "claw": 3228,
+    "over_sky": 127,
+    "over_indigo": 1331,
+    "over_white": 1770,
+    "white_body": 1177
+   },
+   "side_left_t105": {
+    "claw": 8817,
+    "over_sky": 352,
+    "over_indigo": 5564,
+    "over_white": 2901,
+    "white_body": 4370
+   },
+   "side_left_t120": {
+    "claw": 11298,
+    "over_sky": 459,
+    "over_indigo": 7884,
+    "over_white": 2955,
+    "white_body": 6405
+   },
+   "side_right_t090": {
+    "claw": 2533,
+    "over_sky": 69,
+    "over_indigo": 569,
+    "over_white": 1895,
+    "white_body": 1394
+   },
+   "side_right_t105": {
+    "claw": 7077,
+    "over_sky": 83,
+    "over_indigo": 3113,
+    "over_white": 3881,
+    "white_body": 3774
+   },
+   "side_right_t120": {
+    "claw": 8299,
+    "over_sky": 89,
+    "over_indigo": 3275,
+    "over_white": 4935,
+    "white_body": 4401
+   },
+   "back65_t090": {
+    "claw": 6599,
+    "over_sky": 1036,
+    "over_indigo": 492,
+    "over_white": 5071,
+    "white_body": 3778
+   },
+   "back65_t105": {
+    "claw": 18080,
+    "over_sky": 7677,
+    "over_indigo": 1617,
+    "over_white": 8786,
+    "white_body": 10647
+   },
+   "back65_t120": {
+    "claw": 21366,
+    "over_sky": 10756,
+    "over_indigo": 1696,
+    "over_white": 8914,
+    "white_body": 13062
+   },
+   "top_t090": {
+    "claw": 2674,
+    "over_sky": 35,
+    "over_indigo": 151,
+    "over_white": 2488,
+    "white_body": 700
+   },
+   "top_t105": {
+    "claw": 7786,
+    "over_sky": 198,
+    "over_indigo": 1708,
+    "over_white": 5880,
+    "white_body": 2465
+   },
+   "top_t120": {
+    "claw": 10195,
+    "over_sky": 260,
+    "over_indigo": 3394,
+    "over_white": 6541,
+    "white_body": 3810
+   }
+  },
+  "geometry": {
+   "C": {
+    "n": 184,
+    "h_max_pct": [
+     0.193,
+     0.29,
+     0.503,
+     0.81
+    ],
+    "stand_ge_1m": 0,
+    "stand_ge_2m": 0,
+    "len3d_pct": [
+     0.495,
+     1.038,
+     1.589,
+     3.836
+    ]
+   },
+   "K": {
+    "n": 137,
+    "h_max_pct": [
+     -0.0,
+     1.162,
+     2.141,
+     2.865
+    ],
+    "stand_ge_1m": 70,
+    "stand_ge_2m": 22,
+    "len3d_pct": [
+     0.0,
+     2.018,
+     3.615,
+     4.368
+    ]
+   },
+   "W": {
+    "n": 345,
+    "h_max_pct": [
+     0.125,
+     0.206,
+     0.383,
+     0.617
+    ],
+    "stand_ge_1m": 0,
+    "stand_ge_2m": 0,
+    "len3d_pct": [
+     0.462,
+     1.001,
+     1.704,
+     3.537
+    ]
+   },
+   "penetration_centre_v2v6": {
+    "C_t090": {
+     "rings_below_5cm": 0,
+     "rings_checked": 1800,
+     "deepest_m": 0.0
+    },
+    "K_t090": {
+     "rings_below_5cm": 0,
+     "rings_checked": 540,
+     "deepest_m": 0.0
+    },
+    "W_t090": {
+     "rings_below_5cm": 70,
+     "rings_checked": 2712,
+     "deepest_m": -0.136
+    },
+    "C_t105": {
+     "rings_below_5cm": 1,
+     "rings_checked": 3572,
+     "deepest_m": -0.101
+    },
+    "K_t105": {
+     "rings_below_5cm": 0,
+     "rings_checked": 1417,
+     "deepest_m": 0.0
+    },
+    "W_t105": {
+     "rings_below_5cm": 66,
+     "rings_checked": 5352,
+     "deepest_m": -0.141
+    },
+    "C_t120": {
+     "rings_below_5cm": 2,
+     "rings_checked": 3663,
+     "deepest_m": -0.246
+    },
+    "K_t120": {
+     "rings_below_5cm": 0,
+     "rings_checked": 1409,
+     "deepest_m": 0.0
+    },
+    "W_t120": {
+     "rings_below_5cm": 53,
+     "rings_checked": 5500,
+     "deepest_m": -0.214
+    }
+   },
+   "vertices": 102558,
+   "triangles": 195792,
+   "entries": 666
+  }
+ }
+}

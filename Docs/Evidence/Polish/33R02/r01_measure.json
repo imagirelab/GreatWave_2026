@@ -1,0 +1,349 @@
+{
+ "rule_ja": "SWEEP と修正の回 1 の指（C…）・冠の爪（K…）の輪は、8 頂点の角度が不揃い（−82, −50, 90, 230, 262, 266, 270, 274°）なので、\n8 頂点の平均は輪の中心でない（pl33f_measure.py の orient・bends・貫通は平均を中心に使っていた）。ここでは輪の中心を頂点 2（白の中心、+N）と\n頂点 6（水色の版の中心、−N）の中点とし、白の向き N を（頂点 2 − 中心）で測る。\n  - コマの間の裏返り：同じ輪の N の、隣のコマとの内積が 0 未満（輪の大きさ 1 cm 以上、背骨の長さ 0.2 m 以上のコマ）\n  - 隣の輪の間のねじれ：N から接線（隣の中心へ向く向き）の成分を除いた向きの、隣の輪との角が 60° を超える\n  - 跳び（評審 judge_geo2 と同じ式）：根元の頂点に対する頂点の 2 階差 > 0.15 m/コマ²。中心の 2 階差と、輪の回り（頂点 − 中心）の 2 階差に分ける\n  - 瞬間移動（根元に対して 1 コマに 0.5 m 超）・NaN\n出力：--out の json\n使い方：py -3.10 -B Tools/GWWaveGen/pl33r01/r01_measure.py --claws <爪の並び> [--claws2 …] --out <json>",
+ "33/fix02/claws": {
+  "C": {
+   "entries": 184,
+   "frame_flips": 0,
+   "ring_twists_gt60": 3336,
+   "flip_entries": 0,
+   "twist_entries": 27,
+   "flip_top": [],
+   "twist_top": [
+    [
+     "C061",
+     285
+    ],
+    [
+     "C019",
+     280
+    ],
+    [
+     "C006",
+     227
+    ],
+    [
+     "C016",
+     221
+    ],
+    [
+     "C234",
+     216
+    ],
+    [
+     "C026",
+     198
+    ],
+    [
+     "C212",
+     191
+    ],
+    [
+     "C183",
+     190
+    ]
+   ],
+   "accel_events_gt0p15": 0,
+   "accel_events_centre": 0,
+   "accel_events_rotation_only": 0,
+   "accel_entries": 0,
+   "accel_top": [],
+   "accel_worst": {
+    "m": 0.126,
+    "id": "C092",
+    "frame": 283
+   },
+   "teleports_gt0p5m": 0,
+   "nan": 0
+  },
+  "K": {
+   "entries": 79,
+   "frame_flips": 0,
+   "ring_twists_gt60": 0,
+   "flip_entries": 0,
+   "twist_entries": 0,
+   "flip_top": [],
+   "twist_top": [],
+   "accel_events_gt0p15": 0,
+   "accel_events_centre": 0,
+   "accel_events_rotation_only": 0,
+   "accel_entries": 0,
+   "accel_top": [],
+   "accel_worst": {
+    "m": 0.132,
+    "id": "K038",
+    "frame": 212
+   },
+   "teleports_gt0p5m": 0,
+   "nan": 0
+  },
+  "W": {
+   "entries": 184,
+   "frame_flips": 0,
+   "ring_twists_gt60": 0,
+   "flip_entries": 0,
+   "twist_entries": 0,
+   "flip_top": [],
+   "twist_top": [],
+   "accel_events_gt0p15": 0,
+   "accel_events_centre": 0,
+   "accel_events_rotation_only": 0,
+   "accel_entries": 0,
+   "accel_top": [],
+   "accel_worst": {
+    "m": 0.12,
+    "id": "WC092",
+    "frame": 283
+   },
+   "teleports_gt0p5m": 0,
+   "nan": 0
+  }
+ },
+ "33r01/fix01/claws": {
+  "C": {
+   "entries": 184,
+   "frame_flips": 0,
+   "ring_twists_gt60": 1088,
+   "flip_entries": 0,
+   "twist_entries": 15,
+   "flip_top": [],
+   "twist_top": [
+    [
+     "C046",
+     199
+    ],
+    [
+     "C065",
+     111
+    ],
+    [
+     "C067",
+     109
+    ],
+    [
+     "C019",
+     104
+    ],
+    [
+     "C077",
+     100
+    ],
+    [
+     "C006",
+     95
+    ],
+    [
+     "C189",
+     85
+    ],
+    [
+     "C036",
+     83
+    ]
+   ],
+   "accel_events_gt0p15": 6,
+   "accel_events_centre": 1,
+   "accel_events_rotation_only": 5,
+   "accel_entries": 4,
+   "accel_top": [
+    [
+     "C192",
+     [
+      2,
+      0.189,
+      307
+     ]
+    ],
+    [
+     "C085",
+     [
+      1,
+      0.17,
+      281
+     ]
+    ],
+    [
+     "C092",
+     [
+      2,
+      0.154,
+      283
+     ]
+    ],
+    [
+     "C094",
+     [
+      1,
+      0.152,
+      280
+     ]
+    ]
+   ],
+   "accel_worst": {
+    "m": 0.189,
+    "id": "C192",
+    "frame": 307
+   },
+   "teleports_gt0p5m": 0,
+   "nan": 0
+  },
+  "K": {
+   "entries": 137,
+   "frame_flips": 0,
+   "ring_twists_gt60": 0,
+   "flip_entries": 0,
+   "twist_entries": 0,
+   "flip_top": [],
+   "twist_top": [],
+   "accel_events_gt0p15": 0,
+   "accel_events_centre": 0,
+   "accel_events_rotation_only": 0,
+   "accel_entries": 0,
+   "accel_top": [],
+   "accel_worst": {
+    "m": 0.021,
+    "id": "K077",
+    "frame": 316
+   },
+   "teleports_gt0p5m": 0,
+   "nan": 0
+  },
+  "W": {
+   "entries": 360,
+   "frame_flips": 0,
+   "ring_twists_gt60": 0,
+   "flip_entries": 0,
+   "twist_entries": 0,
+   "flip_top": [],
+   "twist_top": [],
+   "accel_events_gt0p15": 3,
+   "accel_events_centre": 1,
+   "accel_events_rotation_only": 2,
+   "accel_entries": 3,
+   "accel_top": [
+    [
+     "WFC085",
+     [
+      1,
+      0.187,
+      281
+     ]
+    ],
+    [
+     "WFC092",
+     [
+      1,
+      0.163,
+      283
+     ]
+    ],
+    [
+     "WFC094",
+     [
+      1,
+      0.152,
+      280
+     ]
+    ]
+   ],
+   "accel_worst": {
+    "m": 0.187,
+    "id": "WFC085",
+    "frame": 281
+   },
+   "teleports_gt0p5m": 0,
+   "nan": 0
+  }
+ },
+ "33r02/claws": {
+  "C": {
+   "entries": 184,
+   "frame_flips": 0,
+   "ring_twists_gt60": 273,
+   "flip_entries": 0,
+   "twist_entries": 2,
+   "flip_top": [],
+   "twist_top": [
+    [
+     "C046",
+     196
+    ],
+    [
+     "C036",
+     77
+    ]
+   ],
+   "accel_events_gt0p15": 2,
+   "accel_events_centre": 0,
+   "accel_events_rotation_only": 2,
+   "accel_entries": 1,
+   "accel_top": [
+    [
+     "C192",
+     [
+      2,
+      0.189,
+      307
+     ]
+    ]
+   ],
+   "accel_worst": {
+    "m": 0.189,
+    "id": "C192",
+    "frame": 307
+   },
+   "teleports_gt0p5m": 0,
+   "nan": 0
+  },
+  "K": {
+   "entries": 137,
+   "frame_flips": 0,
+   "ring_twists_gt60": 0,
+   "flip_entries": 0,
+   "twist_entries": 0,
+   "flip_top": [],
+   "twist_top": [],
+   "accel_events_gt0p15": 0,
+   "accel_events_centre": 0,
+   "accel_events_rotation_only": 0,
+   "accel_entries": 0,
+   "accel_top": [],
+   "accel_worst": {
+    "m": 0.022,
+    "id": "K077",
+    "frame": 316
+   },
+   "teleports_gt0p5m": 0,
+   "nan": 0
+  },
+  "W": {
+   "entries": 345,
+   "frame_flips": 0,
+   "ring_twists_gt60": 0,
+   "flip_entries": 0,
+   "twist_entries": 0,
+   "flip_top": [],
+   "twist_top": [],
+   "accel_events_gt0p15": 9,
+   "accel_events_centre": 9,
+   "accel_events_rotation_only": 0,
+   "accel_entries": 1,
+   "accel_top": [
+    [
+     "WFC021",
+     [
+      9,
+      0.197,
+      283
+     ]
+    ]
+   ],
+   "accel_worst": {
+    "m": 0.197,
+    "id": "WFC021",
+    "frame": 283
+   },
+   "teleports_gt0p5m": 0,
+   "nan": 0
+  }
+ }
+}

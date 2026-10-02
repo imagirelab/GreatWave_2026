@@ -1,0 +1,37 @@
+{
+ "before": {
+  "claw_pixels": 61547,
+  "list_region_pixels": 34857,
+  "list_recall": 0.6355394899159422,
+  "list_recall_per_claw_median": 0.6625875737463127,
+  "precision_4px": 0.851089411344176,
+  "precision_12px": 0.9384210440801338,
+  "centerline_dist_px_median": 0.26164653840525054,
+  "centerline_dist_px_p90": 0.7329243457615737,
+  "centerline_over_px_median": -0.09599930122401545,
+  "centerline_over_px_p90": 0.8106063704719167,
+  "claws": 184
+ },
+ "after": {
+  "claw_pixels": 58954,
+  "list_region_pixels": 34857,
+  "list_recall": 0.6330722666896176,
+  "list_recall_per_claw_median": 0.6490949507780248,
+  "precision_4px": 0.868270176747973,
+  "precision_12px": 0.935712589476541,
+  "centerline_dist_px_median": 0.24837096830480748,
+  "centerline_dist_px_p90": 0.6340733041568446,
+  "centerline_over_px_median": -0.06105663531521799,
+  "centerline_over_px_p90": 0.8619236919531706,
+  "claws": 184
+ },
+ "crop": [
+  380,
+  60,
+  1180,
+  620
+ ],
+ "inventory": "Unity/Build/Polish/32/fix01/list/ds32_claw_inventory.json",
+ "inventory_sha256": "9c5887d9a2274cb22a4769b4f852ed6bda401e25aee608f20b90e5881cbe37a7",
+ "rule_ja": "爪の輪郭＝作品のまま（painting_t120_asis）と爪なし（painting_t120_clawfree）の差（最大のチャンネル > 12）を 3×3 で閉じたもの（Unity の PC 描画）。\n一覧の爪の領域＝仕上げ32 の ds32_claw_inventory.json の region_polygon_ref（原画 DP130155 の画素）を表示の画素へ写したもの。\n数（前＝仕上げ33 修正の回 2 と後＝仕上げ33修正01 を同じ式で）：\n  - 一覧の領域の再現：帯・指のある 184 本の領域の画素のうち、爪の輪郭に入る割合（全体と爪ごとの中央値）\n  - 爪の輪郭の精度：爪の輪郭の画素のうち、一覧の全部の爪の領域（249 本）を 4 px／12 px 広げた所に入る割合\n  - 中心線：一覧の中心線の点から、爪の層の t* の中心線（輪の中心と先、原画のカメラへ投影）までの距離（爪ごとの平均の中央値・p90）と、\n    中心線の先が一覧の先より伸びた長さ（表示の px の中央値）\n図：fig_pl33r01_overlay_list.png（左：原画視点の後の描画に一覧の領域（緑の線）と後の中心線（赤）、右：原画の同じ所に後の爪の輪郭（赤の線））、\n    fig_pl33r01_overlay_ba.png（前｜後 の爪の輪郭と一覧の領域）\n使い方：py -3.10 -B Tools/GWWaveGen/pl33r01/r01_overlay.py --after-run … --after-claws … --out …"
+}

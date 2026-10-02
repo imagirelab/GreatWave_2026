@@ -1,0 +1,18 @@
+{
+ "note_ja": "仕上げ33修正02 修正の回 2 の中の試し（Unity/Build/Polish/33r02/try*・r_try*、Git 対象外）。数は r02_seatfan.py・r01_quick.py（律動と重なり、--no-geo）・r02_quick.py（唇の輪郭の白い欠けを足したもの）の出力を写した。try1 は描画していない。前（仕上げ33修正01）は R 0.818・水色 0.3994・成分 266・再現 0.6355・精度 0.8511・欠け 246",
+ "before_r01": {"seat_R": 0.818, "seat_R_len_weighted": 0.921, "seat_R_top20pct_long": 0.969, "mizuiro": 0.3994, "components": 266, "dark_line_px": 10642, "recall": 0.6355, "precision_4px": 0.8511, "notch_px": 246, "culled": 4},
+ "tries": [
+  {"try": "try1", "change_ja": "K3 4.0→1.7、L3 0.8〜2.4 m、主役の伸ばしをやめる、3 段の鉤（RISE 0.35・HOLD 0.65・DROP 0.7・THETA1 200°）、幅 0.45〜1.0 m・先 0.40・細り 2.2、膜の輪郭の帯、冠の爪を 2 本に 1 本で 2.0 倍", "result_ja": "立てられない指 54 本（太い管の下の頂点の許しを満たせない）。描画しない"},
+  {"try": "try2", "change_ja": "立て直しに『許し 0.3 → 長さ 1.6 倍 → 両方 → 許し 0』を足す", "culled": 7, "seat_R": 0.701, "seat_R_len_weighted": 0.803, "seat_R_top20pct_long": 0.927, "result_ja": "長い棒は消えたが、長さを伸ばした立て直しの指（C066・C121 など）が射線の向きの真っ直ぐな棒として残る"},
+  {"try": "try3", "change_ja": "立て直しの順を『許し 0.3 → 許し 0 → 長さ 1.6 倍で許し 0』へ", "culled": 7, "seat_R": 0.701, "seat_R_top20pct_long": 0.928, "result_ja": "ほぼ変わらない"},
+  {"try": "try4", "change_ja": "射線の向きの成分を ALONG_MAX 0.9 m までにする（稜と輪郭にかかる指を除く）。L3_MIN 0.5", "culled": 12, "seat_R": 0.658, "seat_R_top20pct_long": 0.919, "mizuiro": 0.3283, "components": 206, "dark_line_px": 12001, "recall": 0.5297, "precision_4px": 0.8277, "result_ja": "原画視点で太い管が隣とつながり、成分と水色が落ちた"},
+  {"try": "try5", "change_ja": "幅を r01 に戻し、面がカメラを向く指の断面を厚く（FLAT_FACE 1.35）", "culled": 10, "seat_R": 0.629, "mizuiro": 0.3622, "components": 226, "recall": 0.5819, "precision_4px": 0.8496, "notch_px": 160},
+  {"try": "try6", "change_ja": "断面の 2 色（N_CURL 1.4）、細り 2.0・先 0.30、輪郭をまたぐ指に膜を付けない", "culled": 10, "seat_R": 0.657, "mizuiro": 0.3452, "components": 217, "recall": 0.5537, "precision_4px": 0.8374, "notch_px": 200, "result_ja": "水色・成分・再現とも落ちたので 2 色と細りの変更は採らない"},
+  {"try": "try7", "change_ja": "try5 に戻し、膜をシートの法線の側へ起こす（WEB_LIFT 0.4）", "culled": 10, "seat_R": 0.625, "mizuiro": 0.3948, "components": 229, "recall": 0.597, "precision_4px": 0.8503, "notch_px": 160},
+  {"try": "try8", "change_ja": "立てられない指を消さずに仕上げ33 の帯に戻す（BAND_FALLBACK）", "culled": 10, "seat_R": 0.628, "mizuiro": 0.4013, "components": 239, "recall": 0.618, "precision_4px": 0.8529, "notch_px": 166},
+  {"try": "try9", "change_ja": "断面を厚くするのをやめる（FLAT_FACE 0.70）", "culled": 10, "seat_R": 0.621, "mizuiro": 0.4261, "components": 245, "recall": 0.6291, "precision_4px": 0.8679, "notch_px": 166, "result_ja": "冠の爪 CROWN_THICK 2.4・CROWN_TIP 3.2 にした状態で一度修正の回の候補にした（描画・評価のあと、座席の立ちを見て試しを続けた）"},
+  {"try": "try10", "change_ja": "ALONG_MAX 1.4・CURL_DROP 0.9・HOLD_S 0.5", "culled": 10, "seat_R": 0.484, "seat_R_len_weighted": 0.603, "seat_R_top20pct_long": 0.754, "mizuiro": 0.4182, "components": 256, "recall": 0.6123, "precision_4px": 0.8639, "notch_px": 161},
+  {"try": "try11", "change_ja": "K3 2.6・ALONG_MAX 1.2・CURL_DROP 0.8・HOLD_S 0.55", "culled": 2, "seat_R": 0.584, "seat_R_top20pct_long": 0.872, "mizuiro": 0.4376, "components": 252, "recall": 0.6381, "precision_4px": 0.8694, "notch_px": 162},
+  {"try": "try12（修正の回の最終の候補。進行役は採らなかった）", "change_ja": "K3 2.6・ALONG_MAX 1.2・CURL_DROP 0.9・HOLD_S 0.5", "culled": 2, "seat_R": 0.516, "seat_R_len_weighted": 0.65, "seat_R_top20pct_long": 0.766, "mizuiro": 0.4321, "components": 256, "recall": 0.6331, "precision_4px": 0.8683, "notch_px": 165, "result_ja": "修正の回の最終の候補（既定の引数の r02_build.py の出力とバイトまで同じ）"}
+ ]
+}
