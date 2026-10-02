@@ -1,0 +1,950 @@
+{
+ "rule_ja": "仕上げ33：描いた画像（Unity の PC オフスクリーン描画）で、爪がどの視点から読めるかと、原画視点の爪の律動を数える（numpy・OpenCV。記録）。\n\n前＝仕上げ32 修正の回 1（Build/Polish/32/fix01/r_fix01）、後＝仕上げ33（Build/Polish/33/r_after）。同じ視点・同じ時刻（t 6・9・10.5・12 s）。\n1. 視点ごとの爪の画素：作品のままの画像と爪なしの画像で色が 20 より違う画素（爪・膜・縁の線が描いた画素）と、そのうちの暗い線\n   （明るさ < 110 で、爪なしの画像では明るさ > 150 の所＝白・空の上に出た墨版の線）と、藍の上の爪（pl32f_measure.claws_over_indigo）。\n2. 原画視点 t* の爪の帯の律動：一覧の爪の領域（region_polygon_ref の和を 6 px 太らせた所。原画の爪の範囲）の中の\n   水色の版の割合（白い地の上）と、白い地の上の暗い線の成分（pl32f_measure.dark_lines）。原画・前・後。b区域の帯（仕上げ32 の読み）も同じに。\n3. 原画視点 t 10.5 s・t* の b区域の閉じた輪（pl32f_measure.closed_rings）。\n出力：Unity/Build/Polish/33/measure/pl33_measure.json\n",
+ "runs": {
+  "before": "Unity/Build/Polish/32/fix01/r_fix01",
+  "after": "Unity/Build/Polish/33/r_after"
+ },
+ "views": {
+  "before": {
+   "painting_t060": {
+    "px": 0,
+    "line_on_light_px": 0,
+    "over_indigo": {
+     "px": 0,
+     "components_ge20": 0,
+     "largest": 0
+    }
+   },
+   "painting_t090": {
+    "px": 3110,
+    "line_on_light_px": 560,
+    "over_indigo": {
+     "px": 160,
+     "components_ge20": 2,
+     "largest": 50
+    }
+   },
+   "painting_t105": {
+    "px": 28185,
+    "line_on_light_px": 5868,
+    "over_indigo": {
+     "px": 3001,
+     "components_ge20": 25,
+     "largest": 334
+    }
+   },
+   "painting_t120": {
+    "px": 44723,
+    "line_on_light_px": 9690,
+    "over_indigo": {
+     "px": 4005,
+     "components_ge20": 26,
+     "largest": 432
+    }
+   },
+   "seat_t060": {
+    "px": 0,
+    "line_on_light_px": 0,
+    "over_indigo": {
+     "px": 0,
+     "components_ge20": 0,
+     "largest": 0
+    }
+   },
+   "seat_t090": {
+    "px": 407,
+    "line_on_light_px": 85,
+    "over_indigo": {
+     "px": 50,
+     "components_ge20": 0,
+     "largest": 15
+    }
+   },
+   "seat_t105": {
+    "px": 14150,
+    "line_on_light_px": 1872,
+    "over_indigo": {
+     "px": 1995,
+     "components_ge20": 36,
+     "largest": 256
+    }
+   },
+   "seat_t120": {
+    "px": 36693,
+    "line_on_light_px": 2031,
+    "over_indigo": {
+     "px": 6162,
+     "components_ge20": 62,
+     "largest": 394
+    }
+   },
+   "seat_toward_wave_t060": {
+    "px": 2,
+    "line_on_light_px": 0,
+    "over_indigo": {
+     "px": 0,
+     "components_ge20": 0,
+     "largest": 0
+    }
+   },
+   "seat_toward_wave_t090": {
+    "px": 640,
+    "line_on_light_px": 65,
+    "over_indigo": {
+     "px": 131,
+     "components_ge20": 2,
+     "largest": 37
+    }
+   },
+   "seat_toward_wave_t105": {
+    "px": 11762,
+    "line_on_light_px": 1348,
+    "over_indigo": {
+     "px": 2142,
+     "components_ge20": 38,
+     "largest": 225
+    }
+   },
+   "seat_toward_wave_t120": {
+    "px": 9957,
+    "line_on_light_px": 100,
+    "over_indigo": {
+     "px": 6027,
+     "components_ge20": 64,
+     "largest": 415
+    }
+   },
+   "side_left_t060": {
+    "px": 14,
+    "line_on_light_px": 0,
+    "over_indigo": {
+     "px": 14,
+     "components_ge20": 0,
+     "largest": 9
+    }
+   },
+   "side_left_t090": {
+    "px": 648,
+    "line_on_light_px": 116,
+    "over_indigo": {
+     "px": 94,
+     "components_ge20": 0,
+     "largest": 12
+    }
+   },
+   "side_left_t105": {
+    "px": 1678,
+    "line_on_light_px": 234,
+    "over_indigo": {
+     "px": 675,
+     "components_ge20": 9,
+     "largest": 119
+    }
+   },
+   "side_left_t120": {
+    "px": 2393,
+    "line_on_light_px": 230,
+    "over_indigo": {
+     "px": 1400,
+     "components_ge20": 7,
+     "largest": 971
+    }
+   },
+   "side_right_t060": {
+    "px": 10,
+    "line_on_light_px": 0,
+    "over_indigo": {
+     "px": 10,
+     "components_ge20": 0,
+     "largest": 10
+    }
+   },
+   "side_right_t090": {
+    "px": 85,
+    "line_on_light_px": 0,
+    "over_indigo": {
+     "px": 45,
+     "components_ge20": 0,
+     "largest": 10
+    }
+   },
+   "side_right_t105": {
+    "px": 929,
+    "line_on_light_px": 0,
+    "over_indigo": {
+     "px": 919,
+     "components_ge20": 8,
+     "largest": 73
+    }
+   },
+   "side_right_t120": {
+    "px": 1044,
+    "line_on_light_px": 0,
+    "over_indigo": {
+     "px": 1023,
+     "components_ge20": 1,
+     "largest": 21
+    }
+   },
+   "back65_t060": {
+    "px": 13,
+    "line_on_light_px": 0,
+    "over_indigo": {
+     "px": 0,
+     "components_ge20": 0,
+     "largest": 0
+    }
+   },
+   "back65_t090": {
+    "px": 352,
+    "line_on_light_px": 0,
+    "over_indigo": {
+     "px": 204,
+     "components_ge20": 1,
+     "largest": 20
+    }
+   },
+   "back65_t105": {
+    "px": 869,
+    "line_on_light_px": 0,
+    "over_indigo": {
+     "px": 644,
+     "components_ge20": 11,
+     "largest": 38
+    }
+   },
+   "back65_t120": {
+    "px": 725,
+    "line_on_light_px": 0,
+    "over_indigo": {
+     "px": 720,
+     "components_ge20": 11,
+     "largest": 34
+    }
+   },
+   "top_t060": {
+    "px": 0,
+    "line_on_light_px": 0,
+    "over_indigo": {
+     "px": 0,
+     "components_ge20": 0,
+     "largest": 0
+    }
+   },
+   "top_t090": {
+    "px": 834,
+    "line_on_light_px": 5,
+    "over_indigo": {
+     "px": 114,
+     "components_ge20": 0,
+     "largest": 13
+    }
+   },
+   "top_t105": {
+    "px": 2870,
+    "line_on_light_px": 86,
+    "over_indigo": {
+     "px": 825,
+     "components_ge20": 8,
+     "largest": 121
+    }
+   },
+   "top_t120": {
+    "px": 3874,
+    "line_on_light_px": 103,
+    "over_indigo": {
+     "px": 1652,
+     "components_ge20": 5,
+     "largest": 619
+    }
+   }
+  },
+  "after": {
+   "painting_t060": {
+    "px": 51,
+    "line_on_light_px": 23,
+    "over_indigo": {
+     "px": 16,
+     "components_ge20": 0,
+     "largest": 16
+    }
+   },
+   "painting_t090": {
+    "px": 6420,
+    "line_on_light_px": 1839,
+    "over_indigo": {
+     "px": 263,
+     "components_ge20": 6,
+     "largest": 50
+    }
+   },
+   "painting_t105": {
+    "px": 41222,
+    "line_on_light_px": 8723,
+    "over_indigo": {
+     "px": 5394,
+     "components_ge20": 37,
+     "largest": 755
+    }
+   },
+   "painting_t120": {
+    "px": 56052,
+    "line_on_light_px": 10368,
+    "over_indigo": {
+     "px": 5619,
+     "components_ge20": 31,
+     "largest": 897
+    }
+   },
+   "seat_t060": {
+    "px": 0,
+    "line_on_light_px": 0,
+    "over_indigo": {
+     "px": 0,
+     "components_ge20": 0,
+     "largest": 0
+    }
+   },
+   "seat_t090": {
+    "px": 1404,
+    "line_on_light_px": 470,
+    "over_indigo": {
+     "px": 85,
+     "components_ge20": 1,
+     "largest": 25
+    }
+   },
+   "seat_t105": {
+    "px": 42957,
+    "line_on_light_px": 6673,
+    "over_indigo": {
+     "px": 6523,
+     "components_ge20": 55,
+     "largest": 1284
+    }
+   },
+   "seat_t120": {
+    "px": 90219,
+    "line_on_light_px": 7195,
+    "over_indigo": {
+     "px": 22278,
+     "components_ge20": 92,
+     "largest": 2159
+    }
+   },
+   "seat_toward_wave_t060": {
+    "px": 32,
+    "line_on_light_px": 6,
+    "over_indigo": {
+     "px": 11,
+     "components_ge20": 0,
+     "largest": 5
+    }
+   },
+   "seat_toward_wave_t090": {
+    "px": 4688,
+    "line_on_light_px": 1105,
+    "over_indigo": {
+     "px": 256,
+     "components_ge20": 5,
+     "largest": 37
+    }
+   },
+   "seat_toward_wave_t105": {
+    "px": 44659,
+    "line_on_light_px": 6193,
+    "over_indigo": {
+     "px": 7968,
+     "components_ge20": 66,
+     "largest": 1644
+    }
+   },
+   "seat_toward_wave_t120": {
+    "px": 25740,
+    "line_on_light_px": 1272,
+    "over_indigo": {
+     "px": 15229,
+     "components_ge20": 76,
+     "largest": 2627
+    }
+   },
+   "side_left_t060": {
+    "px": 106,
+    "line_on_light_px": 6,
+    "over_indigo": {
+     "px": 60,
+     "components_ge20": 1,
+     "largest": 23
+    }
+   },
+   "side_left_t090": {
+    "px": 4988,
+    "line_on_light_px": 526,
+    "over_indigo": {
+     "px": 2134,
+     "components_ge20": 17,
+     "largest": 676
+    }
+   },
+   "side_left_t105": {
+    "px": 11173,
+    "line_on_light_px": 1354,
+    "over_indigo": {
+     "px": 4914,
+     "components_ge20": 16,
+     "largest": 1054
+    }
+   },
+   "side_left_t120": {
+    "px": 11301,
+    "line_on_light_px": 1471,
+    "over_indigo": {
+     "px": 4865,
+     "components_ge20": 18,
+     "largest": 1000
+    }
+   },
+   "side_right_t060": {
+    "px": 137,
+    "line_on_light_px": 20,
+    "over_indigo": {
+     "px": 36,
+     "components_ge20": 0,
+     "largest": 10
+    }
+   },
+   "side_right_t090": {
+    "px": 7342,
+    "line_on_light_px": 1441,
+    "over_indigo": {
+     "px": 1020,
+     "components_ge20": 13,
+     "largest": 125
+    }
+   },
+   "side_right_t105": {
+    "px": 12719,
+    "line_on_light_px": 2783,
+    "over_indigo": {
+     "px": 2235,
+     "components_ge20": 25,
+     "largest": 159
+    }
+   },
+   "side_right_t120": {
+    "px": 12701,
+    "line_on_light_px": 2928,
+    "over_indigo": {
+     "px": 1955,
+     "components_ge20": 13,
+     "largest": 139
+    }
+   },
+   "back65_t060": {
+    "px": 310,
+    "line_on_light_px": 109,
+    "over_indigo": {
+     "px": 49,
+     "components_ge20": 0,
+     "largest": 17
+    }
+   },
+   "back65_t090": {
+    "px": 16301,
+    "line_on_light_px": 3415,
+    "over_indigo": {
+     "px": 1832,
+     "components_ge20": 16,
+     "largest": 986
+    }
+   },
+   "back65_t105": {
+    "px": 28133,
+    "line_on_light_px": 5589,
+    "over_indigo": {
+     "px": 3879,
+     "components_ge20": 33,
+     "largest": 1495
+    }
+   },
+   "back65_t120": {
+    "px": 26134,
+    "line_on_light_px": 5835,
+    "over_indigo": {
+     "px": 3139,
+     "components_ge20": 29,
+     "largest": 1107
+    }
+   },
+   "top_t060": {
+    "px": 97,
+    "line_on_light_px": 8,
+    "over_indigo": {
+     "px": 2,
+     "components_ge20": 0,
+     "largest": 1
+    }
+   },
+   "top_t090": {
+    "px": 5720,
+    "line_on_light_px": 1427,
+    "over_indigo": {
+     "px": 483,
+     "components_ge20": 6,
+     "largest": 70
+    }
+   },
+   "top_t105": {
+    "px": 12671,
+    "line_on_light_px": 2761,
+    "over_indigo": {
+     "px": 3015,
+     "components_ge20": 22,
+     "largest": 955
+    }
+   },
+   "top_t120": {
+    "px": 13285,
+    "line_on_light_px": 2698,
+    "over_indigo": {
+     "px": 3290,
+     "components_ge20": 18,
+     "largest": 669
+    }
+   }
+  }
+ },
+ "views_summary_before_after": {
+  "painting_t060": {
+   "claw_px": [
+    0,
+    51
+   ],
+   "line_px": [
+    0,
+    23
+   ],
+   "over_indigo_px": [
+    0,
+    16
+   ]
+  },
+  "painting_t090": {
+   "claw_px": [
+    3110,
+    6420
+   ],
+   "line_px": [
+    560,
+    1839
+   ],
+   "over_indigo_px": [
+    160,
+    263
+   ]
+  },
+  "painting_t105": {
+   "claw_px": [
+    28185,
+    41222
+   ],
+   "line_px": [
+    5868,
+    8723
+   ],
+   "over_indigo_px": [
+    3001,
+    5394
+   ]
+  },
+  "painting_t120": {
+   "claw_px": [
+    44723,
+    56052
+   ],
+   "line_px": [
+    9690,
+    10368
+   ],
+   "over_indigo_px": [
+    4005,
+    5619
+   ]
+  },
+  "seat_t060": {
+   "claw_px": [
+    0,
+    0
+   ],
+   "line_px": [
+    0,
+    0
+   ],
+   "over_indigo_px": [
+    0,
+    0
+   ]
+  },
+  "seat_t090": {
+   "claw_px": [
+    407,
+    1404
+   ],
+   "line_px": [
+    85,
+    470
+   ],
+   "over_indigo_px": [
+    50,
+    85
+   ]
+  },
+  "seat_t105": {
+   "claw_px": [
+    14150,
+    42957
+   ],
+   "line_px": [
+    1872,
+    6673
+   ],
+   "over_indigo_px": [
+    1995,
+    6523
+   ]
+  },
+  "seat_t120": {
+   "claw_px": [
+    36693,
+    90219
+   ],
+   "line_px": [
+    2031,
+    7195
+   ],
+   "over_indigo_px": [
+    6162,
+    22278
+   ]
+  },
+  "seat_toward_wave_t060": {
+   "claw_px": [
+    2,
+    32
+   ],
+   "line_px": [
+    0,
+    6
+   ],
+   "over_indigo_px": [
+    0,
+    11
+   ]
+  },
+  "seat_toward_wave_t090": {
+   "claw_px": [
+    640,
+    4688
+   ],
+   "line_px": [
+    65,
+    1105
+   ],
+   "over_indigo_px": [
+    131,
+    256
+   ]
+  },
+  "seat_toward_wave_t105": {
+   "claw_px": [
+    11762,
+    44659
+   ],
+   "line_px": [
+    1348,
+    6193
+   ],
+   "over_indigo_px": [
+    2142,
+    7968
+   ]
+  },
+  "seat_toward_wave_t120": {
+   "claw_px": [
+    9957,
+    25740
+   ],
+   "line_px": [
+    100,
+    1272
+   ],
+   "over_indigo_px": [
+    6027,
+    15229
+   ]
+  },
+  "side_left_t060": {
+   "claw_px": [
+    14,
+    106
+   ],
+   "line_px": [
+    0,
+    6
+   ],
+   "over_indigo_px": [
+    14,
+    60
+   ]
+  },
+  "side_left_t090": {
+   "claw_px": [
+    648,
+    4988
+   ],
+   "line_px": [
+    116,
+    526
+   ],
+   "over_indigo_px": [
+    94,
+    2134
+   ]
+  },
+  "side_left_t105": {
+   "claw_px": [
+    1678,
+    11173
+   ],
+   "line_px": [
+    234,
+    1354
+   ],
+   "over_indigo_px": [
+    675,
+    4914
+   ]
+  },
+  "side_left_t120": {
+   "claw_px": [
+    2393,
+    11301
+   ],
+   "line_px": [
+    230,
+    1471
+   ],
+   "over_indigo_px": [
+    1400,
+    4865
+   ]
+  },
+  "side_right_t060": {
+   "claw_px": [
+    10,
+    137
+   ],
+   "line_px": [
+    0,
+    20
+   ],
+   "over_indigo_px": [
+    10,
+    36
+   ]
+  },
+  "side_right_t090": {
+   "claw_px": [
+    85,
+    7342
+   ],
+   "line_px": [
+    0,
+    1441
+   ],
+   "over_indigo_px": [
+    45,
+    1020
+   ]
+  },
+  "side_right_t105": {
+   "claw_px": [
+    929,
+    12719
+   ],
+   "line_px": [
+    0,
+    2783
+   ],
+   "over_indigo_px": [
+    919,
+    2235
+   ]
+  },
+  "side_right_t120": {
+   "claw_px": [
+    1044,
+    12701
+   ],
+   "line_px": [
+    0,
+    2928
+   ],
+   "over_indigo_px": [
+    1023,
+    1955
+   ]
+  },
+  "back65_t060": {
+   "claw_px": [
+    13,
+    310
+   ],
+   "line_px": [
+    0,
+    109
+   ],
+   "over_indigo_px": [
+    0,
+    49
+   ]
+  },
+  "back65_t090": {
+   "claw_px": [
+    352,
+    16301
+   ],
+   "line_px": [
+    0,
+    3415
+   ],
+   "over_indigo_px": [
+    204,
+    1832
+   ]
+  },
+  "back65_t105": {
+   "claw_px": [
+    869,
+    28133
+   ],
+   "line_px": [
+    0,
+    5589
+   ],
+   "over_indigo_px": [
+    644,
+    3879
+   ]
+  },
+  "back65_t120": {
+   "claw_px": [
+    725,
+    26134
+   ],
+   "line_px": [
+    0,
+    5835
+   ],
+   "over_indigo_px": [
+    720,
+    3139
+   ]
+  },
+  "top_t060": {
+   "claw_px": [
+    0,
+    97
+   ],
+   "line_px": [
+    0,
+    8
+   ],
+   "over_indigo_px": [
+    0,
+    2
+   ]
+  },
+  "top_t090": {
+   "claw_px": [
+    834,
+    5720
+   ],
+   "line_px": [
+    5,
+    1427
+   ],
+   "over_indigo_px": [
+    114,
+    483
+   ]
+  },
+  "top_t105": {
+   "claw_px": [
+    2870,
+    12671
+   ],
+   "line_px": [
+    86,
+    2761
+   ],
+   "over_indigo_px": [
+    825,
+    3015
+   ]
+  },
+  "top_t120": {
+   "claw_px": [
+    3874,
+    13285
+   ],
+   "line_px": [
+    103,
+    2698
+   ],
+   "over_indigo_px": [
+    1652,
+    3290
+   ]
+  }
+ },
+ "painting_tstar_rhythm": {
+  "claw_zone_px": 127879,
+  "painting": {
+   "mizuiro": 0.4124,
+   "dark_line_px": 14858,
+   "components": 398
+  },
+  "bregion_painting": {
+   "mizuiro": 0.4602,
+   "dark_line_px": 8257,
+   "components": 176
+  },
+  "before": {
+   "mizuiro": 0.3222,
+   "dark_line_px": 11333,
+   "components": 231
+  },
+  "bregion_before": {
+   "mizuiro": 0.3114,
+   "dark_line_px": 5592,
+   "components": 77
+  },
+  "after": {
+   "mizuiro": 0.4186,
+   "dark_line_px": 12083,
+   "components": 234
+  },
+  "bregion_after": {
+   "mizuiro": 0.3673,
+   "dark_line_px": 5364,
+   "components": 81
+  }
+ },
+ "bregion_closed_rings": {
+  "before_t105": 1,
+  "before_t120": 5,
+  "after_t105": 3,
+  "after_t120": 8
+ }
+}

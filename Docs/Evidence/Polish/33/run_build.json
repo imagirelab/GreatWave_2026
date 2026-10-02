@@ -1,0 +1,63 @@
+{
+ "schema": "GreatWave.Polish33.run/1",
+ "commands": [
+  "py -3.10 -B Tools/GWWaveGen/pl33/pl33_claw_relief.py --h-rel 0.35 --h-max 0.8 --tip-drop 0.4 --out Unity/Build/Polish/33/relief",
+  "py -3.10 -B Tools/GWWaveGen/pl33/pl33_crown.py",
+  "bash Unity/Build/Polish/33/run_render.sh r_after views,tt,t28,full,video",
+  "bash Unity/Build/Polish/32/run_eval.sh Unity/Build/Polish/33/r_after",
+  "py -3.10 -B Tools/GWWaveGen/pl33/pl33_bumps.py Unity/Build/Polish/33/r_after/t28_claws Unity/Build/Polish/33/r_after/pl33_bumps.json",
+  "py -3.10 -B Tools/GWWaveGen/pl33/pl33_measure.py",
+  "py -3.10 -B Tools/GWWaveGen/pl33/pl33_checks.py",
+  "run_pl33_unity.ps1 -Method GreatWave.Polish33.EditorTools.PL33Setup.BuildScenes -Log build_scenes",
+  "run_pl33_unity.ps1 -NoQuit -Method GreatWave.Polish29.EditorTools.PL29PlayModeCheck.Run -Log playmode_<Release|SinglePlayback> -Extra \"-pl29Scene Assets/GreatWave/Polish33/Scenes/PL33_<…>.unity …\"",
+  "run_pl33_unity.ps1 -Method GreatWave.Polish33.EditorTools.PL33ReleaseBuild.BuildAll -Log release_build",
+  "run_pl32_player.ps1 -Tag pl33pair<1|2> ; run_pl33_player.ps1 -Tag pair<1|2>（交互に 2 組）",
+  "py -3.10 -B Tools/GWWaveGen/pl33/pl33_sheets.py --before Unity/Build/Polish/32/fix01/r_fix01 --after Unity/Build/Polish/33/r_after --out Docs/Evidence/Polish/33",
+  "py -3.10 -B Tools/GWWaveGen/pl33/pl33_figs.py",
+  "py -3.10 -B Tools/GWWaveGen/pl33/pl33_record.py"
+ ],
+ "tools": {
+  "unity": "6000.4.3f1（E:/6000.4.3f1/Editor/Unity.exe）",
+  "python": "py -3.10（numpy・OpenCV・scipy・PIL）",
+  "ffmpeg": "G:/ffmpeg-2024-12-19-git-494c961379-full_build/bin/ffmpeg.exe"
+ },
+ "inputs_sha256": {
+  "Unity/Build/Polish/32/fix01/claws/ds33_claw_frames_f32.bin": "e53603149500cd8fad7ed957f7655b05895dceb5aff76053edaaea53813dd47d",
+  "Unity/Build/Polish/32/white/hero_pkg/ds27_keypose.json": "56adab494bf4df9d96ef4f800f3ca1aadff6463ceb785d6729b250b9a6c75267",
+  "Unity/Build/Polish/32/white/hero_pkg/ds27_twhite_r32f.bin": "9f7ab0b69a900b9cfd3b21094b1ee5e2c21f4e34f8950b3894d12fce874dcec6",
+  "Unity/Build/Polish/32/white/pl31_zone_vertex.npy": "6d664a051eb1ef2a07a2d92524f34940517bad10dc8ab8bd0f846410c8222a7a",
+  "Unity/Build/Polish/28/G_p28rec/timewarp_G_p28rec.json": "836224b5b86c194589d44f04115a8652f9b1dc55d9bae5399c0cd8338cb67af7",
+  "Unity/Build/Polish/32/fix01/list/ds32_claw_inventory.json": "9c5887d9a2274cb22a4769b4f852ed6bda401e25aee608f20b90e5881cbe37a7"
+ },
+ "outputs_sha256": {
+  "Unity/Build/Polish/33/claws/ds33_claw_layout.json": "f108e9f4b98683f93c4642b64bf9a69632a0bbed816279b8eda88c5355c4cdcf",
+  "Unity/Build/Polish/33/claws/ds33_claw_frames_f32.bin": "be6c41e4e08340aa0b362f6a79b945d639beebed3832452b4d2b4b8c178fa6df",
+  "Unity/Build/Polish/33/claws/ds33_claw_tris_i32.bin": "7729e23d93554accaeaf2a3205d74ec89e07c62eaf69c4aaab10a3d0963736f9",
+  "Unity/Build/Polish/33/claws/ds33_claw_tri_attr_u16.bin": "df69d8c55a0f934e54079f8cd6d921fe81adf6cfcb268523b9e58516d5852933",
+  "Unity/Build/Polish/33/claws/pl33_crown.json": "d524d3fd72d6f397d05b7557f14b2e5de151a2ca51bc0861d92f3c03e6ede959",
+  "Unity/Build/Polish/33/relief/ds33_claw_layout.json": "ac371d85488ecc936a455aef56862c1a843fb7f2b504d09e710bb5a8bae1dd08",
+  "Unity/Build/Polish/33/release/player/GreatWave50.exe": "5be81b3fa7df7c08cadee6f79d6ff3fe95481420f166ba8127390ea669c8b12c"
+ },
+ "code_sha256": {
+  "Tools/GWWaveGen/pl33/pl33_bumps.py": "e246e6b466e07ece4f55298e1d2a6be76326bbdcb4062de233a3caed9eb33c18",
+  "Tools/GWWaveGen/pl33/pl33_checks.py": "63146c382dedca5a13cfdc81adcc829ab8aff82013d44c8e36d5cb95e6435ba9",
+  "Tools/GWWaveGen/pl33/pl33_claw_relief.py": "3d51257717df112127b9816f95f48eec44ae2fa19388e232f5a4eef196b0796e",
+  "Tools/GWWaveGen/pl33/pl33_common.py": "509ccc1764c5cb6b245db0b33be58c31be9a035da606e703ed0b54b8a8ca9176",
+  "Tools/GWWaveGen/pl33/pl33_crown.py": "d13cc36b97d4ed46c0c83b8cb80302758257214f5d4bce875578f1633a24b9b2",
+  "Tools/GWWaveGen/pl33/pl33_figs.py": "8ef5ec597ecf92b98ed94c6d837d02e2a336b99519c86c41d9962b14f5e7255c",
+  "Tools/GWWaveGen/pl33/pl33_measure.py": "44966cf1a8d541268bcc0df92f1d1bef4b6ed84941d2bd41e0ffcdafd1051b87",
+  "Tools/GWWaveGen/pl33/pl33_record.py": "5325f1a45a8fbfb67bee3e2333ac8cffc0b2d3d96926ef36b851703efe4dd465",
+  "Tools/GWWaveGen/pl33/pl33_sheets.py": "7430b6ec686026b9a7e0fb16ebb495a8431a6f222aed80617b208f5e7693c373",
+  "Tools/GWWaveGen/pl33/run_pl33_player.ps1": "ba42c54e5c72ca980611bcd87ec4cd8d9fdb4d41157773bb15deae411e5b2ccf",
+  "Tools/GWWaveGen/pl33/run_pl33_unity.ps1": "cc5d4ba1b68ed852e94247f97b25b27d7eebd90722b9215662fc8b20366eb2cf",
+  "Unity/Assets/GreatWave/Polish33/Scenes/PL33_Release.unity": "a3856f15210d7197eb939451041e5835aacb9dc67eb9e7a082286814aca6df9b",
+  "Unity/Assets/GreatWave/Polish33/Scenes/PL33_SinglePlayback.unity": "106ae881115377717e4f48ab05c59f6b5bf495419056abb871d87aed1b0b1aa0",
+  "Unity/Assets/GreatWave/Polish33/Editor/PL33ReleaseBuild.cs": "093a7edf96b71db7838c1d21f64f9e5b7a3b2224e12b0aaa5a423f1124dfc620",
+  "Unity/Assets/GreatWave/Polish33/Editor/PL33Render.cs": "a49784489f8debd3661d900499561c74fc9ce1caa26adc29829c12891e262591",
+  "Unity/Assets/GreatWave/Polish33/Editor/PL33Setup.cs": "156c63202ca4974855eda95a7e277219f21ae4879ec827d4c91337cef3cd3190",
+  "Unity/Assets/GreatWave/Polish33/Scripts/PL33ClawLook.cs": "0daf7bc50eea7761b28384e2a27492b53fa56cc9ef26ee9e4c4772a97d86da0f",
+  "Unity/Assets/GreatWave/Polish33/Shaders/PL33_Claw_Outline.shader": "5b4e4a975cc8ca177d477d06c25aa66b919898cf9f6b4218f2f4c4930473b03f"
+ },
+ "reference_photos_read_ja": "利用者の指示 Q16 の例外の写真のフォルダー G:/research/reality scan/北斋参考 の 3 枚（正面图.jpg・左45.jpg・背图.jpg）を画面で見ただけ（頂の指の形の見え方の参考）。画像・寸法・形はリポジトリと成果物に入れていない。Exif は写していない。参照モデルの OBJ は読んでいない。",
+ "git_head": "ede11c8ba7843839ba55b978a15fc7aaef1e1c2b"
+}

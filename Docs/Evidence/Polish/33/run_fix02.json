@@ -1,0 +1,63 @@
+{
+ "schema": "GreatWave.Polish33.run_fix02/1",
+ "commands": [
+  "bash Unity/Build/Polish/33/fix02/run_render_g.sh seq_fix01 views Build/Polish/33/fix01/claws/ds33_claw_layout.json 1 \"-pl29Views painting -pl29Times 10.0,10.1,…,12.0\"（爪なしの描画＝検査の暗い所）",
+  "py -3.10 -B Tools/GWWaveGen/pl33/pl33f2_clip.py",
+  "bash Unity/Build/Polish/33/fix02/run_render_g.sh r_fix02 views,tt,t28,full,video",
+  "bash Unity/Build/Polish/33/fix02/run_render_g.sh <seq_pre|seq_fix01|seq_f2|hold1_*|hold2_*> views <爪の並び> <0|1> \"-pl29Views painting -pl29Times …\"（毎コマの確かめ。hold は 10.0333＋0.1k・10.0667＋0.1k）",
+  "bash Unity/Build/Polish/32/run_eval.sh Unity/Build/Polish/33/fix02/r_fix02",
+  "py -3.10 -B Tools/GWWaveGen/pl33/pl33_bumps.py Unity/Build/Polish/33/fix02/r_fix02/t28_claws Unity/Build/Polish/33/fix02/measure/pl33_bumps_fix02.json",
+  "py -3.10 -B Tools/GWWaveGen/pl33/pl33f_measure.py --fix-run Unity/Build/Polish/33/fix02/r_fix02 --fix-claws Unity/Build/Polish/33/fix02/claws --build-run Unity/Build/Polish/33/fix01/r_fix01 --build-claws Unity/Build/Polish/33/fix01/claws --out Unity/Build/Polish/33/fix02/measure/pl33f2_measure.json",
+  "py -3.10 Unity/Build/Polish/33/fix02/work/seqm.py …（Git 対象外の作業用。式は pl33f2_seq_overindigo.json の rule_ja）、ridge_img.py（左右の側面・真上・後ろ 65° の上の縁の割合）",
+  "run_pl33_unity.ps1 -Method GreatWave.Polish33.EditorTools.PL33Setup.BuildScenes -Log f02_build_scenes -Extra \"-pl33Out …/fix02/setup\"",
+  "run_pl33_unity.ps1 -NoQuit -Method GreatWave.Polish29.EditorTools.PL29PlayModeCheck.Run -Log f02_playmode_<Release|SinglePlayback> -Extra \"-pl29Scene Assets/GreatWave/Polish33/Scenes/PL33_<…>.unity -pl29Out …/fix02/playmode_<…> -pl29Limit 400|120\"",
+  "run_pl33_unity.ps1 -Method GreatWave.Polish33.EditorTools.PL33ReleaseBuild.BuildAll -Log f02_release_build",
+  "run_pl33_player.ps1 -Tag f02pair1 ; run_pl33_player.ps1 -Tag f02pair2",
+  "py -3.10 -B Tools/GWWaveGen/pl33/pl33f2_sheets.py ; py -3.10 -B Tools/GWWaveGen/pl33/pl33f2_figs.py ; py -3.10 -B Tools/GWWaveGen/pl33/pl33f2_record.py",
+  "試し（採らない）：pl33f2_clip.py --mode const --out …/fix02/claws_const、--web-b-max 1.9 --out …/fix02/claws_wide、--web-floor（…/fix02/claws_floortry）"
+ ],
+ "code_sha256": {
+  "Tools/GWWaveGen/pl33/pl33f2_clip.py": "e4ee2ea2f836b18e9adba1bd00ecd3ff2e9f3fe359b225eedceb5ee8d7c602b3",
+  "Tools/GWWaveGen/pl33/pl33f_measure.py": "ecf6a1255af2de62711d1ca1c158417f7d9861d736094873ddf7cb4bf0e1c8c6",
+  "Tools/GWWaveGen/pl33/pl33f2_sheets.py": "b5e0eef93ea9fa3164c89b64e5aafe1a7487a496f823eb91a7cf8cffa21bc07b",
+  "Tools/GWWaveGen/pl33/pl33f2_figs.py": "e842956e450a5f19d48093e5a182a6d2b7540a05212467d0641795e6c97c75e0",
+  "Tools/GWWaveGen/pl33/pl33f2_record.py": "bec1e3699a80dcd2953bdf541f351a08a17f6a15b4f487d196b9d2691d83a869",
+  "Unity/Assets/GreatWave/Polish33/Editor/PL33Setup.cs": "49985015ab5b38de0fc1e01259cdf4525575c250c33c9a8448afb3ac441f4127",
+  "Unity/Assets/GreatWave/Polish33/Editor/PL33ReleaseBuild.cs": "ee41a0c7bc41a720592a50961ab3aada48ebe7ffb0347c2737d32c902b354157",
+  "Unity/Assets/GreatWave/Polish33/Scenes/PL33_Release.unity": "8feca7eeddafcdc969e64aa7a607db98b0ae4b8ecd0c2f931210a2b5efd07984",
+  "Unity/Assets/GreatWave/Polish33/Scenes/PL33_SinglePlayback.unity": "106ae881115377717e4f48ab05c59f6b5bf495419056abb871d87aed1b0b1aa0"
+ },
+ "outputs_sha256": {
+  "Unity/Build/Polish/33/fix02/claws/ds33_claw_layout.json": "1402d17f5f9ff946748899af9be577618a0127e2b8f9e4db5026a3244dce54e9",
+  "Unity/Build/Polish/33/fix02/claws/ds33_claw_frames_f32.bin": "9b7fd2e67ae9e6869b61fff882934bbf97faff4b899dd6d41f91e05ce6f4e86c",
+  "Unity/Build/Polish/33/fix02/claws/ds33_claw_tris_i32.bin": "f4973d6e6b2c3e23bbe3c62ad594ee660ca9c4d15b8f5dd47f08f80f9d1fad0d",
+  "Unity/Build/Polish/33/fix02/claws/ds33_claw_tri_attr_u16.bin": "59a2b8149fb4de0f3a156d94216d8e25df8ccb2d1b52920aa01daf6257548231",
+  "Unity/Build/Polish/33/fix02/claws/pl33f2_web_scale.npy": "d43c8a0e840db440bb221a73065d30be4b101827f908bd8f7ce4a437a8bb5327",
+  "Unity/Build/Polish/33/fix02/claws/pl33f2_tuft_scale.npy": "450a67c67f658ec5722fbb1e1517792fbf1906762af7a7e2a292c21d4a2d895c",
+  "Unity/Build/Polish/33/release/player/GreatWave50.exe": "5be81b3fa7df7c08cadee6f79d6ff3fe95481420f166ba8127390ea669c8b12c"
+ },
+ "check_masks_sha256": {
+  "painting_t100_clawfree.png": "c2c41d00a1122a0dd14e9b1b472349f93f51815886031bc82a02b70dc1da119e",
+  "painting_t101_clawfree.png": "44a09269fd4f1fd82cd07638a19b61e5393f84e54e5a05e879adf9cc3eae74c1",
+  "painting_t102_clawfree.png": "9f5f1c880d7393591fe4f42ec62cb8dff786066b4589fbc1097d0b2f949cc16c",
+  "painting_t103_clawfree.png": "eda11d98089a71d46fa170bc38b5d434b97577a02e865081315b912a15c2ec2d",
+  "painting_t104_clawfree.png": "45f9613ac207f1dc99149e40e30dac3067bd986439f0add30dd716ac5ef12b9d",
+  "painting_t105_clawfree.png": "4e579190b3b0bf4d490644ea5cc30f1f6add57b2e6841ecb4e948a193e7d5351",
+  "painting_t106_clawfree.png": "4d614b05360ca52004bf06d31d0f4501439da3d57307345e53039fecf33ca9c0",
+  "painting_t107_clawfree.png": "2d6ce78b6bcf430defda52d7ff350bebbb8ecc1decfa88f1086882540217eb6c",
+  "painting_t108_clawfree.png": "3065c63c0761d3826e2d03691a271894ce816a66a79b944431f8e43fcbbe5472",
+  "painting_t109_clawfree.png": "8194288a2f8c702255dae2342d89f5e9b55e05257b053cab4a9bd2cfaedd123d",
+  "painting_t110_clawfree.png": "3a425bb297829631b43bcbbd7fca6b7239ab6af03b5c97ccbb627f254876e6cd",
+  "painting_t111_clawfree.png": "5c8f9989268e672d04944ec1a5a07e9bdc0975cfd260d48c52671bd6dfe35982",
+  "painting_t112_clawfree.png": "df77f917a6a2798bb571795e2427b77dec3f2a9c7cda4a943f09845593b421d4",
+  "painting_t113_clawfree.png": "0cc15d457c6cdc1828127322100ee45e14b3e6c65f4de4aefad5d7623dc61c79",
+  "painting_t114_clawfree.png": "747834b1d47bba1e01cf9579b22098acc88e83a5cd9e9499cfc8b6fcd6b77bb3",
+  "painting_t115_clawfree.png": "3a60883e85f3d35615e278df5003a6c33b7b2786d760b52d577b23245fffd444",
+  "painting_t116_clawfree.png": "b073c302e773fc45101e34d39ea1c896f421c14470f45666e5a497048bf1a851",
+  "painting_t117_clawfree.png": "10199c23bdca70f29f8c841ba06a5d8e1b5460556a6362a47c4cacd2e458cf15",
+  "painting_t118_clawfree.png": "6df299ce4355f3087bc554f0ef9d4a3e49fa703b28b8c6acee1bb048c694fdef",
+  "painting_t119_clawfree.png": "e9f93f0fb62f4115833673aa332e4e58efe2b9ba477d65b916750cb09a5c774d",
+  "painting_t120_clawfree.png": "d0f9c8901d96b136f3dcbb6443b1241e33bc3556669472dae074c87b0f8714e6"
+ },
+ "archive_fix01": "Unity/Build/Polish/33/record/archive_fix01（修正の回 1 の図・動画・metrics_fix01.json の写し。archive_index.json に SHA-256）"
+}

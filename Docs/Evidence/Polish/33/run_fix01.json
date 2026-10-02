@@ -1,0 +1,44 @@
+{
+ "schema": "GreatWave.Polish33.run_fix01/1",
+ "commands": [
+  "py -3.10 -B Tools/GWWaveGen/pl33/pl33f_relief.py",
+  "py -3.10 -B Tools/GWWaveGen/pl33/pl33f_tuft.py",
+  "py -3.10 -B Tools/GWWaveGen/pl33/pl33f_crown.py --relief Unity/Build/Polish/33/fix01/relief_t",
+  "bash Unity/Build/Polish/33/fix01/run_render_f.sh r_fix01 views,tt,t28,full,video",
+  "bash Unity/Build/Polish/32/run_eval.sh Unity/Build/Polish/33/fix01/r_fix01",
+  "py -3.10 -B Tools/GWWaveGen/pl33/pl33_bumps.py Unity/Build/Polish/33/fix01/r_fix01/t28_claws Unity/Build/Polish/33/fix01/measure/pl33_bumps_fix.json",
+  "py -3.10 -B Tools/GWWaveGen/pl33/pl33f_measure.py",
+  "py -3.10 -B Tools/GWWaveGen/pl33/pl33f_rim.py ; bash Unity/Build/Polish/33/fix01/run_render_f.sh r_rim1 views,t28 Build/Polish/33/fix01/try_rim/ds33_claw_layout.json ; py -3.10 -B Tools/GWWaveGen/pl28/pl28u_regress.py --scene Unity/Build/Polish/33/fix01/r_rim1 --kstar rec（試し、採らない）",
+  "run_pl33_unity.ps1 -Method GreatWave.Polish33.EditorTools.PL33Setup.BuildScenes -Log f01_build_scenes -Extra \"-pl33Out …/fix01/setup\"",
+  "run_pl33_unity.ps1 -NoQuit -Method GreatWave.Polish29.EditorTools.PL29PlayModeCheck.Run -Log f01_playmode_<Release|SinglePlayback> -Extra \"-pl29Scene Assets/GreatWave/Polish33/Scenes/PL33_<…>.unity -pl29Out …/fix01/playmode_<…> -pl29Limit 400|120\"",
+  "run_pl33_unity.ps1 -Method GreatWave.Polish33.EditorTools.PL33ReleaseBuild.BuildAll -Log f01_release_build",
+  "run_pl33_player.ps1 -Tag f01pair1 ; run_pl33_player.ps1 -Tag f01pair2",
+  "py -3.10 -B Tools/GWWaveGen/pl33/pl33f_sheets.py ; py -3.10 -B Tools/GWWaveGen/pl33/pl33f_figs.py ; py -3.10 -B Tools/GWWaveGen/pl33/pl33f_record.py"
+ ],
+ "code_sha256": {
+  "Tools/GWWaveGen/pl33/pl33f_relief.py": "8410be9d2b6d85a5e1760b8da4f6e8f80b7243d5eea0b7cd03262de9de66ad17",
+  "Tools/GWWaveGen/pl33/pl33f_tuft.py": "592a73a319d69dbedca8338b6eaf6a7df3a10c40e83f1b1648b40110bf22254b",
+  "Tools/GWWaveGen/pl33/pl33f_crown.py": "e2a42dec63e693e70510a83ca77f84e2fc7be94b84440b55190687c292de610e",
+  "Tools/GWWaveGen/pl33/pl33f_rim.py": "1f3ab5a67f37a9f050725e0980c215d641d79a4a5c61b1d58371281d76f6b9b4",
+  "Tools/GWWaveGen/pl33/pl33f_measure.py": "2569b189b45c709d5c9c3f62a006295a4afd8012e38918742884b16ff8216af5",
+  "Tools/GWWaveGen/pl33/pl33f_sheets.py": "4c97bddb270aeaf7c5f764c3f7fbaf60f0faf658093b601e3d3742975479bcd8",
+  "Tools/GWWaveGen/pl33/pl33f_figs.py": "ddec34c3ba8028d58559d9283f44cbaaee8cbd091997b94117f7d44d8d394722",
+  "Tools/GWWaveGen/pl33/pl33f_record.py": "54c328ad4800a5bc36210174c07249e3ba1f76daecf84a7fe24b9a1404514e3e",
+  "Unity/Assets/GreatWave/Polish33/Scripts/PL33ClawLook.cs": "515160c9e8b82b8c00e5c32342df2264f9b9c0f1f08168204a7519fc67abc645",
+  "Unity/Assets/GreatWave/Polish33/Editor/PL33Setup.cs": "c0676ac289e29732e4d56212f5a8174c5d81a1cc4cb6463679d4d0d2d9a16ac1",
+  "Unity/Assets/GreatWave/Polish33/Editor/PL33ReleaseBuild.cs": "814329958367eb0c6bd096988aeba17a1c7f8eefdc8a2e2314dd6fdca17eea4d",
+  "Unity/Assets/GreatWave/Polish33/Scenes/PL33_Release.unity": "67a90114d9cb3e174097b5a7c0ff46adbc859507f92cc16679834f2d5fcc1203",
+  "Unity/Assets/GreatWave/Polish33/Scenes/PL33_SinglePlayback.unity": "106ae881115377717e4f48ab05c59f6b5bf495419056abb871d87aed1b0b1aa0"
+ },
+ "outputs_sha256": {
+  "Unity/Build/Polish/33/fix01/claws/ds33_claw_layout.json": "bc9ea364544692466aff9012eaf011391e874980a448898210928eb04aacfdcd",
+  "Unity/Build/Polish/33/fix01/claws/ds33_claw_frames_f32.bin": "ef9721de0e194ff758069497ec8319a59e5d9a50d8fa064a0328b3f92f1060c8",
+  "Unity/Build/Polish/33/fix01/claws/ds33_claw_tris_i32.bin": "f4973d6e6b2c3e23bbe3c62ad594ee660ca9c4d15b8f5dd47f08f80f9d1fad0d",
+  "Unity/Build/Polish/33/fix01/claws/ds33_claw_tri_attr_u16.bin": "59a2b8149fb4de0f3a156d94216d8e25df8ccb2d1b52920aa01daf6257548231",
+  "Unity/Build/Polish/33/fix01/relief/ds33_claw_layout.json": "b618bcc4bf2ef41eaf3a7fdc4364bea53dbad6e30118cd3cbd475d8e794852d5",
+  "Unity/Build/Polish/33/fix01/relief_t/ds33_claw_layout.json": "5e9b2d21b06e3f98a65bb41e67ecf9357bd3f559f30b1959335c5f2a22adbe87",
+  "Unity/Build/Polish/33/release/player/GreatWave50.exe": "5be81b3fa7df7c08cadee6f79d6ff3fe95481420f166ba8127390ea669c8b12c"
+ },
+ "archive_build": "Unity/Build/Polish/33/record/archive_build（作る部の図・動画・記録の写し。archive_index.json に SHA-256）",
+ "c_drive_note_ja": "C: の空きが 0 だったので、会話の作業フォルダー（C: の Temp の scratchpad）のうち 9/29 より前の古いフォルダー 119 個（約 1.54 GB）を Unity/Build/_scratch_moved_20261002（G:、Git 対象外）へ移した（消していない）。q26gov と objref は動かしていない。"
+}

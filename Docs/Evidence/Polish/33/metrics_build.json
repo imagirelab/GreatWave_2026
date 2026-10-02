@@ -1,0 +1,525 @@
+{
+ "schema": "GreatWave.Polish33.metrics/1",
+ "number": "仕上げ33（設計33 爪の造形）",
+ "before": "仕上げ32（コミット ede11c8。修正の回 1 の状態。描画 Build/Polish/32/fix01/r_fix01）",
+ "after": "仕上げ33（Build/Polish/33/r_after）",
+ "evidence_kind_ja": "Unity 6000.4.3f1 の PC オフスクリーン描画・Editor の Play モード・Release のプレイヤー（PC）と numpy・OpenCV の計算。HMD 実機ではない。利用者は見ていない。",
+ "gates_painting_view": {
+  "78_max_px": [
+   2.741,
+   2.741
+  ],
+  "130_max_px": [
+   3.5815,
+   3.5815
+  ],
+  "131_max_px": [
+   3.4419,
+   3.4419
+  ],
+  "132_sigma12_max_px": [
+   3.5576,
+   3.5576
+  ],
+  "72_sigma12_p95_px_claws": [
+   3.5757,
+   3.5757
+  ],
+  "72_sigma12_p95_px_noclaws": [
+   3.8507,
+   3.8507
+  ],
+  "verdict": "後退なし（前と同じ値。爪の投影は射線の上を動かしただけで、冠の爪は原画視点で見えず、膜は主役波の中に収めた）",
+  "cp1": {
+   "78": 2.772,
+   "130": 1.968,
+   "131": 1.814,
+   "132": 1.326,
+   "72": 1.558
+  },
+  "26r01": {
+   "78": 1.641,
+   "130": 1.953,
+   "131": 1.798,
+   "132": 1.574,
+   "72": 1.723
+  },
+  "eval23_before": {
+   "line": {
+    "fail": 7,
+    "pass": 2,
+    "record-only": 14
+   },
+   "line_noclaws": {
+    "fail": 7,
+    "pass": 2,
+    "record-only": 14
+   },
+   "noline": {
+    "pass": 4,
+    "fail": 5,
+    "record-only": 14
+   },
+   "noline_noclaws": {
+    "pass": 4,
+    "fail": 5,
+    "record-only": 14
+   }
+  },
+  "eval23_after": {
+   "line": {
+    "fail": 7,
+    "pass": 2,
+    "record-only": 14
+   },
+   "line_noclaws": {
+    "fail": 7,
+    "pass": 2,
+    "record-only": 14
+   },
+   "noline": {
+    "pass": 4,
+    "fail": 5,
+    "record-only": 14
+   },
+   "noline_noclaws": {
+    "pass": 4,
+    "fail": 5,
+    "record-only": 14
+   }
+  }
+ },
+ "backlog": {
+  "99": {
+   "value": {
+    "rings_min": 0.2,
+    "rings_max": 0.2,
+    "median": 0.2,
+    "all_C_claws_median": 0.2,
+    "all_C_claws_p5_p95": [
+     0.2,
+     0.25
+    ],
+    "note_ja": "先の 2 輪（閉じ）を除く。仕上げ33 は帯の断面（幅と厚みの比）を変えていない（立ち上げは輪をそのまま動かし、奥行きの比で一様に縮めた）"
+   },
+   "verdict": "満たす（C095 の側面の厚み／正面の幅 0.20、根元から先まで同じ。座席から立ち上がった帯の側面が見える）"
+  },
+  "100": {
+   "value": {
+    "closed_band": true,
+    "outline_132_def_px": 5.3771,
+    "outline_72_def_p95_px": 5.1476
+   },
+   "verdict": "一部（帯は根元の扇・輪・先端で閉じた筒で、穴・切断面はない。原画構図の輪郭の細部込み ≤4 px は満たさない＝下の 132・72）"
+  },
+  "101": {
+   "verdict": "記録（芽の段 s < 0.2 は面に付いた短い帯。冠の爪も芽から伸びる。座席 t 9 s で芽が見える）"
+  },
+  "103_104": {
+   "verdict": "満たす（原画の爪の t* の投影は仕上げ32 と同じ：投影の差 最大 5e-05 px。仕上げ32 の 122・127・128 の先端 ≤ 2.10 px のまま）"
+  },
+  "105": {
+   "value": {
+    "C_root_identical_to_pl32": true,
+    "crown_root_to_sheet_vertex_max_m": 7.741351458117767e-06
+   },
+   "verdict": "満たす"
+  },
+  "129": {
+   "value": {
+    "C": 0,
+    "W": 0,
+    "K": 0
+   },
+   "verdict": "満たす（瞬間移動 0）"
+  },
+  "136": {
+   "verdict": "満たす（原画の爪は仕上げ32 の成長のまま。冠の爪は根元の T_white（τ −2.78〜−0.44 s）で伸び始め、t* で終わる）"
+  },
+  "137": {
+   "value": 7.741351458117767e-06,
+   "verdict": "満たす（冠の爪の根元はシートの頂点そのもの。滑り 8 µm 以下＝float32 の丸め）"
+  },
+  "138": {
+   "verdict": "満たす（立ち上がりの向きと冠の爪の向きは根元の座標系で持ち、面が回れば一緒に回る）"
+  },
+  "139": {
+   "value": {
+    "claws": 184,
+    "crown": 168,
+    "nan": 0
+   },
+   "verdict": "満たす（途中の欠落 0、NaN 0）"
+  },
+  "140_141_180_262": {
+   "value": {
+    "seat_t120_claw_px": [
+     36693,
+     90219
+    ],
+    "seat_toward_wave_t120_claw_px": [
+     9957,
+     25740
+    ],
+    "penetration": {
+     "C_t090": {
+      "rings_below_surface": 0,
+      "rings_checked": 1800,
+      "fraction": 0.0
+     },
+     "K_t090": {
+      "rings_below_surface": 0,
+      "rings_checked": 1880,
+      "fraction": 0.0
+     },
+     "C_t105": {
+      "rings_below_surface": 0,
+      "rings_checked": 3613,
+      "fraction": 0.0
+     },
+     "K_t105": {
+      "rings_below_surface": 0,
+      "rings_checked": 3282,
+      "fraction": 0.0
+     },
+     "C_t120": {
+      "rings_below_surface": 9,
+      "rings_checked": 3631,
+      "fraction": 0.0025
+     },
+     "K_t120": {
+      "rings_below_surface": 0,
+      "rings_checked": 3322,
+      "fraction": 0.0
+     }
+    }
+   },
+   "verdict": "記録（座席から、面から立ち上がった指が手前・奥で重なり、指の間に藍・空が見える。目で見た判定。数の判定はしていない）"
+  },
+  "200_207_208": {
+   "verdict": "記録（爪の白は主役波の白と同じ色の値。根元の円は仕上げ32 の決まりで水色の版のまま）"
+  },
+  "204": {
+   "value": {
+    "flips": {
+     "C": 28,
+     "K": 0
+    },
+    "ids": {
+     "C021": 15,
+     "C067": 10,
+     "C090": 3
+    },
+    "width_outside": 0
+   },
+   "verdict": "一部（幅は範囲の内。輪の上面の向きの裏返り 28 コマは C021・C067・C090 で、仕上げ32 の帯のまま＝立ち上げは輪を平行に動かすだけ）"
+  },
+  "205_206": {
+   "verdict": "記録（帯は閉じた筒。鉤の内の膜は線のない水色の薄い膜で、座席から爪の下の陰として見える）"
+  },
+  "238": {
+   "verdict": "満たす（根元の線は仕上げ32 のとおり開き、膜には線を出さない）"
+  }
+ },
+ "plan_5_3": {
+  "user_words_bregion": {
+   "mizuiro_painting_before_after": [
+    0.4602,
+    0.3114,
+    0.3673
+   ],
+   "line_components_painting_before_after": [
+    176,
+    77,
+    81
+   ],
+   "verdict": "一部（房の付け根の水色の塊は増えた。藍の窓・3 つの房の形は主役波の形と材質の限界）"
+  },
+  "painting_claw_rhythm": {
+   "mizuiro_painting_before_after": [
+    0.4124,
+    0.3222,
+    0.4186
+   ],
+   "dark_line_px_painting_before_after": [
+    14858,
+    11333,
+    12083
+   ],
+   "verdict": "直した（爪の領域の水色の割合が原画と同じ程度）",
+   "superseded_ja": "作る部の値。採用ではない（修正の回 1 で低い浮き彫りに戻した）。採用の状態は metrics_fix01.json の record_corrections_fix02 と metrics_fix02.json の must_fix.2_record_row2_and_seat（一部）。"
+  },
+  "views_claw_px_t120": {
+   "painting_t120": {
+    "claw_px": [
+     44723,
+     56052
+    ],
+    "line_px": [
+     9690,
+     10368
+    ],
+    "over_indigo_px": [
+     4005,
+     5619
+    ]
+   },
+   "seat_t120": {
+    "claw_px": [
+     36693,
+     90219
+    ],
+    "line_px": [
+     2031,
+     7195
+    ],
+    "over_indigo_px": [
+     6162,
+     22278
+    ]
+   },
+   "seat_toward_wave_t120": {
+    "claw_px": [
+     9957,
+     25740
+    ],
+    "line_px": [
+     100,
+     1272
+    ],
+    "over_indigo_px": [
+     6027,
+     15229
+    ]
+   },
+   "side_left_t120": {
+    "claw_px": [
+     2393,
+     11301
+    ],
+    "line_px": [
+     230,
+     1471
+    ],
+    "over_indigo_px": [
+     1400,
+     4865
+    ]
+   },
+   "side_right_t120": {
+    "claw_px": [
+     1044,
+     12701
+    ],
+    "line_px": [
+     0,
+     2928
+    ],
+    "over_indigo_px": [
+     1023,
+     1955
+    ]
+   },
+   "back65_t120": {
+    "claw_px": [
+     725,
+     26134
+    ],
+    "line_px": [
+     0,
+     5835
+    ],
+    "over_indigo_px": [
+     720,
+     3139
+    ]
+   },
+   "top_t120": {
+    "claw_px": [
+     3874,
+     13285
+    ],
+    "line_px": [
+     103,
+     2698
+    ],
+    "over_indigo_px": [
+     1652,
+     3290
+    ]
+   }
+  },
+  "132_72_detail_bumps": {
+   "after": {
+    "132": {
+     "max_px": 5.3771,
+     "p95_px": 4.4882
+    },
+    "72": {
+     "max_px": 7.9301,
+     "p95_px": 5.1476
+    }
+   },
+   "verdict": "満たさない（限界。4 px を超える所は主役波の面の輪郭のこぶ（爪なしでも同じ所）と、爪の先と先の間で包絡に届かないへこみ）"
+  }
+ },
+ "unity": {
+  "perf": {
+   "pl32_1": {
+    "frames": 93374,
+    "seconds": 91.57,
+    "fps": 1019.6,
+    "pass_": true,
+    "errors": 0,
+    "exceptions": 0,
+    "Intro": {
+     "ftCpuMain": 0.6476,
+     "ftGpu": 0.4526,
+     "ftCpu": 0.6501
+    },
+    "Approach": {
+     "ftCpuMain": 0.7976,
+     "ftGpu": 0.4772,
+     "ftCpu": 0.7996
+    },
+    "Formation": {
+     "ftCpuMain": 0.612,
+     "ftGpu": 0.556,
+     "ftCpu": 0.6165
+    },
+    "Hold": {
+     "ftCpuMain": 0.6966,
+     "ftGpu": 0.6584,
+     "ftCpu": 0.7013
+    },
+    "Afterglow": {
+     "ftCpuMain": 0.9557,
+     "ftGpu": 0.9216,
+     "ftCpu": 0.9608
+    },
+    "End": {
+     "ftCpuMain": 0.9615,
+     "ftGpu": 0.9093,
+     "ftCpu": 0.9665
+    }
+   },
+   "pl33_1": {
+    "frames": 90088,
+    "seconds": 93.89,
+    "fps": 959.5,
+    "pass_": true,
+    "errors": 0,
+    "exceptions": 0,
+    "Intro": {
+     "ftCpuMain": 0.6706,
+     "ftGpu": 0.4864,
+     "ftCpu": 0.6731
+    },
+    "Approach": {
+     "ftCpuMain": 0.8066,
+     "ftGpu": 0.5089,
+     "ftCpu": 0.8085
+    },
+    "Formation": {
+     "ftCpuMain": 0.6648,
+     "ftGpu": 0.6062,
+     "ftCpu": 0.6691
+    },
+    "Hold": {
+     "ftCpuMain": 0.7265,
+     "ftGpu": 0.6881,
+     "ftCpu": 0.7309
+    },
+    "Afterglow": {
+     "ftCpuMain": 1.0099,
+     "ftGpu": 0.9769,
+     "ftCpu": 1.0152
+    },
+    "End": {
+     "ftCpuMain": 1.0161,
+     "ftGpu": 0.9636,
+     "ftCpu": 1.0208
+    }
+   },
+   "pl32_2": {
+    "frames": 92301,
+    "seconds": 91.56,
+    "fps": 1008.1,
+    "pass_": true,
+    "errors": 0,
+    "exceptions": 0,
+    "Intro": {
+     "ftCpuMain": 0.6593,
+     "ftGpu": 0.4628,
+     "ftCpu": 0.6618
+    },
+    "Approach": {
+     "ftCpuMain": 0.791,
+     "ftGpu": 0.4864,
+     "ftCpu": 0.7928
+    },
+    "Formation": {
+     "ftCpuMain": 0.6378,
+     "ftGpu": 0.5827,
+     "ftCpu": 0.6425
+    },
+    "Hold": {
+     "ftCpuMain": 0.7044,
+     "ftGpu": 0.6656,
+     "ftCpu": 0.709
+    },
+    "Afterglow": {
+     "ftCpuMain": 0.969,
+     "ftGpu": 0.9339,
+     "ftCpu": 0.9743
+    },
+    "End": {
+     "ftCpuMain": 0.9751,
+     "ftGpu": 0.9226,
+     "ftCpu": 0.9799
+    }
+   },
+   "pl33_2": {
+    "frames": 91599,
+    "seconds": 93.81,
+    "fps": 976.4,
+    "pass_": true,
+    "errors": 0,
+    "exceptions": 0,
+    "Intro": {
+     "ftCpuMain": 0.6702,
+     "ftGpu": 0.4874,
+     "ftCpu": 0.6726
+    },
+    "Approach": {
+     "ftCpuMain": 0.755,
+     "ftGpu": 0.5161,
+     "ftCpu": 0.7571
+    },
+    "Formation": {
+     "ftCpuMain": 0.6454,
+     "ftGpu": 0.5898,
+     "ftCpu": 0.6504
+    },
+    "Hold": {
+     "ftCpuMain": 0.7268,
+     "ftGpu": 0.6892,
+     "ftCpu": 0.7316
+    },
+    "Afterglow": {
+     "ftCpuMain": 1.0143,
+     "ftGpu": 0.982,
+     "ftCpu": 1.0194
+    },
+    "End": {
+     "ftCpuMain": 1.025,
+     "ftGpu": 0.9728,
+     "ftCpu": 1.03
+    }
+   }
+  },
+  "release_data_bytes": 1173857336,
+  "claw_vertices": 91400,
+  "claw_triangles": 175296
+ }
+}

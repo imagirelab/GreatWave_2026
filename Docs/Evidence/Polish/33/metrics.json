@@ -1,0 +1,1665 @@
+{
+ "schema": "GreatWave.Polish33.metrics/1",
+ "number": {
+  "group": "仕上げ33",
+  "design": "設計33 爪の造形",
+  "backlog": "99〜101、103〜105、129、136〜141、180、200、204〜208、238、262",
+  "time_box_days": 1.5,
+  "plan": "Docs/Design/Stage9_Plan_2026-09-26_ja.md §5.1・§5.2・§5.3 仕上げ33・§2.6"
+ },
+ "before_ja": "仕上げ32（ede11c8、修正の回 1 の状態）。描画 Unity/Build/Polish/32/fix01/r_fix01",
+ "after_ja": "仕上げ33 修正の回 2（採用）。爪の並び Unity/Build/Polish/33/fix02/claws、描画 Unity/Build/Polish/33/fix02/r_fix02",
+ "evidence_kind_ja": "Unity 6000.4.3f1 の PC オフスクリーン描画、Editor の Play モード、Release のプレイヤーを PC で動かした結果、numpy・OpenCV・scipy の計算。HMD 実機ではない。利用者は見ていない",
+ "user_words": {
+  "Q16_Q21_bregion": {
+   "plan_row": 1,
+   "values": {
+    "painting": {
+     "mizuiro": 0.4602,
+     "dark_line_px": 8257,
+     "components": 176
+    },
+    "before_pl32": {
+     "mizuiro": 0.3114,
+     "dark_line_px": 5592,
+     "components": 77,
+     "miz_precision_tol4": 0.8934,
+     "miz_recall_tol4": 0.5918
+    },
+    "fix01": {
+     "mizuiro": 0.3443,
+     "dark_line_px": 6772,
+     "components": 122,
+     "miz_precision_tol4": 0.9027,
+     "miz_recall_tol4": 0.6645
+    },
+    "after_fix02": {
+     "mizuiro": 0.3309,
+     "dark_line_px": 6247,
+     "components": 115,
+     "miz_precision_tol4": 0.8997,
+     "miz_recall_tol4": 0.6396
+    },
+    "build_r_after": {
+     "mizuiro": 0.3673,
+     "dark_line_px": 5364,
+     "components": 81,
+     "miz_precision_tol4": 0.9069,
+     "miz_recall_tol4": 0.6267
+    }
+   },
+   "closed_rings_t105_t120": {
+    "before_pl32": [
+     1,
+     5
+    ],
+    "after_fix02": [
+     1,
+     6
+    ]
+   },
+   "fix_rounds_used": 2,
+   "verdict": "一部",
+   "verdict_ja": "2〜3 本の指の束として読めるが、5〜10 本の房と藍の窓・水色の量には届かない。2 回の修正の回を使ったので 10/29 以降へ"
+  },
+  "Q28_3d_claws_every_view": {
+   "source_ja": "制作手順 Q28、計画 §5.1 の審査の決まり",
+   "projection_colour_used": false,
+   "ridge_top_edge_fraction_img": {
+    "side_left": {
+     "columns": 1102,
+     "before": 0.0708,
+     "fix01": 0.2632,
+     "fix02": 0.2632
+    },
+    "side_right": {
+     "columns": 335,
+     "before": 0.1672,
+     "fix01": 0.809,
+     "fix02": 0.809
+    },
+    "top": {
+     "columns": 623,
+     "before": 0.0,
+     "fix01": 0.0883,
+     "fix02": 0.0883
+    },
+    "back65": {
+     "columns": 1180,
+     "before": 0.0364,
+     "fix01": 0.3797,
+     "fix02": 0.3797
+    }
+   },
+   "ridge_ringed_fraction_tstar": {
+    "back65": {
+     "top_silhouette_px": 3744,
+     "before": 0.0,
+     "build": 0.3162,
+     "fix": 0.3162
+    },
+    "tt150": {
+     "top_silhouette_px": 4102,
+     "before": 0.0861,
+     "build": 0.2633,
+     "fix": 0.2633
+    },
+    "tt180": {
+     "top_silhouette_px": 3572,
+     "before": 0.0238,
+     "build": 0.2688,
+     "fix": 0.2688
+    },
+    "tt210": {
+     "top_silhouette_px": 3987,
+     "before": 0.0,
+     "build": 0.1497,
+     "fix": 0.1497
+    },
+    "tt240": {
+     "top_silhouette_px": 4545,
+     "before": 0.0838,
+     "build": 0.3096,
+     "fix": 0.3096
+    },
+    "tt270": {
+     "top_silhouette_px": 4770,
+     "before": 0.2,
+     "build": 0.4218,
+     "fix": 0.4218
+    },
+    "tt300": {
+     "top_silhouette_px": 3529,
+     "before": 0.2666,
+     "build": 0.5305,
+     "fix": 0.5305
+    },
+    "tt000": {
+     "top_silhouette_px": 4526,
+     "before": 0.034,
+     "build": 0.2552,
+     "fix": 0.2552
+    },
+    "tt030": {
+     "top_silhouette_px": 3681,
+     "before": 0.0,
+     "build": 0.2065,
+     "fix": 0.2065
+    },
+    "tt060": {
+     "top_silhouette_px": 4087,
+     "before": 0.0607,
+     "build": 0.2748,
+     "fix": 0.2748
+    },
+    "tt090": {
+     "top_silhouette_px": 3645,
+     "before": 0.2658,
+     "build": 0.5388,
+     "fix": 0.5388
+    },
+    "tt120": {
+     "top_silhouette_px": 3895,
+     "before": 0.1777,
+     "build": 0.4318,
+     "fix": 0.4318
+    },
+    "tt330": {
+     "top_silhouette_px": 3645,
+     "before": 0.1492,
+     "build": 0.3805,
+     "fix": 0.3805
+    }
+   },
+   "verdict": "一部",
+   "verdict_ja": "側面・後ろ・真上・回り台で頂の房の列として読める。稜は房ごと、左の側面は 1 か所、座席からは 3D の白い指として読めない（限界）"
+  }
+ },
+ "plan_5_3": [
+  {
+   "row": 1,
+   "user_words": true,
+   "text_ja": "［利用者の言葉］Q16・Q21 の b区域の爪が原画視点で房として読めない、帯の幅",
+   "source_ja": "段階9確認 #2・#8、段階6確認 F6-1・F6-2・F6-3、設計33 限界4、設計36 限界8",
+   "before": {
+    "mizuiro": 0.3114,
+    "dark_line_px": 5592,
+    "components": 77,
+    "miz_precision_tol4": 0.8934,
+    "miz_recall_tol4": 0.5918
+   },
+   "after": {
+    "mizuiro": 0.3309,
+    "dark_line_px": 6247,
+    "components": 115,
+    "miz_precision_tol4": 0.8997,
+    "miz_recall_tol4": 0.6396
+   },
+   "painting": {
+    "mizuiro": 0.4602,
+    "dark_line_px": 8257,
+    "components": 176
+   },
+   "verdict": "一部",
+   "note_ja": "2 回の修正の回（［利用者の言葉］の上限）を使った。5〜10 本の房と藍の窓は主役波の形・材質（仕上げ28・29・31）。10/29 以降へ"
+  },
+  {
+   "row": 2,
+   "text_ja": "原画視点で 3D の爪がほとんど読めない／座席では細かく乱れて房として読みにくい",
+   "source_ja": "段階6確認 F6-1、段階7確認 §6 の9・§9",
+   "before": {
+    "claw_zone_mizuiro": 0.3222,
+    "seat_t120_claw_px": 36466
+   },
+   "after": {
+    "claw_zone_mizuiro": 0.3563,
+    "seat_t120_claw_px": 38508
+   },
+   "painting": {
+    "claw_zone_mizuiro": 0.4124
+   },
+   "verdict": "一部",
+   "note_ja": "座席から 3D の白い指は読めない（限界）。作る部の「直した（0.419／90,219）」は取り消した"
+  },
+  {
+   "row": 3,
+   "text_ja": "焼き込みの爪の模様と 3D の爪の二重、頂の模様が埋まる",
+   "source_ja": "設計36 §7 の限界4、設計38 §7、段階7確認 §9",
+   "verdict": "該当なし",
+   "note_ja": "仕上げ29 で焼き込みをやめた"
+  },
+  {
+   "row": 4,
+   "text_ja": "132・72 の細部込みの爪のこぶを 4 px へ",
+   "source_ja": "段階6確認 §4.1・§8、設計33 限界5・§7",
+   "after": {
+    "132": {
+     "max_px": 5.3771,
+     "p95_px": 4.4882,
+     "render_points_gt4": 92,
+     "render_points": 1209
+    },
+    "72": {
+     "max_px": 7.9299,
+     "p95_px": 5.1476,
+     "render_points_gt4": 400,
+     "render_points": 2079
+    }
+   },
+   "noclaws": {
+    "132": {
+     "max_px": 5.9472,
+     "p95_px": 5.0703,
+     "render_points_gt4": 177,
+     "render_points": 1198
+    },
+    "72": {
+     "max_px": 7.983,
+     "p95_px": 5.6807,
+     "render_points_gt4": 407,
+     "render_points": 1982
+    }
+   },
+   "rim_fill_try_not_adopted": {
+    "78": {
+     "max_px": 2.741,
+     "p95_px": 1.6935
+    },
+    "130": {
+     "max_px": 3.5815,
+     "p95_px": 3.3281
+    },
+    "131": {
+     "max_px": 3.4419,
+     "p95_px": 3.1833
+    },
+    "132": {
+     "max_px": 5.2998,
+     "p95_px": 3.605
+    },
+    "72": {
+     "max_px": 7.9298,
+     "p95_px": 4.831
+    },
+    "71": {
+     "max_px": 38.4804,
+     "p95_px": 9.449
+    }
+   },
+   "verdict": "満たさない（限界）"
+  },
+  {
+   "row": 5,
+   "text_ja": "帯の断面の向きを輪の間とコマの間で続ける",
+   "source_ja": "段階6確認 §8、設計33 §7、設計34 §7",
+   "before": {
+    "frame_flips_gt90": 28,
+    "ring_twists_gt60": 288
+   },
+   "after": {
+    "frame_flips_gt90": 0,
+    "ring_twists_gt60": 0
+   },
+   "verdict": "直した"
+  },
+  {
+   "row": 6,
+   "text_ja": "中心線の急な折れの所の幅",
+   "source_ja": "段階6確認 §8",
+   "before": {
+    "claws_bend_gt45": 88,
+    "claws_edge_foldback": 46
+   },
+   "after": {
+    "claws_bend_gt45": 78,
+    "claws_edge_foldback": 18
+   },
+   "verdict": "一部",
+   "note_ja": "45° を超える折れは仕上げ32 の一覧の中心線の形"
+  },
+  {
+   "row": 7,
+   "text_ja": "シートに一部が隠れる爪・根元の白の円の角ばり・根元が藍濃の 2 本（C163・C165）・200 の根元の白",
+   "source_ja": "段階6確認 §8、設計36 §7",
+   "claws_visible_fraction_lt_0p8": {
+    "before": {
+     "claws_visible_fraction_lt_0p8": 0,
+     "ids": []
+    },
+    "after": {
+     "claws_visible_fraction_lt_0p8": 0,
+     "ids": []
+    }
+   },
+   "verdict": "一部",
+   "note_ja": "C163・C165 は仕上げ32 から帯にしていない（根元の白い角 0）。根元の円の角ばりは変えていない。根元の円は仕上げ32 の決まりで水色の版"
+  },
+  {
+   "row": 8,
+   "text_ja": "成長の時刻、V3 の爪が画面の外で伸び始める",
+   "source_ja": "段階6確認 §8、設計35 §7",
+   "done_ja": "pl33f_onscreen_birth（45 本）",
+   "verdict": "直した（原画視点。V3 の比べの版は作り直していない）"
+  },
+  {
+   "row": 9,
+   "text_ja": "先端がシートから浮く",
+   "source_ja": "設計32 §7",
+   "tips_seat": {
+    "before": {
+     "claws": 184,
+     "tips_on_seat_screen": 145,
+     "tips_visible_from_seat": 45
+    },
+    "build": {
+     "claws": 184,
+     "tips_on_seat_screen": 143,
+     "tips_visible_from_seat": 51
+    },
+    "fix": {
+     "claws": 184,
+     "tips_on_seat_screen": 145,
+     "tips_visible_from_seat": 47
+    }
+   },
+   "seat_t120_over_indigo_px": [
+    6162,
+    6474,
+    6279
+   ],
+   "verdict": "一部",
+   "note_ja": "原画のカメラへの射線の向きの低い浮き彫り（t* で 0.02〜0.22 m、中央値 0.08 m）は意図した形。作る部の座席の浮いた三日月は消えた"
+  },
+  {
+   "row": 10,
+   "text_ja": "空へ出る爪が唇の輪郭に作る白い欠け",
+   "source_ja": "設計38 §7、段階7確認 §6 の10",
+   "values": {
+    "before": {
+     "notch_px": 127,
+     "notch_components_ge3": 9,
+     "outline_px": 10804
+    },
+    "build": {
+     "notch_px": 100,
+     "notch_components_ge3": 10,
+     "outline_px": 10804
+    },
+    "fix": {
+     "notch_px": 100,
+     "notch_components_ge3": 10,
+     "outline_px": 10804
+    }
+   },
+   "verdict": "限界として記録",
+   "note_ja": "小さな切れ目 2 か所は爪の縁の線が根元で開く所（線の群、仕上げ38）"
+  },
+  {
+   "row": 11,
+   "text_ja": "爪が重なる所の線の精度",
+   "source_ja": "設計38 §7",
+   "closed_rings_all": {
+    "before": {
+     "t090": 1,
+     "t105": 16,
+     "t120": 13
+    },
+    "build": {
+     "t090": 2,
+     "t105": 18,
+     "t120": 21
+    },
+    "fix": {
+     "t090": 2,
+     "t105": 17,
+     "t120": 20
+    }
+   },
+   "verdict": "一部",
+   "note_ja": "作る部より減ったが前より多い。重なる原画の爪どうしの線は変えていない"
+  },
+  {
+   "row": 12,
+   "text_ja": "動画の描画を短くする",
+   "source_ja": "設計33 §7",
+   "render_seconds_total": 36.3,
+   "verdict": "直した",
+   "note_ja": "設計33 は numpy で約 40 分"
+  }
+ ],
+ "plan_5_3_counts": {
+  "直した": 3,
+  "一部": 6,
+  "満たさない（限界）": 1,
+  "限界として記録": 1,
+  "該当なし": 1
+ },
+ "backlog": {
+  "99": {
+   "value": {
+    "rings_min": 0.2,
+    "rings_max": 0.2,
+    "median": 0.2,
+    "all_C_claws_median": 0.2,
+    "all_C_claws_p5_p95": [
+     0.2,
+     0.25
+    ],
+    "note_ja": "先の 2 輪（閉じ）を除く。仕上げ33 は帯の断面（幅と厚みの比）を変えていない（立ち上げは輪をそのまま動かし、奥行きの比で一様に縮めた）"
+   },
+   "verdict": "満たす"
+  },
+  "100": {
+   "value_ja": "帯は閉じた筒。輪郭の細部込みは 132 5.3771・72 p95 5.1476 px",
+   "verdict": "一部"
+  },
+  "101": {
+   "value_ja": "原画の爪の芽は面に付いた短い帯。冠の爪も芽から伸びる",
+   "verdict": "記録"
+  },
+  "103_104": {
+   "value_ja": "原画の爪の t* の輪の中心と先の投影は仕上げ32 と同じ（差 0.0 px）。仕上げ32 の先端の最大 0.54 px",
+   "verdict": "満たす"
+  },
+  "105": {
+   "value_ja": "原画の爪の根元は仕上げ32 とバイトまで同じ。冠の爪の根元とシートの頂点の差 最大 8.1 µm",
+   "verdict": "満たす"
+  },
+  "129": {
+   "value": {
+    "C": 0,
+    "W": 0,
+    "K": 0,
+    "S": 0
+   },
+   "verdict": "満たす"
+  },
+  "136": {
+   "value": {
+    "crown_born_before_root_white": 0
+   },
+   "verdict": "満たす"
+  },
+  "137": {
+   "value_ja": "冠の爪の根元はシートの頂点そのもの",
+   "verdict": "満たす"
+  },
+  "138": {
+   "value_ja": "向きは根元の座標系で持ち、そのコマの面で作り直す",
+   "verdict": "満たす（作りの上で）"
+  },
+  "139": {
+   "value": {
+    "counts": {
+     "C": 184,
+     "W": 184,
+     "K": 79,
+     "S": 114
+    },
+    "motion": {
+     "C": {
+      "nan": 0,
+      "max_rel_step_m": 0.1661,
+      "teleports_gt0p5m": 0,
+      "pops": 0,
+      "blink_claws": 0
+     },
+     "W": {
+      "nan": 0,
+      "max_rel_step_m": 0.1595,
+      "teleports_gt0p5m": 0,
+      "pops": 0,
+      "blink_claws": 0
+     },
+     "K": {
+      "nan": 0,
+      "max_rel_step_m": 0.1635,
+      "teleports_gt0p5m": 0,
+      "pops": 0,
+      "blink_claws": 0
+     },
+     "S": {
+      "nan": 0,
+      "max_rel_step_m": 0.1357,
+      "teleports_gt0p5m": 0,
+      "pops": 0,
+      "blink_claws": 0
+     }
+    }
+   },
+   "verdict": "満たす"
+  },
+  "140_141": {
+   "value": {
+    "before": {
+     "claw_px": 36466,
+     "floating_comps": 31
+    },
+    "build": {
+     "claw_px": 38870,
+     "floating_comps": 31
+    },
+    "fix": {
+     "claw_px": 38508,
+     "floating_comps": 31
+    }
+   },
+   "verdict": "記録"
+  },
+  "180": {
+   "value": {
+    "before": {
+     "claws": 184,
+     "tips_on_seat_screen": 145,
+     "tips_visible_from_seat": 45
+    },
+    "build": {
+     "claws": 184,
+     "tips_on_seat_screen": 143,
+     "tips_visible_from_seat": 51
+    },
+    "fix": {
+     "claws": 184,
+     "tips_on_seat_screen": 145,
+     "tips_visible_from_seat": 47
+    }
+   },
+   "verdict": "記録"
+  },
+  "200_207_208": {
+   "value_ja": "爪の上面の白は主役波の白と同じ値（ΔE00 0）。根元の円・側面・下面は水色の版（仕上げ32 の決まり）",
+   "verdict": "上面は満たす。ほかは記録"
+  },
+  "204": {
+   "value": {
+    "frame_flips_gt90": 0,
+    "ring_twists_gt60": 0,
+    "frames_width_outside_first_last_range": 0
+   },
+   "verdict": "満たす"
+  },
+  "205_206": {
+   "value": {
+    "web_rings_below_5cm_t090_t105_t120": [
+     6,
+     3,
+     10
+    ]
+   },
+   "verdict": "一部（面の下の膜の輪は 206 の違反として記録）"
+  },
+  "238": {
+   "value_ja": "根元の線は仕上げ32 のとおり開き、膜には線を出さない",
+   "verdict": "満たす"
+  },
+  "262": {
+   "value": {
+    "C": [
+     5,
+     2,
+     9
+    ],
+    "W": [
+     6,
+     3,
+     10
+    ],
+    "K": [
+     0,
+     0,
+     0
+    ],
+    "S": [
+     0,
+     0,
+     0
+    ]
+   },
+   "deepest_m": {
+    "C": -0.209,
+    "W": -0.217
+   },
+   "verdict": "満たさない（一部。前より少ない）"
+  }
+ },
+ "gates_painting_view": {
+  "after_fix02": {
+   "t28_white": {
+    "def": {
+     "78": {
+      "max_px": 2.741,
+      "p95_px": 1.6935
+     },
+     "130": {
+      "max_px": 3.5815,
+      "p95_px": 3.3281
+     },
+     "131": {
+      "max_px": 3.4419,
+      "p95_px": 3.1833
+     },
+     "132": {
+      "max_px": 5.9472,
+      "p95_px": 5.0703
+     },
+     "72": {
+      "max_px": 7.983,
+      "p95_px": 5.6807
+     }
+    },
+    "s12_132": 3.5576,
+    "s12_72p95": 3.8507,
+    "s24_72p95": 3.0435,
+    "sym_pass": false,
+    "colour_pass": false
+   },
+   "t28_claws": {
+    "def": {
+     "78": {
+      "max_px": 2.741,
+      "p95_px": 1.6935
+     },
+     "130": {
+      "max_px": 3.5815,
+      "p95_px": 3.3281
+     },
+     "131": {
+      "max_px": 3.4419,
+      "p95_px": 3.1833
+     },
+     "132": {
+      "max_px": 5.3771,
+      "p95_px": 4.4882
+     },
+     "72": {
+      "max_px": 7.9299,
+      "p95_px": 5.1476
+     }
+    },
+    "s12_132": 3.5576,
+    "s12_72p95": 3.5757,
+    "s24_72p95": 3.2041,
+    "sym_pass": false,
+    "colour_pass": false
+   },
+   "eval23": {
+    "line": {
+     "fail": 7,
+     "pass": 2,
+     "record-only": 14
+    },
+    "line_noclaws": {
+     "fail": 7,
+     "pass": 2,
+     "record-only": 14
+    },
+    "noline": {
+     "pass": 4,
+     "fail": 5,
+     "record-only": 14
+    },
+    "noline_noclaws": {
+     "pass": 4,
+     "fail": 5,
+     "record-only": 14
+    }
+   }
+  },
+  "fix01": {
+   "t28_white": {
+    "def": {
+     "78": {
+      "max_px": 2.741,
+      "p95_px": 1.6935
+     },
+     "130": {
+      "max_px": 3.5815,
+      "p95_px": 3.3281
+     },
+     "131": {
+      "max_px": 3.4419,
+      "p95_px": 3.1833
+     },
+     "132": {
+      "max_px": 5.9472,
+      "p95_px": 5.0703
+     },
+     "72": {
+      "max_px": 7.983,
+      "p95_px": 5.6807
+     }
+    },
+    "s12_132": 3.5576,
+    "s12_72p95": 3.8507,
+    "s24_72p95": 3.0435,
+    "sym_pass": false,
+    "colour_pass": false
+   },
+   "t28_claws": {
+    "def": {
+     "78": {
+      "max_px": 2.741,
+      "p95_px": 1.6935
+     },
+     "130": {
+      "max_px": 3.5815,
+      "p95_px": 3.3281
+     },
+     "131": {
+      "max_px": 3.4419,
+      "p95_px": 3.1833
+     },
+     "132": {
+      "max_px": 5.3771,
+      "p95_px": 4.4882
+     },
+     "72": {
+      "max_px": 7.9299,
+      "p95_px": 5.1476
+     }
+    },
+    "s12_132": 3.5576,
+    "s12_72p95": 3.5757,
+    "s24_72p95": 3.2041,
+    "sym_pass": false,
+    "colour_pass": false
+   },
+   "eval23": {
+    "line": {
+     "fail": 7,
+     "pass": 2,
+     "record-only": 14
+    },
+    "line_noclaws": {
+     "fail": 7,
+     "pass": 2,
+     "record-only": 14
+    },
+    "noline": {
+     "pass": 4,
+     "fail": 5,
+     "record-only": 14
+    },
+    "noline_noclaws": {
+     "pass": 4,
+     "fail": 5,
+     "record-only": 14
+    }
+   }
+  },
+  "before_pl32": {
+   "t28_white": {
+    "s12_132": 3.5576,
+    "s12_72p95": 3.8507,
+    "s24_72p95": 3.0435,
+    "def": {
+     "78": {
+      "max_px": 2.741,
+      "p95_px": 1.6935
+     },
+     "130": {
+      "max_px": 3.5815,
+      "p95_px": 3.3281
+     },
+     "131": {
+      "max_px": 3.4419,
+      "p95_px": 3.1833
+     },
+     "132": {
+      "max_px": 5.9472,
+      "p95_px": 5.0703
+     },
+     "72": {
+      "max_px": 7.983,
+      "p95_px": 5.6807
+     }
+    },
+    "sym_pass": false,
+    "colour_pass": false
+   },
+   "t28_claws": {
+    "s12_132": 3.5576,
+    "s12_72p95": 3.5757,
+    "s24_72p95": 3.1984,
+    "def": {
+     "78": {
+      "max_px": 2.741,
+      "p95_px": 1.6935
+     },
+     "130": {
+      "max_px": 3.5815,
+      "p95_px": 3.3281
+     },
+     "131": {
+      "max_px": 3.4419,
+      "p95_px": 3.1833
+     },
+     "132": {
+      "max_px": 5.3771,
+      "p95_px": 4.4882
+     },
+     "72": {
+      "max_px": 7.9301,
+      "p95_px": 5.1476
+     }
+    },
+    "sym_pass": false,
+    "colour_pass": false
+   },
+   "eval23": {
+    "line": {
+     "fail": 7,
+     "pass": 2,
+     "record-only": 14
+    },
+    "line_noclaws": {
+     "fail": 7,
+     "pass": 2,
+     "record-only": 14
+    },
+    "noline": {
+     "pass": 4,
+     "fail": 5,
+     "record-only": 14
+    },
+    "noline_noclaws": {
+     "pass": 4,
+     "fail": 5,
+     "record-only": 14
+    }
+   }
+  },
+  "cp1_26r01_reference": {
+   "78": [
+    2.772,
+    1.641
+   ],
+   "130": [
+    1.968,
+    1.953
+   ],
+   "131": [
+    1.814,
+    1.798
+   ],
+   "132": [
+    1.326,
+    1.574
+   ],
+   "72": [
+    1.558,
+    1.723
+   ]
+  },
+  "verdict_ja": "形の関門 78・130・131・132 σ12・72 σ12 は爪あり・爪なしとも仕上げ32 と同じ値（後退なし）。評価器 23 の合否の数も 4 組とも同じ。CP1／26修正01 に対しては段階5確認 §6.3 以来の後退のまま"
+ },
+ "q28_views": {
+  "claw_px_etc": {
+   "painting_t105": {
+    "before_pl32": {
+     "claw_px": 27317,
+     "over_indigo_px": 3036,
+     "line_on_light_px": 5873
+    },
+    "fix01": {
+     "claw_px": 31621,
+     "over_indigo_px": 4164,
+     "line_on_light_px": 5136
+    },
+    "after_fix02": {
+     "claw_px": 30401,
+     "over_indigo_px": 3092,
+     "line_on_light_px": 5183
+    }
+   },
+   "painting_t120": {
+    "before_pl32": {
+     "claw_px": 43381,
+     "over_indigo_px": 4049,
+     "line_on_light_px": 9692
+    },
+    "fix01": {
+     "claw_px": 55467,
+     "over_indigo_px": 6460,
+     "line_on_light_px": 10788
+    },
+    "after_fix02": {
+     "claw_px": 53102,
+     "over_indigo_px": 4312,
+     "line_on_light_px": 10816
+    }
+   },
+   "seat_t105": {
+    "before_pl32": {
+     "claw_px": 13818,
+     "over_indigo_px": 1992,
+     "line_on_light_px": 1872
+    },
+    "fix01": {
+     "claw_px": 16685,
+     "over_indigo_px": 2244,
+     "line_on_light_px": 1951
+    },
+    "after_fix02": {
+     "claw_px": 16334,
+     "over_indigo_px": 2055,
+     "line_on_light_px": 1933
+    }
+   },
+   "seat_t120": {
+    "before_pl32": {
+     "claw_px": 36466,
+     "over_indigo_px": 6162,
+     "line_on_light_px": 2031
+    },
+    "fix01": {
+     "claw_px": 38870,
+     "over_indigo_px": 6474,
+     "line_on_light_px": 2076
+    },
+    "after_fix02": {
+     "claw_px": 38508,
+     "over_indigo_px": 6279,
+     "line_on_light_px": 2076
+    }
+   },
+   "seat_toward_wave_t105": {
+    "before_pl32": {
+     "claw_px": 11449,
+     "over_indigo_px": 2151,
+     "line_on_light_px": 1349
+    },
+    "fix01": {
+     "claw_px": 15000,
+     "over_indigo_px": 2617,
+     "line_on_light_px": 1389
+    },
+    "after_fix02": {
+     "claw_px": 14385,
+     "over_indigo_px": 2225,
+     "line_on_light_px": 1441
+    }
+   },
+   "seat_toward_wave_t120": {
+    "before_pl32": {
+     "claw_px": 9880,
+     "over_indigo_px": 6026,
+     "line_on_light_px": 100
+    },
+    "fix01": {
+     "claw_px": 9919,
+     "over_indigo_px": 6035,
+     "line_on_light_px": 90
+    },
+    "after_fix02": {
+     "claw_px": 9918,
+     "over_indigo_px": 6034,
+     "line_on_light_px": 90
+    }
+   },
+   "side_left_t105": {
+    "before_pl32": {
+     "claw_px": 1655,
+     "over_indigo_px": 683,
+     "line_on_light_px": 235
+    },
+    "fix01": {
+     "claw_px": 7869,
+     "over_indigo_px": 2265,
+     "line_on_light_px": 1660
+    },
+    "after_fix02": {
+     "claw_px": 7800,
+     "over_indigo_px": 2210,
+     "line_on_light_px": 1657
+    }
+   },
+   "side_left_t120": {
+    "before_pl32": {
+     "claw_px": 2361,
+     "over_indigo_px": 1405,
+     "line_on_light_px": 230
+    },
+    "fix01": {
+     "claw_px": 10151,
+     "over_indigo_px": 4089,
+     "line_on_light_px": 1784
+    },
+    "after_fix02": {
+     "claw_px": 10111,
+     "over_indigo_px": 4051,
+     "line_on_light_px": 1787
+    }
+   },
+   "side_right_t105": {
+    "before_pl32": {
+     "claw_px": 934,
+     "over_indigo_px": 924,
+     "line_on_light_px": 0
+    },
+    "fix01": {
+     "claw_px": 6721,
+     "over_indigo_px": 1874,
+     "line_on_light_px": 1561
+    },
+    "after_fix02": {
+     "claw_px": 6721,
+     "over_indigo_px": 1874,
+     "line_on_light_px": 1561
+    }
+   },
+   "side_right_t120": {
+    "before_pl32": {
+     "claw_px": 1045,
+     "over_indigo_px": 1027,
+     "line_on_light_px": 0
+    },
+    "fix01": {
+     "claw_px": 7717,
+     "over_indigo_px": 2034,
+     "line_on_light_px": 1802
+    },
+    "after_fix02": {
+     "claw_px": 7717,
+     "over_indigo_px": 2034,
+     "line_on_light_px": 1802
+    }
+   },
+   "back65_t105": {
+    "before_pl32": {
+     "claw_px": 869,
+     "over_indigo_px": 644,
+     "line_on_light_px": 0
+    },
+    "fix01": {
+     "claw_px": 15261,
+     "over_indigo_px": 1319,
+     "line_on_light_px": 5101
+    },
+    "after_fix02": {
+     "claw_px": 15261,
+     "over_indigo_px": 1319,
+     "line_on_light_px": 5101
+    }
+   },
+   "back65_t120": {
+    "before_pl32": {
+     "claw_px": 725,
+     "over_indigo_px": 720,
+     "line_on_light_px": 0
+    },
+    "fix01": {
+     "claw_px": 16938,
+     "over_indigo_px": 1475,
+     "line_on_light_px": 5495
+    },
+    "after_fix02": {
+     "claw_px": 16938,
+     "over_indigo_px": 1475,
+     "line_on_light_px": 5495
+    }
+   },
+   "top_t105": {
+    "before_pl32": {
+     "claw_px": 2803,
+     "over_indigo_px": 844,
+     "line_on_light_px": 86
+    },
+    "fix01": {
+     "claw_px": 8070,
+     "over_indigo_px": 911,
+     "line_on_light_px": 2085
+    },
+    "after_fix02": {
+     "claw_px": 8027,
+     "over_indigo_px": 879,
+     "line_on_light_px": 2085
+    }
+   },
+   "top_t120": {
+    "before_pl32": {
+     "claw_px": 3749,
+     "over_indigo_px": 1654,
+     "line_on_light_px": 103
+    },
+    "fix01": {
+     "claw_px": 10079,
+     "over_indigo_px": 1880,
+     "line_on_light_px": 2545
+    },
+    "after_fix02": {
+     "claw_px": 10044,
+     "over_indigo_px": 1860,
+     "line_on_light_px": 2546
+    }
+   }
+  },
+  "by_eye_ja": {
+   "painting": "t 9 s：頂の上に冠の爪の芽は出ない。t 10.5 s：牙の束・空へ出る鉤・b区域の下の細片はない。t*：頂と唇の爪が白い指・墨版の線・水色の膜で縁取られる（前より線と水色が多い）。頂の輪郭そのものは滑らかな塊のまま。b区域は 2〜3 本の束",
+   "seat": "t 10.5 s・t*：前とほぼ同じ。面に沿う低い帯で、角の四角い板・藍の上の白い三日月はない。3D の白い指としては読めない（限界）",
+   "seat_toward_wave": "t 10.5 s：白いつららの縁に爪の線。水色の小石・破片はない。t*：前とほぼ同じ",
+   "side_left": "ドームの左上の 1 か所に冠の爪の房の列が面を下る形で見える。上の縁の大半は滑らか。中ほどの平らな白は主役波の材質（仕上げ29・31）",
+   "side_right": "t 9 s から頂が爪で縁取られ、t 10.5 s・t* で頭の上と背に鉤の房が並ぶ",
+   "back65": "t 9 s に稜の上に芽の列。t 10.5 s・t* で稜の左の頂（b区域の裏）と右の肩に房。房の間の稜は滑らか。面の中ほどに米粒はない",
+   "top": "頂の付近に房の指の塊（稜の全長ではない）",
+   "turntable": "t 10.5 s・t*：0〜150°・300〜330° は頂が縁取られる。180〜270° は稜の頂の付近だけで、右の肩は縁取られない。動画で飛び出し・点滅なし"
+  },
+  "ridge_top_edge_fraction_img": {
+   "side_left": {
+    "columns": 1102,
+    "before": 0.0708,
+    "fix01": 0.2632,
+    "fix02": 0.2632
+   },
+   "side_right": {
+    "columns": 335,
+    "before": 0.1672,
+    "fix01": 0.809,
+    "fix02": 0.809
+   },
+   "top": {
+    "columns": 623,
+    "before": 0.0,
+    "fix01": 0.0883,
+    "fix02": 0.0883
+   },
+   "back65": {
+    "columns": 1180,
+    "before": 0.0364,
+    "fix01": 0.3797,
+    "fix02": 0.3797
+   }
+  },
+  "painting_outside_hero_px": {
+   "t090": {
+    "before_pl32": 75,
+    "fix01": 75,
+    "after_fix02": 75
+   },
+   "t105": {
+    "before_pl32": 1372,
+    "fix01": 1370,
+    "after_fix02": 1370
+   },
+   "t120": {
+    "before_pl32": 3875,
+    "fix01": 3847,
+    "after_fix02": 3847
+   }
+  },
+  "sliver_over_indigo": {
+   "painting_t120_largest_light_claw_comp_over_indigo_px": [
+    353,
+    1464,
+    356
+   ],
+   "painting_t120_light_claw_over_indigo_px": [
+    2242,
+    4197,
+    2347
+   ],
+   "painting_t105_largest_light_claw_comp_over_indigo_px": [
+    207,
+    702,
+    210
+   ],
+   "painting_t105_light_claw_over_indigo_px": [
+    1676,
+    2511,
+    1695
+   ],
+   "t10_t12_every_frame_61": {
+    "max_largest_minus_pre_px": {
+     "fix01": 1111,
+     "fix02": 35
+    },
+    "file": "pl33f2_seq_overindigo.json"
+   },
+   "clip": {
+    "mode": "grow",
+    "rate_per_frame": 0.05,
+    "webs": 184,
+    "webs_changed_tstar": 32,
+    "web_rings_shrunk_tstar": 341,
+    "webs_zero_tstar": 2,
+    "webs_changed_any_frame": 38,
+    "tuft_fingers": 114,
+    "tuft_changed_tstar": 16,
+    "tuft_zero_tstar": 12,
+    "tuft_zero_all_frames": 12,
+    "tuft_changed_any_frame": 22,
+    "use_3d": true,
+    "erode_px": 5,
+    "tol3d_m": 0.3,
+    "web_b_max": 1.0,
+    "webs_widened_tstar": 0
+   },
+   "verdict_ja": "直した（t 10.0〜12.0 s の毎コマ 61 コマで、藍の上の明るい爪の一番大きい成分は仕上げ32 との差が最大 +35 px。目視：原画視点 t*・t 10.5 s の細片はない）"
+  },
+  "verdict_ja": "この群の範囲に、引き伸ばし・継ぎ目・溶けた爪・浮いた板・藍へ垂れる細片は見えない。平らな白は左の側面・後ろ 65° のドームの中ほど（主役波の材質と白の範囲）"
+ },
+ "painting_rhythm_tstar": {
+  "claw_zone_painting": {
+   "mizuiro": 0.4124,
+   "dark_line_px": 14858,
+   "components": 398
+  },
+  "claw_zone_before": {
+   "mizuiro": 0.3222,
+   "dark_line_px": 11333,
+   "components": 231,
+   "miz_precision_tol4": 0.9331,
+   "miz_recall_tol4": 0.8391
+  },
+  "claw_zone_build": {
+   "mizuiro": 0.3649,
+   "dark_line_px": 11592,
+   "components": 264,
+   "miz_precision_tol4": 0.9413,
+   "miz_recall_tol4": 0.8709
+  },
+  "claw_zone_fix": {
+   "mizuiro": 0.3563,
+   "dark_line_px": 11156,
+   "components": 257,
+   "miz_precision_tol4": 0.9414,
+   "miz_recall_tol4": 0.8575
+  }
+ },
+ "geometry_after": {
+  "counts": {
+   "C": 184,
+   "W": 184,
+   "K": 79,
+   "S": 114
+  },
+  "vertices": 95547,
+  "triangles": 183240,
+  "section_orientation": {
+   "frame_flips_gt90": 0,
+   "ring_twists_gt60": 0,
+   "focus": {
+    "C021": {
+     "frame_flips": 0,
+     "ring_twists_gt60": 0
+    },
+    "C067": {
+     "frame_flips": 0,
+     "ring_twists_gt60": 0
+    },
+    "C072": {
+     "frame_flips": 0,
+     "ring_twists_gt60": 0
+    },
+    "C083": {
+     "frame_flips": 0,
+     "ring_twists_gt60": 0
+    },
+    "C090": {
+     "frame_flips": 0,
+     "ring_twists_gt60": 0
+    },
+    "C114": {
+     "frame_flips": 0,
+     "ring_twists_gt60": 0
+    }
+   }
+  },
+  "bends_tstar": {
+   "claws_bend_gt45": 78,
+   "claws_edge_foldback": 18
+  },
+  "motion": {
+   "C": {
+    "nan": 0,
+    "max_rel_step_m": 0.1661,
+    "teleports_gt0p5m": 0,
+    "pops": 0,
+    "blink_claws": 0
+   },
+   "W": {
+    "nan": 0,
+    "max_rel_step_m": 0.1595,
+    "teleports_gt0p5m": 0,
+    "pops": 0,
+    "blink_claws": 0
+   },
+   "K": {
+    "nan": 0,
+    "max_rel_step_m": 0.1635,
+    "teleports_gt0p5m": 0,
+    "pops": 0,
+    "blink_claws": 0
+   },
+   "S": {
+    "nan": 0,
+    "max_rel_step_m": 0.1357,
+    "teleports_gt0p5m": 0,
+    "pops": 0,
+    "blink_claws": 0
+   }
+  },
+  "penetration": {
+   "C_t090": {
+    "rings_below_5cm": 5,
+    "rings_checked": 1800,
+    "deepest_m": -0.056
+   },
+   "K_t090": {
+    "rings_below_5cm": 0,
+    "rings_checked": 1100,
+    "deepest_m": 0.0
+   },
+   "W_t090": {
+    "rings_below_5cm": 6,
+    "rings_checked": 1800,
+    "deepest_m": -0.079
+   },
+   "S_t090": {
+    "rings_below_5cm": 0,
+    "rings_checked": 60,
+    "deepest_m": 0.0
+   },
+   "C_t105": {
+    "rings_below_5cm": 2,
+    "rings_checked": 3576,
+    "deepest_m": -0.12
+   },
+   "K_t105": {
+    "rings_below_5cm": 0,
+    "rings_checked": 1580,
+    "deepest_m": 0.0
+   },
+   "W_t105": {
+    "rings_below_5cm": 3,
+    "rings_checked": 3576,
+    "deepest_m": -0.059
+   },
+   "S_t105": {
+    "rings_below_5cm": 0,
+    "rings_checked": 1860,
+    "deepest_m": 0.0
+   },
+   "C_t120": {
+    "rings_below_5cm": 9,
+    "rings_checked": 3662,
+    "deepest_m": -0.209
+   },
+   "K_t120": {
+    "rings_below_5cm": 0,
+    "rings_checked": 1580,
+    "deepest_m": 0.0
+   },
+   "W_t120": {
+    "rings_below_5cm": 10,
+    "rings_checked": 3662,
+    "deepest_m": -0.217
+   },
+   "S_t120": {
+    "rings_below_5cm": 0,
+    "rings_checked": 2024,
+    "deepest_m": 0.0
+   }
+  },
+  "crown_painting_cam_visibility": {
+   "t090": {
+    "crown_claws_with_visible_vertices": 0,
+    "crown_visible_vertices": 0,
+    "crown_visible_vertices_in_sky": 0
+   },
+   "t105": {
+    "crown_claws_with_visible_vertices": 0,
+    "crown_visible_vertices": 0,
+    "crown_visible_vertices_in_sky": 0
+   },
+   "t120": {
+    "crown_claws_with_visible_vertices": 0,
+    "crown_visible_vertices": 0,
+    "crown_visible_vertices_in_sky": 0
+   }
+  }
+ },
+ "clip_fix02": {
+  "mode": "grow",
+  "rate_per_frame": 0.05,
+  "webs": 184,
+  "webs_changed_tstar": 32,
+  "web_rings_shrunk_tstar": 341,
+  "webs_zero_tstar": 2,
+  "webs_changed_any_frame": 38,
+  "tuft_fingers": 114,
+  "tuft_changed_tstar": 16,
+  "tuft_zero_tstar": 12,
+  "tuft_zero_all_frames": 12,
+  "tuft_changed_any_frame": 22,
+  "use_3d": true,
+  "erode_px": 5,
+  "tol3d_m": 0.3,
+  "web_b_max": 1.0,
+  "webs_widened_tstar": 0
+ },
+ "unity": {
+  "playmode": {
+   "release": {
+    "end": "体験の終わりの画面に入って 1.5 s",
+    "sawApplied": true
+   },
+   "single": {
+    "end": "静止に入って 1.5 s",
+    "sawApplied": true
+   }
+  },
+  "release_build": {
+   "result": "Succeeded",
+   "data_files": 44,
+   "build_errors": 0,
+   "data_bytes": 1196466028,
+   "data_bytes_pl32": 847173580,
+   "absolute_paths_left": false,
+   "must_have_present": true,
+   "bake_files_absent": true,
+   "exe_sha256": "5be81b3fa7df7c08cadee6f79d6ff3fe95481420f166ba8127390ea669c8b12c"
+  },
+  "players_fix02": {
+   "f02pair1": {
+    "pass": true,
+    "frames": 92391,
+    "errors": 0,
+    "endShownFrame": 88542,
+    "quitFrame": 92391
+   },
+   "f02pair2": {
+    "pass": true,
+    "frames": 89699,
+    "errors": 0,
+    "endShownFrame": 85907,
+    "quitFrame": 89699
+   }
+  },
+  "players_pl32_same_day": {
+   "frames": [
+    93374,
+    92301
+   ],
+   "file": "pl33_perf.json（作る部と交互に動かした）"
+  },
+  "perf_build_pairs": {
+   "pl32_1": {
+    "frames": 93374,
+    "Formation": {
+     "ftCpuMain": 0.612,
+     "ftGpu": 0.556,
+     "ftCpu": 0.6165
+    }
+   },
+   "pl33_1": {
+    "frames": 90088,
+    "Formation": {
+     "ftCpuMain": 0.6648,
+     "ftGpu": 0.6062,
+     "ftCpu": 0.6691
+    }
+   },
+   "pl32_2": {
+    "frames": 92301,
+    "Formation": {
+     "ftCpuMain": 0.6378,
+     "ftGpu": 0.5827,
+     "ftCpu": 0.6425
+    }
+   },
+   "pl33_2": {
+    "frames": 91599,
+    "Formation": {
+     "ftCpuMain": 0.6454,
+     "ftGpu": 0.5898,
+     "ftCpu": 0.6504
+    }
+   }
+  },
+  "claw_layer": {
+   "entries": 561,
+   "counts": {
+    "C": 184,
+    "W": 184,
+    "K": 79,
+    "S": 114
+   },
+   "vertices": 95547,
+   "triangles": 183240
+  },
+  "hmd": "未検証"
+ },
+ "limits_ja": [
+  "座席・座席から波の方向から 3D の白い指は読めない（座席 t* の爪の画素 38508、前 36466）。原画視点の律動も一部（水色 0.356、原画 0.412）",
+  "［利用者の言葉］Q16・Q21 の b区域の房は一部（2 回の修正の回の後。線の成分 115、水色 0.331）",
+  "132・72 の細部込みは 4 px に届かない（132 5.3771、72 p95 5.1476）",
+  "稜の縁取りは房ごと（後ろ 65° 0.32、回り台 210° 0.15）。左の側面は 1 か所。右の肩は原画の輪郭そのもので冠の爪を置けない",
+  "45° を超える中心線の折れ 78 本、縁の折れ返り 18 本",
+  "面に入る輪：t* で原画の爪 9・膜 10 輪",
+  "閉じた輪：原画視点 t* 20・t 10.5 s 17（前 13・16）",
+  "唇の輪郭の小さな切れ目 2 か所（線の群）",
+  "冠の爪は原画にない立体の爪（進行役の解釈）。ドームの中ほどの平らな白は主役波の材質と白の範囲",
+  "pl33f2_white_clip の検査の画像は爪なしの原画視点の描画から作る。主役波の材質・海・飛沫を変えたらやり直す",
+  "鉤の内の膜は板に見えうる（206）",
+  "根元の円の角ばり、200・207・208 の根元・側面・下面の白は仕上げ32 の決まりのまま。V3 の比べの版の成長の時刻は作り直していない",
+  "重さ：データ 1.20 GB（仕上げ32 0.85 GB）、プレイヤーのフレームは約 1〜3% 少ない。90 Hz の判定は仕上げ35",
+  "HMD は未検証"
+ ],
+ "record_phase": {
+  "files_in_commit_list": 114,
+  "missing_files": [],
+  "unity_build_in_list": [],
+  "already_tracked_in_list": [],
+  "png_not_1920x1080": {},
+  "png_count": 16,
+  "mp4_bytes": {
+   "Docs/Evidence/Polish/33/pl33_ba_painting_30fps.mp4": 1159633,
+   "Docs/Evidence/Polish/33/pl33_ba_seat_30fps.mp4": 310591,
+   "Docs/Evidence/Polish/33/pl33_ba_seat_toward_wave_30fps.mp4": 1535979,
+   "Docs/Evidence/Polish/33/pl33_ba_side_left_30fps.mp4": 555916,
+   "Docs/Evidence/Polish/33/pl33_ba_tt_30fps.mp4": 1245971
+  },
+  "files_over_5MB": {},
+  "unity_meta_missing": [],
+  "scene_guids": {
+   "Unity/Assets/GreatWave/Polish33/Scenes/PL33_Release.unity": {
+    "tracked_meta": 74,
+    "this_group_meta": [
+     "Unity/Assets/GreatWave/Polish33/Scripts/PL33ClawLook.cs.meta",
+     "Unity/Assets/GreatWave/Polish33/Shaders/PL33_Claw_Outline.shader.meta"
+    ],
+    "package": [
+     "com.unity.inputsystem@21a28c3a6c83",
+     "com.unity.xr.core-utils@f0450cbac8d6"
+    ],
+    "builtin": 2,
+    "missing": []
+   },
+   "Unity/Assets/GreatWave/Polish33/Scenes/PL33_SinglePlayback.unity": {
+    "tracked_meta": 23,
+    "this_group_meta": [],
+    "package": [],
+    "builtin": 2,
+    "missing": []
+   }
+  },
+  "python_imports": {
+   "dynamic": true,
+   "modules_in_repo": [
+    "Tools/GWContext/af27common.py",
+    "Tools/GWWaveGen/ds27/ds27_player_ref.py",
+    "Tools/GWWaveGen/ds30/ds30_checks.py",
+    "Tools/GWWaveGen/ds30/ds30_sea.py",
+    "Tools/GWWaveGen/ds31/ds31_white.py",
+    "Tools/GWWaveGen/ds33/ds33_common.py",
+    "Tools/GWWaveGen/pl30/pl30_sheets.py",
+    "Tools/GWWaveGen/pl32/pl32f_measure.py",
+    "Tools/GWWaveGen/pl33/pl33_bumps.py",
+    "Tools/GWWaveGen/pl33/pl33_checks.py",
+    "Tools/GWWaveGen/pl33/pl33_claw_relief.py",
+    "Tools/GWWaveGen/pl33/pl33_common.py",
+    "Tools/GWWaveGen/pl33/pl33_crown.py",
+    "Tools/GWWaveGen/pl33/pl33_figs.py",
+    "Tools/GWWaveGen/pl33/pl33_measure.py",
+    "Tools/GWWaveGen/pl33/pl33_record.py",
+    "Tools/GWWaveGen/pl33/pl33_sheets.py",
+    "Tools/GWWaveGen/pl33/pl33f2_clip.py",
+    "Tools/GWWaveGen/pl33/pl33f2_figs.py",
+    "Tools/GWWaveGen/pl33/pl33f2_record.py",
+    "Tools/GWWaveGen/pl33/pl33f2_sheets.py",
+    "Tools/GWWaveGen/pl33/pl33f_crown.py",
+    "Tools/GWWaveGen/pl33/pl33f_figs.py",
+    "Tools/GWWaveGen/pl33/pl33f_measure.py",
+    "Tools/GWWaveGen/pl33/pl33f_record.py",
+    "Tools/GWWaveGen/pl33/pl33f_relief.py",
+    "Tools/GWWaveGen/pl33/pl33f_rim.py",
+    "Tools/GWWaveGen/pl33/pl33f_sheets.py",
+    "Tools/GWWaveGen/pl33/pl33f_tuft.py",
+    "Tools/GWWaveGen/pl33/pl33r_record.py",
+    "Tools/PaintingTruth/evaluate.py",
+    "Tools/PaintingTruth/truthlib.py"
+   ],
+   "tracked": [
+    "Tools/GWContext/af27common.py",
+    "Tools/GWWaveGen/ds27/ds27_player_ref.py",
+    "Tools/GWWaveGen/ds30/ds30_checks.py",
+    "Tools/GWWaveGen/ds30/ds30_sea.py",
+    "Tools/GWWaveGen/ds31/ds31_white.py",
+    "Tools/GWWaveGen/ds33/ds33_common.py",
+    "Tools/GWWaveGen/pl30/pl30_sheets.py",
+    "Tools/GWWaveGen/pl32/pl32f_measure.py",
+    "Tools/PaintingTruth/evaluate.py",
+    "Tools/PaintingTruth/truthlib.py"
+   ],
+   "in_commit_list": [
+    "Tools/GWWaveGen/pl33/pl33_bumps.py",
+    "Tools/GWWaveGen/pl33/pl33_checks.py",
+    "Tools/GWWaveGen/pl33/pl33_claw_relief.py",
+    "Tools/GWWaveGen/pl33/pl33_common.py",
+    "Tools/GWWaveGen/pl33/pl33_crown.py",
+    "Tools/GWWaveGen/pl33/pl33_figs.py",
+    "Tools/GWWaveGen/pl33/pl33_measure.py",
+    "Tools/GWWaveGen/pl33/pl33_record.py",
+    "Tools/GWWaveGen/pl33/pl33_sheets.py",
+    "Tools/GWWaveGen/pl33/pl33f2_clip.py",
+    "Tools/GWWaveGen/pl33/pl33f2_figs.py",
+    "Tools/GWWaveGen/pl33/pl33f2_record.py",
+    "Tools/GWWaveGen/pl33/pl33f2_sheets.py",
+    "Tools/GWWaveGen/pl33/pl33f_crown.py",
+    "Tools/GWWaveGen/pl33/pl33f_figs.py",
+    "Tools/GWWaveGen/pl33/pl33f_measure.py",
+    "Tools/GWWaveGen/pl33/pl33f_record.py",
+    "Tools/GWWaveGen/pl33/pl33f_relief.py",
+    "Tools/GWWaveGen/pl33/pl33f_rim.py",
+    "Tools/GWWaveGen/pl33/pl33f_sheets.py",
+    "Tools/GWWaveGen/pl33/pl33f_tuft.py",
+    "Tools/GWWaveGen/pl33/pl33r_record.py"
+   ],
+   "neither": [],
+   "import_failures": []
+  },
+  "forbidden_or_personal_strings": [],
+  "excluded_from_string_check": "Tools/GWWaveGen/pl33/pl33r_record.py"
+ }
+}
