@@ -1,0 +1,191 @@
+{
+ "rule_ja": "読むもの：<runs>/<tag>/report.json（pass・frames・errors・exceptions）と frames.csv（コマごとの FrameTimingManager の ftCpuMain・ftGpu、段 phase）。\n段ごとに ftCpuMain・ftGpu・ftCpu の中央値（ms。NaN を除く）を出す。HMD の実機ではない（PS VR2 は未導入）。90 Hz の予算は 11.1 ms。\n使い方：py -3.10 -B Tools/GWWaveGen/pl33r01/sweep_perf.py --runs Unity/Build/Polish/33r01/sweep/release/runs --tags pl33_1,sweep_1,pl33_2,sweep_2 --out …",
+ "pl33_1": {
+  "frames": 91139,
+  "seconds": 94.01572399999999,
+  "pass": true,
+  "errors": 0,
+  "exceptions": 0,
+  "gpu": "NVIDIA GeForce RTX 3080",
+  "graphicsApi": "Direct3D11",
+  "fps": 969.4,
+  "Intro": {
+   "ftCpuMain": 0.6635,
+   "ftGpu": 0.4741,
+   "ftCpu": 0.666,
+   "n": 51849
+  },
+  "Approach": {
+   "ftCpuMain": 0.8135,
+   "ftGpu": 0.5007,
+   "ftCpu": 0.8155,
+   "n": 15920
+  },
+  "Formation": {
+   "ftCpuMain": 0.6392,
+   "ftGpu": 0.5827,
+   "ftCpu": 0.6437,
+   "n": 2416
+  },
+  "Hold": {
+   "ftCpuMain": 0.7221,
+   "ftGpu": 0.682,
+   "ftCpu": 0.7266,
+   "n": 2269
+  },
+  "Afterglow": {
+   "ftCpuMain": 0.9888,
+   "ftGpu": 0.9564,
+   "ftCpu": 0.9938,
+   "n": 14829
+  },
+  "End": {
+   "ftCpuMain": 0.9962,
+   "ftGpu": 0.9452,
+   "ftCpu": 1.001,
+   "n": 3852
+  },
+  "exe": "G:/Unity/GreatWave_2026_Fresh/Unity/Build/Polish/33/release/player/GreatWave50.exe"
+ },
+ "sweep_1": {
+  "frames": 90334,
+  "seconds": 92.5331945,
+  "pass": true,
+  "errors": 0,
+  "exceptions": 0,
+  "gpu": "NVIDIA GeForce RTX 3080",
+  "graphicsApi": "Direct3D11",
+  "fps": 976.2,
+  "Intro": {
+   "ftCpuMain": 0.6644,
+   "ftGpu": 0.4721,
+   "ftCpu": 0.6668,
+   "n": 51670
+  },
+  "Approach": {
+   "ftCpuMain": 0.8105,
+   "ftGpu": 0.4946,
+   "ftCpu": 0.8123,
+   "n": 15803
+  },
+  "Formation": {
+   "ftCpuMain": 0.6296,
+   "ftGpu": 0.5724,
+   "ftCpu": 0.6342,
+   "n": 2390
+  },
+  "Hold": {
+   "ftCpuMain": 0.7127,
+   "ftGpu": 0.6728,
+   "ftCpu": 0.7173,
+   "n": 2272
+  },
+  "Afterglow": {
+   "ftCpuMain": 0.9856,
+   "ftGpu": 0.9533,
+   "ftCpu": 0.9909,
+   "n": 14444
+  },
+  "End": {
+   "ftCpuMain": 0.9947,
+   "ftGpu": 0.9411,
+   "ftCpu": 0.9998,
+   "n": 3751
+  },
+  "exe": "G:\\Unity\\GreatWave_2026_Fresh\\Unity\\Build\\Polish\\33r01\\sweep\\release\\player\\GreatWave50.exe"
+ },
+ "pl33_2": {
+  "frames": 82829,
+  "seconds": 93.98582920000001,
+  "pass": true,
+  "errors": 0,
+  "exceptions": 0,
+  "gpu": "NVIDIA GeForce RTX 3080",
+  "graphicsApi": "Direct3D11",
+  "fps": 881.3,
+  "Intro": {
+   "ftCpuMain": 0.744,
+   "ftGpu": 0.4854,
+   "ftCpu": 0.7465,
+   "n": 45159
+  },
+  "Approach": {
+   "ftCpuMain": 0.8489,
+   "ftGpu": 0.5089,
+   "ftCpu": 0.8511,
+   "n": 14788
+  },
+  "Formation": {
+   "ftCpuMain": 0.6607,
+   "ftGpu": 0.6042,
+   "ftCpu": 0.6659,
+   "n": 2272
+  },
+  "Hold": {
+   "ftCpuMain": 0.7285,
+   "ftGpu": 0.6892,
+   "ftCpu": 0.7332,
+   "n": 2235
+  },
+  "Afterglow": {
+   "ftCpuMain": 1.0045,
+   "ftGpu": 0.9697,
+   "ftCpu": 1.0099,
+   "n": 14577
+  },
+  "End": {
+   "ftCpuMain": 1.006,
+   "ftGpu": 0.9564,
+   "ftCpu": 1.0116,
+   "n": 3794
+  },
+  "exe": "G:/Unity/GreatWave_2026_Fresh/Unity/Build/Polish/33/release/player/GreatWave50.exe"
+ },
+ "sweep_2": {
+  "frames": 88022,
+  "seconds": 93.12456279999999,
+  "pass": true,
+  "errors": 0,
+  "exceptions": 0,
+  "gpu": "NVIDIA GeForce RTX 3080",
+  "graphicsApi": "Direct3D11",
+  "fps": 945.2,
+  "Intro": {
+   "ftCpuMain": 0.7084,
+   "ftGpu": 0.4762,
+   "ftCpu": 0.711,
+   "n": 48798
+  },
+  "Approach": {
+   "ftCpuMain": 0.7844,
+   "ftGpu": 0.4946,
+   "ftCpu": 0.7866,
+   "n": 16038
+  },
+  "Formation": {
+   "ftCpuMain": 0.631,
+   "ftGpu": 0.5745,
+   "ftCpu": 0.6367,
+   "n": 2355
+  },
+  "Hold": {
+   "ftCpuMain": 0.7147,
+   "ftGpu": 0.6748,
+   "ftCpu": 0.7208,
+   "n": 2286
+  },
+  "Afterglow": {
+   "ftCpuMain": 0.9943,
+   "ftGpu": 0.9605,
+   "ftCpu": 0.9998,
+   "n": 14732
+  },
+  "End": {
+   "ftCpuMain": 1.0005,
+   "ftGpu": 0.9482,
+   "ftCpu": 1.0058,
+   "n": 3809
+  },
+  "exe": "G:\\Unity\\GreatWave_2026_Fresh\\Unity\\Build\\Polish\\33r01\\sweep\\release\\player\\GreatWave50.exe"
+ }
+}

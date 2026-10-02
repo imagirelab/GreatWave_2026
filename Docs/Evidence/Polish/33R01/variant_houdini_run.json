@@ -1,0 +1,121 @@
+{
+ "commands": [
+  "py -3.10 -B Tools/GWWaveGen/pl33r01/houdini_prep.py",
+  "hython Tools/GWWaveGen/pl33r01/houdini_build.py --fingers Unity/Build/Polish/33r01/houdini/prep/fingers_tstar.json --hip Unity/Build/Polish/33r01/houdini/pl33r01h_fingers.hiplc --out Unity/Build/Polish/33r01/houdini/key --npts-scale 0.85",
+  "py -3.10 -B Tools/GWWaveGen/pl33r01/houdini_deform.py",
+  "py -3.10 -B Tools/GWWaveGen/pl33r01/houdini_unity.py --method GreatWave.Polish33R01H.EditorTools.PL33R01HSetup.BuildScenes --log setup",
+  "bash Unity/Build/Polish/33r01/houdini/run_render.sh r_after views,tt,t28,full,video   （PL33R01HRender、-pl33r01hLook 1）",
+  "houdini_unity.py … PL33R01HRender.Render -pl29Only gpu -pl29Gpu 1 -pl30GpuTarget claws（後：-pl33r01hLook 1、前：仕上げ33 の爪の並び -pl32Look 1 -pl33Look 1）",
+  "py -3.10 -B Tools/GWWaveGen/pl28/pl28u_regress.py --scene Unity/Build/Polish/33r01/houdini/r_after --kstar rec",
+  "py -3.10 -B Tools/PaintingTruth/evaluate.py --render <r_after>/full/painting_t120_off.png --ids <r_after>/full/ids_<line|line_noclaws|noline|noline_noclaws>.png --idmap Unity/Build/Design/40/compare/eval/idmap.json --out-dir <r_after>/eval23/off_<…>",
+  "py -3.10 -B Tools/GWWaveGen/pl33r01/houdini_measure.py --runs before=Unity/Build/Polish/33/fix02/r_fix02 after=Unity/Build/Polish/33r01/houdini/r_after --out Unity/Build/Polish/33r01/houdini/measure/pl33r01h_measure.json",
+  "py -3.10 -B Tools/GWWaveGen/pl33r01/houdini_figs.py --after Unity/Build/Polish/33r01/houdini/r_after --out Unity/Build/Polish/33r01/houdini/candidate/evidence",
+  "py -3.10 -B Tools/GWWaveGen/pl33r01/houdini_record.py"
+ ],
+ "tools": {
+  "houdini": "22.0.459",
+  "hython": "G:/SteamLibrary/steamapps/common/Houdini Indie/bin/hython.exe",
+  "unity": "6000.4.3f1",
+  "python": "3.10.6"
+ },
+ "inputs": {
+  "claws_src_layout_sha256": "1402d17f5f9ff946748899af9be577618a0127e2b8f9e4db5026a3244dce54e9",
+  "claws_src_frames_sha256": "9b7fd2e67ae9e6869b61fff882934bbf97faff4b899dd6d41f91e05ce6f4e86c",
+  "claw_inventory": "Unity/Build/Polish/32/fix01/list/ds32_claw_inventory.json"
+ },
+ "reference_reads_ja": "参照の彫刻の写真（利用者の指示 Q16 の例外 G:/research/reality scan/北斋参考）の 2 枚（左45.jpg・正面图.jpg）を画面で見ただけ（指が塊から立って先で巻く・分かれる作りを見た）。画像・寸法・形・Exif はリポジトリと成果物に入れていない。参照モデルの OBJ、G:/research/爪形分析、G:/research/Wave Simulation は開いていない。生成器は OBJ を読まない（F13-1）。",
+ "files": {
+  "Unity/Build/Polish/33r01/houdini/claws/ds33_claw_layout.json": {
+   "sha256": "367f788b1af1e1a6a258a3d7ed8ff888cc34302ed0f553aea6d5e359f75a527e",
+   "bytes": 80901
+  },
+  "Unity/Build/Polish/33r01/houdini/claws/ds33_claw_frames_f32.bin": {
+   "sha256": "fc0551d7a76c88ea32d833a4489550fa49eba49ef0ea2dbeb47249d6552deb2d",
+   "bytes": 567829644
+  },
+  "Unity/Build/Polish/33r01/houdini/claws/ds33_claw_tris_i32.bin": {
+   "sha256": "a138c88e896cbbda8f71eb6a84219afac5bfb9b38dd6c5216de848203b9a0e72",
+   "bytes": 2639664
+  },
+  "Unity/Build/Polish/33r01/houdini/claws/ds33_claw_tri_attr_u16.bin": {
+   "sha256": "c3b05758cfda9ddaf56f32041522f986bb7ce9dae094760403970983f5ea8af2",
+   "bytes": 879888
+  },
+  "Unity/Build/Polish/33r01/houdini/claws/pl33r01h_vattr_f32.bin": {
+   "sha256": "dc70b2cc3ee83b8f8ffce265b463223896aef0c331d786127b7e8394c8db21f2",
+   "bytes": 1798352
+  },
+  "Unity/Build/Polish/33r01/houdini/key/key_tstar_mesh.npz": {
+   "sha256": "2f96659d92e1f1716790b1b7794d981620d8c5fbaa9b7db000071a6199bf0a0c",
+   "bytes": 4563058
+  },
+  "Unity/Build/Polish/33r01/houdini/key/ramps.json": {
+   "sha256": "554a73719be0e915db18839207c3660c5d4dbafaec98cf9c29bbbc85815becd5",
+   "bytes": 31197
+  },
+  "Unity/Build/Polish/33r01/houdini/prep/fingers_tstar.json": {
+   "sha256": "c4f28c95be241f560c0448ea39b020cbedc35bae879c00368fde7b7461ad506d",
+   "bytes": 770252
+  },
+  "Unity/Build/Polish/33r01/houdini/prep/frames_spines.npz": {
+   "sha256": "ac6018678f4ccae3a23f0ebf4fd9a0e051dca33e51adc1f036a649711e969e6a",
+   "bytes": 110997650
+  },
+  "Unity/Build/Polish/33r01/houdini/pl33r01h_fingers.hiplc": {
+   "sha256": "21eb6ad3e81494f8baabe36791196629558c26ee66518ab495db1194bd15c9ff",
+   "bytes": 77865
+  },
+  "Tools/GWWaveGen/pl33r01/houdini_build.py": {
+   "sha256": "e8ca73b7a9abdab06d13fa3093adcf86f946fd8f33e21648d0bea701f79424a3",
+   "bytes": 13898
+  },
+  "Tools/GWWaveGen/pl33r01/houdini_common.py": {
+   "sha256": "0a7c2617ec9ae82318f47bbfb7b19057100b56e602307f31d65a18e2e59c8ef5",
+   "bytes": 12450
+  },
+  "Tools/GWWaveGen/pl33r01/houdini_deform.py": {
+   "sha256": "77f6e54cf3862abc60b7a4153be0420486b223e7d9b95f1a0620bc98c4528b89",
+   "bytes": 23744
+  },
+  "Tools/GWWaveGen/pl33r01/houdini_figs.py": {
+   "sha256": "b3b4c1751bd3c9d8a9de316f4a0ede69d33002fbba69ccd428d6a60314fedb6d",
+   "bytes": 10293
+  },
+  "Tools/GWWaveGen/pl33r01/houdini_measure.py": {
+   "sha256": "2431197b63888e97b60cac64387b1f6935a90511bbf780d9b2acdf4f5f73638f",
+   "bytes": 5498
+  },
+  "Tools/GWWaveGen/pl33r01/houdini_prep.py": {
+   "sha256": "fbf7c50b94adc63a786f0002b58a6f05000e721c511422706ac20b5a093f30b5",
+   "bytes": 7042
+  },
+  "Tools/GWWaveGen/pl33r01/houdini_record.py": {
+   "sha256": "2524e02e6388b9ced559d910e95d1fdd8ce05d7f46a495b6e8094416fe4a2091",
+   "bytes": 9845
+  },
+  "Tools/GWWaveGen/pl33r01/houdini_unity.py": {
+   "sha256": "2bf4ea831bfe296025d5f3b91ca946d3e43422eb00d6a126173c382ce4c88f38",
+   "bytes": 3502
+  },
+  "Unity/Assets/GreatWave/Polish33R01/houdini/Editor/PL33R01HRender.cs": {
+   "sha256": "44f10f1009b872ffbdedda969440d9f7b6197e318c38ae840d59df69191fe89d",
+   "bytes": 87713
+  },
+  "Unity/Assets/GreatWave/Polish33R01/houdini/Editor/PL33R01HSetup.cs": {
+   "sha256": "4ea44e9b48cd4957f64fbeb7884cbc36176b188739a7abc051915c4fb782701d",
+   "bytes": 6474
+  },
+  "Unity/Assets/GreatWave/Polish33R01/houdini/Scripts/PL33R01HClawLook.cs": {
+   "sha256": "5b8ec4d63afaaca171e43f8634907108ce69e93bafcd76166d5a0eef06fd6cb3",
+   "bytes": 7700
+  },
+  "Unity/Assets/GreatWave/Polish33R01/houdini/Scenes/PL33R01H_Release.unity": {
+   "sha256": "50d4acb16172ba39411a2e8aa47190fd1f31cfa1f6c68c0b1830e9ab41a66bce",
+   "bytes": 227276
+  },
+  "Unity/Assets/GreatWave/Polish33R01/houdini/Scenes/PL33R01H_SinglePlayback.unity": {
+   "sha256": "106ae881115377717e4f48ab05c59f6b5bf495419056abb871d87aed1b0b1aa0",
+   "bytes": 187553
+  }
+ }
+}

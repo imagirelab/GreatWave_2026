@@ -1,0 +1,545 @@
+{
+ "rule_ja": "画像（Unity の PC オフスクリーン描画、1920×1080、前＝仕上げ33 修正の回 2、後＝SWEEP、同じ視点・同じ時刻 t 9・10.5・12 s）：\n  - 爪の画素：作品のまま（asis）と爪なし（clawfree）の差の最大のチャンネル > 12\n  - 地ごとの爪の画素：爪なしの同じ画素が 空（明るさ ≥ 170 かつ 青 − 赤 < −40 の生成りの空と、明るさ 110〜200 で彩度 < 25 の灰色の空。主役波の白は 青 − 赤 ≈ −25・明るさ ≈ 238 なので白に入る）／藍（明るさ < 110）／白（それ以外）。\n    空と藍の上の爪の画素は、主役波の輪郭の外か藍の面の前へ出た爪（立った指の読みの代わりの数）。白の上は白の面の上の線と陰。\n  - 白い爪の画素：爪の画素のうち、明るさ ≥ 200 かつ 青 − 赤 > −45（白・生成り）の割合（線ばかりでなく白い体が見えるか）\n幾何（爪の並びの t* のコマ）：指（C…）と冠の爪（K…）の輪の中心の、t* の主役波のシートからの高さ（最も近い頂点の法線の向き）の最大の分布と、\n  1 m・2 m 以上立つ本数。3D の長さ（輪の中心と先の折れ線）。頂点・三角形の数。\n出力：--out の sweep_measure.json\n使い方：py -3.10 -B Tools/GWWaveGen/pl33r01/sweep_measure.py --after-run … --after-claws … --out …",
+ "before": {
+  "run": "Unity/Build/Polish/33/fix02/r_fix02",
+  "images": {
+   "painting_t090": {
+    "claw": 2776,
+    "over_sky": 82,
+    "over_indigo": 135,
+    "over_white": 2559,
+    "white_body": 1241
+   },
+   "painting_t105": {
+    "claw": 30401,
+    "over_sky": 1291,
+    "over_indigo": 3088,
+    "over_white": 26022,
+    "white_body": 17153
+   },
+   "painting_t120": {
+    "claw": 53102,
+    "over_sky": 2400,
+    "over_indigo": 4303,
+    "over_white": 46399,
+    "white_body": 28441
+   },
+   "seat_t090": {
+    "claw": 377,
+    "over_sky": 137,
+    "over_indigo": 47,
+    "over_white": 193,
+    "white_body": 96
+   },
+   "seat_t105": {
+    "claw": 16334,
+    "over_sky": 4361,
+    "over_indigo": 2052,
+    "over_white": 9921,
+    "white_body": 10527
+   },
+   "seat_t120": {
+    "claw": 38508,
+    "over_sky": 22435,
+    "over_indigo": 6274,
+    "over_white": 9799,
+    "white_body": 31388
+   },
+   "seat_toward_wave_t090": {
+    "claw": 730,
+    "over_sky": 377,
+    "over_indigo": 138,
+    "over_white": 215,
+    "white_body": 317
+   },
+   "seat_toward_wave_t105": {
+    "claw": 14385,
+    "over_sky": 2826,
+    "over_indigo": 2223,
+    "over_white": 9336,
+    "white_body": 9354
+   },
+   "seat_toward_wave_t120": {
+    "claw": 9918,
+    "over_sky": 2602,
+    "over_indigo": 6027,
+    "over_white": 1289,
+    "white_body": 8256
+   },
+   "side_left_t090": {
+    "claw": 3607,
+    "over_sky": 111,
+    "over_indigo": 530,
+    "over_white": 2966,
+    "white_body": 1224
+   },
+   "side_left_t105": {
+    "claw": 7800,
+    "over_sky": 302,
+    "over_indigo": 2208,
+    "over_white": 5290,
+    "white_body": 2535
+   },
+   "side_left_t120": {
+    "claw": 10111,
+    "over_sky": 394,
+    "over_indigo": 4050,
+    "over_white": 5667,
+    "white_body": 3901
+   },
+   "side_right_t090": {
+    "claw": 2561,
+    "over_sky": 62,
+    "over_indigo": 176,
+    "over_white": 2323,
+    "white_body": 856
+   },
+   "side_right_t105": {
+    "claw": 6721,
+    "over_sky": 88,
+    "over_indigo": 1874,
+    "over_white": 4759,
+    "white_body": 1824
+   },
+   "side_right_t120": {
+    "claw": 7717,
+    "over_sky": 110,
+    "over_indigo": 2034,
+    "over_white": 5573,
+    "white_body": 2164
+   },
+   "back65_t090": {
+    "claw": 7089,
+    "over_sky": 352,
+    "over_indigo": 265,
+    "over_white": 6472,
+    "white_body": 2553
+   },
+   "back65_t105": {
+    "claw": 15261,
+    "over_sky": 2609,
+    "over_indigo": 1319,
+    "over_white": 11333,
+    "white_body": 4656
+   },
+   "back65_t120": {
+    "claw": 16938,
+    "over_sky": 3355,
+    "over_indigo": 1475,
+    "over_white": 12108,
+    "white_body": 5178
+   },
+   "top_t090": {
+    "claw": 3214,
+    "over_sky": 23,
+    "over_indigo": 104,
+    "over_white": 3087,
+    "white_body": 1057
+   },
+   "top_t105": {
+    "claw": 8027,
+    "over_sky": 150,
+    "over_indigo": 877,
+    "over_white": 7000,
+    "white_body": 2386
+   },
+   "top_t120": {
+    "claw": 10044,
+    "over_sky": 206,
+    "over_indigo": 1860,
+    "over_white": 7978,
+    "white_body": 2999
+   }
+  },
+  "geometry": {
+   "C": {
+    "n": 184,
+    "h_max_pct": [
+     0.125,
+     0.167,
+     0.244,
+     0.45
+    ],
+    "stand_ge_1m": 0,
+    "stand_ge_2m": 0,
+    "len3d_pct": [
+     0.339,
+     0.69,
+     1.39,
+     3.836
+    ]
+   },
+   "K": {
+    "n": 79,
+    "h_max_pct": [
+     0.597,
+     0.74,
+     1.125,
+     1.481
+    ],
+    "stand_ge_1m": 16,
+    "stand_ge_2m": 0,
+    "len3d_pct": [
+     1.782,
+     2.188,
+     3.042,
+     3.655
+    ]
+   },
+   "W": {
+    "n": 184,
+    "h_max_pct": [
+     0.117,
+     0.158,
+     0.24,
+     0.407
+    ],
+    "stand_ge_1m": 0,
+    "stand_ge_2m": 0,
+    "len3d_pct": [
+     0.379,
+     0.688,
+     1.335,
+     3.537
+    ]
+   },
+   "S": {
+    "n": 114,
+    "h_max_pct": [
+     0.1,
+     0.172,
+     0.25,
+     0.322
+    ],
+    "stand_ge_1m": 0,
+    "stand_ge_2m": 0,
+    "len3d_pct": [
+     0.005,
+     0.368,
+     0.756,
+     1.325
+    ]
+   },
+   "penetration_centre_v2v6": {
+    "C_t090": {
+     "rings_below_5cm": 5,
+     "rings_checked": 1800,
+     "deepest_m": -0.056
+    },
+    "K_t090": {
+     "rings_below_5cm": 0,
+     "rings_checked": 1100,
+     "deepest_m": 0.0
+    },
+    "W_t090": {
+     "rings_below_5cm": 6,
+     "rings_checked": 1800,
+     "deepest_m": -0.079
+    },
+    "S_t090": {
+     "rings_below_5cm": 0,
+     "rings_checked": 60,
+     "deepest_m": 0.0
+    },
+    "C_t105": {
+     "rings_below_5cm": 2,
+     "rings_checked": 3576,
+     "deepest_m": -0.12
+    },
+    "K_t105": {
+     "rings_below_5cm": 0,
+     "rings_checked": 1580,
+     "deepest_m": 0.0
+    },
+    "W_t105": {
+     "rings_below_5cm": 3,
+     "rings_checked": 3576,
+     "deepest_m": -0.059
+    },
+    "S_t105": {
+     "rings_below_5cm": 0,
+     "rings_checked": 1860,
+     "deepest_m": 0.0
+    },
+    "C_t120": {
+     "rings_below_5cm": 9,
+     "rings_checked": 3662,
+     "deepest_m": -0.209
+    },
+    "K_t120": {
+     "rings_below_5cm": 0,
+     "rings_checked": 1580,
+     "deepest_m": 0.0
+    },
+    "W_t120": {
+     "rings_below_5cm": 10,
+     "rings_checked": 3662,
+     "deepest_m": -0.217
+    },
+    "S_t120": {
+     "rings_below_5cm": 0,
+     "rings_checked": 2024,
+     "deepest_m": 0.0
+    }
+   },
+   "vertices": 95547,
+   "triangles": 183240,
+   "entries": 561
+  }
+ },
+ "after": {
+  "run": "Unity/Build/Polish/33r01/fix01/r_fix01",
+  "images": {
+   "painting_t090": {
+    "claw": 3390,
+    "over_sky": 100,
+    "over_indigo": 213,
+    "over_white": 3077,
+    "white_body": 1607
+   },
+   "painting_t105": {
+    "claw": 30359,
+    "over_sky": 1506,
+    "over_indigo": 3850,
+    "over_white": 25003,
+    "white_body": 19551
+   },
+   "painting_t120": {
+    "claw": 56438,
+    "over_sky": 2703,
+    "over_indigo": 7087,
+    "over_white": 46648,
+    "white_body": 35947
+   },
+   "seat_t090": {
+    "claw": 1177,
+    "over_sky": 835,
+    "over_indigo": 136,
+    "over_white": 206,
+    "white_body": 427
+   },
+   "seat_t105": {
+    "claw": 44948,
+    "over_sky": 17136,
+    "over_indigo": 7536,
+    "over_white": 20276,
+    "white_body": 30304
+   },
+   "seat_t120": {
+    "claw": 107898,
+    "over_sky": 52899,
+    "over_indigo": 18631,
+    "over_white": 36368,
+    "white_body": 88596
+   },
+   "seat_toward_wave_t090": {
+    "claw": 1426,
+    "over_sky": 979,
+    "over_indigo": 190,
+    "over_white": 257,
+    "white_body": 644
+   },
+   "seat_toward_wave_t105": {
+    "claw": 38317,
+    "over_sky": 7066,
+    "over_indigo": 8727,
+    "over_white": 22524,
+    "white_body": 24752
+   },
+   "seat_toward_wave_t120": {
+    "claw": 11125,
+    "over_sky": 3272,
+    "over_indigo": 6262,
+    "over_white": 1591,
+    "white_body": 9347
+   },
+   "side_left_t090": {
+    "claw": 4388,
+    "over_sky": 154,
+    "over_indigo": 1628,
+    "over_white": 2606,
+    "white_body": 1435
+   },
+   "side_left_t105": {
+    "claw": 11663,
+    "over_sky": 380,
+    "over_indigo": 7275,
+    "over_white": 4008,
+    "white_body": 5286
+   },
+   "side_left_t120": {
+    "claw": 14096,
+    "over_sky": 475,
+    "over_indigo": 9304,
+    "over_white": 4317,
+    "white_body": 6793
+   },
+   "side_right_t090": {
+    "claw": 3215,
+    "over_sky": 82,
+    "over_indigo": 615,
+    "over_white": 2518,
+    "white_body": 1481
+   },
+   "side_right_t105": {
+    "claw": 8160,
+    "over_sky": 86,
+    "over_indigo": 3303,
+    "over_white": 4771,
+    "white_body": 3561
+   },
+   "side_right_t120": {
+    "claw": 9423,
+    "over_sky": 92,
+    "over_indigo": 3430,
+    "over_white": 5901,
+    "white_body": 4193
+   },
+   "back65_t090": {
+    "claw": 8832,
+    "over_sky": 1429,
+    "over_indigo": 471,
+    "over_white": 6932,
+    "white_body": 4085
+   },
+   "back65_t105": {
+    "claw": 19906,
+    "over_sky": 8589,
+    "over_indigo": 1511,
+    "over_white": 9806,
+    "white_body": 9274
+   },
+   "back65_t120": {
+    "claw": 23838,
+    "over_sky": 12254,
+    "over_indigo": 1619,
+    "over_white": 9965,
+    "white_body": 12043
+   },
+   "top_t090": {
+    "claw": 4023,
+    "over_sky": 50,
+    "over_indigo": 240,
+    "over_white": 3733,
+    "white_body": 1032
+   },
+   "top_t105": {
+    "claw": 11197,
+    "over_sky": 255,
+    "over_indigo": 3131,
+    "over_white": 7811,
+    "white_body": 3389
+   },
+   "top_t120": {
+    "claw": 14052,
+    "over_sky": 290,
+    "over_indigo": 5166,
+    "over_white": 8596,
+    "white_body": 4644
+   }
+  },
+  "geometry": {
+   "C": {
+    "n": 184,
+    "h_max_pct": [
+     0.235,
+     0.645,
+     1.278,
+     3.933
+    ],
+    "stand_ge_1m": 45,
+    "stand_ge_2m": 2,
+    "len3d_pct": [
+     0.87,
+     1.44,
+     2.696,
+     5.457
+    ]
+   },
+   "K": {
+    "n": 137,
+    "h_max_pct": [
+     1.172,
+     1.665,
+     2.255,
+     2.865
+    ],
+    "stand_ge_1m": 126,
+    "stand_ge_2m": 35,
+    "len3d_pct": [
+     2.006,
+     2.841,
+     3.697,
+     4.368
+    ]
+   },
+   "W": {
+    "n": 360,
+    "h_max_pct": [
+     0.127,
+     0.242,
+     0.991,
+     3.658
+    ],
+    "stand_ge_1m": 36,
+    "stand_ge_2m": 1,
+    "len3d_pct": [
+     0.464,
+     1.166,
+     2.266,
+     5.363
+    ]
+   },
+   "penetration_centre_v2v6": {
+    "C_t090": {
+     "rings_below_5cm": 0,
+     "rings_checked": 1780,
+     "deepest_m": 0.0
+    },
+    "K_t090": {
+     "rings_below_5cm": 0,
+     "rings_checked": 1000,
+     "deepest_m": 0.0
+    },
+    "W_t090": {
+     "rings_below_5cm": 131,
+     "rings_checked": 2848,
+     "deepest_m": -0.217
+    },
+    "C_t105": {
+     "rings_below_5cm": 0,
+     "rings_checked": 3469,
+     "deepest_m": 0.0
+    },
+    "K_t105": {
+     "rings_below_5cm": 0,
+     "rings_checked": 2532,
+     "deepest_m": 0.0
+    },
+    "W_t105": {
+     "rings_below_5cm": 86,
+     "rings_checked": 5584,
+     "deepest_m": -0.224
+    },
+    "C_t120": {
+     "rings_below_5cm": 2,
+     "rings_checked": 3524,
+     "deepest_m": -0.152
+    },
+    "K_t120": {
+     "rings_below_5cm": 0,
+     "rings_checked": 2518,
+     "deepest_m": 0.0
+    },
+    "W_t120": {
+     "rings_below_5cm": 76,
+     "rings_checked": 5704,
+     "deepest_m": -0.221
+    }
+   },
+   "vertices": 104707,
+   "triangles": 199880,
+   "entries": 681
+  }
+ }
+}

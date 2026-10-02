@@ -1,0 +1,2661 @@
+{
+ "schema": "GreatWave.Polish33R01.metrics/1",
+ "number": {
+  "group": "仕上げ33修正01",
+  "design": "設計33 爪の造形（Q28：立つ 3D の白い指）",
+  "backlog": "99〜101、103〜105、129、136〜141、180、200、204〜208、238、262（仕上げ33 と同じ）",
+  "decision_ja": "進行役の決定（2026-10-02、Q24）。時間枠 1 日。変種 SWEEP を採り、評審の直すべき 11 の指摘に 1 回の修正の回",
+  "plan": "Docs/Design/Stage9_Plan_2026-09-26_ja.md §5.1・§5.2・§5.3 仕上げ33・§2.6"
+ },
+ "before_ja": "仕上げ33（コミット 1ed9aa8、修正の回 2）。爪の並び Unity/Build/Polish/33/fix02/claws、描画 Unity/Build/Polish/33/fix02/r_fix02",
+ "sweep_ja": "変種 SWEEP（評審の前、採った候補）。爪の並び Unity/Build/Polish/33r01/sweep/claws、描画 Unity/Build/Polish/33r01/sweep/r_final",
+ "after_ja": "仕上げ33修正01 の修正の回 1 の後（採る状態）。爪の並び Unity/Build/Polish/33r01/fix01/claws、描画 Unity/Build/Polish/33r01/fix01/r_fix01",
+ "evidence_kind_ja": "Unity 6000.4.3f1 の PC オフスクリーン描画、Editor の Play モード 2 つ、Release のプレイヤーを PC（RTX 3080、1920×1080 の窓）で動かした結果、numpy・OpenCV・scipy の計算。HMD 実機ではない。利用者は見ていない",
+ "projection_colour_used": false,
+ "claw_layer": {
+  "vertices": 104707,
+  "triangles": 199880,
+  "entries": 681,
+  "kinds": {
+   "C": 184,
+   "K": 137,
+   "WF": 180,
+   "WC": 180
+  },
+  "culled_fingers": [
+   "C062",
+   "C086",
+   "C087",
+   "C089"
+  ],
+  "culled_crowns": [
+   "K027",
+   "K028",
+   "K029",
+   "K037",
+   "K038",
+   "K039",
+   "K040",
+   "K109",
+   "K110",
+   "K111"
+  ],
+  "heroes": [
+   "C061",
+   "C063",
+   "C067",
+   "C078",
+   "C079",
+   "C080",
+   "C083",
+   "C085",
+   "C088",
+   "C090",
+   "C092",
+   "C094",
+   "C095",
+   "C096",
+   "C099",
+   "C104",
+   "C109",
+   "C111",
+   "C115"
+  ],
+  "before": {
+   "vertices": 95547,
+   "triangles": 183240
+  },
+  "sweep": {
+   "vertices": 54763,
+   "triangles": 105032
+  },
+  "frames_sha256": "8bb2ebbc8e794fa1bc257bcd0b45c8b05f7f9d6c1eb7bee41a6e6c4757a2d6ed"
+ },
+ "must_fix": {
+  "1_9_mizuiro": {
+   "painting": {
+    "claw_zone": 0.4124,
+    "bregion": 0.4602
+   },
+   "before_pl33": {
+    "claw_zone": 0.3563,
+    "bregion": 0.3309
+   },
+   "sweep": {
+    "claw_zone": 0.2548,
+    "bregion": 0.2751
+   },
+   "after": {
+    "claw_zone": 0.3994,
+    "bregion": 0.3488
+   },
+   "target_ja": "仕上げ33 の値（0.356・0.331）以上",
+   "verdict": "直した"
+  },
+  "2_fan_curl_seat": {
+   "seat_t120_claw_px": {
+    "before": 38508,
+    "sweep": 100018,
+    "after": 107898
+   },
+   "seat_t120_white_body_px": {
+    "before": 31388,
+    "sweep": 73464,
+    "after": 88596
+   },
+   "verdict": "一部",
+   "note_ja": "稜の指は外向きの法線へ扇に開き、先で巻く。面がカメラを向く指は原画視点の道を守る限り射線の向きにしか立てられず、座席から同じ向きに傾く（限界）。唇の先の C085 は 132 の関門のため長いまま"
+  },
+  "3_flat_hooks": {
+   "found_ja": "評審の読みと違い、平たい鉤の群れは冠の爪の低い房（K027〜K029・K037〜K040、ほかに K109〜K111）だった",
+   "crowns_culled": [
+    "K027",
+    "K028",
+    "K029",
+    "K037",
+    "K038",
+    "K039",
+    "K040",
+    "K109",
+    "K110",
+    "K111"
+   ],
+   "fingers_culled": [
+    "C062",
+    "C086",
+    "C087",
+    "C089"
+   ],
+   "verdict": "直した"
+  },
+  "4_7_list_overlay": {
+   "before": {
+    "claw_pixels": 58608,
+    "list_region_pixels": 34857,
+    "list_recall": 0.6294861864187968,
+    "list_recall_per_claw_median": 0.6400352733686067,
+    "precision_4px": 0.8056749931749931,
+    "precision_12px": 0.9333026208026208,
+    "centerline_dist_px_median": 0.25871668926546587,
+    "centerline_dist_px_p90": 0.6393538467987296,
+    "centerline_over_px_median": 0.026345986395371668,
+    "centerline_over_px_p90": 0.8444079297910121,
+    "claws": 184
+   },
+   "after": {
+    "claw_pixels": 61547,
+    "list_region_pixels": 34857,
+    "list_recall": 0.6355394899159422,
+    "list_recall_per_claw_median": 0.6625875737463127,
+    "precision_4px": 0.851089411344176,
+    "precision_12px": 0.9384210440801338,
+    "centerline_dist_px_median": 0.26164653840525054,
+    "centerline_dist_px_p90": 0.7329243457615737,
+    "centerline_over_px_median": -0.09599930122401545,
+    "centerline_over_px_p90": 0.8106063704719167,
+    "claws": 184
+   },
+   "sweep": {
+    "claw_pixels": 62458,
+    "list_region_pixels": 34857,
+    "list_recall": 0.5668588805691827,
+    "list_recall_per_claw_median": 0.5807291666666667,
+    "precision_4px": 0.7533222325402671,
+    "precision_12px": 0.9321784239008614,
+    "centerline_dist_px_median": 1.4391342628894537,
+    "centerline_dist_px_p90": 3.640696416607325,
+    "centerline_over_px_median": 9.164238039441454,
+    "centerline_over_px_p90": 17.176484614141863,
+    "claws": 184
+   },
+   "components": {
+    "painting": 398,
+    "before": 257,
+    "sweep": 209,
+    "after": 266
+   },
+   "dark_line_px": {
+    "painting": 14858,
+    "before": 11156,
+    "sweep": 14199,
+    "after": 10642
+   },
+   "verdict": "直した（一覧への重なり）。輪の律動は一部（成分 266、原画 398）"
+  },
+  "5_bold_72m": {
+   "white_body_px_t120": {
+    "side_left": {
+     "before": 3901,
+     "sweep": 6628,
+     "after": 6793
+    },
+    "side_right": {
+     "before": 2164,
+     "sweep": 4258,
+     "after": 4193
+    },
+    "top": {
+     "before": 2999,
+     "sweep": 4316,
+     "after": 4644
+    },
+    "back65": {
+     "before": 5178,
+     "sweep": 10347,
+     "after": 12043
+    }
+   },
+   "ridge_ringed_fraction_tstar": {
+    "back65": {
+     "before": 0.3162,
+     "after": 0.2999
+    },
+    "tt150": {
+     "before": 0.2633,
+     "after": 0.2974
+    },
+    "tt180": {
+     "before": 0.2688,
+     "after": 0.2735
+    },
+    "tt210": {
+     "before": 0.1497,
+     "after": 0.2072
+    },
+    "tt240": {
+     "before": 0.3096,
+     "after": 0.4068
+    },
+    "tt270": {
+     "before": 0.4218,
+     "after": 0.4895
+    },
+    "tt300": {
+     "before": 0.5305,
+     "after": 0.5237
+    },
+    "tt000": {
+     "before": 0.2552,
+     "after": 0.2433
+    },
+    "tt030": {
+     "before": 0.2065,
+     "after": 0.2344
+    },
+    "tt060": {
+     "before": 0.2748,
+     "after": 0.3462
+    },
+    "tt090": {
+     "before": 0.5388,
+     "after": 0.5528
+    },
+    "tt120": {
+     "before": 0.4318,
+     "after": 0.4357
+    },
+    "tt330": {
+     "before": 0.3805,
+     "after": 0.397
+    }
+   },
+   "verdict": "一部"
+  },
+  "6_section_pops": {
+   "r01_measure": {
+    "rule_ja": "SWEEP と修正の回 1 の指（C…）・冠の爪（K…）の輪は、8 頂点の角度が不揃い（−82, −50, 90, 230, 262, 266, 270, 274°）なので、\n8 頂点の平均は輪の中心でない（pl33f_measure.py の orient・bends・貫通は平均を中心に使っていた）。ここでは輪の中心を頂点 2（白の中心、+N）と\n頂点 6（水色の版の中心、−N）の中点とし、白の向き N を（頂点 2 − 中心）で測る。\n  - コマの間の裏返り：同じ輪の N の、隣のコマとの内積が 0 未満（輪の大きさ 1 cm 以上、背骨の長さ 0.2 m 以上のコマ）\n  - 隣の輪の間のねじれ：N から接線（隣の中心へ向く向き）の成分を除いた向きの、隣の輪との角が 60° を超える\n  - 跳び（評審 judge_geo2 と同じ式）：根元の頂点に対する頂点の 2 階差 > 0.15 m/コマ²。中心の 2 階差と、輪の回り（頂点 − 中心）の 2 階差に分ける\n  - 瞬間移動（根元に対して 1 コマに 0.5 m 超）・NaN\n出力：--out の json\n使い方：py -3.10 -B Tools/GWWaveGen/pl33r01/r01_measure.py --claws <爪の並び> [--claws2 …] --out <json>",
+    "33/fix02/claws": {
+     "C": {
+      "entries": 184,
+      "frame_flips": 0,
+      "ring_twists_gt60": 3336,
+      "flip_entries": 0,
+      "twist_entries": 27,
+      "flip_top": [],
+      "twist_top": [
+       [
+        "C061",
+        285
+       ],
+       [
+        "C019",
+        280
+       ],
+       [
+        "C006",
+        227
+       ],
+       [
+        "C016",
+        221
+       ],
+       [
+        "C234",
+        216
+       ],
+       [
+        "C026",
+        198
+       ],
+       [
+        "C212",
+        191
+       ],
+       [
+        "C183",
+        190
+       ]
+      ],
+      "accel_events_gt0p15": 0,
+      "accel_events_centre": 0,
+      "accel_events_rotation_only": 0,
+      "accel_entries": 0,
+      "accel_top": [],
+      "accel_worst": {
+       "m": 0.126,
+       "id": "C092",
+       "frame": 283
+      },
+      "teleports_gt0p5m": 0,
+      "nan": 0
+     },
+     "K": {
+      "entries": 79,
+      "frame_flips": 0,
+      "ring_twists_gt60": 0,
+      "flip_entries": 0,
+      "twist_entries": 0,
+      "flip_top": [],
+      "twist_top": [],
+      "accel_events_gt0p15": 0,
+      "accel_events_centre": 0,
+      "accel_events_rotation_only": 0,
+      "accel_entries": 0,
+      "accel_top": [],
+      "accel_worst": {
+       "m": 0.132,
+       "id": "K038",
+       "frame": 212
+      },
+      "teleports_gt0p5m": 0,
+      "nan": 0
+     },
+     "W": {
+      "entries": 184,
+      "frame_flips": 0,
+      "ring_twists_gt60": 0,
+      "flip_entries": 0,
+      "twist_entries": 0,
+      "flip_top": [],
+      "twist_top": [],
+      "accel_events_gt0p15": 0,
+      "accel_events_centre": 0,
+      "accel_events_rotation_only": 0,
+      "accel_entries": 0,
+      "accel_top": [],
+      "accel_worst": {
+       "m": 0.12,
+       "id": "WC092",
+       "frame": 283
+      },
+      "teleports_gt0p5m": 0,
+      "nan": 0
+     }
+    },
+    "33r01/sweep/claws": {
+     "C": {
+      "entries": 184,
+      "frame_flips": 22,
+      "ring_twists_gt60": 371,
+      "flip_entries": 4,
+      "twist_entries": 5,
+      "flip_top": [
+       [
+        "C077",
+        10
+       ],
+       [
+        "C210",
+        8
+       ],
+       [
+        "C106",
+        2
+       ],
+       [
+        "C199",
+        2
+       ]
+      ],
+      "twist_top": [
+       [
+        "C077",
+        175
+       ],
+       [
+        "C084",
+        93
+       ],
+       [
+        "C205",
+        83
+       ],
+       [
+        "C081",
+        17
+       ],
+       [
+        "C202",
+        3
+       ]
+      ],
+      "accel_events_gt0p15": 19,
+      "accel_events_centre": 11,
+      "accel_events_rotation_only": 8,
+      "accel_entries": 9,
+      "accel_top": [
+       [
+        "C085",
+        [
+         5,
+         0.212,
+         317
+        ]
+       ],
+       [
+        "C080",
+        [
+         3,
+         0.21,
+         277
+        ]
+       ],
+       [
+        "C093",
+        [
+         2,
+         0.196,
+         329
+        ]
+       ],
+       [
+        "C192",
+        [
+         2,
+         0.189,
+         307
+        ]
+       ],
+       [
+        "C053",
+        [
+         2,
+         0.168,
+         240
+        ]
+       ],
+       [
+        "C199",
+        [
+         1,
+         0.168,
+         329
+        ]
+       ],
+       [
+        "C013",
+        [
+         2,
+         0.166,
+         240
+        ]
+       ],
+       [
+        "C025",
+        [
+         1,
+         0.154,
+         222
+        ]
+       ],
+       [
+        "C236",
+        [
+         1,
+         0.151,
+         292
+        ]
+       ]
+      ],
+      "accel_worst": {
+       "m": 0.212,
+       "id": "C085",
+       "frame": 317
+      },
+      "teleports_gt0p5m": 0,
+      "nan": 0
+     },
+     "K": {
+      "entries": 137,
+      "frame_flips": 0,
+      "ring_twists_gt60": 0,
+      "flip_entries": 0,
+      "twist_entries": 0,
+      "flip_top": [],
+      "twist_top": [],
+      "accel_events_gt0p15": 9,
+      "accel_events_centre": 0,
+      "accel_events_rotation_only": 9,
+      "accel_entries": 6,
+      "accel_top": [
+       [
+        "K073",
+        [
+         2,
+         0.16,
+         212
+        ]
+       ],
+       [
+        "K078",
+        [
+         1,
+         0.157,
+         311
+        ]
+       ],
+       [
+        "K074",
+        [
+         2,
+         0.155,
+         203
+        ]
+       ],
+       [
+        "K072",
+        [
+         2,
+         0.151,
+         212
+        ]
+       ],
+       [
+        "K077",
+        [
+         1,
+         0.151,
+         311
+        ]
+       ],
+       [
+        "K025",
+        [
+         1,
+         0.15,
+         284
+        ]
+       ]
+      ],
+      "accel_worst": {
+       "m": 0.16,
+       "id": "K073",
+       "frame": 212
+      },
+      "teleports_gt0p5m": 0,
+      "nan": 0
+     },
+     "W": {
+      "entries": 0,
+      "frame_flips": 0,
+      "ring_twists_gt60": 0,
+      "flip_entries": 0,
+      "twist_entries": 0,
+      "flip_top": [],
+      "twist_top": [],
+      "accel_events_gt0p15": 0,
+      "accel_events_centre": 0,
+      "accel_events_rotation_only": 0,
+      "accel_entries": 0,
+      "accel_top": [],
+      "accel_worst": {
+       "m": 0.0,
+       "id": null,
+       "frame": null
+      },
+      "teleports_gt0p5m": 0,
+      "nan": 0
+     }
+    },
+    "33r01/fix01/claws": {
+     "C": {
+      "entries": 184,
+      "frame_flips": 0,
+      "ring_twists_gt60": 1088,
+      "flip_entries": 0,
+      "twist_entries": 15,
+      "flip_top": [],
+      "twist_top": [
+       [
+        "C046",
+        199
+       ],
+       [
+        "C065",
+        111
+       ],
+       [
+        "C067",
+        109
+       ],
+       [
+        "C019",
+        104
+       ],
+       [
+        "C077",
+        100
+       ],
+       [
+        "C006",
+        95
+       ],
+       [
+        "C189",
+        85
+       ],
+       [
+        "C036",
+        83
+       ]
+      ],
+      "accel_events_gt0p15": 6,
+      "accel_events_centre": 1,
+      "accel_events_rotation_only": 5,
+      "accel_entries": 4,
+      "accel_top": [
+       [
+        "C192",
+        [
+         2,
+         0.189,
+         307
+        ]
+       ],
+       [
+        "C085",
+        [
+         1,
+         0.17,
+         281
+        ]
+       ],
+       [
+        "C092",
+        [
+         2,
+         0.154,
+         283
+        ]
+       ],
+       [
+        "C094",
+        [
+         1,
+         0.152,
+         280
+        ]
+       ]
+      ],
+      "accel_worst": {
+       "m": 0.189,
+       "id": "C192",
+       "frame": 307
+      },
+      "teleports_gt0p5m": 0,
+      "nan": 0
+     },
+     "K": {
+      "entries": 137,
+      "frame_flips": 0,
+      "ring_twists_gt60": 0,
+      "flip_entries": 0,
+      "twist_entries": 0,
+      "flip_top": [],
+      "twist_top": [],
+      "accel_events_gt0p15": 0,
+      "accel_events_centre": 0,
+      "accel_events_rotation_only": 0,
+      "accel_entries": 0,
+      "accel_top": [],
+      "accel_worst": {
+       "m": 0.021,
+       "id": "K077",
+       "frame": 316
+      },
+      "teleports_gt0p5m": 0,
+      "nan": 0
+     },
+     "W": {
+      "entries": 360,
+      "frame_flips": 0,
+      "ring_twists_gt60": 0,
+      "flip_entries": 0,
+      "twist_entries": 0,
+      "flip_top": [],
+      "twist_top": [],
+      "accel_events_gt0p15": 3,
+      "accel_events_centre": 1,
+      "accel_events_rotation_only": 2,
+      "accel_entries": 3,
+      "accel_top": [
+       [
+        "WFC085",
+        [
+         1,
+         0.187,
+         281
+        ]
+       ],
+       [
+        "WFC092",
+        [
+         1,
+         0.163,
+         283
+        ]
+       ],
+       [
+        "WFC094",
+        [
+         1,
+         0.152,
+         280
+        ]
+       ]
+      ],
+      "accel_worst": {
+       "m": 0.187,
+       "id": "WFC085",
+       "frame": 281
+      },
+      "teleports_gt0p5m": 0,
+      "nan": 0
+     }
+    }
+   },
+   "pl33f_measure_after": {
+    "frame_flips_gt90": 0,
+    "ring_twists_gt60": 1163,
+    "focus": {
+     "C021": {
+      "frame_flips": 0,
+      "ring_twists_gt60": 0
+     },
+     "C067": {
+      "frame_flips": 0,
+      "ring_twists_gt60": 110
+     },
+     "C072": {
+      "frame_flips": 0,
+      "ring_twists_gt60": 0
+     },
+     "C083": {
+      "frame_flips": 0,
+      "ring_twists_gt60": 0
+     },
+     "C090": {
+      "frame_flips": 0,
+      "ring_twists_gt60": 0
+     },
+     "C114": {
+      "frame_flips": 0,
+      "ring_twists_gt60": 0
+     }
+    }
+   },
+   "pl33f_measure_sweep": {
+    "frame_flips_gt90": 22,
+    "ring_twists_gt60": 377,
+    "focus": {
+     "C021": {
+      "frame_flips": 0,
+      "ring_twists_gt60": 0
+     },
+     "C067": {
+      "frame_flips": 0,
+      "ring_twists_gt60": 0
+     },
+     "C072": {
+      "frame_flips": 0,
+      "ring_twists_gt60": 0
+     },
+     "C083": {
+      "frame_flips": 0,
+      "ring_twists_gt60": 0
+     },
+     "C090": {
+      "frame_flips": 0,
+      "ring_twists_gt60": 0
+     },
+     "C114": {
+      "frame_flips": 0,
+      "ring_twists_gt60": 0
+     }
+    }
+   },
+   "note_ja": "ねじれ（> 60°）の 99% は一覧の中心線の 60° を超える折れの所（隣の輪の接線が違うので数に出る）。断面の白の向きは背骨に沿って平行に運ぶので、接線のまわりのねじれは作りの上で 0",
+   "vr_pop_check_ja": "PSVR2 は未導入。HMD での見え方は未検証。PC の描画と数でだけ確かめた",
+   "verdict": "直した（裏返り 0）。HMD は未検証"
+  },
+  "8_penetration_vertex": {
+   "before": {
+    "C_t090": {
+     "entries": 2,
+     "deepest_m": -0.056
+    },
+    "K_t090": {
+     "entries": 0,
+     "deepest_m": 0.0
+    },
+    "S_t090": {
+     "entries": 0,
+     "deepest_m": 0.0
+    },
+    "W_t090": {
+     "entries": 2,
+     "deepest_m": -0.079
+    },
+    "C_t105": {
+     "entries": 7,
+     "deepest_m": -0.171
+    },
+    "K_t105": {
+     "entries": 0,
+     "deepest_m": 0.0
+    },
+    "S_t105": {
+     "entries": 0,
+     "deepest_m": 0.0
+    },
+    "W_t105": {
+     "entries": 2,
+     "deepest_m": -0.059
+    },
+    "C_t120": {
+     "entries": 5,
+     "deepest_m": -0.243
+    },
+    "K_t120": {
+     "entries": 0,
+     "deepest_m": 0.0
+    },
+    "S_t120": {
+     "entries": 0,
+     "deepest_m": 0.0
+    },
+    "W_t120": {
+     "entries": 3,
+     "deepest_m": -0.218
+    }
+   },
+   "sweep": {
+    "C_t090": {
+     "entries": 28,
+     "deepest_m": -0.107
+    },
+    "K_t090": {
+     "entries": 0,
+     "deepest_m": 0.0
+    },
+    "C_t105": {
+     "entries": 18,
+     "deepest_m": -0.159
+    },
+    "K_t105": {
+     "entries": 0,
+     "deepest_m": 0.0
+    },
+    "C_t120": {
+     "entries": 11,
+     "deepest_m": -0.188
+    },
+    "K_t120": {
+     "entries": 0,
+     "deepest_m": 0.0
+    }
+   },
+   "after": {
+    "C_t090": {
+     "entries": 6,
+     "deepest_m": -0.114
+    },
+    "K_t090": {
+     "entries": 0,
+     "deepest_m": 0.0
+    },
+    "W_t090": {
+     "entries": 5,
+     "deepest_m": -0.079
+    },
+    "C_t105": {
+     "entries": 5,
+     "deepest_m": -0.258
+    },
+    "K_t105": {
+     "entries": 0,
+     "deepest_m": 0.0
+    },
+    "W_t105": {
+     "entries": 4,
+     "deepest_m": -0.176
+    },
+    "C_t120": {
+     "entries": 4,
+     "deepest_m": -0.189
+    },
+    "K_t120": {
+     "entries": 0,
+     "deepest_m": 0.0
+    },
+    "W_t120": {
+     "entries": 4,
+     "deepest_m": -0.218
+    }
+   },
+   "rule_ja": "評審 judge_geo と同じ式：全部の列の頂点の法線、接線の離れ 0.3 m 未満、u > 0.3 で 5 cm より下の頂点を持つ項目の数と最も深い所",
+   "verdict": "直した（一部残る）"
+  },
+  "10_growth_pops": {
+   "before": {},
+   "sweep": {
+    "K": {
+     "events": 9,
+     "entries": 6,
+     "worst": [
+      213,
+      "K073",
+      0.16
+     ]
+    },
+    "C": {
+     "events": 19,
+     "entries": 9,
+     "worst": [
+      318,
+      "C085",
+      0.212
+     ]
+    }
+   },
+   "after": {
+    "C": {
+     "events": 6,
+     "entries": 4,
+     "worst": [
+      308,
+      "C192",
+      0.189
+     ]
+    },
+    "W": {
+     "events": 3,
+     "entries": 3,
+     "worst": [
+      282,
+      "WFC085",
+      0.187
+     ]
+    }
+   },
+   "rule_ja": "根元に対する頂点の 2 階差 > 0.15 m/コマ²",
+   "verdict": "直した（一部残る）"
+  },
+  "11_gates": {
+   "gates": {
+    "78": {
+     "after_noclaws": 2.741,
+     "after_claws": 2.741,
+     "before_noclaws": 2.741,
+     "before_claws": 2.741,
+     "CP1": 2.772,
+     "26修正01": 1.641,
+     "gate_px": 4.0,
+     "pass_after": true,
+     "regress_vs_before_px": 0.0
+    },
+    "130": {
+     "after_noclaws": 3.5815,
+     "after_claws": 3.5815,
+     "before_noclaws": 3.5815,
+     "before_claws": 3.5815,
+     "CP1": 1.968,
+     "26修正01": 1.953,
+     "gate_px": 4.0,
+     "pass_after": true,
+     "regress_vs_before_px": 0.0
+    },
+    "131": {
+     "after_noclaws": 3.4419,
+     "after_claws": 3.4419,
+     "before_noclaws": 3.4419,
+     "before_claws": 3.4419,
+     "CP1": 1.814,
+     "26修正01": 1.798,
+     "gate_px": 4.0,
+     "pass_after": true,
+     "regress_vs_before_px": 0.0
+    },
+    "132_s12": {
+     "after_noclaws": 3.5576,
+     "after_claws": 3.5789,
+     "before_noclaws": 3.5576,
+     "before_claws": 3.5576,
+     "CP1": 1.326,
+     "26修正01": 1.574,
+     "gate_px": 4.0,
+     "pass_after": true,
+     "regress_vs_before_px": 0.0213
+    },
+    "72_s12_p95": {
+     "after_noclaws": 3.8507,
+     "after_claws": 3.9059,
+     "before_noclaws": 3.8507,
+     "before_claws": 3.5757,
+     "CP1": 1.558,
+     "26修正01": 1.723,
+     "gate_px": 4.0,
+     "pass_after": true,
+     "regress_vs_before_px": 0.0552
+    }
+   },
+   "raw_detail_with_claws": {
+    "132_raw_max": {
+     "after_claws": 5.2998,
+     "before_claws": 5.3771,
+     "after_noclaws": 5.9472
+    },
+    "72_raw_p95": {
+     "after_claws": 4.9217,
+     "before_claws": 5.1476,
+     "after_noclaws": 5.6807
+    },
+    "72_raw_max": {
+     "after_claws": 6.9831,
+     "before_claws": 7.9299,
+     "after_noclaws": 7.983
+    }
+   },
+   "sweep": {
+    "gates": {
+     "78": 2.741,
+     "130": 3.5815,
+     "131": 3.4419,
+     "132_s12": 3.5576,
+     "72_s12_p95": 3.6353
+    },
+    "raw": {
+     "132_raw_max": 5.3095,
+     "72_raw_p95": 5.1682,
+     "72_raw_max": 7.9229
+    }
+   },
+   "eval23": {
+    "before": {
+     "line": {
+      "pass": 2,
+      "fail": 7,
+      "other": 14
+     },
+     "line_noclaws": {
+      "pass": 2,
+      "fail": 7,
+      "other": 14
+     },
+     "noline": {
+      "pass": 4,
+      "fail": 5,
+      "other": 14
+     },
+     "noline_noclaws": {
+      "pass": 4,
+      "fail": 5,
+      "other": 14
+     }
+    },
+    "after": {
+     "line": {
+      "pass": 2,
+      "fail": 7,
+      "other": 14
+     },
+     "line_noclaws": {
+      "pass": 2,
+      "fail": 7,
+      "other": 14
+     },
+     "noline": {
+      "pass": 4,
+      "fail": 5,
+      "other": 14
+     },
+     "noline_noclaws": {
+      "pass": 4,
+      "fail": 5,
+      "other": 14
+     }
+    }
+   },
+   "verdict": "関門は通る（≤ 4 px）。72 σ12 p95 は仕上げ33 より +0.33 px"
+  }
+ },
+ "views_images": {
+  "back65_t090": {
+   "before": {
+    "claw": 7089,
+    "over_sky": 352,
+    "over_indigo": 265,
+    "over_white": 6472,
+    "white_body": 2553
+   },
+   "sweep": {
+    "claw": 8956,
+    "over_sky": 1073,
+    "over_indigo": 380,
+    "over_white": 7503,
+    "white_body": 4070
+   },
+   "after": {
+    "claw": 8832,
+    "over_sky": 1429,
+    "over_indigo": 471,
+    "over_white": 6932,
+    "white_body": 4085
+   }
+  },
+  "back65_t105": {
+   "before": {
+    "claw": 15261,
+    "over_sky": 2609,
+    "over_indigo": 1319,
+    "over_white": 11333,
+    "white_body": 4656
+   },
+   "sweep": {
+    "claw": 21435,
+    "over_sky": 7096,
+    "over_indigo": 1303,
+    "over_white": 13036,
+    "white_body": 8351
+   },
+   "after": {
+    "claw": 19906,
+    "over_sky": 8589,
+    "over_indigo": 1511,
+    "over_white": 9806,
+    "white_body": 9274
+   }
+  },
+  "back65_t120": {
+   "before": {
+    "claw": 16938,
+    "over_sky": 3355,
+    "over_indigo": 1475,
+    "over_white": 12108,
+    "white_body": 5178
+   },
+   "sweep": {
+    "claw": 25354,
+    "over_sky": 10151,
+    "over_indigo": 1388,
+    "over_white": 13815,
+    "white_body": 10347
+   },
+   "after": {
+    "claw": 23838,
+    "over_sky": 12254,
+    "over_indigo": 1619,
+    "over_white": 9965,
+    "white_body": 12043
+   }
+  },
+  "painting_t090": {
+   "before": {
+    "claw": 2776,
+    "over_sky": 82,
+    "over_indigo": 135,
+    "over_white": 2559,
+    "white_body": 1241
+   },
+   "sweep": {
+    "claw": 3412,
+    "over_sky": 118,
+    "over_indigo": 197,
+    "over_white": 3097,
+    "white_body": 1498
+   },
+   "after": {
+    "claw": 3390,
+    "over_sky": 100,
+    "over_indigo": 213,
+    "over_white": 3077,
+    "white_body": 1607
+   }
+  },
+  "painting_t105": {
+   "before": {
+    "claw": 30401,
+    "over_sky": 1291,
+    "over_indigo": 3088,
+    "over_white": 26022,
+    "white_body": 17153
+   },
+   "sweep": {
+    "claw": 33209,
+    "over_sky": 1659,
+    "over_indigo": 5485,
+    "over_white": 26065,
+    "white_body": 17230
+   },
+   "after": {
+    "claw": 30359,
+    "over_sky": 1506,
+    "over_indigo": 3850,
+    "over_white": 25003,
+    "white_body": 19551
+   }
+  },
+  "painting_t120": {
+   "before": {
+    "claw": 53102,
+    "over_sky": 2400,
+    "over_indigo": 4303,
+    "over_white": 46399,
+    "white_body": 28441
+   },
+   "sweep": {
+    "claw": 57376,
+    "over_sky": 2758,
+    "over_indigo": 8880,
+    "over_white": 45738,
+    "white_body": 29499
+   },
+   "after": {
+    "claw": 56438,
+    "over_sky": 2703,
+    "over_indigo": 7087,
+    "over_white": 46648,
+    "white_body": 35947
+   }
+  },
+  "seat_t090": {
+   "before": {
+    "claw": 377,
+    "over_sky": 137,
+    "over_indigo": 47,
+    "over_white": 193,
+    "white_body": 96
+   },
+   "sweep": {
+    "claw": 965,
+    "over_sky": 657,
+    "over_indigo": 92,
+    "over_white": 216,
+    "white_body": 297
+   },
+   "after": {
+    "claw": 1177,
+    "over_sky": 835,
+    "over_indigo": 136,
+    "over_white": 206,
+    "white_body": 427
+   }
+  },
+  "seat_t105": {
+   "before": {
+    "claw": 16334,
+    "over_sky": 4361,
+    "over_indigo": 2052,
+    "over_white": 9921,
+    "white_body": 10527
+   },
+   "sweep": {
+    "claw": 44907,
+    "over_sky": 18750,
+    "over_indigo": 6767,
+    "over_white": 19390,
+    "white_body": 26437
+   },
+   "after": {
+    "claw": 44948,
+    "over_sky": 17136,
+    "over_indigo": 7536,
+    "over_white": 20276,
+    "white_body": 30304
+   }
+  },
+  "seat_t120": {
+   "before": {
+    "claw": 38508,
+    "over_sky": 22435,
+    "over_indigo": 6274,
+    "over_white": 9799,
+    "white_body": 31388
+   },
+   "sweep": {
+    "claw": 100018,
+    "over_sky": 50207,
+    "over_indigo": 17194,
+    "over_white": 32617,
+    "white_body": 73464
+   },
+   "after": {
+    "claw": 107898,
+    "over_sky": 52899,
+    "over_indigo": 18631,
+    "over_white": 36368,
+    "white_body": 88596
+   }
+  },
+  "seat_toward_wave_t090": {
+   "before": {
+    "claw": 730,
+    "over_sky": 377,
+    "over_indigo": 138,
+    "over_white": 215,
+    "white_body": 317
+   },
+   "sweep": {
+    "claw": 1139,
+    "over_sky": 751,
+    "over_indigo": 160,
+    "over_white": 228,
+    "white_body": 476
+   },
+   "after": {
+    "claw": 1426,
+    "over_sky": 979,
+    "over_indigo": 190,
+    "over_white": 257,
+    "white_body": 644
+   }
+  },
+  "seat_toward_wave_t105": {
+   "before": {
+    "claw": 14385,
+    "over_sky": 2826,
+    "over_indigo": 2223,
+    "over_white": 9336,
+    "white_body": 9354
+   },
+   "sweep": {
+    "claw": 36510,
+    "over_sky": 7089,
+    "over_indigo": 8328,
+    "over_white": 21093,
+    "white_body": 20600
+   },
+   "after": {
+    "claw": 38317,
+    "over_sky": 7066,
+    "over_indigo": 8727,
+    "over_white": 22524,
+    "white_body": 24752
+   }
+  },
+  "seat_toward_wave_t120": {
+   "before": {
+    "claw": 9918,
+    "over_sky": 2602,
+    "over_indigo": 6027,
+    "over_white": 1289,
+    "white_body": 8256
+   },
+   "sweep": {
+    "claw": 10717,
+    "over_sky": 3061,
+    "over_indigo": 6070,
+    "over_white": 1586,
+    "white_body": 8857
+   },
+   "after": {
+    "claw": 11125,
+    "over_sky": 3272,
+    "over_indigo": 6262,
+    "over_white": 1591,
+    "white_body": 9347
+   }
+  },
+  "side_left_t090": {
+   "before": {
+    "claw": 3607,
+    "over_sky": 111,
+    "over_indigo": 530,
+    "over_white": 2966,
+    "white_body": 1224
+   },
+   "sweep": {
+    "claw": 4569,
+    "over_sky": 150,
+    "over_indigo": 1510,
+    "over_white": 2909,
+    "white_body": 1387
+   },
+   "after": {
+    "claw": 4388,
+    "over_sky": 154,
+    "over_indigo": 1628,
+    "over_white": 2606,
+    "white_body": 1435
+   }
+  },
+  "side_left_t105": {
+   "before": {
+    "claw": 7800,
+    "over_sky": 302,
+    "over_indigo": 2208,
+    "over_white": 5290,
+    "white_body": 2535
+   },
+   "sweep": {
+    "claw": 14054,
+    "over_sky": 388,
+    "over_indigo": 8782,
+    "over_white": 4884,
+    "white_body": 5251
+   },
+   "after": {
+    "claw": 11663,
+    "over_sky": 380,
+    "over_indigo": 7275,
+    "over_white": 4008,
+    "white_body": 5286
+   }
+  },
+  "side_left_t120": {
+   "before": {
+    "claw": 10111,
+    "over_sky": 394,
+    "over_indigo": 4050,
+    "over_white": 5667,
+    "white_body": 3901
+   },
+   "sweep": {
+    "claw": 17116,
+    "over_sky": 507,
+    "over_indigo": 11304,
+    "over_white": 5305,
+    "white_body": 6628
+   },
+   "after": {
+    "claw": 14096,
+    "over_sky": 475,
+    "over_indigo": 9304,
+    "over_white": 4317,
+    "white_body": 6793
+   }
+  },
+  "side_right_t090": {
+   "before": {
+    "claw": 2561,
+    "over_sky": 62,
+    "over_indigo": 176,
+    "over_white": 2323,
+    "white_body": 856
+   },
+   "sweep": {
+    "claw": 3260,
+    "over_sky": 79,
+    "over_indigo": 444,
+    "over_white": 2737,
+    "white_body": 1492
+   },
+   "after": {
+    "claw": 3215,
+    "over_sky": 82,
+    "over_indigo": 615,
+    "over_white": 2518,
+    "white_body": 1481
+   }
+  },
+  "side_right_t105": {
+   "before": {
+    "claw": 6721,
+    "over_sky": 88,
+    "over_indigo": 1874,
+    "over_white": 4759,
+    "white_body": 1824
+   },
+   "sweep": {
+    "claw": 9163,
+    "over_sky": 120,
+    "over_indigo": 3137,
+    "over_white": 5906,
+    "white_body": 3592
+   },
+   "after": {
+    "claw": 8160,
+    "over_sky": 86,
+    "over_indigo": 3303,
+    "over_white": 4771,
+    "white_body": 3561
+   }
+  },
+  "side_right_t120": {
+   "before": {
+    "claw": 7717,
+    "over_sky": 110,
+    "over_indigo": 2034,
+    "over_white": 5573,
+    "white_body": 2164
+   },
+   "sweep": {
+    "claw": 10753,
+    "over_sky": 123,
+    "over_indigo": 3290,
+    "over_white": 7340,
+    "white_body": 4258
+   },
+   "after": {
+    "claw": 9423,
+    "over_sky": 92,
+    "over_indigo": 3430,
+    "over_white": 5901,
+    "white_body": 4193
+   }
+  },
+  "top_t090": {
+   "before": {
+    "claw": 3214,
+    "over_sky": 23,
+    "over_indigo": 104,
+    "over_white": 3087,
+    "white_body": 1057
+   },
+   "sweep": {
+    "claw": 4031,
+    "over_sky": 41,
+    "over_indigo": 205,
+    "over_white": 3785,
+    "white_body": 1132
+   },
+   "after": {
+    "claw": 4023,
+    "over_sky": 50,
+    "over_indigo": 240,
+    "over_white": 3733,
+    "white_body": 1032
+   }
+  },
+  "top_t105": {
+   "before": {
+    "claw": 8027,
+    "over_sky": 150,
+    "over_indigo": 877,
+    "over_white": 7000,
+    "white_body": 2386
+   },
+   "sweep": {
+    "claw": 12674,
+    "over_sky": 258,
+    "over_indigo": 3846,
+    "over_white": 8570,
+    "white_body": 3039
+   },
+   "after": {
+    "claw": 11197,
+    "over_sky": 255,
+    "over_indigo": 3131,
+    "over_white": 7811,
+    "white_body": 3389
+   }
+  },
+  "top_t120": {
+   "before": {
+    "claw": 10044,
+    "over_sky": 206,
+    "over_indigo": 1860,
+    "over_white": 7978,
+    "white_body": 2999
+   },
+   "sweep": {
+    "claw": 16174,
+    "over_sky": 298,
+    "over_indigo": 6168,
+    "over_white": 9708,
+    "white_body": 4316
+   },
+   "after": {
+    "claw": 14052,
+    "over_sky": 290,
+    "over_indigo": 5166,
+    "over_white": 8596,
+    "white_body": 4644
+   }
+  }
+ },
+ "standing_geometry": {
+  "before": {
+   "C": {
+    "n": 184,
+    "h_max_pct": [
+     0.125,
+     0.167,
+     0.244,
+     0.45
+    ],
+    "stand_ge_1m": 0,
+    "stand_ge_2m": 0,
+    "len3d_pct": [
+     0.339,
+     0.69,
+     1.39,
+     3.836
+    ]
+   },
+   "K": {
+    "n": 79,
+    "h_max_pct": [
+     0.597,
+     0.74,
+     1.125,
+     1.481
+    ],
+    "stand_ge_1m": 16,
+    "stand_ge_2m": 0,
+    "len3d_pct": [
+     1.782,
+     2.188,
+     3.042,
+     3.655
+    ]
+   },
+   "W": {
+    "n": 184,
+    "h_max_pct": [
+     0.117,
+     0.158,
+     0.24,
+     0.407
+    ],
+    "stand_ge_1m": 0,
+    "stand_ge_2m": 0,
+    "len3d_pct": [
+     0.379,
+     0.688,
+     1.335,
+     3.537
+    ]
+   },
+   "S": {
+    "n": 114,
+    "h_max_pct": [
+     0.1,
+     0.172,
+     0.25,
+     0.322
+    ],
+    "stand_ge_1m": 0,
+    "stand_ge_2m": 0,
+    "len3d_pct": [
+     0.005,
+     0.368,
+     0.756,
+     1.325
+    ]
+   },
+   "penetration_centre_v2v6": {
+    "C_t090": {
+     "rings_below_5cm": 5,
+     "rings_checked": 1800,
+     "deepest_m": -0.056
+    },
+    "K_t090": {
+     "rings_below_5cm": 0,
+     "rings_checked": 1100,
+     "deepest_m": 0.0
+    },
+    "W_t090": {
+     "rings_below_5cm": 6,
+     "rings_checked": 1800,
+     "deepest_m": -0.079
+    },
+    "S_t090": {
+     "rings_below_5cm": 0,
+     "rings_checked": 60,
+     "deepest_m": 0.0
+    },
+    "C_t105": {
+     "rings_below_5cm": 2,
+     "rings_checked": 3576,
+     "deepest_m": -0.12
+    },
+    "K_t105": {
+     "rings_below_5cm": 0,
+     "rings_checked": 1580,
+     "deepest_m": 0.0
+    },
+    "W_t105": {
+     "rings_below_5cm": 3,
+     "rings_checked": 3576,
+     "deepest_m": -0.059
+    },
+    "S_t105": {
+     "rings_below_5cm": 0,
+     "rings_checked": 1860,
+     "deepest_m": 0.0
+    },
+    "C_t120": {
+     "rings_below_5cm": 9,
+     "rings_checked": 3662,
+     "deepest_m": -0.209
+    },
+    "K_t120": {
+     "rings_below_5cm": 0,
+     "rings_checked": 1580,
+     "deepest_m": 0.0
+    },
+    "W_t120": {
+     "rings_below_5cm": 10,
+     "rings_checked": 3662,
+     "deepest_m": -0.217
+    },
+    "S_t120": {
+     "rings_below_5cm": 0,
+     "rings_checked": 2024,
+     "deepest_m": 0.0
+    }
+   },
+   "vertices": 95547,
+   "triangles": 183240,
+   "entries": 561
+  },
+  "sweep": {
+   "C": {
+    "n": 184,
+    "h_max_pct": [
+     0.191,
+     0.888,
+     1.688,
+     3.621
+    ],
+    "stand_ge_1m": 83,
+    "stand_ge_2m": 8,
+    "len3d_pct": [
+     1.159,
+     1.756,
+     3.284,
+     4.633
+    ]
+   },
+   "K": {
+    "n": 137,
+    "h_max_pct": [
+     1.304,
+     1.71,
+     2.373,
+     2.865
+    ],
+    "stand_ge_1m": 133,
+    "stand_ge_2m": 40,
+    "len3d_pct": [
+     2.225,
+     2.916,
+     3.71,
+     4.368
+    ]
+   },
+   "penetration_centre_v2v6": {
+    "C_t090": {
+     "rings_below_5cm": 0,
+     "rings_checked": 1800,
+     "deepest_m": 0.0
+    },
+    "K_t090": {
+     "rings_below_5cm": 0,
+     "rings_checked": 1000,
+     "deepest_m": 0.0
+    },
+    "C_t105": {
+     "rings_below_5cm": 1,
+     "rings_checked": 3513,
+     "deepest_m": -0.067
+    },
+    "K_t105": {
+     "rings_below_5cm": 0,
+     "rings_checked": 2733,
+     "deepest_m": 0.0
+    },
+    "C_t120": {
+     "rings_below_5cm": 3,
+     "rings_checked": 3528,
+     "deepest_m": -0.254
+    },
+    "K_t120": {
+     "rings_below_5cm": 0,
+     "rings_checked": 2718,
+     "deepest_m": 0.0
+    }
+   },
+   "vertices": 54763,
+   "triangles": 105032,
+   "entries": 321
+  },
+  "after": {
+   "C": {
+    "n": 184,
+    "h_max_pct": [
+     0.235,
+     0.645,
+     1.278,
+     3.933
+    ],
+    "stand_ge_1m": 45,
+    "stand_ge_2m": 2,
+    "len3d_pct": [
+     0.87,
+     1.44,
+     2.696,
+     5.457
+    ]
+   },
+   "K": {
+    "n": 137,
+    "h_max_pct": [
+     1.172,
+     1.665,
+     2.255,
+     2.865
+    ],
+    "stand_ge_1m": 126,
+    "stand_ge_2m": 35,
+    "len3d_pct": [
+     2.006,
+     2.841,
+     3.697,
+     4.368
+    ]
+   },
+   "W": {
+    "n": 360,
+    "h_max_pct": [
+     0.127,
+     0.242,
+     0.991,
+     3.658
+    ],
+    "stand_ge_1m": 36,
+    "stand_ge_2m": 1,
+    "len3d_pct": [
+     0.464,
+     1.166,
+     2.266,
+     5.363
+    ]
+   },
+   "penetration_centre_v2v6": {
+    "C_t090": {
+     "rings_below_5cm": 0,
+     "rings_checked": 1780,
+     "deepest_m": 0.0
+    },
+    "K_t090": {
+     "rings_below_5cm": 0,
+     "rings_checked": 1000,
+     "deepest_m": 0.0
+    },
+    "W_t090": {
+     "rings_below_5cm": 131,
+     "rings_checked": 2848,
+     "deepest_m": -0.217
+    },
+    "C_t105": {
+     "rings_below_5cm": 0,
+     "rings_checked": 3469,
+     "deepest_m": 0.0
+    },
+    "K_t105": {
+     "rings_below_5cm": 0,
+     "rings_checked": 2532,
+     "deepest_m": 0.0
+    },
+    "W_t105": {
+     "rings_below_5cm": 86,
+     "rings_checked": 5584,
+     "deepest_m": -0.224
+    },
+    "C_t120": {
+     "rings_below_5cm": 2,
+     "rings_checked": 3524,
+     "deepest_m": -0.152
+    },
+    "K_t120": {
+     "rings_below_5cm": 0,
+     "rings_checked": 2518,
+     "deepest_m": 0.0
+    },
+    "W_t120": {
+     "rings_below_5cm": 76,
+     "rings_checked": 5704,
+     "deepest_m": -0.221
+    }
+   },
+   "vertices": 104707,
+   "triangles": 199880,
+   "entries": 681
+  }
+ },
+ "painting_view_other": {
+  "lip_outline_white_notches_tstar": {
+   "before": {
+    "notch_px": 127,
+    "notch_components_ge3": 9,
+    "outline_px": 10804
+   },
+   "build": {
+    "notch_px": 100,
+    "notch_components_ge3": 10,
+    "outline_px": 10804
+   },
+   "fix": {
+    "notch_px": 246,
+    "notch_components_ge3": 11,
+    "outline_px": 10804
+   }
+  },
+  "painting_outside_hero": {
+   "t090": {
+    "before": {
+     "claw_px": 2976,
+     "claw_px_outside_hero": 75,
+     "outside_components_ge20": 1,
+     "outside_top5": [
+      [
+       24,
+       [
+        475,
+        359
+       ]
+      ]
+     ]
+    },
+    "build": {
+     "claw_px": 2776,
+     "claw_px_outside_hero": 75,
+     "outside_components_ge20": 1,
+     "outside_top5": [
+      [
+       24,
+       [
+        475,
+        359
+       ]
+      ]
+     ]
+    },
+    "fix": {
+     "claw_px": 3390,
+     "claw_px_outside_hero": 86,
+     "outside_components_ge20": 1,
+     "outside_top5": [
+      [
+       24,
+       [
+        475,
+        359
+       ]
+      ]
+     ]
+    }
+   },
+   "t105": {
+    "before": {
+     "claw_px": 27317,
+     "claw_px_outside_hero": 1372,
+     "outside_components_ge20": 22,
+     "outside_top5": [
+      [
+       60,
+       [
+        872,
+        387
+       ]
+      ],
+      [
+       47,
+       [
+        872,
+        272
+       ]
+      ],
+      [
+       44,
+       [
+        727,
+        431
+       ]
+      ],
+      [
+       40,
+       [
+        840,
+        334
+       ]
+      ],
+      [
+       38,
+       [
+        701,
+        410
+       ]
+      ]
+     ]
+    },
+    "build": {
+     "claw_px": 30401,
+     "claw_px_outside_hero": 1370,
+     "outside_components_ge20": 22,
+     "outside_top5": [
+      [
+       60,
+       [
+        872,
+        387
+       ]
+      ],
+      [
+       47,
+       [
+        872,
+        272
+       ]
+      ],
+      [
+       44,
+       [
+        727,
+        431
+       ]
+      ],
+      [
+       40,
+       [
+        840,
+        334
+       ]
+      ],
+      [
+       38,
+       [
+        701,
+        410
+       ]
+      ]
+     ]
+    },
+    "fix": {
+     "claw_px": 30359,
+     "claw_px_outside_hero": 1587,
+     "outside_components_ge20": 24,
+     "outside_top5": [
+      [
+       232,
+       [
+        717,
+        424
+       ]
+      ],
+      [
+       60,
+       [
+        872,
+        387
+       ]
+      ],
+      [
+       53,
+       [
+        784,
+        454
+       ]
+      ],
+      [
+       47,
+       [
+        872,
+        272
+       ]
+      ],
+      [
+       43,
+       [
+        748,
+        438
+       ]
+      ]
+     ]
+    }
+   },
+   "t120": {
+    "before": {
+     "claw_px": 43381,
+     "claw_px_outside_hero": 3875,
+     "outside_components_ge20": 65,
+     "outside_top5": [
+      [
+       87,
+       [
+        1106,
+        354
+       ]
+      ],
+      [
+       79,
+       [
+        896,
+        665
+       ]
+      ],
+      [
+       72,
+       [
+        1046,
+        652
+       ]
+      ],
+      [
+       68,
+       [
+        907,
+        684
+       ]
+      ],
+      [
+       63,
+       [
+        1089,
+        423
+       ]
+      ]
+     ]
+    },
+    "build": {
+     "claw_px": 53102,
+     "claw_px_outside_hero": 3847,
+     "outside_components_ge20": 64,
+     "outside_top5": [
+      [
+       88,
+       [
+        1106,
+        355
+       ]
+      ],
+      [
+       79,
+       [
+        896,
+        665
+       ]
+      ],
+      [
+       72,
+       [
+        1046,
+        652
+       ]
+      ],
+      [
+       68,
+       [
+        1089,
+        423
+       ]
+      ],
+      [
+       68,
+       [
+        907,
+        684
+       ]
+      ]
+     ]
+    },
+    "fix": {
+     "claw_px": 56438,
+     "claw_px_outside_hero": 4003,
+     "outside_components_ge20": 65,
+     "outside_top5": [
+      [
+       130,
+       [
+        1106,
+        352
+       ]
+      ],
+      [
+       107,
+       [
+        1091,
+        422
+       ]
+      ],
+      [
+       79,
+       [
+        896,
+        665
+       ]
+      ],
+      [
+       72,
+       [
+        1046,
+        652
+       ]
+      ],
+      [
+       68,
+       [
+        907,
+        684
+       ]
+      ]
+     ]
+    }
+   }
+  },
+  "closed_rings": {
+   "before_t090_all": {
+    "rings": 1,
+    "rings_hole_ge4": 0,
+    "big_holes": []
+   },
+   "before_t090_bregion": {
+    "rings": 0,
+    "rings_hole_ge4": 0,
+    "big_holes": []
+   },
+   "before_t105_all": {
+    "rings": 16,
+    "rings_hole_ge4": 1,
+    "big_holes": [
+     {
+      "xy": [
+       704,
+       360
+      ],
+      "hole_max": 32
+     }
+    ]
+   },
+   "before_t105_bregion": {
+    "rings": 1,
+    "rings_hole_ge4": 0,
+    "big_holes": []
+   },
+   "before_t120_all": {
+    "rings": 13,
+    "rings_hole_ge4": 2,
+    "big_holes": []
+   },
+   "before_t120_bregion": {
+    "rings": 5,
+    "rings_hole_ge4": 1,
+    "big_holes": []
+   },
+   "build_t090_all": {
+    "rings": 2,
+    "rings_hole_ge4": 0,
+    "big_holes": []
+   },
+   "build_t090_bregion": {
+    "rings": 0,
+    "rings_hole_ge4": 0,
+    "big_holes": []
+   },
+   "build_t105_all": {
+    "rings": 17,
+    "rings_hole_ge4": 2,
+    "big_holes": []
+   },
+   "build_t105_bregion": {
+    "rings": 1,
+    "rings_hole_ge4": 0,
+    "big_holes": []
+   },
+   "build_t120_all": {
+    "rings": 20,
+    "rings_hole_ge4": 2,
+    "big_holes": [
+     {
+      "xy": [
+       470,
+       496
+      ],
+      "hole_max": 55
+     }
+    ]
+   },
+   "build_t120_bregion": {
+    "rings": 6,
+    "rings_hole_ge4": 1,
+    "big_holes": [
+     {
+      "xy": [
+       470,
+       496
+      ],
+      "hole_max": 55
+     }
+    ]
+   },
+   "fix_t090_all": {
+    "rings": 4,
+    "rings_hole_ge4": 1,
+    "big_holes": []
+   },
+   "fix_t090_bregion": {
+    "rings": 0,
+    "rings_hole_ge4": 0,
+    "big_holes": []
+   },
+   "fix_t105_all": {
+    "rings": 6,
+    "rings_hole_ge4": 0,
+    "big_holes": []
+   },
+   "fix_t105_bregion": {
+    "rings": 0,
+    "rings_hole_ge4": 0,
+    "big_holes": []
+   },
+   "fix_t120_all": {
+    "rings": 13,
+    "rings_hole_ge4": 2,
+    "big_holes": []
+   },
+   "fix_t120_bregion": {
+    "rings": 6,
+    "rings_hole_ge4": 1,
+    "big_holes": []
+   }
+  },
+  "crown_painting_cam_visibility": {
+   "t090": {
+    "crown_claws_with_visible_vertices": 0,
+    "crown_visible_vertices": 0,
+    "crown_visible_vertices_in_sky": 0
+   },
+   "t105": {
+    "crown_claws_with_visible_vertices": 0,
+    "crown_visible_vertices": 0,
+    "crown_visible_vertices_in_sky": 0
+   },
+   "t120": {
+    "crown_claws_with_visible_vertices": 0,
+    "crown_visible_vertices": 0,
+    "crown_visible_vertices_in_sky": 0
+   }
+  }
+ },
+ "unity": {
+  "playmode_release": "体験の終わりの画面に入って 1.5 s",
+  "playmode_single": "静止に入って 1.5 s",
+  "release": {
+   "result": "Succeeded",
+   "data_files": 44,
+   "data_bytes": 1250313915,
+   "must_have": true,
+   "bake_absent": true,
+   "exe_sha256": "5be81b3fa7df7c08cadee6f79d6ff3fe95481420f166ba8127390ea669c8b12c",
+   "scene": "Assets/GreatWave/Polish33R01/Scenes/PL33R01_Release.unity",
+   "scene_sha256": "aec0dceda3539294983fe47cb9f661bfd561b037fb39bb65ac76e84283b33a8b"
+  },
+  "players": {
+   "pl33_1": {
+    "frames": 91543,
+    "passed": true,
+    "errors": 0,
+    "exceptions": 0,
+    "ftGpu_ms": {
+     "Formation": 0.6001,
+     "Hold": 0.682
+    },
+    "ftCpuMain_ms": {
+     "Formation": 0.6561,
+     "Hold": 0.7195
+    }
+   },
+   "r01_1": {
+    "frames": 89316,
+    "passed": true,
+    "errors": 0,
+    "exceptions": 0,
+    "ftGpu_ms": {
+     "Formation": 0.6124,
+     "Hold": 0.6902
+    },
+    "ftCpuMain_ms": {
+     "Formation": 0.6714,
+     "Hold": 0.7287
+    }
+   },
+   "pl33_2": {
+    "frames": 88253,
+    "passed": true,
+    "errors": 0,
+    "exceptions": 0,
+    "ftGpu_ms": {
+     "Formation": 0.6093,
+     "Hold": 0.6871
+    },
+    "ftCpuMain_ms": {
+     "Formation": 0.6689,
+     "Hold": 0.7257
+    }
+   },
+   "r01_2": {
+    "frames": 89969,
+    "passed": true,
+    "errors": 0,
+    "exceptions": 0,
+    "ftGpu_ms": {
+     "Formation": 0.597,
+     "Hold": 0.6912
+    },
+    "ftCpuMain_ms": {
+     "Formation": 0.656,
+     "Hold": 0.7303
+    }
+   }
+  },
+  "gpu": "NVIDIA GeForce RTX 3080",
+  "note_ja": "PC の窓（1920×1080）。PSVR2 の GPU の時間は導入後に測る（未検証）"
+ },
+ "build_summary": {
+  "fingers": 184,
+  "culled": 4,
+  "webs": 180,
+  "webs33": 180,
+  "heroes": 19,
+  "crowns_culled_low": 10,
+  "L3_pct": [
+   0.72,
+   1.2,
+   1.743,
+   3.366,
+   6.5
+  ],
+  "hmax_pct": [
+   0.069,
+   0.183,
+   0.634,
+   1.283,
+   3.927
+  ],
+  "target_dev_pct": [
+   0.403,
+   0.739,
+   1.54
+  ],
+  "width_steps": {
+   "1.00": 175,
+   "0.80": 3,
+   "cull": 4,
+   "0.65": 1,
+   "0.50": 1
+  },
+  "fallbacks": {
+   "short": 0,
+   "relax": 36,
+   "short_relax": 0
+  },
+  "pushed_dp": 293,
+  "frame_push": {
+   "rings_pushed": 174113,
+   "max_push_raw_m": 0.9000000000000002,
+   "frames_with_push": 218,
+   "max_push_m": 0.9000000000000004
+  },
+  "web_stations_shrunk": 91584,
+  "vertices": 104707,
+  "triangles": 199880,
+  "elapsed_s": 104.3
+ },
+ "copies": {
+  "fig_pl33r01_ba_turntable_t090.png": "Unity/Build/Polish/33r01/fix01/evidence/fig_pl33r01_ba_turntable_t090.png",
+  "fig_pl33r01_ba_turntable_t105.png": "Unity/Build/Polish/33r01/fix01/evidence/fig_pl33r01_ba_turntable_t105.png",
+  "fig_pl33r01_ba_turntable_t120.png": "Unity/Build/Polish/33r01/fix01/evidence/fig_pl33r01_ba_turntable_t120.png",
+  "fig_pl33r01_ba_view_back65.png": "Unity/Build/Polish/33r01/fix01/evidence/fig_pl33r01_ba_view_back65.png",
+  "fig_pl33r01_ba_view_painting.png": "Unity/Build/Polish/33r01/fix01/evidence/fig_pl33r01_ba_view_painting.png",
+  "fig_pl33r01_ba_view_seat.png": "Unity/Build/Polish/33r01/fix01/evidence/fig_pl33r01_ba_view_seat.png",
+  "fig_pl33r01_ba_view_seat_toward_wave.png": "Unity/Build/Polish/33r01/fix01/evidence/fig_pl33r01_ba_view_seat_toward_wave.png",
+  "fig_pl33r01_ba_view_side_left.png": "Unity/Build/Polish/33r01/fix01/evidence/fig_pl33r01_ba_view_side_left.png",
+  "fig_pl33r01_ba_view_side_right.png": "Unity/Build/Polish/33r01/fix01/evidence/fig_pl33r01_ba_view_side_right.png",
+  "fig_pl33r01_ba_view_top.png": "Unity/Build/Polish/33r01/fix01/evidence/fig_pl33r01_ba_view_top.png",
+  "fig_pl33r01_claws_views.png": "Unity/Build/Polish/33r01/fix01/evidence/fig_pl33r01_claws_views.png",
+  "pl33r01_ba_painting_30fps.mp4": "Unity/Build/Polish/33r01/fix01/evidence/pl33r01_ba_painting_30fps.mp4",
+  "pl33r01_ba_seat_30fps.mp4": "Unity/Build/Polish/33r01/fix01/evidence/pl33r01_ba_seat_30fps.mp4",
+  "pl33r01_ba_seat_toward_wave_30fps.mp4": "Unity/Build/Polish/33r01/fix01/evidence/pl33r01_ba_seat_toward_wave_30fps.mp4",
+  "pl33r01_ba_side_left_30fps.mp4": "Unity/Build/Polish/33r01/fix01/evidence/pl33r01_ba_side_left_30fps.mp4",
+  "pl33r01_ba_tt_30fps.mp4": "Unity/Build/Polish/33r01/fix01/evidence/pl33r01_ba_tt_30fps.mp4",
+  "fig_pl33r01_overlay_list.png": "Unity/Build/Polish/33r01/fix01/measure/fig_pl33r01_overlay_list.png",
+  "pl33r01_gates.json": "Unity/Build/Polish/33r01/fix01/measure/sweep_gates.json",
+  "pl33r01_gates_vs_sweep.json": "Unity/Build/Polish/33r01/fix01/measure/vs_sweep/sweep_gates.json",
+  "pl33r01_views_geometry.json": "Unity/Build/Polish/33r01/fix01/measure/sweep_measure.json",
+  "pl33r01_overlay.json": "Unity/Build/Polish/33r01/fix01/measure/r01_overlay.json",
+  "pl33f_measure_pl33r01.json": "Unity/Build/Polish/33r01/fix01/measure/pl33f_measure_fix01.json",
+  "pl33f_measure_sweep.json": "Unity/Build/Polish/33r01/sweep/measure/pl33f_measure_sweep.json",
+  "r01_quick.json": "Unity/Build/Polish/33r01/fix01/measure/r01_quick.json",
+  "r01_quick_geo_sweep.json": "Unity/Build/Polish/33r01/fix01/measure/r01_quick_geo_sweep.json",
+  "r01_quick_geo_pl33.json": "Unity/Build/Polish/33r01/fix01/measure/r01_quick_geo_pl33.json",
+  "r01_measure.json": "Unity/Build/Polish/33r01/fix01/measure/r01_measure.json",
+  "r01_perf.json": "Unity/Build/Polish/33r01/fix01/measure/r01_perf.json",
+  "sweep_perf.json": "Unity/Build/Polish/33r01/sweep/measure/sweep_perf.json",
+  "r01_report.json": "Unity/Build/Polish/33r01/fix01/claws/r01_report.json",
+  "pl28u_regress.json": "Unity/Build/Polish/33r01/fix01/r_fix01/pl28u_regress.json",
+  "render_report.json": "Unity/Build/Polish/33r01/fix01/r_fix01/pl33_render_report.json",
+  "playmode_release.json": "Unity/Build/Polish/33r01/fix01/playmode_Release/pl29_playmode.json",
+  "playmode_single.json": "Unity/Build/Polish/33r01/fix01/playmode_SinglePlayback/pl29_playmode.json",
+  "release_build.json": "Unity/Build/Polish/33r01/release/unity/pl33r01_build.json",
+  "setup.json": "Unity/Build/Polish/33r01/setup/pl33r01_setup.json",
+  "variant_sweep_metrics.json": "Unity/Build/Polish/33r01/sweep/evidence/metrics.json",
+  "variant_sweep_run.json": "Unity/Build/Polish/33r01/sweep/evidence/run.json",
+  "variant_sweep_eye.json": "Unity/Build/Polish/33r01/sweep/evidence/eye_verdicts.json",
+  "variant_houdini_metrics.json": "Unity/Build/Polish/33r01/houdini/candidate/evidence/metrics.json",
+  "variant_houdini_run.json": "Unity/Build/Polish/33r01/houdini/candidate/evidence/run.json",
+  "judge_unified_measure.json": "Unity/Build/Polish/33r01/_judge/numbers/unified_measure.json",
+  "judge_geo.json": "Unity/Build/Polish/33r01/_judge/numbers/judge_geo.json",
+  "judge_geo2.json": "Unity/Build/Polish/33r01/_judge/numbers/judge_geo2.json",
+  "judge_img2.json": "Unity/Build/Polish/33r01/_judge/numbers/judge_img2.json",
+  "judge_overlay.json": "Unity/Build/Polish/33r01/_judge/numbers/judge_overlay.json",
+  "fig_pl33r01s_ba_view_seat.png": "Unity/Build/Polish/33r01/sweep/evidence/fig_pl33r01s_ba_view_seat.png",
+  "fig_pl33r01s_ba_view_back65.png": "Unity/Build/Polish/33r01/sweep/evidence/fig_pl33r01s_ba_view_back65.png",
+  "fig_pl33r01h_ba_view_seat.png": "Unity/Build/Polish/33r01/houdini/candidate/evidence/fig_pl33r01h_ba_view_seat.png",
+  "fig_pl33r01h_ba_view_painting.png": "Unity/Build/Polish/33r01/houdini/candidate/evidence/fig_pl33r01h_ba_view_painting.png",
+  "fig_pl33r01h_ba_turntable_t120.png": "Unity/Build/Polish/33r01/houdini/candidate/evidence/fig_pl33r01h_ba_turntable_t120.png"
+ },
+ "variants": {
+  "note_ja": "進行役の決定（2026-10-02、Q24）で、2 つの変種を同じ時間枠の中で別々に作り、進行役の評審（2 件、Git 対象外の Unity/Build/Polish/33r01/_judge）が同じ視点・同じ時刻で仕上げ33（修正の回 2）と並べて SWEEP を採った。値は各変種の候補の証拠（variant_*_metrics.json）と評審の数（judge_*.json）から写した",
+  "SWEEP": {
+   "dir": "Unity/Build/Polish/33r01/sweep",
+   "time_ja": "11:36〜13:26（約 1.9 時間、作る部と修正の回 1 つ）",
+   "how_ja": "原画の爪 184 本を、原画のカメラの射線の上で深さを動的計画法で選んで立てた掃引の管（2 次元の道は一覧の中心線の 1.5 倍）にし、冠の爪を同じ断面の長い指 137 本に作り直した。膜と b区域の添え指は作らない",
+   "entries": 321,
+   "vertices": 54763,
+   "triangles": 105032,
+   "seat_t120_claw_px": 100018,
+   "painting_rhythm": {
+    "claw_zone": {
+     "mizuiro": 0.2548,
+     "dark_line_px": 14199,
+     "components": 209
+    },
+    "bregion": {
+     "mizuiro": 0.2751,
+     "dark_line_px": 6774,
+     "components": 52
+    }
+   },
+   "gates_72_s12_p95_claws": 3.6353,
+   "raw_detail_with_claws": {
+    "132_raw_max": 5.3095,
+    "72_raw_p95": 5.1682,
+    "72_raw_max": 7.9229
+   },
+   "release_data_bytes": 974582142,
+   "player_hold_ftGpu_ms": {
+    "sweep": [
+     0.6728,
+     0.6748
+    ],
+    "pl33": [
+     0.682,
+     0.6892
+    ]
+   }
+  },
+  "HOUDINI": {
+   "dir": "Unity/Build/Polish/33r01/houdini",
+   "time_ja": "11:36〜13:57（約 2.4 時間、作る部の試し try1〜v7、修正の回は使っていない）",
+   "hython_ja": "Steam の Houdini Indie の hython。版の表示は 22.0.459（指示の 22.0.429 と違う）。Program Files の 21.0.729 は使っていない",
+   "how_ja": "一覧の爪の中心線（原画の爪 184、b区域の添え指のうち t* で潰れない 101）を Houdini の CTRL のランプで巻きと細りを付けて射線の上で立ち上げ、断面を射線の向きへ 3 倍、頂の薄い帯と VDB の滑らかな和で根元を盛り上げた。仕上げ33 の膜 184・冠の爪 79 はそのまま",
+   "fingers": {
+    "C": 184,
+    "S": 101,
+    "K_houdini": 0,
+    "W_pl33": 184,
+    "K_pl33": 79
+   },
+   "vertices": 112397,
+   "triangles": 219972,
+   "frames_bytes": 567829644,
+   "painting_rhythm": {
+    "claw_zone": {
+     "mizuiro": 0.2846,
+     "dark_line_px": 12398,
+     "components": 194
+    },
+    "bregion": {
+     "mizuiro": 0.25,
+     "dark_line_px": 6572,
+     "components": 66
+    }
+   },
+   "gates_72_s12_p95_claws": 3.4745,
+   "raw_detail_with_claws": {
+    "132_raw_max": 5.2998,
+    "72_raw_p95": 4.9704,
+    "72_raw_max": 6.9831,
+    "72_s24_p95": 3.768
+   },
+   "motion": {
+    "jumps_over_0p25m": 32,
+    "jump_max_rel_root_m": 0.4540010869160057
+   },
+   "claw_layer_ms_painting": 1.498,
+   "claw_layer_ms_2eyes": 2.327
+  },
+  "before_pl33_rhythm": {
+   "claw_zone": {
+    "mizuiro": 0.3563,
+    "dark_line_px": 11156,
+    "components": 257
+   },
+   "bregion": {
+    "mizuiro": 0.3309,
+    "dark_line_px": 6247,
+    "components": 115
+   }
+  },
+  "painting_rhythm": {
+   "claw_zone": {
+    "mizuiro": 0.4124,
+    "dark_line_px": 14858,
+    "components": 398
+   },
+   "bregion": {
+    "mizuiro": 0.4602,
+    "dark_line_px": 8257,
+    "components": 176
+   }
+  },
+  "judges": {
+   "count": 2,
+   "adopted": "SWEEP",
+   "reads_as_fingers_all_views": false,
+   "painting_claw_ring": false,
+   "gates_ok": true,
+   "reason_ja": "SWEEP だけが原画視点の外（座席・右の側面・後ろ 65° の稜・回り台の縁）の見え方を変え、仕上げ33 より軽い。Houdini は座席の頂の束だけで、側面・後ろ・回り台はほぼ変わらず、重い",
+   "must_fix_count": 11
+  }
+ },
+ "time": {
+  "box_ja": "1 日（進行役の決定、Q24）",
+  "variants_ja": "11:36〜13:57（2 つの変種を並べて作った）",
+  "judges_ja": "約 13:59〜14:03（評審の数のファイルの時刻）",
+  "fix_ja": "14:05〜16:15（修正の回 1 と統合）",
+  "record_ja": "16:15〜（記録の部）"
+ }
+}

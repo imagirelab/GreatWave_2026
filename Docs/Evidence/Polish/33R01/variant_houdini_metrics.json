@@ -1,0 +1,1000 @@
+{
+ "number": "仕上げ33修正01（Houdini の変種）：立つ白い爪の指",
+ "state_ja": "候補（進行役の評審の前）。HMD 実機の結果ではない。利用者は見ていない。",
+ "gates_painting_view": {
+  "78": {
+   "after_claws": 2.741,
+   "after_noclaws": 2.741,
+   "before_claws": 2.741,
+   "cp1": 2.772,
+   "r26": 1.641,
+   "gate": 4.0,
+   "verdict": "合格（後退なし）"
+  },
+  "130": {
+   "after_claws": 3.5815,
+   "after_noclaws": 3.5815,
+   "before_claws": 3.5815,
+   "cp1": 1.968,
+   "r26": 1.953,
+   "gate": 4.0,
+   "verdict": "合格（後退なし）"
+  },
+  "131": {
+   "after_claws": 3.4419,
+   "after_noclaws": 3.4419,
+   "before_claws": 3.4419,
+   "cp1": 1.814,
+   "r26": 1.798,
+   "gate": 4.0,
+   "verdict": "合格（後退なし）"
+  },
+  "132_s12": {
+   "after_claws": 3.5576,
+   "after_noclaws": 3.5576,
+   "before_claws": 3.5576,
+   "cp1": 1.326,
+   "r26": 1.574,
+   "gate": 4.0,
+   "verdict": "合格（後退なし）"
+  },
+  "72_s12_p95": {
+   "after_claws": 3.4745,
+   "after_noclaws": 3.8507,
+   "before_claws": 3.5757,
+   "cp1": 1.558,
+   "r26": 1.723,
+   "gate": 4.0,
+   "verdict": "合格（後退なし）"
+  }
+ },
+ "raw_detail_with_claws": {
+  "132_raw_max": {
+   "after_claws": 5.2998,
+   "after_noclaws": 5.9472,
+   "before_claws": 5.3771
+  },
+  "72_raw_p95": {
+   "after_claws": 4.9704,
+   "after_noclaws": 5.6807,
+   "before_claws": 5.1476
+  },
+  "72_raw_max": {
+   "after_claws": 6.9831,
+   "before_claws": 7.9299
+  },
+  "72_s24_p95": {
+   "after_claws": 3.768,
+   "before_claws": 3.2041
+  }
+ },
+ "eval23": {
+  "after": {
+   "line": {
+    "fail": 7,
+    "pass": 2,
+    "record-only": 14
+   },
+   "line_noclaws": {
+    "fail": 7,
+    "pass": 2,
+    "record-only": 14
+   },
+   "noline": {
+    "pass": 4,
+    "fail": 5,
+    "record-only": 14
+   },
+   "noline_noclaws": {
+    "pass": 4,
+    "fail": 5,
+    "record-only": 14
+   }
+  },
+  "before": {
+   "line": {
+    "fail": 7,
+    "pass": 2,
+    "record-only": 14
+   },
+   "line_noclaws": {
+    "fail": 7,
+    "pass": 2,
+    "record-only": 14
+   },
+   "noline": {
+    "pass": 4,
+    "fail": 5,
+    "record-only": 14
+   },
+   "noline_noclaws": {
+    "pass": 4,
+    "fail": 5,
+    "record-only": 14
+   }
+  }
+ },
+ "counts": {
+  "fingers": {
+   "C": 184,
+   "S": 101,
+   "K_houdini": 0,
+   "W_pl33": 184,
+   "K_pl33": 79
+  },
+  "fingers_total": 548,
+  "webs_kept": 184,
+  "vertices_total": 112397,
+  "triangles_total": 219972,
+  "finger_vertices": 105735,
+  "finger_triangles": 210010,
+  "before_vertices": 95547,
+  "before_triangles": 183240,
+  "frames_bytes": 567829644
+ },
+ "gpu_claw_layer_ms": {
+  "after": {
+   "state": "claws（爪の層と縁の線だけ。爪の並び Build/Polish/33r01/houdini/claws/ds33_claw_layout.json、頂点 112397、三角形 219972）",
+   "device": "NVIDIA GeForce RTX 3080",
+   "timing_ms": {
+    "painting_1920x1080_msaa8": {
+     "on": 5.216,
+     "off": 3.717,
+     "claws_ms": 1.498
+    },
+    "seat_1920x1080_msaa8": {
+     "on": 4.979,
+     "off": 3.566,
+     "claws_ms": 1.414
+    },
+    "seat_toward_wave_1920x1080_msaa8": {
+     "on": 4.92,
+     "off": 3.605,
+     "claws_ms": 1.316
+    },
+    "seat_toward_wave_2eyes_2064x2208_msaa4": {
+     "on": 6.545,
+     "off": 4.218,
+     "claws_ms": 2.327
+    }
+   },
+   "method_ja": "Editor batchmode。爪の層の面だけを残し（ほかのレンダラーは隠す）、t 6〜12 s を等分した 120 コマを RT へ描いて毎コマ 1 画素を読み戻す壁時計の平均を 3 回、爪の層あり・なしで測り中央値の差を爪の層の分とした（作る部の評審の judge_gpu と同じ方法）。2 眼は同じカメラで 2 回描く。GPU のタイマーではない。HMD 実機ではない。"
+  },
+  "before": {
+   "state": "claws（爪の層と縁の線だけ。爪の並び Build/Polish/33/fix02/claws/ds33_claw_layout.json、頂点 95547、三角形 183240）",
+   "device": "NVIDIA GeForce RTX 3080",
+   "timing_ms": {
+    "painting_1920x1080_msaa8": {
+     "on": 5.775,
+     "off": 3.69,
+     "claws_ms": 2.085
+    },
+    "seat_1920x1080_msaa8": {
+     "on": 5.572,
+     "off": 3.889,
+     "claws_ms": 1.683
+    },
+    "seat_toward_wave_1920x1080_msaa8": {
+     "on": 4.956,
+     "off": 3.91,
+     "claws_ms": 1.046
+    },
+    "seat_toward_wave_2eyes_2064x2208_msaa4": {
+     "on": 6.053,
+     "off": 3.829,
+     "claws_ms": 2.224
+    }
+   },
+   "method_ja": "Editor batchmode。爪の層の面だけを残し（ほかのレンダラーは隠す）、t 6〜12 s を等分した 120 コマを RT へ描いて毎コマ 1 画素を読み戻す壁時計の平均を 3 回、爪の層あり・なしで測り中央値の差を爪の層の分とした（作る部の評審の judge_gpu と同じ方法）。2 眼は同じカメラで 2 回描く。GPU のタイマーではない。HMD 実機ではない。"
+  }
+ },
+ "motion": {
+  "nan": 0,
+  "jump_max_rel_root_m": 0.4540010869160057,
+  "jumps_over_0p5m": 0,
+  "jumps_over_0p25m": 32,
+  "jumps_top": [
+   [
+    0.454,
+    309,
+    "C182"
+   ],
+   [
+    0.439,
+    308,
+    "SC182p"
+   ],
+   [
+    0.359,
+    316,
+    "C091"
+   ],
+   [
+    0.333,
+    312,
+    "C092"
+   ],
+   [
+    0.323,
+    311,
+    "C092"
+   ],
+   [
+    0.322,
+    311,
+    "C100"
+   ],
+   [
+    0.319,
+    314,
+    "C092"
+   ],
+   [
+    0.317,
+    309,
+    "C092"
+   ],
+   [
+    0.315,
+    304,
+    "SC182p"
+   ],
+   [
+    0.312,
+    313,
+    "C092"
+   ],
+   [
+    0.297,
+    310,
+    "C092"
+   ],
+   [
+    0.297,
+    308,
+    "C092"
+   ],
+   [
+    0.293,
+    284,
+    "C092"
+   ],
+   [
+    0.291,
+    344,
+    "C088"
+   ],
+   [
+    0.288,
+    321,
+    "C094"
+   ],
+   [
+    0.28,
+    306,
+    "C092"
+   ],
+   [
+    0.271,
+    307,
+    "C092"
+   ],
+   [
+    0.268,
+    335,
+    "C065"
+   ],
+   [
+    0.263,
+    316,
+    "SC164m"
+   ],
+   [
+    0.262,
+    313,
+    "C086"
+   ]
+  ],
+  "birth_frame_pct": [
+   193.0,
+   223.0,
+   283.0,
+   305.0,
+   319.0
+  ]
+ },
+ "houdini_vs_numpy": {
+  "stand_spine_max_m": 0.001135302249076986,
+  "radius_max_m": 4.9844165207507674e-05,
+  "key_frame_vs_houdini_mesh_m": 0.0
+ },
+ "prep": {
+  "A_star_pct": [
+   0.065,
+   0.3,
+   0.735,
+   2.265,
+   3.843
+  ],
+  "H_pct_CS": [
+   0.3,
+   0.406,
+   0.652,
+   1.1,
+   1.8
+  ],
+  "len3d_pct": [
+   0.416,
+   0.999,
+   1.87,
+   3.841,
+   6.827
+  ],
+  "rmed_pct": [
+   0.03,
+   0.03,
+   0.051,
+   0.211,
+   0.237
+  ],
+  "paint_width_ratio_pct_CS": [
+   0.15,
+   0.568,
+   0.938,
+   0.998,
+   1.0
+  ],
+  "dropped_collapsed_tstar": [
+   "SC164p",
+   "SC177m",
+   "SC178m",
+   "SC179m",
+   "SC182m",
+   "SC188m",
+   "SC189m",
+   "SC201p",
+   "SC207m",
+   "SC223m",
+   "SC224m",
+   "SC224p",
+   "SC236p"
+  ]
+ },
+ "measure": {
+  "runs": {
+   "before": "Unity/Build/Polish/33/fix02/r_fix02",
+   "after": "Unity/Build/Polish/33r01/houdini/r_after"
+  },
+  "views": {
+   "painting_t090": {
+    "before": {
+     "claw_px": 2776,
+     "over_indigo_px": 135,
+     "line_on_light_px": 476,
+     "floating_comps": 2,
+     "floating_px": 83,
+     "mostly_indigo_comps": 2,
+     "mostly_indigo_px": 83,
+     "largest_mostly_indigo": 50
+    },
+    "after": {
+     "claw_px": 6139,
+     "over_indigo_px": 223,
+     "line_on_light_px": 2210,
+     "floating_comps": 2,
+     "floating_px": 83,
+     "mostly_indigo_comps": 2,
+     "mostly_indigo_px": 83,
+     "largest_mostly_indigo": 50
+    }
+   },
+   "painting_t105": {
+    "before": {
+     "claw_px": 30401,
+     "over_indigo_px": 3092,
+     "line_on_light_px": 5183,
+     "floating_comps": 3,
+     "floating_px": 132,
+     "mostly_indigo_comps": 7,
+     "mostly_indigo_px": 839,
+     "largest_mostly_indigo": 366
+    },
+    "after": {
+     "claw_px": 41611,
+     "over_indigo_px": 5633,
+     "line_on_light_px": 9081,
+     "floating_comps": 3,
+     "floating_px": 132,
+     "mostly_indigo_comps": 6,
+     "mostly_indigo_px": 612,
+     "largest_mostly_indigo": 353
+    }
+   },
+   "painting_t120": {
+    "before": {
+     "claw_px": 53102,
+     "over_indigo_px": 4312,
+     "line_on_light_px": 10816,
+     "floating_comps": 7,
+     "floating_px": 200,
+     "mostly_indigo_comps": 2,
+     "mostly_indigo_px": 1097,
+     "largest_mostly_indigo": 568
+    },
+    "after": {
+     "claw_px": 56765,
+     "over_indigo_px": 6375,
+     "line_on_light_px": 11933,
+     "floating_comps": 7,
+     "floating_px": 200,
+     "mostly_indigo_comps": 1,
+     "mostly_indigo_px": 515,
+     "largest_mostly_indigo": 515
+    }
+   },
+   "seat_t090": {
+    "before": {
+     "claw_px": 377,
+     "over_indigo_px": 47,
+     "line_on_light_px": 85,
+     "floating_comps": 0,
+     "floating_px": 0,
+     "mostly_indigo_comps": 0,
+     "mostly_indigo_px": 0,
+     "largest_mostly_indigo": 0,
+     "ridge_ringed_fraction": 0.8016
+    },
+    "after": {
+     "claw_px": 1430,
+     "over_indigo_px": 106,
+     "line_on_light_px": 419,
+     "floating_comps": 0,
+     "floating_px": 0,
+     "mostly_indigo_comps": 0,
+     "mostly_indigo_px": 0,
+     "largest_mostly_indigo": 0,
+     "ridge_ringed_fraction": 0.7937
+    }
+   },
+   "seat_t105": {
+    "before": {
+     "claw_px": 16334,
+     "over_indigo_px": 2055,
+     "line_on_light_px": 1933,
+     "floating_comps": 18,
+     "floating_px": 801,
+     "mostly_indigo_comps": 23,
+     "mostly_indigo_px": 1127,
+     "largest_mostly_indigo": 256,
+     "ridge_ringed_fraction": 0.9436
+    },
+    "after": {
+     "claw_px": 43087,
+     "over_indigo_px": 4005,
+     "line_on_light_px": 5705,
+     "floating_comps": 18,
+     "floating_px": 801,
+     "mostly_indigo_comps": 22,
+     "mostly_indigo_px": 963,
+     "largest_mostly_indigo": 256,
+     "ridge_ringed_fraction": 0.9423
+    }
+   },
+   "seat_t120": {
+    "before": {
+     "claw_px": 38508,
+     "over_indigo_px": 6279,
+     "line_on_light_px": 2076,
+     "floating_comps": 31,
+     "floating_px": 3838,
+     "mostly_indigo_comps": 40,
+     "mostly_indigo_px": 5144,
+     "largest_mostly_indigo": 429,
+     "ridge_ringed_fraction": 0.677
+    },
+    "after": {
+     "claw_px": 72791,
+     "over_indigo_px": 8320,
+     "line_on_light_px": 3390,
+     "floating_comps": 31,
+     "floating_px": 3838,
+     "mostly_indigo_comps": 39,
+     "mostly_indigo_px": 4715,
+     "largest_mostly_indigo": 394,
+     "ridge_ringed_fraction": 0.6615
+    }
+   },
+   "seat_toward_wave_t090": {
+    "before": {
+     "claw_px": 730,
+     "over_indigo_px": 138,
+     "line_on_light_px": 106,
+     "floating_comps": 2,
+     "floating_px": 72,
+     "mostly_indigo_comps": 2,
+     "mostly_indigo_px": 72,
+     "largest_mostly_indigo": 37,
+     "ridge_ringed_fraction": 0.0934
+    },
+    "after": {
+     "claw_px": 1759,
+     "over_indigo_px": 183,
+     "line_on_light_px": 364,
+     "floating_comps": 2,
+     "floating_px": 72,
+     "mostly_indigo_comps": 2,
+     "mostly_indigo_px": 72,
+     "largest_mostly_indigo": 37,
+     "ridge_ringed_fraction": 0.0928
+    }
+   },
+   "seat_toward_wave_t105": {
+    "before": {
+     "claw_px": 14385,
+     "over_indigo_px": 2225,
+     "line_on_light_px": 1441,
+     "floating_comps": 19,
+     "floating_px": 862,
+     "mostly_indigo_comps": 27,
+     "mostly_indigo_px": 1273,
+     "largest_mostly_indigo": 225,
+     "ridge_ringed_fraction": 0.3063
+    },
+    "after": {
+     "claw_px": 27802,
+     "over_indigo_px": 3426,
+     "line_on_light_px": 4064,
+     "floating_comps": 19,
+     "floating_px": 862,
+     "mostly_indigo_comps": 26,
+     "mostly_indigo_px": 1110,
+     "largest_mostly_indigo": 225,
+     "ridge_ringed_fraction": 0.2943
+    }
+   },
+   "seat_toward_wave_t120": {
+    "before": {
+     "claw_px": 9918,
+     "over_indigo_px": 6034,
+     "line_on_light_px": 90,
+     "floating_comps": 40,
+     "floating_px": 4080,
+     "mostly_indigo_comps": 49,
+     "mostly_indigo_px": 5311,
+     "largest_mostly_indigo": 415,
+     "ridge_ringed_fraction": 0.1155
+    },
+    "after": {
+     "claw_px": 10503,
+     "over_indigo_px": 6241,
+     "line_on_light_px": 60,
+     "floating_comps": 41,
+     "floating_px": 4198,
+     "mostly_indigo_comps": 50,
+     "mostly_indigo_px": 5429,
+     "largest_mostly_indigo": 415,
+     "ridge_ringed_fraction": 0.1155
+    }
+   },
+   "side_left_t090": {
+    "before": {
+     "claw_px": 3607,
+     "over_indigo_px": 530,
+     "line_on_light_px": 845,
+     "floating_comps": 0,
+     "floating_px": 0,
+     "mostly_indigo_comps": 0,
+     "mostly_indigo_px": 0,
+     "largest_mostly_indigo": 0,
+     "ridge_ringed_fraction": 0.0
+    },
+    "after": {
+     "claw_px": 4120,
+     "over_indigo_px": 1045,
+     "line_on_light_px": 727,
+     "floating_comps": 0,
+     "floating_px": 0,
+     "mostly_indigo_comps": 2,
+     "mostly_indigo_px": 43,
+     "largest_mostly_indigo": 22,
+     "ridge_ringed_fraction": 0.0
+    }
+   },
+   "side_left_t105": {
+    "before": {
+     "claw_px": 7800,
+     "over_indigo_px": 2210,
+     "line_on_light_px": 1657,
+     "floating_comps": 0,
+     "floating_px": 0,
+     "mostly_indigo_comps": 0,
+     "mostly_indigo_px": 0,
+     "largest_mostly_indigo": 0,
+     "ridge_ringed_fraction": 0.0
+    },
+    "after": {
+     "claw_px": 10997,
+     "over_indigo_px": 5777,
+     "line_on_light_px": 1138,
+     "floating_comps": 0,
+     "floating_px": 0,
+     "mostly_indigo_comps": 2,
+     "mostly_indigo_px": 780,
+     "largest_mostly_indigo": 445,
+     "ridge_ringed_fraction": 0.0
+    }
+   },
+   "side_left_t120": {
+    "before": {
+     "claw_px": 10111,
+     "over_indigo_px": 4051,
+     "line_on_light_px": 1787,
+     "floating_comps": 0,
+     "floating_px": 0,
+     "mostly_indigo_comps": 2,
+     "mostly_indigo_px": 124,
+     "largest_mostly_indigo": 71,
+     "ridge_ringed_fraction": 0.0
+    },
+    "after": {
+     "claw_px": 13528,
+     "over_indigo_px": 7690,
+     "line_on_light_px": 1320,
+     "floating_comps": 0,
+     "floating_px": 0,
+     "mostly_indigo_comps": 2,
+     "mostly_indigo_px": 1520,
+     "largest_mostly_indigo": 1061,
+     "ridge_ringed_fraction": 0.0
+    }
+   },
+   "side_right_t090": {
+    "before": {
+     "claw_px": 2561,
+     "over_indigo_px": 176,
+     "line_on_light_px": 640,
+     "floating_comps": 0,
+     "floating_px": 0,
+     "mostly_indigo_comps": 0,
+     "mostly_indigo_px": 0,
+     "largest_mostly_indigo": 0,
+     "ridge_ringed_fraction": 0.0
+    },
+    "after": {
+     "claw_px": 2364,
+     "over_indigo_px": 184,
+     "line_on_light_px": 449,
+     "floating_comps": 0,
+     "floating_px": 0,
+     "mostly_indigo_comps": 1,
+     "mostly_indigo_px": 20,
+     "largest_mostly_indigo": 20,
+     "ridge_ringed_fraction": 0.0
+    }
+   },
+   "side_right_t105": {
+    "before": {
+     "claw_px": 6721,
+     "over_indigo_px": 1874,
+     "line_on_light_px": 1561,
+     "floating_comps": 6,
+     "floating_px": 215,
+     "mostly_indigo_comps": 9,
+     "mostly_indigo_px": 305,
+     "largest_mostly_indigo": 73,
+     "ridge_ringed_fraction": 0.0
+    },
+    "after": {
+     "claw_px": 6385,
+     "over_indigo_px": 1879,
+     "line_on_light_px": 1243,
+     "floating_comps": 6,
+     "floating_px": 215,
+     "mostly_indigo_comps": 11,
+     "mostly_indigo_px": 369,
+     "largest_mostly_indigo": 73,
+     "ridge_ringed_fraction": 0.0
+    }
+   },
+   "side_right_t120": {
+    "before": {
+     "claw_px": 7717,
+     "over_indigo_px": 2034,
+     "line_on_light_px": 1802,
+     "floating_comps": 1,
+     "floating_px": 21,
+     "mostly_indigo_comps": 2,
+     "mostly_indigo_px": 48,
+     "largest_mostly_indigo": 27,
+     "ridge_ringed_fraction": 0.0
+    },
+    "after": {
+     "claw_px": 7236,
+     "over_indigo_px": 1930,
+     "line_on_light_px": 1438,
+     "floating_comps": 1,
+     "floating_px": 21,
+     "mostly_indigo_comps": 1,
+     "mostly_indigo_px": 21,
+     "largest_mostly_indigo": 21,
+     "ridge_ringed_fraction": 0.0
+    }
+   },
+   "back65_t090": {
+    "before": {
+     "claw_px": 7089,
+     "over_indigo_px": 265,
+     "line_on_light_px": 2617,
+     "floating_comps": 1,
+     "floating_px": 20,
+     "mostly_indigo_comps": 1,
+     "mostly_indigo_px": 20,
+     "largest_mostly_indigo": 20,
+     "ridge_ringed_fraction": 0.0
+    },
+    "after": {
+     "claw_px": 6560,
+     "over_indigo_px": 256,
+     "line_on_light_px": 2003,
+     "floating_comps": 1,
+     "floating_px": 20,
+     "mostly_indigo_comps": 1,
+     "mostly_indigo_px": 20,
+     "largest_mostly_indigo": 20,
+     "ridge_ringed_fraction": 0.0
+    }
+   },
+   "back65_t105": {
+    "before": {
+     "claw_px": 15261,
+     "over_indigo_px": 1319,
+     "line_on_light_px": 5101,
+     "floating_comps": 16,
+     "floating_px": 421,
+     "mostly_indigo_comps": 11,
+     "mostly_indigo_px": 284,
+     "largest_mostly_indigo": 38,
+     "ridge_ringed_fraction": 0.0
+    },
+    "after": {
+     "claw_px": 14418,
+     "over_indigo_px": 1313,
+     "line_on_light_px": 4194,
+     "floating_comps": 16,
+     "floating_px": 421,
+     "mostly_indigo_comps": 11,
+     "mostly_indigo_px": 284,
+     "largest_mostly_indigo": 38,
+     "ridge_ringed_fraction": 0.0
+    }
+   },
+   "back65_t120": {
+    "before": {
+     "claw_px": 16938,
+     "over_indigo_px": 1475,
+     "line_on_light_px": 5495,
+     "floating_comps": 11,
+     "floating_px": 274,
+     "mostly_indigo_comps": 11,
+     "mostly_indigo_px": 274,
+     "largest_mostly_indigo": 34,
+     "ridge_ringed_fraction": 0.0
+    },
+    "after": {
+     "claw_px": 16051,
+     "over_indigo_px": 1484,
+     "line_on_light_px": 4497,
+     "floating_comps": 11,
+     "floating_px": 274,
+     "mostly_indigo_comps": 11,
+     "mostly_indigo_px": 274,
+     "largest_mostly_indigo": 34,
+     "ridge_ringed_fraction": 0.0
+    }
+   },
+   "top_t090": {
+    "before": {
+     "claw_px": 3214,
+     "over_indigo_px": 104,
+     "line_on_light_px": 832,
+     "floating_comps": 0,
+     "floating_px": 0,
+     "mostly_indigo_comps": 0,
+     "mostly_indigo_px": 0,
+     "largest_mostly_indigo": 0,
+     "ridge_ringed_fraction": 0.2715
+    },
+    "after": {
+     "claw_px": 3786,
+     "over_indigo_px": 188,
+     "line_on_light_px": 977,
+     "floating_comps": 0,
+     "floating_px": 0,
+     "mostly_indigo_comps": 1,
+     "mostly_indigo_px": 45,
+     "largest_mostly_indigo": 45,
+     "ridge_ringed_fraction": 0.2715
+    }
+   },
+   "top_t105": {
+    "before": {
+     "claw_px": 8027,
+     "over_indigo_px": 879,
+     "line_on_light_px": 2085,
+     "floating_comps": 1,
+     "floating_px": 26,
+     "mostly_indigo_comps": 2,
+     "mostly_indigo_px": 68,
+     "largest_mostly_indigo": 42,
+     "ridge_ringed_fraction": 0.0965
+    },
+    "after": {
+     "claw_px": 10395,
+     "over_indigo_px": 3614,
+     "line_on_light_px": 2014,
+     "floating_comps": 1,
+     "floating_px": 26,
+     "mostly_indigo_comps": 2,
+     "mostly_indigo_px": 49,
+     "largest_mostly_indigo": 26,
+     "ridge_ringed_fraction": 0.0946
+    }
+   },
+   "top_t120": {
+    "before": {
+     "claw_px": 10044,
+     "over_indigo_px": 1860,
+     "line_on_light_px": 2546,
+     "floating_comps": 0,
+     "floating_px": 0,
+     "mostly_indigo_comps": 1,
+     "mostly_indigo_px": 25,
+     "largest_mostly_indigo": 25,
+     "ridge_ringed_fraction": 0.0483
+    },
+    "after": {
+     "claw_px": 12193,
+     "over_indigo_px": 4619,
+     "line_on_light_px": 2374,
+     "floating_comps": 0,
+     "floating_px": 0,
+     "mostly_indigo_comps": 2,
+     "mostly_indigo_px": 1474,
+     "largest_mostly_indigo": 1339,
+     "ridge_ringed_fraction": 0.0466
+    }
+   }
+  },
+  "painting_tstar_rhythm": {
+   "claw_zone_painting": {
+    "mizuiro": 0.4124,
+    "dark_line_px": 14858,
+    "components": 398
+   },
+   "bregion_painting": {
+    "mizuiro": 0.4602,
+    "dark_line_px": 8257,
+    "components": 176
+   },
+   "claw_zone_before": {
+    "mizuiro": 0.3563,
+    "dark_line_px": 11156,
+    "components": 257
+   },
+   "bregion_before": {
+    "mizuiro": 0.3309,
+    "dark_line_px": 6247,
+    "components": 115
+   },
+   "claw_zone_after": {
+    "mizuiro": 0.2846,
+    "dark_line_px": 12398,
+    "components": 194
+   },
+   "bregion_after": {
+    "mizuiro": 0.25,
+    "dark_line_px": 6572,
+    "components": 66
+   }
+  },
+  "overlay_vs_claw_list": {
+   "before": {
+    "centerline_px": 4558,
+    "centerline_on_claw_frac_tol3": 0.8333,
+    "claw_px": 53102,
+    "claw_px_in_list_regions_frac": 0.8577
+   },
+   "after": {
+    "centerline_px": 4558,
+    "centerline_on_claw_frac_tol3": 0.8069,
+    "claw_px": 56765,
+    "claw_px_in_list_regions_frac": 0.8616
+   }
+  },
+  "closed_rings_painting": {
+   "before_t090": {
+    "rings": 2,
+    "rings_hole_ge4": 0,
+    "big_holes": []
+   },
+   "before_t105": {
+    "rings": 17,
+    "rings_hole_ge4": 2,
+    "big_holes": []
+   },
+   "before_t120": {
+    "rings": 20,
+    "rings_hole_ge4": 2,
+    "big_holes": [
+     {
+      "xy": [
+       470,
+       496
+      ],
+      "hole_max": 55
+     }
+    ]
+   },
+   "after_t090": {
+    "rings": 22,
+    "rings_hole_ge4": 6,
+    "big_holes": [
+     {
+      "xy": [
+       322,
+       288
+      ],
+      "hole_max": 75
+     }
+    ]
+   },
+   "after_t105": {
+    "rings": 39,
+    "rings_hole_ge4": 9,
+    "big_holes": [
+     {
+      "xy": [
+       799,
+       403
+      ],
+      "hole_max": 115
+     },
+     {
+      "xy": [
+       220,
+       444
+      ],
+      "hole_max": 52
+     },
+     {
+      "xy": [
+       308,
+       474
+      ],
+      "hole_max": 26
+     }
+    ]
+   },
+   "after_t120": {
+    "rings": 17,
+    "rings_hole_ge4": 4,
+    "big_holes": [
+     {
+      "xy": [
+       467,
+       488
+      ],
+      "hole_max": 455
+     },
+     {
+      "xy": [
+       216,
+       497
+      ],
+      "hole_max": 228
+     }
+    ]
+   }
+  }
+ }
+}

@@ -1,0 +1,831 @@
+{
+ "rule_ja": "Judge (numbers lens) for 仕上げ33修正01: one common vertex-level geometry/motion measure for\nbefore (仕上げ33 fix02), SWEEP and Houdini claw layers. Report only; writes JSON under _judge/numbers.\n\nPer claw set:\n  - standing: per entry max signed height of its vertices above the t* K*' sheet (nearest sheet vertex normal), by kind.\n  - penetration (self-intersection with the sheet): vertices with h < -0.05 m and tangential offset < 0.3 m at t 9 / 10.5 / 12 s,\n    split into root part (u <= 0.3) and body/tip (u > 0.3); entries with any body/tip vertex below; deepest.\n  - motion: per entry and frame, max vertex step relative to the entry root step (m), and max second difference\n    relative to root (jitter / pop); counts over thresholds; growth extent (max root distance) decreases before t*.\n",
+ "before": {
+  "vertices": 95547,
+  "triangles": 183240,
+  "entries": 561,
+  "frames_bytes": 482703444,
+  "entries_by_kind": {
+   "C": 184,
+   "K": 79,
+   "S": 114,
+   "W": 184
+  },
+  "vertices_by_kind": {
+   "C": 31336,
+   "K": 13509,
+   "S": 19366,
+   "W": 31336
+  },
+  "standing_tstar": {
+   "C": {
+    "n": 184,
+    "hmax_pct_10_50_90_100": [
+     0.085,
+     0.132,
+     0.202,
+     0.448
+    ],
+    "ge_0p5m": 0,
+    "ge_1m": 0,
+    "ge_2m": 0,
+    "tip_h_median": 0.062
+   },
+   "K": {
+    "n": 79,
+    "hmax_pct_10_50_90_100": [
+     0.623,
+     0.781,
+     1.179,
+     1.497
+    ],
+    "ge_0p5m": 78,
+    "ge_1m": 19,
+    "ge_2m": 0,
+    "tip_h_median": 0.614
+   },
+   "S": {
+    "n": 114,
+    "hmax_pct_10_50_90_100": [
+     0.019,
+     0.126,
+     0.182,
+     0.301
+    ],
+    "ge_0p5m": 0,
+    "ge_1m": 0,
+    "ge_2m": 0,
+    "tip_h_median": 0.107
+   },
+   "W": {
+    "n": 184,
+    "hmax_pct_10_50_90_100": [
+     0.055,
+     0.104,
+     0.21,
+     0.409
+    ],
+    "ge_0p5m": 0,
+    "ge_1m": 0,
+    "ge_2m": 0,
+    "tip_h_median": 0.049
+   }
+  },
+  "penetration": {
+   "C_t090": {
+    "checked": 15390,
+    "below5cm": 18,
+    "frac": 0.0012,
+    "body_tip_below": 10,
+    "root_below": 8,
+    "entries_body_tip_below": 2,
+    "deepest_m": -0.057,
+    "deepest_body_tip_m": -0.056
+   },
+   "K_t090": {
+    "checked": 9405,
+    "below5cm": 38,
+    "frac": 0.004,
+    "body_tip_below": 0,
+    "root_below": 38,
+    "entries_body_tip_below": 0,
+    "deepest_m": -0.069,
+    "deepest_body_tip_m": 0.0
+   },
+   "S_t090": {
+    "checked": 513,
+    "below5cm": 0,
+    "frac": 0.0,
+    "body_tip_below": 0,
+    "root_below": 0,
+    "entries_body_tip_below": 0,
+    "deepest_m": 0.0,
+    "deepest_body_tip_m": 0.0
+   },
+   "W_t090": {
+    "checked": 15390,
+    "below5cm": 45,
+    "frac": 0.0029,
+    "body_tip_below": 24,
+    "root_below": 21,
+    "entries_body_tip_below": 2,
+    "deepest_m": -0.079,
+    "deepest_body_tip_m": -0.079
+   },
+   "C_t105": {
+    "checked": 30919,
+    "below5cm": 96,
+    "frac": 0.0031,
+    "body_tip_below": 38,
+    "root_below": 58,
+    "entries_body_tip_below": 7,
+    "deepest_m": -0.171,
+    "deepest_body_tip_m": -0.171
+   },
+   "K_t105": {
+    "checked": 13508,
+    "below5cm": 70,
+    "frac": 0.0052,
+    "body_tip_below": 0,
+    "root_below": 70,
+    "entries_body_tip_below": 0,
+    "deepest_m": -0.069,
+    "deepest_body_tip_m": 0.0
+   },
+   "S_t105": {
+    "checked": 15903,
+    "below5cm": 13,
+    "frac": 0.0008,
+    "body_tip_below": 0,
+    "root_below": 13,
+    "entries_body_tip_below": 0,
+    "deepest_m": -0.146,
+    "deepest_body_tip_m": 0.0
+   },
+   "W_t105": {
+    "checked": 30577,
+    "below5cm": 24,
+    "frac": 0.0008,
+    "body_tip_below": 11,
+    "root_below": 13,
+    "entries_body_tip_below": 2,
+    "deepest_m": -0.059,
+    "deepest_body_tip_m": -0.059
+   },
+   "C_t120": {
+    "checked": 31317,
+    "below5cm": 119,
+    "frac": 0.0038,
+    "body_tip_below": 45,
+    "root_below": 74,
+    "entries_body_tip_below": 5,
+    "deepest_m": -0.243,
+    "deepest_body_tip_m": -0.243
+   },
+   "K_t120": {
+    "checked": 13502,
+    "below5cm": 80,
+    "frac": 0.0059,
+    "body_tip_below": 0,
+    "root_below": 80,
+    "entries_body_tip_below": 0,
+    "deepest_m": -0.069,
+    "deepest_body_tip_m": 0.0
+   },
+   "S_t120": {
+    "checked": 17311,
+    "below5cm": 24,
+    "frac": 0.0014,
+    "body_tip_below": 0,
+    "root_below": 24,
+    "entries_body_tip_below": 0,
+    "deepest_m": -0.157,
+    "deepest_body_tip_m": 0.0
+   },
+   "W_t120": {
+    "checked": 31320,
+    "below5cm": 97,
+    "frac": 0.0031,
+    "body_tip_below": 36,
+    "root_below": 61,
+    "entries_body_tip_below": 3,
+    "deepest_m": -0.22,
+    "deepest_body_tip_m": -0.218
+   }
+  },
+  "motion": {
+   "C": {
+    "step_rel_root_max_m": 0.166,
+    "step_rel_root_p99_m": 0.117,
+    "entry_frames_gt0p25m": 0,
+    "entry_frames_gt0p5m": 0,
+    "accel_rel_root_max_m": 0.126,
+    "entry_frames_accel_gt0p15m": 0,
+    "extent_shrink_max_m_before_tstar": 0.045,
+    "entries_shrink_gt0p05m": 0,
+    "extent_grow_max_m_per_frame": 0.138,
+    "top_steps": [
+     [
+      "C065",
+      0.166
+     ],
+     [
+      "C092",
+      0.138
+     ],
+     [
+      "C093",
+      0.113
+     ],
+     [
+      "C067",
+      0.111
+     ],
+     [
+      "C113",
+      0.108
+     ]
+    ]
+   },
+   "K": {
+    "step_rel_root_max_m": 0.163,
+    "step_rel_root_p99_m": 0.16,
+    "entry_frames_gt0p25m": 0,
+    "entry_frames_gt0p5m": 0,
+    "accel_rel_root_max_m": 0.132,
+    "entry_frames_accel_gt0p15m": 0,
+    "extent_shrink_max_m_before_tstar": 0.0,
+    "entries_shrink_gt0p05m": 0,
+    "extent_grow_max_m_per_frame": 0.147,
+    "top_steps": [
+     [
+      "K065",
+      0.163
+     ],
+     [
+      "K014",
+      0.159
+     ],
+     [
+      "K066",
+      0.139
+     ],
+     [
+      "K038",
+      0.132
+     ],
+     [
+      "K002",
+      0.128
+     ]
+    ]
+   },
+   "S": {
+    "step_rel_root_max_m": 0.136,
+    "step_rel_root_p99_m": 0.123,
+    "entry_frames_gt0p25m": 0,
+    "entry_frames_gt0p5m": 0,
+    "accel_rel_root_max_m": 0.149,
+    "entry_frames_accel_gt0p15m": 0,
+    "extent_shrink_max_m_before_tstar": 0.053,
+    "entries_shrink_gt0p05m": 1,
+    "extent_grow_max_m_per_frame": 0.123,
+    "top_steps": [
+     [
+      "SC226p",
+      0.136
+     ],
+     [
+      "SC192m",
+      0.123
+     ],
+     [
+      "SC192p",
+      0.123
+     ],
+     [
+      "SC236m",
+      0.09
+     ],
+     [
+      "SC207p",
+      0.087
+     ]
+    ]
+   },
+   "W": {
+    "step_rel_root_max_m": 0.159,
+    "step_rel_root_p99_m": 0.138,
+    "entry_frames_gt0p25m": 0,
+    "entry_frames_gt0p5m": 0,
+    "accel_rel_root_max_m": 0.12,
+    "entry_frames_accel_gt0p15m": 0,
+    "extent_shrink_max_m_before_tstar": 0.108,
+    "entries_shrink_gt0p05m": 1,
+    "extent_grow_max_m_per_frame": 0.135,
+    "top_steps": [
+     [
+      "WC021",
+      0.159
+     ],
+     [
+      "WC065",
+      0.15
+     ],
+     [
+      "WC092",
+      0.135
+     ],
+     [
+      "WC093",
+      0.106
+     ],
+     [
+      "WC067",
+      0.1
+     ]
+    ]
+   }
+  }
+ },
+ "sweep": {
+  "vertices": 54763,
+  "triangles": 105032,
+  "entries": 321,
+  "frames_bytes": 276662676,
+  "entries_by_kind": {
+   "C": 184,
+   "K": 137
+  },
+  "vertices_by_kind": {
+   "C": 31336,
+   "K": 23427
+  },
+  "standing_tstar": {
+   "C": {
+    "n": 184,
+    "hmax_pct_10_50_90_100": [
+     0.194,
+     0.911,
+     1.685,
+     3.676
+    ],
+    "ge_0p5m": 134,
+    "ge_1m": 81,
+    "ge_2m": 7,
+    "tip_h_median": 0.83
+   },
+   "K": {
+    "n": 137,
+    "hmax_pct_10_50_90_100": [
+     1.347,
+     1.766,
+     2.423,
+     2.814
+    ],
+    "ge_0p5m": 137,
+    "ge_1m": 134,
+    "ge_2m": 44,
+    "tip_h_median": 1.671
+   }
+  },
+  "penetration": {
+   "C_t090": {
+    "checked": 15390,
+    "below5cm": 2742,
+    "frac": 0.1782,
+    "body_tip_below": 368,
+    "root_below": 2374,
+    "entries_body_tip_below": 28,
+    "deepest_m": -0.174,
+    "deepest_body_tip_m": -0.107
+   },
+   "K_t090": {
+    "checked": 8550,
+    "below5cm": 23,
+    "frac": 0.0027,
+    "body_tip_below": 0,
+    "root_below": 23,
+    "entries_body_tip_below": 0,
+    "deepest_m": -0.058,
+    "deepest_body_tip_m": 0.0
+   },
+   "C_t105": {
+    "checked": 30052,
+    "below5cm": 3286,
+    "frac": 0.1093,
+    "body_tip_below": 225,
+    "root_below": 3061,
+    "entries_body_tip_below": 18,
+    "deepest_m": -0.243,
+    "deepest_body_tip_m": -0.159
+   },
+   "K_t105": {
+    "checked": 23364,
+    "below5cm": 99,
+    "frac": 0.0042,
+    "body_tip_below": 0,
+    "root_below": 99,
+    "entries_body_tip_below": 0,
+    "deepest_m": -0.066,
+    "deepest_body_tip_m": 0.0
+   },
+   "C_t120": {
+    "checked": 30244,
+    "below5cm": 2850,
+    "frac": 0.0942,
+    "body_tip_below": 214,
+    "root_below": 2636,
+    "entries_body_tip_below": 11,
+    "deepest_m": -0.243,
+    "deepest_body_tip_m": -0.188
+   },
+   "K_t120": {
+    "checked": 23251,
+    "below5cm": 129,
+    "frac": 0.0055,
+    "body_tip_below": 0,
+    "root_below": 129,
+    "entries_body_tip_below": 0,
+    "deepest_m": -0.067,
+    "deepest_body_tip_m": 0.0
+   }
+  },
+  "motion": {
+   "C": {
+    "step_rel_root_max_m": 0.329,
+    "step_rel_root_p99_m": 0.206,
+    "entry_frames_gt0p25m": 2,
+    "entry_frames_gt0p5m": 0,
+    "accel_rel_root_max_m": 0.212,
+    "entry_frames_accel_gt0p15m": 19,
+    "extent_shrink_max_m_before_tstar": 0.04,
+    "entries_shrink_gt0p05m": 0,
+    "extent_grow_max_m_per_frame": 0.242,
+    "top_steps": [
+     [
+      "C093",
+      0.329
+     ],
+     [
+      "C080",
+      0.21
+     ],
+     [
+      "C085",
+      0.205
+     ],
+     [
+      "C192",
+      0.189
+     ],
+     [
+      "C202",
+      0.184
+     ]
+    ]
+   },
+   "K": {
+    "step_rel_root_max_m": 0.22,
+    "step_rel_root_p99_m": 0.201,
+    "entry_frames_gt0p25m": 0,
+    "entry_frames_gt0p5m": 0,
+    "accel_rel_root_max_m": 0.16,
+    "entry_frames_accel_gt0p15m": 9,
+    "extent_shrink_max_m_before_tstar": 0.0,
+    "entries_shrink_gt0p05m": 0,
+    "extent_grow_max_m_per_frame": 0.203,
+    "top_steps": [
+     [
+      "K077",
+      0.22
+     ],
+     [
+      "K078",
+      0.207
+     ],
+     [
+      "K063",
+      0.19
+     ],
+     [
+      "K009",
+      0.182
+     ],
+     [
+      "K029",
+      0.171
+     ]
+    ]
+   }
+  }
+ },
+ "houdini": {
+  "vertices": 112397,
+  "triangles": 219972,
+  "entries": 548,
+  "frames_bytes": 567829644,
+  "entries_by_kind": {
+   "C": 184,
+   "K": 79,
+   "S": 101,
+   "W": 184
+  },
+  "vertices_by_kind": {
+   "C": 55209,
+   "K": 13509,
+   "S": 12343,
+   "W": 31336
+  },
+  "standing_tstar": {
+   "C": {
+    "n": 184,
+    "hmax_pct_10_50_90_100": [
+     0.603,
+     0.881,
+     1.411,
+     2.458
+    ],
+    "ge_0p5m": 179,
+    "ge_1m": 66,
+    "ge_2m": 1,
+    "tip_h_median": 0.546
+   },
+   "K": {
+    "n": 79,
+    "hmax_pct_10_50_90_100": [
+     0.623,
+     0.781,
+     1.179,
+     1.497
+    ],
+    "ge_0p5m": 78,
+    "ge_1m": 19,
+    "ge_2m": 0,
+    "tip_h_median": 0.614
+   },
+   "S": {
+    "n": 101,
+    "hmax_pct_10_50_90_100": [
+     0.449,
+     0.683,
+     0.991,
+     2.018
+    ],
+    "ge_0p5m": 87,
+    "ge_1m": 10,
+    "ge_2m": 1,
+    "tip_h_median": 0.432
+   },
+   "W": {
+    "n": 184,
+    "hmax_pct_10_50_90_100": [
+     0.055,
+     0.104,
+     0.21,
+     0.409
+    ],
+    "ge_0p5m": 0,
+    "ge_1m": 0,
+    "ge_2m": 0,
+    "tip_h_median": 0.049
+   }
+  },
+  "penetration": {
+   "C_t090": {
+    "checked": 31857,
+    "below5cm": 213,
+    "frac": 0.0067,
+    "body_tip_below": 42,
+    "root_below": 171,
+    "entries_body_tip_below": 1,
+    "deepest_m": -0.18,
+    "deepest_body_tip_m": -0.084
+   },
+   "K_t090": {
+    "checked": 9405,
+    "below5cm": 38,
+    "frac": 0.004,
+    "body_tip_below": 0,
+    "root_below": 38,
+    "entries_body_tip_below": 0,
+    "deepest_m": -0.069,
+    "deepest_body_tip_m": 0.0
+   },
+   "S_t090": {
+    "checked": 367,
+    "below5cm": 0,
+    "frac": 0.0,
+    "body_tip_below": 0,
+    "root_below": 0,
+    "entries_body_tip_below": 0,
+    "deepest_m": 0.0,
+    "deepest_body_tip_m": 0.0
+   },
+   "W_t090": {
+    "checked": 15390,
+    "below5cm": 45,
+    "frac": 0.0029,
+    "body_tip_below": 24,
+    "root_below": 21,
+    "entries_body_tip_below": 2,
+    "deepest_m": -0.079,
+    "deepest_body_tip_m": -0.079
+   },
+   "C_t105": {
+    "checked": 52550,
+    "below5cm": 1290,
+    "frac": 0.0245,
+    "body_tip_below": 30,
+    "root_below": 1260,
+    "entries_body_tip_below": 2,
+    "deepest_m": -0.27,
+    "deepest_body_tip_m": -0.209
+   },
+   "K_t105": {
+    "checked": 13508,
+    "below5cm": 70,
+    "frac": 0.0052,
+    "body_tip_below": 0,
+    "root_below": 70,
+    "entries_body_tip_below": 0,
+    "deepest_m": -0.069,
+    "deepest_body_tip_m": 0.0
+   },
+   "S_t105": {
+    "checked": 11708,
+    "below5cm": 23,
+    "frac": 0.002,
+    "body_tip_below": 0,
+    "root_below": 23,
+    "entries_body_tip_below": 0,
+    "deepest_m": -0.084,
+    "deepest_body_tip_m": 0.0
+   },
+   "W_t105": {
+    "checked": 30577,
+    "below5cm": 24,
+    "frac": 0.0008,
+    "body_tip_below": 11,
+    "root_below": 13,
+    "entries_body_tip_below": 2,
+    "deepest_m": -0.059,
+    "deepest_body_tip_m": -0.059
+   },
+   "C_t120": {
+    "checked": 53555,
+    "below5cm": 742,
+    "frac": 0.0139,
+    "body_tip_below": 0,
+    "root_below": 742,
+    "entries_body_tip_below": 0,
+    "deepest_m": -0.246,
+    "deepest_body_tip_m": 0.0
+   },
+   "K_t120": {
+    "checked": 13502,
+    "below5cm": 80,
+    "frac": 0.0059,
+    "body_tip_below": 0,
+    "root_below": 80,
+    "entries_body_tip_below": 0,
+    "deepest_m": -0.069,
+    "deepest_body_tip_m": 0.0
+   },
+   "S_t120": {
+    "checked": 12155,
+    "below5cm": 15,
+    "frac": 0.0012,
+    "body_tip_below": 0,
+    "root_below": 15,
+    "entries_body_tip_below": 0,
+    "deepest_m": -0.1,
+    "deepest_body_tip_m": 0.0
+   },
+   "W_t120": {
+    "checked": 31320,
+    "below5cm": 97,
+    "frac": 0.0031,
+    "body_tip_below": 36,
+    "root_below": 61,
+    "entries_body_tip_below": 3,
+    "deepest_m": -0.22,
+    "deepest_body_tip_m": -0.218
+   }
+  },
+  "motion": {
+   "C": {
+    "step_rel_root_max_m": 0.451,
+    "step_rel_root_p99_m": 0.337,
+    "entry_frames_gt0p25m": 24,
+    "entry_frames_gt0p5m": 0,
+    "accel_rel_root_max_m": 0.448,
+    "entry_frames_accel_gt0p15m": 62,
+    "extent_shrink_max_m_before_tstar": 0.121,
+    "entries_shrink_gt0p05m": 7,
+    "extent_grow_max_m_per_frame": 0.332,
+    "top_steps": [
+     [
+      "HC182",
+      0.451
+     ],
+     [
+      "HC091",
+      0.359
+     ],
+     [
+      "HC092",
+      0.333
+     ],
+     [
+      "HC100",
+      0.322
+     ],
+     [
+      "HC088",
+      0.291
+     ]
+    ]
+   },
+   "K": {
+    "step_rel_root_max_m": 0.163,
+    "step_rel_root_p99_m": 0.16,
+    "entry_frames_gt0p25m": 0,
+    "entry_frames_gt0p5m": 0,
+    "accel_rel_root_max_m": 0.132,
+    "entry_frames_accel_gt0p15m": 0,
+    "extent_shrink_max_m_before_tstar": 0.0,
+    "entries_shrink_gt0p05m": 0,
+    "extent_grow_max_m_per_frame": 0.147,
+    "top_steps": [
+     [
+      "K065",
+      0.163
+     ],
+     [
+      "K014",
+      0.159
+     ],
+     [
+      "K066",
+      0.139
+     ],
+     [
+      "K038",
+      0.132
+     ],
+     [
+      "K002",
+      0.128
+     ]
+    ]
+   },
+   "S": {
+    "step_rel_root_max_m": 0.556,
+    "step_rel_root_p99_m": 0.263,
+    "entry_frames_gt0p25m": 6,
+    "entry_frames_gt0p5m": 1,
+    "accel_rel_root_max_m": 0.684,
+    "entry_frames_accel_gt0p15m": 126,
+    "extent_shrink_max_m_before_tstar": 0.089,
+    "entries_shrink_gt0p05m": 4,
+    "extent_grow_max_m_per_frame": 0.193,
+    "top_steps": [
+     [
+      "HSC182p",
+      0.556
+     ],
+     [
+      "HSC164m",
+      0.263
+     ],
+     [
+      "HSC188p",
+      0.257
+     ],
+     [
+      "HSC226p",
+      0.247
+     ],
+     [
+      "HSC187m",
+      0.243
+     ]
+    ]
+   },
+   "W": {
+    "step_rel_root_max_m": 0.159,
+    "step_rel_root_p99_m": 0.138,
+    "entry_frames_gt0p25m": 0,
+    "entry_frames_gt0p5m": 0,
+    "accel_rel_root_max_m": 0.12,
+    "entry_frames_accel_gt0p15m": 0,
+    "extent_shrink_max_m_before_tstar": 0.108,
+    "entries_shrink_gt0p05m": 1,
+    "extent_grow_max_m_per_frame": 0.135,
+    "top_steps": [
+     [
+      "WC021",
+      0.159
+     ],
+     [
+      "WC065",
+      0.15
+     ],
+     [
+      "WC092",
+      0.135
+     ],
+     [
+      "WC093",
+      0.106
+     ],
+     [
+      "WC067",
+      0.1
+     ]
+    ]
+   }
+  }
+ }
+}

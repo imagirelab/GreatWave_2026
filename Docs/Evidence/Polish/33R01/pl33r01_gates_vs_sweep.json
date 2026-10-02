@@ -1,0 +1,217 @@
+{
+ "rule_ja": "読むもの：<描画>/pl28u_regress.json（pl28u_regress.py の出力：t28_white＝爪なし、t28_claws＝爪あり）と <描画>/eval23/off_<組>/metrics.json（評価器 23）。\n  - 78・130・131：定義のままの読みの最大（silhouettes_definition_reading）\n  - 132・72 σ12：大きな輪郭の読み（large_form.s12 の 132_max_px・72_p95_px）\n  - 132 細部込み（raw）の最大・72 細部込みの p95（定義のままの読み。爪がこの細部を描いてよいので記録する）\n  - 評価器 23 の 4 組（線あり・線ありの爪なし・線なし・線なしの爪なし）の合格・不合格の数\nCP1・26修正01 の値は仕上げ33 の記録（Docs/Progress/Polish_33_ja.md 第 6 節の表）から写した。\n使い方：py -3.10 -B Tools/GWWaveGen/pl33r01/sweep_gates.py --after-run … --out …",
+ "before_run": "Unity/Build/Polish/33r01/sweep/r_final",
+ "after_run": "Unity/Build/Polish/33r01/fix01/r_fix01",
+ "gates": {
+  "78": {
+   "after_noclaws": 2.741,
+   "after_claws": 2.741,
+   "before_noclaws": 2.741,
+   "before_claws": 2.741,
+   "CP1": 2.772,
+   "26修正01": 1.641,
+   "gate_px": 4.0,
+   "pass_after": true,
+   "regress_vs_before_px": 0.0
+  },
+  "130": {
+   "after_noclaws": 3.5815,
+   "after_claws": 3.5815,
+   "before_noclaws": 3.5815,
+   "before_claws": 3.5815,
+   "CP1": 1.968,
+   "26修正01": 1.953,
+   "gate_px": 4.0,
+   "pass_after": true,
+   "regress_vs_before_px": 0.0
+  },
+  "131": {
+   "after_noclaws": 3.4419,
+   "after_claws": 3.4419,
+   "before_noclaws": 3.4419,
+   "before_claws": 3.4419,
+   "CP1": 1.814,
+   "26修正01": 1.798,
+   "gate_px": 4.0,
+   "pass_after": true,
+   "regress_vs_before_px": 0.0
+  },
+  "132_s12": {
+   "after_noclaws": 3.5576,
+   "after_claws": 3.5789,
+   "before_noclaws": 3.5576,
+   "before_claws": 3.5576,
+   "CP1": 1.326,
+   "26修正01": 1.574,
+   "gate_px": 4.0,
+   "pass_after": true,
+   "regress_vs_before_px": 0.0213
+  },
+  "72_s12_p95": {
+   "after_noclaws": 3.8507,
+   "after_claws": 3.9059,
+   "before_noclaws": 3.8507,
+   "before_claws": 3.6353,
+   "CP1": 1.558,
+   "26修正01": 1.723,
+   "gate_px": 4.0,
+   "pass_after": true,
+   "regress_vs_before_px": 0.0552
+  }
+ },
+ "raw_detail_with_claws": {
+  "132_raw_max": {
+   "after_claws": 5.2998,
+   "before_claws": 5.3095,
+   "after_noclaws": 5.9472
+  },
+  "72_raw_p95": {
+   "after_claws": 4.9217,
+   "before_claws": 5.1682,
+   "after_noclaws": 5.6807
+  },
+  "72_raw_max": {
+   "after_claws": 6.9831,
+   "before_claws": 7.9229,
+   "after_noclaws": 7.983
+  }
+ },
+ "eval23": {
+  "before": {
+   "line": {
+    "pass": 2,
+    "fail": 7,
+    "other": 14
+   },
+   "line_noclaws": {
+    "pass": 2,
+    "fail": 7,
+    "other": 14
+   },
+   "noline": {
+    "pass": 4,
+    "fail": 5,
+    "other": 14
+   },
+   "noline_noclaws": {
+    "pass": 4,
+    "fail": 5,
+    "other": 14
+   }
+  },
+  "after": {
+   "line": {
+    "pass": 2,
+    "fail": 7,
+    "other": 14
+   },
+   "line_noclaws": {
+    "pass": 2,
+    "fail": 7,
+    "other": 14
+   },
+   "noline": {
+    "pass": 4,
+    "fail": 5,
+    "other": 14
+   },
+   "noline_noclaws": {
+    "pass": 4,
+    "fail": 5,
+    "other": 14
+   }
+  }
+ },
+ "before": {
+  "noclaws": {
+   "78": 2.741,
+   "130": 3.5815,
+   "131": 3.4419,
+   "132_s12": 3.5576,
+   "72_s12_p95": 3.8507,
+   "132_raw_max": 5.9472,
+   "72_raw_p95": 5.6807,
+   "72_raw_max": 7.983,
+   "pass_silhouette": true
+  },
+  "claws": {
+   "78": 2.741,
+   "130": 3.5815,
+   "131": 3.4419,
+   "132_s12": 3.5576,
+   "72_s12_p95": 3.6353,
+   "132_raw_max": 5.3095,
+   "72_raw_p95": 5.1682,
+   "72_raw_max": 7.9229,
+   "pass_silhouette": true
+  },
+  "eval23": {
+   "line": {
+    "pass": 2,
+    "fail": 7,
+    "other": 14
+   },
+   "line_noclaws": {
+    "pass": 2,
+    "fail": 7,
+    "other": 14
+   },
+   "noline": {
+    "pass": 4,
+    "fail": 5,
+    "other": 14
+   },
+   "noline_noclaws": {
+    "pass": 4,
+    "fail": 5,
+    "other": 14
+   }
+  }
+ },
+ "after": {
+  "noclaws": {
+   "78": 2.741,
+   "130": 3.5815,
+   "131": 3.4419,
+   "132_s12": 3.5576,
+   "72_s12_p95": 3.8507,
+   "132_raw_max": 5.9472,
+   "72_raw_p95": 5.6807,
+   "72_raw_max": 7.983,
+   "pass_silhouette": true
+  },
+  "claws": {
+   "78": 2.741,
+   "130": 3.5815,
+   "131": 3.4419,
+   "132_s12": 3.5789,
+   "72_s12_p95": 3.9059,
+   "132_raw_max": 5.2998,
+   "72_raw_p95": 4.9217,
+   "72_raw_max": 6.9831,
+   "pass_silhouette": true
+  },
+  "eval23": {
+   "line": {
+    "pass": 2,
+    "fail": 7,
+    "other": 14
+   },
+   "line_noclaws": {
+    "pass": 2,
+    "fail": 7,
+    "other": 14
+   },
+   "noline": {
+    "pass": 4,
+    "fail": 5,
+    "other": 14
+   },
+   "noline_noclaws": {
+    "pass": 4,
+    "fail": 5,
+    "other": 14
+   }
+  }
+ }
+}
