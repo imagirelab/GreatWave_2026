@@ -1,0 +1,111 @@
+{
+ "schema": "GreatWave.ArtSample02.run/1",
+ "deliver_start_local": "2026-10-04T04:02",
+ "deliver_end_local": "2026-10-04T04:11",
+ "sample_span_local_ja": "2026-10-04 1:21 頃〜4:01（背の部 1:21〜2:25、爪の部〜2:28、組み立て 2:30〜2:48、修正の回 1 2:49〜4:01）、渡す準備 2026-10-04T04:02〜",
+ "python": "3.10.6",
+ "numpy": "2.2.6",
+ "unity": "6000.4.3f1（batchmode、AS01SampleRender。新しい C# は無い）",
+ "blender": "Blender 5.2.2（Workbench の粘土）",
+ "houdini": "使っていない",
+ "commands": [
+  "py -3.10 -B Tools/GWWaveGen/as02/as02_deliver.py（爪の近くの図を描き、背の図を描き直し、図 6 枚を Docs/Evidence/ArtSample02 へ）",
+  "py -3.10 -B Tools/GWWaveGen/as02/as02_deliver_record.py 2026-10-04T04:02",
+  "各部のコマンドは下の sub_records の run.json にある"
+ ],
+ "reference_model": {
+  "file": "G:/research/model/wave_repair_zbrush2.obj",
+  "sha256": "AB4124F9720D6E27D80E2AE063916292898C87606A64441043F6A64DE3D53D40",
+  "use_ja": "爪の部だけが置き方の数を測るために一時キャッシュで読み、測った後に消した（cache_log）。生成器は OBJ を読まない（F13-1）。背の部・組み立て・修正の回 1・渡す準備は読んでいない",
+  "cache_log": "Unity/Build/Polish/sample02/claws/ref/as02_ref_cache_log.json",
+  "cache_deleted": true,
+  "cache_dir_exists_now": false
+ },
+ "sculpture_photos_ja": "爪の部が 8 枚を作業の一時フォルダー（リポジトリの外）で縮めて見ただけで、消した。写真も写真から作った画像もリポジトリに入れていない",
+ "user_files": {
+  "claw_analysis": "G:/research/爪形分析/final_100_claws_centerlines_from_fill_masks_v3/clawNNN/{fill_mask.png, centerline_raw.csv}、final_100_claw_structural_points_v2/final_points_long.csv（読み取りのみ。D14・D23）",
+  "claw_analysis_sha256_ja": "マスク・中心線の SHA-256 は Build/Design/32/list+ids/ds32_user100_registration.json の user_files_sha256、構造点 39474fff9dbd20f42436a0990d47bd0ec56d41b90e3d53e33d04484aae75c539",
+  "claw_models": {
+   "G:/research/model/claw_mid.obj": "7f4c897df63ca9309c20e3997b91d7ba334e3ec52c1d1e3a2feea7b3b05b3919",
+   "G:/research/model/claw_low.obj": "a5098bd5dd6ca0ed8af7d251d7f2be3541ccd7b1a920fcfc5afe6a029e22e4ff"
+  },
+  "in_repo_ja": "マスク・画像・模型のファイルはリポジトリへ写していない。図 as02_1・as02_2 には、マスクの縁を我々が線（緑）で描いたものだけがある。マスクの塗りと claw_mid の描画が入った一覧（s1_claw_gallery）は Git 対象外の Build だけ"
+ },
+ "painting_image": {
+  "path": "Docs/References/Met_JP1847_DP130155.jpg",
+  "sha256": "cbb9988f2f18b9180a1cc0cf5dbb0e3bbf8f2e85d17930cf6ca9ab36fac36303"
+ },
+ "sub_records": {
+  "Unity/Build/Polish/sample02/claws/run.json": "db6e7979db3613e575d5e067d186685bf27e242b42583545630ab91c73e3df7a",
+  "Unity/Build/Polish/sample02/claws/metrics.json": "2870abe37d6556ca203fd03b9d3b942fb1205253159b2ca2fcd5203ecf370f17",
+  "Unity/Build/Polish/sample02/claws/ref/as02_ref_cache_log.json": "0f149eacccd57c8386c5d6c16a31d745627e9e1d9406d88263fb6f9b5cde7b57",
+  "Unity/Build/Polish/sample02/back/final/run.json": "fb7d4b1807c34022edd5a51f0e1b885740de4719a2e909643fe417e8396fb9e8",
+  "Unity/Build/Polish/sample02/back/final/metrics.json": "043bd6015aa9daa4ca9c83586a2185e900d94c1ba620454a9e3ea2c988bfed2c",
+  "Unity/Build/Polish/sample02/assemble/run.json": "a0284cbeaeb2f489ed1402c89d2ff24d1a5847df0bd7edd14074cd713db14126",
+  "Unity/Build/Polish/sample02/assemble/metrics.json": "f00b54df150157a330e4b2da10faf55778e4e3973f72f64b149ed33344124aca",
+  "Unity/Build/Polish/sample02/fix01/run.json": "c0700c5e4eb71123db5c19efd47818d08532b4870b73dc7ce0a0e0a524f40a5a",
+  "Unity/Build/Polish/sample02/fix01/metrics.json": "7c03e14eba47b296cc4d2a2a711a393279dbdafa4b84d4090dde277908a12933",
+  "Unity/Build/Polish/sample02/rules_check_AS02B_A.json": "6e907c02300eacf5f570bbc8922b27b503a1fe2334790f14fa62bda802e58a4a",
+  "Unity/Build/Polish/sample02/rules_check.json": "72adb10b021ccbe2b3d19b970b5a3c9dd762c7352f58f79354a2a50bf5d6b20f",
+  "Unity/Build/Polish/sample02/fix01/assemble/claws/mesh/as02_claws_report.json": "37d299a693352d1725fa06a92058fd9beebb551ec769c0c7ad013ea5c56d68d9",
+  "Unity/Build/Polish/sample02/fix01/assemble/claws/mesh/ds33_claw_layout.json": "495b191d0aa4321721be2a88e98cca1cfbc5c6ddd3d283a39fd2510102d31171",
+  "Unity/Build/Polish/sample02/fix01/back/final/cand/kstarAS02C_a45.gwb": "56c6c85d7ec5d6f4d979b9b7148ddc59905b6f30f834875e62c0fa1ec932e4a7",
+  "Unity/Build/Polish/sample02/fix01/back/final/cand/back_design.json": "9f22d72a5db5ed542d8fa0d7e6de65b6d427ef2fa594caa33351653f7461f9ea",
+  "Unity/Build/Polish/sample02/fix01/back/final/measure.json": "6129d68bc8cefbc853bea09573fd6e6843c003be9af2f790e6633d671abd3c83",
+  "Unity/Build/Polish/sample02/fix01/claws/conflict_search.json": "cb6d4caead17b36b4eff3f46147f2be934197661d1c88ba09e09363296107900",
+  "Unity/Build/Polish/sample02/deliver/deliver_sheets.json": "74134dd786505d6ef4b8052da24931512560a8414eccf4a81bd7adf94488e67b"
+ },
+ "tools_sha256": {
+  "Tools/GWWaveGen/as02/as02_asm_attr_pin.py": "c4b7cfede26be571e843b72f33ae5b65957d0bb17c44c9b4a7763a3e2799c6dc",
+  "Tools/GWWaveGen/as02/as02_asm_eval.sh": "55582ba2e39290c9b1cf0418fc2cca15b38e5208a7389e8d3e5f21ea667e9727",
+  "Tools/GWWaveGen/as02/as02_asm_pkg.py": "a9d1118368b2d3831c509abc62b9f13bbe2db0d8f01813a3745fb36fac3e96c5",
+  "Tools/GWWaveGen/as02/as02_asm_record.py": "3b849bab7754241d3f29c54116c8bb19d906dd162f8a51393d4749d4355c6d9f",
+  "Tools/GWWaveGen/as02/as02_asm_render.sh": "857824e02552163da652608e0656bca352674d9a6cb16bf96e9e7067e67ff3fe",
+  "Tools/GWWaveGen/as02/as02_asm_rules.py": "ea987a2cdb2ba565c62b5b043cc3ce46f5573a0d1b2e4148bfc21d6072afa40a",
+  "Tools/GWWaveGen/as02/as02_asm_sheets.py": "218228e36a8822e21a81d6812f2ab69e333b34f3091f57592452873efed12111",
+  "Tools/GWWaveGen/as02/as02_asm_unity.ps1": "b1aeb2e05879afa02c78fa6670a9c4d3b0c2a9705b991ad5fbbf90a6ca263ed0",
+  "Tools/GWWaveGen/as02/as02_claw_params.txt": "07ae202c3d7914748eda43497dc6774cab69c3f0a1b0974f769dd53b88edffaa",
+  "Tools/GWWaveGen/as02/as02_claws100.py": "6adf033eceedbf99d835b8b2b725a37dca98fa6b8dc28026c83ae25a4854a051",
+  "Tools/GWWaveGen/as02/as02_deliver.py": "89bdb5a50bfc0add8656d22a9e9f5c9c9b13dfc4dc3c843d2936520d4b4815a7",
+  "Tools/GWWaveGen/as02/as02_deliver_record.py": "dbcaad81f7bebc706f24cf2ec6b64d3788c673ae2f3dfd0eedf45ab219aabc57",
+  "Tools/GWWaveGen/as02/as02_fix01_back_chart.py": "87e11272b2f41396a7706076eea7e5ec210fa9f2cf1fe8d4b2541b08749b4632",
+  "Tools/GWWaveGen/as02/as02_fix01_conflict_search.py": "18a06c4f9424f7a416db905f6ba246ed6949079be878cbb0a6a7dd3cdb62039f",
+  "Tools/GWWaveGen/as02/as02_fix01_record.py": "70a4d2da533170684b81aaf16801c305d584a16c4c27fd640c484c2e56272f67",
+  "Tools/GWWaveGen/as02/as02_fix01_rules.py": "0b9b83d6b81b913f49b24d7ac18363839bf9dbdb2aedf285fe05473e5f96fbbf",
+  "Tools/GWWaveGen/as02/as02_fix01_sheets.py": "d3ce535b8f767a4be3ba33d9644d4272bf84f29dc8a49700f69461389e906273",
+  "Tools/GWWaveGen/as02/as02_gallery.py": "1a69bbce577be99f002bf791033270dbf04ce95e51a9985a758ce5d0d7102425",
+  "Tools/GWWaveGen/as02/as02_gates.py": "4ca458a26b84879b0223617fe3c91ffaaeee4e836e3d71f9376b1ba30f36f4a9",
+  "Tools/GWWaveGen/as02/as02_mini_render.py": "c18873d33855722653234bd71a55ff83b86118cfae5faeb13b4e23a9a89ca546",
+  "Tools/GWWaveGen/as02/as02_record.py": "4505acfe067485d87935031207f5b1f231a2852269cea1ef75a59ed9acc621bb",
+  "Tools/GWWaveGen/as02/as02_ref_claws.py": "5d507316d031e991d864fc067a390acc53769aa29b92603f97fab0d3efa7a89f",
+  "Tools/GWWaveGen/as02/as02_run_eval.sh": "5803f54e9012e25560e22db32ab4b0e50f34494f0b112c1fea7dafa36bb5649d",
+  "Tools/GWWaveGen/as02/as02_run_render.sh": "339ae740f7be313abc5efdda7ce87f28a885fef787215a9c990d989483e081ec",
+  "Tools/GWWaveGen/as02/as02_run_unity.ps1": "63b5b3d8192927f343f26bbba44017bf01d3d02a89f9b49bda6ca91b469b7c05",
+  "Tools/GWWaveGen/as02/as02_sheets.py": "ca2be25ccaf21628315b223f88834be82c56c11a766c0b8030c4f519a65d8afb",
+  "Tools/GWWaveGen/as02/as02_user_claw_standard.py": "978f110d98a73d1fe44664407d272062e15be3356be1bda6798e9bc08919e49d",
+  "Tools/GWWaveGen/as02/back_build.py": "edbdb71ae061cbbea6202963f772f21461f142ca61a483656ef2269a9d7a2792",
+  "Tools/GWWaveGen/as02/back_chart.py": "bef6616d69dab63aa4dda71bc3c64047bfca055a71b287abe7245084afeda3e0",
+  "Tools/GWWaveGen/as02/back_check.py": "b52903454abcad393f386be29a0eb04f5f35607295c2c4f007c57ef1f786c271",
+  "Tools/GWWaveGen/as02/back_common.py": "2d572c6c39722c84e1dafb048b77d714a373881d47502db51447e028a56b35b8",
+  "Tools/GWWaveGen/as02/back_measure.py": "08bb1c134c01cd8c63348fce3ab9e6fefbd0614549ece69fb83c9a048c76a086",
+  "Tools/GWWaveGen/as02/back_record.py": "c650794b14d759d1ffeee5ff22ab1438ff6128c8b1e5cbbbf0d578e5b34a53c2",
+  "Tools/GWWaveGen/as02/back_rubric_diff.py": "3e34faaccc28b4c30968da09c6f2b7fe6d0a58e4ff4b731f907529a97ca1e7df",
+  "Tools/GWWaveGen/as02/back_sheet.py": "c0435bffe62202148339e52faade31c128a7b7c61d01d5878c9df7d0f54791b9",
+  "Tools/GWWaveGen/as02/back_tt_sheet.py": "6454f83e2d97b67b4d0755dd16e669b9508b2e8d89cb1e61c5a99e10816614dc"
+ },
+ "evidence_sha256": {
+  "Docs/Evidence/ArtSample02/as02_1_painting_view.png": "bfe69c2b2e97f2f05d5fea9a79800733146b551144dd71571ef29ac287072d38",
+  "Docs/Evidence/ArtSample02/as02_2_claws_closeup.png": "4cd9c6c9203cb360d84424e136702a761192a7ac2e954bddfd94179b57d068e6",
+  "Docs/Evidence/ArtSample02/as02_3_back_clay.png": "8a62bd020b9ae8eea6c177ec1095b9a88ab7cdaf4344ce05a04ae34f3de3825e",
+  "Docs/Evidence/ArtSample02/as02_4_back_chart.png": "9647cfb945becd561aaf2bdd39a11ab0497e4ef0d2a6521965c28f728937d185",
+  "Docs/Evidence/ArtSample02/as02_5_views.png": "354d75c215d1a5346ebdea3ff261cfeb1d8a7320699f7c4cd2fd31eb5239bc94",
+  "Docs/Evidence/ArtSample02/as02_6_turntable.png": "c926ef0030b3657cc62bf78d25ed93350e986afe422ee47d31dd9e8a6d95f581",
+  "Docs/Evidence/ArtSample02/metrics.json": "f75c50b374e6c7da166051f8e1331203e71bd5842dce986d894874c5cfc5595f",
+  "Docs/Evidence/ArtSample02/rules_check.json": "72adb10b021ccbe2b3d19b970b5a3c9dd762c7352f58f79354a2a50bf5d6b20f"
+ },
+ "incidents_ja": [
+  "修正の回 1 で、Blender の粘土の描画を相対の出力の場所で回し、静止画 17 枚が C:\\Unity\\Build\\Polish\\sample02\\fix01\\back\\final\\renders に書かれた。回 1 で G: の fix01/back/final/renders へ移した。渡す準備で、残っていた空のフォルダー（C:\\Unity\\Build\\Polish 以下、10/4 3:31 にこの回が作ったもの、ファイル 0）を rmdir で片付けた。C:\\Unity\\Build\\ArtFirst（前からある）は触っていない",
+  "渡す準備で、背の図（as02_fix01_back_chart.py）の説明の「見本02（水色）」が線の本当の色（緑の点線）と違っていたので、文だけ直して描き直した（数は同じ measure.json）"
+ ],
+ "git": "add・commit・push はしていない（コミットは進行役。一覧は Unity/Build/Polish/sample02/commit_list.txt）"
+}

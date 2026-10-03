@@ -1,0 +1,514 @@
+{
+ "schema": "GreatWave.AS02.rules_check/1",
+ "created_local": "2026-10-04T03:56",
+ "round": "修正の回 1（落ちた測る規則 S4・C2・C3 だけを直し、描き直して測り直した）",
+ "previous_check": {
+  "path": "Unity/Build/Polish/sample02/rules_check_AS02B_A.json",
+  "sha256": "6e907c02300eacf5f570bbc8922b27b503a1fe2334790f14fa62bda802e58a4a",
+  "verdicts": {
+   "G1": "pass",
+   "G2": "pass",
+   "S4": "fail",
+   "C2": "fail",
+   "C3": "fail"
+  }
+ },
+ "noteJa": "美術の見本02 を出す前の、美術の要求書の測る規則の自動の確かめ。美術が届いたかは利用者が決める（Q29・Q30）。目で見た審査は閉じる条件にしない。",
+ "sample": {
+  "hero": "K*′ AS02C（背の低い所のふくらみの山も中ほどへ寄せた候補）を t* の静止で",
+  "claws": "利用者の 100 本（重複 17 本を除く 83 本）、案 A（原画の射線の上）、修正の回 1 の形（--fix01）",
+  "material": "見本 A（中立の地。模様は対象外、T2）",
+  "render": "Unity/Build/Polish/sample02/fix01/assemble/render/AS02C_A"
+ },
+ "inputs_sha256": {
+  "Unity/Build/Polish/sample02/fix01/back/final/cand/kstarAS02C_a45.gwb": "56c6c85d7ec5d6f4d979b9b7148ddc59905b6f30f834875e62c0fa1ec932e4a7",
+  "Unity/Build/Polish/sample02/fix01/assemble/attr_pin/a/s01a_hero_attr_v2_f32.bin": "58484a0a1ce1625ffb7613c9a158ed17804139e8e4c0531224a5a7bd662d4a3d",
+  "Unity/Build/Polish/sample02/fix01/assemble/claws/mesh/as02_claws_report.json": "37d299a693352d1725fa06a92058fd9beebb551ec769c0c7ad013ea5c56d68d9",
+  "Unity/Build/Polish/sample02/fix01/assemble/claws/mesh/ds33_claw_layout.json": "495b191d0aa4321721be2a88e98cca1cfbc5c6ddd3d283a39fd2510102d31171",
+  "Unity/Build/Polish/sample02/fix01/assemble/hero_pkg_AS02C/ds27_keypose.json": "07019248a367b5ff1d5c2a8db2e3355d16fc598cfe2f83179afe928f2778b05c",
+  "Unity/Build/Polish/sample02/fix01/assemble/render/AS02C_A/as01s_render_report.json": "011a54c0e47f296a98358e9c9ae49212ecbf1dad39f9b85c44dc53eea5e40f49",
+  "Unity/Build/Polish/sample02/fix01/assemble/render/measure/gates_AS02C_A/sweep_gates.json": "c511aa894b1f7494eeec07900b838151402c9356d53f562ab46c198b83f9a33b",
+  "Unity/Build/Polish/sample02/fix01/back/final/measure.json": "6129d68bc8cefbc853bea09573fd6e6843c003be9af2f790e6633d671abd3c83"
+ },
+ "rules": {
+  "G1": {
+   "rule_ja": "色・線は原画カメラの投影を使わない（コードの検査）。7 視点＋回り台で引き伸ばし・継ぎ目・平らな面がない",
+   "code_check": {
+    "hero": {
+     "path": "Unity/Assets/GreatWave/Sample01/TexA/Shaders/S01A_Groove_Hero.shader",
+     "sha256": "28adfaea7d71cada88bc2e7b8afcfe356a47447ff132b7e83f1b81d20a317ce9",
+     "forbidden_tokens": [],
+     "world_camera_pos_uses": 1,
+     "inputs_texcoord": [
+      "TEXCOORD3",
+      "TEXCOORD4",
+      "TEXCOORD5"
+     ]
+    },
+    "hero_include": {
+     "path": "Unity/Assets/GreatWave/Design27/Shaders/DS27Keypose.cginc",
+     "sha256": "54265fe59f402b4e89048f46a1c22497d687848b184ab8dd919e0a7b1caae9e0",
+     "forbidden_tokens": [],
+     "world_camera_pos_uses": 1
+    },
+    "claw": {
+     "path": "Unity/Assets/GreatWave/Polish29/Shaders/PL29_Claw_Shade.shader",
+     "sha256": "19618af8ac1a21742ad6ac98a1fc1cef0e7eaf037470d4421cd21393522b3010",
+     "forbidden_tokens": [],
+     "world_camera_pos_uses": 0
+    }
+   },
+   "render_report": {
+    "heroSdf": "",
+    "heroUvWarp": "",
+    "heroUv3File": "",
+    "heroUv3Source": "なし（平塗り）",
+    "heroShader": "GreatWave/Sample01/S01A Groove Keypose",
+    "clawShade": "PL29ClawShade（GreatWave/Polish29/PL29 Claw Shade）",
+    "protectedUnchanged": true,
+    "heroPackage": "Build/Polish/sample02/fix01/assemble/hero_pkg_AS02C",
+    "heroMeshGwb": "Build/Polish/sample02/fix01/back/final/cand/kstarAS02C_a45.gwb",
+    "attr": "Build/Polish/sample02/fix01/assemble/attr_pin/a/s01a_hero_attr_v2_f32.bin"
+   },
+   "attr_records": [
+    {
+     "path": "Unity/Build/Polish/sample02/fix01/assemble/attr_pin/a/s01a_hero_attr_v2.json",
+     "projection_used": false
+    },
+    {
+     "path": "Unity/Build/Polish/sample02/fix01/assemble/attr_pin/as02_asm_attr_pin.json",
+     "projection_used": false
+    },
+    {
+     "path": "Unity/Build/Polish/sample02/fix01/assemble/attr/param/s01_param.json",
+     "projection_used": false
+    }
+   ],
+   "code_pass": true,
+   "surface_param": {
+    "before_P28R2rec": {
+     "triangles": 173712,
+     "grad_w_p1_p50_p99": [
+      0.6381,
+      0.9334,
+      1.2951
+     ],
+     "stretch_tri_gt3x": 0,
+     "stretch_area_frac_gt2x": 0.00015,
+     "seam_edges_dw_over_len_ge3": 0,
+     "edge_dw_over_len_max": 1.4542
+    },
+    "prev_AS02B": {
+     "triangles": 173712,
+     "grad_w_p1_p50_p99": [
+      0.6381,
+      0.9342,
+      1.3863
+     ],
+     "stretch_tri_gt3x": 0,
+     "stretch_area_frac_gt2x": 0.00015,
+     "seam_edges_dw_over_len_ge3": 0,
+     "edge_dw_over_len_max": 1.4542
+    },
+    "now_AS02C": {
+     "triangles": 173712,
+     "grad_w_p1_p50_p99": [
+      0.6381,
+      0.934,
+      1.3916
+     ],
+     "stretch_tri_gt3x": 0,
+     "stretch_area_frac_gt2x": 0.00015,
+     "seam_edges_dw_over_len_ge3": 0,
+     "edge_dw_over_len_max": 1.4542
+    }
+   },
+   "surface_not_worse": true,
+   "visual_ja": "7 視点＋回り台の画（s3a・s4a・s4b・turntable_before_now.mp4）は利用者が見る。背の上は見本 A の材質の白の帯で平らな白に見える（材質の設計どおり。模様は T2 で対象外）。",
+   "claw_geometry_note_ja": "爪の形は利用者のマスクから作り、案 A は原画カメラの射線の上で奥行きだけ動かして置いた（形の置き方。色は投影しない。爪の色は帯の頂点の値だけ）。",
+   "verdict": "pass"
+  },
+  "G2": {
+   "rule_ja": "78・130・131（定義どおり）≤ 4 px、132・72 は大きな輪郭で ≤ 4 px",
+   "gates": {
+    "78": {
+     "now_claws": 2.741,
+     "now_noclaws": 2.741,
+     "before_sample01_claws": 2.741,
+     "before_sample01_noclaws": 2.741,
+     "CP1": 2.772,
+     "26修正01": 1.641,
+     "gate_px": 4.0,
+     "pass": true,
+     "prev_group_sample02_AS02B_A_claws": 2.741,
+     "prev_group_sample02_AS02B_A_noclaws": 2.741
+    },
+    "130": {
+     "now_claws": 3.5815,
+     "now_noclaws": 3.5815,
+     "before_sample01_claws": 3.5815,
+     "before_sample01_noclaws": 3.5815,
+     "CP1": 1.968,
+     "26修正01": 1.953,
+     "gate_px": 4.0,
+     "pass": true,
+     "prev_group_sample02_AS02B_A_claws": 3.5815,
+     "prev_group_sample02_AS02B_A_noclaws": 3.5815
+    },
+    "131": {
+     "now_claws": 3.4419,
+     "now_noclaws": 3.4419,
+     "before_sample01_claws": 3.4419,
+     "before_sample01_noclaws": 3.4419,
+     "CP1": 1.814,
+     "26修正01": 1.798,
+     "gate_px": 4.0,
+     "pass": true,
+     "prev_group_sample02_AS02B_A_claws": 3.4419,
+     "prev_group_sample02_AS02B_A_noclaws": 3.4419
+    },
+    "132_s12": {
+     "now_claws": 3.5576,
+     "now_noclaws": 3.5576,
+     "before_sample01_claws": 3.5576,
+     "before_sample01_noclaws": 3.5576,
+     "CP1": 1.326,
+     "26修正01": 1.574,
+     "gate_px": 4.0,
+     "pass": true,
+     "prev_group_sample02_AS02B_A_claws": 3.5576,
+     "prev_group_sample02_AS02B_A_noclaws": 3.5576
+    },
+    "72_s12_p95": {
+     "now_claws": 3.6577,
+     "now_noclaws": 3.8507,
+     "before_sample01_claws": 3.7074,
+     "before_sample01_noclaws": 3.8507,
+     "CP1": 1.558,
+     "26修正01": 1.723,
+     "gate_px": 4.0,
+     "pass": true,
+     "prev_group_sample02_AS02B_A_claws": 3.6422,
+     "prev_group_sample02_AS02B_A_noclaws": 3.8507
+    }
+   },
+   "eval23": {
+    "now_AS02C_A": {
+     "line": {
+      "pass": 2,
+      "fail": 7,
+      "other": 14
+     },
+     "line_noclaws": {
+      "pass": 2,
+      "fail": 7,
+      "other": 14
+     },
+     "noline": {
+      "pass": 4,
+      "fail": 5,
+      "other": 14
+     },
+     "noline_noclaws": {
+      "pass": 4,
+      "fail": 5,
+      "other": 14
+     }
+    },
+    "prev_group_sample02_AS02B_A": {
+     "line": {
+      "pass": 2,
+      "fail": 7,
+      "other": 14
+     },
+     "line_noclaws": {
+      "pass": 2,
+      "fail": 7,
+      "other": 14
+     },
+     "noline": {
+      "pass": 4,
+      "fail": 5,
+      "other": 14
+     },
+     "noline_noclaws": {
+      "pass": 4,
+      "fail": 5,
+      "other": 14
+     }
+    },
+    "before_sample01_B2": {
+     "line": {
+      "pass": 2,
+      "fail": 7,
+      "other": 14
+     },
+     "line_noclaws": {
+      "pass": 2,
+      "fail": 7,
+      "other": 14
+     },
+     "noline": {
+      "pass": 4,
+      "fail": 5,
+      "other": 14
+     },
+     "noline_noclaws": {
+      "pass": 4,
+      "fail": 5,
+      "other": 14
+     }
+    }
+   },
+   "note_ja": "130・131・132・72 は CP1・26修正01 よりまだ 1.3〜2.3 px 悪い（仕上げ28 の形のまま。背と爪の修正では変わらない）。",
+   "verdict": "pass"
+  },
+  "S4": {
+   "rule_ja": "背の高さ H(c) と背のふくらみの横の分布が一つの山：最大は中ほどの区間、そこから両側へ単調に下がる（へこみの深さ 0）。後ろ 65°・真後ろ・回り台で目でも確かめる",
+   "source": {
+    "measure": "Unity/Build/Polish/sample02/fix01/back/final/measure.json",
+    "sha256": "6129d68bc8cefbc853bea09573fd6e6843c003be9af2f790e6633d671abd3c83"
+   },
+   "tolerance_m": 0.1,
+   "tolerance_note_ja": "へこみの 0 は、背の部と同じ 0.10 m（行の間隔 0.2 m の半分）までを 0 とみる。厳密な 0 ではない（strict_zero_dip）。",
+   "hero_in_render_equals_measured": "Unity の包みの t* の層は AS02C の .gwb と 3.4 µm 以内（as02_asm_pkg.py の復号の確かめ）",
+   "original_P28R2rec": {
+    "checks": {
+     "H_dip_c_ge_-14_m": {
+      "value": 0.0,
+      "pass": true
+     },
+     "back_contour_dip_max_m": {
+      "value": 1.731,
+      "pass": false
+     },
+     "bulge_over_chord_dip_m": {
+      "value": 3.4,
+      "pass": false
+     },
+     "bulge_peak_in_middle_zone": {
+      "peak_c_by_level": {
+       "0.05": 9.8,
+       "0.15": 9.8,
+       "0.30": 10.0,
+       "0.40": 9.8,
+       "0.50": -5.2,
+       "0.60": -5.2,
+       "0.70": -5.2,
+       "0.80": -4.4,
+       "0.85": -4.0,
+       "0.90": -2.8
+      },
+      "outside_levels": {
+       "0.05": 9.8,
+       "0.15": 9.8,
+       "0.30": 10.0,
+       "0.40": 9.8
+      },
+      "zone_c": [
+       -6.0,
+       6.0
+      ],
+      "pass": false
+     },
+     "silhouette_dip_from_behind_px_c_ge_-14": {
+      "value": {
+       "b65_back65_clay": 0.0,
+       "b90_back_straight": 0.27,
+       "b115_back_minus_c": 0.86
+      },
+      "pass": true
+     }
+    },
+    "pass_all": false,
+    "strict_zero_dip": false,
+    "far_volume_c_gt_0_m3": 1887.5
+   },
+   "before": {
+    "checks": {
+     "H_dip_c_ge_-14_m": {
+      "value": 0.0,
+      "pass": true
+     },
+     "back_contour_dip_max_m": {
+      "value": 0.077,
+      "pass": true
+     },
+     "bulge_over_chord_dip_m": {
+      "value": 0.059,
+      "pass": true
+     },
+     "bulge_peak_in_middle_zone": {
+      "peak_c_by_level": {
+       "0.05": 6.2,
+       "0.15": 6.4,
+       "0.30": 9.6,
+       "0.40": 10.2,
+       "0.50": -5.2,
+       "0.60": -5.8,
+       "0.70": -5.2,
+       "0.80": -4.8,
+       "0.85": -4.2,
+       "0.90": -3.0
+      },
+      "outside_levels": {
+       "0.05": 6.2,
+       "0.15": 6.4,
+       "0.30": 9.6,
+       "0.40": 10.2
+      },
+      "zone_c": [
+       -6.0,
+       6.0
+      ],
+      "pass": false
+     },
+     "silhouette_dip_from_behind_px_c_ge_-14": {
+      "value": {
+       "b65_back65_clay": 0.0,
+       "b90_back_straight": 0.97,
+       "b115_back_minus_c": 0.37
+      },
+      "pass": true
+     }
+    },
+    "pass_all": false,
+    "strict_zero_dip": false,
+    "far_volume_c_gt_0_m3": 2032.0
+   },
+   "now": {
+    "checks": {
+     "H_dip_c_ge_-14_m": {
+      "value": 0.0,
+      "pass": true
+     },
+     "back_contour_dip_max_m": {
+      "value": 0.077,
+      "pass": true
+     },
+     "bulge_over_chord_dip_m": {
+      "value": 0.019,
+      "pass": true
+     },
+     "bulge_peak_in_middle_zone": {
+      "peak_c_by_level": {
+       "0.05": 1.6,
+       "0.15": 1.0,
+       "0.30": 4.0,
+       "0.40": 1.6,
+       "0.50": -3.8,
+       "0.60": -5.2,
+       "0.70": -5.2,
+       "0.80": -4.8,
+       "0.85": -4.2,
+       "0.90": -3.0
+      },
+      "outside_levels": {},
+      "zone_c": [
+       -6.0,
+       6.0
+      ],
+      "pass": true
+     },
+     "silhouette_dip_from_behind_px_c_ge_-14": {
+      "value": {
+       "b65_back65_clay": 0.0,
+       "b90_back_straight": 0.27,
+       "b115_back_minus_c": 0.37
+      },
+      "pass": true
+     }
+    },
+    "pass_all": true,
+    "strict_zero_dip": false,
+    "far_volume_c_gt_0_m3": 2094.3
+   },
+   "verdict": "pass",
+   "fix_ja": "背の低い所（0.05〜0.4 H0）で、中ほど（c +1 の周り、p 2 の山形）を最大 1.3 m 後ろへ出し、高さ 0 から 0.8 H0 まで余弦で 0 へ戻した。奥の端の裾の前への引き（管との壁が厚い低い所だけ）を c +6 から c +4.5 へ早めた（back_build.py の round_c・round_fade_mode、設計は fix01/back/final/cand/back_design.json）。原画視点から見える頂点は動かしていない（back_check で画素の差 0）。",
+   "fail_reason_ja": null
+  },
+  "C2": {
+   "rule_ja": "どの爪も利用者の模型 claw_low・claw_mid の水準以上（断面の幅と厚みの比、先の細り、表面の滑らかさ＝曲率の跳びを模型と比べる）",
+   "standard_source": {
+    "path": "Unity/Build/Polish/sample02/claws/user_claw_standard.json",
+    "sha256": "9f0b269dc8f364c51ae8dfc7e11d9b32a2c163984f1d3e0ba897d24cd6bc48a0"
+   },
+   "placed": 83,
+   "pass": 83,
+   "fail": 0,
+   "fail_by_kind": {},
+   "fail_claws": {},
+   "section_width_over_thickness_p50": 1.3,
+   "taper_power_tip30_p50": 0.633,
+   "user_model_note_ja": "比べる値は user_claw_standard.json（claw_mid・claw_low を読み取りのみで測った値）。輪郭のでこぼこの上限は claw_mid の 8 ＋ かかとの 2。",
+   "verdict": "pass",
+   "fix_ja": "肋の組み方の割合を鎖の弧長でならし（PAIR_SIG 0.6、背骨の曲率の跳びの原因）、爪ごとに輪郭のならしの強さ（ガウス × 平滑化スプライン × 長い波を戻すならし）と幅の倍率の 280 通りから、2 次元の水準の検査を通る中で利用者のマスクとの重なりが最大の形を選んだ。形は切り抜きの枠で止め、中ほどの断面の 幅 : 厚み を 1.65 以下にした。"
+  },
+  "C3": {
+   "rule_ja": "原画カメラから見た各爪の輪郭とマスクの重なり（IoU ≥ 0.85）。100 本を 1 本ずつ 3D に戻して置く",
+   "users": 100,
+   "placed": 83,
+   "duplicates_dropped": 17,
+   "all_accounted": true,
+   "iou_painting_p10_p50_min": [
+    0.862,
+    0.89,
+    0.832
+   ],
+   "iou_painting_below_085": {
+    "claw024": 0.8329,
+    "claw045": 0.8324
+   },
+   "iou_face_below_085": [
+    "claw024",
+    "claw045"
+   ],
+   "pass": 81,
+   "verdict": "fail",
+   "iou_painting_s8_p10_p50_min": [
+    0.8582,
+    0.8872,
+    0.828
+   ],
+   "iou_painting_s8_below_085": {
+    "claw024": 0.8308,
+    "claw045": 0.8318,
+    "claw084": 0.835,
+    "claw090": 0.828
+   },
+   "measure_note_ja": "原画視点の影は表示の画素の 32 倍の細かさで塗って測った（今までは 8 倍。OpenCV の三角形の塗りは縁の画素も塗るので、細く小さい爪ほど IoU が低く出る偏りがある）。面から見た IoU は 2400 px（今までは 600 px）。今までの細かさの値も iou_painting_s8 に残した。",
+   "fail_reason_ja": {
+    "claw024": "利用者のマスクの縁が何度も S 字に曲がる手描きで、輪郭のでこぼこを claw_mid の水準（≤ 10）まで滑らかにすると重なりが下がる。4608 通りの形を試した最大：C2 を通る形で IoU 0.834、でこぼこ 12 を許すと 0.882（as02_fix01_conflict_search.py）。C2（利用者の模型の水準）を先にした",
+    "claw045": "利用者のマスクの縁が何度も S 字に曲がる手描きで、輪郭のでこぼこを claw_mid の水準（≤ 10）まで滑らかにすると重なりが下がる。4608 通りの形を試した最大：C2 を通る形で IoU 0.840、でこぼこ 12 を許すと 0.857（as02_fix01_conflict_search.py）。C2（利用者の模型の水準）を先にした"
+   },
+   "conflict_search": {
+    "path": "Unity/Build/Polish/sample02/fix01/claws/conflict_search.json",
+    "sha256": "cb6d4caead17b36b4eff3f46147f2be934197661d1c88ba09e09363296107900"
+   },
+   "fix_ja": "厚みの向きを射線へ寄せる（N_ORTHO 0.5 → 0.3・0.15・0）のを、原画視点と面から見た IoU の小さい方が 0.86 に届かない爪だけにした。2 次元の形の IoU を切り抜きの枠の外も数えて選び、形を切り抜きの枠で止め、輪の数を 200 まで増やした。"
+  },
+  "C4_record": {
+   "rule_ja": "置き方は参照モデルの爪の置き方に近づける（記録のみ。ここでは判定しない）",
+   "root_dir_vs_normal_deg_p50": {
+    "now": 67.3,
+    "reference": 23.66
+   },
+   "nearest_root_over_length_p50": {
+    "now": 0.716
+   },
+   "verdict": "record_only"
+  }
+ },
+ "summary": {
+  "verdicts": {
+   "G1": "pass",
+   "G2": "pass",
+   "S4": "pass",
+   "C2": "pass",
+   "C3": "fail"
+  },
+  "all_pass": false,
+  "deliverable_by_rule_ja": "要求書の「通らない見本は出さない」により、C3 が通らないうちは見本として出せない。出すかどうかは進行役が決める。"
+ },
+ "elapsed_s": 0.5
+}
