@@ -1,0 +1,2499 @@
+{
+ "schema": "GreatWave.AS05.rules_check/1",
+ "date": "2026-10-05 03:02",
+ "variant": "A",
+ "sample_ja": "美術の見本05 の直しの回 fix1（Q33）・形 A：主役波 AS05A ＋ wave4 fix1 ＋ ③ の波 layer3（一艘目の船は相似で手前へ、倍率 0.7434） ＋ 材質 AS05（白い粒なし・内の縁の白の書き換え）＋ 爪 35 本（面の内 25・近い海 10、波頭の爪なし）。Unity 6000.4.3f1 の PC オフスクリーン描画で、HMD 実機ではない",
+ "render": {
+  "path": "Unity/Build/Polish/sample05/fix1/assemble/render/A9",
+  "report_sha256": "e3e09221641dee22df9df7fc2b4597155e52f35e372e45ab090edc50d29c36e2"
+ },
+ "inputs": {
+  "Unity/Build/Polish/sample05/fix1/assemble/A/mesh/union_AS05A_f1.json": "173c534e589fab1148f2d2cdd6093d61ff2f88d044840e9cba0c66e6a0846918",
+  "Unity/Build/Polish/sample05/fix1/A/mesh/union_AS05A.json": "341b45ec20f946ee2da57fba2957bccffa03d00bd451c86a473b48e3be18c73b",
+  "Unity/Build/Polish/sample05/fix1/assemble/A/mesh/wave4_layer3.json": "276d3730f14df62f315d76e0c6a6eb20fae55e1bab0b98a07948355e7c6ce683",
+  "Unity/Build/Polish/sample05/fix1/A/mesh/hero_smooth_as05a.json": "c254cb8cb25eb6885a724eb9dd89c4e4ea47f5c86e90b99b14a9e87483d1ee3f",
+  "Unity/Build/Polish/sample05/fix1/A/hero/cand/kstarAS05A_a45_rows.npz": "8c03c7ee09a0db6c9715689a2b4f85fd36e2c00acf6b5719a04f18c11d6ddd87",
+  "Unity/Build/Polish/sample05/fix1/A/hero/cand/kstarAS05A_a45.gwb": "18166cab29262a9b41f2fd0dc6bf6b60719af0dc3d73ef06db99baf853792d01",
+  "Unity/Build/Polish/sample05/fix1/A/claws/ds33_claw_layout.json": "7b7f8a8c8cf2c0d9170e8b78e0c76e60bf5ce962bff1dae55f39ae288cb19070",
+  "Unity/Build/Polish/sample05/fix1/A/eval_AS05A_back_measure.json": "0b8b1544dfe94136cd71c095347c281d09680c6011800dfec3f95871e9edafbd",
+  "Unity/Build/Polish/sample05/study/targets.json": "baa208759b52f89cd5c1d6955d3cce4d8045f5de9198dcc25f4e3541da2ec62c"
+ },
+ "judge_ja": "美術が届いたかは利用者が決める（Q29・Q30）。ここは「測れる規則を通るか」だけ",
+ "rules": {
+  "G1": {
+   "rule_ja": "色・線は原画カメラの投影を使わない（コードの検査）。面の座標の伸びが見本03 の形より増えない",
+   "shaders_AS05": {
+    "Unity/Assets/GreatWave/ArtSample05/Shaders/AS05Common.cginc": {
+     "sha256": "122ceb9f3957e464cf638b3729751fb82aad37e51877d7a4832de4d888e8ff24",
+     "base_AS04F": "Unity/Assets/GreatWave/ArtSample04/Shaders/AS04FCommon.cginc",
+     "base_sha256": "2dc27af2a65d397cf9443a0a9416f92139eb6a510e687c081abd982e8f029426",
+     "forbidden_tokens": [],
+     "code_lines_added_vs_AS04F": [
+      "float4 _MizuFringe;"
+     ],
+     "code_lines_removed_vs_AS04F": 143,
+     "code_lines_removed_with_Fleck": 28,
+     "screen_derivative_calls": {
+      "fwidth": 2,
+      "ddx": 3,
+      "ddy": 3
+     }
+    },
+    "Unity/Assets/GreatWave/ArtSample05/Shaders/AS05_Flat_Smooth_Keypose.shader": {
+     "sha256": "aed42ec3266b8274331e5a6628d7fbf34a398c2a4bc75d51194d23c083c7512f",
+     "base_AS04F": "Unity/Assets/GreatWave/ArtSample04/Shaders/AS04F_Flat_Smooth_Keypose.shader",
+     "base_sha256": "bd4fdcb308e06ccb725e8a0fb12b0e4f136023f9247701e679ff7c47916c59db",
+     "forbidden_tokens": [],
+     "code_lines_added_vs_AS04F": [],
+     "code_lines_removed_vs_AS04F": 5,
+     "code_lines_removed_with_Fleck": 5,
+     "screen_derivative_calls": {
+      "fwidth": 1,
+      "ddx": 0,
+      "ddy": 0
+     }
+    }
+   },
+   "render_tool": {
+    "path": "Unity/Assets/GreatWave/ArtSample03/Editor/AS03AsmRender.cs",
+    "sha256": "bf4f4aced42297bbaadbae02b61a7917e8dbae58fc8c221dfa5bb6c9b3e987df",
+    "same_as_sample03_checked": true
+   },
+   "boat_entry_AS05A": {
+    "path": "Unity/Assets/GreatWave/ArtSample05/Editor/AS05ABoatRender.cs",
+    "sha256": "1fa3b04d2e44e0af787f07381b9edcc4584fdf31b1d243ecd1cc47a5d785f113",
+    "forbidden_tokens": [],
+    "note_ja": "一艘目の船を原画のカメラを中心とする相似で動かしてから AS03AsmRender を呼ぶだけの入口（色・線には関わらない）"
+   },
+   "render_report": {
+    "heroSdf": "",
+    "heroUvWarp": "",
+    "heroUv3File": "",
+    "protectedUnchanged": true,
+    "as03Shader": "GreatWave/ArtSample05/AS05FlatSmoothKeypose",
+    "as03Surf": "G:/Unity/GreatWave_2026_Fresh/Unity/Build/Polish/sample05/fix1/assemble/A/mesh/union_AS05A_f1.json",
+    "as03SurfSha256": "2910d6b1af07f93879effbc657eb4746647c8508f58630bff9dc86f753dcb6e7",
+    "as03Crown": [],
+    "as03ClawGlaze": "GreatWave/ArtSample05/AS05FlatSmoothKeypose（_AS03Src 2、submesh 2、法線は t* で計算し直し）",
+    "as03Params": "G:/Unity/GreatWave_2026_Fresh/Tools/GWWaveGen/as05/as05_flat_smooth_params.txt",
+    "clawLayout": "Build/Polish/sample05/fix1/A/claws/ds33_claw_layout.json",
+    "as03HeroOutline": true,
+    "changedFiles": []
+   },
+   "union_mesh": {
+    "path": "Unity/Build/Polish/sample05/fix1/assemble/A/mesh/union_AS05A_f1.json",
+    "bin_sha256": "2910d6b1af07f93879effbc657eb4746647c8508f58630bff9dc86f753dcb6e7",
+    "channels": [
+     "position",
+     "normal",
+     "tangent",
+     "uv3",
+     "uv4",
+     "uv5",
+     "uv6"
+    ],
+    "only_geometry_attrs": true,
+    "vs_shape_union_before_mat_edge": {
+     "path": "Unity/Build/Polish/sample05/fix1/A/mesh/union_AS05A.json",
+     "identity": {
+      "position": true,
+      "normal": true,
+      "tangent": true,
+      "uv3": true,
+      "uv4": true,
+      "uv6": true,
+      "triangles": true,
+      "uv5_xyw": true,
+      "uv5_z_changed_vertices": 41553,
+      "uv5_z_changed_only_hero": true,
+      "white_to_indigo_vertices": 14338
+     }
+    }
+   },
+   "surface_stretch_front": {
+    "hero": {
+     "excluded_slivers_q_lt_0.1": 41771,
+     "patterned_face": {
+      "triangles": 321887,
+      "gu_p10_p50_p90": [
+       0.82,
+       1.044,
+       1.539
+      ],
+      "gu_tri_outside_1_3_to_3x": 622,
+      "gu_area_frac_outside_1_3_to_3x": 0.00257,
+      "gw_p10_p50_p90": [
+       0.688,
+       0.897,
+       1.109
+      ],
+      "gw_tri_outside_1_3_to_3x": 4,
+      "gw_area_frac_outside_1_3_to_3x": 1e-05
+     },
+     "white_face": {
+      "triangles": 90071,
+      "gu_p10_p50_p90": [
+       0.632,
+       0.877,
+       1.113
+      ],
+      "gu_tri_outside_1_3_to_3x": 740,
+      "gu_area_frac_outside_1_3_to_3x": 0.00882,
+      "gw_p10_p50_p90": [
+       0.567,
+       0.701,
+       0.997
+      ],
+      "gw_tri_outside_1_3_to_3x": 1531,
+      "gw_area_frac_outside_1_3_to_3x": 0.02949
+     },
+     "all_front": {
+      "triangles": 411958,
+      "gu_p10_p50_p90": [
+       0.783,
+       0.996,
+       1.471
+      ],
+      "gu_tri_outside_1_3_to_3x": 1362,
+      "gu_area_frac_outside_1_3_to_3x": 0.00373,
+      "gw_p10_p50_p90": [
+       0.633,
+       0.857,
+       1.094
+      ],
+      "gw_tri_outside_1_3_to_3x": 1535,
+      "gw_area_frac_outside_1_3_to_3x": 0.00548
+     }
+    },
+    "other_meshes": {
+     "excluded_slivers_q_lt_0.1": 4033,
+     "patterned_face": {
+      "triangles": 131109,
+      "gu_p10_p50_p90": [
+       1.0,
+       1.062,
+       2.927
+      ],
+      "gu_tri_outside_1_3_to_3x": 12561,
+      "gu_area_frac_outside_1_3_to_3x": 0.07142,
+      "gw_p10_p50_p90": [
+       0.435,
+       0.883,
+       0.999
+      ],
+      "gw_tri_outside_1_3_to_3x": 10554,
+      "gw_area_frac_outside_1_3_to_3x": 0.26385
+     },
+     "white_face": {
+      "triangles": 3088,
+      "gu_p10_p50_p90": [
+       1.015,
+       1.144,
+       1.385
+      ],
+      "gu_tri_outside_1_3_to_3x": 0,
+      "gu_area_frac_outside_1_3_to_3x": 0.0,
+      "gw_p10_p50_p90": [
+       0.415,
+       0.987,
+       1.0
+      ],
+      "gw_tri_outside_1_3_to_3x": 125,
+      "gw_area_frac_outside_1_3_to_3x": 0.10655
+     },
+     "all_front": {
+      "triangles": 134197,
+      "gu_p10_p50_p90": [
+       1.0,
+       1.064,
+       2.885
+      ],
+      "gu_tri_outside_1_3_to_3x": 12561,
+      "gu_area_frac_outside_1_3_to_3x": 0.06904,
+      "gw_p10_p50_p90": [
+       0.431,
+       0.885,
+       0.999
+      ],
+      "gw_tri_outside_1_3_to_3x": 10679,
+      "gw_area_frac_outside_1_3_to_3x": 0.25861
+     }
+    },
+    "AS02C_smooth_sample03_shape": {
+     "excluded_slivers_q_lt_0.1": 28794,
+     "patterned_face": {
+      "triangles": 262135,
+      "gu_p10_p50_p90": [
+       0.74,
+       1.06,
+       1.727
+      ],
+      "gu_tri_outside_1_3_to_3x": 22,
+      "gu_area_frac_outside_1_3_to_3x": 2e-05,
+      "gw_p10_p50_p90": [
+       0.761,
+       0.958,
+       1.114
+      ],
+      "gw_tri_outside_1_3_to_3x": 0,
+      "gw_area_frac_outside_1_3_to_3x": 0.0
+     },
+     "white_face": {
+      "triangles": 162801,
+      "gu_p10_p50_p90": [
+       0.671,
+       0.869,
+       1.029
+      ],
+      "gu_tri_outside_1_3_to_3x": 0,
+      "gu_area_frac_outside_1_3_to_3x": 0.0,
+      "gw_p10_p50_p90": [
+       0.668,
+       0.86,
+       0.963
+      ],
+      "gw_tri_outside_1_3_to_3x": 0,
+      "gw_area_frac_outside_1_3_to_3x": 0.0
+     },
+     "all_front": {
+      "triangles": 424936,
+      "gu_p10_p50_p90": [
+       0.699,
+       0.951,
+       1.482
+      ],
+      "gu_tri_outside_1_3_to_3x": 22,
+      "gu_area_frac_outside_1_3_to_3x": 2e-05,
+      "gw_p10_p50_p90": [
+       0.696,
+       0.918,
+       1.069
+      ],
+      "gw_tri_outside_1_3_to_3x": 0,
+      "gw_area_frac_outside_1_3_to_3x": 0.0
+     }
+    }
+   },
+   "surface_stretch_not_worse": false,
+   "surface_stretch_where": {
+    "this_mesh": {
+     "patterned_tri_w_outside": 4,
+     "c_m_p0_p10_p50_p90_p100": [
+      -14.62,
+      -13.6,
+      -11.16,
+      -11.05,
+      -11.03
+     ],
+     "y_m_p10_p50_p90": [
+      6.5,
+      6.6,
+      8.1
+     ]
+    },
+    "shape_mesh_before_mat_edge": {
+     "patterned_tri_w_outside": 4,
+     "c_m_p0_p10_p50_p90_p100": [
+      -14.62,
+      -13.6,
+      -11.16,
+      -11.05,
+      -11.03
+     ],
+     "y_m_p10_p50_p90": [
+      6.5,
+      6.6,
+      8.1
+     ]
+    },
+    "AS05F_material_on_sample04": {
+     "patterned_tri_w_outside": 0,
+     "c_m_p0_p10_p50_p90_p100": null,
+     "y_m_p10_p50_p90": null
+    }
+   },
+   "code_and_record_checks_pass": true,
+   "surface_stretch_note_ja": "帯の座標 w の伸び（|∇w| が 1/3〜3 倍の外）の三角形の数。直す前（組み立ての回）は形 A 795・形 B 805 で、どちらも新しい ② ③ の段の脇の切り口（行の間で断面が急に変わる所）だった。直しの回で段の出入りを広げ、行の間の跳びをなくした（fx5_B_build.py・形 A の設計）",
+   "note_ja": "材質の色は頂点の属性（帯の座標・白の印 whiteSD）とシェーダーの限られた色だけから。T6 の白の書き換え（mat_edge.py）は原画のカメラを縁の頂点を探すのにだけ使い、結果は頂点の whiteSD に残る（どの視点でも同じ面は同じ色）。7 視点と回り台の見た目は利用者が並べ図で見る。",
+   "verdict": "fail"
+  },
+  "G2": {
+   "rule_ja": "78・130・131（定義どおり）≤ 4 px、132・72 は大きな輪郭で ≤ 4 px。合わせた輪郭（主役波＋wave4）で測る",
+   "render": "Unity/Build/Polish/sample05/fix1/assemble/render/A9",
+   "gates": {
+    "78": {
+     "claws": 1.6108,
+     "noclaws": 1.6108,
+     "gate_px": 4.0,
+     "pass": true,
+     "sample02_AS02C_claws": 2.741,
+     "CP1": 2.772,
+     "26修正01": 1.641
+    },
+    "130": {
+     "claws": 3.5815,
+     "noclaws": 3.5815,
+     "gate_px": 4.0,
+     "pass": true,
+     "sample02_AS02C_claws": 3.5815,
+     "CP1": 1.968,
+     "26修正01": 1.953
+    },
+    "131": {
+     "claws": 3.4419,
+     "noclaws": 3.4419,
+     "gate_px": 4.0,
+     "pass": true,
+     "sample02_AS02C_claws": 3.4419,
+     "CP1": 1.814,
+     "26修正01": 1.798
+    },
+    "132_s12": {
+     "claws": 3.562,
+     "noclaws": 3.562,
+     "gate_px": 4.0,
+     "pass": true,
+     "sample02_AS02C_claws": 3.5576,
+     "CP1": 1.326,
+     "26修正01": 1.574
+    },
+    "72_s12_p95": {
+     "claws": 3.7971,
+     "noclaws": 3.7971,
+     "gate_px": 4.0,
+     "pass": true,
+     "sample02_AS02C_claws": 3.6577,
+     "CP1": 1.558,
+     "26修正01": 1.723
+    }
+   },
+   "eval23_record": {
+    "line": {
+     "pass": 2,
+     "fail": 7,
+     "other": 14
+    },
+    "line_noclaws": {
+     "pass": 2,
+     "fail": 7,
+     "other": 14
+    },
+    "noline": {
+     "pass": 4,
+     "fail": 5,
+     "other": 14
+    },
+    "noline_noclaws": {
+     "pass": 4,
+     "fail": 5,
+     "other": 14
+    }
+   },
+   "hero_only_A4_record": {},
+   "stale_value_in_wave4_record": {
+    "78_reported_by_wave4_task": 2.9185,
+    "78_fresh_S04": 1.6108,
+    "note_ja": "wave4 の作りの記録の 78 2.9185 は、wave4/render/as04/t28_claws の pl28u_tstar_verdict.json が 18:29 の途中の版の描画のまま残り（as02_gates.py は判定のファイルがあると測り直さない）、19:01 の描き直しで測り直されなかった値。組み立ての S04 は新しいフォルダーで測り直した（描画の画は 19:01 の版と画素まで同じ）。"
+   },
+   "source": {
+    "path": "Unity/Build/Polish/sample05/fix1/assemble/render/measure/gates_A9/sweep_gates.json",
+    "sha256": "cfc471fe705ee2a75711eda9a3cfcad0ab15c5bba38e3451883d0b7685111379"
+   },
+   "verdict": "pass"
+  },
+  "S4": {
+   "rule_ja": "背は中ほどがいちばん高く盛り上がり、両側へなだらかに下がる（一つの山）。後ろ 65°・真後ろ・回り台で目でも確かめる",
+   "H_of_c": {
+    "hero_only": {
+     "all": {
+      "max": 20.27,
+      "x_at_max": -0.8,
+      "dip_depth": 0.068,
+      "x_at_dip": -18.0,
+      "bay_depth": 11.167,
+      "x_at_bay": -27.93
+     },
+     "window_c_ge_-14": {
+      "max": 20.27,
+      "x_at_max": -0.8,
+      "dip_depth": 0.0,
+      "x_at_dip": -14.0,
+      "bay_depth": 0.262,
+      "x_at_bay": -12.2
+     }
+    },
+    "union_hero_wave4": {
+     "all": {
+      "max": 20.27,
+      "x_at_max": -0.8,
+      "dip_depth": 0.025,
+      "x_at_dip": -14.0,
+      "bay_depth": 10.788,
+      "x_at_bay": -28.381
+     },
+     "window_c_ge_-14": {
+      "max": 20.27,
+      "x_at_max": -0.8,
+      "dip_depth": 0.0,
+      "x_at_dip": -14.0,
+      "bay_depth": 0.708,
+      "x_at_bay": -12.8
+     }
+    }
+   },
+   "silhouette_from_behind": {
+    "b65_back65_clay": {
+     "AS02C_sample03_shape": {
+      "dip_px_all": 5.14,
+      "dip_px_window_c_ge_-14": 0.0,
+      "x_at_dip_all": 864.0
+     },
+     "AS04_hero_only": {
+      "dip_px_all": 1.24,
+      "dip_px_window_c_ge_-14": 0.0,
+      "x_at_dip_all": 893.0
+     },
+     "AS04_union": {
+      "dip_px_all": 3.25,
+      "dip_px_window_c_ge_-14": 0.0,
+      "x_at_dip_all": 870.0
+     }
+    },
+    "b90_back_straight": {
+     "AS02C_sample03_shape": {
+      "dip_px_all": 4.22,
+      "dip_px_window_c_ge_-14": 0.27,
+      "x_at_dip_all": 911.0
+     },
+     "AS04_hero_only": {
+      "dip_px_all": 1.1,
+      "dip_px_window_c_ge_-14": 0.27,
+      "x_at_dip_all": 948.0
+     },
+     "AS04_union": {
+      "dip_px_all": 1.82,
+      "dip_px_window_c_ge_-14": 0.27,
+      "x_at_dip_all": 889.0
+     }
+    },
+    "b115_back_minus_c": {
+     "AS02C_sample03_shape": {
+      "dip_px_all": 13.84,
+      "dip_px_window_c_ge_-14": 0.37,
+      "x_at_dip_all": 1277.0
+     },
+     "AS04_hero_only": {
+      "dip_px_all": 1.8,
+      "dip_px_window_c_ge_-14": 0.37,
+      "x_at_dip_all": 1100.0
+     },
+     "AS04_union": {
+      "dip_px_all": 1.34,
+      "dip_px_window_c_ge_-14": 0.37,
+      "x_at_dip_all": 1071.0
+     }
+    }
+   },
+   "checks": {
+    "H_dip_union_c_ge_-14_m": {
+     "value": 0.0,
+     "pass": true
+    },
+    "back_contour_dip_max_m（主役波の背、0.10 m まで）": {
+     "value": 0.077,
+     "pass": true
+    },
+    "bulge_over_chord_dip_m": {
+     "value": 0.019,
+     "pass": true
+    },
+    "silhouette_dip_from_behind_px_union_c_ge_-14（1 px まで）": {
+     "value": {
+      "b65_back65_clay": 0.0,
+      "b90_back_straight": 0.27,
+      "b115_back_minus_c": 0.37
+     },
+     "pass": true
+    }
+   },
+   "record": {
+    "bulge_peak_in_middle_zone_c_-6_6（記録。見本02 から外へ出る高さがある）": {
+     "peak_c_by_level": {
+      "0.05": 1.6,
+      "0.15": 1.0,
+      "0.30": 4.0,
+      "0.40": 1.4,
+      "0.50": -3.8,
+      "0.60": -5.4,
+      "0.70": -5.2,
+      "0.80": -4.8,
+      "0.85": -4.2,
+      "0.90": -3.0
+     },
+     "outside_levels": {}
+    }
+   },
+   "back_contour_source": {
+    "path": "Unity/Build/Polish/sample05/fix1/A/eval_AS05A_back_measure.json",
+    "rows_sha256_matches": true
+   },
+   "method_ja": "H(c) は主役波の行ごとの頂（列 18〜200 の最大）と、その行の幅の中の wave4 の頂点の高さの最大の大きい方。後ろからの輪郭は見本02 の back_measure と同じカメラ（b65・b90・b115）で、主役波は行を細かく補った点、wave4 は静止のメッシュの頂点を投影した一番上。窓 c ≥ −14 は見本02 と同じ（b区域より +c 側）。全部の行の値も記録する。",
+   "verdict": "pass"
+  },
+  "S8": {
+   "rule_ja": "原画視点で頂の下・唇の左の内側の面の帯（利用者の黄色の線）は、内側の面と同じ弧の上にあり、出っ張り・折り重なりを作らない",
+   "measure_ja": "その所の面の、内側の面の弧からの出っ張り p95 ≤ 0.15 m（形づくりの shape_common.bulge_metric：黄色の線の中の原画の射線の最初の当たりが、その行の内の面の線からどれだけ離れているか）",
+   "AS02C_sample03_shape": {
+    "rays": 9223,
+    "first_hit_inner_face_share": 0.0,
+    "first_hit_cols": {
+     "p5": 147.7,
+     "p50": 170.7,
+     "p95": 191.6
+    },
+    "first_hit_rows": {
+     "p5": 116.1,
+     "p50": 122.7,
+     "p95": 130.5
+    },
+    "dev_from_inner_face_m": {
+     "p50": 1.28,
+     "p90": 2.527,
+     "p95": 2.691,
+     "max": 3.238
+    },
+    "dev_from_circle_s4_m": {
+     "p50": 1.396,
+     "p95": 2.437
+    }
+   },
+   "AS04": {
+    "rays": 9223,
+    "first_hit_inner_face_share": 0.984,
+    "first_hit_cols": {
+     "p5": 221.2,
+     "p50": 266.5,
+     "p95": 279.8
+    },
+    "first_hit_rows": {
+     "p5": 140.3,
+     "p50": 160.9,
+     "p95": 174.8
+    },
+    "dev_from_inner_face_m": {
+     "p50": 0.0,
+     "p90": 0.0,
+     "p95": 0.0,
+     "max": 2.687
+    },
+    "dev_from_circle_s4_m": {
+     "p50": 0.109,
+     "p95": 0.237
+    }
+   },
+   "painting_view_owner_share_in_loop_S04": {
+    "hero": 0.98,
+    "claw": 0.02
+   },
+   "verdict": "pass"
+  },
+  "S9": {
+   "region4_x_lt_360_owner_share": {
+    "hero": 0.013,
+    "wave4": 0.987
+   },
+   "segment78_x_ge_360_owner_share": {
+    "hero": 1.0
+   },
+   "white_parts": [
+    {
+     "part": "hero",
+     "white_vertices": 107974,
+     "leftmost_white_c_m": -23.38
+    },
+    {
+     "part": "layer3",
+     "white_vertices": 6307,
+     "leftmost_white_c_m": -21.46
+    }
+   ],
+   "leftmost_white_c_m": -23.38,
+   "outline_nearest_edge_px_display_max_seg78": 1.63,
+   "verdict": "pass",
+   "rule_ja": "左側の白は低い。④（輪郭線の最も左の短い一区間）は青い波 wave4 が作る",
+   "note_ja": "形 A は ③ の波 layer3 があるので、shapeA_rules.k_s8_s9 で layer3 を wave4 と分けて持ち主を数える（形は形 A の係のものと同じ。白の最も左の c は材質の書き換えの前の静止のメッシュで読むが、mat_edge が変えたのは右の脇の稜（c 5.7〜13.7 m）だけ）"
+  },
+  "S10": {
+   "rule_ja": "波の峰に沿う向き（横向）に長すぎない。詰める（見本03 と比べる）",
+   "method_ja": "高さの帯（H = 20.27 m の 0.1〜0.9）ごとに、頂がその高さを越える c の範囲の幅。主役波だけは形づくりの band_extent（行の頂）、合わせた形は主役波の行の頂と wave4 の頂点の高さを c の 0.05 m おきに重ねた大きい方（主役波だけの値と 0.05 m の差がありうる）。",
+   "AS02C_sample03_shape": {
+    "0.1": {
+     "c_lo": -45.27,
+     "c_hi": 14.43,
+     "width_m": 59.7
+    },
+    "0.2": {
+     "c_lo": -34.07,
+     "c_hi": 13.85,
+     "width_m": 47.93
+    },
+    "0.3": {
+     "c_lo": -29.81,
+     "c_hi": 13.27,
+     "width_m": 43.08
+    },
+    "0.4": {
+     "c_lo": -24.72,
+     "c_hi": 12.69,
+     "width_m": 37.41
+    },
+    "0.5": {
+     "c_lo": -21.34,
+     "c_hi": 12.09,
+     "width_m": 33.43
+    },
+    "0.6": {
+     "c_lo": -12.69,
+     "c_hi": 11.37,
+     "width_m": 24.06
+    },
+    "0.7": {
+     "c_lo": -10.61,
+     "c_hi": 10.37,
+     "width_m": 20.98
+    },
+    "0.8": {
+     "c_lo": -8.55,
+     "c_hi": 8.92,
+     "width_m": 17.47
+    },
+    "0.9": {
+     "c_lo": -6.08,
+     "c_hi": 6.17,
+     "width_m": 12.25
+    }
+   },
+   "AS02C_on_0p05m_grid": {
+    "0.1": {
+     "c_lo": -45.25,
+     "c_hi": 14.4,
+     "width_m": 59.65
+    },
+    "0.2": {
+     "c_lo": -34.05,
+     "c_hi": 13.85,
+     "width_m": 47.9
+    },
+    "0.3": {
+     "c_lo": -29.8,
+     "c_hi": 13.25,
+     "width_m": 43.05
+    },
+    "0.4": {
+     "c_lo": -24.7,
+     "c_hi": 12.65,
+     "width_m": 37.35
+    },
+    "0.5": {
+     "c_lo": -21.3,
+     "c_hi": 12.05,
+     "width_m": 33.35
+    },
+    "0.6": {
+     "c_lo": -12.65,
+     "c_hi": 11.35,
+     "width_m": 24.0
+    },
+    "0.7": {
+     "c_lo": -10.6,
+     "c_hi": 10.35,
+     "width_m": 20.95
+    },
+    "0.8": {
+     "c_lo": -8.5,
+     "c_hi": 8.9,
+     "width_m": 17.4
+    },
+    "0.9": {
+     "c_lo": -6.05,
+     "c_hi": 6.15,
+     "width_m": 12.2
+    }
+   },
+   "AS04_hero_only": {
+    "0.1": {
+     "c_lo": -25.43,
+     "c_hi": 14.43,
+     "width_m": 39.87
+    },
+    "0.2": {
+     "c_lo": -23.81,
+     "c_hi": 13.85,
+     "width_m": 37.67
+    },
+    "0.3": {
+     "c_lo": -22.38,
+     "c_hi": 13.27,
+     "width_m": 35.65
+    },
+    "0.4": {
+     "c_lo": -21.09,
+     "c_hi": 12.69,
+     "width_m": 33.78
+    },
+    "0.5": {
+     "c_lo": -15.81,
+     "c_hi": 12.09,
+     "width_m": 27.89
+    },
+    "0.6": {
+     "c_lo": -12.61,
+     "c_hi": 11.37,
+     "width_m": 23.98
+    },
+    "0.7": {
+     "c_lo": -10.61,
+     "c_hi": 10.37,
+     "width_m": 20.98
+    },
+    "0.8": {
+     "c_lo": -8.55,
+     "c_hi": 8.92,
+     "width_m": 17.47
+    },
+    "0.9": {
+     "c_lo": -6.08,
+     "c_hi": 6.17,
+     "width_m": 12.25
+    }
+   },
+   "AS04_union_hero_wave4": {
+    "0.1": {
+     "c_lo": -26.0,
+     "c_hi": 14.4,
+     "width_m": 40.4
+    },
+    "0.2": {
+     "c_lo": -24.5,
+     "c_hi": 13.85,
+     "width_m": 38.35
+    },
+    "0.3": {
+     "c_lo": -23.2,
+     "c_hi": 13.25,
+     "width_m": 36.45
+    },
+    "0.4": {
+     "c_lo": -21.85,
+     "c_hi": 12.65,
+     "width_m": 34.5
+    },
+    "0.5": {
+     "c_lo": -20.3,
+     "c_hi": 12.05,
+     "width_m": 32.35
+    },
+    "0.6": {
+     "c_lo": -12.6,
+     "c_hi": 11.35,
+     "width_m": 23.95
+    },
+    "0.7": {
+     "c_lo": -10.6,
+     "c_hi": 10.35,
+     "width_m": 20.95
+    },
+    "0.8": {
+     "c_lo": -8.5,
+     "c_hi": 8.9,
+     "width_m": 17.4
+    },
+    "0.9": {
+     "c_lo": -6.05,
+     "c_hi": 6.15,
+     "width_m": 12.2
+    }
+   },
+   "ratio_vs_sample03": {
+    "0.1": {
+     "hero_only": 0.668,
+     "union": 0.677
+    },
+    "0.2": {
+     "hero_only": 0.786,
+     "union": 0.801
+    },
+    "0.3": {
+     "hero_only": 0.828,
+     "union": 0.847
+    },
+    "0.4": {
+     "hero_only": 0.903,
+     "union": 0.924
+    },
+    "0.5": {
+     "hero_only": 0.834,
+     "union": 0.97
+    },
+    "0.6": {
+     "hero_only": 0.997,
+     "union": 0.998
+    },
+    "0.7": {
+     "hero_only": 1.0,
+     "union": 1.0
+    },
+    "0.8": {
+     "hero_only": 1.0,
+     "union": 1.0
+    },
+    "0.9": {
+     "hero_only": 1.0,
+     "union": 1.0
+    }
+   },
+   "pass_condition_ja": "合わせた形（主役波 ＋ wave4 ＋ layer3）で、低い帯（0.1〜0.5 H）が見本03 より短く、どの帯も長くならない。高い帯（0.6〜0.9 H、いちばん高い峰の幅）は見本04 と ±0.5 m（Q33：上の峰の幅は見本03・04 のまま）",
+   "verdict": "pass",
+   "vs_sample04_AS04F_union": {
+    "sample04_union": {
+     "0.1": {
+      "c_lo": -26.0,
+      "c_hi": 14.4,
+      "width_m": 40.4
+     },
+     "0.2": {
+      "c_lo": -24.5,
+      "c_hi": 13.85,
+      "width_m": 38.35
+     },
+     "0.3": {
+      "c_lo": -23.2,
+      "c_hi": 13.25,
+      "width_m": 36.45
+     },
+     "0.4": {
+      "c_lo": -21.85,
+      "c_hi": 12.65,
+      "width_m": 34.5
+     },
+     "0.5": {
+      "c_lo": -20.3,
+      "c_hi": 12.05,
+      "width_m": 32.35
+     },
+     "0.6": {
+      "c_lo": -12.6,
+      "c_hi": 11.35,
+      "width_m": 23.95
+     },
+     "0.7": {
+      "c_lo": -10.6,
+      "c_hi": 10.35,
+      "width_m": 20.95
+     },
+     "0.8": {
+      "c_lo": -8.5,
+      "c_hi": 8.9,
+      "width_m": 17.4
+     },
+     "0.9": {
+      "c_lo": -6.05,
+      "c_hi": 6.15,
+      "width_m": 12.2
+     }
+    },
+    "diff_m": {
+     "0.1": 0.0,
+     "0.2": 0.0,
+     "0.3": 0.0,
+     "0.4": 0.0,
+     "0.5": 0.0,
+     "0.6": 0.0,
+     "0.7": 0.0,
+     "0.8": 0.0,
+     "0.9": 0.0
+    },
+    "high_bands_within_0.5m": true,
+    "high_bands_within_0.25m": true
+   },
+   "verdict_sample03_part": "pass"
+  },
+  "S11": {
+   "rule_ja": "三つの層 ①②③ を形で分ける（Q32・Q33、targets.json の L・P）",
+   "targets_source": "Unity/Build/Polish/sample05/study/targets.json",
+   "measured": "Unity/Build/Polish/sample05/fix1/assemble/measure/targets_A9.json",
+   "asked_by_orchestrator": {
+    "layer_prominence": {
+     "L1-2": true,
+     "L1-3": true
+    },
+    "forward_offsets": {
+     "L2-2": true,
+     "L2-3": true
+    },
+    "separation_15views_both_pairs_ge_0.5": {
+     "L6-sep": true
+    },
+    "painting_view_look_of_3": {
+     "P1-top": true,
+     "P1-mid": false,
+     "P1-cells": false
+    }
+   },
+   "targets": {
+    "L1-2": {
+     "kind": "must",
+     "metric": "geometry.layers.2.prominence_m",
+     "pass_if": {
+      "op": ">=",
+      "value": 0.6
+     },
+     "baseline_sample04": 0.39,
+     "value": 1.28,
+     "pass": true
+    },
+    "L1-3": {
+     "kind": "must",
+     "metric": "geometry.layers.3.prominence_m",
+     "pass_if": {
+      "op": ">=",
+      "value": 1.0
+     },
+     "baseline_sample04": null,
+     "value": 1.78,
+     "pass": true
+    },
+    "L2-2": {
+     "kind": "must",
+     "metric": "geometry.layers.2.crest_ahead_of_saddle_a_m",
+     "pass_if": {
+      "op": ">=",
+      "value": 1.5
+     },
+     "baseline_sample04": -0.25,
+     "value": 2.25,
+     "pass": true
+    },
+    "L2-3": {
+     "kind": "must",
+     "metric": "geometry.layers.3.crest_ahead_of_saddle_a_m",
+     "pass_if": {
+      "op": ">=",
+      "value": 2.0
+     },
+     "baseline_sample04": null,
+     "value": 3.5,
+     "pass": true
+    },
+    "L3-2": {
+     "kind": "must",
+     "metric": "geometry.layers.2.crest.y_over_H0",
+     "pass_if": {
+      "op": "between",
+      "value": [
+       0.48,
+       0.6
+      ]
+     },
+     "baseline_sample04": 0.497,
+     "value": 0.519,
+     "pass": true
+    },
+    "L3-3": {
+     "kind": "must",
+     "metric": "geometry.layers.3.crest.y_over_H0",
+     "pass_if": {
+      "op": "between",
+      "value": [
+       0.36,
+       0.48
+      ]
+     },
+     "baseline_sample04": null,
+     "value": 0.411,
+     "pass": true
+    },
+    "L3-23": {
+     "kind": "must",
+     "metric": "geometry.steps.H2_minus_H3_over_H0",
+     "pass_if": {
+      "op": ">=",
+      "value": 0.1
+     },
+     "baseline_sample04": null,
+     "value": 0.108,
+     "pass": true
+    },
+    "L4-12": {
+     "kind": "must",
+     "metric": "geometry.steps.dist1_minus_dist2_m",
+     "pass_if": {
+      "op": ">=",
+      "value": 5.0
+     },
+     "baseline_sample04": 16.37,
+     "value": 13.3,
+     "pass": true
+    },
+    "L4-23": {
+     "kind": "must",
+     "metric": "geometry.steps.dist2_minus_dist3_m",
+     "pass_if": {
+      "op": ">=",
+      "value": 2.0
+     },
+     "baseline_sample04": null,
+     "value": 7.06,
+     "pass": true
+    },
+    "L5-2": {
+     "kind": "must",
+     "metric": "geometry.layers.2.undercut_m",
+     "pass_if": {
+      "op": ">=",
+      "value": 2.0
+     },
+     "baseline_sample04": 1.65,
+     "value": 2.21,
+     "pass": true
+    },
+    "L5-3": {
+     "kind": "must",
+     "metric": "geometry.layers.3.undercut_m",
+     "pass_if": {
+      "op": ">=",
+      "value": 1.5
+     },
+     "baseline_sample04": null,
+     "value": 1.79,
+     "pass": true
+    },
+    "L5-lip": {
+     "kind": "should",
+     "metric": "geometry.layers.{2,3}.lip_ahead_of_crest_m",
+     "pass_if": {
+      "op": "<=",
+      "value": 5.0
+     },
+     "baseline_sample04": {
+      "2": 1.44,
+      "section_rows_c_-20_-14_lip_ahead_of_ridge_m": [
+       7.09,
+       8.5
+      ]
+     },
+     "value": {
+      "2": 1.51,
+      "3": 1.92
+     },
+     "pass": true
+    },
+    "L6-sep": {
+     "kind": "must",
+     "metric": "separation_summary.{1-2,2-3}.separated_share",
+     "pass_if": {
+      "op": ">=",
+      "value": 0.5
+     },
+     "baseline_sample04": {
+      "1-2": 0.273,
+      "2-3": 0.636
+     },
+     "value": {
+      "1-2": 0.583,
+      "2-3": 0.5
+     },
+     "pass": true
+    },
+    "L6-label": {
+     "kind": "must",
+     "metric": "painting_label_consistency.{r1,r2,r3}.share_label_k",
+     "pass_if": {
+      "op": ">=",
+      "value": {
+       "r1": 0.5,
+       "r2": 0.6,
+       "r3": 0.6
+      }
+     },
+     "baseline_sample04": {
+      "r1": 0.336,
+      "r2": 0.386,
+      "r3": 0.126
+     },
+     "value": {
+      "r1": 0.985,
+      "r2": 0.402,
+      "r3": 0.97
+     },
+     "pass": false
+    },
+    "L6-vis3": {
+     "kind": "should",
+     "metric": "separation_summary.layer3_views_with_2000px",
+     "pass_if": {
+      "op": ">=",
+      "value": 8
+     },
+     "baseline_sample04": 9,
+     "value": 12,
+     "pass": true
+    },
+    "P1-top": {
+     "kind": "must",
+     "metric": "appearance.r3.top_1110_1300.candidate",
+     "pass_if": {
+      "op": "ranges",
+      "value": {
+       "white+mizuiro": [
+        0.55,
+        0.85
+       ],
+       "mizuiro": [
+        0.1,
+        1.0
+       ],
+       "indigo": [
+        0.1,
+        0.4
+       ]
+      }
+     },
+     "baseline_sample04": {
+      "indigo": 0.089,
+      "mizuiro": 0.006,
+      "white": 0.899,
+      "boat": 0.0
+     },
+     "value": {
+      "indigo": 0.227,
+      "mizuiro": 0.25,
+      "white": 0.436,
+      "boat": 0.085
+     },
+     "pass": true
+    },
+    "P1-mid": {
+     "kind": "must",
+     "metric": "appearance.r3.mid_1300_1560.candidate",
+     "pass_if": {
+      "op": "ranges",
+      "value": {
+       "indigo": [
+        0.4,
+        0.8
+       ],
+       "white+mizuiro": [
+        0.2,
+        0.6
+       ]
+      }
+     },
+     "baseline_sample04": {
+      "indigo": 0.733,
+      "mizuiro": 0.019,
+      "white": 0.1,
+      "boat": 0.143
+     },
+     "value": {
+      "indigo": 0.718,
+      "mizuiro": 0.012,
+      "white": 0.022,
+      "boat": 0.243
+     },
+     "pass": false
+    },
+    "P1-cells": {
+     "kind": "must",
+     "metric": "appearance.r3.cell_agreement_indigo",
+     "pass_if": {
+      "op": "ranges",
+      "value": {
+       "indigo_share_mae": [
+        0.0,
+        0.28
+       ],
+       "pearson_r": [
+        0.45,
+        1.0
+       ]
+      }
+     },
+     "baseline_sample04": {
+      "cells": 682,
+      "indigo_share_mae": 0.369,
+      "pearson_r": 0.313
+     },
+     "value": {
+      "cells": 615,
+      "indigo_share_mae": 0.384,
+      "pearson_r": 0.326
+     },
+     "pass": false
+    },
+    "P2-top": {
+     "kind": "must",
+     "metric": "appearance.r2.top_880_1180.candidate",
+     "pass_if": {
+      "op": "ranges",
+      "value": {
+       "indigo": [
+        0.1,
+        0.4
+       ],
+       "mizuiro": [
+        0.1,
+        1.0
+       ]
+      }
+     },
+     "baseline_sample04": {
+      "indigo": 0.521,
+      "mizuiro": 0.001,
+      "white": 0.473,
+      "boat": 0.0
+     },
+     "value": {
+      "indigo": 0.526,
+      "mizuiro": 0.099,
+      "white": 0.372,
+      "boat": 0.0
+     },
+     "pass": false
+    },
+    "P2-cells": {
+     "kind": "should",
+     "metric": "appearance.r2.cell_agreement_indigo",
+     "pass_if": {
+      "op": "ranges",
+      "value": {
+       "indigo_share_mae": [
+        0.0,
+        0.28
+       ],
+       "pearson_r": [
+        0.5,
+        1.0
+       ]
+      }
+     },
+     "baseline_sample04": {
+      "cells": 866,
+      "indigo_share_mae": 0.368,
+      "pearson_r": 0.397
+     },
+     "value": {
+      "cells": 866,
+      "indigo_share_mae": 0.432,
+      "pearson_r": 0.292
+     },
+     "pass": false
+    }
+   },
+   "must_pass": "13/17",
+   "should_pass": "2/3",
+   "must_fail_ids": [
+    "L6-label",
+    "P1-mid",
+    "P1-cells",
+    "P2-top"
+   ],
+   "note_ja": "目標の値は調べの係が決めた既定で、利用者の言葉ではない（利用者が美術を決める、Q29・Q30）。P1・P2 は原画視点の Unity の描画（爪あり）の色の割合。L6-sep は見本04 の S11 と同じ決めごと（15 視点の numpy の z バッファで層どうしが遮る縁で分かれるか）",
+   "verdict": "fail"
+  },
+  "T5": {
+   "painting_body_blobs_excluding_boat_edges": 0,
+   "painting_blobs_at_boat_edges": [
+    [
+     203,
+     576,
+     3
+    ],
+    [
+     278,
+     647,
+     3
+    ],
+    [
+     324,
+     685,
+     3
+    ],
+    [
+     391,
+     740,
+     2
+    ]
+   ],
+   "painting_blobs_other": [],
+   "rule_ja": "波の本体の面に白い粒を描かない（原画の白い点は波から飛び散る浪花・白い泡で、波の本体ではない。Q33）",
+   "measured": [
+    {
+     "path": "Unity/Build/Polish/sample05/fix1/assemble/measure/t5t6_A9_v.json",
+     "sha256": "27a5d3bb647b950a89bb3906480177fd9727e7005a929ae2d583005cb8734bc2",
+     "mesh_bin_sha256": "2910d6b1af07f93879effbc657eb4746647c8508f58630bff9dc86f753dcb6e7"
+    },
+    {
+     "path": "Unity/Build/Polish/sample05/fix1/assemble/measure/t5t6_A9_ct.json",
+     "sha256": "7c1ac76b20f9e7d41143e566abf000be8e0cf8e52e0622949494df3cbc8fb906",
+     "mesh_bin_sha256": "2910d6b1af07f93879effbc657eb4746647c8508f58630bff9dc86f753dcb6e7"
+    }
+   ],
+   "painting_body_blobs": 4,
+   "sample04_painting_body_blobs": 92,
+   "seven_views": {
+    "painting": 4,
+    "seat": 0,
+    "seat_toward_wave": 2,
+    "side_left": 2,
+    "side_right": 0,
+    "back65": 0,
+    "top": 0
+   },
+   "sample04_seven_views": {
+    "painting": 92,
+    "seat": 82,
+    "seat_toward_wave": 395,
+    "side_left": 0,
+    "side_right": 10,
+    "back65": 0,
+    "top": 2
+   },
+   "all_views_total": 18,
+   "sample04_all_views_total": 2408,
+   "views_with_body_blobs": {
+    "painting": 4,
+    "seat_toward_wave": 2,
+    "side_left": 2,
+    "crest0": 2,
+    "tt0": 1,
+    "tt60": 4,
+    "tt210": 1,
+    "tt240": 2
+   },
+   "wave4_blobs_painting": 2,
+   "pass_condition_ja": "原画視点の爪なしの描画で、波の本体（主役波 ＋ layer3）の藍に囲まれた白・水色の小さな塊（2〜400 画素）が、船の縁（Unity の ID の画の船の画素から 4 画素以内、船の縁のアンチエイリアス）を除いて 0。ほかの視点・回り台は記録",
+   "verdict": "pass"
+  },
+  "T6": {
+   "rule_ja": "利用者の切り出し（唇の下の内の縁、藍の面が巻きの中の空に接する縁）に白・水色を置かない。藍の面がそのまま縁の線まで来る（Q33）",
+   "measured": [
+    {
+     "path": "Unity/Build/Polish/sample05/fix1/assemble/measure/t5t6_A9_v.json",
+     "sha256": "27a5d3bb647b950a89bb3906480177fd9727e7005a929ae2d583005cb8734bc2",
+     "mesh_bin_sha256": "2910d6b1af07f93879effbc657eb4746647c8508f58630bff9dc86f753dcb6e7"
+    },
+    {
+     "path": "Unity/Build/Polish/sample05/fix1/assemble/measure/t5t6_A9_ct.json",
+     "sha256": "7c1ac76b20f9e7d41143e566abf000be8e0cf8e52e0622949494df3cbc8fb906",
+     "mesh_bin_sha256": "2910d6b1af07f93879effbc657eb4746647c8508f58630bff9dc86f753dcb6e7"
+    }
+   ],
+   "painting_crop_pale_share": 0.0,
+   "sample04_painting_crop_pale_share": 0.65,
+   "per_view": {
+    "painting": {
+     "edge_px": 393,
+     "band_hero_px": 7927,
+     "pale_share": 0.0,
+     "white_px": 0,
+     "mizuiro_px": 0,
+     "region_ja": "利用者の切り出し（x 736〜891、y 300〜721）の中の縁"
+    },
+    "seat": {
+     "edge_px": 160,
+     "band_hero_px": 2917,
+     "pale_share": 0.035,
+     "white_px": 95,
+     "mizuiro_px": 8,
+     "region_ja": "右の脇の稜の行（c 5.6〜13.8 m）の縁"
+    },
+    "seat_toward_wave": {
+     "edge_px": 464,
+     "band_hero_px": 8589,
+     "pale_share": 0.018,
+     "white_px": 139,
+     "mizuiro_px": 17,
+     "region_ja": "右の脇の稜の行（c 5.6〜13.8 m）の縁"
+    },
+    "crest0": {
+     "edge_px": 312,
+     "band_hero_px": 6847,
+     "pale_share": 0.074,
+     "white_px": 503,
+     "mizuiro_px": 4,
+     "region_ja": "右の脇の稜の行（c 5.6〜13.8 m）の縁"
+    },
+    "crest45": {
+     "edge_px": 582,
+     "band_hero_px": 10981,
+     "pale_share": 0.237,
+     "white_px": 2575,
+     "mizuiro_px": 27,
+     "region_ja": "右の脇の稜の行（c 5.6〜13.8 m）の縁"
+    }
+   },
+   "sample04_per_view": {
+    "painting": 0.65,
+    "seat": 0.999,
+    "seat_toward_wave": 0.849,
+    "crest0": 0.512,
+    "crest45": 0.864
+   },
+   "pass_condition_ja": "原画視点の切り出しの中の縁から内へ 16 画素の主役波の画素の白・水色の割合 ≤ 0.02（座席・座席から波・波頭 0°・45° は右の脇の稜の行の縁で記録）",
+   "verdict": "pass"
+  },
+  "C2": {
+   "rule_ja": "どの爪も、利用者の模型 claw_low・claw_mid の水準以上（断面の幅と厚みの比、先の細り、表面の滑らかさを模型と比べる）",
+   "claws": 35,
+   "by_role": {
+    "FACE_INTERIOR": 25,
+    "NEAR_SEA": 10
+   },
+   "reseat_is_similarity_about_painting_cam": true,
+   "scale_range_face_interior": [
+    0.65,
+    1.411
+   ],
+   "moved_gt_1cm": 19,
+   "fail": 0,
+   "fail_claws": {},
+   "note_ja": "形づくり（shape_claws.py）は面の内の 25 本を、原画のカメラを中心に倍率だけかけて置き直した。相似なので、C2 の量（断面の比・先の細り・曲率の跳び・輪郭のでこぼこ。どれも比か角）は見本02 の測り（as02_claws_report.json）のまま。3D の大きさは倍率の分だけ大きい（記録）。",
+   "verdict": "pass"
+  },
+  "C3": {
+   "rule_ja": "原画カメラから見た各爪の輪郭とマスクの重なり（IoU ≥ 0.85）",
+   "claws_face_interior": 25,
+   "projection_unchanged": true,
+   "iou_painting_p10_p50_min_sample02": [
+    0.8751,
+    0.8917,
+    0.8528
+   ],
+   "below_085": {},
+   "painting_visible_frac_p10_p50_min": {
+    "S04": [
+     0.892,
+     0.972,
+     0.802
+    ],
+    "S03": [
+     0.864,
+     0.96,
+     0.822
+    ]
+   },
+   "note_ja": "原画視点の影は画素まで同じ（相似の中心が原画のカメラ）なので、IoU は見本02 の測りのまま。原画視点で主役波・wave4 に隠れる割合は numpy の z バッファで記録（隠れる爪が増えていれば並べ図で確かめる）。",
+   "verdict": "pass"
+  },
+  "K-top": {
+   "rule_ja": "いちばん高い峰（主の頂と唇、行 c ≥ −8 m）の形は見本04 のまま（点の動き 0.05 m まで）",
+   "max_disp_m": 0.0,
+   "verdict": "pass"
+  },
+  "K-boat": {
+   "rule_ja": "一艘目の船を原画視点で層の面が隠さない（Unity の ID の画の boat_left の画素を見本04 より減らさない）",
+   "boat_left_px_ids_noline_noclaws_2x": {
+    "sample04_FX1": 49007,
+    "A9": 92917
+   },
+   "ratio": 1.896,
+   "verdict": "pass",
+   "boat_move": {
+    "boatScale": 0.7434,
+    "events": [
+     "moved AF27 船 boat_left from (-15.2923,4.8216,-12.5300) to (-11.3683,4.3542,-25.2240) scale 0.9981 -> 0.7420; state reset 0"
+    ]
+   },
+   "note_ja": "形 A は一艘目の船を原画のカメラを中心とする相似（倍率 0.7434）で手前へ動かした（名前の付いた美術の誘導。原画視点の画は同じで、ほかの視点では 0.74 倍）。旧い唇の舌が隠していた舳先が見えるので画素が増える"
+  }
+ },
+ "claws_per_claw": [
+  {
+   "user_id": "claw030",
+   "role": "NEAR_SEA",
+   "scale_about_painting_cam": 1.0,
+   "similarity_residual_m": 0.0,
+   "painting_projection_shift_px_max": 0.0,
+   "moved_m": 0.0,
+   "length_3d_m_sample02": 0.819,
+   "length_3d_m_now": 0.819,
+   "iou_painting_sample02": 0.893,
+   "c2_fails_sample02": [],
+   "surface_S04": {
+    "root_dist_m": 3.31,
+    "max_below_surface_m": 0.0,
+    "max_above_surface_m": 2.887
+   },
+   "surface_S03": {
+    "root_dist_m": 3.308,
+    "max_below_surface_m": 0.0,
+    "max_above_surface_m": 2.887
+   }
+  },
+  {
+   "user_id": "claw032",
+   "role": "FACE_INTERIOR",
+   "scale_about_painting_cam": 1.3275,
+   "similarity_residual_m": 1e-06,
+   "painting_projection_shift_px_max": 2e-05,
+   "moved_m": 15.492,
+   "length_3d_m_sample02": 1.04,
+   "length_3d_m_now": 1.381,
+   "iou_painting_sample02": 0.8873,
+   "c2_fails_sample02": [],
+   "surface_S04": {
+    "root_dist_m": 0.081,
+    "max_below_surface_m": 0.087,
+    "max_above_surface_m": 0.44
+   },
+   "painting_visible_S04": {
+    "px_x2": 943,
+    "visible_frac": 0.976
+   },
+   "surface_S03": {
+    "root_dist_m": 0.23,
+    "max_below_surface_m": 0.087,
+    "max_above_surface_m": 0.24
+   },
+   "painting_visible_S03": {
+    "px_x2": 943,
+    "visible_frac": 0.954
+   }
+  },
+  {
+   "user_id": "claw033",
+   "role": "NEAR_SEA",
+   "scale_about_painting_cam": 1.0,
+   "similarity_residual_m": 0.0,
+   "painting_projection_shift_px_max": 0.0,
+   "moved_m": 0.0,
+   "length_3d_m_sample02": 0.689,
+   "length_3d_m_now": 0.689,
+   "iou_painting_sample02": 0.8865,
+   "c2_fails_sample02": [],
+   "surface_S04": {
+    "root_dist_m": 0.528,
+    "max_below_surface_m": 0.0,
+    "max_above_surface_m": 0.309
+   },
+   "surface_S03": {
+    "root_dist_m": 0.528,
+    "max_below_surface_m": 0.0,
+    "max_above_surface_m": 0.309
+   }
+  },
+  {
+   "user_id": "claw034",
+   "role": "NEAR_SEA",
+   "scale_about_painting_cam": 1.0,
+   "similarity_residual_m": 0.0,
+   "painting_projection_shift_px_max": 0.0,
+   "moved_m": 0.0,
+   "length_3d_m_sample02": 0.536,
+   "length_3d_m_now": 0.536,
+   "iou_painting_sample02": 0.9036,
+   "c2_fails_sample02": [],
+   "surface_S04": {
+    "root_dist_m": 3.671,
+    "max_below_surface_m": 0.0,
+    "max_above_surface_m": 3.44
+   },
+   "surface_S03": {
+    "root_dist_m": 3.671,
+    "max_below_surface_m": 0.0,
+    "max_above_surface_m": 3.44
+   }
+  },
+  {
+   "user_id": "claw036",
+   "role": "FACE_INTERIOR",
+   "scale_about_painting_cam": 1.2264,
+   "similarity_residual_m": 1e-06,
+   "painting_projection_shift_px_max": 2e-05,
+   "moved_m": 11.098,
+   "length_3d_m_sample02": 1.316,
+   "length_3d_m_now": 1.614,
+   "iou_painting_sample02": 0.8879,
+   "c2_fails_sample02": [],
+   "surface_S04": {
+    "root_dist_m": 0.076,
+    "max_below_surface_m": 0.059,
+    "max_above_surface_m": 0.896
+   },
+   "painting_visible_S04": {
+    "px_x2": 514,
+    "visible_frac": 0.998
+   },
+   "surface_S03": {
+    "root_dist_m": 0.084,
+    "max_below_surface_m": 0.074,
+    "max_above_surface_m": 0.587
+   },
+   "painting_visible_S03": {
+    "px_x2": 514,
+    "visible_frac": 0.981
+   }
+  },
+  {
+   "user_id": "claw037",
+   "role": "FACE_INTERIOR",
+   "scale_about_painting_cam": 1.0522,
+   "similarity_residual_m": 1e-06,
+   "painting_projection_shift_px_max": 3e-05,
+   "moved_m": 2.65,
+   "length_3d_m_sample02": 1.582,
+   "length_3d_m_now": 1.665,
+   "iou_painting_sample02": 0.903,
+   "c2_fails_sample02": [],
+   "surface_S04": {
+    "root_dist_m": 0.14,
+    "max_below_surface_m": 0.172,
+    "max_above_surface_m": 1.331
+   },
+   "painting_visible_S04": {
+    "px_x2": 867,
+    "visible_frac": 0.98
+   },
+   "surface_S03": {
+    "root_dist_m": 0.104,
+    "max_below_surface_m": 0.14,
+    "max_above_surface_m": 0.549
+   },
+   "painting_visible_S03": {
+    "px_x2": 867,
+    "visible_frac": 0.979
+   }
+  },
+  {
+   "user_id": "claw050",
+   "role": "FACE_INTERIOR",
+   "scale_about_painting_cam": 1.0,
+   "similarity_residual_m": 0.0,
+   "painting_projection_shift_px_max": 0.0,
+   "moved_m": 0.0,
+   "length_3d_m_sample02": 2.476,
+   "length_3d_m_now": 2.476,
+   "iou_painting_sample02": 0.9198,
+   "c2_fails_sample02": [],
+   "surface_S04": {
+    "root_dist_m": 0.426,
+    "max_below_surface_m": 0.436,
+    "max_above_surface_m": 0.795
+   },
+   "painting_visible_S04": {
+    "px_x2": 1219,
+    "visible_frac": 0.844
+   },
+   "surface_S03": {
+    "root_dist_m": 0.426,
+    "max_below_surface_m": 0.436,
+    "max_above_surface_m": 0.795
+   },
+   "painting_visible_S03": {
+    "px_x2": 1219,
+    "visible_frac": 0.844
+   }
+  },
+  {
+   "user_id": "claw051",
+   "role": "FACE_INTERIOR",
+   "scale_about_painting_cam": 1.0,
+   "similarity_residual_m": 0.0,
+   "painting_projection_shift_px_max": 0.0,
+   "moved_m": 0.0,
+   "length_3d_m_sample02": 1.05,
+   "length_3d_m_now": 1.05,
+   "iou_painting_sample02": 0.9006,
+   "c2_fails_sample02": [],
+   "surface_S04": {
+    "root_dist_m": 0.183,
+    "max_below_surface_m": 0.202,
+    "max_above_surface_m": 0.709
+   },
+   "painting_visible_S04": {
+    "px_x2": 794,
+    "visible_frac": 0.972
+   },
+   "surface_S03": {
+    "root_dist_m": 0.183,
+    "max_below_surface_m": 0.202,
+    "max_above_surface_m": 0.709
+   },
+   "painting_visible_S03": {
+    "px_x2": 794,
+    "visible_frac": 0.972
+   }
+  },
+  {
+   "user_id": "claw054",
+   "role": "FACE_INTERIOR",
+   "scale_about_painting_cam": 1.0793,
+   "similarity_residual_m": 1e-06,
+   "painting_projection_shift_px_max": 3e-05,
+   "moved_m": 4.088,
+   "length_3d_m_sample02": 1.582,
+   "length_3d_m_now": 1.707,
+   "iou_painting_sample02": 0.8749,
+   "c2_fails_sample02": [],
+   "surface_S04": {
+    "root_dist_m": 0.089,
+    "max_below_surface_m": 0.136,
+    "max_above_surface_m": 1.398
+   },
+   "painting_visible_S04": {
+    "px_x2": 728,
+    "visible_frac": 0.977
+   },
+   "surface_S03": {
+    "root_dist_m": 0.107,
+    "max_below_surface_m": 0.135,
+    "max_above_surface_m": 0.599
+   },
+   "painting_visible_S03": {
+    "px_x2": 728,
+    "visible_frac": 0.985
+   }
+  },
+  {
+   "user_id": "claw055",
+   "role": "FACE_INTERIOR",
+   "scale_about_painting_cam": 1.0,
+   "similarity_residual_m": 0.0,
+   "painting_projection_shift_px_max": 0.0,
+   "moved_m": 0.0,
+   "length_3d_m_sample02": 1.695,
+   "length_3d_m_now": 1.695,
+   "iou_painting_sample02": 0.9108,
+   "c2_fails_sample02": [],
+   "surface_S04": {
+    "root_dist_m": 0.326,
+    "max_below_surface_m": 0.381,
+    "max_above_surface_m": 1.48
+   },
+   "painting_visible_S04": {
+    "px_x2": 1109,
+    "visible_frac": 0.994
+   },
+   "surface_S03": {
+    "root_dist_m": 0.326,
+    "max_below_surface_m": 0.381,
+    "max_above_surface_m": 1.48
+   },
+   "painting_visible_S03": {
+    "px_x2": 1109,
+    "visible_frac": 0.878
+   }
+  },
+  {
+   "user_id": "claw057",
+   "role": "FACE_INTERIOR",
+   "scale_about_painting_cam": 1.3621,
+   "similarity_residual_m": 1e-06,
+   "painting_projection_shift_px_max": 2e-05,
+   "moved_m": 16.906,
+   "length_3d_m_sample02": 1.472,
+   "length_3d_m_now": 2.005,
+   "iou_painting_sample02": 0.9258,
+   "c2_fails_sample02": [],
+   "surface_S04": {
+    "root_dist_m": 0.41,
+    "max_below_surface_m": 0.447,
+    "max_above_surface_m": 1.337
+   },
+   "painting_visible_S04": {
+    "px_x2": 631,
+    "visible_frac": 0.91
+   },
+   "surface_S03": {
+    "root_dist_m": 0.115,
+    "max_below_surface_m": 0.114,
+    "max_above_surface_m": 0.173
+   },
+   "painting_visible_S03": {
+    "px_x2": 631,
+    "visible_frac": 0.889
+   }
+  },
+  {
+   "user_id": "claw058",
+   "role": "FACE_INTERIOR",
+   "scale_about_painting_cam": 1.0478,
+   "similarity_residual_m": 1e-06,
+   "painting_projection_shift_px_max": 3e-05,
+   "moved_m": 2.498,
+   "length_3d_m_sample02": 1.198,
+   "length_3d_m_now": 1.255,
+   "iou_painting_sample02": 0.8917,
+   "c2_fails_sample02": [],
+   "surface_S04": {
+    "root_dist_m": 0.174,
+    "max_below_surface_m": 0.191,
+    "max_above_surface_m": 0.523
+   },
+   "painting_visible_S04": {
+    "px_x2": 757,
+    "visible_frac": 0.98
+   },
+   "surface_S03": {
+    "root_dist_m": 0.118,
+    "max_below_surface_m": 0.161,
+    "max_above_surface_m": 0.24
+   },
+   "painting_visible_S03": {
+    "px_x2": 757,
+    "visible_frac": 0.96
+   }
+  },
+  {
+   "user_id": "claw059",
+   "role": "FACE_INTERIOR",
+   "scale_about_painting_cam": 1.2653,
+   "similarity_residual_m": 1e-06,
+   "painting_projection_shift_px_max": 3e-05,
+   "moved_m": 13.121,
+   "length_3d_m_sample02": 1.224,
+   "length_3d_m_now": 1.549,
+   "iou_painting_sample02": 0.8673,
+   "c2_fails_sample02": [],
+   "surface_S04": {
+    "root_dist_m": 0.167,
+    "max_below_surface_m": 0.198,
+    "max_above_surface_m": 0.968
+   },
+   "painting_visible_S04": {
+    "px_x2": 578,
+    "visible_frac": 0.931
+   },
+   "surface_S03": {
+    "root_dist_m": 0.153,
+    "max_below_surface_m": 0.177,
+    "max_above_surface_m": 0.27
+   },
+   "painting_visible_S03": {
+    "px_x2": 578,
+    "visible_frac": 0.953
+   }
+  },
+  {
+   "user_id": "claw061",
+   "role": "FACE_INTERIOR",
+   "scale_about_painting_cam": 1.072,
+   "similarity_residual_m": 1e-06,
+   "painting_projection_shift_px_max": 4e-05,
+   "moved_m": 3.23,
+   "length_3d_m_sample02": 0.861,
+   "length_3d_m_now": 0.923,
+   "iou_painting_sample02": 0.9018,
+   "c2_fails_sample02": [],
+   "surface_S04": {
+    "root_dist_m": 0.211,
+    "max_below_surface_m": 0.226,
+    "max_above_surface_m": 0.458
+   },
+   "painting_visible_S04": {
+    "px_x2": 773,
+    "visible_frac": 0.89
+   },
+   "surface_S03": {
+    "root_dist_m": 0.297,
+    "max_below_surface_m": 0.332,
+    "max_above_surface_m": 0.35
+   },
+   "painting_visible_S03": {
+    "px_x2": 773,
+    "visible_frac": 0.881
+   }
+  },
+  {
+   "user_id": "claw066",
+   "role": "FACE_INTERIOR",
+   "scale_about_painting_cam": 1.0771,
+   "similarity_residual_m": 1e-06,
+   "painting_projection_shift_px_max": 4e-05,
+   "moved_m": 3.447,
+   "length_3d_m_sample02": 0.63,
+   "length_3d_m_now": 0.679,
+   "iou_painting_sample02": 0.8833,
+   "c2_fails_sample02": [],
+   "surface_S04": {
+    "root_dist_m": 0.086,
+    "max_below_surface_m": 0.103,
+    "max_above_surface_m": 0.58
+   },
+   "painting_visible_S04": {
+    "px_x2": 560,
+    "visible_frac": 0.97
+   },
+   "surface_S03": {
+    "root_dist_m": 0.098,
+    "max_below_surface_m": 0.108,
+    "max_above_surface_m": 0.486
+   },
+   "painting_visible_S03": {
+    "px_x2": 560,
+    "visible_frac": 0.979
+   }
+  },
+  {
+   "user_id": "claw067",
+   "role": "FACE_INTERIOR",
+   "scale_about_painting_cam": 1.0,
+   "similarity_residual_m": 0.0,
+   "painting_projection_shift_px_max": 0.0,
+   "moved_m": 0.0,
+   "length_3d_m_sample02": 1.735,
+   "length_3d_m_now": 1.735,
+   "iou_painting_sample02": 0.8753,
+   "c2_fails_sample02": [],
+   "surface_S04": {
+    "root_dist_m": 0.197,
+    "max_below_surface_m": 0.231,
+    "max_above_surface_m": 0.82
+   },
+   "painting_visible_S04": {
+    "px_x2": 860,
+    "visible_frac": 0.971
+   },
+   "surface_S03": {
+    "root_dist_m": 0.197,
+    "max_below_surface_m": 0.231,
+    "max_above_surface_m": 0.82
+   },
+   "painting_visible_S03": {
+    "px_x2": 860,
+    "visible_frac": 0.971
+   }
+  },
+  {
+   "user_id": "claw069",
+   "role": "FACE_INTERIOR",
+   "scale_about_painting_cam": 1.0,
+   "similarity_residual_m": 0.0,
+   "painting_projection_shift_px_max": 0.0,
+   "moved_m": 0.0,
+   "length_3d_m_sample02": 1.247,
+   "length_3d_m_now": 1.247,
+   "iou_painting_sample02": 0.8842,
+   "c2_fails_sample02": [],
+   "surface_S04": {
+    "root_dist_m": 0.174,
+    "max_below_surface_m": 0.196,
+    "max_above_surface_m": 0.855
+   },
+   "painting_visible_S04": {
+    "px_x2": 692,
+    "visible_frac": 0.974
+   },
+   "surface_S03": {
+    "root_dist_m": 0.174,
+    "max_below_surface_m": 0.196,
+    "max_above_surface_m": 0.855
+   },
+   "painting_visible_S03": {
+    "px_x2": 692,
+    "visible_frac": 0.974
+   }
+  },
+  {
+   "user_id": "claw070",
+   "role": "FACE_INTERIOR",
+   "scale_about_painting_cam": 1.0,
+   "similarity_residual_m": 0.0,
+   "painting_projection_shift_px_max": 0.0,
+   "moved_m": 0.0,
+   "length_3d_m_sample02": 1.805,
+   "length_3d_m_now": 1.805,
+   "iou_painting_sample02": 0.9256,
+   "c2_fails_sample02": [],
+   "surface_S04": {
+    "root_dist_m": 0.213,
+    "max_below_surface_m": 0.239,
+    "max_above_surface_m": 1.517
+   },
+   "painting_visible_S04": {
+    "px_x2": 762,
+    "visible_frac": 0.986
+   },
+   "surface_S03": {
+    "root_dist_m": 0.213,
+    "max_below_surface_m": 0.239,
+    "max_above_surface_m": 1.517
+   },
+   "painting_visible_S03": {
+    "px_x2": 762,
+    "visible_frac": 0.986
+   }
+  },
+  {
+   "user_id": "claw072",
+   "role": "FACE_INTERIOR",
+   "scale_about_painting_cam": 1.0607,
+   "similarity_residual_m": 1e-06,
+   "painting_projection_shift_px_max": 3e-05,
+   "moved_m": 2.83,
+   "length_3d_m_sample02": 0.77,
+   "length_3d_m_now": 0.817,
+   "iou_painting_sample02": 0.9198,
+   "c2_fails_sample02": [],
+   "surface_S04": {
+    "root_dist_m": 0.213,
+    "max_below_surface_m": 0.252,
+    "max_above_surface_m": 0.389
+   },
+   "painting_visible_S04": {
+    "px_x2": 973,
+    "visible_frac": 0.899
+   },
+   "surface_S03": {
+    "root_dist_m": 0.172,
+    "max_below_surface_m": 0.206,
+    "max_above_surface_m": 0.376
+   },
+   "painting_visible_S03": {
+    "px_x2": 973,
+    "visible_frac": 0.919
+   }
+  },
+  {
+   "user_id": "claw074",
+   "role": "FACE_INTERIOR",
+   "scale_about_painting_cam": 0.6497,
+   "similarity_residual_m": 1e-06,
+   "painting_projection_shift_px_max": 4e-05,
+   "moved_m": -22.516,
+   "length_3d_m_sample02": 1.875,
+   "length_3d_m_now": 1.218,
+   "iou_painting_sample02": 0.8945,
+   "c2_fails_sample02": [],
+   "surface_S04": {
+    "root_dist_m": 6.137,
+    "max_below_surface_m": 0.0,
+    "max_above_surface_m": 6.153
+   },
+   "painting_visible_S04": {
+    "px_x2": 736,
+    "visible_frac": 0.802
+   },
+   "surface_S03": {
+    "root_dist_m": 0.346,
+    "max_below_surface_m": 0.37,
+    "max_above_surface_m": 0.216
+   },
+   "painting_visible_S03": {
+    "px_x2": 736,
+    "visible_frac": 0.822
+   }
+  },
+  {
+   "user_id": "claw079",
+   "role": "FACE_INTERIOR",
+   "scale_about_painting_cam": 1.0716,
+   "similarity_residual_m": 1e-06,
+   "painting_projection_shift_px_max": 3e-05,
+   "moved_m": 3.704,
+   "length_3d_m_sample02": 2.368,
+   "length_3d_m_now": 2.537,
+   "iou_painting_sample02": 0.8995,
+   "c2_fails_sample02": [],
+   "surface_S04": {
+    "root_dist_m": 0.165,
+    "max_below_surface_m": 0.222,
+    "max_above_surface_m": 1.434
+   },
+   "painting_visible_S04": {
+    "px_x2": 1458,
+    "visible_frac": 0.984
+   },
+   "surface_S03": {
+    "root_dist_m": 0.159,
+    "max_below_surface_m": 0.201,
+    "max_above_surface_m": 0.517
+   },
+   "painting_visible_S03": {
+    "px_x2": 1458,
+    "visible_frac": 0.984
+   }
+  },
+  {
+   "user_id": "claw080",
+   "role": "FACE_INTERIOR",
+   "scale_about_painting_cam": 1.0961,
+   "similarity_residual_m": 1e-06,
+   "painting_projection_shift_px_max": 3e-05,
+   "moved_m": 4.996,
+   "length_3d_m_sample02": 1.715,
+   "length_3d_m_now": 1.88,
+   "iou_painting_sample02": 0.8893,
+   "c2_fails_sample02": [],
+   "surface_S04": {
+    "root_dist_m": 0.193,
+    "max_below_surface_m": 0.245,
+    "max_above_surface_m": 1.157
+   },
+   "painting_visible_S04": {
+    "px_x2": 716,
+    "visible_frac": 0.895
+   },
+   "surface_S03": {
+    "root_dist_m": 0.17,
+    "max_below_surface_m": 0.245,
+    "max_above_surface_m": 0.62
+   },
+   "painting_visible_S03": {
+    "px_x2": 716,
+    "visible_frac": 0.855
+   }
+  },
+  {
+   "user_id": "claw081",
+   "role": "FACE_INTERIOR",
+   "scale_about_painting_cam": 1.3937,
+   "similarity_residual_m": 1e-06,
+   "painting_projection_shift_px_max": 2e-05,
+   "moved_m": 17.898,
+   "length_3d_m_sample02": 0.693,
+   "length_3d_m_now": 0.966,
+   "iou_painting_sample02": 0.9104,
+   "c2_fails_sample02": [],
+   "surface_S04": {
+    "root_dist_m": 0.071,
+    "max_below_surface_m": 0.072,
+    "max_above_surface_m": 0.928
+   },
+   "painting_visible_S04": {
+    "px_x2": 130,
+    "visible_frac": 1.0
+   },
+   "surface_S03": {
+    "root_dist_m": 0.041,
+    "max_below_surface_m": 0.033,
+    "max_above_surface_m": 0.217
+   },
+   "painting_visible_S03": {
+    "px_x2": 130,
+    "visible_frac": 0.992
+   }
+  },
+  {
+   "user_id": "claw082",
+   "role": "FACE_INTERIOR",
+   "scale_about_painting_cam": 1.1322,
+   "similarity_residual_m": 1e-06,
+   "painting_projection_shift_px_max": 3e-05,
+   "moved_m": 6.804,
+   "length_3d_m_sample02": 1.145,
+   "length_3d_m_now": 1.296,
+   "iou_painting_sample02": 0.8902,
+   "c2_fails_sample02": [],
+   "surface_S04": {
+    "root_dist_m": 0.134,
+    "max_below_surface_m": 0.145,
+    "max_above_surface_m": 0.838
+   },
+   "painting_visible_S04": {
+    "px_x2": 698,
+    "visible_frac": 0.996
+   },
+   "surface_S03": {
+    "root_dist_m": 0.13,
+    "max_below_surface_m": 0.166,
+    "max_above_surface_m": 0.239
+   },
+   "painting_visible_S03": {
+    "px_x2": 698,
+    "visible_frac": 0.986
+   }
+  },
+  {
+   "user_id": "claw083",
+   "role": "FACE_INTERIOR",
+   "scale_about_painting_cam": 1.1473,
+   "similarity_residual_m": 1e-06,
+   "painting_projection_shift_px_max": 3e-05,
+   "moved_m": 7.549,
+   "length_3d_m_sample02": 0.648,
+   "length_3d_m_now": 0.743,
+   "iou_painting_sample02": 0.8967,
+   "c2_fails_sample02": [],
+   "surface_S04": {
+    "root_dist_m": 0.114,
+    "max_below_surface_m": 0.139,
+    "max_above_surface_m": 0.425
+   },
+   "painting_visible_S04": {
+    "px_x2": 309,
+    "visible_frac": 0.968
+   },
+   "surface_S03": {
+    "root_dist_m": 0.113,
+    "max_below_surface_m": 0.135,
+    "max_above_surface_m": 0.113
+   },
+   "painting_visible_S03": {
+    "px_x2": 309,
+    "visible_frac": 0.948
+   }
+  },
+  {
+   "user_id": "claw084",
+   "role": "FACE_INTERIOR",
+   "scale_about_painting_cam": 1.0456,
+   "similarity_residual_m": 1e-06,
+   "painting_projection_shift_px_max": 3e-05,
+   "moved_m": 2.336,
+   "length_3d_m_sample02": 0.673,
+   "length_3d_m_now": 0.704,
+   "iou_painting_sample02": 0.8528,
+   "c2_fails_sample02": [],
+   "surface_S04": {
+    "root_dist_m": 0.082,
+    "max_below_surface_m": 0.05,
+    "max_above_surface_m": 0.478
+   },
+   "painting_visible_S04": {
+    "px_x2": 97,
+    "visible_frac": 0.99
+   },
+   "surface_S03": {
+    "root_dist_m": 0.029,
+    "max_below_surface_m": 0.024,
+    "max_above_surface_m": 0.167
+   },
+   "painting_visible_S03": {
+    "px_x2": 97,
+    "visible_frac": 1.0
+   }
+  },
+  {
+   "user_id": "claw088",
+   "role": "NEAR_SEA",
+   "scale_about_painting_cam": 1.0,
+   "similarity_residual_m": 0.0,
+   "painting_projection_shift_px_max": 0.0,
+   "moved_m": 0.0,
+   "length_3d_m_sample02": 1.249,
+   "length_3d_m_now": 1.249,
+   "iou_painting_sample02": 0.9193,
+   "c2_fails_sample02": [],
+   "surface_S04": {
+    "root_dist_m": 1.581,
+    "max_below_surface_m": 0.0,
+    "max_above_surface_m": 1.576
+   },
+   "surface_S03": {
+    "root_dist_m": 1.581,
+    "max_below_surface_m": 0.0,
+    "max_above_surface_m": 1.576
+   }
+  },
+  {
+   "user_id": "claw089",
+   "role": "NEAR_SEA",
+   "scale_about_painting_cam": 1.0,
+   "similarity_residual_m": 0.0,
+   "painting_projection_shift_px_max": 0.0,
+   "moved_m": 0.0,
+   "length_3d_m_sample02": 0.828,
+   "length_3d_m_now": 0.828,
+   "iou_painting_sample02": 0.9081,
+   "c2_fails_sample02": [],
+   "surface_S04": {
+    "root_dist_m": 3.985,
+    "max_below_surface_m": 0.0,
+    "max_above_surface_m": 2.885
+   },
+   "surface_S03": {
+    "root_dist_m": 3.985,
+    "max_below_surface_m": 0.0,
+    "max_above_surface_m": 2.885
+   }
+  },
+  {
+   "user_id": "claw090",
+   "role": "NEAR_SEA",
+   "scale_about_painting_cam": 1.0,
+   "similarity_residual_m": 0.0,
+   "painting_projection_shift_px_max": 0.0,
+   "moved_m": 0.0,
+   "length_3d_m_sample02": 0.339,
+   "length_3d_m_now": 0.339,
+   "iou_painting_sample02": 0.8723,
+   "c2_fails_sample02": [],
+   "surface_S04": {
+    "root_dist_m": 2.781,
+    "max_below_surface_m": 0.0,
+    "max_above_surface_m": 2.012
+   },
+   "surface_S03": {
+    "root_dist_m": 2.781,
+    "max_below_surface_m": 0.0,
+    "max_above_surface_m": 2.012
+   }
+  },
+  {
+   "user_id": "claw092",
+   "role": "NEAR_SEA",
+   "scale_about_painting_cam": 1.0,
+   "similarity_residual_m": 0.0,
+   "painting_projection_shift_px_max": 0.0,
+   "moved_m": 0.0,
+   "length_3d_m_sample02": 1.191,
+   "length_3d_m_now": 1.191,
+   "iou_painting_sample02": 0.9059,
+   "c2_fails_sample02": [],
+   "surface_S04": {
+    "root_dist_m": 3.056,
+    "max_below_surface_m": 0.0,
+    "max_above_surface_m": 1.436
+   },
+   "surface_S03": {
+    "root_dist_m": 2.995,
+    "max_below_surface_m": 0.0,
+    "max_above_surface_m": 1.436
+   }
+  },
+  {
+   "user_id": "claw093",
+   "role": "NEAR_SEA",
+   "scale_about_painting_cam": 1.0,
+   "similarity_residual_m": 0.0,
+   "painting_projection_shift_px_max": 0.0,
+   "moved_m": 0.0,
+   "length_3d_m_sample02": 1.094,
+   "length_3d_m_now": 1.094,
+   "iou_painting_sample02": 0.8937,
+   "c2_fails_sample02": [],
+   "surface_S04": {
+    "root_dist_m": 3.113,
+    "max_below_surface_m": 0.0,
+    "max_above_surface_m": 1.854
+   },
+   "surface_S03": {
+    "root_dist_m": 3.083,
+    "max_below_surface_m": 0.0,
+    "max_above_surface_m": 1.854
+   }
+  },
+  {
+   "user_id": "claw094",
+   "role": "NEAR_SEA",
+   "scale_about_painting_cam": 1.0,
+   "similarity_residual_m": 0.0,
+   "painting_projection_shift_px_max": 0.0,
+   "moved_m": 0.0,
+   "length_3d_m_sample02": 1.435,
+   "length_3d_m_now": 1.435,
+   "iou_painting_sample02": 0.8605,
+   "c2_fails_sample02": [],
+   "surface_S04": {
+    "root_dist_m": 2.79,
+    "max_below_surface_m": 0.0,
+    "max_above_surface_m": 1.48
+   },
+   "surface_S03": {
+    "root_dist_m": 2.73,
+    "max_below_surface_m": 0.0,
+    "max_above_surface_m": 1.48
+   }
+  },
+  {
+   "user_id": "claw096",
+   "role": "NEAR_SEA",
+   "scale_about_painting_cam": 1.0,
+   "similarity_residual_m": 0.0,
+   "painting_projection_shift_px_max": 0.0,
+   "moved_m": 0.0,
+   "length_3d_m_sample02": 1.35,
+   "length_3d_m_now": 1.35,
+   "iou_painting_sample02": 0.8782,
+   "c2_fails_sample02": [],
+   "surface_S04": {
+    "root_dist_m": 1.807,
+    "max_below_surface_m": 0.0,
+    "max_above_surface_m": 0.395
+   },
+   "surface_S03": {
+    "root_dist_m": 1.541,
+    "max_below_surface_m": 0.0,
+    "max_above_surface_m": 0.395
+   }
+  },
+  {
+   "user_id": "claw098",
+   "role": "FACE_INTERIOR",
+   "scale_about_painting_cam": 0.916,
+   "similarity_residual_m": 2e-06,
+   "painting_projection_shift_px_max": 4e-05,
+   "moved_m": -3.705,
+   "length_3d_m_sample02": 0.973,
+   "length_3d_m_now": 0.891,
+   "iou_painting_sample02": 0.8767,
+   "c2_fails_sample02": [],
+   "surface_S04": {
+    "root_dist_m": 6.967,
+    "max_below_surface_m": 0.0,
+    "max_above_surface_m": 7.027
+   },
+   "painting_visible_S04": {
+    "px_x2": 999,
+    "visible_frac": 0.941
+   },
+   "surface_S03": {
+    "root_dist_m": 0.098,
+    "max_below_surface_m": 0.139,
+    "max_above_surface_m": 0.687
+   },
+   "painting_visible_S03": {
+    "px_x2": 999,
+    "visible_frac": 0.934
+   }
+  },
+  {
+   "user_id": "claw099",
+   "role": "FACE_INTERIOR",
+   "scale_about_painting_cam": 1.4114,
+   "similarity_residual_m": 1e-06,
+   "painting_projection_shift_px_max": 2e-05,
+   "moved_m": 18.835,
+   "length_3d_m_sample02": 1.508,
+   "length_3d_m_now": 2.128,
+   "iou_painting_sample02": 0.8915,
+   "c2_fails_sample02": [],
+   "surface_S04": {
+    "root_dist_m": 0.25,
+    "max_below_surface_m": 0.31,
+    "max_above_surface_m": 0.974
+   },
+   "painting_visible_S04": {
+    "px_x2": 932,
+    "visible_frac": 0.899
+   },
+   "surface_S03": {
+    "root_dist_m": 0.116,
+    "max_below_surface_m": 0.203,
+    "max_above_surface_m": 0.298
+   },
+   "painting_visible_S03": {
+    "px_x2": 932,
+    "visible_frac": 0.925
+   }
+  }
+ ],
+ "summary": {
+  "G1": "fail",
+  "G2": "pass",
+  "S4": "pass",
+  "S8": "pass",
+  "S9": "pass",
+  "S10": "pass",
+  "S11": "fail",
+  "T5": "pass",
+  "T6": "pass",
+  "C2": "pass",
+  "C3": "pass",
+  "K-top": "pass",
+  "K-boat": "pass"
+ },
+ "elapsed_s": 125.4
+}

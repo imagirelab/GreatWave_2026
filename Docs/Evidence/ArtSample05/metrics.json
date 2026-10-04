@@ -1,0 +1,438 @@
+{
+ "schema": "GreatWave.AS05.metrics/1",
+ "date": "2026-10-05 03:17",
+ "note_ja": "美術の見本05（Q33）の主な数。形 A = A9、形 B = B10（直しの回 fix1 の後）。目標の値は進行役の既定で、利用者の言葉ではない。美術が届いたかは利用者が決める",
+ "variants": {
+  "A": {
+   "render": "A9",
+   "summary": {
+    "G1": "fail",
+    "G2": "pass",
+    "S4": "pass",
+    "S8": "pass",
+    "S9": "pass",
+    "S10": "pass",
+    "S11": "fail",
+    "T5": "pass",
+    "T6": "pass",
+    "C2": "pass",
+    "C3": "pass",
+    "K-top": "pass",
+    "K-boat": "pass"
+   },
+   "G1_patterned_tri_w_outside": 4,
+   "G2_gates_px": {
+    "78": 1.6108,
+    "130": 3.5815,
+    "131": 3.4419,
+    "132_s12": 3.562,
+    "72_s12_p95": 3.7971
+   },
+   "S11_must_pass": "13/17",
+   "S11_must_fail_ids": [
+    "L6-label",
+    "P1-mid",
+    "P1-cells",
+    "P2-top"
+   ],
+   "S11_targets": {
+    "L1-2": {
+     "value": 1.28,
+     "pass": true,
+     "kind": "must"
+    },
+    "L1-3": {
+     "value": 1.78,
+     "pass": true,
+     "kind": "must"
+    },
+    "L2-2": {
+     "value": 2.25,
+     "pass": true,
+     "kind": "must"
+    },
+    "L2-3": {
+     "value": 3.5,
+     "pass": true,
+     "kind": "must"
+    },
+    "L3-2": {
+     "value": 0.519,
+     "pass": true,
+     "kind": "must"
+    },
+    "L3-3": {
+     "value": 0.411,
+     "pass": true,
+     "kind": "must"
+    },
+    "L3-23": {
+     "value": 0.108,
+     "pass": true,
+     "kind": "must"
+    },
+    "L4-12": {
+     "value": 13.3,
+     "pass": true,
+     "kind": "must"
+    },
+    "L4-23": {
+     "value": 7.06,
+     "pass": true,
+     "kind": "must"
+    },
+    "L5-2": {
+     "value": 2.21,
+     "pass": true,
+     "kind": "must"
+    },
+    "L5-3": {
+     "value": 1.79,
+     "pass": true,
+     "kind": "must"
+    },
+    "L5-lip": {
+     "value": {
+      "2": 1.51,
+      "3": 1.92
+     },
+     "pass": true,
+     "kind": "should"
+    },
+    "L6-sep": {
+     "value": {
+      "1-2": 0.583,
+      "2-3": 0.5
+     },
+     "pass": true,
+     "kind": "must"
+    },
+    "L6-label": {
+     "value": {
+      "r1": 0.985,
+      "r2": 0.402,
+      "r3": 0.97
+     },
+     "pass": false,
+     "kind": "must"
+    },
+    "L6-vis3": {
+     "value": 12,
+     "pass": true,
+     "kind": "should"
+    },
+    "P1-top": {
+     "value": {
+      "indigo": 0.227,
+      "mizuiro": 0.25,
+      "white": 0.436,
+      "boat": 0.085
+     },
+     "pass": true,
+     "kind": "must"
+    },
+    "P1-mid": {
+     "value": {
+      "indigo": 0.718,
+      "mizuiro": 0.012,
+      "white": 0.022,
+      "boat": 0.243
+     },
+     "pass": false,
+     "kind": "must"
+    },
+    "P1-cells": {
+     "value": {
+      "cells": 615,
+      "indigo_share_mae": 0.384,
+      "pearson_r": 0.326
+     },
+     "pass": false,
+     "kind": "must"
+    },
+    "P2-top": {
+     "value": {
+      "indigo": 0.526,
+      "mizuiro": 0.099,
+      "white": 0.372,
+      "boat": 0.0
+     },
+     "pass": false,
+     "kind": "must"
+    },
+    "P2-cells": {
+     "value": {
+      "cells": 866,
+      "indigo_share_mae": 0.432,
+      "pearson_r": 0.292
+     },
+     "pass": false,
+     "kind": "should"
+    }
+   },
+   "T5_painting_body_blobs": 0,
+   "T5_all_views_total": 18,
+   "T5_sample04_painting": 92,
+   "T5_sample04_all_views": 2408,
+   "T6_crop_pale_share": 0.0,
+   "T6_sample04": 0.65,
+   "C3_iou_p10_p50_min": [
+    0.8751,
+    0.8917,
+    0.8528
+   ],
+   "K_boat_ratio": 1.896
+  },
+  "B": {
+   "render": "B10",
+   "summary": {
+    "G1": "pass",
+    "G2": "pass",
+    "S4": "pass",
+    "S8": "pass",
+    "S9": "pass",
+    "S10": "pass",
+    "S11": "fail",
+    "T5": "pass",
+    "T6": "pass",
+    "C2": "pass",
+    "C3": "pass",
+    "K-top": "pass",
+    "K-boat": "pass"
+   },
+   "G1_patterned_tri_w_outside": 0,
+   "G2_gates_px": {
+    "78": 1.6108,
+    "130": 3.5815,
+    "131": 3.4419,
+    "132_s12": 3.562,
+    "72_s12_p95": 3.7971
+   },
+   "S11_must_pass": "10/17",
+   "S11_must_fail_ids": [
+    "L1-3",
+    "L2-3",
+    "L6-label",
+    "P1-top",
+    "P1-mid",
+    "P1-cells",
+    "P2-top"
+   ],
+   "S11_targets": {
+    "L1-2": {
+     "value": 0.97,
+     "pass": true,
+     "kind": "must"
+    },
+    "L1-3": {
+     "value": 0.57,
+     "pass": false,
+     "kind": "must"
+    },
+    "L2-2": {
+     "value": 2.25,
+     "pass": true,
+     "kind": "must"
+    },
+    "L2-3": {
+     "value": 1.0,
+     "pass": false,
+     "kind": "must"
+    },
+    "L3-2": {
+     "value": 0.515,
+     "pass": true,
+     "kind": "must"
+    },
+    "L3-3": {
+     "value": 0.413,
+     "pass": true,
+     "kind": "must"
+    },
+    "L3-23": {
+     "value": 0.102,
+     "pass": true,
+     "kind": "must"
+    },
+    "L4-12": {
+     "value": 13.32,
+     "pass": true,
+     "kind": "must"
+    },
+    "L4-23": {
+     "value": 4.15,
+     "pass": true,
+     "kind": "must"
+    },
+    "L5-2": {
+     "value": 2.45,
+     "pass": true,
+     "kind": "must"
+    },
+    "L5-3": {
+     "value": 7.76,
+     "pass": true,
+     "kind": "must"
+    },
+    "L5-lip": {
+     "value": {
+      "2": 1.24,
+      "3": 1.12
+     },
+     "pass": true,
+     "kind": "should"
+    },
+    "L6-sep": {
+     "value": {
+      "1-2": 0.636,
+      "2-3": 0.5
+     },
+     "pass": true,
+     "kind": "must"
+    },
+    "L6-label": {
+     "value": {
+      "r1": 0.985,
+      "r2": 0.562,
+      "r3": 0.344
+     },
+     "pass": false,
+     "kind": "must"
+    },
+    "L6-vis3": {
+     "value": 10,
+     "pass": true,
+     "kind": "should"
+    },
+    "P1-top": {
+     "value": {
+      "indigo": 0.458,
+      "mizuiro": 0.131,
+      "white": 0.402,
+      "boat": 0.0
+     },
+     "pass": false,
+     "kind": "must"
+    },
+    "P1-mid": {
+     "value": {
+      "indigo": 0.636,
+      "mizuiro": 0.058,
+      "white": 0.123,
+      "boat": 0.176
+     },
+     "pass": false,
+     "kind": "must"
+    },
+    "P1-cells": {
+     "value": {
+      "cells": 670,
+      "indigo_share_mae": 0.355,
+      "pearson_r": 0.409
+     },
+     "pass": false,
+     "kind": "must"
+    },
+    "P2-top": {
+     "value": {
+      "indigo": 0.47,
+      "mizuiro": 0.126,
+      "white": 0.402,
+      "boat": 0.0
+     },
+     "pass": false,
+     "kind": "must"
+    },
+    "P2-cells": {
+     "value": {
+      "cells": 866,
+      "indigo_share_mae": 0.342,
+      "pearson_r": 0.388
+     },
+     "pass": false,
+     "kind": "should"
+    }
+   },
+   "T5_painting_body_blobs": 0,
+   "T5_all_views_total": 17,
+   "T5_sample04_painting": 92,
+   "T5_sample04_all_views": 2408,
+   "T6_crop_pale_share": 0.0,
+   "T6_sample04": 0.65,
+   "C3_iou_p10_p50_min": [
+    0.8751,
+    0.8917,
+    0.8528
+   ],
+   "K_boat_ratio": 1.1033
+  }
+ },
+ "separation_15views": {
+  "S04": {
+   "1-2": {
+    "views_both_visible": 11,
+    "separated_views": 3,
+    "separated_share": 0.273
+   },
+   "2-3": {
+    "views_both_visible": 11,
+    "separated_views": 7,
+    "separated_share": 0.636
+   },
+   "1-3": {
+    "views_both_visible": 10,
+    "separated_views": 4,
+    "separated_share": 0.4
+   },
+   "layer3_views_with_2000px": 9
+  },
+  "A9": {
+   "1-2": {
+    "views_both_visible": 12,
+    "separated_views": 7,
+    "separated_share": 0.583
+   },
+   "2-3": {
+    "views_both_visible": 12,
+    "separated_views": 6,
+    "separated_share": 0.5
+   },
+   "1-3": {
+    "views_both_visible": 13,
+    "separated_views": 7,
+    "separated_share": 0.538
+   },
+   "layer3_views_with_2000px": 12
+  },
+  "B10": {
+   "1-2": {
+    "views_both_visible": 11,
+    "separated_views": 7,
+    "separated_share": 0.636
+   },
+   "2-3": {
+    "views_both_visible": 10,
+    "separated_views": 5,
+    "separated_share": 0.5
+   },
+   "1-3": {
+    "views_both_visible": 10,
+    "separated_views": 3,
+    "separated_share": 0.3
+   },
+   "layer3_views_with_2000px": 10
+  }
+ },
+ "critic_r3box_white_ratio": {
+  "A": {
+   "before_A5": 0.97,
+   "fix_A9": 2.86
+  },
+  "B": {
+   "before_B6": 3.47,
+   "fix_B10": 3.75
+  },
+  "source": "Unity/Build/Polish/sample05/fix1/assemble/measure/r3box_white.json"
+ },
+ "clay_report": "Unity/Build/Polish/sample05/deliver/clay/clay_report.json"
+}
