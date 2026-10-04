@@ -1,0 +1,2922 @@
+{
+ "schema": "GreatWave.AS03.rules_check/1",
+ "created_local": "2026-10-04T11:56",
+ "noteJa": "美術の見本03 を出す前の、美術の要求書の測る規則の自動の確かめ。美術が届いたかは利用者が決める（Q29・Q30）。目で見た審査は閉じる条件にしない。Unity 6000.4.3f1 の PC オフスクリーン描画（HMD 実機ではない）。t* = 12 s の静止だけ。",
+ "sample": {
+  "variants": {
+   "V1": "冠 OUT（彫刻のように外へ開く）＋ SCULPT（彫刻の艶と陰）",
+   "V2": "冠 OUT ＋ FLAT（浮世絵の平らな色）",
+   "V3": "冠 IN（原画視点の影を原画の白の冠・爪の区域に収める）＋ SCULPT"
+  },
+  "common": "主役波 = B2 の彫りの面 hero_relief_b1v2c（K*′ AS02C、白の印 v2）、爪 = 見本02 修正の回 1 の面の内 25・近い海 10（変種と同じ AS03 の釉）、海 = PL30",
+  "render": {
+   "V1": "Unity/Build/Polish/sample03/fix01/render/V1",
+   "V2": "Unity/Build/Polish/sample03/fix01/render/V2",
+   "V3": "Unity/Build/Polish/sample03/fix01/render/V3"
+  }
+ },
+ "inputs_sha256": {
+  "Unity/Build/Polish/sample03/surface/mesh/hero_relief_b1v2c.json": "f07b4daf81a90d60e111f8574469441e08b03d15d600649b2b88e97d3d4b9a47",
+  "Unity/Build/Polish/sample03/surface/mesh/hero_relief_b1v2c.bin": "ac1db2bb789d7b8792da9ea67b4089f91bd65bd2546625a4224d4d18931581d7",
+  "Unity/Build/Polish/sample02/fix01/back/final/cand/kstarAS02C_a45.gwb": "56c6c85d7ec5d6f4d979b9b7148ddc59905b6f30f834875e62c0fa1ec932e4a7",
+  "Unity/Build/Polish/sample03/study/sculpture_spec.json": "a92f91b412da79d8b22b2b1bf1fb7c7d69ec47df0e2ec8a8c0741a5e0d5b20f6",
+  "Unity/Build/Polish/sample03/shared/white_mask.json": "8c8339f6fd6b3368014dd0ee234b0c0a7e652b5733725e5ad5c580fed5f95aeb",
+  "Unity/Build/Polish/sample03/shared/white_mask_params.json": "872f84a78fd49d557de81fba51ede03fcd72743b24f185bfb80f1e1646b5a145",
+  "Unity/Build/Polish/sample03/shared/white_mask_band_f32.bin": "0a1391706aa5d2ce4143429e7a71b5e8d73a67af287242481fb00a0b494e98e9",
+  "Unity/Build/Polish/sample02/fix01/assemble/claws/mesh/as02_claws_report.json": "37d299a693352d1725fa06a92058fd9beebb551ec769c0c7ad013ea5c56d68d9",
+  "Unity/Build/Polish/sample03/assemble/claws35/ds33_claw_layout.json": "98015861ececcaab73603844e344fdce3abaeb989a8dadefc6507df27709c1b5",
+  "Unity/Build/Polish/sample02/fix01/assemble/claws/mesh/ds33_claw_layout.json": "495b191d0aa4321721be2a88e98cca1cfbc5c6ddd3d283a39fd2510102d31171",
+  "Unity/Build/Polish/sample03/crown/OUT/as03_crown.bin": "838fccc55f338b5cecbecfc0aed308710876ddad471a494b256c7c27be45f3d2",
+  "Unity/Build/Polish/sample03/crown/IN/as03_crown.bin": "64e6e020034809a2cd28300e1b65d853dfc3511e246fd7ba68ac931500eb0298",
+  "Unity/Build/Polish/sample03/crown/OUT/as03_crown_layout.json": "08a3a53c7606976f5fc5155a28227d07cd26b909f241ba0cb7cc9eca8200d4db",
+  "Unity/Build/Polish/sample03/crown/IN/as03_crown_layout.json": "fa1de7012383e7135d38ceca1c7f5b4d367dfb3ee58389e89105c46f5da09e6e",
+  "Unity/Assets/GreatWave/ArtSample03/Editor/AS03AsmRender.cs": "bf4f4aced42297bbaadbae02b61a7917e8dbae58fc8c221dfa5bb6c9b3e987df",
+  "Unity/Assets/GreatWave/ArtSample03/Shaders/AS03Common.cginc": "a8f5b89e0f53c221891e897c635ce815c924a9558c031b96391cf8a0c4355b07",
+  "Unity/Assets/GreatWave/ArtSample03/Shaders/AS03_Flat_Keypose.shader": "9e7e31713834d51f61afc1f89cc225b7c0cbce081711a0803499c2780c277310",
+  "Unity/Assets/GreatWave/ArtSample03/Shaders/AS03_Sculpt_Keypose.shader": "b40001a100be7ec8f10b3e9e7d49bf2df52addccda5413380c1457724433eb71"
+ },
+ "rules": {
+  "G1": {
+   "rule_ja": "色・線は原画カメラの投影を使わない（コードの検査）。7 視点＋回り台で引き伸ばし・継ぎ目・平らな面がない",
+   "shaders": {
+    "Unity/Assets/GreatWave/ArtSample03/Shaders/AS03Common.cginc": {
+     "sha256": "a8f5b89e0f53c221891e897c635ce815c924a9558c031b96391cf8a0c4355b07",
+     "same_as_B2_checked": true,
+     "forbidden_tokens": [],
+     "screen_derivative_calls": {
+      "fwidth": 7,
+      "ddx": 2,
+      "ddy": 2
+     }
+    },
+    "Unity/Assets/GreatWave/ArtSample03/Shaders/AS03_Flat_Keypose.shader": {
+     "sha256": "9e7e31713834d51f61afc1f89cc225b7c0cbce081711a0803499c2780c277310",
+     "same_as_B2_checked": true,
+     "forbidden_tokens": [],
+     "screen_derivative_calls": {
+      "fwidth": 3,
+      "ddx": 0,
+      "ddy": 0
+     }
+    },
+    "Unity/Assets/GreatWave/ArtSample03/Shaders/AS03_Sculpt_Keypose.shader": {
+     "sha256": "b40001a100be7ec8f10b3e9e7d49bf2df52addccda5413380c1457724433eb71",
+     "same_as_B2_checked": true,
+     "forbidden_tokens": [],
+     "screen_derivative_calls": {
+      "fwidth": 1,
+      "ddx": 0,
+      "ddy": 0
+     }
+    }
+   },
+   "render_tool": {
+    "path": "Unity/Assets/GreatWave/ArtSample03/Editor/AS03AsmRender.cs",
+    "sha256": "bf4f4aced42297bbaadbae02b61a7917e8dbae58fc8c221dfa5bb6c9b3e987df",
+    "projection_tokens_in_checked_parts": {
+     "B2 の静止の面・材質・冠の部分": [],
+     "組み立ての比べの視点の段": [],
+     "組み立ての冠の画と比べの視点の関数": []
+    }
+   },
+   "render_reports": {
+    "V1": {
+     "heroSdf": "",
+     "heroUvWarp": "",
+     "heroUv3File": "",
+     "protectedUnchanged": true,
+     "as03Shader": "GreatWave/ArtSample03/AS03 Sculpt Keypose",
+     "as03Surf": "G:/Unity/GreatWave_2026_Fresh/Unity/Build/Polish/sample03/surface/mesh/hero_relief_b1v2c.json",
+     "as03ClawGlaze": "GreatWave/ArtSample03/AS03 Sculpt Keypose（_AS03Src 2、submesh 2、法線は t* で計算し直し）",
+     "clawLayout": "Build/Polish/sample03/assemble/claws35/ds33_claw_layout.json",
+     "as03Crown": [
+      "G:/Unity/GreatWave_2026_Fresh/Unity/Build/Polish/sample03/crown/OUT/as03_crown.json 838fccc55f338b5cecbecfc0aed308710876ddad471a494b256c7c27be45f3d2 v=228214",
+      "G:/Unity/GreatWave_2026_Fresh/Unity/Build/Polish/sample03/fix01/crown/OUT/fix1_foam.json 9c72255a365b494c8e8a27e805b4e35b30c71838fc16747c1010f36d714a9080 v=103079",
+      "G:/Unity/GreatWave_2026_Fresh/Unity/Build/Polish/sample03/fix01/crown/OUT/fix1_drips.json dd162b8b936248af0bc722a44466fb5a5203bf728d1e067326335aa4eb2534a1 v=13566"
+     ],
+     "changedFiles": []
+    },
+    "V2": {
+     "heroSdf": "",
+     "heroUvWarp": "",
+     "heroUv3File": "",
+     "protectedUnchanged": true,
+     "as03Shader": "GreatWave/ArtSample03/AS03 Flat Keypose",
+     "as03Surf": "G:/Unity/GreatWave_2026_Fresh/Unity/Build/Polish/sample03/surface/mesh/hero_relief_b1v2c.json",
+     "as03ClawGlaze": "GreatWave/ArtSample03/AS03 Flat Keypose（_AS03Src 2、submesh 2、法線は t* で計算し直し）",
+     "clawLayout": "Build/Polish/sample03/assemble/claws35/ds33_claw_layout.json",
+     "as03Crown": [
+      "G:/Unity/GreatWave_2026_Fresh/Unity/Build/Polish/sample03/crown/OUT/as03_crown.json 838fccc55f338b5cecbecfc0aed308710876ddad471a494b256c7c27be45f3d2 v=228214",
+      "G:/Unity/GreatWave_2026_Fresh/Unity/Build/Polish/sample03/fix01/crown/OUT/fix1_foam.json 9c72255a365b494c8e8a27e805b4e35b30c71838fc16747c1010f36d714a9080 v=103079",
+      "G:/Unity/GreatWave_2026_Fresh/Unity/Build/Polish/sample03/fix01/crown/OUT/fix1_drips.json dd162b8b936248af0bc722a44466fb5a5203bf728d1e067326335aa4eb2534a1 v=13566"
+     ],
+     "changedFiles": []
+    },
+    "V3": {
+     "heroSdf": "",
+     "heroUvWarp": "",
+     "heroUv3File": "",
+     "protectedUnchanged": true,
+     "as03Shader": "GreatWave/ArtSample03/AS03 Sculpt Keypose",
+     "as03Surf": "G:/Unity/GreatWave_2026_Fresh/Unity/Build/Polish/sample03/surface/mesh/hero_relief_b1v2c.json",
+     "as03ClawGlaze": "GreatWave/ArtSample03/AS03 Sculpt Keypose（_AS03Src 2、submesh 2、法線は t* で計算し直し）",
+     "clawLayout": "Build/Polish/sample03/assemble/claws35/ds33_claw_layout.json",
+     "as03Crown": [
+      "G:/Unity/GreatWave_2026_Fresh/Unity/Build/Polish/sample03/crown/IN/as03_crown.json 64e6e020034809a2cd28300e1b65d853dfc3511e246fd7ba68ac931500eb0298 v=196136",
+      "G:/Unity/GreatWave_2026_Fresh/Unity/Build/Polish/sample03/fix01/crown/IN/fix1_foam.json fd88b24c6daa8a6649c6d8d59b23a3d84e76f6616cb2fb3f9a124904a3c64d4d v=77490",
+      "G:/Unity/GreatWave_2026_Fresh/Unity/Build/Polish/sample03/fix01/crown/IN/fix1_drips.json 4a9e6ca82b0f099e5aee99ce02a9fe67e1c783e1c64c7ba8acc3865bf1232ced v=5834"
+     ],
+     "changedFiles": []
+    }
+   },
+   "crown_meshes": {
+    "OUT": {
+     "channels": [
+      [
+       "position",
+       3
+      ],
+      [
+       "normal",
+       3
+      ],
+      [
+       "uv5",
+       4
+      ],
+      [
+       "uv3",
+       4
+      ]
+     ],
+     "only_geometry_and_glaze_attrs": true,
+     "bin_sha256": "838fccc55f338b5cecbecfc0aed308710876ddad471a494b256c7c27be45f3d2"
+    },
+    "IN": {
+     "channels": [
+      [
+       "position",
+       3
+      ],
+      [
+       "normal",
+       3
+      ],
+      [
+       "uv5",
+       4
+      ],
+      [
+       "uv3",
+       4
+      ]
+     ],
+     "only_geometry_and_glaze_attrs": true,
+     "bin_sha256": "64e6e020034809a2cd28300e1b65d853dfc3511e246fd7ba68ac931500eb0298"
+    }
+   },
+   "relief_mesh": {
+    "projection_used": false,
+    "reference_obj_read": false,
+    "photos_read": false
+   },
+   "surface_stretch_vs_sample02": {
+    "now_relief_carved_face_non_sliver": {
+     "triangles": 196317,
+     "grad_w_p1_p50_p99": [
+      0.655,
+      0.9533,
+      1.3663
+     ],
+     "tri_outside_1_3_to_3x": 0,
+     "area_frac_outside_0p5_to_2x": 0.00063
+    },
+    "AS02C_base_same_region_same_measure": {
+     "triangles": 51342,
+     "grad_w_p1_p50_p99": [
+      0.685,
+      0.9859,
+      1.3708
+     ],
+     "tri_outside_1_3_to_3x": 0,
+     "area_frac_outside_0p5_to_2x": 0.00039
+    },
+    "sample02_rules_G1_AS02C_its_own_region": {
+     "triangles": 173712,
+     "grad_w_p1_p50_p99": [
+      0.6381,
+      0.934,
+      1.3916
+     ],
+     "stretch_tri_gt3x": 0,
+     "stretch_area_frac_gt2x": 0.00015,
+     "seam_edges_dw_over_len_ge3": 0,
+     "edge_dw_over_len_max": 1.4542
+    },
+    "not_worse": true,
+    "slivers_note_ja": "細い三角形（形の良さ < 0.1）は数えない（数は T1 の excluded_slivers に記録）。"
+   },
+   "code_pass": true,
+   "note_ja": "原画のカメラは、原画視点の画を撮る視点、B1 の白の境の位置の数と IN の指の置き場所の制約（形の置き方）、見本02 の爪の置き方 A（射線の上）、比べの視点の方位 0 の向きにだけ使った。色・模様は頂点の属性とワールドに固定した光だけで決まる（SCULPT の艶だけが見る位置で動く、釉の性質）。7 視点＋波頭の回り台＋回り台の見た目は利用者が並べ図で見る。",
+   "verdict": "pass",
+   "crown_meshes_fix1_parts": {
+    "OUT/fix1_foam": {
+     "channels": [
+      [
+       "position",
+       3
+      ],
+      [
+       "normal",
+       3
+      ],
+      [
+       "uv5",
+       4
+      ],
+      [
+       "uv3",
+       4
+      ]
+     ],
+     "only_geometry_and_glaze_attrs": true,
+     "bin_sha256": "9c72255a365b494c8e8a27e805b4e35b30c71838fc16747c1010f36d714a9080",
+     "vertices": 103079,
+     "triangles": 202980
+    },
+    "OUT/fix1_drips": {
+     "channels": [
+      [
+       "position",
+       3
+      ],
+      [
+       "normal",
+       3
+      ],
+      [
+       "uv5",
+       4
+      ],
+      [
+       "uv3",
+       4
+      ]
+     ],
+     "only_geometry_and_glaze_attrs": true,
+     "bin_sha256": "dd162b8b936248af0bc722a44466fb5a5203bf728d1e067326335aa4eb2534a1",
+     "vertices": 13566,
+     "triangles": 26964
+    },
+    "IN/fix1_foam": {
+     "channels": [
+      [
+       "position",
+       3
+      ],
+      [
+       "normal",
+       3
+      ],
+      [
+       "uv5",
+       4
+      ],
+      [
+       "uv3",
+       4
+      ]
+     ],
+     "only_geometry_and_glaze_attrs": true,
+     "bin_sha256": "fd88b24c6daa8a6649c6d8d59b23a3d84e76f6616cb2fb3f9a124904a3c64d4d",
+     "vertices": 77490,
+     "triangles": 150400
+    },
+    "IN/fix1_drips": {
+     "channels": [
+      [
+       "position",
+       3
+      ],
+      [
+       "normal",
+       3
+      ],
+      [
+       "uv5",
+       4
+      ],
+      [
+       "uv3",
+       4
+      ]
+     ],
+     "only_geometry_and_glaze_attrs": true,
+     "bin_sha256": "4a9e6ca82b0f099e5aee99ce02a9fe67e1c783e1c64c7ba8acc3865bf1232ced",
+     "vertices": 5834,
+     "triangles": 11592
+    }
+   },
+   "fix1_material_params": {
+    "Tools/GWWaveGen/as03/fix1_sculpt_params.txt": {
+     "sha256": "9dfca7fb2e397963451e5938c36036a3b44669c0fe3e7ea60952290ab7e0ce0d",
+     "lines": [
+      "_WhiteSrc=1",
+      "_SkyCol=0.82,0.84,0.88,1",
+      "_GroundCol=0.74,0.76,0.80,1",
+      "_FillCol=0.40,0.41,0.45,1",
+      "_Wrap=0.85,0.8,0.7,-0.08",
+      "_GrooveCol=0.20,0.33,0.53,1",
+      "_SpecAi=70,0.9,1.3,0.05",
+      "_EnvSky=0.32,0.40,0.55,1",
+      "_EnvHorizon=0.50,0.52,0.56,1"
+     ]
+    },
+    "Tools/GWWaveGen/as03/fix1_flat_params.txt": {
+     "sha256": "c6e14a78e05da4a63597243b9e438efb55e8b7a3e34ff808bd209db3d3edc8bc",
+     "lines": [
+      "_WhiteSrc=1",
+      "_White=0.97255,0.95294,0.87451,1",
+      "_WhiteShade=0.79608,0.84314,0.80784,1",
+      "_AiRidge=0.13725,0.25098,0.38039,1",
+      "_AiDeep=0.07843,0.14902,0.25098,1",
+      "_GrooveCol=0.17255,0.41176,0.57647,1",
+      "_GrooveShade=0.11765,0.28235,0.42353,1",
+      "_LineCol=0.12157,0.23529,0.36863,1",
+      "_EdgeLinePx=1.2",
+      "_FlatRib=1,0.04,0,0",
+      "_Wrap=0.5,0,1,-0.08",
+      "_FlatAO=0.55,1,0,0",
+      "_MeshMizuiro=0.15",
+      "_MeshTint=0.96,0.985,1.08,1"
+     ]
+    }
+   },
+   "fix1_note_ja": "修正の回 1 はシェーダーのコードを変えていない（上の shaders の SHA-256 が B2 の確かめた版と同じ）。材質の値の表だけを替えた（環境の明るさ・回り込み・溝の青・藍の艶・FLAT の冠の淡い水色）。泡の皮・滴は面の座標 (u, w) と白の印 whiteSD で置いた形で、原画のカメラは IN（V3）の置き場所の制約にだけ使った（色は写さない）。"
+  },
+  "G2": {
+   "rule_ja": "78・130・131（定義どおり）≤ 4 px、132・72 は大きな輪郭で ≤ 4 px",
+   "variants": {
+    "V1": {
+     "gates": {
+      "78": {
+       "claws": 35.6099,
+       "noclaws": 35.6099,
+       "gate_px": 4.0,
+       "pass": false,
+       "sample02_AS02C_A_claws": 2.741,
+       "sample02_AS02C_A_noclaws": 2.741,
+       "CP1": 2.772,
+       "26修正01": 1.641
+      },
+      "130": {
+       "claws": 21.9955,
+       "noclaws": 21.9955,
+       "gate_px": 4.0,
+       "pass": false,
+       "sample02_AS02C_A_claws": 3.5815,
+       "sample02_AS02C_A_noclaws": 3.5815,
+       "CP1": 1.968,
+       "26修正01": 1.953
+      },
+      "131": {
+       "claws": 33.249,
+       "noclaws": 33.249,
+       "gate_px": 4.0,
+       "pass": false,
+       "sample02_AS02C_A_claws": 3.4419,
+       "sample02_AS02C_A_noclaws": 3.4419,
+       "CP1": 1.814,
+       "26修正01": 1.798
+      },
+      "132_s12": {
+       "claws": 62.0131,
+       "noclaws": 62.0131,
+       "gate_px": 4.0,
+       "pass": false,
+       "sample02_AS02C_A_claws": 3.5576,
+       "sample02_AS02C_A_noclaws": 3.5576,
+       "CP1": 1.326,
+       "26修正01": 1.574
+      },
+      "72_s12_p95": {
+       "claws": 41.4554,
+       "noclaws": 41.4554,
+       "gate_px": 4.0,
+       "pass": false,
+       "sample02_AS02C_A_claws": 3.6577,
+       "sample02_AS02C_A_noclaws": 3.8507,
+       "CP1": 1.558,
+       "26修正01": 1.723
+      }
+     },
+     "eval23": {
+      "line": {
+       "pass": 2,
+       "fail": 7,
+       "other": 14
+      },
+      "line_noclaws": {
+       "pass": 2,
+       "fail": 7,
+       "other": 14
+      },
+      "noline": {
+       "pass": 2,
+       "fail": 7,
+       "other": 14
+      },
+      "noline_noclaws": {
+       "pass": 2,
+       "fail": 7,
+       "other": 14
+      }
+     },
+     "source": {
+      "path": "Unity/Build/Polish/sample03/fix01/render/measure/gates_V1/sweep_gates.json",
+      "sha256": "3e70eb5cb0e3cd040285a71537e2c335f9714b59ee782debaf94b3dc22e3ff24"
+     },
+     "all_le_4px": false
+    },
+    "V2": {
+     "gates": {
+      "78": {
+       "claws": 35.6099,
+       "noclaws": 35.6099,
+       "gate_px": 4.0,
+       "pass": false,
+       "sample02_AS02C_A_claws": 2.741,
+       "sample02_AS02C_A_noclaws": 2.741,
+       "CP1": 2.772,
+       "26修正01": 1.641
+      },
+      "130": {
+       "claws": 21.9955,
+       "noclaws": 21.9955,
+       "gate_px": 4.0,
+       "pass": false,
+       "sample02_AS02C_A_claws": 3.5815,
+       "sample02_AS02C_A_noclaws": 3.5815,
+       "CP1": 1.968,
+       "26修正01": 1.953
+      },
+      "131": {
+       "claws": 33.249,
+       "noclaws": 33.249,
+       "gate_px": 4.0,
+       "pass": false,
+       "sample02_AS02C_A_claws": 3.4419,
+       "sample02_AS02C_A_noclaws": 3.4419,
+       "CP1": 1.814,
+       "26修正01": 1.798
+      },
+      "132_s12": {
+       "claws": 62.0131,
+       "noclaws": 62.0131,
+       "gate_px": 4.0,
+       "pass": false,
+       "sample02_AS02C_A_claws": 3.5576,
+       "sample02_AS02C_A_noclaws": 3.5576,
+       "CP1": 1.326,
+       "26修正01": 1.574
+      },
+      "72_s12_p95": {
+       "claws": 41.4554,
+       "noclaws": 41.4554,
+       "gate_px": 4.0,
+       "pass": false,
+       "sample02_AS02C_A_claws": 3.6577,
+       "sample02_AS02C_A_noclaws": 3.8507,
+       "CP1": 1.558,
+       "26修正01": 1.723
+      }
+     },
+     "eval23": {
+      "line": {
+       "pass": 2,
+       "fail": 7,
+       "other": 14
+      },
+      "line_noclaws": {
+       "pass": 2,
+       "fail": 7,
+       "other": 14
+      },
+      "noline": {
+       "pass": 2,
+       "fail": 7,
+       "other": 14
+      },
+      "noline_noclaws": {
+       "pass": 2,
+       "fail": 7,
+       "other": 14
+      }
+     },
+     "source": {
+      "path": "Unity/Build/Polish/sample03/fix01/render/measure/gates_V2/sweep_gates.json",
+      "sha256": "5c5f7e4671ab87dcfb235fa412efd4bf2ab7d7cf06d29c8837da776d874fe1d3"
+     },
+     "all_le_4px": false
+    },
+    "V3": {
+     "gates": {
+      "78": {
+       "claws": 2.741,
+       "noclaws": 2.741,
+       "gate_px": 4.0,
+       "pass": true,
+       "sample02_AS02C_A_claws": 2.741,
+       "sample02_AS02C_A_noclaws": 2.741,
+       "CP1": 2.772,
+       "26修正01": 1.641
+      },
+      "130": {
+       "claws": 3.5529,
+       "noclaws": 3.5529,
+       "gate_px": 4.0,
+       "pass": true,
+       "sample02_AS02C_A_claws": 3.5815,
+       "sample02_AS02C_A_noclaws": 3.5815,
+       "CP1": 1.968,
+       "26修正01": 1.953
+      },
+      "131": {
+       "claws": 3.4419,
+       "noclaws": 3.4419,
+       "gate_px": 4.0,
+       "pass": true,
+       "sample02_AS02C_A_claws": 3.4419,
+       "sample02_AS02C_A_noclaws": 3.4419,
+       "CP1": 1.814,
+       "26修正01": 1.798
+      },
+      "132_s12": {
+       "claws": 3.6286,
+       "noclaws": 3.6286,
+       "gate_px": 4.0,
+       "pass": true,
+       "sample02_AS02C_A_claws": 3.5576,
+       "sample02_AS02C_A_noclaws": 3.5576,
+       "CP1": 1.326,
+       "26修正01": 1.574
+      },
+      "72_s12_p95": {
+       "claws": 3.5316,
+       "noclaws": 3.5316,
+       "gate_px": 4.0,
+       "pass": true,
+       "sample02_AS02C_A_claws": 3.6577,
+       "sample02_AS02C_A_noclaws": 3.8507,
+       "CP1": 1.558,
+       "26修正01": 1.723
+      }
+     },
+     "eval23": {
+      "line": {
+       "pass": 5,
+       "fail": 4,
+       "other": 14
+      },
+      "line_noclaws": {
+       "pass": 5,
+       "fail": 4,
+       "other": 14
+      },
+      "noline": {
+       "pass": 5,
+       "fail": 4,
+       "other": 14
+      },
+      "noline_noclaws": {
+       "pass": 5,
+       "fail": 4,
+       "other": 14
+      }
+     },
+     "source": {
+      "path": "Unity/Build/Polish/sample03/fix01/render/measure/gates_V3/sweep_gates.json",
+      "sha256": "fb77590cf4694b5109f887fa87a6534cfc0dc0051e4197fe84c5f64b5882e930"
+     },
+     "all_le_4px": true
+    }
+   },
+   "verdict_by_variant": {
+    "V1": "fail",
+    "V2": "fail",
+    "V3": "pass"
+   },
+   "required_ja": "V3（冠 IN）は通ること。V1・V2（冠 OUT）は値を記録する（彫刻のように外へ開く指は原画の空へ出るので、関門を外すのは設計どおり）。",
+   "reference_B2_relief_without_crown_noclaws_claws": {
+    "78": 2.741,
+    "130": 3.5815,
+    "131": 3.4419,
+    "132_s12": 3.6286,
+    "72_s12_p95": [
+     3.7643,
+     3.5316
+    ]
+   },
+   "reference_B1_overlay_prediction": {
+    "IN": [
+     2.741,
+     3.5815,
+     3.4419,
+     3.5576,
+     3.6577
+    ],
+    "OUT": [
+     35.61,
+     7.152,
+     23.614,
+     62.013,
+     37.755
+    ],
+    "note_ja": "B1 は見本02 の爪なしの色区の画に冠を z バッファで重ねて予測した（主役波は見本02 の keypose の面）。ここは Unity の本当の描画（主役波は B2 の彫りの面）。"
+   },
+   "verdict": "pass"
+  },
+  "S4": {
+   "rule_ja": "背は中ほどがいちばん高く盛り上がり、両側へなだらかに下がる（一つの山）",
+   "method_ja": "組み立てでは背の形を変えていないことを確かめる：B2 の彫りの面の元の行の頂点（行・列が整数）を AS02C の .gwb の同じ頂点と比べ、背（u < 0）の頂点の動きが 0（1 mm 未満）であること。B1 の冠の手の根元が頂の線より後ろ（u < −0.3 m）に無いこと（S1：背に指は無い）。背の一つの山の測り（見本02 の rules_check.json の S4、AS02C で合格）はそのまま当てはまる。",
+   "relief_vs_AS02C": {
+    "vertices_on_original_rows": 96000,
+    "back_u_lt_0": {
+     "n": 21729,
+     "max_disp_m": 5e-06,
+     "p99_disp_m": 5e-06
+    },
+    "front_u_ge_0": {
+     "n": 74271,
+     "max_disp_m": 0.1442,
+     "note_ja": "前の面の溝は内へ彫った（B2、最大 0.144 m）"
+    }
+   },
+   "crown_on_back": {
+    "OUT": {
+     "hands": 58,
+     "hand_roots_behind_crest_u_lt_-0.3m": 0,
+     "hand_root_u_min_m": 0.276,
+     "crown_vertices_sampled": 76072,
+     "crown_vertices_nearest_hero_u_lt_-0.5m_frac": 0.0,
+     "crown_vertices_nearest_hero_u_min_m": -0.0
+    },
+    "IN": {
+     "hands": 52,
+     "hand_roots_behind_crest_u_lt_-0.3m": 0,
+     "hand_root_u_min_m": 0.259,
+     "crown_vertices_sampled": 65379,
+     "crown_vertices_nearest_hero_u_lt_-0.5m_frac": 0.0,
+     "crown_vertices_nearest_hero_u_min_m": -0.449
+    }
+   },
+   "sample02_S4_AS02C": {
+    "verdict": "pass",
+    "checks": {
+     "H_dip_c_ge_-14_m": {
+      "value": 0.0,
+      "pass": true
+     },
+     "back_contour_dip_max_m": {
+      "value": 0.077,
+      "pass": true
+     },
+     "bulge_over_chord_dip_m": {
+      "value": 0.019,
+      "pass": true
+     },
+     "bulge_peak_in_middle_zone": {
+      "peak_c_by_level": {
+       "0.05": 1.6,
+       "0.15": 1.0,
+       "0.30": 4.0,
+       "0.40": 1.6,
+       "0.50": -3.8,
+       "0.60": -5.2,
+       "0.70": -5.2,
+       "0.80": -4.8,
+       "0.85": -4.2,
+       "0.90": -3.0
+      },
+      "outside_levels": {},
+      "zone_c": [
+       -6.0,
+       6.0
+      ],
+      "pass": true
+     },
+     "silhouette_dip_from_behind_px_c_ge_-14": {
+      "value": {
+       "b65_back65_clay": 0.0,
+       "b90_back_straight": 0.27,
+       "b115_back_minus_c": 0.37
+      },
+      "pass": true
+     }
+    }
+   },
+   "colour_note_ja": "背の白の境の式は見本02 の hrel > 0.42 から B1 の白の印の hrel > 0.40（＋ゆるい波）へ変わった（色の境だけ。形は同じ）。見た目では、見本02 の描画は後ろ 65°・右の側面で背がほぼ海面まで白（クリーム）に見えたが、組み立てでは背の下が藍になる（S1：彫刻の背の白は海面から 0.25〜0.40 H まで）。並べ図 asm_3b_views.png で利用者が見る。",
+   "verdict": "pass"
+  },
+  "C2": {
+   "rule_ja": "どの爪も利用者の模型 claw_low・claw_mid の水準以上（断面の幅と厚みの比、先の細り、表面の滑らかさ＝曲率の跳びを模型と比べる）",
+   "claws": 35,
+   "by_role": {
+    "FACE_INTERIOR": 25,
+    "NEAR_SEA": 10
+   },
+   "vertices_identical_to_sample02": true,
+   "pass": 35,
+   "fail": 0,
+   "fail_claws": {},
+   "section_width_over_thickness_p50": 1.3,
+   "taper_power_tip30_p50": 0.628,
+   "standard_source": {
+    "path": "Unity/Build/Polish/sample02/claws/user_claw_standard.json",
+    "sha256": "9f0b269dc8f364c51ae8dfc7e11d9b32a2c163984f1d3e0ba897d24cd6bc48a0"
+   },
+   "note_ja": "見本02 修正の回 1 の爪のうち、面の内（25）と近い海（10）の 35 本。頂点は見本02 とバイトまで同じなので、形の測り（as02_claws_report.json）をそのまま使った。波頭の冠の役の 48 本は B1 の冠の指の先になった（冠の測りは T4）。見本02 で C3 に届かなかった claw024・claw045 は冠の役。材質だけ変種と同じ AS03 の釉。",
+   "verdict": "pass"
+  },
+  "C3": {
+   "rule_ja": "原画カメラから見た各爪の輪郭とマスクの重なり（IoU ≥ 0.85）。100 本を 1 本ずつ 3D に戻して置く",
+   "claws": 35,
+   "iou_painting_p10_p50_min": [
+    0.8733,
+    0.893,
+    0.8528
+   ],
+   "below_085": {},
+   "pass": 35,
+   "accounting_100_ja": "100 本 = 置いた 83（面の内 25・近い海 10 は DS34 の爪の層、冠の役 48 は B1 の冠の指の先）＋ 重複 17（見本02 と同じ）",
+   "crown_48_ja": "冠の役の 48 本は、OUT では根元の周りに回して面から起こした（原画視点の IoU は測らない。G2 で記録）、IN では見本02 の置き方 A のまま（原画視点の影は見本02 と同じ）。",
+   "verdict": "pass"
+  },
+  "T4": {
+   "rule_ja": "波頭の指の数と長さ・枝分かれ・垂れる縁の舌の数を彫刻から測った値と比べる。全視点で波頭が平らな面だけにならない",
+   "rule_detail_ja": "（1）冠の指の先 83〜111・手 33〜59（S1 を主役波の頂の縁の長さへ当てた範囲）、（2）手続きの指の長さの中央値が S1 の p25〜p75（0.616〜1.131 m）、（3）枝分かれ：手あたりの指の先 1.5〜5、分かれる所の中央値が S1 の p25〜p75（手の長さの 0.351〜0.512）、同じ手の指どうしの角の中央値が S1 の p25〜p75（24.3〜67.2°）、（4）垂れる縁の舌の数が S1 の範囲で、彫りの面の白に入っている、（5）冠が原画視点のほかのどの視点（7 視点の 6・波頭の回り台 8 方位・回り台 12 方位）でも枠の 0.5% より多く見える（冠の画の (1,0,1) の画素）。範囲の取り方は組み立ての担当の既定（S1 の測った分布の四分位、数は S1 の範囲）。進行役が変えてよい。",
+   "crown_numbers": {
+    "OUT": {
+     "checks": {
+      "fingertips_in_S1_range": {
+       "value": 105,
+       "range": [
+        83,
+        111
+       ],
+       "pass": true
+      },
+      "hands_in_S1_range": {
+       "value": 58,
+       "range": [
+        33,
+        59
+       ],
+       "pass": true
+      },
+      "digit_length_p50_in_S1_p25_p75_m": {
+       "value": 0.909,
+       "range": [
+        0.616,
+        1.131
+       ],
+       "pass": true,
+       "ours_p10_p90": [
+        0.598,
+        1.484
+       ],
+       "S1_p10_p90": [
+        0.371,
+        1.324
+       ],
+       "n_procedural_digits": 57,
+       "B1_report_p50_m": 0.8093,
+       "definition_ja": "配置の表（as03_crown_layout.json）の指の管の背骨の長さ。B1 の記録（as03_crown_report.json）の p50 は B1 の別の定義の長さ。どちらも S1 の範囲の中"
+      },
+      "digits_per_hand_mean_in_S1_1p5_to_5": {
+       "value": 1.81,
+       "range": [
+        1.5,
+        5.0
+       ],
+       "pass": true,
+       "note_ja": "S1：スキャンの中央値 1.5（細い指が欠けるので下限）、写真 3（2〜5）"
+      },
+      "branch_start_fraction_p50_in_S1_p25_p75": {
+       "value": 0.435,
+       "range": [
+        0.351,
+        0.512
+       ],
+       "pass": true,
+       "n_hands": 27
+      },
+      "angle_between_digits_same_hand_p50_in_S1_p25_p75_deg": {
+       "value": 44.0,
+       "range": [
+        24.3,
+        67.2
+       ],
+       "pass": true,
+       "n_pairs": 41
+      }
+     },
+     "pass_all": true,
+     "record": {
+      "hands_with_2plus_fingertips_frac": 0.741,
+      "fingertips_per_m_rim": 2.246,
+      "rim_length_m": 46.75,
+      "user_claw_length_p50_m（S2 の claw_roles の 3D の長さ、冠の役 48 本）": 1.331,
+      "layout_hands_listed": 58,
+      "note_hands_ja": "手の数は B1 の記録（as03_crown_report.json）の hands_total。配置の表の hands の数と 1 違う場合は、袖を外した利用者の爪の房（爪は残る）を記録は数えるため（B1 の記録の第 2 節の 9）。",
+      "digit_overall_below_horizontal_p50_deg": 25.1346,
+      "digit_tip_below_horizontal_p50_deg": 32.6606,
+      "frac_tips_down": {
+       "ours": 0.829,
+       "S1": 0.908
+      },
+      "frac_forward": {
+       "ours": 0.842,
+       "S1": 0.908
+      },
+      "tips_shape": {
+       "round": 53,
+       "open": 3,
+       "bulb": 1
+      },
+      "root_seam_normal_jump_p99_deg": 10.7424
+     },
+     "source": {
+      "report": "Unity/Build/Polish/sample03/crown/OUT/as03_crown_report.json",
+      "layout_sha256": "08a3a53c7606976f5fc5155a28227d07cd26b909f241ba0cb7cc9eca8200d4db"
+     }
+    },
+    "IN": {
+     "checks": {
+      "fingertips_in_S1_range": {
+       "value": 90,
+       "range": [
+        83,
+        111
+       ],
+       "pass": true
+      },
+      "hands_in_S1_range": {
+       "value": 53,
+       "range": [
+        33,
+        59
+       ],
+       "pass": true
+      },
+      "digit_length_p50_in_S1_p25_p75_m": {
+       "value": 0.953,
+       "range": [
+        0.616,
+        1.131
+       ],
+       "pass": true,
+       "ours_p10_p90": [
+        0.649,
+        1.255
+       ],
+       "S1_p10_p90": [
+        0.371,
+        1.324
+       ],
+       "n_procedural_digits": 42,
+       "B1_report_p50_m": 0.8528,
+       "definition_ja": "配置の表（as03_crown_layout.json）の指の管の背骨の長さ。B1 の記録（as03_crown_report.json）の p50 は B1 の別の定義の長さ。どちらも S1 の範囲の中"
+      },
+      "digits_per_hand_mean_in_S1_1p5_to_5": {
+       "value": 1.698,
+       "range": [
+        1.5,
+        5.0
+       ],
+       "pass": true,
+       "note_ja": "S1：スキャンの中央値 1.5（細い指が欠けるので下限）、写真 3（2〜5）"
+      },
+      "branch_start_fraction_p50_in_S1_p25_p75": {
+       "value": 0.411,
+       "range": [
+        0.351,
+        0.512
+       ],
+       "pass": true,
+       "n_hands": 22
+      },
+      "angle_between_digits_same_hand_p50_in_S1_p25_p75_deg": {
+       "value": 37.8,
+       "range": [
+        24.3,
+        67.2
+       ],
+       "pass": true,
+       "n_pairs": 26
+      }
+     },
+     "pass_all": true,
+     "record": {
+      "hands_with_2plus_fingertips_frac": 0.636,
+      "fingertips_per_m_rim": 1.925,
+      "rim_length_m": 46.75,
+      "user_claw_length_p50_m（S2 の claw_roles の 3D の長さ、冠の役 48 本）": 1.331,
+      "layout_hands_listed": 52,
+      "note_hands_ja": "手の数は B1 の記録（as03_crown_report.json）の hands_total。配置の表の hands の数と 1 違う場合は、袖を外した利用者の爪の房（爪は残る）を記録は数えるため（B1 の記録の第 2 節の 9）。",
+      "digit_overall_below_horizontal_p50_deg": 15.0412,
+      "digit_tip_below_horizontal_p50_deg": 18.6788,
+      "frac_tips_down": {
+       "ours": 0.822,
+       "S1": 0.908
+      },
+      "frac_forward": {
+       "ours": 0.952,
+       "S1": 0.908
+      },
+      "tips_shape": {
+       "round": 35,
+       "open": 3,
+       "bulb": 4
+      },
+      "root_seam_normal_jump_p99_deg": 10.5627
+     },
+     "source": {
+      "report": "Unity/Build/Polish/sample03/crown/IN/as03_crown_report.json",
+      "layout_sha256": "fa1de7012383e7135d38ceca1c7f5b4d367dfb3ee58389e89105c46f5da09e6e"
+     }
+    }
+   },
+   "drip_tongues": {
+    "checks": {
+     "tongues_total_in_S1_count_range_for_edge": {
+      "value": 39,
+      "edge_length_m": 84.13,
+      "range": [
+       27.0,
+       45.0
+      ],
+      "pass": true
+     },
+     "S1_size_tongues_in_S1_count_range_for_hidden_edge": {
+      "value": 28,
+      "edge_length_m": 76.08,
+      "range": [
+       24.4,
+       40.7
+      ],
+      "pass": true
+     },
+     "tongues_present_on_relief_surface": {
+      "value": 39,
+      "of": 39,
+      "pass": true,
+      "missing": []
+     }
+    },
+    "pass_all": true,
+    "S1": {
+     "spacing_m": 2.49,
+     "spacing_unc_m": 0.623,
+     "width_m": 1.349,
+     "length_m": 3.113
+    },
+    "painting_size_tongues": 11,
+    "painting_face_edge_length_m": 8.05,
+    "painting_size_tongue_spacing_note_ja": "原画の舌（S2：藍の頭の間隔 p50 約 1.0 m）は原画の藍の面がある行（決め方 painting_face_start）の境に置いた。",
+    "note_ja": "S1 の舌の数の範囲 = 境の長さ ÷ 間隔（2.49 ± 0.62 m、0.12 ± 0.03 H）。原画の視点で見える所の 11 本は原画の舌の大きさ（S2、間隔 約 1 m）なので、全体の数（39）は S1 の範囲で、S1 の大きさの舌（28）は見えない所の境の長さで確かめる。S1 では丸い舌は前の小波の縁に見え、主の面の垂れは立体の指（T4 の冠）。ここは B1 の白の印（v2）の舌が、彫りの面（B2）の白に入っているか（whiteSD > 0 の頂点）も確かめる。",
+    "source": {
+     "params": "Unity/Build/Polish/sample03/shared/white_mask_params.json",
+     "sha256": "872f84a78fd49d557de81fba51ede03fcd72743b24f185bfb80f1e1646b5a145",
+     "band_sha256": "0a1391706aa5d2ce4143429e7a71b5e8d73a67af287242481fb00a0b494e98e9"
+    }
+   },
+   "crown_visibility": {
+    "V1": {
+     "crown_frac_by_view": {
+      "views/seat": 0.08404,
+      "views/seat_toward_wave": 0.03888,
+      "views/side_left": 0.01754,
+      "views/side_right": 0.01528,
+      "views/back65": 0.01682,
+      "views/top": 0.0215,
+      "crest/az000": 0.25434,
+      "crest/az045": 0.29937,
+      "crest/az090": 0.29864,
+      "crest/az135": 0.26723,
+      "crest/az180": 0.12304,
+      "crest/az225": 0.04605,
+      "crest/az270": 0.09171,
+      "crest/az315": 0.19213,
+      "tt/az000": 0.11628,
+      "tt/az030": 0.1016,
+      "tt/az060": 0.09016,
+      "tt/az090": 0.07657,
+      "tt/az120": 0.07253,
+      "tt/az150": 0.05922,
+      "tt/az180": 0.0329,
+      "tt/az210": 0.01865,
+      "tt/az240": 0.02372,
+      "tt/az270": 0.05102,
+      "tt/az300": 0.09087,
+      "tt/az330": 0.12079
+     },
+     "min": {
+      "view": "views/side_right",
+      "frac": 0.01528
+     },
+     "pass": true,
+     "views_below_0p5pct": {},
+     "record_crown_share_of_wave_silhouette": {
+      "by_view": {
+       "views/seat": 0.2813,
+       "views/seat_toward_wave": 0.0508,
+       "views/side_left": 0.0548,
+       "views/side_right": 0.1011,
+       "views/back65": 0.0545,
+       "views/top": 0.2266,
+       "crest/az000": 0.7422,
+       "crest/az045": 0.7458,
+       "crest/az090": 0.5803,
+       "crest/az135": 0.5475,
+       "crest/az180": 0.3178,
+       "crest/az225": 0.0895,
+       "crest/az270": 0.1803,
+       "crest/az315": 0.4907,
+       "tt/az000": 0.3938,
+       "tt/az030": 0.3865,
+       "tt/az060": 0.3356,
+       "tt/az090": 0.4519,
+       "tt/az120": 0.2866,
+       "tt/az150": 0.2153,
+       "tt/az180": 0.1031,
+       "tt/az210": 0.0494,
+       "tt/az240": 0.0529,
+       "tt/az270": 0.1119,
+       "tt/az300": 0.2391,
+       "tt/az330": 0.3642
+      },
+      "min": {
+       "view": "tt/az210",
+       "share": 0.0494
+      },
+      "note_ja": "記録だけ：冠の画素 ÷（冠＋見える主役波の画素）。主役波の印は同じカメラの ids の描画（V1_ids/diag の hero_claws1、アルファ 128）。"
+     },
+     "painting_view_crown_frac": 0.14977,
+     "false_positive_px_with_crown_hidden": 0,
+     "crest_silhouette_protrusions_record": {
+      "crest/az000": 9,
+      "crest/az045": 7,
+      "crest/az090": 10,
+      "crest/az135": 8,
+      "crest/az180": 4,
+      "crest/az225": 1,
+      "crest/az270": 10,
+      "crest/az315": 11
+     }
+    },
+    "V2": {
+     "crown_frac_by_view": {
+      "views/seat": 0.08397,
+      "views/seat_toward_wave": 0.03888,
+      "views/side_left": 0.01753,
+      "views/side_right": 0.01521,
+      "views/back65": 0.01671,
+      "views/top": 0.0215,
+      "crest/az000": 0.25426,
+      "crest/az045": 0.29936,
+      "crest/az090": 0.29864,
+      "crest/az135": 0.26723,
+      "crest/az180": 0.12282,
+      "crest/az225": 0.04605,
+      "crest/az270": 0.09149,
+      "crest/az315": 0.19192,
+      "tt/az000": 0.11625,
+      "tt/az030": 0.10159,
+      "tt/az060": 0.09016,
+      "tt/az090": 0.07655,
+      "tt/az120": 0.07253,
+      "tt/az150": 0.05919,
+      "tt/az180": 0.03283,
+      "tt/az210": 0.01864,
+      "tt/az240": 0.02369,
+      "tt/az270": 0.051,
+      "tt/az300": 0.0908,
+      "tt/az330": 0.12069
+     },
+     "min": {
+      "view": "views/side_right",
+      "frac": 0.01521
+     },
+     "pass": true,
+     "views_below_0p5pct": {},
+     "record_crown_share_of_wave_silhouette": {
+      "by_view": {
+       "views/seat": 0.2812,
+       "views/seat_toward_wave": 0.0508,
+       "views/side_left": 0.0548,
+       "views/side_right": 0.1007,
+       "views/back65": 0.0542,
+       "views/top": 0.2266,
+       "crest/az000": 0.7422,
+       "crest/az045": 0.7458,
+       "crest/az090": 0.5803,
+       "crest/az135": 0.5475,
+       "crest/az180": 0.3174,
+       "crest/az225": 0.0895,
+       "crest/az270": 0.18,
+       "crest/az315": 0.4904,
+       "tt/az000": 0.3937,
+       "tt/az030": 0.3865,
+       "tt/az060": 0.3356,
+       "tt/az090": 0.4518,
+       "tt/az120": 0.2866,
+       "tt/az150": 0.2152,
+       "tt/az180": 0.1029,
+       "tt/az210": 0.0494,
+       "tt/az240": 0.0528,
+       "tt/az270": 0.1118,
+       "tt/az300": 0.239,
+       "tt/az330": 0.364
+      },
+      "min": {
+       "view": "tt/az210",
+       "share": 0.0494
+      },
+      "note_ja": "記録だけ：冠の画素 ÷（冠＋見える主役波の画素）。主役波の印は同じカメラの ids の描画（V1_ids/diag の hero_claws1、アルファ 128）。"
+     },
+     "painting_view_crown_frac": 0.1496,
+     "false_positive_px_with_crown_hidden": 0,
+     "crest_silhouette_protrusions_record": {
+      "crest/az000": 9,
+      "crest/az045": 7,
+      "crest/az090": 10,
+      "crest/az135": 8,
+      "crest/az180": 4,
+      "crest/az225": 1,
+      "crest/az270": 10,
+      "crest/az315": 11
+     }
+    },
+    "V3": {
+     "crown_frac_by_view": {
+      "views/seat": 0.06794,
+      "views/seat_toward_wave": 0.03131,
+      "views/side_left": 0.01383,
+      "views/side_right": 0.01198,
+      "views/back65": 0.01397,
+      "views/top": 0.01522,
+      "crest/az000": 0.17102,
+      "crest/az045": 0.18105,
+      "crest/az090": 0.20066,
+      "crest/az135": 0.20391,
+      "crest/az180": 0.10467,
+      "crest/az225": 0.0312,
+      "crest/az270": 0.05834,
+      "crest/az315": 0.13457,
+      "tt/az000": 0.08568,
+      "tt/az030": 0.06996,
+      "tt/az060": 0.0608,
+      "tt/az090": 0.05302,
+      "tt/az120": 0.05284,
+      "tt/az150": 0.04554,
+      "tt/az180": 0.02598,
+      "tt/az210": 0.01468,
+      "tt/az240": 0.01945,
+      "tt/az270": 0.04062,
+      "tt/az300": 0.07117,
+      "tt/az330": 0.09303
+     },
+     "min": {
+      "view": "views/side_right",
+      "frac": 0.01198
+     },
+     "pass": true,
+     "views_below_0p5pct": {},
+     "record_crown_share_of_wave_silhouette": {
+      "by_view": {
+       "views/seat": 0.2303,
+       "views/seat_toward_wave": 0.041,
+       "views/side_left": 0.0433,
+       "views/side_right": 0.0799,
+       "views/back65": 0.0457,
+       "views/top": 0.1604,
+       "crest/az000": 0.5188,
+       "crest/az045": 0.462,
+       "crest/az090": 0.393,
+       "crest/az135": 0.4226,
+       "crest/az180": 0.2756,
+       "crest/az225": 0.0621,
+       "crest/az270": 0.1152,
+       "crest/az315": 0.3498,
+       "tt/az000": 0.2925,
+       "tt/az030": 0.2693,
+       "tt/az060": 0.228,
+       "tt/az090": 0.3144,
+       "tt/az120": 0.2103,
+       "tt/az150": 0.1672,
+       "tt/az180": 0.0824,
+       "tt/az210": 0.0392,
+       "tt/az240": 0.0435,
+       "tt/az270": 0.0892,
+       "tt/az300": 0.1882,
+       "tt/az330": 0.2823
+      },
+      "min": {
+       "view": "tt/az210",
+       "share": 0.0392
+      },
+      "note_ja": "記録だけ：冠の画素 ÷（冠＋見える主役波の画素）。主役波の印は同じカメラの ids の描画（V3_ids/diag の hero_claws1、アルファ 128）。"
+     },
+     "painting_view_crown_frac": 0.09732,
+     "false_positive_px_with_crown_hidden": 0,
+     "crest_silhouette_protrusions_record": {
+      "crest/az000": 7,
+      "crest/az045": 14,
+      "crest/az090": 4,
+      "crest/az135": 4,
+      "crest/az180": 5,
+      "crest/az225": 5,
+      "crest/az270": 6,
+      "crest/az315": 3
+     }
+    }
+   },
+   "verdict_by_variant": {
+    "V1": "pass",
+    "V2": "pass",
+    "V3": "pass"
+   },
+   "verdict": "pass",
+   "drip_fringe_fix1": {
+    "OUT": {
+     "checks": {
+      "spacing_p50_m": {
+       "value": 0.926,
+       "range": [
+        0.6,
+        1.0
+       ],
+       "pass": true
+      },
+      "length_p50_m": {
+       "value": 0.9568,
+       "range": [
+        0.6,
+        1.45
+       ],
+       "pass": true
+      },
+      "width_max_p50_m": {
+       "value": 0.3842,
+       "range": [
+        0.3,
+        0.48
+       ],
+       "pass": true
+      }
+     },
+     "pass_all": true,
+     "record": {
+      "drips": 42,
+      "dropped": 43,
+      "lip_line_length_m": 63.81,
+      "drips_per_m_of_lip_line": 0.658,
+      "spacing_along_w_m": {
+       "p10": 0.2421,
+       "p50": 0.926,
+       "p90": 1.7393,
+       "n": 38,
+       "mean": 0.9027
+      },
+      "length_m": {
+       "p10": 0.4426,
+       "p50": 0.9568,
+       "p90": 1.2518,
+       "n": 42,
+       "mean": 0.9184
+      },
+      "width_max_m": {
+       "p10": 0.2923,
+       "p50": 0.3842,
+       "p90": 0.4762,
+       "n": 42,
+       "mean": 0.3891
+      },
+      "foam": {
+       "lumps": 1929,
+       "chains": 67,
+       "chain_spacing_w_m": {
+        "p10": 0.7205,
+        "p50": 0.926,
+        "p90": 1.1737,
+        "n": 66,
+        "mean": 0.94
+       },
+       "lump_height_m": {
+        "p10": 0.1573,
+        "p50": 0.2531,
+        "p90": 0.3634,
+        "n": 1929,
+        "mean": 0.266
+       },
+       "lump_width_m": {
+        "p10": 0.5743,
+        "p50": 0.7598,
+        "p90": 0.9745,
+        "n": 1929,
+        "mean": 0.7678
+       },
+       "skin_area_above_surface_m2": 901.5,
+       "in_constraint": null
+      }
+     },
+     "source": {
+      "report": "Unity/Build/Polish/sample03/fix01/crown/OUT/fix1_parts_report.json",
+      "sha256": "70a8f04dfe1a8cbec30955cbf516591c4627b54f4d932fd46af2cdd293440323"
+     }
+    },
+    "IN": {
+     "checks": {
+      "spacing_p50_m": {
+       "value": 0.8091,
+       "range": [
+        0.6,
+        1.0
+       ],
+       "pass": true
+      },
+      "length_p50_m": {
+       "value": 0.8337,
+       "range": [
+        0.6,
+        1.45
+       ],
+       "pass": true
+      },
+      "width_max_p50_m": {
+       "value": 0.374,
+       "range": [
+        0.3,
+        0.48
+       ],
+       "pass": true
+      }
+     },
+     "pass_all": true,
+     "record": {
+      "drips": 19,
+      "dropped": 66,
+      "lip_line_length_m": 63.81,
+      "drips_per_m_of_lip_line": 0.298,
+      "spacing_along_w_m": {
+       "p10": 0.0,
+       "p50": 0.8091,
+       "p90": 1.506,
+       "n": 15,
+       "mean": 0.7559
+      },
+      "length_m": {
+       "p10": 0.4247,
+       "p50": 0.8337,
+       "p90": 1.2824,
+       "n": 19,
+       "mean": 0.864
+      },
+      "width_max_m": {
+       "p10": 0.2923,
+       "p50": 0.374,
+       "p90": 0.4701,
+       "n": 19,
+       "mean": 0.382
+      },
+      "foam": {
+       "lumps": 1929,
+       "chains": 67,
+       "chain_spacing_w_m": {
+        "p10": 0.7205,
+        "p50": 0.926,
+        "p90": 1.1737,
+        "n": 66,
+        "mean": 0.94
+       },
+       "lump_height_m": {
+        "p10": 0.1573,
+        "p50": 0.2531,
+        "p90": 0.3634,
+        "n": 1929,
+        "mean": 0.266
+       },
+       "lump_width_m": {
+        "p10": 0.5743,
+        "p50": 0.7598,
+        "p90": 0.9745,
+        "n": 1929,
+        "mean": 0.7678
+       },
+       "skin_area_above_surface_m2": 653.2,
+       "in_constraint": {
+        "skin_vertices_in_painting_sky_by_pass": [
+         16738,
+         50,
+         11,
+         0
+        ],
+        "sunk_vertices_gt_0p5": 29621
+       }
+      }
+     },
+     "source": {
+      "report": "Unity/Build/Polish/sample03/fix01/crown/IN/fix1_parts_report.json",
+      "sha256": "b5f497b16e54bba756d62e13452c8dc3c4f5e241338d72a9ed8544bbf5e6d986"
+     }
+    }
+   },
+   "drip_fringe_rule_ja": "修正の回 1 で足した下位の検査：唇の縁から垂れる立体の滴（彫刻の正面の写真の読み：間隔 約 0.8 m、長さ 0.6〜1.45 m、幅 0.30〜0.48 m、批評の数）。間隔は唇の線に沿う w の差（2 m より大きい切れ目は除く）。",
+   "verdict_by_variant_without_drip_check": {
+    "V1": "pass",
+    "V2": "pass",
+    "V3": "pass"
+   },
+   "critic_metrics_before_after_record": {
+    "note_ja": "批評の測り（critic_measure.py）の [前（組み立て）, 後（修正の回 1）]。判定には使わない（記録）。冠の割合は泡の皮も冠に数える。",
+    "after_file": {
+     "path": "Unity/Build/Polish/sample03/fix01/critic_metrics_after.json",
+     "sha256": "51de7d77e52d405d9c626ea8fe90b70fe583aa90dc181d67177c131d2f2b3128"
+    },
+    "by_variant": {
+     "V1": {
+      "crest/000": {
+       "crown_share_of_white": [
+        0.125,
+        0.774
+       ],
+       "ring_indigo": [
+        0.014,
+        0.121
+       ],
+       "white_lum_p25_p50_p75": [
+        [
+         196,
+         234,
+         241
+        ],
+        [
+         228,
+         248,
+         251
+        ]
+       ],
+       "dark_crown_blobs": [
+        0,
+        0
+       ]
+      },
+      "crest/045": {
+       "crown_share_of_white": [
+        0.135,
+        0.857
+       ],
+       "ring_indigo": [
+        0.149,
+        0.413
+       ],
+       "white_lum_p25_p50_p75": [
+        [
+         149,
+         175,
+         219
+        ],
+        [
+         201,
+         231,
+         246
+        ]
+       ],
+       "dark_crown_blobs": [
+        2,
+        0
+       ]
+      },
+      "crest/090": {
+       "crown_share_of_white": [
+        0.09,
+        0.851
+       ],
+       "ring_indigo": [
+        0.135,
+        0.462
+       ],
+       "white_lum_p25_p50_p75": [
+        [
+         149,
+         151,
+         169
+        ],
+        [
+         191,
+         209,
+         227
+        ]
+       ],
+       "dark_crown_blobs": [
+        2,
+        0
+       ]
+      },
+      "crest/135": {
+       "crown_share_of_white": [
+        0.1,
+        0.846
+       ],
+       "ring_indigo": [
+        0.119,
+        0.564
+       ],
+       "white_lum_p25_p50_p75": [
+        [
+         148,
+         151,
+         162
+        ],
+        [
+         188,
+         205,
+         221
+        ]
+       ],
+       "dark_crown_blobs": [
+        2,
+        0
+       ]
+      },
+      "crest/180": {
+       "crown_share_of_white": [
+        0.078,
+        0.383
+       ],
+       "ring_indigo": [
+        0.101,
+        0.251
+       ],
+       "white_lum_p25_p50_p75": [
+        [
+         153,
+         200,
+         214
+        ],
+        [
+         198,
+         236,
+         243
+        ]
+       ],
+       "dark_crown_blobs": [
+        0,
+        0
+       ]
+      },
+      "crest/225": {
+       "crown_share_of_white": [
+        0.015,
+        0.083
+       ],
+       "ring_indigo": [
+        0.0,
+        0.0
+       ],
+       "white_lum_p25_p50_p75": [
+        [
+         217,
+         221,
+         228
+        ],
+        [
+         245,
+         246,
+         249
+        ]
+       ],
+       "dark_crown_blobs": [
+        0,
+        0
+       ]
+      },
+      "crest/270": {
+       "crown_share_of_white": [
+        0.047,
+        0.167
+       ],
+       "ring_indigo": [
+        0.057,
+        0.058
+       ],
+       "white_lum_p25_p50_p75": [
+        [
+         217,
+         226,
+         239
+        ],
+        [
+         245,
+         248,
+         251
+        ]
+       ],
+       "dark_crown_blobs": [
+        0,
+        0
+       ]
+      },
+      "crest/315": {
+       "crown_share_of_white": [
+        0.094,
+        0.493
+       ],
+       "ring_indigo": [
+        0.061,
+        0.113
+       ],
+       "white_lum_p25_p50_p75": [
+        [
+         227,
+         239,
+         241
+        ],
+        [
+         244,
+         250,
+         251
+        ]
+       ],
+       "dark_crown_blobs": [
+        0,
+        0
+       ]
+      },
+      "views/painting": {
+       "crown_share_of_white": [
+        0.156,
+        0.847
+       ],
+       "ring_indigo": [
+        0.089,
+        0.349
+       ],
+       "white_lum_p25_p50_p75": [
+        [
+         152,
+         216,
+         237
+        ],
+        [
+         216,
+         245,
+         250
+        ]
+       ],
+       "dark_crown_blobs": [
+        2,
+        0
+       ]
+      },
+      "views/seat": {
+       "crown_share_of_white": [
+        0.17,
+        0.969
+       ],
+       "ring_indigo": [
+        0.129,
+        0.43
+       ],
+       "white_lum_p25_p50_p75": [
+        [
+         131,
+         136,
+         147
+        ],
+        [
+         167,
+         182,
+         204
+        ]
+       ],
+       "dark_crown_blobs": [
+        7,
+        0
+       ]
+      },
+      "views/seat_toward_wave": {
+       "crown_share_of_white": [
+        0.296,
+        0.566
+       ],
+       "ring_indigo": [
+        0.316,
+        0.543
+       ],
+       "white_lum_p25_p50_p75": [
+        [
+         113,
+         126,
+         136
+        ],
+        [
+         114,
+         148,
+         184
+        ]
+       ],
+       "dark_crown_blobs": [
+        0,
+        0
+       ]
+      },
+      "views/side_left": {
+       "crown_share_of_white": [
+        0.024,
+        0.19
+       ],
+       "ring_indigo": [
+        0.356,
+        0.467
+       ],
+       "white_lum_p25_p50_p75": [
+        [
+         214,
+         225,
+         235
+        ],
+        [
+         243,
+         247,
+         250
+        ]
+       ],
+       "dark_crown_blobs": [
+        0,
+        0
+       ]
+      },
+      "views/side_right": {
+       "crown_share_of_white": [
+        0.049,
+        0.33
+       ],
+       "ring_indigo": [
+        0.362,
+        0.576
+       ],
+       "white_lum_p25_p50_p75": [
+        [
+         148,
+         162,
+         208
+        ],
+        [
+         194,
+         212,
+         239
+        ]
+       ],
+       "dark_crown_blobs": [
+        0,
+        0
+       ]
+      },
+      "views/back65": {
+       "crown_share_of_white": [
+        0.028,
+        0.114
+       ],
+       "ring_indigo": [
+        0.41,
+        0.403
+       ],
+       "white_lum_p25_p50_p75": [
+        [
+         155,
+         212,
+         223
+        ],
+        [
+         196,
+         242,
+         246
+        ]
+       ],
+       "dark_crown_blobs": [
+        0,
+        0
+       ]
+      },
+      "views/top": {
+       "crown_share_of_white": [
+        0.043,
+        0.417
+       ],
+       "ring_indigo": [
+        0.192,
+        0.53
+       ],
+       "white_lum_p25_p50_p75": [
+        [
+         211,
+         227,
+         237
+        ],
+        [
+         240,
+         247,
+         250
+        ]
+       ],
+       "dark_crown_blobs": [
+        0,
+        0
+       ]
+      },
+      "turntable_protrusion_p50": {
+       "090": [
+        0.021,
+        0.427
+       ],
+       "120": [
+        0.048,
+        0.781
+       ],
+       "180": [
+        0.031,
+        0.675
+       ],
+       "210": [
+        0.027,
+        0.171
+       ],
+       "240": [
+        0.028,
+        0.112
+       ],
+       "270": [
+        0.006,
+        0.024
+       ]
+      }
+     },
+     "V2": {
+      "crest/000": {
+       "crown_share_of_white": [
+        0.13,
+        0.834
+       ],
+       "ring_indigo": [
+        0.058,
+        0.272
+       ],
+       "white_lum_p25_p50_p75": [
+        [
+         136,
+         146,
+         173
+        ],
+        [
+         235,
+         235,
+         235
+        ]
+       ],
+       "dark_crown_blobs": [
+        0,
+        0
+       ]
+      },
+      "crest/045": {
+       "crown_share_of_white": [
+        0.14,
+        0.863
+       ],
+       "ring_indigo": [
+        0.215,
+        0.56
+       ],
+       "white_lum_p25_p50_p75": [
+        [
+         158,
+         208,
+         208
+        ],
+        [
+         235,
+         235,
+         235
+        ]
+       ],
+       "dark_crown_blobs": [
+        0,
+        0
+       ]
+      },
+      "crest/090": {
+       "crown_share_of_white": [
+        0.093,
+        0.861
+       ],
+       "ring_indigo": [
+        0.22,
+        0.565
+       ],
+       "white_lum_p25_p50_p75": [
+        [
+         208,
+         208,
+         208
+        ],
+        [
+         165,
+         235,
+         235
+        ]
+       ],
+       "dark_crown_blobs": [
+        0,
+        0
+       ]
+      },
+      "crest/135": {
+       "crown_share_of_white": [
+        0.102,
+        0.855
+       ],
+       "ring_indigo": [
+        0.138,
+        0.574
+       ],
+       "white_lum_p25_p50_p75": [
+        [
+         208,
+         208,
+         208
+        ],
+        [
+         148,
+         234,
+         235
+        ]
+       ],
+       "dark_crown_blobs": [
+        0,
+        0
+       ]
+      },
+      "crest/180": {
+       "crown_share_of_white": [
+        0.078,
+        0.382
+       ],
+       "ring_indigo": [
+        0.118,
+        0.267
+       ],
+       "white_lum_p25_p50_p75": [
+        [
+         146,
+         208,
+         208
+        ],
+        [
+         141,
+         175,
+         235
+        ]
+       ],
+       "dark_crown_blobs": [
+        0,
+        0
+       ]
+      },
+      "crest/225": {
+       "crown_share_of_white": [
+        0.014,
+        0.083
+       ],
+       "ring_indigo": [
+        0.065,
+        0.0
+       ],
+       "white_lum_p25_p50_p75": [
+        [
+         135,
+         142,
+         157
+        ],
+        [
+         140,
+         167,
+         235
+        ]
+       ],
+       "dark_crown_blobs": [
+        0,
+        0
+       ]
+      },
+      "crest/270": {
+       "crown_share_of_white": [
+        0.048,
+        0.168
+       ],
+       "ring_indigo": [
+        0.176,
+        0.138
+       ],
+       "white_lum_p25_p50_p75": [
+        [
+         136,
+         144,
+         161
+        ],
+        [
+         152,
+         235,
+         235
+        ]
+       ],
+       "dark_crown_blobs": [
+        0,
+        0
+       ]
+      },
+      "crest/315": {
+       "crown_share_of_white": [
+        0.095,
+        0.5
+       ],
+       "ring_indigo": [
+        0.139,
+        0.268
+       ],
+       "white_lum_p25_p50_p75": [
+        [
+         135,
+         144,
+         164
+        ],
+        [
+         235,
+         235,
+         235
+        ]
+       ],
+       "dark_crown_blobs": [
+        0,
+        0
+       ]
+      },
+      "views/painting": {
+       "crown_share_of_white": [
+        0.157,
+        0.873
+       ],
+       "ring_indigo": [
+        0.156,
+        0.446
+       ],
+       "white_lum_p25_p50_p75": [
+        [
+         208,
+         208,
+         208
+        ],
+        [
+         235,
+         235,
+         235
+        ]
+       ],
+       "dark_crown_blobs": [
+        0,
+        0
+       ]
+      },
+      "views/seat": {
+       "crown_share_of_white": [
+        0.168,
+        0.975
+       ],
+       "ring_indigo": [
+        0.197,
+        0.526
+       ],
+       "white_lum_p25_p50_p75": [
+        [
+         208,
+         208,
+         208
+        ],
+        [
+         222,
+         235,
+         235
+        ]
+       ],
+       "dark_crown_blobs": [
+        0,
+        0
+       ]
+      },
+      "views/seat_toward_wave": {
+       "crown_share_of_white": [
+        0.333,
+        0.938
+       ],
+       "ring_indigo": [
+        0.426,
+        0.671
+       ],
+       "white_lum_p25_p50_p75": [
+        [
+         208,
+         208,
+         208
+        ],
+        [
+         223,
+         235,
+         235
+        ]
+       ],
+       "dark_crown_blobs": [
+        0,
+        0
+       ]
+      },
+      "views/side_left": {
+       "crown_share_of_white": [
+        0.024,
+        0.192
+       ],
+       "ring_indigo": [
+        0.437,
+        0.532
+       ],
+       "white_lum_p25_p50_p75": [
+        [
+         198,
+         208,
+         208
+        ],
+        [
+         213,
+         235,
+         235
+        ]
+       ],
+       "dark_crown_blobs": [
+        0,
+        0
+       ]
+      },
+      "views/side_right": {
+       "crown_share_of_white": [
+        0.049,
+        0.337
+       ],
+       "ring_indigo": [
+        0.376,
+        0.631
+       ],
+       "white_lum_p25_p50_p75": [
+        [
+         208,
+         208,
+         208
+        ],
+        [
+         208,
+         208,
+         226
+        ]
+       ],
+       "dark_crown_blobs": [
+        0,
+        0
+       ]
+      },
+      "views/back65": {
+       "crown_share_of_white": [
+        0.029,
+        0.124
+       ],
+       "ring_indigo": [
+        0.437,
+        0.42
+       ],
+       "white_lum_p25_p50_p75": [
+        [
+         208,
+         208,
+         208
+        ],
+        [
+         208,
+         208,
+         225
+        ]
+       ],
+       "dark_crown_blobs": [
+        0,
+        0
+       ]
+      },
+      "views/top": {
+       "crown_share_of_white": [
+        0.044,
+        0.421
+       ],
+       "ring_indigo": [
+        0.205,
+        0.59
+       ],
+       "white_lum_p25_p50_p75": [
+        [
+         192,
+         208,
+         226
+        ],
+        [
+         233,
+         235,
+         235
+        ]
+       ],
+       "dark_crown_blobs": [
+        0,
+        0
+       ]
+      },
+      "turntable_protrusion_p50": {
+       "090": [
+        0.037,
+        0.427
+       ],
+       "120": [
+        0.048,
+        0.663
+       ],
+       "180": [
+        0.037,
+        0.675
+       ],
+       "210": [
+        0.027,
+        0.172
+       ],
+       "240": [
+        0.029,
+        0.117
+       ],
+       "270": [
+        0.019,
+        0.024
+       ]
+      }
+     },
+     "V3": {
+      "crest/000": {
+       "crown_share_of_white": [
+        0.116,
+        0.547
+       ],
+       "ring_indigo": [
+        0.009,
+        0.022
+       ],
+       "white_lum_p25_p50_p75": [
+        [
+         191,
+         233,
+         241
+        ],
+        [
+         221,
+         248,
+         251
+        ]
+       ],
+       "dark_crown_blobs": [
+        0,
+        0
+       ]
+      },
+      "crest/045": {
+       "crown_share_of_white": [
+        0.103,
+        0.555
+       ],
+       "ring_indigo": [
+        0.115,
+        0.213
+       ],
+       "white_lum_p25_p50_p75": [
+        [
+         149,
+         178,
+         221
+        ],
+        [
+         196,
+         229,
+         247
+        ]
+       ],
+       "dark_crown_blobs": [
+        0,
+        0
+       ]
+      },
+      "crest/090": {
+       "crown_share_of_white": [
+        0.06,
+        0.61
+       ],
+       "ring_indigo": [
+        0.114,
+        0.155
+       ],
+       "white_lum_p25_p50_p75": [
+        [
+         148,
+         151,
+         166
+        ],
+        [
+         189,
+         205,
+         226
+        ]
+       ],
+       "dark_crown_blobs": [
+        0,
+        0
+       ]
+      },
+      "crest/135": {
+       "crown_share_of_white": [
+        0.076,
+        0.699
+       ],
+       "ring_indigo": [
+        0.035,
+        0.117
+       ],
+       "white_lum_p25_p50_p75": [
+        [
+         148,
+         151,
+         160
+        ],
+        [
+         187,
+         202,
+         219
+        ]
+       ],
+       "dark_crown_blobs": [
+        0,
+        0
+       ]
+      },
+      "crest/180": {
+       "crown_share_of_white": [
+        0.081,
+        0.338
+       ],
+       "ring_indigo": [
+        0.005,
+        0.051
+       ],
+       "white_lum_p25_p50_p75": [
+        [
+         152,
+         203,
+         215
+        ],
+        [
+         198,
+         237,
+         243
+        ]
+       ],
+       "dark_crown_blobs": [
+        0,
+        0
+       ]
+      },
+      "crest/225": {
+       "crown_share_of_white": [
+        0.018,
+        0.057
+       ],
+       "ring_indigo": [
+        0.0,
+        0.0
+       ],
+       "white_lum_p25_p50_p75": [
+        [
+         217,
+         221,
+         228
+        ],
+        [
+         245,
+         246,
+         249
+        ]
+       ],
+       "dark_crown_blobs": [
+        0,
+        0
+       ]
+      },
+      "crest/270": {
+       "crown_share_of_white": [
+        0.033,
+        0.107
+       ],
+       "ring_indigo": [
+        0.075,
+        0.063
+       ],
+       "white_lum_p25_p50_p75": [
+        [
+         217,
+         226,
+         239
+        ],
+        [
+         245,
+         248,
+         251
+        ]
+       ],
+       "dark_crown_blobs": [
+        0,
+        0
+       ]
+      },
+      "crest/315": {
+       "crown_share_of_white": [
+        0.084,
+        0.354
+       ],
+       "ring_indigo": [
+        0.003,
+        0.084
+       ],
+       "white_lum_p25_p50_p75": [
+        [
+         225,
+         239,
+         241
+        ],
+        [
+         244,
+         250,
+         252
+        ]
+       ],
+       "dark_crown_blobs": [
+        0,
+        0
+       ]
+      },
+      "views/painting": {
+       "crown_share_of_white": [
+        0.109,
+        0.642
+       ],
+       "ring_indigo": [
+        0.049,
+        0.313
+       ],
+       "white_lum_p25_p50_p75": [
+        [
+         151,
+         218,
+         237
+        ],
+        [
+         205,
+         244,
+         250
+        ]
+       ],
+       "dark_crown_blobs": [
+        2,
+        0
+       ]
+      },
+      "views/seat": {
+       "crown_share_of_white": [
+        0.079,
+        0.83
+       ],
+       "ring_indigo": [
+        0.114,
+        0.354
+       ],
+       "white_lum_p25_p50_p75": [
+        [
+         130,
+         135,
+         145
+        ],
+        [
+         166,
+         180,
+         193
+        ]
+       ],
+       "dark_crown_blobs": [
+        1,
+        0
+       ]
+      },
+      "views/seat_toward_wave": {
+       "crown_share_of_white": [
+        0.033,
+        0.494
+       ],
+       "ring_indigo": [
+        0.288,
+        0.447
+       ],
+       "white_lum_p25_p50_p75": [
+        [
+         109,
+         122,
+         129
+        ],
+        [
+         112,
+         143,
+         172
+        ]
+       ],
+       "dark_crown_blobs": [
+        1,
+        0
+       ]
+      },
+      "views/side_left": {
+       "crown_share_of_white": [
+        0.02,
+        0.151
+       ],
+       "ring_indigo": [
+        0.353,
+        0.383
+       ],
+       "white_lum_p25_p50_p75": [
+        [
+         214,
+         224,
+         235
+        ],
+        [
+         243,
+         247,
+         250
+        ]
+       ],
+       "dark_crown_blobs": [
+        0,
+        0
+       ]
+      },
+      "views/side_right": {
+       "crown_share_of_white": [
+        0.036,
+        0.271
+       ],
+       "ring_indigo": [
+        0.118,
+        0.312
+       ],
+       "white_lum_p25_p50_p75": [
+        [
+         148,
+         161,
+         208
+        ],
+        [
+         194,
+         211,
+         239
+        ]
+       ],
+       "dark_crown_blobs": [
+        0,
+        0
+       ]
+      },
+      "views/back65": {
+       "crown_share_of_white": [
+        0.023,
+        0.097
+       ],
+       "ring_indigo": [
+        0.179,
+        0.389
+       ],
+       "white_lum_p25_p50_p75": [
+        [
+         155,
+         212,
+         223
+        ],
+        [
+         196,
+         242,
+         246
+        ]
+       ],
+       "dark_crown_blobs": [
+        0,
+        0
+       ]
+      },
+      "views/top": {
+       "crown_share_of_white": [
+        0.04,
+        0.297
+       ],
+       "ring_indigo": [
+        0.18,
+        0.371
+       ],
+       "white_lum_p25_p50_p75": [
+        [
+         212,
+         227,
+         237
+        ],
+        [
+         241,
+         248,
+         251
+        ]
+       ],
+       "dark_crown_blobs": [
+        0,
+        0
+       ]
+      },
+      "turntable_protrusion_p50": {
+       "090": [
+        0.029,
+        0.245
+       ],
+       "120": [
+        0.013,
+        0.281
+       ],
+       "180": [
+        0.124,
+        0.094
+       ],
+       "210": [
+        0.018,
+        0.027
+       ],
+       "240": [
+        0.028,
+        0.04
+       ],
+       "270": [
+        0.009,
+        0.024
+       ]
+      }
+     }
+    }
+   }
+  },
+  "T1": {
+   "rule_ja": "歪まず、引き伸ばされない。原画とも参照モデルとも合う（模様の間隔の場所によるばらつき、引き伸ばしの比）",
+   "rule_detail_ja": "（1）溝の線の間隔 ÷ 設計の周期 λ(y)（λ は S1 の写真の周期を通る：冠の下 0.035 H・中ほど 0.045 H・下 0.056 H）が、彫った面の面積の 95% 以上で 0.64〜1.56（Y 字で分かれる √2 の幅 ±10%）、（2）彫った面で数えた溝の中心の間隔（B2 の測り）の平均が設計の ±15%、（3）面の座標 w の |∇w|（伸び）が 1/3〜3 倍を外れる三角形 0、0.5〜2 倍を外れる面積 ≤ 0.2%。範囲は組み立ての担当の既定（進行役が変えてよい）。",
+   "spacing_ratio": {
+    "carved_vertices": 99469,
+    "frac_area_in_0.64_1.56": 0.9877,
+    "p1_p5_p50_p95_p99": [
+     0.6713,
+     0.7579,
+     0.9827,
+     1.2456,
+     1.4289
+    ],
+    "by_height": {
+     "0.65-0.90H（冠の下）": {
+      "vertices": 9164,
+      "spacing_m_p50": 0.8136,
+      "lambda_m_p50": 0.7822,
+      "ratio_mean": 1.0665,
+      "ratio_cv": 0.1176,
+      "ratio_p5_p50_p95": [
+       0.8989,
+       1.0489,
+       1.3048
+      ]
+     },
+     "0.35-0.65H（中ほど）": {
+      "vertices": 32508,
+      "spacing_m_p50": 0.9045,
+      "lambda_m_p50": 0.9278,
+      "ratio_mean": 1.0241,
+      "ratio_cv": 0.309,
+      "ratio_p5_p50_p95": [
+       0.7238,
+       0.9669,
+       1.3526
+      ]
+     },
+     "0.10-0.35H（下の面）": {
+      "vertices": 24012,
+      "spacing_m_p50": 1.1162,
+      "lambda_m_p50": 1.1325,
+      "ratio_mean": 0.9801,
+      "ratio_cv": 0.1698,
+      "ratio_p5_p50_p95": [
+       0.7039,
+       0.9891,
+       1.1669
+      ]
+     }
+    },
+    "pass": true
+   },
+   "groove_gaps_measured_B2": {
+    "bands": {
+     "0.75H": {
+      "gap_mean_m": 0.789,
+      "gap_p50_m": 0.784,
+      "design_m": 0.762,
+      "S1_photo_m": 0.73,
+      "mean_over_design": 1.035
+     },
+     "0.50H": {
+      "gap_mean_m": 0.899,
+      "gap_p50_m": 0.839,
+      "design_m": 0.934,
+      "S1_photo_m": 0.93,
+      "mean_over_design": 0.963
+     },
+     "0.35H": {
+      "gap_mean_m": 1.109,
+      "gap_p50_m": 1.103,
+      "design_m": 1.058,
+      "S1_photo_m": null,
+      "mean_over_design": 1.048
+     },
+     "0.25H": {
+      "gap_mean_m": 1.062,
+      "gap_p50_m": 1.087,
+      "design_m": 1.119,
+      "S1_photo_m": 1.16,
+      "mean_over_design": 0.949
+     }
+    },
+    "pass": true,
+    "fork_zones_front_face": 7
+   },
+   "stretch_grad_w": {
+    "triangles": 196317,
+    "grad_w_p1_p50_p99": [
+     0.655,
+     0.9533,
+     1.3663
+    ],
+    "tri_outside_1_3_to_3x": 0,
+    "area_frac_outside_0p5_to_2x": 0.00063,
+    "pass": true,
+    "excluded_slivers_q_lt_0.1": {
+     "triangles": 439,
+     "area_m2": 3.5329,
+     "area_frac": 0.002575,
+     "tri_outside_1_3_to_3x": 21
+    },
+    "all_triangles_incl_slivers": {
+     "triangles": 196756,
+     "grad_w_p1_p50_p99": [
+      0.6552,
+      0.9531,
+      1.3698
+     ],
+     "tri_outside_1_3_to_3x": 21,
+     "area_frac_outside_0p5_to_2x": 0.00063
+    },
+    "same_measure_on_AS02C_base_mesh_same_region": {
+     "non_sliver": {
+      "triangles": 51342,
+      "grad_w_p1_p50_p99": [
+       0.685,
+       0.9859,
+       1.3708
+      ],
+      "tri_outside_1_3_to_3x": 0,
+      "area_frac_outside_0p5_to_2x": 0.00039
+     },
+     "all": {
+      "triangles": 51936,
+      "grad_w_p1_p50_p99": [
+       0.6842,
+       0.9849,
+       1.3698
+      ],
+      "tri_outside_1_3_to_3x": 0,
+      "area_frac_outside_0p5_to_2x": 0.00039
+     },
+     "slivers": {
+      "triangles": 594,
+      "area_m2": 5.6148,
+      "area_frac": 0.004348,
+      "tri_outside_1_3_to_3x": 0
+     }
+    },
+    "note_ja": "AS02C の元の格子（行を細かくする前）でも同じ所・同じ測りで数えた（like-for-like）。細い三角形は元の格子にもある（唇の先の折れ目）。"
+   },
+   "painting_note_ja": "原画の中くらいの青の帯の間隔は約 1 m（調べ S2）。彫刻の写真は 0.73／0.93／1.16 m（S1）。",
+   "verdict": "pass"
+  }
+ },
+ "summary": {
+  "verdicts": {
+   "G1": "pass",
+   "G2": "pass",
+   "S4": "pass",
+   "C2": "pass",
+   "C3": "pass",
+   "T4": "pass",
+   "T1": "pass"
+  },
+  "by_variant": {
+   "V1": {
+    "G1": "pass",
+    "G2": "fail",
+    "S4": "pass",
+    "C2": "pass",
+    "C3": "pass",
+    "T4": "pass",
+    "T1": "pass"
+   },
+   "V2": {
+    "G1": "pass",
+    "G2": "fail",
+    "S4": "pass",
+    "C2": "pass",
+    "C3": "pass",
+    "T4": "pass",
+    "T1": "pass"
+   },
+   "V3": {
+    "G1": "pass",
+    "G2": "pass",
+    "S4": "pass",
+    "C2": "pass",
+    "C3": "pass",
+    "T4": "pass",
+    "T1": "pass"
+   }
+  },
+  "all_pass": true,
+  "G2_note_ja": "G2 は V3 が通れば合格（V1・V2 の冠 OUT は原画の空へ指が出るので記録だけ）。",
+  "deliverable_by_rule_ja": "測る規則はすべて通った（G2 は V3 で）。美術の判定は利用者。"
+ },
+ "elapsed_s": 24.3,
+ "fix01": {
+  "noteJa": "美術の見本03 修正の回 1（Q31、批評の必ず直す所と T4 の失敗を直す 1 回）。描画は Build/Polish/sample03/fix01/render。冠 = B1 の冠（OUT・IN、変えていない）＋ 修正の回 1 の泡の皮と唇の縁から垂れる滴（fix1_crown.py）。材質の値 = fix1_*_params.txt。前の結果は rules_check_before_fix.json。",
+  "before": "Unity/Build/Polish/sample03/rules_check_before_fix.json",
+  "crown_parts": {
+   "OUT": [
+    "Unity/Build/Polish/sample03/crown/OUT/as03_crown.json",
+    "Unity/Build/Polish/sample03/fix01/crown/OUT/fix1_foam.json",
+    "Unity/Build/Polish/sample03/fix01/crown/OUT/fix1_drips.json"
+   ],
+   "IN": [
+    "Unity/Build/Polish/sample03/crown/IN/as03_crown.json",
+    "Unity/Build/Polish/sample03/fix01/crown/IN/fix1_foam.json",
+    "Unity/Build/Polish/sample03/fix01/crown/IN/fix1_drips.json"
+   ]
+  },
+  "inputs_sha256_fix1": {
+   "Unity/Build/Polish/sample03/fix01/crown/OUT/fix1_foam.bin": "9c72255a365b494c8e8a27e805b4e35b30c71838fc16747c1010f36d714a9080",
+   "Unity/Build/Polish/sample03/fix01/crown/OUT/fix1_drips.bin": "dd162b8b936248af0bc722a44466fb5a5203bf728d1e067326335aa4eb2534a1",
+   "Unity/Build/Polish/sample03/fix01/crown/IN/fix1_foam.bin": "fd88b24c6daa8a6649c6d8d59b23a3d84e76f6616cb2fb3f9a124904a3c64d4d",
+   "Unity/Build/Polish/sample03/fix01/crown/IN/fix1_drips.bin": "4a9e6ca82b0f099e5aee99ce02a9fe67e1c783e1c64c7ba8acc3865bf1232ced",
+   "Tools/GWWaveGen/as03/fix1_sculpt_params.txt": "9dfca7fb2e397963451e5938c36036a3b44669c0fe3e7ea60952290ab7e0ce0d",
+   "Tools/GWWaveGen/as03/fix1_flat_params.txt": "c6e14a78e05da4a63597243b9e438efb55e8b7a3e34ff808bd209db3d3edc8bc",
+   "Tools/GWWaveGen/as03/fix1_crown.py": "98e9e7fa3790dacc89a6c2e2076037273a83104818265644319f4b4edc8ae150",
+   "Tools/GWWaveGen/as03/fix1_render.sh": "cb9fcdd6e973b7486ba8a103ab25758ec83d8f55941359489ce8eae472f22855"
+  }
+ }
+}

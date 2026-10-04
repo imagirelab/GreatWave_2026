@@ -1,0 +1,4756 @@
+{
+ "schema": "GreatWave.AS03.metrics/1",
+ "created_local": "2026-10-04 12:11",
+ "sample": "美術の見本03（Q31）：波頭の立体の白い指の冠＋泡の皮＋唇の縁から垂れる滴、彫りの面、シェーダー 2 つ（FLAT・SCULPT）。修正の回 1 の後",
+ "noteJa": "項目 → 値 → 合格／不合格／記録のみ。規則は Docs/Design/Art_Requirements_ja.md の測る規則（美術が届いたかは利用者が決める。Q29・Q30）。描画は Unity 6000.4.3f1 の PC オフスクリーン（HMD 実機ではない）、t* = 12 s の静止だけ。彫刻の数は参照の彫刻（他者の展示作品、Q19・Q20）から測った数だけで、写真・写真から作った画像・OBJ の形は入れていない。",
+ "variants": {
+  "V1": {
+   "crown": "OUT（彫刻のように外へ開く）",
+   "shading": "SCULPT（彫刻のような艶と陰）"
+  },
+  "V2": {
+   "crown": "OUT",
+   "shading": "FLAT（浮世絵の平らな色）"
+  },
+  "V3": {
+   "crown": "IN（原画視点の輪郭に収める）",
+   "shading": "SCULPT"
+  }
+ },
+ "rules": {
+  "G1": {
+   "by_variant": {
+    "V1": "pass",
+    "V2": "pass",
+    "V3": "pass"
+   },
+   "verdict": "pass",
+   "rule_ja": "色・線は原画カメラの投影を使わない（コードの検査）。7 視点＋回り台で引き伸ばし・継ぎ目・平らな面がない"
+  },
+  "G2": {
+   "by_variant": {
+    "V1": "fail",
+    "V2": "fail",
+    "V3": "pass"
+   },
+   "verdict": "pass",
+   "rule_ja": "78・130・131（定義どおり）≤ 4 px、132・72 は大きな輪郭で ≤ 4 px"
+  },
+  "S4": {
+   "by_variant": {
+    "V1": "pass",
+    "V2": "pass",
+    "V3": "pass"
+   },
+   "verdict": "pass",
+   "rule_ja": "背は中ほどがいちばん高く盛り上がり、両側へなだらかに下がる（一つの山）"
+  },
+  "C2": {
+   "by_variant": {
+    "V1": "pass",
+    "V2": "pass",
+    "V3": "pass"
+   },
+   "verdict": "pass",
+   "rule_ja": "どの爪も利用者の模型 claw_low・claw_mid の水準以上（断面の幅と厚みの比、先の細り、表面の滑らかさ＝曲率の跳びを模型と比べる）"
+  },
+  "C3": {
+   "by_variant": {
+    "V1": "pass",
+    "V2": "pass",
+    "V3": "pass"
+   },
+   "verdict": "pass",
+   "rule_ja": "原画カメラから見た各爪の輪郭とマスクの重なり（IoU ≥ 0.85）。100 本を 1 本ずつ 3D に戻して置く"
+  },
+  "T4": {
+   "by_variant": {
+    "V1": "pass",
+    "V2": "pass",
+    "V3": "pass"
+   },
+   "verdict": "pass",
+   "rule_ja": "波頭の指の数と長さ・枝分かれ・垂れる縁の舌の数を彫刻から測った値と比べる。全視点で波頭が平らな面だけにならない"
+  },
+  "T1": {
+   "by_variant": {
+    "V1": "pass",
+    "V2": "pass",
+    "V3": "pass"
+   },
+   "verdict": "pass",
+   "rule_ja": "歪まず、引き伸ばされない。原画とも参照モデルとも合う（模様の間隔の場所によるばらつき、引き伸ばしの比）"
+  }
+ },
+ "rules_note_ja": "G2 は V3 が通れば合（V1・V2 の冠 OUT は原画の空へ指が出るので記録だけ）。全体：True",
+ "G2_gates_px": {
+  "V1": {
+   "78": 35.6099,
+   "130": 21.9955,
+   "131": 33.249,
+   "132_s12": 62.0131,
+   "72_s12_p95": 41.4554
+  },
+  "V2": {
+   "78": 35.6099,
+   "130": 21.9955,
+   "131": 33.249,
+   "132_s12": 62.0131,
+   "72_s12_p95": 41.4554
+  },
+  "V3": {
+   "78": 2.741,
+   "130": 3.5529,
+   "131": 3.4419,
+   "132_s12": 3.6286,
+   "72_s12_p95": 3.5316
+  }
+ },
+ "T4": {
+  "crown_numbers": {
+   "OUT": {
+    "fingertips_in_S1_range": {
+     "value": 105,
+     "range": [
+      83,
+      111
+     ],
+     "pass": true
+    },
+    "hands_in_S1_range": {
+     "value": 58,
+     "range": [
+      33,
+      59
+     ],
+     "pass": true
+    },
+    "digit_length_p50_in_S1_p25_p75_m": {
+     "value": 0.909,
+     "range": [
+      0.616,
+      1.131
+     ],
+     "pass": true,
+     "ours_p10_p90": [
+      0.598,
+      1.484
+     ],
+     "S1_p10_p90": [
+      0.371,
+      1.324
+     ],
+     "n_procedural_digits": 57,
+     "B1_report_p50_m": 0.8093,
+     "definition_ja": "配置の表（as03_crown_layout.json）の指の管の背骨の長さ。B1 の記録（as03_crown_report.json）の p50 は B1 の別の定義の長さ。どちらも S1 の範囲の中"
+    },
+    "digits_per_hand_mean_in_S1_1p5_to_5": {
+     "value": 1.81,
+     "range": [
+      1.5,
+      5.0
+     ],
+     "pass": true,
+     "note_ja": "S1：スキャンの中央値 1.5（細い指が欠けるので下限）、写真 3（2〜5）"
+    },
+    "branch_start_fraction_p50_in_S1_p25_p75": {
+     "value": 0.435,
+     "range": [
+      0.351,
+      0.512
+     ],
+     "pass": true,
+     "n_hands": 27
+    },
+    "angle_between_digits_same_hand_p50_in_S1_p25_p75_deg": {
+     "value": 44.0,
+     "range": [
+      24.3,
+      67.2
+     ],
+     "pass": true,
+     "n_pairs": 41
+    }
+   },
+   "IN": {
+    "fingertips_in_S1_range": {
+     "value": 90,
+     "range": [
+      83,
+      111
+     ],
+     "pass": true
+    },
+    "hands_in_S1_range": {
+     "value": 53,
+     "range": [
+      33,
+      59
+     ],
+     "pass": true
+    },
+    "digit_length_p50_in_S1_p25_p75_m": {
+     "value": 0.953,
+     "range": [
+      0.616,
+      1.131
+     ],
+     "pass": true,
+     "ours_p10_p90": [
+      0.649,
+      1.255
+     ],
+     "S1_p10_p90": [
+      0.371,
+      1.324
+     ],
+     "n_procedural_digits": 42,
+     "B1_report_p50_m": 0.8528,
+     "definition_ja": "配置の表（as03_crown_layout.json）の指の管の背骨の長さ。B1 の記録（as03_crown_report.json）の p50 は B1 の別の定義の長さ。どちらも S1 の範囲の中"
+    },
+    "digits_per_hand_mean_in_S1_1p5_to_5": {
+     "value": 1.698,
+     "range": [
+      1.5,
+      5.0
+     ],
+     "pass": true,
+     "note_ja": "S1：スキャンの中央値 1.5（細い指が欠けるので下限）、写真 3（2〜5）"
+    },
+    "branch_start_fraction_p50_in_S1_p25_p75": {
+     "value": 0.411,
+     "range": [
+      0.351,
+      0.512
+     ],
+     "pass": true,
+     "n_hands": 22
+    },
+    "angle_between_digits_same_hand_p50_in_S1_p25_p75_deg": {
+     "value": 37.8,
+     "range": [
+      24.3,
+      67.2
+     ],
+     "pass": true,
+     "n_pairs": 26
+    }
+   }
+  },
+  "crown_visibility_min": {
+   "V1": {
+    "view": "views/side_right",
+    "frac": 0.01528
+   },
+   "V2": {
+    "view": "views/side_right",
+    "frac": 0.01521
+   },
+   "V3": {
+    "view": "views/side_right",
+    "frac": 0.01198
+   }
+  },
+  "drip_fringe": {
+   "OUT": {
+    "checks": {
+     "spacing_p50_m": {
+      "value": 0.926,
+      "range": [
+       0.6,
+       1.0
+      ],
+      "pass": true
+     },
+     "length_p50_m": {
+      "value": 0.9568,
+      "range": [
+       0.6,
+       1.45
+      ],
+      "pass": true
+     },
+     "width_max_p50_m": {
+      "value": 0.3842,
+      "range": [
+       0.3,
+       0.48
+      ],
+      "pass": true
+     }
+    },
+    "pass_all": true,
+    "record": {
+     "drips": 42,
+     "dropped": 43,
+     "lip_line_length_m": 63.81,
+     "drips_per_m_of_lip_line": 0.658,
+     "spacing_along_w_m": {
+      "p10": 0.2421,
+      "p50": 0.926,
+      "p90": 1.7393,
+      "n": 38,
+      "mean": 0.9027
+     },
+     "length_m": {
+      "p10": 0.4426,
+      "p50": 0.9568,
+      "p90": 1.2518,
+      "n": 42,
+      "mean": 0.9184
+     },
+     "width_max_m": {
+      "p10": 0.2923,
+      "p50": 0.3842,
+      "p90": 0.4762,
+      "n": 42,
+      "mean": 0.3891
+     },
+     "foam": {
+      "lumps": 1929,
+      "chains": 67,
+      "chain_spacing_w_m": {
+       "p10": 0.7205,
+       "p50": 0.926,
+       "p90": 1.1737,
+       "n": 66,
+       "mean": 0.94
+      },
+      "lump_height_m": {
+       "p10": 0.1573,
+       "p50": 0.2531,
+       "p90": 0.3634,
+       "n": 1929,
+       "mean": 0.266
+      },
+      "lump_width_m": {
+       "p10": 0.5743,
+       "p50": 0.7598,
+       "p90": 0.9745,
+       "n": 1929,
+       "mean": 0.7678
+      },
+      "skin_area_above_surface_m2": 901.5,
+      "in_constraint": null
+     }
+    },
+    "source": {
+     "report": "Unity/Build/Polish/sample03/fix01/crown/OUT/fix1_parts_report.json",
+     "sha256": "70a8f04dfe1a8cbec30955cbf516591c4627b54f4d932fd46af2cdd293440323"
+    }
+   },
+   "IN": {
+    "checks": {
+     "spacing_p50_m": {
+      "value": 0.8091,
+      "range": [
+       0.6,
+       1.0
+      ],
+      "pass": true
+     },
+     "length_p50_m": {
+      "value": 0.8337,
+      "range": [
+       0.6,
+       1.45
+      ],
+      "pass": true
+     },
+     "width_max_p50_m": {
+      "value": 0.374,
+      "range": [
+       0.3,
+       0.48
+      ],
+      "pass": true
+     }
+    },
+    "pass_all": true,
+    "record": {
+     "drips": 19,
+     "dropped": 66,
+     "lip_line_length_m": 63.81,
+     "drips_per_m_of_lip_line": 0.298,
+     "spacing_along_w_m": {
+      "p10": 0.0,
+      "p50": 0.8091,
+      "p90": 1.506,
+      "n": 15,
+      "mean": 0.7559
+     },
+     "length_m": {
+      "p10": 0.4247,
+      "p50": 0.8337,
+      "p90": 1.2824,
+      "n": 19,
+      "mean": 0.864
+     },
+     "width_max_m": {
+      "p10": 0.2923,
+      "p50": 0.374,
+      "p90": 0.4701,
+      "n": 19,
+      "mean": 0.382
+     },
+     "foam": {
+      "lumps": 1929,
+      "chains": 67,
+      "chain_spacing_w_m": {
+       "p10": 0.7205,
+       "p50": 0.926,
+       "p90": 1.1737,
+       "n": 66,
+       "mean": 0.94
+      },
+      "lump_height_m": {
+       "p10": 0.1573,
+       "p50": 0.2531,
+       "p90": 0.3634,
+       "n": 1929,
+       "mean": 0.266
+      },
+      "lump_width_m": {
+       "p10": 0.5743,
+       "p50": 0.7598,
+       "p90": 0.9745,
+       "n": 1929,
+       "mean": 0.7678
+      },
+      "skin_area_above_surface_m2": 653.2,
+      "in_constraint": {
+       "skin_vertices_in_painting_sky_by_pass": [
+        16738,
+        50,
+        11,
+        0
+       ],
+       "sunk_vertices_gt_0p5": 29621
+      }
+     }
+    },
+    "source": {
+     "report": "Unity/Build/Polish/sample03/fix01/crown/IN/fix1_parts_report.json",
+     "sha256": "b5f497b16e54bba756d62e13452c8dc3c4f5e241338d72a9ed8544bbf5e6d986"
+    }
+   }
+  },
+  "drip_tongues": {
+   "checks": {
+    "tongues_total_in_S1_count_range_for_edge": {
+     "value": 39,
+     "edge_length_m": 84.13,
+     "range": [
+      27.0,
+      45.0
+     ],
+     "pass": true
+    },
+    "S1_size_tongues_in_S1_count_range_for_hidden_edge": {
+     "value": 28,
+     "edge_length_m": 76.08,
+     "range": [
+      24.4,
+      40.7
+     ],
+     "pass": true
+    },
+    "tongues_present_on_relief_surface": {
+     "value": 39,
+     "of": 39,
+     "pass": true,
+     "missing": []
+    }
+   },
+   "pass_all": true,
+   "S1": {
+    "spacing_m": 2.49,
+    "spacing_unc_m": 0.623,
+    "width_m": 1.349,
+    "length_m": 3.113
+   },
+   "painting_size_tongues": 11,
+   "painting_face_edge_length_m": 8.05,
+   "painting_size_tongue_spacing_note_ja": "原画の舌（S2：藍の頭の間隔 p50 約 1.0 m）は原画の藍の面がある行（決め方 painting_face_start）の境に置いた。",
+   "note_ja": "S1 の舌の数の範囲 = 境の長さ ÷ 間隔（2.49 ± 0.62 m、0.12 ± 0.03 H）。原画の視点で見える所の 11 本は原画の舌の大きさ（S2、間隔 約 1 m）なので、全体の数（39）は S1 の範囲で、S1 の大きさの舌（28）は見えない所の境の長さで確かめる。S1 では丸い舌は前の小波の縁に見え、主の面の垂れは立体の指（T4 の冠）。ここは B1 の白の印（v2）の舌が、彫りの面（B2）の白に入っているか（whiteSD > 0 の頂点）も確かめる。",
+   "source": {
+    "params": "Unity/Build/Polish/sample03/shared/white_mask_params.json",
+    "sha256": "872f84a78fd49d557de81fba51ede03fcd72743b24f185bfb80f1e1646b5a145",
+    "band_sha256": "0a1391706aa5d2ce4143429e7a71b5e8d73a67af287242481fb00a0b494e98e9"
+   }
+  }
+ },
+ "C3_iou_painting_p10_p50_min": [
+  0.8733,
+  0.893,
+  0.8528
+ ],
+ "C2_fail": 0,
+ "T1": {
+  "spacing_ratio_frac_area_in_0.64_1.56": 0.9877,
+  "stretch_tri_outside_1_3_to_3x": 0
+ },
+ "fix01_parts": {
+  "OUT": {
+   "schema": "GreatWave.AS03.fix1_parts/1",
+   "mode": "OUT",
+   "seed": 3131,
+   "date": "2026-10-04 11:56",
+   "method_ja": "美術の見本03 修正の回 1（Q31）：波頭の冠に「泡の塊の皮」と「唇の縁から垂れる滴の列」を足す（B1 の冠の手・利用者の爪はそのまま）。\n\n批評（critic）の必ず直す所の 1〜3・6 と、規則 T4 の「冠が原画視点のほかのどの視点でも枠の 0.5% より多く見える」に向けた部品。\n- 泡の皮（kind 5）：B2 の彫りの面（hero_relief_b1v2c）の前の白の地（whiteSD > 0）と頂の線の少し後ろ（u > −1.05 m）の頂点を、面の法線の\n  向きへ「丸い瘤の場」だけ持ち上げた皮。瘤は面の座標 (u 前へ, w 頂に並ぶ向き) に置き、頂の線の近くの大きな瘤（泡の綱）から前へ、少しずつ細る\n  瘤を 3〜6 個つないだ「指の背」を互い違いに重ねる（make_lumps）。鎖の頭の 22% は頂の線の瘤（高さ 0.65〜1.40 m、背から見える泡の突起）。\n  瘤はなめらかな最大でつなぎ、最も低い所も面から 0.05 m 上（面との z の争いを避ける）。白の境と背（u < −0.95 m）へ向かって皮は面の下へ\n  沈む（u −0.95〜−0.40 m でなめらかに）。白の舌の上も皮が覆う（舌は盛り上がった釉の流れになる）。\n  瘤の間隔：彫刻の正面の写真の読み（批評：丸い瘤 0.035〜0.05 H おき ≈ 0.75〜1.1 m）。\n- 垂れる滴（kind 3）：白が唇の先を回り込む行の唇の先（列 200〜204）から、ほぼ真下へ垂れる丸い先の滴を 0.85 m ± 0.15 m おきに並べる。\n  長さ 0.6〜1.45 m、幅（直径）0.30〜0.48 m（批評が彫刻の正面の写真から読んだ数）。面に入る滴は短くし、0.5 m 未満なら外す。\n- IN（V3）：原画のカメラで写し、原画の空（2 px より内）に出て主役波に隠れない点のある滴は外し、皮はその頂点の印を面の上で約 1 m に\n  ならしてなめらかに面の下へ沈める（崖を作らない。3 回まで繰り返して確かめる）。\n  （B1 の IN の「原画の白の冠・爪の区域の外」の条件は皮には使わない：皮は主役波の白の地の上にあり、関門 G2 は輪郭だけを測るため。）\n出力（Git 対象外）：Unity/Build/Polish/sample03/fix01/crown/<OUT|IN>/fix1_foam.{json,bin}・fix1_drips.{json,bin}（B2 の静止のメッシュの書式。\nposition・normal・uv5 =（ao, keyVis = 1, whiteSD = +10, 1）・uv3 =（f, 番号, 種類 3 滴・5 泡, 0））と fix1_parts_report.json・fix1_drips_layout.json。\n原画の色は面へ写さない（Q28）。参照モデルの OBJ・写真は読まない。数は批評の写真の読み（critic_metrics・記録）と S1 の JSON。\n使い方：py -3.10 -B Tools/GWWaveGen/as03/fix1_crown.py --mode OUT（または IN）",
+   "foam": {
+    "mesh": {
+     "schema": "GreatWave.AS03.static_mesh/1",
+     "vertices": 103079,
+     "triangles": 202980,
+     "channels": [
+      [
+       "position",
+       3
+      ],
+      [
+       "normal",
+       3
+      ],
+      [
+       "uv5",
+       4
+      ],
+      [
+       "uv3",
+       4
+      ]
+     ],
+     "bin": "fix1_foam.bin",
+     "sha256": "9c72255a365b494c8e8a27e805b4e35b30c71838fc16747c1010f36d714a9080",
+     "noteJa": "修正の回 1 の泡の皮（kind 5）。B2 の彫りの面の前の白の地を丸い瘤の場だけ法線の向きへ持ち上げた皮。uv5 = (ao, 1, +10, 1)、uv3 = (1, 5000, 5, 0)。"
+    },
+    "measure": {
+     "lumps": 1929,
+     "chains": 67,
+     "chain_spacing_w_m": {
+      "p10": 0.7205,
+      "p50": 0.926,
+      "p90": 1.1737,
+      "n": 66,
+      "mean": 0.94
+     },
+     "lumps_crest_u_lt_1p3": 153,
+     "crest_knobs": 11,
+     "crest_knob_height_m": {
+      "p10": 0.7661,
+      "p50": 0.9133,
+      "p90": 1.2666,
+      "n": 11,
+      "mean": 0.9892
+     },
+     "crest_knob_spacing_w_m": {
+      "p10": 0.801,
+      "p50": 4.4039,
+      "p90": 10.2143,
+      "n": 10,
+      "mean": 5.8668
+     },
+     "lump_height_m": {
+      "p10": 0.1573,
+      "p50": 0.2531,
+      "p90": 0.3634,
+      "n": 1929,
+      "mean": 0.266
+     },
+     "lump_len_along_u_m": {
+      "p10": 0.6533,
+      "p50": 1.228,
+      "p90": 1.5998,
+      "n": 1929,
+      "mean": 1.1975
+     },
+     "lump_width_m": {
+      "p10": 0.5743,
+      "p50": 0.7598,
+      "p90": 0.9745,
+      "n": 1929,
+      "mean": 0.7678
+     },
+     "skin_offset_above_surface_m": {
+      "p10": 0.1248,
+      "p50": 0.2236,
+      "p90": 0.3775,
+      "n": 99387,
+      "mean": 0.24
+     },
+     "skin_area_above_surface_m2": 901.5,
+     "skin_behind_crest": {
+      "area_above_surface_u_lt_minus0p3_m2": 30.0,
+      "u_min_above_surface_m": -0.804,
+      "note_ja": "背（頂の線より後ろ）へ出る皮：頂の線の瘤の後ろ半分と、u −0.95〜−0.40 m の沈み込みの帯。背の形（一つの山）は変えていない（彫りの面は変えていない）"
+     },
+     "vertices": 103079,
+     "triangles": 202980,
+     "in_constraint": null
+    }
+   },
+   "drips": {
+    "mesh": {
+     "schema": "GreatWave.AS03.static_mesh/1",
+     "vertices": 13566,
+     "triangles": 26964,
+     "channels": [
+      [
+       "position",
+       3
+      ],
+      [
+       "normal",
+       3
+      ],
+      [
+       "uv5",
+       4
+      ],
+      [
+       "uv3",
+       4
+      ]
+     ],
+     "bin": "fix1_drips.bin",
+     "sha256": "dd162b8b936248af0bc722a44466fb5a5203bf728d1e067326335aa4eb2534a1",
+     "noteJa": "修正の回 1 の唇の縁から垂れる滴（kind 3）。uv5 = (ao, 1, +10, 1)、uv3 = (f 根元 0 → 先 1, 滴の番号, 3, 0)。"
+    },
+    "measure": {
+     "drips": 42,
+     "dropped": 43,
+     "lip_line_length_m": 63.81,
+     "drips_per_m": 0.658,
+     "spacing_along_w_m": {
+      "p10": 0.2421,
+      "p50": 0.926,
+      "p90": 1.7393,
+      "n": 38,
+      "mean": 0.9027
+     },
+     "length_m": {
+      "p10": 0.4426,
+      "p50": 0.9568,
+      "p90": 1.2518,
+      "n": 42,
+      "mean": 0.9184
+     },
+     "width_max_m": {
+      "p10": 0.2923,
+      "p50": 0.3842,
+      "p90": 0.4762,
+      "n": 42,
+      "mean": 0.3891
+     },
+     "width_root_m": {
+      "p10": 0.2028,
+      "p50": 0.267,
+      "p90": 0.3301,
+      "n": 42,
+      "mean": 0.2704
+     },
+     "vertices": 13566,
+     "triangles": 26964
+    }
+   },
+   "targets_ja": {
+    "lump_spacing_m": "0.75〜1.1（批評：彫刻の正面の写真の丸い瘤 0.035〜0.05 H、H ≈ 21.6 m）",
+    "drip_spacing_m": "約 0.8（0.037 H、写真の読み ±25%：0.6〜1.0）",
+    "drip_length_m": "0.6〜1.45（0.03〜0.07 H）",
+    "drip_width_m": "0.30〜0.48（0.015〜0.023 H）"
+   },
+   "inputs": {
+    "relief": "G:/Unity/GreatWave_2026_Fresh/Unity/Build/Polish/sample03/surface/mesh/hero_relief_b1v2c.json",
+    "relief_sha256": "ac1db2bb789d7b8792da9ea67b4089f91bd65bd2546625a4224d4d18931581d7",
+    "hero_gwb_sha256": "56c6c85d7ec5d6f4d979b9b7148ddc59905b6f30f834875e62c0fa1ec932e4a7"
+   },
+   "elapsed_s": 4.0
+  },
+  "IN": {
+   "schema": "GreatWave.AS03.fix1_parts/1",
+   "mode": "IN",
+   "seed": 3131,
+   "date": "2026-10-04 11:56",
+   "method_ja": "美術の見本03 修正の回 1（Q31）：波頭の冠に「泡の塊の皮」と「唇の縁から垂れる滴の列」を足す（B1 の冠の手・利用者の爪はそのまま）。\n\n批評（critic）の必ず直す所の 1〜3・6 と、規則 T4 の「冠が原画視点のほかのどの視点でも枠の 0.5% より多く見える」に向けた部品。\n- 泡の皮（kind 5）：B2 の彫りの面（hero_relief_b1v2c）の前の白の地（whiteSD > 0）と頂の線の少し後ろ（u > −1.05 m）の頂点を、面の法線の\n  向きへ「丸い瘤の場」だけ持ち上げた皮。瘤は面の座標 (u 前へ, w 頂に並ぶ向き) に置き、頂の線の近くの大きな瘤（泡の綱）から前へ、少しずつ細る\n  瘤を 3〜6 個つないだ「指の背」を互い違いに重ねる（make_lumps）。鎖の頭の 22% は頂の線の瘤（高さ 0.65〜1.40 m、背から見える泡の突起）。\n  瘤はなめらかな最大でつなぎ、最も低い所も面から 0.05 m 上（面との z の争いを避ける）。白の境と背（u < −0.95 m）へ向かって皮は面の下へ\n  沈む（u −0.95〜−0.40 m でなめらかに）。白の舌の上も皮が覆う（舌は盛り上がった釉の流れになる）。\n  瘤の間隔：彫刻の正面の写真の読み（批評：丸い瘤 0.035〜0.05 H おき ≈ 0.75〜1.1 m）。\n- 垂れる滴（kind 3）：白が唇の先を回り込む行の唇の先（列 200〜204）から、ほぼ真下へ垂れる丸い先の滴を 0.85 m ± 0.15 m おきに並べる。\n  長さ 0.6〜1.45 m、幅（直径）0.30〜0.48 m（批評が彫刻の正面の写真から読んだ数）。面に入る滴は短くし、0.5 m 未満なら外す。\n- IN（V3）：原画のカメラで写し、原画の空（2 px より内）に出て主役波に隠れない点のある滴は外し、皮はその頂点の印を面の上で約 1 m に\n  ならしてなめらかに面の下へ沈める（崖を作らない。3 回まで繰り返して確かめる）。\n  （B1 の IN の「原画の白の冠・爪の区域の外」の条件は皮には使わない：皮は主役波の白の地の上にあり、関門 G2 は輪郭だけを測るため。）\n出力（Git 対象外）：Unity/Build/Polish/sample03/fix01/crown/<OUT|IN>/fix1_foam.{json,bin}・fix1_drips.{json,bin}（B2 の静止のメッシュの書式。\nposition・normal・uv5 =（ao, keyVis = 1, whiteSD = +10, 1）・uv3 =（f, 番号, 種類 3 滴・5 泡, 0））と fix1_parts_report.json・fix1_drips_layout.json。\n原画の色は面へ写さない（Q28）。参照モデルの OBJ・写真は読まない。数は批評の写真の読み（critic_metrics・記録）と S1 の JSON。\n使い方：py -3.10 -B Tools/GWWaveGen/as03/fix1_crown.py --mode OUT（または IN）",
+   "foam": {
+    "mesh": {
+     "schema": "GreatWave.AS03.static_mesh/1",
+     "vertices": 77490,
+     "triangles": 150400,
+     "channels": [
+      [
+       "position",
+       3
+      ],
+      [
+       "normal",
+       3
+      ],
+      [
+       "uv5",
+       4
+      ],
+      [
+       "uv3",
+       4
+      ]
+     ],
+     "bin": "fix1_foam.bin",
+     "sha256": "fd88b24c6daa8a6649c6d8d59b23a3d84e76f6616cb2fb3f9a124904a3c64d4d",
+     "noteJa": "修正の回 1 の泡の皮（kind 5）。B2 の彫りの面の前の白の地を丸い瘤の場だけ法線の向きへ持ち上げた皮。uv5 = (ao, 1, +10, 1)、uv3 = (1, 5000, 5, 0)。"
+    },
+    "measure": {
+     "lumps": 1929,
+     "chains": 67,
+     "chain_spacing_w_m": {
+      "p10": 0.7205,
+      "p50": 0.926,
+      "p90": 1.1737,
+      "n": 66,
+      "mean": 0.94
+     },
+     "lumps_crest_u_lt_1p3": 153,
+     "crest_knobs": 11,
+     "crest_knob_height_m": {
+      "p10": 0.7661,
+      "p50": 0.9133,
+      "p90": 1.2666,
+      "n": 11,
+      "mean": 0.9892
+     },
+     "crest_knob_spacing_w_m": {
+      "p10": 0.801,
+      "p50": 4.4039,
+      "p90": 10.2143,
+      "n": 10,
+      "mean": 5.8668
+     },
+     "lump_height_m": {
+      "p10": 0.1573,
+      "p50": 0.2531,
+      "p90": 0.3634,
+      "n": 1929,
+      "mean": 0.266
+     },
+     "lump_len_along_u_m": {
+      "p10": 0.6533,
+      "p50": 1.228,
+      "p90": 1.5998,
+      "n": 1929,
+      "mean": 1.1975
+     },
+     "lump_width_m": {
+      "p10": 0.5743,
+      "p50": 0.7598,
+      "p90": 0.9745,
+      "n": 1929,
+      "mean": 0.7678
+     },
+     "skin_offset_above_surface_m": {
+      "p10": 0.1189,
+      "p50": 0.2103,
+      "p90": 0.3655,
+      "n": 72225,
+      "mean": 0.2271
+     },
+     "skin_area_above_surface_m2": 653.2,
+     "skin_behind_crest": {
+      "area_above_surface_u_lt_minus0p3_m2": 20.83,
+      "u_min_above_surface_m": -0.759,
+      "note_ja": "背（頂の線より後ろ）へ出る皮：頂の線の瘤の後ろ半分と、u −0.95〜−0.40 m の沈み込みの帯。背の形（一つの山）は変えていない（彫りの面は変えていない）"
+     },
+     "vertices": 77490,
+     "triangles": 150400,
+     "in_constraint": {
+      "skin_vertices_in_painting_sky_by_pass": [
+       16738,
+       50,
+       11,
+       0
+      ],
+      "sunk_vertices_gt_0p5": 29621
+     }
+    }
+   },
+   "drips": {
+    "mesh": {
+     "schema": "GreatWave.AS03.static_mesh/1",
+     "vertices": 5834,
+     "triangles": 11592,
+     "channels": [
+      [
+       "position",
+       3
+      ],
+      [
+       "normal",
+       3
+      ],
+      [
+       "uv5",
+       4
+      ],
+      [
+       "uv3",
+       4
+      ]
+     ],
+     "bin": "fix1_drips.bin",
+     "sha256": "4a9e6ca82b0f099e5aee99ce02a9fe67e1c783e1c64c7ba8acc3865bf1232ced",
+     "noteJa": "修正の回 1 の唇の縁から垂れる滴（kind 3）。uv5 = (ao, 1, +10, 1)、uv3 = (f 根元 0 → 先 1, 滴の番号, 3, 0)。"
+    },
+    "measure": {
+     "drips": 19,
+     "dropped": 66,
+     "lip_line_length_m": 63.81,
+     "drips_per_m": 0.298,
+     "spacing_along_w_m": {
+      "p10": 0.0,
+      "p50": 0.8091,
+      "p90": 1.506,
+      "n": 15,
+      "mean": 0.7559
+     },
+     "length_m": {
+      "p10": 0.4247,
+      "p50": 0.8337,
+      "p90": 1.2824,
+      "n": 19,
+      "mean": 0.864
+     },
+     "width_max_m": {
+      "p10": 0.2923,
+      "p50": 0.374,
+      "p90": 0.4701,
+      "n": 19,
+      "mean": 0.382
+     },
+     "width_root_m": {
+      "p10": 0.2028,
+      "p50": 0.2592,
+      "p90": 0.3258,
+      "n": 19,
+      "mean": 0.2654
+     },
+     "vertices": 5834,
+     "triangles": 11592
+    }
+   },
+   "targets_ja": {
+    "lump_spacing_m": "0.75〜1.1（批評：彫刻の正面の写真の丸い瘤 0.035〜0.05 H、H ≈ 21.6 m）",
+    "drip_spacing_m": "約 0.8（0.037 H、写真の読み ±25%：0.6〜1.0）",
+    "drip_length_m": "0.6〜1.45（0.03〜0.07 H）",
+    "drip_width_m": "0.30〜0.48（0.015〜0.023 H）"
+   },
+   "inputs": {
+    "relief": "G:/Unity/GreatWave_2026_Fresh/Unity/Build/Polish/sample03/surface/mesh/hero_relief_b1v2c.json",
+    "relief_sha256": "ac1db2bb789d7b8792da9ea67b4089f91bd65bd2546625a4224d4d18931581d7",
+    "hero_gwb_sha256": "56c6c85d7ec5d6f4d979b9b7148ddc59905b6f30f834875e62c0fa1ec932e4a7"
+   },
+   "elapsed_s": 11.5
+  }
+ },
+ "crown_B1_report": {
+  "OUT": {
+   "schema": "GreatWave.AS03.crown_report/1",
+   "mode": "OUT",
+   "seed": 3101,
+   "date": "2026-10-04 10:04",
+   "method_ja": "美術の見本03 の作り B1-1・B1-2・B1-4：波頭の立体の白い指の冠（OUT＝彫刻のように開く／IN＝原画視点の影を原画の白の冠・爪の区域に収める）。\n\n- 主役波：t* の K*′ AS02C（見本02 修正の回 1）。指の根元は、共有の白の印（crown_whitemask.py）の前の白の地（region 2・3）の上だけ。\n- 数（S1 の sculpture_spec.json、参照の彫刻の数を主役波の m へ当てた値）：手（掌＋指）、指の長さ・太さ・細り、分かれる所、手の中の指の数、\n  指どうしの開き、根元の法線との角、曲がり（垂れ）、先の形（丸い・口の開いた・ふくらむ）、段（頂の縁・前の斜面・唇の縁／垂れる縁）。\n- 利用者の爪（S2 の CREST_CROWN 48 本、見本02 修正の回 1 の 3D の爪）は指の先：OUT は根元の周りに回して面から起こし（根元と法線の角を\n  彫刻の数へ）、IN は見本02 の置き方 A のまま。どちらも爪の下に指の体（短い掌）を置き、爪は手の 1 本の指になる。\n- IN：手・指を作った後、原画のカメラ（PaintingCam v1）で各頂点を写し、原画の空（2 px より内）か、原画の白の冠・爪の区域の外（主役波の後ろに\n  隠れない所）に出る手は、①射線の向き（奥）へ回す ②0.85 倍に縮める、を 4 回まで繰り返し、残れば外す。\n- 根元は面の下へ 0.15 m 沈め、根元の 0.3 m で太さを広げ（1.7 倍まで）、面から 0.15 m までの頂点の法線を面の法線へなめらかに移す（台を作らない）。\n- 面を突き抜ける指（根元の 0.25 m より先が面の下）と、別の手どうしの重なりは、回す・縮めるで直し、残れば外して記録する。\n- 出力（Git 対象外）：Unity/Build/Polish/sample03/crown/<OUT|IN>/：as03_crown.bin・.json（shared/README.md の静止のメッシュの書式。\n  position・normal・uv5 =（ao, keyVis, whiteSD = +10, kind 1）・uv3 =（f, 指の番号, 種類 0 手・1 指・2 利用者の爪, 0））、as03_crown.obj、\n  as03_crown_layout.json（指ごと）、as03_crown_report.json（S1 の数との比べ・検査・頂点の数）。\n原画の色は面へ写さない（Q28）。参照モデルの OBJ・写真は読まない（F13-1）。\n使い方：py -3.10 -B Tools/GWWaveGen/as03/crown_build.py --mode OUT（または IN）",
+   "mesh": {
+    "schema": "GreatWave.AS03.static_mesh/1",
+    "vertices": 228214,
+    "triangles": 455456,
+    "channels": [
+     [
+      "position",
+      3
+     ],
+     [
+      "normal",
+      3
+     ],
+     [
+      "uv5",
+      4
+     ],
+     [
+      "uv3",
+      4
+     ]
+    ],
+    "bin": "as03_crown.bin",
+    "sha256": "838fccc55f338b5cecbecfc0aed308710876ddad471a494b256c7c27be45f3d2",
+    "noteJa": "shared/README.md の B2 の書式。uv5 = (ao, keyVis, whiteSD（冠は全部白 = +10）, kind 1)、uv3 = (f 根元 0 → 先 1, 指の番号, 種類 0 手（掌）・1 指・2 利用者の爪, 0)。位置・法線は Unity の世界（m）、t* の静止。"
+   },
+   "measure": {
+    "counts": {
+     "hands_procedural": 27,
+     "hands_user": 31,
+     "hands_total": 58,
+     "band_ropes": 0,
+     "digits_procedural": 57,
+     "user_claw_tips": 48,
+     "fingertips_total": 105,
+     "rim_length_m": 46.75,
+     "fingertips_per_m": 2.246,
+     "hands_per_m": 1.241,
+     "S1_target": {
+      "fingertips": {
+       "per_m": 1.733,
+       "count_on_L_hero": 89,
+       "range": [
+        83,
+        111
+       ]
+      },
+      "hands": {
+       "per_m": 0.638,
+       "count_on_L_hero": 33,
+       "range": [
+        33,
+        59
+       ]
+      }
+     }
+    },
+    "digit_len_m": {
+     "ours": {
+      "p10": 0.4985,
+      "p50": 0.8093,
+      "p90": 1.3847,
+      "n": 57,
+      "mean": 0.8529
+     },
+     "S1": {
+      "p10": 0.371,
+      "p25": 0.616,
+      "p50": 0.901,
+      "p75": 1.131,
+      "p90": 1.324
+     }
+    },
+    "digit_base_diam_m": {
+     "ours": {
+      "p10": 0.3482,
+      "p50": 0.409,
+      "p90": 0.461,
+      "n": 57,
+      "mean": 0.4011
+     },
+     "S1_p50": 0.448
+    },
+    "digit_len_over_base_diam": {
+     "ours": {
+      "p10": 1.1494,
+      "p50": 2.0201,
+      "p90": 3.3153,
+      "n": 57,
+      "mean": 2.1511
+     },
+     "S1_mesh_p50": 2.0,
+     "S1_photo_p50": 3.5
+    },
+    "digit_overall_below_horizontal_deg": {
+     "ours": {
+      "p10": 2.2521,
+      "p50": 25.1346,
+      "p90": 67.7818,
+      "n": 57,
+      "mean": 30.1374
+     },
+     "S1_p50": 23.5
+    },
+    "digit_tip_below_horizontal_deg": {
+     "ours": {
+      "p10": 5.432,
+      "p50": 32.6606,
+      "p90": 71.5239,
+      "n": 57,
+      "mean": 36.3413
+     },
+     "S1_p50": 32.5
+    },
+    "frac_tips_down": {
+     "ours": 0.829,
+     "S1": 0.908
+    },
+    "frac_forward": {
+     "ours": 0.842,
+     "S1": 0.908
+    },
+    "hand_theta_vs_normal_deg": {
+     "ours": {
+      "p10": 33.72,
+      "p50": 69.6,
+      "p90": 70.0,
+      "n": 27,
+      "mean": 59.2222
+     },
+     "S1": {
+      "n": 76,
+      "p10": 11.7,
+      "p25": 17.3,
+      "p50": 21.7,
+      "p75": 29.9,
+      "p90": 39.1,
+      "mean": 25.9
+     }
+    },
+    "user_claw_angle_vs_normal_deg": {
+     "before": {
+      "p10": 22.74,
+      "p50": 70.45,
+      "p90": 96.38,
+      "n": 48,
+      "mean": 64.2021
+     },
+     "after": {
+      "p10": 2.37,
+      "p50": 14.65,
+      "p90": 31.5,
+      "n": 48,
+      "mean": 15.1292
+     },
+     "S1_p50": 21.7
+    },
+    "tiers": {
+     "0": 31,
+     "1": 18,
+     "2": 0,
+     "3": 5,
+     "4": 4
+    },
+    "tips": {
+     "round": 53,
+     "open": 3,
+     "bulb": 1
+    },
+    "root_height_over_H0": {
+     "ours": {
+      "p10": 0.4457,
+      "p50": 0.6341,
+      "p90": 0.8855,
+      "n": 58,
+      "mean": 0.639
+     },
+     "S1": {
+      "n": 76,
+      "p10": 0.3901,
+      "p25": 0.4874,
+      "p50": 0.5896,
+      "p75": 0.7306,
+      "p90": 0.8475,
+      "mean": 0.5981
+     }
+    }
+   },
+   "checks": {
+    "vertices": 228214,
+    "triangles": 455456,
+    "surface_penetrating_vertices": 1864,
+    "surface_penetrating_fingers": 43,
+    "surface_penetrating_by_kind": {
+     "palm": 5,
+     "digit": 0,
+     "user_claw": 38
+    },
+    "surface_penetration_depth_by_kind_m": {
+     "palm": 0.109,
+     "digit": -0.048,
+     "user_claw": 0.461
+    },
+    "min_height_beyond_root_m": -0.461,
+    "finger_core_below_surface": {
+     "palm": {
+      "n": 0,
+      "worst_m": -0.0
+     },
+     "digit": {
+      "n": 0,
+      "worst_m": -0.0
+     },
+     "user_sleeve": {
+      "n": 1,
+      "worst_m": 0.132
+     },
+     "user_claw": {
+      "n": 2,
+      "worst_m": 0.19
+     }
+    },
+    "finger_core_note_ja": "芯（背骨）の最も低い高さ。負なら指の芯が主役波の面の下（体の中）に入る。表面の頂点の数（surface_penetrating_*）は、平たい掌や利用者の爪の縁が面に沈む分（根元をつなぐための沈み）も数える",
+    "root_seam_normal_jump_deg": {
+     "p50": 0.0,
+     "p90": 6.4764,
+     "p99": 10.7424,
+     "n": 10508,
+     "mean": 1.672
+    },
+    "tube_overlaps_other_hands": {
+     "n": 0,
+     "worst_m": 0.0
+    }
+   },
+   "in_constraint": null,
+   "log": [
+    "tier 1 (rim garland): 18 / 18 hands, spacing 2.60 m along the rim 46.8 m",
+    "tier 3 (drip edge): 5 / 6 hands (candidates 161)",
+    "tier 4 (lip edge, hanging): 4 / 4 hands, spacing 13.89 m along the lip tip line 55.5 m"
+   ],
+   "attr_stats": {
+    "ao": {
+     "p10": 0.0,
+     "p50": 0.7405,
+     "p90": 1.0,
+     "n": 228214,
+     "mean": 0.5703
+    },
+    "keyVis": {
+     "p10": 0.0,
+     "p50": 1.0,
+     "p90": 1.0,
+     "n": 228214,
+     "mean": 0.6715
+    }
+   },
+   "inputs": {
+    "hero_gwb_sha256": "56c6c85d7ec5d6f4d979b9b7148ddc59905b6f30f834875e62c0fa1ec932e4a7",
+    "spec_sha256": "a92f91b412da79d8b22b2b1bf1fb7c7d69ec47df0e2ec8a8c0741a5e0d5b20f6",
+    "user": {
+     "layout_sha256": "495b191d0aa4321721be2a88e98cca1cfbc5c6ddd3d283a39fd2510102d31171",
+     "frames_sha256": "0f1573a018ac0aae25d0e8b73c277d61bc3625f4ccffe6d8c6a8d679e437c372",
+     "roles_sha256": "012753d0f4f32ea36aa060ea853076b8f636b1e392f1f86cd6332361a12b800d"
+    },
+    "white_mask": {
+     "file": "Unity/Build/Polish/sample03/shared/white_mask.json",
+     "sha256": "8c8339f6fd6b3368014dd0ee234b0c0a7e652b5733725e5ad5c580fed5f95aeb"
+    }
+   },
+   "elapsed_s": 270.2
+  },
+  "IN": {
+   "schema": "GreatWave.AS03.crown_report/1",
+   "mode": "IN",
+   "seed": 3101,
+   "date": "2026-10-04 10:08",
+   "method_ja": "美術の見本03 の作り B1-1・B1-2・B1-4：波頭の立体の白い指の冠（OUT＝彫刻のように開く／IN＝原画視点の影を原画の白の冠・爪の区域に収める）。\n\n- 主役波：t* の K*′ AS02C（見本02 修正の回 1）。指の根元は、共有の白の印（crown_whitemask.py）の前の白の地（region 2・3）の上だけ。\n- 数（S1 の sculpture_spec.json、参照の彫刻の数を主役波の m へ当てた値）：手（掌＋指）、指の長さ・太さ・細り、分かれる所、手の中の指の数、\n  指どうしの開き、根元の法線との角、曲がり（垂れ）、先の形（丸い・口の開いた・ふくらむ）、段（頂の縁・前の斜面・唇の縁／垂れる縁）。\n- 利用者の爪（S2 の CREST_CROWN 48 本、見本02 修正の回 1 の 3D の爪）は指の先：OUT は根元の周りに回して面から起こし（根元と法線の角を\n  彫刻の数へ）、IN は見本02 の置き方 A のまま。どちらも爪の下に指の体（短い掌）を置き、爪は手の 1 本の指になる。\n- IN：手・指を作った後、原画のカメラ（PaintingCam v1）で各頂点を写し、原画の空（2 px より内）か、原画の白の冠・爪の区域の外（主役波の後ろに\n  隠れない所）に出る手は、①射線の向き（奥）へ回す ②0.85 倍に縮める、を 4 回まで繰り返し、残れば外す。\n- 根元は面の下へ 0.15 m 沈め、根元の 0.3 m で太さを広げ（1.7 倍まで）、面から 0.15 m までの頂点の法線を面の法線へなめらかに移す（台を作らない）。\n- 面を突き抜ける指（根元の 0.25 m より先が面の下）と、別の手どうしの重なりは、回す・縮めるで直し、残れば外して記録する。\n- 出力（Git 対象外）：Unity/Build/Polish/sample03/crown/<OUT|IN>/：as03_crown.bin・.json（shared/README.md の静止のメッシュの書式。\n  position・normal・uv5 =（ao, keyVis, whiteSD = +10, kind 1）・uv3 =（f, 指の番号, 種類 0 手・1 指・2 利用者の爪, 0））、as03_crown.obj、\n  as03_crown_layout.json（指ごと）、as03_crown_report.json（S1 の数との比べ・検査・頂点の数）。\n原画の色は面へ写さない（Q28）。参照モデルの OBJ・写真は読まない（F13-1）。\n使い方：py -3.10 -B Tools/GWWaveGen/as03/crown_build.py --mode OUT（または IN）",
+   "mesh": {
+    "schema": "GreatWave.AS03.static_mesh/1",
+    "vertices": 196136,
+    "triangles": 391284,
+    "channels": [
+     [
+      "position",
+      3
+     ],
+     [
+      "normal",
+      3
+     ],
+     [
+      "uv5",
+      4
+     ],
+     [
+      "uv3",
+      4
+     ]
+    ],
+    "bin": "as03_crown.bin",
+    "sha256": "64e6e020034809a2cd28300e1b65d853dfc3511e246fd7ba68ac931500eb0298",
+    "noteJa": "shared/README.md の B2 の書式。uv5 = (ao, keyVis, whiteSD（冠は全部白 = +10）, kind 1)、uv3 = (f 根元 0 → 先 1, 指の番号, 種類 0 手（掌）・1 指・2 利用者の爪, 0)。位置・法線は Unity の世界（m）、t* の静止。"
+   },
+   "measure": {
+    "counts": {
+     "hands_procedural": 22,
+     "hands_user": 31,
+     "hands_total": 53,
+     "band_ropes": 0,
+     "digits_procedural": 42,
+     "user_claw_tips": 48,
+     "fingertips_total": 90,
+     "rim_length_m": 46.75,
+     "fingertips_per_m": 1.925,
+     "hands_per_m": 1.134,
+     "S1_target": {
+      "fingertips": {
+       "per_m": 1.733,
+       "count_on_L_hero": 89,
+       "range": [
+        83,
+        111
+       ]
+      },
+      "hands": {
+       "per_m": 0.638,
+       "count_on_L_hero": 33,
+       "range": [
+        33,
+        59
+       ]
+      }
+     }
+    },
+    "digit_len_m": {
+     "ours": {
+      "p10": 0.5492,
+      "p50": 0.8528,
+      "p90": 1.1552,
+      "n": 42,
+      "mean": 0.8405
+     },
+     "S1": {
+      "p10": 0.371,
+      "p25": 0.616,
+      "p50": 0.901,
+      "p75": 1.131,
+      "p90": 1.324
+     }
+    },
+    "digit_base_diam_m": {
+     "ours": {
+      "p10": 0.3237,
+      "p50": 0.3942,
+      "p90": 0.4579,
+      "n": 42,
+      "mean": 0.3935
+     },
+     "S1_p50": 0.448
+    },
+    "digit_len_over_base_diam": {
+     "ours": {
+      "p10": 1.4493,
+      "p50": 2.1274,
+      "p90": 3.1454,
+      "n": 42,
+      "mean": 2.1749
+     },
+     "S1_mesh_p50": 2.0,
+     "S1_photo_p50": 3.5
+    },
+    "digit_overall_below_horizontal_deg": {
+     "ours": {
+      "p10": -6.8748,
+      "p50": 15.0412,
+      "p90": 38.5063,
+      "n": 42,
+      "mean": 14.7096
+     },
+     "S1_p50": 23.5
+    },
+    "digit_tip_below_horizontal_deg": {
+     "ours": {
+      "p10": -4.1112,
+      "p50": 18.6788,
+      "p90": 50.1162,
+      "n": 42,
+      "mean": 21.4251
+     },
+     "S1_p50": 32.5
+    },
+    "frac_tips_down": {
+     "ours": 0.822,
+     "S1": 0.908
+    },
+    "frac_forward": {
+     "ours": 0.952,
+     "S1": 0.908
+    },
+    "hand_theta_vs_normal_deg": {
+     "ours": {
+      "p10": 48.55,
+      "p50": 66.2,
+      "p90": 70.0,
+      "n": 22,
+      "mean": 59.45
+     },
+     "S1": {
+      "n": 76,
+      "p10": 11.7,
+      "p25": 17.3,
+      "p50": 21.7,
+      "p75": 29.9,
+      "p90": 39.1,
+      "mean": 25.9
+     }
+    },
+    "user_claw_angle_vs_normal_deg": {
+     "before": {
+      "p10": 22.74,
+      "p50": 70.45,
+      "p90": 96.38,
+      "n": 48,
+      "mean": 64.2021
+     },
+     "after": {
+      "p10": 22.74,
+      "p50": 70.45,
+      "p90": 96.38,
+      "n": 48,
+      "mean": 64.2021
+     },
+     "S1_p50": 21.7
+    },
+    "tiers": {
+     "0": 30,
+     "1": 18,
+     "2": 0,
+     "3": 3,
+     "4": 1
+    },
+    "tips": {
+     "round": 35,
+     "open": 3,
+     "bulb": 4
+    },
+    "root_height_over_H0": {
+     "ours": {
+      "p10": 0.4356,
+      "p50": 0.67,
+      "p90": 0.9009,
+      "n": 52,
+      "mean": 0.6677
+     },
+     "S1": {
+      "n": 76,
+      "p10": 0.3901,
+      "p25": 0.4874,
+      "p50": 0.5896,
+      "p75": 0.7306,
+      "p90": 0.8475,
+      "mean": 0.5981
+     }
+    }
+   },
+   "checks": {
+    "vertices": 196136,
+    "triangles": 391284,
+    "surface_penetrating_vertices": 10095,
+    "surface_penetrating_fingers": 79,
+    "surface_penetrating_by_kind": {
+     "palm": 31,
+     "digit": 0,
+     "user_claw": 48
+    },
+    "surface_penetration_depth_by_kind_m": {
+     "palm": 0.144,
+     "digit": -0.006,
+     "user_claw": 0.475
+    },
+    "min_height_beyond_root_m": -0.475,
+    "finger_core_below_surface": {
+     "palm": {
+      "n": 0,
+      "worst_m": -0.0
+     },
+     "digit": {
+      "n": 0,
+      "worst_m": -0.0
+     },
+     "user_sleeve": {
+      "n": 11,
+      "worst_m": 0.148
+     },
+     "user_claw": {
+      "n": 20,
+      "worst_m": 0.374
+     }
+    },
+    "finger_core_note_ja": "芯（背骨）の最も低い高さ。負なら指の芯が主役波の面の下（体の中）に入る。表面の頂点の数（surface_penetrating_*）は、平たい掌や利用者の爪の縁が面に沈む分（根元をつなぐための沈み）も数える",
+    "root_seam_normal_jump_deg": {
+     "p50": 0.0,
+     "p90": 6.1988,
+     "p99": 10.5627,
+     "n": 8257,
+     "mean": 1.6012
+    },
+    "tube_overlaps_other_hands": {
+     "n": 0,
+     "worst_m": 0.0
+    }
+   },
+   "in_constraint": {
+    "ok_first": 36,
+    "fixed": 16,
+    "dropped": 21,
+    "user_bodies_dropped": 1,
+    "user_claw_outside_vertices_total": 0,
+    "user_claws_with_outside": 0
+   },
+   "log": [
+    "tier 1 (rim garland): 32 / 33 hands, spacing 1.42 m along the rim 46.8 m",
+    "tier 3 (drip edge): 6 / 9 hands (candidates 161)",
+    "tier 4 (lip edge, hanging): 4 / 4 hands, spacing 13.89 m along the lip tip line 55.5 m"
+   ],
+   "attr_stats": {
+    "ao": {
+     "p10": 0.0,
+     "p50": 0.6199,
+     "p90": 0.9983,
+     "n": 196136,
+     "mean": 0.511
+    },
+    "keyVis": {
+     "p10": 0.0,
+     "p50": 1.0,
+     "p90": 1.0,
+     "n": 196136,
+     "mean": 0.6764
+    }
+   },
+   "inputs": {
+    "hero_gwb_sha256": "56c6c85d7ec5d6f4d979b9b7148ddc59905b6f30f834875e62c0fa1ec932e4a7",
+    "spec_sha256": "a92f91b412da79d8b22b2b1bf1fb7c7d69ec47df0e2ec8a8c0741a5e0d5b20f6",
+    "user": {
+     "layout_sha256": "495b191d0aa4321721be2a88e98cca1cfbc5c6ddd3d283a39fd2510102d31171",
+     "frames_sha256": "0f1573a018ac0aae25d0e8b73c277d61bc3625f4ccffe6d8c6a8d679e437c372",
+     "roles_sha256": "012753d0f4f32ea36aa060ea853076b8f636b1e392f1f86cd6332361a12b800d"
+    },
+    "white_mask": {
+     "file": "Unity/Build/Polish/sample03/shared/white_mask.json",
+     "sha256": "8c8339f6fd6b3368014dd0ee234b0c0a7e652b5733725e5ad5c580fed5f95aeb"
+    }
+   },
+   "elapsed_s": 238.2
+  }
+ },
+ "B2_surface_summary": {
+  "rows": [
+   [
+    "項目",
+    "S1（彫刻、写真と参照モデル）",
+    "見本02（前）",
+    "B2 FLAT",
+    "B2 SCULPT"
+   ],
+   [
+    "稜の間隔 m（冠の下 0.75 H／中ほど 0.5 H／下 0.25 H）",
+    "0.73／0.93／1.16（0.035／0.045／0.056 H）",
+    "1.0／1.0／1.0（どこも同じ）",
+    "0.78／0.84（平均 0.90）／1.09（同じメッシュ）",
+    "← 同じ"
+   ],
+   [
+    "溝（淡い水色）の幅／周期",
+    "0.244（藍 : 水色 ≈ 3 : 1）",
+    "線 0.07 ＋ 帯 0.26（平らな縞）",
+    "0.244（式）。描いた面の割合 座席 0.26・座席から波 0.20・原画 0.15（遠くは画面で弱める）",
+    "← 同じ"
+   ],
+   [
+    "稜の山と谷／周期",
+    "≈ 0.1（0.05〜0.25、陰からの推定）",
+    "0（平らに描いた縞）",
+    "0.12（本当の凹凸。静止のメッシュ）",
+    "← 同じ＋画素ごとの傾きで艶の筋"
+   ],
+   [
+    "Y 字の枝分かれ",
+    "線 3〜4 本に 1 つ、下へ開く",
+    "あり（段の端数で）",
+    "前の面に 7 か所（約 24 本に。S1 の目安 6〜8）",
+    "← 同じ"
+   ],
+   [
+    "白の明るさの広がり p95−p5",
+    "78〜83",
+    "0〜6",
+    "0〜31（2 段の陰）",
+    "7 視点 26〜115、回り台 23〜94"
+   ],
+   [
+    "艶の光（鏡の光・映り込み）",
+    "強い（小さく鋭い光の点、長い窓の映り込み）",
+    "0",
+    "0（平らな色）",
+    "あり：白 74051 画素・藍 149731 画素（15 枚の合計）"
+   ],
+   [
+    "描いた線",
+    "ない",
+    "白の縁に 1.5 画素（原画視点 4,632 画素）",
+    "白と藍の境に 1.2 画素の藍の線（原画視点 2264 画素）＋主役波の外殻の線（設計38）",
+    "ない（コードに線の道がない）"
+   ],
+   [
+    "色：白 明／中／陰（sRGB、原画視点）",
+    "245／218／145（白を中立に直した値）",
+    "248,243,223 一色",
+    "248,243,223／同／203,215,206",
+    "240,241,240／226,228,227／125,129,131"
+   ],
+   [
+    "色：藍（稜）明／中／陰",
+    "35,54,87／17,20,32／9,11,21",
+    "35,64,97 ほか（平ら）",
+    "35,64,97／同／20,38,64",
+    "77,86,100／23,30,54／6,11,28"
+   ],
+   [
+    "色：溝の青 明／中／陰",
+    "59,92,145／45,79,132／37,71,121",
+    "102,161,209（淡い）",
+    "44,105,147（藍中）／同／30,71,107",
+    "106,127,168／46,69,110／27,46,77"
+   ],
+   [
+    "唇の帯（列 111〜200）の白＋白の陰（原画視点）",
+    "原画 0.75（S2）・彫刻は白い冠",
+    "0.033",
+    "0.80（B1 の白の印 v2）",
+    "0.80（同じ）"
+   ],
+   [
+    "主役波の頂点・三角形",
+    "—",
+    "96,000・190,722（keypose）",
+    "314400・626430（静止。行を 4 倍、c -21.9〜15.0 m）",
+    "← 同じ"
+   ],
+   [
+    "原画視点の空の輪郭の差（ID、見本02 と）",
+    "—",
+    "—",
+    "213 画素、見本02 の縁から最大 2.24 画素（溝を内へ彫る）",
+    "← 同じ"
+   ],
+   [
+    "原画視点の関門（4 px 以下。78・130・131・132 σ12・72 σ12 p95、爪なし／あり）",
+    "—",
+    "2.74・3.58・3.44・3.56・3.85／3.66",
+    "2.74／2.74・3.58／3.58・3.44／3.44・3.63／3.63・3.76／3.53（全部通る）",
+    "← 同じ（輪郭は同じメッシュ）"
+   ]
+  ],
+  "mesh_report": "hero_relief_b1v2c",
+  "render_tag": "v13",
+  "sculpt": {
+   "white_lum_spread_min_max": [
+    23.1,
+    115.0
+   ],
+   "specular_px_white_total": 74051,
+   "specular_px_ai_total": 149731,
+   "drawn_line_px_total": 8410,
+   "face_groove_frac_views": {
+    "painting": 0.1542,
+    "seat": 0.2589,
+    "seat_toward_wave": 0.2036,
+    "side_left": 0.0,
+    "side_right": 0.0444,
+    "back65": 0.0006,
+    "top": 0.0486
+   },
+   "lip_white_frac_painting": 0.8006
+  },
+  "flat": {
+   "white_lum_spread_min_max": [
+    0.0,
+    30.8
+   ],
+   "specular_px_white_total": 0,
+   "specular_px_ai_total": 3184,
+   "drawn_line_px_total": 19649,
+   "face_groove_frac_views": {
+    "painting": 0.1542,
+    "seat": 0.2589,
+    "seat_toward_wave": 0.2036,
+    "side_left": 0.0,
+    "side_right": 0.0444,
+    "back65": 0.0006,
+    "top": 0.0486
+   },
+   "lip_white_frac_painting": 0.8006
+  },
+  "silhouette": {
+   "ref": "G:/Unity/GreatWave_2026_Fresh/Unity/Build/Polish/sample03/study/render/S3_AS02C/diag",
+   "render": "Unity/Build/Polish/sample03/surface/render/B2_v13_sculpt",
+   "painting": {
+    "diff_px": 213,
+    "max_dist_px": 2.24,
+    "p99_dist_px": 2.24
+   },
+   "seat": {
+    "diff_px": 1176,
+    "max_dist_px": 5.0,
+    "p99_dist_px": 4.47
+   },
+   "seat_toward_wave": {
+    "diff_px": 34,
+    "max_dist_px": 1.0,
+    "p99_dist_px": 1.0
+   },
+   "side_left": {
+    "diff_px": 0
+   },
+   "side_right": {
+    "diff_px": 0
+   },
+   "back65": {
+    "diff_px": 2,
+    "max_dist_px": 0.0,
+    "p99_dist_px": 0.0
+   },
+   "top": {
+    "diff_px": 0
+   }
+  }
+ },
+ "critic_record": {
+  "before": {
+   "note_ja": "批評の測り。描画だけを読む（写真・OBJ は読まない）。",
+   "variants": {
+    "V1": {
+     "crest": {
+      "000": {
+       "white_px": 616016,
+       "crown_px": 77663,
+       "crown_share_of_white": 0.125,
+       "ring_white": 0.769,
+       "ring_indigo": 0.014,
+       "white_lum_p5_25_50_75_95": [
+        133,
+        196,
+        234,
+        241,
+        246
+       ],
+       "dark_crown_blobs_in_white": []
+      },
+      "045": {
+       "white_px": 646469,
+       "crown_px": 91371,
+       "crown_share_of_white": 0.135,
+       "ring_white": 0.578,
+       "ring_indigo": 0.149,
+       "white_lum_p5_25_50_75_95": [
+        133,
+        149,
+        175,
+        219,
+        236
+       ],
+       "dark_crown_blobs_in_white": [
+        [
+         1143,
+         791,
+         240,
+         111,
+         147
+        ],
+        [
+         1109,
+         877,
+         54,
+         116,
+         148
+        ]
+       ]
+      },
+      "090": {
+       "white_px": 645445,
+       "crown_px": 61153,
+       "crown_share_of_white": 0.09,
+       "ring_white": 0.52,
+       "ring_indigo": 0.135,
+       "white_lum_p5_25_50_75_95": [
+        133,
+        149,
+        151,
+        169,
+        215
+       ],
+       "dark_crown_blobs_in_white": [
+        [
+         1165,
+         746,
+         398,
+         117,
+         147
+        ],
+        [
+         823,
+         878,
+         95,
+         116,
+         149
+        ]
+       ]
+      },
+      "135": {
+       "white_px": 581177,
+       "crown_px": 60027,
+       "crown_share_of_white": 0.1,
+       "ring_white": 0.678,
+       "ring_indigo": 0.119,
+       "white_lum_p5_25_50_75_95": [
+        133,
+        148,
+        151,
+        162,
+        205
+       ],
+       "dark_crown_blobs_in_white": [
+        [
+         722,
+         778,
+         358,
+         113,
+         149
+        ],
+        [
+         652,
+         827,
+         56,
+         118,
+         151
+        ]
+       ]
+      },
+      "180": {
+       "white_px": 637217,
+       "crown_px": 50521,
+       "crown_share_of_white": 0.078,
+       "ring_white": 0.552,
+       "ring_indigo": 0.101,
+       "white_lum_p5_25_50_75_95": [
+        135,
+        153,
+        200,
+        214,
+        225
+       ],
+       "dark_crown_blobs_in_white": []
+      },
+      "225": {
+       "white_px": 1101242,
+       "crown_px": 16236,
+       "crown_share_of_white": 0.015,
+       "ring_white": 0.409,
+       "ring_indigo": 0.0,
+       "white_lum_p5_25_50_75_95": [
+        145,
+        217,
+        221,
+        228,
+        240
+       ],
+       "dark_crown_blobs_in_white": []
+      },
+      "270": {
+       "white_px": 1106047,
+       "crown_px": 52951,
+       "crown_share_of_white": 0.047,
+       "ring_white": 0.472,
+       "ring_indigo": 0.057,
+       "white_lum_p5_25_50_75_95": [
+        143,
+        217,
+        226,
+        239,
+        246
+       ],
+       "dark_crown_blobs_in_white": []
+      },
+      "315": {
+       "white_px": 783815,
+       "crown_px": 74129,
+       "crown_share_of_white": 0.094,
+       "ring_white": 0.584,
+       "ring_indigo": 0.061,
+       "white_lum_p5_25_50_75_95": [
+        136,
+        227,
+        239,
+        241,
+        242
+       ],
+       "dark_crown_blobs_in_white": []
+      }
+     },
+     "views": {
+      "painting": {
+       "white_px": 306083,
+       "crown_px": 49058,
+       "crown_share_of_white": 0.156,
+       "ring_white": 0.523,
+       "ring_indigo": 0.089,
+       "white_lum_p5_25_50_75_95": [
+        122,
+        152,
+        216,
+        237,
+        240
+       ],
+       "dark_crown_blobs_in_white": [
+        [
+         794,
+         210,
+         287,
+         182,
+         236
+        ],
+        [
+         829,
+         234,
+         376,
+         180,
+         237
+        ]
+       ]
+      },
+      "seat": {
+       "white_px": 147201,
+       "crown_px": 26588,
+       "crown_share_of_white": 0.17,
+       "ring_white": 0.247,
+       "ring_indigo": 0.129,
+       "white_lum_p5_25_50_75_95": [
+        118,
+        131,
+        136,
+        147,
+        174
+       ],
+       "dark_crown_blobs_in_white": [
+        [
+         904,
+         433,
+         198,
+         167,
+         212
+        ],
+        [
+         710,
+         437,
+         286,
+         153,
+         210
+        ],
+        [
+         786,
+         438,
+         378,
+         158,
+         212
+        ],
+        [
+         760,
+         439,
+         174,
+         144,
+         209
+        ],
+        [
+         20,
+         668,
+         309,
+         147,
+         189
+        ],
+        [
+         1116,
+         803,
+         14,
+         102,
+         174
+        ],
+        [
+         1149,
+         855,
+         208,
+         158,
+         204
+        ]
+       ]
+      },
+      "seat_toward_wave": {
+       "white_px": 78920,
+       "crown_px": 24442,
+       "crown_share_of_white": 0.296,
+       "ring_white": 0.031,
+       "ring_indigo": 0.316,
+       "white_lum_p5_25_50_75_95": [
+        94,
+        113,
+        126,
+        136,
+        182
+       ],
+       "dark_crown_blobs_in_white": []
+      },
+      "side_left": {
+       "white_px": 182794,
+       "crown_px": 4580,
+       "crown_share_of_white": 0.024,
+       "ring_white": 0.566,
+       "ring_indigo": 0.356,
+       "white_lum_p5_25_50_75_95": [
+        131,
+        214,
+        225,
+        235,
+        244
+       ],
+       "dark_crown_blobs_in_white": []
+      },
+      "side_right": {
+       "white_px": 89182,
+       "crown_px": 4479,
+       "crown_share_of_white": 0.049,
+       "ring_white": 0.607,
+       "ring_indigo": 0.362,
+       "white_lum_p5_25_50_75_95": [
+        128,
+        148,
+        162,
+        208,
+        223
+       ],
+       "dark_crown_blobs_in_white": []
+      },
+      "back65": {
+       "white_px": 274489,
+       "crown_px": 7922,
+       "crown_share_of_white": 0.028,
+       "ring_white": 0.347,
+       "ring_indigo": 0.41,
+       "white_lum_p5_25_50_75_95": [
+        118,
+        155,
+        212,
+        223,
+        239
+       ],
+       "dark_crown_blobs_in_white": []
+      },
+      "top": {
+       "white_px": 104388,
+       "crown_px": 4565,
+       "crown_share_of_white": 0.043,
+       "ring_white": 0.743,
+       "ring_indigo": 0.192,
+       "white_lum_p5_25_50_75_95": [
+        145,
+        211,
+        227,
+        237,
+        243
+       ],
+       "dark_crown_blobs_in_white": []
+      }
+     },
+     "turntable_protrusion": {
+      "090": {
+       "visible_wave_h_px": 820,
+       "protrusions": 8,
+       "peak_over_h_p50": 0.021
+      },
+      "120": {
+       "visible_wave_h_px": 820,
+       "protrusions": 4,
+       "peak_over_h_p50": 0.048
+      },
+      "180": {
+       "visible_wave_h_px": 734,
+       "protrusions": 8,
+       "peak_over_h_p50": 0.031
+      },
+      "210": {
+       "visible_wave_h_px": 678,
+       "protrusions": 11,
+       "peak_over_h_p50": 0.027
+      },
+      "240": {
+       "visible_wave_h_px": 650,
+       "protrusions": 8,
+       "peak_over_h_p50": 0.028
+      },
+      "270": {
+       "visible_wave_h_px": 880,
+       "protrusions": 5,
+       "peak_over_h_p50": 0.006
+      }
+     }
+    },
+    "V2": {
+     "crest": {
+      "000": {
+       "white_px": 596090,
+       "crown_px": 77386,
+       "crown_share_of_white": 0.13,
+       "ring_white": 0.758,
+       "ring_indigo": 0.058,
+       "white_lum_p5_25_50_75_95": [
+        130,
+        136,
+        146,
+        173,
+        227
+       ],
+       "dark_crown_blobs_in_white": []
+      },
+      "045": {
+       "white_px": 652315,
+       "crown_px": 91140,
+       "crown_share_of_white": 0.14,
+       "ring_white": 0.604,
+       "ring_indigo": 0.215,
+       "white_lum_p5_25_50_75_95": [
+        133,
+        158,
+        208,
+        208,
+        216
+       ],
+       "dark_crown_blobs_in_white": []
+      },
+      "090": {
+       "white_px": 647394,
+       "crown_px": 60391,
+       "crown_share_of_white": 0.093,
+       "ring_white": 0.533,
+       "ring_indigo": 0.22,
+       "white_lum_p5_25_50_75_95": [
+        134,
+        208,
+        208,
+        208,
+        208
+       ],
+       "dark_crown_blobs_in_white": []
+      },
+      "135": {
+       "white_px": 581680,
+       "crown_px": 59634,
+       "crown_share_of_white": 0.102,
+       "ring_white": 0.682,
+       "ring_indigo": 0.138,
+       "white_lum_p5_25_50_75_95": [
+        134,
+        208,
+        208,
+        208,
+        208
+       ],
+       "dark_crown_blobs_in_white": []
+      },
+      "180": {
+       "white_px": 641399,
+       "crown_px": 50106,
+       "crown_share_of_white": 0.078,
+       "ring_white": 0.643,
+       "ring_indigo": 0.118,
+       "white_lum_p5_25_50_75_95": [
+        132,
+        146,
+        208,
+        208,
+        208
+       ],
+       "dark_crown_blobs_in_white": []
+      },
+      "225": {
+       "white_px": 1100172,
+       "crown_px": 14956,
+       "crown_share_of_white": 0.014,
+       "ring_white": 0.333,
+       "ring_indigo": 0.065,
+       "white_lum_p5_25_50_75_95": [
+        130,
+        135,
+        142,
+        157,
+        177
+       ],
+       "dark_crown_blobs_in_white": []
+      },
+      "270": {
+       "white_px": 1103103,
+       "crown_px": 52580,
+       "crown_share_of_white": 0.048,
+       "ring_white": 0.46,
+       "ring_indigo": 0.176,
+       "white_lum_p5_25_50_75_95": [
+        130,
+        136,
+        144,
+        161,
+        211
+       ],
+       "dark_crown_blobs_in_white": []
+      },
+      "315": {
+       "white_px": 780036,
+       "crown_px": 73917,
+       "crown_share_of_white": 0.095,
+       "ring_white": 0.579,
+       "ring_indigo": 0.139,
+       "white_lum_p5_25_50_75_95": [
+        130,
+        135,
+        144,
+        164,
+        223
+       ],
+       "dark_crown_blobs_in_white": []
+      }
+     },
+     "views": {
+      "painting": {
+       "white_px": 307275,
+       "crown_px": 48559,
+       "crown_share_of_white": 0.157,
+       "ring_white": 0.599,
+       "ring_indigo": 0.156,
+       "white_lum_p5_25_50_75_95": [
+        150,
+        208,
+        208,
+        208,
+        232
+       ],
+       "dark_crown_blobs_in_white": []
+      },
+      "seat": {
+       "white_px": 154190,
+       "crown_px": 26115,
+       "crown_share_of_white": 0.168,
+       "ring_white": 0.465,
+       "ring_indigo": 0.197,
+       "white_lum_p5_25_50_75_95": [
+        208,
+        208,
+        208,
+        208,
+        208
+       ],
+       "dark_crown_blobs_in_white": []
+      },
+      "seat_toward_wave": {
+       "white_px": 72607,
+       "crown_px": 24229,
+       "crown_share_of_white": 0.333,
+       "ring_white": 0.319,
+       "ring_indigo": 0.426,
+       "white_lum_p5_25_50_75_95": [
+        181,
+        208,
+        208,
+        208,
+        210
+       ],
+       "dark_crown_blobs_in_white": []
+      },
+      "side_left": {
+       "white_px": 184788,
+       "crown_px": 4508,
+       "crown_share_of_white": 0.024,
+       "ring_white": 0.553,
+       "ring_indigo": 0.437,
+       "white_lum_p5_25_50_75_95": [
+        101,
+        198,
+        208,
+        208,
+        233
+       ],
+       "dark_crown_blobs_in_white": []
+      },
+      "side_right": {
+       "white_px": 89324,
+       "crown_px": 4420,
+       "crown_share_of_white": 0.049,
+       "ring_white": 0.616,
+       "ring_indigo": 0.376,
+       "white_lum_p5_25_50_75_95": [
+        131,
+        208,
+        208,
+        208,
+        223
+       ],
+       "dark_crown_blobs_in_white": []
+      },
+      "back65": {
+       "white_px": 268100,
+       "crown_px": 7751,
+       "crown_share_of_white": 0.029,
+       "ring_white": 0.333,
+       "ring_indigo": 0.437,
+       "white_lum_p5_25_50_75_95": [
+        141,
+        208,
+        208,
+        208,
+        218
+       ],
+       "dark_crown_blobs_in_white": []
+      },
+      "top": {
+       "white_px": 104209,
+       "crown_px": 4562,
+       "crown_share_of_white": 0.044,
+       "ring_white": 0.791,
+       "ring_indigo": 0.205,
+       "white_lum_p5_25_50_75_95": [
+        114,
+        192,
+        208,
+        226,
+        236
+       ],
+       "dark_crown_blobs_in_white": []
+      }
+     },
+     "turntable_protrusion": {
+      "090": {
+       "visible_wave_h_px": 820,
+       "protrusions": 10,
+       "peak_over_h_p50": 0.037
+      },
+      "120": {
+       "visible_wave_h_px": 820,
+       "protrusions": 4,
+       "peak_over_h_p50": 0.048
+      },
+      "180": {
+       "visible_wave_h_px": 734,
+       "protrusions": 8,
+       "peak_over_h_p50": 0.037
+      },
+      "210": {
+       "visible_wave_h_px": 673,
+       "protrusions": 11,
+       "peak_over_h_p50": 0.027
+      },
+      "240": {
+       "visible_wave_h_px": 623,
+       "protrusions": 8,
+       "peak_over_h_p50": 0.029
+      },
+      "270": {
+       "visible_wave_h_px": 880,
+       "protrusions": 4,
+       "peak_over_h_p50": 0.019
+      }
+     }
+    },
+    "V3": {
+     "crest": {
+      "000": {
+       "white_px": 606809,
+       "crown_px": 71004,
+       "crown_share_of_white": 0.116,
+       "ring_white": 0.886,
+       "ring_indigo": 0.009,
+       "white_lum_p5_25_50_75_95": [
+        133,
+        191,
+        233,
+        241,
+        247
+       ],
+       "dark_crown_blobs_in_white": []
+      },
+      "045": {
+       "white_px": 635404,
+       "crown_px": 68832,
+       "crown_share_of_white": 0.103,
+       "ring_white": 0.621,
+       "ring_indigo": 0.115,
+       "white_lum_p5_25_50_75_95": [
+        133,
+        149,
+        178,
+        221,
+        236
+       ],
+       "dark_crown_blobs_in_white": []
+      },
+      "090": {
+       "white_px": 637817,
+       "crown_px": 40388,
+       "crown_share_of_white": 0.06,
+       "ring_white": 0.574,
+       "ring_indigo": 0.114,
+       "white_lum_p5_25_50_75_95": [
+        133,
+        148,
+        151,
+        166,
+        216
+       ],
+       "dark_crown_blobs_in_white": []
+      },
+      "135": {
+       "white_px": 573507,
+       "crown_px": 44440,
+       "crown_share_of_white": 0.076,
+       "ring_white": 0.797,
+       "ring_indigo": 0.035,
+       "white_lum_p5_25_50_75_95": [
+        133,
+        148,
+        151,
+        160,
+        201
+       ],
+       "dark_crown_blobs_in_white": []
+      },
+      "180": {
+       "white_px": 628111,
+       "crown_px": 51579,
+       "crown_share_of_white": 0.081,
+       "ring_white": 0.838,
+       "ring_indigo": 0.005,
+       "white_lum_p5_25_50_75_95": [
+        134,
+        152,
+        203,
+        215,
+        226
+       ],
+       "dark_crown_blobs_in_white": []
+      },
+      "225": {
+       "white_px": 1107218,
+       "crown_px": 19876,
+       "crown_share_of_white": 0.018,
+       "ring_white": 0.369,
+       "ring_indigo": 0.0,
+       "white_lum_p5_25_50_75_95": [
+        144,
+        217,
+        221,
+        228,
+        240
+       ],
+       "dark_crown_blobs_in_white": []
+      },
+      "270": {
+       "white_px": 1106370,
+       "crown_px": 37165,
+       "crown_share_of_white": 0.033,
+       "ring_white": 0.447,
+       "ring_indigo": 0.075,
+       "white_lum_p5_25_50_75_95": [
+        141,
+        217,
+        226,
+        239,
+        246
+       ],
+       "dark_crown_blobs_in_white": []
+      },
+      "315": {
+       "white_px": 766908,
+       "crown_px": 64761,
+       "crown_share_of_white": 0.084,
+       "ring_white": 0.823,
+       "ring_indigo": 0.003,
+       "white_lum_p5_25_50_75_95": [
+        134,
+        225,
+        239,
+        241,
+        242
+       ],
+       "dark_crown_blobs_in_white": []
+      }
+     },
+     "views": {
+      "painting": {
+       "white_px": 285645,
+       "crown_px": 31945,
+       "crown_share_of_white": 0.109,
+       "ring_white": 0.789,
+       "ring_indigo": 0.049,
+       "white_lum_p5_25_50_75_95": [
+        121,
+        151,
+        218,
+        237,
+        240
+       ],
+       "dark_crown_blobs_in_white": [
+        [
+         416,
+         311,
+         290,
+         163,
+         236
+        ],
+        [
+         382,
+         357,
+         364,
+         166,
+         235
+        ]
+       ]
+      },
+      "seat": {
+       "white_px": 140129,
+       "crown_px": 12316,
+       "crown_share_of_white": 0.079,
+       "ring_white": 0.359,
+       "ring_indigo": 0.114,
+       "white_lum_p5_25_50_75_95": [
+        117,
+        130,
+        135,
+        145,
+        163
+       ],
+       "dark_crown_blobs_in_white": [
+        [
+         1156,
+         911,
+         184,
+         152,
+         202
+        ]
+       ]
+      },
+      "seat_toward_wave": {
+       "white_px": 62829,
+       "crown_px": 2337,
+       "crown_share_of_white": 0.033,
+       "ring_white": 0.016,
+       "ring_indigo": 0.288,
+       "white_lum_p5_25_50_75_95": [
+        93,
+        109,
+        122,
+        129,
+        146
+       ],
+       "dark_crown_blobs_in_white": [
+        [
+         1309,
+         14,
+         235,
+         152,
+         214
+        ]
+       ]
+      },
+      "side_left": {
+       "white_px": 182343,
+       "crown_px": 3645,
+       "crown_share_of_white": 0.02,
+       "ring_white": 0.532,
+       "ring_indigo": 0.353,
+       "white_lum_p5_25_50_75_95": [
+        131,
+        214,
+        224,
+        235,
+        244
+       ],
+       "dark_crown_blobs_in_white": []
+      },
+      "side_right": {
+       "white_px": 87974,
+       "crown_px": 3182,
+       "crown_share_of_white": 0.036,
+       "ring_white": 0.879,
+       "ring_indigo": 0.118,
+       "white_lum_p5_25_50_75_95": [
+        128,
+        148,
+        161,
+        208,
+        223
+       ],
+       "dark_crown_blobs_in_white": []
+      },
+      "back65": {
+       "white_px": 272132,
+       "crown_px": 6353,
+       "crown_share_of_white": 0.023,
+       "ring_white": 0.377,
+       "ring_indigo": 0.179,
+       "white_lum_p5_25_50_75_95": [
+        118,
+        155,
+        212,
+        223,
+        240
+       ],
+       "dark_crown_blobs_in_white": []
+      },
+      "top": {
+       "white_px": 104212,
+       "crown_px": 4194,
+       "crown_share_of_white": 0.04,
+       "ring_white": 0.767,
+       "ring_indigo": 0.18,
+       "white_lum_p5_25_50_75_95": [
+        144,
+        212,
+        227,
+        237,
+        243
+       ],
+       "dark_crown_blobs_in_white": []
+      }
+     },
+     "turntable_protrusion": {
+      "090": {
+       "visible_wave_h_px": 820,
+       "protrusions": 7,
+       "peak_over_h_p50": 0.029
+      },
+      "120": {
+       "visible_wave_h_px": 820,
+       "protrusions": 6,
+       "peak_over_h_p50": 0.013
+      },
+      "180": {
+       "visible_wave_h_px": 734,
+       "protrusions": 1,
+       "peak_over_h_p50": 0.124
+      },
+      "210": {
+       "visible_wave_h_px": 678,
+       "protrusions": 5,
+       "peak_over_h_p50": 0.018
+      },
+      "240": {
+       "visible_wave_h_px": 650,
+       "protrusions": 3,
+       "peak_over_h_p50": 0.028
+      },
+      "270": {
+       "visible_wave_h_px": 880,
+       "protrusions": 14,
+       "peak_over_h_p50": 0.009
+      }
+     }
+    }
+   }
+  },
+  "after": {
+   "note_ja": "批評の測り。描画だけを読む（写真・OBJ は読まない）。",
+   "variants": {
+    "V1": {
+     "crest": {
+      "000": {
+       "white_px": 681495,
+       "crown_px": 527392,
+       "crown_share_of_white": 0.774,
+       "ring_white": 0.397,
+       "ring_indigo": 0.121,
+       "white_lum_p5_25_50_75_95": [
+        133,
+        228,
+        248,
+        251,
+        252
+       ],
+       "dark_crown_blobs_in_white": []
+      },
+      "045": {
+       "white_px": 724193,
+       "crown_px": 620768,
+       "crown_share_of_white": 0.857,
+       "ring_white": 0.124,
+       "ring_indigo": 0.413,
+       "white_lum_p5_25_50_75_95": [
+        136,
+        201,
+        231,
+        246,
+        251
+       ],
+       "dark_crown_blobs_in_white": []
+      },
+      "090": {
+       "white_px": 727016,
+       "crown_px": 619255,
+       "crown_share_of_white": 0.851,
+       "ring_white": 0.066,
+       "ring_indigo": 0.462,
+       "white_lum_p5_25_50_75_95": [
+        133,
+        191,
+        209,
+        227,
+        246
+       ],
+       "dark_crown_blobs_in_white": []
+      },
+      "135": {
+       "white_px": 654476,
+       "crown_px": 554136,
+       "crown_share_of_white": 0.846,
+       "ring_white": 0.05,
+       "ring_indigo": 0.564,
+       "white_lum_p5_25_50_75_95": [
+        134,
+        188,
+        205,
+        221,
+        239
+       ],
+       "dark_crown_blobs_in_white": []
+      },
+      "180": {
+       "white_px": 666757,
+       "crown_px": 255129,
+       "crown_share_of_white": 0.383,
+       "ring_white": 0.406,
+       "ring_indigo": 0.251,
+       "white_lum_p5_25_50_75_95": [
+        137,
+        198,
+        236,
+        243,
+        248
+       ],
+       "dark_crown_blobs_in_white": []
+      },
+      "225": {
+       "white_px": 1156461,
+       "crown_px": 95482,
+       "crown_share_of_white": 0.083,
+       "ring_white": 0.499,
+       "ring_indigo": 0.0,
+       "white_lum_p5_25_50_75_95": [
+        149,
+        245,
+        246,
+        249,
+        251
+       ],
+       "dark_crown_blobs_in_white": []
+      },
+      "270": {
+       "white_px": 1135247,
+       "crown_px": 190164,
+       "crown_share_of_white": 0.167,
+       "ring_white": 0.449,
+       "ring_indigo": 0.058,
+       "white_lum_p5_25_50_75_95": [
+        147,
+        245,
+        248,
+        251,
+        253
+       ],
+       "dark_crown_blobs_in_white": []
+      },
+      "315": {
+       "white_px": 808184,
+       "crown_px": 398401,
+       "crown_share_of_white": 0.493,
+       "ring_white": 0.357,
+       "ring_indigo": 0.113,
+       "white_lum_p5_25_50_75_95": [
+        130,
+        244,
+        250,
+        251,
+        252
+       ],
+       "dark_crown_blobs_in_white": []
+      }
+     },
+     "views": {
+      "painting": {
+       "white_px": 366505,
+       "crown_px": 310566,
+       "crown_share_of_white": 0.847,
+       "ring_white": 0.118,
+       "ring_indigo": 0.349,
+       "white_lum_p5_25_50_75_95": [
+        147,
+        216,
+        245,
+        250,
+        252
+       ],
+       "dark_crown_blobs_in_white": []
+      },
+      "seat": {
+       "white_px": 179677,
+       "crown_px": 174272,
+       "crown_share_of_white": 0.969,
+       "ring_white": 0.102,
+       "ring_indigo": 0.43,
+       "white_lum_p5_25_50_75_95": [
+        158,
+        167,
+        182,
+        204,
+        237
+       ],
+       "dark_crown_blobs_in_white": []
+      },
+      "seat_toward_wave": {
+       "white_px": 141936,
+       "crown_px": 80627,
+       "crown_share_of_white": 0.566,
+       "ring_white": 0.079,
+       "ring_indigo": 0.543,
+       "white_lum_p5_25_50_75_95": [
+        94,
+        114,
+        148,
+        184,
+        237
+       ],
+       "dark_crown_blobs_in_white": []
+      },
+      "side_left": {
+       "white_px": 190804,
+       "crown_px": 36364,
+       "crown_share_of_white": 0.19,
+       "ring_white": 0.501,
+       "ring_indigo": 0.467,
+       "white_lum_p5_25_50_75_95": [
+        162,
+        243,
+        247,
+        250,
+        252
+       ],
+       "dark_crown_blobs_in_white": []
+      },
+      "side_right": {
+       "white_px": 95507,
+       "crown_px": 31685,
+       "crown_share_of_white": 0.33,
+       "ring_white": 0.374,
+       "ring_indigo": 0.576,
+       "white_lum_p5_25_50_75_95": [
+        134,
+        194,
+        212,
+        239,
+        247
+       ],
+       "dark_crown_blobs_in_white": []
+      },
+      "back65": {
+       "white_px": 303532,
+       "crown_px": 34885,
+       "crown_share_of_white": 0.114,
+       "ring_white": 0.437,
+       "ring_indigo": 0.403,
+       "white_lum_p5_25_50_75_95": [
+        127,
+        196,
+        242,
+        246,
+        251
+       ],
+       "dark_crown_blobs_in_white": []
+      },
+      "top": {
+       "white_px": 106693,
+       "crown_px": 44579,
+       "crown_share_of_white": 0.417,
+       "ring_white": 0.417,
+       "ring_indigo": 0.53,
+       "white_lum_p5_25_50_75_95": [
+        180,
+        240,
+        247,
+        250,
+        252
+       ],
+       "dark_crown_blobs_in_white": []
+      }
+     },
+     "turntable_protrusion": {
+      "090": {
+       "visible_wave_h_px": 808,
+       "protrusions": 2,
+       "peak_over_h_p50": 0.427
+      },
+      "120": {
+       "visible_wave_h_px": 818,
+       "protrusions": 3,
+       "peak_over_h_p50": 0.781
+      },
+      "180": {
+       "visible_wave_h_px": 729,
+       "protrusions": 5,
+       "peak_over_h_p50": 0.675
+      },
+      "210": {
+       "visible_wave_h_px": 678,
+       "protrusions": 1,
+       "peak_over_h_p50": 0.171
+      },
+      "240": {
+       "visible_wave_h_px": 650,
+       "protrusions": 1,
+       "peak_over_h_p50": 0.112
+      },
+      "270": {
+       "visible_wave_h_px": 880,
+       "protrusions": 19,
+       "peak_over_h_p50": 0.024
+      }
+     }
+    },
+    "V2": {
+     "crest": {
+      "000": {
+       "white_px": 631855,
+       "crown_px": 527232,
+       "crown_share_of_white": 0.834,
+       "ring_white": 0.292,
+       "ring_indigo": 0.272,
+       "white_lum_p5_25_50_75_95": [
+        136,
+        235,
+        235,
+        235,
+        235
+       ],
+       "dark_crown_blobs_in_white": []
+      },
+      "045": {
+       "white_px": 717722,
+       "crown_px": 620755,
+       "crown_share_of_white": 0.863,
+       "ring_white": 0.112,
+       "ring_indigo": 0.56,
+       "white_lum_p5_25_50_75_95": [
+        136,
+        235,
+        235,
+        235,
+        235
+       ],
+       "dark_crown_blobs_in_white": []
+      },
+      "090": {
+       "white_px": 717532,
+       "crown_px": 619253,
+       "crown_share_of_white": 0.861,
+       "ring_white": 0.059,
+       "ring_indigo": 0.565,
+       "white_lum_p5_25_50_75_95": [
+        133,
+        165,
+        235,
+        235,
+        235
+       ],
+       "dark_crown_blobs_in_white": []
+      },
+      "135": {
+       "white_px": 647002,
+       "crown_px": 554134,
+       "crown_share_of_white": 0.855,
+       "ring_white": 0.05,
+       "ring_indigo": 0.574,
+       "white_lum_p5_25_50_75_95": [
+        132,
+        148,
+        234,
+        235,
+        235
+       ],
+       "dark_crown_blobs_in_white": []
+      },
+      "180": {
+       "white_px": 665898,
+       "crown_px": 254689,
+       "crown_share_of_white": 0.382,
+       "ring_white": 0.389,
+       "ring_indigo": 0.267,
+       "white_lum_p5_25_50_75_95": [
+        132,
+        141,
+        175,
+        235,
+        235
+       ],
+       "dark_crown_blobs_in_white": []
+      },
+      "225": {
+       "white_px": 1156465,
+       "crown_px": 95482,
+       "crown_share_of_white": 0.083,
+       "ring_white": 0.499,
+       "ring_indigo": 0.0,
+       "white_lum_p5_25_50_75_95": [
+        132,
+        140,
+        167,
+        235,
+        235
+       ],
+       "dark_crown_blobs_in_white": []
+      },
+      "270": {
+       "white_px": 1131333,
+       "crown_px": 189707,
+       "crown_share_of_white": 0.168,
+       "ring_white": 0.406,
+       "ring_indigo": 0.138,
+       "white_lum_p5_25_50_75_95": [
+        133,
+        152,
+        235,
+        235,
+        235
+       ],
+       "dark_crown_blobs_in_white": []
+      },
+      "315": {
+       "white_px": 794799,
+       "crown_px": 397973,
+       "crown_share_of_white": 0.5,
+       "ring_white": 0.311,
+       "ring_indigo": 0.268,
+       "white_lum_p5_25_50_75_95": [
+        135,
+        235,
+        235,
+        235,
+        235
+       ],
+       "dark_crown_blobs_in_white": []
+      }
+     },
+     "views": {
+      "painting": {
+       "white_px": 354527,
+       "crown_px": 310208,
+       "crown_share_of_white": 0.873,
+       "ring_white": 0.089,
+       "ring_indigo": 0.446,
+       "white_lum_p5_25_50_75_95": [
+        218,
+        235,
+        235,
+        235,
+        235
+       ],
+       "dark_crown_blobs_in_white": []
+      },
+      "seat": {
+       "white_px": 177936,
+       "crown_px": 174113,
+       "crown_share_of_white": 0.975,
+       "ring_white": 0.092,
+       "ring_indigo": 0.526,
+       "white_lum_p5_25_50_75_95": [
+        208,
+        222,
+        235,
+        235,
+        235
+       ],
+       "dark_crown_blobs_in_white": []
+      },
+      "seat_toward_wave": {
+       "white_px": 85434,
+       "crown_px": 80625,
+       "crown_share_of_white": 0.938,
+       "ring_white": 0.075,
+       "ring_indigo": 0.671,
+       "white_lum_p5_25_50_75_95": [
+        177,
+        223,
+        235,
+        235,
+        235
+       ],
+       "dark_crown_blobs_in_white": []
+      },
+      "side_left": {
+       "white_px": 188604,
+       "crown_px": 36347,
+       "crown_share_of_white": 0.192,
+       "ring_white": 0.464,
+       "ring_indigo": 0.532,
+       "white_lum_p5_25_50_75_95": [
+        171,
+        213,
+        235,
+        235,
+        235
+       ],
+       "dark_crown_blobs_in_white": []
+      },
+      "side_right": {
+       "white_px": 92779,
+       "crown_px": 31548,
+       "crown_share_of_white": 0.337,
+       "ring_white": 0.366,
+       "ring_indigo": 0.631,
+       "white_lum_p5_25_50_75_95": [
+        122,
+        208,
+        208,
+        226,
+        235
+       ],
+       "dark_crown_blobs_in_white": []
+      },
+      "back65": {
+       "white_px": 277609,
+       "crown_px": 34654,
+       "crown_share_of_white": 0.124,
+       "ring_white": 0.427,
+       "ring_indigo": 0.42,
+       "white_lum_p5_25_50_75_95": [
+        151,
+        208,
+        208,
+        225,
+        235
+       ],
+       "dark_crown_blobs_in_white": []
+      },
+      "top": {
+       "white_px": 105376,
+       "crown_px": 44577,
+       "crown_share_of_white": 0.421,
+       "ring_white": 0.402,
+       "ring_indigo": 0.59,
+       "white_lum_p5_25_50_75_95": [
+        181,
+        233,
+        235,
+        235,
+        235
+       ],
+       "dark_crown_blobs_in_white": []
+      }
+     },
+     "turntable_protrusion": {
+      "090": {
+       "visible_wave_h_px": 808,
+       "protrusions": 2,
+       "peak_over_h_p50": 0.427
+      },
+      "120": {
+       "visible_wave_h_px": 818,
+       "protrusions": 4,
+       "peak_over_h_p50": 0.663
+      },
+      "180": {
+       "visible_wave_h_px": 729,
+       "protrusions": 7,
+       "peak_over_h_p50": 0.675
+      },
+      "210": {
+       "visible_wave_h_px": 673,
+       "protrusions": 1,
+       "peak_over_h_p50": 0.172
+      },
+      "240": {
+       "visible_wave_h_px": 623,
+       "protrusions": 1,
+       "peak_over_h_p50": 0.117
+      },
+      "270": {
+       "visible_wave_h_px": 880,
+       "protrusions": 19,
+       "peak_over_h_p50": 0.024
+      }
+     }
+    },
+    "V3": {
+     "crest": {
+      "000": {
+       "white_px": 647920,
+       "crown_px": 354624,
+       "crown_share_of_white": 0.547,
+       "ring_white": 0.736,
+       "ring_indigo": 0.022,
+       "white_lum_p5_25_50_75_95": [
+        132,
+        221,
+        248,
+        251,
+        252
+       ],
+       "dark_crown_blobs_in_white": []
+      },
+      "045": {
+       "white_px": 675449,
+       "crown_px": 375424,
+       "crown_share_of_white": 0.555,
+       "ring_white": 0.503,
+       "ring_indigo": 0.213,
+       "white_lum_p5_25_50_75_95": [
+        134,
+        196,
+        229,
+        247,
+        251
+       ],
+       "dark_crown_blobs_in_white": []
+      },
+      "090": {
+       "white_px": 681863,
+       "crown_px": 416093,
+       "crown_share_of_white": 0.61,
+       "ring_white": 0.555,
+       "ring_indigo": 0.155,
+       "white_lum_p5_25_50_75_95": [
+        132,
+        189,
+        205,
+        226,
+        247
+       ],
+       "dark_crown_blobs_in_white": []
+      },
+      "135": {
+       "white_px": 604586,
+       "crown_px": 422818,
+       "crown_share_of_white": 0.699,
+       "ring_white": 0.6,
+       "ring_indigo": 0.117,
+       "white_lum_p5_25_50_75_95": [
+        133,
+        187,
+        202,
+        219,
+        239
+       ],
+       "dark_crown_blobs_in_white": []
+      },
+      "180": {
+       "white_px": 642303,
+       "crown_px": 217052,
+       "crown_share_of_white": 0.338,
+       "ring_white": 0.646,
+       "ring_indigo": 0.051,
+       "white_lum_p5_25_50_75_95": [
+        136,
+        198,
+        237,
+        243,
+        248
+       ],
+       "dark_crown_blobs_in_white": []
+      },
+      "225": {
+       "white_px": 1135668,
+       "crown_px": 64699,
+       "crown_share_of_white": 0.057,
+       "ring_white": 0.471,
+       "ring_indigo": 0.0,
+       "white_lum_p5_25_50_75_95": [
+        146,
+        245,
+        246,
+        249,
+        251
+       ],
+       "dark_crown_blobs_in_white": []
+      },
+      "270": {
+       "white_px": 1131978,
+       "crown_px": 120970,
+       "crown_share_of_white": 0.107,
+       "ring_white": 0.493,
+       "ring_indigo": 0.063,
+       "white_lum_p5_25_50_75_95": [
+        145,
+        245,
+        248,
+        251,
+        253
+       ],
+       "dark_crown_blobs_in_white": []
+      },
+      "315": {
+       "white_px": 788452,
+       "crown_px": 279054,
+       "crown_share_of_white": 0.354,
+       "ring_white": 0.566,
+       "ring_indigo": 0.084,
+       "white_lum_p5_25_50_75_95": [
+        121,
+        244,
+        250,
+        252,
+        252
+       ],
+       "dark_crown_blobs_in_white": []
+      }
+     },
+     "views": {
+      "painting": {
+       "white_px": 314240,
+       "crown_px": 201801,
+       "crown_share_of_white": 0.642,
+       "ring_white": 0.576,
+       "ring_indigo": 0.313,
+       "white_lum_p5_25_50_75_95": [
+        137,
+        205,
+        244,
+        250,
+        252
+       ],
+       "dark_crown_blobs_in_white": []
+      },
+      "seat": {
+       "white_px": 169443,
+       "crown_px": 140884,
+       "crown_share_of_white": 0.83,
+       "ring_white": 0.314,
+       "ring_indigo": 0.354,
+       "white_lum_p5_25_50_75_95": [
+        158,
+        166,
+        180,
+        193,
+        227
+       ],
+       "dark_crown_blobs_in_white": []
+      },
+      "seat_toward_wave": {
+       "white_px": 131043,
+       "crown_px": 64934,
+       "crown_share_of_white": 0.494,
+       "ring_white": 0.249,
+       "ring_indigo": 0.447,
+       "white_lum_p5_25_50_75_95": [
+        94,
+        112,
+        143,
+        172,
+        227
+       ],
+       "dark_crown_blobs_in_white": []
+      },
+      "side_left": {
+       "white_px": 189819,
+       "crown_px": 28684,
+       "crown_share_of_white": 0.151,
+       "ring_white": 0.575,
+       "ring_indigo": 0.383,
+       "white_lum_p5_25_50_75_95": [
+        161,
+        243,
+        247,
+        250,
+        252
+       ],
+       "dark_crown_blobs_in_white": []
+      },
+      "side_right": {
+       "white_px": 91391,
+       "crown_px": 24840,
+       "crown_share_of_white": 0.271,
+       "ring_white": 0.671,
+       "ring_indigo": 0.312,
+       "white_lum_p5_25_50_75_95": [
+        131,
+        194,
+        211,
+        239,
+        247
+       ],
+       "dark_crown_blobs_in_white": []
+      },
+      "back65": {
+       "white_px": 298105,
+       "crown_px": 28968,
+       "crown_share_of_white": 0.097,
+       "ring_white": 0.43,
+       "ring_indigo": 0.389,
+       "white_lum_p5_25_50_75_95": [
+        126,
+        196,
+        242,
+        246,
+        251
+       ],
+       "dark_crown_blobs_in_white": []
+      },
+      "top": {
+       "white_px": 106029,
+       "crown_px": 31565,
+       "crown_share_of_white": 0.297,
+       "ring_white": 0.588,
+       "ring_indigo": 0.371,
+       "white_lum_p5_25_50_75_95": [
+        179,
+        241,
+        248,
+        251,
+        252
+       ],
+       "dark_crown_blobs_in_white": []
+      }
+     },
+     "turntable_protrusion": {
+      "090": {
+       "visible_wave_h_px": 820,
+       "protrusions": 4,
+       "peak_over_h_p50": 0.245
+      },
+      "120": {
+       "visible_wave_h_px": 819,
+       "protrusions": 5,
+       "peak_over_h_p50": 0.281
+      },
+      "180": {
+       "visible_wave_h_px": 734,
+       "protrusions": 6,
+       "peak_over_h_p50": 0.094
+      },
+      "210": {
+       "visible_wave_h_px": 678,
+       "protrusions": 7,
+       "peak_over_h_p50": 0.027
+      },
+      "240": {
+       "visible_wave_h_px": 650,
+       "protrusions": 5,
+       "peak_over_h_p50": 0.04
+      },
+      "270": {
+       "visible_wave_h_px": 880,
+       "protrusions": 20,
+       "peak_over_h_p50": 0.024
+      }
+     }
+    }
+   }
+  },
+  "noteJa": "批評の測り（critic_measure.py）。判定に使わない記録。after は泡の皮も冠に数える。"
+ },
+ "S1_sculpture_spec": {
+  "schema": "GreatWave.AS03.S1.sculpture_spec/1",
+  "created_utc": "2026-10-04T00:01:11Z",
+  "note_ja": "参照の彫刻（他者の展示作品。Q19・Q20：参考にとどめ写し取らない）から測った数だけ。写真・写真から作った画像・OBJ の形は入れていない。rel は主の頂の高さ H・冠の縁の長さ L・面の幅 W に対する比、hero は主役波 K*′ AS02C（H0 = 20.753 m）へ当てた値（m）。",
+  "frame": {
+   "coords": "主役波の断面の座標 (a = 進行方向 T・前が +a, y = 高さ, c = 波峰線 E)。原画視点では +c が画面の右（唇の先・富士の側）、-c が左（b区域の肩）。",
+   "reference_alignment": "Docs/Evidence/ArtFirst/26/reference/align_B_upright.json（尺度 1.572、行列式 < 0：Unity の左手系への置き換えを含む）",
+   "reference_sea_y_m": 1.1982310754126466
+  },
+  "scale": {
+   "H_ref_m": {
+    "value": 21.338,
+    "unit": "m",
+    "uncertainty": "±0.4 m（開く半径で頂が丸まる。指を含めると 21.70 m）",
+    "source": "同じ OBJ；s1_crown.py（格子 0.06 m、半径 0.42 m で開いた差）"
+   },
+   "H_hero_m": {
+    "value": 20.753,
+    "unit": "m",
+    "uncertainty": "AS02C の実の最高は 20.27 m（c = -0.8）",
+    "source": "Tools/GWWaveGen/as02/back_common.py の H0・kstarAS02C_a45_rows.npz"
+   },
+   "length_scale_ref_to_hero": 0.9726,
+   "L_def": "頂の線（胴の各 c の最も高い点。高さは 1 m、平面の位置は 3 m の窓でならす）の 3 次元の長さ。頂の高さ ≥ 0.4 H の最も長い区間",
+   "L_ref_m": {
+    "value": 45.1,
+    "unit": "m",
+    "uncertainty": "±3 m（参照は台の円盤で両端が切れている：+c の端で頂はまだ 0.57 H）",
+    "source": "s1_ref_dims.py",
+    "rel": {
+     "L_over_H": 2.114
+    }
+   },
+   "L_hero_m": {
+    "value": 51.37,
+    "unit": "m",
+    "uncertainty": "±1 m",
+    "source": "s1_hero_dims.py",
+    "rel": {
+     "L_over_H": 2.475
+    }
+   },
+   "lip_tip_line_hero_m": {
+    "value": 60.8,
+    "unit": "m",
+    "uncertainty": "±1 m",
+    "source": "s1_hero_dims.py（列 j_tip=200 の線、頂 ≥ 0.4 H の行）"
+   },
+   "front_overhang": {
+    "value": {
+     "ref_m": {
+      "p10": 1.66,
+      "p50": 3.04,
+      "p90": 6.26
+     },
+     "hero_lip_tip_ahead_of_crest_m": {
+      "p10": 2.88,
+      "p50": 7.52,
+      "p90": 11.99
+     }
+    },
+    "unit": "m",
+    "uncertainty": "±0.5 m",
+    "source": "s1_ref_dims.py・s1_hero_dims.py",
+    "note": "参照は頂から前へ p50 約 3 m（0.14 H）しか張り出さず、面は張り出しの下の深い凹みの壁。主役波の唇の先は p50 7.5 m（0.36 H0）前に出る。冠の数は縁 1 m あたりで当て、面の数は H に対する比で当てる"
+   },
+   "W_def": "頂の高さ ≥ 0.5 H の最も長い区間の c の幅（主役波には、面の列 j_tip..j_facebot が 0.5 H を通る行の幅も書く）",
+   "W_ref_m": {
+    "value": 26.7,
+    "unit": "m",
+    "uncertainty": "±2 m",
+    "source": "s1_ref_dims.py",
+    "rel": {
+     "W_over_H": 1.251
+    }
+   },
+   "W_hero_m": {
+    "value": 32.81,
+    "unit": "m",
+    "uncertainty": "±1 m",
+    "source": "s1_hero_dims.py",
+    "rel": {
+     "W_over_H": 1.581
+    },
+    "note": "面の列が 0.5 H0 を通る行の幅（藍の面の幅）は 22.8 m"
+   }
+  },
+  "1_crest_crown": {
+   "coverage": {
+    "rim_part": {
+     "value": "頂の線の全体（参照の頂 ≥ 0.4 H の区間 c -14.6..14.3 m に対し、指の根元は c -14.5..15.3 m）。b区域の肩（-c）から唇の先（+c）まで切れ目なく続く",
+     "unit": "-",
+     "uncertainty": "端は台の円盤で切れているので、それより外は分からない",
+     "source": "OBJ wave_repair_zbrush2.obj（SHA-256 AB4124F9…3D40）を整列 B で主役波の断面の座標へ置いた一時キャッシュ；s1_crown2.py（格子 0.05 m、指 = 半径 0.30 m で開いた差、手 = 0.85 m）"
+    },
+    "back_side": {
+     "value": "背には指がない：指 76 本のうち頂の線より後ろ（da < -0.5 m）は 1 本、線の上 3 本、前 72 本",
+     "unit": "-",
+     "uncertainty": "—",
+     "source": "OBJ wave_repair_zbrush2.obj（SHA-256 AB4124F9…3D40）を整列 B で主役波の断面の座標へ置いた一時キャッシュ；s1_crown2.py（格子 0.05 m、指 = 半径 0.30 m で開いた差、手 = 0.85 m）；写真 B00・U45（背は滑らかな白）"
+    },
+    "front_band_root_dy_below_rim_over_H": {
+     "value": {
+      "n": 76,
+      "p10": -0.3163,
+      "p25": -0.2205,
+      "p50": -0.1282,
+      "p75": -0.0268,
+      "p90": 0.0074,
+      "mean": -0.1396
+     },
+     "unit": "H",
+     "uncertainty": "格子 0.05 m",
+     "source": "OBJ wave_repair_zbrush2.obj（SHA-256 AB4124F9…3D40）を整列 B で主役波の断面の座標へ置いた一時キャッシュ；s1_crown2.py（格子 0.05 m、指 = 半径 0.30 m で開いた差、手 = 0.85 m）",
+     "note": "根元は頂の線から前の面を 0〜0.32 H（p90〜p10）下まで。中央値 0.13 H"
+    },
+    "front_band_root_ahead_of_rim_over_H": {
+     "value": {
+      "n": 76,
+      "p10": 0.0603,
+      "p25": 0.1023,
+      "p50": 0.1395,
+      "p75": 0.1915,
+      "p90": 0.2496,
+      "mean": 0.1513
+     },
+     "unit": "H",
+     "uncertainty": "頂の線の a の位置は 3 m の窓でならした",
+     "source": "OBJ wave_repair_zbrush2.obj（SHA-256 AB4124F9…3D40）を整列 B で主役波の断面の座標へ置いた一時キャッシュ；s1_crown2.py（格子 0.05 m、指 = 半径 0.30 m で開いた差、手 = 0.85 m）"
+    },
+    "root_height_above_sea_over_H": {
+     "value": {
+      "n": 76,
+      "p10": 0.3901,
+      "p25": 0.4874,
+      "p50": 0.5896,
+      "p75": 0.7306,
+      "p90": 0.8475,
+      "mean": 0.5981
+     },
+     "unit": "H",
+     "uncertainty": "格子 0.05 m",
+     "source": "OBJ wave_repair_zbrush2.obj（SHA-256 AB4124F9…3D40）を整列 B で主役波の断面の座標へ置いた一時キャッシュ；s1_crown2.py（格子 0.05 m、指 = 半径 0.30 m で開いた差、手 = 0.85 m）",
+     "hero": {
+      "p10_m": 8.096,
+      "p50_m": 12.236,
+      "p90_m": 17.588
+     }
+    }
+   },
+   "counts": {
+    "fingertips_total_ref": {
+     "value": 76,
+     "unit": "本",
+     "uncertainty": "−10〜+30%（細い指はスキャンで欠ける。半径 0.42 m で開くと 71 本。写真 N05 の前から見える先は約 70）",
+     "source": "OBJ wave_repair_zbrush2.obj（SHA-256 AB4124F9…3D40）を整列 B で主役波の断面の座標へ置いた一時キャッシュ；s1_crown2.py（格子 0.05 m、指 = 半径 0.30 m で開いた差、手 = 0.85 m）；写真 N05"
+    },
+    "fingertips_per_m_of_L": {
+     "value": 1.685,
+     "unit": "1/m",
+     "uncertainty": "±25%",
+     "source": "OBJ wave_repair_zbrush2.obj（SHA-256 AB4124F9…3D40）を整列 B で主役波の断面の座標へ置いた一時キャッシュ；s1_crown2.py（格子 0.05 m、指 = 半径 0.30 m で開いた差、手 = 0.85 m）",
+     "rel": {
+      "per_H_of_L": 35.96
+     },
+     "hero": {
+      "per_m": 1.733,
+      "count_on_L_hero": 89,
+      "range": [
+       83,
+       111
+      ]
+     }
+    },
+    "hands_total_ref": {
+     "value": 28,
+     "unit": "個",
+     "uncertainty": "大きさの定義による：開く半径 0.70 m で 50 個、0.85 m で 28 個。写真の『掌＋指』の読みは 0.85 m に近い",
+     "source": "OBJ wave_repair_zbrush2.obj（SHA-256 AB4124F9…3D40）を整列 B で主役波の断面の座標へ置いた一時キャッシュ；s1_crown2.py（格子 0.05 m、指 = 半径 0.30 m で開いた差、手 = 0.85 m）"
+    },
+    "hands_per_m_of_L": {
+     "value": 0.621,
+     "unit": "1/m",
+     "uncertainty": "+80% / −0%（0.70 m の定義なら 1.11/m）",
+     "source": "OBJ wave_repair_zbrush2.obj（SHA-256 AB4124F9…3D40）を整列 B で主役波の断面の座標へ置いた一時キャッシュ；s1_crown2.py（格子 0.05 m、指 = 半径 0.30 m で開いた差、手 = 0.85 m）",
+     "rel": {
+      "per_H_of_L": 13.25
+     },
+     "hero": {
+      "per_m": 0.638,
+      "count_on_L_hero": 33,
+      "range": [
+       33,
+       59
+      ]
+     }
+    },
+    "count_by_c_4m_digits": {
+     "edges": [
+      -17,
+      -13,
+      -9,
+      -5,
+      -1,
+      3,
+      7,
+      11,
+      15
+     ],
+     "counts": [
+      3,
+      8,
+      8,
+      13,
+      11,
+      12,
+      9,
+      12
+     ]
+    },
+    "count_by_root_height_over_H_digits": {
+     "edges": [
+      0,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7,
+      0.8,
+      0.9,
+      1.0
+     ],
+     "counts": [
+      4,
+      1,
+      3,
+      13,
+      19,
+      13,
+      10,
+      9,
+      4
+     ]
+    }
+   },
+   "length": {
+    "digit_len_over_H": {
+     "value": {
+      "n": 76,
+      "p10": 0.0179,
+      "p25": 0.0297,
+      "p50": 0.0434,
+      "p75": 0.0545,
+      "p90": 0.0638,
+      "mean": 0.0425
+     },
+     "unit": "H",
+     "uncertainty": "スキャンは細い先を短くしがち：+0〜30%",
+     "source": "OBJ wave_repair_zbrush2.obj（SHA-256 AB4124F9…3D40）を整列 B で主役波の断面の座標へ置いた一時キャッシュ；s1_crown2.py（格子 0.05 m、指 = 半径 0.30 m で開いた差、手 = 0.85 m）",
+     "hero": {
+      "p10": 0.371,
+      "p25": 0.616,
+      "p50": 0.901,
+      "p75": 1.131,
+      "p90": 1.324
+     }
+    },
+    "hand_len_over_H": {
+     "value": {
+      "n": 28,
+      "p10": 0.0421,
+      "p25": 0.0752,
+      "p50": 0.0869,
+      "p75": 0.0927,
+      "p90": 0.101,
+      "mean": 0.0796
+     },
+     "unit": "H",
+     "uncertainty": "±20%",
+     "source": "OBJ wave_repair_zbrush2.obj（SHA-256 AB4124F9…3D40）を整列 B で主役波の断面の座標へ置いた一時キャッシュ；s1_crown2.py（格子 0.05 m、指 = 半径 0.30 m で開いた差、手 = 0.85 m）",
+     "hero": {
+      "p10": 0.874,
+      "p25": 1.561,
+      "p50": 1.803,
+      "p75": 1.924,
+      "p90": 2.096
+     }
+    },
+    "digit_len_over_base_diam_mesh": {
+     "value": {
+      "n": 76,
+      "p10": 0.867,
+      "p25": 1.41,
+      "p50": 2.009,
+      "p75": 2.418,
+      "p90": 2.877,
+      "mean": 1.938
+     },
+     "unit": "-",
+     "uncertainty": "根元の太さは開く半径 0.30 m で上が切れる",
+     "source": "OBJ wave_repair_zbrush2.obj（SHA-256 AB4124F9…3D40）を整列 B で主役波の断面の座標へ置いた一時キャッシュ；s1_crown2.py（格子 0.05 m、指 = 半径 0.30 m で開いた差、手 = 0.85 m）"
+    },
+    "digit_len_over_base_diam_photo": {
+     "value": {
+      "p50": 3.5,
+      "range": [
+       2.5,
+       5.5
+      ]
+     },
+     "unit": "-",
+     "uncertainty": "目の読み（指が掌から分かれる所からの長さ）",
+     "source": "写真 C06（特写 6）・N05（近景水平 5）：見える指 15 本ほどの目の読み"
+    }
+   },
+   "thickness": {
+    "digit_diam_base_over_H": {
+     "value": {
+      "n": 76,
+      "p10": 0.019,
+      "p25": 0.0206,
+      "p50": 0.0216,
+      "p75": 0.0235,
+      "p90": 0.0248,
+      "mean": 0.0219
+     },
+     "unit": "H",
+     "uncertainty": "開く半径 0.30 m（径 0.60 m）より太い所は胴に入る",
+     "source": "OBJ wave_repair_zbrush2.obj（SHA-256 AB4124F9…3D40）を整列 B で主役波の断面の座標へ置いた一時キャッシュ；s1_crown2.py（格子 0.05 m、指 = 半径 0.30 m で開いた差、手 = 0.85 m）",
+     "hero": {
+      "p50_m": 0.448
+     }
+    },
+    "digit_diam_mid_over_H": {
+     "value": {
+      "n": 76,
+      "p10": 0.0113,
+      "p25": 0.0138,
+      "p50": 0.016,
+      "p75": 0.0196,
+      "p90": 0.0216,
+      "mean": 0.0167
+     },
+     "unit": "H",
+     "uncertainty": "格子 0.05 m（径で ±0.1 m）",
+     "source": "OBJ wave_repair_zbrush2.obj（SHA-256 AB4124F9…3D40）を整列 B で主役波の断面の座標へ置いた一時キャッシュ；s1_crown2.py（格子 0.05 m、指 = 半径 0.30 m で開いた差、手 = 0.85 m）",
+     "hero": {
+      "p50_m": 0.332
+     }
+    },
+    "digit_diam_tip_over_H": {
+     "value": {
+      "n": 76,
+      "p10": 0.008,
+      "p25": 0.008,
+      "p50": 0.0103,
+      "p75": 0.013,
+      "p90": 0.0153,
+      "mean": 0.0112
+     },
+     "unit": "H",
+     "uncertainty": "格子 0.05 m（径で ±0.1 m）",
+     "source": "OBJ wave_repair_zbrush2.obj（SHA-256 AB4124F9…3D40）を整列 B で主役波の断面の座標へ置いた一時キャッシュ；s1_crown2.py（格子 0.05 m、指 = 半径 0.30 m で開いた差、手 = 0.85 m）",
+     "hero": {
+      "p50_m": 0.214
+     }
+    },
+    "hand_diam_base_over_H": {
+     "value": {
+      "n": 28,
+      "p10": 0.0367,
+      "p25": 0.0386,
+      "p50": 0.0415,
+      "p75": 0.0457,
+      "p90": 0.0561,
+      "mean": 0.0437
+     },
+     "unit": "H",
+     "uncertainty": "±20%",
+     "source": "OBJ wave_repair_zbrush2.obj（SHA-256 AB4124F9…3D40）を整列 B で主役波の断面の座標へ置いた一時キャッシュ；s1_crown2.py（格子 0.05 m、指 = 半径 0.30 m で開いた差、手 = 0.85 m）",
+     "hero": {
+      "p50_m": 0.861
+     }
+    },
+    "taper_law_digit": {
+     "value": {
+      "k": 0.64,
+      "p": 1.15
+     },
+     "unit": "r/r_base = 1 − k f^p（f = 根元からの道のりの割合）",
+     "uncertainty": "k ±0.1, p ±0.3",
+     "source": "OBJ wave_repair_zbrush2.obj（SHA-256 AB4124F9…3D40）を整列 B で主役波の断面の座標へ置いた一時キャッシュ；s1_crown2.py（格子 0.05 m、指 = 半径 0.30 m で開いた差、手 = 0.85 m）",
+     "note": "ほぼ直線の細り。先の半径は根元の約 0.36。10 区間の中央値 [1.0, 0.9, 0.842, 0.8, 0.722, 0.692, 0.645, 0.56, 0.487, 0.351]"
+    },
+    "taper_law_hand": {
+     "value": {
+      "k": 0.75,
+      "p": 0.85
+     },
+     "unit": "同上",
+     "uncertainty": "k ±0.1, p ±0.3",
+     "source": "OBJ wave_repair_zbrush2.obj（SHA-256 AB4124F9…3D40）を整列 B で主役波の断面の座標へ置いた一時キャッシュ；s1_crown2.py（格子 0.05 m、指 = 半径 0.30 m で開いた差、手 = 0.85 m）",
+     "note": "10 区間の中央値 [1.0, 0.851, 0.748, 0.652, 0.598, 0.56, 0.481, 0.432, 0.376, 0.264]"
+    },
+    "palm_shape": {
+     "value": "掌は平たい（幅 > 厚み）。指は丸い管",
+     "unit": "-",
+     "uncertainty": "目の読み",
+     "source": "写真 C06・C34；OBJ の描画（一時）"
+    }
+   },
+   "branching": {
+    "digits_per_hand_mesh": {
+     "value": {
+      "n": 28,
+      "p10": 0.7,
+      "p25": 1.0,
+      "p50": 1.5,
+      "p75": 3.0,
+      "p90": 6.3,
+      "mean": 2.714
+     },
+     "unit": "本",
+     "uncertainty": "スキャンは細い指を欠く：下限",
+     "source": "OBJ wave_repair_zbrush2.obj（SHA-256 AB4124F9…3D40）を整列 B で主役波の断面の座標へ置いた一時キャッシュ；s1_crown2.py（格子 0.05 m、指 = 半径 0.30 m で開いた差、手 = 0.85 m）",
+     "note": "分布 {'0': 3, '1': 11, '2': 5, '3': 4, '5': 1, '6': 1, '7': 1, '12': 1, '13': 1}"
+    },
+    "digits_per_hand_photo": {
+     "value": {
+      "p50": 3,
+      "range": [
+       2,
+       5
+      ]
+     },
+     "unit": "本",
+     "uncertainty": "目の読み",
+     "source": "写真 C06・N05・C34"
+    },
+    "branch_start_fraction_of_hand_length": {
+     "value": {
+      "n": 76,
+      "p10": 0.283,
+      "p25": 0.351,
+      "p50": 0.421,
+      "p75": 0.512,
+      "p90": 0.61,
+      "mean": 0.428
+     },
+     "unit": "-",
+     "uncertainty": "±0.1",
+     "source": "OBJ wave_repair_zbrush2.obj（SHA-256 AB4124F9…3D40）を整列 B で主役波の断面の座標へ置いた一時キャッシュ；s1_crown2.py（格子 0.05 m、指 = 半径 0.30 m で開いた差、手 = 0.85 m）",
+     "note": "指は手の長さの 0.35〜0.51（p25〜p75）の所から分かれる"
+    },
+    "angle_between_digits_same_hand_deg": {
+     "value": {
+      "p25": 24.3,
+      "p50": 41.5,
+      "p75": 67.2,
+      "n_pairs": 207
+     },
+     "unit": "deg",
+     "uncertainty": "±10°",
+     "source": "OBJ wave_repair_zbrush2.obj（SHA-256 AB4124F9…3D40）を整列 B で主役波の断面の座標へ置いた一時キャッシュ；s1_crown2.py（格子 0.05 m、指 = 半径 0.30 m で開いた差、手 = 0.85 m）"
+    },
+    "angle_to_nearest_digit_deg": {
+     "value": {
+      "n": 76,
+      "p10": 11.7,
+      "p25": 14.3,
+      "p50": 22.6,
+      "p75": 32.5,
+      "p90": 51.5,
+      "mean": 31.3
+     },
+     "unit": "deg",
+     "uncertainty": "±10°",
+     "source": "OBJ wave_repair_zbrush2.obj（SHA-256 AB4124F9…3D40）を整列 B で主役波の断面の座標へ置いた一時キャッシュ；s1_crown2.py（格子 0.05 m、指 = 半径 0.30 m で開いた差、手 = 0.85 m）"
+    }
+   },
+   "tip_shape": {
+    "tip_over_neck_radius_mesh": {
+     "value": {
+      "n": 76,
+      "p10": 0.461,
+      "p25": 0.51,
+      "p50": 0.612,
+      "p75": 0.679,
+      "p90": 0.783,
+      "mean": 0.616
+     },
+     "unit": "-",
+     "uncertainty": "格子 0.05 m",
+     "source": "OBJ wave_repair_zbrush2.obj（SHA-256 AB4124F9…3D40）を整列 B で主役波の断面の座標へ置いた一時キャッシュ；s1_crown2.py（格子 0.05 m、指 = 半径 0.30 m で開いた差、手 = 0.85 m）",
+     "note": "先の区間の半径 / 0.7〜0.8 の区間の半径。≥1 なら膨らみ。分類 {'bulb_ge1.0': 2, 'rounded_0.6_1.0': 41, 'narrow_lt0.6': 33}"
+    },
+    "reading": {
+     "value": "丸い先（半球）が多数。膨らんだしずくはまれ（<5%）。先が口の開いた管（穴のある丸い先）が約 10%。鋭い針はない",
+     "unit": "-",
+     "uncertainty": "目の読み",
+     "source": "写真 N05（管の先 6〜8 本）・C06・C49；OBJ の描画（一時）で管の先を確認"
+    }
+   },
+   "direction": {
+    "angle_digit_vs_root_normal_deg": {
+     "value": {
+      "n": 76,
+      "p10": 11.7,
+      "p25": 17.3,
+      "p50": 21.7,
+      "p75": 29.9,
+      "p90": 39.1,
+      "mean": 25.9
+     },
+     "unit": "deg",
+     "uncertainty": "法線は胴をぼかした場の勾配：±8°",
+     "source": "OBJ wave_repair_zbrush2.obj（SHA-256 AB4124F9…3D40）を整列 B で主役波の断面の座標へ置いた一時キャッシュ；s1_crown2.py（格子 0.05 m、指 = 半径 0.30 m で開いた差、手 = 0.85 m）",
+     "note": "指は根元の面からほぼ法線の向きに出る（中央値 22°）"
+    },
+    "angle_digit_overall_vs_up_deg": {
+     "value": {
+      "n": 76,
+      "p10": 89.7,
+      "p25": 96.8,
+      "p50": 113.5,
+      "p75": 138.6,
+      "p90": 150.6,
+      "mean": 116.2
+     },
+     "unit": "deg",
+     "uncertainty": "±5°",
+     "source": "OBJ wave_repair_zbrush2.obj（SHA-256 AB4124F9…3D40）を整列 B で主役波の断面の座標へ置いた一時キャッシュ；s1_crown2.py（格子 0.05 m、指 = 半径 0.30 m で開いた差、手 = 0.85 m）",
+     "note": "90° = 水平。中央値 114° = 水平から 24° 下"
+    },
+    "angle_digit_tip_vs_up_deg": {
+     "value": {
+      "n": 76,
+      "p10": 93.8,
+      "p25": 106.7,
+      "p50": 122.5,
+      "p75": 138.9,
+      "p90": 152.5,
+      "mean": 120.2
+     },
+     "unit": "deg",
+     "uncertainty": "±8°",
+     "source": "OBJ wave_repair_zbrush2.obj（SHA-256 AB4124F9…3D40）を整列 B で主役波の断面の座標へ置いた一時キャッシュ；s1_crown2.py（格子 0.05 m、指 = 半径 0.30 m で開いた差、手 = 0.85 m）",
+     "note": "先は根元よりさらに下へ垂れる（中央値 123°）"
+    },
+    "frac_tips_pointing_down": {
+     "value": 0.908,
+     "unit": "-",
+     "uncertainty": "写真 N05 では見える指先 約 70 のうち 10〜15（15〜20%）が頂の輪郭で上・外を向く（どれも短い指）。スキャンでは上向きは 7〜10%（開く半径 0.42 m でも下向き 93%）",
+     "source": "OBJ wave_repair_zbrush2.obj（SHA-256 AB4124F9…3D40）を整列 B で主役波の断面の座標へ置いた一時キャッシュ；s1_crown2.py（格子 0.05 m、指 = 半径 0.30 m で開いた差、手 = 0.85 m）；写真 N05"
+    },
+    "frac_forward_over_lip": {
+     "value": 0.908,
+     "unit": "-",
+     "uncertainty": "±0.05",
+     "source": "OBJ wave_repair_zbrush2.obj（SHA-256 AB4124F9…3D40）を整列 B で主役波の断面の座標へ置いた一時キャッシュ；s1_crown2.py（格子 0.05 m、指 = 半径 0.30 m で開いた差、手 = 0.85 m）"
+    },
+    "angle_digit_vs_forward_deg": {
+     "value": {
+      "n": 76,
+      "p10": 16.3,
+      "p25": 23.3,
+      "p50": 37.8,
+      "p75": 59.3,
+      "p90": 85.5,
+      "mean": 45.9
+     },
+     "unit": "deg",
+     "uncertainty": "±8°",
+     "source": "OBJ wave_repair_zbrush2.obj（SHA-256 AB4124F9…3D40）を整列 B で主役波の断面の座標へ置いた一時キャッシュ；s1_crown2.py（格子 0.05 m、指 = 半径 0.30 m で開いた差、手 = 0.85 m）"
+    },
+    "curl_root_to_tip_deg": {
+     "value": {
+      "digit": {
+       "n": 76,
+       "p10": 8.0,
+       "p25": 10.9,
+       "p50": 19.0,
+       "p75": 29.3,
+       "p90": 39.0,
+       "mean": 24.5
+      },
+      "hand": {
+       "n": 28,
+       "p10": 25.9,
+       "p25": 35.6,
+       "p50": 42.8,
+       "p75": 74.1,
+       "p90": 103.1,
+       "mean": 55.9
+      }
+     },
+     "unit": "deg",
+     "uncertainty": "±8°",
+     "source": "OBJ wave_repair_zbrush2.obj（SHA-256 AB4124F9…3D40）を整列 B で主役波の断面の座標へ置いた一時キャッシュ；s1_crown2.py（格子 0.05 m、指 = 半径 0.30 m で開いた差、手 = 0.85 m）",
+     "note": "手は根元から先へ中央値 43° 曲がる（先が垂れる）。指 1 本では 19°"
+    }
+   },
+   "layering": {
+    "hand_root_dy_below_rim_hist": {
+     "value": {
+      "edges": [
+       -0.6,
+       -0.56,
+       -0.52,
+       -0.48,
+       -0.44,
+       -0.4,
+       -0.36,
+       -0.32,
+       -0.28,
+       -0.24,
+       -0.2,
+       -0.16,
+       -0.12,
+       -0.08,
+       -0.04,
+       0.0,
+       0.04
+      ],
+      "counts": [
+       0,
+       0,
+       0,
+       0,
+       2,
+       0,
+       0,
+       0,
+       3,
+       0,
+       1,
+       3,
+       4,
+       4,
+       8,
+       2
+      ]
+     },
+     "unit": "H",
+     "uncertainty": "格子 0.05 m",
+     "source": "OBJ wave_repair_zbrush2.obj（SHA-256 AB4124F9…3D40）を整列 B で主役波の断面の座標へ置いた一時キャッシュ；s1_crown2.py（格子 0.05 m、指 = 半径 0.30 m で開いた差、手 = 0.85 m）",
+     "note": "手の根元は頂の線から 0〜0.08 H に約半分、0.10〜0.20 H に約 3 割、0.25〜0.45 H（唇の巻きの下）に約 2 割：2〜3 段"
+    },
+    "photo_rows": {
+     "value": "前から見て 2〜3 段：最前列は唇の縁から下へ垂れ、その上の段は前・外へ出て先が垂れる。隣の手は横に 2〜4 割重なり、指が互いに入り込む",
+     "unit": "-",
+     "uncertainty": "目の読み",
+     "source": "写真 N05・C44・C06・C19"
+    },
+    "nearest_root_spacing_over_H": {
+     "value": {
+      "n": 76,
+      "p10": 0.0509,
+      "p25": 0.06,
+      "p50": 0.0668,
+      "p75": 0.0786,
+      "p90": 0.0971,
+      "mean": 0.0744
+     },
+     "unit": "H",
+     "uncertainty": "±0.01 H",
+     "source": "OBJ wave_repair_zbrush2.obj（SHA-256 AB4124F9…3D40）を整列 B で主役波の断面の座標へ置いた一時キャッシュ；s1_crown2.py（格子 0.05 m、指 = 半径 0.30 m で開いた差、手 = 0.85 m）",
+     "hero": {
+      "p50_m": 1.386
+     }
+    }
+   },
+   "gaps": {
+    "white_fraction_along_hanging_band": {
+     "value": {
+      "near_crown_base": [
+       0.47,
+       0.8
+      ],
+      "mid_band_p50": 0.35,
+      "mid_band_range": [
+       0.25,
+       0.45
+      ],
+      "near_tips": [
+       0.11,
+       0.29
+      ]
+     },
+     "unit": "-",
+     "uncertainty": "写真の向きと焦点のぼけで ±0.1",
+     "source": "写真 N05（近景水平 5）・C49（特写 49）・C44（特写 44）の横の線の上の白の割合（s1_assemble の PHOTO_READ）",
+     "note": "垂れる指の帯の中ほどでは、指の間に藍が 55〜75% 見える"
+    }
+   },
+   "continuation": {
+    "along_lip_into_curl": {
+     "value": "続く。唇が巻き下がる +c の側（原画視点の右）で、根元は海面から 0.39 H（p10）まで下がる。4 m ごとの数はほぼ一様（[3, 8, 8, 13, 11, 12, 9, 12]）",
+     "unit": "-",
+     "uncertainty": "台の円盤で切れる所の先は不明",
+     "source": "OBJ wave_repair_zbrush2.obj（SHA-256 AB4124F9…3D40）を整列 B で主役波の断面の座標へ置いた一時キャッシュ；s1_crown2.py（格子 0.05 m、指 = 半径 0.30 m で開いた差、手 = 0.85 m）；写真 C19・N05"
+    },
+    "b_region_second_crest": {
+     "value": "ある。-c の肩（c -16〜-9 m）に指 11 本・手 5 個。白い塊に穴（藍が透けて見える）があり、塊の下の縁から指が外・下へ出る",
+     "unit": "-",
+     "uncertainty": "目の読み＋OBJ",
+     "source": "OBJ wave_repair_zbrush2.obj（SHA-256 AB4124F9…3D40）を整列 B で主役波の断面の座標へ置いた一時キャッシュ；s1_crown2.py（格子 0.05 m、指 = 半径 0.30 m で開いた差、手 = 0.85 m）；写真 C34（特写 34）"
+    },
+    "small_foreground_wave": {
+     "value": "指はない（前の小波の範囲で、船の部品などを除くと 0）。頂は滑らかな白い帽子で、境は藍の舌の縁（2 節）",
+     "unit": "-",
+     "uncertainty": "—",
+     "source": "s1_crown2.py の前の小波の箱（a 4.5〜16.5 m）；写真 U13・N05"
+    }
+   }
+  },
+  "2_white_and_drip_edge": {
+   "white_on_back": {
+    "value": {
+     "lower_edge_above_sea_over_H": [
+      0.25,
+      0.4
+     ]
+    },
+    "unit": "H",
+    "uncertainty": "±0.05 H（写真の角度）",
+    "source": "写真 B00（背图）・U45（近景上45 45）",
+    "hero": {
+     "lower_edge_m": [
+      5.188,
+      8.301
+     ]
+    },
+    "note": "背は頂から海面の 0.25〜0.40 H まで一続きの滑らかな艶のある白。境はゆるい一つの波のような曲線で、舌も指もない。その下は藍"
+   },
+   "white_on_main_front": {
+    "value": "前の面の白は冠（立体の指と掌）だけ。冠の下の縁は頂の線から 0.15〜0.3 H 下。面に平らに塗った白い舌はない。船のそばに白い泡の三日月が少し（面の 1〜2%）",
+    "unit": "-",
+    "uncertainty": "目の読み",
+    "source": "写真 C49・U13・N05・C44"
+   },
+   "main_front_boundary": {
+    "value": "白から藍への移りは、垂れる立体の指そのもの（2.5 節の指の数と長さ）。指の間に藍が見える",
+    "unit": "-",
+    "uncertainty": "—",
+    "source": "写真 C06・C44・C49；OBJ"
+   },
+   "right_end": {
+    "value": "+c の端（唇の先の側の外）は背の白が海面近くまで下りる",
+    "unit": "-",
+    "uncertainty": "目の読み",
+    "source": "写真 C19（特写 19）"
+   },
+   "tongues_small_wave": {
+    "shape": {
+     "value": "藍の舌が下から白の中へ立ち上がる。頭は半円で丸く、舌と舌の間の白は下向きに尖った V。舌そのものも少し盛り上がり（艶の光が頭に乗る）、中に水色の線が 1 本通る",
+     "unit": "-",
+     "uncertainty": "目の読み",
+     "source": "写真 U13（近景上45 13）・N05"
+    },
+    "width_over_H": {
+     "value": 0.065,
+     "unit": "H",
+     "uncertainty": "±0.015 H",
+     "source": "写真 N05（明るくした一時の切り出しで、舌 5 本の目の読み。H は同じ写真の頂〜海面 約 740 px）",
+     "hero": 1.349
+    },
+    "spacing_over_H": {
+     "value": 0.12,
+     "unit": "H",
+     "uncertainty": "±0.03 H",
+     "source": "同上",
+     "rel": {
+      "per_H_of_boundary": 8.3
+     },
+     "hero": 2.49
+    },
+    "length_over_H": {
+     "value": 0.15,
+     "unit": "H",
+     "uncertainty": "±0.05 H",
+     "source": "同上（見える長さ。根元は次の舌と重なる）",
+     "hero": 3.113
+    },
+    "end": {
+     "value": "丸い（半径 ≈ 舌の幅の半分）",
+     "unit": "-",
+     "uncertainty": "—",
+     "source": "写真 U13・N05"
+    }
+   },
+   "white_in_grooves": {
+    "value": "ない。水色の線は冠の垂れる指のすぐ下から始まり、溝に白は入らない",
+    "unit": "-",
+    "uncertainty": "—",
+    "source": "写真 C49・U13"
+   }
+  },
+  "3_carved_face": {
+   "mesh_relief": {
+    "value": {
+     "H_ref_m": 21.33788445650874,
+     "vox_m": 0.05,
+     "odd_columns": 1,
+     "band_0.25H": {
+      "c_range_m": [
+       -10.475,
+       3.2750000000000004
+      ],
+      "rms_m": 0.18619375913824024,
+      "rms_over_H": 0.008725970914208656,
+      "p2p_95_m": 0.9375000000000022,
+      "n_peaks_gt_3cm": 8,
+      "peak_spacing_m_p50": 0.25
+     },
+     "band_0.30H": {
+      "c_range_m": [
+       -10.475,
+       3.575000000000001
+      ],
+      "rms_m": 0.157130744674573,
+      "rms_over_H": 0.007363932680151105,
+      "p2p_95_m": 0.8899999999999946,
+      "n_peaks_gt_3cm": 7,
+      "peak_spacing_m_p50": 0.6000000000000001
+     },
+     "band_0.35H": {
+      "c_range_m": [
+       -10.475,
+       4.225000000000001
+      ],
+      "rms_m": 0.050505262540215694,
+      "rms_over_H": 0.002366929235330542,
+      "p2p_95_m": 0.17324999999999863,
+      "n_peaks_gt_3cm": 10,
+      "peak_spacing_m_p50": 0.40000000000000036
+     },
+     "band_0.40H": {
+      "c_range_m": [
+       -10.475,
+       5.324999999999999
+      ],
+      "rms_m": 0.042542941338060566,
+      "rms_over_H": 0.001993775035419859,
+      "p2p_95_m": 0.19033333333333266,
+      "n_peaks_gt_3cm": 16,
+      "peak_spacing_m_p50": 0.20000000000000018
+     }
+    },
+    "unit": "m",
+    "uncertainty": "—",
+    "source": "OBJ（s1_face_relief.py：面の下の帯 0.25〜0.40 H の前から見た深さを c の向きに 1.5 m でならした残り）",
+    "note": "スキャン（修理済み）の面には規則的な溝の凹凸が残っていない：0.35〜0.40 H で残りの RMS 0.04〜0.05 m（0.2% H）、山の間隔は 0.2〜0.4 m の不規則（雑音）。溝の数・幅は写真から測った。溝の深さは写真の陰影からの推定だけ"
+   },
+   "line_count_across_visible_face": {
+    "value": {
+     "upper_just_below_crown": [
+      10,
+      12
+     ],
+     "mid_height": [
+      12,
+      14
+     ],
+     "lower": [
+      8,
+      10
+     ]
+    },
+    "unit": "本",
+    "uncertainty": "±2 本",
+    "source": "写真 N05（明るくした一時の切り出し）の目の読み；C49 の自動の数え（中ほどで 10〜11 本、見える幅 620〜670 px）",
+    "note": "前から見える面（船の右から空洞の縁まで、中ほどの高さで約 0.6〜0.7 H の幅）での数"
+   },
+   "groove_period_over_H": {
+    "value": 0.045,
+    "unit": "H",
+    "uncertainty": "±0.01 H（面の曲がりと写真の向きによる縮み）",
+    "source": "写真 N05（明るくした一時の切り出し。H ≈ 740 px／縮めた写し、≈ 1480 px／切り出し）の目の読みと自動の数え・C49・U13 の自動の数え",
+    "rel": {
+     "upper_just_below_crown": 0.035,
+     "mid_height": 0.045,
+     "lower_face": 0.056
+    },
+    "hero": 0.934,
+    "note": "線は下へ行くほど開く（上 0.035・中 0.045・下 0.056 H。主役波で 0.73・0.93・1.16 m）。主役波の藍の面の幅（面の列が 0.5 H0 を通る 22.8 m）なら中ほどで約 24 本"
+   },
+   "light_blue_width_over_period": {
+    "value": 0.244,
+    "unit": "-",
+    "uncertainty": "±0.05",
+    "source": "写真 C49・U13・N05 の自動の数え（8 本の線の帯）",
+    "hero": 0.227,
+    "note": "溝（水色）: 稜（藍）の幅 ≈ 1 : 3"
+   },
+   "cross_section": {
+    "value": "藍の稜は幅広く丸い凸（艶の光が稜の背に細い弧で乗る）。稜と稜の継ぎ目の細い溝に水色の線が入る。水色の線そのものも少し丸く盛り上がって見える（溝の中の細い玉縁）",
+    "unit": "-",
+    "uncertainty": "目の読み（深さは測れない。陰影から深さ / 周期 ≈ 0.1、範囲 0.05〜0.25）",
+    "source": "写真 C44（特写 44 の空洞の内側）・C49・U13"
+   },
+   "follow_curl": {
+    "value": "溝は空洞を中心とする入れ子の C 字（弧）。唇の下では放射に近く上から下へ、面の下では横へ寝て谷に沿って流れ、手前の海へ続く",
+    "unit": "-",
+    "uncertainty": "目の読み",
+    "source": "写真 N05・U13・C44"
+   },
+   "forks": {
+    "value": {
+     "per_line_per_visible_length": [
+      0.25,
+      0.35
+     ]
+    },
+    "unit": "-",
+    "uncertainty": "±0.15（自動の骨格の数えは雑音が多いので目の読みを採る）",
+    "source": "写真 U13（近景上45 13）・C49 の目の読み",
+    "note": "線 3〜4 本に 1 つほどの Y 字。分かれた 2 本は下流（下）へ開く"
+   },
+   "ends_near_crest": {
+    "value": "冠の垂れる指の陰のすぐ下（頂の線から約 0.2〜0.3 H 下）で、陰に入って見えなくなる。冠の白に触れる所まで線は続かない",
+    "unit": "-",
+    "uncertainty": "目の読み",
+    "source": "写真 C49・N05"
+   },
+   "ends_at_base": {
+    "value": "面の下で横へ寝て、前の小波の白の後ろか、谷の水色の横線へつながる",
+    "unit": "-",
+    "uncertainty": "目の読み",
+    "source": "写真 N05・U13"
+   },
+   "light_blue_gradient": {
+    "value": "線の中は一様な色（中央がわずかに明るい）。藍との境はぼかさない（はっきり）",
+    "unit": "-",
+    "uncertainty": "目の読み",
+    "source": "写真 C49・U13"
+   }
+  },
+  "4_colour_and_shading": {
+   "white_balance_note": "写真は暖かい電球の光で撮られている。_raw は写真のままの sRGB の中央値、_wb は白の光の所を中立の白（sRGB 245）とみなして直した値（線形の空間で各色に掛け算）。lit/mid/shadow は類の中の L* の上位 15%・中ほど 20%・下位 15%。鏡のような光の点（明るさ ≥ 245 かつ彩度 ≤ 35）は除いた",
+   "wb_gain_linear": [
+    1.302,
+    1.608,
+    2.001
+   ],
+   "colors": {
+    "white": {
+     "photos": [
+      "C06c_crop.png",
+      "C49f_crop.png",
+      "U13f_crop.png",
+      "U13t_crop.png",
+      "U45.png",
+      "B00.png",
+      "N05.png",
+      "C44.png"
+     ],
+     "lit_srgb_raw": [
+      218,
+      198,
+      180
+     ],
+     "lit_srgb_wb": [
+      245,
+      245,
+      245
+     ],
+     "L_lit": 81.0,
+     "mid_srgb_raw": [
+      194,
+      173,
+      155
+     ],
+     "mid_srgb_wb": [
+      218,
+      214,
+      212
+     ],
+     "L_mid": 72.2,
+     "shadow_srgb_raw": [
+      128,
+      119,
+      108
+     ],
+     "shadow_srgb_wb": [
+      145,
+      148,
+      149
+     ],
+     "L_shadow": 50.1
+    },
+    "indigo": {
+     "photos": [
+      "C06c_crop.png",
+      "C49f_crop.png",
+      "U13f_crop.png",
+      "U13t_crop.png",
+      "U45.png",
+      "B00.png",
+      "N05.png",
+      "C44.png"
+     ],
+     "lit_srgb_raw": [
+      30,
+      42,
+      62
+     ],
+     "lit_srgb_wb": [
+      35,
+      54,
+      87
+     ],
+     "L_lit": 16.8,
+     "mid_srgb_raw": [
+      14,
+      14,
+      20
+     ],
+     "mid_srgb_wb": [
+      17,
+      20,
+      32
+     ],
+     "L_mid": 4.2,
+     "shadow_srgb_raw": [
+      7,
+      7,
+      12
+     ],
+     "shadow_srgb_wb": [
+      9,
+      11,
+      21
+     ],
+     "L_shadow": 2.0
+    },
+    "lightblue": {
+     "photos": [
+      "C49f_crop.png",
+      "U13f_crop.png",
+      "U13t_crop.png",
+      "N05.png",
+      "C44.png"
+     ],
+     "lit_srgb_raw": [
+      51,
+      73,
+      105
+     ],
+     "lit_srgb_wb": [
+      59,
+      92,
+      145
+     ],
+     "L_lit": 30.3,
+     "mid_srgb_raw": [
+      39,
+      62,
+      95
+     ],
+     "mid_srgb_wb": [
+      45,
+      79,
+      132
+     ],
+     "L_mid": 25.8,
+     "shadow_srgb_raw": [
+      32,
+      56,
+      87
+     ],
+     "shadow_srgb_wb": [
+      37,
+      71,
+      121
+     ],
+     "L_shadow": 22.9
+    },
+    "gold": {
+     "photos": [
+      "C49f_crop.png",
+      "U13f_crop.png",
+      "U13t_crop.png",
+      "N05.png",
+      "C44.png"
+     ],
+     "lit_srgb_raw": [
+      220,
+      167,
+      119
+     ],
+     "lit_srgb_wb": [
+      247,
+      207,
+      164
+     ],
+     "L_lit": 71.9,
+     "mid_srgb_raw": [
+      186,
+      143,
+      95
+     ],
+     "mid_srgb_wb": [
+      209,
+      177,
+      132
+     ],
+     "L_mid": 62.4,
+     "shadow_srgb_raw": [
+      128,
+      101,
+      68
+     ],
+     "shadow_srgb_wb": [
+      145,
+      126,
+      95
+     ],
+     "L_shadow": 44.8
+    },
+    "base": {
+     "photos": [
+      "U13t_crop.png",
+      "U45.png",
+      "N05.png"
+     ],
+     "lit_srgb_raw": [
+      142,
+      161,
+      149
+     ],
+     "lit_srgb_wb": [
+      160,
+      199,
+      204
+     ],
+     "L_lit": 64.4,
+     "mid_srgb_raw": [
+      132,
+      151,
+      139
+     ],
+     "mid_srgb_wb": [
+      149,
+      187,
+      190
+     ],
+     "L_mid": 60.7,
+     "shadow_srgb_raw": [
+      114,
+      129,
+      122
+     ],
+     "shadow_srgb_wb": [
+      129,
+      160,
+      168
+     ],
+     "L_shadow": 52.6
+    }
+   },
+   "names": {
+    "white": "白（冠・背）",
+    "lightblue": "淡い水色（面の溝の線。実際は中くらいの明るさのコバルトの青）",
+    "indigo": "藍（面の地）",
+    "gold": "金（舟）",
+    "base": "台の水色（海の円盤）"
+   },
+   "indigo_dark_vs_mid": {
+    "value": {
+     "indigo_dark_wb": [
+      9,
+      11,
+      21
+     ],
+     "indigo_mid_wb": [
+      17,
+      20,
+      32
+     ],
+     "indigo_lit_wb": [
+      35,
+      54,
+      87
+     ]
+    },
+    "unit": "sRGB",
+    "uncertainty": "±10（写真ごとの差）",
+    "source": "写真 C06・C49・U13・U45・B00・N05・C44",
+    "note": "藍の拡散の色は黒に近い（L* 2〜6）。見える形はほとんど艶の映り込みと光の点（L* 17〜21）で出る"
+   },
+   "gloss": {
+    "value": {
+     "specular_spot_eq_diam_px_p50": [
+      5.7,
+      8.4
+     ],
+     "finger_diam_px_same_photos": [
+      45,
+      60
+     ],
+     "spot_over_finger_diam": [
+      0.12,
+      0.18
+     ],
+     "specular_area_frac": [
+      0.001,
+      0.004
+     ]
+    },
+    "unit": "-",
+    "uncertainty": "写真の解像度とぼけ",
+    "source": "写真 C06・C49・U13・C44（特写・近景の切り出し）",
+    "note": "強い艶：小さく鋭い光の点が指・稜の背に乗り、背の広い白には窓・電灯の細長い映り込み。粗さの目安 GGX 0.05〜0.15（推定）"
+   },
+   "form_shading_range": {
+    "value": {
+     "white_L_lit": 81.0,
+     "white_L_mid": 72.2,
+     "white_L_shadow": 50.1,
+     "indigo_L_lit": 16.8,
+     "indigo_L_mid": 4.2,
+     "indigo_L_shadow": 2.0,
+     "lightblue_L_lit": 30.3,
+     "lightblue_L_shadow": 22.9
+    },
+    "unit": "L*",
+    "uncertainty": "±5",
+    "source": "同上",
+    "note": "白は光の所から陰まで ΔL* 約 30（輝度でおよそ 3 : 1）の本当の陰影がある。藍は拡散が暗く、陰影は艶で読む"
+   },
+   "rim_light": {
+    "value": "描いた縁の光はない。艶の映り込みが斜めの所で明るくなる（フレネルのような）：藍の稜の縁、白い背の輪郭沿いに明るい帯",
+    "unit": "-",
+    "uncertainty": "目の読み",
+    "source": "写真 C44・C19・U45"
+   },
+   "outlines": {
+    "value": "ない。白・藍・水色の境ははっきりしているが、線で縁取っていない",
+    "unit": "-",
+    "uncertainty": "—",
+    "source": "全部の写真"
+   },
+   "sparkle": {
+    "value": "藍の上に小さな星形の光の点が多数（撮影の多灯の光の映り込みか、艶の層の細かい凹凸）",
+    "unit": "-",
+    "uncertainty": "目の読み",
+    "source": "写真 U13（近景上45 13）"
+   }
+  },
+  "5_painting_direction": {
+   "photo": {
+    "value": "N05（近景水平 5）。原画視点（OBJ を原画のカメラの向きから描いた一時の図）と、頂・唇の先・b区域・空洞の並びがいちばん近い。向きの差は約 20° 以内（目の読み）",
+    "unit": "-",
+    "uncertainty": "±20°",
+    "source": "写真 N05；OBJ の一時の描画"
+   },
+   "reading": {
+    "value": "冠は一続きの太い白い泡の帯で、指が上・外・前・下の全部の向きへ放射して、とげのある珊瑚か毛虫のように読める。前から見える指先は約 70。最前列の垂れる指は原画の爪が面へかかる所に当たるが、先は丸く、鉤に巻かず、藍の縁取りも水色の内側もない",
+    "unit": "-",
+    "uncertainty": "目の読み",
+    "source": "写真 N05・C44"
+   },
+   "vs_painting": {
+    "value": {
+     "painting_band_claws": 191,
+     "painting_claws_total_approx": 300,
+     "sculpture_tips_visible_front": 70,
+     "sculpture_tips_total_mesh": 76,
+     "ratio_sculpture_to_painting_band": 0.37
+    },
+    "unit": "本",
+    "uncertainty": "原画の数はリポジトリの記録（美術の見本01 §2.4 の帯の爪 191 本、見本02 §7 の約 300）",
+    "source": "Docs/Progress/ArtSample_01_ja.md・ArtSample_02_ja.md；写真 N05",
+    "note": "彫刻の冠は原画の爪の縁より数が約 1/3、1 本が太く短く丸い。原画の縁は細い鉤が扇に開き、間から空が透ける細かいレース。彫刻は塊の量感と艶と陰影で読ませ、原画は線と形で読ませる"
+   }
+  },
+  "sources": {
+   "photo_folder": "G:/research/reality scan/北斋参考",
+   "photos": {
+    "N05": "扫描2/近景扫描_1.0焦距_水平/近景扫描_1.0焦距_水平_5.jpg",
+    "C06": "扫描2/特写_3.0焦距_水平/特写_3.0焦距_水平_6.jpg",
+    "C19": "扫描2/特写_3.0焦距_水平/特写_3.0焦距_水平_19.jpg",
+    "C34": "扫描2/特写_3.0焦距_水平/特写_3.0焦距_水平_34.jpg",
+    "C44": "扫描2/特写_3.0焦距_水平/特写_3.0焦距_水平_44.jpg",
+    "C49": "扫描2/特写_3.0焦距_水平/特写_3.0焦距_水平_49.jpg",
+    "U13": "扫描2/近景扫描_1.0焦距_上45度/近景扫描_1.0焦距_上45度_13.jpg",
+    "U45": "扫描2/近景扫描_1.0焦距_上45度/近景扫描_1.0焦距_上45度_45.jpg",
+    "B00": "背图.jpg",
+    "T00": "顶图、.jpg"
+   },
+   "obj": {
+    "file": "G:/research/model/wave_repair_zbrush2.obj",
+    "sha256": "AB4124F9720D6E27D80E2AE063916292898C87606A64441043F6A64DE3D53D40",
+    "use": "数だけ（一時キャッシュ、測った後に消した。s1_objcache_log.json）"
+   },
+   "hero": "Unity/Build/Polish/sample02/fix01/back/final/cand/kstarAS02C_a45_rows.npz",
+   "hero_sha256": "a6e46a69c9d33805fcbd5eb60d77625fa35d8900a8037ee95b2ddcad2b8a0bbe",
+   "tools": "Tools/GWWaveGen/as03/s1_*.py",
+   "limits_ja": [
+    "スキャンの OBJ は修理（ZBrush）されていて、面の溝が残っていない。細い指も短く・少なく出やすい（数と長さは下限寄り）",
+    "写真から読んだ数（溝の周期・舌の大きさ・白の下の縁）は、写真の向きと面の曲がりで ±20〜30% ずれうる",
+    "色は暖かい電球の光の写真から取った。_wb は白を中立とみなした直しで、本当の釉薬の色ではない",
+    "参照は台の円盤で両端が切れているので、L と W は下限寄り"
+   ]
+  }
+ },
+ "evaluator23_counts": {
+  "V1/off_line": {
+   "counts": {
+    "fail": 7,
+    "pass": 2,
+    "record-only": 14
+   },
+   "sha256": "34f26082b26327f08aaf71600f445ecd516559096a066b5898cb1142ad7403c2"
+  },
+  "V1/off_noline": {
+   "counts": {
+    "fail": 7,
+    "pass": 2,
+    "record-only": 14
+   },
+   "sha256": "8ebe18e7a324ffdb160c7e5907b1cc235eec48b95fc5d47efa3425aad07f639a"
+  },
+  "V1/off_line_noclaws": {
+   "counts": {
+    "fail": 7,
+    "pass": 2,
+    "record-only": 14
+   },
+   "sha256": "ce18a18f5806dbe3d5928e7bc1b3717b9718e40d62ff8ce109ea042129b28ad4"
+  },
+  "V1/off_noline_noclaws": {
+   "counts": {
+    "fail": 7,
+    "pass": 2,
+    "record-only": 14
+   },
+   "sha256": "25bb5dee683e87f5309cac16346c73a7f4056089825b73ed099503e54cfddceb"
+  },
+  "V2/off_line": {
+   "counts": {
+    "fail": 7,
+    "pass": 2,
+    "record-only": 14
+   },
+   "sha256": "e1bceb5a02e767adc08530163682b63f628cf4559d81682b7b95e28dbe71f7f6"
+  },
+  "V2/off_noline": {
+   "counts": {
+    "fail": 7,
+    "pass": 2,
+    "record-only": 14
+   },
+   "sha256": "473b3a30e7051e5fbf88ecbc0a80ac5f1ee9a800658392b98ed1050f1694f64a"
+  },
+  "V2/off_line_noclaws": {
+   "counts": {
+    "fail": 7,
+    "pass": 2,
+    "record-only": 14
+   },
+   "sha256": "accb70ec5aff03165a205687d1e02573f6d89b19f0e5ce7cbdd75bf8f7921e77"
+  },
+  "V2/off_noline_noclaws": {
+   "counts": {
+    "fail": 7,
+    "pass": 2,
+    "record-only": 14
+   },
+   "sha256": "0df071bb3ce14d47c249d868759da31816d916fc4ce0adfb530499f71a26f57c"
+  },
+  "V3/off_line": {
+   "counts": {
+    "pass": 5,
+    "fail": 4,
+    "record-only": 14
+   },
+   "sha256": "a18681791f309a5f0e7031185c5bd0e64c7aed664c6c3e281b78d7c01a38dc3f"
+  },
+  "V3/off_noline": {
+   "counts": {
+    "pass": 5,
+    "fail": 4,
+    "record-only": 14
+   },
+   "sha256": "42291ffcfb5a3e42969071efb4aa909f51573b8fb49a9005a42ffe05e5fda5c3"
+  },
+  "V3/off_line_noclaws": {
+   "counts": {
+    "pass": 5,
+    "fail": 4,
+    "record-only": 14
+   },
+   "sha256": "d9426c2d18737f204a03ad92cf6e2d94cadd8ff574e95777f4896dffae0507dd"
+  },
+  "V3/off_noline_noclaws": {
+   "counts": {
+    "pass": 5,
+    "fail": 4,
+    "record-only": 14
+   },
+   "sha256": "367533c3533312b43ce37577270e6eef0c41a9875caf5abc509d9a3a46ebd92e"
+  },
+  "sample02_ja": "見本02（AS02C_A）：線あり 合格 2・不合格 7・記録 14、線なし 4・5・14（Docs/Evidence/ArtSample02/metrics.json）"
+ },
+ "fix01_fixed_ja": {
+  "T4（規則）": "冠が見える割合の最小：V1 0.22% → 1.53%、V2 0.21% → 1.52%、V3 0.11% → 1.20%（基準 0.5% より多い）。T4 は 3 つとも 不合 → 合。",
+  "必ず直す所 1（頂が滑らかな白い面で、冠が白の上の白）": "前の白の地を、泡の瘤の皮で覆った（指の背の列を互い違いに重ね、間は谷。瘤 0.75〜1.1 m おき）。滑らかな白い地は前から見えなくなった（見える白のうち冠の割合 0.09〜0.16 → 0.85〜0.97、V1）。",
+  "必ず直す所 2（指が寝て見える）": "一部だけ。泡の皮の指の背は頂から唇の先へ前・下へ流れる。B1 の寝た手は皮に半ば埋もれる。B1 の手そのもの（根元の向き）は変えていない。",
+  "必ず直す所 3（垂れる縁が無い）": "唇の縁に立体の滴を垂らした（OUT 42・IN 19 本、間隔の中央値 0.93・0.81 m、長さ 0.96・0.83 m、幅 0.38・0.37 m。彫刻の写真の読み 0.8 m・0.6〜1.45 m・0.30〜0.48 m）。滴は泡の指の列の先に置いた。白の舌は皮が覆い、盛り上がった釉の流れになった。",
+  "必ず直す所 4（白が灰色・稜が平らな縞）": "材質の値だけで：環境の空・海の照り返し・補いの光を明るく、回り込みを広く。白の明るさの中央値：波頭 90° 151 → 209、座席 136 → 182（彫刻の白の中 214〜218）。藍の艶と映り込みの空を強く。",
+  "必ず直す所 5（とげ・穴・z の争い）": "穴（白の中の暗い冠の塊）は 0 になった（皮が覆った）。とげ（B1 の冠の役の利用者の爪 48 本の鋭い先）は残る（下の not_fixed）。",
+  "必ず直す所 6（背・横から冠が弱い）": "頂の線に泡の瘤 11 個（高さ 0.65〜1.40 m、中央値 0.91 m）を置き、背の輪郭に出した（彫刻の背の写真：太く短い指 約 10 本）。冠の見える割合の最小は 1.2〜1.5%。",
+  "必ず直す所 7（溝の青が明るい）": "溝のコバルトの青を (66,102,158) → (51,84,135)（S1 の光の当たるコバルト (59,92,145) へ）。",
+  "必ず直す所 8（V2 の冠が空に溶ける）": "FLAT の冠の色の黄みを抜いた（_MeshTint・_MeshMizuiro）。冠と空の色の差 ΔE76 の中央値 8.7 → 20.0（原画視点）。"
+ },
+ "fix01_not_fixed_ja": [
+  "とげ（必ず直す所 5 の一部）：B1 の冠の役の利用者の爪 48 本は鋭い鉤のまま。C2（利用者の模型の水準：鋭い先）と、Q29・S1（波頭と唇は太く丸い指）が食い違う。C3（100 本を原画の位置へ戻す）の数に入るので外せない。批評の勧め（C2 は面の内・近い海の 35 本だけに当てる）にするかは進行役が決めて記録する。",
+  "寝た指（必ず直す所 2）：B1 の手の根元の向き（法線との角 70°）は変えていない。手を作り直すと T4 の数（S1 の範囲）と G2（V3）の測り直しが要り、1 回の修正に入らなかった。",
+  "背の注ぎ釉の波紋（批評の 11、必ず直す所の外）、光る主役波と平らな海の差・裾の境のぼけ（批評の 10、見本の範囲の外）、面の内の爪が屑に見える（批評の 12）は手を付けていない。",
+  "座席から見た面は、溝の青を暗くしても、まだ等間隔の縞に読める（稜の形は B2 の彫りのまま）。"
+ ]
+}
