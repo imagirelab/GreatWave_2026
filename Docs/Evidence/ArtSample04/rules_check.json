@@ -1,0 +1,4035 @@
+{
+ "schema": "GreatWave.AS04.rules_check/1",
+ "date": "2026-10-04 20:51",
+ "sample_ja": "美術の見本04（Q32）：主役波 K*′ AS04 ＋ ④ の別の青い波 wave4 ＋ AS04 Flat Smooth ＋ 爪 35 本（面の内 25・近い海 10）。t* = 12 s の静止",
+ "requirements": "Docs/Design/Art_Requirements_ja.md",
+ "render": {
+  "path": "Unity/Build/Polish/sample04/assemble/render/FX1",
+  "report_sha256": "7d99ec968a46541f384fd01dc185d979c566ab79b2f322c59951743589492d55"
+ },
+ "inputs": {
+  "Unity/Build/Polish/sample04/wave4/mesh_fix1/union.json": "c98126066ed12d4131e275c98e4fda4311d45b89081611d0590065e7d2c15eec",
+  "Unity/Build/Polish/sample04/wave4/mesh_fix1/wave4.json": "428920c258d0687cac878dcbf9f307c1b069ed4ab0002dbaa70c152811ab8004",
+  "Unity/Build/Polish/sample04/fix1/shape/mesh/hero_smooth_as04f.json": "c0db2922a6915c7cddb3dd6423004b29bcce7f84c4533ace4f42881fa9b53189",
+  "Unity/Build/Polish/sample04/fix1/shape/final/cand/kstarAS04F_a45_rows.npz": "a3f938af88d00dd9214dfa8494bc5eac310850e12243188e57a7978e276efbae",
+  "Unity/Build/Polish/sample04/fix1/shape/final/cand/kstarAS04F_a45.gwb": "e4c526855d4d910f3272e3c7d7ea2cab41fbdaeb2b42b50f3eb659482e989376",
+  "Unity/Build/Polish/sample04/fix1/shape/claws/ds33_claw_layout.json": "51e2e980efb17ac500a4c32a2b6a89a78951b1e6d36691d885be1b878eacfb4d",
+  "Unity/Build/Polish/sample02/fix01/back/final/cand/kstarAS02C_a45_rows.npz": "a6e46a69c9d33805fcbd5eb60d77625fa35d8900a8037ee95b2ddcad2b8a0bbe",
+  "Unity/Build/Polish/sample04/mat/mesh/hero_smooth_as02c.json": "10b92a95c0aa618c5fe70917b68d733cc95748e06807e5d94ccff7c8b59fdebc",
+  "Unity/Build/Polish/sample03/assemble/claws35/ds33_claw_layout.json": "98015861ececcaab73603844e344fdce3abaeb989a8dadefc6507df27709c1b5",
+  "Unity/Build/Polish/sample03/surface/mesh/hero_relief_b1v2c.json": "f07b4daf81a90d60e111f8574469441e08b03d15d600649b2b88e97d3d4b9a47"
+ },
+ "judge_ja": "美術が届いたかは利用者が決める（Q29・Q30）。ここは測れる規則を通るかだけ。",
+ "rules": {
+  "G1": {
+   "rule_ja": "色・線は原画カメラの投影を使わない（コードの検査）。7 視点＋回り台で引き伸ばし・継ぎ目・平らな面がない",
+   "shaders": {
+    "Unity/Assets/GreatWave/ArtSample04/Shaders/AS04FCommon.cginc": {
+     "sha256": "2dc27af2a65d397cf9443a0a9416f92139eb6a510e687c081abd982e8f029426",
+     "same_as_study_M": true,
+     "fix_copy_of_study_M": {
+      "study_M_base": "Unity/Assets/GreatWave/ArtSample04/Shaders/AS04Common.cginc",
+      "study_M_base_sha256": "eacdaa5f02b804b7d94a6026a7e40977d31eac6f501f6fcd49e85d2e99fdf429",
+      "study_M_base_same_as_run": true,
+      "added_lines": 124,
+      "removed_lines": 4,
+      "removed_lines_only_fleck_call_name_include": true,
+      "removed_lines_text": [
+       "#ifndef GREATWAVE_AS04_COMMON_INCLUDED",
+       "#define GREATWAVE_AS04_COMMON_INCLUDED",
+       "float4 _MizuFringe, _Fleck, _FleckDepth, _FleckShape;",
+       "s.fleckCov = mask * AS04Flecks(u, w, su, sw, below, mpp);"
+      ]
+     },
+     "forbidden_tokens": [],
+     "_ScreenParams_uses": 0,
+     "screen_derivative_calls": {
+      "fwidth": 2,
+      "ddx": 3,
+      "ddy": 3
+     }
+    },
+    "Unity/Assets/GreatWave/ArtSample04/Shaders/AS04F_Flat_Smooth_Keypose.shader": {
+     "sha256": "bd4fdcb308e06ccb725e8a0fb12b0e4f136023f9247701e679ff7c47916c59db",
+     "same_as_study_M": true,
+     "fix_copy_of_study_M": {
+      "study_M_base": "Unity/Assets/GreatWave/ArtSample04/Shaders/AS04_Flat_Smooth_Keypose.shader",
+      "study_M_base_sha256": "98f0a0fd20ad012bdf7d6ff915208c41f05e3fd23750a0203044c113237bf0b1",
+      "study_M_base_same_as_run": true,
+      "added_lines": 5,
+      "removed_lines": 3,
+      "removed_lines_only_fleck_call_name_include": true,
+      "removed_lines_text": [
+       "Shader \"GreatWave/ArtSample04/AS04FlatSmoothKeypose\"",
+       "Name \"AS04FlatSmooth\"",
+       "#include \"AS04Common.cginc\""
+      ]
+     },
+     "forbidden_tokens": [],
+     "_ScreenParams_uses": 0,
+     "screen_derivative_calls": {
+      "fwidth": 1,
+      "ddx": 0,
+      "ddy": 0
+     }
+    }
+   },
+   "render_tool": {
+    "path": "Unity/Assets/GreatWave/ArtSample03/Editor/AS03AsmRender.cs",
+    "sha256": "bf4f4aced42297bbaadbae02b61a7917e8dbae58fc8c221dfa5bb6c9b3e987df",
+    "same_as_sample03_checked": true
+   },
+   "render_report_S04": {
+    "heroSdf": "",
+    "heroUvWarp": "",
+    "heroUv3File": "",
+    "protectedUnchanged": true,
+    "as03Shader": "GreatWave/ArtSample04/AS04FFlatSmoothKeypose",
+    "as03Surf": "G:/Unity/GreatWave_2026_Fresh/Unity/Build/Polish/sample04/wave4/mesh_fix1/union.json",
+    "as03Crown": [],
+    "as03ClawGlaze": "GreatWave/ArtSample04/AS04FFlatSmoothKeypose（_AS03Src 2、submesh 2、法線は t* で計算し直し）",
+    "clawLayout": "Build/Polish/sample04/fix1/shape/claws/ds33_claw_layout.json",
+    "as03HeroOutline": true,
+    "changedFiles": []
+   },
+   "union_mesh": {
+    "path": "Unity/Build/Polish/sample04/wave4/mesh_fix1/union.json",
+    "bin_sha256": "b8d9a2cd767e7006367ee9fc99c9392ac5d987a7e5f3562dfbbec3fee17ebb32",
+    "channels": [
+     "position",
+     "normal",
+     "tangent",
+     "uv3",
+     "uv4",
+     "uv5",
+     "uv6"
+    ],
+    "only_geometry_attrs": true
+   },
+   "surface_stretch_front": {
+    "AS04_hero": {
+     "excluded_slivers_q_lt_0.1": 41803,
+     "patterned_face": {
+      "triangles": 255532,
+      "gu_p10_p50_p90": [
+       0.819,
+       1.064,
+       1.651
+      ],
+      "gu_tri_outside_1_3_to_3x": 562,
+      "gu_area_frac_outside_1_3_to_3x": 0.00252,
+      "gw_p10_p50_p90": [
+       0.734,
+       0.944,
+       1.141
+      ],
+      "gw_tri_outside_1_3_to_3x": 0,
+      "gw_area_frac_outside_1_3_to_3x": 0.0
+     },
+     "white_face": {
+      "triangles": 156394,
+      "gu_p10_p50_p90": [
+       0.675,
+       0.876,
+       1.177
+      ],
+      "gu_tri_outside_1_3_to_3x": 845,
+      "gu_area_frac_outside_1_3_to_3x": 0.00598,
+      "gw_p10_p50_p90": [
+       0.59,
+       0.746,
+       0.922
+      ],
+      "gw_tri_outside_1_3_to_3x": 1833,
+      "gw_area_frac_outside_1_3_to_3x": 0.02202
+     },
+     "all_front": {
+      "triangles": 411926,
+      "gu_p10_p50_p90": [
+       0.745,
+       0.975,
+       1.493
+      ],
+      "gu_tri_outside_1_3_to_3x": 1407,
+      "gu_area_frac_outside_1_3_to_3x": 0.00349,
+      "gw_p10_p50_p90": [
+       0.646,
+       0.873,
+       1.104
+      ],
+      "gw_tri_outside_1_3_to_3x": 1833,
+      "gw_area_frac_outside_1_3_to_3x": 0.00613
+     }
+    },
+    "wave4": {
+     "excluded_slivers_q_lt_0.1": 3711,
+     "patterned_face": {
+      "triangles": 61693,
+      "gu_p10_p50_p90": [
+       1.0,
+       1.022,
+       1.118
+      ],
+      "gu_tri_outside_1_3_to_3x": 0,
+      "gu_area_frac_outside_1_3_to_3x": 0.0,
+      "gw_p10_p50_p90": [
+       0.526,
+       0.853,
+       0.998
+      ],
+      "gw_tri_outside_1_3_to_3x": 3,
+      "gw_area_frac_outside_1_3_to_3x": 0.00017
+     },
+     "white_face": {
+      "triangles": 0
+     },
+     "all_front": {
+      "triangles": 61693,
+      "gu_p10_p50_p90": [
+       1.0,
+       1.022,
+       1.118
+      ],
+      "gu_tri_outside_1_3_to_3x": 0,
+      "gu_area_frac_outside_1_3_to_3x": 0.0,
+      "gw_p10_p50_p90": [
+       0.526,
+       0.853,
+       0.998
+      ],
+      "gw_tri_outside_1_3_to_3x": 3,
+      "gw_area_frac_outside_1_3_to_3x": 0.00017
+     }
+    },
+    "AS02C_smooth_sample03_shape": {
+     "excluded_slivers_q_lt_0.1": 28794,
+     "patterned_face": {
+      "triangles": 262135,
+      "gu_p10_p50_p90": [
+       0.74,
+       1.06,
+       1.727
+      ],
+      "gu_tri_outside_1_3_to_3x": 22,
+      "gu_area_frac_outside_1_3_to_3x": 2e-05,
+      "gw_p10_p50_p90": [
+       0.761,
+       0.958,
+       1.114
+      ],
+      "gw_tri_outside_1_3_to_3x": 0,
+      "gw_area_frac_outside_1_3_to_3x": 0.0
+     },
+     "white_face": {
+      "triangles": 162801,
+      "gu_p10_p50_p90": [
+       0.671,
+       0.869,
+       1.029
+      ],
+      "gu_tri_outside_1_3_to_3x": 0,
+      "gu_area_frac_outside_1_3_to_3x": 0.0,
+      "gw_p10_p50_p90": [
+       0.668,
+       0.86,
+       0.963
+      ],
+      "gw_tri_outside_1_3_to_3x": 0,
+      "gw_area_frac_outside_1_3_to_3x": 0.0
+     },
+     "all_front": {
+      "triangles": 424936,
+      "gu_p10_p50_p90": [
+       0.699,
+       0.951,
+       1.482
+      ],
+      "gu_tri_outside_1_3_to_3x": 22,
+      "gu_area_frac_outside_1_3_to_3x": 2e-05,
+      "gw_p10_p50_p90": [
+       0.696,
+       0.918,
+       1.069
+      ],
+      "gw_tri_outside_1_3_to_3x": 0,
+      "gw_area_frac_outside_1_3_to_3x": 0.0
+     }
+    }
+   },
+   "surface_stretch_not_worse": true,
+   "surface_stretch_rule_ja": "見本02・03 と同じ規則で判定：模様（帯・白い点・水色の縁）を描く前の面（whiteSD < 1.4 m）で、帯の座標 w の勾配 |∇w| が 1/3〜3 倍の外の三角形が見本03 の形（AS02C）より増えないこと（細い三角形を除く）。白（平らな一色で模様なし）の面と、白い点の格子だけに効く u は記録。",
+   "surface_stretch_record_ja": "記録：AS04 の主役波では、白の面で |∇w| が外の三角形 1833（白の前の面の面積の 2.20%。唇を短くした c −10〜−4 m の主の唇の左の端、白い一色なので帯は描かれない）、模様の面で |∇u| が外の三角形 562（0.25%。c −0.2〜+0.95 m の巻きの内の細い帯。u は白い点の格子だけに使う）。見本03 の形ではどちらもほぼ 0。各視点で見える画素は stretch_visible_px。",
+   "stretch_visible_px": {
+    "painting": {
+     "w_white": 16891,
+     "w_patterned": 0,
+     "u_patterned": 3795,
+     "u_white": 37
+    },
+    "seat": {
+     "w_white": 727,
+     "w_patterned": 0,
+     "u_patterned": 2839,
+     "u_white": 0
+    },
+    "seat_toward_wave": {
+     "w_white": 0,
+     "w_patterned": 0,
+     "u_patterned": 3372,
+     "u_white": 0
+    },
+    "side_left": {
+     "w_white": 856,
+     "w_patterned": 0,
+     "u_patterned": 0,
+     "u_white": 141
+    },
+    "side_right": {
+     "w_white": 0,
+     "w_patterned": 0,
+     "u_patterned": 0,
+     "u_white": 4
+    },
+    "back65": {
+     "w_white": 0,
+     "w_patterned": 0,
+     "u_patterned": 0,
+     "u_white": 0
+    },
+    "top": {
+     "w_white": 30,
+     "w_patterned": 0,
+     "u_patterned": 0,
+     "u_white": 363
+    },
+    "tt0": {
+     "w_white": 5929,
+     "w_patterned": 0,
+     "u_patterned": 719,
+     "u_white": 634
+    },
+    "tt30": {
+     "w_white": 2292,
+     "w_patterned": 0,
+     "u_patterned": 0,
+     "u_white": 499
+    },
+    "tt60": {
+     "w_white": 95,
+     "w_patterned": 0,
+     "u_patterned": 64,
+     "u_white": 256
+    },
+    "tt90": {
+     "w_white": 21,
+     "w_patterned": 0,
+     "u_patterned": 49,
+     "u_white": 84
+    },
+    "tt120": {
+     "w_white": 0,
+     "w_patterned": 0,
+     "u_patterned": 0,
+     "u_white": 32
+    },
+    "tt150": {
+     "w_white": 0,
+     "w_patterned": 0,
+     "u_patterned": 0,
+     "u_white": 27
+    },
+    "tt180": {
+     "w_white": 0,
+     "w_patterned": 0,
+     "u_patterned": 0,
+     "u_white": 29
+    },
+    "tt210": {
+     "w_white": 0,
+     "w_patterned": 0,
+     "u_patterned": 0,
+     "u_white": 50
+    },
+    "tt240": {
+     "w_white": 0,
+     "w_patterned": 0,
+     "u_patterned": 0,
+     "u_white": 199
+    },
+    "tt270": {
+     "w_white": 2062,
+     "w_patterned": 0,
+     "u_patterned": 0,
+     "u_white": 404
+    },
+    "tt300": {
+     "w_white": 5280,
+     "w_patterned": 0,
+     "u_patterned": 0,
+     "u_white": 556
+    },
+    "tt330": {
+     "w_white": 7001,
+     "w_patterned": 0,
+     "u_patterned": 0,
+     "u_white": 651
+    }
+   },
+   "wave4_whiteSD_source_ja": "wave4 の whiteSD（水色の帯・淡い筋・白い点の境）は、原画の楔の帯の境の位置を、原画のカメラの射線が wave4 の面に当たる所の 面の座標 u・c として測り、c に沿ってならした値（w4_paint.py・w4_build.py）。見本03 の白の印（前の白の境を原画視点の藍の面の始まりに合わせた）と同じ「位置を測って面の値にする」作りで、色は材質の限られた色。シェーダーに原画カメラの行列・テクスチャは無い。",
+   "wave4_build_report_keys": [
+    "a_range",
+    "bands_by_c",
+    "bands_measured",
+    "boundary_height_above_ground_m",
+    "boundary_vertices",
+    "c_range",
+    "chips",
+    "clearance_above_ground_m",
+    "cliff_cells",
+    "crest_by_c",
+    "crest_in_frame",
+    "height_max_m",
+    "hero_rows",
+    "hero_rows_sha256",
+    "mesh",
+    "mesh_bin_sha256",
+    "params",
+    "schema",
+    "silhouette_iterations",
+    "steep_triangles_dy_gt_0p5_slope_gt_3"
+   ],
+   "note_ja": "7 視点＋波頭の回り台＋回り台の見た目（引き伸ばし・継ぎ目・平らな面）は利用者が並べ図で見る。ここは面の座標の伸びの数だけ。",
+   "verdict": "pass"
+  },
+  "G2": {
+   "rule_ja": "78・130・131（定義どおり）≤ 4 px、132・72 は大きな輪郭で ≤ 4 px。合わせた輪郭（主役波＋wave4）で測る",
+   "render": "Unity/Build/Polish/sample04/assemble/render/FX1",
+   "gates": {
+    "78": {
+     "claws": 1.6108,
+     "noclaws": 1.6108,
+     "gate_px": 4.0,
+     "pass": true,
+     "sample02_AS02C_claws": 2.741,
+     "CP1": 2.772,
+     "26修正01": 1.641
+    },
+    "130": {
+     "claws": 3.5815,
+     "noclaws": 3.5815,
+     "gate_px": 4.0,
+     "pass": true,
+     "sample02_AS02C_claws": 3.5815,
+     "CP1": 1.968,
+     "26修正01": 1.953
+    },
+    "131": {
+     "claws": 3.4419,
+     "noclaws": 3.4419,
+     "gate_px": 4.0,
+     "pass": true,
+     "sample02_AS02C_claws": 3.4419,
+     "CP1": 1.814,
+     "26修正01": 1.798
+    },
+    "132_s12": {
+     "claws": 3.562,
+     "noclaws": 3.562,
+     "gate_px": 4.0,
+     "pass": true,
+     "sample02_AS02C_claws": 3.5576,
+     "CP1": 1.326,
+     "26修正01": 1.574
+    },
+    "72_s12_p95": {
+     "claws": 3.7971,
+     "noclaws": 3.7971,
+     "gate_px": 4.0,
+     "pass": true,
+     "sample02_AS02C_claws": 3.6577,
+     "CP1": 1.558,
+     "26修正01": 1.723
+    }
+   },
+   "eval23_record": {
+    "line": {
+     "pass": 2,
+     "fail": 7,
+     "other": 14
+    },
+    "line_noclaws": {
+     "pass": 2,
+     "fail": 7,
+     "other": 14
+    },
+    "noline": {
+     "pass": 4,
+     "fail": 5,
+     "other": 14
+    },
+    "noline_noclaws": {
+     "pass": 4,
+     "fail": 5,
+     "other": 14
+    }
+   },
+   "hero_only_A4_record": {},
+   "stale_value_in_wave4_record": {
+    "78_reported_by_wave4_task": 2.9185,
+    "78_fresh_S04": 1.6108,
+    "note_ja": "wave4 の作りの記録の 78 2.9185 は、wave4/render/as04/t28_claws の pl28u_tstar_verdict.json が 18:29 の途中の版の描画のまま残り（as02_gates.py は判定のファイルがあると測り直さない）、19:01 の描き直しで測り直されなかった値。組み立ての S04 は新しいフォルダーで測り直した（描画の画は 19:01 の版と画素まで同じ）。"
+   },
+   "source": {
+    "path": "Unity/Build/Polish/sample04/assemble/render/measure/gates_FX1/sweep_gates.json",
+    "sha256": "cf7423dd3e0ccd8d84d2b6db342efff1e924d0cd763d346b798dbcb4db22a2c8"
+   },
+   "verdict": "pass"
+  },
+  "S4": {
+   "rule_ja": "背は中ほどがいちばん高く盛り上がり、両側へなだらかに下がる（一つの山）。後ろ 65°・真後ろ・回り台で目でも確かめる",
+   "H_of_c": {
+    "hero_only": {
+     "all": {
+      "max": 20.27,
+      "x_at_max": -0.8,
+      "dip_depth": 0.068,
+      "x_at_dip": -18.0,
+      "bay_depth": 11.167,
+      "x_at_bay": -27.93
+     },
+     "window_c_ge_-14": {
+      "max": 20.27,
+      "x_at_max": -0.8,
+      "dip_depth": 0.0,
+      "x_at_dip": -14.0,
+      "bay_depth": 0.262,
+      "x_at_bay": -12.2
+     }
+    },
+    "union_hero_wave4": {
+     "all": {
+      "max": 20.27,
+      "x_at_max": -0.8,
+      "dip_depth": 0.025,
+      "x_at_dip": -14.0,
+      "bay_depth": 10.788,
+      "x_at_bay": -28.381
+     },
+     "window_c_ge_-14": {
+      "max": 20.27,
+      "x_at_max": -0.8,
+      "dip_depth": 0.0,
+      "x_at_dip": -14.0,
+      "bay_depth": 0.708,
+      "x_at_bay": -12.8
+     }
+    }
+   },
+   "silhouette_from_behind": {
+    "b65_back65_clay": {
+     "AS02C_sample03_shape": {
+      "dip_px_all": 5.14,
+      "dip_px_window_c_ge_-14": 0.0,
+      "x_at_dip_all": 864.0
+     },
+     "AS04_hero_only": {
+      "dip_px_all": 1.26,
+      "dip_px_window_c_ge_-14": 0.0,
+      "x_at_dip_all": 893.0
+     },
+     "AS04_union": {
+      "dip_px_all": 3.25,
+      "dip_px_window_c_ge_-14": 0.0,
+      "x_at_dip_all": 870.0
+     }
+    },
+    "b90_back_straight": {
+     "AS02C_sample03_shape": {
+      "dip_px_all": 4.22,
+      "dip_px_window_c_ge_-14": 0.27,
+      "x_at_dip_all": 911.0
+     },
+     "AS04_hero_only": {
+      "dip_px_all": 1.61,
+      "dip_px_window_c_ge_-14": 0.27,
+      "x_at_dip_all": 914.0
+     },
+     "AS04_union": {
+      "dip_px_all": 1.82,
+      "dip_px_window_c_ge_-14": 0.27,
+      "x_at_dip_all": 889.0
+     }
+    },
+    "b115_back_minus_c": {
+     "AS02C_sample03_shape": {
+      "dip_px_all": 13.84,
+      "dip_px_window_c_ge_-14": 0.37,
+      "x_at_dip_all": 1277.0
+     },
+     "AS04_hero_only": {
+      "dip_px_all": 5.91,
+      "dip_px_window_c_ge_-14": 1.51,
+      "x_at_dip_all": 902.0
+     },
+     "AS04_union": {
+      "dip_px_all": 0.87,
+      "dip_px_window_c_ge_-14": 0.37,
+      "x_at_dip_all": 881.0
+     }
+    }
+   },
+   "checks": {
+    "H_dip_union_c_ge_-14_m": {
+     "value": 0.0,
+     "pass": true
+    },
+    "back_contour_dip_max_m（主役波の背、0.10 m まで）": {
+     "value": 0.077,
+     "pass": true
+    },
+    "bulge_over_chord_dip_m": {
+     "value": 0.019,
+     "pass": true
+    },
+    "silhouette_dip_from_behind_px_union_c_ge_-14（1 px まで）": {
+     "value": {
+      "b65_back65_clay": 0.0,
+      "b90_back_straight": 0.27,
+      "b115_back_minus_c": 0.37
+     },
+     "pass": true
+    }
+   },
+   "record": {
+    "bulge_peak_in_middle_zone_c_-6_6（記録。見本02 から外へ出る高さがある）": {
+     "peak_c_by_level": {
+      "0.05": 1.6,
+      "0.15": 1.0,
+      "0.30": 4.0,
+      "0.40": 1.4,
+      "0.50": -3.8,
+      "0.60": -5.4,
+      "0.70": -5.2,
+      "0.80": -4.8,
+      "0.85": -4.2,
+      "0.90": -3.0
+     },
+     "outside_levels": {}
+    }
+   },
+   "back_contour_source": {
+    "path": "Unity/Build/Polish/sample04/fix1/shape/final/eval_AS04F_back_measure.json",
+    "rows_sha256_matches": true
+   },
+   "method_ja": "H(c) は主役波の行ごとの頂（列 18〜200 の最大）と、その行の幅の中の wave4 の頂点の高さの最大の大きい方。後ろからの輪郭は見本02 の back_measure と同じカメラ（b65・b90・b115）で、主役波は行を細かく補った点、wave4 は静止のメッシュの頂点を投影した一番上。窓 c ≥ −14 は見本02 と同じ（b区域より +c 側）。全部の行の値も記録する。",
+   "verdict": "pass"
+  },
+  "S8": {
+   "rule_ja": "原画視点で頂の下・唇の左の内側の面の帯（利用者の黄色の線）は、内側の面と同じ弧の上にあり、出っ張り・折り重なりを作らない",
+   "measure_ja": "その所の面の、内側の面の弧からの出っ張り p95 ≤ 0.15 m（形づくりの shape_common.bulge_metric：黄色の線の中の原画の射線の最初の当たりが、その行の内の面の線からどれだけ離れているか）",
+   "AS02C_sample03_shape": {
+    "rays": 9223,
+    "first_hit_inner_face_share": 0.0,
+    "first_hit_cols": {
+     "p5": 147.7,
+     "p50": 170.7,
+     "p95": 191.6
+    },
+    "first_hit_rows": {
+     "p5": 116.1,
+     "p50": 122.7,
+     "p95": 130.5
+    },
+    "dev_from_inner_face_m": {
+     "p50": 1.28,
+     "p90": 2.527,
+     "p95": 2.691,
+     "max": 3.238
+    },
+    "dev_from_circle_s4_m": {
+     "p50": 1.396,
+     "p95": 2.437
+    }
+   },
+   "AS04": {
+    "rays": 9223,
+    "first_hit_inner_face_share": 0.984,
+    "first_hit_cols": {
+     "p5": 221.2,
+     "p50": 266.5,
+     "p95": 279.8
+    },
+    "first_hit_rows": {
+     "p5": 140.3,
+     "p50": 160.9,
+     "p95": 174.8
+    },
+    "dev_from_inner_face_m": {
+     "p50": 0.0,
+     "p90": 0.0,
+     "p95": 0.0,
+     "max": 2.687
+    },
+    "dev_from_circle_s4_m": {
+     "p50": 0.109,
+     "p95": 0.237
+    }
+   },
+   "painting_view_owner_share_in_loop_S04": {
+    "hero": 0.98,
+    "claw": 0.02
+   },
+   "verdict": "pass"
+  },
+  "S9": {
+   "rule_ja": "左側の白は下へ押されて低い。④（輪郭線の最も左の短い一区間）は青い波が作る。白い波を左へ延ばして高い輪郭線に合わせない",
+   "measure_ja": "原画視点（表示の 2 倍の細かさの numpy の z バッファ。主役波 AS04 ＋ wave4 の静止のメッシュ・近い海・爪）で、空と接する輪郭の画素の持ち主を数え、原画の輪郭の真値の点（区間ごと）に最も近い輪郭の画素の持ち主を数える。④ = 区間 78 の x < 360（原画の画素）。",
+   "per_segment": {
+    "78": {
+     "points": 411,
+     "owner_share": {
+      "hero": 0.287,
+      "wave4": 0.713
+     },
+     "nearest_edge_px_display_max": 1.63,
+     "nearest_edge_px_display_p95": 1.26,
+     "region4_x_lt_360": {
+      "points": 297,
+      "owner_share": {
+       "hero": 0.013,
+       "wave4": 0.987
+      },
+      "nearest_edge_px_display_max": 1.24
+     },
+     "x_ge_360": {
+      "points": 114,
+      "owner_share": {
+       "hero": 1.0
+      }
+     }
+    },
+    "130": {
+     "points": 278,
+     "owner_share": {
+      "hero": 1.0
+     },
+     "nearest_edge_px_display_max": 3.71,
+     "nearest_edge_px_display_p95": 3.38
+    },
+    "131": {
+     "points": 559,
+     "owner_share": {
+      "hero": 1.0
+     },
+     "nearest_edge_px_display_max": 3.54,
+     "nearest_edge_px_display_p95": 3.09
+    },
+    "132": {
+     "points": 824,
+     "owner_share": {
+      "hero": 1.0
+     },
+     "nearest_edge_px_display_max": 6.13,
+     "nearest_edge_px_display_p95": 4.99
+    },
+    "72": {
+     "points": 1520,
+     "owner_share": {
+      "hero": 1.0
+     },
+     "nearest_edge_px_display_max": 7.88,
+     "nearest_edge_px_display_p95": 5.79
+    }
+   },
+   "segment78_points_sampled": [
+    [
+     4.0,
+     892.0,
+     "wave4",
+     0.64
+    ],
+    [
+     9.0,
+     895.0,
+     "wave4",
+     0.4
+    ],
+    [
+     14.0,
+     898.0,
+     "wave4",
+     0.18
+    ],
+    [
+     19.0,
+     901.0,
+     "wave4",
+     0.18
+    ],
+    [
+     23.0,
+     903.0,
+     "wave4",
+     0.4
+    ],
+    [
+     28.0,
+     905.0,
+     "wave4",
+     0.18
+    ],
+    [
+     33.0,
+     906.0,
+     "wave4",
+     0.4
+    ],
+    [
+     38.0,
+     908.0,
+     "wave4",
+     0.64
+    ],
+    [
+     43.0,
+     909.0,
+     "wave4",
+     0.64
+    ],
+    [
+     47.0,
+     910.0,
+     "wave4",
+     0.4
+    ],
+    [
+     52.0,
+     911.0,
+     "wave4",
+     0.4
+    ],
+    [
+     57.0,
+     912.0,
+     "wave4",
+     0.18
+    ],
+    [
+     62.0,
+     913.0,
+     "wave4",
+     0.18
+    ],
+    [
+     67.0,
+     913.0,
+     "wave4",
+     0.4
+    ],
+    [
+     71.0,
+     914.0,
+     "wave4",
+     0.18
+    ],
+    [
+     76.0,
+     916.0,
+     "wave4",
+     0.4
+    ],
+    [
+     81.0,
+     917.0,
+     "wave4",
+     0.18
+    ],
+    [
+     86.0,
+     919.0,
+     "wave4",
+     0.4
+    ],
+    [
+     91.0,
+     921.0,
+     "wave4",
+     0.18
+    ],
+    [
+     95.0,
+     923.0,
+     "wave4",
+     0.18
+    ],
+    [
+     100.0,
+     924.0,
+     "wave4",
+     0.4
+    ],
+    [
+     105.0,
+     925.0,
+     "wave4",
+     0.4
+    ],
+    [
+     110.0,
+     926.0,
+     "wave4",
+     0.4
+    ],
+    [
+     115.0,
+     928.0,
+     "wave4",
+     0.4
+    ],
+    [
+     120.0,
+     929.0,
+     "wave4",
+     0.4
+    ],
+    [
+     124.0,
+     930.0,
+     "wave4",
+     0.4
+    ],
+    [
+     129.0,
+     931.0,
+     "wave4",
+     0.4
+    ],
+    [
+     134.0,
+     931.0,
+     "wave4",
+     0.4
+    ],
+    [
+     139.0,
+     932.0,
+     "wave4",
+     0.4
+    ],
+    [
+     144.0,
+     932.0,
+     "wave4",
+     0.64
+    ],
+    [
+     148.0,
+     932.0,
+     "wave4",
+     0.64
+    ],
+    [
+     153.0,
+     932.0,
+     "wave4",
+     0.64
+    ],
+    [
+     158.0,
+     932.0,
+     "wave4",
+     0.64
+    ],
+    [
+     163.0,
+     932.0,
+     "wave4",
+     0.18
+    ],
+    [
+     168.0,
+     931.0,
+     "wave4",
+     0.4
+    ],
+    [
+     172.0,
+     932.0,
+     "wave4",
+     0.18
+    ],
+    [
+     177.0,
+     931.0,
+     "wave4",
+     0.4
+    ],
+    [
+     182.0,
+     931.0,
+     "wave4",
+     0.4
+    ],
+    [
+     187.0,
+     931.0,
+     "wave4",
+     0.4
+    ],
+    [
+     192.0,
+     931.0,
+     "wave4",
+     0.64
+    ],
+    [
+     196.0,
+     931.0,
+     "wave4",
+     0.18
+    ],
+    [
+     201.0,
+     931.0,
+     "wave4",
+     0.18
+    ],
+    [
+     206.0,
+     929.0,
+     "wave4",
+     0.18
+    ],
+    [
+     211.0,
+     929.0,
+     "wave4",
+     0.4
+    ],
+    [
+     216.0,
+     928.0,
+     "wave4",
+     0.18
+    ],
+    [
+     220.0,
+     928.0,
+     "wave4",
+     0.4
+    ],
+    [
+     225.0,
+     927.0,
+     "wave4",
+     0.18
+    ],
+    [
+     230.0,
+     926.0,
+     "wave4",
+     0.4
+    ],
+    [
+     235.0,
+     925.0,
+     "wave4",
+     0.4
+    ],
+    [
+     240.0,
+     925.0,
+     "wave4",
+     0.18
+    ],
+    [
+     244.0,
+     923.0,
+     "wave4",
+     0.18
+    ],
+    [
+     249.0,
+     922.0,
+     "wave4",
+     0.4
+    ],
+    [
+     254.0,
+     920.0,
+     "wave4",
+     0.4
+    ],
+    [
+     259.0,
+     919.0,
+     "wave4",
+     0.18
+    ],
+    [
+     264.0,
+     917.0,
+     "wave4",
+     0.4
+    ],
+    [
+     268.0,
+     915.0,
+     "wave4",
+     0.4
+    ],
+    [
+     273.0,
+     913.0,
+     "wave4",
+     0.18
+    ],
+    [
+     278.0,
+     910.0,
+     "wave4",
+     0.18
+    ],
+    [
+     283.0,
+     909.0,
+     "wave4",
+     0.18
+    ],
+    [
+     288.0,
+     907.0,
+     "wave4",
+     0.4
+    ],
+    [
+     292.0,
+     905.0,
+     "wave4",
+     0.18
+    ],
+    [
+     297.0,
+     903.0,
+     "wave4",
+     0.4
+    ],
+    [
+     302.0,
+     902.0,
+     "wave4",
+     0.64
+    ],
+    [
+     307.0,
+     900.0,
+     "wave4",
+     0.64
+    ],
+    [
+     312.0,
+     899.0,
+     "wave4",
+     0.64
+    ],
+    [
+     316.0,
+     898.0,
+     "wave4",
+     0.18
+    ],
+    [
+     321.0,
+     897.0,
+     "wave4",
+     0.18
+    ],
+    [
+     326.0,
+     896.0,
+     "wave4",
+     0.18
+    ],
+    [
+     331.0,
+     895.0,
+     "wave4",
+     0.64
+    ],
+    [
+     336.0,
+     894.0,
+     "wave4",
+     1.19
+    ],
+    [
+     340.0,
+     891.0,
+     "wave4",
+     0.95
+    ],
+    [
+     345.0,
+     887.0,
+     "wave4",
+     0.4
+    ],
+    [
+     350.0,
+     882.0,
+     "wave4",
+     0.4
+    ],
+    [
+     355.0,
+     878.0,
+     "wave4",
+     0.18
+    ],
+    [
+     360.0,
+     873.0,
+     "hero",
+     0.4
+    ],
+    [
+     364.0,
+     870.0,
+     "hero",
+     0.4
+    ],
+    [
+     369.0,
+     866.0,
+     "hero",
+     0.18
+    ],
+    [
+     374.0,
+     861.0,
+     "hero",
+     0.18
+    ],
+    [
+     378.0,
+     856.0,
+     "hero",
+     0.4
+    ],
+    [
+     383.0,
+     851.0,
+     "hero",
+     0.4
+    ],
+    [
+     387.0,
+     846.0,
+     "hero",
+     0.64
+    ],
+    [
+     392.0,
+     843.0,
+     "hero",
+     0.18
+    ],
+    [
+     397.0,
+     838.0,
+     "hero",
+     0.4
+    ],
+    [
+     401.0,
+     833.0,
+     "hero",
+     0.18
+    ],
+    [
+     405.0,
+     829.0,
+     "hero",
+     0.4
+    ],
+    [
+     410.0,
+     824.0,
+     "hero",
+     0.73
+    ],
+    [
+     415.0,
+     819.0,
+     "hero",
+     0.73
+    ],
+    [
+     420.0,
+     815.0,
+     "hero",
+     1.08
+    ],
+    [
+     425.0,
+     810.0,
+     "hero",
+     1.43
+    ],
+    [
+     429.0,
+     806.0,
+     "hero",
+     1.43
+    ],
+    [
+     432.0,
+     801.0,
+     "hero",
+     1.43
+    ],
+    [
+     436.0,
+     796.0,
+     "hero",
+     1.08
+    ],
+    [
+     440.0,
+     791.0,
+     "hero",
+     1.08
+    ],
+    [
+     443.0,
+     786.0,
+     "hero",
+     1.08
+    ],
+    [
+     447.0,
+     782.0,
+     "hero",
+     0.73
+    ],
+    [
+     452.0,
+     777.0,
+     "hero",
+     1.08
+    ],
+    [
+     456.0,
+     772.0,
+     "hero",
+     0.95
+    ],
+    [
+     460.0,
+     767.0,
+     "hero",
+     1.08
+    ],
+    [
+     464.0,
+     763.0,
+     "hero",
+     1.08
+    ],
+    [
+     469.0,
+     758.0,
+     "hero",
+     1.43
+    ],
+    [
+     473.0,
+     753.0,
+     "hero",
+     1.29
+    ],
+    [
+     477.0,
+     749.0,
+     "hero",
+     1.38
+    ],
+    [
+     480.0,
+     744.0,
+     "hero",
+     0.88
+    ]
+   ],
+   "wedge_lower_edge": [
+    {
+     "x_ref": 4,
+     "wave4_visible_lower_y_ref": 1044.9,
+     "painting_wedge_lower_y_ref": 1079.0,
+     "too_high_px": 34.1
+    },
+    {
+     "x_ref": 20,
+     "wave4_visible_lower_y_ref": 1044.9,
+     "painting_wedge_lower_y_ref": 1079.0,
+     "too_high_px": 34.1
+    },
+    {
+     "x_ref": 36,
+     "wave4_visible_lower_y_ref": 1046.1,
+     "painting_wedge_lower_y_ref": 1074.0,
+     "too_high_px": 27.9
+    },
+    {
+     "x_ref": 52,
+     "wave4_visible_lower_y_ref": 1046.1,
+     "painting_wedge_lower_y_ref": 1072.0,
+     "too_high_px": 25.9
+    },
+    {
+     "x_ref": 68,
+     "wave4_visible_lower_y_ref": 1042.5,
+     "painting_wedge_lower_y_ref": 1065.0,
+     "too_high_px": 22.5
+    },
+    {
+     "x_ref": 84,
+     "wave4_visible_lower_y_ref": 1035.3,
+     "painting_wedge_lower_y_ref": 1055.0,
+     "too_high_px": 19.7
+    },
+    {
+     "x_ref": 100,
+     "wave4_visible_lower_y_ref": 1019.7,
+     "painting_wedge_lower_y_ref": 1052.0,
+     "too_high_px": 32.3
+    },
+    {
+     "x_ref": 116,
+     "wave4_visible_lower_y_ref": 1011.3,
+     "painting_wedge_lower_y_ref": 1038.0,
+     "too_high_px": 26.7
+    },
+    {
+     "x_ref": 132,
+     "wave4_visible_lower_y_ref": 1011.3,
+     "painting_wedge_lower_y_ref": 1029.0,
+     "too_high_px": 17.7
+    },
+    {
+     "x_ref": 148,
+     "wave4_visible_lower_y_ref": 1011.3,
+     "painting_wedge_lower_y_ref": 1022.0,
+     "too_high_px": 10.7
+    },
+    {
+     "x_ref": 164,
+     "wave4_visible_lower_y_ref": 1004.1,
+     "painting_wedge_lower_y_ref": 1014.0,
+     "too_high_px": 9.9
+    },
+    {
+     "x_ref": 180,
+     "wave4_visible_lower_y_ref": 996.9,
+     "painting_wedge_lower_y_ref": 1008.0,
+     "too_high_px": 11.1
+    },
+    {
+     "x_ref": 196,
+     "wave4_visible_lower_y_ref": 988.5,
+     "painting_wedge_lower_y_ref": 1003.0,
+     "too_high_px": 14.5
+    },
+    {
+     "x_ref": 212,
+     "wave4_visible_lower_y_ref": 980.1,
+     "painting_wedge_lower_y_ref": 1001.0,
+     "too_high_px": 20.9
+    },
+    {
+     "x_ref": 228,
+     "wave4_visible_lower_y_ref": 970.4,
+     "painting_wedge_lower_y_ref": 987.0,
+     "too_high_px": 16.6
+    },
+    {
+     "x_ref": 244,
+     "wave4_visible_lower_y_ref": 962.0,
+     "painting_wedge_lower_y_ref": 978.0,
+     "too_high_px": 16.0
+    },
+    {
+     "x_ref": 260,
+     "wave4_visible_lower_y_ref": 952.4,
+     "painting_wedge_lower_y_ref": 969.0,
+     "too_high_px": 16.6
+    },
+    {
+     "x_ref": 276,
+     "wave4_visible_lower_y_ref": 944.0,
+     "painting_wedge_lower_y_ref": 950.0,
+     "too_high_px": 6.0
+    },
+    {
+     "x_ref": 292,
+     "wave4_visible_lower_y_ref": 933.2,
+     "painting_wedge_lower_y_ref": 938.0,
+     "too_high_px": 4.8
+    },
+    {
+     "x_ref": 308,
+     "wave4_visible_lower_y_ref": 921.2,
+     "painting_wedge_lower_y_ref": 928.0,
+     "too_high_px": 6.8
+    },
+    {
+     "x_ref": 324,
+     "wave4_visible_lower_y_ref": 906.8,
+     "painting_wedge_lower_y_ref": 917.0,
+     "too_high_px": 10.2
+    },
+    {
+     "x_ref": 340,
+     "wave4_visible_lower_y_ref": 892.4,
+     "painting_wedge_lower_y_ref": 909.0,
+     "too_high_px": 16.6
+    },
+    {
+     "x_ref": 356,
+     "wave4_visible_lower_y_ref": null,
+     "painting_wedge_lower_y_ref": 896.0,
+     "too_high_px": null
+    }
+   ],
+   "white_part": {
+    "AS02C_sample03_shape": {
+     "white_vertices": 145985,
+     "white_vertices_c_lt_-12.6": 49465,
+     "leftmost_white_c_m": -60.0,
+     "white_top_y_by_c_bin_2m": [
+      [
+       -33.0,
+       4.77,
+       765
+      ],
+      [
+       -31.0,
+       5.83,
+       935
+      ],
+      [
+       -29.0,
+       6.73,
+       918
+      ],
+      [
+       -27.0,
+       7.42,
+       1288
+      ],
+      [
+       -25.0,
+       8.49,
+       1323
+      ],
+      [
+       -23.0,
+       9.62,
+       1152
+      ],
+      [
+       -21.0,
+       10.93,
+       5511
+      ],
+      [
+       -19.0,
+       11.3,
+       7575
+      ],
+      [
+       -17.0,
+       11.29,
+       7878
+      ],
+      [
+       -15.0,
+       11.43,
+       7579
+      ],
+      [
+       -13.0,
+       12.74,
+       7707
+      ],
+      [
+       -11.0,
+       14.83,
+       6080
+      ],
+      [
+       -9.0,
+       16.66,
+       3810
+      ]
+     ]
+    },
+    "AS04": {
+     "white_vertices": 124630,
+     "white_vertices_c_lt_-12.6": 35057,
+     "leftmost_white_c_m": -23.38,
+     "white_top_y_by_c_bin_2m": [
+      [
+       -33.0,
+       null,
+       0
+      ],
+      [
+       -31.0,
+       null,
+       0
+      ],
+      [
+       -29.0,
+       null,
+       0
+      ],
+      [
+       -27.0,
+       null,
+       0
+      ],
+      [
+       -25.0,
+       null,
+       0
+      ],
+      [
+       -23.0,
+       6.43,
+       968
+      ],
+      [
+       -21.0,
+       9.24,
+       5570
+      ],
+      [
+       -19.0,
+       9.63,
+       7538
+      ],
+      [
+       -17.0,
+       10.05,
+       7934
+      ],
+      [
+       -15.0,
+       11.11,
+       7765
+      ],
+      [
+       -13.0,
+       12.73,
+       7431
+      ],
+      [
+       -11.0,
+       14.83,
+       5622
+      ],
+      [
+       -9.0,
+       16.66,
+       4303
+      ]
+     ]
+    }
+   },
+   "unity_render_diff_with_without_wave4": {
+    "changed_pixels": 16053,
+    "bbox_display_xyxy": [
+     0,
+     357,
+     292,
+     447
+    ],
+    "changed_right_of_x_ref_360": 0,
+    "x_display_of_x_ref_360": 306.3,
+    "region4_polygon_changed_share": 0.321,
+    "note_ja": "Unity の原画視点の描画（爪あり）で、wave4 あり（組み立て S04）と なし（形づくりの A4）の差の画素（RGB の差の和 > 12）。差は wave4 が見える所だけに出るはず。"
+   },
+   "pass_condition_ja": "④ の真値の点の 95% 以上を wave4 が作り、主役波の白の頂点が c < −12.6 m で見本03 より少ない",
+   "verdict": "pass"
+  },
+  "S10": {
+   "rule_ja": "波の峰に沿う向き（横向）に長すぎない。詰める（見本03 と比べる）",
+   "method_ja": "高さの帯（H = 20.27 m の 0.1〜0.9）ごとに、頂がその高さを越える c の範囲の幅。主役波だけは形づくりの band_extent（行の頂）、合わせた形は主役波の行の頂と wave4 の頂点の高さを c の 0.05 m おきに重ねた大きい方（主役波だけの値と 0.05 m の差がありうる）。",
+   "AS02C_sample03_shape": {
+    "0.1": {
+     "c_lo": -45.27,
+     "c_hi": 14.43,
+     "width_m": 59.7
+    },
+    "0.2": {
+     "c_lo": -34.07,
+     "c_hi": 13.85,
+     "width_m": 47.93
+    },
+    "0.3": {
+     "c_lo": -29.81,
+     "c_hi": 13.27,
+     "width_m": 43.08
+    },
+    "0.4": {
+     "c_lo": -24.72,
+     "c_hi": 12.69,
+     "width_m": 37.41
+    },
+    "0.5": {
+     "c_lo": -21.34,
+     "c_hi": 12.09,
+     "width_m": 33.43
+    },
+    "0.6": {
+     "c_lo": -12.69,
+     "c_hi": 11.37,
+     "width_m": 24.06
+    },
+    "0.7": {
+     "c_lo": -10.61,
+     "c_hi": 10.37,
+     "width_m": 20.98
+    },
+    "0.8": {
+     "c_lo": -8.55,
+     "c_hi": 8.92,
+     "width_m": 17.47
+    },
+    "0.9": {
+     "c_lo": -6.08,
+     "c_hi": 6.17,
+     "width_m": 12.25
+    }
+   },
+   "AS02C_on_0p05m_grid": {
+    "0.1": {
+     "c_lo": -45.25,
+     "c_hi": 14.4,
+     "width_m": 59.65
+    },
+    "0.2": {
+     "c_lo": -34.05,
+     "c_hi": 13.85,
+     "width_m": 47.9
+    },
+    "0.3": {
+     "c_lo": -29.8,
+     "c_hi": 13.25,
+     "width_m": 43.05
+    },
+    "0.4": {
+     "c_lo": -24.7,
+     "c_hi": 12.65,
+     "width_m": 37.35
+    },
+    "0.5": {
+     "c_lo": -21.3,
+     "c_hi": 12.05,
+     "width_m": 33.35
+    },
+    "0.6": {
+     "c_lo": -12.65,
+     "c_hi": 11.35,
+     "width_m": 24.0
+    },
+    "0.7": {
+     "c_lo": -10.6,
+     "c_hi": 10.35,
+     "width_m": 20.95
+    },
+    "0.8": {
+     "c_lo": -8.5,
+     "c_hi": 8.9,
+     "width_m": 17.4
+    },
+    "0.9": {
+     "c_lo": -6.05,
+     "c_hi": 6.15,
+     "width_m": 12.2
+    }
+   },
+   "AS04_hero_only": {
+    "0.1": {
+     "c_lo": -25.43,
+     "c_hi": 14.43,
+     "width_m": 39.87
+    },
+    "0.2": {
+     "c_lo": -23.81,
+     "c_hi": 13.85,
+     "width_m": 37.67
+    },
+    "0.3": {
+     "c_lo": -22.38,
+     "c_hi": 13.27,
+     "width_m": 35.65
+    },
+    "0.4": {
+     "c_lo": -21.09,
+     "c_hi": 12.69,
+     "width_m": 33.78
+    },
+    "0.5": {
+     "c_lo": -15.81,
+     "c_hi": 12.09,
+     "width_m": 27.89
+    },
+    "0.6": {
+     "c_lo": -12.61,
+     "c_hi": 11.37,
+     "width_m": 23.98
+    },
+    "0.7": {
+     "c_lo": -10.61,
+     "c_hi": 10.37,
+     "width_m": 20.98
+    },
+    "0.8": {
+     "c_lo": -8.55,
+     "c_hi": 8.92,
+     "width_m": 17.47
+    },
+    "0.9": {
+     "c_lo": -6.08,
+     "c_hi": 6.17,
+     "width_m": 12.25
+    }
+   },
+   "AS04_union_hero_wave4": {
+    "0.1": {
+     "c_lo": -26.0,
+     "c_hi": 14.4,
+     "width_m": 40.4
+    },
+    "0.2": {
+     "c_lo": -24.5,
+     "c_hi": 13.85,
+     "width_m": 38.35
+    },
+    "0.3": {
+     "c_lo": -23.2,
+     "c_hi": 13.25,
+     "width_m": 36.45
+    },
+    "0.4": {
+     "c_lo": -21.85,
+     "c_hi": 12.65,
+     "width_m": 34.5
+    },
+    "0.5": {
+     "c_lo": -20.3,
+     "c_hi": 12.05,
+     "width_m": 32.35
+    },
+    "0.6": {
+     "c_lo": -12.6,
+     "c_hi": 11.35,
+     "width_m": 23.95
+    },
+    "0.7": {
+     "c_lo": -10.6,
+     "c_hi": 10.35,
+     "width_m": 20.95
+    },
+    "0.8": {
+     "c_lo": -8.5,
+     "c_hi": 8.9,
+     "width_m": 17.4
+    },
+    "0.9": {
+     "c_lo": -6.05,
+     "c_hi": 6.15,
+     "width_m": 12.2
+    }
+   },
+   "ratio_vs_sample03": {
+    "0.1": {
+     "hero_only": 0.668,
+     "union": 0.677
+    },
+    "0.2": {
+     "hero_only": 0.786,
+     "union": 0.801
+    },
+    "0.3": {
+     "hero_only": 0.828,
+     "union": 0.847
+    },
+    "0.4": {
+     "hero_only": 0.903,
+     "union": 0.924
+    },
+    "0.5": {
+     "hero_only": 0.834,
+     "union": 0.97
+    },
+    "0.6": {
+     "hero_only": 0.997,
+     "union": 0.998
+    },
+    "0.7": {
+     "hero_only": 1.0,
+     "union": 1.0
+    },
+    "0.8": {
+     "hero_only": 1.0,
+     "union": 1.0
+    },
+    "0.9": {
+     "hero_only": 1.0,
+     "union": 1.0
+    }
+   },
+   "pass_condition_ja": "合わせた形で低い帯（0.1〜0.5 H）が見本03 より短く、どの帯も長くならない。高い帯（0.6〜0.9 H）は計画どおり第 2 段（D6）で、今は同じ",
+   "verdict": "pass"
+  },
+  "T4": {
+   "rule_ja": "面と白い所は原画の平らな塗りで、表面は滑らか：彫りの稜・彫ったような跡・泡の皮を作らない。冠のメッシュがない",
+   "crown_mesh": {
+    "render_report_as03Crown": [],
+    "crown_argument_in_unity_command": false
+   },
+   "relief_vs_smooth_base": {
+    "method_ja": "静止のメッシュの各点を、その点の行・列（uv6）で .gwb の行を Catmull–Rom で補った滑らかな土台（見本03 の surf_relief.py と同じ式）と比べたずれ。凹凸を彫った見本03 の面も同じ測りで並べる。",
+    "AS04_hero_in_union": {
+     "vertices": 314400,
+     "max_dev_m": 0.0,
+     "p99_dev_m": 0.0,
+     "front_u_ge_0_max_dev_m": 0.0,
+     "white_whiteSD_gt_0_max_dev_m": 0.0,
+     "signed_along_normal_min_max_m": [
+      -0.0,
+      0.0
+     ]
+    },
+    "AS02C_smooth_mat_study": {
+     "vertices": 314400,
+     "max_dev_m": 0.0,
+     "p99_dev_m": 0.0,
+     "front_u_ge_0_max_dev_m": 0.0,
+     "white_whiteSD_gt_0_max_dev_m": 0.0,
+     "signed_along_normal_min_max_m": [
+      -0.0,
+      0.0
+     ]
+    },
+    "sample03_relief_b1v2c（V1・V2・V3 の面）": {
+     "vertices": 314400,
+     "max_dev_m": 0.1444,
+     "p99_dev_m": 0.1299,
+     "front_u_ge_0_max_dev_m": 0.1444,
+     "white_whiteSD_gt_0_max_dev_m": 0.0,
+     "signed_along_normal_min_max_m": [
+      -0.1444,
+      0.0
+     ]
+    }
+   },
+   "wave4": {
+    "max_dev_from_analytic_grid_m": 2e-06,
+    "row_second_difference_p99_max_m": [
+     0.01055,
+     0.2231
+    ],
+    "note_ja": "wave4 は sech² の断面・3 次の曲線・2 次のなめらかな最大で作った解析の面（w4_build.py）。変位・彫りの道はない。"
+   },
+   "shader_lighting_tokens": [],
+   "shape_mesh_report": {
+    "flat": true,
+    "displacement_m": {
+     "min": 0.0,
+     "max": 0.0,
+     "faded_area_vertices": 103525
+    },
+    "gwb_vs_pkg_tau0_m": {
+     "max": 4.751602640001187e-06,
+     "p99": 4.408765322208639e-06
+    }
+   },
+   "pass_condition_ja": "冠が無い、主役波の点の土台からのずれ ≤ 1 cm（包みの量子化の分）、wave4 は解析の格子と同じ、シェーダーに光・艶・AO の語が無い",
+   "verdict": "pass"
+  },
+  "C2": {
+   "rule_ja": "どの爪も、利用者の模型 claw_low・claw_mid の水準以上（断面の幅と厚みの比、先の細り、表面の滑らかさを模型と比べる）",
+   "claws": 35,
+   "by_role": {
+    "FACE_INTERIOR": 25,
+    "NEAR_SEA": 10
+   },
+   "reseat_is_similarity_about_painting_cam": true,
+   "scale_range_face_interior": [
+    0.997,
+    1.433
+   ],
+   "moved_gt_1cm": 18,
+   "fail": 0,
+   "fail_claws": {},
+   "note_ja": "形づくり（shape_claws.py）は面の内の 25 本を、原画のカメラを中心に倍率だけかけて置き直した。相似なので、C2 の量（断面の比・先の細り・曲率の跳び・輪郭のでこぼこ。どれも比か角）は見本02 の測り（as02_claws_report.json）のまま。3D の大きさは倍率の分だけ大きい（記録）。",
+   "verdict": "pass"
+  },
+  "C3": {
+   "rule_ja": "原画カメラから見た各爪の輪郭とマスクの重なり（IoU ≥ 0.85）",
+   "claws_face_interior": 25,
+   "projection_unchanged": true,
+   "iou_painting_p10_p50_min_sample02": [
+    0.8751,
+    0.8917,
+    0.8528
+   ],
+   "below_085": {},
+   "painting_visible_frac_p10_p50_min": {
+    "S04": [
+     0.901,
+     0.974,
+     0.822
+    ],
+    "S03": [
+     0.864,
+     0.96,
+     0.822
+    ]
+   },
+   "note_ja": "原画視点の影は画素まで同じ（相似の中心が原画のカメラ）なので、IoU は見本02 の測りのまま。原画視点で主役波・wave4 に隠れる割合は numpy の z バッファで記録（隠れる爪が増えていれば並べ図で確かめる）。",
+   "verdict": "pass"
+  },
+  "S11": {
+   "rule_ja": "爪の三つの大きな区域 ①浪尖・②b区域・③最左側の小区域を、構造の層としてはっきり表す（側面・上・回り台で別の層として読める）",
+   "geometry_steps": {
+    "AS02C_sample03_shape": {
+     "r1": {
+      "c_range": [
+       -2.0,
+       8.0
+      ],
+      "front_a_p50": 6.32,
+      "front_a_max": 13.0,
+      "front_y_p50_over_H0": 0.581,
+      "crest_H_p50_over_H0": 0.919,
+      "dist_to_painting_cam_p50_m": 57.76
+     },
+     "r2": {
+      "c_range": [
+       -15.5,
+       -11.5
+      ],
+      "front_a_p50": 9.21,
+      "front_a_max": 10.76,
+      "front_y_p50_over_H0": 0.42,
+      "crest_H_p50_over_H0": 0.562,
+      "dist_to_painting_cam_p50_m": 44.47
+     },
+     "r3": {
+      "c_range": [
+       -23.0,
+       -17.0
+      ],
+      "front_a_p50": 8.61,
+      "front_a_max": 9.48,
+      "front_y_p50_over_H0": 0.382,
+      "crest_H_p50_over_H0": 0.536,
+      "dist_to_painting_cam_p50_m": 42.06
+     },
+     "bay_c-10_-6": {
+      "front_a_p50": 11.29
+     },
+     "steps": {
+      "r1_front_minus_bay_m": -4.97,
+      "r2_front_minus_bay_m": -2.08,
+      "r1_minus_r2_depth_m（② が ① よりカメラに近い）": 13.29,
+      "r3_front_minus_r2_front_m": -0.6,
+      "r2_minus_r3_depth_m（③ が ② よりカメラに近い）": 2.41,
+      "r2_crest_minus_r3_crest_over_H0": 0.026
+     }
+    },
+    "AS04": {
+     "r1": {
+      "c_range": [
+       -2.0,
+       8.0
+      ],
+      "front_a_p50": 6.32,
+      "front_a_max": 12.95,
+      "front_y_p50_over_H0": 0.581,
+      "crest_H_p50_over_H0": 0.919,
+      "dist_to_painting_cam_p50_m": 57.76
+     },
+     "r2": {
+      "c_range": [
+       -15.5,
+       -11.5
+      ],
+      "front_a_p50": 8.84,
+      "front_a_max": 9.46,
+      "front_y_p50_over_H0": 0.423,
+      "crest_H_p50_over_H0": 0.551,
+      "dist_to_painting_cam_p50_m": 44.76
+     },
+     "r3": {
+      "c_range": [
+       -23.0,
+       -17.0
+      ],
+      "front_a_p50": 7.14,
+      "front_a_max": 8.78,
+      "front_y_p50_over_H0": 0.366,
+      "crest_H_p50_over_H0": 0.458,
+      "dist_to_painting_cam_p50_m": 43.11
+     },
+     "bay_c-10_-6": {
+      "front_a_p50": 1.97
+     },
+     "steps": {
+      "r1_front_minus_bay_m": 4.35,
+      "r2_front_minus_bay_m": 6.87,
+      "r1_minus_r2_depth_m（② が ① よりカメラに近い）": 13.0,
+      "r3_front_minus_r2_front_m": -1.7,
+      "r2_minus_r3_depth_m（③ が ② よりカメラに近い）": 1.65,
+      "r2_crest_minus_r3_crest_over_H0": 0.093
+     }
+    }
+   },
+   "view_method_ja": "numpy の z バッファ（Unity の描画ではない。主役波・wave4・近い海、爪なし）で、側面 2・真上・回り台 12 方位を描き、三角形に層の印（① c −2〜+8、② c −15.5〜−11.5、③ c −23〜−17 の、頂より前 u ≥ 0 で高さ 0.25 H0 以上の面。c は形づくりの shape_eval.LAYERS）を付けた。層 p・q が「分かれて読める」＝ どちらも 200 画素以上見え、隣り合う画素どうしが深さの跳びなしに触れておらず、かつ、p が q の手前に重なる遮る縁（深さの跳び > max(0.5 m, 深さの 3%)、設計38 の外殻の線が描く所に当たる）が 20 画素以上あるか、前の面（①②③とほかの前の面）を深さの跳びのない隣どうしでつないだ時に p と q が別の塊になること。",
+   "views": {
+    "AS02C_sample03_shape": {
+     "side_left": {
+      "visible_px": {
+       "1": 92,
+       "2": 2598,
+       "3": 3268
+      },
+      "pairs": {
+       "1-2": {
+        "both_visible": false,
+        "occlusion_edge_px": 0,
+        "continuous_contact_px": 0,
+        "same_front_sheet_px": 56,
+        "separated": null
+       },
+       "2-3": {
+        "both_visible": true,
+        "occlusion_edge_px": 49,
+        "continuous_contact_px": 0,
+        "same_front_sheet_px": 2547,
+        "separated": true
+       },
+       "1-3": {
+        "both_visible": false,
+        "occlusion_edge_px": 0,
+        "continuous_contact_px": 0,
+        "same_front_sheet_px": 56,
+        "separated": null
+       }
+      }
+     },
+     "side_right": {
+      "visible_px": {
+       "1": 14479,
+       "2": 0,
+       "3": 0
+      },
+      "pairs": {
+       "1-2": {
+        "both_visible": false,
+        "occlusion_edge_px": 0,
+        "continuous_contact_px": 0,
+        "same_front_sheet_px": 0,
+        "separated": null
+       },
+       "2-3": {
+        "both_visible": false,
+        "occlusion_edge_px": 0,
+        "continuous_contact_px": 0,
+        "same_front_sheet_px": 0,
+        "separated": null
+       },
+       "1-3": {
+        "both_visible": false,
+        "occlusion_edge_px": 0,
+        "continuous_contact_px": 0,
+        "same_front_sheet_px": 0,
+        "separated": null
+       }
+      }
+     },
+     "top": {
+      "visible_px": {
+       "1": 10281,
+       "2": 3980,
+       "3": 4744
+      },
+      "pairs": {
+       "1-2": {
+        "both_visible": true,
+        "occlusion_edge_px": 0,
+        "continuous_contact_px": 0,
+        "same_front_sheet_px": 3937,
+        "separated": false
+       },
+       "2-3": {
+        "both_visible": true,
+        "occlusion_edge_px": 0,
+        "continuous_contact_px": 0,
+        "same_front_sheet_px": 3937,
+        "separated": false
+       },
+       "1-3": {
+        "both_visible": true,
+        "occlusion_edge_px": 0,
+        "continuous_contact_px": 0,
+        "same_front_sheet_px": 4683,
+        "separated": false
+       }
+      }
+     },
+     "tt0": {
+      "visible_px": {
+       "1": 10444,
+       "2": 28055,
+       "3": 37820
+      },
+      "pairs": {
+       "1-2": {
+        "both_visible": true,
+        "occlusion_edge_px": 0,
+        "continuous_contact_px": 0,
+        "same_front_sheet_px": 10087,
+        "separated": false
+       },
+       "2-3": {
+        "both_visible": true,
+        "occlusion_edge_px": 0,
+        "continuous_contact_px": 0,
+        "same_front_sheet_px": 27840,
+        "separated": false
+       },
+       "1-3": {
+        "both_visible": true,
+        "occlusion_edge_px": 0,
+        "continuous_contact_px": 0,
+        "same_front_sheet_px": 10087,
+        "separated": false
+       }
+      }
+     },
+     "tt30": {
+      "visible_px": {
+       "1": 49751,
+       "2": 20630,
+       "3": 22996
+      },
+      "pairs": {
+       "1-2": {
+        "both_visible": true,
+        "occlusion_edge_px": 0,
+        "continuous_contact_px": 0,
+        "same_front_sheet_px": 20433,
+        "separated": false
+       },
+       "2-3": {
+        "both_visible": true,
+        "occlusion_edge_px": 0,
+        "continuous_contact_px": 0,
+        "same_front_sheet_px": 20433,
+        "separated": false
+       },
+       "1-3": {
+        "both_visible": true,
+        "occlusion_edge_px": 0,
+        "continuous_contact_px": 0,
+        "same_front_sheet_px": 22768,
+        "separated": false
+       }
+      }
+     },
+     "tt60": {
+      "visible_px": {
+       "1": 115737,
+       "2": 13659,
+       "3": 10016
+      },
+      "pairs": {
+       "1-2": {
+        "both_visible": true,
+        "occlusion_edge_px": 0,
+        "continuous_contact_px": 0,
+        "same_front_sheet_px": 13415,
+        "separated": false
+       },
+       "2-3": {
+        "both_visible": true,
+        "occlusion_edge_px": 33,
+        "continuous_contact_px": 0,
+        "same_front_sheet_px": 9817,
+        "separated": true
+       },
+       "1-3": {
+        "both_visible": true,
+        "occlusion_edge_px": 0,
+        "continuous_contact_px": 0,
+        "same_front_sheet_px": 9817,
+        "separated": false
+       }
+      }
+     },
+     "tt90": {
+      "visible_px": {
+       "1": 142095,
+       "2": 1850,
+       "3": 1957
+      },
+      "pairs": {
+       "1-2": {
+        "both_visible": true,
+        "occlusion_edge_px": 10,
+        "continuous_contact_px": 0,
+        "same_front_sheet_px": 1708,
+        "separated": false
+       },
+       "2-3": {
+        "both_visible": true,
+        "occlusion_edge_px": 37,
+        "continuous_contact_px": 0,
+        "same_front_sheet_px": 1708,
+        "separated": true
+       },
+       "1-3": {
+        "both_visible": true,
+        "occlusion_edge_px": 76,
+        "continuous_contact_px": 0,
+        "same_front_sheet_px": 1754,
+        "separated": true
+       }
+      }
+     },
+     "tt120": {
+      "visible_px": {
+       "1": 144441,
+       "2": 2641,
+       "3": 405
+      },
+      "pairs": {
+       "1-2": {
+        "both_visible": true,
+        "occlusion_edge_px": 63,
+        "continuous_contact_px": 0,
+        "same_front_sheet_px": 0,
+        "separated": true
+       },
+       "2-3": {
+        "both_visible": true,
+        "occlusion_edge_px": 0,
+        "continuous_contact_px": 0,
+        "same_front_sheet_px": 405,
+        "separated": false
+       },
+       "1-3": {
+        "both_visible": true,
+        "occlusion_edge_px": 32,
+        "continuous_contact_px": 0,
+        "same_front_sheet_px": 0,
+        "separated": true
+       }
+      }
+     },
+     "tt150": {
+      "visible_px": {
+       "1": 92070,
+       "2": 906,
+       "3": 0
+      },
+      "pairs": {
+       "1-2": {
+        "both_visible": true,
+        "occlusion_edge_px": 95,
+        "continuous_contact_px": 0,
+        "same_front_sheet_px": 0,
+        "separated": true
+       },
+       "2-3": {
+        "both_visible": false,
+        "occlusion_edge_px": 0,
+        "continuous_contact_px": 0,
+        "same_front_sheet_px": 0,
+        "separated": null
+       },
+       "1-3": {
+        "both_visible": false,
+        "occlusion_edge_px": 0,
+        "continuous_contact_px": 0,
+        "same_front_sheet_px": 0,
+        "separated": null
+       }
+      }
+     },
+     "tt180": {
+      "visible_px": {
+       "1": 20508,
+       "2": 0,
+       "3": 149
+      },
+      "pairs": {
+       "1-2": {
+        "both_visible": false,
+        "occlusion_edge_px": 0,
+        "continuous_contact_px": 0,
+        "same_front_sheet_px": 0,
+        "separated": null
+       },
+       "2-3": {
+        "both_visible": false,
+        "occlusion_edge_px": 0,
+        "continuous_contact_px": 0,
+        "same_front_sheet_px": 0,
+        "separated": null
+       },
+       "1-3": {
+        "both_visible": false,
+        "occlusion_edge_px": 0,
+        "continuous_contact_px": 0,
+        "same_front_sheet_px": 0,
+        "separated": null
+       }
+      }
+     },
+     "tt210": {
+      "visible_px": {
+       "1": 743,
+       "2": 46,
+       "3": 146
+      },
+      "pairs": {
+       "1-2": {
+        "both_visible": false,
+        "occlusion_edge_px": 0,
+        "continuous_contact_px": 0,
+        "same_front_sheet_px": 0,
+        "separated": null
+       },
+       "2-3": {
+        "both_visible": false,
+        "occlusion_edge_px": 0,
+        "continuous_contact_px": 0,
+        "same_front_sheet_px": 0,
+        "separated": null
+       },
+       "1-3": {
+        "both_visible": false,
+        "occlusion_edge_px": 0,
+        "continuous_contact_px": 0,
+        "same_front_sheet_px": 0,
+        "separated": null
+       }
+      }
+     },
+     "tt240": {
+      "visible_px": {
+       "1": 145,
+       "2": 2072,
+       "3": 618
+      },
+      "pairs": {
+       "1-2": {
+        "both_visible": false,
+        "occlusion_edge_px": 0,
+        "continuous_contact_px": 0,
+        "same_front_sheet_px": 89,
+        "separated": null
+       },
+       "2-3": {
+        "both_visible": true,
+        "occlusion_edge_px": 0,
+        "continuous_contact_px": 0,
+        "same_front_sheet_px": 434,
+        "separated": false
+       },
+       "1-3": {
+        "both_visible": false,
+        "occlusion_edge_px": 0,
+        "continuous_contact_px": 0,
+        "same_front_sheet_px": 89,
+        "separated": null
+       }
+      }
+     },
+     "tt270": {
+      "visible_px": {
+       "1": 249,
+       "2": 7833,
+       "3": 9388
+      },
+      "pairs": {
+       "1-2": {
+        "both_visible": true,
+        "occlusion_edge_px": 0,
+        "continuous_contact_px": 0,
+        "same_front_sheet_px": 189,
+        "separated": false
+       },
+       "2-3": {
+        "both_visible": true,
+        "occlusion_edge_px": 66,
+        "continuous_contact_px": 0,
+        "same_front_sheet_px": 7736,
+        "separated": true
+       },
+       "1-3": {
+        "both_visible": true,
+        "occlusion_edge_px": 0,
+        "continuous_contact_px": 0,
+        "same_front_sheet_px": 189,
+        "separated": false
+       }
+      }
+     },
+     "tt300": {
+      "visible_px": {
+       "1": 865,
+       "2": 18456,
+       "3": 26751
+      },
+      "pairs": {
+       "1-2": {
+        "both_visible": true,
+        "occlusion_edge_px": 0,
+        "continuous_contact_px": 0,
+        "same_front_sheet_px": 681,
+        "separated": false
+       },
+       "2-3": {
+        "both_visible": true,
+        "occlusion_edge_px": 93,
+        "continuous_contact_px": 0,
+        "same_front_sheet_px": 18403,
+        "separated": true
+       },
+       "1-3": {
+        "both_visible": true,
+        "occlusion_edge_px": 0,
+        "continuous_contact_px": 0,
+        "same_front_sheet_px": 681,
+        "separated": false
+       }
+      }
+     },
+     "tt330": {
+      "visible_px": {
+       "1": 3098,
+       "2": 27087,
+       "3": 41268
+      },
+      "pairs": {
+       "1-2": {
+        "both_visible": true,
+        "occlusion_edge_px": 0,
+        "continuous_contact_px": 0,
+        "same_front_sheet_px": 2818,
+        "separated": false
+       },
+       "2-3": {
+        "both_visible": true,
+        "occlusion_edge_px": 0,
+        "continuous_contact_px": 0,
+        "same_front_sheet_px": 27008,
+        "separated": false
+       },
+       "1-3": {
+        "both_visible": true,
+        "occlusion_edge_px": 0,
+        "continuous_contact_px": 0,
+        "same_front_sheet_px": 2818,
+        "separated": false
+       }
+      }
+     }
+    },
+    "AS04_union": {
+     "side_left": {
+      "visible_px": {
+       "1": 721,
+       "2": 3835,
+       "3": 7595
+      },
+      "pairs": {
+       "1-2": {
+        "both_visible": true,
+        "occlusion_edge_px": 0,
+        "continuous_contact_px": 0,
+        "same_front_sheet_px": 662,
+        "separated": false
+       },
+       "2-3": {
+        "both_visible": true,
+        "occlusion_edge_px": 17,
+        "continuous_contact_px": 0,
+        "same_front_sheet_px": 0,
+        "separated": true
+       },
+       "1-3": {
+        "both_visible": true,
+        "occlusion_edge_px": 0,
+        "continuous_contact_px": 0,
+        "same_front_sheet_px": 0,
+        "separated": true
+       }
+      }
+     },
+     "side_right": {
+      "visible_px": {
+       "1": 14478,
+       "2": 0,
+       "3": 0
+      },
+      "pairs": {
+       "1-2": {
+        "both_visible": false,
+        "occlusion_edge_px": 0,
+        "continuous_contact_px": 0,
+        "same_front_sheet_px": 0,
+        "separated": null
+       },
+       "2-3": {
+        "both_visible": false,
+        "occlusion_edge_px": 0,
+        "continuous_contact_px": 0,
+        "same_front_sheet_px": 0,
+        "separated": null
+       },
+       "1-3": {
+        "both_visible": false,
+        "occlusion_edge_px": 0,
+        "continuous_contact_px": 0,
+        "same_front_sheet_px": 0,
+        "separated": null
+       }
+      }
+     },
+     "top": {
+      "visible_px": {
+       "1": 10279,
+       "2": 3647,
+       "3": 3494
+      },
+      "pairs": {
+       "1-2": {
+        "both_visible": true,
+        "occlusion_edge_px": 0,
+        "continuous_contact_px": 0,
+        "same_front_sheet_px": 3563,
+        "separated": false
+       },
+       "2-3": {
+        "both_visible": true,
+        "occlusion_edge_px": 0,
+        "continuous_contact_px": 0,
+        "same_front_sheet_px": 3382,
+        "separated": false
+       },
+       "1-3": {
+        "both_visible": true,
+        "occlusion_edge_px": 0,
+        "continuous_contact_px": 0,
+        "same_front_sheet_px": 3382,
+        "separated": false
+       }
+      }
+     },
+     "tt0": {
+      "visible_px": {
+       "1": 35383,
+       "2": 27909,
+       "3": 33236
+      },
+      "pairs": {
+       "1-2": {
+        "both_visible": true,
+        "occlusion_edge_px": 10,
+        "continuous_contact_px": 0,
+        "same_front_sheet_px": 27620,
+        "separated": false
+       },
+       "2-3": {
+        "both_visible": true,
+        "occlusion_edge_px": 0,
+        "continuous_contact_px": 0,
+        "same_front_sheet_px": 27620,
+        "separated": false
+       },
+       "1-3": {
+        "both_visible": true,
+        "occlusion_edge_px": 0,
+        "continuous_contact_px": 0,
+        "same_front_sheet_px": 32990,
+        "separated": false
+       }
+      }
+     },
+     "tt30": {
+      "visible_px": {
+       "1": 52609,
+       "2": 17812,
+       "3": 13640
+      },
+      "pairs": {
+       "1-2": {
+        "both_visible": true,
+        "occlusion_edge_px": 0,
+        "continuous_contact_px": 0,
+        "same_front_sheet_px": 17557,
+        "separated": false
+       },
+       "2-3": {
+        "both_visible": true,
+        "occlusion_edge_px": 0,
+        "continuous_contact_px": 0,
+        "same_front_sheet_px": 13496,
+        "separated": false
+       },
+       "1-3": {
+        "both_visible": true,
+        "occlusion_edge_px": 0,
+        "continuous_contact_px": 0,
+        "same_front_sheet_px": 13496,
+        "separated": false
+       }
+      }
+     },
+     "tt60": {
+      "visible_px": {
+       "1": 115694,
+       "2": 17241,
+       "3": 5268
+      },
+      "pairs": {
+       "1-2": {
+        "both_visible": true,
+        "occlusion_edge_px": 0,
+        "continuous_contact_px": 0,
+        "same_front_sheet_px": 16879,
+        "separated": false
+       },
+       "2-3": {
+        "both_visible": true,
+        "occlusion_edge_px": 78,
+        "continuous_contact_px": 0,
+        "same_front_sheet_px": 5037,
+        "separated": true
+       },
+       "1-3": {
+        "both_visible": true,
+        "occlusion_edge_px": 0,
+        "continuous_contact_px": 0,
+        "same_front_sheet_px": 5037,
+        "separated": false
+       }
+      }
+     },
+     "tt90": {
+      "visible_px": {
+       "1": 142035,
+       "2": 5140,
+       "3": 1443
+      },
+      "pairs": {
+       "1-2": {
+        "both_visible": true,
+        "occlusion_edge_px": 51,
+        "continuous_contact_px": 0,
+        "same_front_sheet_px": 0,
+        "separated": true
+       },
+       "2-3": {
+        "both_visible": true,
+        "occlusion_edge_px": 88,
+        "continuous_contact_px": 0,
+        "same_front_sheet_px": 0,
+        "separated": true
+       },
+       "1-3": {
+        "both_visible": true,
+        "occlusion_edge_px": 62,
+        "continuous_contact_px": 0,
+        "same_front_sheet_px": 398,
+        "separated": true
+       }
+      }
+     },
+     "tt120": {
+      "visible_px": {
+       "1": 144406,
+       "2": 2637,
+       "3": 279
+      },
+      "pairs": {
+       "1-2": {
+        "both_visible": true,
+        "occlusion_edge_px": 62,
+        "continuous_contact_px": 0,
+        "same_front_sheet_px": 0,
+        "separated": true
+       },
+       "2-3": {
+        "both_visible": true,
+        "occlusion_edge_px": 0,
+        "continuous_contact_px": 0,
+        "same_front_sheet_px": 273,
+        "separated": false
+       },
+       "1-3": {
+        "both_visible": true,
+        "occlusion_edge_px": 15,
+        "continuous_contact_px": 0,
+        "same_front_sheet_px": 0,
+        "separated": true
+       }
+      }
+     },
+     "tt150": {
+      "visible_px": {
+       "1": 92048,
+       "2": 958,
+       "3": 10
+      },
+      "pairs": {
+       "1-2": {
+        "both_visible": true,
+        "occlusion_edge_px": 124,
+        "continuous_contact_px": 0,
+        "same_front_sheet_px": 0,
+        "separated": true
+       },
+       "2-3": {
+        "both_visible": false,
+        "occlusion_edge_px": 0,
+        "continuous_contact_px": 0,
+        "same_front_sheet_px": 0,
+        "separated": null
+       },
+       "1-3": {
+        "both_visible": false,
+        "occlusion_edge_px": 6,
+        "continuous_contact_px": 0,
+        "same_front_sheet_px": 0,
+        "separated": null
+       }
+      }
+     },
+     "tt180": {
+      "visible_px": {
+       "1": 20505,
+       "2": 0,
+       "3": 0
+      },
+      "pairs": {
+       "1-2": {
+        "both_visible": false,
+        "occlusion_edge_px": 0,
+        "continuous_contact_px": 0,
+        "same_front_sheet_px": 0,
+        "separated": null
+       },
+       "2-3": {
+        "both_visible": false,
+        "occlusion_edge_px": 0,
+        "continuous_contact_px": 0,
+        "same_front_sheet_px": 0,
+        "separated": null
+       },
+       "1-3": {
+        "both_visible": false,
+        "occlusion_edge_px": 0,
+        "continuous_contact_px": 0,
+        "same_front_sheet_px": 0,
+        "separated": null
+       }
+      }
+     },
+     "tt210": {
+      "visible_px": {
+       "1": 743,
+       "2": 0,
+       "3": 3
+      },
+      "pairs": {
+       "1-2": {
+        "both_visible": false,
+        "occlusion_edge_px": 0,
+        "continuous_contact_px": 0,
+        "same_front_sheet_px": 0,
+        "separated": null
+       },
+       "2-3": {
+        "both_visible": false,
+        "occlusion_edge_px": 0,
+        "continuous_contact_px": 0,
+        "same_front_sheet_px": 0,
+        "separated": null
+       },
+       "1-3": {
+        "both_visible": false,
+        "occlusion_edge_px": 0,
+        "continuous_contact_px": 0,
+        "same_front_sheet_px": 0,
+        "separated": null
+       }
+      }
+     },
+     "tt240": {
+      "visible_px": {
+       "1": 145,
+       "2": 2264,
+       "3": 774
+      },
+      "pairs": {
+       "1-2": {
+        "both_visible": false,
+        "occlusion_edge_px": 0,
+        "continuous_contact_px": 0,
+        "same_front_sheet_px": 89,
+        "separated": null
+       },
+       "2-3": {
+        "both_visible": true,
+        "occlusion_edge_px": 0,
+        "continuous_contact_px": 0,
+        "same_front_sheet_px": 0,
+        "separated": true
+       },
+       "1-3": {
+        "both_visible": false,
+        "occlusion_edge_px": 0,
+        "continuous_contact_px": 0,
+        "same_front_sheet_px": 0,
+        "separated": null
+       }
+      }
+     },
+     "tt270": {
+      "visible_px": {
+       "1": 1579,
+       "2": 10889,
+       "3": 20831
+      },
+      "pairs": {
+       "1-2": {
+        "both_visible": true,
+        "occlusion_edge_px": 0,
+        "continuous_contact_px": 0,
+        "same_front_sheet_px": 1487,
+        "separated": false
+       },
+       "2-3": {
+        "both_visible": true,
+        "occlusion_edge_px": 14,
+        "continuous_contact_px": 0,
+        "same_front_sheet_px": 0,
+        "separated": true
+       },
+       "1-3": {
+        "both_visible": true,
+        "occlusion_edge_px": 0,
+        "continuous_contact_px": 0,
+        "same_front_sheet_px": 0,
+        "separated": true
+       }
+      }
+     },
+     "tt300": {
+      "visible_px": {
+       "1": 11031,
+       "2": 22773,
+       "3": 44268
+      },
+      "pairs": {
+       "1-2": {
+        "both_visible": true,
+        "occlusion_edge_px": 0,
+        "continuous_contact_px": 0,
+        "same_front_sheet_px": 10638,
+        "separated": false
+       },
+       "2-3": {
+        "both_visible": true,
+        "occlusion_edge_px": 60,
+        "continuous_contact_px": 0,
+        "same_front_sheet_px": 22578,
+        "separated": true
+       },
+       "1-3": {
+        "both_visible": true,
+        "occlusion_edge_px": 0,
+        "continuous_contact_px": 0,
+        "same_front_sheet_px": 10638,
+        "separated": false
+       }
+      }
+     },
+     "tt330": {
+      "visible_px": {
+       "1": 8850,
+       "2": 30373,
+       "3": 50426
+      },
+      "pairs": {
+       "1-2": {
+        "both_visible": true,
+        "occlusion_edge_px": 0,
+        "continuous_contact_px": 0,
+        "same_front_sheet_px": 8245,
+        "separated": false
+       },
+       "2-3": {
+        "both_visible": true,
+        "occlusion_edge_px": 60,
+        "continuous_contact_px": 0,
+        "same_front_sheet_px": 30163,
+        "separated": true
+       },
+       "1-3": {
+        "both_visible": true,
+        "occlusion_edge_px": 0,
+        "continuous_contact_px": 0,
+        "same_front_sheet_px": 8245,
+        "separated": false
+       }
+      }
+     }
+    }
+   },
+   "summary": {
+    "AS02C_sample03_shape": {
+     "1-2": {
+      "views_both_visible": 10,
+      "separated_views": 2,
+      "separated_share": 0.2
+     },
+     "2-3": {
+      "views_both_visible": 11,
+      "separated_views": 5,
+      "separated_share": 0.455
+     },
+     "1-3": {
+      "views_both_visible": 9,
+      "separated_views": 2,
+      "separated_share": 0.222
+     }
+    },
+    "AS04_union": {
+     "1-2": {
+      "views_both_visible": 11,
+      "separated_views": 3,
+      "separated_share": 0.273
+     },
+     "2-3": {
+      "views_both_visible": 11,
+      "separated_views": 7,
+      "separated_share": 0.636
+     },
+     "1-3": {
+      "views_both_visible": 10,
+      "separated_views": 4,
+      "separated_share": 0.4
+     }
+    }
+   },
+   "pass_condition_ja": "見本04 で、隣の層の組（①②・②③）が、両方見える視点の半分以上で分かれて読めること（進行役の既定。変えてよい）",
+   "verdict": "fail"
+  }
+ },
+ "claws_per_claw": [
+  {
+   "user_id": "claw030",
+   "role": "NEAR_SEA",
+   "scale_about_painting_cam": 1.0,
+   "similarity_residual_m": 0.0,
+   "painting_projection_shift_px_max": 0.0,
+   "moved_m": 0.0,
+   "length_3d_m_sample02": 0.819,
+   "length_3d_m_now": 0.819,
+   "iou_painting_sample02": 0.893,
+   "c2_fails_sample02": [],
+   "surface_S04": {
+    "root_dist_m": 3.31,
+    "max_below_surface_m": 0.0,
+    "max_above_surface_m": 2.887
+   },
+   "surface_S03": {
+    "root_dist_m": 3.308,
+    "max_below_surface_m": 0.0,
+    "max_above_surface_m": 2.887
+   }
+  },
+  {
+   "user_id": "claw032",
+   "role": "FACE_INTERIOR",
+   "scale_about_painting_cam": 1.3275,
+   "similarity_residual_m": 1e-06,
+   "painting_projection_shift_px_max": 2e-05,
+   "moved_m": 15.492,
+   "length_3d_m_sample02": 1.04,
+   "length_3d_m_now": 1.381,
+   "iou_painting_sample02": 0.8873,
+   "c2_fails_sample02": [],
+   "surface_S04": {
+    "root_dist_m": 0.081,
+    "max_below_surface_m": 0.087,
+    "max_above_surface_m": 0.44
+   },
+   "painting_visible_S04": {
+    "px_x2": 943,
+    "visible_frac": 0.976
+   },
+   "surface_S03": {
+    "root_dist_m": 0.23,
+    "max_below_surface_m": 0.087,
+    "max_above_surface_m": 0.24
+   },
+   "painting_visible_S03": {
+    "px_x2": 943,
+    "visible_frac": 0.954
+   }
+  },
+  {
+   "user_id": "claw033",
+   "role": "NEAR_SEA",
+   "scale_about_painting_cam": 1.0,
+   "similarity_residual_m": 0.0,
+   "painting_projection_shift_px_max": 0.0,
+   "moved_m": 0.0,
+   "length_3d_m_sample02": 0.689,
+   "length_3d_m_now": 0.689,
+   "iou_painting_sample02": 0.8865,
+   "c2_fails_sample02": [],
+   "surface_S04": {
+    "root_dist_m": 0.528,
+    "max_below_surface_m": 0.0,
+    "max_above_surface_m": 0.309
+   },
+   "surface_S03": {
+    "root_dist_m": 0.528,
+    "max_below_surface_m": 0.0,
+    "max_above_surface_m": 0.309
+   }
+  },
+  {
+   "user_id": "claw034",
+   "role": "NEAR_SEA",
+   "scale_about_painting_cam": 1.0,
+   "similarity_residual_m": 0.0,
+   "painting_projection_shift_px_max": 0.0,
+   "moved_m": 0.0,
+   "length_3d_m_sample02": 0.536,
+   "length_3d_m_now": 0.536,
+   "iou_painting_sample02": 0.9036,
+   "c2_fails_sample02": [],
+   "surface_S04": {
+    "root_dist_m": 3.671,
+    "max_below_surface_m": 0.0,
+    "max_above_surface_m": 3.44
+   },
+   "surface_S03": {
+    "root_dist_m": 3.671,
+    "max_below_surface_m": 0.0,
+    "max_above_surface_m": 3.44
+   }
+  },
+  {
+   "user_id": "claw036",
+   "role": "FACE_INTERIOR",
+   "scale_about_painting_cam": 1.2264,
+   "similarity_residual_m": 1e-06,
+   "painting_projection_shift_px_max": 2e-05,
+   "moved_m": 11.098,
+   "length_3d_m_sample02": 1.316,
+   "length_3d_m_now": 1.614,
+   "iou_painting_sample02": 0.8879,
+   "c2_fails_sample02": [],
+   "surface_S04": {
+    "root_dist_m": 0.076,
+    "max_below_surface_m": 0.059,
+    "max_above_surface_m": 0.896
+   },
+   "painting_visible_S04": {
+    "px_x2": 514,
+    "visible_frac": 0.998
+   },
+   "surface_S03": {
+    "root_dist_m": 0.084,
+    "max_below_surface_m": 0.074,
+    "max_above_surface_m": 0.587
+   },
+   "painting_visible_S03": {
+    "px_x2": 514,
+    "visible_frac": 0.981
+   }
+  },
+  {
+   "user_id": "claw037",
+   "role": "FACE_INTERIOR",
+   "scale_about_painting_cam": 1.0522,
+   "similarity_residual_m": 1e-06,
+   "painting_projection_shift_px_max": 3e-05,
+   "moved_m": 2.65,
+   "length_3d_m_sample02": 1.582,
+   "length_3d_m_now": 1.665,
+   "iou_painting_sample02": 0.903,
+   "c2_fails_sample02": [],
+   "surface_S04": {
+    "root_dist_m": 0.14,
+    "max_below_surface_m": 0.172,
+    "max_above_surface_m": 1.331
+   },
+   "painting_visible_S04": {
+    "px_x2": 867,
+    "visible_frac": 0.98
+   },
+   "surface_S03": {
+    "root_dist_m": 0.104,
+    "max_below_surface_m": 0.14,
+    "max_above_surface_m": 0.549
+   },
+   "painting_visible_S03": {
+    "px_x2": 867,
+    "visible_frac": 0.979
+   }
+  },
+  {
+   "user_id": "claw050",
+   "role": "FACE_INTERIOR",
+   "scale_about_painting_cam": 1.0,
+   "similarity_residual_m": 0.0,
+   "painting_projection_shift_px_max": 0.0,
+   "moved_m": 0.0,
+   "length_3d_m_sample02": 2.476,
+   "length_3d_m_now": 2.476,
+   "iou_painting_sample02": 0.9198,
+   "c2_fails_sample02": [],
+   "surface_S04": {
+    "root_dist_m": 0.426,
+    "max_below_surface_m": 0.436,
+    "max_above_surface_m": 0.795
+   },
+   "painting_visible_S04": {
+    "px_x2": 1219,
+    "visible_frac": 0.844
+   },
+   "surface_S03": {
+    "root_dist_m": 0.426,
+    "max_below_surface_m": 0.436,
+    "max_above_surface_m": 0.795
+   },
+   "painting_visible_S03": {
+    "px_x2": 1219,
+    "visible_frac": 0.844
+   }
+  },
+  {
+   "user_id": "claw051",
+   "role": "FACE_INTERIOR",
+   "scale_about_painting_cam": 1.0,
+   "similarity_residual_m": 0.0,
+   "painting_projection_shift_px_max": 0.0,
+   "moved_m": 0.0,
+   "length_3d_m_sample02": 1.05,
+   "length_3d_m_now": 1.05,
+   "iou_painting_sample02": 0.9006,
+   "c2_fails_sample02": [],
+   "surface_S04": {
+    "root_dist_m": 0.183,
+    "max_below_surface_m": 0.202,
+    "max_above_surface_m": 0.709
+   },
+   "painting_visible_S04": {
+    "px_x2": 794,
+    "visible_frac": 0.972
+   },
+   "surface_S03": {
+    "root_dist_m": 0.183,
+    "max_below_surface_m": 0.202,
+    "max_above_surface_m": 0.709
+   },
+   "painting_visible_S03": {
+    "px_x2": 794,
+    "visible_frac": 0.972
+   }
+  },
+  {
+   "user_id": "claw054",
+   "role": "FACE_INTERIOR",
+   "scale_about_painting_cam": 1.0793,
+   "similarity_residual_m": 1e-06,
+   "painting_projection_shift_px_max": 3e-05,
+   "moved_m": 4.088,
+   "length_3d_m_sample02": 1.582,
+   "length_3d_m_now": 1.707,
+   "iou_painting_sample02": 0.8749,
+   "c2_fails_sample02": [],
+   "surface_S04": {
+    "root_dist_m": 0.089,
+    "max_below_surface_m": 0.136,
+    "max_above_surface_m": 1.398
+   },
+   "painting_visible_S04": {
+    "px_x2": 728,
+    "visible_frac": 0.977
+   },
+   "surface_S03": {
+    "root_dist_m": 0.107,
+    "max_below_surface_m": 0.135,
+    "max_above_surface_m": 0.599
+   },
+   "painting_visible_S03": {
+    "px_x2": 728,
+    "visible_frac": 0.985
+   }
+  },
+  {
+   "user_id": "claw055",
+   "role": "FACE_INTERIOR",
+   "scale_about_painting_cam": 1.0,
+   "similarity_residual_m": 0.0,
+   "painting_projection_shift_px_max": 0.0,
+   "moved_m": 0.0,
+   "length_3d_m_sample02": 1.695,
+   "length_3d_m_now": 1.695,
+   "iou_painting_sample02": 0.9108,
+   "c2_fails_sample02": [],
+   "surface_S04": {
+    "root_dist_m": 0.326,
+    "max_below_surface_m": 0.381,
+    "max_above_surface_m": 1.48
+   },
+   "painting_visible_S04": {
+    "px_x2": 1109,
+    "visible_frac": 0.994
+   },
+   "surface_S03": {
+    "root_dist_m": 0.326,
+    "max_below_surface_m": 0.381,
+    "max_above_surface_m": 1.48
+   },
+   "painting_visible_S03": {
+    "px_x2": 1109,
+    "visible_frac": 0.878
+   }
+  },
+  {
+   "user_id": "claw057",
+   "role": "FACE_INTERIOR",
+   "scale_about_painting_cam": 1.3621,
+   "similarity_residual_m": 1e-06,
+   "painting_projection_shift_px_max": 2e-05,
+   "moved_m": 16.906,
+   "length_3d_m_sample02": 1.472,
+   "length_3d_m_now": 2.005,
+   "iou_painting_sample02": 0.9258,
+   "c2_fails_sample02": [],
+   "surface_S04": {
+    "root_dist_m": 0.41,
+    "max_below_surface_m": 0.447,
+    "max_above_surface_m": 1.337
+   },
+   "painting_visible_S04": {
+    "px_x2": 631,
+    "visible_frac": 0.91
+   },
+   "surface_S03": {
+    "root_dist_m": 0.115,
+    "max_below_surface_m": 0.114,
+    "max_above_surface_m": 0.173
+   },
+   "painting_visible_S03": {
+    "px_x2": 631,
+    "visible_frac": 0.889
+   }
+  },
+  {
+   "user_id": "claw058",
+   "role": "FACE_INTERIOR",
+   "scale_about_painting_cam": 1.0478,
+   "similarity_residual_m": 1e-06,
+   "painting_projection_shift_px_max": 3e-05,
+   "moved_m": 2.498,
+   "length_3d_m_sample02": 1.198,
+   "length_3d_m_now": 1.255,
+   "iou_painting_sample02": 0.8917,
+   "c2_fails_sample02": [],
+   "surface_S04": {
+    "root_dist_m": 0.174,
+    "max_below_surface_m": 0.191,
+    "max_above_surface_m": 0.523
+   },
+   "painting_visible_S04": {
+    "px_x2": 757,
+    "visible_frac": 0.98
+   },
+   "surface_S03": {
+    "root_dist_m": 0.118,
+    "max_below_surface_m": 0.161,
+    "max_above_surface_m": 0.24
+   },
+   "painting_visible_S03": {
+    "px_x2": 757,
+    "visible_frac": 0.96
+   }
+  },
+  {
+   "user_id": "claw059",
+   "role": "FACE_INTERIOR",
+   "scale_about_painting_cam": 1.2653,
+   "similarity_residual_m": 1e-06,
+   "painting_projection_shift_px_max": 3e-05,
+   "moved_m": 13.121,
+   "length_3d_m_sample02": 1.224,
+   "length_3d_m_now": 1.549,
+   "iou_painting_sample02": 0.8673,
+   "c2_fails_sample02": [],
+   "surface_S04": {
+    "root_dist_m": 0.167,
+    "max_below_surface_m": 0.198,
+    "max_above_surface_m": 0.968
+   },
+   "painting_visible_S04": {
+    "px_x2": 578,
+    "visible_frac": 0.931
+   },
+   "surface_S03": {
+    "root_dist_m": 0.153,
+    "max_below_surface_m": 0.177,
+    "max_above_surface_m": 0.27
+   },
+   "painting_visible_S03": {
+    "px_x2": 578,
+    "visible_frac": 0.953
+   }
+  },
+  {
+   "user_id": "claw061",
+   "role": "FACE_INTERIOR",
+   "scale_about_painting_cam": 1.4333,
+   "similarity_residual_m": 1e-06,
+   "painting_projection_shift_px_max": 2e-05,
+   "moved_m": 19.425,
+   "length_3d_m_sample02": 0.861,
+   "length_3d_m_now": 1.234,
+   "iou_painting_sample02": 0.9018,
+   "c2_fails_sample02": [],
+   "surface_S04": {
+    "root_dist_m": 0.279,
+    "max_below_surface_m": 0.323,
+    "max_above_surface_m": 0.717
+   },
+   "painting_visible_S04": {
+    "px_x2": 773,
+    "visible_frac": 0.944
+   },
+   "surface_S03": {
+    "root_dist_m": 0.297,
+    "max_below_surface_m": 0.332,
+    "max_above_surface_m": 0.35
+   },
+   "painting_visible_S03": {
+    "px_x2": 773,
+    "visible_frac": 0.881
+   }
+  },
+  {
+   "user_id": "claw066",
+   "role": "FACE_INTERIOR",
+   "scale_about_painting_cam": 1.0058,
+   "similarity_residual_m": 1e-06,
+   "painting_projection_shift_px_max": 4e-05,
+   "moved_m": 0.258,
+   "length_3d_m_sample02": 0.63,
+   "length_3d_m_now": 0.634,
+   "iou_painting_sample02": 0.8833,
+   "c2_fails_sample02": [],
+   "surface_S04": {
+    "root_dist_m": 0.073,
+    "max_below_surface_m": 0.091,
+    "max_above_surface_m": 0.373
+   },
+   "painting_visible_S04": {
+    "px_x2": 560,
+    "visible_frac": 0.975
+   },
+   "surface_S03": {
+    "root_dist_m": 0.098,
+    "max_below_surface_m": 0.108,
+    "max_above_surface_m": 0.486
+   },
+   "painting_visible_S03": {
+    "px_x2": 560,
+    "visible_frac": 0.979
+   }
+  },
+  {
+   "user_id": "claw067",
+   "role": "FACE_INTERIOR",
+   "scale_about_painting_cam": 1.0,
+   "similarity_residual_m": 0.0,
+   "painting_projection_shift_px_max": 0.0,
+   "moved_m": 0.0,
+   "length_3d_m_sample02": 1.735,
+   "length_3d_m_now": 1.735,
+   "iou_painting_sample02": 0.8753,
+   "c2_fails_sample02": [],
+   "surface_S04": {
+    "root_dist_m": 0.197,
+    "max_below_surface_m": 0.231,
+    "max_above_surface_m": 0.82
+   },
+   "painting_visible_S04": {
+    "px_x2": 860,
+    "visible_frac": 0.971
+   },
+   "surface_S03": {
+    "root_dist_m": 0.197,
+    "max_below_surface_m": 0.231,
+    "max_above_surface_m": 0.82
+   },
+   "painting_visible_S03": {
+    "px_x2": 860,
+    "visible_frac": 0.971
+   }
+  },
+  {
+   "user_id": "claw069",
+   "role": "FACE_INTERIOR",
+   "scale_about_painting_cam": 1.0,
+   "similarity_residual_m": 0.0,
+   "painting_projection_shift_px_max": 0.0,
+   "moved_m": 0.0,
+   "length_3d_m_sample02": 1.247,
+   "length_3d_m_now": 1.247,
+   "iou_painting_sample02": 0.8842,
+   "c2_fails_sample02": [],
+   "surface_S04": {
+    "root_dist_m": 0.174,
+    "max_below_surface_m": 0.196,
+    "max_above_surface_m": 0.855
+   },
+   "painting_visible_S04": {
+    "px_x2": 692,
+    "visible_frac": 0.974
+   },
+   "surface_S03": {
+    "root_dist_m": 0.174,
+    "max_below_surface_m": 0.196,
+    "max_above_surface_m": 0.855
+   },
+   "painting_visible_S03": {
+    "px_x2": 692,
+    "visible_frac": 0.974
+   }
+  },
+  {
+   "user_id": "claw070",
+   "role": "FACE_INTERIOR",
+   "scale_about_painting_cam": 1.0,
+   "similarity_residual_m": 0.0,
+   "painting_projection_shift_px_max": 0.0,
+   "moved_m": 0.0,
+   "length_3d_m_sample02": 1.805,
+   "length_3d_m_now": 1.805,
+   "iou_painting_sample02": 0.9256,
+   "c2_fails_sample02": [],
+   "surface_S04": {
+    "root_dist_m": 0.213,
+    "max_below_surface_m": 0.239,
+    "max_above_surface_m": 1.517
+   },
+   "painting_visible_S04": {
+    "px_x2": 762,
+    "visible_frac": 0.986
+   },
+   "surface_S03": {
+    "root_dist_m": 0.213,
+    "max_below_surface_m": 0.239,
+    "max_above_surface_m": 1.517
+   },
+   "painting_visible_S03": {
+    "px_x2": 762,
+    "visible_frac": 0.986
+   }
+  },
+  {
+   "user_id": "claw072",
+   "role": "FACE_INTERIOR",
+   "scale_about_painting_cam": 0.997,
+   "similarity_residual_m": 1e-06,
+   "painting_projection_shift_px_max": 4e-05,
+   "moved_m": -0.139,
+   "length_3d_m_sample02": 0.77,
+   "length_3d_m_now": 0.768,
+   "iou_painting_sample02": 0.9198,
+   "c2_fails_sample02": [],
+   "surface_S04": {
+    "root_dist_m": 0.141,
+    "max_below_surface_m": 0.151,
+    "max_above_surface_m": 0.452
+   },
+   "painting_visible_S04": {
+    "px_x2": 973,
+    "visible_frac": 0.921
+   },
+   "surface_S03": {
+    "root_dist_m": 0.172,
+    "max_below_surface_m": 0.206,
+    "max_above_surface_m": 0.376
+   },
+   "painting_visible_S03": {
+    "px_x2": 973,
+    "visible_frac": 0.919
+   }
+  },
+  {
+   "user_id": "claw074",
+   "role": "FACE_INTERIOR",
+   "scale_about_painting_cam": 1.0,
+   "similarity_residual_m": 0.0,
+   "painting_projection_shift_px_max": 0.0,
+   "moved_m": 0.0,
+   "length_3d_m_sample02": 1.875,
+   "length_3d_m_now": 1.875,
+   "iou_painting_sample02": 0.8945,
+   "c2_fails_sample02": [],
+   "surface_S04": {
+    "root_dist_m": 0.346,
+    "max_below_surface_m": 0.37,
+    "max_above_surface_m": 0.216
+   },
+   "painting_visible_S04": {
+    "px_x2": 736,
+    "visible_frac": 0.822
+   },
+   "surface_S03": {
+    "root_dist_m": 0.346,
+    "max_below_surface_m": 0.37,
+    "max_above_surface_m": 0.216
+   },
+   "painting_visible_S03": {
+    "px_x2": 736,
+    "visible_frac": 0.822
+   }
+  },
+  {
+   "user_id": "claw079",
+   "role": "FACE_INTERIOR",
+   "scale_about_painting_cam": 1.0716,
+   "similarity_residual_m": 1e-06,
+   "painting_projection_shift_px_max": 3e-05,
+   "moved_m": 3.704,
+   "length_3d_m_sample02": 2.368,
+   "length_3d_m_now": 2.537,
+   "iou_painting_sample02": 0.8995,
+   "c2_fails_sample02": [],
+   "surface_S04": {
+    "root_dist_m": 0.165,
+    "max_below_surface_m": 0.222,
+    "max_above_surface_m": 1.434
+   },
+   "painting_visible_S04": {
+    "px_x2": 1458,
+    "visible_frac": 0.984
+   },
+   "surface_S03": {
+    "root_dist_m": 0.159,
+    "max_below_surface_m": 0.201,
+    "max_above_surface_m": 0.517
+   },
+   "painting_visible_S03": {
+    "px_x2": 1458,
+    "visible_frac": 0.984
+   }
+  },
+  {
+   "user_id": "claw080",
+   "role": "FACE_INTERIOR",
+   "scale_about_painting_cam": 1.0961,
+   "similarity_residual_m": 1e-06,
+   "painting_projection_shift_px_max": 3e-05,
+   "moved_m": 4.996,
+   "length_3d_m_sample02": 1.715,
+   "length_3d_m_now": 1.88,
+   "iou_painting_sample02": 0.8893,
+   "c2_fails_sample02": [],
+   "surface_S04": {
+    "root_dist_m": 0.193,
+    "max_below_surface_m": 0.245,
+    "max_above_surface_m": 1.157
+   },
+   "painting_visible_S04": {
+    "px_x2": 716,
+    "visible_frac": 0.895
+   },
+   "surface_S03": {
+    "root_dist_m": 0.17,
+    "max_below_surface_m": 0.245,
+    "max_above_surface_m": 0.62
+   },
+   "painting_visible_S03": {
+    "px_x2": 716,
+    "visible_frac": 0.855
+   }
+  },
+  {
+   "user_id": "claw081",
+   "role": "FACE_INTERIOR",
+   "scale_about_painting_cam": 1.3937,
+   "similarity_residual_m": 1e-06,
+   "painting_projection_shift_px_max": 2e-05,
+   "moved_m": 17.898,
+   "length_3d_m_sample02": 0.693,
+   "length_3d_m_now": 0.966,
+   "iou_painting_sample02": 0.9104,
+   "c2_fails_sample02": [],
+   "surface_S04": {
+    "root_dist_m": 0.071,
+    "max_below_surface_m": 0.072,
+    "max_above_surface_m": 0.928
+   },
+   "painting_visible_S04": {
+    "px_x2": 130,
+    "visible_frac": 1.0
+   },
+   "surface_S03": {
+    "root_dist_m": 0.041,
+    "max_below_surface_m": 0.033,
+    "max_above_surface_m": 0.217
+   },
+   "painting_visible_S03": {
+    "px_x2": 130,
+    "visible_frac": 0.992
+   }
+  },
+  {
+   "user_id": "claw082",
+   "role": "FACE_INTERIOR",
+   "scale_about_painting_cam": 1.1322,
+   "similarity_residual_m": 1e-06,
+   "painting_projection_shift_px_max": 3e-05,
+   "moved_m": 6.804,
+   "length_3d_m_sample02": 1.145,
+   "length_3d_m_now": 1.296,
+   "iou_painting_sample02": 0.8902,
+   "c2_fails_sample02": [],
+   "surface_S04": {
+    "root_dist_m": 0.134,
+    "max_below_surface_m": 0.145,
+    "max_above_surface_m": 0.838
+   },
+   "painting_visible_S04": {
+    "px_x2": 698,
+    "visible_frac": 0.996
+   },
+   "surface_S03": {
+    "root_dist_m": 0.13,
+    "max_below_surface_m": 0.166,
+    "max_above_surface_m": 0.239
+   },
+   "painting_visible_S03": {
+    "px_x2": 698,
+    "visible_frac": 0.986
+   }
+  },
+  {
+   "user_id": "claw083",
+   "role": "FACE_INTERIOR",
+   "scale_about_painting_cam": 1.1473,
+   "similarity_residual_m": 1e-06,
+   "painting_projection_shift_px_max": 3e-05,
+   "moved_m": 7.549,
+   "length_3d_m_sample02": 0.648,
+   "length_3d_m_now": 0.743,
+   "iou_painting_sample02": 0.8967,
+   "c2_fails_sample02": [],
+   "surface_S04": {
+    "root_dist_m": 0.114,
+    "max_below_surface_m": 0.139,
+    "max_above_surface_m": 0.425
+   },
+   "painting_visible_S04": {
+    "px_x2": 309,
+    "visible_frac": 0.968
+   },
+   "surface_S03": {
+    "root_dist_m": 0.113,
+    "max_below_surface_m": 0.135,
+    "max_above_surface_m": 0.113
+   },
+   "painting_visible_S03": {
+    "px_x2": 309,
+    "visible_frac": 0.948
+   }
+  },
+  {
+   "user_id": "claw084",
+   "role": "FACE_INTERIOR",
+   "scale_about_painting_cam": 1.0456,
+   "similarity_residual_m": 1e-06,
+   "painting_projection_shift_px_max": 3e-05,
+   "moved_m": 2.336,
+   "length_3d_m_sample02": 0.673,
+   "length_3d_m_now": 0.704,
+   "iou_painting_sample02": 0.8528,
+   "c2_fails_sample02": [],
+   "surface_S04": {
+    "root_dist_m": 0.082,
+    "max_below_surface_m": 0.05,
+    "max_above_surface_m": 0.478
+   },
+   "painting_visible_S04": {
+    "px_x2": 97,
+    "visible_frac": 0.99
+   },
+   "surface_S03": {
+    "root_dist_m": 0.029,
+    "max_below_surface_m": 0.024,
+    "max_above_surface_m": 0.167
+   },
+   "painting_visible_S03": {
+    "px_x2": 97,
+    "visible_frac": 1.0
+   }
+  },
+  {
+   "user_id": "claw088",
+   "role": "NEAR_SEA",
+   "scale_about_painting_cam": 1.0,
+   "similarity_residual_m": 0.0,
+   "painting_projection_shift_px_max": 0.0,
+   "moved_m": 0.0,
+   "length_3d_m_sample02": 1.249,
+   "length_3d_m_now": 1.249,
+   "iou_painting_sample02": 0.9193,
+   "c2_fails_sample02": [],
+   "surface_S04": {
+    "root_dist_m": 1.581,
+    "max_below_surface_m": 0.0,
+    "max_above_surface_m": 1.576
+   },
+   "surface_S03": {
+    "root_dist_m": 1.581,
+    "max_below_surface_m": 0.0,
+    "max_above_surface_m": 1.576
+   }
+  },
+  {
+   "user_id": "claw089",
+   "role": "NEAR_SEA",
+   "scale_about_painting_cam": 1.0,
+   "similarity_residual_m": 0.0,
+   "painting_projection_shift_px_max": 0.0,
+   "moved_m": 0.0,
+   "length_3d_m_sample02": 0.828,
+   "length_3d_m_now": 0.828,
+   "iou_painting_sample02": 0.9081,
+   "c2_fails_sample02": [],
+   "surface_S04": {
+    "root_dist_m": 3.985,
+    "max_below_surface_m": 0.0,
+    "max_above_surface_m": 2.885
+   },
+   "surface_S03": {
+    "root_dist_m": 3.985,
+    "max_below_surface_m": 0.0,
+    "max_above_surface_m": 2.885
+   }
+  },
+  {
+   "user_id": "claw090",
+   "role": "NEAR_SEA",
+   "scale_about_painting_cam": 1.0,
+   "similarity_residual_m": 0.0,
+   "painting_projection_shift_px_max": 0.0,
+   "moved_m": 0.0,
+   "length_3d_m_sample02": 0.339,
+   "length_3d_m_now": 0.339,
+   "iou_painting_sample02": 0.8723,
+   "c2_fails_sample02": [],
+   "surface_S04": {
+    "root_dist_m": 2.781,
+    "max_below_surface_m": 0.0,
+    "max_above_surface_m": 2.012
+   },
+   "surface_S03": {
+    "root_dist_m": 2.781,
+    "max_below_surface_m": 0.0,
+    "max_above_surface_m": 2.012
+   }
+  },
+  {
+   "user_id": "claw092",
+   "role": "NEAR_SEA",
+   "scale_about_painting_cam": 1.0,
+   "similarity_residual_m": 0.0,
+   "painting_projection_shift_px_max": 0.0,
+   "moved_m": 0.0,
+   "length_3d_m_sample02": 1.191,
+   "length_3d_m_now": 1.191,
+   "iou_painting_sample02": 0.9059,
+   "c2_fails_sample02": [],
+   "surface_S04": {
+    "root_dist_m": 3.056,
+    "max_below_surface_m": 0.0,
+    "max_above_surface_m": 1.436
+   },
+   "surface_S03": {
+    "root_dist_m": 2.995,
+    "max_below_surface_m": 0.0,
+    "max_above_surface_m": 1.436
+   }
+  },
+  {
+   "user_id": "claw093",
+   "role": "NEAR_SEA",
+   "scale_about_painting_cam": 1.0,
+   "similarity_residual_m": 0.0,
+   "painting_projection_shift_px_max": 0.0,
+   "moved_m": 0.0,
+   "length_3d_m_sample02": 1.094,
+   "length_3d_m_now": 1.094,
+   "iou_painting_sample02": 0.8937,
+   "c2_fails_sample02": [],
+   "surface_S04": {
+    "root_dist_m": 3.113,
+    "max_below_surface_m": 0.0,
+    "max_above_surface_m": 1.854
+   },
+   "surface_S03": {
+    "root_dist_m": 3.083,
+    "max_below_surface_m": 0.0,
+    "max_above_surface_m": 1.854
+   }
+  },
+  {
+   "user_id": "claw094",
+   "role": "NEAR_SEA",
+   "scale_about_painting_cam": 1.0,
+   "similarity_residual_m": 0.0,
+   "painting_projection_shift_px_max": 0.0,
+   "moved_m": 0.0,
+   "length_3d_m_sample02": 1.435,
+   "length_3d_m_now": 1.435,
+   "iou_painting_sample02": 0.8605,
+   "c2_fails_sample02": [],
+   "surface_S04": {
+    "root_dist_m": 2.79,
+    "max_below_surface_m": 0.0,
+    "max_above_surface_m": 1.48
+   },
+   "surface_S03": {
+    "root_dist_m": 2.73,
+    "max_below_surface_m": 0.0,
+    "max_above_surface_m": 1.48
+   }
+  },
+  {
+   "user_id": "claw096",
+   "role": "NEAR_SEA",
+   "scale_about_painting_cam": 1.0,
+   "similarity_residual_m": 0.0,
+   "painting_projection_shift_px_max": 0.0,
+   "moved_m": 0.0,
+   "length_3d_m_sample02": 1.35,
+   "length_3d_m_now": 1.35,
+   "iou_painting_sample02": 0.8782,
+   "c2_fails_sample02": [],
+   "surface_S04": {
+    "root_dist_m": 1.807,
+    "max_below_surface_m": 0.0,
+    "max_above_surface_m": 0.395
+   },
+   "surface_S03": {
+    "root_dist_m": 1.541,
+    "max_below_surface_m": 0.0,
+    "max_above_surface_m": 0.395
+   }
+  },
+  {
+   "user_id": "claw098",
+   "role": "FACE_INTERIOR",
+   "scale_about_painting_cam": 1.3353,
+   "similarity_residual_m": 1e-06,
+   "painting_projection_shift_px_max": 4e-05,
+   "moved_m": 14.788,
+   "length_3d_m_sample02": 0.973,
+   "length_3d_m_now": 1.299,
+   "iou_painting_sample02": 0.8767,
+   "c2_fails_sample02": [],
+   "surface_S04": {
+    "root_dist_m": 0.03,
+    "max_below_surface_m": 0.071,
+    "max_above_surface_m": 0.82
+   },
+   "painting_visible_S04": {
+    "px_x2": 999,
+    "visible_frac": 0.961
+   },
+   "surface_S03": {
+    "root_dist_m": 0.098,
+    "max_below_surface_m": 0.139,
+    "max_above_surface_m": 0.687
+   },
+   "painting_visible_S03": {
+    "px_x2": 999,
+    "visible_frac": 0.934
+   }
+  },
+  {
+   "user_id": "claw099",
+   "role": "FACE_INTERIOR",
+   "scale_about_painting_cam": 1.4114,
+   "similarity_residual_m": 1e-06,
+   "painting_projection_shift_px_max": 2e-05,
+   "moved_m": 18.835,
+   "length_3d_m_sample02": 1.508,
+   "length_3d_m_now": 2.128,
+   "iou_painting_sample02": 0.8915,
+   "c2_fails_sample02": [],
+   "surface_S04": {
+    "root_dist_m": 0.25,
+    "max_below_surface_m": 0.31,
+    "max_above_surface_m": 0.974
+   },
+   "painting_visible_S04": {
+    "px_x2": 932,
+    "visible_frac": 0.946
+   },
+   "surface_S03": {
+    "root_dist_m": 0.116,
+    "max_below_surface_m": 0.203,
+    "max_above_surface_m": 0.298
+   },
+   "painting_visible_S03": {
+    "px_x2": 932,
+    "visible_frac": 0.925
+   }
+  }
+ ],
+ "summary": {
+  "G1": "pass",
+  "G2": "pass",
+  "S4": "pass",
+  "S8": "pass",
+  "S9": "pass",
+  "S10": "pass",
+  "T4": "pass",
+  "C2": "pass",
+  "C3": "pass",
+  "S11": "fail"
+ },
+ "elapsed_s": 623.1
+}

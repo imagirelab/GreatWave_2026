@@ -1,0 +1,872 @@
+{
+ "schema": "GreatWave.AS04.metrics/1",
+ "date": "2026-10-04 21:24",
+ "sample_ja": "美術の見本04（Q32）直しの回 1 の後：主役波 K*′ AS04F ＋ ④ の別の青い波 wave4 ＋ AS04F Flat Smooth ＋ 爪 35 本（面の内 25・近い海 10）。t* = 12 s の静止",
+ "judge_ja": "美術が届いたかは利用者が決める（Q29・Q30）。数は PC の描画と numpy の測りで、HMD の実機ではない",
+ "rules_summary": {
+  "G1": "pass",
+  "G2": "pass",
+  "S4": "pass",
+  "S8": "pass",
+  "S9": "pass",
+  "S10": "pass",
+  "T4": "pass",
+  "C2": "pass",
+  "C3": "pass",
+  "S11": "fail"
+ },
+ "G2_gates_px": {
+  "78": {
+   "claws": 1.6108,
+   "noclaws": 1.6108,
+   "gate_px": 4.0,
+   "pass": true,
+   "sample02_AS02C_claws": 2.741,
+   "CP1": 2.772,
+   "26修正01": 1.641
+  },
+  "130": {
+   "claws": 3.5815,
+   "noclaws": 3.5815,
+   "gate_px": 4.0,
+   "pass": true,
+   "sample02_AS02C_claws": 3.5815,
+   "CP1": 1.968,
+   "26修正01": 1.953
+  },
+  "131": {
+   "claws": 3.4419,
+   "noclaws": 3.4419,
+   "gate_px": 4.0,
+   "pass": true,
+   "sample02_AS02C_claws": 3.4419,
+   "CP1": 1.814,
+   "26修正01": 1.798
+  },
+  "132_s12": {
+   "claws": 3.562,
+   "noclaws": 3.562,
+   "gate_px": 4.0,
+   "pass": true,
+   "sample02_AS02C_claws": 3.5576,
+   "CP1": 1.326,
+   "26修正01": 1.574
+  },
+  "72_s12_p95": {
+   "claws": 3.7971,
+   "noclaws": 3.7971,
+   "gate_px": 4.0,
+   "pass": true,
+   "sample02_AS02C_claws": 3.6577,
+   "CP1": 1.558,
+   "26修正01": 1.723
+  }
+ },
+ "S4_checks": {
+  "H_dip_union_c_ge_-14_m": {
+   "value": 0.0,
+   "pass": true
+  },
+  "back_contour_dip_max_m（主役波の背、0.10 m まで）": {
+   "value": 0.077,
+   "pass": true
+  },
+  "bulge_over_chord_dip_m": {
+   "value": 0.019,
+   "pass": true
+  },
+  "silhouette_dip_from_behind_px_union_c_ge_-14（1 px まで）": {
+   "value": {
+    "b65_back65_clay": 0.0,
+    "b90_back_straight": 0.27,
+    "b115_back_minus_c": 0.37
+   },
+   "pass": true
+  }
+ },
+ "S8": {
+  "AS02C_sample03_shape": {
+   "rays": 9223,
+   "first_hit_inner_face_share": 0.0,
+   "first_hit_cols": {
+    "p5": 147.7,
+    "p50": 170.7,
+    "p95": 191.6
+   },
+   "first_hit_rows": {
+    "p5": 116.1,
+    "p50": 122.7,
+    "p95": 130.5
+   },
+   "dev_from_inner_face_m": {
+    "p50": 1.28,
+    "p90": 2.527,
+    "p95": 2.691,
+    "max": 3.238
+   },
+   "dev_from_circle_s4_m": {
+    "p50": 1.396,
+    "p95": 2.437
+   }
+  },
+  "AS04": {
+   "rays": 9223,
+   "first_hit_inner_face_share": 0.984,
+   "first_hit_cols": {
+    "p5": 221.2,
+    "p50": 266.5,
+    "p95": 279.8
+   },
+   "first_hit_rows": {
+    "p5": 140.3,
+    "p50": 160.9,
+    "p95": 174.8
+   },
+   "dev_from_inner_face_m": {
+    "p50": 0.0,
+    "p90": 0.0,
+    "p95": 0.0,
+    "max": 2.687
+   },
+   "dev_from_circle_s4_m": {
+    "p50": 0.109,
+    "p95": 0.237
+   }
+  },
+  "painting_view_owner_share_in_loop_S04": {
+   "hero": 0.98,
+   "claw": 0.02
+  }
+ },
+ "S9_region4_owner_share": {
+  "points": 297,
+  "owner_share": {
+   "hero": 0.013,
+   "wave4": 0.987
+  },
+  "nearest_edge_px_display_max": 1.24
+ },
+ "S9_wedge_lower_edge_too_high_px_ref": [
+  34.1,
+  34.1,
+  27.9,
+  25.9,
+  22.5,
+  19.7,
+  32.3,
+  26.7,
+  17.7,
+  10.7,
+  9.9,
+  11.1,
+  14.5,
+  20.9,
+  16.6,
+  16.0,
+  16.6,
+  6.0,
+  4.8,
+  6.8,
+  10.2,
+  16.6,
+  null
+ ],
+ "S9_white_part": {
+  "AS02C_sample03_shape": {
+   "white_vertices": 145985,
+   "white_vertices_c_lt_-12.6": 49465,
+   "leftmost_white_c_m": -60.0,
+   "white_top_y_by_c_bin_2m": [
+    [
+     -33.0,
+     4.77,
+     765
+    ],
+    [
+     -31.0,
+     5.83,
+     935
+    ],
+    [
+     -29.0,
+     6.73,
+     918
+    ],
+    [
+     -27.0,
+     7.42,
+     1288
+    ],
+    [
+     -25.0,
+     8.49,
+     1323
+    ],
+    [
+     -23.0,
+     9.62,
+     1152
+    ],
+    [
+     -21.0,
+     10.93,
+     5511
+    ],
+    [
+     -19.0,
+     11.3,
+     7575
+    ],
+    [
+     -17.0,
+     11.29,
+     7878
+    ],
+    [
+     -15.0,
+     11.43,
+     7579
+    ],
+    [
+     -13.0,
+     12.74,
+     7707
+    ],
+    [
+     -11.0,
+     14.83,
+     6080
+    ],
+    [
+     -9.0,
+     16.66,
+     3810
+    ]
+   ]
+  },
+  "AS04": {
+   "white_vertices": 124630,
+   "white_vertices_c_lt_-12.6": 35057,
+   "leftmost_white_c_m": -23.38,
+   "white_top_y_by_c_bin_2m": [
+    [
+     -33.0,
+     null,
+     0
+    ],
+    [
+     -31.0,
+     null,
+     0
+    ],
+    [
+     -29.0,
+     null,
+     0
+    ],
+    [
+     -27.0,
+     null,
+     0
+    ],
+    [
+     -25.0,
+     null,
+     0
+    ],
+    [
+     -23.0,
+     6.43,
+     968
+    ],
+    [
+     -21.0,
+     9.24,
+     5570
+    ],
+    [
+     -19.0,
+     9.63,
+     7538
+    ],
+    [
+     -17.0,
+     10.05,
+     7934
+    ],
+    [
+     -15.0,
+     11.11,
+     7765
+    ],
+    [
+     -13.0,
+     12.73,
+     7431
+    ],
+    [
+     -11.0,
+     14.83,
+     5622
+    ],
+    [
+     -9.0,
+     16.66,
+     4303
+    ]
+   ]
+  }
+ },
+ "S10_width_m": {
+  "sample03_shape_AS02C": {
+   "0.1": {
+    "c_lo": -45.27,
+    "c_hi": 14.43,
+    "width_m": 59.7
+   },
+   "0.2": {
+    "c_lo": -34.07,
+    "c_hi": 13.85,
+    "width_m": 47.93
+   },
+   "0.3": {
+    "c_lo": -29.81,
+    "c_hi": 13.27,
+    "width_m": 43.08
+   },
+   "0.4": {
+    "c_lo": -24.72,
+    "c_hi": 12.69,
+    "width_m": 37.41
+   },
+   "0.5": {
+    "c_lo": -21.34,
+    "c_hi": 12.09,
+    "width_m": 33.43
+   },
+   "0.6": {
+    "c_lo": -12.69,
+    "c_hi": 11.37,
+    "width_m": 24.06
+   },
+   "0.7": {
+    "c_lo": -10.61,
+    "c_hi": 10.37,
+    "width_m": 20.98
+   },
+   "0.8": {
+    "c_lo": -8.55,
+    "c_hi": 8.92,
+    "width_m": 17.47
+   },
+   "0.9": {
+    "c_lo": -6.08,
+    "c_hi": 6.17,
+    "width_m": 12.25
+   }
+  },
+  "AS04F_hero_only": {
+   "0.1": {
+    "c_lo": -25.43,
+    "c_hi": 14.43,
+    "width_m": 39.87
+   },
+   "0.2": {
+    "c_lo": -23.81,
+    "c_hi": 13.85,
+    "width_m": 37.67
+   },
+   "0.3": {
+    "c_lo": -22.38,
+    "c_hi": 13.27,
+    "width_m": 35.65
+   },
+   "0.4": {
+    "c_lo": -21.09,
+    "c_hi": 12.69,
+    "width_m": 33.78
+   },
+   "0.5": {
+    "c_lo": -15.81,
+    "c_hi": 12.09,
+    "width_m": 27.89
+   },
+   "0.6": {
+    "c_lo": -12.61,
+    "c_hi": 11.37,
+    "width_m": 23.98
+   },
+   "0.7": {
+    "c_lo": -10.61,
+    "c_hi": 10.37,
+    "width_m": 20.98
+   },
+   "0.8": {
+    "c_lo": -8.55,
+    "c_hi": 8.92,
+    "width_m": 17.47
+   },
+   "0.9": {
+    "c_lo": -6.08,
+    "c_hi": 6.17,
+    "width_m": 12.25
+   }
+  },
+  "AS04F_union_hero_wave4": {
+   "0.1": {
+    "c_lo": -26.0,
+    "c_hi": 14.4,
+    "width_m": 40.4
+   },
+   "0.2": {
+    "c_lo": -24.5,
+    "c_hi": 13.85,
+    "width_m": 38.35
+   },
+   "0.3": {
+    "c_lo": -23.2,
+    "c_hi": 13.25,
+    "width_m": 36.45
+   },
+   "0.4": {
+    "c_lo": -21.85,
+    "c_hi": 12.65,
+    "width_m": 34.5
+   },
+   "0.5": {
+    "c_lo": -20.3,
+    "c_hi": 12.05,
+    "width_m": 32.35
+   },
+   "0.6": {
+    "c_lo": -12.6,
+    "c_hi": 11.35,
+    "width_m": 23.95
+   },
+   "0.7": {
+    "c_lo": -10.6,
+    "c_hi": 10.35,
+    "width_m": 20.95
+   },
+   "0.8": {
+    "c_lo": -8.5,
+    "c_hi": 8.9,
+    "width_m": 17.4
+   },
+   "0.9": {
+    "c_lo": -6.05,
+    "c_hi": 6.15,
+    "width_m": 12.2
+   }
+  },
+  "ratio_vs_sample03": {
+   "0.1": {
+    "hero_only": 0.668,
+    "union": 0.677
+   },
+   "0.2": {
+    "hero_only": 0.786,
+    "union": 0.801
+   },
+   "0.3": {
+    "hero_only": 0.828,
+    "union": 0.847
+   },
+   "0.4": {
+    "hero_only": 0.903,
+    "union": 0.924
+   },
+   "0.5": {
+    "hero_only": 0.834,
+    "union": 0.97
+   },
+   "0.6": {
+    "hero_only": 0.997,
+    "union": 0.998
+   },
+   "0.7": {
+    "hero_only": 1.0,
+    "union": 1.0
+   },
+   "0.8": {
+    "hero_only": 1.0,
+    "union": 1.0
+   },
+   "0.9": {
+    "hero_only": 1.0,
+    "union": 1.0
+   }
+  }
+ },
+ "S11_summary": {
+  "AS02C_sample03_shape": {
+   "1-2": {
+    "views_both_visible": 10,
+    "separated_views": 2,
+    "separated_share": 0.2
+   },
+   "2-3": {
+    "views_both_visible": 11,
+    "separated_views": 5,
+    "separated_share": 0.455
+   },
+   "1-3": {
+    "views_both_visible": 9,
+    "separated_views": 2,
+    "separated_share": 0.222
+   }
+  },
+  "AS04_union": {
+   "1-2": {
+    "views_both_visible": 11,
+    "separated_views": 3,
+    "separated_share": 0.273
+   },
+   "2-3": {
+    "views_both_visible": 11,
+    "separated_views": 7,
+    "separated_share": 0.636
+   },
+   "1-3": {
+    "views_both_visible": 10,
+    "separated_views": 4,
+    "separated_share": 0.4
+   }
+  }
+ },
+ "S11_geometry_steps": {
+  "AS02C_sample03_shape": {
+   "r1": {
+    "c_range": [
+     -2.0,
+     8.0
+    ],
+    "front_a_p50": 6.32,
+    "front_a_max": 13.0,
+    "front_y_p50_over_H0": 0.581,
+    "crest_H_p50_over_H0": 0.919,
+    "dist_to_painting_cam_p50_m": 57.76
+   },
+   "r2": {
+    "c_range": [
+     -15.5,
+     -11.5
+    ],
+    "front_a_p50": 9.21,
+    "front_a_max": 10.76,
+    "front_y_p50_over_H0": 0.42,
+    "crest_H_p50_over_H0": 0.562,
+    "dist_to_painting_cam_p50_m": 44.47
+   },
+   "r3": {
+    "c_range": [
+     -23.0,
+     -17.0
+    ],
+    "front_a_p50": 8.61,
+    "front_a_max": 9.48,
+    "front_y_p50_over_H0": 0.382,
+    "crest_H_p50_over_H0": 0.536,
+    "dist_to_painting_cam_p50_m": 42.06
+   },
+   "bay_c-10_-6": {
+    "front_a_p50": 11.29
+   },
+   "steps": {
+    "r1_front_minus_bay_m": -4.97,
+    "r2_front_minus_bay_m": -2.08,
+    "r1_minus_r2_depth_m（② が ① よりカメラに近い）": 13.29,
+    "r3_front_minus_r2_front_m": -0.6,
+    "r2_minus_r3_depth_m（③ が ② よりカメラに近い）": 2.41,
+    "r2_crest_minus_r3_crest_over_H0": 0.026
+   }
+  },
+  "AS04": {
+   "r1": {
+    "c_range": [
+     -2.0,
+     8.0
+    ],
+    "front_a_p50": 6.32,
+    "front_a_max": 12.95,
+    "front_y_p50_over_H0": 0.581,
+    "crest_H_p50_over_H0": 0.919,
+    "dist_to_painting_cam_p50_m": 57.76
+   },
+   "r2": {
+    "c_range": [
+     -15.5,
+     -11.5
+    ],
+    "front_a_p50": 8.84,
+    "front_a_max": 9.46,
+    "front_y_p50_over_H0": 0.423,
+    "crest_H_p50_over_H0": 0.551,
+    "dist_to_painting_cam_p50_m": 44.76
+   },
+   "r3": {
+    "c_range": [
+     -23.0,
+     -17.0
+    ],
+    "front_a_p50": 7.14,
+    "front_a_max": 8.78,
+    "front_y_p50_over_H0": 0.366,
+    "crest_H_p50_over_H0": 0.458,
+    "dist_to_painting_cam_p50_m": 43.11
+   },
+   "bay_c-10_-6": {
+    "front_a_p50": 1.97
+   },
+   "steps": {
+    "r1_front_minus_bay_m": 4.35,
+    "r2_front_minus_bay_m": 6.87,
+    "r1_minus_r2_depth_m（② が ① よりカメラに近い）": 13.0,
+    "r3_front_minus_r2_front_m": -1.7,
+    "r2_minus_r3_depth_m（③ が ② よりカメラに近い）": 1.65,
+    "r2_crest_minus_r3_crest_over_H0": 0.093
+   }
+  }
+ },
+ "S11_per_view_AS04F_union": {
+  "side_left": {
+   "1-2": {
+    "separated": false,
+    "occlusion_edge_px": 0
+   },
+   "2-3": {
+    "separated": true,
+    "occlusion_edge_px": 17
+   }
+  },
+  "side_right": {
+   "1-2": {
+    "separated": null,
+    "occlusion_edge_px": 0
+   },
+   "2-3": {
+    "separated": null,
+    "occlusion_edge_px": 0
+   }
+  },
+  "top": {
+   "1-2": {
+    "separated": false,
+    "occlusion_edge_px": 0
+   },
+   "2-3": {
+    "separated": false,
+    "occlusion_edge_px": 0
+   }
+  },
+  "tt0": {
+   "1-2": {
+    "separated": false,
+    "occlusion_edge_px": 10
+   },
+   "2-3": {
+    "separated": false,
+    "occlusion_edge_px": 0
+   }
+  },
+  "tt30": {
+   "1-2": {
+    "separated": false,
+    "occlusion_edge_px": 0
+   },
+   "2-3": {
+    "separated": false,
+    "occlusion_edge_px": 0
+   }
+  },
+  "tt60": {
+   "1-2": {
+    "separated": false,
+    "occlusion_edge_px": 0
+   },
+   "2-3": {
+    "separated": true,
+    "occlusion_edge_px": 78
+   }
+  },
+  "tt90": {
+   "1-2": {
+    "separated": true,
+    "occlusion_edge_px": 51
+   },
+   "2-3": {
+    "separated": true,
+    "occlusion_edge_px": 88
+   }
+  },
+  "tt120": {
+   "1-2": {
+    "separated": true,
+    "occlusion_edge_px": 62
+   },
+   "2-3": {
+    "separated": false,
+    "occlusion_edge_px": 0
+   }
+  },
+  "tt150": {
+   "1-2": {
+    "separated": true,
+    "occlusion_edge_px": 124
+   },
+   "2-3": {
+    "separated": null,
+    "occlusion_edge_px": 0
+   }
+  },
+  "tt180": {
+   "1-2": {
+    "separated": null,
+    "occlusion_edge_px": 0
+   },
+   "2-3": {
+    "separated": null,
+    "occlusion_edge_px": 0
+   }
+  },
+  "tt210": {
+   "1-2": {
+    "separated": null,
+    "occlusion_edge_px": 0
+   },
+   "2-3": {
+    "separated": null,
+    "occlusion_edge_px": 0
+   }
+  },
+  "tt240": {
+   "1-2": {
+    "separated": null,
+    "occlusion_edge_px": 0
+   },
+   "2-3": {
+    "separated": true,
+    "occlusion_edge_px": 0
+   }
+  },
+  "tt270": {
+   "1-2": {
+    "separated": false,
+    "occlusion_edge_px": 0
+   },
+   "2-3": {
+    "separated": true,
+    "occlusion_edge_px": 14
+   }
+  },
+  "tt300": {
+   "1-2": {
+    "separated": false,
+    "occlusion_edge_px": 0
+   },
+   "2-3": {
+    "separated": true,
+    "occlusion_edge_px": 60
+   }
+  },
+  "tt330": {
+   "1-2": {
+    "separated": false,
+    "occlusion_edge_px": 0
+   },
+   "2-3": {
+    "separated": true,
+    "occlusion_edge_px": 60
+   }
+  }
+ },
+ "T4_relief": {
+  "vertices": 314400,
+  "max_dev_m": 0.0,
+  "p99_dev_m": 0.0,
+  "front_u_ge_0_max_dev_m": 0.0,
+  "white_whiteSD_gt_0_max_dev_m": 0.0,
+  "signed_along_normal_min_max_m": [
+   -0.0,
+   0.0
+  ]
+ },
+ "C2": {
+  "by_role": {
+   "FACE_INTERIOR": 25,
+   "NEAR_SEA": 10
+  },
+  "fail": 0,
+  "moved_gt_1cm": 18
+ },
+ "C3": {
+  "iou_painting_p10_p50_min_sample02": [
+   0.8751,
+   0.8917,
+   0.8528
+  ],
+  "painting_visible_frac_p10_p50_min": {
+   "S04": [
+    0.901,
+    0.974,
+    0.822
+   ],
+   "S03": [
+    0.864,
+    0.96,
+    0.822
+   ]
+  }
+ },
+ "white_flecks_fix1": {
+  "S04": {
+   "loop_marks": 6,
+   "loop_aspect_p50": 8.75,
+   "loop_aspect_p95": 29.56,
+   "loop_aspect_max": 33.6,
+   "loop_len_max": 182.6,
+   "slash_ge30px_aspect_ge6_painting": 5,
+   "slash_ge30px_aspect_ge6_seat": 6,
+   "slash_ge30px_aspect_ge6_seat_toward_wave": 11,
+   "slash_ge30px_aspect_ge6_side_left": 1,
+   "slash_ge30px_aspect_ge6_side_right": 0,
+   "slash_ge30px_aspect_ge6_back65": 0,
+   "slash_ge30px_aspect_ge6_top": 0
+  },
+  "FX1": {
+   "loop_marks": 19,
+   "loop_aspect_p50": 2.0,
+   "loop_aspect_p95": 3.8,
+   "loop_aspect_max": 5.0,
+   "loop_len_max": 16.0,
+   "slash_ge30px_aspect_ge6_painting": 1,
+   "slash_ge30px_aspect_ge6_seat": 0,
+   "slash_ge30px_aspect_ge6_seat_toward_wave": 0,
+   "slash_ge30px_aspect_ge6_side_left": 1,
+   "slash_ge30px_aspect_ge6_side_right": 0,
+   "slash_ge30px_aspect_ge6_back65": 0,
+   "slash_ge30px_aspect_ge6_top": 0
+  },
+  "S02": {
+   "loop_marks": 0,
+   "loop_aspect_p50": null,
+   "loop_aspect_p95": null,
+   "loop_aspect_max": null,
+   "loop_len_max": null,
+   "slash_ge30px_aspect_ge6_painting": 1,
+   "slash_ge30px_aspect_ge6_seat": 0,
+   "slash_ge30px_aspect_ge6_seat_toward_wave": 0,
+   "slash_ge30px_aspect_ge6_side_left": 0,
+   "slash_ge30px_aspect_ge6_side_right": 0,
+   "slash_ge30px_aspect_ge6_back65": 0,
+   "slash_ge30px_aspect_ge6_top": 0
+  }
+ },
+ "union_mesh": {
+  "vertices": 414189,
+  "triangles": 824576,
+  "bin": "union.bin",
+  "sha256": "b8d9a2cd767e7006367ee9fc99c9392ac5d987a7e5f3562dfbbec3fee17ebb32"
+ },
+ "claws_float_above_surface_m_ja": "置き直した面の内の爪のうち claw057 1.34・claw079 1.43・claw054 1.40・claw037 1.33 m が面から出る（見本03 0.17〜0.60 m）。直していない"
+}
