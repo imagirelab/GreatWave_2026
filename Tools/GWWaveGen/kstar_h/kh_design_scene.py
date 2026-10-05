@@ -1,0 +1,148 @@
+# -*- coding: utf-8 -*-
+"""設計28修正01：K*′（候補 H1）の手続きの網を Houdini のシーンに組み、保存する（hython）。
+
+  hython kh_design_scene.py --design <design.json> [--base <kstar_h_base.hiplc>] [--out <kstar_h.hiplc>] [--verify <report.json>]
+
+土台のシーン（kh_build_scene.py が作る PaintingCam・原画の板・海・K* / 第 2 回 / 第 3 回・参照モデル）を開き、
+/obj/kstar_h_design（CTRL → guides → bregion_ledge → side_edges → skin → OUT）を足して、設計の json の鍵を CTRL の
+ramp へ入れる。/out/painting_view（OpenGL、原画の板の前）は kstar_h_design と海を描く。形はシーンに保存しない（毎回 cook）。
+--verify：開き直して cook し、点の数・行の面からのずれ・CTRL から読み戻した設計が json と同じかを確かめ、原画視点を描く。
+"""
+import os
+import sys
+import json
+import time
+import argparse
+
+import numpy as np
+import hou
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, HERE)
+import kh_common as KC  # noqa: E402
+import kh_design as D  # noqa: E402
+import kh_houdini_design as HD  # noqa: E402
+
+HIP_OUT = os.path.join(KC.HIP_DIR, "kstar_h.hiplc")
+
+
+def build(a):
+    t0 = time.time()
+    hou.hipFile.load(a.base, suppress_save_prompt=True, ignore_load_warnings=True)
+    obj = hou.node("/obj")
+    old = obj.node("kstar_h_design")
+    if old is not None:
+        old.destroy()
+    geo = obj.createNode("geo", "kstar_h_design")
+    for ch in geo.children():
+        ch.destroy()
+    ctrl = geo.createNode("null", "CTRL")
+    HD.add_ctrl_parms(ctrl)
+    design = D.Design.load(a.design)
+    HD.set_ctrl_from_design(ctrl, design, os.path.abspath(a.design).replace("\\", "/"))
+    fl = json.load(open(a.design, encoding="utf-8")).get("fit_log")
+    if fl and ctrl.parm("fit_note"):
+        ctrl.parm("fit_note").set(json.dumps(fl.get("summary", {}), ensure_ascii=False)[:500])
+    ctrl.setColor(hou.Color(0.9, 0.75, 0.2))
+    ctrl.setComment("Named artist controls (ramps along the crest c). Edit here; everything downstream re-cooks.")
+
+    def py(name, func, inp=None, comment=""):
+        n = geo.createNode("python", name)
+        n.parm("python").set(HD.PYSOP % (HERE.replace("\\", "/"), func))
+        if inp is not None:
+            n.setFirstInput(inp)
+        n.setComment(comment)
+        return n
+    guides = py("guides", "sop_guides", comment="Per-section guide curves: 240 constant-c rows x 400 points. Round shell back concentric with the barrel, "
+                "round top arc, lip hook, near-circular tube, foot flowing into a front trough (kh_design.section).")
+    ledge = py("bregion_ledge", "sop_ledge", guides, "b region: second crest on the near shoulder (valley -> ridge on the lip top), 3 lobes as large forms.")
+    edges = py("side_edges", "sop_edges", ledge, "Painting fit by the side edges only: normal offsets where PaintingCam grazes the surface.")
+    skin = geo.createNode("skin", "skin")
+    skin.setFirstInput(edges)
+    skin.setComment("Skin the guide curves into the sheet (quads; points and attributes kept, so col/row survive).")
+    nrm = geo.createNode("normal", "N")
+    nrm.setFirstInput(skin)
+    tint = geo.createNode("color", "tint")
+    tint.setFirstInput(nrm)
+    tint.parm("class").set(2)
+    tint.parmTuple("color").set((0.82, 0.80, 0.74))
+    out = geo.createNode("null", "OUT")
+    out.setFirstInput(tint)
+    out.setDisplayFlag(True); out.setRenderFlag(True)
+    out.setColor(hou.Color(0.3, 0.8, 0.3))
+    geo.layoutChildren()
+    note = geo.createStickyNote("kh_design_note")
+    note.setText("K*' candidate H1 (Design 28R01)\n"
+                 "CTRL ramps -> guides (per-section curves) -> bregion_ledge -> side_edges -> skin -> OUT\n"
+                 "OUT -> kh_bridge.py h2g (slice on the 240 row planes, attr columns) -> GWW0 400x240.\n"
+                 "Fit: kh_fit.py moves only the silhouette-forming controls (crest line, lip/hook/tube, b-region ridge, side edges);\n"
+                 "interior controls are regularised toward the reference proportions. Reference model = someone else's sculpture: reference only.")
+    note.setSize(hou.Vector2(9, 2.2))
+    geo.setComment("K*' candidate H1 — procedural (Design 28R01). Controls on CTRL.")
+    geo.setColor(hou.Color(0.3, 0.8, 0.3))
+    # show only the design and the sea by default
+    for n in obj.children():
+        if n.type().name() == "geo" and n.name() not in ("kstar_h_design", "sea"):
+            n.setDisplayFlag(False)
+    geo.setDisplayFlag(True)
+    obj.layoutChildren()
+    rop = hou.node("/out/painting_view")
+    if rop is not None:
+        for pn, v in (("vobjects", ""), ("forceobjects", "kstar_h_design sea"), ("picture", (os.path.join(KC.OUT_ROOT, "candH1", "houdini_painting_view_H1.png")).replace("\\", "/"))):
+            if rop.parm(pn) is not None:
+                rop.parm(pn).set(v)
+    os.makedirs(os.path.dirname(os.path.abspath(a.out)), exist_ok=True)
+    hou.hipFile.save(a.out)
+    return {"saved": a.out, "hip_bytes": os.path.getsize(a.out), "design": os.path.abspath(a.design), "build_seconds": round(time.time() - t0, 2)}
+
+
+def verify(rep, design_path):
+    t0 = time.time()
+    hou.hipFile.load(rep["saved"], suppress_save_prompt=True, ignore_load_warnings=True)
+    out = {}
+    ctrl = hou.node("/obj/kstar_h_design/CTRL")
+    d_json = D.Design.load(design_path)
+    d_hou = HD.design_from_ctrl(ctrl)
+    ok, bad = HD.design_equal(d_json, d_hou)
+    out["ctrl_equals_design_json"] = ok
+    if not ok:
+        out["ctrl_first_mismatch"] = bad
+    node = hou.node("/obj/kstar_h_design/OUT")
+    t1 = time.time()
+    geo = node.geometry()
+    out["cook_seconds"] = round(time.time() - t1, 2)
+    out["points"] = len(geo.points()); out["prims"] = len(geo.prims())
+    out["errors"] = [e for n in node.parent().children() for e in n.errors()]
+    out["warnings"] = [w for n in node.parent().children() for w in n.warnings()]
+    # rows back from Houdini vs the numpy build (same code, float32 points)
+    c, A, Y = HD.points_to_rows(geo)
+    c2, A2, Y2, P2 = D.build(d_json)
+    out["houdini_vs_numpy_max_m"] = float(max(np.abs(A - A2).max(), np.abs(Y - Y2).max()))
+    Ph = np.frombuffer(geo.pointFloatAttribValuesAsString("P"), np.float32).reshape(-1, 3).astype(np.float64)
+    S = KC.sec(KC.h2u(Ph)).reshape(len(c), -1, 3)
+    out["row_plane_spread_max_m"] = float(np.abs(S[..., 2] - c[:, None]).max())
+    rop = hou.node("/out/painting_view")
+    if rop is not None:
+        try:
+            rop.render(frame_range=(1, 1))
+            out["opengl_painting_view"] = rop.evalParm("picture")
+        except hou.OperationFailed as e:
+            out["opengl_painting_view"] = "render failed: %s" % e
+    rep["verify"] = out
+    rep["verify_seconds"] = round(time.time() - t0, 2)
+    return rep
+
+
+if __name__ == "__main__":
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--design", required=True)
+    ap.add_argument("--base", default=KC.HIP_BASE)
+    ap.add_argument("--out", default=HIP_OUT)
+    ap.add_argument("--verify", default=None)
+    a = ap.parse_args()
+    r = build(a)
+    if a.verify:
+        r = verify(r, a.design)
+        os.makedirs(os.path.dirname(os.path.abspath(a.verify)), exist_ok=True)
+        json.dump(r, open(a.verify, "w", encoding="utf-8"), indent=1, ensure_ascii=False, default=str)
+    print(json.dumps(r, indent=1, ensure_ascii=False, default=str)[:4000])

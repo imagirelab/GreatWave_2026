@@ -1,0 +1,5108 @@
+{
+ "schema": "GreatWave.DS28R01.motion_metrics/1",
+ "number": "設計28修正01",
+ "part_ja": "動きの修正（Tools/GWWaveGen/ds28r01/）",
+ "evidence_kind_ja": "numpy の生成器・検査器（パッケージを Hermite で読む）。Unity の描画・HMD の結果ではない",
+ "figures": [
+  "Docs/Evidence/Design/28R01/fig_ds28r01_q13_sections.png",
+  "Docs/Evidence/Design/28R01/fig_ds28r01_claws_timewarp.png"
+ ],
+ "packages": {
+  "art_on": {
+   "layers": 186,
+   "pos_sha256": "6c0a429e60a9ab1fc27f4ca1a06667679ae9e3fea3672acb653e68a908579332",
+   "twhite_sha256": "c8753ba9dc894d5b96384b77b78e610471be6488d370047b57d0fb893a04bbd7",
+   "keypose_json_sha256": "e79836923644ff6a03758f7ef66a87a446afdd79fb20da47dc3fd7e65b91b1a9",
+   "pos_mib": 136.23,
+   "gpu_estimate": {
+    "layer_mib": 0.7324,
+    "texture2darray_mib": 136.23,
+    "texture2darray_readable_mib": 272.46,
+    "twhite_mib": 0.366,
+    "budget_mib": 512,
+    "note_ja": "RGBA64 の Texture2DArray（層 × 400 × 240 × 8 バイト）。読み取り可能のままなら CPU の写しで 2 倍（見積もり、Unity の実測は設計29）。法線はパッケージに入れない（再生側で三角形から作る）。"
+   },
+   "quantization_max_err_m": 0.0012077575161695267,
+   "seconds": 944.2,
+   "variant": "art_on",
+   "switches": {
+    "ds_body_narrow": true,
+    "ds_back_steep": true,
+    "ds_tube_shape": true,
+    "ds_claws": true,
+    "ds_lip_target_kstar": true,
+    "ds_farwall_hold": true,
+    "ds_tube_white_early": true,
+    "ds_swell_calm": true,
+    "ds_sea_calm_painting": true,
+    "ds_approach_kstar": true,
+    "ds_tower_peak": true,
+    "ds_tip_white_line": true,
+    "ds_crest_tower": true,
+    "ds_undercut_kstar": true,
+    "ds_rise_overlap": true
+   },
+   "lip_launch": {
+    "159": {
+     "c_m": 0.0,
+     "H_kstar_m": 20.79984347027383,
+     "release_tau": -2.2075,
+     "ramp_s": 0.6,
+     "flight_s": 2.2075,
+     "release_y_m": 14.194668963070322,
+     "crest_at_release_over_H": 0.733,
+     "prerelease_vel": [
+      20.0,
+      2.391981999081491
+     ],
+     "launch_u_over_c0": 1.1505521893023856,
+     "launch_w_mps": 10.90360221050128,
+     "launch_w_over_sqrt_gH": 0.7633179266547239,
+     "apex_y_m": 18.22111106037292,
+     "apex_tau": -1.0974905482041588,
+     "crest_at_apex_m": 17.985903061549045,
+     "apex_minus_crest_m": 0.23520799882387422,
+     "max_tip_minus_crest_m": 0.530039973110334,
+     "kstar_tip": [
+      11.65604088362339,
+      12.32892394351434
+     ],
+     "mode": "damped",
+     "thrown": true
+    },
+    "192": {
+     "c_m": 3.85,
+     "H_kstar_m": 22.576815505891087,
+     "release_tau": -2.325396690082583,
+     "ramp_s": 0.6,
+     "flight_s": 2.325396690082583,
+     "release_y_m": 15.319129297193118,
+     "crest_at_release_over_H": 0.7415561904161252,
+     "prerelease_vel": [
+      19.916579652132782,
+      2.5404488513895984
+     ],
+     "launch_u_over_c0": 1.0355115225580935,
+     "launch_w_mps": 11.33266068425033,
+     "launch_w_over_sqrt_gH": 0.7614932181723851,
+     "apex_y_m": 19.74634392860092,
+     "apex_tau": -1.1710331002028778,
+     "crest_at_apex_m": 19.597731748253878,
+     "apex_minus_crest_m": 0.14861218034704038,
+     "max_tip_minus_crest_m": 0.43743590811574506,
+     "kstar_tip": [
+      3.4728909457276487,
+      13.029809234708157
+     ],
+     "mode": "damped",
+     "thrown": false
+    }
+   },
+   "code_sha256": {
+    "ds28/ds28_model.py": "a273b55e27f177d2928afbbf7efbc90dac00b247e8fdeeea8a3285f2f091da41",
+    "ds28/ds28_generate.py": "3d4ab39bc79d8fc03c6a3a65012ab386e0e55dd4c439a647e8e98464a9f1b73d",
+    "ds28/ds28_params.json": "d0dcd8b1b43a244c1263b8b987da1297e539cce1fc5976a102b469e843623a3c",
+    "ds27/ds27_model.py": "916e8f4201e013a455666998c6819d4aa1292d67ed9e8ca653bda17acdb0826a",
+    "ds27/ds27_generate.py": "09ed8b41eeb6f183d058cd56a4bd9ed1e9af81edc426a65fda24c991b080d2c7",
+    "ds27/ds27_package.py": "d4b021d0f751cf718432e89ffa18107240ad8daa1450520291c127c16bf66879",
+    "ds27/ds27_checks.py": "ec6288173503be7dcab5bf49649207380536dba05370a3524a45fd092488455a",
+    "ds27/ds27_params.json": "03e3b6346a58517511e1c6ad1afaee0217147d0f18a1c1cb4fe7ff81df5b47c4",
+    "ds27/timewarp_default.json": "0e14eadd52bbbc4060f4ef1e4649d544018b7b3427c8b0666a2e7aca81c18373",
+    "ds27/timewarp_alt.json": "385251f92c0fee24cc261d53d8efae4a0a9eb6fdeeb97bcde082d43b2c1c5587",
+    "ds28/ds28_physoff.py": "5987780ee99899a577db30871a0cd11d3c83364d0917e229f4259432481e5e64",
+    "ds28/ds28_inputs_model.py": "8a3952bed36b9ac70f0672f213719a7f5bd87c9644d64d21d9a8f1eff3b71666",
+    "ds28r01/ds28r01_model.py": "e627dca158b60d922fd68125965360aeddff8eb4c968070a7f953da60844e5d1",
+    "ds28r01/ds28r01_generate.py": "d78ace076f6bbf018d3dabc7700a290cd6eafda434142b5a028a3ac7f4a34705",
+    "ds28r01/ds28r01_params.json": "28c2f66dc1760b9f22db7ab3554f8d8f2c32c92d2a6aee08beb9383c0ee1b08c"
+   },
+   "knot_log": [
+    "  節点 0 回目：127 層、126 区間を検査、差の最大 83.12 mm、追加 14（241 s）",
+    "  節点 1 回目：141 層、32 区間を検査、差の最大 19.70 mm、追加 21（61 s）",
+    "  節点 2 回目：162 層、46 区間を検査、差の最大 5.19 mm、追加 20（87 s）",
+    "  節点 3 回目：182 層、48 区間を検査、差の最大 6.61 mm、追加 4（98 s）",
+    "  節点 4 回目：186 層、16 区間を検査、差の最大 1.87 mm、追加 0（28 s）",
+    "  パッケージ：186 層、位置 136.2 MiB、量子化の差の最大 1.21 mm",
+    "  検査：361 コマ（30 Hz）＋ 中点 185（276 s）"
+   ],
+   "hermite_playback_err_m": {
+    "max": 0.0032585503006615263,
+    "max_at_tau": -4.2667,
+    "p99_of_frame_p99": 0.001433,
+    "max_30hz": 0.0032585503006615263,
+    "max_midpoints": 0.0029610473877828354,
+    "note_ja": "量子化した節点の Hermite と解析の生成器の差（全頂点の最大）。30 Hz のコマと節点の間の中点"
+   },
+   "tstar_vs_kstar_world_max_m": 0.001203563619620077
+  },
+  "art_off": {
+   "layers": 155,
+   "pos_sha256": "a74e4443d5d9115537c27893d142d3d66edc5aed6f931af7f05c595a7abac3a5",
+   "twhite_sha256": "6b376e0d996e28737099c01b265df739d3b347e774a0f21fe74eeaa6fc6f21fd",
+   "keypose_json_sha256": "1225cebc3ab9cca10a2cde649eebd204b0427866c0462a201f68380c8834d929",
+   "pos_mib": 113.53,
+   "gpu_estimate": {
+    "layer_mib": 0.7324,
+    "texture2darray_mib": 113.53,
+    "texture2darray_readable_mib": 227.05,
+    "twhite_mib": 0.366,
+    "budget_mib": 512,
+    "note_ja": "RGBA64 の Texture2DArray（層 × 400 × 240 × 8 バイト）。読み取り可能のままなら CPU の写しで 2 倍（見積もり、Unity の実測は設計29）。法線はパッケージに入れない（再生側で三角形から作る）。"
+   },
+   "quantization_max_err_m": 0.001207205154474337,
+   "seconds": 2370.2,
+   "variant": "art_off+ds_crest_tower=0+ds_undercut_kstar=0",
+   "switches": {
+    "ds_body_narrow": false,
+    "ds_back_steep": false,
+    "ds_tube_shape": false,
+    "ds_claws": false,
+    "ds_lip_target_kstar": false,
+    "ds_farwall_hold": false,
+    "ds_tube_white_early": false,
+    "ds_swell_calm": false,
+    "ds_sea_calm_painting": false,
+    "ds_approach_kstar": false,
+    "ds_tower_peak": false,
+    "ds_tip_white_line": false,
+    "ds_crest_tower": false,
+    "ds_undercut_kstar": false,
+    "ds_rise_overlap": false
+   },
+   "lip_launch": {
+    "159": {
+     "c_m": 0.0,
+     "H_kstar_m": 20.79984347027383,
+     "release_tau": -2.4,
+     "ramp_s": 0.6,
+     "flight_s": 2.4,
+     "release_y_m": 17.348227169633436,
+     "crest_at_release_over_H": 0.884614516285665,
+     "prerelease_vel": [
+      20.0,
+      1.0
+     ],
+     "launch_u_over_c0": 1.106,
+     "launch_w_mps": 8.21357792357232,
+     "launch_w_over_sqrt_gH": 0.575,
+     "apex_y_m": 19.15236764730356,
+     "apex_tau": -1.5625,
+     "crest_at_apex_m": 19.23734347027383,
+     "apex_minus_crest_m": -0.08497582297027151,
+     "max_tip_minus_crest_m": -0.03379253375905478,
+     "kstar_tip": [
+      11.65604088362339,
+      12.32892394351434
+     ],
+     "mode": "strip",
+     "thrown": false
+    },
+    "192": {
+     "c_m": 3.85,
+     "H_kstar_m": 20.657963557738896,
+     "release_tau": -2.2075,
+     "ramp_s": 0.6,
+     "flight_s": 2.2075,
+     "release_y_m": 17.182890338216993,
+     "crest_at_release_over_H": 0.893140483386465,
+     "prerelease_vel": [
+      20.0,
+      1.0
+     ],
+     "launch_u_over_c0": 1.106,
+     "launch_w_mps": 8.185516756108408,
+     "launch_w_over_sqrt_gH": 0.575,
+     "apex_y_m": 18.97199473830106,
+     "apex_tau": -1.3729064272211722,
+     "crest_at_apex_m": 19.285057130517725,
+     "apex_minus_crest_m": -0.3130623922166649,
+     "max_tip_minus_crest_m": -0.2619247325661185,
+     "kstar_tip": [
+      3.4658399129904005,
+      11.994200690774917
+     ],
+     "mode": "strip",
+     "thrown": false
+    }
+   },
+   "code_sha256": {
+    "ds28/ds28_model.py": "a273b55e27f177d2928afbbf7efbc90dac00b247e8fdeeea8a3285f2f091da41",
+    "ds28/ds28_generate.py": "3d4ab39bc79d8fc03c6a3a65012ab386e0e55dd4c439a647e8e98464a9f1b73d",
+    "ds28/ds28_params.json": "d0dcd8b1b43a244c1263b8b987da1297e539cce1fc5976a102b469e843623a3c",
+    "ds27/ds27_model.py": "916e8f4201e013a455666998c6819d4aa1292d67ed9e8ca653bda17acdb0826a",
+    "ds27/ds27_generate.py": "09ed8b41eeb6f183d058cd56a4bd9ed1e9af81edc426a65fda24c991b080d2c7",
+    "ds27/ds27_package.py": "d4b021d0f751cf718432e89ffa18107240ad8daa1450520291c127c16bf66879",
+    "ds27/ds27_checks.py": "ec6288173503be7dcab5bf49649207380536dba05370a3524a45fd092488455a",
+    "ds27/ds27_params.json": "03e3b6346a58517511e1c6ad1afaee0217147d0f18a1c1cb4fe7ff81df5b47c4",
+    "ds27/timewarp_default.json": "0e14eadd52bbbc4060f4ef1e4649d544018b7b3427c8b0666a2e7aca81c18373",
+    "ds27/timewarp_alt.json": "385251f92c0fee24cc261d53d8efae4a0a9eb6fdeeb97bcde082d43b2c1c5587",
+    "ds28/ds28_physoff.py": "5987780ee99899a577db30871a0cd11d3c83364d0917e229f4259432481e5e64",
+    "ds28/ds28_inputs_model.py": "8a3952bed36b9ac70f0672f213719a7f5bd87c9644d64d21d9a8f1eff3b71666",
+    "ds28r01/ds28r01_model.py": "2eb86c1a9a60cf744ba97babcea4c53a81f4bbd90ae96f83917ad257dca3d1a1",
+    "ds28r01/ds28r01_generate.py": "d78ace076f6bbf018d3dabc7700a290cd6eafda434142b5a028a3ac7f4a34705",
+    "ds28r01/ds28r01_params.json": "c8dd243e77251dfa77aa18e87830977856333ffbc0171e786cf9b6d178136858"
+   },
+   "knot_log": [
+    "  節点 0 回目：127 層、126 区間を検査、差の最大 62.90 mm、追加 11（968 s）",
+    "  節点 1 回目：138 層、27 区間を検査、差の最大 16.42 mm、追加 10（208 s）",
+    "  節点 2 回目：148 層、22 区間を検査、差の最大 7.50 mm、追加 3（170 s）",
+    "  節点 3 回目：151 層、10 区間を検査、差の最大 6.90 mm、追加 2（77 s）",
+    "  節点 4 回目：153 層、6 区間を検査、差の最大 5.32 mm、追加 2（47 s）",
+    "  節点 5 回目：155 層、8 区間を検査、差の最大 0.53 mm、追加 0（63 s）",
+    "  パッケージ：155 層、位置 113.5 MiB、量子化の差の最大 1.21 mm",
+    "  検査：361 コマ（30 Hz）＋ 中点 154（472 s）"
+   ],
+   "hermite_playback_err_m": {
+    "max": 0.003028424751449642,
+    "max_at_tau": -4.1667,
+    "p99_of_frame_p99": 0.00153,
+    "max_30hz": 0.003028424751449642,
+    "max_midpoints": 0.002754933706205088,
+    "note_ja": "量子化した節点の Hermite と解析の生成器の差（全頂点の最大）。30 Hz のコマと節点の間の中点"
+   },
+   "tstar_vs_kstar_world_max_m": 25.958595484374673
+  },
+  "_twice/art_on": {
+   "layers": 186,
+   "pos_sha256": "6c0a429e60a9ab1fc27f4ca1a06667679ae9e3fea3672acb653e68a908579332",
+   "twhite_sha256": "c8753ba9dc894d5b96384b77b78e610471be6488d370047b57d0fb893a04bbd7",
+   "keypose_json_sha256": "e79836923644ff6a03758f7ef66a87a446afdd79fb20da47dc3fd7e65b91b1a9",
+   "pos_mib": 136.23,
+   "gpu_estimate": {
+    "layer_mib": 0.7324,
+    "texture2darray_mib": 136.23,
+    "texture2darray_readable_mib": 272.46,
+    "twhite_mib": 0.366,
+    "budget_mib": 512,
+    "note_ja": "RGBA64 の Texture2DArray（層 × 400 × 240 × 8 バイト）。読み取り可能のままなら CPU の写しで 2 倍（見積もり、Unity の実測は設計29）。法線はパッケージに入れない（再生側で三角形から作る）。"
+   },
+   "quantization_max_err_m": 0.0012077575161695267,
+   "seconds": 614.4,
+   "variant": "art_on",
+   "switches": {
+    "ds_body_narrow": true,
+    "ds_back_steep": true,
+    "ds_tube_shape": true,
+    "ds_claws": true,
+    "ds_lip_target_kstar": true,
+    "ds_farwall_hold": true,
+    "ds_tube_white_early": true,
+    "ds_swell_calm": true,
+    "ds_sea_calm_painting": true,
+    "ds_approach_kstar": true,
+    "ds_tower_peak": true,
+    "ds_tip_white_line": true,
+    "ds_crest_tower": true,
+    "ds_undercut_kstar": true,
+    "ds_rise_overlap": true
+   },
+   "lip_launch": {
+    "159": {
+     "c_m": 0.0,
+     "H_kstar_m": 20.79984347027383,
+     "release_tau": -2.2075,
+     "ramp_s": 0.6,
+     "flight_s": 2.2075,
+     "release_y_m": 14.194668963070322,
+     "crest_at_release_over_H": 0.733,
+     "prerelease_vel": [
+      20.0,
+      2.391981999081491
+     ],
+     "launch_u_over_c0": 1.1505521893023856,
+     "launch_w_mps": 10.90360221050128,
+     "launch_w_over_sqrt_gH": 0.7633179266547239,
+     "apex_y_m": 18.22111106037292,
+     "apex_tau": -1.0974905482041588,
+     "crest_at_apex_m": 17.985903061549045,
+     "apex_minus_crest_m": 0.23520799882387422,
+     "max_tip_minus_crest_m": 0.530039973110334,
+     "kstar_tip": [
+      11.65604088362339,
+      12.32892394351434
+     ],
+     "mode": "damped",
+     "thrown": true
+    },
+    "192": {
+     "c_m": 3.85,
+     "H_kstar_m": 22.576815505891087,
+     "release_tau": -2.325396690082583,
+     "ramp_s": 0.6,
+     "flight_s": 2.325396690082583,
+     "release_y_m": 15.319129297193118,
+     "crest_at_release_over_H": 0.7415561904161252,
+     "prerelease_vel": [
+      19.916579652132782,
+      2.5404488513895984
+     ],
+     "launch_u_over_c0": 1.0355115225580935,
+     "launch_w_mps": 11.33266068425033,
+     "launch_w_over_sqrt_gH": 0.7614932181723851,
+     "apex_y_m": 19.74634392860092,
+     "apex_tau": -1.1710331002028778,
+     "crest_at_apex_m": 19.597731748253878,
+     "apex_minus_crest_m": 0.14861218034704038,
+     "max_tip_minus_crest_m": 0.43743590811574506,
+     "kstar_tip": [
+      3.4728909457276487,
+      13.029809234708157
+     ],
+     "mode": "damped",
+     "thrown": false
+    }
+   },
+   "code_sha256": {
+    "ds28/ds28_model.py": "a273b55e27f177d2928afbbf7efbc90dac00b247e8fdeeea8a3285f2f091da41",
+    "ds28/ds28_generate.py": "3d4ab39bc79d8fc03c6a3a65012ab386e0e55dd4c439a647e8e98464a9f1b73d",
+    "ds28/ds28_params.json": "d0dcd8b1b43a244c1263b8b987da1297e539cce1fc5976a102b469e843623a3c",
+    "ds27/ds27_model.py": "916e8f4201e013a455666998c6819d4aa1292d67ed9e8ca653bda17acdb0826a",
+    "ds27/ds27_generate.py": "09ed8b41eeb6f183d058cd56a4bd9ed1e9af81edc426a65fda24c991b080d2c7",
+    "ds27/ds27_package.py": "d4b021d0f751cf718432e89ffa18107240ad8daa1450520291c127c16bf66879",
+    "ds27/ds27_checks.py": "ec6288173503be7dcab5bf49649207380536dba05370a3524a45fd092488455a",
+    "ds27/ds27_params.json": "03e3b6346a58517511e1c6ad1afaee0217147d0f18a1c1cb4fe7ff81df5b47c4",
+    "ds27/timewarp_default.json": "0e14eadd52bbbc4060f4ef1e4649d544018b7b3427c8b0666a2e7aca81c18373",
+    "ds27/timewarp_alt.json": "385251f92c0fee24cc261d53d8efae4a0a9eb6fdeeb97bcde082d43b2c1c5587",
+    "ds28/ds28_physoff.py": "5987780ee99899a577db30871a0cd11d3c83364d0917e229f4259432481e5e64",
+    "ds28/ds28_inputs_model.py": "8a3952bed36b9ac70f0672f213719a7f5bd87c9644d64d21d9a8f1eff3b71666",
+    "ds28r01/ds28r01_model.py": "e627dca158b60d922fd68125965360aeddff8eb4c968070a7f953da60844e5d1",
+    "ds28r01/ds28r01_generate.py": "d78ace076f6bbf018d3dabc7700a290cd6eafda434142b5a028a3ac7f4a34705",
+    "ds28r01/ds28r01_params.json": "28c2f66dc1760b9f22db7ab3554f8d8f2c32c92d2a6aee08beb9383c0ee1b08c"
+   },
+   "knot_log": [
+    "  節点 0 回目：127 層、126 区間を検査、差の最大 83.12 mm、追加 14（240 s）",
+    "  節点 1 回目：141 層、32 区間を検査、差の最大 19.70 mm、追加 21（61 s）",
+    "  節点 2 回目：162 層、46 区間を検査、差の最大 5.19 mm、追加 20（86 s）",
+    "  節点 3 回目：182 層、48 区間を検査、差の最大 6.61 mm、追加 4（98 s）",
+    "  節点 4 回目：186 層、16 区間を検査、差の最大 1.87 mm、追加 0（28 s）",
+    "  パッケージ：186 層、位置 136.2 MiB、量子化の差の最大 1.21 mm"
+   ]
+  }
+ },
+ "determinism_art_on": {
+  "pos_same": true,
+  "twhite_same": true,
+  "keypose_json_same": true
+ },
+ "art_off_equals_ds28_art_off_phys": {
+  "pos_same": true,
+  "twhite_same": true
+ },
+ "q13": {
+  "art_on": {
+   "thresholds": {
+    "T1_H_at_start_max": 0.75,
+    "T1_rise_after_start_min": 0.25,
+    "T1_mono_m": 0.05,
+    "T1_plateau_frac": 0.95,
+    "T1_plateau_s": 0.5,
+    "T1_max_near_tstar_s": 0.2,
+    "T1_Lo_start": 0.05,
+    "T2_mono": 0.02,
+    "T2_lag": 0.2,
+    "T2_start_max": 0.35,
+    "claw_sigma_c_m": 1.0
+   },
+   "T1": {
+    "rows": {
+     "main": {
+      "Hf_m": 20.8,
+      "ext_start_tau": -2.467,
+      "H_at_start_over_Hf": 0.703,
+      "rise_after_start_over_Hf": 0.297,
+      "H_drawdown_after_start_m": 0.0,
+      "plateau_ge_0p95_longest_s": 0.4,
+      "H_max_tau": 0.0,
+      "Lo_0p1_tau": -1.65,
+      "H_at_Lo_0p1_over_Hf": 0.8,
+      "checks": {
+       "H_at_start": true,
+       "rise_after_start": true,
+       "monotone": true,
+       "no_plateau": true,
+       "max_near_tstar": true
+      },
+      "row": 159,
+      "pass": true
+     },
+     "peak": {
+      "Hf_m": 22.577,
+      "ext_start_tau": -2.833,
+      "H_at_start_over_Hf": 0.683,
+      "rise_after_start_over_Hf": 0.317,
+      "H_drawdown_after_start_m": 0.0,
+      "plateau_ge_0p95_longest_s": 0.433,
+      "H_max_tau": 0.0,
+      "Lo_0p1_tau": -2.6,
+      "H_at_Lo_0p1_over_Hf": 0.71,
+      "checks": {
+       "H_at_start": true,
+       "rise_after_start": true,
+       "monotone": true,
+       "no_plateau": true,
+       "max_near_tstar": true
+      },
+      "row": 192,
+      "pass": true
+     }
+    },
+    "pass": true
+   },
+   "T2": {
+    "detail": {
+     "cross_row_claws": {
+      "amp_tstar_rms_m": 0.2945,
+      "rms_at_ext_start_m": 0.0998,
+      "frac_at_ext_start": 0.012,
+      "drawdown_after_start": 0.0094,
+      "max_abs_C_minus_E": 0.142,
+      "max_E_minus_C": 0.006,
+      "tau_C_0p5": -0.85,
+      "tau_C_0p25": -1.4,
+      "tau_C_0p75": -0.367,
+      "pass": true
+     },
+     "in_row_hooks": {
+      "amp_tstar_rms_m": 0.0141,
+      "rms_at_ext_start_m": 0.0017,
+      "frac_at_ext_start": 0.01,
+      "drawdown_after_start": 0.0,
+      "max_abs_C_minus_E": 0.084,
+      "max_E_minus_C": 0.012,
+      "tau_C_0p5": -0.717,
+      "tau_C_0p25": -1.2,
+      "tau_C_0p75": -0.333,
+      "pass": true
+     },
+     "ext_progress": {
+      "tau_E_0p25": -1.15,
+      "tau_E_0p5": -0.717,
+      "tau_E_0p75": -0.333,
+      "from_tau": -2.833,
+      "tip_ahead_record": {
+       "tau_0p25": -1.1,
+       "tau_0p5": -0.667,
+       "tau_0p75": -0.317
+      }
+     }
+    },
+    "pass": true
+   }
+  },
+  "ds28_art_on": {
+   "thresholds": {
+    "T1_H_at_start_max": 0.75,
+    "T1_rise_after_start_min": 0.25,
+    "T1_mono_m": 0.05,
+    "T1_plateau_frac": 0.95,
+    "T1_plateau_s": 0.5,
+    "T1_max_near_tstar_s": 0.2,
+    "T1_Lo_start": 0.05,
+    "T2_mono": 0.02,
+    "T2_lag": 0.2,
+    "T2_start_max": 0.35,
+    "claw_sigma_c_m": 1.0
+   },
+   "T1": {
+    "rows": {
+     "main": {
+      "Hf_m": 20.8,
+      "ext_start_tau": -2.467,
+      "H_at_start_over_Hf": 0.866,
+      "rise_after_start_over_Hf": 0.134,
+      "H_drawdown_after_start_m": 0.0,
+      "plateau_ge_0p95_longest_s": 1.05,
+      "H_max_tau": 0.0,
+      "Lo_0p1_tau": -1.633,
+      "H_at_Lo_0p1_over_Hf": 0.921,
+      "checks": {
+       "H_at_start": false,
+       "rise_after_start": false,
+       "monotone": true,
+       "no_plateau": false,
+       "max_near_tstar": true
+      },
+      "row": 159,
+      "pass": false
+     },
+     "peak": {
+      "Hf_m": 22.577,
+      "ext_start_tau": -2.867,
+      "H_at_start_over_Hf": 0.82,
+      "rise_after_start_over_Hf": 0.18,
+      "H_drawdown_after_start_m": 0.0,
+      "plateau_ge_0p95_longest_s": 1.133,
+      "H_max_tau": 0.0,
+      "Lo_0p1_tau": -2.583,
+      "H_at_Lo_0p1_over_Hf": 0.877,
+      "checks": {
+       "H_at_start": false,
+       "rise_after_start": false,
+       "monotone": true,
+       "no_plateau": false,
+       "max_near_tstar": true
+      },
+      "row": 192,
+      "pass": false
+     }
+    },
+    "pass": false
+   },
+   "T2": {
+    "detail": {
+     "cross_row_claws": {
+      "amp_tstar_rms_m": 0.2945,
+      "rms_at_ext_start_m": 0.0775,
+      "frac_at_ext_start": 0.013,
+      "drawdown_after_start": 0.0083,
+      "max_abs_C_minus_E": 0.139,
+      "max_E_minus_C": 0.008,
+      "tau_C_0p5": -0.85,
+      "tau_C_0p25": -1.383,
+      "tau_C_0p75": -0.35,
+      "pass": true
+     },
+     "in_row_hooks": {
+      "amp_tstar_rms_m": 0.0141,
+      "rms_at_ext_start_m": 0.0016,
+      "frac_at_ext_start": 0.01,
+      "drawdown_after_start": 0.0,
+      "max_abs_C_minus_E": 0.081,
+      "max_E_minus_C": 0.0,
+      "tau_C_0p5": -0.717,
+      "tau_C_0p25": -1.2,
+      "tau_C_0p75": -0.333,
+      "pass": true
+     },
+     "ext_progress": {
+      "tau_E_0p25": -1.117,
+      "tau_E_0p5": -0.667,
+      "tau_E_0p75": -0.317,
+      "from_tau": -2.867,
+      "tip_ahead_record": {
+       "tau_0p25": -1.1,
+       "tau_0p5": -0.683,
+       "tau_0p75": -0.317
+      }
+     }
+    },
+    "pass": true
+   }
+  },
+  "art_off": {
+   "thresholds": {
+    "T1_H_at_start_max": 0.75,
+    "T1_rise_after_start_min": 0.25,
+    "T1_mono_m": 0.05,
+    "T1_plateau_frac": 0.95,
+    "T1_plateau_s": 0.5,
+    "T1_max_near_tstar_s": 0.2,
+    "T1_Lo_start": 0.05,
+    "T2_mono": 0.02,
+    "T2_lag": 0.2,
+    "T2_start_max": 0.35,
+    "claw_sigma_c_m": 1.0
+   },
+   "T1": {
+    "rows": {
+     "main": {
+      "Hf_m": 20.8,
+      "ext_start_tau": -1.75,
+      "H_at_start_over_Hf": 0.916,
+      "rise_after_start_over_Hf": 0.084,
+      "H_drawdown_after_start_m": 0.0,
+      "plateau_ge_0p95_longest_s": 1.05,
+      "H_max_tau": 0.0,
+      "Lo_0p1_tau": -1.467,
+      "H_at_Lo_0p1_over_Hf": 0.929,
+      "checks": {
+       "H_at_start": false,
+       "rise_after_start": false,
+       "monotone": true,
+       "no_plateau": false,
+       "max_near_tstar": true
+      },
+      "row": 159,
+      "pass": false
+     },
+     "peak": {
+      "Hf_m": 20.658,
+      "ext_start_tau": -1.567,
+      "H_at_start_over_Hf": 0.924,
+      "rise_after_start_over_Hf": 0.076,
+      "H_drawdown_after_start_m": 0.0,
+      "plateau_ge_0p95_longest_s": 1.033,
+      "H_max_tau": 0.0,
+      "Lo_0p1_tau": -1.283,
+      "H_at_Lo_0p1_over_Hf": 0.938,
+      "checks": {
+       "H_at_start": false,
+       "rise_after_start": false,
+       "monotone": true,
+       "no_plateau": false,
+       "max_near_tstar": true
+      },
+      "row": 192,
+      "pass": false
+     }
+    },
+    "pass": false
+   },
+   "T2": {
+    "detail": {
+     "cross_row_claws": {
+      "amp_tstar_rms_m": 0.2784,
+      "rms_at_ext_start_m": 0.1906,
+      "frac_at_ext_start": 0.422,
+      "drawdown_after_start": 0.0,
+      "max_abs_C_minus_E": 0.477,
+      "max_E_minus_C": 0.0,
+      "tau_C_0p5": -1.383,
+      "tau_C_0p25": -5.0,
+      "tau_C_0p75": -0.683,
+      "pass": false
+     },
+     "in_row_hooks": {
+      "amp_tstar_rms_m": 0.0094,
+      "rms_at_ext_start_m": 0.0048,
+      "frac_at_ext_start": 0.129,
+      "drawdown_after_start": 0.0,
+      "max_abs_C_minus_E": 0.219,
+      "max_E_minus_C": 0.0,
+      "tau_C_0p5": -0.833,
+      "tau_C_0p25": -1.367,
+      "tau_C_0p75": -0.367,
+      "pass": true
+     },
+     "ext_progress": {
+      "tau_E_0p25": -1.017,
+      "tau_E_0p5": -0.65,
+      "tau_E_0p75": -0.3,
+      "from_tau": -1.75,
+      "tip_ahead_record": {
+       "tau_0p25": -1.183,
+       "tau_0p5": -0.717,
+       "tau_0p75": -0.333
+      }
+     }
+    },
+    "pass": false
+   }
+  },
+  "r00_art_on": {
+   "thresholds": {
+    "T1_H_at_start_max": 0.75,
+    "T1_rise_after_start_min": 0.25,
+    "T1_mono_m": 0.05,
+    "T1_plateau_frac": 0.95,
+    "T1_plateau_s": 0.5,
+    "T1_max_near_tstar_s": 0.2,
+    "T1_Lo_start": 0.05,
+    "T2_mono": 0.02,
+    "T2_lag": 0.2,
+    "T2_start_max": 0.35,
+    "claw_sigma_c_m": 1.0
+   },
+   "T1": {
+    "rows": {
+     "main": {
+      "Hf_m": 20.8,
+      "ext_start_tau": -2.45,
+      "H_at_start_over_Hf": 0.705,
+      "rise_after_start_over_Hf": 0.295,
+      "H_drawdown_after_start_m": 0.0,
+      "plateau_ge_0p95_longest_s": 0.4,
+      "H_max_tau": 0.0,
+      "Lo_0p1_tau": -1.65,
+      "H_at_Lo_0p1_over_Hf": 0.8,
+      "checks": {
+       "H_at_start": true,
+       "rise_after_start": true,
+       "monotone": true,
+       "no_plateau": true,
+       "max_near_tstar": true
+      },
+      "row": 159,
+      "pass": true
+     },
+     "peak": {
+      "Hf_m": 22.577,
+      "ext_start_tau": -2.833,
+      "H_at_start_over_Hf": 0.683,
+      "rise_after_start_over_Hf": 0.317,
+      "H_drawdown_after_start_m": 0.0,
+      "plateau_ge_0p95_longest_s": 0.433,
+      "H_max_tau": 0.0,
+      "Lo_0p1_tau": -2.583,
+      "H_at_Lo_0p1_over_Hf": 0.712,
+      "checks": {
+       "H_at_start": true,
+       "rise_after_start": true,
+       "monotone": true,
+       "no_plateau": true,
+       "max_near_tstar": true
+      },
+      "row": 192,
+      "pass": true
+     }
+    },
+    "pass": true
+   },
+   "T2": {
+    "detail": {
+     "cross_row_claws": {
+      "amp_tstar_rms_m": 0.2945,
+      "rms_at_ext_start_m": 0.0997,
+      "frac_at_ext_start": 0.012,
+      "drawdown_after_start": 0.0067,
+      "max_abs_C_minus_E": 0.144,
+      "max_E_minus_C": 0.005,
+      "tau_C_0p5": -0.85,
+      "tau_C_0p25": -1.4,
+      "tau_C_0p75": -0.367,
+      "pass": true
+     },
+     "in_row_hooks": {
+      "amp_tstar_rms_m": 0.0141,
+      "rms_at_ext_start_m": 0.0017,
+      "frac_at_ext_start": 0.009,
+      "drawdown_after_start": 0.0001,
+      "max_abs_C_minus_E": 0.078,
+      "max_E_minus_C": 0.012,
+      "tau_C_0p5": -0.717,
+      "tau_C_0p25": -1.2,
+      "tau_C_0p75": -0.333,
+      "pass": true
+     },
+     "ext_progress": {
+      "tau_E_0p25": -1.15,
+      "tau_E_0p5": -0.717,
+      "tau_E_0p75": -0.333,
+      "from_tau": -2.833,
+      "tip_ahead_record": {
+       "tau_0p25": -1.067,
+       "tau_0p5": -0.667,
+       "tau_0p75": -0.3
+      }
+     }
+    },
+    "pass": true
+   }
+  }
+ },
+ "gates": {
+  "art_on_default": {
+   "P1": {
+    "pass_": true,
+    "value": 18.4
+   },
+   "P2": {
+    "pass_": false,
+    "value": 0.656
+   },
+   "P3": {
+    "pass_": false,
+    "value": 0.5688
+   },
+   "P4": {
+    "pass_": true,
+    "value": -9.741
+   },
+   "P5": {
+    "pass_": true,
+    "value": 20.63
+   },
+   "P6": {
+    "pass_": true,
+    "value": 1.053
+   },
+   "P7": {
+    "pass_": false,
+    "value": 2.867
+   },
+   "P8": {
+    "pass_": true,
+    "value": 0.973
+   },
+   "P9": {
+    "pass_": true,
+    "value": 0.216
+   },
+   "P10": {
+    "pass_": true,
+    "value": -0.955
+   },
+   "P11": {
+    "pass_": true,
+    "value": 1.25
+   },
+   "P12": {
+    "pass_": true,
+    "value": 0.0
+   },
+   "P13": {
+    "pass_": false,
+    "value": "12 項目中 7 項目が不合格"
+   },
+   "P14": {
+    "pass_": true,
+    "value": 6.7807
+   },
+   "P15": {
+    "pass_": true,
+    "value": {
+     "主断面": {
+      "a": -4.183,
+      "b": -3.333,
+      "c": -2.783,
+      "d": -1.65
+     },
+     "峰で最も高い巻きの行": {
+      "a": -4.367,
+      "b": -3.517,
+      "c": -3.017,
+      "d": -2.25
+     }
+    }
+   },
+   "P16": {
+    "pass_": true,
+    "value": -0.444
+   },
+   "Painting": {
+    "pass_": true,
+    "value": 0.0012
+   },
+   "P17": {
+    "pass_": false,
+    "value": {
+     "主断面": 0.1342,
+     "峰で最も高い巻きの行": 0.1159,
+     "巻きの行の最大": 0.1483
+    }
+   },
+   "P18": {
+    "pass_": true,
+    "value": 0.253
+   },
+   "P19": {
+    "pass_": true,
+    "value": 109.1
+   },
+   "P15_d_taller_than_c": {
+    "pass_": true,
+    "value": null
+   },
+   "P15_prime": {
+    "pass_": true,
+    "value": {
+     "主断面": {
+      "a": -4.183,
+      "b": -3.333,
+      "c": -2.783,
+      "d": -1.65
+     },
+     "峰で最も高い巻きの行": {
+      "a": -4.367,
+      "b": -3.517,
+      "c": -3.017,
+      "d": -2.25
+     }
+    }
+   },
+   "P13_items": {
+    "(1) 波の枠の 1 コマの変位（30 Hz）_m": {
+     "value": 0.467019,
+     "pass_": true
+    },
+    "(2) 地面の二階差分（30 Hz、全巻きの行の全点）_m": {
+     "value": 0.033858,
+     "pass_": false
+    },
+    "(3) 最も低い点_m": {
+     "value": -1.504136,
+     "pass_": true
+    },
+    "(4) 頂の高さの単調（戻りの最大）_m": {
+     "value": 0.000197,
+     "pass_": true
+    },
+    "(5a) 唇・管の三角形の面積の最小_m2": {
+     "value": 5.1e-05,
+     "pass_": false
+    },
+    "(5b) 行の方向の辺の最小_m": {
+     "value": 0.001139,
+     "pass_": false
+    },
+    "(5c) 辺の長さの K* に対する比（行の方向）": {
+     "value": [
+      0.009,
+      10.586
+     ],
+     "pass_": false
+    },
+    "(5d) 辺の長さの K* に対する比（行の間、縦と斜め）": {
+     "value": [
+      0.031,
+      14.173
+     ],
+     "pass_": false
+    },
+    "(5e) rim と管の天井の継ぎ目の比": {
+     "value": [
+      0.142,
+      2.228
+     ],
+     "pass_": false
+    },
+    "(5f) 自己交差（巻きの行の断面と、隣り合う巻きの行の間の中央の面）": {
+     "value": 0,
+     "pass_": true
+    },
+    "(5g) 面の反転（30 Hz、向きの決まった最後のコマと比べる）": {
+     "value": 8,
+     "pass_": false
+    },
+    "(6) 法線が有限（唇・管の頂点の 1 環の面積の最小 > 0）_m2": {
+     "value": 3.1e-05,
+     "pass_": true
+    }
+   },
+   "P15_detail": {
+    "主断面": {
+     "tau": {
+      "a": -4.183,
+      "b": -3.333,
+      "c": -2.783,
+      "d": -1.65
+     },
+     "table_tau": {
+      "a": -4.01,
+      "b": -3.21,
+      "c": -2.61,
+      "d": -1.86
+     },
+     "first_white_tau": -2.608,
+     "white_ok": true
+    },
+    "峰で最も高い巻きの行": {
+     "tau": {
+      "a": -4.367,
+      "b": -3.517,
+      "c": -3.017,
+      "d": -2.25
+     },
+     "table_tau": {
+      "a": -4.2,
+      "b": -3.4,
+      "c": -2.8,
+      "d": -2.05
+     },
+     "first_white_tau": -2.725,
+     "white_ok": true
+    }
+   },
+   "P17_detail": {
+    "main": {
+     "onset_tau": -2.867,
+     "max_change_frac": 0.1342,
+     "at_tau": -1.8,
+     "A_onset_m2": 179.8,
+     "A_tstar_m2": 204.4,
+     "A_min_after_m2": 179.8,
+     "A_max_after_m2": 207.2,
+     "from_jet_onset_frac": 0.054,
+     "before_onset_from_tau_m3p4_range_frac": 0.0399
+    },
+    "peak": {
+     "onset_tau": -3.1,
+     "max_change_frac": 0.1159,
+     "at_tau": -1.933,
+     "A_onset_m2": 198.6,
+     "A_tstar_m2": 222.8,
+     "A_min_after_m2": 198.6,
+     "A_max_after_m2": 224.4,
+     "from_jet_onset_frac": 0.0409,
+     "before_onset_from_tau_m3p4_range_frac": 0.0072
+    },
+    "worst_row": 60,
+    "from_jet_onset_max_frac": 0.0613
+   },
+   "P18_detail": {
+    "worst": {
+     "w3": {
+      "retreat_m": 0.0,
+      "row": 192,
+      "tau": -2.383
+     },
+     "w5": {
+      "retreat_m": 0.253,
+      "row": 192,
+      "tau": -1.617
+     },
+     "tip": {
+      "retreat_m": 0.0,
+      "row": 186,
+      "tau": -2.367
+     }
+    },
+    "rows_over": [],
+    "face_vertical": {
+     "worst": {
+      "w3": {
+       "retreat_m": 2.457,
+       "row": 191,
+       "tau": -2.4
+      },
+      "w5": {
+       "retreat_m": 1.872,
+       "row": 191,
+       "tau": -1.633
+      },
+      "tip": {
+       "retreat_m": 0.0,
+       "row": 186,
+       "tau": -2.367
+      }
+     },
+     "rows_over": 114
+    }
+   },
+   "P19_detail": {
+    "峰で最も高い巻きの行": {
+     "b_tau": -3.517,
+     "theta_c_at_b_deg": 109.1,
+     "table_b_tau": -3.4,
+     "theta_c_at_table_b_deg": 109.5,
+     "theta_c_min_between_a_and_c_deg": 109.0
+    },
+    "主断面": {
+     "b_tau": -3.333,
+     "theta_c_at_b_deg": 110.0,
+     "table_b_tau": -3.21,
+     "theta_c_at_table_b_deg": 111.0,
+     "theta_c_min_between_a_and_c_deg": 110.0
+    }
+   },
+   "P16_detail": null,
+   "failed": [
+    "P2",
+    "P3",
+    "P7",
+    "P13",
+    "P17"
+   ],
+   "stage_table": "q13"
+  },
+  "art_on_alt": {
+   "P1": {
+    "pass_": true,
+    "value": 18.4
+   },
+   "P2": {
+    "pass_": false,
+    "value": 0.656
+   },
+   "P3": {
+    "pass_": false,
+    "value": 0.5688
+   },
+   "P4": {
+    "pass_": true,
+    "value": -9.741
+   },
+   "P5": {
+    "pass_": true,
+    "value": 20.63
+   },
+   "P6": {
+    "pass_": true,
+    "value": 1.053
+   },
+   "P7": {
+    "pass_": false,
+    "value": 2.867
+   },
+   "P8": {
+    "pass_": true,
+    "value": 0.973
+   },
+   "P9": {
+    "pass_": true,
+    "value": 0.216
+   },
+   "P10": {
+    "pass_": true,
+    "value": -0.955
+   },
+   "P11": {
+    "pass_": true,
+    "value": 1.25
+   },
+   "P12": {
+    "pass_": true,
+    "value": 0.0
+   },
+   "P13": {
+    "pass_": false,
+    "value": "12 項目中 7 項目が不合格"
+   },
+   "P14": {
+    "pass_": true,
+    "value": 6.7807
+   },
+   "P15": {
+    "pass_": true,
+    "value": {
+     "主断面": {
+      "a": -4.183,
+      "b": -3.333,
+      "c": -2.783,
+      "d": -1.65
+     },
+     "峰で最も高い巻きの行": {
+      "a": -4.367,
+      "b": -3.517,
+      "c": -3.017,
+      "d": -2.25
+     }
+    }
+   },
+   "P16": {
+    "pass_": true,
+    "value": -2.317
+   },
+   "Painting": {
+    "pass_": true,
+    "value": 0.0012
+   },
+   "P17": {
+    "pass_": false,
+    "value": {
+     "主断面": 0.1342,
+     "峰で最も高い巻きの行": 0.1159,
+     "巻きの行の最大": 0.1483
+    }
+   },
+   "P18": {
+    "pass_": true,
+    "value": 0.253
+   },
+   "P19": {
+    "pass_": true,
+    "value": 109.1
+   },
+   "P15_d_taller_than_c": {
+    "pass_": true,
+    "value": null
+   },
+   "P15_prime": {
+    "pass_": true,
+    "value": {
+     "主断面": {
+      "a": -4.183,
+      "b": -3.333,
+      "c": -2.783,
+      "d": -1.65
+     },
+     "峰で最も高い巻きの行": {
+      "a": -4.367,
+      "b": -3.517,
+      "c": -3.017,
+      "d": -2.25
+     }
+    }
+   },
+   "P13_items": {
+    "(1) 波の枠の 1 コマの変位（30 Hz）_m": {
+     "value": 0.467019,
+     "pass_": true
+    },
+    "(2) 地面の二階差分（30 Hz、全巻きの行の全点）_m": {
+     "value": 0.033858,
+     "pass_": false
+    },
+    "(3) 最も低い点_m": {
+     "value": -1.504136,
+     "pass_": true
+    },
+    "(4) 頂の高さの単調（戻りの最大）_m": {
+     "value": 0.000197,
+     "pass_": true
+    },
+    "(5a) 唇・管の三角形の面積の最小_m2": {
+     "value": 5.1e-05,
+     "pass_": false
+    },
+    "(5b) 行の方向の辺の最小_m": {
+     "value": 0.001139,
+     "pass_": false
+    },
+    "(5c) 辺の長さの K* に対する比（行の方向）": {
+     "value": [
+      0.009,
+      10.586
+     ],
+     "pass_": false
+    },
+    "(5d) 辺の長さの K* に対する比（行の間、縦と斜め）": {
+     "value": [
+      0.031,
+      14.173
+     ],
+     "pass_": false
+    },
+    "(5e) rim と管の天井の継ぎ目の比": {
+     "value": [
+      0.142,
+      2.228
+     ],
+     "pass_": false
+    },
+    "(5f) 自己交差（巻きの行の断面と、隣り合う巻きの行の間の中央の面）": {
+     "value": 0,
+     "pass_": true
+    },
+    "(5g) 面の反転（30 Hz、向きの決まった最後のコマと比べる）": {
+     "value": 8,
+     "pass_": false
+    },
+    "(6) 法線が有限（唇・管の頂点の 1 環の面積の最小 > 0）_m2": {
+     "value": 3.1e-05,
+     "pass_": true
+    }
+   },
+   "P15_detail": {
+    "主断面": {
+     "tau": {
+      "a": -4.183,
+      "b": -3.333,
+      "c": -2.783,
+      "d": -1.65
+     },
+     "table_tau": {
+      "a": -4.01,
+      "b": -3.21,
+      "c": -2.61,
+      "d": -1.86
+     },
+     "first_white_tau": -2.608,
+     "white_ok": true
+    },
+    "峰で最も高い巻きの行": {
+     "tau": {
+      "a": -4.367,
+      "b": -3.517,
+      "c": -3.017,
+      "d": -2.25
+     },
+     "table_tau": {
+      "a": -4.2,
+      "b": -3.4,
+      "c": -2.8,
+      "d": -2.05
+     },
+     "first_white_tau": -2.725,
+     "white_ok": true
+    }
+   },
+   "P17_detail": {
+    "main": {
+     "onset_tau": -2.867,
+     "max_change_frac": 0.1342,
+     "at_tau": -1.8,
+     "A_onset_m2": 179.8,
+     "A_tstar_m2": 204.4,
+     "A_min_after_m2": 179.8,
+     "A_max_after_m2": 207.2,
+     "from_jet_onset_frac": 0.054,
+     "before_onset_from_tau_m3p4_range_frac": 0.0399
+    },
+    "peak": {
+     "onset_tau": -3.1,
+     "max_change_frac": 0.1159,
+     "at_tau": -1.933,
+     "A_onset_m2": 198.6,
+     "A_tstar_m2": 222.8,
+     "A_min_after_m2": 198.6,
+     "A_max_after_m2": 224.4,
+     "from_jet_onset_frac": 0.0409,
+     "before_onset_from_tau_m3p4_range_frac": 0.0072
+    },
+    "worst_row": 60,
+    "from_jet_onset_max_frac": 0.0613
+   },
+   "P18_detail": {
+    "worst": {
+     "w3": {
+      "retreat_m": 0.0,
+      "row": 192,
+      "tau": -2.383
+     },
+     "w5": {
+      "retreat_m": 0.253,
+      "row": 192,
+      "tau": -1.617
+     },
+     "tip": {
+      "retreat_m": 0.0,
+      "row": 186,
+      "tau": -2.367
+     }
+    },
+    "rows_over": [],
+    "face_vertical": {
+     "worst": {
+      "w3": {
+       "retreat_m": 2.457,
+       "row": 191,
+       "tau": -2.4
+      },
+      "w5": {
+       "retreat_m": 1.872,
+       "row": 191,
+       "tau": -1.633
+      },
+      "tip": {
+       "retreat_m": 0.0,
+       "row": 186,
+       "tau": -2.367
+      }
+     },
+     "rows_over": 114
+    }
+   },
+   "P19_detail": {
+    "峰で最も高い巻きの行": {
+     "b_tau": -3.517,
+     "theta_c_at_b_deg": 109.1,
+     "table_b_tau": -3.4,
+     "theta_c_at_table_b_deg": 109.5,
+     "theta_c_min_between_a_and_c_deg": 109.0
+    },
+    "主断面": {
+     "b_tau": -3.333,
+     "theta_c_at_b_deg": 110.0,
+     "table_b_tau": -3.21,
+     "theta_c_at_table_b_deg": 111.0,
+     "theta_c_min_between_a_and_c_deg": 110.0
+    }
+   },
+   "P16_detail": null,
+   "failed": [
+    "P2",
+    "P3",
+    "P7",
+    "P13",
+    "P17"
+   ],
+   "stage_table": "q13"
+  },
+  "art_off_default": {
+   "P1": {
+    "pass_": true,
+    "value": 18.4
+   },
+   "P2": {
+    "pass_": false,
+    "value": 0.472
+   },
+   "P3": {
+    "pass_": false,
+    "value": 0.1236
+   },
+   "P4": {
+    "pass_": true,
+    "value": -9.709
+   },
+   "P5": {
+    "pass_": false,
+    "value": 19.96
+   },
+   "P6": {
+    "pass_": true,
+    "value": 1.045
+   },
+   "P7": {
+    "pass_": false,
+    "value": 3.05
+   },
+   "P8": {
+    "pass_": true,
+    "value": 0.966
+   },
+   "P9": {
+    "pass_": false,
+    "value": 0.722
+   },
+   "P10": {
+    "pass_": true,
+    "value": -0.954
+   },
+   "P11": {
+    "pass_": true,
+    "value": 1.231
+   },
+   "P12": {
+    "pass_": true,
+    "value": 0.0
+   },
+   "P13": {
+    "pass_": false,
+    "value": "12 項目中 9 項目が不合格"
+   },
+   "P14": {
+    "pass_": true,
+    "value": 6.7807
+   },
+   "P15": {
+    "pass_": false,
+    "value": {
+     "主断面": {
+      "a": -4.4,
+      "b": null,
+      "c": -2.983,
+      "d": -1.467
+     },
+     "峰で最も高い巻きの行": {
+      "a": null,
+      "b": null,
+      "c": null,
+      "d": -1.283
+     }
+    }
+   },
+   "P16": {
+    "pass_": true,
+    "value": -0.111
+   },
+   "Painting": {
+    "pass_": null,
+    "value": 25.9586
+   },
+   "P17": {
+    "pass_": false,
+    "value": {
+     "主断面": 0.3275,
+     "峰で最も高い巻きの行": 0.3054,
+     "巻きの行の最大": 0.3279
+    }
+   },
+   "P18": {
+    "pass_": false,
+    "value": 0.425
+   },
+   "P19": {
+    "pass_": false,
+    "value": null
+   },
+   "P15_d_taller_than_c": {
+    "pass_": false,
+    "value": null
+   },
+   "P15_prime": {
+    "pass_": false,
+    "value": {
+     "主断面": {
+      "a": -4.4,
+      "b": null,
+      "c": -2.983,
+      "d": -1.467
+     },
+     "峰で最も高い巻きの行": {
+      "a": null,
+      "b": null,
+      "c": null,
+      "d": -1.283
+     }
+    }
+   },
+   "P13_items": {
+    "(1) 波の枠の 1 コマの変位（30 Hz）_m": {
+     "value": 0.551397,
+     "pass_": true
+    },
+    "(2) 地面の二階差分（30 Hz、全巻きの行の全点）_m": {
+     "value": 0.026846,
+     "pass_": false
+    },
+    "(3) 最も低い点_m": {
+     "value": -2.644258,
+     "pass_": true
+    },
+    "(4) 頂の高さの単調（戻りの最大）_m": {
+     "value": 0.000265,
+     "pass_": true
+    },
+    "(5a) 唇・管の三角形の面積の最小_m2": {
+     "value": 0.0,
+     "pass_": false
+    },
+    "(5b) 行の方向の辺の最小_m": {
+     "value": 0.0,
+     "pass_": false
+    },
+    "(5c) 辺の長さの K* に対する比（行の方向）": {
+     "value": [
+      0.0,
+      18.258
+     ],
+     "pass_": false
+    },
+    "(5d) 辺の長さの K* に対する比（行の間、縦と斜め）": {
+     "value": [
+      0.031,
+      5.165
+     ],
+     "pass_": false
+    },
+    "(5e) rim と管の天井の継ぎ目の比": {
+     "value": [
+      0.138,
+      6.16
+     ],
+     "pass_": false
+    },
+    "(5f) 自己交差（巻きの行の断面と、隣り合う巻きの行の間の中央の面）": {
+     "value": 1523,
+     "pass_": false
+    },
+    "(5g) 面の反転（30 Hz、向きの決まった最後のコマと比べる）": {
+     "value": 609,
+     "pass_": false
+    },
+    "(6) 法線が有限（唇・管の頂点の 1 環の面積の最小 > 0）_m2": {
+     "value": 0.0,
+     "pass_": false
+    }
+   },
+   "P15_detail": {
+    "主断面": {
+     "tau": {
+      "a": -4.4,
+      "b": null,
+      "c": -2.983,
+      "d": -1.467
+     },
+     "table_tau": {
+      "a": -4.01,
+      "b": -3.21,
+      "c": -2.61,
+      "d": -1.86
+     },
+     "first_white_tau": -2.3,
+     "white_ok": true
+    },
+    "峰で最も高い巻きの行": {
+     "tau": {
+      "a": null,
+      "b": null,
+      "c": null,
+      "d": -1.283
+     },
+     "table_tau": {
+      "a": -4.2,
+      "b": -3.4,
+      "c": -2.8,
+      "d": -2.05
+     },
+     "first_white_tau": -2.108,
+     "white_ok": false
+    }
+   },
+   "P17_detail": {
+    "main": {
+     "onset_tau": -3.05,
+     "max_change_frac": 0.3275,
+     "at_tau": 0.0,
+     "A_onset_m2": 307.6,
+     "A_tstar_m2": 457.4,
+     "A_min_after_m2": 307.6,
+     "A_max_after_m2": 457.4,
+     "from_jet_onset_frac": 0.2552,
+     "before_onset_from_tau_m3p4_range_frac": 0.0272
+    },
+    "peak": {
+     "onset_tau": -2.867,
+     "max_change_frac": 0.3054,
+     "at_tau": 0.0,
+     "A_onset_m2": 317.8,
+     "A_tstar_m2": 457.5,
+     "A_min_after_m2": 317.8,
+     "A_max_after_m2": 457.5,
+     "from_jet_onset_frac": 0.2478,
+     "before_onset_from_tau_m3p4_range_frac": 0.0451
+    },
+    "worst_row": 160,
+    "from_jet_onset_max_frac": 0.2569
+   },
+   "P18_detail": {
+    "worst": {
+     "w3": {
+      "retreat_m": 0.044,
+      "row": 164,
+      "tau": -0.683
+     },
+     "w5": {
+      "retreat_m": 0.425,
+      "row": 159,
+      "tau": 0.0
+     },
+     "tip": {
+      "retreat_m": 0.006,
+      "row": 192,
+      "tau": -2.333
+     }
+    },
+    "rows_over": [
+     154,
+     155,
+     156,
+     157,
+     158,
+     159,
+     160,
+     161,
+     162
+    ],
+    "face_vertical": {
+     "worst": {
+      "w3": {
+       "retreat_m": 1.806,
+       "row": 146,
+       "tau": -2.367
+      },
+      "w5": {
+       "retreat_m": 1.47,
+       "row": 146,
+       "tau": -2.35
+      },
+      "tip": {
+       "retreat_m": 0.132,
+       "row": 158,
+       "tau": -2.417
+      }
+     },
+     "rows_over": 133
+    }
+   },
+   "P19_detail": {
+    "峰で最も高い巻きの行": {
+     "b_tau": null,
+     "theta_c_at_b_deg": null,
+     "table_b_tau": -3.4,
+     "theta_c_at_table_b_deg": 142.5,
+     "theta_c_min_between_a_and_c_deg": null
+    },
+    "主断面": {
+     "b_tau": null,
+     "theta_c_at_b_deg": null,
+     "table_b_tau": -3.21,
+     "theta_c_at_table_b_deg": 132.4,
+     "theta_c_min_between_a_and_c_deg": 127.6
+    }
+   },
+   "P16_detail": null,
+   "failed": [
+    "P2",
+    "P3",
+    "P5",
+    "P7",
+    "P9",
+    "P13",
+    "P15",
+    "P17",
+    "P18",
+    "P19",
+    "P15_d_taller_than_c",
+    "P15_prime"
+   ],
+   "stage_table": "q13"
+  },
+  "ds28_art_on_default_under_q13_table": {
+   "P1": {
+    "pass_": true,
+    "value": 18.4
+   },
+   "P2": {
+    "pass_": false,
+    "value": 0.644
+   },
+   "P3": {
+    "pass_": false,
+    "value": 0.2854
+   },
+   "P4": {
+    "pass_": true,
+    "value": -9.745
+   },
+   "P5": {
+    "pass_": true,
+    "value": 20.768
+   },
+   "P6": {
+    "pass_": true,
+    "value": 1.061
+   },
+   "P7": {
+    "pass_": false,
+    "value": 2.9
+   },
+   "P8": {
+    "pass_": true,
+    "value": 0.97
+   },
+   "P9": {
+    "pass_": true,
+    "value": 0.237
+   },
+   "P10": {
+    "pass_": true,
+    "value": -0.961
+   },
+   "P11": {
+    "pass_": true,
+    "value": 1.208
+   },
+   "P12": {
+    "pass_": true,
+    "value": 0.0
+   },
+   "P13": {
+    "pass_": false,
+    "value": "12 項目中 6 項目が不合格"
+   },
+   "P14": {
+    "pass_": true,
+    "value": 6.0086
+   },
+   "P15": {
+    "pass_": false,
+    "value": {
+     "主断面": {
+      "a": -4.25,
+      "b": -3.517,
+      "c": -2.833,
+      "d": -1.633
+     },
+     "峰で最も高い巻きの行": {
+      "a": -4.433,
+      "b": -3.717,
+      "c": -3.067,
+      "d": -2.583
+     }
+    }
+   },
+   "P16": {
+    "pass_": true,
+    "value": -1.395
+   },
+   "Painting": {
+    "pass_": true,
+    "value": 0.0012
+   },
+   "P17": {
+    "pass_": false,
+    "value": {
+     "主断面": 0.1132,
+     "峰で最も高い巻きの行": 0.0949,
+     "巻きの行の最大": 0.1154
+    }
+   },
+   "P18": {
+    "pass_": true,
+    "value": 0.167
+   },
+   "P19": {
+    "pass_": false,
+    "value": 119.8
+   },
+   "P15_d_taller_than_c": {
+    "pass_": true,
+    "value": null
+   },
+   "P15_prime": {
+    "pass_": false,
+    "value": {
+     "主断面": {
+      "a": -4.25,
+      "b": -3.517,
+      "c": -2.833,
+      "d": -1.633
+     },
+     "峰で最も高い巻きの行": {
+      "a": -4.433,
+      "b": -3.717,
+      "c": -3.067,
+      "d": -2.583
+     }
+    }
+   },
+   "P13_items": {
+    "(1) 波の枠の 1 コマの変位（30 Hz）_m": {
+     "value": 0.512337,
+     "pass_": true
+    },
+    "(2) 地面の二階差分（30 Hz、全巻きの行の全点）_m": {
+     "value": 0.02453,
+     "pass_": false
+    },
+    "(3) 最も低い点_m": {
+     "value": -1.504136,
+     "pass_": true
+    },
+    "(4) 頂の高さの単調（戻りの最大）_m": {
+     "value": 0.000197,
+     "pass_": true
+    },
+    "(5a) 唇・管の三角形の面積の最小_m2": {
+     "value": 0.000183,
+     "pass_": true
+    },
+    "(5b) 行の方向の辺の最小_m": {
+     "value": 0.001688,
+     "pass_": false
+    },
+    "(5c) 辺の長さの K* に対する比（行の方向）": {
+     "value": [
+      0.014,
+      10.419
+     ],
+     "pass_": false
+    },
+    "(5d) 辺の長さの K* に対する比（行の間、縦と斜め）": {
+     "value": [
+      0.031,
+      14.202
+     ],
+     "pass_": false
+    },
+    "(5e) rim と管の天井の継ぎ目の比": {
+     "value": [
+      0.141,
+      2.228
+     ],
+     "pass_": false
+    },
+    "(5f) 自己交差（巻きの行の断面と、隣り合う巻きの行の間の中央の面）": {
+     "value": 0,
+     "pass_": true
+    },
+    "(5g) 面の反転（30 Hz、向きの決まった最後のコマと比べる）": {
+     "value": 4,
+     "pass_": false
+    },
+    "(6) 法線が有限（唇・管の頂点の 1 環の面積の最小 > 0）_m2": {
+     "value": 3.5e-05,
+     "pass_": true
+    }
+   },
+   "P15_detail": {
+    "主断面": {
+     "tau": {
+      "a": -4.25,
+      "b": -3.517,
+      "c": -2.833,
+      "d": -1.633
+     },
+     "table_tau": {
+      "a": -4.01,
+      "b": -3.21,
+      "c": -2.61,
+      "d": -1.86
+     },
+     "first_white_tau": -2.608,
+     "white_ok": true
+    },
+    "峰で最も高い巻きの行": {
+     "tau": {
+      "a": -4.433,
+      "b": -3.717,
+      "c": -3.067,
+      "d": -2.583
+     },
+     "table_tau": {
+      "a": -4.2,
+      "b": -3.4,
+      "c": -2.8,
+      "d": -2.05
+     },
+     "first_white_tau": -2.725,
+     "white_ok": true
+    }
+   },
+   "P17_detail": {
+    "main": {
+     "onset_tau": -2.9,
+     "max_change_frac": 0.1132,
+     "at_tau": 0.0,
+     "A_onset_m2": 181.3,
+     "A_tstar_m2": 204.4,
+     "A_min_after_m2": 181.3,
+     "A_max_after_m2": 204.4,
+     "from_jet_onset_frac": 0.0201,
+     "before_onset_from_tau_m3p4_range_frac": 0.0243
+    },
+    "peak": {
+     "onset_tau": -3.15,
+     "max_change_frac": 0.0949,
+     "at_tau": 0.0,
+     "A_onset_m2": 201.6,
+     "A_tstar_m2": 222.8,
+     "A_min_after_m2": 201.6,
+     "A_max_after_m2": 222.8,
+     "from_jet_onset_frac": 0.0219,
+     "before_onset_from_tau_m3p4_range_frac": 0.0152
+    },
+    "worst_row": 167,
+    "from_jet_onset_max_frac": 0.0688
+   },
+   "P18_detail": {
+    "worst": {
+     "w3": {
+      "retreat_m": 0.0,
+      "row": 60,
+      "tau": 0.0
+     },
+     "w5": {
+      "retreat_m": 0.167,
+      "row": 192,
+      "tau": -1.733
+     },
+     "tip": {
+      "retreat_m": 0.0,
+      "row": 191,
+      "tau": -2.367
+     }
+    },
+    "rows_over": [],
+    "face_vertical": {
+     "worst": {
+      "w3": {
+       "retreat_m": 2.971,
+       "row": 191,
+       "tau": -2.417
+      },
+      "w5": {
+       "retreat_m": 2.21,
+       "row": 191,
+       "tau": -1.783
+      },
+      "tip": {
+       "retreat_m": 0.0,
+       "row": 191,
+       "tau": -2.367
+      }
+     },
+     "rows_over": 119
+    }
+   },
+   "P19_detail": {
+    "峰で最も高い巻きの行": {
+     "b_tau": -3.717,
+     "theta_c_at_b_deg": 119.8,
+     "table_b_tau": -3.4,
+     "theta_c_at_table_b_deg": 104.6,
+     "theta_c_min_between_a_and_c_deg": 104.3
+    },
+    "主断面": {
+     "b_tau": -3.517,
+     "theta_c_at_b_deg": 120.1,
+     "table_b_tau": -3.21,
+     "theta_c_at_table_b_deg": 106.3,
+     "theta_c_min_between_a_and_c_deg": 106.2
+    }
+   },
+   "P16_detail": null,
+   "failed": [
+    "P2",
+    "P3",
+    "P7",
+    "P13",
+    "P15",
+    "P17",
+    "P19",
+    "P15_prime"
+   ],
+   "stage_table": "q13"
+  },
+  "ds28_art_on_default_design26_table": {
+   "P1": {
+    "pass_": true,
+    "value": 18.4
+   },
+   "P2": {
+    "pass_": false,
+    "value": 0.644
+   },
+   "P3": {
+    "pass_": false,
+    "value": 0.2854
+   },
+   "P4": {
+    "pass_": true,
+    "value": -9.745
+   },
+   "P5": {
+    "pass_": true,
+    "value": 20.768
+   },
+   "P6": {
+    "pass_": true,
+    "value": 1.061
+   },
+   "P7": {
+    "pass_": false,
+    "value": 2.9
+   },
+   "P8": {
+    "pass_": true,
+    "value": 0.97
+   },
+   "P9": {
+    "pass_": true,
+    "value": 0.237
+   },
+   "P10": {
+    "pass_": true,
+    "value": -0.961
+   },
+   "P11": {
+    "pass_": true,
+    "value": 1.208
+   },
+   "P12": {
+    "pass_": true,
+    "value": 0.0
+   },
+   "P13": {
+    "pass_": false,
+    "value": "12 項目中 6 項目が不合格"
+   },
+   "P14": {
+    "pass_": true,
+    "value": 6.0086
+   },
+   "P15": {
+    "pass_": false,
+    "value": {
+     "主断面": {
+      "a": -4.25,
+      "b": -3.317,
+      "c": -2.733,
+      "d": -1.633
+     },
+     "峰で最も高い巻きの行": {
+      "a": -4.433,
+      "b": -3.5,
+      "c": -2.933,
+      "d": -2.25
+     }
+    }
+   },
+   "P16": {
+    "pass_": true,
+    "value": -1.395
+   },
+   "Painting": {
+    "pass_": true,
+    "value": 0.0012
+   },
+   "P17": {
+    "pass_": false,
+    "value": {
+     "主断面": 0.1132,
+     "峰で最も高い巻きの行": 0.0949,
+     "巻きの行の最大": 0.1154
+    }
+   },
+   "P18": {
+    "pass_": true,
+    "value": 0.167
+   },
+   "P19": {
+    "pass_": true,
+    "value": 107.0
+   },
+   "P13_items": {
+    "(1) 波の枠の 1 コマの変位（30 Hz）_m": {
+     "value": 0.512337,
+     "pass_": true
+    },
+    "(2) 地面の二階差分（30 Hz、全巻きの行の全点）_m": {
+     "value": 0.02453,
+     "pass_": false
+    },
+    "(3) 最も低い点_m": {
+     "value": -1.504136,
+     "pass_": true
+    },
+    "(4) 頂の高さの単調（戻りの最大）_m": {
+     "value": 0.000197,
+     "pass_": true
+    },
+    "(5a) 唇・管の三角形の面積の最小_m2": {
+     "value": 0.000183,
+     "pass_": true
+    },
+    "(5b) 行の方向の辺の最小_m": {
+     "value": 0.001688,
+     "pass_": false
+    },
+    "(5c) 辺の長さの K* に対する比（行の方向）": {
+     "value": [
+      0.014,
+      10.419
+     ],
+     "pass_": false
+    },
+    "(5d) 辺の長さの K* に対する比（行の間、縦と斜め）": {
+     "value": [
+      0.031,
+      14.202
+     ],
+     "pass_": false
+    },
+    "(5e) rim と管の天井の継ぎ目の比": {
+     "value": [
+      0.141,
+      2.228
+     ],
+     "pass_": false
+    },
+    "(5f) 自己交差（巻きの行の断面と、隣り合う巻きの行の間の中央の面）": {
+     "value": 0,
+     "pass_": true
+    },
+    "(5g) 面の反転（30 Hz、向きの決まった最後のコマと比べる）": {
+     "value": 4,
+     "pass_": false
+    },
+    "(6) 法線が有限（唇・管の頂点の 1 環の面積の最小 > 0）_m2": {
+     "value": 3.5e-05,
+     "pass_": true
+    }
+   },
+   "P15_detail": {
+    "主断面": {
+     "tau": {
+      "a": -4.25,
+      "b": -3.317,
+      "c": -2.733,
+      "d": -1.633
+     },
+     "table_tau": {
+      "a": -4.01,
+      "b": -3.21,
+      "c": -2.21,
+      "d": -1.86
+     },
+     "first_white_tau": -2.608,
+     "white_ok": true
+    },
+    "峰で最も高い巻きの行": {
+     "tau": {
+      "a": -4.433,
+      "b": -3.5,
+      "c": -2.933,
+      "d": -2.25
+     },
+     "table_tau": {
+      "a": -4.2,
+      "b": -3.4,
+      "c": -2.4,
+      "d": -2.05
+     },
+     "first_white_tau": -2.725,
+     "white_ok": true
+    }
+   },
+   "P17_detail": {
+    "main": {
+     "onset_tau": -2.9,
+     "max_change_frac": 0.1132,
+     "at_tau": 0.0,
+     "A_onset_m2": 181.3,
+     "A_tstar_m2": 204.4,
+     "A_min_after_m2": 181.3,
+     "A_max_after_m2": 204.4,
+     "from_jet_onset_frac": 0.0201,
+     "before_onset_from_tau_m3p4_range_frac": 0.0243
+    },
+    "peak": {
+     "onset_tau": -3.15,
+     "max_change_frac": 0.0949,
+     "at_tau": 0.0,
+     "A_onset_m2": 201.6,
+     "A_tstar_m2": 222.8,
+     "A_min_after_m2": 201.6,
+     "A_max_after_m2": 222.8,
+     "from_jet_onset_frac": 0.0219,
+     "before_onset_from_tau_m3p4_range_frac": 0.0152
+    },
+    "worst_row": 167,
+    "from_jet_onset_max_frac": 0.0688
+   },
+   "P18_detail": {
+    "worst": {
+     "w3": {
+      "retreat_m": 0.0,
+      "row": 60,
+      "tau": 0.0
+     },
+     "w5": {
+      "retreat_m": 0.167,
+      "row": 192,
+      "tau": -1.733
+     },
+     "tip": {
+      "retreat_m": 0.0,
+      "row": 191,
+      "tau": -2.367
+     }
+    },
+    "rows_over": [],
+    "face_vertical": {
+     "worst": {
+      "w3": {
+       "retreat_m": 2.971,
+       "row": 191,
+       "tau": -2.417
+      },
+      "w5": {
+       "retreat_m": 2.21,
+       "row": 191,
+       "tau": -1.783
+      },
+      "tip": {
+       "retreat_m": 0.0,
+       "row": 191,
+       "tau": -2.367
+      }
+     },
+     "rows_over": 119
+    }
+   },
+   "P19_detail": {
+    "峰で最も高い巻きの行": {
+     "b_tau": -3.5,
+     "theta_c_at_b_deg": 107.0,
+     "table_b_tau": -3.4,
+     "theta_c_at_table_b_deg": 104.6,
+     "theta_c_min_between_a_and_c_deg": 104.3
+    },
+    "主断面": {
+     "b_tau": -3.317,
+     "theta_c_at_b_deg": 108.6,
+     "table_b_tau": -3.21,
+     "theta_c_at_table_b_deg": 106.3,
+     "theta_c_min_between_a_and_c_deg": 106.2
+    }
+   },
+   "P16_detail": null,
+   "failed": [
+    "P2",
+    "P3",
+    "P7",
+    "P13",
+    "P15",
+    "P17"
+   ],
+   "stage_table": null
+  },
+  "r00_art_on_default": {
+   "P1": {
+    "pass_": true,
+    "value": 18.4
+   },
+   "P2": {
+    "pass_": false,
+    "value": 0.657
+   },
+   "P3": {
+    "pass_": false,
+    "value": 0.3645
+   },
+   "P4": {
+    "pass_": true,
+    "value": -9.727
+   },
+   "P5": {
+    "pass_": true,
+    "value": 20.768
+   },
+   "P6": {
+    "pass_": true,
+    "value": 1.053
+   },
+   "P7": {
+    "pass_": false,
+    "value": 2.85
+   },
+   "P8": {
+    "pass_": true,
+    "value": 0.973
+   },
+   "P9": {
+    "pass_": true,
+    "value": 0.187
+   },
+   "P10": {
+    "pass_": true,
+    "value": -0.954
+   },
+   "P11": {
+    "pass_": true,
+    "value": 1.25
+   },
+   "P12": {
+    "pass_": true,
+    "value": 0.0
+   },
+   "P13": {
+    "pass_": false,
+    "value": "12 項目中 9 項目が不合格"
+   },
+   "P14": {
+    "pass_": true,
+    "value": 6.7807
+   },
+   "P15": {
+    "pass_": false,
+    "value": {
+     "主断面": {
+      "a": -4.183,
+      "b": -3.567,
+      "c": -2.767,
+      "d": -1.65
+     },
+     "峰で最も高い巻きの行": {
+      "a": -4.367,
+      "b": -3.75,
+      "c": -3.017,
+      "d": -2.583
+     }
+    }
+   },
+   "P16": {
+    "pass_": true,
+    "value": -0.444
+   },
+   "Painting": {
+    "pass_": true,
+    "value": 0.0012
+   },
+   "P17": {
+    "pass_": false,
+    "value": {
+     "主断面": 0.1351,
+     "峰で最も高い巻きの行": 0.1204,
+     "巻きの行の最大": 0.1502
+    }
+   },
+   "P18": {
+    "pass_": true,
+    "value": 0.253
+   },
+   "P19": {
+    "pass_": false,
+    "value": 123.6
+   },
+   "P15_d_taller_than_c": {
+    "pass_": true,
+    "value": null
+   },
+   "P15_prime": {
+    "pass_": false,
+    "value": {
+     "主断面": {
+      "a": -4.183,
+      "b": -3.567,
+      "c": -2.767,
+      "d": -1.65
+     },
+     "峰で最も高い巻きの行": {
+      "a": -4.367,
+      "b": -3.75,
+      "c": -3.017,
+      "d": -2.583
+     }
+    }
+   },
+   "P13_items": {
+    "(1) 波の枠の 1 コマの変位（30 Hz）_m": {
+     "value": 0.467019,
+     "pass_": true
+    },
+    "(2) 地面の二階差分（30 Hz、全巻きの行の全点）_m": {
+     "value": 0.033817,
+     "pass_": false
+    },
+    "(3) 最も低い点_m": {
+     "value": -1.504136,
+     "pass_": true
+    },
+    "(4) 頂の高さの単調（戻りの最大）_m": {
+     "value": 0.000197,
+     "pass_": true
+    },
+    "(5a) 唇・管の三角形の面積の最小_m2": {
+     "value": 0.0,
+     "pass_": false
+    },
+    "(5b) 行の方向の辺の最小_m": {
+     "value": 0.0,
+     "pass_": false
+    },
+    "(5c) 辺の長さの K* に対する比（行の方向）": {
+     "value": [
+      0.0,
+      10.586
+     ],
+     "pass_": false
+    },
+    "(5d) 辺の長さの K* に対する比（行の間、縦と斜め）": {
+     "value": [
+      0.031,
+      14.173
+     ],
+     "pass_": false
+    },
+    "(5e) rim と管の天井の継ぎ目の比": {
+     "value": [
+      0.142,
+      2.228
+     ],
+     "pass_": false
+    },
+    "(5f) 自己交差（巻きの行の断面と、隣り合う巻きの行の間の中央の面）": {
+     "value": 6330,
+     "pass_": false
+    },
+    "(5g) 面の反転（30 Hz、向きの決まった最後のコマと比べる）": {
+     "value": 198,
+     "pass_": false
+    },
+    "(6) 法線が有限（唇・管の頂点の 1 環の面積の最小 > 0）_m2": {
+     "value": 0.0,
+     "pass_": false
+    }
+   },
+   "P15_detail": {
+    "主断面": {
+     "tau": {
+      "a": -4.183,
+      "b": -3.567,
+      "c": -2.767,
+      "d": -1.65
+     },
+     "table_tau": {
+      "a": -4.01,
+      "b": -3.21,
+      "c": -2.61,
+      "d": -1.86
+     },
+     "first_white_tau": -2.608,
+     "white_ok": true
+    },
+    "峰で最も高い巻きの行": {
+     "tau": {
+      "a": -4.367,
+      "b": -3.75,
+      "c": -3.017,
+      "d": -2.583
+     },
+     "table_tau": {
+      "a": -4.2,
+      "b": -3.4,
+      "c": -2.8,
+      "d": -2.05
+     },
+     "first_white_tau": -2.725,
+     "white_ok": true
+    }
+   },
+   "P17_detail": {
+    "main": {
+     "onset_tau": -2.85,
+     "max_change_frac": 0.1351,
+     "at_tau": -1.817,
+     "A_onset_m2": 179.9,
+     "A_tstar_m2": 204.4,
+     "A_min_after_m2": 179.9,
+     "A_max_after_m2": 207.5,
+     "from_jet_onset_frac": 0.0564,
+     "before_onset_from_tau_m3p4_range_frac": 0.0414
+    },
+    "peak": {
+     "onset_tau": -3.1,
+     "max_change_frac": 0.1204,
+     "at_tau": -1.933,
+     "A_onset_m2": 198.0,
+     "A_tstar_m2": 222.8,
+     "A_min_after_m2": 198.0,
+     "A_max_after_m2": 224.8,
+     "from_jet_onset_frac": 0.0436,
+     "before_onset_from_tau_m3p4_range_frac": 0.0072
+    },
+    "worst_row": 61,
+    "from_jet_onset_max_frac": 0.0637
+   },
+   "P18_detail": {
+    "worst": {
+     "w3": {
+      "retreat_m": 0.0,
+      "row": 192,
+      "tau": -2.383
+     },
+     "w5": {
+      "retreat_m": 0.253,
+      "row": 192,
+      "tau": -1.617
+     },
+     "tip": {
+      "retreat_m": 0.0,
+      "row": 182,
+      "tau": -2.333
+     }
+    },
+    "rows_over": [],
+    "face_vertical": {
+     "worst": {
+      "w3": {
+       "retreat_m": 2.439,
+       "row": 192,
+       "tau": -2.383
+      },
+      "w5": {
+       "retreat_m": 1.848,
+       "row": 192,
+       "tau": -1.617
+      },
+      "tip": {
+       "retreat_m": 0.0,
+       "row": 182,
+       "tau": -2.333
+      }
+     },
+     "rows_over": 113
+    }
+   },
+   "P19_detail": {
+    "峰で最も高い巻きの行": {
+     "b_tau": -3.75,
+     "theta_c_at_b_deg": 123.6,
+     "table_b_tau": -3.4,
+     "theta_c_at_table_b_deg": 108.8,
+     "theta_c_min_between_a_and_c_deg": 108.8
+    },
+    "主断面": {
+     "b_tau": -3.567,
+     "theta_c_at_b_deg": 124.9,
+     "table_b_tau": -3.21,
+     "theta_c_at_table_b_deg": 110.3,
+     "theta_c_min_between_a_and_c_deg": 110.2
+    }
+   },
+   "P16_detail": null,
+   "failed": [
+    "P2",
+    "P3",
+    "P7",
+    "P13",
+    "P15",
+    "P17",
+    "P19",
+    "P15_prime"
+   ],
+   "stage_table": "q13"
+  },
+  "r01_art_on_default": {
+   "P1": {
+    "pass_": true,
+    "value": 18.4
+   },
+   "P2": {
+    "pass_": false,
+    "value": 0.663
+   },
+   "P3": {
+    "pass_": false,
+    "value": 0.5726
+   },
+   "P4": {
+    "pass_": true,
+    "value": -9.741
+   },
+   "P5": {
+    "pass_": true,
+    "value": 20.63
+   },
+   "P6": {
+    "pass_": true,
+    "value": 1.053
+   },
+   "P7": {
+    "pass_": false,
+    "value": 2.867
+   },
+   "P8": {
+    "pass_": true,
+    "value": 0.973
+   },
+   "P9": {
+    "pass_": true,
+    "value": 0.216
+   },
+   "P10": {
+    "pass_": true,
+    "value": -0.955
+   },
+   "P11": {
+    "pass_": true,
+    "value": 1.25
+   },
+   "P12": {
+    "pass_": true,
+    "value": 0.0
+   },
+   "P13": {
+    "pass_": false,
+    "value": "12 項目中 7 項目が不合格"
+   },
+   "P14": {
+    "pass_": true,
+    "value": 6.7807
+   },
+   "P15": {
+    "pass_": true,
+    "value": {
+     "主断面": {
+      "a": -4.183,
+      "b": -3.333,
+      "c": -2.783,
+      "d": -1.65
+     },
+     "峰で最も高い巻きの行": {
+      "a": -4.367,
+      "b": -3.517,
+      "c": -3.017,
+      "d": -2.25
+     }
+    }
+   },
+   "P16": {
+    "pass_": true,
+    "value": -0.444
+   },
+   "Painting": {
+    "pass_": true,
+    "value": 0.0012
+   },
+   "P17": {
+    "pass_": false,
+    "value": {
+     "主断面": 0.1769,
+     "峰で最も高い巻きの行": 0.1611,
+     "巻きの行の最大": 0.1792
+    }
+   },
+   "P18": {
+    "pass_": true,
+    "value": 0.253
+   },
+   "P19": {
+    "pass_": true,
+    "value": 108.5
+   },
+   "P15_d_taller_than_c": {
+    "pass_": true,
+    "value": null
+   },
+   "P15_prime": {
+    "pass_": true,
+    "value": {
+     "主断面": {
+      "a": -4.183,
+      "b": -3.333,
+      "c": -2.783,
+      "d": -1.65
+     },
+     "峰で最も高い巻きの行": {
+      "a": -4.367,
+      "b": -3.517,
+      "c": -3.017,
+      "d": -2.25
+     }
+    }
+   },
+   "P13_items": {
+    "(1) 波の枠の 1 コマの変位（30 Hz）_m": {
+     "value": 0.467019,
+     "pass_": true
+    },
+    "(2) 地面の二階差分（30 Hz、全巻きの行の全点）_m": {
+     "value": 0.02798,
+     "pass_": false
+    },
+    "(3) 最も低い点_m": {
+     "value": -1.504136,
+     "pass_": true
+    },
+    "(4) 頂の高さの単調（戻りの最大）_m": {
+     "value": 0.000197,
+     "pass_": true
+    },
+    "(5a) 唇・管の三角形の面積の最小_m2": {
+     "value": 5.1e-05,
+     "pass_": false
+    },
+    "(5b) 行の方向の辺の最小_m": {
+     "value": 0.001139,
+     "pass_": false
+    },
+    "(5c) 辺の長さの K* に対する比（行の方向）": {
+     "value": [
+      0.009,
+      10.586
+     ],
+     "pass_": false
+    },
+    "(5d) 辺の長さの K* に対する比（行の間、縦と斜め）": {
+     "value": [
+      0.031,
+      14.173
+     ],
+     "pass_": false
+    },
+    "(5e) rim と管の天井の継ぎ目の比": {
+     "value": [
+      0.142,
+      2.228
+     ],
+     "pass_": false
+    },
+    "(5f) 自己交差（巻きの行の断面と、隣り合う巻きの行の間の中央の面）": {
+     "value": 0,
+     "pass_": true
+    },
+    "(5g) 面の反転（30 Hz、向きの決まった最後のコマと比べる）": {
+     "value": 8,
+     "pass_": false
+    },
+    "(6) 法線が有限（唇・管の頂点の 1 環の面積の最小 > 0）_m2": {
+     "value": 3.1e-05,
+     "pass_": true
+    }
+   },
+   "P15_detail": {
+    "主断面": {
+     "tau": {
+      "a": -4.183,
+      "b": -3.333,
+      "c": -2.783,
+      "d": -1.65
+     },
+     "table_tau": {
+      "a": -4.01,
+      "b": -3.21,
+      "c": -2.61,
+      "d": -1.86
+     },
+     "first_white_tau": -2.608,
+     "white_ok": true
+    },
+    "峰で最も高い巻きの行": {
+     "tau": {
+      "a": -4.367,
+      "b": -3.517,
+      "c": -3.017,
+      "d": -2.25
+     },
+     "table_tau": {
+      "a": -4.2,
+      "b": -3.4,
+      "c": -2.8,
+      "d": -2.05
+     },
+     "first_white_tau": -2.725,
+     "white_ok": true
+    }
+   },
+   "P17_detail": {
+    "main": {
+     "onset_tau": -2.867,
+     "max_change_frac": 0.1769,
+     "at_tau": 0.0,
+     "A_onset_m2": 168.3,
+     "A_tstar_m2": 204.4,
+     "A_min_after_m2": 168.3,
+     "A_max_after_m2": 204.4,
+     "from_jet_onset_frac": 0.1015,
+     "before_onset_from_tau_m3p4_range_frac": 0.0274
+    },
+    "peak": {
+     "onset_tau": -3.1,
+     "max_change_frac": 0.1611,
+     "at_tau": 0.0,
+     "A_onset_m2": 186.9,
+     "A_tstar_m2": 222.8,
+     "A_min_after_m2": 186.5,
+     "A_max_after_m2": 222.8,
+     "from_jet_onset_frac": 0.111,
+     "before_onset_from_tau_m3p4_range_frac": 0.0245
+    },
+    "worst_row": 175,
+    "from_jet_onset_max_frac": 0.1145
+   },
+   "P18_detail": {
+    "worst": {
+     "w3": {
+      "retreat_m": 0.0,
+      "row": 192,
+      "tau": -2.383
+     },
+     "w5": {
+      "retreat_m": 0.253,
+      "row": 192,
+      "tau": -1.617
+     },
+     "tip": {
+      "retreat_m": 0.0,
+      "row": 186,
+      "tau": -2.367
+     }
+    },
+    "rows_over": [],
+    "face_vertical": {
+     "worst": {
+      "w3": {
+       "retreat_m": 2.457,
+       "row": 191,
+       "tau": -2.4
+      },
+      "w5": {
+       "retreat_m": 1.872,
+       "row": 191,
+       "tau": -1.633
+      },
+      "tip": {
+       "retreat_m": 0.0,
+       "row": 186,
+       "tau": -2.367
+      }
+     },
+     "rows_over": 114
+    }
+   },
+   "P19_detail": {
+    "峰で最も高い巻きの行": {
+     "b_tau": -3.517,
+     "theta_c_at_b_deg": 108.5,
+     "table_b_tau": -3.4,
+     "theta_c_at_table_b_deg": 108.6,
+     "theta_c_min_between_a_and_c_deg": 108.3
+    },
+    "主断面": {
+     "b_tau": -3.333,
+     "theta_c_at_b_deg": 109.5,
+     "table_b_tau": -3.21,
+     "theta_c_at_table_b_deg": 110.1,
+     "theta_c_min_between_a_and_c_deg": 109.3
+    }
+   },
+   "P16_detail": null,
+   "failed": [
+    "P2",
+    "P3",
+    "P7",
+    "P13",
+    "P17"
+   ],
+   "stage_table": "q13"
+  }
+ },
+ "revisions": [
+  {
+   "name": "r00（初回の統合）",
+   "changes_ja": "ds_rise_overlap（頂の高さの表）、κ = 1 の唇を放出の前の動きから打ち出す書き方（帯の点の中心差分）、ds_undercut_kstar の h_on、時間曲線（τ −3.0 s に 0.5 倍）、段階の表（b 0.55〜0.72、d ≥ 0.70）",
+   "q13": true
+  },
+  {
+   "name": "r01（修正1）",
+   "changes_ja": "唇先の折れの直し（放出の前の速さ・加速度を頂の動きの解析的な微分に）、ds_tower_peak の時刻 −0.1 s、ds_approach_kstar の水の band_frac 0.06 → 0.15、段階の表の読み（b 0.60〜0.72、d ≥ 0.75）",
+   "q13": true
+  },
+  {
+   "name": "r02（修正2、提出版）",
+   "changes_ja": "水の band_frac を設計28 の 0.06 へ戻す（修正1 で P17 が 0.177 と 15% を超えた）",
+   "q13": true
+  }
+ ],
+ "p20_direct": {
+  "rise_off": {
+   "variant": "rise_off",
+   "kind_ja": "ds_rise_overlap を切る（＝設計28 の入れた版の動き。下の 2 つの上書きも一緒に消える）",
+   "variant_generator": "art_on+ds_rise_overlap=0",
+   "max_m": 5.531,
+   "max_tau": -2.4,
+   "max_at": {
+    "row": 181,
+    "col": 18,
+    "c_m": 3.02
+   },
+   "rms_max_m": 1.8887,
+   "first_tau_over_5mm": -12.0,
+   "at_tstar": {
+    "rms_m": 0.0,
+    "max_m": 0.0
+   },
+   "twhite_changed_vertices": 0,
+   "per_tau": [
+    {
+     "tau": -12.0,
+     "rms_m": 0.0926,
+     "max_m": 0.239,
+     "max_at": {
+      "row": 228,
+      "col": 87,
+      "c_m": 10.82
+     },
+     "vertices_over_5cm": 46852,
+     "crest_y_diff_m": {
+      "main": 0.168,
+      "peak": 0.184
+     }
+    },
+    {
+     "tau": -10.0,
+     "rms_m": 0.0927,
+     "max_m": 0.241,
+     "max_at": {
+      "row": 228,
+      "col": 87,
+      "c_m": 10.82
+     },
+     "vertices_over_5cm": 46867,
+     "crest_y_diff_m": {
+      "main": 0.168,
+      "peak": 0.184
+     }
+    },
+    {
+     "tau": -8.0,
+     "rms_m": 0.0933,
+     "max_m": 0.265,
+     "max_at": {
+      "row": 228,
+      "col": 87,
+      "c_m": 10.82
+     },
+     "vertices_over_5cm": 46775,
+     "crest_y_diff_m": {
+      "main": 0.169,
+      "peak": 0.184
+     }
+    },
+    {
+     "tau": -6.0,
+     "rms_m": 0.0579,
+     "max_m": 0.306,
+     "max_at": {
+      "row": 228,
+      "col": 87,
+      "c_m": 10.82
+     },
+     "vertices_over_5cm": 32417,
+     "crest_y_diff_m": {
+      "main": 0.079,
+      "peak": 0.066
+     }
+    },
+    {
+     "tau": -5.0,
+     "rms_m": 0.0499,
+     "max_m": 0.318,
+     "max_at": {
+      "row": 228,
+      "col": 87,
+      "c_m": 10.82
+     },
+     "vertices_over_5cm": 20394,
+     "crest_y_diff_m": {
+      "main": -0.039,
+      "peak": -0.071
+     }
+    },
+    {
+     "tau": -4.5,
+     "rms_m": 0.0779,
+     "max_m": 0.321,
+     "max_at": {
+      "row": 228,
+      "col": 87,
+      "c_m": 10.82
+     },
+     "vertices_over_5cm": 34807,
+     "crest_y_diff_m": {
+      "main": -0.116,
+      "peak": -0.161
+     }
+    },
+    {
+     "tau": -4.2,
+     "rms_m": 0.1085,
+     "max_m": 0.324,
+     "max_at": {
+      "row": 214,
+      "col": 87,
+      "c_m": 5.5
+     },
+     "vertices_over_5cm": 39150,
+     "crest_y_diff_m": {
+      "main": -0.175,
+      "peak": -0.249
+     }
+    },
+    {
+     "tau": -4.0,
+     "rms_m": 0.1456,
+     "max_m": 0.407,
+     "max_at": {
+      "row": 214,
+      "col": 96,
+      "c_m": 5.5
+     },
+     "vertices_over_5cm": 41422,
+     "crest_y_diff_m": {
+      "main": -0.234,
+      "peak": -0.344
+     }
+    },
+    {
+     "tau": -3.6,
+     "rms_m": 0.3471,
+     "max_m": 1.01,
+     "max_at": {
+      "row": 192,
+      "col": 223,
+      "c_m": 3.85
+     },
+     "vertices_over_5cm": 50072,
+     "crest_y_diff_m": {
+      "main": -0.525,
+      "peak": -0.9
+     }
+    },
+    {
+     "tau": -3.4,
+     "rms_m": 0.5156,
+     "max_m": 1.384,
+     "max_at": {
+      "row": 192,
+      "col": 18,
+      "c_m": 3.85
+     },
+     "vertices_over_5cm": 53308,
+     "crest_y_diff_m": {
+      "main": -0.846,
+      "peak": -1.376
+     }
+    },
+    {
+     "tau": -3.2,
+     "rms_m": 0.7651,
+     "max_m": 2.55,
+     "max_at": {
+      "row": 185,
+      "col": 18,
+      "c_m": 3.33
+     },
+     "vertices_over_5cm": 56191,
+     "crest_y_diff_m": {
+      "main": -1.289,
+      "peak": -1.98
+     }
+    },
+    {
+     "tau": -3.0,
+     "rms_m": 1.086,
+     "max_m": 3.794,
+     "max_at": {
+      "row": 184,
+      "col": 18,
+      "c_m": 3.25
+     },
+     "vertices_over_5cm": 62459,
+     "crest_y_diff_m": {
+      "main": -1.85,
+      "peak": -2.675
+     }
+    },
+    {
+     "tau": -2.8,
+     "rms_m": 1.4456,
+     "max_m": 4.803,
+     "max_at": {
+      "row": 182,
+      "col": 18,
+      "c_m": 3.1
+     },
+     "vertices_over_5cm": 65914,
+     "crest_y_diff_m": {
+      "main": -2.493,
+      "peak": -3.388
+     }
+    },
+    {
+     "tau": -2.6,
+     "rms_m": 1.7415,
+     "max_m": 5.383,
+     "max_at": {
+      "row": 181,
+      "col": 18,
+      "c_m": 3.02
+     },
+     "vertices_over_5cm": 68186,
+     "crest_y_diff_m": {
+      "main": -3.143,
+      "peak": -3.728
+     }
+    },
+    {
+     "tau": -2.4,
+     "rms_m": 1.8887,
+     "max_m": 5.531,
+     "max_at": {
+      "row": 181,
+      "col": 18,
+      "c_m": 3.02
+     },
+     "vertices_over_5cm": 70385,
+     "crest_y_diff_m": {
+      "main": -3.436,
+      "peak": -3.628
+     }
+    },
+    {
+     "tau": -2.2,
+     "rms_m": 1.8874,
+     "max_m": 5.479,
+     "max_at": {
+      "row": 181,
+      "col": 18,
+      "c_m": 3.02
+     },
+     "vertices_over_5cm": 71381,
+     "crest_y_diff_m": {
+      "main": -3.336,
+      "peak": -3.313
+     }
+    },
+    {
+     "tau": -2.0,
+     "rms_m": 1.8146,
+     "max_m": 5.197,
+     "max_at": {
+      "row": 181,
+      "col": 18,
+      "c_m": 3.02
+     },
+     "vertices_over_5cm": 71920,
+     "crest_y_diff_m": {
+      "main": -3.052,
+      "peak": -3.005
+     }
+    },
+    {
+     "tau": -1.8,
+     "rms_m": 1.6991,
+     "max_m": 4.748,
+     "max_at": {
+      "row": 137,
+      "col": 18,
+      "c_m": -3.09
+     },
+     "vertices_over_5cm": 72311,
+     "crest_y_diff_m": {
+      "main": -2.747,
+      "peak": -2.704
+     }
+    },
+    {
+     "tau": -1.6,
+     "rms_m": 1.551,
+     "max_m": 4.281,
+     "max_at": {
+      "row": 137,
+      "col": 18,
+      "c_m": -3.09
+     },
+     "vertices_over_5cm": 72540,
+     "crest_y_diff_m": {
+      "main": -2.443,
+      "peak": -2.411
+     }
+    },
+    {
+     "tau": -1.4,
+     "rms_m": 1.3751,
+     "max_m": 3.53,
+     "max_at": {
+      "row": 137,
+      "col": 18,
+      "c_m": -3.09
+     },
+     "vertices_over_5cm": 72577,
+     "crest_y_diff_m": {
+      "main": -2.148,
+      "peak": -2.126
+     }
+    },
+    {
+     "tau": -1.2,
+     "rms_m": 1.1817,
+     "max_m": 2.615,
+     "max_at": {
+      "row": 94,
+      "col": 18,
+      "c_m": -15.68
+     },
+     "vertices_over_5cm": 72476,
+     "crest_y_diff_m": {
+      "main": -1.86,
+      "peak": -1.848
+     }
+    },
+    {
+     "tau": -1.0,
+     "rms_m": 0.981,
+     "max_m": 2.182,
+     "max_at": {
+      "row": 92,
+      "col": 18,
+      "c_m": -16.41
+     },
+     "vertices_over_5cm": 72242,
+     "crest_y_diff_m": {
+      "main": -1.579,
+      "peak": -1.568
+     }
+    },
+    {
+     "tau": -0.8,
+     "rms_m": 0.7743,
+     "max_m": 1.577,
+     "max_at": {
+      "row": 87,
+      "col": 18,
+      "c_m": -18.28
+     },
+     "vertices_over_5cm": 71695,
+     "crest_y_diff_m": {
+      "main": -1.288,
+      "peak": -1.277
+     }
+    },
+    {
+     "tau": -0.6,
+     "rms_m": 0.5711,
+     "max_m": 1.147,
+     "max_at": {
+      "row": 82,
+      "col": 199,
+      "c_m": -20.22
+     },
+     "vertices_over_5cm": 70165,
+     "crest_y_diff_m": {
+      "main": -0.985,
+      "peak": -0.975
+     }
+    },
+    {
+     "tau": -0.4,
+     "rms_m": 0.3768,
+     "max_m": 0.765,
+     "max_at": {
+      "row": 82,
+      "col": 199,
+      "c_m": -20.22
+     },
+     "vertices_over_5cm": 65942,
+     "crest_y_diff_m": {
+      "main": -0.669,
+      "peak": -0.661
+     }
+    },
+    {
+     "tau": -0.2,
+     "rms_m": 0.188,
+     "max_m": 0.382,
+     "max_at": {
+      "row": 82,
+      "col": 199,
+      "c_m": -20.22
+     },
+     "vertices_over_5cm": 60410,
+     "crest_y_diff_m": {
+      "main": -0.341,
+      "peak": -0.336
+     }
+    },
+    {
+     "tau": 0.0,
+     "rms_m": 0.0,
+     "max_m": 0.0,
+     "max_at": {
+      "row": 162,
+      "col": 141,
+      "c_m": 0.33
+     },
+     "vertices_over_5cm": 0,
+     "crest_y_diff_m": {
+      "main": 0.0,
+      "peak": 0.0
+     }
+    }
+   ],
+   "note_ja": "生成器を直接呼んだ差（量子化・Hermite を含まない）。入れた版は設計28修正01 の既定（art_on）"
+  },
+  "no_tower_override": {
+   "variant": "no_tower_override",
+   "kind_ja": "ds_tower_peak の時刻の上書き（−0.1 s）だけを消す（設計28 の表）",
+   "variant_generator": "art_on",
+   "max_m": 0.165,
+   "max_tau": -3.6,
+   "max_at": {
+    "row": 187,
+    "col": 222,
+    "c_m": 3.48
+   },
+   "rms_max_m": 0.0405,
+   "first_tau_over_5mm": -5.0,
+   "at_tstar": {
+    "rms_m": 0.0,
+    "max_m": 0.0
+   },
+   "twhite_changed_vertices": 0,
+   "per_tau": [
+    {
+     "tau": -12.0,
+     "rms_m": 0.0,
+     "max_m": 0.0,
+     "max_at": {
+      "row": 0,
+      "col": 0,
+      "c_m": -60.0
+     },
+     "vertices_over_5cm": 0,
+     "crest_y_diff_m": {
+      "main": 0.0,
+      "peak": 0.0
+     }
+    },
+    {
+     "tau": -10.0,
+     "rms_m": 0.0,
+     "max_m": 0.0,
+     "max_at": {
+      "row": 0,
+      "col": 0,
+      "c_m": -60.0
+     },
+     "vertices_over_5cm": 0,
+     "crest_y_diff_m": {
+      "main": 0.0,
+      "peak": 0.0
+     }
+    },
+    {
+     "tau": -8.0,
+     "rms_m": 0.0,
+     "max_m": 0.0,
+     "max_at": {
+      "row": 0,
+      "col": 0,
+      "c_m": -60.0
+     },
+     "vertices_over_5cm": 0,
+     "crest_y_diff_m": {
+      "main": 0.0,
+      "peak": 0.0
+     }
+    },
+    {
+     "tau": -6.0,
+     "rms_m": 0.0,
+     "max_m": 0.0,
+     "max_at": {
+      "row": 0,
+      "col": 0,
+      "c_m": -60.0
+     },
+     "vertices_over_5cm": 0,
+     "crest_y_diff_m": {
+      "main": 0.0,
+      "peak": 0.0
+     }
+    },
+    {
+     "tau": -5.0,
+     "rms_m": 0.0012,
+     "max_m": 0.012,
+     "max_at": {
+      "row": 153,
+      "col": 71,
+      "c_m": -0.44
+     },
+     "vertices_over_5cm": 0,
+     "crest_y_diff_m": {
+      "main": 0.0,
+      "peak": 0.0
+     }
+    },
+    {
+     "tau": -4.5,
+     "rms_m": 0.0016,
+     "max_m": 0.018,
+     "max_at": {
+      "row": 192,
+      "col": 70,
+      "c_m": 3.85
+     },
+     "vertices_over_5cm": 0,
+     "crest_y_diff_m": {
+      "main": 0.0,
+      "peak": 0.0
+     }
+    },
+    {
+     "tau": -4.2,
+     "rms_m": 0.0022,
+     "max_m": 0.02,
+     "max_at": {
+      "row": 192,
+      "col": 68,
+      "c_m": 3.85
+     },
+     "vertices_over_5cm": 0,
+     "crest_y_diff_m": {
+      "main": 0.0,
+      "peak": 0.0
+     }
+    },
+    {
+     "tau": -4.0,
+     "rms_m": 0.0095,
+     "max_m": 0.065,
+     "max_at": {
+      "row": 192,
+      "col": 223,
+      "c_m": 3.85
+     },
+     "vertices_over_5cm": 692,
+     "crest_y_diff_m": {
+      "main": 0.0,
+      "peak": 0.0
+     }
+    },
+    {
+     "tau": -3.6,
+     "rms_m": 0.0405,
+     "max_m": 0.165,
+     "max_at": {
+      "row": 187,
+      "col": 222,
+      "c_m": 3.48
+     },
+     "vertices_over_5cm": 14348,
+     "crest_y_diff_m": {
+      "main": 0.0,
+      "peak": 0.0
+     }
+    },
+    {
+     "tau": -3.4,
+     "rms_m": 0.0307,
+     "max_m": 0.153,
+     "max_at": {
+      "row": 140,
+      "col": 199,
+      "c_m": -2.48
+     },
+     "vertices_over_5cm": 8962,
+     "crest_y_diff_m": {
+      "main": 0.0,
+      "peak": 0.0
+     }
+    },
+    {
+     "tau": -3.2,
+     "rms_m": 0.0282,
+     "max_m": 0.146,
+     "max_at": {
+      "row": 124,
+      "col": 204,
+      "c_m": -6.2
+     },
+     "vertices_over_5cm": 7979,
+     "crest_y_diff_m": {
+      "main": 0.0,
+      "peak": 0.0
+     }
+    },
+    {
+     "tau": -3.0,
+     "rms_m": 0.0303,
+     "max_m": 0.146,
+     "max_at": {
+      "row": 110,
+      "col": 204,
+      "c_m": -10.26
+     },
+     "vertices_over_5cm": 10590,
+     "crest_y_diff_m": {
+      "main": 0.0,
+      "peak": 0.0
+     }
+    },
+    {
+     "tau": -2.8,
+     "rms_m": 0.0327,
+     "max_m": 0.143,
+     "max_at": {
+      "row": 97,
+      "col": 203,
+      "c_m": -14.61
+     },
+     "vertices_over_5cm": 13021,
+     "crest_y_diff_m": {
+      "main": 0.0,
+      "peak": 0.0
+     }
+    },
+    {
+     "tau": -2.6,
+     "rms_m": 0.0314,
+     "max_m": 0.142,
+     "max_at": {
+      "row": 88,
+      "col": 201,
+      "c_m": -17.9
+     },
+     "vertices_over_5cm": 11725,
+     "crest_y_diff_m": {
+      "main": 0.0,
+      "peak": 0.0
+     }
+    },
+    {
+     "tau": -2.4,
+     "rms_m": 0.024,
+     "max_m": 0.115,
+     "max_at": {
+      "row": 82,
+      "col": 199,
+      "c_m": -20.22
+     },
+     "vertices_over_5cm": 7102,
+     "crest_y_diff_m": {
+      "main": 0.0,
+      "peak": 0.0
+     }
+    },
+    {
+     "tau": -2.2,
+     "rms_m": 0.0177,
+     "max_m": 0.082,
+     "max_at": {
+      "row": 116,
+      "col": 199,
+      "c_m": -8.44
+     },
+     "vertices_over_5cm": 3614,
+     "crest_y_diff_m": {
+      "main": 0.0,
+      "peak": 0.0
+     }
+    },
+    {
+     "tau": -2.0,
+     "rms_m": 0.0172,
+     "max_m": 0.082,
+     "max_at": {
+      "row": 103,
+      "col": 199,
+      "c_m": -12.54
+     },
+     "vertices_over_5cm": 2767,
+     "crest_y_diff_m": {
+      "main": 0.0,
+      "peak": 0.0
+     }
+    },
+    {
+     "tau": -1.8,
+     "rms_m": 0.0153,
+     "max_m": 0.082,
+     "max_at": {
+      "row": 92,
+      "col": 202,
+      "c_m": -16.41
+     },
+     "vertices_over_5cm": 1894,
+     "crest_y_diff_m": {
+      "main": 0.0,
+      "peak": 0.0
+     }
+    },
+    {
+     "tau": -1.6,
+     "rms_m": 0.0134,
+     "max_m": 0.075,
+     "max_at": {
+      "row": 82,
+      "col": 200,
+      "c_m": -20.22
+     },
+     "vertices_over_5cm": 1693,
+     "crest_y_diff_m": {
+      "main": 0.0,
+      "peak": 0.0
+     }
+    },
+    {
+     "tau": -1.4,
+     "rms_m": 0.0085,
+     "max_m": 0.06,
+     "max_at": {
+      "row": 206,
+      "col": 18,
+      "c_m": 4.9
+     },
+     "vertices_over_5cm": 344,
+     "crest_y_diff_m": {
+      "main": 0.0,
+      "peak": 0.0
+     }
+    },
+    {
+     "tau": -1.2,
+     "rms_m": 0.0064,
+     "max_m": 0.053,
+     "max_at": {
+      "row": 206,
+      "col": 18,
+      "c_m": 4.9
+     },
+     "vertices_over_5cm": 34,
+     "crest_y_diff_m": {
+      "main": 0.0,
+      "peak": 0.0
+     }
+    },
+    {
+     "tau": -1.0,
+     "rms_m": 0.0051,
+     "max_m": 0.043,
+     "max_at": {
+      "row": 206,
+      "col": 18,
+      "c_m": 4.9
+     },
+     "vertices_over_5cm": 0,
+     "crest_y_diff_m": {
+      "main": 0.0,
+      "peak": 0.0
+     }
+    },
+    {
+     "tau": -0.8,
+     "rms_m": 0.0038,
+     "max_m": 0.03,
+     "max_at": {
+      "row": 206,
+      "col": 18,
+      "c_m": 4.9
+     },
+     "vertices_over_5cm": 0,
+     "crest_y_diff_m": {
+      "main": 0.0,
+      "peak": 0.0
+     }
+    },
+    {
+     "tau": -0.6,
+     "rms_m": 0.0031,
+     "max_m": 0.018,
+     "max_at": {
+      "row": 206,
+      "col": 18,
+      "c_m": 4.9
+     },
+     "vertices_over_5cm": 0,
+     "crest_y_diff_m": {
+      "main": 0.0,
+      "peak": 0.0
+     }
+    },
+    {
+     "tau": -0.4,
+     "rms_m": 0.0021,
+     "max_m": 0.015,
+     "max_at": {
+      "row": 94,
+      "col": 18,
+      "c_m": -15.68
+     },
+     "vertices_over_5cm": 0,
+     "crest_y_diff_m": {
+      "main": 0.0,
+      "peak": 0.0
+     }
+    },
+    {
+     "tau": -0.2,
+     "rms_m": 0.0008,
+     "max_m": 0.006,
+     "max_at": {
+      "row": 82,
+      "col": 18,
+      "c_m": -20.22
+     },
+     "vertices_over_5cm": 0,
+     "crest_y_diff_m": {
+      "main": 0.0,
+      "peak": 0.0
+     }
+    },
+    {
+     "tau": 0.0,
+     "rms_m": 0.0,
+     "max_m": 0.0,
+     "max_at": {
+      "row": 0,
+      "col": 0,
+      "c_m": -60.0
+     },
+     "vertices_over_5cm": 0,
+     "crest_y_diff_m": {
+      "main": 0.0,
+      "peak": 0.0
+     }
+    }
+   ],
+   "note_ja": "生成器を直接呼んだ差（量子化・Hermite を含まない）。入れた版は設計28修正01 の既定（art_on）"
+  }
+ },
+ "p20_ds_rise_overlap": {
+  "ds_rise_overlap": {
+   "kind_ja": "頂の高さの時刻の表（噴流の始まりで 0.73H*、t* まで 0.105〜0.12 H*/s で上がり続ける）と、それに合わせた唇の打ち出しの解き直し",
+   "on_ja": "設計28修正01 の入れた版（art_on）",
+   "off_ja": "設計28 の入れた版（art_on）＝ds_rise_overlap だけを切った動き",
+   "max_m": 5.531,
+   "max_tau": -2.4,
+   "max_at": {
+    "row": 181,
+    "col": 18,
+    "c_m": 3.02
+   },
+   "rms_max_m": 1.8887,
+   "first_tau_over_5mm": -12.0,
+   "at_tstar": {
+    "rms_m": 0.0,
+    "max_m": 0.0
+   },
+   "per_tau": [
+    {
+     "tau": -12.0,
+     "rms_m": 0.0926,
+     "max_m": 0.239,
+     "max_at": {
+      "row": 228,
+      "col": 87,
+      "c_m": 10.82
+     },
+     "vertices_over_5cm": 46903,
+     "crest_H_diff_m": {
+      "main": 0.168,
+      "peak": 0.184
+     },
+     "Lo_over_H": {
+      "main": [
+       -0.006,
+       -0.005
+      ],
+      "peak": [
+       -0.0,
+       -0.017
+      ]
+     }
+    },
+    {
+     "tau": -10.0,
+     "rms_m": 0.0927,
+     "max_m": 0.241,
+     "max_at": {
+      "row": 228,
+      "col": 88,
+      "c_m": 10.82
+     },
+     "vertices_over_5cm": 46928,
+     "crest_H_diff_m": {
+      "main": 0.168,
+      "peak": 0.184
+     },
+     "Lo_over_H": {
+      "main": [
+       -0.006,
+       -0.005
+      ],
+      "peak": [
+       -0.0,
+       -0.0
+      ]
+     }
+    },
+    {
+     "tau": -8.0,
+     "rms_m": 0.0933,
+     "max_m": 0.265,
+     "max_at": {
+      "row": 228,
+      "col": 88,
+      "c_m": 10.82
+     },
+     "vertices_over_5cm": 46820,
+     "crest_H_diff_m": {
+      "main": 0.168,
+      "peak": 0.184
+     },
+     "Lo_over_H": {
+      "main": [
+       -0.004,
+       -0.004
+      ],
+      "peak": [
+       -0.014,
+       -0.014
+      ]
+     }
+    },
+    {
+     "tau": -6.0,
+     "rms_m": 0.0579,
+     "max_m": 0.306,
+     "max_at": {
+      "row": 228,
+      "col": 88,
+      "c_m": 10.82
+     },
+     "vertices_over_5cm": 32455,
+     "crest_H_diff_m": {
+      "main": 0.079,
+      "peak": 0.066
+     },
+     "Lo_over_H": {
+      "main": [
+       -0.003,
+       -0.003
+      ],
+      "peak": [
+       -0.01,
+       -0.009
+      ]
+     }
+    },
+    {
+     "tau": -5.0,
+     "rms_m": 0.0499,
+     "max_m": 0.318,
+     "max_at": {
+      "row": 228,
+      "col": 88,
+      "c_m": 10.82
+     },
+     "vertices_over_5cm": 20446,
+     "crest_H_diff_m": {
+      "main": -0.039,
+      "peak": -0.071
+     },
+     "Lo_over_H": {
+      "main": [
+       -0.003,
+       -0.003
+      ],
+      "peak": [
+       -0.008,
+       -0.008
+      ]
+     }
+    },
+    {
+     "tau": -4.5,
+     "rms_m": 0.0779,
+     "max_m": 0.321,
+     "max_at": {
+      "row": 228,
+      "col": 88,
+      "c_m": 10.82
+     },
+     "vertices_over_5cm": 34830,
+     "crest_H_diff_m": {
+      "main": -0.116,
+      "peak": -0.161
+     },
+     "Lo_over_H": {
+      "main": [
+       -0.003,
+       -0.003
+      ],
+      "peak": [
+       -0.007,
+       -0.007
+      ]
+     }
+    },
+    {
+     "tau": -4.2,
+     "rms_m": 0.1085,
+     "max_m": 0.324,
+     "max_at": {
+      "row": 214,
+      "col": 86,
+      "c_m": 5.5
+     },
+     "vertices_over_5cm": 39152,
+     "crest_H_diff_m": {
+      "main": -0.175,
+      "peak": -0.249
+     },
+     "Lo_over_H": {
+      "main": [
+       -0.003,
+       -0.003
+      ],
+      "peak": [
+       -0.006,
+       -0.006
+      ]
+     }
+    },
+    {
+     "tau": -4.0,
+     "rms_m": 0.1456,
+     "max_m": 0.407,
+     "max_at": {
+      "row": 214,
+      "col": 96,
+      "c_m": 5.5
+     },
+     "vertices_over_5cm": 41462,
+     "crest_H_diff_m": {
+      "main": -0.234,
+      "peak": -0.344
+     },
+     "Lo_over_H": {
+      "main": [
+       -0.003,
+       -0.003
+      ],
+      "peak": [
+       -0.005,
+       -0.005
+      ]
+     }
+    },
+    {
+     "tau": -3.6,
+     "rms_m": 0.3471,
+     "max_m": 1.01,
+     "max_at": {
+      "row": 192,
+      "col": 225,
+      "c_m": 3.85
+     },
+     "vertices_over_5cm": 50079,
+     "crest_H_diff_m": {
+      "main": -0.525,
+      "peak": -0.9
+     },
+     "Lo_over_H": {
+      "main": [
+       -0.002,
+       -0.002
+      ],
+      "peak": [
+       -0.004,
+       -0.004
+      ]
+     }
+    },
+    {
+     "tau": -3.4,
+     "rms_m": 0.5156,
+     "max_m": 1.384,
+     "max_at": {
+      "row": 192,
+      "col": 18,
+      "c_m": 3.85
+     },
+     "vertices_over_5cm": 53316,
+     "crest_H_diff_m": {
+      "main": -0.846,
+      "peak": -1.376
+     },
+     "Lo_over_H": {
+      "main": [
+       -0.001,
+       -0.001
+      ],
+      "peak": [
+       -0.003,
+       -0.003
+      ]
+     }
+    },
+    {
+     "tau": -3.2,
+     "rms_m": 0.7651,
+     "max_m": 2.55,
+     "max_at": {
+      "row": 185,
+      "col": 18,
+      "c_m": 3.33
+     },
+     "vertices_over_5cm": 56192,
+     "crest_H_diff_m": {
+      "main": -1.289,
+      "peak": -1.98
+     },
+     "Lo_over_H": {
+      "main": [
+       -0.001,
+       -0.001
+      ],
+      "peak": [
+       -0.003,
+       -0.003
+      ]
+     }
+    },
+    {
+     "tau": -3.0,
+     "rms_m": 1.086,
+     "max_m": 3.793,
+     "max_at": {
+      "row": 184,
+      "col": 18,
+      "c_m": 3.25
+     },
+     "vertices_over_5cm": 62474,
+     "crest_H_diff_m": {
+      "main": -1.85,
+      "peak": -2.675
+     },
+     "Lo_over_H": {
+      "main": [
+       -0.001,
+       -0.0
+      ],
+      "peak": [
+       0.008,
+       -0.003
+      ]
+     }
+    },
+    {
+     "tau": -2.8,
+     "rms_m": 1.4456,
+     "max_m": 4.803,
+     "max_at": {
+      "row": 182,
+      "col": 18,
+      "c_m": 3.1
+     },
+     "vertices_over_5cm": 65908,
+     "crest_H_diff_m": {
+      "main": -2.493,
+      "peak": -3.388
+     },
+     "Lo_over_H": {
+      "main": [
+       -0.001,
+       -0.0
+      ],
+      "peak": [
+       0.07,
+       0.065
+      ]
+     }
+    },
+    {
+     "tau": -2.6,
+     "rms_m": 1.7415,
+     "max_m": 5.383,
+     "max_at": {
+      "row": 181,
+      "col": 18,
+      "c_m": 3.02
+     },
+     "vertices_over_5cm": 68190,
+     "crest_H_diff_m": {
+      "main": -3.142,
+      "peak": -3.728
+     },
+     "Lo_over_H": {
+      "main": [
+       0.029,
+       0.025
+      ],
+      "peak": [
+       0.1,
+       0.1
+      ]
+     }
+    },
+    {
+     "tau": -2.4,
+     "rms_m": 1.8887,
+     "max_m": 5.531,
+     "max_at": {
+      "row": 181,
+      "col": 18,
+      "c_m": 3.02
+     },
+     "vertices_over_5cm": 70393,
+     "crest_H_diff_m": {
+      "main": -3.436,
+      "peak": -3.628
+     },
+     "Lo_over_H": {
+      "main": [
+       0.058,
+       0.058
+      ],
+      "peak": [
+       0.106,
+       0.105
+      ]
+     }
+    },
+    {
+     "tau": -2.2,
+     "rms_m": 1.8874,
+     "max_m": 5.478,
+     "max_at": {
+      "row": 181,
+      "col": 18,
+      "c_m": 3.02
+     },
+     "vertices_over_5cm": 71387,
+     "crest_H_diff_m": {
+      "main": -3.336,
+      "peak": -3.312
+     },
+     "Lo_over_H": {
+      "main": [
+       0.063,
+       0.063
+      ],
+      "peak": [
+       0.102,
+       0.099
+      ]
+     }
+    },
+    {
+     "tau": -2.0,
+     "rms_m": 1.8146,
+     "max_m": 5.199,
+     "max_at": {
+      "row": 181,
+      "col": 18,
+      "c_m": 3.02
+     },
+     "vertices_over_5cm": 71928,
+     "crest_H_diff_m": {
+      "main": -3.051,
+      "peak": -3.005
+     },
+     "Lo_over_H": {
+      "main": [
+       0.061,
+       0.06
+      ],
+      "peak": [
+       0.094,
+       0.089
+      ]
+     }
+    },
+    {
+     "tau": -1.8,
+     "rms_m": 1.6991,
+     "max_m": 4.746,
+     "max_at": {
+      "row": 137,
+      "col": 18,
+      "c_m": -3.09
+     },
+     "vertices_over_5cm": 72312,
+     "crest_H_diff_m": {
+      "main": -2.747,
+      "peak": -2.704
+     },
+     "Lo_over_H": {
+      "main": [
+       0.077,
+       0.077
+      ],
+      "peak": [
+       0.091,
+       0.086
+      ]
+     }
+    },
+    {
+     "tau": -1.6,
+     "rms_m": 1.551,
+     "max_m": 4.281,
+     "max_at": {
+      "row": 137,
+      "col": 18,
+      "c_m": -3.09
+     },
+     "vertices_over_5cm": 72544,
+     "crest_H_diff_m": {
+      "main": -2.443,
+      "peak": -2.411
+     },
+     "Lo_over_H": {
+      "main": [
+       0.107,
+       0.111
+      ],
+      "peak": [
+       0.091,
+       0.088
+      ]
+     }
+    },
+    {
+     "tau": -1.4,
+     "rms_m": 1.3751,
+     "max_m": 3.531,
+     "max_at": {
+      "row": 137,
+      "col": 18,
+      "c_m": -3.09
+     },
+     "vertices_over_5cm": 72580,
+     "crest_H_diff_m": {
+      "main": -2.148,
+      "peak": -2.126
+     },
+     "Lo_over_H": {
+      "main": [
+       0.138,
+       0.145
+      ],
+      "peak": [
+       0.093,
+       0.09
+      ]
+     }
+    },
+    {
+     "tau": -1.2,
+     "rms_m": 1.1817,
+     "max_m": 2.615,
+     "max_at": {
+      "row": 94,
+      "col": 18,
+      "c_m": -15.68
+     },
+     "vertices_over_5cm": 72482,
+     "crest_H_diff_m": {
+      "main": -1.861,
+      "peak": -1.848
+     },
+     "Lo_over_H": {
+      "main": [
+       0.17,
+       0.18
+      ],
+      "peak": [
+       0.096,
+       0.095
+      ]
+     }
+    },
+    {
+     "tau": -1.0,
+     "rms_m": 0.981,
+     "max_m": 2.182,
+     "max_at": {
+      "row": 92,
+      "col": 18,
+      "c_m": -16.41
+     },
+     "vertices_over_5cm": 72246,
+     "crest_H_diff_m": {
+      "main": -1.579,
+      "peak": -1.568
+     },
+     "Lo_over_H": {
+      "main": [
+       0.205,
+       0.215
+      ],
+      "peak": [
+       0.103,
+       0.103
+      ]
+     }
+    },
+    {
+     "tau": -0.8,
+     "rms_m": 0.7743,
+     "max_m": 1.577,
+     "max_at": {
+      "row": 87,
+      "col": 18,
+      "c_m": -18.28
+     },
+     "vertices_over_5cm": 71706,
+     "crest_H_diff_m": {
+      "main": -1.288,
+      "peak": -1.277
+     },
+     "Lo_over_H": {
+      "main": [
+       0.241,
+       0.252
+      ],
+      "peak": [
+       0.113,
+       0.115
+      ]
+     }
+    },
+    {
+     "tau": -0.6,
+     "rms_m": 0.5711,
+     "max_m": 1.147,
+     "max_at": {
+      "row": 82,
+      "col": 199,
+      "c_m": -20.22
+     },
+     "vertices_over_5cm": 70165,
+     "crest_H_diff_m": {
+      "main": -0.985,
+      "peak": -0.975
+     },
+     "Lo_over_H": {
+      "main": [
+       0.28,
+       0.29
+      ],
+      "peak": [
+       0.128,
+       0.131
+      ]
+     }
+    },
+    {
+     "tau": -0.4,
+     "rms_m": 0.3768,
+     "max_m": 0.765,
+     "max_at": {
+      "row": 82,
+      "col": 199,
+      "c_m": -20.22
+     },
+     "vertices_over_5cm": 65949,
+     "crest_H_diff_m": {
+      "main": -0.669,
+      "peak": -0.661
+     },
+     "Lo_over_H": {
+      "main": [
+       0.32,
+       0.328
+      ],
+      "peak": [
+       0.15,
+       0.153
+      ]
+     }
+    },
+    {
+     "tau": -0.2,
+     "rms_m": 0.188,
+     "max_m": 0.382,
+     "max_at": {
+      "row": 82,
+      "col": 199,
+      "c_m": -20.22
+     },
+     "vertices_over_5cm": 60424,
+     "crest_H_diff_m": {
+      "main": -0.341,
+      "peak": -0.336
+     },
+     "Lo_over_H": {
+      "main": [
+       0.363,
+       0.367
+      ],
+      "peak": [
+       0.178,
+       0.18
+      ]
+     }
+    },
+    {
+     "tau": 0.0,
+     "rms_m": 0.0,
+     "max_m": 0.0,
+     "max_at": {
+      "row": 0,
+      "col": 0,
+      "c_m": -60.0
+     },
+     "vertices_over_5cm": 0,
+     "crest_H_diff_m": {
+      "main": 0.0,
+      "peak": 0.0
+     },
+     "Lo_over_H": {
+      "main": [
+       0.407,
+       0.407
+      ],
+      "peak": [
+       0.214,
+       0.214
+      ]
+     }
+    }
+   ],
+   "twhite_same": true
+  }
+ },
+ "launch": {
+  "ds28_art_on": {
+   "variant": "art_on+ds_rise_overlap=0",
+   "rows": {
+    "70": {
+     "c_m": -25.12699618795156,
+     "H_kstar_m": 7.226423105915424,
+     "release_tau": -1.2,
+     "ramp_s": 0.6,
+     "flight_s": 1.2,
+     "release_y_m": 5.881804101361414,
+     "crest_at_release_over_H": 0.9,
+     "prerelease_vel": [
+      20.0,
+      0.6022019254929519
+     ],
+     "launch_u_over_c0": 1.0364391024117716,
+     "launch_w_mps": 5.350408277028748,
+     "launch_w_over_sqrt_gH": 0.6354636700651431,
+     "apex_y_m": 6.445834819496515,
+     "apex_tau": -0.6541666666666667,
+     "crest_at_apex_m": 6.832482679655451,
+     "apex_minus_crest_m": -0.38664786015893604,
+     "max_tip_minus_crest_m": -0.36873192683228684,
+     "kstar_tip": [
+      4.006555247946889,
+      4.344372128335172
+     ],
+     "mode": "strip",
+     "thrown": false
+    },
+    "96": {
+     "c_m": -14.96464394460055,
+     "H_kstar_m": 11.22559871724686,
+     "release_tau": -1.4592678027699724,
+     "ramp_s": 0.6,
+     "flight_s": 1.4592678027699724,
+     "release_y_m": 8.846153740005281,
+     "crest_at_release_over_H": 0.877233621913142,
+     "prerelease_vel": [
+      20.0,
+      0.9354665597705717
+     ],
+     "launch_u_over_c0": 1.08309947998126,
+     "launch_w_mps": 6.486859204880414,
+     "launch_w_over_sqrt_gH": 0.6181519042246948,
+     "apex_y_m": 9.855178922478569,
+     "apex_tau": -0.7963432866544707,
+     "crest_at_apex_m": 10.467616337352124,
+     "apex_minus_crest_m": -0.6124374148735559,
+     "max_tip_minus_crest_m": -0.5662698722954609,
+     "kstar_tip": [
+      6.208085837706233,
+      6.731527063669929
+     ],
+     "mode": "strip",
+     "thrown": false
+    },
+    "118": {
+     "c_m": -7.856540416298211,
+     "H_kstar_m": 17.110305772304102,
+     "release_tau": -1.8146729791850893,
+     "ramp_s": 0.6,
+     "flight_s": 1.8146729791850893,
+     "release_y_m": 14.281574217501488,
+     "crest_at_release_over_H": 0.8939426914203694,
+     "prerelease_vel": [
+      20.0,
+      1.0
+     ],
+     "launch_u_over_c0": 1.1302999605840172,
+     "launch_w_mps": 7.528922057197166,
+     "launch_w_over_sqrt_gH": 0.5811248031701374,
+     "apex_y_m": 15.741764315166815,
+     "apex_tau": -1.0470871672999023,
+     "crest_at_apex_m": 16.0632186050042,
+     "apex_minus_crest_m": -0.32145428983738356,
+     "max_tip_minus_crest_m": -0.27039247546808376,
+     "kstar_tip": [
+      9.483541935766867,
+      10.362817525037737
+     ],
+     "mode": "strip",
+     "thrown": false
+    },
+    "159": {
+     "c_m": 0.0,
+     "H_kstar_m": 20.79984347027383,
+     "release_tau": -2.2075,
+     "ramp_s": 0.6,
+     "flight_s": 2.2075,
+     "release_y_m": 17.540727169633435,
+     "crest_at_release_over_H": 0.8938693936252522,
+     "prerelease_vel": [
+      20.0,
+      1.0
+     ],
+     "launch_u_over_c0": 1.1505521893023853,
+     "launch_w_mps": 9.363458810029307,
+     "launch_w_over_sqrt_gH": 0.6554985982802,
+     "apex_y_m": 20.03004513840351,
+     "apex_tau": -1.251890359168242,
+     "crest_at_apex_m": 19.54795311110559,
+     "apex_minus_crest_m": 0.4820920272979201,
+     "max_tip_minus_crest_m": 0.5341875231746265,
+     "kstar_tip": [
+      11.65604088362339,
+      12.32892394351434
+     ],
+     "mode": "strip",
+     "thrown": false
+    },
+    "172": {
+     "c_m": 2.0905238433521833,
+     "H_kstar_m": 21.764727212982383,
+     "release_tau": -2.3120261921676093,
+     "ramp_s": 0.6,
+     "flight_s": 2.3120261921676093,
+     "release_y_m": 18.401084720174374,
+     "crest_at_release_over_H": 0.8937718736585627,
+     "prerelease_vel": [
+      20.0,
+      1.0
+     ],
+     "launch_u_over_c0": 1.1536428103546474,
+     "launch_w_mps": 9.852407816058985,
+     "launch_w_over_sqrt_gH": 0.6742660021632073,
+     "apex_y_m": 21.222591538402504,
+     "apex_tau": -1.306253065249931,
+     "crest_at_apex_m": 20.458474147732453,
+     "apex_minus_crest_m": 0.7641173906700516,
+     "max_tip_minus_crest_m": 0.8165419235248557,
+     "kstar_tip": [
+      9.782679694775968,
+      12.834620921417207
+     ],
+     "mode": "strip",
+     "thrown": false
+    },
+    "192": {
+     "c_m": 3.85,
+     "H_kstar_m": 22.576815505891087,
+     "release_tau": -2.325396690082583,
+     "ramp_s": 0.6,
+     "flight_s": 2.325396690082583,
+     "release_y_m": 18.790625330268803,
+     "crest_at_release_over_H": 0.8970006779974878,
+     "prerelease_vel": [
+      19.920810259662858,
+      0.9700003162382842
+     ],
+     "launch_u_over_c0": 1.0354963925142484,
+     "launch_w_mps": 9.8463168790449,
+     "launch_w_over_sqrt_gH": 0.661618991009698,
+     "apex_y_m": 21.598237876312847,
+     "apex_tau": -1.3210586931114316,
+     "crest_at_apex_m": 21.255756812779655,
+     "apex_minus_crest_m": 0.3424810635331923,
+     "max_tip_minus_crest_m": 0.3940746769229264,
+     "kstar_tip": [
+      3.4728909457276487,
+      13.029809234708157
+     ],
+     "mode": "damped",
+     "thrown": false
+    }
+   },
+   "E1_plausible_recounted": {
+    "fraction": 0.9975061048475087,
+    "n_eval": 19247,
+    "n_ok": 19199
+   },
+   "E1_plausible_fraction_summary": 0.9787414119287066,
+   "onset_crest_over_H_peak": 0.8936962567030876
+  },
+  "ds28r01_art_on": {
+   "variant": "art_on",
+   "rows": {
+    "70": {
+     "c_m": -25.12699618795156,
+     "H_kstar_m": 7.226423105915424,
+     "release_tau": -1.2,
+     "ramp_s": 0.6,
+     "flight_s": 1.2,
+     "release_y_m": 4.674991442673538,
+     "crest_at_release_over_H": 0.733,
+     "prerelease_vel": [
+      20.0,
+      0.8310386571802737
+     ],
+     "launch_u_over_c0": 1.0364391024117716,
+     "launch_w_mps": 6.618645532116905,
+     "launch_w_over_sqrt_gH": 0.7860911846216988,
+     "apex_y_m": 5.697942598973798,
+     "apex_tau": -0.5249999999999999,
+     "crest_at_apex_m": 6.285092295209726,
+     "apex_minus_crest_m": -0.5871496962359277,
+     "max_tip_minus_crest_m": -0.43911808530771346,
+     "kstar_tip": [
+      4.006555247946889,
+      4.344372128335172
+     ],
+     "mode": "damped",
+     "thrown": true
+    },
+    "96": {
+     "c_m": -14.96464394460055,
+     "H_kstar_m": 11.22559871724686,
+     "release_tau": -1.4592678027699724,
+     "ramp_s": 0.6,
+     "flight_s": 1.4592678027699724,
+     "release_y_m": 7.217494087731683,
+     "crest_at_release_over_H": 0.7321491864815323,
+     "prerelease_vel": [
+      20.0,
+      1.2894454179932449
+     ],
+     "launch_u_over_c0": 1.0830994799812836,
+     "launch_w_mps": 7.804511301436869,
+     "launch_w_over_sqrt_gH": 0.7437148503079449,
+     "apex_y_m": 8.892171146104085,
+     "apex_tau": -0.6629245161155018,
+     "crest_at_apex_m": 9.748253476433668,
+     "apex_minus_crest_m": -0.856082330329583,
+     "max_tip_minus_crest_m": -0.6336102644672064,
+     "kstar_tip": [
+      6.208085837706233,
+      6.731527063669929
+     ],
+     "mode": "damped",
+     "thrown": true
+    },
+    "118": {
+     "c_m": -7.856540416298211,
+     "H_kstar_m": 17.110305772304102,
+     "release_tau": -1.8146729791850893,
+     "ramp_s": 0.6,
+     "flight_s": 1.8146729791850893,
+     "release_y_m": 11.527795555481557,
+     "crest_at_release_over_H": 0.733,
+     "prerelease_vel": [
+      20.0,
+      1.9676851638149717
+     ],
+     "launch_u_over_c0": 1.1302999605839579,
+     "launch_w_mps": 9.160411351871515,
+     "launch_w_over_sqrt_gH": 0.7070523779330472,
+     "apex_y_m": 14.16893411793344,
+     "apex_tau": -0.8802206864552963,
+     "crest_at_apex_m": 14.801663021376351,
+     "apex_minus_crest_m": -0.6327289034429118,
+     "max_tip_minus_crest_m": -0.31721795054383506,
+     "kstar_tip": [
+      9.483541935766867,
+      10.362817525037737
+     ],
+     "mode": "damped",
+     "thrown": true
+    },
+    "159": {
+     "c_m": 0.0,
+     "H_kstar_m": 20.79984347027383,
+     "release_tau": -2.2075,
+     "ramp_s": 0.6,
+     "flight_s": 2.2075,
+     "release_y_m": 14.194668963070322,
+     "crest_at_release_over_H": 0.733,
+     "prerelease_vel": [
+      20.0,
+      2.391981999081491
+     ],
+     "launch_u_over_c0": 1.1505521893023856,
+     "launch_w_mps": 10.90360221050128,
+     "launch_w_over_sqrt_gH": 0.7633179266547239,
+     "apex_y_m": 18.22111106037292,
+     "apex_tau": -1.0974905482041588,
+     "crest_at_apex_m": 17.985903061549045,
+     "apex_minus_crest_m": 0.23520799882387422,
+     "max_tip_minus_crest_m": 0.530039973110334,
+     "kstar_tip": [
+      11.65604088362339,
+      12.32892394351434
+     ],
+     "mode": "damped",
+     "thrown": true
+    },
+    "172": {
+     "c_m": 2.0905238433521833,
+     "H_kstar_m": 21.764727212982383,
+     "release_tau": -2.3120261921676093,
+     "ramp_s": 0.6,
+     "flight_s": 2.3120261921676093,
+     "release_y_m": 14.901928746474711,
+     "crest_at_release_over_H": 0.733,
+     "prerelease_vel": [
+      20.0,
+      2.502943629492974
+     ],
+     "launch_u_over_c0": 1.1536428103548417,
+     "launch_w_mps": 11.37230205202968,
+     "launch_w_over_sqrt_gH": 0.778282505472019,
+     "apex_y_m": 19.352767941800092,
+     "apex_tau": -1.1518397636069677,
+     "crest_at_apex_m": 18.82690449361948,
+     "apex_minus_crest_m": 0.5258634481806119,
+     "max_tip_minus_crest_m": 0.8228396052080846,
+     "kstar_tip": [
+      9.782679694775968,
+      12.834620921417207
+     ],
+     "mode": "damped",
+     "thrown": true
+    },
+    "192": {
+     "c_m": 3.85,
+     "H_kstar_m": 22.576815505891087,
+     "release_tau": -2.325396690082583,
+     "ramp_s": 0.6,
+     "flight_s": 2.325396690082583,
+     "release_y_m": 15.319129297193118,
+     "crest_at_release_over_H": 0.7415561904161252,
+     "prerelease_vel": [
+      19.916579652132782,
+      2.5404488513895984
+     ],
+     "launch_u_over_c0": 1.0355115225580935,
+     "launch_w_mps": 11.33266068425033,
+     "launch_w_over_sqrt_gH": 0.7614932181723851,
+     "apex_y_m": 19.74634392860092,
+     "apex_tau": -1.1710331002028778,
+     "crest_at_apex_m": 19.597731748253878,
+     "apex_minus_crest_m": 0.14861218034704038,
+     "max_tip_minus_crest_m": 0.43743590811574506,
+     "kstar_tip": [
+      3.4728909457276487,
+      13.029809234708157
+     ],
+     "mode": "damped",
+     "thrown": false
+    }
+   },
+   "E1_plausible_recounted": {
+    "fraction": 0.9906478931781576,
+    "n_eval": 19247,
+    "n_ok": 19067
+   },
+   "E1_plausible_fraction_summary": 0.9787414119287066,
+   "onset_crest_over_H_peak": 0.733
+  }
+ },
+ "timewarp": {
+  "default": {
+   "path": "Tools/GWWaveGen/ds28r01/timewarp_default.json",
+   "sha256": "7d5312ad1bb5c96f4093761db19a749847e533e6cbc8a5d5701b5cc7802db5e2",
+   "params": {
+    "t1": 4.8,
+    "d1": 1.0,
+    "r0": 0.5,
+    "tf": 0.4,
+    "hold_s": 2.0,
+    "tau_at_t0_default": -8.55,
+    "slow_reached_t": 5.8,
+    "slow_reached_tau": -3.0,
+    "freeze_start_t": 11.6,
+    "apparent_g_mps2": 2.4525,
+    "design26_default": {
+     "t1": 7.936,
+     "tau_at_t0": -10.118,
+     "slow_reached_tau": -1.432
+    }
+   }
+  },
+  "alt": {
+   "path": "Tools/GWWaveGen/ds27/timewarp_alt.json",
+   "sha256": "385251f92c0fee24cc261d53d8efae4a0a9eb6fdeeb97bcde082d43b2c1c5587"
+  }
+ },
+ "stage_table": {
+  "note_ja": "T4：段階の表を Q13 と写真（論文 Fig. 4 a〜d：d の頂は c より高い）に合わせて読み直した表（P15' の判定に使う。ds28r01_gates.py）。順 a→b→c→d と、角・張り出し・非対称・白の判定（θc・φ・Lo・|φ − ψ|・最初の白）は設計26 §3.1 のまま。時刻は峰の行の τ（主断面は +0.19 s）。設計26 §3.1 からの変更：(1) H/H* の帯：a 0.5〜0.7 は同じ（0.5 に届いた時刻）、b 0.65〜0.8 → 0.60〜0.72（≈ 0.6。ds_rise_overlap の表で σ −3.5 に 0.60、−3.4 に 0.62）、c 0.8〜0.9 → 0.62〜0.78（≈ 0.7）、d ≥ 0.9 → ≥ 0.75（c の約 0.7 より H* の 0.05 以上高い）でまだ上がっている（dH/dτ > 0、設計26 と同じ）かつ c の時の頂より高い（検査器が c と d の時刻の頂を比べる）。(2) c の時刻 −2.4 → −2.8 s：写真 c の『先の飛沫・ほぼ鉛直の前面』は、この生成器では ds_tip_white_line の白い線の出る時刻（行の唇先の放出の 0.4 s 前）と、前面が鉛直を過ぎる時刻（設計28 の限界 1：ds_undercut_kstar で放出の 0.4〜0.75 s 前）に当たる。唇先の放出（較正の噴流の始まり、τ −2.4 s）は変えない。a（−4.2 s、ds_rise_overlap の表で 0.52）・b（−3.4 s、0.62）・d（−2.05 s、0.78。c + 0.75 s）の時刻は設計26 のまま。",
+  "stage_tau_peak_row_s": {
+   "a": -4.2,
+   "b": -3.4,
+   "c": -2.8,
+   "d": -2.05
+  },
+  "main_row_lag_s": 0.19,
+  "tolerance_s": 0.3,
+  "H_bands": {
+   "a": [
+    0.5,
+    0.7
+   ],
+   "b": [
+    0.6,
+    0.72
+   ],
+   "c": [
+    0.62,
+    0.78
+   ],
+   "d_min": 0.75
+  },
+  "design26_table": {
+   "stage_tau_peak_row_s": {
+    "a": -4.2,
+    "b": -3.4,
+    "c": -2.4,
+    "d": -2.05
+   },
+   "H_bands": {
+    "a": [
+     0.5,
+     0.7
+    ],
+    "b": [
+     0.65,
+     0.8
+    ],
+    "c": [
+     0.8,
+     0.9
+    ],
+    "d_min": 0.9
+   }
+  },
+  "note_r01_ja": "修正1（読みの表だけ。動きは変えない）：初回の帯 b 0.55〜0.72・d ≥ 0.70 では、b が高さ 0.55 で先に満たされ（峰の行 −3.75 s、表より 0.35 s 早い。塔が尖る前で P19 の θc 123.6°）、峰の行の d がえぐり（ds_undercut_kstar）の張り出しだけで −2.58 s に満たされた（表より 0.53 s 早い）。b の下限を 0.60、d の下限を 0.75 にした。"
+ },
+ "rise_overlap": {
+  "note_ja": "美術の誘導 ds_rise_overlap（Q13）：頂の高さの時刻の表（設計27・28 の較正 crest_height.rise_rate_table と、噴流の始まりの後の頂の上昇 1 m/s（設計26 の crest_rise_after_onset_mps））を、1 本の上昇の速さの表（H*/s、σ の折れ線）に替える。σ = 0 で 1（t* = K*）から逆に積分し、行ごとに y_c = y_頂(K*)·ĥ(σ_r(τ))。噴流の始まりの前も後も同じ表（行の時計 σ_r が始まりの後に速く進む行は、上昇もその分速い）。設計28 では噴流の始まり（峰の行 σ −2.4）で 0.894、そこから 1 m/s（峰の行 0.044 H*/s）で t* の 1.0 へ、始まりの前の最後の 1.7 s に 0.55 → 0.89 と急に上がって、始まりの後は頂がほぼ止まった所で唇が伸び出していた。この表は、段階 a（0.5）までの育ちを設計28 とほぼ同じにし（σ −10.12 で 0.18、−6 で 0.33、a は約 −4.4 s）、その後の上昇を t* まで続ける：始まりの約 0.45 s 前（前面が鉛直を過ぎる頃、段階 c）で約 0.68、始まり（σ −2.4）で約 0.73、σ −1.2 で約 0.87、t* で 1.0。上昇の速さは σ −4.6〜0 で 0.105〜0.12 H*/s（峰の行 2.4〜2.7 m/s）、t* でも 0.12 H*/s（止まらない。最高点は t*）。頭打ち（H ≥ 0.95 H* の続く時間）は約 0.42 s。物理の裏付け（一部）：利用者の解算では噴流の始まりの峰は最終の 0.79 倍で、d の間も峰は換算 3.5 m/s で上がる（設計26 §7.1）。論文 Fig. 4 は d（頂が前へ返る）が c（先の飛沫）より高い。0.73 は解算の 0.79 より低く、物理の分散集中（λp 195 m で 0.87、設計28 §2.3）とも違うので、名前の付いた美術の誘導として記録する。",
+  "rate_table": [
+   [
+    -11.5,
+    0.0
+   ],
+   [
+    -10.12,
+    0.005
+   ],
+   [
+    -8.1,
+    0.03
+   ],
+   [
+    -6.0,
+    0.085
+   ],
+   [
+    -4.6,
+    0.115
+   ],
+   [
+    -3.4,
+    0.12
+   ],
+   [
+    -2.4,
+    0.115
+   ],
+   [
+    -1.2,
+    0.105
+   ],
+   [
+    0.0,
+    0.12
+   ]
+  ],
+  "h_end": 1.0
+ },
+ "overrides": {
+  "approach": {
+   "note_ja": "ds_undercut_kstar の噴流の始まりの張り出し Lo_on = clip(0.2 − 0.45·ov_K*, 0.06, 0.11)·h_on·H の h_on を、設計28 の 0.894 から ds_rise_overlap の始まりの高さ ĥ(−2.4) に替える（張り出しを始まりの時の頂の高さに対する割合として保つ）。係数・時刻（σ −4.7〜−2.4 の最小躍度）は設計28 のまま。",
+   "note_water_ja": "ds_approach_kstar の水の釣り合い（設計28 の美術の誘導）の値は設計28 のまま（band_frac 0.06 など。上書きなし）。修正1 では band_frac を 0.15 にした（目標の直線の始まりの本体の断面積 A_w を K* の値 A* の ±15% まで許し、段階 b〜c で背面を広げる量を減らす）。背面の足の加速度（P13(2)）は 0.0338 → 0.0280 m に下がったが、頂が上がる間の本体の水の増え方が大きくなり P17 が 主断面 0.135 → 0.177、峰の行 0.120 → 0.161、巻きの行の最大 0.150 → 0.179 と、目標の 10〜15% を超えたので、修正2 で設計28 の値へ戻した（生成器を直接呼んだ試しで主断面 0.129、峰の行 0.116、P13(2) 0.0317）。"
+  },
+  "tower": {
+   "note_ja": "修正1：ds_tower_peak（設計28 の美術の誘導、段階 b の尖った塔）の時刻を 0.1 s 早める（ds_rise_overlap を入れた版だけ）。ds_rise_overlap では頂が段階 b の高さ 0.60 を通るのが σ −3.53（設計28 は 0.65 を −3.50）で、塔の最も尖る時刻（σ −3.4）が b の後になり、関門の b の時刻の θc が 110.8°（P19 の上限 110°）だった。放出の前の帯の上面の角の表の −3.4・−2.9 の節点を −3.5・−3.0 へ、頂の帽子 ω の −4.8・−4.2・−3.5 の節点を −4.9・−4.3・−3.6 へ。値（角 46°・40°、ω 0.2・0.12・0.02）と噴流の始まり（σ −2.4、上面 28°・ω 0.75）は設計28 のまま。試し（生成器を直接呼ぶ）で峰の行の θc は σ −3.533 で 110.8 → 108.7°、地面の二階差分の最大は 0.0249 → 0.0250 m。",
+   "strip_angles_deg_table_upper": [
+    [
+     -11.5,
+     6.0
+    ],
+    [
+     -6.0,
+     8.0
+    ],
+    [
+     -4.2,
+     12.0
+    ],
+    [
+     -3.5,
+     46.0
+    ],
+    [
+     -3.0,
+     40.0
+    ],
+    [
+     -2.4,
+     28.0
+    ]
+   ],
+   "crest_cap_omega_table": [
+    [
+     -11.5,
+     0.0
+    ],
+    [
+     -6.0,
+     0.0
+    ],
+    [
+     -4.9,
+     0.2
+    ],
+    [
+     -4.3,
+     0.12
+    ],
+    [
+     -3.6,
+     0.02
+    ],
+    [
+     -2.4,
+     0.75
+    ],
+    [
+     -1.4,
+     0.5
+    ],
+    [
+     0.0,
+     0.0
+    ]
+   ],
+   "design28": {
+    "strip_angles_deg_table_upper": [
+     [
+      -11.5,
+      6.0
+     ],
+     [
+      -6.0,
+      8.0
+     ],
+     [
+      -4.2,
+      12.0
+     ],
+     [
+      -3.4,
+      46.0
+     ],
+     [
+      -2.9,
+      40.0
+     ],
+     [
+      -2.4,
+      28.0
+     ]
+    ],
+    "crest_cap_omega_table": [
+     [
+      -11.5,
+      0.0
+     ],
+     [
+      -6.0,
+      0.0
+     ],
+     [
+      -4.8,
+      0.2
+     ],
+     [
+      -4.2,
+      0.12
+     ],
+     [
+      -3.5,
+      0.02
+     ],
+     [
+      -2.4,
+      0.75
+     ],
+     [
+      -1.4,
+      0.5
+     ],
+     [
+      0.0,
+      0.0
+     ]
+    ]
+   }
+  }
+ },
+ "tools_sha256": {
+  "ds28r01_evidence.py": "945a23e9a92ff6c1ce835846472dc23663a0f5edac14b58ff3897b62cafa6dd0",
+  "ds28r01_figures.py": "8a97947f34772560d3e7d96def6b82ef9bec35c7c846795e958ebc60c39ce3ae",
+  "ds28r01_gates.py": "23f8826f3138333de1ec3a4c4315e5d59375563ef801442932aecf6dc774bfd5",
+  "ds28r01_generate.py": "d78ace076f6bbf018d3dabc7700a290cd6eafda434142b5a028a3ac7f4a34705",
+  "ds28r01_launch.py": "8e6dac6f505f8ff127f1674b2fa2d8855436e3cc20efcb92aa551ab35d2aa7fc",
+  "ds28r01_model.py": "e627dca158b60d922fd68125965360aeddff8eb4c968070a7f953da60844e5d1",
+  "ds28r01_p20.py": "af21e9061b6dbbaeb7409f8fd3742c72bca6c31717e2493d4d99997594b93ae6",
+  "ds28r01_params.json": "28c2f66dc1760b9f22db7ab3554f8d8f2c32c92d2a6aee08beb9383c0ee1b08c",
+  "ds28r01_q13.py": "8ae8088284277078a62d2c9c4287451d64a3b38a7924f3e024d68e5bd2ea92c1",
+  "ds28r01_timewarp.py": "552888def1a8889921e6a1711a70429e3d1fcf4dda338777960a120ee4a27fe4"
+ }
+}
