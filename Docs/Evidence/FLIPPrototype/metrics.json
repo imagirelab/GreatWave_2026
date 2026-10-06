@@ -1,0 +1,368 @@
+{
+ "schema": "GreatWave.FLIPProto.metrics/1",
+ "date": "2026-10-07 04:55",
+ "note_ja": "先生の指示 Q37 の独立した試作（Houdini FLIP、P0〜P3 と確かめの動画）の主な数。result は 合格／不合格／記録のみ／利用者が判定。形が原画に届いたかを決めるのは利用者（Q28・Q30）。原画視点の輪郭 ≤4 px は Q37 で記録だけになった。値はどれも Unity/Build/FLIP37 の各段の記録と表から写した（新しい計算はしていない）",
+ "best_run": {
+  "id": "P3 H25_R18_mg",
+  "what_ja": "P2 の R18（±30° で交わる二つの波の列＋中央の集まるレンズ＋低い棚 2 つ、周期 14 s、入力 39 m、粒子 1 m）を、主役の範囲 x 300〜640 m・z −70〜+70 m だけ粒子 0.25 m・格子 0.5 m で計算し直した。外の海は R18 から境界で渡す（一方向）。物理だけ・誘導なし",
+  "t_star_s": 8.542,
+  "t_star_frame": 206,
+  "placement": {
+   "psi_deg": 30,
+   "scale": 1.1,
+   "anchor_sim": [
+    534.25,
+    20.58,
+    -0.25
+   ]
+  }
+ },
+ "milestone_ja": {
+  "巻き込みのある波を物理だけで作る": "できた（先生の指示の組み込みの条件「巻き込みが生じる波が作れるようになったら」を満たす）",
+  "原画に似た形": "まだ（似ているのは z=0 の断面の頭だけ）。利用者が判定する"
+ },
+ "items": {
+  "M1_plunge_physics_only": {
+   "item_ja": "物理だけで巻く（唇の下に空気を閉じこめる断面の数）",
+   "value": "7/7（z −60〜+60 m）",
+   "target": "巻く",
+   "result": "合格",
+   "source": "P3/record_ja.md §4.2、sec/z*/analysis.json"
+  },
+  "M1_air_trap_first_s": {
+   "item_ja": "空気を本当に閉じこめた最初の時刻",
+   "value": {
+    "z0": 8.88,
+    "z+20": 8.79,
+    "z-20": 8.88,
+    "z+40": 9.29,
+    "z-40": 9.12,
+    "z+60": 11.04,
+    "z-60": 10.88
+   },
+   "target": "—",
+   "result": "記録のみ",
+   "source": "P3/record_ja.md §4.2"
+  },
+  "M1_air_trap_area_z0_m2": {
+   "item_ja": "z=0 の閉じこめた空気の広さ（10.9 s）",
+   "value": 108,
+   "target": "—",
+   "result": "記録のみ",
+   "source": "P3/record_ja.md §4.2"
+  },
+  "M1_sequence_continuous": {
+   "item_ja": "伝わる → 立ち上がる → 巻く が途切れない（時間の伸縮・形の引き寄せ・投影での合わせなし）",
+   "value": "途切れなし。2.96 s の P2→P3 の切り替えで形は跳ばない",
+   "target": "続いている",
+   "result": "合格",
+   "source": "video/record_ja.md §9"
+  },
+  "M1_events_z0_s": {
+   "item_ja": "z=0 の出来事（巻き始め B>0.85 / 前の面が垂直を越す / 管が閉じる）",
+   "value": [
+    6.71,
+    7.29,
+    8.88
+   ],
+   "target": "—",
+   "result": "記録のみ",
+   "source": "P3/record_ja.md §4.2"
+  },
+  "G_guiding_in_best": {
+   "item_ja": "いちばん良い計算の誘導",
+   "value": "なし（DOP は FLIP・重力・海底・境界の帯だけ、壁 wall_on=0）",
+   "target": "なし、または上限の中で双子と並べる",
+   "result": "合格",
+   "source": "video/record_ja.md §9、runs.jsonl"
+  },
+  "G_P2g_guided_twin": {
+   "item_ja": "上限の中の誘導（P2g G1）の大きさ",
+   "value": {
+    "max_accel_g": 0.1,
+    "work_share_of_wave_energy": 0.025,
+    "off_before_tstar_s": 1.375
+   },
+   "target": {
+    "max_accel_g": 0.1,
+    "work_share": 0.05,
+    "off_before_tstar_s": "1.0〜1.5"
+   },
+   "result": "合格（上限の中）",
+   "source": "P2g/record_ja.md §1"
+  },
+  "G_P2g_effect_iou": {
+   "item_ja": "誘導の得（原画カメラの IoU、G0 → G1）",
+   "value": [
+    0.549,
+    0.553
+   ],
+   "target": "—",
+   "result": "記録のみ（ほとんど変わらず、採らなかった）",
+   "source": "P2g/record_ja.md §1"
+  },
+  "S_section_score_z0": {
+   "item_ja": "z=0 の断面の点数（唇の届き・落ち・かぶり、前の面の弦、空洞の幅/高さ、小さいほど近い）",
+   "value": 0.127,
+   "target": "—",
+   "result": "記録のみ",
+   "source": "P3/record_ja.md §4.3"
+  },
+  "S_lip_reach_Hc": {
+   "item_ja": "唇の届き / Hc",
+   "value": 0.5,
+   "target": 0.42,
+   "result": "記録のみ",
+   "source": "P3/record_ja.md §4.3"
+  },
+  "S_lip_drop_Hc": {
+   "item_ja": "唇の落ち / Hc",
+   "value": 0.37,
+   "target": 0.33,
+   "result": "記録のみ",
+   "source": "P3/record_ja.md §4.3"
+  },
+  "S_lip_cover_Hc": {
+   "item_ja": "唇のかぶり / Hc",
+   "value": 0.34,
+   "target": 0.39,
+   "result": "記録のみ",
+   "source": "P3/record_ja.md §4.3"
+  },
+  "S_cavity_w_over_h": {
+   "item_ja": "空洞の幅 / 高さ",
+   "value": 0.79,
+   "target": 0.83,
+   "result": "記録のみ",
+   "source": "P3/record_ja.md §4.3"
+  },
+  "S_front_chord_deg": {
+   "item_ja": "前の面の弦",
+   "value": 39,
+   "target": 59,
+   "result": "不合格（記録）",
+   "source": "P3/record_ja.md §4.3"
+  },
+  "S_back_len_Hc": {
+   "item_ja": "背：頂 → 0.75 Hc の横 / Hc",
+   "value": 1.2,
+   "target": 0.49,
+   "result": "不合格（記録）",
+   "source": "P3/record_ja.md §4.3"
+  },
+  "S_crest_height_m": {
+   "item_ja": "頂の高さ（倍率なし）",
+   "value": 20.4,
+   "target": 20,
+   "result": "記録のみ",
+   "source": "P3/record_ja.md §4.3"
+  },
+  "S_ridge_length_m": {
+   "item_ja": "峰に沿って頂の高さがほぼ同じ長さ",
+   "value": "約 100 m（波長 270 m の波は 70 m より短く変われない）",
+   "target": "原画の読みでは頂の左 20〜30 m で半分の高さ",
+   "result": "不合格（記録）",
+   "source": "P2/record_ja.md §6、video/record_ja.md §9"
+  },
+  "S_claw_structures_S11": {
+   "item_ja": "爪の三つの構造（S11）",
+   "value": "なし",
+   "target": "三つ",
+   "result": "不合格（記録）",
+   "source": "video/record_ja.md §9"
+  },
+  "P_painting_cam_iou": {
+   "item_ja": "原画カメラ（PaintingCam v1）のシルエット IoU（t*）",
+   "value": 0.562,
+   "target": "窓の全部が水で 0.503",
+   "result": "記録のみ（形の似方をほとんど表さない）",
+   "source": "video/record_ja.md §4"
+  },
+  "P_painting_cam_outline_mean_px": {
+   "item_ja": "原画カメラの輪郭の平均距離（1920 表示）",
+   "value": 145,
+   "target": "原画視点の輪郭 ≤4 px は記録だけ（Q37）",
+   "result": "記録のみ",
+   "source": "video/record_ja.md §4"
+  },
+  "P_best_iou_over_time": {
+   "item_ja": "動きの中で最も高い IoU",
+   "value": {
+    "t_s": 8.25,
+    "iou": 0.596
+   },
+   "target": "—",
+   "result": "記録のみ",
+   "source": "video/record_ja.md §3"
+  },
+  "P_camsweep_low_horizon_best": {
+   "item_ja": "カメラを変えた比べ：水平線が原画と同じ（目の高さ 3 m）で最良",
+   "value": {
+    "D_m": 500,
+    "h_m": 3,
+    "delta_deg": -25,
+    "vfov_deg": 3.5,
+    "iou": 0.63,
+    "outline_px": 98
+   },
+   "target": "—",
+   "result": "記録のみ（VR では使えない）",
+   "source": "video/record_ja.md §5"
+  },
+  "P_camsweep_overall_best": {
+   "item_ja": "カメラを変えた比べ：全体の最良",
+   "value": {
+    "D_m": 500,
+    "h_m": 15,
+    "delta_deg": -37,
+    "iou": 0.658,
+    "outline_px": 80,
+    "horizon_y_px": 360
+   },
+   "target": "—",
+   "result": "記録のみ",
+   "source": "video/record_ja.md §5"
+  },
+  "C_P3_wall_total_h": {
+   "item_ja": "P3 本番の計算の壁時計（12 の区切り）",
+   "value": 3.57,
+   "target": "—",
+   "result": "記録のみ",
+   "source": "runs.jsonl"
+  },
+  "C_P3_max_launch_s": {
+   "item_ja": "1 回の起動の最長",
+   "value": 1480.4,
+   "target": "≤ 1800 s（30 分）",
+   "result": "合格",
+   "source": "runs.jsonl"
+  },
+  "C_P3_rss_peak_gb": {
+   "item_ja": "メモリーの山",
+   "value": 21.91,
+   "target": "64 GB の機械",
+   "result": "記録のみ",
+   "source": "runs.jsonl"
+  },
+  "C_P3_particles": {
+   "item_ja": "粒子の数",
+   "value": [
+    34575173,
+    35483761
+   ],
+   "target": "—",
+   "result": "記録のみ",
+   "source": "runs.jsonl"
+  },
+  "C_P3_sec_per_frame": {
+   "item_ja": "1 コマ（計算／粒子の読み出し／網目、中央値）",
+   "value": {
+    "sim": "43〜48",
+    "io": "12〜20",
+    "mesh": "11〜14"
+   },
+   "target": "P0 の見積もり 20〜38 s/コマ",
+   "result": "記録のみ（見積もりは外れた）",
+   "source": "P3/record_ja.md §3・§4.1"
+  },
+  "C_P3_ckpt_gb": {
+   "item_ja": "P3 の途中保存",
+   "value": 41.5,
+   "target": "—",
+   "result": "記録のみ（git の外、消してよい）",
+   "source": "runs.jsonl"
+  },
+  "C_one_heavy_at_a_time": {
+   "item_ja": "重い計算は一度に 1 つ",
+   "value": "P3 の T0・T0b を C18_export と同時に走らせた（10/6 22:57〜23:24）。P2 の R10・R12 の 2 本同時は Q38 の決まりの中",
+   "target": "一度に 1 つ（P2 の探索だけ 2 本まで）",
+   "result": "不合格（記録）",
+   "source": "P3/record_ja.md §0"
+  },
+  "C_same_problem_fixes": {
+   "item_ja": "同じ問題の直しは 2 回まで",
+   "value": {
+    "P0 圧力が解けず水が自由落下": "2 回直して条件により再発 → 3 回目はせず、解けると確かめた並びだけを使った",
+    "P3 箱が R18 を再現しない": "2 回目で合格"
+   },
+   "target": "≤ 2",
+   "result": "合格（決まりを守った）",
+   "source": "P0/record_ja.md §1、P3/record_ja.md §2"
+  },
+  "C_C_drive_writes": {
+   "item_ja": "C: への書き込み",
+   "value": "なし（HOUDINI_TEMP_DIR・キャッシュ・描画はすべて G:）",
+   "target": "なし",
+   "result": "合格",
+   "source": "各段の記録"
+  },
+  "C_per_stage": {
+   "item_ja": "段ごとの計算（起動の数・壁時計の合計・最長・メモリーの山・粒子の最大）",
+   "value": {
+    "P0": {
+     "sim_launches": 9,
+     "wall_sum_h": 1.41,
+     "max_launch_s": 1488.9,
+     "rss_peak_gb": 3.22,
+     "particles_max": 9061638
+    },
+    "P1": {
+     "sim_launches": 39,
+     "wall_sum_h": 3.17,
+     "max_launch_s": 1300.1,
+     "rss_peak_gb": 3.19,
+     "particles_max": 8068826
+    },
+    "P2": {
+     "sim_launches": 11,
+     "wall_sum_h": 3.26,
+     "max_launch_s": 1746.3,
+     "rss_peak_gb": 5.52,
+     "particles_max": 6581312
+    },
+    "P2g": {
+     "sim_launches": 3,
+     "wall_sum_h": 0.71,
+     "max_launch_s": 1277.7,
+     "rss_peak_gb": 5.68,
+     "particles_max": 5186234
+    },
+    "P3": {
+     "sim_launches": 18,
+     "wall_sum_h": 4.37,
+     "max_launch_s": 1624.6,
+     "rss_peak_gb": 21.91,
+     "particles_max": 35483761
+    }
+   },
+   "target": "1 回 ≤ 1800 s",
+   "result": "記録のみ",
+   "source": "runs_table.json"
+  },
+  "V_videos_le_30MB": {
+   "item_ja": "動画の大きさ",
+   "value": "3.2・1.8・2.2・3.0・1.7 MB",
+   "target": "≤ 30 MB",
+   "result": "合格",
+   "source": "copies.json"
+  }
+ },
+ "stages": {
+  "P0": "水槽の確かめ。Q36 の静かな水の粒子の減り（55.2 万 → 32.8 万）は水が自由落下して失われていたため。直し 2 回で止まったが条件で再発し、P0 は合格にしなかった（解ける並びだけを使って先へ）",
+  "P1": "断面の探索 16 組（周期 12〜16 s、足元の波 16〜27 m、斜面 1:3〜1:6、岩棚 22〜30 m）。全部巻いた。いちばん良い B025H32（0.25 m）：頂 20.3 m、前の面の弦 58°、背 1.19 Hc",
+  "P2": "粗い 3D（粒子 1 m・格子 2 m、806 × 240 m）10 本。R18 で峰に沿う一つの山（頂 20.6 m、半分の高さの幅 108 m）が中ほどで巻いた。原画カメラ IoU 0.54〜0.59",
+  "P2g": "R18 に上限の中の誘導（G1）と双子（G0）。形の得はほとんどなく、採らなかった",
+  "P3": "主役の範囲を粒子 0.25 m で計算。7 つの断面すべてで管が閉じた。t* 8.54 s",
+  "Video": "確かめの動画 3 本・静止画・カメラを変えた比べ（新しい計算なし）"
+ },
+ "per_stage_wall_h": {
+  "P0": 1.41,
+  "P1": 3.17,
+  "P2": 3.26,
+  "VIDEO_PREP": 0.0,
+  "P2g": 0.71,
+  "P3": 4.37,
+  "Video": 0.0
+ },
+ "all_stages_wall_h": 12.92
+}

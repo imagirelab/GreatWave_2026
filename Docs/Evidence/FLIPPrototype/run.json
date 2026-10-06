@@ -1,0 +1,398 @@
+{
+ "schema": "GreatWave.FLIPProto.deliver_run/1",
+ "date": "2026-10-07 04:55",
+ "note_ja": "Docs/Evidence/FLIPPrototype を作った記録。新しい計算・描画はしていない（Git 対象外の Unity/Build/FLIP37 から写した）。ckpt（途中保存）は大きいので SHA-256 を取らず、数と大きさだけ。git の add・commit・push はしていない",
+ "commands": [
+  "py -3.10 -B Tools/GWWaveGen/flip37/fp_deliver.py all"
+ ],
+ "versions": {
+  "python": "3.10.6",
+  "houdini": "Houdini Indie 22.0.459 hython（G:/SteamLibrary/steamapps/common/Houdini Indie/bin/hython.exe、画面なし）",
+  "blender": "5.2.2（粘土の描画、画面なし）",
+  "ffmpeg": "2024-12-19 git-494c961379 full_build",
+  "unity": "6000.4.3f1（組み込みの準備の独立した試作の場面だけ。作品の場面は開いていない）"
+ },
+ "upstream_commands_ja": {
+  "P0〜P3": "各段の run_pN.py / p3_chain.py（引数と結果は runs.jsonl の各行）",
+  "Video": "py -3.10 Tools/GWWaveGen/flip37/video_make.py all Unity/Build/FLIP37/video_tools/configs/video_P3_curl.json、py -3.10 Tools/GWWaveGen/flip37/video_camsweep.py 同じ設定"
+ },
+ "inputs": {
+  "Docs/References/Met_JP1847_DP130155.jpg": "cbb9988f2f18b9180a1cc0cf5dbb0e3bbf8f2e85d17930cf6ca9ab36fac36303"
+ },
+ "tools": {
+  "Tools/GWWaveGen/flip37/build_p0_tank.py": "1d9f670e2cc54538818c27c7b021b188cb82f7dafafc677850d5041a5dfd4666",
+  "Tools/GWWaveGen/flip37/build_p1_tank.py": "5dcd9d67b7c04ad9bf02145a22719bcc8c7181c057aa148b07d6ec07905427d6",
+  "Tools/GWWaveGen/flip37/build_p2_tank.py": "dbdfab4200db1edb1d14ac076a0b7da57d03d79dda0eea370ca9596b98d6cc88",
+  "Tools/GWWaveGen/flip37/build_p2g_tank.py": "2176fad35da5ebad7f2581bb7dc9f9855c545ae77eb6ad653c17417ab2d39492",
+  "Tools/GWWaveGen/flip37/build_p3_window.py": "a019a291f8714a18febda726974e306a190ad5832dde4b7224c28c62d8c3f4d1",
+  "Tools/GWWaveGen/flip37/fp_deliver.py": "e266efaa8dcc157e391850f16a56d8ed772dcfd61b7e3573e3e383d60d6629b1",
+  "Tools/GWWaveGen/flip37/integ_attr_check.py": "a95d114e4b6203a16109718e8313c98f200ef21ca9b15924e66c815871f57a78",
+  "Tools/GWWaveGen/flip37/integ_common.py": "5e2bcd22818e8aaa6c4b9548a5a8454d9c1fd4b5c782419674923bd5e699d241",
+  "Tools/GWWaveGen/flip37/integ_convert.py": "56fa890baf36138ee38397abb5bb9c6c8451fefa8883157c177d37453ae5008d",
+  "Tools/GWWaveGen/flip37/integ_figs.py": "8ee11cc57d329d5ed56df463050262c648a04dc70b16fd637e15ccf64c4f6315",
+  "Tools/GWWaveGen/flip37/integ_flow2d.py": "3bd5c129d27db4d70968f9329327088624d30d36812b5c4493d861740eea27fe",
+  "Tools/GWWaveGen/flip37/integ_keypose.py": "42f25f57647de2d5ec2dad554235290017268aba7d2044fbe1f755efbb0dd758",
+  "Tools/GWWaveGen/flip37/integ_kp_compare.py": "d2fef3fbd0472b7817151c15660d1a01a316b727eb68e95c1b20da750f1467f3",
+  "Tools/GWWaveGen/flip37/integ_p1_sweep.py": "bb8f0df7678d3d5a5a38fa16d056309228c8c4731bf335bb59caddc0ba502289",
+  "Tools/GWWaveGen/flip37/integ_run_unity.ps1": "0cb7e83a8ee15361935a480a0109014fe4c7a9e9401b01f5df79cc1fc9fabe29",
+  "Tools/GWWaveGen/flip37/integ_video.py": "5fa7f69451794a55fce55760d0a1178b205a183c2e8a72ad7fb90568b85e8302",
+  "Tools/GWWaveGen/flip37/p0_analyze_decay.py": "2203240236f7a09842b53dafdd3f963d09b4516096f8c4d95d4614bce34aebad",
+  "Tools/GWWaveGen/flip37/p0_analyze_resume.py": "02e2dae9189b1604e2a59e0d1ea3b896231f0652c378b7038327a63350f41d75",
+  "Tools/GWWaveGen/flip37/p0_analyze_still.py": "7dd28a15bcbcca468ff30636d5da2f62e319c5290e52e64d4bdb317e3e0fa3bc",
+  "Tools/GWWaveGen/flip37/p0_analyze_wave.py": "9fece13c6b5b90c479f6e7cedcde1d0344d0a2fbf0e5a7ac9c256a0c6775b303",
+  "Tools/GWWaveGen/flip37/p0_check_oldhip.py": "c591c3fcfba42e78c077ff0ecc4b0b30b6c4a46f215fbd12e32e2cabfcb96300",
+  "Tools/GWWaveGen/flip37/p0_cost_model.py": "ff71db172aa0db81c4e3c713e2f6e66bb42c451d45d54950e11ffb29c9567a57",
+  "Tools/GWWaveGen/flip37/p0_diag_fields.py": "9cd34ed6555ab09c45164ba4fc7c64e1ea72a65736213f775add3214e110ec06",
+  "Tools/GWWaveGen/flip37/p0_diag_minimal.py": "87b5abf73148dc1713a0a4d4f0bfe205cd67b67657b7d1ff5dbc43151a94d37e",
+  "Tools/GWWaveGen/flip37/p0_diag_stats.py": "76803a449b43251040ed1ea41a25b67da1727d68c360800bdaa7f9522db6d4b4",
+  "Tools/GWWaveGen/flip37/p0_figs.py": "dd2312dcdd57dbb3be06759b4aa6e8e9c57a1d6a079403d3bd29040ac85e5196",
+  "Tools/GWWaveGen/flip37/p0_introspect.py": "f97f81e822032a5affae4a79f7cb39afd5d0d523ab72ea4f9b53c2299d8399a4",
+  "Tools/GWWaveGen/flip37/p0_introspect_dop.py": "004800c027dc4627c20294fa05201fb84e424bc439ee776026e519296aa15245",
+  "Tools/GWWaveGen/flip37/p1_analyze.py": "12b9575f0fd6fad512d9e9b0531b905cebb8e6961e8f6fe1b1f70822e7052dcc",
+  "Tools/GWWaveGen/flip37/p1_check_init.py": "b7a560fe096ff05ba4aca0e698bf590032a93a5d7e9d19f4c1efc032c4947757",
+  "Tools/GWWaveGen/flip37/p1_figs.py": "fd42d8def111ee0954859400080bc64649e3281a51f39d947945040578c4b631",
+  "Tools/GWWaveGen/flip37/p1_merge_chunks.py": "5a36a7d9170b0037e1dd9b391dc32e060c03225466eb61e07acc1030ec0ec320",
+  "Tools/GWWaveGen/flip37/p1_painting_profile.py": "157ed64aec54b2509e8e43e439fd4dd7d700c128bd6b62b49de07ed8966da724",
+  "Tools/GWWaveGen/flip37/p1_queue.py": "3e2c8dcf46b0b9a0a4da6210fc5bbb11d52e34195a86d2571b46e1794a4ab907",
+  "Tools/GWWaveGen/flip37/p1_summary.py": "e83009cdba3b04c97529618f77edb5b9f4d5717ec2a631b0684012988804c7ca",
+  "Tools/GWWaveGen/flip37/p2_analyze.py": "d9508e64980f5fca5a51a04f75f87c43d03d83cc7f3b889aba3769825f23cf1d",
+  "Tools/GWWaveGen/flip37/p2_clay_bl.py": "a83c82718a361bdfb9525189428f5504d70c9da78dcdaf41f08b3b7a6f881cd3",
+  "Tools/GWWaveGen/flip37/p2_clay_seq_bl.py": "7c21623f9f7e574fcaafc8a6e2b8159ca746aa8b7fce4b3636586996b9333acf",
+  "Tools/GWWaveGen/flip37/p2_common.py": "95827ddd48bdcafdcbd64ec9885fabe5601a629568cb98d4bed6191db6d0a6e1",
+  "Tools/GWWaveGen/flip37/p2_figs.py": "ec756b566c35b5cc2a77322bb2210c6428589f0232cfc6e5745b5c9f2f9d5228",
+  "Tools/GWWaveGen/flip37/p2_final_pass.py": "17bec0fc32428fc805d199b71e1a323acff61baf75cd6b785e95a0e948ff3bff",
+  "Tools/GWWaveGen/flip37/p2_fit_scan.py": "e3df8b87de41e1fab06c010d5d4a598892e90488760f3d0cc60d9a55aa78f5a5",
+  "Tools/GWWaveGen/flip37/p2_launch.sh": "ec242e5528cedd7f9ee6d260edd67349cfb04c240b6c172fcf6127f52121fd5a",
+  "Tools/GWWaveGen/flip37/p2_live.py": "9c436a272e6e58cc4511c593b258d3be999a1fc482a482a7d1b56e65bbf60788",
+  "Tools/GWWaveGen/flip37/p2_merge.py": "b8c550fcb8b2b55848057d9d5b02123297022b489c24fc82a0da958bc7e0e246",
+  "Tools/GWWaveGen/flip37/p2_movie.py": "ac200b126caec1a12b0cd858b0b21938c6757c7f78109003ed4956fbb6ee36b6",
+  "Tools/GWWaveGen/flip37/p2_overview.py": "2a495b31b868a040309059acfab4b62bd6bbbcbc01695502021e4fd36976bc86",
+  "Tools/GWWaveGen/flip37/p2_post.py": "f8f9a9807cdb2b6b0776d81cce955ed00f89ec584b523ed9836e8ce2363a9e0e",
+  "Tools/GWWaveGen/flip37/p2_queue.py": "f81c8171a6fa3365bf1354e42f32a04f4336c96485b0e01118cd55e16adfe122",
+  "Tools/GWWaveGen/flip37/p2_table.py": "fda8c293c198e2282c9a8a597652b48822951fe07ee0607aab2d0131b225f709",
+  "Tools/GWWaveGen/flip37/p2g_compare.py": "c22a65103412c98350cca9e4f14415eeed440dc4839e377611ba08835781145d",
+  "Tools/GWWaveGen/flip37/p2g_movie.py": "577737fd3e8977efb36bf7c1764ce580eb37cdbda40494e4a543f58791fb7611",
+  "Tools/GWWaveGen/flip37/p2g_queue.py": "04bb1c42965ead6f67fce5478f84d6cd0cebdc12cc762f62cb3e958a29c59c00",
+  "Tools/GWWaveGen/flip37/p2g_relabel.py": "13c4f71efd1c77decccc47c886bb5cbde38757a03eb60edd58ae888113191aa2",
+  "Tools/GWWaveGen/flip37/p3_chain.py": "80f79b11958daae2d2f2a6c83175403b5a86a6368e502ce820d8c438360f797b",
+  "Tools/GWWaveGen/flip37/p3_clay_seq_bl.py": "f3d6c8f09062f498333924abf908b515f7c6f12787633f05e2b3756a4a254480",
+  "Tools/GWWaveGen/flip37/p3_compare_coarse.py": "381d206c9c815e900fa47e2ece24fc57a3151fa4761eb0654e523cd3150ae408",
+  "Tools/GWWaveGen/flip37/p3_diag_vel.py": "e0a6176dab4ffc92fbd6816e8b4250a9dbe2ff9e03e8e793b12fc829fd28ac51",
+  "Tools/GWWaveGen/flip37/p3_export_coarse.py": "412c5ccc9a5b19a7ea47d28a9a5cfd041883c6ed9d60f260be3d9c79c5b8e819",
+  "Tools/GWWaveGen/flip37/p3_figs.py": "6a1d6dccd31dc347e7a519e09e9824365a89d686fe57279b6bd71a9e8a4f3702",
+  "Tools/GWWaveGen/flip37/p3_lvl_ref.py": "48df4b64be35c715562d278685fab8ac6997c209681e311b7c0ce5d6b8707c14",
+  "Tools/GWWaveGen/flip37/p3_nothrottle.py": "04a5a49125bb3030ba12e42bddbddba1a65bb459211e87e8f36394b801db7d11",
+  "Tools/GWWaveGen/flip37/p3_paint.py": "f6e00136ff155bfe835501c437342a663485cd83fc9c1fc3d6bec472a2aa7985",
+  "Tools/GWWaveGen/flip37/run_p0.py": "257644525dc734e1275b1706944c1a9d180189ae3178abd58b2388175e5d3b9b",
+  "Tools/GWWaveGen/flip37/run_p1.py": "ae51eb147823d57e241bad85f0910a044ac4f5c8e20408c7bfc4f7d572089efc",
+  "Tools/GWWaveGen/flip37/run_p2.py": "8d6bb880a58082d32bae2e82564e5ba8dbd682a45d1fbc317a823e291b64ecf0",
+  "Tools/GWWaveGen/flip37/run_p2g.py": "9f862aaba1173b0f2685f50f6365c39047a59f025db0da36e869727f4c6c982d",
+  "Tools/GWWaveGen/flip37/run_p3.py": "bb0f1488e0bb4b289f977b8ab561d1f31d90d3fb659a9754288265626d60f6e5",
+  "Tools/GWWaveGen/flip37/video_camsweep.py": "4b996a6997f1afdd3ca6cbebca82c555d0325786baef64d8f52ec69cc6fe700b",
+  "Tools/GWWaveGen/flip37/video_common.py": "7f180e72f20bd38dfdbd4238c434ef800261406104db8f2f6bf8ececb9d242a8",
+  "Tools/GWWaveGen/flip37/video_geo2npz.py": "ca604b9def1967e684f0f7f0f34ccc5bebb46c6af452c104fef1bbbe49412922",
+  "Tools/GWWaveGen/flip37/video_hf2mesh.py": "df5611f87b42560f30586c778772871e21d69f80a4c6f1637659c12a607fe839",
+  "Tools/GWWaveGen/flip37/video_make.py": "44552004e81c50b773254998bad198848400921b0068778f9cdc39c5696e3bfd",
+  "Tools/GWWaveGen/flip37/video_p1mesh.py": "410db7266fb3d72f4f4a53f1e9b359358873d023c009f19bbaefd96a1d8bbbee",
+  "Tools/GWWaveGen/flip37/video_render_bl.py": "513f7876d2b63915ab3e7988101c0f4e4c2f423aa65d5dddd7cb504b4623ece9",
+  "Tools/GWWaveGen/flip36/build_p0_tank.py": "d80cdfab47a46cdd90228705a5f82cd47880bcfee283ee8642b8cfcbb2b20a4b",
+  "Tools/GWWaveGen/flip36/p0_introspect.py": "fe1e8ccbaebaa54bb49944d4eb421f7d9f94d78145c4fdbd66eb7479f6422535",
+  "Tools/GWWaveGen/flip36/p0_introspect_dop.py": "605a65fd4a3db53297f766de4e840e9dfb7942ba2e8681dff28f1d2030a19ed9",
+  "Tools/GWWaveGen/flip36/run_p0.py": "2541b823b35ced316badc5382c3b326c25f518c302cbefe392abf76d765d05f4"
+ },
+ "unity_prototype": {
+  "Unity/Assets/GreatWave/FLIP37Proto/Editor.meta": "6eaac159185f8dfa5055ff5a390c264fb672ac2985cb0f3ca0f9e29d4569c0eb",
+  "Unity/Assets/GreatWave/FLIP37Proto/Materials.meta": "ea4601756c027ae5705d2e3027b355d3ec7745c725157f230463493fc11be046",
+  "Unity/Assets/GreatWave/FLIP37Proto/Scenes.meta": "1c78684982ac4c6bd90d550e1a45e673b65baf1c05c2da3c19be115c280b7314",
+  "Unity/Assets/GreatWave/FLIP37Proto/Scripts.meta": "1f6d52e91830bb12a12e934cfc90b5f31eef987bfe48f04c1c11d51b57235001",
+  "Unity/Assets/GreatWave/FLIP37Proto/Editor/F37ProtoBuild.cs": "6439c39852119661840d81a8e682f9f25d4c97bdf45b788ec2cd8c180a0d8165",
+  "Unity/Assets/GreatWave/FLIP37Proto/Editor/F37ProtoBuild.cs.meta": "40dff1443237352369434119033f89fae412a7dbb9cc786d0d2de57ebd35d05a",
+  "Unity/Assets/GreatWave/FLIP37Proto/Materials/F37_AS05_Keypose.mat": "237e0fb4f83e0e1415de469b51fa14ed4cbee35288ad1f74c6c3c0b2a870fcd6",
+  "Unity/Assets/GreatWave/FLIP37Proto/Materials/F37_AS05_Keypose.mat.meta": "4be13aad70fa3f4075d2d82acccb352936e0c601e40ce60357c41c4b6cb08b1e",
+  "Unity/Assets/GreatWave/FLIP37Proto/Materials/F37_AS05_Static.mat": "60bdd0e93663d0585aaf9ffef4ee660f6f0dbe32d13a298f53cb50bd583cc4cb",
+  "Unity/Assets/GreatWave/FLIP37Proto/Materials/F37_AS05_Static.mat.meta": "431236e28abc6bb92324a35849a0d1310a3f4df23a8ce6a28ef04f30b42a1806",
+  "Unity/Assets/GreatWave/FLIP37Proto/Materials/F37_SeaFar.mat": "e87d757b14dc9f44ab3be581b64adbc79ff6376110ed04bca63d5f9d3e9957a4",
+  "Unity/Assets/GreatWave/FLIP37Proto/Materials/F37_SeaFar.mat.meta": "eb0cfb7b36102a8a9a7661551d77147da6a2768ee912a020bf1afcad9a85093d",
+  "Unity/Assets/GreatWave/FLIP37Proto/Scenes/F37Proto.unity": "55759c2fbc80b7a4f048c8625c6463b8aa33517b38ac00bc9161287ed087ab0b",
+  "Unity/Assets/GreatWave/FLIP37Proto/Scenes/F37Proto.unity.meta": "9dc98ffb5eb6316fd755436ee0825a55f2409d1b44a183f0d07e72dc6ca20243",
+  "Unity/Assets/GreatWave/FLIP37Proto/Scripts/F37SeqPlayer.cs": "3d98316479712e4a4ecb52a4573ac6dfe5399d5246c08b064367d23e00b20ff3",
+  "Unity/Assets/GreatWave/FLIP37Proto/Scripts/F37SeqPlayer.cs.meta": "9949a6ca501d5880e60b6bbedadb4fe991d8b807cf843c1bf7df8764b8363a12"
+ },
+ "scenes": {
+  "Houdini/FLIP36/p0_tank.hiplc": {
+   "sha256": "051b865653463c262b0635a3b58ba4e730901dbcfb19719ba29470e2b021e5ac",
+   "bytes": 350282
+  },
+  "Houdini/FLIP37/p0_tank.hiplc": {
+   "sha256": "bf9b88813dffa0801565709dea9017351dac34344ce73385161c2be2f06a869a",
+   "bytes": 367614
+  },
+  "Houdini/FLIP37/p1_tank.hiplc": {
+   "sha256": "44f3d9803da3b11c2bb7446823f1465404a0917007e0f2a991b162e925507072",
+   "bytes": 402942
+  },
+  "Houdini/FLIP37/p2_tank.hiplc": {
+   "sha256": "67e2c87c4c158c35e3018fcb3a3af9bd57a6985fd01acc00cf3679f6b7ab48e5",
+   "bytes": 389239
+  },
+  "Houdini/FLIP37/p2g_tank.hiplc": {
+   "sha256": "f096615fd02677090e68611daa775f00c75374f3352212d6eb3d88417fd7d0c5",
+   "bytes": 402342
+  },
+  "Houdini/FLIP37/p3_window.hiplc": {
+   "sha256": "45ca9a6dbfa5b8ba0eb14c01687c8ed0bc86355f9bf32cd04b55a347ebdd2738",
+   "bytes": 443618
+  },
+  "Unity/Build/FLIP37/P0/p0_tank_FLIP36_orig.hiplc": {
+   "sha256": "051b865653463c262b0635a3b58ba4e730901dbcfb19719ba29470e2b021e5ac",
+   "bytes": 350282
+  },
+  "Unity/Build/FLIP37/P2/p2_tank_v1_R00.hiplc": {
+   "sha256": "9df42c00edc85be9c04c4eef441f203c25b8890763d0744563d0cf28b46f1d0a",
+   "bytes": 377147
+  },
+  "Unity/Build/FLIP37/P2/p2_tank_v2_R01-R12.hiplc": {
+   "sha256": "7e245c158675cb66c7545946b07629cea42ee58aa294136652dce13188660439",
+   "bytes": 387896
+  },
+  "Unity/Assets/GreatWave/FLIP37Proto/Scenes/F37Proto.unity": {
+   "sha256": "55759c2fbc80b7a4f048c8625c6463b8aa33517b38ac00bc9161287ed087ab0b",
+   "bytes": 54781
+  }
+ },
+ "caches": {
+  "Unity/Build/FLIP37/P3/H25_R18_mg/mesh": {
+   "files": 213,
+   "bytes": 1362442330,
+   "manifest_sha256": "d958e67caa78efeb5081b1bab5a25f776668da740f3d3de3fe6a13de6ccd150e",
+   "how_ja": "相対パスと SHA-256 の行（名前の順）を改行でつないだ文字列の SHA-256。ckpt と __pycache__ は除く"
+  },
+  "Unity/Build/FLIP37/P3/H25_R18_mg/sec": {
+   "files": 490,
+   "bytes": 1218792572,
+   "manifest_sha256": "705557f397327e2842cc5dc82d2c6b424fdf9a739a1e7221e0fe2c00a77412b7",
+   "how_ja": "相対パスと SHA-256 の行（名前の順）を改行でつないだ文字列の SHA-256。ckpt と __pycache__ は除く"
+  },
+  "Unity/Build/FLIP37/P3/C18_export/fields": {
+   "files": 261,
+   "bytes": 1591501021,
+   "manifest_sha256": "f5b11eb1a09a0542b1ded11ec4574224ea0608ba50e1904aa123f17f58245d5b",
+   "how_ja": "相対パスと SHA-256 の行（名前の順）を改行でつないだ文字列の SHA-256。ckpt と __pycache__ は除く"
+  },
+  "Unity/Build/FLIP37/P2/R18_X30L120LG_H39": {
+   "files": 1428,
+   "bytes": 499264803,
+   "manifest_sha256": "4fdfb4af34e8640d4525153104d7d1e452a6d65ed51a1bf170544c49d731a4c6",
+   "how_ja": "相対パスと SHA-256 の行（名前の順）を改行でつないだ文字列の SHA-256。ckpt と __pycache__ は除く"
+  },
+  "Unity/Build/FLIP37/P2g/G0_R18_twin": {
+   "files": 1129,
+   "bytes": 418861534,
+   "manifest_sha256": "c8631e0918977ff0427819666bc4bf19971ad8daa8dc17fdedbc2482859b9473",
+   "how_ja": "相対パスと SHA-256 の行（名前の順）を改行でつないだ文字列の SHA-256。ckpt と __pycache__ は除く"
+  },
+  "Unity/Build/FLIP37/P2g/G1_R18_drag010": {
+   "files": 1129,
+   "bytes": 419078998,
+   "manifest_sha256": "f2a31aa0ddb20aa6f95dc7bd25181b87e26622802fc398a4f9d0637e429833ec",
+   "how_ja": "相対パスと SHA-256 の行（名前の順）を改行でつないだ文字列の SHA-256。ckpt と __pycache__ は除く"
+  },
+  "Unity/Build/FLIP37/P1/B025H32_T14_H32_n4_hr26": {
+   "files": 177,
+   "bytes": 417617871,
+   "manifest_sha256": "aad588551d326327cfe68664f0dbbf06005d9cfa29633b80417c6b72baf7f4fd",
+   "how_ja": "相対パスと SHA-256 の行（名前の順）を改行でつないだ文字列の SHA-256。ckpt と __pycache__ は除く"
+  },
+  "Unity/Build/FLIP37/video/_hf_R18": {
+   "files": 241,
+   "bytes": 336426777,
+   "manifest_sha256": "2443e2dc140a86f9a49c247af42348d639d25c33fa55eed36fd7e2cc78f9027a",
+   "how_ja": "相対パスと SHA-256 の行（名前の順）を改行でつないだ文字列の SHA-256。ckpt と __pycache__ は除く"
+  },
+  "Unity/Build/FLIP37/P3/H25_R18_mg/mesh/mesh_0206.npz": {
+   "sha256": "09d2c8d83caa550aeee6b11e9e585a8d50eb889f1fa9437d437a818db9cc5158",
+   "bytes": 5910657
+  },
+  "Unity/Build/FLIP37/P3/H25_R18_mg/place_p3.json": {
+   "sha256": "ff356029608bf869c76727a473c62b701c5f025a34e8f428490c3bd0743ab584",
+   "bytes": 1485
+  },
+  "Unity/Build/FLIP37/P3/H25_R18_mg/compare_R18.json": {
+   "sha256": "b89255d12447477ac560ab7acb13a551cd0b44fdd53090ce9be6ff4b1a5f8d94",
+   "bytes": 121243
+  },
+  "Unity/Build/FLIP37/P3/H25_R18_mg/hf_A.npz": {
+   "sha256": "5f46f22392a791994a9e855b2ee8c6ee530a4fd115423aa395a57e66da157a1c",
+   "bytes": 7622927
+  },
+  "Unity/Build/FLIP37/P3/H25_R18_mg/hf_B.npz": {
+   "sha256": "52b74b6379580f4b5a6f77733a3413b37009c4856f4ce80129a3a3a75c6e0958",
+   "bytes": 7800991
+  },
+  "Unity/Build/FLIP37/P3/H25_R18_mg/hf_C.npz": {
+   "sha256": "14ad8b4bbd02fd0b54dbcebecff71bde0a99265a62e89756076edd799d8148a9",
+   "bytes": 7605318
+  },
+  "Unity/Build/FLIP37/P3/H25_R18_mg/hf_D.npz": {
+   "sha256": "54bc3a0c2f88880dc11718239972759bdc6501ab74a4692f02cd9d2e035dac89",
+   "bytes": 7338853
+  },
+  "Unity/Build/FLIP37/P3/H25_R18_mg/hf_E.npz": {
+   "sha256": "afb8913b6b4315015f865a7c53a4b2c10dadc8bb87df96ba0f3b1b25088a0cdb",
+   "bytes": 3661064
+  },
+  "Unity/Build/FLIP37/P3/H25_R18_mg/hf_F.npz": {
+   "sha256": "72904eb14b634a514639647554535465d59398b4e1b7ef54c2188489dfe4ec94",
+   "bytes": 3685517
+  },
+  "Unity/Build/FLIP37/P3/H25_R18_mg/hf_G.npz": {
+   "sha256": "e389e44fcef8b7db1dc3fa707b8dfdf833009555cb8773c8d872ec531cd021a2",
+   "bytes": 3696929
+  },
+  "Unity/Build/FLIP37/P3/H25_R18_mg/hf_H.npz": {
+   "sha256": "928865a8040802fb550f0b24e22dc9389916a01a1e6a98621601e5f4b0bb8946",
+   "bytes": 7411103
+  },
+  "Unity/Build/FLIP37/P3/H25_R18_mg/hf_I.npz": {
+   "sha256": "93edac9dee3ba2d0dc34a121e54806435c6cb6794c7112f3b26e352feef4c189",
+   "bytes": 7405504
+  },
+  "Unity/Build/FLIP37/P3/H25_R18_mg/hf_J.npz": {
+   "sha256": "b7c4c579db269e4bb2e2f57174d4a6ac0571c84201a349c8cda3adc2823fa5ee",
+   "bytes": 3736171
+  },
+  "Unity/Build/FLIP37/P3/H25_R18_mg/hf_K.npz": {
+   "sha256": "906e2a167591ae1bdd1189ac95c15057a27870e803497cf0a60e0958fe0a0919",
+   "bytes": 3781298
+  },
+  "Unity/Build/FLIP37/P3/H25_R18_mg/hf_L.npz": {
+   "sha256": "91b108a693cd13905b6bb9dbb78f58fca5fa2db06188450c5cca9cb8816b5dd6",
+   "bytes": 2867559
+  }
+ },
+ "checkpoints_not_hashed": {
+  "Unity/Build/FLIP37/P3/H25_R18_mg/ckpt": {
+   "files": 17,
+   "gb": 44.59,
+   "hashed": false
+  },
+  "Unity/Build/FLIP37/P3/C18_export/ckpt": {
+   "files": 2,
+   "gb": 0.72,
+   "hashed": false
+  },
+  "Unity/Build/FLIP37/P2/R18_X30L120LG_H39/ckpt": {
+   "files": 3,
+   "gb": 1.08,
+   "hashed": false
+  },
+  "Unity/Build/FLIP37/P2g/G0_R18_twin/ckpt": {
+   "files": 3,
+   "gb": 1.08,
+   "hashed": false
+  },
+  "Unity/Build/FLIP37/P2g/G1_R18_drag010/ckpt": {
+   "files": 3,
+   "gb": 1.08,
+   "hashed": false
+  },
+  "Unity/Build/FLIP37/P1/B025H32_T14_H32_n4_hr26/ckpt": {
+   "files": 7,
+   "gb": 0.87,
+   "hashed": false
+  }
+ },
+ "renders": {
+  "Unity/Build/FLIP37/video/frames_rt": {
+   "files": 470,
+   "bytes": 141603860,
+   "manifest_sha256": "84852b13414fded621b9224ddb57b187fed33af76a8b261863b9f806d2d989f5",
+   "how_ja": "相対パスと SHA-256 の行（名前の順）を改行でつないだ文字列の SHA-256。ckpt と __pycache__ は除く"
+  },
+  "Unity/Build/FLIP37/video/frames_slow": {
+   "files": 193,
+   "bytes": 66910179,
+   "manifest_sha256": "cecdc6ece6a474b849b76c342b0d19c18376a897791e4f349f3a83e695c0ed52",
+   "how_ja": "相対パスと SHA-256 の行（名前の順）を改行でつないだ文字列の SHA-256。ckpt と __pycache__ は除く"
+  },
+  "Unity/Build/FLIP37/video/render": {
+   "files": 460,
+   "bytes": 222213035,
+   "manifest_sha256": "2b413ba91ad511019647f8618a197565bb7ccd86da2e072ff76fed4b46e91ca3",
+   "how_ja": "相対パスと SHA-256 の行（名前の順）を改行でつないだ文字列の SHA-256。ckpt と __pycache__ は除く"
+  },
+  "Unity/Build/FLIP37/video/turntable": {
+   "files": 12,
+   "bytes": 6355426,
+   "manifest_sha256": "8b3b2c12f6250a502a39ecbd2b05b4fed0c4d2a97f4b25c3879a834e24ea9aea",
+   "how_ja": "相対パスと SHA-256 の行（名前の順）を改行でつないだ文字列の SHA-256。ckpt と __pycache__ は除く"
+  },
+  "Unity/Build/FLIP37/video/camsweep/render": {
+   "files": 21,
+   "bytes": 11010409,
+   "manifest_sha256": "cdcfe9beb0506ad99cf31d4a6d2aeb21a7f484fd79c9e266418abe006bd73936",
+   "how_ja": "相対パスと SHA-256 の行（名前の順）を改行でつないだ文字列の SHA-256。ckpt と __pycache__ は除く"
+  },
+  "Unity/Build/FLIP37/P3/H25_R18_mg/movie_frames_own": {
+   "files": 421,
+   "bytes": 286335048,
+   "manifest_sha256": "240c4942c442edc787541f2cc1da9a71612a62df8d3a60b13134aa112962db99",
+   "how_ja": "相対パスと SHA-256 の行（名前の順）を改行でつないだ文字列の SHA-256。ckpt と __pycache__ は除く"
+  },
+  "Unity/Build/FLIP37/video/P3_curl_rt.mp4": "40f938fe7f011d226a735ad4937a5c2303a723b181931dd17c3b660f57b545ae",
+  "Unity/Build/FLIP37/video/P3_curl_slow.mp4": "e8e5ffabc34ccf96f2641cb75f7559add559a6276b498ed0243b6059c37d7302",
+  "Unity/Build/FLIP37/P3/H25_R18_mg/clay_P3place.mp4": "8cfee993860258d04d95616cffad2db410ff28f103bab187bcfc7eb5cdee8113",
+  "Unity/Build/FLIP37/P1/section_best.mp4": "93077c6e76d08beb417042609dd2e0dea03d8e55577e946db652d6a0bc06d454",
+  "Unity/Build/FLIP37/P2g/compare_clay.mp4": "5d56dfab693fddca103bf0e02998e933c6222ac2baeee416235a278f6b784071",
+  "Unity/Build/FLIP37/video/hold.png": "a0c41591f75a83ece6d479d46f0f829cac403fff8f6bf2f8e376278be22d4afe",
+  "Unity/Build/FLIP37/video/turntable.png": "99ba94e19a34db7e5e8e37e887d2b36c4436a16d0e10c4cbc19939eb78b2d53f",
+  "Unity/Build/FLIP37/video/strip.png": "29c4e33fef482596f31baa666be403078b0fd9279642409278573a71b60f2b1d",
+  "Unity/Build/FLIP37/video/candidates.png": "524ef3fe816dc0e8d11f4c9a3167ca9983b97f10c8c2bf61039bc9db989bdf4a",
+  "Unity/Build/FLIP37/P3/H25_R18_mg/section_z000_compare.png": "a02ddc3936e8f1e777f2a58f941af8c9cb934f2c18fd3390b9939bbb22242216",
+  "Unity/Build/FLIP37/video/camsweep/camsweep_v1_vs_best.png": "813ad8010581670fb9f6fb37d336bd5f216ffe434c7f1e9faca60a7ef1179d39",
+  "Unity/Build/FLIP37/video/r9_compare.png": "05f83b190690a35162507c53d946d5d9486a70506ff32052940de2146e798cfd",
+  "Unity/Build/FLIP37/P2g/fig_compare.png": "a1d20173570fc32acea70d7d3bd45831579a07c85ab5be368bc1eed8000aa662",
+  "Unity/Build/FLIP37/P1/compare_best.png": "819fde49f0749c7835088adbade46b2394a03713792fd36294213716bbc055fc",
+  "Unity/Build/FLIP37/P3/validation.png": "c2bad0d09f785e472998fd6f403e5e06bae8a5fecdef464f938d81bb05e979f3"
+ },
+ "records": {
+  "Unity/Build/FLIP37/P0/record_ja.md": "ccf26385241cde0cc75a39f5b72632a504ad92c9a165f4cf5a9ae0c87553c6e7",
+  "Unity/Build/FLIP37/P1/record_ja.md": "e963b89eb79720bc948ef8e7c4bd9c7b06af69ba62c9997aa55192d375d3d084",
+  "Unity/Build/FLIP37/P2/record_ja.md": "8aac47a552c4eaf39a4f793019af5419928748da368f42625d81510ce97d6920",
+  "Unity/Build/FLIP37/P2g/record_ja.md": "0baf2f0a7c1170cc288471e713476df69c929b2b98c636bb37996e3447289b80",
+  "Unity/Build/FLIP37/P3/record_ja.md": "c042ef4f80f084b9e66cccfd9937138c09d43289baf91b666fafcaeb519a6f3b",
+  "Unity/Build/FLIP37/video/record_ja.md": "f0edfd692892190a0bd2ca16a1a46d0563b3e8c41cb0d9dbb95142e4cbd4073b",
+  "Unity/Build/FLIP37/integration_prep/record_ja.md": "0bebe3b97de123146c323c5383648a436cdaca6773900117e67ddcc96d64480b",
+  "Unity/Build/FLIP37/integration_prep/integration_plan_ja.md": "38e69232ad1140808e0248b58b51037694232e27b6cbb9e626bd6fbbdb0172ab",
+  "Unity/Build/FLIP37/runs.jsonl": "1064523ed496b422d16c8bd9fa844b3d01eebfd0702a60a53d0a1849961ce097",
+  "Unity/Build/FLIP37/video_tools/configs/video_P3_curl.json": "6c3e9a517aab6598bdb785b9861be4fea24995898abb2d4021af52dcc0cc302c"
+ },
+ "evidence": {
+  "Docs/Evidence/FLIPPrototype/copies.json": "b6d35d8c3550db3a068dedc51ce33f53dcfc18b266c87a6544f1c041bc43e724",
+  "Docs/Evidence/FLIPPrototype/fp_10_P3_validation.png": "c2bad0d09f785e472998fd6f403e5e06bae8a5fecdef464f938d81bb05e979f3",
+  "Docs/Evidence/FLIPPrototype/fp_1_tstar_compare.png": "a0c41591f75a83ece6d479d46f0f829cac403fff8f6bf2f8e376278be22d4afe",
+  "Docs/Evidence/FLIPPrototype/fp_2_turntable12.png": "99ba94e19a34db7e5e8e37e887d2b36c4436a16d0e10c4cbc19939eb78b2d53f",
+  "Docs/Evidence/FLIPPrototype/fp_3_strip.png": "29c4e33fef482596f31baa666be403078b0fd9279642409278573a71b60f2b1d",
+  "Docs/Evidence/FLIPPrototype/fp_4_candidates.png": "524ef3fe816dc0e8d11f4c9a3167ca9983b97f10c8c2bf61039bc9db989bdf4a",
+  "Docs/Evidence/FLIPPrototype/fp_5_section_z000.png": "a02ddc3936e8f1e777f2a58f941af8c9cb934f2c18fd3390b9939bbb22242216",
+  "Docs/Evidence/FLIPPrototype/fp_6_camsweep.png": "813ad8010581670fb9f6fb37d336bd5f216ffe434c7f1e9faca60a7ef1179d39",
+  "Docs/Evidence/FLIPPrototype/fp_7_r9_info.png": "05f83b190690a35162507c53d946d5d9486a70506ff32052940de2146e798cfd",
+  "Docs/Evidence/FLIPPrototype/fp_8_P2g_twin.png": "a1d20173570fc32acea70d7d3bd45831579a07c85ab5be368bc1eed8000aa662",
+  "Docs/Evidence/FLIPPrototype/fp_9_P1_section_compare.png": "819fde49f0749c7835088adbade46b2394a03713792fd36294213716bbc055fc",
+  "Docs/Evidence/FLIPPrototype/fp_v1_painting_cam_rt.mp4": "40f938fe7f011d226a735ad4937a5c2303a723b181931dd17c3b660f57b545ae",
+  "Docs/Evidence/FLIPPrototype/fp_v2_curl_slow.mp4": "e8e5ffabc34ccf96f2641cb75f7559add559a6276b498ed0243b6059c37d7302",
+  "Docs/Evidence/FLIPPrototype/fp_v3_oblique_P3_clay.mp4": "8cfee993860258d04d95616cffad2db410ff28f103bab187bcfc7eb5cdee8113",
+  "Docs/Evidence/FLIPPrototype/fp_v4_P1_section_best.mp4": "93077c6e76d08beb417042609dd2e0dea03d8e55577e946db652d6a0bc06d454",
+  "Docs/Evidence/FLIPPrototype/fp_v5_P2g_guided_twin.mp4": "5d56dfab693fddca103bf0e02998e933c6222ac2baeee416235a278f6b784071",
+  "Docs/Evidence/FLIPPrototype/metrics.json": "bccf2686a2d055878e9dcded642d91a54dc062cef40f38a62a3890f5e9978bb0",
+  "Docs/Evidence/FLIPPrototype/p1_table.json": "d0b52e538bbd45c9a2b6a800d6fde6d126b0539676b5a73dc0da5744e5d02c0d",
+  "Docs/Evidence/FLIPPrototype/p2_table.json": "0c85b8b91623b272df06aa71950534c007b1c9d90568bc55d3b2f853a2733f0c",
+  "Docs/Evidence/FLIPPrototype/p2g_compare.json": "55a609472721c08a5b73b87aebf6864ea0c99facb5c85a973512f58f2cfb017f",
+  "Docs/Evidence/FLIPPrototype/p3_compare_R18.json": "b89255d12447477ac560ab7acb13a551cd0b44fdd53090ce9be6ff4b1a5f8d94",
+  "Docs/Evidence/FLIPPrototype/p3_place.json": "ff356029608bf869c76727a473c62b701c5f025a34e8f428490c3bd0743ab584",
+  "Docs/Evidence/FLIPPrototype/runs_table.json": "4e723888714225b1e5def5b3c8a3da65bbc8a39df467caee89fd3b3628dda3a8",
+  "Docs/Evidence/FLIPPrototype/video_camsweep.json": "e89d69ba72aa06c6ece17fde7372637fde49eae9851e12105f627fcb16aaad41",
+  "Docs/Evidence/FLIPPrototype/video_scores.json": "6e2ba201cdd37c606cb2d6f282aff8410b0e2de02d1c875b56c178db721abd5d"
+ },
+ "hash_wall_s": 25.2
+}
