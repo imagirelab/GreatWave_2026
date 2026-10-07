@@ -1,0 +1,232 @@
+{
+ "schema": "GreatWave.FLIPTallWave.deliver_run/1",
+ "date": "2026-10-08 05:29",
+ "note_ja": "Docs/Evidence/FLIPTallWave を作った記録。新しい流体計算はしていない。横の断面の動画と実験の比べの図だけを、すでにある断面の粒子と JSON から描いた。途中保存・網目などの大きなキャッシュは数と大きさだけ（横の断面の動画に使った断面の粒子は、名前と SHA-256 をまとめた値）。git の add・commit・push はしていない",
+ "commands": [
+  "py -3.10 -B Tools/GWWaveGen/flip39/ft_side_video.py",
+  "py -3.10 -B Tools/GWWaveGen/flip39/ft_deliver.py"
+ ],
+ "upstream_commands_ja": {
+  "D1": "py -3.10 d1_mech.py → d1_mech_figs.py → d1_seat.py → d1_seat_figs.py → d1_summary.py（Unity/Build/FLIP39/D1/record_ja.md §7）",
+  "E": "e_build_tank.py で場面、e_launch.sh・e_chain.py・e_queue.sh・e_queue2.sh で計算（引数と結果は runs.jsonl）、e_post.py・e_analyze.py・e_seat.py・e_render.py・e_render_bl.py・e_compare.py（E の記録 §10）",
+  "R": "r_export_coarse.py → r_build_window.py → r_chain.py・r_queue.sh（runs.jsonl）→ r_analyze.py・r_seat.py・r_strip.py・r_curves.py・r_render.py・r_render_bl.py・r_before.py・r_sheet.py（R の記録 §10）",
+  "review": "py -3.10 rv_angle_timeline.py"
+ },
+ "versions": {
+  "python": "3.10.6",
+  "houdini": "Houdini Indie 22.0.459 hython（画面なし）",
+  "blender": "5.2.2（粘土の描画、画面なし）",
+  "ffmpeg": "2024-12-19 git-494c961379 full_build",
+  "unity": "使っていない（作品の場面は開いていない）"
+ },
+ "inputs": {
+  "Docs/References/Met_JP1847_DP130155.jpg": "cbb9988f2f18b9180a1cc0cf5dbb0e3bbf8f2e85d17930cf6ca9ab36fac36303",
+  "Tools/GWContext/seat_v1.json": "4f7553fd6ab29d117266d6f0b6e58c84dc30f36cf440f6de9314b95102517488"
+ },
+ "tools": {
+  "Tools/GWWaveGen/flip39/d1_common.py": "73a3a40508cb1b05ff32c615c93e40792af043f49528bc02313961d2d1ae567a",
+  "Tools/GWWaveGen/flip39/d1_linear_flat.py": "a6de648abe091fe9048e365c7f49db7cab33d2647abac508d7dcf92f28959006",
+  "Tools/GWWaveGen/flip39/d1_mech.py": "c027b8d1c6032779fd26ae076b2a8682e7780610d84ed5e01ec36523ea8b37bf",
+  "Tools/GWWaveGen/flip39/d1_mech_figs.py": "be1c7a01dc21fbe309ccb79017db011779bd832a498e7d8a85cecc2aa4810b53",
+  "Tools/GWWaveGen/flip39/d1_plot.py": "cce56abc0144235c48d5c14b42669f6998b261f36dd3ab04529528063a24b29c",
+  "Tools/GWWaveGen/flip39/d1_rays.py": "22b4c7a221039ae9681080c41201b2df989a721c6854adb967d32a8d7538a537",
+  "Tools/GWWaveGen/flip39/d1_seat.py": "7f27bcee30c0dcb64c349d373ac19b90d46d69cb45f7480aff3cd52767e1923d",
+  "Tools/GWWaveGen/flip39/d1_seat_figs.py": "f8af85bc11aa3906484adf86b6866569b3bbf9a77aee040252155b39723079dd",
+  "Tools/GWWaveGen/flip39/d1_summary.py": "2c5e9c3052c860f13a643deb5782a4d60701cade4d0166f7e13e5101ebb526fc",
+  "Tools/GWWaveGen/flip39/d2_channel_focus.py": "238f8616f5ef8046000b530e5c9543d14315d3abeaf02bf1be01901ca38e9746",
+  "Tools/GWWaveGen/flip39/d2_estimates.py": "b8f683b43515c3bfcc3494d4716abed77864d46f25d4164d70b695ad7bff1ab3",
+  "Tools/GWWaveGen/flip39/d2_rise_time.py": "b85311e50c959b03bd1ac46560563db000857003916f0f77ffde3e73e5290504",
+  "Tools/GWWaveGen/flip39/e_analyze.py": "7cf9f4f8d17599d7c412f94da864a2823a07b124fe021b8e96892cc2370d65b4",
+  "Tools/GWWaveGen/flip39/e_band_speed.py": "b8d073da1d73d869ec80173531f5c1db3739b4715d715bb4d1bf797ac06223ce",
+  "Tools/GWWaveGen/flip39/e_build_tank.py": "4fbc65a43188ecb53cf77c0c62a73fd9fbdfc7372d5505e048addd723356af0a",
+  "Tools/GWWaveGen/flip39/e_cfg.py": "f42aecb9df25831d0e051ce39491f5a19fc2c930b9f45a3f7dc76e7a93bd6af3",
+  "Tools/GWWaveGen/flip39/e_chain.py": "b9db9d09c444d719cc4afc446b1f3f28027936a1a7113b715909f745ab5b7cd3",
+  "Tools/GWWaveGen/flip39/e_compare.py": "48ee976eaa9b131f250ddbcedcc439957625f1dbb3534e1817bdee02bd6a7828",
+  "Tools/GWWaveGen/flip39/e_launch.sh": "7093bde006590676c289e0bc2dab35410d5616b5d7a9374943104bcba0270bea",
+  "Tools/GWWaveGen/flip39/e_lens_rays.py": "e1d56a35d5ccc0682bf8c350f8acf2447e0f3c8d06d68841bbf47d58c8e7a4d9",
+  "Tools/GWWaveGen/flip39/e_lin.py": "51c60312947bc65c233800cfbe51688a00205cc44a8a9cfc4f486d34f89d56d1",
+  "Tools/GWWaveGen/flip39/e_lin_explore.py": "8cb6ecc4dd84c4829dc27ad260057eb3b43f0260a89048613300b09a77a9c2b3",
+  "Tools/GWWaveGen/flip39/e_lin_explore2.py": "f869b9f94104dabddbda2851a0865a671fc546a7eeeeefedc42a22d4e047491e",
+  "Tools/GWWaveGen/flip39/e_lin_long.py": "47c630cff2e553a725c6872b62467957f64ba05d085d48da22b697d117663a68",
+  "Tools/GWWaveGen/flip39/e_post.py": "531d7a63052bf9da885c9adc5d98e39b52c3cfe1a476484f5806c45e1a597c82",
+  "Tools/GWWaveGen/flip39/e_post2.sh": "64aa4f83129a46d7b51b9f7939a4d1f3fd17d3efe4f4f57995a5687a07bb52f9",
+  "Tools/GWWaveGen/flip39/e_queue.sh": "b39333a5f51ebc127871f35e603fa1d183f6440a01651d1b13d0cf2854621325",
+  "Tools/GWWaveGen/flip39/e_queue2.sh": "e4b259ddb4cb583dece56aed61880dbb08199735c6e2e0c3050287983264fd85",
+  "Tools/GWWaveGen/flip39/e_render.py": "bd2909a8730fd9e568329068a4658c65f196d2c48bc927503b35e22b1c35afed",
+  "Tools/GWWaveGen/flip39/e_render_bl.py": "a7e9a5e26f43be9cbba90c3bdf791180974c4f6ff6924ec7d3dd88db7dbe59b3",
+  "Tools/GWWaveGen/flip39/e_run.py": "828bfb9626f5340bfc35024c2eb9ba7eb6f213a50d095f9fe60b2614962de305",
+  "Tools/GWWaveGen/flip39/e_seat.py": "a4e54e6083dada28fc1726005ec3c3e8e017a7ac4188113e4172d8a0f14e2377",
+  "Tools/GWWaveGen/flip39/e_seat_sheet.py": "c032e367cfba1b8a6f3f08166a8b3c9f59f39aff5da861a6d718ee72ca48ab4a",
+  "Tools/GWWaveGen/flip39/e_strip.py": "b3bcd1936436d8db2b777de6e0e7636098fbcf7d4888bb9bdfd9ec5039d1b606",
+  "Tools/GWWaveGen/flip39/e_tanklib.py": "de752786a00699804eed4a130500bab16d066c2d5053c02fba6843d9b8a8f892",
+  "Tools/GWWaveGen/flip39/e_transfer.py": "36cd762008a6e897473cabe3f6a24f83e5d823533626a6e1ec9bec751f6c3521",
+  "Tools/GWWaveGen/flip39/ft_deliver.py": "d3ae03a291a6aa546cd4afc7ead6a0bd08a5aabff081d05283781e3aa449c90b",
+  "Tools/GWWaveGen/flip39/ft_meta.py": "774199542f306e67cc1cdac2c67731521c19b935fe23836de629380198339aa7",
+  "Tools/GWWaveGen/flip39/ft_side_video.py": "9c9dccbc39f5e4b504fb3268815dbc4d3912c15586b1415815f15439825b9b2d",
+  "Tools/GWWaveGen/flip39/r_analyze.py": "ede775034ced12ee8a89e4a4789345e465ebdd65a9a09e9f4cda29e4250a20b5",
+  "Tools/GWWaveGen/flip39/r_before.py": "bc432c70b1dfca0c61b188fbdb88531458f4a0749749b5ce2ef0300ce623bc3a",
+  "Tools/GWWaveGen/flip39/r_build_window.py": "858d119a3c880be19395bd33c9d1cebc19b36c250ab176bd2a57e8a313610033",
+  "Tools/GWWaveGen/flip39/r_chain.py": "b9f48607a26d81fe04cad9cb81c550a313a9637a77a80d8dddac6c45fb3206b0",
+  "Tools/GWWaveGen/flip39/r_compare.py": "b552676ecb982ee8b6f8a5f88fef080a86215fc7dea50e895ea70675b04e08a0",
+  "Tools/GWWaveGen/flip39/r_curves.py": "50f30bc10189adaaa64cc75564ff63065385b4f2c5216ca637af6057361eef37",
+  "Tools/GWWaveGen/flip39/r_export_coarse.py": "c794557a509232f9ebb6523edd279c2f6a77a1a3cf26772d685dc711722e5bd0",
+  "Tools/GWWaveGen/flip39/r_lvl_ref.py": "b11f4430f5a247c82ce8a46f6006d0ce1ea2da869cb41d5e4931283a4787da46",
+  "Tools/GWWaveGen/flip39/r_queue.sh": "c245bd23f2f6757784d576882bc968812c6279fe6866102fa22b513c6ed93794",
+  "Tools/GWWaveGen/flip39/r_render.py": "ad932867120223db960fc5c727d7526d61b0c31eabc57a84c7217c9b7f4de2e4",
+  "Tools/GWWaveGen/flip39/r_render_bl.py": "eac00af5bcd6a69cc917f6f8608d1417b43c95a4c361ffbd853c6979a396f368",
+  "Tools/GWWaveGen/flip39/r_run_window.py": "e9c44611dc21385840dbf0ef52ef1ee1849998c87749dffd450b96b033ad6aa8",
+  "Tools/GWWaveGen/flip39/r_seat.py": "c54c112b84d1f4ade8f129cf502b2fdb911a59264bab3cbdbac62b02f7182b9e",
+  "Tools/GWWaveGen/flip39/r_sheet.py": "1630c6f2fddc0de8413b48887d590feb2fb7dfa6984d81bd5e0f288823292d55",
+  "Tools/GWWaveGen/flip39/r_strip.py": "e4740eda647be8cadaf623b8284235028f933d83baab272522650fb3e345a55f",
+  "Tools/GWWaveGen/flip39/rv_angle_timeline.py": "2da09909070989651d9af227862758adbcb93e2ed0317050e7e7731691959a12"
+ },
+ "scenes": {
+  "Houdini/FLIP39/e_tank.hiplc": {
+   "sha256": "b7c7db98537863b354cb7b0ca6cfb101b748d5894c638d537d927d635a9bd726",
+   "bytes": 370340
+  },
+  "Houdini/FLIP39/r_window.hiplc": {
+   "sha256": "75c8f004cad3694dbd8a9a445ec56d788abae3d9349fd9f3bda6eafbcadd0ec7",
+   "bytes": 411539
+  }
+ },
+ "caches": {
+  "Unity/Build/FLIP39/D1/mech.json": "55a2dc1fd8217e50086ecd93ebd3707b3f975b1f68151b90c8720766f36f8578",
+  "Unity/Build/FLIP39/D1/seat_measures.json": "868e836b1385fe5013124f6be9edf5c1d5027993a7c7c9060c59a5b9e663ebee",
+  "Unity/Build/FLIP39/D1/seat_measures_raw.json": "88f422fe3610236d8dc0c7cdec55d93647ac84e7bc765df06b46c66092be1fd2",
+  "Unity/Build/FLIP39/D1/seat_raw.json": "a337e26098091c5664a5d64f39a0af553298a5146c0ab3d16d493d4db89c5e48",
+  "Unity/Build/FLIP39/E/lens_rays.json": "bf19e9775fee2fe0afa0a3dcc8ea0a4492ec946b59ff58ed9fcde29d83170513",
+  "Unity/Build/FLIP39/E/lin_long_tank.json": "536c38b9267ff121ade8dc3f5ab49ff6174f5997ccb185c01be6f2f9547a107c",
+  "Unity/Build/FLIP39/E/table.json": "eb44465bfe08a45ce14d54a9588091055830e482ad7823fa2322eeb8010a61bb",
+  "Unity/Build/FLIP39/E/visual_breaker.json": "f7fc5407a8f32da87a2c4367a9ced9f4f4685ee48288d0bd7b670e744dbfabfb",
+  "Unity/Build/FLIP39/E/C1_full_reef_S010/analysis_e.json": "7f20b72e06b376f9a92f52230dcfec8bfd796beea3779c186adc802810117bf3",
+  "Unity/Build/FLIP39/E/C1_full_reef_S010/run.json": "8ee293c80ab082dff11487fc0ece78ff55639e5cd31f8a346d62b248dc38b81d",
+  "Unity/Build/FLIP39/E/E1L_reef_S048/analysis_e.json": "1adfd3ca0d8ceb2fa3d78a2f81f31e1536a206d654dbe575dbd9f06ec0eab2c1",
+  "Unity/Build/FLIP39/E/E1L_reef_S048/run.json": "9d249506e0e39c8fc392ee2aea6b4fe3d4e114b9fdc6207e042966c823bbe5a8",
+  "Unity/Build/FLIP39/E/E1L_reef_S048/seat_e.json": "9696aa729fe129cd6c0fc58f604eeb6e7fd3fc24a87414d7cef6b3b6c63ba346",
+  "Unity/Build/FLIP39/E/E1_flat_S036/analysis_e.json": "a48a3583f6d7f4b140603b60e7aa549eff7a48b23605193ca718b19a28dfcafe",
+  "Unity/Build/FLIP39/E/E1_flat_S036/run.json": "d495bb14b1d999653fe0bb44f6110eb1c45616dbf8cafd3fcaa1d5dd7eefa3aa",
+  "Unity/Build/FLIP39/E/E1_flat_S036/seat_e.json": "18b90cea4f3f18d1b8cc89ea8fafd3eb5650f4e685f7def7f59f8fd57c5e66bb",
+  "Unity/Build/FLIP39/E/E1_reef_S036/analysis_e.json": "a13d6f25da67b0714f1f4453c1d51421072aba7c9e703a377cb970e0b2a6d130",
+  "Unity/Build/FLIP39/E/E1_reef_S036/run.json": "4be32a965b1dfafc517b3ba8c94fca2a13e0f74351e9b9452905549bce179239",
+  "Unity/Build/FLIP39/E/E1_reef_S036/seat_e.json": "add24c82530335b7d339d633f797944929b319da298b4648c0c47e8ffa21be87",
+  "Unity/Build/FLIP39/E/E1_reef_S048/analysis_e.json": "bd1af9000c31bc48d38de836c3c34a279308ddcc7ab1366f104a78900e71c404",
+  "Unity/Build/FLIP39/E/E1_reef_S048/run.json": "c26a19dbfd4f738d270f63275d76a44706c4752a1dcd4d70634dc388671e8452",
+  "Unity/Build/FLIP39/E/E1_reef_S048/seat_e.json": "bc3bb2e33658a47697dbf97c6344607844d0e59f8dca1945eff5c00933055385",
+  "Unity/Build/FLIP39/E/E1_reef_S060/analysis_e.json": "89bad316bd448e6d2610b539ab187df350967569cb987f6d6fc35821cf4e476e",
+  "Unity/Build/FLIP39/E/E1_reef_S060/run.json": "18295e2951835c6e20fd82940760ab25776578e63c12d948d1c0bf69b0b3976f",
+  "Unity/Build/FLIP39/E/E1_reef_S060/seat_e.json": "75bda38d0a3086d8c50f54895a103cfbe8f12738389dc942cefa7cc19e4b6494",
+  "Unity/Build/FLIP39/E/E1h_reef_S036/run.json": "26c2cb7feb3f97723273d93b7023f3db87a9cb14bcebf6d62adf6ceb6c61880c",
+  "Unity/Build/FLIP39/E/E1h_reef_S048/analysis_e.json": "728a630efe018aaff32fc09f77a31b9e34d6fe3cd724062a370ac4b223ee4a72",
+  "Unity/Build/FLIP39/E/E1h_reef_S048/run.json": "59096f35a79bc7cc195a6c7367382d5855d2f8d3cc1e47dd528479a6920209e6",
+  "Unity/Build/FLIP39/E/E1h_reef_S048/seat_e.json": "7f19d84779d0278e2e0315d9a70f314287efb9efa6ec0aa3fe52deb2af83ff6b",
+  "Unity/Build/FLIP39/E/E2_dir20_reef/analysis_e.json": "c9482f9e0344293a2cb407cb2b214bccb8df0b3d0bd4831e6ed8b7b67cfe659b",
+  "Unity/Build/FLIP39/E/E2_dir20_reef/run.json": "d7b6ba3797d1c78f1ce25d901e122a3b3346705e49dd60e9eef4e6fba7a84bcc",
+  "Unity/Build/FLIP39/E/E2_dir20_reef/seat_e.json": "cae6916fd4df1e9fc23fd3e8a2313e39f9e3dd7825922a41335d18e7b9e84c7d",
+  "Unity/Build/FLIP39/E/E3_dir20_lens/analysis_e.json": "f7706a12a3930fd5329c460c3188353ed10dc4b490eda1f2dfb92aa733bf04e8",
+  "Unity/Build/FLIP39/E/E3_dir20_lens/analysis_e_z-080.json": "7ff3336e80470ffc65fb4d85c0bdd8abc480ab794b1143d46e41ad8e94048599",
+  "Unity/Build/FLIP39/E/E3_dir20_lens/analysis_e_z-118.json": "039abac317d48337e2902b77a6e95068778dbc2a421ebdc05803bdd09cec10e1",
+  "Unity/Build/FLIP39/E/E3_dir20_lens/run.json": "2bae72206f19cba0f9db55aaf01e7a872a9022979c949acb31d7ac32430f06c4",
+  "Unity/Build/FLIP39/E/E3_dir20_lens/seat_e.json": "214de8b5ee491f49ebd66f89b298104066bd5d867bcc4600ce530f5032689a63",
+  "Unity/Build/FLIP39/E/S0_still_slab_reef/run.json": "b11fd523e51d0629389481ba4a48e83be1487b7a659d98ab7ab5d35d516f0b8b",
+  "Unity/Build/FLIP39/FT/ft_numbers.json": "b72ee610d94164021b0c2e57f6b00812a7e313900ddf6df307bbbe8d81206186",
+  "Unity/Build/FLIP39/R/H30_E3/analysis_r.json": "0fe043fc7af9d8a3d97555f1caadd848ba95860bb269e7e0c8525222579857fe",
+  "Unity/Build/FLIP39/R/H30_E3/cfg.json": "840948b9309318061f0229dd91773119e178a4343547be8ed45227dd7bbbe30c",
+  "Unity/Build/FLIP39/R/H30_E3/compare_E3.json": "743527483951b12e7bb7f6991c121f1f8e4c4b031d6b6adee08f3d59a6114e83",
+  "Unity/Build/FLIP39/R/H30_E3/run_A.json": "7ec1c5aaaf72744d73829be92a06a10ff383807ecef4126af768d401b4c80318",
+  "Unity/Build/FLIP39/R/H30_E3/run_B.json": "f07f9e20395444162ba11bd78e31ec4e2d75235a7ac4960add3655cda0a54600",
+  "Unity/Build/FLIP39/R/H30_E3/run_C.json": "aab0fa059162711862432c9173edf0ff7dc62f179dd7f4d3da9f3d34b94c21e1",
+  "Unity/Build/FLIP39/R/H30_E3/run_D.json": "808b287952fc3b9cac2c25935a5d2bd90d0efc82aa3d4ef309c2373c53c42382",
+  "Unity/Build/FLIP39/R/H30_E3/run_E.json": "154153920f2ae4adefcee15acc4c6a62abd958350964ca8c3d012c4dc50c1d38",
+  "Unity/Build/FLIP39/R/H30_E3/seat_r_z-060.json": "5ffde18f8e1f6c77ec226f088f819fd7faca0c2e3b62a8add1542c8fa02ba575",
+  "Unity/Build/FLIP39/R/H30_E3/seat_r_z-070.json": "d7da5d2aefa50caa08bf9d3e5fc9021d69c7d4ba433c0d1d7b047822058a905b",
+  "Unity/Build/FLIP39/R/H30_E3/seat_r_z-080.json": "dd6934a6f4303c8c7c8b67ae9e310d036d4c41b8a862a2ca89475da299318c40",
+  "Unity/Build/FLIP39/R/H30_E3/seat_r_z-080_coarse_scan.json": "23a0fc9f2e9b4c018757166d9a3b85ab3b26962ded863f9f80cebb0c8d63d182",
+  "Unity/Build/FLIP39/R/V1_val_d10/analysis_r.json": "1ce24d91a9ae18b617fc999473c5a99cf11ea25a3ca922b9c8ef7331e241221c",
+  "Unity/Build/FLIP39/R/V1_val_d10/cfg.json": "8af6fa64f2e3abb53b261cf2a1adc91d345b492c6ca6988d4f71ea318eb69ee6",
+  "Unity/Build/FLIP39/R/V1_val_d10/compare_E3.json": "bb09e3b743e972637ad49b0fae10fa4c67f104ce57201326e2b9f7df0cf55ea5",
+  "Unity/Build/FLIP39/R/V1_val_d10/run_A.json": "a284b60e6de68b701417e1b84a003bb64ebcadebf841ddeade37ed50ad877064",
+  "Unity/Build/FLIP39/R/V1_val_d10/seat_r_z-080.json": "99845807c164c5667f9667a82dab7bf05bbf9ea2d689da1e68a1213bfb2895e2",
+  "Unity/Build/FLIP39/R/lvl_ref_300_570_-120_-20_4.json": "766ba565821bfc8d28d6491ab1248b75e11cfce8e8d08fa847f48ceb38c20f39",
+  "Unity/Build/FLIP39/runs.jsonl": "e1de2a1bada976333537fb45b810326809e3c0591ec541093a84fdeccc09d375"
+ },
+ "caches_sections_used_for_side_video": {
+  "z-080": {
+   "files": 151,
+   "bytes": 213533449,
+   "sha256_of_names_and_sha256": "60bf7445ff733779fb67060276ac86f66c39931178ea15bdf28117256ae89a5d"
+  },
+  "z-060": {
+   "files": 151,
+   "bytes": 208583975,
+   "sha256_of_names_and_sha256": "9c0d4d7dfb67c8adc09bc25bc1046d748a1220ad433d564c5d3ae624e5bcdbf7"
+  }
+ },
+ "caches_large_not_hashed": {
+  "E": {
+   "files": 6638,
+   "gb": 15.32
+  },
+  "R/H30_E3/ckpt": {
+   "files": 25,
+   "gb": 25.63
+  },
+  "R/H30_E3/mesh": {
+   "files": 301,
+   "gb": 0.94
+  },
+  "R/C3_export": {
+   "files": 344,
+   "gb": 3.0
+  },
+  "R/V1_val_d10": {
+   "files": 315,
+   "gb": 0.06
+  }
+ },
+ "renders": {
+  "Unity/Build/FLIP39/D1/sheet_m1_crest_history.png": "51d3b32de23053d58c8d7d57faf4c8a913a7e84c90f695ef3d43caaa39e972f3",
+  "Unity/Build/FLIP39/D1/sheet_m2_xt.png": "1c75f895242db12d0bf27df9e6c7f37f9d27d1c7f5cf29f6be646f3d0ab2a024",
+  "Unity/Build/FLIP39/D1/sheet_m3_crossing.png": "452d13cbd838c1ae7722ee23b8add3bc21bdb9e242a04a4b090005cb747b1dcb",
+  "Unity/Build/FLIP39/D1/sheet_m4_refraction.png": "515cc3b0eb6453b91dd997ead8fb74f8c27f8254c9eec2de6d4814a253a47fc3",
+  "Unity/Build/FLIP39/D1/sheet_s1_seat_timeline.png": "17aee7409d259203d505eab1f2bdee8b61303996a7ef2dc8102b88e4b7b03558",
+  "Unity/Build/FLIP39/D1/sheet_s2_seat_view.png": "e390ba34fa2e935357a696ba5912495a02738dae6dd78aa5497571245b841d46",
+  "Unity/Build/FLIP39/E/clips/clip_E1_reef_S048.mp4": "e30c0d6bf29c3f6312bb506423e7ab9a45f506e6c7fd53d34fbd85236cc79e5c",
+  "Unity/Build/FLIP39/E/clips/clip_E2_dir20_reef.mp4": "87245037a6dc121f3be635f3c51a898cd89ba3b5c3bc1185b4dc58965c06e72e",
+  "Unity/Build/FLIP39/E/clips/clip_E3_dir20_lens.mp4": "e68ca5e930c435300975c57937d56d40f583ff2d9c09daf28600dd42339a86a2",
+  "Unity/Build/FLIP39/E/sheet_compare.png": "4614898319f973f7d8b40aa6730e606e62c39343219327b140fb602e8712ce5b",
+  "Unity/Build/FLIP39/E/sheet_curves.png": "cf3ff90aeb064c442547532beb4a6b9a8fd2668d2d7b569d84b78f6e53100211",
+  "Unity/Build/FLIP39/E/sheet_seat_moments.png": "3e9faa00a9c5617b4e669e44ffaaf242be232952427a6abd8dd439805d20a42b",
+  "Unity/Build/FLIP39/FT/R_side_sections.mp4": "46d07c5311508944ebc994011f73edb8bbfdeb7238cd5a95f7b59373c6e1ad98",
+  "Unity/Build/FLIP39/FT/ft_2_experiments.png": "34586ebd24b5c7966698d16eb47d3484b807e563a5f2c3760e02bcc06f0724f7",
+  "Unity/Build/FLIP39/R/videos/R_oblique_fixed.mp4": "918ed6db0770c19b5b495140173e927e6a1a18de831be43a0c9d9b3c3318d853",
+  "Unity/Build/FLIP39/R/videos/R_painting_camera.mp4": "a03ae749663c58f7b7896a6fd94de1e0a9a7f884d7f4d9e45b8cf9961b931ae2",
+  "Unity/Build/FLIP39/R/videos/R_seat_x530_z-80.mp4": "fe972503936e4b64280d14ec342299c1229c471fd902fcf0b54c2c107eaaa67b",
+  "Unity/Build/FLIP39/R/videos/R_seat_x530_z-80_half.mp4": "bfa0a97343fdd51258a0d8f16a3efff4e4168fdfcf851d58f242d7b195eb2757",
+  "Unity/Build/FLIP39/R/videos/R_turntable_12.mp4": "0837e286e9925a3abde450f8e79905101898f1497c03494f3954c59ef530224c",
+  "Unity/Build/FLIP39/R/sheet_curves_r.png": "01e245e182f9621c15ddc64a68249ee88ae137b4c59c9606aebb169f6566ec6d",
+  "Unity/Build/FLIP39/R/sheet_seat_before_after.png": "c2db91a7acb1c9b3ad5771d1c1f15192c964be4e45ecea95a08e81ab34a92423",
+  "Unity/Build/FLIP39/R/strip_z-060_vs_E3.png": "c4785d6517dc078a22803cf7cfbc051265e01e8fc7c36b8632544650e4930e96",
+  "Unity/Build/FLIP39/R/strip_z-080_vs_E3.png": "5039238158d8efb1eef6111cc8ce26424329a476dce8bdf2dee45717d18abc13",
+  "Unity/Build/FLIP39/R/strip_z-118_vs_E3.png": "4288b4a0b1ebc73d2bdb798fc509112e9f000a1a58638be5d8b774a1cd53ddbc",
+  "Unity/Build/FLIP39/R/turntable_12.png": "f7597d85829bb88fa274d59f1ed5cd5d5f4cd11ba6ae0bfe6674fd53f3631a2d",
+  "Unity/Build/FLIP39/review_angle_timeline.png": "50be64039ffc6315cde9d2e709774d470220fd277f4e752c23652adffbf0d05a"
+ },
+ "evidence": {
+  "ft_v1_seat_x530_z-80.mp4": "fe972503936e4b64280d14ec342299c1229c471fd902fcf0b54c2c107eaaa67b",
+  "ft_v1b_seat_x530_z-80_half.mp4": "bfa0a97343fdd51258a0d8f16a3efff4e4168fdfcf851d58f242d7b195eb2757",
+  "ft_v2_side_sections.mp4": "46d07c5311508944ebc994011f73edb8bbfdeb7238cd5a95f7b59373c6e1ad98",
+  "ft_v3_painting_camera.mp4": "a03ae749663c58f7b7896a6fd94de1e0a9a7f884d7f4d9e45b8cf9961b931ae2",
+  "ft_v4_oblique_fixed.mp4": "918ed6db0770c19b5b495140173e927e6a1a18de831be43a0c9d9b3c3318d853",
+  "ft_1_crash_compare.png": "c2db91a7acb1c9b3ad5771d1c1f15192c964be4e45ecea95a08e81ab34a92423",
+  "ft_2_experiments.png": "34586ebd24b5c7966698d16eb47d3484b807e563a5f2c3760e02bcc06f0724f7",
+  "ft_3_turntable12.png": "f7597d85829bb88fa274d59f1ed5cd5d5f4cd11ba6ae0bfe6674fd53f3631a2d",
+  "ft_4_seat_angle_timeline.png": "50be64039ffc6315cde9d2e709774d470220fd277f4e752c23652adffbf0d05a",
+  "ft_5_cause_crossing.png": "452d13cbd838c1ae7722ee23b8add3bc21bdb9e242a04a4b090005cb747b1dcb"
+ },
+ "docs": {
+  "Docs/Progress/FLIP_TallWave_ja.md": "ed694262c4aad5e38cb2d1dd111c02bb02e4c8e5ad4513559a3b7c2adbe4fc5e",
+  "Docs/Research/PriorWorks_GreatWave_ja.md": "7b326d24097e89a94be9eecac99f70fd0fd1ab731b4aa9c1290a0c6b15ccf42d",
+  "Docs/Research/TallWave_Mechanisms_ja.md": "8613b7186b4d28a3ca82ba64007d7d9d7378eda2bcb098c158ed4f46b8ac025c"
+ }
+}
