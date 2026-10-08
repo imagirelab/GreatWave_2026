@@ -1,0 +1,575 @@
+{
+ "schema": "GreatWave.FLIPMethodCheck.deliver_run/1",
+ "date": "2026-10-09 05:45",
+ "note_ja": "Docs/Evidence/FLIPMethodCheck を作った記録。この段で新しい流体計算・描画はしていない（図は確かめの時に v_figs.py で描いたものの写し）。git の操作とダウンロードはしていない",
+ "commands": [
+  "py -3.10 -B Tools/GWWaveGen/flip41/mc_proposal_numbers.py",
+  "py -3.10 -B Tools/GWWaveGen/flip41/mc_deliver.py"
+ ],
+ "upstream_commands_ja": {
+  "調べ": "py -3.10 b_theory_numbers.py → research/b_theory_numbers.json、py -3.10 wind_estimates.py → research/wind_estimates.json",
+  "場面": "hython Tools/GWWaveGen/flip41/v_build_tank.py → Houdini/FLIP41/v_tank.hiplc（計算ごとには変えない。CTRL の値だけを変える）",
+  "計画": "py -3.10 v_plan_numbers.py → verify/plan_numbers.json、verify/plan_ja.md（走らせる前に書いた）",
+  "計算": "py -3.10 v_cfg.py <組> の JSON → py -3.10 v_chain.py <JSON>（30 分ごとに区切り途中保存から続ける）。列は py -3.10 v_queue.py verify/queue1.txt〜queue5.txt（記録 verify/queue_log.txt・runs.jsonl）",
+  "解析": "py -3.10 v_analyze.py <計算の名前> → runs/<名前>/ana.json、py -3.10 v_summary.py → summary_tables.md・summary.json・t2_summary.json、py -3.10 v_figs.py all → figs/"
+ },
+ "versions": {
+  "python": "3.10.6",
+  "houdini": "Houdini Indie 22.0.459 hython（画面なし。runs.jsonl の全行で 22.0.459）",
+  "unity": "使っていない（作品の場面は開いていない）"
+ },
+ "scene": {
+  "path": "Houdini/FLIP41/v_tank.hiplc",
+  "bytes": 367160,
+  "sha256": "207ae083aa3d3d71050abd2a57dba76ca7c301c0c7abb69f907d945934d33cd4",
+  "same_as_all_runs": true,
+  "note_ja": "キャッシュは含まない。Houdini が自動で書く作者の印と既定の道具のパスを含む（FLIP37・FLIP39 の場面と同じ）"
+ },
+ "tools": {
+  "Tools/GWWaveGen/flip41/b_theory_numbers.py": "156c856fe00025dbdfb6e218555e72ba6a32076dafb12c69e5311810ff2eeb4a",
+  "Tools/GWWaveGen/flip41/mc_deliver.py": "ce9cbd96af90d5f2b8e4379ba972d52ca8b6efc2dd97133ace25b113a12e7929",
+  "Tools/GWWaveGen/flip41/mc_proposal_numbers.py": "f9f14d8931eb6709bb47bf6ed89efbd6ba22fb325465e9008902259481608117",
+  "Tools/GWWaveGen/flip41/v_analyze.py": "758e275175e7a2bda6b19d404752b8c35cff100bbbf46f0281aae50102c7466d",
+  "Tools/GWWaveGen/flip41/v_build_tank.py": "a59976463acc003dcffbb8ce3c88716d7ff9b1a75024a191d495b4a9fdf2963f",
+  "Tools/GWWaveGen/flip41/v_cfg.py": "2e8879f69b5d064972fc4344780dd5cb2832b67b2dfecda31d509329c8bf8e92",
+  "Tools/GWWaveGen/flip41/v_chain.py": "6f3f0576c04bd4c5cac77c138412bd978fbdb1ef327508cc11eea540b7aaa753",
+  "Tools/GWWaveGen/flip41/v_figs.py": "b75d4a497cde4edc74c535984b26b92cbf2a5242da4c645806fc693f239a6414",
+  "Tools/GWWaveGen/flip41/v_lin.py": "8450f6e5449bd34724f4abfffa238c1e9c6c7236da919c0e463b0df2809764b9",
+  "Tools/GWWaveGen/flip41/v_plan_numbers.py": "a6c33b1e0bb06c4e755ae6f45a740e641b414f2af33e3a118e9d18e9be931f5d",
+  "Tools/GWWaveGen/flip41/v_plot.py": "7d3b14f1867c1215e513cf5e2bb9d2a3f659a26526d0b0cfe056e026be872fd7",
+  "Tools/GWWaveGen/flip41/v_queue.py": "0969dde22d50734c4eab10be56e5dcacdf4e9a54f503a0bab84a286de7f88d00",
+  "Tools/GWWaveGen/flip41/v_run.py": "d1ba36f8db8ca68c4302e202ca712acb4eba89dc09a81560718a40772685da42",
+  "Tools/GWWaveGen/flip41/v_summary.py": "733dd082169d792deb10b7be584b033bba81034114d05a0ddd6c3f36b95e97ff",
+  "Tools/GWWaveGen/flip41/v_tanklib.py": "f675d9eebabdedffcd768b21b271736554e5f256ac991ee4497245c265da9836",
+  "Tools/GWWaveGen/flip41/wind_estimates.py": "98124b507efec0804c4e59bc1b83a38aa54512ce5b7eac74e86b6c89810a1a4f",
+  "Tools/GWWaveGen/flip41/x_introspect.py": "bcd15d2dac4673ed39da91f1de5117db5e9658d24c6c10084ac9d45b66e5c2ff",
+  "Tools/GWWaveGen/flip41/x_introspect2.py": "f9281f81bb053e29673276ec557676f76129d2184b8b522e89737e4335f44921",
+  "Tools/GWWaveGen/flip41/x_introspect3.py": "8820472b2723268cc4ff805c9681ad484cd16ae0533c2bc2308cd4bd0e0989ff",
+  "Tools/GWWaveGen/flip41/x_introspect4.py": "3bbf0a9ae60fd414902ad12835eba49095bd93969ae38a860dc387c72850f8d6",
+  "Tools/GWWaveGen/flip41/x_introspect5.py": "530ecf40a92d8aad062fd13f94b6aa7d448473cf4f3a0d938ff3772655d0b4e9",
+  "Tools/GWWaveGen/flip41/x_windtest.py": "707096377ba5fe79b6f3c2e58d0ed131462c4bdbba680c87963dd6b487733ad6"
+ },
+ "runs": {
+  "period": [
+   "2026-10-08 21:19:17",
+   "2026-10-09 05:18:18"
+  ],
+  "n_runs": 33,
+  "n_launches": 36,
+  "wall_h": 7.06,
+  "max_launch_min": 29.1,
+  "per_run": {
+   "T1_dp1": {
+    "launches": 1,
+    "wall_s": 171.7,
+    "particles_max": 43951,
+    "rss_peak_gb": 3.65
+   },
+   "B1_T7_h25_dp1_relax": {
+    "launches": 1,
+    "wall_s": 952.9,
+    "particles_max": 141976,
+    "rss_peak_gb": 3.65
+   },
+   "B1_T5_h25_dp1_relax": {
+    "launches": 1,
+    "wall_s": 211.0,
+    "particles_max": 69568,
+    "rss_peak_gb": 3.7
+   },
+   "B1_T10_h25_dp1_relax": {
+    "launches": 1,
+    "wall_s": 497.3,
+    "particles_max": 263759,
+    "rss_peak_gb": 3.91
+   },
+   "B1_T7_h25_dp1_relax_HL0.02": {
+    "launches": 1,
+    "wall_s": 269.6,
+    "particles_max": 145238,
+    "rss_peak_gb": 3.75
+   },
+   "B1_T7_h25_dp1_relax_HL0.04": {
+    "launches": 1,
+    "wall_s": 261.3,
+    "particles_max": 147446,
+    "rss_peak_gb": 3.78
+   },
+   "B1_T7_h25_dp0.5_relax": {
+    "launches": 1,
+    "wall_s": 687.7,
+    "particles_max": 302549,
+    "rss_peak_gb": 4.01
+   },
+   "B1_T7_h25_dp0.5_relax_HL0.04": {
+    "launches": 1,
+    "wall_s": 1458.8,
+    "particles_max": 307741,
+    "rss_peak_gb": 3.93
+   },
+   "B1_T7_h25_dp1_relax_nb0": {
+    "launches": 1,
+    "wall_s": 454.4,
+    "particles_max": 154066,
+    "rss_peak_gb": 4.03
+   },
+   "B1_T7_h25_dp1_relax_flip": {
+    "launches": 1,
+    "wall_s": 573.1,
+    "particles_max": 147001,
+    "rss_peak_gb": 4.2
+   },
+   "B1_T7_h25_dp1_relax_sub2": {
+    "launches": 1,
+    "wall_s": 1253.6,
+    "particles_max": 139881,
+    "rss_peak_gb": 3.75
+   },
+   "B1_T7_h25_dp1_relax_band12": {
+    "launches": 1,
+    "wall_s": 677.5,
+    "particles_max": 165169,
+    "rss_peak_gb": 3.94
+   },
+   "B1_T7_h10_dp0.25_relax_H1.0": {
+    "launches": 2,
+    "wall_s": 2067.3,
+    "particles_max": 495735,
+    "rss_peak_gb": 3.98
+   },
+   "B1_T7_h5_dp0.25_relax_H0.5": {
+    "launches": 1,
+    "wall_s": 1016.4,
+    "particles_max": 350396,
+    "rss_peak_gb": 3.83
+   },
+   "B1_T7_h25_dp0.5_piston_HL0.04": {
+    "launches": 1,
+    "wall_s": 393.1,
+    "particles_max": 311376,
+    "rss_peak_gb": 3.93
+   },
+   "B1_T5_h25_dp0.5_relax_HL0.04": {
+    "launches": 1,
+    "wall_s": 163.0,
+    "particles_max": 147643,
+    "rss_peak_gb": 4.02
+   },
+   "B1_T10_h25_dp0.5_relax_HL0.04": {
+    "launches": 1,
+    "wall_s": 989.2,
+    "particles_max": 544113,
+    "rss_peak_gb": 4.03
+   },
+   "B1_T7_h25_dp0.25_relax_HL0.04": {
+    "launches": 1,
+    "wall_s": 1192.6,
+    "particles_max": 619831,
+    "rss_peak_gb": 4.13
+   },
+   "T1_dp0.5": {
+    "launches": 1,
+    "wall_s": 101.8,
+    "particles_max": 88319,
+    "rss_peak_gb": 3.91
+   },
+   "B2_T7_h40-12_n20_dp0.5_relax_H2": {
+    "launches": 2,
+    "wall_s": 1958.7,
+    "particles_max": 688382,
+    "rss_peak_gb": 4.19
+   },
+   "B2_T7_h40-12_n20_dp1_relax_H2": {
+    "launches": 1,
+    "wall_s": 794.9,
+    "particles_max": 299489,
+    "rss_peak_gb": 4.06
+   },
+   "B2_T10_h40-12_n20_dp0.5_relax_H1.5": {
+    "launches": 2,
+    "wall_s": 2601.4,
+    "particles_max": 938986,
+    "rss_peak_gb": 4.29
+   },
+   "T1_dp1_nb0": {
+    "launches": 1,
+    "wall_s": 127.5,
+    "particles_max": 49645,
+    "rss_peak_gb": 3.73
+   },
+   "B1_T5_h25_dp0.25_relax_HL0.04": {
+    "launches": 1,
+    "wall_s": 703.9,
+    "particles_max": 316279,
+    "rss_peak_gb": 4.01
+   },
+   "B1_T5_h25_dp0.25_relax_T2N": {
+    "launches": 1,
+    "wall_s": 743.7,
+    "particles_max": 464056,
+    "rss_peak_gb": 4.17
+   },
+   "B1_T5_h25_dp0.25_relax_T2M": {
+    "launches": 1,
+    "wall_s": 750.4,
+    "particles_max": 463962,
+    "rss_peak_gb": 4.23
+   },
+   "B1_T5_h25_dp0.25_relax_T2J": {
+    "launches": 1,
+    "wall_s": 748.4,
+    "particles_max": 463522,
+    "rss_peak_gb": 4.24
+   },
+   "B1_T5_h25_dp0.25_relax_T2MT": {
+    "launches": 1,
+    "wall_s": 754.6,
+    "particles_max": 468320,
+    "rss_peak_gb": 4.17
+   },
+   "T1_dp1_neg": {
+    "launches": 1,
+    "wall_s": 58.9,
+    "particles_max": 44057,
+    "rss_peak_gb": 3.74
+   },
+   "B1_T7_h10_dp0.5_relax_H1.0": {
+    "launches": 1,
+    "wall_s": 234.3,
+    "particles_max": 229249,
+    "rss_peak_gb": 3.84
+   },
+   "B1_T7_h10_dp0.125_relax_H1.0": {
+    "launches": 1,
+    "wall_s": 1277.2,
+    "particles_max": 998539,
+    "rss_peak_gb": 4.43
+   },
+   "B1_T7_h25_dp0.5_relax_HL0.04_sub2": {
+    "launches": 1,
+    "wall_s": 759.7,
+    "particles_max": 308540,
+    "rss_peak_gb": 4.05
+   },
+   "B1_T7_h25_dp0.5_relax_HL0.04_nb0": {
+    "launches": 1,
+    "wall_s": 511.2,
+    "particles_max": 667468,
+    "rss_peak_gb": 4.24
+   }
+  },
+  "other_launches_ja": "道具の試し 3 本（smoke_*）、帯なしの 1 回目（水が落ちて 13 コマで見張りが止めた）、時間のため止めた帯なしの B2（81 秒ぶん）",
+  "other_launches": [
+   {
+    "run_id": "smoke_relax",
+    "date": "2026-10-08 21:19:17",
+    "wall_s": 10.5,
+    "stopped": null
+   },
+   {
+    "run_id": "smoke_piston",
+    "date": "2026-10-08 21:20:27",
+    "wall_s": 58.7,
+    "stopped": null
+   },
+   {
+    "run_id": "B1_T7_h25_dp1_relax_nb0",
+    "date": "2026-10-08 22:39:44",
+    "wall_s": 1.1,
+    "stopped": "free_fall at frame 13 (mean level -1.05 m, start -0.00 m)"
+   },
+   {
+    "run_id": "smoke_probe",
+    "date": "2026-10-08 22:41:27",
+    "wall_s": 14.1,
+    "stopped": null
+   },
+   {
+    "run_id": "B2_T7_h40-12_n20_dp0.5_relax_H2_nb0",
+    "date": "2026-10-09 03:09:50",
+    "wall_s": 1743.2,
+    "stopped": "wall_limit at frame 1517"
+   }
+  ],
+  "runs_jsonl": {
+   "path": "Unity/Build/FLIP41/verify/runs.jsonl",
+   "sha256": "0b4073e46df630e78a8289ab576d66b165e8de0ee90cb9e3d9968037e95fea53",
+   "lines": 41
+  }
+ },
+ "caches": {
+  "surface_records_hf": {
+   "count": 36,
+   "bytes": 998026502,
+   "files": [
+    {
+     "path": "Unity/Build/FLIP41/verify/runs/B1_T10_h25_dp0.5_relax_HL0.04/hf_c0001.npz",
+     "bytes": 55428174,
+     "sha256": "f7b57e89819c07a546b1719f8831e0e584ffe882e6e4c9123e565c1b9e293a34"
+    },
+    {
+     "path": "Unity/Build/FLIP41/verify/runs/B1_T10_h25_dp1_relax/hf_c0001.npz",
+     "bytes": 27353170,
+     "sha256": "c53746d36f7893cb23988a0967c02ac06e7d19435ff49dd5b633abfd2ad8fa7b"
+    },
+    {
+     "path": "Unity/Build/FLIP41/verify/runs/B1_T5_h25_dp0.25_relax_HL0.04/hf_c0001.npz",
+     "bytes": 20041692,
+     "sha256": "cc9b1b1711fcb1d18457f76593735709fafc771aeb49ea935bd0db4b67e43ac7"
+    },
+    {
+     "path": "Unity/Build/FLIP41/verify/runs/B1_T5_h25_dp0.25_relax_T2J/hf_c0001.npz",
+     "bytes": 38989239,
+     "sha256": "7754325e9ccfbf4fe00263c7cc1bb03eecc0a1f3640691c82ae9ab2f7dd5a801"
+    },
+    {
+     "path": "Unity/Build/FLIP41/verify/runs/B1_T5_h25_dp0.25_relax_T2MT/hf_c0001.npz",
+     "bytes": 38977964,
+     "sha256": "fdc890b575d26f2d7227758a6ce45b4ccc61ec8fede07fec884d71727b087a08"
+    },
+    {
+     "path": "Unity/Build/FLIP41/verify/runs/B1_T5_h25_dp0.25_relax_T2M/hf_c0001.npz",
+     "bytes": 38969696,
+     "sha256": "3f5977fe9ef8a582242a8845d40e9cbb655174075cb411236fac3b35a5ac0f9c"
+    },
+    {
+     "path": "Unity/Build/FLIP41/verify/runs/B1_T5_h25_dp0.25_relax_T2N/hf_c0001.npz",
+     "bytes": 38961726,
+     "sha256": "cee858e9479f17b127099cf02efa34f305ef40210e1854e584d6bf331ed711ec"
+    },
+    {
+     "path": "Unity/Build/FLIP41/verify/runs/B1_T5_h25_dp0.5_relax_HL0.04/hf_c0001.npz",
+     "bytes": 9954286,
+     "sha256": "441fee9ce3a7e1e599e7420b5a1f4045fee76175fdd8c9d4c6d97568f13311be"
+    },
+    {
+     "path": "Unity/Build/FLIP41/verify/runs/B1_T5_h25_dp1_relax/hf_c0001.npz",
+     "bytes": 4717318,
+     "sha256": "ee77b43ce9f4e67bc9e0500666bddf7d4fba60c6c7fe79a3d57f97187886e951"
+    },
+    {
+     "path": "Unity/Build/FLIP41/verify/runs/B1_T7_h10_dp0.125_relax_H1.0/hf_c0001.npz",
+     "bytes": 70858665,
+     "sha256": "e5ad886bdd7f3d9774405726d5cce7ad86045cb192bf0679eb062edba0ed4c2e"
+    },
+    {
+     "path": "Unity/Build/FLIP41/verify/runs/B1_T7_h10_dp0.25_relax_H1.0/hf_c0001.npz",
+     "bytes": 32012877,
+     "sha256": "5bfc3cac0d9ec8c0768fbbf9406627d792bbd22d9c45dc2c2aeef6b26a7b2f69"
+    },
+    {
+     "path": "Unity/Build/FLIP41/verify/runs/B1_T7_h10_dp0.25_relax_H1.0/hf_c2161.npz",
+     "bytes": 5183386,
+     "sha256": "824615b2845af0608e0ecb51b7fc1e530f5375cd9489de4c7116888e08374e9a"
+    },
+    {
+     "path": "Unity/Build/FLIP41/verify/runs/B1_T7_h10_dp0.5_relax_H1.0/hf_c0001.npz",
+     "bytes": 17573560,
+     "sha256": "f366140f896adc6425f8c0368520ef75ee21962acb521d50677015bb0e1aaab6"
+    },
+    {
+     "path": "Unity/Build/FLIP41/verify/runs/B1_T7_h25_dp0.25_relax_HL0.04/hf_c0001.npz",
+     "bytes": 50072388,
+     "sha256": "d8423a46e93a4b6fa980f1bfcea45bdfe4a72b48b405851f93db60e25352bf9b"
+    },
+    {
+     "path": "Unity/Build/FLIP41/verify/runs/B1_T7_h25_dp0.5_piston_HL0.04/hf_c0001.npz",
+     "bytes": 24757669,
+     "sha256": "648370d5884934387c6739186d570b179a67554ac16a43d59081e635a6429d31"
+    },
+    {
+     "path": "Unity/Build/FLIP41/verify/runs/B1_T7_h25_dp0.5_relax/hf_c0001.npz",
+     "bytes": 24414541,
+     "sha256": "774c21b3ae8bb3dff21ad8ce3c2b2dfce4be1ac973cdacc46001dba2a53abc61"
+    },
+    {
+     "path": "Unity/Build/FLIP41/verify/runs/B1_T7_h25_dp0.5_relax_HL0.04/hf_c0001.npz",
+     "bytes": 24870371,
+     "sha256": "da662f45580058fb7be256f18b5b09b039faacfe92cf236a0d59371485df996f"
+    },
+    {
+     "path": "Unity/Build/FLIP41/verify/runs/B1_T7_h25_dp0.5_relax_HL0.04_nb0/hf_c0001.npz",
+     "bytes": 24988060,
+     "sha256": "c3bc8d9351cff650deff79e6199f4fe560ca39a0a2edc84338c25e381930b305"
+    },
+    {
+     "path": "Unity/Build/FLIP41/verify/runs/B1_T7_h25_dp0.5_relax_HL0.04_sub2/hf_c0001.npz",
+     "bytes": 25031958,
+     "sha256": "e9d29042b07d0a786aec1ff823bccba0ddee573f647de640d587dc4bbf9222f6"
+    },
+    {
+     "path": "Unity/Build/FLIP41/verify/runs/B1_T7_h25_dp1_relax/hf_c0001.npz",
+     "bytes": 12185053,
+     "sha256": "b4bfc12de49ef94ebca1336e6747ee6c08636bb4688d737f28794ad232a70438"
+    },
+    {
+     "path": "Unity/Build/FLIP41/verify/runs/B1_T7_h25_dp1_relax_HL0.02/hf_c0001.npz",
+     "bytes": 12404211,
+     "sha256": "47ff34fd2e3fabfbc2b7051610b80fb75c5a291b3960edb39005a560c1a73875"
+    },
+    {
+     "path": "Unity/Build/FLIP41/verify/runs/B1_T7_h25_dp1_relax_HL0.04/hf_c0001.npz",
+     "bytes": 12489648,
+     "sha256": "5ab322cdfe5a94149feeea3bd9bdb86aadc8a634245afce807d7455850cfe11d"
+    },
+    {
+     "path": "Unity/Build/FLIP41/verify/runs/B1_T7_h25_dp1_relax_band12/hf_c0001.npz",
+     "bytes": 12168894,
+     "sha256": "633510144871819278fbdd32c6d1ab394dccb66d22d90c48baa3c2f009e408e6"
+    },
+    {
+     "path": "Unity/Build/FLIP41/verify/runs/B1_T7_h25_dp1_relax_flip/hf_c0001.npz",
+     "bytes": 12166381,
+     "sha256": "d6505bcb9803ea9a251faddb6620b0fdcd85971e95ca8b9f02fc7953b4d7acb2"
+    },
+    {
+     "path": "Unity/Build/FLIP41/verify/runs/B1_T7_h25_dp1_relax_nb0/hf_c0001.npz",
+     "bytes": 12245220,
+     "sha256": "199e1cfde4cb5fd84e2dc32708ed4b11889ae4628e36f28720663ba81c30c124"
+    },
+    {
+     "path": "Unity/Build/FLIP41/verify/runs/B1_T7_h25_dp1_relax_sub2/hf_c0001.npz",
+     "bytes": 12212648,
+     "sha256": "bcfbf95ebc66153e6e9fe7273fde211ba9a1b4faa7af400f548c3ac7ddcf9080"
+    },
+    {
+     "path": "Unity/Build/FLIP41/verify/runs/B1_T7_h5_dp0.25_relax_H0.5/hf_c0001.npz",
+     "bytes": 24971735,
+     "sha256": "ac0c4f59ed9605c28c2123b5b4e49d6710f8fa8d263c4fc564db9bed58a5f481"
+    },
+    {
+     "path": "Unity/Build/FLIP41/verify/runs/B2_T10_h40-12_n20_dp0.5_relax_H1.5/hf_c0001.npz",
+     "bytes": 94637954,
+     "sha256": "265c870e05b78bb6d702f8d2fd45edaf96148b30c8d15024c4c3107eb728c68f"
+    },
+    {
+     "path": "Unity/Build/FLIP41/verify/runs/B2_T10_h40-12_n20_dp0.5_relax_H1.5/hf_c3601.npz",
+     "bytes": 51981786,
+     "sha256": "6d154e0538e7ef3077252203d490540e77180ed4ae906e6c5d9f9a469ff36701"
+    },
+    {
+     "path": "Unity/Build/FLIP41/verify/runs/B2_T7_h40-12_n20_dp0.5_relax_H2/hf_c0001.npz",
+     "bytes": 94079603,
+     "sha256": "d92b8b43f9da5ce1cf24380787465ba89b78534907e45d2e1121c508dfd7cbfa"
+    },
+    {
+     "path": "Unity/Build/FLIP41/verify/runs/B2_T7_h40-12_n20_dp0.5_relax_H2/hf_c4801.npz",
+     "bytes": 11537069,
+     "sha256": "fbada7e76c50b7194852c4ccfe23ea37e13a10a3f5ee47fbc544d2359f012ff8"
+    },
+    {
+     "path": "Unity/Build/FLIP41/verify/runs/B2_T7_h40-12_n20_dp1_relax_H2/hf_c0001.npz",
+     "bytes": 51771732,
+     "sha256": "2575eb53eed516a0a340d55328810cb9df828cb8d36913c44b0b3cf07dd6bd5d"
+    },
+    {
+     "path": "Unity/Build/FLIP41/verify/runs/T1_dp0.5/hf_c0001.npz",
+     "bytes": 4195384,
+     "sha256": "f44e715928ed680d68143419202a8497a907b9f682081c58b400bf406568e82e"
+    },
+    {
+     "path": "Unity/Build/FLIP41/verify/runs/T1_dp1/hf_c0001.npz",
+     "bytes": 1656055,
+     "sha256": "f77e7d7d2b08a873b1d03d3dc085638903d5c562c02d35725a7962641135db74"
+    },
+    {
+     "path": "Unity/Build/FLIP41/verify/runs/T1_dp1_nb0/hf_c0001.npz",
+     "bytes": 2069191,
+     "sha256": "25d373e90b2ab0af45d703243c8c63c6b2d3dbc29fe21fb7d139c8c10406d174"
+    },
+    {
+     "path": "Unity/Build/FLIP41/verify/runs/T1_dp1_neg/hf_c0001.npz",
+     "bytes": 2097198,
+     "sha256": "8e8d2103b53ecf5131973c04344a539fb84c119a4a0e73a321ebcae6b6f5ea07"
+    }
+   ]
+  },
+  "checkpoints": {
+   "count": 354,
+   "bytes": 9523165313,
+   "note_ja": "途中保存。解析には使わない。消すかは利用者が決める（SHA-256 は取っていない）"
+  }
+ },
+ "evidence": [
+  {
+   "name": "Docs/Evidence/FLIPMethodCheck/mc_1_B1_summary.png",
+   "sha256": "fca38ebcb0f54b694a19fe8c777d0404fd06c3bbe2dbc48a45eaaa90107f62d0"
+  },
+  {
+   "name": "Docs/Evidence/FLIPMethodCheck/mc_2_old_setting_1m.png",
+   "sha256": "b839bca7e193017d27ac4cbf6c6d6bab2658bc99e1d5fd5bd08bd0f23642cb98"
+  },
+  {
+   "name": "Docs/Evidence/FLIPMethodCheck/mc_3_h10_convergence.png",
+   "sha256": "f68eb0b942f000f249ff12f120966d6d262ac0de5188b164f0c089bfe2e33a49"
+  },
+  {
+   "name": "Docs/Evidence/FLIPMethodCheck/mc_4_B1_convergence.png",
+   "sha256": "4d4544bb823b5bec3fa9e4fab1fd7350fd1de3c6c1eaf27ce6b8efbc6978f181"
+  },
+  {
+   "name": "Docs/Evidence/FLIPMethodCheck/mc_5_amplitude_vs_grid.png",
+   "sha256": "018ac58d233f9198ffde043ca719c5abcb7ce3736c54bc545d7b5795cd29216f"
+  },
+  {
+   "name": "Docs/Evidence/FLIPMethodCheck/mc_6_cause_isolation.png",
+   "sha256": "25ee6f248eed926f1adc32f15266c2f2ff9938777af02714f18aebdc44f036ae"
+  },
+  {
+   "name": "Docs/Evidence/FLIPMethodCheck/mc_7_B2_T10_dp0.5.png",
+   "sha256": "918e03774a9f2d70e2389ed14f061f40f693459fc1919c3888e578ac6ead8874"
+  },
+  {
+   "name": "Docs/Evidence/FLIPMethodCheck/mc_8_T1_pressure_units.png",
+   "sha256": "d6c341380299472025bf2ca68a2b6612c17aaa9e92d43ea470a0ca0923c4954f"
+  },
+  {
+   "name": "Docs/Evidence/FLIPMethodCheck/mc_9_T2_wind_growth.png",
+   "sha256": "9f7160af97b036274c029cc71ea530bb5139a6fddfa1ce55a2dd261ebaaafaca"
+  },
+  {
+   "name": "Docs/Evidence/FLIPMethodCheck/plan_ja.md",
+   "sha256": "15dc20b3a1b4fed3404bd7e134917d4cb589b7ff1ff4208d4b7a7b651bb79a43"
+  },
+  {
+   "name": "Docs/Evidence/FLIPMethodCheck/summary_tables.md",
+   "sha256": "2b062f6e4bd2ca58a7e4f55172c42cd5e408c77706881da3ceb4414fe06d8ecc"
+  },
+  {
+   "name": "Docs/Evidence/FLIPMethodCheck/summary.json",
+   "sha256": "13efb27b26910427504072b7978faae0c6c299e5e165e180a438771b8dc5983f"
+  },
+  {
+   "name": "Docs/Evidence/FLIPMethodCheck/t2_summary.json",
+   "sha256": "319b24a03208012a91585fec27cf19f85b1c76f3f31fa1582c0af6e904e769a3"
+  },
+  {
+   "name": "Docs/Evidence/FLIPMethodCheck/plan_numbers.json",
+   "sha256": "20df9139ba2f2f35a8d56f963cdfbe920886e25225e8784e30fb5ed125f126e6"
+  },
+  {
+   "name": "Docs/Evidence/FLIPMethodCheck/b_theory_numbers.json",
+   "sha256": "b989108e0a83450d8d4a88fb13807e8ae56d0a207d1e9aab5efc23fad63216a6"
+  },
+  {
+   "name": "Docs/Evidence/FLIPMethodCheck/wind_estimates.json",
+   "sha256": "7a70afed2be61485db04a381e0e174fac5ec7ec8e667510a40a604e579eb9778"
+  },
+  {
+   "name": "Docs/Evidence/FLIPMethodCheck/mc_proposal_numbers.json",
+   "sha256": "a60173e53c4037f69554b8cab463d0f2ab699e8b6416f91f59992f0a0985117c"
+  },
+  {
+   "name": "Docs/Research/WaveTank_Benchmarks_ja.md",
+   "sha256": "4c35739f621705660f1c75ad00e05b612196e268bd9369d260cf7c707c071057"
+  },
+  {
+   "name": "Docs/Research/WindWaves_Kanagawa_ja.md",
+   "sha256": "10800f5fab9897667af6f61738ce0ab6a98e5c78a0a0aa591c8b84ff1d6453c4"
+  },
+  {
+   "name": "Docs/Evidence/FLIPMethodCheck/metrics.json",
+   "sha256": "52a13838ddc91da13ff1d2ad575b1c4e651023442f22464abbfb6b34599c8324"
+  }
+ ]
+}

@@ -1,0 +1,10 @@
+import hou
+dop = hou.node("/obj").createNode("dopnet", "X")
+w = dop.createNode("gasfieldwrangle", "w")
+print("wrangle", [(p.name(), p.eval()) for p in w.parms() if not p.name().startswith("folder")][:80])
+fo = dop.createNode("flipobject", "fo")
+print("flipobject", [(p.name(), p.eval()) for p in fo.parms() if any(s in p.name() for s in ("dens", "mass", "visc", "surf", "coll", "vel"))])
+gr = dop.createNode("gravity", "g")
+print("gravity", [(p.name(), p.eval()) for p in gr.parms()][:12])
+fs = dop.createNode("flipsolver::2.0", "fs")
+print("fs", [(p.name(), p.eval()) for p in fs.parms() if any(s in p.name() for s in ("cfl", "substep", "flipblend", "veltransfer", "timescale", "reseed", "extrap", "particleradius", "massscale", "spatialscale"))])
