@@ -1,0 +1,1955 @@
+{
+ "schema": "GreatWave.FLIPPlunging.deliver_run/1",
+ "date": "2026-10-10 18:16",
+ "note_ja": "Docs/Evidence/FLIPPlunging を作った記録。この段で新しい流体の計算はしていない（動画と断面の並びは印の字だけを直して描き直した）。git の操作とダウンロードはしていない。何も消していない。パスはリポジトリからの相対",
+ "report": "Docs/Progress/FLIP_Plunging_ja.md",
+ "commands": [
+  "py -3.10 -B Tools/GWWaveGen/flip42/g_relabel_v2.py orig <一時置き場>   # 元の字で描き直し、利用者に出した物とバイト単位で同じかを確かめた",
+  "py -3.10 -B Tools/GWWaveGen/flip42/g_relabel_v2.py v2 Unity/Build/FLIP42   # 印の字だけを直した _v2",
+  "py -3.10 -B Tools/GWWaveGen/flip42/x_check_relabel.py Unity/Build/FLIP42   # 符号化の前のコマで、違いが字の所だけかを確かめた",
+  "py -3.10 -B Tools/GWWaveGen/flip42/g_deliver_plunging.py   # この証拠"
+ ],
+ "upstream_commands_ja": {
+  "計画": "py -3.10 Tools/GWWaveGen/flip42/p_plan_numbers.py → Unity/Build/FLIP42/plan/plan_numbers.json、plan_ja.md（走らせる前に書いて凍結した）",
+  "場面": "hython Tools/GWWaveGen/flip42/g_build_tank.py → Houdini/FLIP42/g_tank.hiplc（計算ごとには変えない。CTRL の値だけを変える）",
+  "計算": "py -3.10 g_cfg.py → py -3.10 g_chain.py（R1・R1b）／g_chain2.py（R3 から）。30 分以下の起動に区切り途中保存から続ける。起動は g_run.py",
+  "解析": "py -3.10 g_analyze.py <計算> → runs/<計算>/ana.json、py -3.10 g_shape.py <計算>（R5'・R3m は --parent=R3）→ shape.json、g_shape.py --compare → R2/C_*.json、g_compare.py R1 R1b → R1/N1N2.json",
+  "図と動画": "py -3.10 g_figs.py・g_figs2.py → R1/figs・R2/figs、py -3.10 g_video.py・g_preview.py → R1/video・R2/video・preview",
+  "独立の確かめ": "py -3.10 check/R1/check_R1.py、check/R2/check_R2_geom.py → check_R2_more.py → check_R2_spec.py → check_R2_extra.py（解析の道具を使わない）"
+ },
+ "versions": {
+  "python": "3.10.6",
+  "numpy": "2.2.6",
+  "scipy": "1.15.3",
+  "pillow": "12.0.0",
+  "houdini": "Houdini 22.0.466 hython（画面なし。runs.jsonl の全行で 22.0.466。方法の確かめ FLIP41 は 22.0.459）",
+  "ffmpeg": "ffmpeg 2024-12-19-git-494c961379-full_build（libx264、crf 20、yuv420p）",
+  "font": "Yu Gothic（YuGothM.ttc・YuGothB.ttc）"
+ },
+ "scene": {
+  "path": "Houdini/FLIP42/g_tank.hiplc",
+  "bytes": 384078,
+  "sha256": "e17c9aad315aef24fb671ebdef4cafae670b457d2d996f122e9e4aba2f50a922",
+  "mtime": "2026-10-09 13:38:34",
+  "runs_with_this_sha": [
+   "smoke2_dp0.5",
+   "R1",
+   "R1b",
+   "R3",
+   "R3b",
+   "R5p",
+   "R2",
+   "R3m",
+   "R4"
+  ],
+  "note_ja": "道具の試し smoke_dp0.5 の 5 回の起動だけ前の版（小刻みの数え方を直す前）。キャッシュは含まない"
+ },
+ "tools": {
+  "Tools/GWWaveGen/flip42/g_analyze.py": "0a1eedfeb826c469ed48801a2555a9b2e9b2641b6c0632fb49fda6ded1d22ca2",
+  "Tools/GWWaveGen/flip42/g_build_tank.py": "4a709aae81c94b9764dad4d465be90be877692b5723725971abda1433f833493",
+  "Tools/GWWaveGen/flip42/g_cfg.py": "665a67a52d7941279656a0f63d45b9dfd253841f8ab78198df8b5d3d961a4469",
+  "Tools/GWWaveGen/flip42/g_chain.py": "f33377ce629862112c3bf482231fde91408b6c8810c4c52c8375588d91d57b20",
+  "Tools/GWWaveGen/flip42/g_chain2.py": "f0c89ad540e96176b30788aa06698a305c4dda5b1a5ef52765cc8e332f302a4b",
+  "Tools/GWWaveGen/flip42/g_compare.py": "3b5bb35afdb4e2e28afbf5bd55da501edca0cfc2deb0caff6ff67ca5805c02a9",
+  "Tools/GWWaveGen/flip42/g_deliver_plunging.py": "ddb6cfcc1c65cfe5c82406661bdc2d4817ad6b11c70f7f2bef2bcb339591c86d",
+  "Tools/GWWaveGen/flip42/g_figs.py": "e7184266367e4944377bbd0e84ff3382ad59225c811135972d7da3f4e900f849",
+  "Tools/GWWaveGen/flip42/g_figs2.py": "0eee61ba5c74b2cfaac01be7f59962ba5eeb119020d6713a8a90899f8810e033",
+  "Tools/GWWaveGen/flip42/g_plot.py": "7d3b14f1867c1215e513cf5e2bb9d2a3f659a26526d0b0cfe056e026be872fd7",
+  "Tools/GWWaveGen/flip42/g_preview.py": "0da4127795c0be8f4c2af899ff2dbd6a282143bc3bb3fd40fada0ce67ab857c9",
+  "Tools/GWWaveGen/flip42/g_queue2.py": "d187f43482f490f728590d5f433d3dc2f067689bb95a2cfd0f94cdf1bd381dbb",
+  "Tools/GWWaveGen/flip42/g_relabel_v2.py": "05846fdff3f9439f357c1d673cf8eef1b312232e70828b7ef8cdd265139764ae",
+  "Tools/GWWaveGen/flip42/g_run.py": "3a2c354779cab458b8bb4e7281c2d7162c4338b763df1a0bcf26ac1abc4c196e",
+  "Tools/GWWaveGen/flip42/g_shape.py": "c7768bb6cf15d500f95eb46d971e9cfbf095fe923ca2cb15637ba5d727361e64",
+  "Tools/GWWaveGen/flip42/g_tanklib.py": "fa4ca23adf5e8d689cadbed804d056bc05f89f1c96fc3a890e986eb08f58efa5",
+  "Tools/GWWaveGen/flip42/g_unthrottle.py": "213e80ced2b96f58fe87918d1bfd1f3582472dad7f34093c3f986532c8566647",
+  "Tools/GWWaveGen/flip42/g_video.py": "62b40210675da6b0e3aba0e33e25c6fcccac7e63599ff9ca6f0c09399a0d326f",
+  "Tools/GWWaveGen/flip42/p_plan_numbers.py": "0821a848f12f1b64c62842e736945c9106f050a30bce37e37a1a0fa206ec5b79",
+  "Tools/GWWaveGen/flip42/p_plan_numbers_v0.py": "229d810a974e926504eab820407d8424a1840cb3a0cc8ab9846e6f60c542460b",
+  "Tools/GWWaveGen/flip42/q44_check_newwave_height.py": "dfcab32b70eb1f37d738a92f5ef96c809414ef321c35a606ee8939c727b79f98",
+  "Tools/GWWaveGen/flip42/q44_newwave_height.py": "dda065d2d6ff48357a337022393267d0d4d337f700c136c6355e005e0a975ff1",
+  "Tools/GWWaveGen/flip42/r_review_numbers.py": "36f8da17f4a9ad1e7706d928c1b3dd428a1b86105daddb96a4676af29c239f9d",
+  "Tools/GWWaveGen/flip42/v_lin.py": "8450f6e5449bd34724f4abfffa238c1e9c6c7236da919c0e463b0df2809764b9",
+  "Tools/GWWaveGen/flip42/x_check_relabel.py": "e11c80a43a1f4cf89afb841bb6df19a086093b9f5b49ad8bba5bd2780ef92d8d",
+  "Tools/GWWaveGen/flip42/x_check_vex.py": "fd6d9b2654252b94a652314bc58da18b461b6cc31dc3c0f33cbaafebac70bdc8",
+  "Tools/GWWaveGen/flip42/x_debug_r4.py": "6abaa1179de8fa0fa0a8d299cf62b76be6f704993ed5cbd6126439ecc92e8fe2",
+  "Tools/GWWaveGen/flip42/x_errs_r4.py": "b8a84eb91578cb40999709a8b87aaac078d7a3269812dd4888cb2c5ba689ffe9",
+  "Tools/GWWaveGen/flip42/x_fields_r4.py": "18b2ef3920bfa4640bc852e72f3a02254dd9eb553808912c7b59e75c52e8cc9e",
+  "Tools/GWWaveGen/flip42/x_introspect_fs.py": "46c57cb4b5a1d9094a2e433f7c925984a9c1fdb25a75b87a4602d3a7c7d34154",
+  "Tools/GWWaveGen/flip42/x_introspect_gw.py": "c24f7c6fc25d7ac73d9b75637dbf244858ebde83aada69da05de80a55643147b",
+  "Tools/GWWaveGen/flip42/x_introspect_proj.py": "50de87a8b228c8ecc78b6427684f9dee06f5af73f627078a47366f1ce30fcd9d",
+  "Tools/GWWaveGen/flip42/x_try_r4.py": "db091035ee7bbab3a26e955bf6483d43aba8504bfbc35339a1550612ce5f43ce"
+ },
+ "tools_excluded_ja": "Tools/GWWaveGen/flip42/x_r4fix_*.py：R4 の原因の診断（別に走っている）の途中の道具。この報告にも証拠にも使っていない。診断の結果と一緒に扱う",
+ "tools_changed_after_runs_ja": "g_cfg.py（10/10 15:16）と g_run.py（10/10 15:19）は、R1・R1b・R3・R3b・R5'・R2 を走らせた後に R4 のために足した（解き方の設定を cfg から渡して FLIP Solver に入れる所と、水面の場が作られない時に記録を残して止まる所）。R3m と R4 はこの版で走った。前の版のファイルは残していない。各計算で実際に使った解き方の設定は、起動ごとに Houdini から読み戻して runs.jsonl の solver_parms に残してある",
+ "runs": {
+  "smoke_dp0.5": {
+   "launches": 5,
+   "hours": 0.071,
+   "first": "2026-10-09 13:33:27",
+   "frames": [
+    1,
+    200
+   ],
+   "dp": 0.5,
+   "narrowband": 1,
+   "cfl": 1.0,
+   "minsub": 2.0,
+   "mg_preconditioner": 0,
+   "hip_sha256": [
+    "c88597dbd00a11db53a1e4b7f0ac45dfb5e6ca0fde6d5ccc065eeb4e63c629f9"
+   ],
+   "houdini": [
+    "22.0.466"
+   ],
+   "last": "2026-10-09 13:37:25",
+   "stopped_last": "wall_limit at frame 200",
+   "particles_max": 655881,
+   "note_ja": "道具の試し（粒子 0.5 m、200 コマ、起動の区切りと再開）。場面の前の版"
+  },
+  "smoke2_dp0.5": {
+   "launches": 1,
+   "hours": 0.011,
+   "first": "2026-10-09 13:39:22",
+   "frames": [
+    1,
+    30
+   ],
+   "dp": 0.5,
+   "narrowband": 1,
+   "cfl": 1.0,
+   "minsub": 2.0,
+   "mg_preconditioner": 0,
+   "hip_sha256": [
+    "e17c9aad315aef24fb671ebdef4cafae670b457d2d996f122e9e4aba2f50a922"
+   ],
+   "houdini": [
+    "22.0.466"
+   ],
+   "last": "2026-10-09 13:39:22",
+   "stopped_last": null,
+   "particles_max": 651271,
+   "note_ja": "道具の試し（小刻みの数え方の直しの確かめ、30 コマ）"
+  },
+  "R1": {
+   "launches": 2,
+   "hours": 0.892,
+   "first": "2026-10-09 14:08:49",
+   "frames": [
+    1,
+    4508
+   ],
+   "dp": 0.5,
+   "narrowband": 1,
+   "cfl": 1.0,
+   "minsub": 1.0,
+   "mg_preconditioner": 0,
+   "hip_sha256": [
+    "e17c9aad315aef24fb671ebdef4cafae670b457d2d996f122e9e4aba2f50a922"
+   ],
+   "houdini": [
+    "22.0.466"
+   ],
+   "last": "2026-10-09 14:33:25",
+   "stopped_last": null,
+   "particles_max": 771434,
+   "note_ja": "粒子 0.5 m・粒子の帯 4 m。下見と帯の判定。巻かなかった"
+  },
+  "R1b": {
+   "launches": 3,
+   "hours": 1.259,
+   "first": "2026-10-09 15:02:35",
+   "frames": [
+    1,
+    4508
+   ],
+   "dp": 0.5,
+   "narrowband": 0,
+   "cfl": 1.0,
+   "minsub": 1.0,
+   "mg_preconditioner": 0,
+   "hip_sha256": [
+    "e17c9aad315aef24fb671ebdef4cafae670b457d2d996f122e9e4aba2f50a922"
+   ],
+   "houdini": [
+    "22.0.466"
+   ],
+   "last": "2026-10-09 15:49:14",
+   "stopped_last": null,
+   "particles_max": 2817198,
+   "note_ja": "粒子 0.5 m・帯なし。帯の判定（N2 が外れ、以後は帯なし）"
+  },
+  "R3": {
+   "launches": 26,
+   "hours": 12.385,
+   "first": "2026-10-09 16:28:40",
+   "frames": [
+    1,
+    4508
+   ],
+   "dp": 0.25,
+   "narrowband": 0,
+   "cfl": 1.0,
+   "minsub": 1.0,
+   "mg_preconditioner": 0,
+   "hip_sha256": [
+    "e17c9aad315aef24fb671ebdef4cafae670b457d2d996f122e9e4aba2f50a922"
+   ],
+   "houdini": [
+    "22.0.466"
+   ],
+   "last": "2026-10-10 04:28:00",
+   "stopped_last": null,
+   "particles_max": 11269961,
+   "note_ja": "粒子 0.25 m・帯なし。評価の主な計算。154.7 s に巻き始め。21〜04 時は別のプログラムで遅くなった"
+  },
+  "R3b": {
+   "launches": 10,
+   "hours": 4.845,
+   "first": "2026-10-10 04:58:40",
+   "frames": [
+    1,
+    3144
+   ],
+   "dp": 0.25,
+   "narrowband": 0,
+   "cfl": 1.0,
+   "minsub": 1.0,
+   "mg_preconditioner": 0,
+   "hip_sha256": [
+    "e17c9aad315aef24fb671ebdef4cafae670b457d2d996f122e9e4aba2f50a922"
+   ],
+   "houdini": [
+    "22.0.466"
+   ],
+   "last": "2026-10-10 09:25:49",
+   "stopped_last": "wall_limit at frame 3144",
+   "particles_max": 12043211,
+   "note_ja": "R3 の帯を 2 Lc に（A1 の 1 回目の直し）。直らなかった。11 回目の起動（09:25:51〜09:47:26、3082 コマ目から）を 3360 コマ目（140 s）で手で止めた。その起動は runs.jsonl に行がない（launches・hours・frames は runs.jsonl の 10 行の値。記録で終わったコマは 3360：runs/R3b/chain.log・log_c3082.txt）",
+   "frames_done_by_log": 3360
+  },
+  "R5p": {
+   "launches": 4,
+   "hours": 1.939,
+   "first": "2026-10-10 10:17:46",
+   "frames": [
+    3319,
+    3811
+   ],
+   "dp": 0.25,
+   "narrowband": 0,
+   "cfl": 0.5,
+   "minsub": 2.0,
+   "mg_preconditioner": 0,
+   "hip_sha256": [
+    "e17c9aad315aef24fb671ebdef4cafae670b457d2d996f122e9e4aba2f50a922"
+   ],
+   "houdini": [
+    "22.0.466"
+   ],
+   "last": "2026-10-10 11:45:19",
+   "stopped_last": "wall_limit at frame 3811",
+   "particles_max": 10978314,
+   "note_ja": "R3 の 138.2 s から CFL 半分・最小小刻み 2（時間の刻み）。158.8 s で止めた"
+  },
+  "R2": {
+   "launches": 8,
+   "hours": 3.479,
+   "first": "2026-10-10 12:14:27",
+   "frames": [
+    1,
+    4508
+   ],
+   "dp": 0.35,
+   "narrowband": 0,
+   "cfl": 1.0,
+   "minsub": 1.0,
+   "mg_preconditioner": 0,
+   "hip_sha256": [
+    "e17c9aad315aef24fb671ebdef4cafae670b457d2d996f122e9e4aba2f50a922"
+   ],
+   "houdini": [
+    "22.0.466"
+   ],
+   "last": "2026-10-10 15:14:49",
+   "stopped_last": null,
+   "particles_max": 5753252,
+   "note_ja": "粒子 0.35 m・帯なし（細かさの並び、条件つき）"
+  },
+  "R3m": {
+   "launches": 2,
+   "hours": 0.971,
+   "first": "2026-10-10 15:48:21",
+   "frames": [
+    3319,
+    3800
+   ],
+   "dp": 0.25,
+   "narrowband": 0,
+   "cfl": 1.0,
+   "minsub": 1.0,
+   "mg_preconditioner": 1,
+   "hip_sha256": [
+    "e17c9aad315aef24fb671ebdef4cafae670b457d2d996f122e9e4aba2f50a922"
+   ],
+   "houdini": [
+    "22.0.466"
+   ],
+   "last": "2026-10-10 16:17:39",
+   "stopped_last": "wall_limit at frame 3800",
+   "particles_max": 10981910,
+   "note_ja": "R3 の 138.2 s から圧力の前処理だけ多重格子。158.3 s まで"
+  },
+  "R4": {
+   "launches": 1,
+   "hours": 0.027,
+   "first": "2026-10-10 16:19:27",
+   "frames": [
+    1,
+    12
+   ],
+   "dp": 0.177,
+   "narrowband": 0,
+   "cfl": 1.0,
+   "minsub": 1.0,
+   "mg_preconditioner": 1,
+   "hip_sha256": [
+    "e17c9aad315aef24fb671ebdef4cafae670b457d2d996f122e9e4aba2f50a922"
+   ],
+   "houdini": [
+    "22.0.466"
+   ],
+   "last": "2026-10-10 16:19:27",
+   "stopped_last": "free_fall at frame 12 (mean level -1.06 m, start -0.00 m)",
+   "particles_max": 12871944,
+   "note_ja": "粒子 0.177 m・前処理は多重格子。12 コマで水が自由落下し、見張りで止まった。前の不完全コレスキーの起動（15:14:52〜15:15:08）は記録を書く前に止まった（runs.jsonl に行がない）"
+  }
+ },
+ "runs_total": {
+  "launches": 62,
+  "hours": 25.88
+ },
+ "runs_total_with_unrecorded": {
+  "launches": 64,
+  "hours": 26.24,
+  "note_ja": "runs.jsonl の行の起動に、行のない起動（unrecorded_launches）を足した数。R4 の数コマの試し 11 通りは含まない"
+ },
+ "unrecorded_launches": [
+  {
+   "run": "R3b",
+   "start": "2026-10-10 09:25:51",
+   "end": "2026-10-10 09:47:26",
+   "hours": 0.36,
+   "frames": [
+    3082,
+    3360
+   ],
+   "why_ja": "進行役が手で止めた（A1 が直らなかった）。log_c3082.txt・hf_c3082.npz は残っている"
+  },
+  {
+   "run": "R4",
+   "start": "2026-10-10 15:14:52",
+   "end": "2026-10-10 15:15:08",
+   "hours": 0.004,
+   "frames": [
+    1,
+    1
+   ],
+   "why_ja": "前処理が不完全コレスキーの起動。2 コマ目で水面の場が作られず、起動の記録を書く前に止まった（runs/R4/log_c0001_failed_IC.txt）"
+  }
+ ],
+ "runs_not_in_jsonl_ja": [
+  "R3b の 11 回目の起動（2026-10-10 09:25:51〜09:47:26、3082 → 3360 コマ）：進行役が手で止めた（runs/R3b/chain.log の最後の行、0.36 h）",
+  "R4 の最初の起動（2026-10-10 15:15、前処理は不完全コレスキー）：2 コマ目に止まり、起動の記録が残らなかった（runs/R4/chain.log「no run record for chunk 1 (crash?)」、0.005 h）",
+  "R4 の数コマの試し 11 通り（15:16〜16:42。tools x_try_r4.py・x_debug_r4.py。出力は tmp_houdini/r4dbg/、下の r4dbg_outputs）"
+ ],
+ "relabel": {
+  "why_ja": "独立の確かめ（check/R2/check_ja.md の見つけた所 2）：D&K の t_ob・x_ob は表 3.1「Input parameters for the simulated cases」の値で、測った値とは書かれていない。R3 の最初の「着水」は唇の先が前の面（静かな水面から 5〜7 m）に付いた時で、噴流の先は静かな水面に届いていない",
+  "changed_strings": {
+   "preview/R2_first_side.mp4 → _v2": {
+    "場所の印": [
+     "実験の着水 584.5 m（D&K）",
+     "D&K の表の着水の値 584.5 m（計算の条件の表）"
+    ],
+    "時間の帯": [
+     "実験の着水",
+     "D&K の表の着水の値（計算の条件の表）"
+    ],
+    "時間の帯（R3）": [
+     "着水",
+     "唇が前の面に付いた時（記録の着水）"
+    ]
+   },
+   "R2/R2_side_finest.mp4 → _v2": {
+    "場所の印": [
+     "D&K の着水 584.5 m",
+     "D&K の表の着水の値 584.5 m（計算の条件の表）"
+    ],
+    "時間の帯": [
+     "D&K の着水の時刻",
+     "D&K の表の着水の値（計算の条件の表）"
+    ],
+    "時間の帯（R3）": [
+     "着水",
+     "唇が前の面に付いた時（記録の着水）"
+    ]
+   },
+   "preview/R2_first_strip.png → _v2": {
+    "8 枚目の題": [
+     "着水",
+     "唇が前の面に付いた時・記録の「着水」"
+    ],
+    "note_ja": "この図には D&K の印はない"
+   }
+  },
+  "unchanged_ja": "描き方・窓・時刻・コマ・数・符号化の設定は同じ（g_preview.py・g_video.py の字の辞書 LAB だけを差し替えた）",
+  "reproduction_ja": "元の字のまま描き直した 4 つ（下の reproduced_byte_identical）は、利用者に出した物と SHA-256 が同じだった（2026-10-10 17:38）。道具と記録は、出した時と同じ物を描く",
+  "reproduced_byte_identical": [
+   {
+    "path": "Unity/Build/FLIP42/preview/R2_first_side.mp4",
+    "bytes": 3935201,
+    "sha256": "3734c80c23a09d18211a9905f834853a4fa6f02f9838bd4861a85a91b2e74ccc",
+    "mtime": "2026-10-10 04:59:57"
+   },
+   {
+    "path": "Unity/Build/FLIP42/preview/R2_first_strip.png",
+    "bytes": 105826,
+    "sha256": "285a67ad9cd2a90c7ec95b913a7e8ff657a6d6ffbf6d4780083df26b2874a06d",
+    "mtime": "2026-10-10 05:01:26"
+   },
+   {
+    "path": "Unity/Build/FLIP42/R2/R2_side_finest.mp4",
+    "bytes": 3180678,
+    "sha256": "571d83cce4af74684f9aaa464ea8874232105270eb7a090b9b57e0ed4f50f437",
+    "mtime": "2026-10-10 16:52:45"
+   },
+   {
+    "path": "Unity/Build/FLIP42/R2/video/R3_crest.mp4",
+    "bytes": 2340894,
+    "sha256": "f2aa482080bfd123482eb7386853b3da1b16be8ba527aaef90c124316a05786f",
+    "mtime": "2026-10-10 16:52:44"
+   }
+  ],
+  "v2_files": [
+   {
+    "path": "Unity/Build/FLIP42/preview/R2_first_side_v2.mp4",
+    "bytes": 4012534,
+    "sha256": "3e1cbd38c675384e202019b115c377a8ea68b1624c833526b5c81a9df0021c61",
+    "mtime": "2026-10-10 17:41:51"
+   },
+   {
+    "path": "Unity/Build/FLIP42/preview/R2_first_strip_v2.png",
+    "bytes": 111119,
+    "sha256": "644f17902d3400a56524e5ceb6f89c8528e28d1c8e0000bad46af28387fb9596",
+    "mtime": "2026-10-10 17:41:55"
+   },
+   {
+    "path": "Unity/Build/FLIP42/R2/R2_side_finest_v2.mp4",
+    "bytes": 3235259,
+    "sha256": "53decfebdec3b239f70dad4346cd75f5bf5975a996704ec0f0284e4acfcc6cfe",
+    "mtime": "2026-10-10 17:44:32"
+   },
+   {
+    "path": "Unity/Build/FLIP42/R2/video_v2/R3_crest.mp4",
+    "bytes": 2371497,
+    "sha256": "81cf59fcaf9d1ea89d5435b69fad75ca2b6b6e3b3e4febf8f8d82209dc31f93d",
+    "mtime": "2026-10-10 17:44:31"
+   },
+   {
+    "path": "Unity/Build/FLIP42/R2/video_v2/R3_crest_half.mp4",
+    "bytes": 3235259,
+    "sha256": "53decfebdec3b239f70dad4346cd75f5bf5975a996704ec0f0284e4acfcc6cfe",
+    "mtime": "2026-10-10 17:44:32"
+   }
+  ],
+  "pixel_check": "flip42/preview/relabel_check.json"
+ },
+ "copies": [
+  {
+   "name": "Docs/Evidence/FLIPPlunging/fp_1_side_R3_v2.mp4",
+   "src": "Unity/Build/FLIP42/preview/R2_first_side_v2.mp4",
+   "bytes": 4012534,
+   "sha256": "3e1cbd38c675384e202019b115c377a8ea68b1624c833526b5c81a9df0021c61",
+   "same_as_src": true,
+   "note_ja": "R3（粒子 0.25 m）を横から。上の段は造波板から 300〜750 m（群が集まり、険しくなる所）、下の段は巻き始めの頂の周り 460〜568 m。114.5 s から巻き始めの 1.5 Tc 前までは実時間、そこから半分の速さ。縦横同じ縮尺、赤い縦棒＝10 m、点線＝静かな水面。印の字だけを直した版（元は preview/R2_first_side.mp4。「実験の着水」→「D&K の表の着水の値（計算の条件の表）」、R3 の「着水」→「唇が前の面に付いた時（記録の着水）」）"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/fp_2_crest_R3_half_v2.mp4",
+   "src": "Unity/Build/FLIP42/R2/R2_side_finest_v2.mp4",
+   "bytes": 3235259,
+   "sha256": "53decfebdec3b239f70dad4346cd75f5bf5975a996704ec0f0284e4acfcc6cfe",
+   "same_as_src": true,
+   "note_ja": "R3 の頂の周り（巻き始めの頂 507 m の ±1 波長と ±0.4 波長の拡大）、138.2 s から、半分の速さ。印の字だけを直した版（元は R2/R2_side_finest.mp4。「D&K の着水」→「D&K の表の着水の値（計算の条件の表）」、R3 の「着水」→「唇が前の面に付いた時（記録の着水）」）"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/fp_3_strip_R3_v2.png",
+   "src": "Unity/Build/FLIP42/preview/R2_first_strip_v2.png",
+   "bytes": 111119,
+   "sha256": "644f17902d3400a56524e5ceb6f89c8528e28d1c8e0000bad46af28387fb9596",
+   "same_as_src": true,
+   "note_ja": "R3 の断面の並び（巻き始めにそろえた −0.3〜+0.3 Tc と最初の接触）。数字は η_c と H（前の谷まで）。8 枚目の題だけを「着水」→「唇が前の面に付いた時・記録の「着水」」に直した版（元は preview/R2_first_strip.png）"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/fp_4_xt_R3.png",
+   "src": "Unity/Build/FLIP42/R2/figs/xt_R3.png",
+   "bytes": 371974,
+   "sha256": "929bb72c03a9c3ac8fdcfebf8efe7cf9b0f776859a4d18f89d5965dbd3237d2c",
+   "same_as_src": true,
+   "note_ja": "R3 の水面の高さの時間と場所の図（群が集まる様子）。緑の点「D&K の着水」は D&K の表 3.1（計算の条件の表）の t_ob・x_ob を 70 倍した値"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/fp_5_gauges_R2_R3.png",
+   "src": "Unity/Build/FLIP42/R2/figs/gauges.png",
+   "bytes": 97605,
+   "sha256": "01155cb77a5e152d12581584e53ee326aa8ae6c205c06664c926297efdaef51f",
+   "same_as_src": true,
+   "note_ja": "測る点の水面の時系列（R2・R3）と、造波板の位置の目標を線形で進めた値（灰）。位置は造波板から"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/fp_6_spectra_A1_A2.png",
+   "src": "Unity/Build/FLIP42/R2/figs/spectra.png",
+   "bytes": 68351,
+   "sha256": "3738ecb7008272cac2cdba806822cd72ff63ed19db8c589ce01eba8c2b3e9deb",
+   "same_as_src": true,
+   "note_ja": "A1（帯の出口の線形に対する振幅の比と位相）と A2'（帯の出口 → −15 の点の速さの誤差と振幅の変化）。赤い横線は A1 の幅"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/fp_7_crestmax_R2_R3.png",
+   "src": "Unity/Build/FLIP42/R2/figs/crestmax.png",
+   "bytes": 41938,
+   "sha256": "3ccfc97eca181fd81c8cff7136f3e79914811b9138ec82c3b3dcfbf257f8a22a",
+   "same_as_src": true,
+   "note_ja": "各場所の最大の頂 η_c（60 s から終わりまで）と線形の重ね合わせ。上の端の「実験で崩れた範囲」と「D&K の着水」の字は重なっている。「D&K の着水」は D&K の表（計算の条件の表）の x_ob"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/fp_8_c_overlay.png",
+   "src": "Unity/Build/FLIP42/R2/figs/c_overlay.png",
+   "bytes": 70423,
+   "sha256": "e2dd35175d888106afe5265e8ddc0d4f780f8b788c55006a7a148f327b148458",
+   "same_as_src": true,
+   "note_ja": "巻き始めにそろえた時刻の断面の線を重ねた図（R2・R3・R5'・R3m）。「着水」は記録の決まり（唇が前の面に付いて空気を囲んだ時）"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/fp_9_c_strip_R2_R3_R5p.png",
+   "src": "Unity/Build/FLIP42/R2/figs/c_strip_R2_R3_R5p.png",
+   "bytes": 244434,
+   "sha256": "21133967ef469d6ce934b367e9e3528b15df954693735ba142bc8df3d906a319",
+   "same_as_src": true,
+   "note_ja": "R2・R3・R5' の断面の並び（同じ時刻の位置で上下に）。「着水」は記録の決まり（唇が前の面に付いて空気を囲んだ時）"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/flip42/plan/plan_ja.md",
+   "src": "Unity/Build/FLIP42/plan/plan_ja.md",
+   "bytes": 49371,
+   "sha256": "4f9dbbe032e37d0f61c7eb49f7d09796f177a2477f1b3073027cb2b6f503c81b",
+   "same_as_src": true,
+   "note_ja": "凍結した計画（2026-10-09 13:18）。SHA-256 は plan_frozen.json と同じ"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/flip42/plan/plan_numbers.json",
+   "src": "Unity/Build/FLIP42/plan/plan_numbers.json",
+   "bytes": 27383,
+   "sha256": "2abe20af327582b26837a5710d0f5795c824f4aa694cdb53907d34de2774d065",
+   "same_as_src": true,
+   "note_ja": "凍結した計画の数"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/flip42/plan/plan_frozen.json",
+   "src": "Unity/Build/FLIP42/plan/plan_frozen.json",
+   "bytes": 2583,
+   "sha256": "8d396315f4b94521219523022428e59e39a90cb223605ff778e518341a479b8a",
+   "same_as_src": true,
+   "note_ja": "凍結の記録（SHA-256）"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/flip42/plan/review_ja.md",
+   "src": "Unity/Build/FLIP42/plan/review_ja.md",
+   "bytes": 33551,
+   "sha256": "41c21c24f2705bad256b86a1006c371fbf57c71a4dd9cfc4fc2682942287aff0",
+   "same_as_src": true,
+   "note_ja": "走らせる前の見直し"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/flip42/plan/review_numbers.json",
+   "src": "Unity/Build/FLIP42/plan/review_numbers.json",
+   "bytes": 22938,
+   "sha256": "56384269d748b785b0c940a6c982dcf24eb003d4a214778b8613aab161720080",
+   "same_as_src": true,
+   "note_ja": "見直しの数"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/flip42/record_ja.md",
+   "src": "Unity/Build/FLIP42/record_ja.md",
+   "bytes": 26582,
+   "sha256": "08be23fa2b1214ade62fe0e060870cf34fb7a1fb0bf0a59ef6378f2669793fdd",
+   "same_as_src": false,
+   "note_ja": "計算の記録（計画の読み方、計画から変えた所 1〜5、R4 の試し）。10/10 17:45 の写し（SNAPSHOT_KEEP）",
+   "snapshot_ja": "2026-10-10 17:45 の版。その後、17:55〜17:58 に R4 の診断が「計画から変えた所」6 と「R4 の試し」への注を、18:12 に進行役が「計画の読み方」8 についての追記を、元の記録に書き足した。報告は診断の途中の結果を使わないので、写しは 17:45 の版のまま",
+   "src_now": {
+    "path": "Unity/Build/FLIP42/record_ja.md",
+    "bytes": 29890,
+    "sha256": "dc5221f037bd21e93869a8377af06e8236504f05da377345bbb5a4260b37f0d9",
+    "mtime": "2026-10-10 18:14:22"
+   }
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/flip42/R1/record_ja.md",
+   "src": "Unity/Build/FLIP42/R1/record_ja.md",
+   "bytes": 21567,
+   "sha256": "66afc3bf03fcce0c8f1ea16a2719b09c056f7d2595f58631dc2c9a96525b0513",
+   "same_as_src": true,
+   "note_ja": "R1・R1b（粒子 0.5 m）の段の記録"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/flip42/R1/N1N2.json",
+   "src": "Unity/Build/FLIP42/R1/N1N2.json",
+   "bytes": 3201,
+   "sha256": "936b33ed6f46204edf2f886526296f12997401bc44a6c5783b15a34e27b69f58",
+   "same_as_src": true,
+   "note_ja": "粒子の帯の判定 N1・N2"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/flip42/R2/record_ja.md",
+   "src": "Unity/Build/FLIP42/R2/record_ja.md",
+   "bytes": 29078,
+   "sha256": "474badcd83bbc6e14871cc44de70354aecdc0ee466afa472a852f34d0ccb65d7",
+   "same_as_src": true,
+   "note_ja": "R3・R3b・R5'・R2・R3m・R4 の段の記録（§3・§4 の「235 m」「343 m」は帯の出口の測る点からの距離）"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/flip42/R2/C_R3_vs_R5p.json",
+   "src": "Unity/Build/FLIP42/R2/C_R3_vs_R5p.json",
+   "bytes": 765,
+   "sha256": "440200700f1329239e543ccac59acb6a1985029861d88db0d28ea8603164a377",
+   "same_as_src": true,
+   "note_ja": "(c) 時間の刻みの比べ"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/flip42/R2/C_R2_vs_R3.json",
+   "src": "Unity/Build/FLIP42/R2/C_R2_vs_R3.json",
+   "bytes": 761,
+   "sha256": "6a6512267237c6bcd23918e88944415a2e1065f9f5b59507d2f947b60dc62f4d",
+   "same_as_src": true,
+   "note_ja": "(c) 細かさの比べ（条件つき）"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/flip42/R2/C_R3_vs_R3m.json",
+   "src": "Unity/Build/FLIP42/R2/C_R3_vs_R3m.json",
+   "bytes": 734,
+   "sha256": "4bdb4d8cf1f034f696519443adbc6c1f3a71bb9222871bbaf095d5de5aa53a6f",
+   "same_as_src": true,
+   "note_ja": "圧力の前処理の効き"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/flip42/check/R1/check_ja.md",
+   "src": "Unity/Build/FLIP42/check/R1/check_ja.md",
+   "bytes": 23119,
+   "sha256": "b268ffd0a73aead881ba57b8f1ed86d0ef675d23b69cc45aea73c8b03a01c936",
+   "same_as_src": true,
+   "note_ja": "R1・R1b の独立の確かめ"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/flip42/check/R1/check_R1.json",
+   "src": "Unity/Build/FLIP42/check/R1/check_R1.json",
+   "bytes": 42309,
+   "sha256": "8a51b04362842e3ab8e82a951d8ecec058c489a857c7aef95f884662f5dfd718",
+   "same_as_src": true,
+   "note_ja": "同じ、出力"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/flip42/check/R1/check_R1.py",
+   "src": "Unity/Build/FLIP42/check/R1/check_R1.py",
+   "bytes": 27541,
+   "sha256": "772c8ca3b9b2016370ce2ca22b27aaa939a87e6965077a45e9254c9d8bdc458d",
+   "same_as_src": true,
+   "note_ja": "同じ、確かめの道具（解析の道具を使わない自前の計算）"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/flip42/check/R2/check_ja.md",
+   "src": "Unity/Build/FLIP42/check/R2/check_ja.md",
+   "bytes": 28360,
+   "sha256": "a2cfe2f978046433bf55b163222a1a7dda3a6376ceaa9e88e3b1ab70be6dc924",
+   "same_as_src": true,
+   "note_ja": "R2 の段の独立の確かめ（唇と 2 つ目の噴流が落ち着かないこと、D3 の出来事の違い、H の谷の選び方など 11 点）"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/flip42/check/R2/check_R2_load.json",
+   "src": "Unity/Build/FLIP42/check/R2/check_R2_load.json",
+   "bytes": 2643,
+   "sha256": "85b04484eddb5e0dab94c8f14106fa34ab4fc78642bd97040a0a1a873dacb94c",
+   "same_as_src": true,
+   "note_ja": "同じ、記録の範囲・重なり・静かな水面"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/flip42/check/R2/check_R2_geom.json",
+   "src": "Unity/Build/FLIP42/check/R2/check_R2_geom.json",
+   "bytes": 28491,
+   "sha256": "ccef84f19094649a96c969981e8a7d5929310be93cf39ffc560d0a71d33c4056",
+   "same_as_src": true,
+   "note_ja": "同じ、巻き始め・着水・巻き始めにそろえた量"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/flip42/check/R2/check_R2_rows.json",
+   "src": "Unity/Build/FLIP42/check/R2/check_R2_rows.json",
+   "bytes": 1570834,
+   "sha256": "5847158e84bfe7c900f6a67e5dbc588bff0fd1883f450cbe13942692ba6c986f",
+   "same_as_src": true,
+   "note_ja": "同じ、全コマの量"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/flip42/check/R2/check_R2_more.json",
+   "src": "Unity/Build/FLIP42/check/R2/check_R2_more.json",
+   "bytes": 7972,
+   "sha256": "72d22fcbf7727cb8355f82de69cdbc603fb52560f95565be8efb50509a8a3df3",
+   "same_as_src": true,
+   "note_ja": "同じ、最大の頂・測る点・群の次の頂・小刻み"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/flip42/check/R2/check_R2_spec.json",
+   "src": "Unity/Build/FLIP42/check/R2/check_R2_spec.json",
+   "bytes": 7375,
+   "sha256": "f79c1d8196f36b65f70086017d80dedefdf0823ea0ec08b6e7df3dc104257b79",
+   "same_as_src": true,
+   "note_ja": "同じ、A1・S・B1"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/flip42/check/R2/check_R2_extra.json",
+   "src": "Unity/Build/FLIP42/check/R2/check_R2_extra.json",
+   "bytes": 6535,
+   "sha256": "25a56be99461a4ec773047521f1f3b35ee601d9fe82e35046d704edac4a5e0e0",
+   "same_as_src": true,
+   "note_ja": "同じ、後ろの谷・A2'・R3b・唇の最大・空気"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/flip42/check/R2/check_R2_geom.py",
+   "src": "Unity/Build/FLIP42/check/R2/check_R2_geom.py",
+   "bytes": 19515,
+   "sha256": "571e296f471f8087acdbf93d8a37695d9698316b13f18e6c31b1b3f83f3fa3a2",
+   "same_as_src": true,
+   "note_ja": "同じ、確かめの道具"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/flip42/check/R2/check_R2_more.py",
+   "src": "Unity/Build/FLIP42/check/R2/check_R2_more.py",
+   "bytes": 7418,
+   "sha256": "a368a787323b9103396dfc6323df2dd97331106f5db863290f34d34164c36749",
+   "same_as_src": true,
+   "note_ja": "同じ、確かめの道具"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/flip42/check/R2/check_R2_spec.py",
+   "src": "Unity/Build/FLIP42/check/R2/check_R2_spec.py",
+   "bytes": 5789,
+   "sha256": "9235b13dedfd148335ec41eee96323708bab25114811403f3e3930c2f55d2363",
+   "same_as_src": true,
+   "note_ja": "同じ、確かめの道具"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/flip42/check/R2/check_R2_extra.py",
+   "src": "Unity/Build/FLIP42/check/R2/check_R2_extra.py",
+   "bytes": 7691,
+   "sha256": "b39ef6cffc3d6d5c98fb32edcc9c5f611d51815f7512c11e07e409e875cce415",
+   "same_as_src": true,
+   "note_ja": "同じ、確かめの道具"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/flip42/preview/relabel_check.json",
+   "src": "Unity/Build/FLIP42/preview/relabel_check.json",
+   "bytes": 2516,
+   "sha256": "02c60e0f863b276fa31fa2b5fded9436fb4c44ad7644de681076046f7c30fdc2",
+   "same_as_src": true,
+   "note_ja": "印の字の直しの確かめ（元の字と新しい字で描いた符号化の前のコマの画素の比べ）"
+  }
+ ],
+ "cache_used": [
+  {
+   "path": "Unity/Build/FLIP42/runs/R1/ana.json",
+   "bytes": 567002,
+   "sha256": "28c2df77e748c1d1c817c81d25e0f6260775c305c7de588e635d5e5244c9143f",
+   "mtime": "2026-10-09 14:33:58"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R1/cfg.json",
+   "bytes": 1602,
+   "sha256": "569d2709558d78fd2c75f23e33731019bc878f0736af078b70139cbfaa4d415d",
+   "mtime": "2026-10-09 13:39:39"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R1/chain.log",
+   "bytes": 220,
+   "sha256": "8136801e673b06c296e205f9c682e251acbae138542b2ec1a7c78b7789c42c99",
+   "mtime": "2026-10-09 14:33:26"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R1/run.json",
+   "bytes": 2892,
+   "sha256": "d9ca25c90145b410a12415c8b3d52da924afb1a0109fa41ea17ca0ec22f7c06f",
+   "mtime": "2026-10-09 14:08:49"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R1/shape.json",
+   "bytes": 481546,
+   "sha256": "8f80432a9311c23573b4f7d6f05dac4a42207344884592fca06a06d362c7af56",
+   "mtime": "2026-10-09 16:09:16"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R1/hf_c0001.npz",
+   "bytes": 54488543,
+   "sha256": "f684547a4535f1304433092855e7154d49c09c774ed06cb3b356a6b6b3163812",
+   "mtime": "2026-10-09 14:08:49"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R1/hf_c2401.npz",
+   "bytes": 46974540,
+   "sha256": "9e6279a5d6b60c4d74d6e4edceb232e551e96ed3b48ccc757ced98799b97d09b",
+   "mtime": "2026-10-09 14:33:25"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R1/sec_c2401_b3319.npz",
+   "bytes": 1545300,
+   "sha256": "c656959f6c3637f0943704dca8e88ac054248589ec42e3730e7ef706bd768d8f",
+   "mtime": "2026-10-09 14:20:58"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R1/sec_c2401_b3439.npz",
+   "bytes": 1561227,
+   "sha256": "7fcd69b08dde38e7e2dca266ea341a86f19ed1dfdb628814e0ad49560a7260be",
+   "mtime": "2026-10-09 14:22:19"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R1/sec_c2401_b3559.npz",
+   "bytes": 1568624,
+   "sha256": "23d39a5e2c768b336b832356245877700788d9f4edd411b9e88c456698482567",
+   "mtime": "2026-10-09 14:23:47"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R1/sec_c2401_b3679.npz",
+   "bytes": 1575758,
+   "sha256": "ecd039418b07e2a13c643f43c0fda81a7cdd79ad14653031c524f815ef1444fa",
+   "mtime": "2026-10-09 14:25:07"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R1/sec_c2401_b3799.npz",
+   "bytes": 1572833,
+   "sha256": "ff5023478750c5cce9f735ffbdd008c409d8e915533fbcecbac263ea79000571",
+   "mtime": "2026-10-09 14:26:30"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R1/sec_c2401_b3919.npz",
+   "bytes": 1582180,
+   "sha256": "31e5affb99c9b97acf3288a87bf45737ecafeeb66eb3969bd5663a04fdad3e84",
+   "mtime": "2026-10-09 14:27:52"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R1/sec_c2401_b4039.npz",
+   "bytes": 1585668,
+   "sha256": "02b5072de457e3d1df22dda59441b95bb11a4a99dbd4677aab3996c6e641d35a",
+   "mtime": "2026-10-09 14:29:15"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R1/sec_c2401_b4159.npz",
+   "bytes": 1582897,
+   "sha256": "27eb028689121377d13489e9ab2a064ec9572cd40320e64f6e47bfea4f8dafe2",
+   "mtime": "2026-10-09 14:30:43"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R1/sec_c2401_b4279.npz",
+   "bytes": 1581253,
+   "sha256": "0fb931bac573496e3e3e8a08b296ea55a790dd2d93ef6545ceb720dc89c7d10f",
+   "mtime": "2026-10-09 14:32:08"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R1/sec_c2401_b4399.npz",
+   "bytes": 1442042,
+   "sha256": "4d38d308c7459247e6459016a3d91728dc106143ab61615c2fb15f6d38af5e8c",
+   "mtime": "2026-10-09 14:33:25"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R1b/ana.json",
+   "bytes": 571953,
+   "sha256": "68ebe3ad0086e2cf27513ead9b2ce118f7bc4da0e182e98f8d36f95b1de7145b",
+   "mtime": "2026-10-09 18:56:15"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R1b/cfg.json",
+   "bytes": 1596,
+   "sha256": "ad0bdd827c6eb848f642726ab8378dff97b565dbcb462fb2b744089121d5ffe5",
+   "mtime": "2026-10-09 14:33:26"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R1b/chain.log",
+   "bytes": 340,
+   "sha256": "e58951ed7f85a140489c8ce5deb010e99777caafb04456009b25c071a72a34cf",
+   "mtime": "2026-10-09 15:49:14"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R1b/run.json",
+   "bytes": 2893,
+   "sha256": "9289896665dc9ec1634f761697abc2587e0a2bf35f908e2c81d9326bdbc68f89",
+   "mtime": "2026-10-09 15:02:35"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R1b/shape.json",
+   "bytes": 570799,
+   "sha256": "b86a451e738b9cad73ee6e5d4dd137b69cf9518d1cd8469f381e6f5e25a56310",
+   "mtime": "2026-10-09 16:02:28"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R1b/hf_c0001.npz",
+   "bytes": 32897355,
+   "sha256": "954e92ebb8e659a5b3715edda15882f60f85c3e83d06c251aa3c6559311fc624",
+   "mtime": "2026-10-09 15:02:35"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R1b/hf_c1441.npz",
+   "bytes": 48261119,
+   "sha256": "05fc893ab55b3efaabc384d9b01b19361f3f7dbd87ea2fc7284d572b84082403",
+   "mtime": "2026-10-09 15:31:41"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R1b/hf_c3601.npz",
+   "bytes": 20273623,
+   "sha256": "e43d3c5146348b5adf6acb62d8232218de857d20ebe600cd9b71c8030824dc43",
+   "mtime": "2026-10-09 15:49:14"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R1b/sec_c1441_b3319.npz",
+   "bytes": 1667369,
+   "sha256": "a88c4a870a95e35b1678bb349b1f7fe184ebf3c7a3c78ebf7d333111e441a42c",
+   "mtime": "2026-10-09 15:29:07"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R1b/sec_c1441_b3439.npz",
+   "bytes": 1682442,
+   "sha256": "9733e35454baf332cb1648a6f9a62566ee6624c8731a4b925f991cc1ddf79813",
+   "mtime": "2026-10-09 15:30:47"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R1b/sec_c1441_b3559.npz",
+   "bytes": 841280,
+   "sha256": "2427f1e200efff22718b4f87038518e846cc1bbbfa6bbd1f9a1f1cdbe208dcce",
+   "mtime": "2026-10-09 15:31:41"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R1b/sec_c3601_b3601.npz",
+   "bytes": 1694147,
+   "sha256": "aafa3f0d700a587bf1e73791188cc2a6652316f1b3496e95678c7ba0adf78a45",
+   "mtime": "2026-10-09 15:33:25"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R1b/sec_c3601_b3721.npz",
+   "bytes": 1717990,
+   "sha256": "caadc6dc43818f1bfba73d0da113876c5661b5fef427cf10c8bc1c80014a9746",
+   "mtime": "2026-10-09 15:35:05"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R1b/sec_c3601_b3841.npz",
+   "bytes": 1717417,
+   "sha256": "ef76a54acbd7c60cddc5ebdaa8d63058ab0d66dea22891b26d3211d477247ee4",
+   "mtime": "2026-10-09 15:36:48"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R1b/sec_c3601_b3961.npz",
+   "bytes": 1709241,
+   "sha256": "8548a420fc5e5478268e49eb1c1b92f7e833c2cf71afc1cdae2c21a4b9e60a1f",
+   "mtime": "2026-10-09 15:38:31"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R1b/sec_c3601_b4081.npz",
+   "bytes": 1694007,
+   "sha256": "cd4421e056d0671f2c7654359ad3559eef4ff6d39507cae75c65a4034971319e",
+   "mtime": "2026-10-09 15:41:05"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R1b/sec_c3601_b4201.npz",
+   "bytes": 1692630,
+   "sha256": "2e29125ba336aebf2658f40780212a928205e48cbc9486ddfbee52615dfdb58a",
+   "mtime": "2026-10-09 15:44:28"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R1b/sec_c3601_b4321.npz",
+   "bytes": 1698557,
+   "sha256": "5651ea26a85d4b8f13c1b4ce244510d02b8444f2d18ac350e2f25a4fc7c72abe",
+   "mtime": "2026-10-09 15:47:48"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R1b/sec_c3601_b4441.npz",
+   "bytes": 974209,
+   "sha256": "806e64a29988eeeb04bae3d5e7ecc8f446419d4c70f568bc9dd6bd81b8522025",
+   "mtime": "2026-10-09 15:49:14"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R2/ana.json",
+   "bytes": 596431,
+   "sha256": "b0d7057ae28c3e1016c6ff3dc5a99976ad48dcf8f9eaf2bcab30e41bcbb33674",
+   "mtime": "2026-10-10 15:15:06"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R2/cfg.json",
+   "bytes": 1698,
+   "sha256": "06b18540206673d8fc2049f294a24c3313bc471f3e3d905e07a24c1bddf64cb4",
+   "mtime": "2026-10-10 11:45:20"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R2/chain.log",
+   "bytes": 1153,
+   "sha256": "a12289e69408b875258f537a91544c5bca5aca6d78130d21f6b61fff0f2c1a9d",
+   "mtime": "2026-10-10 15:14:50"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R2/run.json",
+   "bytes": 2955,
+   "sha256": "f066f36ae197ffa44873122907a09dc7a2a4663e973bb50f6dec08ab7ed22d69",
+   "mtime": "2026-10-10 12:14:27"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R2/shape.json",
+   "bytes": 819040,
+   "sha256": "f817ec37fd19f37f163e603dd51425490a9478dc837d86dc50ab6dceb914dac6",
+   "mtime": "2026-10-10 15:15:11"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R2/hf_c0001.npz",
+   "bytes": 24954835,
+   "sha256": "1cc218feccb59b24b0dbcb5821d8b276c648715c06d84ffc5736374a06061f4e",
+   "mtime": "2026-10-10 12:14:27"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R2/hf_c0721.npz",
+   "bytes": 24851236,
+   "sha256": "bb868521858ffff4cf7a0e73ca5e4cd61f5d2a6e3d4af1b8b97e809af058e596",
+   "mtime": "2026-10-10 12:43:35"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R2/hf_c1441.npz",
+   "bytes": 23931287,
+   "sha256": "939b845ffed376bcbed0bac2db18e3fe984ff31eb5d8cb6c01109982e7a9c71a",
+   "mtime": "2026-10-10 13:12:43"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R2/hf_c2161.npz",
+   "bytes": 23050645,
+   "sha256": "a60ef371ce26db83fbf430339630e625d48a72a9a934bf7db339667360e71a44",
+   "mtime": "2026-10-10 13:41:53"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R2/hf_c2881.npz",
+   "bytes": 22452015,
+   "sha256": "4a8540ea635afbd77aa0841a1f904648784b15dcfa3b4aa689dcf138ed4a631b",
+   "mtime": "2026-10-10 14:11:00"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R2/hf_c3481.npz",
+   "bytes": 13916067,
+   "sha256": "dc04e092ab0a0b6e9d805a454a9c99fab2fbca5acc792d1696c7d02e548cc399",
+   "mtime": "2026-10-10 14:40:10"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R2/hf_c3841.npz",
+   "bytes": 18063203,
+   "sha256": "71b2d8c21b3511a19a5f307568c1ef4af0c113fb82226ea7c3022adacfe7ce0e",
+   "mtime": "2026-10-10 15:09:17"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R2/hf_c4381.npz",
+   "bytes": 4095764,
+   "sha256": "2a61121e5499941430767b66703442d83e6f48c90e5c700402f2f90c2ca14d2f",
+   "mtime": "2026-10-10 15:14:49"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R2/sec_c2881_b3319.npz",
+   "bytes": 2367166,
+   "sha256": "d352e1886072f19201c31134ad8be72e511b0fe76151194bf7ee9709229fa2b6",
+   "mtime": "2026-10-10 14:04:53"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R2/sec_c2881_b3439.npz",
+   "bytes": 2386459,
+   "sha256": "27247b39ca3625f1903650c1d4dfcec3b783b4a3b0a232f8449103b92bb78f44",
+   "mtime": "2026-10-10 14:10:00"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R2/sec_c2881_b3559.npz",
+   "bytes": 460183,
+   "sha256": "7f699cb02ae70efc6018ce7937e5f97a1d63c2082675a379398ca8862f5b1da7",
+   "mtime": "2026-10-10 14:11:00"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R2/sec_c3481_b3481.npz",
+   "bytes": 2391348,
+   "sha256": "a24da43930deb8599224f0209857ccdcd6401edf3dd1b2485a729ba8798e7185",
+   "mtime": "2026-10-10 14:16:02"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R2/sec_c3481_b3601.npz",
+   "bytes": 2387066,
+   "sha256": "3cd3050b31525a5ca3d0377b67c467c918edde7396287ce5e02e737621e42adb",
+   "mtime": "2026-10-10 14:23:01"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R2/sec_c3481_b3721.npz",
+   "bytes": 2390479,
+   "sha256": "ad1f2dbcafb0c9a928fa45d533435b330c26395e8a74f480fedf65afc1eb9215",
+   "mtime": "2026-10-10 14:33:59"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R2/sec_c3481_b3841.npz",
+   "bytes": 1493216,
+   "sha256": "d0fa8b599017ed3fb1f1b077e2f338ce65d609f91cfaefa80f03ef4dd6248946",
+   "mtime": "2026-10-10 14:40:10"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R2/sec_c3841_b3841.npz",
+   "bytes": 2420514,
+   "sha256": "15111b00d89ed358e2e0c6fa4ddf834b679c2d76eaea02153ff39d28c703b86b",
+   "mtime": "2026-10-10 14:49:26"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R2/sec_c3841_b3961.npz",
+   "bytes": 2425294,
+   "sha256": "9413c7f6d1711953caefb03aecd13afd07475b4793f453cbf1662a602492f934",
+   "mtime": "2026-10-10 14:54:54"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R2/sec_c3841_b4081.npz",
+   "bytes": 2421367,
+   "sha256": "535832a5945b2b473d0f8f29eca6a3be162c0ee30f521ef80b2637df43c355c6",
+   "mtime": "2026-10-10 15:00:10"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R2/sec_c3841_b4201.npz",
+   "bytes": 2428919,
+   "sha256": "ab03ce80f685cf5e347fd78b262b033a8ff8a828e08faf4c62a986512c4d9cb5",
+   "mtime": "2026-10-10 15:05:27"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R2/sec_c3841_b4321.npz",
+   "bytes": 1700673,
+   "sha256": "5bd25f6e02ce4483b6106e6fd7e7ab50ec3c964e2c9793d736d3fa6a9842e809",
+   "mtime": "2026-10-10 15:09:17"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R2/sec_c4381_b4381.npz",
+   "bytes": 2404041,
+   "sha256": "7767431e2379b1054eac63ba02f286ef7bb336f344bb45c15221007f0ff96792",
+   "mtime": "2026-10-10 15:14:28"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R2/sec_c4381_b4501.npz",
+   "bytes": 161959,
+   "sha256": "c1d4ac2611acf3922827400e9a242b6fd4b2ae49165eb93807629dc6c7cdd3ac",
+   "mtime": "2026-10-10 15:14:49"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R3/ana.json",
+   "bytes": 634143,
+   "sha256": "c9b1bbe2776188dd2440617be67682d7db95fc5e8d35f5d8d6d37a9f8d59bcc4",
+   "mtime": "2026-10-10 04:28:56"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R3/cfg.json",
+   "bytes": 2225,
+   "sha256": "7e159d4eeb4fa3e72196f0dca5160e6a16ee2525b8d0b263bd49b9bc85433631",
+   "mtime": "2026-10-10 02:48:09"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R3/chain.log",
+   "bytes": 3621,
+   "sha256": "2c1698028ec6ffc1c6d101b678bd71a60809cb57da0996d7c338bdf8590df22e",
+   "mtime": "2026-10-10 04:28:01"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R3/run.json",
+   "bytes": 2890,
+   "sha256": "c7506a530d8417fe381f1c67d682765bae740d4212c6518ae66911c7f7444f66",
+   "mtime": "2026-10-09 16:28:40"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R3/shape.json",
+   "bytes": 866346,
+   "sha256": "62f67b643cc723e9504cebc5ea14e9a185925f4579659a5f8475fd322a4c6d3f",
+   "mtime": "2026-10-10 10:00:06"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R3/hf_c0001.npz",
+   "bytes": 25177876,
+   "sha256": "718e003ee8fd3e7c6e4008cba61f62d8c4535f82f44aee32c4b773bb2c02ef2f",
+   "mtime": "2026-10-09 16:28:40"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R3/hf_c0475.npz",
+   "bytes": 26192061,
+   "sha256": "139aa3b9ef4f030136700f3139254788218af292d4f65ad063e818ecd910ea16",
+   "mtime": "2026-10-09 16:57:49"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R3/hf_c0949.npz",
+   "bytes": 25830005,
+   "sha256": "2348ed68575d67370e460e694a448a7def27691319bf9b53241a60b83aa92db6",
+   "mtime": "2026-10-09 17:26:55"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R3/hf_c1423.npz",
+   "bytes": 25026143,
+   "sha256": "efc7fc7bb2c3289237460e7a63864aede67ef9a802c24b0cd619d69852c833f5",
+   "mtime": "2026-10-09 17:56:01"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R3/hf_c1897.npz",
+   "bytes": 24329584,
+   "sha256": "cd052503034e1b15b1366269731aba33ba8c5d7c4a7f4f72cf0279ce6e6c0ac5",
+   "mtime": "2026-10-09 18:25:09"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R3/hf_c2371.npz",
+   "bytes": 23250555,
+   "sha256": "320e34c7adcd3317a1bf22214e578d2d7df600ff83e269fba19dea71a497ecb3",
+   "mtime": "2026-10-09 18:54:14"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R3/hf_c2845.npz",
+   "bytes": 22765782,
+   "sha256": "f176dd437f026ac1e151fc9d679e538e9dbb0abf7972b4fc7cc159d9366afb45",
+   "mtime": "2026-10-09 19:23:20"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R3/hf_c3319.npz",
+   "bytes": 17945048,
+   "sha256": "76c29251fe76e0dcba6d1dd3da234370da8f76dc094c7779943969344d3f81a5",
+   "mtime": "2026-10-09 19:52:32"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R3/hf_c3556.npz",
+   "bytes": 10141587,
+   "sha256": "f1219179ed9a05769826beda872b2db79126bb1e9bede0bf75ba87763337b2dc",
+   "mtime": "2026-10-09 20:21:45"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R3/hf_c3714.npz",
+   "bytes": 6548706,
+   "sha256": "4560a2ca83e165a6228fc4d41ea42272afc0a4447c1eefe6f29df1fabd8b0e20",
+   "mtime": "2026-10-09 20:50:55"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R3/hf_c3793.npz",
+   "bytes": 7449443,
+   "sha256": "71f560d3c1e0a944f038cfcd59a076f9bc2a606e97b907e48be6a4c14193ba73",
+   "mtime": "2026-10-09 21:21:17"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R3/hf_c3949.npz",
+   "bytes": 2154492,
+   "sha256": "a8955ec78a780d43171c3a5ccb102288dfaa01208e1fd9b6794ad86c94fec710",
+   "mtime": "2026-10-09 21:50:35"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R3/hf_c3991.npz",
+   "bytes": 3575273,
+   "sha256": "d67dedfb2f79f71949a980a82132349588c326d226d3f2b86bff088f820b6e63",
+   "mtime": "2026-10-09 22:20:01"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R3/hf_c4054.npz",
+   "bytes": 2416410,
+   "sha256": "e4783e8fc9b72783b78d3eaf4c2cabb4b98012abfc92f0a61f6b56b119a98a60",
+   "mtime": "2026-10-09 22:49:10"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R3/hf_c4096.npz",
+   "bytes": 2097515,
+   "sha256": "3c3aab6ce83ce31899bfe3c2f89b1e3891a2e7af399e5b2421f4423cd3b2a678",
+   "mtime": "2026-10-09 23:18:27"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R3/hf_c4138.npz",
+   "bytes": 2281418,
+   "sha256": "ec27a7cae444d96e12ae963e9c8f7737e539c850d6016fa01327d304e7e3f8a3",
+   "mtime": "2026-10-09 23:47:37"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R3/hf_c4180.npz",
+   "bytes": 3004776,
+   "sha256": "a235c1753a5c2663c2d3cba2cfb55a7bd2227fd32e34732b6347ea50221df007",
+   "mtime": "2026-10-10 00:17:03"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R3/hf_c4243.npz",
+   "bytes": 2059071,
+   "sha256": "acd01606d1a263d2ebb3165aeeaef08ccc31a508e546bec94bfb1d2d81be34f8",
+   "mtime": "2026-10-10 00:46:53"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R3/hf_c4285.npz",
+   "bytes": 1568670,
+   "sha256": "203383a81ccaef6fa0d7ed6452fb9e08028e957474ad4b66c1d3782a063255d9",
+   "mtime": "2026-10-10 01:16:56"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R3/hf_c4306.npz",
+   "bytes": 1033901,
+   "sha256": "90f62f2f6076311bc9f58ecb2a9c8ccb985850707b41c62e25757cec9616779b",
+   "mtime": "2026-10-10 01:47:08"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R3/hf_c4327.npz",
+   "bytes": 1169983,
+   "sha256": "bd475ab183afe393af8b64b8f96c5f9dc562f674f66434ab536fc965a40bba9c",
+   "mtime": "2026-10-10 02:17:16"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R3/hf_c4348.npz",
+   "bytes": 990654,
+   "sha256": "0bde3361e7e0ae897c551c0d599f54cac2b4983cfb7e7bb90a117f7881b9508e",
+   "mtime": "2026-10-10 02:47:11"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R3/hf_c4369.npz",
+   "bytes": 721829,
+   "sha256": "99204d72d60cb742e1b75cec253a6a4ae92872945f83f326104c08eaa90e97b1",
+   "mtime": "2026-10-10 03:48:44"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R3/hf_c4383.npz",
+   "bytes": 1884733,
+   "sha256": "54e77e8de3c5da8a50b9ce1effcbbabef2f3c2abe8376771d23a281edc3d8498",
+   "mtime": "2026-10-10 04:18:11"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R3/hf_c4425.npz",
+   "bytes": 3769397,
+   "sha256": "7f533a8da312077fbf1d47d4f0ca9f1f2fd04f369eed318811b1b3cd649abb08",
+   "mtime": "2026-10-10 04:28:00"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R3/sec_c2845_b3319.npz",
+   "bytes": 975930,
+   "sha256": "3390c12b09300bbc6f6a6ce306df1719c707953049cb4764708022e41368e2e6",
+   "mtime": "2026-10-09 19:23:20"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R3/sec_c3319_b3319.npz",
+   "bytes": 3557020,
+   "sha256": "f3cb158973473aa85a3c830898be9e4b9f61f84e1a2e66cd6242904d3349239d",
+   "mtime": "2026-10-09 19:30:16"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R3/sec_c3319_b3439.npz",
+   "bytes": 3573326,
+   "sha256": "2b402cd2d408379c394ff31ee99edb752dbee0ede71a6c77678c2d3a18cd8ace",
+   "mtime": "2026-10-09 19:37:15"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R3/sec_c3319_b3559.npz",
+   "bytes": 3556992,
+   "sha256": "ec0b620eeec8a475844dd240190f2d9a6c8b8b841659c4f66820a7b9425fc158",
+   "mtime": "2026-10-09 19:47:49"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R3/sec_c3319_b3679.npz",
+   "bytes": 1187200,
+   "sha256": "6f03f0d46ee0262d22c60410c04682b258837f032f7360bc6603adf93f1c6906",
+   "mtime": "2026-10-09 19:52:32"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R3/sec_c3556_b3556.npz",
+   "bytes": 3558298,
+   "sha256": "687d63e63a6a69f65ec4a2b7cec16cbcdb5306b458578299569001d20c689b8d",
+   "mtime": "2026-10-09 20:03:03"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R3/sec_c3556_b3676.npz",
+   "bytes": 3144976,
+   "sha256": "7a69022e0f5c8ff9ff973c7bfe82d7ce2b295a511dab424c63668fcf4955284e",
+   "mtime": "2026-10-09 20:21:45"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R3/sec_c3714_b3714.npz",
+   "bytes": 3579129,
+   "sha256": "7885b2762ef3f5046a198a2949bf89bce017d42030d78d7b047e7f6c438e977b",
+   "mtime": "2026-10-09 20:46:29"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R3/sec_c3714_b3834.npz",
+   "bytes": 781118,
+   "sha256": "8b30774c25c3791142e7228de4d1822073afbe360077a5245637284370cf0c23",
+   "mtime": "2026-10-09 20:50:55"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R3/sec_c3793_b3793.npz",
+   "bytes": 3609341,
+   "sha256": "34f2c37ed62198152b99b3638cfec02b7ce5487c36bbfcf08c35aac3dc0a7b5c",
+   "mtime": "2026-10-09 21:11:09"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R3/sec_c3793_b3913.npz",
+   "bytes": 1386355,
+   "sha256": "5c6b9a81e93960a9b03c4ee770a17198e7ee222dea022fbc92de2998abe22a81",
+   "mtime": "2026-10-09 21:21:17"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R3/sec_c3949_b3949.npz",
+   "bytes": 1442574,
+   "sha256": "c6b9758709dd9e7f99bb24efa068a8cb884484b8e505e2ff511beb25df6de372",
+   "mtime": "2026-10-09 21:50:35"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R3/sec_c3991_b3991.npz",
+   "bytes": 2424795,
+   "sha256": "5e463e5a5ff5528838370752fdff281e950a9a3f0ab55919489919deea75b453",
+   "mtime": "2026-10-09 22:20:02"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R3/sec_c4054_b4054.npz",
+   "bytes": 1636128,
+   "sha256": "659313a020933b2ed02aff4ea9f720c02ced111d624e4c8a219531a3220e9d9f",
+   "mtime": "2026-10-09 22:49:10"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R3/sec_c4096_b4096.npz",
+   "bytes": 1418981,
+   "sha256": "5bacf57147dca33aaf2e1c4e8cc5eec9cd1b74107856438310c1893d7d6b355c",
+   "mtime": "2026-10-09 23:18:27"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R3/sec_c4138_b4138.npz",
+   "bytes": 1530359,
+   "sha256": "56dc826c436711924c4778593eeb19aecd4c15fe424ec009957f3c2fed934394",
+   "mtime": "2026-10-09 23:47:37"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R3/sec_c4180_b4180.npz",
+   "bytes": 2013028,
+   "sha256": "a91c86641be23fc24583c9974797cc3ede1626034dfe09a2d3b630e5395a3d9e",
+   "mtime": "2026-10-10 00:17:03"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R3/sec_c4243_b4243.npz",
+   "bytes": 1379962,
+   "sha256": "25c62ccff111843bcd516f65920b407dd7f5a3d748f2e56c210f191db6c44bcf",
+   "mtime": "2026-10-10 00:46:53"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R3/sec_c4285_b4285.npz",
+   "bytes": 1048854,
+   "sha256": "5d41b42a68eadb9225a28f83eb0992b57098ee72bc9f2e082a3208354625526c",
+   "mtime": "2026-10-10 01:16:57"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R3/sec_c4306_b4306.npz",
+   "bytes": 687178,
+   "sha256": "dd6362633a20d2c7230682f6479900a845f1d5f57573e9db4d52440ea9e7fef2",
+   "mtime": "2026-10-10 01:47:08"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R3/sec_c4327_b4327.npz",
+   "bytes": 778870,
+   "sha256": "c08d23d9617097c16bb05863e749c7256532feb6a1e1f374c0fa0f58af0b1725",
+   "mtime": "2026-10-10 02:17:17"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R3/sec_c4348_b4348.npz",
+   "bytes": 658493,
+   "sha256": "8da96bb8b3bceef74441ab44c1577bb6096b956d42316fad3afe90efb97cdbd9",
+   "mtime": "2026-10-10 02:47:11"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R3/sec_c4369_b4369.npz",
+   "bytes": 478808,
+   "sha256": "0422905d90b565c20b58b64b1a70a63510c886559aec9d213d1e079e022b123a",
+   "mtime": "2026-10-10 03:48:44"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R3/sec_c4383_b4383.npz",
+   "bytes": 1256440,
+   "sha256": "75f9618c610946b002130fb14ce0340d63bc05676cf9a89c4b470ca3451481d5",
+   "mtime": "2026-10-10 04:18:12"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R3/sec_c4425_b4425.npz",
+   "bytes": 2528511,
+   "sha256": "7f1ef0937759c05b745c8a54b935ab79a214cd7cd5c4262c0f121d24217bb129",
+   "mtime": "2026-10-10 04:28:00"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R3b/cfg.json",
+   "bytes": 2104,
+   "sha256": "a907b00c3bc59f29f6e229157b98896d39c6bb7bdd19e2bc4612c1f04dd15862",
+   "mtime": "2026-10-10 05:02:37"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R3b/chain.log",
+   "bytes": 1638,
+   "sha256": "6fe315a22f9a0945d771a4e98295599d6e9c97406c9a9adead76aa2b8dc56f45",
+   "mtime": "2026-10-10 09:48:31"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R3b/run.json",
+   "bytes": 2951,
+   "sha256": "316b18de3be25c41ef044ce851543ef5ea4eeb30325324afefd3816827cda33a",
+   "mtime": "2026-10-10 04:58:40"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R3b/hf_c0001.npz",
+   "bytes": 17821873,
+   "sha256": "394a6ead0f089cbc9136e69e34c31d0adc91ee3e34de40df933241c75e55a7e2",
+   "mtime": "2026-10-10 04:58:40"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R3b/hf_c0238.npz",
+   "bytes": 18119535,
+   "sha256": "4746fe43c3eb699d09d93e40bac912e899b47924b392dcca52b198fe50fe5083",
+   "mtime": "2026-10-10 05:31:54"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R3b/hf_c0633.npz",
+   "bytes": 13403300,
+   "sha256": "01d38a85166c4720ecdb03d945ed4f25ae62a054d00d81ab4e272739e57f69d2",
+   "mtime": "2026-10-10 06:01:07"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R3b/hf_c0870.npz",
+   "bytes": 17041824,
+   "sha256": "7e7aeb535f9206719f4e214ba9267b07a88e1106aab0dece161e90b07289d7ed",
+   "mtime": "2026-10-10 06:30:40"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R3b/hf_c1186.npz",
+   "bytes": 16075575,
+   "sha256": "1fd8c4ad630fce2bddbe7ae4ebe0f1ffd30a749717107509fa2f2715c4a14eb2",
+   "mtime": "2026-10-10 06:59:52"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R3b/hf_c1502.npz",
+   "bytes": 12657827,
+   "sha256": "75b552ef695da266dc8aa2b889c6ea50d25c04b4ccb55c40321306f8c50eba6c",
+   "mtime": "2026-10-10 07:29:10"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R3b/hf_c1739.npz",
+   "bytes": 19939927,
+   "sha256": "bb671684c94e5eb1d11875e908d8857e75ffe07edd02cca3c5b7fcd126f03e02",
+   "mtime": "2026-10-10 07:58:21"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R3b/hf_c2134.npz",
+   "bytes": 19492904,
+   "sha256": "a33bb575e59353b80e727584ad9e7819e4c4a9239e27d39f565bc67130552bbd",
+   "mtime": "2026-10-10 08:27:32"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R3b/hf_c2450.npz",
+   "bytes": 19207609,
+   "sha256": "71765d5a35ac41ac86d83d1fb397f1ace98e1e30cb858b5b01c66cff7de76050",
+   "mtime": "2026-10-10 08:56:43"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R3b/hf_c2766.npz",
+   "bytes": 18919128,
+   "sha256": "b373f0fdaae930740de4c317e113f990699082bbeaafcc5746607ab60c948934",
+   "mtime": "2026-10-10 09:25:49"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R3b/hf_c3082.npz",
+   "bytes": 13932237,
+   "sha256": "e2445f78b0865b88df7b2084d67725171ee7a92d0215c1f856087956f1062f17",
+   "mtime": "2026-10-10 09:47:26"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R3m/cfg.json",
+   "bytes": 1873,
+   "sha256": "728ac4b6f517ec74f38613e2e228ea663544b7a4f92ca066759da4029108a70a",
+   "mtime": "2026-10-10 15:19:13"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R3m/chain.log",
+   "bytes": 329,
+   "sha256": "7f70f5221603be284be146f0e0d6975dc580b2d694fbda090444368995f3e602",
+   "mtime": "2026-10-10 16:17:40"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R3m/shape.json",
+   "bytes": 365993,
+   "sha256": "5868c16fc904c2a4651da96a0a9fb7caa0d01e6d66a01b9afb693f7afab5d2f7",
+   "mtime": "2026-10-10 16:18:18"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R3m/hf_c3319.npz",
+   "bytes": 17094365,
+   "sha256": "79c7b70704d02fb73de68db52a3dbaff1c9a38ffe24053033d9b78980805e2f2",
+   "mtime": "2026-10-10 15:48:21"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R3m/hf_c3661.npz",
+   "bytes": 6280010,
+   "sha256": "f8d4d1994e4f1e244b4c2ad3cb9db2b8aa6357f353144e9caed64343321d9ddc",
+   "mtime": "2026-10-10 16:17:39"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R3m/sec_c3319_b3319.npz",
+   "bytes": 3556818,
+   "sha256": "ce886a90bff63d4bdd909c30089db9c35147dc2d5bb3055465f4869a87c96889",
+   "mtime": "2026-10-10 15:26:36"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R3m/sec_c3319_b3439.npz",
+   "bytes": 3573949,
+   "sha256": "c6df4022e9b741d8d9f5f8ecab965ff76aef8c8fa035e6696334b53ac70f5ca3",
+   "mtime": "2026-10-10 15:33:54"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R3m/sec_c3319_b3559.npz",
+   "bytes": 3556689,
+   "sha256": "11ee3bc1b34a499cbd66f62e51dd8507e355cfc31fa792fbcc4132bd679ca6b5",
+   "mtime": "2026-10-10 15:45:49"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R3m/sec_c3319_b3679.npz",
+   "bytes": 622232,
+   "sha256": "5496ea3e0b4e182a33cb28c9a84c6af5764daade8f5b1efa29b9efe7e7fb87d7",
+   "mtime": "2026-10-10 15:48:21"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R3m/sec_c3661_b3661.npz",
+   "bytes": 3553738,
+   "sha256": "e2e89f3a600dd2cae0f9c0f7ac49d5680b4191ac9327c89e4b32f3e86c5c091e",
+   "mtime": "2026-10-10 16:10:31"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R3m/sec_c3661_b3781.npz",
+   "bytes": 596749,
+   "sha256": "f46bf35bfba0468cdeb6f2d7a26bb44722c3980683efe709c9c260ab2459582c",
+   "mtime": "2026-10-10 16:17:39"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R4/cfg.json",
+   "bytes": 1791,
+   "sha256": "b7a4b75a2c143cdb8b98301bcc5fa1407fc0599ae1f2a8b5e8237321638311a9",
+   "mtime": "2026-10-10 16:17:41"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R4/chain.log",
+   "bytes": 293,
+   "sha256": "db84900efb902767d25822c0d8200c8026857863a081908bf1d9914ac9a44c56",
+   "mtime": "2026-10-10 16:19:29"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R4/run.json",
+   "bytes": 3188,
+   "sha256": "7937b625f057fef5170bc2ce96564591d97c271d5b0971519c80e9f93ef89e33",
+   "mtime": "2026-10-10 16:19:27"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R4/hf_c0001.npz",
+   "bytes": 630750,
+   "sha256": "cd6c029d9a0bcd1996c7c1f382255855946913520c32381c7bd11c420e94ba16",
+   "mtime": "2026-10-10 16:19:27"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R5p/cfg.json",
+   "bytes": 1835,
+   "sha256": "4eb5f6602c2c28255bc962ef206b11631e4d32de554fee27eaf2597fbaf3aa49",
+   "mtime": "2026-10-10 09:48:36"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R5p/chain.log",
+   "bytes": 640,
+   "sha256": "bca2c210d65c947f8e7c958d318be391aa99a28fb93354e7f3763045c91aec91",
+   "mtime": "2026-10-10 11:45:20"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R5p/shape.json",
+   "bytes": 377913,
+   "sha256": "4c4e565439cd3c553e722b604fd77c78c4f6bf602be9061337b2157ce455162b",
+   "mtime": "2026-10-10 11:45:44"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R5p/hf_c3319.npz",
+   "bytes": 10362842,
+   "sha256": "1b620f50df7b6e8708d718da346f961b35081d00c4497733396984e8eaff1889",
+   "mtime": "2026-10-10 10:17:45"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R5p/hf_c3541.npz",
+   "bytes": 6781406,
+   "sha256": "91fad318fab1fb8212b7448e30661080033a64a8483dd3ca794e3ea0fcdcc9a5",
+   "mtime": "2026-10-10 10:46:52"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R5p/hf_c3661.npz",
+   "bytes": 4083417,
+   "sha256": "dd1bf83386909177eda6479be6e93d7c8c7303713d17e296ac58ba4863ff9e67",
+   "mtime": "2026-10-10 11:16:10"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R5p/hf_c3751.npz",
+   "bytes": 2739853,
+   "sha256": "ca8da0195623ab89a586d5d87ed390d4b150213006cdafca5911593924a6f4ae",
+   "mtime": "2026-10-10 11:45:19"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R5p/sec_c3319_b3319.npz",
+   "bytes": 3516092,
+   "sha256": "95ee0e80852c1380109c94f955925bfbacb81ccf98eb71c4008ad345d428cba5",
+   "mtime": "2026-10-10 10:03:45"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R5p/sec_c3319_b3439.npz",
+   "bytes": 3268780,
+   "sha256": "e7ef064f7d2fa83ceda47a4674077fd057c951260fc38257f7f8a18f99a12a47",
+   "mtime": "2026-10-10 10:17:46"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R5p/sec_c3541_b3541.npz",
+   "bytes": 3530107,
+   "sha256": "4ecf2bd0fde4f453df1000c560e696d3923040454b54d80cb8102fb867d5dc81",
+   "mtime": "2026-10-10 10:38:55"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R5p/sec_c3541_b3661.npz",
+   "bytes": 909391,
+   "sha256": "94cfba72bf7d4292399e849f49006eb9ea93e17ae993009bdc26969e5fab1722",
+   "mtime": "2026-10-10 10:46:53"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R5p/sec_c3661_b3661.npz",
+   "bytes": 2671857,
+   "sha256": "dcb52358c85ae73e9cb70adaad0a5feac14c17b9ff7434eb78a0fd8c65e678b4",
+   "mtime": "2026-10-10 11:16:11"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R5p/sec_c3751_b3751.npz",
+   "bytes": 1796997,
+   "sha256": "c1b083901d1a837049eded2260e11c0c05379242c2926ec6a5e6875b1c84f15a",
+   "mtime": "2026-10-10 11:45:19"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/runs.jsonl",
+   "first_lines": 62,
+   "bytes_first_lines": 155160,
+   "sha256_first_lines": "70501774270fd8857a76182cc9001659cb673b0fc03430ce909cd9624a3fb7b6",
+   "note_ja": "R4 の診断の計算が後ろに行を足していくので、報告に使った最初の 62 行の SHA-256 を残す"
+  }
+ ],
+ "cache_used_note_ja": "解析・図・動画・独立の確かめが読んだ計算の記録（一番上の水面の高さ hf_c*.npz、板の真ん中の断面の水面の場 sec_c*.npz、解析の JSON、設定と起動の記録）。どれも Unity/Build/FLIP42/runs/ の下（リポジトリの外）",
+ "checkpoints_not_hashed": {
+  "R1": {
+   "files": 18,
+   "bytes": 945296818
+  },
+  "R1b": {
+   "files": 18,
+   "bytes": 2874411511
+  },
+  "R2": {
+   "files": 36,
+   "bytes": 11842334493
+  },
+  "R3": {
+   "files": 61,
+   "bytes": 40376375752
+  },
+  "R3b": {
+   "files": 40,
+   "bytes": 27536621939
+  },
+  "R3m": {
+   "files": 9,
+   "bytes": 5917687426
+  },
+  "R4": {
+   "files": 0,
+   "bytes": 0
+  },
+  "R5p": {
+   "files": 18,
+   "bytes": 11835018514
+  }
+ },
+ "checkpoints_note_ja": "途中保存は計算を続けるためだけに使い、解析と動画には使っていないので SHA-256 は取らない。消していない",
+ "r4dbg_outputs": [
+  {
+   "path": "Unity/Build/FLIP42/tmp_houdini/r4dbg/cfg_R3_650.json",
+   "bytes": 1453,
+   "sha256": "bd642bc484dba383acd6272c2f3967e0ceb4fc2e509ce6fe1e224200217e886b",
+   "mtime": "2026-10-10 16:30:41"
+  },
+  {
+   "path": "Unity/Build/FLIP42/tmp_houdini/r4dbg/cfg_R3_y60.json",
+   "bytes": 1729,
+   "sha256": "c7f106f48a9b4289360fce9f4ed8ee39c2b0f033681925d1978ced173d9d2236",
+   "mtime": "2026-10-10 16:37:45"
+  },
+  {
+   "path": "Unity/Build/FLIP42/tmp_houdini/r4dbg/cfg_R3_z8.json",
+   "bytes": 1729,
+   "sha256": "02b70e8d60c44c1578d3e9fd8aa9d726587ba079b21aadb43a3b7d36e7060236",
+   "mtime": "2026-10-10 16:37:45"
+  },
+  {
+   "path": "Unity/Build/FLIP42/tmp_houdini/r4dbg/cfg_R4.json",
+   "bytes": 1693,
+   "sha256": "317bda92d4ec130477a5426956eaf446298069bd9dc6791e76332419391ddbcc",
+   "mtime": "2026-10-10 15:17:58"
+  },
+  {
+   "path": "Unity/Build/FLIP42/tmp_houdini/r4dbg/cfg_R4_650.json",
+   "bytes": 1528,
+   "sha256": "d86f5c238ff46920879cfc3e4dfaebe4e3099daefcf6f05b1c1faad6d5196948",
+   "mtime": "2026-10-10 16:27:00"
+  },
+  {
+   "path": "Unity/Build/FLIP42/tmp_houdini/r4dbg/cfg_R4_Lx7.json",
+   "bytes": 1748,
+   "sha256": "18f09fa06f74f8d4609ecba149651fc92da17581095add94a325440166689f00",
+   "mtime": "2026-10-10 16:20:38"
+  },
+  {
+   "path": "Unity/Build/FLIP42/tmp_houdini/r4dbg/cfg_R4_y12.json",
+   "bytes": 1747,
+   "sha256": "b2e207614ef39599233a9953f442e3e248f4efded76eb6c894bbd74dc2e42c78",
+   "mtime": "2026-10-10 16:34:36"
+  },
+  {
+   "path": "Unity/Build/FLIP42/tmp_houdini/r4dbg/cfg_R4s.json",
+   "bytes": 1474,
+   "sha256": "61e0a5c1b9d3c44473c4443d091531e3bb9246387ca6c1146594b665753a025f",
+   "mtime": "2026-10-10 15:16:44"
+  },
+  {
+   "path": "Unity/Build/FLIP42/tmp_houdini/r4dbg/cfg_dp018.json",
+   "bytes": 1456,
+   "sha256": "b6af8825b80296668aa45eba9ba23a687ec4a4f3a30521829b29f0a3893338c2",
+   "mtime": "2026-10-10 16:20:38"
+  },
+  {
+   "path": "Unity/Build/FLIP42/tmp_houdini/r4dbg/cfg_dp02.json",
+   "bytes": 1450,
+   "sha256": "ea0d43e9eeb10fd73d083e9a901346c8d1a58f94075a0002ee684f74761f5c26",
+   "mtime": "2026-10-10 16:34:35"
+  },
+  {
+   "path": "Unity/Build/FLIP42/tmp_houdini/r4dbg/cfg_dp021.json",
+   "bytes": 1456,
+   "sha256": "0af4f82a7ae63cb79b8a80006635b651dd31fdde822ef76d7c9e24b60870047e",
+   "mtime": "2026-10-10 16:34:35"
+  },
+  {
+   "path": "Unity/Build/FLIP42/tmp_houdini/r4dbg/cfg_dp3_17.json",
+   "bytes": 1529,
+   "sha256": "3cdbddc3e4d9fb86981b1ddd42296c40e4fc67dc9a1cfcf6631c6b67c4047e01",
+   "mtime": "2026-10-10 16:25:27"
+  },
+  {
+   "path": "Unity/Build/FLIP42/tmp_houdini/r4dbg/out_R4_mg.txt",
+   "bytes": 591,
+   "sha256": "b3fcaaa1f01dafe9733f2f84a56d5d094c4788af4ae799528311ec0f68677a0e",
+   "mtime": "2026-10-10 15:18:30"
+  },
+  {
+   "path": "Unity/Build/FLIP42/tmp_houdini/r4dbg/out_R4s.txt",
+   "bytes": 35306,
+   "sha256": "073ff613e1c177c3b56e9b71b2f70fe4b5655db898365351dadab3ac420b0e39",
+   "mtime": "2026-10-10 15:17:29"
+  },
+  {
+   "path": "Unity/Build/FLIP42/tmp_houdini/r4dbg/try_650.txt",
+   "bytes": 709,
+   "sha256": "561cea53b4e78fe9910dd7c7febd30011235643adcebabe067d17631688b35d5",
+   "mtime": "2026-10-10 16:28:54"
+  },
+  {
+   "path": "Unity/Build/FLIP42/tmp_houdini/r4dbg/try_650b.txt",
+   "bytes": 1354,
+   "sha256": "27fbdac14b900f08f89af113e7520606bd593f96551e3ced82ee2689e49b3487",
+   "mtime": "2026-10-10 16:30:16"
+  },
+  {
+   "path": "Unity/Build/FLIP42/tmp_houdini/r4dbg/try_cache.txt",
+   "bytes": 1540,
+   "sha256": "160b649ac8444e681ab1dbe7cb04b9435aa39a3fbf339e9bbf00d19788227693",
+   "mtime": "2026-10-10 16:42:05"
+  },
+  {
+   "path": "Unity/Build/FLIP42/tmp_houdini/r4dbg/try_cfg_R3_y60.json.txt",
+   "bytes": 1621,
+   "sha256": "3b143b898caf0b19ca42ebd40663d724e54dae9797d32ac60a8586336c4e705a",
+   "mtime": "2026-10-10 16:38:50"
+  },
+  {
+   "path": "Unity/Build/FLIP42/tmp_houdini/r4dbg/try_cfg_R3_z8.json.txt",
+   "bytes": 1632,
+   "sha256": "ebe2b650c55cc285ddfc3600a298fb40fca7559f4f0b73199ca1a0c62049ec34",
+   "mtime": "2026-10-10 16:40:36"
+  },
+  {
+   "path": "Unity/Build/FLIP42/tmp_houdini/r4dbg/try_cfg_R4_y12.json.txt",
+   "bytes": 381,
+   "sha256": "74704647e7a9e87e22fbac4e6c4379e8e7cf16372e9759e992bd36d49e80966d",
+   "mtime": "2026-10-10 16:36:14"
+  },
+  {
+   "path": "Unity/Build/FLIP42/tmp_houdini/r4dbg/try_cfg_dp02.json.txt",
+   "bytes": 1505,
+   "sha256": "569c6ecb4162463e14802075231bdfc8354f2e80d858a593c8268952e8948e62",
+   "mtime": "2026-10-10 16:35:48"
+  },
+  {
+   "path": "Unity/Build/FLIP42/tmp_houdini/r4dbg/try_cfg_dp021.json.txt",
+   "bytes": 1505,
+   "sha256": "d5738997fb0069b841f259980b4362306a5d06f0fa771b595cacd85d8d5fe030",
+   "mtime": "2026-10-10 16:37:21"
+  },
+  {
+   "path": "Unity/Build/FLIP42/tmp_houdini/r4dbg/try_dp3_17.txt",
+   "bytes": 707,
+   "sha256": "887b7ba7f052b1f528844a921d0bc0244dd9208742ea500669d9fefd9c8ef8fc",
+   "mtime": "2026-10-10 16:26:39"
+  },
+  {
+   "path": "Unity/Build/FLIP42/tmp_houdini/r4dbg/try_ic_Lx7.txt",
+   "bytes": 37101,
+   "sha256": "973609e8f81d39ea2e151a58d3ba87bdc298f7573db1cc54172fc6534434404e",
+   "mtime": "2026-10-10 16:24:12"
+  },
+  {
+   "path": "Unity/Build/FLIP42/tmp_houdini/r4dbg/try_ic_dp018.txt",
+   "bytes": 707,
+   "sha256": "16bd27db87e996a83d1531b2fcb6ef9fc3f7912ca793d57736b59306adf0f878",
+   "mtime": "2026-10-10 16:23:37"
+  },
+  {
+   "path": "Unity/Build/FLIP42/tmp_houdini/r4dbg/try_ic_full.txt",
+   "bytes": 302,
+   "sha256": "53d98959d0dc69e687bbee3a5b35cf5b14bc1b1ffd0a4591892213ee9eda3a18",
+   "mtime": "2026-10-10 16:21:07"
+  },
+  {
+   "path": "Unity/Build/FLIP42/tmp_houdini/r4dbg/try_ic_short.txt",
+   "bytes": 38732,
+   "sha256": "71b9b5221967704e9b04202e917ede37074ac6e337cf5e5503f527b7905b3597",
+   "mtime": "2026-10-10 16:24:48"
+  },
+  {
+   "path": "Unity/Build/FLIP42/tmp_houdini/r4dbg/try_mg_short.txt",
+   "bytes": 917,
+   "sha256": "90f5c0639f22fd1c3e4bac3728a9532075e5c477fd240e99c37b15f333c9390f",
+   "mtime": "2026-10-10 16:22:30"
+  }
+ ],
+ "metrics": {
+  "path": "Docs/Evidence/FLIPPlunging/metrics.json",
+  "bytes": 10424,
+  "sha256": "5d5af23eea70f0cc9f212d2c99f8a0ddb638e846eac8f118e425d7d3d20a80d7",
+  "mtime": "2026-10-10 18:16:00"
+ },
+ "guide": {
+  "path": "Docs/Evidence/FLIPPlunging/flip42/README_ja.md",
+  "bytes": 2500,
+  "sha256": "a3484b0c041f73b4df5ae4ab0f3edb736f371a9ec1dd85484e2542ea5583be20",
+  "mtime": "2026-10-10 18:14:22",
+  "note_ja": "写しの案内（手で書いた。写しの時点と、写しに残る退けた言い方）"
+ },
+ "revisions_ja": [
+  "2026-10-10 17:47 最初の版",
+  "2026-10-10 18 時台：報告の見直しを受けて、R3b・R4 の行のない起動、g_cfg.py・g_run.py の変更、record_ja.md の写しの時点、runs.jsonl の扱い、R4 の書き方を直した。動画・図・写しの中身は変えていない"
+ ]
+}

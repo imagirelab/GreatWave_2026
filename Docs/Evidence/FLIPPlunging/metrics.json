@@ -1,0 +1,349 @@
+{
+ "schema": "GreatWave.FLIPPlunging.metrics/1",
+ "date": "2026-10-10",
+ "note_ja": "判定の幅は凍結した計画 Unity/Build/FLIP42/plan/plan_ja.md §5（写しは flip42/plan/plan_ja.md）。結果は進行役が決めた幅に対してで、指導教員の確認は受けていない。位置は造波板から（m）、時刻は計算の始めから（s）。Tc 9.51 s・Lc 135.5 m",
+ "items": [
+  {
+   "id": "A1",
+   "name_ja": "帯の出口（造波板から 33.9 m）の 3 帯域の振幅の比・位相と測った S（R3）",
+   "value": {
+    "bands": [
+     {
+      "components": [
+       1,
+       11
+      ],
+      "amp_ratio": 1.0017,
+      "phase_rad": 0.0721
+     },
+     {
+      "components": [
+       12,
+       21
+      ],
+      "amp_ratio": 0.9844,
+      "phase_rad": 0.0723
+     },
+     {
+      "components": [
+       22,
+       32
+      ],
+      "amp_ratio": 0.9451,
+      "phase_rad": 0.0813
+     }
+    ],
+    "S": 0.3413
+   },
+   "tolerance_ja": "各帯域で振幅 ±5 %・位相 ±0.1 rad、S 0.334〜0.370",
+   "verdict_ja": "外れた（成分 22〜32 の振幅 0.945）",
+   "source": "runs/R3/ana.json A1"
+  },
+  {
+   "id": "A1_fix1",
+   "name_ja": "A1 の 1 回目の直し（帯 2 Lc の R3b、0〜139 s）の成分 22〜32",
+   "value": {
+    "R3b": 0.9398,
+    "R3_same_window": 0.9479
+   },
+   "tolerance_ja": "同じ",
+   "verdict_ja": "直らなかった",
+   "source": "check/R2/check_R2_extra.json A1_0_139s"
+  },
+  {
+   "id": "A2p",
+   "name_ja": "伝わり：帯の出口 → kc(x−x_b)=−15（造波板から 268.8 m、間 235 m）の速さの誤差（+ が遅い）と振幅の変化",
+   "value": {
+    "R1b": {
+     "speed_err": 0.0055,
+     "amp_change": 0.9171
+    },
+    "R2": {
+     "speed_err": -0.0023,
+     "amp_change": 0.9294
+    },
+    "R3": {
+     "speed_err": -0.0062,
+     "amp_change": 0.9409
+    }
+   },
+   "tolerance_ja": "記録",
+   "verdict_ja": "記録のみ",
+   "source": "check/R2/check_R2_extra.json A2（runs/*/ana.json A2p と同じ）"
+  },
+  {
+   "id": "A3p",
+   "name_ja": "集まり：測った速さと減りを入れた線形の焦点の模型（R3）",
+   "value": {
+    "dx_over_Lc": -0.2,
+    "dt_over_Tc": -0.17,
+    "crest_ratio": 0.881,
+    "H_ratio": 0.856
+   },
+   "tolerance_ja": "場所 ±0.1 Lc・時刻 ±0.1 Tc・頂と H の比 0.95 以上",
+   "verdict_ja": "外れた",
+   "source": "runs/R3/ana.json A3p_model"
+  },
+  {
+   "id": "B1",
+   "name_ja": "計算の減り：エネルギーの流れの帯の出口 → −10 の点（造波板から 376.6 m）の減り（成分の帯域の中）",
+   "value": {
+    "R1b": 0.1452,
+    "R2": 0.1039,
+    "R3": 0.0715
+   },
+   "tolerance_ja": "5 % 以内（R3 で判定）",
+   "verdict_ja": "外れた（R3 7.1 %）",
+   "source": "runs/*/ana.json B1"
+  },
+  {
+   "id": "N1N2",
+   "name_ja": "粒子の帯（粒子 0.5 m、帯 4 m の R1 と帯なしの R1b）",
+   "value": {
+    "N1_diff_m": [
+     -0.095,
+     0.043,
+     0.111
+    ],
+    "N1_tol_m": [
+     0.375,
+     0.422,
+     0.598
+    ],
+    "N1_ok": true,
+    "N2_rel_diff": {
+     "H": -0.0771,
+     "eta_c": -0.2031,
+     "steep": -0.0376
+    },
+    "N2_ok": false,
+    "decision_ja": "以後の計算（R3・R5'・R4）は帯なし"
+   },
+   "tolerance_ja": "N1 その点の線形の波高の 5 %、N2 H・η_c ±5 %・険しさ ±10 %",
+   "verdict_ja": "N2 が外れた → 決まりどおり R3 から先は帯なし",
+   "source": "R1/N1N2.json"
+  },
+  {
+   "id": "C_time",
+   "name_ja": "時間の刻み：R3 と R5'（138.2 s から CFL 半分・最小小刻み 2）",
+   "value": {
+    "C1_dt_s": -0.042,
+    "C1_dx_m": -0.2,
+    "C2_H": 0.0069,
+    "C2_eta_c": 0.0071,
+    "C3": 0.0503,
+    "C4_time": -0.0606,
+    "C4_dist": -0.0594
+   },
+   "tolerance_ja": "C1 ±0.1 Tc（0.95 s）・±0.1 Lc（13.5 m）、C2 ±5 %、C3・C4 ±10 %（比の基準は細かい方・刻みの小さい方）",
+   "verdict_ja": "入った（唇・2 つ目の噴流・空気は C1〜C4 に入っておらず、落ち着かない）",
+   "source": "R2/C_R3_vs_R5p.json"
+  },
+  {
+   "id": "C_res_R3_R4",
+   "name_ja": "細かさ：R3 と R4（粒子 0.177 m）",
+   "value": null,
+   "tolerance_ja": "C1 ±0.1 Tc（0.95 s）・±0.1 Lc（13.5 m）、C2 ±5 %、C3・C4 ±10 %（比の基準は細かい方・刻みの小さい方）",
+   "verdict_ja": "判定できない（R4 が走らなかった）",
+   "source": "Unity/Build/FLIP42/runs/R4/chain.log"
+  },
+  {
+   "id": "C_res_R2_R3",
+   "name_ja": "細かさ（条件つき）：R2（粒子 0.35 m）と R3",
+   "value": {
+    "C1_dt_s": -0.25,
+    "C1_dx_m": -7.39,
+    "C2_H": -0.0285,
+    "C2_eta_c": -0.0367,
+    "C3": -0.1484,
+    "C4_time": -0.3548,
+    "C4_dist": -0.3369
+   },
+   "tolerance_ja": "C1 ±0.1 Tc（0.95 s）・±0.1 Lc（13.5 m）、C2 ±5 %、C3・C4 ±10 %（比の基準は細かい方・刻みの小さい方）",
+   "verdict_ja": "C1・C2 は入り、C3・C4 は外れた",
+   "source": "R2/C_R2_vs_R3.json"
+  },
+  {
+   "id": "C_precond",
+   "name_ja": "記録：R3 と R3m（圧力の前処理だけ多重格子）",
+   "value": {
+    "C1_dt_s": 0.0,
+    "C1_dx_m": -0.0,
+    "C2_H": -0.0018,
+    "C2_eta_c": -0.0019,
+    "C3": -0.0,
+    "C4_time": 0.0,
+    "C4_dist": 0.0191
+   },
+   "tolerance_ja": "C1 ±0.1 Tc（0.95 s）・±0.1 Lc（13.5 m）、C2 ±5 %、C3・C4 ±10 %（比の基準は細かい方・刻みの小さい方）",
+   "verdict_ja": "記録のみ（C1〜C4 は 2 % 以内）",
+   "source": "R2/C_R3_vs_R3m.json"
+  },
+  {
+   "id": "D1",
+   "name_ja": "崩れ方",
+   "value": "前の面が鉛直を越え、唇が前の面に付いて空気を囲んだ（R2・R3・R5'・R3m のどれでも）",
+   "tolerance_ja": "前へ巻く（噴流の先が前の水面へ落ち、空気を囲む）",
+   "verdict_ja": "入った",
+   "source": "runs/*/shape.json、check/R2/check_ja.md §2・§3"
+  },
+  {
+   "id": "D2",
+   "name_ja": "巻き始めの場所（前の面が初めて鉛直になった点）",
+   "value": {
+    "x": 508.3,
+    "t": 154.708
+   },
+   "tolerance_ja": "484〜592 m（R&M の観測 kc(x−x_b)=−5〜0）",
+   "verdict_ja": "入った",
+   "source": "check/R2/check_R2_geom.json R3.events.onset"
+  },
+  {
+   "id": "D3",
+   "name_ja": "着水の時刻と場所（R3。記録の決まりでは唇の先が前の面に付いて空気を囲んだ時）",
+   "value": {
+    "t": 156.0,
+    "x": 527.0,
+    "dt_s": -3.3,
+    "dt_over_Tc": -0.347,
+    "dx_m": -57.5,
+    "dx_over_Lc": -0.424,
+    "air_m2": 1.94,
+    "air_height_above_still_m": [
+     5.05,
+     6.96
+    ],
+    "alt_second_jet": {
+     "t": 157.1,
+     "x": 548.9,
+     "dt_s": -2.2,
+     "dx_m": -35.6
+    }
+   },
+   "tolerance_ja": "D&K の表 3.1（計算の条件の表）の 159.3 s・584.5 m から ±0.25 Tc（2.4 s）・±0.25 Lc（34 m）",
+   "verdict_ja": "外れた。比べた出来事も同じではない（噴流の先は静かな水面の高さに届いていない）",
+   "source": "check/R2/check_R2_geom.json R3.events.touch_air、check/R2/check_ja.md 見つけた所 2"
+  },
+  {
+   "id": "V_height",
+   "name_ja": "見た目：巻き始めの高さ（R3）",
+   "value": {
+    "eta_c": 9.56,
+    "H_front": 10.66,
+    "front_trough": -1.1,
+    "front_trough_dist": 95.5,
+    "H_rear": 13.8,
+    "rear_trough": -4.24,
+    "rear_trough_dist": 67.0,
+    "H_rear_R2": 13.34,
+    "max_H_section_whole_run": 12.23
+   },
+   "tolerance_ja": "記録",
+   "verdict_ja": "記録のみ",
+   "source": "runs/R3/shape.json onset、check/R2/check_R2_extra.json rear、check_R2_more.json"
+  },
+  {
+   "id": "V_front",
+   "name_ja": "見た目：60° より立った前の面の高さ（巻き始め、R3）",
+   "value": {
+    "record": 1.66,
+    "check_forward_only": 1.39,
+    "check_all": 1.87
+   },
+   "tolerance_ja": "記録",
+   "verdict_ja": "記録のみ",
+   "source": "runs/R3/shape.json onset、check/R2/check_R2_geom.json"
+  },
+  {
+   "id": "V_lip",
+   "name_ja": "見た目：唇と 2 つ目の噴流（届く距離・厚み、m）",
+   "value": {
+    "R3": {
+     "before_first_contact": [
+      3.65,
+      1.06
+     ],
+     "second_jet_157_158": [
+      7.1,
+      0.71
+     ]
+    },
+    "R5p": {
+     "before_first_contact": [
+      2.99,
+      0.95
+     ],
+     "second_jet_157_158": [
+      4.05,
+      0.87
+     ]
+    },
+    "R3m": {
+     "before_first_contact": [
+      3.69,
+      1.11
+     ],
+     "second_jet_157_158": [
+      9.09,
+      0.77
+     ]
+    },
+    "R2": {
+     "before_first_contact": [
+      2.27,
+      0.9
+     ],
+     "second_jet_157_158": [
+      1.39,
+      0.87
+     ]
+    }
+   },
+   "tolerance_ja": "記録",
+   "verdict_ja": "記録のみ（2 つ目の噴流は計算ごとに変わり、再現しない。R2 では 2 つ目の噴流は出ない）",
+   "source": "check/R2/check_R2_extra.json lip"
+  },
+  {
+   "id": "V_air",
+   "name_ja": "見た目：囲んだ空気（m²）",
+   "value": {
+    "R3": {
+     "first_ge4": {
+      "t": 157.083,
+      "area": 9.28
+     },
+     "largest_to_158_3": 13.12
+    },
+    "R5p": {
+     "first_ge4": {
+      "t": 157.333,
+      "area": 4.18
+     },
+     "largest_to_158_3": 7.38
+    },
+    "R3m": {
+     "first_ge4": {
+      "t": 157.167,
+      "area": 10.44
+     },
+     "largest_to_158_3": 13.38
+    },
+    "R2": {
+     "first_ge4": null,
+     "largest_to_158_3": 1.05
+    }
+   },
+   "tolerance_ja": "記録",
+   "verdict_ja": "記録のみ（計算ごとに変わる）",
+   "source": "check/R2/check_R2_extra.json lip"
+  },
+  {
+   "id": "R4",
+   "name_ja": "粒子 0.177 m",
+   "value": "12 コマで水面が 1.06 m 下がり、水面の見張りで止まった（自由落下）。数コマの試しでは、粒子 0.21・0.20・0.18・0.177 m は、試した水槽（x の格子 2,606〜3,403 個）・上の空気の高さ・格子と海底の合わせ方・前処理によらず落ちた",
+   "tolerance_ja": "—",
+   "verdict_ja": "走らなかった。細かさの比べ（R3 と R4）は判定できない。原因は別の作業で調べている（まとめは 10/12 の見込み）。その途中の記録（10/10 17:55、Unity/Build/FLIP42/R4fix/record_ja.md）は格子の大きさの丸めによる場のずれと読んでいるが、独立の確かめはまだで、この報告では使っていない",
+   "source": "Unity/Build/FLIP42/record_ja.md の R4 の試し（写しは flip42/record_ja.md）、runs/R4/chain.log"
+  }
+ ]
+}

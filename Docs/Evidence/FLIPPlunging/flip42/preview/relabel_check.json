@@ -1,0 +1,119 @@
+{
+ "schema": "GreatWave.FLIP42.relabel_check/1",
+ "date": "2026-10-10",
+ "note_ja": "元の字と新しい字で同じ関数を走らせ、符号化の前のコマの画素を比べた。box は違う画素の外接の四角（画素、左上が 0）。字のほかが同じなら、違いは印の字の行（場所の印は窓の上の端、時刻の印は下の時間の帯）にだけ出る",
+ "labels_old": {
+  "g_preview": {
+   "dk_x": "実験の着水 584.5 m（D&K）",
+   "dk_t": "実験の着水",
+   "touch_t": "着水",
+   "touch_panel": "着水"
+  },
+  "g_video": {
+   "dk_x": "D&K の着水 584.5 m",
+   "dk_t": "D&K の着水の時刻",
+   "touch_t": "着水"
+  }
+ },
+ "labels_new": {
+  "g_preview": {
+   "dk_x": "D&K の表の着水の値 584.5 m（計算の条件の表）",
+   "dk_t": "D&K の表の着水の値（計算の条件の表）",
+   "touch_t": "唇が前の面に付いた時（記録の着水）",
+   "touch_panel": "唇が前の面に付いた時・記録の「着水」"
+  },
+  "g_video": {
+   "dk_x": "D&K の表の着水の値 584.5 m（計算の条件の表）",
+   "dk_t": "D&K の表の着水の値（計算の条件の表）",
+   "touch_t": "唇が前の面に付いた時（記録の着水）"
+  }
+ },
+ "side": {
+  "video": "R2_first_side",
+  "streams": [
+   {
+    "stream": "unused.mp4",
+    "frames_compared": 52,
+    "frames_with_diff": 52,
+    "max_px_changed": 5091,
+    "union_box_x0y0x1y1": [
+     1082,
+     159,
+     1511,
+     1066
+    ],
+    "row_bands_y": [
+     [
+      159,
+      173
+     ],
+     [
+      1040,
+      1066
+     ]
+    ]
+   }
+  ]
+ },
+ "crest": {
+  "video": "R3_crest / R2_side_finest",
+  "streams": [
+   {
+    "stream": "R3_crest.mp4",
+    "frames_compared": 24,
+    "frames_with_diff": 24,
+    "max_px_changed": 4239,
+    "union_box_x0y0x1y1": [
+     708,
+     169,
+     1794,
+     1072
+    ],
+    "row_bands_y": [
+     [
+      169,
+      183
+     ],
+     [
+      1046,
+      1072
+     ]
+    ]
+   },
+   {
+    "stream": "R3_crest_half.mp4",
+    "frames_compared": 24,
+    "frames_with_diff": 24,
+    "max_px_changed": 4239,
+    "union_box_x0y0x1y1": [
+     708,
+     169,
+     1794,
+     1072
+    ],
+    "row_bands_y": [
+     [
+      169,
+      183
+     ],
+     [
+      1046,
+      1072
+     ]
+    ]
+   }
+  ]
+ },
+ "strip": {
+  "same_size": true,
+  "n_px": 2839,
+  "boxes": [
+   [
+    990,
+    1045,
+    1362,
+    1061
+   ]
+  ]
+ }
+}

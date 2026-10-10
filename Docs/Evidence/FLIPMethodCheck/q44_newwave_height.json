@@ -1,0 +1,142 @@
+{
+ "note_ja": "Q44 の訂正の数（FLIP_MethodCheck_ja.md の〔訂正 10/9・Q44〕）。線形 NewWave、JONSWAP γ 3.3・Tp 7.5 s・水深 25 m・0.5〜2.5 fp・160 成分・一方向（mc_proposal_numbers.py と同じ）。η_c＝静かな水面から山まで、H＝山から隣の谷まで。2 次はピークの波数での狭い帯の目安で、差の波と帯の広さを入れていない",
+ "spectrum": {
+  "Tp": 7.5,
+  "h": 25.0,
+  "gamma": 3.3,
+  "n": 160,
+  "f_range_over_fp": [
+   0.5,
+   2.5
+  ],
+  "kp": 0.075,
+  "Lp": 83.8,
+  "kph": 1.88
+ },
+ "H_over_eta_c": {
+  "fmax_over_fp": 2.5,
+  "time_at_focus": {
+   "trough_dt_s": 3.25,
+   "trough_over_crest": -0.747,
+   "H_over_eta_c": 1.747
+  },
+  "space_at_focus_time": {
+   "trough_dx_m": 37.7,
+   "trough_over_crest": -0.581,
+   "H_over_eta_c": 1.581
+  }
+ },
+ "sensitivity_fmax": [
+  {
+   "fmax_over_fp": 2.0,
+   "time_at_focus": {
+    "trough_dt_s": 3.27,
+    "trough_over_crest": -0.796,
+    "H_over_eta_c": 1.796
+   },
+   "space_at_focus_time": {
+    "trough_dx_m": 37.7,
+    "trough_over_crest": -0.604,
+    "H_over_eta_c": 1.604
+   }
+  },
+  {
+   "fmax_over_fp": 2.5,
+   "time_at_focus": {
+    "trough_dt_s": 3.25,
+    "trough_over_crest": -0.747,
+    "H_over_eta_c": 1.747
+   },
+   "space_at_focus_time": {
+    "trough_dx_m": 37.7,
+    "trough_over_crest": -0.581,
+    "H_over_eta_c": 1.581
+   }
+  },
+  {
+   "fmax_over_fp": 3.0,
+   "time_at_focus": {
+    "trough_dt_s": 3.29,
+    "trough_over_crest": -0.735,
+    "H_over_eta_c": 1.735
+   },
+   "space_at_focus_time": {
+    "trough_dx_m": 37.4,
+    "trough_over_crest": -0.574,
+    "H_over_eta_c": 1.574
+   }
+  },
+  {
+   "fmax_over_fp": 4.0,
+   "time_at_focus": {
+    "trough_dt_s": 3.29,
+    "trough_over_crest": -0.735,
+    "H_over_eta_c": 1.735
+   },
+   "space_at_focus_time": {
+    "trough_dx_m": 37.4,
+    "trough_over_crest": -0.569,
+    "H_over_eta_c": 1.569
+   }
+  }
+ ],
+ "eta_c_for_H": [
+  {
+   "H_m": 10.0,
+   "eta_c_needed_time": 5.72,
+   "eta_c_needed_space": 6.33
+  },
+  {
+   "H_m": 12.0,
+   "eta_c_needed_time": 6.87,
+   "eta_c_needed_space": 7.59
+  }
+ ],
+ "old_proposal_eta_c_5m": {
+  "eta_c_m": 5.0,
+  "H_linear_time": 8.74,
+  "H_linear_space": 7.9
+ },
+ "stokes2_narrowband": {
+  "C_per_m": 0.0451,
+  "deep_water_C_per_m": 0.0375,
+  "rows": [
+   {
+    "basis": "time",
+    "eta_c_linear": 5.72,
+    "trough_linear": -4.28,
+    "eta_c_2nd": 7.2,
+    "trough_2nd": -3.45,
+    "H_2nd": 10.65,
+    "kp_eta_c_linear": 0.429
+   },
+   {
+    "basis": "space",
+    "eta_c_linear": 6.33,
+    "trough_linear": -3.67,
+    "eta_c_2nd": 8.13,
+    "trough_2nd": -3.07,
+    "H_2nd": 11.2,
+    "kp_eta_c_linear": 0.474
+   }
+  ]
+ },
+ "resolution_of_components": [
+  {
+   "particle_m": 0.25,
+   "grid_m": 0.5,
+   "L_over_grid_peak": 168.0,
+   "L_over_grid_shortest": 28.0,
+   "share_of_A_with_L_over_grid_lt_150": 0.482,
+   "share_of_A_with_L_over_grid_lt_78": 0.126
+  },
+  {
+   "particle_m": 0.3,
+   "grid_m": 0.6,
+   "L_over_grid_peak": 140.0,
+   "L_over_grid_shortest": 23.0,
+   "share_of_A_with_L_over_grid_lt_150": 0.775,
+   "share_of_A_with_L_over_grid_lt_78": 0.177
+  }
+ ]
+}
