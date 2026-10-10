@@ -1,0 +1,15 @@
+// RT48：照合（計画 C5）。描くシェーダーと同じ RT48Decode.hlsl で全部の点の位置と法線を作り、読み戻す。
+#pragma kernel Decode
+#include "RT48Decode.hlsl"
+
+RWStructuredBuffer<float4> _RT48Out;   // (X, Y, nX, nY)
+
+[numthreads(64, 1, 1)]
+void Decode(uint3 id : SV_DispatchThreadID)
+{
+    int i = (int)id.x;
+    if (i >= _RT48PointCount) return;
+    float2 p = RT48Point(i);
+    float2 n = RT48Normal(i);
+    _RT48Out[i] = float4(p.x, p.y, n.x, n.y);
+}

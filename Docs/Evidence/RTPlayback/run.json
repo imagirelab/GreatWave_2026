@@ -1,0 +1,781 @@
+{
+ "schema": "GreatWave.RTPlayback.deliver_run/1",
+ "date": "2026-10-11 05:54",
+ "note_ja": "Docs/Evidence/RTPlayback を作った記録。この段で新しい流体の計算・Unity の描き直しはしていない（横からの静止画 1 枚 side_coarse_t154.710.png だけを r_side.py で描いた）。git の操作とダウンロードはしていない。何も消していない。パスはリポジトリからの相対",
+ "report": "Docs/Progress/RT_Playback_ja.md",
+ "checks": {
+  "D1_D3_all": true
+ },
+ "videos": [
+  {
+   "path": "Docs/Evidence/RTPlayback/rtp_01_boat556_bow_coarse.mp4",
+   "source": "Unity/Build/RT48/video/rt48_boat_seat556_bow_coarse.mp4",
+   "bytes": 5175374,
+   "sha256": "7e3b22397d3288c20c281b359ba4b1c7e2f846387923abc4d4e6bf465387f96e",
+   "source_sha256": "7e3b22397d3288c20c281b359ba4b1c7e2f846387923abc4d4e6bf465387f96e",
+   "action": "same",
+   "desc_ja": "船から（座席 556 m、船首の向き、目は水線から 1.2 m、縦の画角 60°）、138.25〜157.083 s、実時間。Unity のプレイヤーの画面外の描画",
+   "probe": {
+    "codec": "h264",
+    "width": 1920,
+    "height": 1080,
+    "fps": "60/1",
+    "pix_fmt": "yuv420p",
+    "frames": 1131,
+    "duration_s": 18.85
+   },
+   "expected_frames": 1131,
+   "D1": true,
+   "D2": true,
+   "D3": true
+  },
+  {
+   "path": "Docs/Evidence/RTPlayback/rtp_02_side_coarse.mp4",
+   "source": "Unity/Build/RT48/video/rt48_side_coarse.mp4",
+   "bytes": 2168430,
+   "sha256": "621b827df262a5b1748ccab677666c248c3c14d67d9da39bd67cba8136820d09",
+   "source_sha256": "621b827df262a5b1748ccab677666c248c3c14d67d9da39bd67cba8136820d09",
+   "action": "same",
+   "desc_ja": "横から（x 470〜620 m を縦横同じ縮尺、上に断面の全体）、138.25〜162.0 s、実時間。焼いた曲線を Python（r_side.py）で描いた物で、Unity の絵ではない",
+   "probe": {
+    "codec": "h264",
+    "width": 1920,
+    "height": 1080,
+    "fps": "60/1",
+    "pix_fmt": "yuv420p",
+    "frames": 1426,
+    "duration_s": 23.766667
+   },
+   "expected_frames": 1426,
+   "D1": true,
+   "D2": true,
+   "D3": true
+  },
+  {
+   "path": "Docs/Evidence/RTPlayback/rtp_03_boat556_crest_coarse.mp4",
+   "source": "Unity/Build/RT48/video/rt48_boat_seat556_crest_coarse_extra.mp4",
+   "bytes": 11094307,
+   "sha256": "6bbb81857abd0d9fec1f39a8d4fbadd73c7c13102cf2b2dbd3c556306ee6d77b",
+   "source_sha256": "6bbb81857abd0d9fec1f39a8d4fbadd73c7c13102cf2b2dbd3c556306ee6d77b",
+   "action": "same",
+   "desc_ja": "参考：座席 556 m、頂に沿う向き（船首から 70°）、138.25〜157.083 s。Unity のプレイヤー",
+   "probe": {
+    "codec": "h264",
+    "width": 1920,
+    "height": 1080,
+    "fps": "60/1",
+    "pix_fmt": "yuv420p",
+    "frames": 1131,
+    "duration_s": 18.85
+   },
+   "expected_frames": 1131,
+   "D1": true,
+   "D2": true,
+   "D3": true
+  },
+  {
+   "path": "Docs/Evidence/RTPlayback/rtp_04_boat574_bow_coarse.mp4",
+   "source": "Unity/Build/RT48/video/rt48_boat_seat574_bow_coarse_extra.mp4",
+   "bytes": 5196488,
+   "sha256": "81e10c3d7be757be3ed21527ccb3de61dba14aaf5ae10b1fbb932f0bdb0a4c1b",
+   "source_sha256": "81e10c3d7be757be3ed21527ccb3de61dba14aaf5ae10b1fbb932f0bdb0a4c1b",
+   "action": "same",
+   "desc_ja": "参考：座席 574 m、船首の向き、138.25〜158.117 s。Unity のプレイヤー",
+   "probe": {
+    "codec": "h264",
+    "width": 1920,
+    "height": 1080,
+    "fps": "60/1",
+    "pix_fmt": "yuv420p",
+    "frames": 1193,
+    "duration_s": 19.883333
+   },
+   "expected_frames": 1193,
+   "D1": true,
+   "D2": true,
+   "D3": true
+  }
+ ],
+ "figures": [
+  {
+   "path": "Docs/Evidence/RTPlayback/rtp_05_side_t154.710.png",
+   "source": "Unity/Build/RT48/video/side_coarse_t154.710.png",
+   "bytes": 173228,
+   "sha256": "70a902517848ac4cbaa2232c3f11300b0d863e7e0d4f2ea3ef46db48cc76e1a7",
+   "D1": true,
+   "action": "same",
+   "desc_ja": "横から、154.710 s（3714 コマ、巻き始め）。Python の絵"
+  },
+  {
+   "path": "Docs/Evidence/RTPlayback/rtp_06_side_t156.000.png",
+   "source": "Unity/Build/RT48/video/side_coarse_t156.000.png",
+   "bytes": 174275,
+   "sha256": "61a5cddc15676d4d2c6773933fb162f00468542742341c9dbb879cb9d5b201eb",
+   "D1": true,
+   "action": "same",
+   "desc_ja": "横から、156.0 s（3745 コマ、唇が前の面に付いて空気を囲む）。Python の絵"
+  },
+  {
+   "path": "Docs/Evidence/RTPlayback/rtp_07_boat556_bow_t154.717.png",
+   "source": "Unity/Build/RT48/video/frames_boat_seat556_bow/frame_00988.png",
+   "bytes": 540169,
+   "sha256": "a1788eb300a326c9861f7a2adb6d71a4ab4fdc59b53327e86ec9faf6d2f0a628",
+   "D1": true,
+   "action": "same",
+   "desc_ja": "船から（座席 556 m、船首）、154.717 s（3714 コマ）。Unity"
+  },
+  {
+   "path": "Docs/Evidence/RTPlayback/rtp_08_boat556_bow_t156.000.png",
+   "source": "Unity/Build/RT48/video/frames_boat_seat556_bow/frame_01065.png",
+   "bytes": 605369,
+   "sha256": "18df81e59856eff5b25c0de3f839281ad574e7e464e9aa51ff91b46e45b17f48",
+   "D1": true,
+   "action": "same",
+   "desc_ja": "船から（座席 556 m、船首）、156.0 s（3745 コマ）。Unity"
+  },
+  {
+   "path": "Docs/Evidence/RTPlayback/rtp_09_boat556_bow_t157.083.png",
+   "source": "Unity/Build/RT48/video/frames_boat_seat556_bow/frame_01130.png",
+   "bytes": 579972,
+   "sha256": "061802ef2c68315e3815da6b6e76a2ca370017cf8320762ae11ed5cec0a74448",
+   "D1": true,
+   "action": "same",
+   "desc_ja": "船から（座席 556 m、船首）、157.083 s（3771 コマ、クリップの終わり）。Unity"
+  },
+  {
+   "path": "Docs/Evidence/RTPlayback/rtp_10_boat556_crest_t156.000.png",
+   "source": "Unity/Build/RT48/video/frames_boat_seat556_crest/frame_01065.png",
+   "bytes": 915639,
+   "sha256": "72a97618f57eb51cc0e6e2f1f2f67d718600b9bb78cdf753b744aae9900d7b02",
+   "D1": true,
+   "action": "same",
+   "desc_ja": "船から（座席 556 m、頂に沿う向き）、156.0 s。Unity"
+  },
+  {
+   "path": "Docs/Evidence/RTPlayback/rtp_11_endon_test_t156.000.png",
+   "source": "Unity/Build/RT48/unity/stills_coarse/coarse_endon_seat556_t156.000.png",
+   "bytes": 417879,
+   "sha256": "0ca40555e34eb9084d05f2f04d9ca1f5b75ee9d92f5d7c581057524d4ff202ba",
+   "D1": true,
+   "action": "same",
+   "desc_ja": "試しの視点：掃いた面の端（頂の向き 20 km）の 30 m 外から見た断面、156.0 s。体験では見えない所。Unity"
+  },
+  {
+   "path": "Docs/Evidence/RTPlayback/rtp_12_mock_botheyes.png",
+   "source": "Unity/Build/RT48/verify/timing/c7_1/mock_botheyes.png",
+   "bytes": 206001,
+   "sha256": "c0d73ebecec1668e72c8adb25319cef4d0b29b55c10f7a58b3e26e77faa472cb",
+   "D1": true,
+   "action": "same",
+   "desc_ja": "OpenXR の Mock Runtime（single-pass instanced、片眼 1512×1680）の左右の眼の絵。Unity のプレイヤー"
+  }
+ ],
+ "records": [
+  {
+   "path": "Docs/Evidence/RTPlayback/rt48/plan/plan_ja.md",
+   "source": "Unity/Build/RT48/plan/plan_ja.md",
+   "bytes": 48825,
+   "sha256": "393fc9d06336add129c4901fac14576acce46b605c13aaba681134e9cca1b1e4",
+   "D1": true,
+   "action": "same"
+  },
+  {
+   "path": "Docs/Evidence/RTPlayback/rt48/plan/review_ja.md",
+   "source": "Unity/Build/RT48/plan/review_ja.md",
+   "bytes": 12980,
+   "sha256": "f5bd7df78be353b03c044ce3f0fc3f12ba94f24d046c80275334d4390b3372ab",
+   "D1": true,
+   "action": "same"
+  },
+  {
+   "path": "Docs/Evidence/RTPlayback/rt48/plan/plan_frozen.json",
+   "source": "Unity/Build/RT48/plan/plan_frozen.json",
+   "bytes": 1415,
+   "sha256": "3081683637d572fda9a19c0b1253817a720db5554ffba7853c78fa7e05d7e907",
+   "D1": true,
+   "action": "same"
+  },
+  {
+   "path": "Docs/Evidence/RTPlayback/rt48/plan/plan_numbers.json",
+   "source": "Unity/Build/RT48/plan/plan_numbers.json",
+   "bytes": 21186,
+   "sha256": "08604aa90acf095a1e524e6e107d1463c509c983a8f3fbb1f8703f8a4d320382",
+   "D1": true,
+   "action": "same"
+  },
+  {
+   "path": "Docs/Evidence/RTPlayback/rt48/record_ja.md",
+   "source": "Unity/Build/RT48/record_ja.md",
+   "bytes": 45946,
+   "sha256": "cf632f75eb28cdb14b13ad35717338b5fbfaf9aee750a28a383981bd9ea0602a",
+   "D1": true,
+   "action": "updated"
+  },
+  {
+   "path": "Docs/Evidence/RTPlayback/rt48/data/record_ja.md",
+   "source": "Unity/Build/RT48/data/record_ja.md",
+   "bytes": 20354,
+   "sha256": "cb7cc31555c3a9d43bda3e1ae73f5724aefc7b6c02480fc399a0bbd573f129a6",
+   "D1": true,
+   "action": "same"
+  },
+  {
+   "path": "Docs/Evidence/RTPlayback/rt48/data/c1a.json",
+   "source": "Unity/Build/RT48/data/c1a.json",
+   "bytes": 1881,
+   "sha256": "f5e3b93d5115f75da195927c95fec89bc4046fcf50b15a49d0792e1a9028e9c5",
+   "D1": true,
+   "action": "same"
+  },
+  {
+   "path": "Docs/Evidence/RTPlayback/rt48/unity/record_ja.md",
+   "source": "Unity/Build/RT48/unity/record_ja.md",
+   "bytes": 28262,
+   "sha256": "765f046a7d0cf6d5187e26e058ddb3ef679f5ea1eafec8b11022c727919e557a",
+   "D1": true,
+   "action": "same"
+  },
+  {
+   "path": "Docs/Evidence/RTPlayback/rt48/verify/coarse/unity_editor_result.json",
+   "source": "Unity/Build/RT48/verify/coarse/unity_editor_result.json",
+   "bytes": 123797,
+   "sha256": "bc0f919f0b0ef26925f0006f9034f3098f98e475dd79281aec9b4cc1a9075c60",
+   "D1": true,
+   "action": "same"
+  },
+  {
+   "path": "Docs/Evidence/RTPlayback/rt48/verify/coarse/unity_player_result.json",
+   "source": "Unity/Build/RT48/verify/coarse/unity_player_result.json",
+   "bytes": 123798,
+   "sha256": "e693dba2d428164ff0296e12f4a7032898f3bd531c8f70c90df80695742ee7f0",
+   "D1": true,
+   "action": "same"
+  },
+  {
+   "path": "Docs/Evidence/RTPlayback/rt48/verify/timing/c7_1/summary.json",
+   "source": "Unity/Build/RT48/verify/timing/c7_1/summary.json",
+   "bytes": 9851,
+   "sha256": "187dc336acdd9d86c9fbda21b97d42d14f6eb96237a1790a0e5d850c22528f22",
+   "D1": true,
+   "action": "same"
+  },
+  {
+   "path": "Docs/Evidence/RTPlayback/rt48/verify/timing/c7_1/machine.json",
+   "source": "Unity/Build/RT48/verify/timing/c7_1/machine.json",
+   "bytes": 87963,
+   "sha256": "2b2371f2d3dc242724907b002c9416853978bb631d39ac49c78809b4e8dd0db0",
+   "D1": true,
+   "action": "same"
+  },
+  {
+   "path": "Docs/Evidence/RTPlayback/rt48/check/check_ja.md",
+   "source": "Unity/Build/RT48/check/check_ja.md",
+   "bytes": 25806,
+   "sha256": "bc18bc78a02e920f308181f4acd51b4b0a294a9b76484e66528b4275d81dd52a",
+   "D1": true,
+   "action": "same"
+  },
+  {
+   "path": "Docs/Evidence/RTPlayback/rt48/check/k_lib.py",
+   "source": "Unity/Build/RT48/check/k_lib.py",
+   "bytes": 14028,
+   "sha256": "9235ce79a661e1c368857a3c7c58de0075510d50c3aa30617b2a71fbfd3449c3",
+   "D1": true,
+   "action": "same"
+  },
+  {
+   "path": "Docs/Evidence/RTPlayback/rt48/check/k_r3.py",
+   "source": "Unity/Build/RT48/check/k_r3.py",
+   "bytes": 4118,
+   "sha256": "773394014826d508d463fdb2890b66d4a9cc2b90e21f358fad08bd26010d5a3e",
+   "D1": true,
+   "action": "same"
+  },
+  {
+   "path": "Docs/Evidence/RTPlayback/rt48/check/k_playback.py",
+   "source": "Unity/Build/RT48/check/k_playback.py",
+   "bytes": 9036,
+   "sha256": "8811cec8480a458ca59537436a7699ab893e07446658f65c82a5b6b52fca1429",
+   "D1": true,
+   "action": "same"
+  },
+  {
+   "path": "Docs/Evidence/RTPlayback/rt48/check/k_v2exact.py",
+   "source": "Unity/Build/RT48/check/k_v2exact.py",
+   "bytes": 1312,
+   "sha256": "a191943249d6821ff76fd3b7bd973ffcf8489c9c591c4f3c07d95252fcaaf898",
+   "D1": true,
+   "action": "same"
+  },
+  {
+   "path": "Docs/Evidence/RTPlayback/rt48/check/k_c3exact.py",
+   "source": "Unity/Build/RT48/check/k_c3exact.py",
+   "bytes": 900,
+   "sha256": "03c6736a8461acf277a9f9cc3ea4ff8c79c9a505d8a74a37cf6639cba4b54259",
+   "D1": true,
+   "action": "same"
+  },
+  {
+   "path": "Docs/Evidence/RTPlayback/rt48/check/k_selfx.py",
+   "source": "Unity/Build/RT48/check/k_selfx.py",
+   "bytes": 1724,
+   "sha256": "8b4b9e1f1013ce99ce12d7948b0d58469ea0774aa6017098d50475c7df7c92c4",
+   "D1": true,
+   "action": "same"
+  },
+  {
+   "path": "Docs/Evidence/RTPlayback/rt48/check/k_interp.py",
+   "source": "Unity/Build/RT48/check/k_interp.py",
+   "bytes": 7428,
+   "sha256": "e47e254f3aaef75915785f63a24a422e7b8f6d822f3466fff66536b39eb5ce61",
+   "D1": true,
+   "action": "same"
+  },
+  {
+   "path": "Docs/Evidence/RTPlayback/rt48/check/k_boat.py",
+   "source": "Unity/Build/RT48/check/k_boat.py",
+   "bytes": 5272,
+   "sha256": "f5e6a0429b98ad1b50b8a319292e6d5c6e0bac0f91b4d3522011c08d6ce6c207",
+   "D1": true,
+   "action": "same"
+  },
+  {
+   "path": "Docs/Evidence/RTPlayback/rt48/check/k_taper.py",
+   "source": "Unity/Build/RT48/check/k_taper.py",
+   "bytes": 2136,
+   "sha256": "146f38f0ecf17440d1c5b4bd04b99a682816c2befe9625f0a82f00be0e7b409a",
+   "D1": true,
+   "action": "same"
+  },
+  {
+   "path": "Docs/Evidence/RTPlayback/rt48/check/k_timing.py",
+   "source": "Unity/Build/RT48/check/k_timing.py",
+   "bytes": 3330,
+   "sha256": "c62746ebb6de67d6223a9fabe7c4690b6dc29adf83be6a4c954bef4db60b7863",
+   "D1": true,
+   "action": "same"
+  },
+  {
+   "path": "Docs/Evidence/RTPlayback/rt48/check/k_timing_switch.py",
+   "source": "Unity/Build/RT48/check/k_timing_switch.py",
+   "bytes": 1625,
+   "sha256": "1780e46768cd48ad8b84fe08e11dbb7561158b8d569514c12790fb07e8faf95b",
+   "D1": true,
+   "action": "same"
+  },
+  {
+   "path": "Docs/Evidence/RTPlayback/rt48/check/k_video.py",
+   "source": "Unity/Build/RT48/check/k_video.py",
+   "bytes": 19296,
+   "sha256": "c9885f80a069408047ba034bf7b30e819b3367e318a1bdc47dd88eacb90bf8dd",
+   "D1": true,
+   "action": "same"
+  },
+  {
+   "path": "Docs/Evidence/RTPlayback/rt48/check/k_video_side2.py",
+   "source": "Unity/Build/RT48/check/k_video_side2.py",
+   "bytes": 4887,
+   "sha256": "6c356ffafdcbe31706ca55e0af7dabdafd8abb268021f4f8da924b9d5cc43af1",
+   "D1": true,
+   "action": "same"
+  },
+  {
+   "path": "Docs/Evidence/RTPlayback/rt48/check/k_video_events.py",
+   "source": "Unity/Build/RT48/check/k_video_events.py",
+   "bytes": 3829,
+   "sha256": "c9a6b78ca9426ead9e146576a44a9446d825ca1f95c6d80428e2bede247d7e17",
+   "D1": true,
+   "action": "same"
+  },
+  {
+   "path": "Docs/Evidence/RTPlayback/rt48/check/k_video_lip.py",
+   "source": "Unity/Build/RT48/check/k_video_lip.py",
+   "bytes": 2669,
+   "sha256": "657ef0f01f56783938bdebee1ea5d3cdeee758c70b3082973dfccb2243e91da7",
+   "D1": true,
+   "action": "same"
+  },
+  {
+   "path": "Docs/Evidence/RTPlayback/rt48/check/k_video_boat_timing.py",
+   "source": "Unity/Build/RT48/check/k_video_boat_timing.py",
+   "bytes": 1739,
+   "sha256": "d8e949e18cbe51d20f5596c6085b59d217920b874f9ae1563c27678081058b72",
+   "D1": true,
+   "action": "same"
+  },
+  {
+   "path": "Docs/Evidence/RTPlayback/rt48/check/k_snap.py",
+   "source": "Unity/Build/RT48/check/k_snap.py",
+   "bytes": 2853,
+   "sha256": "da87dcc18573cfbdc5a6319f9713bcb721014230357ebc29b7d5781ee0b4a1b0",
+   "D1": true,
+   "action": "same"
+  },
+  {
+   "path": "Docs/Evidence/RTPlayback/rt48/check/k_mock.py",
+   "source": "Unity/Build/RT48/check/k_mock.py",
+   "bytes": 1045,
+   "sha256": "fd15a80918a2f6e80c245f3d34213820e39ff6e382dca13521e8c1f1c955aa4f",
+   "D1": true,
+   "action": "same"
+  },
+  {
+   "path": "Docs/Evidence/RTPlayback/rt48/check/out/k_playback_editor.json",
+   "source": "Unity/Build/RT48/check/out/k_playback_editor.json",
+   "bytes": 247538,
+   "sha256": "0c499c43ef3cdc60bbf49b280b6939b9faa76e5f5c5ebf2ef44a67e8f052a005",
+   "D1": true,
+   "action": "same"
+  },
+  {
+   "path": "Docs/Evidence/RTPlayback/rt48/check/out/k_v2exact.json",
+   "source": "Unity/Build/RT48/check/out/k_v2exact.json",
+   "bytes": 128,
+   "sha256": "bd7ed5d9e5d26e5567b4cd0e9b1485611a4ba679192a53f1b5c968a339ea5efb",
+   "D1": true,
+   "action": "same"
+  },
+  {
+   "path": "Docs/Evidence/RTPlayback/rt48/check/out/k_c3exact.json",
+   "source": "Unity/Build/RT48/check/out/k_c3exact.json",
+   "bytes": 141,
+   "sha256": "e09e6b9bb9eaa85734aec54bbfae51eda6c9ab3b1647b206d0321aecca386f9e",
+   "D1": true,
+   "action": "same"
+  },
+  {
+   "path": "Docs/Evidence/RTPlayback/rt48/check/out/k_selfx.json",
+   "source": "Unity/Build/RT48/check/out/k_selfx.json",
+   "bytes": 75,
+   "sha256": "52fe6b3203c584e699d450236ed02536e92419bfcc309a36647f9421366e0d74",
+   "D1": true,
+   "action": "same"
+  },
+  {
+   "path": "Docs/Evidence/RTPlayback/rt48/check/out/k_interp.json",
+   "source": "Unity/Build/RT48/check/out/k_interp.json",
+   "bytes": 132739,
+   "sha256": "40427acd4e76a0c5ecc03d6c07158aff02c5b40fc1533a00a8a1c77c71925fd0",
+   "D1": true,
+   "action": "same"
+  },
+  {
+   "path": "Docs/Evidence/RTPlayback/rt48/check/out/k_boat.json",
+   "source": "Unity/Build/RT48/check/out/k_boat.json",
+   "bytes": 48270,
+   "sha256": "fba1ef3c0f93e4a13e30e321346b02d626781bb821bc19c3c8020813e6455ad3",
+   "D1": true,
+   "action": "same"
+  },
+  {
+   "path": "Docs/Evidence/RTPlayback/rt48/check/out/k_taper.json",
+   "source": "Unity/Build/RT48/check/out/k_taper.json",
+   "bytes": 453,
+   "sha256": "a8a2dbf10cf1ee6e2d2a793da417e66440d66d212cdecb695ac777f1f89ddce9",
+   "D1": true,
+   "action": "same"
+  },
+  {
+   "path": "Docs/Evidence/RTPlayback/rt48/check/out/k_timing.json",
+   "source": "Unity/Build/RT48/check/out/k_timing.json",
+   "bytes": 11472,
+   "sha256": "8a94c5ce2b669441820a4957649e1eefed31bf8436ddb5168a3d8ab1b411b474",
+   "D1": true,
+   "action": "same"
+  },
+  {
+   "path": "Docs/Evidence/RTPlayback/rt48/check/out/k_timing_switch.json",
+   "source": "Unity/Build/RT48/check/out/k_timing_switch.json",
+   "bytes": 2479,
+   "sha256": "f99abe8dedcdfbd70df64b35a977f9d5b8f352aee185d1b8ce7d0a385d497fdd",
+   "D1": true,
+   "action": "same"
+  },
+  {
+   "path": "Docs/Evidence/RTPlayback/rt48/check/out/k_video_events.json",
+   "source": "Unity/Build/RT48/check/out/k_video_events.json",
+   "bytes": 21698,
+   "sha256": "6fae2d184646b84fafbb57bd857a963cb8ba3e00badefbaa3ed521f9b5116b65",
+   "D1": true,
+   "action": "same"
+  },
+  {
+   "path": "Docs/Evidence/RTPlayback/rt48/check/out/k_video_lip.json",
+   "source": "Unity/Build/RT48/check/out/k_video_lip.json",
+   "bytes": 25216,
+   "sha256": "98ec13e63f9805ebdd7f107cef80796885cade06cc2bb9b2c48e6f8504767d4b",
+   "D1": true,
+   "action": "same"
+  },
+  {
+   "path": "Docs/Evidence/RTPlayback/rt48/check/out/k_video_boat_timing.json",
+   "source": "Unity/Build/RT48/check/out/k_video_boat_timing.json",
+   "bytes": 394,
+   "sha256": "eb0e043e27b4587a24408389d5bda75eba8941191220f541bfc649593d6bbbfc",
+   "D1": true,
+   "action": "same"
+  },
+  {
+   "path": "Docs/Evidence/RTPlayback/rt48/check/out/k_snap.json",
+   "source": "Unity/Build/RT48/check/out/k_snap.json",
+   "bytes": 840,
+   "sha256": "be4c6df7fc626c665bcc35b7cac4c0ae596035d0dd2e47dab7a02f0a7047c8fc",
+   "D1": true,
+   "action": "same"
+  },
+  {
+   "path": "Docs/Evidence/RTPlayback/rt48/check/out/k_mock.json",
+   "source": "Unity/Build/RT48/check/out/k_mock.json",
+   "bytes": 223,
+   "sha256": "cc3f471cb716b965705a4f5e2e9e3e9c7e02ffac8410be6ab9e6e638efacf347",
+   "D1": true,
+   "action": "same"
+  }
+ ],
+ "not_copied": {
+  "bake_pairs": {
+   "path": "Unity/Build/RT48/data/coarse/pairs.bin",
+   "bytes": 74711040,
+   "sha256": "ea1bfea8474a7886c61cbe3a02e215717b53883028d4df28800a3984e2f9edb2",
+   "why_ja": "大きい（Git 対象外の Unity/Build/RT48 に置いたまま）"
+  },
+  "bake_loops": {
+   "path": "Unity/Build/RT48/data/coarse/loops.bin",
+   "bytes": 21504,
+   "sha256": "8e87d7d71b2d212563aed62cbe06117d789421f3747ac112100775fa7d60ea08",
+   "why_ja": "大きい（Git 対象外の Unity/Build/RT48 に置いたまま）"
+  },
+  "bake_manifest": {
+   "path": "Unity/Build/RT48/data/coarse/manifest.json",
+   "bytes": 538409,
+   "sha256": "50a78ec1a50b5856bb7ac3e60a6e99d1e8e3f458249da47e4e65a0777dd7f815",
+   "why_ja": "大きい（Git 対象外の Unity/Build/RT48 に置いたまま）"
+  },
+  "player_exe": {
+   "path": "Unity/Build/RT48/unity/player/RT48.exe",
+   "bytes": 667648,
+   "sha256": "5be81b3fa7df7c08cadee6f79d6ff3fe95481420f166ba8127390ea669c8b12c",
+   "why_ja": "大きい（Git 対象外の Unity/Build/RT48 に置いたまま）"
+  }
+ },
+ "commands": [
+  "py -3.10 -B Tools/GWWaveGen/rt48/r_side.py coarse --stills 154.71   # 巻き始めのコマ（3714）の横からの静止画",
+  "py -3.10 -B Tools/GWWaveGen/rt48/d_deliver.py copy                   # この証拠",
+  "py -3.10 -B Tools/GWWaveGen/rt48/d_deliver.py checklist              # 提出の一覧の確かめ"
+ ],
+ "upstream_commands_ja": {
+  "計画": "py -3.10 Tools/GWWaveGen/rt48/p_inspect.py → plan/plan_numbers.json、plan_ja.md（走らせる前に書いて凍結した）",
+  "焼き": "py -3.10 r_c1.py a（C1 (a)）、py -3.10 r_bake.py coarse（粗い元、C3・C4・K・船の表）、py -3.10 r_index.py",
+  "Unity": "u_unity.ps1 で RT48SceneBuilder・RT48SelfTest・RT48PlayerBuild（Unity 6000.4.3f1 の batchmode）",
+  "つなぎ・確かめ": "py -3.10 v_prep.py coarse → RT48VerifyEditor（Editor）と RT48.exe -rt48export（プレイヤー）→ py -3.10 v_compare.py coarse unity_editor／unity_player",
+  "動画": "RT48.exe -rt48capture（1/60 s おき）→ ffmpeg libx264、py -3.10 r_side.py coarse",
+  "時間": "powershell -File v_timing.ps1 -Tag c7_1 → py -3.10 v_timing_sum.py verify/timing/c7_1",
+  "独立の確かめ": "Unity/Build/RT48/check/k_*.py（プロジェクトの比べる道具を読み込まない）",
+  "R3e（まだ走っていない）": "py -3.10 r_chain.py rerun/cfg/cfg_R3e.json --after（R4d の後ろで待つ）→ r_after.py"
+ },
+ "versions": {
+  "python": "3.10.6",
+  "numpy": "2.2.6",
+  "scipy": "1.15.3",
+  "pillow": "12.0.0",
+  "opencv": "4.12.0",
+  "unity": "6000.4.3f1（Built-in、OpenXR 1.16.1、single-pass instanced）",
+  "ffmpeg": "ffmpeg 2024-12-19-git-494c961379-full_build（libx264、yuv420p）",
+  "houdini_source": "FLIP42 R3：Houdini 22.0.466 hython（この段では動かしていない）"
+ },
+ "r3_inputs": {
+  "cfg.json": {
+   "path": "Unity/Build/FLIP42/runs/R3/cfg.json",
+   "sha256_plan": "7e159d4eeb4fa3e72196f0dca5160e6a16ee2525b8d0b263bd49b9bc85433631",
+   "sha256_now": "7e159d4eeb4fa3e72196f0dca5160e6a16ee2525b8d0b263bd49b9bc85433631",
+   "same": true
+  },
+  "run.json": {
+   "path": "Unity/Build/FLIP42/runs/R3/run.json",
+   "sha256_plan": "c7506a530d8417fe381f1c67d682765bae740d4212c6518ae66911c7f7444f66",
+   "sha256_now": "c7506a530d8417fe381f1c67d682765bae740d4212c6518ae66911c7f7444f66",
+   "same": true
+  },
+  "shape.json": {
+   "path": "Unity/Build/FLIP42/runs/R3/shape.json",
+   "sha256_plan": "62f67b643cc723e9504cebc5ea14e9a185925f4579659a5f8475fd322a4c6d3f",
+   "sha256_now": "62f67b643cc723e9504cebc5ea14e9a185925f4579659a5f8475fd322a4c6d3f",
+   "same": true
+  },
+  "hf_c2845.npz": {
+   "path": "Unity/Build/FLIP42/runs/R3/hf_c2845.npz",
+   "sha256_plan": "f176dd437f026ac1e151fc9d679e538e9dbb0abf7972b4fc7cc159d9366afb45",
+   "sha256_now": "f176dd437f026ac1e151fc9d679e538e9dbb0abf7972b4fc7cc159d9366afb45",
+   "same": true
+  },
+  "hf_c3319.npz": {
+   "path": "Unity/Build/FLIP42/runs/R3/hf_c3319.npz",
+   "sha256_plan": "76c29251fe76e0dcba6d1dd3da234370da8f76dc094c7779943969344d3f81a5",
+   "sha256_now": "76c29251fe76e0dcba6d1dd3da234370da8f76dc094c7779943969344d3f81a5",
+   "same": true
+  },
+  "hf_c3556.npz": {
+   "path": "Unity/Build/FLIP42/runs/R3/hf_c3556.npz",
+   "sha256_plan": "f1219179ed9a05769826beda872b2db79126bb1e9bede0bf75ba87763337b2dc",
+   "sha256_now": "f1219179ed9a05769826beda872b2db79126bb1e9bede0bf75ba87763337b2dc",
+   "same": true
+  },
+  "hf_c3714.npz": {
+   "path": "Unity/Build/FLIP42/runs/R3/hf_c3714.npz",
+   "sha256_plan": "4560a2ca83e165a6228fc4d41ea42272afc0a4447c1eefe6f29df1fabd8b0e20",
+   "sha256_now": "4560a2ca83e165a6228fc4d41ea42272afc0a4447c1eefe6f29df1fabd8b0e20",
+   "same": true
+  },
+  "hf_c3793.npz": {
+   "path": "Unity/Build/FLIP42/runs/R3/hf_c3793.npz",
+   "sha256_plan": "71f560d3c1e0a944f038cfcd59a076f9bc2a606e97b907e48be6a4c14193ba73",
+   "sha256_now": "71f560d3c1e0a944f038cfcd59a076f9bc2a606e97b907e48be6a4c14193ba73",
+   "same": true
+  },
+  "sec_c2845_b3319.npz": {
+   "path": "Unity/Build/FLIP42/runs/R3/sec_c2845_b3319.npz",
+   "sha256_plan": "3390c12b09300bbc6f6a6ce306df1719c707953049cb4764708022e41368e2e6",
+   "sha256_now": "3390c12b09300bbc6f6a6ce306df1719c707953049cb4764708022e41368e2e6",
+   "same": true
+  },
+  "sec_c3319_b3319.npz": {
+   "path": "Unity/Build/FLIP42/runs/R3/sec_c3319_b3319.npz",
+   "sha256_plan": "f3cb158973473aa85a3c830898be9e4b9f61f84e1a2e66cd6242904d3349239d",
+   "sha256_now": "f3cb158973473aa85a3c830898be9e4b9f61f84e1a2e66cd6242904d3349239d",
+   "same": true
+  },
+  "sec_c3319_b3439.npz": {
+   "path": "Unity/Build/FLIP42/runs/R3/sec_c3319_b3439.npz",
+   "sha256_plan": "2b402cd2d408379c394ff31ee99edb752dbee0ede71a6c77678c2d3a18cd8ace",
+   "sha256_now": "2b402cd2d408379c394ff31ee99edb752dbee0ede71a6c77678c2d3a18cd8ace",
+   "same": true
+  },
+  "sec_c3319_b3559.npz": {
+   "path": "Unity/Build/FLIP42/runs/R3/sec_c3319_b3559.npz",
+   "sha256_plan": "ec0b620eeec8a475844dd240190f2d9a6c8b8b841659c4f66820a7b9425fc158",
+   "sha256_now": "ec0b620eeec8a475844dd240190f2d9a6c8b8b841659c4f66820a7b9425fc158",
+   "same": true
+  },
+  "sec_c3319_b3679.npz": {
+   "path": "Unity/Build/FLIP42/runs/R3/sec_c3319_b3679.npz",
+   "sha256_plan": "6f03f0d46ee0262d22c60410c04682b258837f032f7360bc6603adf93f1c6906",
+   "sha256_now": "6f03f0d46ee0262d22c60410c04682b258837f032f7360bc6603adf93f1c6906",
+   "same": true
+  },
+  "sec_c3556_b3676.npz": {
+   "path": "Unity/Build/FLIP42/runs/R3/sec_c3556_b3676.npz",
+   "sha256_plan": "7a69022e0f5c8ff9ff973c7bfe82d7ce2b295a511dab424c63668fcf4955284e",
+   "sha256_now": "7a69022e0f5c8ff9ff973c7bfe82d7ce2b295a511dab424c63668fcf4955284e",
+   "same": true
+  },
+  "sec_c3714_b3714.npz": {
+   "path": "Unity/Build/FLIP42/runs/R3/sec_c3714_b3714.npz",
+   "sha256_plan": "7885b2762ef3f5046a198a2949bf89bce017d42030d78d7b047e7f6c438e977b",
+   "sha256_now": "7885b2762ef3f5046a198a2949bf89bce017d42030d78d7b047e7f6c438e977b",
+   "same": true
+  },
+  "sec_c3714_b3834.npz": {
+   "path": "Unity/Build/FLIP42/runs/R3/sec_c3714_b3834.npz",
+   "sha256_plan": "8b30774c25c3791142e7228de4d1822073afbe360077a5245637284370cf0c23",
+   "sha256_now": "8b30774c25c3791142e7228de4d1822073afbe360077a5245637284370cf0c23",
+   "same": true
+  },
+  "sec_c3793_b3793.npz": {
+   "path": "Unity/Build/FLIP42/runs/R3/sec_c3793_b3793.npz",
+   "sha256_plan": "34f2c37ed62198152b99b3638cfec02b7ce5487c36bbfcf08c35aac3dc0a7b5c",
+   "sha256_now": "34f2c37ed62198152b99b3638cfec02b7ce5487c36bbfcf08c35aac3dc0a7b5c",
+   "same": true
+  }
+ },
+ "tools": {
+  "Tools/GWWaveGen/rt48/d_deliver.py": "3c4b3e1e7f6c1e958e38448a265c79acbc0ffbcac04b47ef66a18049abfb9ce6",
+  "Tools/GWWaveGen/rt48/p_inspect.py": "7c05b672b3004dffe372bafb1ba1a857759bbf91fecf61023a5a7cba6f47021c",
+  "Tools/GWWaveGen/rt48/r_after.py": "fb73ea45930d894e19f7f14275b2272fa158d4a2c77536eabff1e762f82e4560",
+  "Tools/GWWaveGen/rt48/r_bake.py": "72983b799e0daba02337e9c219648be78512294f930b66fb6e931c7c30c67020",
+  "Tools/GWWaveGen/rt48/r_c1.py": "e072db24cc91d22d1811ad72de9c3e10b2f04f230568f283649617942bc05f9c",
+  "Tools/GWWaveGen/rt48/r_c2.py": "ac6750f56bf02b977d0c9bf502a765c9431bff98eab456f9112f75fbb9ede573",
+  "Tools/GWWaveGen/rt48/r_chain.py": "c8c10066bd58ad2b5b173738728ee20cf238d6199b9e4b92dd821f1c416cc2c0",
+  "Tools/GWWaveGen/rt48/r_index.py": "540611f0a8b0d59e6934f4ae876fddcee2e3d90af0f333e6f4b63f542041211e",
+  "Tools/GWWaveGen/rt48/r_lib.py": "90715454ddef8a5d203b57ebdd3a9556ec3a8cfc7dddb20af22a0dedbc96e799",
+  "Tools/GWWaveGen/rt48/r_plot_check.py": "5f5bd58d7d3ad8d259f10f377a4b3c62f0c103e591ef85e5371f80ce659806c1",
+  "Tools/GWWaveGen/rt48/r_run.py": "ec78a26254d39613478da544c2cd5a85ee058837aff99cabf5e4e76d922ba2f9",
+  "Tools/GWWaveGen/rt48/r_side.py": "9f1f3a51974d467129c0e962039381f20699bbbdafa2af5e08af7d6f7be8e4aa",
+  "Tools/GWWaveGen/rt48/r_surface.py": "a0d33f0114f183cd940af7cf095dd4800823605f27c99fa0930fb01f84f84c38",
+  "Tools/GWWaveGen/rt48/u_bakeio.py": "84e2eb12befb97765d1ae73c5ff40f53fa71ed2e896c943e85bcaf9241a996f8",
+  "Tools/GWWaveGen/rt48/u_snapshot.py": "3142569ec30b0022b366d009ffac9287c67e11bebb8a007d183c1cf0349fe7c7",
+  "Tools/GWWaveGen/rt48/u_synth.py": "0be349779aa6c874b18e2acd7c4352dd928c4be1c08cfc60159effa8edb634d7",
+  "Tools/GWWaveGen/rt48/u_unity.ps1": "13260b61e62ac28fa5a473f319716cd5de02207e4ba34e76f788d716db5c5abb",
+  "Tools/GWWaveGen/rt48/v_compare.py": "53bfa29aec28bb363abd50c4ef074764b8962910a4c35aa29dd5f0834bc59ab0",
+  "Tools/GWWaveGen/rt48/v_prep.py": "384e7f41b609d161f08b652a4fa02416ac89771edbc4dcc0df9413a01e474de1",
+  "Tools/GWWaveGen/rt48/v_timing.ps1": "6116ea81dadde26beff6d0e710b8909803902ad2e68410fb2f01a0a1903f64bd",
+  "Tools/GWWaveGen/rt48/v_timing_sum.py": "1e185b271850b087b6b90cf3fb1d25f43ec3a40710f2d78377590895d5e53ca4"
+ },
+ "assets": {
+  "Unity/Assets/GreatWave/RT48.meta": "4c557e43db11be50a0a9634e28b0cac6056648b7349f1488ab15f28f8702a573",
+  "Unity/Assets/GreatWave/RT48/Editor.meta": "6a6edd9500abd385e9b5aa638e5e853ceb67c361f8042274523695da255f1c1f",
+  "Unity/Assets/GreatWave/RT48/Editor/RT48PlayerBuild.cs": "e35386c5dd639dc6a2cfeda64e821e664f635d9adb432c6720901cdffa5a6a7f",
+  "Unity/Assets/GreatWave/RT48/Editor/RT48PlayerBuild.cs.meta": "26ff36c6499e4462f5521544dcac970eddd61b28e41fe3950c67c0d1e12f4c5d",
+  "Unity/Assets/GreatWave/RT48/Editor/RT48SceneBuilder.cs": "d3bdbd2ea387cb3857b699772c3c92193a1c04d210728d2bfc73cb51a8120f8c",
+  "Unity/Assets/GreatWave/RT48/Editor/RT48SceneBuilder.cs.meta": "a5931f0b8bd3f62b8a62fa5c905a67bcb9c97c7a50080b9cf0eaac1aefb77db0",
+  "Unity/Assets/GreatWave/RT48/Editor/RT48SelfTest.cs": "ffbe7398b293ebd794cee2e822ee16c575a4d5e7c44266a895194d0780b8b501",
+  "Unity/Assets/GreatWave/RT48/Editor/RT48SelfTest.cs.meta": "c5e63a04afeedf5c9907abdcaaece45583980c207a62a005578222fcba8b8d9a",
+  "Unity/Assets/GreatWave/RT48/Editor/RT48VerifyEditor.cs": "a0fe15b4f0a7b8c485da8111d9fae355e5703311cf1602ad069a34b76226eca1",
+  "Unity/Assets/GreatWave/RT48/Editor/RT48VerifyEditor.cs.meta": "88972f28258fc37574b3275d03b4f703aab0354ad5b312b862d9cf1eb1e25759",
+  "Unity/Assets/GreatWave/RT48/Materials.meta": "4765ab9cc1f16c7955774d83bfa0aff805677f99f56a396eb58465b18a6bac22",
+  "Unity/Assets/GreatWave/RT48/Materials/RT48_Boat.mat": "90fbe28048b10bea93d09bb127243fb041429ac8227f6178d2ec032626591554",
+  "Unity/Assets/GreatWave/RT48/Materials/RT48_Boat.mat.meta": "bbc5d726d36d2d98e76da66574ed7202a82169021cb426e79efa5ee89f3df958",
+  "Unity/Assets/GreatWave/RT48/Materials/RT48_Overlay.mat": "73bca3beaed87ff227edee2485f9d6041c220ca326d6d62bf4dabd477308be50",
+  "Unity/Assets/GreatWave/RT48/Materials/RT48_Overlay.mat.meta": "51ba47afdba221963a1fb15893f1587108d7a5912f7e44e23da7bed99e224fd2",
+  "Unity/Assets/GreatWave/RT48/Materials/RT48_Sea.mat": "b80641b1b3e2b5bc2a7181f2fed8dbd36c21f575d2a6126ca8e623842754987f",
+  "Unity/Assets/GreatWave/RT48/Materials/RT48_Sea.mat.meta": "25144181f369196019384a9e0d84a04a6d3d2eee45dd7f36e335c3547a3da461",
+  "Unity/Assets/GreatWave/RT48/Materials/RT48_Sky.mat": "b3ab24fa52aa5f276b20eedb6b7a824c700c999dd983de57739421fb9310552b",
+  "Unity/Assets/GreatWave/RT48/Materials/RT48_Sky.mat.meta": "4fc799a400273802c939e41523d27ff607932e38f99a50b296d41611e990ee05",
+  "Unity/Assets/GreatWave/RT48/Materials/RT48_WaterLoops.mat": "529cf2183a45ce5717c088358ea90c96a149ebcc1dee2986ced364b91c7a9e10",
+  "Unity/Assets/GreatWave/RT48/Materials/RT48_WaterLoops.mat.meta": "f1748be764fe4cc07a092d46980aa84377519c7e290e80eb055a69169883b62b",
+  "Unity/Assets/GreatWave/RT48/Materials/RT48_WaterSweep.mat": "fcaa08928226c0976924a823a68d5d665679716f145ef3ed3001230f3004ea60",
+  "Unity/Assets/GreatWave/RT48/Materials/RT48_WaterSweep.mat.meta": "d6d89267aabd845d4d1f1d1147b8f747fd8e4f9d30c677d18699ab83e47d527c",
+  "Unity/Assets/GreatWave/RT48/Scenes.meta": "fc022d028815fbfd53584ceef0c1cf0314b5a41643706001579b727770f97c7c",
+  "Unity/Assets/GreatWave/RT48/Scenes/RT48_Playback.unity": "68612fe9c02ef3168ee018d130fd31371cc12e736beec0bc71b9dd60c5026173",
+  "Unity/Assets/GreatWave/RT48/Scenes/RT48_Playback.unity.meta": "6e3c71d904ba2990a228580f4ba63f5cf5209b34cf8ca7ded5c08f4b2cd0c873",
+  "Unity/Assets/GreatWave/RT48/Scripts.meta": "54f8c8c14651513dc07582aadc4e959552f838fd1e40932b247bc21abf3dbed2",
+  "Unity/Assets/GreatWave/RT48/Scripts/RT48Bake.cs": "0e0db869ffb842eba19fc339c74aab1fa27d2e6161deda570a2fb4905279aa7d",
+  "Unity/Assets/GreatWave/RT48/Scripts/RT48Bake.cs.meta": "a8f7fb84ccbc3c3bd9f09c55482709abffd06b6a4df417a46697e535125ac8c0",
+  "Unity/Assets/GreatWave/RT48/Scripts/RT48Captions.cs": "78e3924c72e2710e71cab570f4e12e035597fd1b30c71e2938432f16f3b426b0",
+  "Unity/Assets/GreatWave/RT48/Scripts/RT48Captions.cs.meta": "9ee7ff46524463a312d4aa60b6b8a7c11838dd1f35f01c66eac7f9c7e32d72d6",
+  "Unity/Assets/GreatWave/RT48/Scripts/RT48Capture.cs": "1dc5a7d6d1a5b17f653df4315f9b55c0aaa68131360456b95248b856dd880f0f",
+  "Unity/Assets/GreatWave/RT48/Scripts/RT48Capture.cs.meta": "cd03c73a9c95bfbbe674f2febe382e73e11bdd0980f74929e3a1ec9a3187bd48",
+  "Unity/Assets/GreatWave/RT48/Scripts/RT48DecodeCheck.cs": "3f1caaaee468c1c1928d24e4a0339cb595ff9dfd15bd6473fd6ac54086ce24fc",
+  "Unity/Assets/GreatWave/RT48/Scripts/RT48DecodeCheck.cs.meta": "74fa8676a3c742ad754ea1d039d509f2f27fee5cd431cdea5b23ba642a114d6f",
+  "Unity/Assets/GreatWave/RT48/Scripts/RT48FrameTiming.cs": "0bed18d39b498c290b033ecd6f17dfc9f6d48a95c55017eb64aa84ac1073c7d9",
+  "Unity/Assets/GreatWave/RT48/Scripts/RT48FrameTiming.cs.meta": "bf658145978024589bb3e2fd53330a5360b71dab4ce0959d6a9f8d59801c48a8",
+  "Unity/Assets/GreatWave/RT48/Scripts/RT48Geometry.cs": "d4ab0ce9fadcc13e8a39e2e28472cb64d7aebb9cb06cba3dd0197d97762b7849",
+  "Unity/Assets/GreatWave/RT48/Scripts/RT48Geometry.cs.meta": "6807806229f9e07ac2b657ed84653782560d4ddb18b70f781cf7cb653e46e4b5",
+  "Unity/Assets/GreatWave/RT48/Scripts/RT48Json.cs": "27cd890803e563f4890f32d9109e2d7e968cacbe909e8e46769e574f7a3dc730",
+  "Unity/Assets/GreatWave/RT48/Scripts/RT48Json.cs.meta": "3dcb825fd357ea6a146eb935b7d8a582db5d523621ebca45b4f7b7894839a9ff",
+  "Unity/Assets/GreatWave/RT48/Scripts/RT48Playback.cs": "464c4121cbc1910bdc28575771383ee2041e28de86956b3cb58b883f87808174",
+  "Unity/Assets/GreatWave/RT48/Scripts/RT48Playback.cs.meta": "545b207cc86eb2819e5ccaf29d0a99d0f2eb118b4925643029087da0548ca907",
+  "Unity/Assets/GreatWave/RT48/Scripts/RT48Rig.cs": "9d3bd2a71d057753cc33f79bbec337607e6dad4e0dcade7bf6438a699cdd4b00",
+  "Unity/Assets/GreatWave/RT48/Scripts/RT48Rig.cs.meta": "46e19b1c8281bb0ac9e650abf95f15d207ff07256e42732d78de26d5af1e6809",
+  "Unity/Assets/GreatWave/RT48/Scripts/RT48SectionSource.cs": "4b48192a0b25a130af8d69c5ec4b163f3c32db9a242600b29a165985ceaed1ef",
+  "Unity/Assets/GreatWave/RT48/Scripts/RT48SectionSource.cs.meta": "a23aa38593723985bcffe16f9af47d56b7d2e479386d11335d6b51b8feb9eafc",
+  "Unity/Assets/GreatWave/RT48/Scripts/RT48VerifyExport.cs": "ccdb208ea92c0012dbe146d2adb05c74fa3618e5c9f28d9fe89adb46c86ec827",
+  "Unity/Assets/GreatWave/RT48/Scripts/RT48VerifyExport.cs.meta": "56a67127f7c6d299f0c0ed917ece3e087670f5025b2bd8f61a6854dd7f5bc5cc",
+  "Unity/Assets/GreatWave/RT48/Shaders.meta": "468191e6446e26a5ac0249ceda2c9eedf1c1dcab243ed5674cb0b70fa2ddc941",
+  "Unity/Assets/GreatWave/RT48/Shaders/RT48Decode.hlsl": "ab47a44bad595425828c4277a2210b72ae2a1389fec891231bff09434e846821",
+  "Unity/Assets/GreatWave/RT48/Shaders/RT48Decode.hlsl.meta": "7137f1cfb6f5eb5f67f8c00379ee620a59875d93a0ee0bf1b958becf7f1392d0",
+  "Unity/Assets/GreatWave/RT48/Shaders/RT48DecodeCheck.compute": "bbecc63cb7dc715ae42bf987cef8a1de6a5638a26352004a90825d16e6e37c3b",
+  "Unity/Assets/GreatWave/RT48/Shaders/RT48DecodeCheck.compute.meta": "5e42eda366086480fffc8961aaff9a8e200f93a26500d933a411d36916c4dbf6",
+  "Unity/Assets/GreatWave/RT48/Shaders/RT48Overlay.shader": "4afbc3578382fd582f9aca0289f34be5dfdba59a9293bf0a64de3a9cfd306c6e",
+  "Unity/Assets/GreatWave/RT48/Shaders/RT48Overlay.shader.meta": "d64f24c29fffa1a1c75ef7ef5ecfb26fc90c3185c558c0957bd768455fb86bff",
+  "Unity/Assets/GreatWave/RT48/Shaders/RT48Shading.hlsl": "2cf7d28c0098b047a466c80a7cdb6404ad788e59e24403d7c1d783126ef20150",
+  "Unity/Assets/GreatWave/RT48/Shaders/RT48Shading.hlsl.meta": "722d9356bc3cf358182777cdd33fad12ee4a35fb2961183c492b4b6b94cf1cdd",
+  "Unity/Assets/GreatWave/RT48/Shaders/RT48Sky.shader": "f188f9c965cdad06809c6e8d239a4f05afe42760ad3c67b4e648719ad4508f0b",
+  "Unity/Assets/GreatWave/RT48/Shaders/RT48Sky.shader.meta": "e9db5a357f707d9e597a79d10c1b43b620edc898b753f6ce68bb21977285db0c",
+  "Unity/Assets/GreatWave/RT48/Shaders/RT48Water.shader": "ab0cf2788392a1266eb5d24b6dd3db186d7d3997c0a964f8e96e0c6e5dad6980",
+  "Unity/Assets/GreatWave/RT48/Shaders/RT48Water.shader.meta": "056ff3b8673c54b17e4033ef87ae8eaaea3b241e0cdca943e45ec09d96c70bdf"
+ },
+ "scene": {
+  "path": "Unity/Assets/GreatWave/RT48/Scenes/RT48_Playback.unity",
+  "sha256": "68612fe9c02ef3168ee018d130fd31371cc12e736beec0bc71b9dd60c5026173"
+ }
+}
