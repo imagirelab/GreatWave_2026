@@ -12,6 +12,12 @@
   N1  帯の出口・−20・−10 の点の、深い谷 3 つの深さの平均（R1 と R1b の比べは g_compare.py）
   巻き始め・着水（断面の水面の場の 0 の等高線）、各コマの H・η_c・前の面の険しさ（C3 の量）・前の面の最大の傾き
   §6 の見た目の量（巻き始めと着水の時刻）
+2026-10-11 11:35 A3' の位相の符号を直した（独立の確かめ Unity/Build/FLIP42/check/R4/check_ja.md の見つけた所 1）。
+  10/9 の版（a3p_model_old_sign）は、帯の出口で測った位相 arg R と、速さの誤差による波数の変化 (kk − k)(x − x_出口) を、
+  成分の位相 θ = k(x − xb) − ω(t − tb) に逆の符号で入れていた。numpy の FFT は e^{−iωt} なので、早く着く（arg R > 0）は θ では −arg R、
+  速い（kk < k）は θ では +(kk − k)(x − x_出口)（p_plan_numbers.py の eta(kk=…) と同じ向き）。直した版は a3p_model。
+  ana.json には A3p_model（直した版）と A3p_model_old_sign（10/9 の版。10/11 までの ana.json の A3p_model と同じ値）の両方を書く。
+  10/11 より前に書いた ana.json（R1b・R2・R3・R4d など）は書き換えていない。直した値は x_a3fix.py → Unity/Build/FLIP42/a3fix/a3p_fix.json。
 """
 import sys, os, json, glob, math
 import numpy as np
@@ -183,6 +189,55 @@ def troughs3(e):
     return [float(q) for q in v], float(np.mean(v))
 
 
+# ------------------------------------------------------------------ A3'：測った値を入れた線形の焦点の模型
+A3P_NX, A3P_NT = 501, 451   # 焦点を探す格子（x_b − 1 Lc〜+1.5 Lc、t_b − 1.5 Tc〜+3 Tc）。10/9 の版と同じ
+
+
+def _a3p_parts(C, f, fr, R, m2, e_f, g_f, xr, Lc, Tc, nx=None, nt=None):
+    """模型の共通の部分：帯の出口の比 Rb、成分ごとの速さの誤差 e_i・振幅の変化 g_i、探す格子、線形の位相 th0。"""
+    nx = nx or A3P_NX; nt = nt or A3P_NT
+    Rb = np.interp(f, fr, R.real) + 1j * np.interp(f, fr, R.imag)
+    e_i = np.interp(f, fr[m2], e_f); g_i = np.interp(f, fr[m2], g_f)
+    xs_ = C["xb"] + np.linspace(-1.0, 1.5, nx) * Lc
+    ts_ = C["tb"] + np.linspace(-1.5, 3.0, nt) * Tc
+    th0 = C["k"][None, None, :] * (xs_[:, None, None] - C["xb"]) - C["om"][None, None, :] * (ts_[None, :, None] - C["tb"])
+    dxr = (xs_ - xr)[:, None, None]
+    kk = C["k"] / (1 - e_i)
+    return Rb, e_i, g_i, xs_, ts_, th0, dxr, kk
+
+
+def _a3p_focus(C, xs_, ts_, th0, th1, amp1, Lc, Tc, note):
+    E0 = (C["a"] * np.cos(th0)).sum(-1)
+    E1 = (amp1 * np.cos(th1)).sum(-1)
+    i0 = np.unravel_index(np.argmax(E0), E0.shape); i1 = np.unravel_index(np.argmax(E1), E1.shape)
+
+    def Hf(E, ix, it):
+        row = E[:, it]; mm = (xs_ > xs_[ix]) & (xs_ <= xs_[ix] + 0.75 * Lc)
+        return float(row[ix] - row[mm].min()) if mm.any() else float("nan")
+    return dict(dx_focus_over_Lc=float((xs_[i1[0]] - xs_[i0[0]]) / Lc), dt_focus_over_Tc=float((ts_[i1[1]] - ts_[i0[1]]) / Tc),
+                crest_ratio=float(E1[i1] / E0[i0]), H_ratio=float(Hf(E1, *i1) / Hf(E0, *i0)), note=note)
+
+
+def a3p_model(C, f, fr, R, m2, e_f, g_f, xr, dx2, Lc, Tc, nx=None, nt=None):
+    """A3'（2026-10-11 に符号を直した版）。成分 i の水面を、帯の出口 x_e から先で
+    a_i |Rb_i| g_i^((x − x_e)/Δx) cos(k_i(x − x_b) − ω_i(t − t_b) − arg Rb_i + (kk_i − k_i)(x − x_e))、kk_i = k_i / (1 − e_i) とする。"""
+    Rb, e_i, g_i, xs_, ts_, th0, dxr, kk = _a3p_parts(C, f, fr, R, m2, e_f, g_f, xr, Lc, Tc, nx, nt)
+    th1 = th0 - np.angle(Rb)[None, None, :] + (kk - C["k"])[None, None, :] * dxr
+    amp1 = C["a"][None, None, :] * abs(Rb)[None, None, :] * np.power(g_i[None, None, :], dxr / dx2)
+    return _a3p_focus(C, xs_, ts_, th0, th1, amp1, Lc, Tc,
+                      "帯の出口の振幅・位相（A1 の比）と、A2' の速さの誤差・振幅の変化を、線形の焦点の模型（p_plan_numbers.py の形）に入れた。"
+                      "2026-10-11 に位相の符号を直した版（−arg R、+(kk − k)(x − x_出口)）")
+
+
+def a3p_model_old_sign(C, f, fr, R, m2, e_f, g_f, xr, dx2, Lc, Tc, nx=None, nt=None):
+    """10/9 の版（位相の符号が逆：+arg R、−(kk − k)(x − x_出口)）。10/11 までの記録の A3' の値を出し直すためだけに残す。判定には使わない。"""
+    Rb, e_i, g_i, xs_, ts_, th0, dxr, kk = _a3p_parts(C, f, fr, R, m2, e_f, g_f, xr, Lc, Tc, nx, nt)
+    th1 = th0 + np.angle(Rb)[None, None, :] - (kk - C["k"])[None, None, :] * dxr
+    amp1 = C["a"][None, None, :] * abs(Rb)[None, None, :] * np.power(g_i[None, None, :], dxr / dx2)
+    return _a3p_focus(C, xs_, ts_, th0, th1, amp1, Lc, Tc,
+                      "10/9 の版（位相の符号が逆。10/11 までの ana.json の A3p_model と同じ値）。判定に使わない")
+
+
 # ------------------------------------------------------------------ 断面の形
 def resample(path, ds):
     seg = np.sqrt((np.diff(path, axis=0) ** 2).sum(1))
@@ -344,25 +399,9 @@ def analyze(rid, quick=False):
                       speed_err_wmean=wmean(e_f, w2), amp_change_wmean=wmean(g_f, w2), dx=dx2,
                       third_order_bias_est=P["criteria"]["A2p_propagation"]["third_order_speed_bias_est"])
     # ---- A3'：測った値を焦点の模型に入れる（帯の出口の振幅・位相、その先の速さの誤差と振幅の変化）
-    Rb = np.interp(f, fr, R.real) + 1j * np.interp(f, fr, R.imag)
-    e_i = np.interp(f, fr[m2], e_f); g_i = np.interp(f, fr[m2], g_f)
-    xs_ = C["xb"] + np.linspace(-1.0, 1.5, 501) * Lc
-    ts_ = C["tb"] + np.linspace(-1.5, 3.0, 451) * Tc
-    th0 = C["k"][None, None, :] * (xs_[:, None, None] - C["xb"]) - C["om"][None, None, :] * (ts_[None, :, None] - C["tb"])
-    E0 = (C["a"] * np.cos(th0)).sum(-1)
-    dxr = (xs_ - xr)[:, None, None]
-    kk = C["k"] / (1 - e_i)
-    th1 = th0 + np.angle(Rb)[None, None, :] - (kk - C["k"])[None, None, :] * dxr
-    amp1 = C["a"][None, None, :] * abs(Rb)[None, None, :] * np.power(g_i[None, None, :], dxr / dx2)
-    E1 = (amp1 * np.cos(th1)).sum(-1)
-    i0 = np.unravel_index(np.argmax(E0), E0.shape); i1 = np.unravel_index(np.argmax(E1), E1.shape)
-
-    def Hf(E, ix, it):
-        row = E[:, it]; mm = (xs_ > xs_[ix]) & (xs_ <= xs_[ix] + 0.75 * Lc)
-        return float(row[ix] - row[mm].min()) if mm.any() else float("nan")
-    out["A3p_model"] = dict(dx_focus_over_Lc=float((xs_[i1[0]] - xs_[i0[0]]) / Lc), dt_focus_over_Tc=float((ts_[i1[1]] - ts_[i0[1]]) / Tc),
-                            crest_ratio=float(E1[i1] / E0[i0]), H_ratio=float(Hf(E1, *i1) / Hf(E0, *i0)),
-                            note="帯の出口の振幅・位相（A1 の比）と、A2' の速さの誤差・振幅の変化を、線形の焦点の模型（p_plan_numbers.py の形）に入れた")
+    # 2026-10-11：符号を直した a3p_model を A3p_model に、10/9 の版を A3p_model_old_sign に書く（上の a3p_model の注）
+    out["A3p_model"] = a3p_model(C, f, fr, R, m2, e_f, g_f, xr, dx2, Lc, Tc)
+    out["A3p_model_old_sign"] = a3p_model_old_sign(C, f, fr, R, m2, e_f, g_f, xr, dx2, Lc, Tc)
     # ---- B1：エネルギーの流れ
     cgf = cg_of_f(fr, C["h"])
 

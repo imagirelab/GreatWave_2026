@@ -1,0 +1,79 @@
+Setting breakpad minidump AppID = 502570
+SteamInternal_SetMinidumpSteamID:  Caching Steam ID:  76561198362844570 [API loaded no]
+gasprojectnondivergentvariational
+parmop_velocity | Velocity Field | 3 | default
+velocity | Velocity Field | vel | vel
+parmop_surface | Surface Field | 3 | default
+surface | Surface Field | surface | chs("../solversurfacename")
+parmop_surfaceweights | Surface Weights Field | 3 | default
+surfaceweights | Surface Weights Field | surfaceweights | `ifs(ch("../enable_surface_weights/enable"),"surfaceweights", "")`
+parmop_surfacepressure | Surface Pressure Field | 3 | default
+surfacepressure | Surface Pressure Field | surfacepressure | `ifs(ch("../enable_viscosity/enable"),"", "surfacepressure")`
+parmop_collision | Collision Field | 3 | default
+collision | Collision Field | collision | chs("../collisionsurfacename")
+parmop_collisionweights | Collision Weights Field | 3 | default
+collisionweights | Collision Weights Field | collisionweights | chs("../collisionweightsname")
+parmop_collisionvelocity | Collision Velocity Field | 3 | default
+collisionvelocity | Collision Velocity Field | collisionvel | chs("../collisionvelname")
+parmop_usesharpcollisions | Use Sharp Collisions | 3 | default
+usesharpcollisions | Use Sharp Collisions | 0 | off
+parmop_divergence | Goal Divergence Field | 3 | default
+divergence | Goal Divergence Field | divergence | divergence
+parmop_pressure | Pressure Field | 3 | default
+pressure | Pressure Field | pressure | pressure
+parmop_useoldpressure | Use Pressure To Warm Start Solver | 3 | default
+useoldpressure | Use Pressure To Warm Start Solver | 1 | if(ch("../usewarmstart"),if(ch("../enable_viscosity/enable"), 0, 1), 0)
+parmop_density | Density Field | 3 | default
+density | Density Field | massdensity | massdensity
+parmop_mindensity | Min Density | 3 | default
+mindensity | Min Density | 1.0 | 1 / (ch("../massscale") / pow(ch("../spatialscale"), 3))
+parmop_maxdensity | Max Density | 3 | default
+maxdensity | Max Density | 10000.0 | 10000 / (ch("../massscale") / pow(ch("../spatialscale"), 3))
+parmop_valid | Valid Field | 3 | default
+valid | Valid Field | __valid | __valid
+parmop_tol | Error Tolerance | 3 | default
+tol | Error Tolerance | 0.0001 | 0.0001
+parmop_extrapdist | Surface Extrapolation Cells | 3 | default
+extrapdist | Surface Extrapolation Cells | 0.5 | ch("../extrapdist")
+parmop_usepreconditioner | Use Incomplete Cholesky Preconditioner | 3 | default
+usepreconditioner | Use Incomplete Cholesky Preconditioner | 1 | ch("../usepreconditioner")
+parmop_usemgpreconditioner | Use Multigrid Preconditioner | 3 | default
+usemgpreconditioner | Use Multigrid Preconditioner | 0 | if(ch("../opencl"), 0, ch("../usemgpreconditioner"))
+parmop_opencl | Use OpenCL | 3 | default
+opencl | Use OpenCL | 0 | ch("../opencl")
+parmop_airincompressibility | Enforce Air Incompressibility | 3 | default
+airincompressibility | Enforce Air Incompressibility | 0 | ch("../doincompressibleair")
+parmop_applyaircollisions | Apply Collisions To Air Incompressibility | 3 | default
+applyaircollisions | Apply Collisions To Air Incompressibility | 0 | ch("../applycollisionstoair")
+parmop_minairregionsize | Min Air Region Size | 3 | default
+minairregionsize | Min Air Region Size | 0 | ch("../minairregionsize")
+parmop_usewaterline | Use Waterline | 3 | default
+usewaterline | Use Waterline | 0 | ch("../usewaterline")
+parmop_waterline | Waterline | 3 | default
+waterline | Waterline | 0.0 | ch("../waterline")
+parmop_waterlinedirection | Waterline Direction | 3 | default
+waterlinedirectionx | Waterline Direction | 0.0 | ch("../waterlinedirectionx")
+waterlinedirectiony | Waterline Direction | 1.0 | ch("../waterlinedirectiony")
+waterlinedirectionz | Waterline Direction | 0.0 | ch("../waterlinedirectionz")
+parmop_usetimestep | Use Timestep | 3 | default
+usetimestep | Use Timestep | 1 | on
+parmop_timescale | Time Scale | 3 | default
+timescale | Time Scale | 1.0 | ch("../timescale")
+parmop_address | Tracker Address | 3 | default
+address | Tracker Address |  | chs("../address")
+parmop_port | Tracker Port | 3 | default
+port | Tracker Port | 8000 | ch("../port")
+parmop_jobname | Job Name | 3 | default
+jobname | Job Name | flipsolver_1 | chs("../jobname")
+parmop_slice | Slice Number | 3 | default
+slice | Slice Number | 0 | ch("../slice")
+parmop_numslice | Number of Slices | 3 | default
+numslice | Number of Slices | 1 | ch("../numslice")
+parmop_slicefield | Slice Index Field | 3 | default
+slicefield | Slice Index Field | sliceindex | sliceindex
+defaultparmop | Default Operation | 1 | always
+addaffectors | Make Objects Mutual Affectors | 1 | on
+group | Group | * | *
+dataname | Data Name | projectnondivergent | $OS
+uniquedataname | Unique Data Name | 1 | on
+solverperobject | Solver Per Object | 0 | off

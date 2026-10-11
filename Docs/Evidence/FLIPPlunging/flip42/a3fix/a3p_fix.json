@@ -1,0 +1,145 @@
+{
+ "schema": "GreatWave.FLIP42.a3p_fix/1",
+ "date": "2026-10-11 11:32",
+ "why_ja": "g_analyze.py の A3'（10/9 の版）は、帯の出口で測った位相 arg R と速さの誤差による波数の変化を、成分の位相に逆の符号で入れていた（独立の確かめ Unity/Build/FLIP42/check/R4/check_ja.md の見つけた所 1）。直した版で出し直した。ana.json は書き換えていない",
+ "tolerance_ja": "計画 §5 (a) A3'：場所 ±0.1 Lc・時刻 ±0.1 Tc・頂と H の比 0.95 以上、R4 のずれが R3 より小さいこと（R3・R4 で判定、ほかは記録）",
+ "grid_ja": "判定に使う値は 10/9 の版と同じ探す格子（x 501 × t 451）。fine_grid は 1,001 × 901 の参考",
+ "runs": {
+  "R1b": {
+   "frames_done": 4508,
+   "A2p_speed_err_wmean": 0.0055087907589385435,
+   "A2p_amp_change_wmean": 0.917072088401211,
+   "fixed": {
+    "dx_focus_over_Lc": -0.045000000000000026,
+    "dt_focus_over_Tc": -0.030000000000001047,
+    "crest_ratio": 0.8152759092430591,
+    "H_ratio": 0.8138141843076389
+   },
+   "old_sign": {
+    "dx_focus_over_Lc": -0.03999999999999993,
+    "dt_focus_over_Tc": -0.05999999999999911,
+    "crest_ratio": 0.8154558922558977,
+    "H_ratio": 0.7906494136418344
+   },
+   "fixed_fine_grid": {
+    "dx_focus_over_Lc": -0.03749999999999989,
+    "dt_focus_over_Tc": -0.020000000000000698,
+    "crest_ratio": 0.8152945628994208,
+    "H_ratio": 0.8102220965242215
+   },
+   "ana_json_A3p_model": {
+    "dx_focus_over_Lc": -0.03999999999999993,
+    "dt_focus_over_Tc": -0.05999999999999911,
+    "crest_ratio": 0.8154558922558977,
+    "H_ratio": 0.7906494136418344
+   },
+   "old_sign_equals_ana_json": true,
+   "A2p_equals_ana_json": true,
+   "within_tolerance": false,
+   "judged": false
+  },
+  "R2": {
+   "frames_done": 4508,
+   "A2p_speed_err_wmean": -0.0022678833437827345,
+   "A2p_amp_change_wmean": 0.9294199864884806,
+   "fixed": {
+    "dx_focus_over_Lc": 0.10000000000000026,
+    "dt_focus_over_Tc": 0.07999999999999981,
+    "crest_ratio": 0.84622120870072,
+    "H_ratio": 0.8350230320633629
+   },
+   "old_sign": {
+    "dx_focus_over_Lc": -0.15499999999999964,
+    "dt_focus_over_Tc": -0.1399999999999989,
+    "crest_ratio": 0.8528978963628491,
+    "H_ratio": 0.8287646234135713
+   },
+   "fixed_fine_grid": {
+    "dx_focus_over_Lc": 0.09500000000000015,
+    "dt_focus_over_Tc": 0.07500000000000112,
+    "crest_ratio": 0.8462314710956054,
+    "H_ratio": 0.8369197374013294
+   },
+   "ana_json_A3p_model": {
+    "dx_focus_over_Lc": -0.15499999999999964,
+    "dt_focus_over_Tc": -0.1399999999999989,
+    "crest_ratio": 0.8528978963628491,
+    "H_ratio": 0.8287646234135713
+   },
+   "old_sign_equals_ana_json": true,
+   "A2p_equals_ana_json": true,
+   "within_tolerance": false,
+   "judged": false
+  },
+  "R3": {
+   "frames_done": 4508,
+   "A2p_speed_err_wmean": -0.006155174218274507,
+   "A2p_amp_change_wmean": 0.9409178279713845,
+   "fixed": {
+    "dx_focus_over_Lc": 0.15000000000000038,
+    "dt_focus_over_Tc": 0.11000000000000085,
+    "crest_ratio": 0.8728410520676539,
+    "H_ratio": 0.8664798005416555
+   },
+   "old_sign": {
+    "dx_focus_over_Lc": -0.19999999999999968,
+    "dt_focus_over_Tc": -0.16999999999999996,
+    "crest_ratio": 0.880650011637694,
+    "H_ratio": 0.8562004435976
+   },
+   "fixed_fine_grid": {
+    "dx_focus_over_Lc": 0.1574999999999997,
+    "dt_focus_over_Tc": 0.1200000000000012,
+    "crest_ratio": 0.8728960893045843,
+    "H_ratio": 0.8626558457261799
+   },
+   "ana_json_A3p_model": {
+    "dx_focus_over_Lc": -0.19999999999999968,
+    "dt_focus_over_Tc": -0.16999999999999996,
+    "crest_ratio": 0.880650011637694,
+    "H_ratio": 0.8562004435976
+   },
+   "old_sign_equals_ana_json": true,
+   "A2p_equals_ana_json": true,
+   "within_tolerance": false,
+   "judged": true
+  },
+  "R4d": {
+   "frames_done": 4508,
+   "A2p_speed_err_wmean": -0.008982949842736822,
+   "A2p_amp_change_wmean": 0.9441408668558829,
+   "fixed": {
+    "dx_focus_over_Lc": 0.2399999999999996,
+    "dt_focus_over_Tc": 0.19000000000000067,
+    "crest_ratio": 0.8753569578230697,
+    "H_ratio": 0.8679457645784432
+   },
+   "old_sign": {
+    "dx_focus_over_Lc": -0.2549999999999999,
+    "dt_focus_over_Tc": -0.21000000000000135,
+    "crest_ratio": 0.8864000191360072,
+    "H_ratio": 0.8578569796530964
+   },
+   "fixed_fine_grid": {
+    "dx_focus_over_Lc": 0.2325000000000003,
+    "dt_focus_over_Tc": 0.1800000000000003,
+    "crest_ratio": 0.8754425278142749,
+    "H_ratio": 0.8718137798392537
+   },
+   "ana_json_A3p_model": {
+    "dx_focus_over_Lc": -0.2549999999999999,
+    "dt_focus_over_Tc": -0.21000000000000135,
+    "crest_ratio": 0.8864000191360072,
+    "H_ratio": 0.8578569796530964
+   },
+   "old_sign_equals_ana_json": true,
+   "A2p_equals_ana_json": true,
+   "within_tolerance": false,
+   "judged": true
+  }
+ },
+ "R4_smaller_than_R3": {
+  "dx": false,
+  "dt": false
+ }
+}

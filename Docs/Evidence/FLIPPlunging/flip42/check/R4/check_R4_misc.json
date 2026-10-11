@@ -1,0 +1,298 @@
+{
+ "plan_frozen": [
+  {
+   "path": "Unity/Build/FLIP42/plan/plan_ja.md",
+   "frozen": "4f9dbbe032e37d0f61c7eb49f7d09796f177a2477f1b3073027cb2b6f503c81b",
+   "now": "4f9dbbe032e37d0f61c7eb49f7d09796f177a2477f1b3073027cb2b6f503c81b",
+   "same": true
+  },
+  {
+   "path": "Unity/Build/FLIP42/plan/plan_numbers.json",
+   "frozen": "2abe20af327582b26837a5710d0f5795c824f4aa694cdb53907d34de2774d065",
+   "now": "2abe20af327582b26837a5710d0f5795c824f4aa694cdb53907d34de2774d065",
+   "same": true
+  }
+ ],
+ "R3d_vs_R3": {
+  "hf_frames": [
+   3319,
+   3800,
+   482
+  ],
+  "hf_same": 482,
+  "hf_diff": 0,
+  "ss_n_diff": 0,
+  "npts_diff": 0,
+  "sec_frames": 482,
+  "sec_same": 482,
+  "sec_diff": 0,
+  "R3d_overlap": [
+   22,
+   0
+  ]
+ },
+ "cfg_diff_R4plan_vs_R4d_run": {
+  "case.band_Lc": [
+   null,
+   1.0
+  ],
+  "case.dp": [
+   0.177,
+   0.1767578125
+  ],
+  "case.vox": [
+   0.354,
+   0.353515625
+  ],
+  "ckpt_every": [
+   240,
+   40
+  ],
+  "ckpt_list": [
+   null,
+   [
+    240,
+    120,
+    80,
+    60,
+    40,
+    30,
+    20,
+    14,
+    10,
+    7
+   ]
+  ],
+  "ckpt_per_launch": [
+   null,
+   2
+  ],
+  "max_hours": [
+   null,
+   25.018
+  ],
+  "parms.Lx": [
+   1201.83,
+   1201.953125
+  ],
+  "parms.Lz": [
+   1.416,
+   1.4140625
+  ],
+  "parms.dp": [
+   0.177,
+   0.1767578125
+  ],
+  "run_id": [
+   "R4",
+   "R4d"
+  ]
+ },
+ "cfg_diff_R4fix_vs_R4d_run": {
+  "ckpt_every": [
+   120,
+   40
+  ],
+  "ckpt_list": [
+   [
+    240,
+    120,
+    60,
+    30,
+    15,
+    7
+   ],
+   [
+    240,
+    120,
+    80,
+    60,
+    40,
+    30,
+    20,
+    14,
+    10,
+    7
+   ]
+  ],
+  "max_hours": [
+   50.8,
+   25.018
+  ]
+ },
+ "cfg_diff_R4cfg_vs_R4cfg_b": {
+  "ckpt_every": [
+   120,
+   40
+  ],
+  "ckpt_list": [
+   [
+    240,
+    120,
+    60,
+    30,
+    15,
+    7
+   ],
+   [
+    240,
+    120,
+    80,
+    60,
+    40,
+    30,
+    20,
+    14,
+    10,
+    7
+   ]
+  ],
+  "max_hours": [
+   26.0,
+   25.018
+  ]
+ },
+ "binary": {
+  "R4_plan": {
+   "dp": 0.177,
+   "vox": 0.354,
+   "vox_exact32": false,
+   "half_vox_exact32": false,
+   "Lz_exact32": false,
+   "vox_x_3400_exact32": false
+  },
+  "R4d": {
+   "dp": 0.1767578125,
+   "vox": 0.353515625,
+   "vox_exact32": true,
+   "half_vox_exact32": true,
+   "Lz_exact32": true,
+   "vox_x_3400_exact32": true
+  },
+  "R3": {
+   "dp": 0.25,
+   "vox": 0.5,
+   "vox_exact32": true,
+   "half_vox_exact32": true,
+   "Lz_exact32": true,
+   "vox_x_3400_exact32": true
+  },
+  "R2": {
+   "dp": 0.35,
+   "vox": 0.7,
+   "vox_exact32": false,
+   "half_vox_exact32": false,
+   "Lz_exact32": false,
+   "vox_x_3400_exact32": true
+  },
+  "R4d_Lx_over_vox": 3400.0,
+  "ratio_0177_to_R4d": 0.0013701657458562444,
+  "R4d_vs_R3_over_sqrt2": -0.00010681722839755992
+ },
+ "launches": {
+  "R2": {
+   "n": 8,
+   "hip": [
+    "e17c9aad315a"
+   ],
+   "houdini": [
+    "22.0.466"
+   ],
+   "stopped": [
+    "None",
+    "wall_limit"
+   ],
+   "rss_peak_max": 5.54
+  },
+  "R3": {
+   "n": 25,
+   "hip": [
+    "e17c9aad315a"
+   ],
+   "houdini": [
+    "22.0.466"
+   ],
+   "stopped": [
+    "None",
+    "wall_limit"
+   ],
+   "rss_peak_max": 6.7
+  },
+  "R3d": {
+   "n": 4,
+   "hip": [
+    "e17c9aad315a"
+   ],
+   "houdini": [
+    "22.0.466"
+   ],
+   "stopped": [
+    "None",
+    "wall_limit"
+   ],
+   "rss_peak_max": 6.61
+  },
+  "R4d": {
+   "n": 32,
+   "hip": [
+    "e17c9aad315a"
+   ],
+   "houdini": [
+    "22.0.466"
+   ],
+   "stopped": [
+    "None",
+    "wall_limit"
+   ],
+   "rss_peak_max": 8.43
+  }
+ },
+ "ckpt_R4d": {
+  "n": 118,
+  "total_gb": 138.84974180348217,
+  "min_gb": 1.084560782648623,
+  "max_gb": 1.2557070134207606,
+  "total_GB_1e9": 149.088775026
+ },
+ "G_free_now_gb": 160.67840194702148,
+ "times": {
+  "first_log_line": "2026-10-10 19:37:53 ckpt_every 120",
+  "last_chain_lines": [
+   "10:48:42 R4d chunk 4481 ckpt_every 20 done to 4508 stopped None wall 219.3 s/frame 6.902 sub [1, 2] pts 22388353 rss 7.99",
+   "10:48:42 chain end R4d elapsed_h 14.197"
+  ]
+ },
+ "kept": {
+  "runs_R4": [
+   "cfg.json",
+   "cfg_in.json",
+   "cfg_in0.json",
+   "chain.log",
+   "ckpt",
+   "hf_c0001.npz",
+   "log_c0001.txt",
+   "log_c0001_failed_IC.txt",
+   "run.json",
+   "run_c0001.json"
+  ],
+  "r4dbg_n": 28,
+  "R4fix_tests_n": 27
+ },
+ "still_tests": {
+  "s176758_L1202_v": [
+   "6",
+   "-0.0004",
+   "0.0576"
+  ],
+  "s25_L1202_v": [
+   "6",
+   "-0.0002",
+   "0.0591"
+  ],
+  "s177_L600": null,
+  "s177_L60": null,
+  "s1875_L1202": null,
+  "s15625_L600": null,
+  "try_R4d_36f": null
+ }
+}

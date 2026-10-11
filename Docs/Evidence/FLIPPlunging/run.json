@@ -1,13 +1,15 @@
 {
  "schema": "GreatWave.FLIPPlunging.deliver_run/1",
- "date": "2026-10-10 18:16",
- "note_ja": "Docs/Evidence/FLIPPlunging を作った記録。この段で新しい流体の計算はしていない（動画と断面の並びは印の字だけを直して描き直した）。git の操作とダウンロードはしていない。何も消していない。パスはリポジトリからの相対",
+ "date": "2026-10-11 13:43",
+ "note_ja": "Docs/Evidence/FLIPPlunging を作った記録。この段で新しい流体の計算はしていない（動画と断面の並びは印の字だけを直して描き直した）。git の操作とダウンロードはしていない。何も消していない。パスはリポジトリからの相対。10/11：R4（R4d）の証拠を g_deliver_plunging_r4.py で足した（新しい流体の計算はしていない）",
  "report": "Docs/Progress/FLIP_Plunging_ja.md",
  "commands": [
   "py -3.10 -B Tools/GWWaveGen/flip42/g_relabel_v2.py orig <一時置き場>   # 元の字で描き直し、利用者に出した物とバイト単位で同じかを確かめた",
   "py -3.10 -B Tools/GWWaveGen/flip42/g_relabel_v2.py v2 Unity/Build/FLIP42   # 印の字だけを直した _v2",
   "py -3.10 -B Tools/GWWaveGen/flip42/x_check_relabel.py Unity/Build/FLIP42   # 符号化の前のコマで、違いが字の所だけかを確かめた",
-  "py -3.10 -B Tools/GWWaveGen/flip42/g_deliver_plunging.py   # この証拠"
+  "py -3.10 -B Tools/GWWaveGen/flip42/g_deliver_plunging.py   # この証拠",
+  "py -3.10 -B Tools/GWWaveGen/flip42/x_a3fix.py   # A3' を符号を直して R1b・R2・R3・R4d の記録から出し直す → Unity/Build/FLIP42/a3fix/a3p_fix.json",
+  "py -3.10 -B Tools/GWWaveGen/flip42/g_deliver_plunging_r4.py   # R4 の証拠の追加（10/11）"
  ],
  "upstream_commands_ja": {
   "計画": "py -3.10 Tools/GWWaveGen/flip42/p_plan_numbers.py → Unity/Build/FLIP42/plan/plan_numbers.json、plan_ja.md（走らせる前に書いて凍結した）",
@@ -15,14 +17,15 @@
   "計算": "py -3.10 g_cfg.py → py -3.10 g_chain.py（R1・R1b）／g_chain2.py（R3 から）。30 分以下の起動に区切り途中保存から続ける。起動は g_run.py",
   "解析": "py -3.10 g_analyze.py <計算> → runs/<計算>/ana.json、py -3.10 g_shape.py <計算>（R5'・R3m は --parent=R3）→ shape.json、g_shape.py --compare → R2/C_*.json、g_compare.py R1 R1b → R1/N1N2.json",
   "図と動画": "py -3.10 g_figs.py・g_figs2.py → R1/figs・R2/figs、py -3.10 g_video.py・g_preview.py → R1/video・R2/video・preview",
-  "独立の確かめ": "py -3.10 check/R1/check_R1.py、check/R2/check_R2_geom.py → check_R2_more.py → check_R2_spec.py → check_R2_extra.py（解析の道具を使わない）"
+  "独立の確かめ": "py -3.10 check/R1/check_R1.py、check/R2/check_R2_geom.py → check_R2_more.py → check_R2_spec.py → check_R2_extra.py（解析の道具を使わない）",
+  "R4（R4d）": "R4fix：x_r4fix_*.py の短い試し → R4fix/cfg_R4d.json。計算：py -3.10 g_chain2.py（R4/cfg_R4d.json・cfg_R4d_b.json、R3d は R4fix/cfg_R3d.json）。解析：g_analyze.py R4d・g_shape.py R4d・g_shape.py --compare R4d R3（R2）→ R4/C_*.json、x_r4_visual.py → R4/visual_R2_R3_R4d.json、x_a3fix.py → a3fix/a3p_fix.json。動画と図：x_r4_media.py（g_video.py・g_preview.py・g_figs.py・g_figs2.py の字の印だけを差し替え）。独立の確かめ：check/R4/check_R4_geom.py → check_R4_spec.py → check_R4_onset_sens.py → check_R4_conv.py → check_R4_misc.py（解析の道具を使わない）。2 回目の独立の確かめ：check/R4b/b_spec.py → b_a3var.py → b_geom.py → b_sens.py → b_misc.py → b_tipscan.py（解析の道具と check/R4 の道具を使わない）。まとめ check/R4b/check_ja.md"
  },
  "versions": {
   "python": "3.10.6",
   "numpy": "2.2.6",
   "scipy": "1.15.3",
   "pillow": "12.0.0",
-  "houdini": "Houdini 22.0.466 hython（画面なし。runs.jsonl の全行で 22.0.466。方法の確かめ FLIP41 は 22.0.459）",
+  "houdini": "Houdini 22.0.466 hython（画面なし。runs.jsonl の全行（R3d・R4d を含む）で 22.0.466。方法の確かめ FLIP41 は 22.0.459）",
   "ffmpeg": "ffmpeg 2024-12-19-git-494c961379-full_build（libx264、crf 20、yuv420p）",
   "font": "Yu Gothic（YuGothM.ttc・YuGothB.ttc）"
  },
@@ -40,18 +43,21 @@
    "R5p",
    "R2",
    "R3m",
-   "R4"
+   "R4",
+   "R3d",
+   "R4d"
   ],
   "note_ja": "道具の試し smoke_dp0.5 の 5 回の起動だけ前の版（小刻みの数え方を直す前）。キャッシュは含まない"
  },
  "tools": {
-  "Tools/GWWaveGen/flip42/g_analyze.py": "0a1eedfeb826c469ed48801a2555a9b2e9b2641b6c0632fb49fda6ded1d22ca2",
+  "Tools/GWWaveGen/flip42/g_analyze.py": "bfd5207ce60e27e027dc07e945d70e323bba598092b99d878ec74afc48936430",
   "Tools/GWWaveGen/flip42/g_build_tank.py": "4a709aae81c94b9764dad4d465be90be877692b5723725971abda1433f833493",
   "Tools/GWWaveGen/flip42/g_cfg.py": "665a67a52d7941279656a0f63d45b9dfd253841f8ab78198df8b5d3d961a4469",
   "Tools/GWWaveGen/flip42/g_chain.py": "f33377ce629862112c3bf482231fde91408b6c8810c4c52c8375588d91d57b20",
   "Tools/GWWaveGen/flip42/g_chain2.py": "f0c89ad540e96176b30788aa06698a305c4dda5b1a5ef52765cc8e332f302a4b",
   "Tools/GWWaveGen/flip42/g_compare.py": "3b5bb35afdb4e2e28afbf5bd55da501edca0cfc2deb0caff6ff67ca5805c02a9",
   "Tools/GWWaveGen/flip42/g_deliver_plunging.py": "ddb6cfcc1c65cfe5c82406661bdc2d4817ad6b11c70f7f2bef2bcb339591c86d",
+  "Tools/GWWaveGen/flip42/g_deliver_plunging_r4.py": "314566cd82630b1da234141cee68463e4c64fe6c66954b1d8f64243498ea944c",
   "Tools/GWWaveGen/flip42/g_figs.py": "e7184266367e4944377bbd0e84ff3382ad59225c811135972d7da3f4e900f849",
   "Tools/GWWaveGen/flip42/g_figs2.py": "0eee61ba5c74b2cfaac01be7f59962ba5eeb119020d6713a8a90899f8810e033",
   "Tools/GWWaveGen/flip42/g_plot.py": "7d3b14f1867c1215e513cf5e2bb9d2a3f659a26526d0b0cfe056e026be872fd7",
@@ -69,6 +75,7 @@
   "Tools/GWWaveGen/flip42/q44_newwave_height.py": "dda065d2d6ff48357a337022393267d0d4d337f700c136c6355e005e0a975ff1",
   "Tools/GWWaveGen/flip42/r_review_numbers.py": "36f8da17f4a9ad1e7706d928c1b3dd428a1b86105daddb96a4676af29c239f9d",
   "Tools/GWWaveGen/flip42/v_lin.py": "8450f6e5449bd34724f4abfffa238c1e9c6c7236da919c0e463b0df2809764b9",
+  "Tools/GWWaveGen/flip42/x_a3fix.py": "8617d23234d4ff1519aa0c754aa41ffcb7e52257e841aeee0758a231fbdc6501",
   "Tools/GWWaveGen/flip42/x_check_relabel.py": "e11c80a43a1f4cf89afb841bb6df19a086093b9f5b49ad8bba5bd2780ef92d8d",
   "Tools/GWWaveGen/flip42/x_check_vex.py": "fd6d9b2654252b94a652314bc58da18b461b6cc31dc3c0f33cbaafebac70bdc8",
   "Tools/GWWaveGen/flip42/x_debug_r4.py": "6abaa1179de8fa0fa0a8d299cf62b76be6f704993ed5cbd6126439ecc92e8fe2",
@@ -77,10 +84,15 @@
   "Tools/GWWaveGen/flip42/x_introspect_fs.py": "46c57cb4b5a1d9094a2e433f7c925984a9c1fdb25a75b87a4602d3a7c7d34154",
   "Tools/GWWaveGen/flip42/x_introspect_gw.py": "c24f7c6fc25d7ac73d9b75637dbf244858ebde83aada69da05de80a55643147b",
   "Tools/GWWaveGen/flip42/x_introspect_proj.py": "50de87a8b228c8ecc78b6427684f9dee06f5af73f627078a47366f1ce30fcd9d",
+  "Tools/GWWaveGen/flip42/x_r4_media.py": "deb9c8738644013eda4ca7175077fcbb580620056dc4cb9a90c2074de739d24f",
+  "Tools/GWWaveGen/flip42/x_r4_visual.py": "a0f3fab845aed1ab43314332ff1726c4bba3da30338da48dafa5f68e4399efa0",
+  "Tools/GWWaveGen/flip42/x_r4fix_parms.py": "9f08b628e66c4654090d0c5ce42d9e9a7e81e03027fba20b45474fef120f6927",
+  "Tools/GWWaveGen/flip42/x_r4fix_still.py": "1b752aa024351f6461b5df9819ccc3ca54acc3414efd42d4da45e797a2b7626d",
+  "Tools/GWWaveGen/flip42/x_r4fix_surfdiff.py": "d25e1cda1b82580d13bb4f7302f103782c452df962ef631042d3dfbb83765bdc",
   "Tools/GWWaveGen/flip42/x_try_r4.py": "db091035ee7bbab3a26e955bf6483d43aba8504bfbc35339a1550612ce5f43ce"
  },
- "tools_excluded_ja": "Tools/GWWaveGen/flip42/x_r4fix_*.py：R4 の原因の診断（別に走っている）の途中の道具。この報告にも証拠にも使っていない。診断の結果と一緒に扱う",
- "tools_changed_after_runs_ja": "g_cfg.py（10/10 15:16）と g_run.py（10/10 15:19）は、R1・R1b・R3・R3b・R5'・R2 を走らせた後に R4 のために足した（解き方の設定を cfg から渡して FLIP Solver に入れる所と、水面の場が作られない時に記録を残して止まる所）。R3m と R4 はこの版で走った。前の版のファイルは残していない。各計算で実際に使った解き方の設定は、起動ごとに Houdini から読み戻して runs.jsonl の solver_parms に残してある",
+ "tools_excluded_ja": "10/10 は x_r4fix_*.py（R4 の原因の診断の途中の道具）を入れなかった。10/11 から報告が R4fix の直しを使うので入れた。除いている道具はない",
+ "tools_changed_after_runs_ja": "g_cfg.py（10/10 15:16）と g_run.py（10/10 15:19）は、R1・R1b・R3・R3b・R5'・R2 を走らせた後に R4 のために足した（解き方の設定を cfg から渡して FLIP Solver に入れる所と、水面の場が作られない時に記録を残して止まる所）。R3m と R4 はこの版で走った。前の版のファイルは残していない。各計算で実際に使った解き方の設定は、起動ごとに Houdini から読み戻して runs.jsonl の solver_parms に残してある。10/11：g_analyze.py（10/11 11:35）：A3' の位相の符号を直した（10/9 の版は a3p_model_old_sign として同じファイルに残した。直す前の SHA-256 は 0a1eedfeb826c469ed48801a2555a9b2e9b2641b6c0632fb49fda6ded1d22ca2）。R1b・R2・R3・R4d の ana.json は直す前の版で作ったもので、書き換えていない。直した A3' は x_a3fix.py → Unity/Build/FLIP42/a3fix/a3p_fix.json。x_r4_visual.py・x_r4_media.py・x_a3fix.py・g_deliver_plunging_r4.py は 10/10 の後に足した",
  "runs": {
   "smoke_dp0.5": {
    "launches": 5,
@@ -322,6 +334,54 @@
    "stopped_last": "free_fall at frame 12 (mean level -1.06 m, start -0.00 m)",
    "particles_max": 12871944,
    "note_ja": "粒子 0.177 m・前処理は多重格子。12 コマで水が自由落下し、見張りで止まった。前の不完全コレスキーの起動（15:14:52〜15:15:08）は記録を書く前に止まった（runs.jsonl に行がない）"
+  },
+  "R3d": {
+   "launches": 4,
+   "hours": 1.604,
+   "first": "2026-10-10 18:24:43",
+   "frames": [
+    3319,
+    3800
+   ],
+   "dp": 0.25,
+   "narrowband": 0,
+   "cfl": 1.0,
+   "minsub": 1.0,
+   "mg_preconditioner": 0,
+   "hip_sha256": [
+    "e17c9aad315aef24fb671ebdef4cafae670b457d2d996f122e9e4aba2f50a922"
+   ],
+   "houdini": [
+    "22.0.466"
+   ],
+   "last": "2026-10-10 19:32:19",
+   "stopped_last": null,
+   "particles_max": 10981236,
+   "note_ja": "R3 の 138.2 s（3318 コマ目の途中保存）から、R4 の直しの決まり（格子を 2 進で割り切れる値に）を当てはめた設定で 158.3 s まで。R3 とビット単位で同じ"
+  },
+  "R4d": {
+   "launches": 32,
+   "hours": 15.124,
+   "first": "2026-10-10 20:07:03",
+   "frames": [
+    1,
+    4508
+   ],
+   "dp": 0.1767578125,
+   "narrowband": 0,
+   "cfl": 1.0,
+   "minsub": 1.0,
+   "mg_preconditioner": 0,
+   "hip_sha256": [
+    "e17c9aad315aef24fb671ebdef4cafae670b457d2d996f122e9e4aba2f50a922"
+   ],
+   "houdini": [
+    "22.0.466"
+   ],
+   "last": "2026-10-11 10:48:42",
+   "stopped_last": null,
+   "particles_max": 22388353,
+   "note_ja": "計画の R4 の粒子 0.177 m を 0.1767578125 m（格子 0.353515625 m）にしたもの。計画の R4 として走らせた。187.8 s まで"
   }
  },
  "runs_total": {
@@ -360,7 +420,8 @@
  "runs_not_in_jsonl_ja": [
   "R3b の 11 回目の起動（2026-10-10 09:25:51〜09:47:26、3082 → 3360 コマ）：進行役が手で止めた（runs/R3b/chain.log の最後の行、0.36 h）",
   "R4 の最初の起動（2026-10-10 15:15、前処理は不完全コレスキー）：2 コマ目に止まり、起動の記録が残らなかった（runs/R4/chain.log「no run record for chunk 1 (crash?)」、0.005 h）",
-  "R4 の数コマの試し 11 通り（15:16〜16:42。tools x_try_r4.py・x_debug_r4.py。出力は tmp_houdini/r4dbg/、下の r4dbg_outputs）"
+  "R4 の数コマの試し 11 通り（15:16〜16:42。tools x_try_r4.py・x_debug_r4.py。出力は tmp_houdini/r4dbg/、下の r4dbg_outputs）",
+  "R4fix の短い試し 23 本（2026-10-10 17:25〜19:33。tools x_r4fix_still.py ほか。出力は Unity/Build/FLIP42/R4fix/tests/、写しは flip42/R4fix/tests/）"
  ],
  "relabel": {
   "why_ja": "独立の確かめ（check/R2/check_ja.md の見つけた所 2）：D&K の t_ob・x_ob は表 3.1「Input parameters for the simulated cases」の値で、測った値とは書かれていない。R3 の最初の「着水」は唇の先が前の面（静かな水面から 5〜7 m）に付いた時で、噴流の先は静かな水面に届いていない",
@@ -577,21 +638,6 @@
    "note_ja": "見直しの数"
   },
   {
-   "name": "Docs/Evidence/FLIPPlunging/flip42/record_ja.md",
-   "src": "Unity/Build/FLIP42/record_ja.md",
-   "bytes": 26582,
-   "sha256": "08be23fa2b1214ade62fe0e060870cf34fb7a1fb0bf0a59ef6378f2669793fdd",
-   "same_as_src": false,
-   "note_ja": "計算の記録（計画の読み方、計画から変えた所 1〜5、R4 の試し）。10/10 17:45 の写し（SNAPSHOT_KEEP）",
-   "snapshot_ja": "2026-10-10 17:45 の版。その後、17:55〜17:58 に R4 の診断が「計画から変えた所」6 と「R4 の試し」への注を、18:12 に進行役が「計画の読み方」8 についての追記を、元の記録に書き足した。報告は診断の途中の結果を使わないので、写しは 17:45 の版のまま",
-   "src_now": {
-    "path": "Unity/Build/FLIP42/record_ja.md",
-    "bytes": 29890,
-    "sha256": "dc5221f037bd21e93869a8377af06e8236504f05da377345bbb5a4260b37f0d9",
-    "mtime": "2026-10-10 18:14:22"
-   }
-  },
-  {
    "name": "Docs/Evidence/FLIPPlunging/flip42/R1/record_ja.md",
    "src": "Unity/Build/FLIP42/R1/record_ja.md",
    "bytes": 21567,
@@ -758,6 +804,762 @@
    "sha256": "02c60e0f863b276fa31fa2b5fded9436fb4c44ad7644de681076046f7c30fdc2",
    "same_as_src": true,
    "note_ja": "印の字の直しの確かめ（元の字と新しい字で描いた符号化の前のコマの画素の比べ）"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/fp_10_side_R4.mp4",
+   "src": "Unity/Build/FLIP42/R4/R4_first_side.mp4",
+   "bytes": 4025778,
+   "sha256": "71f810af89b1da81ffc68a8df7f4d57c26501714c7e177b8032d464a14f8a2a8",
+   "same_as_src": true,
+   "note_ja": "R4（R4d、粒子 0.1767578125 m）を横から。fp_1 と同じ形：上の段は造波板から 300〜750 m、下の段は巻き始めの頂 512 m の周り。114.5 s から巻き始めの 1.5 Tc 前までは実時間、そこから半分の速さ（巻く所は 0:55〜1:04）。縦横同じ縮尺、赤い縦棒＝10 m、点線＝静かな水面。印は「D&K の表の着水の値（計算の条件の表）」と「唇が前の面に付いた時（記録の着水）」。見出しの粒子は 3 桁に丸めて「0.177 m」",
+   "added": "2026-10-11"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/fp_11_crest_R4_half.mp4",
+   "src": "Unity/Build/FLIP42/R4/R4_side_finest.mp4",
+   "bytes": 3237927,
+   "sha256": "31a29a36456a4105d5ffe7ba4ee95fe7aa39125b138d92063f2fc08c55e107c4",
+   "same_as_src": true,
+   "note_ja": "R4 の頂の周り（±1 波長と ±0.4 波長の拡大）、138.2 s から、半分の速さ（巻く所は 0:33〜0:44）。fp_2 と同じ形。video/R4d_crest_half.mp4 と同じ物",
+   "added": "2026-10-11"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/fp_12_strip_R4.png",
+   "src": "Unity/Build/FLIP42/R4/R4_first_strip.png",
+   "bytes": 112149,
+   "sha256": "ed6c6bad3efdb15156f99b3c85a531b722e97dfad5df4b3db79d87ecffa4f86a",
+   "same_as_src": true,
+   "note_ja": "R4 の断面の並び（巻き始めにそろえた −0.3〜+0.3 Tc と、唇が前の面に付いた時）。数字は η_c と H（前の谷まで）。fp_3 と同じ形",
+   "added": "2026-10-11"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/fp_13_c_strip_R3_R4.png",
+   "src": "Unity/Build/FLIP42/R4/figs/c_strip_R3_R4d.png",
+   "bytes": 183776,
+   "sha256": "523a628034a0b58a97479cdb9f91d6dcf8dabb353b4ac111dd894a41b883c099",
+   "same_as_src": true,
+   "note_ja": "R3（上）と R4（下）の断面の並び（同じく巻き始めにそろえた時刻）",
+   "added": "2026-10-11"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/fp_14_c_overlay_R2_R3_R4.png",
+   "src": "Unity/Build/FLIP42/R4/figs/c_overlay.png",
+   "bytes": 67541,
+   "sha256": "e30e488daf4636416156acfc2536fd76536b4090f1cf19789ae18d1e9bcca911",
+   "same_as_src": true,
+   "note_ja": "巻き始めにそろえた時刻の断面の線を R2・R3・R4 で重ねた図（x は各計算の巻き始めの点から）。「着水」は記録の決まり（唇が前の面に付いて空気を囲んだ時）",
+   "added": "2026-10-11"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/fp_15_c_series_R2_R3_R4.png",
+   "src": "Unity/Build/FLIP42/R4/figs/c_series.png",
+   "bytes": 84869,
+   "sha256": "444effeb2a5791b1237da7fdf8fd61c8469a5d5bd3ab035bbf60bb9b551fdde3",
+   "same_as_src": true,
+   "note_ja": "巻き始めからの時刻で見た η_c・H・前の面の最大の傾き・頂の位置（R2・R3・R4）",
+   "added": "2026-10-11"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/flip42/record_ja.md",
+   "src": "Unity/Build/FLIP42/record_ja.md",
+   "bytes": 40230,
+   "sha256": "1483c6f30cc06c948e05eccba042c05f4cf0315afa2ddd81143f01a0ed3a8ed3",
+   "same_as_src": true,
+   "note_ja": "計算の記録（計画の読み方、計画から変えた所 1〜8、R4 の試し、解析の道具の直し 10/11）。10/11 の版",
+   "added": "2026-10-11"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/flip42/R4/record_ja.md",
+   "src": "Unity/Build/FLIP42/R4/record_ja.md",
+   "bytes": 41174,
+   "sha256": "f763d90a0a1cedbe75980992dfe1aef35ef2b38d8b69573a17202d9cd2f8b9d3",
+   "same_as_src": true,
+   "note_ja": "R4（R4d）の段の記録。冒頭に独立の確かめを受けた〔10/11 訂正〕",
+   "added": "2026-10-11"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/flip42/R4/C_R3_vs_R4d.json",
+   "src": "Unity/Build/FLIP42/R4/C_R3_vs_R4d.json",
+   "bytes": 764,
+   "sha256": "41b3e88fc37bf595edf24eb141508a7766f2a65de5dc2f39bcf3dac1b5810b0d",
+   "same_as_src": true,
+   "note_ja": "(c) 細かさの比べ R3 と R4（計画の判定）",
+   "added": "2026-10-11"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/flip42/R4/C_R2_vs_R4d.json",
+   "src": "Unity/Build/FLIP42/R4/C_R2_vs_R4d.json",
+   "bytes": 766,
+   "sha256": "501f2d6fff2257d11578cccfea37f61d758f4468f230c63e22f2b7e29c0c2fb1",
+   "same_as_src": true,
+   "note_ja": "(c) 参考 R2 と R4",
+   "added": "2026-10-11"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/flip42/R4/visual_R2_R3_R4d.json",
+   "src": "Unity/Build/FLIP42/R4/visual_R2_R3_R4d.json",
+   "bytes": 24301,
+   "sha256": "be0e6b4aed95e4baa8af9b7b265c09be9170253c62fe375bf21f681f9d8c3362",
+   "same_as_src": true,
+   "note_ja": "見た目の量（R2・R3・R4、x_r4_visual.py）",
+   "added": "2026-10-11"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/flip42/R4/cfg_R4d.json",
+   "src": "Unity/Build/FLIP42/R4/cfg_R4d.json",
+   "bytes": 2062,
+   "sha256": "e778be2e205987467e2e951998d888589616b1623b4aadfeab3b8df3ad8a39bc",
+   "same_as_src": true,
+   "note_ja": "R4d の設定（最初の 2 回の起動）",
+   "added": "2026-10-11"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/flip42/R4/cfg_R4d_b.json",
+   "src": "Unity/Build/FLIP42/R4/cfg_R4d_b.json",
+   "bytes": 2413,
+   "sha256": "3d1ac2bc51737e68b2fba764b8123bd8fe133778ca42a01d461a0583cfd794db",
+   "same_as_src": true,
+   "note_ja": "R4d の設定（途中保存の間隔の候補を足した後）",
+   "added": "2026-10-11"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/flip42/R4fix/record_ja.md",
+   "src": "Unity/Build/FLIP42/R4fix/record_ja.md",
+   "bytes": 21323,
+   "sha256": "b610919fd4410c463c3a06e312c440de4cbc4c3dbfbd61a44bf4815678f2fd5e",
+   "same_as_src": true,
+   "note_ja": "R4 が走らなかった原因（場の端の丸めのずれ）と直し（粒子 0.1767578125 m）、R3d の確かめ",
+   "added": "2026-10-11"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/flip42/R4fix/C_R3_vs_R3d.json",
+   "src": "Unity/Build/FLIP42/R4fix/C_R3_vs_R3d.json",
+   "bytes": 624,
+   "sha256": "b3d880b52832df57611794c76645cc751c7528910f3498e22c389df896413da0",
+   "same_as_src": true,
+   "note_ja": "R3 と R3d の C1〜C4（差 0）",
+   "added": "2026-10-11"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/flip42/R4fix/surfdiff.json",
+   "src": "Unity/Build/FLIP42/R4fix/surfdiff.json",
+   "bytes": 1939,
+   "sha256": "d7e04a3f0c999c323769c61256ee135e51fd3aba45ae6e30e6d50a32b30dd911",
+   "same_as_src": true,
+   "note_ja": "R3 と R3d・R3m の巻き始めの前の水面の差",
+   "added": "2026-10-11"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/flip42/R4fix/cfg_R4d.json",
+   "src": "Unity/Build/FLIP42/R4fix/cfg_R4d.json",
+   "bytes": 1936,
+   "sha256": "827695a8092bf3626555fef516644bcbee8791f3b190ed1f596cf4de76259655",
+   "same_as_src": true,
+   "note_ja": "R4d の設定（R4fix で用意した物）",
+   "added": "2026-10-11"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/flip42/R4fix/cfg_R3d.json",
+   "src": "Unity/Build/FLIP42/R4fix/cfg_R3d.json",
+   "bytes": 2030,
+   "sha256": "fc8802c52f0d18d262f0ec9188bac45c7df3685ebff2c604f4c8b2b23cc41226",
+   "same_as_src": true,
+   "note_ja": "R3d の設定",
+   "added": "2026-10-11"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/flip42/R4fix/tests/fsum.py",
+   "src": "Unity/Build/FLIP42/R4fix/tests/fsum.py",
+   "bytes": 458,
+   "sha256": "89490b387ba83073021a6a5fa646bc169238978922c134dd74731ce1813bd65e",
+   "same_as_src": true,
+   "note_ja": "R4fix の短い試しの出力と道具",
+   "added": "2026-10-11"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/flip42/R4fix/tests/parms.txt",
+   "src": "Unity/Build/FLIP42/R4fix/tests/parms.txt",
+   "bytes": 14292,
+   "sha256": "9a053fb12515aab2795f3453b33d4e255494fc210a72865ef3e39c879827b01c",
+   "same_as_src": true,
+   "note_ja": "R4fix の短い試しの出力と道具",
+   "added": "2026-10-11"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/flip42/R4fix/tests/proj_parms.txt",
+   "src": "Unity/Build/FLIP42/R4fix/tests/proj_parms.txt",
+   "bytes": 4860,
+   "sha256": "84d284dd893b72a3ae67ef010d2ce52f6197bb8f03d7d3ea0a26d5abf81f2a83",
+   "same_as_src": true,
+   "note_ja": "R4fix の短い試しの出力と道具",
+   "added": "2026-10-11"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/flip42/R4fix/tests/run.sh",
+   "src": "Unity/Build/FLIP42/R4fix/tests/run.sh",
+   "bytes": 562,
+   "sha256": "29ec60b69f3af920b54834a3ad9b2e7fd32bcf8976ef2c819d07fb449361498c",
+   "same_as_src": true,
+   "note_ja": "R4fix の短い試しの出力と道具",
+   "added": "2026-10-11"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/flip42/R4fix/tests/s15625_L600.txt",
+   "src": "Unity/Build/FLIP42/R4fix/tests/s15625_L600.txt",
+   "bytes": 604,
+   "sha256": "b969db94f343977045d22c127f39b27ac33d55907f611c1a87d57ce97731a3b1",
+   "same_as_src": true,
+   "note_ja": "R4fix の短い試しの出力と道具",
+   "added": "2026-10-11"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/flip42/R4fix/tests/s176758_L1202.txt",
+   "src": "Unity/Build/FLIP42/R4fix/tests/s176758_L1202.txt",
+   "bytes": 7025,
+   "sha256": "e7a379bdc4d439c2d36f6e451b29104c31c3f272b92a630e8f1935615a4a8f30",
+   "same_as_src": true,
+   "note_ja": "R4fix の短い試しの出力と道具",
+   "added": "2026-10-11"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/flip42/R4fix/tests/s176758_L1202_v.txt",
+   "src": "Unity/Build/FLIP42/R4fix/tests/s176758_L1202_v.txt",
+   "bytes": 1294,
+   "sha256": "e2fb207e6d31c517c8c364f9a8a3ed316ee58b95481baaea304d8b8655266692",
+   "same_as_src": true,
+   "note_ja": "R4fix の短い試しの出力と道具",
+   "added": "2026-10-11"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/flip42/R4fix/tests/s177_L300.192_exact.txt",
+   "src": "Unity/Build/FLIP42/R4fix/tests/s177_L300.192_exact.txt",
+   "bytes": 8357,
+   "sha256": "f018c3cfeb533d7200e068910fea97444799655692ede2b8d9e108f9b0ce67c7",
+   "same_as_src": true,
+   "note_ja": "R4fix の短い試しの出力と道具",
+   "added": "2026-10-11"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/flip42/R4fix/tests/s177_L300.txt",
+   "src": "Unity/Build/FLIP42/R4fix/tests/s177_L300.txt",
+   "bytes": 906,
+   "sha256": "e9c7607c37b4f7900e07b99353b1ccbcec3d119f9215ccce1c10754a26280bcd",
+   "same_as_src": true,
+   "note_ja": "R4fix の短い試しの出力と道具",
+   "added": "2026-10-11"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/flip42/R4fix/tests/s177_L300_v.txt",
+   "src": "Unity/Build/FLIP42/R4fix/tests/s177_L300_v.txt",
+   "bytes": 758,
+   "sha256": "32ee7dbe34e545d2351707aa6f5c3cad0fba0d5377943814fed7e44b180230c7",
+   "same_as_src": true,
+   "note_ja": "R4fix の短い試しの出力と道具",
+   "added": "2026-10-11"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/flip42/R4fix/tests/s177_L60.18_exact.txt",
+   "src": "Unity/Build/FLIP42/R4fix/tests/s177_L60.18_exact.txt",
+   "bytes": 8540,
+   "sha256": "06d8da1516d672565b2c986ccfbffc9b0779349f8ec0d5876fe2fe8675979aa3",
+   "same_as_src": true,
+   "note_ja": "R4fix の短い試しの出力と道具",
+   "added": "2026-10-11"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/flip42/R4fix/tests/s177_L60.txt",
+   "src": "Unity/Build/FLIP42/R4fix/tests/s177_L60.txt",
+   "bytes": 1268,
+   "sha256": "38b465e52fdfba6af2ecb7ea269834a6fa15b16a5d91678e400eb8d75c1ed58a",
+   "same_as_src": true,
+   "note_ja": "R4fix の短い試しの出力と道具",
+   "added": "2026-10-11"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/flip42/R4fix/tests/s177_L600.txt",
+   "src": "Unity/Build/FLIP42/R4fix/tests/s177_L600.txt",
+   "bytes": 699,
+   "sha256": "075168e5421f646c686d4d2c05d0e4f8f15596cc446f97d9d54587b660097791",
+   "same_as_src": true,
+   "note_ja": "R4fix の短い試しの出力と道具",
+   "added": "2026-10-11"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/flip42/R4fix/tests/s177_L600_cg.txt",
+   "src": "Unity/Build/FLIP42/R4fix/tests/s177_L600_cg.txt",
+   "bytes": 624,
+   "sha256": "db17b9ba008282e9fc3b6d81adcbcb629ad3d32b36c6dcc6626d1b738bfa18de",
+   "same_as_src": true,
+   "note_ja": "R4fix の短い試しの出力と道具",
+   "added": "2026-10-11"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/flip42/R4fix/tests/s177_L600_exact.txt",
+   "src": "Unity/Build/FLIP42/R4fix/tests/s177_L600_exact.txt",
+   "bytes": 10282,
+   "sha256": "1e72b504fa834f3154feaea545af09cccfea03bb9e2964034c1056d5354f1957",
+   "same_as_src": true,
+   "note_ja": "R4fix の短い試しの出力と道具",
+   "added": "2026-10-11"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/flip42/R4fix/tests/s177_L600_mg.txt",
+   "src": "Unity/Build/FLIP42/R4fix/tests/s177_L600_mg.txt",
+   "bytes": 721,
+   "sha256": "a945b903eb86cc1ec4710d9cdf1cb65f6d5d96c461d4caeac523b81acf13c055",
+   "same_as_src": true,
+   "note_ja": "R4fix の短い試しの出力と道具",
+   "added": "2026-10-11"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/flip42/R4fix/tests/s177_L600_nobed.txt",
+   "src": "Unity/Build/FLIP42/R4fix/tests/s177_L600_nobed.txt",
+   "bytes": 6715,
+   "sha256": "296435b15ad2eeb72863c89e84024984946a35fdbc62ccad61e53c8a45cafcce",
+   "same_as_src": true,
+   "note_ja": "R4fix の短い試しの出力と道具",
+   "added": "2026-10-11"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/flip42/R4fix/tests/s177_L600_tol3.txt",
+   "src": "Unity/Build/FLIP42/R4fix/tests/s177_L600_tol3.txt",
+   "bytes": 843,
+   "sha256": "3e5540e6a65cd00d8760a3edea3f81ed39457b64babd43a1f1388973b54b9e77",
+   "same_as_src": true,
+   "note_ja": "R4fix の短い試しの出力と道具",
+   "added": "2026-10-11"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/flip42/R4fix/tests/s177_L600f.txt",
+   "src": "Unity/Build/FLIP42/R4fix/tests/s177_L600f.txt",
+   "bytes": 6357,
+   "sha256": "95de1d3add6a8dd7d275b0473449c4f3ef363c519f89da4b81c92b0f003d9676",
+   "same_as_src": true,
+   "note_ja": "R4fix の短い試しの出力と道具",
+   "added": "2026-10-11"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/flip42/R4fix/tests/s177_L60f.txt",
+   "src": "Unity/Build/FLIP42/R4fix/tests/s177_L60f.txt",
+   "bytes": 6408,
+   "sha256": "701a526db266e874d9980b717c0a2582db590332a397cd89daabd24550eb121d",
+   "same_as_src": true,
+   "note_ja": "R4fix の短い試しの出力と道具",
+   "added": "2026-10-11"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/flip42/R4fix/tests/s1875_L1202.txt",
+   "src": "Unity/Build/FLIP42/R4fix/tests/s1875_L1202.txt",
+   "bytes": 605,
+   "sha256": "75d49ebdd9690e7c8c91b20ba05345ba8bf8cc91399c03b7f58b51790136be20",
+   "same_as_src": true,
+   "note_ja": "R4fix の短い試しの出力と道具",
+   "added": "2026-10-11"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/flip42/R4fix/tests/s1875_L600.txt",
+   "src": "Unity/Build/FLIP42/R4fix/tests/s1875_L600.txt",
+   "bytes": 600,
+   "sha256": "c8d42c735a1e719fedf1696dea4c240668a67631a97c85316abef712e9e278b1",
+   "same_as_src": true,
+   "note_ja": "R4fix の短い試しの出力と道具",
+   "added": "2026-10-11"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/flip42/R4fix/tests/s25_L1202_v.txt",
+   "src": "Unity/Build/FLIP42/R4fix/tests/s25_L1202_v.txt",
+   "bytes": 1229,
+   "sha256": "3e2eac423a0b8a3bbaa419c064190fae1c1085d8e3bf67415b6589789154e2f4",
+   "same_as_src": true,
+   "note_ja": "R4fix の短い試しの出力と道具",
+   "added": "2026-10-11"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/flip42/R4fix/tests/s25_L2400.txt",
+   "src": "Unity/Build/FLIP42/R4fix/tests/s25_L2400.txt",
+   "bytes": 581,
+   "sha256": "daffe35179c80ddbca0748b6855192582be5a277b514a8cc43344af2617e6e2c",
+   "same_as_src": true,
+   "note_ja": "R4fix の短い試しの出力と道具",
+   "added": "2026-10-11"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/flip42/R4fix/tests/s25_L3600.txt",
+   "src": "Unity/Build/FLIP42/R4fix/tests/s25_L3600.txt",
+   "bytes": 582,
+   "sha256": "d1e3f826bf5f9e05ea0cb83e23fa12ee087b5f24567f435473363f8b536708fb",
+   "same_as_src": true,
+   "note_ja": "R4fix の短い試しの出力と道具",
+   "added": "2026-10-11"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/flip42/R4fix/tests/s35_R2_exact.txt",
+   "src": "Unity/Build/FLIP42/R4fix/tests/s35_R2_exact.txt",
+   "bytes": 8073,
+   "sha256": "c67323dbd64ff7e65d70bf79668e539e83e6ad7f0fd9c5e018eb8e18bae9b8ef",
+   "same_as_src": true,
+   "note_ja": "R4fix の短い試しの出力と道具",
+   "added": "2026-10-11"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/flip42/R4fix/tests/try_R4d_36f.txt",
+   "src": "Unity/Build/FLIP42/R4fix/tests/try_R4d_36f.txt",
+   "bytes": 5573,
+   "sha256": "8c4c2758fb610f8bb97feda814eeb258c862636ddaaa2f6624c4ac3c2d42b754",
+   "same_as_src": true,
+   "note_ja": "R4fix の短い試しの出力と道具",
+   "added": "2026-10-11"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/flip42/check/R4/check_R4_conv.json",
+   "src": "Unity/Build/FLIP42/check/R4/check_R4_conv.json",
+   "bytes": 3607,
+   "sha256": "0a57d61c30d6b5571b6721621a428a5b5fcecde4cb802c11850739293665083b",
+   "same_as_src": true,
+   "note_ja": "R4（R4d）の独立の確かめ（自前の道具・出力・動画のコマ）",
+   "added": "2026-10-11"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/flip42/check/R4/check_R4_conv.py",
+   "src": "Unity/Build/FLIP42/check/R4/check_R4_conv.py",
+   "bytes": 3168,
+   "sha256": "ca0776cfb26d120cffc4504f1995665f4d009ea8073210cde7f297652cb7dd7b",
+   "same_as_src": true,
+   "note_ja": "R4（R4d）の独立の確かめ（自前の道具・出力・動画のコマ）",
+   "added": "2026-10-11"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/flip42/check/R4/check_R4_geom.json",
+   "src": "Unity/Build/FLIP42/check/R4/check_R4_geom.json",
+   "bytes": 36547,
+   "sha256": "a477f722cef7bbd176091a6655b7ce3ba9201f0b081a2b4a01a1ee38c7a79a74",
+   "same_as_src": true,
+   "note_ja": "R4（R4d）の独立の確かめ（自前の道具・出力・動画のコマ）",
+   "added": "2026-10-11"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/flip42/check/R4/check_R4_geom.py",
+   "src": "Unity/Build/FLIP42/check/R4/check_R4_geom.py",
+   "bytes": 21403,
+   "sha256": "afe302d34a1d737b80b7cd90502ab70ce4ca30c67f697e4af22d3ccdd0e8b3cf",
+   "same_as_src": true,
+   "note_ja": "R4（R4d）の独立の確かめ（自前の道具・出力・動画のコマ）",
+   "added": "2026-10-11"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/flip42/check/R4/check_R4_misc.json",
+   "src": "Unity/Build/FLIP42/check/R4/check_R4_misc.json",
+   "bytes": 4656,
+   "sha256": "632a21268467d50622d4e8d717de08c6a8cddc422d08aac84f4fdff0526ff1b1",
+   "same_as_src": true,
+   "note_ja": "R4（R4d）の独立の確かめ（自前の道具・出力・動画のコマ）",
+   "added": "2026-10-11"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/flip42/check/R4/check_R4_misc.py",
+   "src": "Unity/Build/FLIP42/check/R4/check_R4_misc.py",
+   "bytes": 6408,
+   "sha256": "7c413e1605fa54f81ca8ad2f376c8fef14b51f6b07c05274d60a2826fab80cc4",
+   "same_as_src": true,
+   "note_ja": "R4（R4d）の独立の確かめ（自前の道具・出力・動画のコマ）",
+   "added": "2026-10-11"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/flip42/check/R4/check_R4_onset_sens.json",
+   "src": "Unity/Build/FLIP42/check/R4/check_R4_onset_sens.json",
+   "bytes": 2543,
+   "sha256": "b8773cb5e8e3cfbe0597409e9f22e5de47f28dc72053117e26f5f2632b504a81",
+   "same_as_src": true,
+   "note_ja": "R4（R4d）の独立の確かめ（自前の道具・出力・動画のコマ）",
+   "added": "2026-10-11"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/flip42/check/R4/check_R4_onset_sens.py",
+   "src": "Unity/Build/FLIP42/check/R4/check_R4_onset_sens.py",
+   "bytes": 2402,
+   "sha256": "db0e047a7b54ebc8e4725c49c78ee3a30de02fff0539d56f057c382d7697c18e",
+   "same_as_src": true,
+   "note_ja": "R4（R4d）の独立の確かめ（自前の道具・出力・動画のコマ）",
+   "added": "2026-10-11"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/flip42/check/R4/check_R4_rows.json",
+   "src": "Unity/Build/FLIP42/check/R4/check_R4_rows.json",
+   "bytes": 2117925,
+   "sha256": "531e3304a2218e22d7571dc707ce4fda755f53498e192a9f1a0e4fdcaf9a174f",
+   "same_as_src": true,
+   "note_ja": "R4（R4d）の独立の確かめ（自前の道具・出力・動画のコマ）",
+   "added": "2026-10-11"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/flip42/check/R4/check_R4_spec.json",
+   "src": "Unity/Build/FLIP42/check/R4/check_R4_spec.json",
+   "bytes": 23763,
+   "sha256": "4afbf517803cadc379540a0c95190c19b1979d9fd126c0151176fa5d0b7da16f",
+   "same_as_src": true,
+   "note_ja": "R4（R4d）の独立の確かめ（自前の道具・出力・動画のコマ）",
+   "added": "2026-10-11"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/flip42/check/R4/check_R4_spec.py",
+   "src": "Unity/Build/FLIP42/check/R4/check_R4_spec.py",
+   "bytes": 13206,
+   "sha256": "16bf63076dada9f1d43a6fca7f7a14357c25adbe92c922ecc0c88dd3f3c1c836",
+   "same_as_src": true,
+   "note_ja": "R4（R4d）の独立の確かめ（自前の道具・出力・動画のコマ）",
+   "added": "2026-10-11"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/flip42/check/R4/check_ja.md",
+   "src": "Unity/Build/FLIP42/check/R4/check_ja.md",
+   "bytes": 38726,
+   "sha256": "64e74a769fa5f249b030bfa56dbfefc2217b3bc6f272ff0303eb75cf10aaf38e",
+   "same_as_src": true,
+   "note_ja": "R4（R4d）の独立の確かめ（自前の道具・出力・動画のコマ）",
+   "added": "2026-10-11"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/flip42/check/R4/ck_common.py",
+   "src": "Unity/Build/FLIP42/check/R4/ck_common.py",
+   "bytes": 3967,
+   "sha256": "f2cab5ecde436a587a8af0117dafe8d380405aeb70aca6c18df507bcdeeb7489",
+   "same_as_src": true,
+   "note_ja": "R4（R4d）の独立の確かめ（自前の道具・出力・動画のコマ）",
+   "added": "2026-10-11"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/flip42/check/R4/frames/side_finest_34.0.png",
+   "src": "Unity/Build/FLIP42/check/R4/frames/side_finest_34.0.png",
+   "bytes": 197954,
+   "sha256": "a9ecc11f4b16390df2366c80d77896c683fc4458dcb8a817d72b43ff00b487d8",
+   "same_as_src": true,
+   "note_ja": "R4（R4d）の独立の確かめ（自前の道具・出力・動画のコマ）",
+   "added": "2026-10-11"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/flip42/check/R4/frames/side_finest_35.75.png",
+   "src": "Unity/Build/FLIP42/check/R4/frames/side_finest_35.75.png",
+   "bytes": 202638,
+   "sha256": "9e151ed41bfce2ef697465d32a7ce4babc094a2fd372f18ac65b49ad41133532",
+   "same_as_src": true,
+   "note_ja": "R4（R4d）の独立の確かめ（自前の道具・出力・動画のコマ）",
+   "added": "2026-10-11"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/flip42/check/R4/frames/side_finest_38.0.png",
+   "src": "Unity/Build/FLIP42/check/R4/frames/side_finest_38.0.png",
+   "bytes": 211392,
+   "sha256": "b636aced4fd113135faae35486d2be11f57f80de2826db6bdf0e2ea173b5841c",
+   "same_as_src": true,
+   "note_ja": "R4（R4d）の独立の確かめ（自前の道具・出力・動画のコマ）",
+   "added": "2026-10-11"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/flip42/a3fix/a3p_fix.json",
+   "src": "Unity/Build/FLIP42/a3fix/a3p_fix.json",
+   "bytes": 4858,
+   "sha256": "da2fb61e272ae0223ac683dcf7b7f6c0493aa58e4806c0a13aa2754a1c742c71",
+   "same_as_src": true,
+   "note_ja": "A3' を符号を直して出し直した値（R1b・R2・R3・R4d）と 10/9 の版の値（x_a3fix.py）",
+   "added": "2026-10-11"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/flip42/check/R4b/b_a3var.json",
+   "src": "Unity/Build/FLIP42/check/R4b/b_a3var.json",
+   "bytes": 6837,
+   "sha256": "f792964f870bc902b943f6ace8dff2b8df30bee83a28ad3dd40d8ab928a53d7c",
+   "same_as_src": true,
+   "note_ja": "R4 を足した報告の版の 2 回目の独立の確かめ R4b（自前の道具・出力・まとめ。10/11 13 時台）",
+   "added": "2026-10-11"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/flip42/check/R4b/b_a3var.py",
+   "src": "Unity/Build/FLIP42/check/R4b/b_a3var.py",
+   "bytes": 1760,
+   "sha256": "90d441ef71ef4f97439d9ee61c31057bdbfb07a26628113c2ac5f342ffe359f5",
+   "same_as_src": true,
+   "note_ja": "R4 を足した報告の版の 2 回目の独立の確かめ R4b（自前の道具・出力・まとめ。10/11 13 時台）",
+   "added": "2026-10-11"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/flip42/check/R4b/b_common.py",
+   "src": "Unity/Build/FLIP42/check/R4b/b_common.py",
+   "bytes": 5864,
+   "sha256": "e51438a6a1913a0dfb619f1e7748c453984968b7c8ee5e76d990acca1702cf41",
+   "same_as_src": true,
+   "note_ja": "R4 を足した報告の版の 2 回目の独立の確かめ R4b（自前の道具・出力・まとめ。10/11 13 時台）",
+   "added": "2026-10-11"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/flip42/check/R4b/b_geom.json",
+   "src": "Unity/Build/FLIP42/check/R4b/b_geom.json",
+   "bytes": 11296,
+   "sha256": "17a71774c152f665645b9552900094ae56d5828c2385325e671658a6b1b24add",
+   "same_as_src": true,
+   "note_ja": "R4 を足した報告の版の 2 回目の独立の確かめ R4b（自前の道具・出力・まとめ。10/11 13 時台）",
+   "added": "2026-10-11"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/flip42/check/R4b/b_geom.py",
+   "src": "Unity/Build/FLIP42/check/R4b/b_geom.py",
+   "bytes": 13440,
+   "sha256": "24d2905dd45464ce14cd0d66956e2bce5de8de373e412fb295ed9a2ae9ce3e30",
+   "same_as_src": true,
+   "note_ja": "R4 を足した報告の版の 2 回目の独立の確かめ R4b（自前の道具・出力・まとめ。10/11 13 時台）",
+   "added": "2026-10-11"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/flip42/check/R4b/b_geom_R4d_only.json",
+   "src": "Unity/Build/FLIP42/check/R4b/b_geom_R4d_only.json",
+   "bytes": 3872,
+   "sha256": "b4fb8df0ea95d648b149a7a7e023d111fb72b108a66222315781c0c6866f1ab6",
+   "same_as_src": true,
+   "note_ja": "R4 を足した報告の版の 2 回目の独立の確かめ R4b（自前の道具・出力・まとめ。10/11 13 時台）",
+   "added": "2026-10-11"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/flip42/check/R4b/b_geom_log.txt",
+   "src": "Unity/Build/FLIP42/check/R4b/b_geom_log.txt",
+   "bytes": 5397,
+   "sha256": "97e639d9bf220ce7e3e2d1f1a7f68f033ffda077c5fea617682defe91595f4f9",
+   "same_as_src": true,
+   "note_ja": "R4 を足した報告の版の 2 回目の独立の確かめ R4b（自前の道具・出力・まとめ。10/11 13 時台）",
+   "added": "2026-10-11"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/flip42/check/R4b/b_misc.json",
+   "src": "Unity/Build/FLIP42/check/R4b/b_misc.json",
+   "bytes": 1373,
+   "sha256": "abb0353635f01258963fe4bd6dff1ac205e9ac33697bb231cff88f93af491cc0",
+   "same_as_src": true,
+   "note_ja": "R4 を足した報告の版の 2 回目の独立の確かめ R4b（自前の道具・出力・まとめ。10/11 13 時台）",
+   "added": "2026-10-11"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/flip42/check/R4b/b_misc.py",
+   "src": "Unity/Build/FLIP42/check/R4b/b_misc.py",
+   "bytes": 2757,
+   "sha256": "97e388d45703e6a493ba6887d906ebc0f78ee41f962e0641c7202d54abcf20a5",
+   "same_as_src": true,
+   "note_ja": "R4 を足した報告の版の 2 回目の独立の確かめ R4b（自前の道具・出力・まとめ。10/11 13 時台）",
+   "added": "2026-10-11"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/flip42/check/R4b/b_misc_log.txt",
+   "src": "Unity/Build/FLIP42/check/R4b/b_misc_log.txt",
+   "bytes": 1375,
+   "sha256": "ac5c4d64b30842e288ed8c77cedf9b639bd1a2012ccdc94926f8cb0cbe51fbd9",
+   "same_as_src": true,
+   "note_ja": "R4 を足した報告の版の 2 回目の独立の確かめ R4b（自前の道具・出力・まとめ。10/11 13 時台）",
+   "added": "2026-10-11"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/flip42/check/R4b/b_rows_R2.json",
+   "src": "Unity/Build/FLIP42/check/R4b/b_rows_R2.json",
+   "bytes": 466989,
+   "sha256": "df9cf0c6a6b7b3e9bc4f697c923f89e89fa28b3b8c8215a9873ece09c5bcb21c",
+   "same_as_src": true,
+   "note_ja": "R4 を足した報告の版の 2 回目の独立の確かめ R4b（自前の道具・出力・まとめ。10/11 13 時台）",
+   "added": "2026-10-11"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/flip42/check/R4b/b_rows_R3.json",
+   "src": "Unity/Build/FLIP42/check/R4b/b_rows_R3.json",
+   "bytes": 450174,
+   "sha256": "7dcbbd4695f1000938e032646021f3a7aa35557b76c833fad2a7a733cc9c0c00",
+   "same_as_src": true,
+   "note_ja": "R4 を足した報告の版の 2 回目の独立の確かめ R4b（自前の道具・出力・まとめ。10/11 13 時台）",
+   "added": "2026-10-11"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/flip42/check/R4b/b_rows_R4d.json",
+   "src": "Unity/Build/FLIP42/check/R4b/b_rows_R4d.json",
+   "bytes": 484857,
+   "sha256": "bc821272aec7d8a7f306a2a9b18dce7edecd32e82ea4c10b3cf999dfa8cd6e31",
+   "same_as_src": true,
+   "note_ja": "R4 を足した報告の版の 2 回目の独立の確かめ R4b（自前の道具・出力・まとめ。10/11 13 時台）",
+   "added": "2026-10-11"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/flip42/check/R4b/b_sens.json",
+   "src": "Unity/Build/FLIP42/check/R4b/b_sens.json",
+   "bytes": 3159,
+   "sha256": "60c615d92dd45a19db20062adf35cf5474cf9aec5eb9df3160546bad1f625e78",
+   "same_as_src": true,
+   "note_ja": "R4 を足した報告の版の 2 回目の独立の確かめ R4b（自前の道具・出力・まとめ。10/11 13 時台）",
+   "added": "2026-10-11"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/flip42/check/R4b/b_sens.py",
+   "src": "Unity/Build/FLIP42/check/R4b/b_sens.py",
+   "bytes": 3388,
+   "sha256": "c722fc6e8e71edc59ec476a7787f422ebae9e081207aafc8312053509899dd83",
+   "same_as_src": true,
+   "note_ja": "R4 を足した報告の版の 2 回目の独立の確かめ R4b（自前の道具・出力・まとめ。10/11 13 時台）",
+   "added": "2026-10-11"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/flip42/check/R4b/b_sens_log.txt",
+   "src": "Unity/Build/FLIP42/check/R4b/b_sens_log.txt",
+   "bytes": 2567,
+   "sha256": "7cd5167cfe2889d60dfc6e41ef400d277ae206ae3997a5d619ae23f311028bed",
+   "same_as_src": true,
+   "note_ja": "R4 を足した報告の版の 2 回目の独立の確かめ R4b（自前の道具・出力・まとめ。10/11 13 時台）",
+   "added": "2026-10-11"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/flip42/check/R4b/b_spec.json",
+   "src": "Unity/Build/FLIP42/check/R4b/b_spec.json",
+   "bytes": 27598,
+   "sha256": "7b602d027e4a0df8a59438a4ad9bed3430af1653b42f457baca2474f1ff816a5",
+   "same_as_src": true,
+   "note_ja": "R4 を足した報告の版の 2 回目の独立の確かめ R4b（自前の道具・出力・まとめ。10/11 13 時台）",
+   "added": "2026-10-11"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/flip42/check/R4b/b_spec.py",
+   "src": "Unity/Build/FLIP42/check/R4b/b_spec.py",
+   "bytes": 10885,
+   "sha256": "9f17d0272d91bd33d36d6a55685191bfcc909c2ca552a30068b70c1795aed811",
+   "same_as_src": true,
+   "note_ja": "R4 を足した報告の版の 2 回目の独立の確かめ R4b（自前の道具・出力・まとめ。10/11 13 時台）",
+   "added": "2026-10-11"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/flip42/check/R4b/b_spec_log.txt",
+   "src": "Unity/Build/FLIP42/check/R4b/b_spec_log.txt",
+   "bytes": 4436,
+   "sha256": "a7cc4bbf6e9dd440e939a87139c98984b29da6045281d728bacd267778592f1d",
+   "same_as_src": true,
+   "note_ja": "R4 を足した報告の版の 2 回目の独立の確かめ R4b（自前の道具・出力・まとめ。10/11 13 時台）",
+   "added": "2026-10-11"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/flip42/check/R4b/b_tipscan.json",
+   "src": "Unity/Build/FLIP42/check/R4b/b_tipscan.json",
+   "bytes": 954,
+   "sha256": "4373dbf221d1043c524d8c7d3837cf40508c4f1bd60009f19edf6a794c320544",
+   "same_as_src": true,
+   "note_ja": "R4 を足した報告の版の 2 回目の独立の確かめ R4b（自前の道具・出力・まとめ。10/11 13 時台）",
+   "added": "2026-10-11"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/flip42/check/R4b/b_tipscan.py",
+   "src": "Unity/Build/FLIP42/check/R4b/b_tipscan.py",
+   "bytes": 928,
+   "sha256": "a99d1fae47c3bdf7ec05f0bc5f5e23f62549f164b205a5c39d8e8f03e1500f84",
+   "same_as_src": true,
+   "note_ja": "R4 を足した報告の版の 2 回目の独立の確かめ R4b（自前の道具・出力・まとめ。10/11 13 時台）",
+   "added": "2026-10-11"
+  },
+  {
+   "name": "Docs/Evidence/FLIPPlunging/flip42/check/R4b/check_ja.md",
+   "src": "Unity/Build/FLIP42/check/R4b/check_ja.md",
+   "bytes": 17561,
+   "sha256": "fbd7f845f0e17ffe571a8783e1091f105529e19a4563b527a4b1730320339557",
+   "same_as_src": true,
+   "note_ja": "R4 を足した報告の版の 2 回目の独立の確かめ R4b（自前の道具・出力・まとめ。10/11 13 時台）",
+   "added": "2026-10-11"
   }
  ],
  "cache_used": [
@@ -1727,6 +2529,427 @@
    "bytes_first_lines": 155160,
    "sha256_first_lines": "70501774270fd8857a76182cc9001659cb673b0fc03430ce909cd9624a3fb7b6",
    "note_ja": "R4 の診断の計算が後ろに行を足していくので、報告に使った最初の 62 行の SHA-256 を残す"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R3d/cfg.json",
+   "bytes": 2030,
+   "sha256": "fc8802c52f0d18d262f0ec9188bac45c7df3685ebff2c604f4c8b2b23cc41226",
+   "mtime": "2026-10-10 17:55:25"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R3d/chain.log",
+   "bytes": 597,
+   "sha256": "c864e9a890243265dca60f1b7bac0e7ae6ef998c26164ce6cf5920813d3827c0",
+   "mtime": "2026-10-10 19:32:20"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R3d/shape.json",
+   "bytes": 369126,
+   "sha256": "2a8b1a6a9b8dcd70e0a6307b764e8fe734e55ac8c3d58771633f747f05b8cf08",
+   "mtime": "2026-10-10 19:32:42"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R3d/hf_c3319.npz",
+   "bytes": 13097032,
+   "sha256": "336c1f8bc9962218dd9e13a216a3496409500ef321d373a1db3dd54d5243e2fe",
+   "mtime": "2026-10-10 18:24:43"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R3d/hf_c3601.npz",
+   "bytes": 5392392,
+   "sha256": "02129a640a1b45911ea547b42c9d2bf69106ef75dbc44023e519c2c51ae3851c",
+   "mtime": "2026-10-10 18:54:09"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R3d/hf_c3721.npz",
+   "bytes": 3231574,
+   "sha256": "bfdb6d2516d43e7c800f192f96f852ed3d5ca2acc2f69f607978949d6b344fcc",
+   "mtime": "2026-10-10 19:23:30"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R3d/hf_c3781.npz",
+   "bytes": 902380,
+   "sha256": "a9ca72cd042972b000fde5f42cf5642243afd822daebde99cf41de8d05c0c201",
+   "mtime": "2026-10-10 19:32:19"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R3d/sec_c3319_b3319.npz",
+   "bytes": 3557020,
+   "sha256": "f3cb158973473aa85a3c830898be9e4b9f61f84e1a2e66cd6242904d3349239d",
+   "mtime": "2026-10-10 18:06:41"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R3d/sec_c3319_b3439.npz",
+   "bytes": 3573326,
+   "sha256": "2b402cd2d408379c394ff31ee99edb752dbee0ede71a6c77678c2d3a18cd8ace",
+   "mtime": "2026-10-10 18:18:03"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R3d/sec_c3319_b3559.npz",
+   "bytes": 1553763,
+   "sha256": "56aa78971f83c3558ac8837596a54320ff492948da1efbb326580e8b20c07307",
+   "mtime": "2026-10-10 18:24:43"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R3d/sec_c3601_b3601.npz",
+   "bytes": 3546839,
+   "sha256": "c1b8aa00b605c89a74b4309a6612c5a096282a42ea98baba949f4c61fe1acbc9",
+   "mtime": "2026-10-10 18:54:08"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R3d/sec_c3721_b3721.npz",
+   "bytes": 2138292,
+   "sha256": "6e09a0d7921af55637e59fc302b19fc4dcb9f7df57f6d3bfd84963f6739d86bc",
+   "mtime": "2026-10-10 19:23:30"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R3d/sec_c3781_b3781.npz",
+   "bytes": 599078,
+   "sha256": "b2f98e8006b7b119cf282ddeeebc18468a8cf7eec04dbe8eaac50b5f58b78a25",
+   "mtime": "2026-10-10 19:32:19"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R4d/ana.json",
+   "bytes": 685583,
+   "sha256": "0e9ce2b95eb3d9663e5778ef5c7128eb4cf89f97a605c1845852f0f84d03baee",
+   "mtime": "2026-10-11 10:49:12"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R4d/cfg.json",
+   "bytes": 2413,
+   "sha256": "3d1ac2bc51737e68b2fba764b8123bd8fe133778ca42a01d461a0583cfd794db",
+   "mtime": "2026-10-10 20:36:51"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R4d/run.json",
+   "bytes": 3356,
+   "sha256": "9a613e605a9d1cafe643d923920ae31b537700c57832d12d7cf83247d5878868",
+   "mtime": "2026-10-10 20:07:03"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R4d/shape.json",
+   "bytes": 911399,
+   "sha256": "643356e7bab05bd74a795be7e57b246b4277049958572c38eb92f099f1bb172a",
+   "mtime": "2026-10-11 10:49:29"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R4d/hf_c0001.npz",
+   "bytes": 9881161,
+   "sha256": "39e429d7c91e06b688a25ca91811cd3faf235e2d12b34920257cb5bc6852f29d",
+   "mtime": "2026-10-10 20:07:03"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R4d/hf_c0121.npz",
+   "bytes": 11376049,
+   "sha256": "240724fed3711eabbea34dfcf480a143f7da4e5016de2f9c3fbf5719bb436bfb",
+   "mtime": "2026-10-10 20:36:20"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R4d/hf_c0301.npz",
+   "bytes": 13364664,
+   "sha256": "641a94e1e72e460bc12f715b487e1ceb0447bcd9e1c267f72ae7563184dfb496",
+   "mtime": "2026-10-10 21:06:03"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R4d/hf_c0521.npz",
+   "bytes": 13940279,
+   "sha256": "53582bc3c609ff44e11f9eeb53a6a9afeeb08b87c3faf3e61fd9e17bd276b8dc",
+   "mtime": "2026-10-10 21:35:11"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R4d/hf_c0721.npz",
+   "bytes": 15481422,
+   "sha256": "35f4e24b0bcff95a12f9de7ec37576f83b50d887025c95a305d91b276f821431",
+   "mtime": "2026-10-10 22:04:24"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R4d/hf_c0961.npz",
+   "bytes": 15491701,
+   "sha256": "d8802451a57398a0fa5e9b4d8caa1e4b9a912f290aa9dba1eb0bdc24c62212e1",
+   "mtime": "2026-10-10 22:33:33"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R4d/hf_c1201.npz",
+   "bytes": 15491399,
+   "sha256": "8e395135262d77b872e2b1a53d27aa800d0be75e8253abbeaff0db6ded1e3905",
+   "mtime": "2026-10-10 23:02:42"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R4d/hf_c1441.npz",
+   "bytes": 15445476,
+   "sha256": "b0007976bb568e7a2f5a496a9a3fdd195ec42b4234ce1b2af154f33a68065056",
+   "mtime": "2026-10-10 23:31:54"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R4d/hf_c1681.npz",
+   "bytes": 14915733,
+   "sha256": "160ac1b338e24d52c396f577ba1c91a546cbc21703e059c3b3e3d85e8d75991f",
+   "mtime": "2026-10-11 00:01:06"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R4d/hf_c1861.npz",
+   "bytes": 14411560,
+   "sha256": "78579968f8f35f7303a56b7bf4698fe61c60085d9a350dbe954f2da702b3de69",
+   "mtime": "2026-10-11 00:30:18"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R4d/hf_c2041.npz",
+   "bytes": 14519054,
+   "sha256": "775540c18e5d4f490b0e1f9a2707aba300e10de9e5671351829dd42c676bb77e",
+   "mtime": "2026-10-11 00:59:32"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R4d/hf_c2221.npz",
+   "bytes": 14060485,
+   "sha256": "d1d36a02f5b34d45f805ef7731f4706e3fc4156c6ba443cc63a6d39b1b2b7726",
+   "mtime": "2026-10-11 01:28:41"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R4d/hf_c2401.npz",
+   "bytes": 13792930,
+   "sha256": "8c6875284da59d26492632245acc434d467f52566b07799aa0f94362a8faca34",
+   "mtime": "2026-10-11 01:57:49"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R4d/hf_c2581.npz",
+   "bytes": 13646107,
+   "sha256": "774947e1e833250fedd37c3245e14454abb1131adf937e1cebbcda419de34aab",
+   "mtime": "2026-10-11 02:26:57"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R4d/hf_c2761.npz",
+   "bytes": 11862238,
+   "sha256": "d8388c37a008a3e7343363645ea1fd62d12e5657df659946c85ada82ba5dbd60",
+   "mtime": "2026-10-11 02:56:07"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R4d/hf_c2941.npz",
+   "bytes": 10879705,
+   "sha256": "81fb1a6e1edc35008215c110a8e7a237be63250fa709972b7311257032c0f304",
+   "mtime": "2026-10-11 03:25:23"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R4d/hf_c3081.npz",
+   "bytes": 10336227,
+   "sha256": "5bbd4c5f0bcf8d8e0b1f5782633354df5446bc4a6a30b4ac8f38729098487365",
+   "mtime": "2026-10-11 03:54:31"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R4d/hf_c3241.npz",
+   "bytes": 12162733,
+   "sha256": "0d7cd56b7f13fec5cd67e50cb13eb66f5c3df8c7a3f80e63d6859e4a7bb67b1f",
+   "mtime": "2026-10-11 04:23:44"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R4d/hf_c3421.npz",
+   "bytes": 12086079,
+   "sha256": "82d84680b5155e907cfbb39fdb661979b0dc3b5f304a9d1c53268af49a23d6c4",
+   "mtime": "2026-10-11 04:52:49"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R4d/hf_c3601.npz",
+   "bytes": 6743496,
+   "sha256": "b29a5fca4ade8b32b1b00434554ef05886a5d819cc881e03947b9cf22ea76b8e",
+   "mtime": "2026-10-11 05:22:16"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R4d/hf_c3681.npz",
+   "bytes": 4319461,
+   "sha256": "696cbee1bac586e2b87e6e51ad02775a2189966a9e7f1eea1667729e5aa93f53",
+   "mtime": "2026-10-11 05:51:52"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R4d/hf_c3739.npz",
+   "bytes": 2678953,
+   "sha256": "bda2391eb52998200acdbcf984f2bc3bfb304f245ec25785068a344c5318be55",
+   "mtime": "2026-10-11 06:21:29"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R4d/hf_c3781.npz",
+   "bytes": 3946311,
+   "sha256": "76ca2d86cdad48b47c821058da5a94aa353353f8346cdefdf2c8ff57b328f00a",
+   "mtime": "2026-10-11 06:50:50"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R4d/hf_c3841.npz",
+   "bytes": 4336054,
+   "sha256": "c829a0a2edf87c899fc3956a617bc8a64e3876e2be2237dc1842259a00e7e5db",
+   "mtime": "2026-10-11 07:19:56"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R4d/hf_c3901.npz",
+   "bytes": 4394112,
+   "sha256": "f281d91b10bc374cd7d42894e0decaffb09fa1b283a1835fb1d1d0624359280d",
+   "mtime": "2026-10-11 07:49:21"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R4d/hf_c3961.npz",
+   "bytes": 8178598,
+   "sha256": "d91cb8e55a29e13224b6fb36b73e84d2e3c9d88c9753d156ecee393dcc5b7c8e",
+   "mtime": "2026-10-11 08:18:30"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R4d/hf_c4081.npz",
+   "bytes": 8686241,
+   "sha256": "195a23b4270c67773131b138eaf204e882deb17275e0ae6e0fd125900a2eaf43",
+   "mtime": "2026-10-11 08:47:41"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R4d/hf_c4201.npz",
+   "bytes": 7057541,
+   "sha256": "7144f0f1a4b47e569a691d712e976c7ba42f5fc1b9cbb9b6e5c7f05352db8882",
+   "mtime": "2026-10-11 09:17:03"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R4d/hf_c4281.npz",
+   "bytes": 4769530,
+   "sha256": "d4e9003fd06cccadb0392752a3138a0d38aad093d7e1ffc5eacdde545c9d4d72",
+   "mtime": "2026-10-11 09:46:31"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R4d/hf_c4341.npz",
+   "bytes": 3829115,
+   "sha256": "e50bc5a9e45702c7c6ba4420f071236cabd24d0ca9507c67144c6dc9500f4763",
+   "mtime": "2026-10-11 10:15:47"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R4d/hf_c4397.npz",
+   "bytes": 5803376,
+   "sha256": "1b5830f943f331c5d9ce9075d8a7fedc991c06f70f1a23252e50452cdffb8292",
+   "mtime": "2026-10-11 10:44:58"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R4d/hf_c4481.npz",
+   "bytes": 1792074,
+   "sha256": "4f7d341ca5d97be8cd92ecdcd38c84c85025f269e449f7271f24164e1c4af74a",
+   "mtime": "2026-10-11 10:48:42"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R4d/sec_c3241_b3319.npz",
+   "bytes": 5137037,
+   "sha256": "f26d7ed08661d0d968332da9b80a6a402b9e151cfcd20dbc79fdb05fec58cce6",
+   "mtime": "2026-10-11 04:23:44"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R4d/sec_c3421_b3421.npz",
+   "bytes": 5496806,
+   "sha256": "42c55d1f0240b9d1f44d9cc4528cd2a635126458a55fa2916259a07cab99d879",
+   "mtime": "2026-10-11 04:38:53"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R4d/sec_c3421_b3541.npz",
+   "bytes": 3182910,
+   "sha256": "5284d9f6d01e2c24512229003de0d820731b8814252602e1a65d8aa0b23eee7e",
+   "mtime": "2026-10-11 04:52:49"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R4d/sec_c3601_b3601.npz",
+   "bytes": 4822783,
+   "sha256": "9040f2585f1a564cccaa72eb4069cd880c4ec9ea2d591e36d1be80481f096c94",
+   "mtime": "2026-10-11 05:22:16"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R4d/sec_c3681_b3681.npz",
+   "bytes": 3090306,
+   "sha256": "aa1b09e22d56368f86b26924c2f1a0a5a81da3ff9819cfe1af717749f9e5000e",
+   "mtime": "2026-10-11 05:51:52"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R4d/sec_c3739_b3739.npz",
+   "bytes": 1912015,
+   "sha256": "2bc8e56226646a70939c685ab7454eec443254bfd30824110a4b4d4ffb3eeafc",
+   "mtime": "2026-10-11 06:21:29"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R4d/sec_c3781_b3781.npz",
+   "bytes": 2864231,
+   "sha256": "53e59dd9ff8698114b563cc19ca6753e4c553e7d7e4ab8c3968ff922746b3dfc",
+   "mtime": "2026-10-11 06:50:50"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R4d/sec_c3841_b3841.npz",
+   "bytes": 3139763,
+   "sha256": "8b09e97b8b415b5c0eaa5e2fe71fdd1c9a75c2f5a838d7b4533f23a046f84496",
+   "mtime": "2026-10-11 07:19:56"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R4d/sec_c3901_b3901.npz",
+   "bytes": 3177508,
+   "sha256": "9ef2894450dd41582ee7094d4f83fac3041137b7adcb202442df84103a1ad4c1",
+   "mtime": "2026-10-11 07:49:21"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R4d/sec_c3961_b3961.npz",
+   "bytes": 5544358,
+   "sha256": "cb1ac05725ba7320db469cbab931874704318e85b23676817c01c23b31fe606f",
+   "mtime": "2026-10-11 08:16:37"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R4d/sec_c3961_b4081.npz",
+   "bytes": 413428,
+   "sha256": "3b647a629af1e4a913df8d44872cddcd8a7c925c404a42b34ddb1dbe26f90591",
+   "mtime": "2026-10-11 08:18:30"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R4d/sec_c4081_b4081.npz",
+   "bytes": 5512070,
+   "sha256": "4eb9aa7fb6c51182455ae47a49b0079fb48dd4b74786d68a9dba2af277eb1eba",
+   "mtime": "2026-10-11 08:44:06"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R4d/sec_c4081_b4201.npz",
+   "bytes": 780788,
+   "sha256": "eee23ccb91fcd113a5af0e24d89f81571ec3bc0393498d73dbe5ea2d5bafb60a",
+   "mtime": "2026-10-11 08:47:41"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R4d/sec_c4201_b4201.npz",
+   "bytes": 5104894,
+   "sha256": "2c338c94a11db2c10d75804927c3eab7ab351c185419ab3aad8a83d3380b5f35",
+   "mtime": "2026-10-11 09:17:03"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R4d/sec_c4281_b4281.npz",
+   "bytes": 3433133,
+   "sha256": "9d45a4454e86fe8d25c933cd6bf7444983d0be437f3d04154eb385c6fed52ff2",
+   "mtime": "2026-10-11 09:46:32"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R4d/sec_c4341_b4341.npz",
+   "bytes": 2734924,
+   "sha256": "a58d849b79f7ee514f76d62e538bef585f6a75fef02ca80add7017e91f4d170f",
+   "mtime": "2026-10-11 10:15:47"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R4d/sec_c4397_b4397.npz",
+   "bytes": 4173547,
+   "sha256": "c44a57754f2185ce3fe54edfd8f0fa989c5177608406096e527b8bc910fedfbb",
+   "mtime": "2026-10-11 10:44:58"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R4d/sec_c4481_b4481.npz",
+   "bytes": 1293177,
+   "sha256": "86e0721c11f3bf8715c9b139e31f220661b0040063299184902c00c04c6c920f",
+   "mtime": "2026-10-11 10:48:42"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R4d_chain_stdout.txt",
+   "bytes": 342,
+   "sha256": "2b19d2076c65b8e1aa19e4d75f689f81ecf996eeed13cf02e6e83dfdd6a7b2c0",
+   "mtime": "2026-10-10 20:36:21"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/R4d_chain_stdout_b.txt",
+   "bytes": 4336,
+   "sha256": "61706fa364f7e9a6187448ecad36c21d167da464765faa383bc4d3cbd6037502",
+   "mtime": "2026-10-11 10:48:42"
+  },
+  {
+   "path": "Unity/Build/FLIP42/runs/runs.jsonl",
+   "first_lines": 98,
+   "bytes_first_lines": 269707,
+   "sha256_first_lines": "133dc767f4a3813b2ff4f81aa094e3b321acd96e31ec97718bc60128f1c586eb",
+   "note_ja": "10/11：R3d・R4d の行を足した全部の行（98 行）の SHA-256。10/10 の 62 行の SHA-256 は上の行"
   }
  ],
  "cache_used_note_ja": "解析・図・動画・独立の確かめが読んだ計算の記録（一番上の水面の高さ hf_c*.npz、板の真ん中の断面の水面の場 sec_c*.npz、解析の JSON、設定と起動の記録）。どれも Unity/Build/FLIP42/runs/ の下（リポジトリの外）",
@@ -1762,6 +2985,14 @@
   "R5p": {
    "files": 18,
    "bytes": 11835018514
+  },
+  "R3d": {
+   "files": 11,
+   "bytes": 7241954457
+  },
+  "R4d": {
+   "files": 118,
+   "bytes": 149088775026
   }
  },
  "checkpoints_note_ja": "途中保存は計算を続けるためだけに使い、解析と動画には使っていないので SHA-256 は取らない。消していない",
@@ -1937,19 +3168,115 @@
  ],
  "metrics": {
   "path": "Docs/Evidence/FLIPPlunging/metrics.json",
-  "bytes": 10424,
-  "sha256": "5d5af23eea70f0cc9f212d2c99f8a0ddb638e846eac8f118e425d7d3d20a80d7",
-  "mtime": "2026-10-10 18:16:00"
+  "bytes": 22576,
+  "sha256": "55be2a4c64db824eddcce32fa188ee3a4d7396a03bd82d358b97d303dcd12042",
+  "mtime": "2026-10-11 13:43:19"
  },
  "guide": {
   "path": "Docs/Evidence/FLIPPlunging/flip42/README_ja.md",
-  "bytes": 2500,
-  "sha256": "a3484b0c041f73b4df5ae4ab0f3edb736f371a9ec1dd85484e2542ea5583be20",
-  "mtime": "2026-10-10 18:14:22",
+  "bytes": 4539,
+  "sha256": "f6879712800cb2a58416c83d3e9c45b40b4ed0596a2f25731c85179537ff7229",
+  "mtime": "2026-10-11 13:43:09",
   "note_ja": "写しの案内（手で書いた。写しの時点と、写しに残る退けた言い方）"
  },
  "revisions_ja": [
   "2026-10-10 17:47 最初の版",
-  "2026-10-10 18 時台：報告の見直しを受けて、R3b・R4 の行のない起動、g_cfg.py・g_run.py の変更、record_ja.md の写しの時点、runs.jsonl の扱い、R4 の書き方を直した。動画・図・写しの中身は変えていない"
- ]
+  "2026-10-10 18 時台：報告の見直しを受けて、R3b・R4 の行のない起動、g_cfg.py・g_run.py の変更、record_ja.md の写しの時点、runs.jsonl の扱い、R4 の書き方を直した。動画・図・写しの中身は変えていない",
+  "2026-10-11 11 時台：R4（R4d）を足した（動画 2 本・断面の並び 2 枚・図 2 枚、R4・R4fix の記録、独立の確かめ check/R4、A3' の出し直し a3fix の写し）。flip42/record_ja.md の写しを 10/11 の版に替えた。metrics.json に R4 を足し A3' を直した値にした。道具に x_r4fix_*.py を入れた",
+  "2026-10-11 13 時台：この版の 2 回目の独立の確かめ check/R4b を受けて、報告の言い方と読み方の幅を直した（まだ動く量に巻き始めの時刻、§5 の「C1〜C4 まで落ち着いた」、D3 の差が細かさで少し縮むこと、A3' の比が入れ方で 0.95 の境目まで動くこと、着水どうしの比べ、R3 の 2 つ目の噴流 548.5 m、runs/ 259 GB（241 GiB）など）。check/R4b の写しを flip42/check/R4b/ に足し、metrics.json に直しを入れた。判定は変わらない。新しい計算はしていない"
+ ],
+ "replaced_copies": [
+  {
+   "name": "Docs/Evidence/FLIPPlunging/flip42/record_ja.md",
+   "bytes": 26582,
+   "sha256": "08be23fa2b1214ade62fe0e060870cf34fb7a1fb0bf0a59ef6378f2669793fdd",
+   "snapshot_ja": "2026-10-10 17:45 の版。その後、17:55〜17:58 に R4 の診断が「計画から変えた所」6 と「R4 の試し」への注を、18:12 に進行役が「計画の読み方」8 についての追記を、元の記録に書き足した。報告は診断の途中の結果を使わないので、写しは 17:45 の版のまま",
+   "replaced_ja": "2026-10-11：報告が R4fix と R4 の結果を使うようになったので、写しを 10/11 の版（R4 の段・解析の道具の直しを含む）に替えた"
+  }
+ ],
+ "runs_total_20261011": {
+  "launches": 98,
+  "hours": 42.61,
+  "note_ja": "runs.jsonl の 98 行（10/10 の 62 行に R3d 4 行・R4d 32 行を足した）"
+ },
+ "runs_total_with_unrecorded_20261011": {
+  "launches": 100,
+  "hours": 42.97,
+  "note_ja": "行のない起動 2 回を足した数。R4 の数コマの試し 11 通りと R4fix の短い試し 23 本は含まない"
+ },
+ "tools_20261010": {
+  "Tools/GWWaveGen/flip42/g_analyze.py": "0a1eedfeb826c469ed48801a2555a9b2e9b2641b6c0632fb49fda6ded1d22ca2",
+  "Tools/GWWaveGen/flip42/g_build_tank.py": "4a709aae81c94b9764dad4d465be90be877692b5723725971abda1433f833493",
+  "Tools/GWWaveGen/flip42/g_cfg.py": "665a67a52d7941279656a0f63d45b9dfd253841f8ab78198df8b5d3d961a4469",
+  "Tools/GWWaveGen/flip42/g_chain.py": "f33377ce629862112c3bf482231fde91408b6c8810c4c52c8375588d91d57b20",
+  "Tools/GWWaveGen/flip42/g_chain2.py": "f0c89ad540e96176b30788aa06698a305c4dda5b1a5ef52765cc8e332f302a4b",
+  "Tools/GWWaveGen/flip42/g_compare.py": "3b5bb35afdb4e2e28afbf5bd55da501edca0cfc2deb0caff6ff67ca5805c02a9",
+  "Tools/GWWaveGen/flip42/g_deliver_plunging.py": "ddb6cfcc1c65cfe5c82406661bdc2d4817ad6b11c70f7f2bef2bcb339591c86d",
+  "Tools/GWWaveGen/flip42/g_figs.py": "e7184266367e4944377bbd0e84ff3382ad59225c811135972d7da3f4e900f849",
+  "Tools/GWWaveGen/flip42/g_figs2.py": "0eee61ba5c74b2cfaac01be7f59962ba5eeb119020d6713a8a90899f8810e033",
+  "Tools/GWWaveGen/flip42/g_plot.py": "7d3b14f1867c1215e513cf5e2bb9d2a3f659a26526d0b0cfe056e026be872fd7",
+  "Tools/GWWaveGen/flip42/g_preview.py": "0da4127795c0be8f4c2af899ff2dbd6a282143bc3bb3fd40fada0ce67ab857c9",
+  "Tools/GWWaveGen/flip42/g_queue2.py": "d187f43482f490f728590d5f433d3dc2f067689bb95a2cfd0f94cdf1bd381dbb",
+  "Tools/GWWaveGen/flip42/g_relabel_v2.py": "05846fdff3f9439f357c1d673cf8eef1b312232e70828b7ef8cdd265139764ae",
+  "Tools/GWWaveGen/flip42/g_run.py": "3a2c354779cab458b8bb4e7281c2d7162c4338b763df1a0bcf26ac1abc4c196e",
+  "Tools/GWWaveGen/flip42/g_shape.py": "c7768bb6cf15d500f95eb46d971e9cfbf095fe923ca2cb15637ba5d727361e64",
+  "Tools/GWWaveGen/flip42/g_tanklib.py": "fa4ca23adf5e8d689cadbed804d056bc05f89f1c96fc3a890e986eb08f58efa5",
+  "Tools/GWWaveGen/flip42/g_unthrottle.py": "213e80ced2b96f58fe87918d1bfd1f3582472dad7f34093c3f986532c8566647",
+  "Tools/GWWaveGen/flip42/g_video.py": "62b40210675da6b0e3aba0e33e25c6fcccac7e63599ff9ca6f0c09399a0d326f",
+  "Tools/GWWaveGen/flip42/p_plan_numbers.py": "0821a848f12f1b64c62842e736945c9106f050a30bce37e37a1a0fa206ec5b79",
+  "Tools/GWWaveGen/flip42/p_plan_numbers_v0.py": "229d810a974e926504eab820407d8424a1840cb3a0cc8ab9846e6f60c542460b",
+  "Tools/GWWaveGen/flip42/q44_check_newwave_height.py": "dfcab32b70eb1f37d738a92f5ef96c809414ef321c35a606ee8939c727b79f98",
+  "Tools/GWWaveGen/flip42/q44_newwave_height.py": "dda065d2d6ff48357a337022393267d0d4d337f700c136c6355e005e0a975ff1",
+  "Tools/GWWaveGen/flip42/r_review_numbers.py": "36f8da17f4a9ad1e7706d928c1b3dd428a1b86105daddb96a4676af29c239f9d",
+  "Tools/GWWaveGen/flip42/v_lin.py": "8450f6e5449bd34724f4abfffa238c1e9c6c7236da919c0e463b0df2809764b9",
+  "Tools/GWWaveGen/flip42/x_check_relabel.py": "e11c80a43a1f4cf89afb841bb6df19a086093b9f5b49ad8bba5bd2780ef92d8d",
+  "Tools/GWWaveGen/flip42/x_check_vex.py": "fd6d9b2654252b94a652314bc58da18b461b6cc31dc3c0f33cbaafebac70bdc8",
+  "Tools/GWWaveGen/flip42/x_debug_r4.py": "6abaa1179de8fa0fa0a8d299cf62b76be6f704993ed5cbd6126439ecc92e8fe2",
+  "Tools/GWWaveGen/flip42/x_errs_r4.py": "b8a84eb91578cb40999709a8b87aaac078d7a3269812dd4888cb2c5ba689ffe9",
+  "Tools/GWWaveGen/flip42/x_fields_r4.py": "18b2ef3920bfa4640bc852e72f3a02254dd9eb553808912c7b59e75c52e8cc9e",
+  "Tools/GWWaveGen/flip42/x_introspect_fs.py": "46c57cb4b5a1d9094a2e433f7c925984a9c1fdb25a75b87a4602d3a7c7d34154",
+  "Tools/GWWaveGen/flip42/x_introspect_gw.py": "c24f7c6fc25d7ac73d9b75637dbf244858ebde83aada69da05de80a55643147b",
+  "Tools/GWWaveGen/flip42/x_introspect_proj.py": "50de87a8b228c8ecc78b6427684f9dee06f5af73f627078a47366f1ce30fcd9d",
+  "Tools/GWWaveGen/flip42/x_try_r4.py": "db091035ee7bbab3a26e955bf6483d43aba8504bfbc35339a1550612ce5f43ce"
+ },
+ "tools_changed_20261011": {
+  "Tools/GWWaveGen/flip42/g_analyze.py": {
+   "before": "0a1eedfeb826c469ed48801a2555a9b2e9b2641b6c0632fb49fda6ded1d22ca2",
+   "now": "bfd5207ce60e27e027dc07e945d70e323bba598092b99d878ec74afc48936430"
+  },
+  "Tools/GWWaveGen/flip42/g_deliver_plunging_r4.py": {
+   "before": null,
+   "now": "314566cd82630b1da234141cee68463e4c64fe6c66954b1d8f64243498ea944c"
+  },
+  "Tools/GWWaveGen/flip42/x_a3fix.py": {
+   "before": null,
+   "now": "8617d23234d4ff1519aa0c754aa41ffcb7e52257e841aeee0758a231fbdc6501"
+  },
+  "Tools/GWWaveGen/flip42/x_r4_media.py": {
+   "before": null,
+   "now": "deb9c8738644013eda4ca7175077fcbb580620056dc4cb9a90c2074de739d24f"
+  },
+  "Tools/GWWaveGen/flip42/x_r4_visual.py": {
+   "before": null,
+   "now": "a0f3fab845aed1ab43314332ff1726c4bba3da30338da48dafa5f68e4399efa0"
+  },
+  "Tools/GWWaveGen/flip42/x_r4fix_parms.py": {
+   "before": null,
+   "now": "9f08b628e66c4654090d0c5ce42d9e9a7e81e03027fba20b45474fef120f6927"
+  },
+  "Tools/GWWaveGen/flip42/x_r4fix_still.py": {
+   "before": null,
+   "now": "1b752aa024351f6461b5df9819ccc3ca54acc3414efd42d4da45e797a2b7626d"
+  },
+  "Tools/GWWaveGen/flip42/x_r4fix_surfdiff.py": {
+   "before": null,
+   "now": "d25e1cda1b82580d13bb4f7302f103782c452df962ef631042d3dfbb83765bdc"
+  }
+ },
+ "storage_runs_dir_20261011": {
+  "bytes": 259304628702,
+  "GB": 259.3,
+  "GiB": 241.5,
+  "note_ja": "Unity/Build/FLIP42/runs/ 全体（R3d・R4d を含む）。10/11 13:18 に check/R4b が測った（報告の 10/11 11 時台の版は約 258 GB と書いた）"
+ }
 }
