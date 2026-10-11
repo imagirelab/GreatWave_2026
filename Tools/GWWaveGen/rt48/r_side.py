@@ -171,6 +171,7 @@ class Frame:
         self.text_y = y - 14
         idx = json.load(open(os.path.join(BUILD, "data", "manifest.json"), encoding="utf8"))
         self.cap = idx["captions"]
+        self.c2 = (idx.get("checks") or {}).get("C2")   # 10/12 細かい元：C2 が外れた時は細かい元の窓に参考と書く
 
     def render(self, t):
         img = np.empty((H, W, 3), np.uint8)
@@ -190,7 +191,9 @@ class Frame:
         # 細かく見る窓
         for s, pan in zip(self.srcs, self.details):
             st_s, f_s, disp_s, loops_s = s.at(t)
-            draw_section(img, pan, disp_s, loops_s, boat=(SEAT_MAIN, hb, pb), boat_ghost=ghost,
+            end_s = s.boat[str(int(SEAT_MAIN))]["clip_end_t"]   # 10/12 細かい元：船はその段の元の水面から（前は一番上の元の値を全部の段に使っていた）
+            hb_s, pb_s, _ = s.boat_at(min(t, end_s), SEAT_MAIN)
+            draw_section(img, pan, disp_s, loops_s, boat=(SEAT_MAIN, hb_s, pb_s), boat_ghost=t > end_s + 1e-9,
                          seats=((SEAT_MAIN, ""), (SEAT_OTHER, "")))
             # 10 m の物差し（横と縦）と目盛り
             bx, by = pan.x0 + 30, pan.y0 + pan.h - 30
@@ -202,18 +205,23 @@ class Frame:
                 cv2.line(img, (xp, pan.y0 + pan.h), (xp, pan.y0 + pan.h + (8 if xm % 50 == 0 else 4)), (60, 60, 60), 1)
         pim = Image.fromarray(img)
         d = ImageDraw.Draw(pim)
-        d.text((40, 12), "横から見た断面（FLIP42 R3：重力だけの FLIP、粒子 0.25 m）の再生　実時間　縦横同じ縮尺", font=self.f_b, fill=C_TEXT)
+        d.text((40, 12), "横から見た断面の再生　焼いた曲線を Python で描いた絵（Unity の描画ではない）　実時間・縦横同じ縮尺", font=self.f_b, fill=C_TEXT)   # 10/12 細かい元：Unity の絵でないことを題に出した
         d.text((W - 40, 14), "計算の時刻 %.3f s" % t, font=self.f_b, fill=C_TEXT, anchor="ra")
         d.text((ov.x0, ov.y0 - 24), "断面の全体 x 100〜925 m（灰色の帯は x の両端の下ろし：計算にない形。赤い枠が下の窓、▲ は座席 556 m・574 m）",
                font=self.f_t, fill=C_TEXT)
         for s, pan in zip(self.srcs, self.details):
             lab = s.man["label"]
+            if s.name == "fine" and self.c2 is not None and not self.c2.get("pass_all"):
+                bad = "・".join("(%s)" % q for q in "abcde" if self.c2.get(q) is False)
+                lab += "　※細かい面の確かめ C2 の %s が外れた（計画の決まりでは報告の元にしない。並べて見るための参考）" % bad
             d.text((pan.x0, pan.y0 - 26), "x %d〜%d m（造波板からの距離）　%s" % (X_DETAIL[0], X_DETAIL[1], lab), font=self.f_s, fill=C_TEXT)
             bx, by = pan.x0 + 30, pan.y0 + pan.h - 30
             d.text((bx + int(10 * pan.s) + 8, by - 12), "10 m", font=self.f_s, fill=(20, 20, 20))
             y0 = pan.y0 + int(round(Y_DETAIL[1] * pan.s)) if len(self.srcs) == 1 else pan.y0 + int(round(14.0 * pan.s))
             d.text((pan.x0 + pan.w - 8, y0 - 24), "静かな水面（破線）", font=self.f_t, fill=C_TEXT, anchor="ra")
             for xm in range(500, int(X_DETAIL[1]) + 1, 50):
+                if pan is not self.details[-1]:   # 10/12 細かい元：2 段の時、上の段の目盛りの字が下の段の題に重なるので、一番下の段だけに書く
+                    break
                 xp = pan.x0 + int(round((xm - X_DETAIL[0]) * pan.s))
                 d.text((xp, pan.y0 + pan.h + 10), "%d m" % xm, font=self.f_t, fill=C_TEXT, anchor="ma")
             sp = pan.px(np.array([[SEAT_MAIN, 0.0], [SEAT_OTHER, 0.0]]))

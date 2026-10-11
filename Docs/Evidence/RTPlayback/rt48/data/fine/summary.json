@@ -1,0 +1,105 @@
+{
+ "source": "fine",
+ "K": 3745,
+ "onset": 3709,
+ "contact": 3745,
+ "n_interp": 327,
+ "n_pairs": 570,
+ "C3": {
+  "max": 0.047408369720483935,
+  "tol": 0.02,
+  "ok": false,
+  "how": "各組の A とコマ k の線、B とコマ k+1 の線の距離（両向き、0.005 m に細かくして最も近い点）の最大"
+ },
+ "C4": {
+  "tol_max": 0.25,
+  "tol_p99": 0.05,
+  "n": 424,
+  "n_fail": 67,
+  "max_of_max": 0.1956078763025918,
+  "max_of_p99": 0.1640604474050718,
+  "E2": 0.04886370188580232,
+  "E3": 0.054844134402843345,
+  "p_observed": 0.5752491274865463,
+  "err_at_1_24s": null,
+  "err_note": "1/24 s の誤差は測れていない（観測した次数が 1.5〜2.5 の外か、測れなかった）",
+  "far_window_reference": {
+   "n": 106,
+   "median_max": 0.03315724694173594,
+   "median_p99": 0.025993195387694935,
+   "note": "判定にしない参考。頂から 150 m 離れた ±30 m の窓で、同じ (k, k+2) の割合 0.5 と k+1 の距離（4 コマおき）"
+  },
+  "arc_only": {
+   "max_of_max": 0.6537509616162209,
+   "max_of_p99": 0.35982818381572657,
+   "n_fail": 85
+  }
+ },
+ "self_x": 0,
+ "boat": {
+  "556": {
+   "overturned_on_hull_frame": 3772,
+   "clip_end_frame": 3771,
+   "clip_end_t": 157.08333333333334,
+   "heave_min_max_to_end": [
+    -1.129994,
+    0.814189
+   ],
+   "pitch_min_max_to_end": [
+    -5.8055,
+    3.88296
+   ],
+   "heave_rate_max_mps": 1.6226879999999975,
+   "pitch_rate_max_degps": 7.798560000000016
+  },
+  "574": {
+   "overturned_on_hull_frame": 3793,
+   "clip_end_frame": 3792,
+   "clip_end_t": 157.95833333333334,
+   "heave_min_max_to_end": [
+    -1.118066,
+    0.873811
+   ],
+   "pitch_min_max_to_end": [
+    -2.73321,
+    3.49223
+   ],
+   "heave_rate_max_mps": 0.6103439999999996,
+   "pitch_rate_max_degps": 4.827599999999999
+  }
+ },
+ "files": {
+  "pairs": {
+   "name": "pairs.bin",
+   "dtype": "<f4",
+   "shape": [
+    570,
+    2,
+    8192,
+    2
+   ],
+   "bytes": 74711040,
+   "sha256": "98cdf371d4e225268826502eafe83068a373d6c20c0aaf328842ff4f156cdb7a"
+  },
+  "loops": {
+   "name": "loops.bin",
+   "dtype": "<f4",
+   "shape": [
+    12722,
+    2
+   ],
+   "bytes": 101776,
+   "sha256": "00a20541da83db2e911795a349a87c77a3d9ebc40674b826eb094095a5c77ea8"
+  }
+ },
+ "main_ok": true,
+ "other_open_max": 0,
+ "stitch": 0.0,
+ "seconds": {
+  "load": 16.4,
+  "c4": 14.8,
+  "pairs": 373.8,
+  "total": 408.7
+ },
+ "manifest_sha256": "d5295f945e3bf6e688bc0cb645e81230b8bbfd61fcb27e261b1907d9da933c51"
+}

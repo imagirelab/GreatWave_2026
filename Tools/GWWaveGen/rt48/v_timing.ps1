@@ -8,7 +8,8 @@ param(
     [string]$Conds = 'proxy2000,proxy2064,proxy2800,desk1080,mock',
     [int]$Runs = 3,
     [double]$Warm = 3,
-    [int]$TimeoutSeconds = 400
+    [int]$TimeoutSeconds = 400,
+    [string]$Source = 'coarse'   # source id (fine/coarse); added for the fine-source stage, default unchanged
 )
 $ErrorActionPreference = 'Stop'
 $project = 'G:\Unity\GreatWave_2026_Fresh\Unity'
@@ -25,13 +26,13 @@ $defs = [ordered]@{
     desk1080  = @{ proxy = ''; w = 1920; h = 1080 }
     mock      = @{ proxy = ''; w = 1280; h = 720; mock = $true }
 }
-$summary = [ordered]@{ tag = $Tag; startedLocal = (Get-Date).ToString('yyyy-MM-dd HH:mm:ss'); exe = $exe; conds = @() }
+$summary = [ordered]@{ tag = $Tag; source = $Source; startedLocal = (Get-Date).ToString('yyyy-MM-dd HH:mm:ss'); exe = $exe; conds = @() }
 foreach ($name in $Conds.Split(',')) {
     $d = $defs[$name]
     if ($null -eq $d) { throw "知らない条件: $name" }
     $json = Join-Path $out ($name + '.json')
     $log = Join-Path $out ($name + '.log')
-    $pargs = @('-rt48source', 'coarse', '-rt48seat', '556', '-rt48view', 'bow', '-screen-fullscreen', '0', '-screen-width', "$($d.w)", '-screen-height', "$($d.h)", '-logFile', ('"' + $log + '"'))
+    $pargs = @('-rt48source', $Source, '-rt48seat', '556', '-rt48view', 'bow', '-screen-fullscreen', '0', '-screen-width', "$($d.w)", '-screen-height', "$($d.h)", '-logFile', ('"' + $log + '"'))
     if ($d.mock) {
         $pargs += @('-rt48xr', '-rt48xrshot', ('"' + (Join-Path $out 'mock_botheyes.png') + '"'), '-rt48xrshotmode', 'both', '-rt48autoquit', '14')
     } else {

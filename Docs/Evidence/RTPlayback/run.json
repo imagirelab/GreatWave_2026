@@ -1,7 +1,7 @@
 {
  "schema": "GreatWave.RTPlayback.deliver_run/1",
- "date": "2026-10-11 05:54",
- "note_ja": "Docs/Evidence/RTPlayback を作った記録。この段で新しい流体の計算・Unity の描き直しはしていない（横からの静止画 1 枚 side_coarse_t154.710.png だけを r_side.py で描いた）。git の操作とダウンロードはしていない。何も消していない。パスはリポジトリからの相対",
+ "date": "2026-10-11 13:45",
+ "note_ja": "Docs/Evidence/RTPlayback を作った記録（10/12 細かい元の段で書き直した。粗い元の段の写しはそのまま）。細かい元の段では、R3e（前の段で並ばせた計算し直し）の後の道（r_after.py）を待ち、同じ道具で確かめと動画を出した。新しい流体の計算はしていない。Unity は Editor の船の外の絵（RT48OutsideCapture.cs）を足しただけで、プレイヤーと再生の部品は変えていない。git の操作とダウンロードはしていない。何も消していない。パスはリポジトリからの相対",
  "report": "Docs/Progress/RT_Playback_ja.md",
  "checks": {
   "D1_D3_all": true
@@ -94,6 +94,116 @@
    "D1": true,
    "D2": true,
    "D3": true
+  },
+  {
+   "path": "Docs/Evidence/RTPlayback/rtp_13_boat556_bow_fine_ref.mp4",
+   "source": "Unity/Build/RT48/video/rt48_boat_seat556_bow_fine_ref.mp4",
+   "bytes": 5637148,
+   "sha256": "cc273066cd03b81e866bc34473c46f4f0563a66120cc4cea1d43b63b0536c20b",
+   "source_sha256": "cc273066cd03b81e866bc34473c46f4f0563a66120cc4cea1d43b63b0536c20b",
+   "action": "same",
+   "desc_ja": "参考：細かい元（粒子から作った面 0.125 m。C2 の (b)・(c) が外れたので報告の元ではない。独立の確かめ check_fine で (a) も波のある所を入れると接触の後に外れると分かった。絵の中の字は (b)・(c) のまま）で船から（座席 556 m、船首の向き）、138.25〜157.083 s、実時間。Unity のプレイヤーの描画に上の端の帯の字を足した",
+   "probe": {
+    "codec": "h264",
+    "width": 1920,
+    "height": 1080,
+    "fps": "60/1",
+    "pix_fmt": "yuv420p",
+    "frames": 1131,
+    "duration_s": 18.85
+   },
+   "expected_frames": 1131,
+   "D1": true,
+   "D2": true,
+   "D3": true
+  },
+  {
+   "path": "Docs/Evidence/RTPlayback/rtp_14_side_fine_coarse.mp4",
+   "source": "Unity/Build/RT48/video/rt48_side_fine_coarse.mp4",
+   "bytes": 3205248,
+   "sha256": "888fd13a18c39180a35192a680b962ac24189d794d46e02491f153ba9fa713f7",
+   "source_sha256": "888fd13a18c39180a35192a680b962ac24189d794d46e02491f153ba9fa713f7",
+   "action": "same",
+   "desc_ja": "横から、上の段が細かい元（参考）・下の段が粗い元、138.25〜162.0 s、実時間。焼いた曲線を Python（r_side.py）で描いた物で、Unity の絵ではない",
+   "probe": {
+    "codec": "h264",
+    "width": 1920,
+    "height": 1080,
+    "fps": "60/1",
+    "pix_fmt": "yuv420p",
+    "frames": 1426,
+    "duration_s": 23.766667
+   },
+   "expected_frames": 1426,
+   "D1": true,
+   "D2": true,
+   "D3": true
+  },
+  {
+   "path": "Docs/Evidence/RTPlayback/rtp_15_outside_endon_coarse.mp4",
+   "source": "Unity/Build/RT48/video/rt48_outside_endon_coarse.mp4",
+   "bytes": 4312815,
+   "sha256": "4a5a8707dd6d0ad1a9b23cde54ca36d2e3567275113bf0eb5fbcd111a7ef12e1",
+   "source_sha256": "4a5a8707dd6d0ad1a9b23cde54ca36d2e3567275113bf0eb5fbcd111a7ef12e1",
+   "action": "same",
+   "desc_ja": "粗い元を Unity（Editor）で船の外から：掃いた面の端の 70 m 外から頂の向きに見る（カメラは頂に付いて x の向きに動く）。138.25〜157.083 s、実時間。体験の座席からは見えない所",
+   "probe": {
+    "codec": "h264",
+    "width": 1920,
+    "height": 1080,
+    "fps": "60/1",
+    "pix_fmt": "yuv420p",
+    "frames": 1131,
+    "duration_s": 18.85
+   },
+   "expected_frames": 1131,
+   "D1": true,
+   "D2": true,
+   "D3": true
+  },
+  {
+   "path": "Docs/Evidence/RTPlayback/rtp_16_outside_high_coarse.mp4",
+   "source": "Unity/Build/RT48/video/rt48_outside_high_coarse.mp4",
+   "bytes": 5358818,
+   "sha256": "e2da388724c217074a3b85b37546cb2ffe8b76827315af5be0b49ca836989b42",
+   "source_sha256": "e2da388724c217074a3b85b37546cb2ffe8b76827315af5be0b49ca836989b42",
+   "action": "same",
+   "desc_ja": "粗い元を Unity（Editor）で船の外から：斜め上（座席の 20 m 後ろ・頂の向きに 40 m・高さ 15 m の止めたカメラ）。138.25〜157.083 s、実時間",
+   "probe": {
+    "codec": "h264",
+    "width": 1920,
+    "height": 1080,
+    "fps": "60/1",
+    "pix_fmt": "yuv420p",
+    "frames": 1131,
+    "duration_s": 18.85
+   },
+   "expected_frames": 1131,
+   "D1": true,
+   "D2": true,
+   "D3": true
+  },
+  {
+   "path": "Docs/Evidence/RTPlayback/rtp_17_outside_endon_fine_ref.mp4",
+   "source": "Unity/Build/RT48/video/rt48_outside_endon_fine_ref.mp4",
+   "bytes": 4503470,
+   "sha256": "6683d1825fc33ba445a66858905c68f370ed2104146f33a6d8aab64fb50d15b4",
+   "source_sha256": "6683d1825fc33ba445a66858905c68f370ed2104146f33a6d8aab64fb50d15b4",
+   "action": "same",
+   "desc_ja": "参考：rtp_15 と同じ向きで細かい元。Unity（Editor）",
+   "probe": {
+    "codec": "h264",
+    "width": 1920,
+    "height": 1080,
+    "fps": "60/1",
+    "pix_fmt": "yuv420p",
+    "frames": 1131,
+    "duration_s": 18.85
+   },
+   "expected_frames": 1131,
+   "D1": true,
+   "D2": true,
+   "D3": true
   }
  ],
  "figures": [
@@ -168,6 +278,60 @@
    "D1": true,
    "action": "same",
    "desc_ja": "OpenXR の Mock Runtime（single-pass instanced、片眼 1512×1680）の左右の眼の絵。Unity のプレイヤー"
+  },
+  {
+   "path": "Docs/Evidence/RTPlayback/rtp_18_side_fine_coarse_t154.500.png",
+   "source": "Unity/Build/RT48/video/side_fine_coarse_t154.500.png",
+   "bytes": 202494,
+   "sha256": "4ba2b379863c1474bbf195be2513e696913261c864f1b8e829ca7b312a470fd4",
+   "D1": true,
+   "action": "same",
+   "desc_ja": "横から、154.500 s（細かい元の巻き始め 3709 コマ）。上が細かい元、下が粗い元。Python の絵"
+  },
+  {
+   "path": "Docs/Evidence/RTPlayback/rtp_19_side_fine_coarse_t156.000.png",
+   "source": "Unity/Build/RT48/video/side_fine_coarse_t156.000.png",
+   "bytes": 233772,
+   "sha256": "4b31fd5c18030ba44f8a97ab0795fa0f3cf57050633af892d3b871b6f716a5a2",
+   "D1": true,
+   "action": "same",
+   "desc_ja": "横から、156.0 s（3745 コマ、最初の接触）。上が細かい元、下が粗い元。Python の絵"
+  },
+  {
+   "path": "Docs/Evidence/RTPlayback/rtp_20_overlay_onset.png",
+   "source": "Unity/Build/RT48/verify/fine/overlay_onset.png",
+   "bytes": 70396,
+   "sha256": "42c96da58e012ccf79c3f7231e65c3c4b2769d634f9ea6fd8e1a9c08bcab52c3",
+   "D1": true,
+   "action": "same",
+   "desc_ja": "細かい元（青）と粗い元（橙）の焼いた線を重ねた絵：3709・3714・3744 コマ。C2 (b)(e) の所。v_overlay.py"
+  },
+  {
+   "path": "Docs/Evidence/RTPlayback/rtp_21_overlay_after.png",
+   "source": "Unity/Build/RT48/verify/fine/overlay_after.png",
+   "bytes": 45945,
+   "sha256": "4d1d7cf0a38cfa1bad650a2e462a42aca7ad40b74e10960419ceaa84edbfb83d",
+   "D1": true,
+   "action": "same",
+   "desc_ja": "同じく 3754・3770 コマ（接触の後）。C2 (c) の外れの所（前へ伸びる薄い水の指）と、3770 コマの 2 つ目の空洞の縁の薄い空気（細かい面では空気、解く格子の面では水。check_fine の見つけた所 3）。v_overlay.py"
+  },
+  {
+   "path": "Docs/Evidence/RTPlayback/rtp_22_outside_endon_coarse_t155.450.png",
+   "source": "Unity/Build/RT48/video/frames_outside_coarse/endon/frame_01032.png",
+   "bytes": 407879,
+   "sha256": "def29cfbfeb7b10934dd611410d3b7291211085afb9b41b310e1285e36bcd85e",
+   "D1": true,
+   "action": "same",
+   "desc_ja": "粗い元を Unity で端から、155.450 s（3731 コマ）。字のない Unity の画素"
+  },
+  {
+   "path": "Docs/Evidence/RTPlayback/rtp_23_outside_high_coarse_t156.650.png",
+   "source": "Unity/Build/RT48/video/frames_outside_coarse/high/frame_01104.png",
+   "bytes": 1131288,
+   "sha256": "294531616672cb1e6599ad3e235197b41b5064ed69f738fabf42c9a5a9e5bb43",
+   "D1": true,
+   "action": "same",
+   "desc_ja": "粗い元を Unity で斜め上から、156.650 s（3760 コマ）。字のない Unity の画素"
   }
  ],
  "records": [
@@ -206,18 +370,18 @@
   {
    "path": "Docs/Evidence/RTPlayback/rt48/record_ja.md",
    "source": "Unity/Build/RT48/record_ja.md",
-   "bytes": 45946,
-   "sha256": "cf632f75eb28cdb14b13ad35717338b5fbfaf9aee750a28a383981bd9ea0602a",
+   "bytes": 66328,
+   "sha256": "5e61bff34d294439b74df8919b38703ada89d0af6ddc0af268bd5507b2da961e",
    "D1": true,
    "action": "updated"
   },
   {
    "path": "Docs/Evidence/RTPlayback/rt48/data/record_ja.md",
    "source": "Unity/Build/RT48/data/record_ja.md",
-   "bytes": 20354,
-   "sha256": "cb7cc31555c3a9d43bda3e1ae73f5724aefc7b6c02480fc399a0bbd573f129a6",
+   "bytes": 31065,
+   "sha256": "89d239d9495fa7d2cb76a23eb12fff45d4979b5fffa2b2db712e09b337bbb15e",
    "D1": true,
-   "action": "same"
+   "action": "updated"
   },
   {
    "path": "Docs/Evidence/RTPlayback/rt48/data/c1a.json",
@@ -530,6 +694,414 @@
    "sha256": "cc3f471cb716b965705a4f5e2e9e3e9c7e02ffac8410be6ab9e6e638efacf347",
    "D1": true,
    "action": "same"
+  },
+  {
+   "path": "Docs/Evidence/RTPlayback/rt48/check_fine/check_ja.md",
+   "source": "Unity/Build/RT48/check_fine/check_ja.md",
+   "bytes": 17323,
+   "sha256": "15cc1fca30831428db3174e40ad2b9bb0ffc0913de5a1861949601af8762b642",
+   "D1": true,
+   "action": "copied"
+  },
+  {
+   "path": "Docs/Evidence/RTPlayback/rt48/check_fine/q_c1b.py",
+   "source": "Unity/Build/RT48/check_fine/q_c1b.py",
+   "bytes": 2692,
+   "sha256": "ee762f02ad8fea679bc87d86fe0b5bc46be60a013adb8c0a4b4f731c10cc66ae",
+   "D1": true,
+   "action": "copied"
+  },
+  {
+   "path": "Docs/Evidence/RTPlayback/rt48/check_fine/q_c2.py",
+   "source": "Unity/Build/RT48/check_fine/q_c2.py",
+   "bytes": 10419,
+   "sha256": "e64afe437c3e40fa529a886fbef1379629a6ed54a53f462f518fc2673136a2dc",
+   "D1": true,
+   "action": "copied"
+  },
+  {
+   "path": "Docs/Evidence/RTPlayback/rt48/check_fine/q_c2_detail.py",
+   "source": "Unity/Build/RT48/check_fine/q_c2_detail.py",
+   "bytes": 1760,
+   "sha256": "4dfc32c95a313275ff4044f18b2901b0766725459b331e46c110288d5cfc099d",
+   "D1": true,
+   "action": "copied"
+  },
+  {
+   "path": "Docs/Evidence/RTPlayback/rt48/check_fine/q_c2a.py",
+   "source": "Unity/Build/RT48/check_fine/q_c2a.py",
+   "bytes": 2552,
+   "sha256": "f1ead56e83a127b1dc1c462f34db1a91b38a3ee7a76d06cb3648a9b52acd57cd",
+   "D1": true,
+   "action": "copied"
+  },
+  {
+   "path": "Docs/Evidence/RTPlayback/rt48/check_fine/q_c2a_split.py",
+   "source": "Unity/Build/RT48/check_fine/q_c2a_split.py",
+   "bytes": 1930,
+   "sha256": "0cfb772182a99fa0ac70726a05214d7a8b62769409c3ac0a54252d46f7d22ad6",
+   "D1": true,
+   "action": "copied"
+  },
+  {
+   "path": "Docs/Evidence/RTPlayback/rt48/check_fine/q_c2c_rev.py",
+   "source": "Unity/Build/RT48/check_fine/q_c2c_rev.py",
+   "bytes": 1496,
+   "sha256": "1a5b3dc0f4860757a48c903536f6c0a563777e736dfb553a67d4c29ee1353992",
+   "D1": true,
+   "action": "copied"
+  },
+  {
+   "path": "Docs/Evidence/RTPlayback/rt48/check_fine/q_c2e.py",
+   "source": "Unity/Build/RT48/check_fine/q_c2e.py",
+   "bytes": 2406,
+   "sha256": "b5f50d5c66b34c93a38a600254cefcdc7f52784b3898e64b90b6f21aa71da8dc",
+   "D1": true,
+   "action": "copied"
+  },
+  {
+   "path": "Docs/Evidence/RTPlayback/rt48/check_fine/q_c3.py",
+   "source": "Unity/Build/RT48/check_fine/q_c3.py",
+   "bytes": 3157,
+   "sha256": "b6edb6fa7bd9b976a37564819b8a2863f9395c9a12b203cce62b56e51eaa0586",
+   "D1": true,
+   "action": "copied"
+  },
+  {
+   "path": "Docs/Evidence/RTPlayback/rt48/check_fine/q_c4.py",
+   "source": "Unity/Build/RT48/check_fine/q_c4.py",
+   "bytes": 8218,
+   "sha256": "31120e14c1bf2c5a883a7d6d93d806dd90616f9cd2be1a01e246000b9ed854b3",
+   "D1": true,
+   "action": "copied"
+  },
+  {
+   "path": "Docs/Evidence/RTPlayback/rt48/check_fine/q_c5c6.py",
+   "source": "Unity/Build/RT48/check_fine/q_c5c6.py",
+   "bytes": 8347,
+   "sha256": "cdaee686855044b3fe5cc8e772dc70b63aa94154d7a5c29f3f155e39f6a541ef",
+   "D1": true,
+   "action": "copied"
+  },
+  {
+   "path": "Docs/Evidence/RTPlayback/rt48/check_fine/q_gap.py",
+   "source": "Unity/Build/RT48/check_fine/q_gap.py",
+   "bytes": 1834,
+   "sha256": "7d7452967d5f89530146898e27986f21be8d852978453b0977948bafdd48c3c8",
+   "D1": true,
+   "action": "copied"
+  },
+  {
+   "path": "Docs/Evidence/RTPlayback/rt48/check_fine/q_k.py",
+   "source": "Unity/Build/RT48/check_fine/q_k.py",
+   "bytes": 1190,
+   "sha256": "19e7224cbf95033d448c976b86485be13a87a403802688907ccb24a4084b396c",
+   "D1": true,
+   "action": "copied"
+  },
+  {
+   "path": "Docs/Evidence/RTPlayback/rt48/check_fine/q_lib.py",
+   "source": "Unity/Build/RT48/check_fine/q_lib.py",
+   "bytes": 8800,
+   "sha256": "950c0b07cf15f23e91b12475c248215a62a4b82a05774292c64dc8d7f8798dcd",
+   "D1": true,
+   "action": "copied"
+  },
+  {
+   "path": "Docs/Evidence/RTPlayback/rt48/check_fine/q_misc.py",
+   "source": "Unity/Build/RT48/check_fine/q_misc.py",
+   "bytes": 5494,
+   "sha256": "6d5d7beba2d0ccbc03c656f2b2e62b0f5cd4bff0d5a347766758d1b67a674813",
+   "D1": true,
+   "action": "copied"
+  },
+  {
+   "path": "Docs/Evidence/RTPlayback/rt48/check_fine/q_sanity.py",
+   "source": "Unity/Build/RT48/check_fine/q_sanity.py",
+   "bytes": 694,
+   "sha256": "843f7ee959730ab8b89032b7a78404f5170a995812e309433c621dc2c36d90d0",
+   "D1": true,
+   "action": "copied"
+  },
+  {
+   "path": "Docs/Evidence/RTPlayback/rt48/check_fine/q_surface_spot.py",
+   "source": "Unity/Build/RT48/check_fine/q_surface_spot.py",
+   "bytes": 2030,
+   "sha256": "ef147070fdcb5be4cda21bdbddbcd7fdf87a3cec7387823d77b7323abb5dbd89",
+   "D1": true,
+   "action": "copied"
+  },
+  {
+   "path": "Docs/Evidence/RTPlayback/rt48/check_fine/q_video.py",
+   "source": "Unity/Build/RT48/check_fine/q_video.py",
+   "bytes": 10994,
+   "sha256": "11e7145766188a307a552ffde00a840527a8d00a9a81d207767949d5220694ad",
+   "D1": true,
+   "action": "copied"
+  },
+  {
+   "path": "Docs/Evidence/RTPlayback/rt48/check_fine/q_video_side.py",
+   "source": "Unity/Build/RT48/check_fine/q_video_side.py",
+   "bytes": 4234,
+   "sha256": "d4923abdd826bcf84be7c446bdb8de0b33f876542548879e7e55a0ae098263df",
+   "D1": true,
+   "action": "copied"
+  },
+  {
+   "path": "Docs/Evidence/RTPlayback/rt48/check_fine/out/q_c1b.json",
+   "source": "Unity/Build/RT48/check_fine/out/q_c1b.json",
+   "bytes": 716,
+   "sha256": "c9fd3ff8aa364a4b89ab7d9ecceb38101bf7bae2f00b19f190688f65f20eef80",
+   "D1": true,
+   "action": "copied"
+  },
+  {
+   "path": "Docs/Evidence/RTPlayback/rt48/check_fine/out/q_c2.json",
+   "source": "Unity/Build/RT48/check_fine/out/q_c2.json",
+   "bytes": 95109,
+   "sha256": "d3909bf52b2b5d1e127f61334808701dbedcd12d854175c5c6fbc4134d7fbe33",
+   "D1": true,
+   "action": "copied"
+  },
+  {
+   "path": "Docs/Evidence/RTPlayback/rt48/check_fine/out/q_c2_detail.json",
+   "source": "Unity/Build/RT48/check_fine/out/q_c2_detail.json",
+   "bytes": 907,
+   "sha256": "3ff7b69f389999ead0d5640a9d9df7d208baf346ede84a830e93eaccd292dfe4",
+   "D1": true,
+   "action": "copied"
+  },
+  {
+   "path": "Docs/Evidence/RTPlayback/rt48/check_fine/out/q_c2a.json",
+   "source": "Unity/Build/RT48/check_fine/out/q_c2a.json",
+   "bytes": 663,
+   "sha256": "76477fab1e4cd85e79b4f91c523b85ec5133408950a08884e16f2630e15c9bcb",
+   "D1": true,
+   "action": "copied"
+  },
+  {
+   "path": "Docs/Evidence/RTPlayback/rt48/check_fine/out/q_c2a_split.json",
+   "source": "Unity/Build/RT48/check_fine/out/q_c2a_split.json",
+   "bytes": 557,
+   "sha256": "1d8f1313f5851893455dc7e4d34c454d37b477e71d9770d0a7da38a0c1d349db",
+   "D1": true,
+   "action": "copied"
+  },
+  {
+   "path": "Docs/Evidence/RTPlayback/rt48/check_fine/out/q_c2c_rev.json",
+   "source": "Unity/Build/RT48/check_fine/out/q_c2c_rev.json",
+   "bytes": 114,
+   "sha256": "352659e681699f3571113e441b2c3705bd1560046351ba9597e2bc6e5ba56eea",
+   "D1": true,
+   "action": "copied"
+  },
+  {
+   "path": "Docs/Evidence/RTPlayback/rt48/check_fine/out/q_c2e.json",
+   "source": "Unity/Build/RT48/check_fine/out/q_c2e.json",
+   "bytes": 5207,
+   "sha256": "006705fc7840e31d8acbc4fe4637555bfd6a680621b39f953c4f21588216efe2",
+   "D1": true,
+   "action": "copied"
+  },
+  {
+   "path": "Docs/Evidence/RTPlayback/rt48/check_fine/out/q_c3.json",
+   "source": "Unity/Build/RT48/check_fine/out/q_c3.json",
+   "bytes": 257853,
+   "sha256": "a5956f6a9b515036ffb438c3ba67a9f8815de9d513c7b06fe9a3fe1cdc9c6991",
+   "D1": true,
+   "action": "copied"
+  },
+  {
+   "path": "Docs/Evidence/RTPlayback/rt48/check_fine/out/q_c3_stdout.txt",
+   "source": "Unity/Build/RT48/check_fine/out/q_c3_stdout.txt",
+   "bytes": 939,
+   "sha256": "2b113ed356cdf0c7add018eea5280367561a87c58444d403e1720b46393a5bed",
+   "D1": true,
+   "action": "copied"
+  },
+  {
+   "path": "Docs/Evidence/RTPlayback/rt48/check_fine/out/q_c4.json",
+   "source": "Unity/Build/RT48/check_fine/out/q_c4.json",
+   "bytes": 69459,
+   "sha256": "f8a626f3c7c4485bfeaa6eace2fe95a0000792f9b0b326baf37a9a15e6474e73",
+   "D1": true,
+   "action": "copied"
+  },
+  {
+   "path": "Docs/Evidence/RTPlayback/rt48/check_fine/out/q_c4_stdout.txt",
+   "source": "Unity/Build/RT48/check_fine/out/q_c4_stdout.txt",
+   "bytes": 1501,
+   "sha256": "98b12d2a1aecb64919460091fb92cdc7573251ccd3be6b33a6a76e52aff52664",
+   "D1": true,
+   "action": "copied"
+  },
+  {
+   "path": "Docs/Evidence/RTPlayback/rt48/check_fine/out/q_c5c6.json",
+   "source": "Unity/Build/RT48/check_fine/out/q_c5c6.json",
+   "bytes": 2481,
+   "sha256": "a8348b48b8e80a2b4315f56b4d2eda8380b05651c49c021528da3af5e5a50157",
+   "D1": true,
+   "action": "copied"
+  },
+  {
+   "path": "Docs/Evidence/RTPlayback/rt48/check_fine/out/q_c5c6_stdout.txt",
+   "source": "Unity/Build/RT48/check_fine/out/q_c5c6_stdout.txt",
+   "bytes": 2094,
+   "sha256": "110e1b198f1a3f271011de609d2df3c87ef63d96f3e4d64680dfbd947f20d648",
+   "D1": true,
+   "action": "copied"
+  },
+  {
+   "path": "Docs/Evidence/RTPlayback/rt48/check_fine/out/q_gap.json",
+   "source": "Unity/Build/RT48/check_fine/out/q_gap.json",
+   "bytes": 332,
+   "sha256": "dc6bfcab814f9c574ccb8e0bb9b295e16e5a782a79d26c1c27069634766b2421",
+   "D1": true,
+   "action": "copied"
+  },
+  {
+   "path": "Docs/Evidence/RTPlayback/rt48/check_fine/out/q_k.json",
+   "source": "Unity/Build/RT48/check_fine/out/q_k.json",
+   "bytes": 14151,
+   "sha256": "fdb0c254c5e747d8fc52f8d64b4492cdf28dd5ed7f3c9257a2c1e167c30daf39",
+   "D1": true,
+   "action": "copied"
+  },
+  {
+   "path": "Docs/Evidence/RTPlayback/rt48/check_fine/out/q_misc.json",
+   "source": "Unity/Build/RT48/check_fine/out/q_misc.json",
+   "bytes": 3258,
+   "sha256": "b7a480f0372fff348d6b37d13b0b1069035769958810b5ce7d16ed0e106be1ce",
+   "D1": true,
+   "action": "copied"
+  },
+  {
+   "path": "Docs/Evidence/RTPlayback/rt48/check_fine/out/q_surface_spot.json",
+   "source": "Unity/Build/RT48/check_fine/out/q_surface_spot.json",
+   "bytes": 1237,
+   "sha256": "52dcb88d1e7b2a795d1ab675fcf698c2ca0d1f233c5a0ca297cb80d27942f0d5",
+   "D1": true,
+   "action": "copied"
+  },
+  {
+   "path": "Docs/Evidence/RTPlayback/rt48/check_fine/out/q_video.json",
+   "source": "Unity/Build/RT48/check_fine/out/q_video.json",
+   "bytes": 17069,
+   "sha256": "2c2741a9453893880826718bde4d609efde70ebe652c7adadd001ee5c0f9dd58",
+   "D1": true,
+   "action": "copied"
+  },
+  {
+   "path": "Docs/Evidence/RTPlayback/rt48/check_fine/out/q_video_side.json",
+   "source": "Unity/Build/RT48/check_fine/out/q_video_side.json",
+   "bytes": 10349,
+   "sha256": "dc921e069ee33b7a112c1b06c546a5cbe4fa35ab5a60d38e2cfc9309aa916190",
+   "D1": true,
+   "action": "copied"
+  },
+  {
+   "path": "Docs/Evidence/RTPlayback/rt48/data/c1b.json",
+   "source": "Unity/Build/RT48/data/c1b.json",
+   "bytes": 692,
+   "sha256": "992affb1ce7ad2c2ee79c56ffda5d840972726ef881a6332ef780761765cc1d3",
+   "D1": true,
+   "action": "same"
+  },
+  {
+   "path": "Docs/Evidence/RTPlayback/rt48/data/c2.json",
+   "source": "Unity/Build/RT48/data/c2.json",
+   "bytes": 113472,
+   "sha256": "514988367964518c51ba128b74b5b8041ac682db554aea8eb44e816a15a6f299",
+   "D1": true,
+   "action": "same"
+  },
+  {
+   "path": "Docs/Evidence/RTPlayback/rt48/data/fine/summary.json",
+   "source": "Unity/Build/RT48/data/fine/summary.json",
+   "bytes": 2548,
+   "sha256": "e9ef082b34095df61284c3f114013fb8c76d6424d5df73b71c4febef155c3c34",
+   "D1": true,
+   "action": "same"
+  },
+  {
+   "path": "Docs/Evidence/RTPlayback/rt48/verify/fine/unity_editor_result.json",
+   "source": "Unity/Build/RT48/verify/fine/unity_editor_result.json",
+   "bytes": 123875,
+   "sha256": "5ce806aa0001c75169b61aec9e0632b0f860bd1f173c16e11cfcd363f2a40146",
+   "D1": true,
+   "action": "same"
+  },
+  {
+   "path": "Docs/Evidence/RTPlayback/rt48/verify/fine/unity_player_result.json",
+   "source": "Unity/Build/RT48/verify/fine/unity_player_result.json",
+   "bytes": 123876,
+   "sha256": "d2a0ef9db3fc3e16e713f3fb0bb7c58a70203555e53d65abfbaa20af56f68c25",
+   "D1": true,
+   "action": "same"
+  },
+  {
+   "path": "Docs/Evidence/RTPlayback/rt48/verify/fine/taper.json",
+   "source": "Unity/Build/RT48/verify/fine/taper.json",
+   "bytes": 695,
+   "sha256": "6a066aca7904443a7a343549f3d0c31f75e10409a5f9191adf56a6b1e80b9b23",
+   "D1": true,
+   "action": "same"
+  },
+  {
+   "path": "Docs/Evidence/RTPlayback/rt48/verify/fine/interp_share.json",
+   "source": "Unity/Build/RT48/verify/fine/interp_share.json",
+   "bytes": 1749,
+   "sha256": "6ea5b568d7a11ab8deb181ede7ac4abab622b159191413d76fa7d79bdbbcac38",
+   "D1": true,
+   "action": "same"
+  },
+  {
+   "path": "Docs/Evidence/RTPlayback/rt48/verify/coarse/taper.json",
+   "source": "Unity/Build/RT48/verify/coarse/taper.json",
+   "bytes": 695,
+   "sha256": "b8732679d281fa5b57e2712f7888187769217eb9a54c71ff67f5580790da4b8a",
+   "D1": true,
+   "action": "same"
+  },
+  {
+   "path": "Docs/Evidence/RTPlayback/rt48/verify/coarse/interp_share.json",
+   "source": "Unity/Build/RT48/verify/coarse/interp_share.json",
+   "bytes": 1730,
+   "sha256": "a6708ff0c1578f3a2aef00ab3ba1a69dc51452fcda1311570738cf17515d002f",
+   "D1": true,
+   "action": "same"
+  },
+  {
+   "path": "Docs/Evidence/RTPlayback/rt48/verify/timing/c7_fine/summary.json",
+   "source": "Unity/Build/RT48/verify/timing/c7_fine/summary.json",
+   "bytes": 6493,
+   "sha256": "3222979dda50b983045fdd666ac84940c7d82e8d502bc1b8eda6675109527158",
+   "D1": true,
+   "action": "same"
+  },
+  {
+   "path": "Docs/Evidence/RTPlayback/rt48/verify/timing/c7_fine/machine.json",
+   "source": "Unity/Build/RT48/verify/timing/c7_fine/machine.json",
+   "bytes": 62610,
+   "sha256": "578d632522e93f42eea0d6c30b15d336d8112257becc39b881e4d915d5c8f492",
+   "D1": true,
+   "action": "same"
+  },
+  {
+   "path": "Docs/Evidence/RTPlayback/rt48/verify/timing/c7_coarse_same_machine/summary.json",
+   "source": "Unity/Build/RT48/verify/timing/c7_coarse_same_machine/summary.json",
+   "bytes": 6499,
+   "sha256": "f528dafee4029e25f1da4827cbc5213b8cd0e6ad83f12313a9b6557afc8acbdf",
+   "D1": true,
+   "action": "same"
+  },
+  {
+   "path": "Docs/Evidence/RTPlayback/rt48/verify/timing/c7_coarse_same_machine/machine.json",
+   "source": "Unity/Build/RT48/verify/timing/c7_coarse_same_machine/machine.json",
+   "bytes": 62726,
+   "sha256": "20ef40edc6ee74b04e2fa0d74145aee7023ca3ee17ee1fd30dfc93da246b1d1e",
+   "D1": true,
+   "action": "same"
   }
  ],
  "not_copied": {
@@ -556,8 +1128,49 @@
    "bytes": 667648,
    "sha256": "5be81b3fa7df7c08cadee6f79d6ff3fe95481420f166ba8127390ea669c8b12c",
    "why_ja": "大きい（Git 対象外の Unity/Build/RT48 に置いたまま）"
+  },
+  "bake_fine_pairs": {
+   "path": "Unity/Build/RT48/data/fine/pairs.bin",
+   "bytes": 74711040,
+   "sha256": "98cdf371d4e225268826502eafe83068a373d6c20c0aaf328842ff4f156cdb7a",
+   "why_ja": "大きい（Git 対象外の Unity/Build/RT48 に置いたまま）"
+  },
+  "bake_fine_loops": {
+   "path": "Unity/Build/RT48/data/fine/loops.bin",
+   "bytes": 101776,
+   "sha256": "00a20541da83db2e911795a349a87c77a3d9ebc40674b826eb094095a5c77ea8",
+   "why_ja": "大きい（Git 対象外の Unity/Build/RT48 に置いたまま）"
+  },
+  "bake_fine_manifest": {
+   "path": "Unity/Build/RT48/data/fine/manifest.json",
+   "bytes": 797769,
+   "sha256": "d5295f945e3bf6e688bc0cb645e81230b8bbfd61fcb27e261b1907d9da933c51",
+   "why_ja": "大きい（Git 対象外の Unity/Build/RT48 に置いたまま）"
   }
  },
+ "corrections_check_fine_ja": [
+  "10/11 13 時台：細かい元の段の独立の確かめ（Unity/Build/RT48/check_fine/check_ja.md、写しは rt48/check_fine/）を受けて、報告と記録の言い方を直した。判定の合否と「報告の元は粗い元のまま」は変わらない",
+  "C2 (a)：data/c2.json の「入った（p99 0.069 m・最大 0.150 m）」は、断面の列で水面を切る回数に海底の線も数えたため x 321.5〜863 m の列が全部除かれた値。静かな水面の 25 m 下より上で数えると、最大は接触の前 0.168 m・接触の後 0.386 m（3849 コマ）で、接触の後は外れ。c2.json は道具の出した値のまま残した",
+  "C2 (e)：4.14 m は幅の上の端 4.15 m まで 0.01 m。読み方で 4.16〜4.18 m",
+  "C2 の違いは薄い水だけでなく薄い空気（3767〜3768 コマ、2 つ目の空洞の縁）にもある",
+  "読み方で動く数：細かい元の巻き始め 5〜6 コマ早い、C3 0.047〜0.049 m、C4 外れ 66〜67 組・補間 327〜328 組、粗い元の縦揺れの速さ 15.6〜15.7°/s",
+  "大きさ：R3e の粒子 10.5 GB（9.8 GiB）。報告の §8 の大きさを GB と GiB で書き直した",
+  "動画 rtp_13・rtp_14・rtp_17 の絵の中の字「C2 の (b)・(c) が外れた」は確かめの前に書いた物で、描き直していない"
+ ],
+ "commands_fine": [
+  "py -3.10 r_chain.py rerun/cfg/cfg_R3e.json --after   # 前の段で並ばせた。R3e → r_after.py（r_c1.py b → r_surface.py → r_c2.py → r_bake.py fine → r_index.py）",
+  "py -3.10 v_prep.py fine",
+  "u_unity.ps1 -Method GreatWave.RT48.EditorTools.RT48VerifyEditor.RunAndExit -Name verify_fine -Extra '-rt48verifysource fine'",
+  "RT48.exe -rt48source fine -rt48export verify/fine/unity_player -rt48verifydir verify/fine -rt48exportholdout -rt48quit",
+  "py -3.10 v_compare.py fine unity_editor ; py -3.10 v_compare.py fine unity_player",
+  "RT48.exe -rt48source fine -rt48seat 556 -rt48view bow -rt48capture video/frames_boat_seat556_bow_fine -rt48capfps 60 -rt48quit → py -3.10 v_banner.py …",
+  "py -3.10 r_side.py fine,coarse ; py -3.10 r_side.py fine,coarse --stills 154.5,154.71,156.0,156.375,157.083",
+  "u_unity.ps1 -Method GreatWave.RT48.EditorTools.RT48OutsideCapture.RunAndExit -Extra '-rt48outsource <元> -rt48outviews endon|high …' → py -3.10 v_outside.py <連番> <mp4> [crf]",
+  "py -3.10 v_taper.py coarse ; py -3.10 v_taper.py fine ; py -3.10 v_share.py coarse,fine ; py -3.10 v_overlay.py …",
+  "powershell -File v_timing.ps1 -Tag c7_fine -Conds proxy2000,proxy2064,proxy2800 -Source fine（同じ時に -Tag c7_coarse_same_machine -Source coarse）→ py -3.10 v_timing_sum.py",
+  "py -3.10 -B d_deliver.py copy_fine ; py -3.10 -B d_deliver.py checklist_fine",
+  "独立の確かめ：Unity/Build/RT48/check_fine/q_*.py（プロジェクトの道具を読み込まない）→ check_fine/out/"
+ ],
  "commands": [
   "py -3.10 -B Tools/GWWaveGen/rt48/r_side.py coarse --stills 154.71   # 巻き始めのコマ（3714）の横からの静止画",
   "py -3.10 -B Tools/GWWaveGen/rt48/d_deliver.py copy                   # この証拠",
@@ -571,7 +1184,7 @@
   "動画": "RT48.exe -rt48capture（1/60 s おき）→ ffmpeg libx264、py -3.10 r_side.py coarse",
   "時間": "powershell -File v_timing.ps1 -Tag c7_1 → py -3.10 v_timing_sum.py verify/timing/c7_1",
   "独立の確かめ": "Unity/Build/RT48/check/k_*.py（プロジェクトの比べる道具を読み込まない）",
-  "R3e（まだ走っていない）": "py -3.10 r_chain.py rerun/cfg/cfg_R3e.json --after（R4d の後ろで待つ）→ r_after.py"
+  "R3e（10/11 10:51〜11:51 に走った）": "py -3.10 r_chain.py rerun/cfg/cfg_R3e.json --after（R4d の後ろで待った）→ r_after.py（12:12 に終わった）"
  },
  "versions": {
   "python": "3.10.6",
@@ -688,7 +1301,7 @@
   }
  },
  "tools": {
-  "Tools/GWWaveGen/rt48/d_deliver.py": "3c4b3e1e7f6c1e958e38448a265c79acbc0ffbcac04b47ef66a18049abfb9ce6",
+  "Tools/GWWaveGen/rt48/d_deliver.py": "a44d3598d580a822981ad0239d95bffbb4201d9b318ab947ba5ecffc171dd353",
   "Tools/GWWaveGen/rt48/p_inspect.py": "7c05b672b3004dffe372bafb1ba1a857759bbf91fecf61023a5a7cba6f47021c",
   "Tools/GWWaveGen/rt48/r_after.py": "fb73ea45930d894e19f7f14275b2272fa158d4a2c77536eabff1e762f82e4560",
   "Tools/GWWaveGen/rt48/r_bake.py": "72983b799e0daba02337e9c219648be78512294f930b66fb6e931c7c30c67020",
@@ -699,20 +1312,27 @@
   "Tools/GWWaveGen/rt48/r_lib.py": "90715454ddef8a5d203b57ebdd3a9556ec3a8cfc7dddb20af22a0dedbc96e799",
   "Tools/GWWaveGen/rt48/r_plot_check.py": "5f5bd58d7d3ad8d259f10f377a4b3c62f0c103e591ef85e5371f80ce659806c1",
   "Tools/GWWaveGen/rt48/r_run.py": "ec78a26254d39613478da544c2cd5a85ee058837aff99cabf5e4e76d922ba2f9",
-  "Tools/GWWaveGen/rt48/r_side.py": "9f1f3a51974d467129c0e962039381f20699bbbdafa2af5e08af7d6f7be8e4aa",
+  "Tools/GWWaveGen/rt48/r_side.py": "9dbceb8d7800427977cd8eb907f390695492927022fdf99d6cf4185adbafdce8",
   "Tools/GWWaveGen/rt48/r_surface.py": "a0d33f0114f183cd940af7cf095dd4800823605f27c99fa0930fb01f84f84c38",
   "Tools/GWWaveGen/rt48/u_bakeio.py": "84e2eb12befb97765d1ae73c5ff40f53fa71ed2e896c943e85bcaf9241a996f8",
   "Tools/GWWaveGen/rt48/u_snapshot.py": "3142569ec30b0022b366d009ffac9287c67e11bebb8a007d183c1cf0349fe7c7",
   "Tools/GWWaveGen/rt48/u_synth.py": "0be349779aa6c874b18e2acd7c4352dd928c4be1c08cfc60159effa8edb634d7",
   "Tools/GWWaveGen/rt48/u_unity.ps1": "13260b61e62ac28fa5a473f319716cd5de02207e4ba34e76f788d716db5c5abb",
+  "Tools/GWWaveGen/rt48/v_banner.py": "cba36256b76a2740543205a035acf0212f77a63e8afcccdd5492254c569fdd43",
   "Tools/GWWaveGen/rt48/v_compare.py": "53bfa29aec28bb363abd50c4ef074764b8962910a4c35aa29dd5f0834bc59ab0",
+  "Tools/GWWaveGen/rt48/v_outside.py": "e677b30c6cf8a551f4c874dba0d2b31da7d94606a99445170a9f765739993d35",
+  "Tools/GWWaveGen/rt48/v_overlay.py": "5d25764331261e84154742a74e48939adc89d32c57a338f6eef2ee8a68611b68",
   "Tools/GWWaveGen/rt48/v_prep.py": "384e7f41b609d161f08b652a4fa02416ac89771edbc4dcc0df9413a01e474de1",
-  "Tools/GWWaveGen/rt48/v_timing.ps1": "6116ea81dadde26beff6d0e710b8909803902ad2e68410fb2f01a0a1903f64bd",
+  "Tools/GWWaveGen/rt48/v_share.py": "25a949fcf030a3aec29501198c9d258dcd1db0c254e7346a672fdfe80e3d3d86",
+  "Tools/GWWaveGen/rt48/v_taper.py": "6ed185f7f4b79372ca57f0d15961dde5d134c5eb7bb1c6a4192dbd1ee39e369c",
+  "Tools/GWWaveGen/rt48/v_timing.ps1": "e60c1883a5ccbc97ddac40aaa88469be94cba93224e56bdd7f7af79aa7062474",
   "Tools/GWWaveGen/rt48/v_timing_sum.py": "1e185b271850b087b6b90cf3fb1d25f43ec3a40710f2d78377590895d5e53ca4"
  },
  "assets": {
   "Unity/Assets/GreatWave/RT48.meta": "4c557e43db11be50a0a9634e28b0cac6056648b7349f1488ab15f28f8702a573",
   "Unity/Assets/GreatWave/RT48/Editor.meta": "6a6edd9500abd385e9b5aa638e5e853ceb67c361f8042274523695da255f1c1f",
+  "Unity/Assets/GreatWave/RT48/Editor/RT48OutsideCapture.cs": "60cd03a62b6be82b65ff48d2b2ea5a5a9f8e3b2d0165d8e31e47cb3e0ffc1c96",
+  "Unity/Assets/GreatWave/RT48/Editor/RT48OutsideCapture.cs.meta": "6873b25243383af92afedd13310c6f52cb57dcd2b5b66d0dcfd28a8cfcd80075",
   "Unity/Assets/GreatWave/RT48/Editor/RT48PlayerBuild.cs": "e35386c5dd639dc6a2cfeda64e821e664f635d9adb432c6720901cdffa5a6a7f",
   "Unity/Assets/GreatWave/RT48/Editor/RT48PlayerBuild.cs.meta": "26ff36c6499e4462f5521544dcac970eddd61b28e41fe3950c67c0d1e12f4c5d",
   "Unity/Assets/GreatWave/RT48/Editor/RT48SceneBuilder.cs": "d3bdbd2ea387cb3857b699772c3c92193a1c04d210728d2bfc73cb51a8120f8c",
