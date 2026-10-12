@@ -15,7 +15,8 @@ from concurrent.futures import ThreadPoolExecutor
 HERE = os.path.dirname(os.path.abspath(__file__))
 CASES = json.load(open(os.path.join(HERE, "cases.json"), encoding="utf8"))
 # cases.json にない、算例ごとの引数（打ち切りの早め方など）
-EXTRA = {"A_L12": ["tail=1.8"], "A_L13": ["tail=1.5"]}
+EXTRA = {"A_L12": ["tail=1.8"], "A_L13": ["tail=1.5"], "C04_L11": ["tail=2.5"], "C08_L11": ["tail=2.5"], "C03_L11": ["tail=2.5"],
+         "B_S2_L12": ["tail=2.0"], "B_S5_L12": ["tail=2.0"]}
 
 
 def command(name, bindir, runs, mpi=0):
