@@ -153,10 +153,16 @@ double t_overturn = -1., t_dense = -1.;
 int nframe = 0;
 double wall0 = 0.;
 int restarted = 0;
+char ARGS[4096] = "";   // 引数（保存した状態が同じ条件の計算のものかを確かめる）
 static double now () { return t; }  // event の中の t は写しなので、大域の時刻を読む
 
 int main (int argc, char * argv[])
 {
+  for (int a = 1; a < argc; a++)
+    if (strncmp (argv[a], "out=", 4)) {
+      strncat (ARGS, argv[a], sizeof(ARGS) - strlen(ARGS) - 2);
+      strcat (ARGS, " ");
+    }
   parse (argc, argv);
   char cmd[600];
   sprintf (cmd, "mkdir -p %s", OUTDIR);
@@ -183,9 +189,20 @@ int main (int argc, char * argv[])
 event init (i = 0)
 {
   /** 保存した状態があれば続きから（作者の設定と同じく、固体の境界は作り直す） */
-  char rf[600];
+  char rf[600], af[600], old[4096] = "";
   sprintf (rf, "%s/restart", OUTDIR);
-  if (restore (file = rf)) {
+  sprintf (af, "%s/restart.args", OUTDIR);
+  FILE * fa = fopen (af, "r");
+  bool same = true;
+  if (fa) {
+    if (!fgets (old, sizeof(old), fa)) old[0] = '\0';
+    fclose (fa);
+    old[strcspn (old, "\n")] = '\0';
+    same = !strcmp (old, ARGS);
+    if (!same && pid() == 0)
+      fprintf (stderr, "保存した状態は別の条件の計算のもの。初めから回す\n");
+  }
+  if (same && restore (file = rf)) {
     solid (cs, fs, y + bed_depth(x));
     char sf[600];
     sprintf (sf, "%s/restart.state", OUTDIR);
@@ -417,6 +434,11 @@ event checkpoint (t = CKPT; t <= TEND; t += CKPT)
     rename (tmp, rf);
     FILE * fp = fopen (sf, "w");
     fprintf (fp, "%d %.17g %.17g %.17g %.17g\n", nframe, xcrest, ycrest, t_overturn, t_dense);
+    fclose (fp);
+    char af[600];
+    sprintf (af, "%s/restart.args", OUTDIR);
+    fp = fopen (af, "w");
+    fprintf (fp, "%s\n", ARGS);
     fclose (fp);
   }
 }

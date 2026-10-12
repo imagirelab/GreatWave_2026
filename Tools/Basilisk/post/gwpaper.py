@@ -8,7 +8,8 @@
 - 覆いかぶさった列：同じ x の縦の列に、水の続き（run）が 2 つ以上ある列（水面が x について多価）。
 - 唇の下の空洞（巻きの空洞）A_O：覆いかぶさった列で、いちばん上の水の続きと、その下の水の続きの間の空気の面積。
   着水の前は、唇の先の真下で縦に閉じた形になる。
-- 噴流の面積 A_J：覆いかぶさった列の、いちばん上の水の続きの面積。
+- 噴流の面積 A_J：覆いかぶさった列の、いちばん上の水の続きの面積。唇が前の水に触れた後は、触れた所より先に
+  垂れ下がる唇も足す（触れた所の列の厚みは両側から補間）。空洞 A_O には入れない。
 - 着水：唇の先の真下の縦の隙間が 0.015 h0 以下になった最初のコマ（本作の E1a の計画の決め方）、
   または、空洞が閉じた空気の泡になった最初のコマ（早い方）。
 - 空洞の向き θ_O と縦横の比 W/L：空洞の画素の 2 次のモーメントの主軸の角度を θ_O とし、
@@ -45,7 +46,8 @@ def water_grid(fr, dm=DM, back=2.5, front=3.0, ylow=-0.45, pad=0.08):
     xc0 = X0[np.where(wet_fluid[jt])[0]].mean()
     ytop = Y0[jt]
     X = np.arange(max(xc0 - back, X0[0]), min(xc0 + front, X0[-1]), dm)
-    Y = np.arange(max(ylow, Y0[0]), min(ytop + pad, Y0[-1]), dm)
+    pad = max(pad, 2.0 * dx)       # 粗い段（9 段など）で頂が切れないように
+    Y = np.arange(max(ylow, Y0[0]), min(ytop + pad, Y0[-1] + 0.5 * dx), dm)
     gi = (X - X0[0]) / dx
     gj = (Y - Y0[0]) / dx
     JJ, II = np.meshgrid(gj, gi, indexing="ij")
@@ -116,7 +118,23 @@ def analyze_frame(fr, dm=DM, detail=False):
             else:
                 groups.append(g); g = [i]
         groups.append(g)
-        ov = min(groups, key=lambda gg: min(abs(X[gg[0]] - xc), abs(X[gg[-1]] - xc)))
+        k0 = min(range(len(groups)), key=lambda q: min(abs(X[groups[q][0]] - xc), abs(X[groups[q][-1]] - xc)))
+        ov = groups[k0]
+        # 唇が前の水に触れた後、触れた所より先に垂れ下がる唇も同じ噴流として数える（空洞には入れない）：
+        # すぐ前（JOIN 以内）にあり、上の面がつながっている組を足す。間の列（触れた所）の厚みは両側から補間する
+        JOIN = 0.06
+        ext, contact = [], []
+        last = ov[-1]
+        for g2 in groups[k0 + 1:]:
+            if (g2[0] - last) * dm > JOIN:
+                break
+            if abs(Y[runs[g2[0]][-1][1]] - Y[runs[last][-1][1]]) > 0.05:
+                break
+            contact += list(range(last + 1, g2[0]))
+            ext += g2
+            last = g2[-1]
+    else:
+        ext, contact = [], []
     out["n_ov"] = len(ov)
     if len(ov) < 2:
         out.update(overturned=False)
@@ -129,12 +147,24 @@ def analyze_frame(fr, dm=DM, detail=False):
         cav_pix.append((i, lo[1] + 1, up[0] - 1))
         jet_pix.append((i, up[0], up[1]))
     gaps = np.array(gaps); thick = np.array(thick)
-    i_tip = ov[-1]; i_wall = ov[0]
+    # 触れた所より先の唇
+    thick_ext = [(runs[i][-1][1] - runs[i][-1][0] + 1) * dm for i in ext]
+    for i in ext:
+        up = runs[i][-1]
+        jet_pix.append((i, up[0], up[1]))
+    if contact:
+        t_a = thick[-1]; t_b = thick_ext[0]
+        thick_contact = [t_a + (t_b - t_a) * (q + 1) / (len(contact) + 1) for q in range(len(contact))]
+    else:
+        thick_contact = []
+    i_cav = ov[-1]; i_wall = ov[0]
+    i_tip = ext[-1] if ext else ov[-1]
     out.update(overturned=True,
-               x_wall=float(X[i_wall] - 0.5 * dm), x_tip=float(X[i_tip] + 0.5 * dm),
+               x_wall=float(X[i_wall] - 0.5 * dm), x_cav_front=float(X[i_cav] + 0.5 * dm), x_tip=float(X[i_tip] + 0.5 * dm),
                y_tip=float(Y[runs[i_tip][-1][0]] - 0.5 * dm),
-               gap_tip=float(gaps[-1]), gap_min=float(gaps.min()),
-               A_O=float(gaps.sum() * dm), A_J=float(thick.sum() * dm))
+               gap_tip=float(gaps[-1]), gap_min=float(gaps.min()), n_ext=len(ext), n_contact=len(contact),
+               A_O=float(gaps.sum() * dm),
+               A_J=float((thick.sum() + sum(thick_ext) + sum(thick_contact)) * dm))
     # 閉じた空気の泡（空洞が閉じたか）
     air = ~W
     lab = measure.label(air, connectivity=1)
@@ -201,9 +231,12 @@ def jet_width(det, out):
     D = ndimage.distance_transform_edt(W) * dm
     xm = 0.5 * (out["x_wall"] + out["x_tip"])
     i = int(np.clip(round((xm - X[0]) / dm), 0, len(X) - 1))
-    col = J[:, i]
-    if not col.any():
+    cols = np.where(J.any(0))[0]
+    if not len(cols):
         return float("nan"), xm
+    i = int(cols[np.argmin(abs(cols - i))])   # 触れた所の列に当たった時は、いちばん近い噴流の列
+    xm = float(X[i])
+    col = J[:, i]
     return float(2 * D[col, i].max()), xm
 
 
