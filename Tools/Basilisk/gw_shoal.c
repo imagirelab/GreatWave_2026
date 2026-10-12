@@ -57,6 +57,7 @@ double DTF = 0.02;       // 巻く前後の細かい書き出しの間隔
 double UERR = 4e-4, FERR = 0.01, CSERR = 0.03;  // 格子の細かさを決める誤差の許し
 double WB = 6., WF = 4.5, WY0 = -0.7, WY1 = 1.5; // 窓：頂から後ろ・前、下・上
 double DENSE_SLOPE = 50.; // 前の面がこの角度（度）を超えたら細かい書き出しに移る
+double CKPT = 0.5;       // 途中の状態を保存する間隔（計算機が止まっても続きから回すため）
 int MINLEVEL = 5;
 char OUTDIR[512] = ".";
 #define NBMAX 32
@@ -129,6 +130,7 @@ static void parse (int argc, char * argv[])
     else if (!strcmp (s, "wy0")) WY0 = atof (v);
     else if (!strcmp (s, "wy1")) WY1 = atof (v);
     else if (!strcmp (s, "dense_slope")) DENSE_SLOPE = atof (v);
+    else if (!strcmp (s, "ckpt")) CKPT = atof (v);
     else if (!strcmp (s, "out")) { strncpy (OUTDIR, v, 511); OUTDIR[511] = '\0'; }
     else if (!strcmp (s, "bathy")) {
       NB = 0;
@@ -146,6 +148,12 @@ static void parse (int argc, char * argv[])
 }
 
 FILE * logfp = NULL;
+double xcrest = -1e30, ycrest = 0.;
+double t_overturn = -1., t_dense = -1.;
+int nframe = 0;
+double wall0 = 0.;
+int restarted = 0;
+static double now () { return t; }  // event の中の t は写しなので、大域の時刻を読む
 
 int main (int argc, char * argv[])
 {
@@ -174,6 +182,43 @@ int main (int argc, char * argv[])
 /** ## 初めの状態：海底、孤立波、水の中の流速（空気は静止） */
 event init (i = 0)
 {
+  /** 保存した状態があれば続きから（作者の設定と同じく、固体の境界は作り直す） */
+  char rf[600];
+  sprintf (rf, "%s/restart", OUTDIR);
+  if (restore (file = rf)) {
+    solid (cs, fs, y + bed_depth(x));
+    char sf[600];
+    sprintf (sf, "%s/restart.state", OUTDIR);
+    FILE * fp = fopen (sf, "r");
+    if (!fp || fscanf (fp, "%d %lf %lf %lf %lf", &nframe, &xcrest, &ycrest, &t_overturn, &t_dense) != 5) {
+      fprintf (stderr, "restart.state が読めない\n"); exit (1);
+    }
+    fclose (fp);
+    if (pid() == 0) {
+      // log.txt から、保存の後に書いたコマの行を除く
+      char ln[600], tmp[600], buf[1024];
+      sprintf (ln, "%s/log.txt", OUTDIR);
+      sprintf (tmp, "%s/log.txt.tmp", OUTDIR);
+      FILE * in = fopen (ln, "r"), * out = fopen (tmp, "w");
+      while (in && fgets (buf, sizeof(buf), in)) {
+	int k;
+	if (buf[0] == '#' || (sscanf (buf, "%d", &k) == 1 && k < nframe))
+	  fputs (buf, out);
+      }
+      if (in) fclose (in);
+      fclose (out);
+      rename (tmp, ln);
+      logfp = fopen (ln, "a");
+      fprintf (stderr, "続きから：t = %g、コマ %d\n", now(), nframe);
+      char rs[600];
+      sprintf (rs, "%s/restarts.txt", OUTDIR);
+      FILE * fr = fopen (rs, "a");
+      fprintf (fr, "t=%.5f frame=%d\n", now(), nframe);
+      fclose (fr);
+    }
+    restarted = 1;
+    return 0;
+  }
   double beta = sqrt(3.*A0/(4.*(1. + A0)));
   refine (((level < LEVEL - floor(fabs(x - XC0)*beta) && y > -1.05 && y <= A0)
 	   || fabs(waveGN(x - XC0, y, A0)) < LBOX*pow(0.5, level - 1)
@@ -196,10 +241,6 @@ event adapt (i++)
 }
 
 /** ## 頂の追跡と書き出し */
-double xcrest = -1e30, ycrest = 0.;
-double t_overturn = -1., t_dense = -1.;
-int nframe = 0;
-double wall0 = 0.;
 
 static void find_crest ()
 {
@@ -362,6 +403,22 @@ event output (t = 0; t <= TEND + 1e-9; t += DTF)
   if (t_overturn >= 0. && t > t_overturn + TAIL)
     return 1;
   return 0;
+}
+
+/** 途中の状態の保存（output の後に置く。同じ時刻のコマを書いた後の状態を保存する） */
+event checkpoint (t = CKPT; t <= TEND; t += CKPT)
+{
+  char rf[600], tmp[600], sf[600];
+  sprintf (rf, "%s/restart", OUTDIR);
+  sprintf (tmp, "%s/restart.tmp", OUTDIR);
+  sprintf (sf, "%s/restart.state", OUTDIR);
+  dump (file = tmp);
+  if (pid() == 0) {
+    rename (tmp, rf);
+    FILE * fp = fopen (sf, "w");
+    fprintf (fp, "%d %.17g %.17g %.17g %.17g\n", nframe, xcrest, ycrest, t_overturn, t_dense);
+    fclose (fp);
+  }
 }
 
 event stop (t = TEND)
