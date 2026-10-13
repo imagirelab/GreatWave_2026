@@ -54,7 +54,7 @@ python3 run_cases.py --print A_L12      # 命令だけ見る
 python3 run_cases.py --fresh A_L10      # 前の書き出し（途中の保存を含む）を消して初めから
 ```
 
-書き出しは大きい（1 本 約 0.1〜0.2 GB）ので、リポジトリの外に置く。終わると `名前.done`（`exit=0`）、失敗すると `名前.fail` ができる。測る・動画・まとめは（`post` で）：
+書き出しは大きい（1 本 約 0.1〜0.3 GB）ので、リポジトリの外に置く。終わると `名前.done`（`exit=0`）、失敗すると `名前.fail` ができる。測る・動画・まとめは（`post` で）：
 
 ```bash
 python3 gwcase.py $GW_RUNS/B_S2_L11 $GW_ANA/B_S2_L11.json --case B_S2_L11      # 測る（論文の量と物差し）
