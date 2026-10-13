@@ -7,6 +7,7 @@
 使い方：
   python3 make_videos.py case 名前 ...           # Docs/Evidence/Basilisk/<名前>.mp4
   python3 make_videos.py compare 出力.mp4 名前 ...  # 着水の時刻をそろえて並べる
+  （報告の比べの動画の組は collect.py の COMPARE）
 """
 import os, sys, json
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -46,6 +47,8 @@ def overlay_of(name):
 
 def case(name):
     os.makedirs(EVID, exist_ok=True)
+    if not os.path.exists(os.path.join(ANA, name + ".json")):
+        raise SystemExit("測った結果 %s がない（先に gwcase.py で GW_ANA へ測る）。原画の輪郭を重ねられない" % os.path.join(ANA, name + ".json"))
     ov, ttd, _ = overlay_of(name)
     out = os.path.join(EVID, name + ".mp4")
     r = V.render_case(os.path.join(RUNS, name), out, meta_of(name), overlay=ov if ov else False)

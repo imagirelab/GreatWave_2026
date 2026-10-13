@@ -7,15 +7,17 @@ Houdini FLIP の 2D の実験の結論（「急な海底で、巻きが原画に
 | ファイル | 中身 |
 | --- | --- |
 | `gw_shoal.c` | 計算の本体。Feddersen ら 2024 の風なしの算例（作者が Basilisk の sandbox に公開した `sandbox/ffeddersen/shoal_RE0_BO4000.c`）を元に、海底の形・波の大きさ・表面張力・粘りを実行時の引数で変えられるようにした |
-| `cases.json` | 走らせた算例の全部（A：論文の再現、B：S1・S2・S5、C：条件を広げた探し）の引数と説明 |
-| `run_cases.py` | `cases.json` の算例を走らせる（同時に走らせる数、MPI のプロセス数を選べる） |
+| `cases.json` | 走らせた算例の全部（A：論文の再現、B：S1・S2・S5、C：条件を広げた探し、確かめ：chk_・mlt_）の引数と説明。`extra` は算例ごとの足しの引数（打ち切り `tail`、最も粗い段 `minlevel`） |
+| `run_cases.py` | `cases.json` の算例を走らせる（同時に走らせる数、MPI のプロセス数、`--fresh` で初めから） |
 | `post/gwread.py` | 書き出し（`win_*.bin`・`full_*.bin`・`log.txt`）を読む |
 | `post/gwruler.py` | 原画と同じ物差し（`Tools/GWWaveGen/ruler/s52_shape.measure_mask`）で測り、score3 を出す |
 | `post/gwpaper.py` | 論文と比べる巻きの量（着水の時刻、空洞の面積 A_O、噴流の面積 A_J、楕円の W/L、向き θ_O、噴流の幅） |
 | `post/gwcase.py` | 1 本の計算をまとめて測る（論文の量＋物差し） |
 | `post/gwtable.py` | 測った結果を集めて数の表（JSON・Markdown）にする |
 | `post/gwvideo.py` | 動画（上：全体の側面、下：頂を追う拡大、巻く間は原画の輪郭を重ねる）と、並べた比べの動画 |
-| `post/make_videos.py` | 算例ごとの動画と比べの動画を `Docs/Evidence/Basilisk/` に作る |
+| `post/make_videos.py` | 算例ごとの動画と比べの動画を作る（書き出し先は `GW_EVID`） |
+| `post/figures.py` | 報告の図（A の段ごとの量、B・C の score3、形と原画の輪郭） |
+| `post/collect.py` | 証拠をまとめて `Docs/Evidence/Basilisk/` に置く（results.json・top3.json・図・比べの動画・run.json・動画の写し） |
 
 ## 入手と組み立て（Linux）
 
@@ -32,12 +34,15 @@ Houdini FLIP の 2D の実験の結論（「急な海底で、巻きが原画に
    export BASILISK=$PWD PATH=$PATH:$PWD
    ```
 
-4. 計算の本体の組み立て（`Tools/Basilisk` で）：
+4. 置き場を決めて、計算の本体を組み立てる（`Tools/Basilisk` で）：
 
    ```bash
+   export GW_BIN=$HOME/gw/bin GW_RUNS=$HOME/gw/runs GW_ANA=$HOME/gw/ana GW_VIDEOS=$HOME/gw/videos
+   mkdir -p $GW_BIN $GW_RUNS $GW_ANA $GW_VIDEOS
    qcc -O2 -Wall -disable-dimensions -DTENSION=1 gw_shoal.c -o $GW_BIN/gw_shoal_t -lm   # 表面張力あり（A）
    qcc -O2 -Wall -disable-dimensions -DTENSION=0 gw_shoal.c -o $GW_BIN/gw_shoal_n -lm   # 表面張力なし（B・C）
    # MPI 版（任意）
+   CC99='mpicc -std=c99 -D_GNU_SOURCE=1' qcc -O2 -disable-dimensions -D_MPI=1 -DTENSION=1 gw_shoal.c -o $GW_BIN/gw_shoal_t_mpi -lm
    CC99='mpicc -std=c99 -D_GNU_SOURCE=1' qcc -O2 -disable-dimensions -D_MPI=1 -DTENSION=0 gw_shoal.c -o $GW_BIN/gw_shoal_n_mpi -lm
    ```
 
@@ -46,15 +51,18 @@ Houdini FLIP の 2D の実験の結論（「急な海底で、巻きが原画に
 ```bash
 python3 run_cases.py --bin $GW_BIN --runs $GW_RUNS --jobs 3 A_L10 B_S2_L11 C07_L10
 python3 run_cases.py --print A_L12      # 命令だけ見る
+python3 run_cases.py --fresh A_L10      # 前の書き出し（途中の保存を含む）を消して初めから
 ```
 
-書き出しは大きい（1 本 0.1〜1 GB）ので、リポジトリの外に置く。測る・動画を作るのは：
+書き出しは大きい（1 本 約 0.1〜0.2 GB）ので、リポジトリの外に置く。終わると `名前.done`（`exit=0`）、失敗すると `名前.fail` ができる。測る・動画・まとめは（`post` で）：
 
 ```bash
-cd post
-GW_RUNS=$GW_RUNS python3 gwcase.py $GW_RUNS/B_S2_L11 out.json --case B_S2_L11
-GW_RUNS=$GW_RUNS GW_ANA=解析の置き場 python3 make_videos.py case B_S2_L11
+python3 gwcase.py $GW_RUNS/B_S2_L11 $GW_ANA/B_S2_L11.json --case B_S2_L11      # 測る（論文の量と物差し）
+GW_EVID=$GW_VIDEOS python3 make_videos.py case B_S2_L11                         # 算例の動画（測った結果がないと止まる）
+python3 collect.py                                                               # 表・図・比べの動画・run.json を Docs/Evidence/Basilisk へ
 ```
+
+比べの動画の組は `collect.py` の `COMPARE`（例：`python3 make_videos.py compare compare_B.mp4 B_S1_L11 B_S2_L11 B_S5_L11 C04_L11`）。
 
 ## 計算の決まり（無次元：h0 = 1、g = 1、水の密度 1、時間 t√(g/h0)）
 
@@ -62,7 +70,9 @@ GW_RUNS=$GW_RUNS GW_ANA=解析の置き場 python3 make_videos.py case B_S2_L11
 - 初めの波：GN の孤立波（振幅 `a0`、頂 `x0`）。水の中の流速は論文の式（u は深さによらない、w は深さに比例）。空気は静止。
 - 境界：左は圧力 0（ディリクレ）、右は圧力の勾配 0、左右とも流速の法線の勾配 0、上は流速の法線 0。海底は滑りなし（流速 0）。作者の設定と同じ（指令の「両端は壁」とは違う）。
 - 格子：適応の 4 分木。誤差の許し cs 0.03、f 0.01、u 4×10⁻⁴（作者の設定と同じ）。最も細かい段 `level`（Δ = lbox/2^level）。
-- 途中の保存：Δt 0.5 ごとに `restart`（Basilisk の dump）と `restart.state` を書く。計算機が止まった後に同じ命令を走らせると、続きから回る（固体の境界は作者の設定と同じく作り直す。続きから回した時は `restarts.txt` に記録する。続きからの計算は、止めずに回した計算と完全には同じにならない）。
+- 途中の保存：Δt 0.5 ごとに `restart`（Basilisk の dump）と `restart.state`・`restart.args` を書く。計算機が止まった後に同じ命令を走らせると、続きから回る（引数が違う時は初めから。固体の境界は作者の設定と同じく作り直す。続きから回した時は `restarts.txt` に記録する。続きからの計算は、止めずに回した計算と完全には同じにならない）。終わった計算を同じ名前で走らせ直すと保存から続くので、初めから回す時は `run_cases.py --fresh` を使う。
+- 途中の保存の event は時間の刻みを Δt 0.5 の時刻に合わせるので、それを入れる前の版とは結果が少し違う（S2 の 10 段で score3 0.38 と 0.33）。報告の算例は全部、今の版で計算した。
+- 最も粗い段（`minlevel`、既定 5）：波から遠い所で 1 つの格子に海底と水面が入り、log の水の体積が変わる（12 段の A で 16 %）。7 にすると体積はほぼ保たれ、波の量の差は小さい（報告 §1.1）。
 - 書き出し：ふつうは Δt 0.1、前の面が 50° を超えるか覆いかぶさりが出たら Δt 0.02。覆いかぶさりを見つけてから `tail`（既定 3.0）後に止める。
   - `win_*.bin`：頂を追う窓（頂の 6 h0 後ろから 4.5 h0 前、y −0.7〜1.5）。間隔は最も細かい格子。
   - `full_*.bin`：全体（横 1600 点、y −1.1〜1.5）。

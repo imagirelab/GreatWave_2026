@@ -634,7 +634,7 @@ def render_case(run_dir, out_mp4, meta, overlay=None, fps=25, width=1280, height
     fig.text(l / W, (b2 + h2 + 8 * sy) / H, "全体の側面（縦 ×%d：縦だけ %d 倍に伸ばした）　▼ 頂（計算が追う所）　点線の枠：下の拡大の範囲　破線：静かな水面"
              % (top.ex, top.ex), fontsize=11 * fs, color=SUB, va="bottom", ha="left")
 
-    fig.text((l + w2) / W, (b2 - 46 * sy) / H, "波から遠い所の水面の角ばりは、適応格子の粗い格子の f をそのまま描いたもの",
+    fig.text((l + w2) / W, (b2 - 46 * sy) / H, "波から遠い所の水面の角ばり：最も粗い段（5）の格子に海底と水面が一緒に入り、そこの水の量も正しくない（波の形への効きは小さいことを確かめた）",
              fontsize=9.5 * fs, color=SUB, va="top", ha="right")
 
     # 下：拡大（縦横 1:1）

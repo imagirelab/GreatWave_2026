@@ -97,32 +97,10 @@
   "bo": 4000,
   "tend": 24,
   "binary": "gw_shoal_t",
-  "short_ja": "A：論文の風なし（Re 4×10⁴、Bo 4000）"
- },
- "A_L13": {
-  "name": "A_L13",
-  "group": "A",
-  "desc_ja": "論文の風なしの算例（Re 4×10⁴、Bo 4000、領域 0〜60 h0）",
-  "level": 13,
-  "a0": 0.6,
-  "bathy": [
-   [
-    30,
-    1
-   ],
-   [
-    39.07513,
-    0.37109375
-   ]
-  ],
-  "x0": 15,
-  "xl": 0,
-  "lbox": 60,
-  "re": 40000.0,
-  "bo": 4000,
-  "tend": 24,
-  "binary": "gw_shoal_t",
-  "short_ja": "A：論文の風なし（Re 4×10⁴、Bo 4000）"
+  "short_ja": "A：論文の風なし（Re 4×10⁴、Bo 4000）",
+  "extra": [
+   "tail=1.8"
+  ]
  },
  "B_S1_L10": {
   "name": "B_S1_L10",
@@ -274,31 +252,6 @@
   "binary": "gw_shoal_n",
   "short_ja": "B：S5（1:7、岩棚 0.2）"
  },
- "B_S1_L12": {
-  "name": "B_S1_L12",
-  "group": "B",
-  "desc_ja": "S1：論文と同じ海底、重力だけに近い条件（粘りなし・表面張力なし）、領域 20〜50 h0",
-  "level": 12,
-  "a0": 0.6,
-  "bathy": [
-   [
-    30,
-    1
-   ],
-   [
-    39.07513,
-    0.37109375
-   ]
-  ],
-  "x0": 25,
-  "xl": 20,
-  "lbox": 30,
-  "re": 0,
-  "bo": 0,
-  "tend": 22,
-  "binary": "gw_shoal_n",
-  "short_ja": "B：S1（論文の海底、重力だけに近い）"
- },
  "B_S2_L12": {
   "name": "B_S2_L12",
   "group": "B",
@@ -322,7 +275,10 @@
   "bo": 0,
   "tend": 22,
   "binary": "gw_shoal_n",
-  "short_ja": "B：S2（1:10、棚 0.1）"
+  "short_ja": "B：S2（1:10、棚 0.1）",
+  "extra": [
+   "tail=2.0"
+  ]
  },
  "B_S5_L12": {
   "name": "B_S5_L12",
@@ -347,7 +303,10 @@
   "bo": 0,
   "tend": 22,
   "binary": "gw_shoal_n",
-  "short_ja": "B：S5（1:7、岩棚 0.2）"
+  "short_ja": "B：S5（1:7、岩棚 0.2）",
+  "extra": [
+   "tail=2.0"
+  ]
  },
  "B_S1p_L10": {
   "name": "B_S1p_L10",
@@ -938,7 +897,10 @@
   "bo": 0,
   "tend": 22,
   "binary": "gw_shoal_n",
-  "short_ja": "C：勾配 1:12・棚 0.15"
+  "short_ja": "C：勾配 1:12・棚 0.15",
+  "extra": [
+   "tail=2.5"
+  ]
  },
  "C08_L11": {
   "name": "C08_L11",
@@ -963,7 +925,10 @@
   "bo": 0,
   "tend": 22,
   "binary": "gw_shoal_n",
-  "short_ja": "C：勾配 1:8・棚 0.20"
+  "short_ja": "C：勾配 1:8・棚 0.20",
+  "extra": [
+   "tail=2.5"
+  ]
  },
  "C03_L11": {
   "name": "C03_L11",
@@ -988,7 +953,10 @@
   "bo": 0,
   "tend": 22,
   "binary": "gw_shoal_n",
-  "short_ja": "C：勾配 1:9・棚 0.15"
+  "short_ja": "C：勾配 1:9・棚 0.15",
+  "extra": [
+   "tail=2.5"
+  ]
  },
  "B_S2_x15_L11": {
   "name": "B_S2_x15_L11",
@@ -1039,5 +1007,142 @@
   "tend": 24,
   "binary": "gw_shoal_n",
   "short_ja": "B 感度：S5（1:7、岩棚 0.2）（頂 15 h0）"
+ },
+ "chk_A_L10_bo0": {
+  "name": "chk_A_L10_bo0",
+  "group": "check",
+  "desc_ja": "確かめ：A の 10 段を表面張力なし（σ = 0、作者の公開ファイルと同じ）で",
+  "level": 10,
+  "a0": 0.6,
+  "bathy": [
+   [
+    30,
+    1
+   ],
+   [
+    39.07513,
+    0.37109375
+   ]
+  ],
+  "x0": 15,
+  "xl": 0,
+  "lbox": 60,
+  "re": 40000.0,
+  "bo": 0,
+  "tend": 24,
+  "binary": "gw_shoal_n",
+  "short_ja": "確かめ：A 10 段、σ = 0"
+ },
+ "mlt_A_L10_m7": {
+  "name": "mlt_A_L10_m7",
+  "group": "check",
+  "desc_ja": "確かめ：A の 10 段を最も粗い段 7 で（波から遠い格子の影響）",
+  "level": 10,
+  "a0": 0.6,
+  "bathy": [
+   [
+    30,
+    1
+   ],
+   [
+    39.07513,
+    0.37109375
+   ]
+  ],
+  "x0": 15,
+  "xl": 0,
+  "lbox": 60,
+  "re": 40000.0,
+  "bo": 4000,
+  "tend": 24,
+  "binary": "gw_shoal_t",
+  "short_ja": "確かめ：A 10 段、最も粗い段 7",
+  "extra": [
+   "minlevel=7"
+  ]
+ },
+ "mlt_S2_L10_m7": {
+  "name": "mlt_S2_L10_m7",
+  "group": "check",
+  "desc_ja": "確かめ：B の S2 の 10 段を最も粗い段 7 で",
+  "level": 10,
+  "a0": 0.6,
+  "bathy": [
+   [
+    30,
+    1
+   ],
+   [
+    39,
+    0.1
+   ]
+  ],
+  "x0": 25,
+  "xl": 20,
+  "lbox": 30,
+  "re": 0,
+  "bo": 0,
+  "tend": 22,
+  "binary": "gw_shoal_n",
+  "short_ja": "確かめ：S2 10 段、最も粗い段 7",
+  "extra": [
+   "minlevel=7"
+  ]
+ },
+ "mlt_S2_x15_m7": {
+  "name": "mlt_S2_x15_m7",
+  "group": "check",
+  "desc_ja": "確かめ：S2 頂 15 h0 を最も粗い段 7 で",
+  "level": 11,
+  "a0": 0.6,
+  "bathy": [
+   [
+    30,
+    1
+   ],
+   [
+    39,
+    0.1
+   ]
+  ],
+  "x0": 15,
+  "xl": 0,
+  "lbox": 60,
+  "re": 0,
+  "bo": 0,
+  "tend": 24,
+  "binary": "gw_shoal_n",
+  "short_ja": "確かめ：S2 頂 15 h0、最も粗い段 7",
+  "extra": [
+   "minlevel=7"
+  ]
+ },
+ "mlt_S5_x15_m7": {
+  "name": "mlt_S5_x15_m7",
+  "group": "check",
+  "desc_ja": "確かめ：S5 頂 15 h0 を最も粗い段 7 で",
+  "level": 11,
+  "a0": 0.6,
+  "bathy": [
+   [
+    30,
+    1
+   ],
+   [
+    35.6,
+    0.2
+   ]
+  ],
+  "x0": 15,
+  "xl": 0,
+  "lbox": 60,
+  "re": 0,
+  "bo": 0,
+  "tend": 24,
+  "binary": "gw_shoal_n",
+  "short_ja": "確かめ：S5 頂 15 h0、最も粗い段 7",
+  "extra": [
+   "minlevel=7"
+  ]
  }
 }

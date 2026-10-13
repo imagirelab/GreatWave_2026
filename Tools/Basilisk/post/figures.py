@@ -150,14 +150,17 @@ def fig_shapes(names, out, title):
     plt.close(fig)
 
 
+def bc_names(done):
+    """score3 の図に入れる算例：B（S1・S2・S5 の各段、頂 15 h0 と論文の物性の確かめは除く）と C。"""
+    return [n for n in done if (n.startswith("B_S") and "x15" not in n and "S1p" not in n) or n.startswith("C")]
+
+
 if __name__ == "__main__":
     os.makedirs(EVID, exist_ok=True)
     fig_A_levels()
     lv = sys.argv[1] if len(sys.argv) > 1 else "L11"
-    bnames = [n for n in CASES if n.startswith("B_S") and not n.startswith("B_S1p")]
-    cnames = [n for n in CASES if n.startswith("C")]
-    fig_score3([n for n in bnames + cnames if load(n)], "fig_BC_score3.png",
-               "B・C の score3（score3 最小のコマ）。格子の段は算例の名前の末尾")
+    fig_score3(bc_names([n for n in CASES if load(n)]), "fig_BC_score3.png",
+               "B・C の score3（score3 最小のコマ）。格子の段は算例の名前の末尾（L10 = 10 段）")
     fig_shapes(["B_S1_" + lv, "B_S2_" + lv, "B_S5_" + lv], "fig_B_shapes.png",
                "B：S1・S2・S5（重力だけに近い条件）。橙の線は原画の輪郭（縦÷1.3、頂の高さと位置を合わせた）")
     top = json.load(open(os.path.join(EVID, "top3.json"), encoding="utf8"))["fine"] if os.path.exists(os.path.join(EVID, "top3.json")) else []
