@@ -21,7 +21,7 @@ import gwread as G  # noqa: E402
 import gwruler as R  # noqa: E402
 
 REPO = os.path.abspath(os.path.join(HERE, "..", "..", ".."))
-EVID = os.path.join(REPO, "Docs", "Evidence", "Basilisk")
+EVID = os.environ.get("GW_EVID", os.path.join(REPO, "Docs", "Evidence", "Basilisk"))
 ANA = os.environ.get("GW_ANA", "/opt/gw/ana")
 RUNS = os.environ.get("GW_RUNS", "/opt/gw/runs")
 CASES = json.load(open(os.path.join(HERE, "..", "cases.json"), encoding="utf8"))

@@ -14,7 +14,7 @@ sys.path.insert(0, HERE)
 import gwvideo as V  # noqa: E402
 
 REPO = os.path.abspath(os.path.join(HERE, "..", "..", ".."))
-EVID = os.path.join(REPO, "Docs", "Evidence", "Basilisk")
+EVID = os.environ.get("GW_EVID", os.path.join(REPO, "Docs", "Evidence", "Basilisk"))
 RUNS = os.environ.get("GW_RUNS", "/opt/gw/runs")
 ANA = os.environ.get("GW_ANA", "/opt/gw/ana")
 CASES = json.load(open(os.path.join(HERE, "..", "cases.json"), encoding="utf8"))
