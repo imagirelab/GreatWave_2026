@@ -53,12 +53,12 @@ def case(name):
     return out
 
 
-def compare(out, names, tau_start=-1.5, tau_end=0.6):
+def compare(out, names, tau_start=-2.5, tau_end=0.6, fps=10):
     cs = []
     for n in names:
         ov, ttd, score = overlay_of(n)
         cs.append(dict(run_dir=os.path.join(RUNS, n), meta=meta_of(n), t_ref=ttd, score_by_t=score, overlay=ov))
-    r = V.render_compare(cs, out, tau_start=tau_start, tau_end=tau_end)
+    r = V.render_compare(cs, out, fps=fps, tau_start=tau_start, tau_end=tau_end)
     print(out, os.path.getsize(out), r)
 
 
