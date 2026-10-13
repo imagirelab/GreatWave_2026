@@ -1,0 +1,234 @@
+# -*- coding: utf-8 -*-
+"""FLIP47：計算の途中（hython の中）で使う、numpy だけの読み（g47_run.py が読む）。
+2026-10-12 FLIP46 の g46_online.py（Tools/GWWaveGen/flip46、変えていない）を写した。変えたのは海底の bed_y だけ
+（折れ線の海底。CTRL の bed_prof「x0 d0 x1 d1 ...」、両端の外は端の水深）。読み方（空気の穴・唇の先・止め方）は同じ。
+FLIP47 での使い方：cfg の stop_touchdown があれば、板の真ん中の断面（記録 sec）で空気の穴か唇の先の着水を読み、after_s（既定 2 s）後で止める。
+以下は g46_online.py の説明の要点：
+cavity_frame：断面の水面の場から、閉じた空気の穴（等高線の面積が格子 1 個以上、頂より下）を探す。上の端と左右の端から空気をたどって届かない空気を穴とする。
+  海底の中は水と同じに扱う。頂（一番高い水）の後ろ 0.25 Lc から前 0.75 Lc の間で見る。
+lip_tip：唇の先が静かな水面以下になったか（2 列以上の張り出し）。
+TouchdownWatch：空気の穴を見つけたらその after_s 後で止める。空気の穴より先に唇の先が静かな水面以下になったら（2 コマ続けて）、
+  空気の穴を待ち、見つからなければ唇の先の tip_wait_s 後で止める。
+"""
+import numpy as np
+
+
+def bed_y(parms, xs, zl=0.0):
+    """海底の高さ（計画の座標。静かな水面 0）。折れ線（g47_tanklib.bedy と同じ）。parms の bed_prof（文字）か bed（点の並び）を読む。"""
+    xs = np.asarray(xs, dtype=np.float64)
+    b = parms.get("bed")
+    if b is None:
+        v = [float(t) for t in str(parms.get("bed_prof", "")).split()]
+        b = [[v[2 * i], v[2 * i + 1]] for i in range(len(v) // 2)]
+    if not b:
+        return np.full(np.shape(xs), -float(parms["h0"]))
+    bx = np.array([float(p[0]) for p in b]); bd = np.array([float(p[1]) for p in b])
+    return -np.interp(xs, bx, bd)
+
+
+def _components(mask):
+    """2 次元の真の所を 4 近傍でつないだ塊（行・列の番号の配列の組）。穴は少ないので Python で幅優先にたどる。"""
+    seen = np.zeros_like(mask, dtype=bool)
+    out = []
+    ny, nx = mask.shape
+    for j0, i0 in zip(*np.where(mask)):
+        if seen[j0, i0]:
+            continue
+        stack = [(int(j0), int(i0))]; seen[j0, i0] = True; cells = []
+        while stack:
+            j, i = stack.pop(); cells.append((j, i))
+            for jj, ii in ((j + 1, i), (j - 1, i), (j, i + 1), (j, i - 1)):
+                if 0 <= jj < ny and 0 <= ii < nx and mask[jj, ii] and not seen[jj, ii]:
+                    seen[jj, ii] = True; stack.append((jj, ii))
+        c = np.array(cells)
+        out.append((c[:, 0], c[:, 1]))
+    return out
+
+
+_POS = ((0.0, 0.0), (1.0, 0.0), (1.0, 1.0), (0.0, 1.0))      # 四角の角（列の向き x、行の向き y）。順は (j,i)・(j,i+1)・(j+1,i+1)・(j+1,i)
+
+
+def _shoelace(pts):
+    a = np.array(pts)
+    return 0.5 * abs(float(np.dot(a[:, 0], np.roll(a[:, 1], -1)) - np.dot(a[:, 1], np.roll(a[:, 0], -1))))
+
+
+def _ms_area(S, comp_j, comp_i):
+    """穴（空気の塊。行 comp_j・列 comp_i の格子）を囲む等高線（値 0、格子の間は辺に沿って直線で補う）の中の面積（格子 1 個 = 1）。
+    解析（g44_analyze.frame_crests）の skimage.measure.find_contours（fully_connected='low'：水は斜めにもつながり、空気は辺でだけつながる）
+    と同じ線になるように、鞍（向かい合う 2 つの角だけ空気）は角ごとの三角形に分ける。"""
+    ny, nx = S.shape
+    mine = set(zip(comp_j.tolist(), comp_i.tolist()))
+    sq = set()
+    for j, i in mine:
+        for dj in (-1, 0):
+            for di in (-1, 0):
+                if 0 <= j + dj < ny - 1 and 0 <= i + di < nx - 1:
+                    sq.add((j + dj, i + di))
+    tot = 0.0
+    for j, i in sq:
+        cj = ((j, i), (j, i + 1), (j + 1, i + 1), (j + 1, i))
+        v = [float(S[a, b]) for a, b in cj]
+        p = [x > 0 for x in v]
+        if p in ([True, False, True, False], [False, True, False, True]):
+            for k in range(4):
+                if p[k] and cj[k] in mine:
+                    a1 = v[k] / (v[k] - v[(k + 1) % 4]); a2 = v[k] / (v[k] - v[(k - 1) % 4])
+                    tot += 0.5 * a1 * a2
+            continue
+        if not any(p[k] and cj[k] in mine for k in range(4)):
+            continue
+        pts = []
+        for k in range(4):
+            k2 = (k + 1) % 4
+            if p[k]:
+                pts.append(_POS[k])
+            if p[k] != p[k2]:
+                t = v[k] / (v[k] - v[k2])
+                pts.append((_POS[k][0] + t * (_POS[k2][0] - _POS[k][0]), _POS[k][1] + t * (_POS[k2][1] - _POS[k][1])))
+        if len(pts) >= 3:
+            tot += _shoelace(pts)
+    return tot
+
+
+def cavity_frame(sl, xs, ys, Lc, vox, off, parms):
+    """sl[y, x]：断面の水面の場（水の中で負）。xs・ys：場面の座標。off：静かな水面のずれ。
+    2026-10-12（2 回目の確かめの後）：穴を、空気を辺でつないだ塊ごとに見て、その塊を囲む等高線の中の面積（_ms_area）が vox² 以上で、
+    塊の中心が頂より下の時だけ見つけたとする。静かな水面の 25 m より下の穴は見ない。どれも解析の着水の読み（g44_analyze.frame_crests の
+    閉じた線）と同じ決まり。前は全部の穴の格子の数の和が格子 1 個分以上で見つけたとしたので、FLIP42 R4d で頂の後ろの格子 1 個の泡
+    （3736 コマ。等高線の面積は vox² より小さい）を拾い、解析の着水（3748 コマ）より 0.5 s 早く止まる形だった（record_ja.md §3.2 の TD）。"""
+    water = sl < 0
+    bed = ys[:, None] < (bed_y(parms, xs)[None, :] + 0.5 * vox)
+    air = (~water) & (~bed)
+    wy = np.where(water.any(1))[0]
+    if len(wy) == 0:
+        return None
+    jt = wy.max()
+    ic = int(np.where(water[jt])[0].mean())
+    xc = xs[ic]; yc = ys[jt]
+    m = (xs >= xc - 0.25 * Lc) & (xs <= xc + 0.75 * Lc)
+    Am = air[:, m]
+    reach = np.zeros_like(Am)
+    reach[-1, :] = Am[-1, :]; reach[:, 0] |= Am[:, 0]; reach[:, -1] |= Am[:, -1]
+    for _ in range(4000):
+        r2 = reach.copy()
+        r2[1:, :] |= reach[:-1, :]; r2[:-1, :] |= reach[1:, :]; r2[:, 1:] |= reach[:, :-1]; r2[:, :-1] |= reach[:, 1:]
+        r2 &= Am
+        if (r2 == reach).all():
+            break
+        reach = r2
+    hole = Am & ~reach
+    hole[(ys - off) < -25.0, :] = False
+    # FLIP47（2026-10-12）：海底から格子 2 個以内の空気は穴として数えない（FLIP44 の解析の H4 と同じ決まり）。E1a の粒子 0.5 m の下見で、
+    # 棚の始めの折れ目の上（x 750〜770 m、海底のすぐ上）に格子 1〜2 個の空気の点が出たため（水の中の粒子の薄い所。着水の穴ではない）
+    hole &= ~(ys[:, None] < (bed_y(parms, xs)[None, :] + 2.0 * vox))[:, m]
+    cell = (xs[1] - xs[0]) * (ys[1] - ys[0])
+    area = float(hole.sum()) * cell
+    if not hole.any():
+        return dict(xc=float(xc), yc=float(yc - off), area=area, found=False)
+    S = sl[:, m].astype(np.float64).copy()
+    S[bed[:, m]] = -1.0                       # 海底の中は水（解析と同じ）
+    xm = xs[m]
+    best = None
+    for jj, ii in _components(hole):
+        a = _ms_area(S, jj, ii) * cell
+        cy = float(ys[jj].mean()); cx = float(xm[ii].mean())
+        ok = bool(a >= vox * vox and cy < yc)
+        if best is None or (ok, a) > (best[0], best[1]):
+            best = (ok, a, cx, cy, len(jj))
+    ok, a, cx, cy, n = best
+    return dict(xc=float(xc), yc=float(yc - off), area=area, cx=cx, cy=cy - off, hole_area=a, hole_cells=int(n), found=ok)
+
+
+def _segments(col):
+    """1 列の水の区間 [(lo, hi), ...]（行の番号。行は下から上へ）。"""
+    w = np.concatenate(([0], col.astype(np.int8), [0]))
+    d = np.diff(w)
+    return list(zip(np.where(d == 1)[0].tolist(), (np.where(d == -1)[0] - 1).tolist()))
+
+
+def lip_tip(sl, xs, ys, Lc, vox, off, parms, min_cols=2):
+    """唇の先の高さ（静かな水面から）。返り値 dict(found, x_tip, y_tip, over_cols, xc, yc, why)。found は「唇の先が静かな水面以下」。"""
+    water = sl < 0
+    bed = ys[:, None] < (bed_y(parms, xs)[None, :] + 0.5 * vox)
+    wb = water | bed
+    wy = np.where(water.any(1))[0]
+    if len(wy) == 0:
+        return None
+    jt = int(wy.max())
+    cols = np.where(water[jt])[0]
+    icm = int(cols.mean())
+    xc = float(xs[icm]); yc = float(ys[jt] - off)
+    i = int(cols[np.argmin(np.abs(cols - icm))])           # 頂の行に水がある列（cavity_frame の頂の x にいちばん近い列）
+    seg = [s for s in _segments(wb[:, i]) if s[0] <= jt <= s[1]][0]
+    x_end = xc + 0.75 * Lc
+    over = 0
+    ended = True
+    while i + 1 < len(xs) and xs[i + 1] <= x_end:
+        cand = [s for s in _segments(wb[:, i + 1]) if s[1] >= seg[0] - 1 and s[0] <= seg[1] + 1]
+        if not cand:
+            ended = False
+            break
+        seg = max(cand, key=lambda s: s[1])                # つながる区間のうち一番上
+        i += 1
+        below = [s for s in _segments(wb[:, i]) if s[1] < seg[0] - 1]
+        over = over + 1 if below else 0
+    if ended:
+        return dict(found=False, xc=xc, yc=yc, over_cols=over, why="頂の前 0.75 Lc まで水面がつながっている（張り出しなし）")
+    if over < min_cols:
+        return dict(found=False, xc=xc, yc=yc, over_cols=over, x_tip=float(xs[i]), why="先の列の張り出しが %d 列（%d 列より少ない）" % (over, min_cols))
+    y_tip = 0.5 * (float(ys[seg[0]]) + float(ys[seg[1]])) - off
+    return dict(found=bool(y_tip <= 0.0), xc=xc, yc=yc, over_cols=over, x_tip=float(xs[i]), y_tip=float(y_tip),
+                lip_lo=float(ys[seg[0]] - off), lip_hi=float(ys[seg[1]] - off))
+
+
+class TouchdownWatch:
+    """計算の中の着水の読みと止め方（g44_run.py と試し x44_fix2_tests.py の両方が使う）。
+    st：cfg の stop_touchdown（after_s・t_from・Lc・still_offset_m・tip_wait_s・tip_on）。"""
+
+    def __init__(self, st, vox, parms, fps=24.0):
+        self.st = st or {}
+        self.vox = float(vox); self.parms = parms; self.fps = float(fps)
+        self.after_s = float(self.st.get("after_s", 0.5))
+        self.tip_wait_s = float(self.st.get("tip_wait_s", 2.0))
+        self.tip_on = bool(self.st.get("tip_on", True))
+        self.t_from = float(self.st.get("t_from", 0.0))
+        self.Lc = float(self.st.get("Lc", 135.4633))
+        self.off = float(self.st.get("still_offset_m", 0.0))
+        self.td = None          # 空気の穴（前と同じ読み）
+        self.tip = None         # 唇の先が静かな水面以下（2 コマ続いた最初のコマ）
+        self._run = 0; self._cand = None
+
+    def restore(self, td=None, tip=None):
+        """同じ計算の前の起動（run_c*.json の info）で見つけた物を引き継ぐ。"""
+        if td and self.td is None:
+            self.td = dict(td, restored=True)
+        if tip and self.tip is None:
+            self.tip = dict(tip, restored=True)
+
+    def step(self, f, tnow, sl, xs, ys):
+        if tnow < self.t_from - 1e-9 or self.td is not None:
+            return
+        cav = cavity_frame(sl.astype(np.float32), xs, ys, self.Lc, self.vox, self.off, self.parms)
+        if cav and cav.get("found"):
+            self.td = dict(frame=int(f), t=float(tnow), by="cavity", **cav)
+            return
+        if not self.tip_on or self.tip is not None:
+            return
+        lt = lip_tip(sl.astype(np.float32), xs, ys, self.Lc, self.vox, self.off, self.parms)
+        if lt and lt.get("found"):
+            self._run += 1
+            if self._run == 1:
+                self._cand = dict(frame=int(f), t=float(tnow), **lt)
+            if self._run >= 2:
+                self.tip = dict(self._cand, by="tip<=0", confirmed_frame=int(f))
+        else:
+            self._run = 0; self._cand = None
+
+    def should_stop(self, tnow):
+        """止める時は stopped の文（g44_queue.chain_result が touchdown_online で始まる文を「計算の中の着水」と読む）。"""
+        if self.td is not None and tnow >= self.td["t"] + self.after_s - 1e-9:
+            return "touchdown_online at frame %d (+%.2f s)" % (self.td["frame"], self.after_s)
+        if self.td is None and self.tip is not None and tnow >= self.tip["t"] + self.tip_wait_s - 1e-9:
+            return "touchdown_online_tip at frame %d (+%.2f s, lip tip at or below still level, no cavity seen)" % (self.tip["frame"], self.tip_wait_s)
+        return None

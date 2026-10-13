@@ -1,0 +1,52 @@
+# -*- coding: utf-8 -*-
+"""FLIP47：動いている hython（計算）に、Windows の実行速度の抑え（電力の抑え、EcoQoS）を使わないように頼み、優先度を「通常より下」にする。
+FLIP44 の g44_unthrottle.py（変えていない）を写した。変えたのは記録の置き場所だけ（Unity/Build/FLIP47/runs/unthrottle_log.txt）。
+g47_run.py は起動の始めに自分の処理にも同じ設定をする。この道具は、ほかの道具から起こした hython のため。
+py -3.10 g47_unthrottle.py   （新しい hython が出るたびに 1 回だけ設定する。止めるまで回り続ける）"""
+import ctypes, subprocess, time, os
+from ctypes import wintypes
+
+LOG = r"G:/Unity/GreatWave_2026_Fresh/Unity/Build/FLIP47/runs/unthrottle_log.txt"
+k = ctypes.WinDLL("kernel32", use_last_error=True)
+
+
+class PPTS(ctypes.Structure):
+    _fields_ = [("Version", wintypes.ULONG), ("ControlMask", wintypes.ULONG), ("StateMask", wintypes.ULONG)]
+
+
+k.OpenProcess.restype = wintypes.HANDLE
+k.OpenProcess.argtypes = [wintypes.DWORD, wintypes.BOOL, wintypes.DWORD]
+k.SetProcessInformation.argtypes = [wintypes.HANDLE, ctypes.c_int, ctypes.c_void_p, wintypes.DWORD]
+k.SetPriorityClass.argtypes = [wintypes.HANDLE, wintypes.DWORD]
+k.CloseHandle.argtypes = [wintypes.HANDLE]
+
+
+def pids():
+    out = subprocess.run(["tasklist", "/fi", "imagename eq hython.exe", "/fo", "csv", "/nh"], capture_output=True, text=True,
+                         encoding="mbcs", errors="ignore").stdout
+    r = []
+    for line in out.splitlines():
+        p = [q.strip('"') for q in line.split('","')]
+        if len(p) > 1 and p[0].lower().startswith("hython"):
+            try:
+                r.append(int(p[1]))
+            except ValueError:
+                pass
+    return r
+
+
+done = set()
+while True:
+    for pid in pids():
+        if pid in done:
+            continue
+        h = k.OpenProcess(0x0200 | 0x0400, False, pid)
+        if not h:
+            continue
+        s = PPTS(1, 0x1, 0x0)
+        r1 = k.SetProcessInformation(h, 4, ctypes.byref(s), ctypes.sizeof(s))
+        r2 = k.SetPriorityClass(h, 0x4000)
+        k.CloseHandle(h)
+        done.add(pid)
+        open(LOG, "a", encoding="utf8").write("%s pid %d power_throttling_off %s below_normal %s\n" % (time.strftime("%Y-%m-%d %H:%M:%S"), pid, bool(r1), bool(r2)))
+    time.sleep(15)
