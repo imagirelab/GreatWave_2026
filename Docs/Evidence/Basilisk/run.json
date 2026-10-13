@@ -1,0 +1,458 @@
+{
+ "note_ja": "雲の計算機（claude.ai/code）での Basilisk の計算の記録。書き出しそのものはリポジトリに入れていない",
+ "binary_note_ja": "全部の算例を、今の gw_shoal.c（途中の保存の event を含む）から組み立てた版で計算した。途中の保存の event（Δt̃ 0.5 ごと）は時間の刻みを変えるので、それを入れる前の版の結果とは完全には同じにならない（S2 の 10 段で score3 0.38 と 0.33）。前の版の結果は使っていない",
+ "git_head_when_collected": "9fb851fa185ba2d3e4cb87a2bd9497199717ffbe",
+ "machine": {
+  "cpu": "Model name:                              Intel(R) Xeon(R) Processor @ 2.10GHz",
+  "cores": 4,
+  "os": "Linux-6.18.44-fc-v114-x86_64-with-glibc2.39"
+ },
+ "tools": {
+  "basilisk_tarball": "https://basilisk.fr/basilisk/basilisk.tar.gz（2026-10-12 取得。日々変わる tarball で、同じ物はもう取れない見込み）",
+  "basilisk_tarball_sha256": "de851a91712aa83b0592e1e1ae8f7d7e2ffe1ade0266433434700f8c313fbed4",
+  "author_setup": "https://basilisk.fr/sandbox/ffeddersen/shoal_RE0_BO4000.c",
+  "author_setup_sha256": "e09a4e6bfd5fb83031f49839e0edf66775fa0c3bf5fb0896eb8b180500840ebd",
+  "gcc": "gcc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+  "mpicc": "gcc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+  "ffmpeg": "ffmpeg version 6.1.1-3ubuntu5 Copyright (c) 2000-2023 the FFmpeg developers",
+  "python": "3.13.16",
+  "numpy": "2.5.3",
+  "scipy": "1.18.1",
+  "skimage": "0.26.0",
+  "matplotlib": "3.11.2"
+ },
+ "build": {
+  "commands": {
+   "gw_shoal_t": "qcc -O2 -Wall -disable-dimensions -DTENSION=1 gw_shoal.c -o $GW_BIN/gw_shoal_t -lm",
+   "gw_shoal_n": "qcc -O2 -Wall -disable-dimensions -DTENSION=0 gw_shoal.c -o $GW_BIN/gw_shoal_n -lm",
+   "gw_shoal_t_mpi": "CC99='mpicc -std=c99 -D_GNU_SOURCE=1' qcc -O2 -disable-dimensions -D_MPI=1 -DTENSION=1 gw_shoal.c -o $GW_BIN/gw_shoal_t_mpi -lm",
+   "gw_shoal_n_mpi": "CC99='mpicc -std=c99 -D_GNU_SOURCE=1' qcc -O2 -disable-dimensions -D_MPI=1 -DTENSION=0 gw_shoal.c -o $GW_BIN/gw_shoal_n_mpi -lm"
+  },
+  "binaries_sha256": {
+   "gw_shoal_n": "3bb577e592951c4be8bd950b7b7e58179cb165ceed0c582ee8b56a3d0377b9dd",
+   "gw_shoal_n_mpi": "79d1f35c25210140414a934e3ba28ede5847fb313f2b53b8d138dab18951e788",
+   "gw_shoal_t": "d3d1b2af2c40323fb24dae624695bde0d44d9db415c1daba6d995de03d974d54",
+   "gw_shoal_t_mpi": "dfb5846c3b3d5a2be16f8b955b5fa8bec2b635021612c760e7c63b4f2f7064f3"
+  }
+ },
+ "inputs": {
+  "Tools/Basilisk/gw_shoal.c": "5fcac339d60725b7755ca09034b37be27980988b469496304e62ce167f946149",
+  "Tools/Basilisk/cases.json": "f8c59e0cfa93761f99c6b94df423a8f1d139a40c53fb3b2927538601263f1b63",
+  "Tools/Basilisk/run_cases.py": "c1579d04abf5c4394ae21aa6e0252856c73bf0435fcf97d2580a39da314629b7",
+  "Tools/GWWaveGen/ruler/s52_shape.py": "a6740d1dee10c203ffa56e57f2ec1de6ff3bb51953d02af678061f6960876a67",
+  "Tools/GWWaveGen/ruler/s52_common.py": "241c5b55bc44e445db590309a34ac29aeb8fc674aac2505914b9803a8a72a24a",
+  "Tools/GWWaveGen/ruler/shape_measures.json": "40543e04ce4de0fa0c40d9173d6f9febdea69b95f8bacd56c08e47a21fddee61",
+  "Tools/PaintingTruth/targets/main_wave_outline_envelope.json": "39e085da821ea453ef4549d00cde074086c98a5f6bf9919425beea82eba1eb00",
+  "Tools/Basilisk/post/collect.py": "61779317191c2abcb14873f0d1d1c0b79ac45d8d73d67cd8f36fb749d0ab0b3f",
+  "Tools/Basilisk/post/figures.py": "e76cdc3bc75c5202ac0adc6bb95ebe925615b91bfa2ff87d76e18607fc324521",
+  "Tools/Basilisk/post/gwcase.py": "227d596401ea27739d51402bcdb4e4ab046cc30c0b525d04690c664b4a93dcf3",
+  "Tools/Basilisk/post/gwpaper.py": "72786a274b2f555e929af8315269473e9cfcacde71991de3af4b6c264b485407",
+  "Tools/Basilisk/post/gwread.py": "7150c390b88611b6137cf43072ef64fe42cd7143510428e82fef549a210779ef",
+  "Tools/Basilisk/post/gwruler.py": "aac088d48e2fdccb141c631b37430efb9735fe5e918251f0a52e82e6850143b2",
+  "Tools/Basilisk/post/gwtable.py": "1253770b33ef1594d8eb70a44e19abbb563f60db64aab76263f48223f2ecb053",
+  "Tools/Basilisk/post/gwvideo.py": "8f6a00cd6e15d908466970d3fc52ad8f7e56ff71884ace787b957c6727528c88",
+  "Tools/Basilisk/post/make_videos.py": "913c092b57cef97715ee950598ae37882c1671e6be6bfa4929a8b0bd1eb504c6"
+ },
+ "compare_videos": {
+  "compare_A.mp4": {
+   "cases": [
+    "A_L10",
+    "A_L11",
+    "A_L12"
+   ],
+   "command": "python3 make_videos.py compare compare_A.mp4 A_L10 A_L11 A_L12"
+  },
+  "compare_B.mp4": {
+   "cases": [
+    "B_S1_L11",
+    "B_S2_L11",
+    "B_S5_L11",
+    "C04_L11"
+   ],
+   "command": "python3 make_videos.py compare compare_B.mp4 B_S1_L11 B_S2_L11 B_S5_L11 C04_L11"
+  },
+  "compare_C.mp4": {
+   "cases": [
+    "C04_L10",
+    "C08_L10",
+    "C03_L10",
+    "C07_L10",
+    "C12_L10",
+    "C06_L10"
+   ],
+   "command": "python3 make_videos.py compare compare_C.mp4 C04_L10 C08_L10 C03_L10 C07_L10 C12_L10 C06_L10"
+  }
+ },
+ "runs": {
+  "A_L9": {
+   "command": "$GW_BIN/gw_shoal_t level=9 x0=15 xl=0 lbox=60 a0=0.6 re=40000 bo=4000 tend=24 bathy=30:1,39.07513:0.37109375 out=$GW_RUNS/A_L9",
+   "done": "exit=0 wall=62",
+   "restarted_at": [],
+   "n_win_frames": 411,
+   "log_sha256": "b5cc74cda7a74c59c03879f77ae0573d276560a25cfb8bf90de9104221bdbd2b"
+  },
+  "A_L10": {
+   "command": "$GW_BIN/gw_shoal_t level=10 x0=15 xl=0 lbox=60 a0=0.6 re=40000 bo=4000 tend=24 bathy=30:1,39.07513:0.37109375 out=$GW_RUNS/A_L10",
+   "done": "exit=0 wall=235",
+   "restarted_at": [],
+   "n_win_frames": 399,
+   "log_sha256": "b102d1d5054a4f696941b7e4b560cad475aed14bed5b098aa9b764792e8a7395"
+  },
+  "A_L11": {
+   "command": "$GW_BIN/gw_shoal_t level=11 x0=15 xl=0 lbox=60 a0=0.6 re=40000 bo=4000 tend=24 bathy=30:1,39.07513:0.37109375 out=$GW_RUNS/A_L11",
+   "done": "exit=0 wall=1429",
+   "restarted_at": [],
+   "n_win_frames": 389,
+   "log_sha256": "9c73e87d57aa15c533bb99d33700063bc215b2a079beb04dbb9e8ed17332e767"
+  },
+  "A_L12": {
+   "command": "$GW_BIN/gw_shoal_t level=12 x0=15 xl=0 lbox=60 a0=0.6 re=40000 bo=4000 tend=24 bathy=30:1,39.07513:0.37109375 tail=1.8 out=$GW_RUNS/A_L12",
+   "done": "exit=0 wall=5509",
+   "restarted_at": [],
+   "n_win_frames": 327,
+   "log_sha256": "f307c64e55d0d5c4210af1900c1f29863e96df85bd72a42540a1512db11b6d56"
+  },
+  "B_S1_L10": {
+   "command": "$GW_BIN/gw_shoal_n level=10 x0=25 xl=20 lbox=30 a0=0.6 re=0 bo=0 tend=22 bathy=30:1,39.07513:0.37109375 out=$GW_RUNS/B_S1_L10",
+   "done": "exit=0 wall=405",
+   "restarted_at": [],
+   "n_win_frames": 312,
+   "log_sha256": "6b5ae5cbd2b0157352019430e68323bd49336031ad5c27571bdab83341683a94"
+  },
+  "B_S2_L10": {
+   "command": "$GW_BIN/gw_shoal_n level=10 x0=25 xl=20 lbox=30 a0=0.6 re=0 bo=0 tend=22 bathy=30:1,39:0.1 out=$GW_RUNS/B_S2_L10",
+   "done": "exit=0 wall=303",
+   "restarted_at": [],
+   "n_win_frames": 299,
+   "log_sha256": "dfa47de9b53410a777ed1590df6f962bfb4708bbd338b7210f523550e939c1c3"
+  },
+  "B_S5_L10": {
+   "command": "$GW_BIN/gw_shoal_n level=10 x0=25 xl=20 lbox=30 a0=0.6 re=0 bo=0 tend=22 bathy=30:1,35.6:0.2 out=$GW_RUNS/B_S5_L10",
+   "done": "exit=0 wall=231",
+   "restarted_at": [],
+   "n_win_frames": 270,
+   "log_sha256": "6103d6da8082b8f076a80d711086617eb4f8e9471fe4f6e18ae1d09629e7e590"
+  },
+  "B_S1_L11": {
+   "command": "$GW_BIN/gw_shoal_n level=11 x0=25 xl=20 lbox=30 a0=0.6 re=0 bo=0 tend=22 bathy=30:1,39.07513:0.37109375 out=$GW_RUNS/B_S1_L11",
+   "done": "exit=0 wall=2676",
+   "restarted_at": [],
+   "n_win_frames": 310,
+   "log_sha256": "9152191c47cd4f4106c4569840ba7a561fef1c5d4a92c84550ddebfdd069efa1"
+  },
+  "B_S2_L11": {
+   "command": "$GW_BIN/gw_shoal_n level=11 x0=25 xl=20 lbox=30 a0=0.6 re=0 bo=0 tend=22 bathy=30:1,39:0.1 out=$GW_RUNS/B_S2_L11",
+   "done": "exit=0 wall=2257",
+   "restarted_at": [],
+   "n_win_frames": 293,
+   "log_sha256": "e2283548b209eced6b32150c86138bbb7e6bd6a5109bc3120333a96521c0b6de"
+  },
+  "B_S5_L11": {
+   "command": "$GW_BIN/gw_shoal_n level=11 x0=25 xl=20 lbox=30 a0=0.6 re=0 bo=0 tend=22 bathy=30:1,35.6:0.2 out=$GW_RUNS/B_S5_L11",
+   "done": "exit=0 wall=1717",
+   "restarted_at": [],
+   "n_win_frames": 266,
+   "log_sha256": "862c05b206acb26369770619b3caad726108a8341505a378554549465a216ddc"
+  },
+  "B_S2_L12": {
+   "command": "$GW_BIN/gw_shoal_n level=12 x0=25 xl=20 lbox=30 a0=0.6 re=0 bo=0 tend=22 bathy=30:1,39:0.1 tail=2.0 out=$GW_RUNS/B_S2_L12",
+   "done": "exit=0 wall=4367",
+   "restarted_at": [
+    "t=6.00000",
+    "frame=61"
+   ],
+   "n_win_frames": 243,
+   "log_sha256": "fd23b2e203b97f25ebae67b56431c3b0c2c347b16c568cc200977a4cf36b183b"
+  },
+  "B_S5_L12": {
+   "command": "$GW_BIN/gw_shoal_n level=12 x0=25 xl=20 lbox=30 a0=0.6 re=0 bo=0 tend=22 bathy=30:1,35.6:0.2 tail=2.0 out=$GW_RUNS/B_S5_L12",
+   "done": "exit=0 wall=2685",
+   "restarted_at": [
+    "t=5.50000",
+    "frame=56"
+   ],
+   "n_win_frames": 212,
+   "log_sha256": "3af5ca5ed917621aa0b59632c0dd1a88d45bcb54f50a6bac56f4be6d1e7e1c7c"
+  },
+  "B_S1p_L10": {
+   "command": "$GW_BIN/gw_shoal_t level=10 x0=25 xl=20 lbox=30 a0=0.6 re=40000 bo=4000 tend=22 bathy=30:1,39.07513:0.37109375 out=$GW_RUNS/B_S1p_L10",
+   "done": "exit=0 wall=528",
+   "restarted_at": [],
+   "n_win_frames": 305,
+   "log_sha256": "f20e593d1336114a16993d82d4951db7354676311be44a376683df3b3575c037"
+  },
+  "tS2_L10_re1e6": {
+   "command": "$GW_BIN/gw_shoal_n level=10 x0=25 xl=20 lbox=30 a0=0.6 re=1e+06 bo=0 tend=20 bathy=30:1,39:0.1 out=$GW_RUNS/tS2_L10_re1e6",
+   "done": "exit=0 wall=412",
+   "restarted_at": [],
+   "n_win_frames": 299,
+   "log_sha256": "6666b79375775b57229f7851f14bf2de607d0a128689b28490bffa1bce6b99de"
+  },
+  "C01_L10": {
+   "command": "$GW_BIN/gw_shoal_n level=10 x0=25 xl=20 lbox=30 a0=0.6 re=0 bo=0 tend=22 bathy=30:1,34.25:0.15 out=$GW_RUNS/C01_L10",
+   "done": "exit=0 wall=168",
+   "restarted_at": [],
+   "n_win_frames": 256,
+   "log_sha256": "b5047c87b326144c490cebbad62021c5ba16bcc878b5945559aaf0c73e3165c3"
+  },
+  "C02_L10": {
+   "command": "$GW_BIN/gw_shoal_n level=10 x0=25 xl=20 lbox=30 a0=0.6 re=0 bo=0 tend=22 bathy=30:1,35.95:0.15 out=$GW_RUNS/C02_L10",
+   "done": "exit=0 wall=231",
+   "restarted_at": [],
+   "n_win_frames": 270,
+   "log_sha256": "4a43e521e4092eb2f42cbe61743f1040c5cea35714f92a127750bc1cdfb3f233"
+  },
+  "C03_L10": {
+   "command": "$GW_BIN/gw_shoal_n level=10 x0=25 xl=20 lbox=30 a0=0.6 re=0 bo=0 tend=22 bathy=30:1,37.65:0.15 out=$GW_RUNS/C03_L10",
+   "done": "exit=0 wall=259",
+   "restarted_at": [],
+   "n_win_frames": 295,
+   "log_sha256": "97ecdbbd549d638d2c65b9353866055afe1874b7837bacac5344900cc8f8a688"
+  },
+  "C04_L10": {
+   "command": "$GW_BIN/gw_shoal_n level=10 x0=25 xl=20 lbox=30 a0=0.6 re=0 bo=0 tend=22 bathy=30:1,40.2:0.15 out=$GW_RUNS/C04_L10",
+   "done": "exit=0 wall=323",
+   "restarted_at": [],
+   "n_win_frames": 310,
+   "log_sha256": "5e5d3b2da1322e015a8d5b90c1f99e117efa6fbcee69a9331cba848ba41903a6"
+  },
+  "C05_L10": {
+   "command": "$GW_BIN/gw_shoal_n level=10 x0=25 xl=20 lbox=30 a0=0.6 re=0 bo=0 tend=22 bathy=30:1,37.6:0.05 out=$GW_RUNS/C05_L10",
+   "done": "exit=0 wall=264",
+   "restarted_at": [],
+   "n_win_frames": 279,
+   "log_sha256": "6db434aed9b5dc268bfa1f790609286236cf0287351d7754fddcf8f8aaa671b6"
+  },
+  "C06_L10": {
+   "command": "$GW_BIN/gw_shoal_n level=10 x0=25 xl=20 lbox=30 a0=0.6 re=0 bo=0 tend=22 bathy=30:1,37.2:0.1 out=$GW_RUNS/C06_L10",
+   "done": "exit=0 wall=244",
+   "restarted_at": [],
+   "n_win_frames": 279,
+   "log_sha256": "6e53517c0ab25f1b1b8d38032b420224ad66beae3164d162dbfcc43cc29d43a3"
+  },
+  "C07_L10": {
+   "command": "$GW_BIN/gw_shoal_n level=10 x0=25 xl=20 lbox=30 a0=0.6 re=0 bo=0 tend=22 bathy=30:1,36.8:0.15 out=$GW_RUNS/C07_L10",
+   "done": "exit=0 wall=294",
+   "restarted_at": [],
+   "n_win_frames": 282,
+   "log_sha256": "4e9c2e2293437a68a80d42ab7c7276c0c8af86af17e633392840df765859fa16"
+  },
+  "C08_L10": {
+   "command": "$GW_BIN/gw_shoal_n level=10 x0=25 xl=20 lbox=30 a0=0.6 re=0 bo=0 tend=22 bathy=30:1,36.4:0.2 out=$GW_RUNS/C08_L10",
+   "done": "exit=0 wall=275",
+   "restarted_at": [],
+   "n_win_frames": 278,
+   "log_sha256": "ed1b425d16d68b644f44b61f495770a368059715cb42346442493c11a8e52aff"
+  },
+  "C09_L10": {
+   "command": "$GW_BIN/gw_shoal_n level=10 x0=25 xl=20 lbox=30 a0=0.6 re=0 bo=0 tend=22 bathy=30:1,35.6:0.3 out=$GW_RUNS/C09_L10",
+   "done": "exit=0 wall=271",
+   "restarted_at": [],
+   "n_win_frames": 284,
+   "log_sha256": "ec7ed63d209fc0f1d7fed0d679d5428d1c5cc5b6ca60c90c86379b8255835228"
+  },
+  "C10_L10": {
+   "command": "$GW_BIN/gw_shoal_n level=10 x0=25 xl=20 lbox=30 a0=0.4 re=0 bo=0 tend=22 bathy=30:1,36.8:0.15 out=$GW_RUNS/C10_L10",
+   "done": "exit=0 wall=195",
+   "restarted_at": [],
+   "n_win_frames": 290,
+   "log_sha256": "81b9282e862dd2fe82fdfbc633639725cd5b76e8190e372daa83a9163ae86eaa"
+  },
+  "C11_L10": {
+   "command": "$GW_BIN/gw_shoal_n level=10 x0=25 xl=20 lbox=30 a0=0.5 re=0 bo=0 tend=22 bathy=30:1,36.8:0.15 out=$GW_RUNS/C11_L10",
+   "done": "exit=0 wall=225",
+   "restarted_at": [],
+   "n_win_frames": 279,
+   "log_sha256": "3b000283666d2fdb8e02a5358a456ae05674506d14ef0562146cb6f8ce5698b8"
+  },
+  "C12_L10": {
+   "command": "$GW_BIN/gw_shoal_n level=10 x0=25 xl=20 lbox=30 a0=0.7 re=0 bo=0 tend=22 bathy=30:1,36.8:0.15 out=$GW_RUNS/C12_L10",
+   "done": "exit=0 wall=415",
+   "restarted_at": [],
+   "n_win_frames": 281,
+   "log_sha256": "3da97c95e87123e54c3a194c5e70a31cdc97369975b015fb0a0cda83f478dda9"
+  },
+  "C13_L10": {
+   "command": "$GW_BIN/gw_shoal_n level=10 x0=25 xl=20 lbox=30 a0=0.6 re=0 bo=0 tend=22 bathy=30:1,30.8:0.2 out=$GW_RUNS/C13_L10",
+   "done": "exit=0 wall=156",
+   "restarted_at": [],
+   "n_win_frames": 247,
+   "log_sha256": "4d8724bfbadf748ef7201f3ba9def85d0425255805f2ed2a91acec6a1af5d7ec"
+  },
+  "C14_L10": {
+   "command": "$GW_BIN/gw_shoal_n level=10 x0=25 xl=20 lbox=30 a0=0.6 re=0 bo=0 tend=22 bathy=30:1,30.9:0.1 out=$GW_RUNS/C14_L10",
+   "done": "exit=0 wall=118",
+   "restarted_at": [],
+   "n_win_frames": 226,
+   "log_sha256": "c67fb9b471f0dd5274c7bfe37d072efa218082a2f8642ba1c3c30155b835636a"
+  },
+  "C15_L10": {
+   "command": "$GW_BIN/gw_shoal_n level=10 x0=25 xl=20 lbox=30 a0=0.6 re=0 bo=0 tend=22 bathy=30:1,30.7:0.3 out=$GW_RUNS/C15_L10",
+   "done": "exit=0 wall=268",
+   "restarted_at": [],
+   "n_win_frames": 258,
+   "log_sha256": "fc85922a5ae61a19e813d44c0188137726776d5a029b5f652242cda1b8f1fca9"
+  },
+  "C16_L10": {
+   "command": "$GW_BIN/gw_shoal_n level=10 x0=25 xl=20 lbox=30 a0=0.6 re=0 bo=0 tend=22 bathy=30:1,34:0.5,37:0.5,39.8:0.15 out=$GW_RUNS/C16_L10",
+   "done": "exit=0 wall=349",
+   "restarted_at": [],
+   "n_win_frames": 298,
+   "log_sha256": "669fa4f99b7c182843a6d17be97e45a3393720614bedda41291cd83bb0d3243a"
+  },
+  "C17_L10": {
+   "command": "$GW_BIN/gw_shoal_n level=10 x0=25 xl=20 lbox=30 a0=0.6 re=0 bo=0 tend=22 bathy=30:1,30.5:0.5,34:0.5,34.35:0.15 out=$GW_RUNS/C17_L10",
+   "done": "exit=0 wall=263",
+   "restarted_at": [],
+   "n_win_frames": 279,
+   "log_sha256": "62d1e6bcfbff866cee1178c875af3e56088082ed1e273f1a177c0d8c99f48854"
+  },
+  "C18_L10": {
+   "command": "$GW_BIN/gw_shoal_n level=10 x0=25 xl=20 lbox=30 a0=0.6 re=0 bo=0 tend=22 bathy=30:1,34.75:0.05 out=$GW_RUNS/C18_L10",
+   "done": "exit=0 wall=212",
+   "restarted_at": [],
+   "n_win_frames": 244,
+   "log_sha256": "2c677538f625c05e45c7f817922bb18f41db5543f9d165039058cade69aea19e"
+  },
+  "C19_L10": {
+   "command": "$GW_BIN/gw_shoal_n level=10 x0=25 xl=20 lbox=30 a0=0.6 re=0 bo=0 tend=22 bathy=30:1,38.4:0.3 out=$GW_RUNS/C19_L10",
+   "done": "exit=0 wall=502",
+   "restarted_at": [],
+   "n_win_frames": 309,
+   "log_sha256": "0a21ef59a28cb98ac8aeafa0cc90ffa66c4e4400b5016fda295f601b50ceee84"
+  },
+  "C20_L10": {
+   "command": "$GW_BIN/gw_shoal_n level=10 x0=25 xl=20 lbox=30 a0=0.7 re=0 bo=0 tend=22 bathy=30:1,35.4:0.1 out=$GW_RUNS/C20_L10",
+   "done": "exit=0 wall=376",
+   "restarted_at": [],
+   "n_win_frames": 258,
+   "log_sha256": "f88b916dd385509d2b5367078520b3d25cec4e77c5a94e9ddfa16e3684826b6a"
+  },
+  "C04_L11": {
+   "command": "$GW_BIN/gw_shoal_n level=11 x0=25 xl=20 lbox=30 a0=0.6 re=0 bo=0 tend=22 bathy=30:1,40.2:0.15 tail=2.5 out=$GW_RUNS/C04_L11",
+   "done": "exit=0 wall=2237",
+   "restarted_at": [],
+   "n_win_frames": 277,
+   "log_sha256": "a8c7f39caf9c7e8c854551dcac048142a0f56030da445a6b4f9c8918ac65fdb3"
+  },
+  "C08_L11": {
+   "command": "$GW_BIN/gw_shoal_n level=11 x0=25 xl=20 lbox=30 a0=0.6 re=0 bo=0 tend=22 bathy=30:1,36.4:0.2 tail=2.5 out=$GW_RUNS/C08_L11",
+   "done": "exit=0 wall=1580",
+   "restarted_at": [],
+   "n_win_frames": 251,
+   "log_sha256": "4ecc6919ca392350d6d449654ed3250e2321b634aec160c8fd1d1c00b1ae5f41"
+  },
+  "C03_L11": {
+   "command": "$GW_BIN/gw_shoal_n level=11 x0=25 xl=20 lbox=30 a0=0.6 re=0 bo=0 tend=22 bathy=30:1,37.65:0.15 tail=2.5 out=$GW_RUNS/C03_L11",
+   "done": "exit=0 wall=1601",
+   "restarted_at": [],
+   "n_win_frames": 266,
+   "log_sha256": "5a9dc2975e2f36813def5a66e308fca86d0591ce79352fe899e0435e8673b89a"
+  },
+  "B_S2_x15_L11": {
+   "command": "$GW_BIN/gw_shoal_n level=11 x0=15 xl=0 lbox=60 a0=0.6 re=0 bo=0 tend=24 bathy=30:1,39:0.1 out=$GW_RUNS/B_S2_x15_L11",
+   "done": "exit=0 wall=846",
+   "restarted_at": [],
+   "n_win_frames": 373,
+   "log_sha256": "a284ff170968cc6da4715251cbf14e9e0e6a94ed9dfb295e3f118eccdae96534"
+  },
+  "B_S5_x15_L11": {
+   "command": "$GW_BIN/gw_shoal_n level=11 x0=15 xl=0 lbox=60 a0=0.6 re=0 bo=0 tend=24 bathy=30:1,35.6:0.2 out=$GW_RUNS/B_S5_x15_L11",
+   "done": "exit=0 wall=698",
+   "restarted_at": [],
+   "n_win_frames": 351,
+   "log_sha256": "26c2b77acf0384056b640179df33a1e7a13082f86af366c7866b4997e83205c3"
+  },
+  "chk_A_L10_bo0": {
+   "command": "$GW_BIN/gw_shoal_n level=10 x0=15 xl=0 lbox=60 a0=0.6 re=40000 bo=0 tend=24 bathy=30:1,39.07513:0.37109375 out=$GW_RUNS/chk_A_L10_bo0",
+   "done": "exit=0 wall=210",
+   "restarted_at": [],
+   "n_win_frames": 399,
+   "log_sha256": "4a4354571447f597339185182d6682f2fc5b649e64023d0927c1661c5940700f"
+  },
+  "mlt_A_L10_m7": {
+   "command": "$GW_BIN/gw_shoal_t level=10 x0=15 xl=0 lbox=60 a0=0.6 re=40000 bo=4000 tend=24 bathy=30:1,39.07513:0.37109375 minlevel=7 out=$GW_RUNS/mlt_A_L10_m7",
+   "done": "exit=0 wall=563",
+   "restarted_at": [],
+   "n_win_frames": 401,
+   "log_sha256": "6e6a10b9366aaea86590dceb4ff0c45d730725129967c60ee942b8950d574a55"
+  },
+  "mlt_S2_L10_m7": {
+   "command": "$GW_BIN/gw_shoal_n level=10 x0=25 xl=20 lbox=30 a0=0.6 re=0 bo=0 tend=22 bathy=30:1,39:0.1 minlevel=7 out=$GW_RUNS/mlt_S2_L10_m7",
+   "done": "exit=0 wall=690",
+   "restarted_at": [],
+   "n_win_frames": 299,
+   "log_sha256": "71eec2282289368307fce5c2a32b25631e1dfd3e0cb82ee16026c5cb540a4302"
+  },
+  "mlt_S2_x15_m7": {
+   "command": "$GW_BIN/gw_shoal_n level=11 x0=15 xl=0 lbox=60 a0=0.6 re=0 bo=0 tend=24 bathy=30:1,39:0.1 minlevel=7 out=$GW_RUNS/mlt_S2_x15_m7",
+   "done": "exit=0 wall=808",
+   "restarted_at": [],
+   "n_win_frames": 373,
+   "log_sha256": "161a0f4734fda5a2302ca94aa624e1ff459e0aa4a061b39387f427ae40068610"
+  },
+  "mlt_S5_x15_m7": {
+   "command": "$GW_BIN/gw_shoal_n level=11 x0=15 xl=0 lbox=60 a0=0.6 re=0 bo=0 tend=24 bathy=30:1,35.6:0.2 minlevel=7 out=$GW_RUNS/mlt_S5_x15_m7",
+   "done": "exit=0 wall=623",
+   "restarted_at": [],
+   "n_win_frames": 351,
+   "log_sha256": "a958ffe333dd1c04275cfdb0cbd2c05c219f02929b302bb43ba80a0dcb887d6b"
+  }
+ },
+ "outputs": {
+  "A_L10.mp4": "fcf5551e789ced39236aaf23a0e02cb836de810e6195b8d69ef4308cbb4fbe1f",
+  "A_L11.mp4": "661dcbdb853088441c2b79f93eb7f2fb6718e70fbff90eb2435c53b92b6becd4",
+  "A_L12.mp4": "35570b5b73a1066c42f18d2be709765b72cba2c18a4d2df07da045a11b22c1f8",
+  "A_L9.mp4": "bb2d04a8fc6ae4f96724eb0ac3050f72c7b7252e1240dd0d2fa8924b46709218",
+  "B_S1_L10.mp4": "02e0f817f6abc40149c5a3ea516e7b9ff528f2569bd298e61b4188ff5eb8982d",
+  "B_S1_L11.mp4": "f82b7f313a39b4fe8ca5005c90ab01d8ba7036f527b30ab0bc02264c8c4b3203",
+  "B_S1p_L10.mp4": "d8643653c09b4442be84d91fec8c55f99b5f20f2cc4b6001841ecd224a632820",
+  "B_S2_L10.mp4": "6029202fd7031917318e40eb18372b10224228b90ac5ad0b9e3eb21a8dccc11f",
+  "B_S2_L11.mp4": "7f1660c46caeedec740f12a805c9204b3750f18770fc959d6c3dc7f60c63f60b",
+  "B_S2_L12.mp4": "39309cf4c2ee5470ca2de85485f1a68f06f9ea63f2cd311328e4d67d0e479d51",
+  "B_S2_x15_L11.mp4": "a7490179158d9b337ed8482b53c308ab19ba213f7d89f44cbaa6bdfc5fbc37d9",
+  "B_S5_L10.mp4": "fd434677891ff7b005ceeb9c2a76f9277ee1020e506eb5db26da1c889c26d69b",
+  "B_S5_L11.mp4": "3257ef9c43678e1bbba609b111513f226325939662b795cb37a19e49b6815f98",
+  "B_S5_L12.mp4": "7c23bd04258a2a52f7c2d5429ce0c6090511d6207bf61a7390535e49de8056dd",
+  "B_S5_x15_L11.mp4": "81dd757d32faa6450c376120a19a39e182c72775743f6bae97572954869d37f4",
+  "C01_L10.mp4": "839867469a59edea1f5dc62764b4a36124e9754a1dfe646939f3878a380bac94",
+  "C02_L10.mp4": "f24d3b7dfd41fee248a7bd75c1b6e77a47b4f817a35b839cd6a3e482216240d3",
+  "C03_L10.mp4": "fc13a4903197bb0ea9f0449505a67d54f67761ddc2e7cc29cf51652a310822d1",
+  "C03_L11.mp4": "0757bb245edf3d95632ad9fbbd091d892ef74930e0ec8a41db737a7b4f8ef1df",
+  "C04_L10.mp4": "5531e195133235ae6781228ce3480d775760d6d35d294c4aaafa81428675e5b0",
+  "C04_L11.mp4": "3d07dc3d032dd439bc2e68c41168063e80ccfcc4a6d3049ea2eb88fc1e8730c7",
+  "C05_L10.mp4": "aaad60c8ef6ad4c9281b0d6fd5e385a05c24a32de443b6510fcf13c6f9828094",
+  "C06_L10.mp4": "95220e95579d6cb886f71f3734ac13e9ec7667948f91d1f18f744af8b190ee17",
+  "C07_L10.mp4": "52a0d1fa0859a12c8e09738ff36bf45fa54f54ec4ca06c91387271ea29382335",
+  "C08_L10.mp4": "b196278a487f396e306f1fb45bcc81d4867ac4287df956cc2cada9f024e459fe",
+  "C08_L11.mp4": "83e36ce59ad770623a95e4061bc09360c5e01886ea4e8818396f8246e1e17961",
+  "C09_L10.mp4": "a7e1658de5da7028098561d7a90bfe2dbab6e3f6c2f6675b26e6ca813fecf9c5",
+  "C10_L10.mp4": "c550f08397d399884b9e9e6ced9ffb96fdd3b82f7c1cda781e85b7960042c1ed",
+  "C11_L10.mp4": "63d9374f2888818b51d9540ce41471eeae16ed6194af4ca0a84b3a97917e118f",
+  "C12_L10.mp4": "6d6f541542902c889c7d3156adf8211f5db95cae0ed0dc7e96b450b795e9c2c8",
+  "C13_L10.mp4": "332b09105616e108769122857bcdc116b7fc463f2237e47cd9d1a36ab1bb15a1",
+  "C14_L10.mp4": "f58a093ede5a6529ffa7f44b02c9cfecf09c19a953e3837535ee3d551863818d",
+  "C15_L10.mp4": "76ff2bd4edba95ed3c1890e9664dce7de260d89d48f16e8ffa2d1c76921815b5",
+  "C16_L10.mp4": "9bf227fbf8094b4c58aec2dbfc76a709bf83de0b38f62c755525d53477038be3",
+  "C17_L10.mp4": "09b130f4968bfa87c739647fb388b32ec7f92f502a7c3157390445e6cbbec5f6",
+  "C18_L10.mp4": "ad1e5d336cecfddd7f3a13efd8867288e9ad11fad5e543764bd8ad4be07f137a",
+  "C19_L10.mp4": "5c47c4a7fc43590b2a1ab5db8d2df3dc1c111b69eb56f6bc4bbbda26c2815099",
+  "C20_L10.mp4": "5feeab621d483b5782d682862ca45496887fd104aee36cc425603c5b8470dd5b",
+  "chk_A_L10_bo0.mp4": "29b18ca6806ff26df4a6c5a2ec96134a04ea8a7d659dd63de1ea94924c951545",
+  "compare_A.mp4": "55c9a9022915597d0aaa413465dfb5643251a3c1f70be5443ce814d6741bf6c9",
+  "compare_B.mp4": "53c8e06f7136f55bc62746631c5a6a1dca4fb7f9c6c14f50367e35d06dada8e1",
+  "compare_C.mp4": "4f52c5a90efffdb131a4a980447a0657977b6ed01fbe9c3ef08382d57a0c5469",
+  "fig_A_levels.png": "dd3af3699e1d6fbe733a81661333e1f92ecb3f3881559c50af2bf22c560222a3",
+  "fig_BC_score3.png": "85ecbcf68eeb2fc700451a6e6f412986759e1de5f3c19e17b631f3f6522ffabc",
+  "fig_B_shapes_L11.png": "52a6bc585b4a2c1d2ffdb61035d2303b904301b361fdd394ae49927d054f9d2b",
+  "fig_B_shapes_L12.png": "99d6749f98933e1e63ed56ae702ecad7bcbedb41d21be1a2e5e74645f20394a9",
+  "fig_top3.png": "54c6d52ddf6b26341b705272b12aea9f0cd1819ff68f358cdf41a90945ea75c1",
+  "mlt_A_L10_m7.mp4": "7bfddc1f463dff2f0fc727f48353bcf6a09bb082bde60c43570a9b050ea0d7d5",
+  "mlt_S2_L10_m7.mp4": "750de263d861b31e24754951783da087cb9ed8ebfc3e5d3ed3264ba5255472df",
+  "mlt_S2_x15_m7.mp4": "a1dc8cec941e6c46dfb1f15d0fc5d74ee466e5fe5e61d93d7f6a58127fb744b2",
+  "mlt_S5_x15_m7.mp4": "a6fa59743bad5c695d624948cd23bf74e8a9efd8495706de102569ae9400cac1",
+  "results.json": "38d92d1a6f90fa6acb079b0a56eff66e4700795d80f666f12acd3ec19f25c944",
+  "tS2_L10_re1e6.mp4": "1636f31b87d8a30714b25e673277404f0683b0a1c1025a7acb8d152b9c398797",
+  "top3.json": "3f6fca650c3b3a65e663daae1ce570648092f0ddf2d5c74d68653e6ec9896d6b"
+ }
+}
