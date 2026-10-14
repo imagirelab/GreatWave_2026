@@ -14,6 +14,10 @@ runs/ready/P05_GN.json（GN で比べる時の設定。走らせるのは main s
   py -3.10 g46_cfg.py one P05 --wave gn --tag P05_GN                       1 本の設定を runs/ready/ に書く
   py -3.10 g46_cfg.py one P05 --veltransfer flip --tag P05_FLIP             速度の受け渡しを FLIP に（y = 0 の面の APIC の偏りを避ける選び）
   --side_pad 2：対称の面 y = 0 を SDF の壁にする（APIC のまま。粒子 1 m で壁の層の水面が 0.3 m 高く出たので既定にしない）
+2026-10-15 足した（3D を細くする試し）：--ridge_k（尾根の横の k。大きいほど真ん中だけが浅い細い尾根）と --W（箱の横の半幅 m。尾根の外の平らな
+深い所まで取って、横の壁の影響を減らす）。k が 0.25 でない時の論文の値（TARGETS）は k 0.25 のもので、比べの参考にだけ使う。
+  py -3.10 g46_cfg.py one P05 --veltransfer flip --ridge_k 1.0 --W 102 --tag P05_k1p0_W102
+--Lx（箱の長さ m）：k 0.5 では巻きが x 300〜315 m で始まり、下流の壁（323 m）の前に終わらなかったので延ばす。真ん中の海底は x 343.8 m で水面に出る
 """
 import os, sys, json, argparse
 
@@ -62,9 +66,9 @@ INIT_DX = [-32.0, -15.0, 0.0, 15.0, 32.0]
 INIT_Y = [-1.0, -2.0, -4.25, -8.5, -12.75, -15.0, -15.3]
 
 
-def parms_for(dp, wave_on=1.0, smoke=False, floor_pad=0, side_pad=0, **over):
+def parms_for(dp, wave_on=1.0, smoke=False, floor_pad=0, side_pad=0, W=GC.W_PLAN, Lx=GC.LX_PLAN, **over):
     GC.check_dp(dp, smoke=smoke)
-    b = GC.box(dp, floor_pad=floor_pad, side_pad=side_pad)
+    b = GC.box(dp, Lx=Lx, W=W, floor_pad=floor_pad, side_pad=side_pad)
     p = dict(dp=b["dp"], gridscale=2.0, x0=b["x0"], Lx=b["Lx"], W=b["W"], zb=GC.Z_BOTTOM, Hz=b["Hz"], h0=GC.H0,
              ox=b["ox"], oy=b["oy"], oz=b["oz"], maxsub=8.0, minsub=1.0, cfl=1.0, pcfl=0.75, t_off=0.0,
              ridge_on=1.0, ridge_x0=GC.RIDGE_X0, ridge_k=GC.RIDGE_K, ridge_s=GC.RIDGE_S, bed_gap=0.5, floor_pad=float(floor_pad), side_pad=float(side_pad),
@@ -185,18 +189,34 @@ if __name__ == "__main__":
     ap.add_argument("--veltransfer", choices=["apic", "flip"], default=None,
                     help="速度の受け渡し（既定 apic。flip は y = 0 の対称の面の偽の横流れを避ける選び。2026-10-12 統合の役の煙の試し）")
     ap.add_argument("--side_pad", type=int, default=0, help="対称の面 y = 0 を SDF の壁にする（格子の数。既定 0 = 箱の壁）")
+    ap.add_argument("--ridge_k", type=float, default=None, help="尾根の横の k（既定 0.25 = GG06）。2026-10-15 細くする試し")
+    ap.add_argument("--W", type=float, default=None, help="箱の横の半幅 m（既定 68 = 4 h0）。2026-10-15 細くする試し")
+    ap.add_argument("--Lx", type=float, default=None, help="箱の長さ m（既定 323 = 19 h0）。巻きが下流の壁より前に終わるよう延ばす。2026-10-15")
     a = ap.parse_args()
 
     def extra(c):
         if a.veltransfer:
             c["solver"]["veltransfer"] = a.veltransfer
-        if a.side_pad:
+        if a.side_pad or a.ridge_k is not None or a.W is not None or a.Lx is not None:
+            over = {"ridge_on": c["parms"]["ridge_on"]} if c["parms"].get("ridge_on", 1.0) < 0.5 else {}
+            if a.ridge_k is not None:
+                over["ridge_k"] = float(a.ridge_k)
             p_, b_ = parms_for(c["parms"]["dp"], wave_on=c["parms"]["wave_on"], smoke=(c.get("kind") == "smoke"),
                                floor_pad=int(c["parms"]["floor_pad"]), side_pad=a.side_pad,
-                               **({"ridge_on": c["parms"]["ridge_on"]} if c["parms"].get("ridge_on", 1.0) < 0.5 else {}))
+                               W=(a.W if a.W is not None else GC.W_PLAN), Lx=(a.Lx if a.Lx is not None else GC.LX_PLAN), **over)
             c["parms"] = p_; c["box"] = b_
-        if a.veltransfer or a.side_pad:
-            c["note"] += "（veltransfer %s・side_pad %d）" % (c["solver"]["veltransfer"], a.side_pad)
+            # 横の幅に合わせる所（base() と同じ決まり）
+            c["records"]["r3_z"] = b_["W"] - 0.5 * b_["vox"]
+            if c["records"].get("r4"):
+                c["records"]["r4"]["z1"] = b_["W"]
+                c["records"]["r4"]["x"] = [150.0, b_["Lx"]]
+            c["level_box"] = [0.0, b_["Lx"], 0.0, b_["W"]]
+        if a.ridge_k is not None or a.W is not None or a.Lx is not None:
+            c["case"]["name"] = "E1b_ridge_k%g_W%g_L%g" % (c["parms"]["ridge_k"], c["box"]["W"], c["box"]["Lx"])
+            c["case"]["targets"] = dict(c["case"]["targets"], note_ja="論文の値は k 0.25・半幅 68 m のもの。k・幅が違う時は比べの参考だけ")
+        if a.veltransfer or a.side_pad or a.ridge_k is not None or a.W is not None or a.Lx is not None:
+            c["note"] += "（veltransfer %s・side_pad %d・ridge_k %g・W %g・Lx %g）" % (
+                c["solver"]["veltransfer"], a.side_pad, c["parms"]["ridge_k"], c["box"]["W"], c["box"]["Lx"])
         return c
     if a.what == "smoke":
         c = extra(smoke(a.name, a.dp, t_end=a.t_end, sol=a.sol, tag=a.tag, wave=a.wave))
