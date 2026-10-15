@@ -22,9 +22,13 @@
                                               起動を 2 回以上に分ける）だけを見る。in_gain は仮の 1.0（S0b の前に走らせてよいように）
   2026-10-15 方案 A（PER49-A、海底 SC37 = FLIP48 C3 の海底を +37.25 m、箱 442 × 85 m・底 −25 m、出口の帯 362〜442 m）を足した：
   py -3.10 -B g49_pcfg.py cfg SMOKE_A|DA1|DA3 [--run=<DA1 の記録>]   方案 A の設定（layout A。cfg の analysis に読みの窓）。DA1 は時間の見込みの上が
-                                              2.5 h を越えれば重い記録を 1 コマおき（R4・R5 の every 2）にする。DA2 はこの段では書かない（止めて理由を出す）
+                                              2.5 h を越えれば重い記録を 1 コマおき（R4・R5 の every 2）にする。DA2 は下の 2026-10-16 の行（AM-A3）
         DA1 --heavy=cont（既定、2026-10-15 AM-A2）：重い記録を 47 s〜終わりの 1 つの窓で 3 コマごと（下見の巻き始めに縛らない）。
         DA1 --heavy=screen：前の決まり（下見の巻き始め ± [−3, +4] s の窓、時間の見込みが 2.5 h を越えれば 1 コマおき）
+  2026-10-16 DA2 を足した（plan/amendments.jsonl AM-A3）：
+  py -3.10 -B g49_pcfg.py cfg DA2 [--change=chy40]   DA1 から海底の 1 つだけ（溝の壁の真ん中 ch_y0 55 → 40 m）を変えた主の粗い 3D。波・入口・箱・出口の帯・
+                                              92 s・重い記録（47〜92 s を 3 コマごと）・段 C は DA1 と同じ。in_gain は plan/in_gain.json（同じ波なので入口の板は要らない）。
+                                              粒子が +5.1 % なので 1 本の時間の上限だけ 3.0 h（AM-A3。判定の閾ではない）。--change=T16 は書かない（AM-A3 で選ばなかった）
   py -3.10 -B g49_pcfg.py freezeA [--force=1 --reason=…]   plan/plan_A_frozen.json（＋ .sha256）を書く（g49_planA.py。あれば書かない）
   check は方案 A の確かめ（T0A：C3 をずらした海底と 1 bit 同じ・u3 と同じ・勾配・形・箱と粒子の数・in_gain・SMOKE_A と DA1 の precheck）も行う
   py -3.10 -B g49_pcfg.py gain <S0b の記録>    S0b の門（plan_frozen.json の strip_gates.S0b）を当てはめ、通れば plan/in_gain.json を書く。
@@ -65,6 +69,13 @@ HEAVY_WIN_GUESS = (-4.0, 4.0)              # D0 の巻き始めが 4 つより�
 # 47 s = 判定の下限 45 s と最初の下見の巻き始め 50.5 s − 3 s（窓の設計と同じ前の余裕）の間。3 コマ ≤ w_at・mesh_exists の ±1〜2 コマ。
 # 前の窓に戻すのは `cfg DA1 --heavy=screen`
 HEAVY_CONT_A = dict(t0=47.0, every=3)
+# 方案 A DA2（2026-10-16、plan/amendments.jsonl AM-A3）：SC37 から溝の壁の真ん中 ch_y0 だけを 55 → 40 m に（ほかの海底の数は SC37 と同じ）【選び】。
+# 理由（diag_DA1）：DA1 の巻いた幅 2.7〜3.5 Hc は巻き始めの頂の横の形 c(y) が広いこと（半分の超えの全幅 F 49〜69 m）で決まる【測定】。
+# 下見（U3、DA1 に合わせた倍率）で F −26〜−35 %、c0/c_side と c0/c(4Hc) は下がらない【計算】。T16 H7.0 は c0/c_side 1.16〜1.29 の見込みで止める決まりに当たる【推測】
+SPEC_A2_CHANGE = dict(ch_y0=40.0)
+EXPECT_PARTICLES_A2 = {0.5: 5238087, 1.0: 656570}   # SC37 ch_y0 40（箱 442 × 85 m・底 −25 m。粒子 1.0 m は半幅 86 m）【計算】g49_common.count_particles。+5.15 %、水 +32,060 m³
+LIMIT_3D_H_A2 = 3.0                         # DA2 の 1 本の上限（時間）：DA1 の測った 2.35 h × 粒子 1.0515 ≈ 2.47 h が 2.5 h に近いので（AM-A3）【選び】
+DA1_RUN_A = "DA1_SC37_T12H7p5_dp0p5"        # DA2 の時間の見込みに測った値を使う元の記録（runs/<これ>）
 
 
 # ====================================================================== 凍らせる計画（g49_pcfg.py freeze）
@@ -440,10 +451,13 @@ def precheck(c):
         hi = COEF_HI * n * g_hi / 1e6 * nf / 3600.0
         rec_h = heavy * R5_S_PER_FRAME / 3600.0
         wl_ = float(c.get("wall_limit_s", 1740))
+        lim_ = float(c.get("limit_h_run", LIMIT_3D_H))   # DA2 だけ 3.0 h（AM-A3）。無ければ前と同じ 2.5 h・同じ鍵の名前
         out.update(frames=nf, heavy_frames=heavy, solve_h_lo=lo, solve_h_hi=hi, records_h=rec_h, total_h_lo=lo + rec_h, total_h_hi=hi + rec_h,
-                   limit_h=LIMIT_3D_H, fallbacks="heavy records every 2nd frame, then t_end 90 s",
+                   limit_h=lim_, fallbacks="heavy records every 2nd frame, then t_end 90 s",
                    launches_est="%d-%d launches of <= %d min" % (math.ceil((lo + rec_h) * 3600 / wl_), math.ceil((hi + rec_h) * 3600 / wl_), round(wl_ / 60)))
-        ck["wall_le_2p5h"] = bool(hi + rec_h <= LIMIT_3D_H)
+        ck["wall_le_2p5h" if lim_ == LIMIT_3D_H else "wall_le_%sh" % GC.tag(lim_)] = bool(hi + rec_h <= lim_)
+        if lim_ != LIMIT_3D_H:
+            ck["max_hours_le_limit"] = bool(float(c.get("max_hours", 1e9)) <= lim_ + 1e-9)
         ck["windows_inside_run"] = bool(all(0.0 <= a < b <= c["t_end_s"] + 1e-9 for a, b in (c["records"].get("windows") or [])))
     out["ok"] = bool(all(ck.values()))
     out["reason"] = None if out["ok"] else "外れ：" + ", ".join(k for k, v in ck.items() if not v)
@@ -469,11 +483,25 @@ def precheck_A(c, P, spec, n):
     ck = {}
     info = {}
     dp = float(P["dp"])
-    if dp in EXPECT_PARTICLES_A and float(P["W"]) in (85.0, 86.0):
+    a2 = is_spec_A2(spec)                     # DA2 の海底（SC37 の ch_y0 だけ 40 m、AM-A3）。DA1・SMOKE_A は偽（前と同じ確かめ・同じ鍵）
+    if dp in EXPECT_PARTICLES_A and float(P["W"]) in (85.0, 86.0) and not a2:
         ck["A_particles_as_designed"] = bool(n == EXPECT_PARTICLES_A[dp])
+    if a2 and dp in EXPECT_PARTICLES_A2 and float(P["W"]) in (85.0, 86.0):
+        ck["A2_particles_as_computed"] = bool(n == EXPECT_PARTICLES_A2[dp])
     ck["A_box"] = bool(float(P["Lx"]) == LY["Lx"] and float(P["zb"]) == LY["zb"] and float(P["floor_pad"]) == 2.0)
-    ck["A_bed_is_SC37"] = bool(all((spec.get(k) == v) if not isinstance(v, float) else abs(float(spec.get(k)) - v) < 1e-12 for k, v in GC.SPEC_A.items())
-                               and GC.is_spur_drop(spec))
+    if a2:
+        o2, k2 = checks_A2(spec)
+        ck.update(k2)
+        info["A2"] = o2
+        info["A2"]["particles"] = dict(model=int(n), SC37_dp0p5=EXPECT_PARTICLES_A[0.5], ratio_vs_SC37=(n / EXPECT_PARTICLES_A[dp]) if dp in EXPECT_PARTICLES_A else None)
+        if c["kind"] == "3d" and dp == 0.5:
+            info["A2"]["cost_from_DA1"] = cost_from_run(DA1_RUN_A, n, float(c.get("limit_h_run", LIMIT_3D_H)), int(c["f_end"]))
+            cm = info["A2"]["cost_from_DA1"]
+            if cm.get("est_hi_h") is not None:
+                ck["A2_measured_est_hi_le_limit"] = bool(cm["est_hi_h"] <= cm["limit_h"])
+    else:
+        ck["A_bed_is_SC37"] = bool(all((spec.get(k) == v) if not isinstance(v, float) else abs(float(spec.get(k)) - v) < 1e-12 for k, v in GC.SPEC_A.items())
+                                   and GC.is_spur_drop(spec))
     xa0 = float(P["xa0"]); Lx = float(P["Lx"])
     drop_end = spec["x_back"] + (spec["h_lag"] - spec["shelf_h"]) * spec["s_back"]
     info.update(exit_band_m=[xa0, Lx], exit_len_m=Lx - xa0, drop_end_x_m=drop_end, sigma=float(P["abs_sigma"]), theory=GC.EX_THEORY_A)
@@ -497,6 +525,87 @@ def precheck_A(c, P, spec, n):
     if c["kind"] == "3d":
         ck["A_plan_frozen_named"] = bool((c.get("case") or {}).get("plan_frozen") == PLAN_A_REL)
     return dict(checks_A=ck, A=info)
+
+
+def spec_A2():
+    """DA2 の海底（AM-A3）：SC37 の ch_y0 だけを 40 m に。"""
+    sp = dict(GC.SPEC_A)
+    sp.update(SPEC_A2_CHANGE)
+    return sp
+
+
+def is_spec_A2(spec):
+    """spec が DA2 の海底（SC37 と ch_y0 以外は同じ、ch_y0 = 40 m）か。"""
+    ref = spec_A2()
+    return bool(GC.is_spur_drop(spec) and all((spec.get(k) == v) if not isinstance(v, float) else
+                                               (spec.get(k) is not None and abs(float(spec.get(k)) - v) < 1e-12) for k, v in ref.items()))
+
+
+def checks_A2(spec):
+    """DA2 の海底の numpy の確かめ（数秒）。返り値 (記録, ok)。
+    (1) 溝が始まる前（x < ch_x0）で SC37 と 1 bit も違わない (2) どこでも SC37 より浅くならない（違いは溝の項だけ）
+    (3) 下見（u3_beds.depth、diag_DA1/d4_u3_screen.py の A_T12H7p5_chy40 と同じ名前）と同じ (4) 軸の縁・最も深い所は SC37 と同じ。"""
+    sp0 = GC.SPEC_A
+    o, ok = {}, {}
+    xs = np.arange(0.0, 442.0, 0.25); ys = np.arange(-90.0, 90.0001, 0.25)
+    X, Y = np.meshgrid(xs, ys)
+    z0 = GC.bed_z(X, Y, **sp0); z2 = GC.bed_z(X, Y, **spec)
+    up = xs < float(spec["ch_x0"])
+    deeper = z0 - z2
+    ok["A2_bed_equals_SC37_before_channels"] = bool(np.array_equal(z0[:, up], z2[:, up]))
+    ok["A2_bed_never_shallower_than_SC37"] = bool(deeper.min() >= -1e-12)
+    o["deeper_than_SC37_max_m_by_abs_y"] = {str(v): float(deeper[np.abs(ys) <= v].max()) for v in (10, 20, 25, 27, 30, 33, 35, 40, 85)}
+    o["depth_m_x266"] = {str(v): [float(-GC.bed_z(266.0, float(v), **sp0)), float(-GC.bed_z(266.0, float(v), **spec))] for v in (0, 20, 30, 35, 40, 45, 50, 55, 60)}
+    U3 = GC.u3_depth_fn()
+    Xg, Yg = np.meshgrid(np.arange(-10.0, 442.0001, 0.25), np.arange(-90.0, 90.0001, 0.5))
+    u3s = dict(GC.SPEC_A_U3); u3s.update(SPEC_A2_CHANGE)
+    dU = float(np.abs(-GC.bed_z(Xg, Yg, **spec) - U3(Xg, Yg, u3s)).max())
+    o["vs_u3"] = dict(max_abs_m=dU, u3_spec=u3s, grid="x -10..442 step 0.25, y -90..90 step 0.5", screen="Unity/Build/FLIP49/diag_DA1/u3/u3_A_T12H7p5_chy40.json")
+    ok["A2_bed_vs_u3_lt_1e-9"] = bool(dU < 1e-9)
+    e0, e2 = GC.edge_x(sp0), GC.edge_x(spec)
+    o.update(edge_x_axis_m=[e0, e2], max_depth_m=[float(-z0.min()), float(-z2.min())], change=dict(SPEC_A2_CHANGE), from_ch_y0=float(sp0["ch_y0"]))
+    ok["A2_edge_and_max_depth_as_SC37"] = bool(e0 == e2 and abs(float(z0.min()) - float(z2.min())) < 1e-3)   # 最も深い所はどちらも溝の 25 m（tanh の裾で 1e-7 m 違う）
+    o["tags"] = dict(all="計算（numpy）")
+    return o, ok
+
+
+def cost_from_run(run_id, n_new, limit_h, f_end_new):
+    """方案 A の測った記録（DA1）の時間から、粒子の数に比例させた見込み（DA2 の precheck に書く。測った値 × 比）。
+    est = DA1 の chain の経過 × n_new/n_DA1 × コマ数の比。est_hi = est ＋ 起動のし直しで重ねるコマが毎回いちばん大きい途中保存の間隔（96 コマ）だった時の差。"""
+    rd = os.path.join(GC.B49, "runs", run_id)
+    o = dict(run=run_id, limit_h=limit_h, tag="測定（DA1 の chain.log と periodic_ana.json）× 計算（粒子の比）")
+    try:
+        lines = open(os.path.join(rd, "chain.log"), encoding="utf8", errors="ignore").read().splitlines()
+        pa = json.load(open(os.path.join(rd, "pana", "periodic_ana.json"), encoding="utf8"))
+        c0 = json.load(open(os.path.join(rd, "cfg.json"), encoding="utf8"))
+    except Exception as e:
+        o["missing"] = repr(e)[:200]
+        return o
+    chunks, elapsed = [], None
+    for ln in lines:
+        w = ln.split()
+        if " chunk " in ln and "done to" in ln:
+            i = w.index("chunk"); j = w.index("to")
+            chunks.append((int(w[i + 1]), int(w[j + 1]), float(w[w.index("wall") + 1])))
+        if "chain end" in ln and "elapsed_h" in ln:
+            elapsed = float(w[w.index("elapsed_h") + 1])
+    if not chunks or elapsed is None:
+        o["missing"] = "chain.log に起動の行か chain end が無い"
+        return o
+    nf1 = int(c0["f_end"]); n1 = int(((pa.get("health") or {}).get("particles") or {}).get("first") or 0)
+    computed = sum(d - f0 + 1 for f0, d, _ in chunks)
+    redo = computed - nf1
+    wall = sum(wv for _, _, wv in chunks)
+    s_per = wall / max(computed, 1)
+    sp_max = max(int(v) for v in c0.get("ckpt_list", [96]))
+    worst_redo = (len(chunks) - 1) * sp_max
+    ratio = n_new / max(n1, 1)
+    est = elapsed * ratio * (f_end_new / nf1)
+    est_hi = est + max(0, worst_redo - redo) * s_per * ratio / 3600.0
+    o.update(DA1_elapsed_h=elapsed, DA1_launches=len(chunks), DA1_frames=nf1, DA1_frames_computed=computed, DA1_frames_redone=redo,
+             DA1_s_per_frame_mean=s_per, DA1_particles_first=n1, DA1_growth=((pa.get("health") or {}).get("particles") or {}).get("growth"),
+             particle_ratio=ratio, est_h=est, est_hi_h=est_hi, worst_redo_frames=worst_redo)
+    return o
 
 
 def write(c):
@@ -630,7 +739,7 @@ def _preset(name, opt):
 
 def preset_A(name, opt):
     """方案 A（PER49-A、plan_A_frozen.json）の設定。SMOKE_A：3D の煙の試し（粒子 1.0 m、0〜8 s、起動 2 回）。DA1：主の粗い周期の 3D
-    （粒子 0.5 m、T 12 s・H 7.5 m、段 C、92 s、重い記録は下見の巻き始め ± [−3, +4] s）。DA2：決まりの 1 つだけ変えた続き（T16 H7.0。この段では書かない）。
+    （粒子 0.5 m、T 12 s・H 7.5 m、段 C、92 s、重い記録は下見の巻き始め ± [−3, +4] s）。DA2：DA1 から 1 つだけ変えた続き（2026-10-16 AM-A3：溝の壁の真ん中 ch_y0 55 → 40 m。前の予定 T16 H7.0 は書かない）。
     DA3：PERIODIC が通った時の +48 s の続き（140 s）。"""
     stage = opt.get("stage", "C")
     sp = dict(GC.SPEC_A)
@@ -683,8 +792,31 @@ def preset_A(name, opt):
             c["precheck"] = precheck(c)
         return [c]
     if name == "DA2":
-        raise SystemExit("DA2（T16 H7.0）はこの段では書かない：先に T 16 s の S0b 型の入口の板（約 8 分）と、120 m 以上の出口の帯"
-                         "（箱を Lx 482 m に延ばす並び、σ を 1 次元の理論で選び直す）が要る。DA1 の後の決まり（plan_A_frozen.json decision_rules）で要る時に足す")
+        ch = opt.get("change", "chy40")
+        if ch == "T16":
+            raise SystemExit("DA2 = T16 H7.0 は書かない（2026-10-16 AM-A3 で ch_y0 40 m を選んだ。T16 は下見で c0/c_side 1.16〜1.29 の見込み = 止める決まり）。"
+                             "書くには先に T 16 s の S0b 型の入口の板と、120 m 以上の出口の帯（箱を延ばす並び、σ を選び直す）が要る")
+        if ch != "chy40":
+            raise SystemExit("DA2 の --change は chy40（既定、AM-A3：溝の壁の真ん中 ch_y0 55 → 40 m）だけ")
+        g = float(opt["in_gain"]) if opt.get("in_gain") else None
+        sp2 = spec_A2()
+        win = [[HEAVY_CONT_A["t0"], T_END_A]]
+        wsrc = ("続けて %g〜%g s を %d コマごと（R4・R5、AM-A2 と同じ。DA1 の巻き始め 51.0・62.7・75.0・87.0 s【測定】を全部含む）"
+                % (HEAVY_CONT_A["t0"], T_END_A, HEAVY_CONT_A["every"]))
+        what = "海底の溝の壁の真ん中 ch_y0 55 → 40 m（ほかは DA1 と同じ：T 12 s・H 7.5 m・in_gain・箱 442 m・出口の帯 362〜442 m・92 s・粒子 0.5 m・段 C）"
+        c = make("DA2_SC37y40_T12H7p5_dp0p5" + ("" if stage == "C" else "_st%s" % stage), "3d", 0.5, GC.W_MAIN, sp2, T_END_A, stage=stage, in_gain=g,
+                 windows=win, layout="A",
+                 case_extra=dict(queue_id="DA2", windows_source=wsrc, heavy_rule="cont", da2_change=what, da2_parent_run=DA1_RUN_A,
+                                 da2_why="AM-A3 (Unity/Build/FLIP49/plan/amendments.jsonl); diagnosis Unity/Build/FLIP49/diag_DA1/d6_predict.json",
+                                 amendment="AM-A2 (records) + AM-A3 (DA2 change, wall limit 3.0 h) (Unity/Build/FLIP49/plan/amendments.jsonl)"),
+                 note="FLIP49 方案 A DA2（AM-A3）：DA1 から 1 つだけ変えた主の粗い周期の 3D（粒子 0.5 m、5.24 M）。%s。重い記録は %s。"
+                      "1 本の時間の上限は 3.0 h（粒子 +5.1 %%、AM-A3）、1 回の起動は 29 分以内（DA1 と同じ）" % (what, wsrc))
+        c["records"]["r4"]["every"] = HEAVY_CONT_A["every"]
+        c["records"]["r5"]["every"] = HEAVY_CONT_A["every"]
+        c["limit_h_run"] = LIMIT_3D_H_A2
+        c["max_hours"] = LIMIT_3D_H_A2
+        c["precheck"] = precheck(c)
+        return [c]
     if name == "DA3":
         rd = opt.get("run")
         if not rd or not os.path.exists(os.path.join(rd, "cfg.json")):

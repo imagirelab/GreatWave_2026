@@ -54,6 +54,8 @@ A46 = A48.A46
 A46.B46 = GC.B49                    # この起動の中だけ：出力の置き場所を FLIP49 に（guard_out・default_out が読む）
 _BaseCtx = A48.Ctx48.__bases__[0]   # g46_analyze の元の Ctx
 _T_EXPECT = [None]
+_X_EXPECT = [None]                  # 2026-10-16 AM-A4：見つけた巻き始めの x（前の崩れの段波を拾わないよう、主の崩れを ±10 m に限る）
+X_PICK_TOL = 10.0
 _ORIG_PICK = A46.pick_main
 
 
@@ -197,6 +199,11 @@ def pick_main49(ev):
     if te is None:
         return _ORIG_PICK(ev)
     ons = [e for e in ev if e["onset"] is not None and e["onset"]["t"] >= te - 3.0]
+    xe = _X_EXPECT[0]
+    if xe is not None:                # AM-A4：見つけた巻き始めの x から ±10 m の巻き始めだけ（なければ前の決まりのまま）
+        near = [e for e in ons if e["onset"].get("xc") is not None and abs(float(e["onset"]["xc"]) - float(xe)) <= X_PICK_TOL]
+        if near:
+            ons = near
     others = [e for e in ev if e["onset"] is not None]
     if not ons:
         return None, others
@@ -829,11 +836,11 @@ def main_all(rd, opt):
         k = e["k"]
         wd = guard(os.path.join(od, "waves", "k%02d" % k))
         win = [e["on_t"] - 0.5 * T, e["on_t"] + 0.5 * T]
-        _T_EXPECT[0] = e["on_t"]
+        _T_EXPECT[0] = e["on_t"]; _X_EXPECT[0] = e.get("on_x")
         try:
             A46.analyze(rd, {"t0": str(win[0]), "t1": str(win[1]), "out": wd, "no-mesh": "1"})
         finally:
-            _T_EXPECT[0] = None
+            _T_EXPECT[0] = None; _X_EXPECT[0] = None
         ana = json.load(open(os.path.join(wd, "ana.json"), encoding="utf8"))
         res = peak_wave(rd, cfg, ana, H)
         J = judge_wave(res, ana, tg, cfg, win)
@@ -906,11 +913,11 @@ def main_sup(rd, opt):
         e["k"] = nm; e["judged"] = bool(e["on_t"] >= GC.T_JUDGE); e["why"] = "supplementary: track born <= 2 s before onset (tracker split), not in the frozen event rule"
         wd = guard(os.path.join(od, "s%02d" % (i + 1)))
         win = [e["on_t"] - 0.5 * T, e["on_t"] + 0.5 * T]
-        _T_EXPECT[0] = e["on_t"]
+        _T_EXPECT[0] = e["on_t"]; _X_EXPECT[0] = e.get("on_x")
         try:
             A46.analyze(rd, {"t0": str(win[0]), "t1": str(win[1]), "out": wd, "no-mesh": "1"})
         finally:
-            _T_EXPECT[0] = None
+            _T_EXPECT[0] = None; _X_EXPECT[0] = None
         ana = json.load(open(os.path.join(wd, "ana.json"), encoding="utf8"))
         res = peak_wave(rd, cfg, ana, H)
         J = judge_wave(res, ana, tg, cfg, win)
