@@ -1,0 +1,808 @@
+# -*- coding: utf-8 -*-
+"""FLIP49：周期の波の計算（PER49）の設定（cfg.json）を書き、走らせる前の確かめ（numpy だけ、1 分以内）と、計画の凍結をする（py -3.10 -B）。
+2026-10-15 新しく書いた（周期の波の計画を実装する役）。flip45〜48 のファイルは読むだけ（g48_common・u3_beds・g47_sfwave）。
+計画（凍らせた物）：Unity/Build/FLIP49/plan/plan_frozen.json（＋ .sha256）。同じバイトの写しを Unity/Build/FLIP48/plan/plan_P_frozen.json にも置く
+（タスクの文がその置き場所を書いたため。本体は FLIP49 の物）。
+
+  py -3.10 -B g49_pcfg.py check              numpy の確かめ（plan/precheck.json）：既存の海底が R0・R1・R2b・R3・R4・C3 の cfg と 1 bit も違わない（assert）、
+                                              PG12s が u3_beds.depth と 1e-9 m で同じ、勾配の数値の差、等深線のまっすぐさ、流れ関数の波の値、粒子の数、
+                                              Iribarren の数・横の揺れの向き・静振の周期、時間の見込み
+  py -3.10 -B g49_pcfg.py freeze             plan/plan_frozen.json（＋ .sha256）と写しを書く（あれば書かない）。下見の json 3 つを plan/ に写す
+        --force=1 [--reason=…]：FLIP49 の計算の記録が無い間だけ凍らせ直す。決まりが同じなら理由は要らない。design・honesty を直す時だけ
+                                 --reason が要る（refrozen_changes に残す）。criteria・decision_rules・runs は変えられない
+  py -3.10 -B g49_pcfg.py cfg S0a|S0b|S1|S2|S3|D0|D1|D3|all [--in_gain=1.06] [--stage=A|B|C] [--from=<D0 の記録>] [--run=<D1 の記録>]
+                                              設定を runs/ready/（3D）・strips/ready/（板）に書く。走らせる前の確かめ（precheck）を cfg に入れ、
+                                              ok でなければ書かずに止める（g49_chain.py も precheck.ok と build_check と凍らせた計画の SHA-256 を見る）
+        --H=6.5|8.5：S1・S2・S3・D0・D1 の波高を変える（S1 の後の決まり (2) の H 6.5 m、決まり (c) の前の S1 型の板の H 8.5 m）
+        --band=120：S0b・S1・S2・S3・D0・D1 の入口の帯を 120 m に（S0b の後の決まり。波高計は 128・146・160 m、窓は 130〜285 m）
+  py -3.10 -B g49_pcfg.py cfg D2 --rule=a|b|c|d|e|f [--e=b18|hr12] [--stage=B|C]   決まり D2 の 1 つだけ変えた D1
+  py -3.10 -B g49_pcfg.py cfg Z0 [--dub=0]    2 段目（組）の板の試し（du_b 無しだけ。du_b は Design 3 の式が要るので未実装）
+  py -3.10 -B g49_pcfg.py cfg SMOKE           3D の煙の試し（T0 の一部、判定しない。2026-10-15 足した）：粒子 1.0 m・PG12s・半幅 85 m・0〜8 s を smoke/ready/ に。
+                                              場面・帯の DOP の wrangle・水の量の直しのファイル・記録・sf_check・途中保存からの続き（wall_limit 80 s で
+                                              起動を 2 回以上に分ける）だけを見る。in_gain は仮の 1.0（S0b の前に走らせてよいように）
+  py -3.10 -B g49_pcfg.py gain <S0b の記録>    S0b の門（plan_frozen.json の strip_gates.S0b）を当てはめ、通れば plan/in_gain.json を書く。
+                                              外れなら次の手（in_gain を 7.5/H にして 1 回走らせ直す・帯 120 m・止める）を画面に出す
+in_gain：S0b で一度だけ決める（plan/in_gain.json）。S1・D0・D1・S2・S3・D2・D3 はそれが無ければ precheck が ok にならない（--in_gain で与えた時は
+  「与えた値」と書き、ok にしない＝走らせない。数を見るためだけ）。
+数の印：【測定】前の FLIP の記録、【計算】この道具や下見の計算、【文献】、【推測】、【選び】。
+"""
+import os, sys, json, math, time, glob, shutil, copy
+
+sys.dont_write_bytecode = True
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import numpy as np                 # noqa: E402
+import g49_common as GC            # noqa: E402
+
+G48 = GC.G48
+PLAN_REL = "Unity/Build/FLIP49/plan/plan_frozen.json"
+DOC = "Unity/Build/FLIP49/plan/plan_frozen.json（design・criteria・decision_rules・honesty）"
+COEF_LO, COEF_HI = 0.486, 0.575            # s / (百万粒子・コマ)、FLIP48 R4・C3・R1・R2b【測定から計算】
+GROWTH_LO, GROWTH_HI = 1.16, 1.25          # 粒子の増え：1 波 1.15〜1.16【測定】、周期の波 1.25【推測】
+R5_S_PER_FRAME = 1.8                       # 重い記録（R5 の面）1 コマの秒（FLIP48 の 3D、粒子 0.5 m）【測定】
+LIMIT_3D_H = 2.5                           # 粗い 3D 1 本の上限（時間）【選び：H の 30 分を周期の波で置き換えた】
+EXPECT_PARTICLES = {("3d", 0.5): 3633016, ("3d", 1.0): 449666, ("axis", 0.5): 214224, ("flat", 0.5): 293760}   # 【計算】g49_common.count_particles
+T_END_MAIN = 102.0
+T_END_D3 = 150.0
+ONSET_GUESS = [37.0 + 12.0 * k for k in range(10)]   # 下見の段の上の巻き始めの見込み（s）【計算、下見】。FLIP は 1〜2 s ずれうる
+HEAVY_WIN = (-3.0, 4.0)                    # 重い記録の窓 [t_on − 3, t_on + 4]
+HEAVY_WIN_GUESS = (-4.0, 4.0)              # D0 の巻き始めが 4 つより少ない時：37 + 12k ± 4 s
+
+
+# ====================================================================== 凍らせる計画（g49_pcfg.py freeze）
+def frozen_plan():
+    tg48 = json.load(open(GC.REPO + "/Unity/Build/FLIP48/plan/plan_frozen.json", encoding="utf8"))["targets"]
+    s_, sfT = GC.sf_solve()
+    P = dict(
+        frozen_at=time.strftime("%Y-%m-%d %H:%M:%S"), tool="Tools/GWWaveGen/flip49/g49_pcfg.py freeze", canonical_path=PLAN_REL,
+        copies=["Unity/Build/FLIP48/plan/plan_P_frozen.json"],
+        supervisor_Q52="一つの波ができればよいわけではなく、大波が定期的に現れるような状態が作れる方法を検討してください。",
+        user_20261015_ja="老师说过他想要的是周期性的能产生这种大浪的办法；大浪的收束效果不太明显；视频要在大浪最像原画的时候用红框框出来（利用者 2026-10-15）",
+        reading_ja="Q52 の我々の読み（宣言）：規則的なうねりを固定した海底に入れ、毎回の波が同じ所で大きな細い巻き波になる（12 s ごと）。"
+                   "「静かな波の間に大きな組が来る」の意味なら 2 段目（組）が答え。どちらかは指導教員への問いとして残す",
+        campaign="PER49",
+        design=dict(
+            forcing=dict(kind="regular unidirectional straight-crested Fenton stream-function wave, zero mean mass flux (u2 = 0)",
+                         source="g47_sfwave.solve(17, 12, 7.5, N=40)（読むだけ）", T_s=12.0, H_m=7.5, h0_m=17.0,
+                         values_computed=dict(L_m=sfT["L"], c_mps=sfT["c"], eta_crest_m=sfT["eta_crest"], eta_trough_m=sfT["eta_trough"],
+                                              u1_mean_current_mps=sfT["u1_mean_current"], ursell=sfT["ursell"], H_over_Hmax=sfT["H_over_Hmax"]),
+                         inlet_band=dict(x_m=[0.0, GC.IN_X1], weight="w = (exp(chi^3.5)-1)/(e-1), chi = (100-x)/100, per substep 1-(1-w)^(dt/dt0), dt0 1/24 s",
+                                         E="in_gain x walltaper(20 m) x rampT(half-cosine 24 s) x setenv(=1)",
+                                         relaxed="vel.x toward E*u_SF at Y = max(min(y, eta)+h, 0); vel.z (lateral) toward 0; vertical velocity and eta NEVER relaxed",
+                                         x_p_m=GC.X_P, in_gain="calibrated once in S0b (plan/in_gain.json)"),
+                         frozen_wave_changes=dict(H_6p5="if the break moves onto the 1:10 approach (rule b / S1 pre-rule)", H_8p5="if P1 fails (rule c)"),
+                         stage2_sets=dict(P_s=84.0, up_s=12.0, flat_s=36.0, down_s=12.0, lull_s=24.0, envelope="retarded time t - (x - x_p)/cg (set_cg)",
+                                          du_b="bound long-wave term: NOT implemented in this step (needs the Design 3 formula)", trigger="see stage2_trigger")),
+            bed=dict(name="PG12s", spec=GC.bed_record(GC.PG12S), u3_name="PGs_ledge10_s40 with h_L 12, x_toe 180.25, xb1 200, xb2 230",
+                     parts=dict(FOCUS="tapered sech^2 spur, 1:10 from 17 m to 12 m (x 180.25-230.25)", BREAK="1:2.5 ledge 12 m -> 1.7 m (x 230.25-255.9), flat across |y| <= 12 m",
+                                DRAIN="20 m reef flat (x 256-276), 1:2 down to a 6 m lagoon open sideways to the 17 m flanks"),
+                     honesty="design choice resembling a slab-reef front, not a measured site"),
+            domain=dict(Lx_m=GC.LX, W_m=GC.W_MAIN, symmetry="half tank: symmetry plane y = 0 and wall y = 85 (= a row of identical reefs 170 m apart)",
+                        z_m=[-17.0, 17.0], particle_m=0.5, veltransfer="flip", layout_m=dict(inlet_band=[0, 100], free_flat=[100, 180.25], focus=[180.25, 230.25],
+                                                                                              ledge=[230.25, 255.9], reef_flat=[256, 276], lagoon_from=285, exit_band=[290, 360]),
+                        t_end_s=T_END_MAIN, ramp_s=24.0, gauges=dict(x_m=list(GC.GAUGE_X), y_m=list(GC.GAUGE_Y))),
+            absorber_and_drift_fix=dict(exit=dict(x_m=[GC.EX_X0, GC.LX], w="1 - exp(-%g chi^2 dt) on vel.x and vel.z toward 0" % GC.EX_SIGMA,
+                                                  sigma_theory=GC.EX_SIGMA_THEORY),
+                                        stage_A=dict(window_m=list(GC.VOL_X), formula="d = clamp((V0 - V)/(V_win0*tau), +-0.004/s), tau 4 s, V0/V_win0 = mean over 1.0-1.5 s",
+                                                     V="end-of-frame surface SDF, above-bed cells, weight clamp(0.5 - sdf/vox, 0, 1)"),
+                                        stage_B=dict(trigger="band-core period-mean drift > 0.3 m under A", region_m=list(GC.HOLD_X),
+                                                     formula="I += (L_ref - mean_T(L_band))*dt/(h0*T*Ti), Ti 300 s, d_band = clamp(I, +-0.004/s); integral only, frozen while clipped"),
+                                        stage_C=dict(trigger="A and B both fail", probe_m=list(GC.PROBE_C), formula="du_abs = -sqrt(g/h0)*(mean_T(eta at x 100-110) - reading at 1.0-1.5 s), added to the inlet target u x walltaper; volume correction off"))),
+        criteria=dict(
+            source="P1-P5 and H thresholds copied unchanged from Unity/Build/FLIP48/plan/plan_frozen.json (targets); none loosened",
+            targets48=tg48,
+            definitions=dict(judged_breaker="centre (y 0.5 m) onset at t >= %g s" % GC.T_JUDGE, window_k="[t_on,k - T/2, t_on,k + T/2]",
+                             Hc_k="centre crest above the still level at onset (ana.json onset.eta_c)"),
+            per_breaker=dict(
+                P1=dict(x_max_m=GC.X_P1_MAX, x_rule="5 m upstream of the exit band (x_exit - 5)", time_rule="inside its own window k",
+                        text="the y 0.5 m row reaches a vertical tangent inside window k at x <= 285 m (frozen 330 m tightened; 17.5 s replaced by the window)"),
+                P2=dict(width_over_hc_max=tg48["P2"]["width_over_hc_max"]),
+                P3=dict(width_over_hc_max_overturn=tg48["P3"]["width_over_hc_max_overturn"], width_over_hc_touchdown=tg48["P3"]["width_over_hc_touchdown"], report="atan(c/v)"),
+                P4a=dict(side_band_m=list(GC.SIDE_BAND), x_side_max_m=GC.X_P1_MAX, ratio_min=tg48["P4a"]["ratio_min"], ratio_clear=tg48["P4a"]["ratio_clear"],
+                         text="c(0) / mean crest of |y| 70-84 m (x <= 285 m) >= 1.5; >= 2.0 ('clearly focused') reported separately as the aim"),
+                P4b=dict(ratio_4hc_min=tg48["P4b"]["ratio_4hc_min"], text="c(0)/c(|y| = 4 Hc) >= 1.3 and no row at |y| >= 4 Hc curls before centre touchdown"),
+                P5=dict(chord_min_deg=tg48["P5"]["chord_min_deg"], chord_good_deg=tg48["P5"]["chord_good_deg"], lip_min=tg48["P5"]["lip_min"],
+                        hood_min=tg48["P5"]["hood_min"], print=tg48["P5"]["print"], report="per-k values and medians, never best frames only")),
+            periodicity=dict(
+                PER1="at least 3 consecutive judged breakers each meet P1-P4",
+                PER2=dict(onset_x_within_m=10.0, text="their onset x within +-10 m of their median"),
+                PER3=dict(Hc_cv_max=0.10, Hc_cv_good=0.05, interval_s=[11.4, 12.6], phase_std_over_T_max=0.05),
+                PER4=dict(trend_x_m_max=10.0, trend_Hc_rel_max=0.10, max_dev_from_first_m=10.0, text="|linear trend x (n-1)|; checked over D1 and again over D3"),
+                PER5=dict(H_inlet_rel=0.05, H_inlet_x_m=[110.0, 160.0], band_core_change_m_max=0.3, free_flat_abs_mean_m_max=0.3,
+                          report_only=["reef_flat", "lagoon", "side"])),
+            health=dict(bed_leak_frac_max=tg48["H"]["bed_leak_frac_max"], volume_drift_max=tg48["H"]["volume_drift_max"],
+                        still_offset_max_m=tg48["H"]["still_offset_max_m"], mp4=True, wall_max_h_per_coarse_3d_run=LIMIT_3D_H,
+                        wall_rule="the 30-min-per-run rule of FLIP48 H is replaced by <= 2.5 h per coarse 3D run, launched as chunks of <= 29 min",
+                        init_check="not applicable: still-water start (no solitary initial state); the inlet target is checked by sf_check (reported only)",
+                        volume_report="raw and corrected volume and the share of frames at the dmax cap (stage C: P-mean interior volume x 110-285)"),
+            strip_gates=dict(S0a=dict(band_core_change_max_m=0.05, spurious_u_max_mps=0.05, volume_change_max=0.001, still_offset_max_m=0.1),
+                             S0b=dict(H_rel=0.05, c_rel=0.02, H_cv_max_at_128=0.03, Kr_max=0.1, band_drift_max_m_6T=0.1, gain_rescales_max=1),
+                             S1=dict(band_core_period_mean_change_max_m=0.3, volume_change_max=0.01),
+                             D1_start="only after S0a, S0b and S1 pass (or the drift stage is escalated) and D0 has run the whole pipeline"),
+            best_frame_rule=dict(window="for each judged k: frames from centre onset to touchdown + 0.5 s (no touchdown: onset + 2.5 s)",
+                                 score="score3 = sum of the print-band misses of face chord (0.1-0.5 eta_c), front foot (0.1 eta_c) and hood area (g47_video.score3, "
+                                       "the same formula as the earlier GitHub videos), on the centre section r2 measured with STUDY52 measure_mask",
+                                 order=["score3 (g47_video formula on this tool's centre-section measures)", "minimum of the 5 ana scores (score5)", "steepest frame"],
+                                 tie="smaller chord miss, then higher hood", overall="minimum score3 over judged k", representative="breaker with the median score3",
+                                 output="<run>/pana/best_frames.json (for the video tool g48_video2.py, which this tool does not edit)"),
+            deliverables="per 3D run: an mp4 that draws a red box around the crest at the most print-like moment of each breaker (hold 1 s, 0.25x around it, print outline), "
+                         "a top view of eta with centre and side crest heights and their ratio, a cross-section of eta along the crest line versus y at onset, "
+                         "breaker number k and the periodicity table; per-k table, RESULT_ja.md with tagged numbers, run json",
+            verdict_wording=dict(full="P1-P5 on every judged breaker plus PER1-PER5",
+                                 periodic_narrow_peak="PER1-PER5 with P1-P4 on >= 3 consecutive breakers: 'breakers k = a..b repeated within the frozen bands'",
+                                 never="'steady state' (only 4-9 waves can be judged; lab regular-wave breaking needs 10-100 waves to settle [literature, re-read before quoting])",
+                                 partial="anything less, breaker by breaker", self_assessment="all scores are AI self-assessment; the user judges print-likeness")),
+        runs=[dict(id="T0", what="code and build checks only"), dict(id="S0a", what="still axis strip, bands on, target 0, stage A, 30 s"),
+              dict(id="S0b", what="flat strip inlet calibration, 100 s, at most one gain rerun"), dict(id="S1", what="PG12s axis strip, 120 s (2D reference)"),
+              dict(id="D0", what="3D dp 1.0 plumbing and preview, 102 s, never judged, mp4 to the user labelled coarse preview"),
+              dict(id="D1", what="main coarse periodic 3D run, dp 0.5, 102 s, heavy records in per-wave windows"),
+              dict(id="S2/S3", what="drift-cause A/B strips (no correction / FLIP47 mode 0)"), dict(id="D3", what="+48 s continuation to 150 s if PER1-PER4 pass"),
+              dict(id="D2", what="single-change rerun by the D2 rule, at most two"), dict(id="Z0/Z1", what="stage 2 (sets), conditional")],
+        decision_rules=dict(
+            after_T0="any check fails: fix the code; no simulation until all pass",
+            after_S0a="band-core change >= 0.05 m or spurious |u| >= 0.05 m/s: bug hunt; no further runs until it passes",
+            after_S0b=["H off by more than 5 %: in_gain = 7.5/H_meas and rerun once", "still off, or c off > 2 %, or Kr > 0.1: lengthen the band to 120 m once and rerun",
+                       "still failing: stop and report the inlet as failed"],
+            after_S1=["(1) band-core drift > 0.3 m: S1 with stage B (+12 min); if still failing, stage C; if all fail, go on with the smallest-drift variant and report PER5 failed",
+                      "(2) the 2D wave breaks on the 1:10 approach (onset x < 225 m) in >= 2 of periods 3-8: switch to H 6.5 m before D0",
+                      "(3) otherwise D0 unchanged; 2D shape recorded only"],
+            after_D0=["pipeline/record/analysis/mp4 failure: fix and rerun D0",
+                      "health failure (bed leak, |dV| >= 1 %, lateral asymmetry growth > 20 %/period, reef set-up > 3 m, breaking at x < 180 m): diagnose before D1; forcing cause: stop and report",
+                      "otherwise set the D1 heavy-record windows from the D0 onsets and start D1 (never judged on P1-P5, never used to change the design)"],
+            after_D1=["PER1-PER4 pass: D3 first; then if P5 fails on >= 2 breakers, D2 rule (e)",
+                      "otherwise D2, first match: (a) PER5 fails -> next drift stage (B, then C), strip first; (b) onset x < 230 m on >= 2 judged breakers -> H 6.5 m; "
+                      "(c) P1 fails on >= 2 -> H 8.5 m after one S1-type strip; (d) P4a < 1.5 or P4b fails on >= 2 -> R4's 25 m side channel (zb -25; says it lowers the side reference); "
+                      "(e) P1-P4 pass but chord < 55 deg on >= 2: side share >= 70 % (C3A budget) -> b_end 18 m, else reef top h_r 1.2 m; "
+                      "(f) every breaker passes P1-P4 but PER2-PER4 fail with band drift <= 0.3 m -> unshifted Lx 400 layout"],
+            after_D2=["moved the way the rule says: keep, re-evaluate (at most two D2 runs, then report)", "moved the wrong way: revert, negative result, no further tuning of that knob"],
+            after_D3=["new breakers within the bands: 'breakers k = a..b repeated to 150 s' and cut a seamless 12 s loop", "drift/Hc growth after 100 s: report as FLIP47-like late drift; S2/S3 if not done; then rule (a) or (f)"],
+            after_S2S3="confirmed (S3 band core falls 1-3 m and break moves offshore while S1 holds) or refuted (S3 within 0.3 m and 5 m of S1); does not change a passing D-run",
+            stage2_trigger=["(i) the supervisor or the user says 'periodic' means big waves separated by calmer ones",
+                            "(ii) after D1 and any D2, P4a < 2.0 on most judged breakers (focusing not clearly visible)",
+                            "then Z0 and Z1 (50 min); the 4-5 h dp 0.5 set campaign only after the user sees Z1"],
+            global_rules=["one change per run", "never loosen a frozen threshold after seeing results", "rule (e) without effect on P5: report P5 as the open problem"]),
+        honesty=dict(
+            chosen=["regular swell instead of sets as the first answer to Q52", "T 12 s and H 7.5 m", "PG12s geometry", "40 m shift and Lx 360 x W 85 half tank",
+                    "band lengths (inlet 100 m, exit 70 m)", "dp 0.5, t_end 102 s, judged cutoff t >= 45 s", "drift-fix stages and gate values",
+                    "P1 x limit 285 m", "best-frame rule, D2 rule order, stage-2 trigger", "x_p 80 m (same phase reference as the U3 screening)",
+                    "PER thresholds (+-10 m, CV 10 %, T +- 5 %, 0.3 m) are chosen tolerances"],
+            computed=["SF wave properties", "mode cutoff, Iribarren numbers, seiche periods, particle counts, run-time estimates",
+                      "exit sponge sigma %g/s: optimum of the Perić & Abdel-Maksoud 2018 1D theory (the FLIP45 r45 function) for T 12 s, h 17 m, 70 m band "
+                      "(CR 0.046; the FLIP45 value 2.37 gives 0.166 here)" % GC.EX_SIGMA,
+                      "screening results (depth-averaged model without overturning; predictions to be tested, not FLIP results)"],
+            measured=["FLIP47 2D periodic repetition, its late band drop and drift", "relax_w 1 water pull", "FLIP45 sponge reflection", "FLIP48 solver rates, R4/C3 P-results, C3A side-feed share"],
+            guesses=["FLIP47 drift cause (tested by S2/S3)", "periodic particle growth 1.25, record overhead", "ledge reflection Kr 0.1-0.3", "lateral-mode build-up", "2D break depth from Goda's index"],
+            not_predicted="P2, P3 and P5 (the print-like shape)",
+            literature_to_reread="Battjes 1974, Goda 2010, Mead & Black 2001, Haller & Dalrymple 2001, Longuet-Higgins & Stewart, Van Dongeren & Svendsen 1997 (used from abstracts/secondary sources/memory)"),
+        screening=dict(files=list(GC.SCREEN_JSON), copied_to="Unity/Build/FLIP49/plan/screening/", tag="computed, screening only (U3 depth-averaged Boussinesq/NSW, no overturning)"),
+        implementation=dict(
+            tools=["Tools/GWWaveGen/flip49/" + n for n in ("g49_common.py", "g49_tanklib.py", "g49_build_tank.py", "x49_build.py", "g49_run.py", "g49_chain.py",
+                                                         "g49_pcfg.py", "g49_periodic_ana.py")],
+            module_sha256_16=GC.module_shas(), hip="Houdini/FLIP49/g49_tank.hiplc", build_check="Unity/Build/FLIP49/_logs/build_check.json",
+            build_check_at_freeze=_build_check_summary(), read_only=["flip45-flip48 files", "g48_tank.hiplc", "g48_video2.py (not edited)"],
+            notes=["dp 1.0 boxes round the half width up to the 2 m grid: D0 runs at W 86 m (455,606 particles), dp 0.5 at W 85 m (3,633,016) [computed]",
+                   "axis-strip Merian seiche 2*integral(dx/sqrt(g d)) = %.1f s, flat 17 m = %.1f s [computed]; the stage-B integral time 300 s is %.2f x the axis value "
+                   "(the design said >= 4 x 56-66 s); kept as chosen" % (_seiche_axis(), 2 * GC.LX / math.sqrt(GC.G * GC.H0), 300.0 / _seiche_axis()),
+                   "stage B uses tau_B = T in I += e*dt/(h0*tau_B*Ti) (the design gave only 'integral only, Ti 300 s') [chosen]",
+                   "stage C reads 'eta_bar_T - 0' as the one-T mean minus the same probe's reading at 1.0-1.5 s (removes the particle-surface offset) [chosen]",
+                   "stage 2 (sets): the retarded-time envelope (set_cg) is implemented in VEX; the bound long-wave term du_b is NOT implemented",
+                   "the DOP wrangles (relax_zones, vc_div) call the same VEX functions that the build-time SOP probes checked; they are first executed in S0a"]),
+    )
+    return P
+
+
+def _build_check_summary():
+    p = GC.B49 + "/_logs/build_check.json"
+    if not os.path.exists(p):
+        return None
+    c = json.load(open(p, encoding="utf8"))
+    return dict(all_ok=c.get("all_ok"), hip_sha256=c.get("hip_sha256"), date=c.get("date"),
+                sf_probe={k: c.get("sf_probe", {}).get(k) for k in ("u_max_abs_over_c", "w_max_abs_over_c", "eta_max_abs_over_H")},
+                bed_vex_numpy_max_m=max(float((c.get(k) or {}).get("bed_max_abs_dz_m") or 0.0) for k in ("axis_strip_PG12s", "flat_strip", "PG12s_3d", "R4_g48_path")))
+
+
+def _seiche_axis():
+    return seiche_axis(GC.pg_axis())
+
+
+def freeze(force=False, reason=None):
+    """reason：FLIP49 の計算の記録が無い間だけ、design・honesty の変わりを理由つきで許す（criteria・decision_rules・runs は決して変えない）。"""
+    os.makedirs(GC.PLAN_DIR, exist_ok=True)
+    p = GC.PLAN_FROZEN
+    if os.path.exists(p) and not force:
+        return p, "exists（変えない）"
+    scr = GC.PLAN_DIR + "/screening"
+    os.makedirs(scr, exist_ok=True)
+    copied = {}
+    for nm in GC.SCREEN_JSON:
+        src = os.path.join(GC.SCRATCH_U4, nm)
+        if os.path.exists(src):
+            shutil.copy2(src, os.path.join(scr, nm))
+            copied[nm] = GC.sha256_file(os.path.join(scr, nm))[:16]
+        else:
+            copied[nm] = None
+    d = frozen_plan()
+    d["screening"]["copied_sha256_16"] = copied
+    if os.path.exists(p) and force:
+        # 凍らせ直し（走らせる前だけ）：決まり（criteria・decision_rules・design・honesty）が前と同じことを確かめ、違えば止める
+        old = json.load(open(p, encoding="utf8"))
+        same = {k: json.dumps(old.get(k), sort_keys=True, ensure_ascii=False) == json.dumps(d.get(k), sort_keys=True, ensure_ascii=False)
+                for k in ("criteria", "decision_rules", "design", "honesty", "runs", "supervisor_Q52", "reading_ja")}
+        changed = [k for k, v in same.items() if not v]
+        if changed and (not reason or any(k not in ("design", "honesty") for k in changed)):
+            raise SystemExit("凍らせ直しで決まりが変わる（%s）。走らせた後なら決して変えない。走らせる前の design・honesty の直しだけ --reason=… で許す" % changed)
+        if glob.glob(os.path.join(GC.B49, "runs", "*", "run_c*.json")) + glob.glob(os.path.join(GC.B49, "strips", "*", "run_c*.json")):
+            raise SystemExit("FLIP49 の計算の記録があるので凍らせ直さない")
+        hist = list(old.get("refrozen_history") or [])
+        hist.append(dict(frozen_at=old.get("frozen_at"), sha256=GC.sha256_file(p), refrozen_ja=old.get("refrozen_ja"), changes=old.get("refrozen_changes")))
+        d["refrozen_history"] = hist
+        if changed:
+            d["refrozen_ja"] = "前の凍結 %s（SHA-256 %s…）を、FLIP の計算を始める前に凍らせ直した。変えた所：%s（理由は refrozen_changes）。criteria・decision_rules・runs は同じ" % (
+                old.get("frozen_at"), GC.sha256_file(p)[:16], ", ".join(changed))
+            d["refrozen_changes"] = dict(keys=changed, reason=reason)
+        else:
+            d["refrozen_ja"] = "前の凍結 %s（SHA-256 %s…）を、FLIP の計算を始める前に凍らせ直した。決まりは同じ（%s を比べた）。変わったのは道具の SHA-256（implementation）と時刻だけ" % (
+                old.get("frozen_at"), GC.sha256_file(p)[:16], ", ".join(same))
+    s = json.dumps(d, indent=1, ensure_ascii=False)
+    open(p, "w", encoding="utf8", newline="\n").write(s)
+    h = GC.sha256_file(p)
+    open(p + ".sha256", "w", newline="\n").write(h + "  plan_frozen.json\n")
+    cp = GC.PLAN_COPY48
+    if not os.path.exists(cp) or force:
+        shutil.copy2(p, cp)
+        open(cp + ".sha256", "w", newline="\n").write(h + "  plan_P_frozen.json\n")
+    return p, "new %s" % h[:16]
+
+
+# ====================================================================== 設定
+def sf_table(H=GC.H_WAVE, T=GC.T_WAVE):
+    _, tb = GC.sf_solve(GC.H0, T, H, GC.SF_N)
+    return tb
+
+
+def read_gain():
+    p = GC.PLAN_DIR + "/in_gain.json"
+    if os.path.exists(p):
+        g = json.load(open(p, encoding="utf8"))
+        return float(g["in_gain"]), "plan/in_gain.json（%s）" % g.get("source_run")
+    return None, None
+
+
+def parms_for(dp, W, spec, zb=GC.Z_BOTTOM, Lx=GC.LX, smoke=False):
+    GC.check_dp(dp, smoke=smoke)
+    b = GC.box48(dp, Lx=Lx, W=W, zb=zb, floor_pad=2)
+    p = dict(dp=b["dp"], gridscale=2.0, x0=b["x0"], Lx=b["Lx"], W=b["W"], zb=b["z_bottom"], Hz=b["Hz"], h0=GC.H0,
+             ox=b["ox"], oy=b["oy"], oz=b["oz"], maxsub=8.0, minsub=1.0, cfl=1.0, pcfl=0.75, t_off=0.0,
+             bed_gap=0.5, floor_pad=2.0, side_pad=0.0, wave_on=0.0,
+             surf_layer_m=2.5, mirror_m=1.0, surf_vox_scale=1.0, crop_x0=0.0, crop_x1=b["Lx"], crop_z1=b["W"],
+             surf_ycut=-15.0, surf_keep_vox=1.0, surf_bed_vox=0.5,
+             relax_on=1.0, abs_on=1.0, sf_on=1.0, relax_g=1.0, dt0=1.0 / 24.0, ramp_s=GC.RAMP_S, wall_taper_m=GC.WALL_TAPER, in_gain=1.0,
+             x_p=GC.X_P, xg_end=GC.IN_X1, xa0=GC.EX_X0, abs_sigma=GC.EX_SIGMA, abs_pow=GC.EX_POW,
+             set_P=0.0, set_up=0.0, set_flat=0.0, set_down=0.0, set_cg=0.0, duabs_on=0.0,
+             volcorr_on=1.0, vol_x0=GC.VOL_X[0], vol_x1=GC.VOL_X[1], hold_on=0.0, hold_x0=GC.HOLD_X[0], hold_x1=GC.HOLD_X[1])
+    p.update(GC.bed_parms(spec))
+    return p, b
+
+
+def drift_parms(stage):
+    """段 A・B・C の CTRL と cfg の drift。"""
+    if stage == "A":
+        return dict(volcorr_on=1.0, hold_on=0.0, duabs_on=0.0), dict(stage="A", tau_s=GC.VOL_TAU, dmax=GC.VOL_DMAX, tcap_s=GC.VOL_TCAP,
+                                                                    V_measure=GC.VOL_MEASURE)
+    if stage == "B":
+        return dict(volcorr_on=1.0, hold_on=1.0, duabs_on=0.0), dict(stage="B", tau_s=GC.VOL_TAU, dmax=GC.VOL_DMAX, tcap_s=GC.VOL_TCAP,
+                                                                    hold_ti_s=GC.HOLD_TI, hold_tau_s=GC.T_WAVE, hold_dmax=GC.VOL_DMAX,
+                                                                    V_measure=GC.VOL_MEASURE)
+    if stage == "C":
+        return dict(volcorr_on=0.0, hold_on=0.0, duabs_on=1.0), dict(stage="C", tcap_s=GC.VOL_TCAP, V_measure=GC.VOL_MEASURE)   # V は記録だけ（柱の読み）
+    if stage == "none":       # S2（直しはしないが、V は柱の読みで記録する）
+        return dict(volcorr_on=0.0, hold_on=0.0, duabs_on=0.0), dict(stage="none", V_measure=GC.VOL_MEASURE)
+    if stage == "mode0":      # S3：FLIP47 mode 0（帯を含む水の全部に同じ発散。上限 0.002 /s は FLIP47 の値）
+        return dict(volcorr_on=1.0, hold_on=0.0, duabs_on=0.0, vol_x0=0.0, vol_x1=GC.LX), dict(stage="mode0", tau_s=4.0, dmax=0.002, tcap_s=GC.VOL_TCAP,
+                                                                                                    V_measure="sdf")   # FLIP47 の写しは元の読みのまま
+    raise SystemExit("段は A・B・C・none・mode0")
+
+
+def windows_from(onsets, win=HEAVY_WIN, t_end=T_END_MAIN, t_min=GC.T_JUDGE - 3.0):
+    w = []
+    for t in sorted(onsets):
+        a, b = t + win[0], t + win[1]
+        if b < t_min or a > t_end:
+            continue
+        w.append([round(max(a, 0.0), 4), round(min(b, t_end), 4)])
+    return w
+
+
+def d0_onsets(d0_dir):
+    """D0 の periodic_ana.json の巻き始め（全部の来た波の崩れ）。"""
+    p = os.path.join(d0_dir, "pana", "periodic_ana.json")
+    if not os.path.exists(p):
+        return None, "D0 の解析 %s がない" % p
+    d = json.load(open(p, encoding="utf8"))
+    ons = [float(e["on_t"]) for e in (d.get("events_found") or [])]
+    return ons, p
+
+
+def make(run_id, kind, dp, W, spec, t_end, stage="A", in_gain=None, H=GC.H_WAVE, windows=None, out_root=None, note="", case_extra=None,
+         records=None, zb=GC.Z_BOTTOM, Lx=GC.LX, extra_parms=None, f_start=1):
+    """1 本の設定。kind：still_strip・flat_strip・axis_strip・3d。"""
+    p, b = parms_for(dp, W, spec, zb=zb, Lx=Lx, smoke=(kind in ("3d", "smoke") and dp == 1.0))
+    dpm, drift = drift_parms(stage)
+    p.update(dpm)
+    if kind == "still_strip":
+        p.update(sf_on=0.0)               # 帯は入れたまま、目標 0
+    sf = sf_table(H) if kind != "still_strip" else None
+    g_used, g_src = (None, None)
+    if kind == "smoke":
+        g_used, g_src = 1.0, "煙の試しの仮の 1.0（S0b の前。判定しない）"
+    elif kind in ("axis_strip", "3d"):
+        g_file, g_fsrc = read_gain()
+        if in_gain is not None:
+            g_used, g_src = float(in_gain), "与えた値（--in_gain）"
+        elif g_file is not None:
+            g_used, g_src = g_file, g_fsrc
+    elif kind == "flat_strip":
+        g_used, g_src = (float(in_gain), "与えた値（S0b の 2 回目：7.5/H_meas）") if in_gain is not None else (1.0, "1.0（S0b の 1 回目）")
+    if g_used is not None:
+        p["in_gain"] = g_used
+    if extra_parms:
+        p.update(extra_parms)
+    vox = b["vox"]
+    f_end = GC.frames_for(0.0, t_end)
+    rec = records or dict(r2=True, r3_z=b["W"] - 0.5 * vox, block=120, r4_block=24, preg_every=24,
+                          r4=dict(x=[180.0, 300.0], z1=b["W"], y0=-10.0, y1=16.0, clip_vox=6.0, t0=0.0),
+                          r5=dict(t0=0.0, every=1), windows=windows)
+    three_d = kind in ("3d", "smoke")
+    c = dict(
+        run_id=run_id, out_root=out_root or ("runs" if three_d else "strips"), stage="FLIP49", kind=kind,
+        case=dict(name="FLIP49_%s_%s" % (kind, GC.bed_kind(spec)), plan_frozen=PLAN_REL, plan=DOC, campaign="PER49", **(case_extra or {})),
+        f_start=f_start, f_first=1, f_end=int(f_end), t_end_s=float(t_end), parms=p, box=b, bed=GC.bed_record(spec, b),
+        sf=sf, wave=dict(kind="stream-function regular wave" if sf else "none (band target 0)", T_s=GC.T_WAVE, H_m=float(H) if sf else 0.0,
+                         in_gain=p.get("in_gain"), in_gain_source=g_src, x_p=GC.X_P, ramp_s=GC.RAMP_S, tags=dict(T="選び", H="選び", sf="計算（g47_sfwave）",
+                                                                                                             in_gain="測定（S0b）" if g_src and "plan/in_gain" in g_src else "選び／未決")),
+        drift=drift, solver=dict(veltransfer="flip", donarrowband=0), records=rec,
+        gauges=dict(x=list(GC.GAUGE_X), y=list(GC.GAUGE_Y)), level_regions=[list(r) for r in GC.LEVEL_REGIONS],
+        sf_check=dict(every=120, x=[10.0, 40.0, 70.0, 95.0], y=[-15.0, -8.0, -2.0], zl=[0.5 * vox] + ([0.5 * b["W"]] if three_d else [])),
+        ckpt_on=1, ckpt_every=48, ckpt_list=[96, 72, 48, 24, 12], wall_limit_s=1740, level_guard_m=GC.LEVEL_GUARD_M, disk_stop_free_gb=25.0,
+        max_hours=(LIMIT_3D_H if (three_d and dp == 0.5) else (0.75 if three_d else 0.5)), level_box=[0.0, b["Lx"], 0.0, b["W"]],
+        n1_x=list(GC.VOL_X), n1_window=[0.5, 1.5], shore_x=float(GC.edge_x(spec)) if (spec.get("on", True) and GC.is_new(spec)) else 256.0,
+        fieldbox_frames=[2], pstats_frames=[1, 2, int(f_end)], note=note)
+    c["precheck"] = precheck(c)
+    return c
+
+
+def precheck(c):
+    """走らせる前の確かめ。3D（粒子 0.5 m）は時間の見込み（大きい方）が 2.5 時間を越えれば ok でない。"""
+    P = c["parms"]; spec = GC.bed_spec(c)
+    out = dict(checks={}, tags=dict(particles="計算（numpy、場面と同じ決まり）", wall="計算（FLIP48 の測定の係数から）"))
+    ck = out["checks"]
+    n, V = GC.count_particles(spec, float(P["Lx"]), float(P["W"]), float(P["dp"]), zb=float(P["zb"]), bed_gap=float(P["bed_gap"]))
+    out.update(particles_model=int(n), water_m3=float(V))
+    key = ("3d" if c["kind"] in ("3d", "smoke") else ("flat" if not spec.get("on", True) else "axis"), float(P["dp"]))
+    if key in EXPECT_PARTICLES and GC.is_new(spec) and abs(spec.get("x_toe", 0) - 180.25) < 1e-9 and float(P["Lx"]) == GC.LX \
+            and (spec.get("ch_h") or 0) == 0 and abs(spec["shelf_h"] - 1.7) < 1e-9 and (spec.get("b_end") or 0) in (0.0, 12.0):
+        ck["particles_as_designed"] = bool(abs(n / EXPECT_PARTICLES[key] - 1.0) < 0.02)
+    sf = c.get("sf")
+    if sf:
+        ck["sf_depth_is_h0_17"] = bool(abs(float(sf["h"]) - float(P["h0"])) < 1e-9 and abs(float(sf["h"]) - 17.0) < 1e-9)
+        ck["sf_terms"] = bool(len(sf["E"]) == len(sf["B"]) + 1 and len(sf["B"]) == GC.SF_N)
+        ck["sf_below_0p9_Hmax"] = bool(float(sf["H_over_Hmax"]) <= 0.9)
+    gx_ = [float(v) for v in (c.get("gauges") or {}).get("x", GC.GAUGE_X)]
+    ck["band_layout"] = bool(float(P["xg_end"]) < min(gx_) and (float(P["vol_x0"]) >= float(P["xg_end"]) or float(P["vol_x1"]) >= GC.LX - 1e-9)
+                             and (float(P["vol_x1"]) <= float(P["xa0"]) or float(P["vol_x0"]) <= 0.0) and max(gx_) <= float(P["vol_x1"]))
+    ck["exit_after_lagoon_start"] = bool(float(P["xa0"]) >= 285.0 or not GC.is_new(spec))
+    ck["bed_above_box_floor"] = bool(c["bed"].get("max_depth_m", 17.0) <= -float(P["zb"]) + 1e-6)
+    ck["in_gain_set"] = bool(c["kind"] in ("still_strip", "flat_strip", "smoke") or "plan/in_gain.json" in str((c.get("wave") or {}).get("in_gain_source")))
+    if c["kind"] == "3d" and float(P["dp"]) == 0.5:
+        f_from = int(c.get("f_resume_est", c.get("f_start", 1)))          # 続き（D3）は前の計算の終わりの次のコマから
+        t_from = (f_from - 1) / 24.0
+        nf = int(c["f_end"]) - f_from + 1
+        heavy = 0
+        for a, b in (c["records"].get("windows") or []):
+            if b > t_from:
+                heavy += int(round((b - max(a, t_from)) * 24)) + 1
+        if not c["records"].get("windows"):
+            heavy = nf
+        lo = COEF_LO * n * GROWTH_LO / 1e6 * nf / 3600.0
+        hi = COEF_HI * n * GROWTH_HI / 1e6 * nf / 3600.0
+        rec_h = heavy * R5_S_PER_FRAME / 3600.0
+        out.update(frames=nf, heavy_frames=heavy, solve_h_lo=lo, solve_h_hi=hi, records_h=rec_h, total_h_hi=hi + rec_h,
+                   limit_h=LIMIT_3D_H, fallbacks="heavy records every 2nd frame, then t_end 90 s")
+        ck["wall_le_2p5h"] = bool(hi + rec_h <= LIMIT_3D_H)
+        ck["windows_inside_run"] = bool(all(0.0 <= a < b <= c["t_end_s"] + 1e-9 for a, b in (c["records"].get("windows") or [])))
+    out["ok"] = bool(all(ck.values()))
+    out["reason"] = None if out["ok"] else "外れ：" + ", ".join(k for k, v in ck.items() if not v)
+    return out
+
+
+def write(c):
+    p = os.path.join(GC.B49, c["out_root"], "ready", c["run_id"] + ".json").replace("\\", "/")
+    os.makedirs(os.path.dirname(p), exist_ok=True)
+    json.dump(c, open(p, "w", encoding="utf8"), indent=1, ensure_ascii=False)
+    return p
+
+
+def apply_band(c, xg):
+    """決まり（S0b の後）：入口の帯を xg（120 m）に 1 回だけ延ばす。波高計 128・146・160 m（18 m の組）、平らの所 130〜160 m、段 C の所 120〜130 m、
+    段 A の窓 130〜285 m、段 B の所 20〜(xg − 5) m、静かな水面のずれ 130〜285 m。precheck を作り直す。"""
+    xg = float(xg)
+    P = c["parms"]
+    P.update(xg_end=xg, vol_x0=xg + 10.0, hold_x1=xg - 5.0)
+    c["gauges"] = dict(x=[xg + 8.0, xg + 26.0, 160.0] if xg + 26.0 < 160.0 else [xg + 8.0, xg + 26.0, xg + 44.0], y=list(GC.GAUGE_Y))
+    lr = []
+    for r in GC.LEVEL_REGIONS:
+        r = list(r)
+        if r[0] == "band_core":
+            r[2] = xg - 5.0
+        elif r[0] == "probe_c":
+            r[1], r[2] = xg, xg + 10.0
+        elif r[0] in ("flat", "asym_centre", "asym_side"):
+            r[1] = xg + 10.0
+        elif r[0] == "window":
+            r[1] = xg + 10.0
+        lr.append(r)
+    c["level_regions"] = lr
+    c["n1_x"] = [xg + 10.0, GC.VOL_X[1]]
+    c["sf_check"]["x"] = [10.0, 0.35 * xg, 0.7 * xg, xg - 5.0]
+    c["run_id"] += "_band%s" % GC.tag(xg)
+    c["note"] += "｜入口の帯を %g m に延ばした（S0b の後の決まり、1 回だけ）。波高計 %s m" % (xg, c["gauges"]["x"])
+    c["case"]["band_m"] = xg
+    c["precheck"] = precheck(c)
+    return c
+
+
+def preset(name, opt):
+    cs = _preset(name, opt)
+    if opt.get("band") and name in ("S0b", "S1", "S2", "S3", "D0", "D1"):
+        cs = [apply_band(c, float(opt["band"])) for c in cs]
+    return cs
+
+
+def _preset(name, opt):
+    stage = opt.get("stage", "A")
+    g = float(opt["in_gain"]) if opt.get("in_gain") else None
+    Hw = float(opt.get("H", GC.H_WAVE))
+    hx = "" if abs(Hw - GC.H_WAVE) < 1e-9 else "_H%s" % GC.tag(Hw)
+    AX = GC.pg_axis(); FL = GC.flat_spec()
+    sx = ("" if stage == "A" else "_st%s" % stage) + hx
+    if name == "S0a":
+        vx = "_vcol" if (stage in ("A", "B", "none") and GC.VOL_MEASURE == "column") else ""   # 2026-10-15：虫を直した後の S0a は別の名前（前の記録と混ぜない）
+        return [make("S0a_still_axis_bands0" + sx + vx, "still_strip", 0.5, GC.W_STRIP, AX, 30.0, stage=stage, case_extra=dict(queue_id="S0a"),
+                     records=dict(r2=True, r3_z=None, block=120, preg_every=24, r4=None, r5=None, windows=None),
+                     note="FLIP49 S0a：静かな水の軸の板（PG12s の真ん中の断面、半幅 6 m、粒子 0.5 m）。両方の帯を入れ目標 0、段 A。30 s。帯が流れや水面の上下を作らないか")]
+    if name == "S0b":
+        rid = "S0b_flat_sf12_H7p5" + ("_g%s" % GC.tag(g) if g is not None else "") + sx
+        return [make(rid, "flat_strip", 0.5, GC.W_STRIP, FL, 100.0, stage=stage, in_gain=g, case_extra=dict(queue_id="S0b"),
+                     records=dict(r2=True, r3_z=None, block=120, preg_every=24, r4=None, r5=None, windows=None),
+                     note="FLIP49 S0b：入口の確かめ（平ら 17 m の板、半幅 6 m、粒子 0.5 m）。流れ関数の波 T 12 s・H 7.5 m、in_gain %s、出口の帯 290〜360 m、段 A、100 s"
+                          % (g if g is not None else 1.0))]
+    if name in ("S1", "S2", "S3"):
+        st = {"S1": stage, "S2": "none", "S3": "mode0"}[name]
+        rid = {"S1": "S1_axis_PG12s" + sx, "S2": "S2_axis_PG12s_novc", "S3": "S3_axis_PG12s_mode0"}[name]
+        rid = rid + hx if name != "S1" else rid
+        return [make(rid, "axis_strip", 0.5, GC.W_STRIP, AX, 120.0, stage=st, in_gain=g, H=Hw, case_extra=dict(queue_id=name),
+                     records=dict(r2=True, r3_z=None, block=120, preg_every=24, r4=dict(x=[180.0, 300.0], z1=GC.W_STRIP, y0=-10.0, y1=16.0, clip_vox=6.0, t0=24.0),
+                                  r5=dict(t0=24.0, every=2), windows=None),
+                     note="FLIP49 %s：PG12s の軸の板（横に一様、半幅 6 m、粒子 0.5 m）、流れ関数の波 T 12 s・H 7.5 m、%s、120 s。2D の基準（集まりのない Hc・弦・唇・覆い）"
+                          % (name, {"A": "段 A", "B": "段 B", "C": "段 C", "none": "水の量の直しなし（S2）", "mode0": "FLIP47 mode 0（帯を含む水の全部に同じ直し、S3）"}[st]))]
+    if name == "D0":
+        return [make("D0_PG12s_dp1p0" + sx, "3d", 1.0, GC.W_MAIN, GC.PG12S, T_END_MAIN, stage=stage, in_gain=g, H=Hw, case_extra=dict(queue_id="D0", judged=False),
+                     note="FLIP49 D0：3D の下見（粒子 1.0 m、0.45 M）。PG12s・半幅 85 m、流れ関数の波 T 12 s・H 7.5 m、102 s。重い記録も毎コマ。P1〜P5 で判定しない"
+                          "（礁の上 1.7 m は 1.7 格子）。巻き始めの時刻が D1 の重い記録の窓を決める")]
+    if name in ("D1", "D2"):
+        ons, src = (d0_onsets(opt["from"]) if opt.get("from") else (None, "D0 の記録を --from で与えていない"))
+        if ons and len([t for t in ons if t >= GC.T_JUDGE - 3.0]) >= 4:
+            win = windows_from(ons); wsrc = "D0 の巻き始め（%s）± [−3, +4] s" % src
+        else:
+            win = windows_from(ONSET_GUESS, HEAVY_WIN_GUESS); wsrc = "下見の見込み 37 + 12k s ± 4 s（%s）" % src
+        if name == "D1":
+            return [make("D1_PG12s_dp0p5" + sx, "3d", 0.5, GC.W_MAIN, GC.PG12S, T_END_MAIN, stage=stage, in_gain=g, H=Hw, windows=win,
+                         case_extra=dict(queue_id="D1", windows_source=wsrc),
+                         note="FLIP49 D1：主の粗い周期の 3D（粒子 0.5 m、3.63 M）。PG12s、半幅 85 m、流れ関数の波 T 12 s・H 7.5 m、入口の帯 0〜100 m、出口の帯 290〜360 m、"
+                              "%s、102 s。重い記録は崩れごとの窓（%s）" % ({"A": "段 A", "B": "段 B", "C": "段 C"}[stage], wsrc))]
+        return [d2(opt, win, wsrc)]
+    if name == "D3":
+        rd = opt.get("run")
+        if not rd or not os.path.exists(os.path.join(rd, "cfg.json")):
+            raise SystemExit("D3 は続ける計算の記録を --run で与える（cfg.json がある所）")
+        c0 = json.load(open(os.path.join(rd, "cfg.json"), encoding="utf8"))
+        c = copy.deepcopy(c0)
+        for k_ in ("hip_sha256", "module_shas_at_chain_start", "precheck"):
+            c.pop(k_, None)
+        ons, src = d0_onsets(rd)
+        last = max([t for t in (ons or [])] or [ONSET_GUESS[5]])
+        extra = [last + 12.0 * k for k in range(1, 6)]
+        c["f_resume_est"] = int(c0["f_end"]) + 1
+        c["f_end"] = GC.frames_for(0.0, T_END_D3); c["t_end_s"] = T_END_D3
+        c["records"]["windows"] = (c["records"].get("windows") or []) + windows_from(extra, t_end=T_END_D3, t_min=0.0)
+        c["case"]["queue_id"] = "D3"; c["case"]["continuation_of"] = c0["run_id"]
+        c["note"] = c0.get("note", "") + "｜D3：同じ設定のまま最後の途中保存から 150 s まで（+48 s = 4 T）。窓を足した（%s の最後の巻き始め %.1f s + 12k s）" % (src, last)
+        c["pstats_frames"] = sorted(set(c.get("pstats_frames", []) + [c["f_end"]]))
+        c["precheck"] = precheck(c)
+        return [c]
+    if name == "SMOKE":
+        c = make("SMOKE49_PG12s_dp1p0", "smoke", 1.0, GC.W_MAIN, GC.PG12S, 8.0, stage=stage, H=Hw, out_root="smoke",
+                 case_extra=dict(queue_id="T0_smoke", judged=False),
+                 note="FLIP49 煙の試し（T0 の一部、判定しない）：3D・粒子 1.0 m・PG12s・半幅 85 m（箱は 2 m の格子に丸めて 86 m）・0〜8 s。"
+                      "場面・帯の DOP の wrangle・水の量の直しのファイル・記録・sf_check・途中保存からの続き（wall_limit 80 s で起動を 2 回以上に分ける）を"
+                      "確かめるだけ。in_gain は仮の 1.0（S0b の前）。8 s では入口の半余弦は E 0.25 までしか上がらない")
+        c.update(wall_limit_s=80, max_hours=0.25, ckpt_every=48, ckpt_list=[48, 24, 12])
+        c["sf_check"]["every"] = 48
+        c["pstats_frames"] = [1, 2, int(c["f_end"])]
+        c["precheck"] = precheck(c)
+        return [c]
+    if name == "Z0":
+        if int(opt.get("dub", 0)):
+            raise SystemExit("du_b（組の下の束縛された長い波）は未実装（Design 3 の式が要る）。Z0 は du_b 無しだけ書ける")
+        set_ = dict(set_P=1e9, set_up=12.0, set_flat=36.0, set_down=12.0, set_cg=0.0)
+        return [make("Z0_flat_set1_nodub", "flat_strip", 0.5, GC.W_STRIP, FL, 120.0, stage=stage, in_gain=g, extra_parms=set_,
+                     case_extra=dict(queue_id="Z0", stage2=True),
+                     records=dict(r2=True, r3_z=None, block=120, preg_every=24, r4=None, r5=None, windows=None),
+                     note="FLIP49 Z0（2 段目、引き金の後だけ）：平らな板、組 1 つ（上り 12 s・満ち 36 s・下り 12 s）の後 60 s の静けさ、du_b 無し")]
+    raise SystemExit("cfg は S0a・S0b・S1・S2・S3・D0・D1・D2・D3・Z0・SMOKE")
+
+
+def d2(opt, win, wsrc):
+    r = opt.get("rule")
+    sp = dict(GC.PG12S); H = GC.H_WAVE; stage = opt.get("stage", "A"); zb = GC.Z_BOTTOM; Lx = GC.LX; ex = {}
+    what = ""
+    if r == "a":
+        stage = opt.get("stage") or "B"
+        if stage not in ("B", "C"):
+            raise SystemExit("決まり (a) は次の段 B か C（--stage）")
+        what = "段 %s（帯の水面を保つ）" % stage
+    elif r == "b":
+        H = 6.5; what = "H 6.5 m（頂 ≈ 4.4 m）"
+    elif r == "c":
+        H = 8.5; what = "H 8.5 m（頂 ≈ 6.05 m）。先に S1 型の板を 1 本"
+    elif r == "d":
+        sp.update(ch_h=25.0, ch_y0=55.0, ch_w=4.0, ch_x0=150.0, ch_lx=40.0); zb = G48.ZB_DEEP
+        what = "R4 の横の深い溝 25 m（箱の底 −25 m）。横の基準を下げることを書く"
+    elif r == "e":
+        e = opt.get("e")
+        if e == "b18":
+            sp.update(b_end=18.0); what = "頂の平ら b_end 18 m（等深線が ±2 Hc までまっすぐ）"
+        elif e == "hr12":
+            sp.update(shelf_h=1.2); what = "礁の上の水深 h_r 1.2 m"
+        else:
+            raise SystemExit("決まり (e) は --e=b18（横から来る水の割合 ≥ 70 %）か --e=hr12")
+    elif r == "f":
+        sp.update(x_toe=220.25, xb1=240.0, xb2=270.0, xk1=240.0, xk2=296.0, x_back=316.0); Lx = 400.0
+        ex = dict(xa0=330.0, vol_x1=325.0, crop_x1=400.0)
+        what = "ずらさない Lx 400 m の形（縁 x 296 m、出口の帯 330〜400 m、P1 の上限 325 m）"
+    else:
+        raise SystemExit("D2 の決まりは a〜f")
+    rid = "D2%s_PG12s_dp0p5" % r + ("_%s" % opt.get("e") if r == "e" else "") + ("_st%s" % stage if stage != "A" else "")
+    c = make(rid, "3d", 0.5, GC.W_MAIN, sp, T_END_MAIN, stage=stage, in_gain=(float(opt["in_gain"]) if opt.get("in_gain") else None), H=H,
+             windows=win, zb=zb, Lx=Lx, extra_parms=ex, case_extra=dict(queue_id="D2" + r, d2_rule=r, d2_change=what, windows_source=wsrc,
+                                                                        P1_x_max_m=(325.0 if r == "f" else GC.X_P1_MAX)),
+             note="FLIP49 D2 決まり (%s)：D1 から 1 つだけ変えた：%s" % (r, what))
+    if r == "f":
+        c["records"]["r4"]["x"] = [220.0, 340.0]
+        c["precheck"] = precheck(c)
+    return c
+
+
+# ====================================================================== S0b の門 → in_gain
+def gain(run_dir):
+    p = os.path.join(run_dir, "pana", "inlet.json")
+    if not os.path.exists(p):
+        raise SystemExit("S0b の入口の読み %s がない（先に py -3.10 -B g49_periodic_ana.py inlet %s）" % (p, run_dir))
+    a = json.load(open(p, encoding="utf8"))
+    plan = json.load(open(GC.PLAN_FROZEN, encoding="utf8"))
+    gt = plan["criteria"]["strip_gates"]["S0b"]
+    cfg = json.load(open(os.path.join(run_dir, "cfg.json"), encoding="utf8"))
+    g_used = float(cfg["parms"]["in_gain"])
+    Hm = a.get("H_mean_m"); cm = a.get("c_mps"); cv = a.get("H_cv_x128"); kr = a.get("Kr"); dr = a.get("band_core_drift_6T_m")
+    J = dict(H=bool(Hm is not None and abs(Hm / GC.H_WAVE - 1) <= gt["H_rel"]), c=bool(cm is not None and abs(cm / a["c_target_mps"] - 1) <= gt["c_rel"]),
+             cv=bool(cv is not None and cv <= gt["H_cv_max_at_128"]), Kr=bool(kr is not None and kr <= gt["Kr_max"]),
+             drift=bool(dr is not None and abs(dr) <= gt["band_drift_max_m_6T"]))
+    out = dict(run=os.path.basename(run_dir.rstrip("/\\")), in_gain_used=g_used, H_mean_m=Hm, c_mps=cm, H_cv_x128=cv, Kr=kr, band_core_drift_6T_m=dr, judge=J)
+    if all(J.values()):
+        g = dict(in_gain=g_used, source_run=out["run"], date=time.strftime("%Y-%m-%d %H:%M:%S"), gate=J, values=out, tag="測定（S0b の門を通った）")
+        json.dump(g, open(GC.PLAN_DIR + "/in_gain.json", "w", encoding="utf8"), indent=1, ensure_ascii=False)
+        out["next"] = "plan/in_gain.json を書いた（in_gain %.4f）。S1 へ" % g_used
+    elif not J["H"] and abs(g_used - 1.0) < 1e-12:
+        out["next"] = "H が 5 %% より外れ：py -3.10 -B g49_pcfg.py cfg S0b --in_gain=%.4f（7.5/H_meas × 1.0、1 回だけ）" % (GC.H_WAVE / Hm)
+    elif not (J["c"] and J["Kr"]) or not J["H"]:
+        out["next"] = "まだ外れ（c・Kr・H）：帯を 120 m に 1 回だけ延ばす（決まり。xg_end 120、平らは 60 m）。それでも外れなら入口を失敗として報告"
+    else:
+        out["next"] = "H・c・Kr は通ったが CV か帯の水面が外れ：段の決まり（S1 の後の (1)）で扱う。報告に書く"
+    print(json.dumps(out, ensure_ascii=False, indent=1))
+    return out
+
+
+# ====================================================================== 確かめ（numpy）
+def checks():
+    t_start = time.time()
+    out = dict(date=time.strftime("%Y-%m-%d %H:%M:%S"), tool="g49_pcfg.py check")
+    ok = {}
+    # (1) 既存の海底が 1 bit も違わない（R0・R1・R2b・R3・R4・C3 の cfg）
+    rng = np.random.default_rng(4901)
+    X = np.concatenate([rng.uniform(-20.0, 420.0, 300000), np.arange(0.0, 360.0001, 0.25)])
+    Y = np.concatenate([rng.uniform(-100.0, 120.0, 300000), np.zeros(1441)])
+    ex = {}
+    for rid in ("R0_strip_RS_A0p3", "R1_RS_k0p35_A0p3_W85", "R2b_RS_k0p5_A0p3_W85", "R3_TSC_k0p35_A0p3_b0p12_W85", "R4_TSC_k0p35_A0p3_b0p18_W85",
+                "C3_TSC_k0p35_A0p35_b0p18_W85"):
+        p = os.path.join(G48.B48, "runs", rid, "cfg.json")
+        if not os.path.exists(p):
+            ex[rid] = dict(missing=p); continue
+        cfg = json.load(open(p, encoding="utf8"))
+        r = {}
+        for src, s49, s48 in (("cfg_bed", GC.bed_spec(cfg), G48.bed_spec(cfg)), ("cfg_parms_ctrl", GC.bed_spec(parms=cfg["parms"]), G48.bed_spec(parms=cfg["parms"]))):
+            z0 = G48.bed_z(X, Y, **s48); z1 = GC.bed_z(X, Y, **s49)
+            g0 = G48.bed_grad(X, Y, **s48); g1 = GC.bed_grad(X, Y, **s49)
+            r[src] = dict(bit_equal=bool(np.array_equal(z0, z1) and np.array_equal(g0[0], g1[0]) and np.array_equal(g0[1], g1[1])),
+                          is_new=GC.is_new(s49), kind=GC.bed_kind(s49))
+            assert r[src]["bit_equal"] and not r[src]["is_new"], "既存の海底 %s（%s）が g48 と 1 bit 違う" % (rid, src)
+        ex[rid] = r
+    out["existing_beds_bit_exact"] = ex
+    ok["existing_beds_bit_exact"] = bool(ex and not any("missing" in v for v in ex.values()))
+    # (2) PG12s と U3
+    U3 = GC.u3_depth_fn()
+    Xg, Yg = np.meshgrid(np.arange(-10.0, 400.0001, 0.1), np.arange(-90.0, 90.0001, 0.25))
+    dmax = float(np.abs(-GC.bed_z(Xg, Yg, **GC.PG12S) - U3(Xg, Yg, GC.PG12S_U3)).max())
+    out["pg12s_vs_u3"] = dict(max_abs_m=dmax, grid="x -10..400 step 0.1, y -90..90 step 0.25")
+    ok["pg12s_vs_u3_lt_1e-9"] = dmax < 1e-9
+    # (3) 勾配（数値の差。折れの近くを除く）：PG12s・軸の板・溝つき（決まり d）・b_end 18・h_r 1.2（決まり e）・ずらさない形（決まり f）
+    grads = {}
+    h = 1e-5
+    variants = dict(PG12s=GC.PG12S, axis=GC.pg_axis(), rule_d=dict(GC.PG12S, ch_h=25.0), rule_e_b18=dict(GC.PG12S, b_end=18.0),
+                    rule_e_hr12=dict(GC.PG12S, shelf_h=1.2), rule_f=dict(GC.PG12S, x_toe=220.25, xb1=240.0, xb2=270.0, xk1=240.0, xk2=296.0, x_back=316.0))
+    for nm, sp in variants.items():
+        Xr = rng.uniform(150, 390, 40000); Yr = rng.uniform(-88, 88, 40000)
+        gx, gy = GC.bed_grad(Xr, Yr, **sp)
+        ngx = (GC.bed_z(Xr + h, Yr, **sp) - GC.bed_z(Xr - h, Yr, **sp)) / (2 * h); ngy = (GC.bed_z(Xr, Yr + h, **sp) - GC.bed_z(Xr, Yr - h, **sp)) / (2 * h)
+        err = np.maximum(np.abs(gx - ngx), np.abs(gy - ngy))
+        grads[nm] = dict(max=float(err.max()), n_gt_1em5=int((err > 1e-5).sum()), n=len(Xr), even_in_y=float(np.abs(GC.bed_z(Xr, Yr, **sp) - GC.bed_z(Xr, -Yr, **sp)).max()))
+    out["bed_grad_fd"] = grads
+    ok["bed_grad_fd"] = all(v["n_gt_1em5"] <= 2 and v["even_in_y"] < 1e-12 for v in grads.values())
+    # (4) 崩す所の形（|y| = 1.5 Hc、Hc 9.6 m の等深線のずれ）を下見の json と比べる
+    xs = np.arange(150.0, 400.0, 0.05)
+    geo = {}
+    for dd in (3.0, 6.0, 8.0, 10.0):
+        def xd(yy):
+            d = -GC.bed_z(xs, np.full_like(xs, yy), **GC.PG12S)
+            i = np.where(d <= dd)[0]
+            return float(xs[i[0]]) if len(i) else float("nan")
+        geo["dx_d%gm_y1.5Hc" % dd] = xd(1.5 * 9.6) - xd(0.0)
+        geo["x_d%gm_axis" % dd] = xd(0.0)
+    geo["x_edge"] = GC.edge_x(GC.PG12S); geo["x_foot_12m"] = GC.foot_x(GC.PG12S)
+    scr = os.path.join(GC.SCRATCH_U4, GC.SCREEN_JSON[0])
+    if not os.path.exists(scr):
+        scr = os.path.join(GC.PLAN_DIR, "screening", GC.SCREEN_JSON[0])
+    if os.path.exists(scr):
+        sj = json.load(open(scr, encoding="utf8"))
+        geo["screening_geom"] = {k: sj["geom"].get(k) for k in ("x_edge", "dx_d3m_y1.5Hc", "dx_d6m_y1.5Hc", "dx_d8m_y1.5Hc", "dx_d10m_y1.5Hc")}
+        geo["screening_bed_matches"] = bool(all(abs(float(sj["bed"][k]) - float(GC.PG12S_U3[k])) < 1e-12 for k in GC.PG12S_U3 if k in sj["bed"]))
+        geo["match_screening"] = bool(abs(geo["x_edge"] - sj["geom"]["x_edge"]) < 0.06 and all(abs(geo["dx_d%gm_y1.5Hc" % dd] - sj["geom"]["dx_d%gm_y1.5Hc" % dd]) < 0.06 for dd in (3.0, 6.0, 8.0, 10.0)))
+        ok["contours_match_screening"] = bool(geo["match_screening"] and geo["screening_bed_matches"])
+    out["break_geometry"] = geo
+    # (5) 流れ関数の波と、その numpy の目標（VEX の写し）が g47_sfwave と同じか
+    s_, sfT = GC.sf_solve()
+    SFW = GC.sfwave_mod()
+    xq = np.linspace(0, 300, 41); tq = np.linspace(0, 12, 7)
+    XX, TT = np.meshgrid(xq, tq)
+    e1 = GC.sf_target(XX, -5.0, TT, sfT, dict(x_p=GC.X_P), E=1.0)[3]
+    e2 = SFW.eta(s_, (XX - GC.X_P).ravel(), TT.ravel()).reshape(XX.shape)
+    yq = np.minimum(-5.0, e2)
+    u1_, w1_ = GC.sf_vel(GC.sf_from_table(sfT), (XX - GC.X_P).ravel(), yq.ravel(), TT.ravel())
+    u2_, w2_ = SFW.vel(s_, (XX - GC.X_P).ravel(), yq.ravel(), TT.ravel())
+    vel_copy_diff = float(max(np.abs(u1_ - u2_).max(), np.abs(w1_ - w2_).max()))
+    bc = SFW._bc_residuals(s_)
+    out["sf"] = dict(L=sfT["L"], c=sfT["c"], eta_crest=sfT["eta_crest"], eta_trough=sfT["eta_trough"], u1=sfT["u1_mean_current"], ursell=sfT["ursell"],
+                     H_over_Hmax=sfT["H_over_Hmax"], residual_max=sfT["residual_max"], bc_residuals=bc, target_eta_vs_g47_max=float(np.abs(e1 - e2).max()), sf_vel_copy_vs_g47_max=vel_copy_diff,
+                     design=dict(L=148.6, c=12.39, eta_crest=5.17, eta_trough=-2.33, u1=-0.29, ursell=34, H_over_Hmax=0.64))
+    ok["sf_values_match_design"] = bool(abs(sfT["L"] - 148.6) < 0.05 and abs(sfT["c"] - 12.39) < 0.01 and abs(sfT["eta_crest"] - 5.17) < 0.01
+                                        and abs(sfT["eta_trough"] + 2.33) < 0.01 and abs(sfT["u1_mean_current"] + 0.29) < 0.01 and np.abs(e1 - e2).max() < 1e-12
+                                        and vel_copy_diff < 1e-12)
+    # (6) 物の数：Iribarren・横の揺れの向き・静振の周期（Merian）
+    L0 = GC.G * GC.T_WAVE ** 2 / (2 * math.pi)
+    k_lin = SFW.k_lin(GC.T_WAVE, GC.H0); L_lin = 2 * math.pi / k_lin
+    out["numbers"] = dict(L0_deep_m=L0, iribarren_1_10=0.1 / math.sqrt(GC.H_WAVE / L0), iribarren_1_2p5=0.4 / math.sqrt(GC.H_WAVE / L0),
+                          L_lin_T12_m=L_lin, L_lin_T14_m=2 * math.pi / SFW.k_lin(14.0, GC.H0),
+                          mode1_angle_deg_lin=math.degrees(math.asin(min(1.0, L_lin / (2 * GC.W_MAIN)))),
+                          mode1_angle_deg_sf=math.degrees(math.asin(min(1.0, sfT["L"] / (2 * GC.W_MAIN)))),
+                          T14_at_W85_cutoff=bool(abs(2 * math.pi / SFW.k_lin(14.0, GC.H0) - 2 * GC.W_MAIN) / (2 * GC.W_MAIN) < 0.01),
+                          seiche_T1_flat17_s=2 * GC.LX / math.sqrt(GC.G * GC.H0),
+                          seiche_T1_axis_s=seiche_axis(GC.pg_axis()),
+                          tags="計算")
+    # (7) 粒子の数
+    pc = {}
+    for nm, sp, W, dp in (("3d_dp0p5", GC.PG12S, GC.W_MAIN, 0.5), ("3d_dp1p0", GC.PG12S, GC.W_MAIN, 1.0), ("axis_dp0p5", GC.pg_axis(), GC.W_STRIP, 0.5),
+                          ("flat_dp0p5", GC.flat_spec(), GC.W_STRIP, 0.5)):
+        n, V = GC.count_particles(sp, GC.LX, W, dp)
+        pc[nm] = dict(particles=n, water_m3=V)
+    out["particles"] = pc
+    ok["particles_as_designed"] = bool(abs(pc["3d_dp0p5"]["particles"] / 3.63e6 - 1) < 0.01 and abs(pc["3d_dp1p0"]["particles"] / 0.45e6 - 1) < 0.01
+                                       and abs(pc["axis_dp0p5"]["particles"] / 0.214e6 - 1) < 0.01 and abs(pc["flat_dp0p5"]["particles"] / 0.294e6 - 1) < 0.01)
+    # (8) 設定を書かずに作って、走らせる前の確かめの数（in_gain が無いので S1 以降の ok は偽でよい）
+    cf = {}
+    for nm in ("S0a", "S0b", "S1", "D0", "D1"):
+        try:
+            c = preset(nm, {})[0]
+            cf[nm] = dict(run_id=c["run_id"], precheck=c["precheck"], f_end=c["f_end"], windows=c["records"].get("windows"))
+        except SystemExit as e:
+            cf[nm] = dict(error=str(e))
+    out["cfg_dry"] = cf
+    ok["cfg_S0a_S0b_precheck_ok"] = bool(cf["S0a"].get("precheck", {}).get("ok") and cf["S0b"].get("precheck", {}).get("ok"))
+    d1 = (cf["D1"].get("precheck") or {})
+    ok["D1_wall_le_2p5h"] = bool(d1.get("checks", {}).get("wall_le_2p5h"))
+    ok["D1_particles_as_designed"] = bool(d1.get("checks", {}).get("particles_as_designed"))
+    # (9) 凍らせた計画
+    if os.path.exists(GC.PLAN_FROZEN):
+        h_ = GC.sha256_file(GC.PLAN_FROZEN)
+        rec = open(GC.PLAN_FROZEN + ".sha256").read().split()[0] if os.path.exists(GC.PLAN_FROZEN + ".sha256") else None
+        cp = GC.PLAN_COPY48
+        out["plan_frozen"] = dict(path=GC.PLAN_FROZEN, sha256=h_, sha256_file=rec, copy=cp, copy_identical=bool(os.path.exists(cp) and GC.sha256_file(cp) == h_))
+        ok["plan_frozen_sha"] = bool(rec == h_ and out["plan_frozen"]["copy_identical"])
+    out["ok"] = ok
+    out["all_ok"] = bool(all(ok.values()))
+    out["elapsed_s"] = round(time.time() - t_start, 1)
+    os.makedirs(GC.PLAN_DIR, exist_ok=True)
+    json.dump(out, open(GC.PLAN_DIR + "/precheck.json", "w", encoding="utf8"), indent=1, ensure_ascii=False, default=float)
+    return out
+
+
+def seiche_axis(spec, Lx=GC.LX):
+    """閉じた水槽の 1 次の静振の周期 T1 = 2 ∫ dx/√(g d(x))（軸の断面、Merian の長い波の近似）。"""
+    xs = np.arange(0.0, Lx, 0.1) + 0.05
+    d = -GC.bed_z(xs, 0.0, **spec)
+    return float(2.0 * np.sum(0.1 / np.sqrt(GC.G * d)))
+
+
+def summary(o):
+    L = ["all_ok %s  %s" % (o["all_ok"], o["ok"])]
+    L.append("existing beds: %s" % {k: {kk: vv.get("bit_equal") for kk, vv in v.items()} if "missing" not in v else "missing" for k, v in o["existing_beds_bit_exact"].items()})
+    L.append("PG12s vs u3_beds.depth: %.3e m" % o["pg12s_vs_u3"]["max_abs_m"])
+    L.append("bed grad FD: %s" % {k: (round(v["max"], 9), v["n_gt_1em5"]) for k, v in o["bed_grad_fd"].items()})
+    g = o["break_geometry"]
+    L.append("break geometry: edge %.2f foot %.2f; dx at 1.5 Hc: 10/8/6/3 m = %.2f/%.2f/%.2f/%.2f; screening %s" % (
+        g["x_edge"], g["x_foot_12m"], g["dx_d10m_y1.5Hc"], g["dx_d8m_y1.5Hc"], g["dx_d6m_y1.5Hc"], g["dx_d3m_y1.5Hc"], g.get("screening_geom")))
+    s = o["sf"]
+    L.append("SF: L %.3f c %.4f crest %.4f trough %.4f u1 %.4f Ur %.1f H/Hmax %.3f residual %.1e bc %s target-vs-g47 %.1e" % (
+        s["L"], s["c"], s["eta_crest"], s["eta_trough"], s["u1"], s["ursell"], s["H_over_Hmax"], s["residual_max"], s["bc_residuals"], s["target_eta_vs_g47_max"]))
+    L.append("numbers: %s" % {k: (round(v, 3) if isinstance(v, float) else v) for k, v in o["numbers"].items()})
+    L.append("particles: %s" % {k: v["particles"] for k, v in o["particles"].items()})
+    for k, v in o["cfg_dry"].items():
+        pc = v.get("precheck") or {}
+        L.append("  cfg %s: %s ok %s reason %s %s" % (k, v.get("run_id"), pc.get("ok"), pc.get("reason"),
+                                                    {kk: (round(vv, 3) if isinstance(vv, float) else vv) for kk, vv in pc.items() if kk in ("solve_h_lo", "solve_h_hi", "records_h", "total_h_hi", "heavy_frames")}))
+    if o.get("plan_frozen"):
+        L.append("plan_frozen: %s" % o["plan_frozen"])
+    return "\n".join(L)
+
+
+def parse(argv):
+    opt = {a[2:].split("=", 1)[0]: (a.split("=", 1)[1] if "=" in a else "1") for a in argv if a.startswith("--")}
+    pos = [a for a in argv if not a.startswith("--")]
+    return pos, opt
+
+
+if __name__ == "__main__":
+    try:
+        sys.stdout.reconfigure(encoding="utf-8")
+    except Exception:
+        pass
+    pos, opt = parse(sys.argv[1:])
+    if not pos:
+        print(__doc__); sys.exit(1)
+    if pos[0] == "check":
+        o = checks()
+        print(summary(o))
+    elif pos[0] == "freeze":
+        print(freeze(force=bool(int(opt.get("force", "0"))), reason=opt.get("reason")))
+    elif pos[0] == "gain":
+        gain(os.path.abspath(pos[1]))
+    elif pos[0] == "cfg":
+        names = pos[1:] or ["all"]
+        if names == ["all"]:
+            names = ["S0a", "S0b", "S1", "D0", "D1", "S2", "S3"]
+        for nm in names:
+            for c in preset(nm, opt):
+                if not c["precheck"]["ok"]:
+                    print("NOT WRITTEN", c["run_id"], c["precheck"]["reason"])
+                    continue
+                print("written", write(c), "f_end", c["f_end"], "particles", c["precheck"]["particles_model"],
+                      {k: round(v, 3) for k, v in c["precheck"].items() if k in ("solve_h_hi", "total_h_hi")})
+    else:
+        print(__doc__); sys.exit(1)
