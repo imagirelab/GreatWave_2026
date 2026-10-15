@@ -29,6 +29,12 @@
   py -3.10 -B g49_pcfg.py cfg DA2 [--change=chy40]   DA1 から海底の 1 つだけ（溝の壁の真ん中 ch_y0 55 → 40 m）を変えた主の粗い 3D。波・入口・箱・出口の帯・
                                               92 s・重い記録（47〜92 s を 3 コマごと）・段 C は DA1 と同じ。in_gain は plan/in_gain.json（同じ波なので入口の板は要らない）。
                                               粒子が +5.1 % なので 1 本の時間の上限だけ 3.0 h（AM-A3。判定の閾ではない）。--change=T16 は書かない（AM-A3 で選ばなかった）
+  2026-10-16 DA3 を足した（plan/amendments.jsonl AM-A5）：
+  py -3.10 -B g49_pcfg.py cfg DA3 [--change=chy30]   DA2 から海底の 1 つだけ（溝の壁の真ん中 ch_y0 40 → 30 m）を変えた主の粗い 3D（方案 A の続き 2 本の 2 本目）。
+                                              波・入口・箱・出口の帯・92 s・重い記録・段 C・1 本の上限 3.0 h は DA2 と同じ。時間の見込みは DA2 の測った時間から。
+                                              --change=T16 は書かない（AM-A5：T16 は巻く幅を広げ P4b を失う見込み。理由は AM-A5 の t16_resolution）
+  py -3.10 -B g49_pcfg.py cfg DA3c --run=<方案 A の記録>   PERIODIC が通った時の +48 s の続き（140 s）。AM-A5 で前の名前 DA3 から DA3c に改めた。
+                                              `cfg DA3 --run=…` は前の書き方として残し、前と 1 byte も違わない cfg を出す（queue_id も前の 'DA3'）
   py -3.10 -B g49_pcfg.py freezeA [--force=1 --reason=…]   plan/plan_A_frozen.json（＋ .sha256）を書く（g49_planA.py。あれば書かない）
   check は方案 A の確かめ（T0A：C3 をずらした海底と 1 bit 同じ・u3 と同じ・勾配・形・箱と粒子の数・in_gain・SMOKE_A と DA1 の precheck）も行う
   py -3.10 -B g49_pcfg.py gain <S0b の記録>    S0b の門（plan_frozen.json の strip_gates.S0b）を当てはめ、通れば plan/in_gain.json を書く。
@@ -76,6 +82,14 @@ SPEC_A2_CHANGE = dict(ch_y0=40.0)
 EXPECT_PARTICLES_A2 = {0.5: 5238087, 1.0: 656570}   # SC37 ch_y0 40（箱 442 × 85 m・底 −25 m。粒子 1.0 m は半幅 86 m）【計算】g49_common.count_particles。+5.15 %、水 +32,060 m³
 LIMIT_3D_H_A2 = 3.0                         # DA2 の 1 本の上限（時間）：DA1 の測った 2.35 h × 粒子 1.0515 ≈ 2.47 h が 2.5 h に近いので（AM-A3）【選び】
 DA1_RUN_A = "DA1_SC37_T12H7p5_dp0p5"        # DA2 の時間の見込みに測った値を使う元の記録（runs/<これ>）
+# 方案 A DA3（2026-10-16、plan/amendments.jsonl AM-A5）：DA2 の海底から溝の壁の真ん中 ch_y0 だけを 40 → 30 m に（ほかの海底の数は SC37・DA2 と同じ）【選び】。
+# 理由（diag_DA2）：DA1 → DA2（ch_y0 55 → 40）で最も巻いたコマの幅 ÷ Hc の中央値が 3.05 → 2.60、巻き始めの F が −22 %【測定】。同じ向きの次の段は
+# 下見 × DA1・DA2 の 2 本で合わせた倍率で中央値 2.29（倍率を弱めない時 2.12）、c0/c_side 1.75〜2.14、c0/c(4Hc) 1.26〜1.37【推測】。
+# DA2 からの海底の変わりは x 266 m で |y| 20 m まで +0.10 m 以下、|y| 27 m（4 Hc）で +2.6 m【計算】。ch_y0 25 は 4 Hc の内に溝の壁が入る（|y| 25 m で +7.3 m）ので選ばない
+SPEC_A3_CHANGE = dict(ch_y0=30.0)
+EXPECT_PARTICLES_A3 = {0.5: 5439373, 1.0: 682249}   # SC37 ch_y0 30（箱 442 × 85 m・底 −25 m。粒子 1.0 m は半幅 86 m）【計算】g49_common.count_particles。DA2 の 1.0384 倍
+LIMIT_3D_H_A3 = 3.0                         # DA3 の 1 本の上限（時間）：DA2 と同じ（DA2 の測った 2.32 h × 粒子 1.038 ≈ 2.4 h）【選び】
+DA2_RUN_A = "DA2_SC37y40_T12H7p5_dp0p5"     # DA3 の時間の見込みに測った値を使う元の記録（runs/<これ>）
 
 
 # ====================================================================== 凍らせる計画（g49_pcfg.py freeze）
@@ -484,10 +498,13 @@ def precheck_A(c, P, spec, n):
     info = {}
     dp = float(P["dp"])
     a2 = is_spec_A2(spec)                     # DA2 の海底（SC37 の ch_y0 だけ 40 m、AM-A3）。DA1・SMOKE_A は偽（前と同じ確かめ・同じ鍵）
-    if dp in EXPECT_PARTICLES_A and float(P["W"]) in (85.0, 86.0) and not a2:
+    a3 = is_spec_A3(spec)                     # DA3 の海底（SC37 の ch_y0 だけ 30 m、AM-A5）。DA1・DA2・SMOKE_A は偽（前と同じ確かめ・同じ鍵）
+    if dp in EXPECT_PARTICLES_A and float(P["W"]) in (85.0, 86.0) and not a2 and not a3:
         ck["A_particles_as_designed"] = bool(n == EXPECT_PARTICLES_A[dp])
     if a2 and dp in EXPECT_PARTICLES_A2 and float(P["W"]) in (85.0, 86.0):
         ck["A2_particles_as_computed"] = bool(n == EXPECT_PARTICLES_A2[dp])
+    if a3 and dp in EXPECT_PARTICLES_A3 and float(P["W"]) in (85.0, 86.0):
+        ck["A3_particles_as_computed"] = bool(n == EXPECT_PARTICLES_A3[dp])
     ck["A_box"] = bool(float(P["Lx"]) == LY["Lx"] and float(P["zb"]) == LY["zb"] and float(P["floor_pad"]) == 2.0)
     if a2:
         o2, k2 = checks_A2(spec)
@@ -495,10 +512,25 @@ def precheck_A(c, P, spec, n):
         info["A2"] = o2
         info["A2"]["particles"] = dict(model=int(n), SC37_dp0p5=EXPECT_PARTICLES_A[0.5], ratio_vs_SC37=(n / EXPECT_PARTICLES_A[dp]) if dp in EXPECT_PARTICLES_A else None)
         if c["kind"] == "3d" and dp == 0.5:
-            info["A2"]["cost_from_DA1"] = cost_from_run(DA1_RUN_A, n, float(c.get("limit_h_run", LIMIT_3D_H)), int(c["f_end"]))
+            # DA3c（AM-A5、+48 s の続き）だけ、計算するコマ（f_resume_est〜f_end）で見込む。ほか（DA2・前の書き方 DA3 --run）は前と同じ f_end
+            nf_a2 = nf_cost(c) if (c.get("case") or {}).get("queue_id") == "DA3c" else int(c["f_end"])
+            info["A2"]["cost_from_DA1"] = cost_from_run(DA1_RUN_A, n, float(c.get("limit_h_run", LIMIT_3D_H)), nf_a2)
             cm = info["A2"]["cost_from_DA1"]
             if cm.get("est_hi_h") is not None:
                 ck["A2_measured_est_hi_le_limit"] = bool(cm["est_hi_h"] <= cm["limit_h"])
+    elif a3:
+        o3, k3 = checks_A3(spec)
+        ck.update(k3)
+        info["A3"] = o3
+        info["A3"]["particles"] = dict(model=int(n), SC37_dp0p5=EXPECT_PARTICLES_A[0.5], DA2_dp0p5=EXPECT_PARTICLES_A2[0.5],
+                                       ratio_vs_SC37=(n / EXPECT_PARTICLES_A[dp]) if dp in EXPECT_PARTICLES_A else None,
+                                       ratio_vs_DA2=(n / EXPECT_PARTICLES_A2[dp]) if dp in EXPECT_PARTICLES_A2 else None)
+        if c["kind"] == "3d" and dp == 0.5:
+            info["A3"]["cost_from_DA2"] = cost_from_run(DA2_RUN_A, n, float(c.get("limit_h_run", LIMIT_3D_H)), nf_cost(c), src="DA2")
+            info["A3"]["cost_from_DA2"]["frames_costed"] = nf_cost(c)
+            cm = info["A3"]["cost_from_DA2"]
+            if cm.get("est_hi_h") is not None:
+                ck["A3_measured_est_hi_le_limit"] = bool(cm["est_hi_h"] <= cm["limit_h"])
     else:
         ck["A_bed_is_SC37"] = bool(all((spec.get(k) == v) if not isinstance(v, float) else abs(float(spec.get(k)) - v) < 1e-12 for k, v in GC.SPEC_A.items())
                                    and GC.is_spur_drop(spec))
@@ -569,11 +601,63 @@ def checks_A2(spec):
     return o, ok
 
 
-def cost_from_run(run_id, n_new, limit_h, f_end_new):
-    """方案 A の測った記録（DA1）の時間から、粒子の数に比例させた見込み（DA2 の precheck に書く。測った値 × 比）。
-    est = DA1 の chain の経過 × n_new/n_DA1 × コマ数の比。est_hi = est ＋ 起動のし直しで重ねるコマが毎回いちばん大きい途中保存の間隔（96 コマ）だった時の差。"""
+def nf_cost(c):
+    """この cfg で計算するコマの数（新しい計算は f_end。続き DA3c は f_resume_est〜f_end）。DA3・DA3c の測った時間からの見込みに使う（AM-A5）"""
+    return int(c["f_end"]) - int(c.get("f_resume_est", c.get("f_start", 1))) + 1
+
+
+def spec_A3():
+    """DA3 の海底（AM-A5）：SC37 の ch_y0 だけを 30 m に（DA2 から ch_y0 40 → 30 m の 1 つだけ）。"""
+    sp = dict(GC.SPEC_A)
+    sp.update(SPEC_A3_CHANGE)
+    return sp
+
+
+def is_spec_A3(spec):
+    """spec が DA3 の海底（SC37 と ch_y0 以外は同じ、ch_y0 = 30 m）か。"""
+    ref = spec_A3()
+    return bool(GC.is_spur_drop(spec) and all((spec.get(k) == v) if not isinstance(v, float) else
+                                               (spec.get(k) is not None and abs(float(spec.get(k)) - v) < 1e-12) for k, v in ref.items()))
+
+
+def checks_A3(spec):
+    """DA3 の海底の numpy の確かめ（数秒、AM-A5）。返り値 (記録, ok)。
+    (1) 溝が始まる前（x < ch_x0）で SC37・DA2 と 1 bit も違わない (2) どこでも DA2 より浅くならない（違いは溝の項だけ）、DA2 と本当に違う
+    (3) 下見（u3_beds.depth、diag_DA2/c1_u3_screen.py の B_y30 と同じ名前）と同じ (4) 軸の縁・最も深い所は SC37・DA2 と同じ。
+    DA2 からの変わり（|y| ごとの最大と x 266 m の水深）を記録する（4 Hc ≈ 27 m の内でどれだけ変えたか）。"""
+    sp0 = GC.SPEC_A; sp2 = spec_A2()
+    o, ok = {}, {}
+    xs = np.arange(0.0, 442.0, 0.25); ys = np.arange(-90.0, 90.0001, 0.25)
+    X, Y = np.meshgrid(xs, ys)
+    z0 = GC.bed_z(X, Y, **sp0); z2 = GC.bed_z(X, Y, **sp2); z3 = GC.bed_z(X, Y, **spec)
+    up = xs < float(spec["ch_x0"])
+    d2 = z2 - z3
+    ok["A3_bed_equals_SC37_and_DA2_before_channels"] = bool(np.array_equal(z0[:, up], z3[:, up]) and np.array_equal(z2[:, up], z3[:, up]))
+    ok["A3_bed_never_shallower_than_DA2"] = bool(d2.min() >= -1e-12 and (z0 - z3).min() >= -1e-12)
+    ok["A3_bed_differs_from_DA2"] = bool(d2.max() > 1.0)          # ch_y0 が本当に効いている（DA2 のままなら偽）
+    o["deeper_than_DA2_max_m_by_abs_y"] = {str(v): float(d2[np.abs(ys) <= v].max()) for v in (10, 15, 20, 22, 25, 27, 30, 33, 35, 40, 85)}
+    o["depth_m_x266_SC37_DA2_DA3"] = {str(v): [float(-GC.bed_z(266.0, float(v), **s_)) for s_ in (sp0, sp2, spec)]
+                                      for v in (0, 10, 15, 20, 22, 25, 27, 30, 33, 35, 40, 45, 55, 60)}
+    U3 = GC.u3_depth_fn()
+    Xg, Yg = np.meshgrid(np.arange(-10.0, 442.0001, 0.25), np.arange(-90.0, 90.0001, 0.5))
+    u3s = dict(GC.SPEC_A_U3); u3s.update(SPEC_A3_CHANGE)
+    dU = float(np.abs(-GC.bed_z(Xg, Yg, **spec) - U3(Xg, Yg, u3s)).max())
+    o["vs_u3"] = dict(max_abs_m=dU, u3_spec=u3s, grid="x -10..442 step 0.25, y -90..90 step 0.5", screen="Unity/Build/FLIP49/diag_DA2/u3/u3_B_y30.json")
+    ok["A3_bed_vs_u3_lt_1e-9"] = bool(dU < 1e-9)
+    e0, e2, e3 = GC.edge_x(sp0), GC.edge_x(sp2), GC.edge_x(spec)
+    o.update(edge_x_axis_m=[e0, e2, e3], max_depth_m=[float(-z0.min()), float(-z2.min()), float(-z3.min())], change=dict(SPEC_A3_CHANGE),
+             from_ch_y0_DA2=float(sp2["ch_y0"]), from_ch_y0_SC37=float(sp0["ch_y0"]))
+    ok["A3_edge_and_max_depth_as_SC37"] = bool(e0 == e2 == e3 and abs(float(z0.min()) - float(z3.min())) < 1e-3)
+    o["tags"] = dict(all="計算（numpy）")
+    return o, ok
+
+
+def cost_from_run(run_id, n_new, limit_h, f_end_new, src="DA1"):
+    """方案 A の測った記録（DA1。DA3 は DA2：src）の時間から、粒子の数に比例させた見込み（DA2・DA3 の precheck に書く。測った値 × 比）。
+    est = 元の chain の経過 × n_new/n_元 × コマ数の比。est_hi = est ＋ 起動のし直しで重ねるコマが毎回いちばん大きい途中保存の間隔（96 コマ）だった時の差。
+    鍵の頭は src（DA2 の cfg は前と同じ 'DA1_…'）。n_元 は元の記録の場面の粒子（VEX）の数"""
     rd = os.path.join(GC.B49, "runs", run_id)
-    o = dict(run=run_id, limit_h=limit_h, tag="測定（DA1 の chain.log と periodic_ana.json）× 計算（粒子の比）")
+    o = dict(run=run_id, limit_h=limit_h, tag="測定（%s の chain.log と periodic_ana.json）× 計算（粒子の比）" % src)
     try:
         lines = open(os.path.join(rd, "chain.log"), encoding="utf8", errors="ignore").read().splitlines()
         pa = json.load(open(os.path.join(rd, "pana", "periodic_ana.json"), encoding="utf8"))
@@ -602,9 +686,10 @@ def cost_from_run(run_id, n_new, limit_h, f_end_new):
     ratio = n_new / max(n1, 1)
     est = elapsed * ratio * (f_end_new / nf1)
     est_hi = est + max(0, worst_redo - redo) * s_per * ratio / 3600.0
-    o.update(DA1_elapsed_h=elapsed, DA1_launches=len(chunks), DA1_frames=nf1, DA1_frames_computed=computed, DA1_frames_redone=redo,
-             DA1_s_per_frame_mean=s_per, DA1_particles_first=n1, DA1_growth=((pa.get("health") or {}).get("particles") or {}).get("growth"),
-             particle_ratio=ratio, est_h=est, est_hi_h=est_hi, worst_redo_frames=worst_redo)
+    meas = dict(elapsed_h=elapsed, launches=len(chunks), frames=nf1, frames_computed=computed, frames_redone=redo,
+                s_per_frame_mean=s_per, particles_first=n1, growth=((pa.get("health") or {}).get("particles") or {}).get("growth"))
+    o.update({"%s_%s" % (src, k): v for k, v in meas.items()})
+    o.update(particle_ratio=ratio, est_h=est, est_hi_h=est_hi, worst_redo_frames=worst_redo)
     return o
 
 
@@ -724,7 +809,7 @@ def _preset(name, opt):
         c["pstats_frames"] = [1, 2, int(c["f_end"])]
         c["precheck"] = precheck(c)
         return [c]
-    if name in ("SMOKE_A", "DA1", "DA2", "DA3"):
+    if name in ("SMOKE_A", "DA1", "DA2", "DA3", "DA3c"):
         return preset_A(name, opt)
     if name == "Z0":
         if int(opt.get("dub", 0)):
@@ -734,13 +819,14 @@ def _preset(name, opt):
                      case_extra=dict(queue_id="Z0", stage2=True),
                      records=dict(r2=True, r3_z=None, block=120, preg_every=24, r4=None, r5=None, windows=None),
                      note="FLIP49 Z0（2 段目、引き金の後だけ）：平らな板、組 1 つ（上り 12 s・満ち 36 s・下り 12 s）の後 60 s の静けさ、du_b 無し")]
-    raise SystemExit("cfg は S0a・S0b・S1・S2・S3・D0・D1・D2・D3・Z0・SMOKE・SMOKE_A・DA1・DA2・DA3")
+    raise SystemExit("cfg は S0a・S0b・S1・S2・S3・D0・D1・D2・D3・Z0・SMOKE・SMOKE_A・DA1・DA2・DA3・DA3c")
 
 
 def preset_A(name, opt):
     """方案 A（PER49-A、plan_A_frozen.json）の設定。SMOKE_A：3D の煙の試し（粒子 1.0 m、0〜8 s、起動 2 回）。DA1：主の粗い周期の 3D
     （粒子 0.5 m、T 12 s・H 7.5 m、段 C、92 s、重い記録は下見の巻き始め ± [−3, +4] s）。DA2：DA1 から 1 つだけ変えた続き（2026-10-16 AM-A3：溝の壁の真ん中 ch_y0 55 → 40 m。前の予定 T16 H7.0 は書かない）。
-    DA3：PERIODIC が通った時の +48 s の続き（140 s）。"""
+    DA3（2026-10-16 AM-A5）：DA2 から 1 つだけ変えた続きの 2 本目（溝の壁の真ん中 ch_y0 40 → 30 m）。--run がある時は前の名前の続き（下の DA3c と同じ）。
+    DA3c（AM-A5 で改めた名前）：PERIODIC が通った時の +48 s の続き（140 s）。"""
     stage = opt.get("stage", "C")
     sp = dict(GC.SPEC_A)
     if name == "SMOKE_A":
@@ -817,13 +903,48 @@ def preset_A(name, opt):
         c["max_hours"] = LIMIT_3D_H_A2
         c["precheck"] = precheck(c)
         return [c]
-    if name == "DA3":
+    if name == "DA3" and not opt.get("run"):
+        # 2026-10-16 AM-A5：DA3 = DA2 から海底の 1 つだけ（溝の壁の真ん中 ch_y0 40 → 30 m）。方案 A の続き 2 本の 2 本目（limits）
+        ch = opt.get("change", "chy30")
+        if ch == "T16":
+            raise SystemExit("DA3 = T16 H7.0 は書かない（2026-10-16 AM-A5 の t16_resolution：下見 × DA1・DA2 の倍率で最も巻いたコマの幅の中央値 2.77 Hc"
+                             "（DA2 2.60）・P4b 0/4・P(PERIODIC) 0.02、倍率を弱めない時は c0/c_side 0.96〜1.17 で止める決まりに当たる。"
+                             "T 16 s の入口の板・120 m 以上の出口の帯・約 3.2 h も要る）")
+        if ch != "chy30":
+            raise SystemExit("DA3 の --change は chy30（既定、AM-A5：溝の壁の真ん中 ch_y0 40 → 30 m）だけ。+48 s の続きは cfg DA3c --run=<記録>")
+        g = float(opt["in_gain"]) if opt.get("in_gain") else None
+        sp3 = spec_A3()
+        win = [[HEAVY_CONT_A["t0"], T_END_A]]
+        wsrc = ("続けて %g〜%g s を %d コマごと（R4・R5、AM-A2 と同じ。DA2 の巻き始め 50.8・62.4・75.0・86.8 s【測定】を全部含む）"
+                % (HEAVY_CONT_A["t0"], T_END_A, HEAVY_CONT_A["every"]))
+        what = ("海底の溝の壁の真ん中 ch_y0 40 → 30 m（ほかは DA2 と同じ：ch_w 4・ch_h 25・ch_x0 187.25・ch_lx 40・先細り k 0.35 → 1.0、"
+                "T 12 s・H 7.5 m・in_gain・入口の帯・波高計・箱 442 × 85 m・底 −25 m・出口の帯 362〜442 m・92 s・粒子 0.5 m・段 C）")
+        c = make("DA3_SC37y30_T12H7p5_dp0p5" + ("" if stage == "C" else "_st%s" % stage), "3d", 0.5, GC.W_MAIN, sp3, T_END_A, stage=stage, in_gain=g,
+                 windows=win, layout="A",
+                 case_extra=dict(queue_id="DA3", windows_source=wsrc, heavy_rule="cont", da3_change=what, da3_parent_run=DA2_RUN_A,
+                                 da3_why=("AM-A5 (Unity/Build/FLIP49/plan/amendments.jsonl); diagnosis Unity/Build/FLIP49/diag_DA2/ "
+                                          "(c3_table.json B_y30, b2_recal.json, a1_DA2.json)"),
+                                 follow_up="2nd and last of at most 2 follow-up runs in option A (plan_A_frozen.json limits)",
+                                 amendment=("AM-A2 (records) + AM-A3 (wall limit 3.0 h, kept for DA3) + AM-A5 (DA3 change; the +48 s continuation renamed DA3c) "
+                                            "(Unity/Build/FLIP49/plan/amendments.jsonl)")),
+                 note="FLIP49 方案 A DA3（AM-A5）：DA2 から 1 つだけ変えた主の粗い周期の 3D（粒子 0.5 m、5.44 M、方案 A の続き 2 本の 2 本目）。%s。重い記録は %s。"
+                      "1 本の時間の上限は 3.0 h（DA2 と同じ）、1 回の起動は 29 分以内（DA1・DA2 と同じ）" % (what, wsrc))
+        c["records"]["r4"]["every"] = HEAVY_CONT_A["every"]
+        c["records"]["r5"]["every"] = HEAVY_CONT_A["every"]
+        c["limit_h_run"] = LIMIT_3D_H_A3
+        c["max_hours"] = LIMIT_3D_H_A3
+        c["precheck"] = precheck(c)
+        return [c]
+    if name in ("DA3", "DA3c"):
+        # +48 s の続き。AM-A5 で名前を DA3c に改めた。`DA3 --run=…` は前の書き方で、前と 1 byte も違わない cfg を出す（queue_id 'DA3'）
+        qid = name
         rd = opt.get("run")
         if not rd or not os.path.exists(os.path.join(rd, "cfg.json")):
-            raise SystemExit("DA3 は続ける DA1 の記録を --run で与える（cfg.json がある所）")
+            raise SystemExit("DA3 は続ける DA1 の記録を --run で与える（cfg.json がある所）" if qid == "DA3" else
+                             "DA3c は続ける方案 A の記録（DA1・DA2・DA3）を --run で与える（cfg.json がある所）")
         c0 = json.load(open(os.path.join(rd, "cfg.json"), encoding="utf8"))
         if c0.get("layout") != "A":
-            raise SystemExit("DA3 は方案 A の記録（cfg の layout A）だけ")
+            raise SystemExit("%s は方案 A の記録（cfg の layout A）だけ" % qid)
         c = copy.deepcopy(c0)
         for k_ in ("hip_sha256", "module_shas_at_chain_start", "precheck"):
             c.pop(k_, None)
@@ -833,13 +954,15 @@ def preset_A(name, opt):
         c["f_resume_est"] = int(c0["f_end"]) + 1
         c["f_end"] = GC.frames_for(0.0, T_END_A3); c["t_end_s"] = T_END_A3
         c["records"]["windows"] = (c["records"].get("windows") or []) + windows_from(extra, t_end=T_END_A3, t_min=0.0)
-        c["case"]["queue_id"] = "DA3"; c["case"]["continuation_of"] = c0["run_id"]
-        c["note"] = c0.get("note", "") + "｜DA3：同じ設定のまま最後の途中保存から %g s まで（+48 s = 4 T、指導教員の長い動画の頼み Q66）。窓を足した（%s の最後の巻き始め %.1f s + 12k s）" % (
-            T_END_A3, src, last)
+        c["case"]["queue_id"] = qid; c["case"]["continuation_of"] = c0["run_id"]
+        if qid == "DA3c":
+            c["case"]["renamed_from"] = "DA3 (plan_A_frozen.json runs; renamed by AM-A5 because DA3 now names the ch_y0 30 run)"
+        c["note"] = c0.get("note", "") + "｜%s：同じ設定のまま最後の途中保存から %g s まで（+48 s = 4 T、指導教員の長い動画の頼み Q66）。窓を足した（%s の最後の巻き始め %.1f s + 12k s）" % (
+            qid, T_END_A3, src, last)
         c["pstats_frames"] = sorted(set(c.get("pstats_frames", []) + [c["f_end"]]))
         c["precheck"] = precheck(c)
         return [c]
-    raise SystemExit("方案 A の cfg は SMOKE_A・DA1・DA2・DA3")
+    raise SystemExit("方案 A の cfg は SMOKE_A・DA1・DA2・DA3・DA3c")
 
 
 def d2(opt, win, wsrc):
