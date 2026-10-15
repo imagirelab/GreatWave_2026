@@ -28,6 +28,14 @@
         S1（PG12s の軸の板）で、61 s の後の崩れが礁の縁（x 257〜264 m、水深 1.7 m）で巻き、凍らせた選び（筋が段の足より沖で生まれた物、
         ほかは水深 ≥ 5 m）から外れたため【測定】。名前は s1, s2, …（k とは別）
 出す物：<記録>/pana/（Unity/Build/FLIP49 の中だけ）
+2026-10-15 方案 A（PER49-A）を足した（cfg に layout "A" と analysis がある記録だけ。無い記録は前と同じに読む）：
+  - 凍らせた計画は cfg の case.plan_frozen（方案 A は plan/plan_A_frozen.json）。P1〜P5 の閾はそこから。PER1〜PER5 は親の plan_frozen.json の閾で
+    「報告だけ」に計算し、判定は PERIODIC（3 つ以上続く判定する崩れが各々 P4a ≥ 1.5・最も巻いた幅 ≤ 2.5 Hc、巻き始めの x が中央値の ±10 m、Hc の CV ≤ 10 %）。
+  - 頂の高さ c(y)：真ん中の行の頂 xc0（x 150〜357 m）を先に探し、各行は x ∈ [max(150, xc0 − L/2), min(357, xc0 + L/2)] の最大（L = うねりの波長）。
+    方案 A の箱は 442 m と長く、x 150〜357 m に次の来る頂（約 L 後ろ）が入りうるため。横の端の帯 |y| 70〜84 m は 25 m の溝の中。
+  - 静かな水面のずれ・quiet_x は cfg の n1_x（方案 A は x 110〜357 m）。R4 を 1 コマおきに書いた記録は巻いた幅の時系列を全部のコマで読む。
+  - 報告：c0 ÷ 入ってきた頂（x 160 m の波高計の同じ波の頂、R4 は 1.88）、平均の水面の所（axis_front・reef_top・lagoon・side）、礁の上の盛り上がり > 3 m の見張り、
+    凍らせた決まり（止める決まり・DA2・DA3・方案 D）を当てはめた次の手（決まりの文をそのまま当てた物。決めるのは進行役と利用者）
 """
 import os, sys, json, math, glob, time
 
@@ -62,6 +70,62 @@ def p1_max(cfg):
     return float(((cfg.get("case") or {}).get("P1_x_max_m")) or GC.X_P1_MAX)
 
 
+def is_A(cfg):
+    return (cfg or {}).get("layout") == "A"
+
+
+def plan_path(cfg):
+    """凍らせた計画：cfg の case.plan_frozen（方案 A は plan_A_frozen.json）。無ければ plan_frozen.json（PER49）。"""
+    pf = ((cfg or {}).get("case") or {}).get("plan_frozen")
+    if pf:
+        q = pf if os.path.isabs(pf) else os.path.join(GC.REPO, pf)
+        if os.path.exists(q):
+            return q.replace("\\", "/")
+        if is_A(cfg):
+            raise SystemExit("方案 A の凍らせた計画 %s がない（先に g49_pcfg.py freezeA）" % q)
+    return GC.PLAN_FROZEN
+
+
+def load_plan(cfg):
+    return json.load(open(plan_path(cfg), encoding="utf8"))
+
+
+def quiet_window(cfg):
+    """静かな水面のずれを読む x の窓（cfg の n1_x。無ければ PG12s の VOL_X）。"""
+    v = (cfg or {}).get("n1_x")
+    return (float(v[0]), float(v[1])) if v else (float(GC.VOL_X[0]), float(GC.VOL_X[1]))
+
+
+def side_band_of(cfg, W):
+    an = (cfg or {}).get("analysis") or {}
+    if an.get("side_band_m"):
+        return tuple(float(v) for v in an["side_band_m"])
+    return GC.SIDE_BAND if W >= 85.0 - 1e-9 else PM.side_band(W)
+
+
+def crest_window(cfg, eta_f, xs, ys):
+    """頂を探す x の窓 (x_lo, x_hi)。PG12s（前の記録）は x 150〜P1 の上限。方案 A（analysis.crest_window "centre_half_L"）は、
+    真ん中の行（y < 1 m）の頂 xc0 を x 150〜357 m で先に探し、その ±L/2（L = うねりの波長）に狭める（次の来る頂を入れないため）。"""
+    an = (cfg or {}).get("analysis") or {}
+    x_lo = float(an.get("crest_x_min_m", GC.X_CREST_MIN)); x_hi = p1_max(cfg)
+    if an.get("crest_window") == "centre_half_L":
+        L = float(((cfg or {}).get("sf") or {}).get("L") or 148.6)
+        rows = np.where(np.asarray(ys) < 1.0)[0]
+        rows = rows if len(rows) else np.array([0])
+        c0, x0 = PM.crest_profile(eta_f[rows], xs, x_lo, x_hi)
+        j = int(np.nanargmax(np.where(np.isfinite(c0), c0, -1e9)))
+        if np.isfinite(x0[j]):
+            x_lo, x_hi = max(x_lo, float(x0[j]) - 0.5 * L), min(x_hi, float(x0[j]) + 0.5 * L)
+    return x_lo, x_hi
+
+
+def crest_prof(cfg, eta_f, xs, ys, off):
+    """c(y)（静かな水面から）・x_c(y)・使った窓。動画（g49_video2）も同じ関数で描く。"""
+    x_lo, x_hi = crest_window(cfg, eta_f, xs, ys)
+    c, xc = PM.crest_profile(eta_f, xs, x_lo, x_hi)
+    return c - off, xc, (x_lo, x_hi)
+
+
 class Ctx49(_BaseCtx):
     """g46_analyze.Ctx の海底を FLIP49（g49_common.bed_z）にし、静かな水面のずれを周期の波の始め（t 0.5〜1.5 s、x 110〜285 m）で読み、
     崩れを探す x を入口の帯の後ろ〜P1 の上限に絞った物。"""
@@ -90,7 +154,7 @@ class Ctx49(_BaseCtx):
         return GC.bed_z(x, y, **self.bed49)
 
     def quiet_x(self, t):
-        return float(GC.VOL_X[0])
+        return float(quiet_window(self.cfg49)[0])
 
     def still_offset(self):
         online = None
@@ -110,13 +174,14 @@ class Ctx49(_BaseCtx):
             if t < self.t_off + 0.5 - 1e-9:
                 continue
             xs = m["x0"] + m["dx"] * np.arange(m["res"][0])
-            sel = (xs >= GC.VOL_X[0]) & (xs <= GC.VOL_X[1])
+            qw = quiet_window(self.cfg49)
+            sel = (xs >= qw[0]) & (xs <= qw[1])
             vals.append(float(np.nanmedian(e[:, sel])))
         if vals:
             v = float(np.median(vals))
             if online is not None:
                 info["online_minus_used_m"] = online["value"] - v
-            return v, "t0 + 0.5〜1.5 s の x %g〜%g m の η_top の中央値（周期の波の始め、入口の帯の半余弦の立ち上がりの前）" % GC.VOL_X, info
+            return v, "t0 + 0.5〜1.5 s の x %g〜%g m の η_top の中央値（周期の波の始め、入口の帯の半余弦の立ち上がりの前）" % quiet_window(self.cfg49), info
         if online is not None:
             return online["value"], "計算の中で測った値（run_c%05d）" % online["run"], info
         raise SystemExit("静かな水面のずれが出せない（t 0.5〜1.5 s の記録がない）")
@@ -487,8 +552,8 @@ def peak_wave(rd, cfg, ana, H):
     P = cfg["parms"]; W = float(P["W"])
     off = float(ana.get("still_level_offset_m") or 0.0)
     xs, ys, frames, tt = H["xs"], H["ys"], H["frames"], H["t"]
-    x_lo, x_hi = GC.X_CREST_MIN, p1_max(cfg)
-    band = GC.SIDE_BAND if W >= 85.0 - 1e-9 else PM.side_band(W)
+    x_lo, x_hi = float(((cfg.get("analysis") or {}).get("crest_x_min_m")) or GC.X_CREST_MIN), p1_max(cfg)
+    band = side_band_of(cfg, W)
     key = PM._key_frames(ana)
     on = ana.get("onset") or {}
     Hc = on.get("eta_c")
@@ -497,16 +562,16 @@ def peak_wave(rd, cfg, ana, H):
                steepest=ana.get("steepest"), key_frames=key, x_window=[x_lo, x_hi], side_band=list(band), still_offset_m=off, W=W)
 
     def prof(i):
-        c, xc = PM.crest_profile(H["eta"][i], xs, x_lo, x_hi)
-        return c - off, xc
+        c, xc, win_ = crest_prof(cfg, H["eta"][i], xs, ys, off)
+        return c, xc, win_
     lat_key = {}
     for nm, f in key.items():
         ii = np.where(frames == f)[0]
         if len(ii):
-            c, xc = prof(int(ii[0]))
+            c, xc, win_ = prof(int(ii[0]))
             L_ = PM.lateral(c, ys, c, Hc=Hc, band=band)
             bm = (ys >= band[0]) & (ys <= band[1])
-            L_.update(frame=int(f), t=float(tt[ii[0]]), x_crest_centre=float(xc[0]) if np.isfinite(xc[0]) else None,
+            L_.update(frame=int(f), t=float(tt[ii[0]]), crest_x_window=[float(win_[0]), float(win_[1])], x_crest_centre=float(xc[0]) if np.isfinite(xc[0]) else None,
                       x_side_crest_m=(float(np.nanmedian(xc[bm])) if bm.any() and np.isfinite(xc[bm]).any() else None),
                       profile_c=[round(float(v), 3) for v in c], profile_xc=[round(float(v), 1) if np.isfinite(v) else None for v in xc])
             lat_key[nm] = L_
@@ -514,7 +579,9 @@ def peak_wave(rd, cfg, ana, H):
     res["ys"] = [float(v) for v in ys]
     strip = W <= 12.0
     if on and not strip:
-        cs_ = PM.curl_series(rd, ana)
+        r4ev = int(((cfg.get("records") or {}).get("r4") or {}).get("every", 1))
+        cs_ = PM.curl_series(rd, ana, every=(1 if r4ev > 1 else 2))          # R4 を 1 コマおきに書いた記録は、あるコマを全部読む（同じ 2 コマごと）
+        cs_["r4_every"] = r4ev
         res["curl"] = cs_
         rows = {r["frame"]: r for r in cs_.get("rows", [])}
 
@@ -597,6 +664,9 @@ def wave_row(k, ev, ana, res, J, best):
 
 
 # ====================================================================== 繰り返し（PER1〜PER5）
+cfg_ctx = [None]          # per_stats の報告の所の名前を cfg の並びから選ぶため（main_all が入れる）
+
+
 def per_stats(rows, T, plan, inl, R, off):
     pp = plan["criteria"]["periodicity"]
     jr = [r for r in rows if r.get("t_on") is not None]
@@ -669,7 +739,7 @@ def per_stats(rows, T, plan, inl, R, off):
     out["PER5"] = bool(out["PER5_parts"]["H_inlet_all_within"] and out["PER5_parts"]["band_core_change_m"] is not None
                        and abs(out["PER5_parts"]["band_core_change_m"]) <= pp["PER5"]["band_core_change_m_max"]
                        and out["PER5_parts"]["free_flat_abs_max_m"] is not None and out["PER5_parts"]["free_flat_abs_max_m"] <= pp["PER5"]["free_flat_abs_mean_m_max"])
-    out["report_only"] = {nm: [p["levels"].get(nm) for p in per] for nm in ("reef_flat", "lagoon", "side")}
+    out["report_only"] = {nm: [p["levels"].get(nm) for p in per] for nm in GC.layout_of(cfg_ctx[0])["report_levels"]}
     return out
 
 
@@ -692,7 +762,7 @@ def health(rd, cfg, R, off, recs):
                              raw_max_rel=float(np.nanmax(np.abs((V[later] - cum[later]) / V0 - 1.0))) if later.any() else None,
                              end_rel=float(V[-1] / V0 - 1.0), cap_frac=float(np.nanmean(cap[later])) if later.any() else None,
                              note_ja="corrected = 測った V、raw = V − 段 A が足した量の和（FLIP がそのままなら残った量）")
-        if (cfg.get("drift") or {}).get("stage") == "C":         # 段 C：水の量の直しは切ってある。H は窓 x 110〜285 m の体積の 1 周期の平均で読む（計画）
+        if (cfg.get("drift") or {}).get("stage") == "C":         # 段 C：水の量の直しは切ってある。H は窓（PG12s 110〜285 m、方案 A 110〜357 m）の体積の 1 周期の平均で読む（計画）
             Vw = R["vol"][:, vi["Vwin_m3"]]
             Vw0 = float(np.nanmean(Vw[ref]))
             T_ = float((cfg.get("sf") or {}).get("T", GC.T_WAVE))
@@ -719,7 +789,7 @@ def health(rd, cfg, R, off, recs):
             sd.append(float(np.nanstd(a[m])) if m.any() else float("nan"))
         gr = [sd[i + 1] / sd[i] - 1.0 for i in range(len(sd) - 1) if np.isfinite(sd[i]) and sd[i] > 1e-6]
         out["lateral_asymmetry"] = dict(period_std_m=sd, growth_per_period=gr, max_growth=max(gr) if gr else None)
-    tg = json.load(open(GC.PLAN_FROZEN, encoding="utf8"))["criteria"]["health"] if os.path.exists(GC.PLAN_FROZEN) else {}
+    tg = load_plan(cfg)["criteria"]["health"]
     J = {}
     if tg:
         J["H_bed_leak"] = bool((out.get("bed_leak_max") or {}).get("frac", 0.0) < tg["bed_leak_frac_max"])
@@ -739,7 +809,10 @@ def main_all(rd, opt):
     cfg = load_cfg(rd)
     if not cfg:
         raise SystemExit("cfg.json がない：%s" % rd)
-    plan = json.load(open(GC.PLAN_FROZEN, encoding="utf8"))
+    plan = load_plan(cfg)
+    planp = plan_path(cfg)
+    plan_per = plan if "periodicity" in plan["criteria"] else json.load(open(GC.PLAN_FROZEN, encoding="utf8"))   # 方案 A：PER は親の閾で報告だけ
+    cfg_ctx[0] = cfg
     tg = plan["criteria"]["per_breaker"]
     od = guard(os.path.join(rd, "pana"))
     recs = run_recs(rd)
@@ -773,8 +846,11 @@ def main_all(rd, opt):
                                                                     {kk: v for kk, v in J.items() if kk in ("P1", "P2", "P3", "P4a", "P4b", "P5")},
                                                                     (b or {}).get("frame")), flush=True)
     judged_rows = [r for r in rows if r["found_t"] >= GC.T_JUDGE]
-    per = per_stats(judged_rows, T, plan, inl, R, off)
+    per = per_stats(judged_rows, T, plan_per, inl, R, off)
     hl = health(rd, cfg, R, off, recs)
+    perA = None
+    if is_A(cfg):
+        perA = periodic_A(judged_rows, plan, R, off, T, per, hl, cfg)
     # 原画に最も近いコマ（動画の赤い枠）
     bk = {k: v for k, v in best.items() if v and v.get("score3") is not None and any(r["k"] == k for r in judged_rows)}
     overall = min(bk.items(), key=lambda kv: kv[1]["score3"]) if bk else None
@@ -782,7 +858,7 @@ def main_all(rd, opt):
     if bk:
         srt = sorted(bk.items(), key=lambda kv: kv[1]["score3"])
         rep = srt[(len(srt) - 1) // 2]
-    bf = dict(run_id=cfg.get("run_id"), rule=plan["criteria"]["best_frame_rule"], plan_sha256=GC.sha256_file(GC.PLAN_FROZEN),
+    bf = dict(run_id=cfg.get("run_id"), rule=plan["criteria"]["best_frame_rule"], plan=planp, plan_sha256=GC.sha256_file(planp),
               per_breaker=[dict(k=k, **{kk: v.get(kk) for kk in ("frame", "t", "xc", "x_c", "eta_c", "score3", "score5", "src", "ruler", "dt_after_onset", "window_frames")})
                            for k, v in sorted(best.items()) if v],
               overall_best=dict(k=overall[0], frame=overall[1]["frame"], t=overall[1]["t"], score3=overall[1]["score3"]) if overall else None,
@@ -790,9 +866,10 @@ def main_all(rd, opt):
               crest_box_hint=dict(section="y = 0（r2）", x_c="x_c（形の量の頂の x、計画の座標）", eta_c="静かな水面からの頂の高さ（m）"),
               note_ja="判定する崩れ（真ん中の巻き始め t ≥ %g s）ごとの原画に最も近いコマ。数は AI の読み、原画らしさは利用者が決める" % GC.T_JUDGE)
     jdump(bf, os.path.join(od, "best_frames.json"))
-    verdict = verdict_text(rows, per, cfg)
-    out = dict(run_id=cfg.get("run_id"), date=time.strftime("%Y-%m-%d %H:%M:%S"), tool="Tools/GWWaveGen/flip49/g49_periodic_ana.py", plan=GC.PLAN_FROZEN,
-               plan_sha256=GC.sha256_file(GC.PLAN_FROZEN), judged_run=bool((cfg.get("case") or {}).get("judged", True)), T=T, still_offset_m=off,
+    verdict = verdict_text(rows, per, cfg) if perA is None else perA["verdict"]
+    out = dict(run_id=cfg.get("run_id"), date=time.strftime("%Y-%m-%d %H:%M:%S"), tool="Tools/GWWaveGen/flip49/g49_periodic_ana.py", plan=planp,
+               plan_sha256=GC.sha256_file(planp), layout=cfg.get("layout") or "PG12s", periodic_A=perA,
+               judged_run=bool((cfg.get("case") or {}).get("judged", True)), T=T, still_offset_m=off,
                inlet={k: v for k, v in inl.items() if k != "gauges"}, events_found=evr["events"], events_secondary=evr["secondary"], events_rebound=evr["rebound"],
                events_rule_ja=evr["rule_ja"], waves=rows, periodicity=per, health=hl, verdict=verdict, best_frames=os.path.join(od, "best_frames.json"),
                breaking_offshore_of_180m=[e for e in evr["events"] + evr["secondary"] if e["on_x"] < 180.0],
@@ -807,7 +884,7 @@ def main_sup(rd, opt):
     t_start = time.time()
     rd = os.path.abspath(rd).replace("\\", "/")
     cfg = load_cfg(rd)
-    plan = json.load(open(GC.PLAN_FROZEN, encoding="utf8"))
+    plan = load_plan(cfg)
     tg = plan["criteria"]["per_breaker"]
     ep = os.path.join(rd, "pana", "events.json")
     if not os.path.exists(ep):
@@ -844,13 +921,104 @@ def main_sup(rd, opt):
         best[nm] = bb
         print("%s t_on=%s x=%s Hc=%s P=%s best=%s score3=%s" % (nm, rows[-1]["t_on"], rows[-1]["x_on"], rows[-1]["Hc"],
                                                               {kk: v for kk, v in J.items() if kk in ("P1", "P5")}, (bb or {}).get("frame"), (bb or {}).get("score3")), flush=True)
-    out = dict(run_id=cfg.get("run_id"), date=time.strftime("%Y-%m-%d %H:%M:%S"), tool="g49_periodic_ana.py sup", plan_sha256=GC.sha256_file(GC.PLAN_FROZEN),
+    out = dict(run_id=cfg.get("run_id"), date=time.strftime("%Y-%m-%d %H:%M:%S"), tool="g49_periodic_ana.py sup", plan_sha256=GC.sha256_file(plan_path(cfg)),
                rule_ja="補いの読み（凍らせた崩れの選びの外、判定には使わない）：secondary のうち筋が巻き始めの 2 s 以内に生まれ、頂 ≥ 採った物の中央値 × 0.5、"
                        "採った物とも互いにも 0.6 T 以上離れている物", events=sup, waves=rows,
                per_breaker=[dict(k=k, **{kk: v.get(kk) for kk in ("frame", "t", "xc", "x_c", "eta_c", "score3", "score5", "src", "ruler", "dt_after_onset", "window_frames")})
                             for k, v in best.items() if v],
                elapsed_s=round(time.time() - t_start, 1))
     jdump(out, os.path.join(od, "sup.json"))
+    return out
+
+
+def periodic_A(rows, plan, R, off, T, per, hl, cfg):
+    """方案 A の判定（plan_A_frozen.json の criteria.periodic_A と decision_rules）。rows：判定する崩れ（k の順）。"""
+    pa = plan["criteria"]["periodic_A"]["PERIODIC"]
+    out = dict(rule=pa["text"], n_judged=len(rows))
+    if not (cfg.get("case") or {}).get("judged", True):
+        out["verdict"] = "下見（判定しない）：粒子 %g m。PERIODIC・P1〜P5 では判定しない（計画の決まり）" % float(cfg["parms"]["dp"])
+        out["judged"] = False
+    each = []
+    for r in rows:
+        J = r.get("judge") or {}
+        ok_e = bool(r.get("t_on") is not None and r.get("ratio_side") is not None and r["ratio_side"] >= pa["each"]["P4a_min"]
+                    and r.get("w_maxov_over_Hc") is not None and r["w_maxov_over_Hc"] <= pa["each"]["P3_overturn_width_over_hc_max"])
+        each.append(dict(k=r["k"], ok=ok_e, P4a=r.get("ratio_side"), P3_overturn=r.get("w_maxov_over_Hc"), x_on=r.get("x_on"), Hc=r.get("Hc"),
+                         t_on=r.get("t_on"), P1_P4=bool(J.get("P1_P4")), P1_P5=bool(J.get("P1_P5"))))
+    out["each"] = each
+    wins = []
+    n = len(each)
+    for a in range(n):
+        for b in range(a + 3, n + 1):
+            w = each[a:b]
+            if not all(e["ok"] for e in w):
+                continue
+            x = np.array([e["x_on"] for e in w], float); hc = np.array([e["Hc"] for e in w], float)
+            med = float(np.median(x)); cv = float(hc.std() / hc.mean()) if hc.mean() > 0 else None
+            okx = bool(np.all(np.abs(x - med) <= pa["onset_x_within_m"])); okc = bool(cv is not None and cv <= pa["Hc_cv_max"])
+            # 「続く」= 1 周期に 1 つずつ（2026-10-15 確かめの役が足した、AM-A1）。k は採った崩れの通し番号なので、間の周期の崩れが抜けても
+            # k は続いてしまう。巻き始めの間隔が 0.5 T〜1.5 T の物だけを続くとする（閾の 11.4〜12.6 s は PER3 の報告のまま）
+            iv = np.diff(np.array([e["t_on"] for e in w], float))
+            okt = bool(np.all((iv >= 0.5 * T) & (iv <= 1.5 * T)))
+            wins.append(dict(k=[e["k"] for e in w], onset_x_median=med, onset_x_max_dev=float(np.max(np.abs(x - med))), Hc_cv=cv, x_ok=okx, cv_ok=okc,
+                             intervals_s=[float(v) for v in iv], consecutive_periods=okt,
+                             periodic=bool(okx and okc and okt), all_P1_P4=all(e["P1_P4"] for e in w), all_P1_P5=all(e["P1_P5"] for e in w)))
+    out["windows"] = wins
+    good = [w for w in wins if w["periodic"]]
+    out["PERIODIC"] = bool(good)
+    out["PERIODIC_k"] = max(good, key=lambda w: len(w["k"]))["k"] if good else None
+    full = [w for w in good if w["all_P1_P5"]]
+    pnp = [w for w in good if w["all_P1_P4"]]
+    # 開いた問題：弦（P5 の弦 ≥ 55°）は判定の外に別に書く
+    out["open_item_chord"] = [dict(k=r["k"], chord_max=r.get("chord_max"), ok=bool(r.get("chord_max") is not None and r["chord_max"] >= 55.0)) for r in rows]
+    # 報告だけ：c0 ÷ 入ってきた頂（x 160 m・y 0.5 m の波高計の、巻き始めの前 1 周期の最大）
+    t = R["t"]; gi = None
+    for j, (xg, yg) in enumerate(R["gxy"]):
+        if abs(float(xg) - 160.0) < 1e-6 and abs(float(yg) - GC.GAUGE_Y[0]) < 1e-6:
+            gi = j
+    cin = []
+    for r in rows:
+        if gi is None or r.get("t_on") is None:
+            cin.append(dict(k=r["k"], c_in=None, c0_over_c_in=None)); continue
+        m = (t >= r["t_on"] - T) & (t <= r["t_on"])
+        ci = float(np.nanmax(R["gauge"][m, gi] - off)) if m.any() else None
+        cin.append(dict(k=r["k"], c_in=ci, c0=r.get("c0"), c0_over_c_in=(r["c0"] / ci) if (ci and r.get("c0") is not None) else None,
+                        fwhm_m=r.get("half_excess_width_m"), P4b=r.get("ratio_4Hc")))
+    out["report_c0_over_c_in"] = dict(rows=cin, R4_reference=1.88, note="c_in = max of the x 160 m, y 0.5 m gauge over [t_on - T, t_on] (the same wave's incoming crest)")
+    # 礁の上の盛り上がり（1 周期の平均）> 3 m の見張り
+    lv = [(p["k"], (p.get("levels") or {}).get(GC.layout_of(cfg)["setup_region"])) for p in (per.get("per_period") or [])]
+    mx = max([v for _, v in lv if v is not None] or [None]) if any(v is not None for _, v in lv) else None
+    out["reef_top_setup"] = dict(per_period=lv, max_m=mx, trigger_m=3.0, diagnose=bool(mx is not None and mx > 3.0))
+    # 凍らせた決まりを当てはめた次の手（文をそのまま当てた物）
+    p4 = [e["P4a"] for e in each if e["P4a"] is not None]
+    nxt = []
+    if out["reef_top_setup"]["diagnose"] or (hl.get("judge") or {}).get("H_volume") is False or (hl.get("judge") or {}).get("H_bed_leak") is False:
+        nxt.append("health: diagnose before anything else (reef-top set-up > 3 m, volume or leak failure)")
+    if p4 and all(v < 1.3 for v in p4):
+        nxt.append("STOP RULE: P4a < 1.3 on all judged breakers -> option A negative; option D next")
+    elif out["PERIODIC"]:
+        nxt.append("PERIODIC passes -> DA3 continuation to 140 s and a seamless 12 s loop; chord stays the open item")
+    else:
+        rs = [r for r in rows]
+        foc = [r for r in rs if (r.get("ratio_side") or 0) >= 1.5 and (r.get("judge") or {}).get("P4b")]
+        wfail = [r for r in rs if not ((r.get("judge") or {}).get("P2") and (r.get("judge") or {}).get("P3"))]
+        mid = [v for v in p4 if 1.3 <= v < 1.5]
+        if len(foc) >= 2 and len(wfail) >= 2:
+            nxt.append("P4a >= 1.5 and P4b on >= 2 but P2/P3 width fails on >= 2 -> DA2 = T16 H7.0 (inlet strip first)")
+        elif p4 and len(mid) > len(p4) / 2.0:
+            nxt.append("1.3 <= P4a < 1.5 on most -> partial; stop and show the user with option D")
+        else:
+            nxt.append("no rule matched exactly: partial, breaker by breaker; stop and show the user")
+    out["next_by_frozen_rules"] = nxt
+    if out.get("judged", True):
+        if full:
+            out["verdict"] = "full：崩れ k = %s で P1〜P5 と PERIODIC（AI の読み。原画らしさは利用者が決める。定常とは言わない）" % full[0]["k"]
+        elif pnp:
+            out["verdict"] = "periodic narrow peak：崩れ k = %s で PERIODIC と P1〜P4（弦は開いた問題として別に書く。定常とは言わない）" % max(pnp, key=lambda w: len(w["k"]))["k"]
+        elif good:
+            out["verdict"] = "PERIODIC は通った（k = %s）が、その崩れの全部では P1〜P4 を満たさない：partial（崩れごとに表を見る）" % out["PERIODIC_k"]
+        else:
+            out["verdict"] = "partial：PERIODIC は外れ（崩れごとに表を見る）。次の手（凍らせた決まり）：%s" % "；".join(nxt)
     return out
 
 
@@ -876,7 +1044,8 @@ def _n(v, f="%.2f"):
 
 def md(o, cfg):
     L = ["# FLIP49 周期の波の読み：%s" % o["run_id"], "",
-         "> g49_periodic_ana.py（%s）。凍らせた計画 plan_frozen.json（SHA-256 %s…）の決まりで読んだ。数は AI の読み（自己評価）。原画らしさは利用者が決める。" % (o["date"], o["plan_sha256"][:16]), "",
+         "> g49_periodic_ana.py（%s）。凍らせた計画 %s（SHA-256 %s…）の決まりで読んだ。数は AI の読み（自己評価）。原画らしさは利用者が決める。" % (
+             o["date"], os.path.basename(o.get("plan") or "plan_frozen.json"), o["plan_sha256"][:16]), "",
          "**判定**：%s" % o["verdict"], ""]
     i = o["inlet"]
     L += ["## 入口（x 110〜160 m）", "",
@@ -894,8 +1063,22 @@ def md(o, cfg):
             r["k"], _n(r["t_on"]), _n(r["x_on"], "%.1f"), _n(r["Hc"]), _n(r["ratio_side"]), _n(r["ratio_4Hc"]), _n(r["w_onset_over_Hc"]), _n(r["w_maxov_over_Hc"]),
             _n(r["w_td_over_Hc"]), _n(r["chord_max"], "%.1f"), _n(r["lip_max"]), _n(r["hood_max"], "%.3f"), yn("P1"), yn("P2"), yn("P3"), yn("P4a"), yn("P4b"), yn("P5"),
             r.get("best_frame") or "—", _n(r.get("best_score3"))))
+    pa = o.get("periodic_A")
+    if pa:
+        L += ["", "## 方案 A の判定（PERIODIC、plan_A_frozen.json）", "",
+              "- 決まり：%s" % pa["rule"],
+              "- 崩れごと（P4a ≥ 1.5 かつ 最も巻いた幅 ≤ 2.5 Hc）：%s" % ", ".join("k%d %s（P4a %s・幅 %s Hc）" % (e["k"], "○" if e["ok"] else "×", _n(e["P4a"]), _n(e["P3_overturn"]))
+                                                                        for e in pa.get("each", [])),
+              "- PERIODIC %s（k = %s）。続く 3 つ以上の窓：%s" % (pa.get("PERIODIC"), pa.get("PERIODIC_k"),
+                                                       [dict(k=w["k"], x_dev=round(w["onset_x_max_dev"], 1), cv=(round(w["Hc_cv"], 3) if w["Hc_cv"] is not None else None),
+                                                         dt_s=[round(v, 1) for v in w.get("intervals_s", [])], ok=w["periodic"]) for w in pa.get("windows", [])]),
+              "- 開いた問題（弦 ≥ 55°、判定の外）：%s" % ", ".join("k%d %s°" % (c["k"], _n(c["chord_max"], "%.1f")) for c in pa.get("open_item_chord", [])),
+              "- 報告だけ：c0 ÷ 入ってきた頂（x 160 m、R4 は 1.88）%s" % ", ".join("k%d %s" % (c["k"], _n(c.get("c0_over_c_in"))) for c in pa["report_c0_over_c_in"]["rows"]),
+              "- 礁の上の盛り上がり（1 周期の平均、> 3 m で診断）：最大 %s m" % _n(pa["reef_top_setup"].get("max_m")),
+              "- 凍らせた決まりを当てはめた次の手：%s" % "；".join(pa.get("next_by_frozen_rules") or []),
+              "- 下の PER1〜PER5 は FLIP49 の決まりの数で、方案 A では報告だけ（判定に入れない）", ""]
     p = o["periodicity"]
-    L += ["", "## 繰り返し（PER）", "",
+    L += ["", "## 繰り返し（PER）" + ("：報告だけ（方案 A）" if pa else ""), "",
           "- PER1 %s（P1〜P4 が続いた k：%s）・PER2 %s（巻き始めの x の中央値からの最大のずれ %s m）・PER3 %s（Hc の CV %s、間隔 %s s、位相のばらつき ÷ T %s）・"
           "PER4 %s（流れ x %s m、Hc %s）・PER5 %s（%s）" % (
               p.get("PER1"), p.get("PER1_run_k"), p.get("PER2"), _n((p.get("onset_x") or {}).get("max_dev"), "%.1f"), p.get("PER3"), _n((p.get("Hc") or {}).get("cv"), "%.3f"),

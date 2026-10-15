@@ -22,6 +22,8 @@ FLIP48 から変えた所：
   - 重い記録（R4 の狭い帯・R5 の面）は cfg の records.windows（[t0, t1] の list）の中だけ（無ければ g48 と同じ t0 から毎コマ）。
   - 入口の帯の確かめ sf_check（cfg の sf_check.every コマごと）：帯の中の点の格子の流速（vel.x・vel.y・vel.z）と目標（numpy の g49_common.sf_target）。
   - 水面の見張り level_guard_m の既定 5 m。
+  - 2026-10-15 方案 A：箱・帯・窓・平均の水面の所・R4 の x の窓は前から cfg（parms・level_regions・records）で読む。R4 に every を足した
+    （重い記録を 1 コマおきにする逃げ道。既定 1 は前と同じ）。画面の行の礁の水面は reef_flat か reef_top（方案 A の名前）。
 使い方: hython g49_run.py <cfg.json のパス>（ふつうは py -3.10 g49_chain.py <cfg.json> から）
 出力: Unity/Build/FLIP49/<out_root>/<run_id>/
 """
@@ -648,8 +650,10 @@ for f in range(f0, f1 + 1):
                 buf[key].append(np.full(s3.shape, np.nan, np.float16))
         buf["r3f"].append(f)
         flush("r3")
-    # R4：水面の狭い帯の SDF（3D）。重い記録：records.windows の中だけ
-    if R4 and tnow >= float(R4.get("t0", -1e9)) - 1e-9 and in_win(tnow):
+    # R4：水面の狭い帯の SDF（3D）。重い記録：records.windows の中だけ。2026-10-15：records.r4.every（既定 1）コマごと（方案 A の時間の逃げ道
+    # 「重い記録を 1 コマおき」）。飛ばしたコマではブロックを閉じない（窓の外に出た時だけ閉じる）
+    r4_on = bool(R4 and tnow >= float(R4.get("t0", -1e9)) - 1e-9 and in_win(tnow))
+    if r4_on and (f - 1) % int(R4.get("every", 1)) == 0:
         ix0 = int(np.searchsorted(xs, float(R4["x"][0]))); ix1 = int(np.searchsorted(xs, float(R4["x"][1])))
         iz1 = int(np.searchsorted(zs, float(R4["z1"])))
         jy0 = int(np.searchsorted(y_c, float(R4.get("y0", -12.0)))); jy1 = int(np.searchsorted(y_c, float(R4.get("y1", 16.0))))
@@ -659,7 +663,7 @@ for f in range(f0, f1 + 1):
                               ny=jy1 - jy0, clip_m=clip, t_off=T_OFF)
         buf["r4"].append(np.clip(a[:iz1, jy0:jy1, ix0:ix1], -clip, clip).astype(np.float16)); buf["r4f"].append(f)
         flush("r4")
-    elif buf["r4"]:
+    elif not r4_on and buf["r4"]:
         flush("r4", True)                       # 窓の終わりでブロックを閉じる（窓ごとに別のファイル）
     # R5：面。重い記録：records.windows の中だけ
     ss = 0.0
@@ -727,7 +731,7 @@ for f in range(f0, f1 + 1):
         lvl0 = lvl
     if f % 24 == 0 or f == f0:
         print("f=%d t=%.2f sim=%.2fs surf=%.2fs pts=%d sub=%d rss=%.2fGB lvl=%.3f band=%.3f flat=%.3f reef=%.3f d=%s eta_max=%.2f" % (
-            f, tnow, dt, ss, n, sn, r_now, lvl, lv49.get("band_core", float("nan")), lv49.get("flat", float("nan")), lv49.get("reef_flat", float("nan")),
+            f, tnow, dt, ss, n, sn, r_now, lvl, lv49.get("band_core", float("nan")), lv49.get("flat", float("nan")), lv49.get("reef_flat", lv49.get("reef_top", float("nan"))),
             ("%.2e" % volr[-1][2]) if VC_ON else "-", np.nanmax(eta)))
         sys.stdout.flush()
     if f % 48 == 0:

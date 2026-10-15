@@ -20,6 +20,13 @@
   py -3.10 -B g49_pcfg.py cfg SMOKE           3D の煙の試し（T0 の一部、判定しない。2026-10-15 足した）：粒子 1.0 m・PG12s・半幅 85 m・0〜8 s を smoke/ready/ に。
                                               場面・帯の DOP の wrangle・水の量の直しのファイル・記録・sf_check・途中保存からの続き（wall_limit 80 s で
                                               起動を 2 回以上に分ける）だけを見る。in_gain は仮の 1.0（S0b の前に走らせてよいように）
+  2026-10-15 方案 A（PER49-A、海底 SC37 = FLIP48 C3 の海底を +37.25 m、箱 442 × 85 m・底 −25 m、出口の帯 362〜442 m）を足した：
+  py -3.10 -B g49_pcfg.py cfg SMOKE_A|DA1|DA3 [--run=<DA1 の記録>]   方案 A の設定（layout A。cfg の analysis に読みの窓）。DA1 は時間の見込みの上が
+                                              2.5 h を越えれば重い記録を 1 コマおき（R4・R5 の every 2）にする。DA2 はこの段では書かない（止めて理由を出す）
+        DA1 --heavy=cont（既定、2026-10-15 AM-A2）：重い記録を 47 s〜終わりの 1 つの窓で 3 コマごと（下見の巻き始めに縛らない）。
+        DA1 --heavy=screen：前の決まり（下見の巻き始め ± [−3, +4] s の窓、時間の見込みが 2.5 h を越えれば 1 コマおき）
+  py -3.10 -B g49_pcfg.py freezeA [--force=1 --reason=…]   plan/plan_A_frozen.json（＋ .sha256）を書く（g49_planA.py。あれば書かない）
+  check は方案 A の確かめ（T0A：C3 をずらした海底と 1 bit 同じ・u3 と同じ・勾配・形・箱と粒子の数・in_gain・SMOKE_A と DA1 の precheck）も行う
   py -3.10 -B g49_pcfg.py gain <S0b の記録>    S0b の門（plan_frozen.json の strip_gates.S0b）を当てはめ、通れば plan/in_gain.json を書く。
                                               外れなら次の手（in_gain を 7.5/H にして 1 回走らせ直す・帯 120 m・止める）を画面に出す
 in_gain：S0b で一度だけ決める（plan/in_gain.json）。S1・D0・D1・S2・S3・D2・D3 はそれが無ければ precheck が ok にならない（--in_gain で与えた時は
@@ -41,11 +48,23 @@ GROWTH_LO, GROWTH_HI = 1.16, 1.25          # 粒子の増え：1 波 1.15〜1.16
 R5_S_PER_FRAME = 1.8                       # 重い記録（R5 の面）1 コマの秒（FLIP48 の 3D、粒子 0.5 m）【測定】
 LIMIT_3D_H = 2.5                           # 粗い 3D 1 本の上限（時間）【選び：H の 30 分を周期の波で置き換えた】
 EXPECT_PARTICLES = {("3d", 0.5): 3633016, ("3d", 1.0): 449666, ("axis", 0.5): 214224, ("flat", 0.5): 293760}   # 【計算】g49_common.count_particles
+EXPECT_PARTICLES_A = {0.5: 4981609, 1.0: 625205}   # 方案 A（SC37、箱 442 × 85 m・底 −25 m。粒子 1.0 m は半幅 86 m）【計算】設計の数と同じ
+GROWTH_HI_A = 1.30                         # 方案 A の粒子の増えの上：D0（周期の波、粒子 1.0 m）の 1.30【測定】。粒子 0.5 m の周期の波は測っていない
+T_END_A = 92.0                             # 判定する崩れ 4 つ（下見の巻き始め 50.5・62.1・74.1・85.8 s）の後まで【選び】
+T_END_A3 = 140.0                           # DA3（続き）：+48 s = 4 T【選び】
+ONSET_SCREEN_A = [50.5, 62.1, 74.1, 85.8]  # 下見（U3、η/h ≥ 1 の時刻）【計算、下見だけ】。D0 では FLIP の巻き始めが下見と 1 s 以内だった【測定】
+PLAN_A_REL = "Unity/Build/FLIP49/plan/plan_A_frozen.json"
 T_END_MAIN = 102.0
 T_END_D3 = 150.0
 ONSET_GUESS = [37.0 + 12.0 * k for k in range(10)]   # 下見の段の上の巻き始めの見込み（s）【計算、下見】。FLIP は 1〜2 s ずれうる
 HEAVY_WIN = (-3.0, 4.0)                    # 重い記録の窓 [t_on − 3, t_on + 4]
 HEAVY_WIN_GUESS = (-4.0, 4.0)              # D0 の巻き始めが 4 つより少ない時：37 + 12k ± 4 s
+# 方案 A DA1 の重い記録の既定（2026-10-15 AM-A2）：下見の巻き始め ± [−3, +4] s の窓（1 コマおき）の代わりに、47 s〜終わりを続けて 3 コマごと（R4・R5 とも）。
+# 理由：方案 A の海底は 1:10 の緩い軸で、崩れる所が下見（U3、η/h ≥ 1）より岸寄り（FLIP48 R4・C3 の 326〜353 m）になれば巻き始めが 5〜8 s 遅れ、
+# 窓が崩れを外す（P2・P3 の幅と 3D の面が読めない）。続けて記録すれば外さない。R5 のコマ数は窓の 337 → 361（+24、約 +0.01 h）【計算】。
+# 47 s = 判定の下限 45 s と最初の下見の巻き始め 50.5 s − 3 s（窓の設計と同じ前の余裕）の間。3 コマ ≤ w_at・mesh_exists の ±1〜2 コマ。
+# 前の窓に戻すのは `cfg DA1 --heavy=screen`
+HEAVY_CONT_A = dict(t0=47.0, every=3)
 
 
 # ====================================================================== 凍らせる計画（g49_pcfg.py freeze）
@@ -267,8 +286,11 @@ def read_gain():
     return None, None
 
 
-def parms_for(dp, W, spec, zb=GC.Z_BOTTOM, Lx=GC.LX, smoke=False):
+def parms_for(dp, W, spec, zb=GC.Z_BOTTOM, Lx=GC.LX, smoke=False, layout=None):
+    """layout（GC.LAYOUTS の dict）を与えれば出口の帯・水の量の窓をその並びに（方案 A）。無ければ PG12s の数（前と同じ）。"""
     GC.check_dp(dp, smoke=smoke)
+    xa0_ = float(layout["ex_x0"]) if layout else GC.EX_X0
+    vx_ = tuple(layout["vol_x"]) if layout else GC.VOL_X
     b = GC.box48(dp, Lx=Lx, W=W, zb=zb, floor_pad=2)
     p = dict(dp=b["dp"], gridscale=2.0, x0=b["x0"], Lx=b["Lx"], W=b["W"], zb=b["z_bottom"], Hz=b["Hz"], h0=GC.H0,
              ox=b["ox"], oy=b["oy"], oz=b["oz"], maxsub=8.0, minsub=1.0, cfl=1.0, pcfl=0.75, t_off=0.0,
@@ -276,9 +298,9 @@ def parms_for(dp, W, spec, zb=GC.Z_BOTTOM, Lx=GC.LX, smoke=False):
              surf_layer_m=2.5, mirror_m=1.0, surf_vox_scale=1.0, crop_x0=0.0, crop_x1=b["Lx"], crop_z1=b["W"],
              surf_ycut=-15.0, surf_keep_vox=1.0, surf_bed_vox=0.5,
              relax_on=1.0, abs_on=1.0, sf_on=1.0, relax_g=1.0, dt0=1.0 / 24.0, ramp_s=GC.RAMP_S, wall_taper_m=GC.WALL_TAPER, in_gain=1.0,
-             x_p=GC.X_P, xg_end=GC.IN_X1, xa0=GC.EX_X0, abs_sigma=GC.EX_SIGMA, abs_pow=GC.EX_POW,
+             x_p=GC.X_P, xg_end=GC.IN_X1, xa0=xa0_, abs_sigma=GC.EX_SIGMA, abs_pow=GC.EX_POW,
              set_P=0.0, set_up=0.0, set_flat=0.0, set_down=0.0, set_cg=0.0, duabs_on=0.0,
-             volcorr_on=1.0, vol_x0=GC.VOL_X[0], vol_x1=GC.VOL_X[1], hold_on=0.0, hold_x0=GC.HOLD_X[0], hold_x1=GC.HOLD_X[1])
+             volcorr_on=1.0, vol_x0=vx_[0], vol_x1=vx_[1], hold_on=0.0, hold_x0=GC.HOLD_X[0], hold_x1=GC.HOLD_X[1])
     p.update(GC.bed_parms(spec))
     return p, b
 
@@ -323,9 +345,13 @@ def d0_onsets(d0_dir):
 
 
 def make(run_id, kind, dp, W, spec, t_end, stage="A", in_gain=None, H=GC.H_WAVE, windows=None, out_root=None, note="", case_extra=None,
-         records=None, zb=GC.Z_BOTTOM, Lx=GC.LX, extra_parms=None, f_start=1):
-    """1 本の設定。kind：still_strip・flat_strip・axis_strip・3d。"""
-    p, b = parms_for(dp, W, spec, zb=zb, Lx=Lx, smoke=(kind in ("3d", "smoke") and dp == 1.0))
+         records=None, zb=GC.Z_BOTTOM, Lx=GC.LX, extra_parms=None, f_start=1, layout=None):
+    """1 本の設定。kind：still_strip・flat_strip・axis_strip・3d・smoke。layout："A" なら方案 A の並び（箱・出口の帯・窓・平均の水面の所・
+    R4 の x の窓・P1 の上限・頂を探す窓。cfg に layout を書き、g49_periodic_ana.py もそれで読む）。無ければ PG12s の並び（前と同じ cfg）。"""
+    LY = GC.LAYOUTS[layout] if layout else None
+    if LY:
+        zb = float(LY["zb"]); Lx = float(LY["Lx"])
+    p, b = parms_for(dp, W, spec, zb=zb, Lx=Lx, smoke=(kind in ("3d", "smoke") and dp == 1.0), layout=LY)
     dpm, drift = drift_parms(stage)
     p.update(dpm)
     if kind == "still_strip":
@@ -348,8 +374,9 @@ def make(run_id, kind, dp, W, spec, t_end, stage="A", in_gain=None, H=GC.H_WAVE,
         p.update(extra_parms)
     vox = b["vox"]
     f_end = GC.frames_for(0.0, t_end)
+    r4x = list(LY["r4_x"]) if LY else [180.0, 300.0]
     rec = records or dict(r2=True, r3_z=b["W"] - 0.5 * vox, block=120, r4_block=24, preg_every=24,
-                          r4=dict(x=[180.0, 300.0], z1=b["W"], y0=-10.0, y1=16.0, clip_vox=6.0, t0=0.0),
+                          r4=dict(x=r4x, z1=b["W"], y0=-10.0, y1=16.0, clip_vox=6.0, t0=0.0),
                           r5=dict(t0=0.0, every=1), windows=windows)
     three_d = kind in ("3d", "smoke")
     c = dict(
@@ -360,12 +387,19 @@ def make(run_id, kind, dp, W, spec, t_end, stage="A", in_gain=None, H=GC.H_WAVE,
                          in_gain=p.get("in_gain"), in_gain_source=g_src, x_p=GC.X_P, ramp_s=GC.RAMP_S, tags=dict(T="選び", H="選び", sf="計算（g47_sfwave）",
                                                                                                              in_gain="測定（S0b）" if g_src and "plan/in_gain" in g_src else "選び／未決")),
         drift=drift, solver=dict(veltransfer="flip", donarrowband=0), records=rec,
-        gauges=dict(x=list(GC.GAUGE_X), y=list(GC.GAUGE_Y)), level_regions=[list(r) for r in GC.LEVEL_REGIONS],
+        gauges=dict(x=list(GC.GAUGE_X), y=list(GC.GAUGE_Y)), level_regions=[list(r) for r in (LY["level_regions"] if LY else GC.LEVEL_REGIONS)],
         sf_check=dict(every=120, x=[10.0, 40.0, 70.0, 95.0], y=[-15.0, -8.0, -2.0], zl=[0.5 * vox] + ([0.5 * b["W"]] if three_d else [])),
         ckpt_on=1, ckpt_every=48, ckpt_list=[96, 72, 48, 24, 12], wall_limit_s=1740, level_guard_m=GC.LEVEL_GUARD_M, disk_stop_free_gb=25.0,
         max_hours=(LIMIT_3D_H if (three_d and dp == 0.5) else (0.75 if three_d else 0.5)), level_box=[0.0, b["Lx"], 0.0, b["W"]],
-        n1_x=list(GC.VOL_X), n1_window=[0.5, 1.5], shore_x=float(GC.edge_x(spec)) if (spec.get("on", True) and GC.is_new(spec)) else 256.0,
+        n1_x=list(LY["vol_x"] if LY else GC.VOL_X), n1_window=[0.5, 1.5], shore_x=float(GC.edge_x(spec)) if (spec.get("on", True) and GC.is_new(spec)) else 256.0,
         fieldbox_frames=[2], pstats_frames=[1, 2, int(f_end)], note=note)
+    if LY:
+        c["layout"] = LY["name"]
+        c["case"].update(plan_frozen=PLAN_A_REL, plan="Unity/Build/FLIP49/plan/plan_A_frozen.json（design・criteria・decision_rules・honesty）",
+                         campaign="PER49-A", P1_x_max_m=float(LY["p1_x_max"]))
+        c["analysis"] = dict(layout=LY["name"], p1_x_max_m=float(LY["p1_x_max"]), crest_x_min_m=float(LY["crest_x_min"]), crest_window=LY["crest_window"],
+                             side_band_m=list(LY["side_band"]), vol_x_m=list(LY["vol_x"]), report_levels=list(LY["report_levels"]),
+                             setup_region=LY["setup_region"], plan_frozen=PLAN_A_REL)
     c["precheck"] = precheck(c)
     return c
 
@@ -378,7 +412,11 @@ def precheck(c):
     n, V = GC.count_particles(spec, float(P["Lx"]), float(P["W"]), float(P["dp"]), zb=float(P["zb"]), bed_gap=float(P["bed_gap"]))
     out.update(particles_model=int(n), water_m3=float(V))
     key = ("3d" if c["kind"] in ("3d", "smoke") else ("flat" if not spec.get("on", True) else "axis"), float(P["dp"]))
-    if key in EXPECT_PARTICLES and GC.is_new(spec) and abs(spec.get("x_toe", 0) - 180.25) < 1e-9 and float(P["Lx"]) == GC.LX \
+    LY = GC.LAYOUTS.get(c.get("layout")) if c.get("layout") else None
+    if LY and LY["name"] == "A":
+        out.update(precheck_A(c, P, spec, n))
+        ck.update(out.pop("checks_A"))
+    elif key in EXPECT_PARTICLES and GC.is_new(spec) and abs(spec.get("x_toe", 0) - 180.25) < 1e-9 and float(P["Lx"]) == GC.LX \
             and (spec.get("ch_h") or 0) == 0 and abs(spec["shelf_h"] - 1.7) < 1e-9 and (spec.get("b_end") or 0) in (0.0, 12.0):
         ck["particles_as_designed"] = bool(abs(n / EXPECT_PARTICLES[key] - 1.0) < 0.02)
     sf = c.get("sf")
@@ -387,31 +425,78 @@ def precheck(c):
         ck["sf_terms"] = bool(len(sf["E"]) == len(sf["B"]) + 1 and len(sf["B"]) == GC.SF_N)
         ck["sf_below_0p9_Hmax"] = bool(float(sf["H_over_Hmax"]) <= 0.9)
     gx_ = [float(v) for v in (c.get("gauges") or {}).get("x", GC.GAUGE_X)]
-    ck["band_layout"] = bool(float(P["xg_end"]) < min(gx_) and (float(P["vol_x0"]) >= float(P["xg_end"]) or float(P["vol_x1"]) >= GC.LX - 1e-9)
+    ck["band_layout"] = bool(float(P["xg_end"]) < min(gx_) and (float(P["vol_x0"]) >= float(P["xg_end"]) or float(P["vol_x1"]) >= float(P["Lx"]) - 1e-9)
                              and (float(P["vol_x1"]) <= float(P["xa0"]) or float(P["vol_x0"]) <= 0.0) and max(gx_) <= float(P["vol_x1"]))
     ck["exit_after_lagoon_start"] = bool(float(P["xa0"]) >= 285.0 or not GC.is_new(spec))
     ck["bed_above_box_floor"] = bool(c["bed"].get("max_depth_m", 17.0) <= -float(P["zb"]) + 1e-6)
     ck["in_gain_set"] = bool(c["kind"] in ("still_strip", "flat_strip", "smoke") or "plan/in_gain.json" in str((c.get("wave") or {}).get("in_gain_source")))
     if c["kind"] == "3d" and float(P["dp"]) == 0.5:
         f_from = int(c.get("f_resume_est", c.get("f_start", 1)))          # 続き（D3）は前の計算の終わりの次のコマから
-        t_from = (f_from - 1) / 24.0
         nf = int(c["f_end"]) - f_from + 1
-        heavy = 0
-        for a, b in (c["records"].get("windows") or []):
-            if b > t_from:
-                heavy += int(round((b - max(a, t_from)) * 24)) + 1
-        if not c["records"].get("windows"):
-            heavy = nf
+        heavy = heavy_frames(c, f_from)
+        g_hi = GROWTH_HI_A if (LY and LY["name"] == "A") else GROWTH_HI
+        out["growth_hi"] = g_hi
         lo = COEF_LO * n * GROWTH_LO / 1e6 * nf / 3600.0
-        hi = COEF_HI * n * GROWTH_HI / 1e6 * nf / 3600.0
+        hi = COEF_HI * n * g_hi / 1e6 * nf / 3600.0
         rec_h = heavy * R5_S_PER_FRAME / 3600.0
-        out.update(frames=nf, heavy_frames=heavy, solve_h_lo=lo, solve_h_hi=hi, records_h=rec_h, total_h_hi=hi + rec_h,
-                   limit_h=LIMIT_3D_H, fallbacks="heavy records every 2nd frame, then t_end 90 s")
+        wl_ = float(c.get("wall_limit_s", 1740))
+        out.update(frames=nf, heavy_frames=heavy, solve_h_lo=lo, solve_h_hi=hi, records_h=rec_h, total_h_lo=lo + rec_h, total_h_hi=hi + rec_h,
+                   limit_h=LIMIT_3D_H, fallbacks="heavy records every 2nd frame, then t_end 90 s",
+                   launches_est="%d-%d launches of <= %d min" % (math.ceil((lo + rec_h) * 3600 / wl_), math.ceil((hi + rec_h) * 3600 / wl_), round(wl_ / 60)))
         ck["wall_le_2p5h"] = bool(hi + rec_h <= LIMIT_3D_H)
         ck["windows_inside_run"] = bool(all(0.0 <= a < b <= c["t_end_s"] + 1e-9 for a, b in (c["records"].get("windows") or [])))
     out["ok"] = bool(all(ck.values()))
     out["reason"] = None if out["ok"] else "外れ：" + ", ".join(k for k, v in ck.items() if not v)
     return out
+
+
+def heavy_frames(c, f_from):
+    """重い記録（R4・R5）を書くコマの数（窓の中、every コマごと。R4 と R5 の every が違えば多い方の数）。窓が無ければ全部のコマ。"""
+    rec = c["records"]
+    ev = max(1, min(int((rec.get("r4") or {}).get("every", 1)), int((rec.get("r5") or {}).get("every", 1))))
+    wins = rec.get("windows") or []
+    n = 0
+    for f in range(f_from, int(c["f_end"]) + 1):
+        t = (f - 1) / 24.0
+        if (not wins or any(a - 1e-9 <= t <= b + 1e-9 for a, b in wins)) and (f - 1) % ev == 0:
+            n += 1
+    return n
+
+
+def precheck_A(c, P, spec, n):
+    """方案 A（SC37）の走らせる前の確かめ（PG12s に特有の確かめの代わり）。返り値 dict(checks_A=…, A=…)。"""
+    LY = GC.LAYOUTS["A"]
+    ck = {}
+    info = {}
+    dp = float(P["dp"])
+    if dp in EXPECT_PARTICLES_A and float(P["W"]) in (85.0, 86.0):
+        ck["A_particles_as_designed"] = bool(n == EXPECT_PARTICLES_A[dp])
+    ck["A_box"] = bool(float(P["Lx"]) == LY["Lx"] and float(P["zb"]) == LY["zb"] and float(P["floor_pad"]) == 2.0)
+    ck["A_bed_is_SC37"] = bool(all((spec.get(k) == v) if not isinstance(v, float) else abs(float(spec.get(k)) - v) < 1e-12 for k, v in GC.SPEC_A.items())
+                               and GC.is_spur_drop(spec))
+    xa0 = float(P["xa0"]); Lx = float(P["Lx"])
+    drop_end = spec["x_back"] + (spec["h_lag"] - spec["shelf_h"]) * spec["s_back"]
+    info.update(exit_band_m=[xa0, Lx], exit_len_m=Lx - xa0, drop_end_x_m=drop_end, sigma=float(P["abs_sigma"]), theory=GC.EX_THEORY_A)
+    ck["A_exit_band_80m_sigma"] = bool(abs((Lx - xa0) - GC.EX_THEORY_A["band_m"]) < 1e-9 and abs(float(P["abs_sigma"]) - GC.EX_THEORY_A["sigma"]) < 1e-12)
+    ck["A_exit_after_drop"] = bool(xa0 >= drop_end - 1e-9)
+    ck["A_vol_window"] = bool(abs(float(P["vol_x0"]) - LY["vol_x"][0]) < 1e-9 and abs(float(P["vol_x1"]) - LY["vol_x"][1]) < 1e-9
+                              and float(P["vol_x1"]) <= xa0 - 5.0 + 1e-9)
+    an = c.get("analysis") or {}
+    ck["A_P1_limit"] = bool(abs(float((c.get("case") or {}).get("P1_x_max_m", -1)) - (xa0 - 5.0)) < 1e-9 and abs(float(an.get("p1_x_max_m", -1)) - (xa0 - 5.0)) < 1e-9)
+    r4 = (c["records"].get("r4") or {})
+    edge = GC.edge_x(spec)
+    info.update(edge_x_axis_m=edge, r4_x=r4.get("x"), r4_every=r4.get("every", 1), r5_every=(c["records"].get("r5") or {}).get("every", 1))
+    ck["A_r4_window"] = bool(r4 and float(r4["x"][0]) <= 230.0 and float(r4["x"][1]) >= edge and float(r4["x"][1]) <= xa0)
+    gx = [float(v) for v in (c.get("gauges") or {}).get("x", GC.GAUGE_X)]
+    ck["A_gauges_before_toe"] = bool(max(gx) < spec["x_toe"] and min(gx) > float(P["xg_end"]))
+    regs = c.get("level_regions") or []
+    names = [r[0] for r in regs]
+    ck["A_level_regions"] = bool(all(0.0 <= r[1] < r[2] <= Lx for r in regs)
+                                 and all(nm in names for nm in ("band_core", "probe_c", "flat", "reef_top", "lagoon", "side", "axis_front")))
+    ck["A_layout_named"] = bool(c.get("layout") == "A" and an.get("plan_frozen") == PLAN_A_REL)
+    if c["kind"] == "3d":
+        ck["A_plan_frozen_named"] = bool((c.get("case") or {}).get("plan_frozen") == PLAN_A_REL)
+    return dict(checks_A=ck, A=info)
 
 
 def write(c):
@@ -530,6 +615,8 @@ def _preset(name, opt):
         c["pstats_frames"] = [1, 2, int(c["f_end"])]
         c["precheck"] = precheck(c)
         return [c]
+    if name in ("SMOKE_A", "DA1", "DA2", "DA3"):
+        return preset_A(name, opt)
     if name == "Z0":
         if int(opt.get("dub", 0)):
             raise SystemExit("du_b（組の下の束縛された長い波）は未実装（Design 3 の式が要る）。Z0 は du_b 無しだけ書ける")
@@ -538,7 +625,89 @@ def _preset(name, opt):
                      case_extra=dict(queue_id="Z0", stage2=True),
                      records=dict(r2=True, r3_z=None, block=120, preg_every=24, r4=None, r5=None, windows=None),
                      note="FLIP49 Z0（2 段目、引き金の後だけ）：平らな板、組 1 つ（上り 12 s・満ち 36 s・下り 12 s）の後 60 s の静けさ、du_b 無し")]
-    raise SystemExit("cfg は S0a・S0b・S1・S2・S3・D0・D1・D2・D3・Z0・SMOKE")
+    raise SystemExit("cfg は S0a・S0b・S1・S2・S3・D0・D1・D2・D3・Z0・SMOKE・SMOKE_A・DA1・DA2・DA3")
+
+
+def preset_A(name, opt):
+    """方案 A（PER49-A、plan_A_frozen.json）の設定。SMOKE_A：3D の煙の試し（粒子 1.0 m、0〜8 s、起動 2 回）。DA1：主の粗い周期の 3D
+    （粒子 0.5 m、T 12 s・H 7.5 m、段 C、92 s、重い記録は下見の巻き始め ± [−3, +4] s）。DA2：決まりの 1 つだけ変えた続き（T16 H7.0。この段では書かない）。
+    DA3：PERIODIC が通った時の +48 s の続き（140 s）。"""
+    stage = opt.get("stage", "C")
+    sp = dict(GC.SPEC_A)
+    if name == "SMOKE_A":
+        c = make("SMOKE49A_SC37_dp1p0", "smoke", 1.0, GC.W_MAIN, sp, 8.0, stage=stage, out_root="smoke", layout="A",
+                 case_extra=dict(queue_id="SMOKE_A", judged=False),
+                 note="FLIP49 方案 A の煙の試し（判定しない）：3D・粒子 1.0 m・SC37（FLIP48 C3 の海底を +37.25 m、礁の上 20 m の先 1:2 で 6 m）・"
+                      "箱 442 × 86 m（2 m の格子に丸め）・底 −25 m・出口の帯 362〜442 m・段 C・0〜8 s。FLIP で初めて通す道（pg_reef の道で溝＋礁湖への下り、"
+                      "FLIP49 の水槽で底 −25 m の箱、Lx 442、80 m の出口の帯、新しい所と窓、途中保存からの続き。wall_limit 80 s で起動を 2 回以上に分ける）"
+                      "を確かめるだけ。in_gain は仮の 1.0（plan/in_gain.json も 1.0）")
+        c.update(wall_limit_s=80, max_hours=0.25, ckpt_every=48, ckpt_list=[48, 24, 12])
+        c["sf_check"]["every"] = 48
+        c["pstats_frames"] = [1, 2, int(c["f_end"])]
+        c["records"]["windows"] = [[2.0, 8.0]]          # 重い記録（R4・R5）の窓の道も通す（短い）
+        c["records"]["r4"]["every"] = 2                  # DA1 の逃げ道（重い記録を 1 コマおき）と同じ道を通す
+        c["records"]["r5"]["every"] = 2
+        c["precheck"] = precheck(c)
+        return [c]
+    if name == "DA1":
+        g = float(opt["in_gain"]) if opt.get("in_gain") else None
+        heavy = opt.get("heavy", "cont")
+        if heavy not in ("cont", "screen"):
+            raise SystemExit("--heavy は cont（既定：47 s〜終わりを 3 コマごと、AM-A2）か screen（下見の巻き始め ± [−3, +4] s の窓）")
+        if heavy == "cont":
+            win = [[HEAVY_CONT_A["t0"], T_END_A]]
+            wsrc = ("続けて %g〜%g s を %d コマごと（R4・R5、AM-A2）。下見（U3）の巻き始め %s s に縛らない：1:10 の緩い軸では FLIP の崩れる所が下見より岸寄りに"
+                    "なりうる（FLIP48 R4・C3 は x 326〜353 m）" % (HEAVY_CONT_A["t0"], T_END_A, HEAVY_CONT_A["every"], ONSET_SCREEN_A))
+        else:
+            win = windows_from(ONSET_SCREEN_A, HEAVY_WIN, t_end=T_END_A)
+            wsrc = "下見（U3）の巻き始め %s s ± [−3, +4] s（D0 では FLIP の巻き始めが下見と 1 s 以内）" % ONSET_SCREEN_A
+        c = make("DA1_SC37_T12H7p5_dp0p5" + ("" if stage == "C" else "_st%s" % stage), "3d", 0.5, GC.W_MAIN, sp, T_END_A, stage=stage, in_gain=g,
+                 windows=win, layout="A", case_extra=dict(queue_id="DA1", windows_source=wsrc, heavy_rule=heavy),
+                 note="FLIP49 方案 A DA1：主の粗い周期の 3D（粒子 0.5 m、4.98 M）。SC37、半幅 85 m、箱 442 m・底 −25 m、流れ関数の波 T 12 s・H 7.5 m、"
+                      "入口の帯 0〜100 m、出口の帯 362〜442 m（80 m、σ 1.41）、段 %s、%g s。重い記録は %s" % (stage, T_END_A, wsrc))
+        if heavy == "cont":
+            c["records"]["r4"]["every"] = HEAVY_CONT_A["every"]
+            c["records"]["r5"]["every"] = HEAVY_CONT_A["every"]
+            c["case"]["amendment"] = "AM-A2 (Unity/Build/FLIP49/plan/amendments.jsonl)"
+            c["precheck"] = precheck(c)
+            return [c]
+        c["records"]["r4"]["every"] = 1
+        c["records"]["r5"]["every"] = 1
+        c["precheck"] = precheck(c)
+        if not c["precheck"]["checks"].get("wall_le_2p5h"):
+            hi1 = c["precheck"].get("total_h_hi")
+            c["records"]["r4"]["every"] = 2
+            c["records"]["r5"]["every"] = 2
+            c["note"] += "｜時間の見込みの上 %.2f h が 2.5 h を越えたので、FLIP49 の逃げ道（重い記録を 1 コマおき：R4・R5 の every 2）を当てた" % hi1
+            c["case"]["fallback"] = dict(rule="heavy records every 2nd frame (FLIP49 fallback, plan_A_frozen.json design)", total_h_hi_before=hi1)
+            c["precheck"] = precheck(c)
+        return [c]
+    if name == "DA2":
+        raise SystemExit("DA2（T16 H7.0）はこの段では書かない：先に T 16 s の S0b 型の入口の板（約 8 分）と、120 m 以上の出口の帯"
+                         "（箱を Lx 482 m に延ばす並び、σ を 1 次元の理論で選び直す）が要る。DA1 の後の決まり（plan_A_frozen.json decision_rules）で要る時に足す")
+    if name == "DA3":
+        rd = opt.get("run")
+        if not rd or not os.path.exists(os.path.join(rd, "cfg.json")):
+            raise SystemExit("DA3 は続ける DA1 の記録を --run で与える（cfg.json がある所）")
+        c0 = json.load(open(os.path.join(rd, "cfg.json"), encoding="utf8"))
+        if c0.get("layout") != "A":
+            raise SystemExit("DA3 は方案 A の記録（cfg の layout A）だけ")
+        c = copy.deepcopy(c0)
+        for k_ in ("hip_sha256", "module_shas_at_chain_start", "precheck"):
+            c.pop(k_, None)
+        ons, src = d0_onsets(rd)
+        last = max([t for t in (ons or [])] or [ONSET_SCREEN_A[-1]])
+        extra = [last + 12.0 * k for k in range(1, 5)]
+        c["f_resume_est"] = int(c0["f_end"]) + 1
+        c["f_end"] = GC.frames_for(0.0, T_END_A3); c["t_end_s"] = T_END_A3
+        c["records"]["windows"] = (c["records"].get("windows") or []) + windows_from(extra, t_end=T_END_A3, t_min=0.0)
+        c["case"]["queue_id"] = "DA3"; c["case"]["continuation_of"] = c0["run_id"]
+        c["note"] = c0.get("note", "") + "｜DA3：同じ設定のまま最後の途中保存から %g s まで（+48 s = 4 T、指導教員の長い動画の頼み Q66）。窓を足した（%s の最後の巻き始め %.1f s + 12k s）" % (
+            T_END_A3, src, last)
+        c["pstats_frames"] = sorted(set(c.get("pstats_frames", []) + [c["f_end"]]))
+        c["precheck"] = precheck(c)
+        return [c]
+    raise SystemExit("方案 A の cfg は SMOKE_A・DA1・DA2・DA3")
 
 
 def d2(opt, win, wsrc):
@@ -728,6 +897,9 @@ def checks():
     d1 = (cf["D1"].get("precheck") or {})
     ok["D1_wall_le_2p5h"] = bool(d1.get("checks", {}).get("wall_le_2p5h"))
     ok["D1_particles_as_designed"] = bool(d1.get("checks", {}).get("particles_as_designed"))
+    # (A) 方案 A（2026-10-15 足した）
+    out["A"], okA = checks_A(rng)
+    ok.update(okA)
     # (9) 凍らせた計画
     if os.path.exists(GC.PLAN_FROZEN):
         h_ = GC.sha256_file(GC.PLAN_FROZEN)
@@ -735,12 +907,98 @@ def checks():
         cp = GC.PLAN_COPY48
         out["plan_frozen"] = dict(path=GC.PLAN_FROZEN, sha256=h_, sha256_file=rec, copy=cp, copy_identical=bool(os.path.exists(cp) and GC.sha256_file(cp) == h_))
         ok["plan_frozen_sha"] = bool(rec == h_ and out["plan_frozen"]["copy_identical"])
+    if os.path.exists(PLAN_A):
+        hA = GC.sha256_file(PLAN_A)
+        recA = open(PLAN_A + ".sha256").read().split()[0] if os.path.exists(PLAN_A + ".sha256") else None
+        out["plan_A_frozen"] = dict(path=PLAN_A, sha256=hA, sha256_file=recA)
+        ok["plan_A_frozen_sha"] = bool(recA == hA)
     out["ok"] = ok
     out["all_ok"] = bool(all(ok.values()))
     out["elapsed_s"] = round(time.time() - t_start, 1)
     os.makedirs(GC.PLAN_DIR, exist_ok=True)
     json.dump(out, open(GC.PLAN_DIR + "/precheck.json", "w", encoding="utf8"), indent=1, ensure_ascii=False, default=float)
     return out
+
+
+PLAN_A = GC.REPO + "/" + PLAN_A_REL
+
+
+def checks_A(rng):
+    """方案 A の numpy の確かめ（T0A）。返り値 (記録 dict, ok dict)。"""
+    o, ok = {}, {}
+    sp = GC.SPEC_A
+    # (A1) x < x_back で FLIP48 C3 の海底を +37.25 m ずらした物と 1 bit も違わない（高さ）。勾配は式の道が違うので差の最大を書く
+    c3 = os.path.join(G48.B48, "runs", GC.C3_RUN48, "cfg.json")
+    if os.path.exists(c3):
+        s48 = G48.bed_spec(json.load(open(c3, encoding="utf8")))
+        X = np.concatenate([rng.uniform(-20.0, sp["x_back"] - 1e-6, 300000), np.arange(0.0, sp["x_back"], 0.25)])
+        Y = np.concatenate([rng.uniform(-100.0, 100.0, 300000), np.zeros(len(np.arange(0.0, sp["x_back"], 0.25)))])
+        zA = GC.bed_z(X, Y, **sp); zC = G48.bed_z(X - GC.DX_A, Y, **s48)
+        gA = GC.bed_grad(X, Y, **sp); gC = G48.bed_grad(X - GC.DX_A, Y, **s48)
+        Xg, Yg = np.meshgrid(np.arange(0.0, sp["x_back"], 0.25), np.arange(-90.0, 90.0001, 0.25))
+        zAg = GC.bed_z(Xg, Yg, **sp); zCg = G48.bed_z(Xg - GC.DX_A, Yg, **s48)
+        o["vs_C3_shifted"] = dict(c3_cfg=c3, c3_spec=s48, n_random=300000, grid="x 0..353.25 step 0.25, y -90..90 step 0.25",
+                                  z_bit_equal_random=bool(np.array_equal(zA, zC)), z_bit_equal_grid=bool(np.array_equal(zAg, zCg)),
+                                  z_max_abs_m=float(max(np.abs(zA - zC).max(), np.abs(zAg - zCg).max())),
+                                  grad_max_abs=float(max(np.abs(gA[0] - gC[0]).max(), np.abs(gA[1] - gC[1]).max())),
+                                  note="heights compared bit for bit; gradients go through the g49 'new' formula (|y| and sech^2 of k|y|) and differ by rounding only")
+        ok["A_bed_equals_C3_shifted"] = bool(o["vs_C3_shifted"]["z_bit_equal_random"] and o["vs_C3_shifted"]["z_bit_equal_grid"] and o["vs_C3_shifted"]["grad_max_abs"] < 1e-12)
+    else:
+        o["vs_C3_shifted"] = dict(missing=c3)
+        ok["A_bed_equals_C3_shifted"] = False
+    # (A2) 下見の海底（u3_beds.depth、screen_A/sa_run.py の BED_A）と同じ
+    U3 = GC.u3_depth_fn()
+    Xg, Yg = np.meshgrid(np.arange(-10.0, 442.0001, 0.1), np.arange(-90.0, 90.0001, 0.25))
+    dA = float(np.abs(-GC.bed_z(Xg, Yg, **sp) - U3(Xg, Yg, GC.SPEC_A_U3)).max())
+    o["vs_u3"] = dict(max_abs_m=dA, grid="x -10..442 step 0.1, y -90..90 step 0.25", u3_spec=GC.SPEC_A_U3)
+    ok["A_bed_vs_u3_lt_1e-9"] = dA < 1e-9
+    # (A3) 勾配の数値の差・y について偶
+    h = 1e-5
+    Xr = rng.uniform(150, 440, 40000); Yr = rng.uniform(-88, 88, 40000)
+    gx, gy = GC.bed_grad(Xr, Yr, **sp)
+    ngx = (GC.bed_z(Xr + h, Yr, **sp) - GC.bed_z(Xr - h, Yr, **sp)) / (2 * h); ngy = (GC.bed_z(Xr, Yr + h, **sp) - GC.bed_z(Xr, Yr - h, **sp)) / (2 * h)
+    err = np.maximum(np.abs(gx - ngx), np.abs(gy - ngy))
+    o["grad_fd"] = dict(max=float(err.max()), n_gt_1em5=int((err > 1e-5).sum()), n=len(Xr), even_in_y=float(np.abs(GC.bed_z(Xr, Yr, **sp) - GC.bed_z(Xr, -Yr, **sp)).max()))
+    ok["A_bed_grad_fd"] = bool(o["grad_fd"]["n_gt_1em5"] <= 2 and o["grad_fd"]["even_in_y"] < 1e-12)
+    # (A4) 形：軸の縁・舌の半幅・x 340 m の水深・後ろの下りの終わり
+    def half_width(x):
+        ys = np.arange(0.0, 60.0, 0.01)
+        d = -GC.bed_z(np.full_like(ys, x), ys, **sp)
+        i = np.where(d > sp["shelf_h"] + 1e-9)[0]
+        return float(ys[i[0]]) if len(i) else float("nan")
+    o["geometry"] = dict(edge_x_axis_m=GC.edge_x(sp), tongue_half_width_m={"333.25": half_width(333.25), "343": half_width(343.0), "353": half_width(353.0)},
+                         depth_x340_m={str(y): float(-GC.bed_z(340.0, float(y), **sp)) for y in (0, 10, 20, 30, 55, 60, 70)},
+                         drop_end_x_m=sp["x_back"] + (sp["h_lag"] - sp["shelf_h"]) * sp["s_back"], kind=GC.bed_kind(sp), formula=GC.bed_formula(sp),
+                         design=dict(edge=332.8, half_width_353=6.0, depth_x340={"10": 5.5, "20": 11.9, "30": 15.2, "55": 21.0}))
+    g_ = o["geometry"]
+    ok["A_geometry_as_designed"] = bool(abs(g_["edge_x_axis_m"] - 332.8) < 0.06 and abs(g_["tongue_half_width_m"]["353"] - 6.0) < 0.1
+                                        and all(abs(g_["depth_x340_m"][k] - v) < 0.06 for k, v in g_["design"]["depth_x340"].items()))
+    # (A5) 箱・粒子の数
+    LY = GC.LAYOUTS["A"]
+    b05 = GC.box48(0.5, Lx=LY["Lx"], W=GC.W_MAIN, zb=LY["zb"], floor_pad=2); b10 = GC.box48(1.0, Lx=LY["Lx"], W=GC.W_MAIN, zb=LY["zb"], floor_pad=2)
+    n05, V05 = GC.count_particles(sp, b05["Lx"], b05["W"], 0.5, zb=LY["zb"]); n10, V10 = GC.count_particles(sp, b10["Lx"], b10["W"], 1.0, zb=LY["zb"])
+    o["box_particles"] = dict(box_dp0p5=b05, box_dp1p0=b10, particles_dp0p5=n05, water_m3_dp0p5=V05, particles_dp1p0=n10, water_m3_dp1p0=V10,
+                              design=dict(particles_dp0p5=4981609, particles_dp1p0=625205, cells_dp0p5=[442, 85, 44]))
+    ok["A_box_cells"] = bool(b05["cells"] == [442, 85, 44] and b10["W"] == 86.0)
+    ok["A_particles_as_designed"] = bool(n05 == EXPECT_PARTICLES_A[0.5] and n10 == EXPECT_PARTICLES_A[1.0])
+    # (A6) 帯・波・入口の利得
+    g_file, g_src = read_gain()
+    o["inlet"] = dict(in_gain=g_file, source=g_src, exit_theory=GC.EX_THEORY_A, layout={k: (list(v) if isinstance(v, tuple) else v) for k, v in LY.items() if k != "level_regions"},
+                      level_regions=[list(r) for r in LY["level_regions"]])
+    ok["A_in_gain_present"] = bool(g_file is not None)
+    # (A7) 設定を書かずに作って、走らせる前の確かめ
+    cf = {}
+    for nm in ("SMOKE_A", "DA1"):
+        try:
+            c = preset(nm, {})[0]
+            cf[nm] = dict(run_id=c["run_id"], precheck=c["precheck"], f_end=c["f_end"], windows=c["records"].get("windows"),
+                          r4=c["records"].get("r4"), r5=c["records"].get("r5"), fallback=(c.get("case") or {}).get("fallback"))
+        except SystemExit as e:
+            cf[nm] = dict(error=str(e))
+    o["cfg_dry"] = cf
+    ok["A_cfg_SMOKE_A_precheck_ok"] = bool((cf["SMOKE_A"].get("precheck") or {}).get("ok"))
+    ok["A_cfg_DA1_precheck_ok"] = bool((cf["DA1"].get("precheck") or {}).get("ok"))
+    return o, ok
 
 
 def seiche_axis(spec, Lx=GC.LX):
@@ -769,6 +1027,22 @@ def summary(o):
                                                     {kk: (round(vv, 3) if isinstance(vv, float) else vv) for kk, vv in pc.items() if kk in ("solve_h_lo", "solve_h_hi", "records_h", "total_h_hi", "heavy_frames")}))
     if o.get("plan_frozen"):
         L.append("plan_frozen: %s" % o["plan_frozen"])
+    A = o.get("A") or {}
+    if A:
+        v = A.get("vs_C3_shifted") or {}
+        L.append("A: bed vs C3+37.25 z bit equal %s/%s (max %.1e) grad max %.1e; vs u3 %.1e; grad FD %s; geometry %s" % (
+            v.get("z_bit_equal_random"), v.get("z_bit_equal_grid"), v.get("z_max_abs_m") or 0.0, v.get("grad_max_abs") or 0.0,
+            A["vs_u3"]["max_abs_m"], (round(A["grad_fd"]["max"], 9), A["grad_fd"]["n_gt_1em5"]),
+            {k: A["geometry"][k] for k in ("edge_x_axis_m", "tongue_half_width_m", "depth_x340_m", "drop_end_x_m")}))
+        bp = A["box_particles"]
+        L.append("A: cells %s, particles dp0.5 %d dp1.0 %d (W %g), in_gain %s" % (bp["box_dp0p5"]["cells"], bp["particles_dp0p5"], bp["particles_dp1p0"], bp["box_dp1p0"]["W"], A["inlet"]["in_gain"]))
+        for k, v in A["cfg_dry"].items():
+            pc = v.get("precheck") or {}
+            L.append("  A cfg %s: %s ok %s reason %s %s" % (k, v.get("run_id"), pc.get("ok"), pc.get("reason"),
+                                                          {kk: (round(vv, 3) if isinstance(vv, float) else vv) for kk, vv in pc.items()
+                                                           if kk in ("solve_h_lo", "solve_h_hi", "records_h", "total_h_lo", "total_h_hi", "heavy_frames", "launches_est")}))
+    if o.get("plan_A_frozen"):
+        L.append("plan_A_frozen: %s" % o["plan_A_frozen"])
     return "\n".join(L)
 
 
@@ -791,6 +1065,9 @@ if __name__ == "__main__":
         print(summary(o))
     elif pos[0] == "freeze":
         print(freeze(force=bool(int(opt.get("force", "0"))), reason=opt.get("reason")))
+    elif pos[0] == "freezeA":
+        import g49_planA as PA_
+        print(PA_.freeze_A(force=bool(int(opt.get("force", "0"))), reason=opt.get("reason")))
     elif pos[0] == "gain":
         gain(os.path.abspath(pos[1]))
     elif pos[0] == "cfg":

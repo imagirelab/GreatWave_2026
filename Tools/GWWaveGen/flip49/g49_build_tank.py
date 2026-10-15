@@ -22,6 +22,11 @@ FLIP48 と同じにした所：粒子の置き方（格子の中心の列に dp 
   4. 帯：relax_probe の点で relax_apply を numpy の写し（この道具の relax_np）と比べる（入口・出口・その間、縦の流速が変わらない、
      目標 0 で E = 0）。発散 vc_divergence と Sommerfeld の項 du_abs を試しのファイル（_logs/vdtest/vd_00001.txt）で確かめる。
   5. 保存する場面の CTRL が作った時の既定（静かな水・帯なし）に戻っている。
+  2026-10-15 方案 A（SC37 = FLIP48 C3 の海底を +37.25 m、礁の上 20 m の先 1:2 で 6 m、箱 442 × 85 m・底 −25 m）を足した：
+  6. A_3d：方案 A の海底と SDF を numpy と比べる（新しい項の道 pgon()：pg_hL 0・b_end 0・lag_xb 353.25。VEX の式は足していない。
+     溝と礁湖への下りを同時に使う道を、ここで初めて Houdini で確かめる）。A_3d_particles_dp1：粒子 1.0 m（半幅 86 m）の数。
+  7. relax_probe_A：方案 A の並び（出口の帯 362〜442 m、窓 110〜357 m）で帯の関数と発散。
+  set_box は箱の長さ Lx を受ける（既定は PG12s の 360 m）。
 使い方：py -3.10 x49_build.py（ほかの hython が終わるまで待ってから hython g49_build_tank.py を起動する）
 """
 import hou, os, sys, json, time
@@ -615,8 +620,8 @@ def particle_check(rec, spec):
     return rec
 
 
-def set_box(dp, W, spec, zb=GC.Z_BOTTOM):
-    b = GC.box48(dp, Lx=GC.LX, W=W, zb=zb, floor_pad=2)
+def set_box(dp, W, spec, zb=GC.Z_BOTTOM, Lx=GC.LX):
+    b = GC.box48(dp, Lx=Lx, W=W, zb=zb, floor_pad=2)
     d = dict(dp=b["dp"], Lx=b["Lx"], W=b["W"], zb=b["z_bottom"], Hz=b["Hz"], ox=b["ox"], oy=b["oy"], oz=b["oz"], crop_x1=b["Lx"], crop_z1=b["W"])
     d.update(GC.bed_parms(spec))
     set_ctrl(d)
@@ -649,6 +654,55 @@ def relax_np(pl, v0, t, dts, P_, sf):
     return v
 
 
+def relax_check(W_, spec, zb_, Lx_, xa0_, volx, xs_, sfT):
+    """帯の関数（relax_apply）と発散（vc_divergence）を relax_probe の点で numpy の写し（relax_np）と比べる。箱・出口の帯・窓は与えた並び。"""
+    vdt = GC.B49 + "/_logs/vdtest"
+    os.makedirs(vdt, exist_ok=True)
+    DV = (0.0013, -0.0007, 0.21)
+    open(vdt + "/vd_00001.txt", "w").write("%r %r %r\n" % DV)
+    set_box(0.5, W_, spec, zb=zb_, Lx=Lx_)
+    on = dict(relax_on=1.0, abs_on=1.0, sf_on=1.0, in_gain=1.07, xa0=xa0_, duabs_on=1.0, volcorr_on=1.0, hold_on=1.0, vol_x0=volx[0], vol_x1=volx[1])
+    set_ctrl(on)
+    ctrl.parm("vol_dir").set(vdt)
+    hou.setFrame(1)
+    vdp.cook(force=True)
+    vg_ = vdout.geometry()
+    vread = [vg_.attribValue(nm) for nm in ("vol_div", "vol_div_band", "du_abs")]
+    P_ = ctrl_floats(); P_["_du_abs"] = DV[2]
+    rows = []
+    for x_ in xs_:
+        for y_ in (-12.0, -1.0):
+            for t_, dts_ in ((0.0, 1.0 / 24.0), (13.3, 1.0 / 96.0), (40.0, 1.0 / 48.0)):
+                rows.append(dict(px=x_, py=y_, pz=3.0 if x_ < 200 else 70.0, pt=t_, dts=dts_, v0=(0.7, -0.3, 0.4)))
+    rlp_pts.parm("pts_json").set(json.dumps(rows))
+    rlp.cook(force=True)
+    g_ = rlp.geometry()
+    v1 = np.array(g_.pointFloatAttribValues("v1")).reshape(-1, 3); dv_ = np.array(g_.pointFloatAttribValues("div"))
+    ref = np.array([relax_np((r["px"], r["py"], r["pz"]), r["v0"], r["pt"], r["dts"], P_, sfT) for r in rows])
+    dref = np.array([(DV[0] if volx[0] <= r["px"] <= volx[1] else 0.0) + (DV[1] if GC.HOLD_X[0] <= r["px"] <= GC.HOLD_X[1] else 0.0) for r in rows])
+    vert_same = bool(np.allclose(v1[:, 1], -0.3, atol=1e-6))
+    mid = np.array([GC.IN_X1 + 5.0 <= r["px"] < xa0_ - 1e-9 for r in rows])
+    out = dict(n=len(rows), Lx=float(P_["Lx"]), xa0=float(P_["xa0"]), vol_x=[float(P_["vol_x0"]), float(P_["vol_x1"])], zb=float(P_["zb"]),
+               voldiv_read=vread, voldiv_ok=bool(np.allclose(vread, DV, atol=1e-12)),
+               v_max_abs_diff=float(np.abs(v1 - ref).max()), div_max_abs_diff=float(np.abs(dv_ - dref).max()),
+               vertical_unchanged=vert_same, untouched_between_bands=bool(np.allclose(v1[mid], np.array([0.7, -0.3, 0.4]), atol=1e-6)),
+               exit_band_damps=bool(np.all(np.abs(v1[np.array([r["px"] > xa0_ + 1.0 for r in rows]), 0]) < 0.7)))
+    # 目標 0（sf_on 0・du_abs 0）なら入口の帯は流速を 0 へ寄せるだけ（E = 0）
+    set_ctrl(dict(sf_on=0.0, duabs_on=0.0))
+    rlp.cook(force=True)
+    v0z = np.array(rlp.geometry().pointFloatAttribValues("v1")).reshape(-1, 3)
+    inb = np.array([r["px"] < GC.IN_X1 for r in rows])
+    P_ = ctrl_floats(); P_["_du_abs"] = 0.0
+    ref0 = np.array([relax_np((r["px"], r["py"], r["pz"]), r["v0"], r["pt"], r["dts"], P_, sfT) for r in rows])
+    out["target0_max_abs_diff"] = float(np.abs(v0z - ref0).max())
+    out["target0_toward_zero"] = bool(np.all(np.abs(v0z[inb, 0]) <= 0.7 + 1e-6) and np.all(np.abs(v0z[inb, 2]) <= 0.4 + 1e-6))   # 点の属性は 32 ビット
+    # 点の属性（v1・div）は 32 ビットで残るので、差の上限は 1e-6 m/s・1e-9 /s（VEX の計算は 64 ビット）
+    out["tolerance_note"] = "point attributes are stored as float32: v within 1e-6 m/s, div within 1e-9 1/s"
+    out["ok"] = bool(out["voldiv_ok"] and out["v_max_abs_diff"] < 1e-6 and out["div_max_abs_diff"] < 1e-9 and vert_same and out["untouched_between_bands"]
+                     and out["target0_max_abs_diff"] < 1e-6 and out["target0_toward_zero"] and out["exit_band_damps"])
+    return out
+
+
 CHK = dict(date=time.strftime("%Y-%m-%d %H:%M:%S"), hip=HIP, houdini=hou.applicationVersionString(), module_shas=GC.module_shas())
 DEFAULT_CTRL = ctrl_floats()
 DEFAULT_STR = {nm: ctrl.parm(nm).evalAsString() for nm in ("sol_npz", "sf_tab", "vol_dir")}
@@ -678,6 +732,14 @@ try:
     CHK["R4_g48_path"]["numpy_equals_g48_bit"] = bool(np.array_equal(GC.bed_z(np.arange(0, 360, 0.37)[None, :], np.arange(0, 85, 0.41)[:, None], **r4),
                                                                      GC.G48.bed_z(np.arange(0, 360, 0.37)[None, :], np.arange(0, 85, 0.41)[:, None],
                                                                                   **{k: r4[k] for k in GC.BED48_KEYS})))
+    # 方案 A（SC37）の海底：箱 442 × 85 m、底 −25 m。粒子 0.5 m の格子で海底と SDF、粒子 1.0 m（半幅 86 m）で粒子の数
+    LA = GC.LAYOUTS["A"]
+    set_box(0.5, GC.W_MAIN, GC.SPEC_A, zb=LA["zb"], Lx=LA["Lx"])
+    CHK["A_3d"] = bed_check("方案 A の海底 SC37（FLIP48 C3 を +37.25 m、礁の上 20 m の先 1:2 で 6 m。箱 442 × 85 m、底 −25 m、粒子 0.5 m の格子）")
+    CHK["A_3d"]["pg_path"] = bool(GC.is_new(CHK["A_3d"]["spec"]) and GC.is_spur_drop(CHK["A_3d"]["spec"]))
+    set_box(1.0, GC.W_MAIN, GC.SPEC_A, zb=LA["zb"], Lx=LA["Lx"])
+    CHK["A_3d_particles_dp1"] = particle_check(dict(), GC.bed_spec(parms=ctrl_floats()))
+    CHK["A_3d_particles_dp1"]["W"] = float(ctrl.parm("W").eval())
     restore_ctrl()
     # 3：流れ関数の波（168 点）
     sfT = json.load(open(GC.sf_table_file(), encoding="utf8"))      # x49_build.py が py -3.10 で解いた表（hython には scipy が無い）
@@ -706,50 +768,12 @@ try:
                            eta_crest=float(sfT["eta_crest"]), eta_trough=float(sfT["eta_trough"]), u1=float(sfT["u1_mean_current"]))
     CHK["sf_probe"]["ok"] = bool(CHK["sf_probe"]["sfN_ok"] and CHK["sf_probe"]["u_max_abs_over_c"] <= 1e-6 and CHK["sf_probe"]["w_max_abs_over_c"] <= 1e-6
                                  and CHK["sf_probe"]["eta_max_abs_over_H"] <= 1e-6)
-    # 4：帯と発散（試しのファイル）
-    vdt = GC.B49 + "/_logs/vdtest"
-    os.makedirs(vdt, exist_ok=True)
-    DV = (0.0013, -0.0007, 0.21)
-    open(vdt + "/vd_00001.txt", "w").write("%r %r %r\n" % DV)
-    set_box(0.5, GC.W_MAIN, GC.PG12S)
-    on = dict(relax_on=1.0, abs_on=1.0, sf_on=1.0, in_gain=1.07, xa0=GC.EX_X0, duabs_on=1.0, volcorr_on=1.0, hold_on=1.0)
-    set_ctrl(on)
-    ctrl.parm("vol_dir").set(vdt)
-    hou.setFrame(1)
-    vdp.cook(force=True)
-    vg_ = vdout.geometry()
-    vread = [vg_.attribValue(nm) for nm in ("vol_div", "vol_div_band", "du_abs")]
-    P_ = ctrl_floats(); P_["_du_abs"] = DV[2]
-    rows = []
-    for x_ in (1.0, 5.0, 19.0, 40.0, 70.0, 99.0, 100.0, 105.0, 150.0, 200.0, 289.0, 291.0, 320.0, 359.5):
-        for y_ in (-12.0, -1.0):
-            for t_, dts_ in ((0.0, 1.0 / 24.0), (13.3, 1.0 / 96.0), (40.0, 1.0 / 48.0)):
-                rows.append(dict(px=x_, py=y_, pz=3.0 if x_ < 200 else 70.0, pt=t_, dts=dts_, v0=(0.7, -0.3, 0.4)))
-    rlp_pts.parm("pts_json").set(json.dumps(rows))
-    rlp.cook(force=True)
-    g_ = rlp.geometry()
-    v1 = np.array(g_.pointFloatAttribValues("v1")).reshape(-1, 3); dv_ = np.array(g_.pointFloatAttribValues("div"))
-    ref = np.array([relax_np((r["px"], r["py"], r["pz"]), r["v0"], r["pt"], r["dts"], P_, sfT) for r in rows])
-    dref = np.array([(DV[0] if GC.VOL_X[0] <= r["px"] <= GC.VOL_X[1] else 0.0) + (DV[1] if GC.HOLD_X[0] <= r["px"] <= GC.HOLD_X[1] else 0.0) for r in rows])
-    vert_same = bool(np.allclose(v1[:, 1], -0.3, atol=1e-6))
-    mid = np.array([105.0 <= r["px"] <= 289.0 for r in rows])
-    CHK["relax_probe"] = dict(n=len(rows), voldiv_read=vread, voldiv_ok=bool(np.allclose(vread, DV, atol=1e-12)),
-                              v_max_abs_diff=float(np.abs(v1 - ref).max()), div_max_abs_diff=float(np.abs(dv_ - dref).max()),
-                              vertical_unchanged=vert_same, untouched_between_bands=bool(np.allclose(v1[mid], np.array([0.7, -0.3, 0.4]), atol=1e-6)))
-    # 目標 0（sf_on 0・du_abs 0）なら入口の帯は流速を 0 へ寄せるだけ（E = 0）
-    set_ctrl(dict(sf_on=0.0, duabs_on=0.0))
-    rlp.cook(force=True)
-    v0z = np.array(rlp.geometry().pointFloatAttribValues("v1")).reshape(-1, 3)
-    inb = np.array([r["px"] < GC.IN_X1 for r in rows])
-    P_ = ctrl_floats(); P_["_du_abs"] = 0.0
-    ref0 = np.array([relax_np((r["px"], r["py"], r["pz"]), r["v0"], r["pt"], r["dts"], P_, sfT) for r in rows])
-    CHK["relax_probe"]["target0_max_abs_diff"] = float(np.abs(v0z - ref0).max())
-    CHK["relax_probe"]["target0_toward_zero"] = bool(np.all(np.abs(v0z[inb, 0]) <= 0.7 + 1e-6) and np.all(np.abs(v0z[inb, 2]) <= 0.4 + 1e-6))   # 点の属性は 32 ビット
-    # 点の属性（v1・div）は 32 ビットで残るので、差の上限は 1e-6 m/s・1e-9 /s（VEX の計算は 64 ビット）
-    CHK["relax_probe"]["tolerance_note"] = "point attributes are stored as float32: v within 1e-6 m/s, div within 1e-9 1/s"
-    CHK["relax_probe"]["ok"] = bool(CHK["relax_probe"]["voldiv_ok"] and CHK["relax_probe"]["v_max_abs_diff"] < 1e-6 and CHK["relax_probe"]["div_max_abs_diff"] < 1e-9
-                                    and vert_same and CHK["relax_probe"]["untouched_between_bands"] and CHK["relax_probe"]["target0_max_abs_diff"] < 1e-6
-                                    and CHK["relax_probe"]["target0_toward_zero"])
+    # 4：帯と発散（試しのファイル）。PG12s の並び（出口 290〜360 m）と方案 A の並び（出口 362〜442 m、窓 110〜357 m、箱の底 −25 m）
+    CHK["relax_probe"] = relax_check(GC.W_MAIN, GC.PG12S, GC.Z_BOTTOM, GC.LX, GC.EX_X0, GC.VOL_X,
+                                     (1.0, 5.0, 19.0, 40.0, 70.0, 99.0, 100.0, 105.0, 150.0, 200.0, 289.0, 291.0, 320.0, 359.5), sfT)
+    LA = GC.LAYOUTS["A"]
+    CHK["relax_probe_A"] = relax_check(GC.W_MAIN, GC.SPEC_A, LA["zb"], LA["Lx"], LA["ex_x0"], LA["vol_x"],
+                                       (1.0, 19.0, 70.0, 99.0, 105.0, 150.0, 250.0, 356.0, 358.0, 361.0, 363.0, 380.0, 400.0, 441.5), sfT)
     restore_ctrl()
     for n in (sol, sftab, vdp, bw, bsdfw, cols, pts0, wmesh0, wvdb, vvw):
         n.cook(force=True)
@@ -765,11 +789,11 @@ except Exception as e:
         restore_ctrl()
     except Exception:
         pass
-BEDK = ("axis_strip_PG12s", "flat_strip", "PG12s_3d", "R4_g48_path")
+BEDK = ("axis_strip_PG12s", "flat_strip", "PG12s_3d", "R4_g48_path", "A_3d")
 CHK["all_ok"] = bool(all((CHK.get(k) or {}).get("bed_ok") and (CHK.get(k) or {}).get("sdf_ok") for k in BEDK)
-                     and all((CHK.get(k) or {}).get("particles_ok") for k in ("axis_strip_PG12s", "flat_strip", "PG12s_3d_particles_dp1"))
-                     and (CHK.get("R4_g48_path") or {}).get("numpy_equals_g48_bit")
-                     and (CHK.get("sf_probe") or {}).get("ok") and (CHK.get("relax_probe") or {}).get("ok")
+                     and all((CHK.get(k) or {}).get("particles_ok") for k in ("axis_strip_PG12s", "flat_strip", "PG12s_3d_particles_dp1", "A_3d_particles_dp1"))
+                     and (CHK.get("R4_g48_path") or {}).get("numpy_equals_g48_bit") and (CHK.get("A_3d") or {}).get("pg_path")
+                     and (CHK.get("sf_probe") or {}).get("ok") and (CHK.get("relax_probe") or {}).get("ok") and (CHK.get("relax_probe_A") or {}).get("ok")
                      and CHK.get("restored_ctrl_equal_default") and CHK.get("saved_scene_still_water_bands_off") and not CHK.get("error"))
 print("BUILD_CHECK", json.dumps({k: (v if not isinstance(v, dict) else {kk: vv for kk, vv in v.items() if not isinstance(vv, (dict, list))})
                                  for k, v in CHK.items() if k not in ("module_shas", "traceback")}, ensure_ascii=False, default=str)[:6000])

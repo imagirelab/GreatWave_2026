@@ -113,6 +113,57 @@ PG12S_U3 = dict(k=0.35, k_end=1.0, xk1=200.0, xk2=256.0, ch_h=0.0, x_toe=180.25,
 NEW_DEFAULTS = dict(pg_hL=0.0, pg_s2=0.0, b_end=0.0, xb1=200.0, xb2=230.0, x_back=1e9, s_back=2.0, h_lag=6.0)
 BED48_KEYS = ("k", "x_toe", "s", "h0", "on", "shelf_h", "k_end", "xk1", "xk2", "ch_y0", "ch_w", "ch_h", "ch_x0", "ch_lx", "s1", "dL", "s2")
 
+# ------------------------------------------------------------------ 方案 A（2026-10-15 足した。周期のうねりを FLIP48 C3・R4 の海底へ）
+# 海底 SC37（spur_channel_drop）：FLIP48 C3・R4 の spur_channel の海底（1:10 の軸、先細り k 0.35 → 1.0、横の 25 m の溝、棚 1.7 m）を
+# +37.25 m 下流へずらし（尾根の始まり x_toe 180.25 = PG12s と同じ前の並び。FLIP49 の入口・波高計・x_p・in_gain をそのまま使うため）、
+# 礁の上 20 m（x 333.25〜353.25、軸の上の棚の先の舌）の先を 1:2 で水深 6 m へ下げる（閉じた池にせず、横の 17 m・25 m の深い所へ水を返す）。
+# 式は上の「新しい項」の道のまま（pg_hL 0・b_end 0・x_back 353.25 → R(x) = (x − x_toe)/s）。x < x_back では FLIP48 C3 の bed_z(x − 37.25) と
+# 1 bit も違わない（g49_pcfg.py check が np.array_equal で確かめる）。実在の場所を測った物ではない【選び】。
+DX_A = 37.25
+SPEC_A = dict(k=0.35, x_toe=143.0 + DX_A, s=10.0, h0=H0, on=True, shelf_h=1.7, k_end=1.0, xk1=240.0 + DX_A, xk2=296.0 + DX_A,
+              ch_y0=55.0, ch_w=4.0, ch_h=25.0, ch_x0=150.0 + DX_A, ch_lx=40.0, s1=0.0, dL=0.0, s2=0.0,
+              pg_hL=0.0, pg_s2=0.0, b_end=0.0, xb1=200.0, xb2=230.0, x_back=296.0 + DX_A + 20.0, s_back=2.0, h_lag=6.0)
+SPEC_A_U3 = dict(k=0.35, k_end=1.0, xk1=240.0 + DX_A, xk2=296.0 + DX_A, ch_h=25.0, ch_x0=150.0 + DX_A, x_toe=143.0 + DX_A,
+                 x_back=296.0 + DX_A + 20.0, s_back=2.0, h_lag=6.0)      # 下見 screen_A/sa_run.py の BED_A と同じ（u3_beds.depth の名前）
+C3_RUN48 = "C3_TSC_k0p35_A0p35_b0p18_W85"                               # ずらす元（Unity/Build/FLIP48/runs/<これ>/cfg.json の bed）
+
+# 方案 A の箱と帯と窓（設計の数。理由は plan_A_frozen.json の design）。PG12s（D0 まで）の数は上の定数のまま
+LEVEL_REGIONS_A = [
+    ("band_core", 20.0, 95.0, 0.0, 1e9),
+    ("probe_c", PROBE_C[0], PROBE_C[1], 0.0, 1e9),
+    ("flat", 110.0, 160.0, 0.0, 1e9),
+    ("window", 110.0, 357.0, 0.0, 1e9),
+    ("axis_front", 290.0, 310.0, 0.0, 10.0),
+    ("reef_top", 336.0, 350.0, 0.0, 5.0),
+    ("lagoon", 362.0, 380.0, 0.0, 20.0),
+    ("side", 300.0, 340.0, 70.0, 84.0),
+    ("asym_centre", 110.0, 160.0, 0.0, 10.0),
+    ("asym_side", 110.0, 160.0, 75.0, 85.0),
+]
+LAYOUTS = {
+    # PG12s（FLIP49 の D0 まで。cfg に layout が無い記録はこれで読む）
+    "PG12s": dict(name="PG12s", Lx=LX, zb=Z_BOTTOM, ex_x0=EX_X0, ex_sigma=EX_SIGMA, vol_x=VOL_X, p1_x_max=X_P1_MAX, r4_x=(180.0, 300.0),
+                  crest_x_min=X_CREST_MIN, crest_window="fixed", side_band=SIDE_BAND, level_regions=LEVEL_REGIONS,
+                  report_levels=("reef_flat", "lagoon", "side"), setup_region="reef_flat"),
+    # 方案 A（SC37）：箱 442 × 85 m、z −25〜+17 m、出口の帯 362〜442 m（80 m、σ 1.41）
+    # r4_x：2026-10-15 確かめの役が 335 → 362 m（出口の帯の始まり）に直した。P1 は x ≤ 357 m の巻き始めを認め、FLIP48 の R4・C3 の巻き始めは
+    # この座標で x 352.75・325.75 m（C3 の着水 346.75 m）。335 m で切ると巻いた幅（P2・P3 は R4 の断面で読む）が測れない（plan/amendments.jsonl AM-A1）
+    "A": dict(name="A", Lx=442.0, zb=-25.0, ex_x0=362.0, ex_sigma=EX_SIGMA, vol_x=(110.0, 357.0), p1_x_max=357.0, r4_x=(225.0, 362.0),
+              crest_x_min=X_CREST_MIN, crest_window="centre_half_L", side_band=SIDE_BAND, level_regions=LEVEL_REGIONS_A,
+              report_levels=("axis_front", "reef_top", "lagoon", "side"), setup_region="reef_top"),
+}
+# 方案 A の出口の帯の跳ね返り（Perić & Abdel-Maksoud 2018 の 1 次元、flip45 r45_gen_numbers.reflection、設計の役が計算）【計算】
+EX_THEORY_A = dict(sigma=1.41, band_m=80.0, CR_T12_h25=0.055, CR_T12_h17=0.047, CR_T12_h6=0.043, CR_70m_T12_h25=0.145,
+                   source="design step 2026-10-15 (flip45 r45_gen_numbers.reflection, 1D theory); not recomputed here")
+
+
+def layout_of(cfg=None, name=None):
+    """cfg['layout']（方案 A の cfg が書く名前）か name から並びの dict。どちらも無ければ PG12s（D0 までの記録）。"""
+    nm = name or ((cfg or {}).get("layout") if isinstance((cfg or {}).get("layout"), str) else None) or "PG12s"
+    if nm not in LAYOUTS:
+        raise ValueError("並び %r は無い（%s）" % (nm, list(LAYOUTS)))
+    return LAYOUTS[nm]
+
 
 def pg_axis(spec=None):
     """準 2D の板（横に一様）：真ん中の断面の海底（k 0・先細りなし → sech²(0) = 1 がどの y でも）。"""
@@ -277,9 +328,18 @@ def bed_parms(spec):
     return p
 
 
+def is_spur_drop(spec):
+    """方案 A の形（新しい項の道で、段・頂の平らが無く、礁湖への下りだけ）：FLIP48 の spur_channel に後ろの下りを足した物。"""
+    return bool(is_new(spec) and (spec.get("pg_hL") or 0.0) <= 0.0 and (spec.get("b_end") or 0.0) <= 0.0
+                and (spec.get("x_back") if spec.get("x_back") is not None else 1e9) < 1e8)
+
+
 def bed_kind(spec):
     if not spec.get("on", True):
         return "flat"
+    if is_spur_drop(spec):
+        k0 = spec.get("k", 0.0) == 0.0 and spec.get("k_end") is None
+        return ("spur_drop_axis_strip" if k0 else "spur") + ("_channel" if (spec.get("ch_h") or 0) > 0 else "") + "_drop"
     if is_new(spec):
         k0 = spec.get("k", 0.0) == 0.0 and spec.get("k_end") is None
         return ("pg_reef_axis_strip" if k0 else "pg_reef") + ("_channel" if (spec.get("ch_h") or 0) > 0 else "")
@@ -289,6 +349,12 @@ def bed_kind(spec):
 def bed_formula(spec):
     if not is_new(spec):
         return G48.bed_formula(spec) if spec.get("on", True) else "z_b = -h0 (flat)"
+    if is_spur_drop(spec):
+        f = ("z_b = -d; d1 = max(h_r, h0 - max(x - x_toe, 0)/s * sech^2(k(x)*|y|/h0)); k(x) = k + (k_end-k)*clip((x-xk1)/(xk2-xk1),0,1)")
+        if (spec.get("ch_h") or 0) > 0:
+            f += "; w = 0.5*(1+tanh((|y|-ch_y0)/ch_w))*clip((x-ch_x0)/ch_lx,0,1); d2 = d1*(1-w) + max(d1,ch_h)*w"
+        f += "; x > x_back: d = max(d2, min(h_lag, h_r + (x-x_back)/s_back))"
+        return f
     f = ("z_b = -d; y_e = max(|y| - b(x), 0), b(x) = b_end*clip((x-xb1)/(xb2-xb1),0,1); k(x) = k + (k_end-k)*clip((x-xk1)/(xk2-xk1),0,1); "
          "R(x) = 0 (x <= x_toe), (x-x_toe)/s up to R = h0-pg_hL, then (h0-pg_hL) + (x-x_L)/pg_s2 (1:pg_s2 continues off the axis); "
          "d1 = max(h_r, h0 - R(x)*sech^2(k(x)*y_e/h0))")

@@ -17,6 +17,9 @@
   3. 水の量の直しの目標の発散 vc_div：段 A は vol_x0〜vol_x1 の窓だけに OUT_VOLDIV の vol_div、段 B（hold_on 1）は hold_x0〜hold_x1 に vol_div_band を足す。
   4. 組の包絡の遅れた時刻（set_cg > 0 の時だけ。2 段目の組のため）：τ = t − (x − x_p)/set_cg。既定 0 は g47 と同じ。
 座標：VEX は始めに計画の座標 pl = @P − o に戻す：x＝波の進む向き、y＝上（静かな水面 0）、z＝横（z = 0 が対称の面）。
+2026-10-15 方案 A（海底 SC37 = spur_channel_drop、g49_common.SPEC_A）：VEX の式は足していない。CTRL の pg_hL 0・b_end 0・lag_xb 353.25 で
+  pgon() が真になり bedy_pg・bedgrad_pg を通る（rise2 は 1:s だけ、bofx 0、溝、礁湖への下り）。この 3 つを同時に使う道は PG12s では
+  通っていなかったので、g49_build_tank.py の確かめ A_3d（海底の点と SDF を numpy と比べる）で確かめる。
 """
 
 CT = "/obj/G49_SETUP/CTRL/"

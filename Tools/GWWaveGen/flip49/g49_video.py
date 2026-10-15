@@ -17,6 +17,10 @@ g48_video.py（flip48、変えていない）を読み込み、この起動の�
   pana/sup/sup.json（g49_periodic_ana.py sup の補いの読み）があれば、その崩れ s1, s2, … も紫の印と赤い枠で出す（--sup=0 で出さない）。
 出す物：<記録>/video/<名前>_periodic.mp4・_periodic.json・_periodic_best.png（どの計算も mp4 を出す：この研究の決まり）。--still は PNG 1 枚。
 数の印：形の量・score3 は g49_periodic_ana.py の値（AI の読み）。原画らしさは利用者が決める。
+2026-10-15 直した（方案 A を実装する役）：D0 の 3D の動画は g48_video の図の上に字を重ねて読めず、拡大の窓（V46.zoom_window）が崩れごとの窓と
+  原画に最も近いコマの頂を外していた。既定では g49_video2.py（崩れごとに g48_video2 の比べの図・赤い枠・原画の輪郭・3D の前から斜めの図・c(y)、
+  拡大の窓は最も近いコマの頂を 20 m 内側に、字の重なりを確かめる。と計算の全部の 2 倍の動画）を呼ぶ。前の並べ方は --legacy=1 で出す
+  （3D の拡大の窓は zoom_range に直した）。
 """
 import os, sys, json, math, time
 
@@ -355,7 +359,7 @@ def render_3d(D, PR, f, head, sub, state, opt):
     head_block(dr, D, PR, f, e, k, head, sub, state, opt)
     cx = D.cx
     tg = sec_geom(60, 110, W - 60, cx.x_min, cx.x_max, -cx.h0, 16.0)
-    xz0, xz1 = V46.zoom_window(D)
+    xz0, xz1 = zoom_range(D, PR, k)                  # 2026-10-15：崩れごとの窓（最も近いコマの頂を入れる）。前は V46.zoom_window（崩れを見ない）
     zg = sec_geom(980, 110 + tg["ph"] + 64, W - 60, xz0, xz1, max(-cx.h0, -8.0), 16.0)
     overlays(im, dr, D, PR, f, k, state, tg, zg)
     return im
@@ -396,6 +400,16 @@ def main():
         print(__doc__); sys.exit(1)
     rd = os.path.abspath(sys.argv[1]).replace("\\", "/")
     opt = A46.parse_opt(sys.argv[2:])
+    if str(opt.get("legacy", "0")) != "1":          # 2026-10-15：既定は g49_video2（比べの動画と全部の動画）
+        import g49_video2 as V2
+        o2 = {k: v for k, v in opt.items() if k in ("k", "still", "fast", "slow", "hold", "ss", "speed")}
+        S = V2.Shared(rd)
+        if "still" in o2:
+            V2.make_compare(rd, o2, S=S)
+            return
+        V2.make_compare(rd, o2, S=S)
+        V2.make_whole(rd, {k: v for k, v in o2.items() if k in ("speed",)}, S=S)
+        return
     t_start = time.time()
     D = V46.Data(rd, opt)
     T = float((D.cfg.get("sf") or {}).get("T", GC.T_WAVE))
