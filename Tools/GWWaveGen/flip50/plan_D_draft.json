@@ -1,0 +1,1936 @@
+{
+ "status": "DRAFT (not frozen). Prepared while DA1 runs; to be frozen by the orchestrator before T0D (sha256 + build check), as plan_A_frozen.json was",
+ "made_at": "2026-10-15 22:30:09",
+ "tool": "Tools/GWWaveGen/flip50/g50_plan.py",
+ "campaign": "PER50-D",
+ "parent_plan": {
+  "path": "Unity/Build/FLIP49/plan/plan_A_frozen.json",
+  "sha256": "c6e8ef65bcafcd58b2eb01ec97a1af7371f1ae8851fa57bd7620dbe787e1408c",
+  "note": "read only"
+ },
+ "trigger": "plan_A_frozen.json decision_rules.after_DA1 STOP RULE: P4a < 1.3 on all judged breakers -> option D; also the 'partial' branch shows D to the user",
+ "supervisor_Q52": "一つの波ができればよいわけではなく、大波が定期的に現れるような状態が作れる方法を検討してください。",
+ "idea": "narrowing from the INCOMING wave (a monochromatic directional sea whose components are phase-locked on one point) and breaking on a laterally straight 1:10 slope (FLIP47 S2/P1c section): focusing and breaking are separated (C3B rule) and no seabed feature feeds water sideways onto the axis (R4: 91-99 % of the water ahead of the centre came from the sides)",
+ "physics_answers": {
+  "Q1_periodic": "all components share omega, so A(x,y) = sum A_j exp(i(Phi_j + ky_j y)) is time independent: the focus is a fixed hot spot and a crest passes it once per period (eta = Re(A e^{-i omega (t - t_f)})). Screens: U3 onset intervals 11.25-12.62 s (T 12), 9.5-10.4 s (T 10) [computed]. Focus placed 20 m seaward of the linear break point (x_f 220.25 m, h 13 m; break target h 11 m at x 240.25 m) because a slightly diverging crest (centre leading) delays the side rows [computed, s50_linear sweep]",
+  "Q2_spread_period_amplitude": "lateral wavenumbers are bounded by k(h0) (k_y <= k(19 m) = 0.0421 rad/m at T 12, 0.0528 at T 10): the narrowest possible linear crest is set by the period, not by the bed. Theta_max 80 deg, 30 equal components, a_sum 6.33 m (T 12) / 6.50 m (T 10) give a focal crest of about 9.5 m at h_b 11 m (linear rule from P1c; U3 c0 9.5-10.4 m at T 12, 8.9-9.3 m at T 10) [computed]. Curl-width proxies: T 12 linear 1.6/3.0/4.3 Hc, U3 1.9-2.5/1.9-4.2/3.5-5.5 Hc; T 10 linear 1.2/2.3/3.2 Hc, U3 1.3-1.8/2.2-2.7/3.1-4.0 Hc (onset/overturn/touchdown proxies at +0.25/+0.75/+1.5 s; thresholds 2.0/2.5/3.0) [computed, proxies uncalibrated]. Half tank: W 85 cannot generate it (no side band: H 0.38-0.65 of target, no focus; 15 m band: 0.21-0.89, c0 5.2 m); W 120/35 m band works but the focus widens over periods (w90 26 -> 38 m); W 140-150 with 45-50 m bands holds w90 26 m and H/H_lin 0.85-1.09 [computed, U3]",
+  "Q3_shoaling": "a y-uniform slope conserves k_y, so the lateral pattern is kept, not narrowed; refraction lowers the oblique components (Kr = sqrt(cos th0 / cos th) < 1) and lengthens the focal zone in x. Linear widths at the break equal the flat-bottom values within the proxy resolution; nonlinear (U3) widths are wider than linear and widen with time where the rip cell develops (onshore mass transport ~0.5 m/s at the centre offshore of the break, up to -0.6 m/s rips at |y| 60-84 m) [computed]",
+  "Q4_honesty": "a converging directional sea at a coastal point is real (refraction by offshore canyons/shoals acting as a lens, e.g. Nazare; crossing swells), but here the converging field is imposed at the inlet and side bands as a coherent, monochromatic +-80 deg fan whose phases are CHOSEN so that every crest focuses at (220.25 m, 0) at t = nT. Where and when the focus happens is set by that choice; shoaling, refraction on the slope, nonlinear focusing, breaking, set-up and currents are computed. A natural lens gives a caustic of finite coherence, not a perfect point focus"
+ },
+ "design": {
+  "summary": "half tank W 140 m (side band 45 m), h0 19 m flat to x 160.25 m, then a laterally straight 1:10 slope through the still level to a +6.2 m beach (x 412 m); directional monochromatic inflow T 12 s, +-80 deg, 30 components, focus (220.25, 0), dp 0.5, stage C, 92 s",
+  "domain": {
+   "Lx_m": 412.0,
+   "W_m": 140.0,
+   "z_m": [
+    -21.0,
+    17.0
+   ],
+   "floor_pad_m": 2.0,
+   "particle_m": 0.5,
+   "grid_m": 1.0,
+   "veltransfer": "flip",
+   "symmetry": "half tank: symmetry plane y = 0; the side band (y 95-140 m) supplies the far field of the converging sea for x <= 180.25 m, so the model is an isolated focus (not a periodic row); beyond |y| 140 m nothing is computed",
+   "layout_m": {
+    "inlet_band": [
+     0.0,
+     100.0
+    ],
+    "free_flat": [
+     100.0,
+     160.25
+    ],
+    "gauges_x": [
+     110.0,
+     128.0,
+     160.0
+    ],
+    "gauges_y": [
+     0.5,
+     20.0,
+     40.0,
+     60.0,
+     80.0
+    ],
+    "slope_toe": 160.25,
+    "focus_x": 220.25,
+    "break_target_x": 240.25,
+    "shoreline": 350.25,
+    "beach_top": [
+     412.0,
+     6.175
+    ],
+    "side_band_y": [
+     95.0,
+     140.0
+    ],
+    "side_generate_x": [
+     0.0,
+     180.25
+    ],
+    "side_blend_x": [
+     180.25,
+     210.25
+    ],
+    "side_absorb_x": [
+     210.25,
+     412.0
+    ],
+    "P1_x_max": 330.0,
+    "interior_y": [
+     0.0,
+     95.0
+    ]
+   },
+   "particles_computed": {
+    "dp0p5": 5383840,
+    "water_m3": 672980.0,
+    "dp1p0": 674500,
+    "tag": "computed (g49_common.count_particles rule)"
+   }
+  },
+  "bed": {
+   "name": "D19B",
+   "kind": "laterally straight 1:10 beach (FLIP47 S2/P1c depth and slope; the shelf replaced by the P1c beach)",
+   "formula": "z_b = -(19 - max(x - 160.25, 0)/10) (no floor: through the still level at x 350.25 to +6.175 m at x 412)",
+   "spec_flip48_plain": {
+    "k": 0.0,
+    "x_toe": 160.25,
+    "s": 10.0,
+    "h0": 19.0,
+    "on": true,
+    "shelf_h": 0.0
+   },
+   "why": [
+    "S2/P1c is the only 2D section that reached the print band (S2 chord 84-91 deg solitary; P1c 62.9-68 deg periodic)",
+    "a beach drains by swash and rip circulation; the U3 shelf+lagoon variant pumped water over the reef (centre mass transport 1.2-1.9 m/s), lowered the offshore level by 0.39 m and widened the focus (P3 proxy 5-9 Hc) [computed]",
+    "h0 19 m (not 17 m) keeps the focused crest on the flat at H/Hmax2D 0.84 (P1c 0.83, did not break offshore); at h0 17 m it is 1.00 [computed]"
+   ],
+   "honesty": "resembles a steep straight coast; not a measured site"
+  },
+  "inflow": {
+   "kind": "linear directional monochromatic sea (Airy components, WKB on the slope), complex-amplitude table",
+   "main": {
+    "T": 12.0,
+    "omega": 0.5235987755982988,
+    "k_h0": 0.04210225397304896,
+    "L_h0": 149.2363166875023,
+    "theta_max_deg": 80.0,
+    "n_components": 30,
+    "weight": "uniform",
+    "a_sum_m": 6.331240146143423,
+    "a_component_m": 0.21104133820478077,
+    "components": [
+     {
+      "theta_deg": -80.0,
+      "a_m": 0.21104,
+      "ky": -0.041463
+     },
+     {
+      "theta_deg": -74.4828,
+      "a_m": 0.21104,
+      "ky": -0.040568
+     },
+     {
+      "theta_deg": -68.9655,
+      "a_m": 0.21104,
+      "ky": -0.039297
+     },
+     {
+      "theta_deg": -63.4483,
+      "a_m": 0.21104,
+      "ky": -0.037662
+     },
+     {
+      "theta_deg": -57.931,
+      "a_m": 0.21104,
+      "ky": -0.035678
+     },
+     {
+      "theta_deg": -52.4138,
+      "a_m": 0.21104,
+      "ky": -0.033363
+     },
+     {
+      "theta_deg": -46.8966,
+      "a_m": 0.21104,
+      "ky": -0.03074
+     },
+     {
+      "theta_deg": -41.3793,
+      "a_m": 0.21104,
+      "ky": -0.027831
+     },
+     {
+      "theta_deg": -35.8621,
+      "a_m": 0.21104,
+      "ky": -0.024665
+     },
+     {
+      "theta_deg": -30.3448,
+      "a_m": 0.21104,
+      "ky": -0.02127
+     },
+     {
+      "theta_deg": -24.8276,
+      "a_m": 0.21104,
+      "ky": -0.017678
+     },
+     {
+      "theta_deg": -19.3103,
+      "a_m": 0.21104,
+      "ky": -0.013923
+     },
+     {
+      "theta_deg": -13.7931,
+      "a_m": 0.21104,
+      "ky": -0.010038
+     },
+     {
+      "theta_deg": -8.2759,
+      "a_m": 0.21104,
+      "ky": -0.00606
+     },
+     {
+      "theta_deg": -2.7586,
+      "a_m": 0.21104,
+      "ky": -0.002026
+     },
+     {
+      "theta_deg": 2.7586,
+      "a_m": 0.21104,
+      "ky": 0.002026
+     },
+     {
+      "theta_deg": 8.2759,
+      "a_m": 0.21104,
+      "ky": 0.00606
+     },
+     {
+      "theta_deg": 13.7931,
+      "a_m": 0.21104,
+      "ky": 0.010038
+     },
+     {
+      "theta_deg": 19.3103,
+      "a_m": 0.21104,
+      "ky": 0.013923
+     },
+     {
+      "theta_deg": 24.8276,
+      "a_m": 0.21104,
+      "ky": 0.017678
+     },
+     {
+      "theta_deg": 30.3448,
+      "a_m": 0.21104,
+      "ky": 0.02127
+     },
+     {
+      "theta_deg": 35.8621,
+      "a_m": 0.21104,
+      "ky": 0.024665
+     },
+     {
+      "theta_deg": 41.3793,
+      "a_m": 0.21104,
+      "ky": 0.027831
+     },
+     {
+      "theta_deg": 46.8966,
+      "a_m": 0.21104,
+      "ky": 0.03074
+     },
+     {
+      "theta_deg": 52.4138,
+      "a_m": 0.21104,
+      "ky": 0.033363
+     },
+     {
+      "theta_deg": 57.931,
+      "a_m": 0.21104,
+      "ky": 0.035678
+     },
+     {
+      "theta_deg": 63.4483,
+      "a_m": 0.21104,
+      "ky": 0.037662
+     },
+     {
+      "theta_deg": 68.9655,
+      "a_m": 0.21104,
+      "ky": 0.039297
+     },
+     {
+      "theta_deg": 74.4828,
+      "a_m": 0.21104,
+      "ky": 0.040568
+     },
+     {
+      "theta_deg": 80.0,
+      "a_m": 0.21104,
+      "ky": 0.041463
+     }
+    ],
+    "h_gen": 19.0,
+    "focus": {
+     "x_f": 220.25,
+     "y_f": 0.0,
+     "t_f": 0.0,
+     "rule": "all component phases 0 at (x_f, 0) at t = t_f + nT (crest at the focus every period)"
+    },
+    "ramp_s": 24.0,
+    "ramp": "half cosine 0.5(1 - cos(pi t / ramp)), t < ramp",
+    "amplitude_rule": "a_sum so that the linear centre-row 2|A|/h first reaches gamma_b = 1.081 at h_b,target 11.0 m (gamma_b from FLIP47 P1c)"
+   },
+   "fallback": {
+    "T": 10.0,
+    "omega": 0.6283185307179586,
+    "k_h0": 0.052777858309958,
+    "L_h0": 119.04964521825035,
+    "theta_max_deg": 80.0,
+    "n_components": 30,
+    "weight": "uniform",
+    "a_sum_m": 6.5028694292482845,
+    "a_component_m": 0.21676231430827614,
+    "components": [
+     {
+      "theta_deg": -80.0,
+      "a_m": 0.21676,
+      "ky": -0.051976
+     },
+     {
+      "theta_deg": -74.4828,
+      "a_m": 0.21676,
+      "ky": -0.050854
+     },
+     {
+      "theta_deg": -68.9655,
+      "a_m": 0.21676,
+      "ky": -0.049261
+     },
+     {
+      "theta_deg": -63.4483,
+      "a_m": 0.21676,
+      "ky": -0.047211
+     },
+     {
+      "theta_deg": -57.931,
+      "a_m": 0.21676,
+      "ky": -0.044724
+     },
+     {
+      "theta_deg": -52.4138,
+      "a_m": 0.21676,
+      "ky": -0.041823
+     },
+     {
+      "theta_deg": -46.8966,
+      "a_m": 0.21676,
+      "ky": -0.038534
+     },
+     {
+      "theta_deg": -41.3793,
+      "a_m": 0.21676,
+      "ky": -0.034888
+     },
+     {
+      "theta_deg": -35.8621,
+      "a_m": 0.21676,
+      "ky": -0.030919
+     },
+     {
+      "theta_deg": -30.3448,
+      "a_m": 0.21676,
+      "ky": -0.026664
+     },
+     {
+      "theta_deg": -24.8276,
+      "a_m": 0.21676,
+      "ky": -0.022161
+     },
+     {
+      "theta_deg": -19.3103,
+      "a_m": 0.21676,
+      "ky": -0.017453
+     },
+     {
+      "theta_deg": -13.7931,
+      "a_m": 0.21676,
+      "ky": -0.012583
+     },
+     {
+      "theta_deg": -8.2759,
+      "a_m": 0.21676,
+      "ky": -0.007597
+     },
+     {
+      "theta_deg": -2.7586,
+      "a_m": 0.21676,
+      "ky": -0.00254
+     },
+     {
+      "theta_deg": 2.7586,
+      "a_m": 0.21676,
+      "ky": 0.00254
+     },
+     {
+      "theta_deg": 8.2759,
+      "a_m": 0.21676,
+      "ky": 0.007597
+     },
+     {
+      "theta_deg": 13.7931,
+      "a_m": 0.21676,
+      "ky": 0.012583
+     },
+     {
+      "theta_deg": 19.3103,
+      "a_m": 0.21676,
+      "ky": 0.017453
+     },
+     {
+      "theta_deg": 24.8276,
+      "a_m": 0.21676,
+      "ky": 0.022161
+     },
+     {
+      "theta_deg": 30.3448,
+      "a_m": 0.21676,
+      "ky": 0.026664
+     },
+     {
+      "theta_deg": 35.8621,
+      "a_m": 0.21676,
+      "ky": 0.030919
+     },
+     {
+      "theta_deg": 41.3793,
+      "a_m": 0.21676,
+      "ky": 0.034888
+     },
+     {
+      "theta_deg": 46.8966,
+      "a_m": 0.21676,
+      "ky": 0.038534
+     },
+     {
+      "theta_deg": 52.4138,
+      "a_m": 0.21676,
+      "ky": 0.041823
+     },
+     {
+      "theta_deg": 57.931,
+      "a_m": 0.21676,
+      "ky": 0.044724
+     },
+     {
+      "theta_deg": 63.4483,
+      "a_m": 0.21676,
+      "ky": 0.047211
+     },
+     {
+      "theta_deg": 68.9655,
+      "a_m": 0.21676,
+      "ky": 0.049261
+     },
+     {
+      "theta_deg": 74.4828,
+      "a_m": 0.21676,
+      "ky": 0.050854
+     },
+     {
+      "theta_deg": 80.0,
+      "a_m": 0.21676,
+      "ky": 0.051976
+     }
+    ],
+    "h_gen": 19.0,
+    "focus": {
+     "x_f": 220.25,
+     "y_f": 0.0,
+     "t_f": 0.0,
+     "rule": "all component phases 0 at (x_f, 0) at t = t_f + nT (crest at the focus every period)"
+    },
+    "ramp_s": 20.0,
+    "ramp": "half cosine 0.5(1 - cos(pi t / ramp)), t < ramp",
+    "amplitude_rule": "a_sum so that the linear centre-row 2|A|/h first reaches gamma_b = 1.081 at h_b,target 11.0 m (gamma_b from FLIP47 P1c)"
+   },
+   "table": {
+    "tool": "g50_dirfield.DirField(T, theta_j, w_j, a_sum, x, bed, x_f).complex_amp / complex_vel(depth_avg=False, z)",
+    "grid": "x 0-212 m, y 0-140 m, 1 m; fields eta_re/im and U_l, V_l re/im at stretched levels z' = 0, -4, -8, -12, -16, -19 m (clipped at -h); one period is enough (time enters as Re(F e^{-i omega t}))",
+    "vex": "target = R(t) E_wall(x) band_factor (F_re cos(omega t) + F_im sin(omega t)); levels interpolated in z' = h (z - eta)/(h + eta) as FLIP45; horizontal velocity only",
+    "gains": "in_gain = sd_gain = 1.0 [chosen; FLIP49 100 m inlet band measured -2.1 % for T 12 s]; checked, not tuned, by SMOKE_D and DM1 generation report"
+   },
+   "drift": "stage C as plan A: du_abs = -sqrt(g/h0)(mean_T(eta at x 100-110) - reading at 1.0-1.5 s) added to the inlet target u x walltaper"
+  },
+  "bands": {
+   "inlet": {
+    "x": [
+     0.0,
+     100.0
+    ],
+    "weight": "relaxw(chi) = (e^{chi^3.5} - 1)/(e - 1), 1 - (1 - w)^(dt/dt0)",
+    "wall_taper_m": 20.0,
+    "relaxes": "vel.x and vel.z (horizontal) to the table target; never vel.y (vertical) nor the surface"
+   },
+   "side": {
+    "y": [
+     95.0,
+     140.0
+    ],
+    "generate_x_max": 180.25,
+    "blend_x": [
+     180.25,
+     210.25
+    ],
+    "absorb": "1 - exp(-sigma chi^2 dt), sigma 1.41 /s, target 0",
+    "rule": "FLIP45 g45_tanklib bands(): weight max, target factors multiplied in the corner",
+    "reflection": "not computed (only the U3 generation ratios)"
+   },
+   "exit": "none (beach)"
+  },
+  "time_and_records": {
+   "main": {
+    "t_end_s": 92.0,
+    "frames": 2209,
+    "ramp_s": 24.0,
+    "judged_onsets_screen": [
+     48.125000000001,
+     60.750000000001,
+     72.000000000001,
+     84.0
+    ],
+    "windows": [
+     [
+      45.13,
+      52.13
+     ],
+     [
+      57.75,
+      64.75
+     ],
+     [
+      69.0,
+      76.0
+     ],
+     [
+      81.0,
+      88.0
+     ]
+    ],
+    "judged_expected": 4
+   },
+   "fallback": {
+    "t_end_s": 86.0,
+    "frames": 2065,
+    "ramp_s": 20.0,
+    "judged_onsets_screen": [
+     51.375000000001,
+     61.750000000001,
+     71.375000000001,
+     81.500000000001
+    ],
+    "windows": [
+     [
+      48.38,
+      55.38
+     ],
+     [
+      58.75,
+      65.75
+     ],
+     [
+      68.38,
+      75.38
+     ],
+     [
+      78.5,
+      85.5
+     ]
+    ]
+   },
+   "light": "r2/r3 every frame as FLIP49",
+   "heavy": "r4 per-y sections x (200, 300) m, y 0-95 m and r5 surfaces in the windows, every 2nd frame",
+   "gauges": "eta at x 110/128/160 m x y 0.5/20/40/60/80 m every frame"
+  },
+  "level_regions": [
+   [
+    "band_core",
+    20.0,
+    95.0,
+    0.0,
+    95.0
+   ],
+   [
+    "probe_c",
+    100.0,
+    110.0,
+    0.0,
+    95.0
+   ],
+   [
+    "flat",
+    110.0,
+    160.0,
+    0.0,
+    95.0
+   ],
+   [
+    "window",
+    110.0,
+    400.0,
+    0.0,
+    95.0
+   ],
+   [
+    "break_front",
+    225.0,
+    255.0,
+    0.0,
+    10.0
+   ],
+   [
+    "inner_surf",
+    290.0,
+    330.0,
+    0.0,
+    10.0
+   ],
+   [
+    "swash",
+    330.0,
+    360.0,
+    0.0,
+    10.0
+   ],
+   [
+    "side_surf",
+    290.0,
+    330.0,
+    60.0,
+    84.0
+   ],
+   [
+    "asym_centre",
+    110.0,
+    160.0,
+    0.0,
+    10.0
+   ],
+   [
+    "asym_side",
+    110.0,
+    160.0,
+    75.0,
+    95.0
+   ]
+  ],
+  "cost": {
+   "particles_dp0p5": 5383840,
+   "coef_s_per_Mparticle_frame": [
+    0.486,
+    0.575
+   ],
+   "growth": [
+    1.16,
+    1.3
+   ],
+   "heavy_s_per_frame": 1.8,
+   "main_total_h": [
+    2.03,
+    2.64
+   ],
+   "main_total_h_DA1_launch1_rate": [
+    1.42,
+    1.77
+   ],
+   "fallback_total_h": [
+    1.91,
+    2.48
+   ],
+   "fallback_total_h_DA1_launch1_rate": [
+    1.34,
+    1.66
+   ],
+   "launches": "5-6 of <= 29 min (main)",
+   "DA1_rate": {
+    "frames": 940,
+    "wall_s": 1742.4,
+    "s_per_frame": 1.8536170212765959,
+    "particles_start": 4981609,
+    "particles_max": 5681952,
+    "s_per_Mp_frame_lo": 0.326228912401336,
+    "s_per_Mp_frame_hi": 0.37209203317173145,
+    "note": "launch 1 only (frames 1-940, before the heavy-record windows), measured while the numpy screens also used the CPU"
+   },
+   "memory_estimate_gb": "about 8 (C3 6.77 GB at 4.91 M; DA1 launch 1 RSS 6.03 GB at 5.68 M) [computed estimate]",
+   "W150_option": "W 150 m / 50 m band (U3 slightly better generation) adds ~7 % particles -> main upper 2.8 h: not chosen"
+  }
+ },
+ "criteria": {
+  "source": "P1-P5 thresholds, PERIODIC and health copied unchanged from Unity/Build/FLIP49/plan/plan_A_frozen.json (sha256 c6e8ef65bcafcd58b2eb01ec97a1af7371f1ae8851fa57bd7620dbe787e1408c); only the x limits and the crest window wavelength move with the D layout; none loosened",
+  "targets48": {
+   "name": "FLIP48 A-frame peak (centre-concentrated narrow plunging crest)",
+   "hc_def": "Hc = 真ん中（y 0.5 m の行）の頂の静かな水面からの高さ（巻き始めのコマ）",
+   "width_def": "巻いた全幅 = y = 0 から続く thmax ≥ 90° の行の数 × 格子 × 2（g46_analyze.rows_summary。r4 の各 y の断面）",
+   "P1": {
+    "x_max_m": 330.0,
+    "t_max_s": 17.5,
+    "text": "真ん中（y 0.5 m）が x ≤ 330 m・t ≤ 17.5 s で縦の接線に届く"
+   },
+   "P2": {
+    "width_over_hc_max": 2.0,
+    "text": "巻き始めの巻いた全幅 ≤ 2.0 Hc"
+   },
+   "P3": {
+    "width_over_hc_max_overturn": 2.5,
+    "width_over_hc_touchdown": 3.0,
+    "text": "最も巻いたコマで ≤ 2.5 Hc、真ん中の唇の着水で ≤ 3.0 Hc。剥がれ角 atan(c/v) を書く"
+   },
+   "P4a": {
+    "side_band_m": [
+     70.0,
+     84.0
+    ],
+    "x_side_max_m": 340.0,
+    "ratio_min": 1.5,
+    "ratio_clear": 2.0,
+    "text": "巻き始めの c(0) / 横の端 |y| 70〜84 m（x ≤ 340 m）の頂の平均 ≥ 1.5（≥ 2.0 ははっきり集まった）"
+   },
+   "P4b": {
+    "ratio_4hc_min": 1.3,
+    "text": "巻き始めの c(0)/c(|y| = 4 Hc) ≥ 1.3、かつ真ん中の着水の前に |y| ≥ 4 Hc の行が巻かない"
+   },
+   "P5": {
+    "chord_min_deg": 55.0,
+    "chord_good_deg": [
+     60.5,
+     78.0
+    ],
+    "lip_min": 0.2,
+    "hood_min": 0.1,
+    "print": {
+     "chord_deg": 64.3,
+     "lip": 0.35,
+     "hood": 0.186
+    },
+    "text": "真ん中の断面（巻き始め〜着水）：前の面の弦 0.1〜0.5 η_c ≥ 55°（良い = 原画の帯 60.5〜78°）、唇 ÷ η_c ≥ 0.2、覆い ÷ η_c² ≥ 0.10"
+   },
+   "H": {
+    "bed_leak_frac_max": 0.0001,
+    "volume_drift_max": 0.01,
+    "init_check_rel_max": 0.06,
+    "still_offset_max_m": 0.1,
+    "wall_max_min": 30.0,
+    "mp4": true,
+    "text": "海底より下の粒子 < 1e-4、水の量のずれ < 1 %、2 コマ目の確かめ 6 % 以内、静かな水面のずれ < 0.1 m、1 本 30 分以内、mp4 がある"
+   },
+   "overall": "P1〜P5 を全部満たせば目標どおり。一部だけなら一部と書く。数は AI の読み（自己評価）で、見た目の良し悪しは利用者が決める"
+  },
+  "definitions": {
+   "judged_breaker": "centre (y 0.5 m row) onset t >= 45 s",
+   "window_k": "[t_on,k - 6, t_on,k + 6] s",
+   "Hc": "centre crest above the still level at onset (ana.json onset.eta_c)",
+   "crest_profile": "c(y) = per-row maximum of the 3-cell x-median of eta_top over x in [max(150, xc0 - L/2), min(330, xc0 + L/2)], xc0 = centre-row crest x found over [150, 330] in the same frame, L = 149.2 m (T 12 s, linear, h 19 m; fallback T 10 s: 119.0 m) [chosen; g49_periodic_ana.crest_window with cfg sf.L]",
+   "curl_width": "2 x grid x number of contiguous rows from y = 0 with thmax >= 90 deg (g46_analyze.rows_summary on the r4 per-y sections); with r4 recorded every 2nd frame the curl series reads every available frame"
+  },
+  "per_breaker": {
+   "P1": {
+    "x_max_m": 330.0,
+    "text": "the y 0.5 m row reaches a vertical tangent inside window k at x <= 330 m (h >= 2.0 m on the 1:10 beach, 20 m before the shoreline x 350.25)"
+   },
+   "P2": {
+    "width_over_hc_max": 2.0,
+    "text": "curl width at onset <= 2.0 Hc"
+   },
+   "P3": {
+    "width_over_hc_max_overturn": 2.5,
+    "width_over_hc_touchdown": 3.0,
+    "text": "<= 2.5 Hc at the most overturned frame and <= 3.0 Hc at centre touchdown; report atan(c/v)"
+   },
+   "P4a": {
+    "side_band_m": [
+     70.0,
+     84.0
+    ],
+    "x_side_max_m": 330.0,
+    "ratio_min": 1.5,
+    "ratio_clear": 2.0,
+    "text": "c(0) / mean crest of |y| 70-84 m (x <= 330 m) >= 1.5; >= 2.0 reported as 'clearly focused'. In D this band lies in the shadow of the converging sea (screen c_side 0.03-1.6 m), so P4a passes almost by construction: P4b and c0/c_in carry the narrowing"
+   },
+   "P4b": {
+    "ratio_4hc_min": 1.3,
+    "text": "c(0)/c(|y| = 4 Hc) >= 1.3, and no row at |y| >= 4 Hc curls before centre touchdown"
+   },
+   "P5": {
+    "chord_min_deg": 55.0,
+    "chord_good_deg": [
+     60.5,
+     78.0
+    ],
+    "lip_min": 0.2,
+    "hood_min": 0.1,
+    "print": {
+     "chord_deg": 64.3,
+     "lip": 0.35,
+     "hood": 0.186
+    },
+    "text": "centre-section chord over 0.1-0.5 eta_c >= 55 deg (good 60.5-78), lip/eta_c >= 0.2, hood/eta_c^2 >= 0.10; report per breaker and the medians, never best frames only"
+   }
+  },
+  "report_only": {
+   "text": "judged in FLIP49 (PER2-PER5) and shown in A's table, but not part of A's verdict (stated openly)",
+   "items": [
+    "intervals 11.4-12.6 s and phase std <= 0.05 T",
+    "trend of x <= 10 m and of Hc <= 10 %",
+    "inlet H within 5 % at x 110-160; band-core drift <= 0.3 m",
+    "c0 / incoming crest at x 160 (R4: 1.88)",
+    "c(y) profile and FWHM",
+    "level regions axis_front, reef_top, lagoon, side (period means)",
+    "generation: H / H_lin (linear directional target, s50_final gauges) at x 110/128/160, y 0.5/20/40/60/80 m, last 3 periods",
+    "focus gain c0 / c_in, c_in = lateral mean (|y| <= 95 m) of the incident crest at x 128 m",
+    "period-mean mass-transport velocity (rip cell): centre surf, |y| 20-40, |y| 60-84, offshore centre/side (as u50_dir)",
+    "onset x and Hc against the registered linear and U3 predictions"
+   ]
+  },
+  "health": {
+   "bed_leak_frac_max": 0.0001,
+   "volume_drift_max": 0.01,
+   "still_offset_max_m": 0.1,
+   "volume_rule": "stage C: period-mean interior volume over x 110-400 m (beach included)",
+   "mp4": true,
+   "wall_max_h_per_coarse_3d_run": 2.5,
+   "wall_rule": "<= 2.5 h per coarse 3D run, launched in chunks of <= 29 min (production rule: one Houdini calculation <= 30 min)",
+   "still_offset_note": "S0a still fails (FLIP surface ~0.1 m high, depth dependent): reported; the 25 m channel adds a depth range, measured at the run start",
+   "diagnose_first": [
+    "centre onset on the flat (x < 160.25 m) or at h_b > 14 m (offshore steepness breaking of the focused crest)",
+    "swash set-up > 3 m (period mean of the swash region)",
+    "generation at x 160 m, |y| <= 40 m outside 0.80-1.20 of the linear target (band failure)",
+    "volume or leak failure"
+   ]
+  },
+  "best_frame_rule": {
+   "window": "for each judged k: frames from centre onset to touchdown + 0.5 s (no touchdown: onset + 2.5 s)",
+   "score": "score3 = sum of print-band misses of face chord (0.1-0.5 eta_c), front foot (0.1 eta_c) and hood area (g47_video.score3) on the centre section r2",
+   "tie": "smaller chord miss, then higher hood",
+   "overall": "minimum score3 over judged k",
+   "representative": "breaker with the median score3",
+   "output": "<run>/pana/best_frames.json (read by g49_video2.py)"
+  },
+  "deliverables": "per run: g49_video2 compare mp4 (per judged breaker: 3D front-oblique 1:1 colour = height with c(y) posts, c(y) graph, whole y 0.5 m section with the zoom window, centre-section zoom with the print outline, normalized overlay with the green/red metric table, time bar; thick RED frame and 3 s hold at the best frame, 0.25x slow motion from onset - 1 s to touchdown + 0.5 s); whole-run mp4 at 2x with the per-breaker table and gauge time series (Q66); RESULT_ja.md with tagged numbers",
+  "periodic_D": {
+   "PERIODIC": {
+    "n_consecutive_min": 3,
+    "each": {
+     "P4a_min": 1.5,
+     "P3_overturn_width_over_hc_max": 2.5
+    },
+    "onset_x_within_m": 10.0,
+    "Hc_cv_max": 0.1,
+    "text": "at least 3 consecutive judged breakers, each with P4a >= 1.5 and P3 overturn width <= 2.5 Hc; their onset x within +-10 m of their median; Hc CV <= 10 %"
+   },
+   "open_item": "none: D is designed for P5 as well (straight 1:10 break slope); P2/P3 widths are the predicted weak point",
+   "verdict_wording": {
+    "full": "P1-P5 on >= 3 consecutive breakers + PERIODIC",
+    "periodic_narrow_peak": "PERIODIC + P1-P4 on >= 3 consecutive breakers",
+    "partial": "otherwise, breaker by breaker",
+    "never": "'steady state'",
+    "self_assessment": "all scores are AI self-assessment; the user judges print-likeness"
+   }
+  }
+ },
+ "decision_rules": {
+  "before_DM1": [
+   "T0D numpy + build checks (table = VEX probe, bed VEX = numpy, particle count, side band layout) all pass, else fix code",
+   "S2D (optional, recommended, ~2 x 10-13 min): 2D strips on the D19B axis with the FLIP49 Fenton inlet at h0 19 m, H = 0.83 Hmax2D (10.6 m at T 12, 9.9 m at T 10): chord/lip/hood per breaker; if T 12 spills (chord < 55 deg on >= 2 breakers) and T 10 does too, D is unlikely to give P5: show the user before DM1",
+   "SMOKE_D (dp 1.0, 0-36 s, 1 launch, never judged): pipeline, leak, the directional pattern at x 160 m (correlation with the linear target >= 0.9 over |y| <= 95 m)"
+  ],
+  "after_DM1": [
+   "health failure (onset on the flat or h_b > 14 m, swash set-up > 3 m, generation outside 0.80-1.20, volume/leak) -> diagnose first",
+   "PERIODIC + P1-P5 on >= 3 consecutive -> 'full'; DD3 continuation (+48 s) and a seamless 12 s loop",
+   "P5 passes (chord >= 55 deg, lip >= 0.2, hood >= 0.10) on >= 2 judged breakers but P2 or P3 width fails on >= 2 -> DF1 = T 10 s (one change: period; a_sum by the same linear rule; ramp 20 s; t_end 86 s)",
+   "P5 fails with chord < 55 deg on >= 2 judged breakers -> stop and show the user (the straight-slope section did not survive in 3D; T 10 s would spill more)",
+   "P4b < 1.3 on all judged breakers -> D negative (no narrowing); stop and show",
+   "otherwise 'partial', breaker by breaker; stop and show"
+  ],
+  "after_DF1": [
+   "moved the way the rule says (narrower, P5 kept): keep and re-evaluate",
+   "P5 lost: revert to DM1 as the D result, record the negative"
+  ],
+  "limits": [
+   "one change per run",
+   "at most 2 follow-up runs in D, then stop and show the user",
+   "never loosen a frozen threshold after seeing results",
+   "one simulation at a time"
+  ]
+ },
+ "registered_screen_predictions": {
+  "tag": "computed, screening only; for comparison after the run, never for judging",
+  "linear": {
+   "main": {
+    "x_b0": 240.0,
+    "h_b0": 11.025,
+    "Hc_est": 9.4815,
+    "widths_over_Hc": {
+     "0.25": 1.6347624321046248,
+     "0.75": 3.0058535041923746,
+     "1.5": 4.271476032273374,
+     "2.0": 4.904287296313874
+    },
+    "widths_m": {
+     "0.25": 15.5,
+     "0.75": 28.5,
+     "1.5": 40.5,
+     "2.0": 46.5
+    },
+    "P4a_lin": 2.5137912442459243,
+    "P4b_lin": 1.8174889638231193,
+    "w90_m": 34.0,
+    "fwhm_excess_m": 61.0,
+    "steep": {
+     "R2d_max": 0.8407650501325487,
+     "x_R2d": 160.0,
+     "h_R2d": 19.0,
+     "R3d_max": 0.6094202744487895,
+     "x_R3d": 160.0,
+     "cos_factor_at": 0.7248401611754829,
+     "H_axis_x160": 10.781384810219668,
+     "Hmax2d_h17": 12.823302786575104,
+     "rule": "flat part (x <= x_toe) on the axis; P1c (2D, did not break offshore) had H/Hmax(h0) ~0.83 [computed from measured H]"
+    },
+    "aperture": {
+     "W140_sb45_gen+20": 1.0,
+     "W140_sb45_gen+0": 0.949,
+     "W150_sb50_gen+20": 1.0,
+     "W150_sb50_gen+0": 0.96,
+     "W120_sb35_gen+20": 1.0,
+     "W120_sb35_gen+0": 0.924
+    },
+    "dt_rows": {
+     "5": 0.133,
+     "10": 0.405,
+     "15": 0.828,
+     "20": 1.467,
+     "30": 3.278,
+     "40": 5.625,
+     "60": 10.326,
+     "80": 11.449
+    },
+    "gauges": {
+     "110": {
+      "H_y0p5": 6.19083153122613,
+      "H_y80": 6.426320591908614,
+      "H_mean_0_85": 5.8227780431062
+     },
+     "128": {
+      "H_y0p5": 7.993815156314292,
+      "H_y80": 6.262707967044193,
+      "H_mean_0_85": 6.26995295268112
+     },
+     "160": {
+      "H_y0p5": 10.780335833486626,
+      "H_y80": 5.323724897379811,
+      "H_mean_0_85": 6.611904902019878
+     }
+    }
+   },
+   "fallback": {
+    "x_b0": 240.0,
+    "h_b0": 11.025,
+    "Hc_est": 9.4815,
+    "widths_over_Hc": {
+     "0.25": 1.2128882560776248,
+     "0.75": 2.2675736961451247,
+     "1.5": 3.2167905922058746,
+     "2.0": 3.6386647682328745
+    },
+    "widths_m": {
+     "0.25": 11.5,
+     "0.75": 21.5,
+     "1.5": 30.5,
+     "2.0": 34.5
+    },
+    "P4a_lin": 2.365158025546148,
+    "P4b_lin": 2.845443952122699,
+    "w90_m": 27.0,
+    "fwhm_excess_m": 48.0,
+    "steep": {
+     "R2d_max": 0.8325330876848257,
+     "x_R2d": 160.0,
+     "h_R2d": 19.0,
+     "R3d_max": 0.6278167485927764,
+     "x_R3d": 160.0,
+     "cos_factor_at": 0.7541042606951024,
+     "H_axis_x160": 9.96533795525897,
+     "Hmax2d_h17": 11.969900178948294,
+     "rule": "flat part (x <= x_toe) on the axis; P1c (2D, did not break offshore) had H/Hmax(h0) ~0.83 [computed from measured H]"
+    },
+    "aperture": {
+     "W140_sb45_gen+20": 1.0,
+     "W140_sb45_gen+0": 0.942,
+     "W150_sb50_gen+20": 1.0,
+     "W150_sb50_gen+0": 0.952,
+     "W120_sb35_gen+20": 1.0,
+     "W120_sb35_gen+0": 0.915
+    },
+    "dt_rows": {
+     "5": 0.181,
+     "10": 0.694,
+     "15": 1.486,
+     "20": 2.613,
+     "30": 5.382,
+     "40": 8.069,
+     "60": 9.971,
+     "80": 10.75
+    },
+    "gauges": {
+     "110": {
+      "H_y0p5": 3.850078888772784,
+      "H_y80": 5.111554029965175,
+      "H_mean_0_85": 5.174913742892063
+     },
+     "128": {
+      "H_y0p5": 5.963269349153917,
+      "H_y80": 5.454931874109701,
+      "H_mean_0_85": 5.848938642564906
+     },
+     "160": {
+      "H_y0p5": 9.963867714945142,
+      "H_y80": 5.423316108501929,
+      "H_mean_0_85": 6.506989367534304
+     }
+    }
+   },
+   "tool": "s50_linear.py (WKB, gamma_b 1.081 from P1c)"
+  },
+  "u3": {
+   "main": {
+    "file": "screen/u50_F12_main.json",
+    "sha16": "3eb15d6c41c95192",
+    "generation": {
+     "x110": {
+      "y1": {
+       "H": 6.96,
+       "H_lin": 6.09,
+       "ratio": 1.143
+      },
+      "y20": {
+       "H": 6.31,
+       "H_lin": 5.62,
+       "ratio": 1.123
+      },
+      "y40": {
+       "H": 5.6,
+       "H_lin": 5.16,
+       "ratio": 1.085
+      },
+      "y60": {
+       "H": 6.55,
+       "H_lin": 5.93,
+       "ratio": 1.105
+      },
+      "y80": {
+       "H": 6.79,
+       "H_lin": 6.44,
+       "ratio": 1.054
+      },
+      "mean_ratio_interior": 1.084,
+      "corr_interior": 0.843
+     },
+     "x128": {
+      "y1": {
+       "H": 8.75,
+       "H_lin": 7.89,
+       "ratio": 1.108
+      },
+      "y20": {
+       "H": 7.28,
+       "H_lin": 7.03,
+       "ratio": 1.036
+      },
+      "y40": {
+       "H": 6.12,
+       "H_lin": 5.42,
+       "ratio": 1.13
+      },
+      "y60": {
+       "H": 6.13,
+       "H_lin": 5.52,
+       "ratio": 1.111
+      },
+      "y80": {
+       "H": 5.9,
+       "H_lin": 6.27,
+       "ratio": 0.941
+      },
+      "mean_ratio_interior": 1.053,
+      "corr_interior": 0.864
+     },
+     "x160": {
+      "y1": {
+       "H": 10.93,
+       "H_lin": 10.7,
+       "ratio": 1.021
+      },
+      "y20": {
+       "H": 9.31,
+       "H_lin": 9.28,
+       "ratio": 1.003
+      },
+      "y40": {
+       "H": 6.02,
+       "H_lin": 5.77,
+       "ratio": 1.043
+      },
+      "y60": {
+       "H": 3.38,
+       "H_lin": 3.98,
+       "ratio": 0.85
+      },
+      "y80": {
+       "H": 4.67,
+       "H_lin": 5.31,
+       "ratio": 0.879
+      },
+      "mean_ratio_interior": 0.963,
+      "corr_interior": 0.992
+     }
+    },
+    "flat_axis": {
+     "H_max": 10.9296875,
+     "x_at": 159.0,
+     "Hmax2d": 12.823302786575104,
+     "ratio": 0.8523300886154175,
+     "crest_max": 6.5390625
+    },
+    "periods": [
+     {
+      "p": 3,
+      "t": 37.875000000001,
+      "x_b": 257.0,
+      "h_b": 9.325,
+      "c0": 8.1171875,
+      "c_side": 0.3077741265296936,
+      "P4a": 26.373846273321696,
+      "P4b": 2.1477689313803072,
+      "w90": 26.0,
+      "fwhm": 62.0,
+      "widths_over_c0": {
+       "0.25": 1.9711260827718962,
+       "0.75": 3.449470644850818,
+       "1.5": 4.92781520692974
+      }
+     },
+     {
+      "p": 4,
+      "t": 48.125000000001,
+      "x_b": 235.0,
+      "h_b": 11.525,
+      "c0": 10.046875,
+      "c_side": 0.3666033148765564,
+      "P4a": 27.405303204590524,
+      "P4b": 3.268560989654693,
+      "w90": 26.0,
+      "fwhm": 62.0,
+      "widths_over_c0": {
+       "0.25": 1.990668740279938,
+       "0.75": 3.1850699844479005,
+       "1.5": 3.981337480559876
+      }
+     },
+     {
+      "p": 5,
+      "t": 60.750000000001,
+      "x_b": 243.0,
+      "h_b": 10.725,
+      "c0": 9.4921875,
+      "c_side": 0.3122907280921936,
+      "P4a": 30.395354860480335,
+      "P4b": 2.3048707289420447,
+      "w90": 26.0,
+      "fwhm": 70.0,
+      "widths_over_c0": {
+       "0.25": 2.528395061728395,
+       "0.75": 4.2139917695473255,
+       "1.5": 5.478189300411523
+      }
+     },
+     {
+      "p": 6,
+      "t": 72.000000000001,
+      "x_b": 233.0,
+      "h_b": 11.725,
+      "c0": 10.4375,
+      "c_side": 0.02669198252260685,
+      "P4a": 391.0350230133685,
+      "P4b": 3.279030526154318,
+      "w90": 26.0,
+      "fwhm": 66.0,
+      "widths_over_c0": {
+       "0.25": 1.9161676646706587,
+       "0.75": 1.9161676646706587,
+       "1.5": 3.4491017964071857
+      }
+     }
+    ],
+    "periodicity": {
+     "n": 3,
+     "x_b": [
+      235.0,
+      243.0,
+      233.0
+     ],
+     "x_b_spread": 10.0,
+     "c0": [
+      10.05,
+      9.49,
+      10.44
+     ],
+     "c0_cv": 0.03881580087660011,
+     "onset_t": [
+      48.125000000001,
+      60.750000000001,
+      72.000000000001
+     ],
+     "intervals": [
+      12.62,
+      11.25
+     ]
+    },
+    "levels": {
+     "band_core_x60_y1": [
+      0.023,
+      -0.055,
+      0.11,
+      -0.032,
+      0.034,
+      -0.041,
+      -0.013
+     ],
+     "flat_x140_y1": [
+      -0.017,
+      0.189,
+      0.152,
+      -0.123,
+      -0.078,
+      -0.093,
+      0.001
+     ],
+     "break_x240_y1": [
+      0.0,
+      0.004,
+      -0.397,
+      -0.454,
+      -0.206,
+      -0.171,
+      -0.181
+     ],
+     "inner_surf_x310_y1": [
+      0.0,
+      -0.006,
+      0.31,
+      0.137,
+      0.029,
+      0.301,
+      -0.08
+     ],
+     "inner_surf_x310_y60": [
+      0.0,
+      -0.014,
+      0.171,
+      0.409,
+      -0.038,
+      0.113,
+      -0.15
+     ],
+     "swash_x340_y1": [
+      0.0,
+      0.0,
+      -0.007,
+      0.842,
+      1.112,
+      0.944,
+      0.698
+     ],
+     "swash_x340_y60": [
+      0.0,
+      0.001,
+      0.015,
+      0.463,
+      0.801,
+      0.89,
+      0.507
+     ]
+    },
+    "mean_currents": {
+     "centre_surf_y0-10": {
+      "u": [
+       0.0,
+       -0.024,
+       0.275,
+       1.358,
+       0.977,
+       0.386,
+       0.614
+      ],
+      "v": [
+       -0.0,
+       0.0,
+       0.017,
+       0.072,
+       0.047,
+       0.082,
+       0.062
+      ]
+     },
+     "mid_surf_y20-40": {
+      "u": [
+       0.0,
+       -0.019,
+       0.212,
+       1.026,
+       0.727,
+       0.301,
+       0.568
+      ],
+      "v": [
+       -0.0,
+       -0.001,
+       0.078,
+       0.348,
+       0.229,
+       0.485,
+       0.427
+      ]
+     },
+     "side_surf_y60-84": {
+      "u": [
+       0.0,
+       -0.002,
+       0.126,
+       0.362,
+       -0.039,
+       -0.369,
+       -0.134
+      ],
+      "v": [
+       -0.0,
+       -0.005,
+       0.069,
+       0.434,
+       0.208,
+       0.644,
+       0.639
+      ]
+     },
+     "offshore_centre_y0-10": {
+      "u": [
+       -0.001,
+       0.165,
+       0.579,
+       0.491,
+       0.473,
+       0.404,
+       0.291
+      ],
+      "v": [
+       0.0,
+       -0.015,
+       -0.005,
+       0.002,
+       -0.004,
+       -0.004,
+       -0.009
+      ]
+     },
+     "offshore_side_y60-84": {
+      "u": [
+       -0.009,
+       0.093,
+       0.081,
+       -0.11,
+       -0.144,
+       -0.16,
+       -0.338
+      ],
+      "v": [
+       0.007,
+       -0.003,
+       -0.038,
+       -0.042,
+       -0.066,
+       -0.001,
+       -0.03
+      ]
+     }
+    }
+   },
+   "fallback": {
+    "file": "screen/u50_F10_fallback.json",
+    "sha16": "396b7a6996f31d6c",
+    "generation": {
+     "x110": {
+      "y1": {
+       "H": 3.97,
+       "H_lin": 3.75,
+       "ratio": 1.057
+      },
+      "y20": {
+       "H": 4.22,
+       "H_lin": 4.07,
+       "ratio": 1.038
+      },
+      "y40": {
+       "H": 5.29,
+       "H_lin": 5.5,
+       "ratio": 0.963
+      },
+      "y60": {
+       "H": 5.93,
+       "H_lin": 6.37,
+       "ratio": 0.93
+      },
+      "y80": {
+       "H": 4.88,
+       "H_lin": 5.18,
+       "ratio": 0.943
+      },
+      "mean_ratio_interior": 0.971,
+      "corr_interior": 0.992
+     },
+     "x128": {
+      "y1": {
+       "H": 5.64,
+       "H_lin": 5.83,
+       "ratio": 0.967
+      },
+      "y20": {
+       "H": 5.3,
+       "H_lin": 5.31,
+       "ratio": 0.998
+      },
+      "y40": {
+       "H": 5.42,
+       "H_lin": 5.6,
+       "ratio": 0.967
+      },
+      "y60": {
+       "H": 6.13,
+       "H_lin": 6.65,
+       "ratio": 0.922
+      },
+      "y80": {
+       "H": 4.93,
+       "H_lin": 5.55,
+       "ratio": 0.888
+      },
+      "mean_ratio_interior": 0.946,
+      "corr_interior": 0.947
+     },
+     "x160": {
+      "y1": {
+       "H": 9.29,
+       "H_lin": 9.85,
+       "ratio": 0.943
+      },
+      "y20": {
+       "H": 7.92,
+       "H_lin": 7.97,
+       "ratio": 0.994
+      },
+      "y40": {
+       "H": 5.23,
+       "H_lin": 4.89,
+       "ratio": 1.071
+      },
+      "y60": {
+       "H": 5.51,
+       "H_lin": 5.79,
+       "ratio": 0.952
+      },
+      "y80": {
+       "H": 5.17,
+       "H_lin": 5.54,
+       "ratio": 0.933
+      },
+      "mean_ratio_interior": 0.98,
+      "corr_interior": 0.988
+     }
+    },
+    "flat_axis": {
+     "H_max": 9.2890625,
+     "x_at": 159.0,
+     "Hmax2d": 11.969900178948294,
+     "ratio": 0.7760350704193115,
+     "crest_max": 5.45703125
+    },
+    "periods": [
+     {
+      "p": 3,
+      "t": 37.250000000001,
+      "x_b": 307.0,
+      "h_b": 4.324999999999999,
+      "c0": 3.794921875,
+      "c_side": 1.474609375,
+      "P4a": 2.5735099337748344,
+      "P4b": 1.1954336802134153,
+      "w90": 26.0,
+      "fwhm": 46.0,
+      "widths_over_c0": {
+       "0.25": 5.270200720535255,
+       "0.75": 8.432321152856408,
+       "1.5": 11.594441585177561
+      }
+     },
+     {
+      "p": 4,
+      "t": 41.875000000001,
+      "x_b": 247.0,
+      "h_b": 10.325,
+      "c0": 8.9375,
+      "c_side": 0.9114815592765808,
+      "P4a": 9.80546442112714,
+      "P4b": 3.6977777777777776,
+      "w90": 22.0,
+      "fwhm": 50.0,
+      "widths_over_c0": {
+       "0.25": 1.3426573426573427,
+       "0.75": 2.237762237762238,
+       "1.5": 3.132867132867133
+      }
+     },
+     {
+      "p": 5,
+      "t": 51.375000000001,
+      "x_b": 243.0,
+      "h_b": 10.725,
+      "c0": 9.296875,
+      "c_side": 1.4513113498687744,
+      "P4a": 6.405844618276162,
+      "P4b": 3.948262007828093,
+      "w90": 22.0,
+      "fwhm": 50.0,
+      "widths_over_c0": {
+       "0.25": 1.7210084033613446,
+       "0.75": 2.581512605042017,
+       "1.5": 3.872268907563025
+      }
+     },
+     {
+      "p": 6,
+      "t": 61.750000000001,
+      "x_b": 249.0,
+      "h_b": 10.125,
+      "c0": 8.953125,
+      "c_side": 1.5061732530593872,
+      "P4a": 5.9442862777002095,
+      "P4b": 3.445564089916144,
+      "w90": 22.0,
+      "fwhm": 50.0,
+      "widths_over_c0": {
+       "0.25": 1.787085514834206,
+       "0.75": 2.680628272251309,
+       "1.5": 4.020942408376963
+      }
+     },
+     {
+      "p": 7,
+      "t": 71.375000000001,
+      "x_b": 243.0,
+      "h_b": 10.725,
+      "c0": 9.2578125,
+      "c_side": 1.5643136501312256,
+      "P4a": 5.91813061224863,
+      "P4b": 4.019477293053761,
+      "w90": 22.0,
+      "fwhm": 46.0,
+      "widths_over_c0": {
+       "0.25": 1.7282700421940929,
+       "0.75": 2.5924050632911393,
+       "1.5": 3.8886075949367087
+      }
+     },
+     {
+      "p": 8,
+      "t": 81.500000000001,
+      "x_b": 245.0,
+      "h_b": 10.525,
+      "c0": 9.1953125,
+      "c_side": 1.3434709310531616,
+      "P4a": 6.84444470472591,
+      "P4b": 3.7420765027322402,
+      "w90": 22.0,
+      "fwhm": 50.0,
+      "widths_over_c0": {
+       "0.25": 1.740016992353441,
+       "0.75": 2.6100254885301615,
+       "1.5": 3.480033984706882
+      }
+     }
+    ],
+    "periodicity": {
+     "n": 5,
+     "x_b": [
+      247.0,
+      243.0,
+      249.0,
+      243.0,
+      245.0
+     ],
+     "x_b_spread": 6.0,
+     "c0": [
+      8.94,
+      9.3,
+      8.95,
+      9.26,
+      9.2
+     ],
+     "c0_cv": 0.016741857290405747,
+     "onset_t": [
+      41.875000000001,
+      51.375000000001,
+      61.750000000001,
+      71.375000000001,
+      81.500000000001
+     ],
+     "intervals": [
+      9.5,
+      10.38,
+      9.62,
+      10.12
+     ]
+    },
+    "levels": {
+     "band_core_x60_y1": [
+      0.082,
+      0.157,
+      0.051,
+      0.018,
+      0.013,
+      0.004,
+      -0.027,
+      -0.086,
+      0.037
+     ],
+     "flat_x140_y1": [
+      -0.002,
+      -0.105,
+      0.082,
+      -0.081,
+      -0.035,
+      -0.041,
+      -0.096,
+      -0.081,
+      0.037
+     ],
+     "break_x240_y1": [
+      -0.0,
+      0.017,
+      -0.239,
+      -0.434,
+      -0.351,
+      -0.292,
+      -0.265,
+      -0.169,
+      -0.302
+     ],
+     "inner_surf_x310_y1": [
+      0.0,
+      -0.001,
+      0.1,
+      0.299,
+      0.05,
+      -0.013,
+      0.206,
+      0.171,
+      -0.105
+     ],
+     "inner_surf_x310_y60": [
+      0.0,
+      -0.003,
+      0.047,
+      0.131,
+      0.149,
+      0.089,
+      0.082,
+      0.005,
+      -0.136
+     ],
+     "swash_x340_y1": [
+      0.0,
+      0.0,
+      -0.01,
+      0.124,
+      0.754,
+      1.016,
+      1.134,
+      0.929,
+      0.829
+     ],
+     "swash_x340_y60": [
+      0.0,
+      -0.0,
+      -0.002,
+      0.021,
+      0.492,
+      0.817,
+      0.758,
+      0.384,
+      0.461
+     ]
+    },
+    "mean_currents": {
+     "centre_surf_y0-10": {
+      "u": [
+       -0.0,
+       -0.002,
+       0.027,
+       0.662,
+       1.306,
+       1.378,
+       1.1,
+       1.078,
+       1.413
+      ],
+      "v": [
+       0.0,
+       0.0,
+       0.005,
+       0.044,
+       0.066,
+       0.099,
+       0.102,
+       0.131,
+       0.117
+      ]
+     },
+     "mid_surf_y20-40": {
+      "u": [
+       -0.0,
+       -0.0,
+       0.02,
+       0.379,
+       0.689,
+       0.738,
+       0.457,
+       0.502,
+       0.813
+      ],
+      "v": [
+       0.0,
+       -0.0,
+       0.02,
+       0.179,
+       0.28,
+       0.415,
+       0.493,
+       0.662,
+       0.549
+      ]
+     },
+     "side_surf_y60-84": {
+      "u": [
+       -0.0,
+       0.007,
+       0.022,
+       0.159,
+       0.157,
+       -0.09,
+       -0.571,
+       -0.339,
+       -0.052
+      ],
+      "v": [
+       0.0,
+       -0.002,
+       0.009,
+       0.107,
+       0.282,
+       0.352,
+       0.654,
+       0.777,
+       0.571
+      ]
+     },
+     "offshore_centre_y0-10": {
+      "u": [
+       -0.0,
+       0.05,
+       0.298,
+       0.412,
+       0.509,
+       0.496,
+       0.502,
+       0.361,
+       0.352
+      ],
+      "v": [
+       0.0,
+       -0.006,
+       -0.03,
+       -0.002,
+       -0.011,
+       -0.02,
+       -0.014,
+       -0.017,
+       -0.021
+      ]
+     },
+     "offshore_side_y60-84": {
+      "u": [
+       -0.004,
+       0.007,
+       0.113,
+       0.002,
+       -0.092,
+       -0.1,
+       -0.094,
+       -0.239,
+       -0.299
+      ],
+      "v": [
+       0.005,
+       0.023,
+       0.003,
+       0.028,
+       -0.044,
+       -0.067,
+       -0.038,
+       -0.025,
+       -0.066
+      ]
+     }
+    }
+   },
+   "tool": "u50_dir.py (U3 depth-averaged Boussinesq/NSW, directional bands, no overturning)"
+  },
+  "caveats": [
+   "on PG12s the U3 model overshot centre/side by 0.6-0.9 against FLIP D0 (plan A)",
+   "U3 at T 10 s needed +15 % amplitude to break at h 11 m (E10 cases); FLIP onset x is uncertain by about +-25 m",
+   "width proxies (+0.25/+0.75/+1.5 s after centre onset) are not calibrated against FLIP curl widths"
+  ],
+  "files": {
+   "s50_final.json": "740027d26577b4fc",
+   "s50_linear.json": "1a9bbe6810845ee1",
+   "s50_linear_depth19.json": "6ac0557bcedbc0fb",
+   "s50_linear_refine.json": "0a843b88120f983e",
+   "u50_D10_60_m20.json": "607c8e20444ca9ad",
+   "u50_D10_75_m40.json": "bb070f174cbd4d09",
+   "u50_D12_60_m20.json": "2982f1269289d1da",
+   "u50_E10_80_m20.json": "4c186959be0b4dee",
+   "u50_E10_80_m20_W150.json": "137adafc985e37b2",
+   "u50_E10_80_m20_W85nosb.json": "f2dc9186592621aa",
+   "u50_E10_80_m20_W85sb15.json": "4775c158c3b50683",
+   "u50_E10_80_m20_gain1.15.json": "cca9df29895d6cf2",
+   "u50_E10_80_m20_shelf.json": "36a0830379468f1d",
+   "u50_E12_80_m20.json": "dcdb233be1070115",
+   "u50_E12_80_m20_W150_Ls50.json": "3b1cbfa23f0f2d0c",
+   "u50_F10_fallback.json": "396b7a6996f31d6c",
+   "u50_F12_main.json": "3eb15d6c41c95192"
+  }
+ },
+ "honesty": {
+  "forces": "only gravity, the bed and the incoming waves act; the inlet and side bands relax horizontal velocity only (never the surface, never the vertical velocity); nothing pulls water toward a shape",
+  "chosen": [
+   "option D itself; the converging directional sea (+-80 deg, 30 equal components) and its focus point (220.25 m, 0) and phase (t_f = 0)",
+   "T 12 s (main) / 10 s (fallback); a_sum by the linear P1c rule (h_b 11 m)",
+   "h0 19 m, 1:10 beach, toe x 160.25 m",
+   "W 140 m with a 45 m side band generating to x 180.25 m",
+   "dp 0.5, t_end 92 s, judged t >= 45 s, stage C, windows",
+   "P1/P4a x limit 330 m and the crest-window wavelength"
+  ],
+  "computed": [
+   "shoaling, refraction, nonlinear focusing, break location and time, section shape, curl width, set-up, rip circulation",
+   "particle counts and run-time estimates",
+   "linear and U3 screens (rank only)"
+  ],
+  "measured": [
+   "FLIP47 P1c onsets (gamma_b calibration)",
+   "FLIP48 rates",
+   "DA1 launch-1 rate",
+   "FLIP45 V1 crest width (directional focusing works in FLIP)"
+  ],
+  "guesses": [
+   "the 3D kinematic factor (<cos>) raising the breaking limit of a spread crest",
+   "FLIP onset within +-25 m of x 240 m"
+  ],
+  "not_predicted": "P5 (section shape) in 3D"
+ },
+ "runs": [
+  {
+   "id": "SD",
+   "status": "done",
+   "what": "numpy screens s50_linear (sweep, refine, depth19), u50_dir (13 directional U3 runs, 67-114 s CPU each)"
+  },
+  {
+   "id": "T0D",
+   "what": "code + numpy + hip build checks for the new flip50 tank (directional table, side band, D19B bed)"
+  },
+  {
+   "id": "FREEZE_D",
+   "what": "freeze this file (sha256), after T0D"
+  },
+  {
+   "id": "S2D",
+   "status": "optional, recommended",
+   "what": "2D strips T 12 / T 10 on the D19B axis (~10-13 min each)"
+  },
+  {
+   "id": "SMOKE_D",
+   "what": "3D smoke dp 1.0, 0-36 s, 1 launch, never judged"
+  },
+  {
+   "id": "DM1",
+   "what": "main coarse periodic 3D run, dp 0.5, T 12 s, 92 s, chained launches <= 29 min, est. 2.04-2.65 h (FLIP48 coef) / 1.42-1.77 h (DA1 launch-1 rate)"
+  },
+  {
+   "id": "ANA_D",
+   "what": "g49_periodic_ana with the D analysis block (side_band_m [70, 84], crest_x_min_m 150, p1_x_max_m 330, crest_window centre_half_L with sf.L 149.2) + D report-only items"
+  },
+  {
+   "id": "VID_D",
+   "what": "g49_video2 compare + whole-run mp4"
+  },
+  {
+   "id": "DF1",
+   "status": "conditional",
+   "what": "T 10 s by the frozen rule, 86 s, est. 1.91-2.48 h"
+  },
+  {
+   "id": "DD3",
+   "status": "conditional",
+   "what": "+48 s continuation if PERIODIC passes; seamless 12 s loop"
+  }
+ ],
+ "implementation": {
+  "new_files_flip50": [
+   "g50_dirfield.py (done: linear directional field, WKB, complex amplitudes, aperture)",
+   "g50_table.py (to write: complex-amplitude table npz/bgeo from g50_dirfield at the z' levels)",
+   "g50_tanklib.py (to write: FLIP49 tank VEX copied; relax_apply replaced by FLIP45-style inlet+side bands reading the complex table)",
+   "g50_build_tank.py / x50_build.py (to write: hip build + checks; bed through the FLIP48 plain path k 0, shelf_h 0)",
+   "g50_pcfg.py (to write: cfg, precheck for h0 19 m / W 140 / beach, freeze)",
+   "g50_run.py / g50_chain.py (thin wrappers over flip49 run/chain if their cfg keys suffice)"
+  ],
+  "reuse_read_only": [
+   "flip49 g49_run/g49_chain/g49_periodic_ana/g49_video2 (cfg analysis block)",
+   "flip48 g48_common.bed_z plain path",
+   "flip47 g47_sfwave (S2D strips at h0 19 m)",
+   "flip45 g45_tanklib bands() logic (copied, not imported)"
+  ],
+  "estimate": "about half a day of code + checks (as in the plan)"
+ },
+ "risks": [
+  "width is bounded by physics: k_y <= k(h0); predicted P2 borderline and P3 failing at T 12 (linear 1.6/3.0/4.3 Hc, U3 1.9-2.5/1.9-4.2/3.5-5.5 Hc); T 10 narrower but touchdown still > 3 Hc in U3",
+  "offshore steepness breaking of the focused crest on the 19 m flat: H/Hmax2D 0.84-0.85 at the toe (P1c 0.83 did not break); at h0 17 m it would be 1.0",
+  "breaker type: deep-water Iribarren xi0 0.44 (T 12), 0.36 (T 10) against 0.52 for P1c: closer to spilling; P5 unproven in 3D (S2D strips can check the 2D analogue)",
+  "nonlinear focusing and the self-made rip cell (onshore mass transport at the centre, rips at the sides) widen and shift the focus over periods (U3 W120 w90 26 -> 38 m; W140 stable)",
+  "side-band generation of the 60-80 deg components (45 m band = 0.30 L at T 12): U3 H/H_lin 0.85-0.88 at |y| 60-80 m; per-depth FLIP relaxation and dp 0.5 damping (FLIP49 -4.8 % per 50 m) untested for this field",
+  "linear (Airy) target with Ursell ~25 at the band edge: spurious free harmonics (stationary in space, so periodicity is kept)",
+  "P4a is almost automatic in D (shadowed |y| 70-84 m band); P4b, c0/c_in and the curl widths carry the narrowing claim",
+  "break location calibration: U3 and linear disagree by up to 25-50 m for T 10 s; FLIP may break between x 230 and 265 m",
+  "closed-tank drift after ~100 s (FLIP47 P1c); stage C fix; run ends at 92 s",
+  "new code path: directional complex-table VEX, side band, h0 19 m, beach bed above the still level (FLIP48 plain path with shelf_h 0), zb -21 m",
+  "cost: 2.04-2.65 h by the FLIP48 coefficient, inside the 2.5-3 h budget only with W 140 (not 150)"
+ ]
+}

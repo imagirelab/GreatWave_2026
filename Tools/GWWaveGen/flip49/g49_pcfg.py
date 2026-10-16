@@ -35,6 +35,11 @@
                                               --change=T16 は書かない（AM-A5：T16 は巻く幅を広げ P4b を失う見込み。理由は AM-A5 の t16_resolution）
   py -3.10 -B g49_pcfg.py cfg DA3c --run=<方案 A の記録>   PERIODIC が通った時の +48 s の続き（140 s）。AM-A5 で前の名前 DA3 から DA3c に改めた。
                                               `cfg DA3 --run=…` は前の書き方として残し、前と 1 byte も違わない cfg を出す（queue_id も前の 'DA3'）
+  2026-10-16 PROBE025 を足した（probe, not a result。細かい粒子の本番は指導教員の返事の後のまま：Q57・Q64）：
+  py -3.10 -B g49_pcfg.py cfg PROBE025 [--W=24] [--t_end=4] [--wall=1740]   粒子 0.25 m（格子 0.5 m、2 進で割り切れる）の主メモリー・時間の短い試し。
+                                              DA3 と同じ海底・波・段 C・箱の長さ 442 m・底 −25 m で、半幅だけ W（既定 24 m）に狭める（その時の約束の量の
+                                              余りで落ちない大きさ）。probe/ready/ に書く（runs/ に混ぜない）。重い記録（R4・R5）は 2.02〜4 s を毎コマ、
+                                              途中保存は 24 コマごと。判定しない。ほかの設定の出す cfg は 1 byte も変えない
   py -3.10 -B g49_pcfg.py freezeA [--force=1 --reason=…]   plan/plan_A_frozen.json（＋ .sha256）を書く（g49_planA.py。あれば書かない）
   check は方案 A の確かめ（T0A：C3 をずらした海底と 1 bit 同じ・u3 と同じ・勾配・形・箱と粒子の数・in_gain・SMOKE_A と DA1 の precheck）も行う
   py -3.10 -B g49_pcfg.py gain <S0b の記録>    S0b の門（plan_frozen.json の strip_gates.S0b）を当てはめ、通れば plan/in_gain.json を書く。
@@ -90,6 +95,19 @@ SPEC_A3_CHANGE = dict(ch_y0=30.0)
 EXPECT_PARTICLES_A3 = {0.5: 5439373, 1.0: 682249}   # SC37 ch_y0 30（箱 442 × 85 m・底 −25 m。粒子 1.0 m は半幅 86 m）【計算】g49_common.count_particles。DA2 の 1.0384 倍
 LIMIT_3D_H_A3 = 3.0                         # DA3 の 1 本の上限（時間）：DA2 と同じ（DA2 の測った 2.32 h × 粒子 1.038 ≈ 2.4 h）【選び】
 DA2_RUN_A = "DA2_SC37y40_T12H7p5_dp0p5"     # DA3 の時間の見込みに測った値を使う元の記録（runs/<これ>）
+# PROBE025（2026-10-16、probe, not a result）：粒子 0.25 m の主メモリー・時間の短い試し。DA3 の海底・波・段 C のまま半幅だけ狭める。
+# 理由：この PC は主メモリー 63.8 GB・ページファイル 1 GB（C:、上限 4 GB）で約束の量の上限 64.8 GB。試しを決めた時、ほかのアプリが 45.3 GB を
+# 約束していて余りは約 19 GB【測定】。半幅 85 m の粒子 0.25 m は初め 43.7 M 粒子【計算】で、DA3 の 1 粒子あたり（7.13 GB ÷ 6.28 M）なら 50 GB 近く
+# 【推測】になり、余りを越えて hython やほかのアプリが落ちうる。半幅 24 m は 8.39 M 粒子【計算】で見込み約 11 GB【推測】。
+DA3_RUN_A = "DA3_SC37y30_T12H7p5_dp0p5"     # PROBE025 の見込みの元（runs/<これ>）
+PROBE_DP = 0.25                             # 粒子（格子 0.5 m）。2 進で割り切れる（GC.check_dp の計画の粒子）
+PROBE_W = 24.0                              # 既定の半幅（m）【選び】
+PROBE_T_END = 4.0                           # 既定の終わり（s）【選び】：起動 1 回 ≤ 29 分に収まる短さ
+PROBE_T_END_MAX = 6.0                       # これより長い PROBE025 は書かない（probe の決まり）
+PROBE_HEAVY = (2.0 + 0.5 / 24.0, 4.0)       # 重い記録の窓（s）。2 s までは軽い記録だけ（解く時間と記録の時間を分けて測る）
+EXPECT_PARTICLES_PROBE = {24.0: 8393829, 16.0: 5319010, 32.0: 12188808, 85.0: 43732762}   # DA3 の海底・粒子 0.25 m・箱 442 m・底 −25 m【計算】count_particles
+DA3_RSS_PEAK_GB = 7.13                      # DA3（粒子 0.5 m）の起動ごとの最大 RSS の最大【測定】runs/DA3…/chain.log
+DA3_PARTICLES_MAX = 6280606                 # その時の粒子の最大【測定】
 
 
 # ====================================================================== 凍らせる計画（g49_pcfg.py freeze）
@@ -819,6 +837,8 @@ def _preset(name, opt):
                      case_extra=dict(queue_id="Z0", stage2=True),
                      records=dict(r2=True, r3_z=None, block=120, preg_every=24, r4=None, r5=None, windows=None),
                      note="FLIP49 Z0（2 段目、引き金の後だけ）：平らな板、組 1 つ（上り 12 s・満ち 36 s・下り 12 s）の後 60 s の静けさ、du_b 無し")]
+    if name == "PROBE025":
+        return [preset_probe025(opt)]
     raise SystemExit("cfg は S0a・S0b・S1・S2・S3・D0・D1・D2・D3・Z0・SMOKE・SMOKE_A・DA1・DA2・DA3・DA3c")
 
 
@@ -963,6 +983,88 @@ def preset_A(name, opt):
         c["precheck"] = precheck(c)
         return [c]
     raise SystemExit("方案 A の cfg は SMOKE_A・DA1・DA2・DA3・DA3c")
+
+
+def commit_now_gb():
+    """Windows の約束の量（commit）の上限と余り、主メモリーの空き（GB）。読めなければ None（ほかの OS など）。"""
+    try:
+        import ctypes
+
+        class MS(ctypes.Structure):
+            _fields_ = [("dwLength", ctypes.c_ulong), ("dwMemoryLoad", ctypes.c_ulong), ("ullTotalPhys", ctypes.c_ulonglong),
+                        ("ullAvailPhys", ctypes.c_ulonglong), ("ullTotalPageFile", ctypes.c_ulonglong), ("ullAvailPageFile", ctypes.c_ulonglong),
+                        ("ullTotalVirtual", ctypes.c_ulonglong), ("ullAvailVirtual", ctypes.c_ulonglong), ("ullAvailExtendedVirtual", ctypes.c_ulonglong)]
+        m = MS(); m.dwLength = ctypes.sizeof(MS)
+        if not ctypes.windll.kernel32.GlobalMemoryStatusEx(ctypes.byref(m)):
+            return None
+        return dict(total_phys_gb=m.ullTotalPhys / 2**30, avail_phys_gb=m.ullAvailPhys / 2**30, commit_limit_gb=m.ullTotalPageFile / 2**30,
+                    commit_avail_gb=m.ullAvailPageFile / 2**30, time=time.strftime("%Y-%m-%d %H:%M:%S"))
+    except Exception:
+        return None
+
+
+def preset_probe025(opt):
+    """PROBE025（2026-10-16、probe, not a result）：粒子 0.25 m の主メモリー・時間の短い試し。DA3（海底 SC37 ch_y0 30 m・T 12 s・H 7.5 m・段 C・
+    in_gain・入口の帯・出口の帯・箱 442 m・底 −25 m）と同じで、半幅だけ W（既定 24 m）に狭め、終わりを t_end（既定 4 s、6 s まで）にする。
+    重い記録（R4・R5）は PROBE_HEAVY の窓で毎コマ（本番の 3 コマごとの 1 コマの時間を測るため）。途中保存は 24 コマごと（大きさと書く時間を測る）。
+    置き場所は Build/FLIP49/probe/（runs に混ぜない）。判定しない。細かい粒子の本番は指導教員の返事の後（Q57・Q64）。"""
+    W = float(opt.get("W", PROBE_W))
+    t_end = float(opt.get("t_end", PROBE_T_END))
+    wl = float(opt.get("wall", 1740))
+    if t_end > PROBE_T_END_MAX + 1e-9:
+        raise SystemExit("PROBE025 の t_end は %g s まで（probe の決まり。長い計算は指導教員の返事の後）" % PROBE_T_END_MAX)
+    sp3 = spec_A3()
+    win = [[round(PROBE_HEAVY[0], 6), PROBE_HEAVY[1]]]
+    c = make("PROBE025_DA3_W%s_dp0p25" % GC.tag(W), "3d", PROBE_DP, W, sp3, t_end, stage="C", windows=win, layout="A", out_root="probe",
+             case_extra=dict(queue_id="PROBE025", judged=False, label="probe, not a result", parent=DA3_RUN_A,
+                             probe_change="particle 0.5 -> 0.25 m (grid 1.0 -> 0.5 m); half width 85 -> %g m; t_end 92 -> %g s; heavy records every frame in %s s"
+                                          % (W, t_end, win[0]),
+                             probe_why=("memory/time probe for a 0.25 m run (Q57: formal fine runs wait for the supervisor). Width cut so the probe fits "
+                                        "the commit headroom of this PC (commit limit 64.8 GB = RAM 63.8 GB + 1 GB page file)")),
+             note="FLIP49 PROBE025（probe, not a result）：粒子 0.25 m（格子 0.5 m）の主メモリー・時間の短い試し。DA3 と同じ海底（SC37、溝の壁の真ん中 ch_y0 30 m）・"
+                  "流れ関数の波 T 12 s・H 7.5 m・段 C・入口の帯 0〜100 m・出口の帯 362〜442 m・箱 442 m・底 −25 m で、半幅だけ %g m（DA3 は 85 m）、0〜%g s。"
+                  "重い記録は %s s を毎コマ。判定しない。波の形の結果ではない" % (W, t_end, win[0]))
+    c["records"]["r4"]["every"] = 1
+    c["records"]["r5"]["every"] = 1
+    c.update(wall_limit_s=min(wl, 1740.0), max_hours=0.5, ckpt_every=24, ckpt_list=[24, 12, 6])
+    c["sf_check"]["every"] = 48
+    c["pstats_frames"] = [1, 2, int(c["f_end"])]
+    c["precheck"] = precheck(c)
+    pc = c["precheck"]
+    P = c["parms"]
+    n = int(pc["particles_model"])
+    ck = pc["checks"]
+    ck["PROBE_dp_0p25_grid_0p5_binary_exact"] = bool(float(P["dp"]) == PROBE_DP and GC.is_binary_exact(float(P["dp"]))
+                                                    and float(P["dp"]) * float(P["gridscale"]) == 0.5)
+    ck["PROBE_short"] = bool(c["t_end_s"] <= PROBE_T_END_MAX + 1e-9 and int(c["f_end"]) <= GC.frames_for(0.0, PROBE_T_END_MAX))
+    ck["PROBE_one_launch_le_29min"] = bool(float(c["wall_limit_s"]) <= 1740.0 and float(c["max_hours"]) <= 0.5)
+    ck["PROBE_not_judged_own_folder"] = bool(c["out_root"] == "probe" and c["case"].get("judged") is False)
+    ck["PROBE_bed_is_DA3"] = bool(is_spec_A3(GC.bed_spec(c)))
+    if W in EXPECT_PARTICLES_PROBE:
+        ck["PROBE_particles_as_computed"] = bool(n == EXPECT_PARTICLES_PROBE[W])
+    # 主メモリーの見込み（DA3 の 1 粒子あたりの最大 RSS × 粒子の増え 1.155【測定、DA3 の 5.44 → 6.28 M】）と、書く時の約束の量の余り
+    gr = DA3_PARTICLES_MAX / float(EXPECT_PARTICLES_A3[0.5])
+    rss_est = DA3_RSS_PEAK_GB / DA3_PARTICLES_MAX * n * gr
+    rule = "DA3 peak RSS %.2f GB / %d particles x model particles x growth %.3f [inferred]" % (DA3_RSS_PEAK_GB, DA3_PARTICLES_MAX, gr)
+    if opt.get("rss_from"):
+        # 前の PROBE025 の測った約束の量（memwatch）の最大と、準 2D の板（S0a：0.23 M 粒子・4.7 GB）を結ぶ 1 次で見込む【推測】
+        rf = opt["rss_from"]
+        m0 = json.loads(open(os.path.join(rf, "memwatch_summary.jsonl"), encoding="utf8").readline())
+        r0 = json.load(open(os.path.join(rf, "run_c00001.json"), encoding="utf8"))
+        p0, n0 = float(m0["private_gb"]), float(r0["particles_max"])
+        slope = (p0 - 4.7) / ((n0 - 0.23e6) / 1e6)
+        rss_est = p0 + slope * (n - n0) / 1e6
+        rule = ("measured probe %s: private %.2f GB at %d particles; line through the 0.5 m strip S0a (0.23 M, 4.7 GB): %.3f GB per M particles [inferred]"
+                % (os.path.basename(rf.rstrip("/\\")), p0, n0, slope))
+    mem = commit_now_gb()
+    pc["probe"] = dict(label="probe, not a result", particles_model=n, particles_full_width_dp0p25=EXPECT_PARTICLES_PROBE[85.0],
+                       rss_est_gb=rss_est, rss_est_rule=rule, memory_at_write=mem, heavy_window_s=win[0],
+                       tags=dict(particles="計算", rss_est="推測（DA3 の測定から比例）", memory_at_write="測定（GlobalMemoryStatusEx）"))
+    if mem:
+        ck["PROBE_rss_est_plus_3GB_le_commit_avail"] = bool(rss_est + 3.0 <= mem["commit_avail_gb"])
+    pc["ok"] = bool(all(ck.values()))
+    pc["reason"] = None if pc["ok"] else "外れ：" + ", ".join(k for k, v in ck.items() if not v)
+    return c
 
 
 def d2(opt, win, wsrc):
