@@ -650,6 +650,9 @@ def set_box(dp, W, spec, zb=GC.ZB, Lx=GC.LX):
     return b
 
 
+OM_REL_TOL = 2.0 ** -23        # d_omega is a float32 detail attribute (see dir_check); g50_run.py uses the same tolerance
+
+
 def dir_check(npz):
     """OUT_DIRTAB detail and dir_probe (VEX dirwave, g = 1) against the numpy mirror g50_table.dirwave_np, ret_on 0 and 1."""
     tab = TB.load(npz)
@@ -660,9 +663,14 @@ def dir_check(npz):
     det = {nm: g_.attribValue(nm) for nm in ("d_omega", "d_T", "d_x0", "d_x1", "d_y0", "d_y1", "d_nfield", "d_content")}
     names = sorted(p.attribValue("name") for p in g_.prims())
     out = dict(npz=npz, detail=det, fields=names,
-               detail_ok=bool(int(det["d_nfield"]) == len(GC.TABLE_FIELDS) and abs(det["d_omega"] - I["omega"]) < 1e-12 * I["omega"] + 1e-12
+               detail_ok=bool(int(det["d_nfield"]) == len(GC.TABLE_FIELDS) and abs(det["d_omega"] - I["omega"]) <= OM_REL_TOL * I["omega"]
                               and abs(det["d_x1"] - I["x1"]) < 1e-9 and abs(det["d_y1"] - I["y1"]) < 1e-9 and sorted(GC.TABLE_FIELDS) == names
                               and det["d_content"] == I.get("content_sha256")))
+    # 2026-10-16 build step: hou.Geometry.addAttrib makes 32-bit float detail attributes (no precision option), so d_omega holds
+    # float32(2 pi/T) (rel. error <= 2^-24). The old test (1e-12) failed on that rounding alone; the phase error it causes is computed here.
+    out["omega_float32"] = dict(stored=float(det["d_omega"]), exact=float(I["omega"]), equals_float32_of_exact=bool(det["d_omega"] == float(np.float32(I["omega"]))),
+                                rel_err=float(abs(det["d_omega"] - I["omega"]) / I["omega"]), phase_err_rad_at_140s=float(abs(det["d_omega"] - I["omega"]) * 140.0),
+                                tol_rel=OM_REL_TOL, tag="computed")
     rows = []
     for x_ in (0.0, 3.3, 20.0, 50.5, 99.5, 100.7, 150.0, 180.25, 200.0, 213.6, 214.0, 230.0):
         for z_ in (0.0, 0.4, 37.2, 95.5, 120.25, 139.9, 140.0):

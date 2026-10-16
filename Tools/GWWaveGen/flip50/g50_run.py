@@ -105,7 +105,9 @@ if DIR:
     _dg = hou.node("/obj/G50_SETUP/OUT_DIRTAB").geometry()
     DIRINFO = {nm: _dg.attribValue(nm) for nm in ("d_omega", "d_T", "d_x0", "d_x1", "d_y0", "d_y1", "d_nfield", "d_content", "d_src")}
     _om = 2.0 * math.pi / float(DIR["T"])
-    if int(DIRINFO["d_nfield"]) != len(GC.TABLE_FIELDS) or abs(float(DIRINFO["d_omega"]) - _om) > 1e-9 * _om or DIRINFO["d_content"] != DIR.get("content_sha256"):
+    # 2026-10-16 build step: d_omega is a float32 detail attribute (hou addAttrib has no 64-bit option): rel. error <= 2^-24, so the
+    # tolerance is 2^-23 (was 1e-9, which every launch would have failed on the rounding alone; phase error < 2e-6 rad at 140 s)
+    if int(DIRINFO["d_nfield"]) != len(GC.TABLE_FIELDS) or abs(float(DIRINFO["d_omega"]) - _om) > 2.0 ** -23 * _om or DIRINFO["d_content"] != DIR.get("content_sha256"):
         stop_early("error: OUT_DIRTAB does not match the cfg table: %s" % DIRINFO)
     DIRINFO.update(npz=_np, npz_sha256=_sha, T=float(DIR["T"]), case=DIR.get("case"))
     DTAB = TB.load(_np)

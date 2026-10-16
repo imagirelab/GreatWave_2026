@@ -11,13 +11,20 @@
         write runs/ready/<id>.json (3D), smoke/ready/ (SMOKE_D), strips/ready/ (S2D) under Unity/Build/FLIP50, with the precheck inside;
         not written if the precheck fails (g50_chain.py also checks precheck.ok, the build check, the frozen plan sha256 and the table sha256).
         Writes the table npz (g50_table.write) when missing.
+  py -3.10 -B g50_pcfg.py cfg SMOKE_D|DM1|DF1 --stage=A
+        2026-10-17 (AM-D18, Unity/Build/FLIP50/plan/amendments.jsonl): the same cfg with the drift fix stage A instead of stage C (FLIP49
+        stage A: the whole-tank column volume is held by a target divergence in x 110-400 m; volcorr_on 1, duabs_on 0, hold_on 0) and a new
+        run id (DM1A_..., DF1A_..., SMOKE50DA_...); everything else, the frozen plan and the queue item are unchanged. Needs AM-D18.
+        --stage=C (or no --stage) writes the frozen stage-C cfgs byte for byte as before.
   py -3.10 -B g50_pcfg.py cfg DD3 --run=<DM1 or DF1 run folder>
         +48 s continuation (same run_id, resumes from the last checkpoint) when PERIODIC passes (frozen rule).
   py -3.10 -B g50_pcfg.py freezeD [--force=1 --reason=...]
         Unity/Build/FLIP50/plan/plan_D_frozen.json (+ .sha256) from plan_D_draft.json (g50_planD.py). Refuses to overwrite once a FLIP50 3D
-        run has records, and needs --force with a reason to re-freeze before that.
+        run has records, and needs --force with a reason to re-freeze before that. 2026-10-16 (freeze step): also refuses a STALE draft (the
+        flip50 module sha16 written in the draft's implementation.files differ from the files now) or a draft written from an older precheck.
 Presets (reasons in plan_D_draft.json):
-  SMOKE_D  3D dp 1.0, W 140, DM1 sea, 0-48 s (ramp 24 s + travel to x 160 m ~10 s + one full period), one launch, never judged.
+  SMOKE_D  3D dp 1.0, W 140, DM1 sea, 0-50 s (2026-10-16 freeze step: 48 -> 50 s so the focal crest passage at t = 4T = 48 s lies 2 s inside
+           the record; the recurrence gate needs the two strong passages 36 and 48 s), one launch of <= 29 min (max_hours 0.49), never judged.
   DM1      main: 3D dp 0.5, W 140, T 12 s, +-80 deg, 30 components, focus (220.25, 0), stage C, 92 s, heavy records 44 s..end every 3rd frame.
   DF1      fallback (frozen rule only): T 10 s, ramp 20 s, 86 s.
   S2D_T12 / S2D_T10   2D strips (W 6, dp 0.5) on the D19B axis: Fenton inlet at h0 19 m, H = 0.83 Hmax2D (S2D, optional).
@@ -36,11 +43,75 @@ import g50_dirfield as DF           # noqa: E402
 EXPECT_PARTICLES = {("3d", 0.5): 5383840, ("3d", 1.0): 665000, ("strip", 0.5): 230736}    # [computed] count_particles, D19B, Lx 412, zb -19
 HEAVY_CONT = dict(t0=44.0, every=3)       # heavy records (r4, r5) continuously from 44 s every 3rd frame [chosen: AM-A2 precedent of plan A;
                                           # break time uncertain by several s (onset x +-25 m), so screen windows could miss it]
-SMOKE_T_END = 48.0
-SMOKE_WINDOW = (36.0, 48.0)               # one full period at x 160 m after the ramp and the travel from the band [computed]
+SMOKE_T_END = 50.0                        # 2026-10-16 freeze step (AM-D10): 48 -> 50 s. The phases put a crest on the focus at t = nT
+                                          # (24, 36, 48 s; the 24 s crest is still ramped); the recurrence gate needs the two strong passages
+                                          # 36 and 48 s, so the 48 s passage must lie inside the record with a margin [chosen]
+SMOKE_WINDOW = (38.0, 50.0)               # heavy records over the last full period (pipeline check only) [chosen]
+SMOKE_MAX_H = 0.49                        # one launch of <= 29 min (1740 s + start-up); a second launch never starts [chosen: task rule]
+Q_FACTORS = dict(linear=1.0, flip49_damping=0.87, v1_calibrated=0.75)
+# realization factors for the axis q profile (2026-10-16 freeze step, design check only, never a criterion):
+#   linear 1.0; flip49_damping 0.87 = FLIP49 dp 0.5 propagation loss -4.8 % per 50 m [measured] over ~140 m from the bands [computed];
+#   v1_calibrated 0.75 = FLIP45 V1 (dp 0.5, directional focus) crest-to-rear-trough 9.45 m / linear 2|A| 12.58 m [measured]
+Q_X = (160.25, 170.25, 180.25, 190.25, 200.25, 210.25, 220.25, 230.25, 240.25, 250.25, 260.25)
+_HMAX_CACHE = {}
 S2D_T_END = {12.0: 84.0, 10.0: 70.0}      # ramp + 5 periods (3-4 breakers at t >= 45 s for T 12) [chosen]
 DD3_EXTRA_S = 48.0
 STRIP_S_PER_FRAME = 0.29                  # FLIP49 S1 strip (dp 0.5, 0.30 M particles, substeps 1-2): 818 s / 2881 frames [measured]
+STAGE_A_AMENDMENT = "AM-D18"              # 2026-10-17: DM1 (stage C) failed the hard health item 'stage-C window volume 4.12 % > 2 %' (FLIP's own
+                                          # whole-tank gain stored as beach set-up); fix = drift stage A, not a round [chosen: AM-D18]
+STAGE_A_PRESETS = ("SMOKE_D", "DM1", "DF1")
+
+
+def amendment(aid):
+    """a dated amendment of the D plan in Unity/Build/FLIP50/plan/amendments.jsonl (FLIP49 JSONL style, plan = GC.PLAN_D_REL), or None."""
+    p = GC.PLAN_DIR + "/amendments.jsonl"
+    if not os.path.exists(p):
+        return None
+    for ln in open(p, encoding="utf8"):
+        if ln.strip():
+            e = json.loads(ln)
+            if e.get("id") == aid and e.get("plan") == GC.PLAN_D_REL:
+                return e
+    return None
+
+
+def drift_stage_A():
+    """(CTRL parms, cfg drift) of stage A as FLIP49 g49_pcfg.drift_parms('A') (read, not imported): volcorr_on 1, hold_on 0, duabs_on 0;
+    vol_x0..vol_x1 stays GC.VOL_X (110-400 m, the D volume window, after the inlet band 0-100 m). g50_run.vc_step: V = whole-tank column
+    volume, d = clamp((V0 - V) / (V_win0 tau), +-dmax) applied in the window (V0, V_win0 = means over 1.0-1.5 s)."""
+    return (dict(volcorr_on=1.0, hold_on=0.0, duabs_on=0.0),
+            dict(stage="A", tau_s=GC.VOL_TAU, dmax=GC.VOL_DMAX, tcap_s=GC.VOL_TCAP, V_measure=GC.VOL_MEASURE, window_m=list(GC.VOL_X),
+                 amendment=STAGE_A_AMENDMENT,
+                 rule="FLIP49 stage A: whole-tank column volume held by a target divergence in x %g-%g m (tau %g s, cap %g /s)"
+                      % (GC.VOL_X[0], GC.VOL_X[1], GC.VOL_TAU, GC.VOL_DMAX)))
+
+
+def to_stage_A(c, name):
+    """AM-D18: the frozen cfg with stage A instead of stage C. Changed: run id (prefix + 'A'), parms volcorr_on/hold_on/duabs_on, drift,
+    labels (note, case.drift_stage/amendment/rerun_of; DM1: case.d_round 1). The queue item (case.queue_id) stays."""
+    if amendment(STAGE_A_AMENDMENT) is None:
+        raise SystemExit("--stage=A needs amendment %s in %s/amendments.jsonl" % (STAGE_A_AMENDMENT, GC.PLAN_DIR))
+    old = c["run_id"]
+    head, rest = old.split("_", 1)
+    c["run_id"] = head + "A_" + rest
+    pc, dr = drift_stage_A()
+    c["parms"].update(pc)
+    c["drift"] = dr
+    cs = c["case"]
+    cs.update(drift_stage="A", rerun_of=old,
+              amendment="%s (Unity/Build/FLIP50/plan/amendments.jsonl): DM1 stage C failed the hard health item 'stage-C window volume 4.12 %% > 2 %%' "
+                        "(FLIP's own whole-tank water gain stored as set-up on the beach); fix = drift stage A (hold the whole-tank volume), rerun "
+                        "unchanged otherwise; not a round, criteria and thresholds unchanged" % STAGE_A_AMENDMENT)
+    if name == "DM1":
+        cs["d_round"] = 1             # the frozen DM1 round rerun after a health failure (not a round): decide_D reads round 1
+    if name == "SMOKE_D":
+        a, b = "stage-C volume < 1 %", "stage-A whole-tank volume < 1 % (AM-D18; FLIP49 stage-A reading)"
+    else:
+        a, b = ", stage C, ", ", stage A (AM-D18: whole-tank volume held by a target divergence in x %g-%g m), " % GC.VOL_X
+    if a not in c["note"]:
+        raise SystemExit("to_stage_A: the %s note has no '%s' (labels would stay stale)" % (name, a))
+    c["note"] = c["note"].replace(a, b)
+    return c
 
 
 # ====================================================================== run-time model
@@ -87,6 +158,65 @@ def time_estimate(n, f_from, f_end, heavy, t_break=36.0):
         out.update(da1_two_phase_h=[base, base * 1.1], da1_rates=dict(pre=d["pre_s_per_Mp_frame"], brk=d["break_s_per_Mp_frame"]), t_break_s=t_break)
     out["bound_h"] = max(out["total_h_hi"], (out.get("da1_two_phase_h") or [0, 0])[1])
     return out
+
+
+# ====================================================================== q = H / Hmax (campaign B's measure) along the D axis
+def hmax_fit(h, T):
+    """steady-wave limiting height Hmax(h, T) of the Fenton stream-function fit (g47_sfwave through g49_common.sf_solve; the same number
+    campaign B used: Hmax(17 m, 12 s) = 11.655 m) [computed]. Cached; py -3.10 only (scipy)."""
+    key = (round(float(h), 3), round(float(T), 6))
+    if key not in _HMAX_CACHE:
+        _, tb = GC.sf_solve(float(h), float(T), 0.3 * float(h), GC.SF_N)
+        _HMAX_CACHE[key] = float(tb["Hmax_fit"])
+    return _HMAX_CACHE[key]
+
+
+def hmax_table(T, h_lo=1.0, h_hi=19.5, dh=0.5):
+    """(depths, Hmax) on a grid for interpolation in the analysis [computed]."""
+    hs = np.arange(h_lo, h_hi + 1e-9, dh)
+    return hs, np.array([hmax_fit(h, T) for h in hs])
+
+
+def axis_q_profile(case, xs=Q_X, factors=None):
+    """design check (2026-10-16 freeze step, campaign B): linear axis amplitude |A(x, 0)|, H_lin = 2|A|, gamma = H_lin/h, the steady limit
+    Hmax(h, T) and q = f H_lin / Hmax for the realization factors f (Q_FACTORS), plus the depths where q first reaches 0.9 and 1.0 (1 m
+    grid, linear interpolation). Tags: |A| computed (WKB table code), Hmax computed (Fenton fit), factors measured elsewhere (Q_FACTORS)."""
+    factors = factors or Q_FACTORS
+    C = GC.CASES[case]
+    xg = np.union1d(np.arange(100.0, 300.0 + 1e-9, 1.0), [C["x_f"]] + [float(v) for v in xs])
+    df = TB.dirfield(case, x=xg)
+    A = np.abs(df.complex_amp(np.array([0.0]))[:, 0])
+    rows = []
+    for xq in xs:
+        i = int(np.argmin(np.abs(xg - xq)))
+        h = float(df.h[i]); H = 2.0 * float(A[i]); Hm = hmax_fit(h, C["T"])
+        rows.append(dict(x=float(xg[i]), h=h, A=float(A[i]), H_lin=H, gamma=H / h, Hmax=Hm, q={k: f * H / Hm for k, f in factors.items()}))
+    cross = {}
+    m = (xg >= GC.X_TOE - 1e-9) & (xg <= 300.0)
+    hh = df.h[m]; HH = 2.0 * A[m]; Hm = np.array([hmax_fit(h, C["T"]) for h in hh])
+    for k, f in factors.items():
+        q = f * HH / Hm
+        cross[k] = {}
+        for lev in (0.9, 1.0):
+            j = np.where(q >= lev)[0]
+            if not len(j):
+                cross[k]["h_q%.1f" % lev] = None; cross[k]["x_q%.1f" % lev] = None; continue
+            j = int(j[0])
+            if j == 0:
+                cross[k]["h_q%.1f" % lev] = float(hh[0]); cross[k]["x_q%.1f" % lev] = float(xg[m][0]); continue
+            a = (lev - q[j - 1]) / (q[j] - q[j - 1])
+            cross[k]["h_q%.1f" % lev] = float(hh[j - 1] + a * (hh[j] - hh[j - 1]))
+            cross[k]["x_q%.1f" % lev] = float(xg[m][j - 1] + a * (xg[m][j] - xg[m][j - 1]))
+    i240 = int(np.argmin(np.abs(xg - GC.X_BREAK)))
+    plateau = [float(xg[i]) for i in range(len(xg)) if GC.X_TOE <= xg[i] <= 300.0 and A[i] >= 0.99 * A[(xg >= GC.X_TOE) & (xg <= 300.0)].max()]
+    return dict(case=case, T=C["T"], a_sum=C["a_sum"], x_f=C["x_f"], factors=dict(factors), rows=rows, crossings=cross,
+                gamma_at_break_target=float(2.0 * A[i240] / df.h[i240]),
+                axis_gain_flat_x100_to_toe=float(A[np.argmin(np.abs(xg - GC.X_TOE))] / A[np.argmin(np.abs(xg - 100.0))]),
+                axis_gain_toe_to_focus=float(A[np.argmin(np.abs(xg - C["x_f"]))] / A[np.argmin(np.abs(xg - GC.X_TOE))]),
+                plateau_99pct_x=[min(plateau), max(plateau)] if plateau else None,
+                tags=dict(A="computed (g50_dirfield WKB)", Hmax="computed (Fenton fit, g47_sfwave)", factors="measured elsewhere (FLIP49, FLIP45 V1)",
+                          q="computed; the steady limit is 2D: a short-crested crest and a shoaling crest can exceed q = 1 [literature/measured: "
+                            "P1c onsets at q_loc 1.5-1.7]"))
 
 
 # ====================================================================== cfg
@@ -239,7 +369,15 @@ def precheck(c):
     gx = [float(v) for v in c["gauges"]["x"]]; gy = [float(v) for v in c["gauges"]["y"]]
     ck["inlet_before_gauges_before_toe"] = bool(float(P["xg_end"]) < min(gx) and max(gx) <= GC.X_TOE)
     ck["no_exit_band"] = bool(float(P["abs_on"]) == 0.0)
-    ck["drift_stage_C"] = bool(c["drift"]["stage"] == "C" and float(P["duabs_on"]) == 1.0 and float(P["volcorr_on"]) == 0.0 and float(P["hold_on"]) == 0.0)
+    if c["drift"]["stage"] == "A":        # AM-D18 (2026-10-17): stage A only with the amendment, as FLIP49 stage A, window after the inlet band
+        D = c["drift"]
+        ck["drift_stage_A_by_AM_D18"] = bool(amendment(STAGE_A_AMENDMENT) is not None and c["kind"] in ("3d", "smoke")
+                                             and float(P["volcorr_on"]) == 1.0 and float(P["duabs_on"]) == 0.0 and float(P["hold_on"]) == 0.0
+                                             and float(P["vol_x0"]) == GC.VOL_X[0] and float(P["vol_x1"]) == GC.VOL_X[1]
+                                             and float(P["vol_x0"]) >= float(P["xg_end"]) and D.get("tau_s") == GC.VOL_TAU
+                                             and D.get("dmax") == GC.VOL_DMAX and D.get("tcap_s") == GC.VOL_TCAP and D.get("V_measure") == GC.VOL_MEASURE)
+    else:
+        ck["drift_stage_C"] = bool(c["drift"]["stage"] == "C" and float(P["duabs_on"]) == 1.0 and float(P["volcorr_on"]) == 0.0 and float(P["hold_on"]) == 0.0)
     regs = c.get("level_regions") or []
     ck["level_regions"] = bool(all(0.0 <= r[1] < r[2] <= float(P["Lx"]) for r in regs)
                                and all(nm in [r[0] for r in regs] for nm in ("band_core", "probe_c", "flat", "window", "swash", "asym_centre", "asym_side")))
@@ -296,15 +434,22 @@ def preset(name, opt):
     heavy = opt.get("heavy", "cont")
     ret = float(opt.get("ret", "1"))
     sfx = "" if ret == 1.0 else "_ret0"
+    stage = str(opt.get("stage", "C"))
+    if stage not in ("C", "A"):
+        raise SystemExit("--stage is C (default: the frozen stage C) or A (AM-D18)")
+    if stage == "A" and name not in STAGE_A_PRESETS:
+        raise SystemExit("--stage=A (AM-D18) is for %s only (DD3 copies the stage of its run)" % ", ".join(STAGE_A_PRESETS))
     if name == "SMOKE_D":
         c = make_3d("SMOKE50D_D19B_T12_dp1p0" + sfx, "DM1", 1.0, SMOKE_T_END, kind="smoke", ret=ret, out_root="smoke", judged=False,
                     windows=[list(SMOKE_WINDOW)],
-                    note="FLIP50 option D smoke (never judged): 3D dp 1.0, W 140, D19B, DM1 sea (T 12 s, +-80 deg), 0-48 s, one launch. Checks the "
-                         "pipeline (table load, side band, stage C files, records incl. heavy r4/r5 every 2nd frame in 36-48 s, dir_check), leaks, and "
-                         "that the generated pattern at x 160 m correlates with the linear target >= 0.9 over |y| <= 95 m (g50_ana.py smoke)")
+                    note="FLIP50 option D smoke (never judged): 3D dp 1.0, W 140, D19B, DM1 sea (T 12 s, +-80 deg), 0-50 s, one launch of <= 29 min. "
+                         "Frozen smoke gates (plan_D_frozen.json smoke_gates, g50_ana.py smoke): band amplitude 0.85-1.15 of the linear target at the "
+                         "gauges, focal crest on the axis within +-15 m of x_f at t = nT with lateral contrast >= 1.5, recurrence T +- 1 s, no breaking "
+                         "on the flat (x < 160.25 m), no leak, stage-C volume < 1 %, pattern correlation at x 160 m >= 0.9, finished in one launch. "
+                         "Heavy r4/r5 every 2nd frame in 38-50 s (pipeline check)")
         c["records"]["r4"]["every"] = 2; c["records"]["r5"]["every"] = 2
         c["dir_check"]["every"] = 48
-        c.update(max_hours=0.75)
+        c.update(max_hours=SMOKE_MAX_H)
     elif name in ("DM1", "DF1"):
         C = GC.CASES[name]
         win = None
@@ -354,6 +499,8 @@ def preset(name, opt):
         c["pstats_frames"] = sorted(set(c.get("pstats_frames", []) + [c["f_end"]]))
     else:
         raise SystemExit("cfg presets: SMOKE_D, DM1, DF1, S2D_T12, S2D_T10, DD3")
+    if stage == "A":
+        to_stage_A(c, name)
     c["precheck"] = precheck(c)
     return c
 
@@ -376,6 +523,19 @@ def freeze(force=False, reason=None):
         if not force or not reason:
             raise SystemExit("plan_D_frozen.json exists; re-freeze only with --force=1 --reason=... before any FLIP50 3D run")
     d = json.load(open(GC.PLAN_DRAFT, encoding="utf8"))
+    # 2026-10-16 freeze step: never freeze a stale draft (the plan must describe the code that will run)
+    files = (d.get("implementation") or {}).get("files") or {}
+    now = {("flip50/" + k.split("/")[-1]): v for k, v in GC.module_shas().items() if k.startswith("flip50/")}
+    stale = sorted(k for k in now if files.get(k) != now[k])
+    if stale:
+        raise SystemExit("plan_D_draft.json is stale: flip50 modules changed since it was written (%s); rerun `g50_pcfg.py check` and "
+                         "`g50_planD.py` first" % ", ".join(stale))
+    pre_p = GC.PLAN_DIR + "/precheck_D.json"
+    nc = (d.get("implementation") or {}).get("numpy_checks") or {}
+    if not os.path.exists(pre_p) or nc.get("sha256") != GC.sha256_file(pre_p):
+        raise SystemExit("plan_D_draft.json was written from another precheck_D.json (rerun `g50_planD.py`)")
+    if not json.load(open(pre_p, encoding="utf8")).get("all_ok"):
+        raise SystemExit("precheck_D.json all_ok is false: not frozen")
     d["status"] = "FROZEN"
     d["frozen_at"] = time.strftime("%Y-%m-%d %H:%M:%S")
     d["frozen_from"] = dict(path="Unity/Build/FLIP50/plan/plan_D_draft.json", sha256=GC.sha256_file(GC.PLAN_DRAFT))
@@ -468,6 +628,8 @@ def checks():
         ap[case] = dict(frac=r["frac"], n_side_generated=sum(1 for q in r["comps"] if q["x_cross_side"] is not None))
     o["aperture"] = ap
     ok["aperture"] = bool(all(v["frac"] >= 0.95 for v in ap.values()))
+    # 6b. q = H/Hmax along the axis (2026-10-16 freeze step, campaign B design check; recorded, not pass/fail) [computed]
+    o["q_profile"] = {case: axis_q_profile(case) for case in ("DM1", "DF1")}
     # 7. presets (written nowhere here)
     pre = {}
     for nm in ("SMOKE_D", "DM1", "DF1", "S2D_T12", "S2D_T10"):
@@ -504,6 +666,10 @@ def summary(o):
                                                     tc["continuity"]["max_rel_residual_flat"], max(tc["interpolation"]["max_rel_eta"], tc["interpolation"]["max_rel_U"]),
                                                     tc["mean_mass_flux"]["per_x"]["x100"]["M_without_return_m3s"], tc["mean_mass_flux"]["inlet_band_return_mps"]["max"]))
     L.append("  aperture %s" % o["aperture"])
+    for case, qp in (o.get("q_profile") or {}).items():
+        L.append("  q profile %s (x_f %.2f): %s | crossings %s" % (case, qp["x_f"], ", ".join(
+            "h%.1f q%.2f/%.2f/%.2f" % (r["h"], r["q"]["linear"], r["q"]["flip49_damping"], r["q"]["v1_calibrated"]) for r in qp["rows"][::2]),
+            json.dumps(qp["crossings"])))
     return "\n".join(L)
 
 
