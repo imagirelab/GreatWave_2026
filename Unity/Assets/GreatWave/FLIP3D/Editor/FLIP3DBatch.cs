@@ -15,7 +15,9 @@ namespace GreatWave.FLIP3D.EditorTools
     // FLIP3D：場面を作る・画面外に描いて連番にする・Release のプレイヤーを作る（batchmode。2026-10-16、進行役）。
     // 作るのは Assets/GreatWave/FLIP3D/ の下だけ。ほかの場面・資産は開かず、変えない。
     //   -executeMethod GreatWave.FLIP3D.EditorTools.FLIP3DBatch.BuildSceneAndCapture
-    //       -f3dcap stills,seat,print,move   -f3dout <dir>   -f3dsize 1920x1080   -f3dfps 24   -f3dtiles 0
+    //       -f3dcap stills,seat,print,move,seat3,verify   -f3dout <dir>   -f3dsize 1920x1080   -f3dfps 24   -f3dtiles 0
+    //       2026-10-16 追記：-f3ddata <クリップのフォルダー>（既定は場面の値＝24 個/s の clip_DA3r_k5_r24。前の 8 個/s は clip_DA3_k5）、
+    //       -f3dverifyout <dir>（verify の書き出し先、既定 Build/FLIP3D/verify）、seat3 は座席の 3 回の繰り返し（36 s）
     //   -executeMethod GreatWave.FLIP3D.EditorTools.FLIP3DBatch.BuildPlayerAndExit   （-f3dplayerout <dir>）
     public static class FLIP3DBatch
     {
@@ -104,7 +106,8 @@ namespace GreatWave.FLIP3D.EditorTools
             var go = new GameObject("FLIP3D");
             var pl = go.AddComponent<FLIP3DPlayer>();
             pl.waterMaterial = mWater; pl.seaMaterial = mSea; pl.bedMaterial = mBed; pl.cam = cam;
-            pl.dataDir = Path.Combine(BuildRoot, "clip_DA3_k5").Replace('\\', '/');
+            pl.dataDir = Path.Combine(BuildRoot, "clip_DA3r_k5_r24").Replace('\\', '/');      // 2026-10-16：毎コマの記録の 24 個/s
+            pl.altDataDir = Path.Combine(BuildRoot, "clip_DA3_k5").Replace('\\', '/');        // 前の 8 個/s（キー [4]）
             ApplyPoses(pl);
             var tm = go.AddComponent<FLIP3DTiming>();
             tm.player = pl;
@@ -133,9 +136,10 @@ namespace GreatWave.FLIP3D.EditorTools
             var pl = UnityEngine.Object.FindFirstObjectByType<FLIP3DPlayer>();
             pl.manualClock = true;
             pl.tilesPerSide = int.Parse(Arg("-f3dtiles", "0"), IC);
+            pl.dataDir = Arg("-f3ddata", pl.dataDir);
             var sw = System.Diagnostics.Stopwatch.StartNew();
             pl.Init();
-            Debug.Log("FLIP3D_CAPTURE init_s=" + sw.Elapsed.TotalSeconds.ToString("F2", IC));
+            Debug.Log("FLIP3D_CAPTURE init_s=" + sw.Elapsed.TotalSeconds.ToString("F2", IC) + " record_fps=" + pl.Clip.Manifest.record_fps.ToString(IC) + " data=" + pl.dataDir);
             string outDir = Arg("-f3dout", Path.Combine(BuildRoot, "capture"));
             var sz = Arg("-f3dsize", "1920x1080").Split('x');
             int w = int.Parse(sz[0], IC), h = int.Parse(sz[1], IC);
@@ -146,8 +150,10 @@ namespace GreatWave.FLIP3D.EditorTools
                 if (j == "stills") Stills(pl, Path.Combine(outDir, "stills"), w, h);
                 else if (j == "debug") DebugStills(pl, Path.Combine(outDir, "debug"), w, h);
                 else if (j == "look") LookStills(pl, Path.Combine(outDir, "look"), w, h);
-                else if (j == "verify") VerifyExport(pl, Path.Combine(BuildRoot, "verify"));
+                else if (j == "verify") VerifyExport(pl, Arg("-f3dverifyout", Path.Combine(BuildRoot, "verify")));
                 else if (j == "seat") Sequence(pl, FLIP3DPlayer.Mode.Seat, pl.LoopSeconds, Path.Combine(outDir, "seat"), w, h, fps);
+                else if (j == "seat3") Sequence(pl, FLIP3DPlayer.Mode.Seat, 3 * pl.LoopSeconds, Path.Combine(outDir, "seat3"), w, h, fps);
+                else if (j == "switch") SwitchCheck(pl, Path.Combine(outDir, "switch"), w, h);
                 else if (j == "print") Sequence(pl, FLIP3DPlayer.Mode.Print, pl.LoopSeconds, Path.Combine(outDir, "print"), w, h, fps);
                 else if (j == "move") Sequence(pl, FLIP3DPlayer.Mode.Move, pl.MoveTotal, Path.Combine(outDir, "move"), w, h, fps);
             }
@@ -259,6 +265,27 @@ namespace GreatWave.FLIP3D.EditorTools
             Debug.Log("FLIP3D_VERIFY done " + dir);
         }
 
+        // 確かめ：キー [4] と同じ ToggleClip で 24 個/s ⇔ 8 個/s を入れ替え、同じ体験の時刻で見せる記録・計算の時刻を書く（2026-10-16 追記）
+        static void SwitchCheck(FLIP3DPlayer pl, string dir, int w, int h)
+        {
+            Directory.CreateDirectory(dir);
+            var sb = new StringBuilder("step,data,record_fps,frames,s,phase,record,sim_t\n");
+            pl.mode = FLIP3DPlayer.Mode.Seat;
+            ApplyPoses(pl);
+            double s = 5.3;
+            for (int k = 0; k < 3; k++)
+            {
+                if (k > 0) pl.ToggleClip();
+                pl.ApplyTime(s);
+                var mf = pl.Clip.Manifest;
+                sb.AppendLine(string.Format(IC, "{0},{1},{2},{3},{4:F4},{5:F5},{6},{7:F4}", k, pl.CurrentDataDir, mf.record_fps, pl.Clip.Meshes.Length, s, pl.LoopPhase,
+                    pl.ShownRecord, mf.loop_start_s + pl.ShownRecord / mf.record_fps));
+                Save(pl.cam, w, h, Path.Combine(dir, string.Format(IC, "switch_{0}_fps{1:0}.png", k, mf.record_fps)), true);
+            }
+            File.WriteAllText(Path.Combine(dir, "switch.csv"), sb.ToString());
+            Debug.Log("FLIP3D_SWITCH done " + dir);
+        }
+
         static void DebugStills(FLIP3DPlayer pl, string dir, int w, int h)
         {
             Directory.CreateDirectory(dir);
@@ -310,8 +337,9 @@ namespace GreatWave.FLIP3D.EditorTools
             }
             File.WriteAllText(Path.Combine(dir, "frames.csv"), csv.ToString());
             File.WriteAllText(Path.Combine(dir, "capture.json"), string.Format(IC,
-                "{{\"mode\":\"{0}\",\"seconds\":{1},\"fps\":{2},\"frames\":{3},\"size\":\"{4}x{5}\",\"tiles\":{6},\"seatHold\":{7},\"moveSeconds\":{8},\"printHold\":{9},\"afterSeconds\":{10},\"printPhase\":{11},\"printRecord\":{12}}}",
-                mode, seconds, fps, n, w, h, pl.tilesPerSide, pl.seatHold, pl.moveSeconds, pl.printHold, pl.afterSeconds, pl.PrintPhase, mf.print_record_index));
+                "{{\"mode\":\"{0}\",\"seconds\":{1},\"fps\":{2},\"frames\":{3},\"size\":\"{4}x{5}\",\"tiles\":{6},\"seatHold\":{7},\"moveSeconds\":{8},\"printHold\":{9},\"afterSeconds\":{10},\"printPhase\":{11},\"printRecord\":{12},\"recordFps\":{13},\"dataDir\":\"{14}\"}}",
+                mode, seconds, fps, n, w, h, pl.tilesPerSide, pl.seatHold, pl.moveSeconds, pl.printHold, pl.afterSeconds, pl.PrintPhase, mf.print_record_index,
+                mf.record_fps, (pl.CurrentDataDir ?? "").Replace('\\', '/')));
             Debug.Log("FLIP3D_SEQ done " + mode + " frames=" + n + " dir=" + dir);
         }
 

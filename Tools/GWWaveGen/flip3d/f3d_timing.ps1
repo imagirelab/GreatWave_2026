@@ -1,6 +1,8 @@
 ﻿# FLIP3D：Release のプレイヤーを見えるウィンドウで起動し、実時間の再生の 1 フレームの時間を記録する（FLIP3DTiming、2026-10-16、進行役）。
 # 測っている間、0.5 s おきに nvidia-smi の GPU の使用率と、hython が動いているかを書く（他の計算と重なっていないかを後で確かめるため）。
 # 使い方：powershell -NoProfile -ExecutionPolicy Bypass -File Tools/GWWaveGen/flip3d/f3d_timing.ps1 -Tag t1 [-Modes seat,move] [-Loops 3]
+# 2026-10-16 追記：既定のクリップは場面の値（24 個/s の clip_DA3r_k5_r24）。名前の終わりに 8 を付けた視点（seat8・move8）は、
+#   前の 8 個/s のクリップ（-Data8、既定 clip_DA3_k5）を -f3ddata で渡して同じプレイヤーで測る（出力は seat8.json など）。
 param(
     [Parameter(Mandatory = $true)][string]$Tag,
     [string]$Modes = 'seat,move',
@@ -8,7 +10,9 @@ param(
     [double]$Warm = 3,
     [int]$Width = 1920,
     [int]$Height = 1080,
-    [int]$TimeoutSeconds = 240
+    [int]$TimeoutSeconds = 240,
+    [string]$Data8 = 'G:/Unity/GreatWave_2026_Fresh/Unity/Build/FLIP3D/clip_DA3_k5',
+    [string]$Extra = ''
 )
 $ErrorActionPreference = 'Stop'
 $project = 'G:\Unity\GreatWave_2026_Fresh\Unity'
@@ -22,8 +26,12 @@ $summary = @()
 foreach ($m in $Modes.Split(',')) {
     $json = Join-Path $out ($m + '.json')
     $log = Join-Path $out ($m + '.log')
-    $pargs = @('-f3dmode', $m, '-f3dtiming', ('"' + $json + '"'), '-f3dloops', "$Loops", '-f3dwarm', $Warm.ToString($inv), '-f3dquit',
+    $pm = $m
+    if ($m.EndsWith('8')) { $pm = $m.Substring(0, $m.Length - 1) }
+    $pargs = @('-f3dmode', $pm, '-f3dtiming', ('"' + $json + '"'), '-f3dloops', "$Loops", '-f3dwarm', $Warm.ToString($inv), '-f3dquit',
                '-screen-fullscreen', '0', '-screen-width', "$Width", '-screen-height', "$Height", '-logFile', ('"' + $log + '"'))
+    if ($m.EndsWith('8')) { $pargs += @('-f3ddata', $Data8) }
+    if ($Extra) { $pargs += $Extra.Split(' ') }
     $t0 = Get-Date
     $p = Start-Process -FilePath $exe -ArgumentList $pargs -PassThru
     $null = $p.Handle

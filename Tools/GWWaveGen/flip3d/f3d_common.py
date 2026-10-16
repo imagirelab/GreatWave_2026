@@ -12,6 +12,9 @@ import numpy as np
 
 REPO = r"G:/Unity/GreatWave_2026_Fresh"
 RUN = REPO + "/Unity/Build/FLIP49/runs/DA3_SC37y30_T12H7p5_dp0p5"
+# 2026-10-16 追記：DA3 の途中保存 v.1824 から同じ物理で計算し直し、面（R5）と SDF（r4）を毎コマ書いた記録（DA3r、76.0〜90.0 s、コマ 1825〜2161）。
+# DA3 と共通の 3 コマおきのコマでは面の記録がバイト単位で同じ（g49_restart.py compare、restart_compare.json）。読むだけ（書かない）
+RUN24 = REPO + "/Unity/Build/FLIP49/runs/DA3r_SC37y30_T12H7p5_dp0p5_c1824_t90"
 OUT = REPO + "/Unity/Build/FLIP3D"
 FFMPEG = r"G:/ffmpeg-2024-12-19-git-494c961379-full_build/bin/ffmpeg.exe"   # flip45 g45_common.FFMPEG と同じ
 FPS_SIM = 24.0
@@ -25,21 +28,21 @@ def t_of(f):
     return (f - 1) / FPS_SIM
 
 
-def surf_frames():
-    return sorted(int(os.path.basename(p)[2:7]) for p in glob.glob(RUN + "/surf/s_*.gw45s"))
+def surf_frames(run=None):
+    return sorted(int(os.path.basename(p)[2:7]) for p in glob.glob((run or RUN) + "/surf/s_*.gw45s"))
 
 
-def surf_path(f):
-    return RUN + "/surf/s_%05d.gw45s" % f
+def surf_path(f, run=None):
+    return (run or RUN) + "/surf/s_%05d.gw45s" % f
 
 
-def read_surf(f):
-    return E45.read_frame_bytes(open(surf_path(f), "rb").read())
+def read_surf(f, run=None):
+    return E45.read_frame_bytes(open(surf_path(f, run), "rb").read())
 
 
-def _blocks(kind):
+def _blocks(kind, run=None):
     out = []
-    for p in glob.glob(RUN + "/%s_c*_b*.npz" % kind):
+    for p in glob.glob((run or RUN) + "/%s_c*_b*.npz" % kind):
         m = re.search(r"_c(\d+)_b(\d+)\.npz$", p)
         out.append((int(m.group(1)), int(m.group(2)), p))
     return sorted(out)
@@ -48,11 +51,11 @@ def _blocks(kind):
 class Rec:
     """hf（毎コマ）と r4（3 コマおき）をコマ番号で引く。読んだブロックは覚えておく。"""
 
-    def __init__(self, kind):
+    def __init__(self, kind, run=None):
         self.kind = kind
         self.where = {}             # frame -> (chunk, path, index)
         self.meta = None
-        for c, b, p in _blocks(kind):
+        for c, b, p in _blocks(kind, run):
             with np.load(p, allow_pickle=True) as d:
                 fr = d["frames"]
                 mt = json.loads(str(d["meta"]))

@@ -7,8 +7,11 @@ namespace GreatWave.FLIP3D
 {
     // FLIP3D：DA3（周期のうねり・粒子 0.5 m）の 12 s の繰り返しを実時間で再生し、船の座席と原画の視点を見せる最小の場面（2026-10-16、進行役）。
     // 再生の決まり（形を変えない）：
-    //   - 面の記録は 3 コマおき（8 個/s）。時計の時刻 → 繰り返しの中の位相 φ → その時刻以前の最後の記録（floor(φ × 8)）を見せる。
-    //     コマの間の形は作らない（補間・速さでずらす・平滑をしない）。24 fps の動画では各記録が 3 フレーム続く。
+    //   - 時計の時刻 → 繰り返しの中の位相 φ → その時刻以前の最後の記録（floor(φ × 記録の数/s)）を見せる。記録の数/s はクリップの頭と manifest の record_fps。
+    //     コマの間の形は作らない（補間・速さでずらす・平滑をしない）。
+    //   - 2026-10-16 追記：既定のクリップは毎コマの記録 DA3r の 24 個/s（clip_DA3r_k5_r24、24 fps の動画では各記録が 1 フレーム）。
+    //     前の 3 コマおき 8 個/s のクリップ（clip_DA3_k5、各記録 3 フレーム）も同じ道で再生できる：-f3ddata <フォルダー> で選ぶか、キー [4] で切り替える
+    //     （切り替えた先は初めての時だけ読み込む。読んだクリップは覚えておく）。
     //   - 横：記録は半分の水槽（横 0〜85 m、y = 0 は対称の面）。同じ Mesh を z → −z の変換でもう一度描いて全幅にする（計算の対称の仮定）。
     //     tilesPerSide > 0 なら、y = 85 m の壁で写して 170 m ごとに並べる（壁は鏡と同じなので、計算はこの並びの海と同じ）。
     //   - 船の上下：記録 hf（上の水面の高さ、毎コマ 24 個/s）の座席の足跡の平均（f3d_export.py）。この数だけは時刻で 1 次の補間をする（カメラの高さ）。
@@ -19,7 +22,9 @@ namespace GreatWave.FLIP3D
         public enum Mode { Seat, Print, Move }
 
         [Header("データ（f3d_export.py の出力）")]
-        public string dataDir = "G:/Unity/GreatWave_2026_Fresh/Unity/Build/FLIP3D/clip_DA3_k5";
+        public string dataDir = "G:/Unity/GreatWave_2026_Fresh/Unity/Build/FLIP3D/clip_DA3r_k5_r24";
+        [Tooltip("キー [4] で切り替える先（前の 8 個/s のクリップ）")]
+        public string altDataDir = "G:/Unity/GreatWave_2026_Fresh/Unity/Build/FLIP3D/clip_DA3_k5";
         public Material waterMaterial, bedMaterial, seaMaterial;
         public int tilesPerSide = 1;
         public int maxTiles = 1;
@@ -59,6 +64,8 @@ namespace GreatWave.FLIP3D
         Transform root;
         double clockStart;
         readonly System.Diagnostics.Stopwatch swSwap = new System.Diagnostics.Stopwatch();
+        readonly Dictionary<string, FLIP3DClip> clipCache = new Dictionary<string, FLIP3DClip>();
+        public string CurrentDataDir { get; private set; }
 
         public static string Arg(string name, string def)
         {
@@ -74,6 +81,8 @@ namespace GreatWave.FLIP3D
             try
             {
                 dataDir = Arg("-f3ddata", dataDir);
+                altDataDir = Arg("-f3dalt", altDataDir);
+                if (HasArg("-f3dnolabel")) showLabel = false;            // 時間の測りの切り分け用（画面の字を出さない）
                 tilesPerSide = int.Parse(Arg("-f3dtiles", tilesPerSide.ToString(CultureInfo.InvariantCulture)), CultureInfo.InvariantCulture);
                 var m = Arg("-f3dmode", "");
                 if (m == "seat") mode = Mode.Seat; else if (m == "print") mode = Mode.Print; else if (m == "move") mode = Mode.Move;
@@ -86,6 +95,8 @@ namespace GreatWave.FLIP3D
         {
             if (Initialized) return;
             Clip = FLIP3DClip.Load(dataDir);
+            CurrentDataDir = dataDir;
+            clipCache[dataDir] = Clip;
             var mf = Clip.Manifest;
             root = new GameObject("FLIP3D_Runtime").transform;
             root.SetParent(transform, false);
@@ -121,9 +132,27 @@ namespace GreatWave.FLIP3D
             clockStart = Time.realtimeSinceStartupAsDouble;
             Initialized = true;
             ApplyTime(0.0);
-            Debug.Log(string.Format(CultureInfo.InvariantCulture, "FLIP3D_INIT frames={0} load_s={1:F2} clipMB={2:F1} vmax={3} tmax={4} tiles={5}",
-                Clip.Meshes.Length, Clip.LoadSeconds, Clip.ClipBytes / 1e6, mf.vert_max, mf.tri_max, tilesPerSide));
+            Debug.Log(string.Format(CultureInfo.InvariantCulture, "FLIP3D_INIT frames={0} record_fps={6} load_s={1:F2} clipMB={2:F1} vmax={3} tmax={4} tiles={5} data={7}",
+                Clip.Meshes.Length, Clip.LoadSeconds, Clip.ClipBytes / 1e6, mf.vert_max, mf.tri_max, tilesPerSide, mf.record_fps, dataDir));
         }
+
+        // 見せるクリップを入れ替える（24 個/s と 8 個/s。どちらも同じ窓・同じ海底・同じ座席。形は変えない）。体験の時刻はそのまま続ける
+        public void UseClip(string dir)
+        {
+            if (!Initialized || string.IsNullOrEmpty(dir) || dir == CurrentDataDir) return;
+            if (!clipCache.TryGetValue(dir, out var c))
+            {
+                c = FLIP3DClip.Load(dir);
+                clipCache[dir] = c;
+                Debug.Log(string.Format(CultureInfo.InvariantCulture, "FLIP3D_CLIP loaded frames={0} record_fps={1} load_s={2:F2} data={3}", c.Meshes.Length, c.Manifest.record_fps, c.LoadSeconds, dir));
+            }
+            Clip = c;
+            CurrentDataDir = dir;
+            ShownRecord = -1;
+            ApplyTime(ExperienceTime);
+        }
+
+        public void ToggleClip() => UseClip(CurrentDataDir == dataDir ? altDataDir : dataDir);
 
         // 見せる並びの数（0：全幅の 1 つだけ、1：両側に 1 つずつ）。並べない所は平らな海で埋める
         public void SetTiles(int n)
@@ -182,6 +211,7 @@ namespace GreatWave.FLIP3D
                 if (kb.digit1Key.wasPressedThisFrame) { mode = Mode.Seat; clockStart = Time.realtimeSinceStartupAsDouble; }
                 if (kb.digit2Key.wasPressedThisFrame) { mode = Mode.Print; clockStart = Time.realtimeSinceStartupAsDouble; }
                 if (kb.digit3Key.wasPressedThisFrame) { mode = Mode.Move; clockStart = Time.realtimeSinceStartupAsDouble; }
+                if (kb.digit4Key.wasPressedThisFrame) ToggleClip();
             }
             ApplyTime(Time.realtimeSinceStartupAsDouble - clockStart);
         }
@@ -258,10 +288,10 @@ namespace GreatWave.FLIP3D
             GUI.color = Color.white;
             string modeJa = mode == Mode.Seat ? "船の座席" : mode == Mode.Print ? "原画の視点" : "座席 → 原画の視点";
             GUI.Label(new Rect(12, 8, 1400, 22), string.Format(CultureInfo.InvariantCulture,
-                "FLIP3D 試作：DA3（周期のうねり T 12 s・H 7.5 m、粒子 0.5 m）の面の記録を 12 s の繰り返しで再生。[1] 座席 [2] 原画の視点 [3] 動き　いま：{0}", modeJa));
+                "FLIP3D 試作：DA3（周期のうねり T 12 s・H 7.5 m、粒子 0.5 m）の面の記録を 12 s の繰り返しで再生。[1] 座席 [2] 原画の視点 [3] 動き [4] 24 個/s ⇔ 8 個/s　いま：{0}", modeJa));
             GUI.Label(new Rect(12, 28, 1400, 22), string.Format(CultureInfo.InvariantCulture,
-                "計算の時刻 {0:F3} s（記録 {1}/{2}、8 個/s をコマを保って実時間で）{3}。水槽の外の平らな海・霧・空は計算にない。オフラインの計算の再生",
-                mf.loop_start_s + ShownRecord / mf.record_fps, ShownRecord + 1, Clip.Meshes.Length, Frozen ? "　止め（原画に最も近い瞬間）" : ""));
+                "計算の時刻 {0:F3} s（記録 {1}/{2}、{4:0} 個/s を実時間で。コマの間の形は作らない）{3}。水槽の外の平らな海・霧・空は計算にない。オフラインの計算の再生",
+                mf.loop_start_s + ShownRecord / mf.record_fps, ShownRecord + 1, Clip.Meshes.Length, Frozen ? "　止め（原画に最も近い瞬間）" : "", mf.record_fps));
         }
     }
 }

@@ -11,6 +11,10 @@
   manifest.json    窓・継ぎ目の数・原画に最も近い瞬間・座席と原画の視点・船の上下（hf から 24 Hz）・字・SHA-256（Unity の JsonUtility で読む平らな形）
   check.json       読み戻しの確かめ
 使い方：py -3.10 -B f3d_export.py [--seat X,Z] [--eye M]
+2026-10-16 追記（--r24）：毎コマの記録 DA3r（f3d_common.RUN24）から 24 個/s のクリップを書く。窓は f3d_loop24.py の loop24/loop24_ana.json の chosen。
+  出力は別のフォルダー Unity/Build/FLIP3D/clip_DA3r_k5_r24/（前の 8 個/s の clip_DA3_k5/ は変えない）。形は同じ GW45CLP1 で、頭の fps が 24、
+  288 コマ（記録の間 1 コマ）。前の 8 個/s のクリップと共通のコマ（3 コマおきの 96 個）は、記録のバイトの SHA-256 が前の manifest と同じことを確かめて書く。
+  py -3.10 -B f3d_export.py --r24
 """
 import os, sys, json, struct, hashlib, time
 import numpy as np
@@ -39,14 +43,26 @@ def main():
     if "--seat" in a:
         seat_x, seat_z = [float(v) for v in a[a.index("--seat") + 1].split(",")]
     eye = float(a[a.index("--eye") + 1]) if "--eye" in a else EYE_M
-    ana = json.load(open(C.OUT + "/loop/loop_ana.json", encoding="utf8"))
-    ch = ana["chosen"]
+    r24 = "--r24" in a
+    if r24:
+        run = C.RUN24
+        ana = json.load(open(C.OUT + "/loop24/loop24_ana.json", encoding="utf8"))
+        c4 = ana["chosen"]
+        ch = dict(k=ana["breaker_k"], tau_frame=c4["tau_frame"], print_record_frame=c4["print_frame"], print_record_index=c4["print_record_index"],
+                  print_frame_bestframes=c4["print_frame"], print_t_bestframes=c4["print_t"], score3=c4["score3"],
+                  seam_mesh=c4["mismatch"]["mesh"], seam_eta_break=c4["mismatch"]["eta_break"], seam_eta_all={"rms": float("nan")})
+        ana["step_reference"] = dict(mesh_p95_median=c4["steps_summary"]["mesh_p95_median"])
+        out = C.OUT + "/clip_DA3r_k%d_r24" % ch["k"]
+    else:
+        run = C.RUN
+        ana = json.load(open(C.OUT + "/loop/loop_ana.json", encoding="utf8"))
+        ch = ana["chosen"]
+        out = C.OUT + "/clip_DA3_k%d" % ch["k"]
     tau, L = ch["tau_frame"], ana["L_frames"]
     step = ana["record_step_frames"]
     frames = list(range(tau, tau + L, step))
-    out = C.OUT + "/clip_DA3_k%d" % ch["k"]
     os.makedirs(out, exist_ok=True)
-    blobs = [open(C.surf_path(f), "rb").read() for f in frames]
+    blobs = [open(C.surf_path(f, run), "rb").read() for f in frames]
     heads = [C.E45.read_frame_bytes(b) for b in blobs]
     n = len(blobs)
     fps = C.FPS_SIM / step
@@ -66,6 +82,12 @@ def main():
     data = open(cp, "rb").read()
     ok = all(data[struct.unpack_from("<QII", data, 64 + 16 * i)[0]:][:len(b)] == b for i, b in enumerate(blobs))
     src_sha = [hashlib.sha256(b).hexdigest() for b in blobs]
+    same8 = None
+    if r24:                            # 前の 8 個/s のクリップと共通のコマが、記録のバイトのまま同じか
+        m8 = json.load(open(C.OUT + "/clip_DA3_k5/manifest.json", encoding="utf8"))
+        d8 = dict(zip(m8["source_frames"], m8["source_sha256"]))
+        common = [(f, s) for f, s in zip(frames, src_sha) if f in d8]
+        same8 = dict(n_common=len(common), n_equal=sum(1 for f, s in common if d8[f] == s))
     # 海底（DA3 の cfg の海底そのもの）
     cfg = json.load(open(C.RUN + "/cfg.json", encoding="utf8"))
     spec = GC.bed_spec(cfg)
@@ -76,7 +98,7 @@ def main():
     bp = out + "/bed.f32"
     B.tofile(bp)
     # 船の上下（hf：上の水面の高さ、毎コマ。窓の始めから終わりの次のコマまで 289 個。足跡の平均）
-    hf = C.Rec("hf")
+    hf = C.Rec("hf", run)
     xs, zs = C.axes_hf(hf.meta)
     ix = (xs >= seat_x - FOOT[0]) & (xs <= seat_x + FOOT[0])
     iz = (zs >= abs(seat_z) - FOOT[1]) & (zs <= abs(seat_z) + FOOT[1])
@@ -100,7 +122,7 @@ def main():
         loop_seconds=L / C.FPS_SIM, loop_start_s=C.t_of(tau), loop_end_s=C.t_of(tau + L),
         vert_max=int(max(nv)), tri_max=int(max(nt)), vert_min=int(min(nv)), tri_min=int(min(nt)),
         still_offset_m=still,
-        source_run=C.RUN.replace(C.REPO + "/", ""), source_frames=frames, source_sha256=src_sha,
+        source_run=run.replace(C.REPO + "/", ""), source_frames=frames, source_sha256=src_sha,
         breaker_k=ch["k"], print_record_frame=pr, print_record_t=C.t_of(pr), print_record_index=ch["print_record_index"],
         print_bestframes_frame=ch["print_frame_bestframes"], print_bestframes_t=ch["print_t_bestframes"], print_score3=ch["score3"],
         print_crest_x=crest_x, print_crest_eta=crest_eta,
@@ -114,14 +136,21 @@ def main():
         heave_fps=C.FPS_SIM, heave=[round(v, 4) for v in heave.tolist()], heave_seam_jump_m=seam_heave,
         heave_min_m=float(heave.min()), heave_max_m=float(heave.max()),
         coords_ja="計画の座標（x 前・上・横）をそのまま Unity の x・y・z に置く。横を −z に写した物をもう一度描く（計算の対称の仮定）",
-        playback_ja="面の記録は 3 コマおき（8 個/s）。Unity は実時間の時計で、その時刻以前の最後の記録を見せる（コマを保つ）。コマの間の形は作らない",
+        playback_ja=("面の記録は毎コマ（24 個/s）。Unity は実時間の時計で、その時刻以前の最後の記録を見せる。コマの間の形は作らない" if r24 else
+                     "面の記録は 3 コマおき（8 個/s）。Unity は実時間の時計で、その時刻以前の最後の記録を見せる（コマを保つ）。コマの間の形は作らない"),
         created=time.strftime("%Y-%m-%d %H:%M:%S"))
+    if r24:
+        j, ss = c4["jump"], c4["steps_summary"]
+        man.update(jump_frames=j["frames"], jump_mesh_p95_m=j["mesh"]["p95"], jump_eta_rms_break_m=j["eta_break"]["rms"],
+                   jump_nn_median_m=j["mesh_nn"]["median"], jump_nn_p95_m=j["mesh_nn"]["p95"], jump_nn_max_m=j["mesh_nn"]["max"],
+                   step_eta_rms_median_m=ss["eta_rms_median"], step_eta_rms_max_m=ss["eta_rms_max"], step_nn_p95_median_m=ss["nn_p95_median"],
+                   step_nn_p95_max_m=ss["nn_p95_max"], same_bytes_as_8fps_clip=same8, seam_eta_rms_all_m=None)
     json.dump(man, open(out + "/manifest.json", "w", encoding="utf8"), ensure_ascii=False, indent=1)
-    chk = dict(clip_roundtrip_bytes_equal=bool(ok), frames=[C.E45.check_frame(C.surf_path(f))[0] for f in frames[::12]],
+    chk = dict(clip_roundtrip_bytes_equal=bool(ok), frames=[C.E45.check_frame(C.surf_path(f, run))[0] for f in frames[::12]], same_bytes_as_8fps_clip=same8,
                seat=dict(x=seat_x, z=seat_z, heave_min=float(heave.min()), heave_max=float(heave.max()), seam_jump=seam_heave))
     json.dump(chk, open(out + "/check.json", "w", encoding="utf8"), ensure_ascii=False, indent=1, default=float)
     print(json.dumps(dict((k, v) for k, v in man.items() if k not in ("heave", "source_frames", "source_sha256")), ensure_ascii=False, indent=1))
-    print("roundtrip", ok)
+    print("roundtrip", ok, "same8", same8)
 
 
 if __name__ == "__main__":

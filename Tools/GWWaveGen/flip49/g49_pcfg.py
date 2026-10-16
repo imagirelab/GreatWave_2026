@@ -40,6 +40,11 @@
                                               DA3 と同じ海底・波・段 C・箱の長さ 442 m・底 −25 m で、半幅だけ W（既定 24 m）に狭める（その時の約束の量の
                                               余りで落ちない大きさ）。probe/ready/ に書く（runs/ に混ぜない）。重い記録（R4・R5）は 2.02〜4 s を毎コマ、
                                               途中保存は 24 コマごと。判定しない。ほかの設定の出す cfg は 1 byte も変えない
+  2026-10-16 DA3r を足した（FLIP3D の再生のための記録し直し。判定しない。ほかの設定の出す cfg は 1 byte も変えない）：
+  py -3.10 -B g49_pcfg.py cfg DA3r [--ckpt=1824] [--t_end=90] [--wall=1700]   DA3 の途中保存 v.1824（75.958 s）から DA3 と同じ設定のまま
+                                              t_end（89.5〜92 s）まで、新しい置き場所 runs/DA3r_…/ で計算し直し、面（R5）と R4 を毎コマ書く。
+                                              走らせる前に g49_restart.py seed <cfg>（途中保存と水の量の直しの状態を写す。DA3 の置き場所は読むだけ）、
+                                              後に g49_restart.py compare <cfg>（DA3 の 3 コマおきの記録と同じコマで比べる）
   py -3.10 -B g49_pcfg.py freezeA [--force=1 --reason=…]   plan/plan_A_frozen.json（＋ .sha256）を書く（g49_planA.py。あれば書かない）
   check は方案 A の確かめ（T0A：C3 をずらした海底と 1 bit 同じ・u3 と同じ・勾配・形・箱と粒子の数・in_gain・SMOKE_A と DA1 の precheck）も行う
   py -3.10 -B g49_pcfg.py gain <S0b の記録>    S0b の門（plan_frozen.json の strip_gates.S0b）を当てはめ、通れば plan/in_gain.json を書く。
@@ -108,6 +113,20 @@ PROBE_HEAVY = (2.0 + 0.5 / 24.0, 4.0)       # 重い記録の窓（s）。2 s �
 EXPECT_PARTICLES_PROBE = {24.0: 8393829, 16.0: 5319010, 32.0: 12188808, 85.0: 43732762}   # DA3 の海底・粒子 0.25 m・箱 442 m・底 −25 m【計算】count_particles
 DA3_RSS_PEAK_GB = 7.13                      # DA3（粒子 0.5 m）の起動ごとの最大 RSS の最大【測定】runs/DA3…/chain.log
 DA3_PARTICLES_MAX = 6280606                 # その時の粒子の最大【測定】
+# DA3r（2026-10-16、FLIP3D の再生のための記録し直し）：DA3 の途中保存から、新しい記録の置き場所で、同じ設定のまま面（R5）と R4 を毎コマ書く。
+# 理由：DA3 の面は 3 コマおき（8 個/s）で、Unity の再生が段になる（Docs/Progress/FLIP3D_Playback_ja.md §5・§6）。形は作らない（物理だけ）。
+# DA3 の記録の置き場所には書かない（途中保存と水の量の直しの状態は g49_restart.py seed が新しい置き場所へ写す）。ほかの設定の出す cfg は 1 byte も変えない
+DA3R_CKPT = 1824                            # 既定の途中保存（75.958 s）：繰り返しの窓の始め 77.25 s（コマ 1855）以前で最も遅い物【測定：DA3 の ckpt/】
+DA3R_LOOP_S = (77.25, 89.25)                # FLIP3D の繰り返しの窓（FLIP3D_Playback_ja.md §1、f3d_loop_ana の選び）
+DA3R_T_END = 90.0                           # 既定の終わり（s）：窓の終わり 89.25 s ＋ 0.75 s（窓を 1 コマ単位で選び直す余り）【選び】
+DA3R_T_END_MIN = 89.5                       # これより短くは書かない（1 周期 ＋ 余り）
+DA3R_T_END_MAX = 92.0                       # DA3 の面の記録が続けてある終わり（同じコマで比べられる所）
+DA3R_MAX_H = 1.0                            # 1 本の上限（時間）【選び】。見込みは DA3 の測った 1 コマの時間 ＋ 面を毎コマ（下の da3r_cost）
+DA3R_CKPT_EVERY = 24                        # 途中保存の間隔（コマ）：2 回目の起動で計算し直すコマを少なくする【選び】
+DA3R_PHYS_KEYS = ("kind", "layout", "stage", "parms", "sf", "wave", "drift", "solver", "box", "bed", "gauges", "level_regions", "level_box",
+                  "level_guard_m", "sf_check", "n1_x", "n1_window", "shore_x", "fieldbox_frames", "analysis")   # DA3 と 1 つも違えない物
+DA3R_RUNTIME_MODULES = ("flip49/g49_common.py", "flip49/g49_tanklib.py", "flip49/g49_run.py", "flip49/g49_build_tank.py", "flip49/g49_chain.py",
+                        "flip48/g48_common.py", "flip47/g47_sfwave.py")   # 計算に効く道具（g49_pcfg は cfg を書くだけ）
 
 
 # ====================================================================== 凍らせる計画（g49_pcfg.py freeze）
@@ -839,7 +858,9 @@ def _preset(name, opt):
                      note="FLIP49 Z0（2 段目、引き金の後だけ）：平らな板、組 1 つ（上り 12 s・満ち 36 s・下り 12 s）の後 60 s の静けさ、du_b 無し")]
     if name == "PROBE025":
         return [preset_probe025(opt)]
-    raise SystemExit("cfg は S0a・S0b・S1・S2・S3・D0・D1・D2・D3・Z0・SMOKE・SMOKE_A・DA1・DA2・DA3・DA3c")
+    if name == "DA3r":
+        return [preset_DA3r(opt)]
+    raise SystemExit("cfg は S0a・S0b・S1・S2・S3・D0・D1・D2・D3・Z0・SMOKE・SMOKE_A・DA1・DA2・DA3・DA3c・PROBE025・DA3r")
 
 
 def preset_A(name, opt):
@@ -1064,6 +1085,152 @@ def preset_probe025(opt):
         ck["PROBE_rss_est_plus_3GB_le_commit_avail"] = bool(rss_est + 3.0 <= mem["commit_avail_gb"])
     pc["ok"] = bool(all(ck.values()))
     pc["reason"] = None if pc["ok"] else "外れ：" + ", ".join(k for k, v in ck.items() if not v)
+    return c
+
+
+def da3r_still_offset(rd0, f_from):
+    """DA3 の続きの起動が使った静かな水面のずれ（g49_run.py が run_c*.json から引き継ぐ値と同じ物。面の記録の頭に書く値）。返り値 (値, 出どころ)。"""
+    best = None
+    for p in sorted(glob.glob(os.path.join(rd0, "run_c*.json"))):
+        r = json.load(open(p, encoding="utf8"))
+        so = (r.get("still_offset") or {})
+        if so.get("value") is not None and int(r.get("f_start") or 0) <= f_from:
+            best = (float(so["value"]), "%s (%s)" % (os.path.basename(p), so.get("source")))
+    return best if best else (None, "DA3 の run_c*.json に still_offset がない")
+
+
+def da3r_cost(rd0, f_from, f_end, wall_limit, sp, launch_extra_s=2.0):
+    """DA3 の測った 1 コマの時間（r6 の wall、同じコマが 2 つの起動にあれば後の物）＋ 面の書き出し（DA3 の surf_s の中央値）を毎コマ
+    ＋ 1 コマのほかの手間（起動の全部の時間 − 解く時間 − 面の時間）で、起動の区切りを g49_chain.py と g49_run.py の決まりどおりに数える
+    （起動は wall_limit を越えたコマの後で止まる。次の起動は sp の倍数の最後の途中保存の次のコマから）。【測定 × 計算】"""
+    sim, surf, other = {}, [], []
+    for p in sorted(glob.glob(os.path.join(rd0, "r6_c*.npz"))):
+        c_ = int(os.path.basename(p)[4:9])
+        rp = os.path.join(rd0, "run_c%05d.json" % c_)
+        if not os.path.exists(rp):
+            continue
+        r = json.load(open(rp, encoding="utf8"))
+        d = np.load(p)
+        fr, w, s = d["frames"], d["wall"], d["surf_s"]
+        if not ((fr >= f_from) & (fr <= f_end)).any():
+            continue
+        for f_, w_ in zip(fr, w):
+            sim[int(f_)] = float(w_)
+        surf += [float(v) for v in s if v > 0]
+        other.append((float(r["wall_total_s"]) - float(w.sum()) - float(s.sum())) / max(len(fr), 1))
+    need = list(range(f_from, f_end + 1))
+    if not surf or any(f_ not in sim for f_ in need):
+        return dict(missing="DA3 の r6 に %d〜%d コマの時間がない" % (f_from, f_end))
+    s_surf = float(np.median(surf)); s_other = float(np.mean(other))
+    cost = {f_: sim[f_] + s_surf + s_other for f_ in need}
+    launches, f0 = [], f_from
+    for _ in range(20):
+        t, f_ = launch_extra_s, f0
+        while f_ <= f_end:
+            t += cost[f_]
+            if t > wall_limit:
+                break
+            f_ += 1
+        done = min(f_, f_end)
+        launches.append(dict(f_start=f0, f_done=done, est_s=round(t, 1)))
+        if done >= f_end:
+            break
+        ck = (done // sp) * sp
+        if ck + 1 <= f0:
+            return dict(missing="途中保存の間隔 %d では起動 1 回で次の途中保存に届かない" % sp, launches=launches)
+        f0 = ck + 1
+    tot = sum(L_["est_s"] for L_ in launches)
+    return dict(s_per_frame_mean=float(np.mean(list(cost.values()))), s_sim_mean=float(np.mean([sim[f_] for f_ in need])), s_surf=s_surf, s_other=s_other,
+                launch_extra_s=launch_extra_s, launches=launches, n_launches=len(launches), total_h=tot / 3600.0,
+                frames_redone=sum(L_["f_done"] - L_["f_start"] + 1 for L_ in launches) - len(need),
+                tag="測定（DA3 の r6_c*.npz・run_c*.json）× 計算（起動の区切り）")
+
+
+def preset_DA3r(opt):
+    """DA3r（2026-10-16）：DA3 の途中保存 v.<ckpt>.sim（既定 1824 = 75.958 s）から、DA3 と同じ設定（DA3R_PHYS_KEYS が 1 つも違わない）のまま、
+    新しい記録の置き場所 runs/<run_id>/ で t_end（既定 90 s、89.5〜92 s）まで計算し直し、面（R5）と R4 を毎コマ書く（hf・r2・r3 は前から毎コマ）。
+    走らせる前に `py -3.10 -B g49_restart.py seed <cfg>` が途中保存と水の量の直しの状態（volcorr）を写す。DA3 の置き場所には書かない。
+    走った後に `g49_restart.py compare <cfg>` が DA3 の 3 コマおきの記録と同じコマで比べる（同じに戻るかの確かめ）。
+    --ckpt=<コマ>：別の途中保存（窓の始め以前の物だけ ok）。--t_end=<s>：終わり。--wall=<s>：1 回の起動の上限（既定 1700 s、1740 s まで）。"""
+    rd0 = os.path.join(GC.B49, "runs", DA3_RUN_A)
+    t_end = float(opt.get("t_end", DA3R_T_END))
+    if not (DA3R_T_END_MIN - 1e-9 <= t_end <= DA3R_T_END_MAX + 1e-9):
+        raise SystemExit("DA3r の t_end は %g〜%g s（1 周期 ＋ 余り、DA3 の面の記録が続けてある所まで）" % (DA3R_T_END_MIN, DA3R_T_END_MAX))
+    k = int(opt.get("ckpt", DA3R_CKPT))
+    wl = float(opt.get("wall", 1700.0))
+    c0 = json.load(open(os.path.join(rd0, "cfg.json"), encoding="utf8"))
+    c = copy.deepcopy(c0)
+    for k_ in ("hip_sha256", "module_shas_at_chain_start", "precheck", "f_resume_est"):
+        c.pop(k_, None)
+    f_from = k + 1
+    f_end = int(GC.frames_for(0.0, t_end))
+    t_from = (f_from - 1) / 24.0
+    rid = "DA3r_SC37y30_T12H7p5_dp0p5_c%04d_t%s" % (k, GC.tag(t_end))
+    off, off_src = da3r_still_offset(rd0, f_from)
+    ck_src = os.path.join(rd0, "ckpt", "v.%04d.sim" % k).replace("\\", "/")
+    c.update(run_id=rid, out_root="runs", f_start=f_from, f_first=f_from, f_end=f_end, t_end_s=t_end, still_offset_m=off,
+             ckpt_on=1, ckpt_every=DA3R_CKPT_EVERY, ckpt_list=[DA3R_CKPT_EVERY, DA3R_CKPT_EVERY // 2], wall_limit_s=min(wl, 1740.0),
+             max_hours=DA3R_MAX_H, limit_h_run=DA3R_MAX_H, pstats_frames=[f_from, f_end])
+    c["records"]["r4"]["every"] = 1
+    c["records"]["r5"]["every"] = 1
+    c["records"]["windows"] = [[t_from, t_end]]
+    case = c["case"]
+    for k_ in ("continuation_of", "renamed_from", "windows_source", "heavy_rule", "follow_up"):
+        case.pop(k_, None)
+    case.update(queue_id="DA3r", judged=False, label="re-record of DA3 for playback: same physics, every-frame surface records",
+                restart_of=DA3_RUN_A, restart_ckpt_frame=k, windows_source="every frame %d-%d (R4, R5; hf, r2, r3 as DA3)" % (f_from, f_end),
+                why="DA3 R5 exists only every 3rd frame (8 records/s), so the FLIP3D loop playback steps (Docs/Progress/FLIP3D_Playback_ja.md 5, 6)")
+    c["restart"] = dict(src_run=DA3_RUN_A, src_dir=rd0.replace("\\", "/"), ckpt_frame=k, ckpt_t_s=(k - 1) / 24.0, ckpt_file=ck_src,
+                        ckpt_bytes=os.path.getsize(ck_src) if os.path.exists(ck_src) else None, loop_window_s=list(DA3R_LOOP_S),
+                        still_offset_m=off, still_offset_source=off_src,
+                        seed="py -3.10 -B Tools/GWWaveGen/flip49/g49_restart.py seed <cfg>: copies v.%04d.sim, volcorr/ref.json, volcorr/state.jsonl rows f <= %d, "
+                             "volcorr/vd_%05d.txt and vd_%05d.txt into the new run folder (DA3 folder is read only)" % (k, k, k, k + 1),
+                        compare="py -3.10 -B Tools/GWWaveGen/flip49/g49_restart.py compare <cfg>")
+    c["note"] = ("FLIP49 DA3r（2026-10-16、FLIP3D の再生のための記録し直し、判定しない）：DA3 の途中保存 v.%04d（%.3f s）から、DA3 と同じ設定のまま "
+                 "%.3f〜%g s（コマ %d〜%d）を計算し直し、面（R5）と R4 を毎コマ書く（DA3 は 3 コマおき）。新しい置き場所 runs/%s。形は変えない（物理だけ）。"
+                 "1 回の起動は %.0f s 以内、途中保存は %d コマごと" % (k, (k - 1) / 24.0, t_from, t_end, f_from, f_end, rid, c["wall_limit_s"], DA3R_CKPT_EVERY))
+    pc = precheck(c)
+    ck = pc["checks"]
+    others = [os.path.getsize(p) for p in glob.glob(os.path.join(rd0, "ckpt", "v.*.sim"))]
+    ck["DA3r_ckpt_exists_full_size"] = bool(os.path.exists(ck_src) and others and os.path.getsize(ck_src) >= 0.5 * float(np.median(others)))
+    f_loop = int(GC.frames_for(0.0, DA3R_LOOP_S[0]))
+    ck["DA3r_ckpt_le_loop_start"] = bool(k <= f_loop - 1)
+    launch_cfgs = sorted(glob.glob(os.path.join(rd0, "cfg_c*.json")))
+    same = []
+    for p in [os.path.join(rd0, "cfg.json")] + launch_cfgs:
+        q = json.load(open(p, encoding="utf8"))
+        same.append(all(q.get(kk) == c.get(kk) for kk in DA3R_PHYS_KEYS))
+    ck["DA3r_physics_same_as_DA3_all_launches"] = bool(same and all(same))
+    hip_now = GC.sha256_file(GC.HIP)
+    ck["DA3r_hip_same_as_DA3"] = bool(hip_now == c0.get("hip_sha256"))
+    m_now, m_da3 = GC.module_shas(), (c0.get("module_shas_at_chain_start") or {})
+    ck["DA3r_runtime_modules_same_as_DA3"] = bool(all(m_now.get(kk) == m_da3.get(kk) and m_now.get(kk) for kk in DA3R_RUNTIME_MODULES))
+    out_dir = os.path.abspath(os.path.join(GC.B49, c["out_root"], rid)).replace("\\", "/").lower()
+    ck["DA3r_new_folder_not_DA3"] = bool(rid != DA3_RUN_A and out_dir != os.path.abspath(rd0).replace("\\", "/").lower())
+    ck["DA3r_records_every_frame"] = bool(int(c["records"]["r5"]["every"]) == 1 and int(c["records"]["r4"]["every"]) == 1
+                                          and heavy_frames(c, f_from) == f_end - f_from + 1)
+    ck["DA3r_t_end_covers_loop"] = bool(t_end >= DA3R_T_END_MIN - 1e-9 and t_end >= DA3R_LOOP_S[1] + 0.25 - 1e-9)
+    ck["DA3r_one_launch_le_29min"] = bool(float(c["wall_limit_s"]) <= 1740.0)
+    ck["DA3r_still_offset_from_DA3"] = bool(off is not None)
+    vdir = os.path.join(rd0, "volcorr")
+    rows = set()
+    if os.path.exists(os.path.join(vdir, "state.jsonl")):
+        for ln in open(os.path.join(vdir, "state.jsonl"), encoding="utf8"):
+            try:
+                rows.add(int(json.loads(ln)["f"]))
+            except Exception:
+                pass
+    nT = int(round(GC.T_WAVE * 24))
+    ck["DA3r_volcorr_state_ready"] = bool(os.path.exists(os.path.join(vdir, "ref.json")) and os.path.exists(os.path.join(vdir, "vd_%05d.txt" % f_from))
+                                          and all(f_ in rows for f_ in range(k - nT + 1, k + 1)))
+    est = da3r_cost(rd0, f_from, f_end, float(c["wall_limit_s"]), DA3R_CKPT_EVERY)
+    pc["DA3r"] = dict(cost_measured=est, hip_sha256=hip_now, runtime_modules=list(DA3R_RUNTIME_MODULES), physics_keys=list(DA3R_PHYS_KEYS),
+                      launch_cfgs_compared=[os.path.basename(p) for p in launch_cfgs], loop_frames=[f_loop, int(GC.frames_for(0.0, DA3R_LOOP_S[1]))],
+                      tags=dict(cost_measured="測定 × 計算", physics="DA3 の cfg と同じ（確かめ）"))
+    ck["DA3r_measured_est_le_max_hours"] = bool(est.get("total_h") is not None and est["total_h"] <= DA3R_MAX_H)
+    pc["ok"] = bool(all(ck.values()))
+    pc["reason"] = None if pc["ok"] else "外れ：" + ", ".join(kk for kk, v in ck.items() if not v)
+    c["precheck"] = pc
     return c
 
 

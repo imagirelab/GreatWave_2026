@@ -2,6 +2,9 @@
 """FLIP3D：Unity が画面外に描いた連番（capture/<seat|print|move>/frame_*.jpg と frames.csv）に字と時の帯を足し、24 fps の mp4 にする（py -3.10 -B、PIL・ffmpeg）。
 2026-10-16 進行役（Claude）が新しく書いた。絵（Unity の描画）そのものは変えず、上に字の帯、下に繰り返しの中の時刻の帯を重ねるだけ。
 使い方：py -3.10 -B f3d_video.py [seat print move]   → Unity/Build/FLIP3D/video/FLIP3D_DA3_k5_<名前>.mp4 と _sheet.jpg
+2026-10-16 追記（--r24）：毎コマの記録 DA3r の 24 個/s のクリップの連番（capture24/<seat|print|move|seat3>）から
+  video/FLIP3D_DA3r_k5_r24_<名前>.mp4 を作る。継ぎ目の数は f3d_loop24.py の loop24/loop24_ana.json。--crf <値>（既定 18）。
+  py -3.10 -B f3d_video.py --r24 seat print move seat3
 """
 import os, sys, csv, json, subprocess, shutil
 import numpy as np
@@ -15,7 +18,9 @@ CAP = C.OUT + "/capture"
 VID = C.OUT + "/video"
 FONT = "C:/Windows/Fonts/NotoSansJP-VF.ttf"
 NAMES = {"seat": "船の座席から（繰り返し 1 回 12 s）", "print": "原画の視点から（真ん中の断面を横から。繰り返し 1 回 12 s）",
-         "move": "座席 → 原画の視点（score3 で原画に最も近い瞬間に着き 2 s 止める）"}
+         "move": "座席 → 原画の視点（score3 で原画に最も近い瞬間に着き 2 s 止める）", "seat3": "船の座席から（繰り返し 3 回 36 s）"}
+R24 = False
+CRF = "18"
 
 
 def F(s):
@@ -23,11 +28,11 @@ def F(s):
 
 
 def compose(name):
-    d = CAP + "/" + name
+    d = (C.OUT + "/capture24" if R24 else CAP) + "/" + name
     rows = list(csv.DictReader(open(d + "/frames.csv", encoding="utf8")))
     cap = json.load(open(d + "/capture.json", encoding="utf8"))
-    man = json.load(open(C.OUT + "/clip_DA3_k5/manifest.json", encoding="utf8"))
-    ana = json.load(open(C.OUT + "/loop/loop_ana.json", encoding="utf8"))
+    man = json.load(open(C.OUT + ("/clip_DA3r_k5_r24" if R24 else "/clip_DA3_k5") + "/manifest.json", encoding="utf8"))
+    prefix = "FLIP3D_DA3r_k5_r24_" if R24 else "FLIP3D_DA3_k5_"
     L = man["loop_seconds"]
     pp = man["print_record_index"] / man["record_fps"]
     tmp = VID + "/_frames_" + name
@@ -43,6 +48,16 @@ def compose(name):
     line3 = ("計算にない物：水槽の外の平らな海・霧・空・水の色。継ぎ目（%.3f s の次に %.2f s に戻る）の見える跳び：面の距離 中央値 %.2f m・p95 %.2f m"
              "（窓の中のふつうの 0.125 s の 1 歩は p95 %.2f〜%.2f m）。1 歩より大きい"
              % (sj["jump"]["t"][0], sj["jump"]["t"][1], jm["median"], jm["p95"], ss["mesh_p95_min"], ss["mesh_p95_max"]))
+    if R24:
+        # 毎コマの記録（DA3r）。継ぎ目は f3d_loop24.py の見える跳び（最後の記録 → 最初の記録）を、上の水面の高さの差 Δη の RMS と面どうしの距離で書く
+        l4 = json.load(open(C.OUT + "/loop24/loop24_ana.json", encoding="utf8"))["chosen"]
+        j4, s4 = l4["jump"], l4["steps_summary"]
+        line2 = ("面の記録は 24 個/s（計算の毎コマ。DA3 を途中保存から同じ物理で計算し直した DA3r）を 1 フレームずつ実時間で見せる。コマの間の形は作らない。"
+                 "全幅と並びは計算の対称の面・壁の仮定で写した")
+        line3 = ("計算にない物：外の平らな海・霧・空・水の色。継ぎ目（%.3f s → %.2f s）の見える跳び：Δη の RMS %.2f m・面の距離 p95 %.2f m。"
+                 "窓の中のふつうの 1/24 s の 1 歩は中央値 %.2f m・%.2f m（最大 %.2f m・%.2f m）"
+                 % (j4["t"][0], j4["t"][1], j4["eta_break"]["rms"], j4["mesh_nn"]["p95"], s4["eta_rms_median"], s4["nn_p95_median"],
+                    s4["eta_rms_max"], s4["nn_p95_max"]))
     sheet_idx = []
     for i, r in enumerate(rows):
         im = Image.open(d + "/frame_%05d.jpg" % i).convert("RGB")
@@ -61,7 +76,10 @@ def compose(name):
         if name == "move":
             st += "　カメラ：" + ("座席" if bl <= 0 else ("原画の視点" if bl >= 1 else "動いている %.0f %%" % (bl * 100)))
         if rec == man["print_record_index"]:
-            st += "　★ score3 で原画に最も近い瞬間（k5、score3 %.3f。計算のコマ %d、記録はその 1 コマ前）" % (man["print_score3"], man["print_bestframes_frame"])
+            if man["print_record_frame"] == man["print_bestframes_frame"]:
+                st += "　★ score3 で原画に最も近い瞬間（k5、score3 %.3f。計算のコマ %d そのもの）" % (man["print_score3"], man["print_bestframes_frame"])
+            else:
+                st += "　★ score3 で原画に最も近い瞬間（k5、score3 %.3f。計算のコマ %d、記録はその 1 コマ前）" % (man["print_score3"], man["print_bestframes_frame"])
         if frz:
             st += "　止め（再生の時計だけを止めた）"
         # 下の帯：繰り返しの中の時刻
@@ -79,8 +97,8 @@ def compose(name):
         dr.ellipse([X(ph) - 7, y + 11, X(ph) + 7, y + 25], fill=(255, 255, 255))
         im.convert("RGB").save(tmp + "/f_%05d.jpg" % i, quality=92)
     n = len(rows)
-    out = VID + "/FLIP3D_DA3_k5_%s.mp4" % name
-    cmd = [C.FFMPEG, "-y", "-loglevel", "error", "-framerate", "24", "-i", tmp + "/f_%05d.jpg", "-c:v", "libx264", "-pix_fmt", "yuv420p", "-crf", "18",
+    out = VID + "/" + prefix + "%s.mp4" % name
+    cmd = [C.FFMPEG, "-y", "-loglevel", "error", "-framerate", "24", "-i", tmp + "/f_%05d.jpg", "-c:v", "libx264", "-pix_fmt", "yuv420p", "-crf", CRF,
            "-preset", "medium", "-movflags", "+faststart", out]
     subprocess.run(cmd, check=True)
     # 一覧の絵（8 枚）
@@ -89,7 +107,7 @@ def compose(name):
     S = Image.new("RGB", (1280, 360 * ((len(ims) + 1) // 2)))
     for j, a in enumerate(ims):
         S.paste(a, ((j % 2) * 640, (j // 2) * 360))
-    S.save(VID + "/FLIP3D_DA3_k5_%s_sheet.jpg" % name, quality=90)
+    S.save(VID + "/" + prefix + "%s_sheet.jpg" % name, quality=90)
     shutil.rmtree(tmp, ignore_errors=True)
     return dict(name=name, mp4=out, frames=n, seconds=n / 24.0, bytes=os.path.getsize(out))
 
@@ -100,6 +118,13 @@ if __name__ == "__main__":
     except Exception:
         pass
     os.makedirs(VID, exist_ok=True)
-    names = sys.argv[1:] or ["seat", "print", "move"]
+    args = sys.argv[1:]
+    if "--r24" in args:
+        R24 = True
+        args.remove("--r24")
+    if "--crf" in args:
+        CRF = args[args.index("--crf") + 1]
+        del args[args.index("--crf"):args.index("--crf") + 2]
+    names = args or ["seat", "print", "move"]
     res = [compose(nm) for nm in names]
     print(json.dumps(res, ensure_ascii=False, indent=1))

@@ -27,6 +27,7 @@ namespace GreatWave.FLIP3D
             public bool isDebugBuild, frameTimingAvailable;
             public int screenWidth, screenHeight, vSyncCount, targetFrameRate, loops, frames, recordSwaps, tilesPerSide;
             public double warmSeconds, measuredSeconds, loadSeconds, clipMB;
+            public double recordFps; public string dataDir;            // 2026-10-16 追記：24 個/s と 8 個/s のどちらのクリップか
             public double[] dtMs, swapMs, cpuMs, gpuMs; public int[] record;
             public Summary dt, swap, swapFramesOnly, cpu, gpu;
             public string noteJa;
@@ -100,6 +101,7 @@ namespace GreatWave.FLIP3D
                 vSyncCount = QualitySettings.vSyncCount, targetFrameRate = Application.targetFrameRate, loops = loops, frames = lDt.Count,
                 recordSwaps = swaps, tilesPerSide = player.tilesPerSide, warmSeconds = warm, measuredSeconds = now - t0Meas,
                 loadSeconds = player.Clip.LoadSeconds, clipMB = player.Clip.ClipBytes / 1e6,
+                recordFps = player.Clip.Manifest.record_fps, dataDir = player.CurrentDataDir,
                 dtMs = lDt.ToArray(), swapMs = lSwap.ToArray(), cpuMs = lCpu.ToArray(), gpuMs = lGpu.ToArray(), record = lRec.ToArray(),
                 dt = Sum(lDt), swap = Sum(lSwap), swapFramesOnly = Sum(lSwapOnly), cpu = Sum(lCpu), gpu = Sum(lGpu),
                 noteJa = "垂直同期なし。dt は Time.unscaledDeltaTime。swap は見せる記録の Mesh を入れ替える主スレッドの時間（入れ替えたフレームだけの集計は swapFramesOnly）。"
