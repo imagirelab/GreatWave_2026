@@ -51,6 +51,10 @@
   py -3.10 -B g49_pcfg.py cfg BS0|BS1                       DA3 の尾根の軸の 2D の板：S0 = DA3 の波（T 12 s・H 7.5 m）、S1 = 代わりの波（H 10.7 m、q 0.92、
                                               砕けの段だけの試し。波としては見せない）。段 C・箱 442 m・120 s。判定は巻き始め 45〜80 s
   py -3.10 -B g49_pcfg.py cfg BX1                           G1 が通った後だけ（今は止まりの文を出す）
+  2026-10-16 campaign B の 2 回目（利用者の Q77、plan/plan_B2_frozen.json、g49_planB.py。ほかの preset の cfg は 1 byte も変えない）：
+  py -3.10 -B g49_pcfg.py freezeB2 [--force=1 --reason=…]  plan/plan_B2_frozen.json（＋ .sha256）。plan B2 の計算の記録があれば凍らせ直さない
+  py -3.10 -B g49_pcfg.py cfg BS2|BS3                       急な段の板：S2 = S0 の海底だけを段（1:10 で 17 → 13 m、その先 1:3 で 1.7 m の棚）に、
+                                              S3 = S1（代わりの波）の海底だけを同じ段に。段 C・箱 442 m・120 s。判定は巻き始め 45〜80 s
   check は方案 A の確かめ（T0A：C3 をずらした海底と 1 bit 同じ・u3 と同じ・勾配・形・箱と粒子の数・in_gain・SMOKE_A と DA1 の precheck）も行う
   py -3.10 -B g49_pcfg.py gain <S0b の記録>    S0b の門（plan_frozen.json の strip_gates.S0b）を当てはめ、通れば plan/in_gain.json を書く。
                                               外れなら次の手（in_gain を 7.5/H にして 1 回走らせ直す・帯 120 m・止める）を画面に出す
@@ -479,6 +483,9 @@ def precheck(c):
     if (c.get("case") or {}).get("plan_frozen") == "Unity/Build/FLIP49/plan/plan_B_frozen.json":   # campaign B の cfg だけ（g49_planB.precheck_B）
         import g49_planB as PB_
         return PB_.precheck_B(c)
+    if (c.get("case") or {}).get("plan_frozen") == "Unity/Build/FLIP49/plan/plan_B2_frozen.json":  # campaign B の 2 回目の cfg だけ（g49_planB.precheck_B2）
+        import g49_planB as PB_
+        return PB_.precheck_B2(c)
     P = c["parms"]; spec = GC.bed_spec(c)
     out = dict(checks={}, tags=dict(particles="計算（numpy、場面と同じ決まり）", wall="計算（FLIP48 の測定の係数から）"))
     ck = out["checks"]
@@ -871,10 +878,10 @@ def _preset(name, opt):
         return [preset_probe025(opt)]
     if name == "DA3r":
         return [preset_DA3r(opt)]
-    if name in ("BS0", "BS1", "BX1"):          # 2026-10-16 campaign B（plan_B_frozen.json、g49_planB.py）。ほかの preset の cfg は 1 byte も変えない
+    if name in ("BS0", "BS1", "BX1", "BS2", "BS3"):   # 2026-10-16 campaign B（plan_B_frozen.json、BS2・BS3 は plan_B2_frozen.json、g49_planB.py）。ほかの preset の cfg は 1 byte も変えない
         import g49_planB as PB_
         return PB_.preset_B(name, opt)
-    raise SystemExit("cfg は S0a・S0b・S1・S2・S3・D0・D1・D2・D3・Z0・SMOKE・SMOKE_A・DA1・DA2・DA3・DA3c・PROBE025・DA3r・BS0・BS1")
+    raise SystemExit("cfg は S0a・S0b・S1・S2・S3・D0・D1・D2・D3・Z0・SMOKE・SMOKE_A・DA1・DA2・DA3・DA3c・PROBE025・DA3r・BS0・BS1・BS2・BS3")
 
 
 def preset_A(name, opt):
@@ -1616,6 +1623,9 @@ if __name__ == "__main__":
     elif pos[0] == "freezeB":
         import g49_planB as PB_
         print(PB_.freeze_B(force=bool(int(opt.get("force", "0"))), reason=opt.get("reason")))
+    elif pos[0] == "freezeB2":
+        import g49_planB as PB_
+        print(PB_.freeze_B2(force=bool(int(opt.get("force", "0"))), reason=opt.get("reason")))
     elif pos[0] == "gain":
         gain(os.path.abspath(pos[1]))
     elif pos[0] == "cfg":
