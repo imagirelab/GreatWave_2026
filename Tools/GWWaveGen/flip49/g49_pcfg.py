@@ -123,6 +123,9 @@ DA3R_T_END_MIN = 89.5                       # これより短くは書かない�
 DA3R_T_END_MAX = 92.0                       # DA3 の面の記録が続けてある終わり（同じコマで比べられる所）
 DA3R_MAX_H = 1.0                            # 1 本の上限（時間）【選び】。見込みは DA3 の測った 1 コマの時間 ＋ 面を毎コマ（下の da3r_cost）
 DA3R_CKPT_EVERY = 24                        # 途中保存の間隔（コマ）：2 回目の起動で計算し直すコマを少なくする【選び】
+DA3R_FULL_T_END_MAX = 140.0                 # --full（2026-10-16、利用者「50〜135 秒を毎コマ記録し、繰り返さずに続けて再生」）：DA3 の続き（DA3c）の終わり 140 s まで
+DA3R_FULL_MAX_H = 6.0                       # --full の 1 本の上限（時間）【選び】：約 2,100 コマ × 約 6.4 s ＋ 起動の重なり
+DA3R_FULL_CKPT_EVERY = 48                   # --full の途中保存の間隔（コマ）：置き場所を抑える（1 個約 0.2 GB）【選び】
 DA3R_PHYS_KEYS = ("kind", "layout", "stage", "parms", "sf", "wave", "drift", "solver", "box", "bed", "gauges", "level_regions", "level_box",
                   "level_guard_m", "sf_check", "n1_x", "n1_window", "shore_x", "fieldbox_frames", "analysis")   # DA3 と 1 つも違えない物
 DA3R_RUNTIME_MODULES = ("flip49/g49_common.py", "flip49/g49_tanklib.py", "flip49/g49_run.py", "flip49/g49_build_tank.py", "flip49/g49_chain.py",
@@ -1153,10 +1156,14 @@ def preset_DA3r(opt):
     走った後に `g49_restart.py compare <cfg>` が DA3 の 3 コマおきの記録と同じコマで比べる（同じに戻るかの確かめ）。
     --ckpt=<コマ>：別の途中保存（窓の始め以前の物だけ ok）。--t_end=<s>：終わり。--wall=<s>：1 回の起動の上限（既定 1700 s、1740 s まで）。"""
     rd0 = os.path.join(GC.B49, "runs", DA3_RUN_A)
+    full = bool(opt.get("full"))
     t_end = float(opt.get("t_end", DA3R_T_END))
-    if not (DA3R_T_END_MIN - 1e-9 <= t_end <= DA3R_T_END_MAX + 1e-9):
-        raise SystemExit("DA3r の t_end は %g〜%g s（1 周期 ＋ 余り、DA3 の面の記録が続けてある所まで）" % (DA3R_T_END_MIN, DA3R_T_END_MAX))
+    t_max = DA3R_FULL_T_END_MAX if full else DA3R_T_END_MAX
+    if not (DA3R_T_END_MIN - 1e-9 <= t_end <= t_max + 1e-9):
+        raise SystemExit("DA3r の t_end は %g〜%g s（1 周期 ＋ 余り、DA3 の面の記録が続けてある所まで。--full は DA3 の続きの終わりまで）" % (DA3R_T_END_MIN, t_max))
     k = int(opt.get("ckpt", DA3R_CKPT))
+    ck_every = DA3R_FULL_CKPT_EVERY if full else DA3R_CKPT_EVERY
+    max_h = DA3R_FULL_MAX_H if full else DA3R_MAX_H
     wl = float(opt.get("wall", 1700.0))
     c0 = json.load(open(os.path.join(rd0, "cfg.json"), encoding="utf8"))
     c = copy.deepcopy(c0)
@@ -1165,12 +1172,12 @@ def preset_DA3r(opt):
     f_from = k + 1
     f_end = int(GC.frames_for(0.0, t_end))
     t_from = (f_from - 1) / 24.0
-    rid = "DA3r_SC37y30_T12H7p5_dp0p5_c%04d_t%s" % (k, GC.tag(t_end))
+    rid = "DA3r_SC37y30_T12H7p5_dp0p5_c%04d_t%s" % (k, GC.tag(t_end)) + ("_full" if full else "")
     off, off_src = da3r_still_offset(rd0, f_from)
     ck_src = os.path.join(rd0, "ckpt", "v.%04d.sim" % k).replace("\\", "/")
     c.update(run_id=rid, out_root="runs", f_start=f_from, f_first=f_from, f_end=f_end, t_end_s=t_end, still_offset_m=off,
-             ckpt_on=1, ckpt_every=DA3R_CKPT_EVERY, ckpt_list=[DA3R_CKPT_EVERY, DA3R_CKPT_EVERY // 2], wall_limit_s=min(wl, 1740.0),
-             max_hours=DA3R_MAX_H, limit_h_run=DA3R_MAX_H, pstats_frames=[f_from, f_end])
+             ckpt_on=1, ckpt_every=ck_every, ckpt_list=[ck_every, ck_every // 2], wall_limit_s=min(wl, 1740.0),
+             max_hours=max_h, limit_h_run=max_h, pstats_frames=[f_from, f_end])
     c["records"]["r4"]["every"] = 1
     c["records"]["r5"]["every"] = 1
     c["records"]["windows"] = [[t_from, t_end]]
@@ -1195,6 +1202,9 @@ def preset_DA3r(opt):
     ck["DA3r_ckpt_exists_full_size"] = bool(os.path.exists(ck_src) and others and os.path.getsize(ck_src) >= 0.5 * float(np.median(others)))
     f_loop = int(GC.frames_for(0.0, DA3R_LOOP_S[0]))
     ck["DA3r_ckpt_le_loop_start"] = bool(k <= f_loop - 1)
+    if full:                          # --full：繰り返しの窓ではなく、判定した崩れ k2〜k9（巻き始め 50.79〜134.42 s）の全部を毎コマ
+        case.update(label="re-record of DA3 for continuous playback (no loop): same physics, every-frame surface records",
+                    why="user 2026-10-16: re-record 50-135 s (8 breakers) every frame and play continuously in Unity without looping (no seam)")
     launch_cfgs = sorted(glob.glob(os.path.join(rd0, "cfg_c*.json")))
     same = []
     for p in [os.path.join(rd0, "cfg.json")] + launch_cfgs:
@@ -1223,11 +1233,11 @@ def preset_DA3r(opt):
     nT = int(round(GC.T_WAVE * 24))
     ck["DA3r_volcorr_state_ready"] = bool(os.path.exists(os.path.join(vdir, "ref.json")) and os.path.exists(os.path.join(vdir, "vd_%05d.txt" % f_from))
                                           and all(f_ in rows for f_ in range(k - nT + 1, k + 1)))
-    est = da3r_cost(rd0, f_from, f_end, float(c["wall_limit_s"]), DA3R_CKPT_EVERY)
+    est = da3r_cost(rd0, f_from, f_end, float(c["wall_limit_s"]), ck_every)
     pc["DA3r"] = dict(cost_measured=est, hip_sha256=hip_now, runtime_modules=list(DA3R_RUNTIME_MODULES), physics_keys=list(DA3R_PHYS_KEYS),
                       launch_cfgs_compared=[os.path.basename(p) for p in launch_cfgs], loop_frames=[f_loop, int(GC.frames_for(0.0, DA3R_LOOP_S[1]))],
                       tags=dict(cost_measured="測定 × 計算", physics="DA3 の cfg と同じ（確かめ）"))
-    ck["DA3r_measured_est_le_max_hours"] = bool(est.get("total_h") is not None and est["total_h"] <= DA3R_MAX_H)
+    ck["DA3r_measured_est_le_max_hours"] = bool(est.get("total_h") is not None and est["total_h"] <= max_h)
     pc["ok"] = bool(all(ck.values()))
     pc["reason"] = None if pc["ok"] else "外れ：" + ", ".join(kk for kk, v in ck.items() if not v)
     c["precheck"] = pc

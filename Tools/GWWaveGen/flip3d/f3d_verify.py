@@ -10,6 +10,14 @@
   クリップ（clip_DA3r_k5_r24）も同じ決まりで確かめる。V2 の「各記録 3 フレーム」は「各記録 24 / record_fps フレーム」と読む（24 個/s なら 1 フレーム）。
   面の記録は manifest の source_run から読む。
   py -3.10 -B f3d_verify.py t2 --clip clip_DA3r_k5_r24 --cap capture24,capture8chk --vdir verify24
+2026-10-16 追記（続けて再生・続けて読む、進行役のサブエージェント）：
+  V2 に連番 cseat・cprint・cmove（続けて再生）を足した：止め以外のフレームで、記録が範囲の初めから 1 つずつ増え、全部の記録を 1 回ずつ見せたか、
+     見せた記録のコマ（frames.csv の sim_frame）が manifest の source_frames と同じか、予定の記録（wanted）を見せたか（画面外の描画は待つので必ず同じ）。
+  V3 は timing/<tag>/ の全部の視点（cseat・s_seat など）。続けて読む時の数（間に合わなかったフレーム・GPU に送った時間・読み・メモリー）も写す。
+  V4（--hash）：manifest の全部の記録を読み直し、SHA-256 が source_sha256 と同じか（GW45LIST1 は記録のファイル、GW45CLP1 はクリップの中の位置）。
+  py -3.10 -B f3d_verify.py <tag> --clip clip_DA3r_f1153_3313 --cap capture_cont --vdir verify_cont --hash
+2026-10-16 確かめで足した：<tag> はコンマで並べられる（V3 を tag ごとに書く）。-f3dtargetfps で上限を付けた時間は、1.5 拍・2 拍を越えた数（over_1p5_beats・over_2_beats）も書く。
+  py -3.10 -B f3d_verify.py t3cont,t3cont_nolabel,t3cap90,t3loop --clip clip_DA3r_f1153_3313 --cap capture_cont --vdir verify_cont --hash
 """
 import os, sys, json, csv
 import numpy as np
@@ -49,7 +57,7 @@ def v1():
 def v2(caps=("capture",)):
     res = {}
     for cap in caps:
-        for name in ("seat", "print", "move", "seat3"):
+        for name in ("seat", "print", "move", "seat3", "cseat", "cprint", "cmove"):
             p = C.OUT + "/%s/%s/frames.csv" % (cap, name)
             if not os.path.exists(p):
                 continue
@@ -79,17 +87,40 @@ def v2(caps=("capture",)):
                 records_shown=int(len(set(rec.tolist()))), print_record_shown=bool((rec == man["print_record_index"]).any()),
                 frozen_frames=int(frz.sum()), frozen_record=(sorted(set(rec[frz > 0].tolist())) if frz.any() else []),
                 frozen_record_eq_print=bool(frz.any() and set(rec[frz > 0].tolist()) == {man["print_record_index"]}))
+            if name.startswith("c"):
+                # 続けて再生：止め以外で記録が 1 つずつ増える・範囲の全部を 1 回ずつ・コマが manifest と同じ・予定の記録を見せた
+                key = name if cap == "capture" else cap + "/" + name
+                nf = rec[frz == 0]
+                steps = np.diff(nf)
+                sf = np.array([int(r["sim_frame"]) for r in rows])
+                want = np.array([int(r["wanted"]) for r in rows])
+                src = man.get("source_frames")
+                moves = cj.get("moves") or []
+                res[key].update(
+                    continuous=True, play_from_sim=cj.get("playFromSim"), play_to_sim=cj.get("playToSim"),
+                    record_first=int(rec[0]), record_last=int(rec[-1]),
+                    nonfrozen_steps_all_plus1=bool(len(steps) == 0 or np.all(steps == 1)),
+                    each_record_once_outside_holds=bool(len(set(nf.tolist())) == len(nf)),
+                    sim_frame_eq_manifest=bool(src is not None and all(src[a] == b for a, b in zip(rec.tolist(), sf.tolist()))),
+                    shown_eq_wanted=bool(np.all(want == rec)),
+                    frozen_records=sorted(set(rec[frz > 0].tolist())),
+                    moves=moves, frozen_records_eq_moves=bool(set(rec[frz > 0].tolist()) == set(m["record"] for m in moves)) if name == "cmove" else None,
+                    seconds=float(cj["seconds"]))
     return res
 
 
 def v3(tag):
     res = {}
     d0 = C.OUT + "/timing/" + tag
-    for m in ("seat", "move", "print", "seat8", "move8"):
-        p = d0 + "/%s.json" % m
-        if not os.path.exists(p):
+    import glob
+    for p in sorted(glob.glob(d0 + "/*.json")):
+        m = os.path.basename(p)[:-5]
+        if m == "run_summary":
             continue
         d = json.load(open(p, encoding="utf-8-sig"))
+        if not d.get("dtMs"):
+            res[m] = dict(error=d.get("streamError"), note=d.get("noteJa"))
+            continue
         dt = np.array(d["dtMs"])
         res[m] = dict(screen="%dx%d" % (d["screenWidth"], d["screenHeight"]), device=d["device"], api=d["graphicsApi"], cpu=d["cpuName"], debug=d["isDebugBuild"],
                       vsync=d["vSyncCount"], frames=d["frames"], seconds=d["measuredSeconds"], record_swaps=d["recordSwaps"], swaps_per_s=d["recordSwaps"] / d["measuredSeconds"],
@@ -98,7 +129,54 @@ def v3(tag):
                       swap_ms_on_swap_frames=dict(p50=d["swapFramesOnly"]["p50"], max=d["swapFramesOnly"]["max"]),
                       over_11_1ms=int((dt > 11.1).sum()), over_16_7ms=int((dt > 16.7).sum()), over_5ms=int((dt > 5).sum()),
                       load_s=d["loadSeconds"], clip_MB=d["clipMB"], tiles=d["tilesPerSide"], record_fps=d.get("recordFps"), data=d.get("dataDir"))
+        tf = d.get("targetFrameRate") or -1
+        if tf > 0:
+            # 2026-10-16 確かめで足した：-f3dtargetfps で上限を付けた時は、どのフレームも約 1/n s なので 11.1 ms 越えの数は意味がない。1.5 拍を越えた数を見る
+            res[m].update(target_fps=tf, beat_ms=1000.0 / tf, over_1p5_beats=int((dt > 1500.0 / tf).sum()), over_2_beats=int((dt > 2000.0 / tf).sum()))
+        if d.get("playback") is not None:
+            res[m].update(playback=d["playback"], clip_kind=d.get("clipKind"), schedule=d.get("schedule"), play=[d.get("playFromSim"), d.get("playLastSim")],
+                          experience_s=d.get("experienceSeconds"), ended=d.get("ended"), streaming=d.get("streaming"))
+        if d.get("streaming"):
+            S = lambda k: dict(n=d[k]["n"], p50=d[k]["p50"], p95=d[k]["p95"], p99=d[k]["p99"], max=d[k]["max"]) if d.get(k) else None
+            res[m].update(ring=d["ring"], split_level=d.get("splitLevel"), index16=d.get("index16"), miss_frames=d["missFrames"], late_records=d["lateRecords"],
+                          records_skipped=d.get("recordsSkipped"), distinct_records_shown=d.get("distinctRecordsShown"), uploads=d["uploads"], upload_ops=d.get("uploadOps"),
+                          urgent_uploads=d["urgentUploads"], upload_ms=S("upload"), dt_on_upload_frames=S("dtOnUploadFrames"), dt_on_other_frames=S("dtOnOtherFrames"),
+                          read_ms=S("readMs"), decode_ms=S("decodeMs"), sha_ms=S("shaMs"), read_MBps_while_reading=d.get("readMBpsWhileReading"),
+                          loader_busy_fraction=d.get("loaderBusyFraction"), records_read=d.get("recordsRead"), bytes_read=d.get("bytesRead"),
+                          sha_checked=d.get("shaChecked"), sha_mismatches=d.get("shaMismatches"), stream_error=d.get("streamError"),
+                          prefill_s=d.get("prefillSeconds"), mem_start=d.get("memStart"), mem_peak=d.get("memPeak"), mem_end=d.get("memEnd"), bench=d.get("bench"))
     return res
+
+
+def v4_hash():
+    """manifest の全部の記録の SHA-256 を読み直して比べる（GW45LIST1 は記録のファイル、GW45CLP1 はクリップの中の位置）。"""
+    import hashlib, struct, time as _t
+    cdir = C.OUT + "/" + CLIP
+    man = json.load(open(cdir + "/manifest.json", encoding="utf8"))
+    t0 = _t.time()
+    shas = man["source_sha256"]
+    ok = 0
+    nbytes = 0
+    if man["format"] == "GW45LIST1":
+        sd = os.path.normpath(os.path.join(cdir, man["stream_dir_rel"])) if man.get("stream_dir_rel") else man["stream_dir"]
+        pat = man.get("stream_pattern") or "s_{0:D5}.gw45s"
+        for i, f in enumerate(man["source_frames"]):
+            b = open(os.path.join(sd, "s_%05d.gw45s" % f), "rb").read()
+            nbytes += len(b)
+            ok += hashlib.sha256(b).hexdigest() == shas[i] and len(b) == man["source_bytes"][i]
+        where = sd
+    else:
+        with open(cdir + "/" + man["clip_file"], "rb") as fh:
+            for i in range(man["frames"]):
+                fh.seek(64 + 16 * i)
+                o, L, _ = struct.unpack("<QII", fh.read(16))
+                fh.seek(o)
+                b = fh.read(L)
+                nbytes += len(b)
+                ok += hashlib.sha256(b).hexdigest() == shas[i]
+        where = cdir + "/" + man["clip_file"]
+    return dict(clip=CLIP, format=man["format"], records=man["frames"], sha_equal=int(ok), all_equal=bool(ok == man["frames"]), bytes=nbytes,
+                seconds=round(_t.time() - t0, 1), where=where)
 
 
 if __name__ == "__main__":
@@ -114,6 +192,10 @@ if __name__ == "__main__":
     CLIP = opt("--clip", CLIP)
     VD = C.OUT + "/" + opt("--vdir", "verify")
     caps = tuple(opt("--cap", "capture").split(","))
-    out = dict(V1_decode=v1(), V2_record_hold=v2(caps), V3_timing=v3(tag))
+    # 2026-10-16 確かめで足した：tag をコンマで並べると、V3 を tag ごとに書く（1 つなら前と同じ形）
+    tags = tag.split(",")
+    out = dict(V1_decode=v1(), V2_record_hold=v2(caps), V3_timing=(v3(tags[0]) if len(tags) == 1 else {t: v3(t) for t in tags}))
+    if "--hash" in a:
+        out["V4_hash"] = v4_hash()
     C.write_json(VD + "/verify_result.json", out)
     print(json.dumps(out, ensure_ascii=False, indent=1))

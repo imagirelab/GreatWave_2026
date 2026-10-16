@@ -5,6 +5,8 @@
 2026-10-16 追記（--r24）：毎コマの記録 DA3r の 24 個/s のクリップの連番（capture24/<seat|print|move|seat3>）から
   video/FLIP3D_DA3r_k5_r24_<名前>.mp4 を作る。継ぎ目の数は f3d_loop24.py の loop24/loop24_ana.json。--crf <値>（既定 18）。
   py -3.10 -B f3d_video.py --r24 seat print move seat3
+2026-10-16 追記（続けて再生）：--cap <連番のフォルダー名> cseat cprint cmove（compose_cont。クリップは連番の capture.json の dataDir）。
+  py -3.10 -B f3d_video.py --cap capture_cont --crf 20 cseat cprint cmove
 """
 import os, sys, csv, json, subprocess, shutil
 import numpy as np
@@ -112,6 +114,95 @@ def compose(name):
     return dict(name=name, mp4=out, frames=n, seconds=n / 24.0, bytes=os.path.getsize(out))
 
 
+# ---------------------------------------------------------------------------------------------------------------------
+# 2026-10-16 追記（続けて再生、進行役のサブエージェント）：連番 cseat・cprint・cmove（FLIP3DBatch の続けて再生）の動画。
+#   py -3.10 -B f3d_video.py --cap <連番のフォルダー名（Unity/Build/FLIP3D の下）> [--crf 20] cseat cprint cmove
+#   クリップは capture.json の dataDir（manifest を読む）。出力 video/FLIP3D_<クリップの名前>_<名前>.mp4。
+#   絵は Unity の描画そのもので、上に字の帯、下に計算の時刻の帯（範囲の全部・崩れごとの原画に最も近い瞬間 ★・予定の着く瞬間）を重ねるだけ。
+# ---------------------------------------------------------------------------------------------------------------------
+CNAMES = {"cseat": "船の座席から（%.0f〜%.0f s を続けて 1 回。繰り返さない）", "cprint": "原画の視点から（真ん中の断面を横から。%.0f〜%.0f s を続けて 1 回）",
+          "cmove": "座席 → 原画の視点（予定の瞬間に着き止める。%.0f〜%.0f s を続けて 1 回）"}
+
+
+def compose_cont(name, capdir):
+    d = C.OUT + "/" + capdir + "/" + name
+    rows = list(csv.DictReader(open(d + "/frames.csv", encoding="utf8")))
+    cap = json.load(open(d + "/capture.json", encoding="utf8"))
+    cdir = cap["dataDir"]
+    man = json.load(open(cdir + "/manifest.json", encoding="utf8"))
+    clipname = os.path.basename(cdir.rstrip("/"))
+    prefix = "FLIP3D_" + (clipname[5:] if clipname.startswith("clip_") else clipname) + "_"
+    fps_r = man["record_fps"]
+    t0, t1 = float(cap["playFromSim"]), float(cap["playToSim"])
+    tlast = t1 - 1.0 / fps_r
+    synth = man.get("clip_kind") == "synthetic_test"
+    brk = [b for b in (man.get("breakers") or []) if t0 <= b["t"] < t1]
+    moves = cap.get("moves") or []
+    tmp = VID + "/_frames_" + capdir.replace("/", "_") + "_" + name
+    shutil.rmtree(tmp, ignore_errors=True)
+    os.makedirs(tmp, exist_ok=True)
+    f1, f2, f3 = F(26), F(19), F(22)
+    title = ("【試験用の合成の列：同じ記録を繰り返し並べた物。継ぎ目がある。本番ではない】" if synth else "") + \
+        "FLIP3D 試作（Unity で実時間に再生）DA3r：周期のうねり T 12 s・H 7.5 m、粒子 0.5 m — " + CNAMES[name] % (t0, tlast)
+    line2 = ("面の記録は 24 個/s（計算の毎コマ。DA3 を途中保存から同じ物理で計算し直した DA3r）を 1 フレームずつ実時間で見せる。%.2f〜%.2f s を続けて 1 回（繰り返さない・継ぎ目なし）。"
+             "コマの間の形は作らない" % (t0, tlast))
+    line3 = "計算にない物：外の平らな海・霧・空・水の色。★ は DA3 の判定（score3）で原画に最も近い瞬間（崩れごと）。全幅と並びは計算の対称の面・壁の仮定で写した"
+    if name == "cmove" and moves:
+        mv = "、".join("%s%.3f s（コマ %d）" % (("k%d " % m["k"]) if m["k"] else "", m["sim_t"], m["frame"]) for m in moves)
+        line3 = ("視点の動き：%s に着く（%.0f s 前から見える動き、着いたら %.0f s 止め、%.0f s 留まり %s）。白い画面は使わない。★ は崩れごとの原画に最も近い瞬間"
+                 % (mv, moves[0]["move"], moves[0]["hold"], moves[0]["stay"], ("%.0f s で座席へ戻る" % moves[0]["back"]) if moves[0]["back"] >= 0 else "戻らない"))
+    sheet = []
+    for i, r in enumerate(rows):
+        im = Image.open(d + "/frame_%05d.jpg" % i).convert("RGB")
+        W, H = im.size
+        ov = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+        dr = ImageDraw.Draw(ov)
+        dr.rectangle([0, 0, W, 112], fill=(0, 0, 0, 150))
+        dr.rectangle([0, H - 96, W, H], fill=(0, 0, 0, 150))
+        im = Image.alpha_composite(im.convert("RGBA"), ov)
+        dr = ImageDraw.Draw(im)
+        dr.text((18, 8), title, font=f1, fill=(255, 255, 255))
+        dr.text((18, 46), line2, font=f2, fill=(225, 225, 225))
+        dr.text((18, 74), line3, font=f2, fill=(225, 225, 225))
+        st_t, rec, frz, bl, sf = float(r["sim_t"]), int(r["record"]), int(r["frozen"]), float(r["blend"]), int(r["sim_frame"])
+        st = "計算の時刻 %.3f s（コマ %d、記録 %d/%d）" % (st_t, sf, rec + 1, man["frames"])
+        if name == "cmove":
+            st += "　カメラ：" + ("座席" if bl <= 0 else ("原画の視点" if bl >= 1 else "動いている %.0f %%" % (bl * 100)))
+        for b in brk:
+            if b["win_first"] <= sf <= b["win_last"]:
+                st += ("　★ 崩れ k%d：score3 で原画に最も近い瞬間（%.3f）" % (b["k"], b["score3"])) if sf == b["frame"] else ("　崩れ k%d" % b["k"])
+        if frz:
+            st += "　止め（再生の時計だけを止めた）"
+        x0, x1, y = 200, W - 30, H - 96
+        dr.text((18, H - 42), st, font=f3, fill=(255, 255, 255))
+        dr.text((18, y + 6), "計算の時刻", font=f2, fill=(220, 220, 220))
+        dr.line([(x0, y + 18), (x1, y + 18)], fill=(200, 200, 200), width=2)
+        X = lambda t: x0 + (t - t0) / max(1e-9, (t1 - t0)) * (x1 - x0)
+        for k in range(int(np.ceil(t0 / 10.0)) * 10, int(t1) + 1, 10):
+            dr.line([(X(k), y + 12), (X(k), y + 24)], fill=(200, 200, 200), width=1)
+            dr.text((X(k) - 14, y + 26), "%d s" % k, font=F(14), fill=(190, 190, 190))
+        for b in brk:
+            dr.line([(X(b["t"]), y + 8), (X(b["t"]), y + 28)], fill=(255, 210, 60), width=2)
+            dr.text((X(b["t"]) - 12, y - 12), "★k%d" % b["k"], font=F(14), fill=(255, 210, 60))
+        for m in moves:
+            dr.line([(X(m["sim_t"]), y + 4), (X(m["sim_t"]), y + 32)], fill=(120, 220, 255), width=4)
+        dr.ellipse([X(st_t) - 7, y + 11, X(st_t) + 7, y + 25], fill=(255, 255, 255))
+        im.convert("RGB").save(tmp + "/f_%05d.jpg" % i, quality=92)
+    n = len(rows)
+    out = VID + "/" + prefix + "%s.mp4" % name
+    cmd = [C.FFMPEG, "-y", "-loglevel", "error", "-framerate", "24", "-i", tmp + "/f_%05d.jpg", "-c:v", "libx264", "-pix_fmt", "yuv420p", "-crf", CRF,
+           "-preset", "medium", "-movflags", "+faststart", out]
+    subprocess.run(cmd, check=True)
+    pick = [int(v) for v in np.linspace(0, n - 1, 8)]
+    ims = [Image.open(tmp + "/f_%05d.jpg" % i).resize((640, 360)) for i in pick]
+    S = Image.new("RGB", (1280, 360 * ((len(ims) + 1) // 2)))
+    for j, a in enumerate(ims):
+        S.paste(a, ((j % 2) * 640, (j // 2) * 360))
+    S.save(VID + "/" + prefix + "%s_sheet.jpg" % name, quality=90)
+    shutil.rmtree(tmp, ignore_errors=True)
+    return dict(name=name, mp4=out, frames=n, seconds=n / 24.0, bytes=os.path.getsize(out), clip=clipname, range=[t0, tlast])
+
+
 if __name__ == "__main__":
     try:
         sys.stdout.reconfigure(encoding="utf-8")
@@ -125,6 +216,10 @@ if __name__ == "__main__":
     if "--crf" in args:
         CRF = args[args.index("--crf") + 1]
         del args[args.index("--crf"):args.index("--crf") + 2]
+    capdir = None
+    if "--cap" in args:
+        capdir = args[args.index("--cap") + 1]
+        del args[args.index("--cap"):args.index("--cap") + 2]
     names = args or ["seat", "print", "move"]
-    res = [compose(nm) for nm in names]
+    res = [compose_cont(nm, capdir or "capture_cont") if nm in CNAMES else compose(nm) for nm in names]
     print(json.dumps(res, ensure_ascii=False, indent=1))
