@@ -89,7 +89,10 @@ def plan_path(cfg):
 
 
 def load_plan(cfg):
-    return json.load(open(plan_path(cfg), encoding="utf8"))
+    d = json.load(open(plan_path(cfg), encoding="utf8"))
+    if "criteria" not in d and "frozen_criteria" in d:       # 2026-10-16 campaign B：plan_B_frozen.json は同じ決まりの塊を frozen_criteria の名で持つ（閾は変えない、読む名前だけ）
+        d["criteria"] = d["frozen_criteria"]
+    return d
 
 
 def quiet_window(cfg):

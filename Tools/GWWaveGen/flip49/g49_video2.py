@@ -146,6 +146,21 @@ class Shared:
         self.hidx = {int(f): i for i, f in enumerate(self.H["frames"])}
         self.frames = [int(f) for f in cx.R2.frames if f >= 2 and int(f) in self.hidx and f in cx.R1.b]
         self.ev = [dict(e, lab="k%d" % int(e["k"])) for e in (self.pa.get("events_found") or [])]
+        # 判定の窓の字。既定は periodic_ana の judged（巻き始め t ≥ 45 s）。2026-10-16 campaign B の 2D の板（cfg の case.judged_onset_window_s、
+        # plan_B_frozen.json judged_breaker_strip）は巻き始め 45〜80 s だけを判定し、後の崩れは報告だけ（礁を越えた水が横へ戻れず水位が上がる
+        # 2D の作り物）。その窓で judged を読み直す（数は変えない。字と表の色だけ）
+        jw = (self.cfg.get("case") or {}).get("judged_onset_window_s")
+        if jw:
+            for e in self.ev:
+                e["judged"] = bool(float(jw[0]) - 1e-9 <= float(e["on_t"]) <= float(jw[1]) + 1e-9)
+            win = "巻き始め %g〜%g s" % (float(jw[0]), float(jw[1]))
+            self.judge_txt = ("判定する（%s）" % win, "判定しない（報告だけ。%s の外）" % win)
+            self.grey_txt = "灰＝判定しない（%s の外、報告だけ）" % win
+            self.judge_head = "判定は真ん中の%s" % win
+        else:
+            self.judge_txt = ("判定する（t ≥ %g s）" % GC.T_JUDGE, "判定しない（入口の立ち上がりの間、t < %g s）" % GC.T_JUDGE)
+            self.grey_txt = "灰＝判定しない（t < %g s）" % GC.T_JUDGE
+            self.judge_head = "判定は真ん中の巻き始め t ≥ %g s" % GC.T_JUDGE
         self.rows = {"k%d" % int(r["k"]): r for r in (self.pa.get("waves") or [])}
         bp = os.path.join(od, "best_frames.json")
         self.bf = json.load(open(bp, encoding="utf8")) if os.path.exists(bp) else {}
@@ -373,6 +388,17 @@ class Compare49(G2.CompareVideo):
         if getattr(r, "end_extended", False):
             self.end_word = "原画に最も近いコマ"
 
+    def _layout(self):
+        super()._layout()
+        # 2026-10-16 campaign B（PER49-B の記録だけ）：頂が 8 m 級で拡大の窓の上 z1 が 10 m の目盛りのすぐ上になると、目盛りの字「10 m」が
+        # 赤い帯の字と重なる（S1 k4 で字の重なりの assert が止めた）。z1 が 10〜13 m の時だけ窓の上を 13 m に上げる（z1 ≤ 10 m では目盛りは
+        # 窓の下から描かれ重ならない）。ほかの記録の並べ方は前と同じ
+        if (self.r.cfg.get("case") or {}).get("campaign") == "PER49-B" and 10.0 < self.z1 < 13.0:
+            self.z1 = 13.0
+            pw_max, ph_max = 1120.0, float(self.zbot - self.zy)
+            self.zoom_w = float(min(80.0, max(40.0, pw_max * (self.z1 - self.z0) / ph_max)))
+            self.zs = min(pw_max / self.zoom_w, ph_max / (self.z1 - self.z0))
+
     # ---- 頭書き
     def head_lines(self):
         r = self.r; S = self.S; c = S.cfg; P = c.get("parms") or {}
@@ -380,8 +406,10 @@ class Compare49(G2.CompareVideo):
         bed = GC.bed_spec(c, parms=P)
         kind = "準 2D の板（半幅 %g m）" % S.Wd if S.strip else "3D の半分の水槽（半幅 %g m、y = 0 は対称の面）" % S.Wd
         e = self.ev
-        judged = "判定する（t ≥ %g s）" % GC.T_JUDGE if e.get("judged") else "判定しない（入口の立ち上がりの間、t < %g s）" % GC.T_JUDGE
+        judged = S.judge_txt[0] if e.get("judged") else S.judge_txt[1]
         l1 = "FLIP49 %s：崩れ %s（%d/%d、%s）の原画との比べ" % (S.rid, r.lab, self.idx + 1, self.n, judged)
+        if (c.get("case") or {}).get("standin"):          # 2026-10-16 campaign B S1：代わりの波（砕けの段だけの試し）。波としては見せない
+            l1 = "【代わりの波 STAND-IN・波としては見せない】" + l1
         coarse = "（粗い。下見なので判定しない）" if not (c.get("case") or {}).get("judged", True) else ""
         l2 = "%s。海底 %s（%s）。入口の帯で規則波 T %s s・H %s m（in_gain %s）。粒子 %.4g m%s" % (
             kind, GC.bed_kind(bed), "方案 A" if c.get("layout") == "A" else "PG12s の並び", _g(w.get("T_s"), "%g"), _g(w.get("H_m"), "%g"),
@@ -671,7 +699,7 @@ def table_panel(dr, S, k_now, box, small=True, rows_bottom=None):
         y += 18 if small else 21
         if y > (rows_bottom if rows_bottom is not None else py1 - 58) - (18 if small else 21):
             break
-    notes = ["灰＝判定しない（t < %g s）、赤＝今の崩れ。P1〜P5 の並び：P1・P2・P3・P4a・P4b・P5（— は板で読まない）" % GC.T_JUDGE,
+    notes = ["%s、赤＝今の崩れ。P1〜P5 の並び：P1・P2・P3・P4a・P4b・P5（— は板で読まない）" % S.grey_txt,
              "c0/横＝P4a、c0/4Hc＝P4b、幅/Hc＝最も巻いた時の巻いた全幅（P3）、弦・唇・覆い＝巻き始め〜着水の最大（P5）",
              "score3・最も近い t＝pana/best_frames.json（凍らせた決まり）。数は AI の読み。原画：弦 64.3°・唇 0.35・覆い 0.186"]
     for i_, s_ in enumerate(notes):
@@ -843,7 +871,8 @@ class Whole:
         S = self.S; c = S.cfg; P = c.get("parms") or {}; w = c.get("wave") or {}
         bed = GC.bed_spec(c, parms=P)
         kind = "準 2D の板（半幅 %g m）" % S.Wd if S.strip else "3D の半分の水槽（半幅 %g m、y = 0 は対称の面）" % S.Wd
-        GV.text_fit(dr, (40, 4), "FLIP49 %s：計算の全部（%s 倍の早送り、原画に最も近いコマで %g s 止めて赤い枠）" % (S.rid, _g(self.speed, "%g"), self.hold), 1430, 22, True)
+        GV.text_fit(dr, (40, 4), ("【代わりの波 STAND-IN・波としては見せない】" if (c.get("case") or {}).get("standin") else "") +
+                    "FLIP49 %s：計算の全部（%s 倍の早送り、原画に最も近いコマで %g s 止めて赤い枠）" % (S.rid, _g(self.speed, "%g"), self.hold), 1430, 22, True)
         GV.text_fit(dr, (40, 34), "%s。海底 %s（%s）。入口の帯で規則波 T %s s・H %s m。粒子 %.4g m%s。力は重力だけ" % (
             kind, GC.bed_kind(bed), "方案 A" if c.get("layout") == "A" else "PG12s の並び", _g(w.get("T_s"), "%g"), _g(w.get("H_m"), "%g"), S.cx.dp,
             "（粗い。下見なので判定しない）" if not (c.get("case") or {}).get("judged", True) else ""), 1430, 15)
@@ -997,7 +1026,7 @@ class Whole:
             gauge_panel(dr, S, f, (self.PV[0], self.PV[1] - 4, self.PV[2], self.PV[3]), r.lab if r else None, rows=((0.5, "y 0.5 m（板は横に一様）"),))
         else:
             self.plan_view(im, dr, f, r, red)
-        dr.text((self.TB[0], self.TB[1] - 26), "崩れごとの量（判定は真ん中の巻き始め t ≥ %g s。○ 満たす・× 外れ）" % GC.T_JUDGE, fill=TXT, font=font(15, True))
+        dr.text((self.TB[0], self.TB[1] - 26), "崩れごとの量（%s。○ 満たす・× 外れ）" % S.judge_head, fill=TXT, font=font(15, True))
         table_panel(dr, S, r.lab if r else None, self.TB)
         zx0 = self.zoom_x0(f, r)
         self.section_strip(im, dr, f, r, zx0)
