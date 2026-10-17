@@ -24,6 +24,8 @@ namespace GreatWave.FLIP3D.EditorTools
     //       -f3dmovesec・-f3dhold・-f3dstay・-f3dback。長いクリップは続けて読む（FLIP3DStream。画面外の描画では記録が来るまで待つのでコマを落とさない）。
     //       cstills は予定の各動きの着く瞬間とその 3 s 前の静止画。verify は、続けて読んでいる時は輪の読み解き（GPU に送るのと同じ配列）を書く。
     //       -f3dstream で 12 s の窓も続けて読む道で描ける。
+    //   2026-10-17 追記：連番 print3（原画の視点で繰り返し 3 回）・move3（繰り返し 3 回の中で座席 → 原画の視点。MoveLoops、-f3dminseat）。
+    //       視点の値は ApplyPoses のまま。ただし manifest に cam_*（FLIP50 の D の水槽のカメラ）があるクリップはその値（FLIP3DPlayer.ApplyManifestPoses）
     public static class FLIP3DBatch
     {
         public const string Root = "Assets/GreatWave/FLIP3D";
@@ -130,6 +132,7 @@ namespace GreatWave.FLIP3D.EditorTools
             pl.printFovV = 38f;
             pl.seatHold = 4f; pl.moveSeconds = 6f; pl.printHold = 2f; pl.afterSeconds = 6f;
             pl.moveStay = 6f; pl.moveBack = 6f;                // 続けて再生：着いた後に留まる 6 s、座席へ戻る 6 s（2026-10-16 追記）
+            if (pl.Manifest != null) pl.ApplyManifestPoses();  // 2026-10-17 追記：manifest に cam_* があるクリップ（FLIP50 の D）だけ。ないクリップは上の値のまま
         }
 
         static string Arg(string n, string d) => FLIP3DPlayer.Arg(n, d);
@@ -165,6 +168,8 @@ namespace GreatWave.FLIP3D.EditorTools
                 else if (j == "toggle5") Toggle5Check(pl, Path.Combine(outDir, "toggle5"), w, h);
                 else if (j == "print") Sequence(pl, FLIP3DPlayer.Mode.Print, pl.LoopSeconds, Path.Combine(outDir, "print"), w, h, fps);
                 else if (j == "move") Sequence(pl, FLIP3DPlayer.Mode.Move, pl.MoveTotal, Path.Combine(outDir, "move"), w, h, fps);
+                else if (j == "print3") Sequence(pl, FLIP3DPlayer.Mode.Print, 3 * pl.LoopSeconds, Path.Combine(outDir, "print3"), w, h, fps);   // 2026-10-17 追記
+                else if (j == "move3") MoveLoops(pl, 3, Path.Combine(outDir, "move3"), w, h, fps);                                              // 2026-10-17 追記
                 else if (j == "cseat") ContinuousSequence(pl, FLIP3DPlayer.Mode.Seat, Path.Combine(outDir, "cseat"), w, h, fps);
                 else if (j == "cprint") ContinuousSequence(pl, FLIP3DPlayer.Mode.Print, Path.Combine(outDir, "cprint"), w, h, fps);
                 else if (j == "cmove") ContinuousSequence(pl, FLIP3DPlayer.Mode.Move, Path.Combine(outDir, "cmove"), w, h, fps);
@@ -383,6 +388,28 @@ namespace GreatWave.FLIP3D.EditorTools
             pl.ApplyMoveArgs();
             pl.SetPlayback(FLIP3DPlayer.Playback.Loop);
             SequenceFrames(pl, seconds, dir, w, h, fps);
+        }
+
+        // 繰り返しのクリップの動きを loops 回の繰り返しで（2026-10-17 追記。連番 move3）。位相 0（繰り返しの初め）から始め、座席に -f3dminseat（既定 12 s = うねりの
+        // 1 周期。FLIP3DExperience の minSeatSeconds と同じ【選び】）以上いてから moveSeconds で見える動きをし、n 回目の繰り返しの原画に最も近い記録に着いて
+        // printHold だけ止め、loops 回目の終わりまで原画の視点に留まる。プレイヤーの繰り返しの Move の式のまま、seatHold・afterSeconds だけをここで決める：
+        //   n = ceil((minSeat + moveSeconds − 原画の位相) / 周期)（0〜loops − 1）、seatHold = n × 周期 + 原画の位相 − moveSeconds、afterSeconds = loops × 周期 − (n × 周期 + 原画の位相)
+        static void MoveLoops(FLIP3DPlayer pl, int loops, string dir, int w, int h, double fps)
+        {
+            Directory.CreateDirectory(dir);
+            pl.mode = FLIP3DPlayer.Mode.Move;
+            ApplyPoses(pl);
+            pl.ApplyMoveArgs();
+            pl.SetPlayback(FLIP3DPlayer.Playback.Loop);
+            double L = pl.LoopSeconds, P = pl.PrintPhase, minSeat = double.Parse(Arg("-f3dminseat", "12"), IC);
+            int n = Math.Max(0, Math.Min(loops - 1, (int)Math.Ceiling((minSeat + pl.moveSeconds - P) / L - 1e-9)));
+            pl.seatHold = (float)(n * L + P - pl.moveSeconds);
+            pl.afterSeconds = (float)(loops * L - (n * L + P));
+            if (pl.seatHold < 0f || pl.afterSeconds < 0f) throw new InvalidOperationException("move3：座席・後の時間が負（周期・原画の位相・動きの秒を見直す）");
+            Debug.Log(string.Format(IC, "FLIP3D_MOVELOOPS loops={0} n={1} seatHold={2:F3} move={3:F3} hold={4:F3} after={5:F3} total={6:F3} arrive_s={7:F3} print_phase={8:F3}",
+                loops, n, pl.seatHold, pl.moveSeconds, pl.printHold, pl.afterSeconds, pl.MoveTotal, pl.seatHold + pl.moveSeconds, P));
+            SequenceFrames(pl, pl.MoveTotal, dir, w, h, fps);
+            ApplyPoses(pl);
         }
 
         // 続けて再生の連番（2026-10-16 追記）：範囲の初めから終わりまで 1 回。長さは体験の秒（範囲 + cmove の止め）

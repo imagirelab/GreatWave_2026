@@ -49,6 +49,9 @@ namespace GreatWave.FLIP3D
         public double play_from_s, play_to_s;          // 既定の再生の範囲（計算の時刻 s）。0 と 0 なら全部
         public FLIP3DBreaker[] breakers;               // 範囲の中の崩れと、score3 で原画に最も近い瞬間（DA3 の pana/best_frames.json）
         public string breakers_source;
+        // 2026-10-17 追記（FLIP50 の D の水槽のカメラ。flip50g2/f3d50_export_src.py --cams が書く）。前の manifest にない項目は空のまま＝場面の値を使う
+        public float[] cam_seat_look_at, cam_print_pos, cam_print_look_at;
+        public float cam_seat_fov_v, cam_print_fov_v;
 
         public bool IsContinuousKind => clip_kind == "continuous" || clip_kind == "synthetic_test";
 

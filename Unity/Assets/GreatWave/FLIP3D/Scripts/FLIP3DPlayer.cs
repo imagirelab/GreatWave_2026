@@ -223,6 +223,7 @@ namespace GreatWave.FLIP3D
                 bed = Clip.BedMesh;
             }
             CurrentDataDir = dataDir;
+            ApplyManifestPoses();
             if (playbackFromManifest && Manifest.IsContinuousKind) playback = Playback.Continuous;
             var mf = Manifest;
             root = new GameObject("FLIP3D_Runtime").transform;
@@ -275,6 +276,29 @@ namespace GreatWave.FLIP3D
                 RecordCount, LoadSeconds, DataBytes / 1e6, mf.vert_max, mf.tri_max, tilesPerSide, mf.record_fps, dataDir, Streaming, Streaming ? Stream.RingSize : 0,
                 PrefillSeconds, playback, PlayFromSim, PlayToSim, ScheduleText));
         }
+
+        // 2026-10-17 追記：manifest に cam_*（FLIP50 の D の水槽のカメラ。f3d50_export_src.py --cams）があれば、座席の見る点・画角と原画の視点の位置・見る点・画角を
+        // その値にする（座席の位置 seat_x・seat_z・seat_eye_m は前から manifest）。cam_* のない前のクリップでは何も変えない（場面の値のまま）。
+        // Init と FLIP3DBatch.ApplyPoses の終わりで呼ぶ。動き・止めの時間は変えない
+        public bool ApplyManifestPoses()
+        {
+            var mf = Manifest;
+            if (mf == null) return false;
+            bool any = false;
+            if (mf.cam_seat_look_at != null && mf.cam_seat_look_at.Length == 3) { seatLookAt = new Vector3(mf.cam_seat_look_at[0], mf.cam_seat_look_at[1], mf.cam_seat_look_at[2]); any = true; }
+            if (mf.cam_seat_fov_v > 0f) { seatFovV = mf.cam_seat_fov_v; any = true; }
+            if (mf.cam_print_pos != null && mf.cam_print_pos.Length == 3) { printPos = new Vector3(mf.cam_print_pos[0], mf.cam_print_pos[1], mf.cam_print_pos[2]); any = true; }
+            if (mf.cam_print_look_at != null && mf.cam_print_look_at.Length == 3) { printLookAt = new Vector3(mf.cam_print_look_at[0], mf.cam_print_look_at[1], mf.cam_print_look_at[2]); any = true; }
+            if (mf.cam_print_fov_v > 0f) { printFovV = mf.cam_print_fov_v; any = true; }
+            if (any && !posesLogged)
+            {
+                posesLogged = true;
+                Debug.Log(string.Format(CultureInfo.InvariantCulture, "FLIP3D_POSES from manifest seatLookAt={0} seatFovV={1} printPos={2} printLookAt={3} printFovV={4}",
+                    seatLookAt, seatFovV, printPos, printLookAt, printFovV));
+            }
+            return any;
+        }
+        bool posesLogged;
 
         void OnDestroy()
         {
