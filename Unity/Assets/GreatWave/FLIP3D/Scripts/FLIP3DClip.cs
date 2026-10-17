@@ -52,6 +52,9 @@ namespace GreatWave.FLIP3D
         // 2026-10-17 追記（FLIP50 の D の水槽のカメラ。flip50g2/f3d50_export_src.py --cams が書く）。前の manifest にない項目は空のまま＝場面の値を使う
         public float[] cam_seat_look_at, cam_print_pos, cam_print_look_at;
         public float cam_seat_fov_v, cam_print_fov_v;
+        // 2026-10-17 追記（Claude）：水を両面で描く（表示だけ。flip50g2/f3d50_export_src.py --water-double-sided が書く）。記録の面の穴から空が見えるのを、
+        // 穴の向こうの水の裏の面で塞ぐ（FLIP3DPlayer.ApplyWaterSides）。前の manifest にない項目は false＝前と同じ片面
+        public bool water_double_sided;
 
         public bool IsContinuousKind => clip_kind == "continuous" || clip_kind == "synthetic_test";
 

@@ -17,6 +17,9 @@ No file of flip3d, flip50, flip50g or flip50g2 is edited; run folders are read o
         Either way the rule's own free choice on the every-frame records is computed too and written to loop_ana.json (rule_free_every_frame).
   both: --src <source run> (default cfg restart.src_run), --cams <cameras json> (cam50_choose.py output: seat x/z/eye for the heave and
         the seat look / print pose written as manifest cam_* fields; the FLIP3D player uses them when present).
+        2026-10-17 added: --water-double-sided writes water_double_sided: true (+ water_double_sided_ja): the FLIP3D player then draws the
+        water with both sides (DISPLAY ONLY: the back faces seen through the holes of the surface records are drawn as water, with the
+        normal flipped). The clip bytes (clip.gw45c, the records) are the same as without the flag; only the manifest differs.
 
 Manifest additions (only these; everything else is f3d50_export.py's): breakers_source (the source file), pana_source_{run,file,sha256},
 restart_compare_{file,sha256,verdict}, wrapper, wrapper_args, unity_notes_ja (rewritten when cam_* are written), and with --cams:
@@ -170,6 +173,13 @@ def main(a):
             a += ["--seat", "%g,%g" % (seat[0], seat[1])]
         if "--eye" not in a:
             a += ["--eye", "%g" % seat[2]]
+    if "--water-double-sided" in a:                    # 2026-10-17 added: display-only flag for the FLIP3D player (manifest only)
+        drop(a, "--water-double-sided", 1)
+        extra = dict(extra, water_double_sided=True, water_double_sided_ja=(
+            "表示だけ（2026-10-17 追記）：FLIP3D のプレイヤーは水を両面で描く。面の記録には穴がある（面の作り方の決まり surf_layer_m・surf_keep_vox が"
+            "三角形を落とす。水そのものは r4 の SDF ではそこにある）。片面（Cull Back）では穴の向こうの水の裏の面が描かれず、空・海底が見えていた。"
+            "両面では、その裏の面を法線を裏返して表と同じ式で塗る。記録（clip.gw45c）・計算・形は変えない（この項目のないクリップと同じバイト）。"
+            "穴を埋めたのではなく、穴から水の向こう側の面が見えている（穴の縁・向こうの面の明るさの違いは残る）"))
     short = os.path.basename(rr).split("_")[0]
     if kind == "long":
         if "--name" not in a:

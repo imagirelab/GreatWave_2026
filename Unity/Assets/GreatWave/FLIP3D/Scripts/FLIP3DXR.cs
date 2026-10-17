@@ -525,6 +525,8 @@ namespace GreatWave.FLIP3D
                 {
                     x = new Material(sh) { name = m.name + " (XR)" };
                     x.CopyPropertiesFromMaterial(m);
+                    // 2026-10-17 追記：両面の水（manifest の water_double_sided。_GWCull は上で写る）の印も写す（keyword が写るかに頼らない）
+                    if (m.IsKeywordEnabled("GW_WATER_DOUBLE_SIDED")) x.EnableKeyword("GW_WATER_DOUBLE_SIDED");
                     x.renderQueue = m.renderQueue;
                     stereoMats[m] = x;
                 }

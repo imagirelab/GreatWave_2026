@@ -238,6 +238,7 @@ namespace GreatWave.FLIP3D
                 tileOf.Add(Math.Abs(t)); AddWater("Water_t" + t + "_neg", new Vector3(0, 0, zc), -1f);
                 if (bed != null && bedMaterial != null) { var b = AddMesh("Bed_t" + t, bed, bedMaterial, new Vector3(0, 0, zc), Vector3.one); bedTiles.Add((Math.Abs(t), b.gameObject)); }
             }
+            ApplyWaterSides();                                // 2026-10-17 追記：manifest の water_double_sided（ないクリップは何もしない）
             // 水槽の外の平らな海（計算にない）。並べた水槽の周りに 4 枚。並べない時は内側の 2 枚も出す
             if (seaMaterial != null)
             {
@@ -449,6 +450,7 @@ namespace GreatWave.FLIP3D
             DataBytes = c.ClipBytes;
             CurrentDataDir = dir;
             ShownRecord = -1;
+            ApplyWaterSides();                                // 2026-10-17 追記：入れ替えた先の manifest の water_double_sided に合わせる
             BuildTimeline();
             ApplyTime(ExperienceTime);
         }
@@ -476,10 +478,44 @@ namespace GreatWave.FLIP3D
             foreach (var (t, go) in innerSea) go.SetActive(t > tilesPerSide);
         }
 
-        // 確かめ用：水の材質を入れ替える（形は変えない）
+        // 確かめ用：水の材質を入れ替える（形は変えない）。2026-10-17 追記：両面のクリップで waterMaterial に戻す時は両面の写しに戻す
         public void SetWaterMaterial(Material m)
         {
+            if (m != null && m == waterMaterial && WaterDoubleSided) { ApplyWaterSides(); m = waterDsMat; }
             foreach (var f in waterFilters) f.GetComponent<MeshRenderer>().sharedMaterial = m;
+        }
+
+        // 2026-10-17 追記（Claude）：manifest の water_double_sided が true のクリップだけ、水を両面で描く（表示だけ。形・記録は変えない）。
+        // 記録の面には穴がある（面の作り方の決まり surf_layer_m・surf_keep_vox が三角形を落とす。水そのものは r4 の SDF ではそこにある）。片面（Cull Back）では
+        // 穴の向こうの水の裏の面が描かれず、空や海底が見えていた。両面では裏の面を、法線を裏返して表と同じ式で塗る（FLIP3DWater.shader の _GWCull と印 GW_WATER_DOUBLE_SIDED）。
+        // 材質の資産（waterMaterial）は変えず、実行中の写し（保存しない）を水の Renderer にだけ渡す。項目のない前のクリップは前と同じ材質のまま（絵も同じ）。
+        // 実行中に別の道が作った写し（FLIP3DXR の両眼の shader の写し）は、その場で切り替える。材質の色を変えた後（FLIP3DBatch の look）も呼ぶ
+        public bool WaterDoubleSided => Manifest != null && Manifest.water_double_sided;
+        Material waterDsMat;
+        public void ApplyWaterSides()
+        {
+            if (waterMaterial == null) return;
+            bool on = WaterDoubleSided;
+            if (on)
+            {
+                if (waterDsMat == null) waterDsMat = new Material(waterMaterial) { name = waterMaterial.name + " (double-sided)", hideFlags = HideFlags.DontSave };
+                else waterDsMat.CopyPropertiesFromMaterial(waterMaterial);
+                waterDsMat.SetFloat("_GWCull", (float)UnityEngine.Rendering.CullMode.Off);
+                waterDsMat.EnableKeyword("GW_WATER_DOUBLE_SIDED");
+            }
+            foreach (var f in waterFilters)
+            {
+                var r = f.GetComponent<MeshRenderer>();
+                var m = r.sharedMaterial;
+                if (m == null) continue;
+                if (m == waterMaterial || m == waterDsMat) r.sharedMaterial = on ? waterDsMat : waterMaterial;
+                else if (m.HasProperty("_GWCull"))
+                {
+                    m.SetFloat("_GWCull", (float)(on ? UnityEngine.Rendering.CullMode.Off : UnityEngine.Rendering.CullMode.Back));
+                    if (on) m.EnableKeyword("GW_WATER_DOUBLE_SIDED"); else m.DisableKeyword("GW_WATER_DOUBLE_SIDED");
+                }
+            }
+            if (on) Debug.Log("FLIP3D_WATER double-sided (manifest water_double_sided; display only, the records are not changed) renderers=" + waterFilters.Count);
         }
 
         void AddWater(string name, Vector3 offset, float zSign)

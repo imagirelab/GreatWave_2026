@@ -12,6 +12,9 @@ Shader "GreatWave/FLIP3D/Water"
         _SunScale ("Sun scale", Float) = 3.0
         _F0 ("F0", Float) = 0.02
         _Wrap ("Diffuse wrap", Float) = 0.3
+        // 2026-10-17 追記（Claude）：両面の表示（表示だけ。形は変えない）。既定 2 = Back で前と同じ。FLIP3DPlayer が manifest の water_double_sided: true の
+        // クリップの時だけ、実行中に作る材質の写しに 0 = Off と印 GW_WATER_DOUBLE_SIDED を入れる（材質の資産は変えない）
+        [HideInInspector] _GWCull ("Cull (2 back = before; 0 both sides for water_double_sided clips)", Float) = 2
     }
     SubShader
     {
@@ -19,12 +22,13 @@ Shader "GreatWave/FLIP3D/Water"
         Pass
         {
             Tags { "LightMode" = "ForwardBase" }
-            Cull Back
+            Cull [_GWCull]
             ZWrite On
             CGPROGRAM
             #pragma vertex vert
             #pragma fragment frag
             #pragma multi_compile_fog
+            #pragma multi_compile_local _ GW_WATER_DOUBLE_SIDED
             #include "UnityCG.cginc"
             #include "Lighting.cginc"
 
@@ -49,9 +53,17 @@ Shader "GreatWave/FLIP3D/Water"
                 return o;
             }
 
+#ifdef GW_WATER_DOUBLE_SIDED
+            float4 frag (v2f i, fixed facing : VFACE) : SV_Target
+#else
             float4 frag (v2f i) : SV_Target
+#endif
             {
                 float3 n = normalize(i.wn);
+#ifdef GW_WATER_DOUBLE_SIDED
+                // 裏の面（記録の面の穴の向こうに見える、水の向こう側の面）は法線を裏返し、表と同じ式で塗る。印のない時（前の全部のクリップ）はこの行がない
+                n = facing > 0 ? n : -n;
+#endif
                 float3 v = normalize(_WorldSpaceCameraPos - i.wpos);
                 float3 l = normalize(_WorldSpaceLightPos0.xyz);
                 float ndv = saturate(dot(n, v));

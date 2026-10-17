@@ -174,6 +174,7 @@ namespace GreatWave.FLIP3D.EditorTools
                 else if (j == "cprint") ContinuousSequence(pl, FLIP3DPlayer.Mode.Print, Path.Combine(outDir, "cprint"), w, h, fps);
                 else if (j == "cmove") ContinuousSequence(pl, FLIP3DPlayer.Mode.Move, Path.Combine(outDir, "cmove"), w, h, fps);
                 else if (j == "cstills") ContinuousStills(pl, Path.Combine(outDir, "cstills"), w, h);
+                else if (j == "xrcheck") XrShaderCheck(pl, Path.Combine(outDir, "xrcheck"), w, h);                                      // 2026-10-17 追記
                 else Debug.LogWarning("FLIP3D_CAPTURE 知らない仕事：" + j);
             }
             if (pl.Stream != null)
@@ -247,6 +248,7 @@ namespace GreatWave.FLIP3D.EditorTools
                 {
                     mm.SetColor("_Deep", deep); mm.SetColor("_Lit", lit); mm.SetColor("_SkyTop", top); mm.SetColor("_SkyHorizon", hor); mm.SetFloat("_Wrap", wrap);
                 }
+                if (pl.WaterDoubleSided) pl.ApplyWaterSides();   // 2026-10-17 追記：両面のクリップの水の写しにも同じ色を写す
                 if (sun != null) sun.transform.rotation = Quaternion.LookRotation(dir3.normalized, Vector3.up);
                 ApplyPoses(pl);
                 pl.mode = FLIP3DPlayer.Mode.Print; pl.ApplyTime(pp);
@@ -256,6 +258,7 @@ namespace GreatWave.FLIP3D.EditorTools
             }
             m.CopyPropertiesFromMaterial(keep);
             pl.seaMaterial.CopyPropertiesFromMaterial(keep);
+            if (pl.WaterDoubleSided) pl.ApplyWaterSides();
             if (sun != null) sun.transform.rotation = sunRot;
             ApplyPoses(pl);
             Debug.Log("FLIP3D_LOOK done " + dir);
@@ -454,6 +457,54 @@ namespace GreatWave.FLIP3D.EditorTools
             Debug.Log("FLIP3D_CSTILLS done " + dir);
         }
 
+        // 確かめ（2026-10-17 追記、連番 xrcheck）：VR の水の shader の写し（Resources/GreatWaveFLIP3D/FLIP3DWaterXR）を、FLIP3DXR.SwapStereoShaders と同じ写し方
+        // （new Material(XR の shader) → CopyPropertiesFromMaterial → 両面の印）で水に入れ替え、座席の数コマを画面外（単眼）で描いて、PC の水の shader の絵と並べて書く。
+        // 両面のクリップで印と _GWCull が写り、同じ式で描けるかを見る。HMD・両眼の描画では確かめていない。-f3dxrframes 0,21,50（記録の番号）。終わったら材質を戻す
+        static void XrShaderCheck(FLIP3DPlayer pl, string dir, int w, int h)
+        {
+            Directory.CreateDirectory(dir);
+            var sh = Resources.Load<Shader>("GreatWaveFLIP3D/FLIP3DWaterXR");
+            if (sh == null || !sh.isSupported) throw new InvalidOperationException("FLIP3DWaterXR が読めない・使えない");
+            pl.mode = FLIP3DPlayer.Mode.Seat;
+            ApplyPoses(pl);
+            pl.SetPlayback(FLIP3DPlayer.Playback.Loop);
+            var recs = Arg("-f3dxrframes", "0,21,37,50,52").Split(',').Select(s => int.Parse(s, IC)).ToArray();
+            var rows = new StringBuilder("record,sim_frame,shader,keyword,cull,file\n");
+            var keep = new Dictionary<MeshRenderer, Material>();
+            var copies = new Dictionary<Material, Material>();
+            foreach (var r in pl.GetComponentsInChildren<MeshRenderer>(true))
+            {
+                var m = r.sharedMaterial;
+                if (m == null || m.shader == null || m.shader.name != "GreatWave/FLIP3D/Water") continue;
+                keep[r] = m;
+                if (!copies.ContainsKey(m))
+                {
+                    var x = new Material(sh) { name = m.name + " (XR check)", hideFlags = HideFlags.DontSave };
+                    x.CopyPropertiesFromMaterial(m);
+                    if (m.IsKeywordEnabled("GW_WATER_DOUBLE_SIDED")) x.EnableKeyword("GW_WATER_DOUBLE_SIDED");
+                    x.renderQueue = m.renderQueue;
+                    copies[m] = x;
+                }
+            }
+            foreach (var pass in new[] { "pc", "xr" })
+            {
+                if (pass == "xr") foreach (var kv in keep) kv.Key.sharedMaterial = copies[kv.Value];
+                foreach (int rec in recs)
+                {
+                    pl.ApplyTime(rec / pl.Manifest.record_fps);
+                    string file = string.Format(IC, "{0}_rec{1:D3}.png", pass, rec);
+                    Save(pl.cam, w, h, Path.Combine(dir, file), true);
+                    var wm = pl.GetComponentsInChildren<MeshRenderer>(true).Select(r => r.sharedMaterial).First(m => m != null && m.HasProperty("_GWCull"));
+                    rows.AppendLine(string.Format(IC, "{0},{1},{2},{3},{4},{5}", rec, pl.ShownSimFrame, wm.shader.name, wm.IsKeywordEnabled("GW_WATER_DOUBLE_SIDED") ? 1 : 0,
+                        wm.GetFloat("_GWCull"), file));
+                }
+            }
+            foreach (var kv in keep) kv.Key.sharedMaterial = kv.Value;
+            foreach (var x in copies.Values) UnityEngine.Object.DestroyImmediate(x);
+            File.WriteAllText(Path.Combine(dir, "xrcheck.csv"), rows.ToString());
+            Debug.Log("FLIP3D_XRCHECK done " + dir + " shader_messages=" + ShaderUtil.GetShaderMessageCount(sh));
+        }
+
         static void SequenceFrames(FLIP3DPlayer pl, double seconds, string dir, int w, int h, double fps)
         {
             var mode = pl.mode;
@@ -482,13 +533,16 @@ namespace GreatWave.FLIP3D.EditorTools
                 mv.Append(string.Format(IC, "{0}{{\"k\":{1},\"frame\":{2},\"record\":{3},\"sim_t\":{4},\"move\":{5},\"hold\":{6},\"stay\":{7},\"back\":{8}}}",
                     mv.Length > 1 ? "," : "", e.k, e.frame, e.record, mf.t_first + e.c, e.move, e.hold, e.stay, e.back));
             mv.Append("]");
-            File.WriteAllText(Path.Combine(dir, "capture.json"), string.Format(IC,
+            string capJson = string.Format(IC,
                 "{{\"mode\":\"{0}\",\"seconds\":{1},\"fps\":{2},\"frames\":{3},\"size\":\"{4}x{5}\",\"tiles\":{6},\"seatHold\":{7},\"moveSeconds\":{8},\"printHold\":{9},\"afterSeconds\":{10},\"printPhase\":{11},\"printRecord\":{12},\"recordFps\":{13},\"dataDir\":\"{14}\","
                 + "\"playback\":\"{15}\",\"playFromSim\":{16},\"playToSim\":{17},\"clipKind\":\"{18}\",\"streaming\":{19},\"ring\":{20},\"moveStay\":{21},\"moveBack\":{22},\"schedule\":\"{23}\",\"moves\":{24},\"records\":{25}}}",
                 mode, seconds, fps, n, w, h, pl.tilesPerSide, pl.seatHold, pl.moveSeconds, pl.printHold, pl.afterSeconds, pl.PrintPhase, mf.print_record_index,
                 mf.record_fps, (pl.CurrentDataDir ?? "").Replace('\\', '/'),
                 pl.playback, pl.PlayFromSim, pl.PlayToSim, string.IsNullOrEmpty(mf.clip_kind) ? "loop" : mf.clip_kind, pl.Streaming ? "true" : "false",
-                pl.Streaming ? pl.Stream.RingSize : 0, pl.moveStay, pl.moveBack, pl.ScheduleText, mv.ToString(), pl.RecordCount));
+                pl.Streaming ? pl.Stream.RingSize : 0, pl.moveStay, pl.moveBack, pl.ScheduleText, mv.ToString(), pl.RecordCount);
+            // 2026-10-17 追記：両面の水のクリップ（manifest の water_double_sided）だけ項目を足す。前のクリップの capture.json は前と同じバイト
+            if (pl.WaterDoubleSided) capJson = capJson.Substring(0, capJson.Length - 1) + ",\"waterDoubleSided\":true}";
+            File.WriteAllText(Path.Combine(dir, "capture.json"), capJson);
             Debug.Log("FLIP3D_SEQ done " + mode + " " + pl.playback + " frames=" + n + " dir=" + dir);
         }
 
