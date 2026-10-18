@@ -455,3 +455,11 @@ py -3.10 -B Tools/GWWaveGen/flip3d/f3d_verify.py t3cont,t3cont_nolabel,t3cap90,t
 - GPU のメモリーの差（nvidia-smi の全体）：続けて読む +232〜243 MiB、全部を置く 288 個 +871 MiB。
 
 **正直に書く所**：本番の 2,161 個ではまだ走らせていない（記録し直しが止まっている。続けるには進行役が STOP を消して chain を起動し直す）。Play モードのキー入力・PS VR2・32 bit の添字の道・GPU に直に書く道の古い主メモリーの写しは確かめていない。試しの出力（Git の外）：`Unity/Build/FLIP3D/capture_review/`・`verify_review/`・`timing/r1cont`・`timing/r1loop`・`logs/unity_r_build.log`・`logs/unity_r_partial_seq.log`。
+
+## 10. 主役 DFG-2B の続けての再生（2026-10-18、利用者の Q85）【測定】
+
+- 波：DFG-2B（FLIP52B の DFGB2E_D19B_xf272p25_dp0p5。決まりの上は無効：G2f 入口の 5.6 s の層の位相 0.514 rad > 0.35、G6 1 つ目の組の頂が窓の 0.042 s 前。成分のエネルギーは DM1A と同じ Σa² 1.336 m²、水槽に入る力は 0.23 倍）。
+- 記録：v.1152 から 1153〜3001 コマを毎コマ記録し直し（Tools/GWWaveGen/flip52bh/h52b_long.py、_tools/auto_hero2b.py）。元の計算と重なる記録はすべて 1 bit も同じ（hf・r2・r3・水の量 1849/1849、表面 339/339）。
+- Unity：clip_DFGB2Er_f1153_3001_r24_seatA_ds（1849 記録、24 コマ/秒、水は両面描き）。座席 A：x 284、z −20、目の高さ 1.5 m、巻く唇まで 26〜29 m、水面からの余裕 1.34 m 以上。原画の視点：2 つ目の組の pv53 の構図（270.373, 4.001, −71.375）→（265.995, 5.476, 0）、縦の画角 23.5°。
+- 視点の動き：-f3dmoves f2149 -f3dmovesec 6 -f3dhold 2 -f3dstay 2.5 -f3dback 6 -f3dnocrestalign -f3dtiles 0。止める時間は 8 コマ/秒の下見で頂が約 2.5 s で原画の枠から出ると測って 6 s から 2.5 s に縮めた。
+- 確かめ：飛んだ記録 0、白く飛ぶ画 0、原画の視点の画は pv53 と同じ構図。戻る道の 95〜98 s でカメラの柱と水面の余裕が最小 0.26 m（水の中には入らない）。
