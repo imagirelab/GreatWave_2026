@@ -34,7 +34,8 @@ The design (frozen in plan_F55_frozen.json, option C2; the cfgs come from f55_pc
            particles, so frames 1-1055 hold no object; frames 1057-1657 run by the FROZEN g52b3_run.py (g52b3_common.HIP replaced in memory
            by the nest scene; the chain's build check / scene sha by the nest's), so every record (hf, r2, r4, r5, volcorr state, r6) has
            DFG-2B-V's format.
-  bands    x 180-195 (inlet-band rule of DFG-2B-V's VEX bands50: relaxw over the band from x 195) and y 45-60 (side-band rule, generating
+  bands    x 180-195 (inlet-band rule of DFG-2B-V's VEX bands50 over the band from x 195; FIX F2: the nest's copy nest_bands with the
+           weight per frame w = chi, linear, band_lin 1) and y 45-60 (side-band rule, generating
            over the whole nest x): grid velocity relaxed per substep toward the parent's velocity (horizontal components, as the parent's
            inlet band) with NO wall taper (parms.wall_taper_m 15 -> 0, a registered override: the frozen 15 m taper made the x band a sponge
            toward u = 0, review 2026-10-19 B1), and the SURFACE relaxed by particles once per frame (delete band particles that are not the
@@ -47,9 +48,19 @@ The design (frozen in plan_F55_frozen.json, option C2; the cfgs come from f55_pc
            Target = the parent's fields linear in time between frames fa = ceil(ff) - 1 and fb = ceil(ff) (ff = the DOP substep frame),
            trilinear in space (volumesample on the parent's grid; one ghost cell on every side, mirrored at y = 0, so no sample reaches the
            volume border, review B2), assembled by the Python SOP OUT_TARGET from the two npz files.
-  init     reseeded at t 43.958 s from the parent's frame-1056 fields: lattice x0 + (i + 1/2) dp, (j + 1/2) dp, zb + (k + 1/2) dp (the scene's
-           seeding rule), kept where the lattice point is the parent's water (tgt_water) and above bed + 0.5 dp, jitter 0.2 dp (the parent's
-           hash), velocity = the parent's grid velocity at the particle.
+  init     C2ID (FIX F7, 2026-10-19): the PARENT'S OWN particles at t 43.958 s inside the box (p_01056.npz, step 'pinit': a separate hython
+           'hypart' loads DFG-2B-V's scene with its explicit cache on the checkpoint copy, exactly as hyckpt, and saves P / v of the water
+           object; validated against the hyckpt particle count, the parent's SDF and grid velocity). C2 (dp 0.25, no parent particles at that
+           spacing): lattice x0 + (i + 1/2) dp, (j + 1/2) dp, zb + (k + 1/2) dp (the scene's seeding rule), kept where the lattice point is
+           the parent's water BY THE MARGIN init_lvl_m (tgt_water) and above bed + 0.5 dp, jitter 0.2 dp, velocity = the parent's grid
+           velocity; init_lvl_m = the level step (the rise of the nest's level after creation) of a 48-frame still-water calibration
+           (step 'calib C2', CALIB_RULE_TEXT; 'run C2' runs it first when it is missing or stale); the band water rule (band_kill /
+           band_seed) is shifted by the same init_lvl_m (physics review 2026-10-19 B1), so C2 is the calibrated still state translated by
+           the step; C2's own reading offset (calib analysis.offset_at_creation_m) is reported, not subtracted (physics review M5).
+  fix      2026-10-19 after the first C2ID failed GN1-GN3 (Hc -18 %, GN2 0.64 m, GN3 2.7 % [measured]): F1 the band surface wrangles bind
+           Input 1 = self (their reads saw nothing: band_cand 0 in every smoke frame [measured]) + counters; F2 the nest-only linear band
+           weight (band_lin 1); F7 above. Gates GN1-GN3 unchanged. AM-F55-NEST is re-registered (amend --write) only after the new build
+           check + smoke pass.
   end      the closed face x 356 m stays closed (frozen 'outflow: none'). The parent's swash passes it (wet to x 386.5 m, <= 402 m3 = 0.46 %
            beyond it [measured]), so an OPTIONAL end band (end_on, default 0) is built and probed but OFF; the export always carries box eb
            (x 339-358 m) so switching it on (its own amendment) needs no new parent rerun.
@@ -64,6 +75,10 @@ reason); everything else is the design cfg canonically equal. AM-F55-NEST regist
 
 usage (py -3.10 -B; every step prints ONE final json line with "ok", as auto_F55.py's C2 path expects):
   f55_nest.py export   [--simulate]          parent rerun + export (seed, hyckpt f1056, chain, strict compare, validation) -> export.json
+  f55_nest.py pinit    [--simulate]          F7: the parent's frame-1056 particles in the C2ID box (hython hypart) -> export/p_01056.npz +
+                                             pinit_01056.json (skipped when ok and unchanged)
+  f55_nest.py calib    C2 [--simulate]        C2's still-water calibration of the level step (hython x55_nest_build.py --hython-calib) ->
+                                             _logs/calib55_C2.json ('run C2' runs it first when missing / stale)
   f55_nest.py run      C2ID|C2 [--simulate]   launch cfg (design cfg + DERIVED_KEYS) -> chain (resumes from checkpoints, <= 2 extra chains)
   f55_nest.py gates    C2ID [--simulate]      judge-like group 1, pv53 (--no-unity), f55_hollow measure, GN1-GN3 -> <C2ID>/f55/gates_GN.json
   f55_nest.py analyse  C2 [--simulate]        judge-like group 1, pv53 (Unity, retry --no-unity), f55_hollow measure of C2 (+ GN2/GN3 report)
@@ -81,7 +96,8 @@ Every real step (export, run, x55_nest_build.py) first passes entry_guard: no ot
 auto_F55 lock, free commit >= the plan's need (export: C2's 11.46 GB as auto_F55; C2ID 8.18 GB; C2 11.46 GB) and G: >= its disk need on 2
 polls (waits up to --wait-min, default 20 min). Each chain runs under a watchdog (free commit < 3 GB on 2 polls or the brake file
 Unity/Build/FLIP55/_logs/auto_F55_STOP -> <run>/STOP; the chain stops before its next launch, nothing is killed).
-internal: f55_nest.py chain export|nest <cfg>   (py -3.10; the patched chain)   hython f55_nest.py hyrun <launch cfg> | hyckpt <cfg>
+internal: f55_nest.py chain export|nest <cfg>   (py -3.10; the patched chain)   hython f55_nest.py hyrun <launch cfg> | hyckpt <cfg> |
+          hypart <export cfg>
 Tags: [measured] records, [computed] derived, [chosen] design choices, [guess] judgement.
 """
 import os, sys, json, time, glob, math, hashlib, shutil, subprocess, copy
@@ -160,14 +176,46 @@ CAP_CRASH = 2                               # crash / stale / watchdog resumes (
 CAP_MAX_HOURS = 2                           # max_hours resumes (= auto_F55 --cap-resumes default)
 STALE_MIN, STALE_MIN_NO_PS = 45.0, 90.0     # = auto_F55
 SLOT_WAIT_H = 6.0                           # how long a relaunch waits for its free commit before giving up
-NEED_OPTION = dict(export="C2", C2ID="C2ID", C2="C2")      # the plan's commit / disk need used by each step (export: C2's, as auto_F55)
+NEED_OPTION = dict(export="C2", C2ID="C2ID", C2="C2", pinit="C2", calib="C2")   # the plan's commit / disk need used by each step (export,
+                                                                                # pinit (the parent scene) and calib (the C2 box): C2's)
 WAIT_MIN = 20.0                             # entry guard: minutes to wait for a free machine (--wait-min)
+
+# F7: the parent's own frame-1056 particles inside the C2ID box (hython 'hypart' from the checkpoint copy, the hyckpt path)
+PINIT_NPZ = EXPORT_DIR + "/p_%05d.npz" % CKPT
+PINIT_JSON = EXPORT_DIR + "/pinit_%05d.json" % CKPT
+HYPART_JSON = EXPORT_DIR + "/hypart_%05d.json" % CKPT
+PINIT_RULES = dict(above_sdf_frac_max=0.10, density_range=(6.0, 12.0), mean_dv_grid_max=0.5, top_minus_eta_median_range=(-0.6, 0.1))
+# sanity bounds [chosen]: the top particle of a 1 m column sits about s_off (0.076 m) + up to dp below the parent's top surface
+# C2 (dp 0.25): the lattice + a 48-frame still-water calibration of the level step (x55_nest_build.py --hython-calib)
+CALIB_FRAMES = 48
+CALIB_DIR = B55 + "/_scratch/nest_calib_C2"
+CALIB_TGT = CALIB_DIR + "/still_export"
+CALIB_JSON = LOG_DIR + "/calib55_C2.json"
+CALIB_TIMEOUT_S = 3 * 3600.0
+CALIB_RULES = dict(region=dict(x=(200.0, 300.0), y=(0.0, 20.0)), interior=dict(x=(200.0, 340.0), y=(0.0, 40.0)), last_n=12,
+                   step_abs_max_m=0.3, settle_max_m=0.05)
+CALIB_RULE_TEXT = ("48 frames (1056-1104) of the nest scene at C2's box and launch parms (dp 0.25, lattice, bands, band_lin 1) against a STILL "
+                   "synthetic parent (SDF zero at its still offset 0.0759846568107605 m above its particle level 0, v = 0; no replay; "
+                   "init_lvl_m 0); level L(f) = mean of the nest's R1 surface over the GN1 region x 200-300 m, y 0-20 m; level step = mean L "
+                   "of the last 12 frames - L(1056) (the rise after creation; the dp 0.25 reading offset L(1056) - 0.076 m is reported, not "
+                   "subtracted, as physics review M5); ok iff all 49 frames finite, |step| <= 0.3 m and the last 12 frames settled within "
+                   "0.05 m (the level slope over the last 24 frames reported); C2 then fills its lattice AND runs its band water rule "
+                   "(band_kill / band_seed) at the parent's particle level minus the step (parms.init_lvl_m): the calibrated still state "
+                   "translated by the step, so its level after the rise = the parent's particle level")
 
 # the nest-scene parms a launch adds (x55_nest_build.NEST_PARMS defines them on CTRL) [chosen; registered by AM-F55-NEST]
 LAUNCH_PARMS = dict(nest_on=1.0, band_surf=1.0, rep_on=1.0, sim_f0=float(CKPT), relax_vert=0.0, kill_margin_dp=0.0, seed_margin_dp=0.0,
                     seed_depth_m=2.0, seed_r_dp=1.5, seed_fill_frac=0.5, w_min=1e-3, seed_once_per_frame=1.0, end_on=0.0, end_band_m=15.0,
-                    s_off=STILL_OFFSET, bed_trust_m=1.0)
-LAUNCH_STR_PARMS = dict(tgt_dir=EXPORT_DIR, rep_dir=REPLAY_DIR)
+                    s_off=STILL_OFFSET, bed_trust_m=1.0, band_lin=1.0, init_src=1.0, init_lvl_m=0.0)
+LAUNCH_STR_PARMS = dict(tgt_dir=EXPORT_DIR, rep_dir=REPLAY_DIR, pinit_npz=PINIT_NPZ)
+# per option (F7): C2ID starts from the parent's own particles; C2 (dp 0.25) from the lattice with the calibrated level step (None = read
+# from CALIB_JSON at launch)
+OPTION_PARMS = dict(C2ID=dict(init_src=1.0, init_lvl_m=0.0), C2=dict(init_src=0.0, init_lvl_m=None))
+OPTION_STR_PARMS = dict(C2ID=dict(pinit_npz=PINIT_NPZ), C2=dict(pinit_npz=""))
+PREVIOUS_REGISTRATION = dict(date="2026-10-19 06:05:51", code_sha256={
+    "Tools/GWWaveGen/flip55/x55_nest_build.py": "9ac821577b1428a24c0946ced39e9aa185b500514f5068a73b4f6a026752cf36",
+    "Tools/GWWaveGen/flip55/f55_nest.py": "67e130fdcc9ad0a59e595d7359a973d09fd53317b0a4fe52c62689d45511e841"},
+    hip_sha256="8675f37ba65e450b32c344477dc396acc14668ad17a4b1d7260908e1a780a4fc")
 # ONE design value overridden by the launch (review 2026-10-19 B1; registered by AM-F55-NEST before any nest run)
 OVERRIDE_PARMS = dict(wall_taper_m=0.0)
 OVERRIDE_FROM = dict(wall_taper_m=15.0)          # = the frozen design cfg (f55_pcfg.make_N: wall_taper_m = the x band width)
@@ -201,6 +249,23 @@ DERIVED_WHY = {
         "seed_margin_dp 0 (was 0.5) with s_off: the band level lives in about +-0.1 m of the parent's instead of [-0.34, +0.08] m (mean -0.095 m) "
         "for C2ID [computed, physics review M2]; a seed is a copy of its nearest nest particle (every attribute) with its own P, v and a fresh id",
     "parms.tgt_dir / rep_dir": "the parent export folder and its copied vd files",
+    "parms.band_lin 1 (F2, 2026-10-19 fix)": (
+        "nest-only band weight per FRAME w = chi (linear: 1 at the closed face, 0 at the band's inner edge 15 m in) instead of bands50's "
+        "relaxw(chi) = (exp(chi^3.5) - 1)/(e - 1), for the velocity (per substep 1 - (1 - w)^(dts/dt0)) and the particle surface relaxation "
+        "(probability per frame); nest_bands = a copy of bands50 with relaxw -> nest_prof (band_lin 0 = bands50 exactly, probed); the "
+        "parent family's bands50 / relax_apply are not edited. [computed, diag_gn1/band_predict.json, linear 2-D band model] Hc_rel "
+        "+0.005 and GN2 0.06-0.13 m for L15_linear vs +0.052 / 0.15-0.19 m for the relaxw design and -0.189 / 0.62-0.63 m as run"),
+    "parms.init_src / pinit_npz (F7, 2026-10-19 fix)": (
+        "C2ID (dp 0.5 = the parent's spacing) is created from the PARENT'S OWN frame-1056 particles inside the box (p_01056.npz, read by "
+        "f55_nest.py pinit from DFG-2B-V's checkpoint copy v.1056.sim through the hyckpt path): the failed C2ID's lattice held 7.7 "
+        "particles / m3 vs the parent's 8.9 [measured, diag_gn1] and FLIP reseeding raised its volume +2 % in 9 frames [measured, smoke]; "
+        "C2 (dp 0.25, no parent particles at that spacing) keeps the lattice (init_src 0, pinit_npz '')"),
+    "parms.init_lvl_m (C2 calibration, 2026-10-19 fix)": (
+        "C2's lattice is filled to, and its band water rule (band_kill / band_seed) runs at, the parent's particle level minus the level "
+        "step measured by f55_nest.py calib C2 (the rise of the nest's level after creation in still water; rule CALIB_RULE_TEXT; "
+        "calib55_C2.json, tied to this hip / these tools / this build check): shifting the lattice alone would leave the bands at the "
+        "unshifted level, a sink / source that undoes the shift in ~3-13 s at c = 13.7 m/s [computed, physics review 2026-10-19 B1]; "
+        "C2's dp 0.25 reading offset is reported, not subtracted (physics review M5); C2ID 0"),
     "parms.end_on 0 / end_band_m 15": ("the OPTIONAL end band at the closed face x 356 m stays OFF (= the frozen design 'outflow: none'). It exists "
                                        "because the parent's swash reaches x 386.5 m (y <= 60) and is 0.1-0.64 m deep (mean over y) at x 355.5 m "
                                        "in frames 1057-1657, at most 402 m3 (0.46 % of the box) beyond x 356 m [measured, hf]: the closed face "
@@ -559,6 +624,91 @@ def hy_ckpt(cpath):
     with open(p, "w", encoding="utf-8") as fh:
         json.dump(rec, fh, indent=1, ensure_ascii=False, default=str)
     print("F55NEST hyckpt", json.dumps(rec, default=str)[:600], flush=True)
+    sys.exit(0 if not rec.get("error") else 2)
+
+
+def pinit_box(C=None):
+    """the C2ID nest box in plan metres (x0 .. x0 + Lx, lateral 0 .. W) = f55_common.OPTIONS['C2ID'] through f55_common.box."""
+    for p in (T52, TOOLS + "/flip48", T49, T52B3):          # g52b3_common's own imports (also inside hython)
+        if p not in sys.path:
+            sys.path.append(p)
+    C = C or C_()
+    o = C.OPTIONS["C2ID"]
+    b = C.box(o["dp"], o["x0"], o["Lx"], o["W"], o["zb"])
+    return dict(x0=float(b["x0"]), Lx=float(b["Lx"]), W=float(b["W"]))
+
+
+def hy_part(cpath):
+    """hython f55_nest.py hypart <export cfg> (F7): the PARTICLES of DFG-2B-V at frame 1056 from its own checkpoint (the copy v.1056.sim in
+    ckpt_1056, loaded exactly as hyckpt loads it), read-only: P (Houdini, float32) and v of the water object inside the C2ID box ->
+    p_01056.npz (atomic) + hypart_01056.json. Nothing of the export is rewritten."""
+    import hou
+    import numpy as np
+    cfg = jload(cpath)
+    spec = (cfg.get("f55") or {})["export"]
+    rec = dict(date=now(), tool=TOOL_REL, kind="frame-1056 PARTICLES of DFG-2B-V from its checkpoint copy (separate hython, read-only; F7: the "
+                                               "C2ID nest's initial state)")
+    hs = sha(DFGBV_HIP)
+    rec["hip_sha256"] = hs
+    if hs != DFGBV_HIP_SHA:
+        rec["error"] = "DFG-2B-V scene sha differs"
+    else:
+        hou.hipFile.load(DFGBV_HIP, suppress_save_prompt=True, ignore_load_warnings=True)
+        ctrl = hou.node("/obj/G52_SETUP/CTRL")
+        for k, v in cfg.get("parms", {}).items():
+            if ctrl.parm(k) is not None:
+                ctrl.parm(k).set(v)
+        fs = hou.node("/obj/G52_SIM/flipsolver")
+        sv = cfg.get("solver", {})
+        fs.parm("veltransfer").set(sv.get("veltransfer", "flip"))
+        fs.parm("donarrowband").set(int(sv.get("donarrowband", 0)))
+        ctrl.parm("ckpt").set(CKPT_LOAD_DIR)
+        ctrl.parm("ckpt_on").set(1)
+        ctrl.parm("ckpt_every").set(int(cfg.get("ckpt_every", 48)))
+        dop = hou.node("/obj/G52_SIM")
+        want = (CKPT_LOAD_DIR + "/v.%04d.sim" % CKPT).replace("\\", "/")
+        rec.update(ckpt_parm=ctrl.parm("ckpt").evalAsString(), ckpt_present=os.path.exists(want), ckpt_sha256=sha(want))
+        if not os.path.exists(want) or ctrl.parm("ckpt").evalAsString().replace("\\", "/") != CKPT_LOAD_DIR:
+            rec["error"] = "the checkpoint copy %s is missing or CTRL ckpt does not point at its folder" % want
+        else:
+            hou.setSimulationEnabled(True)
+            t0 = time.time()
+            hou.setFrame(CKPT)
+            wobj = dop.simulation().findObject("water")
+            rec["cook_s"] = round(time.time() - t0, 2)
+            if rec["cook_s"] > HYCKPT_MAX_COOK_S or wobj is None:
+                rec["error"] = ("frame %d cooked in %.0f s > %.0f s or no water object: the DOP did not load the checkpoint copy; nothing "
+                                "exported" % (CKPT, rec["cook_s"], HYCKPT_MAX_COOK_S))
+            else:
+                g = wobj.geometry()
+                n = int(g.intrinsicValue("pointcount"))
+                P = np.frombuffer(g.pointFloatAttribValuesAsString("P"), dtype=np.float32).reshape(-1, 3)
+                V = np.frombuffer(g.pointFloatAttribValuesAsString("v"), dtype=np.float32).reshape(-1, 3)
+                o = np.array(spec["o"], np.float64)
+                bx = pinit_box()
+                pl = P.astype(np.float64) - o
+                keep = (pl[:, 0] >= bx["x0"]) & (pl[:, 0] <= bx["x0"] + bx["Lx"]) & (pl[:, 2] >= 0.0) & (pl[:, 2] <= bx["W"])
+                names = sorted(a.name() for a in g.pointAttribs())
+                ps = None
+                if "pscale" in names:
+                    pa = np.array(g.pointFloatAttribValues("pscale"))
+                    ps = [float(pa.min()), float(pa.max())]
+                meta = dict(frame=CKPT, t=(CKPT - 1) / FPS, o_parent=[float(c) for c in o], box=bx, n_total=n, n_box=int(keep.sum()),
+                            point_attribs=names, pscale_min_max=ps, ckpt=rel(want), ckpt_sha256=rec["ckpt_sha256"], hip_sha256=hs, tool=TOOL_REL,
+                            kind="F55 parent particles at frame 1056 inside the C2ID box (read-only; f55_nest.py hypart)",
+                            rule="P_h = the parent's Houdini positions (float32, unchanged), v = its particle velocity; kept where plan x0 <= x <= "
+                                 "x0 + Lx and 0 <= lateral <= W (plan = P_h - o_parent)")
+                guard(PINIT_NPZ)
+                tmp = PINIT_NPZ + ".part"
+                with open(tmp, "wb") as fh:
+                    np.savez_compressed(fh, P_h=np.ascontiguousarray(P[keep]), v=np.ascontiguousarray(V[keep]), meta=np.array(json.dumps(meta)))
+                os.replace(tmp, PINIT_NPZ)
+                rec.update(n_total=n, n_box=int(keep.sum()), point_attribs=names, pscale_min_max=ps, file=rel(PINIT_NPZ),
+                           bytes=os.path.getsize(PINIT_NPZ), sha256=sha(PINIT_NPZ))
+            rec["ckpt_sha256_after"] = sha(want)
+    with open(guard(HYPART_JSON), "w", encoding="utf-8") as fh:
+        json.dump(rec, fh, indent=1, ensure_ascii=False, default=str)
+    print("F55NEST hypart", json.dumps(rec, default=str)[:600], flush=True)
     sys.exit(0 if not rec.get("error") else 2)
 
 
@@ -1417,6 +1567,313 @@ def cmd_export(sim=False):
                       gb=v.get("gb"), seconds=rec["seconds"]))
 
 
+# ====================================================================== F7: the parent's own frame-1056 particles (py -3.10 + hython 'hypart')
+def union_sampler(np, U, key):
+    """clamped trilinear on an f55_union field (= volumesample on the padded OUT_TARGET volume)."""
+    S, p0, d = U[key]
+
+    def tri(x, y, z):
+        fx = (np.asarray(x, float) - p0[0]) / d[0]; fy = (np.asarray(y, float) - p0[1]) / d[1]; fz = (np.asarray(z, float) - p0[2]) / d[2]
+        i = np.clip(np.floor(fx).astype(int), 0, S.shape[2] - 2); j = np.clip(np.floor(fy).astype(int), 0, S.shape[1] - 2)
+        k = np.clip(np.floor(fz).astype(int), 0, S.shape[0] - 2)
+        wx, wy, wz = np.clip(fx - i, 0, 1), np.clip(fy - j, 0, 1), np.clip(fz - k, 0, 1)
+        c = 0.0
+        for dk in (0, 1):
+            for dj in (0, 1):
+                for di in (0, 1):
+                    c = c + S[k + dk, j + dj, i + di] * (wx if di else 1 - wx) * (wy if dj else 1 - wy) * (wz if dk else 1 - wz)
+        return c
+    return tri
+
+
+def validate_pinit(np, p_path=PINIT_NPZ, hy=None, x_path=None, v_box=None, n_total_expect=None, box=None):
+    """the particle file against the parent's own frame-1056 records: finite, all inside the C2ID box, the counts of the hython record, the
+    total = the hyckpt record's particle count (same checkpoint), density (particles / m3 of the parent's hf column volume in the box),
+    the fraction above the parent's SDF zero and |v - the parent's grid velocity| (sanity bounds PINIT_RULES [chosen])."""
+    XB = xb_mod()
+    nsp = {}
+    exec(compile(XB.PINIT_PURE, "PINIT_PURE", "exec"), nsp)
+    out = dict(file=rel(p_path), sha256=sha(p_path), rules=PINIT_RULES)
+    if not os.path.exists(p_path):
+        return dict(out, ok=False, why="no %s" % rel(p_path))
+    box = box or pinit_box()
+    with np.load(p_path, allow_pickle=False) as d:
+        Ph = np.array(d["P_h"], np.float32); V = np.array(d["v"], np.float32); meta = json.loads(str(d["meta"]))
+    o = np.array(meta["o_parent"], np.float64)
+    pl = Ph.astype(np.float64) - o
+    inb = (pl[:, 0] >= box["x0"]) & (pl[:, 0] <= box["x0"] + box["Lx"]) & (pl[:, 2] >= 0.0) & (pl[:, 2] <= box["W"])
+    ck = {}
+    ck["n_positive"] = bool(len(Ph) > 0)
+    ck["finite"] = bool(np.isfinite(Ph).all() and np.isfinite(V).all())
+    ck["all_in_box"] = bool(inb.all())
+    ck["meta_count"] = bool(int(meta.get("n_box", -1)) == len(Ph))
+    if hy is not None:
+        ck["hython_record"] = bool(not hy.get("error") and int(hy.get("n_box", -1)) == len(Ph) and hy.get("sha256") == out["sha256"])
+        # the checkpoint copy stayed the hyckpt source while hypart read it (code review M6)
+        ck["ckpt_copy_unchanged"] = bool(hy.get("ckpt_sha256") and hy.get("ckpt_sha256_after") == hy.get("ckpt_sha256"))
+    if n_total_expect is not None:
+        ck["total_as_checkpoint"] = bool(int(meta.get("n_total", -1)) == int(n_total_expect))
+    if v_box is None:
+        C = C_()
+        e, m = HF(DFGBV_RUN).get(CKPT)
+        v_box, _, _ = column_volume(np, e, m, C.bed_z)
+    dens = len(Ph) / float(v_box) if v_box else None
+    out.update(n=int(len(Ph)), n_total=meta.get("n_total"), v_box_m3=v_box, density_per_m3=dens)
+    ck["density"] = bool(dens is not None and PINIT_RULES["density_range"][0] <= dens <= PINIT_RULES["density_range"][1])
+    x_path = x_path or (EXPORT_DIR + "/x_%05d.npz" % CKPT)
+    try:
+        C = C_()
+        mx, A = load_x(np, x_path)
+        ns = {}
+        exec(compile(XB.TARGET_PURE, "TARGET_PURE", "exec"), ns)
+        U = ns["f55_union"](mx, A, float(box["W"]) + 2.0, C.bed_z)
+        sel = np.arange(0, len(pl), max(1, len(pl) // 200000))
+        q = pl[sel]
+        s = union_sampler(np, U, "s")(q[:, 0], q[:, 1], q[:, 2])
+        above = float(np.mean(s > 0.0))
+        vg = np.stack([union_sampler(np, U, k)(q[:, 0], q[:, 1], q[:, 2]) for k in ("vx", "vy", "vz")], 1)
+        dv = np.linalg.norm(V[sel].astype(np.float64) - vg, axis=1)
+        # the top particle of every parent cell column vs the parent's own top surface (R1 of the same frame's SDF): about -(s_off + up to
+        # dp) for the parent's particles; a vertical frame / offset error moves it by its size
+        E, pe, de = U["eta"]
+        ix = np.rint((pl[:, 0] - pe[0]) / de[0]).astype(int); iz = np.rint((pl[:, 2] - pe[2]) / de[2]).astype(int)
+        okc = (ix >= 0) & (ix < E.shape[1]) & (iz >= 0) & (iz < E.shape[0])
+        cid = iz[okc] * E.shape[1] + ix[okc]
+        top = np.full(E.size, -np.inf)
+        np.maximum.at(top, cid, pl[okc, 1])
+        cnt = np.bincount(cid, minlength=E.size)
+        ef = E.reshape(-1).astype(np.float64)
+        use = (cnt >= 4) & np.isfinite(ef) & np.isfinite(top)
+        dtop = top[use] - ef[use]
+        out.update(above_sdf_zero_frac=above, above_particle_level_frac=float(np.mean(s + STILL_OFFSET > 0.0)), mean_abs_dv_grid=float(dv.mean()),
+                   p99_abs_dv_grid=float(np.percentile(dv, 99)), mean_speed=float(np.linalg.norm(V[sel], axis=1).mean()), n_sampled=int(len(sel)),
+                   top_minus_eta_median_m=float(np.median(dtop)) if len(dtop) else None,
+                   top_minus_eta_p10_p90_m=[float(np.percentile(dtop, 10)), float(np.percentile(dtop, 90))] if len(dtop) else None,
+                   top_cells=int(use.sum()))
+        lo, hi = PINIT_RULES["top_minus_eta_median_range"]
+        ck["top_particle_vs_parent_surface"] = bool(len(dtop) > 0 and lo <= float(np.median(dtop)) <= hi)
+        ck["level_vs_parent_sdf"] = bool(above <= PINIT_RULES["above_sdf_frac_max"])
+        ck["velocity_vs_parent_grid"] = bool(dv.mean() <= PINIT_RULES["mean_dv_grid_max"])
+    except Exception as e:
+        out["sample_error"] = repr(e)[:300]
+        ck["top_particle_vs_parent_surface"] = False
+        ck["level_vs_parent_sdf"] = False
+        ck["velocity_vs_parent_grid"] = False
+    out["checks"] = ck
+    out["ok"] = bool(all(ck.values()))
+    return out
+
+
+def pinit_state():
+    """ok iff pinit_01056.json is ok and the particle file on disk is the one it validated."""
+    r = jtry(PINIT_JSON) or {}
+    why = []
+    if not r.get("ok"):
+        why.append("%s missing or not ok" % rel(PINIT_JSON))
+    elif r.get("sha256") != sha(PINIT_NPZ):
+        why.append("%s changed after its validation" % rel(PINIT_NPZ))
+    return dict(ok=not why, why="; ".join(why) or None, file=rel(PINIT_NPZ), sha256=sha(PINIT_NPZ) if os.path.exists(PINIT_NPZ) else None,
+                n=r.get("n"), density_per_m3=r.get("density_per_m3"))
+
+
+def pinit_core(sim=False):
+    """the parent's frame-1056 particles in the C2ID box (F7) -> p_01056.npz + pinit_01056.json; returns its record (cmd_pinit prints it,
+    'run C2ID' calls it first when the particles are missing)."""
+    import numpy as np
+    st = pinit_state()
+    if st["ok"] and not sim:
+        return (dict(ok=True, step="pinit", skipped="pinit_01056.json exists, ok, file unchanged", file=st["file"], n=st["n"],
+                          density_per_m3=st["density_per_m3"]))
+    hy = hython_path()
+    cmd = [hy, SELF, "hypart", EXPORT_CFG]
+    ex = jtry(EXPORT_JSON) or {}
+    cp = CKPT_LOAD_DIR + "/v.%04d.sim" % CKPT
+    pre = dict(export_ok=bool(ex.get("ok")), export_cfg=os.path.exists(EXPORT_CFG), ckpt_copy=os.path.exists(cp),
+               ckpt_copy_is_source=bool(os.path.exists(cp) and sha(cp) == ((jtry(EXPORT_DIR + "/hyckpt_%05d.json" % CKPT) or {}).get("ckpt_sha256"))))
+    if sim:
+        return (dict(ok=bool(all(pre.values())), step="pinit", simulate=True, pre=pre, would_run=" ".join(cmd), writes=[rel(PINIT_NPZ), rel(HYPART_JSON),
+                                                                                                                     rel(PINIT_JSON)], box=pinit_box()))
+    if not all(pre.values()):
+        return (dict(ok=False, step="pinit", why="preconditions: %s" % ", ".join(k for k, v in pre.items() if not v), pre=pre))
+    eg = entry_guard("pinit", "pinit", wait_min=WAIT_MIN)
+    if not eg["ok"]:
+        return (dict(ok=False, step="pinit", why="entry guard: %s" % eg["why"], guard=eg))
+    wait_no_hython(lambda *a: print(now(), *a, flush=True))
+    try:
+        with open(guard(LOG_DIR + "/f55_nest_hypart.txt"), "a", encoding="utf-8") as lf:
+            lf.write("\n=== %s %s\n" % (now(), " ".join(cmd)))
+            lf.flush()
+            r = subprocess.run(cmd, cwd=REPO, env=hython_env(), stdin=subprocess.DEVNULL, timeout=HYCKPT_TIMEOUT_S, stdout=lf, stderr=subprocess.STDOUT)
+        rc = r.returncode
+    except subprocess.TimeoutExpired:
+        rc = "timeout %.0f s" % HYCKPT_TIMEOUT_S
+    hyr = jtry(HYPART_JSON) or {}
+    hk = jtry(EXPORT_DIR + "/hyckpt_%05d.json" % CKPT) or {}
+    v = validate_pinit(np, PINIT_NPZ, hy=hyr, n_total_expect=hk.get("particles"))
+    rec = dict(date=now(), tool=TOOL_REL, tool_sha256=sha(SELF), rc=rc, hython=hyr, **v)
+    rec["ok"] = bool(rc == 0 and v["ok"])
+    rec["tags"] = dict(counts="measured", density="measured (particles / hf column volume)", bounds="chosen")
+    jdump(rec, PINIT_JSON)
+    return (dict(ok=rec["ok"], step="pinit", file=rel(PINIT_NPZ), json=rel(PINIT_JSON), rc=rc, n=v.get("n"), n_total=v.get("n_total"),
+                      density_per_m3=v.get("density_per_m3"), above_sdf_zero_frac=v.get("above_sdf_zero_frac"),
+                      above_particle_level_frac=v.get("above_particle_level_frac"), top_minus_eta_median_m=v.get("top_minus_eta_median_m"),
+                      mean_abs_dv_grid=v.get("mean_abs_dv_grid"), checks=v.get("checks")))
+
+
+def cmd_pinit(sim=False):
+    """py -3.10 -B f55_nest.py pinit (prints ONE json line)."""
+    return final(pinit_core(sim))
+
+
+def xb_mod():
+    if HERE not in sys.path:
+        sys.path.insert(0, HERE)
+    import x55_nest_build as XB
+    return XB
+
+
+# ====================================================================== C2: the still-water calibration of the level step (py -3.10 + hython)
+def calib_analyse(np, eta_files, s_ref=STILL_OFFSET, frames_expected=None):
+    """CALIB_RULE_TEXT on the nest's per-frame R1 surfaces (eta_files {frame: npz path with eta [lat, x] and meta x0 / dx / z0 / dz}).
+    step_m = the rise after creation (mean L of the last 12 frames - L(first frame)); C2's reading offset at creation (L(first) - s_ref)
+    and the level vs the parent's hf level (last - s_ref) are reported, not subtracted (code review B1 / physics review M5)."""
+    reg, inn, n_last = CALIB_RULES["region"], CALIB_RULES["interior"], CALIB_RULES["last_n"]
+    fr = sorted(int(f) for f in eta_files)
+    rows, bins, bins0 = [], {}, {}
+    for f in fr:
+        with np.load(eta_files[f] if f in eta_files else eta_files[str(f)]) as dd:
+            e = np.array(dd["eta"], np.float64); m = json.loads(str(dd["meta"]))
+        xs = float(m["x0"]) + float(m["dx"]) * np.arange(e.shape[1]); ys = float(m["z0"]) + float(m["dz"]) * np.arange(e.shape[0])
+
+        def mean_in(rg):
+            sx = (xs >= rg["x"][0]) & (xs <= rg["x"][1]); sy = (ys >= rg["y"][0]) & (ys <= rg["y"][1])
+            a = e[np.ix_(sy, sx)]
+            return float(np.nanmean(a)) if np.isfinite(a).any() else float("nan"), int(np.isfinite(a).sum())
+        L, nL = mean_in(reg)
+        Li, nLi = mean_in(inn)
+        rows.append(dict(frame=f, level_m=L, n=nL, level_interior_m=Li))
+        if f == fr[0] or f in fr[-n_last:]:
+            for x0 in range(int(inn["x"][0]), int(inn["x"][1]), 20):
+                v_ = mean_in(dict(x=(x0, x0 + 20.0), y=inn["y"]))[0]
+                if f == fr[0]:
+                    bins0[x0] = v_
+                if f in fr[-n_last:]:
+                    bins.setdefault(x0, []).append(v_)
+    out = dict(rule=CALIB_RULE_TEXT, s_ref_m=s_ref, frames=[fr[0], fr[-1]] if fr else None, n_frames=len(fr), rows=rows)
+    lv = np.array([r["level_m"] for r in rows], float)
+    if len(lv) < n_last or not np.isfinite(lv).all():
+        return dict(out, ok=False, why="fewer than %d frames or a non-finite level" % n_last)
+    last = lv[-n_last:]
+    step = float(last.mean() - lv[0])
+    settle = float(last.max() - last.min())
+    li = np.array([r["level_interior_m"] for r in rows], float)
+    n24 = min(24, len(lv))
+    tt = (np.array(fr[-n24:], float) - fr[-n24]) / FPS
+    slope = float(np.polyfit(tt, lv[-n24:], 1)[0]) if n24 >= 3 else None
+    out.update(step_m=step, settle_m=settle, level_creation_m=float(lv[0]), offset_at_creation_m=float(lv[0] - s_ref),
+               step_vs_parent_hf_m=float(last.mean() - s_ref), step_interior_m=float(np.nanmean(li[-n_last:]) - li[0]),
+               slope_last24_m_per_s=slope,
+               step_per_20m_x={str(k): float(np.nanmean(v) - bins0.get(k, float("nan"))) for k, v in sorted(bins.items())},
+               reading_note=("step_m (the rise after creation) is what C2 subtracts (init_lvl_m); offset_at_creation_m = C2's dp 0.25 reading "
+                             "offset vs the parent's 0.076 m (a reading bias, reported with any Hc comparison, not a level change); "
+                             "slope_last24_m_per_s and step_per_20m_x (each 20 m bin's rise vs its own creation level) reported only"))
+    ck = dict(frames_complete=bool(frames_expected is None or len(fr) == frames_expected), step_bounded=bool(abs(step) <= CALIB_RULES["step_abs_max_m"]),
+              settled=bool(settle <= CALIB_RULES["settle_max_m"]))
+    out["checks"] = ck
+    out["ok"] = bool(all(ck.values()))
+    return out
+
+
+def calib_state():
+    """ok iff calib55_C2.json is ok and was made with THIS nest hip, THESE tools and THIS build check (the C2 launch uses its step)."""
+    r = jtry(CALIB_JSON) or {}
+    why = []
+    if not r.get("ok"):
+        why.append("%s missing or not ok" % rel(CALIB_JSON))
+    else:
+        if r.get("hip_sha256") != sha(NEST_HIP):
+            why.append("the nest scene changed after the calibration")
+        if r.get("build_check_sha256") != sha(NEST_BUILD_CHECK):
+            why.append("the build check changed after the calibration")
+        if r.get("tool_sha256") != {p: sha(REPO + "/" + p) for p in C_().NEST_TOOLS}:
+            why.append("the nest tools changed after the calibration")
+    return dict(ok=not why, why="; ".join(why) or None, step_m=r.get("lvl_step_m") if not why else None, file=rel(CALIB_JSON),
+                sha256=sha(CALIB_JSON) if os.path.exists(CALIB_JSON) else None)
+
+
+def calib_cfg(C=None):
+    """the calibration's hython cfg: C2's launch parms with the still synthetic parent as the target, no replay, the lattice unshifted."""
+    C = C or C_()
+    L, _ = launch_cfg("C2", for_smoke=True)
+    parms = dict(L["parms"])
+    parms.update(tgt_dir=CALIB_TGT, rep_dir="", rep_on=0.0, init_src=0.0, init_lvl_m=0.0, pinit_npz="")
+    return dict(kind="F55 C2 still-water calibration of the level step (x55_nest_build.py --hython-calib)", option="C2", parms=parms,
+                solver=L.get("solver"), frames=[CKPT, CKPT + CALIB_FRAMES], out_dir=CALIB_DIR, hip_sha256=sha(NEST_HIP),
+                build_check_sha256=sha(NEST_BUILD_CHECK), tool_sha256={p: sha(REPO + "/" + p) for p in C.NEST_TOOLS}, s_ref_m=STILL_OFFSET,
+                rule=CALIB_RULE_TEXT, date=now())
+
+
+def calib_core(sim=False, log=print):
+    """the calibration (returns its record; cmd_calib prints it). Needs the CHECKED scene (build check all_ok + smoke_ok for this hip and these
+    tools) and the registered tools (AM-F55-NEST with these sha256)."""
+    import numpy as np
+    C = C_()
+    XB = xb_mod()
+    bc = jtry(NEST_BUILD_CHECK) or {}
+    cur = {p: sha(REPO + "/" + p) for p in C.NEST_TOOLS}
+    pre = dict(build_check_ok=bool(bc.get("all_ok") and bc.get("smoke_ok")), hip_as_build_check=bool(bc.get("hip_sha256") == sha(NEST_HIP)),
+               tools_as_build_check=bool((bc.get("tool_sha256") or {}) == cur), tools_registered=bool(C.nest_tools_state().get("ok")))
+    cfg = calib_cfg(C)
+    cmd = [hython_path(), BUILD_TOOL, "--hython-calib", CALIB_DIR + "/calib_cfg.json"]
+    if sim:
+        return dict(ok=True, step="calib", simulate=True, pre=pre, would_run=" ".join(cmd), cfg=cfg, rule=CALIB_RULE_TEXT,
+                    note="pre items become true after x55_nest_build.py --smoke and amend --write")
+    if not all(pre.values()):
+        return dict(ok=False, step="calib", why="preconditions: %s" % ", ".join(k for k, v in pre.items() if not v), pre=pre)
+    eg = entry_guard("calib C2", "calib", wait_min=WAIT_MIN)
+    if not eg["ok"]:
+        return dict(ok=False, step="calib", why="entry guard: %s" % eg["why"], guard=eg)
+    guard(CALIB_DIR + "/x")
+    for p in glob.glob(CALIB_DIR + "/eta/eta_*.npz") + glob.glob(CALIB_TGT + "/x_*.npz") + [CALIB_DIR + "/calib_raw.json"]:
+        if os.path.exists(p):
+            os.remove(guard(p))
+    XB.write_synth_export(CALIB_TGT, frames=tuple(range(CKPT, CKPT + CALIB_FRAMES + 2)), full_at=CKPT,
+                          fields_fn=lambda f: XB.still_fields(STILL_OFFSET))
+    jdump(cfg, CALIB_DIR + "/calib_cfg.json")
+    wait_no_hython(log)
+    t0 = time.time()
+    try:
+        with open(guard(LOG_DIR + "/f55_nest_calib.txt"), "a", encoding="utf-8") as lf:
+            lf.write("\n=== %s %s\n" % (now(), " ".join(cmd)))
+            lf.flush()
+            r = subprocess.run(cmd, cwd=REPO, env=hython_env(), stdin=subprocess.DEVNULL, timeout=CALIB_TIMEOUT_S, stdout=lf, stderr=subprocess.STDOUT)
+        rc = r.returncode
+    except subprocess.TimeoutExpired:
+        rc = "timeout %.0f s" % CALIB_TIMEOUT_S
+    raw = jtry(CALIB_DIR + "/calib_raw.json") or {}
+    an = calib_analyse(np, {int(k): v for k, v in (raw.get("eta_files") or {}).items()}, STILL_OFFSET, frames_expected=CALIB_FRAMES + 1)
+    rec = dict(date=now(), tool=TOOL_REL, kind="F55 C2 still-water calibration of the level step", rc=rc, seconds=round(time.time() - t0, 1),
+               cfg=rel(CALIB_DIR + "/calib_cfg.json"), cfg_sha256=sha(CALIB_DIR + "/calib_cfg.json"), hip_sha256=cfg["hip_sha256"],
+               build_check_sha256=cfg["build_check_sha256"], tool_sha256=cfg["tool_sha256"], raw_ok=raw.get("ok"), raw_error=raw.get("error"),
+               frames_raw=[{k: r_.get(k) for k in ("frame", "particles", "ss_n", "band_tgt", "band_cand", "band_added", "band_kills",
+                                                   "band_kills_np", "finite")}
+                           for r_ in (raw.get("frames") or [])], analysis=an, lvl_step_m=an.get("step_m"),
+               tags=dict(level_step="measured (the nest's R1 surface level: last 12 frames vs its creation frame)",
+                         offset_at_creation="measured (the nest's creation level vs the still parent's hf level 0.076 m), reported only",
+                         bounds="chosen"))
+    rec["ok"] = bool(rc == 0 and raw.get("ok") and an.get("ok"))
+    jdump(rec, CALIB_JSON)
+    return dict(ok=rec["ok"], step="calib", option="C2", file=rel(CALIB_JSON), lvl_step_m=rec["lvl_step_m"], settle_m=an.get("settle_m"),
+                offset_at_creation_m=an.get("offset_at_creation_m"), step_vs_parent_hf_m=an.get("step_vs_parent_hf_m"),
+                slope_last24_m_per_s=an.get("slope_last24_m_per_s"), checks=an.get("checks"), rc=rc, seconds=rec["seconds"])
+
+
+def cmd_calib(option="C2", sim=False):
+    if option != "C2":
+        return final(dict(ok=False, step="calib", why="calib C2 (C2ID starts from the parent's particles: no calibration)"))
+    return final(calib_core(sim))
+
+
 # ====================================================================== the launch cfg of a nest run (frozen design cfg + DERIVED_KEYS)
 def launch_cfg(option, for_smoke=False):
     C = C_()
@@ -1430,6 +1887,14 @@ def launch_cfg(option, for_smoke=False):
     L["parms"].update(LAUNCH_PARMS)
     L["parms"].update(LAUNCH_STR_PARMS)
     L["parms"].update(OVERRIDE_PARMS)
+    # F7 / C2 calibration: the per-option initial state (C2ID: the parent's particles; C2: the lattice minus the calibrated level step)
+    op = dict(OPTION_PARMS[option])
+    cs = calib_state() if option == "C2" else None
+    pst = pinit_state() if option == "C2ID" else None
+    if op.get("init_lvl_m") is None:
+        op["init_lvl_m"] = float(cs["step_m"]) if (cs and cs["ok"] and cs.get("step_m") is not None) else 0.0
+    L["parms"].update(op)
+    L["parms"].update(OPTION_STR_PARMS[option])
     L["dir"] = dict(copy.deepcopy(parent["dir"]), parent_only=True, note=d["dir"].get("note"),
                     nest_note="DFG-2B-V's table block for the frozen runner's OUT_DIRTAB check only; dir_on 0: never read by the nest")
     L["still_offset_m"] = STILL_OFFSET
@@ -1443,7 +1908,12 @@ def launch_cfg(option, for_smoke=False):
                                "plan's); f55.mode 'nest' and this launch precheck make the launch"),
                     nest_hip=rel(NEST_HIP), nest_hip_sha256=sha(NEST_HIP), x55_sha256=sha(BUILD_TOOL),
                     build_check=rel(NEST_BUILD_CHECK), build_check_sha256=sha(NEST_BUILD_CHECK), export=rel(EXPORT_JSON),
-                    export_sha256=sha(EXPORT_JSON), nest_tools=ns, cost=d["f55"].get("cost"), tool=TOOL_REL, tool_sha256=sha(SELF))
+                    export_sha256=sha(EXPORT_JSON), nest_tools=ns, cost=d["f55"].get("cost"), tool=TOOL_REL, tool_sha256=sha(SELF),
+                    init=dict(init_src=L["parms"]["init_src"], init_lvl_m=L["parms"]["init_lvl_m"], pinit=pst, calib=cs,
+                              rule=("C2ID: the parent's own frame-1056 particles in the box (f55_nest.py pinit)" if option == "C2ID" else
+                                    "C2: the lattice and the band water rule at the parent's particle level minus the calibrated level step "
+                                    "(f55_nest.py calib C2: "
+                                    + CALIB_RULE_TEXT + ")")))
     ck = {}
     ck["design_precheck_ok"] = bool(d["precheck"]["ok"])
     ck["design_cfg_sha16_as_frozen"] = bool(frozen16 is not None and sha16 == frozen16)
@@ -1464,8 +1934,14 @@ def launch_cfg(option, for_smoke=False):
     ck["nest_tools_registered"] = bool(ns.get("ok"))
     ck["out_root_FLIP55"] = bool(under(L["out_root"], B55))
     ck["no_temp_paths"] = no_temp(L)
+    ck["init_as_registered"] = bool(float(L["parms"]["band_lin"]) == 1.0 and float(L["parms"]["init_src"]) == float(OPTION_PARMS[option]["init_src"])
+                                    and L["parms"]["pinit_npz"] == OPTION_STR_PARMS[option]["pinit_npz"])
+    if option == "C2ID":
+        ck["pinit_ok"] = bool(pst and pst["ok"])
+    else:
+        ck["calib_ok"] = bool(cs and cs["ok"] and abs(float(L["parms"]["init_lvl_m"]) - float(cs["step_m"])) < 1e-12)
     if for_smoke:
-        for k in ("export_ok", "build_check_all_ok", "hip_sha_as_build_check", "nest_tools_registered"):
+        for k in ("export_ok", "build_check_all_ok", "hip_sha_as_build_check", "nest_tools_registered", "pinit_ok", "calib_ok"):
             ck.pop(k, None)
     L["precheck"] = dict(ok=bool(all(ck.values())), checks=ck, reason=None if all(ck.values()) else "failed: " + ", ".join(k for k, v in ck.items() if not v),
                          design_precheck=dict(ok=d["precheck"]["ok"], reason=d["precheck"].get("reason"), checks=d["precheck"]["checks"]),
@@ -1501,6 +1977,23 @@ def cmd_run(option, sim=False):
         tie = c2_tied_to_c2id(C)
         if not tie["ok"]:
             return final(dict(ok=False, step="run", option=option, why="C2 is not run: %s" % "; ".join(tie["why"]), tie=tie))
+        cs = calib_state()
+        if not cs["ok"] and not os.path.exists(launch_path(option)):
+            # the level step of C2's lattice is measured first (48 still-water frames at dp 0.25, CALIB_RULE_TEXT); then the launch cfg
+            print(now(), "C2 calibration first (%s)" % cs["why"], flush=True)
+            cr = calib_core(log=lambda *a: print(now(), *a, flush=True))
+            if not cr.get("ok"):
+                return final(dict(ok=False, step="run", option=option, why="C2 calibration failed: %s" % (cr.get("why") or cr.get("checks")), calib=cr))
+            L, d = launch_cfg(option)
+            pc = L["precheck"]
+    if option == "C2ID" and not pinit_state()["ok"] and not os.path.exists(launch_path(option)):
+        # F7: the parent's own frame-1056 particles first (hython hypart, ~1 min); then the launch cfg
+        print(now(), "C2ID: the parent's particles first (%s)" % pinit_state()["why"], flush=True)
+        pr = pinit_core()
+        if not pr.get("ok"):
+            return final(dict(ok=False, step="run", option=option, why="pinit failed: %s" % (pr.get("why") or pr.get("checks")), pinit=pr))
+        L, d = launch_cfg(option)
+        pc = L["precheck"]
     if not pc["ok"]:
         return final(dict(ok=False, step="run", option=option, why="launch precheck: %s" % pc["reason"]))
     if not chain_alive(rid):
@@ -1859,8 +2352,9 @@ def amendment_record():
     shas = {p: C.sha(REPO + "/" + p) for p in C.NEST_TOOLS}
     return dict(
         id=AMEND_ID, plan=C.PLAN_REL, plan_sha256=C.sha(C.PLAN), date=now(), by="main session (Claude), after the nest build check passed",
-        what="registers the C2 nest tools (written 2026-10-19 after Q88) and their rules BEFORE any nest run; the plan's cfgs, gates and reading "
-             "do not change",
+        what=("registers the C2 nest tools (written 2026-10-19 after Q88) and their rules BEFORE any nest run; RE-REGISTERED after the first "
+              "C2ID failed its identity gates (fix_2026_10_19_after_C2ID: F1 Input 1 = self + counters, F2 linear nest band weight, F7 C2ID "
+              "from the parent's own particles, C2 lattice with a calibrated level step); the plan's cfgs, gates and reading do not change"),
         code_sha256=shas,
         frozen_used=dict(runner=dict(path=rel(RUNNER), sha256=RUNNER_SHA), chain=dict(path=rel(CHAIN), sha256=CHAIN_SHA, in_memory_replacements=[
             [a, b] for a, b, _ in CHAIN_REPL]), restart=dict(path=rel(G49R), sha256=G49R_SHA, note="dirs() replaced in memory (new folder under FLIP55)")),
@@ -1870,6 +2364,9 @@ def amendment_record():
                            frame_1056="separate hython 'hyckpt' from a copy of v.1056.sim", spec=export_spec(C),
                            acceptance="strict bit-identity vs the judged run on frames 1057-1657 + R1 alignment <= 1e-3 m + vd files identical"),
         launch_rule=dict(derived_keys=list(DERIVED_KEYS), why=DERIVED_WHY, parms=LAUNCH_PARMS, str_parms={k: rel(v) for k, v in LAUNCH_STR_PARMS.items()},
+                         per_option=dict(parms=OPTION_PARMS, str_parms={o: {k: rel(v) for k, v in d.items()} for o, d in OPTION_STR_PARMS.items()},
+                                         note="these values replace LAUNCH_PARMS / LAUNCH_STR_PARMS per option; C2 init_lvl_m None = the calibrated "
+                                              "level step (calib55_C2.json, " + CALIB_RULE_TEXT + ")"),
                          overrides={k: dict(design=OVERRIDE_FROM[k], launch=v) for k, v in OVERRIDE_PARMS.items()},
                          rule="launch cfg = f55_pcfg.make(option, 'g1') (sha16 = the plan's) + DERIVED_KEYS, with the ONE registered override "
                               "parms.wall_taper_m 15 -> 0; everything else canonically equal",
@@ -1900,18 +2397,69 @@ def amendment_record():
                  "hython / Unity batch / foreign auto_F55, free commit and disk >= the plan's need), C2 tied to the gated C2ID's scene and tools")),
         nest_scene=dict(hip=rel(NEST_HIP), hip_sha256=bc.get("hip_sha256"), build_check=rel(NEST_BUILD_CHECK),
                         build_check_sha256=sha(NEST_BUILD_CHECK) if os.path.exists(NEST_BUILD_CHECK) else None,
-                        build_check_all_ok=bc.get("all_ok"), smoke_ok=bc.get("smoke_ok"), built_with_tool_sha256=bc.get("tool_sha256")),
-        bands=("x 180-195 and y 45-60 with DFG-2B-V's bands50 weights (relaxw; corner = max), velocity per substep toward the parent's (horizontal, "
-               "no wall taper, as relax_apply otherwise), surface per frame by particles (delete band particles that are not the parent's water; "
-               "seed parent-water lattice points where fewer than half the full-water count of nest particles lie within 1.5 dp; probability "
-               "= the band weight over one frame); the parent's water = below its particle level (SDF + s_off < 0) or, within 1 m of the bed, "
-               "below its top surface - s_off; target linear in time (fa = ceil(ff) - 1, fb = ceil(ff)), trilinear in space on the parent's "
-               "1 m grid (ghost cells, mirrored at y = 0)"),
-        init="DFG-2B-V's frame-1056 fields: lattice at dp kept where it is the parent's water (as the bands) and above bed + 0.5 dp, jitter "
-             "0.2 dp, velocity = the parent's grid velocity; DOP network start frame 1 (as the parent), FLIP / static objects created at 1056",
-        reading_note=("C2 (dp 0.25) is read with the parent's still offset 0.076 m (dp 0.5 surface reconstruction); its own offset is probably "
-                      "about half [guess ~0.04 m], so C2's eta and Hc read ~0.04 m low against C2ID. The registered hollow reading (+25 %, "
-                      "f55_hollow verdict) does not depend on it; any Hc comparison C2 vs C2ID must state this bias (physics review M5)"),
+                        build_check_all_ok=bc.get("all_ok"), smoke_ok=bc.get("smoke_ok"), built_with_tool_sha256=bc.get("tool_sha256"),
+                        build_check_matches_these_tools=bool((bc.get("tool_sha256") or {}) == shas),
+                        smoke_surface_activity_ok=((bc.get("smoke_py") or {}).get("surface_activity") or {}).get("ok"),
+                        smoke_volume_tracking_ok=((bc.get("smoke_py") or {}).get("volume_tracking") or {}).get("ok"),
+                        note="the build check on disk when this record was written; amend --write appends only when it was made with these "
+                             "tools and this hip and its smoke passed"),
+        parent_particles=dict(pinit_state(), json=rel(PINIT_JSON)),
+        bands=("x 180-195 and y 45-60 with the nest-only LINEAR band weight per frame w = chi (band_lin 1; nest_bands = bands50 with relaxw -> "
+               "chi; corner = max), velocity per substep toward the parent's (horizontal, no wall taper, as relax_apply otherwise; per substep "
+               "1 - (1 - w)^(dts/dt0)), surface per frame by particles (band_count / band_kill / band_seed with Input 1 = Myself: delete band "
+               "particles that are not the parent's water; seed parent-water lattice points where fewer than half the full-water count of "
+               "nest particles lie within 1.5 dp; probability = the band weight over one frame; all counters reset in band_count after the "
+               "once-per-frame gate, band_tgt = tgt_ok()); the parent's water = below its particle level minus init_lvl_m (SDF + s_off < "
+               "-init_lvl_m; C2ID 0, C2 the calibrated step) or, within 1 m of the bed, below its top surface - s_off - init_lvl_m; target linear in time (fa = ceil(ff) - 1, fb = "
+               "ceil(ff)), trilinear in space on the parent's 1 m grid (ghost cells, mirrored at y = 0)"),
+        init=("C2ID: the PARENT'S OWN frame-1056 particles inside the box (p_01056.npz from DFG-2B-V's checkpoint copy v.1056.sim, read by "
+              "f55_nest.py pinit through the hyckpt path: P and v unchanged; validated against the hyckpt particle count, the parent's SDF and "
+              "grid velocity); C2 (dp 0.25): the lattice at dp kept where it is the parent's water BY THE MARGIN init_lvl_m = the calibrated "
+              "level step (" + CALIB_RULE_TEXT + ") and above bed + 0.5 dp, jitter 0.2 dp, velocity = the parent's grid velocity; for C2 the "
+              "lattice AND the band water rule (band_kill margin init_lvl_m - kill_margin_dp dp, band_seed margin seed_margin_dp dp + "
+              "init_lvl_m and candidates e - init_lvl_m - 2 m .. e - init_lvl_m) are shifted by init_lvl_m (physics review 2026-10-19 B1: "
+              "otherwise the bands would hold the unshifted level and act as a sink / source that undoes the shift in ~3-13 s [computed]); "
+              "DOP network start frame 1 (as the parent), FLIP / static objects created at 1056"),
+        reading_note=("C2 (dp 0.25) keeps the parent's water: its lattice and band water rule are shifted by the calibrated rise after "
+                      "creation (calib55_C2.json analysis.step_m), not by its reading offset. C2 is read with the parent's still offset 0.076 m "
+                      "(dp 0.5); its own is probably ~0.04 m [guess]: C2's eta / Hc read ~0.04 m low against C2ID (offset measured: "
+                      "calib55_C2.json analysis.offset_at_creation_m; reported with any Hc comparison C2 vs C2ID together with "
+                      "step_per_20m_x and slope_last24_m_per_s); the hollow +25 % reading does not depend on it (physics review M5). With "
+                      "the linear band weights the side strip y 45-60 m is forced over its whole width toward the parent's 0.5 m solution "
+                      "(w per frame 0.33 at y 50 m instead of 0.013 [computed], breaking included); the GN1 / hollow region y 0-20 m stays "
+                      ">= 25 m away (physics review M3)"),
+        fix_2026_10_19_after_C2ID=dict(
+            supersedes=dict(PREVIOUS_REGISTRATION, why="the registered C2ID failed GN1-GN3; this record replaces it (the last AM-F55-NEST "
+                                                        "line is the one f55_common.nest_tools_state and c2_tied_to_c2id read)"),
+            failed_C2ID=dict(GN1="Hc -18.1 %, x +7.0 m, t_lip1 +2.92 s (tolerances 2 %, 1.5 m, 0.25 s)", GN2="0.639 m vs 0.402 m",
+                             GN3="worst +2.73 % (frame 1445) vs 2 %", tag="measured (gates_GN.json of the archived C2ID run)"),
+            diagnosis=("Unity/Build/FLIP55/diag_gn1 (workflow, 2026-10-19; the pre-fix build check, raw smoke record, smoke cfg / eta / p1056, "
+                       "hip and pv53 kept in Unity/Build/FLIP55/runs/_archived/prefix_build_C2ID_20261019 by nest_fix_test.sh before the "
+                       "new smoke: build_raw55_nest.json there): band_cand 0 in all 24 smoke frames [measured]: the surface relaxation "
+                       "never ran, most likely because band_kill / band_seed Input 1 was 'none' (the saved hip: bindinputmenu1 \"none\" on both "
+                       "[measured, static read]) so detail(0, 'ss_n') read 0 and the once-per-frame gate returned [computed, not verified in "
+                       "Houdini]; a velocity-only relaxation with a closed wall reproduces Hc -19 % and GN2 0.63 m [computed, band_lin.py]; the "
+                       "x 180 face passes 0.25-0.71 of the parent flux, anti-phase at the wall [computed]; the lattice init 7.7 / m3 vs the "
+                       "parent's 8.9 / m3 + FLIP reseeding raised the volume +2 % in 9 frames [measured, smoke]"),
+            F1=("band_count (new, detail) / band_kill / band_seed: bindinputmenu1 = 'self' (Myself) [menu token measured by a static read of "
+                "the Geometry Wrangle DialogScript in OPlibDop.hda of the pipeline's Houdini Indie 22.0.466 and of Houdini 21.0.729: tokens "
+                "none / sop / dopdata / self / first / second / third / fourth / selfraw, default none]; ALL counters reset in band_count after "
+                "the once-per-frame gate and before the target test (band_tgt = tgt_ok(); a failed target never shows the previous frame's "
+                "counts, review M1); band_kills (setdetailattrib add) and band_kills_np (point count before - after band_kill); a seed's "
+                "pprevious = its own position; the smoke needs band_tgt 1 and band_cand > 0 on every frame, kills > 0 summed over the "
+                "1-substep frames (all frames when none has 1 substep; per-frame kills reported: with F7 the nest starts as the parent's "
+                "own particles, so single frames may have none, code review M1) and std(V_nest) / std(V_parent) > 0.8 over the smoke frames"),
+            F2="band_lin 1: w = chi (linear) over the 15 m bands, nest only (DERIVED_WHY 'parms.band_lin 1')",
+            F7=("C2ID from the parent's own particles (init_src 1, pinit_npz; pinit also checks that the checkpoint copy is unchanged); C2 "
+                "keeps the lattice with the calibrated level step (init_src 0, init_lvl_m from f55_nest.py calib C2, run automatically by "
+                "'run C2' before its launch cfg is written): step = the rise of the nest's level after creation (code review B1: C2's dp "
+                "0.25 reading offset is reported, not subtracted, physics review M5), applied to the lattice AND the band water rule "
+                "(physics review B1)"),
+            gates="GN1-GN3 unchanged (GN_RULES, GN_TOL)",
+            order=("copy of the pre-fix evidence -> f55_nest.py selftest -> pinit -> x55_nest_build.py --smoke (build check + smoke) -> "
+                   "archive C2ID -> amend --write -> "
+                   "run C2ID -> gates C2ID (G:/research/Wave Simulation/_tools/nest_fix_test.sh); C2 (with its calibration) only when the "
+                   "main session decides")),
         volume="replay of the judged run's vd_<f>.txt (stage A d) in x 195-356 m; no own controller",
         end_band=("OFF (end_on 0 = the frozen 'outflow: none'). Built and probed (build check band_probe.end_band) because the parent's swash "
                   "passes the nest's closed face x 356 m; switching it on needs its own amendment (the export already carries box eb)"),
@@ -1946,6 +2494,8 @@ def cmd_amend(write=False):
         why.append("the tools changed after the build check (rebuild and recheck)")
     if not (jtry(EXPORT_JSON) or {}).get("ok"):
         why.append("the parent export is not ok")
+    if not pinit_state()["ok"]:
+        why.append("the parent's particles (f55_nest.py pinit) are not ok: %s" % pinit_state()["why"])
     if [a for a in C.amendments() if a.get("id") == AMEND_ID and a.get("code_sha256") == rec["code_sha256"]]:
         return final(dict(ok=True, step="amend", appended=False, why="already registered with these sha256"))
     if why:
@@ -1960,7 +2510,7 @@ def cmd_status():
     C = C_()
     out = dict(step="status", export=jtry(EXPORT_JSON) and dict((k, (jtry(EXPORT_JSON) or {}).get(k)) for k in ("ok", "seconds")),
                build_check=dict((k, (jtry(NEST_BUILD_CHECK) or {}).get(k)) for k in ("all_ok", "smoke_ok", "hip_sha256", "date")),
-               nest_tools=C.nest_tools_state(), amendment_draft=os.path.exists(AMEND_DRAFT),
+               nest_tools=C.nest_tools_state(), amendment_draft=os.path.exists(AMEND_DRAFT), pinit=pinit_state(), calib_C2=calib_state(),
                runs={o: dict(run_state(RUNS_ROOT + "/" + C.RID[o], F_END), last=None) for o in ("C2P", "C2ID", "C2")},
                gates=(jtry(RUNS_ROOT + "/" + C.RID["C2ID"] + "/f55/gates_GN.json") or {}).get("ok"))
     out["ok"] = True
@@ -2209,11 +2759,167 @@ def selftest():
     # 9. the patched chain's own gate(), dry: the export cfg passes; a nest launch cfg is refused until the nest build check exists
     g = chain_gate_dry()
     ok["chain_gate_export_passes"] = bool(g["export"] == [])
-    ok["chain_gate_nest_waits_for_build_check"] = bool(g["nest"] and all(("build" in r or "scene" in r or "場面" in r) for r in g["nest"]))
-    det["chain_gate"] = g
+    # the nest gate passes exactly when the nest build check is all_ok for the hip on disk; otherwise it refuses for build / scene reasons
+    # only (state-independent form of the former 'waits for the build check', which assumed no build check existed yet)
+    bc_now = jtry(NEST_BUILD_CHECK) or {}
+    bc_good = bool(bc_now.get("all_ok") and os.path.exists(NEST_HIP) and bc_now.get("hip_sha256") == sha(NEST_HIP))
+    ok["chain_gate_nest_consistent"] = bool((g["nest"] == []) if bc_good else (g["nest"] and all(("build" in r or "scene" in r or "場面" in r)
+                                                                                                 for r in g["nest"])))
+    det["chain_gate"] = dict(g, build_check_good=bc_good)
+    # 10. the fix (2026-10-19): per-option initial state, linear bands launched, the calibration rule, the particle validation
+    ok.update(fix_selftest(np, XB, det))
     res = dict(ok=bool(all(ok.values())), checks=ok, detail=det)
     jdump(res, SIM_DIR + "/selftest_f55_nest.json")
     return final(dict(ok=res["ok"], step="selftest", checks=ok, file=rel(SIM_DIR + "/selftest_f55_nest.json")))
+
+
+def fix_selftest(np, XB, det):
+    """the 2026-10-19 fix without Houdini: launch parms per option (F2 / F7 / calibration), the calibration rule on synthetic surfaces, the
+    particle validation on a synthetic file, the smoke's activity / tracking rules on synthetic rows, the amendment text."""
+    out = {}
+    L1, _ = launch_cfg("C2ID", for_smoke=True)
+    L2, _ = launch_cfg("C2", for_smoke=True)
+    p1, p2 = L1["parms"], L2["parms"]
+    out["fix_C2ID_from_parent_particles"] = bool(p1["init_src"] == 1.0 and p1["pinit_npz"] == PINIT_NPZ and p1["init_lvl_m"] == 0.0
+                                                 and p1["band_lin"] == 1.0 and L1["precheck"]["checks"].get("init_as_registered"))
+    cs = calib_state()
+    out["fix_C2_lattice_with_calibrated_step"] = bool(p2["init_src"] == 0.0 and p2["pinit_npz"] == "" and p2["band_lin"] == 1.0
+                                                      and L2["precheck"]["checks"].get("init_as_registered")
+                                                      and p2["init_lvl_m"] == (float(cs["step_m"]) if cs["ok"] else 0.0))
+    out["fix_derived_keys_cover_new_parms"] = bool(all(("parms." + k) in DERIVED_KEYS for k in ("band_lin", "init_src", "init_lvl_m", "pinit_npz"))
+                                                   and set(LAUNCH_PARMS) <= set(n for n, _, _ in XB.NEST_PARMS)
+                                                   and set(LAUNCH_STR_PARMS) <= set(n for n, _, _ in XB.NEST_STR_PARMS))
+    # the full precheck asks for the particles (C2ID) / the calibration (C2) when not for the smoke
+    Lf1, _ = launch_cfg("C2ID")
+    Lf2, _ = launch_cfg("C2")
+    out["fix_precheck_needs_pinit_and_calib"] = bool("pinit_ok" in Lf1["precheck"]["checks"] and "calib_ok" in Lf2["precheck"]["checks"]
+                                                     and Lf1["precheck"]["checks"]["pinit_ok"] == pinit_state()["ok"]
+                                                     and Lf2["precheck"]["checks"]["calib_ok"] == calib_state()["ok"])
+    # the calibration rule on synthetic nest surfaces (the C2 eta layout: 0.5 m cells): settled at s_off + 0.05 -> step 0.05; unsettled fails
+    base = SIM_DIR + "/calibtest"
+    if os.path.isdir(base):
+        shutil.rmtree(guard(base))
+    files_a, files_b, files_c = {}, {}, {}
+    xs0, zs0 = 180.25, 0.25
+    for k, f in enumerate(range(CKPT, CKPT + CALIB_FRAMES + 1)):
+        lv = STILL_OFFSET + 0.05 * (1.0 - math.exp(-k / 4.0))
+        e = np.full((120, 352), lv, np.float32)
+        e[:, :8] = lv + 0.3                                    # the x band (outside the region) does not count
+        meta = json.dumps(dict(x0=xs0, dx=0.5, z0=zs0, dz=0.5))
+        pa = guard(base + "/a/eta_%05d.npz" % f)
+        np.savez_compressed(pa, eta=e, meta=meta)
+        files_a[f] = pa
+        pb = guard(base + "/b/eta_%05d.npz" % f)
+        np.savez_compressed(pb, eta=(e + 0.006 * k).astype(np.float32), meta=meta)       # still drifting: 0.066 m over the last 12 frames
+        files_b[f] = pb
+        # code review B1: C2's own reading offset at creation (-0.04 m vs the parent's 0.076 m) must NOT enter the step
+        pc_ = guard(base + "/c/eta_%05d.npz" % f)
+        np.savez_compressed(pc_, eta=(e - 0.04).astype(np.float32), meta=meta)
+        files_c[f] = pc_
+    A = calib_analyse(np, files_a, STILL_OFFSET, frames_expected=CALIB_FRAMES + 1)
+    B = calib_analyse(np, files_b, STILL_OFFSET, frames_expected=CALIB_FRAMES + 1)
+    Cc = calib_analyse(np, files_c, STILL_OFFSET, frames_expected=CALIB_FRAMES + 1)
+    exp_a = float(np.mean([0.05 * (1.0 - math.exp(-k / 4.0)) for k in range(CALIB_FRAMES + 1)][-CALIB_RULES["last_n"]:]))
+    out["calib_rule_step"] = bool(A["ok"] and abs(A["step_m"] - exp_a) < 1e-6 and A["settle_m"] < 0.01 and abs(A["offset_at_creation_m"]) < 1e-6)
+    out["calib_step_is_rise_after_creation"] = bool(Cc["ok"] and abs(Cc["step_m"] - exp_a) < 1e-6 and abs(Cc["offset_at_creation_m"] + 0.04) < 1e-6
+                                                    and abs(Cc["step_vs_parent_hf_m"] - (exp_a - 0.04)) < 1e-6
+                                                    and abs(Cc["step_interior_m"] - exp_a) < 1e-6
+                                                    and all(abs(v - exp_a) < 1e-6 for v in Cc["step_per_20m_x"].values())
+                                                    and Cc["slope_last24_m_per_s"] is not None and abs(Cc["slope_last24_m_per_s"]) < 0.01
+                                                    and abs(B["slope_last24_m_per_s"] - 0.006 * FPS) < 1e-3
+                                                    and "frames - L(1056) (the rise after creation" in CALIB_RULE_TEXT
+                                                    and "(the still parent's hf level)" not in CALIB_RULE_TEXT)
+    out["calib_rule_refuses_unsettled"] = bool(not B["ok"] and B["checks"]["settled"] is False)
+    det["calib_synthetic"] = dict(step=A.get("step_m"), expected=exp_a, settle=A.get("settle_m"), unsettled_settle=B.get("settle_m"),
+                                  offset_case=dict(step=Cc.get("step_m"), offset_at_creation=Cc.get("offset_at_creation_m"),
+                                                   step_vs_parent_hf=Cc.get("step_vs_parent_hf_m"), slope=Cc.get("slope_last24_m_per_s")),
+                                  drifting_slope=B.get("slope_last24_m_per_s"))
+    cc = calib_cfg()
+    out["calib_cfg_still_target"] = bool(cc["parms"]["tgt_dir"] == CALIB_TGT and cc["parms"]["rep_on"] == 0.0 and cc["parms"]["init_lvl_m"] == 0.0
+                                         and cc["parms"]["init_src"] == 0.0 and cc["parms"]["dp"] == 0.25 and cc["parms"]["band_lin"] == 1.0
+                                         and cc["frames"] == [CKPT, CKPT + CALIB_FRAMES] and no_temp(cc) and under(cc["out_dir"], B55))
+    # the still synthetic parent: the nest's water rule fills to level 0 (SDF zero at s_off), v = 0
+    sd = base + "/still"
+    XB.write_synth_export(sd, frames=(CKPT, CKPT + 1), full_at=CKPT, fields_fn=lambda f: XB.still_fields(STILL_OFFSET))
+    nsx = {}
+    exec(compile(XB.TARGET_PURE, "TARGET_PURE", "exec"), nsx)
+    Rs = nsx["f55_pair"](sd, CKPT + 0.5, 62.0)
+    es = Rs["A"]["eta"][0][1:-1, 1:-1]                          # frame 1056 carries the whole box nb (later frames only the bands)
+    eb = Rs["B"]["eta"]
+    xb_ = eb[1][0] + eb[2][0] * np.arange(eb[0].shape[1]); zb_ = eb[1][2] + eb[2][2] * np.arange(eb[0].shape[0])
+    band = ((xb_[None, :] <= 199.0) | (zb_[:, None] >= 41.0)) & (xb_[None, :] >= 178.0) & (zb_[:, None] >= 0.0) & (zb_[:, None] <= 62.0)
+    out["calib_still_target"] = bool(Rs["ok"] == 1 and np.allclose(es, STILL_OFFSET, atol=1e-5) and np.allclose(eb[0][band], STILL_OFFSET, atol=1e-5)
+                                     and all(float(np.abs(Rs[t][k][0]).max()) == 0.0 for t in ("A", "B") for k in ("vx", "vy", "vz")))
+    # the particle validation on a synthetic, consistent file (particles below the synthetic SDF zero, velocity = the synthetic field)
+    F = XB.synth_fields(CKPT)
+    rng = np.random.RandomState(9)
+    # a parent-like particle block: x 180-230, lateral 0-20, a 0.5 m lattice (jittered 0.05 m) from 4 m below to its particle level
+    # (the SDF zero - s_off), as the parent's particles fill a column
+    gx, gz = np.meshgrid(180.25 + 0.5 * np.arange(100), 0.25 + 0.5 * np.arange(40), indexing="ij")
+    gx, gz = gx.ravel(), gz.ravel()
+    cols = []
+    for k in range(8):
+        y_ = F["eta"](gx, gz) - STILL_OFFSET - 0.05 - 0.5 * k - 0.25 * ((gx * 7 + gz * 3) % 1.0)
+        cols.append(np.stack([gx, y_, gz], 1))
+    pl = np.concatenate(cols, 0) + rng.uniform(-0.05, 0.05, (len(gx) * 8, 3))
+    n = len(pl)
+    x, y, z = pl[:, 0], pl[:, 1], pl[:, 2]
+    vv = np.stack([F["vx"](x, y, z), F["vy"](x, y, z), F["vz"](x, y, z)], 1)
+    xd = base + "/pinit_x"
+    XB.write_synth_export(xd, frames=(CKPT,), full_at=CKPT)
+    pp = guard(base + "/p_synth_valid.npz")
+    meta = dict(frame=CKPT, o_parent=[0.5, 0.5, 0.5], n_total=n + 7, n_box=n)
+    np.savez_compressed(pp, P_h=(pl + 0.5).astype(np.float32), v=vv.astype(np.float32), meta=np.array(json.dumps(meta)))
+    hy = dict(n_box=n, sha256=sha(pp), ckpt_sha256="b7" * 32, ckpt_sha256_after="b7" * 32)
+    v_ok = validate_pinit(np, pp, hy=hy, x_path=xd + "/x_%05d.npz" % CKPT, v_box=n / 8.9, n_total_expect=n + 7)
+    v_ck = validate_pinit(np, pp, hy=dict(hy, ckpt_sha256_after="c0" * 32), x_path=xd + "/x_%05d.npz" % CKPT, v_box=n / 8.9, n_total_expect=n + 7)
+    pb = guard(base + "/p_synth_bad.npz")
+    np.savez_compressed(pb, P_h=(pl + np.array([0.5, 6.0, 0.5])).astype(np.float32), v=vv.astype(np.float32), meta=np.array(json.dumps(meta)))
+    v_bad = validate_pinit(np, pb, hy=dict(n_box=n, sha256=sha(pb), ckpt_sha256="b7" * 32, ckpt_sha256_after="b7" * 32),
+                           x_path=xd + "/x_%05d.npz" % CKPT, v_box=n / 8.9, n_total_expect=n + 7)
+    out["pinit_validation_passes_consistent"] = bool(v_ok["ok"])
+    out["pinit_validation_refuses_changed_ckpt_copy"] = bool(not v_ck["ok"] and v_ck["checks"]["ckpt_copy_unchanged"] is False
+                                                             and all(v for k, v in v_ck["checks"].items() if k != "ckpt_copy_unchanged"))
+    out["pinit_validation_refuses_shifted"] = bool(not v_bad["ok"] and v_bad["checks"]["level_vs_parent_sdf"] is False)
+    det["pinit_synthetic"] = dict(ok=v_ok.get("checks"), above=v_ok.get("above_sdf_zero_frac"), dv=v_ok.get("mean_abs_dv_grid"),
+                                  bad_above=v_bad.get("above_sdf_zero_frac"))
+    out["pinit_box_is_C2ID"] = bool(pinit_box() == dict(x0=180.0, Lx=176.0, W=60.0))
+    # the smoke rules (x55_nest_build): activity and tracking on synthetic rows
+    rows_ok = [dict(frame=CKPT + 1 + i, band_cand=900, band_kills=3, band_kills_np=3, band_np0=10000, band_tgt=1, ss_n=1 if i % 2 else 2)
+               for i in range(24)]
+    rows_dead = [dict(r, band_cand=0, band_kills=0, band_kills_np=0) for r in rows_ok]
+    rows_1sub_nokill = [dict(r, band_kills=0, band_kills_np=0) if r["ss_n"] == 1 else r for r in rows_ok]
+    # code review M1: kills on only a few frames still prove band_kill runs (F7: the nest starts as the parent's own particles)
+    rows_sparse = [dict(r, band_kills=0, band_kills_np=0) if r["frame"] != CKPT + 6 else r for r in rows_ok]
+    rows_no1sub = [dict(r, ss_n=2, band_kills=(3 if r["frame"] == CKPT + 9 else 0), band_kills_np=(3 if r["frame"] == CKPT + 9 else 0)) for r in rows_ok]
+    rows_no1sub_dead = [dict(r, band_kills=0, band_kills_np=0) for r in rows_no1sub]
+    # physics review M1: a frame whose target failed (band_tgt 0) or whose counters are missing fails
+    rows_tgt0 = [dict(r, band_tgt=0) if r["frame"] == CKPT + 12 else r for r in rows_ok]
+    rows_notgt = [{k: v for k, v in r.items() if k != "band_tgt"} for r in rows_ok]
+    sa = XB.surface_activity
+    out["smoke_activity_rule"] = bool(sa(rows_ok)["ok"] and not sa(rows_dead)["ok"] and not sa(rows_1sub_nokill)["ok"] and not sa([])["ok"]
+                                      and sa(rows_sparse)["ok"] and sa(rows_sparse)["frames_with_kills"] == 1
+                                      and sa(rows_no1sub)["ok"] and not sa(rows_no1sub_dead)["ok"]
+                                      and not sa(rows_tgt0)["ok"] and not sa(rows_notgt)["ok"]
+                                      and sa(rows_ok)["kills_counter_agrees_report_only"] is True
+                                      and sa([dict(r, band_kills=2) for r in rows_ok])["ok"]
+                                      and sa([dict(r, band_kills=2) for r in rows_ok])["kills_counter_agrees_report_only"] is False)
+    vp = 86966.0 + 20.0 * np.arange(25.0) + 3.0 * np.sin(np.arange(25.0))
+    out["smoke_tracking_rule"] = bool(XB.volume_tracking(vp, vp * 1.001)["ok"] and not XB.volume_tracking(vp, np.full(25, 87000.0) + 0.1 * np.arange(25.0))["ok"])
+    # the amendment draft text names the fix and the superseded registration
+    rec = amendment_record()
+    fx = rec.get("fix_2026_10_19_after_C2ID") or {}
+    out["amendment_names_fix"] = bool(fx.get("supersedes", {}).get("code_sha256") == PREVIOUS_REGISTRATION["code_sha256"] and "F1" in fx and "F2" in fx
+                                      and "F7" in fx and rec["code_sha256"] != PREVIOUS_REGISTRATION["code_sha256"] and no_temp(rec))
+    # review fixes in the registered text: C2's lattice AND band water rule shifted by init_lvl_m (physics B1); the step = the rise after
+    # creation, the reading offset reported (code B1 / physics M5); the activity rule as the smoke applies it (code M1, physics M1)
+    out["amendment_names_review_fixes"] = bool("lattice AND the band water rule" in rec["init"] and "offset_at_creation_m" in rec["reading_note"]
+                                               and "not by its reading offset" in rec["reading_note"] and "physics review M5" in rec["reading_note"]
+                                               and "kills > 0 summed over the" in fx["F1"] and "band_tgt" in fx["F1"]
+                                               and "rise of the nest's level after creation" in fx["F7"]
+                                               and "prefix_build_C2ID_20261019" in fx["diagnosis"])
+    out["steps_known"] = bool(all(s in STEPS for s in ("pinit", "calib")) and NEED_OPTION.get("pinit") == "C2" and NEED_OPTION.get("calib") == "C2")
+    return out
 
 
 def ops_selftest():
@@ -2455,7 +3161,7 @@ def gn_synthetic(np):
 
 
 # ====================================================================== main
-STEPS = ("export", "run", "gates", "analyse", "amend", "status", "selftest", "standin", "archive")
+STEPS = ("export", "pinit", "calib", "run", "gates", "analyse", "amend", "status", "selftest", "standin", "archive")
 
 
 def main(argv):
@@ -2476,6 +3182,9 @@ def main(argv):
     if cmd == "hyckpt":
         hy_ckpt(pos[0])
         return 0
+    if cmd == "hypart":
+        hy_part(pos[0])
+        return 0
     if cmd == "chain":
         return cmd_chain(pos[0], pos[1])
     if cmd not in STEPS:
@@ -2488,6 +3197,10 @@ def main(argv):
     try:                                     # every step ends with ONE json line with "ok", also when it stops on an error (code review M5)
         if cmd == "export":
             return cmd_export(sim)
+        if cmd == "pinit":
+            return cmd_pinit(sim)
+        if cmd == "calib":
+            return cmd_calib(pos[0] if pos else "C2", sim)
         if cmd == "run":
             return cmd_run(pos[0] if pos else "C2ID", sim)
         if cmd == "gates":

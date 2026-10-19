@@ -29,28 +29,59 @@ surface path for R5) with these nest additions (so the FROZEN g52b3_run.py recor
              particles (fails loudly); nest_on 0 -> DFG-2B-V's still-water rule.
   DOP        the DOP network starts at frame 1 like DFG-2B-V's ($SF = $F, simulation time = global time, checkpoint names = global frames,
              as the frozen chain's resume needs); the FLIP and static objects are CREATED at frame sim_f0 = 1056 (creation frame in global
-             frames, not solved on that frame), so frames 1-1055 hold no object; relax_zones = nest_apply (bands50 weights, walltaper /
-             sdtaper / rampT like relax_apply, target = the parent's velocity, horizontal unless relax_vert; launched with wall_taper_m 0);
+             frames, not solved on that frame), so frames 1-1055 hold no object; relax_zones = nest_apply (nest_bands weights: band_lin 1
+             = w per frame chi, band_lin 0 = bands50's relaxw(chi); walltaper / sdtaper / rampT like relax_apply, target = the parent's
+             velocity, horizontal unless relax_vert; launched with wall_taper_m 0);
              vc_rep (rep_on) = the replayed divergence in vol_x0..vol_x1 (vc_divergence's window rule); pre-solve = substep_count then
-             band_kill (point) and band_seed (detail): the surface relaxation by particles (once per frame on the first substep,
-             probability = the band weight over one frame: delete particle centres that are not tgt_water (margin kill_margin_dp dp); seed
-             tgt_water lattice points (margin seed_margin_dp dp), down to seed_depth_m, where fewer than seed_fill_frac x the full-water
-             count of nest particles lie within seed_r_dp dp; a seed is a copy of its nearest nest particle (all attributes) with its own
-             P, v = the parent's and a fresh id).
+             band_count (detail, counters), band_kill (point) and band_seed (detail): the surface relaxation by particles (once per
+             frame on the first substep, probability = the band weight over one frame: delete particle centres that are not tgt_water
+             (margin init_lvl_m - kill_margin_dp dp); seed tgt_water lattice points (margin seed_margin_dp dp + init_lvl_m; candidates
+             between e - init_lvl_m - seed_depth_m and e - init_lvl_m), where fewer than seed_fill_frac x the full-water count of nest
+             particles lie within seed_r_dp dp; a seed is a copy of its nearest nest particle (all attributes) with its own P (and
+             pprevious), v = the parent's and a fresh id).
+FIX 2026-10-19 after C2ID failed its identity test (GN1 Hc -18 %, x +7 m, lip +2.9 s; GN2 0.64 m vs 0.40; GN3 2.7 % vs 2 % [measured];
+diagnosis Unity/Build/FLIP55/diag_gn1: band_cand 0 in all 24 smoke frames, i.e. the surface relaxation never ran [measured]):
+  F1  band_count / band_kill / band_seed bind Input 1 = 'self' (Myself) (bindinputmenu1; the menu tokens none / sop / dopdata / self / first
+      .. fourth / selfraw [measured, static read of the Geometry Wrangle DialogScript in OPlibDop.hda of the pipeline's hython, Houdini Indie
+      22.0.466 (g52b3_common.HY; the hip's version), and of Houdini 21.0.729]; the default 'none' made every detail(0, ..) / nearpoints(0,
+      ..) read nothing, so ss_n read 0 and the relaxation returned at once [computed, not verified in Houdini]); ALL counters are reset
+      in band_count AFTER the once-per-frame gate and BEFORE the target test (they keep the first substep's values to the frame's end; a
+      frame whose target fails reads band_tgt 0 and zero counts, never the previous frame's): band_tgt (= tgt_ok()), band_kills
+      (setdetailattrib add in band_kill), band_kills_np (point count before band_kill minus after), band_np0, band_ss, band_cand,
+      band_added. A seed's pprevious (when the object has it) is its own new position.
+  C2 level shift (physics review 2026-10-19 B1): init_lvl_m shifts the lattice (init_particles) AND the band water rule (band_kill margin
+      init_lvl_m - kill_margin_dp dp, band_seed margin seed_margin_dp dp + init_lvl_m and its candidate range e - init_lvl_m - depth ..
+      e - init_lvl_m), so C2's launch is the calibrated still state translated by the step; C2ID and the calibration run init_lvl_m 0.
+  F2  nest-only band weight per FRAME w = chi (linear over the 15 m bands, band_lin 1; band_lin 0 = DFG-2B-V's bands50 relaxw, unchanged:
+      nest_bands is a copy of bands50 with relaxw -> nest_prof; the parent family's bands50 / relax_apply are not touched).
+  F7  init_src 1: the nest is created from the PARENT'S OWN frame-1056 particles inside the box (Python SOP parent_particles reading CTRL
+      pinit_npz = f55_nest.py pinit's p_01056.npz, read from DFG-2B-V's checkpoint copy through the hyckpt path); init_src 0: the lattice
+      (C2, dp 0.25: no parent particles at that spacing) filled to the parent's particle level minus init_lvl_m (the level step = the rise
+      of the nest's level after creation, measured by f55_nest.py calib C2: a 48-frame still-water run of this scene at dp 0.25 against
+      a still synthetic parent; --hython-calib here).
 Build check items (all_ok needs every item; the smoke is needed for f55_nest.py amend --write):
   ctrl_superset, bed (OUT_BED + bed SDF vs numpy at the C2ID and C2 nest boxes), still_particles (nest_on 0 count = f55_common.count_particles),
   target_probe (synthetic export: OUT_TARGET values vs the analytic fields at an integer and a half frame, the time weight, the fallback, and
-  rows at lateral 0-0.5 m against the mirrored expectation), band_probe (nest_wdt / nest_apply vs the frozen numpy mirror g50_table.bands_np /
-  tapers_np / rampT), replay_probe, init_particles (synthetic target: Houdini count = numpy count, velocities), init_no_target (0 particles),
-  dop_setup (DOP start frame 1, creation frames 1056 in global frames, no solve on creation, solver inputs), saved_defaults; smoke (--smoke,
-  the REAL export): no object at 1055, object created at 1056, init count vs numpy on x_01056.npz within 0.5 %, initial velocity vs the
-  parent's (mean |dv| < 0.05 m/s), 24 frames finite, DOP time = global time, checkpoint file name = global frame, particle attributes sane
-  (pscale > 0, ids unique), nest volume vs the parent's within 5 % (report: band edge rms, seeds per frame).
+  rows at lateral 0-0.5 m against the mirrored expectation), band_probe (nest_wdt / nest_apply vs the numpy mirror nest_bands_np with
+  band_lin 1 AND with band_lin 0 = the frozen g50_table.bands_np / tapers_np / rampT), replay_probe, init_particles (synthetic target:
+  Houdini count = numpy count, velocities; also with an init_lvl_m margin), init_no_target (0 particles), init_from_particles (synthetic
+  particle file: OUT_PARTICLES = the file's points in the box, P and v exact), init_no_pfile (init_src 1 without a file: 0 particles),
+  dop_setup (DOP start frame 1, creation frames 1056 in global frames, no solve on creation, solver inputs, band_count / band_kill /
+  band_seed bound to Input 1 = self, in that order), saved_defaults; smoke (--smoke, the REAL export and the parent's p_01056.npz): no object
+  at 1055, object created at 1056, init count = the parent's particles in the box (init_src 1) or numpy on x_01056.npz (init_src 0) within
+  0.5 %, initial velocity = the parent particles' own (init_src 1, mean |dv| < 1e-3 m/s) or the parent's grid velocity (init_src 0, < 0.05
+  m/s), 24 frames finite, DOP time = global time, checkpoint file name = global frame, particle attributes sane (pscale > 0, ids unique),
+  the surface relaxation ACTIVE (band_tgt 1 and band_cand > 0 on every frame, kills > 0 summed over the 1-substep frames, over all frames
+  when none has 1 substep; kills per frame and the counter vs point-count agreement reported), the nest volume tracking the parent's (std
+  over the smoke frames of V_nest / std of V_parent > 0.8) and within 5 % (report: band edge rms, seeds / kills per frame, correlation,
+  increment ratio, the particle file's fraction above the parent's particle level).
 usage:
   py -3.10 -B x55_nest_build.py [--smoke] [--simulate|--dry]
         default: preflight, wait for every other hython, run hython (this file --hython), then WRITE _logs/build_check55_nest.json
         --simulate / --dry: preflight + the numpy self-test of the scene code + the planned hython command; writes only _scratch/sim_nest
   hython x55_nest_build.py --hython [--smoke]      (internal; raw results -> _logs/build_raw55_nest.json)
+  hython x55_nest_build.py --hython-calib <cfg>    (internal, started by f55_nest.py calib: loads the CHECKED hip, never saves it, runs the
+                                                   cfg's frames, writes the per-frame R1 surface of the nest + counters -> <cfg out_dir>)
 Tags: [measured] [computed] [chosen].
 """
 import os, sys, json, time, math, hashlib, subprocess, copy, glob
@@ -101,8 +132,18 @@ NEST_PARMS = [("nest_on", 0.0, "nest: bands relax toward the parent's fields (OU
               ("end_on", 0.0, "nest: OPTIONAL end band at the closed face x0 + Lx (0 = the frozen design 'outflow: none')"),
               ("end_band_m", 15.0, "nest: width of the optional end band (m), the inlet band's rule mirrored"),
               ("s_off", 0.0, "nest: the parent's still offset (m): its SDF zero lies this far above its particle level (launch: 0.0759846568107605)"),
-              ("bed_trust_m", 1.0, "nest: within this height above the bed the parent's top surface decides water (its SDF reads air there)")]
-NEST_STR_PARMS = [("tgt_dir", "", "nest: the parent export folder (x_<f>.npz)"), ("rep_dir", "", "nest: the parent's vd_<f>.txt folder")]
+              ("bed_trust_m", 1.0, "nest: within this height above the bed the parent's top surface decides water (its SDF reads air there)"),
+              ("band_lin", 0.0, "nest (F2): band weight per frame = chi (linear) instead of bands50's relaxw(chi) (0 = bands50 unchanged)"),
+              ("init_src", 0.0, "nest (F7): 1 = create the nest from the parent's own particles (pinit_npz), 0 = the lattice (init_particles)"),
+              ("init_lvl_m", 0.0, "nest (C2 calibration): the lattice AND the band water rule use the parent's particle level minus this (m)")]
+NEST_STR_PARMS = [("tgt_dir", "", "nest: the parent export folder (x_<f>.npz)"), ("rep_dir", "", "nest: the parent's vd_<f>.txt folder"),
+                  ("pinit_npz", "", "nest (F7): the parent's frame-1056 particles in the box (f55_nest.py pinit: p_01056.npz)")]
+# F1: the DOP Geometry Wrangles that READ their own geometry (detail(0, ..), nearpoints(0, ..), npoints(0)) bind Input 1 to 'Myself'
+# (OPlibDop Geometry Wrangle of the pipeline's Houdini Indie 22.0.466, also 21.0.729: bindinputmenu1 default "none"; menu none / sop /
+# dopdata / self / first / second / third / fourth / selfraw [measured, static read of its DialogScript; oplib_bind_tokens re-reads it])
+BIND_PARM = "bindinputmenu1"
+BIND_SELF = "self"
+BIND_NODES = ("band_count", "band_kill", "band_seed")
 
 # ====================================================================== VEX (appended to flip52/g52_tanklib.VEX_HEAD, which stays unchanged)
 NEST_VEX = r'''
@@ -143,16 +184,50 @@ float end_w(float x; float dts) {
     float w = clamp(relaxw((x - (x1 - L))/L)*chf(CT+"relax_g"), 0.0, 1.0);
     return 1.0 - pow(1.0 - w, dts/chf(CT+"dt0"));
 }
-// DFG-2B-V's band weight (bands50, unchanged) for a step dts (+ the optional end band, max)
+// F2 (nest only): the band weight per FRAME as a function of chi (0 at the band's inner edge, 1 at the closed face): band_lin 1 -> chi
+// (linear), band_lin 0 -> relaxw(chi) (= DFG-2B-V's bands50, unchanged)
+float nest_prof(float chi) {
+    float c = clamp(chi, 0.0, 1.0);
+    if (chf(CT+"band_lin") > 0.5) return c;
+    return relaxw(c);
+}
+// a COPY of bands50 (g50_tanklib, frozen, not edited) with relaxw -> nest_prof: band_lin 0 returns exactly bands50's values
+void nest_bands(float x; float zl; float dts; float wdt; float ftg; int inb; int insd) {
+    float dt0 = chf(CT+"dt0"); float rg = chf(CT+"relax_g");
+    wdt = 0.0; ftg = 1.0; inb = 0; insd = 0;
+    float xg = chf(CT+"xg_end");
+    if (chf(CT+"relax_on") > 0.5 && rg > 0.0 && x < xg) {
+        float w = clamp(nest_prof((xg - x)/max(xg - chf(CT+"x0"), 1e-6))*rg, 0.0, 1.0);
+        wdt = max(wdt, 1.0 - pow(1.0 - w, dts/dt0));
+        inb = 1;
+    }
+    float a = chf(CT+"sd0"); float b = chf(CT+"W");
+    if (chf(CT+"sd_on") > 0.5 && zl > a) {
+        float chi = clamp((zl - a)/max(b - a, 1e-6), 0.0, 1.0);
+        float s = smooth01((x - chf(CT+"sd_gen"))/max(chf(CT+"sd_sw") - chf(CT+"sd_gen"), 1e-6));
+        float wg = 1.0 - pow(1.0 - clamp(nest_prof(chi)*rg, 0.0, 1.0), dts/dt0);
+        float wa = 1.0 - exp(-chf(CT+"sd_sigma")*pow(chi, chf(CT+"sd_pow"))*dts);
+        wdt = max(wdt, lerp(wg, wa, s));
+        ftg *= (1.0 - s);
+        insd = 1;
+    }
+    float xa0 = chf(CT+"xa0"); float x1 = chf(CT+"x0") + chf(CT+"Lx");
+    if (chf(CT+"abs_on") > 0.5 && x > xa0) {
+        float chi = clamp((x - xa0)/max(x1 - xa0, 1e-6), 0.0, 1.0);
+        wdt = max(wdt, 1.0 - exp(-chf(CT+"abs_sigma")*pow(chi, chf(CT+"abs_pow"))*dts));
+        ftg = 0.0;
+    }
+}
+// the nest band weight (nest_bands) for a step dts (+ the optional end band, max)
 float nest_wdt(float x; float zl; float dts) {
-    float wdt; float ftg; int inb; int insd; bands50(x, zl, dts, wdt, ftg, inb, insd);
+    float wdt; float ftg; int inb; int insd; nest_bands(x, zl, dts, wdt, ftg, inb, insd);
     return max(wdt, end_w(x, dts));
 }
 // the nest band = relax_apply's rule with the parent's velocity as the target (walltaper = 1: launched with wall_taper_m 0)
 vector nest_apply(vector pl; vector vel; vector P; float t; float dts) {
     if (chf(CT+"nest_on") < 0.5) return relax_apply(pl, vel, t, dts);
     float wdt; float ftg; int inb; int insd;
-    bands50(pl.x, pl.z, dts, wdt, ftg, inb, insd);
+    nest_bands(pl.x, pl.z, dts, wdt, ftg, inb, insd);
     float w = max(wdt, end_w(pl.x, dts));
     if (w <= 0.0 || tgt_ok() < 1) return vel;
     float gb = inb ? chf(CT+"in_gain") : chf(CT+"sd_gain");
@@ -180,6 +255,18 @@ v@vel = nest_apply(pl, v@vel, @P, f@Time + chf(CT+"t_off"), f@TimeInc);
     "vc_rep": r'''
 f@divergence = vc_replay(plan(@P));
 ''',
+    "band_count": r'''
+// F1: runs before band_kill (detail; Input 1 = self). ALL counters are reset here, AFTER the once-per-frame gate and BEFORE the target
+// test: on the substeps the relaxation skips they keep the values of the frame's first substep (read at the frame's end by the smoke /
+// the records); a frame whose target fails reads band_tgt 0 and zero counts (never the previous frame's)
+if (chf(CT+"nest_on") < 0.5 || chf(CT+"band_surf") < 0.5) return;
+int once = chf(CT+"seed_once_per_frame") > 0.5;
+int ssn = detail(0, "ss_n", 0);
+if (once && ssn != 1) return;
+i@band_np0 = npoints(0); i@band_kills = 0; i@band_ss = ssn;
+i@band_cand = 0; i@band_added = 0; i@band_kills_np = 0;
+i@band_tgt = tgt_ok();
+''',
     "band_kill": r'''
 if (chf(CT+"nest_on") < 0.5 || chf(CT+"band_surf") < 0.5 || tgt_ok() < 1) return;
 int once = chf(CT+"seed_once_per_frame") > 0.5;
@@ -191,20 +278,29 @@ float wdt = nest_wdt(pl.x, pl.z, dts);
 if (wdt <= chf(CT+"w_min")) return;
 float dp = chf(CT+"dp");
 if (nest_draw(pl, f@Time) >= wdt) return;
-// kill = NOT the parent's water by the margin kill_margin_dp dp (the complement of tgt_water with margin -km)
-if (!tgt_water(@P, pl.y, bedy(pl.x, pl.z), tgt_eta(@P), -chf(CT+"kill_margin_dp")*dp)) removepoint(0, @ptnum);
+// kill = NOT the parent's water by the margin init_lvl_m - kill_margin_dp dp (the complement of tgt_water; C2: the band level shifted
+// by the calibrated step like the lattice, physics review 2026-10-19 B1; C2ID 0); counted (F1)
+if (!tgt_water(@P, pl.y, bedy(pl.x, pl.z), tgt_eta(@P), chf(CT+"init_lvl_m") - chf(CT+"kill_margin_dp")*dp)) {
+    removepoint(0, @ptnum);
+    setdetailattrib(0, "band_kills", 1, "add");
+}
 ''',
     "band_seed": r'''
-i@band_added = 0; i@band_cand = 0;
 if (chf(CT+"nest_on") < 0.5 || chf(CT+"band_surf") < 0.5 || tgt_ok() < 1) return;
 int once = chf(CT+"seed_once_per_frame") > 0.5;
 int ssn = detail(0, "ss_n", 0);
 if (once && ssn != 1) return;
+// F1: the counters were reset by band_count (after the gate); kills by the point count (band_count's band_np0 minus the count now)
+i@band_kills_np = i@band_np0 - npoints(0);
 float dts = once ? NEST_FRAME_DT : f@TimeInc;
 float dp = chf(CT+"dp"); float x0 = chf(CT+"x0"); float Lx = chf(CT+"Lx"); float W = chf(CT+"W"); float zb = chf(CT+"zb");
 vector o = set(chf(CT+"ox"), chf(CT+"oy"), chf(CT+"oz"));
 float xg = chf(CT+"xg_end"); float sd0 = chf(CT+"sd0"); float wmin = chf(CT+"w_min");
-float sm = chf(CT+"seed_margin_dp")*dp; float depth = chf(CT+"seed_depth_m"); float rr = chf(CT+"seed_r_dp")*dp;
+// C2: the band level shifted by the calibrated step init_lvl_m like the lattice (physics review 2026-10-19 B1; C2ID 0): the water margin
+// and the candidate range move by it (lvl < 0 reaches above e)
+float lvl = chf(CT+"init_lvl_m");
+float sm = chf(CT+"seed_margin_dp")*dp + lvl; float depth = chf(CT+"seed_depth_m"); float rr = chf(CT+"seed_r_dp")*dp;
+int hasprev = haspointattrib(0, "pprevious");
 float nfull = 4.18879*pow(chf(CT+"seed_r_dp"), 3.0);          // particles within rr in full water (1 per dp^3)
 float nneed = chf(CT+"seed_fill_frac")*nfull;
 int nq = int(ceil(nneed));                                     // len(near) >= nneed <=> len(near) >= nq: no need to find more
@@ -221,9 +317,9 @@ for (int iz = 0; iz < nz; iz++) {
         if (wdt <= wmin) continue;
         float e = tgt_eta(set(x, 0.0, zl) + o);
         float yb = bedy(x, zl);
-        float ylo = max(yb + gap, e - depth);
+        float ylo = max(yb + gap, e - lvl - depth);
         int k0 = max(int(ceil((ylo - zb)/dp - 0.5 - 1e-9)), 0);
-        int k1 = int(ceil((e - zb)/dp - 0.5 - 1e-9));
+        int k1 = int(ceil((e - lvl - zb)/dp - 0.5 - 1e-9));
         for (int k = k0; k < k1; k++) {
             float y = zb + (k + 0.5)*dp;
             vector q = set(x, y, zl) + o;
@@ -240,6 +336,7 @@ for (int iz = 0; iz < nz; iz++) {
             int p = -1;                                       // no ternary around addpoint: one call, never both
             if (tp >= 0) p = addpoint(0, tp); else p = addpoint(0, q + jit);
             setpointattrib(0, "P", p, q + jit);
+            if (hasprev) setpointattrib(0, "pprevious", p, q + jit);     // no swept path from the copied neighbour (review M5)
             setpointattrib(0, "v", p, tgt_vel(q + jit));
             if (hasid) {
                 if (idn < 0) {
@@ -271,7 +368,8 @@ for (int k = 0; k < 100000; k++) {
     float y = zb + (k + 0.5)*dp;
     if (y >= e) break;
     if (y < ylo) continue;
-    if (nest && !tgt_water(set(pc.x, y, pc.z) + o, y, yb, et, 0.0)) continue;
+    // the parent's water by the margin init_lvl_m (C2: the calibrated level step; 0 otherwise)
+    if (nest && !tgt_water(set(pc.x, y, pc.z) + o, y, yb, et, chf(CT+"init_lvl_m"))) continue;
     vector jit = (set(rand(c*7919 + y*13.1), rand(c*104729 + y*7.7), rand(c*1299709 + y*3.3)) - 0.5)*0.2*dp;
     vector q = set(pc.x, y, pc.z) + jit;
     int p = addpoint(0, q + o);
@@ -487,6 +585,84 @@ if tdir:
 '''
 
 
+# ====================================================================== F7: the parent's own particles as the nest's initial state
+PINIT_PURE = r'''
+import os, json
+import numpy as np
+
+
+def f55_pinit_load(path, box, o_nest):
+    """the parent's frame-1056 particles (f55_nest.py pinit: P_h = the parent's Houdini positions float32, v, meta.o_parent) kept inside the
+    nest box (plan x0 <= x <= x0 + Lx, 0 <= lateral <= W; the vertical is not cut: the parent's particles lie in the same tank) and moved
+    to the nest's Houdini frame (+ o_nest - o_parent, exact when equal). Returns (P_h nest float32 [n, 3], v float32 [n, 3], meta, n_file)."""
+    with np.load(path, allow_pickle=False) as d:
+        Ph = np.array(d["P_h"], np.float32)
+        V = np.array(d["v"], np.float32)
+        meta = json.loads(str(d["meta"]))
+    op = np.array(meta["o_parent"], np.float64)
+    on = np.array(o_nest, np.float64)
+    pl = Ph.astype(np.float64) - op
+    x0, x1, W = float(box["x0"]), float(box["x0"]) + float(box["Lx"]), float(box["W"])
+    keep = (pl[:, 0] >= x0) & (pl[:, 0] <= x1) & (pl[:, 2] >= 0.0) & (pl[:, 2] <= W)
+    if np.all(on == op):
+        P = Ph[keep]
+    else:
+        P = (pl[keep] + on).astype(np.float32)
+    return np.ascontiguousarray(P, np.float32), np.ascontiguousarray(V[keep], np.float32), meta, int(len(Ph))
+'''
+
+PYSOP_PINIT = PINIT_PURE + r'''
+import hou
+node = hou.pwd()
+geo = node.geometry()
+geo.clear()
+geo.addAttrib(hou.attribType.Point, "v", (0.0, 0.0, 0.0))
+geo.addAttrib(hou.attribType.Global, "pinit_n", 0)
+geo.addAttrib(hou.attribType.Global, "pinit_n_file", 0)
+geo.addAttrib(hou.attribType.Global, "pinit_src", "")
+geo.addAttrib(hou.attribType.Global, "pinit_err", "")
+path = node.evalParm("npz")
+ctrl = hou.node("/obj/G52_SETUP/CTRL")
+if path:
+    try:
+        bx = dict(x0=ctrl.evalParm("x0"), Lx=ctrl.evalParm("Lx"), W=ctrl.evalParm("W"))
+        on = [float(ctrl.evalParm("ox")), float(ctrl.evalParm("oy")), float(ctrl.evalParm("oz"))]
+        P, V, meta, nf = f55_pinit_load(path, bx, on)
+        if len(P):
+            geo.createPoints([(0.0, 0.0, 0.0)] * int(len(P)))
+            geo.setPointFloatAttribValuesFromString("P", P.tobytes())
+            geo.setPointFloatAttribValuesFromString("v", V.tobytes())
+        geo.setGlobalAttribValue("pinit_n", int(len(P)))
+        geo.setGlobalAttribValue("pinit_n_file", int(nf))
+        geo.setGlobalAttribValue("pinit_src", str(path))
+    except Exception as e:
+        try:
+            geo.deletePoints(geo.points())             # nothing half-made reaches the FLIP object (0 particles: fails loudly)
+        except Exception:
+            pass
+        geo.setGlobalAttribValue("pinit_n", 0)
+        geo.setGlobalAttribValue("pinit_err", repr(e)[:500])
+'''
+
+
+def write_synth_particles(path, n=4000, seed=56, o_parent=(0.5, 0.5, 0.5)):
+    """a synthetic particle file in pinit's format: points in and around the C2ID box (some outside in x and lateral, to be cut), v a
+    function of the position. Returns (path, expected plan points kept, their v)."""
+    import numpy as np
+    rng = np.random.RandomState(seed)
+    pl = np.stack([rng.uniform(176.0, 360.0, n), rng.uniform(-15.0, 2.0, n), rng.uniform(-1.0, 64.0, n)], 1)
+    pl[pl[:, 2] < 0.0, 2] = np.abs(pl[pl[:, 2] < 0.0, 2])         # the parent has nothing below the plane y = 0 either
+    Ph = (pl + np.array(o_parent)).astype(np.float32)
+    V = np.stack([0.3 + 0.01 * pl[:, 0], -0.02 * pl[:, 1], 0.004 * pl[:, 2]], 1).astype(np.float32)
+    meta = dict(kind="SYNTHETIC parent particles (build check)", frame=1056, o_parent=list(o_parent), n=int(n))
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    with open(path, "wb") as fh:
+        np.savez_compressed(fh, P_h=Ph, v=V, meta=np.array(json.dumps(meta)))
+    plk = Ph.astype(np.float64) - np.array(o_parent)
+    keep = (plk[:, 0] >= NEST_BOX["x0"]) & (plk[:, 0] <= NEST_BOX["x0"] + NEST_BOX["Lx"]) & (plk[:, 2] >= 0.0) & (plk[:, 2] <= NEST_BOX["W"])
+    return path, Ph[keep], V[keep]
+
+
 # ====================================================================== synthetic export (same format as f55_nest.export_frame) + analytic fields
 def synth_fields(f):
     """analytic fields of the synthetic frame f (plan coordinates; linear in every coordinate, so trilinear sampling is exact): surface
@@ -512,10 +688,20 @@ def synth_expect(F, key, X, Y=None, Z=None):
     return F[key](X, Ye, Ze)
 
 
-def write_synth_export(out_dir, frames=(1056, 1057), full_at=1056):
-    """files x_<f>.npz with the export layout on a 1 m lattice like the parent's (cell centres k + 0.5; vel.x faces at integer x, vel.y faces at
-    integer y, vel.z faces at integer lateral), boxes xb / yb (and nb = the whole nest box at full_at)."""
+def still_fields(s_off):
+    """the parent at rest (the C2 calibration's synthetic target): its SDF zero s_off above its particle level 0 (= its still offset), v = 0."""
     import numpy as np
+    z = lambda *a: np.zeros(np.broadcast(*a).shape)
+    return dict(eta=lambda x, zz: np.full(np.broadcast(x, zz).shape, float(s_off)), s=lambda x, y, zz: y - float(s_off) + 0.0 * x + 0.0 * zz,
+                vx=z, vy=z, vz=z)
+
+
+def write_synth_export(out_dir, frames=(1056, 1057), full_at=1056, fields_fn=None):
+    """files x_<f>.npz with the export layout on a 1 m lattice like the parent's (cell centres k + 0.5; vel.x faces at integer x, vel.y faces at
+    integer y, vel.z faces at integer lateral), boxes xb / yb (and nb = the whole nest box at full_at). fields_fn(f) -> the analytic fields
+    (default synth_fields)."""
+    import numpy as np
+    fields_fn = fields_fn or synth_fields
     os.makedirs(out_dir, exist_ok=True)
     boxes = dict(xb=dict(x=[178.0, 199.0], y=[0.0, 140.0]), yb=dict(x=[180.0, 356.0], y=[41.0, 62.0]), eb=dict(x=[339.0, 358.0], y=[0.0, 62.0]))
     grid = {"s": ((0.5, -20.5, 0.5), (412, 38, 140)), "vx": ((0.0, -20.5, 0.5), (413, 38, 140)),
@@ -523,7 +709,7 @@ def write_synth_export(out_dir, frames=(1056, 1057), full_at=1056):
     names = {"s": "surface", "vx": "vel.x", "vy": "vel.y", "vz": "vel.z"}
     paths = []
     for f in frames:
-        F = synth_fields(f)
+        F = fields_fn(f)
         bx = dict(boxes)
         if f == full_at:
             bx["nb"] = dict(x=[178.0, 358.0], y=[0.0, 62.0])
@@ -560,9 +746,50 @@ def end_w_np(x, dts, P):
     return 1.0 - (1.0 - w) ** (dts / P["dt0"])
 
 
+def nest_prof_np(chi, P):
+    """numpy mirror of the VEX nest_prof (F2): band_lin 1 -> chi, else g50_table.relaxw(chi)."""
+    c = min(max(float(chi), 0.0), 1.0)
+    if P.get("band_lin", 0.0) > 0.5:
+        return c
+    for p_ in (T50, T52):
+        if p_ not in sys.path:
+            sys.path.insert(0, p_)
+    import g50_table as TB50
+    return float(TB50.relaxw(chi))                     # the frozen mirror's own relaxw (bit-equal for band_lin 0)
+
+
+def nest_bands_np(x, zl, dts, P):
+    """numpy mirror of the VEX nest_bands = g50_table.bands_np (the frozen mirror of bands50) with relaxw -> nest_prof_np; band_lin 0 must
+    return exactly bands_np's values (selftest)."""
+    for p_ in (T50, T52):
+        if p_ not in sys.path:
+            sys.path.insert(0, p_)
+    import g50_table as TB50
+    GC = TB50.GC                                       # the very smooth01 the frozen bands_np uses
+    dt0 = P["dt0"]; rg = P["relax_g"]
+    wdt = 0.0; ftg = 1.0; inb = 0; insd = 0
+    xg = P["xg_end"]
+    if P["relax_on"] > 0.5 and rg > 0.0 and x < xg:
+        w = min(max(nest_prof_np((xg - x) / max(xg - P["x0"], 1e-6), P) * rg, 0.0), 1.0)
+        wdt = max(wdt, 1.0 - (1.0 - w) ** (dts / dt0)); inb = 1
+    a = P["sd0"]; b = P["W"]
+    if P["sd_on"] > 0.5 and zl > a:
+        chi = min(max((zl - a) / max(b - a, 1e-6), 0.0), 1.0)
+        s = float(GC.smooth01((x - P["sd_gen"]) / max(P["sd_sw"] - P["sd_gen"], 1e-6)))
+        wg = 1.0 - (1.0 - min(max(nest_prof_np(chi, P) * rg, 0.0), 1.0)) ** (dts / dt0)
+        wa = 1.0 - math.exp(-P["sd_sigma"] * chi ** P["sd_pow"] * dts)
+        wdt = max(wdt, wg + (wa - wg) * s); ftg *= (1.0 - s); insd = 1
+    x1 = P["x0"] + P["Lx"]
+    if P["abs_on"] > 0.5 and x > P["xa0"]:
+        chi = min(max((x - P["xa0"]) / max(x1 - P["xa0"], 1e-6), 0.0), 1.0)
+        wdt = max(wdt, 1.0 - math.exp(-P["abs_sigma"] * chi ** P["abs_pow"] * dts)); ftg = 0.0
+    return wdt, ftg, inb, insd
+
+
 def nest_apply_np(TB50, x, yv, zl, v0, tv_raw, t, dts, P):
-    """numpy mirror of the VEX nest_apply (horizontal unless relax_vert) with the raw parent velocity tv_raw at the point."""
-    wdt, ftg, inb, insd = TB50.bands_np(x, zl, dts, P)
+    """numpy mirror of the VEX nest_apply (horizontal unless relax_vert) with the raw parent velocity tv_raw at the point; the weights of
+    nest_bands_np (F2), the tapers / ramp of the frozen g50_table mirror."""
+    wdt, ftg, inb, insd = nest_bands_np(x, zl, dts, P)
     w = max(wdt, end_w_np(x, dts, P))
     v0 = [float(c) for c in v0]
     if w <= 0.0:
@@ -580,9 +807,10 @@ def water_np(sdf, y, yb, e, s_off, bed_trust, m=0.0):
     return (np.asarray(sdf) + s_off < -m) | ((np.asarray(y) - yb < bed_trust) & (np.asarray(y) < np.asarray(e) - s_off - m))
 
 
-def numpy_init_count(sdf_fn, eta_fn, dp, x0, Lx, W, zb, bed_gap=0.5, vox=None, s_off=0.0, bed_trust=0.0):
-    """the init_particles rule (nest_on 1) in numpy: lattice points that are the parent's water (water_np: sdf + s_off < 0 at the lattice
-    point, or y - bed < bed_trust and y < eta - s_off), with y >= bed + bed_gap dp and y < eta + vox."""
+def numpy_init_count(sdf_fn, eta_fn, dp, x0, Lx, W, zb, bed_gap=0.5, vox=None, s_off=0.0, bed_trust=0.0, m=0.0):
+    """the init_particles rule (nest_on 1, init_src 0) in numpy: lattice points that are the parent's water by the margin m = init_lvl_m
+    (water_np: sdf + s_off < -m at the lattice point, or y - bed < bed_trust and y < eta - s_off - m), with y >= bed + bed_gap dp and
+    y < eta + vox."""
     import numpy as np
     sys.path.insert(0, T52B3)
     import g52b3_common as GC
@@ -600,7 +828,7 @@ def numpy_init_count(sdf_fn, eta_fn, dp, x0, Lx, W, zb, bed_gap=0.5, vox=None, s
                 continue
             ys = zb + (np.arange(k_lo[i], k_hi[i]) + 0.5) * dp
             sd = sdf_fn(np.full_like(ys, x), ys, np.full_like(ys, z))
-            n += int(water_np(sd, ys, bed[i], e[i], s_off, bed_trust).sum())
+            n += int(water_np(sd, ys, bed[i], e[i], s_off, bed_trust, m).sum())
     return n
 
 
@@ -754,6 +982,89 @@ def selftest_numpy(out_dir):
     ok["end_band_off_by_default"] = bool(P.get("end_on") == 0.0 and end_w_np(355.9, 1.0 / 24.0, P) == 0.0)
     ok["end_band_weights_when_on"] = bool(abs(end_w_np(356.0, 1.0 / 24.0, Pe) - 1.0) < 1e-12 and end_w_np(341.0, 1.0 / 24.0, Pe) == 0.0)
     det["band_samples"] = {"%g_%g" % (x, z): w(x, z) for x, z in ((180, 10), (184, 10), (188, 10), (192, 10), (250, 50), (250, 55), (250, 58))}
+    # 3b. F2: the nest-only linear band weight. band_lin 0 = the frozen bands_np exactly; band_lin 1 = chi per frame; the launch uses 1
+    rng3 = np.random.RandomState(3)
+    P0 = dict(P, band_lin=0.0)
+    pts = [(float(rng3.uniform(179.0, 200.0)), float(rng3.uniform(0.0, 60.0)), float(rng3.choice([1.0 / 24.0, 1.0 / 96.0, 1.0 / 48.0])))
+           for _ in range(400)] + [(float(rng3.uniform(195.0, 356.0)), float(rng3.uniform(40.0, 60.0)), 1.0 / 96.0) for _ in range(200)]
+    ok["band_lin0_equals_frozen_bands50"] = bool(all(nest_bands_np(x, z, d_, P0) == TB50.bands_np(x, z, d_, P0) for x, z, d_ in pts))
+    P1 = dict(P, band_lin=1.0)
+    wl = lambda x, z, dts=1.0 / 24.0: nest_bands_np(x, z, dts, P1)[0]
+    ok["band_lin1_weights_chi"] = bool(abs(wl(180.0, 10.0) - 1.0) < 1e-12 and abs(wl(187.5, 10.0) - 0.5) < 1e-12 and abs(wl(191.25, 10.0) - 0.25) < 1e-12
+                                       and wl(195.0, 10.0) == 0.0 and wl(200.0, 10.0) == 0.0 and abs(wl(250.0, 52.5) - 0.5) < 1e-12
+                                       and abs(wl(250.0, 60.0) - 1.0) < 1e-12 and wl(250.0, 45.0) == 0.0
+                                       and abs(wl(187.5, 52.5, 1.0 / 96.0) - (1.0 - 0.5 ** 0.25)) < 1e-12
+                                       and abs(wl(185.0, 55.0) - max(wl(185.0, 10.0), wl(250.0, 55.0))) < 1e-12)
+    ok["band_lin_launched"] = bool(float(FN.LAUNCH_PARMS.get("band_lin", 0.0)) == 1.0 and P.get("band_lin") == 1.0)
+    det["band_lin1_samples"] = {"%g_%g" % (x, z): wl(x, z) for x, z in ((180, 10), (184, 10), (187.5, 10), (192, 10), (250, 50), (250, 52.5), (250, 58))}
+    # the VEX nest_bands is a COPY of the frozen bands50 (g52_tanklib.VEX_HEAD, not edited) with relaxw -> nest_prof (static text check)
+    sys.path.insert(0, T52)
+    import g52_tanklib as LT
+    import re as _re
+    fz = _re.search(r"void bands50\(.*?\n}\n", LT.VEX_HEAD, _re.S)
+    nb = _re.search(r"void nest_bands\(.*?\n}\n", NEST_VEX, _re.S)
+    code_only = "\n".join(ln.split("//")[0] for ln in NEST_VEX.splitlines())
+    ok["vex_nest_bands_is_bands50_copy"] = bool(fz and nb and nb.group(0).replace("void nest_bands(", "void bands50(").replace("nest_prof(", "relaxw(")
+                                                == fz.group(0) and not _re.search(r"\bbands50\s*\(", code_only))
+    ok["vex_nest_uses_nest_bands"] = bool("nest_bands(x, zl, dts, wdt, ftg, inb, insd)" in NEST_VEX and "nest_bands(pl.x, pl.z, dts" in NEST_VEX
+                                          and "relax_apply(pl, vel, t, dts)" in NEST_VEX)
+    # 3c. F1: the wrangles that read their own geometry bind Input 1 = self; the counters are reset after the gate; a kills counter
+    import inspect
+    hsrc = inspect.getsource(hython_build)
+    ok["bind_self_in_builder"] = bool(BIND_SELF == "self" and BIND_PARM == "bindinputmenu1" and "n_.parm(BIND_PARM).set(BIND_SELF)" in hsrc
+                                      and "for n_ in (bcnt, bk, bsd):" in hsrc and "en_bs.setInput(0, bcnt); en_bs.setInput(1, bk); en_bs.setInput(2, bsd)" in hsrc)
+    tok = oplib_bind_tokens()
+    det["oplib_bind_tokens"] = tok
+    ok["bind_self_is_a_menu_token"] = bool(tok.get("ok") and BIND_SELF in tok.get("tokens", []) and tok.get("default") == "none")
+    for nm in BIND_NODES:
+        b_ = BODIES_NEST[nm]
+        g_ = b_.index("if (once && ssn != 1) return;")
+        ok["counters_after_gate_" + nm] = bool(all(b_.index(s) > g_ for s in {"band_count": ("i@band_np0 = npoints(0)", "i@band_kills = 0",
+                                                                                              "i@band_cand = 0", "i@band_added = 0",
+                                                                                              "i@band_kills_np = 0", "i@band_tgt = tgt_ok()"),
+                                                                                "band_kill": ('setdetailattrib(0, "band_kills", 1, "add")',),
+                                                                                "band_seed": ("i@band_kills_np = i@band_np0 - npoints(0)",
+                                                                                              "i@band_added = nadd; i@band_cand = ncand")}[nm])
+                                               and "detail(0, \"ss_n\", 0)" in b_)
+    # review M1 (stale counters): every reset lives in band_count, after the gate and BEFORE any target test; band_seed resets nothing
+    bc_ = BODIES_NEST["band_count"]
+    ok["counters_reset_before_target_test"] = bool("tgt_ok() < 1" not in bc_ and bc_.index("i@band_tgt = tgt_ok()") > bc_.index("i@band_kills_np = 0")
+                                                   and "band_tgt" in COUNTERS)
+    ok["band_seed_no_reset_before_gate"] = bool(BODIES_NEST["band_seed"].strip().startswith("if (chf(CT+\"nest_on\")")
+                                                and "i@band_cand = 0" not in BODIES_NEST["band_seed"] and "i@band_added = 0" not in BODIES_NEST["band_seed"])
+    # physics review 2026-10-19 B1: the band water rule is shifted by init_lvl_m like the lattice (kill margin, seed margin and range)
+    bk_, bs_ = BODIES_NEST["band_kill"], BODIES_NEST["band_seed"]
+    ok["vex_band_rule_shifted_by_init_lvl"] = bool(
+        'tgt_eta(@P), chf(CT+"init_lvl_m") - chf(CT+"kill_margin_dp")*dp)' in bk_
+        and 'float lvl = chf(CT+"init_lvl_m");' in bs_ and 'float sm = chf(CT+"seed_margin_dp")*dp + lvl;' in bs_
+        and "float ylo = max(yb + gap, e - lvl - depth);" in bs_ and "int k1 = int(ceil((e - lvl - zb)/dp - 0.5 - 1e-9));" in bs_
+        and "if (!tgt_water(q, y, yb, e, sm)) continue;" in bs_ and "init_lvl_m" in BODIES_NEST["init_particles"])
+    ok["vex_seed_pprevious_own_position"] = bool('if (hasprev) setpointattrib(0, "pprevious", p, q + jit);' in bs_
+                                                 and bs_.index('"pprevious", p') > bs_.index('setpointattrib(0, "P", p, q + jit)'))
+    # the seed range (numpy of the VEX k0 / k1) covers the shifted level: lvl -0.3 reaches 0.3 m above e, lvl +0.3 stops 0.3 m below
+    rk = lambda e_, lvl_, dp_=0.25, zb_=-19.0: int(math.ceil((e_ - lvl_ - zb_) / dp_ - 0.5 - 1e-9))
+    ytop = lambda e_, lvl_, dp_=0.25, zb_=-19.0: zb_ + (rk(e_, lvl_, dp_, zb_) - 1 + 0.5) * dp_
+    ok["seed_range_follows_level"] = bool(ytop(0.0, -0.3) > 0.0 + 0.3 - 0.25 - 1e-9 and ytop(0.0, 0.3) < 0.0 - 0.3
+                                          and ytop(0.0, 0.0) < 0.0 <= ytop(0.0, 0.0) + 0.25)
+    det["seed_range_top"] = {"lvl_%g" % l_: ytop(0.0, l_) for l_ in (-0.3, 0.0, 0.3)}
+    # 3d. F7: the parent-particle loader (the text the Python SOP runs) on a synthetic file; the lattice margin init_lvl_m in init_particles
+    compile(PYSOP_PINIT, "PYSOP_PINIT", "exec")
+    nsp = {}
+    exec(compile(PINIT_PURE, "PINIT_PURE", "exec"), nsp)
+    pth, Pk, Vk = write_synth_particles(out_dir + "/p_synth.npz")
+    Pg, Vg, mt, nf = nsp["f55_pinit_load"](pth, NEST_BOX, [NEST_BOX["ox"], NEST_BOX["oy"], NEST_BOX["oz"]])
+    Pg2, _, _, _ = nsp["f55_pinit_load"](pth, NEST_BOX, [0.25, 0.75, 0.5])
+    ok["pinit_loader_box_and_exact"] = bool(nf == 4000 and 0 < len(Pg) < nf and np.array_equal(Pg, Pk) and np.array_equal(Vg, Vk)
+                                            and np.allclose(Pg2.astype(np.float64) - Pk.astype(np.float64), [-0.25, 0.25, 0.0], atol=1e-4))
+    det["pinit_synth"] = dict(n_file=nf, n_kept=int(len(Pg)))
+    ok["vex_init_margin"] = bool('tgt_water(set(pc.x, y, pc.z) + o, y, yb, et, chf(CT+"init_lvl_m"))' in BODIES_NEST["init_particles"])
+    Fs = synth_fields(1056)
+    n_m0 = numpy_init_count(lambda x, y, z: synth_expect(Fs, "s", x, y, z), lambda x, z: synth_expect(Fs, "eta", x, z), 0.5, 180.0, 20.0, 10.0, -19.0,
+                            s_off=FN.STILL_OFFSET, bed_trust=1.0)
+    n_m1 = numpy_init_count(lambda x, y, z: synth_expect(Fs, "s", x, y, z), lambda x, z: synth_expect(Fs, "eta", x, z), 0.5, 180.0, 20.0, 10.0, -19.0,
+                            s_off=FN.STILL_OFFSET, bed_trust=1.0, m=0.5)
+    ok["init_margin_lowers_fill"] = bool(n_m1 < n_m0 and abs((n_m0 - n_m1) - 20.0 * 10.0 / 0.25) <= 0.05 * 20.0 * 10.0 / 0.25)
+    det["init_margin_counts"] = dict(m0=n_m0, m0p5=n_m1, expected_diff=20.0 * 10.0 / 0.25)
     # 4. the build-check writer on a fake raw record
     fake = dict(items={k: dict(ok=True) for k in RAW_ITEMS}, hip_sha256="0" * 64, smoke=None, houdini="test")
     bc = compose_build_check(fake, smoke_requested=False)
@@ -784,9 +1095,40 @@ def dfgbv_parm_names():
         return list(json.load(fh)["parms"].keys())
 
 
+def oplib_bind_tokens():
+    """F1, static (no Houdini started): the menu tokens and default of the DOP Geometry Wrangle's bindinputmenu1, read from the DialogScript
+    inside OPlibDop.hda of the hython the pipeline runs (g52b3_common.HY)."""
+    import re as _re
+    out = dict(ok=False)
+    try:
+        sys.path.insert(0, T52B3)
+        import g52b3_common as GC
+        hfs = os.path.dirname(os.path.dirname(GC.HY.replace("\\", "/")))
+        p = hfs + "/houdini/otls/OPlibDop.hda"
+        out["oplib"] = p
+        b = open(p, "rb").read()
+        s = b.find(b"# Dialog script for geometrywrangle")
+        e = b.find(b"# Automatically generated script", s)
+        if s < 0 or e < 0:
+            out["why"] = "no geometrywrangle DialogScript"
+            return out
+        ds = b[s:e].decode("latin-1")
+        m = _re.search(r'name\s+"%s".*?default\s+\{\s*"(\w+)"\s*\}\s*menu\s*\{(.*?)\}' % BIND_PARM, ds, _re.S)
+        if not m:
+            out["why"] = "no %s parm" % BIND_PARM
+            return out
+        out["default"] = m.group(1)
+        out["tokens"] = _re.findall(r'"(\w+)"\s+"[^"]*"', m.group(2))
+        out["labels"] = dict(_re.findall(r'"(\w+)"\s+"([^"]*)"', m.group(2)))
+        out["ok"] = bool(out["tokens"])
+    except Exception as ex:
+        out["why"] = repr(ex)[:300]
+    return out
+
+
 # ====================================================================== the build-check writer (py -3.10)
 RAW_ITEMS = ("ctrl_superset", "bed_C2ID", "bed_C2", "still_particles", "target_probe_integer", "target_probe_half", "band_probe", "replay_probe",
-             "init_particles", "init_no_target", "dop_setup", "saved_defaults")
+             "init_particles", "init_no_target", "init_from_particles", "init_no_pfile", "dop_setup", "saved_defaults")
 
 
 def sha(p):
@@ -816,67 +1158,162 @@ def compose_build_check(raw, smoke_requested, smoke_py=None):
     return bc
 
 
+SMOKE_RULES = dict(init_rel=0.005, v_lattice=0.05, v_particles=1e-3, vol_rel=0.05, std_ratio=0.8)
+
+
+def surface_activity(rows):
+    """F1: the band surface relaxation must be ACTIVE in the smoke. rows = the smoke frames after creation (counters at the frame's end =
+    the first substep's, all reset by band_count after the gate; ss_n = substeps of the frame). kills = the point count difference
+    band_kills_np (band_count's band_np0 minus the count after band_kill) when it is readable, else the setdetailattrib counter
+    band_kills. PASS iff band_tgt == 1 and band_cand > 0 on every frame, and the kills summed over the 1-substep frames > 0 (over all
+    frames when no frame has 1 substep). Reported only: kills per frame, the frames with kills, band_kills == band_kills_np per frame."""
+    out = dict(frames=len(rows), rule=" ".join(surface_activity.__doc__.split("PASS iff ")[1].split(" Reported only")[0].split()))
+    if not rows:
+        return dict(out, ok=False, why="no frames")
+
+    def kills(r):
+        k_np, n0 = r.get("band_kills_np"), r.get("band_np0")
+        if k_np is not None and n0 is not None and n0 > 0 and k_np >= 0:
+            return int(k_np)
+        return r.get("band_kills")
+    ks = [kills(r) for r in rows]
+    cand = [r.get("band_cand") for r in rows]
+    tgt = [r.get("band_tgt") for r in rows]
+    one = [i for i, r in enumerate(rows) if r.get("ss_n") == 1]
+    pool = one if one else list(range(len(rows)))
+    agree = [(r.get("band_kills") == r.get("band_kills_np")) if (r.get("band_kills") is not None and r.get("band_kills_np") is not None) else None
+             for r in rows]
+    out.update(n_1substep=len(one), cand_min=min([c for c in cand if c is not None]) if any(c is not None for c in cand) else None,
+               kills=ks, cand=cand, tgt=tgt, added=[r.get("band_added") for r in rows], ss_n=[r.get("ss_n") for r in rows],
+               kills_counter_vs_np=[[r.get("band_kills"), r.get("band_kills_np")] for r in rows])
+    ok_tgt = all(t == 1 for t in tgt)
+    ok_cand = all(c is not None and c > 0 for c in cand)
+    k_pool = int(sum((ks[i] or 0) for i in pool))
+    ok_kills = k_pool > 0
+    n_k = sum(1 for k in ks if (k or 0) > 0)
+    out.update(target_every_frame=ok_tgt, cand_every_frame=ok_cand, kills_pool="1-substep frames" if one else "all frames (none has 1 substep)",
+               kills_in_pool=k_pool, kills_pool_ok=ok_kills, frames_with_kills=n_k, kills_total=int(sum((k or 0) for k in ks)),
+               kills_counter_agrees_report_only=(all(a_ for a_ in agree if a_ is not None) if any(a_ is not None for a_ in agree) else None))
+    out["ok"] = bool(ok_tgt and ok_cand and ok_kills)
+    return out
+
+
+def volume_tracking(vp, vn):
+    """the nest's column volume follows the parent's over the smoke frames: std(V_nest) / std(V_parent) > 0.8 (gate) [chosen by the main
+    session]; correlation, the increment ratio (V_nest(last) - V_nest(first)) / (V_parent(last) - V_parent(first)) and the largest |V_nest /
+    V_parent - 1| reported."""
+    import numpy as np
+    vp = np.asarray(vp, float); vn = np.asarray(vn, float)
+    if len(vp) < 3 or len(vp) != len(vn) or vp.std() <= 0:
+        return dict(ok=False, why="fewer than 3 frames or a constant parent volume", n=int(len(vp)))
+    r = float(vn.std() / vp.std())
+    dvp = float(vp[-1] - vp[0])
+    inc = (float(vn[-1] - vn[0]) / dvp) if dvp else None
+    mx = float(np.abs(vn / vp - 1.0).max())
+    # REPORT only (not a gate): the std ratio alone also passes a drifting nest (the failed C2ID smoke: ratio 3.23, increment ratio 4.1,
+    # +2.0 % [measured, build_raw55_nest.json of 2026-10-19 06:0x]); GN3 on the full run decides the volume
+    drift = bool(r > 1.5 or (inc is not None and abs(inc - 1.0) > 0.5) or mx > 0.01)
+    return dict(ok=bool(r > SMOKE_RULES["std_ratio"]), std_ratio=r, std_parent_m3=float(vp.std()), std_nest_m3=float(vn.std()),
+                corr=float(np.corrcoef(vp, vn)[0, 1]) if vn.std() > 0 else None, increment_ratio=inc, max_abs_rel=mx, drift_flag_report_only=drift,
+                n=int(len(vp)), rule=volume_tracking.__doc__.split(": ", 1)[1].split(" [")[0])
+
+
 def smoke_py_checks(raw):
-    """py-side smoke comparisons: the init count vs numpy on the REAL x_01056.npz (trilinear of the parent's SDF at the nest lattice points),
-    and the nest's column volume vs the parent's hf on the smoke frames (report + 5 % sanity), the band-edge rms (report)."""
+    """py-side smoke comparisons: the initial state (init_src 1: the parent's particles in the box, count and velocity = the file's; init_src 0:
+    the lattice count vs numpy on the REAL x_01056.npz and the parent's grid velocity), the band surface relaxation active (counters, F1), the
+    nest's column volume vs the parent's hf on the smoke frames (tracking std ratio > 0.8, within 5 %), the band-edge rms (report)."""
     import numpy as np
     sys.path.insert(0, HERE)
     import f55_nest as FN
     sm = raw.get("smoke") or {}
     out = {}
+    Lp, _ = FN.launch_cfg("C2ID", for_smoke=True)
+    Lp = Lp["parms"]
+    src = float(sm.get("init_src", Lp.get("init_src", 0.0)))
+    out["init_src"] = src
     try:
         import f55_common as C55
-        meta, A = FN.load_x(np, FN.EXPORT_DIR + "/x_%05d.npz" % CKPT)
-        ns = {}
-        exec(compile(TARGET_PURE, "TARGET_PURE", "exec"), ns)
-        U = ns["f55_union"](meta, A, NEST_BOX["W"] + 2.0, C55.bed_z)
-        E, pe, de = U["eta"]
-
-        def trif(key):
-            S, p0, d = U[key]
-
-            def tri(x, y, z):                                   # clamped trilinear = volumesample on the padded volume
-                fx = (x - p0[0]) / d[0]; fy = (y - p0[1]) / d[1]; fz = (z - p0[2]) / d[2]
-                i = np.clip(np.floor(fx).astype(int), 0, S.shape[2] - 2); j = np.clip(np.floor(fy).astype(int), 0, S.shape[1] - 2)
-                k = np.clip(np.floor(fz).astype(int), 0, S.shape[0] - 2)
-                wx, wy, wz = np.clip(fx - i, 0, 1), np.clip(fy - j, 0, 1), np.clip(fz - k, 0, 1)
-                c = 0.0
-                for dk in (0, 1):
-                    for dj in (0, 1):
-                        for di in (0, 1):
-                            c = c + S[k + dk, j + dj, i + di] * (wx if di else 1 - wx) * (wy if dj else 1 - wy) * (wz if dk else 1 - wz)
-                return c
-            return tri
-        tri = trif("s")
-
-        def etaf(x, z):
-            fx = (x - pe[0]) / de[0]; fz = (z - pe[2]) / de[2]
-            i = np.clip(np.floor(fx).astype(int), 0, E.shape[1] - 2); k = int(np.clip(math.floor(fz), 0, E.shape[0] - 2))
-            wx = np.clip(fx - i, 0, 1); wz = min(max(fz - k, 0.0), 1.0)
-            return (1 - wz) * ((1 - wx) * E[k, i] + wx * E[k, i + 1]) + wz * ((1 - wx) * E[k + 1, i] + wx * E[k + 1, i + 1])
-        Lp = FN.LAUNCH_PARMS
-        n_np = numpy_init_count(tri, etaf, NEST_BOX["dp"], NEST_BOX["x0"], NEST_BOX["Lx"], NEST_BOX["W"], NEST_BOX["zb"],
-                                s_off=float(Lp["s_off"]), bed_trust=float(Lp["bed_trust_m"]))
-        n_h = int(sm.get("particles_init") or 0)
-        out["init_count"] = dict(houdini=n_h, numpy=n_np, rel=(n_h / n_np - 1.0) if n_np else None,
-                                 ok=bool(n_np and abs(n_h / n_np - 1.0) <= 0.005))
-        # the initial velocity the FLIP object kept: particle v at frame 1056 vs the parent's grid velocity at the particle
-        pv = sm.get("p1056")
-        if pv and os.path.exists(pv):
-            with np.load(pv) as dd:
-                Pp, Vp = np.array(dd["P"], float), np.array(dd["v"], float)
-            ref = np.stack([trif(k)(Pp[:, 0], Pp[:, 1], Pp[:, 2]) for k in ("vx", "vy", "vz")], 1)
-            dv = np.linalg.norm(Vp - ref, axis=1)
-            out["init_velocity"] = dict(n=int(len(dv)), mean_abs_dv=float(dv.mean()), p99_abs_dv=float(np.percentile(dv, 99)),
-                                        mean_speed_parent=float(np.linalg.norm(ref, axis=1).mean()), ok=bool(len(dv) > 100 and dv.mean() < 0.05))
+        if src > 0.5:
+            nsp = {}
+            exec(compile(PINIT_PURE, "PINIT_PURE", "exec"), nsp)
+            pth = sm.get("pinit_npz") or Lp.get("pinit_npz")
+            Pf, Vf, mt, nf = nsp["f55_pinit_load"](pth, NEST_BOX, [NEST_BOX["ox"], NEST_BOX["oy"], NEST_BOX["oz"]])
+            n_h = int(sm.get("particles_init") or 0)
+            out["init_count"] = dict(houdini=n_h, file_in_box=int(len(Pf)), file_total=nf, rel=(n_h / len(Pf) - 1.0) if len(Pf) else None,
+                                     ok=bool(len(Pf) and abs(n_h / len(Pf) - 1.0) <= SMOKE_RULES["init_rel"]), source=FN.rel(pth))
+            pv = sm.get("p1056")
+            if pv and os.path.exists(pv):
+                with np.load(pv) as dd:
+                    Pp, Vp = np.array(dd["P"], float), np.array(dd["v"], float)
+                o_ = np.array([NEST_BOX["ox"], NEST_BOX["oy"], NEST_BOX["oz"]])
+                key = lambda A: [tuple(r) for r in np.round(A, 3)]
+                look = dict(zip(key(Pf.astype(np.float64) - o_), range(len(Pf))))
+                idx = [look.get(k) for k in key(Pp)]
+                hit = np.array([i is not None for i in idx])
+                vref = np.array([Vf[i] if i is not None else (np.nan, np.nan, np.nan) for i in idx], float)
+                dv = np.linalg.norm(Vp[hit] - vref[hit], axis=1) if hit.any() else np.array([np.inf])
+                out["init_velocity"] = dict(n=int(len(Pp)), matched=int(hit.sum()), mean_abs_dv=float(dv.mean()), p99_abs_dv=float(np.percentile(dv, 99)),
+                                            ok=bool(len(Pp) > 100 and hit.mean() > 0.99 and dv.mean() < SMOKE_RULES["v_particles"]),
+                                            rule="created particles matched to the parent's file by position (1 mm); mean |dv| < 1e-3 m/s")
+            else:
+                out["init_velocity"] = dict(ok=False, why="no particle sample of frame 1056 in the smoke record")
         else:
-            out["init_velocity"] = dict(ok=False, why="no particle sample of frame 1056 in the smoke record")
+            meta, A = FN.load_x(np, FN.EXPORT_DIR + "/x_%05d.npz" % CKPT)
+            ns = {}
+            exec(compile(TARGET_PURE, "TARGET_PURE", "exec"), ns)
+            U = ns["f55_union"](meta, A, NEST_BOX["W"] + 2.0, C55.bed_z)
+            E, pe, de = U["eta"]
+
+            def trif(key):
+                S, p0, d = U[key]
+
+                def tri(x, y, z):                                   # clamped trilinear = volumesample on the padded volume
+                    fx = (x - p0[0]) / d[0]; fy = (y - p0[1]) / d[1]; fz = (z - p0[2]) / d[2]
+                    i = np.clip(np.floor(fx).astype(int), 0, S.shape[2] - 2); j = np.clip(np.floor(fy).astype(int), 0, S.shape[1] - 2)
+                    k = np.clip(np.floor(fz).astype(int), 0, S.shape[0] - 2)
+                    wx, wy, wz = np.clip(fx - i, 0, 1), np.clip(fy - j, 0, 1), np.clip(fz - k, 0, 1)
+                    c = 0.0
+                    for dk in (0, 1):
+                        for dj in (0, 1):
+                            for di in (0, 1):
+                                c = c + S[k + dk, j + dj, i + di] * (wx if di else 1 - wx) * (wy if dj else 1 - wy) * (wz if dk else 1 - wz)
+                    return c
+                return tri
+            tri = trif("s")
+
+            def etaf(x, z):
+                fx = (x - pe[0]) / de[0]; fz = (z - pe[2]) / de[2]
+                i = np.clip(np.floor(fx).astype(int), 0, E.shape[1] - 2); k = int(np.clip(math.floor(fz), 0, E.shape[0] - 2))
+                wx = np.clip(fx - i, 0, 1); wz = min(max(fz - k, 0.0), 1.0)
+                return (1 - wz) * ((1 - wx) * E[k, i] + wx * E[k, i + 1]) + wz * ((1 - wx) * E[k + 1, i] + wx * E[k + 1, i + 1])
+            n_np = numpy_init_count(tri, etaf, NEST_BOX["dp"], NEST_BOX["x0"], NEST_BOX["Lx"], NEST_BOX["W"], NEST_BOX["zb"],
+                                    s_off=float(Lp["s_off"]), bed_trust=float(Lp["bed_trust_m"]), m=float(Lp.get("init_lvl_m", 0.0)))
+            n_h = int(sm.get("particles_init") or 0)
+            out["init_count"] = dict(houdini=n_h, numpy=n_np, rel=(n_h / n_np - 1.0) if n_np else None,
+                                     ok=bool(n_np and abs(n_h / n_np - 1.0) <= SMOKE_RULES["init_rel"]))
+            pv = sm.get("p1056")
+            if pv and os.path.exists(pv):
+                with np.load(pv) as dd:
+                    Pp, Vp = np.array(dd["P"], float), np.array(dd["v"], float)
+                ref = np.stack([trif(k)(Pp[:, 0], Pp[:, 1], Pp[:, 2]) for k in ("vx", "vy", "vz")], 1)
+                dv = np.linalg.norm(Vp - ref, axis=1)
+                out["init_velocity"] = dict(n=int(len(dv)), mean_abs_dv=float(dv.mean()), p99_abs_dv=float(np.percentile(dv, 99)),
+                                            mean_speed_parent=float(np.linalg.norm(ref, axis=1).mean()),
+                                            ok=bool(len(dv) > 100 and dv.mean() < SMOKE_RULES["v_lattice"]))
+            else:
+                out["init_velocity"] = dict(ok=False, why="no particle sample of frame 1056 in the smoke record")
     except Exception as e:
         out["init_count"] = dict(ok=False, error=repr(e)[:300])
+    # F1: the surface relaxation ran (frames after the creation frame)
+    out["surface_activity"] = surface_activity([r for r in (sm.get("frames") or []) if int(r.get("frame", 0)) > CKPT])
+    # report only (physics review M2): the parent's particles above its own particle level, which band_kill removes with probability w
+    pj = FN.jtry(FN.PINIT_JSON) or {}
+    out["pinit_report_only"] = dict(above_particle_level_frac=pj.get("above_particle_level_frac"), above_sdf_zero_frac=pj.get("above_sdf_zero_frac"),
+                                    file=FN.rel(FN.PINIT_JSON), used=bool(src > 0.5))
     try:
         H = FN.HF(DFGBV_RUN)
         import f55_common as C
-        rows = []
+        rows, vps, vns = [], [], []
         for f, path in sorted((int(k), v) for k, v in (sm.get("eta_files") or {}).items()):
             with np.load(path) as dd:
                 en = np.array(dd["eta"]); mn = json.loads(str(dd["meta"]))
@@ -886,16 +1323,23 @@ def smoke_py_checks(raw):
             xq, yq = FN.edge_cells()
             a = FN.eta_at(np, ep, mp, xq, yq); b = FN.eta_at(np, en, mn, xq, yq)
             okm = np.isfinite(a) & np.isfinite(b)
-            rows.append(dict(frame=f, V_rel=vn / vp - 1.0, edge_rms_m=float(np.sqrt(np.mean((b[okm] - a[okm]) ** 2))) if okm.any() else None))
+            rows.append(dict(frame=f, V_parent=vp, V_nest=vn, V_rel=vn / vp - 1.0,
+                             edge_rms_m=float(np.sqrt(np.mean((b[okm] - a[okm]) ** 2))) if okm.any() else None))
+            vps.append(vp); vns.append(vn)
         out["frames"] = rows
-        out["volume_ok"] = bool(rows and all(abs(r["V_rel"]) <= 0.05 for r in rows))
+        out["volume_ok"] = bool(rows and all(abs(r["V_rel"]) <= SMOKE_RULES["vol_rel"] for r in rows))
+        out["volume_tracking"] = volume_tracking(vps, vns)
     except Exception as e:
         out["frames_error"] = repr(e)[:300]
         out["volume_ok"] = False
-    out["ok"] = bool((out.get("init_count") or {}).get("ok") and (out.get("init_velocity") or {}).get("ok") and out.get("volume_ok"))
-    out["rule"] = ("init count within 0.5 % of numpy on the real x_01056.npz; initial particle velocity vs the parent's grid velocity mean |dv| "
-                   "< 0.05 m/s; nest column volume within 5 % of the parent's on every smoke frame (a sanity check only: GN3 decides at +-2 % "
-                   "on the full C2ID run); band-edge rms reported")
+        out["volume_tracking"] = dict(ok=False, error=repr(e)[:300])
+    out["ok"] = bool((out.get("init_count") or {}).get("ok") and (out.get("init_velocity") or {}).get("ok") and out.get("volume_ok")
+                     and out["surface_activity"].get("ok") and (out.get("volume_tracking") or {}).get("ok"))
+    out["rule"] = ("initial state: init_src 1 = the parent's particles in the box (count within 0.5 %, velocity = the file's, mean |dv| < 1e-3 "
+                   "m/s), init_src 0 = the lattice count within 0.5 % of numpy on the real x_01056.npz and mean |dv| < 0.05 m/s vs the parent's "
+                   "grid velocity; the band surface relaxation active (surface_activity); the nest column volume tracking the parent's (std "
+                   "ratio > 0.8) and within 5 % on every smoke frame (GN3 decides at +-2 % on the full C2ID run); band-edge rms reported")
+    out["tags"] = dict(numbers="measured (smoke records)", thresholds="chosen")
     return out
 
 
@@ -956,7 +1400,8 @@ def launcher_body(argv):
         o = dict(ok=bool(pf["ok"] and st["ok"]), step="x55_nest_build", simulate=True, preflight=pf, selftest=st["checks"], would_run=" ".join(cmd),
                  env="HOUDINI_TEMP_DIR=TEMP=TMP=%s" % TMP_HOUDINI.replace(REPO + "/", ""), writes=[HIP.replace(REPO + "/", ""),
                                                                                                     BUILD_CHECK.replace(REPO + "/", "")],
-                 smoke_needs=("the real export (f55_nest.py export ok) for --smoke" if smoke else None))
+                 smoke_needs=("the real export (f55_nest.py export ok) and the parent's particles (f55_nest.py pinit ok) for --smoke"
+                              if smoke else None))
         os.makedirs(SIM_DIR, exist_ok=True)
         with open(SIM_DIR + "/build_check55_nest.sim.json", "w", encoding="utf-8") as fh:
             json.dump(dict(o, all_ok=None, note="simulation: no hython, nothing built"), fh, indent=1, ensure_ascii=False, default=str)
@@ -971,6 +1416,13 @@ def launcher_body(argv):
         if not (FN.jtry(FN.EXPORT_JSON) or {}).get("ok"):
             print(json.dumps(dict(ok=False, step="x55_nest_build", why="--smoke needs the parent export (f55_nest.py export ok)")))
             return 2
+        Ls, _ = FN.launch_cfg("C2ID", for_smoke=True)
+        if float(Ls["parms"].get("init_src", 0.0)) > 0.5:
+            pv = FN.pinit_state()
+            if not pv["ok"]:
+                print(json.dumps(dict(ok=False, step="x55_nest_build", why="--smoke (C2ID init_src 1) needs the parent's particles: %s (run "
+                                                                             "f55_nest.py pinit)" % pv["why"]), ensure_ascii=False))
+                return 2
     # the machine must be free (no other pipeline / hython / Unity batch, no foreign auto_F55) with the C2ID commit and disk need
     eg = FN.entry_guard("x55_nest_build", "C2ID", wait_min=float(FN.opts(argv)[1].get("wait-min", 20)))
     if not eg["ok"]:
@@ -1134,7 +1586,12 @@ for (int iz = 0; iz < nz; iz++)
     pts0.parm("class").set(2)
     pts0.parm("snippet").set(HEAD + BODIES_NEST["init_particles"])
     pclean = setup.createNode("attribdelete", "drop_col"); pclean.setInput(0, pts0); pclean.parm("ptdel").set("col")
-    ptsout = setup.createNode("null", "OUT_PARTICLES"); ptsout.setInput(0, pclean)
+    # F7: the parent's own frame-1056 particles (init_src 1) instead of the lattice (init_src 0)
+    ppar = pysop("parent_particles", PYSOP_PINIT, [("npz", "s")])
+    ppar.parm("npz").set('`chs("%spinit_npz")`' % CT)
+    isw = setup.createNode("switch", "init_source"); isw.setInput(0, pclean); isw.setInput(1, ppar)
+    isw.parm("input").setExpression('if(ch("%sinit_src") > 0.5, 1, 0)' % CT)
+    ptsout = setup.createNode("null", "OUT_PARTICLES"); ptsout.setInput(0, isw)
     wmesh0 = setup.createNode("attribwrangle", "water_mesh")
     wmesh0.parm("class").set(0); wmesh0.setInput(1, solout)
     wmesh0.parm("snippet").set(L.VEX_HEAD + r"""
@@ -1281,6 +1738,8 @@ for r in rows:
     msv.setInput(0, en_r); msv.setInput(1, en_vc); msv.setInput(2, en_rep); msv.parm("enable").set(1)
     ssc = dop.createNode("geometrywrangle", "substep_count")
     ssc.parm("bindclass").set("detail"); ssc.parm("snippet").set(L.BODIES["/obj/G52_SIM/substep_count"]); ssc.parm("exportlist").set("ss_acc ss_n ss_dt")
+    bcnt = dop.createNode("geometrywrangle", "band_count")
+    bcnt.parm("bindclass").set("detail"); bcnt.parm("snippet").set(HEAD + BODIES_NEST["band_count"]); bcnt.parm("exportlist").set("*")
     bk = dop.createNode("geometrywrangle", "band_kill")
     try:
         bk.parm("bindclass").set("point")
@@ -1289,7 +1748,13 @@ for r in rows:
     bk.parm("snippet").set(HEAD + BODIES_NEST["band_kill"]); bk.parm("exportlist").set("*")
     bsd = dop.createNode("geometrywrangle", "band_seed")
     bsd.parm("bindclass").set("detail"); bsd.parm("snippet").set(HEAD + BODIES_NEST["band_seed"]); bsd.parm("exportlist").set("*")
-    en_bs = dop.createNode("enablesolver", "enable_band_surface"); en_bs.setInput(0, bk); en_bs.setInput(1, bsd)
+    # F1: Input 1 = Myself, so detail(0, "ss_n"), npoints(0), nearpoints(0, ..) read the water object's own geometry (default "none" read
+    # nothing: ss_n 0, so the relaxation returned at once in the failed C2ID)
+    for n_ in (bcnt, bk, bsd):
+        n_.parm(BIND_PARM).set(BIND_SELF)
+    setup_log["bind_input1"] = {n_.name(): n_.parm(BIND_PARM).evalAsString() for n_ in (bcnt, bk, bsd)}
+    en_bs = dop.createNode("enablesolver", "enable_band_surface")
+    en_bs.setInput(0, bcnt); en_bs.setInput(1, bk); en_bs.setInput(2, bsd)
     en_bs.parm("enable").setExpression('ch("%snest_on") > 0.5 && ch("%sband_surf") > 0.5' % (CT, CT))
     pre = dop.createNode("enablesolver", "pre_solve"); pre.setInput(0, ssc); pre.setInput(1, en_bs); pre.parm("enable").set(1)
     fs = dop.createNode("flipsolver::2.0", "flipsolver")
@@ -1462,7 +1927,7 @@ if (len(pts) != 3 || cp.x < ch(CT+"crop_x0") || cp.x > ch(CT+"crop_x1") || cp.z 
         ctrl.parm("tgt_dir").set(SYNTH_DIR); ctrl.parm("rep_dir").set(SYNTH_DIR); ctrl.parm("nest_on").set(1.0); ctrl.parm("rep_on").set(1.0)
         Pm = nest_parms_for_mirror()
         for k in ("relax_on", "sd_on", "xg_end", "x0", "Lx", "W", "sd0", "sd_gen", "sd_sw", "sd_taper_m", "wall_taper_m", "ramp_s", "in_gain", "sd_gain",
-                  "relax_g", "dt0", "vol_x0", "vol_x1", "abs_on", "volcorr_on", "s_off", "bed_trust_m", "seed_margin_dp", "kill_margin_dp"):
+                  "relax_g", "dt0", "vol_x0", "vol_x1", "abs_on", "volcorr_on", "s_off", "bed_trust_m", "seed_margin_dp", "kill_margin_dp", "band_lin"):
             ctrl.parm(k).set(Pm[k])
         rng = np.random.RandomState(55)
         rows = []
@@ -1525,9 +1990,20 @@ if (len(pts) != 3 || cp.x < ch(CT+"crop_x0") || cp.x > ch(CT+"crop_x1") || cp.z 
                 ctrl.parm("end_on").set(0.0)
                 v1e, we = mirror(dict(Pm, end_on=1.0), Xe, Ye, Ze)
                 oke = bool(np.abs(pre_["wdt"] - we).max() < 1e-6 and np.abs(pre_["v1"] - v1e).max() < 5e-3 and (we > 0).any())
-                item("band_probe", dict(ok=bool(okb and oke), wdt_max_diff=float(np.abs(pr["wdt"] - ref_w).max()),
+                # F2: band_lin 0 = DFG-2B-V's bands50 (the frozen numpy mirror) on the same rows; the launch value band_lin 1 above
+                ctrl.parm("band_lin").set(0.0)
+                pr0 = probe(rows)
+                ctrl.parm("band_lin").set(Pm["band_lin"])
+                v10, w0 = mirror(dict(Pm, band_lin=0.0), X_, Y_, Z_)
+                ok0 = bool(np.abs(pr0["wdt"] - w0).max() < 1e-6 and np.abs(pr0["v1"] - v10).max() < 5e-3)
+                lin_differs = bool(np.abs(ref_w - w0).max() > 1e-3)          # the probe really sees the linear weights
+                item("band_probe", dict(ok=bool(okb and oke and ok0 and lin_differs and Pm["band_lin"] == 1.0), band_lin=Pm["band_lin"],
+                                        wdt_max_diff=float(np.abs(pr["wdt"] - ref_w).max()),
                                         v1_max_diff=float(np.abs(pr["v1"] - v1r).max()), n_in_band=int((ref_w > 0).sum()),
                                         vertical_unchanged=bool(np.allclose(pr["v1"][:, 1], -0.3, atol=1e-6)),
+                                        frozen_bands50=dict(ok=ok0, wdt_max_diff=float(np.abs(pr0["wdt"] - w0).max()),
+                                                            v1_max_diff=float(np.abs(pr0["v1"] - v10).max()),
+                                                            lin_vs_relaxw_max_wdt_diff=float(np.abs(ref_w - w0).max())),
                                         end_band=dict(ok=oke, wdt_max_diff=float(np.abs(pre_["wdt"] - we).max()), v1_max_diff=float(np.abs(pre_["v1"] - v1e).max()),
                                                       n_in_end_band=int((we > 0).sum()))))
                 inwin = (X_ >= Pm["vol_x0"]) & (X_ <= Pm["vol_x1"])
@@ -1547,21 +2023,53 @@ if (len(pts) != 3 || cp.x < ch(CT+"crop_x0") || cp.x > ch(CT+"crop_x1") || cp.z 
         sel = np.union1d(sel, np.where(Pp[:, 2] < 0.5)[0][::25])          # include particles of the first lateral row (the plane)
         vref = np.stack([synth_expect(F, k, Pp[sel, 0], Pp[sel, 1], Pp[sel, 2]) for k in ("vx", "vy", "vz")], 1)
         gap = Pp[:, 1] - GC.bed_z(Pp[:, 0], Pp[:, 2], **GC.SPEC_BED)
+        # the C2 calibration margin init_lvl_m: the lattice is filled to the parent's particle level minus it
+        ctrl.parm("init_lvl_m").set(0.5)
+        for n_ in (cols, pts0):
+            n_.cook(force=True)
+        Ppm, _ = particles_geo()
+        ctrl.parm("init_lvl_m").set(0.0)
+        n_npm = numpy_init_count(lambda x, y, z: synth_expect(F, "s", x, y, z), lambda x, z: synth_expect(F, "eta", x, z), 0.5, NEST_BOX["x0"],
+                                 NEST_BOX["Lx"], NEST_BOX["W"], NEST_BOX["zb"], s_off=Pm["s_off"], bed_trust=Pm["bed_trust_m"], m=0.5)
+        okm = bool(abs(len(Ppm) - n_npm) <= max(2, int(1e-4 * n_npm)) and len(Ppm) < len(Pp))
         item("init_particles", dict(ok=bool(len(Pp) > 0 and abs(len(Pp) - n_np) <= max(2, int(1e-4 * n_np)) and np.abs(V[sel] - vref).max() < 1e-2
-                                            and (gap < 0).sum() == 0), houdini=int(len(Pp)), numpy=int(n_np), v_max_diff=float(np.abs(V[sel] - vref).max()),
-                                    n_checked=int(len(sel)), n_plane_row=int((Pp[:, 2] < 0.5).sum()), n_below_bed=int((gap < 0).sum())))
+                                            and (gap < 0).sum() == 0 and okm), houdini=int(len(Pp)), numpy=int(n_np), v_max_diff=float(np.abs(V[sel] - vref).max()),
+                                    n_checked=int(len(sel)), n_plane_row=int((Pp[:, 2] < 0.5).sum()), n_below_bed=int((gap < 0).sum()),
+                                    margin_0p5=dict(ok=okm, houdini=int(len(Ppm)), numpy=int(n_npm))))
         ctrl.parm("tgt_dir").set("")
         for n_ in (tgp, cols, pts0):
             n_.cook(force=True)
         Pp0, _ = particles_geo()
         item("init_no_target", dict(ok=bool(len(Pp0) == 0), particles=int(len(Pp0)), rule="nest_on 1 without a target seeds NOTHING (fails loudly)"))
+        # F7: the parent's own particles (synthetic file): OUT_PARTICLES = the file's points inside the box, P and v exact
+        spath, Pk, Vk = write_synth_particles(SYNTH_DIR + "/p_synth.npz")
+        ctrl.parm("init_src").set(1.0); ctrl.parm("pinit_npz").set(spath)
+        for n_ in (ppar, isw):
+            n_.cook(force=True)
+        Pq, Vq = particles_geo()
+        o_ = np.array([NEST_BOX["ox"], NEST_BOX["oy"], NEST_BOX["oz"]])
+        dP = float(np.abs(Pq - (Pk.astype(np.float64) - o_)).max()) if len(Pq) == len(Pk) else None
+        dV = float(np.abs(Vq - Vk.astype(np.float64)).max()) if len(Vq) == len(Vk) else None
+        pg = ppar.geometry()
+        item("init_from_particles", dict(ok=bool(len(Pq) == len(Pk) > 0 and dP is not None and dP < 1e-4 and dV < 1e-6
+                                                 and int(pg.attribValue("pinit_n")) == len(Pk) and not pg.attribValue("pinit_err")),
+                                         houdini=int(len(Pq)), expected=int(len(Pk)), n_file=int(pg.attribValue("pinit_n_file")), P_max_diff=dP, v_max_diff=dV,
+                                         err=pg.attribValue("pinit_err")))
+        ctrl.parm("pinit_npz").set("")
+        for n_ in (ppar, isw):
+            n_.cook(force=True)
+        Pq0, _ = particles_geo()
+        item("init_no_pfile", dict(ok=bool(len(Pq0) == 0), particles=int(len(Pq0)), rule="init_src 1 without a particle file creates NOTHING (fails loudly)"))
+        ctrl.parm("init_src").set(0.0)
         restore()
         set_frame(1.0)
-        for n_ in (sol, sftab, vdp, rpp, tgp, dtab, bw, bsdfw, cols, pts0, wmesh0, wvdb, vvw):
+        for n_ in (sol, sftab, vdp, rpp, tgp, dtab, bw, bsdfw, cols, pts0, ppar, isw, wmesh0, wvdb, vvw):
             n_.cook(force=True)
         npp.parm("pts_json").set("[]")
-        dop_err = {n_.path(): [str(e)[:200] for e in n_.errors()] for n_ in (relax, vcd, vcr, en_r, en_vc, en_rep, msv, ssc, bk, bsd, en_bs, pre, fo, so, fs)
-                   if n_.errors()}
+        dop_err = {n_.path(): [str(e)[:200] for e in n_.errors()] for n_ in (relax, vcd, vcr, en_r, en_vc, en_rep, msv, ssc, bcnt, bk, bsd, en_bs, pre, fo,
+                                                                             so, fs) if n_.errors()}
+        binds = {n_.name(): n_.parm(BIND_PARM).evalAsString() for n_ in (bcnt, bk, bsd)}
+        bs_inputs = [n_.name() if n_ else None for n_ in en_bs.inputs()]
         cf_f = fo.parm(setup_log["flip_createframe_parm"]).eval() if setup_log["flip_createframe_parm"] else None
         cf_s = so.parm(setup_log["static_createframe_parm"]).eval() if setup_log["static_createframe_parm"] else None
         sff = fo.parm("solvefirstframe").eval() if fo.parm("solvefirstframe") is not None else None
@@ -1571,15 +2079,21 @@ if (len(pts) != 3 || cp.x < ch(CT+"crop_x0") || cp.x > ch(CT+"crop_x1") || cp.z 
                                        and int(round(float(cf_s))) == CKPT and (sff is None or int(sff) == 0)
                                        and fs.inputs()[1] is not None and fs.inputs()[2] is not None and len(msv.inputs()) >= 3
                                        and all(n_ is not None for n_ in msv.inputs()[:3])
-                                       and bk.parm("bindclass").evalAsString() in ("point", "points")),
-                               parms=setup_log, createframe_flip=cf_f, createframe_static=cf_s, solvefirstframe=sff,
+                                       and bk.parm("bindclass").evalAsString() in ("point", "points")
+                                       and all(v_ == BIND_SELF for v_ in binds.values()) and len(binds) == 3
+                                       and bs_inputs[:3] == ["band_count", "band_kill", "band_seed"]
+                                       and bcnt.parm("bindclass").evalAsString() == "detail" and bsd.parm("bindclass").evalAsString() == "detail"),
+                               parms=setup_log, createframe_flip=cf_f, createframe_static=cf_s, solvefirstframe=sff, bind_input1=binds,
+                               band_surface_inputs=bs_inputs,
                                rule="DOP start frame 1 / no time offset (as DFG-2B-V: $SF = $F); FLIP + static objects created at 1056 (global "
-                                    "frames); not solved on creation; 3 inputs on volume_velocity; band_kill over points",
+                                    "frames); not solved on creation; 3 inputs on volume_velocity; band_kill over points; band_count / band_kill / "
+                                    "band_seed in that order with Input 1 = self (F1)",
                                solver_inputs=[n_.path() if n_ else None for n_ in fs.inputs()], input_labels=list(fs.inputLabels()),
                                volume_velocity_inputs=[n_.path() if n_ else None for n_ in msv.inputs()],
                                band_kill_bindclass=bk.parm("bindclass").evalAsString(), dop_errors=dop_err))
         item("saved_defaults", dict(ok=bool(ctrl_floats() == DEFAULT_CTRL and all(ctrl.parm(k).eval() == 0.0 for k in (
-            "relax_on", "sd_on", "nest_on", "band_surf", "rep_on", "volcorr_on", "dir_on")))))
+            "relax_on", "sd_on", "nest_on", "band_surf", "rep_on", "volcorr_on", "dir_on", "band_lin", "init_src", "init_lvl_m"))
+            and ctrl.parm("pinit_npz").evalAsString() == "")))
     except Exception as e:
         import traceback
         raw["error"] = repr(e)[:400]
@@ -1603,9 +2117,77 @@ if (len(pts) != 3 || cp.x < ch(CT+"crop_x0") || cp.x > ch(CT+"crop_x1") || cp.z 
     print("RAW written", RAW, flush=True)
 
 
+COUNTERS = ("band_added", "band_cand", "band_kills", "band_kills_np", "band_np0", "band_ss", "band_tgt", "ss_n")
+
+
+def record_frames(hou, np, ctrl, dop, f0, f1, out_dir, sample_creation=True, log_tag="SMOKE"):
+    """frames f0 .. f1 of the nest DOP (objects created at f0): per frame the particle count, DOP / global time, the R1 top surface of the
+    nest's own surface field (saved to <out_dir>/eta/eta_<f>.npz, the runner's R1 rule) and the band counters at the frame's end (F1:
+    they hold the values of the frame's first substep; ss_n = the number of substeps of the frame). Shared by the smoke and the C2
+    calibration."""
+    out = dict(frames=[], eta_files={})
+    fi = hou.node("/obj/G52_READ/surface_field")
+    o = np.array([ctrl.evalParm("ox"), ctrl.evalParm("oy"), ctrl.evalParm("oz")])
+    os.makedirs(out_dir + "/eta", exist_ok=True)
+    ns = {}
+    exec(compile(TARGET_PURE, "TARGET_PURE", "exec"), ns)
+    # frames 1 .. f0 - 1 hold no object (DOP start frame 1, objects created at f0)
+    t0 = time.time()
+    hou.setFrame(f0 - 1)
+    out["preroll_s"] = round(time.time() - t0, 2)
+    out["absent_before_creation"] = bool(dop.simulation().findObject("water") is None)
+    for f in range(f0, f1 + 1):
+        t0 = time.time()
+        hou.setFrame(f)
+        g = fi.geometry()
+        dt = time.time() - t0
+        wobj = dop.simulation().findObject("water")
+        n = int(wobj.geometry().intrinsicValue("pointcount")) if wobj is not None else 0
+        row = dict(frame=f, s=round(dt, 2), particles=n, dop_time=float(dop.simulation().time()), global_time=(f - 1) / hou.fps())
+        if sample_creation and f == f0 and wobj is not None and n > 0:
+            # a sample of the created particles (plan P, v) for the py-side initial-velocity check
+            wg = wobj.geometry()
+            Pa = np.frombuffer(wg.pointFloatAttribValuesAsString("P"), dtype=np.float32).reshape(-1, 3).astype(np.float64) - o
+            Va = np.frombuffer(wg.pointFloatAttribValuesAsString("v"), dtype=np.float32).reshape(-1, 3).astype(np.float64)
+            sel = np.arange(0, n, max(1, n // 20000))
+            np.savez_compressed(out_dir + "/p1056.npz", P=Pa[sel], v=Va[sel])
+            out["p1056"] = out_dir + "/p1056.npz"
+            out["point_attribs_at_creation"] = sorted(a.name() for a in wg.pointAttribs())
+            del Pa, Va
+        vols = [p for p in g.prims() if p.type() in (hou.primType.Volume, hou.primType.VDB)] if g is not None else []
+        if vols:
+            v = vols[0]
+            r = v.resolution()
+            a = np.frombuffer(v.allVoxelsAsString(), dtype=np.float32).reshape(r[2], r[1], r[0])
+            p0 = np.array([float(c) for c in v.indexToPos((0, 0, 0))]) - o
+            p1 = np.array([float(c) for c in v.indexToPos((1, 1, 1))]) - o
+            d = p1 - p0
+            zs = p0[2] + d[2] * np.arange(r[2])
+            izc = int(np.searchsorted(zs, 0.0))
+            a = a[izc:]
+            eta = ns["f55_r1"](a, p0[1], d[1]).astype(np.float32)
+            row["finite"] = bool(np.isfinite(a).all())
+            meta = dict(res=[int(r[0]), int(r[1]), int(r[2] - izc)], x0=float(p0[0]), dx=float(d[0]), z0=float(zs[izc]), dz=float(d[2]),
+                        y0=float(p0[1]), dy=float(d[1]), t_off=0.0)
+            pth = out_dir + "/eta/eta_%05d.npz" % f
+            np.savez_compressed(pth, eta=eta, meta=json.dumps(meta))
+            out["eta_files"][str(f)] = pth
+        else:
+            row["finite"] = False
+        gw = wobj.geometry() if wobj is not None else None
+        for an in COUNTERS:
+            try:
+                row[an] = int(gw.attribValue(an)) if gw is not None and gw.findGlobalAttrib(an) is not None else None
+            except Exception:
+                row[an] = None
+        out["frames"].append(row)
+        print(log_tag, json.dumps(row), flush=True)
+    return out
+
+
 def smoke_run(hou, np, ctrl, dop, fs):
     """C2ID launch parms, frames 1056 .. 1056 + SMOKE_FRAMES with checkpoints every 12 frames into _scratch/nest_smoke; per frame the R1 top
-    surface of the nest (as the runner) is saved for the py-side comparisons. Nothing is recorded as a run."""
+    surface of the nest (as the runner) and the band counters (F1) are saved for the py-side comparisons. Nothing is recorded as a run."""
     sm = json.load(open(SMOKE_CFG, encoding="utf-8"))
     out = dict(frames=[], eta_files={}, cfg=SMOKE_CFG.replace(REPO + "/", ""))
     try:
@@ -1621,68 +2203,21 @@ def smoke_run(hou, np, ctrl, dop, fs):
             os.remove(p)
         ctrl.parm("ckpt").set(ck); ctrl.parm("ckpt_on").set(1); ctrl.parm("ckpt_every").set(int(sm["ckpt_every"]))
         hou.setSimulationEnabled(True)
-        fi = hou.node("/obj/G52_READ/surface_field")
-        o = np.array([ctrl.evalParm("ox"), ctrl.evalParm("oy"), ctrl.evalParm("oz")])
-        os.makedirs(SMOKE_DIR + "/eta", exist_ok=True)
         f0, f1 = int(sm["frames"][0]), int(sm["frames"][1])
-        # frames 1 .. f0 - 1 hold no object (DOP start frame 1, objects created at f0)
-        t0 = time.time()
-        hou.setFrame(f0 - 1)
-        out["preroll_s"] = round(time.time() - t0, 2)
-        out["absent_before_creation"] = bool(dop.simulation().findObject("water") is None)
-        for f in range(f0, f1 + 1):
-            t0 = time.time()
-            hou.setFrame(f)
-            g = fi.geometry()
-            dt = time.time() - t0
-            wobj = dop.simulation().findObject("water")
-            n = int(wobj.geometry().intrinsicValue("pointcount")) if wobj is not None else 0
-            row = dict(frame=f, s=round(dt, 2), particles=n, dop_time=float(dop.simulation().time()), global_time=(f - 1) / hou.fps())
-            if f == f0 and wobj is not None and n > 0:
-                # a sample of the created particles (plan P, v) for the py-side initial-velocity check
-                wg = wobj.geometry()
-                Pa = np.frombuffer(wg.pointFloatAttribValuesAsString("P"), dtype=np.float32).reshape(-1, 3).astype(np.float64) - o
-                Va = np.frombuffer(wg.pointFloatAttribValuesAsString("v"), dtype=np.float32).reshape(-1, 3).astype(np.float64)
-                sel = np.arange(0, n, max(1, n // 20000))
-                np.savez_compressed(SMOKE_DIR + "/p1056.npz", P=Pa[sel], v=Va[sel])
-                out["p1056"] = SMOKE_DIR + "/p1056.npz"
-                out["point_attribs_at_creation"] = sorted(a.name() for a in wg.pointAttribs())
-                del Pa, Va
-            vols = [p for p in g.prims() if p.type() in (hou.primType.Volume, hou.primType.VDB)] if g is not None else []
-            if vols:
-                v = vols[0]
-                r = v.resolution()
-                a = np.frombuffer(v.allVoxelsAsString(), dtype=np.float32).reshape(r[2], r[1], r[0])
-                p0 = np.array([float(c) for c in v.indexToPos((0, 0, 0))]) - o
-                p1 = np.array([float(c) for c in v.indexToPos((1, 1, 1))]) - o
-                d = p1 - p0
-                zs = p0[2] + d[2] * np.arange(r[2])
-                izc = int(np.searchsorted(zs, 0.0))
-                a = a[izc:]
-                ns = {}
-                exec(compile(TARGET_PURE, "TARGET_PURE", "exec"), ns)
-                eta = ns["f55_r1"](a, p0[1], d[1]).astype(np.float32)
-                row["finite"] = bool(np.isfinite(a).all())
-                meta = dict(res=[int(r[0]), int(r[1]), int(r[2] - izc)], x0=float(p0[0]), dx=float(d[0]), z0=float(zs[izc]), dz=float(d[2]),
-                            y0=float(p0[1]), dy=float(d[1]), t_off=0.0)
-                pth = SMOKE_DIR + "/eta/eta_%05d.npz" % f
-                np.savez_compressed(pth, eta=eta, meta=json.dumps(meta))
-                out["eta_files"][str(f)] = pth
-            else:
-                row["finite"] = False
-            for an in ("band_added", "band_cand"):
-                try:
-                    row[an] = int(wobj.geometry().attribValue(an)) if wobj is not None else None
-                except Exception:
-                    row[an] = None
-            out["frames"].append(row)
-            print("SMOKE", json.dumps(row), flush=True)
+        out.update(record_frames(hou, np, ctrl, dop, f0, f1, SMOKE_DIR))
+        out["cfg"] = SMOKE_CFG.replace(REPO + "/", "")
+        out["init_src"] = float(ctrl.evalParm("init_src"))
+        out["pinit_npz"] = ctrl.evalParm("pinit_npz")
+        pg = hou.node("/obj/G52_SETUP/parent_particles").geometry()
+        out["pinit_sop"] = (dict(n=int(pg.attribValue("pinit_n")), n_file=int(pg.attribValue("pinit_n_file")), err=pg.attribValue("pinit_err"))
+                            if out["init_src"] > 0.5 else None)
         # particle attributes after 24 frames of band seeding: no zero pscale, no duplicate id (a seed copies its nearest particle)
         attr = {}
         try:
             wg = dop.simulation().findObject("water").geometry()
             names = [a.name() for a in wg.pointAttribs()]
             attr["names"] = sorted(names)
+            attr["detail_names"] = sorted(a.name() for a in wg.globalAttribs())
             if "pscale" in names:
                 ps = np.array(wg.pointFloatAttribValues("pscale"))
                 attr["pscale_min"] = float(ps.min()); attr["pscale_max"] = float(ps.max())
@@ -1714,8 +2249,58 @@ def smoke_run(hou, np, ctrl, dop, fs):
     return out
 
 
+def hython_calib(cpath):
+    """hython x55_nest_build.py --hython-calib <cfg> (started by f55_nest.py calib): loads the CHECKED nest hip (sha = the cfg's), applies the
+    cfg's parms (C2's launch parms with the still synthetic parent as the target, no replay, init_lvl_m 0), runs its frames without
+    checkpoints and writes <out_dir>/calib_raw.json (+ eta files). The hip is never saved."""
+    import hou
+    import numpy as np
+    cfg = json.load(open(cpath, encoding="utf-8"))
+    out_dir = cfg["out_dir"]
+    if not os.path.abspath(out_dir).replace("\\", "/").lower().startswith(B55.lower() + "/"):
+        raise SystemExit("refused: calib out_dir outside Unity/Build/FLIP55")
+    raw = dict(date=time.strftime("%Y-%m-%d %H:%M:%S"), houdini=hou.applicationVersionString(), cfg=cpath.replace(REPO + "/", ""), tool=TOOL_REL)
+    try:
+        if sha(HIP) != cfg.get("hip_sha256"):
+            raise RuntimeError("the nest hip sha %s is not the checked %s" % (sha(HIP), cfg.get("hip_sha256")))
+        hou.hipFile.load(HIP, suppress_save_prompt=True, ignore_load_warnings=True)
+        ctrl = hou.node("/obj/G52_SETUP/CTRL")
+        miss = []
+        for k, v in cfg["parms"].items():
+            if ctrl.parm(k) is None:
+                miss.append(k)
+            else:
+                ctrl.parm(k).set(v)
+        raw["parms_missing_on_ctrl"] = miss
+        fs = hou.node("/obj/G52_SIM/flipsolver")
+        sv = cfg.get("solver") or {}
+        fs.parm("veltransfer").set(sv.get("veltransfer", "flip"))
+        fs.parm("donarrowband").set(int(sv.get("donarrowband", 0)))
+        ctrl.parm("ckpt_on").set(0)
+        dop = hou.node("/obj/G52_SIM")
+        hou.setSimulationEnabled(True)
+        f0, f1 = int(cfg["frames"][0]), int(cfg["frames"][1])
+        raw.update(record_frames(hou, np, ctrl, dop, f0, f1, out_dir, sample_creation=False, log_tag="CALIB"))
+        raw["ctrl_after"] = {k: ctrl.evalParm(k) for k in ("dp", "x0", "Lx", "W", "zb", "ox", "oy", "oz", "nest_on", "band_surf", "rep_on", "init_src",
+                                                         "init_lvl_m", "band_lin", "s_off")}
+        raw["tgt_dir"] = ctrl.evalParm("tgt_dir")
+        raw["ok"] = bool(not miss and raw.get("frames") and all(r.get("finite") for r in raw["frames"]) and raw.get("absent_before_creation"))
+    except Exception as e:
+        import traceback
+        raw["error"] = repr(e)[:400]
+        raw["traceback"] = traceback.format_exc()[-2000:]
+        raw["ok"] = False
+    os.makedirs(out_dir, exist_ok=True)
+    with open(out_dir + "/calib_raw.json", "w", encoding="utf-8") as fh:
+        json.dump(raw, fh, indent=1, ensure_ascii=False, default=str)
+    print("CALIB raw written", out_dir + "/calib_raw.json", raw.get("ok"), flush=True)
+    sys.exit(0 if raw.get("ok") else 2)
+
+
 if __name__ == "__main__":
-    if "--hython" in sys.argv:
+    if "--hython-calib" in sys.argv:
+        hython_calib(sys.argv[sys.argv.index("--hython-calib") + 1])
+    elif "--hython" in sys.argv:
         hython_build(smoke="--smoke" in sys.argv)
     else:
         sys.exit(launcher(sys.argv[1:]))
